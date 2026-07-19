@@ -134,6 +134,13 @@ struct LinkAction {
     std::string event_func;     /* or call_function(event_func, {event_param}) */
     std::string event_param;
     std::string toggle_key;     /* pane object: expand/collapse its verb list */
+    bool end_wait = false;      /* onclick="endWait()": release a pending wait */
+    bool inner_text = false;    /* command is the element's own text (filled in
+                                 * by the renderer, which has the content) */
+
+    bool live() const {
+        return !command.empty() || !event_func.empty() || end_wait;
+    }
 };
 std::vector<LinkAction> g_links;
 /* Link values at or below this are spent: JS.disableAllCommandLinks (Gamebook
@@ -269,14 +276,16 @@ void pop_style(const StylePush &p)
     apply_style();
 }
 
-/* Extract the click action of an <a> tag, if we understand it. */
+std::string decode_entities(const std::string &s);
+
+/* Extract the click action of an <a> or <span> tag, if we understand it. */
 LinkAction link_action(const std::string &tag)
 {
     LinkAction a;
     a.command = tag_attr(tag, "data-command");
     if (a.command.empty()) {
-        /* Core's ShowMenu options: onclick="ASLEvent('Func','param')". */
         std::string oc = tag_attr(tag, "onclick");
+        /* Core's ShowMenu options: onclick="ASLEvent('Func','param')". */
         size_t at = oc.find("ASLEvent(");
         if (at != std::string::npos) {
             size_t q1 = oc.find('\'', at);
@@ -288,6 +297,26 @@ LinkAction link_action(const std::string &tag)
                 a.event_param = oc.substr(q3 + 1, q4 - q3 - 1);
             }
         }
+        /* The web player's own command bridge, which games call directly from
+         * hand-written markup (spondre's keyword spans, and 8 other corpus
+         * games): sendCommand("literal") runs that command, while
+         * sendCommand(this.innerText || this.textContent) runs whatever the
+         * element says -- the renderer fills that in, having the content. */
+        size_t sc = oc.find("sendCommand(");
+        if (a.event_func.empty() && sc != std::string::npos) {
+            size_t p = sc + strlen("sendCommand(");
+            while (p < oc.size() && isspace((unsigned char) oc[p])) p++;
+            if (p < oc.size() && (oc[p] == '"' || oc[p] == '\'')) {
+                size_t end = oc.find(oc[p], p + 1);
+                if (end != std::string::npos)
+                    a.command = decode_entities(oc.substr(p + 1, end - p - 1));
+            } else if (oc.compare(p, 5, "this.") == 0) {
+                a.inner_text = true;
+            }
+        }
+        /* onclick="endWait()": the page's "click to continue". */
+        if (oc.find("endWait(") != std::string::npos)
+            a.end_wait = true;
     }
     if (a.command.empty() && a.event_func.empty()) {
         /* An object link (class="cmdlink elementmenu") pops a verb menu in the
@@ -362,6 +391,48 @@ std::string decode_entities(const std::string &s)
 
 std::string plain_text(const std::string &html, const char *brsep);
 
+/* Case-insensitive find, for tag names in raw markup. */
+size_t find_ci(const std::string &hay, const std::string &needle, size_t from)
+{
+    if (needle.size() > hay.size()) return std::string::npos;
+    for (size_t i = from; i + needle.size() <= hay.size(); i++) {
+        size_t j = 0;
+        while (j < needle.size() &&
+               tolower((unsigned char) hay[i + j]) ==
+               tolower((unsigned char) needle[j]))
+            j++;
+        if (j == needle.size()) return i;
+    }
+    return std::string::npos;
+}
+
+/* The text content of the element whose opening tag ends at `pos`, with
+ * nested same-name tags respected -- what a browser's this.innerText would
+ * give an onclick="sendCommand(this.innerText)" handler. */
+std::string element_inner_text(const std::string &html, size_t pos,
+                               const std::string &name)
+{
+    std::string inner;
+    int depth = 1;
+    for (size_t i = pos; i < html.size();) {
+        if (html[i] != '<') { inner += html[i++]; continue; }
+        size_t close = html.find('>', i);
+        if (close == std::string::npos) break;
+        std::string tag = html.substr(i + 1, close - i - 1);
+        bool closing = !tag.empty() && tag[0] == '/';
+        std::string tn = lower(tag.substr(closing ? 1 : 0));
+        size_t sp = tn.find_first_of(" \t\r\n/");
+        if (sp != std::string::npos) tn.erase(sp);
+        if (tn == name) {
+            if (closing && --depth == 0) break;
+            if (!closing && tag[tag.size() - 1] != '/') depth++;
+        }
+        inner += html.substr(i, close - i + 1);
+        i = close + 1;
+    }
+    return trim(plain_text(inner, " "));
+}
+
 /* While g_swallow is armed (a send_command whose prompt and echo the host
  * already printed), watch for the game side's own echo of the command --
  * msg("")'s blank line then "&gt; cmd" (Core's echocommand), or the bare
@@ -385,13 +456,53 @@ bool swallow_echo_chunk(const std::string &html)
     return false;
 }
 
-/* Render one HTML chunk (a JS.addText payload) into the main window. */
-void render_html(const std::string &html)
+/* Remove <style>/<script> elements, and the whitespace run on either side of
+ * them, from a chunk.  These are not text: a browser consumes them silently,
+ * while games embed whole stylesheets inline (spondre opens with ~30 lines of
+ * CSS).  Taking the surrounding whitespace too keeps the blank gap the markup
+ * indentation would otherwise leave behind. */
+std::string strip_hidden_elements(const std::string &html)
 {
-    if (g_swallow && swallow_echo_chunk(html))
+    static const char *kHidden[] = { "style", "script" };
+    std::string out = html;
+    for (const char *name : kHidden) {
+        std::string open = std::string("<") + name;
+        for (size_t at = find_ci(out, open, 0); at != std::string::npos;
+             at = find_ci(out, open, at)) {
+            /* "<style" must be the whole tag name, not a prefix. */
+            size_t after = at + open.size();
+            if (after < out.size() && !isspace((unsigned char) out[after]) &&
+                out[after] != '>' && out[after] != '/') {
+                at = after;
+                continue;
+            }
+            size_t end = find_ci(out, std::string("</") + name, at);
+            if (end != std::string::npos) {
+                size_t gt = out.find('>', end);
+                end = gt == std::string::npos ? out.size() : gt + 1;
+            } else {
+                end = out.size();   /* unterminated: drop the rest */
+            }
+            while (at > 0 && isspace((unsigned char) out[at - 1])) at--;
+            while (end < out.size() && isspace((unsigned char) out[end])) end++;
+            out.erase(at, end - at);
+        }
+    }
+    return out;
+}
+
+/* Render one HTML chunk (a JS.addText payload) into the main window. */
+void render_html(const std::string &raw)
+{
+    if (g_swallow && swallow_echo_chunk(raw))
         return;
+    const std::string html =
+        find_ci(raw, "<style", 0) != std::string::npos ||
+        find_ci(raw, "<script", 0) != std::string::npos
+            ? strip_hidden_elements(raw) : raw;
     std::vector<StylePush> spans;   /* open <span>s */
     std::vector<StylePush> anchors; /* open <a>s */
+    std::vector<char> span_link;    /* did that <span> open a hyperlink? */
     for (size_t i = 0; i < html.size();) {
         char ch = html[i];
         if (ch == '<') {
@@ -419,17 +530,37 @@ void render_html(const std::string &html)
             } else if (name == "span") {
                 if (!closing) {
                     StylePush p = css_style(tag_attr(tag, "style"));
+                    /* Games hang clicks off bare spans too (spondre's
+                     * keywords), so a span carries a link action like an
+                     * anchor does. */
+                    LinkAction act = link_action(tag);
+                    if (act.inner_text)
+                        act.command = element_inner_text(html, i, "span");
+                    bool opened = false;
+                    if (act.live() && g_hyperlinks) {
+                        g_links.push_back(act);
+                        glk_set_hyperlink((glui32) g_links.size());
+                        opened = true;
+                    } else if (act.live()) {
+                        p.u = 1;   /* no hyperlink support: underline only */
+                    }
                     spans.push_back(p);
+                    span_link.push_back(opened ? 1 : 0);
                     push_style(p);
                 } else if (!spans.empty()) {
+                    if (span_link.back() && g_hyperlinks)
+                        glk_set_hyperlink(0);
+                    span_link.pop_back();
                     pop_style(spans.back());
                     spans.pop_back();
                 }
             } else if (name == "a") {
                 if (!closing) {
                     LinkAction act = link_action(tag);
+                    if (act.inner_text)
+                        act.command = element_inner_text(html, i, "a");
                     StylePush p;
-                    bool live = !act.command.empty() || !act.event_func.empty();
+                    bool live = act.live();
                     if (live && g_hyperlinks) {
                         g_links.push_back(act);
                         glk_set_hyperlink((glui32) g_links.size());
@@ -823,6 +954,17 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                 if (want_line)
                     glk_cancel_line_event(gwin, &ce);
                 const LinkAction &act = g_links[ev.val1 - 1];
+                if (act.end_wait) {
+                    /* "click to continue": releasing the wait IS the action,
+                     * and no command is typed.  With nothing waiting the
+                     * click is inert, as the browser's endWait() would be. */
+                    if (in.pending_wait()) {
+                        PromptBreak pb(in, prompt != nullptr);
+                        in.finish_wait();
+                        in.drain_on_ready();
+                    }
+                    return {InEnd::Event, ""};
+                }
                 if (!act.command.empty()) {
                     if (g_manual_echo && echo)
                         echo_input(act.command);
