@@ -36,7 +36,11 @@ glkunix_startup_code(glkunix_startup_t *data)
       i++;
   }
 
-#ifdef GARGLK
+/* Spatterlight's glkimp keys the terp's Application Support folder (and so
+ * the autosave directory) off the program name's first word -- "geas" maps
+ * to "Quest Files".  Left unset, everything lands in a "(null) Files"
+ * folder the app never looks in. */
+#if defined(GARGLK) || defined(SPATTERLIGHT)
   garglk_set_program_name("Geas 0.5");
   garglk_set_program_info(
         "Geas 0.5 by Mark Tilford and David Jones.\n"
