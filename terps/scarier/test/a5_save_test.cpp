@@ -33,9 +33,9 @@
 #include <string>
 #include <vector>
 
-#include "a5deobf.h"
-#include "a5model.h"
-#include "a5run.h"
+#include "../adrift5/a5deobf.h"
+#include "../adrift5/a5model.h"
+#include "../adrift5/a5run.h"
 
 static int failures = 0;
 

@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "a5model.h"
+#include "../adrift5/a5model.h"
 
 static const char *
 nz (const char *s)

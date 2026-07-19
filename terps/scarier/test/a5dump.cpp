@@ -16,8 +16,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "a5blorb.h"
-#include "a5deobf.h"
+#include "../adrift5/a5blorb.h"
+#include "../adrift5/a5deobf.h"
 
 static uint8_t *
 read_file (const char *path, uint32_t *out_len)

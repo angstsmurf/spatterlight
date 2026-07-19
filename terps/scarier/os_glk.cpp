@@ -72,15 +72,15 @@ static const char *find_last_of(const char *str, const char *chars)
 
 /* ADRIFT 5 engine -- driven by the dedicated a5 Glk loop (gsc_a5_main) when
  * the game file is detected as ADRIFT 5 rather than ADRIFT <=4. */
-#include "a5deobf.h"         /* a5_deflate / a5_inflate save framing */
-#include "a5map.h"           /* the ADRIFT 5 map (Map.vb) */
+#include "adrift5/a5deobf.h"         /* a5_deflate / a5_inflate save framing */
+#include "adrift5/a5map.h"           /* the ADRIFT 5 map (Map.vb) */
 #include "scmap.h"           /* the ADRIFT 4 map (run400 Form29) */
-#include "a5model.h"
-#include "a5parse.h"         /* a5parse_direction_name, for map-click walks */
-#include "a5restr.h"         /* a5restr_exit_in_direction, for map stub arrows */
-#include "a5run.h"
-#include "a5state.h"
-#include "a5text.h"          /* A5_MEDIA_* kinds */
+#include "adrift5/a5model.h"
+#include "adrift5/a5parse.h"         /* a5parse_direction_name, for map-click walks */
+#include "adrift5/a5restr.h"         /* a5restr_exit_in_direction, for map stub arrows */
+#include "adrift5/a5run.h"
+#include "adrift5/a5state.h"
+#include "adrift5/a5text.h"          /* A5_MEDIA_* kinds */
 
 /* Blorb resource map, for ADRIFT 5 graphics/sound (the game file is a Blorb).
  * Included unconditionally here -- the GARGLK block below only includes it when

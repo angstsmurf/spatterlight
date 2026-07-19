@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "a5parse.h"
+#include "../adrift5/a5parse.h"
 
 static int failures = 0;
 

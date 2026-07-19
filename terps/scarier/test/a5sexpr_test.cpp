@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "a5sexpr.h"
+#include "../adrift5/a5sexpr.h"
 
 static int failures = 0;
 

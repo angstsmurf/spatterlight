@@ -34,6 +34,9 @@ SAN_RAND_OBJ := test/a5_randomness_san.o
 # so deterministic walkthroughs reproduce.  Compiled as C; it pulls in glk.h
 # (for glui32) from cheapglk but otherwise has no Glk dependency at seed 1234.
 COMMON  := ../common_utils
+
+# The ADRIFT 5 engine sources live in their own subdirectory.
+A5DIR   := adrift5
 A5_RAND_OBJ := test/a5_randomness.o
 
 # All interpreter sources, plus the os-layer stubs the battle harness needs.
@@ -71,17 +74,19 @@ QUIT_BIN     := test/quit_test_hl
 # ADRIFT 5 (Phases 0-1): container + de-obfuscation + zlib inflate -> XML, then
 # an in-situ XML DOM parser -> typed object model.  Self-contained at the
 # "container edge" -- links no interpreter sources.
-A5_SRC  := a5blorb.cpp a5deobf.cpp
-A5_MODEL_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp
-A5_TEXT_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
-               a5state.cpp a5restr.cpp a5expr.cpp a5sexpr.cpp a5text.cpp a5parse.cpp
-A5_RUN_SRC := a5blorb.cpp a5deobf.cpp a5xml.cpp a5model.cpp \
-              a5state.cpp a5restr.cpp a5expr.cpp a5sexpr.cpp a5text.cpp a5parse.cpp \
-              a5rand.cpp a5sb.cpp a5run_ref.cpp a5run_events.cpp \
-              a5run_action.cpp a5run.cpp
-A5_HDRS := a5blorb.h a5deobf.h a5xml.h a5model.h
-A5_TEXT_HDRS := $(A5_HDRS) a5state.h a5restr.h a5expr.h a5sexpr.h a5text.h a5parse.h
-A5_RUN_HDRS := $(A5_TEXT_HDRS) a5parse.h a5rand.h a5sb.h a5run.h a5run_internal.h
+A5_SRC  := $(A5DIR)/a5blorb.cpp $(A5DIR)/a5deobf.cpp
+A5_MODEL_SRC := $(A5DIR)/a5blorb.cpp $(A5DIR)/a5deobf.cpp $(A5DIR)/a5xml.cpp $(A5DIR)/a5model.cpp \
+                $(A5DIR)/a5parse.cpp
+A5_TEXT_SRC := $(A5DIR)/a5blorb.cpp $(A5DIR)/a5deobf.cpp $(A5DIR)/a5xml.cpp $(A5DIR)/a5model.cpp \
+               $(A5DIR)/a5state.cpp $(A5DIR)/a5restr.cpp $(A5DIR)/a5expr.cpp $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5text.cpp $(A5DIR)/a5parse.cpp \
+               $(A5DIR)/a5sb.cpp $(A5DIR)/a5rand.cpp
+A5_RUN_SRC := $(A5DIR)/a5blorb.cpp $(A5DIR)/a5deobf.cpp $(A5DIR)/a5xml.cpp $(A5DIR)/a5model.cpp \
+              $(A5DIR)/a5state.cpp $(A5DIR)/a5restr.cpp $(A5DIR)/a5expr.cpp $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5text.cpp $(A5DIR)/a5parse.cpp \
+              $(A5DIR)/a5rand.cpp $(A5DIR)/a5sb.cpp $(A5DIR)/a5run_ref.cpp $(A5DIR)/a5run_events.cpp \
+              $(A5DIR)/a5run_action.cpp $(A5DIR)/a5run.cpp
+A5_HDRS := $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h $(A5DIR)/a5model.h
+A5_TEXT_HDRS := $(A5_HDRS) $(A5DIR)/a5state.h $(A5DIR)/a5restr.h $(A5DIR)/a5expr.h $(A5DIR)/a5sexpr.h $(A5DIR)/a5text.h $(A5DIR)/a5parse.h
+A5_RUN_HDRS := $(A5_TEXT_HDRS) $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5sb.h $(A5DIR)/a5run.h $(A5DIR)/a5run_internal.h
 A5DUMP_HARNESS := test/a5dump.cpp
 A5DUMP_BIN     := test/a5dump
 A5MODEL_HARNESS := test/a5model_dump.cpp
@@ -194,9 +199,9 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
 	$(SAN_ENV) ./$(CORRUPT_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(QUIT_HARNESS) $(LDLIBS) -o $(QUIT_BIN)_san
 	$(SAN_ENV) ./$(QUIT_BIN)_san $(PREC_TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) a5parse.cpp $(A5PARSE_HARNESS) -o $(A5PARSE_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS) -o $(A5PARSE_BIN)_san
 	$(SAN_ENV) ./$(A5PARSE_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) a5sexpr.cpp a5rand.cpp $(A5SEXPR_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SEXPR_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5rand.cpp $(A5SEXPR_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SEXPR_BIN)_san
 	$(SAN_ENV) ./$(A5SEXPR_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5DIS_BIN)_san
 	$(SAN_ENV) ./$(A5DIS_BIN)_san
@@ -231,7 +236,7 @@ $(QUIT_BIN): $(SRC) $(QUIT_HARNESS)
 #   make -f Makefile.headless a5dump
 #   ./test/a5dump path/to/game.blorb > game.xml
 a5dump: $(A5DUMP_BIN)
-$(A5DUMP_BIN): $(A5_SRC) $(A5DUMP_HARNESS) a5blorb.h a5deobf.h
+$(A5DUMP_BIN): $(A5_SRC) $(A5DUMP_HARNESS) $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h
 	$(CXX) $(CXXFLAGS) $(A5_SRC) $(A5DUMP_HARNESS) $(LDLIBS) -o $@
 
 # Build the ADRIFT 5 object-model dumper (Phase 1).  Run it by hand:
@@ -245,8 +250,8 @@ $(A5MODEL_BIN): $(A5_MODEL_SRC) $(A5MODEL_HARNESS) $(A5_HDRS)
 #   make -f Makefile.headless a5text
 #   ./test/a5text_dump path/to/game.blorb [LocationKey]
 a5text: $(A5TEXT_BIN)
-$(A5TEXT_BIN): $(A5_TEXT_SRC) $(A5TEXT_HARNESS) $(A5_TEXT_HDRS)
-	$(CXX) $(CXXFLAGS) $(A5_TEXT_SRC) $(A5TEXT_HARNESS) $(LDLIBS) -o $@
+$(A5TEXT_BIN): $(A5_TEXT_SRC) $(A5TEXT_HARNESS) $(A5_TEXT_HDRS) $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5_TEXT_SRC) $(A5TEXT_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Build the ADRIFT 5 turn-loop harness (Phase 3).  Run it by hand:
 #   make -f Makefile.headless a5run
@@ -264,9 +269,9 @@ $(A5_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
 #   make -f Makefile.headless a5map
 #   ./test/a5map_dump path/to/game.blorb [script.txt] -o map.ppm [-all]
 a5map: $(A5MAP_BIN)
-$(A5MAP_BIN): $(A5_RUN_SRC) a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) $(A5_RUN_HDRS) \
-              a5map.h mapdraw.h $(A5_RAND_OBJ)
-	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) \
+$(A5MAP_BIN): $(A5_RUN_SRC) $(A5DIR)/a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) $(A5_RUN_HDRS) \
+              $(A5DIR)/a5map.h mapdraw.h $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5DIR)/a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) \
 	    $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Render the ADRIFT 4 map headlessly to a PPM (no Glk).  Run it by hand:
@@ -279,16 +284,16 @@ $(SCMAP_BIN): $(SRC) $(SCMAP_HARNESS) scmap.h mapdraw.h
 # Self-contained matcher regression test (no game data); part of `test`.
 a5parsetest: $(A5PARSE_BIN)
 	./$(A5PARSE_BIN)
-$(A5PARSE_BIN): a5parse.cpp a5parse.h $(A5PARSE_HARNESS)
-	$(CXX) $(CXXFLAGS) a5parse.cpp $(A5PARSE_HARNESS) -o $@
+$(A5PARSE_BIN): $(A5DIR)/a5parse.cpp $(A5DIR)/a5parse.h $(A5PARSE_HARNESS)
+	$(CXX) $(CXXFLAGS) $(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS) -o $@
 
 # Self-contained expression-evaluator regression (no game data); part of `test`.
 # Exercises a5sexpr (the sole variable/expression evaluator since a5arith was
 # folded in); links a5rand for its rand()/oneof() draws.
 a5sexprtest: $(A5SEXPR_BIN)
 	./$(A5SEXPR_BIN)
-$(A5SEXPR_BIN): a5sexpr.cpp a5sexpr.h a5rand.cpp $(A5SEXPR_HARNESS) $(A5_RAND_OBJ)
-	$(CXX) $(CXXFLAGS) a5sexpr.cpp a5rand.cpp $(A5SEXPR_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
+$(A5SEXPR_BIN): $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5sexpr.h $(A5DIR)/a5rand.cpp $(A5SEXPR_HARNESS) $(A5_RAND_OBJ)
+	$(CXX) $(CXXFLAGS) $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5rand.cpp $(A5SEXPR_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Self-contained disambiguation regression (synthetic in-memory v5 adventure,
 # no game data); part of `test`.  Links the full a5 run pipeline.

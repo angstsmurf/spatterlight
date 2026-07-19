@@ -36,11 +36,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "a5model.h"
-#include "a5restr.h"
-#include "a5run.h"
-#include "a5state.h"
-#include "a5text.h"
+#include "../adrift5/a5model.h"
+#include "../adrift5/a5restr.h"
+#include "../adrift5/a5run.h"
+#include "../adrift5/a5state.h"
+#include "../adrift5/a5text.h"
 
 /* One-line pushback over the command script: the Adventure-Upgrade question
    below peeks at the next meaningful line and puts it back when it is not a

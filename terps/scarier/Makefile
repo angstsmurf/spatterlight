@@ -79,6 +79,11 @@ TEST	= test
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+# ADRIFT 5 engine objects live in adrift5/; -I. lets them pick up the bundled
+# zlib headers unzipped into the Scarier root.
+adrift5/%.o: adrift5/%.cpp
+	$(CXX) $(CXXFLAGS) -I. -c -o $@ $<
+
 # Scarier objects and headers.
 OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scinterf.o scparser.o sclibrar.o scrunner.o scevents.o	\
@@ -88,10 +93,15 @@ HEADERS	= scarier.h scprotos.h scgamest.h
 
 # ADRIFT 5 engine objects and headers (driven by os_glk.cpp via gsc_a5_main
 # when the loaded file is an ADRIFT 5 game).
-A5OBJECTS = a5blorb.o a5deobf.o a5xml.o a5model.o a5state.o a5restr.o	\
-	  a5expr.o a5sexpr.o a5text.o a5parse.o a5rand.o a5run.o
-A5HEADERS = a5blorb.h a5deobf.h a5xml.h a5model.h a5state.h a5restr.h	\
-	  a5expr.h a5sexpr.h a5text.h a5parse.h a5rand.h a5run.h
+A5DIR	= adrift5
+A5OBJECTS = $(A5DIR)/a5blorb.o $(A5DIR)/a5deobf.o $(A5DIR)/a5xml.o	\
+	  $(A5DIR)/a5model.o $(A5DIR)/a5state.o $(A5DIR)/a5restr.o	\
+	  $(A5DIR)/a5expr.o $(A5DIR)/a5sexpr.o $(A5DIR)/a5text.o	\
+	  $(A5DIR)/a5parse.o $(A5DIR)/a5rand.o $(A5DIR)/a5run.o
+A5HEADERS = $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h	\
+	  $(A5DIR)/a5model.h $(A5DIR)/a5state.h $(A5DIR)/a5restr.h	\
+	  $(A5DIR)/a5expr.h $(A5DIR)/a5sexpr.h $(A5DIR)/a5text.h	\
+	  $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5run.h
 
 # Scarier verifier objects and headers.
 XOBJECTS= sxmain.o sxutils.o sxglob.o sxtester.o sxscript.o sxfile.o	\
@@ -158,7 +168,7 @@ scarier-$(VERSION).so: $(ZOBJECTS) $(OBJECTS) os_glk.o $(PLUGIN_OBJS)
 
 # Cleanup.
 clean:
-	$(RM) -f scarier sx glkscarier *.o core core.* *.gcov *.gcno *.gcda
+	$(RM) -f scarier sx glkscarier *.o adrift5/*.o core core.* *.gcov *.gcno *.gcda
 	$(RM) -f scarier_plugin.c scarier-$(VERSION).so
 	$(RM) -f $(ZSOURCES)
 	$(RM) -f $(ZHEADERS)

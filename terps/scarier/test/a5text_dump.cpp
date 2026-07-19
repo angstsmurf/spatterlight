@@ -21,10 +21,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "a5model.h"
-#include "a5restr.h"
-#include "a5state.h"
-#include "a5text.h"
+#include "../adrift5/a5model.h"
+#include "../adrift5/a5restr.h"
+#include "../adrift5/a5state.h"
+#include "../adrift5/a5text.h"
 
 static void
 rule (const char *title)

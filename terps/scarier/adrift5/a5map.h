@@ -32,7 +32,7 @@
 #define A5MAP_H
 
 #include "a5model.h"
-#include "mapdraw.h"
+#include "../mapdraw.h"
 
 /* Parse <Map> out of a loaded adventure.  Returns NULL if the game has no map
    nodes at all.  The result aliases the adventure's XML document, so it must

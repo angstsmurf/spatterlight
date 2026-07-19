@@ -25,8 +25,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "a5model.h"
-#include "a5run.h"
+#include "../adrift5/a5model.h"
+#include "../adrift5/a5run.h"
 
 /* A minimal ADRIFT-5 adventure: player in Room1 with a brass key + an iron key
    (both static, both at Room1), an unrestricted EXAMINE task, and a TAKE task

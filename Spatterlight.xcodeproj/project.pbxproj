@@ -3732,6 +3732,18 @@
 		FF22095E6A4182F0BA2C8C35 /* a5run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run.cpp; sourceTree = "<group>"; };
 		MAPDRAW00000000000000002 /* mapdraw.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = mapdraw.cpp; sourceTree = "<group>"; };
 		SCMAP000000000000000002 /* scmap.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scmap.cpp; sourceTree = "<group>"; };
+		A5HDR000000000000000001 /* a5blorb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5blorb.h; sourceTree = "<group>"; };
+		A5HDR000000000000000002 /* a5deobf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5deobf.h; sourceTree = "<group>"; };
+		A5HDR000000000000000003 /* a5xml.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5xml.h; sourceTree = "<group>"; };
+		A5HDR000000000000000004 /* a5model.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5model.h; sourceTree = "<group>"; };
+		A5HDR000000000000000005 /* a5state.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5state.h; sourceTree = "<group>"; };
+		A5HDR000000000000000006 /* a5restr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5restr.h; sourceTree = "<group>"; };
+		A5HDR000000000000000007 /* a5expr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5expr.h; sourceTree = "<group>"; };
+		A5HDR000000000000000008 /* a5sexpr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5sexpr.h; sourceTree = "<group>"; };
+		A5HDR000000000000000009 /* a5text.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5text.h; sourceTree = "<group>"; };
+		A5HDR00000000000000000A /* a5parse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5parse.h; sourceTree = "<group>"; };
+		A5HDR00000000000000000B /* a5rand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5rand.h; sourceTree = "<group>"; };
+		A5HDR00000000000000000C /* a5run.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5run.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -4250,29 +4262,10 @@
 				A16591AA3CA68885CF7C3D4E /* sclocale.cpp */,
 				7044549A9EFF7192B123BF36 /* scdebug.cpp */,
 				682A6ED470E4107F583B7D84 /* os_glk.cpp */,
-				541F8346135F0995045B7BD0 /* a5blorb.cpp */,
-				401133B22D772C6E0C4276CE /* a5deobf.cpp */,
-				FBDDF07BAE218674A9BF2815 /* a5xml.cpp */,
-				FB5081C8D969BA9C6C4CFC46 /* a5model.cpp */,
-				6AB67C13C9D268DDBA2A5918 /* a5state.cpp */,
-				AACD49A13B6CCDC934F28451 /* a5restr.cpp */,
-				6408B5CA09BAAF2505BD12D5 /* a5expr.cpp */,
-				CD2DA72BBCC0B7869F9EFA7F /* a5sexpr.cpp */,
-				9DAF981FA6279F5D391398AE /* a5text.cpp */,
-				7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */,
-				10990E34B23D66921A762A58 /* a5rand.cpp */,
-				A5B00000000000000000010A /* a5run_internal.h */,
-				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
-				A5B000000000000000000104 /* a5run_ref.cpp */,
-				A5B000000000000000000106 /* a5run_events.cpp */,
-				A5B000000000000000000108 /* a5run_action.cpp */,
-				A5MAP0000000000000000002 /* a5map.cpp */,
 				MAPDRAW00000000000000002 /* mapdraw.cpp */,
 				C331B95630069635008F8BD9 /* scmap.h */,
 				SCMAP000000000000000002 /* scmap.cpp */,
-				A5MAP0000000000000000003 /* a5map.h */,
-				A5B000000000000000000109 /* a5sb.h */,
-				A5B000000000000000000102 /* a5sb.cpp */,
+				A5GRP0000000000000000001 /* adrift5 */,
 			);
 			path = scarier;
 			sourceTree = "<group>";
@@ -6813,6 +6806,45 @@
 				C3A1997D299982E300D27500 /* OSFastGraphics.m */,
 			);
 			path = ImageHashing;
+			sourceTree = "<group>";
+		};
+		A5GRP0000000000000000001 /* adrift5 */ = {
+			isa = PBXGroup;
+			children = (
+				541F8346135F0995045B7BD0 /* a5blorb.cpp */,
+				401133B22D772C6E0C4276CE /* a5deobf.cpp */,
+				FBDDF07BAE218674A9BF2815 /* a5xml.cpp */,
+				FB5081C8D969BA9C6C4CFC46 /* a5model.cpp */,
+				6AB67C13C9D268DDBA2A5918 /* a5state.cpp */,
+				AACD49A13B6CCDC934F28451 /* a5restr.cpp */,
+				6408B5CA09BAAF2505BD12D5 /* a5expr.cpp */,
+				CD2DA72BBCC0B7869F9EFA7F /* a5sexpr.cpp */,
+				9DAF981FA6279F5D391398AE /* a5text.cpp */,
+				7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */,
+				10990E34B23D66921A762A58 /* a5rand.cpp */,
+				A5B00000000000000000010A /* a5run_internal.h */,
+				FF22095E6A4182F0BA2C8C35 /* a5run.cpp */,
+				A5B000000000000000000104 /* a5run_ref.cpp */,
+				A5B000000000000000000106 /* a5run_events.cpp */,
+				A5B000000000000000000108 /* a5run_action.cpp */,
+				A5MAP0000000000000000002 /* a5map.cpp */,
+				A5MAP0000000000000000003 /* a5map.h */,
+				A5B000000000000000000109 /* a5sb.h */,
+				A5B000000000000000000102 /* a5sb.cpp */,
+				A5HDR000000000000000001 /* a5blorb.h */,
+				A5HDR000000000000000002 /* a5deobf.h */,
+				A5HDR000000000000000003 /* a5xml.h */,
+				A5HDR000000000000000004 /* a5model.h */,
+				A5HDR000000000000000005 /* a5state.h */,
+				A5HDR000000000000000006 /* a5restr.h */,
+				A5HDR000000000000000007 /* a5expr.h */,
+				A5HDR000000000000000008 /* a5sexpr.h */,
+				A5HDR000000000000000009 /* a5text.h */,
+				A5HDR00000000000000000A /* a5parse.h */,
+				A5HDR00000000000000000B /* a5rand.h */,
+				A5HDR00000000000000000C /* a5run.h */,
+			);
+			path = adrift5;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
