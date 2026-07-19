@@ -4659,18 +4659,55 @@ gsc_a5_start_real_time (a5_run_t *run)
   glk_request_timer_events (gsc_a5_real_time ? 1000 : 0);
 }
 
+#ifdef SPATTERLIGHT
+/*
+ * gsc_unput_tail()
+ *
+ * Take the ASCII string `s` back off the end of the main window, but only if
+ * it is still exactly what is there: garglk_unput_string_count_uni is a
+ * case-insensitive TAIL compare that removes nothing unless the whole string
+ * matches, so failure always degrades to "leave the text alone".  It
+ * retracts from the CURRENT output stream, so point that at the main window
+ * first and put it back after.  Returns TRUE when the full string was
+ * removed.  (Same retract the geas frontends use; see
+ * questglk-common.inc unput_window_tail.)
+ */
+static int
+gsc_unput_tail (const char *s)
+{
+  glui32 ubuf[16];
+  size_t length = strlen (s), index_;
+  strid_t saved;
+  glui32 got;
+
+  if (length == 0 || length >= sizeof ubuf / sizeof *ubuf
+      || gsc_main_window == NULL)
+    return FALSE;
+  for (index_ = 0; index_ < length; index_++)
+    ubuf[index_] = (glui32) (unsigned char) s[index_];
+  ubuf[length] = 0;
+  saved = glk_stream_get_current ();
+  glk_set_window (gsc_main_window);
+  got = garglk_unput_string_count_uni (ubuf);
+  glk_stream_set_current (saved);
+  return got == length;
+}
+#endif
+
 /*
  * gsc_a5_await_line()
  *
  * Wait for line input on the main window, servicing resize redraws and, in
  * real-time mode, the 1-second TimeBased event tick.  A tick that produces
  * output cancels the pending input request (echo is off, so the cancel is
- * clean -- Glk forbids printing to a window with a live line request), shows
- * the tick's commit, reprints the prompt, and re-requests the line pre-seeded
- * with whatever the player had already typed.  Exactly one of buf/ubuf is
- * non-NULL, matching the pending request's buffer.  Returns TRUE when line
- * input completed, FALSE when a tick ended the game (the pending request has
- * been cancelled and the end-of-game text already shown).
+ * clean -- Glk forbids printing to a window with a live line request),
+ * retracts the stale prompt where the host supports it (ending its line
+ * otherwise), shows the tick's commit, reprints the prompt, and re-requests
+ * the line pre-seeded with whatever the player had already typed.  Exactly
+ * one of buf/ubuf is non-NULL, matching the pending request's buffer.
+ * Returns TRUE when line input completed, FALSE when a tick ended the game
+ * (the pending request has been cancelled and the end-of-game text already
+ * shown).
  */
 static int
 gsc_a5_await_line (event_t *event, char *buf, int bufsize,
@@ -4743,8 +4780,16 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
 
                 cancel.val1 = 0;
                 glk_cancel_line_event (gsc_main_window, &cancel);
-                /* End the line holding the now-dangling "> " prompt. */
-                gsc_a5_put_string ("\n");
+                /* Take the now-dangling "> " prompt back off the window --
+                   the cancel already removed any typed text (echo is off in
+                   real-time mode), so the prompt is the tail and the tick's
+                   text reads as a clean continuation, with the one true
+                   prompt reprinted below.  Best-effort: if the tail has
+                   moved on, end the prompt's line instead, as before. */
+#ifdef SPATTERLIGHT
+                if (!gsc_unput_tail ("\n> "))
+#endif
+                  gsc_a5_put_string ("\n");
                 gsc_a5_display (text);
                 free (text);
                 gsc_a5_show_media (gsc_a5_run);
