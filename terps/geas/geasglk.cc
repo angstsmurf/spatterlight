@@ -141,6 +141,20 @@ static void update_objwin(GeasRunner *gr);
 static void fill_divider();
 static void ensure_objwin_open();
 static void close_objwin();
+
+/* True when the file's first bytes are the local-file-header zip magic. */
+static bool
+file_starts_with_zip_magic(const char *path)
+{
+    FILE *f = fopen(path, "rb");
+    if (!f)
+        return false;
+    unsigned char m[4] = { 0, 0, 0, 0 };
+    size_t n = fread(m, 1, sizeof m, f);
+    fclose(f);
+    return n == sizeof m && memcmp(m, "PK\x03\x04", 4) == 0;
+}
+
 static std::string g_last_objlist;   /* last room-object list echoed to a transcript */
 static std::string g_status_line;    /* status vars joined for the banner, rebuilt each turn */
 static std::string g_room_name;      /* current room name, shown left-aligned in the banner */
@@ -317,6 +331,20 @@ void glk_main(void)
 			 "Try -h for help.\n");
 	glk_put_string(err_buf);
         return;
+    }
+
+    /* A zip that got this far is not a playable .quest: the Quest 5 sniff
+     * above already rejected it (no game.aslx inside), and the classic ASL
+     * parser would read the binary as one long comment and present an empty,
+     * dead game.  A wrapper archive holding a .quest is the usual case --
+     * say so rather than opening a blank window. */
+    if (file_starts_with_zip_magic(storyfilename)) {
+	snprintf(err_buf, sizeof(err_buf),
+		 "This file is a zip archive, not a Quest game.\n"
+		 "If it contains a .quest or .asl game file, unpack it first "
+		 "and open that.\n");
+	glk_put_string(err_buf);
+	return;
     }
 
     glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);

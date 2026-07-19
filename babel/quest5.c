@@ -34,15 +34,26 @@ static unsigned char *find_string(unsigned char *storyvp, int32 extent, const ch
     return NULL;
 }
 
-/* A .quest package is a zip whose local file headers name game.aslx.  The
- * entry names are stored in plaintext even when the data is deflated. */
+static bool zip_find_entry(const unsigned char *zip, int32 extent,
+                           const char *name, int32 *off, int32 *comp,
+                           int32 *raw, int *method);
+
+/* A .quest package is a zip with a game.aslx entry.  The entry has to be
+ * looked up in the central directory: a plain byte scan for the name also
+ * matches a .quest nested inside an outer wrapper zip (a zip stores an
+ * already-compressed member in deflate stored blocks, so the inner archive's
+ * local headers survive verbatim).  Such a wrapper is not itself playable --
+ * claiming it hands the terp an archive it cannot load. */
 static bool quest_package_found(unsigned char *story_file, int32 extent)
 {
     if (story_file == NULL || extent < 30)
         return false;
     if (memcmp(story_file, "PK\003\004", 4) != 0)
         return false;
-    return find_string(story_file, extent, "game.aslx", 9) != NULL;
+    int32 off, comp, raw;
+    int method;
+    return zip_find_entry(story_file, extent, "game.aslx", &off, &comp, &raw,
+                          &method);
 }
 
 /* Raw .aslx: after an optional BOM and whitespace the content must be markup,
