@@ -1794,6 +1794,20 @@ bool panel_band_available()
 #endif
 }
 
+/* The band's own background: the buffer's style_Normal background, so the
+ * letterbox around a picture that does not fill the band matches the text
+ * below it under any theme (Glk offers no way to read a window's background
+ * directly -- probe the style hint, as the Comprehend runner does). */
+void panel_set_background()
+{
+    if (!gpanelwin)
+        return;
+    glui32 bg;
+    if (!glk_style_measure(gwin, style_Normal, stylehint_BackColor, &bg))
+        bg = 0x00FFFFFF;
+    glk_window_set_background_color(gpanelwin, bg);
+}
+
 void panel_close()
 {
     if (gpanelwin) {
@@ -1843,6 +1857,7 @@ void panel_relayout()
         glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
                                    dh, gpanelwin);
     glk_window_get_size(gpanelwin, &bw, &maxh);
+    panel_set_background();     /* a theme change arrives as an arrange */
     glk_window_clear(gpanelwin);
     glk_image_draw_scaled(gpanelwin, g_panel_id,
                           (glsi32) (bw > dw ? (bw - dw) / 2 : 0), 0, dw, dh);
@@ -1895,7 +1910,7 @@ void panel_contents(const std::string &html)
                 glk_put_char('\n');
             return;
         }
-        glk_window_set_background_color(gpanelwin, 0xFFFFFF);
+        panel_set_background();
     }
     panel_relayout();
 }
