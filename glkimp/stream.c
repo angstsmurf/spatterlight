@@ -1834,7 +1834,11 @@ void gli_sanity_check_streams(void)
 
 glui32 garglk_unput_string_count_uni(glui32 *s)
 {
-    if (gli_currentstr == NULL)
+    /* Only a window stream has a `win` to retract from -- the current stream
+     * may just as well be a transcript file or a memory stream, and win is
+     * meaningless (uninitialised) for those. */
+    if (gli_currentstr == NULL || gli_currentstr->type != strtype_Window ||
+        gli_currentstr->win == NULL || s == NULL)
         return 0;
     int len = strlen_uni(s);
     glui32 result = win_unprint(gli_currentstr->win->peer, (glui32 *)s,  len);
