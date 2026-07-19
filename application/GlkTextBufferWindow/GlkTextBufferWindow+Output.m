@@ -235,6 +235,20 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
         result = initialLength - textstorage.length;
+        // A tail delete invalidates every cached absolute character offset
+        // past the new end, the same way a scrollback trim invalidates
+        // offsets before the cut (shiftCachedOffsetsAfterTrimOf:). fence in
+        // particular: a cancelLine right before this retract leaves it at
+        // the old text end, and the next initLine computes the editable
+        // range from it.
+        NSUInteger newLength = textstorage.length;
+        if (fence > newLength)
+            fence = newLength;
+        if (lastVisible > newLength)
+            lastVisible = newLength;
+        if (_printPositionOnInput > newLength)
+            _printPositionOnInput = newLength;
+        _lastchar = newLength ? [textstorage.string characterAtIndex:newLength - 1] : '\n';
     }
     return result;
 }

@@ -1219,55 +1219,49 @@ bool engine_state_pending(Interp &in)
 }
 
 /* Scope guard: reroute engine prints so the first output emitted while a
- * prompt sits on the screen breaks to a fresh line first.  broke tells the
- * caller a reprint of the prompt is needed.
+ * prompt sits on the screen retracts that stale prompt first -- an
+ * interrupting timer then reads as a clean run of text with a single prompt
+ * at the bottom, exactly like the reference player, instead of a bare "> "
+ * stranded above every tick.  broke tells the caller a reprint of the prompt
+ * is needed.
  *
- * A tempting refinement -- unput_exact the stale empty "> " here instead of
- * breaking the line, so an interrupting timer leaves no stranded prompt --
- * does not work yet, and the blocker is NOT the retract.  Tried and reverted
- * twice (2026-07-19), reproduced with a 2-second recurring timer:
- *
- *  - With no input typed it is a clear win: the ticks read as a clean run of
- *    text with one prompt at the end, instead of a bare "> " stranded above
- *    every one of them.
- *  - With a partial line typed it breaks.  Line-input echo is off, so
- *    cancelLine (GlkTextBufferWindow+Input.m:352) has ALREADY removed the
- *    typed text -- "> " really is the tail, the retract succeeds, and the
- *    re-request restores the text as preloaded input (ce.val1).  The window
- *    then ends up with the typed characters stranded straight after the
- *    interrupting text and no prompt at all.
- *  - Clamping the buffer window's cached absolute offsets after a tail delete
- *    (fence in particular, which cancelLine leaves pointing past the new end
- *    -- the tail-delete counterpart of shiftCachedOffsetsAfterTrimOf:) is a
- *    real gap and probably wants fixing on its own account, but it is NOT
- *    sufficient here: with it the preloaded text duplicates across ticks
- *    ("xyzxyz") and the prompt is still lost.
- *
- * So retracting a prompt that a live line request still owns needs the
- * preload/fence path understood first; gating the retract on ce.val1 == 0 (no
- * preload to restore) is the obvious next thing to try. */
+ * The retract is attempted only on the first output, after the caller has
+ * cancelled the line request: with echo control the cancel already removed
+ * any typed text (GlkTextBufferWindow+Input.m cancelLine), so the prompt
+ * really is the window tail and unput_exact removes it whole.  Whenever it
+ * does not (the window moved on, no echo control so the typed text is still
+ * on screen, CheapGlk's no-op unput), the fallback is the old behaviour:
+ * break the line so the output lands cleanly under the stale prompt.  Typed
+ * text survives either way -- the caller re-requests input with the
+ * cancelled line as preload (ce.val1). */
 struct PromptBreak {
     Interp &in;
-    bool active;
+    const char *prompt;
     bool broke = false;
-    PromptBreak(Interp &i, bool a) : in(i), active(a) {
-        if (!active) return;
+    PromptBreak(Interp &i, const char *p) : in(i), prompt(p) {
+        if (!prompt) return;
         in.print = [this](const std::string &h) {
             if (!broke && !h.empty()) {
-                glk_put_char('\n');
+                if (!unput_exact(u32_from_utf8(prompt)))
+                    glk_put_char('\n');
                 broke = true;
             }
             render_html(h);
         };
     }
     ~PromptBreak() {
-        if (active) in.print = render_html;
+        if (prompt) in.print = render_html;
     }
 };
 
 /* Request one line of input.  `prompt` is printed first (and reprinted after
  * any engine output that interrupts the request); pass nullptr when the
- * caller printed its own or none applies.  `echo` = the HOST echoes the
+ * caller printed its own or none applies.  `on_screen` = the prompt text is
+ * already at the end of the window (an autorestored snapshot ends with it),
+ * so it is not printed on entry but still describes what an interrupting
+ * tick must retract or reprint -- passing nullptr instead would leave
+ * PromptBreak blind and a tick's output would land ON the prompt line with
+ * no prompt reprinted after it.  `echo` = the HOST echoes the
  * accepted line (host-owned prompts, and every prompt-first line).  It is
  * false only for legacy-mode parser commands, which the GAME side echoes
  * itself -- Core's game.echocommand prints "> cmd" into the transcript (the
@@ -1277,14 +1271,14 @@ struct PromptBreak {
  * echo applies.  Timer events tick the engine; if a tick opens a prompt or
  * ends the game the request is cancelled and InEnd::State returned. */
 InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
-                   bool want_line = true)
+                   bool want_line = true, bool on_screen = false)
 {
     static glui32 buf[256];
     /* Links are the only other way in, so a library without them always gets
      * the line request (CheapGlk: the smoke harness). */
     if (!g_hyperlinks)
         want_line = true;
-    if (prompt)
+    if (prompt && !on_screen)
         glk_put_string((char *) prompt);
     if (g_echo_control)
         glk_set_echo_line_event(gwin, 0);
@@ -1328,7 +1322,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                      * before the line branch, so a click during a wait is
                      * usually consumed by read_keypress). */
                     if (in.pending_wait()) {
-                        PromptBreak pb(in, prompt != nullptr);
+                        PromptBreak pb(in, prompt);
                         in.finish_wait();
                         in.drain_on_ready();
                         return {InEnd::Event, ""};
@@ -1350,7 +1344,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                 }
                 {
                     /* Event output must not land on the prompt line. */
-                    PromptBreak pb(in, prompt != nullptr);
+                    PromptBreak pb(in, prompt);
                     run_asl_event(in, act);
                 }
                 return {InEnd::Event, ""};
@@ -1402,7 +1396,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                 glk_cancel_line_event(gwin, &ce);
             bool reprompt;
             {
-                PromptBreak pb(in, prompt != nullptr);
+                PromptBreak pb(in, prompt);
                 in.tick(1);
                 in.drain_on_ready();
                 reprompt = pb.broke;
@@ -2817,12 +2811,15 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             bool bar_shown = g_command_bar || host_owned;
             bool prompted = (g_prompt_first || host_owned) && bar_shown;
             const char *prompt = prompted ? "\n> " : nullptr;
+            bool prompt_on_screen = false;
 #ifdef SPATTERLIGHT
             /* The first prompt after an autorestore is already on screen --
-             * the GUI snapshot was taken just after it was printed. */
+             * the GUI snapshot was taken just after it was printed.  Keep
+             * the prompt text (an interrupting tick must still know what to
+             * retract and reprint); just skip printing it again. */
             if (g_autorestore_reentry) {
                 g_autorestore_reentry = false;
-                prompt = nullptr;
+                prompt_on_screen = prompt != nullptr;
             }
             /* Autosave while the parser prompt is up.  Not for a pending
              * `get input`: its callback is not in the engine snapshot. */
@@ -2830,7 +2827,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                 g_autosave_interp = &in;
 #endif
             InResult r = read_line(in, prompted, prompt,
-                                   /*want_line=*/true);
+                                   /*want_line=*/true, prompt_on_screen);
 #ifdef SPATTERLIGHT
             g_autosave_interp = nullptr;
 #endif

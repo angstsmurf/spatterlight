@@ -1,0 +1,36 @@
+<!--Manual fixture: a 2-second recurring timer that prints while the parser
+    prompt is up.  Drives the prompt-retract/preload path in aslxglk's
+    read_line timer arm (not part of the scripted fixture suite: needs the
+    real app, wall-clock timers and a keyboard).  Type a partial command,
+    let a few ticks pass, then finish typing and submit: the transcript
+    should show one prompt at the bottom carrying the typed text, with no
+    stranded "> " above the tick lines.-->
+<asl version="550">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <game name="Timer Test">
+    <gameid>7f34c9aa-0d15-4b21-9a77-3e5b8c1d2f40</gameid>
+    <author>Fixture</author>
+    <ticks type="int">0</ticks>
+    <start type="script">
+      msg ("Timer test begins.  A tick prints every 2 seconds.")
+    </start>
+  </game>
+  <object name="room">
+    <inherit name="editor_room" />
+    <isroom type="boolean">true</isroom>
+    <description>A bare room with a loudly ticking clock.</description>
+    <object name="player">
+      <inherit name="editor_player" />
+      <isplayer />
+    </object>
+  </object>
+  <timer name="ticker">
+    <enabled />
+    <interval type="int">2</interval>
+    <script type="script">
+      game.ticks = game.ticks + 1
+      msg ("Tick " + game.ticks + ".")
+    </script>
+  </timer>
+</asl>
