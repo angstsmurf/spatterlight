@@ -219,9 +219,17 @@ void win_print(int name, int ch, int at)
 
 glui32 win_unprint(int name, glui32 *str, int len)
 {
-    if (!len)
+    if (len <= 0)
         return 0;
-    
+
+    /* The retract travels in the shared message buffer, which holds PBUFSIZE
+     * uint16_t (win_print flushes against the same bound).  A longer string
+     * cannot be sent, and since unput only removes text that matches in full,
+     * reporting "removed nothing" is the honest answer -- truncating here
+     * would ask the app to delete a prefix the caller never asked about. */
+    if ((unsigned long)len > PBUFSIZE)
+        return 0;
+
     win_flush();
 
     glui32 ix;
