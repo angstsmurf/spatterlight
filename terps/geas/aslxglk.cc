@@ -2004,13 +2004,19 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
              * consumes the line without any game-side echo. */
             bool host_owned = in.command_override();
             /* With the command box hidden (a gamebook, or any game with
-             * showcommandbar off) there is nothing to type at: no prompt, no
-             * line request, just the page and its links.  A `get input` is
-             * host-owned and re-shows the box, so it prompts as usual. */
-            bool want_line = g_command_bar || host_owned;
-            bool prompted = (g_prompt_first || host_owned) && want_line;
+             * showcommandbar off) the page and its links are the interface,
+             * so no prompt is drawn.  A line is still accepted, though: the
+             * reference player backs a hidden box with a click hook this
+             * engine cannot emulate (spondre's glue.js sends a command for
+             * ANY click in the output, which is the only way past its title),
+             * and a host that both hides the prompt and refuses a line leaves
+             * no way in at all.  Hiding the box must cost the prompt, not the
+             * player's last input path.  A `get input` is host-owned and
+             * re-shows the box, so it prompts as usual. */
+            bool bar_shown = g_command_bar || host_owned;
+            bool prompted = (g_prompt_first || host_owned) && bar_shown;
             InResult r = read_line(in, prompted, prompted ? "\n> " : nullptr,
-                                   want_line);
+                                   /*want_line=*/true);
             if (r.kind == InEnd::State || r.kind == InEnd::Event)
                 { /* re-dispatch on the new engine state */ }
             else {
@@ -2032,6 +2038,15 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                      * Detecting the echo as it arrives covers both -- an
                      * unechoed turn just disarms on its first chunk. */
                     if (g_prompt_first && !host_owned) {
+                        /* A line typed with no prompt drawn (hidden box) has
+                         * nothing on screen to show for it, and the swallow
+                         * below drops the game's echo too -- so record it
+                         * here.  A CLICKED link needs no such record: the
+                         * link itself is the visible act, and echoing it
+                         * would put "> Page2" through a gamebook that is
+                         * meant to read as prose. */
+                        if (!bar_shown && r.kind == InEnd::Line)
+                            echo_metaverb(cmd);
                         g_swallow = 2;
                         g_swallow_cmd = cmd;
                     }
