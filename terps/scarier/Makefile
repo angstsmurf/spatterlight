@@ -25,8 +25,8 @@ VERSION = 1.4.0
 # make command line.
 #
 # The Scarier interpreter is now C-like C++; its sources are *.cpp and are
-# compiled with $(CXX).  The bundled zlib is plain C and stays compiled with
-# $(CC).  Linking is done with $(CXX) so the C++ runtime is pulled in.
+# compiled with $(CXX).  Unlike upstream SCARE, which unzipped a bundled
+# zlib123.zip at build time, this tree links the system zlib (-lz).
 #
 
 # Compiler and linker flags.
@@ -36,16 +36,19 @@ DEBUG	=
 CEXTRA	=
 CFLAGS	= -O2 -fPIC $(DEBUG) $(CEXTRA)
 CXXFLAGS = -O2 -fPIC -Wall -W $(DEBUG) $(CEXTRA)
-LDLIBS	=
+LDLIBS	= -lz
 LDEXTRA	=
 LDFLAGS	= $(DEBUG) $(LDEXTRA)
 
-# Glk library selection and library location.
-GLK	= xglk
+# Glk library selection and library location.  The default matches this tree:
+# terps/cheapglk is the one Glk library checked in beside us, which is enough
+# to smoke-test both engines from the command line.  (The shipping macOS build
+# goes through the Xcode project, not this Makefile.)
+GLK	= cheapglk
 #GLK	= glkterm
-#GLK	= cheapglk
+#GLK	= xglk
 #GLK	= winglk
-GLKDIR	= ../..
+GLKDIR	= ..
 
 # Glk platform selection; normally, the platform's compiler will define
 # one of these automatically, but if not, pick one to suit your system.
@@ -71,7 +74,6 @@ GLKLIBS	= -L$(GLKPATH) $(GLKLIB) $(LINKLIBS)
 SHELL	= /bin/sh
 
 # Miscellaneous tools, overridable by the command line.
-UNZIP	= unzip
 RM	= rm
 TEST	= test
 
@@ -91,62 +93,67 @@ OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
 HEADERS	= scarier.h scprotos.h scgamest.h
 
+# The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
+# one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
+# the Glk port has somewhere to put a map, so these stay out of $(OBJECTS).
+MAPOBJECTS = mapdraw.o scmap.o
+MAPHEADERS = mapdraw.h scmap.h
+
+# The shared, seedable cross-platform RNG (erkyrath xoshiro128**) the v5 engine
+# draws from, so seeded walkthroughs reproduce across platforms.  Plain C, and
+# it pulls glui32 in from glk.h, so it is built only for the Glk port.
+COMMON	= ../common_utils
+RANDOBJ	= a5_randomness.o
+
 # ADRIFT 5 engine objects and headers (driven by os_glk.cpp via gsc_a5_main
 # when the loaded file is an ADRIFT 5 game).
 A5DIR	= adrift5
 A5OBJECTS = $(A5DIR)/a5blorb.o $(A5DIR)/a5deobf.o $(A5DIR)/a5xml.o	\
 	  $(A5DIR)/a5model.o $(A5DIR)/a5state.o $(A5DIR)/a5restr.o	\
 	  $(A5DIR)/a5expr.o $(A5DIR)/a5sexpr.o $(A5DIR)/a5text.o	\
-	  $(A5DIR)/a5parse.o $(A5DIR)/a5rand.o $(A5DIR)/a5run.o
+	  $(A5DIR)/a5parse.o $(A5DIR)/a5rand.o $(A5DIR)/a5sb.o		\
+	  $(A5DIR)/a5run_ref.o $(A5DIR)/a5run_events.o			\
+	  $(A5DIR)/a5run_action.o $(A5DIR)/a5run.o $(A5DIR)/a5map.o
 A5HEADERS = $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h	\
 	  $(A5DIR)/a5model.h $(A5DIR)/a5state.h $(A5DIR)/a5restr.h	\
 	  $(A5DIR)/a5expr.h $(A5DIR)/a5sexpr.h $(A5DIR)/a5text.h	\
-	  $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5run.h
+	  $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5sb.h		\
+	  $(A5DIR)/a5run.h $(A5DIR)/a5run_internal.h $(A5DIR)/a5map.h
 
 # Scarier verifier objects and headers.
 XOBJECTS= sxmain.o sxutils.o sxglob.o sxtester.o sxscript.o sxfile.o	\
 	  sxstubs.o
 XHEADERS= sxprotos.h
 
-# Zlib components used by Scarier (plain C).
-ZLIBVER	= 123
-ZLIBSRC	= zlib$(ZLIBVER).zip
-ZOBJECTS= crc32.o inffast.o inflate.o inftrees.o zutil.o compress.o	\
-	  adler32.o deflate.o trees.o
-ZSOURCES= crc32.c inffast.c inflate.c inftrees.c zutil.c compress.c	\
-	  adler32.c deflate.c trees.c
-ZHEADERS= crc32.h inffast.h inflate.h inftrees.h inffixed.h zutil.h	\
-	  zconf.h deflate.h trees.h zlib.h
-
 # Default make target is the basic ANSI interpreter.
 all:	scarier
 
-$(ZOBJECTS): $(ZHEADERS) $(ZSOURCES)
-
-$(ZHEADERS) $(ZSOURCES): $(ZLIBSRC)
-	@$(UNZIP) -uqqa $(ZLIBSRC) $@
-
 $(OBJECTS): $(HEADERS)
 
-scarier: $(ZOBJECTS) $(OBJECTS) os_ansi.o
-	$(CXX) $(LDFLAGS) -o scarier $(OBJECTS) $(ZOBJECTS) os_ansi.o $(LDLIBS)
+scarier: $(OBJECTS) os_ansi.o
+	$(CXX) $(LDFLAGS) -o scarier $(OBJECTS) os_ansi.o $(LDLIBS)
 
 # Option to build the Scarier verifier.
 $(XOBJECTS): $(XHEADERS)
 
-sx: $(ZOBJECTS) $(OBJECTS) $(XOBJECTS)
-	$(CXX) $(LDFLAGS) -o sx $(OBJECTS) $(ZOBJECTS) $(XOBJECTS) $(LDLIBS)
+sx: $(OBJECTS) $(XOBJECTS)
+	$(CXX) $(LDFLAGS) -o sx $(OBJECTS) $(XOBJECTS) $(LDLIBS)
 
 # Option to build the Glk port of Scarier.
-glkscarier: $(ZOBJECTS) $(OBJECTS) $(A5OBJECTS) os_glk.o
+glkscarier: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ) os_glk.o
 	@$(TEST) -n "$(GLKLIB)" \
 		|| ( echo "Could not include $(GLKPATH)/Make.$(GLK)"; exit 1 )
-	$(CXX) $(LDFLAGS) -o glkscarier $(OBJECTS) $(ZOBJECTS) $(A5OBJECTS)	\
-		os_glk.o $(LDLIBS) $(GLKLIBS)
+	$(CXX) $(LDFLAGS) -o glkscarier $(OBJECTS) $(A5OBJECTS)		\
+		$(MAPOBJECTS) $(RANDOBJ) os_glk.o $(LDLIBS) $(GLKLIBS)
 
 $(A5OBJECTS): $(A5HEADERS)
 
-os_glk.o: os_glk.cpp $(HEADERS) $(A5HEADERS)
+$(MAPOBJECTS): $(MAPHEADERS)
+
+$(RANDOBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
+	$(CC) $(CFLAGS) -I$(GLKPATH) -c -o $@ $(COMMON)/randomness.c
+
+os_glk.o: os_glk.cpp $(HEADERS) $(A5HEADERS) $(MAPHEADERS)
 	$(CXX) $(GLKARCH) $(CXXFLAGS) -Wno-write-strings			\
 		-I $(GLKDIR)/$(GLK) -c -o $@ $<
 
@@ -161,17 +168,16 @@ scarier_plugin.o: scarier_plugin.c
 
 PLUGIN_LIBS = -lifppi
 PLUGIN_OBJS = scarier_plugin.o
-scarier-$(VERSION).so: $(ZOBJECTS) $(OBJECTS) os_glk.o $(PLUGIN_OBJS)
+scarier-$(VERSION).so: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ)	\
+		os_glk.o $(PLUGIN_OBJS)
 	$(CXX) -shared -Wl,-u,ifpi_force_link -Wl,-Bsymbolic		\
-		-o $@ $(ZOBJECTS) $(OBJECTS) os_glk.o $(PLUGIN_OBJS)	\
-		$(PLUGIN_LIBS) -lc
+		-o $@ $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ)	\
+		os_glk.o $(PLUGIN_OBJS) $(PLUGIN_LIBS) -lc
 
 # Cleanup.
 clean:
 	$(RM) -f scarier sx glkscarier *.o adrift5/*.o core core.* *.gcov *.gcno *.gcda
 	$(RM) -f scarier_plugin.c scarier-$(VERSION).so
-	$(RM) -f $(ZSOURCES)
-	$(RM) -f $(ZHEADERS)
 
 distclean: clean
 
