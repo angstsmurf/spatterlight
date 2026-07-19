@@ -365,10 +365,18 @@ glui32 decode_entity(const std::string &s, size_t &i)
         i = semi + 1;
         return cp;
     }
+    /* Games hand-write HTML, so the typographic entities an author pastes in
+     * belong here alongside the markup ones -- an unknown name renders as a
+     * literal "&bull;" mid-sentence. */
     struct { const char *name; glui32 cp; } ents[] = {
         {"amp", '&'}, {"lt", '<'}, {"gt", '>'}, {"quot", '"'},
         {"apos", '\''}, {"nbsp", ' '}, {"mdash", 0x2014}, {"ndash", 0x2013},
         {"hellip", 0x2026}, {"copy", 0xa9}, {"eacute", 0xe9},
+        {"bull", 0x2022}, {"middot", 0xb7}, {"deg", 0xb0},
+        {"lsquo", 0x2018}, {"rsquo", 0x2019},
+        {"ldquo", 0x201c}, {"rdquo", 0x201d},
+        {"laquo", 0xab}, {"raquo", 0xbb},
+        {"reg", 0xae}, {"trade", 0x2122},
     };
     for (auto &en : ents)
         if (e == en.name) { i = semi + 1; return en.cp; }
