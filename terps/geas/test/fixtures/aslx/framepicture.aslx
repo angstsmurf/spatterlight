@@ -1,0 +1,63 @@
+<!--
+  Frame-picture band: a MANUAL check, for a graphical Glk host only.
+
+  The frame picture is a persistent panel above the transcript (aslxglk.cc's
+  picture band, mirroring the reference player's #gamePanel), and games reach
+  it through THREE channels. CheapGlk has no graphics, so run_fixtures.sh and
+  the smoke harness cannot see any of this — open this file in Spatterlight
+  and drive it by hand:
+
+      pic     -> request (SetPanelContents, "<img ...>")   band opens
+      nopic   -> request (SetPanelContents, "")            band closes
+      rpic    -> request (RunScript, "setFramePicture; f") band opens
+      rnopic  -> request (RunScript, "clearFramePicture")  band closes
+
+  The RunScript pair is Quest 5.0's channel into the player's HTML frame, the
+  one Nearco II uses; note rnopic exercises the no-"; arg" form of the data
+  split, which rpic does not. Expect: the band sizes itself to the picture,
+  never upscales it (framepicture.png is 240x240, so it should render at its
+  own size, not stretched), letterboxes in the buffer's background colour,
+  and on a clear leaves NO gap — the status bar returns to the top.
+-->
+<asl version="550">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <game name="framepicture">
+    <gameid>abcdabcd-1111-2222-3333-444444444444</gameid>
+  </game>
+  <command name="cmd_pic">
+    <pattern>pic</pattern>
+    <script><![CDATA[
+      msg ("panel: set via SetPanelContents")
+      request (SetPanelContents, "<img src=\"framepicture.png\"/>")
+    ]]></script>
+  </command>
+  <command name="cmd_nopic">
+    <pattern>nopic</pattern>
+    <script><![CDATA[
+      msg ("panel: cleared via SetPanelContents empty")
+      request (SetPanelContents, "")
+    ]]></script>
+  </command>
+  <command name="cmd_rpic">
+    <pattern>rpic</pattern>
+    <script><![CDATA[
+      msg ("panel: set via RunScript setFramePicture")
+      request (RunScript, "setFramePicture; framepicture.png")
+    ]]></script>
+  </command>
+  <command name="cmd_rnopic">
+    <pattern>rnopic</pattern>
+    <script><![CDATA[
+      msg ("panel: cleared via RunScript clearFramePicture")
+      request (RunScript, "clearFramePicture")
+    ]]></script>
+  </command>
+  <object name="room">
+    <inherit name="editor_room" />
+    <object name="player">
+      <inherit name="editor_object" />
+      <inherit name="editor_player" />
+    </object>
+  </object>
+</asl>

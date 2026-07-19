@@ -47,6 +47,23 @@ that wants to check a random value asserts a *range* instead (see
 > it is a clean pass at `-O2` either way, and a heap-buffer-overflow under ASan
 > before the fix.
 
+### Manual fixtures (`fixtures/aslx/`, not run by any script)
+
+A few things only exist on a graphical Glk host, so no in-repo harness can
+assert on them — CheapGlk, which the smoke harness and `run_fixtures.sh` use,
+has neither graphics nor hyperlinks. Those fixtures are driven **by hand in
+Spatterlight**, and each carries a header comment listing the commands to type
+and what to look for.
+
+| fixture | checks |
+|---|---|
+| `framepicture.aslx` | the frame-picture band: opens, sizes itself to the picture without upscaling, and — via **both** the `SetPanelContents` and Quest 5.0 `RunScript` channels — closes again leaving no gap |
+
+They are kept here rather than in a scratch directory because the paths they
+cover are otherwise reachable only by finding a shipped game that happens to
+use them: the picture-clear path went unverified through two commits for
+exactly that reason.
+
 ## Unit tests (`geas_unit_tests.cc`)
 
 For engine code a fixture cannot reach, because no *player input* reaches it: a
