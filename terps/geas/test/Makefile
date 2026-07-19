@@ -20,19 +20,19 @@ TESTBIN := geas_unit_tests
 TESTSRC := geas_unit_tests.cc
 DEPS := $(wildcard ../*.cc ../*.hh)
 
-# Quest 5 (.aslx / .quest) milestone-1 loader test. It compiles ../aslx.cc via a
+# Quest 5 (.aslx / .quest) milestone-1 loader test. It compiles ../quest5/aslx.cc via a
 # unity include and links libexpat + zlib (the loader's only external deps).
 ASLXBIN := aslx_loader_test
 ASLXSRC := aslx_loader_test.cc
-ASLXDEPS := ../aslx.cc ../aslx.hh
+ASLXDEPS := ../quest5/aslx.cc ../quest5/aslx.hh
 ASLXLIBS := -lexpat -lz
 
 # Quest 5 milestone-2 script/expression runtime test.
 ASLXRTBIN := aslx_runtime_test
 ASLXRTSRC := aslx_runtime_test.cc
-ASLXRTDEPS := ../aslx.cc ../aslx.hh ../aslx-runtime.cc ../aslx-runtime.hh \
-              ../aslx-runtime-parse.inc ../aslx-runtime-builtins.inc \
-              ../aslx-state.inc ../aslx-savenative.inc
+ASLXRTDEPS := ../quest5/aslx.cc ../quest5/aslx.hh ../quest5/aslx-runtime.cc ../quest5/aslx-runtime.hh \
+              ../quest5/aslx-runtime-parse.inc ../quest5/aslx-runtime-builtins.inc \
+              ../quest5/aslx-state.inc ../quest5/aslx-savenative.inc
 
 # Quest 5 native walkthrough replayer (diff against quest5-oracle/golden/).
 # Needs the local game corpus, so it is built on demand and not part of check.
@@ -60,9 +60,9 @@ $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXLIBS) -o $@
 
-$(ASLXGLK): $(ASLXGLK).cc ../aslxglk.cc ../aslxglk-map.inc \
+$(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
             ../questglk-common.inc $(ASLXRTDEPS)
-	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../aslxglk.cc \
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../quest5/aslxglk.cc \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
 check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)

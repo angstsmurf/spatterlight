@@ -227,7 +227,7 @@ struct World {
 // package (game.aslx extracted from it); otherwise it is parsed as raw .aslx.
 // Returns false and fills world.errors on failure.
 //
-// core_dir points at the bundled Quest Core libraries (terps/geas/aslx-core);
+// core_dir points at the bundled Quest Core libraries (terps/geas/quest5/aslx-core);
 // if empty, the ASLX_CORE environment variable is consulted. <include ref="..">
 // directives resolve against the game's own directory first, then core_dir,
 // then core_dir/Languages -- matching QuestViva's GetLibraryStream() order.

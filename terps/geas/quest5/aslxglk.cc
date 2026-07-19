@@ -48,13 +48,13 @@ extern "C" {
 
 #ifdef SPATTERLIGHT
 /* Spatterlight autosave/autorestore (geasglk-autosave.mm). */
-#include "geasglk-autosave.h"
+#include "../geasglk-autosave.h"
 #endif
 
 /* Presentation helpers shared with the classic Quest 1-4 frontend
  * (geasglk.cc): the status banner, side pane + divider, transcript metaverb,
  * save-file prompts, string/UTF-8 utilities and resource registration. */
-#include "questglk-common.inc"
+#include "../questglk-common.inc"
 
 #ifdef __APPLE__
 #include <mach-o/dyld.h>

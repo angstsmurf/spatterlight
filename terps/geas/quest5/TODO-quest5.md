@@ -685,7 +685,7 @@
     `GetRandomDouble` routed through a deterministic erkyrath_random() port.
     Tested by `test/aslx_runtime_test.cc` (`make check`, clean under ASan/UBSan).
   - **M3 loader half landed** (Core bundling + `<include>` resolution).
-    The non-editor Core libraries are bundled under `terps/geas/aslx-core/`
+    The non-editor Core libraries are bundled under `terps/geas/quest5/aslx-core/`
     (root `Core*.aslx`/`GamebookCore.aslx` + `Languages/*.aslx`), and the
     loader resolves `<include ref="..">` inline in source order — game-adjacent
     dir, then Core dir, then Core/Languages — matching QuestViva's
@@ -1032,7 +1032,7 @@ Reference source (MIT licensed, so Core libraries can be bundled):
         source-order processing; dedup + depth guard against cycles
         (`aslx.cc:Loader::resolve_include`).
 - [x] Bundle the non-editor core libraries as terp resources under
-      `terps/geas/aslx-core/` (`Core.aslx`, `CoreCommands`, `CoreParser`,
+      `terps/geas/quest5/aslx-core/` (`Core.aslx`, `CoreCommands`, `CoreParser`,
       `CoreOutput`, `CoreTypes`, `CoreScopes`, `CoreDescriptions`,
       `CoreFunctions`, `CoreTimers`, `CoreTurnScripts`, `CoreStatusAttributes`,
       `CoreGrid`, `CoreWearable`, `CoreCombat`, `CoreEffects`, `GamebookCore`,

@@ -30,7 +30,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 GAMES="${GAMES:-$HOME/Downloads/Quest 5 games}"
 QVH="dotnet $HERE/bin/Release/net10.0/qvh.dll"
 REPLAY="$HERE/../aslx_replay"
-CORE="$HERE/../../aslx-core"
+CORE="$HERE/../../quest5/aslx-core"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 

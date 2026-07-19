@@ -6,7 +6,7 @@
 // routing can be exercised by piping a command script to stdin.
 //
 //   make aslxglk_smoke
-//   ASLX_CORE=../aslx-core ./aslxglk_smoke "<game.quest>" < commands.txt
+//   ASLX_CORE=../quest5/aslx-core ./aslxglk_smoke "<game.quest>" < commands.txt
 
 extern "C" {
 #include "glk.h"

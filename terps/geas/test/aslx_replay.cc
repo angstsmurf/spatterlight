@@ -5,7 +5,7 @@
 // produced by the QuestViva oracle (quest5-oracle/README.md).
 //
 //   make aslx_replay
-//   ASLX_CORE=../aslx-core ./aslx_replay "<game.quest>" "golden/<Game>.cmd" \
+//   ASLX_CORE=../quest5/aslx-core ./aslx_replay "<game.quest>" "golden/<Game>.cmd" \
 //       | diff "quest5-oracle/golden/<Game>.out" -
 //
 // Mirrors quest5-oracle/Program.cs: same step grammar (menu:/answer:/assert:/
@@ -35,8 +35,8 @@
 // literal trailing U+00A0s). Then 26 goldens (The Deer Trail, an override
 // rendering the author's "Direction to <room>" shorthand into parser
 // commands); it replayed byte-identical with no engine changes — 25 of 26.
-#include "aslx.cc"
-#include "aslx-runtime.cc"
+#include "../quest5/aslx.cc"
+#include "../quest5/aslx-runtime.cc"
 
 #include <fstream>
 #include <iostream>
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
     if (argc < 3) { std::cerr << "usage: nreplay <game> <script>\n"; return 2; }
     World w;
     const char *core = std::getenv("ASLX_CORE");
-    if (!load_file(argv[1], w, core ? core : "terps/geas/aslx-core")) {
+    if (!load_file(argv[1], w, core ? core : "terps/geas/quest5/aslx-core")) {
         std::cerr << "[fatal] load failed\n";
         return 3;
     }

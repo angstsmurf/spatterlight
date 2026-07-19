@@ -4119,7 +4119,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		55368B5C272BF24700740A0A /* geas */ = {
+		C3A51F0000000000000000F5 /* quest5 */ = {
 			isa = PBXGroup;
 			children = (
 				C3A51F000000000000000002 /* aslx.cc */,
@@ -4130,6 +4130,14 @@
 				C3A51F000000000000000005 /* aslx-runtime.hh */,
 				C3A51F000000000000000008 /* aslx-core */,
 				C3A51F000000000000000001 /* aslxglk.cc */,
+			);
+			path = quest5;
+			sourceTree = "<group>";
+		};
+		55368B5C272BF24700740A0A /* geas */ = {
+			isa = PBXGroup;
+			children = (
+				C3A51F0000000000000000F5 /* quest5 */,
 				55368B6E272BF24700740A0A /* geas-impl.hh */,
 				55368B64272BF24700740A0A /* GeasRunner.hh */,
 				55368B70272BF24700740A0A /* geas-runner.cc */,

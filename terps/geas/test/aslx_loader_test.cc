@@ -5,7 +5,7 @@
 //
 // Built by test/Makefile; links libexpat and zlib. See TODO-quest5.md.
 
-#include "../aslx.cc"
+#include "../quest5/aslx.cc"
 
 #include <cstdio>
 #include <iostream>
@@ -207,7 +207,7 @@ static void test_coreboot() {
     // core_dir is relative to test/ (where the harness runs). The fixture's
     // includes resolve English.aslx (Languages/) and Core.aslx (root), which in
     // turn pull in every non-editor Core*.aslx.
-    bool ok = load_file("fixtures/aslx/coreboot.aslx", w, "../aslx-core");
+    bool ok = load_file("fixtures/aslx/coreboot.aslx", w, "../quest5/aslx-core");
     if (!ok || !w.errors.empty()) {
         std::cerr << "coreboot load failed / had errors:\n" << dump(w);
     }

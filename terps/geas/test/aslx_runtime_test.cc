@@ -5,8 +5,8 @@
 // Built by test/Makefile; links libexpat + zlib (via the loader). See
 // TODO-quest5.md §2.
 
-#include "../aslx.cc"
-#include "../aslx-runtime.cc"
+#include "../quest5/aslx.cc"
+#include "../quest5/aslx-runtime.cc"
 
 #include <cstdio>
 #include <iostream>
@@ -675,7 +675,7 @@ static void test_rng_determinism() {
 static void test_coreboot_runs() {
     World w;
     // core_dir relative to test/ (where the harness runs).
-    bool ok = load_file("fixtures/aslx/coreboot.aslx", w, "../aslx-core");
+    bool ok = load_file("fixtures/aslx/coreboot.aslx", w, "../quest5/aslx-core");
     CHECK(ok);
     CHECK(w.errors.empty());
     if (!w.errors.empty())
@@ -719,7 +719,7 @@ static void test_coreboot_runs() {
 // must run with zero script errors and produce the expected Core output.
 static void test_command_driving() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
     CHECK(ok);
     CHECK(w.errors.empty());
 
@@ -784,7 +784,7 @@ static void test_command_driving() {
 // at all -- the numbered answer arrives as the next command.
 static void test_input_model() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
     CHECK(ok);
     CHECK(w.errors.empty());
 
@@ -874,7 +874,7 @@ static void test_input_model() {
 // subscriber), the JS.updateStatus route, and the SendEventCore bridge.
 static void test_update_lists() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
     CHECK(ok);
 
     Interp in(w);
@@ -1181,7 +1181,7 @@ static void test_undo() {
 // saved-game boot (InitInterface re-runs, StartGame does not).
 static void test_save_restore() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../aslx-core");
+    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
     CHECK(ok);
 
     Interp in(w);
@@ -1222,7 +1222,7 @@ static void test_save_restore() {
     // again reproduces it byte-identically.
     {
         World w2;
-        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../aslx-core"));
+        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../quest5/aslx-core"));
         Interp in2(w2);
         in2.print = [](const std::string &) {};
         std::string err;
@@ -1275,7 +1275,7 @@ static void test_save_restore() {
         CHECK(!err.empty());
         std::string truncated = save.substr(0, save.size() / 2);
         World w4;
-        CHECK(load_file("fixtures/aslx/command.aslx", w4, "../aslx-core"));
+        CHECK(load_file("fixtures/aslx/command.aslx", w4, "../quest5/aslx-core"));
         Interp in4(w4);
         CHECK(!in4.restore_game(truncated, err));
         CHECK(!Interp::is_save_data("garbage", 7));
@@ -1287,7 +1287,7 @@ static void test_save_restore() {
 // test_save_restore, exercising the writer and the overlay reader.
 static void test_save_restore_native() {
     World w;
-    CHECK(load_file("fixtures/aslx/command.aslx", w, "../aslx-core"));
+    CHECK(load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core"));
 
     Interp in(w);
     std::string out;
@@ -1333,7 +1333,7 @@ static void test_save_restore_native() {
 
     {
         World w2;
-        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../aslx-core"));
+        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../quest5/aslx-core"));
         Interp in2(w2);
         in2.print = [](const std::string &) {};
         std::string err;
@@ -1385,7 +1385,7 @@ static void test_save_restore_native() {
         size_t vq = bogus.find('"', vp + 9);
         bogus.replace(vp, vq - vp + 1, "version=\"999\"");
         World w5;
-        CHECK(load_file("fixtures/aslx/command.aslx", w5, "../aslx-core"));
+        CHECK(load_file("fixtures/aslx/command.aslx", w5, "../quest5/aslx-core"));
         Interp in5(w5);
         std::string err;
         CHECK(!in5.restore_game(bogus, err));
