@@ -109,6 +109,30 @@ extern void a5run_undo_forget (a5_run_t *run);
    to re-orient the player after a successful UNDO.  Caller frees. */
 extern char *a5run_look (a5_run_t *run);
 
+/* Undo-stack export/import, for the Spatterlight autosave: the stack entries
+   are plain serialised snapshots (a5run_save buffers) plus the parallel
+   turn-output texts, so they can be written into the autosave file and pushed
+   back after an autorestore.  a5run_undo_peek indexes oldest-first and returns
+   NULL past the end; a5run_undo_push_blob appends as the newest entry
+   (dropping the oldest at the depth cap, like a5run_snapshot).  The last
+   processed turn's composed output (the runner's sTurnOutput, replayed by a
+   post-game-over UNDO) crosses over separately via a5run_get/set_turn_text. */
+extern int         a5run_undo_depth (a5_run_t *run);
+extern const char *a5run_undo_peek  (a5_run_t *run, int i, size_t *len,
+                                     const char **turn_text, size_t *tt_len);
+extern void        a5run_undo_push_blob (a5_run_t *run,
+                                         const char *blob, size_t len,
+                                         const char *turn_text, size_t tt_len);
+extern void a5run_get_turn_text (a5_run_t *run, const char **text, size_t *len);
+extern void a5run_set_turn_text (a5_run_t *run, const char *text, size_t len);
+
+/* Non-zero when the next input line is a cross-turn parser continuation rather
+   than a fresh command: a pending "Which X?" disambiguation or a remembered
+   bare verb ("Take what?").  That transient state is not part of the save
+   format, so an autosave taken at such a prompt would not restore coherently
+   -- the autosave layer skips those prompts and keeps the previous save. */
+extern int a5run_input_pending (a5_run_t *run);
+
 /* Trace task matching / action execution to stderr. */
 extern int a5run_trace;
 

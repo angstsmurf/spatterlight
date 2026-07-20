@@ -824,6 +824,122 @@ scr_load_game_from_callback (scr_game game,
 
 
 /*
+ * scr_save_undo_game_to_callback()
+ * scr_load_undo_game_from_callback()
+ *
+ * Serialize and deserialize the one-turn-back undo buffer (game->undo, the
+ * newest undo point, ahead of the older ones spilled into the memo ring).
+ * Used by the Spatterlight autosave so the full undo chain survives a quit
+ * and relaunch.  Saving returns FALSE, and writes nothing, when no undo
+ * buffer is available; loading marks the buffer available on success.
+ */
+scr_bool
+scr_save_undo_game_to_callback (scr_game game,
+                                void (*callback) (void *, const scr_byte *,
+                                                  scr_int),
+                                void *opaque)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+
+  if (if_game_error (game_, "scr_save_undo_game_to_callback"))
+    return FALSE;
+
+  if (!callback)
+    {
+      scr_error ("scr_save_undo_game_to_callback: NULL callback\n");
+      return FALSE;
+    }
+  if (!game_->undo_available)
+    return FALSE;
+
+  try
+    {
+      ser_save_game (game_->undo, callback, opaque);
+      return TRUE;
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_save_undo_game_to_callback", error);
+      return FALSE;
+    }
+}
+
+scr_bool
+scr_load_undo_game_from_callback (scr_game game,
+                                  scr_int (*callback) (void *, scr_byte *,
+                                                       scr_int),
+                                  void *opaque)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+  scr_bool status = FALSE;
+
+  if (if_game_error (game_, "scr_load_undo_game_from_callback"))
+    return FALSE;
+
+  if (!callback)
+    {
+      scr_error ("scr_load_undo_game_from_callback: NULL callback\n");
+      return FALSE;
+    }
+
+  try
+    {
+      status = ser_load_game (game_->undo, callback, opaque);
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal ("scr_load_undo_game_from_callback", error);
+      return FALSE;
+    }
+
+  /*
+   * Re-point the undo game's sibling references.  In normal play every
+   * gs_copy() into the undo buffer comes from game->temporary, whose
+   * temporary/undo pointers were copied from the main game -- so the undo
+   * game's own undo field points at itself.  ser_load_game() instead
+   * preserved whatever the freshly created undo game held (NULL), and a
+   * later "undo" would gs_copy() that NULL into the main game's pointers.
+   */
+  if (status)
+    {
+      game_->undo->temporary = game_->temporary;
+      game_->undo->undo = game_->undo;
+      game_->undo->undo_available = FALSE;
+      /* The buffered state was captured mid-play, and lib_cmd_undo's
+       * gs_copy() propagates is_running into the main game -- but
+       * ser_load_game() leaves it cleared, which would end the session on
+       * the first undo. */
+      game_->undo->is_running = TRUE;
+    }
+  game_->undo_available = status;
+  return status;
+}
+
+
+/*
+ * scr_note_resources_synced()
+ *
+ * Consider the game's currently requested sound and graphic as already
+ * playing and displayed, so the next res_sync_resources() call starts and
+ * stops nothing.  Used after a Spatterlight autorestore: the app resumes an
+ * interrupted sound from its own GUI snapshot and restores the graphics
+ * window pixels itself, so the interpreter must not replay them.
+ */
+void
+scr_note_resources_synced (scr_game game)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+
+  if (if_game_error (game_, "scr_note_resources_synced"))
+    return;
+
+  game_->playing_sound = game_->requested_sound;
+  game_->displayed_graphic = game_->requested_graphic;
+  game_->stop_sound = FALSE;
+}
+
+
+/*
  * scr_free_game()
  *
  * Called by the OS-specific layer to free run context memory.

@@ -797,6 +797,7 @@
 		C396E8F12732B2CE0090B5DF /* quest4.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E8EF2732B2CE0090B5DF /* quest4.c */; };
 		C3A51F00000000000000000E /* quest5.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F00000000000000000F /* quest5.c */; };
 		C3A51F0000000000000000A1 /* geasglk-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000A2 /* geasglk-autosave.mm */; };
+		C3A51F0000000000000000B1 /* scarier-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000B2 /* scarier-autosave.mm */; };
 		C3998E2526C97A87002C1E5D /* Shades of Gray command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */; };
 		C3998E2A26C97B16002C1E5D /* Guilty Bastards command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2926C97B15002C1E5D /* Guilty Bastards command script.txt */; };
 		C3998E2E26C9836E002C1E5D /* Level 9 command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E2D26C9836E002C1E5D /* Level 9 command script.txt */; };
@@ -3391,6 +3392,8 @@
 		C3A51F00000000000000000F /* quest5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest5.c; sourceTree = "<group>"; };
 		C3A51F0000000000000000A2 /* geasglk-autosave.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "geasglk-autosave.mm"; sourceTree = "<group>"; };
 		C3A51F0000000000000000A3 /* geasglk-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "geasglk-autosave.h"; sourceTree = "<group>"; };
+		C3A51F0000000000000000B2 /* scarier-autosave.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "scarier-autosave.mm"; sourceTree = "<group>"; };
+		C3A51F0000000000000000B3 /* scarier-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "scarier-autosave.h"; sourceTree = "<group>"; };
 		C3983D872F62CE4600717789 /* SpatterlightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpatterlightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		C3998E2426C97A87002C1E5D /* Shades of Gray command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Shades of Gray command script.txt"; sourceTree = "<group>"; };
@@ -4270,6 +4273,8 @@
 				A16591AA3CA68885CF7C3D4E /* sclocale.cpp */,
 				7044549A9EFF7192B123BF36 /* scdebug.cpp */,
 				682A6ED470E4107F583B7D84 /* os_glk.cpp */,
+				C3A51F0000000000000000B3 /* scarier-autosave.h */,
+				C3A51F0000000000000000B2 /* scarier-autosave.mm */,
 				MAPDRAW00000000000000002 /* mapdraw.cpp */,
 				C331B95630069635008F8BD9 /* scmap.h */,
 				SCMAP000000000000000002 /* scmap.cpp */,
@@ -8083,6 +8088,7 @@
 				263A07091928C89161E1C435 /* sclocale.cpp in Sources */,
 				25802386D7FED0D3FDF606C6 /* scdebug.cpp in Sources */,
 				4E500535C637C160734FA425 /* os_glk.cpp in Sources */,
+				C3A51F0000000000000000B1 /* scarier-autosave.mm in Sources */,
 				BC8473362F031B0E9CE638B8 /* a5blorb.cpp in Sources */,
 				40A619690435E0E3210987DB /* a5deobf.cpp in Sources */,
 				888ADA60DD7D269F7DC216A3 /* a5xml.cpp in Sources */,

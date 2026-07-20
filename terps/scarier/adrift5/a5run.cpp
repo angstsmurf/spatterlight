@@ -3612,6 +3612,67 @@ a5run_undo (a5_run_t *run)
   return 1;
 }
 
+/* Undo-stack export/import for the Spatterlight autosave (see a5run.h).  The
+   entries are the raw snapshot/turn-text strings, oldest first. */
+int
+a5run_undo_depth (a5_run_t *run)
+{
+  return run == NULL ? 0 : (int) run->undo_stack.size ();
+}
+
+const char *
+a5run_undo_peek (a5_run_t *run, int i, size_t *len,
+                 const char **turn_text, size_t *tt_len)
+{
+  if (run == NULL || i < 0 || (size_t) i >= run->undo_stack.size ())
+    return NULL;
+  *len = run->undo_stack[(size_t) i].size ();
+  *turn_text = run->undo_turn_text[(size_t) i].data ();
+  *tt_len = run->undo_turn_text[(size_t) i].size ();
+  return run->undo_stack[(size_t) i].data ();
+}
+
+void
+a5run_undo_push_blob (a5_run_t *run, const char *blob, size_t len,
+                      const char *turn_text, size_t tt_len)
+{
+  if (run == NULL || blob == NULL)
+    return;
+  if (run->undo_stack.size () >= A5_UNDO_DEPTH)
+    {
+      run->undo_stack.erase (run->undo_stack.begin ());
+      run->undo_turn_text.erase (run->undo_turn_text.begin ());
+    }
+  run->undo_stack.push_back (std::string (blob, len));
+  run->undo_turn_text.push_back (std::string (turn_text == NULL ? "" : turn_text,
+                                              turn_text == NULL ? 0 : tt_len));
+}
+
+void
+a5run_get_turn_text (a5_run_t *run, const char **text, size_t *len)
+{
+  *text = run == NULL ? "" : run->last_turn_text.data ();
+  *len = run == NULL ? 0 : run->last_turn_text.size ();
+}
+
+void
+a5run_set_turn_text (a5_run_t *run, const char *text, size_t len)
+{
+  if (run == NULL)
+    return;
+  run->last_turn_text.assign (text == NULL ? "" : text,
+                              text == NULL ? 0 : len);
+}
+
+/* Is the next input line a cross-turn parser continuation (pending
+   disambiguation or remembered verb)?  See a5run.h. */
+int
+a5run_input_pending (a5_run_t *run)
+{
+  return run != NULL
+         && (run->amb_active || !run->remembered_verb.empty ());
+}
+
 /* Render the current room view as a standalone piece of display text -- the
    stock Look task's view (darkness override and Look-aggregate segments
    included) run through the normal end-of-turn pipeline (ALRs, deferred

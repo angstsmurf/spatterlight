@@ -44,7 +44,54 @@ extern "C" {
 }
 
 #if defined (SPATTERLIGHT)
-extern "C" glui32 gli_determinism;
+/* Spatterlight autosave/autorestore (scarier-autosave.mm).  glkimp.h brings
+ * the full window/stream/channel structs -- the autosave carries their
+ * serialization tags -- plus gli_determinism; randomness.h the shared
+ * erkyrath RNG, whose exact state rides along so deterministic randomness
+ * continues across an autorestore. */
+extern "C" {
+#include "glkimp.h"
+#include "randomness.h"
+}
+#include "scarier-autosave.h"
+
+/* Autosave at a top-level command prompt (both engines), and the engine
+ * state containers; defined with the rest of the autosave support further
+ * down, after the Glk object globals they stash. */
+static void gsc_autosave (void);
+static bool gsc_sc_apply_all (const std::string &data);
+static bool gsc_a5_apply_all (const std::string &data);
+
+/*
+ * gsc_autorestore_wanted()
+ *
+ * True when this session is about to autorestore, i.e. no window may be
+ * opened before the restore replaces the Glk library state.
+ *
+ * The restore adopts the archived windows wholesale (gli_replace_window_list),
+ * which first CLOSES whatever windows this process has already opened.  On
+ * the host side an open during an autorestore is harmless -- it hands back
+ * the window it already rebuilt from its GUI snapshot rather than making a
+ * second one -- but the matching close is not: it deletes that restored
+ * window for good, and the adopted library never opens it again.  A window
+ * this process re-creates at boot is therefore a window the player loses:
+ * with the map pane open only the map came back (the one window boot does
+ * not touch), and with it closed, nothing did.
+ *
+ * So both engines gate every startup glk_window_open on this and let the
+ * archive supply the windows instead.
+ */
+static int
+gsc_autorestore_wanted (void)
+{
+  return scarier_autosave_exists ();
+}
+/* Set after a successful autorestore: the restored transcript already ends
+ * with the old prompt, so the next prompt print is skipped once. */
+static int gsc_autorestored = 0;
+/* Set around the debugger's read; a debug prompt is mid-turn, not a state
+ * worth autosaving. */
+static int gsc_in_debug_read = 0;
 #endif
 
 #ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
@@ -2133,6 +2180,10 @@ os_stop_sound (void)
  */
 static winid_t gsc_graphics_window = NULL;
 static glui32 gsc_title_image = 0;
+/* The title image's chunk in the game file, so an autorestore can re-load it
+   into the app-side image cache (the cache does not survive a relaunch). */
+static scr_int gsc_title_offset = 0;
+static scr_int gsc_title_length = 0;
 static int gsc_seen_input = FALSE;
 
 /*
@@ -2279,7 +2330,11 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
     win_loadimage ((int) id, gli_game_path, (int) offset, (int) length);
 
   if (!gsc_seen_input && gsc_show_title_graphic (id))
-    return;
+    {
+      gsc_title_offset = offset;
+      gsc_title_length = length;
+      return;
+    }
 
   gsc_draw_inline_graphic (id);
 }
@@ -3561,7 +3616,23 @@ os_read_line (scr_char *buffer, scr_int length)
      are in and grows as you explore, so it is redrawn at every prompt. */
   gsc_map_redraw ();
 
+#ifdef SPATTERLIGHT
+  if (gsc_autorestored)
+    /* The restored transcript already ends with the old prompt; skip
+       printing another and just take input. */
+    gsc_autorestored = FALSE;
+  else
+    {
+      glk_put_string (">");
+      /* Autosave at every top-level prompt: after the prompt is printed (so
+         the GUI snapshot ends with it) but before input is requested (so
+         the archived windows carry no pending request and a restore
+         re-enters cleanly right here). */
+      gsc_autosave ();
+    }
+#else
   glk_put_string (">");
+#endif
 
   /* A walk set going by a click on the map supplies the next direction itself,
      in place of reading one from the player.  Echo it so the transcript reads
@@ -3703,10 +3774,20 @@ os_read_line (scr_char *buffer, scr_int length)
 scr_bool
 os_read_line_debug (scr_char *buffer, scr_int length)
 {
+  scr_bool status;
+
   gsc_output_silence_help_hints ();
   gsc_reset_glk_style ();
   glk_put_string ("[SCARIER debug]");
-  return os_read_line (buffer, length);
+#ifdef SPATTERLIGHT
+  /* A debugger prompt is mid-turn: not a state worth autosaving. */
+  gsc_in_debug_read = TRUE;
+#endif
+  status = os_read_line (buffer, length);
+#ifdef SPATTERLIGHT
+  gsc_in_debug_read = FALSE;
+#endif
+  return status;
 }
 
 
@@ -4219,11 +4300,19 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
                   scr_uint trace_flags, scr_bool enable_debugger,
                   scr_bool stable_random, const scr_char *locale)
 {
-  winid_t window;
+  winid_t window = NULL;
   assert (game_stream);
 
   /* Open a temporary Glk main window. */
-  window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+#ifdef SPATTERLIGHT
+  /* Not when an autorestore is coming: during one the host has already
+     rebuilt its windows from its GUI snapshot, and a window this process
+     opens and closes takes the host's restored window of the same peer id
+     down with it (the host reuses an existing peer on open, but a close is
+     unconditional).  See gsc_autorestore_wanted. */
+  if (!gsc_autorestore_wanted ())
+#endif
+    window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
   if (window)
     {
       /* Clear and initialize the temporary window. */
@@ -4389,6 +4478,13 @@ static void
 gsc_main (void)
 {
   scr_bool is_running;
+  int autorestore = FALSE;
+
+#ifdef SPATTERLIGHT
+  /* A failed game load has no state to restore onto, and needs a window to
+     report itself in -- take the normal path and print the complaint. */
+  autorestore = gsc_game != NULL && gsc_autorestore_wanted ();
+#endif
 
   /* Ensure SCARIER internal types have the right sizes. */
   if (!(sizeof (scr_byte) == 1 && sizeof (scr_char) == 1
@@ -4412,40 +4508,49 @@ gsc_main (void)
                      stylehint_Justification, stylehint_just_Centered);
   glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
 
-  /* Create the Glk window, and set its stream as the current one. */
-  gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
-  if (!gsc_main_window)
-    {
-      gsc_fatal ("GLK: Can't open main window");
-      glk_exit ();
-    }
-  glk_window_clear (gsc_main_window);
-  glk_set_window (gsc_main_window);
-  glk_set_style (style_Normal);
-
-  /* If there's a problem with the game file, complain now. */
-  if (!gsc_game)
-    {
-      assert (gsc_game_message);
-      gsc_header_string ("Glk SCARIER Error\n\n");
-      gsc_normal_string (gsc_game_message);
-      gsc_normal_char ('\n');
-      glk_exit ();
-    }
-
-  /* Try to create a one-line status window.  We can live without it. */
   glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
-  gsc_status_window = glk_window_open (gsc_main_window,
-                                       winmethod_Above | winmethod_Fixed,
-                                       1, wintype_TextGrid, 0);
+
+  /* Create the Glk window, and set its stream as the current one.  An
+     autorestore adopts the archived windows below instead: opening any here
+     would cost the player the host's restored ones (see
+     gsc_autorestore_wanted). */
+  if (!autorestore)
+    {
+      gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+      if (!gsc_main_window)
+        {
+          gsc_fatal ("GLK: Can't open main window");
+          glk_exit ();
+        }
+      glk_window_clear (gsc_main_window);
+      glk_set_window (gsc_main_window);
+      glk_set_style (style_Normal);
+
+      /* If there's a problem with the game file, complain now. */
+      if (!gsc_game)
+        {
+          assert (gsc_game_message);
+          gsc_header_string ("Glk SCARIER Error\n\n");
+          gsc_normal_string (gsc_game_message);
+          gsc_normal_char ('\n');
+          glk_exit ();
+        }
+
+      /* Try to create a one-line status window.  We can live without it. */
+      gsc_status_window = glk_window_open (gsc_main_window,
+                                           winmethod_Above | winmethod_Fixed,
+                                           1, wintype_TextGrid, 0);
+    }
 
   /* Does the game define a MAP verb of its own?  If so it keeps it, and the
      map pane is reached with "glk map" instead. */
   gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
 
   /* Mention any assists switched on automatically for this known game (see
-     gsc_apply_known_game_assists), and how to get faithful behaviour back. */
-  if (gsc_combat_assist_auto || gsc_move_assist_auto)
+     gsc_apply_known_game_assists), and how to get faithful behaviour back.
+     Not on an autorestore: the note is already in the restored transcript,
+     and there is no window to print it to yet. */
+  if (!autorestore && (gsc_combat_assist_auto || gsc_move_assist_auto))
     {
       gsc_normal_char ('[');
       gsc_normal_string (gsc_assist_auto_reason
@@ -4469,13 +4574,48 @@ gsc_main (void)
                          " behaviour.]\n\n");
     }
 
+#ifdef SPATTERLIGHT
+  /* When a Spatterlight autosave exists, replace the whole state -- engine
+     and Glk library both -- with the saved one before entering the
+     interpreter loop.  The game was already created at startup; loading the
+     saved state marks the player's room seen, so run_main_loop skips the
+     intro and drops straight to the command prompt, where os_read_line
+     skips one prompt print (the restored transcript already ends with it).
+     The app restores the window contents from its own GUI snapshot; no
+     window has been opened above, so the restored library supplies them. */
+  if (autorestore)
+    {
+      std::string data;
+      bool restored = scarier_autosave_read_game (&data)
+                      && gsc_sc_apply_all (data)
+                      && scarier_autosave_restore_library ();
+      if (!restored)
+        {
+          /* Bad autosave (now deleted): restart in a fresh process rather
+             than continue from a polluted boot. */
+          scarier_autosave_discard ();
+          win_reset ();
+          exit (0);
+        }
+      /* The app resumes any interrupted sound and restores the graphics
+         window pixels itself; the engine must not replay them. */
+      scr_note_resources_synced (gsc_game);
+      glk_set_window (gsc_main_window);
+      glk_set_style (style_Normal);
+      gsc_autorestored = TRUE;
+    }
+#endif
+
   /* Repeat the game until no more restarts requested. */
   is_running = TRUE;
   while (is_running)
     {
 #ifdef SPATTERLIGHT
-      /* Each (re)start replays the intro, so allow the title window again. */
-      gsc_seen_input = FALSE;
+      /* Each (re)start replays the intro, so allow the title window again
+         -- except on the autorestore pass, whose title-window state was
+         just recovered from the archive. */
+      if (!gsc_autorestored)
+        gsc_seen_input = FALSE;
 #endif
       /* Run the game until it ends, or the user quits. */
       gsc_status_notify ();
@@ -4797,6 +4937,12 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                 if (a5run_is_over (gsc_a5_run))
                   return FALSE;
                 gsc_a5_put_string ("\n> ");
+#ifdef SPATTERLIGHT
+                /* The tick changed game state while we sat at the prompt;
+                   refresh the autosave (it skips itself when the
+                   autosave-on-timer preference is off). */
+                gsc_autosave ();
+#endif
                 if (ubuf != NULL)
                   glk_request_line_event_uni (gsc_main_window, ubuf, ucap,
                                               cancel.val1);
@@ -5238,6 +5384,403 @@ gsc_a5_init_resources (void)
       gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
     }
 }
+
+#ifdef SPATTERLIGHT
+/*---------------------------------------------------------------------*/
+/*  Spatterlight autosave/autorestore support                          */
+/*                                                                     */
+/*  The file/plist plumbing lives in scarier-autosave.mm (app target   */
+/*  only); this section owns everything engine-side: the state         */
+/*  containers written into autosave.glksave, the stash/recover of the */
+/*  Glk object globals above, and the per-prompt gsc_autosave().       */
+/*---------------------------------------------------------------------*/
+
+/* autosave.glksave is a small line-framed container: a magic line naming the
+   engine, then length-prefixed chunks.  Both engines carry their own state
+   serialization plus the undo history, so UNDO still works across an
+   autorestore (as Bocfel carries its save stacks in its autosave). */
+static const char *const GSC_SC_CONTAINER_MAGIC = "SCARAUTO4\n";
+static const char *const GSC_A5_CONTAINER_MAGIC = "SCARAUTO5\n";
+
+static void
+gsc_container_put_chunk (std::string &out, const char *data, size_t length)
+{
+  out += std::to_string (length);
+  out += '\n';
+  out.append (data, length);
+}
+
+/* Read "<decimal>\n<bytes>" at *pos; false on malformed framing. */
+static bool
+gsc_container_get_chunk (const std::string &data, size_t *pos,
+                         std::string *chunk)
+{
+  size_t eol = data.find ('\n', *pos);
+  if (eol == std::string::npos)
+    return false;
+  unsigned long length = strtoul (data.c_str () + *pos, NULL, 10);
+  *pos = eol + 1;
+  if (length > data.size () - *pos)
+    return false;
+  chunk->assign (data, *pos, length);
+  *pos += length;
+  return true;
+}
+
+static bool
+gsc_container_get_count (const std::string &data, size_t *pos, long *count)
+{
+  size_t eol = data.find ('\n', *pos);
+  if (eol == std::string::npos)
+    return false;
+  *count = strtol (data.c_str () + *pos, NULL, 10);
+  *pos = eol + 1;
+  return *count >= 0;
+}
+
+/* Serialization callbacks bridging the engines' byte streams to strings. */
+static void
+gsc_state_append (void *opaque, const scr_byte *buffer, scr_int length)
+{
+  ((std::string *) opaque)->append ((const char *) buffer, (size_t) length);
+}
+
+struct GscStateCursor
+{
+  const std::string *data;
+  size_t pos;
+};
+
+static scr_int
+gsc_state_read (void *opaque, scr_byte *buffer, scr_int length)
+{
+  GscStateCursor *cursor = (GscStateCursor *) opaque;
+  size_t left = cursor->data->size () - cursor->pos;
+  size_t bytes = (size_t) length < left ? (size_t) length : left;
+
+  memcpy (buffer, cursor->data->data () + cursor->pos, bytes);
+  cursor->pos += bytes;
+  return (scr_int) bytes;
+}
+
+/*
+ * gsc_sc_serialize_all()
+ * gsc_sc_apply_all()
+ *
+ * The ADRIFT <=4 container: the engine's TAS-format state, the memo undo
+ * ring (oldest first), and the one-turn-back undo buffer when available.
+ */
+static std::string
+gsc_sc_serialize_all (void)
+{
+  const scr_gameref_t game = (scr_gameref_t) gsc_game;
+  const scr_memo_setref_t memento = gs_get_memento (game);
+  std::string engine_state, undo_game;
+  scr_int ring_count, index_;
+
+  scr_save_game_to_callback (gsc_game, gsc_state_append, &engine_state);
+  if (engine_state.empty ())
+    return std::string ();
+
+  std::string out = GSC_SC_CONTAINER_MAGIC;
+  gsc_container_put_chunk (out, engine_state.data (), engine_state.size ());
+
+  ring_count = memo_get_undo_count (memento);
+  out += std::to_string ((long) ring_count);
+  out += '\n';
+  for (index_ = 0; index_ < ring_count; index_++)
+    {
+      scr_int length = 0;
+      const scr_byte *blob = memo_get_undo (memento, index_, &length);
+
+      gsc_container_put_chunk (out, (const char *) blob, (size_t) length);
+    }
+
+  if (scr_save_undo_game_to_callback (gsc_game, gsc_state_append, &undo_game)
+      && !undo_game.empty ())
+    {
+      out += "1\n";
+      gsc_container_put_chunk (out, undo_game.data (), undo_game.size ());
+    }
+  else
+    out += "0\n";
+  return out;
+}
+
+static bool
+gsc_sc_apply_all (const std::string &data)
+{
+  const scr_gameref_t game = (scr_gameref_t) gsc_game;
+  const std::string magic = GSC_SC_CONTAINER_MAGIC;
+  std::string chunk;
+  long ring_count, has_undo_game, index_;
+
+  if (data.compare (0, magic.size (), magic) != 0)
+    return false;
+  size_t pos = magic.size ();
+
+  if (!gsc_container_get_chunk (data, &pos, &chunk))
+    return false;
+  {
+    GscStateCursor cursor = { &chunk, 0 };
+    if (!scr_load_game_from_callback (gsc_game, gsc_state_read, &cursor))
+      return false;
+  }
+
+  /* A malformed or unreadable undo history just means no UNDO past the
+     restore point; the restored game state above stays good. */
+  if (!gsc_container_get_count (data, &pos, &ring_count))
+    return true;
+  for (index_ = 0; index_ < ring_count; index_++)
+    {
+      if (!gsc_container_get_chunk (data, &pos, &chunk))
+        return true;
+      memo_append_undo (gs_get_memento (game),
+                        (const scr_byte *) chunk.data (),
+                        (scr_int) chunk.size ());
+    }
+  if (!gsc_container_get_count (data, &pos, &has_undo_game))
+    return true;
+  if (has_undo_game && gsc_container_get_chunk (data, &pos, &chunk))
+    {
+      GscStateCursor cursor = { &chunk, 0 };
+      scr_load_undo_game_from_callback (gsc_game, gsc_state_read, &cursor);
+    }
+  return true;
+}
+
+/*
+ * gsc_a5_serialize_all()
+ * gsc_a5_apply_all()
+ *
+ * The ADRIFT 5 container: the engine's save XML (a5run_save, RNG state
+ * included), the last turn's composed output, and the undo snapshot stack
+ * (oldest first) with its parallel turn texts.
+ */
+static std::string
+gsc_a5_serialize_all (void)
+{
+  size_t length = 0;
+  char *blob = a5run_save (gsc_a5_run, &length);
+  const char *text;
+  size_t text_length;
+  int depth, i;
+
+  if (blob == NULL)
+    return std::string ();
+
+  std::string out = GSC_A5_CONTAINER_MAGIC;
+  gsc_container_put_chunk (out, blob, length);
+  free (blob);
+
+  a5run_get_turn_text (gsc_a5_run, &text, &text_length);
+  gsc_container_put_chunk (out, text, text_length);
+
+  depth = a5run_undo_depth (gsc_a5_run);
+  out += std::to_string ((long) depth);
+  out += '\n';
+  for (i = 0; i < depth; i++)
+    {
+      const char *turn_text;
+      size_t blob_length = 0, turn_length = 0;
+      const char *undo_blob = a5run_undo_peek (gsc_a5_run, i, &blob_length,
+                                               &turn_text, &turn_length);
+
+      gsc_container_put_chunk (out, undo_blob, blob_length);
+      gsc_container_put_chunk (out, turn_text, turn_length);
+    }
+  return out;
+}
+
+static bool
+gsc_a5_apply_all (const std::string &data)
+{
+  const std::string magic = GSC_A5_CONTAINER_MAGIC;
+  std::string chunk, turn_chunk;
+  long depth, i;
+
+  if (data.compare (0, magic.size (), magic) != 0)
+    return false;
+  size_t pos = magic.size ();
+
+  if (!gsc_container_get_chunk (data, &pos, &chunk))
+    return false;
+  if (!a5run_restore (gsc_a5_run, chunk.data (), chunk.size ()))
+    return false;
+
+  /* As on the scare side, a truncated undo tail is not fatal. */
+  if (!gsc_container_get_chunk (data, &pos, &chunk))
+    return true;
+  a5run_set_turn_text (gsc_a5_run, chunk.data (), chunk.size ());
+
+  if (!gsc_container_get_count (data, &pos, &depth))
+    return true;
+  for (i = 0; i < depth; i++)
+    {
+      if (!gsc_container_get_chunk (data, &pos, &chunk)
+          || !gsc_container_get_chunk (data, &pos, &turn_chunk))
+        return true;
+      a5run_undo_push_blob (gsc_a5_run, chunk.data (), chunk.size (),
+                            turn_chunk.data (), turn_chunk.size ());
+    }
+  return true;
+}
+
+/*
+ * gsc_stash_frontend_state()
+ * gsc_recover_frontend_state()
+ *
+ * Capture the Glk object globals as serialization tags for the library
+ * plist, and re-point them at the restored objects after the library state
+ * has been rebuilt (called from scarier-autosave.mm between the library's
+ * main and "late" restore passes).
+ */
+void
+gsc_stash_frontend_state (ScarierGlkFrontendState *st)
+{
+  int ch;
+
+  st->mainwintag = gsc_main_window ? gsc_main_window->tag : 0;
+  st->statuswintag = gsc_status_window ? gsc_status_window->tag : 0;
+  st->sidewintag = gsc_a5_side_window ? gsc_a5_side_window->tag : 0;
+  st->mapwintag = gsc_map_window ? gsc_map_window->tag : 0;
+  st->gfxwintag = gsc_graphics_window ? gsc_graphics_window->tag : 0;
+  st->transcripttag = gsc_transcript_stream ? gsc_transcript_stream->tag : 0;
+  st->inputlogtag = gsc_inputlog_stream ? gsc_inputlog_stream->tag : 0;
+  st->readlogtag = gsc_readlog_stream ? gsc_readlog_stream->tag : 0;
+  st->soundchanneltag = sound_channel ? sound_channel->tag : 0;
+  for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
+    {
+      st->a5_channeltags[ch] = gsc_a5_channels[ch]
+                               ? gsc_a5_channels[ch]->tag : 0;
+      st->a5_chan_sound[ch] = gsc_a5_chan_sound[ch];
+    }
+  st->seen_input = gsc_seen_input;
+  st->title_image = gsc_title_image;
+  st->title_offset = gsc_title_offset;
+  st->title_length = gsc_title_length;
+  st->map_shown = gsc_map_shown;
+  st->map_at_top = gsc_map_at_top;
+  st->map_zoom = gsc_map_zoom;
+
+  /* The exact RNG state (which generator is active plus the xoshiro words),
+     so a deterministic session's randomness continues where it left off. */
+  {
+    int usenative = 1;
+    glui32 *words = NULL;
+    int count = 0;
+
+    erkyrath_random_get_detstate (&usenative, &words, &count);
+    st->rng_usenative = usenative;
+    for (ch = 0; ch < 4; ch++)
+      st->rng_state[ch] = (count == 4 && words) ? words[ch] : 0;
+  }
+}
+
+void
+gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
+{
+  int ch;
+
+  gsc_main_window = gli_window_for_tag (st->mainwintag);
+  gsc_status_window = gli_window_for_tag (st->statuswintag);
+  gsc_a5_side_window = gli_window_for_tag (st->sidewintag);
+  gsc_map_window = gli_window_for_tag (st->mapwintag);
+  gsc_graphics_window = gli_window_for_tag (st->gfxwintag);
+  gsc_transcript_stream = gli_stream_for_tag (st->transcripttag);
+  gsc_inputlog_stream = gli_stream_for_tag (st->inputlogtag);
+  gsc_readlog_stream = gli_stream_for_tag (st->readlogtag);
+  sound_channel = gli_schan_for_tag (st->soundchanneltag);
+  for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
+    {
+      gsc_a5_channels[ch] = gli_schan_for_tag (st->a5_channeltags[ch]);
+      gsc_a5_chan_sound[ch] = st->a5_chan_sound[ch];
+    }
+  gsc_seen_input = st->seen_input;
+  gsc_title_image = (glui32) st->title_image;
+  gsc_title_offset = (scr_int) st->title_offset;
+  gsc_title_length = (scr_int) st->title_length;
+  /* The app-side image cache does not survive a relaunch; re-load the title
+     image chunk so a post-restore resize can still redraw the cover. */
+  if (gsc_graphics_window != NULL && gsc_title_image != 0
+      && gsc_title_length > 0 && gli_game_path != NULL
+      && !win_findimage ((int) gsc_title_image))
+    win_loadimage ((int) gsc_title_image, gli_game_path,
+                   (int) gsc_title_offset, (int) gsc_title_length);
+  gsc_map_shown = st->map_shown;
+  gsc_map_at_top = st->map_at_top;
+  gsc_map_zoom = st->map_zoom;
+  /* The restored map window holds the app's snapshot pixels, not ours:
+     force the next redraw to flush the whole surface. */
+  gsc_map_screen_drop ();
+
+  /* Restore the RNG to its saved position.  The silent autorestore boot
+     re-seeded and may have drawn from it; this puts it back exactly where
+     the autosave left it.  In native (non-deterministic) mode the flag
+     keeps the native generator selected and the words are inert. */
+  if (st->rng_usenative >= 0)
+    {
+      glui32 words[4] = { st->rng_state[0], st->rng_state[1],
+                          st->rng_state[2], st->rng_state[3] };
+      erkyrath_random_set_detstate (st->rng_usenative, words, 4);
+    }
+  /* Not stashed: gsc_map_taken, assist flags and locale are re-derived at
+     startup; the walk-in-progress state is deliberately dropped (a restored
+     session simply stops walking); gsc_map itself is authored data (ADRIFT
+     5, reloaded at boot) or rebuilt every redraw (ADRIFT 4). */
+}
+
+/* The on-disk game path, for the autosave directory's file-signature hash. */
+const char *
+gsc_autosave_game_path (void)
+{
+  return gsc_game_path;
+}
+
+/*
+ * gsc_autosave()
+ *
+ * Save the whole game state (engine container + Glk library plist), then
+ * ask the window server to snapshot the GUI under the same tag.  Called at
+ * every top-level command prompt, after the prompt is printed but before
+ * line input is requested, and again after a real-time tick that changed
+ * state and reprinted the prompt.  Skips prompts that would not restore
+ * coherently: engine-level ones (a pending disambiguation), the pre-intro
+ * name/gender prompts, and the debugger's.
+ */
+static void
+gsc_autosave (void)
+{
+  std::string state;
+
+  if (gsc_in_debug_read || !scarier_autosave_wanted ())
+    return;
+  if (gsc_is_a5)
+    {
+      if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run)
+          || a5run_input_pending (gsc_a5_run))
+        return;
+      state = gsc_a5_serialize_all ();
+    }
+  else
+    {
+      const scr_gameref_t game = (scr_gameref_t) gsc_game;
+
+      if (gsc_game == NULL || !scr_is_game_running (gsc_game))
+        return;
+      /* Not seen the player's room yet = still inside the startup block
+         (the "Please enter your name" prompt): resuming there would replay
+         the intro over the restored transcript. */
+      if (!gs_room_seen (game, gs_playerroom (game)))
+        return;
+      state = gsc_sc_serialize_all ();
+    }
+  if (!state.empty ())
+    scarier_autosave_write (state);
+}
+
+#endif /* SPATTERLIGHT */
+
 
 /*
  * gsc_a5_draw_image()
@@ -6227,6 +6770,11 @@ gsc_a5_main (void)
   a5_run_t *&run = gsc_a5_run;
   char *text;
   char input[1024];
+  int autorestore = FALSE;
+
+#ifdef SPATTERLIGHT
+  autorestore = gsc_autorestore_wanted ();
+#endif
 
   /* Centered-text styles, as in gsc_main: User1 centered, User2 centered
      bold.  The a5 renderer strips <b>, so only User1 is used here, but keep
@@ -6236,23 +6784,29 @@ gsc_a5_main (void)
   glk_stylehint_set (wintype_TextBuffer, style_User2,
                      stylehint_Justification, stylehint_just_Centered);
   glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
-
-  gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
-  if (!gsc_main_window)
-    {
-      gsc_fatal ("GLK: Can't open main window");
-      glk_exit ();
-    }
-  glk_window_clear (gsc_main_window);
-
   /* One-line reverse-video status window above the story window. */
   glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
-  gsc_status_window = glk_window_open (gsc_main_window,
-                                       winmethod_Above | winmethod_Fixed,
-                                       1, wintype_TextGrid, 0);
 
-  glk_set_window (gsc_main_window);
-  glk_set_style (style_Normal);
+  /* An autorestore adopts the archived windows further down instead: opening
+     any here would cost the player the host's restored ones (see
+     gsc_autorestore_wanted). */
+  if (!autorestore)
+    {
+      gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+      if (!gsc_main_window)
+        {
+          gsc_fatal ("GLK: Can't open main window");
+          glk_exit ();
+        }
+      glk_window_clear (gsc_main_window);
+
+      gsc_status_window = glk_window_open (gsc_main_window,
+                                           winmethod_Above | winmethod_Fixed,
+                                           1, wintype_TextGrid, 0);
+
+      glk_set_window (gsc_main_window);
+      glk_set_style (style_Normal);
+    }
 
   /* Present turns interactively: keep <cls>/<waitkey>/<img> as positional
      marks in the turn text (a5text.h) so gsc_a5_display can page an intro
@@ -6295,12 +6849,56 @@ gsc_a5_main (void)
       gsc_map_taken = a5map_command_taken (gsc_a5_adv);
     }
 
+#ifdef SPATTERLIGHT
+  /* When a Spatterlight autosave exists, boot the world silently to where a
+     manual RESTORE would find it (the intro's task and RNG side effects
+     included, its text discarded), then replace the whole state -- engine
+     and Glk library both -- with the saved one.  The app restores the
+     window contents from its own GUI snapshot; the loop below skips one
+     prompt print (the restored transcript already ends with it).  No window
+     has been opened yet -- the restored library supplies them all. */
+  if (autorestore)
+    {
+      std::string data;
+      bool restored;
+
+      text = a5run_intro (run);
+      free (text);
+      restored = scarier_autosave_read_game (&data)
+                 && gsc_a5_apply_all (data)
+                 && scarier_autosave_restore_library ();
+      if (!restored)
+        {
+          /* Bad autosave (now deleted).  The silent boot above already
+             consumed the game's intro, so restart in a fresh process
+             rather than continue from a polluted state. */
+          scarier_autosave_discard ();
+          win_reset ();
+          exit (0);
+        }
+      glk_set_window (gsc_main_window);
+      glk_set_style (style_Normal);
+      /* Re-arm or cancel the real-time timer per the current preferences
+         (the library's late pass re-armed whatever interval was archived);
+         then repaint the live-state panes.  Sounds are the app's business:
+         it resumes them from its own snapshot, so none are replayed here. */
+      gsc_a5_start_real_time (run);
+      gsc_a5_status (run);
+      gsc_map_redraw ();
+      gsc_autorestored = TRUE;
+    }
+  else
+    {
+#endif
   text = a5run_intro (run);
   gsc_a5_display (text);
   free (text);
   gsc_a5_present_intro_media (run);
   gsc_a5_status (run);
   gsc_map_redraw ();
+#ifdef SPATTERLIGHT
+    }
+#endif
 
   for (;;)
     {
@@ -6384,7 +6982,23 @@ gsc_a5_main (void)
       /* If a "help" request was noted last turn, hint at "glk help". */
       gsc_output_provide_help_hint ();
 
+#ifdef SPATTERLIGHT
+      if (gsc_autorestored)
+        /* The restored transcript already ends with the old prompt; skip
+           printing another and just take input. */
+        gsc_autorestored = FALSE;
+      else
+        {
+          gsc_a5_put_string ("\n> ");
+          /* Autosave at every top-level prompt: after the prompt is printed
+             (so the GUI snapshot ends with it) but before input is
+             requested (so the archived windows carry no pending request and
+             a restore re-enters cleanly right here). */
+          gsc_autosave ();
+        }
+#else
       gsc_a5_put_string ("\n> ");
+#endif
       if (gsc_a5_read_line (input, sizeof input) == 0)
         continue;
 

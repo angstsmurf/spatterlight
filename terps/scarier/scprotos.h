@@ -316,6 +316,11 @@ extern void memo_save_game (scr_memo_setref_t memento, scr_gameref_t game);
 extern scr_bool memo_load_game (scr_memo_setref_t memento, scr_gameref_t game);
 extern scr_bool memo_is_load_available (scr_memo_setref_t memento);
 extern void memo_clear_games (scr_memo_setref_t memento);
+extern scr_int memo_get_undo_count (scr_memo_setref_t memento);
+extern const scr_byte *memo_get_undo (scr_memo_setref_t memento,
+                                      scr_int index_, scr_int *length);
+extern void memo_append_undo (scr_memo_setref_t memento,
+                              const scr_byte *data, scr_int length);
 extern void memo_save_command (scr_memo_setref_t memento,
                                const scr_char *command, scr_int timestamp,
                                scr_int turns);

@@ -344,6 +344,79 @@ memo_is_load_available (scr_memo_setref_t memento)
 
 
 /*
+ * memo_get_undo_count()
+ * memo_get_undo()
+ * memo_append_undo()
+ *
+ * Undo-ring export/import for the Spatterlight autosave.  The ring holds
+ * serialized games; export walks the used slots oldest first (starting at the
+ * cursor, which is the oldest entry once the ring has wrapped) WITHOUT
+ * draining them, unlike memo_load_game.  Import appends one serialized game
+ * as the newest entry, exactly as memo_save_game would.
+ */
+scr_int
+memo_get_undo_count (scr_memo_setref_t memento)
+{
+  scr_int index_, count;
+  assert (memo_is_valid (memento));
+
+  count = 0;
+  for (index_ = 0; index_ < MEMO_UNDO_TABLE_SIZE; index_++)
+    {
+      if (memento->memo[index_].length > 0)
+        count++;
+    }
+  return count;
+}
+
+const scr_byte *
+memo_get_undo (scr_memo_setref_t memento, scr_int index_, scr_int *length)
+{
+  scr_int slot, seen;
+  assert (memo_is_valid (memento));
+
+  /* The index_'th used slot, oldest first, scanning forwards from the
+   * cursor (the next slot to be written, so also the oldest when full). */
+  seen = 0;
+  for (slot = 0; slot < MEMO_UNDO_TABLE_SIZE; slot++)
+    {
+      scr_memoref_t memo;
+
+      memo = memento->memo
+             + (memento->memo_cursor + slot) % MEMO_UNDO_TABLE_SIZE;
+      if (memo->length > 0)
+        {
+          if (seen == index_)
+            {
+              *length = memo->length;
+              return memo->serialized_game;
+            }
+          seen++;
+        }
+    }
+  *length = 0;
+  return NULL;
+}
+
+void
+memo_append_undo (scr_memo_setref_t memento,
+                  const scr_byte *data, scr_int length)
+{
+  scr_memoref_t memo;
+  assert (memo_is_valid (memento));
+
+  if (!data || length <= 0)
+    return;
+
+  memo = memento->memo + memento->memo_cursor;
+  memo->length = 0;
+  memo_save_game_callback (memo, data, length);
+  memento->memo_cursor++;
+  memento->memo_cursor %= MEMO_UNDO_TABLE_SIZE;
+}
+
+
+/*
  * memo_clear_games()
  *
  * Forget the memos of saved games.

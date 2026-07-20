@@ -121,6 +121,15 @@ extern void scr_save_game_to_callback (scr_game game,
 extern scr_bool scr_load_game_from_filename (scr_game game,
                                            const scr_char *filename);
 extern scr_bool scr_load_game_from_stream (scr_game game, FILE *stream);
+extern scr_bool scr_save_undo_game_to_callback (scr_game game,
+                                       void (*callback)
+                                       (void *, const scr_byte *, scr_int),
+                                       void *opaque);
+extern scr_bool scr_load_undo_game_from_callback (scr_game game,
+                                       scr_int (*callback)
+                                       (void *, scr_byte *, scr_int),
+                                       void *opaque);
+extern void scr_note_resources_synced (scr_game game);
 extern scr_bool scr_load_game_from_callback (scr_game game,
                                            scr_int (*callback)
                                            (void *, scr_byte *, scr_int),
