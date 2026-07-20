@@ -63,8 +63,8 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest — 63 driven rows: each of the 26 games with
-a walkthrough mapped to its walkthrough file and an extractor mode, plus 36
+`corpus.tsv` is the curated manifest — 64 driven rows: each of the 26 games with
+a walkthrough mapped to its walkthrough file and an extractor mode, plus 37
 override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
@@ -108,7 +108,7 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**63 games driven** — **53 `Finished`**, **10 `Running`**, **0 `Wedged`**.
+**64 games driven** — **54 `Finished`**, **10 `Running`**, **0 `Wedged`**.
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
 its absence is not a loss: **9 of the 10 `Running` rows are genuine wins in games
@@ -132,8 +132,8 @@ remain: the six games whose walkthroughs are Q&A/prose
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
-the hints against the game source). Fifty-three of the 62 rows are driven by curated
-`overrides/` (see next section) — all 36 `-` rows plus 17 of the 26 rows that do
+the hints against the game source). Fifty-four of the 64 rows are driven by curated
+`overrides/` (see next section) — all 37 `-` rows plus 17 of the 26 rows that do
 have a walkthrough; the remaining nine run the raw walkthrough through the
 extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
 walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
@@ -190,9 +190,23 @@ still go on?"))`); before `ask_provider` existed, the native engine reported
 oracle drove it fine. As with the `ask` statement, the caption is *not* printed by
 the engine — rendering the yes/no prompt is host presentation.
 
+### Parameterless calls to functions that take parameters
+
+Quest checks a procedure's arity *before* running its body, so a bare
+`LockExit` (no argument) fails as `No parameters passed to LockExit function -
+expected 1 parameters` rather than dying inside the body on an unbound name.
+`WorldModel.RunProcedureAsync` raises it for ASL 520 and later. The native
+engine had no such check: it bound nothing, ran the body, and reported
+`Unknown object or variable 'exit'` instead — a one-line transcript divergence,
+found by *Fountain of Eternal Youth*, whose red pedestal initialises with
+exactly that bare call. `Interp::call_function` now mirrors the check. (The
+sibling `Too many` / `Too few parameters passed` errors come from
+`FunctionCallScript`, i.e. calls written *with* parentheses, and are not
+implemented — no corpus game reaches one.)
+
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 63 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 64 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch

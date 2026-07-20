@@ -2835,6 +2835,16 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
     }
     Context local;
     const Value *pn = fn->field("paramnames");
+    // A parameterless call to a function that declares parameters is an error
+    // from ASL 520 on (WorldModel.RunProcedureAsync). Quest checks this here
+    // rather than letting the body fail on the unbound name, so the message the
+    // player sees names the function, not the missing variable — mirror that or
+    // the transcript diverges (Fountain of Eternal Youth's bare `LockExit`).
+    if (args.empty() && pn && !pn->list().empty() && world_.asl_version >= 520) {
+        error("No parameters passed to " + name + " function - expected " +
+              std::to_string(pn->list().size()) + " parameters");
+        return vnull();
+    }
     if (pn) {
         for (size_t i = 0; i < pn->list().size() && i < args.size(); ++i)
             local.locals[to_string(pn->list()[i])] = args[i];

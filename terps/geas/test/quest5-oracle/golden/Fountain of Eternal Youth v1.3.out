@@ -1,0 +1,165 @@
+Fountain of Eternal Youth
+
+Error running script: No parameters passed to LockExit function - expected 1 parameters
+An Entrance to the Maze
+You stand at the entrance to a dark and foreboding maze. To the North a sandstone passegeway leads into the maze itself. You are surrounded by writhing vines and dense greenery that block all other exits. Nestled in the moss that carpets the ground lie a large boulder with an elaborately decorated plaque and a battered brass lantern. Beside the entrance to the passageway is a pine wood bookshelf.
+> take lantern
+
+> take lantern
+You pick it up.
+> switch on lantern
+
+> switch on lantern
+The lantern turns on and emits a slight puff of smoke. It emits a wide radius of yellow light.
+> north
+
+> north
+
+A Sandstone Passageway
+An eery dark sandstone passageway. To your South you can see outside to the entrance to the maze. To your North you can see a large room. The chute downwards lies open.
+The light from the lantern allows you to easily detect and avoid a wooden downwards chute when it is revealed  in the middle of the passageway by an opening trapdoor.
+> down
+
+> down
+
+A Worm Tunnel
+You are in a damp tunnel lit only by sporadic luminscent fungi which continues to the South, NorthEast, and West. The tunnel is haphazardly carved through a dense spongy soil. You can hear a foreboding rumbling and you can barely make out a gigantic shape hidden in the darkness to your West.
+> take fungi
+
+> take fungi
+You gather the glowing fungi and carefully wipe the sticky fluid off of your fingers.
+> northeast
+
+> northeast
+
+A Worm Tunnel
+You can see a shovel.
+You are in a damp tunnel lit only by sporadic luminscent fungi which continues to the South and SouthWest. The tunnel is haphazardly carved through a dense spongy soil. Here and there roots stick out of the roof and dangle in front of you.
+> take shovel
+
+> take shovel
+You pick it up.
+> south
+
+> south
+
+A Worm Tunnel
+You are in a damp, dark tunnel which continues to the North and South. The tunnel is haphazardly carved through a dense spongy soil.
+Here and there roots stick out of the roof and dangle in front of you. A set of stairs leading upwards is blocked by an avalanche of dirt.
+> south
+
+> south
+
+A Worm Tunnel
+You are in a damp dark tunnel which continues to the NorthWest, North, and East. The tunnel is haphazardly carved through a dense spongy soil.
+> east
+
+> east
+
+A Worm Tunnel
+You can see a helmet and a sword.
+You are in a damp tunnel lit only by sporadic luminscent fungi. This tunnel is a dead end and the only exit is to the West. The tunnel is haphazardly carved through a dense spongy soil. Here and there roots stick out of the roof and dangle in front of you. A human skeleton lies slumped against the wall. The skeleton is wearing a tattered loincloth.
+> take sword
+
+> take sword
+You pick it up.
+> take helmet
+
+> take helmet
+You pick it up.
+> cut roots with sword
+
+> cut roots with sword
+You slash the roots with your short sword and deftly wrench them out of the dirt.
+> west
+
+> west
+
+A Worm Tunnel
+You are in a damp dark tunnel which continues to the NorthWest, North, and East. The tunnel is haphazardly carved through a dense spongy soil.
+> north
+
+> north
+
+A Worm Tunnel
+You are in a damp, dark tunnel which continues to the North and South. The tunnel is haphazardly carved through a dense spongy soil.
+Here and there roots stick out of the roof and dangle in front of you. A set of stairs leading upwards is blocked by an avalanche of dirt.
+> dig dirt with shovel
+
+> dig dirt with shovel
+You succesfully dig away the avalanche revealing the path into daylight.
+> up
+
+> up
+
+A West Garden
+You are standing in a resplendent graden. The carefully curated flower beds are marvelous to behold. Just a few of the flowers you can see include chrysanthemums, red orchids, pointesettias, roses, poppies, hybiscuses, petunias, and many more. The garden is ringed by tall green hedges, with an exit to the NorthEast. In the middle of the graden stands a simple yet elegant statue. The statue depicts a father standing lovingly beside his son. The father is wearing a battered iron helmet that reads "Alexios Angelos II". The son has a vacant look on his face and the father appears to be searching wistfully. Tightly clenched in the fathers other hand is a brilliant red ruby.
+> give helmet to statue
+
+> give helmet to statue
+The statue of the father gratefully accepts the helmet and places it tenderly on his sons head. His son's vacant look disappears and is replaced with an expression of pure gratitude and joy. The father smiles at you and hands you his ruby.
+> northeast
+
+> northeast
+
+A North Garden
+You are standing in a resplendent graden. The carefully curated flower beds are marvelous to behold. Just a few of the flowers you can see include periwinkles, hydrangeas, forget-me-not's, columbines, lupines, himalayan blue poppies, and many more. The garden is ringed by tall green hedges, with exits to the SouthEast, SouthWest. There is also an enormous steel door to the North with three pedestals arrayed in front of it. The first pedestal glows a vibrant red, the second pedestal glows a vibrant blue, and the third pedestal glows a vibrant yellow. In the middle of the graden a small plum tree laden down with a bountiful harvest grows.
+As you marvel at the magnificent garden, an old and wizened hag steps forth from the shadows. She is clothed in many layers of foul cloth and leather. Her wizened face is shrunken deep into the cavernous folds of her clothing and she gimly clutches a gnarled staff. Atop the staff sits a beautiful blue saphire.
+"If you can bring me what I ask of I just may let you borrow my jewel." the hag croaks. "Bring me what the small folk eat, and the big folk's mouths. Simply place them in my cauldron here, deary."
+With a wave of her hand the hag creates a black iron cauldron and shuffles off into the shadows.
+> take plums
+
+> take plums
+Please choose which 'plums' you mean:
+1: plums
+2: plums
+3: plums
+4: plums
+> 1
+You pick it up.
+> put fungi in cauldron
+
+> put fungi in cauldron
+Done.
+> put roots in cauldron
+
+> put roots in cauldron
+Done.
+The cauldron shakes and the contents inside begin to froth wildly. Suddenly it disappears and you can hear a diembodied voice cackle "Very good... hem, very good!" The sapphire you had seen earlier on the witches staff materialises out of thin air and drops into your hands.
+> southeast
+
+> southeast
+
+An East Garden
+You are standing in a resplendent graden. The carefully curated flower beds are marvelous to behold. Just a few of the flowers you can see include marigolds, dandelions, daisies, yellow tulips, daffodils, sunflowers, begonias, and many more. The garden is ringed by tall green hedges, with an exit to the NorthWest. In the middle of the graden sits a simple yet elegant and strangely unsettling statue. The statue depicts a starving man desperately reaching out with open hands.
+> give plums to statue
+
+> give plums to statue
+The statue of the starving man grasps the plums gratefully and wolfs them down. Once he has finished he happily hands you the amber.
+> northwest
+
+> northwest
+
+A North Garden
+You are standing in a resplendent graden. The carefully curated flower beds are marvelous to behold. Just a few of the flowers you can see include periwinkles, hydrangeas, forget-me-not's, columbines, lupines, himalayan blue poppies, and many more. The garden is ringed by tall green hedges, with exits to the SouthEast, SouthWest. There is also an enormous steel door to the North with three pedestals arrayed in front of it. The first pedestal glows a vibrant red, the second pedestal glows a vibrant blue, and the third pedestal glows a vibrant yellow. In the middle of the graden a small plum tree laden down with a bountiful harvest grows.
+> put ruby in red pedestal
+
+> put ruby in red pedestal
+Done.
+> put sapphire on blue pedestal
+
+> put sapphire on blue pedestal
+Done.
+> put amber on yellow pedestal
+
+> put amber on yellow pedestal
+Done.
+All three of the jewels disappear in a flash of bright light. As your eyes recover from the shock you can see that the large steel door has disappeared, replaced with a small mound of gleaming dust.
+
+An End
+Congratulations! You have completed part one of the Fountain of Eternal Youth!
+Any criticisms or suggestions are welcome, I would very much like to improve my skills.
+Thank you very much for playing, I hope you enjoyed it!
+
+Part two coming soon!
+[state=Finished]
