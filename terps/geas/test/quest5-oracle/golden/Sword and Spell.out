@@ -1,0 +1,285 @@
+Sword and Spell
+Version 1.0
+
+by Caleb Wilson
+
+You are in  a Bedroom.
+This is your bedroom. Quite small, but it will have to do. Your desk is in the corner, with some papers on it. Your bed is beside you, and a dresser across from you.
+You can go south.
+You can see a bed and a desk.
+> look
+
+> look
+You are in  a Bedroom.
+This is your bedroom. Quite small, but it will have to do. Your desk is in the corner, with some papers on it. Your bed is beside you, and a dresser across from you.
+You can go south.
+You can see a bed and a desk.
+> x sam
+
+> x sam
+I can't see that.
+> x desk
+
+> x desk
+Your desk, covered with papers. Searching through some of the papers, you don't see anything too important. There is also a drawer on the left side
+> open desk
+
+> open desk
+You open it.
+in the drawer is  a spell page.
+> take spell page 1
+
+> take spell page 1
+You pick it up.
+> x spell page 1
+
+> x spell page 1
+Each spell page will have one word on it, the spell, and a phrase, what the spell does. This is your first spell page. It reads:
+
+"Resero"
+
+Unlocks objects or doors
+
+(must be specific with using these, except unlocking your bedroom door)
+> use spell page 1
+
+> use spell page 1
+bedroom door is now unlocked
+> south
+
+> south
+
+You are in a Hallway.
+Its a hallway... What more can I say? There's a rug and a couple paintings.
+You can go north, northwest or northeast.
+You can see a Rug.
+> northeast
+
+> northeast
+
+You are in a Kitchen.
+Your kitchen. It's dirty, dust coats most of the counters, and kitchen ware is on the floor, and some glass is shattered on one of the counters. Though it freaks you out, you don't think about it too much. You don't have time to make yourself something fancy, so you'd better find a snack. Perhaps your pantry has something you can eat?
+You can go southwest or west.
+You can see a Pantry and a Fridge.
+> west
+
+> west
+
+You are in a Dining Room.
+It's the dining room, and its a mess. You don't remember much of the events of last night, and as you explore more of your house, your beginning to wonder why its a mess, all except for your room. And now that your thinking about it more, why was your door locked? Oh well. You see your table turned, and there are some glass plates broken on the floor. Some food is flung on the walls. Wait a minute, something is missing. Where the hell are your dining chairs?!
+You can go east or northwest.
+You can see a Glass jar.
+> northwest
+
+> northwest
+
+You are in a Living Room.
+Your living room a pretty messy room, probably the worst. Your couch is ruined, by moths. Funny, just yesterday it was fine. You're starting to get kind of pissed, but also curious. Your TV is broken, the screen smashed, and your movie shelf is knocked over, movie cases all over the floor. The family chest is the only thing in here that is still where it was yesterday. Your mom told you when you turned 18 and moved out, not to open it until the time came. She said you'd know when it was time. Right now seems like a good time, but maybe not. You wonder what's inside. You are also starting to wonder what the spell pages are for, and why they seem to perform miracles. You remember something your mom had said about magic before you left to live on your own. You don't remember much, probably because you were too busy thinking about what you were gonna do, where you wanted to live. To the north is your front door.
+You can go southeast, south or north.
+You can see a Moth infested couch, a Broken TV and a Family chest.
+> south
+
+> south
+
+You are in a Closet.
+There is a pile of clothes on the floor.
+You can go north.
+You can see a pile of clothes.
+> x pile of clothes
+
+> x pile of clothes
+It's a pile of clothes, hats, gloves, jackets, shirts, and pants.
+> move pile of clothes
+
+> move pile of clothes
+You move the clothes and underneath is another spell page.
+> take spell page 3
+
+> take spell page 3
+You pick it up.
+> x spell page 3
+
+> x spell page 3
+"Territo"
+
+Frighten or scare off weak minded beings
+> north
+
+> north
+
+You are in a Living Room.
+Your living room a pretty messy room, probably the worst. Your couch is ruined, by moths. Funny, just yesterday it was fine. You're starting to get kind of pissed, but also curious. Your TV is broken, the screen smashed, and your movie shelf is knocked over, movie cases all over the floor. The family chest is the only thing in here that is still where it was yesterday. Your mom told you when you turned 18 and moved out, not to open it until the time came. She said you'd know when it was time. Right now seems like a good time, but maybe not. You wonder what's inside. You are also starting to wonder what the spell pages are for, and why they seem to perform miracles. You remember something your mom had said about magic before you left to live on your own. You don't remember much, probably because you were too busy thinking about what you were gonna do, where you wanted to live. To the north is your front door.
+You can go southeast, south or north.
+You can see a Moth infested couch, a Broken TV and a Family chest.
+> north
+
+> north
+
+You are in a Front yard.
+This is your front yard. There is a mailbox, and a welcome mat. At the gate, there is also a "unicornium." The ugly horned beast is eyeing you down, but not advancing or retreating.
+You can go south or north.
+You can see a mailbox and an Unicornium.
+> open mailbox
+
+> open mailbox
+You open it.
+It contains a letter.
+> x letter
+
+> x letter
+Dear Samuel,
+
+    You may have already figured it out, but it is now time to open your chest. You should be in the past, ancient times. You are my son, and I am your mother, so I hate to say this but we need a hero, and it is you. A horrible event will happen soon, and you need to stop it. It will be risky, but I know you can do it.
+    This is because you, Sam, are different from the others. You were given a gift. A powerful, yet dangerous gift. Under control, it can do marvelous things, but in chaos, it can destroy any one or thing, even you. This power you possess is an ancient one. You can control the very thing that keeps our universe together. Your power is that of magic. Sam, you are a wizard.
+    With your powers, you will be able to save our world, and take evil's grasp off it. Go, Sam, and may sword and spell be with you on your quest.
+
+Love forever,
+Mom
+> x unicornium
+
+> x unicornium
+Ugly, goblin-like horned creature.
+> use spell page 3 on unicornium
+
+> use spell page 3 on unicornium
+A huge Ghastly figure appears, and scares away the unicornium, who drops a key in the panic. You pick it up, after you make sure you didn't pee yourself.
+> x key
+
+> x key
+Nothing out of the ordinary.
+> south
+
+> south
+
+You are in a Living Room.
+Your living room a pretty messy room, probably the worst. Your couch is ruined, by moths. Funny, just yesterday it was fine. You're starting to get kind of pissed, but also curious. Your TV is broken, the screen smashed, and your movie shelf is knocked over, movie cases all over the floor. The family chest is the only thing in here that is still where it was yesterday. Your mom told you when you turned 18 and moved out, not to open it until the time came. She said you'd know when it was time. Right now seems like a good time, but maybe not. You wonder what's inside. You are also starting to wonder what the spell pages are for, and why they seem to perform miracles. You remember something your mom had said about magic before you left to live on your own. You don't remember much, probably because you were too busy thinking about what you were gonna do, where you wanted to live. To the north is your front door.
+You can go southeast, south or north.
+You can see a Moth infested couch, a Broken TV and a Family chest.
+> x family chest
+
+> x family chest
+Locked and bolted. You can hear a low humming from inside. It's lock is made of a weird material, some sort of metal, platinum, perhaps?
+> use key on family chest
+
+> use key on family chest
+In this chest, you see four ancient swords. A booming voice, coming from within the chest says "Choose one, and only one, but choose wisely, for this choice will decide your future. This choice will form you into an elementalist, but only of the element you choose. Decide your element, and become bonded with your sword and spell!"
+> x fire sword
+
+> x fire sword
+Red, hooked sabre. A small inscription in the blade reads "made in china." You turn it over and another inscription reads "Ignis."
+> x water sword
+
+> x water sword
+Blue, curved blade. A small inscription in the blade reads "made in china." You turn it over and another inscription reads "Glaciem."
+> x earth sword
+
+> x earth sword
+Green, smooth gladius. A small inscription in the blade reads "made in china." You turn it over and another inscription reads "Terra."
+> x wind sword
+
+> x wind sword
+Silver, flowing longsword. A small inscription in the blade reads "made in china." You turn it over and another inscription reads "Aeris."
+> take fire sword
+
+> take fire sword
+You are now a Fire Elementalist. Flames is what you chose, and it is what you shall have.
+> x fire page 1
+
+> x fire page 1
+"Ustulo"
+
+Burns Creature
+> north
+
+> north
+
+You are in a Front yard.
+This is your front yard. There is a mailbox, and a welcome mat.
+You can go south or north.
+You can see a mailbox (containing a letter).
+Now that you are more attentive to your surroundings, you begin to notice a lot is different, and you mean a lot. The city buildings that were all around you are missing, and there is no trace of them. The busy road is gone, and the big billboard by your house has vanished. In fact, the only thing here is a forest, and you're in the middle of it, with your front yard the only clearing in sight. There seems to be a path going north, guess its your only option, if you're going to find out what this big event is.
+> north
+
+> north
+
+You are in a Clearing.
+A big clearing in front of your house. Around it, are trees, and they don't seem to end. The only path through the trees lies to the north. A sign ahead, pointing down the path says "Deseron." Must be the name of a town. A sign on the same post points to your house and says "Domum Heroum." Wonder what that means. But it's a part of the ancient language, or so it seems. That sign must have some magical effect here.
+You can go south or north.
+> north
+
+> north
+
+You are in a Path through the woods.
+A lowly lit path, with trees blocking out most of the sunlight. Down the road further is a "Nantantis lanugo." It is basically a floating puff ball.
+You can go south or northwest.
+You can see a Nantantis lanugo.
+> x nantantis lanugo
+
+> x nantantis lanugo
+A floating ball of fur.
+> use fire page 1 on nantantis lanugo
+
+> use fire page 1 on nantantis lanugo
+A sudden flame bursts from the paper, and burns the puff ball. It falls to the ground, changed red due to its burn, and vanishes in a trail of smoke. Sweet, you've just killed your first monster, and your unscathed.
+> x drabble 3
+
+> x drabble 3
+It is some sort of currency (It's this world's currency)
+> northwest
+
+> northwest
+
+You are in a Deseron.
+A very small town, with people traveling to and fro between the 7 buildings you see. No one pays any attention to you as you walk around. You see 6 shops, and one weird building. You've only seen three people go in, but a lot come out. You should probably look at the other shops before you enter this mysterious building. The six shops you saw included a blacksmith to the south, alchemy lab to the south west, library to the west, tavern to the north west, armory to the north, and a general store to the north east. The weird building is to the east.
+You can go southeast, south, southwest, west, northwest, north, northeast or east.
+> northeast
+
+> northeast
+
+You are in a Medieval Mart.
+The name of this store confuses the hell out of you, for obvious reasons. Anyway, the store seems to be filled with all the common items you'd need for a typical day at home. There's food, some weird toys, some furniture stuff, clothes, and more. All you'd really need from here is what's in the corner of the store. The adventurers gear. Looks like there is rope, a grapple hook, a compass, a map of some place, and some "crustulum."
+You can go southwest.
+You can see a grappling hook with rope, a compass, a Map, a Crustulum and a Shop keeper.
+> x map
+
+> x map
+A map of a place your unfamiliar with. Maybe it could be useful, but who knows. From the looks of it, it seems to be a map of a nearby valley. There are four major marks on the map. The first has the fire symbol, and says "Volcano here, venture with caution." The second has the symbol of water, and says "Lake here, do not swim." The next mark is the symbol for earth, and it says "Strange rocks, watch for chasm." The last mark is the air symbol, and says "Large storms here, seeming to come from nearby cave." You want to take it, but its worth 5 drabble. Expensive map. You want it so bad though...
+> take map
+
+> take map
+If you must have it, then take it, but remember, consequences may come.
+> southwest
+
+> southwest
+
+You are in a Deseron.
+A very small town, with people traveling to and fro between the 7 buildings you see. No one pays any attention to you as you walk around. You see 6 shops, and one weird building. You've only seen three people go in, but a lot come out. You should probably look at the other shops before you enter this mysterious building. The six shops you saw included a blacksmith to the south, alchemy lab to the south west, library to the west, tavern to the north west, armory to the north, and a general store to the north east. The weird building is to the east.
+You can go southeast, south, southwest, west, northwest, north, northeast or east.
+> east
+
+> east
+
+You are in a Mysterious building.
+Its a dark room, with a purple portal the back of the room. Wonder what it does. There's also a bald, old man in a desk, in front of the tent entrance.
+You can go west.
+You can see an Old Man and a Portal to valley.
+> x old man
+
+> x old man
+The old man introduces himself as a fellow wizard, except he opens and closes portals, instead of casting elemental magic. He has a portal to the valley on that map you stole. He says it will take you to the spot marked on your map that corresponds to your element. He wishes you farewell, and luck on your travels, and urges you to go into the portal.
+> x portal to valley
+
+> x portal to valley
+You see a mass of swirling purples, all following an ovular shape.
+> enter portal to valley
+
+> enter portal to valley
+You walk through, and immediately feel sick. The purple seems to pick you up, and throw you into the valley scene below. You land straight on your feet, and you then discover..... there's no heading back.
+
+THIS IS THE END OF "SWORD AND SPELL," FOR NOW. THERE WILL BE MORE UPDATES, SOON. THIS IS VERSION 1.0
+
+IF THERE ARE BUGS OR GRAMMER ISSUES, COMMENT WHERE AND WHAT, AND THEY WILL BE FIXED. I WILL ALWAYS POST WHAT IS IN THE NEW UPDATE, WHEN THEY COME OUT.
+> quit
+
+> quit
+[state=Finished]
