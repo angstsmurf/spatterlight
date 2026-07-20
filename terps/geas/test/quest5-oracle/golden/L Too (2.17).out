@@ -1,0 +1,1382 @@
+L Too
+A Mathemagical Adventure
+
+[Type help for guidance]
+
+It is a very hot day. You are on the grass outside a crumbling palace. Your sister is reading a book called Fractions and the Four Rules - 5000 Carefully Graded Problems. You are bored and the heat is making you feel a little sleepy.
+
+Suddenly you see an old man dressed as an abbot. He glances at you nervously and disappears through a small door in the south side of the palace.
+
+ What would you like to do? Type instructions in the space below.
+> north
+
+> north
+You are in a dark hallway. There are doors to the north and south.
+
+The abbot has just disappeared through the north door.
+> north
+
+> north
+You are in a room which was once a kitchen. It has quarry tiles on the floor. There are doors to the north, south, east and west.
+You can also see a cracked sink in one corner.
+
+The east door has just swung closed.
+> look at sink
+
+> look at sink
+The sink is empty apart from a few spiders, which run away as you approach.
+It has an interesting square plughole.
+> look at plughole
+
+> look at plughole
+The plughole is perfectly square, centred precisely in the middle of the sink.
+It contains a shiny yellow plug.
+> take plug
+
+> take plug
+You ease the plug out of the plughole, and discover it is actually a gold cube!
+ You pick it up.
+> east
+
+> east
+You are in a large store room. The only exit is a door to the west.
+You can see wooden shelves that run from the floor to the ceiling and an abbot.
+> speak to abbot
+
+> speak to abbot
+He decides he can trust you and explains why he is looking so anxious. He tells you about the Ancient Tribe of Mathematicians and his mission to recover their lost treasure. It has been taken by the Grey Drogos that live in the palace.
+
+You offer to help and he seems very pleased. He warns you, however, that you will come up against many weird and puzzling situations before you are successful. He also tells you to beware of the Drogo Robot Guards, saying "They are impossible to defeat unless you can find the personal secret number that each guard cannot bear to hear."
+
+"Are you sure you want to help? " he asks.
+
+> yes
+You say "yes."
+
+A strange sound behind you attracts your attention. When you turn back the abbot has vanished.
+> up
+
+> up
+You are sitting on the top shelf in the store room.
+You can see wooden shelves and a thick layer of dust.
+> look at dust
+
+> look at dust
+You look carefully through the dust and find a small bronze key. You pick it up.
+> down
+
+> down
+You are in a large store room. The only exit is a door to the west.
+You can see wooden shelves that run from the floor to the ceiling.
+> west
+
+> west
+You are in a room which was once a kitchen. It has quarry tiles on the floor. There are doors to the north, south, east and west.
+You can also see a cracked sink in one corner (with an interesting square plughole).
+> west
+
+> west
+You are in a workshop. The room smells of machine oil and there are oily patches on the floor. Doors lead off to the south, east and west.
+You can see wooden benches around the walls.
+> look at benches
+
+> look at benches
+The benches are mostly empty.
+You see a few scraps of metal.
+> take metal
+
+> take metal
+Among the scraps of metal, you find an interesting piece with four triangular faces...it's a tetrahedron made of platinum!
+ You pick it up.
+> west
+
+> west
+You are in the middle of a narrow passage that runs from north to south. There is a door on the east side.
+ On the west side is a metal ladder leading up to some higher level of the palace.
+> north
+
+> north
+You are at the north end of a narrow passage. There is a door on the east side.
+> east
+
+> east
+You are in a gloomy room. There is a door to the west.
+
+You can see a heavy wooden chest in the middle of the floor and a telephone on the wall.
+> use telephone
+
+> use telephone
+Enter the number do you want to dial (between 0 and 999):
+> 610
+> 610
+The engaged tone tells you the line is in use.
+
+Enter the number do you want to dial (between 0 and 999):
+> 610
+> 610
+It's the abbot. He wishes you luck and tells you there is a secret passage through the chest, which leads down to the cellar. The combination code for the lock is part of the sequence you have already found: 4181.
+
+You put the phone down.
+> open chest
+
+> open chest
+Enter the 4-digit code for the lock:
+
+> 4181
+You enter "4181" one digit at a time. As the cog for the last digit clicks into place, the lid springs open to reveal a ladder leading down into the cellar.
+> down
+
+> down
+You are in a cellar. There is a door to the north.
+You can see a ladder leading to the room above.
+
+There is a notice on the door which says:
+
+CELLAR MAZE
+STRICTLY NO ADMITTANCE
+By Order of the Drogo Central Committee
+> north
+
+> north
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> east
+
+> east
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> east
+
+> east
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> south
+
+> south
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+You can see an ebony sphere.
+> take sphere
+
+> take sphere
+You pick it up.
+> east
+
+> east
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+
+There is a Drogo Robot Guard opposite you. It is carrying a huge butterfly net. Emblazoned across its front is the number 144.
+> say twelve
+
+> say twelve
+On hearing you shout "twelve" the guard gives a wail of terror and disappears out of sight.
+> east
+
+> east
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> north
+
+> north
+You are on a path that leads north to a courtyard. South leads back into the palace.
+> north
+
+> north
+You are in a large courtyard paved with square slabs, many covered with moss and lichen. A path leads south.
+You can see a turtle.
+
+> speak to turtle
+
+> speak to turtle
+The turtle is lying in the centre of the courtyard basking in a shaft of sunlight. As you move towards her she waves a flipper to attract your attention. "Don't approach me directly," she warns. "I'd like to help you," she says, lowering her voice. "We can meet somewhere provided it is I that catches up with you." "Also," she says lowering her voice even further, "the Drogos have programmed me to respond to your moves in a special way. Try moving about a little. You can move by typing N (north), S (south), E (east) or W (west), and use C (check) to see my position."
+
+> c
+The turtle is sitting on a slab which is 1 square to the east and 4 squares to the north of you.
+> w
+As you move one square to the west, the turtle moves two squares to the west.
+> s
+As you move one square to the south, the turtle moves two squares to the south.
+> s
+As you move one square to the south, the turtle moves two squares to the south.
+> s
+As you move one square to the south, the turtle moves two squares to the south.
+> s
+As you move one square to the south, the turtle moves two squares to the south.
+The turtle sidles up to meet you. She gives you a small silver key, which she was hiding in her shell. Then she scurries back to the centre of the courtyard and shuts her eyes.
+> south
+
+> south
+You are on a path that leads north to a courtyard. South leads back into the palace.
+> south
+
+> south
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> west
+
+> west
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> north
+
+> north
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> west
+
+> west
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> west
+
+> west
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> west
+
+> west
+You are in a square room which is dimly lit. The floor is made up of rough stone slabs. There are doors to the north, south, east and west.
+> south
+
+> south
+You are in a cellar. There is a door to the north.
+You can see a ladder leading to the room above.
+
+There is a notice on the door which says:
+
+CELLAR MAZE
+STRICTLY NO ADMITTANCE
+By Order of the Drogo Central Committee
+> up
+
+> up
+Just as you are about to climb the ladder a Drogo Robot Guard appears.
+
+The guard catches you and carries you off to a remote room in the palace.
+
+You are in a tiny attic room with no furniture. It is very quiet. A previous occupant of the room has scratched some numbers on the walls: 121, 49, 196, 25, 64.
+You can see a door to the east and a wooden trapdoor in the middle of the floor.
+> look at walls
+
+> look at walls
+Bare, except for the scratched numbers:  121, 49, 196, 25, 64.
+> shout
+
+> shout
+
+The guard unlocks the door and comes in. Emblazoned across its front is the number 169.
+> say thirteen
+
+> say thirteen
+On hearing you shout "thirteen" the guard gives a wail of terror and disappears out of sight.
+> east
+
+> east
+You are in an attic passage with doors at the east and west ends. There is a faint smell of stale kippers. Paint is peeling from the walls.
+> east
+
+> east
+You are in a green room with a single door to the west. A large chandelier hangs from the ceiling and there is straw on the floor.
+You can see a pig.
+
+> catch pig
+
+> catch pig
+The floor of this room is divided into 25 squares. The plan above shows the position of the pig (pink) and of you (blue). You can move by typing N (north), S (south), E (east) or W (west).
+
+Do you want to go first?
+
+> no
+You say "no."
+The pig has moved so it is your turn.
+> n
+The pig has moved so it is your turn.
+> e
+The pig has moved so it is your turn.
+> n
+You have caught him!
+
+The pig squeals and wriggles, and soon breaks free, but not before you have examined the piece of paper on his collar. It has the single word "neumann" written on it.
+> say neumann
+
+> say neumann
+Suddenly it goes dark. You experience the sensation of travelling in a high speed lift.
+
+You are in a room which was once a kitchen. It has quarry tiles on the floor. There are doors to the north, south, east and west.
+You can also see a cracked sink in one corner (with an interesting square plughole).
+> north
+
+> north
+You are in a room that smells of mice. Doors lead to the south and east.
+> east
+
+> east
+You are in a boiler room full of machinery that appears to have been standing idle for some time. In one corner is a spiral staircase which goes up. To the west and east there are doors.
+> east
+
+> east
+You are in a dark passage with dark green tiles and flaky paint. There are doors to the east and west.
+> east
+
+> east
+You are in a drawing room.
+You can see a file, several key blanks on the mantlepiece and a massive oak door.
+> use file
+
+> use file
+
+Do you want to make a key?
+
+> yes
+You say "yes."
+
+You can move the file (shown in blue) around the key blank by typing U (up), D (down), L (left) or R (right). You can file a square from the key blank by typing F (file). To check your key in the locks of the oak door, type C (check). If you cut out a square by mistake you can fix it by going to its position and typing P (patch). You can display these instructions again by typing S (show).
+
+> F
+> R
+> F
+> R
+> F
+> R
+> F
+> R
+> F
+> R
+> F
+> R
+> F
+> R
+> R
+> F
+> D
+> L
+> L
+> L
+> L
+> F
+> D
+> L
+> L
+> L
+> F
+> R
+> F
+> R
+> R
+> R
+> R
+> F
+> R
+> F
+> R
+> F
+> C
+Tentatively, you try the filed key in the door locks.
+
+You turn the key in each lock and all seem to work!
+
+...but the key, key blanks and file have disappeared. It could be the mice!!!
+
+With effort, you then push open the heavy door, closing it behind you as you move forward into the next room.
+
+You are in a panelled room. Round the walls are seventeen panels covered by wallpaper with a repeating pattern. Each pattern uses the same basic unit, but the way in which the unit is repeated is different for each panel. There is a large oak door to the west. A small side door leads north into the garden.
+
+You can see an ivory octahedron.
+> take octahedron
+
+> take octahedron
+ You pick it up.
+> north
+
+> north
+You release the security bolt and go through the small side door into the garden.
+
+You are on the west side of the walled garden. Close by, hidden by a huge ceanothus bush, is a small side door leading into the palace.
+> east
+
+> east
+You are in the east side of a walled garden filled with blue flowers. There are beds of delphiniums and anchusas here. The air is filled with the scent of lavender and buddleia. On the north side a path leads through a gap in the wall. The palace is on the south side of the garden.
+You can see some stone steps leading up to a balcony.
+> up
+
+> up
+You are on a balcony. A faint perfume is rising from the walled garden beneath you. French windows lead back into the palace.
+You can see some worn stone steps leading down to the garden.
+> south
+
+> south
+You are in a solarium. The room is flooded with sunlight and the heat is only just bearable. There are doors to the east and west. On the north side, French windows open to a balcony.
+> east
+
+> east
+You are in a snooker room with doors to the south, west and east.
+
+You can see a snooker table (on which there is a yellow ball and a snooker cue).
+> use cue
+
+> use cue
+
+You pick up the cue. In which direction do you want to hit the ball? Give the angle (in degrees) between the path of the ball and the direction of the pocket. Enter the smallest angle possible and win a prize:
+
+> 3
+Using an angle of 3 degrees, the ball speeds towards the cushion, just skimming the post, bounces normally and ends up in the pocket. Success!
+
+A pair of sunglasses has just appeared on the table. You try them on briefly hoping they would make you look 'cool'. Alas, 'sinister' is probably a better word. In fact, at a glance, you could be mistaken for a Drogo Guard!
+> east
+
+> east
+You are on the landing of a stone staircase, with stairs going up and down. A door leads to the west.
+> down
+
+> down
+You have entered a large kitchen. There is a delicious smell of baking. Around the walls are hung enormous metal pans and cooking utensils. In one corner is a large old-fashioned kitchen range giving out a great heat. The only way out is by the stone staircase.
+You can see a cook.
+
+> speak to cook
+
+> speak to cook
+She is sobbing bitterly but manages to speak. "I'm glad to see you. I'm desperately worried. The Drogos are having a croquet party, and I have to bake a special cake for their tea on the lawn. The trouble is they insist it must be at least 26cm high and I can't get it to rise properly."
+
+"Will you help me please? "
+
+> yes
+You say "yes."
+
+The cook cheers up a bit.
+
+"You see those three jars of white powder labelled TOLT, FIMA and MUOT? Well, I have to put in the right amount of each ingredient to make the cake rise to 26cms. I'll try another cake now and you tell me how much of each to use."
+
+"How many grams of TOLT?"
+> 6
+OK, that's 6 grams of TOLT.
+
+"How many grams of FIMA? "
+> 6
+OK, that's 6 grams of FIMA.
+
+"How many grams of MUOT? "
+> 6
+OK, that's 6 grams of MUOT.
+
+The cook puts the mixture into the oven and after a few minutes takes out the cake. It has risen to a height of 26cms.
+
+The cook tastes the cake and says "It's rather salty, but just the right size."
+
+She then fumbles under the table and hands you a flour bag. "I found this yesterday. It is no use to me."
+
+Free from the pressure of making the cake, she sits down and falls asleep immediately.
+> up
+
+> up
+You are on the landing of a stone staircase, with stairs going up and down. A door leads to the west.
+> up
+
+> up
+You are at the top of the stone staircase. There is a door to the east side.
+> east
+
+> east
+You are in a lighting room. Through a glass panel below you, you can see a small theatre. Four coloured spotlights illuminate the empty stage. The only exit is a door to the west.
+
+You can see an  electrician standing in the room with you.
+> speak to electrician
+
+> speak to electrician
+"I have to set these spotlights for this evening's reception. The Drogo Committee will appear in their different coloured costumes and I have to shine the right colours on to them or else they look awful."
+
+"Will you help? "
+
+> yes
+You say "yes."
+
+"Right, you see the lights as they are but they should be in the order: BLUE, GREEN, RED and YELLOW."
+
+"We have to use switches 1, 2, 3, and 4 to change the lights, though one seems to be faulty. Just give me the switch numbers."
+
+> 4
+Switch 4: that's 1 move.
+> 2
+Switch 2: that's 2 moves.
+> 1
+Switch 1: that's 3 moves.
+> 2
+Switch 2: that's 4 moves.
+
+"You've done it! "
+
+The electrician thanks you for your help. He wishes you luck and warns you to be careful.
+
+"Those Drogos aren't to be trusted."
+
+Your attention is drawn by a roughly-carved wooden oar which is propped in one corner of the room. The electrician notices your interest and says "You can have that if you want it." He then leaves the room.
+> take oar
+
+> take oar
+You pick it up.
+> west
+
+> west
+You are at the top of the stone staircase. There is a door to the east side.
+> down
+
+> down
+You are on the landing of a stone staircase, with stairs going up and down. A door leads to the west.
+> west
+
+> west
+You are in a snooker room with doors to the south, west and east.
+
+You can see a snooker table (on which there is a snooker cue).
+> south
+
+> south
+You are in a dimly lit anteroom, with doors to the west and north. Over the west door is an old wooden board displaying a faded warning. It says "Those who enter here will see nothing but codes."
+> west
+
+> west
+Zpv bsf jo b tubsl xijuf sppn, xjui eppst up uif fbtu boe xftu. Uifsf jt b lfzqbe cftjef uif epps up uif xftu.
+
+ Zpv dbo tff b lfzqbe.
+> wear sunglasses
+
+> wear sunglasses
+You put on the sunglasses.
+...and the code disappears!
+You are in a stark white room, with doors to the east and west. There is a keypad beside the door to the west.
+
+ You can see a keypad.
+> use keypad
+
+> use keypad
+Enter a 5-digit number:
+> 25468
+Using "25468" the west door opens and you enter.
+You are in a brightly lit oriental room. Paintings of bamboo and red dragons cover the walls. The only door is to the east.
+
+You can see a diamond dodecahedron.
+> take dodecahedron
+
+> take dodecahedron
+ You pick it up.
+> east
+
+> east
+You are in a stark white room, with doors to the east and west. There is a keypad beside the door to the west.
+
+ You can see a keypad.
+> east
+
+> east
+The room is almost completely dark. You can't see anything properly.
+> remove sunglasses
+
+> remove sunglasses
+You carefully remove the glasses.
+
+...and now you can see where you are!
+
+You are in a dimly lit anteroom, with doors to the west and north. Over the west door is an old wooden board displaying a faded warning. It says "Those who enter here will see nothing but codes."
+> north
+
+> north
+You are in a snooker room with doors to the south, west and east.
+
+You can see a snooker table (on which there is a snooker cue).
+> west
+
+> west
+You are in a solarium. The room is flooded with sunlight and the heat is only just bearable. There are doors to the east and west. On the north side, French windows open to a balcony.
+> north
+
+> north
+You are on a balcony. A faint perfume is rising from the walled garden beneath you. French windows lead back into the palace.
+You can see some worn stone steps leading down to the garden.
+> down
+
+> down
+You are in the east side of a walled garden filled with blue flowers. There are beds of delphiniums and anchusas here. The air is filled with the scent of lavender and buddleia. On the north side a path leads through a gap in the wall. The palace is on the south side of the garden.
+You can see some stone steps leading up to a balcony.
+> north
+
+> north
+You are on a lawn which leads north to a wide river. There are thorny hedges to the east and west. To the south is a path to a gap in the wall. A notice on the bank reads:
+
+DANGER Piranha Fish
+You can see an old rusty  tin bath  lying on the bank.
+> open bag
+
+> open bag
+You open the bag.
+Inside is a jade icosahedron.
+> take icosahedron
+
+> take icosahedron
+ You pick it up.
+> put cube in rectangular hole
+
+> put cube in rectangular hole
+The gold cube neatly fills the rectangular hole.
+> put tetrahedron in triangular hole
+
+> put tetrahedron in triangular hole
+The platinum tetrahedron neatly fills the triangular hole.
+> put octahedron in square hole
+
+> put octahedron in square hole
+The ivory octahedron neatly fills the square hole.
+> put dodecahedron in small five-sided hole
+
+> put dodecahedron in small five-sided hole
+The diamond dodecahedron neatly fills the small five-sided hole.
+> put icosahedron in large five-sided hole
+
+> put icosahedron in large five-sided hole
+The jade icosahedron neatly fills the large five-sided hole.
+> push bath
+
+> push bath
+You launch the bath into the river and clamber in just as it leaves the bank.
+
+You are on the river. The bath is only just above the water level and in danger of sinking. Dark shapes are moving in the water.
+
+After a few more minutes of frantic paddling, you eventually reach dry land.
+
+You are on the north bank of the river. It is covered in brambles. A narrow path winds to the northeast.
+You can see an old rusty  tin bath  lying on the bank (repaired with a gold cube, a platinum tetrahedron, an ivory octahedron, a diamond dodecahedron and a jade icosahedron).
+> northeast
+
+> northeast
+You are in a beautiful orchard, surrounded by trees laden with many different types of fruit, some of which you have never seen before. There is a clearing in the centre of the orchard, from which a path leads to the southwest.
+
+You can see an old man.
+> speak to gardener
+
+> speak to gardener
+"I have something here which you are going to need," he says, "but first you must help me. The Drogos have given me firm instructions to plant these 9 trees in the clearing so that there are 10 straight rows with 3 trees in each row. I can't seem to do it."
+
+"Can you help me? "
+
+> yes
+You say "yes."
+
+You can guide the gardener (shown in blue) around the orchard by typing N (north), S (south), W (west) or E (east). To plant a tree, type P (plant). To remove a tree, type F (fix). To check the planting, type C (check).
+
+> P
+Okay, that's 1 in the ground, with 8 more to go.
+> E
+> E
+> E
+> E
+> P
+Okay, that's 2 in the ground, with 7 more to go.
+> S
+> W
+> W
+> P
+Okay, that's 3 in the ground, with 6 more to go.
+> S
+> P
+Okay, that's 4 in the ground, with 5 more to go.
+> W
+> W
+> P
+Okay, that's 5 in the ground, with 4 more to go.
+> E
+> E
+> E
+> E
+> P
+Okay, that's 6 in the ground, with 3 more to go.
+> S
+> W
+> W
+> P
+Okay, that's 7 in the ground, with 2 more to go.
+> S
+> W
+> W
+> P
+Okay, that's 8 in the ground, with 1 more to go.
+> E
+> E
+> E
+> E
+> P
+Okay, that's all the trees in the ground. Type C to check the planting.
+> C
+"You have done it," shouts the gardener. "I thought it was impossible. Now I have something to give you."
+
+He hands you a rope ladder, which is rolled up into a neat bundle. Then he walks away.
+> southwest
+
+> southwest
+You are on the north bank of the river. It is covered in brambles. A narrow path winds to the northeast.
+You can see an old rusty  tin bath  lying on the bank (repaired with a gold cube, a platinum tetrahedron, an ivory octahedron, a diamond dodecahedron and a jade icosahedron).
+> push bath
+
+> push bath
+You launch the bath into the river and clamber in just as it leaves the bank.
+
+Soon, however, water starts to come over the side and you have to return. The bath won't carry much weight. You must take fewer things with you or you will sink.
+
+A large ape lumbers up to you and asks "Are you trying to get the ladder across the river? "
+
+> yes
+You say "yes."
+
+"I would like to help you but I am a rather stupid ape...now if I were a wise animal like an owl, then I might be able to help you...perhaps you can turn me into an owl? "
+
+"I once turned a pig into a sty. Would you like to know how I did it? " asks the ape.
+
+> yes
+You say "yes."
+
+"Well," says the ape, "I did it bit by bit like this
+  PIG
+  BIG
+  BAG
+  SAG
+  SAY
+  STY
+...It was very difficult. But you are much cleverer than I am so perhaps you can change me into an owl? "
+
+The ape climbs a nearby tree and sits on a branch, waiting for you to start.
+APE: "Now what's next?" asks the ape.
+> awe
+AWE: "OK," says the ape.
+> owe
+OWE: "OK," says the ape.
+> owl
+OWL: "That's it! " says the ape.
+
+The ape immediately starts to sprout feathers. In less than a minute he has turned into a magnificant brown owl. He flaps his wings, a little uncertainly at first, and then swoops down. With his talons, he snatches the rope ladder, flies off with it towards the palace and soon disappears out of sight behind some trees.
+> push bath
+
+> push bath
+You launch the bath into the river and clamber in just as it leaves the bank.
+
+You are on the river. The bath is only just above the water level and in danger of sinking. Dark shapes are moving in the water.
+
+After a few more minutes of frantic paddling, you eventually reach dry land.
+
+You are on a lawn which leads north to a wide river. There are thorny hedges to the east and west. To the south is a path to a gap in the wall. A notice on the bank reads:
+
+DANGER Piranha Fish
+You can see an old rusty  tin bath  lying on the bank (repaired with a gold cube, a platinum tetrahedron, an ivory octahedron, a diamond dodecahedron and a jade icosahedron).
+> south
+
+> south
+You are in the east side of a walled garden filled with blue flowers. There are beds of delphiniums and anchusas here. The air is filled with the scent of lavender and buddleia. On the north side a path leads through a gap in the wall. The palace is on the south side of the garden.
+You can see some stone steps leading up to a balcony.
+> up
+
+> up
+You are on a balcony. A faint perfume is rising from the walled garden beneath you. French windows lead back into the palace.
+You can see some worn stone steps leading down to the garden.
+> south
+
+> south
+You are in a solarium. The room is flooded with sunlight and the heat is only just bearable. There are doors to the east and west. On the north side, French windows open to a balcony.
+> west
+
+> west
+You are in the old music room. There are doors to the east and west. The walls are blotched with damp.
+As you enter the room you hear a scampering noise. Out of the corner of your eye you think you catch sight of something moving.
+
+You can see a rather battered Steinway grand  piano in one corner and a skirting board with holes in it.
+> west
+
+> west
+You are in a lobby with orange walls. Doors lead off to the west and east. A window on the north side looks down on part of the palace garden and you can see a river beyond it.
+> west
+
+> west
+You are in a large room with marble walls and a marble floor. In the middle is an indoor swimming pool, which is empty. The main door is at the east end but there is another door leading west.
+You can see four classical statues at the corners of the pool.
+> west
+
+> west
+You are at the top of the spiral staircase above the boiler room. A door leads to the east.
+> down
+
+> down
+You are in a boiler room full of machinery that appears to have been standing idle for some time. In one corner is a spiral staircase which goes up. To the west and east there are doors.
+> west
+
+> west
+You are in a room that smells of mice. Doors lead to the south and east.
+> south
+
+> south
+You are in a room which was once a kitchen. It has quarry tiles on the floor. There are doors to the north, south, east and west.
+You can also see a cracked sink in one corner (with an interesting square plughole).
+> west
+
+> west
+You are in a workshop. The room smells of machine oil and there are oily patches on the floor. Doors lead off to the south, east and west.
+You can see wooden benches around the walls (on which there are scraps of metal).
+> south
+
+> south
+You are in a room where a huge creeper has grown through the windows and covers a large area of the room. Doors lead to the north and west.
+You can see a rope ladder.
+> take ladder
+
+> take ladder
+You roll up the ladder and tuck it under your arm.
+> north
+
+> north
+You are in a workshop. The room smells of machine oil and there are oily patches on the floor. Doors lead off to the south, east and west.
+You can see wooden benches around the walls (on which there are scraps of metal).
+> east
+
+> east
+You are in a room which was once a kitchen. It has quarry tiles on the floor. There are doors to the north, south, east and west.
+You can also see a cracked sink in one corner (with an interesting square plughole).
+> north
+
+> north
+You are in a room that smells of mice. Doors lead to the south and east.
+> east
+
+> east
+You are in a boiler room full of machinery that appears to have been standing idle for some time. In one corner is a spiral staircase which goes up. To the west and east there are doors.
+> up
+
+> up
+You are at the top of the spiral staircase above the boiler room. A door leads to the east.
+> east
+
+> east
+You are in a large room with marble walls and a marble floor. In the middle is an indoor swimming pool, which is empty. The main door is at the east end but there is another door leading west.
+You can see four classical statues at the corners of the pool.
+> use ladder on statues
+
+> use ladder on statues
+You attach the ladder to the outstretched arm of the statue on the south-west corner of the pool.
+> down
+
+> down
+You are standing in the empty swimming pool. It slopes down gently towards the west.
+You can see a small gold key, a hole on the south side of the pool that was once covered by a grating and a hanging ladder near the hole.
+> take gold key
+
+> take gold key
+You pick up the key.
+> up
+
+> up
+You are in a large room with marble walls and a marble floor. In the middle is an indoor swimming pool, which is empty. The main door is at the east end but there is another door leading west.
+You can see four classical statues at the corners of the pool and a rope ladder.
+> east
+
+> east
+You are in a lobby with orange walls. Doors lead off to the west and east. A window on the north side looks down on part of the palace garden and you can see a river beyond it.
+> east
+
+> east
+You are in the old music room. There are doors to the east and west. The walls are blotched with damp.
+You can see a rather battered Steinway grand  piano in one corner and a skirting board with holes in it.
+> look at piano
+
+> look at piano
+The piano is old and very dusty.
+Its lid is closed.
+> look at lid
+
+> look at lid
+The piano may be in working order but it is hard to tell as the lid is locked shut.
+
+Strangely, the lid has three keyholes (left, right and middle), with a pattern of five intersecting rings etched below them.
+
+> look at keyholes
+
+> look at keyholes
+Strangely, the lid has three keyholes (left, right and middle), with a pattern of five intersecting rings etched below them.
+
+> look at right keyhole
+
+> look at right keyhole
+The rightmost keyhole in the piano lid.
+> put small bronze key in right keyhole
+
+> put small bronze key in right keyhole
+You put the small bronze key into the right keyhole.
+> look at left keyhole
+
+> look at left keyhole
+The leftmost keyhole in the piano lid.
+> put small silver key in left keyhole
+
+> put small silver key in left keyhole
+You put the small silver key into the left keyhole.
+> look at middle keyhole
+
+> look at middle keyhole
+The middle keyhole in the piano lid.
+> put small gold key in middle keyhole
+
+> put small gold key in middle keyhole
+You put the small gold key into the middle keyhole.
+> unlock piano
+
+> unlock piano
+You turn each key in order: bronze, silver, gold. There is an encouraging click each time and the piano lid springs open.
+
+The gold, silver and bronze keys have been mysteriously drawn into the lid and disappeared!
+> play piano
+
+> play piano
+Enter the name of the tune you would like to play:
+
+> three blind mice
+You play "three blind mice".
+
+Suddenly the room is full of mice squealing and running in all directions. Several mice are running up and down the piano keyboard while others appear to be dragging a small bottle into the room. The noise is deafening, Then they all disappear as quickly as they came. All is quiet again.
+> take bottle
+
+> take bottle
+You pick it up.
+> drink bottle
+
+> drink bottle
+You open the bottle
+, take a drink, and close it again. Very quickly you feel as if all the molecules in your body are being squeezed in a vice. You have shrunk to three-fifths of your normal size.
+> west
+
+> west
+You are in a lobby with orange walls. Doors lead off to the west and east. A window on the north side looks down on part of the palace garden and you can see a river beyond it.
+> west
+
+> west
+You are in a large room with marble walls and a marble floor. In the middle is an indoor swimming pool, which is empty. The main door is at the east end but there is another door leading west.
+You can see four classical statues at the corners of the pool and a rope ladder.
+> down
+
+> down
+You are standing in the empty swimming pool. It slopes down gently towards the west.
+You can see a hole on the south side of the pool that was once covered by a grating and a hanging ladder near the hole.
+> in
+
+> in
+You are only just small enough to squeeze into the hole.
+
+You are in a dark tunnel littered with brick rubble. A small opening to the north leads out to the light. The tunnel goes north-south. It is just wide enough for you to crawl along.
+> south
+
+> south
+The tunnel gets wider as you go along, which is lucky as you have now returned to your normal size.
+You are at the bottom of some wooden stairs, outside a tunnel that goes north. On one wall is a wooden noticeboard with the words:
+
+NO BREACH OF SECURITY IS TOO SMALL TO IGNORE
+> up
+
+> up
+You are at one end of a long landing at the top of some wooden stairs. There is a door at the end of the landing, to the east.
+> east
+
+> east
+You are in a large circular room beneath a glass dome. Eight identical doors lead to the north, northwest, west, southwest, south, southeast, east, and northeast.
+> north
+
+> north
+You have walked into a broom cupboard.
+
+You can see a calculator.
+> take calculator
+
+> take calculator
+You pick it up carefully.
+> south
+
+> south
+You are in a large circular room beneath a glass dome. Eight identical doors lead to the north, northwest, west, southwest, south, southeast, east, and northeast.
+> northeast
+
+> northeast
+You have entered a secure room. There is a door to the southwest.
+
+You can see a safe, a numeric keypad built into the safe and a yellow sticky note.
+> open safe
+
+> open safe
+Enter a 4-digit code:
+
+> 4096
+You enter "4096". There is a loud 'click' after the final digit, and the door swings open. Alas, no treasure! Just a packet of batteries.
+> take batteries
+
+> take batteries
+You pick them up.
+> southwest
+
+> southwest
+You are in a large circular room beneath a glass dome. Eight identical doors lead to the north, northwest, west, southwest, south, southeast, east, and northeast.
+> use batteries on calculator
+
+> use batteries on calculator
+You put both batteries into the calculator.
+> southeast
+
+> southeast
+It is pitch black. Judging by the many squeaking noises, however, you are not alone.
+> turn on calculator
+
+> turn on calculator
+You switch on the calculator. It glows brightly.
+You have entered a grim room with a triangular floor and three slanting triangular walls, which meet at a point high above you. Doors lead off to the northeast and northwest. Hundreds of bats are hanging from the slanting walls.
+You can see a large bat that is eyeing you suspiciously.
+> speak to large bat
+
+> speak to large bat
+"I can give you something useful, if you give me a nice number between 30 and 90," says the large bat, adding "1, 3, 6 and 10 are nice numbers."
+Enter a number between 30 and 90:
+> 36
+> 36
+
+The large bat flies over to a wall and writes:
+  1
+  2  3
+  4  5  6
+  7  8  9  10
+  11  12  13  14  15
+  16  17  18  19  20  21
+  22  23  24  25  26  27  28
+  29  30  31  32  33  34  35  36
+"That's OK," says the large bat, smiling a sickly smile. "Here is what I promised." He hands over a tin hat. "You will find that very useful, especially in here."
+> northwest
+
+> northwest
+To save the batteries, you switch off the calculator as you leave the room.
+
+You are in a large circular room beneath a glass dome. Eight identical doors lead to the north, northwest, west, southwest, south, southeast, east, and northeast.
+> east
+
+> east
+You are by a door at the west end of a passage. The passage has a strange soft appearance because the floor, walls and ceiling are completely covered in a deep carpet.
+> east
+
+> east
+You are in a room which is full of cobwebs. Doors lead to the west and southwest.
+
+You can see a huge black spider.
+> speak to spider
+
+> speak to spider
+The spider says "I have something here which may help you, but the Drogos have made it invisible."
+
+"Would you like me to help you find it?"
+
+> yes
+You say "yes."
+
+"If I spin a special web that encloses this room the Drogos' magic will be defeated. You can see this room has four edges where the walls join, four edges where the walls meet the floor, and another four edges where the walls meet the ceiling. I must spin a silk thread that passes along each of these 12 edges twice--once in each direction. The thread must not be broken and, as I have only a limited supply, I must not go along any edge more than twice."
+
+"The trouble is I am a rather old, short-sighted spider so you'll have to help me. So if you could tell me whether to turn left or right when I reach the end of each edge, I might just manage it. Say START when you want me to begin."
+> say start
+
+> say start
+"Good," says the spider. "I have reached the end of the first edge. Tell me whether to go left (L) or right (R)."
+> R
+OK, that's 2 edges covered (Path: R)
+> R
+OK, that's 3 edges covered (Path: RR)
+> L
+OK, that's 4 edges covered (Path: RRL)
+> R
+OK, that's 5 edges covered (Path: RRLR)
+> R
+OK, that's 6 edges covered (Path: RRLRR)
+> R
+OK, that's 7 edges covered (Path: RRLRRR)
+> L
+OK, that's 8 edges covered (Path: RRLRRRL)
+> R
+OK, that's 9 edges covered (Path: RRLRRRLR)
+> R
+OK, that's 10 edges covered (Path: RRLRRRLRR)
+> R
+OK, that's 11 edges covered (Path: RRLRRRLRRR)
+> L
+OK, that's 12 edges covered (Path: RRLRRRLRRRL)
+> L
+OK, that's 13 edges covered (Path: RRLRRRLRRRLL)
+> R
+OK, that's 14 edges covered (Path: RRLRRRLRRRLLR)
+> L
+OK, that's 15 edges covered (Path: RRLRRRLRRRLLRL)
+> R
+OK, that's 16 edges covered (Path: RRLRRRLRRRLLRLR)
+> R
+OK, that's 17 edges covered (Path: RRLRRRLRRRLLRLRR)
+> R
+OK, that's 18 edges covered (Path: RRLRRRLRRRLLRLRRR)
+> L
+OK, that's 19 edges covered (Path: RRLRRRLRRRLLRLRRRL)
+> R
+OK, that's 20 edges covered (Path: RRLRRRLRRRLLRLRRRLR)
+> R
+OK, that's 21 edges covered (Path: RRLRRRLRRRLLRLRRRLRR)
+> R
+OK, that's 22 edges covered (Path: RRLRRRLRRRLLRLRRRLRRR)
+> L
+OK, that's 23 edges covered (Path: RRLRRRLRRRLLRLRRRLRRRL)
+> R
+OK, that's 24 edges covered (Path: RRLRRRLRRRLLRLRRRLRRRLR)
+"At last," says the exhausted spider. It creeps away into a hole in the plaster for a sleep.
+The room starts to shake, first gently and then more violently. Suddenly, in the middle of the room appears a beautifully wrapped present. You open it to find a pair of metallic-finish leggings.
+> west
+
+> west
+You are by a door at the west end of a passage. The passage has a strange soft appearance because the floor, walls and ceiling are completely covered in a deep carpet.
+> west
+
+> west
+You are in a large circular room beneath a glass dome. Eight identical doors lead to the north, northwest, west, southwest, south, southeast, east, and northeast.
+> southwest
+
+> southwest
+You are in a Computer Room. The only exit is a door to the northeast.
+You can see a large wooden bench (on which there is a computer).
+
+As you entered the room, a disappearing voice said"Listen, OK, I'm going to the toilet. OK.""Don't touch my computer, OK? ""This game is OK."
+> look at screen
+
+> look at screen
+You decide to look at the computer screen.
+
+You are in a Computer Room. The only exit is a door to the northeast.
+You can see a large wooden bench (on which there is a computer).
+
+As you entered the room, a disappearing voice said"Listen, OK, I'm going to the toilet. OK.""Don't touch my computer, OK? ""This game is OK."
+> look at screen
+
+> look at screen
+You decide to look at the computer screen.
+
+You are in a Computer Room. The only exit is a door to the northeast.
+You can see a large wooden bench (on which there is a computer).
+
+As you entered the room, a disappearing voice said"Listen, OK, I'm going to the toilet. OK.""Don't touch my computer, OK? ""This game is OK."
+> look at screen
+
+> look at screen
+You decide to look at the computer screen.
+
+You are in a Computer Room. The only exit is a door to the northeast.
+You can see a large wooden bench (on which there is a computer).
+
+As you entered the room, a disappearing voice said"Listen, OK, I'm going to the toilet. OK.""Don't touch my computer, OK? ""This game is OK."
+> look at screen
+
+> look at screen
+You decide to look at the computer screen.
+
+The message on the screen reads: Stack Overflow (out of memory) at recursion level: 3
+> turn off computer
+
+> turn off computer
+You save away open files and switch off the computer.
+You are back in the computer room.
+
+You recognise a voice behind you saying, "Ah, that's better. OK, get off my computer. OK."
+> turn off computer
+
+> turn off computer
+You save away open files and switch off the computer.
+You are back in the computer room.
+
+You recognise a voice behind you saying, "Ah, that's better. OK, get off my computer. OK."
+> turn off computer
+
+> turn off computer
+You save away open files and switch off the computer.
+You are back in the computer room.
+
+You recognise a voice behind you saying, "Ah, that's better. OK, thank you for looking after my computer. Have this running vest for your trouble. It's OK." With that, he picks up his computer and leaves the room.
+> northeast
+
+> northeast
+You are in a large circular room beneath a glass dome. Eight identical doors lead to the north, northwest, west, southwest, south, southeast, east, and northeast.
+> northwest
+
+> northwest
+You are in a room that has been left half-decorated. The walls are painted half black and half white. There are doors to the west and the southeast.
+> west
+
+> west
+You are standing in a corridor with several other people. There seem to be doors to the east and west.
+
+As the door closes slowly behind you, the corridor glows longer and longer, and more and more people appear.
+> east
+
+> east
+You are in a room that has been left half-decorated. The walls are painted half black and half white. There are doors to the west and the southeast.
+You can see a Drogo Robot Guard.
+> west
+
+> west
+You are standing in a corridor with several other people. There seem to be doors to the east and west.
+
+The guard follows you into the room, but is confused by the images and decides to switch off, awaiting repair.
+> look at drogo robot guard
+
+> look at drogo robot guard
+The guard is switched off, standing motionless in the middle of the room.
+He is wearing a black coat.
+> look at coat
+
+> look at coat
+It is very smart.
+It has a pocket.
+> look at pocket
+
+> look at pocket
+It is a small breast pocket suitable for pens or a handkerchief.
+It contains a black marker pen.
+> look at pen
+
+> look at pen
+It is a black marker, full of ink and ready to be used.
+> take pen
+
+> take pen
+You carefully remove the pen from the guard's pocket.
+> east
+
+> east
+You are in a room that has been left half-decorated. The walls are painted half black and half white. There are doors to the west and the southeast.
+> write on vest
+
+> write on vest
+What do you want to write on the vest?
+> 121
+You carefully write "121" on the vest in large letters, and put it on.
+> wear hat
+
+> wear hat
+You put it on.
+> wear leggings
+
+> wear leggings
+You put them on.
+> southeast
+
+> southeast
+You are in a large circular room beneath a glass dome. Eight identical doors lead to the north, northwest, west, southwest, south, southeast, east, and northeast.
+> south
+
+> south
+You are in a narrow passage that runs north to south. At the southern end, is a substantial door leading to the Drogo Guardroom.
+
+You can see a Drogo Guard with the number 121 emblazoned across its front.
+> use calculator
+
+> use calculator
+You switch on the calculator. It glows brightly.
+Enter one key at a time. The only ones that work are 4, 7, -, and *:
+> 7
+7   (7)
+> -
+7   (7-)
+> 4
+3   (7-4)
+> *
+3   (7-4*)
+> 4
+12   (7-4*4)
+> -
+12   (7-4*4-)
+> 4
+8   (7-4*4-4)
+> *
+8   (7-4*4-4*)
+> 4
+32   (7-4*4-4*4)
+> -
+32   (7-4*4-4*4-)
+> 7
+25   (7-4*4-4*4-7)
+> -
+25   (7-4*4-4*4-7-)
+> 7
+18   (7-4*4-4*4-7-7)
+> -
+18   (7-4*4-4*4-7-7-)
+> 7
+11   (7-4*4-4*4-7-7-7)
+You have done it! On seeing the calculator the robot guard gives a wail of terror and flees into the Guardroom using a control box by the door. You notice a plastic card fall to the ground.
+> take card
+
+> take card
+You pick it up.
+> wear sunglasses
+
+> wear sunglasses
+You put on the sunglasses.
+> south
+
+> south
+You hold the access card against the entry control box by the door and go in.
+You are in a shabby room decorated with posters. Against one wall are racks of electronic equipment studded with glowing coloured lights. There are doors to the north and west.
+
+You can see about a dozen Drogo Guards in an untidy line, beneath a huge poster of a middle-aged lady who is smiling resolutely and a mirror on the opposite wall.
+
+You check your appearance in the mirror.
+You look just like a Drogo Robot Guard, though admittedly a rather unattractive one.
+> west
+
+> west
+The guards ignore you. You open the west door and lock it behind you.
+
+You are in the Treasure Room. It is dimly lit. There are no windows and just one door.
+
+You were expecting the room to be piled high with gold, jewels and other precious items, but it is almost empty.
+You can see a treasure chest.
+> open chest
+
+> open chest
+With effort, you open the chest.
+Inside you can see a collection of very old books.
+> put sphere in chest
+
+> put sphere in chest
+You place the sphere on a circular indentation in the base of the chest.
+> take books
+
+> take books
+You pick them up.
+> say neumann
+
+> say neumann
+As soon as you say "neumann" you start to feel dizzy...
+
+Suddenly you feel very sleepy. You close your eyes and when you open them again, you are in bright sunshine.
+
+It is a very hot day. You are on the grass outside a crumbling palace. Your sister is reading a book.
+
+Your Drogo costume has disappeared. Had it all been a dream?
+
+...of course not!
+
+...your sister has a different book, is wearing familiar looking sunglasses, and you have a bag of mementos!!
+
+...congratulations, you have completed the game successfully!!!
+
+THE END
+
+You can now check your score, read the epilogue you are carrying, look around, or just QUIT.
+> look at certificate
+
+> look at certificate
+Achievement Certificate
+You have completed 36/35 puzzles, visited 64/70 locations, and earned 1500/1000 points
+
+The following puzzles have been completed successfully
+Finding the Gold Cube (5)Climbing the Shelves (5)Finding the Bronze Key (5)Finding the Platinum Tetrahedron (5)Finding the Telephone Call Pattern (30)Finding the Chest Combination Code (20)Scaring off a Drogo Guard (20)Catching the Turtle (20)Catching the Pig (20)Using the Magic Word (20)Cutting the Key (50)Finding the Tightest Snooker Ball Angle (20)Baking the Cake to the Right Level (50)Finding the Right Light Switch Sequence (50)Breaking the Code (50)Blocking a Bath Hole with the Gold Cube  (10)Blocking a Bath Hole with the Platinum Tetrahedron  (10)Blocking a Bath Hole with the Ivory Octahedron  (10)Blocking a Bath Hole with the Diamond Dodecahedron  (10)Blocking a Bath Hole with the Jade Icosahedron  (10)Launching the Bath (10)Finding the Right Tree Planting Pattern (70)Finding the Ape to Owl Word Sequence (30)Opening the Piano Lid (50)Playing the Right Piano Tune (50)Shrinking to Fit the Pool Hole (20)Cracking the Safe (30)Putting Batteries into the Calculator (10)Finding a Triangular Number for the Large Bat (30)Finding the Path Around the Spider's Room (100)Understanding Game Recursion (30)Collecting the Pen (30)Using the Broken Calculator to Scare off a Drogo Guard (50)Completing the Drogo Disguise (50)Finding the Treasure Room Exit (20)Bonus: Avoiding Alarm in Treasure Room (500)
+
+Certified by:
+Crowther Woods
+
+> quit
+
+> quit
+
+Are you sure you want to leave the game?
+
+> yes
+You say "yes."
+
+GAME OVER
+[state=Finished]
