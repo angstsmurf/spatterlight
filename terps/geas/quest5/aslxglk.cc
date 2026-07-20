@@ -2706,6 +2706,20 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             exit(0);
         }
         aslx_autosave_restore_library_late();
+        /* The library snapshot re-arms the Glk timer interval that was in
+         * force when the autosave was taken (TempLibrary restores
+         * gtimerinterval) -- typically the map glide's 33 ms cadence, since
+         * the snapshot is taken at the prompt right after a move started a
+         * glide.  This process's mirror of that interval starts at 0, where
+         * timer_event_second reads EVERY tick as a whole engine second: the
+         * prompt loop would then cancel and re-request line input 30 times a
+         * second, and Spatterlight scrolls the buffer to the bottom on each
+         * request -- the window fights any attempt to scroll back.  Cancel
+         * the restored interval and let update_timer_request below arm the
+         * cadence this session actually needs. */
+        glk_request_timer_events(0);
+        g_timer_ms = 0;
+        g_timer_frac_ms = 0;
         restored = true;
         autorestored = true;
         g_autorestore_reentry = true;
