@@ -1,0 +1,195 @@
+Mountain Ski
+
+by Patricia
+
+document.documentElement.setAttribute('lang', 'en');
+"Let's go to the Alps", your sister tells you, one day.
+"The Alps?", you reply, surprised. "We haven't been there for years."
+"I know", she says. "Don't you miss it? I do."
+You think about it for a bit, and you have to admit she's right. As kids, you used to go with your family but, once your grandfather died, everyone seemed a little scared to go back.
+"We used to have so much fun, remember?", she asks. "Remember how grandpa used to prank us? And that time mom was trying a ski trick, and grandpa said "You don't know anything, you foolish lass". You both laugh thinking about it.
+"I think you're right", you tell your sister. "I think it would be nice to go there."
+So you pack your bags, and you go to revisit a place that once made you happy - and hoping to create new memories, too.
+COMMANDS: Type "help" to access the help instructions.
+Home
+You can go to The Alps.
+> go the alps
+
+> go the alps
+
+A Guest Room
+It's your small, cozy room in the motel. The comfortable bed is next to the window which has a view to the mountains.
+You can see a dog biscuit, a bed and skis.
+You can go down.
+> take skis
+
+> take skis
+You came here to ski, so you pack your equipment and put them on your shoulder.
+> take dog biscuit
+
+> take dog biscuit
+You take the biscuit and put it in your pocket. Maybe your sister will get hungry later.
+> down
+
+> down
+You exit the bedroom and walk down the stairs to the lounge.
+
+A Motel Lounge
+It's the motel's lounge. People are drinking warm beverages and eating nutritious food and listening to the radio.
+You can see a man, a cupboard and your Sister.
+You can go up or outside.
+> open cupboard
+
+> open cupboard
+You open the cupboard and it creaks a bit.
+The cupboard contains various tools and wooden shelves filled with items, including a peanut butter jar and a shovel.
+
+It contains a shovel and a peanut butter jar.
+> take shovel
+
+> take shovel
+You pick it up.
+> take peanut butter
+
+> take peanut butter
+You save it for later.
+> go outside
+
+> go outside
+You leave the motel.
+
+Outside the Motel
+Walking outside, you feel the thick snow under your boots and see, in the horizon, the beautiful landscape of the Alps. You breathe the cold air into your lungs and it feels familiar. It feels like home.
+You can see a pile of snow.
+You can go to the Mountains, the lounge or Lake.
+> dig snow
+
+> dig snow
+You grab your newly found shovel and dig the snow out of the way. Now you can go to the lake.
+> go mountains
+
+> go mountains
+
+The Mountains
+The Alps are beautiful and you feel like you'll never get tired of them. After climbing up a hill, you feel tempted to slide down on it. Down the hill you see picture-perfect pure snow. Perfect for skiing.
+You can see a hill.
+You can go Down the Hill or Outside.
+> go down the hill
+
+> go down the hill
+ Fitting the skis on your feet and grabbing the poles, you slide down the mountain and have a load of fun. What a nice, refreshing day!
+
+Down the Hill
+After sliding down the hill, you find a lost dog in the snow. It's white, fuzzy, and rather giant.
+You can see Sebastian.
+You can go Mountains.
+> use peanut butter on sebastian
+
+> use peanut butter on sebastian
+
+You open the jar, take a little bit of peanut butter and share it with Sebastian... And this good boy sure enjoys it! It wags his tail enthusiastically while licking all over your fingers. You're friends now!
+Sebastian is now following you.
+> go mountains
+
+> go mountains
+
+The Mountains
+The Alps are beautiful and you feel like you'll never get tired of them. After climbing up a hill, you feel tempted to slide down on it. Down the hill you see picture-perfect pure snow. Perfect for skiing.
+You can see a hill.
+You can go Down the Hill or Outside.
+> go outside
+
+> go outside
+
+Outside the Motel
+Walking outside, you feel the thick snow under your boots and see, in the horizon, the beautiful landscape of the Alps. You breathe the cold air into your lungs and it feels familiar. It feels like home.
+You can see a pile of snow.
+You can go to the Mountains, the lounge or Lake.
+> go lake
+
+> go lake
+Your follow the path to the lake.
+
+A Lake
+Between strong and tall pine trees you find a sanctuary-like place. The gelid waters of a big lake are so still and quiet they perfectly display a reflection of the snowy mountains around it and the blue, cloudy sky above it. Near the lake you see some paws footsteps.
+You can see a footsteps.
+You can go Outside or the Mountains.
+> go cave
+
+> go cave
+You follow the trail of the footsteps to the cave.
+
+A cave
+You find yourself at the entrance of a dark cave and yell: "Is anyone there?". You can only hear the echo of your voice. At the floor, near you, though, you see a torchlight.
+You can see a torch.
+You can go lake.
+> take torch
+
+> take torch
+You grab the torchlight. It's currently switched off and not emmitting any light.
+> switch on torch
+
+> switch on torch
+You switch on the torchlight and it illuminates the cave. Now you can see the stalactites... and a big grey dog sitting on the ground.
+> use dog biscuit on rex
+
+> use dog biscuit on rex
+
+You show him the dog biscuit and his tail starts to wag. He eats it all at once and looks at you expectantly for more. You think you're friends now!
+Rex is now following you.
+> go lake
+
+> go lake
+
+A Lake
+Between strong and tall pine trees you find a sanctuary-like place. The gelid waters of a big lake are so still and quiet they perfectly display a reflection of the snowy mountains around it and the blue, cloudy sky above it. Near the lake you see some paws footsteps.
+You can see a footsteps.
+You can go Outside or the Mountains.
+> go outside
+
+> go outside
+
+Outside the Motel
+Walking outside, you feel the thick snow under your boots and see, in the horizon, the beautiful landscape of the Alps. You breathe the cold air into your lungs and it feels familiar. It feels like home.
+You can see a pile of snow.
+You can go to the Mountains, the lounge or Lake.
+> go lounge
+
+> go lounge
+
+A Motel Lounge
+It's the motel's lounge. People are drinking warm beverages and eating nutritious food and listening to the radio.
+You can see a man, a cupboard and your Sister.
+You can go up or outside.
+The man sees you arrive with the dogs and grins with joy. "You found my puppies! Thank you!". The dogs also run to him excitedly.
+You and your sister share eye contact and smile. "I guess coming here was really worth it", you say. "Not just for us, but for Pete and the puppies, too."
+"I sign under that", says your new friend.
+"I'm glad we came", you say.
+So you and your sister spend the rest of the winter holidays in the mountains, not alone but with your new friends. You go skiing, playing in the snow and generally enjoying each other's company and new adventures: once again, having the time of your life.
+
+THE END
+
+CREDITS
+
+Mountain Ski by Patricia
+
+Writing and art by Patricia
+
+Playtested by:
+- jaogwal
+
+Special shoutout/thanks to:
+- My Giftee
+- KV and the Quest community
+- Grandpa and the pets in my life
+
+Music by
+epicmusictracks - Winter (No Wind): https://pixabay.com/music/christmas-winter-no-wind-127054/
+
+SFX
+
+lakeside birds 1.wav by jus -- https://freesound.org/s/73616/ -- License: Attribution 4.0
+Husky Bark: https://www.youtube.com/watch?v=e9GQJazdpAw
+Great Pyrenees Bark: https://www.youtube.com/watch?v=SwzmidSRnHw
+Husky howl: https://www.youtube.com/watch?v=Zkki8cvALrE
+[state=Running]
