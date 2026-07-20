@@ -63,8 +63,8 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest — 59 driven rows: each of the 26 games with
-a walkthrough mapped to its walkthrough file and an extractor mode, plus 33
+`corpus.tsv` is the curated manifest — 60 driven rows: each of the 26 games with
+a walkthrough mapped to its walkthrough file and an extractor mode, plus 34
 override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
@@ -108,7 +108,7 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**59 games driven** — **49 `Finished`**, **10 `Running`**, **0 `Wedged`**.
+**60 games driven** — **50 `Finished`**, **10 `Running`**, **0 `Wedged`**.
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
 its absence is not a loss: **9 of the 10 `Running` rows are genuine wins in games
@@ -117,7 +117,7 @@ El asesino durmiente, First Times, Its election time in Pakistan, Medievalist's
 Quest, Nearco II, Sueña un pequeño sueño, cuttings, spondre). For several, `finish`
 is *provably* unreachable: spondre's inlined `HandleCommand` routes all input to
 ResponseLib topic matching, so Core's `quit` is dead code and Running-at-credits is
-the authored terminal state. Do not read the 49/59 split as a 10-game shortfall.
+the authored terminal state. Do not read the 50/60 split as a 10-game shortfall.
 
 The other `Running` row is a real gap:
 - **The Last Hero** — the *shipped game* is unwinnable: every `MoveObject` into a
@@ -132,8 +132,8 @@ remain: the six games whose walkthroughs are Q&A/prose
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
-the hints against the game source). Fifty of the 59 rows are driven by curated
-`overrides/` (see next section) — all 33 `-` rows plus 17 of the 26 rows that do
+the hints against the game source). Fifty-one of the 60 rows are driven by curated
+`overrides/` (see next section) — all 34 `-` rows plus 17 of the 26 rows that do
 have a walkthrough; the remaining nine run the raw walkthrough through the
 extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
 walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
@@ -155,7 +155,7 @@ extractor+preamble. `overrides/README.md` tabulates why each exists
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 59 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 60 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
