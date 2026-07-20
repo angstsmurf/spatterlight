@@ -30,6 +30,10 @@ extern "C" {
 
 // Infocom image directory entry sizes (bytes per entry)
 static const int kCompactEntrySize = 8;
+// 12-byte entries have no colour map: id, width, height, flags, pixel data
+// offset, and one unused trailing byte. Used by Zork Zero's Mac B/W
+// (PIC.DATA), EGA (.EG1) and CGA (.CG1) files.
+static const int kNoColorMapEntrySize = 12;
 static const int kStandardEntrySize = 14;
 static const int kExtendedEntrySize = 16;
 
@@ -186,11 +190,13 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         return 0;
 
     // The per-entry parser below reads a fixed byte count that depends on the
-    // entry size (8 for compact, 14 for standard, 16 for extended). Any other
-    // value would make the directory-fits reservation (which uses
-    // directory_entry_size) disagree with the bytes actually consumed by the
-    // loop, allowing a small/odd size to pass the check yet read past `end`.
+    // entry size (8 for compact, 12 for no-colour-map, 14 for standard, 16 for
+    // extended). Any other value would make the directory-fits reservation
+    // (which uses directory_entry_size) disagree with the bytes actually
+    // consumed by the loop, allowing a small/odd size to pass the check yet
+    // read past `end`.
     if (file_header.directory_entry_size != kCompactEntrySize &&
+        file_header.directory_entry_size != kNoColorMapEntrySize &&
         file_header.directory_entry_size != kStandardEntrySize &&
         file_header.directory_entry_size != kExtendedEntrySize) {
         return 0;
@@ -233,7 +239,7 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
             directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
             // Huffman tree offset is stored as a word that must be doubled
             directory[entry_index].huffman_tree_offset = READ_BE_UINT16_AND_ADVANCE(&ptr) * kHuffmanOffsetScale;
-        } else if (file_header.directory_entry_size != kCompactEntrySize) {
+        } else if (file_header.directory_entry_size == kNoColorMapEntrySize) {
             directory[entry_index].color_map_offset = 0;
             read_byte_and_advance(&ptr);  // skip unknown trailing byte
         }
