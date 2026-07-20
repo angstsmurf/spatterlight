@@ -709,10 +709,11 @@ void draw_border_common(int border, int BL, int BR,
             // No covering rectangle at the start menu.
             break;
         case BorderKind::Hint:
-            // Hint borders cover the top bar on Mac B/W, on Amiga running the
-            // Macintosh interpreter (with a special color), and on the PC
-            // formats (EGA/VGA/Blorb), where the bar takes the colour of the
-            // top of the hint background art.
+            // Hint borders cover the top bar on Mac B/W, on Amiga/Mac colour,
+            // and on the PC formats (EGA/VGA/Blorb), where the bar takes the
+            // colour of the top of the hint background art. That colour is per
+            // game as well as per format: Zork Zero and Shogun ship different
+            // EGA hint backgrounds (mauve dither vs flat brown).
             // On CGA, we just draw a solid-color top bar between the strips
             // (i.e we don't reset left_margin to 0.)
             switch (graphics_type) {
@@ -740,15 +741,23 @@ void draw_border_common(int border, int BL, int BR,
                     }
                     break;
                 case kGraphicsTypeEGA:
-                    // EGA renders its hint background as a two-colour dither,
-                    // so no single pixel of the artwork is the colour the eye
-                    // actually sees. BROWN is the flat stand-in the rest of the
-                    // EGA code already uses for it (it is what v6_set_colours
-                    // gives the status window), so the bar blends with the
-                    // pillars below it.
                     left_margin = 0;
-                    rectangle_color = BROWN;
-                    should_draw_covering_rectangle = true;
+                    if (is_spatterlight_zork0) {
+                        // Zork Zero renders its EGA hint background as a
+                        // two-colour dither, so no single pixel of the artwork
+                        // is the colour the eye actually sees: sampling gives
+                        // the bright magenta while the field reads as a muted
+                        // mauve. BROWN is the flat stand-in the rest of the EGA
+                        // code already uses for it (it is what v6_set_colours
+                        // gives the status window).
+                        rectangle_color = BROWN;
+                        should_draw_covering_rectangle = true;
+                    } else if (sample_pixmap_pixel(hw_screenwidth / 2, 0, &rectangle_color)) {
+                        // Shogun, the other hint-border caller, uses a flat
+                        // field instead (EGA brown, 0xaa5500), which is nothing
+                        // like Zork Zero's mauve -- so read it off the artwork.
+                        should_draw_covering_rectangle = true;
+                    }
                     break;
                 case kGraphicsTypeVGA:
                 case kGraphicsTypeBlorb:
