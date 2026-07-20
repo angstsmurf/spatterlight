@@ -1,0 +1,473 @@
+# Return to Castle Coris -- FULL WINNING walkthrough (ADRIFT 5).
+#
+# Wins with the MAXIMUM score: "...in 437 turns, scoring the maximum 400 points!"
+# (Alaric Blackmoon episode; Larry Horsfield, 2020.  Version 5.0000366.)
+#
+# Source: the game's own built-in WLKTHRGH solution (task "Walkthroug"),
+# extracted verbatim, then repaired against THIS build's map and mechanics.
+#   * Intro: the printed walkthrough begins at "entrance to tunnel"; prepend the
+#     two start-menu keystrokes the Runner needs -- "o" (type O to reach the
+#     Start Options page) then "b" (Begin the game from the first location).
+#   * Slime-eater sack: the doc's "u - u - search tunnel - d - d - get eaters"
+#     over-shoots.  The oilskin sack is found by SEARCHing the Rock Tunnel
+#     (Location43, ONE level above the waterfall cave), not the Earth Tunnel two
+#     levels up; corrected to "u - search tunnel - d - get eaters" (search there
+#     yields the sack +5, and `get eaters` then auto-catches them into it +5).
+#   * Gold ring vs. the alehouse: the doc keeps the gold ring worn from the cave
+#     nest right through to Christiana, but entering the main alehouse
+#     (Location93) while wearing/carrying gold triggers the "the men see the gold
+#     ... and they attack you" instant-death.  Remove and bag the ring before the
+#     first alehouse entry ("remove ring / put ring in bag"); at Christiana the
+#     doc's "remove ring" (it is no longer worn) becomes "get ring" (from the
+#     bag) before "give ring".
+#   * Flambeau's house: the doc's single "s" stops at the north-end RED-door
+#     house.  Flambeau lives behind the GREEN door halfway along South Lane
+#     (Location91); one extra "s" reaches it so "pick lock" (needs the wire +5)
+#     works.
+#
+# Ground truth: plays byte-for-byte with FrankenDrift under FD_RNG=xoshiro apart
+# from ONE documented residual (see run_a5_walkthroughs.sh MAP): the first
+# `look in gap` under the outcrop, where Scarier appends the second completion
+# alternate "You can also see ... under there." listing the Under-Outcrop static
+# scenery while FD omits it.  Vanilla adds 5 more hunks: the salt-flats' random
+# vulture/eagle/lizard atmosphere event picks different text under System.Random
+# vs. xoshiro (pure RNG noise, gone under xoshiro).
+#
+o
+b
+n
+n
+n
+x stairs
+search space
+get hammer and chisel
+put hammer and chisel in bag
+s
+s
+s
+light lamp
+s
+sw
+s
+n
+e
+stand on slab
+w
+s
+shine light at walls
+w
+get rock
+push rock e
+roll rock n
+push rock e
+roll rock on slab
+w
+s
+s
+s
+turn lamp off
+get goggles
+wear goggles
+d
+d
+u
+u
+u
+search detritus
+d
+d
+d
+d
+put all in bag
+get grapnel
+throw grapnel at underside
+jump across gap
+get rope
+shake rope
+d
+d
+move goblin
+get tablet
+x tablet
+read symbols
+put tablet in bag
+search goblin
+put bracelet in bag
+d
+d
+get chisel
+throw chisel over railing
+hook grapnel in wood
+climb d rope
+get lamp
+remove goggles
+turn on lamp
+e
+search rocks
+get skull
+remove teeth from jaw
+put skull in bag
+put teeth in pouch
+look in pouch
+w
+get rat
+put rat in bag
+turn off lamp
+put lamp in bag
+wear goggles
+climb up rope
+get grapnel
+w
+w
+s
+remove goggles
+s
+s
+s
+se
+e
+e
+e
+talk to goblin
+1
+2
+3
+talk to goblin
+3
+2
+1
+talk to goblin
+get key
+give key to goblin
+get tablet from bag
+x parchment
+read instructions
+w
+w
+follow instructions
+n
+x tree
+look down
+x opening
+tie grapnel around tree
+put all in pouch
+climb d rope
+crawl into hole
+get goggles
+get rat
+wear goggles
+x floor
+search bones
+feed chicks
+search nest
+wear ring
+remove goggles
+put all in pouch
+crawl out of cave
+climb u rope
+get grapnel
+n
+x rocks
+d
+look behind water
+w
+get lamp
+turn lamp on
+x creatures
+u
+search tunnel
+d
+get eaters
+u
+u
+out
+sw
+sw
+x rider
+nw
+nw
+w
+in
+talk to mog
+1
+2
+3
+talk to mog
+1
+2
+3
+talk to mog
+1
+2
+3
+get skull
+give skull to mog
+give slime-eaters to mog
+x pills
+put potion and pills in bag
+e
+se
+se
+sw
+sw
+w
+get all
+x sketch
+put sketch in bag
+sheath sword
+d
+n
+e
+get cloth
+search beams
+get beam
+in
+get hammer
+hammer beam with hammer
+light lamp
+d
+search equipment
+u
+w
+x outcrop
+x overhang
+x gap
+look in gap
+throw lamp in gap
+throw pod under outcrop
+remove bag
+drop all
+crawl into gap
+get pod
+fill pod with water
+throw pod out of gap
+get lamp
+throw lamp onto track
+crawl out
+get all
+wear bag
+turn off lamp
+put lamp and pod in bag
+nw
+nw
+look around
+remove baldric
+remove jacket
+put baldric and jacket in bag
+x outcrop
+climb onto outcrop
+look around
+x hill
+x town
+d
+tie knots in cloth
+wear sunhat
+w
+get potion and pills
+drink shrink
+remove hat
+wave arms
+x bird
+look down
+eat pill
+wear sunhat
+w
+remove hat
+w
+drink shrink
+get jacket
+wear jacket
+sw
+s
+s
+1
+2
+3
+4
+help farmer
+jump on wagon
+drink potion
+hide under sacks
+z
+z
+climb down
+eat pill
+get bucket
+nw
+e
+e
+x caravans
+n
+x stage
+w
+knock on door
+se
+e
+e
+n
+n
+drop bucket
+remove ring
+put ring in bag
+in
+w
+x west wall
+e
+out
+z
+drink potion
+in
+w
+go inside mousehole
+get goggles
+wear goggles
+s
+s
+look up
+x bar
+throw grapnel over bar
+put all in bag
+climb u rope
+get rope
+look u
+look s
+throw grapnel over bar
+swing south
+shake rope
+tie rope to bar
+climb down rope
+s
+remove goggles
+out
+x guard
+x dog
+in
+wear goggles
+n
+climb up rope
+get rope
+throw grapnel over bar
+swing n
+shake rope
+tie rope to bar
+climb d rope
+n
+n
+remove goggles
+put goggles in bag
+out
+run east
+wait
+get grow
+eat grow
+s
+s
+1
+2
+3
+get wire
+w
+w
+w
+nw
+knock on door
+u
+1
+2
+3
+talk to christiana
+get ring
+give ring
+get bracelet
+give bracelet
+get teeth
+give teeth
+se
+e
+e
+s
+s
+pick lock
+open door
+in
+u
+pick east lock
+open door
+in
+put grow pills in bag
+put sketch in bag
+look under bed
+remove jacket
+remove shirt
+remove trousers
+remove boots
+get all from bed
+get shoes
+wear tunic
+wear leggings
+wear shoes
+drop all
+out
+d
+out
+n
+n
+n
+n
+get shrink
+drink shrink
+put shrink in bag
+in
+w
+in
+get goggles
+wear goggles
+s
+s
+climb u rope
+get rope
+throw grapnel over bar
+swing south
+shake rope
+tie rope to bar
+climb down rope
+shake rope
+put grapnel in bag
+s
+remove goggles
+out
+get grow
+eat grow
+drop grow
+s
+wake guard
+1
+2
+3
+squeeze collar twice
+w
+w
+follow blaze
+n
+n
+n
+wear goggles
+e
+e
+u
+u
+u
+u
+get grapnel
+throw grapnel up
+swing across gap
+shake rope
+u
+u
+throw grapnel up
+climb u rope
+n
+n
+n
+n
+u

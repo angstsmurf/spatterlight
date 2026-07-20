@@ -47,6 +47,11 @@ HERE=$(cd "$(dirname "$0")/.." && pwd)
 FD_ROOT=${FD_ROOT:-$HOME/frankendrift}
 FD_SEED=${FD_SEED:-1234}
 
+# FrankenDrift.Headless targets net9.0; the homebrew dotnet was since upgraded
+# to 10 (for the Quest 5 oracle), which removed the 9.x runtime.  Roll forward
+# rather than rebuild: a rebuilt dll would invalidate every FD_CACHE entry.
+export DOTNET_ROLL_FORWARD=${DOTNET_ROLL_FORWARD:-Major}
+
 if [ $# -lt 2 ]; then
     echo "usage: $0 <game.blorb|game.taf> <script.txt>" >&2
     exit 2

@@ -1,0 +1,2765 @@
+Return To Castle Coris
+
+A Note For The Player:
+
+This adventure game is very much "old school" in that the gameplay involves having to SEARCH objects and/or LOOK BEHIND, IN or UNDER objects to find objects that you will need during the game. You might also have to EXAMINE WALL to find something on it.
+
+If you do not like this style of adventure gameplay then regrettably this game may not be for you.
+
+Many thanks
+
+Larry Horsfield
+
+Please type the letter O then press Enter to Continue to the Start Options Page.
+
+> o
+RETURN TO CASTLE CORIS
+
+Start Options:
+
+If you have already started the game and wish to restart from a saved position, click on the blue folder icon above.
+
+To Begin the game from the first location, press B and then Enter.
+
+You are highly advised to read the prologue and playing instructions, especially if you are starting this game for the first time. To do this press P and then Enter.
+
+PLEASE NOTE: This game was envisioned by the author as being playable Cyan On Black. Since ADRIFT does not support an authorial override of a player's background colour, be advised that if your background colour is not black, portions of this game will not be easily readable. For maximum experience as intended by the author please ensure your background colour is set to BLACK and the output colour to CYAN.
+
+If you are visually impaired you can increase or decrease the font size whilst playing this game by holding down the CTRL key and moving your mouse wheel.
+
+Please ensure that Autocomplete is unticked in the "Edit" tab  above.
+
+Useful Commands After The Adventure Has Started:
+
+ABBS : BUGS : COMMANDS : CREDITS : HELP : MACROS : MAP : SPEECH : VOCAB;
+
+> b
+
+South Side of Cavern
+You are on the south side of the cavern where a tunnel opening leads South into darkness. Above you is the wall of the cavern from which the hideous image of the Xixon god Xixtor once hung. You can see burn marks on the floor of the cavern where melted metal from the mask of the god fell when it was blasted during the battle with Zalazar. Several torches on the walls cast enough light for you to see your surroundings. The cavern extends North.
+
+> n
+You move North.
+
+The Vast Cavern
+You are in the vast cavern far below Castle Coris. There is no evidence of the huge hole that was here nor the blood-stained altar on which so many innocent people were sacrificed. Of the huge metal mask of the Xixon god Xixtor that once hung on the wall there is also no sign. Over on the South side of the cavern is the tunnel opening and further North is the tunnel that leads to the spiral stairway that winds up to the castle. Torches on the walls cast enough light for you to see your surroundings.
+
+> n
+You move North.
+
+North Side of Cavern
+You are on the north side of the cavern, by a tunnel opening that leads North to the spiral stairway that leads up to Castle Coris. You can go South into the main part of the cavern. Several torches on the walls cast enough light for you to see your surroundings.
+
+> n
+You move North.
+
+Bottom of Spiral Stairs
+You're at the bottom of the spiral stairs that lead Up, facing a curved tunnel that leads South. A torch on the wall here casts a flickering light enough for you to see.
+
+> x stairs
+They go Up to Castle Coris itself. Under the bottom of the stairs you notice a space.
+
+Bottom of Spiral Stairs
+You're at the bottom of the spiral stairs that lead Up, facing a curved tunnel that leads South. A torch on the wall here casts a flickering light enough for you to see. There is a space under the bottom of the stairs.
+
+> search space
+You search the space and pull out a couple of tools.
+
+Bottom of Spiral Stairs
+You're at the bottom of the spiral stairs that lead Up, facing a curved tunnel that leads South. A torch on the wall here casts a flickering light enough for you to see. There is a space under the bottom of the stairs.  Also here is a heavy hammer and a metal chisel.
+
+> get hammer and chisel
+Ok, you pick up the heavy hammer and the metal chisel.
+
+> put hammer and chisel in bag
+OK, you put the heavy hammer and the metal chisel inside the bag.
+
+> s
+You move South.
+
+North Side of Cavern
+You are on the north side of the cavern, by a tunnel opening that leads North to the spiral stairway that leads up to Castle Coris. You can go South into the main part of the cavern. Several torches on the walls cast enough light for you to see your surroundings.
+
+> s
+You move South.
+
+The Vast Cavern
+You are in the vast cavern far below Castle Coris. There is no evidence of the huge hole that was here nor the blood-stained altar on which so many innocent people were sacrificed. Of the huge metal mask of the Xixon god Xixtor that once hung on the wall there is also no sign. Over on the South side of the cavern is the tunnel opening and further North is the tunnel that leads to the spiral stairway that winds up to the castle. Torches on the walls cast enough light for you to see your surroundings.
+
+> s
+You move South.
+
+South Side of Cavern
+You are on the south side of the cavern where a tunnel opening leads South into darkness. Above you is the wall of the cavern from which the hideous image of the Xixon god Xixtor once hung. You can see burn marks on the floor of the cavern where melted metal from the mask of the god fell when it was blasted during the battle with Zalazar. Several torches on the walls cast enough light for you to see your surroundings. The cavern extends North.
+
+> light lamp
+You turn on the lamp.
+
+> s
+You move South.
+
+In Tunnel
+You are in a tunnel deep underground that bends North and SW. The floor is bit bumpy and the walls and ceiling are rather uneven. You notice that the tunnel widens out further southwest.
+
+> sw
+You move SouthWest.
+
+In Tunnel
+You are in a deep subterranean tunnel which leads NE and South. The tunnel is quite wide here and the pool of light thrown out by your lamp doesn't quite reach the walls of the tunnel. However, you can just about make out the opening to a side tunnel on the East side.
+
+> s
+You move South.
+
+In Tunnel
+You are in a wide tunnel deep underneath Castle Coris. The tunnel appears to end here abruptly, you cannot see anything to the south beyond the pool of light cast out by your lamp. Similarly you have no idea how deep the chasm before you is.
+
+> n
+You move North.
+
+In Tunnel
+You are in a deep subterranean tunnel which leads NE and South. The tunnel is quite wide here and the pool of light thrown out by your lamp doesn't quite reach the walls of the tunnel. However, you can just about make out the opening to a side tunnel on the East side.
+
+> e
+You move East.
+
+Dead End
+You're at a dead end in the tunnels. Protruding from the floor here is a round slab of stone. You can only go back West to the main tunnel.
+
+> stand on slab
+You step onto the slab.
+
+You feel the slab move down slightly under your weight and then you hear the loud grinding of rock against rock from around the corner in the main tunnel.
+
+> w
+(getting off the round slab of stone first)
+You move West.
+
+As you step off the slab you feel the vibration again as well as the grinding noise from around the corner in the main tunnel.
+
+In Tunnel
+You are in a deep subterranean tunnel which leads NE and South. The tunnel is quite wide here and the pool of light thrown out by your lamp doesn't quite reach the walls of the tunnel. However, you can just about make out the opening to a side tunnel on the East side.
+
+> s
+You move South.
+
+In Tunnel
+You are in a wide tunnel deep underneath Castle Coris. The tunnel appears to end here abruptly, you cannot see anything to the south beyond the pool of light cast out by your lamp. Similarly you have no idea how deep the chasm before you is.
+
+> shine light at walls
+You shine your lamp at the tunnel walls and see, on the west side, a narrow tunnel.
+
+In Tunnel
+You are in a wide tunnel deep underneath Castle Coris. The tunnel appears to end here abruptly, you cannot see anything to the south beyond the pool of light cast out by your lamp. Similarly you have no idea how deep the chasm before you is. There is also a tunnel leading West.
+
+> w
+You move West.
+
+The Narrow Tunnel
+You're in a narrow side tunnel that narrows the further west you go until it becomes impassable.  Also here is a large round boulder.
+
+> get rock
+The boulder is far too heavy for you to pick up.
+
+> push rock e
+Ok, you roll the large round boulder East.
+
+In Tunnel
+You are in a wide tunnel deep underneath Castle Coris. The tunnel appears to end here abruptly, you cannot see anything to the south beyond the pool of light cast out by your lamp. Similarly you have no idea how deep the chasm before you is. There is also a tunnel leading West.  Also here is a large round boulder.
+
+> roll rock n
+Ok, you roll the large round boulder North.
+
+In Tunnel
+You are in a deep subterranean tunnel which leads NE and South. The tunnel is quite wide here and the pool of light thrown out by your lamp doesn't quite reach the walls of the tunnel. However, you can just about make out the opening to a side tunnel on the East side.  Also here is a large round boulder.
+
+> push rock e
+Ok, you roll the large round boulder East.
+
+Dead End
+You're at a dead end in the tunnels. Protruding from the floor here is a round slab of stone. You can only go back West to the main tunnel.  Also here is a large round boulder.
+
+> roll rock on slab
+You roll the rock onto the round slab of stone.
+
+You again feel the floor of the tunnel tremble and hear the loud grinding of rock against rock as the floor rises in the main tunnel around the corner.
+
+> w
+You move West.
+
+In Tunnel
+You are in a deep subterranean tunnel which leads NE and South. The tunnel is quite wide here and the pool of light thrown out by your lamp doesn't quite reach the walls of the tunnel. However, you can just about make out the opening to a side tunnel on the East side.
+
+> s
+You move South.
+
+In Tunnel
+You are in a wide tunnel deep underneath Castle Coris. The chasm to the south has disappeared after the tunnel floor rose up and you can now either proceed in that direction or go North. There is also a tunnel leading West.
+
+> s
+You move South.
+
+In Tunnel
+You are in the tunnel deep underground, to the north is the part of the tunnel where the floor was missing. You can go North or South.
+
+> s
+You move South.
+
+Top Of Shaft (1N)
+You're at the end of the tunnel deep underground, where it has opened up next to a vertical, roughly square-shaped shaft which plunges down into darkness. Around the sides of the shaft a rickety wooden stairway spirals clockwise into the depths. You can go North along the tunnel or Down the stairway. The floor here and the stairway is covered with all sorts of detritus, accumulated over the decades, if not centuries since it was built.
+
+> turn lamp off
+You turn off the lamp and are plunged into darkness.
+
+It is too dark to make anything out clearly.
+
+> get goggles
+
+(from the leather pouch)
+Ok, you take the pair of goggles out of the pouch.
+
+> wear goggles
+You put the goggles on and can see in the dark.
+
+Top Of Shaft (1N)
+You're at the end of the tunnel deep underground, where it has opened up next to a vertical, roughly square-shaped shaft which plunges down into darkness. Around the sides of the shaft a rickety wooden stairway spirals clockwise into the depths. You can go North along the tunnel or Down the stairway. The floor here and the stairway is covered with all sorts of detritus, accumulated over the decades, if not centuries since it was built.
+
+> d
+You move Down.
+
+Wooden Platform (1E)
+You are on a platform on the spiral stairway in the vertical shaft on the east side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet all around you and you can only dimly make out the far side of the shaft. Stairs lead Up or Down to the platforms above and below you.
+
+> d
+You move Down.
+
+You have only gone down a couple of steps when you feel the wooden stair beneath your foot give way.
+
+You try to grab hold of the railing but miss it. The rotten stairway breaks under your weight and you plunge down.
+
+Luckily you only fall as far as the section of stairway directly underneath, which is strong enough to sustain the impact of your body. You land on your back with an "Ooof" and are showered with bits of wood from the crumbling stairway above you. You roll down a few stairs onto a flat platform where you stop.
+
+You get to your feet, winded but otherwise unharmed, and brush yourself down.
+
+Wooden Platform (2S)
+You are on a platform in the spiral stairway in the vertical shaft on the south side. It is covered with detritus. In the stairway above you there is a gap in the stairs. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.
+
+> u
+You move Up.
+
+Wooden Platform (2E)
+You are on a platform in the spiral stairway in the vertical shaft on the east side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you. Above your head, the stairs are missing.
+
+> u
+You move Up.
+
+Wooden Platform (2N)
+You are on a platform in the spiral stairway in the vertical shaft on the north side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.
+
+> u
+You move Up.
+
+Wooden Platform (1W)
+You are on a platform on the spiral stairway in the vertical shaft on the west side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft.  You can go Up or Down to either platform above and below you.
+
+> search detritus
+You search through the detritus and see something glinting. You brush away some more of the bits and pieces covering the object and discover that it is a silver key. You pick it up and blow off the remaining dust on it.
+
+You hear the squeaking of bats as they fly around the shaft. As you are not carrying the lit lamp they ignore you.
+
+> d
+You move Down.
+
+Wooden Platform (2N)
+You are on a platform in the spiral stairway in the vertical shaft on the north side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.
+
+> d
+You move Down.
+
+Wooden Platform (2E)
+You are on a platform in the spiral stairway in the vertical shaft on the east side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you. Above your head, the stairs are missing.
+
+> d
+You move Down.
+
+Wooden Platform (2S)
+You are on a platform in the spiral stairway in the vertical shaft on the south side. It is covered with detritus. In the stairway above you there is a gap in the stairs. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.
+
+> d
+You move Down.
+
+Wooden Platform (2W)
+You are on a platform in the spiral stairway in the vertical shaft on the west side. There is a gap in the stairs further down where the wood has rotted away and you can only go Up to the platform above this one. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft.
+
+You again hear the fluttering wings of bats as they fly around the shaft. As there is no light from the lamp they ignore you.
+
+> put all in bag
+OK, you put the oil lamp and the silver key inside the bag.
+
+> get grapnel
+
+(from the bottomless bag)
+Ok, you take the rope and grapnel from out of the bag.
+
+> throw grapnel at underside
+You throw the grapnel at the underside of the stairway above you. The grapnel digs into the wood and the rope dangles into the gap between the sections of stairway.
+
+Wooden Platform (2W)
+You are on a platform in the spiral stairway in the vertical shaft on the west side. There is a gap in the stairs further down where the wood has rotted away and you can only go Up to the platform above this one. It is covered with detritus. Your grapnel is hooked to the underside of the stairs above the gap and the rope hangs down into it. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft.
+
+> jump across gap
+Holding onto the hanging rope to support your weight, you jump across the gap to the platform below.
+
+Wooden Platform (3N)
+You are on a platform on the spiral stairway in the vertical shaft on the north side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. The stairs further up have collapsed and you can only go Down to the platform below you. You can see the grapnel hooked into the stairway above the gap with the rope hanging down through the gap.
+
+> get rope
+Try SHAKE ROPE.
+
+You feel the wind from the wings of a bat as it flies around the shaft.
+
+> shake rope
+You snap the rope a couple of times and the grapnel comes loose from where you hooked it.
+
+Wooden Platform (3N)
+You are on a platform on the spiral stairway in the vertical shaft on the north side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. The stairs further up have collapsed and you can only go Down to the platform below you.
+
+> d
+You move Down.
+
+Wooden Platform (3E)
+You are on a platform in the wooden stairway in the vertical shaft on the east side. You can go Up and Down the stairs to the platforms above and below you. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft.
+
+A couple of bats fly around your head then, squeaking loudly, soar off the shaft.
+
+> d
+You move Down.
+
+Wooden Platform (3S)
+You are on a platform in the spiral stairway in the vertical shaft on the south side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.  Lying against the wall of the shaft here is a dead goblin.
+
+> move goblin
+You gingerly move the body of the goblin away from the wall of the shaft. Under the body you see an object.
+
+Wooden Platform (3S)
+You are on a platform in the spiral stairway in the vertical shaft on the south side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.  Lying against the wall of the shaft here is a dead goblin.  Also here is a clay tablet.
+
+> get tablet
+Ok, you pick up the clay tablet.
+
+You feel the wind from the wings of a bat as it flies around the shaft.
+
+> x tablet
+A hardened clay tablet, about a foot or so long and six inches across, with rows of strange symbols marked on it.
+
+> read symbols
+You cannot read the symbols as you do not know what the language is.
+
+> put tablet in bag
+OK, you put the clay tablet inside the bag.
+
+> search goblin
+You search the dead goblin and immediately notice there is a gold bracelet on the right wrist, which you take off.
+
+You hear the squeaking of bats as they fly around the shaft. As you are not carrying the lit lamp they ignore you.
+
+> put bracelet in bag
+OK, you put the gold bracelet inside the bag.
+
+> d
+You move Down.
+
+Wooden Platform (3W)
+You are on a platform in the spiral stairway in the vertical shaft on the west side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft. You can go Up or Down. The stairs above the platform above you are missing.
+
+> d
+You move Down.
+
+Bottom of Stairway
+You're at the bottom of the stairs, which spiral up into the darkness above you, on a larger platform attached to the wall of the shaft. A wooden railing runs all the way around the platform. It is covered with detritus. The shaft goes down further into the darkness, by how much you are not sure. A round tunnel leads off West from here.
+
+> get chisel
+
+(from the bottomless bag)
+Ok, you take the metal chisel from out of the bag.
+
+> throw chisel over railing
+You throw the metal chisel off the platform into the darkness of the shaft. You hear it hit the floor below and judge that the floor must be about 25 to 30 feet below you.
+
+A couple of bats fly around your head then, squeaking loudly, soar off the shaft.
+
+> hook grapnel in wood
+You dig the prongs of the grapnel into the wood at the edge of the platform and throw the rope over the edge to hang down into the shaft below.
+
+Bottom of Stairway
+You're at the bottom of the stairs, which spiral up into the darkness above you, on a larger platform attached to the wall of the shaft. A wooden railing runs all the way around the platform. It is covered with detritus. The bottom of the shaft is about 30 feet below you in the darkness. A round tunnel leads off West from here. The grapnel is hooked onto the edge of the platform and the rope hangs down into the shaft below.
+
+> climb d rope
+You climb over the edge of the platform and down the rope to the floor of the shaft. It isn't very far, about 20 or 30 feet.
+
+Bottom of Shaft
+You are at the bottom of the shaft in a large cave that extends East and is covered with detritus. Your rope hangs down from the darkness above.  Also here is a metal chisel.
+
+> get lamp
+
+(from the bottomless bag)
+Ok, you take the oil lamp from out of the bag.
+
+You hear a noise nearby and you freeze - was that the sound of a snake's scales slithering over the rock floor of the cave?
+
+> remove goggles
+Ok, you take off the goggles and are plunged into darkness.
+
+It is too dark to make anything out clearly.
+
+You hear the sound of the snake slithering over the rock floor again, this time much nearer. From the loudness of the noise you guess that the snake is very big!
+
+> turn on lamp
+You turn on the lamp.
+
+As light floods the cave the snake hisses in rage and, its eyes dazzled by the - to the snake - intense light, it slithers away to its lair in the dark recesses of the cave.
+
+Bottom of Shaft
+You are at the bottom of the shaft in a large cave that extends East and is covered with detritus. Your rope hangs down from the darkness above.  Also here is a metal chisel.
+
+> e
+You move East.
+
+East Side of Cave
+You are on the east side of the cave, where there must have been a rockfall at some time in the past. There is a large pile of rocks of all sizes here that has fallen from the ceiling. The cave floor is also covered with detritus.
+
+> search rocks
+You search the rocks, moving them from where they lay on the floor of the cave. After you have moved several you undercover a small skeleton.
+
+East Side of Cave
+You are on the east side of the cave, where there must have been a rockfall at some time in the past. There is a large pile of rocks of all sizes here that has fallen from the ceiling. The cave floor is also covered with detritus.   Here, partly covered by the rockfall, you see the skeleton of a goblin.
+
+> get skull
+You take the skull from the skeleton, leaving the bones on the floor.
+
+> remove teeth from jaw
+You pull the gold teeth out of the skull.
+
+> put skull in bag
+OK, you put the goblin skull inside the bag.
+
+> put teeth in pouch
+Ok, you put the gold teeth in the pouch.
+
+> look in pouch
+You look in the pouch and see some gold teeth inside.
+
+> w
+You move West.
+
+Bottom of Shaft
+You are at the bottom of the shaft in a large cave that extends East and is covered with detritus. Your rope hangs down from the darkness above.  Also here is a metal chisel.
+
+You notice something on the floor of the cave and have a look to see what it is. It is a dead rat. Maybe the snake had killed it but left it when it sensed larger prey - i.e. You.
+
+Bottom of Shaft
+You are at the bottom of the shaft in a large cave that extends East and is covered with detritus. Your rope hangs down from the darkness above.  Also here is a dead rat and a metal chisel.
+
+> get rat
+Ok, you pick up the dead rat.
+
+> put rat in bag
+OK, you put the dead rat inside the bag.
+
+> turn off lamp
+You turn off the lamp and are plunged into darkness.
+
+It is too dark to make anything out clearly.
+
+> put lamp in bag
+OK, you put the oil lamp inside the bag.
+
+> wear goggles
+You put the goggles on and can see in the dark.
+
+Bottom of Shaft
+You are at the bottom of the shaft in a large cave that extends East and is covered with detritus. Your rope hangs down from the darkness above.  Also here is a metal chisel.
+
+> climb up rope
+You climb back up the rope to the platform.
+
+Bottom of Stairway
+You're at the bottom of the stairs, which spiral up into the darkness above you, on a larger platform attached to the wall of the shaft. A wooden railing runs all the way around the platform. It is covered with detritus. The bottom of the shaft is about 30 feet below you in the darkness. A round tunnel leads off West from here. The grapnel is hooked onto the edge of the platform and the rope hangs down into the shaft below.
+
+> get grapnel
+You reach down and take the grapnel from where you hooked it to the platform and pull the rope up.
+
+Bottom of Stairway
+You're at the bottom of the stairs, which spiral up into the darkness above you, on a larger platform attached to the wall of the shaft. A wooden railing runs all the way around the platform. It is covered with detritus. The bottom of the shaft is about 30 feet below you in the darkness. A round tunnel leads off West from here.
+
+> w
+You move West.
+
+Round Tunnel
+You are halfway along the tunnel which run West and East.
+
+> w
+You move West.
+
+Round Tunnel
+You are in the round tunnel that leads East to the stairway around the vertical shaft. It bends to the South here and you see what appears to be bright daylight some distance further south.
+
+> s
+You move South.
+
+Round Tunnel
+You are halfway along the North-South Tunnel, where you notice that the air has a fuzzy quality to it. Further south you see daylight and this is starting to dazzle you a bit.
+
+> remove goggles
+Ok, you take off the goggles and are plunged into darkness.
+
+Round Tunnel
+You are halfway along the North-South Tunnel, where you notice that the air has a fuzzy quality to it. Further south you see daylight.
+
+> s
+You move South.
+
+As you walk south along the tunnel it feels like you are walking through thick oil and, once past it, you get the feeling, like you have done before, that you have moved to a different place.
+
+End Of Tunnel
+You are at the end of the tunnel where it opens into daylight. There are tall bushes growing outside the tunnel which must shield the tunnel from the view of anyone on the far side. You can go North into the tunnel or South through the bushes.
+
+> s
+You push your way through the bushes into the daylight.
+
+Outside Tunnel
+You're outside the tunnel, which is set into the side of a steep hillside. The tunnel is hidden from view by the bushes that grow in profusion all around. You seem to be in a wood which is populated with strange-looking trees and plants. You can go East, West, South, SE or SW, or North back into the tunnel.
+
+> s
+You move South.
+
+You set off through the woods, cutting a blaze on trees as you pass them so you can find your way back. You notice various animals and birds but are unable to identify what species they are. After about half an hour of walking, you reach a road.
+
+Road Through Woods
+You're on a road that runs NW and SE through the woods. All around you strange flora grows in abundance. You can go in all directions. On a tree by the side of the road is a blaze you cut in the trunk.
+
+> se
+You move Southeast.
+
+You walk SE along the road, which meanders through the woods for some distance before narrowing to a path which eventually leads East to the edge of the woods.
+
+Edge of Woods
+You're at the edge of the woods, facing a flat, open plain that stretches away to distant hills on the horizon. About half a mile to the southeast and northeast you see a couple of small towns, both of which have wooden palisades around them. A path leads West into the woods just here.  In front of both towns is a small rag-tag army of goblins shouting and waving all sorts of weapons at each other. You notice that at the front of each army, directly ahead of you, is a small group of goblins who seem to be the leaders. The path leads East across the plain and West into the woods.
+
+> e
+You move East.
+
+As you get nearer to the goblins who seem to be the leaders, you hear them arguing with each other, with the others behind them urging them on. Then the goblins see you coming towards them and, as you tower above them, they look up at you in dumb astonishment. The arguing and shouting from both sides gradually subsides then stops.
+
+On Open Plain
+You are standing on the path which runs from West to East across a wide open plain. All around you are a couple of hundred goblins. Behind each of the armies you see a palisaded town.
+
+One of the goblins, dressed in red, looks at you angrily.
+
+"What are you doing here, human?" he asks you. "Go away before we turn our anger upon you!"
+
+> e
+You go to walk East but one of the Goblin leaders calls out to you.
+
+"I wouldn't bother going that way if I were you," he tells you. "Nothing but miles of swamps and quicksand until you hit the hills. And they're swarming with all kinds of big nasty critters that will regard you as a tasty snack!"
+
+You decide to heed his words not to go that way.
+
+> e
+You have already been warned not to go that way.
+
+> talk to goblin
+You say "Hello," to the goblins and tell them who you are. They grunt a greeting in reply.
+
+1: "Who are you?"
+2: "Where am I?"
+3: "Why are you fighting?"
+
+> 1
+You ask the goblins who they are.
+
+The red goblin speaks first.
+
+"We are the Addicks and they are the Lions," he tells you, pointing to the goblins in blue. "They are a bunch of thieving scoundrels!"
+
+The goblin dressed in blue tries to attack the red goblin, but you step between them to stop them killing one another.
+
+> 2
+You ask the goblins where you are.
+
+The blue goblin answers you.
+
+"You are in the land of Zurzera," he tells you. "That town is Xandi," he says scornfully, pointing to the town to the north. "And my town is Agartha," he says with pride in his voice, indicating the southern town.
+
+> 3
+You ask the goblins why they are fighting.
+
+"Because THEY stole the Sacred Tablet Of Agartha Xandi!" the red goblin yells, gesturing menacingly at the leader of the Lions.
+
+The blue goblin leader pokes the tip of his halberd into the red goblin's stomach and the red goblin retaliates by punching the blue leader in the nose.
+
+Before they can come to blows again, you push yourself between them, yelling for them to stop.
+
+> talk to goblin
+You talk to the goblins again.
+
+1: "What is this 'sacred tablet'?"
+2: "When did the tablet go missing?"
+3: "Who stole the tablet?"
+
+> 3
+You ask the goblins who stole the tablet?
+
+They immediately start shouting at each other, "It was one of them!" and the leaders start to fight. The others urge them on and brandish their weapons at each other. You step in and, grabbing each goblin by the scruff of his neck, pull them apart. Each goblin stands there glowering at the other.
+
+> 2
+You ask the goblins how long the tablet has been missing.
+
+The red goblin speaks.
+
+"The text went missing many decades ago, long before the memory of anyone alive today.
+
+> 1
+You ask the goblins what the sacred tablet is.
+
+The blue goblin speaks first.
+
+"The tablet is the sacred writings of the founder of our two communities, Agartha Xandi," he tells you. "It was held in a display case in each town hall for a year. The key to the cases, which was made of solid silver, was in the custody of a citizen of Agartha when it was in Xandi, and vice versa the next year."
+
+The two leaders start fighting again and you pull them apart before they hurt each other.
+
+> talk to goblin
+You talk to the goblins but they ignore you and continue to threaten each other with increasing violence. They close up around you, so tightly packed that it would be difficult to move.
+
+If you don't do something soon the goblins will start to fight and hundreds will be killed!
+
+> get key
+(from the bottomless bag)
+Ok, you take the silver key out of your bag.
+
+> give key to goblin
+You give the silver key, which you found on the stairway in the shaft, to one of the goblins.
+
+^That's the key to the case in which the Sacred Text Of Agartha Xandi was kept," he tells you. "Where did you find it?"
+
+You tell the goblin where you found the key.
+
+"We have no idea where that is," one of the goblins tells you. "But thanks for finding it!"
+
+> get tablet from bag
+Ok, you take the clay tablet out of your bag.
+
+The red goblin leader notices what you just did and sees what you are carrying.
+
+"Hey, that's the Sacred Text of Agartha Xandi!" he yells at you. "Where did you get that?"
+
+When the other goblins hear what he said they stop fighting and all of them turn to look at you.
+
+You tell the goblins about the dead goblin you found in the shaft and how you found the tablet under his dessicated body.
+
+"He must have been the one who stole it," the blue army leader says. "We know not of this shaft you found him in but that doesn't matter."
+
+You hand the tablet to the red goblin leader and immediately they start squabbling over who should have the tablet in their town first. As the two armies start to walk back to their respective towns one of the leading group of blue goblins runs back to you.
+
+"They are so busy arguing about who should have the tablet first that they forgot to thank you," the goblin tells you and hands you a sheet of parchment.
+
+"This is a small gift from us for finding the tablet," he tells you. "We hope it will be of use to you. In case you hadn't realised it, that wood over to the west is enchanted."
+
+The goblin then walks away to return to his town.
+
+On Open Plain
+You are standing on the path which runs from West to East across a wide open plain. To the North and South you see palisaded towns.
+
+> x parchment
+The parchment has instructions for finding your way through the wood.
+
+> read instructions
+The instructions tell you how to find your way along the road to the west edge of the wood and back again.
+
+> w
+You move West.
+
+Edge of Woods
+You're at the edge of the woods, facing a flat, open plain that stretches away to distant hills on the horizon. About half a mile to the southeast and northeast you see a couple of small towns, both of which have wooden palisades around them. A path leads West into the woods just here.
+
+> w
+You move West.
+
+Road Through Woods
+You're on a road that runs NW and SE through the woods. All around you strange flora grows in abundance. You can go in all directions. On a tree by the side of the road is a blaze you cut in the trunk.
+
+> follow instructions
+You move NW.
+
+You follow the directions on the parchment to the letter, walking along the road at a steady pace. It seems to twist and turn a lot and at one point seems to cross over either itself or another road. The instructions tell you to turn left at this point, which you do so.
+
+You are apparently still deep within the enchanted wood when, to your surprise, the road peters out into just a trail. You are directed to follow this trail, which you do and after about 20 minutes walking you reach the edge of the wood.
+
+West Edge of Wood
+You are at the western edge of the wood, which is at the top of a cliff overlooking a deep ravine. At the bottom of the ravine flows a turbulent river that cascades through rocky rapids. About half a mile to the north you see a mighty waterfall and to the south the ravine runs straight until it starts to bend to the southwest. You can go North or South along the cliff edge or East along the path back to the road.
+
+> n
+You move North.
+
+On Cliff Edge
+You are at the edge of the wood on a cliff edge that runs from North to South. A small tree grows right at the edge here. The waterfall is a couple of hundred yards to the north and the noise from it is thunderous.
+
+> x tree
+A small tree with a bright red trunk and iridescent blue foliage, it is growing right at the edge of the cliff.
+
+As you are looking at the tree, you see a movement below you and look down to see a large bird fly away from the side of the cliff a few yards below. It must have a nest in a hole in the side of the cliff.
+
+> look down
+Holding on firmly to the trunk of the tree you lean out over the edge of the cliff and look down. About 3 yards below the edge of the cliff you see an opening in the rock face.
+
+> x opening
+It looks to be a couple of feet wide.
+
+> tie grapnel around tree
+You dig the prongs of the grapnel into the trunk of the tree and wrap the rope around it a couple of times, then throw the rope down the cliff face.
+
+On Cliff Edge
+You are at the edge of the wood on a cliff edge that runs from North to South. A small tree grows right at the edge here. The waterfall is a couple of hundred yards to the north and the noise from it is thunderous.  Your grapnel is hooked to the trunk of the tree and the rope hangs down the cliff.
+
+> put all in pouch
+Ok, you put the pair of goggles and the sheet of parchment in the pouch.
+
+> climb d rope
+You sit down on the edge of the cliff, grab the rope then lower yourself down the rope as far as you can go.
+
+On Rope Near Hole
+You're clinging to the rope by the cliff face. Just here there is a hole you can go In to.
+
+> crawl into hole
+You crawl into the hole on your stomach.
+
+It is too dark to make anything out clearly.
+
+You hear a squark and the clacking of beaks - there must be some chicks in here!
+
+> get goggles
+
+(from the leather pouch)
+Squirming around in the confined space, you manage to take the pair of goggles from out of the pouch.
+
+> get rat
+
+(from the bottomless bag)
+Squirming around in the confined space, you manage to take the dead rat from out of the bag.
+
+> wear goggles
+You put the goggles on and can see in the dark.
+
+Small Cave in Cliff (lying on the floor)
+You're lying on your stomach in the small cave in the cliff. There is a crude nest here with some chicks in it. With you lying in here the roar of the waterfall is much muted. You can only crawl back out of the cave.
+
+The first thing you see are the two young birds in the main part of the cave about 6 feet away. They both have large wickedly-hooked beaks and look rather dangerous. They are moving about in agitation, trying to work out if you are something one of their parents has brought in for them to eat.
+
+> x floor
+The floor of the cave is littered with the bones of animals and birds that the chicks have eaten in the past.
+
+> search bones
+You search the bones but find nothing of interest.
+
+> feed chicks
+You throw the dead rat so it lands right between the two chicks. They both grab for the body at the same time and start to squabble with each other over it.
+
+> search nest
+While the chicks are distracted by their fight over the dead rat, you quickly search the nest.
+
+Amongst the twigs, bones and other unmentionable things in the nest you find a gold ring, which you quickly take. You assume that the birds have a liking for shiny objects and stole it from somewhere.
+
+The chicks squabble loudly over the carcass of the rat, tearing it apart so that both of them have a part of it.
+
+> wear ring
+Ok, you put on the gold ring.
+
+The chicks start to eat the part of the rat that they ended up with, noisily tearing chunks off it and eating them.
+
+> remove goggles
+Ok, you take off the goggles and are plunged into darkness.
+
+It is too dark to make anything out clearly.
+
+You hear the sound of the chicks eating stop and then a rustling noise - you wonder what will happen next?
+
+> put all in pouch
+You squirm around and manage to put the pair of goggles inside the pouch.
+
+You yell in pain as one of the chicks bites your face. The chick, startled by your yell, backs away and doesn't try to bite you again.
+
+> crawl out of cave
+You shuffle backwards out of the cave, grab the rope and climb out.
+
+On Rope Near Hole
+You're clinging to the rope by the cliff face. Just here there is a hole you can go In to.
+
+> climb u rope
+You climb up the rope to the cliff edge.
+
+On Cliff Edge
+You are at the edge of the wood on a cliff edge that runs from North to South. A small tree grows right at the edge here. The waterfall is a couple of hundred yards to the north and the noise from it is thunderous.  Your grapnel is hooked to the trunk of the tree and the rope hangs down the cliff.
+
+> get grapnel
+You reach down and take the grapnel from where you hooked it to the tree and pull the rope up.
+
+On Cliff Edge
+You are at the edge of the wood on a cliff edge that runs from North to South. A small tree grows right at the edge here. The waterfall is a couple of hundred yards to the north and the noise from it is thunderous.
+
+> n
+You move North.
+
+By Waterfall
+You are next to the waterfall where a steep mass of huge boulders prevents any further progress North. To the west, the river thunders over the edge to fall in a mass of spray below before flowing off south through the rapids in the ravine. The edge of the cliff here is a mass of jagged rocks. What lies to the west beyond the waterfall is obscured by the spray rising from the water.  You can only go South along the cliff edge.
+
+> x rocks
+The rocks are jagged and covered in wet slime. Just here you see a narrow gap in the rocks leading Down to some steps.
+
+By Waterfall
+You are next to the waterfall where a steep mass of huge boulders prevents any further progress North. To the west, the river thunders over the edge to fall in a mass of spray below before flowing off south through the rapids in the ravine. The edge of the cliff here is a mass of jagged rocks. What lies to the west beyond the waterfall is obscured by the spray rising from the water.  You can go South along the cliff edge or Down through the gap onto the wet steps.
+
+> d
+You move Down.
+
+On Steps By Waterfall
+You are on the wet, slimy steps right next to the waterfall, which thunders down in a cloud of wet spray only a few feet away. You can go Up or Down the steps.
+
+> look behind water
+You peer through the spray and look at the waterfall. Behind the raging water you see a cave which can be accessed by going West.
+
+> w
+You move West.
+
+It is too dark to make anything out clearly.
+
+> get lamp
+
+(from the bottomless bag)
+Ok, you take the oil lamp from out of the bag.
+
+> turn lamp on
+You turn on the lamp.
+
+The first thing that catches your eye after you turn on the lamp are lots of small creatures feeding on the yellow slime on the rocks in here.
+
+As you gaze around the cave at them you become aware that there is an exit at the back of the cave.
+
+Cave Behind Waterfall
+You are in a cave behind the waterfall, a gloomy, wet place full of jagged rocks and boulders, all covered in the yellow slime.  You can go East to the steps or Up through the exit at the back of the cave. All around the cave you see small white creatures feeding on the slime.
+
+> x creatures
+The creatures are about as long as your hand and are white in colour. They resemble fish but have stumpy legs at the front and appear to have no eyes. You decide to call them 'slime-eaters' for want of a better name.
+
+> u
+You move Up.
+
+Rock Tunnel
+You are in a rock tunnel that slopes steeply Up and Down. It is drier here and there is no sign of the yellow slime that covered everything in the cave and beside the waterfall.
+
+> search tunnel
+You look around the tunnel and find, un-noticed on the floor, a sack, which you pick up.
+
+> d
+You move Down.
+
+Cave Behind Waterfall
+You are in a cave behind the waterfall, a gloomy, wet place full of jagged rocks and boulders, all covered in the yellow slime.  You can go East to the steps or Up through the exit at the back of the cave. All around the cave you see slime-eaters feeding on the slime.
+
+> get eaters
+You pick up all the slime-eaters you can find and put them in the oilskin sack before they can wriggle out of your grip.
+
+> u
+You move Up.
+
+Rock Tunnel
+You are in a rock tunnel that slopes steeply Up and Down. It is drier here and there is no sign of the yellow slime that covered everything in the cave and beside the waterfall.
+
+> u
+You move Up.
+
+Earth Tunnel
+You are in an earth-walled tunnel that slopes Down into darkness and Out towards daylight.
+
+> out
+You move Out.
+
+By Tunnel
+You are just outside the tunnel, which is set into the side of a small hill, you can go East or In to it. A well-trodden path leads SW towards a small village of brightly coloured houses about a quarter of a mile away.
+
+> sw
+You move SW.
+
+As you walk along the path towards the village you catch a glimpse of someone peering at you from behind a signpost at the edge of the village. The figure turns around and darts away quickly.
+
+Outskirts of Village
+You are on the outskirts of the village, where a sign greets you with the words: "Flossimmerangue Welcomes One And All - Apart From Mugwomps, You Can Keep Out!". You can go SW into the village or NE to the tunnel in the small hill.
+
+> sw
+You move SouthWest.
+
+The Village Green
+You are in the middle of the village of Flossimmerangue, by the village green. This is perfectly round and about 150 feet across. It is surrounded by the round houses and you can leave the village by going NW, NE or SW.  The village is strangely deserted and you wonder if the inhabitants have taken to their houses in fright at your appearance?
+
+As you look around you notice someone riding a horse galloping at speed along the road that leads southwest out of the village. You also notice, in the far distance in that direction, a castle at the top of a hill. In between here and the castle you can see a large forest.
+
+> x rider
+The rider might have been that figure you saw lurking behind the house as you approached the village.
+
+As you watch, the rider disappears into the forest.
+
+> nw
+You move NorthWest.
+
+Edge of Wood
+You are at the edge of a wood, where multi-coloured trees and other flora grow in abundance. Going NW will take you inside the wood and another well-trod path goes SE to the small village.
+
+> nw
+You move NorthWest.
+
+In Wood
+You are inside the wood on a path that winds around to the SE and West. All around you the trees thrust their bright foliage up into the sky.
+
+> w
+You move West.
+
+Clearing In Wood
+You are in a small clearing in the wood where a ramshackle cabin nestles amongst neat flower beds and herb gardens. The path out of the clearing is East or you can go In to the cabin.
+
+> in
+You move In.
+
+The Working Area
+Here there is a large table and chair surrounded by racks of scrolls, three shelves with various skulls on one, clay bottles on another and small packages on the last. All kinds of herbs and other plants hang from lines stretched between the rafters and on the floor stand some larger pots and jugs. To the North there is a living area while to the South there is a sleeping area. You can also go Out to the clearing.
+
+As you walk into the cabin you see an old lady sitting on a chair by a large table, reading from a large tome. She looks up at you, smiles and says something in a strange language. When you do not reply and shake your head she tries another language then another before finally hitting on the right one.
+
+"Hello my fine young man," she says to you. When you smile and nod your head in acknowledgement that you have understood, she continues.
+
+"Please turn that lamp off," the old woman asks you. "It's dazzling my eyes." You do as she asks and then she continues more pleasantly.
+
+"Now, to what do I owe the pleasure of this visit?" she says. "My name is Mogwitch, or Mog if you like, and I am, as my name implies, a witch."
+
+The Working Area
+Here there is a large table and chair surrounded by racks of scrolls, three shelves with various skulls on one, clay bottles on another and small packages on the last. All kinds of herbs and other plants hang from lines stretched between the rafters and on the floor stand some larger pots and jugs. To the North there is a living area while to the South there is a sleeping area. You can also go Out to the clearing.  Mogwitch is sitting on a chair at her worktable.
+
+> talk to mog
+You say "Hello," to Mogwitch, telling her who you are and where you have come from.
+
+"I have no idea where that is, young Alaric," she tells you. "I have never heard of your country."
+
+1: "What do you do here?"
+2: "Where are the people of Flossimmerangue?"
+3: "What are you reading?"
+
+> 1
+You ask Mogwitch what she does here.
+
+"I make up potions and prepare charms for the people of Flossimmerangue and other villages around here," she tells you. "I also can cast spells and tell fortunes."
+
+> 2
+You ask Mogwitch "Where are the people of Flossimmerangue?"
+
+"Oh them!" she says scornfully. "Scared of their own shadows that lot. They probably saw you coming and they all ran and hid in their houses. They won't come out until they know you are gone from here."
+
+> 3
+You ask Mogwitch what she is reading?
+
+"It's my herbal," she tells you. "I have been asked to prepare a potion for a woman in Blessermasoul and I need to look up the ingredients."
+
+> talk to mog
+You talk to Mogwitch again.
+
+1: "Who lives in the castle?"
+2: "Why have you got all those skulls?"
+3: "What is in the clay jars and the packages?"
+
+> 1
+You ask Mogwitch who lives in the castle?
+
+"King Rovar lives in Elinka Castle," she tells you. "Along with his family."
+
+> 2
+You ask Mogwitch about the skulls on her shelf.
+
+"They help me with my spells," she tells you. "I have quite a lot but I am always looking for more. I particularly need a goblin skull."
+
+> 3
+You ask Mogwitch what is in the clay jars and the packages on her shelves.
+
+"The jars are the potions, elixirs and various ointments and salves I make up," she tells you. "And in the packages are powdered charms and other medicines."
+
+"Mmmm, that reminds me," she says to herself. "I really must go and collect some Scuppies as I have run out."
+
+> talk to mog
+You talk to Mogwitch again.
+
+1: "What are Scuppies?"
+2: "Where do you find Scuppies?"
+3: "How many Scuppies do you need?"
+
+> 1
+You ask Mogwitch what are Scuppies?
+
+"Scuppies are small, white, slimy creatures that contain various substances that are invaluable for my work," she tells you. "I thought I had plenty, but I have run out."
+
+> 2
+You ask Mogwitch where you find Scuppies?
+
+"You usually find them in damp, dark caves," she tells you. "They feed on slime that grows in these caves, the slime is quite rare."
+
+> 3
+You ask Mogwitch how many Scuppies does she need?
+
+"Well," she says, counting on her fingers. "I need four for the potion, another four so I can extract some Scuppie juice from them, and maybe another four spare? So that's a dozen in total."
+
+> get skull
+(from the bottomless bag)
+Ok, you take the goblin skull from out of the bag.
+
+> give skull to mog
+You offer the goblin skull to Mogwitch.
+
+"Oh thank you," she exclaims, taking the skull from you. "I've needed one of those for a long time!"
+
+She gets up, stands on her chair and puts the skull on the shelves with the others.
+
+"There are so many spells and charms I can now do," she tells you, getting down and sitting back on her chair.
+
+> give slime-eaters to mog
+You offer the sack full of slime-eaters to Mogwitch.
+
+"Oh thank you," she exclaims, taking the sack from you. "I've run out of those!"
+
+She gets up and empties the sack into one of the large jugs she keeps on the floor of her work area, then folds the sack up and puts it in a cupboard.
+
+"There are so many potions and medicines I can make now," she tells you sitting back on her chair.
+
+Mogwitch looks very happy and she claps her hands in glee.
+
+"Thank you so much for bringing me the skull and the Scuppies," she tells you. "Now I must give you something in return."
+
+You say that it isn't necessary but she waves aside your protests.
+
+"Nonsense! Now let me see, what might you find useful?" She stands looking at her stock of potions and elixirs for a minute or two and then, with a cry of "I know just the thing!" she takes down a clay jar and a small packet from her shelves and hands them to you.
+
+"In the clay bottle is a "shrink" potion," she tells you. "It may be of use to you during your travels in our land. In the packet are the "grow" pills that will restore you to your normal size."
+
+You thank her and she tells you that you are more than welcome.
+
+"Now, if you will excuse me, I have much work to do with the Scuppies you so kindly gave me." she tells you and ushers you gently out of her cabin.
+
+"Thank you once again, Duke Alaric!" she calls out, then she shuts the door behind her.
+
+Clearing In Wood
+You are in a small clearing in the wood where a ramshackle cabin nestles amongst neat flower beds and herb gardens. The path out of the clearing is East.
+
+> x pills
+Some small round pills that are blue in colour, there are 5 of them.
+
+> put potion and pills in bag
+OK, you put the SHRINK potion and the GROW pills inside the bag.
+
+> e
+You move East.
+
+In Wood
+You are inside the wood on a path that winds around to the SE and West. All around you the trees thrust their bright foliage up into the sky.
+
+> se
+You move SouthEast.
+
+Edge of Wood
+You are at the edge of a wood, where multi-coloured trees and other flora grow in abundance. Going NW will take you inside the wood and another well-trod path goes SE to the small village.
+
+> se
+You move SouthEast.
+
+The Village Green
+You are in the middle of the village of Flossimmerangue, by the village green. This is perfectly round and about 150 feet across. It is surrounded by the round houses and you can leave the village by going NW, NE or SW.
+
+As you enter the village you see a few of the inhabitants have left their dwellings. As soon as they see you they stop what they are doing and, running as fast as they can, dash into their little round houses and lock the doors. As you walk onto the village green you sense that many pairs of eyes are watching you from behind curtains.
+
+> sw
+You move SouthWest.
+
+Road to Forest
+You are on the road that leads into the forest, which is a bright mass of colour ahead of you. You can go SW into the forest or NE to Flossimmerangue.
+
+> sw
+You move SouthWest.
+
+In Forest
+You are about a hundred yards inside the forest, where the road running through it bends to the West. You can go in that direction or NE along the road.
+
+As you walk through the forest you get that tingling sensation in the back of your neck that tells you that you are being watched by someone - or something. You draw your sword and, hefting it in your hand, prepare yourself in case your instinct is correct.
+
+> w
+You move West.
+
+Middle Of Forest
+You are roughly in the middle of the forest, where the trees are quite close together. The road bends SW again and goes East. You notice that there seems to be rather a lot of leaves on the ground here, far more than you noticed in the part of the forest that you just passed through.
+
+You hear a sharp sound off to the right of you and quickly turn around to see what made it. As you do so, the ground underneath you seems to rise up and you are flung onto your back as a net, which was hidden under the leaves carpeting the ground, engulfs you as it whips up into the air.
+
+Please Press Any Key to Continue.
+
+You come to some time later to find yourself gagged and tied to a chair in what seems to be the throne room of a castle. Remarkably you feel no pain from being bashed on the head.
+
+Facing you are three thrones, two of which are occupied by a man and woman who are wearing gold crowns - obviously the King and Queen of this land. The other throne is empty. Standing to either side are several people who you guess are the King's advisors, including one man dressed in long dark robes who looks like a sorcerer.
+
+As you look around, you become aware that you are wearing something around your neck, some sort of thin leather collar. You are unable to examine the collar as your hands are tied to the arms of the chair. You also become aware of several armed soldiers who stand to either side and behind you.
+
+The king clears his throat to get your attention, then he speaks.
+
+"My wife and I are sorry for this under-hand way of bringing you here but we are desperate," he tells you. "I am King Rovar, ruler of Zurzera and this is my wife, Queen Marion. Our son Elnor has been kidnapped and held to ransom by a gang of outlaws. The ransom they demand - ten million Livres - is far more than we possess. They are threatening to kill our son unless the ransom is delivered to them in three days time.
+
+Please Press Any Key to Continue.
+
+"One of my courtiers, who lives in Flossimmerangue, saw you arrive in the village. He thought that you were one of the outlaws who had taken Elnor, as you bear a striking resemblance to him, and he rode here to inform us. After we had captured you we realised that you were not the outlaw, as he has a prominent scar on his face, a moustache and is a bit younger than you.
+
+My wife thought that you might be willing to help us, but we had no idea whether you would agree to it, so we decided to compel you to attempt to bring our son back to us."
+
+"That collar around your neck has an iron band within it and has had a spell put upon it by our court wizard, Zymon. If you attempt to cut it off it will constrict and choke you to death. Furthermore, Zymon will know exactly where you are and if you attempt to flee this land he will activate the collar"
+
+"Your weapons and possessions will be restored to you and you will be taken to the area where we think our son is being held - It is a part of Zurzera we know as The Badlands. We have also given you a sketch of the outlaw who we thought you were. We are sorry that you are being forced into this but we have no choice."
+
+"When you have freed our son, hold onto him, squeeze the collar twice and Zymon will bring you back here. My wife and I wish you luck in your quest, our hopes and prayers go with you. "
+
+The king turns to the wizard standing by his throne.
+
+"Zymon, if you please?" he says to him and the wizard makes a gesture at you with his hand. Everything goes hazy and then you lose consciousness.
+
+Please Press Any Key to Continue.
+
+You wake up lying on your back on a hard, hot surface and you sense instantly that you are out in the open. You try to open your eyes, but a blazing sun in the sky above dazzles you. So you roll over and get to your feet, opening your eyes as you do so.
+
+You find yourself on a bare, rocky hilltop, surrounded by desolate countryside as far as your eye can see. Shielding your eyes against the glare of the sun, you look into the distance and see, far away on the horizon to the southeast, the fuzzy outline of King Rovar's castle.
+
+Your hands go to the collar around your neck and you recall King Rovar's words to you. Your immediate thought is why didn't the King just ask for your help? Still, you're here now and there ain't much you can do about it.
+
+You realise that King Rovar has neglected to provide you with any water or food, nor has he given you anything to put on your head to protect you from the sun, so you consider these things to be your first priorities before you try to find this kidnapped prince.
+
+Please Press Any Key to Continue.
+
+Top of Hill
+You are on the top of a bare hill somewhere in the Badlands of Zurzera. You can only go Down.   Also here is a broad sword, an oil lamp, a rope and grapnel and a sketch.
+
+> get all
+Ok, you pick up the broad sword, the oil lamp and the rope and grapnel.  You pick up the sketch and look at it.
+
+You see that the man pictured does bear a slight resemblance to yourself, apart from the scar and moustache:
+
+> x sketch
+This is a sketch of one of the outlaws who kidnapped Prince Elnor. It bears a passing resemblance to yourself, although the man is a little younger than you, has a moustache and a prominent scar on his left cheek.
+
+> put sketch in bag
+OK, you put the sketch inside the bag.
+
+> sheath sword
+You sheath your broadsword inside its scabbard.
+
+> d
+You move Down.
+
+Track Through Outcrops
+You are on a rough track that winds North through rocky outcrops. The outcrops slope up around you to various heights. You can go Up the hill to where you started out from.
+
+As you walk along the track you see a movement ahead of you. You look in that direction and see a large lizard scuttle away at your approach. It disappears into a gap under an outcrop further ahead.
+
+> n
+You move North.
+
+Junction In Track
+You are at a junction in the track where it branches off NW, East and South. To the north a tall outcrop looms above you.
+
+> e
+You move East.
+
+End Of Track
+You are at the end of the track, at a rock face in which there is a mine entrance. You guess this from the old support beams lying around on the ground by the entrance. You can go In to the mine or West along the track to the junction.  Hanging across the entrance to the mine is a ragged scrap of hessian cloth.
+
+> get cloth
+You take down the sacking from over the mine entrance.
+
+End Of Track
+You are at the end of the track, at a rock face in which there is a mine entrance. You guess this from the old support beams lying around on the ground by the entrance. You can go In to the mine or West along the track to the junction.
+
+> search beams
+You search through the old support beams until you find one which is less cracked than any of the others.
+
+End Of Track
+You are at the end of the track, at a rock face in which there is a mine entrance. You guess this from the old support beams lying around on the ground by the entrance. You can go In to the mine or West along the track to the junction.  Also here is a wooden support beam.
+
+> get beam
+Ok, you pick up the wooden support beam.
+
+> in
+You move In.
+
+Inside Mine
+You are about three or four yards inside the mine. You have to stoop down quite a bit as the tunnel is only about five feet high. You can see around you by the light from the entrance, but the tunnel slopes Down as well as curving a bit and it is dark in that direction.
+
+> get hammer
+
+(from the bottomless bag)
+Ok, you take the heavy hammer from out of the bag.
+
+> hammer beam with hammer
+You place the upper end of the wooden beam under the tunnel roof and the other end on the floor.
+
+With a couple of blows from the hammer on the lower end of the beam you wedge it firmly in place. As you do that, the hammer shaft breaks, so you toss it away into the shadows as it is of no use to you now.
+
+Inside Mine
+You are about three or four yards inside the mine. You have to stoop down quite a bit as the tunnel is only about five feet high. You can see around you by the light from the entrance, but the tunnel slopes Down as well as curving a bit and it is dark in that direction.  A wooden beam has been propped under the tunnel roof here to support it.
+
+> light lamp
+You turn on the lamp.
+
+> d
+You move Down.
+
+In Sloping Tunnel
+You are about 25 yards inside the mine, in a tunnel that slopes Up and Down. On the floor here is a pile of old equipment.
+
+> search equipment
+You search amongst the equipment, most of which you have no idea what it is used for or it is of no use to you whatsoever. Then you find and pick up something - a water pod - that is of use to you.
+
+You notice a few grains of dust come floating down from the roof of the tunnel above you.
+
+> u
+You move Up.
+
+As you walk up the tunnel you feel a few small stones fall on your head from the roof of the tunnel. A couple of steps later as you walk past the beam you used to prop up the tunnel roof you hear an ominous crack as the beam starts to break under the weight of the rock above it.
+
+You immediately sprint for the exit as the tunnel roof collapses behind you. You reach the track just as the entire mine tunnel caves in and a huge cloud of dust follows you out of the tunnel, causing you to cough and splutter.
+
+End Of Track
+You are at the end of the track, at a rock face in which there is a mine entrance. You guess this from the old support beams lying around on the ground by the entrance. You can only go West along the track to the junction now the mine tunnel has collapsed.
+
+> w
+You move West.
+
+Junction In Track
+You are at a junction in the track where it branches off NW, East and South. To the north a tall outcrop looms above you.
+
+> x outcrop
+The outcrop is about 15 feet high and easily climbable. You notice that there is a low overhang at the foot of the outcrop.
+
+> x overhang
+The overhang at the foot of the outcrop is about 18" high - you could crawl into the gap underneath it.
+
+> x gap
+The gap under the overhang is about 18" high, just big enough for you to crawl into.
+
+> look in gap
+You look into the gap under the overhang and see the glint of water sparkling in the light from your lamp.
+
+> throw lamp in gap
+You throw the lit oil lamp into the gap under the outcrop.
+
+> throw pod under outcrop
+You throw the old water pod into the gap under the outcrop.
+
+> remove bag
+Ok, you take the bag off your shoulder.
+
+> drop all
+Ok, you put down the bottomless bag, the rope and grapnel and the hessian cloth.
+
+> crawl into gap
+Laying face down on the ground you crawl and wriggle your way into the gap under the overhang.
+
+Under Outcrop
+You are crawling on your stomach under the outcrop, about five feet in. Further in you can see, in the light from your lamp, a small stream of water trickling from right to left.  Also here is a lit oil lamp and an old water pod.
+
+As you crawl into the gap you sense a movement further in and then hear the scrabble of claws as some sort of creature - maybe a lizard - flees at your incursion into its territory.
+
+> get pod
+Ok, you pick up the old water pod.
+
+> fill pod with water
+You dip the water pod into the stream and fill it with water.
+
+> throw pod out of gap
+You throw the old water pod behind you to the track outside.
+
+> get lamp
+Ok, you pick up the lit oil lamp.
+
+> throw lamp onto track
+You throw the lit oil lamp behind you to the track outside.
+
+> crawl out
+You crawl and wriggle backwards out of the gap and get to your feet.
+
+Junction In Track
+You are at a junction in the track where it branches off NW, East and South. To the north a tall outcrop looms above you.  At the foot of the outcrop there is a overhang.  Also here is a lit oil lamp, a bottomless bag, a rope and grapnel, an old water pod and some hessian cloth.
+
+> get all
+Ok, you pick up the lit oil lamp, the bottomless bag, the rope and grapnel, the old water pod and the hessian cloth.
+
+> wear bag
+Ok, you put the strap of the bag over your shoulder.
+
+> turn off lamp
+You turn off the lamp.
+
+> put lamp and pod in bag
+OK, you put the oil lamp and the old water pod inside the bag.
+
+> nw
+You move NorthWest.
+
+Track Through Outcrops
+You are on a track winding NW and SE through rocky outcrops. The outcrops here are lower than the ones to the southeast.
+
+> nw
+You move NorthWest.
+
+Edge Of Salt Desert
+You are at the edge of a vast desert of salt, many miles in expanse. It stretches as far as the eye can see in all directions except SE, which is the track that goes back amongst the rocky outcrops.
+
+The sun beats down unmercifully from a cloudless sky, creating a heat haze that shimmers all around you, and a steady breeze blows from the northwest, making your eyes water from the salt in the air.
+
+As you are looking around at your surroundings, you hear the cry of a bird from above you. Squinting up at the sky you see several birds-of-prey circling lazily high above, riding on the thermals rising up from the salt desert.
+
+> look around
+Shielding your eyes from the glare of the sun with one hand, you look out into the distance.
+
+You strain your eyes to see something in the haze rising off the surface of the salt desert but the shimmer is too thick to make out any details.
+
+> remove baldric
+Ok, you take the baldric from over your shoulder.
+
+You see a lizard crawl out from underneath a rock and scuttle across the salt. Quick as a flash an eagle swoops down and grabs the lizard and carries it up into the sky.
+
+> remove jacket
+OK, you take off your jacket.
+
+> put baldric and jacket in bag
+OK, you put the leather baldric and the leather jacket inside the bag.
+
+You hear a raucous call from above as a vulture flies low enough to have a look at you.
+
+You see a lizard crawl out from underneath a rock and scuttle across the salt. Quick as a flash an eagle swoops down and grabs the lizard and carries it up into the sky.
+
+> x outcrop
+The outcrops here are about 10 to 15 feet high and easily climbable.
+
+> climb onto outcrop
+You climb up onoutcrop.
+
+On Top Of Outcrop
+You are standing on top of the rocky outcrop, about 15 feet above the ground, looking out over the salt desert. The shimmering haze is much less noticeable up here. You can climb Down the outcrop from here.
+
+> look around
+Shielding your eyes from the glare of the sun with one hand, you look out into the distance.
+
+You scan the salt desert around you starting to the south and turning around towards the north. You stop as you see something due west of where you stand. Concentrating your gaze, you can make out a hill on which there is a walled town several miles away - maybe this is where Prince Elnor is being held?
+
+> x hill
+The hill is not very high but it covers a large area.
+
+> x town
+It is difficult to judge how big the town is from this distance.
+
+> d
+You move Down.
+
+Edge Of Salt Desert
+You are at the edge of a vast desert of salt, many miles in expanse. It stretches as far as the eye can see in all directions except SE, which is the track that goes back amongst the rocky outcrops.
+
+A vulture and an eagle circle overhead, their wingtips almost touching.
+
+> tie knots in cloth
+You tie a knot in each corner of the hessian cloth to make a hat that will protect your head from the fierce sun.
+
+> wear sunhat
+You put the sunhat on your head to shield it from the sun.
+
+An eagle swoops down out of the sky and grabs something from behind a rock. It carries the wriggling creature up into the sky and away to its nest.
+
+> w
+You move West.
+
+You walk steadily across the salt desert, taking a sip of water from the pod every 1000 steps. The cloth sun hat on your head keeps you from getting sunstroke but it is very hard going.
+
+All the while the vultures and eagles circle above, watching for you to show any sign of weakness. On the way you pass the bleached skeletons of animals and birds of all sizes, as well as the skeletons of a couple of humans who perished here.
+
+After a couple of hours walking you come to a wide rift in the desert and can go no further.
+
+East Side Of Rift
+You are on the east side of a wide rift that stretches off into the distance to the North and South. You can go in either of those directions along the edge of the rift, or can go East, SE or NE.
+
+> get potion and pills
+
+(from the bottomless bag)
+Ok, you take the SHRINK potion and the GROW pills from out of the bag.
+
+An eagle swoops down out of the sky and grabs something from behind a rock. It carries the wriggling creature up into the sky and away to its nest.
+
+You see a lizard crawl out from underneath a rock and scuttle across the salt. Quick as a flash an eagle swoops down and grabs the lizard and carries it up into the sky.
+
+> drink shrink
+You drink a mouthful of the SHRINK potion.
+
+The potion has a pleasant taste as you swallow it down, rather fruity. Nothing happens for a few seconds then you feel a curious sensation spread out from your stomach.
+
+You stagger with shock as suddenly everything around you seems to rush up into the air as you shrink to a mere six inches high.
+
+East Side Of Rift
+You are on the east side of an enormous rift that stretches off into the distance to the North and South. You can go in either of those directions along the edge of the rift, or can go East, SE or NE.
+
+> remove hat
+Ok, you take the sun hat off of your head.
+
+> wave arms
+You wave your arms above your head and call out, trying to attract the attention of one of the birds of prey circling above you.
+
+High above, a sharp-eyed eagle spots you moving and starts to dive down towards you.
+
+> x bird
+It is diving towards you out of the sky, its talons spread wide in order to seize you.
+
+The birds talons close around your body and you are carried aloft. The air rushes past you as the eagle flaps away over the rift.
+
+In The Air
+You are flying through the air in the grip of an eagle's talons. The enormous bird looms above you, its vast wings flapping away in order to gain height. Glancing down you see that you are now only a few yards from the western side of the rift.
+
+> look down
+You look down as you hurtle through the air and see that you are just crossing the western edge of the rift.
+
+The eagle swoops low over the west side of the rift in preparation for gaining height on its way back to its eyrie.
+
+In The Air
+You are flying through the air in the grip of an eagle's talons. Looking down you see that you are now over the western side of the rift.
+
+> eat pill
+You quickly swallow one of the blue pills.
+
+The giant eagle above you suddenly shrinks in size as you regain your normal size and weight.
+
+The bird shrieks in surprise, loses its grip on you and you fall to the ground several yards below. Luckily, your forward momentum enables you to make a rolling landing and you are winded rather than injured.
+
+As you get your feet and dust yourself down, you hear the angry eagle shrieking as it soars into the sky to look for more prey.
+
+West Side Of Rift
+You are on the west side of the rift that extends north and south into the distance. You can go in either of those directions along the edge of the rift, or you can go West, SW or NW.
+
+> wear sunhat
+You put the sunhat on your head to shield it from the sun.
+
+> w
+You move West.
+
+You walk across the salt desert again, taking a sip of water from the pod every so often.
+
+The vultures and eagles continue to circle above, hoping that you will succumb to the heat and dryness of the salt lake.
+
+After walking for just over an hour you reach the western edge of the salt desert and the land becomes more rocky.
+
+Western Edge Of Salt Desert
+You are standing at the western edge of the salt desert. From here the ground is covered in rock and sandy soil for about a mile before you see any greenery. Beyond that, about two miles away to the west, where the ground rises, you see the walled town sprawled across the top of the hill.
+
+> remove hat
+Ok, you take the sun hat off of your head.
+
+> w
+You move West.
+
+Foot of Hill
+You are at the foot of the steep hill on which the walled town lies. You can go NW and SW around the hill or East to the edge of the desert.
+
+> drink shrink
+This is neither the time nor the place to drink the SHRINK potion.
+
+> get jacket
+
+(from the bottomless bag)
+Ok, you take the leather jacket from out of the bag.
+
+> wear jacket
+Ok, you put on your leather jacket.
+
+> sw
+You move SouthWest.
+
+By South Gate
+You are standing outside the south gate of the walled town. The road emerges from the archway under the gate, heading South towards the farm. You can go NW around the wall to the west gate, NE to the foot of the hill or North into the town. Two guards stand here, watching you warily.
+
+> s
+You move South.
+
+South Of Town
+You are to the south of the walled town where the land rises, making the route to the town flat. A dirt road runs from a gate in the wall to some farmland and you can go North or South along this road.
+
+> s
+You move South.
+
+The Farm
+You are in the middle of a farm, surrounded by several fields. The farmhouse is to the southeast. The road leads North out of the farm.  The farmer's wagon is here, with a huge shire horse between the traces. On the ground by the wagon are lots of sacks.  There is a farmer here who is loading bags of his produce into a horse-drawn wagon. The farmer stops loading the wagon, bends backwards to ease an ache in his back, and looks around as you approach him.
+
+"Good day to you sir," he says politely. "I can see you are a stranger in these parts. What can I do for you?"
+
+1: "What is the name of the town?"
+2: "What do you grow here?"
+3: "Can you take me into town?"
+4: "Do you need any help?"
+
+> 1
+You ask the farmer what the name of the town is.
+
+"It's called Xumeria," he tells you, lifting a sack into the wagon. "You must be from far away if you have never heard of it!"
+
+> 2
+You ask the farmer what crops he grows here?
+
+"I grow hops which I sell to the brewery in town," he tells you. "They use them to make beer and ale."
+
+> 3
+You ask the farmer if he can give you a lift into town.
+
+"I'm really sorry," he tells you. "If you haven't got any papers the guards won't let you in. I daren't risk hiding you as they usually check the wagon and if they found you they would most likely beat us up - they're a vicious bunch of jailbait!"
+
+> 4
+You ask the farmer if he needs any help?
+
+"Well, seeing as how you're offering, you could help me load this wagon," he tells you. "I can get into town a bit quicker then."
+
+> help farmer
+You help the farmer load his wagon with the sacks of hops.
+
+"Thanks for helping me," he says to you, shaking you by the hand. "I just need to pop into my house for a few minutes then I can get off to the brewery."
+
+The farmer then walks off into his house and you are left alone.
+
+The Farm
+You are in the middle of a farm, surrounded by several fields. The farmhouse is to the southeast. The road leads North out of the farm.  The farmer's wagon is here, with a huge shire horse between the traces.
+
+> jump on wagon
+You jump up onto the back of the wagon.
+
+In Wagon
+You are sitting on top of the load of sacks in the wagon. You can climb down from here.
+
+> drink potion
+You drink a mouthful of the SHRINK potion and seconds later you shrink to a mere six inches high.
+
+> hide under sacks
+You bury yourself under the sacks in the wagon.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+No sooner have you made yourself comfortable amongst the fragrant-smelling sacks than you hear the farmer returning to his wagon. You peep out from your hiding place to watch him and see that he looks around, obviously looking for you.
+
+"Where did he go?" you hear him mutter to himself. "I was going to reward him for his help. Oh well," he shrugs. "It's his loss!"
+
+The farmer climbs up onto the seat of the wagon, takes up the reins and with a cheery "Giddyup!" sets the shire horse walking towards the town.
+
+The wagon jolts and jostles along the road towards the town, the farmer whistling tunelessly as you go.
+
+The heady aroma of the hops in the sacks makes you drowsy and you are almost asleep when the wagon come to a halt and you are jolted into full alert. You hear someone come up to the wagon and you burrow down a bit deeper between the sacks. Then you hear the muffled sound of the farmer speaking.
+
+"A load of hops for the brewery," he tells the person, whom you assume is one of the guards at the town gate. You hear the rustle of papers as they are inspected by the guard and handed back to the farmer.
+
+You feel the sacks being inspected and hold your breath in case the ones around you are moved. Luckily the guard is satisfied that there is nothing suspicious about the load and he moves away.
+
+"Go on, go through you old rogue!" the guard snarls at the farmer. "Hurry up before I change my mind!"
+
+The farmer urges the shire horse on again and you peep out to see that you are passing through the gateway into the town itself. After a few yards the farmer pulls the horse to a stop and he starts talking to someone, obviously a friend.
+
+Please Press Any Key to Continue.
+
+In Wagon
+You are hidden amongst the sacks in the wagon. You can climb down to the town from here.
+
+> climb down
+Squirming your way out from between the hop sacks, you climb across them and then over the side of the wagon.
+
+There are plenty of hand holds on the surface of the wagon and you climb down until you are hanging from the lowest part.
+
+You then let go and fall, landing with a thud on the dirt surface of the road and you roll away from the path of the gigantic wheels as the wagon trundles away north into the town.
+
+Standing up and looking around, you see a lane that runs around the town walls and you head for that, hiding behind an old bucket that someone has left here.
+
+Lane By Wall (SW)
+You are hiding behind a bucket in a lane that runs alongside the city wall behind the buildings of Xumeria, on the southwest side of the town. You can go NW or SE.
+
+> eat pill
+You swallow one of the GROW pills.
+
+You quickly grow back to your normal size, frightening the living daylights out of a dog that was coming along the lane. The startled animal hares off back along the lane, its tail between its legs.
+
+Lane By Wall (SW)
+You are in a lane that runs alongside the city wall behind the buildings of Xumeria, on the southwest side of the town. You can go NW or SE.  Also here is a rusty bucket.
+
+> get bucket
+Ok, you pick up the rusty bucket.
+
+> nw
+You move NorthWest.
+
+Inside West Gate
+You are inside the west gate of Xumeria. Outside the gate a couple of guards stand watching for people who want to enter the town. A road runs West out of the town and East towards the town square, and narrow lanes lead NE and SE. A sign on the side of one of the buildings reads "West Street".
+
+> e
+You move East.
+
+West Street
+You are in West Street about halfway between the West Gate of Xumeria and the town square. You can go East or West.
+
+> e
+You move East.
+
+Town Square
+You are in the main town square of Xumeria. The sides are about 100 yards in length and in the centre there stands a fountain. You can go East or West along the main street. A travelling troupe of actors are setting up their stage, which is on the North side of the square, for a performance tonight. Parked either side of the stage, to NE and NW, are two caravans, one of them painted bright pink. The square is packed with people, most going about their daily business, some watching the actors erect their stage.
+
+> x caravans
+There are two, one painted grey and the other is bright pink.
+
+> n
+You move North.
+
+By Stage
+You are standing by the stage which the travelling troupe of actors is erecting. The town square is South, the pink caravan West and the other caravan is to the East.
+
+> x stage
+It is being put together by the players.
+
+> w
+You move West.
+
+By Pink Caravan
+You are standing by the pink caravan. A short flight of steps leads Up to a door in the back of the caravan. The town square is SE and the stage East.
+
+> knock on door
+You knock on the caravan door.
+
+At first there is no answer so you knock again. This time a female voice calls out, "Can you come back later please, I'm not dressed yet!"
+
+> se
+You move SouthEast.
+
+Town Square
+You are in the main town square of Xumeria. The sides are about 100 yards in length and in the centre there stands a fountain. You can go East or West along the main street. A travelling troupe of actors are setting up their stage, which is on the North side of the square, for a performance tonight. Parked either side of the stage, to NE and NW, are two caravans, one of them painted bright pink. The square is packed with people, most going about their daily business, some watching the actors erect their stage.
+
+> e
+You move East.
+
+East Street
+You are in East Street, which runs from West to East through the middle of Xumeria.
+
+> e
+You move East.
+
+By East Gate
+You are standing at a junction by the unused East Gate of Xumeria. North Lane goes North, South Lane South and East Street goes West.
+
+> n
+You move North.
+
+South End Of North Lane
+You are near the south end of North Lane, by a house on the west side. You can go North or South along the lane and there is a door to the house here which is is closed and locked.
+
+> n
+You move North.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. A sign on the side of one of the buildings reads "North Lane". On the west side of the lane is an alehouse called "The Mangy Dog". There are several people walking up and down the lane at the moment.
+
+> drop bucket
+Ok, you put down the rusty bucket.
+
+> remove ring
+Ok, you remove the gold ring.
+
+> put ring in bag
+OK, you put the gold ring inside the bag.
+
+> in
+You move In.
+
+In Alehouse
+You are in the alehouse, which is a dark, smelly and thoroughly disreputable establishment. It extends West and the door, to the East, leads Out to North Lane.
+
+> w
+You move West.
+
+In Alehouse
+You are in the main part of the alehouse where several surly patrons sit at benches, eyeing you suspiciously. Two huge guards, armed with a variety of weapons, stand in front of a door to the South. On the north side of the room a scruffy barkeep stands behind a stained counter. The walls are covered in graffiti.  You can go East or South.
+
+> x west wall
+The west wall of the alehouse is like any other wall in any other alehouse. Covered with peeling wallpaper, gouged with knife and sword cuts and scrawled with graffiti. At the base of the wall you notice a mousehole.
+
+In Alehouse
+You are in the main part of the alehouse where several surly patrons sit at benches, eyeing you suspiciously. Two huge guards, armed with a variety of weapons, stand in front of a door to the South. On the north side of the room a scruffy barkeep stands behind a stained counter. The walls are covered in graffiti.
+
+> e
+You move East.
+
+In Alehouse
+You are in the alehouse, which is a dark, smelly and thoroughly disreputable establishment. It extends West and the door, to the East, leads Out to North Lane.
+
+> out
+You move Out.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. A sign on the side of one of the buildings reads "North Lane". On the west side of the lane is an alehouse called "The Mangy Dog". There are several people walking up and down the lane at the moment.  Also here is a rusty bucket.
+
+> z
+You wait a while and eventually there is nobody else in the lane.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. A sign on the side of one of the buildings reads "North Lane". On the west side of the lane is an alehouse called "The Mangy Dog". The lane is clear of passers-by at the moment.  Also here is a rusty bucket.
+
+> drink potion
+You drink a mouthful of the SHRINK potion and you immediately shrink to six inches high.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. The buildings around you soar up into the air like straight-sided mountains. The alehouse door looms above you, leading In to the West. A huge bucket stands here, offering you cover from being seen by anyone. The lane is clear of passers-by at the moment.
+
+No sooner have you shrunk yourself than a man comes walking along the lane with a dog on a lead. You hide behind the bucket as the pair go by and, thankfully, the dog doesn't see you. You watch as they continue walking south down the lane and turn the corner into East Street.
+
+> in
+You move In.
+
+In Alehouse
+You are in the alehouse, just inside the door. You can go Out to North Lane or West to the other part of the room. The room seems like a gigantic cavern to a person of your size.
+
+> w
+You move West, keeping close to a wall to avoid detection and to keep from being trodden on.
+
+In Alehouse
+You are in the main part of the alehouse, where gigantic patrons sit at mountainous tables. To the south is a door which is guarded by two huge men and the door to the lane is to the east in the other part of the alehouse. At the bottom of the west wall just here you see a mousehole you can go In to. At the bottom of the wall there is a mousehole. You can go East, South or In.
+
+As you walk into the main part of the alehouse you see the patrons sitting at the tables far above you. You notice a movement under one of the tables and look closer to see a scrawny dog lying curled up in the gloom there. Luckily it hasn't seen you... yet!
+
+> go inside mousehole
+You get down on your hands and knees and crawl into the mousehole.
+
+Once inside you realise that you can stand up, which you do.
+
+Inside The Wall
+You are inside the wall of the alehouse, in a narrow cavity between the bricks. A gap in the bricks just here leads Out to the alehouse. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> get goggles
+
+(from the leather pouch)
+Ok, you take the pair of goggles out of the pouch.
+
+> wear goggles
+You put the goggles on and can see in the dark.
+
+Inside The Wall
+You are inside the wall of the alehouse, in a narrow cavity between the bricks. A gap in the bricks just here leads Out to the alehouse. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> s
+You move South.
+
+Junction of Walls
+You are inside the alehouse wall at a junction where the North-South wall crosses one going East-West.
+
+As you reach the junction, you disturb a spider - that is as large as a cat to you - which scuttles off into the darkness. "Ugh...spiders...why is it always spiders?" you think to yourself.
+
+> s
+You move South.
+
+Inside The Wall
+You are inside the wall cavity where, further south, you see a large nest in which a mother rat is tending to her brood of babies. You could go South but the nest is blocking the way, so you can only go North.
+
+> look up
+You look up and in the gloom, apparently about 20 feet above the nest, you see a bar-like object stretching across the gap between the bricks.
+
+> x bar
+You cannot see exactly what it is from here.
+
+> throw grapnel over bar
+Twirling the grapnel a couple of times you throw it up towards the bar.
+
+It soars up over the bar and the grapnel falls down and wraps itself around the rope. You give it a tug to make sure it is secure.
+
+Inside The Wall
+You are inside the wall cavity where, further south, you see a large nest in which a mother rat is tending to her brood of babies. You could go South but the nest is blocking the way, so you can only go North.  About 20 feet above you there is a metal bar across the cavity. Hanging from the bar is a rope.
+
+> put all in bag
+OK, you put the SHRINK potion, the sun hat and the GROW pills inside the bag.
+
+> climb u rope
+You climb up the rope and, reaching the top, you find that you are able to stand on the flat top of the bar.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  The rope is wrapped around the bar.
+
+> get rope
+You bend down and, unwrapping the grapnel from where it is twisted around the rope, pick it up.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.
+
+> look u
+You look up again and about another 20 feet above this bar, you see another bar.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  About 20 feet above, you see another bar between the walls of the cavity.
+
+> look s
+You look south and see, about 10 feet away, another bar similar to the one you are standing on.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.
+
+> throw grapnel over bar
+Twirling the grapnel a couple of times you throw it up towards the bar.
+
+It soars up over the bar and the grapnel falls down and wraps itself around the rope. You give it a tug to make sure it is secure.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.  Hanging from the bar above is a rope.
+
+> swing south
+You swing on the rope towards the bar to the south. On your first swing you miss it, but swinging across again you get your feet onto the bar and manage to stand upright on it.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.  A rope hangs down from the bar above you.
+
+> shake rope
+You wiggle the rope vigorously and the grapnel untwists from around it. You then give the rope a tug and the grapnel falls down towards you and you take it.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.
+
+> tie rope to bar
+You tie the rope and grapnel around the bar, letting the rope hang down below it.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.  Tied around the bar is a rope and grapnel.
+
+> climb down rope
+You climb down the rope to the floor of the cavity.
+
+Inside The Wall
+You are inside the wall cavity where, to the north, you see a large nest in which a mother rat is tending to her brood of babies. You could go North but the nest is blocking the way, so you can only go South. About 20 feet above you there is a metal bar across the cavity.  Hanging from the bar is a rope.
+
+> s
+You move South.
+
+Inside The Wall
+You are inside the wall cavity where another mousehole in the bricks just here leads to another part of the alehouse you could crawl out to. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> remove goggles
+Ok, you take off the goggles and are plunged into darkness.
+
+Inside The Wall
+You are inside the wall cavity where another mousehole in the bricks just here leads to another part of the alehouse you could crawl out to. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> out
+Getting down on your hands and knees you crawl through the gap and stand up.
+
+North End of Corridor
+You are at the north end of a long corridor that seems to go on for miles to the South. There is a door leading North here which towers high above you and a mousehole here leads In to the wall cavity.
+
+You look south and see, at the other end of the corridor, another door. Sitting on a chair next to the door is a sleeping guard. At his feet lies a dog, also asleep.
+
+> x guard
+He is fast asleep on the chair. You notice that he is armed with a sword.
+
+> x dog
+The dog is a large Rottweiler.  To a person of your diminutive size, it looks far bigger than an elephant.
+
+> in
+You move In.
+
+Inside The Wall
+You are inside the wall cavity where another mousehole in the bricks just here leads to another part of the alehouse you could crawl out to. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> wear goggles
+You put the goggles on and can see in the dark.
+
+Inside The Wall
+You are inside the wall cavity where another mousehole in the bricks just here leads to another part of the alehouse you could crawl out to. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> n
+You move North.
+
+Inside The Wall
+You are inside the wall cavity where, to the north, you see a large nest in which a mother rat is tending to her brood of babies. You could go North but the nest is blocking the way, so you can only go South. About 20 feet above you there is a metal bar across the cavity.  Hanging from the bar is a rope.
+
+> climb up rope
+You climb up the rope and stand on the flat top of the bar.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.  Tied around the bar is a rope and grapnel.
+
+> get rope
+You bend down and, unwrapping the grapnel from where it is twisted around the rope, pick it up.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.
+
+> throw grapnel over bar
+Twirling the grapnel a couple of times you throw it up towards the bar.
+
+It soars up over the bar and the grapnel falls down and wraps itself around the rope. You give it a tug to make sure it is secure.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.  A rope hangs down from the bar above you.
+
+> swing n
+You swing on the rope across to the bar to the north.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.  Hanging from the bar above is a rope.
+
+> shake rope
+You wiggle the rope vigorously and the grapnel untwists from around it. You then give the rope a tug and the grapnel falls down towards you and you take it.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.
+
+> tie rope to bar
+You tie the rope and grapnel around the bar, letting the rope hang down below it.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.
+
+> climb d rope
+You climb down the rope to the floor of the cavity.
+
+Inside The Wall
+You are inside the wall cavity where, further south, you see a large nest in which a mother rat is tending to her brood of babies. You could go South but the nest is blocking the way, so you can only go North.  About 20 feet above you there is a metal bar across the cavity. Hanging from the bar is a rope.
+
+> n
+You move North.
+
+Junction of Walls
+You are inside the alehouse wall at a junction where the North-South wall crosses one going East-West.
+
+> n
+You move North.
+
+Inside The Wall
+You are inside the wall of the alehouse, in a narrow cavity between the bricks. A gap in the bricks just here leads Out to the alehouse. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> remove goggles
+Ok, you take off the goggles and are plunged into darkness.
+
+Inside The Wall
+You are inside the wall of the alehouse, in a narrow cavity between the bricks. A gap in the bricks just here leads Out to the alehouse. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> put goggles in bag
+OK, you put the pair of goggles inside the bag.
+
+> out
+Getting down on your hands and knees you crawl through the gap and stand up.
+
+In Alehouse
+You are in the main part of the alehouse, where gigantic patrons sit at mountainous tables. To the south is a door which is guarded by two huge men and the door to the lane is to the east in the other part of the alehouse. At the bottom of the west wall just here you see a mousehole you can go In to. At the bottom of the wall there is a mousehole. You can go East, South or In.
+
+As you get to your feet, you see a movement under one of the tables in the alehouse. Looking in that direction, you see the dog you saw earlier is lying there awake and has seen you emerge from the mousehole. The dog gets to its feet, eyeing you up as a tasty snack!
+
+> run east
+You run east as fast as you can.
+
+The dog starts to run after you but a sharp command from one of the men sitting at the tables, who hasn't seen what the dog is chasing, stops it in its tracks. You continue running, slip through the door which is fortunately ajar, and emerge from the alehouse into the lane outside.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. The buildings around you soar up into the air like straight-sided mountains. The alehouse door looms above you, leading In to the West. A huge bucket stands here, offering you cover from being seen by anyone. There are several people walking up and down the lane at the moment.
+
+> wait
+You wait a while and soon there is nobody walking along the lane.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. The buildings around you soar up into the air like straight-sided mountains. The alehouse door looms above you, leading In to the West. A huge bucket stands here, offering you cover from being seen by anyone. The lane is clear of passers-by at the moment.
+
+> get grow
+
+(from the bottomless bag)
+Ok, you take the GROW pills from out of the bag.
+
+> eat grow
+You swallow a grow pill and immediately resume your full size.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. A sign on the side of one of the buildings reads "North Lane". On the west side of the lane is an alehouse called "The Mangy Dog". The lane is clear of passers-by at the moment.
+
+> s
+You move South.
+
+South End Of North Lane
+You are near the south end of North Lane, by a house on the west side. You can go North or South along the lane and there is a door to the house here which is is closed and locked.
+
+> s
+You move South.
+
+By East Gate
+You are standing at a junction by the unused East Gate of Xumeria. North Lane goes North, South Lane South and East Street goes West.
+
+As you approach the east gate, a beggar comes walking along and squats down on the ground in front of the bricked-up gate.
+
+The beggar holds out his bowl.
+
+"Charity, kind sir," he pleads. "Spare a copper or two, I beg thee."
+
+1: Ask beggar why east gate is closed.
+2: Ask beggar to look at sketch.
+3: Give alms to beggar.
+
+> 1
+You ask the beggar why the east gate is closed.
+
+"It was in use up to about two hundred years ago," he tells you. "Then the climate changed and the inland sea that used to lie to the east dried up and became the great salt desert. The gate fell into disuse and eventually the city authorities had it closed permanently to save having to guard it."
+
+> 2
+You take the sketch from your bag and show it to the beggar. He takes it from you and studies it.
+
+"His name is Flambeau," he says scornfully, handing the sketch back to you. "He's a member of the Mangy Dog Gang, a bunch of thieves and vagabonds who hang out in the alehouse in North Lane. He lives in the house with the green door in South Lane."
+
+> 3
+You search your pockets and find a few copper coins, which you put into the beggar's bowl.
+
+"Thank you kind sir," he says to you. "I will spend this on some food."
+
+Standing up, he dusts himself down and walks off along East Street and sits down again near the west gate.
+
+By East Gate
+You are standing at a junction by the unused East Gate of Xumeria. North Lane goes North, South Lane South and East Street goes West.  Also here is a length of rusty wire.
+
+> get wire
+Ok, you pick up the length of rusty wire.
+
+> w
+You move West.
+
+East Street
+You are in East Street, which runs from West to East through the middle of Xumeria.
+
+As you enter East Street you are startled to see the man in the sketch walking towards you several yards further along the street. Head down, he glances from side to side and looks around to see if he is being followed. You carry on walking towards him and he walks past you. You slow down and glance behind you to see him turn into North Lane. You turn and hurry to the the corner, just in time to see him enter the alehouse you recently left yourself.
+
+By East Gate
+You are standing at a junction by the unused East Gate of Xumeria. North Lane goes North, South Lane South and East Street goes West.
+
+> w
+You move West.
+
+East Street
+You are in East Street, which runs from West to East through the middle of Xumeria.
+
+> w
+You move West.
+
+Town Square
+You are in the main town square of Xumeria. The sides are about 100 yards in length and in the centre there stands a fountain. You can go East or West along the main street. A travelling troupe of actors are setting up their stage, which is on the North side of the square, for a performance tonight. Parked either side of the stage, to NE and NW, are two caravans, one of them painted bright pink. The square is packed with people, most going about their daily business, some watching the actors erect their stage.
+
+> nw
+You move NorthWest.
+
+By Pink Caravan
+You are standing by the pink caravan. A short flight of steps leads Up to a door in the back of the caravan. The town square is SE and the stage East.
+
+> knock on door
+You knock on the door a couple of times.
+
+A female voice calls out from inside the caravan: "Come on in, it's not locked!"
+
+> u
+You open the door and walk up the couple of steps into the caravan, closing it behind you.
+
+Inside Caravan
+You are inside the caravan. It is furnished tastefully and has a deep carpet on the floor. The other item of furniture which occupies the caravan is a dressing table. The door at the back of the caravan leads Out to the town square.
+
+Sitting on a chair in front of a dressing table here is a beautiful blonde woman. She smiles as you enter her caravan.
+
+"Hello, my name is Christiana and I am the leader of our company of players," she tells you. "How can I help you?"
+
+Inside Caravan
+You are inside the caravan. It is furnished tastefully and has a deep carpet on the floor. The other item of furniture which occupies the caravan is a dressing table. The door at the back of the caravan leads Out to the town square.  Sitting on a sofa here is Christiana.
+
+You introduce yourself to Christiana and tell her who you are and where you are from. She expresses surprise at your rank but confesses that she has never heard of the land of Hecate.
+
+1: Tell Christiana about Hecate.
+2: Tell Christiana about Prince Elnor.
+3: Show the sketch to Christiana.
+
+> 1
+You tell Christiana something about the land of Hecate.
+
+"It sounds like you are very happy to live there," she tells you. "If we knew how to get to that land then I am sure your people would enjoy our plays."
+
+> 2
+You tell Christiana about Prince Elnor and how you have been forced to find him by King Rovar.
+
+"That sounds extremely dangerous, Duke Alaric," she tells you. "King Rovar must be desperate to rescue Elnor from the kidnappers, he is known to be a very fair and wise ruler."
+
+> 3
+You show the sketch of the kidnapper to Christiana.
+
+She looks at the sketch, then at you and holds the sketch up alongside your face.
+
+"The resemblance is uncanny," she tells you. "Apart from the scar and the moustache, this man could be your brother!"
+
+She hands the sketch back and you take it from her.
+
+> talk to christiana
+You ask Christiana if she will disguise you to look like the man in the sketch.
+
+She consider for a minute or two then answers you.
+
+"Yes, Duke Alaric, I will disguise you as you ask," she says. "However, I require payment of gold before I will perform this service."
+
+> get ring
+
+(from the bottomless bag)
+Ok, you take the gold ring from out of the bag.
+
+> give ring
+You give the gold ring to Christiana.
+
+She weighs the gold ring in her hand.
+
+"That will buy us food and supplies for several months," she tells you.  "However, that is still not enough for my services."
+
+> get bracelet
+
+(from the bottomless bag)
+Ok, you take the gold bracelet from out of the bag.
+
+> give bracelet
+You give the gold bracelet to Christiana.
+
+She weighs the heavy gold bracelet in her hand.
+
+"That will buy us food and supplies for several months," she tells you.  "However, I will require more gold, Duke Alaric."
+
+> get teeth
+
+(from the leather pouch)
+Ok, you take the gold teeth out of the pouch.
+
+> give teeth
+You give the gold teeth to Christiana.
+
+She looks at them closely. She considers for a moment and then puts the teeth in a purse.
+
+"These can be melted down and used to trade for supplies," she tells you.
+
+"Very well, now show me that sketch again."
+
+For the next hour or so, Christiana works on disguising you as the man in the sketch. She glues a moustache on your top lip and spends a long time recreating the prominent scar on your left cheek with the materials in her make-up kit. Skilful use of face-paint takes a few years off your age.
+
+Eventually the transformation is complete, but she adds one last addition to the disguise, a scarf around your neck to hide the leather collar.
+
+You look in her mirror and are amazed at how you now look - an almost perfect double of the man in the sketch.
+
+You thank Christiana, who wishes you success in your quest to rescue Prince Elnor, and you leave her caravan.
+
+By Pink Caravan
+You are standing by the pink caravan. A short flight of steps leads Up to a door in the back of the caravan. The town square is SE and the stage East.
+
+> se
+You move SouthEast.
+
+Town Square
+You are in the main town square of Xumeria. The sides are about 100 yards in length and in the centre there stands a fountain. You can go East or West along the main street. A travelling troupe of actors are setting up their stage, which is on the North side of the square, for a performance tonight. Parked either side of the stage, to NE and NW, are two caravans, one of them painted bright pink. The square is packed with people, most going about their daily business, some watching the actors erect their stage.
+
+> e
+You move East.
+
+East Street
+You are in East Street, which runs from West to East through the middle of Xumeria.
+
+> e
+You move East.
+
+By East Gate
+You are standing at a junction by the unused East Gate of Xumeria. North Lane goes North, South Lane South and East Street goes West.
+
+> s
+You move South.
+
+Near East Gate
+You are near the north end of South Lane, outside a house on the west side. You can go North or South along the lane and there is a door to the house here which is closed.
+
+> s
+You move South.
+
+In South Lane
+You are about halfway along South Lane, outside a house on the west side. You can go North or South along the lane and there is a door to the house here which is closed and locked.
+
+> pick lock
+Inserting the wire into the lock you manipulate the tumblers and are rewarded with a click as the door unlocks.
+
+> open door
+You open the green door.
+
+> in
+You move In.
+
+Hallway
+You are inside the house, in a short hallway where there are doors that lead South and West and Out to the lane. There is also a flight of stairs that lead Up.
+
+> u
+You move Up.
+
+Landing
+You are on the landing of the house, where there are doors to the north and east. Stairs lead Down to the hallway.
+
+> pick east lock
+Inserting the wire into the lock in the door to the east you manipulate the tumblers and are rewarded with a click as the door unlocks.
+
+Unfortunately, as you do so the wire breaks into several fragments, falls onto the floor and is lost.
+
+> open door
+You open the east door.
+
+> in
+You move In.
+
+Flambeau's Room
+You are in Flambeau's room, which is surprisingly neat and tidy. The main feature of the room is the bed, which takes up most of the space. The door is open and leads Out to the landing. On the bed you see a tunic and a pair of leggings.
+
+> put grow pills in bag
+OK, you put the GROW pills inside the bag.
+
+> put sketch in bag
+OK, you put the sketch inside the bag.
+
+> look under bed
+You look under the bed and find a pair of old shoes.
+
+Flambeau's Room
+You are in Flambeau's room, which is surprisingly neat and tidy. The main feature of the room is the bed, which takes up most of the space. The door is open and leads Out to the landing. On the bed you see a tunic and a pair of leggings.  Also here is a pair of shoes.
+
+> remove jacket
+OK, you take off your jacket.
+
+> remove shirt
+OK, you remove your shirt.
+
+> remove trousers
+OK, undoing your belt first you take off your trousers.
+
+> remove boots
+OK, you take off your boots.
+
+> get all from bed
+Ok, you take the tunic and the pair of leggings from the bed.
+
+> get shoes
+Ok, you pick up the pair of shoes.
+
+> wear tunic
+Ok, you put on the tunic.
+
+> wear leggings
+Ok, you put on the leggings.
+
+> wear shoes
+Ok, you put on the pair of shoes.  Although they are a bit tight, they fit.
+
+> drop all
+Ok, you put down the leather jacket, the linen shirt, the trousers, the leather belt and the pair of boots.
+
+> out
+You move Out.
+
+Landing
+You are on the landing of the house, where there are doors to the north and east. Stairs lead Down to the hallway.
+
+> d
+You move Down.
+
+Hallway
+You are inside the house, in a short hallway where there are doors that lead South and West and Out to the lane. There is also a flight of stairs that lead Up.
+
+> out
+You move Out.
+
+In South Lane
+You are about halfway along South Lane, outside a house on the west side. You can go North or South along the lane and there is a door to the house here which is open and leads In.
+
+> n
+You move North.
+
+Near East Gate
+You are near the north end of South Lane, outside a house on the west side. You can go North or South along the lane and there is a door to the house here which is closed.
+
+> n
+You move North.
+
+By East Gate
+You are standing at a junction by the unused East Gate of Xumeria. North Lane goes North, South Lane South and East Street goes West.
+
+> n
+You move North.
+
+South End Of North Lane
+You are near the south end of North Lane, by a house on the west side. You can go North or South along the lane and there is a door to the house here which is is closed and locked.
+
+> n
+You move North.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. A sign on the side of one of the buildings reads "North Lane". On the west side of the lane is an alehouse called "The Mangy Dog". The lane is clear of passers-by at the moment.
+
+> get shrink
+
+(from the bottomless bag)
+Ok, you take the SHRINK potion from out of the bag.
+
+> drink shrink
+You drink a mouthful of the SHRINK potion and you immediately shrink to six inches high.
+
+In North Lane
+You are in North Lane, which leads North to the North Gate of Xumeria. The buildings around you soar up into the air like straight-sided mountains. The alehouse door looms above you, leading In to the West. A huge bucket stands here, offering you cover from being seen by anyone. The lane is clear of passers-by at the moment.
+
+> put shrink in bag
+OK, you put the SHRINK potion inside the bag.
+
+> in
+You move In.
+
+In Alehouse
+You are in the alehouse, just inside the door. You can go Out to North Lane or West to the other part of the room. The room seems like a gigantic cavern to a person of your size.
+
+> w
+You move West, keeping close to a wall to avoid detection and to keep from being trodden on.
+
+In Alehouse
+You are in the main part of the alehouse, where gigantic patrons sit at mountainous tables. To the south is a door which is guarded by two huge men and the door to the lane is to the east in the other part of the alehouse. At the bottom of the west wall just here you see a mousehole you can go In to. At the bottom of the wall there is a mousehole. You can go East, South or In.  The man you are disguised as is standing by the tables on the other side of the alehouse, talking to the men sitting there.
+
+As you make your way alongside the wall of the alehouse, the dog that is lying under one of the tables on the far side of the room spots you. Leaping to its feet, it charges towards you!
+
+> in
+You scramble into the mousehole as quick as you can.
+
+The dog starts barking and pawing at the mousehole until it is stopped by a sharp command from one of the men at the table. Unfortunately the dog now knows you are in here and is waiting outside for you to emerge!
+
+Inside The Wall
+You are inside the wall of the alehouse, in a narrow cavity between the bricks. A gap in the bricks just here leads Out to the alehouse. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+You hear the dog barking outside the wall until a sharp command from one of the men quietens it. However, it lays down facing the mousehole, hoping that you will be stupid enough to leave by that exit again.
+
+> get goggles
+
+(from the bottomless bag)
+Ok, you take the pair of goggles from out of the bag.
+
+> wear goggles
+You put the goggles on and can see in the dark.
+
+Inside The Wall
+You are inside the wall of the alehouse, in a narrow cavity between the bricks. A gap in the bricks just here leads Out to the alehouse. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> s
+You move South.
+
+Junction of Walls
+You are inside the alehouse wall at a junction where the North-South wall crosses one going East-West.
+
+> s
+You move South.
+
+Inside The Wall
+You are inside the wall cavity where, further south, you see a large nest in which a mother rat is tending to her brood of babies. You could go South but the nest is blocking the way, so you can only go North.  About 20 feet above you there is a metal bar across the cavity. Hanging from the bar is a rope.
+
+> climb u rope
+You climb up the rope and stand on the bar.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.
+
+> get rope
+You bend down and, unwrapping the grapnel from where it is twisted around the rope, pick it up.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.
+
+> throw grapnel over bar
+Twirling the grapnel a couple of times you throw it up towards the bar.
+
+It soars up over the bar and the grapnel falls down and wraps itself around the rope. You give it a tug to make sure it is secure.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The nest is about 20 feet below you. The cavity stretches into darkness to the north and south.  Above you and to the south you see two other bars in the cavity.  Hanging from the bar above is a rope.
+
+> swing south
+You swing on the rope to the bar to the south.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.  A rope hangs down from the bar above you.
+
+> shake rope
+You wiggle the rope vigorously and the grapnel untwists from around it. You then give the rope a tug and the grapnel falls down towards you and you take it.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.
+
+> tie rope to bar
+You tie the rope and grapnel around the bar, letting the rope hang down below it.
+
+Standing on Bar
+You are standing on the metal bar in the wall cavity. The other bars are above you and to the north.  Tied around the bar is a rope and grapnel.
+
+> climb down rope
+You climb down the rope to the floor of the cavity.
+
+Inside The Wall
+You are inside the wall cavity where, to the north, you see a large nest in which a mother rat is tending to her brood of babies. You could go North but the nest is blocking the way, so you can only go South. About 20 feet above you there is a metal bar across the cavity.  Hanging from the bar is a rope.
+
+> shake rope
+You wiggle the rope vigorously and the grapnel untwists from around it. You then give the rope a tug and the grapnel falls down towards you and you take it.
+
+Inside The Wall
+You are inside the wall cavity where, to the north, you see a large nest in which a mother rat is tending to her brood of babies. You could go North but the nest is blocking the way, so you can only go South. About 20 feet above you there is a metal bar across the cavity.
+
+> put grapnel in bag
+OK, you put the rope and grapnel inside the bag.
+
+> s
+You move South.
+
+Inside The Wall
+You are inside the wall cavity where another mousehole in the bricks just here leads to another part of the alehouse you could crawl out to. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> remove goggles
+Ok, you take off the goggles and are plunged into darkness.
+
+Inside The Wall
+You are inside the wall cavity where another mousehole in the bricks just here leads to another part of the alehouse you could crawl out to. It is very gloomy here by the gap but further to the North and South it is pitch dark.
+
+> out
+Getting down on your hands and knees you crawl through the gap and stand up.
+
+North End of Corridor
+You are at the north end of a long corridor that seems to go on for miles to the South. There is a door leading North here which towers high above you and a mousehole here leads In to the wall cavity. At the south end of the corridor is another door next to which a guard sits on a chair fast asleep. At his feet lies a dog, also asleep.
+
+> get grow
+
+(from the bottomless bag)
+Ok, you take the GROW pills from out of the bag.
+
+> eat grow
+You swallow a grow pill and immediately resume your full size.
+
+North End of Corridor
+You are at the north end of a corridor which goes South. There is a door here leading North and at the south end there is another door besides which a guard sits on a chair, fast asleep. At his feet is a large dog which is also asleep.
+
+> drop grow
+Ok, you put down the GROW pills.
+
+> s
+You move South.
+
+South End of Corridor
+You are at the south end of the corridor, where there is a door leading south. Sitting on a chair next to the door, fast asleep, is a guard. At his feet lies a large dog, also fast asleep.
+
+> wake guard
+You shake the guard's shoulder.
+
+The guard wakes up and, rubbing his eyes, sees you standing there.
+
+"Oh, hello Flambeau," he says to you. "You back again, I suppose you wanna see the lad again?"
+
+The dog wakes up as well and pads over to you. It sniffs at your trousers and shoes, then looks up at you with its pink tongue hanging out of its mouth. You bend down and ruffle the hound's head between its ears, whereupon it walks back to the guard, lies down on the floor and goes back to sleep.
+
+The guard gets up, takes a key from his pocket and, unlocking the door, opens it. You nod a thanks and walk through to the room beyond. The guard closes and locks the door behind you.
+
+A Bedroom
+You are in a room in the alehouse that has been fitted out as a bedroom. It is quite comfortably furnished with a bed and a table and chair. In one wall there is a fireplace and in the wall opposite the door there is a window which has bars on the outside.  Prince Elnor is sitting on the chair by the table, reading a book.
+
+As you walk into the room, you see a young man sitting on the chair reading a book. He looks up at you, a frown upon his face.
+
+"What do you want?" he asks. "You only left a few minutes ago?"
+
+You close the door and turn back to to the boy. To his astonishment, you reach up and pull the moustache off of your upper lip.
+
+"Who're you!" he demands. "You looked exactly like Flambeau until you took that moustache off!"
+
+1: Tell Elnor who you are.
+2: Tell Elnor that his father sent you to rescue him.
+3: Tell Elnor to stand next to you and hold your hands.
+
+> 1
+You tell Prince Elnor who you are and where you come from.
+
+"I have never heard of the land of Hecate," Duke Alaric. "Who sent you here?
+
+> 2
+You tell Elnor that his father King Rovar sent you to rescue him from the clutches of the kidnappers. You refrain from telling the Prince that he actually forced you to.
+
+"That was extremely brave of you, Duke Alaric," he tells you. "I will make sure that my father rewards you well! Now, how do we get out of here?"
+
+> 3
+You tell Prince Elnor to stand next to you and hold onto your hand.
+
+The Prince looks at you quizzically and holds back.
+
+"I have a device that can transport the two of us to your father's castle by arcane means," you tell him. "You must be in contact with me for it to work! Now stop messing around and hold my hand - put your hand on my shoulder if you are uncomfortable with that!"
+
+The Prince obeys you and, walking over to stand next to you, he holds onto your left hand and puts his other hand on your shoulder.
+
+A Bedroom
+You are in a room in the alehouse that has been fitted out as a bedroom. It is quite comfortably furnished with a bed and a table and chair. In one wall there is a fireplace and in the wall opposite the door there is a window which has bars on the outside.  Prince Elnor is standing next to you, holding onto your hand and shoulder.
+
+> squeeze collar twice
+You squeeze the collar around your neck twice and wait.
+
+Suddenly you look up as the door to the room bursts opens and the guard and the real Flambeau stand there looking at you.
+
+"Quick, seize them!" Flambeau shouts and the two men both try to enter the room at the same time. Luckily for you, they get jammed in the doorway and this gives the spell conjured by Zymon time to work.
+
+Everything goes hazy and then dark. There is a second of utter cold then it becomes light and warm again as the two of you materialise in the throne room of Castle Elinka.
+
+Please Press Any Key to Continue.
+
+You look around and see several people in the room, looking at you in astonishment. Zymon is one of them and he quickly summons over a footman and instructs him to fetch the King and Queen.
+
+Courtiers rush over to tend to you and the prince and, after a couple of minutes of them fussing over the two of you, King Rovar and his wife arrive. The prince rushes over to them and they embrace him with tears in their eyes.
+
+King Rovar comes over to you and, calling Zymon over, instructs him to remove the collar from around your neck, which he does.
+
+"I am sorry that we had to go to such lengths to get you to rescue Elnor," he says to you.
+
+"Why didn't you just ASK me to try to rescue him?" you say to the King, who replies, "Well we weren't sure that you would attempt it - we were desperate!"
+
+You decide to let the matter rest, as you were able to rescue the prince without anyone being hurt. King Rovar offers you a reward, but all you ask is that Zymon should transport you to the area of the enchanted wood where the tunnel leading back to your own world is hidden.
+
+Zymon confesses that he does not know of the wood, but when you describe the area he tells you that he does know of the towns of Xandi and Agartha and that he can transport you there.
+
+The King and Queen thank you profusely for rescuing the Prince, who himself also thanks you. Zymon instructs you to stand clear of everyone and then he casts his spell upon you.
+
+Everything goes hazy, then black and there is the moment of intense cold. Then your vision returns as you materialise on the plain where you prevented the two goblin armies from fighting one-another.
+
+Please Press Any Key to Continue.
+
+On Open Plain
+You are standing on the path which runs from West to East across a wide open plain. To the North and South you see palisaded towns.
+
+> w
+You move West.
+
+Edge of Woods
+You're at the edge of the woods, facing a flat, open plain that stretches away to distant hills on the horizon. About half a mile to the southeast and northeast you see a couple of small towns, both of which have wooden palisades around them. A path leads West into the woods just here.
+
+> w
+You move West.
+
+Road Through Woods
+You're on a road that runs NW and SE through the woods. All around you strange flora grows in abundance. You can go in all directions. On a tree by the side of the road is a blaze you cut in the trunk.
+
+> follow blaze
+You follow the blazes you cut on the tree trunks back to the hillside where the tunnel is.
+
+Outside Tunnel
+You're outside the tunnel, which is set into the side of a steep hillside. The tunnel is hidden from view by the bushes that grow in profusion all around. You seem to be in a wood which is populated with strange-looking trees and plants. You can go East, West, South, SE or SW, or North back into the tunnel.
+
+> n
+You push your way through the bushes into the tunnel.
+
+End Of Tunnel
+You are at the end of the tunnel where it opens into daylight. There are tall bushes growing outside the tunnel which must shield the tunnel from the view of anyone on the far side. You can go North into the tunnel or South through the bushes.
+
+> n
+You move North.
+
+As you walk north along the tunnel you experience the feeling that you are walking through thick oil once again.
+
+Round Tunnel
+You are halfway along the North-South Tunnel, where you notice that the air has a fuzzy quality to it. Further south you see daylight.
+
+> n
+You move North.
+
+It is too dark to make anything out clearly.
+
+> wear goggles
+You put the goggles on and can see in the dark.
+
+Round Tunnel
+You are in the round tunnel that leads East to the stairway around the vertical shaft. It bends to the South here and you see what appears to be bright daylight some distance further south.
+
+> e
+You move East.
+
+Round Tunnel
+You are halfway along the tunnel which run West and East.
+
+> e
+You move East.
+
+Bottom of Stairway
+You're at the bottom of the stairs, which spiral up into the darkness above you, on a larger platform attached to the wall of the shaft. A wooden railing runs all the way around the platform. It is covered with detritus. The bottom of the shaft is about 30 feet below you in the darkness. A round tunnel leads off West from here.
+
+> u
+You move Up.
+
+Wooden Platform (3W)
+You are on a platform in the spiral stairway in the vertical shaft on the west side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft. You can go Up or Down. The stairs above the platform above you are missing.
+
+> u
+You move Up.
+
+Wooden Platform (3S)
+You are on a platform in the spiral stairway in the vertical shaft on the south side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.  Lying against the wall of the shaft here is a dead goblin.
+
+> u
+You move Up.
+
+Wooden Platform (3E)
+You are on a platform in the wooden stairway in the vertical shaft on the east side. You can go Up and Down the stairs to the platforms above and below you. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft.
+
+> u
+You move Up.
+
+Wooden Platform (3N)
+You are on a platform on the spiral stairway in the vertical shaft on the north side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. The stairs further up have collapsed and you can only go Down to the platform below you.
+
+> get grapnel
+
+(from the bottomless bag)
+Ok, you take the rope and grapnel from out of the bag.
+
+> throw grapnel up
+You throw the grapnel at the underside of the stairway above you. The grapnel digs into the wood and the rope dangles into the gap between the sections of stairway.
+
+Wooden Platform (3N)
+You are on a platform on the spiral stairway in the vertical shaft on the north side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. The stairs further up have collapsed and you can only go Down to the platform below you. You can see the grapnel hooked into the stairway above the gap with the rope hanging down through the gap.
+
+> swing across gap
+Holding onto the hanging rope to support your weight, you swing across the gap to the platform above.
+
+Wooden Platform (2W)
+You are on a platform in the spiral stairway in the vertical shaft on the west side. There is a gap in the stairs further down where the wood has rotted away and you can only go Up to the platform above this one. It is covered with detritus. Your grapnel is hooked to the underside of the stairs above the gap and the rope hangs down into it. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft.
+
+> shake rope
+You snap the rope a couple of times and the grapnel comes loose from where you hooked it.
+
+Wooden Platform (2W)
+You are on a platform in the spiral stairway in the vertical shaft on the west side. There is a gap in the stairs further down where the wood has rotted away and you can only go Up to the platform above this one. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft.
+
+> u
+You move Up.
+
+Wooden Platform (2S)
+You are on a platform in the spiral stairway in the vertical shaft on the south side. It is covered with detritus. In the stairway above you there is a gap in the stairs. The goggles allow you to see about 15 to 20 feet around you and you can dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you.
+
+> u
+You move Up.
+
+Wooden Platform (2E)
+You are on a platform in the spiral stairway in the vertical shaft on the east side. It is covered with detritus. The goggles allow you to see about 15 to 20 feet around you and you can only dimly make out the far side of the shaft. You can go Up or Down the stairs to the platforms above and below you. Above your head, the stairs are missing.
+
+> throw grapnel up
+Holding onto the rope, you twirl the grapnel around a couple of times then release it so that the grapnel soars up through the gap. You hear a thud as the grapnel hooks onto something so you tug on the rope a couple of times to bed the grapnel.
+
+Wooden Platform (2E)
+You are on a platform in the spiral stairway in the vertical shaft on the east side. It is covered with detritus. Above your head, the stairs are missing and your rope hangs down through the gap.
+
+> climb u rope
+You climb up the rope.
+
+When you get to the top you climb onto the stairway and, picking up the grapnel and pulling the rope up, continue up the stairway until you reach the top.
+
+Top Of Shaft (1N)
+You're at the end of the tunnel deep underground, where it has opened up next to a vertical, roughly square-shaped shaft which plunges down into darkness. Around the sides of the shaft a rickety wooden stairway spirals clockwise into the depths. You can go North along the tunnel or Down the stairway. The floor here and the stairway is covered with all sorts of detritus, accumulated over the decades, if not centuries since it was built.
+
+> n
+You move North.
+
+In Tunnel
+You are in the tunnel deep underground, to the north is the part of the tunnel where the floor was missing. You can go North or South.
+
+> n
+You move North.
+
+In Tunnel
+You are in a wide tunnel deep underneath Castle Coris. The chasm to the south has disappeared after the tunnel floor rose up and you can now either proceed in that direction or go North. There is also a tunnel leading West.
+
+> n
+You move North.
+
+In Tunnel
+You are in a deep subterranean tunnel which leads NE and South. The tunnel is quite wide here and you can just about make out the opening to a side tunnel on the East side.
+
+Suddenly you hear a deep rumbling sound and almost fall over as the ground under your feet shakes violently for a second or two.
+
+Was that an earthquake, you wonder to yourself?
+
+There is another rumble and tremor. Stones and pieces of rock start to fall from the roof of the tunnel and you realise that if you don't get out quick you might be buried alive if this tunnel collapses!
+
+You take to your heels and run as fast as you can along the tunnel towards the cavern. You almost stumble and fall as a third tremor rocks the tunnel and large chunks of rock fall from the ceiling, narrowly missing you.
+
+As you near the end of the tunnel you tear off the goggles and emerge into the cavern just as the tunnel collapses with a huge roar. You are engulfed in a cloud of dust which has you spluttering and gasping for air as you run across the cavern to the north side.
+
+You stop near the tunnel to the spiral stairs and catch your breath as the mass of dust slowly settles to the floor. Phew! That was a close call!
+
+North Side of Cavern
+You are on the north side of the cavern, by a tunnel opening that leads North to the spiral stairway that leads up to Castle Coris. You can go South into the main part of the cavern. Several torches on the walls cast enough light for you to see your surroundings.
+
+> n
+You move North.
+
+Bottom of Spiral Stairs
+You're at the bottom of the spiral stairs that lead Up, facing a curved tunnel that leads South. A torch on the wall here casts a flickering light enough for you to see. There is a space under the bottom of the stairs.
+
+> u
+
+*** CONGRATULATIONS! ***
+
+You have once again journeyed to far lands and faced many dangers, but you triumphed over all and have now completed...
+
+RETURN TO CASTLE CORIS
+
+...in 437 turns, scoring the maximum 400 points!
+
+I do hope you have enjoyed playing this game.
+
+Also Available In The Alaric Blackmoon Series:
+
+Episode 1: THE AXE OF KOLT
+
+Episode 2: THE SPECTRE OF CASTLE CORIS
+
+Episode 3: DIE FEUERFAUST - THE FIST OF FIRE
+
+Episode 4: FORTRESS OF FEAR
+
+Episode 5: THE LOST CHILDREN
+
+Episode 6: THE CALL OF THE SHAMAN
+
+Episode 7: THE LOST LABYRINTH OF LAZAITCH
+
+****************************
+
+Adventures in the World of Alaric Blackmoon:
+
+Episode 1: RUN, BRONWYNN, RUN
+
+Episode 2: THE DWARF OF DIREWOOD FOREST
+
+Coming Soon: Episode 3: FINN'S BIG ADVENTURE
+
+****************************
+
+The Intrepid Space Adventures Of Mike Erlin:
+
+Chapter 1: MAGNETIC MOON
+
+Chapter 2: STARSHIP QUEST
+
+Chapter 3: REVENGE OF THE SPACE PIRATES
+
+Chapter 4: THE EURIPEDES ENIGMA
+
+****************************
+
+All the above games can all be downloaded from the following websites:
+
+https://lazzah.itch.io
+
+http://www.adrift.co/games
+

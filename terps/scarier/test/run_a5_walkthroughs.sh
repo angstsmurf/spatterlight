@@ -1154,6 +1154,21 @@ FILTER="${1:-}"
 #    games have disjoint synonyms so the reorder is inert -- whole corpus stays
 #    98 MATCH / 11 DIVERGE-at-baseline, zero regressions.
 #
+# ReturnToCastleCoris (Larry Horsfield, 2020; Alaric Blackmoon episode, Version
+# 5.0000366) -- built-in WLKTHRGH extracted and repaired to a MAXIMUM-score win
+# ("...in 437 turns, scoring the maximum 400 points!"); see the header of
+# test/ReturnToCastleCoris_walkthrough.txt for the four route repairs (start-menu
+# o/b, slime-eater sack tunnel level, gold-ring-vs-alehouse death, Flambeau's
+# green door).  Budget 0|1: vanilla strict-diffs the committed golden
+# (ReturnToCastleCoris_expected.txt, must stay 0); xoshiro is the FD-conformance
+# column.  The xoshiro residual (1) is the first `look in gap`:
+# the task's second completion alternate ("You can also see ... under there.",
+# gated on `AnyObject Must BeAtLocation Location66`) lists Location66's
+# Under-Outcrop static scenery (tiny stream, fresh water, walls, ...) in Scarier
+# but FrankenDrift emits only the base sentence.  Vanilla adds 5 pure-RNG hunks:
+# the salt-flats' random vulture/eagle/lizard atmosphere event draws different
+# text under .NET System.Random vs. xoshiro (aligned away under FD_RNG=xoshiro).
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1268,6 +1283,7 @@ SpaceDetective4|SpaceDetective4.blorb|0|0
 SpaceDetective5|SpaceDetective5.blorb|0|0
 SpaceDetective6|SpaceDetective6.blorb|0|0
 SpaceDetective7|SpaceDetective7.blorb|0|0
+ReturnToCastleCoris|ReturnToCastleCoris.blorb|0|0
 EdithsCats|edithscats.taf|0|0
 EOF
 )
@@ -1413,15 +1429,31 @@ echo "$MAP" | {
         [ -z "$name" ] && continue
         case "$name" in *"$FILTER"*) : ;; *) continue ;; esac
         n=$((n+1))
-        run_one "$(printf '%03d' "$n")" "$name" "$game" "$vbudget" "$xbudget" &
+        # </dev/null: the children inherit THIS while-loop's stdin (the MAP
+        # pipe); any grandchild that reads stdin (dotnet on an FD_CACHE miss)
+        # would silently EAT map rows -- 51 games vanished from one run before
+        # this was pinned down.  Row-count assert below backstops it.
+        run_one "$(printf '%03d' "$n")" "$name" "$game" "$vbudget" "$xbudget" </dev/null &
         [ $((n % JOBS)) -eq 0 ] && wait
     done
     wait
+    echo "$n" > "$WORKDIR/expected_rows"
 }
 
 for row in "$WORKDIR"/*.row; do
     [ -f "$row" ] && cat "$row"
 done
+
+# Backstop: every MAP row must have produced a .row file.  A shortfall means
+# rows were lost (e.g. a child ate the MAP pipe) -- fail loudly, because a
+# truncated table otherwise reads as "everything ran and passed".
+expected=$(cat "$WORKDIR/expected_rows" 2>/dev/null || echo 0)
+actual=$(ls "$WORKDIR"/*.row 2>/dev/null | wc -l | tr -d ' ')
+if [ "$actual" -ne "$expected" ]; then
+    echo
+    echo "ERROR: only $actual of $expected MAP rows ran -- suite output is INCOMPLETE" >&2
+    exit 1
+fi
 
 echo
 echo "MATCH = 0 in both modes; DIVERGE = at baseline (see"

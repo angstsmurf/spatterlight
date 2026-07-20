@@ -331,6 +331,61 @@ needed to avoid regressing PathwayToDestruction's metal-door move. Full suite
 stays green (43 MATCH incl. this game + 8 pre-existing DIVERGE, 0 regressions).
 Golden `AnAdventurersBackyard_expected.txt`, wired `AnAdventurersBackyard|...|0|0`.
 
+## Return to Castle Coris (Larry Horsfield, 2020) — WON 400/400 MAX, MATCH 0|0
+
+Alaric Blackmoon episode (Version 5.0000366; 1874 objects, 1512 tasks).
+The game ships its own solution as the `Walkthroug` task (`wlkthrgh` /
+`WALKTHROUGH`), a single ~430-command line ending "...Adventure Complete!".
+Extracted verbatim, it wins in neither FrankenDrift nor Scarier as-written —
+the two engines derail *identically* at each point, confirming Scarier tracks
+FD faithfully; the repairs are all against the built version's map/mechanics:
+
+* **Start menu.** The printed route begins at the tunnel entrance; prepend `o`
+  (type O → Start Options page) then `b` (Begin the game), the same intro
+  pattern as the Spectre/Axe Horsfield games.
+* **Slime-eater sack (+5+5).** "u - u - search tunnel - d - d - get eaters"
+  over-shoots by one level: the oilskin sack (task `SearchEart`) is found by
+  searching the **Rock Tunnel** (Location43, one `u` above the waterfall cave),
+  not the Earth Tunnel two `u` up. Corrected to "u - search tunnel - d - get
+  eaters"; with the sack held, `get eaters` (`GetSlimeEa`) auto-catches them.
+* **Gold ring vs. the alehouse.** The doc wears the gold ring from the cave
+  nest all the way to Christiana, but entering the main alehouse (Location93)
+  with any gold *worn or directly held* fires the System `LocationTrigger`
+  death `CarryingGo2` (`Bracelet|Necklace|Ring worn`, unless shrunk) — the men
+  "see the gold ... and they attack you", losing at 300/400. The other gold
+  (bracelet/necklace/teeth) is already bagged; only the ring is worn, so
+  `remove ring` / `put ring in bag` before the first entry survives it, and at
+  Christiana the doc's `remove ring` becomes `get ring` (from the bag) before
+  `give ring`.
+* **Flambeau's green door.** The doc's single `s` from the East Gate stops at
+  the north-end RED-door house; Flambeau lives behind the GREEN door halfway
+  along South Lane (Location91), one more `s`, where `pick lock` (needs the
+  wire) works (+5).
+
+Result: "...in 437 turns, scoring the maximum 400 points!" in both engines.
+
+**Ex-residual 0|1, root-caused 2026-07-21 → 0|0.** The one xoshiro hunk was the
+first `look in gap` under the outcrop: task `LookInGap`'s completion has a
+second alternate ("You can also see `Location66.Objects.DynamicLocation.List`
+under there.", `DisplayWhen=StartAfterDefaultDescription`) gated on `AnyObject
+Must BeAtLocation Location66`. Instrumenting FD showed the *restriction* is NOT
+the divergence — both engines pass it (Location66's 7 statics count for
+AnyObject/`AllObjects`). The divergence was the OO property `.Objects`: the
+runner's ReplaceOOProperty "Objects" (Global.vb:913/1504) calls
+`loc.ObjectsInLocation` with DEFAULT arguments — `AllListedObjects`, directly —
+i.e. dynamic objects unless ExplicitlyExclude plus statics only when
+ExplicitlyList, NOT the restriction evaluator's `AllObjects`. Under Outcrop's
+statics are un-listed, so in FD the list is EMPTY → `.List` renders "nothing" →
+"You can also see nothing under there." → which the game's own `YouCanAlso` ALR
+(OldText exactly that sentence, empty NewText) erases whole, leaving just the
+base sentence. Scarier's `objs_in_location` (a5expr.cpp) returned ALL objects,
+so the sentence survived with the scenery list. Fixed by applying the
+listed-objects filter there (sole consumer is OO `.Objects`); full suite stays
+green and the game is now byte-identical to FD. Vanilla previously also showed
+5 pure-RNG hunks (salt-flats vulture/eagle/lizard atmospheric draws under .NET
+System.Random), gone under the golden compare. Wired
+`ReturnToCastleCoris|ReturnToCastleCoris.blorb|0|0`, golden re-blessed.
+
 ## Edith's Cats (Bunkphor, 2016) — ★ WON, MATCH 0|0
 
 EctoComp 2016 "La Petite Mort" (3-hour jam) horror vignette; player "Robi", a

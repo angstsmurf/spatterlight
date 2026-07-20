@@ -293,14 +293,30 @@ add_descendants (a5_state_t *st, std::vector<std::string> &keys)
         keys.push_back (c);
 }
 
-/* Objects directly in a location (ExistsAtLocation, directly). */
+/* Objects directly in a location, for the OO `.Objects` property.  The
+   runner's ReplaceOOProperty "Objects" (Global.vb:913/1504) is
+   loc.ObjectsInLocation.Values with DEFAULT arguments -- AllListedObjects,
+   directly -- NOT the restriction evaluator's AllObjects: dynamic objects
+   unless ExplicitlyExclude, static objects only when ExplicitlyList
+   (clsLocation.vb:220-227).  Return to Castle Coris gates "You can also see
+   Location66.Objects.DynamicLocation.List under there." on Under Outcrop's
+   un-listed statics resolving to an EMPTY list -> "nothing", which its
+   YouCanAlso ALR then erases whole. */
 static std::vector<std::string>
 objs_in_location (a5_state_t *st, const char *lockey)
 {
   std::vector<std::string> v;
   for (int i = 0; i < st->adv->n_objects; i++)
-    if (a5state_object_at_location (st, i, lockey, 1))
-      v.push_back (st->adv->objects[i].key);
+    {
+      const a5_object_t *o = &st->adv->objects[i];
+      int is_static = st->obj[i].is_static;
+      int listed = (!is_static
+                    && !a5state_entity_has_prop (st, o->key, "ExplicitlyExclude"))
+                 || (is_static
+                     && a5state_entity_has_prop (st, o->key, "ExplicitlyList"));
+      if (listed && a5state_object_at_location (st, i, lockey, 1))
+        v.push_back (o->key);
+    }
   return v;
 }
 
