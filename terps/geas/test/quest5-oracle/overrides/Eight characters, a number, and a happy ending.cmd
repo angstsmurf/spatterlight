@@ -17,15 +17,14 @@
 #   * Dropped the walkthrough's duplicate "Examine file" (same object as "Look document file")
 #     and its duplicate "Get journal" (one take suffices; "touch lock" auto-opens the chest,
 #     so the journal is takeable immediately).
-#   * DROPPED "Turn on game" (kept "examine game board"): under QuestViva, switching on any
-#     game board wedges the session -- the three board objects (game board/board1/board2)
-#     mutually SwitchOn each other in their onswitchon scripts, and QuestViva's changed-script
-#     dispatch recurses until "Script execution depth exceeded 200" repeats 39x and trips the
-#     20-error breaker (state=Wedged). Verified with a minimal repro: "turn on game board" as
-#     the first comms action wedges on its own. Real Quest evidently terminates this cycle, so
-#     it is a QuestViva incompatibility, not a game or walkthrough bug. Mechanically harmless:
-#     "press play" only checks the "message 3 read" flag, never the board's switched-on state,
-#     so the game's losing final move + the message-4 trigger still fire.
+#   * "turn on game board" (the walkthrough's "Turn on game") is now driven. It used to be
+#     dropped: the three board objects (game board/board1/board2) mutually SwitchOn each other
+#     in their onswitchon scripts, and stock QuestViva re-fires changed<switchedon> even on a
+#     same-value write, so it recursed to the 20-error breaker (state=Wedged). Real Quest fires
+#     changed<attr> only on a real value change, which terminates the cycle; the oracle now does
+#     too (patch_questviva.py section 7), and the native engine carries the same guard. Kept
+#     before "press play" as in the walkthrough; mechanically the board's switched-on state
+#     doesn't gate anything ("press play" only checks the "message 3 read" flag).
 #   * "computer iastrai" in lowercase: the command LCase()s its argument, so the game's own
 #     case ("Iastrai") branch is dead code; the lowercase branch sets "knowledge of Iastrai".
 #   * The final password 28831010 answers the "Please provide password:" get-input prompt
@@ -61,6 +60,7 @@ read message 1
 read message 2
 read message 3
 examine game board
+turn on game board
 press play
 read message 4
 computer who am i?
