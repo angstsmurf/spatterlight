@@ -3,7 +3,26 @@
 terp's stdin/stdout so an autosave/autorestore cycle can be exercised without
 the GUI.  Feeds scripted line inputs, records PRINT output and AUTOSAVE
 messages, and ends the session with EVTQUIT (the autosave-preserving 'window
-closed' exit)."""
+closed' exit).
+
+    glkdrive.py [options] TERP GAME HOME [COMMAND ...]
+
+      --transcript PATH   answer the file dialog with PATH instead of
+                          cancelling it, so a SCRIPT / GLK SCRIPT command
+                          really opens a transcript file
+      --no-determinism    clear the determinism (testing mode) setting
+
+Determinism is on by default, matching the app's testing mode: it is what
+makes the walkthrough regressions reproducible.  Turn it OFF to reach code
+paths it deliberately suppresses -- notably Scarier's ADRIFT 5 real-time
+mode, which is the only mode where the terp takes over line-input echo
+(gsc_a5_start_real_time forces real_time FALSE under determinism).
+
+Autosaves are keyed by game content and land in the REAL
+~/Library/Application Support (NSApplicationSupportDirectory ignores $HOME),
+so a second run of the same game restores the first run's state -- including
+a still-open transcript stream pointing at the old path.  Clear the game's
+autosave directory between runs that must start clean."""
 
 import os
 import struct
@@ -26,23 +45,30 @@ MSG = struct.Struct("<6iQ")   # int cmd, a1..a5; size_t len
  EVTTIMER, EVTHYPER, EVTSOUND, EVTVOLUME, EVTPREFS, EVTQUIT,
  EVTTEST) = range(72)
 
-SETTINGS = struct.pack(
-    "<6i4f21i",
-    800, 600, 0, 0, 0, 0,               # screen w/h, buffer/grid margins
-    8.0, 16.0, 8.0, 16.0,               # grid cell w/h, buffer cell w/h
-    0x000000, 0xffffff,                 # buffer fg/bg
-    0x000000, 0xffffff,                 # grid fg/bg
-    1,                                  # do_styles
-    0, 0, 0, 0, 0, 0, 0,                # quotebox, sa_*, slowdraw, flicker
-    0, 0, 0, 0, 0,                      # zmachine*, voiceover, z6*
-    1,                                  # determinism
-    0, 0, 0)                            # error_handling, comprehend, force_arrange
+def make_settings(determinism=1):
+    return struct.pack(
+        "<6i4f21i",
+        800, 600, 0, 0, 0, 0,           # screen w/h, buffer/grid margins
+        8.0, 16.0, 8.0, 16.0,           # grid cell w/h, buffer cell w/h
+        0x000000, 0xffffff,             # buffer fg/bg
+        0x000000, 0xffffff,             # grid fg/bg
+        1,                              # do_styles
+        0, 0, 0, 0, 0, 0, 0,            # quotebox, sa_*, slowdraw, flicker
+        0, 0, 0, 0, 0,                  # zmachine*, voiceover, z6*
+        determinism,                    # determinism
+        0, 0, 0)                        # error_handling, comprehend, force_arrange
+
+
+SETTINGS = make_settings()
 
 
 class Driver:
-    def __init__(self, terp, game, home, script, tag=""):
+    def __init__(self, terp, game, home, script, tag="", savepath=None,
+                 determinism=1):
         env = dict(os.environ)
         env["HOME"] = home
+        self.savepath = savepath
+        self.settings = make_settings(determinism)
         self.p = subprocess.Popen([terp, game], stdin=subprocess.PIPE,
                                   stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE, env=env)
@@ -105,6 +131,12 @@ class Driver:
             self.char_peer = None
         elif cmd == TIMER:
             self.timer = a1
+            if a1:
+                self.log.append("TIMER armed %d ms" % a1)
+        elif cmd == SETECHO:
+            # val=0 means the terp has taken over line-input echo; the
+            # library must then keep its own copy out of the echo stream.
+            self.log.append("SETECHO peer=%d val=%d" % (a1, a2))
         elif cmd == NEWWIN:
             self.log.append("NEWWIN type=%d peer=%d" % (a1, a2))
             self.reply(OKAY, a2)        # echo the expected peer
@@ -130,7 +162,13 @@ class Driver:
         elif cmd == CANPRINT:
             self.reply(OKAY, 1)
         elif cmd in (PROMPTOPEN, PROMPTSAVE):
-            self.reply(OKAY)            # len 0 = cancelled dialog
+            if self.savepath:
+                self.log.append("PROMPT%s -> %s"
+                                % ("SAVE" if cmd == PROMPTSAVE else "OPEN",
+                                   self.savepath))
+                self.reply(OKAY, payload=self.savepath.encode("utf-8") + b"\0")
+            else:
+                self.reply(OKAY)        # len 0 = cancelled dialog
         elif cmd == AUTOSAVE:
             self.autosaves.append(a2)
             self.log.append("AUTOSAVE hash=%d after %d transcript chunks"
@@ -140,7 +178,7 @@ class Driver:
     def next_event(self, block):
         if self.arrange_pending:
             self.arrange_pending = False
-            self.reply(EVTARRANGE, payload=SETTINGS)
+            self.reply(EVTARRANGE, payload=self.settings)
         elif self.line_peer is not None and self.script:
             text = self.script.pop(0)
             self.log.append("> " + text)
@@ -168,10 +206,22 @@ class Driver:
 
 
 def main():
-    terp, game, home = sys.argv[1], sys.argv[2], sys.argv[3]
-    script = sys.argv[4:]
+    argv = sys.argv[1:]
+    savepath, determinism = None, 1
+    while argv and argv[0].startswith("--"):
+        opt = argv.pop(0)
+        if opt == "--transcript":
+            savepath = argv.pop(0)
+        elif opt == "--no-determinism":
+            determinism = 0
+        else:
+            sys.exit("unknown option " + opt)
+
+    terp, game, home = argv[0], argv[1], argv[2]
+    script = argv[3:]
     os.makedirs(home, exist_ok=True)
-    d = Driver(terp, game, home, script)
+    d = Driver(terp, game, home, script, savepath=savepath,
+               determinism=determinism)
     timer = threading.Timer(60.0, d.p.kill)
     timer.start()
     rc, err = d.run()
