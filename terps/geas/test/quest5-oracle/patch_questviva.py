@@ -270,3 +270,38 @@ elif ws_anchor in wstext and ws_anchor2 in wstext:
     print("[patch] patched: WaitScript.cs -> deferred FinishTurn")
 else:
     sys.exit("[patch] anchor not found in WaitScript.cs (upstream changed?)")
+
+# 7. changed<field> must fire only on a REAL value change. Quest 5 (branch v5)
+# fired changed<field> from a subscriber to Fields.AttributeChanged, and
+# Fields.Set raises that event ONLY when the value actually changed
+# (changed = value == null ? oldValue != null : !value.Equals(oldValue)). The
+# rewrite moved the dispatch into Element.SetFieldAsync and fires it
+# unconditionally, so a same-value write recurses until the breaker wedges the
+# session. L Too's Pool (enter -> enter_pool -> MoveObject(player, Pool)) and
+# "Eight characters ..."'s three game boards (mutual SwitchOn in onswitchon)
+# both wedge QuestViva but terminate on real Quest. Restore the guard at the
+# new dispatch site. (The native Geas engine carries the equivalent guard;
+# with this patch the oracle's Dracula/Iron John/The Acreage/Bony King/Xanadu
+# transcripts become byte-identical to native.)
+elem = engine / "Element.cs"
+eltext = elem.read_text()
+el_anchor = """        Fields.Set(fieldName, value);
+        if (!m_worldModel.EditMode)
+        {
+            var changedScriptName = "changed" + fieldName;"""
+el_repl = """        Fields.Set(fieldName, value);
+        if (!m_worldModel.EditMode)
+        {
+            // qvh patch: v5 fired changed<field> from the guarded
+            // Fields.AttributeChanged event; the rewrite fires it here
+            // unconditionally, so same-value writes recurse (section 7).
+            var qvhChanged = value == null ? oldValue != null : !value.Equals(oldValue);
+            if (!qvhChanged) return;
+            var changedScriptName = "changed" + fieldName;"""
+if "qvhChanged" in eltext:
+    print("[patch] already patched: Element.cs -> same-value changed<field> guard")
+elif el_anchor in eltext:
+    elem.write_text(eltext.replace(el_anchor, el_repl, 1))
+    print("[patch] patched: Element.cs -> same-value changed<field> guard")
+else:
+    sys.exit("[patch] anchor not found in Element.cs (upstream changed?)")
