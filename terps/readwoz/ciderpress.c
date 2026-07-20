@@ -259,6 +259,13 @@ static uint8_t *fNibbleTrackBuf = NULL;     // decoded nibble track cache
 static int fNibbleTrackLoaded = -1;         // which track is cached (-1 = none)
 static long fNibbleTrackLen = 0;            // trimmed ring length of cached track
 
+/* Per-track sector lookup, built once per track and reused for all 16 sector
+ * reads. Without it, ReadFullImageFromNib scans the whole track from the top
+ * once per sector (16 rescans/track) -- an O(sectors * trackLen) hot spot. */
+static int fSectorIndexTrack = -1;          // track fSector* is valid for (-1 = none)
+static int fSectorDataIdx[16];              // ring index of each sector's data field, -1 = absent
+static short fSectorVol[16];                // volume byte from each sector's address field
+
 static uint8_t *rawdata = NULL;             // pointer to the loaded disk image
 static size_t rawdatalen = 0;
 
@@ -533,96 +540,115 @@ static const NibbleDescr *fpNibbleDescr = &nibbleDescr;
  *
  * Returns the index start on success or -1 on failure.
  */
-static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
-    int sector, int *pVol)
+/*
+ * Scan the whole track once and record, for every sector, the ring index of
+ * its data field (or -1 if absent). Results go into fSectorDataIdx / fSectorVol
+ * and are reused across the 16 per-sector reads of a track. The per-sector
+ * acceptance logic is identical to the old FindNibbleSectorStart -- the only
+ * change is that a single pass fills all sectors instead of one pass per
+ * sector, and the first qualifying occurrence of each sector wins (exactly what
+ * the old code returned when asked for that sector).
+ */
+static void BuildSectorIndex(ringbuf_handle_t ringbuffer, int track)
 {
     long trackLen = ringbuffer->size;
     const int kMaxDataReach = (int)trackLen; // fairly arbitrary
 
-    assert(sector >= 0 && sector < 16);
+    for (int s = 0; s < 16; s++) {
+        fSectorDataIdx[s] = -1;
+        fSectorVol[s] = 0;
+    }
 
     int i;
-
     for (i = 0; i < trackLen; i++) {
-        int foundAddr = 0;
-
         uint8_t b0 = access_ringbuf(ringbuffer, i);
         /* Some Penguin/Polarware "Comprehend" disks (e.g. the Apple II
          * Talisman) write a D4 address prolog on odd tracks instead of the
          * standard D5; accept either. */
-        if ((b0 == fpNibbleDescr->addrProlog[0] || b0 == 0xd4) && access_ringbuf(ringbuffer, i + 1) == fpNibbleDescr->addrProlog[1] && access_ringbuf(ringbuffer, i + 2) == fpNibbleDescr->addrProlog[2]) {
-            foundAddr = 1;
+        if (!((b0 == fpNibbleDescr->addrProlog[0] || b0 == 0xd4) && access_ringbuf(ringbuffer, i + 1) == fpNibbleDescr->addrProlog[1] && access_ringbuf(ringbuffer, i + 2) == fpNibbleDescr->addrProlog[2]))
+            continue;
+
+        /* found the address header, decode the address */
+        short hdrVol, hdrTrack, hdrSector, hdrChksum;
+        DecodeAddr(ringbuffer, i + 3, &hdrVol, &hdrTrack, &hdrSector,
+            &hdrChksum);
+
+        if (fpNibbleDescr->addrVerifyTrack && track != hdrTrack) {
+            debug_print("Track mismatch");
+            debug_print("  Track mismatch (T=%d) got T=%d,S=%d", track, hdrTrack, hdrSector);
+            continue;
         }
 
-        if (foundAddr) {
-            //i += 3;
+        /* DOS 3.3 address checksum: chk == vol ^ track ^ sector. */
+        int checksumOk = ((fpNibbleDescr->addrChecksumSeed ^ hdrVol ^
+                           hdrTrack ^ hdrSector ^ hdrChksum) == 0);
 
-            /* found the address header, decode the address */
-            short hdrVol, hdrTrack, hdrSector, hdrChksum;
-            DecodeAddr(ringbuffer, i + 3, &hdrVol, &hdrTrack, &hdrSector,
-                &hdrChksum);
+        if (fpNibbleDescr->addrVerifyChecksum && !checksumOk) {
+            debug_print("   Addr checksum mismatch (got T=%d,S=%d)", hdrTrack, hdrSector);
+            continue;
+        }
 
-            if (fpNibbleDescr->addrVerifyTrack && track != hdrTrack) {
-                debug_print("Track mismatch");
-                debug_print("  Track mismatch (T=%d) got T=%d,S=%d", track, hdrTrack, hdrSector);
-                continue;
+        i += 3;
+
+        int j;
+        int epilogOk = 1;
+        for (j = 0; j < fpNibbleDescr->addrEpilogVerifyCount; j++) {
+            if (access_ringbuf(ringbuffer, i + 8 + j) != fpNibbleDescr->addrEpilog[j]) {
+                epilogOk = 0;
+                break;
             }
+        }
+        /* Standard disks pass the epilog check. Some Penguin/Polarware
+         * "Comprehend" disks (Apple II Talisman) use a non-standard address
+         * epilog but keep a valid checksum, so accept the field if either
+         * the epilog matches or the checksum is good. */
+        if (!epilogOk && !checksumOk)
+            continue;
 
-            /* DOS 3.3 address checksum: chk == vol ^ track ^ sector. */
-            int checksumOk = ((fpNibbleDescr->addrChecksumSeed ^ hdrVol ^
-                               hdrTrack ^ hdrSector ^ hdrChksum) == 0);
-
-            if (fpNibbleDescr->addrVerifyChecksum && !checksumOk) {
-                debug_print("   Addr checksum mismatch (want T=%d,S=%d, got T=%d,S=%d)", track, sector, hdrTrack, hdrSector);
-                continue;
-            }
-
-            i += 3;
-
-            int j;
-            int epilogOk = 1;
-            for (j = 0; j < fpNibbleDescr->addrEpilogVerifyCount; j++) {
-                if (access_ringbuf(ringbuffer, i + 8 + j) != fpNibbleDescr->addrEpilog[j]) {
-                    epilogOk = 0;
-                    break;
-                }
-            }
-            /* Standard disks pass the epilog check. Some Penguin/Polarware
-             * "Comprehend" disks (Apple II Talisman) use a non-standard address
-             * epilog but keep a valid checksum, so accept the field if either
-             * the epilog matches or the checksum is good. */
-            if (!epilogOk && !checksumOk)
-                continue;
+        if (hdrSector < 0 || hdrSector >= 16 || fSectorDataIdx[hdrSector] >= 0)
+            continue;   // out of range, or an earlier occurrence already won
 
 #ifdef NIB_VERBOSE_DEBUG
-            debug_print("    Good header, T=%d,S=%d (looking for T=%d,S=%d)\n",
-                hdrTrack, hdrSector, track, sector);
+        debug_print("    Good header, T=%d,S=%d\n", hdrTrack, hdrSector);
 #endif
 
-            if (sector != hdrSector)
-                continue;
-
-            /*
-             * Scan forward and look for data prolog.  We want to limit
-             * the reach of our search so we don't blunder into the data
-             * field of the next sector.
-             */
-            for (j = 0; j < kMaxDataReach; j++) {
-                if (access_ringbuf(ringbuffer, i + j) == fpNibbleDescr->dataProlog[0] && access_ringbuf(ringbuffer, i + j + 1) == fpNibbleDescr->dataProlog[1] && access_ringbuf(ringbuffer, i + j + 2) == fpNibbleDescr->dataProlog[2]) {
-                    *pVol = hdrVol;
-                    int idx = i + j + 3;
-                    while (idx >= (int)ringbuffer->size)
-                        idx -= (int)ringbuffer->size;
-                    return idx;
-                }
+        /*
+         * Scan forward and look for data prolog.  We want to limit
+         * the reach of our search so we don't blunder into the data
+         * field of the next sector.
+         */
+        for (j = 0; j < kMaxDataReach; j++) {
+            if (access_ringbuf(ringbuffer, i + j) == fpNibbleDescr->dataProlog[0] && access_ringbuf(ringbuffer, i + j + 1) == fpNibbleDescr->dataProlog[1] && access_ringbuf(ringbuffer, i + j + 2) == fpNibbleDescr->dataProlog[2]) {
+                int idx = i + j + 3;
+                while (idx >= (int)ringbuffer->size)
+                    idx -= (int)ringbuffer->size;
+                fSectorDataIdx[hdrSector] = idx;
+                fSectorVol[hdrSector] = hdrVol;
+                break;
             }
         }
     }
 
+    fSectorIndexTrack = track;
+}
+
+static int FindNibbleSectorStart(ringbuf_handle_t ringbuffer, int track,
+    int sector, int *pVol)
+{
+    assert(sector >= 0 && sector < 16);
+
+    if (fSectorIndexTrack != track)
+        BuildSectorIndex(ringbuffer, track);
+
+    if (fSectorDataIdx[sector] < 0) {
 #ifdef NIB_VERBOSE_DEBUG
-    debug_print("   Couldn't find T=%d,S=%d", track, sector);
+        debug_print("   Couldn't find T=%d,S=%d", track, sector);
 #endif
-    return -1;
+        return -1;
+    }
+
+    *pVol = fSectorVol[sector];
+    return fSectorDataIdx[sector];
 }
 
 /*
@@ -923,6 +949,7 @@ void InitNibImage(uint8_t *data, size_t datasize)
     rawdata = data;
     rawdatalen = datasize;
     fNibbleTrackLoaded = -1;
+    fSectorIndexTrack = -1;   // a different disk reuses the same track numbers
 
     fPhysical = kPhysicalFormatNib525_6656;
 }

@@ -272,6 +272,8 @@ struct WordIndex {
 
 struct Word : public WordIndex {
 	char _word[7];
+	uint8 _len;   // cached strlen(_word); set by load()/clear() so the parser's
+	              // hot word_match() need not re-strlen the word every compare.
 
 	Word() : WordIndex() {
 		Word::clear();

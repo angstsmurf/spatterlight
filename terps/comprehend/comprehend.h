@@ -69,6 +69,10 @@ private:
     // restores the entry below. Capped at kMaxUndo to bound memory.
     static const size_t kMaxUndo = 100;
     std::vector<std::vector<byte> > _undoStack;
+    // Rolling estimate of a serialized snapshot's size (bytes). pushUndo() runs
+    // every turn and the state size is stable, so we reserve this up front to
+    // stop the snapshot stream reallocating byte-by-byte as it fills.
+    size_t _snapshotSizeHint = 2048;
     bool serializeGameState(std::vector<byte> &out);
     void deserializeGameState(const std::vector<byte> &in);
 

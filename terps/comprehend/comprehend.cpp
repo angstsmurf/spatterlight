@@ -354,9 +354,12 @@ bool Comprehend::loadStateFromPath(const char *path) {
 bool Comprehend::serializeGameState(std::vector<byte> &out) {
     if (!_game) return false;
     Common::MemoryReadWriteStream mem(Common::YES);
+    mem.reserve(_snapshotSizeHint);
     Common::Serializer s(nullptr, &mem);
     _game->synchronizeSave(s);
-    out.assign(mem.getData(), mem.getData() + (size_t)mem.size());
+    size_t sz = (size_t)mem.size();
+    out.assign(mem.getData(), mem.getData() + sz);
+    _snapshotSizeHint = sz;  // next turn's snapshot is the same size; reserve it
     return true;
 }
 

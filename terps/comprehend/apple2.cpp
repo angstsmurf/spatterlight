@@ -54,14 +54,21 @@ bool isAppleDiskImage(const Common::String &path) {
         hasExtIgnoreCase(path, ".nib"))
         return true;
 
-    // Sniff the contents for a WOZ header or a bare 140K sector image.
-    size_t sz = 0;
-    uint8_t *data = readWholeFile(path, &sz);
-    if (!data) return false;
-    bool isImage = (sz >= 4 && data[0] == 'W' && data[1] == 'O' && data[2] == 'Z') ||
-                   sz == DSK_IMAGE_SIZE || sz == NIB_IMAGE_SIZE;
-    std::free(data);
-    return isImage;
+    // Sniff for a WOZ header or a bare 140K/nibble sector image. Only the first
+    // few bytes and the file size are needed, so read the header rather than the
+    // whole file -- loadAppleDiskImage() calls this on every sibling in the game
+    // directory, and the ones that pass are then read again in full by
+    // loadOneImage(), so slurping the entire file here just to check it doubled
+    // the boot-time I/O for every disk side.
+    FILE *f = std::fopen(path.c_str(), "rb");
+    if (!f) return false;
+    uint8_t hdr[4] = {0, 0, 0, 0};
+    size_t got = std::fread(hdr, 1, sizeof(hdr), f);
+    std::fseek(f, 0, SEEK_END);
+    long sz = std::ftell(f);
+    std::fclose(f);
+    return (got >= 3 && hdr[0] == 'W' && hdr[1] == 'O' && hdr[2] == 'Z') ||
+           sz == DSK_IMAGE_SIZE || sz == NIB_IMAGE_SIZE;
 }
 
 // Convert any supported image into a 143360-byte DOS-ordered .dsk buffer.

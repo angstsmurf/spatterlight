@@ -419,11 +419,27 @@ public:
         return true;
     }
     void writeByte(byte b) override { _buf.push_back(b); }
+    // Push the little-endian bytes straight into the buffer instead of routing
+    // each through the virtual writeByte (the base class's default). The undo
+    // snapshot serializes thousands of uint16 fields per turn through here.
+    void writeUint16LE(uint16 v) override {
+        _buf.push_back((byte)(v & 0xff));
+        _buf.push_back((byte)((v >> 8) & 0xff));
+    }
+    void writeUint32LE(uint32 v) override {
+        _buf.push_back((byte)(v & 0xff));
+        _buf.push_back((byte)((v >> 8) & 0xff));
+        _buf.push_back((byte)((v >> 16) & 0xff));
+        _buf.push_back((byte)((v >> 24) & 0xff));
+    }
     uint32 write(const void *p, uint32 n) override {
         const byte *bp = (const byte *)p;
         _buf.insert(_buf.end(), bp, bp + n);
         return n;
     }
+    // Pre-size the backing buffer so a run of writeByte()s (e.g. serializing a
+    // save/undo snapshot) doesn't repeatedly reallocate and grow.
+    void reserve(size_t n) { _buf.reserve(n); }
     const byte *getData() const { return _buf.data(); }
 private:
     std::vector<byte> _buf;

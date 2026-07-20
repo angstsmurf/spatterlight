@@ -19,6 +19,8 @@
  *
  */
 
+#include <cstring>
+
 #include "game_data.h"
 #include "comprehend.h"
 #include "dictionary.h"
@@ -79,12 +81,14 @@ void Item::synchronize(Common::Serializer &s) {
 void Word::clear() {
 	WordIndex::clear();
 	Common::fill(&_word[0], &_word[7], '\0');
+	_len = 0;
 }
 
 Word &Word::operator=(const WordIndex &src) {
 	_index = src._index;
 	_type = src._type;
 	Common::fill(&_word[0], &_word[7], '\0');
+	_len = 0;
 	return *this;
 }
 
@@ -99,6 +103,8 @@ void Word::load(FileBuffer *fb) {
 	_word[6] = '\0';
 	for (int j = 5; j > 0 && _word[j] == ' '; --j)
 		_word[j] = '\0';
+
+	_len = (uint8)strlen(_word);
 
 	_index = fb->readByte();
 	_type = fb->readByte();
