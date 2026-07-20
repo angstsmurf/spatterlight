@@ -1021,7 +1021,7 @@ again:
 
                     obuf[writepos++] = chr;
                 }
-                if (event->win->echostr)
+                if (event->win->echostr && event->win->echo_line_input)
                     gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, writepos);
                 event->val1 = writepos;
             }
@@ -1030,7 +1030,7 @@ again:
                 unsigned char *obuf = event->win->line.buf;
                 for (i = 0; i < (int)event->val1; i++)
                     obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
-                if (event->win->echostr)
+                if (event->win->echostr && event->win->echo_line_input)
                     gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
             }
 

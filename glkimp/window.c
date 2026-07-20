@@ -90,7 +90,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
     win->line_request_uni = FALSE;
     win->mouse_request = FALSE;
     win->hyper_request = FALSE;
-    win->echo_line_input = FALSE;
+    win->echo_line_input = TRUE; /* Glk default: the library echoes line input */
     win->line_terminators = NULL;
     win->termct = 0;
     win->line.buf = NULL;
