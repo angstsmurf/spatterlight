@@ -8,7 +8,10 @@
 # what "real Quest does" for the affected games.
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
-"$HERE/run_corpus.sh" || true   # regenerates out/*.cmd and out/*.out
+# Deliberately tolerant: a partial run should still refresh the goldens it did
+# produce. But do not lose run_corpus.sh's non-zero exit — that means a corpus
+# row could not be driven at all, and refreshing around it would bake the gap in.
+"$HERE/run_corpus.sh"; corpus_rc=$?   # regenerates out/*.cmd and out/*.out
 mkdir -p "$HERE/golden"
 n=0
 while IFS=$'\t' read -r game wt mode preamble; do
@@ -23,3 +26,8 @@ while IFS=$'\t' read -r game wt mode preamble; do
   fi
 done < "$HERE/corpus.tsv"
 echo "refreshed $n golden transcripts in golden/"
+if [ "$corpus_rc" -ne 0 ]; then
+  echo "ERROR: run_corpus.sh failed — some corpus row(s) were not driven and so" >&2
+  echo "       were NOT refreshed above. Fix those rows before committing golden/." >&2
+  exit 1
+fi

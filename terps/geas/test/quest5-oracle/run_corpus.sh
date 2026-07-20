@@ -13,7 +13,13 @@ mkdir -p "$OUT"
 DLL="$HERE/bin/Release/net10.0/qvh.dll"
 
 printf "%-52s %-6s %6s %6s %4s %-9s\n" "GAME" "ASL" "STEPS" "EMITS" "ERR" "STATE"
-fin=0; run=0; wedge=0; skip=0
+# `bad` counts corpus rows that could not be driven at all (missing game file,
+# missing override for a wt=- row, missing walkthrough, empty command script).
+# Such a row produces no out/*.out, so check_golden.sh never diffs it and stays
+# green while the row is silently not being tested — which is exactly how the
+# Defeating The Monster override went missing for a whole release. Any such row
+# is a hard failure: this script exits non-zero.
+fin=0; run=0; wedge=0; skip=0; bad=0
 while IFS=$'\t' read -r game wt mode preamble; do
   case "$game" in ''|\#*) continue;; esac
   if [ "$mode" = "hints" ]; then
@@ -22,13 +28,13 @@ while IFS=$'\t' read -r game wt mode preamble; do
   fi
   q="$GAMES/$game.quest"
   src="$WALKS/$wt"
-  if [ ! -f "$q" ];   then printf "%-52s  (game file missing)\n" "$game"; continue; fi
+  if [ ! -f "$q" ];   then printf "%-52s  (game file missing)\n" "$game"; bad=$((bad+1)); continue; fi
   # wt="-" marks an override-only row: no source walkthrough exists anywhere
   # (the overrides/ script was derived from the game source), so there is no
   # file to existence-check — the override itself is required instead.
   if [ "$wt" = "-" ]; then
-    if [ ! -f "$HERE/overrides/$game.cmd" ]; then printf "%-52s  (override missing for wt=- row)\n" "$game"; continue; fi
-  elif [ ! -f "$src" ]; then printf "%-52s  (walkthrough missing: %s)\n" "$game" "$wt"; continue; fi
+    if [ ! -f "$HERE/overrides/$game.cmd" ]; then printf "%-52s  (override missing for wt=- row)\n" "$game"; bad=$((bad+1)); continue; fi
+  elif [ ! -f "$src" ]; then printf "%-52s  (walkthrough missing: %s)\n" "$game" "$wt"; bad=$((bad+1)); continue; fi
   cmd="$OUT/$game.cmd"
   # A curated override wins outright: overrides/<game>.cmd is a hand-authored
   # winning script (verbatim, incl. any title-screen preamble baked in) for a game
@@ -51,7 +57,7 @@ while IFS=$'\t' read -r game wt mode preamble; do
   fi
   python3 "$HERE/extract_walkthrough.py" --mode "$mode" "$src" >> "$cmd"
   fi
-  [ -s "$cmd" ] || { printf "%-52s  (no commands extracted)\n" "$game"; continue; }
+  [ -s "$cmd" ] || { printf "%-52s  (no commands extracted)\n" "$game"; bad=$((bad+1)); continue; }
   dotnet "$DLL" "$q" "$cmd" > "$OUT/$game.out" 2> "$OUT/$game.err"
   diag="$(grep '^\[diag\] end:' "$OUT/$game.err")"
   ver="$(grep -o 'version=[^ ]*' "$OUT/$game.err" | head -1 | cut -d= -f2)"
@@ -68,3 +74,7 @@ while IFS=$'\t' read -r game wt mode preamble; do
 done < "$HERE/corpus.tsv"
 echo "---"
 echo "driven: $((fin+run+wedge))  (Finished: $fin, Running: $run, Wedged: $wedge)   hints-only skipped: $skip"
+if [ "$bad" -ne 0 ]; then
+  echo "ERROR: $bad corpus row(s) could not be driven (see the annotations above)" >&2
+  exit 1
+fi
