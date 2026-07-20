@@ -595,17 +595,39 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     if ([fileManager fileExistsAtPath:self.autosaveFileTerp]) {
         restoreUIOnly = NO;
 
-        TempLibrary *tempLib =
-        [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileTerp];
-        if (tempLib.autosaveTag != restoredController.autosaveTag) {
-            NSLog(@"The terp autosave and the GUI autosave have non-matching tags.");
+        // A truncated or malformed archive (a plist half-written when the
+        // machine lost power) makes unarchiveObjectWithFile: raise, so read
+        // it defensively like the GUI archives above. Without this the
+        // exception is uncaught at launch and, since nothing removes the bad
+        // file, every relaunch retries the same restoration: a crash loop.
+        //
+        // An unreadable library must then be rejected on the nil, NOT on the
+        // tag: an archive that fails to decode reports tag 0, and a restored
+        // GUI controller can legitimately carry tag 0 as well (observed), so
+        // comparing tags alone would call the two "in sync" and feed a corrupt
+        // library into the restore. Falling into the mismatch path below is
+        // the right failure -- it tries the backup save, or deletes both files
+        // and restores UI only.
+        TempLibrary *tempLib = nil;
+        @try {
+            tempLib = [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileTerp];
+        } @catch (NSException *ex) {
+            NSLog(@"Unable to read terp autosave: %@", ex);
+        }
+        if (!tempLib || tempLib.autosaveTag != restoredController.autosaveTag) {
+            NSLog(@"The terp autosave is unreadable, or has a tag not matching the GUI autosave.");
             NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
             NSLog(@"Trying to use previous terp save");
 
             NSString *oldAutosaveFileTerp =
             [self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"];
-            tempLib = [NSKeyedUnarchiver unarchiveObjectWithFile:oldAutosaveFileTerp];
-            if (tempLib.autosaveTag == restoredController.autosaveTag) {
+            tempLib = nil;
+            @try {
+                tempLib = [NSKeyedUnarchiver unarchiveObjectWithFile:oldAutosaveFileTerp];
+            } @catch (NSException *ex) {
+                NSLog(@"Unable to read previous terp autosave: %@", ex);
+            }
+            if (tempLib && tempLib.autosaveTag == restoredController.autosaveTag) {
                 [fileManager removeItemAtPath:self.autosaveFileTerp error:nil];
                 [fileManager moveItemAtPath:oldAutosaveFileTerp toPath:self.autosaveFileTerp error:nil];
                 NSString *glkSaveTerp = [self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"];
