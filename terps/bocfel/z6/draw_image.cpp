@@ -396,6 +396,29 @@ void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_wid
     }
 }
 
+// Read back an opaque pixel from the global pixmap as 0xRRGGBB.
+// Returns false if (x, y) is out of bounds or the pixel is transparent,
+// in which case *color is left untouched.
+bool sample_pixmap_pixel(int x, int y, glui32 *color) {
+    int screen_width = (int)hw_screenwidth;
+
+    if (pixmap == nullptr || color == nullptr)
+        return false;
+    if (x < 0 || y < 0 || x >= screen_width)
+        return false;
+
+    size_t offset = ((size_t)y * (size_t)screen_width + (size_t)x) * kBytesPerPixel;
+    if (offset + kBytesPerPixel > (size_t)pixlength)
+        return false;
+
+    const uint8_t *pixel = pixmap + offset;
+    if (pixel[3] == 0)
+        return false;
+
+    *color = ((glui32)pixel[0] << 16) | ((glui32)pixel[1] << 8) | (glui32)pixel[2];
+    return true;
+}
+
 // Return a freshly-allocated, vertically-flipped copy of `source` (an
 // image->width × image->height RGBA buffer). Frees the original `source`
 // either way. Returns nullptr on OOM.

@@ -58,6 +58,7 @@ void draw_border_common(int border, int BL, int BR,
 void draw_centered_image(int picnum, float scale, int width, int height);
 float draw_centered_title_image(int picnum);
 void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height);
+bool sample_pixmap_pixel(int x, int y, glui32 *color);
 //void fudge_for_apple_2_maze(bool on);
 
 // Shared with draw_border.cpp: composites a source bitmap onto a
