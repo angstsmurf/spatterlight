@@ -2400,14 +2400,17 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 /*
  * gsc_command_script()
  *
- * Turn game output scripting (logging) on and off.
+ * Turn game output scripting (logging) on and off.  A bare "glk script" acts,
+ * rather than reports: it is a synonym for "glk script on", since that is what
+ * someone typing it almost always wants.  "glk script status" reports instead,
+ * and is what the summary polls.
  */
 static void
 gsc_command_script (const char *argument)
 {
   assert (argument);
 
-  if (scr_strcasecmp (argument, "on") == 0)
+  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
     {
       frefid_t fileref;
 
@@ -2456,7 +2459,7 @@ gsc_command_script (const char *argument)
       gsc_normal_string ("Glk transcript is now off.\n");
     }
 
-  else if (strlen (argument) == 0)
+  else if (scr_strcasecmp (argument, "status") == 0)
     {
       gsc_normal_string ("Glk transcript is ");
       gsc_normal_string (gsc_transcript_stream ? "on" : "off");
@@ -2467,8 +2470,10 @@ gsc_command_script (const char *argument)
     {
       gsc_normal_string ("Glk transcript can be ");
       gsc_standout_string ("on");
-      gsc_normal_string (", or ");
+      gsc_normal_string (", ");
       gsc_standout_string ("off");
+      gsc_normal_string (", or ");
+      gsc_standout_string ("status");
       gsc_normal_string (".\n");
     }
 }
@@ -2477,14 +2482,16 @@ gsc_command_script (const char *argument)
 /*
  * gsc_command_inputlog()
  *
- * Turn game input logging on and off.
+ * Turn game input logging on and off.  As with script, a bare "glk inputlog"
+ * acts rather than reports, and is a synonym for "glk inputlog on"; "glk
+ * inputlog status" reports instead.
  */
 static void
 gsc_command_inputlog (const char *argument)
 {
   assert (argument);
 
-  if (scr_strcasecmp (argument, "on") == 0)
+  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
     {
       frefid_t fileref;
 
@@ -2529,7 +2536,7 @@ gsc_command_inputlog (const char *argument)
       gsc_normal_string ("Glk input log is now off.\n");
     }
 
-  else if (strlen (argument) == 0)
+  else if (scr_strcasecmp (argument, "status") == 0)
     {
       gsc_normal_string ("Glk input logging is ");
       gsc_normal_string (gsc_inputlog_stream ? "on" : "off");
@@ -2540,8 +2547,10 @@ gsc_command_inputlog (const char *argument)
     {
       gsc_normal_string ("Glk input logging can be ");
       gsc_standout_string ("on");
-      gsc_normal_string (", or ");
+      gsc_normal_string (", ");
       gsc_standout_string ("off");
+      gsc_normal_string (", or ");
+      gsc_standout_string ("status");
       gsc_normal_string (".\n");
     }
 }
@@ -2550,14 +2559,16 @@ gsc_command_inputlog (const char *argument)
 /*
  * gsc_command_readlog()
  *
- * Set the game input log, to read input from a file.
+ * Set the game input log, to read input from a file.  As with script, a bare
+ * "glk readlog" acts rather than reports, and is a synonym for "glk readlog
+ * on"; "glk readlog status" reports instead.
  */
 static void
 gsc_command_readlog (const char *argument)
 {
   assert (argument);
 
-  if (scr_strcasecmp (argument, "on") == 0)
+  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
     {
       frefid_t fileref;
 
@@ -2608,7 +2619,7 @@ gsc_command_readlog (const char *argument)
       gsc_normal_string ("Glk read log is now off.\n");
     }
 
-  else if (strlen (argument) == 0)
+  else if (scr_strcasecmp (argument, "status") == 0)
     {
       gsc_normal_string ("Glk read log is ");
       gsc_normal_string (gsc_readlog_stream ? "on" : "off");
@@ -2619,8 +2630,10 @@ gsc_command_readlog (const char *argument)
     {
       gsc_normal_string ("Glk read log can be ");
       gsc_standout_string ("on");
-      gsc_normal_string (", or ");
+      gsc_normal_string (", ");
       gsc_standout_string ("off");
+      gsc_normal_string (", or ");
+      gsc_standout_string ("status");
       gsc_normal_string (".\n");
     }
 }
@@ -3037,6 +3050,8 @@ typedef const struct
   void (* const handler) (const char *argument);  /* Subcommand handler. */
   const int takes_argument;                       /* Argument flag. */
   const int in_adrift5;                           /* Offered in the a5 loop. */
+  const int is_alias;                             /* Another name for an
+                                                     entry listed above. */
 } gsc_command_t;
 typedef gsc_command_t *gsc_commandref_t;
 
@@ -3048,24 +3063,30 @@ static void gsc_command_zoom (const char *argument);
 /* Commands flagged FALSE for in_adrift5 are ADRIFT <=4 engine specifics:
    abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
    capacity, combatassist, moveassist (4.0 Battle System / task quirks), and
-   verbose (a 4.0 room-description mode; ADRIFT 5 leaves this to the game). */
+   verbose (a 4.0 room-description mode; ADRIFT 5 leaves this to the game).
+
+   Entries flagged is_alias are alternative names for a command listed above
+   them.  They are found by the dispatcher and by "glk help", but left out of
+   the command listing and the summary poll, so that the alias neither pads
+   the list nor makes its command report itself twice. */
 static gsc_command_t GSC_COMMAND_TABLE[] = {
-  {"summary",        gsc_command_summary,        FALSE, TRUE},
-  {"script",         gsc_command_script,         TRUE,  TRUE},
-  {"inputlog",       gsc_command_inputlog,       TRUE,  TRUE},
-  {"readlog",        gsc_command_readlog,        TRUE,  TRUE},
-  {"abbreviations",  gsc_command_abbreviations,  TRUE,  FALSE},
-  {"capacity",       gsc_command_capacity,       TRUE,  FALSE},
-  {"combatassist",   gsc_command_combat_assist,  TRUE,  FALSE},
-  {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE},
-  {"verbose",        gsc_command_verbose,        TRUE,  FALSE},
-  {"version",        gsc_command_version,        FALSE, TRUE},
-  {"map",            gsc_command_map,            TRUE,  TRUE},
-  {"zoom",           gsc_command_zoom,           TRUE,  TRUE},
-  {"commands",       gsc_command_commands,       TRUE,  TRUE},
-  {"license",        gsc_command_license,        FALSE, TRUE},
-  {"help",           gsc_command_help,           TRUE,  TRUE},
-  {NULL, NULL, FALSE, FALSE}
+  {"summary",        gsc_command_summary,        FALSE, TRUE,  FALSE},
+  {"script",         gsc_command_script,         TRUE,  TRUE,  FALSE},
+  {"transcript",     gsc_command_script,         TRUE,  TRUE,  TRUE},
+  {"inputlog",       gsc_command_inputlog,       TRUE,  TRUE,  FALSE},
+  {"readlog",        gsc_command_readlog,        TRUE,  TRUE,  FALSE},
+  {"abbreviations",  gsc_command_abbreviations,  TRUE,  FALSE, FALSE},
+  {"capacity",       gsc_command_capacity,       TRUE,  FALSE, FALSE},
+  {"combatassist",   gsc_command_combat_assist,  TRUE,  FALSE, FALSE},
+  {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE, FALSE},
+  {"verbose",        gsc_command_verbose,        TRUE,  FALSE, FALSE},
+  {"version",        gsc_command_version,        FALSE, TRUE,  FALSE},
+  {"map",            gsc_command_map,            TRUE,  TRUE,  FALSE},
+  {"zoom",           gsc_command_zoom,           TRUE,  TRUE,  FALSE},
+  {"commands",       gsc_command_commands,       TRUE,  TRUE,  FALSE},
+  {"license",        gsc_command_license,        FALSE, TRUE,  FALSE},
+  {"help",           gsc_command_help,           TRUE,  TRUE,  FALSE},
+  {NULL, NULL, FALSE, FALSE, FALSE}
 };
 
 
@@ -3096,20 +3117,27 @@ gsc_command_summary (const char *argument)
 
   /*
    * Call handlers that have status to report with an empty argument,
-   * prompting each to print its current setting.  Map and zoom act, rather
-   * than report, on an empty argument, so they cannot be polled this way.
+   * prompting each to print its current setting.  The logging commands, along
+   * with map and zoom, act rather than report on an empty argument; the
+   * logging ones have an explicit "status" to poll instead, map and zoom none.
    */
   for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
     {
+      int is_log;
+
       if (entry->handler == gsc_command_summary
             || entry->handler == gsc_command_license
             || entry->handler == gsc_command_help
             || entry->handler == gsc_command_map
             || entry->handler == gsc_command_zoom
+            || entry->is_alias
             || !gsc_command_in_scope (entry))
         continue;
 
-      entry->handler ("");
+      is_log = entry->handler == gsc_command_script
+               || entry->handler == gsc_command_inputlog
+               || entry->handler == gsc_command_readlog;
+      entry->handler (is_log ? "status" : "");
     }
 }
 
@@ -3130,11 +3158,13 @@ gsc_command_help (const char *command)
       gsc_commandref_t last;
 
       /* Zoom is left off the list; it belongs to the map, and is documented
-         under "glk help map" instead. */
+         under "glk help map" instead.  Aliases are left off too, and named in
+         the help for the command they stand in for. */
       last = NULL;
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
           if (gsc_command_in_scope (entry)
+              && !entry->is_alias
               && entry->handler != gsc_command_zoom)
             last = entry;
         }
@@ -3143,6 +3173,7 @@ gsc_command_help (const char *command)
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
           if (!gsc_command_in_scope (entry)
+              || entry->is_alias
               || entry->handler == gsc_command_zoom)
             continue;
 
@@ -3249,8 +3280,18 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk script on");
       gsc_normal_string (" to begin logging game output, and ");
       gsc_standout_string ("glk script off");
-      gsc_normal_string (" to end it.  Glk SCARIER will ask you for a file"
-                         " when you turn scripts on.\n");
+      gsc_normal_string (" to end it; plain ");
+      gsc_standout_string ("glk script");
+      gsc_normal_string (" begins logging too.  Glk SCARIER will ask you for a"
+                         " file when you turn scripts on.  ");
+      gsc_standout_string ("glk script status");
+      gsc_normal_string (" says whether logging is currently on.\n\nThe word ");
+      gsc_standout_string ("transcript");
+      gsc_normal_string (" may be used in place of ");
+      gsc_standout_string ("script");
+      gsc_normal_string (" in any of these, as in ");
+      gsc_standout_string ("glk transcript on");
+      gsc_normal_string (".\n");
     }
 
   else if (matched->handler == gsc_command_inputlog)
@@ -3259,8 +3300,12 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk inputlog on");
       gsc_normal_string (", to begin recording your commands, and ");
       gsc_standout_string ("glk inputlog off");
-      gsc_normal_string (" to turn off input logs.  You can play back"
-                         " recorded commands into a game with the ");
+      gsc_normal_string (" to turn off input logs; plain ");
+      gsc_standout_string ("glk inputlog");
+      gsc_normal_string (" begins recording too, and ");
+      gsc_standout_string ("glk inputlog status");
+      gsc_normal_string (" says whether recording is currently on.  You can"
+                         " play back recorded commands into a game with the ");
       gsc_standout_string ("glk readlog");
       gsc_normal_string (" command.\n");
     }
@@ -3271,9 +3316,13 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk inputlog on");
       gsc_normal_string (".\n\nUse ");
       gsc_standout_string ("glk readlog on");
+      gsc_normal_string (", or just ");
+      gsc_standout_string ("glk readlog");
       gsc_normal_string (".  Command play back stops at the end of the"
                          " file.  You can also play back commands from a"
-                         " text file created using any standard editor.\n");
+                         " text file created using any standard editor.  ");
+      gsc_standout_string ("glk readlog status");
+      gsc_normal_string (" says whether play back is currently on.\n");
     }
 
   else if (matched->handler == gsc_command_abbreviations)
