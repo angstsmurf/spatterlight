@@ -1,0 +1,271 @@
+Great Depression Day simulator.
+
+MAKE SURE TO READ MANUAL/DISCRIPTION BEFORE PLAYING!
+
+Last night, you climbed into bed. You had just had a normal day in 2019. Your dreams contained time travel for some reason. You don't know why. You have just woken up in a strange place. You are not in your bed and you are not in your room. This place looks really old fashioned. "I must be dreaming you thought to yourself" but when you tried to wake up, you couldn't. You realized that you must be in a different time.
+
+Explore the world around you and try not to go insane, if you do, the game ends. Have fun!
+
+You are in an Old Fashioned Room.
+You can see a bed and a closet.
+You can go out.
+> look at bed
+
+> look at bed
+Nothing out of the ordinary.
+> sleep on bed
+
+> sleep on bed
+You just woke up!
+> open closet
+
+> open closet
+You open it.
+It contains a Clothes.
+> look at clothes
+
+> look at clothes
+These clothes look so old and scratchy. You do not want to put those on but seeing how you are in your P-Js you should put them on. You say to yourself "Uhh these are so unfashionable, how could I ever put something liek this on?" They look like:
+
+> take clothes
+
+> take clothes
+You pick it up.
+> wear clothes
+
+> wear clothes
+You put it on.
+> out
+
+> out
+When you want to finish the game, come back in.
+
+You are in a Hallway.
+You can go in or down.
+> down
+
+> down
+
+You are in a Living Area.
+You can see an Old Table, a Creaky Shelf and an Old Wooden Chair.
+You can go out or up.
+This seems to be the remains of a once full living area. The room is dusty and you can see prints of furniture that used to be here. You wondered what happened here. There are things hanging everywhere like old posters and torn wall hangings. This place is a mess.
+
+> look at old table
+
+> look at old table
+It contains an Eggs.
+> eat eggs
+
+> eat eggs
+You felt less hungry. You are ready to start the day.
+> look at grapes of wrath
+
+> look at grapes of wrath
+I can't see that.
+> read grapes of wrath
+
+> read grapes of wrath
+I can't see that. (grapes of wrath)
+> look at old wooden chair
+
+> look at old wooden chair
+This chair looks super old. You can barely see the wood under all the dust. You think that it might break if you sit on it.
+> sit on old wooden chair
+
+> sit on old wooden chair
+Thankfully this chair didn't break.
+> out
+
+> out
+
+You are in the a Street.
+You can see a Mob of People.
+You can go in or north.
+> look at mob of people
+
+> look at mob of people
+They are really poor, they live on the streets because they can't afford to live in a house. These sights do have an effect on you but not that much, since you are a snob.
+They contain a Rock Soup.
+
+> look at rock soup
+
+> look at rock soup
+This seems to be something that these people ate. It must be so gross and flavorless. You see people taking rocks and putting them in their pots and boiling them. They must do this for minerals. You think of all the nice things that you eat every day and how you take them for granted. You feel sympathetic for these people.
+> speak to mob of people
+
+> speak to mob of people
+HELP US!!! Please, we are all staving and dying, please kind soul, help us! PLEASE!!!
+You start to think that maybe you were wrong. That these people do really matter. You start to feel more humble.
+> give money mob of people
+
+> give money mob of people
+They thanked you for giving them $15 but they begged you for more. You felt somewhat good about what you had done, but the thought of them starving and dying, would cling to you forever.
+> north
+
+> north
+
+You are in a Town Square.
+You can see a beggar.
+You can go south, west, east or north.
+
+> look at beggar
+
+> look at beggar
+You see an old man with a very cute dog sitting down. He looks so sad, and seeing him hurts your soul. You can't stand it, why in the world did you wake up in this time period, why did you have to see these things. Then you realize, you have been really snobby all your life. You have expected everything. These people have nothing. You can feel a change of heart coming over you.
+
+> give money beggar
+
+> give money beggar
+He said "Thank you for your generosity, kind youngster."
+> north
+
+> north
+
+You are in a Jazz Club.
+You can see a Booth.
+You can go south.
+The relaxing music soothes your stressed brain. This helps your mental health.
+
+> look at booth
+
+> look at booth
+Nothing out of the ordinary.
+> sit at booth
+
+> sit at booth
+As you sit and listen the music sooths your brain.
+> south
+
+> south
+
+You are in a Town Square.
+You can see a beggar.
+You can go south, west, east or north.
+> east
+
+> east
+
+You are in a Hotel Lobby.
+You can go west or up.
+This is the only nice place that you have seen all day. This hotel is super fancy and nice. It gives you hope that this place may not be hopeless after all.
+
+> up
+
+> up
+
+You are in an Office.
+You can see an Employee.
+You can go down or in.
+> look at employee
+
+> look at employee
+She's kinda hot.
+> speak to employee
+
+> speak to employee
+Hello Boss, I hope that you are having a good day!
+> in
+
+> in
+
+You are in a Cubicle.
+You can see a Cup of Coffee and a Charts.
+You can go out.
+> look at charts
+
+> look at charts
+You see many charts and graphs, all with a down arrow. You need to work on these before you can do anything else.
+> look at cup of coffee
+
+> look at cup of coffee
+Nothing out of the ordinary.
+> eat cup of coffee
+
+> eat cup of coffee
+You eat it.
+> out
+
+> out
+
+You are in an Office.
+You can see an Employee.
+You can go down or in.
+> down
+
+> down
+
+You are in a Hotel Lobby.
+You can go west or up.
+> west
+
+> west
+
+You are in a Town Square.
+You can see a beggar.
+You can go south, west, east or north.
+> west
+
+> west
+
+You are in a Store.
+You can see a Cards, a Storekeeper, a Monopoly and a Calander.
+You can go east.
+This store looks very old fashioned as well. In this store there are many games. You notice that there is not any food, they must be sold out.
+
+Look at the right, you can still do stuff.
+> look at calander
+
+> look at calander
+You see the year, 1935. Then you realize, that dream that you had must have been real. You are living in the 1930s, during the great depression. You get it all now.
+Look at the right side for the things that you can do.
+> look at storekeeper
+
+> look at storekeeper
+He looks buff, better not steal from him.
+> look at cards
+
+> look at cards
+This is just a regular oridanary deck of cards. This is something that you are used to.
+> buy cards
+
+> buy cards
+> buy monopoly
+
+> buy monopoly
+You bought Monopoly
+> east
+
+> east
+
+You are in a Town Square.
+You can see a beggar.
+You can go south, west, east or north.
+> south
+
+> south
+
+You are in the a Street.
+You can see a Mob of People (on which there is a Rock Soup).
+You can go in or north.
+> in
+
+> in
+
+You are in a Living Area.
+You can see an Old Table, a Creaky Shelf and an Old Wooden Chair.
+You can go out or up.
+> up
+
+> up
+
+You are in a Hallway.
+You can go in or down.
+> in
+
+> in
+
+You are in an Old Fashioned Room.
+You can see a bed and a closet.
+You can go out.
+[state=Finished]

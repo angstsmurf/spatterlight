@@ -63,7 +63,7 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest — 64 driven rows: each of the 26 games with
+`corpus.tsv` is the curated manifest — 66 driven rows: each of the 26 games with
 a walkthrough mapped to its walkthrough file and an extractor mode, plus 37
 override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
@@ -108,7 +108,7 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**64 games driven** — **54 `Finished`**, **10 `Running`**, **0 `Wedged`**.
+**66 games driven** — **56 `Finished`**, **10 `Running`**, **0 `Wedged`**.
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
 its absence is not a loss: **9 of the 10 `Running` rows are genuine wins in games
@@ -206,7 +206,7 @@ implemented — no corpus game reaches one.)
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 64 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 66 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
