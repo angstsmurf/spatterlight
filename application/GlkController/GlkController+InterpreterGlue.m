@@ -91,6 +91,7 @@ static BOOL pollMoreData(int fd) {
         return;
 
     dead = YES;
+    terpHasStopped = YES;
     restartingAlready = NO;
 
     if (timer) {
@@ -156,6 +157,16 @@ static BOOL pollMoreData(int fd) {
 
 - (void)queueEvent:(GlkEvent *)gevent {
     GlkEvent *redrawEvent = nil;
+
+    // Once the interpreter has stopped, nothing will ever drain the queue, so
+    // an input event added here is swallowed silently and the window appears to
+    // lock up. Windows should already be refusing input at this point (see
+    // terpDidStop), so this is a backstop for any path that slips through.
+    if (terpHasStopped &&
+        (gevent.type == EVTKEY || gevent.type == EVTLINE ||
+         gevent.type == EVTHYPER || gevent.type == EVTMOUSE)) {
+        return;
+    }
     if (gevent.type == EVTARRANGE) {
         Theme *theme = self.theme;
         NSDictionary *newArrangeValues = @{

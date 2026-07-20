@@ -353,6 +353,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     waitforevent = NO;
     waitforfilename = NO;
     dead = YES;
+    // Not "stopped": we are about to fork an interpreter. A reset re-enters
+    // here, so this must be cleared or the restarted game would refuse input.
+    terpHasStopped = NO;
 
     _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
@@ -839,10 +842,20 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     }
 
     dead = YES;
+    terpHasStopped = YES;
 
     [self runWindowsRestorationHandler];
     [self restoreUI];
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
+
+    // Tell the windows the interpreter is gone, exactly as noteTaskDidTerminate
+    // does when a game dies while we are watching. Without this the restored
+    // text buffer keeps whatever editable state the archive happened to
+    // capture, so a finished game can present a live input line: typing into it
+    // queues an event that no interpreter will ever collect, and the window
+    // looks locked up.
+    for (GlkWindow *win in self.gwindows.allValues)
+        [win terpDidStop];
 
     GlkController * __weak weakSelf = self;
     NSScreen *screen = self.window.screen;

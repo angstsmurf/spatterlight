@@ -42,6 +42,14 @@
     BOOL windowClosedAlready;
     BOOL restartingAlready;
 
+    // The interpreter has stopped for good: either it terminated during this
+    // session, or we restored a window whose game had already finished. This is
+    // narrower than `dead`, which is also YES during startup before the
+    // subprocess is forked -- events queued in that window are legitimate and
+    // get drained once the interpreter asks for them, whereas events queued
+    // after the interpreter is gone would sit in the queue forever.
+    BOOL terpHasStopped;
+
     /* the glk objects */
     BOOL windowdirty; /* the contentView needs to repaint */
 
