@@ -722,8 +722,10 @@ private:
     // run the element's "changed<attr>" script if one resolves (inheritance
     // included), with `oldvalue` bound and `this` = the element. This is what
     // triggers OnEnterRoom via the player's changedparent.
+    // `changed` is Fields.Set's own same-value test (v5): a write that leaves
+    // the attribute at its previous value fires nothing.
     void fire_changed_script(Element *e, const std::string &attr,
-                             const Value &oldval);
+                             const Value &oldval, bool changed);
 
     // -- undo internals (UndoLogger.cs) ----------------------------------------
     bool undo_logging_ = false;                          // m_logging

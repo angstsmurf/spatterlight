@@ -356,6 +356,42 @@ transcripts across runs.
 
 ## Known gaps
 
+- **The oracle fires `changed<attr>` on same-value writes; real Quest 5 does not.**
+  This is a regression in the modern rewrite, and it is the one place where the
+  goldens are *known to be wrong* and the native engine is deliberately right.
+  Quest 5 (`textadventures/quest` branch `v5`) fires `changed<attr>` from the
+  `Fields_AttributeChanged` **event** (`Element.cs:175`), and `Fields.Set` raises
+  that event only when the value actually changed (`Fields.cs`:
+  `changed = value == null ? oldValue != null : !value.Equals(oldValue)`, then
+  `if (changed && AttributeChanged != null) …`). QuestViva's `Element.SetFieldAsync`
+  (`src/Engine/Element.cs:217`) dropped the guard and fires unconditionally.
+  Consequences, all in the same direction — the oracle *over*-fires:
+  - *L Too* is **undrivable by the oracle**. `Pool.enter` runs `enter_pool`, which
+    does `MoveObject (player, Pool)`; on re-entry that is a same-value write, so
+    QuestViva loops `enter → enter_pool → enter …` forever and wedges. (Its
+    depth-200 guard never trips: the recursion goes through queued `on ready`
+    callbacks at depth 0.) On v5 it terminates after two levels. The Pool is
+    mandatory — gold key + the whole upper level — so there is no route around it.
+  - *Eight characters, a number, and a happy ending* — the corpus row only passes
+    because `"Turn on game"` was DROPPED from its script (see that `.cmd`'s header).
+    The three board objects mutually `SwitchOn` each other in their `onswitchon`
+    scripts, and `SwitchOn(x)` is just `x.switchedon = true`, so the second write
+    is same-value: the oracle recurses to the 20-error breaker and wedges. Native
+    now runs the command **restored** to the script, board on, 0 errors, through to
+    `Finished` — but the golden cannot be refreshed to include it while the oracle
+    is the thing generating goldens.
+  - Five goldens differ from native replay, **native being the correct side**:
+    Dracula (Van Helsing's `changedparent` prints "follows you" unconditionally,
+    and a turnscript `MoveObjectHere`s him every turn → the oracle prints it even
+    when he never moved), Iron John, The Acreage and Xanadu (stock Core
+    `changedparent` → `OnEnterRoom` → whole room description reprinted on
+    same-room moves), and The Bony King of Nowhere (the oracle additionally
+    *corrupts* names — `You can see The  and .` where native gives
+    `You can see The Bony King and Your Dog.`). All five still reach
+    `[state=Finished]` on both sides; every diff is duplicated or damaged output
+    the oracle emits and native omits. Do NOT "fix" native to match these.
+  Native replay vs the frozen goldens is therefore **60/66** byte-identical, plus
+  ICM (the documented sound artifact) = 6 expected divergences.
 - There is no longer any driven game whose win the **harness** cannot reach. The
   two remaining non-wins, The Last Hero and WAKE, are unwinnable *games*.
   *I Contain Multitudes* used to hold this slot, and its recorded diagnosis was

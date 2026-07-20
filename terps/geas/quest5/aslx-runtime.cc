@@ -1188,6 +1188,11 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
                 // backing instead of aliasing it. Basilica's possession
                 // mechanic relies on every body getting its own alt list).
                 const Value *own = e->field(s.name);
+                // Fields.Set's `changed` -- computed against the OWN
+                // attribute (absent own => changed unless writing null), and
+                // before any clone, exactly as v5 orders it.
+                bool changed = own ? !values_equal(*own, val)
+                                   : val.type != Value::Type::Null;
                 bool same_backing = own &&
                     own->list_store == val.list_store &&
                     own->dict_store == val.dict_store;
@@ -1215,7 +1220,7 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
                     e->sort_index = world_.next_sort_index++;
                     world_.note_containment_change();
                 }
-                fire_changed_script(e, s.name, old);
+                fire_changed_script(e, s.name, old, changed);
             } else {
                 error("Assignment to attribute '" + s.name +
                                     "' of a non-object");
@@ -1509,10 +1514,19 @@ void Interp::drain_on_ready() {
 }
 
 void Interp::fire_changed_script(Element *e, const std::string &attr,
-                                 const Value &oldval) {
-    // Element.SetFieldAsync: fires on every script assignment (no same-value
-    // check), with `oldvalue` and this = the element; RunScriptAsync is the
-    // error boundary, which run_script provides.
+                                 const Value &oldval, bool changed) {
+    // Quest 5 (branch v5) fires changed<attr> from Fields_AttributeChanged
+    // (Element.cs), and Fields.Set raises that event ONLY when the value
+    // actually changed:
+    //     changed = value == null ? oldValue != null : !value.Equals(oldValue)
+    //     if (changed && AttributeChanged != null) AttributeChanged(...)
+    // The modern rewrite lost that guard -- QuestViva's Element.SetFieldAsync
+    // fires unconditionally -- which turns any "enter script re-moves the
+    // player into the room it just entered" idiom into infinite recursion.
+    // L Too's Pool (enter -> enter_pool -> MoveObject(player, Pool)) wedges
+    // QuestViva outright; on v5 it terminates after two levels. We follow v5:
+    // a same-value write fires nothing.
+    if (!changed) return;
     const Value *scr = resolve_field(e, "changed" + attr);
     if (!scr || scr->type != Value::Type::Script) return;
     Context local;
@@ -3345,6 +3359,9 @@ bool Interp::exec_statement_command(const std::string &name,
             Value nv = ev(2);
             // Clone-on-set for collections -- see the Assign case.
             const Value *own = obj->field(attr);
+            // Fields.Set's `changed` -- see the Assign case.
+            bool changed = own ? !values_equal(*own, nv)
+                               : nv.type != Value::Type::Null;
             bool same_backing = own && own->list_store == nv.list_store &&
                                 own->dict_store == nv.dict_store;
             if (!same_backing) nv.detach();
@@ -3362,7 +3379,7 @@ bool Interp::exec_statement_command(const std::string &name,
                 obj->sort_index = world_.next_sort_index++;
                 world_.note_containment_change();
             }
-            fire_changed_script(obj, attr, old);
+            fire_changed_script(obj, attr, old, changed);
         } else {
             errors().push_back("set: not an object");
         }
