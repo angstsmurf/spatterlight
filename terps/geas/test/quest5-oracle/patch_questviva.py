@@ -163,3 +163,110 @@ elif e_anchor in etext:
     print("[patch] patched: NcalcExpressionEvaluator.cs -> dictionary `in` operator")
 else:
     sys.exit("[patch] `in` anchor not found in NcalcExpressionEvaluator.cs (upstream changed?)")
+
+# 6. `wait` must suspend the TURN, not just the script. Legacy Quest 5 runs the
+# game on its own thread and blocks it inside `wait` (DoInNewThreadAndWait), so
+# the stack is preserved and Core's FinishTurn — hence every turnscript — runs
+# AFTER the wait callback. QuestViva's async port fire-and-forgets the
+# continuation (WaitScript.ExecuteAsync returns Task.CompletedTask), so
+# RunProcedureAsync("HandleCommand") unwinds early and TryFinishTurnAsync races
+# ahead of the callback. Any game whose `wait` callback moves the player then
+# leaves a turnscript armed in the room it left sees that turnscript fire in a
+# room the player has already quit.
+#
+# "The Legend of Robin Hood" is the case that proves it: the Sheriff's prize
+# script strips your cloak and then does `wait { ... MoveObject(player,
+# cloisters) }`, while the archery field's ArcheryContestStarts turnscript
+# (armed at contest entry, never disabled) calls `finish` on any turn you stand
+# there unhooded. Under the racing order it fires before the move and ends the
+# game with the failure ending — the win is unreachable. Under the legacy order
+# the player is already in the cloisters and the turnscript is out of scope.
+#
+# Fix: when a wait has parked the turn (BeginPendingCallback has run), defer
+# FinishTurn/UpdateLists and let WaitScript run them once its callback
+# completes. Turn-suspension signalling to the driver is unchanged.
+wtext = wm.read_text()
+w6_anchor = """                if (Version < WorldModelVersion.v580)
+                {
+                    await TryFinishTurnAsync();
+                }
+
+                if (State != GameState.Finished)
+                {
+                    await UpdateListsAsync();
+                }"""
+w6_repl = """                if (Version < WorldModelVersion.v580 && _waitParkedTurn)
+                {
+                    // qvh patch: a `wait` parked this turn; legacy Quest ran FinishTurn
+                    // after the callback, so defer it (see patch_questviva.py section 6).
+                    // Gated to pre-580 games — the same gate that decides whether
+                    // FinishTurn runs from here at all — so anything authored against
+                    // modern (v580 / QuestViva-era) turn semantics keeps the stock path.
+                    _finishTurnDeferred = true;
+                }
+                else
+                {
+                    if (Version < WorldModelVersion.v580)
+                    {
+                        await TryFinishTurnAsync();
+                    }
+
+                    if (State != GameState.Finished)
+                    {
+                        await UpdateListsAsync();
+                    }
+                }"""
+w6_anchor2 = "    internal void BeginPendingCallback() => _pendingCallbackCount++;"
+w6_repl2 = """    // qvh patch: `_waitParkedTurn` is set while a `wait` holds the turn open
+    // (WaitScript sets it, its finally clears it); `_finishTurnDeferred` is the
+    // FinishTurn that wait pushed past its command turn. Gating on the wait
+    // itself rather than on _pendingCallbackCount matters: a menu / get input /
+    // `on ready` also raises that count, and deferring on those would strand the
+    // FinishTurn until some later, unrelated wait discharged it.
+    // (See patch_questviva.py section 6.)
+    internal bool _waitParkedTurn;
+    internal bool _finishTurnDeferred;
+
+    internal async Task RunDeferredFinishTurnAsync()
+    {
+        if (!_finishTurnDeferred) return;
+        _finishTurnDeferred = false;
+        await TryFinishTurnAsync();
+        if (State != GameState.Finished)
+        {
+            await UpdateListsAsync();
+        }
+    }
+
+    internal void BeginPendingCallback() => _pendingCallbackCount++;"""
+if "_finishTurnDeferred" in wtext:
+    print("[patch] already patched: WorldModel.cs -> deferred FinishTurn across `wait`")
+elif w6_anchor in wtext and w6_anchor2 in wtext:
+    wtext = wtext.replace(w6_anchor, w6_repl, 1).replace(w6_anchor2, w6_repl2, 1)
+    wm.write_text(wtext)
+    print("[patch] patched: WorldModel.cs -> deferred FinishTurn across `wait`")
+else:
+    sys.exit("[patch] FinishTurn anchors not found in WorldModel.cs (upstream changed?)")
+
+ws = engine / "Scripts" / "WaitScript.cs"
+wstext = ws.read_text()
+ws_anchor = """            await m_worldModel.EndPendingCallbackAsync();
+            m_worldModel.SignalTurnSuspended();"""
+ws_repl = """            await m_worldModel.EndPendingCallbackAsync();
+            // qvh patch: run the FinishTurn this wait deferred (section 6)
+            m_worldModel._waitParkedTurn = false;
+            await m_worldModel.RunDeferredFinishTurnAsync();
+            m_worldModel.SignalTurnSuspended();"""
+ws_anchor2 = """        m_worldModel.PlayerUi.DoWait();
+        WorldModel.BeginPrompt(ref m_worldModel._waitTcs);"""
+ws_repl2 = """        m_worldModel.PlayerUi.DoWait();
+        // qvh patch: this wait holds the turn open (section 6)
+        m_worldModel._waitParkedTurn = true;
+        WorldModel.BeginPrompt(ref m_worldModel._waitTcs);"""
+if "RunDeferredFinishTurnAsync" in wstext:
+    print("[patch] already patched: WaitScript.cs -> deferred FinishTurn")
+elif ws_anchor in wstext and ws_anchor2 in wstext:
+    ws.write_text(wstext.replace(ws_anchor, ws_repl, 1).replace(ws_anchor2, ws_repl2, 1))
+    print("[patch] patched: WaitScript.cs -> deferred FinishTurn")
+else:
+    sys.exit("[patch] anchor not found in WaitScript.cs (upstream changed?)")

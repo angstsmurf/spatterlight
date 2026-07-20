@@ -63,8 +63,8 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest — 60 driven rows: each of the 26 games with
-a walkthrough mapped to its walkthrough file and an extractor mode, plus 34
+`corpus.tsv` is the curated manifest — 61 driven rows: each of the 26 games with
+a walkthrough mapped to its walkthrough file and an extractor mode, plus 35
 override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
@@ -108,7 +108,7 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**60 games driven** — **50 `Finished`**, **10 `Running`**, **0 `Wedged`**.
+**61 games driven** — **51 `Finished`**, **10 `Running`**, **0 `Wedged`**.
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
 its absence is not a loss: **9 of the 10 `Running` rows are genuine wins in games
@@ -117,7 +117,7 @@ El asesino durmiente, First Times, Its election time in Pakistan, Medievalist's
 Quest, Nearco II, Sueña un pequeño sueño, cuttings, spondre). For several, `finish`
 is *provably* unreachable: spondre's inlined `HandleCommand` routes all input to
 ResponseLib topic matching, so Core's `quit` is dead code and Running-at-credits is
-the authored terminal state. Do not read the 50/60 split as a 10-game shortfall.
+the authored terminal state. Do not read the 51/61 split as a 10-game shortfall.
 
 The other `Running` row is a real gap:
 - **The Last Hero** — the *shipped game* is unwinnable: every `MoveObject` into a
@@ -132,8 +132,8 @@ remain: the six games whose walkthroughs are Q&A/prose
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
-the hints against the game source). Fifty-one of the 60 rows are driven by curated
-`overrides/` (see next section) — all 34 `-` rows plus 17 of the 26 rows that do
+the hints against the game source). Fifty-two of the 61 rows are driven by curated
+`overrides/` (see next section) — all 35 `-` rows plus 17 of the 26 rows that do
 have a walkthrough; the remaining nine run the raw walkthrough through the
 extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
 walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
@@ -153,9 +153,31 @@ from the raw walkthrough); `run_corpus.sh` uses it verbatim in place of the
 extractor+preamble. `overrides/README.md` tabulates why each exists
 (all win except I Contain Multitudes, best-effort, documented above). The nine games whose raw walkthroughs already win have no override.
 
+### `wait` and the turn boundary
+
+Legacy Quest 5 runs the game on its own thread and blocks it inside `wait`, so the
+stack survives the prompt and Core's `FinishTurn` — hence every turnscript — runs
+*after* the wait callback. QuestViva's async port returns from `wait` immediately
+(`WaitScript.ExecuteAsync` fire-and-forgets its continuation), so
+`TryFinishTurnAsync` raced ahead of the callback and turnscripts ticked against the
+room the callback was about to leave. `patch_questviva.py` section 6 defers the
+`FinishTurn` (and pane refresh) of a wait-parked turn until the callback resolves;
+the native engine does the same (`finish_turn_deferred_` in `aslx-runtime.cc`).
+
+*The Legend of Robin Hood* is the case that proves it — its win is unreachable under
+the racing order (see `overrides/README.md`). Five other goldens moved, all for the
+better: *Dracula* and *Dream Pieces 2* stop firing coach/room turnscripts in rooms
+the player has already left (Dream Pieces 2 also stops dumping a bogus aggregate
+"Lab" room listing every object in the game *after* its "THE END"), and *Dream
+Pieces*, *Lost in the Shadows of Time* and *Xanadu — In the Compound* simply move a
+nag/quote line to the far side of the transition. No ending, score or error count
+changed. The deferral is gated to pre-v580 games — the same gate that decides
+whether the engine calls `FinishTurn` at all — so anything authored against modern
+QuestViva-era turn semantics keeps the stock path.
+
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 60 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 61 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch

@@ -1,0 +1,1182 @@
+The Legend of Robin Hood
+By Craig Dutton (c) 2013
+
+Loxley, South Yorkshire, 1182.
+
+The sun rode high over the dark forest as a man dressed in Lincoln green ran for his life through the gnarled trees. Dogs barked their bloodthirsty menace with soldiers close behind them. They had chased their quarry for miles and were getting closer. Over ditch and under bough the hunted relented little until his exhaustion paid a heavy toll and he collapsed on the ground landing on some sharp brambles. As the hounds closed in a dark-haired man in black stood over the poor wretch and smiled a sickly grin.
+
+'So, Loxley, how the mighty have fallen. Give me the arrow and I will let you die quickly!' he demanded.
+
+'Only the worthy may possess it and you have never possessed such qualities. Your dogs have better breeding than you.' he gasped.
+
+His smile faltered slightly as he ordered the soldiers to release the hounds. As the screams faded throughout the forest he picked up the solid silver arrow from the mutilated corpse. It glistened from the filtered sunlight above him and he bore that sickly grin again.
+
+'So this is Herne's arrow! A treasure worthy of a Sheriff, I dare say.' he laughed and blended into the trees leaving his murderous deed behind him.
+
+Sherwood Forest, Nottinghamshire, 1192.
+
+You step out of the darkness of the huge oaks to emerge on to a forest road. You start recalling the mysterious death of your Father ten years ago to this very day. Unanswered questions lay heavy on your heart when a deer distracts your melancholy. The deer looks at you with its curious dark eyes. A sudden noise emanating from the depths of the forest alarms the creature and it bounds eastwards through the trees.
+
+It looks like your next meal warrants a chase. You laugh and wonder if the Sheriff's men are going to be uninviting themselves again upon your land and claim that shooting a King's deer is an executable offence? Only if the deer itself takes offence to being shot. You laugh again. It was a shame they didn't think it funny.
+
+'Now where did that deer go?' you cry.
+
+You are on a forest road.  It winds through the overshadowing oak trees either side of you.
+You can go west, south or east.
+> south
+
+> south
+
+You are on a forest road.  It gets wider here and to the southeast you spot a barn in a meadow.
+You can go north, west, south, southeast or east.
+> southeast
+
+> southeast
+
+You are in small grassy meadow with a small wooden barn nearby.
+You can go northwest or in.
+> in
+
+> in
+
+You are inside the barn.  It is a small structure with a trough to feed animals and low hanging beams above you.
+You can go out.
+> look at trough
+
+> look at trough
+A long wooden container for the feeding of animals.
+It contains a piece of cloth.
+> take cloth
+
+> take cloth
+You pick it up.
+> out
+
+> out
+
+You are in small grassy meadow with a small wooden barn nearby.
+You can go northwest or in.
+> northwest
+
+> northwest
+
+You are on a forest road.  It gets wider here and to the southeast you spot a barn in a meadow.
+You can go north, west, south, southeast or east.
+> west
+
+> west
+
+You are in Sherwood Forest.  Gnarled roots try to trip you up as you hear birdsong high up in the trees.
+You can go north, southwest, south or east.
+> southwest
+
+> southwest
+
+You are by a large fallen oak blocking any further progress into the forest.
+You can go northeast.
+> look at fallen oak
+
+> look at fallen oak
+A large oak that has been struck by lightning.
+A small flint lies nearby.
+> take flint
+
+> take flint
+You pick it up.
+> northeast
+
+> northeast
+
+You are in Sherwood Forest.  Gnarled roots try to trip you up as you hear birdsong high up in the trees.
+You can go north, southwest, south or east.
+> east
+
+> east
+
+You are on a forest road.  It gets wider here and to the southeast you spot a barn in a meadow.
+You can go north, west, south, southeast or east.
+> east
+
+> east
+
+You are in Sherwood Forest.  A dense number of oak trees block the sunlight around you.
+You can go west, southeast, northeast or north.
+> northeast
+
+> northeast
+
+You are by a burrow.  It's set in a small mound and birch trees circle the small clearing you stand in.
+You can go southwest or west.
+> use cloth on burrow
+
+> use cloth on burrow
+You place the cloth inside the burrow.
+> use flint on cloth
+
+> use flint on cloth
+You strike the flint and a spark ignites the cloth. The rabbit escapes the burrow.
+> use bow on rabbit
+
+> use bow on rabbit
+You fire an arrow at the rabbit and kill it instantly.
+> take dead rabbit
+
+> take dead rabbit
+You pick him up.
+> southwest
+
+> southwest
+
+You are in Sherwood Forest.  A dense number of oak trees block the sunlight around you.
+You can go west, southeast, northeast or north.
+> southeast
+
+> southeast
+
+You are in a pleasant copse of woodland flowers and tall grasses.  An air of calmness greets you.
+You can go northwest.
+You can see a deer.
+
+'Ah, there you are.' you whisper as you spot the creature.
+> use bow on deer
+
+> use bow on deer
+
+As you were about to fire an arrow into the hind another arrows whistles past your ear and kills the deer stone-cold dead. Emerging from behind a tree is Much the Miller's son. He looks at you in surprise.
+
+'Robin, I didn't see you there.' Much gasps, 'I nearly had your ear off.'
+
+'Luckily for me that my ear and a deer have considerable differences in size.' you laugh.
+
+'Sorry, Robin but I'm starving. My father is making ends meet and I thought I should contribute to the family table.' sighs Much.
+
+'Very commendable, young man. However, if Guy of Gisbourne caught you poaching you would be sent to the Castle dungeon - and possibly executed.' you scold.
+
+Suddenly a disturbance in the trees puts you both on guard. Guy of Gisbourne and a few of the Sheriff's men emerge from the undergrowth.
+
+'What do we have here? A couple of poachers, I see. Perhaps the cold steel of the Executioner's axe will do its job well tomorrow.' smiles Guy.
+
+As the Sheriff's men grab you and Much they lead you away to Nottingham Castle.
+
+You are in a small cell.  A dirty room with a narrow slit letting in little light.
+You can go west.
+You can see Much.
+> cut dead rabbit
+
+> cut dead rabbit
+You skin the dead rabbit with the dagger.
+> eat dead rabbit
+
+> eat dead rabbit
+You and Much share the raw rabbit for the next few days. It's chewy but it has stopped you from starving to death. A day later the cell door unlocks and two guards push two new inmates into the cell with you.
+> speak to will scarlet
+
+> speak to will scarlet
+'Cousin, what brings you to these lavish surroundings?' you enquire.
+
+'Robin, it seems Gisbourne caught us both 'borrowing' food in Nottingham market and we both had different ideas on punishment. I preferred his head on a lance and he wanted my head on the chopping block.' smiles Will.
+
+'Any plans for an escape?' you ask.
+
+'Well I did perchance relieve one of the guards with a certain key to this cell.' Will grins and hands you an iron key.
+
+'Time to leave the Sheriff's hospitality.' you smile.
+> unlock cell door
+
+> unlock cell door
+Unlocked with the iron key.
+> open cell door
+
+> open cell door
+You open it.
+> west
+
+> west
+
+You are in the dungeon.  A dark chamber with steps leading upstairs.
+You can go up or east.
+You can see a two guards.
+> look at two guards
+
+> look at two guards
+Two of the laziest and drunken guards you have ever seen. They are both fast asleep.
+You find a copper key on one of the guards.
+> take copper key
+
+> take copper key
+You pick it up.
+> up
+
+> up
+You all escape the castle by a lapse in the guards security -  they left the front gate open - and head for Sherwood Forest. The Sheriff proclaims you all as outlaws and you make camp in the deepest part of the forest. You call it Greenwood and moreover - home. Here you will stay and wonder how you can survive.
+
+'We could always rob the rich.' suggests Will.
+
+'An give it to the poor.' adds Much.
+
+You look at Much and think he has a point. The Sheriff is always taking from the poor even when they have nothing at all. The look on his face would be priceless if we gave back to the needy that was forcibly taken by the 'Sheriff of Rottingham' as Much nicknamed him.
+
+The Great Hall, Nottingham Castle
+
+The Sheriff and Gisbourne are discussing ways to recapture Loxley.
+
+'No one has even escaped my dungeon before. He must be taken alive so I can execute him before the peasants and make an example of him. I need to show an iron glove of power. He has humiliated me, Gisbourne.' shouts the Sheriff.
+
+'I will personally see to it myself to recapture him for you, my Lord.' whimpers Guy.
+
+'No, wait!' muses the Sheriff, 'I have a better plan. He needs to come to us willingly. I hear Loxley is a keen archer. I will hold an archery contest at the upcoming fair. But we need bait... I have it. Fetch me that silver arrow from my repository. I believed it belonged to his wretched father. A symbol of hope for the downtrodden but a hope of capturing an outlaw, Gisbourne,' he laughs, 'He won't be able to resist.'
+
+A few weeks later deep in Sherwood Forest
+
+You were wandering the forest when you hear rushing water up ahead. You come to a shallow river with a narrow bridge spanning across it. However, as you try to cross the bridge a large giant of a man stands in your way and refuses to step aside.
+
+'I say, stranger. Make way - this is a public bridge!' you demand.
+
+'Stranger or not I will not let you pass without a challenge. After all, a little bird like yourself could just fly across this little stream.' he laughs.
+
+'What is your name, giant? I feel it is impolite to defeat a man of such stature without proper introduction.'
+
+'John Little and what pray is your name?' he frowns.
+
+'Robin of Loxley. Although locals have recently renamed me 'Robin of the Hood' because of my attire. I am an outlaw, John Little, pay heed or receive a soaking.'
+
+'Robin! You are a little bird, indeed. Fly away or prepare for battle. Find yourself a quarterstaff as only pride rather than blood should fall this day.'
+
+You are on a narrow wooden bridge that only allows one person at a time.
+You can go south or north.
+You can see John Little.
+> south
+
+> south
+
+You are by the bank of a fast flowing river. It's quite shallow but a flat wooden bridge spans across it to the other side. There are oak trees all around you.
+You can go north.
+> cut branch
+
+> cut branch
+You cut the branch down and fashion it into a quarterstaff.
+> north
+
+> north
+
+You are on a narrow wooden bridge that only allows one person at a time.
+You can go south or north.
+You can see John Little.
+> use quarterstaff on john little
+
+> use quarterstaff on john little
+After a brief contact of staffs, John manages to knock you in to the water, soaking you to the skin.
+
+'Again!' you shout over John's laughter. He helps you back on to the bridge.
+
+However, in a short time you are sitting in the river dripping wet again.
+
+'It looks like my little bird's feathers were in need of a good clean.' laughs John.
+
+Reluctantly, you admit defeat and he helps you once again on to the bridge.
+
+'What say you, John. Join my motley crew of outlaws, I could do with a tower of strength like yourself?' you ask.
+
+'Thank you, Robin. I was actually looking for you anyway to join your merry troupe. To push a mightier thorn in to the Sheriff's side is a good reason to join you.' he smiles but drifts off in thought with sad eyes.
+
+'Then it is done! Welcome John Little or should I say Little John.'
+
+You both laugh and pat each other on the backs as you head for Greenwood.
+
+Nottingham Fair
+
+The Nottingham Fair is an annual event every year to allow traders from all over the county and beyond to come and sell their wares. With street entertainers and all day drinking who could resist.
+
+Allen a Dale returns in haste to Greenwood and informs you of the archery contest being held at the fair.
+
+'The first prize is a silver arrow, Robin. It sounds like the one you told us about that was stolen from your father around the time of his death.' says Allen.
+
+You ponder on how the Sheriff had acquired the arrow. All you remember is that it was Herne's Arrow - a symbol of hope. You must get it back.
+
+'I am going to win that contest, Allen and retrieve what belongs to me now. I know it to be a trap but it's important to me. What say you all? Fancy a visit to the Nottingham Fair?' you smile.
+
+Your men all cheer and you head for the fair.
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  It brings in quite a crowd. Traders sell their wares and people are being entertained on the street.
+You can go east, west or north.
+You can see a fire-eater and Allen a Dale.
+> look at fire-eater
+
+> look at fire-eater
+A small man wearing red and yellow attire. He swallows the fire and burns himself every time. He is quite terrible!
+> speak to allen a dale
+
+> speak to allen a dale
+'Maybe you should deal with the Fire-eater, he's terrible?' you ask of Allen.
+
+Allen moves closer to the Fire-eater and pushes him when he is in the middle of swallowing a fiery brand. He gags, falls over and knocks a nearby stall. The Fire-eater is outraged and leaves.
+> look at stall
+
+> look at stall
+A wooden table.
+It contains an iron chain.
+> take iron chain
+
+> take iron chain
+You pick it up.
+> east
+
+> east
+
+You are on a muddy track by a thatched cottage.  The mud is thick in places due to flooding on occasion from the river.  A field lies to the east.
+You can go south, in, east or west.
+> south
+
+> south
+
+You are by a strong flowing river called the Trent.  Its source comes from Staffordshire and joins the River Ouse in Yorkshire.  You are standing outside a Blacksmith's Forge.
+You can go in or north.
+You can see Will Scarlet.
+> in
+
+> in
+
+You are inside the building by the forge that is filled with burning hot coals.  An anvil stands nearby.  A blacksmith or smithy deals with iron - shaping and forming iron.  He is not a Farrier  as they are someone who only shoes horses.
+You can go out.
+You can see Henry the Smith.
+> give iron chain to henry the smith
+
+> give iron chain to henry the smith
+Henry takes it gladly and gives you some pliers in return.
+> take pliers
+
+> take pliers
+You pick them up.
+> out
+
+> out
+
+You are by a strong flowing river called the Trent.  Its source comes from Staffordshire and joins the River Ouse in Yorkshire.  You are standing outside a Blacksmith's Forge.
+You can go in or north.
+You can see Will Scarlet.
+> look at river
+
+> look at river
+A fast-flowing river.
+There is a clump of frogspawn here.
+> take frogspawn
+
+> take frogspawn
+You pick it up.
+> north
+
+> north
+
+You are on a muddy track by a thatched cottage.  The mud is thick in places due to flooding on occasion from the river.  A field lies to the east.
+You can go south, in, east or west.
+> east
+
+> east
+
+You are on the outer edge of a wheat field. Its straw is used to make roofing for thatched cottages and its grain to make flour for bread.
+You can go west.
+You can see some wheat.
+> pull wheat
+
+> pull wheat
+You pull it out of the ground.
+> cut wheat
+
+> cut wheat
+You cut the wheat down into grain.
+> west
+
+> west
+
+You are on a muddy track by a thatched cottage.  The mud is thick in places due to flooding on occasion from the river.  A field lies to the east.
+You can go south, in, east or west.
+> west
+
+> west
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  It brings in quite a crowd. Traders sell their wares and people are being entertained on the street.
+You can go east, west or north.
+You can see Allen a Dale.
+> west
+
+> west
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  Traders sell their wares and a crowd of people are being entertained on the street. A poster is glued to a nearby wall informing the crowd of the Archery contest held in the field to the northwest. A wooden platform stands in the centre and is used as a stage for performers. You are also standing outside the Lion's Head tavern.
+You can go east, northwest, south or in.
+> use frogspawn on platform
+
+> use frogspawn on platform
+You put the frogspawn on the platform quite near the Animal Trainer. After a while he slips on it and the Bear escapes scattering the frightened crowd. In the panic someone drops a silver piece in front of you. The Trainer chases after the Bear trying to catch him.
+> take bent coin
+
+> take bent coin
+You pick it up.
+> south
+
+> south
+
+You are by a strong flowing river called the Trent.  Its source comes from Staffordshire and joins the River Ouse in Yorkshire.  On the bank is a waterwheel which turns the millstones located within the mill that you are currently standing outside.
+You can go north or in.
+You can see Little John.
+> look at stone
+
+> look at stone
+A  large heavy stone stopping the waterwheel from moving. You need help moving it!
+> speak to little john
+
+> speak to little john
+'Could you help me move that stone, Little John?' you ask.
+
+'Right oh, Robin!' he obliges.
+
+He grabs the stone with both hands and slowly lifts it up and throws it in the river with a huge splash. The waterwheel starts to move again.
+> in
+
+> in
+
+Inside the watermill are two huge millstones lying on top of each other ready to grind grain to make flour.  They in turn are attached to the waterwheel outside.
+You can go out.
+> use grain on millstones
+
+> use grain on millstones
+You pour the grain into the holes at the top of the millstones and they grind it into flour.
+> take flour
+
+> take flour
+You pick it up.
+> out
+
+> out
+
+You are by a strong flowing river called the Trent.  Its source comes from Staffordshire and joins the River Ouse in Yorkshire.  On the bank is a waterwheel which turns the millstones located within the mill that you are currently standing outside.
+You can go north or in.
+You can see Little John.
+> north
+
+> north
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  Traders sell their wares and a crowd of people are being entertained on the street. A poster is glued to a nearby wall informing the crowd of the Archery contest held in the field to the northwest. A wooden platform stands in the centre and is used as a stage for performers. You are also standing outside the Lion's Head tavern.
+You can go east, northwest, south or in.
+> east
+
+> east
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  It brings in quite a crowd. Traders sell their wares and people are being entertained on the street.
+You can go east, west or north.
+You can see Allen a Dale.
+> east
+
+> east
+
+You are on a muddy track by a thatched cottage.  The mud is thick in places due to flooding on occasion from the river.  A field lies to the east.
+You can go south, in, east or west.
+> in
+
+> in
+
+You are inside a thatched cottage.  A small single room with a straw roof and few furnishings.  However, this belongs to a rich merchant and why is his floor so clean?
+You can go out.
+You can see Samuel the Merchant.
+> use flour on floor
+
+> use flour on floor
+You scatter flour all over the clean floor. How cruel of you!
+> speak to samuel the merchant
+
+> speak to samuel the merchant
+'I know who you are, Robin Hood! I have no money, you're wasting your time.' he panics.
+
+I guess that told you.
+> speak to samuel the merchant
+
+> speak to samuel the merchant
+'Leave me alone or I'll call for the Sheriff.' he splutters.
+
+You give him a dirty look and he cowers into silence. He looks like he is about to do a runner.
+> out
+
+> out
+
+You are on a muddy track by a thatched cottage.  The mud is thick in places due to flooding on occasion from the river.  A field lies to the east.
+You can go south, in, east or west.
+> in
+
+> in
+
+You are inside a thatched cottage.  A small single room with a straw roof and few furnishings.  However, this belongs to a rich merchant and why is his floor so clean?
+You can go out.
+> look at floor
+
+> look at floor
+Footprints in the flour lead to a hanging tapestry.
+> move tapestry
+
+> move tapestry
+You find a recess behind it.
+> look at recess
+
+> look at recess
+A small hole in the wall.
+It contains a silver coin.
+> take silver coin
+
+> take silver coin
+You pick it up.
+> use silver coin on bent coin
+
+> use silver coin on bent coin
+You place the coins together.
+> out
+
+> out
+
+You are on a muddy track by a thatched cottage.  The mud is thick in places due to flooding on occasion from the river.  A field lies to the east.
+You can go south, in, east or west.
+> west
+
+> west
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  It brings in quite a crowd. Traders sell their wares and people are being entertained on the street.
+You can go east, west or north.
+You can see Allen a Dale.
+> west
+
+> west
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  Traders sell their wares and a crowd of people are being entertained on the street. A poster is glued to a nearby wall informing the crowd of the Archery contest held in the field to the northwest. A wooden platform stands in the centre and is used as a stage for performers. You are also standing outside the Lion's Head tavern.
+You can go east, northwest, south or in.
+> in
+
+> in
+
+You are in the Lion's Head Tavern. It's a small tavern with a few tables and stools. A stretch of wood across two barrels make the bar.
+You can go out.
+You can see Thomas the Miller.
+> speak to thomas the miller
+
+> speak to thomas the miller
+'Robin, it's been a long time. How is my son?' he asks.
+
+'Much is fine. I'm sorry I put him into this situation.' you reply.
+
+'Don't you say that, Robin. He's a foolish boy but never a fool to others. I wish I could see him again.'
+
+'He's here at the fair. I'll go and fetch him.'
+> out
+
+> out
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  Traders sell their wares and a crowd of people are being entertained on the street. A poster is glued to a nearby wall informing the crowd of the Archery contest held in the field to the northwest. A wooden platform stands in the centre and is used as a stage for performers. You are also standing outside the Lion's Head tavern.
+You can go east, northwest, south or in.
+> east
+
+> east
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  It brings in quite a crowd. Traders sell their wares and people are being entertained on the street.
+You can go east, west or north.
+You can see Allen a Dale.
+> north
+
+> north
+
+You are on a wide track that leads up to the castle gate and down to the Nottingham Fair.
+You can go south, north or west.
+You can see Much.
+> speak to much
+
+> speak to much
+'Your father is in the Lion's Head Tavern. He wishes to see you.' you smile.
+
+Much's face beams with delight and he rushes off to the tavern. Meanwhile, a horse and cart drives up and stops nearby.
+> look at cart
+
+> look at cart
+A small horse-drawn wooden cart.
+It contains a cloak.
+> take cloak
+
+> take cloak
+You pick it up.
+> wear cloak
+
+> wear cloak
+You put on the cloak. It hides your Lincoln green attire completely.
+> south
+
+> south
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  It brings in quite a crowd. Traders sell their wares and people are being entertained on the street.
+You can go east, west or north.
+You can see Allen a Dale.
+> west
+
+> west
+
+You are in the middle of the hustle and bustle of the Nottingham Fair.  Traders sell their wares and a crowd of people are being entertained on the street. A poster is glued to a nearby wall informing the crowd of the Archery contest held in the field to the northwest. A wooden platform stands in the centre and is used as a stage for performers. You are also standing outside the Lion's Head tavern.
+You can go east, northwest, south or in.
+> northwest
+
+> northwest
+
+You are in a large field with a stand for the crowd to sit and watch the archery contest.
+You can go southeast.
+You can see an Archery Official.
+> give two silver coins to archery official
+
+> give two silver coins to archery official
+'Let the contest begin!' he shouts as two more competitors join you.
+
+The rules are simple. There are two rounds. You get to fire an arrow at the target first and the other competitors follow you. The two closest to get an arrow in the centre of the target moves on to the final round. Whoever gets closest to the centre of the target in the final round wins the silver arrow.
+> use bow on target
+
+> use bow on target
+You fire your arrow into the target and you hit the centre of the bullseye. Adam the Butcher goes next and hits the outer circle. Barnabus the Tailor goes last and hits the bullseye like yourself. You and Barnabus are through to the final round.
+
+Barnabus goes first and hits the centre of the bullseye perfectly. The only chance of winning is by some miracle. It's your turn now.
+> use bow on target
+
+> use bow on target
+As if your prayers were answered, you fire your arrow and it whistles into the target and actually splits Barnabus' arrow right down the middle. You have won! Time to receive your prize from the Sheriff who enters the field with Gisbourne.
+> speak to sheriff
+
+> speak to sheriff
+'Congratulations, young man. Here is your prize.' he scowls as he reluctantly hands you the silver arrow.
+
+'Tell me, stranger,' interrupts Gisbourne, 'Who are you that showed fine archery skills this very day? Come on, don't be shy.'
+
+Gisbourne pulls off your hood and laughs. 'I knew it! It's Robin Hood! Guards, arrest this criminal!' he screams.
+
+You push Gisbourne into the path of the Sheriff and they both fall over. You make your escape. However, one of the guards cuts you with his sword and you cry in pain dripping blood down your arm. An hour later you and your men are safely at Greenwood.
+
+'That was too close, Robin.' puffs Little John catching his breath.
+
+'Next time, Robin, you should make it much harder for us all.' laughs Will.
+
+You look at the silver arrow and smile. 'That was for you, Father' you whisper as you find a safe place to store it.
+
+King Richard's Kidnapping, December, 1192.
+
+News reaches Greenwood telling you that King Richard the Lionheart, on returning from the Crusades, was kidnapped by Duke Leopold of Austria. He was, in turn, given to Henry VI, Holy Roman Emperor who is demanding 150,000 marks for his safe return to England.
+
+You vow to raise this ransom and start with the silver arrow. However, it won't be enough and you need to think on how to raise more funds.
+
+A week later.
+
+You haven't been to church for ages since you became an outlaw and risk visiting Saint Mary's chapel at the Abbey. You will make a prayer for King Richard and your Father. You will also meet up with your old friend Brother Tuck who you haven't seen for a while and ask his advice on how to raise Richard's ransom.
+
+You are in the abbey cloisters.  A rectangular open space surrounded by covered walks, with open arcades on the inner side running along the walls of the abbey and forming a quadrangle.
+You can go in.
+> in
+
+> in
+
+You are in the nave.  This is the main body of the church from entrance to the chancel.  Aisles run east and west by the seats on the north and south sides of the church walls.
+You can go out or east.
+You can see Brother Tuck.
+> speak to brother tuck
+
+> speak to brother tuck
+'Robin, how is the life of an outlaw? The fresh air has certainly ruddied your cheeks,' Tuck laughs, 'What brings you to Saint Mary's?'
+
+'Did you hear about the King's kidnapping?' you ask.
+
+'Indeed I did. A travesty to all of England. I presume you have taken it upon yourself to raise his ransom?'
+
+'You know me so well, Tuck, I have already regained Herne's Arrow and wonder if you know of any treasure to increase the coffers?'
+
+'I had heard the Bishop of Hereford donated a considerable sum to the Sheriff quite recently in return for not disclosing his carnal activities to the Archbishop. A considerable sum that would no doubt release King Richard from his bondage. The Sheriff keeps it in his repository in his castle. Now are you here to repent your sins or has the Devil acquired a new disciple?' mocks Tuck.
+
+'I'm here to say a prayer to the King and my Father.'
+
+'Then, God be with you, my son.' nods Tuck and leave you to your thoughts.
+> east
+
+> east
+Brother Tuck waves goodbye as you leave and disappears himself.
+
+You are in the chancel.  This is the east part of the church where a stone altar rests upon a raised dais. Stone spiral steps lead up to the belfry.
+You can go west or up.
+> kneel
+
+> kneel
+You kneel before the altar.
+> pray
+
+> pray
+You pray to the King and your Father. As you kneel in silence, eyes closed, a noise makes you look up and are shocked to see a figure head to toe in black stealing the silver chalice off the altar. You both stare at each other for a second before he runs upstairs to the belfry.
+> up
+
+> up
+You stand up first to leave.
+
+You are in the belfry.  In front of you is a large iron bell. Steps lead down to the chancel.
+You can go down.
+You can see a masked stranger.
+> push bell
+
+> push bell
+You push the bell into the stranger with a loud CLANG and you knock him out.
+> remove mask
+
+> remove mask
+You take off the mask and are shocked to see your childhood sweetheart Marian looking back at you! You revive Marian and she gives you a stern look.
+
+'That hurt, Robin. Never study campanology.' she scolds.
+
+'Sorry, Marian, but dressed like that I didn't know who you were. And by the way, why were you stealing the chalice?'
+
+'I know you to well. You would find any way to raise King Richard's ransom and so I thought this might help.' says Marian sheepishly.
+
+'There is no need, Marian, Brother Tuck has told me about the Sheriff's treasure at the castle.'
+
+'I thought it would be too risky. I'm currently staying with the Sheriff at the moment. I was on my way home from Salisbury and stayed the night - much to the Sheriff's and Guy's delight, no doubt. I could stay a bit longer and spy on them if you would like.'
+
+'I couldn't ask that of you, Marian.'
+
+'It would be my pleasure, Robin.'
+
+You and Marian suddenly catch a moment together but you both quickly snap out of it.
+
+'Eh... be careful, Marian. I'll send word if I need your help.'
+
+You leave your own separate ways and you head back to Greenwood.
+
+The Raid on Nottingham Castle
+
+A few days later Brother Tuck arrives with a message from Marian. She tells you, in her note, that most of the Sheriff's men have left Nottingham Castle on an important errand and tonight would be a good time to steal the treasure. You send Tuck back with a message to Marian, informing her that you agree and can she open the castle gate somehow at around midnight.
+
+With the plan set in place you and your men enter Nottingham Castle and deal with any remaining guards scattered around the castle.
+
+Now where is this repository?
+
+You are in a large courtyard with the main entrance to the north, stables to the east, the gate room to the southeast and steps up to the battlement.  The gate is closed.
+You can go out, east, southeast, in or up.
+You can see Will Scarlet, Allen a Dale, Much, Little John and Brother Tuck.
+> east
+
+> east
+
+You are in the stables.  A smelly large building with a few stalls.
+You can go west.
+You can see a horse.
+> pull nail
+
+> pull nail
+You pull the nail out with the pliers and the horse feels a bit better. You discard the nail.
+> move horse
+
+> move horse
+The horse moves out of the way revealing a trough.
+> west
+
+> west
+
+You are in a large courtyard with the main entrance to the north, stables to the east, the gate room to the southeast and steps up to the battlement.  The gate is closed.
+You can go out, east, southeast, in or up.
+You can see Will Scarlet, Allen a Dale, Much, Little John and Brother Tuck.
+> in
+
+> in
+
+You are in the Entrance Hall with passages leading off to the east and west and the Great Hall to the north. Outside leads to the courtyard.
+You can go out, east, west or north.
+> east
+
+> east
+
+You are in a narrow passageway with exits leading to the library and steps down to the dungeon.
+You can go west, down or east.
+> east
+
+> east
+
+You are in the library.  A small room with shelves full of mainly religious books.  A large reading-stand lies in the centre of the room.
+You can go west.
+> look at stand
+
+> look at stand
+A small wooden table for reading books.
+It contains a book.
+> take book
+
+> take book
+You pick it up.
+> west
+
+> west
+
+You are in a narrow passageway with exits leading to the library and steps down to the dungeon.
+You can go west, down or east.
+> west
+
+> west
+
+You are in the Entrance Hall with passages leading off to the east and west and the Great Hall to the north. Outside leads to the courtyard.
+You can go out, east, west or north.
+> out
+
+> out
+
+You are in a large courtyard with the main entrance to the north, stables to the east, the gate room to the southeast and steps up to the battlement.  The gate is closed.
+You can go out, east, southeast, in or up.
+You can see Will Scarlet, Allen a Dale, Much, Little John and Brother Tuck.
+> give book to brother tuck
+
+> give book to brother tuck
+'Can you translate this for me, Tuck?' you ask.
+
+He takes the book off you and reads, 'The book is an abomination, banned by the church. It's Witchcraft! It mentions various spells and curses.
+
+'Mmm... that's interesting. It says here that to stop someone with an invisible force, a talisman of great importance from the one to be cursed, needs to be spoiled with their own blood for it to work. However, to break the same curse, you need to clean the blood off the talisman and the curse is broken.
+
+'It's only interesting to an academic, like myself, Robin.' he says as he sees your rather disgusted expression. He hands the book back to you.
+> in
+
+> in
+
+You are in the Entrance Hall with passages leading off to the east and west and the Great Hall to the north. Outside leads to the courtyard.
+You can go out, east, west or north.
+> west
+
+> west
+
+You are in a narrow passageway with exits leading to a tower room and the kitchen.
+You can go east, north or west.
+> north
+
+> north
+
+You are in a large tower room with a high ceiling.  It's full of junk and a single wooden shelf is fixed to the wall.
+You can go south.
+> unlock casket
+
+> unlock casket
+Unlocked with the copper key.
+> open casket
+
+> open casket
+You open it.
+It contains a gold ring.
+> take gold ring
+
+> take gold ring
+You pick it up.
+> south
+
+> south
+
+You are in a narrow passageway with exits leading to a tower room and the kitchen.
+You can go east, north or west.
+> west
+
+> west
+
+You are in the kitchen.  A large room with an open fire to cook food upon and a cupboard by the wall.
+You can go east.
+> open cupboard
+
+> open cupboard
+You open it.
+It contains a bottle of olive oil.
+> take olive oil
+
+> take olive oil
+You pick it up.
+> use olive oil on gold ring
+
+> use olive oil on gold ring
+You pour the olive oil over the ring.
+> east
+
+> east
+
+You are in a narrow passageway with exits leading to a tower room and the kitchen.
+You can go east, north or west.
+> east
+
+> east
+
+You are in the Entrance Hall with passages leading off to the east and west and the Great Hall to the north. Outside leads to the courtyard.
+You can go out, east, west or north.
+> out
+
+> out
+
+You are in a large courtyard with the main entrance to the north, stables to the east, the gate room to the southeast and steps up to the battlement.  The gate is closed.
+You can go out, east, southeast, in or up.
+You can see Will Scarlet, Allen a Dale, Much, Little John and Brother Tuck.
+> east
+
+> east
+
+You are in the stables.  A smelly large building with a few stalls.
+You can go west.
+You can see a horse.
+> wash gold ring
+
+> wash gold ring
+You wash the ring in the water and the blood comes off.
+> west
+
+> west
+
+You are in a large courtyard with the main entrance to the north, stables to the east, the gate room to the southeast and steps up to the battlement.  The gate is closed.
+You can go out, east, southeast, in or up.
+You can see Will Scarlet, Allen a Dale, Much, Little John and Brother Tuck.
+> in
+
+> in
+
+You are in the Entrance Hall with passages leading off to the east and west and the Great Hall to the north. Outside leads to the courtyard.
+You can go out, east, west or north.
+> north
+
+> north
+
+You are in the large imposing Great Hall with a large chair by the north wall where the Sheriff sits.  A wooden chandelier hangs from the ceiling. Stairs lead up to the upper floor.
+You can go south or up.
+You can see Guy of Gisbourne.
+> speak to guy of gisbourne
+
+> speak to guy of gisbourne
+'Well, the dreaded outlaw, Robin of the Hood, returns.' he laughs, 'Come to steal the Sheriff's treasure, no doubt?' Guy grins.
+
+'Oh, Gisbourne, you're not going to do something annoying, like... get in my way?' you retort.
+
+'Well, if one Loxley isn't too much trouble, then another one won't be too much bother.' he smirks.
+
+'What do you mean?'
+
+'Oh, dear! Didn't anyone tell you? I was the one who killed your Father. My dogs had a grand feast that day.' he laughs.
+
+You restrain your anger but you must avenge your Father in some non-murderous way!
+> use bow on rope
+
+> use bow on rope
+You fire an arrow at the rope and it cuts it cleanly in two. The chandelier plummets to the ground. Unfortunately, for Gisbourne he breaks the chandelier's fall and he falls unconscious!
+> up
+
+> up
+
+You are atop the stairs with the landing leading east and west.
+You can go down, east or west.
+> east
+
+> east
+
+You are on a narrow landing outside two bedchambers.
+You can go west, east or north.
+> east
+
+> east
+
+You are in Marian's Bedchamber.  A small room with a single bed.
+You can go west.
+You can see Marian.
+> speak to marian
+
+> speak to marian
+'Robin, I'm glad you're here. I have just overheard the Sheriff and Maudlin discussing a curse that's upon you. They said your blood is on an artefact that belonged to your Father. What could it be?' panics Marian.
+
+'An artefact? My blood?' you stammer. You suddenly recall the incident at the Archery Contest when you escaped with the arrow. A guard cut you with his sword. Really? The Sheriff must of taken the blood from that sword and used it in a curse against you.
+
+'Are you alright, Robin?' comforts Marian.
+
+'Don't worry, Marian. The curse has been lifted.' you smile.
+> west
+
+> west
+
+You are on a narrow landing outside two bedchambers.
+You can go west, east or north.
+> north
+
+> north
+
+You are in the Sheriff's Bedchamber. A large room with a huge double bed.
+You can go south.
+You can see the Sheriff of Nottingham.
+> punch sheriff of nottingham
+
+> punch sheriff of nottingham
+You step up to him and punch him right in the jaw. He falls down with a thump! You've knocked him out cold. You search his body and find a brass key - which you take.
+> south
+
+> south
+
+You are on a narrow landing outside two bedchambers.
+You can go west, east or north.
+> west
+
+> west
+
+You are atop the stairs with the landing leading east and west.
+You can go down, east or west.
+> west
+
+> west
+
+You are on a narrow landing outside the repository and a small chamber.
+You can go east, north or west.
+> unlock oak door
+
+> unlock oak door
+Unlocked with the brass key.
+> open oak door
+
+> open oak door
+You open it.
+> west
+
+> west
+
+You are in the repository.  A small room with no windows and solid walls and floor.
+You can go east.
+You can see a treasure chest.
+> take chest
+
+> take chest
+It's too heavy for you alone.
+> east
+
+> east
+
+You are on a narrow landing outside the repository and a small chamber.
+You can go east, north or west.
+> north
+
+> north
+
+You are in Maudlin's Chamber.  A dirty chamber full of smoke and disgusting smells.  A large table stands in the centre of the chamber.
+You can go south.
+You can see Maudlin the Witch.
+> look at table
+
+> look at table
+A large oak table.
+It contains a jar of tar.
+> take jar of tar
+
+> take jar of tar
+You pick it up.
+> south
+
+> south
+
+You are on a narrow landing outside the repository and a small chamber.
+You can go east, north or west.
+> east
+
+> east
+
+You are atop the stairs with the landing leading east and west.
+You can go down, east or west.
+> down
+
+> down
+
+You are in the large imposing Great Hall with a large chair by the north wall where the Sheriff sits.  Stairs lead up to the upper floor.
+You can go south or up.
+You can see Guy of Gisbourne.
+> south
+
+> south
+
+You are in the Entrance Hall with passages leading off to the east and west and the Great Hall to the north. Outside leads to the courtyard.
+You can go out, east, west or north.
+> out
+
+> out
+
+You are in a large courtyard with the main entrance to the north, stables to the east, the gate room to the southeast and steps up to the battlement.  The gate is closed.
+You can go out, east, southeast, in or up.
+You can see Will Scarlet, Allen a Dale, Much, Little John and Brother Tuck.
+> speak to little john
+
+> speak to little john
+'John, could you help me carry the treasure chest in the repository?' you ask.
+
+'Right oh, Robin!' he smiles and goes off into the castle. Before you have time to help him he comes back with the chest sitting on his shoulder!
+> southeast
+
+> southeast
+
+You are in the gate room.  A small room with a large chain attached to the gate at one end outside and a large drum in here.
+You can go northwest.
+> turn handle
+
+> turn handle
+You turn the handle and the castle gate opens. Everyone, except you, escapes the castle - even Marian! You let go of the handle and the gate closes shut. You need to find another way to escape since no one willing can open the gate for you!
+> northwest
+
+> northwest
+
+You are in a large courtyard with the main entrance to the north, stables to the east, the gate room to the southeast and steps up to the battlement.  The gate is closed.
+You can go out, east, southeast, in or up.
+> up
+
+> up
+
+You are atop the battlement overlooking Nottingham down below.
+You can go down or in.
+> in
+
+> in
+
+You are in the tall round south tower with a wooden floor and a single narrow window to the south.
+You can go out.
+> use jar of tar on floorboards
+
+> use jar of tar on floorboards
+You glue down the unsafe floorboards with the tar.
+> jump from window
+
+> jump from window
+You jump from the window and land on the haystack below.
+
+You are by the castle wall.  The tall stone wall is part of the south tower.  A large haystack sits at the base of the wall.  Looking up you spy a small narrow window.
+You can go east.
+You can see Allen a Dale, Brother Tuck, Little John, Marian, Much and Will Scarlet.
+> east
+
+> east
+You all escape with the treasure and head back to Greenwood.
+
+Epilogue
+
+After returning to camp, Robin tried to persuade Marian to return home but she refused. They both fell in love and Marian was declared an outlaw by the Sheriff. The treasure and the silver arrow paid for King Richard's ransom and what remained was given to the poor. This, in turn, became the main reason why Robin, Marian and the Merry Men continued as outlaws.
+
+King Richard eventually returned to England in March, 1194.
+
+Robin and Marian got married at Saint Mary's Church in Edwinstowe. She fought for many years by Robin's side.
+
+After years of loyal service to Robin, Tuck retired with his dogs as Clerk of Companhurst.
+
+Will Scarlet's life was a troubled one. After questioning Robin's decisions for many years he left to get married and never returned to Greenwood. However, his wife was murdered shortly afterwards, and he avenged her death by killing her murderers. Will joined another band of outlaws but was killed during a failed robbery.
+
+Allen a Dale rescued his true love, Ellen, from marrying a rich, cruel knight. With the help of Robin and the Merry Men, they stopped the wedding, fought the knight and rescued Ellen.
+
+Much grew up fast and was even as tall as Little John. Over twenty years later, Robin decided to retire and Much became leader. He adopted Robin's appellation to keep the hope and symbol of Robin Hood alive.
+
+When Little John died he was buried at Hathersage, Yorkshire where he originally came from and his grave can be seen at Saint Michael's church to this day. The inscription reads on his grave:
+
+Here Lies Buried Little John The Friend & Lieutenant of Robin Hood He Died In A Cottage (Now Destroyed) To The East of The Churchyard The Grave Is Marked By This Old Headstone & Footstone And Is Underneath The Old Yew.
+
+In 1784 Captain James Shuttleworth exhumed the grave to find the bones of a man over seven feet tall.
+
+During his dying days, Robin shot an arrow in the air and where it landed was where Little John buried him. His grave is believed to be located at Kirklees, Yorkshire. His epitaph reads (in a non-classified Middle English):
+
+Hear underneath dis laitl stean
+Laz robert earl of Huntingtun
+Ne’er arcir ver as hie sa geud
+An pipl kauld im robin heud
+Sick [such] utlawz as he an iz men
+Vil england nivr si agen
+Obiit 24 kal: Dekembris, 1247.
+
+In the 18th century, Thomas Gale, Dean of York, claimed to have found a poetic epitaph with the date of death given as 8 November 1247, which is the date in the modern calendar that corresponds to 24 Dekembris in the calendar in use in 1247. Two Elizabethan-era stage plays on the Robin Hood legend, that were written by Anthony Munday (possibly with help from Henry Chettle) in 1598 and published in 1601 name him as Robert, Earl of Huntington.
+
+Whenever he died the Legend of Robin Hood will live on for a long time to come...
+
+The End
+[state=Finished]

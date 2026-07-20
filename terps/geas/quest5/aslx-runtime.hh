@@ -773,7 +773,19 @@ private:
     // the turnscripts DO tick for that turn (just deferred). Replayed after the
     // frames, before the owed pane refresh. Core's RunTurnScripts self-guards on
     // IsGameRunning(), so an owed FinishTurn on a finished game no-ops the ticks.
+    void run_deferred_finish_turn();
+
     bool parked_owes_finishturn_ = false;
+
+    // A `wait` registered during this command's HandleCommand, so the turn is
+    // parked on the player rather than finished. Legacy Quest 5 runs the game
+    // on its own thread and blocks it inside `wait`, so the stack survives and
+    // FinishTurn -- every turnscript -- runs AFTER the wait callback; the async
+    // model returns from `wait` immediately and would race FinishTurn ahead of
+    // it, firing turnscripts in a room the callback is about to leave. Set here
+    // and discharged by finish_wait (pre-v580 only, matching the version gate
+    // on the FinishTurn call itself).
+    bool finish_turn_deferred_ = false;
 };
 
 }  // namespace aslx
