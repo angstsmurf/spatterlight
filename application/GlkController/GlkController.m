@@ -242,6 +242,22 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [self identifyGame:game.ifid];
     }
 
+    // Adopt the restoration handler BEFORE anything below can bail out. The
+    // game-file-gone path just below needs it, and a reset re-enters here with
+    // a pending handler from the launch that must be closed out (see below),
+    // so neither can wait for the autorestore block further down.
+    //
+    // A reset (the interpreter rejecting its own autosave: win_reset, which
+    // arrives as RESET) re-enters runTerp with completionHandler == nil. Any
+    // restoration still outstanding from the original launch belongs to the
+    // window that is about to be reused, so finish it rather than dropping it
+    // on the floor -- AppKit is otherwise never told this restoration
+    // completed, and its bookkeeping for the window is left hanging.
+    if (_restorationHandler && completionHandler == nil)
+        [self runWindowsRestorationHandler];
+    windowRestoredBySystem = (completionHandler != nil);
+    _restorationHandler = completionHandler;
+
     _gamefile = _gameFileURL.path;
 
     // This may happen if the game file is deleted (or the drive it is on
@@ -253,6 +269,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         if (![[NSFileManager defaultManager] isReadableFileAtPath:_gamefile]) {
             game.found = NO;
             if (windowRestoredBySystem) {
+                // Tell AppKit the restoration is over (with no window: the
+                // game file is gone, so there is nothing to restore).
                 _restorationHandler(nil, nil);
                 _restorationHandler = nil;
             } else {
@@ -299,8 +317,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     if (_theme.autosave == NO)
         self.window.restorable = NO;
     game.autosaved = (_supportsAutorestore && _theme.autosave);
-    windowRestoredBySystem = (completionHandler != nil);
-    _restorationHandler = completionHandler;
 
     _shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
