@@ -103,6 +103,18 @@
     shouldRestoreUI = NO;
     self.shouldStoreScrollOffset = NO;
 
+    // Stop whatever the pre-restore handler started before replacing it
+    // wholesale. Sound requests can arrive between the fork and restoreUI, and
+    // GlkSoundChannel.handler is weak, so in the common case the outgoing
+    // handler simply deallocates and takes its players with it. A channel
+    // mid-fade is the exception: init_fade schedules a repeating NSTimer with
+    // target:self, so the run loop retains that channel after its handler is
+    // gone. It would keep playing and ticking forever with a nil handler
+    // (notifications silently dropped), and nothing could ever reach it --
+    // stopAllAndCleanUp iterates only the live handler's channels. [stop]
+    // runs [cleanup], which invalidates the timer and releases the channel.
+    [self.soundHandler stopAllAndCleanUp];
+
     self.soundHandler = restoredControllerLate.soundHandler;
     self.soundHandler.glkctl = self;
     [self.soundHandler restartAll];
@@ -575,7 +587,8 @@
         self.gwindows = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gwindows"];
 
         self.soundHandler = [decoder decodeObjectOfClass:[SoundHandler class] forKey:@"soundHandler"];
-        self.imageHandler = [decoder decodeObjectOfClass:[ImageHandler class] forKey:@"imageHandler"];
+        // No imageHandler: it is not archived (see encodeWithCoder). Older
+        // archives still carry the key; leaving it undecoded is harmless.
 
         self.storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
         self.windowPreFullscreenFrame =
@@ -631,7 +644,15 @@
 
     [encoder encodeObject:self.gwindows forKey:@"gwindows"];
     [encoder encodeObject:self.soundHandler forKey:@"soundHandler"];
-    [encoder encodeObject:self.imageHandler forKey:@"imageHandler"];
+    // The imageHandler is deliberately NOT archived. It used to be encoded
+    // here and decoded in initWithCoder, but restoreUI never transferred it to
+    // the live controller, so the decoded copy was pure dead weight in every
+    // autosave. Adopting it instead would be the riskier repair: bocfel's V6
+    // images live in per-session temp files whose paths are meaningless to the
+    // next process, and interpreters re-establish their images after a restore
+    // anyway (verified with Zork Zero: the restored window is pixel-identical,
+    // border art, compass and inline picture intact, with a freshly built
+    // handler). Blorb resources are re-cached at launch from the game file.
     [encoder encodeObject:self.journeyMenuHandler forKey:@"journeyMenuHandler"];
 
     [encoder encodeRect:self.windowPreFullscreenFrame
