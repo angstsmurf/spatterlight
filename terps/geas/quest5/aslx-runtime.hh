@@ -384,6 +384,15 @@ public:
     // template, or NothingToUndo when the stack is empty), and step the
     // current-transaction chain back.
     void rollback_transaction(Context &ctx);
+    // Would rollback_transaction find a turn to roll back?  Mirrors what it
+    // does: the transaction the last command opened is still uncommitted
+    // (there is no end-of-turn commit), so it counts when it logged anything.
+    // Lets a host offer undo only when it will work -- the engine itself
+    // never needs to ask, since Core's undo command prints NothingToUndo.
+    bool undo_available() const {
+        return !undo_stack_.empty() ||
+               (undo_logging_ && current_txn_ && !current_txn_->actions.empty());
+    }
 
     // -- save/restore (TODO §5) ------------------------------------------------
     // v1 snapshot format (not Quest's ASLX re-serialization -- that is the

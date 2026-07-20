@@ -92,6 +92,13 @@ using questglk::lower;
 using questglk::match_transcript_command;
 using questglk::open_side_pane_windows;
 using questglk::play_single_sound;
+using questglk::post_game_menu_match;
+using questglk::post_game_menu_print;
+using questglk::post_game_menu_reprompt;
+using questglk::POSTGAME_QUIT;
+using questglk::POSTGAME_RESTART;
+using questglk::POSTGAME_RESTORE;
+using questglk::POSTGAME_UNDO;
 using questglk::prompt_read_save;
 
 /* Core's CapFirst is .NET ToUpper on the first CHARACTER, not the first
@@ -2336,40 +2343,64 @@ void flush_warnings(World &w, size_t &seen)
     }
 }
 
-/* How a session ended, and what the next one boots from. */
-enum class SessionEnd { Quit, Restart, Restore };
+/* How a session ended, and what the next one boots from.  Resume never leaves
+ * run_session: it is the post-game menu telling the turn loop to carry on. */
+enum class SessionEnd { Quit, Restart, Restore, Resume };
 
-/* After the game ends: restart, restore or quit.  (In-game UNDO is Core's own
- * command; there is no post-game undo, as in QuestViva.) */
+/* Undo a turn after the story ended, putting the player back in play.
+ *
+ * QuestViva simply stops when a game finishes -- there is no undo to reach,
+ * because there is no prompt left to type it at.  The classic runner has
+ * offered a post-death undo for as long as it has had the menu, and it is the
+ * one choice there that does not throw the session away, so the two ports now
+ * agree on offering it.  Everything below the frontend is Core's own undo:
+ * rollback_transaction is what the `undo` command's UndoScript runs, prints
+ * the game's own UndoTurn template, and honours whatever the game logged.
+ * Only clearing `finished` is ours -- `finish` sets a runtime flag, not an
+ * element field, so no undo action recorded it. */
+bool post_game_undo(Interp &in)
+{
+    /* A game stopped by the script-error breaker has not "ended" so much as
+     * broken; rolling one turn back would just run into the same wall. */
+    if (in.script_errors_fatal() || !in.undo_available()) {
+        glk_put_string((char *) "There is nothing to undo.\n");
+        return false;
+    }
+    Context ctx;
+    in.rollback_transaction(ctx);
+    in.world().finished = false;
+    in.drain_on_ready();
+    return true;
+}
+
+/* After the game ends: undo, restore, restart or quit -- the same four
+ * choices, in the same words, as the classic runner's menu (the text and the
+ * matching are shared, in questglk-common.inc). */
 SessionEnd post_game_menu(Interp &in, std::string &restore_data)
 {
-    glk_put_string((char *) "\nThe story has ended.  You can RESTART, RESTORE"
-                            " a saved game, or QUIT.\n");
+    post_game_menu_print();
     for (;;) {
         InResult r = read_line(in, true, "> ");
         if (r.kind != InEnd::Line)
             continue;
-        std::string w = lower(trim(r.text));
-        /* Restart and restore both begin with 'r', and guessing wrong here
-         * throws away the save the player meant to load -- so match the whole
-         * word, as the classic runner's menu does, and ask again for a bare
-         * "r" rather than picking one. */
-        if (w == "r") {
-            glk_put_string((char *) "Please type RESTART or RESTORE in full.\n");
-            continue;
-        }
-        if (w == "restart")
-            return SessionEnd::Restart;
-        if (w == "restore" || w == "load") {
+        switch (post_game_menu_match(r.text)) {
+        case POSTGAME_UNDO:
+            if (post_game_undo(in))
+                return SessionEnd::Resume;
+            break;              /* nothing to undo; ask again */
+        case POSTGAME_RESTORE:
             if (do_restore_ui(restore_data))
                 return SessionEnd::Restore;
-            continue;
-        }
-        if (w == "quit" || w == "q") {
+            break;              /* cancelled or unreadable; ask again */
+        case POSTGAME_RESTART:
+            return SessionEnd::Restart;
+        case POSTGAME_QUIT:
             glk_put_string((char *) "\nThanks for playing. Goodbye!\n");
             return SessionEnd::Quit;
+        default:
+            post_game_menu_reprompt();
+            break;
         }
-        glk_put_string((char *) "Please type RESTART, RESTORE or QUIT.\n");
     }
 }
 
@@ -2858,6 +2889,10 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     }
 #endif
 
+    /* Turn loop, then the end-of-story menu -- which may undo back into play,
+     * in which case the whole thing runs again. */
+    bool fatal_reported = false;
+    for (;;) {
     while (!w.finished) {
         if (restart_requested)
             return SessionEnd::Restart;
@@ -2973,7 +3008,8 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         update_timer_request(in);
     }
 
-    if (in.script_errors_fatal()) {
+    if (in.script_errors_fatal() && !fatal_reported) {
+        fatal_reported = true;
         glk_set_style(style_Emphasized);
         glk_put_string((char *) "\n[The game has stopped because too many script"
                                 " errors occurred.]\n");
@@ -2982,7 +3018,19 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     /* finish + reload in one turn: the browser reload wins over any menu. */
     if (restart_requested)
         return SessionEnd::Restart;
-    return post_game_menu(in, restore_data);
+    SessionEnd ending = post_game_menu(in, restore_data);
+    if (ending != SessionEnd::Resume)
+        return ending;
+
+    /* Undone back into play: repaint what the turn loop keeps current, since
+     * the rolled-back turn may have moved the player or changed the lists. */
+    fire_js_events(in);
+    flush_warnings(w, warnings_seen);
+    update_banner(in);
+    redraw_side_pane(in);
+    redraw_grid_map();
+    update_timer_request(in);
+    }
 }
 
 }  // namespace

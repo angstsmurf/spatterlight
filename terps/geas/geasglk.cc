@@ -293,16 +293,12 @@ handle_help_command(const std::string &raw)
     return true;
 }
 
-/* After the game ends, ask the player what to do.  Returns 1 = undo,
- * 2 = restore, 3 = restart, 4 = quit.  Accepts the number or the word. */
+/* After the game ends, ask the player what to do.  Returns a POSTGAME_*
+ * choice; the menu text and matching are shared with the Quest 5 frontend. */
 static int
 post_game_menu()
 {
-    glk_put_cstring("\nThe story has ended.  You can:\n");
-    glk_put_cstring("  1. UNDO the last turn\n");
-    glk_put_cstring("  2. RESTORE a saved game\n");
-    glk_put_cstring("  3. RESTART\n");
-    glk_put_cstring("  4. QUIT\n");
+    post_game_menu_print();
     if (g_manual_echo)
         glk_set_echo_line_event(inputwin, 1);   /* auto-echo the choice */
     char b[64];
@@ -317,17 +313,9 @@ post_game_menu()
                 fill_divider();
             }
         } while (!(ev.type == evtype_LineInput && ev.win == inputwin));
-        /* lower-case, trimmed word (restart vs restore both start with 'r',
-         * so match the whole word, not just the first letter) */
-        std::string w;
-        for (int i = 0; i < (int) ev.val1; i++)
-            w += tolower((unsigned char) b[i]);
-        w = trim(w);
-        if (w == "1" || w == "u" || w == "undo")    return 1;
-        if (w == "2" || w == "restore" || w == "load") return 2;
-        if (w == "3" || w == "restart")             return 3;
-        if (w == "4" || w == "q" || w == "quit")    return 4;
-        glk_put_cstring("Please type 1, 2, 3 or 4 (or undo / restore / restart / quit).\n");
+        if (int c = post_game_menu_match(std::string(b, (int) ev.val1)))
+            return c;
+        post_game_menu_reprompt();
     }
 }
 
@@ -703,14 +691,14 @@ void glk_main(void)
      * instead of just closing the session. */
     for (;;) {
         int c = post_game_menu();
-        if (c == 1) {                       /* UNDO */
+        if (c == POSTGAME_UNDO) {
             if (gr->undo())
                 break;                      /* resurrected; resume play */
             glk_put_cstring("There is nothing to undo.\n");
-        } else if (c == 2) {                /* RESTORE */
+        } else if (c == POSTGAME_RESTORE) {
             if (do_restore(gr))
                 break;                      /* restored; resume play */
-        } else if (c == 3) {                /* RESTART */
+        } else if (c == POSTGAME_RESTART) {
             glk_window_clear(mainglkwin);
             gr->restart();
             break;

@@ -376,6 +376,48 @@ toggle_transcript (int on, winid_t win, strid_t *slot)
     }
 }
 
+/* --------------------------------------------------------- end-of-story */
+
+/* The menu offered once the story is over.  Both frontends print the same
+ * four choices in the same words; only acting on the answer differs, so the
+ * caller owns the read loop and these supply the text and the matching.
+ *
+ * The choices are numbered because RESTART and RESTORE share a first letter:
+ * abbreviating either is a trap (guess wrong and the save you meant to load
+ * is gone), so a lone "r" is not accepted and the numbers give everything a
+ * short form. */
+enum { POSTGAME_UNDO = 1, POSTGAME_RESTORE, POSTGAME_RESTART, POSTGAME_QUIT };
+
+static void
+post_game_menu_print (void)
+{
+    glk_put_string ((char *) "\nThe story has ended.  You can:\n");
+    glk_put_string ((char *) "  1. UNDO the last turn\n");
+    glk_put_string ((char *) "  2. RESTORE a saved game\n");
+    glk_put_string ((char *) "  3. RESTART\n");
+    glk_put_string ((char *) "  4. QUIT\n");
+}
+
+/* Match an answer to the menu: a POSTGAME_* choice, or 0 for anything else
+ * (including a bare "r", which is why restart is not matched by letter). */
+static int
+post_game_menu_match (const std::string &raw)
+{
+    std::string w = lower (trim (raw));
+    if (w == "1" || w == "u" || w == "undo")            return POSTGAME_UNDO;
+    if (w == "2" || w == "restore" || w == "load")      return POSTGAME_RESTORE;
+    if (w == "3" || w == "restart")                     return POSTGAME_RESTART;
+    if (w == "4" || w == "q" || w == "quit")            return POSTGAME_QUIT;
+    return 0;
+}
+
+static void
+post_game_menu_reprompt (void)
+{
+    glk_put_string ((char *)
+        "Please type 1, 2, 3 or 4 (or undo / restore / restart / quit).\n");
+}
+
 /* ------------------------------------------------------------- save files */
 
 /* Prompt for a save file and write `data` (an engine snapshot) to it.  Each
