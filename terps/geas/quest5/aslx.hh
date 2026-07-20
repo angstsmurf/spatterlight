@@ -217,6 +217,11 @@ struct World {
     // comparisons on the hot find() path.
     std::unordered_map<std::string, Element *> by_name;
 
+    // Lowercased delegate-name -> <delegate> element, built lazily by
+    // find_delegate(). Delegates are static so this never needs invalidating.
+    mutable std::unordered_map<std::string, Element *> delegate_ci_;
+    mutable bool delegate_ci_built_ = false;
+
     // name -> body text. command flag kept for the (rare) templatetype="command".
     std::vector<std::pair<std::string, std::string>> templates;
     std::vector<std::pair<std::string, std::string>> dynamic_templates;
@@ -239,6 +244,11 @@ struct World {
     long next_sort_index = 0;
 
     Element *find(const std::string &n) const;
+    // Case-insensitive lookup of a <delegate> element by name (lazily cached in
+    // delegate_ci_). `rundelegate` is invoked with the impl field/tag name, whose
+    // case may differ from the delegate declaration (e.g. "addscript" vs
+    // "AddScript"); the delegate's paramnames are needed to bind arguments.
+    Element *find_delegate(const std::string &n) const;
     const std::string *implied_type(const std::string &elem_type,
                                     const std::string &property) const;
 

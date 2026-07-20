@@ -171,6 +171,28 @@ Element *World::find(const std::string &n) const {
     return it == by_name.end() ? nullptr : it->second;
 }
 
+// Case-insensitive lookup of a <delegate> element. `rundelegate`/HasDelegate...
+// are invoked with the implementation FIELD name (e.g. the tag "addscript"),
+// which QuestViva matches OrdinalIgnoreCase against the <delegate name="AddScript">
+// declaration to recover the parameter list. Delegate names are ASCII identifiers,
+// so an ASCII fold is exact. Delegates are static (never created/destroyed at
+// runtime), so the index is built once and cached.
+Element *World::find_delegate(const std::string &n) const {
+    if (Element *e = find(n); e && e->kind == ElemKind::Delegate) return e;
+    auto lc = [](std::string s) {
+        for (char &c : s) c = (char)std::tolower((unsigned char)c);
+        return s;
+    };
+    if (!delegate_ci_built_) {
+        for (const auto &up : elements)
+            if (up->kind == ElemKind::Delegate)
+                delegate_ci_.emplace(lc(up->name), up.get());
+        delegate_ci_built_ = true;
+    }
+    auto it = delegate_ci_.find(lc(n));
+    return it == delegate_ci_.end() ? nullptr : it->second;
+}
+
 void World::register_name(const std::string &name, Element *ep) {
     auto it = by_name.find(name);
     if (it != by_name.end()) {

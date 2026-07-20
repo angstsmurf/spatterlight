@@ -2225,7 +2225,16 @@ Value interp_run_delegate(Interp &in, Element *obj, const std::string &delname,
         in.error("Object '" + obj->name + "' has no delegate implementation '" +
                  delname + "'");
     Context local;
+    // The delegate signature (parameter names) is identified by the delegate's
+    // NAME == the field name used to invoke it, not by the impl field's
+    // declared_type: Core declares implementations as `type="script"`, so
+    // declared_type carries no delegate name. Fall back to a case-insensitive
+    // lookup by delname (e.g. "addscript" -> <delegate name="AddScript">) so the
+    // params bind -- without this, container_limited.addscript ran with `object`
+    // unbound ("Unknown object or variable 'object'").
     Element *def = in.world().find(impl->declared_type);
+    if (!def || def->kind != ElemKind::Delegate)
+        def = in.world().find_delegate(delname);
     const Value *pn = def ? def->field("paramnames") : nullptr;
     for (size_t k = 0; k < params.size(); ++k) {
         if (pn && k < pn->list().size())
