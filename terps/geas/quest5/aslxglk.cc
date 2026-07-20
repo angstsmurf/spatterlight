@@ -1600,6 +1600,55 @@ bool is_restore_command(const std::string &raw)
 
 /* ------------------------------------------------------------- metaverbs -- */
 
+/* #HELP: list the interpreter-level commands, the way the classic runner's
+ * #HELP does for Quest 4.  Kept behind the '#' so it never shadows the game's
+ * own HELP (Core's DefaultHelp template, which the game may localize or
+ * replace); the plain-HELP hint below points players at it. */
+bool handle_help_command(const std::string &raw)
+{
+    std::string c = lower(trim(raw));
+    if (c != "#help" && c != "#commands" && c != "metaverbs")
+        return false;
+    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
+        echo_metaverb(raw);
+
+    glk_put_string((char *)
+        "\nThese system commands are handled by the interpreter, outside the"
+        " game:\n"
+        "\n"
+        "  SAVE              Save the whole game to a file.\n"
+        "  RESTORE  (LOAD)   Restore a previously saved game.\n"
+        "  RESTART           Start the game over from the beginning.\n"
+        "  UNDO              Take back the last turn.\n"
+        "  QUIT              Stop playing and leave Quest.\n"
+        "\n"
+        "  SCRIPT   (TRANSCRIPT)       Start recording the game text to a file.\n"
+        "  SCRIPT OFF  (UNSCRIPT)      Stop recording the transcript.\n"
+        "\n"
+        "  VERBS <object>    List the actions available for an object, the\n"
+        "                    same menu clicking its name pops up.\n"
+        "  HELP              Show the game's own in-game help.\n"
+        "  #HELP             Show this list of system commands.\n");
+    return true;
+}
+
+/* After a plain HELP, point the player at #HELP -- the game's own help never
+ * mentions the commands this port adds.  English only: HELP itself is matched
+ * by the game's (possibly localized) command pattern, so a game in another
+ * language reaches its help by a word we would not recognize here, and saying
+ * nothing beats attaching an English footnote to Greek help text. */
+void hint_system_commands(const std::string &raw, bool parser_game)
+{
+    /* Only on a parser turn: a gamebook has no HELP command at all (the line
+     * would only ever follow "no page named 'help'"), and under a `get input`
+     * the word is the game's answer, not a command. */
+    if (!parser_game || lower(trim(raw)) != "help")
+        return;
+    glk_put_string((char *)
+        "\n(Type #HELP for the SAVE, RESTORE, UNDO and other system"
+        " commands.)\n");
+}
+
 /* Transcript recording, same commands (and shared code) as the classic
  * runner. */
 bool handle_transcript_command(const std::string &raw)
@@ -2846,6 +2895,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                     if (do_restore_ui(restore_data))
                         return SessionEnd::Restore;
                 } else if (!handle_transcript_command(cmd) &&
+                           !handle_help_command(cmd) &&
                            !handle_verbs_command(in, cmd)) {
                     /* Arm the echo swallow unconditionally: whether the game
                      * side echoes cannot be predicted from game.echocommand,
@@ -2869,6 +2919,13 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                     }
                     in.send_command(cmd);
                     g_swallow = 0;
+                    /* Drain first: the hint must land after the game's help
+                     * text, not in front of output still queued behind it. */
+                    in.drain_on_ready();
+                    /* Only for a real parser turn: with the command box hidden
+                     * (gamebook) HELP is not a command, and a `get input`
+                     * override makes it an answer to the game's question. */
+                    hint_system_commands(cmd, g_command_bar && !host_owned);
                 }
             }
         }
