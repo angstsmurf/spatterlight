@@ -254,9 +254,16 @@ handle_restart_command(const std::string &raw, GeasRunner *gr)
     return true;
 }
 
-/* Handle the #HELP metaverb: list and explain the engine-level metaverbs this
- * port adds on top of the game's own commands.  Kept distinct from the game's
- * plain HELP (which prints Quest's in-game quick help) so it never shadows it. */
+/* Handle the #HELP metaverb: list the system commands available on top of the
+ * game's own.  Only some of them are this port's -- SAVE, RESTORE, RESTART,
+ * QUIT, the transcript pair and #HELP itself; UNDO, OOPS, VERBS, ABOUT and
+ * HELP are the engine's (geas-runner.cc).  What they have in common, and what
+ * the player wants from this list, is that they work in any game rather than
+ * being one game's invention, so the list names them all and the heading
+ * claims no more than that.
+ *
+ * Kept distinct from the game's plain HELP (which prints Quest's in-game quick
+ * help) so it never shadows it. */
 static bool
 handle_help_command(const std::string &raw)
 {
@@ -265,7 +272,8 @@ handle_help_command(const std::string &raw)
         return false;
 
     glk_put_string((char *)
-        "\nThese system commands are handled by the interpreter, outside the game:\n"
+        "\nThese system commands work in any game, whether Quest itself or"
+        " this interpreter handles them:\n"
         "\n"
         "  SAVE              Save the whole game to a file.\n"
         "  RESTORE  (LOAD)   Restore a previously saved game.\n"

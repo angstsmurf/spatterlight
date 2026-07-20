@@ -1614,18 +1614,29 @@ bool do_restore_ui(std::string &data)
 /* The RESTORE metaverb. Quest has no restore command of its own (loading is
  * a UI action, like the classic desktop player's menu), so the frontend owns
  * it; `save` stays with Core's own command, which lands in request_save. */
-bool is_restore_command(const std::string &raw)
+bool is_restore_command(const std::string &raw, bool asking)
 {
     std::string c = lower(trim(raw));
+    /* Bare "load" is the one form a game's own `get input` question might
+     * plausibly be answered with, so it yields to a pending question; the
+     * unambiguous forms are honoured whenever they are typed. */
+    if (c == "load")
+        return !asking;
     return c == "restore" || c == "restore game" || c == "load game";
 }
 
 /* ------------------------------------------------------------- metaverbs -- */
 
-/* #HELP: list the interpreter-level commands, the way the classic runner's
- * #HELP does for Quest 4.  Kept behind the '#' so it never shadows the game's
- * own HELP (Core's DefaultHelp template, which the game may localize or
- * replace); the plain-HELP hint below points players at it. */
+/* #HELP: list the system commands, the way the classic runner's #HELP does for
+ * Quest 4.  Only some of them are the frontend's -- RESTORE, the transcript
+ * pair, VERBS and #HELP itself; SAVE, RESTART, UNDO and QUIT are Core's own
+ * commands.  What they have in common, and what the player wants from this
+ * list, is that they work in any game rather than being one game's invention,
+ * so the list names them all and the heading claims no more than that.
+ *
+ * Kept behind the '#' so it never shadows the game's own HELP (Core's
+ * DefaultHelp template, which the game may localize or replace); the
+ * plain-HELP hint below points players at it. */
 bool handle_help_command(const std::string &raw)
 {
     std::string c = lower(trim(raw));
@@ -1635,8 +1646,8 @@ bool handle_help_command(const std::string &raw)
         echo_metaverb(raw);
 
     glk_put_string((char *)
-        "\nThese system commands are handled by the interpreter, outside the"
-        " game:\n"
+        "\nThese system commands work in any game, whether Quest itself or"
+        " this interpreter handles them:\n"
         "\n"
         "  SAVE              Save the whole game to a file.\n"
         "  RESTORE  (LOAD)   Restore a previously saved game.\n"
@@ -2339,7 +2350,15 @@ SessionEnd post_game_menu(Interp &in, std::string &restore_data)
         if (r.kind != InEnd::Line)
             continue;
         std::string w = lower(trim(r.text));
-        if (w == "restart" || w == "r")
+        /* Restart and restore both begin with 'r', and guessing wrong here
+         * throws away the save the player meant to load -- so match the whole
+         * word, as the classic runner's menu does, and ask again for a bare
+         * "r" rather than picking one. */
+        if (w == "r") {
+            glk_put_string((char *) "Please type RESTART or RESTORE in full.\n");
+            continue;
+        }
+        if (w == "restart")
             return SessionEnd::Restart;
         if (w == "restore" || w == "load") {
             if (do_restore_ui(restore_data))
@@ -2905,7 +2924,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                 std::string cmd = trim(r.text);
                 if (cmd.empty())
                     continue;
-                if (is_restore_command(cmd)) {
+                if (is_restore_command(cmd, host_owned)) {
                     if (!g_prompt_first)
                         echo_metaverb(cmd);
                     if (do_restore_ui(restore_data))

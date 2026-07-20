@@ -3161,6 +3161,15 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       return true;
     }
 
+  /* Bare "verbs" names no object to list, so say what the command wants
+     rather than letting it fall through to "I don't understand", which is
+     what the Quest 5 frontend's VERBS does. */
+  if (ci_equal (cmd, "verbs"))
+    {
+      print_formatted ("Type VERBS followed by an object name, e.g. VERBS lamp.");
+      return true;
+    }
+
   if (ci_equal (cmd, "help"))
     {
       print_formatted ("|b|cl|s14Quest Quick Help|xb|cb|s00|n|n|cl|bMoving|xb|cb Press the direction buttons in the 'Compass' pane, or type |bGO NORTH|xb, |bSOUTH|xb, |bE|xb, etc. |xnTo go into a place, type |bGO TO ...|xb . To leave a place, type |bOUT, EXIT|xb or |bLEAVE|xb, or press the '|crOUT|cb' button.|n|cl|bObjects and Characters|xb|cb Use |bTAKE ...|xb, |bGIVE ... TO ...|xb, |bTALK|xb/|bSPEAK TO ...|xb, |bUSE ... ON|xb/|bWITH ...|xb, |bLOOK AT ...|xb, etc.|n|cl|bExit Quest|xb|cb Type |bQUIT|xb to leave Quest.|n|cl|bMisc|xb|cb Type |bABOUT|xb to get information on the current game. Type |b#HELP|xb to list the SAVE, RESTORE, UNDO and other system commands.");
