@@ -5012,10 +5012,18 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
   /* In real-time mode take over input echo: a TimeBased tick may cancel and
      re-issue the pending request, and with auto-echo every cancel would
      commit a spurious input line to the window.  The completed command is
-     echoed manually below instead. */
+     echoed manually below instead.
+
+     Set it BOTH ways, every time.  Echo mode is per-window library state that
+     a Spatterlight autosave archives and re-applies (TempWindow), so a
+     one-sided "turn it off" leaves the restored process obeying the SAVED
+     mode rather than this one: autosave with real-time on (echo off), then
+     relaunch with real-time off -- determinism/testing mode, say -- and the
+     library echo would stay off while the manual echo below is skipped,
+     which loses every typed command from the transcript for the rest of the
+     session. */
 #ifdef GLK_MODULE_LINE_ECHO
-  if (gsc_a5_real_time)
-    glk_set_echo_line_event (gsc_main_window, 0);
+  glk_set_echo_line_event (gsc_main_window, gsc_a5_real_time ? 0 : 1);
 #endif
 
   if (gsc_unicode_enabled)
