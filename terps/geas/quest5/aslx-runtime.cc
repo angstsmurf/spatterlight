@@ -1489,10 +1489,16 @@ void Interp::end_pending_callback() {
 
 void Interp::drain_on_ready() {
     // Manual flush for hosts/tests. Anything still queued while no prompt
-    // pends (e.g. the flush stopped early because the game finished) runs now;
-    // with a prompt outstanding this is a no-op -- resolving the prompt
-    // flushes the queue itself.
-    if (pending_callback_count_ > 0) return;
+    // pends runs now; with a prompt outstanding this is a no-op -- resolving
+    // the prompt flushes the queue itself.
+    //
+    // A FINISHED game drops its queue instead of flushing it, matching
+    // EndPendingCallbackAsync's own `!world_.finished` guard above. Quest's
+    // OnEnterRoom does its room description from inside nested `on ready`
+    // blocks, so a MoveObject that runs after `finish` (Defeating The Monster
+    // kills you with the same blow that wins the game) must NOT go on to
+    // print the new room -- QuestViva abandons those callbacks.
+    if (pending_callback_count_ > 0 || world_.finished) return;
     while (!on_ready_.empty()) {
         auto item = on_ready_.front();
         on_ready_.erase(on_ready_.begin());

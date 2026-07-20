@@ -1,0 +1,271 @@
+You can go northwest, north or southwest.
+This is where you learn what is going to happen. After defeating the monster, you learn that the king is taking the throne and collecting the spoils of the monster you defeated. You don't want this to happen, so you must claim the throne before the king does. You have 500 turns to claim the throne before the king gets his hands on it.
+> take boiled item
+A boiled item is yours. Remember to use it if you're low on health.
+> look at secret alley
+
+You can go northwest or east.
+Hello and welcome to the Battle Challenge! This is a challenge where you battle a training dummy to earn money! Simple! But each unsuccessful attack will drop your health! You can only bring the items you take in once you enter. Are you ready for a challenge? Well, you must pay $2000 to enter. Are you ready?
+Hello! Fancy taking on the Battle Challenge? It will cost you $2000 to enter, and you can only use the items you have once inside. Are you ready?
+> east
+
+OK Then! It's time to defeat your dummy!
+> look at dummy
+> look at dummy
+You attacked the Dummy.
+> look at dummy
+> look at dummy
+> look at dummy
+> look at dummy
+You attacked the Dummy.
+> look at dummy
+You attacked the Dummy.
+> eat boiled item
+Please choose which 'boiled item' you mean:
+1: Boiled Item
+2: Boiled Item
+> 1
+Your health is restored by 25%!
+> look at dummy
+> look at dummy
+> look at dummy
+You attacked the Dummy.
+> eat boiled item
+Your health is restored by 25%!
+> look at dummy
+> look at dummy
+You attacked the Dummy.
+
+You can go northwest or east.
+Hello! Fancy taking on the Battle Challenge? It will cost you $2000 to enter, and you can only use the items you have once inside. Are you ready?
+That's the end of your Battle Challenge! Better than a trip to Throne Jail, but the money you earned was well worth it! Fancy another round? It will cost you $2,000.
+> east
+
+OK Then! It's time to defeat your dummy!
+> look at dummy
+
+You can go northwest or east.
+Hello! Fancy taking on the Battle Challenge? It will cost you $2000 to enter, and you can only use the items you have once inside. Are you ready?
+That's the end of your Battle Challenge! Better than a trip to Throne Jail, but the money you earned was well worth it! Fancy another round? It will cost you $2,000.
+> east
+
+OK Then! It's time to defeat your dummy!
+> look at dummy
+
+You can go northwest or east.
+Hello! Fancy taking on the Battle Challenge? It will cost you $2000 to enter, and you can only use the items you have once inside. Are you ready?
+That's the end of your Battle Challenge! Better than a trip to Throne Jail, but the money you earned was well worth it! Fancy another round? It will cost you $2,000.
+> east
+
+OK Then! It's time to defeat your dummy!
+> look at dummy
+You attacked the Dummy.
+Being dead is only a memory you will take with you for years. The problem is in this world, you will only happen to wake up in a throne jail.
+
+Welcome to Throne Jail! This is where you come if you are killed at any point in the quest. Getting out here is a matter of chance.
+
+You can go northwest or east.
+Hello! Fancy taking on the Battle Challenge? It will cost you $2000 to enter, and you can only use the items you have once inside. Are you ready?
+That's the end of your Battle Challenge! Better than a trip to Throne Jail, but the money you earned was well worth it! Fancy another round? It will cost you $2,000.
+> northwest
+
+You can go south, west or southeast.
+> look at grand triffid
+> west
+
+You can go east or north.
+Congratulations! You defeated all these foes! It was really tough, but you did it! Because of this, you'll need something for your efforts! You know that a disposable shield has a few turns before it wears off? Well, for £10,000 if you happen to have that, you can buy a Permanant Shield called the Perma Shield! This shield has the same effects, but is a real life saver so it is a MUST BUY! Don't worry, if you prefer disposable shields or decide not to buy, you can go back here later to buy it.
+> take perma shield
+A Perma Shield is yours! This is the best shield you can get and will come useful in your upcoming trials!
+> use perma shield
+OK Ruler, time to show who's shielding you!
+Shielded! That's the power of a shield! Don't worry, it could restore your health too.....
+> use perma shield
+OK Ruler, time to show who's shielding you!
+Shielded! That's the power of a shield! Don't worry, it could restore your health too.....
+> north
+
+You can go south or northwest.
+You are in a alternate briefing room, where you see an exit blocked. There must be some way to open it.... How about that Button Lock? Use it and you'll open the doorway. This comes at a cost of 50% of your health, so if you wish to use a shield to make your unlocking absolutely free, and restore some of your health in the process depending on what you use, you must use it BEFORE you use the Button Lock (Your Perma Shield will help you here if you bought it.). If you use it when you're below 50% or at 50%, your usage of the Button Lock will send you to Throne Jail, but it will remain open for your use. If you happen to come back here, the door will remain unlocked for you.
+> use button lock
+You have opened the doorway which was locked before. Because of this, you have lost 50% of your health. You can now go onwards.
+> use perma shield
+OK Ruler, time to show who's shielding you!
+Shielded! That's the power of a shield! Don't worry, it could restore your health too.....
+> use perma shield
+OK Ruler, time to show who's shielding you!
+Shielded! That's the power of a shield! Don't worry, it could restore your health too.....
+> northwest
+
+You can go southeast or northwest.
+You are in a Hall Of Thrones where a bug is standing by to fight you. If you don't defeat it first time, it will clone itself costing you a large sum of health, so fight them if you dare!
+> northwest
+
+You can go southeast or northwest.
+Welcome to the Pro Item Store, where you can purchase items which are at maximum strength. If you have been raising the money, they will be helpful in your final few trials. If not, you need to backtrack and defeat enemies to gain the money to buy them.
+> take perma boiled item
+A Perma Boiled Item is yours! This is the best healing item you can use, but it might not always work!
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was not restored.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was restored to its maximum.
+> use perma boiled item
+Your health was not restored.
+> northwest
+
+You can go southeast.
+The king has respawned! The king will take varied attacks each so often and will attack more than once, so you'll need restoration items to see you through the fight. After each attack, you have a 1% chance of defeating the king. If you defeat the king, you escape!
+> look at king ex
+You defeated the King! This will come as no surprise, as you are one of its true rulers. You mastered the hardest game yet, and now, you succeeded.
+
+THE END.
+You attacked the king, but it was a weak blow.
+You attacked the king. Welcome to Throne Jail- truly!
+Being dead is only a memory you will take with you for years. The problem is in this world, you will only happen to wake up in a throne jail.
+[state=Finished]
