@@ -2397,6 +2397,11 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 /*  Glk command escape functions                                       */
 /*---------------------------------------------------------------------*/
 
+/* Print the one-line synopsis of what a Glk command accepts, held in the
+   command table so that a command handed an argument it doesn't understand
+   and that command's "glk help" entry always agree. */
+static void gsc_command_usage (const char *command);
+
 /*
  * gsc_command_script()
  *
@@ -2468,13 +2473,7 @@ gsc_command_script (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk transcript can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", ");
-      gsc_standout_string ("off");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("status");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("script");
     }
 }
 
@@ -2545,13 +2544,7 @@ gsc_command_inputlog (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk input logging can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", ");
-      gsc_standout_string ("off");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("status");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("inputlog");
     }
 }
 
@@ -2628,13 +2621,7 @@ gsc_command_readlog (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk read log can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", ");
-      gsc_standout_string ("off");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("status");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("readlog");
     }
 }
 
@@ -2682,11 +2669,7 @@ gsc_command_abbreviations (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk abbreviation expansions can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("off");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("abbreviations");
     }
 }
 
@@ -2744,11 +2727,7 @@ gsc_command_capacity (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk carrying capacity recompute can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("off");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("capacity");
     }
 }
 
@@ -2808,11 +2787,7 @@ gsc_command_combat_assist (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk combat assist can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("off");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("combatassist");
     }
 }
 
@@ -2869,11 +2844,7 @@ gsc_command_move_assist (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk move assist can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("off");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("moveassist");
     }
 }
 
@@ -2923,11 +2894,7 @@ gsc_command_verbose (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk verbose descriptions can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("off");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("verbose");
     }
 }
 
@@ -2998,11 +2965,7 @@ gsc_command_commands (const char *argument)
 
   else
     {
-      gsc_normal_string ("Glk commands can be ");
-      gsc_standout_string ("on");
-      gsc_normal_string (", or ");
-      gsc_standout_string ("off");
-      gsc_normal_string (".\n");
+      gsc_command_usage ("commands");
     }
 }
 
@@ -3052,8 +3015,21 @@ typedef const struct
   const int in_adrift5;                           /* Offered in the a5 loop. */
   const int is_alias;                             /* Another name for an
                                                      entry listed above. */
+  const char * const usage_subject;               /* Noun for the synopsis. */
+  const char * const * const usage_options;       /* Arguments accepted, NULL
+                                                     terminated; NULL for a
+                                                     command taking none. */
 } gsc_command_t;
 typedef gsc_command_t *gsc_commandref_t;
+
+/* Argument lists for the one-line synopsis printed by gsc_command_usage(),
+   and at the foot of a command's entry in "glk help". */
+static const char * const GSC_USAGE_ONOFFSTATUS[] = {"on", "off", "status",
+                                                     NULL};
+static const char * const GSC_USAGE_ONOFF[] = {"on", "off", NULL};
+static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
+                                             "zoom [in|out|auto]", NULL};
+static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", NULL};
 
 static void gsc_command_summary (const char *argument);
 static void gsc_command_help (const char *argument);
@@ -3070,23 +3046,39 @@ static void gsc_command_zoom (const char *argument);
    the command listing and the summary poll, so that the alias neither pads
    the list nor makes its command report itself twice. */
 static gsc_command_t GSC_COMMAND_TABLE[] = {
-  {"summary",        gsc_command_summary,        FALSE, TRUE,  FALSE},
-  {"script",         gsc_command_script,         TRUE,  TRUE,  FALSE},
-  {"transcript",     gsc_command_script,         TRUE,  TRUE,  TRUE},
-  {"inputlog",       gsc_command_inputlog,       TRUE,  TRUE,  FALSE},
-  {"readlog",        gsc_command_readlog,        TRUE,  TRUE,  FALSE},
-  {"abbreviations",  gsc_command_abbreviations,  TRUE,  FALSE, FALSE},
-  {"capacity",       gsc_command_capacity,       TRUE,  FALSE, FALSE},
-  {"combatassist",   gsc_command_combat_assist,  TRUE,  FALSE, FALSE},
-  {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE, FALSE},
-  {"verbose",        gsc_command_verbose,        TRUE,  FALSE, FALSE},
-  {"version",        gsc_command_version,        FALSE, TRUE,  FALSE},
-  {"map",            gsc_command_map,            TRUE,  TRUE,  FALSE},
-  {"zoom",           gsc_command_zoom,           TRUE,  TRUE,  FALSE},
-  {"commands",       gsc_command_commands,       TRUE,  TRUE,  FALSE},
-  {"license",        gsc_command_license,        FALSE, TRUE,  FALSE},
-  {"help",           gsc_command_help,           TRUE,  TRUE,  FALSE},
-  {NULL, NULL, FALSE, FALSE, FALSE}
+  {"summary",        gsc_command_summary,        FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
+  {"script",         gsc_command_script,         TRUE,  TRUE,  FALSE,
+   "script",                      GSC_USAGE_ONOFFSTATUS},
+  {"transcript",     gsc_command_script,         TRUE,  TRUE,  TRUE,
+   "transcript",                  GSC_USAGE_ONOFFSTATUS},
+  {"inputlog",       gsc_command_inputlog,       TRUE,  TRUE,  FALSE,
+   "input logging",               GSC_USAGE_ONOFFSTATUS},
+  {"readlog",        gsc_command_readlog,        TRUE,  TRUE,  FALSE,
+   "read log",                    GSC_USAGE_ONOFFSTATUS},
+  {"abbreviations",  gsc_command_abbreviations,  TRUE,  FALSE, FALSE,
+   "abbreviation expansions",     GSC_USAGE_ONOFF},
+  {"capacity",       gsc_command_capacity,       TRUE,  FALSE, FALSE,
+   "carrying capacity recompute", GSC_USAGE_ONOFF},
+  {"combatassist",   gsc_command_combat_assist,  TRUE,  FALSE, FALSE,
+   "combat assist",               GSC_USAGE_ONOFF},
+  {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE, FALSE,
+   "move assist",                 GSC_USAGE_ONOFF},
+  {"verbose",        gsc_command_verbose,        TRUE,  FALSE, FALSE,
+   "verbose descriptions",        GSC_USAGE_ONOFF},
+  {"version",        gsc_command_version,        FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
+  {"map",            gsc_command_map,            TRUE,  TRUE,  FALSE,
+   "map",                         GSC_USAGE_MAP},
+  {"zoom",           gsc_command_zoom,           TRUE,  TRUE,  FALSE,
+   "zoom",                        GSC_USAGE_ZOOM},
+  {"commands",       gsc_command_commands,       TRUE,  TRUE,  FALSE,
+   "commands",                    GSC_USAGE_ONOFF},
+  {"license",        gsc_command_license,        FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
+  {"help",           gsc_command_help,           TRUE,  TRUE,  FALSE,
+   NULL,                          NULL},
+  {NULL, NULL, FALSE, FALSE, FALSE, NULL, NULL}
 };
 
 
@@ -3101,6 +3093,46 @@ static int
 gsc_command_in_scope (gsc_commandref_t entry)
 {
   return !gsc_is_a5 || entry->in_adrift5;
+}
+
+
+/*
+ * gsc_command_usage()
+ *
+ * Print the one-line synopsis of the arguments a Glk command accepts, for
+ * example "Glk map can be on, off, top, right, or zoom [in|out|auto]."  Both
+ * a command handed an argument it doesn't understand and the foot of that
+ * command's "glk help" entry print this, so the two can never disagree.
+ */
+static void
+gsc_command_usage (const char *command)
+{
+  gsc_commandref_t entry;
+  int count, index_;
+  assert (command);
+
+  for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
+    {
+      if (scr_strcasecmp (command, entry->command) == 0)
+        break;
+    }
+  if (!entry->command || !entry->usage_options)
+    return;
+
+  gsc_normal_string ("Glk ");
+  gsc_normal_string (entry->usage_subject);
+  gsc_normal_string (" can be ");
+
+  for (count = 0; entry->usage_options[count]; count++)
+    ;
+  for (index_ = 0; index_ < count; index_++)
+    {
+      if (index_ > 0)
+        gsc_normal_string (index_ < count - 1 ? ", "
+                                              : count > 2 ? ", or " : " or ");
+      gsc_standout_string (entry->usage_options[index_]);
+    }
+  gsc_normal_string (".\n");
 }
 
 
@@ -3186,7 +3218,13 @@ gsc_command_help (const char *command)
                          " the abbreviation is unambiguous.  Use ");
       gsc_standout_string ("glk help");
       gsc_normal_string (" followed by a Glk command name for help on that"
-                         " command.\n");
+                         " command, or put the ");
+      gsc_standout_string ("help");
+      gsc_normal_string (" after the command name instead; ");
+      gsc_standout_string ("glk help map");
+      gsc_normal_string (" and ");
+      gsc_standout_string ("glk map help");
+      gsc_normal_string (" are the same.\n");
       return;
     }
 
@@ -3426,11 +3464,22 @@ gsc_command_help (const char *command)
     }
 
   else if (matched->handler == gsc_command_help)
-    gsc_command_help ("");
+    {
+      gsc_command_help ("");
+      return;
+    }
 
   else
     gsc_normal_string ("There is no help available on that Glk command."
                        "  Sorry.\n");
+
+  /* Close with the same synopsis the command itself prints when handed an
+     argument it doesn't understand. */
+  if (matched->usage_options)
+    {
+      gsc_normal_char ('\n');
+      gsc_command_usage (matched->command);
+    }
 }
 
 
@@ -3512,6 +3561,17 @@ gsc_command_escape (const char *string)
       if (matches == 1)
         {
           gsc_normal_char ('\n');
+
+          /* "glk <command> help" is another way of writing "glk help
+             <command>"; the two print the same thing. */
+          if (scr_strcasecmp (argument, "help") == 0
+              && matched->handler != gsc_command_help)
+            {
+              gsc_command_help (matched->command);
+              free (string_copy);
+              return TRUE;
+            }
+
           matched->handler (argument);
 
           if (!matched->takes_argument && strlen (argument) > 0)
@@ -6743,8 +6803,7 @@ gsc_command_map (const char *argument)
       gsc_command_zoom (argument + 4 + strspn (argument + 4, "\t "));
     }
   else
-    gsc_normal_string ("Glk map can be \"on\", \"off\", \"top\", \"right\" or"
-                       " \"zoom [in|out|auto]\".\n");
+    gsc_command_usage ("map");
 }
 
 /*
@@ -6762,6 +6821,14 @@ gsc_command_zoom (const char *argument)
 
   if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
     return;
+
+  /* "glk map zoom help" arrives here directly; the dispatcher catches the
+     plain "glk zoom help" before the handler is ever called. */
+  if (scr_strcasecmp (argument, "help") == 0)
+    {
+      gsc_command_help ("zoom");
+      return;
+    }
 
   if (scr_strcasecmp (argument, "auto") == 0
       || scr_strcasecmp (argument, "default") == 0)
@@ -6783,7 +6850,7 @@ gsc_command_zoom (const char *argument)
     in = FALSE;
   else
     {
-      gsc_normal_string ("Glk zoom can be \"in\", \"out\" or \"auto\".\n");
+      gsc_command_usage ("zoom");
       return;
     }
 
