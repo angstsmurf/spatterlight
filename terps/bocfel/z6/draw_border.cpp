@@ -321,6 +321,10 @@ void draw_arthur_side_images(winid_t winid) {
                                // final tile; also the minimum gap required
                                // before tiling is attempted
 
+// Height of the rounded corners at the top of the Amiga/Mac colour hint
+// border. The covering rectangle skips this many lines so the curve survives.
+#define kAmigaHintCornerHeight 8
+
 // Tiles the pillar section of a border image downward to fill the screen.
 // The image (total_height lines) has already been drawn. This function
 // copies the pillar section (from top_cut, pillar_height lines) and tiles
@@ -693,6 +697,9 @@ void draw_border_common(int border, int BL, int BR,
     // color rectangle. Which platforms need it depends on the BorderKind.
     bool should_draw_covering_rectangle = false;
     glui32 rectangle_color = user_selected_foreground;
+    // Number of lines skipped at the top of the covering rectangle. Only the
+    // Amiga/Mac colour hint border needs this, to keep its rounded corners.
+    int rect_top = 0;
 
     switch (kind) {
         case BorderKind::ShogunGame:
@@ -716,10 +723,20 @@ void draw_border_common(int border, int BL, int BR,
                     should_draw_covering_rectangle = true;
                     break;
                 case kGraphicsTypeAmiga:
+                    // The Amiga/Mac colour border is rounded at the top two
+                    // corners. A full-height bar would square them off, so
+                    // start kAmigaHintCornerHeight lines down and drop the same
+                    // number of lines from the bar: the curve stays visible and
+                    // the header text below it still gets a solid background.
                     left_margin = 0;
+                    rect_top = kAmigaHintCornerHeight;
+                    should_draw_covering_rectangle = true;
                     if (options.int_number == INTERP_MACINTOSH) {
-                        should_draw_covering_rectangle = true;
+                        // The Macintosh interpreter draws this art with its own
+                        // palette, for which the art's own colour is wrong.
                         rectangle_color = ROSE_TAUPE;
+                    } else if (!sample_pixmap_pixel(hw_screenwidth / 2, rect_top, &rectangle_color)) {
+                        should_draw_covering_rectangle = false;
                     }
                     break;
                 case kGraphicsTypeEGA:
@@ -752,7 +769,11 @@ void draw_border_common(int border, int BL, int BR,
     }
 
     if (should_draw_covering_rectangle) {
-        draw_rectangle_on_bitmap(rectangle_color, left_margin, 0, hw_screenwidth - left_margin * 2, V6_STATUS_WINDOW.y_size / imagescaley + 1);
+        int rect_height = V6_STATUS_WINDOW.y_size / imagescaley + 1 - rect_top;
+        if (rect_height > 0) {
+            draw_rectangle_on_bitmap(rectangle_color, left_margin, rect_top,
+                                     hw_screenwidth - left_margin * 2, rect_height);
+        }
     }
     flush_bitmap(current_graphics_buf_win);
 }
