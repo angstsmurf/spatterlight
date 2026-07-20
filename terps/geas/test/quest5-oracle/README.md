@@ -63,8 +63,8 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest — 61 driven rows: each of the 26 games with
-a walkthrough mapped to its walkthrough file and an extractor mode, plus 35
+`corpus.tsv` is the curated manifest — 62 driven rows: each of the 26 games with
+a walkthrough mapped to its walkthrough file and an extractor mode, plus 36
 override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
@@ -108,7 +108,7 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**61 games driven** — **51 `Finished`**, **10 `Running`**, **0 `Wedged`**.
+**62 games driven** — **52 `Finished`**, **10 `Running`**, **0 `Wedged`**.
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
 its absence is not a loss: **9 of the 10 `Running` rows are genuine wins in games
@@ -117,7 +117,7 @@ El asesino durmiente, First Times, Its election time in Pakistan, Medievalist's
 Quest, Nearco II, Sueña un pequeño sueño, cuttings, spondre). For several, `finish`
 is *provably* unreachable: spondre's inlined `HandleCommand` routes all input to
 ResponseLib topic matching, so Core's `quit` is dead code and Running-at-credits is
-the authored terminal state. Do not read the 51/61 split as a 10-game shortfall.
+the authored terminal state. Do not read the 52/62 split as a 10-game shortfall.
 
 The other `Running` row is a real gap:
 - **The Last Hero** — the *shipped game* is unwinnable: every `MoveObject` into a
@@ -132,8 +132,8 @@ remain: the six games whose walkthroughs are Q&A/prose
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
-the hints against the game source). Fifty-two of the 61 rows are driven by curated
-`overrides/` (see next section) — all 35 `-` rows plus 17 of the 26 rows that do
+the hints against the game source). Fifty-three of the 62 rows are driven by curated
+`overrides/` (see next section) — all 36 `-` rows plus 17 of the 26 rows that do
 have a walkthrough; the remaining nine run the raw walkthrough through the
 extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
 walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
@@ -175,9 +175,24 @@ changed. The deferral is gated to pre-v580 games — the same gate that decides
 whether the engine calls `FinishTurn` at all — so anything authored against modern
 QuestViva-era turn semantics keeps the stock path.
 
+### Expression-form prompts (`ShowMenu`, `Ask`)
+
+Two Quest built-ins exist in both a *statement* and an *expression* form, and the
+expression form genuinely blocks: QuestViva's `ExpressionOwner.ShowMenu` / `.Ask`
+**await** the player's response mid-expression, so a synchronous host has to supply
+the answer in place rather than registering a pending callback. The native engine
+exposes these as `Interp::menu_provider` and `Interp::ask_provider` — fed by the
+next script line in the harnesses, by a nested input loop in the Glk frontend.
+
+*Beowulf* is the corpus's first user of `Ask()` as an expression (`if (Ask("Do you
+still go on?"))`); before `ask_provider` existed, the native engine reported
+`Unknown function 'Ask'` and its win was unreachable natively even though the
+oracle drove it fine. As with the `ask` statement, the caption is *not* printed by
+the engine — rendering the yes/no prompt is host presentation.
+
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 61 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 62 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch

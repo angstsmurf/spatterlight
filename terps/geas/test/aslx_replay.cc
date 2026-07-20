@@ -273,6 +273,23 @@ int main(int argc, char **argv) {
         return false;  // script exhausted
     };
 
+    // The EXPRESSION form of Ask blocks mid-script the same way; feed it the
+    // next script line, accepting the same `answer:` grammar as a pending
+    // `ask` statement (and a bare yes/no, per the lenient-resolution rule).
+    in.ask_provider = [&](const std::string &q, bool &answer) -> bool {
+        (void)q;
+        while (li < lines.size()) {
+            std::string cmd = nr_trim(lines[li++]);
+            if (cmd.empty() || cmd[0] == '#') continue;
+            steps++;
+            std::string l = cmd;
+            if (l.compare(0, 7, "answer:") == 0) l = nr_trim(l.substr(7));
+            answer = (l == "yes" || l == "y" || l == "true" || l == "1");
+            return true;
+        }
+        return false;  // script exhausted
+    };
+
     while (li < lines.size()) {
         if (w.finished) break;
         std::string cmd = nr_trim(lines[li++]);

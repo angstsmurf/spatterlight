@@ -9,8 +9,9 @@
 // register callbacks and the prompt loop here asks the engine what it is
 // waiting for (pending_menu / pending_question / pending_wait / else a
 // command line) and resolves it with the next player input.  The expression
-// form of ShowMenu is the one genuinely synchronous prompt; it gets a nested
-// input loop via Interp::menu_provider.
+// forms of ShowMenu and Ask are the genuinely synchronous prompts (both AWAIT
+// mid-expression); they get a nested input loop via Interp::menu_provider and
+// Interp::ask_provider.
 //
 // Output arrives as Quest's constrained HTML subset (Core's OutputText emits
 // <span style=".."> text </span><br/> chunks; game text adds <b>/<i>/<u> and
@@ -1542,6 +1543,27 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key)
     }
 }
 
+/* Present a yes/no question and return the answer.  The engine never prints
+ * the caption (ShowQuestion is host UI), so render it here.  Shared by the
+ * `ask` script-command prompt (set_question_response) and the expression-form
+ * provider (ask_provider), which is why it does not touch the pending slot.
+ * Returns false when the world ended under the prompt (no answer to give). */
+bool run_question_ui(Interp &in, const std::string &q, bool &answer)
+{
+    render_html(q);
+    for (;;) {
+        InResult r = read_line(in, true, " (yes/no) > ");
+        if (r.kind == InEnd::State)
+            return false;                     /* timer ended the world */
+        if (r.kind != InEnd::Line)
+            continue;
+        std::string a = lower(trim(r.text));
+        if (a == "yes" || a == "y") { answer = true;  return true; }
+        if (a == "no"  || a == "n") { answer = false; return true; }
+        glk_put_string((char *) "Please answer YES or NO.");
+    }
+}
+
 /* ---------------------------------------------------------- save/restore -- */
 
 std::string core_dir_path();   /* defined in the core section below */
@@ -2605,6 +2627,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     in.menu_provider = [&in](const MenuData &m, std::string &key) -> bool {
         return run_menu_ui(in, m, key);
     };
+    in.ask_provider = [&in](const std::string &q, bool &answer) -> bool {
+        return run_question_ui(in, q, answer);
+    };
     in.request_save = [&in] { do_save_ui(in); };
     /* Core's `restart` command (via JS.eval window.location.reload).  The
      * turn finishes normally -- under a browser reload the server-side turn
@@ -2822,18 +2847,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             bool picked = run_menu_ui(in, *m, key);
             in.set_menu_response(picked ? &key : nullptr);
         } else if (const std::string *q = in.pending_question()) {
-            /* The engine does not print the caption (ShowQuestion is host
-             * UI); render it with a yes/no prompt. */
-            render_html(*q);
-            for (;;) {
-                InResult r = read_line(in, true, " (yes/no) > ");
-                if (r.kind == InEnd::State) break;
-                if (r.kind != InEnd::Line) continue;
-                std::string a = lower(trim(r.text));
-                if (a == "yes" || a == "y") { in.set_question_response(true); break; }
-                if (a == "no" || a == "n")  { in.set_question_response(false); break; }
-                glk_put_string((char *) "Please answer YES or NO.");
-            }
+            bool answer = false;
+            if (run_question_ui(in, *q, answer))
+                in.set_question_response(answer);
         } else if (in.pending_wait()) {
             read_keypress(in);
             if (in.pending_wait())

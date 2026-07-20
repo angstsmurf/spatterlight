@@ -525,6 +525,16 @@ public:
     // the expression form reports an error.
     std::function<bool(const MenuData &, std::string &key)> menu_provider;
 
+    // Synchronous provider for the EXPRESSION form of Ask
+    // (ExpressionOwner.Ask, which likewise AWAITS mid-expression and returns
+    // the yes/no answer). Same contract as menu_provider: the question caption
+    // is NOT printed -- rendering the prompt is presentation, exactly as the
+    // `ask` statement leaves it to the host. Return true with `answer` set;
+    // returning false means "no answer available" and yields false, matching
+    // QuestViva's default-false TaskCompletionSource. Unset, the expression
+    // form reports an error.
+    std::function<bool(const std::string &question, bool &answer)> ask_provider;
+
     // -- timers (TimerRunner port, TODO §3) -----------------------------------
     // Quest timers are <timer> elements with `enabled`/`interval`/`trigger`/
     // `script` fields against a game.timeelapsed clock; the enable/disable/

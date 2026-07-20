@@ -1,0 +1,103 @@
+-)-------  -------(-
+Beowulf's Fight with Grendel
+-)-------  -------(-
+You are a hero named Beowulf. You have heard news from a far that a terrible beast has terrorized King Hrothgar.
+On your quest for fame and immortality you plan on venturing forth to defeat this beast with your men.
+Use your wits and strength to defeat the monster Grendel.
+May the gods be with you.
+(Press Enter when ready)
+You are in Geatland.
+There are men and a ship.
+The wind blows heavily as you stand on the shore by the boats. Men begin to board them as people walk about grabbing cargo and supplies for the voyage.
+> sail ship
+You are on the shore of Denmark.
+You can see a sailor and a ship.
+Your exits are west.
+You find yourself on the docks of this land which is new to you. The air bites you but other than that it is a fairly calm day. A few other ships line the shore that most likely belong to the Danes.
+
+>>>
+A man approaches you and says, "Halt. Who are you and what is it that you seek here?"
+
+You respond by telling him of your ancestry and explaining who you are. You then tell him you wish to help Hrothgar with his trouble with Grendel.
+
+"I can see you will be welcome in Hrothgar's hall, I shall go and bring word of your arrival." He says and then heads west on a road.
+>>>
+> west
+You are on a path.
+You see two guards.
+Your exits are east, north, west or south.
+The cobble stone path beneath your feet leads toward the north through a wall. Other than that you can see a pasture in the distance.
+> north
+You are in a Field.
+You can see villagers.
+You can go south or north.
+A large building stands before you, most likely their mead hall. There are houses to the right and left of you. You can see two children playing in the distance. Some of the villagers seem to be fearful of your presence.
+> drop sword
+You drop it.
+> north
+You are in a Mead Hall.
+You can see Hrothgar, Weltheow, Dane Men, Unferth and a bard.
+You can go south.
+The warmth of the hall ruses over you as you enter. There are men sitting at tables drinking mead and having a great time.
+> speak to hrothgar
+
+His solemn face brightens a bit as he sees you. "Oh glorious of days. It has been ages since I last saw you and your father Ecgtheow. Tell me, what brings you here?"
+
+You tell Hrothgar that you wish to rid the demon Grendel from his land and will defeat him single-handedly.
+
+Hrothgar: "May I first warn you Beowulf, many men have stood up to this beast and perished, I will tell you this is no simple task. Use your strength, but also use your wits. If you succeed I will grant you a boat full of treasure."
+(press enter)
+
+Hrothgar smiles at you. "Then let us drink and feast tonight in celibration!"
+(press enter)
+During the celebration a Dane named Unferth approaches you.
+Unferth: "I have heard of you Beowulf. You had a swimming match against Breca (an old friend of yours) once. It was said that you were unable to keep up with his speed and lost the match. I could have easily matched or even beaten Breca in a race. If you could not beat Breca in a simple swimming match how can you hope to defeat Grendel?"
+
+You say that there was more to that story than Unferth was telling. You then begin your tale of what really happened.
+(press enter)
+You have begun your match. Both you and Breca have been swimming with all your armor and a sword to defend yourselves.
+After swimming neck to neck for a long time the rhythm of your paddle is disrupted by a sea monster that blocks your path.
+You are in the Sea.
+You can see a Sea Monster.
+Water surounds you everywhere.
+You can see Breca paddling away in the distance.
+> use sword on sea monster
+You swim toward it and pull out your trusty sword. As it swims toward you you manage to push yourself above the water and land on top of it. You stab it in the back and if flips over and dives into the ocean.
+(press enter)
+You float in the sea and continue onward with your race, that monster won't be messing you you again.
+(press enter to return to Herot)
+
+You then finish off your story by telling of the other monsters you killed along your way. Everyone seems impressed by your feat. Unferth seems embarrassed. You then tell Unferth that if he was as good as he boasted Grendel would have already be dead. Unferth appears even more embarrassed.
+Weltheow then comes around and pours men some mead as you continue to tell tails of your strength and power. Everyone seems to enjoy your stories.
+(press enter)
+As time passes it becomes late and everyone heads to bed. What do you do?
+You are in a Mead Hall at night.
+You can see sleeping men.
+There are men sleeping just about wherever they feel comfortable, there is probably a space for you somewhere.
+> wait
+You lie down and wait to see if Grendel appears.
+(press enter)
+You hear a startling crash that was a result of the mead hall doors exploding. You see what you believe is Grendel.
+(press enter)
+
+He picks up one of your men rips his torso in half and begins pouring his bodily fluids into his mouth before taking a bite of him and throwing him to the floor.
+(press enter)
+He them sees you and makes his way over to you. (React now. press "o" for options)
+> tear off arm
+Grabbing his arm your take hold of his shoulder and pull with all your strength. His arm separates at his shoulder and you find yourself with his arm and his arm alone.
+Grendel makes a break for it trailing blood and escapes successfully, but with a wound like that it is hard to imagine him surviving.
+(press enter)
+The entire village awakens at the noise and comes to see you standing there with Grendel's arm.
+The crowd explodes with tears of joy and shouts of happiness. Hrothgar comes up to you and thanks you graciously.
+
+The next day there is much celebration. Hrothgar gives a speech in your honor and Danes and Geats alike congratulate you and drink to your health. The bard begins singing of you and your deeds.
+You feel like a true hero and retire for the night.
+(press enter)
+You awaken to a loud shriek and a loud commotion. You rush out of your bed sword drawn just in time to see a hideous beast run away from the hall carrying an object.
+You sense that another battle awaits you and get ready.
+(press enter)
+-To Be Continued.
+
+This was the story of Beowulf fighting Grendel up to the point where his mother arrives to seek her revenge.
+Congratulations on beating the game.
+[state=Finished]

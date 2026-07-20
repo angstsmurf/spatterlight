@@ -911,6 +911,17 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vstr("");  // cancelled: result ?? string.Empty
     }
 
+    // ExpressionOwner.Ask -- the EXPRESSION form, which QuestViva AWAITS: hand
+    // the caption to the synchronous host and return its yes/no. The caption is
+    // not printed (PlayerUI.ShowQuestion renders it), so this emits nothing.
+    if (fn == "ask" && n == 1) {
+        if (!ask_provider)
+            error("Ask (expression form) requires a host question provider");
+        bool answer = false;
+        if (!ask_provider(sarg(0), answer)) return vbool(false);
+        return vbool(answer);
+    }
+
     if (fn == "getrandomint" && n == 2)
         return vint(active_rng().between(iarg(0), iarg(1)));
     if (fn == "getrandomdouble" && n == 0)
