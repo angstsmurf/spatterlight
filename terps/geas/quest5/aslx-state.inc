@@ -388,7 +388,7 @@ bool Interp::restore_game(const std::string &data, std::string &err) {
             !in_save.count(up->name))
             drop.push_back(up->name);
     for (const std::string &n : drop)
-        world_.by_name.erase(n);
+        world_.unregister_name(n);
 
     // ... then bring each saved element to its saved state: identity, type
     // stack and the own-field bag replaced wholesale (the saved fields include
@@ -398,14 +398,16 @@ bool Interp::restore_game(const std::string &data, std::string &err) {
         if (!e)  // runtime-created before saving
             e = world_.create_object(se.name, "", se.elem_type);
         e->elem_type = se.elem_type;
+        e->kind = elem_kind_from_string(se.elem_type);
         e->anonymous = se.anonymous;
         e->sort_index = se.sort_index;
         e->inherits = se.inherits;
-        e->fields.clear();
+        e->clear_all_fields();
         for (auto &kv : se.fields)
             e->set_field(kv.first, std::move(kv.second));
     }
     world_.next_sort_index = next_sort;
+    world_.note_containment_change();  // containment fully rewritten by restore
 
     // firsttime flags: compiling the source re-populates the cache slot the
     // save keyed on; a body that no longer parses identically is skipped.

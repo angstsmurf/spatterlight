@@ -20,6 +20,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace aslx {
@@ -143,6 +144,17 @@ inline void Value::ensure_backing() {
     }
 }
 
+// Element kind: an enum mirror of the `elem_type` string, set whenever
+// elem_type is assigned (elem_kind_from_string). Hot per-turn scans compare the
+// enum instead of the string -- an int compare rather than a memcmp, which the
+// profiler showed dominating Quest 5 playback.
+enum class ElemKind : unsigned char {
+    Other = 0, Object, Command, Verb, Function, Game, Type,
+    Turnscript, Timer, Walkthrough, Exit, Resource, Output,
+    Javascript, Delegate
+};
+ElemKind elem_kind_from_string(const std::string &s);
+
 // One element of the world model: object, command, function, game, type, etc.
 // Containment is by nesting (parent/children). Inheritance is by <inherit> and
 // is recorded here as a list of type names, resolved by the engine later.
@@ -152,6 +164,11 @@ struct Element {
                              // "type", "turnscript", "timer", "walkthrough",
                              // "exit", "resource", "output", "javascript",
                              // "delegate"
+    ElemKind kind = ElemKind::Other;  // enum mirror of elem_type (see above)
+    // Liveness cache: true iff this element is the current by_name binding, i.e.
+    // find(name)==this. Maintained by World::register_name/unregister_name so
+    // scope walks can test liveness with a bool read instead of a map lookup.
+    bool registered = false;
     bool anonymous = false;
     int source_line = 0;
 
@@ -162,8 +179,14 @@ struct Element {
     long sort_index = 0;
 
     // Fields in insertion order (Quest's field bag is unordered, but preserving
-    // order keeps dumps stable and readable).
+    // order keeps dumps stable and readable). field_index_ maps a field name to
+    // its slot in `fields` so field()/set_field() are O(1) instead of a linear
+    // string scan -- the field-resolution walk (collect_field_chain) reads a
+    // field at every node of the inheritance chain, per attribute, per turn.
+    // Always mutate `fields` through set_field/remove_field/clear_all_fields so
+    // the index stays in sync.
     std::vector<std::pair<std::string, Value>> fields;
+    std::unordered_map<std::string, size_t> field_index_;
     std::vector<std::string> inherits;   // <inherit name="..."/> type names
 
     Element *parent = nullptr;
@@ -174,6 +197,9 @@ struct Element {
     // Erase an own field (v530+ null assignment: Fields.Set REMOVES the
     // attribute, so HasAttribute goes false and inherited values re-resolve).
     void remove_field(const std::string &n);
+    // Drop every own field (restore replaces the bag wholesale); keeps the name
+    // index consistent.
+    void clear_all_fields();
     bool has_field(const std::string &n) const { return field(n) != nullptr; }
 };
 
@@ -186,7 +212,10 @@ struct World {
 
     std::vector<std::unique_ptr<Element>> elements;  // owns all elements
     std::vector<Element *> roots;                    // top-level (parent == null)
-    std::map<std::string, Element *> by_name;
+    // Nothing iterates by_name in order (only point find/insert/erase), so an
+    // unordered_map's O(1) average lookup replaces std::map's O(log N) string
+    // comparisons on the hot find() path.
+    std::unordered_map<std::string, Element *> by_name;
 
     // name -> body text. command flag kept for the (rare) templatetype="command".
     std::vector<std::pair<std::string, std::string>> templates;
@@ -221,6 +250,28 @@ struct World {
     Element *create_object(const std::string &name, const std::string &type = "",
                            const std::string &elem_type = "object");
     void destroy_element(const std::string &name);
+
+    // by_name maintenance that also keeps Element::registered correct: binding a
+    // name to a new element marks any previously-bound element non-live (Quest's
+    // last-create-wins), and unbinding marks it non-live. Both count as
+    // containment changes (a shadowed/destroyed element drops out of scope).
+    void register_name(const std::string &name, Element *ep);
+    void unregister_name(const std::string &name);
+
+    // Runtime containment index: parent Element* (nullptr = roots) -> its live
+    // object-kind children in SortIndex order. Lazily rebuilt from scratch when
+    // containment_gen advances, so a missed bump can only cost freshness, never
+    // corrupt. note_containment_change() is called at every create/destroy/
+    // parent-reassignment/restore site. This turns GetDirectChildren /
+    // GetAllChildObjects from a full O(N) world scan (with a find() per element)
+    // into an O(children) lookup -- the profiler's top Quest 5 hotspot.
+    unsigned long long containment_gen = 0;
+    void note_containment_change() { ++containment_gen; }
+    const std::vector<Element *> &children_of(Element *parent);
+
+    // Cache backing children_of(); not for external use.
+    unsigned long long children_index_gen_ = ~0ull;
+    std::unordered_map<Element *, std::vector<Element *>> children_index_;
 };
 
 // Load from a file path. Sniffs the content: a PK zip is treated as a .quest

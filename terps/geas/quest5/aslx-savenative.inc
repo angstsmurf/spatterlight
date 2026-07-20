@@ -828,7 +828,7 @@ std::string Interp::save_game_native(const std::string &original_file) {
     // <delegate name=".." parameters=".." type="returntype"/>
     for (const auto &up : world_.elements) {
         const Element *e = up.get();
-        if (e->elem_type != "delegate" || !live(e)) continue;
+        if (e->kind != ElemKind::Delegate || !live(e)) continue;
         const Value *rt = e->field("returntype");
         std::vector<std::pair<std::string, std::string>> a;
         a.emplace_back("name", e->name);
@@ -844,7 +844,7 @@ std::string Interp::save_game_native(const std::string &original_file) {
     std::vector<const Element *> types;
     for (const auto &up : world_.elements) {
         const Element *e = up.get();
-        if (e->elem_type == "type" && live(e)) types.push_back(e);
+        if (e->kind == ElemKind::Type && live(e)) types.push_back(e);
     }
     std::sort(types.begin(), types.end(), by_sort);
     for (const Element *e : types) {
@@ -858,7 +858,7 @@ std::string Interp::save_game_native(const std::string &original_file) {
     std::vector<const Element *> funcs;
     for (const auto &up : world_.elements) {
         const Element *e = up.get();
-        if (e->elem_type == "function" && live(e)) funcs.push_back(e);
+        if (e->kind == ElemKind::Function && live(e)) funcs.push_back(e);
     }
     std::sort(funcs.begin(), funcs.end(), by_sort);
     for (const Element *e : funcs) {
@@ -880,7 +880,7 @@ std::string Interp::save_game_native(const std::string &original_file) {
     std::vector<const Element *> timers;
     for (const auto &up : world_.elements) {
         const Element *e = up.get();
-        if (e->elem_type == "timer" && live(e)) timers.push_back(e);
+        if (e->kind == ElemKind::Timer && live(e)) timers.push_back(e);
     }
     std::sort(timers.begin(), timers.end(), by_sort);
     for (const Element *e : timers) {
@@ -963,7 +963,7 @@ bool Interp::restore_game_native(const std::string &data, std::string &err) {
             !overlaid.count(e->name))
             drop.push_back(e->name);
     }
-    for (const std::string &n : drop) world_.by_name.erase(n);
+    for (const std::string &n : drop) world_.unregister_name(n);
 
     // Merged-listextend slots may hold pre-restore state (as in restore_game).
     extend_cache_.clear();

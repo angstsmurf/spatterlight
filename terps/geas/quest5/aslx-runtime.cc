@@ -10,6 +10,7 @@
 #include <regex>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_set>
 
 namespace aslx {
 
@@ -1212,6 +1213,7 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
                 if (s.name == "parent") {
                     log_sort_index(e);
                     e->sort_index = world_.next_sort_index++;
+                    world_.note_containment_change();
                 }
                 fire_changed_script(e, s.name, old);
             } else {
@@ -1351,7 +1353,7 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
             args.push_back(std::move(scr));
         }
         if (world_.find(s.name) &&
-            (world_.find(s.name)->elem_type == "function")) {
+            (world_.find(s.name)->kind == ElemKind::Function)) {
             call_function(s.name, std::move(args), &ctx);
         } else {
             bool handled = false;
@@ -1520,7 +1522,7 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
     // only. Without Core (unit tests) or on older games, print directly.
     // OutputText ends at JS.addText -> print.
     Element *ot = world_.find("OutputText");
-    if (world_.asl_version >= 540 && ot && ot->elem_type == "function") {
+    if (world_.asl_version >= 540 && ot && ot->kind == ElemKind::Function) {
         try {
             call_function("OutputText", {vstr(text)}, &ctx);
         } catch (const std::exception &err) {
@@ -1622,7 +1624,7 @@ void Interp::send_command(const std::string &command) {
             print_via_core("> " + safe_xml_escape(command), ctx);
         }
         Element *hc = world_.find("HandleCommand");
-        if (hc && hc->elem_type == "function") {
+        if (hc && hc->kind == ElemKind::Function) {
             try {
                 call_function("HandleCommand", {vstr(command), vnull()}, &ctx);
             } catch (const std::exception &err) {
@@ -1637,7 +1639,7 @@ void Interp::send_command(const std::string &command) {
             owes_ft = false;  // reached the call; if FinishTurn itself parks,
                               // its frames carry the tail (not re-owed here)
             Element *ft = world_.find("FinishTurn");
-            if (ft && ft->elem_type == "function") {
+            if (ft && ft->kind == ElemKind::Function) {
                 try {
                     call_function("FinishTurn", {}, &ctx);
                 } catch (const std::exception &err) {
@@ -1845,7 +1847,7 @@ void Interp::resume_parked_tail() {
             owes_finishturn = false;
             if (world_.asl_version < 580) {
                 Element *ft = world_.find("FinishTurn");
-                if (ft && ft->elem_type == "function") {
+                if (ft && ft->kind == ElemKind::Function) {
                     Context tctx;
                     try {
                         call_function("FinishTurn", {}, &tctx);
@@ -1866,7 +1868,7 @@ void Interp::send_event(const std::string &name, const std::string &param) {
     // WorldModel.SendEventCore -- the ASLEvent bridge (hyperlink onclicks).
     Context ctx;
     Element *h = world_.find(name);
-    if (!h || h->elem_type != "function") {
+    if (!h || h->kind != ElemKind::Function) {
         print_via_core("Error - no handler for event '" + name + "'", ctx);
         return;
     }
@@ -1878,7 +1880,7 @@ void Interp::send_event(const std::string &name, const std::string &param) {
         if (world_.asl_version < 540) return;
         if (world_.asl_version < 580) {
             Element *ft = world_.find("FinishTurn");
-            if (ft && ft->elem_type == "function") {
+            if (ft && ft->kind == ElemKind::Function) {
                 try {
                     call_function("FinishTurn", {}, &ctx);
                 } catch (const std::exception &err) {
@@ -1905,7 +1907,7 @@ std::vector<Element *> Interp::objects_in_scope(const std::string &scope) {
     // (update_lists' catch turns that into a LogException, like the callers'
     // catches in the reference).
     Element *f = world_.find(scope);
-    if (!f || f->elem_type != "function")
+    if (!f || f->kind != ElemKind::Function)
         throw std::runtime_error("No function '" + scope + "'");
     Context ctx;
     Value v = call_function(scope, {}, &ctx);
@@ -1925,20 +1927,20 @@ ListData Interp::list_data_for(Element *obj, bool inventory) {
 
     // GetDisplayAliasAsync: Core function when present, element name otherwise.
     Element *gda = world_.find("GetDisplayAlias");
-    d.display_alias = gda && gda->elem_type == "function"
+    d.display_alias = gda && gda->kind == ElemKind::Function
         ? to_string(call_function("GetDisplayAlias", {vobj(obj->name)}, &ctx))
         : obj->name;
 
     // GetListDisplayAliasAsync: the pane label (may carry {}-processed markup).
     Element *glda = world_.find("GetListDisplayAlias");
-    d.text = glda && glda->elem_type == "function"
+    d.text = glda && glda->kind == ElemKind::Function
         ? to_string(call_function("GetListDisplayAlias", {vobj(obj->name)}, &ctx))
         : d.display_alias;
 
     // Verbs: pre-v520 (or Core-less) reads the inventoryverbs/displayverbs
     // fields directly; later Core supplies GetDisplayVerbs.
     Element *gdv = world_.find("GetDisplayVerbs");
-    if (world_.asl_version <= 520 || !gdv || gdv->elem_type != "function") {
+    if (world_.asl_version <= 520 || !gdv || gdv->kind != ElemKind::Function) {
         const Value *verbs =
             resolve_field(obj, inventory ? "inventoryverbs" : "displayverbs");
         if (verbs && verbs->list_store)
@@ -1969,7 +1971,7 @@ std::vector<ListData> Interp::exits_list_data() {
     // GetExitsListDataAsync: ScopeExits, or GetExitsList on v530+.
     std::string scope = "ScopeExits";
     Element *gel = world_.find("GetExitsList");
-    if (world_.asl_version >= 530 && gel && gel->elem_type == "function")
+    if (world_.asl_version >= 530 && gel && gel->kind == ElemKind::Function)
         scope = "GetExitsList";
     std::vector<ListData> out;
     for (Element *e : objects_in_scope(scope))
@@ -1981,7 +1983,7 @@ void Interp::update_status_variables() {
     // UpdateStatusVariablesAsync: Core's UpdateStatusAttributes ends in
     // JS.updateStatus. Its own catch is LogException-only.
     Element *f = world_.find("UpdateStatusAttributes");
-    if (!f || f->elem_type != "function") return;
+    if (!f || f->kind != ElemKind::Function) return;
     Context ctx;
     try {
         call_function("UpdateStatusAttributes", {}, &ctx);
@@ -2034,7 +2036,7 @@ void Interp::update_lists() {
 std::vector<Element *> Interp::live_timers() {
     std::vector<Element *> out;
     for (auto &up : world_.elements)
-        if (up->elem_type == "timer" && world_.find(up->name) == up.get())
+        if (up->kind == ElemKind::Timer && up->registered)
             out.push_back(up.get());
     return out;
 }
@@ -2288,26 +2290,29 @@ void Interp::apply_undo_action(UndoAction &a) {
             e->remove_field(a.attr);
         else
             e->set_field(a.attr, a.old_value);
+        if (a.attr == "parent") world_.note_containment_change();
         return;
     }
     case UndoAction::Kind::FieldRemove: {
         Element *e = world_.find(a.element);
         if (e) e->set_field(a.attr, a.old_value);
+        if (a.attr == "parent") world_.note_containment_change();
         return;
     }
     case UndoAction::Kind::SortIndex: {
         Element *e = world_.find(a.element);
         if (e) e->sort_index = a.index;
+        world_.note_containment_change();
         return;
     }
     case UndoAction::Kind::Create:
         // CreateDestroyLogEntry undo-of-create: Elements.Remove -- the storage
         // stays alive (like our destroy_element), only the name unregisters.
-        world_.by_name.erase(a.element);
+        world_.unregister_name(a.element);
         return;
     case UndoAction::Kind::Destroy:
         // Undo-of-destroy: re-register the kept-alive element, fields intact.
-        world_.by_name[a.element] = a.element_ptr;
+        world_.register_name(a.element, a.element_ptr);
         return;
     case UndoAction::Kind::ListAdd: {
         std::vector<Value> &v = *a.list_backing;
@@ -2603,7 +2608,7 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         bool handled = false;
         Value r = call_builtin(e.str, args, handled, ctx);
         if (handled) return r;
-        if (world_.find(e.str) && world_.find(e.str)->elem_type == "function")
+        if (world_.find(e.str) && world_.find(e.str)->kind == ElemKind::Function)
             return call_function(e.str, std::move(args), &ctx);
         error("Unknown function '" + e.str + "'");
         return vnull();
@@ -2789,7 +2794,7 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
     if (trace_calls)
         fprintf(stderr, "[call d%d] %s\n", script_depth_, name.c_str());
     Element *fn = world_.find(name);
-    if (!fn || fn->elem_type != "function") {
+    if (!fn || fn->kind != ElemKind::Function) {
         error("Function not found: '" + name + "'");
         return vnull();
     }
@@ -3296,6 +3301,7 @@ bool Interp::exec_statement_command(const std::string &name,
             if (attr == "parent") {
                 log_sort_index(obj);
                 obj->sort_index = world_.next_sort_index++;
+                world_.note_containment_change();
             }
             fire_changed_script(obj, attr, old);
         } else {

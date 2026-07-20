@@ -186,7 +186,9 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // both entries resolving to the live one, running its script twice a turn
     // (Jacqueline's SetTurnTimeout chain fired at half the authored delay).
     auto live = [&](const std::unique_ptr<Element> &up) {
-        return world_.find(up->name) == up.get();
+        // registered mirrors find(name)==this, maintained by register_name/
+        // unregister_name -- a bool read instead of a map lookup per element.
+        return up->registered;
     };
 
     // QuestViva ExpressionOwner argument checking, needed verbatim in the
@@ -310,13 +312,13 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         // them -- ProcessTextCommand_Exit and dynamically-created turnscripts
         // ("turnscript = GetObject(name)") rely on this.
         Element *e = world_.find(sarg(0));
-        return e && (e->elem_type == "object" || e->elem_type == "exit" ||
-                     e->elem_type == "turnscript" || e->elem_type == "game")
+        return e && (e->kind == ElemKind::Object || e->kind == ElemKind::Exit ||
+                     e->kind == ElemKind::Turnscript || e->kind == ElemKind::Game)
                    ? vobj(e->name) : vnull();
     }
     if (fn == "gettimer" && n == 1) {
         Element *e = world_.find(sarg(0));
-        return e && e->elem_type == "timer" ? vobj(e->name) : vnull();
+        return e && e->kind == ElemKind::Timer ? vobj(e->name) : vnull();
     }
     // RunDelegateFunction(obj, "delegatename", params...): the expression form
     // of rundelegate; returns the implementation script's return value.
@@ -372,7 +374,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "allobjects" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "object" && live(up)) names.push_back(up->name);
+            if (up->kind == ElemKind::Object && live(up)) names.push_back(up->name);
         return vobjlist(names);
     }
     if (fn == "allcommands" && n == 0) {
@@ -380,7 +382,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         // with IsVerb=true) -- ScopeCommands depends on seeing them here.
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if ((up->elem_type == "command" || up->elem_type == "verb") &&
+            if ((up->kind == ElemKind::Command || up->kind == ElemKind::Verb) &&
                 live(up))
                 names.push_back(up->name);
         return vobjlist(names);
@@ -388,7 +390,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "allexits" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "exit" && live(up)) names.push_back(up->name);
+            if (up->kind == ElemKind::Exit && live(up)) names.push_back(up->name);
         return vobjlist(names);
     }
     if (fn == "getexitbylink" && n == 2) {
@@ -406,8 +408,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         Element *fromEl = obj_of(arg(0)), *toEl = obj_of(arg(1));
         for (auto &up : world_.elements) {
             if (!live(up)) continue;
-            if (up->elem_type != "object" && up->elem_type != "exit" &&
-                up->elem_type != "turnscript" && up->elem_type != "game")
+            if (up->kind != ElemKind::Object && up->kind != ElemKind::Exit &&
+                up->kind != ElemKind::Turnscript && up->kind != ElemKind::Game)
                 continue;
             if (parent_of(up.get()) != fromEl) continue;
             const Value *f = resolve_field(up.get(), "to");
@@ -419,24 +421,18 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     if (fn == "allturnscripts" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
-            if (up->elem_type == "turnscript" && live(up))
+            if (up->kind == ElemKind::Turnscript && live(up))
                 names.push_back(up->name);
         return vobjlist(names);
     }
     // Children enumerate in SortIndex order (Elements.GetDirectChildren sorts
     // by the SortIndex MetaField): creation order, except a runtime parent
     // change moves the element to the end of its new parent's children.
-    auto direct_children = [&](Element *e) {
-        std::vector<Element *> kids;
-        for (auto &up : world_.elements)
-            if (up->elem_type == "object" && live(up) &&
-                parent_of(up.get()) == e)
-                kids.push_back(up.get());
-        std::stable_sort(kids.begin(), kids.end(),
-                         [](const Element *a, const Element *b) {
-                             return a->sort_index < b->sort_index;
-                         });
-        return kids;
+    // Served from World's lazily-rebuilt containment index (kind==Object, live,
+    // parent read from the own `parent` field, SortIndex order) -- an
+    // O(children) lookup rather than the full O(N) world scan this used to be.
+    auto direct_children = [&](Element *e) -> const std::vector<Element *> & {
+        return world_.children_of(e);
     };
     if (fn == "getdirectchildren" && n == 1) {
         Element *e = obj_of(arg(0));
@@ -449,10 +445,12 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         Element *e = obj_of(arg(0));
         std::vector<std::string> names;
         // Recurse through the parent-field tree. A visited set guards against a
-        // cycle introduced by a bad runtime parent assignment.
+        // cycle introduced by a bad runtime parent assignment (an O(1) hash
+        // membership test rather than the old O(M^2) linear scan of `names`).
+        std::unordered_set<std::string> seen;
         std::function<void(Element *)> rec = [&](Element *x) {
             for (Element *k : direct_children(x)) {
-                if (std::find(names.begin(), names.end(), k->name) != names.end())
+                if (!seen.insert(k->name).second)
                     continue;
                 names.push_back(k->name);
                 rec(k);

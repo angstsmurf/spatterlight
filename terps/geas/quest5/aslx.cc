@@ -112,34 +112,113 @@ static void fill_list(Value &v, const std::vector<std::string> &items) {
 }
 
 const Value *Element::field(const std::string &n) const {
-    for (const auto &kv : fields)
-        if (kv.first == n) return &kv.second;
-    return nullptr;
+    auto it = field_index_.find(n);
+    return it == field_index_.end() ? nullptr : &fields[it->second].second;
 }
 
 Value &Element::set_field(const std::string &n, Value v) {
-    for (auto &kv : fields) {
-        if (kv.first == n) {
-            kv.second = std::move(v);
-            return kv.second;
-        }
+    auto it = field_index_.find(n);
+    if (it != field_index_.end()) {
+        fields[it->second].second = std::move(v);
+        return fields[it->second].second;
     }
+    field_index_.emplace(n, fields.size());
     fields.emplace_back(n, std::move(v));
     return fields.back().second;
 }
 
 void Element::remove_field(const std::string &n) {
-    for (auto it = fields.begin(); it != fields.end(); ++it) {
-        if (it->first == n) {
-            fields.erase(it);
-            return;
-        }
+    auto it = field_index_.find(n);
+    if (it == field_index_.end()) return;
+    size_t idx = it->second;
+    fields.erase(fields.begin() + idx);
+    field_index_.erase(it);
+    // Erasing from the middle shifts every later slot down by one.
+    for (auto &e : field_index_)
+        if (e.second > idx) --e.second;
+}
+
+void Element::clear_all_fields() {
+    fields.clear();
+    field_index_.clear();
+}
+
+ElemKind elem_kind_from_string(const std::string &s) {
+    // Small fixed set; a first-char switch keeps this off the memcmp path for
+    // the common kinds without a map.
+    switch (s.empty() ? '\0' : s[0]) {
+    case 'o': if (s == "object") return ElemKind::Object;
+              if (s == "output") return ElemKind::Output; break;
+    case 'c': if (s == "command") return ElemKind::Command; break;
+    case 'v': if (s == "verb") return ElemKind::Verb; break;
+    case 'f': if (s == "function") return ElemKind::Function; break;
+    case 'g': if (s == "game") return ElemKind::Game; break;
+    case 't': if (s == "type") return ElemKind::Type;
+              if (s == "turnscript") return ElemKind::Turnscript;
+              if (s == "timer") return ElemKind::Timer; break;
+    case 'w': if (s == "walkthrough") return ElemKind::Walkthrough; break;
+    case 'e': if (s == "exit") return ElemKind::Exit; break;
+    case 'r': if (s == "resource") return ElemKind::Resource; break;
+    case 'j': if (s == "javascript") return ElemKind::Javascript; break;
+    case 'd': if (s == "delegate") return ElemKind::Delegate; break;
+    default: break;
     }
+    return ElemKind::Other;
 }
 
 Element *World::find(const std::string &n) const {
     auto it = by_name.find(n);
     return it == by_name.end() ? nullptr : it->second;
+}
+
+void World::register_name(const std::string &name, Element *ep) {
+    auto it = by_name.find(name);
+    if (it != by_name.end()) {
+        if (it->second == ep) { ep->registered = true; return; }
+        it->second->registered = false;  // last-create-wins shadows the old one
+        it->second = ep;
+    } else {
+        by_name.emplace(name, ep);
+    }
+    ep->registered = true;
+    note_containment_change();
+}
+
+void World::unregister_name(const std::string &name) {
+    auto it = by_name.find(name);
+    if (it == by_name.end()) return;
+    it->second->registered = false;
+    by_name.erase(it);
+    note_containment_change();
+}
+
+// Live object-kind children of `parent` (nullptr = roots), SortIndex order.
+// Rebuilds the whole index lazily on a containment change -- mirrors the old
+// direct_children scan exactly (kind==Object, live, parent read from the own
+// `parent` field), just amortised across the many reads in a turn.
+const std::vector<Element *> &World::children_of(Element *parent) {
+    if (children_index_gen_ != containment_gen) {
+        children_index_.clear();
+        for (const auto &up : elements) {
+            Element *x = up.get();
+            if (x->kind != ElemKind::Object || !x->registered)
+                continue;
+            const Value *p = x->field("parent");
+            Element *par = (p && p->type == Value::Type::ObjectRef)
+                               ? find(p->str)
+                               : nullptr;
+            children_index_[par].push_back(x);
+        }
+        for (auto &kv : children_index_)
+            std::stable_sort(kv.second.begin(), kv.second.end(),
+                             [](const Element *a, const Element *b) {
+                                 return a->sort_index < b->sort_index;
+                             });
+        children_index_gen_ = containment_gen;
+    }
+    static const std::vector<Element *> empty;
+    auto it = children_index_.find(parent);
+    return it == children_index_.end() ? empty : it->second;
 }
 
 const std::string *World::implied_type(const std::string &elem_type,
@@ -185,6 +264,7 @@ Element *World::create_object(const std::string &name, const std::string &type,
     auto e = std::make_unique<Element>();
     Element *ep = e.get();
     ep->elem_type = elem_type;
+    ep->kind = elem_kind_from_string(elem_type);
     ep->name = name;
     ep->sort_index = next_sort_index++;
     set_kind_fields(ep);
@@ -206,13 +286,14 @@ Element *World::create_object(const std::string &name, const std::string &type,
     else if (elem_type == "exit") ep->inherits.push_back("defaultexit");
     if (!type.empty()) ep->inherits.push_back(type);
     roots.push_back(ep);
-    by_name[name] = ep;            // last create wins, like ObjectFactory
+    register_name(name, ep);       // last create wins, like ObjectFactory
+    note_containment_change();
     elements.push_back(std::move(e));
     return ep;
 }
 
 void World::destroy_element(const std::string &name) {
-    by_name.erase(name);
+    unregister_name(name);
     // The Element storage stays in `elements` (other references may exist); it
     // simply becomes unreachable by name, which is what scope walks rely on.
 }
@@ -666,6 +747,7 @@ struct Loader {
         auto e = std::make_unique<Element>();
         Element *ep = e.get();
         ep->elem_type = type;
+        ep->kind = elem_kind_from_string(type);
         ep->name = name;
         ep->anonymous = anonymous;
         ep->sort_index = world.next_sort_index++;
@@ -702,10 +784,10 @@ struct Loader {
             // and we note the name so a live element the save omits can later
             // be dropped from the family.
             if (override_existing) {
-                world.by_name[name] = ep;
+                world.register_name(name, ep);
                 if (overlaid_names) overlaid_names->insert(name);
             } else if (!world.find(name)) {
-                world.by_name[name] = ep;
+                world.register_name(name, ep);
             }
         }
         world.elements.push_back(std::move(e));
@@ -1022,14 +1104,14 @@ struct Loader {
         Element *e = f.elem;
         std::string body = f.text;
         // command body text is its script; verb body text is defaulttext.
-        if (e->elem_type == "command") {
+        if (e->kind == ElemKind::Command) {
             if (!trim(body).empty()) {
                 Value v; v.type = Value::Type::Script;
                 v.str = replace_templates(body);
                 v.declared_type = "script";
                 e->set_field("script", v);
             }
-        } else if (e->elem_type == "verb") {
+        } else if (e->kind == ElemKind::Verb) {
             if (!trim(body).empty()) {
                 Value v; v.type = Value::Type::String;
                 v.str = replace_templates(trim(body));
@@ -1140,7 +1222,7 @@ struct Loader {
             // Verbs ARE commands in QuestViva (ElementType.Command), so the
             // <implied element="command"> declarations apply to them -- this
             // is how a verb's nested <pattern> gets the simplepattern type.
-            if (!imp && owner->elem_type == "verb")
+            if (!imp && owner->kind == ElemKind::Verb)
                 imp = world.implied_type("command", attr);
             if (imp) type = *imp;
         }
@@ -1265,7 +1347,7 @@ struct Loader {
                     it.key, dict_entry_value(it.has_val ? it.val_text : it.text,
                                              v.type));
         } else if (Element *del = world.find(type);
-                   del && del->elem_type == "delegate") {
+                   del && del->kind == ElemKind::Delegate) {
             // An attribute whose type is a registered <delegate>: the body is a
             // delegate implementation, i.e. a script matching the delegate's
             // signature (QuestViva stores a DelegateImplementation wrapping it).
@@ -1294,7 +1376,7 @@ struct Loader {
                                     const std::string &type, Frame &f) {
         // A verb's simplepattern has an owner side effect (displayverb + a
         // deferred ConvertVerbSimplePattern) that the generic builder can't do.
-        if (type == "simplepattern" && owner->elem_type == "verb") {
+        if (type == "simplepattern" && owner->kind == ElemKind::Verb) {
             const std::string &text = f.text;
             pending_verb_patterns.emplace_back(owner, text);
             std::string first = trim(text.substr(0, text.find(';')));
@@ -1492,7 +1574,7 @@ static bool finish_load(Loader &ld, World &world) {
     // <inherit>s override it, while it overrides the implicit defaultcommand
     // prepended by apply_default_types below.
     for (auto &up : world.elements) {
-        if (up->elem_type != "verb") continue;
+        if (up->kind != ElemKind::Verb) continue;
         auto &inh = up->inherits;
         if (std::find(inh.begin(), inh.end(), "defaultverb") == inh.end())
             inh.insert(inh.begin(), "defaultverb");

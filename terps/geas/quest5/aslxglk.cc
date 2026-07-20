@@ -926,7 +926,7 @@ void update_banner(Interp &in)
     if (room.empty()) {
         Element *game = nullptr;
         for (Element *r : w.roots)
-            if (r->elem_type == "game") { game = r; break; }
+            if (r->kind == ElemKind::Game) { game = r; break; }
         const Value *pov = game ? in.resolve_field(game, "pov") : nullptr;
         Element *pl = pov && pov->type == Value::Type::ObjectRef
                           ? w.find(pov->str) : nullptr;
@@ -993,7 +993,7 @@ std::vector<std::string> compass_directions(Interp &in)
     std::vector<std::string> dirs;
     Element *game = nullptr;
     for (Element *r : in.world().roots)
-        if (r->elem_type == "game") { game = r; break; }
+        if (r->kind == ElemKind::Game) { game = r; break; }
     const Value *v = game ? in.resolve_field(game, "compassdirections") : nullptr;
     if (v && v->list_store)
         for (const Value &e : *v->list_store)
@@ -1179,7 +1179,7 @@ void fire_js_events(Interp &in)
         if (func.empty())
             continue;
         Element *h = in.world().find(func);
-        if (!h || h->elem_type != "function")
+        if (!h || h->kind != ElemKind::Function)
             continue;
         if (++fired > kMaxChain) {
             /* Not silently: past the cap a game is either cycling or doing
@@ -1709,7 +1709,7 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
         std::string t = template_text_or(in.world(), "UnresolvedObject",
                                          "You can't see any such thing.");
         Element *pt = in.world().find("ProcessText");
-        if (pt && pt->elem_type == "function") {
+        if (pt && pt->kind == ElemKind::Function) {
             Value v = in.call_function("ProcessText", {vstr(t)}, nullptr);
             if (v.type == Value::Type::String)
                 t = v.str;
@@ -1718,7 +1718,7 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
              * calls ProcessTextSection(text, data) with a fresh dictionary
              * carrying "fulltext" -- do the same. */
             pt = in.world().find("ProcessTextSection");
-            if (pt && pt->elem_type == "function") {
+            if (pt && pt->kind == ElemKind::Function) {
                 Value data;
                 data.type = Value::Type::StringDict;
                 data.dict().push_back({"fulltext", vstr(t)});
