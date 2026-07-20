@@ -9,7 +9,9 @@
 # (To refresh the goldens after an intended change, run ./update_golden.sh.)
 #
 # Requires the built oracle (./build.sh) and the corpus games (default
-# ~/Downloads/Quest 5 games). Exit status is non-zero if any game diverges.
+# ~/Downloads/Quest 5 games). Exit status is non-zero if any game diverges, or
+# if corpus.tsv and golden/ disagree about which games are covered (see the
+# coverage cross-check at the bottom).
 export PATH="/opt/homebrew/bin:$PATH"
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -44,4 +46,34 @@ for cmd in "$GOLDEN"/*.cmd; do
 done
 echo "---"
 echo "golden check: $pass passed, $fail failed, $miss missing"
-[ "$fail" -eq 0 ]
+
+# Coverage cross-check. The loop above iterates golden/*.cmd, so it only ever
+# visits games that ALREADY have a golden: a corpus row that is driven but was
+# never frozen into golden/ is not regression-checked and nothing complains.
+# (run_corpus.sh's counterpart guard catches the other half — a corpus row that
+# cannot be driven at all.) Compare the two directions explicitly.
+rows="$(mktemp)"; trap 'rm -f "$rows"' EXIT
+while IFS=$'\t' read -r game wt mode preamble; do
+  case "$game" in ''|\#*) continue;; esac
+  [ "$mode" = "hints" ] || printf '%s\n' "$game"
+done < "$HERE/corpus.tsv" > "$rows"
+
+ungolden=0; orphan=0
+while IFS= read -r game; do
+  if [ ! -f "$GOLDEN/$game.cmd" ] || [ ! -f "$GOLDEN/$game.out" ]; then
+    printf "NOGOLD  %-48s (driven corpus row, but no frozen golden)\n" "$game"
+    ungolden=$((ungolden+1))
+  fi
+done < "$rows"
+
+for cmd in "$GOLDEN"/*.cmd; do
+  [ -e "$cmd" ] || continue
+  game="$(basename "$cmd" .cmd)"
+  if ! grep -Fxq "$game" "$rows"; then
+    printf "ORPHAN  %-48s (golden with no corpus.tsv row — stale?)\n" "$game"
+    orphan=$((orphan+1))
+  fi
+done
+
+echo "coverage: $(wc -l < "$rows" | tr -d ' ') driven corpus rows, $ungolden without a golden, $orphan orphaned golden(s)"
+[ "$fail" -eq 0 ] && [ "$ungolden" -eq 0 ] && [ "$orphan" -eq 0 ]
