@@ -63,8 +63,8 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest — 57 driven rows: each of the 26 games with
-a walkthrough mapped to its walkthrough file and an extractor mode, plus 31
+`corpus.tsv` is the curated manifest — 58 driven rows: each of the 26 games with
+a walkthrough mapped to its walkthrough file and an extractor mode, plus 32
 override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
@@ -140,7 +140,7 @@ extractor+preamble. `overrides/README.md` tabulates why each exists
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 57 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 58 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
@@ -269,6 +269,22 @@ transcripts across runs.
   harness does not pump — so the ending timer is never even created. Its author
   warns its time-based events break Quest's own walkthrough runner too. Left
   `Running`; transcript is still deterministic.
+- *WAKE* is the one driven game that **cannot** be won — the first corpus row that
+  is `Running` because the *game* is broken rather than because the harness can't
+  pump it. It is a 2013 demo whose final puzzle is unreachable: `Activate MARS`
+  does `ChangePOV(RCSR 02)`, but the Reactor Core's `attemptreset` then does
+  `MoveObject (player, ReactorPuzzleRoom)` — moving the **`player` object, not
+  `game.pov`**. The ten fuel rods land in a room the point of view is not in, and
+  `ReactorPuzzleRoom` has no exits, so `shift rod 1a` is permanently out of scope.
+  Real Quest 5 resolves scope from `game.pov` exactly as QuestViva does, so this
+  is faithful, not an oracle artifact — and the author's own win branch says so:
+  *"That did it! … (Placeholder message. Need bunker door to be unlocked)"*.
+  Solving it would only unlock `MilitaryBunker`, a room whose description is
+  `msg("")`; `SubwayStation`/`TracksSequence`/`BunkerHUB` are orphaned. The
+  override drives to the furthest reachable state (the reactor diagnostics) plus
+  all optional content, `errors=0`, and documents the rod puzzle's paper solution.
+  Distinct from *spondre*, which is `Running` **at its credits** and is a genuine
+  win. See `overrides/WAKE.cmd`.
 - The formerly-`Running` walkthroughs now win via `overrides/` (Dream Pieces,
   Jacqueline, Carnival of Regrets, Mechanical Bathhouse, The Mouse, Bony King) — see
   `overrides/README.md` for each one's deviation from its raw walkthrough — and the
