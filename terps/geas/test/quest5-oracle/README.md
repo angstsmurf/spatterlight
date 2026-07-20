@@ -108,18 +108,37 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**28 games driven** — **26 `Finished`** (genuine wins), **1 `Running`** (I Contain
-Multitudes — its ending sits behind a nested-wait continuation the harness cannot
-pump; its author warns its time-based events break Quest's own walkthrough runner),
-**0 `Wedged`** (Whitefield formerly wedged on QuestViva's script-error breaker;
-its override's `#!errorlimit=200` directive lifts the breaker past a finite
-error burst and the full walkthrough now wins — see below). No hints-only rows
+**58 games driven** — **46 `Finished`**, **12 `Running`**, **0 `Wedged`**.
+
+`Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
+its absence is not a loss: **9 of the 12 `Running` rows are genuine wins in games
+that simply never call `finish`** — they print their ending and stop (Balaclava,
+El asesino durmiente, First Times, Its election time in Pakistan, Medievalist's
+Quest, Nearco II, Sueña un pequeño sueño, cuttings, spondre). For several, `finish`
+is *provably* unreachable: spondre's inlined `HandleCommand` routes all input to
+ResponseLib topic matching, so Core's `quit` is dead code and Running-at-credits is
+the authored terminal state. Do not read the 46/58 split as a 12-game shortfall.
+
+The other three `Running` rows are the real gaps, and they are three different
+kinds of gap:
+- **I Contain Multitudes** — a *harness* limit. It runs cleanly to its final beat,
+  but the ending `finish` sits behind a nested `wait{…wait{…SetTimeout(7)…}}`
+  continuation the harness does not pump, so the ending timer is never created.
+- **The Last Hero** — the *shipped game* is unwinnable: every `MoveObject` into a
+  challenge room misspells the room name. Best-effort script.
+- **WAKE** — the *shipped game* is unwinnable: a `ChangePOV`/`player` mix-up strands
+  the endgame puzzle out of scope. See "Known gaps" below.
+
+`0 Wedged`: Whitefield formerly wedged on QuestViva's script-error breaker; its
+override's `#!errorlimit=200` directive lifts the breaker past a finite error burst
+and the full walkthrough now wins — see below. No hints-only rows
 remain: the six games whose walkthroughs are Q&A/prose
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
-the hints against the game source). Nineteen rows are driven by curated
-`overrides/` (see next section); the other nine by the raw walkthrough via the
+the hints against the game source). Forty-nine of the 58 rows are driven by curated
+`overrides/` (see next section) — all 32 `-` rows plus 17 of the 26 rows that do
+have a walkthrough; the remaining nine run the raw walkthrough through the
 extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
 walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
 override heavily adapts that solution to the remake's parser — see its header.
@@ -263,15 +282,18 @@ transcripts across runs.
 
 ## Known gaps
 
-- *I Contain Multitudes* is the one driven game that does not reach a win. It runs
+- *I Contain Multitudes* is the one driven game whose win the **harness** cannot
+  reach (the other two non-wins, The Last Hero and WAKE, are unwinnable games). It runs
   cleanly (0 errors) to its final story beat, but the ending `finish` is behind a
   nested `wait{…wait{…SetTimeout(7)…}}` continuation inside a menu response that the
   harness does not pump — so the ending timer is never even created. Its author
   warns its time-based events break Quest's own walkthrough runner too. Left
   `Running`; transcript is still deterministic.
-- *WAKE* is the one driven game that **cannot** be won — the first corpus row that
-  is `Running` because the *game* is broken rather than because the harness can't
-  pump it. It is a 2013 demo whose final puzzle is unreachable: `Activate MARS`
+- *WAKE* **cannot** be won. It is the second shipped-broken game in the corpus —
+  The Last Hero is the other (its challenge-room `MoveObject` calls all misspell
+  the destination) — but the two fail differently: The Last Hero's script still
+  reaches a best-effort end state, while WAKE's endgame puzzle is unreachable
+  outright. It is a 2013 demo whose final puzzle is unreachable: `Activate MARS`
   does `ChangePOV(RCSR 02)`, but the Reactor Core's `attemptreset` then does
   `MoveObject (player, ReactorPuzzleRoom)` — moving the **`player` object, not
   `game.pov`**. The ten fuel rods land in a room the point of view is not in, and
