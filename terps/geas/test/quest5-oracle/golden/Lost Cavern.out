@@ -1,0 +1,852 @@
+Lost Cavern
+A quest for priceless treasures
+
+by Simon Richards
+
+Welcome to the Lost Cavern adventure.
+You have travelled many days to explore where, legend has it, a series of caverns filled with treasures have been undisturbed for centuries.
+Many others have searched the wilderness but no-one has ever found the lost cavern or its treasures.
+
+To track your progress type SCORE.
+For information about playing type HELP.
+Good luck!
+
+You are at your camp, which only consists of a small one-man tent and a patch of burnt ground where your fire had been during the night.  To the west, the narrow track that you followed to get here continues.  Huge rocks block the way north, but you could push your way through the undergrowth to the south-west.  You can enter your tent to the south, whilst to the east is the path that leads back home.
+> s
+
+> s
+
+You are in your cramped tent, there is a sleeping bag and a travel chest.  The only way out is to the north. Your old travel trunk lies here.
+> x sleeping bag
+
+> x sleeping bag
+A thin sleeping bag that keeps out the worst of the cold at night.
+It contains a packet of chewing gum.
+> take gum
+
+> take gum
+You pick it up.
+> chew gum
+
+> chew gum
+You chew the gum until it loses its flavour and then take it out of your mouth.
+> n
+
+> n
+
+You are at your camp, which only consists of a small one-man tent and a patch of burnt ground where your fire had been during the night.  To the west, the narrow track that you followed to get here continues.  Huge rocks block the way north, but you could push your way through the undergrowth to the south-west.  You can enter your tent to the south, whilst to the east is the path that leads back home.
+> sw
+
+> sw
+
+You are in tangled undergrowth surrounded by trees.  Amongst the foliage is a stone pillar a few feet high.  Whilst some sunlight manages to cut through the trees, it is still dark and quiet except for twigs snapping as you walk.  To the south you can make out a woodsman's hut, you an just make out a clearing to the west, there is a path to the north and your camp is to the north-east.  But you could push through the foliage in all directions.
+ A stick lies on ground.
+> take stick
+
+> take stick
+You pick it up.
+> put gum on stick
+
+> put gum on stick
+You attach the chewed gum to one end of the stick.
+> s
+
+> s
+
+You are next to a small woodsman's hut that looks like it has been abandoned long ago.  You could push through the thick forest which surrounds you in all directions.  To the north-west you can see the trees open out to a clearing.  The entrance to the hut is to the east.
+> in
+
+> in
+
+You are in a dusty old woodsman's hut, it is made of wood which is damp and rotten.  The door leads back out to the west. A rusty crowbar lies on the ground.
+> take crowbar
+
+> take crowbar
+You pick it up.
+> out
+
+> out
+
+You are next to a small woodsman's hut that looks like it has been abandoned long ago.  You could push through the thick forest which surrounds you in all directions.  To the north-west you can see the trees open out to a clearing.  The entrance to the hut is to the east.
+> nw
+
+> nw
+
+You are in a small clearing in the woods, far in the distance to the north a sheer rock face rises above the trees.  You could push through the forest in all directions.  To the north you can make out a path, south-east is a wooden hut and to the west you can make out a river in the distance.  Near you is a rotten tree stump and in the centre of the clearing is an old stone pillar.
+
+> x stump
+
+> x stump
+Growing on the rotten tree stump is a large mushroom.
+> take mushroom
+
+> take mushroom
+You pick it up.
+> sw
+
+> sw
+
+You are by a bend in a river, this bank is covered in bull rushes that sway gently in the breeze.  To the south you can see the edge of a swamp and you could follow the river upstream to the north.  Through the trees to the north-east you can make out a clearing in the distance or you could push through the trees to the east.
+> x rushes
+
+> x rushes
+There is something shiny in the rushes that you could reach in and take.
+> take shiny object
+
+> take shiny object
+You pick it up.
+> n
+
+> n
+
+You are next to a river, south of an old wooden bridge.  To the east you can make out a clearing through the trees and there is an ancient stone pillar firmly planted into the ground.  You could follow the river to the north or south or you could push through the forest to the north-east or south-east.
+> ne
+
+> ne
+
+You are on a path through the trees leading to the east and west through the forest.  By the side of the path is a stone pillar about waist height.  There are exits in all directions and to the south the woods open out into a small clearing.
+> ne
+
+> ne
+
+You are at the base of a steep cliff that towers over you to the north, a huge pile of moss covered rocks lies here blocking the way east.  You could walk along the base of the cliff to the west and to the south a forest stretches away as far as you can see.
+> x rocks
+
+> x rocks
+The rocks are large and covered in moss, so the rock fall that caused them to be here happened a long time ago.  There is a small gap between some of the rocks.
+> x hole
+
+> x hole
+The gap betwen the rocks is narrow, just wide enough to put your arm down .  You can see a coin just out of reach at the bottom of the hole.
+> get coin with stick
+
+> get coin with stick
+You put the stick down the gap and the gum sticks to the coin.  Once you have pulled it out you detach the coin from the gum.
+> sw
+
+> sw
+
+You are on a path through the trees leading to the east and west through the forest.  By the side of the path is a stone pillar about waist height.  There are exits in all directions and to the south the woods open out into a small clearing.
+> w
+
+> w
+
+You are by an old wooden bridge over a fast flowing river.  A path leads east into the forest  and west over the bridge.    To the north-east you can make out the base of a cliff and to the south-east you can make out a clearing between the trees.  The river flows from north to south and you could follow it along the river bank.
+> w
+
+> w
+
+You are on a forest path to the west of a wooden bridge over a river.  The path leads over the bridge to the east and continues through the forest to the west.  To the south is a meadow and to the north an overgrown track leads into the woods.
+High above you a blackbird flies overhead with something shiny in it's beak.
+> n
+
+> n
+
+You are on a gravel beach on the west side of a large pool at the base of a high waterfall.   To the south you can just about make out a track through the forest and the forest starts to recede to the south-west. A rusty shovel has been left here.
+> take shovel
+
+> take shovel
+You pick it up.
+> s
+
+> s
+
+You are on a forest path to the west of a wooden bridge over a river.  The path leads over the bridge to the east and continues through the forest to the west.  To the south is a meadow and to the north an overgrown track leads into the woods.
+> s
+
+> s
+
+You are in a meadow to the west of a fast flowing river.  There is one ancient tree growing here that dominates the landscape.  The meadow stretches to the south where there is a slight bend in the river and there is a forest to the north.  Far to the west the meadow gives way to scrub land.
+> up
+
+> up
+
+You are on a sturdy branch high up in an old tree.  There is a large bird's nest perched on the branch. A large blackbird sits in it's nest, underneath it you just catch a glimpse of something silvery.
+> throw shiny object
+
+> throw shiny object
+You throw the shiny object and it catches on the breeze and flies away from the tree.  The blackbird immediately takes flight chasing after it.
+> take brooch
+
+> take brooch
+You take it.
+> down
+
+> down
+
+You are in a meadow to the west of a fast flowing river.  There is one ancient tree growing here that dominates the landscape.  The meadow stretches to the south where there is a slight bend in the river and there is a forest to the north.  Far to the west the meadow gives way to scrub land.
+> s
+
+> s
+
+You are at a bend in the river, at the south end of a meadow.  The opposite bank of the river is covered in rushes and you could follow the river as it flows from the north to the west.   To the north-west is a patch of scrub. A dead animal carcus lies on the ground.
+> x carcus
+
+> x carcus
+This animal looks like a deer, but it has been torn apart and partially eaten by some predator.  There is still some fresh meat left on the carcus.
+> take meat
+
+> take meat
+You pick it up.
+> mix mushroom with meat
+
+> mix mushroom with meat
+You mix the mushroom into the meat, poisoning it.
+> n
+
+> n
+
+You are in a meadow to the west of a fast flowing river.  There is one ancient tree growing here that dominates the landscape.  The meadow stretches to the south where there is a slight bend in the river and there is a forest to the north.  Far to the west the meadow gives way to scrub land.
+> w
+
+> w
+
+You are at an area of scrub land where a only a few hardy plants have managed to grow amongst the dirt.  The land becomes more fertile to the east where you can see a meadow.  To the north you can see the edge of a forest and to the south is a river bank.  There is the shore of a lake to the west, the lake stretches out into the distance.
+> dig
+
+> dig
+You dig the dirt and find a small box buried.
+> open box
+
+> open box
+Please choose which 'box' you mean:
+1: box
+2: box of matches
+> 1
+You open it.
+It contains a sword.
+> take sword
+
+> take sword
+You take it.
+> ne
+
+> ne
+
+You are on a forest path to the west of a wooden bridge over a river.  The path leads over the bridge to the east and continues through the forest to the west.  To the south is a meadow and to the north an overgrown track leads into the woods.
+> e
+
+> e
+
+You are by an old wooden bridge over a fast flowing river.  A path leads east into the forest  and west over the bridge.    To the north-east you can make out the base of a cliff and to the south-east you can make out a clearing between the trees.  The river flows from north to south and you could follow it along the river bank.
+> se
+
+> se
+
+You are in a small clearing in the woods, far in the distance to the north a sheer rock face rises above the trees.  You could push through the forest in all directions.  To the north you can make out a path, south-east is a wooden hut and to the west you can make out a river in the distance.  Near you is a rotten tree stump and in the centre of the clearing is an old stone pillar.
+
+> s
+
+> s
+
+You are deep in the forest, it is dark and creepy.  You stumble over tree roots and catch yourself on brambles as you struggle through the undergrowth.  To the north you can make out a small clearing, to the east you can see a hut in the distance, south the trees start to recede and to the west you can make out a river.   You could push through the forest in all directions.  On the ground is an old weather worn stone pillar.
+
+> s
+
+> s
+
+You are on the edge of a vast misty swamp, you can return to the forest to the north.  There are exits in all other directions heading south will lead you into the swap whilst you can walk along the edge of the swamp to the east and west.
+> s
+
+> s
+
+You are lost in a misty swamp with exits in all directions all of them leading to more swamp as far as you can see through the mist.  On the ground is a small stone plinth.
+> e
+
+> e
+
+You are lost in a misty swamp with exits in all directions all of them leading to more swamp as far as you can see through the mist.  On the ground is a small stone plinth.
+> s
+
+> s
+
+You are lost in a misty swamp with exits in all directions all of them leading to more swamp as far as you can see through the mist.  On the ground is a small stone plinth.
+> w
+
+> w
+
+You are lost in a misty swamp with exits in all directions all of them leading to more swamp as far as you can see through the mist.  On the ground is a small stone plinth.
+> n
+
+> n
+
+You are outside a small temple in the middle of a misty swamp.  The entrance to the temple is to the north through a crumbling arch.  The swamp continues in all directions as far as you can see and there is small plinth half sunk into the swampy ground.
+> n
+
+> n
+
+You are in a crumbling temple, with a stone altar at one end. A golden crown sits on the ground. A stone disk lies on the ground here.
+> take crown
+
+> take crown
+You take it.
+> take stone disk
+
+> take stone disk
+You pick it up.
+> out
+
+> out
+
+You are outside a small temple in the middle of a misty swamp.  The entrance to the temple is to the north through a crumbling arch.  The swamp continues in all directions as far as you can see and there is small plinth half sunk into the swampy ground.
+> w
+
+> w
+
+You are on the edge of a vast misty swamp, you can return to the forest to the north.  There are exits in all other directions heading south will lead you into the swap whilst you can walk along the edge of the swamp to the east and west.
+> n
+
+> n
+
+You are deep in the forest, it is dark and creepy.  You stumble over tree roots and catch yourself on brambles as you struggle through the undergrowth.  To the north you can make out a small clearing, to the east you can see a hut in the distance, south the trees start to recede and to the west you can make out a river.   You could push through the forest in all directions.  On the ground is an old weather worn stone pillar.
+
+> n
+
+> n
+
+You are in a small clearing in the woods, far in the distance to the north a sheer rock face rises above the trees.  You could push through the forest in all directions.  To the north you can make out a path, south-east is a wooden hut and to the west you can make out a river in the distance.  Near you is a rotten tree stump and in the centre of the clearing is an old stone pillar.
+
+> ne
+
+> ne
+
+You are on a twisty path that leads east-west through the forest.  To the north a sheer cliff face rises above the trees in the distance and there is a clearing to the south-west.  You could push your way through the undergrowth in all directions.
+
+> e
+
+> e
+
+You are at your camp, which only consists of a small one-man tent and a patch of burnt ground where your fire had been during the night.  To the west, the narrow track that you followed to get here continues.  Huge rocks block the way north, but you could push your way through the undergrowth to the south-west.  You can enter your tent to the south, whilst to the east is the path that leads back home.
+> s
+
+> s
+
+You are in your cramped tent, there is a sleeping bag and a travel chest.  The only way out is to the north. Your old travel trunk lies here.
+> open trunk
+
+> open trunk
+You open it.
+> put coin in trunk
+
+> put coin in trunk
+You store the coin in the trunk.
+> put brooch in trunk
+
+> put brooch in trunk
+You store the brooch in the trunk.
+> put sword in trunk
+
+> put sword in trunk
+You put the ceremonial sword into your travel trunk.
+> put crown in trunk
+
+> put crown in trunk
+You place the golden crown in the travel trunk.
+> score
+
+> score
+You have scored 43 out of 100.
+An average attempt.
+> n
+
+> n
+
+You are at your camp, which only consists of a small one-man tent and a patch of burnt ground where your fire had been during the night.  To the west, the narrow track that you followed to get here continues.  Huge rocks block the way north, but you could push your way through the undergrowth to the south-west.  You can enter your tent to the south, whilst to the east is the path that leads back home.
+> w
+
+> w
+
+You are on a twisty path that leads east-west through the forest.  To the north a sheer cliff face rises above the trees in the distance and there is a clearing to the south-west.  You could push your way through the undergrowth in all directions.
+
+> nw
+
+> nw
+
+You are outside a cave entrance that cuts into a sheer cliff face to the north.  To the west you can see a waterfall cascading down the cliff face.  To the south is forest and a track leads east along the base of the cliffs.
+
+> in
+
+> in
+
+You are in the entrance to a cave, a long narrow passage leads deeper into the caverns to the north and the way out is to the south.
+  There are some animal tracks on the ground amid the dirt.
+> n
+
+> n
+
+You are in a narrow passage leading deeper into the caverns, the only natural light comes from the entrance to the south.  The further you head into the caverns the tighter it gets until at the end it is little more than a crack in the rock.
+ A pack of wild dogs is in the north end of the passage, they are watching you hungrily.
+> drop poisoned meat
+
+> drop poisoned meat
+The wild dogs fight over the poisoned meat until all of it has been eaten.  After a short time they start to show signs of illness and it is not long before they have all collapsed on the ground.
+> n
+
+> n
+
+You enter a reasonable sized cavern with the small crack in the rock to the south that you entered through.  There are passages leading off to the east, south-west and a smaller passage leads steeply up to the north-west.
+> nw
+
+> nw
+
+You are in a narrow passage that gently rises as it leads from the south-east to the north-west.
+> nw
+
+> nw
+
+You are in a passage that continues to rise as it turns to the west.  You can feel a faint breeze coming from top end of the passage.  It heads down to the south-east into the darkness.
+> w
+
+> w
+
+You are at the south end of a huge crater filled with giant plants and flowers, the sides of the crater are too steep for you to climb out but there are passages leading into the rock on the east and west sides.  You could walk to the other end of the crater to the north.
+> w
+
+> w
+
+You are in a long passage that feels dark after the brightness of the crater.  The passage leads to the east and the west.
+> w
+
+> w
+
+You are in a cave dominated by a large bee hive attached to the west side.  There are exits to the north,  east and south-east. A swarm of angry bees is here. An jewel encrusted orb lies here.
+> se
+
+> se
+
+You are in a damp passage that leads up from the north-west to the east.  There is a faint sound of running water coming from the east.
+> e
+
+> e
+
+You are at the top of a damp passage that slopes down to the west.  There is a narrow crack to the east that you might be abe to squeeze through.  The sound of rushing water reverberates round the passage.
+> drop all
+
+> drop all
+box of matches: You drop it.
+stick with gum attached to one end: You drop it.
+crowbar: You drop it.
+shovel: You drop it.
+stone disk: You drop it.
+> e
+
+> e
+
+You are by a fast flowing underground river that flows to the south.  The walls of this cavern are wet with spray and the noise of rushing water is deafening.   The river disappears through a hole in the south wall.  You could follow the side of the river to the north or slip back through the tight crack to the west. A pile of wicker baskets has been discarded in one corner.
+> take baskets
+
+> take baskets
+You take one of the baskets.
+> n
+
+> n
+
+You are beside the underground river which flows rapidly southwards.  You cannot go further north as the cavern ends and the river gushes through a hole in the north wall.  To the north-west is a dark corner away from the river which flows to your east.  You could follow the river back southwards along it's edge.
+> nw
+
+> nw
+
+You are in a dark corner to the north-west of the underground river.  The ground is gravel and the walls damp.  The sound of the river is still tremendous, you can head back to the underground river to the south-east. An ornate silver bowl rests on the ground.
+> take bowl
+
+> take bowl
+You take it.
+> put bowl in basket
+
+> put bowl in basket
+You put the silver bowl into the wicker basket.
+> se
+
+> se
+
+You are beside the underground river which flows rapidly southwards.  You cannot go further north as the cavern ends and the river gushes through a hole in the north wall.  To the north-west is a dark corner away from the river which flows to your east.  You could follow the river back southwards along it's edge.
+> s
+
+> s
+
+You are by a fast flowing underground river that flows to the south.  The walls of this cavern are wet with spray and the noise of rushing water is deafening.   The river disappears through a hole in the south wall.  You could follow the side of the river to the north or slip back through the tight crack to the west. A pile of wicker baskets has been discarded in one corner.
+> put basket in river
+
+> put basket in river
+You put the basket in the river and it gets washed away.
+> w
+
+> w
+
+You are at the top of a damp passage that slopes down to the west.  There is a narrow crack to the east that you might be abe to squeeze through.  The sound of rushing water reverberates round the passage. A box of matches is here. A stick with a chewed piece of gum stuck on the end is here. A rusty crowbar lies on the ground. A rusty shovel has been left here. A stone disk lies on the ground here.
+> take all
+
+> take all
+box of matches: You pick it up.
+stick with gum attached to one end: You pick it up.
+crowbar: You pick it up.
+shovel: You pick it up.
+stone disk: You pick it up.
+> score
+
+> score
+You have scored 45 out of 100.
+An average attempt.
+> w
+
+> w
+
+You are in a damp passage that leads up from the north-west to the east.  There is a faint sound of running water coming from the east.
+> nw
+
+> nw
+
+You are in a cave dominated by a large bee hive attached to the west side.  There are exits to the north,  east and south-east. A swarm of angry bees is here. An jewel encrusted orb lies here.
+> hit hive
+
+> hit hive
+That has got the bees attention, they start to swarm towards you!
+> e
+
+> e
+
+You are in a long passage that feels dark after the brightness of the crater.  The passage leads to the east and the west.
+The swarm of angry bees chase you down the passage.
+> e
+
+> e
+
+You are at the south end of a huge crater filled with giant plants and flowers, the sides of the crater are too steep for you to climb out but there are passages leading into the rock on the east and west sides.  You could walk to the other end of the crater to the north.
+The bees are getting closer as you reach the crater, but when they see the giant flowers they forget about you and rush to them.  Soon they are all intoxicated with the smell of the flowers and lazing amongst the giant petals.
+> w
+
+> w
+
+You are in a long passage that feels dark after the brightness of the crater.  The passage leads to the east and the west.
+> w
+
+> w
+
+You are in a cave dominated by a large bee hive attached to the west side.  There are exits to the north,  east and south-east. An jewel encrusted orb lies here.
+> take orb
+
+> take orb
+You take it.
+> e
+
+> e
+
+You are in a long passage that feels dark after the brightness of the crater.  The passage leads to the east and the west.
+> e
+
+> e
+
+You are at the south end of a huge crater filled with giant plants and flowers, the sides of the crater are too steep for you to climb out but there are passages leading into the rock on the east and west sides.  You could walk to the other end of the crater to the north.
+> n
+
+> n
+
+You are at the north end of the giant crater, in front of you rise stone pillars either side of an impressive entrance to the north.  Back to the south you could push your way through the giant plants and flowers to the other end of the crater.
+> n
+
+> n
+
+You are in the outer chamber hewn from the rock by some ancient civilization.  There are three alcoves in the north, east and west walls.  A large entrance to the south leads back out into the crater. A large rectangular stone slab is in the centre of the room.
+> w
+
+> w
+
+You are in an alcove to the west of the outer chamber.  There is a mural on the west wall and a stone pedestal in the centre of the alcove.  The outer chamber is back to the east.
+> turn dial to 5
+
+> turn dial to 5
+You turn the dial to point to 5
+
+You hear a distant click..
+> e
+
+> e
+
+You are in the outer chamber hewn from the rock by some ancient civilization.  There are three alcoves in the north, east and west walls.  A large entrance to the south leads back out into the crater. A large rectangular stone slab is in the centre of the room.
+> e
+
+> e
+
+You are in an alcove to the east of the outer chamber.  There is a mural on the east wall and a stone pedestal in the centre of the alcove.  The outer chamber is back to the west.
+> turn dial to 7
+
+> turn dial to 7
+You turn the dial to point to 7
+You hear a distant click...
+> w
+
+> w
+
+You are in the outer chamber hewn from the rock by some ancient civilization.  There are three alcoves in the north, east and west walls.  A large entrance to the south leads back out into the crater. A large rectangular stone slab is in the centre of the room.
+> n
+
+> n
+
+You are in an alcove north of the outer chanber.  There is a mural on the north wall and a stone pedestal in the centre of the alcove.  The outer chamber is back to the south.
+> turn dial to 2
+
+> turn dial to 2
+You turn the dial to point to 2
+You hear a distant click..
+then a sound of a mechanism grinding into action for the first time in centuries.
+> s
+
+> s
+
+You are in the outer chamber hewn from the rock by some ancient civilization.  There are three alcoves in the north, east and west walls.  A large entrance to the south leads back out into the crater. A set of stairs leads down through a rectangular gap in the centre of the floor.
+> down
+
+> down
+
+You are in the inner chamber, at the bottom of a set of stone steps.  To the north is a vast hall and the stone steps lead back up to the outer chamber.
+> n
+
+> n
+
+You are in the south end of a large temple hall, stone pillars line the sides and at the north end is an altar.  To the south you can return to the inner chamber.
+> n
+
+> n
+
+You are at the north end of the temple by a stone altar.  The temple stretches away to the south lined with stone pillars.
+ Lying nearby is a golden statue.
+> take golden statue
+
+> take golden statue
+You take it.
+> insert stone disk
+
+> insert stone disk
+You insert the stone disk into the gap in the altar and you hear a grinding of long unused machinary as a previously unseen door opens to the east.
+> e
+
+> e
+
+You are in a dusty tomb with a huge stone coffin in the centre.  You can return to the altar to the west. An elaborate death mask is here.
+> take death mask
+
+> take death mask
+You take it.
+> w
+
+> w
+
+You are at the north end of the temple by a stone altar.  The temple stretches away to the south lined with stone pillars.
+ There is an entrance via a small doorway to the east.
+> s
+
+> s
+
+You are in the south end of a large temple hall, stone pillars line the sides and at the north end is an altar.  To the south you can return to the inner chamber.
+> s
+
+> s
+
+You are in the inner chamber, at the bottom of a set of stone steps.  To the north is a vast hall and the stone steps lead back up to the outer chamber.
+> up
+
+> up
+
+You are in the outer chamber hewn from the rock by some ancient civilization.  There are three alcoves in the north, east and west walls.  A large entrance to the south leads back out into the crater. A set of stairs leads down through a rectangular gap in the centre of the floor.
+> out
+
+> out
+
+You are at the north end of the giant crater, in front of you rise stone pillars either side of an impressive entrance to the north.  Back to the south you could push your way through the giant plants and flowers to the other end of the crater.
+> s
+
+> s
+
+You are at the south end of a huge crater filled with giant plants and flowers, the sides of the crater are too steep for you to climb out but there are passages leading into the rock on the east and west sides.  You could walk to the other end of the crater to the north.
+> e
+
+> e
+
+You are in a passage that continues to rise as it turns to the west.  You can feel a faint breeze coming from top end of the passage.  It heads down to the south-east into the darkness.
+> se
+
+> se
+
+You are in a narrow passage that gently rises as it leads from the south-east to the north-west.
+> se
+
+> se
+
+You enter a reasonable sized cavern with the small crack in the rock to the south that you entered through.  There are passages leading off to the east, south-west and a smaller passage leads steeply up to the north-west.
+> sw
+
+> sw
+
+You are in a passage with cobwebs all over the walls and ceiling.  There are exists to the north-east and to the west.
+ A huge cobweb covers the exit to the west.
+> burn cobweb with matches
+
+> burn cobweb with matches
+You light the spiders web with the matches and it burns brightly until nothing but charred remains are left.
+> w
+
+> w
+An enormous spider crawls out of the rocks.
+
+You are in a vast cavern, the ceiling is far above your head almost out of sight.  There are more cobwebs in the corners and a twisty passage slopes up wards to the south-east.  There is a small passage to the west and high above it there is a ledge. An enormous spider stares at you, blocking the west exit from the cavern.
+> up
+
+> up
+
+You are in a sloping passage that leads up from the huge cavern to the north-west.  It curves round to the south-west as it climbs upwards.
+
+> up
+
+> up
+
+You are in a curved passage that climbs steeply.  Downwards it leads north-east and to the north-west it leads further upwards.
+
+> up
+
+> up
+
+You are in a sloping passage that ends in a small entrance to the north.  It curves downwards to the south-east where it gets steeper as it disappears out of sight.
+
+> up
+
+> up
+
+You are on a tiny ledge high above the huge cavern.  The ledge is on the west side of the cavern and a small entrance leads back south to a sloping passage that curves downwards out of sight.
+ A large boulder rests near the edge of the ledge.
+> move boulder with crowbar
+
+> move boulder with crowbar
+You use the crowbar to lever the boulder and manage to move it enough so it falls off the ledge.  Down below you hear a crash and far below you can see the giant spider has been crushed under the falling boulder.
+> down
+
+> down
+
+You are in a sloping passage that ends in a small entrance to the north.  It curves downwards to the south-east where it gets steeper as it disappears out of sight.
+
+> down
+
+> down
+
+You are in a curved passage that climbs steeply.  Downwards it leads north-east and to the north-west it leads further upwards.
+
+> down
+
+> down
+
+You are in a sloping passage that leads up from the huge cavern to the north-west.  It curves round to the south-west as it climbs upwards.
+
+> down
+
+> down
+
+You are in a vast cavern, the ceiling is far above your head almost out of sight.  There are more cobwebs in the corners and a twisty passage slopes up wards to the south-east.  There is a small passage to the west and high above it there is a ledge. An enormous spider that has been crushed under a large boulder lies dead here.
+> w
+
+> w
+
+You are in a cave full of stalagmites and stalactites, there is a faint sound of dripping from somewhere and a dampness in the air.
+ A large emerald nestles on the ground near you.
+> take emerald
+
+> take emerald
+You take it.
+> e
+
+> e
+
+You are in a vast cavern, the ceiling is far above your head almost out of sight.  There are more cobwebs in the corners and a twisty passage slopes up wards to the south-east.  There is a small passage to the west and high above it there is a ledge. An enormous spider that has been crushed under a large boulder lies dead here.
+> e
+
+> e
+
+You are in a passage with cobwebs all over the walls and ceiling.  There are exists to the north-east and to the west.
+
+> ne
+
+> ne
+
+You enter a reasonable sized cavern with the small crack in the rock to the south that you entered through.  There are passages leading off to the east, south-west and a smaller passage leads steeply up to the north-west.
+> s
+
+> s
+
+You are in a narrow passage leading deeper into the caverns, the only natural light comes from the entrance to the south.  The further you head into the caverns the tighter it gets until at the end it is little more than a crack in the rock.
+ Lying around the flloor are several wild dogs, they are unconcious.
+> s
+
+> s
+
+You are in the entrance to a cave, a long narrow passage leads deeper into the caverns to the north and the way out is to the south.
+  There are some animal tracks on the ground amid the dirt.
+> out
+
+> out
+
+You are outside a cave entrance that cuts into a sheer cliff face to the north.  To the west you can see a waterfall cascading down the cliff face.  To the south is forest and a track leads east along the base of the cliffs.
+
+> score
+
+> score
+You have scored 70 out of 100.
+A very good effort indeed.
+> w
+
+> w
+
+You are next to a wide pool at the base of a high waterfall that plunges down from high up a steep cliff to the north.  The noise and spray from the water crashing down the rock is incredible.  You can walk along the base of the cliff to the east and to the south you can follow the river along it's east bank. Pieces of wicker basket lie on the beach. An ornate silver bowl rests on the ground.
+> take bowl
+
+> take bowl
+You take it.
+> e
+
+> e
+
+You are outside a cave entrance that cuts into a sheer cliff face to the north.  To the west you can see a waterfall cascading down the cliff face.  To the south is forest and a track leads east along the base of the cliffs.
+
+> se
+
+> se
+
+You are on a twisty path that leads east-west through the forest.  To the north a sheer cliff face rises above the trees in the distance and there is a clearing to the south-west.  You could push your way through the undergrowth in all directions.
+
+> e
+
+> e
+
+You are at your camp, which only consists of a small one-man tent and a patch of burnt ground where your fire had been during the night.  To the west, the narrow track that you followed to get here continues.  Huge rocks block the way north, but you could push your way through the undergrowth to the south-west.  You can enter your tent to the south, whilst to the east is the path that leads back home.
+> s
+
+> s
+
+You are in your cramped tent, there is a sleeping bag and a travel chest.  The only way out is to the north. Your old travel trunk lies here. A gold coin is near you. A silver brooch lies near you. A ceremonial sword lies nearby. A golden crown sits on the ground.
+> put emerald in trunk
+
+> put emerald in trunk
+You store the emerald in your trunk ready to take home.
+> put orb in trunk
+
+> put orb in trunk
+You store the orb in the trunk.
+> put silver bowl in trunk
+
+> put silver bowl in trunk
+You put the silver bowl in your trunk.
+> put golden statue in trunk
+
+> put golden statue in trunk
+You store the golden statuette in the trunk.
+> put death mask in trunk
+
+> put death mask in trunk
+You store the death mask in your travel trunk.
+You have found all of the treasures and are ready to head for home.  A life of riches awaits you as you gather up your things to leave.
+
+You have scored 100 out of 100.
+You are a legend.
+
+Congratulations you have won the game!
+
+Thanks for playing..
+
+[state=Finished]
