@@ -162,6 +162,19 @@ int main(int argc, char **argv) {
         if (t.back() != '\n') transcript += '\n';
     };
     in.print = emit;
+    // Headless audio: a no-op host hook that RETURNS means "playback finished".
+    // Without it a synchronous `play sound` parks the rest of the turn on the
+    // wait slot forever unless something later claims it -- and when the sound
+    // is the last statement before the ending (HMS Victory's "Eight bells.wav",
+    // Nearco II's "cantoninfa.mp3") nothing ever does, so the win is lost. The
+    // oracle had the identical bug; its HeadlessPlayer.PlaySoundAsync now flags
+    // IsWaiting for the same reason. Both mirror QuestViva's own WebPlayer,
+    // which forces synchronous=false + Runner.BeginWait() under a walkthrough
+    // runner. Games whose parked tail IS claimed later (The Tree's `x tube`
+    // holcast, I Contain Multitudes) are unaffected: resuming inline and
+    // resuming at the next claim produce the same transcript when no output
+    // sits between the two points.
+    in.play_sound = [](const std::string &, bool, bool) {};
     auto line_out = [&](const std::string &s) { transcript += s + "\n"; };
 
     // ASLX_RESTORE=<file>: apply a saved game onto the freshly-loaded original

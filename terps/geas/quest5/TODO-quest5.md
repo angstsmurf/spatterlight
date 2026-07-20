@@ -245,7 +245,16 @@
   continuation runs INLINE, OperationCanceledException swallowed) or a host
   FinishWait (`TrySetResult`) — resumes everything after the sound statement.
   In the game, the `x tube` holcast's first `wait{}` is what finally reveals
-  Crusher. Native port: `TurnSuspended` now carries unwind-captured **frames**
+  Crusher. **This parking is only correct when something eventually claims the
+  slot.** When the sync sound is the last statement before the ending — HMS
+  Victory's "Eight bells.wav", Nearco II's "cantoninfa.mp3" — nothing ever does
+  and the win is simply lost. Real Quest resumes on the audio's ended-event, so
+  a *headless* host must report playback finished immediately: `aslx_replay`
+  installs a no-op `play_sound` hook (the engine already treats "hook returned"
+  as "sound over"), and the oracle's `HeadlessPlayer.PlaySoundAsync` flags
+  `IsWaiting` to the same effect. Both mirror QuestViva's own WebPlayer under a
+  WalkthroughRunner. Games whose tail *is* claimed later are unaffected: the
+  transcripts are identical when no output sits between the two resume points. Native port: `TurnSuspended` now carries unwind-captured **frames**
   (each exec_block records its un-run statements; each script boundary —
   run_script / run_callback_boundary — claims the frames below it with a
   context snapshot); turn boundaries `park_suspension()` instead of dropping,

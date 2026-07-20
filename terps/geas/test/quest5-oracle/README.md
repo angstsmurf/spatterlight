@@ -63,8 +63,8 @@ option number, or yes/no).
 
 ## Corpus regression
 
-`corpus.tsv` is the curated manifest — 58 driven rows: each of the 26 games with
-a walkthrough mapped to its walkthrough file and an extractor mode, plus 32
+`corpus.tsv` is the curated manifest — 59 driven rows: each of the 26 games with
+a walkthrough mapped to its walkthrough file and an extractor mode, plus 33
 override-only rows
 (walkthrough column `-`) for games with no published walkthrough at all. It exists because filename
 conventions don't line up with the `.quest` names (Guttersnipe dash spacing,
@@ -108,22 +108,18 @@ in welbourn mode is required, and also yields one deterministic turn per command
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Current coverage:
-**58 games driven** — **46 `Finished`**, **12 `Running`**, **0 `Wedged`**.
+**59 games driven** — **49 `Finished`**, **10 `Running`**, **0 `Wedged`**.
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
-its absence is not a loss: **9 of the 12 `Running` rows are genuine wins in games
+its absence is not a loss: **9 of the 10 `Running` rows are genuine wins in games
 that simply never call `finish`** — they print their ending and stop (Balaclava,
 El asesino durmiente, First Times, Its election time in Pakistan, Medievalist's
 Quest, Nearco II, Sueña un pequeño sueño, cuttings, spondre). For several, `finish`
 is *provably* unreachable: spondre's inlined `HandleCommand` routes all input to
 ResponseLib topic matching, so Core's `quit` is dead code and Running-at-credits is
-the authored terminal state. Do not read the 46/58 split as a 12-game shortfall.
+the authored terminal state. Do not read the 49/59 split as a 10-game shortfall.
 
-The other three `Running` rows are the real gaps, and they are three different
-kinds of gap:
-- **I Contain Multitudes** — a *harness* limit. It runs cleanly to its final beat,
-  but the ending `finish` sits behind a nested `wait{…wait{…SetTimeout(7)…}}`
-  continuation the harness does not pump, so the ending timer is never created.
+The other `Running` row is a real gap:
 - **The Last Hero** — the *shipped game* is unwinnable: every `MoveObject` into a
   challenge room misspells the room name. Best-effort script.
 - **WAKE** — the *shipped game* is unwinnable: a `ChangePOV`/`player` mix-up strands
@@ -136,8 +132,8 @@ remain: the six games whose walkthroughs are Q&A/prose
 hints (Night House, Poppet, What Once Was, Hawk the Hunter, Eight characters…,
 Quest for the Serpent's Eye), plus the PDF-only The Brutal Murder of Jenny Lee,
 are driven by hand-derived winning scripts in `overrides/` (each linearised from
-the hints against the game source). Forty-nine of the 58 rows are driven by curated
-`overrides/` (see next section) — all 32 `-` rows plus 17 of the 26 rows that do
+the hints against the game source). Fifty of the 59 rows are driven by curated
+`overrides/` (see next section) — all 33 `-` rows plus 17 of the 26 rows that do
 have a walkthrough; the remaining nine run the raw walkthrough through the
 extractor. See [[quest5-corpus]]. (Dracula is a special case: its only
 walkthrough is for the *original 1986 CRL* game, not this 2014 remake, so its
@@ -159,7 +155,7 @@ extractor+preamble. `overrides/README.md` tabulates why each exists
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 58 driven games, the exact
+`golden/` holds the frozen answer key: for each of the 59 driven games, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
@@ -244,6 +240,33 @@ goldens; every other transcript is byte-identical. (It cannot rescue I Contain
 Multitudes: there the ending `SetTimeout` is never even *created*, because it sits
 inside a nested `wait{…}` continuation the harness does not pump.)
 
+### Synchronous sounds: `play sound (…, true, …)`
+
+`play sound` takes a *synchronous* flag, and a synchronous play is not a UI hook —
+it is a suspend. `PlaySoundScript.ExecuteAsync` claims `WorldModel._waitTcs` (the
+same slot `wait` uses) via `BeginPrompt`, signals the turn suspended so the driver
+moves on, and awaits the TCS; in a browser the audio's ended-event calls
+`FinishWait` and everything after the statement runs. Headless there is no audio,
+so without help the rest of that script — very often the ending's closing `msg`
+plus `finish` — never runs, while the game keeps accepting commands: a silently
+half-dead session that looks like a walkthrough that merely fell short.
+
+`HeadlessPlayer.PlaySoundAsync` therefore flags `IsWaiting` when `synchronous` is
+set, handing the resume to `AutoAdvance` like any other wait. This is exactly what
+QuestViva's own WebPlayer does when a `WalkthroughRunner` is attached (it forces
+`synchronous = false` and calls `Runner.BeginWait()`), so it is the *faithful*
+reading rather than a harness liberty. The native `aslx_replay` host installs the
+equivalent no-op `play_sound` hook, since the engine treats "the host hook
+returned" as "playback finished".
+
+Three corpus rows turn on it. **HMS Victory** is the clean case — its win is
+`play sound ("Eight bells.wav", true, false)` immediately before THE END and
+`finish` — and **Nearco II** is the same shape. **I Contain Multitudes** was the
+corpus's long-standing "harness cannot reach this win" row and is now `Finished`.
+Games whose parked tail *is* claimed later (The Tree's `x tube` holcast) are
+unaffected: resuming inline and resuming at the next claim produce the same
+transcript when no output sits between the two points.
+
 ### Two menu systems (why a bad answer used to freeze the game)
 
 Core has two: the engine `show menu` script → `IPlayer.ShowMenu` → answered by
@@ -282,13 +305,12 @@ transcripts across runs.
 
 ## Known gaps
 
-- *I Contain Multitudes* is the one driven game whose win the **harness** cannot
-  reach (the other two non-wins, The Last Hero and WAKE, are unwinnable games). It runs
-  cleanly (0 errors) to its final story beat, but the ending `finish` is behind a
-  nested `wait{…wait{…SetTimeout(7)…}}` continuation inside a menu response that the
-  harness does not pump — so the ending timer is never even created. Its author
-  warns its time-based events break Quest's own walkthrough runner too. Left
-  `Running`; transcript is still deterministic.
+- There is no longer any driven game whose win the **harness** cannot reach. The
+  two remaining non-wins, The Last Hero and WAKE, are unwinnable *games*.
+  *I Contain Multitudes* used to hold this slot, and its recorded diagnosis was
+  wrong: the ending was blocked not by a nested `wait{…}` continuation but by the
+  synchronous `play sound` immediately before it (see "Synchronous sounds" above).
+  It now reaches its full "Ending." credits, `Finished`, 0 errors.
 - *WAKE* **cannot** be won. It is the second shipped-broken game in the corpus —
   The Last Hero is the other (its challenge-room `MoveObject` calls all misspell
   the destination) — but the two fail differently: The Last Hero's script still

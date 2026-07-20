@@ -338,7 +338,23 @@ class HeadlessPlayer(Action<string> emit) : IPlayer
     }
 
     public void SetWindowMenu(MenuData menuData) { }
-    public Task PlaySoundAsync(string filename, bool synchronous, bool looped) => Task.CompletedTask;
+
+    // A *synchronous* `play sound` is a suspend, not just a UI hook: PlaySoundScript
+    // parks the script on WorldModel._waitTcs — the same TCS `wait` uses — and only
+    // resumes on FinishWait(), which the browser calls when the audio ends. Headless
+    // there is no audio, so without this the rest of the script (often the ending's
+    // msg + finish) never runs, while the game still accepts commands — a silent
+    // half-dead session. QuestViva's own WebPlayer has exactly this problem and
+    // solves it the same way: when a WalkthroughRunner is attached it forces
+    // synchronous=false and calls Runner.BeginWait(). Flagging IsWaiting hands the
+    // resume to AutoAdvance, which finishes it like any other wait.
+    // HMS Victory is the corpus case: its win is `play sound ("Eight bells.wav",
+    // true, false)` immediately before the THE END message and `finish`.
+    public Task PlaySoundAsync(string filename, bool synchronous, bool looped)
+    {
+        if (synchronous) IsWaiting = true;
+        return Task.CompletedTask;
+    }
     public void StopSound() { }
     public Task<string> GetUrlAsync(string filename) => Task.FromResult(filename);
     public void LocationUpdated(string location) { }

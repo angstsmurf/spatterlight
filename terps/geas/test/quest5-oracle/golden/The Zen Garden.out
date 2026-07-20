@@ -889,9 +889,10 @@ A narrow ford is the only way across.
 As you step onto the ford, a squat little figure emerges from the water in front of you.
 > bow
 > bow
-> bow
-> bow
 As the monster bows back, shimmering liquid spills from the top of its head. And the creature slips timidly away back into the depths.
+> bow
+> bow
+That won't help here.
 > cross ford
 > cross ford
 You are on the west bank of the river by a reed bed.
@@ -1205,9 +1206,6 @@ There is a teahouse in the eastern corner of the garden.
 You can also see a sparrow singing in a willow tree, a turtle on the rock, a frog held by the heron, an old man drinking tea and a young woman on the bridge carrying a parasol.
 
 You can go east into the teahouse or out of the garden.
-> z
-> z
-Time passes.
 The turtle slides quietly into the water.
 > z
 > z
@@ -1264,6 +1262,9 @@ Time passes.
 > z
 Time passes.
 A turtle crawls onto the rock.
+> z
+> z
+Time passes.
 > clap
 > clap
 The sound of two hands clapping!
@@ -1275,5 +1276,4 @@ Well done, you have solved the Zen Garden!
 The Game is over.
 > quit
 > quit
-As the monster bows back, shimmering liquid spills from the top of its head. And the creature slips timidly away back into the depths.
 [state=Finished]

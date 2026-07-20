@@ -760,6 +760,17 @@ If you descend now, there is no turning back. Descend?
 
 You carefully descend beneath the floor, into the space between the ship and the outer hull.
 Darkness swallows the light of your lantern. You can only press on.
+You are in the lowest part of the ship, below the bottom, so close to the endless ocean beneath you.
+If the lantern were to go out, you would be faced with an absolute oblivion akin to death.
+The throbbing, no, beating grows louder.
+Soon, it is all you can hear. The beating, beating. Flesh, muscle, blood.
+Finally, the darkness gives birth. The light of the lantern reveals the heart in all its profane glory.
+Do you attempt to look upon it?
+
+ She's there....
+ The Heart.
+
+Revealed from the dark is a metal cell carved out of the compartments in the hull. This space should not exist. The sea claws at the walls and the floor beneath your feet, but all you hear is the thumping of the great mass of muscle before you. There is no returning to the world above.
 > look at the heart
 
 > look at the heart
@@ -797,4 +808,27 @@ Then, she asks you a question:
 
 "I am Chandra Fitz. I am my mother's daughter. The masks cannot control me, and neither can you."
 
-[state=Running]
+ Ending.
+
+Many decisions were made throughout your time on the Prinzessin. The outcomes are as follows:
+
+Regarding Charlotte, there was no outcome that you are aware of. Try interacting with her more next time.
+
+Arania Kowser, prima donna di Teatro Dell’Opera di Berccinoga, instead of leaving her company and capitulating to the ambition of a young upstart, stayed to prove her superiority. She anticipated the pernicious attempts at her life and, on stage during a production of Sisandrus, easily evaded three falling sandbags. Her understudy was promptly arrested, and thereafter Arania enjoyed many years of glory and creative bliss.
+
+Regarding Hartleford, there was no outcome that you are aware of. Try interacting with him more next time.
+
+The Empress Mother Indira IV of Bostria left the ship, dissatisfied with the veneer of civility over what she suspected to be a sinister plot. She had not gone on the Prinzessin Anna Alexia in order to enjoy herself. After her trip failed to yield any fruit, she returned to her life of standing behind the throne and watching her daughter chip away at Bostria’s greatness year after year. Despite her age, Indira IV was not a frail woman, and thoughts of retaking her own throne began to foment inside her, if only so that she could ensure no one, like her granddaughter, ever disappeared again.
+
+Doctor Stauf left the ship like the rest of the passengers, accompanying Captain Bosch to a secluded location beneath the Paradiso mountains.
+
+The heart was not destroyed. You stayed your hand, a choice which ultimately allowed La Società to move her to their ritual chambers deep beneath the Firminan Mountains. There, they proudly dictate the pumping of the blood of their influence, ending their mortal lives by earning the abominable honor of feeding themselves to the heart. There are other hearts in the world, beating, beating away below the earth, in guarded basements and secluded caverns. You’re just glad you can’t hear it anymore.
+
+You were Chandra Fitz, and nothing more. Though you may have dabbled in the wearing of masks, the masks were not you, and they held no sway over your decisions. It was the captain who killed the bishop in order to protect the secret aboard the vessel. Whether you discovered that secret’s true nature, you breathe a sigh of relief that you at least are not a murderer. Because your findings were inconclusive, the captain had no reason to suspect you and to report you to his Società superiors. You may have narrowly escaped with your life.
+
+You resisted the temptation to join your body with the heart.
+
+In the end, you have a strong sense of who you are. You are the choices you made.
+
+You've completed I Contain Multitudes. Thank you for playing. Why not try again for a different ending?
+[state=Finished]

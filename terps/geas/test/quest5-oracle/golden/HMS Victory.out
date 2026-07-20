@@ -1,0 +1,470 @@
+HMS Victory
+
+by Peter Edwards
+
+ Instructions.
+Hint - examine everything. The pictures are not just for decoration.
+Oh yes, and be kind to seagulls. Some say that they are the spirits of dead seamen...
+
+You are standing outside The Keppel's Head, an historic pub near Portsmouth dockyard.
+
+Good luck and bon voyage!
+
+(Press any key to enter the inn)
+
+You are in The Keppels Head.
+
+You are sitting in The Keppel's Head enjoying a quiet drink when suddenly you are joined by a sailor dressed in 18th Century Royal Navy uniform. He tells you that he and his shipmates had served with Nelson in all his campaigns and the Great Man had promised them all an honourable discharge on arriving back in England. Unfortunately the Admiral had been killed before the promise could be ratified.
+
+"So you see, matee, me and me shipmates are now doomed to haunt Portsmouth for all eternity unless some brave soul can find the Admiral's eight special objects and return them to his cabin. So now, my hearty, do you lay a S'uthard course for the good ship Victory and Save Our Souls".
+
+You try to ask what these objects are and where they can be found, but with a whisper of "Don't 'e let us down now, matee...", the ghost disappears like a whiff of smoke.
+You can go south.
+> south
+
+> south
+
+You are in a position at the foot of the gangway.
+You can go up.
+> go up
+
+> go up
+
+You are on the middle gun deck (aft).
+You can go up, forward, aft or down.
+> go up
+
+> go up
+
+You are on the upper gun deck (aft).
+You can go aft, forward, up or down.
+> go aft
+
+> go aft
+
+You are in The Great Cabin.
+This was the Admiral's accommodation when he was aboard.
+You can go forward or to starboard.
+You can see a lantern.
+> take lantern
+
+> take lantern
+You pick it up.
+> go forward
+
+> go forward
+
+You are on the upper gun deck (aft).
+You can go aft, forward, up or down.
+> go up
+
+> go up
+
+You are on the quarter deck.
+You can go down, forward, up or aft.
+> go aft
+
+> go aft
+
+You are in the Captain's cabin.
+You can go forward.
+> lift carpet
+
+> lift carpet
+There's a lot of dust!
+> x dust
+
+> x dust
+Nothing out of the ordinary.
+But in the dust you see a key.
+> take key
+
+> take key
+You pick it up.
+> go forward
+
+> go forward
+
+You are on the quarter deck.
+You can go down, forward, up or aft.
+> go forward
+
+> go forward
+
+You are on the boat deck.
+The Main Mast towers above you.
+You can go aft or forward.
+> x mast
+
+> x mast
+A massive baulk of timber. You can see the Fighting Top far above you.
+
+> go up
+
+> go up
+
+You are in the Fighting Top.
+An amazing view from up here, but you feel slightly nauseous as you swing in wide circles!
+You can go down.
+You can see a telescope.
+> take telescope
+
+> take telescope
+You pick it up.
+> go down
+
+> go down
+
+You are on the boat deck.
+The Main Mast towers above you.
+You can go aft, forward or up.
+> go forward
+
+> go forward
+
+You are in the forecastle.
+You can go aft or down.
+> go down
+
+> go down
+
+You are in the sick bay.
+You can go aft, up or forward.
+> open door
+
+> open door
+Unlocked.
+You open it.
+The Sickbay store-cupboard. It contains a medal.
+> take medal
+
+> take medal
+You pick it up.
+> go aft
+
+> go aft
+
+You are on the upper gun deck (midships forward).
+You can go aft, forward or down.
+> open coop
+
+> open coop
+You open it.
+> x straw
+
+> x straw
+Nothing out of the ordinary.
+It contains an egg.
+> take egg
+
+> take egg
+You pick it up.
+> go down
+
+> go down
+
+You are in the galley.
+You can go aft, up, forward or down.
+> x cupboard
+
+> x cupboard
+The doors hang drunkenly open.
+It contains a glass.
+> take glass
+
+> take glass
+You pick it up.
+> go down
+
+> go down
+
+You are on the lower gun deck (forward).
+You can go aft, up, forward or down.
+> go aft
+
+> go aft
+
+You are on the lower gun deck (midships).
+You can go aft, up or forward.
+> go aft
+
+> go aft
+
+You are on the lower gun deck (aft).
+The bilge pumps are sited here.
+You can go aft, up, forward or down.
+> use pumps
+
+> use pumps
+Murky water gushes into the scuppers and pours overboard.
+> use pumps
+
+> use pumps
+Murky water gushes into the scuppers and pours overboard.
+> use pumps
+
+> use pumps
+Water dribbles out and trickles over the side.
+> use pumps
+
+> use pumps
+The pump sucks dry.
+> go forward
+
+> go forward
+
+You are on the lower gun deck (midships).
+You can go aft, up or forward.
+> go forward
+
+> go forward
+
+You are on the lower gun deck (forward).
+You can go aft, up, forward or down.
+> go down
+
+> go down
+
+You are in the carpenter's workshop.
+You see a well-equipped workshop with the expected tools, workbench and wood. The carpenter was a much respected member of the ship's company, able to carry out necessary repairs and, sometimes, intricate carvings.
+You can go forward, aft, up or down.
+> x bench
+
+> x bench
+Nothing out of the ordinary.
+However, lying on the bench there is a carving.
+> take carving
+
+> take carving
+You pick it up.
+> go down
+
+> go down
+
+You are in the Bosuns store.
+You can go aft, forward, up or to port.
+> x shelf
+
+> x shelf
+Nothing out of the ordinary.
+On the shelf there is  some poison.
+> take poison
+
+> take poison
+You pick it up.
+> go port
+
+> go port
+
+You are in a narrow passage.
+You can go to starboard or forward.
+> go forward
+
+> go forward
+
+You are in the light room.
+There is a window in the after bulkhead.
+You can go aft.
+> drop lantern
+
+> drop lantern
+You drop it.
+> go aft
+
+> go aft
+
+You are in a narrow passage.
+You can go to starboard or forward.
+> go starboard
+
+> go starboard
+
+You are in the Bosuns store.
+You can go aft, forward, up or to port.
+> go forward
+
+> go forward
+
+You are in the grand magazine.
+In the flickering light from a window in the forward bulkhead, you can see a number of powder barrels.
+You can go aft.
+> x barrels
+
+> x barrels
+Just your normal average gunpowder barrels.
+However, between the barrels you find a portrait.
+> take portrait
+
+> take portrait
+You pick it up.
+> go aft
+
+> go aft
+
+You are in the Bosuns store.
+You can go aft, forward, up or to port.
+> go port
+
+> go port
+
+You are in a narrow passage.
+You can go to starboard or forward.
+> go forward
+
+> go forward
+
+You are in the light room.
+There is a window in the after bulkhead.
+You can go aft.
+You can see a lantern.
+> take lantern
+
+> take lantern
+You pick it up.
+> go aft
+
+> go aft
+
+You are in a narrow passage.
+You can go to starboard or forward.
+> go starboard
+
+> go starboard
+
+You are in the Bosuns store.
+You can go aft, forward, up or to port.
+> go aft
+
+> go aft
+
+You are in the main hold.
+You can go aft, forward or up.
+> go aft
+
+> go aft
+
+You are in the pump well.
+Bilge water collected here to be pumped out by 4 chain pumps operated from the lower gun deck.
+You can go forward or aft.
+> x water
+
+> x water
+The well is (comparatively) dry.
+It contains a gold key.
+> take gold key
+
+> take gold key
+You pick it up.
+> go forward
+
+> go forward
+
+You are in the main hold.
+You can go aft, forward or up.
+> go up
+
+> go up
+
+You are on the orlop deck (aft).
+You can go forward, aft, up or down.
+You are attacked by a pack of starving rats!
+
+You throw the poison towards the rats. They fall upon it and eat it greedily. They die!
+> go aft
+
+> go aft
+
+You are in the pursers store.
+You can go forward.
+You can see a hat.
+> take hat
+
+> take hat
+You pick it up.
+> go forward
+
+> go forward
+
+You are on the orlop deck (aft).
+You can go forward, aft, up or down.
+> go up
+
+> go up
+
+You are on the lower gun deck (aft).
+The bilge pumps are sited here.
+You can go aft, up, forward or down.
+> go up
+
+> go up
+
+You are on the middle gun deck (aft).
+You can go up, forward, aft or down.
+> go aft
+
+> go aft
+
+You are in the wardroom.
+You can go forward.
+The ghostly form of a Marine sentry appears. Seeing the hat, he salutes, and leaves.
+> x chair
+
+> x chair
+A battered old chair of dark blue leather.
+Down the side you find a Prayer Book.
+> take prayer book
+
+> take prayer book
+You pick it up.
+> go forward
+
+> go forward
+
+You are on the middle gun deck (aft).
+You can go up, forward, aft or down.
+> go up
+
+> go up
+
+You are on the upper gun deck (aft).
+You can go aft, forward, up or down.
+> go aft
+
+> go aft
+
+You are in The Great Cabin.
+This was the Admiral's accommodation when he was aboard.
+You can go forward or to starboard.
+> go starboard
+
+> go starboard
+
+You are in Nelson's night cabin.
+You can go to port.
+You can see a sea chest.
+> open sea chest
+
+> open sea chest
+Unlocked.
+You open it.
+It contains a sextant.
+> take sextant
+
+> take sextant
+You pick it up.
+> go port
+
+> go port
+
+You are in The Great Cabin.
+This was the Admiral's accommodation when he was aboard.
+You can go forward or to starboard.
+
+As the eight bells fade away, you hear a familiar voice.
+"We knew you wouldn't let us down, shipmate. Thankee..."
+
+You feel a great sense of peace and joy.
+(Nelson's quite pleased as well, for getting his things back!)
+
+THE END
+[state=Finished]
