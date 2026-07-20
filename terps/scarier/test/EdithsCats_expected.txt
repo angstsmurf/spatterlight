@@ -1,0 +1,57 @@
+Edith's Cats
+
+2020. October the 31th, you are released from psychiatry, where you were put in for political reasons.
+
+Rehab
+
+You're a former junky, unemployed game developer, chronic alcoholic, wannabe programmer, schizophrenic blogger. The only schizophrenic blogger in the country. The country is not important, although it lies in the middle of Europe. Although it is member of the European Union, it has its own rules.
+
+The form of state is Viktor's Update, which is a special way of the dictatorship. The governing political party is named Young Democrat's Alliance, all of them are older than you. And have never been democrats. If the party's name is a joke, then it's a very good one. You will be 42 at this Halloween. You don't understand, how you can survive 42 summers, among these circumstances. After 40 years communism, came Viktor's Update, which means, he feeds their friends and relatives, and the rest of the country is starving. There isn't political police yet, but the political psychiatry performs better than ever.
+
+You are about to left the rehab part of the psychiatry, where you were put in, because you caught on smoking in a bus stop. Your girlfriend, Edith is waiting for you at the exit. You should greet her in a way that fit in the situation.
+
+> kiss Edith
+
+Rehab
+
+You're a former junky, unemployed game developer, chronic alcoholic, wannabe programmer, schizophrenic blogger. The only schizophrenic blogger in the country. The country is not important, although it lies in the middle of Europe. Although it is member of the European Union, it has its own rules.
+
+The form of state is Viktor's Update, which is a special way of the dictatorship. The governing political party is named Young Democrat's Alliance, all of them are older than you. And have never been democrats. If the party's name is a joke, then it's a very good one. You will be 42 at this Halloween. You don't understand, how you can survive 42 summers, among these circumstances. After 40 years communism, came Viktor's Update, which means, he feeds their friends and relatives, and the rest of the country is starving. There isn't political police yet, but the political psychiatry performs better than ever.
+
+You are about to left the rehab part of the psychiatry, where you were put in, because you caught on smoking in a bus stop. Your girlfriend, Edith is waiting for you at the exit. You should greet her in a way that fit in the situation.  An exit leads east.  You kiss Edith. Her eyes are sparkling grateful.
+- Oh, I'll follow you, darling, where should we be gone?
+
+> east
+You move east.
+
+Bus stop
+
+You remember, you lit a cigarette here, that's why you spent two years in the psych ward, two years in the rehab part of it. Edith has been waited for you. You mustn't have use internet, or mobile device during this period, you write letters with your blood to Edith to toilet papers or tissue papers. Edith collected the papers, and published them on your blog. Your blog is now full of love letters, which is not a crime (yet). The blog's audience thinks that you're on a journey. Yes, a journey at your mind's darkest places.  An exit leads west.
+
+> wait
+
+Bus stop
+
+You remember, you lit a cigarette here, that's why you spent two years in the psych ward, two years in the rehab part of it. Edith has been waited for you. You mustn't have use internet, or mobile device during this period, you write letters with your blood to Edith to toilet papers or tissue papers. Edith collected the papers, and published them on your blog. Your blog is now full of love letters, which is not a crime (yet). The blog's audience thinks that you're on a journey. Yes, a journey at your mind's darkest places.  Exits are south and west.  You have been waiting a lot. The bus finally arrives.
+
+> south
+You move south.
+
+Edith's home
+
+Edith and you are both getting on the bus, and it's take you to Edith's home. Edith lives with her two black cats, the government claimed, they had supernatural powers, and Edith is a criminal, because she steals white mice from a laboratory, and she feeds the cats wit them. Anyway, how could she keep animals from her salary?
+
+You are now together for 4 years and 3 weeks. The political psychiatry caught before you had have sex  with each other. It's Halloween, and your birthday. What now?
+
+> fuck Edith
+You begin to kissing and petting. Suddenly the cats begin to strike the room's door, and make terrible noise. You can see that the shape of the cats are growing larger and larger. The mice, which they have eaten could be infected or something. The doorbell rings. What now?
+
+> wait
+You wait. The rage of the mutant cats turns against the entrance door. They break the door, and break through the awaiting policemen, and ambulance staff, causing serious damages to them.
+"Trick or Treating" - you say with a bitter grin.
+
+The End
+
+One week later, you gain your consciousness back. You are not tied yet to the bed, so you can read a newspaper's headline from a few days before. "Schizophrenics kills policemen, and ambulance staff". The article is about Edith, and you, according to the journalist, you were both drunk, and used drugs, and that causes that you seriously damaged 4, and also killed 4 people. You wore Halloween cat costume, and had a schizophrenic shub due to narcotics and alcohol overdose. That's why the government forbids the alcohol use of people suffering in mental illness, collects them on labour camps, so the employment of the country reached the 100%. Halloween is also forbidden, carnival too, and also festivals, and every event where costumes or masks can be wore.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

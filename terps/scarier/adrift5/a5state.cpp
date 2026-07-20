@@ -134,6 +134,8 @@ a5state_new (const a5_adventure_t *adv)
                                             sizeof *st->char_position);
       st->char_onobj = (const char **) calloc ((size_t) adv->n_characters,
                                                sizeof *st->char_onobj);
+      st->char_onchar = (const char **) calloc ((size_t) adv->n_characters,
+                                                sizeof *st->char_onchar);
       st->char_in = (char *) calloc ((size_t) adv->n_characters, 1);
       for (i = 0; i < adv->n_characters; i++)
         {
@@ -144,8 +146,11 @@ a5state_new (const a5_adventure_t *adv)
              the location in char_loc; "On Object"/"In Object" store the carrier
              object in char_onobj (char_in distinguishes inside vs on the surface)
              and leave char_loc NULL -- the effective location is resolved through
-             the object (a5state_character_at_location).  "On Character"/"Hidden"
-             stay NULL (treated as not-at-any-location). */
+             the object (a5state_character_at_location).  "On Character"/"In
+             Character" store the carrier character in char_onchar (Edith rides
+             the Player: CharacterLocation "On Character", CharOnWho Player) and
+             the effective location resolves through the carrier
+             (a5state_character_location_key).  "Hidden" stays NULL. */
           if (cl == NULL || streq (cl, "At Location"))
             st->char_loc[i] = chr_prop (c, "CharacterAtLocation");
           else if (streq (cl, "On Object"))
@@ -153,6 +158,10 @@ a5state_new (const a5_adventure_t *adv)
           else if (streq (cl, "In Object"))
             { st->char_onobj[i] = chr_prop (c, "CharInsideWhat");
               if (st->char_in != NULL) st->char_in[i] = 1; }
+          else if (streq (cl, "On Character"))
+            st->char_onchar[i] = chr_prop (c, "CharOnWho");
+          else if (streq (cl, "In Character"))
+            st->char_onchar[i] = chr_prop (c, "CharInsideWho");
           st->char_position[i] = strdup (pos ? pos : "Standing");
         }
       /* FileIO.vb:851-862: after load, if the Player's location is Hidden or has
@@ -862,10 +871,10 @@ a5state_player_location (const a5_state_t *st)
    through the on/in-object carrier (a char whose model start is "On Object"
    -- GFS's Grandpa on his rocking chair -- has char_loc NULL; The runner derives
    clsCharacterLocation.LocationKey from the furniture). */
-const char *
-a5state_character_location_key (const a5_state_t *st, int ci)
+static const char *
+char_location_key_depth (const a5_state_t *st, int ci, int depth)
 {
-  if (ci < 0 || st->char_loc == NULL)
+  if (ci < 0 || st->char_loc == NULL || depth > 32)
     return NULL;
   if (st->char_loc[ci] != NULL)
     return st->char_loc[ci];
@@ -877,7 +886,20 @@ a5state_character_location_key (const a5_state_t *st, int ci)
                                             st->adv->locations[li].key, 0))
           return st->adv->locations[li].key;
     }
+  /* A character riding another character (ExistWhere On/InCharacter -- Edith on
+     the Player) inherits the carrier's effective room; the runner derives
+     clsCharacterLocation.LocationKey from the carrier.  Recurse with a depth
+     guard against a cyclic On-Character placement. */
+  if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
+    return char_location_key_depth (st,
+             a5state_character_index (st, st->char_onchar[ci]), depth + 1);
   return NULL;
+}
+
+const char *
+a5state_character_location_key (const a5_state_t *st, int ci)
+{
+  return char_location_key_depth (st, ci, 0);
 }
 
 /* Does container object `parent` *hide* its In-Object contents from view?
@@ -1015,6 +1037,12 @@ a5state_character_at_location (const a5_state_t *st, int ci, const char *lockey)
      hiding) is a5state_character_visible_at_location's job. */
   if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
     return a5state_object_key_at_location (st, st->char_onobj[ci], lockey, 0);
+  /* "On Character"/"In Character": present wherever the carrier character is
+     (Edith rides the Player).  a5state_character_location_key resolves the
+     carrier chain with its own depth guard. */
+  if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
+    { const char *k = a5state_character_location_key (st, ci);
+      return k != NULL && streq (k, lockey); }
   return 0;
 }
 
@@ -1048,6 +1076,12 @@ a5state_character_visible_at_location (const a5_state_t *st, int ci,
         return 0;
       return exists_at (st, oi, lockey, 0, 1, 0);
     }
+  /* "On Character"/"In Character": a rider inherits the carrier's BoundVisible
+     unconditionally (Edith on the Player is visible wherever the Player is). */
+  if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
+    { int cc = a5state_character_index (st, st->char_onchar[ci]);
+      return cc >= 0 && cc != ci
+             && a5state_character_visible_at_location (st, cc, lockey); }
   return 0;
 }
 

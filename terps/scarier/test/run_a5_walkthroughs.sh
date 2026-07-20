@@ -1268,6 +1268,7 @@ SpaceDetective4|SpaceDetective4.blorb|0|0
 SpaceDetective5|SpaceDetective5.blorb|0|0
 SpaceDetective6|SpaceDetective6.blorb|0|0
 SpaceDetective7|SpaceDetective7.blorb|0|0
+EdithsCats|edithscats.taf|0|0
 EOF
 )
 

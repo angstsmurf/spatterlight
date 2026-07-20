@@ -87,6 +87,10 @@ typedef struct a5_state_s {
                              or NULL when "at location" (ExistWhere==AtLocation) */
   char *char_in;          /* [adv->n_characters] when char_onobj set: 1=inside,
                              0=on the surface (ExistWhere InObject vs OnObject)  */
+  const char **char_onchar;/* [adv->n_characters] carrier CHARACTER key when the
+                              char is On/In another character (ExistWhere
+                              On/InCharacter, e.g. Edith riding the Player), else
+                              NULL; effective location resolves through the carrier */
 
   long  *var_num;         /* [adv->n_variables] numeric value                  */
   char **var_text;        /* [adv->n_variables] text value (owned), or NULL    */

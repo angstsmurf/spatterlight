@@ -330,3 +330,31 @@ that must keep the lenient pass) is left untouched — narrowing that guard was
 needed to avoid regressing PathwayToDestruction's metal-door move. Full suite
 stays green (43 MATCH incl. this game + 8 pre-existing DIVERGE, 0 regressions).
 Golden `AnAdventurersBackyard_expected.txt`, wired `AnAdventurersBackyard|...|0|0`.
+
+## Edith's Cats (Bunkphor, 2016) — ★ WON, MATCH 0|0
+
+EctoComp 2016 "La Petite Mort" (3-hour jam) horror vignette; player "Robi", a
+schizophrenic blogger in a thinly-veiled Orbán-era Hungary. 3 rooms, one Neutral
+ending, no score. Winning route (6 turns, byte-identical to FrankenDrift):
+`kiss Edith` (unlocks Rehab→east) → `east` → `wait` (bus arrives, unlocks
+Bus stop→south) → `south` → `fuck Edith` (cats mutate, doorbell) → `wait`
+(Wait1 → `EndGame Neutral`, "The End"). All three room exits are task-gated, so
+the route is forced. Only custom tasks: KissEdith (Specific override of
+`kiss %character%` for Edith), Wait, Fuck, KissEdith1 (Specific override of
+Fuck), Wait1.
+
+**Engine fix — On/InCharacter carrier location + seen.** Edith starts with
+CharacterLocation **"On Character"** / CharOnWho=Player (she rides the player
+piggyback). Scarier left On/InCharacter's `char_loc` NULL and treated it as
+not-at-any-location, so Edith was neither present nor "seen": `kiss Edith` failed
+the `HaveSeenCharacter` restriction ("Sorry, I'm not sure which character you are
+referring to.") and `x edith` said "You see no such thing.", leaving the game
+unwinnable. FrankenDrift derives clsCharacterLocation.LocationKey from the
+carrier, so Edith is present and seen from turn 1. Added `char_onchar[]`
+(carrier CHARACTER key, parsed from CharOnWho / CharInsideWho) and resolved it
+through the carrier in `a5state_character_location_key` (recursive, depth-32
+guard), `a5state_character_at_location`, and
+`a5state_character_visible_at_location`. Purely additive — every new branch is
+gated on `char_onchar[ci]!=NULL`, set only for On/InCharacter characters, so all
+other games are unaffected (full suite stays green). Golden
+`EdithsCats_expected.txt`, wired `EdithsCats|edithscats.taf|0|0`.
