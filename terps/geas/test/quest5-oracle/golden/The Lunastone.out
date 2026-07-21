@@ -1,0 +1,1799 @@
+The Lunastone
+By Craig Dutton (c) 2014
+
+Your name is Raiphus Drell and you live with your daughter Vessa on the island of Neos. This island is amongst many others residing on a far distant ocean planet called Aquana.
+
+As a humble botanist you and Vessa live a peaceful life since your wife, Lyssa died ten years ago this week. She was murdered by your insane brother, Krelos.
+
+Coming back from a trip you find Vessa missing! Your communicator has just sent you a message. It's from your brother, Krelos. He demands you to steal the Lunastone for him or Vessa dies!
+
+The ancestors created the Lunastone centuries ago but when it was activated they realized they had a terrible weapon and locked it up in the Crystal Tower located on a secret island.
+
+Your mission is to find this island, get in to the Crystal Tower and steal the Lunastone otherwise Vessa will be killed!
+
+It seems improbable but Vessa's life depends on your success! Good luck.
+
+Landing platform
+You are on the island of Neos - your home. The platform is just like the other rooms of your home and are raised on platforms high above the jungle island.
+You can go south.
+You can see a metal plate and a flying craft.
+> read communicator
+
+> read communicator
+I HAVE YOUR DAUGHTER, BROTHER. STEAL THE LUNASTONE FOR ME OR VESSA DIES. WHEN YOU GET THE STONE AWAIT FUTHER INSTRUCTIONS, KRELOS.
+> south
+
+> south
+
+Garden
+A small paradise of your own where hybrids and new plants are cultivated.
+You can go north or southeast.
+You can see a moon lily, a serpicous rose and a dwarf weed.
+> take serpicous rose
+
+> take serpicous rose
+You pick it up.
+> southeast
+
+> southeast
+
+Botanical laboratory
+This is where you spend most of your time working on research into new plant species.
+You can go northwest or northeast.
+You can see a bench.
+> northeast
+
+> northeast
+
+Living area
+A circular sofa centres around a table.
+You can go southwest, northwest, north, east or southeast.
+> look at table
+
+> look at table
+A large wooden table.
+It contains a Book of Symbols and a leaflet.
+> take leaflet
+
+> take leaflet
+You pick it up.
+> read leaflet
+
+> read leaflet
+
+In very small print on the back: 'I see the future and everyone is flying the V501-X' - High Priestess, Order of the Enlightened, Chanra: 246, 246.
+> drop leaflet
+
+> drop leaflet
+You drop it.
+> northwest
+
+> northwest
+
+Vessa's room
+Your heart breaks when you see Vessa's bed. You hope she'll get to sleep in it soon.
+You can go southeast.
+You can see a drawing.
+> rip drawing
+
+> rip drawing
+You tear it off the wall keeping it mostly intact. You find something.
+> read scribble
+
+> read scribble
+'SOEN.' Neos backwards. Oh, Vessa!
+> southeast
+
+> southeast
+
+Living area
+A circular sofa centres around a table.
+You can go southwest, northwest, north, east or southeast.
+You can see a leaflet.
+> north
+
+> north
+
+Study
+This is a quiet place to read and get away from it all.
+You can go south.
+You can see a shelf.
+> look at shelf
+
+> look at shelf
+A long wooden shelf.
+It contains a Book of Beasts and a set of encyclopedias.
+> look at encyclopedias
+
+> look at encyclopedias
+They are fake. They hide a secret drawer. There are nine volumes and each one can be pushed individually like a combination key. A keyword is used but you don't know it as Vessa now uses it to hide things.
+> push volume s to u
+
+> push volume s to u
+You hear a small click.
+> push volume m to o
+
+> push volume m to o
+You hear a small click.
+> push volume d to f
+
+> push volume d to f
+You hear a small click.
+> push volume m to o
+
+> push volume m to o
+You hear a small click.
+A secret drawer appears.
+> open secret drawer
+
+> open secret drawer
+You open it.
+It contains a ruby.
+> take ruby
+
+> take ruby
+You pick it up.
+> south
+
+> south
+
+Living area
+A circular sofa centres around a table.
+You can go southwest, northwest, north, east or southeast.
+You can see a leaflet.
+> southeast
+
+> southeast
+
+Kitchen
+A small but useful place. The automatic water taps are broken.
+You can go northwest.
+You can see a cupboard.
+> open cupboard
+
+> open cupboard
+You open it.
+It contains an oil and a cloth.
+> take cloth
+
+> take cloth
+You pick it up.
+> take oil
+
+> take oil
+You pick it up.
+> use oil on cloth
+
+> use oil on cloth
+You soak the cloth with the oil.
+> northwest
+
+> northwest
+
+Living area
+A circular sofa centres around a table.
+You can go southwest, northwest, north, east or southeast.
+You can see a leaflet.
+> southwest
+
+> southwest
+
+Botanical laboratory
+This is where you spend most of your time working on research into new plant species.
+You can go northwest or northeast.
+You can see a bench.
+> northwest
+
+> northwest
+
+Garden
+A small paradise of your own where hybrids and new plants are cultivated.
+You can go north or southeast.
+You can see a moon lily and a dwarf weed.
+> north
+
+> north
+
+Landing platform
+You are on the island of Neos - your home. The platform is just like the other rooms of your home and are raised on platforms high above the jungle island.
+You can go south.
+You can see a metal plate and a flying craft.
+> clean metal plate
+
+> clean metal plate
+You clean the grime off the metal plate. Shiny!
+> read metal plate
+
+> read metal plate
+NEOS - SECTOR X: 146, SECTOR Y: 146
+> drop cloth
+
+> drop cloth
+You drop it.
+> drop oil
+
+> drop oil
+You drop it.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 246
+Enter the Sector Y co-ordinate?
+> 246
+
+You fly off to your destination.
+
+Landing platfom
+You are on the island of Chanra. A peaceful place full of enlightenment.
+You can go south.
+You can see a flying craft.
+> south
+
+> south
+
+Crossroads
+A sandy path going in four directions.
+You can go north, east, west or south.
+> east
+
+> east
+
+Tree of Ages
+An ancient tree that had survived the floods. It has bountiful leaves.
+You can go west.
+> pick leaf
+
+> pick leaf
+A single leaf floats down.
+> take leaf
+
+> take leaf
+You pick it up.
+> west
+
+> west
+
+Crossroads
+A sandy path going in four directions.
+You can go north, east, west or south.
+> south
+
+> south
+
+Path
+A narrow rocky path that passes outside the Temple of the Enlightened.
+You can go north, in or south.
+You can see a diabolos orchid.
+> in
+
+> in
+
+Temple of the Enlightened
+A light and airy domed building with a sense of calm about it.
+You can go out.
+You can see a wooden bowl and the High Priestess.
+> speak to high priestess
+
+> speak to high priestess
+'Welcome, Stranger, to the Temple of the Enlightened. Here is where your future lies and achieved by past endeavours.' she smiles, 'Let the Cave of Dreams guide you on your journey.'
+> take wooden bowl
+
+> take wooden bowl
+You pick it up.
+> out
+
+> out
+
+Path
+A narrow rocky path that passes outside the Temple of the Enlightened.
+You can go north, in or south.
+You can see a diabolos orchid.
+> north
+
+> north
+
+Crossroads
+A sandy path going in four directions.
+You can go north, east, west or south.
+> west
+
+> west
+
+River bank
+A fast-flowing river with a wooden bridge spanning across it to the other side.
+You can go east.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+River bank
+A fast-flowing river with a wooden bridge spanning across it to the other side.
+You can go southwest.
+You can see a bridge.
+> southwest
+
+> southwest
+
+Cave entrance
+A large opening going inside the hillside.
+You can go northeast, in or northwest.
+You can see some shadow ivy.
+> take shadow ivy
+
+> take shadow ivy
+You pick it up.
+> in
+
+> in
+
+Tunnel
+A dark narow tunnel.
+You can go out, southwest or southeast.
+> southwest
+
+> southwest
+
+Wyrm's lair
+A large cave with a Giant Wyrm slithering about.
+You can go northeast.
+You can see a Giant Wyrm.
+> fill wooden bowl
+
+> fill wooden bowl
+You fill the bowl with the enzyme.
+> put serpicous rose in wooden bowl
+
+> put serpicous rose in wooden bowl
+Done.
+> mix wooden bowl
+
+> mix wooden bowl
+You mix the contents of the bowl.
+> northeast
+
+> northeast
+
+Tunnel
+A dark narow tunnel.
+You can go out, southwest or southeast.
+> out
+
+> out
+
+Cave entrance
+A large opening going inside the hillside.
+You can go northeast, in or northwest.
+> northwest
+
+> northwest
+
+Path
+A winding path that leads down to the beach past a small wooden hut.
+You can go in, west or southeast.
+> in
+
+> in
+
+Hut
+It has wooden walls and little else.
+You can go out.
+You can see a table.
+> look at table
+
+> look at table
+A wooden table.
+It contains a silver key.
+> take silver key
+
+> take silver key
+You pick it up.
+> look at wall
+
+> look at wall
+Wooden walls.
+A painting hangs from the wall.
+> look at frame
+
+> look at frame
+'SCYTHON: 346, 346'
+> out
+
+> out
+
+Path
+A winding path that leads down to the beach past a small wooden hut.
+You can go in, west or southeast.
+> southeast
+
+> southeast
+
+Cave entrance
+A large opening going inside the hillside.
+You can go northeast, in or northwest.
+> northeast
+
+> northeast
+
+River bank
+A fast-flowing river with a wooden bridge spanning across it to the other side.
+You can go southwest.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+River bank
+A fast-flowing river with a wooden bridge spanning across it to the other side.
+You can go east.
+You can see a bridge.
+> east
+
+> east
+
+Crossroads
+A sandy path going in four directions.
+You can go north, east, west or south.
+> south
+
+> south
+
+Path
+A narrow rocky path that passes outside the Temple of the Enlightened.
+You can go north, in or south.
+You can see a diabolos orchid.
+> south
+
+> south
+
+Cave entrance
+A small opening going inside the hillside.
+You can go north or in.
+> in
+
+> in
+
+Cave of Dreams
+You're not quite sure why it's called the Cave of Dreams as it looks quite ordinary.
+You can go out.
+> drink mixture
+
+> drink mixture
+You drink the foul-tasting liquid and fall to the floor. Your head spins and it feels like it's about to explode. Suddenly your vision blurs into a cloud of swirls...
+
+... You see stars... then a number, 646... Then a black door. You say a name and the door opens...
+
+The visions stop.
+> drop wooden bowl
+
+> drop wooden bowl
+You drop it.
+> out
+
+> out
+
+Cave entrance
+A small opening going inside the hillside.
+You can go north or in.
+> north
+
+> north
+
+Path
+A narrow rocky path that passes outside the Temple of the Enlightened.
+You can go north, in or south.
+You can see a diabolos orchid.
+> north
+
+> north
+
+Crossroads
+A sandy path going in four directions.
+You can go north, east, west or south.
+> north
+
+> north
+
+Landing platfom
+You are on the island of Chanra. A peaceful place full of enlightenment.
+You can go south.
+You can see a flying craft.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 346
+Enter the Sector Y co-ordinate?
+> 346
+
+You fly off to your destination.
+
+Landing platform
+You are on the island of Scython. It's mainly a huge mountain.
+You can go east.
+You can see a flying craft.
+> east
+
+> east
+
+Outside mountain
+Standing outside the entrance to the mountain.
+You can go west or in.
+> in
+
+> in
+
+Hall of statues
+A large chamber with four stone statues.
+You can go out, down, south or east.
+You can see an Engineer statue, an Artist statue, a Philosopher statue and a Scientist statue.
+> east
+
+> east
+
+Chasm
+You can't see the bottom.
+You can go west.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+Chasm
+You can't see the bottom.
+You can go south or north.
+You can see a bridge.
+> south
+
+> south
+
+Corridor
+A white stone corridor.
+You can go north, east or south.
+> east
+
+> east
+
+Living quarters
+A simple place for whoever lived here.
+You can go west.
+You can see a shelf and a bed.
+> look at shelf
+
+> look at shelf
+A wooden shelf.
+It contains a snowglobe.
+> take snowglobe
+
+> take snowglobe
+You pick it up.
+> look under snowglobe
+
+> look under snowglobe
+Written on the bottom is 'PALAMORE ISLAND: 446, 446.'
+> west
+
+> west
+
+Corridor
+A white stone corridor.
+You can go north, east or south.
+> north
+
+> north
+
+Chasm
+You can't see the bottom.
+You can go south or north.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+Chasm
+You can't see the bottom.
+You can go west.
+You can see a bridge.
+> west
+
+> west
+
+Hall of statues
+A large chamber with four stone statues.
+You can go out, down, south or east.
+You can see an Engineer statue, an Artist statue, a Philosopher statue and a Scientist statue.
+> out
+
+> out
+
+Outside mountain
+Standing outside the entrance to the mountain.
+You can go west or in.
+> west
+
+> west
+
+Landing platform
+You are on the island of Scython. It's mainly a huge mountain.
+You can go east.
+You can see a flying craft.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 446
+Enter the Sector Y co-ordinate?
+> 446
+
+You fly off to your destination.
+
+Landing platform
+You are on the island of Palamore.  A large stone building stands before you with a smaller building to the west. A large telescope stands upon another platform.
+You can go north.
+You can see a flying craft.
+> north
+
+> north
+
+Stone archway
+The entrance to the larger building.
+You can go south, up, in or west.
+You can see a stone archway.
+> in
+
+> in
+
+Columned hall
+Marble pillars hold up a vaulted ceiling.
+You can go out or east.
+> east
+
+> east
+
+Corridor
+A narrow stone corridor with an exit leading outside.
+You can go west, out or east.
+> east
+
+> east
+
+Throne room
+A huge room with a golden throne in the centre.
+You can go west.
+You can see a throne.
+> look under throne
+
+> look under throne
+You lift the seat and find a jumble of wires.
+> drop leaf
+
+> drop leaf
+You drop it.
+> drop shadow ivy
+
+> drop shadow ivy
+You drop it.
+> drop snowglobe
+
+> drop snowglobe
+You drop it.
+> west
+
+> west
+
+Corridor
+A narrow stone corridor with an exit leading outside.
+You can go west, out or east.
+> out
+
+> out
+
+Cove
+A small cove on the other side of the island. A shipwreck can be seen to the east.
+You can go in or east.
+> east
+
+> east
+
+Shipwrecked galleon
+A huge galleon had wrecked itself on the island. These types of vessels are now obsolete.
+You can go west or down.
+> down
+
+> down
+
+Captain's cabin
+The Captain's cabin.
+You can go up.
+You can see a desk.
+> look at desk
+
+> look at desk
+A large wooden desk.
+You find a drawer.
+> open drawer
+
+> open drawer
+You open it.
+It contains a Book of Constellations.
+> take book of constellations
+
+> take book of constellations
+You pick it up.
+> read book of constellations
+
+> read book of constellations
+
+> drop book of constellations
+
+> drop book of constellations
+You drop it.
+> up
+
+> up
+
+Shipwrecked galleon
+A huge galleon had wrecked itself on the island. These types of vessels are now obsolete.
+You can go west or down.
+> west
+
+> west
+
+Cove
+A small cove on the other side of the island. A shipwreck can be seen to the east.
+You can go in or east.
+> in
+
+> in
+
+Corridor
+A narrow stone corridor with an exit leading outside.
+You can go west, out or east.
+> west
+
+> west
+
+Columned hall
+Marble pillars hold up a vaulted ceiling.
+You can go out or east.
+> out
+
+> out
+
+Stone archway
+The entrance to the larger building.
+You can go south, up, in or west.
+You can see a stone archway.
+> up
+
+> up
+
+Viewing platform
+A wooden platform with a telescope pointing upwards.
+You can go down.
+You can see a telescope.
+> use telescope
+
+> use telescope
+
+Viewing platform
+A wooden platform with a telescope pointing upwards.
+You can go down.
+You can see a telescope.
+> down
+
+> down
+
+Stone archway
+The entrance to the larger building.
+You can go south, up, in or west.
+You can see a stone archway.
+> west
+
+> west
+
+Rocky path
+The path leads to the small glass domed building.
+You can go east or up.
+You can see a rock.
+> look under rock
+
+> look under rock
+You find a dead fladder.
+> take fladder
+
+> take fladder
+You pick it up.
+> up
+
+> up
+
+Outside domed building
+Outside the building with a glass dome sitting on top of it.
+You can go down or in.
+> in
+
+> in
+
+Arboretum
+An indoor garden for trees.
+You can go out.
+You can see a Follishram.
+> give fladder to follishram
+
+> give fladder to follishram
+It's not fussed that it's dead and takes it. It leaves, quite happy.
+> look at plaque
+
+> look at plaque
+A metal plaque with writing on it.
+> read plaque
+
+> read plaque
+'Owzel Tree, native to the south side of Chanra only.' South side of Chanra? That would make it one Sector Y plus 1.
+> out
+
+> out
+
+Outside domed building
+Outside the building with a glass dome sitting on top of it.
+You can go down or in.
+> down
+
+> down
+
+Rocky path
+The path leads to the small glass domed building.
+You can go east or up.
+You can see a rock.
+> east
+
+> east
+
+Stone archway
+The entrance to the larger building.
+You can go south, up, in or west.
+You can see a stone archway.
+> south
+
+> south
+
+Landing platform
+You are on the island of Palamore.  A large stone building stands before you with a smaller building to the west. A large telescope stands upon another platform.
+You can go north.
+You can see a flying craft.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 246
+Enter the Sector Y co-ordinate?
+> 247
+
+You fly off to your destination.
+
+Landing platform
+You are on the south side of Chanra. A small domed building can be seen further on.
+You can go south.
+You can see a flying craft.
+> south
+
+> south
+
+Beach
+A sandy beach with a path leading up to the domed building.
+You can go north or in.
+> in
+
+> in
+
+Entrance hall
+A small square hall with exits all around.
+You can go out, north or east.
+> north
+
+> north
+
+Glass dome
+A large glass dome sits above you. The place is empty.
+You can go south.
+You can see a Crorl.
+> take crorl
+
+> take crorl
+You pick him up.
+> south
+
+> south
+
+Entrance hall
+A small square hall with exits all around.
+You can go out, north or east.
+> unlock chamber door
+
+> unlock chamber door
+Unlocked with the silver key.
+> open chamber door
+
+> open chamber door
+You open it.
+> east
+
+> east
+
+Furnished chamber
+A mixture of furniture adorn this place. They are of no interest to you.
+You can go west or down.
+You can see a table.
+> down
+
+> down
+
+Cellar
+A dark and dank place with brick walls.
+You can go up.
+You can see a console and a visual panel.
+> press second button
+
+> press second button
+The image changes on the panel.
+> press second button
+
+> press second button
+The image changes on the panel.
+> press visual panel
+
+> press visual panel
+A secret recess appears.
+> look at recess
+
+> look at recess
+A small recess in the wall.
+It contains an ocean map.
+> take ocean map
+
+> take ocean map
+You pick it up.
+> read ocean map
+
+> read ocean map
+Looking carefully there is an island marked 'Q'. Is this Q'rel? One co-ordinate is 646, the other has smudged.
+> drop ocean map
+
+> drop ocean map
+You drop it.
+> drop silver key
+
+> drop silver key
+You drop it.
+> up
+
+> up
+
+Furnished chamber
+A mixture of furniture adorn this place. They are of no interest to you.
+You can go west or down.
+You can see a table.
+> west
+
+> west
+
+Entrance hall
+A small square hall with exits all around.
+You can go out, north or east.
+> out
+
+> out
+
+Beach
+A sandy beach with a path leading up to the domed building.
+You can go north or in.
+> north
+
+> north
+
+Landing platform
+You are on the south side of Chanra. A small domed building can be seen further on.
+You can go south.
+You can see a flying craft.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 346
+Enter the Sector Y co-ordinate?
+> 346
+
+You fly off to your destination.
+
+Landing platform
+You are on the island of Scython. It's mainly a huge mountain.
+You can go east.
+You can see a flying craft.
+> east
+
+> east
+
+Outside mountain
+Standing outside the entrance to the mountain.
+You can go west or in.
+> in
+
+> in
+
+Hall of statues
+A large chamber with four stone statues.
+You can go out, down, south or east.
+You can see an Engineer statue, an Artist statue, a Philosopher statue and a Scientist statue.
+> push philosopher statue
+
+> push philosopher statue
+You push the statue and it topples down the steps breaking open the door at the bottom of the steps.
+> down
+
+> down
+
+Bottom of steps
+At the bottom of the stone steps is a door.
+You can go up or north.
+You can see a broken statue.
+> north
+
+> north
+
+Repository
+A storage room.
+You can go south.
+You can see a visual panel, a lever and an oil lamp.
+> take oil lamp
+
+> take oil lamp
+You pick it up.
+> pull lever
+
+> pull lever
+As you pull the lever the image on the visual panel mechanically changes.
+> pull lever
+
+> pull lever
+As you pull the lever the image on the visual panel mechanically changes.
+> south
+
+> south
+
+Bottom of steps
+At the bottom of the stone steps is a door.
+You can go up or north.
+You can see a broken statue.
+> up
+
+> up
+
+Hall of statues
+A large chamber with four stone statues.
+You can go out, down, south or east.
+You can see an Engineer statue, an Artist statue and a Scientist statue.
+> east
+
+> east
+
+Chasm
+You can't see the bottom.
+You can go west.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+Chasm
+You can't see the bottom.
+You can go south or north.
+You can see a bridge.
+> south
+
+> south
+
+Corridor
+A white stone corridor.
+You can go north, east or south.
+> south
+
+> south
+
+Steam turbine room
+A large turbine controlled by steam that powers the mountain.
+You can go north or southwest.
+You can see a steam turbine and a pipes.
+> southwest
+
+> southwest
+
+Lava river
+An extremely hot river with metal pipes protruding out of it and leading to the next room.
+You can go northeast.
+You can see a pipes and a valve.
+> light oil lamp
+
+> light oil lamp
+You light the lamp with the lava.
+> turn on valve
+
+> turn on valve
+The lava flows through the pipes and in turn starts the turbine next door.
+> northeast
+
+> northeast
+
+Steam turbine room
+A large turbine controlled by steam that powers the mountain.
+You can go north or southwest.
+You can see a steam turbine and a pipes.
+> north
+
+> north
+
+Corridor
+A white stone corridor.
+You can go north, east or south.
+> north
+
+> north
+
+Chasm
+You can't see the bottom.
+You can go south or north.
+You can see a bridge.
+> north
+
+> north
+
+Control room
+A small room with a control panel for the north room. You have no idea of its use?!
+You can go south or north.
+You can see a control panel.
+> press first button
+
+> press first button
+You see a flash of light in the round chamber.
+> north
+
+> north
+
+Round chamber
+A round chamber with a grey wall going all around.
+You can go south.
+You can see a metal rod.
+> take metal rod
+
+> take metal rod
+You pick it up.
+> south
+
+> south
+
+Control room
+A small room with a control panel for the north room. You have no idea of its use?!
+You can go south or north.
+You can see a control panel.
+> south
+
+> south
+
+Chasm
+You can't see the bottom.
+You can go south or north.
+You can see a bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge to the other side.
+
+Chasm
+You can't see the bottom.
+You can go west.
+You can see a bridge.
+> west
+
+> west
+
+Hall of statues
+A large chamber with four stone statues.
+You can go out, down, south or east.
+You can see an Engineer statue, an Artist statue and a Scientist statue.
+> south
+
+> south
+
+Fountain
+An empty white stone fountain.
+You can go north.
+> look at fountain
+
+> look at fountain
+An empty stone fountain.
+You find a hole inside it.
+> insert metal rod
+
+> insert metal rod
+You insert the rod and it disappears. A secret door opens to the south.
+> south
+
+> south
+
+Secret room
+A small dark room.
+You can go north.
+You can see a stone plinth.
+> put crorl on stone plinth
+
+> put crorl on stone plinth
+Done.
+The Crorl comes back to life. You take it before it escapes.
+> north
+
+> north
+
+Fountain
+An empty white stone fountain.
+You can go north or south.
+You can see a hole.
+> north
+
+> north
+
+Hall of statues
+A large chamber with four stone statues.
+You can go out, down, south or east.
+You can see an Engineer statue, an Artist statue and a Scientist statue.
+> out
+
+> out
+
+Outside mountain
+Standing outside the entrance to the mountain.
+You can go west or in.
+> west
+
+> west
+
+Landing platform
+You are on the island of Scython. It's mainly a huge mountain.
+You can go east.
+You can see a flying craft.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 446
+Enter the Sector Y co-ordinate?
+> 446
+
+You fly off to your destination.
+
+Landing platform
+You are on the island of Palamore.  A large stone building stands before you with a smaller building to the west. A large telescope stands upon another platform.
+You can go north.
+You can see a flying craft.
+> north
+
+> north
+
+Stone archway
+The entrance to the larger building.
+You can go south, up, in or west.
+You can see a stone archway.
+> in
+
+> in
+
+Columned hall
+Marble pillars hold up a vaulted ceiling.
+You can go out or east.
+> east
+
+> east
+
+Corridor
+A narrow stone corridor with an exit leading outside.
+You can go west, out or east.
+> east
+
+> east
+
+Throne room
+A huge room with a golden throne in the centre.
+You can go west.
+You can see a throne (on which there is a wires), a leaf, some shadow ivy and a snowglobe.
+> put crorl on throne
+
+> put crorl on throne
+Done.
+The Crorl starts biting through the wires and gets a shock. He triggers the opening of a hidden recess and limps off, never to return.
+> look at recess
+
+> look at recess
+A hidden compartment.
+It contains a vial.
+> take vial
+
+> take vial
+You pick it up.
+> take shadow ivy
+
+> take shadow ivy
+You pick it up.
+> use vial on shadow ivy
+
+> use vial on shadow ivy
+You empty the contents over the ivy suppressing the smell.
+> take leaf
+
+> take leaf
+You pick it up.
+> take snowglobe
+
+> take snowglobe
+You pick it up.
+> west
+
+> west
+
+Corridor
+A narrow stone corridor with an exit leading outside.
+You can go west, out or east.
+> west
+
+> west
+
+Columned hall
+Marble pillars hold up a vaulted ceiling.
+You can go out or east.
+> out
+
+> out
+
+Stone archway
+The entrance to the larger building.
+You can go south, up, in or west.
+You can see a stone archway.
+> south
+
+> south
+
+Landing platform
+You are on the island of Palamore.  A large stone building stands before you with a smaller building to the west. A large telescope stands upon another platform.
+You can go north.
+You can see a flying craft.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 646
+Enter the Sector Y co-ordinate?
+> 646
+
+You fly off to your destination.
+
+Landing platform
+You are on the island of Q'rel. A huge black crystal tower looms over you.
+You can go north.
+You can see a flying craft.
+> north
+
+> north
+
+Outside the Crystal Tower
+A huge black crystal tower with a black door.
+You can go south or in.
+> say mountain
+
+> say mountain
+You say it and the tower door unlocks.
+> open tower door
+
+> open tower door
+You open it.
+> in
+
+> in
+
+Entrance hall
+A vaulted ceiling with black crystal walls and floor.
+You can go out, west, east or north.
+> west
+
+> west
+
+Chamber
+A vast crystal chamber.
+You can go east.
+You can see a symbol on the wall and a red crystal guardian.
+> use oil lamp on red crystal guardian
+
+> use oil lamp on red crystal guardian
+As the flame from the lamp touches the statue the guardian starts to glow.
+> east
+
+> east
+
+Entrance hall
+A vaulted ceiling with black crystal walls and floor.
+You can go out, west, east or north.
+> east
+
+> east
+
+Chamber
+A vast crystal chamber.
+You can go west.
+You can see a symbol on the wall and a blue crystal guardian.
+> use snowglobe on blue crystal guardian
+
+> use snowglobe on blue crystal guardian
+As you break the globe and the water flows on to the statue the guardian starts to glow.
+> west
+
+> west
+
+Entrance hall
+A vaulted ceiling with black crystal walls and floor.
+You can go out, west, east or north.
+> north
+
+> north
+
+Corridor
+A narrow corridor with a vaulted ceiling, black crystal walls and floor.
+You can go south, west, east or in.
+> west
+
+> west
+
+Chamber
+A vast crystal chamber.
+You can go east.
+You can see a symbol on the wall and a clear crystal guardian.
+> blow on clear crystal guardian
+
+> blow on clear crystal guardian
+As you blow on the statue the guardian starts to glow.
+> east
+
+> east
+
+Corridor
+A narrow corridor with a vaulted ceiling, black crystal walls and floor.
+You can go south, west, east or in.
+> east
+
+> east
+
+Chamber
+A vast crystal chamber.
+You can go west.
+You can see a symbol on the wall and a green crystal guardian.
+> use leaf on green crystal guardian
+
+> use leaf on green crystal guardian
+As the leaf touches the statue the guardian starts to glow.
+
+Power comes to the tower.
+> west
+
+> west
+
+Corridor
+A narrow corridor with a vaulted ceiling, black crystal walls and floor.
+You can go south, west, east or in.
+> in
+
+> in
+
+Elevator
+You are on the ground floor.
+You can go out.
+You can see the first button on one side and the second button on the other side.
+> press first button
+
+> press first button
+You ascend to the next floor.
+
+Elevator
+You are on the first floor.
+You can go out.
+You can see the first button on one side and the second button on the other side.
+> press first button
+
+> press first button
+You ascend to the next floor.
+
+Elevator
+You are on the top floor.
+You can go out.
+You can see the first button on one side, the second button on the other side and an elevator.
+> out
+
+> out
+
+Rooftop
+At the top of the crystal tower.
+You can go in or up.
+> up
+
+> up
+
+Crystal chamber
+A small chamber at the pinnacle of the tower.
+You can go down.
+You can see a cryogenic pod.
+> open cryogenic pod
+
+> open cryogenic pod
+You open it.
+It contains a mummified corpse.
+> look under mummified corpse
+
+> look under mummified corpse
+You find a crystal key.
+> take crystal key
+
+> take crystal key
+You pick it up.
+> down
+
+> down
+
+Rooftop
+At the top of the crystal tower.
+You can go in or up.
+> in
+
+> in
+
+Elevator
+You are on the top floor.
+You can go out.
+You can see the first button on one side, the second button on the other side and an elevator.
+> press second button
+
+> press second button
+You descend to the floor below.
+
+Elevator
+You are on the first floor.
+You can go out.
+You can see the first button on one side and the second button on the other side.
+> out
+
+> out
+
+Corridor
+A narrow corridor with a vaulted ceiling, black crystal walls and floor. A vault door lies to the east.
+You can go in, west, east or out.
+> west
+
+> west
+
+Sanctum
+A strange myriad of coloured smoke floats above you.
+You can go east.
+You can see a Veech.
+> give shadow ivy to veech
+
+> give shadow ivy to veech
+He eats the ivy then feels odd. He runs away being violently ill.
+> rub floating sphere
+
+> rub floating sphere
+A vision appears in the sphere.
+
+You are on Neos and laughing at a joke Lyssa, your wife, just told you. It's a cold night and Vessa is two years old playing with a toy Rocscraw. It's her favourite. Suddenly the door bursts open and your brother Krelos stands before you; a madness in his eyes. He looks towards Lyssa and tries to grab her. You intervene, a pot smashes on the floor, Vessa starts crying and in the struggle Krelos pushes Lyssa to the ground. Blood seeps from a deep gash from Lyssa's head. Krelos flees and you fall to your kness next to your dead wife.
+
+Vessa's screams fade into the distance...
+The vision changes.
+
+Five years on and a seven year old Vessa is reading out loud to you. You notice a new message on your communicator. It tells you that Krelos will be executed tonight. His appeal failed. You won't be attending...
+Another swirl, another vision.
+
+Krelos had escaped his execution and is on the run.
+
+Vessa is now 12 years old and you leave her for an hour or so on her own while you explore Neos for rare plants.
+
+When you return Vessa had gone!
+
+Your communicator sent you a new mesage and you read: I HAVE YOUR DAUGHTER, BROTHER. STEAL THE LUNASTONE FOR ME OR VESSA DIES. WHEN YOU GET THE STONE AWAIT FUTHER INSTRUCTIONS, KRELOS...
+The vision changes one last time.
+
+You are standing in a vault. You move a hidden wall panel and it reveals a keypad. The number you enter is the total value of the X and Y co-ordinates of Q'rel. You take the Lunastone...
+
+> east
+
+> east
+
+Corridor
+A narrow corridor with a vaulted ceiling, black crystal walls and floor. A vault door lies to the east.
+You can go in, west, east or out.
+> unlock vault door
+
+> unlock vault door
+Unlocked with the crystal key.
+> open vault door
+
+> open vault door
+You open it.
+> east
+
+> east
+
+Vault
+A stronghold made from a strange metal.
+You can go west.
+You can see the Lunastone.
+> move wall panel
+
+> move wall panel
+It moves to one side and you reveal a numbered keypad.
+> use keypad
+
+> use keypad
+Enter the code?
+> 1292
+You hear a confirmation noise.
+> take lunastone
+
+> take lunastone
+You pick it up.
+> use communicator
+
+> use communicator
+CONGRATULATIONS, BROTHER. BRING THE LUNASTONE TO THESE CO-ORDINATES: 1646, 1646 OR YOU'LL NEVER SEE VESSSA ALIVE AGAIN, KRELOS.
+> west
+
+> west
+
+Corridor
+A narrow corridor with a vaulted ceiling, black crystal walls and floor. A vault door lies to the east.
+You can go in, west, east or out.
+> in
+
+> in
+
+Elevator
+You are on the first floor.
+You can go out.
+You can see the first button on one side and the second button on the other side.
+> press second button
+
+> press second button
+You descend to the floor below.
+
+Elevator
+You are on the ground floor.
+You can go out.
+You can see the first button on one side and the second button on the other side.
+> out
+
+> out
+
+Corridor
+A narrow corridor with a vaulted ceiling, black crystal walls and floor.
+You can go south, west, east or in.
+> south
+
+> south
+
+Entrance hall
+A vaulted ceiling with black crystal walls and floor.
+You can go out, west, east or north.
+> out
+
+> out
+
+Outside the Crystal Tower
+A huge black crystal tower with a black door.
+You can go south or in.
+> south
+
+> south
+
+Landing platform
+You are on the island of Q'rel. A huge black crystal tower looms over you.
+You can go north.
+You can see a flying craft.
+> use flying craft
+
+> use flying craft
+Enter the Sector X co-ordinate?
+> 1646
+Enter the Sector Y co-ordinate?
+> 1646
+
+You fly off to your destination.
+
+Landing platform
+You are on the island of Envahr. A small jungle island.
+You can go west.
+You can see a flying craft.
+> west
+
+> west
+
+Beach
+A sandy beach with cliffs towering over you.
+You can go east or northwest.
+> up
+
+> up
+
+Clifftop
+Atop the cliff next to a narrow crack.
+You can go down.
+> put ruby in crack
+
+> put ruby in crack
+Done.
+
+The ruby is small enough to fall through the narrow crack and land on the floor in the Temple below. Vessa appears and picks it up when Krelos isn't looking. She looks up and smiles when she sees your face. You gesture her to move away from Krelos and keep her distance.
+> down
+
+> down
+
+Beach
+A sandy beach with cliffs towering over you.
+You can go east or northwest.
+> northwest
+
+> northwest
+
+Jungle
+A dense thicket of trees.
+You can go southeast or west.
+> west
+
+> west
+
+Outside ruined temple
+An ancient stone temple going back to before the floods.
+You can go east or in.
+> in
+
+> in
+
+Inside ruined temple
+Inside the ruined temple with broken columns and cracks in the roof.
+You can go out.
+You can see Krelos and Vessa.
+> speak to krelos
+
+> speak to krelos
+'Give me the Lunastone, brother and I'll give you back Vessa.' he grins. His mad eyes burn into you.
+> speak to vessa
+
+> speak to vessa
+'I love you, Dada.' she smiles but you can see her eyes are sore from crying.
+> use lunastone on krelos
+
+> use lunastone on krelos
+
+Nothing happens...
+
+Darkness descends...
+
+The Lunastone starts to hum and glows a bright white light. Suddenly a huge blast of energy shoots out of the stone and hits Krelos squarely in the chest. As the particles in his body disassemble his mad eyes stare at you with sadness...
+
+What seems like an age the Lunastone lies silent once more and you look to the shadows. Vessa appears smiling back at you. She runs to embrace you and you hold her tight not wanting to let her go ever again.
+
+As you make your way back to the flying craft you wonder what to do with the Lunastone? It would make a great paperweight.
+
+'Are we going home now, Dadda?' asks Vessa looking up at you.
+
+'Yes, my sweet.' you smile as you look down at her, 'We are most certainly going home!'
+
+The End
+[state=Finished]
