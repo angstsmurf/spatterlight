@@ -81,7 +81,50 @@ static std::string strip_html(std::string s) {
             pos += 1;
         }
     }
-    return out;
+    // Numeric character references, which HtmlDecode also expands: "&#NNN;" and
+    // "&#xHH;". Woo Rebooted's completed-task list is built from "&#10004;"
+    // (heavy check mark), so a named-entity table alone is not enough.
+    std::string dec;
+    for (size_t i = 0; i < out.size();) {
+        if (out[i] == '&' && i + 2 < out.size() && out[i + 1] == '#') {
+            size_t j = i + 2;
+            int base = 10;
+            if (j < out.size() && (out[j] == 'x' || out[j] == 'X')) { base = 16; ++j; }
+            size_t start = j;
+            unsigned long cp = 0;
+            bool ok = true;
+            for (; j < out.size() && out[j] != ';'; ++j) {
+                int d;
+                if (out[j] >= '0' && out[j] <= '9') d = out[j] - '0';
+                else if (base == 16 && out[j] >= 'a' && out[j] <= 'f') d = out[j] - 'a' + 10;
+                else if (base == 16 && out[j] >= 'A' && out[j] <= 'F') d = out[j] - 'A' + 10;
+                else { ok = false; break; }
+                cp = cp * base + (unsigned long)d;
+                if (cp > 0x10FFFF) { ok = false; break; }
+            }
+            if (ok && j > start && j < out.size() && out[j] == ';') {
+                if (cp < 0x80) {
+                    dec += (char)cp;
+                } else if (cp < 0x800) {
+                    dec += (char)(0xC0 | (cp >> 6));
+                    dec += (char)(0x80 | (cp & 0x3F));
+                } else if (cp < 0x10000) {
+                    dec += (char)(0xE0 | (cp >> 12));
+                    dec += (char)(0x80 | ((cp >> 6) & 0x3F));
+                    dec += (char)(0x80 | (cp & 0x3F));
+                } else {
+                    dec += (char)(0xF0 | (cp >> 18));
+                    dec += (char)(0x80 | ((cp >> 12) & 0x3F));
+                    dec += (char)(0x80 | ((cp >> 6) & 0x3F));
+                    dec += (char)(0x80 | (cp & 0x3F));
+                }
+                i = j + 1;
+                continue;
+            }
+        }
+        dec += out[i++];
+    }
+    return dec;
 }
 
 static std::string normalise(const std::string &s) {

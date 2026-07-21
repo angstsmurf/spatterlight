@@ -1,0 +1,5271 @@
+Woo Rebooted
+
+by Longshot & DavyB
+
+[Type help for guidance]
+
+Level 1: The Beginning
+You are Doctor Woo. The BARDIS, your space-time machine, is malfunctioning.  Can you leave the surreal planet on which you have landed and resume your travels?
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+ into a thick mist
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> x me
+
+> x me
+Looking good, wearing a broad smile!
+
+You are Doctor Woo, a traveller in space and time. Your height varies with incarnations but you're about 'average' at the moment. As an alien, you are immune to earthly diseases. You are also ambidextrous.
+
+You are currently in 'Level 1: The Beginning'.
+> in
+
+> in
+You are sitting in the cramped cockpit of the BARDIS.
+
+You can see a teleporter and a control console.
+You can go out.
+> x control console
+
+> x control console
+The console controls the operation of your space-time machine.
+
+Attached to it is a fluid link and a handle.
+> x fluid link
+
+> x fluid link
+ The fluid link is empty and needs to be filled with mercury.
+> take fluid link
+
+> take fluid link
+You take the fluid link from the control console.
+> take teleporter
+
+> take teleporter
+You pick it up.
+> out
+
+> out
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+ into a thick mist
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> e
+
+> e
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> s
+
+> s
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can also see Mrs Hatch and a car.
+You can go north or south.
+
+She is here sitting on the bonnet of her car, looking very forlorn.
+> speak to mrs hatch
+
+> speak to mrs hatch
+"My car, my poor car..."  are the only words you can get from Mrs Hatch.
+> x car
+
+> x car
+The car is a nifty little runabout which has been driving northwards and has clearly broken down.
+The front nearside tyre is flat and this probably explains why Mrs Hatch looks so upset.
+ In the back seat there appears to be some kind of cylindrical object, which you can't make out. There is a sticker in the rear window.
+ The boot is closed.
+> open boot
+
+> open boot
+You open the boot.
+Inside there is a car jack and a magazine.
+> take car jack
+
+> take car jack
+You pick it up.
+> read magazine
+
+> read magazine
+As you open the magazine, a contract drops out.
+
+On reading the magazine you find an interesting article entitled "How Glass Objects Can Act as a Lens."
+> take contract
+
+> take contract
+You pick it up.
+> use car jack on car
+
+> use car jack on car
+You use the jack to raise up the car and this gives you the chance to free the wheel with a punctured tyre.  You pull it off and lay it on the ground pleased with your work.
+> s
+
+> s
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> e
+
+> e
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar and a cellar door.
+You can go west, down or north.
+> speak to dusty den
+
+> speak to dusty den
+Dusty Den greets you warmly as if you were an old friend.  "Hey there!"  he cries as he sees you.  "You can't do me a favour, can you?  I've not had my delivery - I was expecting a barrel of ale, but it hasn't arrived.  If you can find a way to pick it up for me and drop it in the cellar I'd be very grateful. I'll leave the cellar open."
+> speak to dusty den
+
+> speak to dusty den
+You engage in a friendly conversation with Dusty Den.  He doesn't seem a bad chap and although you don't learn much from chatting to him, he does give you a free bottle of beer.
+
+Miss Harlott sniffles slightly as she walks round the bar.
+> x miss harlott
+
+> x miss harlott
+The very efficient barmaid of the Tavern.
+ She is of average build and average height. She is NOT a stereotype!
+> x bar
+
+> x bar
+A large wooden counter which acts as the bar of this establishment.  Dusty Den stands behind it and looks at you curiously.
+Sitting on the bar is a beermat.
+> take beermat
+
+> take beermat
+You pick it up.
+> give beermat to miss harlott
+
+> give beermat to miss harlott
+Miss Harlott takes the beermat
+with her right hand
+and throws it Frisbee-style to the bar where it belongs.
+> ask miss harlott about reverend keen
+
+> ask miss harlott about reverend keen
+"Oh, Reverend Keen, he was my first boyfriend, before he went into the church. I probably shouldn't say, but I still carry this around," she confides, showing you a rather battered photograph of them pulling faces in a camera booth. Even then you could see he was going to be tall.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> n
+
+> n
+You are standing in a small kitchen where snacks and simple meals are prepared.
+
+You can also see a microwave oven, Norman Ramsey and a large piece of cheese.
+You can go south.
+> speak to norman ramsey
+
+> speak to norman ramsey
+"What do you f***ing want?" he screams at you.  "Unless you've brought me some saffron you can get the hell out of here."
+> s
+
+> s
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat) and a cellar door.
+You can go west, down or north.
+> w
+
+> w
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> s
+
+> s
+You hear a ping from the teleporter, telling you that "C: Village Square" has been saved as a return address.
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> x flowerbed
+
+> x flowerbed
+Among the flowers, you find some red roses.
+> x flowerbed
+
+> x flowerbed
+Among the flowers, you find some white tulips.
+> x flowerbed
+
+> x flowerbed
+Among the flowers, you find some blue crocuses.
+> x pennyfarthing
+
+> x pennyfarthing
+An early bicycle, with a very large wheel and a very small one.
+Attached is a bicycle pump.
+> take bicycle pump
+
+> take bicycle pump
+You take the pump from the bicycle, first making sure that no one is looking in your direction.
+> speak to number 66
+
+> speak to number 66
+Number 66 looks at you with a tilted head, "I am a number not a free man."
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> s
+
+> s
+You are standing in an empty surgery, with both the Doctor and patients absent.
+
+You can also see a first aid cupboard and a filing cabinet.
+You can go north.
+> search first aid cupboard
+
+> search first aid cupboard
+Searching the cupboard you find three useful items, which you pick up: a stethoscope, some heavy duty sticking plaster and a band aid dressing.
+> search filing cabinet
+
+> search filing cabinet
+The cabinet is locked and you don't have the key, but perhaps there is a way to pick the lock?
+> n
+
+> n
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> sw
+
+> sw
+You have arrived at Mr McGregor's farm.  It is a large area of beautifully kept fields. The village is to the northeast.
+
+You can see Mr McGregor and a haystack.
+You can go northeast.
+> speak to mr mcgregor
+
+> speak to mr mcgregor
+"Are  you from the police?  Bloody milk thieves - stole a damn milk churn," he complains.
+> ne
+
+> ne
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> n
+
+> n
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> n
+
+> n
+You are in a hairdressers where mirrors line the walls and there is a salon chair in the centre.
+
+You can also see Vidal Monsoon, some hairdressing scissors, a brush and a can of hairspray.
+You can go south.
+> speak to vidal monsoon
+
+> speak to vidal monsoon
+"The dryer really puts the temperature up in here. I don't suppose you have anything to cool me down?" he asks.
+> give bottle to vidal monsoon
+
+> give bottle to vidal monsoon
+You give Vidal the bottle of cold beer. He smiles, glugs it straight down, and hands you back the empty bottle.
+
+However, the strength of the drink must have caught him by surprise, as he then collapses. Reviving him won't be easy!
+> take hairspray
+
+> take hairspray
+You pick it up.
+> take brush
+
+> take brush
+You pick it up.
+> cut plaster
+
+> cut plaster
+Using the scissors, you cut the plaster into a patch which you may have a use for.
+> s
+
+> s
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> s
+
+> s
+You are standing inside the Police Station which services the village.  There is a glass screen which separates the public from the officers.
+
+You can also see a wastebin and a counter.
+You can go north.
+> x counter
+
+> x counter
+It is a large imposing counter.
+On it you see a notice and a bell.
+> ring bell
+
+> ring bell
+You ring the bell, which is deafeningly loud.
+Kojak appears.
+> speak to kojak
+
+> speak to kojak
+Kojak smiles, takes a lollipop out of his mouth, and says "Who luvs ya, baby!"
+> speak to kojak
+
+> speak to kojak
+Kojak has just finished his lollipop and now seems less friendly, responding with a curt "Right, what can I do for you? "
+> n
+
+> n
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> e
+
+> e
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> e
+
+> e
+You are standing in a narrow alley between two rows of houses.
+
+You can also see a group of youths and a huge pile of rubbish which smells pretty unpleasant.
+You can go west or northeast.
+> x rubbish
+
+> x rubbish
+You gingerly look through the rubbish and near the top find a salvageable sheet of brown paper.
+> sweep rubbish
+
+> sweep rubbish
+You brush vigorously and remove all the rubbish. As you do so, you find a dvd at the bottom of the mess. Unfortunately you also break the brush!
+
+When finally you finish, the delighted youths hand over the silver cane, as promised.
+> w
+
+> w
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> e
+
+> e
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat) and a cellar door.
+You can go west, down or north.
+> n
+
+> n
+You are standing in a small kitchen where snacks and simple meals are prepared.
+
+You can also see a microwave oven, Norman Ramsey and a large piece of cheese.
+You can go south.
+> give blue crocuses to norman ramsey
+
+> give blue crocuses to norman ramsey
+"Oh, I should be able to harvest enough saffron out of these crocuses,"  he says rather ungratefully, before he stomps out of the room.
+> take large piece of cheese
+
+> take large piece of cheese
+You pick it up.
+> s
+
+> s
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat) and a cellar door.
+You can go west, down or north.
+> w
+
+> w
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> n
+
+> n
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can also see Mrs Hatch, a car (with a boot (containing a magazine), a back seat (on which there is a cylindrical object) and a sticker in the rear window), a car jack and a punctured tyre.
+You can go north or south.
+
+She is here sitting on the bonnet of her car, looking very forlorn.
+> n
+
+> n
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> w
+
+> w
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can also see Sherlock Bones.
+You can go east, west or south.
+> speak to sherlock bones
+
+> speak to sherlock bones
+"Ah, I remember the days when Dr Whatsgone and I helped solve crimes and humiliate the whole of Scotland Yard," says Sherlock.  "But I seem to have lost heart in that and instead just stop the riff-raff from vandalising the graveyard.  The damn yobs, they stole my cane, you know..."
+> ask sherlock bones about matches
+
+> ask sherlock bones about matches
+He nods.  "Ah, yes, I have a couple of boxes, for my pipe, you know.  Here, take these..."  And he kindly gives you a box.
+> give silver cane to sherlock bones
+
+> give silver cane to sherlock bones
+He gladly receives his cane and opens the wooden gate.
+
+With that, he bids you farewell, saying he is just off to meet Dr Whatsgone for afternoon tea in The Savoy.
+> s
+
+> s
+You are standing in an overgrown graveyard.  There are many gravestones here and there is a small medieval church to the west and a house to the east.
+
+You can go north, west or east.
+> w
+
+> w
+You are inside the church.
+
+You can see Reverend Keen.
+You can go east.
+> speak to reverend keen
+
+> speak to reverend keen
+He looks sadly at you. "I have run out of communion wine.  I don't know what I should do."
+
+Suddenly, he cheers up, saying "Perhaps you can help me?"
+
+Without waiting for an answer he shouts "Excellent! Take this silver dollar and keep the change! " You are much too kind-hearted to refuse!
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> in
+
+> in
+The shop was, probably once, a useful grocery shop, but it is run down now with a severe lack of stock.  As if by magic, the Shopkeeper appears!
+
+You can see the Shopkeeper, a frozen pizza, a can of baked beans, an ice lolly, a loaf of bread, a toilet roll and a jar (containing some pickled gherkins and some vinegar).
+You can go out.
+
+As you enter, the Shopkeeper thrusts a newspaper into your hand, saying "Welcome to my store. These are free today."
+> take jar
+
+> take jar
+You hand over $1 and the Shopkeeper exchanges it for the jar.
+> out
+
+> out
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> e
+
+> e
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> e
+
+> e
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> n
+
+> n
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can also see Mrs Hatch, a car (with a boot (containing a magazine), a back seat (on which there is a cylindrical object) and a sticker in the rear window), a car jack and a punctured tyre.
+You can go north or south.
+
+She is here sitting on the bonnet of her car, looking very forlorn.
+> n
+
+> n
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> n
+
+> n
+According to a plaque on the gates, you are outside Fort Knots. It is a quietly foreboding citadel.
+
+You can also see Monty Python.
+You can go south or north.
+> speak to monty python
+
+> speak to monty python
+"I am Monty Python," says the man, which was obvious given the name emblazoned on his uniform.  He strides around you in a strange half goose-stepping manner complete with strange wiggling of the hips before he speaks again.  "Ah strange visitor, I guess you wish to come inside to steal something, but I cannot permit you entry.  Since my quest for the Holy Nail ended in failure, my penace has been to stand here on guard."  He then blows you a raspberry!
+> give jar to monty python
+
+> give jar to monty python
+You hand over the jar to Monty Python and he flexes, not hesitating to show his fearsome muscles.  With barely a flick of his wrist, the lid turns and the jar is opened. "Easy" he says, as he returns it to you.
+> s
+
+> s
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> w
+
+> w
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> w
+
+> w
+You are standing at the bottom of a small hill, which has a well on top of it. A cobbled path leads west to a small house.  A muddy path runs east. To the south is a water meadow.
+
+You can also see Jack and a cow.
+You can go east, south or west.
+> use vinegar on jack
+
+> use vinegar on jack
+You dab some vinegar on Jack's head and it helps...so maybe the nursery rhyme was correct?
+> use brown paper on jack
+
+> use brown paper on jack
+You wrap the brown paper around his head, and although it does look a little silly, the treatment seems to be effective. Jack is now able to talk!
+> speak to jack
+
+> speak to jack
+Jack stands up unsteadily, slowly coming back to his senses. Suddenly, he grimaces and shouts "Oh no, it's too late to get to market to sell my cow!"
+
+Spotting you, he pleads "Can you make me an offer?"
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+ into a thick mist
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> nw
+
+> nw
+You are in a thick mist which clings to the path. It becomes almost choking as you go on.
+
+You can go southeast or west.
+> w
+
+> w
+You are standing outside a small cottage.
+ It is undergoing fumigation.  Obviously this place has a pest problem.
+
+You can also see a van, a fumigator and Rob Geldof.
+You can go east or in.
+> speak to rob geldof
+
+> speak to rob geldof
+"Hi there," says Rob in a friendly Irish accent.
+"You haven't got something for my finger, have you? I got a pretty nasty bite."
+> give band aid dressing to rob geldof
+
+> give band aid dressing to rob geldof
+You give the dressing to Rob, who puts in on his finger. He thanks you. "If some of that gas got in that wound I could have been really ill.  So, thanks for your kindness. Tell you what; have a look in my van and help yourself to anything that might prove useful."  He walks over to his van and opens the rear doors. A rat trap catches your eye.
+> give large piece of cheese to rob geldof
+
+> give large piece of cheese to rob geldof
+You hand Rob the cheese and he fixes it into the rat trap. "There you are.  That should solve your rat problem."
+> e
+
+> e
+You are in a thick mist which clings to the path. It becomes almost choking as you go on.
+
+You can go southeast or west.
+> se
+
+> se
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+ into a thick mist
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> e
+
+> e
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> s
+
+> s
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can also see Mrs Hatch, a car (with a boot (containing a magazine), a back seat (on which there is a cylindrical object) and a sticker in the rear window), a car jack and a punctured tyre.
+You can go north or south.
+
+She is here sitting on the bonnet of her car, looking very forlorn.
+> s
+
+> s
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> e
+
+> e
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat) and a cellar door.
+You can go west, down or north.
+> down
+
+> down
+You are in the pub's cellar.  There is a big hole in the floor as though someone was buried there, but it is empty now.
+
+You can also see a rat.
+You can go up.
+> catch rat
+
+> catch rat
+You open the trap and set it close to the rat.
+The rat is immediately attracted to the cheese inside.  It sniffs hard and sprints into the cage, which you close behind it.
+> up
+
+> up
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat) and a cellar door.
+You can go west, down or north.
+
+Dens eyes light up when he spots the rat. "Thank you for catching that nuisance!" he shouts, adding, "You must have a reward," and hands you a silver dollar.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> in
+
+> in
+The shop was, probably once, a useful grocery shop, but it is run down now with a severe lack of stock.  As if by magic, the Shopkeeper appears!
+
+You can see the Shopkeeper, a frozen pizza, a can of baked beans, an ice lolly, a loaf of bread and a toilet roll.
+You can go out.
+> take frozen pizza
+
+> take frozen pizza
+You hand over $1 and the Shopkeeper exchanges it for the frozen pizza.
+> out
+
+> out
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> e
+
+> e
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> e
+
+> e
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> e
+
+> e
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat) and a cellar door.
+You can go west, down or north.
+> n
+
+> n
+You are standing in a small kitchen where snacks and simple meals are prepared.
+
+You can also see a microwave oven.
+You can go south.
+> heat frozen pizza
+
+> heat frozen pizza
+You put the pizza in the oven and press start.  After a few minutes, you hear a ping and remove a warm and tasty pizza.
+> s
+
+> s
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat) and a cellar door.
+You can go west, down or north.
+> w
+
+> w
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> s
+
+> s
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> e
+
+> e
+You are standing in a narrow alley between two rows of houses.
+
+You can also see a group of youths.
+You can go west or northeast.
+> give heated pizza to group of youths
+
+> give heated pizza to group of youths
+"Thank you."  You watch as they devour the pizza hungrily.
+> ask group of youths about barrel
+
+> ask group of youths about barrel
+The youths disappear and you hope that they deliver the barrel to Den at the tavern.
+> w
+
+> w
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> e
+
+> e
+You enter the room and find yourself in a rather run-down tavern.  It is poorly stocked with only beer on offer. There is a kitchen just off the bar, to the north.
+
+You can also see Dusty Den, Miss Harlott, a bar (on which there is a beermat), a cellar door and a group of youths.
+You can go west, down or north.
+> speak to dusty den
+
+> speak to dusty den
+Den thanks you for your help and the new customers.  "You have done well and maybe this lot aren't really riff-raff at all.  This is for your trouble."  He hands you a silver dollar.
+
+He smiles at you, but is distracted by one of the youths ordering another round so moves to serve them.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> in
+
+> in
+The shop was, probably once, a useful grocery shop, but it is run down now with a severe lack of stock.  As if by magic, the Shopkeeper appears!
+
+You can see the Shopkeeper, a can of baked beans, an ice lolly, a loaf of bread and a toilet roll.
+You can go out.
+> take can of baked beans
+
+> take can of baked beans
+You hand over $1 and the Shopkeeper exchanges it for the can of baked beans.
+> out
+
+> out
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> e
+
+> e
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> e
+
+> e
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> n
+
+> n
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can also see Mrs Hatch, a car (with a boot (containing a magazine), a back seat (on which there is a cylindrical object) and a sticker in the rear window), a car jack and a punctured tyre.
+You can go north or south.
+
+She is here sitting on the bonnet of her car, looking very forlorn.
+> n
+
+> n
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> w
+
+> w
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> w
+
+> w
+You are standing at the bottom of a small hill, which has a well on top of it. A cobbled path leads west to a small house.  A muddy path runs east. To the south is a water meadow.
+
+You can also see Jack and a cow.
+You can go east, south or west.
+> give can of baked beans to jack
+
+> give can of baked beans to jack
+Jack, still suffering from his accident, agrees on the exchange and bids you farewell.  You move to get the cow but it runs off to the east in a very strange fashion, leaving you empty handed.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> w
+
+> w
+You are standing in front of Jack's modest house.
+
+You can go in or east.
+> in
+
+> in
+You are inside Jack's House, a small poorly furnished cottage where he lives with his mother. The back garden is to the east.
+
+You can also see a bowl and Jack's cat.
+You can go east or out.
+> x jacks cat
+
+> x jacks cat
+Sorry, what was that?  (jacks cat)
+> e
+
+> e
+You hear a ping from the teleporter, telling you that "B: Jack's Garden" has been saved as a return address.
+
+You are in Jack's garden, to the east of his house.
+
+You are astounded to see that a huge beanstalk has appeared in the middle of the garden. It stretches up into the clouds but looks safe to climb.
+
+You can see a freshly dug garden, a shovel and a giant beanstalk.
+You can go in or up.
+> take shovel
+
+> take shovel
+You pick it up and put it over your shoulder.
+> dig garden
+
+> dig garden
+Using the shovel, you dig the garden for a while making it look smarter.
+ As you dig, you  stumble across one solitary onion, which you pick up.
+> in
+
+> in
+You are inside Jack's House, a small poorly furnished cottage where he lives with his mother. The back garden is to the east.
+
+You can also see a bowl and Jack's cat.
+You can go east or out.
+> out
+
+> out
+You are standing in front of Jack's modest house.
+
+You can go in or east.
+> e
+
+> e
+You are standing at the bottom of a small hill, which has a well on top of it. A cobbled path leads west to a small house.  A muddy path runs east. To the south is a water meadow.
+
+You can go east, south or west.
+> e
+
+> e
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> e
+
+> e
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can also see an abandoned pantomime cow costume.
+You can go north, west or east.
+> x cow costume
+
+> x cow costume
+A pantomime cow costume which has been abandoned after getting stuck in the mud. Attached are hooves that can be removed. A letter has been pinned to the costume.
+> take blue suede hooves
+
+> take blue suede hooves
+You pick them up.
+> port b
+
+> port b
+Teleport Stop B (Jack's Garden)
+
+You are in Jack's garden, to the east of his house.
+
+You can see a freshly dug garden and a giant beanstalk.
+You can go in or up.
+> port b
+
+> port b
+As you teleport you fail to notice a fly on the controller and suffer the same fate as Jeff Goldbrundle. Your genes are spliced with those of the fly to create an abomination.
+
+Fortunately, this more modern teleporter has been fitted with an undo button, which you are able to deploy before you lose rational human thought and parts of your body.
+
+You are back where you started!
+> up
+
+> up
+Level 2: Upwards and Onwards
+You are standing on the clouds at the top of the beanstalk.  To the south you can see a large castle.
+
+You can go down, south or north.
+> n
+
+> n
+You are somehow standing in the sky.  You can't work out why you aren't falling, but you aren't.  To the north of you lies a large round yellow building.
+
+You can see Rupert Burdock.
+You can go south or north.
+> speak to rupert burdock
+
+> speak to rupert burdock
+You say hello to Mr Burdock, and just as he is about to answer, a clown appears from nowhere and slaps a custard pie in his face. You blink half in shock and he is miraculously clean and still looking relaxed.
+> ask rupert burdock about dandelion wine
+
+> ask rupert burdock about dandelion wine
+"It's an acquired taste. Do try some," says Rupert, as he hands you the decanter he is holding.
+> n
+
+> n
+You are in the offices of Mr Burdock's publication.
+
+You can see The Fake Shaking Stevens.
+You can go north or south.
+> speak to the fake shaking stevens
+
+> speak to the fake shaking stevens
+"I have contacts in many sports and I can arrange things for you," says Sheiky.
+
+"Arrange things?"  you are puzzled.
+
+"You know... "
+
+You aren't quite sure. "Erm..."
+
+"For a fee," he whispers with a nod and a wink.
+> n
+
+> n
+You are in the natural environment for tabloid journalists.
+
+You can see reporters and a small pot of salt.
+You can go south.
+> take pot of salt
+
+> take pot of salt
+You pick it up.
+> s
+
+> s
+You are in the offices of Mr Burdock's publication.
+
+You can see The Fake Shaking Stevens.
+You can go north or south.
+> s
+
+> s
+You are somehow standing in the sky.  You can't work out why you aren't falling, but you aren't.  To the north of you lies a large round yellow building.
+
+You can see Rupert Burdock.
+You can go south or north.
+> s
+
+> s
+You are standing on the clouds at the top of the beanstalk.  To the south you can see a large castle.
+
+You can go down, south or north.
+> s
+
+> s
+You are outside the castle which is obviously (and predictably) owned by a giant, as it towers above you.  The is a small crack in the wall to the south which presumably leads inside.  To the north is the top of the beanstalk.
+
+You can go north or south.
+> s
+
+> s
+You are on the floor of the bedroom of Mrs Giant. The crack in the wall, which marks the way out, is to the north. Towering above you is a dressing table
+, where Mrs Giant is sitting
+.
+
+You can go north.
+
+You look up, impressed by the sheer scale of things when suddenly you see something falling towards you.  It is a pair of huge tweezers which Mrs Giant has dropped.  You hide in case she spots you, but all seems fine and the tweezers remain where there are.
+> take huge tweezers
+
+> take huge tweezers
+You pick them up.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+ into a thick mist
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+
+As you teleported out of the bedroom you saw Mrs Giant was coming after you!
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> e
+
+> e
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> s
+
+> s
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can also see Mrs Hatch, a car (with a boot (containing a magazine), a back seat (on which there is a cylindrical object) and a sticker in the rear window), a car jack and a punctured tyre.
+You can go north or south.
+
+She is here sitting on the bonnet of her car, looking very forlorn.
+> x punctured tyre
+
+> x punctured tyre
+The tyre is flat and has got a puncture.
+Stuck in the tyre is an iron nail.
+> use huge tweezers on iron nail
+
+> use huge tweezers on iron nail
+Using the tweezers, you pull the nail from the tyre.
+> use plaster patch on punctured tyre
+
+> use plaster patch on punctured tyre
+You stick the plaster patch onto the tyre and it seems to make an effective repair.  Now you need to find some way to inflate it.
+> pump tyre
+
+> pump tyre
+You use the pump to inflate the patched up tyre.
+> use punctured tyre on car
+
+> use punctured tyre on car
+You put the repaired tyre onto Mrs Hatch's car and lower it down onto the road, expecting some kind of thanks or reward.  Instead you get a snide comment, "You took your time!" She slams the door shut before driving off northwards, running over the jack and destroying it.
+
+As you bemoan her ungratefulness, you hear a loud noise from the north, as if there had been some sort of crash.
+> n
+
+> n
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> n
+
+> n
+You are outside Fort Knots. Its gates have been smashed open.
+
+You can also see Monty Python, a car and a handbag.
+You can go south or north.
+> take handbag
+
+> take handbag
+As you lift the handbag, a silver dollar drops out, which you swiftly pocket. It seems like 'fair payment' for your repair work!
+> x car
+
+> x car
+Mrs Hatch's crashed car with no sign of Mrs Hatch. The boot is lying open. The cylindrical object now hangs out of the side of the car. It is a milk churn.
+> x milk churn
+
+> x milk churn
+The milk churn which was on the back seat is leaking drops of milk.
+> take milk
+
+> take milk
+You hold the empty beer bottle under the leaking churn and it fills up with milk.
+
+Just as you finish, Mr McGregor appears and you help him take back his milk churn. You hear him mumbling something about the useless police force in the village.
+> s
+
+> s
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> w
+
+> w
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> s
+
+> s
+You are standing in an overgrown graveyard.  There are many gravestones here and there is a small medieval church to the west and a house to the east.
+
+You can go north, west or east.
+> w
+
+> w
+You are inside the church.
+
+You can see Reverend Keen.
+You can go east.
+> give dandelion wine to reverend keen
+
+> give dandelion wine to reverend keen
+"Oh my!"  says a shocked Reverend Keen.  "Where did you get that from?  I went to the shop and they were sold out."
+
+You decide not to tell him it was a gift from Rupert Burdock.  "I just had some handy, so I thought I'd bring it round for you."
+
+He takes the rubber stopper out of the decanter with his right hand and flamboyantly throws it over his shoulder. He then drinks a sip.  "Very nice. Do let me know if there is anything I can do for you."
+
+"I'm glad you like it," you say, a little shocked at his behaviour.
+> take rubber stopper
+
+> take rubber stopper
+You pick it up.
+> give iron nail to reverend keen
+
+> give iron nail to reverend keen
+You give the nail to the Reverend Keen who blesses it and hands it back to you.
+> e
+
+> e
+You are standing in an overgrown graveyard.  There are many gravestones here and there is a small medieval church to the west and a house to the east.
+
+You can go north, west or east.
+> n
+
+> n
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> e
+
+> e
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> e
+
+> e
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> n
+
+> n
+You are outside Fort Knots. Its gates have been smashed open.
+
+You can also see Monty Python and a car (with a boot (containing a magazine) and a back seat).
+You can go south or north.
+> give iron nail to monty python
+
+> give iron nail to monty python
+You hand Monty the nail and he claps his hands with delight.  "Thank you for everything.  My quest is finally over - I have the Holy Nail."  He is jubilant and runs off into the distance.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> port b
+
+> port b
+Teleport Stop B (Jack's Garden)
+
+You are in Jack's garden, to the east of his house.
+
+You can see a freshly dug garden and a giant beanstalk.
+You can go in or up.
+> port b
+
+> port b
+The teleporter display says "You are Already There."
+> in
+
+> in
+You are inside Jack's House, a small poorly furnished cottage where he lives with his mother. The back garden is to the east.
+
+You can also see a bowl and Jack's cat.
+You can go east or out.
+> use bottle on bowl
+
+> use bottle on bowl
+You empty your bottle of milk into the bowl and watch as Jack's cat hungrily laps it up.
+> take ball of wool
+
+> take ball of wool
+You take the wool while the cat is busy lapping up milk.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him.
+You can go north, east, south or west.
+
+Having no further need for the pump, you put it back on the bicycle without anyone noticing.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> e
+
+> e
+Level 3: Something in the Air
+You are outside the village library, which to the south. The road continues east out of the village.
+
+You can go west, south or east.
+> e
+
+> e
+You are on a road that runs east-west. Hambo's butcher's shop is north of you.
+
+You can go in, west or east.
+> e
+
+> e
+You are on a road running east-west, outside a branch of McRonalds, which is to the north.  A house to the south is in a delapidated state. There is a huge tower to the east.
+
+You can also see a delapidated house, with a green door.
+You can go west, north, east or in.
+> e
+
+> e
+You are standing outside the Power Tower Hotel, owned by the esteemed businessman, Donald Trumper.
+
+You can also see a sign and a wall.
+You can go in or west.
+> x wall
+
+> x wall
+A partially built wall blocking your path southwards. You notice that a brick is out of line with the others.
+> x brick
+
+> x brick
+"Hey, what do you think you are doing," says Brick Jagger.  "Don't touch me like that."
+> take brick
+
+> take brick
+With effort, you pick him up. He is heavier than he looks!
+> in
+
+> in
+You are in the VIP Suite of the Power Tower.
+
+The room is dominated by Donald Trumper and a large writing desk.
+You can go out.
+> speak to donald trumper
+
+> speak to donald trumper
+"My IQ is one of the highest. Anyone worth their salt would know that," says Mr Trumper.
+> give pot of salt to donald trumper
+
+> give pot of salt to donald trumper
+You take out the small pot of salt and hand it to Mr Trumper.  He takes it from you and looks at it curiously.
+
+"What do you want me to do with this?  It's not bigly enough for me," replies Mr Trumper.  He lets out a loud noise from his rather ample bottom before handing you back the cup.
+
+You take it from him. The salt now emits a strong smell.
+
+The recoil from his last emission has upset his hair.
+
+"You can't always get what you want," philosophises Brick.
+> give hairspray to donald trumper
+
+> give hairspray to donald trumper
+Mr Trumper takes the hairspray and applies it liberally. It looks as if the construction work is going to distract him for some time.
+
+He leaves the room to finish off his hair, giving you a dismissive wave as he goes.
+
+"Paint it black," recommends Brick.
+> x writing desk
+
+> x writing desk
+An elegantly carved writing desk, made of wood.
+ Underneath the desk you find what appears to be a present.
+> open present
+
+> open present
+With Mr Trumper's attention fully focused on hair care, you discretely open the present. Inside you find a gas mask, which you discretely pocket.
+> out
+
+> out
+You are standing outside the Power Tower Hotel, owned by the esteemed businessman, Donald Trumper.
+
+You can also see a sign and a wall.
+You can go in or west.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> n
+
+> n
+You are in a hairdressers where mirrors line the walls and there is a salon chair in the centre.
+
+You can also see Vidal Monsoon and some hairdressing scissors.
+You can go south.
+> use pot of salt on vidal monsoon
+
+> use pot of salt on vidal monsoon
+You hold the smelling salts under Vidal Monsoon's nose and see it begin to twitch.  The strong smell drifts up his nose and reawakens him with a start, knocking over the pot of smelling salts and breaking it.
+
+"Oh..." he says disorientated.  "Did I... did I pass out?" "Yes," you assure him, putting a comforting hand on his shoulder.  "The beer was stronger than I thought."
+
+"Thanks for waking me up. Have I been unconscious long?" "No," you lie.
+
+"Ah.  Maybe I should sit down for a while," he suggests.  He goes to turn away, but then turns back to you after producing something from his inside pocket.  "I suppose I should thank you for making sure I was ok.  Take this.  It's a voucher for a complimentary wash, cut and blow dry."
+
+Vidal staggers a little unsteadily as he hands it to you.  "I really need to sit down." With that, he collapses into the salon chair and falls asleep.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+ into a thick mist
+.
+
+You can see the BARDIS and Mrs Giant.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> give white tulips to mrs giant
+
+> give white tulips to mrs giant
+She accepts the white tulips though the bunch does look rather small in her large hands.
+
+Mrs Giant seems a bit less angry, but it's going to take much more to satisfy her.
+> give red roses to mrs giant
+
+> give red roses to mrs giant
+She accepts the red roses, which when combined with the white tulips creates a pleasant bouquet.
+
+Mrs Giant seems much less angry, but is clearly looking for more from you.
+> give huge tweezers to mrs giant
+
+> give huge tweezers to mrs giant
+She snatches the tweezers and puts them in her pocket.
+
+Mrs Giant no longer looks angry, but still blocks your way. The offer of a beauty treatment may help, as she clearly cares about her appearance.
+> give hairdressing voucher to mrs giant
+
+> give hairdressing voucher to mrs giant
+She take the hairdressing voucher, nods approval, and puts it in her pocket.
+
+Mrs Giant grins and now seems fully satisfied. She heads off into the village.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> nw
+
+> nw
+You are in a thick mist which clings to the path. It becomes almost choking as you go on.
+
+You can go southeast or west.
+> w
+
+> w
+You are standing outside a small cottage.
+ It is undergoing fumigation.  Obviously this place has a pest problem.
+
+You can also see a van, a fumigator and Rob Geldof (with a band aid on his finger).
+You can go east or in.
+> in
+
+> in
+You put on the gas mask before going any further.
+
+Wearing the gas mask, you are able to walk through the fumes and enter.
+
+You are in David Camwrong's cottage. A path at the back of the cottage leads west, into the countryside.
+ The room is full of fumes.
+
+You can see an old wooden chest.
+You can go out or west.
+> search old wooden chest
+
+> search old wooden chest
+You search through the chest and at the very bottom find a brass key, which you pick up.
+> w
+
+> w
+Level 4: To Mercury and Beyond
+You remove the mask as you leave the cottage.
+
+You are at the edge of the village on a path that leads west into the countryside. To the north is a large manor house, clearly belonging to someone important.
+
+You can go north, east or west.
+> n
+
+> n
+As you enter the Manor House a dark figure runs past you. The figure is of average height, dressed in black, and wearing a mask. You can't tell if it is a man or a woman.
+
+You are knocked over.  By the time you get up and look around, the stranger has gone.  You dust yourself off and go inside.
+
+You are in the study of the Manor House.
+
+You can see shelves of books, a candlestick and a dead body.
+You can go south.
+> x shelves
+
+> x shelves
+The shelves hold a large collection of medical and other books.
+ The books are fairly unremarkable but a large dictionary and a thesaurus catch your eye, so you pick them up. In between the two books, you find a hastily scribbled note.
+> x murder suspect list
+
+> x murder suspect list
+The note has six names, with a question mark after each one:
+Mrs Bright?
+Colonel Custard?
+Professor Glum?
+Miss Harlott?
+Reverend Keen?
+Mrs Seadock?
+
+You think to yourself "Could one of these people be the killer?"
+> x body
+
+> x body
+The body on the floor is Doctor Black. He has suffered a fatal blow to the head and has clearly been murdered!
+He is wearing a thick tweed overcoat.
+> x overcoat
+
+> x overcoat
+The overcoat is damp, suggesting Dr Black was surprised as he returned home.
+On examining the overcoat, you find a hidden pocket.
+> search pocket
+
+> search pocket
+You rummage through the pocket of the overcoat and find a silver key, which you pick up.
+> s
+
+> s
+You are at the edge of the village on a path that leads west into the countryside. To the north is a large manor house, clearly belonging to someone important.
+
+You can go north, east or west.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> n
+
+> n
+You are in the study of the Manor House.
+
+You can see shelves of books, a candlestick and Miss Sharples.
+You can go south.
+
+"You can't always get what you want," philosophises Brick.
+> speak to miss sharples
+
+> speak to miss sharples
+"It's a terrible business," bemoans Miss Sharples.
+
+"Yes, it is," you agree.  "Have you any idea who did it?"
+
+"No, Inspector Kojak asked me to come round and look at the crime scene."
+
+"Have you discovered anything?"
+
+"The murder weapon was most likely a candlestick.  From a tissue found at the scene, we believe the murderer has a cold."
+> give ball of wool to miss sharples
+
+> give ball of wool to miss sharples
+You hand the wool to Miss Sharples and she whips out her knitting needles and begins to knit.  You are amazed at the speed she wields her needles.  However the wooden needles she is using snap due to her extreme speed.
+
+"Oh dear," she cries.  "I'm so sorry.  My needles have broken."
+
+"Is there anything I can do?"  you ask.
+
+"Well I normally use metal ones.  They are much stronger.  If you can find me some I'll happily finish this for you."
+> use thesaurus on rubber stopper
+
+> use thesaurus on rubber stopper
+As you read the definition of bung aloud, the rubber stopper begins to glow. You watch as it completes its metamorphosis into a bundle of $5000 in used notes!
+> s
+
+> s
+You are at the edge of the village on a path that leads west into the countryside. To the north is a large manor house, clearly belonging to someone important.
+
+You can go north, east or west.
+> port b
+
+> port b
+Teleport Stop B (Jack's Garden)
+
+You are in Jack's garden, to the east of his house.
+
+You can see a freshly dug garden and a giant beanstalk.
+You can go in or up.
+
+"I can't get no satisfaction," bemoans Brick.
+> port b
+
+> port b
+The teleporter display says "You are Already There."
+> up
+
+> up
+You are standing on the clouds at the top of the beanstalk.  To the south you can see a large castle.
+
+You can go down, south or north.
+> n
+
+> n
+You are somehow standing in the sky.  You can't work out why you aren't falling, but you aren't.  To the north of you lies a large round yellow building.
+
+You can see Rupert Burdock.
+You can go south or north.
+> n
+
+> n
+You are in the offices of Mr Burdock's publication.
+
+You can see The Fake Shaking Stevens.
+You can go north or south.
+> give money to the fake shaking stevens
+
+> give money to the fake shaking stevens
+You hand $5000 to the Fake Sheiky. He is delighted. He snatches it off you and jumps up in the air with excitement. As he celebrates, he is unaware that he has dropped his house key. Still delighted with his newly found wealth, he runs off.
+> take house key
+
+> take house key
+You pick it up.
+> s
+
+> s
+You are somehow standing in the sky.  You can't work out why you aren't falling, but you aren't.  To the north of you lies a large round yellow building.
+
+You can see Rupert Burdock.
+You can go south or north.
+> s
+
+> s
+You are standing on the clouds at the top of the beanstalk.  To the south you can see a large castle.
+
+You can go down, south or north.
+> down
+
+> down
+Teleport Stop B (Jack's Garden)
+
+You are in Jack's garden, to the east of his house.
+
+You can see a freshly dug garden and a giant beanstalk.
+You can go in or up.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+
+"Paint it black," recommends Brick.
+> e
+
+> e
+You are outside the village library, which to the south. The road continues east out of the village.
+
+You can go west, south or east.
+> e
+
+> e
+You are on a road that runs east-west. Hambo's butcher's shop is north of you.
+
+You can go in, west or east.
+
+"Paint it black," insists Brick, on seeing the battered door of the old house.
+> e
+
+> e
+You are on a road running east-west, outside a branch of McRonalds, which is to the north.  A house to the south is in a delapidated state. There is a huge tower to the east.
+
+You can also see a delapidated house, with a green door.
+You can go west, north, east or in.
+> in
+
+> in
+You push the key into the lock, turn it until you hear the lock release, and open the door.
+
+You are in a rather unkempt room.  The stairs have collapsed, leaving a pile of wood in the corner.  There are no other exits.
+
+You can see an old piano.
+You can go out.
+> play piano
+
+> play piano
+You start to play the piano but it is so fragile that it collapses after a few notes. In the wreckage you see a pool cue, which you pick up.
+> out
+
+> out
+You are on a road running east-west, outside a branch of McRonalds, which is to the north.  A house to the south is in a delapidated state. There is a huge tower to the east.
+
+You can also see a delapidated house, with a green door.
+You can go west, north, east or in.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+
+"Hey you, get off of my cloud," warns Brick.
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> in
+
+> in
+The shop was, probably once, a useful grocery shop, but it is run down now with a severe lack of stock.  As if by magic, the Shopkeeper appears!
+
+You can see the Shopkeeper, an ice lolly, a loaf of bread and a toilet roll.
+You can go out.
+> take ice lolly
+
+> take ice lolly
+You hand over $1 and the Shopkeeper exchanges it for the ice lolly.
+> out
+
+> out
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> e
+
+> e
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> s
+
+> s
+You are standing inside the Police Station which services the village.  There is a glass screen which separates the public from the officers.
+
+You can also see Kojak, a wastebin, a poster on the wall and a counter (on which there is a notice and a bell).
+You can go north.
+
+"You know you can't bring that in here!" snaps Kojak. You have no choice but to leave Brick Jagger outside.
+> give ice lolly to kojak
+
+> give ice lolly to kojak
+You give Kojak the lolly. He puts his notebook on the desk and takes the lolly from you. He smiles as he sucks it with relish.
+
+"Not my usual, but very satisfactory."
+
+He throws the lolly stick in the bin and leaves his notebook on the counter.
+> take notebook
+
+> take notebook
+You wait until Kojak turns his back, then slide the notebook off the counter, and put it into your pocket.
+
+When you have a chance, you enter all you know about the murder of Dr Black and the known suspects...including some of your own details, as Kojak has been looking at you very suspiciously.
+> take stick
+
+> take stick
+You pick up the wooden lolly stick which is now sticky (note that it was also sticky before, it being a stick).
+> n
+
+> n
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can also see Brick Jagger.
+You can go west, south, north or east.
+> e
+
+> e
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> e
+
+> e
+You are standing in a narrow alley between two rows of houses.
+
+You can go west or northeast.
+> ne
+
+> ne
+You are standing outside a camera shop at the far end of the alley.
+
+You can go southwest or in.
+> in
+
+> in
+You are in a small and compact shop selling cameras and camera equipment.
+All of the items are way beyond your price range and locked behind secure shutters. There is a darkroom to the north where film is processed.
+
+You can see David Camwrong and the darkroom door.
+You can go out or north.
+> speak to david camwrong
+
+> speak to david camwrong
+After a short delay Camwrong asks, obsequiously, "I wonder if you will do something for me?"
+
+Before you have a chance to reply he hands you a camera and continues to talk. "In the forest behind my cottage, there lives a mad woman.  Many times I have tried to take her picture but failed.  If you can succeed I will reward you amply."
+
+You find yourself ageeing to try, partly as an excuse to look over his cottage.
+> out
+
+> out
+You are standing outside a camera shop at the far end of the alley.
+
+You can go southwest or in.
+> sw
+
+> sw
+You are standing in a narrow alley between two rows of houses.
+
+You can go west or northeast.
+> w
+
+> w
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> n
+
+> n
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can go north or south.
+> n
+
+> n
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> w
+
+> w
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> n
+
+> n
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> nw
+
+> nw
+You are on a sunny path taking you to the northwest.
+
+You can go southeast or west.
+> w
+
+> w
+You are standing outside a small cottage.
+
+You can go east or in.
+> in
+
+> in
+You are in David Camwrong's cottage. A path at the back of the cottage leads west, into the countryside.
+
+You notice that the fumes have gone. Rob must have finished his work.
+
+You can see an old wooden chest.
+You can go out or west.
+> w
+
+> w
+You are at the edge of the village on a path that leads west into the countryside. To the north is a large manor house, clearly belonging to someone important.
+
+You can go north, east or west.
+> w
+
+> w
+You are in the countryside.  The path continues south. The ground to the west is marshy. There is forest to the southeast.
+
+You can also see a wooden sign.
+You can go south, southeast, west or east.
+> drop dvd case
+
+> drop dvd case
+You drop it.
+> drop camera
+
+> drop camera
+You set the camera down carefully.
+> se
+
+> se
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+
+Suddenly, from nowhere, Mad Donna appears in front of you, scaring you out of your wits.
+
+She snatches the blue suede hooves from you and starts to clean them.  You watch as she rubs them with her cloth and removes all the mud.  You think you have lost them but surprisingly, after she has finished cleaning, she hands them back to you.
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+
+Suddenly, from nowhere, Mad Donna appears in front of you, scaring you out of your wits.
+
+She seems to be very busy.
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+
+Suddenly, from nowhere, Mad Donna appears in front of you, scaring you out of your wits.
+
+She seems to be very busy.
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+
+Suddenly, from nowhere, Mad Donna appears in front of you, scaring you out of your wits.
+
+She seems to be very busy.
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+
+Suddenly, from nowhere, Mad Donna appears in front of you, scaring you out of your wits.
+
+She seems to be very busy.
+> nw
+
+> nw
+You are in the countryside.  The path continues south. The ground to the west is marshy. There is forest to the southeast.
+
+You can also see a wooden sign, a dvd case and a camera (in which there is roll of film).
+You can go south, southeast, west or east.
+> take dvd case
+
+> take dvd case
+You pick it up.
+> take camera
+
+> take camera
+You pick it up.
+> se
+
+> se
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+
+Suddenly, from nowhere, Mad Donna appears in front of you, scaring you out of your wits.
+
+She doesn't approach you, however, and in fact seems to be shying away. You must have something that is frightening her.
+> use camera on mad donna
+
+> use camera on mad donna
+You raise the camera and press the shutter before she can move. She looks horrified and runs away.
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+
+Suddenly, from nowhere, Mad Donna appears in front of you, scaring you out of your wits.
+
+She doesn't approach you, however, and in fact seems to be shying away. You must have something that is frightening her.
+> use camera on mad donna
+
+> use camera on mad donna
+You go to take a photograph but find there is no film left.
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> sw
+
+> sw
+You are standing in a forest grove.
+
+You can go northeast, southeast or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> se
+
+> se
+You are in a beautiful glade in the heart of the woodland.  Paths lead north, northwest and southwest.
+
+You can go north, northwest or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> n
+
+> n
+You are amid the trees in the forest.  Narrow paths lead northwest, southwest and south.
+
+You can go northwest, south or southwest.
+> use camera on mad donna
+
+> use camera on mad donna
+Sorry, what was that? (mad donna)
+> nw
+
+> nw
+You are in the countryside.  The path continues south. The ground to the west is marshy. There is forest to the southeast.
+
+You can also see a wooden sign.
+You can go south, southeast, west or east.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> e
+
+> e
+You are standing in a narrow alley between two rows of houses.
+
+You can go west or northeast.
+> ne
+
+> ne
+You are standing outside a camera shop at the far end of the alley.
+
+You can go southwest or in.
+> in
+
+> in
+You are in a small and compact shop selling cameras and camera equipment.
+
+You can see David Camwrong and the darkroom door.
+You can go out or north.
+> give camera to david camwrong
+
+> give camera to david camwrong
+"Amazing!" says Camwrong.  "I've been trying to get a picture of her for ages.  I don't suppose you could get a picture of her boyfriend too?"
+
+"Her boyfriend?" you ask.
+
+"Yes," confirms Camwrong.  "Insane Bolt is the fastest man alive.  They call him insane, because it is said he steals the eggs of the Killer Chickens."
+
+He hands you another camera. He also gives you some slowmo glasses which should help you see him, and bids you good luck.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> w
+
+> w
+You are standing at the bottom of a small hill, which has a well on top of it. A cobbled path leads west to a small house.  A muddy path runs east. To the south is a water meadow.
+
+You can go east, south or west.
+> s
+
+> s
+You are standing in a pretty water meadow.
+
+You can see a large sign.
+You can go north or south.
+> wear slowmo glasses
+
+> wear slowmo glasses
+You put them on.
+
+With your slow-mo spectacles on, Insane Bolt is visible, as he darts around the meadow rapidly.
+
+You can see a large sign and Insane Bolt.
+You can go north or south.
+> speak to insane bolt
+
+> speak to insane bolt
+"You are the one who took a picture of my girl!" He isn't happy with you and smashes the camera.
+
+"I'm sorry," you explain. "I thought I was doing Mr Camwrong a favour, but instead of helping me he wants a picture of you as well."
+
+"Ah, he tricks lots of people so I have been told."  He nods sadly.  "Tell you what, if you get the picture back off Camwrong, I'll do you a favour in return.  We shall enact a blood oath to seal our promise."
+
+He takes a knife and cuts his palm then yours.  You shake hands sealing your bond.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> e
+
+> e
+You are standing in a narrow alley between two rows of houses.
+
+You can go west or northeast.
+> ne
+
+> ne
+You are standing outside a camera shop at the far end of the alley.
+
+You can go southwest or in.
+> in
+
+> in
+You are in a small and compact shop selling cameras and camera equipment.
+
+As you enter, Camwrong sees the scar on your hand and flees. When you go to look for him, all you can find is a discarded disguise.
+
+You can see a latex mask and the darkroom door.
+You can go out or north.
+> x latex mask
+
+> x latex mask
+A latex mask used to hide the identity of David Camwrong. You pick it up and try it on, thinking it might be useful for Halloween. It's a perfect fit, but feels too claustrophobic, so you put it back where you found it.
+ The mask includes a voice synthesiser so the villain might be female.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> n
+
+> n
+You push the brass key into the lock, turn it until you hear the lock release, and open the door.
+
+You are in David Camwrong's darkroom.  It has an acrid smell, as if a pig had been living there. There is a little light from a red bulb in the ceiling.
+
+You can also see a photograph of Mad Donna.
+You can go out.
+> take photograph
+
+> take photograph
+You pick it up.
+> out
+
+> out
+As you leave the darkroom, you lock it and slip the key under the door.
+
+You are in a small and compact shop selling cameras and camera equipment.
+
+You can see a latex mask and the darkroom door.
+You can go out or north.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> w
+
+> w
+You are standing at the bottom of a small hill, which has a well on top of it. A cobbled path leads west to a small house.  A muddy path runs east. To the south is a water meadow.
+
+You can go east, south or west.
+> s
+
+> s
+With your slow-mo spectacles on, Insane Bolt is visible, as he darts around the meadow rapidly.
+
+You can see a large sign and Insane Bolt.
+You can go north or south.
+> give photograph to insane bolt
+
+> give photograph to insane bolt
+You give the photo to Insane Bolt, and he zooms off in a blur - even with the slowmo glasses on.  In less than a second he is back with a Killer Chicken egg for you, saying "I am, and always shall be, your friend," before zooming off.
+
+The scar on your hand has miraculously disappeared. As you lower your head to look more closely, the slowmo glasses crash to the ground and are destroyed.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> e
+
+> e
+You are outside the village library, which to the south. The road continues east out of the village.
+
+You can go west, south or east.
+> e
+
+> e
+You are on a road that runs east-west. Hambo's butcher's shop is north of you.
+
+You can go in, west or east.
+> in
+
+> in
+You are in a very poorly stocked butcher's shop. The shelves and counters are empty. There doesn't appear to be any meat for sale.
+
+You can see Hambo.
+You can go out.
+> speak to hambo
+
+> speak to hambo
+Recognising your scar, he says "Like you I owe a debt to Mr Bolt. Unfortunately I've been unable to keep my blood oath, as Camwrong has blacklisted my business."
+
+"I'm sorry to hear that," you reply.  "The more I hear about Camwrong, the less I like him.  Is there anything you can do to help me stop him?"
+
+"The only thing I have, besides a lot of very dodgy 80s action movies, is this."
+
+He hands you his expensive-looking silk tie, saying "I hope it is useful."
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> n
+
+> n
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can go north or south.
+> n
+
+> n
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+> n
+
+> n
+You are outside Fort Knots. Its gates have been smashed open.
+
+You can also see a car (with a boot (containing a magazine) and a back seat).
+You can go south or north.
+> n
+
+> n
+You are in the reception room for Fort Knots.
+
+You can also see Even Job.
+You can go east or south.
+> speak to even job
+
+> speak to even job
+You ask him why he is the sidekick of such a villain.
+
+"You're right, I don't want to work for Mr Coldfinger.  I don't think I'm cut out for this wild way of living.  But, the pay is reasonable and I get the odd day off.  I suppose if I got a better offer, then I would take it, but no one would give me a job with this terrible tie."
+> give silk tie to even job
+
+> give silk tie to even job
+"Thank you so much,"  says Even Job, as he throws away his old tie and puts on the new one.  "But I'm afraid I can't let you through.  I have to be loyal to my employer."
+> speak to even job
+
+> speak to even job
+"So why are you still working for Mr Coldfinger?" you ask.
+
+"Well the pay is good, but I don't get much time off," he replies.  "If I could get a job with better holidays..."
+
+"I'll keep a look out for you."
+
+"Thank you." says Mr. Job.  "Here take my CV.  Just in case you know."
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> e
+
+> e
+You are outside the village library, which to the south. The road continues east out of the village.
+
+You can go west, south or east.
+> e
+
+> e
+You are on a road that runs east-west. Hambo's butcher's shop is north of you.
+
+You can go in, west or east.
+> e
+
+> e
+You are on a road running east-west, outside a branch of McRonalds, which is to the north.  A house to the south is in a delapidated state. There is a huge tower to the east.
+
+You can also see a delapidated house, with a green door.
+You can go west, north, east or in.
+> n
+
+> n
+You are in the famed fast food restaurant McRonalds.
+
+You can also see Donald McRonald, a noticeboard and an extra large gourmet burger.
+You can go south.
+> give cv to donald mcronald
+
+> give cv to donald mcronald
+You hand Donald the CV which Even Job gave you and he studies it.  After reading it through he exclaims loudly.  "This man is perfect.  I shall employ him right away."
+
+Almost immediately Even Job enters the restaurant and starts work.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can also see Brick Jagger.
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> w
+
+> w
+You hear a ping from the teleporter, telling you that "D: Outside Brewery" has been saved as a return address.
+
+You are standing outside a small but impressive looking brewery which lies to the west.  The majority of the village lies to the east.  A road to the south leads into the foothills and up towards the mountains.  To the north is a military building but there is no access from this side. There is a camera on the side of the building.
+
+You can go east, south or west.
+> s
+
+> s
+Level 5: To Hell and Back
+You are standing in low foothills which lead south into the mountains.
+
+You can go north or south.
+> s
+
+> s
+You are on a trail high up in the mountains.  Rocks covered in snow line the path.
+
+You can also see a large boulder.
+You can go south or north.
+> x large boulder
+
+> x large boulder
+A large boulder on one side of the trail.
+Under the boulder you see an axe.
+> s
+
+> s
+You are close to an icy peak in a range of mountains.  It is cold here and the air is thin, but it is still breathable.  Other peaks dot the southern horizon.
+
+You can also see a snowdrift.
+You can go north, east or south.
+> use shovel on snowdrift
+
+> use shovel on snowdrift
+Using the shovel, you dig down into the snowdrift and it isn't long before you uncover something. You are a little shocked to find a pile of blood-stained clothes. There is also a briefcase, which you pick up.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> x pile of clothes
+
+> x pile of clothes
+It is a pile of the clothes, owned by whoever killed Doctor Black.  They are splattered in blood.  They were obviously buried here, with the locked briefcase, to be retrieved at a later date.  There are no clues who the owner might be.
+Maybe the police should know about this.
+> open briefcase
+
+> open briefcase
+You push the silver key into the lock, turn it until you hear the lock release, and open the briefcase.
+It contains some secret papers and a route map.
+
+With very cold fingers, you clumsily drop the key and lose it.
+> take route map
+
+> take route map
+You pick it up.
+> take secret papers
+
+> take secret papers
+You pick it up.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can also see Brick Jagger.
+You can go west, south, north or east.
+> s
+
+> s
+You are standing inside the Police Station which services the village.  There is a glass screen which separates the public from the officers.
+
+You can also see Kojak, a wastebin, a poster on the wall and a counter (on which there is a notice and a bell).
+You can go north.
+
+Spotting the dvd, Kojak says, "Sorry, but I need to confiscate that. We have had heard rumours that you have been frightening women in the forest by waving it at them."
+
+You look through the contents of the notebook with Kojak.
+
+After studying the details, Kojak concludes that there isn't enough to make an arrest. "We need to find 20 more pieces of this puzzle," he says. "In particular, we need to know more about the murderer."
+
+He hands the notebook back to you, saying "That's nice, I have one just like that lying around here somewhere."
+> tell kojak about clothes
+
+> tell kojak about clothes
+You tell Kojak about the bloodstained clothes in the mountains and the briefcase.  He is keen to know more.
+
+"This sounds intriguing and possibly connected to the death of Doctor Black.  I'll send my deputy to investigate."
+> take bell
+
+> take bell
+You take your chance when Kojak goes into the back office to make a phone call. You pick up the bell carefully, and take it outside without letting it ring.
+
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can also see Brick Jagger.
+You can go west, south, north or east.
+> take brick
+
+> take brick
+With effort, you pick him up. He is heavier than he looks!
+
+"I can't get no satisfaction," bemoans Brick.
+> port d
+
+> port d
+Teleport Stop D (Outside Brewery)
+
+You are standing outside a small but impressive looking brewery which lies to the west.  The majority of the village lies to the east.  A road to the south leads into the foothills and up towards the mountains.  To the north is a military building but there is no access from this side. There is a camera on the side of the building.
+
+You can go east, south or west.
+
+"Hey you, get off of my cloud," warns Brick.
+> port d
+
+> port d
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing in low foothills which lead south into the mountains.
+
+You can go north or south.
+> s
+
+> s
+You are on a trail high up in the mountains.  Rocks covered in snow line the path.
+
+You can also see a large boulder (beneath which is an axe).
+You can go south or north.
+> s
+
+> s
+You are close to an icy peak in a range of mountains.  It is cold here and the air is thin, but it is still breathable.  Other peaks dot the southern horizon.
+
+You can also see a pile of clothes and Sting.
+You can go north, east or south.
+
+"It's all over now," concludes Brick.
+> e
+
+> e
+You are in an icy crevasse with steep unclimbable sides to the north and south.
+
+You can go west or east.
+> e
+
+> e
+You are in an icy land.  The vista is spectacular, with a mountain laden with snow towering above you.  As you gaze to the northeast, you can see a building of some kind.
+
+You can also see Bee York.
+You can go northeast, west or south.
+> ring bell
+
+> ring bell
+You ring the bell, which is deafeningly loud.
+
+The sound of the bell echoes around the mountains and starts an avalanche! Snow cascades down towards you.
+
+Fortunately you are in a safe place, but Bee York is not so lucky. She is half buried in the snow amd no longer blocking your way.
+> use shovel on bee york
+
+> use shovel on bee york
+You use the shovel to dig Bee York out of the snow. She is very grateful but also very cold. Before heading off to warm up, she hands you a passport she found in the mountains, asking you to drop it off at the Police Station.
+
+With the last scoop of snow, the shovel breaks, so you throw it away.
+> ne
+
+> ne
+You are standing in the snow outside a shack made of corrugated metal.  Everything here is eerily quiet.
+
+You can go east or southwest.
+> e
+
+> e
+You are in the rough shack. There is a ramshackle bed here, occupied by Mrs Bright.
+
+She does not look very well. You can't help but think this cold and frosty climate isn't doing her any good.
+
+You can see Mrs Bright.
+You can go west.
+
+"You can't always get what you want," philosophises Brick.
+> x mrs bright
+
+> x mrs bright
+Mary Bright is an attractive woman. She has very pale skin and either naturally pallid or very cold. She is slim, and even lying down, you can tell she is of average height.
+
+A sneeze resounds around the shack and Mrs Bright wipes her nose.
+> speak to mrs bright
+
+> speak to mrs bright
+"Do I smell pickled gherkins?" asks Mrs Bright.
+
+"It's all over now," concludes Brick.
+> give jar to mrs bright
+
+> give jar to mrs bright
+Mrs Bright smiles at you as she takes the jar.  Before you can say "Jack Robinson" she is devouring the gherkins like a rattlesnake, with her right hand feeding in one gherkin after another, well before the previous ones have been swallowed.  Within a couple of minutes all the gherkins are gone and she hands the jar back to you.  "Thank you so much," she exclaims, "I needed that!"
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+"Paint it black," recommends Brick.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> w
+
+> w
+You are standing in the snow outside a shack made of corrugated metal.  Everything here is eerily quiet.
+
+You can go east or southwest.
+> sw
+
+> sw
+You are in an icy land.  The vista is spectacular, with a mountain laden with snow towering above you.  As you gaze to the northeast, you can see a building of some kind.
+
+You can go northeast, west or south.
+> s
+
+> s
+You are on a snowy mountain pass.  Up above you on both sides you can see the jagged peaks.
+
+You can go south or north.
+> s
+
+> s
+You hear a ping from the teleporter, telling you that "G: Outside an Icy Factory" has been saved as a return address.
+
+You are standing outside an Icy Factory in the middle of a snowy landscape.  The entrance to the building is to the southeast.
+
+You can go southeast, southwest or north.
+> se
+
+> se
+You are in a large factory which is dedicated to making ice cream and ice lollies.  It looks almost completely automated.  There is an office to the east.
+
+You can also see Mrs Whippy (turned out in leather boots and a black leather whip).
+You can go northwest, east or southeast.
+> ask mrs whippy about jokes
+
+> ask mrs whippy about jokes
+You talk to Mrs Whippy about the lolly stick jokes, and she unlocks the door of the office.  You peer inside as she speaks.  "This is my office.  The jokes which you are interested in are kept in my safe in there, and there is no way you will get your hands on them."  She slams the door shut, but you notice she forgets to lock it.
+> e
+
+> e
+Mrs Whippy is busy and doesn't see you sneaking into her office.
+
+You are in Mrs Whippy's office.  It  is functional and very simply furnished.
+
+You can also see a painting.
+You can go west.
+> take painting
+
+> take painting
+You pick up the painting and find it is not canvas, but a wooden panel painted on both sides.  Behind the painting you find Mrs. Whippy's safe.
+> use stethoscope on safe
+
+> use stethoscope on safe
+Using the stethoscope, you listen for tell-tale clicks, work out the combination, and unlock the safe. Inside you find a joke collection and a silver dollar. Both look useful, so you pick them up.
+
+You then close the safe but stupidly leave the stethoscope inside!
+> w
+
+> w
+You are in a large factory which is dedicated to making ice cream and ice lollies.  It looks almost completely automated.  There is an office to the east.
+
+You can also see Mrs Whippy (turned out in leather boots and a black leather whip).
+You can go northwest, east or southeast.
+
+"It's all over now," concludes Brick.
+> nw
+
+> nw
+Teleport Stop G (Outside an Icy Factory)
+
+You are standing outside an Icy Factory in the middle of a snowy landscape.  The entrance to the building is to the southeast.
+
+You can go southeast, southwest or north.
+> sw
+
+> sw
+You are on a snowy slope high in the mountains.
+
+You can go northeast or west.
+> w
+
+> w
+You are in an ice track amidst a large mountain range.  To the south, the path descends into an open valley.
+
+You can go east or south.
+> s
+
+> s
+You are on a trail in a green and pleasant valley, with mountains towering to the north.  It looks a bit like Wales except for the volcano to the east.
+
+You can go north, east, northwest or southeast.
+
+"Paint it black," recommends Brick.
+> nw
+
+> nw
+Using the map you navigate through dense undergrowth.
+
+This is the secret land of the little people.
+
+You can see Small Daniels.
+You can go southeast or south.
+
+"Paint it black," recommends Brick.
+> speak to small daniels
+
+> speak to small daniels
+"Have you a knotty problem for me," asks Small?
+> s
+
+> s
+You are in Little Chef's Kitchen in the Land of the Little People.
+
+You can see Little Chef.
+You can go north, west or southwest.
+> speak to little chef
+
+> speak to little chef
+"If you give me a recipe I'm sure I can rustle it up for you," says the Little Chef.
+> sw
+
+> sw
+You are in Gnome Man's Land. There is a stout fence preventing you from going any further. It is quite clearly gnomes only beyond this point.
+
+You can see Gnomer Simpson and a small pond.
+You can go northeast.
+
+"You can't always get what you want," philosophises Brick.
+> speak to gnomer simpson
+
+> speak to gnomer simpson
+"I haven't caught anything all day,"  says Gnomer.  "I'm having no luck at all.  I would do anything for a fish for supper."
+> ne
+
+> ne
+You are in Little Chef's Kitchen in the Land of the Little People.
+
+You can see Little Chef.
+You can go north, west or southwest.
+> n
+
+> n
+This is the secret land of the little people.
+
+You can see Small Daniels.
+You can go southeast or south.
+> se
+
+> se
+You are on a trail in a green and pleasant valley, with mountains towering to the north.  It looks a bit like Wales except for the volcano to the east.
+
+You can go north, east, northwest or southeast.
+> se
+
+> se
+You are standing by a pool with rich vegetation around the edge. It feels familiar.
+
+You can see a pool.
+You can go in or northwest.
+> in
+
+> in
+With the additional weight provided by Brick you break the surface and enter the vortex. On entry, you catch sight of a babel fish and immediately spear it with your pool cue. You are bombarded by electronic sounds and psychedelic images as you fly along. The journey is interminable but eventually you emerge to breathe fresh air again, popped out like a cork from a bottle.
+
+You are inside what seems to be a research laboratory, with chemicals piled high around the room.
+
+You can also see Professor Glum, a tube of glue and a pool.
+You can go in.
+> x professor glum
+
+> x professor glum
+The esteemed Professor Glum, a prize winning Chemist.  He is a statuesque man, about 5'10" in height and cultured in appearance.
+> speak to professor glum
+
+> speak to professor glum
+"I know a lot about chemicals," says a rather smug Professor Glum. "Welcome to my laboratory. How can I help?"
+> in
+
+> in
+You break the surface and enter the vortex. Your journey is lengthy but you emerge eventually.
+
+You are standing by a pool with rich vegetation around the edge. It feels familiar.
+
+You can see a pool.
+You can go in or northwest.
+> nw
+
+> nw
+You are on a trail in a green and pleasant valley, with mountains towering to the north.  It looks a bit like Wales except for the volcano to the east.
+
+You can go north, east, northwest or southeast.
+> nw
+
+> nw
+Using the map you navigate through dense undergrowth.
+
+This is the secret land of the little people.
+
+You can see Small Daniels.
+You can go southeast or south.
+> s
+
+> s
+You are in Little Chef's Kitchen in the Land of the Little People.
+
+You can see Little Chef.
+You can go north, west or southwest.
+
+"It's all over now," concludes Brick.
+> sw
+
+> sw
+You are in Gnome Man's Land. There is a stout fence preventing you from going any further. It is quite clearly gnomes only beyond this point.
+
+You can see Gnomer Simpson and a small pond.
+You can go northeast.
+> give babel fish to gnomer simpson
+
+> give babel fish to gnomer simpson
+You throw the babel fish into the air and it lands beside Gnomer. He looks up and scratches his head but is delighted.  He drops his fishing rod in his excitement, and crashes through the fence.  As he does so, a bowling guide falls out of his pocket.  Before you can call out to him,  he is almost out of sight, running back home.
+
+You take a look at his discarded fishing rod to see what he was using for bait.  You can hardly believe your eyes.  At the end of the super strength fishing line there is a magnet tied to one end!
+
+Doh...
+
+"It's all over now," concludes Brick.
+> open rat trap
+
+> open rat trap
+You open the trap and set it on the ground.
+The rat comes out to sharpen his teeth on the fishing line. He accidently cuts it, freeing the magnet, and then returns to the cheese.
+> take magnet
+
+> take magnet
+You pick it up.
+> take bowling guide
+
+> take bowling guide
+You pick it up.
+> read bowling guide
+
+> read bowling guide
+You read through the tips and strategies suggested and can't wait to try them out.
+
+"You can't always get what you want," philosophises Brick.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Number 66 sitting on a bench and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+
+"I can't get no satisfaction," bemoans Brick.
+> give passport to number 66
+
+> give passport to number 66
+You hand him the passport and as he looks at it he starts to remember.  "Of course, I am a free man, not a number."  He pulls the badge off his jacket and throws it away.
+
+"I'm Patrick McGoogle!" he shouts.  "I was working undercover for Dr Black when I was caught and interrogated. I lost my memory but with your help, it's back. I'm so grateful!"
+> take passport
+
+> take passport
+Patrick trusts you, and happily hands it back.
+> give dictionary to patrick mcgoogle
+
+> give dictionary to patrick mcgoogle
+"Ah, you have the secret code book!" he says, taking it from you.
+> give secret papers to patrick mcgoogle
+
+> give secret papers to patrick mcgoogle
+He takes the papers and reads them carefully. After a while he raises his head slowly and says "If you are going to help foil this plot, you will need explosives."  He hands you a formula.
+
+You notice Patrick admiring your briefcase.
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> e
+
+> e
+You are outside the village library, which to the south. The road continues east out of the village.
+
+You can go west, south or east.
+> s
+
+> s
+You are in the reception area of a small village library.
+
+You can see Mrs Seadock.
+You can go north.
+> x mrs seadock
+
+> x mrs seadock
+A prim and proper librarian. She is of average height and dressed in a smart suit.
+
+Mrs Seadock stifles a sneeze as you wander around the shelves.
+> speak to mrs seadock
+
+> speak to mrs seadock
+She stares at you.  "You can't borrow a book without ID.  Give me your ID."
+
+"Paint it black," recommends Brick.
+> give passport to mrs seadock
+
+> give passport to mrs seadock
+You hand over the passport which seems to confirm your identity for the Librarian.  She reaches out with her right hand to pick up a pen, and fills out a form. She then hands you a library book to read.
+> give library book to mrs seadock
+
+> give library book to mrs seadock
+"What, read it already! Okay, this book should slow you down," she says.
+
+"Hey you, get off of my cloud," warns Brick.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+"I can't get no satisfaction," bemoans Brick.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+"I can't get no satisfaction," bemoans Brick.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> n
+
+> n
+You are outside the village library, which to the south. The road continues east out of the village.
+
+You can go west, south or east.
+> w
+
+> w
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> sw
+
+> sw
+You have arrived at Mr McGregor's farm.  It is a large area of beautifully kept fields. The village is to the northeast.
+
+You can see Mr McGregor, a haystack and a milk churn.
+You can go northeast.
+> use magnet on haystack
+
+> use magnet on haystack
+You wave the magnet over the haystack not really expecting anything to happen.  Suddenly you hear two pinging noises as two metal objects spring out from the hay.  As you catch them you realise they are knitting needles.
+
+Mr McGregor is fascinated by this trick so you leave the magnet with him to try it out in other parts of the farm.
+> ne
+
+> ne
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> n
+
+> n
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Patrick McGoogle (holding a dictionary and some secret papers) and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+
+"You can't always get what you want," philosophises Brick.
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> give joke collection to michael mcintosh
+
+> give joke collection to michael mcintosh
+You hand Michael McIntosh the joke collection and he snatches it off you, delighted with your find.  He doesn't bother to thank you just opens it and begins laughing uncontrollably.  As he laughs you notice something large hidden in his jacket which falls to the floor amidst his waves of hilarity. He was carrying a canister of laughing gas which was the reason you must have been chuckling loudly at his terrible jokes.
+> take canister of laughing gas
+
+> take canister of laughing gas
+You pick it up.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+
+"You can't always get what you want," philosophises Brick.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> nw
+
+> nw
+You are on a sunny path taking you to the northwest.
+
+You can go southeast or west.
+> w
+
+> w
+You are standing outside a small cottage.
+
+You can go east or in.
+> in
+
+> in
+You are in David Camwrong's cottage. A path at the back of the cottage leads west, into the countryside.
+
+You can see an old wooden chest.
+You can go out or west.
+
+"You can't always get what you want," philosophises Brick.
+> w
+
+> w
+You are at the edge of the village on a path that leads west into the countryside. To the north is a large manor house, clearly belonging to someone important.
+
+You can go north, east or west.
+
+"It's all over now," concludes Brick.
+> n
+
+> n
+You are in the study of the Manor House.
+
+You can see shelves of books, a candlestick and Miss Sharples.
+You can go south.
+> give metal knitting needles to miss sharples
+
+> give metal knitting needles to miss sharples
+You hand Miss Sharples the needles and she is delighted.
+
+"Now I can finish my knitting!" she exclaims.
+
+"Thank you," you reply as you watch in awe as she rapidly uses up the whole ball of wool.
+
+"I'm sorry," she says as she hands you the finished article.  "There was only enough wool for one glove.  I hope you find it useful."
+> take candlestick
+
+> take candlestick
+You wait until Miss Sharples has her back turned, then pick up the candlestick, and quickly leave the room.
+
+You are at the edge of the village on a path that leads west into the countryside. To the north is a large manor house, clearly belonging to someone important.
+
+You can go north, east or west.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> s
+
+> s
+You are standing in an overgrown graveyard.  There are many gravestones here and there is a small medieval church to the west and a house to the east.
+
+You can go north, west or east.
+
+"You can't always get what you want," philosophises Brick.
+> e
+
+> e
+You are in Michael Jockson's house.   To the south is a private bowling alley.  Outside, to the west, is the graveyard.
+
+You can see a blanket and a large mirror.
+You can go south or west.
+> s
+
+> s
+Mr Jockson's private bowling alley.  There is a bowling ball sitting on the floor and the pins are set up ready for a game.
+
+You can see Cousin Itt.
+You can go north.
+> use bowling ball
+
+> use bowling ball
+You play a game. Using the bowling guide, you are able to follow the carefully laid out tuition and get a succession of strikes.  Cousin Itt can barely believe it, but you manage to defeat him by 8 points.
+
+As you begin to celebrate, Cousin Itt starts ranting.  He picks up a bowling ball and throws it hard.  It ricochets off the wall back into Michael Jockson's house and there is a smashing sound.  You can hear footsteps, which sound like running and miraculously the ball returns to the alley.
+
+You wonder what happened next door.
+> n
+
+> n
+You are in Michael Jockson's house.   To the south is a private bowling alley.  Outside, to the west, is the graveyard.
+
+You can see a blanket, a pile of broken glass and Michael Jockson.
+You can go south or west.
+> speak to michael jockson
+
+> speak to michael jockson
+"Thanks for saving me!" says Jocko.  "I was trapped in the mirror looking for some wild haggis. But while I was imprisoned in Neverland, my only friend, Ben has gone missing.  I would be grateful if you could find him."
+
+"Paint it black," recommends Brick.
+> give rat trap to michael jockson
+
+> give rat trap to michael jockson
+You hand Michael the trap with the rat inside.  "Och aye, Jimmy, thanks a bunch."  In return, he gives you a guide to dancing, before heading off for a walk with Ben.
+> port d
+
+> port d
+Teleport Stop D (Outside Brewery)
+
+You are standing outside a small but impressive looking brewery which lies to the west.  The majority of the village lies to the east.  A road to the south leads into the foothills and up towards the mountains.  To the north is a military building but there is no access from this side. There is a camera on the side of the building.
+
+You can go east, south or west.
+> port d
+
+> port d
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing in low foothills which lead south into the mountains.
+
+You can go north or south.
+> s
+
+> s
+You are on a trail high up in the mountains.  Rocks covered in snow line the path.
+
+You can also see a large boulder (beneath which is an axe).
+You can go south or north.
+
+"We're on the road to nowhere," mumbles Brick, the talking head.
+> s
+
+> s
+Spotting a policeman up ahead, you hide the candlestick before approaching him.
+
+You are close to an icy peak in a range of mountains.  It is cold here and the air is thin, but it is still breathable.  Other peaks dot the southern horizon.
+
+You can also see a pile of clothes and Sting.
+You can go north, east or south.
+> give dance guide to sting
+
+> give dance guide to sting
+"Oh, thank you!" says Sting.  "I've always wanted to walk on the moon.  It's so nice to meet a friendly and helpful citizen."
+
+He then heads back to the Police Station to study the guide, taking the evidence with him.
+
+As he is leaving, he turns and says "By the way, from what I see here, I'm sure the killer was right-handed."
+
+After he has gone, you notice he has missed a piece of rope.
+
+"Hey you, get off of my cloud," warns Brick.
+> take knotted rope
+
+> take knotted rope
+You pick it up.
+> port g
+
+> port g
+Teleport Stop G (Outside an Icy Factory)
+
+You are standing outside an Icy Factory in the middle of a snowy landscape.  The entrance to the building is to the southeast.
+
+You can go southeast, southwest or north.
+
+"We're on the road to nowhere," mumbles Brick, the talking head.
+> port g
+
+> port g
+The teleporter display says "You are Already There."
+> sw
+
+> sw
+You are on a snowy slope high in the mountains.
+
+You can go northeast or west.
+> w
+
+> w
+You are in an ice track amidst a large mountain range.  To the south, the path descends into an open valley.
+
+You can go east or south.
+> s
+
+> s
+You are on a trail in a green and pleasant valley, with mountains towering to the north.  It looks a bit like Wales except for the volcano to the east.
+
+You can go north, east, northwest or southeast.
+> nw
+
+> nw
+Using the map you navigate through dense undergrowth.
+
+This is the secret land of the little people.
+
+You can see Small Daniels.
+You can go southeast or south.
+> give knotted rope to small daniels
+
+> give knotted rope to small daniels
+"Oooo, lots of knots," says Small Daniels.  "This is just what I have been looking for."
+
+He is so entranced by his gift that as he walks off, the dead rat on his head falls to the floor. It's a toupee!
+> take toupee
+
+> take toupee
+You pick it up.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Patrick McGoogle (holding a dictionary and some secret papers) and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> e
+
+> e
+You are outside the village library, which to the south. The road continues east out of the village.
+
+You can go west, south or east.
+
+"You can't always get what you want," philosophises Brick.
+> e
+
+> e
+You are on a road that runs east-west. Hambo's butcher's shop is north of you.
+
+You can go in, west or east.
+> e
+
+> e
+You are on a road running east-west, outside a branch of McRonalds, which is to the north.  A house to the south is in a delapidated state. There is a huge tower to the east.
+
+You can also see a delapidated house, with a green door.
+You can go west, north, east or in.
+> n
+
+> n
+You are in the famed fast food restaurant McRonalds.
+
+You can also see Donald McRonald, a noticeboard, an extra large gourmet burger and Even Job.
+You can go south.
+> give toupee to donald mcronald
+
+> give toupee to donald mcronald
+You hand Donald the wig. "Oh what a novel way to pay!" he chuckles, handing over a huge burger as he puts the dead rat on his head.
+> port g
+
+> port g
+Teleport Stop G (Outside an Icy Factory)
+
+You are standing outside an Icy Factory in the middle of a snowy landscape.  The entrance to the building is to the southeast.
+
+You can go southeast, southwest or north.
+> port g
+
+> port g
+The teleporter display says "You are Already There."
+> sw
+
+> sw
+You are on a snowy slope high in the mountains.
+
+You can go northeast or west.
+> w
+
+> w
+You are in an ice track amidst a large mountain range.  To the south, the path descends into an open valley.
+
+You can go east or south.
+> s
+
+> s
+You are on a trail in a green and pleasant valley, with mountains towering to the north.  It looks a bit like Wales except for the volcano to the east.
+
+You can go north, east, northwest or southeast.
+> e
+
+> e
+You are on a path leading up a volcano.  To the east you can see the crater in the distance.
+
+You can go west or east.
+
+"Paint it black," recommends Brick.
+> e
+
+> e
+You hear a ping from the teleporter, telling you that "H: Volcano Crater" has been saved as a return address.
+
+You are at the top of the volcano.  You can see the lava bubbling fiercely below you in the crater.  Bizarrely you also see lift doors here.
+
+You can go west or in.
+> in
+
+> in
+You are standing in a lift.
+
+You can also see a panel beside the doors (with an up button and a down button).
+You can go out or down.
+> down
+
+> down
+The doors close and then there is a whirring of machinery as you feel the lift descend for some considerable time.  Finally the lift draws to a halt and the doors open.
+
+You are standing in a lift.
+
+You can also see a panel beside the doors (with a down button and an up button).
+You can go up or out.
+> out
+
+> out
+You are in the Reception Room in Hell.  It is painted red and plushly decorated with elegant furniture.  There is a lift here which you hope will take you back to the surface.
+
+You can also see Simon Bowell and a wooden desk.
+You can go in.
+> give contract to simon bowell
+
+> give contract to simon bowell
+You hand Mr Bowell the contract and he vanishes in a puff of smoke.
+
+Almost immediately two new doors appear, one to the south-east and one to the south-west.
+> sw
+
+> sw
+You are in the Throne Room in the depths of Hell.
+
+You can also see Hell Viss.
+You can go northeast.
+> x hell viss
+
+> x hell viss
+The King of Hell, a demon wearing a white sequin jumpsuit, with nothing on his 'feet'.
+
+"I can't get no satisfaction," bemoans Brick.
+> give blue suede hooves to hell viss
+
+> give blue suede hooves to hell viss
+You hand Hell Viss the hooves and he hands you his second best white jumpsuit in return. It is flameproof. You put it on immediately, breaking the zipper in the process.
+> give extra large gourmet burger to hell viss
+
+> give extra large gourmet burger to hell viss
+"Oh, lovely!" he says, as he takes the burger and devours it in two bites. "As a reward you can visit my garden. I'll tell Ula to expect you."
+> ne
+
+> ne
+You are in the Reception Room in Hell.  It is painted red and plushly decorated with elegant furniture.  There is a lift here which you hope will take you back to the surface.
+
+You can also see a wooden desk.
+You can go southwest, southeast or in.
+> se
+
+> se
+You are in the residence of evil incarnate.
+
+You can see Drag Ula and a black coffin.
+You can go northwest or in.
+> in
+
+> in
+This is the garden of Hell Viss.
+
+You can also see some herbs.
+You can go out.
+> take herbs
+
+> take herbs
+You pick them up.
+> out
+
+> out
+You are in the residence of evil incarnate.
+
+You can see Drag Ula and a black coffin.
+You can go northwest or in.
+> nw
+
+> nw
+You are in the Reception Room in Hell.  It is painted red and plushly decorated with elegant furniture.  There is a lift here which you hope will take you back to the surface.
+
+You can also see a wooden desk.
+You can go southwest, southeast or in.
+
+"I can't get no satisfaction," bemoans Brick.
+> in
+
+> in
+You are standing in a lift.
+
+You can also see a panel beside the doors (with a down button and an up button).
+You can go up or out.
+
+"It's all over now," concludes Brick.
+> up
+
+> up
+The doors close and then there is a whirring of machinery as you feel the lift ascend for some considerable time.  Finally the lift draws to a halt and the doors open.
+
+You are standing in a lift.
+
+You can also see a panel beside the doors (with an up button and a down button).
+You can go out or down.
+> out
+
+> out
+Teleport Stop H (Volcano Crater)
+
+You are at the top of the volcano.  You can see the lava bubbling fiercely below you in the crater.  Bizarrely you also see lift doors here.
+
+You can go west or in.
+> port d
+
+> port d
+Teleport Stop D (Outside Brewery)
+
+You are standing outside a small but impressive looking brewery which lies to the west.  The majority of the village lies to the east.  A road to the south leads into the foothills and up towards the mountains.  To the north is a military building but there is no access from this side. There is a camera on the side of the building.
+
+You can go east, south or west.
+> port d
+
+> port d
+The teleporter display says "You are Already There."
+
+"You can't always get what you want," philosophises Brick.
+> s
+
+> s
+You are standing in low foothills which lead south into the mountains.
+
+You can go north or south.
+> s
+
+> s
+You are on a trail high up in the mountains.  Rocks covered in snow line the path.
+
+You can also see a large boulder (beneath which is an axe).
+You can go south or north.
+> s
+
+> s
+You are close to an icy peak in a range of mountains.  It is cold here and the air is thin, but it is still breathable.  Other peaks dot the southern horizon.
+
+You can go north, east or south.
+> s
+
+> s
+You are on a snowy trail in a lower part of the mountainous peaks that surround you.
+
+You can go north or southwest.
+> sw
+
+> sw
+You hear a ping from the teleporter, telling you that "F: Outside a Cave" has been saved as a return address.
+
+You are standing outside a dark cave which appears to head deep underground.  The ground slopes uphill to the northeast which is the only other pathway.
+
+You can go northeast or down.
+> down
+
+> down
+You are in an underground cave system in some natural tunnels in the rock.  There is light from the entrance above you.
+
+You can go southwest or up.
+> light candlestick
+
+> light candlestick
+You use the matches to light the candle.
+> sw
+
+> sw
+You are in a Rocky Cavern in the midst of a cave system.
+
+You can go northeast or south.
+> s
+
+> s
+You are in a wide cave by a giant stalagmite where the Incredible Sulk makes his home.
+
+You can also see the Sulk.
+You can go north or southeast.
+
+"Hey you, get off of my cloud," warns Brick.
+> se
+
+> se
+You are in a large underground cavern.
+
+You can go northwest, north or west.
+> w
+
+> w
+You are standing in Paxo's Lounge.
+
+You can also see Jeremy Paxo (holding a secret stuffing recipe).
+You can go east.
+> give library book to jeremy paxo
+
+> give library book to jeremy paxo
+You hand Paxo the book and he snatches it from you and begins reading immediately.
+
+"You can't always get what you want," philosophises Brick.
+> take stuffing recipe
+
+> take stuffing recipe
+Paxo doesn't notice you take the recipe as he is fully committed to his book.  He begins mumbling, "...and how hot should the poker be...?"
+> e
+
+> e
+You are in a large underground cavern.
+
+You can go northwest, north or west.
+> n
+
+> n
+You are in a narrow passageway which ends abrupty.
+
+Ahead is a solid wall of rock.
+You can go south or north.
+
+The candle light catches the jar in your hand and refracts through it, focusing on a point of wall. Looking more closely at it, you can see that it isn't just a blemish in the rock, but a hidden switch.
+> x wall of rock
+
+> x wall of rock
+With the help of the jar, you see a hidden switch on the rock face.
+> press hidden switch
+
+> press hidden switch
+You press the switch and the rock face swivels open.  You step forward into another room.
+
+You are in a secret nuclear bunker set up for times of international emergency.  There is a large computer console here which seems to control some kind of weaponry.
+
+You decide you will probably want to return here and so add it to your teleporter list, giving it the location name "X" to make it memorable.
+
+In your excitement at finding the secret bunker, you drop the jar and smash it. Luckily, you can return at any time with the teleporter.
+
+You can see a computer console and a DEFCON notice.
+You can go south.
+> s
+
+> s
+You are in a narrow passageway which ends abrupty.
+
+Ahead is a solid wall of rock (on which there is a hidden switch).
+You can go south or north.
+> s
+
+> s
+You are in a large underground cavern.
+
+You can go northwest, north or west.
+
+"Hey you, get off of my cloud," warns Brick.
+> nw
+
+> nw
+You are in a wide cave by a giant stalagmite where the Incredible Sulk makes his home.
+
+You can also see the Sulk.
+You can go north or southeast.
+> use canister of laughing gas on sulk
+
+> use canister of laughing gas on sulk
+You open up the valve on the top of the cylinder and the laughing gas comes out.  The rather miserable creature, starts to chuckle which soon becomes a full blown roar of laughter.  You both continue until the cylinder is empty.
+
+"Thank you for bringing laughter back.  I'm not going to sulk in here.  I'm going outside for a while and it may be some time."  With that, he leaves the room.
+> n
+
+> n
+You are in a Rocky Cavern in the midst of a cave system.
+
+You can go northeast or south.
+> ne
+
+> ne
+You are in an underground cave system in some natural tunnels in the rock.  There is light from the entrance above you.
+
+You can go southwest or up.
+> up
+
+> up
+Teleport Stop F (Outside a Cave)
+
+You are standing outside a dark cave which appears to head deep underground.  The ground slopes uphill to the northeast which is the only other pathway.
+
+You can go northeast or down.
+> ne
+
+> ne
+You are on a snowy trail in a lower part of the mountainous peaks that surround you.
+
+You can go north or southwest.
+> n
+
+> n
+You are close to an icy peak in a range of mountains.  It is cold here and the air is thin, but it is still breathable.  Other peaks dot the southern horizon.
+
+You can go north, east or south.
+> n
+
+> n
+You are on a trail high up in the mountains.  Rocks covered in snow line the path.
+
+You can also see a large boulder (beneath which is an axe) and the Sulk.
+You can go south or north.
+> tell sulk about boulder
+
+> tell sulk about boulder
+You tell the Incredible Sulk about the boulder and the axe trapped underneath it and he smiles and just rolls the boulder out of the way for you.
+
+As you pick it up, the Sulk skips off to roll in the snow.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Patrick McGoogle (holding a dictionary and some secret papers) and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> in
+
+> in
+The shop was, probably once, a useful grocery shop, but it is run down now with a severe lack of stock.  As if by magic, the Shopkeeper appears!
+
+You can see the Shopkeeper, a loaf of bread and a toilet roll.
+You can go out.
+
+"You can't always get what you want," philosophises Brick.
+> take loaf of bread
+
+> take loaf of bread
+You hand over $1 and the Shopkeeper exchanges it for the loaf of bread.
+> out
+
+> out
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> port g
+
+> port g
+Teleport Stop G (Outside an Icy Factory)
+
+You are standing outside an Icy Factory in the middle of a snowy landscape.  The entrance to the building is to the southeast.
+
+You can go southeast, southwest or north.
+> port g
+
+> port g
+The teleporter display says "You are Already There."
+> sw
+
+> sw
+You are on a snowy slope high in the mountains.
+
+You can go northeast or west.
+> w
+
+> w
+You are in an ice track amidst a large mountain range.  To the south, the path descends into an open valley.
+
+You can go east or south.
+> s
+
+> s
+You are on a trail in a green and pleasant valley, with mountains towering to the north.  It looks a bit like Wales except for the volcano to the east.
+
+You can go north, east, northwest or southeast.
+> nw
+
+> nw
+Using the map you navigate through dense undergrowth.
+
+This is the secret land of the little people.
+
+You can go southeast or south.
+
+"You can't always get what you want," philosophises Brick.
+> s
+
+> s
+You are in Little Chef's Kitchen in the Land of the Little People.
+
+You can see Little Chef.
+You can go north, west or southwest.
+> give stuffing recipe to little chef
+
+> give stuffing recipe to little chef
+You hand him the stuffing recipe and he studies it.
+
+"Yes I should be able to make this, but you will have to provide me with some of the ingredients.  First I shall need an onion."
+> give onion to little chef
+
+> give onion to little chef
+You hand over the onion to the chef.
+
+"Thank you," he replies.  "I'm going to need an egg next."
+> give egg to little chef
+
+> give egg to little chef
+You hand the chef the egg.
+
+"Good, good,"  he smiles.  "I will need some bread next, to make into breadcrumbs."
+> give loaf of bread to little chef
+
+> give loaf of bread to little chef
+"Thank you...  Just need some herbs now,"  he grins.
+
+"You can't always get what you want," philosophises Brick.
+> give herbs to little chef
+
+> give herbs to little chef
+You hand over the herbs and the Little Chef does his thing.  Mixing them together with his other ingredients.  Finally complete, he hands you the stuffing.
+
+"Thanks," you say.
+
+"No problem.  But I think I will go and have a rest now.  I hope I have been some help."
+
+He nods at you and makes his leave.
+
+"I can't get no satisfaction," bemoans Brick.
+> n
+
+> n
+This is the secret land of the little people.
+
+You can go southeast or south.
+> se
+
+> se
+You are on a trail in a green and pleasant valley, with mountains towering to the north.  It looks a bit like Wales except for the volcano to the east.
+
+You can go north, east, northwest or southeast.
+> se
+
+> se
+You are standing by a pool with rich vegetation around the edge. It feels familiar.
+
+You can see a pool.
+You can go in or northwest.
+> in
+
+> in
+You break the surface and enter the vortex. Your journey is lengthy but you emerge eventually.
+
+You are inside what seems to be a research laboratory, with chemicals piled high around the room.
+
+You can also see Professor Glum, a tube of glue and a pool.
+You can go in.
+> give explosive formula to professor glum
+
+> give explosive formula to professor glum
+You give the formula to Professor Glum and he carefully follows the instructions.  You watch as he mixes the chemicals with the spatula in his right hand.   After only a few minutes, he hands you the result of his hard work - a flask of nitroglycerine!!!
+> in
+
+> in
+You break the surface and enter the vortex. Your journey is lengthy but you emerge eventually.
+
+You are standing by a pool with rich vegetation around the edge. It feels familiar.
+
+You can see a pool.
+You can go in or northwest.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Patrick McGoogle (holding a dictionary and some secret papers) and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> n
+
+> n
+You are on the outskirts of a small village.  The road south leads into the heart of the village, whilst the way north heads out into the countryside.  A large building to the east has a pair of open double doors.
+
+You can also see a welcome mat and a hanging sign.
+You can go north, east or south.
+> n
+
+> n
+You are on a tarmac road which carves its way from north to south over a featureless piece of countryside.
+
+You can go north or south.
+> n
+
+> n
+You are standing at the point where a rough track joins up with a main road running north-south.
+
+You can go west, north or south.
+
+"Hey you, get off of my cloud," warns Brick.
+> n
+
+> n
+You are outside Fort Knots. Its gates have been smashed open.
+
+You can also see a car (with a boot (containing a magazine) and a back seat).
+You can go south or north.
+> n
+
+> n
+You are in the reception room for Fort Knots.
+
+You can go east or south.
+> e
+
+> e
+You are in the security room, which guards entry to the Fort Knots central vault.
+
+You can also see Coldfinger.
+You can go west or south.
+> use glove on coldfinger
+
+> use glove on coldfinger
+As Coldfinger advances towards you, hand outstretched from his freezing touch, you quickly put the glove over his hand and watch it freeze onto it.  He is in agony.
+
+He wrestles with the glove for a while and then runs out of the room.
+> s
+
+> s
+You are standing outside a great vault in the heart of Fort Knots.
+
+You can also see  large vault door.
+You can go north or in.
+> use flask of nitroglycerine on large vault door
+
+> use flask of nitroglycerine on large vault door
+You throw the flask at the vault door and there is a huge explosion.  When the smoke clears you can see the door off its hinges and a way into the vault.
+> in
+
+> in
+You enter the vault slowly. You were expecting to see it filled with gold and other precious items but it is empty apart from a small box of cigars in the middle of the floor.
+
+You can see cuban cigars.
+You can go out.
+> take cuban cigars
+
+> take cuban cigars
+You pick up the box of cigars and notice a card underneath.
+
+"It's all over now," concludes Brick.
+> take white card
+
+> take white card
+You pick it up.
+
+"It's all over now," concludes Brick.
+> read white card
+
+> read white card
+"I wonder what this card says?" is written neatly on the card.
+> read white card
+
+> read white card
+"Ooo this card is reading my mind!" is written neatly on the card.
+> read white card
+
+> read white card
+"I guess this must be psychic paper. It could be very useful." is written neatly on the card. You realise that this could make anyone looking at it see whatever you want them to see. Neat!
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+
+"I can't get no satisfaction," bemoans Brick.
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> w
+
+> w
+You are standing at the bottom of a small hill, which has a well on top of it. A cobbled path leads west to a small house.  A muddy path runs east. To the south is a water meadow.
+
+You can go east, south or west.
+> s
+
+> s
+You are standing in a pretty water meadow.
+
+You can see a large sign.
+You can go north or south.
+> s
+
+> s
+You have entered what looks like a battlefield.  There are carcasses of dead animals strewn all over the place.
+
+You can see some Flying Killer Chickens.
+You can go north or southwest.
+
+The Killer Chickens back away from you - scared of the stuffing you are carrying.
+> sw
+
+> sw
+You are in a Top Secret Military Base beyond the land of the Killer Chickens. There is a single building to the east. You can see a security camera on the side of the building.
+
+You can go east or northeast.
+> e
+
+> e
+You are in the office of Colonel Custard, the commanding officer of the base.  It is exceptionally tidy.
+
+You can see Colonel Custard and the only furniture in the room, a desk.
+You can go west.
+
+You see his nose start to twitch and Colonel Custard turns away from you in politeness and sneezes into a silk handkerchief.
+> x colonel custard
+
+> x colonel custard
+Colonel Custard is the commanding officer of the Miltary Base.
+ Standing bolt upright, he is just about of average height.
+ He has a neatly clipped moustache, and is very smart.
+
+"It's all over now," concludes Brick.
+> ask colonel custard about scissors
+
+> ask colonel custard about scissors
+"Those are left-handed scissors, as regular scissors are so awkward for me," he replies.
+> use psychic paper on colonel custard
+
+> use psychic paper on colonel custard
+Colonel Custard stares at the psychic paper and seems impressed. "Well there is no arguing with that," he says.
+
+"So you want to know who has been seen going into the mountains between the death of Dr Black and the discovery of the evidence in the mountains," he confirms.
+
+You both sit down to look through the recordings for that period.
+
+There seems to have been quite a bit of activity, with the Reverend Keen, Mrs Seadock and Professor Glum all being in the area. Rather embarrassingly, Colonel Custard is also there.
+
+> x desk
+
+> x desk
+It's a solid desk, and like everything else in the room is painted in camouflage.
+On the desk is a pile of paperclips, a pair of scissors and a camera monitor.
+
+"It's all over now," concludes Brick.
+> take pile of paperclips
+
+> take pile of paperclips
+You spot a paperclip on the floor and slip it in your pocket to avoid messing up the collection on the desk.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+"You can't always get what you want," philosophises Brick.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+"I can't get no satisfaction," bemoans Brick.
+> wait
+
+> wait
+Time passes.
+> w
+
+> w
+You are in a Top Secret Military Base beyond the land of the Killer Chickens. There is a single building to the east. You can see a security camera on the side of the building.
+
+You can go east or northeast.
+> ne
+
+> ne
+You have entered what looks like a battlefield.  There are carcasses of dead animals strewn all over the place.
+
+You can see some Flying Killer Chickens.
+You can go north or southwest.
+
+The Killer Chickens back away from you - scared of the stuffing you are carrying.
+> n
+
+> n
+You are standing in a pretty water meadow.
+
+You can see a large sign.
+You can go north or south.
+> n
+
+> n
+You are standing at the bottom of a small hill, which has a well on top of it. A cobbled path leads west to a small house.  A muddy path runs east. To the south is a water meadow.
+
+You can go east, south or west.
+
+"Hey you, get off of my cloud," warns Brick.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Patrick McGoogle (holding a dictionary and some secret papers) and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> s
+
+> s
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> s
+
+> s
+You are standing in an empty surgery, with both the Doctor and patients absent.
+
+You can also see a first aid cupboard and a filing cabinet.
+You can go north.
+
+"It's all over now," concludes Brick.
+> use paperclip on filing cabinet
+
+> use paperclip on filing cabinet
+You push the paper clip into the lock of the filing cabinet and twist it about for a while. Surprisingly, this is enough to release the lock, though the paperclip breaks in the process.
+
+Inside you find a confidential file for Professor Glum, which you remove.
+
+"You can't always get what you want," philosophises Brick.
+> x confidential file
+
+> x confidential file
+On reading the contents of the file, you can see Professor Glum had a medical yesterday, and was given a clean bill of health.
+> n
+
+> n
+The road from here heads north, into the village and east, out of the village.  To the southwest is a farm, and due south is a Doctor's surgery.
+
+You can go north, south, east or southwest.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> nw
+
+> nw
+You are on a sunny path taking you to the northwest.
+
+You can go southeast or west.
+> w
+
+> w
+You are standing outside a small cottage.
+
+You can go east or in.
+> in
+
+> in
+You are in David Camwrong's cottage. A path at the back of the cottage leads west, into the countryside.
+
+You can see an old wooden chest.
+You can go out or west.
+> w
+
+> w
+You are at the edge of the village on a path that leads west into the countryside. To the north is a large manor house, clearly belonging to someone important.
+
+You can go north, east or west.
+> w
+
+> w
+You are in the countryside.  The path continues south. The ground to the west is marshy. There is forest to the southeast.
+
+You can also see a wooden sign.
+You can go south, southeast, west or east.
+
+"It's all over now," concludes Brick.
+> w
+
+> w
+You are in some strange swampy ground which sinks a little beneath you.
+
+You can go south, east or north.
+
+"It's all over now," concludes Brick.
+> n
+
+> n
+You are deep in the swamp.  This whole environment is strange to you.  You can smell mercury in the air and the surface of the swamp is licked with flames to the north.
+
+You can go south or north.
+> n
+
+> n
+You are standing in a flaming area of the swamp, which has pools of mercury giving off some kind of toxic vapour.
+
+You can also see pools of mercury.
+You can go south.
+
+You put on the gas mask to protect yourself from the fumes.
+
+Protected by the gas mask and flameproof jumpsuit, you can move around freely.
+> fill fluid link
+
+> fill fluid link
+You fill the fluid link with mercury.
+
+"Paint it black," recommends Brick.
+> s
+
+> s
+As you leave the mercury swamp, you remove the gas mask. Unfortunately, you then drop it in the mire, where it disappears, never to be found again.
+
+You are deep in the swamp.  This whole environment is strange to you.  You can smell mercury in the air and the surface of the swamp is licked with flames to the north.
+
+You can go south or north.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+
+"You can't always get what you want," philosophises Brick.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> in
+
+> in
+As you go to enter the BARDIS, you feel almost too hot to continue, so decide to cool down by tearing yourself out of the white flameproof jumpsuit.
+
+You are sitting in the cramped cockpit of the BARDIS.
+
+You can see a control console (attached to which is a handle).
+You can go out.
+> use fluid link on control console
+
+> use fluid link on control console
+You slide the fluid link back into place in the console.
+> out
+
+> out
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> s
+
+> s
+You are standing in an overgrown graveyard.  There are many gravestones here and there is a small medieval church to the west and a house to the east.
+
+You can go north, west or east.
+> e
+
+> e
+You are in Michael Jockson's house.   To the south is a private bowling alley.  Outside, to the west, is the graveyard.
+
+You can see a blanket and a pile of broken glass.
+You can go south or west.
+> use thesaurus on blanket
+
+> use thesaurus on blanket
+The angora blanket disintegrates before your eyes and turn into snowflakes, that float down towards you.  Moments later, there is a blanket of snow at your feet.
+> use thesaurus on blanket
+
+> use thesaurus on blanket
+You watch the power of the thesaurus transform the snow back into an angora blanket, which you pick up.
+
+"You can't always get what you want," philosophises Brick.
+> port d
+
+> port d
+Teleport Stop D (Outside Brewery)
+
+You are standing outside a small but impressive looking brewery which lies to the west.  The majority of the village lies to the east.  A road to the south leads into the foothills and up towards the mountains.  To the north is a military building but there is no access from this side. There is a camera on the side of the building.
+
+You can go east, south or west.
+> port d
+
+> port d
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing in low foothills which lead south into the mountains.
+
+You can go north or south.
+> s
+
+> s
+You are on a trail high up in the mountains.  Rocks covered in snow line the path.
+
+You can also see a large boulder.
+You can go south or north.
+> s
+
+> s
+You are close to an icy peak in a range of mountains.  It is cold here and the air is thin, but it is still breathable.  Other peaks dot the southern horizon.
+
+You can go north, east or south.
+> e
+
+> e
+You are in an icy crevasse with steep unclimbable sides to the north and south.
+
+You can go west or east.
+
+"We're on the road to nowhere," mumbles Brick, the talking head.
+> e
+
+> e
+You are in an icy land.  The vista is spectacular, with a mountain laden with snow towering above you.  As you gaze to the northeast, you can see a building of some kind.
+
+You can go northeast, west or south.
+> ne
+
+> ne
+You are standing in the snow outside a shack made of corrugated metal.  Everything here is eerily quiet.
+
+You can go east or southwest.
+
+"We're on the road to nowhere," mumbles Brick, the talking head.
+> e
+
+> e
+You are in the rough shack. There is a ramshackle bed here, occupied by Mrs Bright.
+
+You can see Mrs Bright.
+You can go west.
+> give blanket to mrs bright
+
+> give blanket to mrs bright
+You drape it over Mrs Bright, hoping to warm her up.
+
+As you tuck in the blanket you notice that her left leg is in a plaster cast, which has been on for some time.  She can't possibly be the person who ran out of Doctor Black's study after killing him.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> s
+
+> s
+You are standing on a muddy track which runs east to west. There is a green hill to the north.
+
+You can go north, west or east.
+
+"I can't get no satisfaction," bemoans Brick.
+> w
+
+> w
+You are standing by a walled graveyard which sits next to the track.  There is a wooden gate which allows entry to the south.
+
+You can go east, west or south.
+> s
+
+> s
+You are standing in an overgrown graveyard.  There are many gravestones here and there is a small medieval church to the west and a house to the east.
+
+You can go north, west or east.
+
+"Hey you, get off of my cloud," warns Brick.
+> w
+
+> w
+You are inside the church.
+
+You can see Reverend Keen.
+You can go east.
+> wait
+
+> wait
+Time passes.
+
+"Hey you, get off of my cloud," warns Brick.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+Reverend Keen lets out a sneeze that shakes the very church's foundations.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+"Paint it black," recommends Brick.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+"You can't always get what you want," philosophises Brick.
+> read notebook
+
+> read notebook
+Investigation Notes: Dr Black Murder
+Mrs Bright
+-- lives in the mountains; average height; has a cold; right-handed; leg broken before murder;
+Colonel Custard
+-- has a cold; small to average height; left-handed; seen in the mountains;
+Professor Glum
+-- 5'10" tall; right-handed; seen in the mountains; full health (no cold);
+Miss Harlott
+-- has a cold; average height; right-handed; not seen in the mountains;
+Reverend Keen
+-- above average height; right-handed; seen in the mountains; has a cold;
+Mrs Seadock
+-- average height; has a cold; right-handed; seen in the mountains;
+Doctor Woo
+-- no alibi (can be anywhere at any time); average height; ambidextrous; cold free;
+Murderer
+-- average height (5'8" to 5'10"); has a cold; was in the mountains; right-handed;
+
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Patrick McGoogle (holding a dictionary and some secret papers) and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can go west, south, north or east.
+> s
+
+> s
+Realising it could be a problem, you set down the candlestick before entering the Police Station.
+
+You are standing inside the Police Station which services the village.  There is a glass screen which separates the public from the officers.
+
+You can also see Kojak, a wastebin, a poster on the wall and a counter (on which there is a notice).
+You can go north.
+
+Kojak sees you with the bell and snatches it from you, returning it to the counter.
+
+"You know you can't bring that in here!" snaps Kojak. You have no choice but to leave Brick Jagger outside.
+
+You look through the contents of the notebook with Kojak.
+
+After studying the details, Kojak says "We now seem to have enough evidence."
+So who is the murderer?
+ - Mrs Seadock
+
+"I think you have nailed it Woo! You can have the reward just as soon as we make the arrest."
+
+Level 6: The Finale
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> port x
+
+> port x
+Kojak holds one side of the teleport device and you travel together.
+
+Teleport Stop X: Secret Nuclear Bunker
+
+You are in a secret nuclear bunker set up for times of international emergency.  There is a large computer console here which seems to control some kind of weaponry.
+As you materialise, you crash into Mrs Seadock, whose hand was hovering over the red button on the computer console.
+
+You can see a computer console, a DEFCON notice, Kojak and Mrs Seadock.
+You can go south.
+> port x
+
+> port x
+The teleporter display says "You are Already There."
+> speak to mrs seadock
+
+> speak to mrs seadock
+You think that Mrs Seadock has been knocked unconscious but when you get close she jumps up and disappears through a secret door. You follow her with Kojak...
+
+...after a few minutes of frantic running, you emerge in Little Italy to find Mrs Seadock held in one of tiny Tom's famous wrestling holds. Kojak arrests her immediately.
+
+You can also see Tom Crews (wearing sunglasses), Mrs Seadock and Kojak.
+You can go east.
+> speak to kojak
+
+> speak to kojak
+"Well done everyone," says Kojak. "I've checked with Tom, who has checked with his spiritual adviser, and it looks as if the full reward is going to you Woo." He hands you $100.
+
+"We will be sweeping the area for the murder weapon," continues Kojak. "It should turn up soon."
+
+He also finally realises that you have his notebook, so you hand it back.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> speak to mrs seadock
+
+> speak to mrs seadock
+You ask Mrs Seadock for an explanation and immediately regret it. She takes a deep breath and launches into a long philosophical diatribe about what is wrong with this planet and how oblivion was the only solution. After a few minutes, and noticing Kojak glancing at his watch, you break in with "Thank you, that is all we need to know."
+
+With that, Kojak walks Mrs Seadock off to the station, and you take a moment to enjoy your success.
+> port x
+
+> port x
+Teleport Stop X: Secret Nuclear Bunker
+
+You are in a secret nuclear bunker set up for times of international emergency.  There is a large computer console here which seems to control some kind of weaponry.
+
+You can see a computer console and a DEFCON notice.
+You can go south.
+> port x
+
+> port x
+The teleporter display says "You are Already There."
+> x computer console
+
+> x computer console
+A computer console which controls some kind of weaponry.
+On it you can see a large red button, a small black button and a monitor screen.
+> press small black button
+
+> press small black button
+You press the small black button. The transparent cover slides back over the large red button, and the flashing lights on the console slow down. It's over!
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> port c
+
+> port c
+Teleport Stop C (Village Square)
+
+You are in the village square, in the centre of which is a small park.  Roads lead off to the north, south, east and west.
+
+You can also see a flowerbed, Patrick McGoogle (holding a dictionary and some secret papers) and his pennyfarthing parked beside him (on which there is a bicycle pump).
+You can go north, east, south or west.
+> port c
+
+> port c
+The teleporter display says "You are Already There."
+> w
+
+> w
+You are at the east end of a street in the village running from east to west.  To the south you can see the Police Station and, to the north, a hairdressing salon.
+
+You can also see Brick Jagger.
+You can go west, south, north or east.
+> w
+
+> w
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> in
+
+> in
+The shop was, probably once, a useful grocery shop, but it is run down now with a severe lack of stock.  As if by magic, the Shopkeeper appears!
+
+You can see the Shopkeeper and a toilet roll.
+You can go out.
+> take toilet roll
+
+> take toilet roll
+You hand over $100 and the Shopkeeper exchanges it for the toilet roll.
+> out
+
+> out
+You are in a narrow street in the village which runs east-west.  There is a small shop to the north.
+
+You can also see Michael McIntosh.
+You can go east, in or west.
+> port b
+
+> port b
+Teleport Stop B (Jack's Garden)
+
+You are in Jack's garden, to the east of his house.
+
+You can see a freshly dug garden and a giant beanstalk.
+You can go in or up.
+> port b
+
+> port b
+The teleporter display says "You are Already There."
+> chop beanstalk
+
+> chop beanstalk
+You throw yourself wildly into chopping down the beanstalk with the axe. With your final blow, the axe shatters, and the beanstalk falls with a large thud onto the ground.
+> port a
+
+> port a
+Teleport Stop A (Green Hill)
+
+You are standing on a green hill overlooking a village. Your BARDIS is parked rather incongruously next to a small group of trees. A muddy track leads south, and a narrow trail goes northwest
+.
+
+You can see the BARDIS and reporters.
+You can go south, northwest or in.
+> port a
+
+> port a
+The teleporter display says "You are Already There."
+> tell reporters about doctor black
+
+> tell reporters about doctor black
+They scribble busily as you talk.
+
+The reporters rush off to write up the story, but this time are not replaced.
+
+You hear a ping from the newspaper suggesting something new has just arrived.
+> in
+
+> in
+On entry, you are surprised to find a party invitation sitting on the console and read it immediately.
+
+It says:
+Hambo's Hoorah
+Starting Now
+Entry Strictly by Invitation
+
+You are sitting in the cramped cockpit of the BARDIS.
+
+You can see a control console (attached to which is a handle and a fluid link (containing mercury)) and a party invitation.
+You can go out.
+
+A melancholy voice whispers from the control speakers of the BARDIS:  "To be, or not to be, that is the question."
+> pull handle
+
+> pull handle
+You reach for the handle but then remember that you are out of essential supplies. There is no toilet paper left!
+> take cardboard tube
+
+> take cardboard tube
+You take out the cardboard tube and throw it away.
+> use toilet roll on control console
+
+> use toilet roll on control console
+You put the toilet roll into place.
+> pull handle
+
+> pull handle
+You pull the handle, the familiar flushing sound engages, and your craft takes off to ride though the vortex.
+
+CONGRATULATIONS! You have completed this adventure!
+
+THE END
+
+Pull the handle a second time to finish completely. You can look around beforehand, especially at the list of tasks completed.
+> tasks
+
+> tasks
+To Do
+Goal: Escape from this surreal planet.
+For fluid link: restore fluid link filled with mercury.
+
+Completed (71)
+✔ For Vidal Monsoon: find a way to cool him down.
+✔ For group of youths: clear rubbish.
+✔ For Norman Ramsey: find saffron for him.
+✔ For Sherlock Bones: find his cane.
+✔ For jar (open): find a way to open it.
+✔ For Jack: help him recover.
+✔ For Rob Geldof: deal with his bleeding finger.
+✔ For Rob Geldof: find bait for rat trap.
+✔ For Cellar: catch the rat.
+✔ For group of youths: feed them.
+✔ For group of youths: give them something to do.
+✔ For Dusty Den: move barrel of ale to the cellar.
+✔ For Jack: find something to offer him for his cow.
+✔ For Jack: find the cow.
+✔ For Mrs Hatch: fix her car.
+✔ For Mr McGregor: find his milk churn.
+✔ For Reverend Keen: find him some wine.
+✔ For Reverend Keen: give him something to do.
+✔ For Monty Python: get past him.
+✔ For roadworks: wait for them to clear.
+✔ For Jack's cat: find a way to take the wool.
+✔ For Donald Trumper: find him some strong hairspray.
+✔ For Vidal Monsoon: find a way to revive him.
+✔ For Mrs Giant: stop her blocking your path.
+✔ For cottage: find a way to deal with the fumes.
+✔ For Miss Sharples: give her wool to knit.
+✔ For The Fake Shaking Stevens: find him a bribe.
+✔ For Olde House: find a key to open the green door.
+✔ For Kojak: make him smile again.
+✔ For group of youths: get past them.
+✔ For David Camwrong: get him a Mad Donna photo.
+✔ For David Camwrong: get him an Insane Bolt photo.
+✔ For Insane Bolt: return photograph of Mad Donna.
+✔ For Mountain Trail: wait for it open.
+✔ For Even Job: find him a better tie.
+✔ For Even Job: find him a better job.
+✔ For Donald McRonald: recruit new employee.
+✔ For Police Station: report clothes and briefcase in the mountains.
+✔ For Bee York: find a way past her.
+✔ For Bee York: free her from the snow.
+✔ For Mrs Bright: find her something to eat.
+✔ For Mrs Whippy: get into her Office.
+✔ For Pool: find a way to break the surface.
+✔ For Gnomer Simpson: find him a fish.
+✔ For fishing line: cut it to release magnet.
+✔ For Number 66: help him recover his memory.
+✔ For Mrs Seadock: find ID to borrow a book.
+✔ For Miss Sharples: find metal needles to finish knitting.
+✔ For Cousin Itt: find a way to beat him at ten-pin bowling.
+✔ For Michael Jockson: find Ben for him.
+✔ For Sting: help him improve his dancing.
+✔ For Small Daniels: find him a knotty problem.
+✔ For Simon Bowell: find him a contract.
+✔ For Hell Viss: find him some footwear.
+✔ For Hell Viss: find him something to eat.
+✔ For Drag Ula: get past her/him.
+✔ For Jeremy Paxo: get hold of his recipe.
+✔ For Sulk: cheer him up.
+✔ For large boulder: move it to free the axe.
+✔ For Little Chef: find him a recipe.
+✔ For Little Chef: help him make stuffing.
+✔ For Professor Glum: get him to make something for you.
+✔ For Coldfinger: find a way past him.
+✔ For Flying Killer Chickens: find protection from them.
+✔ For filing cabinet: find a way to pick the lock.
+✔ For Mercury Swamp: find protection to enter.
+✔ For Mrs Bright: find something to keep her warm.
+✔ For Doctor Black: find his killer or killers.
+✔ For reporters: stop them blocking your entry to the BARDIS.
+✔ For aluminium holder: find toilet paper.
+✔ For BARDIS: fix it and escape this planet.
+> pull handle
+
+> pull handle
+You pull the handle, the familiar flushing sound engages, and your craft takes off to ride though the vortex.
+
+This really is the end...
+[state=Finished]
