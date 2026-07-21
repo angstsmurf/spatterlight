@@ -62,7 +62,92 @@ struct a5_walk_rt {
   std::vector<char> came_across;  /* per-sub-walk ComesAcross prev-same-loc   */
 };
 
-struct resp_map;   /* per-top-level-command response collector (htblResponses) */
+/* ---------------------------------------- per-command response aggregation
+   The collector types live here because a5run_action.cpp and a5run_resp.cpp
+   both need them: the action layer builds and inspects entries while the
+   resp layer merges and flushes them.  a5_run_s below holds a resp_map *. */
+
+/* ----------------------------------------- per-command response aggregation */
+
+/* The Adrift 5 runner's clsUserSession collects every task completion / restriction-
+   fail message of a single top-level command into two ordered, message-keyed
+   maps (htblResponsesPass / htblResponsesFail) and flushes them once at the end
+   (AttemptToExecuteTask, clsUserSession.vb:782-863).  Two behaviours fall out:
+
+     * a plural %objects% reference is run one item at a time (ExecuteSubTasks,
+       vb:695), so each item independently selects its Specific overrides; and
+     * identical messages dedup, while an AggregateOutput task's raw template is
+       the key so two items through the same task collapse to one entry whose
+       %objects% list grows (AddResponse, vb:1295) -- e.g. "the tiara and the
+       shoes".  A pass for an item drops that item's earlier fail message.
+
+   Scarier mirrors this only on the plural path (run_general); the single-
+   reference path keeps writing straight to `out`. */
+/* Snapshot of the per-turn reference bindings, captured when a deferred
+   (AggregateOutput) message is queued and restored before it is re-rendered at
+   flush.  The Adrift 5 runner stores the message's NewReferences alongside it and
+   reassigns them at Display (clsUserSession.vb:851-854), so the deferred
+   "%object%.Description"/"(to %character%)"/"%direction%" tokens resolve against
+   the entity the command referenced -- not whatever the binding table holds by
+   the end of the command. */
+struct ref_snap {
+  char ref_name[16][32];
+  char ref_value[16][A5_REFVAL_LEN];
+  int  n_refbind;
+  int  ref_object1_plural;
+  int  ref_character1_plural;
+};
+
+/* ref_snap mirrors a5_state_t's binding table, and ref_snap_take/restore memcpy
+   with the DESTINATION size -- so widening either dimension in a5state.h would
+   silently truncate every deferred message's restored references (or overread)
+   rather than fail to build.  Keep the two in lockstep here. */
+static_assert (sizeof (ref_snap::ref_name) == sizeof (a5_state_t::ref_name),
+               "ref_snap::ref_name must mirror a5_state_t::ref_name exactly");
+static_assert (sizeof (ref_snap::ref_value) == sizeof (a5_state_t::ref_value),
+               "ref_snap::ref_value must mirror a5_state_t::ref_value exactly");
+
+struct resp_entry {
+  bool is_pass;
+  bool aggregate;                 /* key is comp ptr; render deferred to flush  */
+  bool is_look;                   /* deferred room view: render_look_string()   */
+  bool has_snap;                  /* snap holds the refs to restore at flush    */
+  const a5_xml_node_t *comp;      /* aggregate: re-rendered at flush            */
+  const a5_xml_node_t *fail_comp; /* fail: the restriction <Message> node       */
+  std::string rendered;           /* non-aggregate / fail: final text           */
+  std::vector<std::string> obj_keys;  /* merged %objects% items (aggregate)     */
+  std::string obj2;               /* %object2% snapshot (first occurrence)      */
+  std::string item;               /* the single item this entry was made for    */
+  ref_snap snap;
+  resp_entry () : is_pass (false), aggregate (false), is_look (false),
+                  has_snap (false), comp (NULL), fail_comp (NULL) {}
+};
+
+/* Capture / restore the live reference-binding table (a5state_bind_ref store +
+   the plural-derived flags), so a deferred message renders with the references
+   the command had when it produced the message. */
+
+struct resp_map {
+  std::vector<resp_entry> ents;
+  std::string cur_item;           /* item currently being iterated              */
+  size_t nmut = 0;                /* count of real adds AND aggregate merges     */
+};
+
+/* Runaway guard for `SetTasks Execute` chains (a5run_action.cpp act_set_tasks).
+   The runner's ExecuteTask is a full re-entrant AttemptToExecuteTask, so a task
+   whose actions Execute a second task that Executes the first recurses forever
+   when both are Repeatable (the Completed gate that stops the non-repeatable
+   case never trips).  a5run_action's other recursion limits cannot catch this:
+   its `depth` counter is deliberately RESET at each Execute -- the sub-task is a
+   fresh AttemptToExecuteTask, and its own override nesting starts at 0 -- so the
+   Execute chain needs a counter of its own.  The deepest real nesting measured
+   over the 116-game walkthrough corpus is 7 (The Royal Puzzle; 45 games peak at
+   2, none of the rest above 4), so decline the re-dispatch an order of magnitude
+   above that rather than overflow the C stack -- a synthetic pair of mutually
+   Executing Repeatable tasks used to SIGSEGV here.  (What the real runner does
+   on such data is untested; .NET would recurse too, but nothing in the corpus
+   exercises it, so this bound is a crash guard, not a fidelity claim.) */
+#define A5_MAX_EXEC_DEPTH 64
 
 struct a5_run_s {
   const a5_adventure_t *adv;
@@ -152,6 +237,11 @@ struct a5_run_s {
      ExecuteSingleAction's `task` param), or -1.  Used to gate the Score variable
      so a task can only modify Score once (clsTask.Scored, vb:2144). */
   int    cur_score_ti;
+
+  /* Nesting depth of the `SetTasks Execute` chain currently running, bounded by
+     A5_MAX_EXEC_DEPTH (see above).  Bumped by act_set_tasks around each
+     re-dispatch; 0 outside one. */
+  int    exec_depth = 0;
 
   /* When the Look dance's two test renders differ (a random pick in the room
      view moved between them -- clsUserSession.vb:1200), the runner pins the response to
@@ -261,6 +351,13 @@ struct a5_run_s {
   std::string last_turn_text;
   std::vector<std::string> undo_turn_text;
 };
+
+/* a5run_sort.cpp: the .NET introspective sort (clsTask.Children /
+   TaskPrioritySortComparer).  Sorts task INDICES into adv->tasks by Priority,
+   reproducing .NET's unstable introsort exactly -- equal-priority overrides must
+   land where the runner leaves them, not where a stable sort would. */
+extern void net_introspective_sort (const a5_adventure_t *adv,
+                                    std::vector<int> &keys);
 
 /* One SetTasks-Execute response scope (see exec_scope above). */
 struct exec_resp_scope {
@@ -373,7 +470,38 @@ void run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
 void update_seen (a5_state_t *st);
 void mark_player_arrival_seen (a5_state_t *st, const char *loc);
 int  conv_contains_word (const std::string &sentence, const std::string &check);
+void run_action (a5_run_t *run, const char *kind, const char *body, int depth,
+                 sb_t *out);
+
+/* a5run_conv.cpp (clsUserSession FindConversationNode / ExecuteConversation).
+   Conversation type bits are clsAction.ConversationEnum; exec_conversation takes
+   them OR-ed (the Command path also probes Command|Farewell).  Topic actions run
+   back through run_action above, mirroring the runner's ExecuteConversation ->
+   ExecuteActions. */
+enum { A5_CONV_GREET = 1, A5_CONV_ASK = 2, A5_CONV_TELL = 4,
+       A5_CONV_COMMAND = 8, A5_CONV_FAREWELL = 16 };
+void exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
+                        const char *subject, sb_t *out);
+void clear_conv_if_partner_gone (a5_run_t *run, sb_t *out);
 void exec_scope_flush (a5_run_t *run, struct exec_resp_scope *sc, sb_t *out);
+
+/* a5run_resp.cpp (clsUserSession htblResponsesPass/Fail).  `pos` is the slot a
+   "Before" message reserved ahead of its actions (iResponsePosition); -1 appends.
+   sink_len is the "did this frame produce output" probe -- the response-mutation
+   count when a map is active (an aggregate MERGE is output too, though it adds no
+   entry), else the byte length of `out`. */
+void   ref_snap_take (a5_state_t *st, ref_snap *s);
+void   ref_snap_restore (a5_state_t *st, const ref_snap *s);
+size_t sink_len (a5_run_t *run, sb_t *out);
+char  *render_comp_test (a5_state_t *st, const a5_xml_node_t *comp);
+int    comp_bears_function (const a5_xml_node_t *n);
+void   resp_insert (resp_map *rm, resp_entry &e, int pos);
+void   resp_add_comp (a5_run_t *run, const a5_task_t *t,
+                      const a5_xml_node_t *comp, bool is_pass, int pos = -1);
+void   resp_add_text (a5_run_t *run, const char *text, bool is_pass,
+                      int pos = -1);
+void   resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm);
+void   resp_flush (a5_run_t *run, resp_map *rm, sb_t *out);
 std::string render_look_marked (a5_run_t *run);
 
 #endif

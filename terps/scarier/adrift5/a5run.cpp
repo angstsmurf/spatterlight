@@ -2858,15 +2858,24 @@ save_fd_game (sb_t *b, a5_run_t *run)
      In grp.arlMembers`, and that order is load-bearing: RandomKey picks a
      member BY INDEX from the live list, so a save that reorders members (e.g.
      into model-candidate order) changes which world a random
-     MoveCharacter-ToLocationGroup jump lands on after a restore (Skybreak). */
+     MoveCharacter-ToLocationGroup jump lands on after a restore (Skybreak).
+
+     Filter the live list ONCE per group rather than calling group_count +
+     group_member_at(j): both of those rescan the whole gm array (a strcmp per
+     entry) to answer one question, so the pair cost (n_groups + n_gm) x n_gm
+     strcmps -- quadratic in total membership, on a save that runs every turn to
+     feed the undo stack.  Walking gm directly emits exactly the same members in
+     exactly the same order (both are gm-order filters on the group key), so the
+     serialised bytes are unchanged; it just drops the rescans. */
   for (i = 0; i < adv->n_groups; i++)
     {
       const a5_group_t *g = &adv->groups[i];
-      int j, nlive = a5state_group_count (st, g->key);
+      int j;
       sb_puts (b, "<Group>\n");
       sb_elem (b, "Key", g->key);
-      for (j = 0; j < nlive; j++)
-        sb_elem (b, "Member", a5state_group_member_at (st, g->key, j));
+      for (j = 0; j < st->n_gm; j++)
+        if (streq (st->gm[j].grp, g->key))
+          sb_elem (b, "Member", st->gm[j].key);
       sb_puts (b, "</Group>\n");
     }
 

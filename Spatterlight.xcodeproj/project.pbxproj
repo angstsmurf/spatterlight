@@ -466,6 +466,9 @@
 		A5B000000000000000000103 /* a5run_ref.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000104 /* a5run_ref.cpp */; };
 		A5B000000000000000000105 /* a5run_events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000106 /* a5run_events.cpp */; };
 		A5B000000000000000000107 /* a5run_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000108 /* a5run_action.cpp */; };
+		A5B00000000000000000010B /* a5run_sort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000010C /* a5run_sort.cpp */; };
+		A5B00000000000000000010D /* a5run_conv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000010E /* a5run_conv.cpp */; };
+		A5B00000000000000000010F /* a5run_resp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000110 /* a5run_resp.cpp */; };
 		A5FE00267FB6FD6F6A3C2AD7 /* scparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 066545D7B54AED7A90A3003E /* scparser.cpp */; };
 		A5MAP0000000000000000001 /* a5map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5MAP0000000000000000002 /* a5map.cpp */; };
 		AA11US7B09F62D0D00FA7F19 /* illustrator.c in Sources */ = {isa = PBXBuildFile; fileRef = AA11US7A09F29EE60083E64E /* illustrator.c */; };
@@ -2988,6 +2991,9 @@
 		A5B000000000000000000104 /* a5run_ref.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_ref.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000106 /* a5run_events.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_events.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000108 /* a5run_action.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_action.cpp; sourceTree = "<group>"; };
+		A5B00000000000000000010C /* a5run_sort.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_sort.cpp; sourceTree = "<group>"; };
+		A5B00000000000000000010E /* a5run_conv.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_conv.cpp; sourceTree = "<group>"; };
+		A5B000000000000000000110 /* a5run_resp.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_resp.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000109 /* a5sb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5sb.h; sourceTree = "<group>"; };
 		A5B00000000000000000010A /* a5run_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5run_internal.h; sourceTree = "<group>"; };
 		A5HDR000000000000000001 /* a5blorb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5blorb.h; sourceTree = "<group>"; };
@@ -5977,6 +5983,9 @@
 				A5B000000000000000000104 /* a5run_ref.cpp */,
 				A5B000000000000000000106 /* a5run_events.cpp */,
 				A5B000000000000000000108 /* a5run_action.cpp */,
+				A5B00000000000000000010C /* a5run_sort.cpp */,
+				A5B00000000000000000010E /* a5run_conv.cpp */,
+				A5B000000000000000000110 /* a5run_resp.cpp */,
 				A5MAP0000000000000000002 /* a5map.cpp */,
 				A5MAP0000000000000000003 /* a5map.h */,
 				A5B000000000000000000109 /* a5sb.h */,
@@ -8108,6 +8117,9 @@
 				A5B000000000000000000103 /* a5run_ref.cpp in Sources */,
 				A5B000000000000000000105 /* a5run_events.cpp in Sources */,
 				A5B000000000000000000107 /* a5run_action.cpp in Sources */,
+				A5B00000000000000000010B /* a5run_sort.cpp in Sources */,
+				A5B00000000000000000010D /* a5run_conv.cpp in Sources */,
+				A5B00000000000000000010F /* a5run_resp.cpp in Sources */,
 				08669A147249B2573251633E /* randomness.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

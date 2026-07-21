@@ -83,7 +83,7 @@ A5_TEXT_SRC := $(A5DIR)/a5blorb.cpp $(A5DIR)/a5deobf.cpp $(A5DIR)/a5xml.cpp $(A5
 A5_RUN_SRC := $(A5DIR)/a5blorb.cpp $(A5DIR)/a5deobf.cpp $(A5DIR)/a5xml.cpp $(A5DIR)/a5model.cpp \
               $(A5DIR)/a5state.cpp $(A5DIR)/a5restr.cpp $(A5DIR)/a5expr.cpp $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5text.cpp $(A5DIR)/a5parse.cpp \
               $(A5DIR)/a5rand.cpp $(A5DIR)/a5sb.cpp $(A5DIR)/a5run_ref.cpp $(A5DIR)/a5run_events.cpp \
-              $(A5DIR)/a5run_action.cpp $(A5DIR)/a5run.cpp
+              $(A5DIR)/a5run_action.cpp $(A5DIR)/a5run_sort.cpp $(A5DIR)/a5run_conv.cpp $(A5DIR)/a5run_resp.cpp $(A5DIR)/a5run.cpp
 A5_HDRS := $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h $(A5DIR)/a5model.h
 A5_TEXT_HDRS := $(A5_HDRS) $(A5DIR)/a5state.h $(A5DIR)/a5restr.h $(A5DIR)/a5expr.h $(A5DIR)/a5sexpr.h $(A5DIR)/a5text.h $(A5DIR)/a5parse.h
 A5_RUN_HDRS := $(A5_TEXT_HDRS) $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5sb.h $(A5DIR)/a5run.h $(A5DIR)/a5run_internal.h
