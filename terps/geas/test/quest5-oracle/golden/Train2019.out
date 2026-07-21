@@ -1,0 +1,1602 @@
+Train
+
+If you need some quick instructions on how to play the game, expecially if you have never played an interactive fiction game before, type "help" at any time.
+
+You don't even remember what happened. As you come too, you are standing in a compartment on a train, with your jacket in your hand. You quickly look around, still dizzy. The train is moving. Outside the window, you can see a densely forested area roll by. You can hear someone walking outside the compartment door. You breathe in and out and swallow one or two times. When your head stops spinning, you find something unexpected and very nasty at your feet.
+This is a rather nice and clean compartment on a train. There is a seat here, which is convertible into a bed, as well as a small table. The window is on the northern side of the compartment.
+You can go south or out.
+You can see a body.
+> x body
+
+> x body
+The man is clearly dead. He is not breathing, and blood has trickled down his cheek from both his mouth and one of his ears. He is badly bruised, and a cut-wound is clearly visible on his stomach. He is a dark-haired but balding middle aged man, whom you do not recognize. He is dressed in a suit, smeared with blood.
+on him is a document.
+> search body
+
+> search body
+You quickly search the body. You find a small document, which you put in your pocket.
+> open window
+
+> open window
+You open it.
+> take body
+
+> take body
+You bend down and put both of you arms under the man. With a  strength you didn't know you had, you barely manage to lift the man.
+> throw out body
+
+> throw out body
+You do that, and hear a soft sound as the ground is hit.
+> throw out jacket
+
+> throw out jacket
+You do that, and hear a soft sound as the ground is hit.
+> take note
+
+> take note
+I can't see that.
+> read note
+
+> read note
+I can't see that. (note)
+Somebody slides a note under the door.
+> s
+
+> s
+
+You are standing outside compartment number 1 (which is "your" compartment) at one end of a train wagon, with the door to the next wagon to your west. There are more compartments than yours, but they do not seem important to you. Their numbers are 2 and 3. The wagon continues to the east, where there are more compartments, and your compartment is to the north of here. The walls are panelled with wood, and the floor is carpeted in a pleasant blue-green color.
+You can go north, east or west.
+> e
+
+> e
+
+Your are standing in the back end of the wagon which contains your compartment, which faces east. There are several compartments in sight, but none currently seems interesting. The compartments in your immediate vicinity are number 4 to 7. The carpeted floor is does not make a sound when you step upon it. To the east of you is the door to the next wagon.
+You can go west or east.
+> e
+
+> e
+
+You are standing at the western end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 8 to 10, withnumber 11 to 14 a bit to the east. The wagon continues to the east, and the floor is carpeted in an emotional, ruby red color.
+You can go west or east.
+> e
+
+> e
+
+You are standing at the eastern end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 11 to 14, with number 14 the furthest to the east. Further to the west, there are more compartments. The wagon continues to the west, and the floor is carpeted in an emotional, ruby red color. To the east is a door with a sign.
+You can go west or east.
+> enter compartment 14
+
+> enter compartment 14
+
+The compartment looks like yours, only a bit bigger. Also, the carpeting and seat is another color.
+You can go southwest or out.
+The moment you step into the compartment, someone takes hold of your arms and prevents you from moving. You are essentially stuck and cannot pull loose.
+"Sorry, but safety comes first."
+A grey-haired man in a matching suit stands upp and examines you with his eyes. You do not have time to answer before he continues, looking the man behind you in the eyes.
+"Let go."
+The grip holdning your hands in place loosens, and for the first time you can see the man behind you. Although almost as old looking as the grey-haired man, he is much stronger than you.
+"We have met before, although you... might not remember me. We are colleagues, one could say."
+What do you say?
+1: Who are you?
+2: What do you want?
+3: Who am I?
+> 3
+You ask the man who you are.
+"We do not have time to discuss such things right now, but you need to know that we are working together."
+
+"In short, I am sure that you realise that you are in trouble. That is to say, WE are in trouble. Do not worry; we are on the same side. I know about what happened in you compartment. Nevertheless, we must continue."
+The man lights a cigarette.
+"The man we are after is in the restaurant car having dinner as we speak. I do not think he will recognize you, although I wonder about his "friends". We need you to eavesdrop. It is of greatest importance that we catch everything they might say if we are to be successful."
+He pauses for a moment, but makes it clear with his eyes that you should keep quiet.
+"You will use a small tape recorder and record what is said. All you need to do is to enter the luggage car at the back of the train and find the red box marked with "Svi-Air 505". In it is the recorder. We have had to stash it this way to avoid it being found in the customs. You will open it with this key."
+The man hands you a small key.
+"The people you are looking for will sooner or later be sitting at table 7. You need to place the recorder there before they get there. And remember: It needs to be turned on. When you have recorded something interesting, come back. And hurry up."
+Before you can reply, the bald man opens the compartment door and gently pushes you out.
+
+You are standing at the eastern end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 11 to 14, with number 14 the furthest to the east. Further to the west, there are more compartments. The wagon continues to the west, and the floor is carpeted in an emotional, ruby red color. To the east is a door with a sign.
+You can go west or east.
+> e
+
+> e
+
+You are at the very front of the luggage car, at the back of the train. It lacks windows, but is dimly lit by a small lamp in the ceiling. A net of wires with a door, which go almost up to the ceiling, separate this part of the car from the main part. There is a small wooden chair here. A compartment door is on the northern wall.
+You can go west.
+> stand on chair
+
+> stand on chair
+You stand up on the chair. From here, you can reach the ceiling and the top of the net of wires.
+> climb wires
+
+> climb wires
+You reach for the top of the wires and get a good grip. You put you foot between a few of them. Almost scratching your arm, you still manage to squeeze through and almost fall down on the other side of the wires.
+
+You are in the main area of the luggage car. The exit to the passanger cars is to the west, and on the other side of a net of wires. The car is just dimly lit, propably by a small bulb somewhere. The luggage area is not particulary big, and ends with a wall of metal to the east, where there is also a metal hatch (it is a bit too small to be called a door).
+There are a lot of nondescript things here, but mostly there is a huge pile of boxes of various shapes, sizes and colors.
+
+You can see a hatch.
+> x boxes
+
+> x boxes
+You examine the pile of boxes, and something cathes your eye. The text "Svi-Air 505" can be seen on a light red box under a few other boxes. Moving the other boxes slightly lets you pull the Svi-Air 505-box out onto the floor in front of you.
+> open red box
+
+> open red box
+You unlock the red box, and open the lid.
+> x red box
+
+> x red box
+The box is rather big and heavy. It is light red, and the text "Svi-Air 505" is clearly visible on the lid.
+It contains a tape recorder.
+> take tape recorder
+
+> take tape recorder
+You pick it up.
+> x tape recorder
+
+> x tape recorder
+It is a small tape recorder. You could easily conceal it in your pocket; it is in fact so small that it would be possible to miss it if it was laying right in front of you. You do not know exactly how it works, and its techincal appearance makes it hard for you to make sense of it. You do note, however, that there is no "Play"-button. Still, itb has a button saying "Rec.".
+> press button
+
+> press button
+You start the tape recorder.
+> kick hatch
+
+> kick hatch
+You kick the hatch. With a loud noise, it seems to crumble somewhat and slowly swings open.
+> enter hatch
+
+> enter hatch
+You crawl through the hatch.
+
+You find yourself in a small area which can barely be called a "room" behind an open hatch (which cannot be reached from the inside). Light enters the area through the hatch. The walls are made of metal, and it looks almost like you imagine being inside an air vent looks, although a bit bigger. There is a small grating on the eastern "wall", leading out of the train. You can feel the wind from the outside.
+You can go out, west or east.
+> pull grating
+
+> pull grating
+You manage to pull the grating loose. Almost falling on your back (only prevented by you not standing up), you lie there with a piece of the grating in your hand.
+> w
+
+> w
+
+You are in the main area of the luggage car. The exit to the passanger cars is to the west, and on the other side of a net of wires. The car is just dimly lit, propably by a small bulb somewhere. The luggage area is not particulary big, and ends with a wall of metal to the east, where there is also a metal hatch (it is a bit too small to be called a door).
+There are a lot of nondescript things here, but mostly there is a huge pile of boxes of various shapes, sizes and colors.
+
+You can see a hatch and a red box.
+> cut wires
+
+> cut wires
+You cut the net open with the sharp end of the piece of grating. When you are finished, there is a hole big enough for you to pass through.
+> w
+
+> w
+
+You are at the very front of the luggage car, at the back of the train. It lacks windows, but is dimly lit by a small lamp in the ceiling. A net of wires with a door, which go almost up to the ceiling, separate this part of the car from the main part. There is a small wooden chair here. A compartment door is on the northern wall.
+You can go west.
+A man walks into the luggage car from the front.
+"Um Gott's.... what in heaven's name are you doing?"
+The man speaks in a lightly broken English. He looks obviously chocked, like he's never seen a suspicous passanger in the wrong car beore. He quickly finds himself. Quickly looking back over his shoulder, as if he wanted to know you where alone, he continues:
+"I don't know what you are up to, but I have a family and christmas is coming... I guess."
+You instantly realize what he is talking about.
+"I will not report this for... say... 50 $. In cash."
+This seems a little steep.
+What do you say?
+1: Sure!
+2: Maybe... 30 will do?
+3: No way.
+> 1
+"Sure!", you say, while reaching for your wallet. You pull out 50 dollars.
+The man smiles slightly while pocketing your money.
+"A pleasure doing business with you.", he says.
+He quickly disappears back to where he came from.
+
+> w
+
+> w
+
+You are standing at the eastern end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 11 to 14, with number 14 the furthest to the east. Further to the west, there are more compartments. The wagon continues to the west, and the floor is carpeted in an emotional, ruby red color. To the east is a door with a sign.
+You can go west or east.
+> w
+
+> w
+
+You are standing at the western end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 8 to 10, withnumber 11 to 14 a bit to the east. The wagon continues to the east, and the floor is carpeted in an emotional, ruby red color.
+You can go west or east.
+> w
+
+> w
+
+Your are standing in the back end of the wagon which contains your compartment, which faces east. There are several compartments in sight, but none currently seems interesting. The compartments in your immediate vicinity are number 4 to 7. The carpeted floor is does not make a sound when you step upon it. To the east of you is the door to the next wagon.
+You can go west or east.
+> w
+
+> w
+
+You are standing outside compartment number 1 (which is "your" compartment) at one end of a train wagon, with the door to the next wagon to your west. There are more compartments than yours, but they do not seem important to you. Their numbers are 2 and 3. The wagon continues to the east, where there are more compartments, and your compartment is to the north of here. The walls are panelled with wood, and the floor is carpeted in a pleasant blue-green color.
+You can go north, east or west.
+> w
+
+> w
+
+You are in the lobby of the restaurant car, which currently is at the east end of the wagon. The car with "your" compartment is through the door to the east, while the restaurant area can be find to the west. In here, the floor is carpeted in light blue. There is a small wooden table here, as well as a comfortable looking easy chair and a picture of a train on the wall.
+You can go east or west.
+You can see a newspaper.
+> w
+
+> w
+
+You are in the restaurant in the restaurant car. Outside the windows, the landscape is rushing by.The restaurant can be entered from the lobby to the east of here, and the kitchen is to the west. A sign on the one door going west says "No passengers". In here, there are several guests eating and a waiter moving around. There are 7 tables here, numbered accordingly. Table 7 stand the furthest to the west. Behind a counter stand a bartender, dressed in similar clothes. There are several tables here, but most are of no interest.
+You can go east or west.
+> x counter
+
+> x counter
+The counter runs a short bit along the southern wall of the restaurang, close to the west end. It is made out of dark and shiny wood. Painted on it is letters, spelling out: "Drinks, 5 $". There is also a smaller text in the local languge: "Trenker, 5 Thal."
+it contains a money.
+> take money
+
+> take money
+You take the 10 dollars, and put them in your wallet.
+> put tape recorder on table 7
+
+> put tape recorder on table 7
+Done.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+Someone laughs loudly.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+Someone gets up from a table and leaves the restaurant.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+> buy drink
+
+> buy drink
+"A drink", you tell the bartender.
+He nods silently and pour you a glass of the local stuff.
+"5 bucks", he says.
+You pay and grab your drink.
+Someone gets up from a table and leaves the restaurant.
+> e
+
+> e
+
+You are in the lobby of the restaurant car, which currently is at the east end of the wagon. The car with "your" compartment is through the door to the east, while the restaurant area can be find to the west. In here, the floor is carpeted in light blue. There is a small wooden table here, as well as a comfortable looking easy chair and a picture of a train on the wall.
+You can go east or west.
+You can see a newspaper.
+> x picture
+
+> x picture
+The picture represents a steam-powered train on its way through a beautiful, green landscape.
+> read newspaper
+
+> read newspaper
+It is a newspaper, written in the local language (which, to you, resembles some kind of broken German). You cannot make out much, but the top news seems to be about an opinion poll. You know that general elections will be held in a few weeks, and at least you can understand the polls:
+
+SAP (Sozialistische Arbeiternpaartie): 27,6 %
+FDV (Francdeutsche Völkernpaartie): 11,0 %
+KDV (Kristlisch-Demokraatische Völkernpaartie): 34,3 %
+KU (Kommunistiche Unioon): 7,8 %
+LP (Liberaale Paartie): 15,6 %
+Aandren: 3,7 %
+
+The other articles are completely unintelligible to you.
+> x chair
+
+> x chair
+Black and made of lether, the chair stands next to the table.
+> talk to man
+
+> talk to man
+I can't see that. (man)
+> 3
+
+> 3
+I don't understand your command.
+A man in a dark suit comes in, and sits down in one of the chair.
+> e
+
+> e
+
+You are standing outside compartment number 1 (which is "your" compartment) at one end of a train wagon, with the door to the next wagon to your west. There are more compartments than yours, but they do not seem important to you. Their numbers are 2 and 3. The wagon continues to the east, where there are more compartments, and your compartment is to the north of here. The walls are panelled with wood, and the floor is carpeted in a pleasant blue-green color.
+You can go north, east or west.
+> e
+
+> e
+
+Your are standing in the back end of the wagon which contains your compartment, which faces east. There are several compartments in sight, but none currently seems interesting. The compartments in your immediate vicinity are number 4 to 7. The carpeted floor is does not make a sound when you step upon it. To the east of you is the door to the next wagon.
+You can go west or east.
+> e
+
+> e
+
+You are standing at the western end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 8 to 10, withnumber 11 to 14 a bit to the east. The wagon continues to the east, and the floor is carpeted in an emotional, ruby red color.
+You can go west or east.
+> e
+
+> e
+
+You are standing at the eastern end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 11 to 14, with number 14 the furthest to the east. Further to the west, there are more compartments. The wagon continues to the west, and the floor is carpeted in an emotional, ruby red color. To the east is a door with a sign.
+You can go west or east.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You have the feeling of being followed and look behind you. It is the man in the grey suit.
+"Hurry up. Have you placed the recorder yet? They are on their way to the restaurant car. Table 7. Remember."
+He disappears again.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+"Dawdling will not be tolerated!"
+You practically get dragged away to compartment 14. No one seems to notice. You are practically pushed in.
+As soon as you get inside, you feel that something is wrong.
+On the floor before you lies the man in the grey suit. There is no blood.
+"You just left the recorder? Have you any conception... In any case, it is irrelevant. I've got it right here."
+The man who twisted yoru arms earlier, and who just dragged you in, nods towards the seat where the recorder is. Now he is holding a gun in one hand and one of your arms in the other. Once again, he has you in his grip.
+"We had a slight disagreement..."
+He reaches for the tape recorder.
+"...but everything is all right now. Thank you for your cooperation. Good work."
+The man in the grey suit is not moving.
+"I guess he has had one drink too many. Speaking of which..."
+Without looking away from you, he reaches for a glass somewhere.
+"Dink it. Cheers."
+He puts the glass in your hand and retrieves the recorder from the seat. His gun is aimed right at you.
+
+The compartment looks like yours, only a bit bigger. Also, the carpeting and seat is another color.
+You can go southwest or out.
+You can see an aging man and a big man.
+> drink tall drink
+
+> drink tall drink
+Cringing slightly, you still swallow the drink. Something is definitely wrong with the taste.
+"Like I said: Cheers."
+The man smiles ironically while he leaves, locking you in the compartment behind him. Almost immediately, you get a strange feeling in your stomach.
+> move aging man
+
+> move aging man
+You manage to move the man slightly. Under him, or perhaps in a pocket, was the key to the compartment. Some people are stupid.
+> search aging man
+
+> search aging man
+You quickly search the man. The only interesting thing you can find is a piece cut out of a newspaper.
+> x newspaper cut-out
+
+> x newspaper cut-out
+It is a small piece cut out of a newspaper, containing an advertismen for a motel. There is a pictures of it (it looks quite run-down) as well as the adress. The adress has been underlined.
+> unlock door
+
+> unlock door
+You unlock the compartment door. The key breaks and is stuck in the lock. You leave it there.
+> out
+
+> out
+
+You are standing at the eastern end of the train wagon behind the one with "your" compartment, with the door to that wagon to your west. There are several compartments here, but most seem uninteresting. They number 11 to 14, with number 14 the furthest to the east. Further to the west, there are more compartments. The wagon continues to the west, and the floor is carpeted in an emotional, ruby red color. To the east is a door with a sign.
+You can go west or east.
+> drink drink
+
+> drink drink
+Please choose which 'drink' you mean:
+1: drink
+2: drink
+3: drink
+4: drink
+5: drink
+6: drink
+7: drink
+8: drink
+> 1
+You gulp the drink down and dispose of the glass.
+> drink drink
+
+> drink drink
+Please choose which 'drink' you mean:
+1: drink
+2: drink
+3: drink
+4: drink
+5: drink
+6: drink
+7: drink
+> 1
+You gulp the drink down and dispose of the glass.
+> drink drink
+
+> drink drink
+Please choose which 'drink' you mean:
+1: drink
+2: drink
+3: drink
+4: drink
+5: drink
+6: drink
+> 1
+You quickly swallow the drink. You are beginning to feel drunk.
+> drink drink
+
+> drink drink
+Please choose which 'drink' you mean:
+1: drink
+2: drink
+3: drink
+4: drink
+5: drink
+> 1
+You quickly swallow the drink. You're getting light-headed now.
+> drink drink
+
+> drink drink
+Please choose which 'drink' you mean:
+1: drink
+2: drink
+3: drink
+4: drink
+> 1
+You quickly swallow the drink. You're getting light-headed now.
+> drink drink
+
+> drink drink
+Please choose which 'drink' you mean:
+1: drink
+2: drink
+3: drink
+> 1
+You swallow the drink. You do not feel so well.
+> drink drink
+
+> drink drink
+Please choose which 'drink' you mean:
+1: drink
+2: drink
+> 1
+You gulp the drink down... and then it comes up again. You throw up violently all around you.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Your head is clearing.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You feel almost sober now.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The PA system of the train comes to life:
+"Zuch stoppt am Ausserstation Mittstäds. Bereetigt 'm Zuch zu lässen! Zuch stoppt am A-Station Mittstäds. This message will follow in English.
+The train will shortly be stopping at Mittstadt Ausser-Station. Please get ready to leave the train. The train will be stopping shortly!"
+The PA goes silent.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The train comes to a stop. Outside, you can see a small station. People begin to get off the train, and the personell going through the corridors give you no choice. You get off at the station with the others. You think you can hear the word "police" somewhere, and you think you can see the big man who took the tape recorder disappears around the corner of the station building.
+
+You are standing on the platform where the train that took you here stopped. The train is still here, standing still on the tracks. The whole area is walled in exept to the north, where the small station building is. On it is a sign saying "A-Station Mittstädts". East of the station building, to your northeast, there is also an opening. On the other side, you can see a street.
+You can go south, north or northeast.
+> n
+
+> n
+
+You are inside the station building. The building is not very big, and the room you are in ends a short bit to your east, where there is a closed door, and west, where there is a wall. The walls are almost white and the floor is a faint grey. Some passengers are in here. You recognize a few of them, but none are of any interest.
+You can go south or north.
+You can see a trash can.
+You can hear some of the passengers talking:
+"...police. They found someting on the train. They are checking everyone and blocking the  street."
+"Typical. We'll never get to the hotel. Remember to thank your mother for the trip."
+They leave the station to the north.
+> x trash can
+
+> x trash can
+It is small, black and made of metal.
+In it is a wig.
+> take wig
+
+> take wig
+You pick it up.
+> n
+
+> n
+
+You are standing on the west-east street running north of the station building. There are not many people walking here. The street ends a bit further to the west. To the east, there are many people standing in line before a police roadblood.
+There are, of course, several buildings to your north. Most buildings are made of bricks. There seems to be no usable entrance here.
+You can go southeast, east, south or west.
+> w
+
+> w
+
+The street ends here, with no way to go on. To your south is the wall outside the train station, and to the west is the back of a building. You can still see the police roadblock off to the east. There is a cheap-looking hotel here, with the entrance to your north..
+You can go east.
+> x hotel
+
+> x hotel
+It looks quite run-down, and is made of brick like many of the other buildings. Its sign says "Hotel Zuchstadt" and the building has at least three or four floors.
+> enter hotel
+
+> enter hotel
+
+You are in the lobby of a small, run-down hotel. The lobby is no larger than a regular living room, and the wooden desk stands near one of the inner corners. Behind it stand the hotel manager. At the western wall, under the letters "BAR", an entrance to a restaurant is located. The door is closed, though, with a sign saying "Schliesst/Closed".  With its walls a faint blue and the floor made of imitation of wood, it really does resemble a living room. There is a sofa (propably uncomfortable) with a small table and a magazine holder close to it. In the other inner corner of the room (the northeastern) stairs lead up. On a sign pointing upwards, you can see the numbers "201-205".
+You can go up, south or out.
+You can see a hotel manager.
+> talk to manager
+
+> talk to manager
+You walk up to the manager.
+"Gruz... Hello, and welcome to Hotel Zuchstadt!"
+Your appearance must have given you away again.
+"Would you like a room or something else?"
+What do you say?
+1: I'd like that room.
+2: Where am I?
+3: I'm looking for someone.
+4: Where can I get a drink?
+5: Sorry, just looking around.
+> 1
+"A room for one, then..."
+He writes something in a notebook from his pocket.
+"Would you like breakfast in the morning? Oh, sorry, we cannot offer that at the moment!"
+He looks somewhat embarassed.
+"The price is 15 Thaler a night, and you pay when you leave. Your room is number 204, up the stairs."
+He hands you a small key.
+"Welcome, and have a nice evening!"
+> up
+
+> up
+
+You are in a corridor at the hotel's second floor. The corridor runs from east to west, with the stairs down furthest to the east and more rooms to the west. The floor is neatly carpeted, and the walls are plain. In your immediate vicinity are rooms 201 and 202.
+You can go down or west.
+> w
+
+> w
+
+You are in a corridor at the hotel's second floor. The stairs down can be found further east. The floor is neatly carpeted, and the walls are plain. In your immediate vicinity are rooms 203, 204 and 205.
+You can go east.
+> enter room 204
+
+> enter room 204
+You walk into the hotel room.
+
+You are in the hotel room you rented. It is not very big, and not any cleaner. The window is located on the north side of the room, while the exit is to the south. There is not a lot in here, but there is an uncomfortable bed, a small chair and some non-descript hotel room furniture.
+You can go south.
+Seeing the bed makes you realize how tired you are.
+> open window
+
+> open window
+You open it.
+> sleep bed
+
+> sleep bed
+You lie down on the bed, and instantly begin to fall asleep. Your tired mind drifts away, and you sleep for quite a while.
+When you wake up, you find yourself back on the train.
+This is a rather nice and clean compartment on a train. The seat has been removed, but you recognize this as one of the compartments you visited earlier. The window is on the northern side of the compartment.
+You can go south.
+> open window
+
+> open window
+You open the window, which instantly breaks. You cut your arm badly, and blood trickles down your arm quickly.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The wound on your arm hurts badly, and the bloodflow is getting stronger.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You can barely feel your arm anymore. Your vision is fading.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You fall down on the floor, in a pool of your own blood. It reaches above your face and pours into your mouth. Your lungs feel full of your own blood, and your eyes are ringing. The blood enters your body every way possible. Somewhere, you hear  a sound... like someone is knocking on a door.
+You are in the hotel room you rented. It is not very big, and not any cleaner. The window is located on the north side of the room, while the exit is to the south. There is not a lot in here, but there is an uncomfortable bed, a small chair and some non-descript hotel room furniture.
+You can go south.
+> z
+
+> z
+Time passes.
+> climb through window
+
+> climb through window
+You get out onto the tight ledge outside the window.
+
+You are standing  on the ledge outside your hotel window, tightly hugging the wall. Below you is an alley, bordered by similar concrete buildings without windows. The ledge continues to the east, but ends directly west of you.
+You can go east.
+You can see a window.
+> e
+
+> e
+
+You are standing on a ledge on the wall of the hotel building, tightly squeezed against the wall. Below you is the street, and to the east this ledge ends with a small drainpipe. You can see another ledge outside the next hotel room, but you cannot reach it from here.
+You can go west or east.
+You can see a drainpipe.
+> climb drainpipe
+
+> climb drainpipe
+You grab onto the black drainpipe.
+
+You are holding onto the thing, black drainpipe east of the ledge outside your hotel room. You could easily get back onto the ledge. To your east is another ledge, outside the next hotel room, but you could not reach it. If you climbed down the drainpipe, you would end up in the alley below without being able to climb back up since the drainpipe is broken and ends almost two metres above ground.
+You can go west or down.
+> down
+
+> down
+You slide down the drainpipe. You let go of it and fall down on the ground.
+
+You are in a run-down alley outside a hotel on one side, the south, and windowless buildings to your west and north. The alley can be exited to the east.
+You can go east.
+> e
+
+> e
+
+You are on a street, running north-south a bit east of the station. To the south, you can see a police roadblock. It blocks the street to the west (where the station is), but you could not walk past it without being spotted. The buildings all around you are of no interest. Further to the north, you can see a small parking lot and more of the street.
+There is a street vendor here, carrying a tray. It is markes "Kaffee/Coffee 5 Thal."
+You can go west, south or north.
+> n
+
+> n
+As you walk up to the parking lot, you can see a man wearing a dark grey or black trenchcoat some way to the north of you.
+"You there!"
+He turns and starts quickly in your direction.
+"Stay right there!"
+
+You are standing est of a parking lot, easily accesible through climbing over the low railing to your west. To your east you can see the facade of a concrete building; there is a bookstore at ground level, with big windows. The road you are standing on continues to the north and south of here.
+You can go south, east or north.
+You can see the man in the trenchcoat closing in on you. He is much faster than you, and you could not avoid him for long out in the open.
+> e
+
+> e
+
+You are in a small bookstore, which can be entered by the entrance door, which opens inwards. There is no one behind the counter, which is located by the southern wall. To the east, a small door, slightly ajar, seems to reveal a staff room. The room is dimly lit by a discrete lamp in the ceiling, and there are two shelves here; one (a large one) by the northern wall and one (smaller) roughly in the middle of the room, turned to face the entrance door.
+You can go west.
+The man in the coat has almost caught up with you.
+> tip over small shelf
+
+> tip over small shelf
+You tip the shelf over. It falls towards the entrance door, blocking it (or at least slowing the passage).
+The coated man is nearly right behind you.
+> z
+
+> z
+Time passes.
+The coated man is struggling, trying to get the entrance door open.
+> z
+
+> z
+Time passes.
+The man enters the bookstore. He dashes towards you, and you couldn't make it out of here while he is here.
+> hit man
+
+> hit man
+You manage to hit the man, but without force.
+The man throws a punch at you, catching you off guard. He hits you in the face and your head is spinning.
+> hit man
+
+> hit man
+You punch the man right on the jaw, and he almost falls over.
+The man kicks at you, and somehow manages to hit despite his condition. It hurts a lot.
+> kick man
+
+> kick man
+You kick at the man. He tries to twist out of the way, but instead ends up with your foot on his neck. It snaps, and he stops moving. While you have done nothing wrong, you might run into trouble by staying here.
+> x dead man
+
+> x dead man
+The man in the trenchcoat is dead. There is a bit of blood, but his defining feature is still the black coat. His face in nondescript, and you cannot see anything interesting about him.
+> w
+
+> w
+
+You are standing est of a parking lot, easily accesible through climbing over the low railing to your west. To your east you can see the facade of a concrete building; there is a bookstore at ground level, with big windows. The road you are standing on continues to the north and south of here.
+You can go south, east or north.
+> n
+
+> n
+You continue walking northwards without knowing where the direction will take you. You walk quickly to get away from the trouble behind you, still with the unanswered questions lingering at the back of your mind. You start walking even faster.
+
+As you turn around a corner, somebody grabs you by the shoulder. You can feel the needle enter the back of your neck, and before a moment has passed everything seems dark and far away.
+
+You come to, feeling quite tired of getting hit, doped, tied up and generally mistreated by the world. As you look around, still dizzy, you find yourself in a small and dark room, with the curtains drawn. It seems to be an office. You can see a dark brown oak desk in front of two bookcases, filled with books you cannot make out. There is a rug under the chair you are sitting on. Around you and the chair, the rope is tightly tied, preventing you from moving or using your hands in any way.
+
+After an eternity of about three minutes, somebody enters the room. Somebody with a familiar, bald head and an unamused expression in his face. As far as he is concerned, he is likely in charge.
+
+"You fucked up good, didn't you?"
+
+If possible, his expression grows even more sour.
+
+"We knew about you from the beginning, you know."
+
+He leans back somewhat, with his hands resting on the desk behind him.
+
+"We knew you were not to be trusted. We only kept you among us to knew WHOM not to trust."
+
+Finally, you get to see his smile even if not very geuine.
+
+"It was you and that idiot, Frank."
+
+He stands up in the middle of the room again.
+
+"Oh, we know you didn't know about each  other... But that's what happens when there are several sides to pick. Do you even know what I'm talking about? You seem... stupid today."
+
+In fact, you do not, which you readily inform him of.
+
+"Frank is that fucker in you compartment. The miserable idiot that YOU killed. Yes, you did in fact kill him even if you might have... some trouble remembering it."
+
+There is that beautiful smile again.
+
+"You see, this mison is not business as usual. You know of the situation. You know of the tension. You might not know what information you recorded on the train, but it's worth something, all right. At least it is worth a lot to me."
+
+"You are propably still a bit tired, but I will be back soon."
+
+He walks past you and hits you in the face. The punch is not too hard, but it makes your head spin all over again. The man leaves the room.
+
+You are in a quite small, dark room. This little office, with the curtains drawn, contains a desk in front of a bookcase. On the desk is a large, heavy paperweight. On the floor is a thick rug, with your chair on it. You are tied to the chair and cannot move.
+You are alone now, but still tied to the chair. Your head is pounding and you feel miserable. If there is a way out, it woul be a good idea to find it now.
+> z
+
+> z
+Time passes.
+You can hear a car driving by outside and somewhere, somebody honks their car horn. You seem to still be in the city.
+> z
+
+> z
+Time passes.
+You can hear steps closing in. The man seems to be returning.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The man re-enters the room, once again closing the door behind him.
+
+"I'm glad that you are still here. I just needed to make sure I still have a way out."
+
+He sighs.
+
+"As I told you, you fucked this up good. Of course, you did a lot of what you were supposed to. For me, this was supposed to be the last mission. It was for you as well, but it was supposed to end another way."
+
+He sits down on the desk, entirely this time.
+
+"We had this planned quite well, me and the...commander. Yes, you will still not know his name. There were five of us. You know me and the commander. You also - most probably - still know yourself in spite of the damage you might have... been caused. You killed Frank just like you were supposed to. Thrilling for the commander. Getting rid of Frank, a double agent, and getting the mission done at the same time. You might, or might not, have known that Frank was you ally. You were going to take the fall for killing Frank and undoubtedly be blamed for the leak in intelligence as well. At the same time, your... people... would not be able to help you. Not here. "
+
+He now seems entirely calm.
+
+"...and the three of us who made it out would have done a man's job. However, both you and I know this will not last. It's quite clear which side is winning and which side history will dig in. I however, am not bound by any loyalty. I'm a pragmatist, as allways. But stopping us...well, you... I would not be called a defector but a hero. That would have been my way out. And you... I would be sure to tell them how you had switched sides once again. They would believe me. Why else would you kill your ally?"
+
+He stands up and takes a few steps and stops again, standing a few feet from you.
+
+"But you had to survive. You had to stop me. Ironic, that liquor finally saves a life; especially in your case. However, as you probably relize, it is by no means permanent. Anyway, your escape on the train is what attracted the police. They had to find the body at once. They had to question the passengers. They had to talk to the idiot who remembered me coming out of the compartment after your little drink.The one who remembered seing you enter earlier, when you talked to me and the commander before we boarded the train. If not for a lot of things, I could have turned that recorder in to the authorities and seemingly foil your plan. Your death would have been forgiven, but as things stand now I would probably have a date with the hangman."
+
+He is now right next to you and lowers his voice almost to a whisper.
+
+"But I'm not going alone. Even if I do not win, you will certainly not make it out alive either. I, for one, am not terribly upset by this outcome. Being foiled by you would have been one thing, but... unforeseen circumstances? These things happen."
+
+The bald man pulls out a gun.
+
+As the man pushes you and the chair down backwards, your leg comes free.
+> kick man
+
+> kick man
+You can just about reach him  with a weak kick. If not for the surprise, he might not have felt anything at all.
+
+As it is, it is enough to make him stumple and try to return the favour. He misses, instead hitting the back of the chair.
+
+It breaks, and suddently, you are free. You get up on your feet and push the man to the side. He drops the gun. You have switched sides. The desk is behind you, while the man stands by the broken chair.
+
+The bald man still has one gun more than you. It has fallen to the floor, but he is picking it up which might give you a moment.
+
+You are in a quite small, dark room. This little office, with the curtains drawn, contains a desk in front of a bookcase. On the desk is a large, heavy paperweight. On the floor is a thick rug, with your chair on it. You are tied to the chair and cannot move.
+You can see a wooden desk and a man.
+> take paperweight
+
+> take paperweight
+You take the large and heavy paperweight, which is in the shape of an eagle, and hold it in your hand.
+The bald man has the gun in his hand once again, pointed right at you. You have the desk behind your back, with the man in front of you.
+> throw paperweight
+
+> throw paperweight
+The gun is pointed directly at you.
+
+As you throw the paperweight, the man is caught by surprise. His shot misses you and ends up somewhere among the old books in the bookcase behind you. The paperweight, shaped like an eagle, makes one last flight.
+
+The bald man is not quick enough, and the paperweight hits him right on the head. One of the corners pierces his skin and the blood begins pouring. He falls to the floor. You quickly notice that he is hurt very badly, to which you woud not object. Blood pours from his head, onto the rug. You can hear the man breathing, but he is unconscious.
+
+The gun lies right beside the man.
+
+You contemplate ending his life, but it looks like no intervention from you is needed. You think about calling this in; contacting the police. You do not even speak the local language. What would a phonecall accomplish, aside from proving the man right? Nobody would believe your story if they would even listen.
+
+Who are you, and who is he? Should you have remembered what he was speaking about, as he seemed to assume? Is there someone you should contact, someone who could help you out?
+
+You sit down at the desk for a moment, thinking about what to do. As you open the drawer, you find a similar tape recorder with the tape still in it. You look at it for a while. Before leaving, you pick up the bloody paperweight. You set it down on the tape recorder heavily, crushing it. Keeping the tape would not help, especially if it was true that you were working against the people you have been dealing with in the last 24 hours.
+
+You open the office door and find yourself in an empty hallway. The street door is just down the stairs, and you walk into a chilly night. What you will do is uncertain, but perhaps someone, somewhere will know.
+
+As for now, you walk away to find somewhere to spend the night. Perhaps you have even deserved a drink after stopping whatever this was. You hail the next taxi you see and call this a night.
+[state=Finished]
