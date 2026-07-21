@@ -771,7 +771,21 @@ struct Parser {
             e->kind = Expr::Kind::Unary; e->str = op; e->a = parse_unary();
             return e;
         }
-        return parse_postfix();
+        return parse_power();
+    }
+    ExprP parse_power() {
+        // NCalc's "^" is exponentiation (not XOR), right-associative, and it
+        // binds TIGHTER than unary minus: "-2^2" is -4 and "2^3^2" is 512
+        // (both verified against the oracle). Moquette's GetRandomPoisson
+        // opens with "L = e ^ -expected", so the right operand must be able to
+        // be a unary expression too.
+        ExprP l = parse_postfix();
+        if (is_op("^")) {
+            DepthGuard dg(*this);
+            advance();
+            l = bin("^", l, parse_unary());
+        }
+        return l;
     }
     ExprP parse_postfix() {
         ExprP e = parse_primary();
@@ -2633,6 +2647,16 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
     case Expr::Kind::Bool: return vbool(e.boolean);
     case Expr::Kind::Null: return vnull();
     case Expr::Kind::Var: {
+        // NCalc ships "e" and "pi" as built-in parameters, case-insensitively,
+        // and they are looked up BEFORE the host's parameters -- a Quest local
+        // called "e" cannot shadow Math.E (verified against the oracle).
+        // Moquette's GetRandomPoisson relies on the constant existing at all.
+        if (e.str.size() <= 2) {
+            std::string lc;
+            for (char c : e.str) lc += (char)std::tolower((unsigned char)c);
+            if (lc == "e") return vdouble(2.718281828459045);
+            if (lc == "pi") return vdouble(3.141592653589793);
+        }
         bool found;
         Value v = resolve_variable(e.str, ctx, found);
         if (!found) {
@@ -2846,6 +2870,10 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
                 return vint(l.integer + r.integer);
             return vdouble(as_double(l) + as_double(r));
         }
+        // NCalc's Exponentiation: Math.Pow over both operands converted to
+        // double, so the result is always a double (it never goes through
+        // Quest's MathHelper int fast paths).
+        if (op == "^") return vdouble(std::pow(as_double(l), as_double(r)));
         if (op == "-" || op == "*" || op == "%") {
             if (l.type == Value::Type::Null || r.type == Value::Type::Null)
                 return vnull();  // MathHelper: null operand -> null result

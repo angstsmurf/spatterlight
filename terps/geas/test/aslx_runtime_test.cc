@@ -113,6 +113,19 @@ static void test_expressions() {
     CHECK_STR(evals(in, "CInt(\"42\") + 1"), "43");
     CHECK_STR(evals(in, "Abs(-7)"), "7");
     CHECK_STR(evals(in, "Max(3, 9)"), "9");
+
+    // NCalc's "^" is exponentiation, right-associative, binding tighter than
+    // unary minus; and "e"/"pi" are built-in parameters that WIN over a local
+    // of the same name. All four behaviours checked against the oracle while
+    // wiring Moquette (whose GetRandomPoisson opens "L = e ^ -expected").
+    CHECK_STR(evals(in, "2 ^ 3"), "8");
+    CHECK_STR(evals(in, "2 ^ 3 ^ 2"), "512");
+    CHECK_STR(evals(in, "-2 ^ 2"), "-4");
+    CHECK_STR(evals(in, "CInt(e * 1000)"), "2718");
+    CHECK_STR(evals(in, "CInt(pi * 1000)"), "3142");
+    CHECK_STR(evals(in, "CInt(E * 1000)"), "2718");
+    CHECK_STR(run(in, "e = 5\nmsg (CInt(e * 1000))"), "2718");
+    CHECK_STR(evals(in, "CInt((e ^ -2) * 10000)"), "1353");
 }
 
 static void test_control_flow() {

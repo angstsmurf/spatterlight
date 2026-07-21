@@ -71,7 +71,18 @@ static std::string strip_html(std::string s) {
         // add them here as the corpus needs them.
         {"&#39;", "'"}, {"&apos;", "'"}, {"&nbsp;", "\xc2\xa0"},
         {"&bull;", "\xe2\x80\xa2"},
-
+        // Typographic entities authors paste into hand-written HTML. Moquette
+        // is written almost entirely in "&mdash;"-separated asides, so without
+        // these the native transcript keeps the raw entity where the oracle
+        // prints the character. Kept in step with aslxglk.cc's own table.
+        {"&mdash;", "\xe2\x80\x94"}, {"&ndash;", "\xe2\x80\x93"},
+        {"&hellip;", "\xe2\x80\xa6"}, {"&middot;", "\xc2\xb7"},
+        {"&lsquo;", "\xe2\x80\x98"}, {"&rsquo;", "\xe2\x80\x99"},
+        {"&ldquo;", "\xe2\x80\x9c"}, {"&rdquo;", "\xe2\x80\x9d"},
+        {"&laquo;", "\xc2\xab"}, {"&raquo;", "\xc2\xbb"},
+        {"&copy;", "\xc2\xa9"}, {"&reg;", "\xc2\xae"},
+        {"&trade;", "\xe2\x84\xa2"}, {"&deg;", "\xc2\xb0"},
+        {"&eacute;", "\xc3\xa9"},
     };
     for (auto &en : ents) {
         size_t pos = 0;

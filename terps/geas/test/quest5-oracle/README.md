@@ -120,7 +120,7 @@ drifts each time a game is wired (a per-game commit touches `corpus.tsv`,
 its absence is not a loss: **9 of the 11 `Running` rows are genuine wins in games
 that simply never call `finish`** — they print their ending and stop (Balaclava,
 El asesino durmiente, First Times, Its election time in Pakistan, MOUNTAIN SKI 2.0,
-Medievalist's Quest, Sueña un pequeño sueño, cuttings, spondre). For several,
+Medievalist's Quest, Moquette, Sueña un pequeño sueño, cuttings, spondre). For several,
 `finish` is *provably* unreachable: spondre's inlined `HandleCommand` routes all
 input to ResponseLib topic matching, so Core's `quit` is dead code and
 Running-at-credits is the authored terminal state. Do not read the 61/72 split as
