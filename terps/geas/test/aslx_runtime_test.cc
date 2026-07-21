@@ -1282,6 +1282,225 @@ static void test_save_restore() {
     }
 }
 
+// Oracle-parity number parsing: ToInt/ToDouble are int.Parse/double.Parse
+// (visible script error on bad input, Int32 range), IsInt is int.TryParse
+// (range-checked). Silent-0 or wrapped garbage is a transcript divergence.
+static void test_number_parse_oracle() {
+    World w;
+    w.asl_version = 550;
+    Interp in(w);
+
+    CHECK_STR(evals(in, "ToInt(\"123\")"), "123");
+    CHECK_STR(evals(in, "ToInt(\" -42 \")"), "-42");
+    CHECK_STR(evals(in, "ToInt(\"2147483647\")"), "2147483647");
+    CHECK_STR(evals(in, "ToDouble(\"3.5\") * 2"), "7");
+    CHECK_STR(evals(in, "IsInt(\"123\")"), "True");
+    CHECK_STR(evals(in, "IsInt(\"-2147483648\")"), "True");
+    CHECK_STR(evals(in, "IsInt(\"2147483648\")"), "False");
+    CHECK_STR(evals(in, "IsInt(\"99999999999999999999\")"), "False");
+
+    auto throws_with = [&](const char *expr, const char *msg) {
+        try {
+            evals(in, expr);
+        } catch (const std::exception &e) {
+            return std::string(e.what()).find(msg) != std::string::npos;
+        }
+        return false;
+    };
+    CHECK(throws_with("ToInt(\"abc\")", "was not in a correct format"));
+    CHECK(throws_with("ToInt(\"3.5\")", "was not in a correct format"));
+    CHECK(throws_with("ToInt(\"3000000000\")",
+                      "too large or too small for an Int32"));
+    CHECK(throws_with("ToDouble(\"abc\")", "was not in a correct format"));
+    w.errors.clear();
+}
+
+// Parser recursion caps: pathological nesting must surface as a script/parse
+// error, not a stack overflow on first (lazy) compile. And Rng::between must
+// survive extreme spans without SIGFPE/UB.
+static void test_parser_depth_caps() {
+    World w;
+    w.asl_version = 550;
+    Interp in(w);
+
+    auto throws_any = [&](const std::string &expr) {
+        try {
+            evals(in, expr);
+        } catch (const std::exception &) {
+            return true;
+        }
+        return false;
+    };
+    CHECK(throws_any(std::string(100000, '(') + "1" + std::string(100000, ')')));
+    std::string nots;
+    for (int i = 0; i < 100000; ++i) nots += "not ";
+    CHECK(throws_any(nots + "true"));
+    CHECK(throws_any(std::string(100000, '-') + "1"));
+
+    // 20k nested blocks: parses to a ParseError statement at the cap, which
+    // reports a script error when run -- and the interpreter stays usable.
+    std::string s;
+    for (int i = 0; i < 20000; ++i) s += "if (true) {\n";
+    s += "msg (\"deep\")\n";
+    for (int i = 0; i < 20000; ++i) s += "}\n";
+    Context c;
+    in.run_script(s, c);
+    CHECK(!w.errors.empty());
+    w.errors.clear();
+    CHECK_STR(evals(in, "1 + 1"), "2");
+
+    // Extreme RNG spans: any value is fine, crashing is not.
+    CHECK_STR(evals(in, "GetRandomInt(-2147483648, 2147483647) >= "
+                        "-2147483648"), "True");
+}
+
+// GetAttributeNames(obj, true) walks the whole type chain (Fields.
+// GetAttributeNames recurses each inherited type), not just one level.
+static void test_attribute_names_deep() {
+    const char *xml =
+        "<asl version=\"550\">"
+        "<game name=\"g\"/>"
+        "<type name=\"base\"><deepattr type=\"int\">1</deepattr></type>"
+        "<type name=\"mid\"><inherit name=\"base\"/>"
+        "<midattr type=\"int\">2</midattr></type>"
+        "<object name=\"o\"><inherit name=\"mid\"/></object>"
+        "</asl>";
+    World w;
+    CHECK(load_aslx_buffer(xml, std::strlen(xml), w, "", ""));
+    Interp in(w);
+    // HasAttribute already saw the two-deep attribute; the names list must
+    // agree with it.
+    CHECK_STR(evals(in, "HasAttribute(o, \"deepattr\")"), "True");
+    CHECK_STR(evals(in, "ListContains(GetAttributeNames(o, true), \"midattr\")"),
+              "True");
+    CHECK_STR(evals(in, "ListContains(GetAttributeNames(o, true), \"deepattr\")"),
+              "True");
+    CHECK_STR(evals(in, "ListContains(GetAttributeNames(o, false), \"deepattr\")"),
+              "False");
+    CHECK(w.errors.empty());
+}
+
+// firsttime baking of one-line blocks: get_script strips the braces off a
+// single-line `{ ... }`, so the baker must find bodies the way the parser
+// does (after the keyword/parameter), not at the first '{' -- otherwise a
+// one-line firsttime/otherwise body is silently deleted from a native save.
+static void test_firsttime_bake_oneliners() {
+    World w;
+    CHECK(load_file("fixtures/aslx/runtime.aslx", w));
+    Interp in(w);
+    std::string out;
+    in.print = [&](const std::string &s) { out += s; };
+    Context c;
+
+    // A ran multi-line firsttime with a one-line otherwise, plus an un-run
+    // one-line firsttime inside a one-line if.
+    const char *src =
+        "firsttime {\n  msg (\"A\")\n} otherwise { msg (\"C\") }\n"
+        "if (false) { firsttime { msg (\"B\") } }";
+    in.run_script(src, c);
+    CHECK(out.find("A") != std::string::npos);
+
+    std::string baked = in.bake_firsttime_source(src);
+    // The ran firsttime bakes down to its otherwise body...
+    CHECK(baked.find("msg (\"C\")") != std::string::npos);
+    CHECK(baked.find("msg (\"A\")") == std::string::npos);
+    // ...and the un-run one-line firsttime keeps body AND wrapper.
+    CHECK(baked.find("firsttime") != std::string::npos);
+    CHECK(baked.find("msg (\"B\")") != std::string::npos);
+
+    // A ran firsttime inside a fully one-line switch case is baked out (and
+    // its flag consumed in collect_firsttime order, keeping the stream
+    // aligned), not mangled by the case's braces.
+    const char *sw = "switch (1) { case (1) { firsttime { msg (\"S\") } } }";
+    out.clear();
+    in.run_script(sw, c);
+    CHECK(out.find("S") != std::string::npos);
+    std::string baked2 = in.bake_firsttime_source(sw);
+    CHECK(baked2.find("msg (\"S\")") == std::string::npos);
+    CHECK(baked2.find("case (1)") != std::string::npos);
+    CHECK(w.errors.empty());
+}
+
+// Save-writer robustness against degenerate runtime state: a `parent` cycle
+// must not drop elements from (or hang) the native save, and a
+// self-referential collection must not recurse the writers to death.
+static void test_save_degenerate_state() {
+    World w;
+    CHECK(load_file("fixtures/aslx/runtime.aslx", w));
+    Interp in(w);
+    in.print = [](const std::string &) {};
+    Context c;
+
+    in.run_script("create (\"ca\")\n"
+                  "create (\"cb\")\n"
+                  "ca.parent = cb\n"
+                  "cb.parent = ca", c);
+    in.run_script("ca.selfref = NewList()\n"
+                  "list add (ca.selfref, ca.selfref)", c);
+    // The degenerate state actually exists (the setup scripts didn't error).
+    CHECK(w.errors.empty());
+    CHECK_STR(Interp::to_string(in.eval("ca.parent", c)), "cb");
+    CHECK_STR(Interp::to_string(in.eval("cb.parent", c)), "ca");
+    CHECK_STR(Interp::to_string(in.eval("ListCount(ca.selfref)", c)), "1");
+
+    // Both writers terminate; the cycle members are still in the native save.
+    std::string native = in.save_game_native("runtime.aslx");
+    CHECK(native.find("\"ca\"") != std::string::npos);
+    CHECK(native.find("\"cb\"") != std::string::npos);
+    std::string snap = in.save_game("runtime.aslx");
+    CHECK(Interp::is_save_data(snap.data(), snap.size()));
+}
+
+// Hostile save data: counts, lengths and nesting come from an untrusted file
+// and must fail closed -- no giant preallocation, no unbounded recursion, no
+// overwriting static elements -- all before anything mutates the world.
+static void test_save_hostile() {
+    World w;
+    CHECK(load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core"));
+    Interp in(w);
+    in.print = [](const std::string &) {};
+
+    auto blob = [](const std::string &s) {
+        return std::to_string(s.size()) + ":" + s;
+    };
+    auto num = [](long n) { return std::to_string(n) + ";"; };
+    // Valid header up to the element count, so each probe reaches its target.
+    const std::string head = "ASLXSAVE 1\n" + blob(w.game_name) +
+                             num(w.asl_version) + blob("x") + num(100);
+
+    std::string err;
+    // Absurd element count: rejected before any sized allocation.
+    CHECK(!in.restore_game(head + num(99999999999999L), err));
+
+    // A digit string long enough to wrap a long is malformed, not garbage.
+    CHECK(!in.restore_game(head + "999999999999999999999999999999;", err));
+
+    // Deep value nesting hits the reader's depth cap, not the stack limit.
+    std::string deep = head + num(1) + "E" + blob("chest") + blob("object") +
+                       "0" + num(1) + num(0) + num(1) + blob("f");
+    for (int i = 0; i < 100000; ++i) deep += "L0:01;";  // one list level each
+    deep += "n0:0";
+    CHECK(!in.restore_game(deep, err));
+
+    // A save-family record whose name collides with a static element is
+    // rejected (the writer never emits one), leaving the element intact.
+    std::string clobber = head + num(1) + "E" + blob("MoveObject") +
+                          blob("object") + "0" + num(1) + num(0) + num(0) +
+                          num(0) + "END";
+    CHECK(!in.restore_game(clobber, err));
+    CHECK(w.find("MoveObject") &&
+          w.find("MoveObject")->elem_type == "function");
+
+    // A record claiming a non-save-family elem_type is malformed.
+    std::string fn = head + num(1) + "E" + blob("zzz") + blob("function") +
+                     "0" + num(1) + num(0) + num(0) + num(0) + "END";
+    CHECK(!in.restore_game(fn, err));
+
+    // Still a working interpreter afterwards.
+    Context c;
+    CHECK_STR(Interp::to_string(in.eval("1 + 1", c)), "2");
+}
+
 // The native Quest/QuestViva `.quest-save` format: an ASLX re-serialization
 // overlaid onto a reloaded original. Same mutate/save/restore round-trip as
 // test_save_restore, exercising the writer and the overlay reader.
@@ -1397,6 +1616,12 @@ int main() {
     test_parity_batch();
     test_undo();
     test_save_restore();
+    test_save_hostile();
+    test_number_parse_oracle();
+    test_parser_depth_caps();
+    test_attribute_names_deep();
+    test_firsttime_bake_oneliners();
+    test_save_degenerate_state();
     test_save_restore_native();
     test_expressions();
     test_control_flow();

@@ -48,8 +48,11 @@ bool rd_num(const char *&p, const char *end, long &n) {
     if (neg) ++p;
     if (p >= end || !std::isdigit((unsigned char)*p)) return false;
     long v = 0;
-    while (p < end && std::isdigit((unsigned char)*p))
+    int digits = 0;
+    while (p < end && std::isdigit((unsigned char)*p)) {
+        if (++digits > 18) return false;  // would overflow long
         v = v * 10 + (*p++ - '0');
+    }
     if (p >= end || *p != ';') return false;
     ++p;
     n = neg ? -v : v;
@@ -59,8 +62,11 @@ bool rd_num(const char *&p, const char *end, long &n) {
 bool rd_blob(const char *&p, const char *end, std::string &s) {
     if (p >= end || !std::isdigit((unsigned char)*p)) return false;
     size_t len = 0;
-    while (p < end && std::isdigit((unsigned char)*p))
+    int digits = 0;
+    while (p < end && std::isdigit((unsigned char)*p)) {
+        if (++digits > 18) return false;  // would overflow size_t
         len = len * 10 + (size_t)(*p++ - '0');
+    }
     if (p >= end || *p != ':') return false;
     ++p;
     if ((size_t)(end - p) < len) return false;
@@ -77,7 +83,15 @@ bool rd_char(const char *&p, const char *end, char want) {
 
 // -- Value serialization (recursive; nested collections round-trip) ---------
 
-void wr_value(std::string &out, const Value &v) {
+void wr_value(std::string &out, const Value &v, int depth = 0) {
+    // A self-referential collection (`list add (l, l)`) would recurse
+    // forever; truncate levels past the cap to null.
+    if (depth > 100) {
+        out += 'n';
+        wr_blob(out, std::string());
+        out += '0';
+        return;
+    }
     // Common prefix: type letter, declared_type blob, list_extend flag.
     char t = 'n';
     switch (v.type) {
@@ -121,7 +135,7 @@ void wr_value(std::string &out, const Value &v) {
     case Value::Type::ObjectList:
         wr_num(out, (long)v.list().size());
         for (const Value &e : v.list())
-            wr_value(out, e);
+            wr_value(out, e, depth + 1);
         break;
     case Value::Type::StringDict:
     case Value::Type::ObjectDict:
@@ -129,13 +143,16 @@ void wr_value(std::string &out, const Value &v) {
         wr_num(out, (long)v.dict().size());
         for (const auto &kv : v.dict()) {
             wr_blob(out, kv.first);
-            wr_value(out, kv.second);
+            wr_value(out, kv.second, depth + 1);
         }
         break;
     }
 }
 
-bool rd_value(const char *&p, const char *end, Value &v) {
+bool rd_value(const char *&p, const char *end, Value &v, int depth = 0) {
+    // ~6 bytes encode one nesting level, so an unbounded recursion would let
+    // a small hostile save overflow the stack; no real game nests near this.
+    if (depth > 1000) return false;
     if (p >= end) return false;
     char t = *p++;
     if (!rd_blob(p, end, v.declared_type)) return false;
@@ -159,7 +176,7 @@ bool rd_value(const char *&p, const char *end, Value &v) {
         v.type = Value::Type::Double;
         std::string s;
         if (!rd_blob(p, end, s)) return false;
-        v.dbl = std::atof(s.c_str());
+        v.dbl = c_strtod(s.c_str());
         return true;
     }
     case 'b':
@@ -175,7 +192,7 @@ bool rd_value(const char *&p, const char *end, Value &v) {
         if (!rd_num(p, end, n) || n < 0) return false;
         for (long i = 0; i < n; ++i) {
             Value e;
-            if (!rd_value(p, end, e)) return false;
+            if (!rd_value(p, end, e, depth + 1)) return false;
             v.list().push_back(std::move(e));
         }
         return true;
@@ -192,7 +209,8 @@ bool rd_value(const char *&p, const char *end, Value &v) {
         for (long i = 0; i < n; ++i) {
             std::string key;
             Value e;
-            if (!rd_blob(p, end, key) || !rd_value(p, end, e)) return false;
+            if (!rd_blob(p, end, key) || !rd_value(p, end, e, depth + 1))
+                return false;
             v.dict().emplace_back(std::move(key), std::move(e));
         }
         return true;
@@ -296,7 +314,7 @@ std::string Interp::save_game(const std::string &original_file) {
     return out;
 }
 
-bool Interp::restore_game(const std::string &data, std::string &err) {
+bool Interp::restore_game(const std::string &data, std::string &err) try {
     // Native Quest/QuestViva `.quest-save` (ASLX re-serialization): overlay it
     // onto this freshly-reloaded world instead of applying the v1 snapshot.
     if (is_native_save_data(data.data(), data.size()))
@@ -331,8 +349,18 @@ bool Interp::restore_game(const std::string &data, std::string &err) {
         std::vector<std::string> inherits;
         std::vector<std::pair<std::string, Value>> fields;
     };
-    std::vector<SavedElement> saved((size_t)elem_count);
-    for (SavedElement &se : saved) {
+    // Counts come from the file: never preallocate from them (a tiny hostile
+    // save can claim billions). Each element/inherit/field costs input bytes,
+    // so growing as items actually parse keeps memory proportional to the
+    // save's real size; the `> end - p` checks reject absurd counts up front.
+    if (elem_count > end - p) {
+        err = "malformed save header";
+        return false;
+    }
+    std::vector<SavedElement> saved;
+    for (long ei = 0; ei < elem_count; ++ei) {
+        saved.emplace_back();
+        SavedElement &se = saved.back();
         long n = 0;
         if (!rd_char(p, end, 'E') || !rd_blob(p, end, se.name) ||
             !rd_blob(p, end, se.elem_type) || p >= end) {
@@ -340,28 +368,45 @@ bool Interp::restore_game(const std::string &data, std::string &err) {
             return false;
         }
         se.anonymous = *p++ == '1';
-        if (!rd_num(p, end, se.sort_index) || !rd_num(p, end, n) || n < 0) {
+        if (!rd_num(p, end, se.sort_index) || !rd_num(p, end, n) || n < 0 ||
+            n > end - p) {
             err = "malformed save element";
             return false;
         }
-        se.inherits.resize((size_t)n);
-        for (std::string &t : se.inherits)
+        for (long i = 0; i < n; ++i) {
+            std::string t;
             if (!rd_blob(p, end, t)) { err = "malformed save element"; return false; }
-        if (!rd_num(p, end, n) || n < 0) { err = "malformed save element"; return false; }
-        se.fields.resize((size_t)n);
-        for (auto &kv : se.fields)
-            if (!rd_blob(p, end, kv.first) || !rd_value(p, end, kv.second)) {
+            se.inherits.push_back(std::move(t));
+        }
+        if (!rd_num(p, end, n) || n < 0 || n > end - p) {
+            err = "malformed save element";
+            return false;
+        }
+        for (long i = 0; i < n; ++i) {
+            std::string key;
+            Value val;
+            if (!rd_blob(p, end, key) || !rd_value(p, end, val)) {
                 err = "malformed save field";
                 return false;
             }
+            se.fields.emplace_back(std::move(key), std::move(val));
+        }
+        // The writer only ever emits the save family; anything else is a
+        // crafted save trying to overwrite a static element (function, type).
+        if (!save_family(se.elem_type)) {
+            err = "malformed save element";
+            return false;
+        }
     }
     long ft_count = 0;
-    if (!rd_num(p, end, ft_count) || ft_count < 0) {
+    if (!rd_num(p, end, ft_count) || ft_count < 0 || ft_count > end - p) {
         err = "malformed save (firsttime section)";
         return false;
     }
-    std::vector<std::pair<std::string, std::vector<bool>>> fts((size_t)ft_count);
-    for (auto &ft : fts) {
+    std::vector<std::pair<std::string, std::vector<bool>>> fts;
+    for (long fi = 0; fi < ft_count; ++fi) {
+        fts.emplace_back();
+        auto &ft = fts.back();
         long n = 0;
         if (!rd_blob(p, end, ft.first) || !rd_num(p, end, n) || n < 0 ||
             end - p < n) {
@@ -375,6 +420,17 @@ bool Interp::restore_game(const std::string &data, std::string &err) {
     if (end - p < 3 || std::memcmp(p, "END", 3) != 0) {
         err = "malformed save (truncated)";
         return false;
+    }
+
+    // The drop phase below filters on save_family; the apply phase must too,
+    // or a save naming an existing static element (function, type, ...) would
+    // overwrite it. Validate before mutating anything.
+    for (const SavedElement &se : saved) {
+        Element *e = world_.find(se.name);
+        if (e && !save_family(e->elem_type)) {
+            err = "save element collides with a static element";
+            return false;
+        }
     }
 
     // Apply. First unregister every live mutable-family element the save does
@@ -424,6 +480,14 @@ bool Interp::restore_game(const std::string &data, std::string &err) {
     // Per-(element,attr) merged-listextend slots may hold pre-restore state.
     extend_cache_.clear();
     return true;
+} catch (const std::bad_alloc &) {
+    // Backstop for save data that still reaches the allocator: fail the
+    // restore cleanly instead of aborting the host.
+    err = "out of memory restoring save";
+    return false;
+} catch (const std::length_error &) {
+    err = "out of memory restoring save";
+    return false;
 }
 
 }  // namespace aslx

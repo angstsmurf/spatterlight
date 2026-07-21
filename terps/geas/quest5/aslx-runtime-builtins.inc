@@ -92,14 +92,22 @@ static std::string utf8_case(const std::string &s, bool upper, bool first_only) 
     return out;
 }
 
-// Recursive "does e inherit type t" (directly or transitively).
-static bool does_inherit(World &w, Element *e, const std::string &t) {
-    if (!e) return false;
+// Recursive "does e inherit type t" (directly or transitively). `seen` guards
+// against an inheritance cycle (a bad <inherit>, or a runtime type edit) that
+// would otherwise recurse until the C++ stack overflows; deduplicating visited
+// types cannot change a reachability boolean, so a global set is safe here.
+static bool does_inherit(World &w, Element *e, const std::string &t,
+                         std::unordered_set<const Element *> &seen) {
+    if (!e || !seen.insert(e).second) return false;
     for (const std::string &parent : e->inherits) {
         if (parent == t) return true;
-        if (does_inherit(w, w.find(parent), t)) return true;
+        if (does_inherit(w, w.find(parent), t, seen)) return true;
     }
     return false;
+}
+static bool does_inherit(World &w, Element *e, const std::string &t) {
+    std::unordered_set<const Element *> seen;
+    return does_inherit(w, e, t, seen);
 }
 
 // ASLX type name for a value, matching WorldModel.ConvertTypeToTypeName.
@@ -326,9 +334,11 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         std::vector<Value> params(args.begin() + 2, args.end());
         return interp_run_delegate(*this, obj_of(arg(0)), sarg(1), params);
     }
-    // GetUIOption: player-UI configuration lookup. Headless has no overrides, so
-    // every option reads back empty (Core's "= true"/LengthOf > 0 guards fail).
-    if (fn == "getuioption" && n == 1) return vstr(std::string());
+    // GetUIOption: player-UI configuration lookup. No overrides exist, so
+    // every option reads back NULL like the oracle's headless player (an
+    // empty string instead flips Core's `value = null` checks -- e.g.
+    // UIOptionUseGameFont -- into the branch that calls ToDouble("")).
+    if (fn == "getuioption" && n == 1) return vnull();
     // GetFileURL: front-end URL for a packaged resource. Headless there is no
     // web root; the filename itself is a serviceable stand-in (it only ever
     // lands inside HTML the presentation milestone will interpret).
@@ -479,9 +489,19 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                     names.push_back(kv.first);
         };
         collect(e);
+        // Fields.GetAttributeNames recurses each type's own inherited types
+        // (depth-first, most recently added first), so a two-deep type chain
+        // contributes its attributes too. The seen-set guards type cycles.
+        std::set<Element *> seen_ty;
+        std::function<void(Element *)> rec = [&](Element *x) {
+            if (!x || !seen_ty.insert(x).second) return;
+            collect(x);
+            for (auto it = x->inherits.rbegin(); it != x->inherits.rend(); ++it)
+                rec(world_.find(*it));
+        };
         if (inh && e)
             for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
-                collect(world_.find(*it));
+                rec(world_.find(*it));
         return vstrlist(names);
     }
 
@@ -716,6 +736,11 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         bool ok = i < s.size();
         for (size_t k = i; k < s.size(); ++k)
             if (!std::isdigit((unsigned char)s[k])) { ok = false; break; }
+        if (ok) {  // int.TryParse also range-checks Int32
+            errno = 0;
+            long v = std::strtol(s.c_str(), nullptr, 10);
+            ok = errno != ERANGE && v >= -2147483648L && v <= 2147483647L;
+        }
         return vbool(ok);
     }
     if (fn == "isdouble" && n == 1) {
@@ -767,7 +792,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         std::string s = rt_trim(sarg(0));
         if (s.empty()) return vbool(false);
         char *end = nullptr;
-        std::strtod(s.c_str(), &end);
+        c_strtod(s.c_str(), &end);
         return vbool(end && *end == 0);
     }
 
@@ -808,16 +833,73 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
 
     // ---- numbers ----------------------------------------------------------
-    auto num_of = [&](const Value &v) -> double {
-        if (v.type == Value::Type::String) return std::strtod(v.str.c_str(), nullptr);
-        return as_double(v);
+    // ToInt/ToDouble on a string are int.Parse/double.Parse (invariant): a
+    // malformed or out-of-Int32-range string raises the .NET exception
+    // message as a script error -- shown verbatim in oracle transcripts --
+    // never a silent 0 or a wrapped garbage value.
+    auto parse_int32 = [&](const std::string &raw) -> long {
+        std::string s = rt_trim(raw);
+        size_t i = (s.size() && (s[0] == '-' || s[0] == '+')) ? 1 : 0;
+        bool ok = i < s.size();
+        for (size_t k = i; k < s.size(); ++k)
+            if (!std::isdigit((unsigned char)s[k])) { ok = false; break; }
+        if (!ok)
+            error("The input string '" + raw + "' was not in a correct format.");
+        errno = 0;
+        long v = std::strtol(s.c_str(), nullptr, 10);
+        if (errno == ERANGE || v < -2147483648L || v > 2147483647L)
+            error("Value was either too large or too small for an Int32.");
+        return v;
     };
-    if (fn == "cint" && n == 1) return vint((long)std::llround(num_of(arg(0))));
-    if (fn == "cdbl" && n == 1) return vdouble(num_of(arg(0)));
+    // double.Parse: sign, digits, optional decimal point, optional exponent
+    // (no hex/inf/nan forms, which c_strtod would happily accept).
+    auto parse_double = [&](const std::string &raw) -> double {
+        std::string s = rt_trim(raw);
+        size_t i = (s.size() && (s[0] == '-' || s[0] == '+')) ? 1 : 0;
+        bool digits = false, dot = false, ok = i < s.size();
+        size_t k = i;
+        for (; k < s.size() && ok; ++k) {
+            char ch = s[k];
+            if (std::isdigit((unsigned char)ch)) { digits = true; continue; }
+            if (ch == '.' && !dot) { dot = true; continue; }
+            if ((ch == 'e' || ch == 'E') && digits) break;  // exponent part
+            ok = false;
+        }
+        if (ok && k < s.size()) {
+            ++k;
+            if (k < s.size() && (s[k] == '+' || s[k] == '-')) ++k;
+            bool ed = false;
+            for (; k < s.size() && std::isdigit((unsigned char)s[k]); ++k)
+                ed = true;
+            ok = ed && k == s.size();
+        }
+        if (!ok || !digits)
+            error("The input string '" + raw + "' was not in a correct format.");
+        return c_strtod(s.c_str());
+    };
+    // A non-string coerces through its double form; llround on a NaN or an
+    // out-of-Int32-range value is unspecified, so guard first (the oracle has
+    // no numeric ToInt/CInt overload at all -- it errors there too).
+    auto round_int32 = [&](const Value &v) -> long {
+        double d = as_double(v);
+        if (!(d >= -2147483648.5 && d <= 2147483647.5))
+            error("Value was either too large or too small for an Int32.");
+        return (long)std::llround(d);
+    };
+    if (fn == "cint" && n == 1)
+        return vint(arg(0).type == Value::Type::String
+                        ? parse_int32(arg(0).str) : round_int32(arg(0)));
+    if (fn == "cdbl" && n == 1)
+        return vdouble(arg(0).type == Value::Type::String
+                           ? parse_double(arg(0).str) : as_double(arg(0)));
     // ToInt/ToDouble parse a string; ToString formats a number. (CInt/CDbl
     // coerce any value; ToInt/ToDouble are the string-parse forms.)
-    if (fn == "toint" && n == 1) return vint((long)std::llround(num_of(arg(0))));
-    if (fn == "todouble" && n == 1) return vdouble(num_of(arg(0)));
+    if (fn == "toint" && n == 1)
+        return vint(arg(0).type == Value::Type::String
+                        ? parse_int32(arg(0).str) : round_int32(arg(0)));
+    if (fn == "todouble" && n == 1)
+        return vdouble(arg(0).type == Value::Type::String
+                           ? parse_double(arg(0).str) : as_double(arg(0)));
     if (fn == "tostring" && n == 1) return vstr(to_string(arg(0)));
     if (fn == "abs" && n == 1) {
         if (arg(0).type == Value::Type::Int) return vint(std::labs(arg(0).integer));
@@ -840,8 +922,16 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             error(std::string(fn == "clone" ? "Clone" : "ShallowClone") +
                   " function expected object parameter but was passed '" +
                   to_string(arg(0)) + "'");
+        // Guard the deep recursion against a runtime parent cycle (a->parent=b,
+        // b->parent=a): each element has a single parent, so containment is a
+        // tree and a global visited set never prunes a legitimate distinct
+        // child -- it only breaks a back-edge that would otherwise recurse until
+        // the C++ stack overflows. (GetAllChildObjects above guards the same
+        // way.)
+        std::unordered_set<const Element *> seen;
         std::function<Element *(Element *, bool)> do_clone =
             [&](Element *from, bool deep) -> Element * {
+            seen.insert(from);
             std::string root = from->name;
             while (!root.empty() &&
                    std::isdigit((unsigned char)root.back()))
@@ -861,7 +951,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             if (deep) {
                 std::vector<Element *> kids;
                 for (auto &up : world_.elements)
-                    if (live(up) && parent_of(up.get()) == from)
+                    if (live(up) && parent_of(up.get()) == from &&
+                        seen.find(up.get()) == seen.end())
                         kids.push_back(up.get());
                 std::stable_sort(kids.begin(), kids.end(),
                                  [](const Element *a, const Element *b) {

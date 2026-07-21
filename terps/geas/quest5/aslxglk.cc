@@ -318,6 +318,13 @@ std::string tag_attr(const std::string &tag, const std::string &attr)
     std::string t = lower(tag);
     size_t pos = 0;
     while ((pos = t.find(attr, pos)) != std::string::npos) {
+        /* Whole-attribute match only: `src` must not hit inside `data-src`.
+         * The char before the name must not be part of an attribute name. */
+        if (pos > 0 && (std::isalnum((unsigned char)t[pos - 1]) ||
+                        t[pos - 1] == '-' || t[pos - 1] == '_')) {
+            pos += attr.size();
+            continue;
+        }
         size_t eq = pos + attr.size();
         while (eq < t.size() && (t[eq] == ' ' || t[eq] == '\t')) eq++;
         if (eq >= t.size() || t[eq] != '=') { pos = eq; continue; }
@@ -655,21 +662,41 @@ const size_t kMaxUnput = 16384;
 
 void render_html(const std::string &raw);
 
+/* A hide can only ever retract kMaxUnput chars, so chunks past this many are
+ * dead weight -- without the cap a game sitting inside <= kMaxSections (or one
+ * never-closed section) records every print for the whole session and
+ * re-serializes the lot into every autosave. */
+const size_t kMaxLogChunks = 4096;
+
 /* Drop the sections (and the chunks they cover) that can no longer be hidden. */
 void trim_out_log()
 {
-    if (g_sections.size() <= kMaxSections)
-        return;
-    size_t drop = g_sections.size() - kMaxSections;
-    size_t cut = g_sections[drop].start;
-    g_sections.erase(g_sections.begin(), g_sections.begin() + drop);
-    if (cut == 0)
-        return;
-    g_out_log.erase(g_out_log.begin(), g_out_log.begin() + cut);
-    for (OutSection &s : g_sections) {
-        s.start -= cut;
-        if (s.end != (size_t) -1)
-            s.end -= cut;
+    if (g_sections.size() > kMaxSections) {
+        size_t drop = g_sections.size() - kMaxSections;
+        size_t cut = g_sections[drop].start;
+        g_sections.erase(g_sections.begin(), g_sections.begin() + drop);
+        if (cut > 0) {
+            g_out_log.erase(g_out_log.begin(), g_out_log.begin() + cut);
+            for (OutSection &s : g_sections) {
+                s.start -= cut;
+                if (s.end != (size_t) -1)
+                    s.end -= cut;
+            }
+        }
+    }
+    /* Bound the chunk log itself too.  A section clamped here retracts only
+     * what remains -- the same best-effort bound kMaxUnput already imposes. */
+    if (g_out_log.size() > kMaxLogChunks) {
+        size_t cut = g_out_log.size() - kMaxLogChunks;
+        g_out_log.erase(g_out_log.begin(), g_out_log.begin() + cut);
+        while (!g_sections.empty() && g_sections.front().end != (size_t) -1 &&
+               g_sections.front().end <= cut)
+            g_sections.erase(g_sections.begin());
+        for (OutSection &s : g_sections) {
+            s.start = s.start > cut ? s.start - cut : 0;
+            if (s.end != (size_t) -1)
+                s.end = s.end > cut ? s.end - cut : 0;
+        }
     }
 }
 
@@ -889,8 +916,10 @@ void render_html(const std::string &raw)
      * spent, so re-rendering it would print the echo this time. All it can
      * leave behind is that restored newline. */
     c.html = swallowed ? "<br/>" : raw;
-    if (!swallowed || !c.text.empty())
+    if (!swallowed || !c.text.empty()) {
         g_out_log.push_back(c);
+        trim_out_log();
+    }
 }
 
 /* ---------------------------------------------------------------- banner -- */
@@ -1235,8 +1264,11 @@ struct PromptBreak {
     Interp &in;
     const char *prompt;
     bool broke = false;
+    std::function<void(const std::string &)> saved;
     PromptBreak(Interp &i, const char *p) : in(i), prompt(p) {
         if (!prompt) return;
+        saved = in.print;  /* restore the PRIOR handler on exit -- a nested
+                            * redirect must not be stomped back to render_html */
         in.print = [this](const std::string &h) {
             if (!broke && !h.empty()) {
                 if (!unput_exact(u32_from_utf8(prompt)))
@@ -1247,7 +1279,7 @@ struct PromptBreak {
         };
     }
     ~PromptBreak() {
-        if (prompt) in.print = render_html;
+        if (prompt) in.print = saved;
     }
 };
 
@@ -1270,7 +1302,12 @@ struct PromptBreak {
 InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                    bool want_line = true, bool on_screen = false)
 {
-    static glui32 buf[256];
+    /* Per-frame, NOT static: a timer tick below can open an expression-form
+     * ShowMenu/Ask -> nested read_line, which with a shared buffer would
+     * clobber the player's half-typed line (cancelled into buf, re-requested
+     * with ce.val1 preload).  Every return path completes or cancels the
+     * request, so the request never outlives the frame. */
+    glui32 buf[256];
     /* Links are the only other way in, so a library without them always gets
      * the line request (CheapGlk: the smoke harness). */
     if (!g_hyperlinks)
@@ -1511,15 +1548,17 @@ bool iequal(const std::string &a, const std::string &b)
  * the pending slot itself. */
 bool run_menu_ui(Interp &in, const MenuData &m, std::string &key)
 {
+    /* Through in.print, not render_html: with a PromptBreak active (a menu
+     * opened by a timer tick) the first output must retract the stale prompt
+     * first, exactly like every other engine print. */
     if (!m.caption.empty()) {
-        render_html(m.caption);
+        in.print(m.caption);
         glk_put_char('\n');
     }
     for (size_t i = 0; i < m.options.size(); i++) {
         char num[16];
         snprintf(num, sizeof num, "%zu: ", i + 1);
-        glk_put_string((char *) num);
-        render_html(m.options[i].second);
+        in.print(num + m.options[i].second);
         glk_put_char('\n');
     }
     for (;;) {
@@ -1557,7 +1596,7 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key)
  * Returns false when the world ended under the prompt (no answer to give). */
 bool run_question_ui(Interp &in, const std::string &q, bool &answer)
 {
-    render_html(q);
+    in.print(q);  /* through the prompt-retract path; see run_menu_ui */
     for (;;) {
         InResult r = read_line(in, true, " (yes/no) > ");
         if (r.kind == InEnd::State)
@@ -2509,13 +2548,18 @@ std::string aslx_encode_frontend(Interp &in)
     blob_num(b, g_schannel ? g_schannel->tag : 0);
     blob_num(b, (long) g_links_spent);
     blob_num(b, (long) g_links.size());
-    for (const LinkAction &l : g_links) {
-        blob_str(b, l.command);
-        blob_str(b, l.event_func);
-        blob_str(b, l.event_param);
-        blob_str(b, l.toggle_key);
-        blob_num(b, l.end_wait ? 1 : 0);
-        blob_num(b, l.inner_text ? 1 : 0);
+    /* Spent links keep their slot (window link ids index into g_links) but
+     * their payloads are never consulted again -- serialize them empty so an
+     * autosave's size is bounded by the LIVE tail, not the whole session. */
+    for (size_t i = 0; i < g_links.size(); i++) {
+        const LinkAction &l = g_links[i];
+        const bool spent = i < g_links_spent;
+        blob_str(b, spent ? std::string() : l.command);
+        blob_str(b, spent ? std::string() : l.event_func);
+        blob_str(b, spent ? std::string() : l.event_param);
+        blob_str(b, spent ? std::string() : l.toggle_key);
+        blob_num(b, !spent && l.end_wait ? 1 : 0);
+        blob_num(b, !spent && l.inner_text ? 1 : 0);
     }
     blob_str(b, g_pane_expanded);
     blob_str(b, g_status_line);
@@ -2714,7 +2758,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     /* A taken page choice retires the options above it -- see g_links_spent.
      * Called before the new page prints, so the links it is about to add are
      * above the mark and stay live. */
-    in.disable_command_links = [] { g_links_spent = g_links.size(); };
+    in.disable_command_links = [] {
+        /* A spent link is never dispatched again (val1 > g_links_spent), so
+         * its payload strings are dead -- release them, or a long gamebook
+         * session grows the vector's heap without bound. */
+        for (size_t i = g_links_spent; i < g_links.size(); i++)
+            g_links[i] = LinkAction{};
+        g_links_spent = g_links.size();
+    };
     /* Output sections -- the reference player's hideable <div>s, retracted
      * here with garglk_unput_string_count_uni. */
     in.start_output_section = [](const std::string &n) { start_output_section(n); };
@@ -3048,10 +3099,15 @@ extern "C" int aslx_is_quest5_file(const char *path)
     unsigned char head[2048];
     size_t n = fread(head, 1, sizeof head, f);
     if (n >= 4 && memcmp(head, "PK\x03\x04", 4) == 0) {
-        /* .quest package: claim it only if game.aslx is really inside. */
+        /* .quest package: claim it only if game.aslx is really inside.  A
+         * failed ftell (-1) would otherwise become a (size_t)-1 vector. */
         fseek(f, 0, SEEK_END);
         long len = ftell(f);
         fseek(f, 0, SEEK_SET);
+        if (len <= 0) {
+            fclose(f);
+            return 0;
+        }
         std::vector<uint8_t> buf((size_t) len);
         size_t got = fread(buf.data(), 1, (size_t) len, f);
         fclose(f);

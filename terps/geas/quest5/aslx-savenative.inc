@@ -280,20 +280,6 @@ bool is_default_type(const std::string &t) {
 
 std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q);
 
-// Split "prefix { body }" -> prefix (incl. trailing space) and the inner block.
-// Returns false when the statement has no top-level brace block.
-bool split_block(const std::string &stmt, std::string &prefix,
-                 std::string &inner) {
-    std::string after;
-    bool found = false;
-    inner = extract_balanced(stmt, '{', '}', after, found);
-    if (!found) return false;
-    std::string ob = obscure_strings(stmt);
-    size_t brace = ob.find('{');
-    prefix = stmt.substr(0, brace);
-    return true;
-}
-
 // A statement whose body collect_firsttime descends into (single-body forms;
 // switch and firsttime/otherwise are handled by the callers).
 bool is_recursing_keyword(const std::string &s) {
@@ -307,21 +293,35 @@ bool is_recursing_keyword(const std::string &s) {
 }
 
 std::string bake_switch(const std::string &stmt, std::deque<bool> &q) {
-    std::string prefix, body;
-    if (!split_block(stmt, prefix, body)) return stmt;
+    // Split off the switch expression like the parser (get_parameter), not on
+    // the first '{': a one-line switch arrives with its outer braces already
+    // stripped by get_script, where split_block would take the first CASE's
+    // brace instead and lose the body.
+    std::string after;
+    bool found = false;
+    get_parameter(stmt, after, found);
+    if (!found) return stmt;
+    std::string prefix = stmt.substr(0, stmt.size() - after.size());
+    std::string body = remove_surrounding_braces(rt_trim(after));
     // Split the switch body into its case/default chunks (source order).
     struct Chunk { bool is_default; std::string head; std::string inner; };
     std::vector<Chunk> chunks;
     std::string line = rt_trim(body);
     while (!line.empty()) {
-        std::string after;
-        std::string c = rt_trim(get_script(line, after));
-        line = after;
-        if (c.empty()) { if (rt_trim(line).empty()) break; else continue; }
-        std::string pfx, inner;
-        if (split_block(c, pfx, inner)) {
-            bool is_def = starts_with_word(rt_trim(pfx), "default");
-            chunks.push_back({is_def, pfx, inner});
+        std::string cafter;
+        std::string c = rt_trim(get_script(line, cafter));
+        line = cafter;
+        if (!c.empty()) {
+            if (starts_with_word(c, "case")) {
+                std::string a2;
+                bool f2 = false;
+                get_parameter(c, a2, f2);
+                if (f2)
+                    chunks.push_back({false, c.substr(0, c.size() - a2.size()),
+                                      rt_trim(a2)});
+            } else if (starts_with_word(c, "default")) {
+                chunks.push_back({true, "default", rt_trim(c.substr(7))});
+            }
         }
         if (rt_trim(line).empty()) break;
     }
@@ -333,9 +333,9 @@ std::string bake_switch(const std::string &stmt, std::deque<bool> &q) {
     for (size_t i = 0; i < chunks.size(); ++i)
         if (!chunks[i].is_default) baked[i] = bake_stmt_list(chunks[i].inner, q);
     // Re-emit in source order.
-    std::string out = prefix + "{\n";
+    std::string out = prefix + " {\n";
     for (size_t i = 0; i < chunks.size(); ++i)
-        out += chunks[i].head + "{\n" + baked[i] + "\n}\n";
+        out += chunks[i].head + " {\n" + baked[i] + "\n}\n";
     out += "}";
     return out;
 }
@@ -344,9 +344,36 @@ std::string bake_switch(const std::string &stmt, std::deque<bool> &q) {
 std::string bake_generic(const std::string &stmt, std::deque<bool> &q) {
     if (starts_with_word(stmt, "switch")) return bake_switch(stmt, q);
     if (is_recursing_keyword(stmt)) {
-        std::string prefix, inner;
-        if (split_block(stmt, prefix, inner))
-            return prefix + "{\n" + bake_stmt_list(inner, q) + "\n}";
+        // Locate the body the way parse_one_statement does: after the
+        // parenthesized parameter for the parameterized forms, after the
+        // keyword itself for the parameterless ones. split_block (first '{')
+        // would mis-split a one-liner whose own braces get_script already
+        // stripped -- the first brace it finds then belongs to a NESTED
+        // statement, so the flag stream and the body text both corrupt.
+        std::string head, body;
+        bool parameterless =
+            starts_with_word(stmt, "wait") ||
+            stmt.compare(0, 8, "on ready") == 0 ||
+            stmt.compare(0, 9, "get input") == 0 ||
+            (starts_with_word(stmt, "else") &&
+             !starts_with_word(rt_trim(text_after(stmt, "else")), "if"));
+        if (parameterless) {
+            size_t k = starts_with_word(stmt, "wait")          ? 4
+                       : stmt.compare(0, 8, "on ready") == 0   ? 8
+                       : stmt.compare(0, 9, "get input") == 0  ? 9
+                                                               : 4;  // else
+            head = stmt.substr(0, k);
+            body = rt_trim(stmt.substr(k));
+        } else {
+            std::string after;
+            bool found = false;
+            get_parameter(stmt, after, found);
+            if (!found) return stmt;
+            head = stmt.substr(0, stmt.size() - after.size());
+            body = rt_trim(after);
+        }
+        if (!body.empty())
+            return head + " {\n" + bake_stmt_list(body, q) + "\n}";
     }
     return stmt;  // no descent: emitted verbatim
 }
@@ -371,10 +398,12 @@ std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
         line = after;
         if (!stmt.empty()) {
             if (ft_pending && starts_with_word(stmt, "otherwise")) {
-                std::string pfx, oinner;
-                std::string other = split_block(stmt, pfx, oinner)
-                                        ? bake_stmt_list(oinner, q)
-                                        : std::string();
+                // The body is everything after the keyword, exactly as
+                // parse_statements sees it -- get_script has already stripped
+                // the braces off a one-line block, so split_block would find
+                // no '{' (or a nested statement's) and lose the body.
+                std::string other =
+                    bake_stmt_list(rt_trim(stmt.substr(9)), q);
                 if (ft_ran)
                     pieces.push_back(other);  // just the otherwise body
                 else
@@ -386,10 +415,10 @@ std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
                 if (starts_with_word(stmt, "firsttime")) {
                     ft_ran = !q.empty() && q.front();
                     if (!q.empty()) q.pop_front();
-                    std::string pfx, binner;
-                    ft_body = split_block(stmt, pfx, binner)
-                                  ? bake_stmt_list(binner, q)
-                                  : std::string();
+                    // Same as `otherwise`: take the body after the keyword
+                    // (bake_stmt_list strips surrounding braces itself), so
+                    // one-line bodies survive.
+                    ft_body = bake_stmt_list(rt_trim(stmt.substr(9)), q);
                     ft_pending = true;
                 } else {
                     pieces.push_back(bake_generic(stmt, q));
@@ -426,8 +455,10 @@ std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
 // a general list's entries and a generic `dictionary`'s item values are typed
 // and may themselves be collections (Quest's nested grid dictionaries), so this
 // recurses. Unlike a field, a value-position scalar ALWAYS carries its type
-// (IsImpliedType's element==null path).
-void write_value(SaveWriter &w, Interp &in, const Value &v);
+// (IsImpliedType's element==null path). The depth cap breaks the infinite
+// recursion of a self-referential collection (`list add (l, l)`): levels past
+// it truncate to null rather than overflowing the stack.
+void write_value(SaveWriter &w, Interp &in, const Value &v, int depth = 0);
 
 void write_field(SaveWriter &w, Interp &in, const World &world,
                  const std::string &elem_type, const std::string &attr,
@@ -579,7 +610,9 @@ void write_field(SaveWriter &w, Interp &in, const World &world,
         for (const auto &kv : v.dict()) {
             std::vector<std::pair<std::string, std::string>> ia;
             ia.emplace_back("key", kv.first);
-            w.leaf("item", ia, kv.second.str, true);
+            // Scriptdict entries are compiled scripts like any Script field:
+            // bake their run firsttimes or they re-fire after a reload.
+            w.leaf("item", ia, in.bake_firsttime_source(kv.second.str), true);
         }
         w.close(ctag);
         return;
@@ -588,13 +621,17 @@ void write_field(SaveWriter &w, Interp &in, const World &world,
 }
 
 // See the forward declaration above write_field.
-void write_value(SaveWriter &w, Interp &in, const Value &v) {
+void write_value(SaveWriter &w, Interp &in, const Value &v, int depth) {
     using T = Value::Type;
     auto ty = [](const std::string &t) {
         std::vector<std::pair<std::string, std::string>> a;
         a.emplace_back("type", t);
         return a;
     };
+    if (depth > 100) {  // self-referential collection: truncate to null
+        w.leaf("value", {}, "", true);
+        return;
+    }
     switch (v.type) {
     case T::Null:
         w.leaf("value", {}, "", true);
@@ -626,7 +663,7 @@ void write_value(SaveWriter &w, Interp &in, const Value &v) {
         bool general = v.declared_type == "list" || list_needs_generic(v);
         w.open("value", ty(general ? "list" : "stringlist"), false);
         for (const Value &e : v.list()) {
-            if (general) write_value(w, in, e);
+            if (general) write_value(w, in, e, depth + 1);
             else w.leaf("value", {}, e.str, true);
         }
         w.close("value");
@@ -653,7 +690,7 @@ void write_value(SaveWriter &w, Interp &in, const Value &v) {
             w.open("item", {}, false);
             w.leaf("key", {}, kv.first, true);
             if (generic) {
-                write_value(w, in, kv.second);
+                write_value(w, in, kv.second, depth + 1);
             } else {
                 std::string vs = dict_value_string(kv.second);
                 w.leaf("value", {}, vs, !vs.empty());
@@ -668,7 +705,9 @@ void write_value(SaveWriter &w, Interp &in, const Value &v) {
         for (const auto &kv : v.dict()) {
             std::vector<std::pair<std::string, std::string>> ia;
             ia.emplace_back("key", kv.first);
-            w.leaf("item", ia, kv.second.str, true);
+            // Same as the field-position scriptdictionary: bake run
+            // firsttimes out of each entry.
+            w.leaf("item", ia, in.bake_firsttime_source(kv.second.str), true);
         }
         w.close("value");
         return;
@@ -758,7 +797,11 @@ std::string Interp::save_game_native(const std::string &original_file) {
     for (auto &kv : children) std::sort(kv.second.begin(), kv.second.end(), by_sort);
 
     // Element tag + structural attributes (name / game name / exit alias+to).
+    // The seen-set guards against a runtime `parent` cycle, which would
+    // otherwise recurse forever through the children map.
+    std::set<const Element *> emitted;
     std::function<void(const Element *)> emit = [&](const Element *e) {
+        if (!emitted.insert(e).second) return;
         const std::string &t = e->elem_type;
         std::string tag = t;  // object/game/command/verb/exit/turnscript
         std::vector<std::pair<std::string, std::string>> attrs;
@@ -839,6 +882,19 @@ std::string Interp::save_game_native(const std::string &original_file) {
     }
 
     for (const Element *e : roots) emit(e);
+
+    // Elements in a runtime `parent` cycle sit only in children[], so the
+    // walk from roots never reaches them. Emit them as extra roots: the
+    // cycle flattens (their parent comes from XML nesting on reload) instead
+    // of silently vanishing from the save.
+    std::vector<const Element *> cycle_orphans;
+    for (const auto &up : world_.elements) {
+        const Element *e = up.get();
+        if (nested_family(e->elem_type) && live(e) && !emitted.count(e))
+            cycle_orphans.push_back(e);
+    }
+    std::sort(cycle_orphans.begin(), cycle_orphans.end(), by_sort);
+    for (const Element *e : cycle_orphans) emit(e);
 
     // <type name="..">inherits + own fields</type>
     std::vector<const Element *> types;

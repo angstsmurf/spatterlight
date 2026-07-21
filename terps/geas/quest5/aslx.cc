@@ -4,11 +4,14 @@
 
 #include <algorithm>
 #include <cctype>
+#include <climits>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <new>
 #include <set>
 #include <sstream>
+#include <stdexcept>
 
 #include <expat.h>
 #include <zlib.h>
@@ -490,6 +493,9 @@ static uint32_t rd32(const uint8_t *p) {
 static bool inflate_raw(const uint8_t *src, size_t srclen, size_t rawlen,
                         std::string &out) {
     out.clear();
+    // rawlen is the entry's own declared size; cap it before allocating (the
+    // largest real .quest payloads are tens of MB).
+    if (rawlen > ((size_t)1 << 29)) return false;
     out.resize(rawlen);
     z_stream zs;
     std::memset(&zs, 0, sizeof(zs));
@@ -525,9 +531,13 @@ bool zip_list_entries(const uint8_t *data, size_t len,
 
     uint16_t count = rd16(eocd + 10);
     uint32_t cd_off = rd32(eocd + 16);
-    const uint8_t *p = data + cd_off;
+    if (cd_off > len) return false;
 
-    for (uint16_t e = 0; e < count && p + 46 <= data + len; ++e) {
+    // Offsets stay index-based so file-supplied uint32s are range-checked
+    // before any pointer is formed from them.
+    size_t pos = cd_off;
+    for (uint16_t e = 0; e < count && pos + 46 <= len; ++e) {
+        const uint8_t *p = data + pos;
         if (!(p[0] == 'P' && p[1] == 'K' && p[2] == 1 && p[3] == 2)) break;
         ZipEntryInfo info;
         info.method = rd16(p + 10);
@@ -537,8 +547,9 @@ bool zip_list_entries(const uint8_t *data, size_t len,
         uint16_t extra_len = rd16(p + 30);
         uint16_t comment_len = rd16(p + 32);
         uint32_t local_off = rd32(p + 42);
+        if (pos + 46 + name_len > len) break;
         info.name.assign((const char *)p + 46, name_len);
-        p += 46 + name_len + extra_len + comment_len;
+        pos += 46 + (size_t)name_len + extra_len + comment_len;
 
         if (!info.name.empty() && info.name.back() == '/')  // directory
             continue;
@@ -546,9 +557,9 @@ bool zip_list_entries(const uint8_t *data, size_t len,
         // The local header repeats name/extra with possibly DIFFERENT extra
         // length, so the payload offset must come from it, not the central
         // directory.
+        if ((size_t)local_off + 30 > len) continue;
         const uint8_t *lh = data + local_off;
-        if (lh + 30 > data + len ||
-            !(lh[0] == 'P' && lh[1] == 'K' && lh[2] == 3 && lh[3] == 4))
+        if (!(lh[0] == 'P' && lh[1] == 'K' && lh[2] == 3 && lh[3] == 4))
             continue;
         uint16_t l_name = rd16(lh + 26);
         uint16_t l_extra = rd16(lh + 28);
@@ -566,7 +577,9 @@ bool zip_extract_entry(const uint8_t *data, size_t len, const ZipEntryInfo &e,
     if (e.offset + e.comp_size > len) return false;
     const uint8_t *src = data + e.offset;
     if (e.method == 0) {  // stored
-        out.assign((const char *)src, e.raw_size);
+        // Only comp_size was bounds-checked above; a stored entry's sizes
+        // must agree, so copy comp_size rather than trusting raw_size.
+        out.assign((const char *)src, e.comp_size);
         return true;
     }
     if (e.method == 8)  // deflate
@@ -736,6 +749,17 @@ struct Loader {
     // load before -- and are overridden by -- the including file's own
     // (Quest processes includes depth-first, in source order).
     void resolve_include(const std::string &ref) {
+        // A ref is a bare library filename; refuse ".." path segments so a
+        // hostile game file cannot pull arbitrary files into the loader.
+        for (size_t i = 0; i != std::string::npos && i < ref.size();) {
+            size_t j = ref.find_first_of("/\\", i);
+            size_t seglen = (j == std::string::npos ? ref.size() : j) - i;
+            if (seglen == 2 && ref[i] == '.' && ref[i + 1] == '.') {
+                error("illegal include path: " + ref);
+                return;
+            }
+            i = (j == std::string::npos) ? std::string::npos : j + 1;
+        }
         std::string key = ascii_lower(ref);
         if (!included.insert(key).second) return;   // already pulled / in cycle
         if (include_depth > 64) {
@@ -1294,7 +1318,7 @@ struct Loader {
         } else if (type == "int") {
             v.type = Value::Type::Int; v.integer = std::atol(trim(text).c_str());
         } else if (type == "double") {
-            v.type = Value::Type::Double; v.dbl = std::atof(trim(text).c_str());
+            v.type = Value::Type::Double; v.dbl = c_strtod(trim(text).c_str());
         } else if (type == "boolean") {
             v.type = Value::Type::Boolean;
             std::string t = trim(text);
@@ -1494,6 +1518,10 @@ static void XMLCALL cb_char(void *ud, const XML_Char *s, int len) {
 // Parse one document into an existing Loader (shared World). A parse error is
 // recorded but leaves whatever was already loaded intact.
 static bool parse_buffer_into(Loader &ld, const char *data, size_t len) {
+    if (len > (size_t)INT_MAX) {  // XML_Parse takes an int
+        ld.world.errors.push_back("document too large");
+        return false;
+    }
     XML_Parser p = XML_ParserCreate("UTF-8");
     if (!p) { ld.world.errors.push_back("XML_ParserCreate failed"); return false; }
     XML_SetUserData(p, &ld);
@@ -1638,7 +1666,7 @@ bool overlay_aslx_buffer(const char *data, size_t len, World &world,
 }
 
 bool load_file(const std::string &path, World &world,
-               const std::string &core_dir) {
+               const std::string &core_dir) try {
     std::string buf;
     if (!slurp_file(path, buf)) {
         world.errors.push_back("cannot open " + path);
@@ -1663,6 +1691,14 @@ bool load_file(const std::string &path, World &world,
         return load_aslx_buffer(aslx.data(), aslx.size(), world, core_dir, "");
     }
     return load_aslx_buffer(buf.data(), buf.size(), world, core_dir, game_dir);
+} catch (const std::bad_alloc &) {
+    // Untrusted length fields can demand absurd allocations; fail the load
+    // instead of aborting the host.
+    world.errors.push_back("out of memory loading " + path);
+    return false;
+} catch (const std::length_error &) {
+    world.errors.push_back("out of memory loading " + path);
+    return false;
 }
 
 // ---------------------------------------------------------------------------

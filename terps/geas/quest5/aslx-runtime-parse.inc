@@ -42,7 +42,24 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp);
 static std::string get_parameter_wrap(const std::string &s, std::string &after);
 
 // Parse a block of script source into a statement list.
+//
+// The parse itself must be depth-capped like the runtime (kMaxScriptDepth):
+// compilation is lazy, so a hostile 100k-deep `{...}` nest would otherwise
+// overflow the stack the first time the script RUNS. The throw is caught at
+// the enclosing statement (ParseError) or script boundary like any other
+// parse failure.
+static int g_stmt_parse_depth = 0;
 static std::vector<Stmt> parse_statements(const std::string &src, Interp &interp) {
+    struct DepthGuard {
+        DepthGuard() {
+            if (++g_stmt_parse_depth > 200) {
+                --g_stmt_parse_depth;
+                throw std::runtime_error(
+                    "script is nested more than 200 blocks deep");
+            }
+        }
+        ~DepthGuard() { --g_stmt_parse_depth; }
+    } depth_guard;
     std::vector<Stmt> result;
     std::string line = remove_comments(remove_surrounding_braces(src));
 

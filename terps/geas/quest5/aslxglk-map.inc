@@ -247,10 +247,16 @@ void gm_blend(GmSurface &s, int x, int y, glui32 rgb, int alpha)
     p = (r << 16) | (g << 8) | b;
 }
 
-/* Fill [x0,x1) x [y0,y1). */
+/* Fill [x0,x1) x [y0,y1), clamped to the surface: authored coordinates are
+ * unbounded, and a glide re-rasterises at 30 Hz, so iterating (and rejecting)
+ * millions of off-surface pixels is a UI freeze. */
 void gm_fill_rect(GmSurface &s, int x0, int y0, int x1, int y1,
                   glui32 rgb, int alpha)
 {
+    if (x0 < 0) x0 = 0;
+    if (y0 < 0) y0 = 0;
+    if (x1 > s.w) x1 = s.w;
+    if (y1 > s.h) y1 = s.h;
     for (int y = y0; y < y1; y++)
         for (int x = x0; x < x1; x++)
             gm_blend(s, x, y, rgb, alpha);
@@ -263,6 +269,9 @@ void gm_nib(GmSurface &s, int x, int y, int wd, glui32 rgb, int alpha)
         gm_blend(s, x, y, rgb, alpha);
         return;
     }
+    if (wd > 1024)   /* a pen wider than any surface is a fill; keep the
+                      * offset arithmetic inside int range */
+        wd = 1024;
     int o = wd / 2;
     gm_fill_rect(s, x - o, y - o, x - o + wd, y - o + wd, rgb, alpha);
 }
@@ -270,6 +279,37 @@ void gm_nib(GmSurface &s, int x, int y, int wd, glui32 rgb, int alpha)
 void gm_line(GmSurface &s, int x0, int y0, int x1, int y1, int wd,
              glui32 rgb, int alpha)
 {
+    /* Clip against the surface (plus the pen's overhang) before walking:
+     * fully-outside lines vanish, and a partially-visible line with far
+     * endpoints is shortened parametrically instead of stepping millions of
+     * rejected pixels.  Lines already inside the margin are untouched. */
+    int m = (wd > 1 ? wd / 2 : 0) + 1;
+    long lox = -(long) m, loy = -(long) m;
+    long hix = (long) s.w + m, hiy = (long) s.h + m;
+    if (((long) x0 < lox && (long) x1 < lox) ||
+        ((long) x0 >= hix && (long) x1 >= hix) ||
+        ((long) y0 < loy && (long) y1 < loy) ||
+        ((long) y0 >= hiy && (long) y1 >= hiy))
+        return;
+    if (x0 < lox || x1 < lox || x0 >= hix || x1 >= hix ||
+        y0 < loy || y1 < loy || y0 >= hiy || y1 >= hiy) {
+        double t0 = 0, t1 = 1, fdx = (double) x1 - x0, fdy = (double) y1 - y0;
+        auto clip = [&](double p, double q) {
+            if (p == 0) return q >= 0;
+            double r = q / p;
+            if (p < 0) { if (r > t1) return false; if (r > t0) t0 = r; }
+            else       { if (r < t0) return false; if (r < t1) t1 = r; }
+            return true;
+        };
+        if (!clip(-fdx, x0 - (double) lox) ||
+            !clip(fdx, (double) hix - 1 - x0) ||
+            !clip(-fdy, y0 - (double) loy) ||
+            !clip(fdy, (double) hiy - 1 - y0))
+            return;
+        int nx0 = (int) lround(x0 + t0 * fdx), ny0 = (int) lround(y0 + t0 * fdy);
+        int nx1 = (int) lround(x0 + t1 * fdx), ny1 = (int) lround(y0 + t1 * fdy);
+        x0 = nx0; y0 = ny0; x1 = nx1; y1 = ny1;
+    }
     int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
     int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
     int err = dx + dy;
@@ -285,9 +325,19 @@ void gm_line(GmSurface &s, int x0, int y0, int x1, int y1, int wd,
 
 void gm_fill_circle(GmSurface &s, int cx, int cy, int r, glui32 rgb, int alpha)
 {
-    for (int dy = -r; dy <= r; dy++) {
-        int dx = (int) floor(sqrt((double) (r * r - dy * dy)) + 0.5);
-        for (int x = cx - dx; x <= cx + dx; x++)
+    /* Bounding-box reject and clamp the scan to the surface; r*r in double
+     * so an absurd authored radius cannot overflow int. */
+    if ((long) cx + r < 0 || (long) cx - r >= s.w ||
+        (long) cy + r < 0 || (long) cy - r >= s.h)
+        return;
+    int dy0 = (long) cy - r < 0 ? -cy : -r;
+    int dy1 = (long) cy + r >= s.h ? s.h - 1 - cy : r;
+    for (int dy = dy0; dy <= dy1; dy++) {
+        long dx = lround(floor(sqrt((double) r * r - (double) dy * dy) + 0.5));
+        long xa_l = (long) cx - dx, xb_l = (long) cx + dx;
+        int xa = xa_l < 0 ? 0 : (int) xa_l;
+        int xb = xb_l >= s.w ? s.w - 1 : (int) xb_l;
+        for (int x = xa; x <= xb; x++)
             gm_blend(s, x, cy + dy, rgb, alpha);
     }
 }
@@ -477,8 +527,16 @@ void gm_render(GmSurface &s)
             }
     }
     double offx = s.w / 2.0 - cx, offy = s.h / 2.0 - cy;
-    auto px = [&](double gx) { return (int) lround(gx * g_gm_scale + offx); };
-    auto py = [&](double gy) { return (int) lround(gy * g_gm_scale + offy); };
+    /* Clamped: (int)lround on an absurd authored coordinate/scale is UB (the
+     * long wraps past int). +/-1e9 is still "far off the surface" to every
+     * clipped primitive, and stays inside int range. */
+    auto pclamp = [](double v) {
+        if (!(v >= -1e9)) return (int) -1e9;   /* also catches NaN */
+        if (v > 1e9) return (int) 1e9;
+        return (int) lround(v);
+    };
+    auto px = [&](double gx) { return pclamp(gx * g_gm_scale + offx); };
+    auto py = [&](double gy) { return pclamp(gy * g_gm_scale + offy); };
 
     /* The layers present, bottom-up; the current one full strength, the
      * rest at grid.js's 0.2 opacity. */

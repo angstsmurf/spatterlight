@@ -323,6 +323,88 @@ static void test_zip_package() {
     CHECK(!zip_list_entries((const uint8_t *)"nope", 4, entries));
 }
 
+// Hand-assembled hostile zips: .quest packages are downloaded files, so every
+// length/offset field is attacker-controlled and must fail closed rather than
+// read out of bounds or allocate gigabytes.
+static void test_zip_hostile() {
+    auto le16 = [](std::string &s, uint16_t v) {
+        s += (char)(v & 0xFF);
+        s += (char)(v >> 8);
+    };
+    auto le32 = [](std::string &s, uint32_t v) {
+        for (int i = 0; i < 4; i++) s += (char)((v >> (8 * i)) & 0xFF);
+    };
+    // One stored entry "a" whose payload is "hello" (comp_size 5) but whose
+    // raw_size claims ~4 GB.
+    auto build = [&](uint32_t raw_size, uint16_t cd_name_len, uint32_t cd_off_lie) {
+        std::string z;
+        z += "PK\x03\x04";                       // local header
+        le16(z, 20); le16(z, 0); le16(z, 0);     // version, flags, method
+        le16(z, 0); le16(z, 0); le32(z, 0);      // time, date, crc
+        le32(z, 5); le32(z, raw_size);           // comp_size, raw_size
+        le16(z, 1); le16(z, 0);                  // name_len, extra_len
+        z += 'a';
+        z += "hello";
+        size_t cd_off = z.size();
+        z += "PK\x01\x02";                       // central directory
+        le16(z, 20); le16(z, 20); le16(z, 0); le16(z, 0);
+        le16(z, 0); le16(z, 0); le32(z, 0);      // time, date, crc
+        le32(z, 5); le32(z, raw_size);           // comp_size, raw_size
+        le16(z, cd_name_len); le16(z, 0); le16(z, 0);
+        le16(z, 0); le16(z, 0); le32(z, 0); le32(z, 0);  // ..., local_off
+        z += 'a';
+        size_t cd_size = z.size() - cd_off;
+        z += "PK\x05\x06";                       // EOCD
+        le16(z, 0); le16(z, 0); le16(z, 1); le16(z, 1);
+        le32(z, (uint32_t)cd_size);
+        le32(z, cd_off_lie ? cd_off_lie : (uint32_t)cd_off);
+        le16(z, 0);
+        return z;
+    };
+
+    // Stored entry with a lying raw_size: extraction must copy the
+    // bounds-checked comp_size, not read 4 GB past the buffer.
+    std::string z = build(0xFFFFFFF0u, 1, 0);
+    std::vector<ZipEntryInfo> entries;
+    CHECK(zip_list_entries((const uint8_t *)z.data(), z.size(), entries));
+    CHECK_EQ(entries.size(), (size_t)1);
+    std::string out;
+    if (entries.size() == 1) {
+        CHECK(zip_extract_entry((const uint8_t *)z.data(), z.size(),
+                                entries[0], out));
+        CHECK_EQ(out, std::string("hello"));
+
+        // Deflate entry declaring an absurd decompressed size: the
+        // allocation cap must reject it before out.resize.
+        ZipEntryInfo big = entries[0];
+        big.method = 8;
+        big.raw_size = 0xFFFFFFFFu;
+        CHECK(!zip_extract_entry((const uint8_t *)z.data(), z.size(), big, out));
+    }
+
+    // Central-directory name_len running past the buffer: the entry walk
+    // must stop, not assign 64 KB from beyond the end.
+    z = build(5, 0xFFFF, 0);
+    CHECK(zip_list_entries((const uint8_t *)z.data(), z.size(), entries));
+    CHECK_EQ(entries.size(), (size_t)0);
+
+    // EOCD pointing the central directory far outside the file.
+    z = build(5, 1, 0xFFFFFF00u);
+    CHECK(!zip_list_entries((const uint8_t *)z.data(), z.size(), entries));
+
+    // <include ref> escaping the library search dirs is refused.
+    World w;
+    const char *xml =
+        "<asl version=\"550\">"
+        "<include ref=\"../../../../etc/hosts\"/>"
+        "<game name=\"t\"/></asl>";
+    load_aslx_buffer(xml, std::strlen(xml), w, "", "");
+    bool flagged = false;
+    for (const std::string &e : w.errors)
+        if (e.find("illegal include path") != std::string::npos) flagged = true;
+    CHECK(flagged);
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         std::string core = "";
@@ -336,6 +418,7 @@ int main(int argc, char **argv) {
     test_hello();
     test_coreboot();
     test_zip_package();
+    test_zip_hostile();
 
     if (g_failures == 0) {
         std::cout << "aslx_loader_test: all checks passed\n";

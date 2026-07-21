@@ -16,6 +16,7 @@
 #define GEAS_ASLX_HH
 
 #include <cstdint>
+#include <cstdlib>
 #include <map>
 #include <memory>
 #include <set>
@@ -23,7 +24,20 @@
 #include <unordered_map>
 #include <vector>
 
+#include <locale.h>
+#ifdef __APPLE__
+#include <xlocale.h>
+#endif
+
 namespace aslx {
+
+// Locale-pinned strtod: script/save/game-file numbers are always C-locale
+// ("3.5"), and a host library calling setlocale(LC_ALL, "") must not change
+// how they parse (a comma-decimal locale would truncate every double).
+inline double c_strtod(const char *s, char **end = nullptr) {
+    static locale_t c_loc = newlocale(LC_ALL_MASK, "C", (locale_t)0);
+    return strtod_l(s, end, c_loc);
+}
 
 // A typed field value. Only the storage side matters for the loader; arithmetic
 // and coercion belong to the expression evaluator (a later milestone). Object

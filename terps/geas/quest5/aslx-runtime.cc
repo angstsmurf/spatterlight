@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cerrno>
 #include <cmath>
 #include <cstdlib>
 #include <deque>
@@ -172,8 +173,12 @@ static long rng_trace_seq = 0;
 
 long Rng::between(long lo, long hi) {
     if (hi <= lo) return lo;
-    unsigned long span = (unsigned long)(hi - lo + 1);
-    long r = lo + (long)(next() % span);
+    // Unsigned throughout: `hi - lo + 1` as signed overflows (UB) for extreme
+    // spans reachable through wrapped script arithmetic, and the full-range
+    // span wraps to 0 (`next() % 0` is a SIGFPE).
+    unsigned long span = (unsigned long)hi - (unsigned long)lo + 1;
+    long r = span == 0 ? (long)next()
+                       : (long)((unsigned long)lo + next() % span);
     if (rng_trace_enabled())
         fprintf(stderr, "[rand %ld] between(%ld,%ld)=%ld\n",
                 ++rng_trace_seq, lo, hi, r);
@@ -589,7 +594,7 @@ struct Lexer {
         }
         std::string n = src.substr(start, i - start);
         Tok t{Tok::T::Num, n};
-        t.num = std::atof(n.c_str());
+        t.num = c_strtod(n.c_str());
         t.is_int = !isdbl;
         toks.push_back(t);
     }
@@ -624,8 +629,22 @@ struct Lexer {
 struct Parser {
     std::vector<Tok> toks;
     size_t p = 0;
+    int depth = 0;
 
     explicit Parser(std::vector<Tok> t) : toks(std::move(t)) {}
+
+    // Recursion cap for the descent: without it 100k nested "(" or "not"s
+    // overflow the stack when the expression is first (lazily) compiled. The
+    // guard sits on every self-recursing production; the fail unwinds to the
+    // normal parse-error path.
+    struct DepthGuard {
+        Parser &ps;
+        explicit DepthGuard(Parser &pr) : ps(pr) {
+            if (++ps.depth > 200)
+                ps.fail("expression is nested more than 200 levels deep");
+        }
+        ~DepthGuard() { --ps.depth; }
+    };
 
     const Tok &cur() { return toks[p]; }
     bool is_op(const char *o) {
@@ -646,6 +665,7 @@ struct Parser {
     }
 
     ExprP parse_ternary() {
+        DepthGuard dg(*this);
         ExprP cond = parse_logical();
         if (is_op("?")) {
             advance();
@@ -681,6 +701,7 @@ struct Parser {
     // QuestNCalcLogicalExpressionParser (the grammar comment on notOperator).
     ExprP parse_not() {
         if (is_kw("not") || is_op("!")) {
+            DepthGuard dg(*this);
             advance();
             auto e = std::make_shared<Expr>();
             e->kind = Expr::Kind::Unary; e->str = "not"; e->a = parse_not();
@@ -743,6 +764,7 @@ struct Parser {
         // Only arithmetic negation binds tightly here; logical "not" is handled
         // at parse_not (looser than equality).
         if (is_op("-")) {
+            DepthGuard dg(*this);
             std::string op = cur().s;
             advance();
             auto e = std::make_shared<Expr>();
@@ -1276,7 +1298,15 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         // which first cancels whatever holds the slot. A parked synchronous
         // `play sound` resumes inline HERE, before this wait registers.
         resume_parked_tail();
-        if (wait_pending_) { wait_cb_ = PendingCallback{}; end_pending_callback(); }
+        // Cancelling the old wait: clear the slot BEFORE end_pending_callback,
+        // whose on-ready flush may itself reach a prompt statement -- with the
+        // flag still set that nested statement would end the SAME callback
+        // again, driving the pending count negative (permanent wedge).
+        if (wait_pending_) {
+            wait_pending_ = false;
+            wait_cb_ = PendingCallback{};
+            end_pending_callback();
+        }
         wait_pending_ = true;
         wait_cb_.body = &s.body;
         wait_cb_.ctx = ctx;
@@ -1285,7 +1315,8 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         return;
     }
     case Stmt::Kind::GetInput: {
-        if (command_override_) {
+        if (command_override_) {  // release the slot first; see Wait above
+            command_override_ = false;
             command_cb_ = PendingCallback{};
             end_pending_callback();
         }
@@ -1300,7 +1331,8 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         // PlayerUI.ShowQuestion: the caption is handed to the host, not
         // printed -- rendering the yes/no prompt is presentation.
         std::string caption = to_string(eval_expr(*s.expr, ctx));
-        if (question_pending_) {
+        if (question_pending_) {  // release the slot first; see Wait above
+            question_pending_ = false;
             question_cb_ = PendingCallback{};
             end_pending_callback();
         }
@@ -1335,7 +1367,11 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         if (md.options.empty()) error("No menu options specified");
         // The caption is printed (PrintAsync) before the menu goes to the UI.
         print_via_core(caption, ctx);
-        if (menu_pending_) { menu_cb_ = PendingCallback{}; end_pending_callback(); }
+        if (menu_pending_) {  // release the slot first; see Wait above
+            menu_pending_ = false;
+            menu_cb_ = PendingCallback{};
+            end_pending_callback();
+        }
         menu_pending_ = true;
         menu_ = std::move(md);
         menu_cb_.body = &s.body;
@@ -1811,8 +1847,18 @@ void Interp::park_suspension(TurnSuspended &ts, bool owes_update,
         // stragglers with an empty context so resume still consumes them.
         ts.frames.push_back(TurnSuspended::Frame{});
     }
-    sound_parked_ = true;
-    parked_frames_ = std::move(ts.frames);
+    if (sound_parked_) {
+        // A park is already outstanding: the play-sound statement resumed the
+        // old tail inline and that tail re-parked before THIS unwind landed.
+        // The old remainder logically precedes this continuation, so queue
+        // the new frame groups behind it instead of overwriting (which would
+        // silently drop whichever side lost the move).
+        for (auto &f : ts.frames)
+            parked_frames_.push_back(std::move(f));
+    } else {
+        sound_parked_ = true;
+        parked_frames_ = std::move(ts.frames);
+    }
     parked_owes_update_ = parked_owes_update_ || owes_update;
     parked_owes_endcb_ += owes_endcb;
     parked_owes_finishturn_ = parked_owes_finishturn_ || owes_finishturn;
@@ -2466,21 +2512,30 @@ void Interp::log_destroy(Element *e) {
 // live outside normal resolution (m_extendableFields) and merge on read.
 static void collect_field_chain(World &w, Element *e, const std::string &name,
                                 const Value *&base,
-                                std::vector<const Value *> &exts) {
-    if (!e) return;
+                                std::vector<const Value *> &exts,
+                                std::unordered_set<const Element *> &path) {
+    // `path` holds the elements on the active recursion stack; a repeat means a
+    // runtime inheritance cycle (a bad <inherit> in the file, or a runtime
+    // parent/type edit), which would otherwise recurse until the C++ stack
+    // overflows. Erasing on exit keeps this a back-edge check only, so legal
+    // diamond inheritance still visits a shared base once per path -- the
+    // listextend accumulation below must not be deduplicated.
+    if (!e || !path.insert(e).second) return;
     if (const Value *own = e->field(name)) {
         if (own->list_extend) exts.push_back(own);
         else if (!base) base = own;
     }
     for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
-        collect_field_chain(w, w.find(*it), name, base, exts);
+        collect_field_chain(w, w.find(*it), name, base, exts, path);
+    path.erase(e);
 }
 
 const Value *Interp::resolve_field(Element *e, const std::string &name) {
     if (!e) return nullptr;
     const Value *base = nullptr;
     std::vector<const Value *> exts;
-    collect_field_chain(world_, e, name, base, exts);
+    std::unordered_set<const Element *> path;
+    collect_field_chain(world_, e, name, base, exts, path);
     if (exts.empty()) return base;  // fast path: no listextend in the chain
     // Merge on read (Fields.GetMergedResult): the base list's entries first,
     // then each extension least-derived to most-derived (QuestList.MergeLists
@@ -2654,7 +2709,7 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
             if (rt_iequals(ty, "double") || rt_iequals(ty, "single") ||
                 rt_iequals(ty, "decimal"))
                 return vdouble(v.type == Value::Type::String
-                                   ? std::atof(v.str.c_str()) : as_double(v));
+                                   ? c_strtod(v.str.c_str()) : as_double(v));
             if (rt_iequals(ty, "string")) return vstr(to_string(v));
             if (rt_iequals(ty, "boolean") || rt_iequals(ty, "bool"))
                 return vbool(truthy(v));
@@ -3281,6 +3336,10 @@ bool Interp::exec_statement_command(const std::string &name,
             errors().push_back("do: no script '" + action + "'");
             return true;
         }
+        // Copy the script text out before evaluating the params: ev(2) runs game
+        // script that may add a field to `obj`, reallocating its fields vector
+        // and dangling the `scr` pointer resolve_field returned into it.
+        std::string script = scr->str;
         Context local;
         if (args.size() >= 3) {
             Value params = ev(2);
@@ -3290,7 +3349,7 @@ bool Interp::exec_statement_command(const std::string &name,
         // DoScript passes the object as thisElement (WorldModel.RunScriptAsync
         // binds it as the "this" parameter).
         local.locals["this"] = vobj(obj->name);
-        run_script(scr->str, local);
+        run_script(script, local);
         return true;
     }
     if (name == "invoke") {
@@ -3409,6 +3468,13 @@ bool Interp::exec_statement_command(const std::string &name,
                 lst_expr.type == Value::Type::ObjectList)
                 lst = &lst_expr;
         }
+        // Copy the target onto the stack before evaluating the item: ev(1) runs
+        // arbitrary game script that may add or remove an attribute on the
+        // element `lst` points into, reallocating its fields vector and leaving
+        // `lst` dangling. A Value copy shares list_store (reference semantics),
+        // so the add/remove and its undo record still hit the stored list.
+        Value lst_hold;
+        if (lst) { lst_hold = *lst; lst = &lst_hold; }
         Value item = ev(1);
         if (!lst || !(lst->type == Value::Type::StringList ||
                       lst->type == Value::Type::ObjectList)) {
@@ -3460,6 +3526,13 @@ bool Interp::exec_statement_command(const std::string &name,
                 d_expr.type == Value::Type::ScriptDict)
                 d = &d_expr;
         }
+        // Copy the target onto the stack before evaluating the key/value: the
+        // ev(1) key and the later ev(2) value run game script that may realloc
+        // the element's fields vector and dangle `d`. The copy shares dict_store
+        // (reference semantics), so mutations and undo records still hit the
+        // stored dictionary.
+        Value d_hold;
+        if (d) { d_hold = *d; d = &d_hold; }
         std::string key = to_string(ev(1));
         if (!d || !(d->type == Value::Type::StringDict ||
                     d->type == Value::Type::ObjectDict ||
