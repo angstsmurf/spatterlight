@@ -1712,12 +1712,17 @@ gsc_handle_wait_tag (const scr_char *argument)
 static void
 gsc_reset_glk_style (void)
 {
-  /* Reset the font stack and attributes, and set a normal style. */
+  /* Reset the font stack and attributes, and set a normal style.  Centering
+     goes too: this runs at prompts, and a dangling <center> must not leave the
+     prompt, the player's input, and every turn after it centered (the a5
+     renderer drops a dangling <center> at the end of its block for the same
+     reason). */
   gsc_font_index = 0;
   gsc_attribute_bold = 0;
   gsc_attribute_italic = 0;
   gsc_attribute_underline = 0;
   gsc_attribute_secondary_color = 0;
+  gsc_attribute_center = 0;
   gsc_set_glk_style ();
 }
 
@@ -1816,27 +1821,46 @@ os_print_tag (scr_int tag, const scr_char *argument)
 
     case SCR_TAG_CENTER:
     case SCR_TAG_ENDCENTER:
-      /*
-       * Justification is a paragraph attribute, so a centered section needs
-       * its own paragraph: put the newline first -- it closes the previous
-       * paragraph in that paragraph's own style (on ENDCENTER it is the
-       * centered paragraph's terminator) -- and only then switch styles.
-       */
-      glk_put_char ('\n');
-      if (tag == SCR_TAG_CENTER)
-        gsc_attribute_center++;
-      else if (gsc_attribute_center > 0)
-        gsc_attribute_center--;
-      gsc_set_glk_style ();
+      {
+        /*
+         * Alignment in the Runner is a flat state, not a nesting depth: it
+         * keeps one byte holding centered, right or left, and <center> sets
+         * centered while </center>, <right> and </right> set it away again
+         * (run400 Sub_22_27 stores 2, 1 and 0 into it, with no count of how
+         * many <center>s are open).  Counting nesting instead leaves a game
+         * that opens <center> twice and closes it once -- as "To Hell in a
+         * Hamper" does on its title page -- centered for the rest of the game.
+         *
+         * Justification is a paragraph attribute, so a change of alignment
+         * needs its own paragraph: put the newline first -- it closes the
+         * previous paragraph in that paragraph's own style (on ENDCENTER it is
+         * the centered paragraph's terminator) -- and only then switch styles.
+         * A tag that doesn't change the alignment breaks no paragraph.
+         */
+        glui32 centered = (tag == SCR_TAG_CENTER);
+
+        if (centered != gsc_attribute_center)
+          {
+            glk_put_char ('\n');
+            gsc_attribute_center = centered;
+            gsc_set_glk_style ();
+          }
+      }
       break;
 
     case SCR_TAG_RIGHT:
     case SCR_TAG_ENDRIGHT:
       /*
        * We don't right-justify text, but so that things look right we do
-       * want a newline on starting or ending such a section.
+       * want a newline on starting or ending such a section.  Both tags end
+       * any centered section, as they do in the Runner.
        */
       glk_put_char ('\n');
+      if (gsc_attribute_center > 0)
+        {
+          gsc_attribute_center = 0;
+          gsc_set_glk_style ();
+        }
       break;
 
     case SCR_TAG_WAIT:

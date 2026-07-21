@@ -1728,6 +1728,21 @@ run_main_loop (scr_gameref_t game)
       if (!run_text_ends_in_newline (startuptext))
         pf_buffer_character (filter, '\n');
 
+      /*
+       * Alignment is a local of the Runner's display routine, so it starts out
+       * left on every call and no <center> outlives the one string it was
+       * opened in.  SCARIER instead buffers a whole turn's worth of strings and
+       * hands the lot to the port as one stream, so a title page that opens
+       * <center> and never closes it -- "Cut the Red Wire! No, the Blue Wire!"
+       * for one -- would carry on centering the first room description, which
+       * the Runner displays in a separate call.  Close the intro's alignment
+       * here, at that call boundary.  Games with balanced tags see nothing:
+       * the tag lands at the start of a line, where the Glk port breaks no
+       * paragraph because the alignment doesn't change and the ANSI port
+       * breaks none because there is nothing buffered on the line.
+       */
+      pf_buffer_tag (filter, SCR_TAG_ENDCENTER);
+
       /* If the game asks, prompt for the player's name, then (if Unknown) the
        * player's gender -- both at game start, like the Runner. */
       run_prompt_player_name (game);
