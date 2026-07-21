@@ -686,8 +686,10 @@ FILTER="${1:-}"
 # general engine fixes (walk/event sub-display <DisplayOnce> retire; command-
 # topic keywords must go through CorrectCommand) -- see the October 31st
 # entry in TODO_a5_walkthrough_bugs.md.
-# (2026-07-11) Oktober31Dansk REPLACED the redundant second English build
-# (October31stComp): a full DANISH translation of the same game, wired with its
+# (2026-07-11) Oktober31Dansk wired as a second October 31st row (at the time
+# it displaced the then-unwired October31stComp -- see the 2026-07-21 entry
+# below, which corrects the "redundant build" call): a full DANISH translation
+# of the same game, wired with its
 # own 143-turn WIN (100/100), derived by re-translating the English route into
 # the game's Danish vocabulary.  xoshiro 0; vanilla 32 is the identical
 # werewolf random-walk RNG class as October31st (FD-vanilla's werewolf reaches
@@ -1196,6 +1198,25 @@ FILTER="${1:-}"
 #   already ignores.  Inert for every other game (no other corpus intro puts
 #   markup after its trailing <cls>); whole corpus re-run, zero regressions.
 #
+# (2026-07-21) October31stComp WIRED at 106|0 -- and the older note above
+# calling it "the redundant second English build" was WRONG.  It is the
+# ORIGINAL COMPETITION RELEASE (module LastUpdated 2022-07-16); the row wired as
+# October31st is the later "October 31st. (post comp. version)" (2022-08-01).
+# The two module XMLs differ in 24 hunks and the changes are real content, not
+# churn: the comp build's intro documents an extra "Z" = orphanage hints system
+# that the post-comp build DROPPED; the post-comp build lengthens the
+# cage-escape text and adds a witch-doctor/curse paragraph to the old man's
+# backstory; and one event's <Length> is 29 in the comp build vs 20 in the
+# post-comp one, with its subevents at +15 vs +20.  The ROUTE is unaffected --
+# October31st_walkthrough.txt replays verbatim to the same MAXIMUM ending
+# ("*** You have won ***", 100/100, 153 turns, one fewer than the post-comp
+# build) -- so October31stComp_walkthrough.txt is that script with its own
+# header; keep the two in step unless the event-timing difference forces them
+# apart.  Budget 106|0 is the SAME profile as October31st: xoshiro 0 = full
+# every-line conformance, and the vanilla 106 is the identical werewolf
+# random-walk RNG class (System.Random vs xoshiro sends FD-vanilla's werewolf
+# elsewhere and that run dies), so DIVERGE row, no golden.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1234,6 +1255,7 @@ Halloween|Halloween.blorb|0|0
 MagorInvestigates|MI_v.1.blorb|0|0
 MuseumHeist|MuseumHeist.blorb|0|0
 October31st|October31st.blorb|106|0
+October31stComp|October31stComp.blorb|106|0
 Oktober31Dansk|Oktober31Dansk.blorb|32|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
 Xanix|XXR v.4.blorb|0|0
