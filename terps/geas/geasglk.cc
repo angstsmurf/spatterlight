@@ -618,6 +618,25 @@ void glk_main(void)
                         g_objwin_expanded = g_objwin_expanded == act.toggle_key
                             ? std::string() : act.toggle_key;
                         update_objwin(gr);
+#ifdef SPATTERLIGHT
+                        /* The fold state rides in the autosave
+                         * (geas_stash_frontend_state's objwin_expanded), but
+                         * toggling passes no turn, so without a refresh here
+                         * the newest snapshot predates it and a relaunch comes
+                         * back folded.  The live line request has to be
+                         * cancelled across the write -- an archived PENDING
+                         * request would collide with the one a restore makes
+                         * -- and re-armed with anything already typed preloaded
+                         * (ce.val1), exactly as the prefill and timer paths do. */
+                        {
+                            event_t ce;
+                            ce.val1 = 0;
+                            glk_cancel_line_event(inputwin, &ce);
+                            geas_do_autosave(gr);
+                            glk_request_line_event(inputwin, buf,
+                                                   (sizeof buf) - 1, ce.val1);
+                        }
+#endif
                         break;
                     }
                     if (act.prefill) {

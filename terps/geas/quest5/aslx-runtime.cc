@@ -2076,6 +2076,19 @@ std::vector<ListData> Interp::verb_menu_objects() {
     return out;
 }
 
+bool Interp::verb_menu_for(const std::string &element_name, ListData &out) {
+    Element *el = world_.find(element_name);
+    if (!el || el->kind != ElemKind::Object) return false;
+    // inventoryverbs when carried, displayverbs otherwise -- the same split
+    // verb_menu_objects() makes, decided here by asking whether the object is
+    // in ScopeInventory rather than by which list it came out of.
+    bool held = false;
+    for (Element *e : objects_in_scope("ScopeInventory"))
+        if (e == el) { held = true; break; }
+    out = list_data_for(el, held);
+    return true;
+}
+
 std::vector<ListData> Interp::exits_list_data() {
     // GetExitsListDataAsync: ScopeExits, or GetExitsList on v530+.
     std::string scope = "ScopeExits";

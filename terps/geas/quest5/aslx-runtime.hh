@@ -294,6 +294,17 @@ public:
     // VERBS command; computed on demand, independent of any update_list hook.
     std::vector<ListData> verb_menu_objects();
 
+    // The verb menu an INLINE object hyperlink pops -- Core's {object:name}
+    // emits class="cmdlink elementmenu" data-elementid="<element name>", and
+    // the reference player turns a click on it into the same menu the side
+    // pane shows. Resolution is by element name rather than by scope, so it
+    // also covers objects the pane never lists: scenery (Behind the Door's
+    // {object:doorobj}, whose alias "door" is what a typed command must use)
+    // and anything a game links to out of scope. inventoryverbs when the pov
+    // carries it, displayverbs otherwise, exactly as verb_menu_objects().
+    // Returns false when no such object element exists.
+    bool verb_menu_for(const std::string &element_name, ListData &out);
+
     // Host hook for the pane lists. listtype is "placesobjects" (Quest's
     // "Places and Objects": GetPlacesObjectsList scope plus ALL exits -- the
     // UI filters compass directions out so they only show in the compass),

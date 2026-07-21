@@ -33,6 +33,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -173,12 +174,17 @@ struct LinkAction {
     std::string event_func;     /* or call_function(event_func, {event_param}) */
     std::string event_param;
     std::string toggle_key;     /* pane object: expand/collapse its verb list */
+    std::string element;        /* inline object link: pop its verb menu */
     bool end_wait = false;      /* onclick="endWait()": release a pending wait */
     bool inner_text = false;    /* command is the element's own text (filled in
                                  * by the renderer, which has the content) */
 
+    /* The renderer's clickability gate: anything a click can DO belongs here,
+     * or the anchor is drawn as plain text and the action is unreachable.
+     * `element` counts -- its command is only built at click time. */
     bool live() const {
-        return !command.empty() || !event_func.empty() || end_wait;
+        return !command.empty() || !event_func.empty() || !element.empty() ||
+               end_wait;
     }
 };
 std::vector<LinkAction> g_links;
@@ -251,6 +257,40 @@ std::string g_autorestore_panel;      /* frame picture to re-establish */
 std::vector<std::pair<std::string, std::array<uint32_t, 4>>> g_autorestore_rngs;
 Interp *g_autosave_interp = nullptr;
 void aslx_do_autosave(Interp &in);
+#endif
+
+/* Scope guard: suspend autosave while a prompt the snapshot cannot describe
+ * is up.  Engine-owned prompts (the SCRIPT-COMMAND forms of ShowMenu, ask,
+ * wait) are safe -- pending state INSIDE the snapshot, and they run from the
+ * prompt loop where the hook is already unset.  The EXPRESSION forms are not:
+ * the engine blocks inside eval, so a half-run script sits on the C++ stack
+ * with nothing recording it, and a timer tick or link click can open one while
+ * the parser prompt's hook is still armed.  Same reason a pending `get input`
+ * has never autosaved.
+ *
+ * The inline object link's verb menu does NOT use this: it runs BETWEEN turns
+ * (the click starts no script), so the world under it is clean and the menu
+ * itself is recorded in the frontend blob -- see g_pending_menu_alias. */
+struct AutosaveSuspend {
+#ifdef SPATTERLIGHT
+    Interp *saved;
+    AutosaveSuspend() : saved(g_autosave_interp) { g_autosave_interp = nullptr; }
+    ~AutosaveSuspend() { g_autosave_interp = saved; }
+#endif
+};
+
+/* The inline object-link verb menu currently on screen, if any: the object's
+ * display alias (non-empty = a menu is up) and the exact options shown.  Both
+ * go into the autosave blob, so a snapshot taken under the menu -- the window
+ * ending at "Choose [1-2] (or nothing to cancel)> " -- restores straight back
+ * INTO the menu, with the options that are already on screen rather than a
+ * re-resolved list that might not match them. */
+std::string g_pending_menu_alias;
+std::vector<std::string> g_pending_menu_verbs;
+#ifdef SPATTERLIGHT
+/* Set at autorestore when the blob carried a pending menu: the next parser
+ * read_line re-enters it instead of prompting.  One-shot. */
+bool g_autorestore_menu_resume = false;
 #endif
 
 void update_timer_request(Interp &in);
@@ -463,11 +503,17 @@ LinkAction link_action(const std::string &tag)
     }
     if (a.command.empty() && a.event_func.empty()) {
         /* An object link (class="cmdlink elementmenu") pops a verb menu in the
-         * JS UI; the closest single-command equivalent is examining it. */
+         * JS UI.  Carry the ELEMENT name, not a command: the menu -- and the
+         * alias its chosen verb has to be phrased with -- can only be built
+         * from the live world at click time (see the element branch in
+         * read_line).  Sending "look at <element name>" here was wrong twice
+         * over: it ignored every verb but the first, and element names are not
+         * what the parser resolves, so any object whose name differs from its
+         * alias answered "I can't see that." */
         std::string cls = tag_attr(tag, "class");
         std::string elem = tag_attr(tag, "data-elementid");
         if (cls.find("elementmenu") != std::string::npos && !elem.empty())
-            a.command = std::string("look at ") + elem;
+            a.element = elem;
     }
     return a;
 }
@@ -1297,6 +1343,16 @@ void run_asl_event(Interp &in, const LinkAction &act)
  * its last argument).  Fired between turns, never mid-script. */
 std::vector<std::pair<std::string, std::string> > g_js_events;
 
+/* Completions a game's OWN bundled JS would fire from inside a zero-argument
+ * JS.func() -- indexed once per session from the <javascript src> files (see
+ * index_bundled_js).  Maps the JS function name to the ASLEvent(func, param)
+ * calls in its body, in source order.  Spondre-style games pass the callback
+ * name as the call's last argument and never reach this; Moquette's
+ * JS.act0Clear() takes no argument and buries ASLEvent("FinishAct0Clear","")
+ * in moquette.js, so without this the game stalls on the first train. */
+std::map<std::string, std::vector<std::pair<std::string, std::string> > >
+    g_js_callbacks;
+
 /* Run the JS completion callbacks a game's own <js> animations would have
  * fired from setTimeout (see Interp::js_event_bridge).  Only an argument that
  * really names a <function> is fired -- anything else is data that happened to
@@ -1336,6 +1392,8 @@ void fire_js_events(Interp &in)
             g_js_events.clear();
             break;
         }
+        if (getenv("ASLXGLK_JS_TRACE"))
+            fprintf(stderr, "[js-event] %s\n", func.c_str());
         in.send_event(func, param);
         in.drain_on_ready();
     }
@@ -1404,6 +1462,12 @@ struct PromptBreak {
  * (when controllable), so the typed line is atomically replaced by whichever
  * echo applies.  Timer events tick the engine; if a tick opens a prompt or
  * ends the game the request is cancelled and InEnd::State returned. */
+/* Defined below; an inline object link opens its verb menu from inside the
+ * link branch here, the same nested-read_line shape a timer-opened menu has. */
+bool run_menu_ui(Interp &in, const MenuData &m, std::string &key,
+                 bool resumed = false);
+bool run_verb_menu(Interp &in, bool resumed, std::string &cmd);
+
 InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                    bool want_line = true, bool on_screen = false)
 {
@@ -1417,6 +1481,21 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
      * the line request (CheapGlk: the smoke harness). */
     if (!g_hyperlinks)
         want_line = true;
+#ifdef SPATTERLIGHT
+    /* Autorestored with a verb menu on screen: re-enter it before drawing any
+     * parser prompt.  Done here rather than in the prompt loop so the chosen
+     * command comes back through the ordinary InEnd::Command path and is
+     * dispatched by the same code a click or a typed line goes through. */
+    if (g_autorestore_menu_resume) {
+        g_autorestore_menu_resume = false;
+        std::string cmd;
+        if (!run_verb_menu(in, /*resumed=*/true, cmd))
+            return {InEnd::Event, ""};   /* cancelled: fall back to the prompt */
+        if (g_manual_echo && echo)
+            echo_input(cmd);
+        return {InEnd::Command, cmd};
+    }
+#endif
     if (prompt && !on_screen)
         glk_put_string((char *) prompt);
     if (g_echo_control)
@@ -1453,7 +1532,10 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                 event_t ce;
                 if (want_line)
                     glk_cancel_line_event(gwin, &ce);
-                const LinkAction &act = g_links[ev.val1 - 1];
+                /* By value: anything below that prints (a verb menu, an
+                 * ASLEvent) renders new links into g_links and can reallocate
+                 * it out from under a reference. */
+                const LinkAction act = g_links[ev.val1 - 1];
                 if (act.end_wait) {
                     /* "click to continue".  A pending wait is what the
                      * browser's endWait() releases, so release it (this arm
@@ -1481,6 +1563,49 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                         echo_input(act.command);
                     return {InEnd::Command, act.command};
                 }
+                if (!act.element.empty()) {
+                    /* An inline object name.  The reference player pops that
+                     * object's verb menu on a click -- "Just click on objects
+                     * and choose an action", as Behind the Door tells the
+                     * player -- so build the same menu the side pane unfolds,
+                     * and phrase the chosen verb with the object's ALIAS,
+                     * which is what the parser resolves.  It matters most when
+                     * the pane is hidden (game.showpanes off, or a Hide
+                     * request): then these links are the only handle on an
+                     * object, and offering just "look at" would put every
+                     * other verb out of reach. */
+                    PromptBreak pb(in, prompt);
+                    ListData d;
+                    if (!in.verb_menu_for(act.element, d))
+                        return {InEnd::Command, "look at " + act.element};
+                    std::vector<std::string> verbs;
+                    for (const std::string &v : d.verbs) {
+                        std::string t = plain_text(v);
+                        if (!t.empty())
+                            verbs.push_back(t);
+                    }
+                    std::string alias = d.display_alias.empty()
+                        ? act.element : d.display_alias;
+                    std::string cmd;
+                    if (verbs.size() > 1) {
+                        /* Autosave stays ARMED under this menu: it is recorded
+                         * in the blob (g_pending_menu_alias) and no script is
+                         * mid-flight, so a close here reopens into the menu. */
+                        g_pending_menu_alias = alias;
+                        g_pending_menu_verbs = verbs;
+                        /* Cancelled: no turn passes, re-dispatch and reprompt. */
+                        if (!run_verb_menu(in, /*resumed=*/false, cmd))
+                            return {InEnd::Event, ""};
+                    } else {
+                        /* One verb needs no menu, and an object with none at
+                         * all still answers the old "examine it" default. */
+                        cmd = (verbs.empty() ? std::string("look at")
+                                             : verbs[0]) + " " + alias;
+                    }
+                    if (g_manual_echo && echo)
+                        echo_input(cmd);
+                    return {InEnd::Command, cmd};
+                }
                 {
                     /* Event output must not land on the prompt line. */
                     PromptBreak pb(in, prompt);
@@ -1500,6 +1625,24 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                         g_pane_expanded == act.toggle_key ? "" : act.toggle_key;
                     g_pane_dirty = true;
                     redraw_side_pane(in);
+#ifdef SPATTERLIGHT
+                    /* The fold state rides in the blob, but toggling passes no
+                     * turn, so without a refresh here the newest snapshot
+                     * predates it and a relaunch comes back folded.  The line
+                     * request has to be cancelled across the write -- an
+                     * archived PENDING request would collide with the one a
+                     * restore makes -- and re-armed with anything already typed
+                     * preloaded (ce.val1), exactly as the timer path does. */
+                    if (g_autosave_interp) {
+                        event_t ce;
+                        ce.val1 = 0;
+                        if (want_line)
+                            glk_cancel_line_event(gwin, &ce);
+                        aslx_do_autosave(*g_autosave_interp);
+                        if (want_line)
+                            glk_request_line_event_uni(gwin, buf, 255, ce.val1);
+                    }
+#endif
                     if (g_hyperlinks) {
                         glk_request_hyperlink_event(gwin);
                         if (gobjwin)
@@ -1651,26 +1794,34 @@ bool iequal(const std::string &a, const std::string &b)
  * Shared by the script-command prompt (set_menu_response) and the
  * expression-form provider (menu_provider), which is why it does not touch
  * the pending slot itself. */
-bool run_menu_ui(Interp &in, const MenuData &m, std::string &key)
+bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
 {
     /* Through in.print, not render_html: with a PromptBreak active (a menu
      * opened by a timer tick) the first output must retract the stale prompt
      * first, exactly like every other engine print. */
-    if (!m.caption.empty()) {
-        in.print(m.caption);
-        glk_put_char('\n');
+    if (!resumed) {
+        if (!m.caption.empty()) {
+            in.print(m.caption);
+            glk_put_char('\n');
+        }
+        for (size_t i = 0; i < m.options.size(); i++) {
+            char num[16];
+            snprintf(num, sizeof num, "%zu: ", i + 1);
+            in.print(num + m.options[i].second);
+            glk_put_char('\n');
+        }
     }
-    for (size_t i = 0; i < m.options.size(); i++) {
-        char num[16];
-        snprintf(num, sizeof num, "%zu: ", i + 1);
-        in.print(num + m.options[i].second);
-        glk_put_char('\n');
-    }
+    /* Resumed: the caption, the options AND the prompt are all still on the
+     * autorestored screen, so the first request must not redraw any of them --
+     * the same trick g_autorestore_reentry plays for the parser prompt, which
+     * only has one line to worry about. */
+    bool on_screen = resumed;
     for (;;) {
         char pr[64];
         snprintf(pr, sizeof pr, "\nChoose [1-%zu]%s> ", m.options.size(),
                  m.allow_cancel ? " (or nothing to cancel)" : "");
-        InResult r = read_line(in, true, pr);
+        InResult r = read_line(in, true, pr, /*want_line=*/true, on_screen);
+        on_screen = false;      /* only the first pass is already drawn */
         if (r.kind == InEnd::State)
             return false;                     /* timer ended the world */
         if (r.kind == InEnd::Event)
@@ -1692,6 +1843,32 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key)
             }
         glk_put_string((char *) "Please choose one of the numbered options.\n");
     }
+}
+
+/* Run the inline object-link verb menu described by g_pending_menu_*, and
+ * build the command its choice makes ("Knock" + "door").  `resumed` = the
+ * whole menu is already on the autorestored screen, so nothing is redrawn.
+ * The pending state is cleared before returning either way: the command is
+ * about to run, and the next prompt's snapshot must not still claim a menu is
+ * up.  Returns false when the player cancelled (no turn passes). */
+bool run_verb_menu(Interp &in, bool resumed, std::string &cmd)
+{
+    MenuData m;
+    m.caption = cap_first(g_pending_menu_alias);
+    m.allow_cancel = true;
+    for (const std::string &v : g_pending_menu_verbs)
+        m.options.push_back(std::make_pair(v, v));
+
+    std::string chosen;
+    bool picked = run_menu_ui(in, m, chosen, resumed);
+
+    std::string alias = g_pending_menu_alias;
+    g_pending_menu_alias.clear();
+    g_pending_menu_verbs.clear();
+    if (!picked)
+        return false;
+    cmd = chosen + " " + alias;
+    return true;
 }
 
 /* Present a yes/no question and return the answer.  The engine never prints
@@ -2045,6 +2222,224 @@ bool resource_bytes(const std::string &name, std::string &out)
     if (g_story_dir.empty())
         return false;
     return slurp_file(g_story_dir + "/" + name, out);
+}
+
+/* One string literal starting at js[i] (which must be a quote).  Fills `out`
+ * with the unescaped contents and advances i past the closing quote; returns
+ * false if the literal is unterminated. Handles \" \\ \n \t and \' -- enough
+ * for the ASLEvent("Name","param") calls these bundled scripts use. */
+bool js_string_literal(const std::string &js, size_t &i, std::string &out)
+{
+    char q = js[i++];
+    out.clear();
+    for (; i < js.size(); i++) {
+        char c = js[i];
+        if (c == '\\' && i + 1 < js.size()) {
+            char n = js[++i];
+            switch (n) {
+            case 'n': out += '\n'; break;
+            case 't': out += '\t'; break;
+            case 'r': out += '\r'; break;
+            default:  out += n;    break;   /* \" \\ \' and the rest verbatim */
+            }
+        } else if (c == q) {
+            i++;                            /* past the closing quote */
+            return true;
+        } else {
+            out += c;
+        }
+    }
+    return false;
+}
+
+/* Scan a JS function body for the ASLEvent(func, param) calls it fires, in
+ * source order, appending each to `out`.  Only string-literal arguments are
+ * read -- a computed callback name is beyond a static scan and is left alone
+ * (fire_js_events ignores any name that is not a real <function> anyway).  The
+ * param argument is optional; ASLEvent("X") records an empty param. */
+void js_scan_aslevents(const std::string &body,
+                       std::vector<std::pair<std::string, std::string> > &out)
+{
+    const std::string tok = "ASLEvent";
+    size_t p = 0;
+    while ((p = body.find(tok, p)) != std::string::npos) {
+        size_t q = p + tok.size();
+        p = q;                                      /* advance past this hit */
+        while (q < body.size() && isspace((unsigned char) body[q])) q++;
+        if (q >= body.size() || body[q] != '(') continue;
+        q++;
+        while (q < body.size() && isspace((unsigned char) body[q])) q++;
+        if (q >= body.size() || (body[q] != '"' && body[q] != '\'')) continue;
+        std::string func, param;
+        if (!js_string_literal(body, q, func)) continue;
+        while (q < body.size() && isspace((unsigned char) body[q])) q++;
+        if (q < body.size() && body[q] == ',') {
+            q++;
+            while (q < body.size() && isspace((unsigned char) body[q])) q++;
+            if (q < body.size() && (body[q] == '"' || body[q] == '\''))
+                js_string_literal(body, q, param);
+        }
+        if (!func.empty())
+            out.push_back(std::make_pair(func, param));
+    }
+}
+
+/* Scan a JS function body for calls to other bundled functions (an identifier
+ * in `known` immediately followed by `(`), in source order, appending each to
+ * `out`.  These are the call-graph edges index_bundled_js follows to reach an
+ * ASLEvent that lives in a helper rather than the entry function -- Moquette's
+ * heatherText() just calls doHeatherText(), which is where the completion is
+ * fired. */
+void js_scan_calls(const std::string &body, const std::set<std::string> &known,
+                   std::vector<std::string> &out)
+{
+    size_t n = body.size();
+    for (size_t i = 0; i < n; ) {
+        char c = body[i];
+        if (c == '"' || c == '\'') {
+            std::string dummy;
+            if (!js_string_literal(body, i, dummy)) break;
+            continue;
+        }
+        if (c == '/' && i + 1 < n && body[i + 1] == '/') {
+            while (i < n && body[i] != '\n') i++;
+            continue;
+        }
+        if (c == '/' && i + 1 < n && body[i + 1] == '*') {
+            i += 2;
+            while (i + 1 < n && !(body[i] == '*' && body[i + 1] == '/')) i++;
+            i += 2;
+            continue;
+        }
+        if (isalpha((unsigned char) c) || c == '_' || c == '$') {
+            size_t s = i;
+            while (i < n && (isalnum((unsigned char) body[i]) ||
+                             body[i] == '_' || body[i] == '$')) i++;
+            std::string id = body.substr(s, i - s);
+            size_t j = i;
+            while (j < n && isspace((unsigned char) body[j])) j++;
+            if (j < n && body[j] == '(' && known.count(id))
+                out.push_back(id);
+            continue;
+        }
+        i++;
+    }
+}
+
+/* Index the game's bundled JavaScript once per session.  The browser runs a
+ * game's `function NAME(...) {...}` callbacks from real timers and animation
+ * completions, ending in ASLEvent(completion) to hand control back to the
+ * engine; with no JS engine we fire those completions ourselves when the
+ * matching zero-arg JS.NAME() call is made.  For each function we record the
+ * ASLEvents reachable from its body -- directly, and TRANSITIVELY through
+ * calls to other bundled functions, since the entry the engine calls often
+ * just delegates to a helper where the ASLEvent actually lives.  A brace scan
+ * that skips strings and comments bounds each body; a completion whose name is
+ * computed rather than a string literal is simply not indexed. */
+void index_bundled_js(World &w)
+{
+    g_js_callbacks.clear();
+    std::string all;
+    for (const std::unique_ptr<Element> &up : w.elements) {
+        Element *e = up.get();
+        if (!e || e->kind != ElemKind::Javascript) continue;
+        const Value *src = e->field("src");
+        if (!src || src->str.empty()) continue;
+        std::string bytes;
+        if (resource_bytes(src->str, bytes))
+            all += bytes + "\n";
+    }
+    if (all.empty())
+        return;
+
+    /* Pass 1: every named function's body text (later defs win, as in JS). */
+    std::map<std::string, std::string> bodies;
+    size_t i = 0;
+    const std::string kw = "function";
+    while ((i = all.find(kw, i)) != std::string::npos) {
+        /* A real `function` keyword, not a substring of an identifier. */
+        bool lok = (i == 0) || !(isalnum((unsigned char) all[i - 1]) ||
+                                 all[i - 1] == '_' || all[i - 1] == '$');
+        size_t j = i + kw.size();
+        i = j;
+        if (!lok || j >= all.size() || !isspace((unsigned char) all[j]))
+            continue;
+        while (j < all.size() && isspace((unsigned char) all[j])) j++;
+        size_t ns = j;
+        while (j < all.size() && (isalnum((unsigned char) all[j]) ||
+                                  all[j] == '_' || all[j] == '$')) j++;
+        std::string name = all.substr(ns, j - ns);
+        if (name.empty()) continue;               /* an anonymous function */
+        while (j < all.size() && all[j] != '{' && all[j] != ';') j++;
+        if (j >= all.size() || all[j] != '{') continue;
+        /* Brace-match the body, ignoring braces inside strings and comments. */
+        size_t depth = 0, k = j;
+        for (; k < all.size(); k++) {
+            char c = all[k];
+            if (c == '"' || c == '\'') {
+                std::string dummy;
+                if (!js_string_literal(all, k, dummy)) { k = all.size(); break; }
+                k--;                              /* the for-loop re-increments */
+            } else if (c == '/' && k + 1 < all.size() && all[k + 1] == '/') {
+                while (k < all.size() && all[k] != '\n') k++;
+            } else if (c == '/' && k + 1 < all.size() && all[k + 1] == '*') {
+                k += 2;
+                while (k + 1 < all.size() &&
+                       !(all[k] == '*' && all[k + 1] == '/')) k++;
+                k++;
+            } else if (c == '{') {
+                depth++;
+            } else if (c == '}') {
+                if (--depth == 0) { k++; break; }
+            }
+        }
+        bodies[name] = all.substr(j, k - j);
+        i = k;
+    }
+    if (bodies.empty())
+        return;
+
+    std::set<std::string> known;
+    for (std::map<std::string, std::string>::const_iterator it = bodies.begin();
+         it != bodies.end(); ++it)
+        known.insert(it->first);
+
+    /* Pass 2: per function, the transitively-reachable ASLEvents.  DFS with a
+     * visited guard -- a JS animation loop calls itself (doHeatherText) until
+     * its terminal frame fires the completion, so a function legitimately
+     * recurses; the guard just stops the WALK from looping. */
+    for (std::set<std::string>::const_iterator e = known.begin();
+         e != known.end(); ++e) {
+        std::vector<std::pair<std::string, std::string> > evs;
+        std::set<std::string> seen;
+        std::vector<std::string> stack;
+        stack.push_back(*e);
+        while (!stack.empty()) {
+            std::string f = stack.back();
+            stack.pop_back();
+            if (!seen.insert(f).second) continue;
+            const std::string &body = bodies[f];
+            js_scan_aslevents(body, evs);
+            std::vector<std::string> calls;
+            js_scan_calls(body, known, calls);
+            /* Push in reverse so the first callee is visited first. */
+            for (size_t c = calls.size(); c-- > 0; )
+                stack.push_back(calls[c]);
+        }
+        if (!evs.empty())
+            g_js_callbacks[*e] = evs;
+    }
+
+    if (getenv("ASLXGLK_JS_TRACE")) {
+        for (std::map<std::string, std::vector<std::pair<std::string,
+                 std::string> > >::const_iterator it = g_js_callbacks.begin();
+             it != g_js_callbacks.end(); ++it) {
+            fprintf(stderr, "[js-index] %s ->", it->first.c_str());
+            for (size_t k = 0; k < it->second.size(); k++)
+                fprintf(stderr, " %s", it->second[k].first.c_str());
+            fprintf(stderr, "\n");
+        }
+    }
 }
 
 #ifdef SPATTERLIGHT
@@ -2675,7 +3070,7 @@ struct BlobReader {
 /* Bumped to 2 when the output-section log joined the blob: a version-1 blob
  * has no such fields, and an autorestore that mis-parses is worse than one
  * that is discarded for a fresh start. */
-const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 2";
+const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 4";
 
 std::string aslx_encode_frontend(Interp &in)
 {
@@ -2701,9 +3096,15 @@ std::string aslx_encode_frontend(Interp &in)
         blob_str(b, spent ? std::string() : l.event_func);
         blob_str(b, spent ? std::string() : l.event_param);
         blob_str(b, spent ? std::string() : l.toggle_key);
+        blob_str(b, spent ? std::string() : l.element);
         blob_num(b, !spent && l.end_wait ? 1 : 0);
         blob_num(b, !spent && l.inner_text ? 1 : 0);
     }
+    /* The verb menu on screen, if any -- restored INTO on the next launch. */
+    blob_str(b, g_pending_menu_alias);
+    blob_num(b, (long) g_pending_menu_verbs.size());
+    for (size_t i = 0; i < g_pending_menu_verbs.size(); i++)
+        blob_str(b, g_pending_menu_verbs[i]);
     blob_str(b, g_pane_expanded);
     blob_str(b, g_status_line);
     blob_str(b, g_location_line);
@@ -2760,10 +3161,16 @@ bool aslx_recover_frontend(const std::string &blob)
         l.event_func = r.str();
         l.event_param = r.str();
         l.toggle_key = r.str();
+        l.element = r.str();
         l.end_wait = r.num() != 0;
         l.inner_text = r.num() != 0;
         g_links.push_back(l);
     }
+    g_pending_menu_alias = r.str();
+    g_pending_menu_verbs.clear();
+    long nverbs = r.num();
+    for (long i = 0; i < nverbs && r.ok; i++)
+        g_pending_menu_verbs.push_back(r.str());
     g_pane_expanded = r.str();
     g_status_line = r.str();
     g_location_line = r.str();
@@ -2859,12 +3266,24 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         return SessionEnd::Quit;
     }
 
+    /* Index the game's bundled JS so a zero-arg JS.func() can fire the
+     * ASLEvent completions its body would have (see index_bundled_js). */
+    index_bundled_js(w);
+
     Interp in(w);
     in.print = render_html;
+    /* The EXPRESSION forms of ShowMenu/ask: the engine blocks inside eval
+     * until the provider returns, so the half-run script is on the C++ stack
+     * and not in any snapshot.  A timer tick or a link click can open one
+     * while the parser prompt's autosave hook is armed, so suspend it for the
+     * duration -- see AutosaveSuspend.  (The script-command forms are pending
+     * engine state and are safe; they run from the prompt loop.) */
     in.menu_provider = [&in](const MenuData &m, std::string &key) -> bool {
+        AutosaveSuspend no_autosave;
         return run_menu_ui(in, m, key);
     };
     in.ask_provider = [&in](const std::string &q, bool &answer) -> bool {
+        AutosaveSuspend no_autosave;
         return run_question_ui(in, q, answer);
     };
     in.request_save = [&in] { do_save_ui(in); };
@@ -2924,10 +3343,28 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     in.js_event_bridge = [](const std::string &fn, const std::string &arg) {
         /* JS.HookClicks: the game has installed a click-anywhere handler --
          * see g_click_hook. */
-        if (fn == "HookClicks")
+        if (fn == "HookClicks") {
             g_click_hook = true;
-        else if (!arg.empty())
+            return;
+        }
+        /* Spondre-style: the callback name rides in the call's last argument. */
+        if (!arg.empty()) {
             g_js_events.push_back(std::make_pair(fn, arg));
+            return;
+        }
+        /* Moquette-style: a zero-arg JS.func() whose bundled body fires the
+         * ASLEvent(s).  Queue them in the same (func, "name param") shape
+         * fire_js_events splits, so the two paths converge there. */
+        std::map<std::string, std::vector<std::pair<std::string,
+            std::string> > >::const_iterator it = g_js_callbacks.find(fn);
+        if (it == g_js_callbacks.end())
+            return;
+        for (size_t k = 0; k < it->second.size(); k++) {
+            const std::string &f = it->second[k].first;
+            const std::string &p = it->second[k].second;
+            g_js_events.push_back(std::make_pair(
+                fn, p.empty() ? f : f + " " + p));
+        }
     };
     in.script_error = [](const std::string &message) {
         fprintf(stderr, "%s\n", message.c_str());
@@ -3040,7 +3477,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         g_timer_frac_ms = 0;
         restored = true;
         autorestored = true;
-        g_autorestore_reentry = true;
+        /* A verb menu was up when the snapshot was taken: the window ends at
+         * the menu's own prompt, not the parser's, so re-enter the menu and
+         * leave the parser-prompt reprint suppression alone -- the next parser
+         * prompt is a fresh one, printed after the chosen command has run. */
+        if (!g_pending_menu_alias.empty())
+            g_autorestore_menu_resume = true;
+        else
+            g_autorestore_reentry = true;
     }
 #endif
 
@@ -3351,5 +3795,8 @@ extern "C" void aslx_glk_main(const char *storyfile)
         g_command_bar = true;
         g_click_hook = false;
         g_js_events.clear();
+        /* No verb menu survives a restart/restore either. */
+        g_pending_menu_alias.clear();
+        g_pending_menu_verbs.clear();
     }
 }

@@ -49,7 +49,14 @@ CHEAPGLK := ../../cheapglk
 QGLKBIN := questglk_unit_tests
 QGLKSRC := questglk_unit_tests.cc
 
-all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN)
+# Unit tests for the Quest 5 frontend's HTML link parser. It unity-includes
+# aslxglk.cc (link_action is file-local) and links CheapGlk for the glk_*
+# symbols the frontend references -- CheapGlk reports no hyperlink support, so
+# the smoke harness never registers or clicks a link and cannot cover this.
+ASLXLINKBIN := aslxglk_link_tests
+ASLXLINKSRC := aslxglk_link_tests.cc
+
+all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 
 $(BIN): $(SRC) $(DEPS)
 	$(CXX) $(CXXFLAGS) $(SRC) -o $@
@@ -66,6 +73,11 @@ $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
 $(QGLKBIN): $(QGLKSRC) ../questglk-common.inc
 	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $@
 
+$(ASLXLINKBIN): $(ASLXLINKSRC) ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
+	         ../questglk-common.inc $(ASLXRTDEPS)
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXLINKSRC) \
+	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
+
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXLIBS) -o $@
 
@@ -74,11 +86,12 @@ $(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
 	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../quest5/aslxglk.cc \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
-check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN)
+check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 	./$(TESTBIN)
 	./$(ASLXBIN)
 	./$(ASLXRTBIN)
 	./$(QGLKBIN)
+	./$(ASLXLINKBIN)
 	./run_fixtures.sh
 
 asan: $(SRC) $(TESTSRC) $(DEPS)
@@ -94,6 +107,6 @@ asan: $(SRC) $(TESTSRC) $(DEPS)
 	./run_fixtures.sh
 
 clean:
-	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN)
+	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 
 .PHONY: all check asan clean

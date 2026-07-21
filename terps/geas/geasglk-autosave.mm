@@ -128,8 +128,16 @@ static bool move_into_place(NSString *dirname, NSString *tmpname,
 static void write_autosave_pair(const std::string &engine_state,
                                 void (*archive_hook)(TempLibrary *, NSCoder *))
 {
-    if (autosavedir == NULL)
-        create_autosavedir(const_cast<char *>(storyfilename));
+    /* Unconditionally, NOT `if (autosavedir == NULL)`: getautosavedir resolves
+     * the directory NAME without creating it, and the boot-time
+     * geas_autosave_exists / aslx autorestore probe calls it -- so autosavedir
+     * is already non-null here and the guard skipped the one call that makes
+     * the directory, leaving every write to fail with mktemp errno 2.  The
+     * real app pre-creates the directory, which is why this stayed latent;
+     * anything else driving the terp (test/glkdrive.py), or a user whose
+     * autosave folder was removed, hits it immediately.
+     * createDirectoryAtURL:withIntermediateDirectories:YES is idempotent. */
+    create_autosavedir(const_cast<char *>(storyfilename));
 
     @autoreleasepool {
         NSString *dirname = autosave_dirname();

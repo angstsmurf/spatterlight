@@ -1,5 +1,157 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-22, a pane fold refreshes the autosave -- BOTH frontends)
+
+- Unfolding an object's verb list in the side pane passes no turn, so no
+  autosave followed it and the newest snapshot predated the fold: the state
+  IS carried (`g_pane_expanded` in the Quest 5 blob, `objwin_expanded` in
+  Quest 4's `geas_stash_frontend_state`), it was just never written while it
+  was true.  A relaunch therefore always came back folded.
+- Both toggle sites now refresh the snapshot: `aslxglk.cc`'s `gobjwin`
+  hyperlink branch and `geasglk.cc`'s `objwin` one.  The live line request has
+  to be **cancelled across the write** -- an archived PENDING request would
+  collide with the one a restore makes -- and re-armed with anything already
+  typed preloaded (`ce.val1`), the idiom the timer-tick and prefill paths in
+  those same files already use.
+- Verified with `test/glkdrive.py` on both engines: Quest 4 (Bear Campsite)
+  unfolds Crate -> quit -> relaunch shows Crate's verbs still unfolded, and
+  a typed command still runs in the same session (proving the re-armed
+  request is live).  Quest 5 (Behind the Door) the same with Wall.
+- Cosmetic only -- the parser prompt was always usable either way; this is
+  not the input-breaking class of the verb-menu bug below.
+- `make check` green, sweep 76/76, Quest 4 walkthroughs 22/22.
+
+## Status (2026-07-22, the verb menu autorestores INTO itself)
+
+- **Fixed: the object verb menu broke across a close/reopen** (reported: the
+  "Door / 1: Look at / 2: Knock" choice stops working if you close the window
+  while it is up).  The menu runs NESTED inside the parser `read_line`, where
+  `g_autosave_interp` is still armed, so the snapshot was taken with the menu
+  on screen — but nothing recorded that a menu WAS the prompt, so the restore
+  brought back a window showing the numbered options with the engine sitting
+  at the parser prompt, where the numbers mean nothing.
+- **The menu is now part of the snapshot** rather than suppressed.  It is
+  legitimately restorable: the click starts no script, so the menu sits
+  BETWEEN turns and the world under it is clean.  `g_pending_menu_alias` +
+  `g_pending_menu_verbs` record the alias and the exact options ON SCREEN
+  (not a re-resolved list, which could disagree with what the player can
+  see); the blob carries them; autorestore sets `g_autorestore_menu_resume`
+  and the next `read_line` re-enters the menu instead of prompting.
+- `run_menu_ui` gained a `resumed` flag: it reprints neither caption, options
+  nor prompt, and passes `on_screen` to the first `read_line` -- the same
+  trick `g_autorestore_reentry` plays for the parser prompt, which only has
+  one line to worry about.  The resume returns through the ordinary
+  `InEnd::Command` path, so the chosen command is dispatched by exactly the
+  code a click or typed line goes through.
+- `AutosaveSuspend` remains, but ONLY for `menu_provider` / `ask_provider` --
+  a **pre-existing** hazard of a different kind.  Those are the EXPRESSION
+  forms of ShowMenu/ask: the engine blocks inside `eval`, so a half-run
+  script is on the stack with nothing recording it.  That is what makes them
+  unrestorable and the verb menu restorable.
+- **Also fixed, latent since the autosave landed:** `write_autosave_pair`
+  created the autosave directory only `if (autosavedir == NULL)`, but
+  `getautosavedir` resolves the NAME without creating it and the boot-time
+  autorestore probe already calls it -- so the guard skipped the one call
+  that makes the directory and every write failed with mktemp errno 2.  The
+  real app pre-creates it, which is why this never showed; driving the terp
+  directly (or a user whose autosave folder was removed) hits it at once.
+- **New `test/glkdrive.py`** (extended from the Scarier copy) -- the first
+  harness that reaches any of this.  Fake app over the glkimp protocol, now
+  with `link:N` script items that send `EVTHYPER`, so hyperlinks ARE
+  clickable headlessly; ending the script mid-prompt sends the
+  autosave-preserving `EVTQUIT`.  The smoke harness and `aslx_replay` are
+  both blind here: CheapGlk reports no hyperlink support, and the autosave
+  code is `#ifdef SPATTERLIGHT`.
+- Verified with it, all five paths: quit under the menu -> relaunch resumes
+  INTO it with nothing reprinted and `2` runs Knock (a parser prompt would
+  have said "I don't understand"); cancel on a resumed menu falls back to a
+  fresh prompt; a DOUBLE close/reopen still resumes (the unchanged snapshot
+  stays valid -- `geas_autosave_wanted` correctly writes nothing when only
+  EVTARRANGE has happened); answering clears the pending menu so the next
+  launch is an ordinary prompt; and a no-menu autorestore is unchanged.
+- Sweep 76/76, `make check` green, `xcodebuild -target geas` clean.
+
+## Status (2026-07-22, bundled-JS callbacks fire without a JS engine)
+
+- **Fixed: Moquette stalled on the first train in Act 0** (reported: "get on"
+  is the only link and clicking it does nothing).  `{command:1:get on}` was
+  fine; the command's script is `JS.act0Clear ()`, and moquette.js defines
+  that as a jQuery animation whose `setTimeout` ends in
+  `ASLEvent("FinishAct0Clear","")` — and THAT is what moves the player on.
+  With no JS engine the completion never fired and Act 0 never ended.
+- The existing `js_event_bridge` only covered the spondre shape, where the
+  callback name rides in the JS call's LAST ARGUMENT
+  (`JS.FadeInTitle(..., "TitleDone")`).  `JS.act0Clear()` takes no argument
+  at all — the name is buried in the bundled script.
+- New `index_bundled_js()` reads the `<javascript src>` files out of the
+  .quest package (via the existing `resource_bytes`) once per session and
+  records, per JS function, the `ASLEvent` completions its body would fire.
+  **Transitively**: the function the engine calls often just delegates
+  (`heatherText` → `doHeatherText`, `heatherTube` → `animateHeatherTube`,
+  `act4Clear` → `animateAct4Clear`), so a call-graph DFS over bundled
+  functions collects them.  A brace scan skipping strings and comments bounds
+  each body; a computed (non-literal) callback name is simply not indexed.
+- Verified the index resolves all seven functions the engine actually calls
+  to exactly the nine `event:` injections `golden/Moquette.cmd` needs:
+  `act0Clear→FinishAct0Clear`, `endAct0→StartAct1`,
+  `doScreenClear→JSFinish_Clear`, `heatherText→JSFinish_HeatherText`,
+  `blackout→JSFinish_Blackout`, `heatherTube→JSFinish_HeatherTube`,
+  `act4Clear→JSFinish_Act4Clear`.  `ASLXGLK_JS_TRACE=1` dumps the index and
+  every fired completion.
+- Spondre is untouched: its callbacks all arrive with a non-empty argument
+  and return before the new path, and it indexes no completions at all
+  (empty `g_js_callbacks`), so nothing double-fires — re-checked, its
+  `TitleText1Done → TitleText2Done → TitleDone → FinishLeadin` chain is
+  unchanged.
+- Frontend-only, so the goldens cannot move: `aslx_replay` has its own driver
+  and fires these through its `event:` directive.  Sweep 76/76 byte-identical,
+  `make check` green (now including the bundled-JS scanner tests).
+
+## Status (2026-07-21, inline object links pop their verb menu)
+
+- **Fixed: clicking an object name in the text answered "I can't see that."**
+  (reported against *Behind the Door*, where clicking the door was the only
+  way forward).  Core's `{object:x}` emits
+  `class="cmdlink elementmenu" data-elementid="x"` — the ELEMENT name — and
+  the frontend turned that straight into `look at <element name>`.  The
+  parser resolves *aliases*, not element names, so every object whose name
+  differs from its alias was unclickable: Behind the Door's `doorobj` is
+  aliased "door".
+- `LinkAction` now carries the element name and resolves it at CLICK time,
+  where the live world is available: new `Interp::verb_menu_for()` returns
+  the object's display alias plus the verb menu the reference player pops
+  (`GetDisplayAlias` + `GetDisplayVerbs`, inventoryverbs when carried).
+  Unlike `verb_menu_objects()` it resolves BY NAME, so it also covers
+  scenery and anything else the side pane never lists — `doorobj` is
+  scenery, so a scope-based lookup would still have missed it.
+- Sending only "look at" was the second half of the bug: with the pane
+  hidden (`game.showpanes` off, or a `request (Hide, "Panes")` — Behind the
+  Door does the latter for its whole opening) inline links are the ONLY
+  handle on an object, so its other verbs were unreachable.  One verb runs
+  straight; two or more open the numbered menu (`run_menu_ui`, nested inside
+  `read_line` the same way a timer-opened menu already nests), cancellable.
+  `doorobj` → `[Look at][Knock]`, `ball` → `[Look at][Take]` on "marble
+  ball", so the game is now playable by clicking, as the reference is.
+- Autosave blob bumped to `ASLXGLK-AUTOSAVE 3` (the new link field).  The
+  live link at the click site is now copied by value: a verb menu prints,
+  which renders new links into `g_links` and could reallocate it under the
+  old reference.
+- `LinkAction::live()` — the renderer's clickability gate — had to learn
+  about the new field too.  Missing it once cost a second regression: the
+  object link parsed correctly but `live()` said no, so the anchor rendered
+  as plain text and "door" stopped being clickable at all.  **Anything a
+  click can DO belongs in `live()`.**
+- **New `test/aslxglk_link_tests.cc`, in `make check`.**  This whole area was
+  untested and it shows: `aslx_replay` strips HTML before it sees a tag, and
+  `aslxglk_smoke` runs on CheapGlk, whose gestalt reports NO hyperlink
+  support — so `g_hyperlinks` is false there and no link is ever registered
+  or clicked.  The test unity-includes `aslxglk.cc` (`link_action` is
+  file-local) and calls it on real Core output for each link flavour,
+  asserting both the recovered action and `live()`.  Verified to fail on
+  both of today's regressions.
+- Native `aslx_replay` sweep 76/76 byte-identical vs `quest5-oracle/golden/`,
+  `make check` green, `xcodebuild -target geas` clean.
+
 ## Status (2026-07-21, grid map: the canvas is the game's background)
 
 - **Fixed: exit lines missing from the map** (reported against *I Contain
