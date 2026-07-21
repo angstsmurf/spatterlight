@@ -1,0 +1,10 @@
+andor
+andor2
+orand
+purand
+purand2
+puror
+puror2
+and3
+or3
+inparam

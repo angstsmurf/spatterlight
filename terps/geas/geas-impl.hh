@@ -158,6 +158,21 @@ public:
   bool find_ivar (const std::string &, size_t &) const;
   bool find_svar (const std::string &, size_t &) const;
 
+  /* Split a variable reference into its base name and subscript: "x" is
+   * (x, 0), "arr[3]" is (arr, 3), and "arr[n]" is (arr, value of n).  Returns
+   * false, after a diagnostic naming `who`, when the reference is malformed or
+   * the subscript is unusable; every accessor below shares this so the five
+   * spellings of the same parsing cannot drift apart. */
+  bool split_var_index (const std::string &varname, const char *who,
+			std::string &base, size_t &index) const;
+  /* Ceiling on a variable subscript.  Quest grows an array to whatever index is
+   * written, so this only has to be far beyond any real game's use: its job is
+   * to stop a nonsense subscript -- an undefined index variable reads back as
+   * the -32767 "no such variable" sentinel, which as a size_t is ~1.8e19 --
+   * from reaching a resize() that throws std::length_error and aborts the
+   * interpreter mid-turn. */
+  static constexpr size_t kMaxVarIndex = 100000;
+
   void regen_var_look ();
   void regen_var_dirs ();
   void regen_var_objects ();

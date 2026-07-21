@@ -1,0 +1,12 @@
+setnum
+getnum
+setvia
+getvia
+setstr
+getstr
+badnum
+badstr
+negnum
+readbad
+unclosed
+alive

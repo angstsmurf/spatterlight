@@ -1,0 +1,35 @@
+
+VarArray
+
+You are in Room
+A room.
+
+> setnum
+
+> getnum
+num3 is 42
+
+> setvia
+
+> getvia
+num2 is 17, num0 is 0
+
+> setstr
+
+> getstr
+str1 is one, str0 is zero
+
+> badnum
+
+> badstr
+
+> negnum
+
+> readbad
+bad read is -32767
+
+> unclosed
+
+> alive
+still running
+[runner] turns=12 leftover=0 running=true

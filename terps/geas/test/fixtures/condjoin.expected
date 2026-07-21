@@ -1,0 +1,36 @@
+
+CondJoin
+
+You are in Room
+A room.
+
+> andor
+andor: yes
+
+> andor2
+andor2: no
+
+> orand
+orand: no
+
+> purand
+purand: yes
+
+> purand2
+purand2: no
+
+> puror
+puror: yes
+
+> puror2
+puror2: no
+
+> and3
+and3: no
+
+> or3
+or3: yes
+
+> inparam
+inparam: yes
+[runner] turns=10 leftover=0 running=true

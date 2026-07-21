@@ -31,6 +31,7 @@
 #include <ctime>
 #include <cmath>
 #include <cstdio>
+#include <cstring>
 #include "general.hh"
 #include "istring.hh"
 
@@ -50,6 +51,43 @@ using namespace std;
 
 static const string dir_names[] = {"north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "up", "down", "out"};
 static const string short_dir_names[] = {"n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "out"};
+
+/* The verbs the engine dispatches itself, beyond the universal ones.
+ * `key` is the action/property name a game file stores; `phrases` are the
+ * surface forms a player may type for it; `use_default` marks a verb that falls
+ * back to the object's anonymous default action when nothing else handles it.
+ *
+ * Shared by the two places that must agree about them: try_match, which
+ * dispatches a typed command, and object_verbs, which lists the verbs an object
+ * responds to.  They used to keep separate tables, so a verb added to one was
+ * silently missing from the other. */
+struct verb_def { const char *key; std::vector<const char *> phrases; bool use_default; };
+
+static const std::vector<verb_def> &builtin_verbs ()
+{
+  static const std::vector<verb_def> table =
+    {
+      { "open",       { "open" },                                   true  },
+      { "close",      { "close", "shut" },                          false },
+      { "move",       { "move", "push", "pull", "slide", "shove" }, false },
+      { "eat",        { "eat", "chew", "taste", "bite" },           false },
+      { "drink",      { "drink", "sip" },                           false },
+      { "smell",      { "smell", "sniff" },                         false },
+      { "touch",      { "touch", "feel", "rub" },                   false },
+      { "listen to",  { "listen to", "listen" },                    false },
+      { "look under", { "look under", "look beneath" },             false },
+      { "look in",    { "look in", "look inside", "search" },       false },
+      { "sit on",     { "sit on", "sit in", "sit" },                false },
+      { "hit",        { "hit", "kick", "punch", "break", "smash" }, false },
+      { "kiss",       { "kiss" },                                   false },
+      { "burn",       { "burn" },                                   false },
+      { "kill",       { "kill" },                                   false },
+      { "wear",       { "wear", "put on", "don" },                  false },
+      { "turn on",    { "turn on", "switch on" },                   false },
+      { "turn off",   { "turn off", "switch off" },                 false },
+    };
+  return table;
+}
 
 
 
@@ -80,28 +118,54 @@ bool geas_implementation::find_svar (const string &name, size_t &rv) const
   return false;
 }
 
+bool geas_implementation::split_var_index (const string &varname, const char *who,
+					   string &base, size_t &index) const
+{
+  std::string::size_type i1 = varname.find ('[');
+  if (i1 == string::npos)
+    {
+      base = varname;
+      index = 0;
+      return true;
+    }
+  if (varname[varname.length() - 1] != ']')
+    {
+      gi->debug_print (string (who) + ": Badly formatted name " + varname);
+      return false;
+    }
+  base = varname.substr (0, i1);
+  string indextext = trim (varname.substr (i1+1, varname.length() - i1 - 2));
+  GEAS_DBG << who << " (" << varname << ") --> (" << base << ", " << indextext << ")\n";
+
+  /* A subscript is either a decimal literal or the name of a numeric variable
+   * holding one.  Anything else -- including an undefined variable, which reads
+   * back as the -32767 sentinel -- is refused rather than passed on as a
+   * subscript; see kMaxVarIndex. */
+  long value;
+  bool is_literal = !indextext.empty ();
+  for (size_t c3 = 0; c3 < indextext.size (); c3 ++)
+    if (indextext[c3] < '0' || indextext[c3] > '9')
+      {
+	is_literal = false;
+	break;
+      }
+  value = is_literal ? parse_int (indextext) : get_ivar (indextext);
+  if (value < 0 || (size_t) value > kMaxVarIndex)
+    {
+      gi->debug_print (string (who) + ": Bad index [" + indextext + "] in " + varname);
+      return false;
+    }
+  index = (size_t) value;
+  return true;
+}
+
 void geas_implementation::set_svar (const string &varname, const string &varval)
 {
   GEAS_DBG << "set_svar (" << varname << ", " << varval << ")\n";
-  std::string::size_type i1 = varname.find ('[');
-  if (i1 == string::npos)
-    return set_svar (varname, 0, varval); 
-  if (varname[varname.length() - 1] != ']')
-    {
-      gi->debug_print ("set_svar: Badly formatted name " + varname);
-      return;
-    }
-  string arrayname = varname.substr (0, i1);
-  string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  GEAS_DBG << "set_svar(" << varname << ") --> set_svar (" << arrayname << ", " << indextext << ")\n";
-  for (uint c3 = 0; c3 < indextext.size(); c3 ++)
-    if (indextext[c3] < '0' || indextext[c3] > '9')
-      {
-	set_svar (arrayname, get_ivar (indextext), varval);
-	return;
-      }
-  set_svar (arrayname, parse_int (indextext), varval);
-  return;
+  string base;
+  size_t index;
+  if (split_var_index (varname, "set_svar", base, index))
+    set_svar (base, index, varval);
 }
 
 void geas_implementation::set_svar (const string &varname, size_t index, const string &varval)
@@ -141,22 +205,12 @@ void geas_implementation::set_svar (const string &varname, size_t index, const s
 }
 
 string geas_implementation::get_svar (const string &varname) const
-{ 
-  auto i1 = varname.find ('[');
-  if (i1 == string::npos)
-    return get_svar (varname, 0); 
-  if (varname[varname.length() - 1] != ']')
-    {
-      gi->debug_print ("get_svar: badly formatted name " + varname);
-      return "";
-    }
-  string arrayname = varname.substr (0, i1);
-  string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  GEAS_DBG << "get_svar(" << varname << ") --> get_svar (" << arrayname << ", " << indextext << ")\n";
-  for (size_t c3 = 0; c3 < indextext.size(); c3 ++)
-    if (indextext[c3] < '0' || indextext[c3] > '9')
-      return get_svar (arrayname, get_ivar (indextext));
-  return get_svar (arrayname, parse_int (indextext));
+{
+  string base;
+  size_t index;
+  if (!split_var_index (varname, "get_svar", base, index))
+    return "";
+  return get_svar (base, index);
 }
 string geas_implementation::get_svar (const string &varname, size_t index) const
 {
@@ -172,21 +226,11 @@ string geas_implementation::get_svar (const string &varname, size_t index) const
 
 int geas_implementation::get_ivar (const string &varname) const
 {
-  std::string::size_type i1 = varname.find ('[');
-  if (i1 == string::npos)
-    return get_ivar (varname, 0); 
-  if (varname[varname.length() - 1] != ']')
-    {
-      gi->debug_print ("get_ivar: Badly formatted name " + varname);
-      return -32767;
-    }
-  string arrayname = varname.substr (0, i1);
-  string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  GEAS_DBG << "get_ivar(" << varname << ") --> get_ivar (" << arrayname << ", " << indextext << ")\n";
-  for (uint c3 = 0; c3 < indextext.size(); c3 ++)
-    if (indextext[c3] < '0' || indextext[c3] > '9')
-      return get_ivar (arrayname, get_ivar (indextext));
-  return get_ivar (arrayname, parse_int (indextext));
+  string base;
+  size_t index;
+  if (!split_var_index (varname, "get_ivar", base, index))
+    return -32767;
+  return get_ivar (base, index);
 }
 int geas_implementation::get_ivar (const string &varname, size_t index) const
 {
@@ -199,17 +243,11 @@ int geas_implementation::get_ivar (const string &varname, size_t index) const
 }
 double geas_implementation::get_dvar (const string &varname) const
 {
-  std::string::size_type i1 = varname.find ('[');
-  if (i1 == string::npos)
-    return get_dvar (varname, 0);
-  if (varname[varname.length() - 1] != ']')
+  string base;
+  size_t index;
+  if (!split_var_index (varname, "get_dvar", base, index))
     return -32767.0;
-  string arrayname = varname.substr (0, i1);
-  string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  for (uint c3 = 0; c3 < indextext.size(); c3 ++)
-    if (indextext[c3] < '0' || indextext[c3] > '9')
-      return get_dvar (arrayname, get_ivar (indextext));
-  return get_dvar (arrayname, parse_int (indextext));
+  return get_dvar (base, index);
 }
 double geas_implementation::get_dvar (const string &varname, size_t index) const
 {
@@ -225,27 +263,10 @@ void geas_implementation::set_ivar (const string &varname, int varval)
 
 void geas_implementation::set_ivar (const string &varname, double varval)
 {
-  std::string::size_type i1 = varname.find ('[');
-  if (i1 == string::npos)
-    {
-      set_ivar (varname, 0, varval);
-      return;
-    }
-  if (varname[varname.length() - 1] != ']')
-    {
-      gi->debug_print ("set_ivar: Badly formatted name " + varname);
-      return;
-    }
-  string arrayname = varname.substr (0, i1);
-  string indextext = varname.substr (i1+1, varname.length() - i1 - 2);
-  GEAS_DBG << "set_svar(" << varname << ") --> set_svar (" << arrayname << ", " << indextext << ")\n";
-  for (size_t c3 = 0; c3 < indextext.size(); c3 ++)
-    if (indextext[c3] < '0' || indextext[c3] > '9')
-      {
-	set_ivar (arrayname, get_ivar (indextext), varval);
-	return;
-      }
-  set_ivar (arrayname, parse_int (indextext), varval);
+  string base;
+  size_t index;
+  if (split_var_index (varname, "set_ivar", base, index))
+    set_ivar (base, index, varval);
 }
 
 void geas_implementation::set_ivar (const string &varname, size_t index, double varval)
@@ -435,21 +456,14 @@ v2string geas_implementation::object_verbs (const string &obj) const
   if (responds ("use"))   add ("Use");
   if (responds ("read"))  add ("Read");
 
-  /* Built-in multi-synonym verbs (the dispatch table in run_commands): list one
-     when the object defines a matching action/property.  The container verbs
-     also apply to any container/surface, as the engine handles those itself. */
-  static const struct { const char *key; const char *label; } builtin[] = {
-    { "open", "Open" },       { "close", "Close" },   { "move", "Move" },
-    { "eat", "Eat" },         { "drink", "Drink" },   { "smell", "Smell" },
-    { "touch", "Touch" },     { "listen to", "Listen to" },
-    { "look under", "Look under" }, { "look in", "Look in" },
-    { "sit on", "Sit on" },   { "hit", "Hit" },       { "kiss", "Kiss" },
-    { "burn", "Burn" },       { "kill", "Kill" },     { "wear", "Wear" },
-    { "turn on", "Turn on" }, { "turn off", "Turn off" },
-  };
-  for (const auto &v: builtin)
+  /* Built-in multi-synonym verbs (the same table try_match dispatches through):
+     list one when the object defines a matching action/property.  The container
+     verbs also apply to any container/surface, as the engine handles those
+     itself.  label_of turns the stored key into the menu label ("listen to" ->
+     "Listen to"). */
+  for (const verb_def &v: builtin_verbs ())
     if (responds (v.key))
-      add (v.label);
+      add (label_of (v.key));
   if (has_obj_property (obj, "container") || has_obj_property (obj, "surface"))
     { add ("Open"); add ("Close"); add ("Look in"); }
 
@@ -2495,35 +2509,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
    * default action.  geas previously hard-coded only look/examine/take/use/
    * give/drop/etc., so common verbs such as open/move/eat/drink/smell fell
    * through to "I don't understand your command".  This table maps the surface
-   * phrases a player may type to the canonical key stored in the game file.
+   * phrases a player may type to the canonical key stored in the game file
+   * (builtin_verbs, shared with the verb menu).
    * It is tried after explicit `command` definitions but before the bare
    * "look #@object#" handler below, so multi-word verbs like "look under" are
    * matched before "look" would swallow them. */
   {
-    struct verb_def { const char *key; std::vector<const char *> phrases; bool use_default; };
-    static const std::vector<verb_def> verb_table =
-      {
-	{ "open",       { "open" },                                   true  },
-	{ "close",      { "close", "shut" },                          false },
-	{ "move",       { "move", "push", "pull", "slide", "shove" }, false },
-	{ "eat",        { "eat", "chew", "taste", "bite" },           false },
-	{ "drink",      { "drink", "sip" },                           false },
-	{ "smell",      { "smell", "sniff" },                         false },
-	{ "touch",      { "touch", "feel", "rub" },                   false },
-	{ "listen to",  { "listen to", "listen" },                    false },
-	{ "look under", { "look under", "look beneath" },             false },
-	{ "look in",    { "look in", "look inside", "search" },       false },
-	{ "sit on",     { "sit on", "sit in", "sit" },                false },
-	{ "hit",        { "hit", "kick", "punch", "break", "smash" }, false },
-	{ "kiss",       { "kiss" },                                   false },
-	{ "burn",       { "burn" },                                   false },
-	{ "kill",       { "kill" },                                   false },
-	{ "wear",       { "wear", "put on", "don" },                  false },
-	{ "turn on",    { "turn on", "switch on" },                   false },
-	{ "turn off",   { "turn off", "switch off" },                 false },
-      };
-
-    for (const verb_def &v: verb_table)
+    for (const verb_def &v: builtin_verbs ())
       for (const char *phrase: v.phrases)
 	if ((match = match_command (cmd, string (phrase) + " #@object#")))
 	  {
@@ -2531,9 +2523,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      return true;
 	    string obj = match.bindings[0].var_text, script;
 	    string ph = phrase;   /* the actual verb the player typed */
+	    string key = v.key;   /* the canonical verb it dispatches to */
 	    /* Opening or closing a container discovers it (seen gate), even when
 	     * the game scripts its own open/close action. */
-	    if (string (v.key) == "open" || string (v.key) == "close")
+	    if (key == "open" || key == "close")
 	      set_obj_property (obj, "seen");
 	    /* Prefer an action/property named by the typed verb (objects define
 	     * e.g. action <search>, action <wear>), then the canonical key. */
@@ -2545,7 +2538,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      print_formatted (script);
 	    else if (v.use_default && gf.get_obj_default_action (obj, script))
 	      run_script_as (obj, script);
-	    else if (string (v.key) == "open")
+	    else if (key == "open")
 	      {
 		/* Validate as Quest does: already-open / can't-open. */
 		if (has_obj_property (obj, "opened"))
@@ -2555,7 +2548,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		else
 		  display_error ("cantopen", obj);
 	      }
-	    else if (string (v.key) == "close")
+	    else if (key == "close")
 	      {
 		if (has_obj_property (obj, "closed"))
 		  display_error ("alreadyclosed", obj);
@@ -2564,7 +2557,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		else
 		  display_error ("cantclose", obj);
 	      }
-	    else if (string (v.key) == "look in" &&
+	    else if (key == "look in" &&
 		     (has_obj_property (obj, "container") ||
 		      has_obj_property (obj, "surface")))
 	      {
@@ -2589,7 +2582,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		    print_formatted (c.empty () ? "It is empty." : m + ".");
 		  }
 	      }
-	    else if (string (v.key) == "wear")
+	    else if (key == "wear")
 	      {
 		/* Quest's built-in clothing: wearing sets the "worn" property
 		 * (games test `property <obj; worn>`) and holds the item.  geas
@@ -2609,10 +2602,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    /* Opening/closing a container records its state even when a custom
 	     * action handled the verb, so a scripted "open <msg>" still updates
 	     * availability of the contents. */
-	    if (string (v.key) == "open" && has_obj_property (obj, "container") &&
+	    if (key == "open" && has_obj_property (obj, "container") &&
 		!has_obj_property (obj, "opened"))
 	      { set_obj_property (obj, "not closed"); set_obj_property (obj, "opened"); }
-	    else if (string (v.key) == "close" && has_obj_property (obj, "container") &&
+	    else if (key == "close" && has_obj_property (obj, "container") &&
 		     !has_obj_property (obj, "closed"))
 	      { set_obj_property (obj, "not opened"); set_obj_property (obj, "closed"); }
 	    /* Wearing -- through any handler, including a type's action <wear> that
@@ -2620,7 +2613,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	     * Quest's clothing library.  The library's own command layer (which set
 	     * "worn") isn't bundled, so the type action alone wouldn't, yet games
 	     * test `property <obj; worn>` (e.g. KQ5's cloak/amulet). */
-	    if (string (v.key) == "wear")
+	    if (key == "wear")
 	      { set_obj_property (obj, "worn"); move (obj, "inventory"); }
 	    return true;
 	  }
@@ -3338,6 +3331,7 @@ void geas_implementation::run_script (const string &s, string &rv)
     }
   else if (tok == "animate")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "background")
     {
@@ -3492,6 +3486,7 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "clone")
     {
       /* TODO */
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "create")
     {
@@ -3738,6 +3733,7 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "font")
     {
       /* TODO */
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "for")
     {
@@ -3869,15 +3865,19 @@ void geas_implementation::run_script (const string &s, string &rv)
     }
   else if (tok == "helpclear")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "helpclose")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "helpdisplaytext")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "helpmsg")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   // SENSITIVE?
   /* "hideobject"/"hidechar" are the Quest 2.x spellings of "hide". */
@@ -4019,9 +4019,11 @@ void geas_implementation::run_script (const string &s, string &rv)
     }
   else if (tok == "mailto")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "modvolume")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   // SENSITIVE?
   /* "movechar"/"moveobject" are the Quest 2.x spellings of "move". */
@@ -4055,6 +4057,7 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "msgto")
     {
       /* QNSO */
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "outputoff")
     {
@@ -4069,6 +4072,7 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "panes")
     {
       /* TODO */
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "pause")
     {
@@ -4377,10 +4381,11 @@ void geas_implementation::run_script (const string &s, string &rv)
     }
   else if (tok == "shell")
     {
-      
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "shellexe")
     {
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "speak")
     {
@@ -4423,6 +4428,7 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "type")
     {
       /* TODO */
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "wait")
     {
@@ -4445,6 +4451,7 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "with")
     {
       // QNSO
+      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   gi->debug_print ("Unrecognized script " + s);
 }
@@ -4458,20 +4465,60 @@ bool geas_implementation::eval_conds (const string &s)
 
   if (tok == "") return true;
 
-  bool rv = eval_cond (s);
+  /* A port of Quest's ExecuteConditions (LegacyGame V4Game.cs): split the list
+   * at its "and"/"or" joiners, then fold the conditions LEFT to right, each
+   * combined with the joiner that *precedes* it (the first against an initial
+   * true).  So "A and B or C" is "(A and B) or C".  The old code searched the
+   * whole string for "and" and recursed on the remainder, which grouped it the
+   * other way round -- "A and (B or C)" -- and disagreed with Quest whenever a
+   * condition list mixed the two joiners.
+   *
+   * Two behaviours of the original are deliberately kept, because games were
+   * written against the engine that had them:
+   *  - at each split Quest looks for the next "and" anywhere ahead and only
+   *    falls back to "or" when there is none, so an "or" standing before a
+   *    later "and" is swallowed into the preceding condition's text and never
+   *    evaluated: "A or B and C" means "A and C";
+   *  - every condition is evaluated, even once the result is settled: the fold
+   *    is VB's non-short-circuiting And/Or, and a condition may prompt the
+   *    player (`ask <...>`).
+   * Joiners inside a <parameter> are invisible here, as next_token returns a
+   * whole "<...>" as one token -- Quest blanks them with ObliterateParameters.
+   */
+  vector<std::string::size_type> op_start, op_end;
+  vector<bool> op_is_and;
+  for (; tok != ""; tok = next_token (s, c1, c2))
+    if (tok == "and" || tok == "or")
+      {
+	op_start.push_back (c1);
+	op_end.push_back (c2);
+	op_is_and.push_back (tok == "and");
+      }
 
-  while (tok != "" && tok != "and")
-    tok = next_token (s, c1, c2);
-
-  if (tok == "and")
-    rv = rv && eval_conds (s.substr (c2));
-  else
+  bool rv = true;
+  bool joiner_is_and = true;      /* Quest's operations(0) = "AND" */
+  std::string::size_type pos = 0;
+  size_t next_op = 0;
+  for (;;)
     {
-      tok = first_token (s, c1, c2);
-      while (tok != "" && tok != "or")
-	tok = next_token (s, c1, c2);
-      if (tok == "or")
-	rv = rv || eval_conds (s.substr (c2));
+      /* The next "and" anywhere ahead, else the next joiner of any kind. */
+      size_t use = next_op;
+      while (use < op_is_and.size () && !op_is_and[use])
+	use ++;
+      if (use >= op_is_and.size ())
+	use = next_op;
+      bool is_final = (use >= op_start.size ());
+
+      string cond = is_final ? s.substr (pos)
+			     : s.substr (pos, op_start[use] - pos);
+      bool this_rv = eval_cond (cond);
+      rv = joiner_is_and ? (this_rv && rv) : (this_rv || rv);
+
+      if (is_final)
+	break;
+      joiner_is_and = op_is_and[use];
+      pos = op_end[use];
+      next_op = use + 1;
     }
 
   GEAS_DBG << "if (" << s << ") --> " << (rv ? "true" : "false") << endl;
