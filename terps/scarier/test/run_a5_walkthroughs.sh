@@ -1470,21 +1470,29 @@ fi
 printf "%-24s %-9s %-12s %-12s %-11s\n" "GAME" "STATUS" "vanilla" "xoshiro" "saverestore"
 printf "%-24s %-9s %-12s %-12s %-11s\n" "----" "------" "-------" "-------" "-----------"
 
-# Fan the games out $JOBS at a time (simple batch throttle), then print the
-# collected rows in MAP order.  The pipeline's subshell owns the jobs, so the
-# trailing `wait` must stay inside the braces.
+# Fan the games out $JOBS at a time, then print the collected rows in MAP order.
+# The pipeline's subshell owns the jobs, so the trailing `wait` must stay inside
+# the braces.
+#
+# Throttle by keeping $JOBS RUNNING jobs, not by launching $JOBS and waiting for
+# all of them: game runtimes are wildly skewed (Fortress of Fear is 32s of the
+# 138s serial total, Axe of Kolt another 17s, while most games are under 1s), so
+# a batch barrier costs the slowest member of every batch.  Measured over the
+# real MAP order at -j8: barrier 78s vs 38s here, against a 32s floor set by the
+# single longest game.  `jobs -pr` (running only) is the portable-enough probe --
+# /bin/sh is bash 3.2 on macOS, which has no `wait -n`.
 echo "$MAP" | {
     n=0
     while IFS='|' read -r name game vbudget xbudget; do
         [ -z "$name" ] && continue
         case "$name" in *"$FILTER"*) : ;; *) continue ;; esac
         n=$((n+1))
+        while [ "$(jobs -pr | wc -l)" -ge "$JOBS" ]; do sleep 0.1; done
         # </dev/null: the children inherit THIS while-loop's stdin (the MAP
         # pipe); any grandchild that reads stdin (dotnet on an FD_CACHE miss)
         # would silently EAT map rows -- 51 games vanished from one run before
         # this was pinned down.  Row-count assert below backstops it.
         run_one "$(printf '%03d' "$n")" "$name" "$game" "$vbudget" "$xbudget" </dev/null &
-        [ $((n % JOBS)) -eq 0 ] && wait
     done
     wait
     echo "$n" > "$WORKDIR/expected_rows"
@@ -1505,18 +1513,29 @@ if [ "$actual" -ne "$expected" ]; then
     exit 1
 fi
 
+# Tally + legend.  Every line below is prefixed "#" so that grepping the suite
+# output for a status word only ever hits real game rows: the legend names the
+# same tokens the rows use, and an unprefixed legend made every "how did the run
+# go" grep report phantom MATCH/FAIL hits.  The TOTAL line is the machine-readable
+# summary -- prefer it over counting rows.
 echo
-echo "MATCH = 0 in both modes; DIVERGE = at baseline (see"
-echo "test/A5_WALKTHROUGH_FINDINGS.md); OKbetter = below baseline in some mode"
-echo "(re-bless the MAP); FAIL = exceeded a budget OR the save/restore self-check"
-echo "diverged (regression).  vanilla = FD's stock System.Random; xoshiro ="
-echo "FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips).  saverestore = mid-script"
-echo "A5_SAVE_AT round-trip must be byte-identical (SAVERESTORE=0 skips)."
+echo "# TOTAL: $(cat "$WORKDIR"/*.row 2>/dev/null | awk '{print $2}' | sort | uniq -c |
+                 awk '{printf "%s%s=%s", (NR>1 ? ", " : ""), $2, $1}')"
+echo "#"
+echo "# STATUS   MATCH     0 hunks in both modes"
+echo "#          DIVERGE   at baseline (see test/A5_WALKTHROUGH_FINDINGS.md)"
+echo "#          OKbetter  below baseline in some mode -- re-bless the MAP"
+echo "#          FAIL      exceeded a budget, OR the save/restore self-check"
+echo "#                    diverged (i.e. a regression)"
+echo "# COLUMNS  vanilla     FD stock System.Random"
+echo "#          xoshiro     FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips)"
+echo "#          saverestore mid-script A5_SAVE_AT round-trip must be"
+echo "#                      byte-identical (SAVERESTORE=0 skips)"
 
 # Non-zero exit if any game regressed in either mode (the documented contract).
 if ls "$WORKDIR"/*.reg >/dev/null 2>&1; then
     echo
-    echo "REGRESSIONS: $(cat "$WORKDIR"/*.reg | tr '\n' ' ')"
+    echo "# REGRESSIONS: $(cat "$WORKDIR"/*.reg | tr '\n' ' ')"
     exit 1
 fi
 exit 0
