@@ -1,0 +1,117 @@
+# The Axe of Kolt - V5 Intro Comp Entry -- Larry Horsfield, 2012.
+# MAXIMUM-SCORE playthrough: "you scored 72 out of a possible 1000".
+#
+# This is the four-location competition *taster* for the full Axe of Kolt, which
+# is wired separately as AxeOfKolt_walkthrough.txt against TheAxeOfKolt.blorb.
+# The comp build is a compressed rearrangement of the full game's Chapter 1, so
+# the spine of this route is LIFTED VERBATIM from that walkthrough (itself the
+# full game's own built-in WLKTHRGH task) -- the marked block below is the same
+# commands in the same order.  Everything outside that block is comp-specific:
+# the author cut the whole Hengemire overworld to fit the 4-location limit,
+# folded the innkeeper scene into a single teleporting task, renamed the
+# barmaid Bella to Lizzie Roffey, and added 18 extra ask topics + a kiss.
+#
+# The comp shipped with no solution and was never playtested ("Not enough
+# time!" -- its own Playing Instructions), so the comp-only half was derived
+# from the module XML (A5_DUMP_XML) rather than from any published source.
+#
+# WHAT CHANGED vs. the full game's Chapter 1
+#   * Intro page is a screen-display selection (1 = refresh, 2 = scroll up)
+#     ahead of the usual B(egin)/P(rologue) page, not the full game's O/B.
+#   * "Read signpost" then a single `e` replaces the four-room walk to the
+#     village: Task192 "East from Road" teleports you straight to the Inn Yard.
+#   * `say hello to innkeeper` before `help innkeeper` is NOT possible here --
+#     see the timing note below -- so the greeting moves inside to Lizzie.
+#   * `talk to bella` -> `say hello to lizzie`; `ask about X` -> `ask lizzie
+#     about X` (the comp has no bare-`ask about` task).
+#   * `ask about chaldon` / `ask about ferryman` have no comp equivalents;
+#     `ask about old forest` is just `forest` here.
+#
+# TIMING -- the two things that can silently cost you the game:
+#   * You get exactly ONE turn in the Inn Yard.  Arriving fires Task25 "See
+#     Dray", which starts Event1, whose subevent at +1 executes Task75 "No
+#     Offer of Help" -- that drags you inside without the offer.  So
+#     `help innkeeper` must be the very next command after arriving
+#     (`unload dray` / `unload barrels` / `offer help` are equivalent).
+#   * `help innkeeper` starts Event2 "Traveller Arrives", length 50 -- the game
+#     says "You now have 50 moves to explore the inn and talk to Lizzie".  On
+#     move 50 Task198 -> Task65 ends the game (EndGame Neutral) provided you
+#     are inside the inn (Group2 = Location26 + Location27).  Every point must
+#     be banked inside that window: this route spends 36 of the 50 moves
+#     scoring and the rest on flavour, finishing in the bar as the traveller
+#     bursts in with the news from Domreil.
+#
+# SCORING -- 30 `ask lizzie about` topics + `kiss lizzie` (+5) = 72 points, and
+# that is everything the module can award.  Three topics are gated, so the
+# order is not arbitrary (the full game's order already satisfies all three):
+#   outlaws (+3, sets Var12) -> dwark (+2, sets Var14) -> trapper (+2)
+#   king kelson (+2, sets Var2) -> father (+2)
+# `pass` also sets Var12, so it is an alternative unlock for dwark.
+#
+# NOTE ON "out of 1000": the author left the full game's MaxScore in place
+# (Task1/Task98 set 2000, Task3 then resets it to 1000).  72 IS the maximum.
+#
+# --- intro pages (comp-specific: display selection, then prologue) ---
+2
+p
+p
+b
+#
+# === Chapter 1 -- shared spine with AxeOfKolt_walkthrough.txt ===============
+read signpost
+e
+help innkeeper
+w
+x tapestry
+read writing
+e
+say hello to lizzie
+ask lizzie about outlaws
+ask lizzie about pass
+ask lizzie about dwark
+ask lizzie about trapper
+ask lizzie about tapestry
+ask lizzie about magor
+ask lizzie about forest
+ask lizzie about ferry
+ask lizzie about kolt
+ask lizzie about xixon
+ask lizzie about king kelson
+ask lizzie about father
+# === end of the shared spine ===============================================
+#
+# --- comp-only topics: the 18 subjects the full game's Chapter 1 never asks ---
+ask lizzie about tony
+ask lizzie about gloria
+ask lizzie about drayman
+ask lizzie about hengemire
+ask lizzie about villagers
+ask lizzie about travellers
+ask lizzie about traders
+ask lizzie about market
+ask lizzie about greenwych
+ask lizzie about woolwych
+ask lizzie about garrison
+ask lizzie about troops
+ask lizzie about mountains
+ask lizzie about foothills
+ask lizzie about charlton
+ask lizzie about sutlej river
+ask lizzie about hecate
+ask lizzie about battle
+kiss lizzie
+score
+# --- flavour while Event2 runs out its 50 moves ---
+x lizzie
+x bar
+x barrels
+x villagers
+x travellers
+talk to villagers
+talk to travellers
+x tankard
+x candles
+x rushes
+x tables
+x ceiling
+z

@@ -85,6 +85,32 @@ msg_has_output (const char *m)
   return 0;
 }
 
+/* Is the last VISIBLE act of an already-rendered message a <cls>?  The trailing
+   presentation sentinels (stripped-tag A5_ALR_MARK, waitkey/centre/bold marks)
+   are not output -- the runner never saw them -- so markup sitting after the
+   wipe marker does not make the <cls> any less final.  The Axe of Kolt comp
+   intro ends "<waitkey><cls></b>", and that stripped </b> leaves an
+   A5_ALR_MARK behind the marker; a raw last-byte test then misreads it as
+   "text after the wipe" and adds a paragraph break the runner never shows. */
+static int
+msg_ends_with_cls (const char *m)
+{
+  size_t n = m != NULL ? strlen (m) : 0;
+  while (n > 0)
+    {
+      char c = m[n - 1];
+      if (c == A5_CLS_MARK)
+        return 1;
+      if (c != A5_ALR_MARK && c != A5_WAITKEY_MARK
+          && c != A5_CENTER_MARK && c != A5_ENDCENTER_MARK
+          && c != A5_BOLD_MARK && c != A5_ENDBOLD_MARK
+          && c != A5_ENDWINDOW_MARK)
+        return 0;
+      n--;
+    }
+  return 0;
+}
+
 /* A faithful port of clsUserSession.bHasOutput (vb:1272), applied to a message
    string with its markup STILL EMBEDDED (the value the runner's Display() sees, before
    the final HTML->plain pass).  Unlike msg_has_output (which inspects the
@@ -1187,7 +1213,7 @@ a5run_intro (a5_run_t *run)
   if (intro[0])
     {
       sb_puts (&out, intro);
-      if (intro[strlen (intro) - 1] != A5_CLS_MARK)
+      if (!msg_ends_with_cls (intro))
         sb_puts (&out, "\n\n");
     }
   free (intro);

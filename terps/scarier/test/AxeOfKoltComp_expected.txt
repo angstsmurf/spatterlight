@@ -1,0 +1,353 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.The Axe of Kolt - V5 Intro Comp Entry
+THE AXE OF KOLT
+
+Screen Display Selection:
+
+Please select one of the options below:
+
+If you wish the screen to refresh each time you move to a new location
+Please type 1 and press enter.
+
+If you wish the screen to scroll up as you play the adventure
+Please type 2 and press enter.
+
+> 2
+THE AXE OF KOLT  Start-Up Options:
+
+Press B (enter) to Begin the adventure from the first location.
+
+Press P (enter) to read the Prologue and Playing Instructions.
+
+(Recommended if starting this adventure for the first time)
+
+If you wish to start the adventure from a saved position click the "Open Game" icon in the taskbar above (Blue Folder Icon on the left)
+
+> p
+
+THE AXE OF KOLT
+You are Alaric Blackmoon, once a roving mercenary swordsman, now a penniless wanderer. After the defeat of your last employer, in a battle in which you only just escaped with your life, you and your fellow survivors were banished from the Duchy of Karsten, and you now find yourself in a small Kingdom called Scippar. You have been living off the land and doing odd jobs along the way, but you are tired of wandering, and want to find somewhere to put down some roots. Maybe even find a wife and settle down to a more peaceful life.
+
+This story begins on a cold Sunday afternoon in mid-November. You have had been trying to find work in a village called Greenwych, but the people there were suspicious of strangers and although you were able to do a few odd jobs in return for some food, there was nothing that would bring you a more regular income. So you left the village and hitched a lift on a haywain, the driver of which tells you he is headed north to Woolwych, but that you might have more luck finding employment in Hengemire, whose folks are known for their friendliness.
+
+You buried yourself in the warm, soft hay and, lulled by the slow rocking of the wagon, you promptly fell asleep.....
+
+Press P (enter) to read the  Playing Instructions.
+
+Press B (enter) to Begin the adventure from the First Location.
+
+> p
+
+THE AXE OF KOLT -  Playing Instructions:
+
+IMPORTANT NOTE: For this competition version, some of the instructions below are irrelevant. The gameplay and sequence of events has also been altered from the proper game to fit within the 4 location limit. Please note also that this game has NOT been playtested! (Not enough time!)
+
+This adventure is mostly played using traditional "Verb-Noun" inputs, although some actions will require multi-word inputs, e.g. PUT SWORD ON TOMB. You move around using the usual 8 compass points plus Up & Down, such exits will be in Upper Case in the location descriptions. If there is an object to climb you will need both hands free. Yes folks, 'Elf'n'safety gets everywhere nowadays!
+
+You can EXAMINE objects to find out more about them, SEARCH objects & places to find potentially useful objects, and you can also SEARCH and LOOK IN, UNDER, BEHIND and BENEATH things.
+
+MAP NAVIGATION: If you are displaying the map whilst playing this adventure, you can move around by clicking on a location on the map. Note that you will only move via locations you have already visited and if there are any closed doors, etc, in the way you will have to open these first before you can proceed.
+
+There are some objects which are the same description, but of a different colour or made of a different substance. In order to manipulate these objects, you may need to specify their colour, e.g. GET BLUE CRYSTAL or GET SILVER KEY, etc.
+
+When you have to converse with any of the characters in this adventure, you just type TALK TO 'character', e.g. TALK TO KNIGHT or SAY HELLO TO character. You may then need to ASK the character ABOUT a certain subject, e.g. ASK LIZZIE ABOUT DRAYMAN.
+
+SCREEN DISPLAY: You will have selected your screen display type at the start of the game. However, if when playing the adventure you wish to switch over to a display where the screen scrolls up, type SCRON and press enter. To switch back to screen refreshing type SCROFF and press enter.
+
+If you wish to save your current position there are a couple of ways of doing this. If you type SAVE and press Enter, you will save your position under the filename you last used. To save your position using a new filename, press CTRL+S. To load back a saved position, type RESTORE and press enter, or click on the "Open Game" icon (2nd left) in the Runner taskbar.
+
+To read these instructions at any time during the game, type INSTRUCT (+ Enter) and to read the prologue again type STORY.
+
+Press B (enter) to Begin the adventure from the First Location.
+
+> b
+
+Road to Hengemire
+You are on a wide road that runs north-south through dense woodland. Another road, not as wide as the main one, heads off to the east. Standing on the corner here is a signpost. The ground under your feet is covered in a layer of brown leaves which have fallen from the trees that surround you.
+
+You hear the wagon move off behind you, and turn to wave to the farmer, who gives you a nod and a thumbs-up for luck as he flicks his reins onto the backs of his oxen in a bid to encourage them to move a bit quicker.
+
+> read signpost
+The three directional arms on the signpost read: North to Woolwych 6 km, South to Greenwych 4 km and East to Hengemire 1 km.
+
+> e
+You wander along the road to Hengemire, kicking at the leaves on the road and sending them up in rustling showers. As you are walking along, a brewer's dray laden with beer barrels and pulled by two huge shire horses, comes trundling up behind you. You stand to one side to let it pass, nodding to the drayman in greeting as the dray rumbles past.
+
+As you watch, it reaches the village green a couple of hundred meters away then turns to the north and is lost to view. You decide to follow it, and when you reach the village green you turn north and after a short walk you find yourself beside a sprawling inn.
+
+You are about to walk into the inn yard when you see the drayman come walking quickly out of there, looking furtively behind him. When he sees you he puts his finger to his lips and winks - you realise that he is obviously up to no good. He walks over to one of the cottages north of the inn and knocks on the door. After a second or two the door is opened, by whom you cannot see. With a quick glance about to make sure nobody else is watching, he slips inside the cottage and the door is closed behind him.
+
+You shrug your shoulders, thinking that whatever he is up to is none of your business, and continue on into the inn yard.....
+
+Press any key to Continue.....
+
+Inn Yard
+You are to the north of the inn, in a large cobbled yard. On the west side of the yard there are storage sheds and to the north the stables. You can only go East from here.  Here you see a brewer's dray.
+
+You see a man, probably the innkeeper, open the doors of a storage shed and go inside. He fetches out what looks like a large thick cushion and drops it by the side of the dray. He looks around as if seeking someone.
+
+"Jonnie K!" he yells, "where are ya, ye lazy git?!". He waits a minute or two then, realising he is not going to get any help, he climbs up onto the dray and manhandles a barrel of ale from the top of the pile and rolls it so that it falls off the dray onto the cushion with a dull thud. He then jumps down and rolls the barrel towards the storage shed.
+
+"I'll bloody murder that lazy bugger Jonnie!" you hear him mutter as he rolls the barrel into the storage shed. "Always skiving off when there's work to be done!"
+
+> help innkeeper
+You offer to help the innkeeper, who is very grateful. He tells you his name is Anthony, better known as Tony, and he offers you a bed for the night and all the food and ale you want in return for your help. The two of you spend the next hour or so unloading the dray and then loading it with empty barrels and crates of empty bottles.
+
+No sooner have you finished than the drayman Jonnie K comes strolling round the corner, looking rather pleased with himself. The innkeeper sees him and, his face red with anger, yells at him.
+
+"Where the 'ell 'ave you bin?! If it weren't fer this helpful geezer 'ere, I'd've 'ad ter unload that dray by meself!"
+
+The drayman puts on an air of innocence and smiles at the two of you. "Sorry Tony, me old mate," he glibly says, "Had to visit my sick old muvver, I'm sure you don't begrudge her a little time with her favourite son?"
+
+The innkeeper shakes his fist in the drayman's face. "Oh yeah!? Sick muvver my arse! More like visiting that floozy of yours! Now git back on that dray and get dem poor 'orses back to the brewery!"
+
+The drayman, not wanting to outstay his welcome, hops up onto the seat of the dray and, flicking the reins onto the backs of the shires, guides them out of the inn yard and away back to Greenwych.
+
+You do a few other odd jobs for the innkeeper and his wife Elizabeth and, true to his word, you are given a hearty meal, cooked by Lizzie, as she is known to one and all, herself.
+
+Later on you are relaxing in the inn, enjoying a pint of the excellent ale from Greenwych, which is the only good thing about the town you were last in.....
+
+Press any key to Continue.....
+
+East End of Inn
+You are in the main room of the Dragonslayer's Arms inn. It is a large, dark room with a low, beamed ceiling and a stone floor strewn with rushes. Tallow candles gutter on several tables which the patrons sit at. The room smells of wine and ale, but it seems to be well-kept. Against the north wall are a row of barrels on trestles, in front of which is a plank of wood, supported by two tables, which is known as the "bar". The room extends West and the entrance is East. The inn is full of villagers and travellers drinking and generally enjoying themselves.  The landlady Lizzie Roffey is serving customers from behind the bar.
+
+You now have 50 moves to explore the inn and talk to Lizzie - if you ask her the right things you will score points!
+
+> w
+You move west.
+
+West End of Inn
+You are at the west end of the main room of the inn. This end of the room is dominated by a stone pit in which burns a blazing fire, the smoke from which rises errantly towards a chimney set above it on four square pillars. The south wall is covered by a large tapestry. Opposite that a door leads North and the other end of the room is East.
+
+> x tapestry
+A large tapestry depicting an army of men fighting a horde of lizard-like men. The main figure is a giant of a man wielding a huge double-headed axe which glows with a nimbus of light. The tapestry is very dirty from the years of hanging in the smoky room and could do with a good clean and is splattered with holes where sparks from the fire have burnt it. In one corner of the tapestry you can just make out some writing underneath the dirt and grime.
+
+> read writing
+The writing reads: "King Kolt and his army fighting the Xixon hordes at the Battle of Domreil in the year 3745".
+
+> e
+You move east.
+
+East End of Inn
+You are in the main room of the Dragonslayer's Arms inn. It is a large, dark room with a low, beamed ceiling and a stone floor strewn with rushes. Tallow candles gutter on several tables which the patrons sit at. The room smells of wine and ale, but it seems to be well-kept. Against the north wall are a row of barrels on trestles, in front of which is a plank of wood, supported by two tables, which is known as the "bar". The room extends West and the entrance is East. The inn is full of villagers and travellers drinking and generally enjoying themselves.  The landlady Lizzie Roffey is serving customers from behind the bar.
+
+> say hello to lizzie
+In between her serving other customers, you greet Lizzie and tell her something of your exploits as a mercenary swordsman. She tells you that the village could do with a few swordsmen to get rid of the outlaws who have infested the forest in recent weeks.
+
+> ask lizzie about outlaws
+You ask Lizzie about the outlaws in the forest.
+
+"They arrived about a month ago and started ambushing people travelling through the forest alone and in small parties," she tells you. "We sent word to the garrison at Woolwych and they said that they would send some troops out to deal with them, but that hasn't happened yet. We've been able to get to Charlton if we travel in a large party with armed guards, but there is a pass high in the foothills of the mountains which some people have been using, although it is often snowbound at this time of year and you wouldn't want to get stranded there at night because of the Dwark."
+
+> ask lizzie about pass
+You ask Lizzie about the pass in the mountains.
+
+"It's quite high up," she tells you. "You just take the path north from the village and keep going towards the mountains. You'll need warm clothing, it's often snowbound at this time of year and you definitely don't want to be there at night," she warns you. "A creature called a Dwark lives there."
+
+> ask lizzie about dwark
+You ask Lizzie about the Dwark in the pass.
+
+"It's some sort of giant lizard I think," she tells you. "The trapper has seen it a few times, he nearly got caught by it once."
+
+> ask lizzie about trapper
+You ask Lizzie about the Trapper.
+
+"He's a strange one, spends days if not weeks away in the hills and mountains trapping animals for their furs," she tells you. "I heard that he will be at the market tomorrow."
+
+> ask lizzie about tapestry
+You ask Lizzie about the tapestry.
+
+"It's been up there for a very long time," she tells you. "Shows Kolt and his army defeating the Xixon at the Battle of Domreil."
+
+You see a small group of villagers get up from their table and don their coats. Lizzie bids them good night and they leave to go to their homes. As they open the door, an icy blast of wind blows in from outside, causing shouts of "Shut that door!" from other patrons. The door is slammed shut and everyone resumes their conversations.
+
+> ask lizzie about magor
+You ask Lizzie about Magor.
+
+"He is a sorcerer who lives in a tower up in the foothills north of here," she tells you. "People go to him for healing potions and the like. He comes down for a pint now and again, but he's getting on a bit now and we haven't seen him for a while."
+
+> ask lizzie about forest
+You ask Lizzie about the forest.
+
+"It's known as the Old Forest, as it has been there for thousands of years," she tells you. "It extends from the foothills of the mountains south to the river Sutlej."
+
+> ask lizzie about ferry
+You ask Lizzie about the ferry at Charlton.
+
+"There's bloke there called Denny Joyce," she tells you. "He's got a boat and will ferry you across for a fee."
+
+> ask lizzie about kolt
+You ask Lizzie about Kolt.
+
+"He was King Kelson's great-grandfather," she tells you. "Ruled Hecate a couple of hundred years ago."
+
+> ask lizzie about xixon
+You ask Lizzie about the Xixon.
+
+"I don't know much about them, way before my time," she tells you. "All I know is that they were lizards in human form."
+
+> ask lizzie about king kelson
+You ask Lizzie about King Kelson.
+
+"He's only a young chap," she tells you. "He was crowned King of Hecate only last year after his father died."
+
+> ask lizzie about father
+You ask Lizzie about King Kelson's father.
+
+"He died last year," she tells you sadly. "He was a great king, loved by one and all."
+
+> ask lizzie about tony
+You ask Lizzie about her husband Tony.
+
+"He's a wonderful man," she tells you sadly. "He used to be a carpenter, but he gave it up when this place became vacant a few years ago."
+
+> ask lizzie about gloria
+You ask Lizzie about Gloria. She blushes and says,
+
+"Gloria is Jonnie K's girlfriend," she tells you. "Word has it he's already got a wife in Greenwych, but knowing Jonnie he's probably got a girlfriend in every town and village he delivers to!"
+
+> ask lizzie about drayman
+You ask Lizzie about the drayman Jonnie K.
+
+"Jonnie is the drayman who has been delivering to us from the brewery at Greenwych for more years than I can remember," she tells you. "He's a really nice bloke and he's really good with horses, but he is such a lazy beggar. He would rather be in here drinking than out there helping Tony."
+
+> ask lizzie about hengemire
+You ask Lizzie about Hengemire.
+
+"The village has been here for hundreds of years," she tells you. "Some of the families who live in Hengemire are descended from the founders of the village."
+
+> ask lizzie about villagers
+You ask Lizzie about the villagers.
+
+"They are wonderful people," she tells you. "Friendly, hard-working and honest, many of the families have lived in Hengemire for generations."
+
+> ask lizzie about travellers
+You ask Lizzie about the travellers.
+
+"We get them from all over," she tells you. "For the most part they are friendly and no trouble at, although sometimes they get a bit drunk and Tony has to keep them in check."
+
+One of the villagers produces a squeeze-box and proceeds to play a jaunty tune. An old man starts to sing a song and soon everyone joins in. You tap your foot to the tune and join in the refrain. Yes, you think to yourself, these are nice people in this village.
+
+> ask lizzie about traders
+You ask Lizzie about the traders.
+
+"They come from local farms and from further afield," she tells you. "Most of them are at the market both days, but a few only come on Monday, others only on Tuesday."
+
+> ask lizzie about market
+You ask Lizzie about the market.
+
+"It's held on the village green every Monday and Tuesday," she tells you. "Most of the traders are there both days, but a few only come on Monday, others only on Tuesday."
+
+> ask lizzie about greenwych
+You ask Lizzie about Greenwych.
+
+"You saw for yourself what the folk there are like," she tells you. "They think they are better than anyone else, snotty lot!"
+
+> ask lizzie about woolwych
+You ask Lizzie about Woolwych.
+
+"It's where the local garrison is based," she tells you. "It isn't a very nice place, bit on the rough side."
+
+> ask lizzie about garrison
+You ask Lizzie about the garrison.
+
+"It is based at Woolwych," she tells you. "It isn't very big but the troops there are meant to deal with outlaws if any are reported to them."
+
+> ask lizzie about troops
+You ask Lizzie about the troops.
+
+"The troops are based at Woolwych," she tells you. "They are meant to deal with outlaws if any are reported to them."
+
+> ask lizzie about mountains
+You ask Lizzie about the mountains.
+
+"They are called the Droomdark mountains," she tells you. "They extend east and west across the whole of the country of Scippar."
+
+> ask lizzie about foothills
+You ask Lizzie about the foothills.
+
+"They lead up to the Droomdark mountains," she tells you. "Pretty bleak at this time of year, not so cold during the day, but I wouldn't go up there at night without some warm clothing."
+
+> ask lizzie about charlton
+You ask Lizzie about Charlton.
+
+"Charlton is the next town to the east," she tells you. "It's on the north bank of the Sutlej river. There's a ferry which will take you across to the north of Hecate."
+
+> ask lizzie about sutlej river
+You ask Lizzie about the Sutlej river.
+
+"It rises in the Droomdark mountains far to the east," she tells you. "It then flows west towards the sea."
+
+> ask lizzie about hecate
+You ask Lizzie about Hecate.
+
+"It's the country to the south of Scippar, on the other side of the Sutlej river," she tells you. "Ruled by young king Kelson."
+
+> ask lizzie about battle
+You ask Lizzie what she knows about the battle of Domreil.
+
+"I only know what I've heard from the stories passed down from other folk," she tells you. "It was the final battle of the Xixon Wars and if it hadn't've been for King Kolt and his axe, the Xixon would've won!"
+
+> kiss lizzie
+You give Lizzie a big kiss. She blushes like a young girl and giggles.
+
+"Don't let my husband catch you doing that," she warns you. "He doesn't like me getting too friendly with the customers. I don't mind though - just this once!"
+
+The squeeze-box is brought out again and this time a dance tune is played. Tables are pushed to the side and the villagers and some of the traders get up to dance to the tune. You clap your hands in time to the music and wish that you didn't have two left feet!
+
+> score
+You have scored 72 points out of 1000, after taking 43 turns.
+
+> x lizzie
+Lizzie is an attractive woman in her early 40's, with shoulder-length auburn hair.
+
+> x bar
+A wooden plank which stops the patrons from helping themselves to the ale.
+
+> x barrels
+Barrels of various ales from the brewery at Greenwych.
+
+> x villagers
+Some folk from the village of Hengemire, enjoying a convivial drink with neighbours and friends.
+
+> x travellers
+People from far and near, of several nationalities, some are merchants on business, others are ordinary folk travelling for pleasure or on pilgrimage.
+
+> talk to villagers
+You talk to the villagers and they chat with you for a while before going back to their own conversations.
+
+> talk to travellers
+You talk to some of the travellers and you tell them stories of your travels as a mercenary swordsman. They listen politely then go back to their own conversations.
+
+> x tankard
+A pewter tankard full of ale which Lizzie keeps topped up for you.
+
+> x candles
+Candles placed all around the inn to provide light.
+
+> x rushes
+Fresh rushes strewn over the floor to soak up spillages.
+
+> x tables
+Ordinary wooden tables, covered in knife marks and initials carved into them. However, they are kept scrupulously clean by Lizzie and her serving girls.
+
+> x ceiling
+A low ceiling with smoke-blackened wooden beams.
+
+> z
+
+  Here starts your epic quest to find the legendary
+
+AXE OF KOLT!
+
+Thank you for playing "The Axe of Kolt - V5 Intro Comp Version".
+
+I do hope this little taster will inspire you to play the complete adventure, coming to a computer near you by the end of 2013.
+
+In that game you scored 72 out of a possible 1000, in 56 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

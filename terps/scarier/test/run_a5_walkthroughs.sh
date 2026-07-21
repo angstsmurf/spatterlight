@@ -1169,11 +1169,39 @@ FILTER="${1:-}"
 # the salt-flats' random vulture/eagle/lizard atmosphere event draws different
 # text under .NET System.Random vs. xoshiro (aligned away under FD_RNG=xoshiro).
 #
+# (2026-07-21) AxeOfKoltComp WIRED at MATCH 0|0, golden-backed -- "AoK Comp.blorb",
+# the last game file in test/adrift5-games with no MAP row.  It is Larry
+# Horsfield's 2012 "V5 Intro Comp Entry": a four-location taster that compresses
+# the full Axe of Kolt's Chapter 1 (15 locations, 4 of them menu/prologue pages;
+# no built-in WLKTHRGH; never playtested by the author).  The route's spine is
+# lifted VERBATIM from AxeOfKolt_walkthrough.txt -- read signpost / help
+# innkeeper / w / x tapestry / read writing / e, then the outlaws-pass-dwark-
+# trapper-tapestry-magor-forest-ferry-kolt-xixon-kelson-father topic run -- with
+# the barmaid renamed Bella -> Lizzie and `ask about X` -> `ask lizzie about X`;
+# the remaining 18 ask topics and `kiss lizzie` are comp-only and were derived
+# from the module XML.  MAXIMUM score: "you scored 72 out of a possible 1000"
+# (the 1000 is the full game's leftover MaxScore; 72 is every Score action in
+# the module).  Two traps the route has to respect: exactly ONE turn in the Inn
+# Yard before Event1's Task75 drags you inside without the offer of help, and a
+# hard 50-move Event2 window from `help innkeeper` to the traveller's arrival
+# (Task198 -> Task65, EndGame Neutral) inside Group2.
+#   ONE engine fix fell out of it: the "does the Introduction end in a <cls>?"
+#   test at game start compared the rendered intro's LAST BYTE against
+#   A5_CLS_MARK, but this intro ends "<waitkey><cls></b>" and the stripped </b>
+#   leaves an A5_ALR_MARK sentinel *after* the wipe marker.  The raw test read
+#   that as "text after the wipe" and appended a paragraph break, which survived
+#   sb_resolve_cls as a stray blank line above the first location -- the one
+#   hunk in both RNG modes.  a5run.cpp now scans back over the non-output
+#   presentation sentinels (msg_ends_with_cls), the same set msg_has_output
+#   already ignores.  Inert for every other game (no other corpus intro puts
+#   markup after its trailing <cls>); whole corpus re-run, zero regressions.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
 anno1700|Anno1700.blorb|0|0
 AxeOfKolt|TheAxeOfKolt.blorb|0|0
+AxeOfKoltComp|AoK Comp.blorb|0|0
 SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
 StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|0|0
