@@ -202,7 +202,10 @@
             // Keep the existing weak-ish reference used elsewhere (state restore, etc.)
             _searchField = field;
             // Stop AppKit's autofill heuristic from walking outward into the
-            // library window's content hierarchy.
+            // library window's content hierarchy. AppKit re-links the field's
+            // key-view neighbours after the toolbar lays out, so we re-assert
+            // this self-loop on focus in -controlTextDidBeginEditing: as well.
+            field.delegate = self;
             [field setNextKeyView:field];
 
             searchItem.label   = NSLocalizedString(@"Search", nil);
@@ -220,7 +223,10 @@
                 field.target = self.tableViewController;
                 _searchField = field;
                 // Stop AppKit's autofill heuristic from walking outward into the
-                // library window's content hierarchy.
+                // library window's content hierarchy. AppKit re-links the field's
+                // key-view neighbours after the toolbar lays out, so we re-assert
+                // this self-loop on focus in -controlTextDidBeginEditing: as well.
+                field.delegate = self;
                 [field setNextKeyView:field];
             }
             toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
@@ -232,6 +238,20 @@
         }
     }
     return toolbarItem;
+}
+
+// When the search field gains focus, AppKit schedules its password-autofill
+// heuristic (NSAutoFillHeuristicController) as a run-loop block. That block
+// walks the key-view loop outward via -previousValidKeyView; if the walk
+// reaches a neighbouring view that can't handle the message it sends, the app
+// traps in CoreFoundation's forwarding path. This notification fires
+// synchronously on focus -- before that deferred block runs -- so re-asserting
+// the self-contained key-view loop here keeps the walk from ever leaving the
+// field, even after AppKit re-links neighbours during toolbar layout.
+- (void)controlTextDidBeginEditing:(NSNotification *)obj {
+    if (obj.object == _searchField) {
+        [_searchField setNextKeyView:_searchField];
+    }
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {

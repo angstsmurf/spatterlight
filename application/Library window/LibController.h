@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSProgressIndicator * _Nullable progIndicator;
 @end
 
-@interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSToolbarDelegate>
+@interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSToolbarDelegate, NSSearchFieldDelegate>
 
 @property (strong) CoreDataManager * _Nullable coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
