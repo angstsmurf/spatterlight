@@ -3098,6 +3098,16 @@ bool Interp::exec_statement_command(const std::string &name,
             } else if (fn == "Grid_ClearAllLayers") {
                 g.op = GridDraw::Op::Clear;
                 grid_draw(g);
+            } else if (fn == "setBackground" && !args.empty()) {
+                /* SetBackgroundColour: the reference player tints the whole
+                 * game panel AND #gridPanel with it, and grid colours are
+                 * authored against that -- a game on a black background
+                 * draws its exit lines in white.  Only the map pane takes it
+                 * here (the text window keeps the Glk theme), so it rides
+                 * the grid channel. */
+                g.op = GridDraw::Op::Canvas;
+                g.fill = to_string(ev(0));
+                grid_draw(g);
             } else {
                 js_fallback();
             }
@@ -3267,6 +3277,15 @@ bool Interp::exec_statement_command(const std::string &name,
                 set_panel_contents("<img src=\"" + arg + "\"/>");
             else if (fn == "clearFramePicture")
                 set_panel_contents("");
+        } else if (req == "Background" && grid_draw) {
+            // PlayerUI.SetBackground -- the pre-JS pairing for
+            // JS.setBackground, sent by games that embed a Quest 5.0-era Core
+            // (Dream Pieces 2). Same meaning: it is the canvas the grid map's
+            // colours were authored against. See the JS.setBackground case.
+            GridDraw g;
+            g.op = GridDraw::Op::Canvas;
+            g.fill = to_string(ev(1));
+            grid_draw(g);
         } else if ((req == "Show" || req == "Hide") && show_command_bar) {
             // PlayerUI.Show/Hide -- the element-visibility channel, the pre-JS
             // pairing for JS.uiShow/uiHide. Data is an element name ("Panes",

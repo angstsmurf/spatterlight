@@ -218,6 +218,18 @@ int main(int argc, char **argv) {
     // resuming at the next claim produce the same transcript when no output
     // sits between the two points.
     in.play_sound = [](const std::string &, bool, bool) {};
+    // ASLX_GRID_TRACE=1: dump the grid-map paint commands (CoreGrid.aslx ->
+    // grid.js) to stderr, so what the Glk map pane is asked to draw can be
+    // checked without running the app. Installing the hook also switches the
+    // JS.* bridge onto its grid vocabulary, so it stays off by default.
+    if (std::getenv("ASLX_GRID_TRACE")) {
+        in.grid_draw = [](const GridDraw &g) {
+            fprintf(stderr, "GRID op=%d x=%g y=%g x2=%g y2=%g z=%d w=%g h=%g "
+                    "border=%s fill=%s text=%s\n", (int) g.op, g.x, g.y,
+                    g.x2, g.y2, g.z, g.w, g.h, g.border.c_str(),
+                    g.fill.c_str(), g.text.c_str());
+        };
+    }
     auto line_out = [&](const std::string &s) { transcript += s + "\n"; };
 
     // ASLX_RESTORE=<file>: apply a saved game onto the freshly-loaded original

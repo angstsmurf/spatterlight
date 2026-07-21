@@ -1,5 +1,32 @@
 # TODO: Quest 5 support in Geas
 
+## Status (2026-07-21, grid map: the canvas is the game's background)
+
+- **Fixed: exit lines missing from the map** (reported against *I Contain
+  Multitudes*, which draws them in QuestViva).  The map pane hard-coded a
+  white canvas, but the reference player's `setBackground()` paints
+  `#gridPanel` with the *game's* background colour
+  (`playercore.js`, alongside `#gamePanel`), and the grid colours are
+  authored against that.  I Contain Multitudes runs on
+  `defaultbackground=Black` with `mapexitcolour=White`, so its exit lines
+  were white-on-white.  Rooms still showed (Core's `grid_fill` default is
+  White with a Black border), which is exactly the reported symptom.
+- New `GridDraw::Op::Canvas` carries the colour; `g_gm_canvas` (default
+  White, the Core default, so the ~everything-else case is unchanged) is
+  the surface fill AND the Glk window background.  Fed from both channels
+  `SetBackgroundColour` uses: `JS.setBackground` on modern Cores, and
+  `request (Background, colour)` for games embedding a Quest 5.0-era Core
+  (Dream Pieces 2 — the same pre-JS pairing already handled for
+  `SetStatus`/`UpdateLocation`/`SetPanelContents`).
+- Zero transcript risk: both new branches sit behind `grid_draw`, which is
+  null headless, so the argument is not even evaluated there.  Native
+  `aslx_replay` sweep 75/75 byte-identical vs `quest5-oracle/golden/`,
+  `make check` green.  Live-verified with screenshots in the app: I Contain
+  Multitudes now draws white exit lines on black, Dream Pieces 2 its yellow
+  room on black.
+- New `ASLX_GRID_TRACE=1` on `test/aslx_replay` dumps the paint commands, so
+  map behaviour can be checked without launching the app.
+
 ## Status (2026-07-19, Spatterlight autosave/autorestore — BOTH engines)
 
 - **Spatterlight autosave/autorestore lands for the whole geas terp** —

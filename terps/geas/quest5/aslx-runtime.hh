@@ -127,6 +127,10 @@ struct GridDraw {
                   // (not grid units), border + borderwidth, fill. There is
                   // one player marker: a later call moves it
         Clear,    // Grid_ClearAllLayers (ChangePOV wipes the map)
+        Canvas,   // JS.setBackground: fill = the game's background colour.
+                  // Not a paint command -- the reference player's
+                  // setBackground() paints #gridPanel with it, so the map's
+                  // canvas is the game's background, not always white
     };
     Op op = Op::Clear;
     double x = 0, y = 0, x2 = 0, y2 = 0, w = 0, h = 0;

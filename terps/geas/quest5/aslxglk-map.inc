@@ -28,8 +28,10 @@
  *    timer_event_second); deterministic mode jumps instead;
  *  - the view keeps the player centred (like the scarier map's
  *    LockPlayerCentre);
- *  - colours are authored HTML names / #rrggbb on a white canvas, so the
- *    pane keeps the reference player's white background in any Glk theme.
+ *  - colours are authored HTML names / #rrggbb against the game's own
+ *    background (setBackground paints #gridPanel too), so the canvas
+ *    follows SetBackgroundColour rather than the Glk theme -- White for
+ *    almost every game, but a game on black draws white exit lines.
  * Not carried over: pan/drag and zoom gestures, GridSquareClick, and the
  * custom-layer vocabulary (Grid_DrawSquare/Svg/Image/Shape...), which the
  * engine ignores for now.
@@ -49,6 +51,7 @@ double g_gm_scale = 30;              /* px per grid unit (Grid_SetScale) */
 int g_gm_height = 0;                 /* pane height in px (JS.ShowGrid) */
 int g_gm_layer = 0;                  /* current layer (last activateLayer) */
 bool g_gm_dirty = false;             /* display list changed since last blit */
+glui32 g_gm_canvas = 0xFFFFFF;       /* SetBackgroundColour (Core default White) */
 
 /* The pixels currently on screen, so a redraw sends only the rows that
  * changed -- and nothing at all for the usual turn that leaves the map
@@ -623,7 +626,7 @@ void redraw_grid_map()
     GmSurface surf;
     surf.w = (int) w;
     surf.h = (int) h;
-    surf.px.assign((size_t) w * h, 0xFFFFFF);
+    surf.px.assign((size_t) w * h, g_gm_canvas);
     gm_render(surf);
 
     if (g_gm_screen.w != surf.w || g_gm_screen.h != surf.h)
@@ -677,7 +680,7 @@ void grid_map_show(int hpx)
                                   winmethod_Above | winmethod_Proportional,
                                   GM_HEIGHT_PERCENT, wintype_Graphics, 0);
         if (gmapwin) {
-            glk_window_set_background_color(gmapwin, 0xFFFFFF);
+            glk_window_set_background_color(gmapwin, g_gm_canvas);
             glk_window_clear(gmapwin);
         }
         gm_screen_drop();
@@ -749,6 +752,21 @@ void grid_map_command(const GridDraw &g)
         g_gm_have_player = false;
         g_gm_glide = g_gm_pan = false;
         break;
+    case GridDraw::Op::Canvas: {
+        /* An unparseable colour keeps white, the Core default -- the paint
+         * commands are authored against whatever this is, so guessing wrong
+         * hides them (white-on-white exit lines). */
+        glui32 c = gm_colour(g.fill, 0xFFFFFF);
+        if (c == g_gm_canvas)
+            return;
+        g_gm_canvas = c;
+        if (gmapwin) {
+            glk_window_set_background_color(gmapwin, g_gm_canvas);
+            glk_window_clear(gmapwin);
+        }
+        gm_screen_drop();   /* the window no longer holds what we blitted */
+        break;
+    }
     }
     g_gm_dirty = true;
 }
@@ -768,6 +786,7 @@ void grid_map_reset()
     g_gm_scale = 30;
     g_gm_height = 0;
     g_gm_layer = 0;
+    g_gm_canvas = 0xFFFFFF;
     g_gm_dirty = false;
     g_gm_glide = g_gm_pan = false;
     g_gm_dispx = g_gm_dispy = g_gm_viewx = g_gm_viewy = 0;
