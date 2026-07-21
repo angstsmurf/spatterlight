@@ -107,8 +107,14 @@ in welbourn mode is required, and also yields one deterministic turn per command
 
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
 `out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
-table (ASL version, steps, emits, error count, final state). Current coverage:
-**72 games driven** — **61 `Finished`**, **11 `Running`**, **0 `Wedged`**.
+table (ASL version, steps, emits, error count, final state). Coverage as of this
+writing: **72 games driven** — **61 `Finished`**, **11 `Running`**, **0 `Wedged`**.
+
+Every count in this section is a *snapshot*. `./check_golden.sh` recomputes all of
+them from `corpus.tsv` and `golden/` on every run and prints them as its closing
+`composition:` / `final states:` lines — trust that output, not this prose, which
+drifts each time a game is wired (a per-game commit touches `corpus.tsv`,
+`golden/` and `overrides/README.md`, never these paragraphs).
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
 its absence is not a loss: **9 of the 11 `Running` rows are genuine wins in games
@@ -238,7 +244,7 @@ implemented — no corpus game reaches one.)
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each of the 72 driven games, the exact
+`golden/` holds the frozen answer key: for each driven game, the exact
 command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
 produces for it (`golden/<Game>.out`). This is the only part of the harness
 committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch

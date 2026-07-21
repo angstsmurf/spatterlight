@@ -114,4 +114,34 @@ for cmd in "$GOLDEN"/*.cmd; do
 done
 
 echo "coverage: $(wc -l < "$rows" | tr -d ' ') driven corpus rows, $ungolden without a golden, $orphan orphaned golden(s)"
+
+# Corpus composition. These are the numbers README.md used to hard-code, and they
+# went stale every time a game was wired (each per-game commit touches corpus.tsv,
+# golden/ and overrides/README.md, but not the README totals). Derive them here
+# instead so the source of truth is the manifest, not prose. Like the coverage
+# cross-check above, this always covers the FULL corpus, ignoring any filter args.
+wt_rows=0; ov_rows=0; ov_driven=0; extracted=0
+fin=0; runn=0; wedge=0; unknown=0
+while IFS=$'\t' read -r game wt mode preamble; do
+  case "$game" in ''|\#*) continue;; esac
+  [ "$mode" = "hints" ] && continue
+  # wt="-" = no published walkthrough anywhere; the override IS the script.
+  if [ "$wt" = "-" ]; then ov_rows=$((ov_rows+1)); else wt_rows=$((wt_rows+1)); fi
+  if [ -f "$HERE/overrides/$game.cmd" ]; then ov_driven=$((ov_driven+1)); else extracted=$((extracted+1)); fi
+  # Final state comes from the FROZEN golden, not this run's replay: the golden is
+  # the committed answer key, and a FAIL above already reports any live divergence.
+  case "$(tail -1 "$GOLDEN/$game.out" 2>/dev/null)" in
+    '[state=Finished]') fin=$((fin+1));;
+    '[state=Running]')  runn=$((runn+1));;
+    '[state=Wedged]')   wedge=$((wedge+1));;
+    *)                  unknown=$((unknown+1));;
+  esac
+done < "$HERE/corpus.tsv"
+ov_wt=$((ov_driven - ov_rows))   # overrides on rows that DO have a walkthrough
+echo "composition: $((wt_rows + ov_rows)) driven rows = $wt_rows walkthrough-mapped + $ov_rows override-only"
+echo "             $ov_driven driven by curated overrides ($ov_rows override-only + $ov_wt walkthrough rows), $extracted via extract_walkthrough.py"
+printf "final states (frozen golden/*.out): %d Finished, %d Running, %d Wedged" "$fin" "$runn" "$wedge"
+[ "$unknown" -gt 0 ] && printf ", %d with no readable [state=] line" "$unknown"
+echo
+
 [ "$fail" -eq 0 ] && [ "$ungolden" -eq 0 ] && [ "$orphan" -eq 0 ]
