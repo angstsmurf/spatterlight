@@ -219,6 +219,9 @@ std::string g_location_line;
  * named game resource in the main window, original size but never wider
  * than the window. False when unresolvable or images are unsupported. */
 bool draw_image_inline(const std::string &name);
+/* Inline <audio> playback (defined alongside it): start the first of `srcs`
+ * that resolves, on the same single channel as `play sound`. */
+bool play_audio_inline(const std::vector<std::string> &srcs, bool loop);
 void panel_arrange();
 
 /* Pane redraw (defined after the HTML renderer): repaints the side pane from
@@ -337,6 +340,49 @@ std::string tag_attr(const std::string &tag, const std::string &attr)
         return tag.substr(eq + 1, end - eq - 1);   /* original case */
     }
     return "";
+}
+
+/* True if a boolean attribute (`autoplay`, `loop`) is present on a raw tag.
+ * tag_attr only sees the attr="value" form, and HTML boolean attributes are
+ * normally bare.  This walks the attribute list properly, skipping quoted
+ * values, so L Too's <audio autoplay onplay="this.autoplay=''"> is not read
+ * as carrying a second autoplay from inside the onplay script. */
+bool tag_flag(const std::string &tag, const std::string &attr)
+{
+    std::string t = lower(tag);
+    size_t i = 0;
+    while (i < t.size() && !isspace((unsigned char) t[i]))
+        i++;                                    /* skip the tag name */
+    while (i < t.size()) {
+        while (i < t.size() &&
+               (isspace((unsigned char) t[i]) || t[i] == '/'))
+            i++;
+        size_t start = i;
+        while (i < t.size() && !isspace((unsigned char) t[i]) &&
+               t[i] != '=' && t[i] != '/')
+            i++;
+        std::string name = t.substr(start, i - start);
+        while (i < t.size() && isspace((unsigned char) t[i]))
+            i++;
+        if (i < t.size() && t[i] == '=') {       /* skip the value */
+            i++;
+            while (i < t.size() && isspace((unsigned char) t[i]))
+                i++;
+            if (i < t.size() && (t[i] == '"' || t[i] == '\'')) {
+                char q = t[i++];
+                while (i < t.size() && t[i] != q)
+                    i++;
+                if (i < t.size())
+                    i++;
+            } else {
+                while (i < t.size() && !isspace((unsigned char) t[i]))
+                    i++;
+            }
+        }
+        if (name == attr)
+            return true;
+    }
+    return false;
 }
 
 /* Style contribution of a span-style CSS string ("font-weight:bold;..."). */
@@ -534,6 +580,43 @@ std::string element_inner_text(const std::string &html, size_t pos,
         i = close + 1;
     }
     return trim(plain_text(inner, " "));
+}
+
+/* The candidate files of the <audio> element whose opening tag `open_tag`
+ * ends at `pos`, in document order: the element's own src, then every nested
+ * <source src>.  *end is left just past the matching </audio> -- or at the end
+ * of the chunk when the game never closed it -- so the caller can skip the
+ * whole element, fallback text included. */
+std::vector<std::string> audio_sources(const std::string &html, size_t pos,
+                                       const std::string &open_tag, size_t *end)
+{
+    std::vector<std::string> srcs;
+    std::string own = decode_entities(tag_attr(open_tag, "src"));
+    if (!own.empty())
+        srcs.push_back(own);
+    int depth = 1;
+    size_t i = pos;
+    while (i < html.size()) {
+        if (html[i] != '<') { i++; continue; }
+        size_t close = html.find('>', i);
+        if (close == std::string::npos) { i = html.size(); break; }
+        std::string tag = html.substr(i + 1, close - i - 1);
+        bool closing = !tag.empty() && tag[0] == '/';
+        std::string tn = lower(tag.substr(closing ? 1 : 0));
+        size_t sp = tn.find_first_of(" \t\r\n/");
+        if (sp != std::string::npos) tn.erase(sp);
+        if (tn == "audio") {
+            if (closing && --depth == 0) { i = close + 1; break; }
+            if (!closing && tag[tag.size() - 1] != '/') depth++;
+        } else if (tn == "source" && !closing && depth == 1) {
+            std::string s = decode_entities(tag_attr(tag, "src"));
+            if (!s.empty())
+                srcs.push_back(s);
+        }
+        i = close + 1;
+    }
+    *end = i;
+    return srcs;
 }
 
 /* While g_swallow is armed (a send_command whose prompt and echo the host
@@ -864,10 +947,30 @@ void render_html_inner(const std::string &raw)
                     if (!src.empty())
                         draw_image_inline(src);
                 }
+            } else if (name == "audio") {
+                /* Games hand-write their own sound effects rather than call
+                 * Core's `play sound`: L Too's play_sound and Night House both
+                 * emit <audio autoplay><source src="x.ogg"/><source
+                 * src="x.mp3"/>Your browser does not support the audio
+                 * tag.</audio>.  Play the first source that resolves, the same
+                 * choice a browser makes over the sources it can decode.
+                 *
+                 * The element is skipped whole either way.  Its text is
+                 * FALLBACK content -- shown only by a browser too old to know
+                 * the tag, never alongside playback -- so printing it (which is
+                 * what dropping the tag but keeping its children used to do)
+                 * was always wrong here, whether or not the sound starts. */
+                if (!closing) {
+                    size_t end = i;
+                    std::vector<std::string> srcs =
+                        audio_sources(html, i, tag, &end);
+                    if (tag_flag(tag, "autoplay"))
+                        play_audio_inline(srcs, tag_flag(tag, "loop"));
+                    i = end;
+                }
             }
             /* every other tag (font, div, table...) is dropped: §4 says
-             * best-effort subset, not a browser.  Sounds are still
-             * presentation-milestone work. */
+             * best-effort subset, not a browser. */
         } else if (ch == '&') {
             put_uni_char(decode_entity(html, i));
         } else if (ch == '\r') {
@@ -2055,6 +2158,28 @@ schanid_t g_schannel = nullptr;
 void stop_sound_ui()
 {
     stop_single_sound(&g_schannel);
+}
+
+/* A hand-written <audio> element's sound effect (see the renderer's audio
+ * branch).  Takes the first source that resolves, like a browser taking the
+ * first <source> it can decode -- L Too offers .ogg then .mp3, and the app
+ * plays both.  Never blocks: an autoplaying element is asynchronous, unlike
+ * the synchronous `play sound` above.  True when playback started. */
+bool play_audio_inline(const std::vector<std::string> &srcs, bool loop)
+{
+#ifdef SPATTERLIGHT
+    if (!glk_gestalt(gestalt_Sound2, 0))
+        return false;
+    for (const std::string &src : srcs) {
+        glui32 id = cached_media_id(g_sound_ids, src, true);
+        if (id && play_single_sound(&g_schannel, id, loop, 0))
+            return true;
+    }
+#else
+    /* No way to register sounds by name outside Spatterlight's Glk. */
+    (void) srcs; (void) loop;
+#endif
+    return false;
 }
 
 /* Block until the playing sound reports finished -- the synchronous
