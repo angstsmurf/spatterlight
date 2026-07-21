@@ -227,6 +227,18 @@ handle_saverestore_command(const std::string &raw, GeasRunner *gr)
     return true;
 }
 
+/* Handle the STATUS metaverb: print the status variables in full.  The banner
+ * only has one grid line and cuts a long status down from the left, so this is
+ * the way to read the fields that scrolled off it. */
+static bool
+handle_status_command(const std::string &raw)
+{
+    if (!match_status_command(raw))
+        return false;
+    print_status_report(g_status_line, utf8_valid(g_status_line));
+    return true;
+}
+
 /* Handle the QUIT metaverb: print a farewell and ask the loop to stop, rather
  * than letting the game end the session silently. */
 static bool
@@ -287,6 +299,8 @@ handle_help_command(const std::string &raw)
         "  OOPS <word>       Re-run your last command with a mistyped object\n"
         "                    word replaced by <word>.\n"
         "  VERBS <object>    List the actions available for an object.\n"
+        "  STATUS            Show the status bar's text in full, for when it\n"
+        "                    is too long to fit beside the room name.\n"
         "  ABOUT             Show the game's title, author, version and info.\n"
         "  HELP              Show the game's basic in-game help.\n"
         "  #HELP             Show this list of system commands.\n");
@@ -523,6 +537,7 @@ void glk_main(void)
                        !handle_saverestore_command(cmd, gr) &&
                        !handle_restart_command(cmd, gr) &&
                        !handle_help_command(cmd) &&
+                       !handle_status_command(cmd) &&
                        !handle_quit_command(cmd, quitting)) {
                         if(inputwin == mainglkwin)
                             ignore_lines = 2;
@@ -649,6 +664,7 @@ void glk_main(void)
                         !handle_saverestore_command(cmd, gr) &&
                         !handle_restart_command(cmd, gr) &&
                         !handle_help_command(cmd) &&
+                        !handle_status_command(cmd) &&
                         !handle_quit_command(cmd, quitting)) {
                         if (inputwin == mainglkwin)
                             ignore_lines = 2;

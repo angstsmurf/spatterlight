@@ -111,6 +111,27 @@ utf8_cp_len (const std::string &s)
     return n;
 }
 
+/* The last `n` characters of `s` -- codepoints when `utf8`, bytes otherwise
+ * -- or the whole string when it is already that short.  Used to cut a status
+ * line down to the cells the banner has left; splitting by codepoint keeps a
+ * multi-byte character from being sliced in half. */
+static std::string
+tail_chars (const std::string &s, size_t n, bool utf8)
+{
+    if (!utf8)
+        return s.size () <= n ? s : s.substr (s.size () - n);
+    if (utf8_cp_len (s) <= n)
+        return s;
+    size_t i = s.size (), got = 0;
+    while (i > 0 && got < n) {
+        i--;
+        while (i > 0 && ((unsigned char) s[i] & 0xc0) == 0x80)
+            i--;
+        got++;
+    }
+    return s.substr (i);
+}
+
 #ifdef SPATTERLIGHT
 /* Take `s` back off the end of `win`, but only if it is still exactly what
  * is there: garglk_unput_string_count_uni is a case-insensitive TAIL compare
@@ -183,9 +204,36 @@ echo_input_line (const std::string &line, bool utf8)
 
 /* ----------------------------------------------------------------- banner */
 
+/* Marker put in front of a status line that was cut down to fit.  Four cells
+ * wide, which is what STATUS_ELLIPSIS costs the visible text. */
+static const char STATUS_ELLIPSIS[] = "... ";
+static const size_t STATUS_ELLIPSIS_LEN = 4;
+
+/* The status text to draw when only `avail` cells are left for it: the whole
+ * string when it fits, otherwise its tail behind the marker, or nothing at
+ * all when even the marker plus a character would not fit. */
+static std::string
+fit_status (const std::string &status, size_t avail, bool utf8)
+{
+    size_t slen = utf8 ? utf8_cp_len (status) : status.size ();
+    if (slen <= avail)
+        return status;
+    if (avail <= STATUS_ELLIPSIS_LEN)
+        return "";
+    std::string tail = tail_chars (status, avail - STATUS_ELLIPSIS_LEN, utf8);
+    /* A cut landing mid-gap would leave a doubled space after the marker, so
+     * drop whatever leading blanks the tail starts with. */
+    std::string::size_type a = tail.find_first_not_of (' ');
+    return STATUS_ELLIPSIS + (a == std::string::npos ? std::string ()
+                                                     : tail.substr (a));
+}
+
 /* Draw the one-line status banner grid: the current room name left-aligned
- * at column 1, and the game's status variables right-aligned when both fit
- * (at least two blank cells between them, one before the right edge).
+ * at column 1, and the game's status variables right-aligned (at least two
+ * blank cells between them, one before the right edge).  The room name is
+ * never shortened; a status too long for the cells left over is truncated
+ * from the LEFT behind a "... " marker, keeping the fields at the end of the
+ * line -- the whole status stays readable with the STATUS metaverb.
  * `utf8` selects codepoint-aware writes and measurement (Quest 5 text is
  * UTF-8); byte mode passes classic geas text through verbatim (those games
  * are typically Latin-1). */
@@ -210,15 +258,62 @@ draw_status_banner (winid_t banner, const std::string &room,
         glk_put_string_stream (stream, (char *) room.c_str ());
 
     if (!status.empty ()) {
-        glui32 slen = (glui32) (utf8 ? utf8_cp_len (status) : status.size ());
         glui32 rlen = (glui32) (utf8 ? utf8_cp_len (room) : room.size ());
-        if (rlen + slen + 4 <= width) {
+        /* Cells the status may use: everything past the room name, less the
+         * two blank cells separating them and the one before the right edge. */
+        glui32 avail = (width > rlen + 4) ? width - rlen - 4 : 0;
+        std::string shown = fit_status (status, avail, utf8);
+        if (!shown.empty ()) {
+            glui32 slen = (glui32) (utf8 ? utf8_cp_len (shown) : shown.size ());
             glk_window_move_cursor (banner, width - slen - 1, 0);
             if (utf8)
-                put_stream_utf8 (stream, status);
+                put_stream_utf8 (stream, shown);
             else
-                glk_put_string_stream (stream, (char *) status.c_str ());
+                glk_put_string_stream (stream, (char *) shown.c_str ());
         }
+    }
+}
+
+/* ----------------------------------------------------------------- status */
+
+/* STATUS metaverb matching.  The banner is a single grid line and drops the
+ * head of a status that does not fit, so this is how the player reads the
+ * whole thing.  '#status' is accepted too, for a game that claims the plain
+ * word for itself. */
+static bool
+match_status_command (const std::string &raw)
+{
+    std::string c = lower (trim (raw));
+    return c == "status" || c == "#status";
+}
+
+/* Print the banner's status text in full, one field per line when it holds
+ * more than one -- fields are joined with " | " by both frontends, and a
+ * status long enough to need this command practically always has several. */
+static void
+print_status_report (const std::string &status, bool utf8)
+{
+    std::string s = trim (status);
+    if (s.empty ()) {
+        glk_put_string ((char *) "\nThis game does not put anything in the"
+                                 " status bar.\n");
+        return;
+    }
+    glk_put_char ('\n');
+    for (std::string::size_type pos = 0; pos <= s.size ();) {
+        std::string::size_type sep = s.find (" | ", pos);
+        std::string field = trim (sep == std::string::npos
+                                  ? s.substr (pos) : s.substr (pos, sep - pos));
+        if (!field.empty ()) {
+            if (utf8)
+                put_stream_utf8 (glk_stream_get_current (), field);
+            else
+                glk_put_string ((char *) field.c_str ());
+            glk_put_char ('\n');
+        }
+        if (sep == std::string::npos)
+            break;
+        pos = sep + 3;
     }
 }
 

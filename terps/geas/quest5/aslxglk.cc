@@ -89,6 +89,7 @@ using questglk::draw_status_banner;
 using questglk::echo_input_line;
 using questglk::fill_side_divider;
 using questglk::lower;
+using questglk::match_status_command;
 using questglk::match_transcript_command;
 using questglk::open_side_pane_windows;
 using questglk::play_single_sound;
@@ -99,6 +100,7 @@ using questglk::POSTGAME_QUIT;
 using questglk::POSTGAME_RESTART;
 using questglk::POSTGAME_RESTORE;
 using questglk::POSTGAME_UNDO;
+using questglk::print_status_report;
 using questglk::prompt_read_save;
 
 /* Core's CapFirst is .NET ToUpper on the first CHARACTER, not the first
@@ -1809,6 +1811,8 @@ bool handle_help_command(const std::string &raw)
         "\n"
         "  VERBS <object>    List the actions available for an object, the\n"
         "                    same menu clicking its name pops up.\n"
+        "  STATUS            Show the status bar's text in full, for when it\n"
+        "                    is too long to fit beside the room name.\n"
         "  HELP              Show the game's own in-game help.\n"
         "  #HELP             Show this list of system commands.\n");
     return true;
@@ -1829,6 +1833,20 @@ void hint_system_commands(const std::string &raw, bool parser_game)
     glk_put_string((char *)
         "\n(Type #HELP for the SAVE, RESTORE, UNDO and other system"
         " commands.)\n");
+}
+
+/* STATUS: print the status attributes in full.  The banner is one grid line
+ * and cuts a status too long for it down from the left, so this is how the
+ * player reads the fields that did not fit.  Shared wording and formatting
+ * with the classic runner. */
+bool handle_status_command(const std::string &raw)
+{
+    if (!match_status_command(raw))
+        return false;
+    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
+        echo_metaverb(raw);
+    print_status_report(g_status_line, true);
+    return true;
 }
 
 /* Transcript recording, same commands (and shared code) as the classic
@@ -3142,6 +3160,10 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                         return SessionEnd::Restore;
                 } else if (!handle_transcript_command(cmd) &&
                            !handle_help_command(cmd) &&
+                           /* Not under a `get input`: unlike the metaverbs
+                            * above, STATUS is a plain word a game may well be
+                            * waiting to hear as an answer. */
+                           !(!host_owned && handle_status_command(cmd)) &&
                            !handle_verbs_command(in, cmd)) {
                     /* Arm the echo swallow unconditionally: whether the game
                      * side echoes cannot be predicted from game.echocommand,

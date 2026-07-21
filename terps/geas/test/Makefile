@@ -43,7 +43,13 @@ ASLXREPLAY := aslx_replay
 ASLXGLK := aslxglk_smoke
 CHEAPGLK := ../../cheapglk
 
-all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
+# Unit tests for the helpers both Glk frontends share (../questglk-common.inc).
+# It includes the .inc directly and links CheapGlk for the glk_* symbols the
+# other helpers in there reference.
+QGLKBIN := questglk_unit_tests
+QGLKSRC := questglk_unit_tests.cc
+
+all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN)
 
 $(BIN): $(SRC) $(DEPS)
 	$(CXX) $(CXXFLAGS) $(SRC) -o $@
@@ -57,6 +63,9 @@ $(ASLXBIN): $(ASLXSRC) $(ASLXDEPS)
 $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $@
 
+$(QGLKBIN): $(QGLKSRC) ../questglk-common.inc
+	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $@
+
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXLIBS) -o $@
 
@@ -65,10 +74,11 @@ $(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
 	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../quest5/aslxglk.cc \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
-check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
+check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN)
 	./$(TESTBIN)
 	./$(ASLXBIN)
 	./$(ASLXRTBIN)
+	./$(QGLKBIN)
 	./run_fixtures.sh
 
 asan: $(SRC) $(TESTSRC) $(DEPS)
@@ -76,12 +86,14 @@ asan: $(SRC) $(TESTSRC) $(DEPS)
 	$(CXX) $(ASANFLAGS) $(SRC) -o $(BIN)
 	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $(ASLXBIN)
 	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
+	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
 	./$(TESTBIN)
 	./$(ASLXBIN)
 	./$(ASLXRTBIN)
+	./$(QGLKBIN)
 	./run_fixtures.sh
 
 clean:
-	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN)
+	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN)
 
 .PHONY: all check asan clean

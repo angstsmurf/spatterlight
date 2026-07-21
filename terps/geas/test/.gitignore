@@ -1,5 +1,6 @@
 /geas_walkthrough_runner
 /geas_unit_tests
+/questglk_unit_tests
 /aslx_loader_test
 /aslx_runtime_test
 *.dSYM/
