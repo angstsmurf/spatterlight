@@ -164,7 +164,53 @@ static const NSInteger kMaxDuplicateDirs = 20;
     NSString *group = game.metadata.group;
     if (!group.length)
         group = game.group;
-    return [self sanitiseName:group fallback:@"Ungrouped"];
+    if (group.length)
+        return [self sanitiseName:group fallback:@"Ungrouped"];
+    // No group set: file the game under a folder named after its format.
+    return [self formatGroupNameForGame:game];
+}
+
+// The group-folder name for a game with no group of its own: the game's format
+// spelled out as a proper label with " games" appended, e.g. "Z-code games" or
+// "Quest 5 games". Falls back to "Ungrouped" when the format is unknown.
+- (NSString *)formatGroupNameForGame:(Game *)game {
+    // Maps the babel format codes stored in Game.detectedFormat to the labels
+    // players see, for the formats where the code isn't already a nice name.
+    static NSDictionary<NSString *, NSString *> *labels = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        labels = @{
+            @"adrift"     : @"Adrift",
+            @"advsys"     : @"AdvSys",
+            @"agt"        : @"AGT",
+            @"alan2"      : @"Alan 2",
+            @"alan3"      : @"Alan 3",
+            @"archetype"  : @"Archetype",
+            @"comprehend" : @"Comprehend",
+            @"glulx"      : @"Glulx",
+            @"hugo"       : @"Hugo",
+            @"jacl"       : @"JACL",
+            @"level9"     : @"Level 9",
+            @"magscrolls" : @"Magnetic Scrolls",
+            @"quest4"     : @"Quest 4",
+            @"quest5"     : @"Quest 5",
+            @"quill"      : @"Quill",
+            @"sagaplus"   : @"SAGA Plus",
+            @"scott"      : @"Scott Adams",
+            @"tads2"      : @"TADS 2",
+            @"tads3"      : @"TADS 3",
+            @"taylor"     : @"Taylor",
+            @"twine"      : @"Twine",
+            @"zcode"      : @"Z-code",
+        };
+    });
+
+    NSString *format = game.detectedFormat.length ? game.detectedFormat : game.metadata.format;
+    if (!format.length)
+        return @"Ungrouped";
+    // Use the pretty label when we have one, otherwise the raw code capitalised.
+    NSString *label = labels[format] ?: format.capitalizedString;
+    return [self sanitiseName:[label stringByAppendingString:@" games"] fallback:@"Ungrouped"];
 }
 
 - (NSString *)titleNameForGame:(Game *)game {
@@ -300,6 +346,14 @@ static const NSInteger kMaxDuplicateDirs = 20;
     }
 
     NSURL *destFile = [destDir URLByAppendingPathComponent:sourceURL.lastPathComponent].URLByStandardizingPath;
+
+    // Record the named group folder the game landed in, so a format-derived
+    // group like "Z-code games" becomes a real group on the game itself. A game
+    // filed under "Ungrouped" (unknown format / no usable name) keeps no group.
+    NSString *groupName = [self groupNameForGame:game];
+    if (![groupName isEqualToString:@"Ungrouped"] &&
+        ![game.group isEqualToString:groupName])
+        game.group = groupName;
 
     [self writeIdentityForGame:game inDirectory:destDir];
 

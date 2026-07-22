@@ -25,6 +25,7 @@
 #import "Fetches.h"
 
 #import "GameLauncher.h"
+#import "LibraryOrganizer.h"
 
 enum  {
     FORGIVENESS_NONE,
@@ -187,7 +188,7 @@ enum  {
 }
 
 + (NSPredicate *)searchPredicateForWord:(NSString *)word {
-    return [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
+    return [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
 }
 
 #pragma mark Update table views
@@ -314,6 +315,9 @@ enum  {
             } else return cmp;
         } else if ([strongSelf.gameSortColumn isEqual:@"format"]) {
             cmp = [TableViewController compareString:aid.detectedFormat withString:bid.detectedFormat ascending:strongSelf.sortAscending];
+            if (cmp) return cmp;
+        } else if ([strongSelf.gameSortColumn isEqual:@"group"]) {
+            cmp = [TableViewController compareString:aid.group withString:bid.group ascending:strongSelf.sortAscending];
             if (cmp) return cmp;
         } else if (strongSelf.gameSortColumn) {
             cmp = [TableViewController compareGame:a with:b key:strongSelf.gameSortColumn ascending:strongSelf.sortAscending];
@@ -550,6 +554,8 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             }
             indicator.objectValue = @(value);
             return indicatorCell;
+        } else if ([identifier isEqual:@"group"]) {
+            string = game.group;
         } else {
             string = [meta valueForKey: identifier];
         }
@@ -577,13 +583,22 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         Game *game = self.gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
         NSString *key = self.gameTableView.tableColumns[(NSUInteger)col].identifier;
-        NSString *oldval = [meta valueForKey:key];
+        BOOL isGroup = [key isEqualToString:@"group"];
+        NSString *oldval = isGroup ? game.group : [meta valueForKey:key];
 
         NSString *value = [textField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (value.length == 0)
             value = nil;
         if ([value isEqual: oldval] || (value == oldval))
             return;
+
+        // The group column is backed by Game.group, not Metadata. Store it there
+        // and move the game's folder to match, as with a title change.
+        if (isGroup) {
+            game.group = value;
+            [[LibraryOrganizer sharedOrganizer] reorganiseGame:game];
+            return;
+        }
 
         if ([key isEqualToString:@"title"]) {
             if (value.length == 0) {
@@ -809,6 +824,8 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
                 string = [game.metadata.lastModified formattedRelativeString];
             } else if (isYear) {
                 string = game.metadata.firstpublished;
+            } else if ([identifier isEqual:@"group"]) {
+                string = game.group;
             } else {
                 string = [game.metadata valueForKey:identifier];
             }
