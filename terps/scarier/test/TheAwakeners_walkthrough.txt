@@ -1,0 +1,80 @@
+# The Awakeners -- Lucas Michaels, 24 February 2015
+#
+# An abandoned first draft, and small enough to describe exactly: ten locations,
+# THREE objects (a box, a key, a door), one NPC, two authored tasks, no score,
+# no events, no EndGame anywhere in the module.  Every timestamp in the file is
+# from a single evening -- 19:41 to 21:13 on 2015-02-24 -- and it reads like it:
+# the closet is written, Your Room is written, and the other eight rooms are
+# bare names with exits.
+#
+# So there is exactly one puzzle and no ending.  You start lying down in a
+# locked closet with a cardboard box beside you; the key is in the box; unlock
+# the door, open it, and walk east into the castle.  The two authored tasks are
+# both Specific overrides that just append a line -- "You hear a 'Click' sound"
+# on UNLOCK, and "Congratulations! You opened up the closet door, you are free!"
+# on OPEN.  After that the game is a map with nothing in it.
+#
+# This walkthrough therefore does what the game has instead of winning it: it
+# solves the closet, then visits all ten rooms and walks in on Alistair, the one
+# character the author placed.  It ends on the Front Steps, the far edge of the
+# draft.
+#
+# Alistair, though, cannot be referred to AT ALL, and that is authentic: his
+# name is written "<Name>Alistair </Name>" with a trailing space, and the runner
+# pastes a character's ProperName verbatim into an anchored regex, so the
+# pattern demands a trailing space no typed input can supply.  X ALISTAIR is
+# "You see no such thing."; ASK ALISTAIR ABOUT ... does not even get that far,
+# because listKnownWords stores the proper name whole ("alistair ") and the
+# per-word check rejects "alistair".  Both lines are in the transcript below.
+# Matching the runner here needed a one-line engine fix (a5run_ref.cpp): name
+# alternatives that are not whitespace-canonical are dropped, since word-based
+# matching would otherwise silently forgive the author's stray space.
+#
+# Two library behaviours worth keeping in the transcript:
+#   * the first EAST, with the door still locked, gets the restricted-exit
+#     message "There is no route to the east, only east." -- the exit exists,
+#     its restriction does not pass;
+#   * the player's starting position is Lying, so the first real move prints
+#     "(standing up first)" of its own accord.
+#
+# Ground truth: 0 hunks in both modes (the game draws no random numbers at all).
+
+# --- The closet: the whole game ---
+x me
+i
+east
+x door
+x box
+look in box
+x key
+take key
+unlock door with key
+open door
+x door
+
+# --- Out, and the only other room with a description ---
+east
+i
+
+# --- The dorms, and Alistair, who has nothing to say ---
+east
+north
+x alistair
+ask alistair about awakener
+south
+south
+north
+
+# --- The castle proper: throne room, armory, library ---
+east
+north
+south
+east
+west
+northeast
+southwest
+
+# --- The far edge of the draft ---
+south
+look
+score

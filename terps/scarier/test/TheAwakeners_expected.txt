@@ -1,0 +1,141 @@
+The Awakeners
+
+Closet
+You're stuck in a closet...What a horrible way to start a story. The closet is dark, so as far as you can tell its a dark shade of mahogany wood. Not that that really matters, you have to get out. The door is locked. You are the Awakener after all. You have a world to save! There is a box beside you in the closet, i wonder if something in it?
+
+> x me
+You see nothing interesting about yourself.
+
+> i
+You are wearing nothing, and are carrying nothing.
+
+> east
+There is no route to the east, only east.
+
+> x door
+A plain brown door, the same color as the rest of the closet.   The Door is currently locked.
+
+> x box
+A plain brown cardboard box. You look inside the box;   Inside the Box is A Key.
+
+> look in box
+A plain brown cardboard box. You look inside the box;   Inside the Box is A Key.
+
+> x key
+A boring brown rusty key. Nothing very special. Maybe it will help you get out of the closet?
+
+> take key
+(from the Box)
+Ok, you take the Key from the Box.
+
+> unlock door with key
+You unlock the Door with the Key.  You hear a 'Click' sound. Maybe the doors unlocked now?
+
+> open door
+You open the Door.  Congratulations! You opened up the closet door, you are free! Now you can exit east
+
+> x door
+A plain brown door, the same color as the rest of the closet.   The Door is currently open.
+
+> east
+(standing up first)
+You move east.
+
+Your Room
+Your room is a small room with cold stone walls. The floors are wood and kept pretty clean. The castles servants take care of that, You don't have much more in your room other than your necessities.  An exit leads east.
+
+> i
+You are wearing nothing, and are carrying A Key.
+
+> east
+You move east.
+
+Dorm Entrance
+Exits are north, east, south and west.
+
+> north
+You move north.
+
+Alistairs Room
+Alistair is sitting on his bed, when he hears you come in he stands up and turns towards you.  An exit leads south.
+
+> x alistair
+You see no such thing.
+
+> ask alistair about awakener
+I did not understand the word "alistair".
+
+> south
+You move south.
+
+Dorm Entrance
+Exits are north, east, south and west.
+
+> south
+You move south.
+
+Lyrics Room
+An exit leads north.
+
+> north
+You move north.
+
+Dorm Entrance
+Exits are north, east, south and west.
+
+> east
+You move east.
+
+Entrance
+Exits are north, east, south, west and northeast.
+
+> north
+You move north.
+
+Throne Room
+An exit leads south.
+
+> south
+You move south.
+
+Entrance
+Exits are north, east, south, west and northeast.
+
+> east
+You move east.
+
+Armory
+An exit leads west.
+
+> west
+You move west.
+
+Entrance
+Exits are north, east, south, west and northeast.
+
+> northeast
+You move northeast.
+
+Library
+An exit leads southwest.
+
+> southwest
+You move southwest.
+
+Entrance
+Exits are north, east, south, west and northeast.
+
+> south
+You move south.
+
+Front Steps
+An exit leads north.
+
+> look
+
+Front Steps
+An exit leads north.
+
+> score
+Your score is 0 out of a maximum of 0. (NaN%)
+

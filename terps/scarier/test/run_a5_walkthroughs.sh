@@ -1244,6 +1244,18 @@ FILTER="${1:-}"
 # end-of-game banner needs its blank-line separator even when the winning
 # response ends in a line of spaces (a5run.cpp emit_endgame).
 #
+# (2026-07-22) TheAwakeners WIRED at MATCH 0|0.  Lucas Michaels, 2015: an
+# abandoned first draft -- ten locations, three objects, one NPC, two authored
+# tasks, no score and no EndGame anywhere in the module, every timestamp inside
+# a single evening.  The 30-command script solves the only puzzle (the key is in
+# the box, unlock and open the closet door) and then tours all ten rooms.  It
+# pinned one conformance gap: the NPC's name is "<Name>Alistair </Name>" with a
+# trailing space, which the runner pastes verbatim into an anchored regex, so no
+# typed input can ever refer to him -- X ALISTAIR is "You see no such thing."
+# and ASK ALISTAIR ABOUT ... is 'I did not understand the word "alistair".'
+# Scarier matched him anyway because its reference matching is word-based;
+# name_match now drops name alternatives that are not whitespace-canonical
+# (a5run_ref.cpp).
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1367,6 +1379,7 @@ Jabberwocky|jabberwocky4.21.blorb|0|0
 TempusFugit|Tempus Fugit2.taf|0|1
 SorryForYourLoss|Sorry For Your Loss.blorb|0|0
 Dreamspun|dreamspun 0.9.taf|0|0
+TheAwakeners|The Awakeners.taf|0|0
 EOF
 )
 

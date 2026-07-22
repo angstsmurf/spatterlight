@@ -106,6 +106,26 @@ name_match_prefix (const std::vector<std::string> &in, size_t i,
   return 0;
 }
 
+/* A name alternative goes into the runner's regex VERBATIM (clsObject /
+   clsCharacter sRegularExpressionString paste arlNames / ProperName straight
+   into the pattern, with no trim), and the pattern is anchored `^...$` against
+   the typed text (clsUserSession.vb:5391/5495).  So a name carrying stray
+   whitespace -- The Awakeners' NPC is `<Name>Alistair </Name>` -- can never
+   match anything the player can type, and the character is simply
+   unreferenceable: `x alistair` is "You see no such thing.".  Matching here is
+   word-based, which would silently forgive that, so drop any name whose raw
+   form is not already the canonical single-space join of its words. */
+static int
+name_is_matchable (const char *s)
+{
+  std::string canon;
+  if (s == NULL)
+    return 0;
+  for (auto &w : split_ws (s))
+    { if (!canon.empty ()) canon += ' '; canon += w; }
+  return canon == s;
+}
+
 /* Match `text` against an entity the way clsObject/clsCharacter's
    sRegularExpressionString does: `^(article |the )?(prefix_i )?...(name_alt)$` --
    an optional article, each prefix word independently optional in order, then
@@ -130,7 +150,10 @@ name_match (const char *article, const char *prefix,
   names_lc.reserve ((size_t) n_names);
   for (int n = 0; n < n_names; n++)
     {
-      std::vector<std::string> nw = split_ws (names[n]);
+      std::vector<std::string> nw;
+      if (!name_is_matchable (names[n]))
+        continue;
+      nw = split_ws (names[n]);
       for (auto &w : nw) w = lower (w);
       names_lc.push_back (std::move (nw));
     }
