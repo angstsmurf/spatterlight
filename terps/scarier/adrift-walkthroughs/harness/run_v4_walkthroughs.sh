@@ -33,8 +33,11 @@ export LC_ALL=C
 HERE="$(cd "$(dirname "$0")" && pwd)"
 SCARE_BIN="$HERE/scare"
 GAMES_DIR="${GAMES_DIR:-$HERE/../games}"
-# Extra dirs searched (by basename) when a game isn't in GAMES_DIR.
-ALT_DIRS="$HOME/adrift-battle/games"
+# Extra dirs searched (by basename) when a game isn't in GAMES_DIR. The whole
+# corpus now lives in GAMES_DIR (the ~/adrift-battle/games working mirror was
+# folded into it on 2026-07-22), so this is only a hook for a machine that keeps
+# its .taf files somewhere else -- set it in the environment there.
+ALT_DIRS="${ALT_DIRS:-}"
 
 BLESS=0; VERBOSE=0
 case "${1:-}" in

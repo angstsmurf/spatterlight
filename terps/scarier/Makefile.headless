@@ -148,7 +148,7 @@ test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BI
 # outright -- without even building the harness -- when no game corpus exists on
 # this machine.
 v4walkthroughs:
-	@if [ -d "$(V4_GAMES_DIR)" ] || [ -d "$$HOME/adrift-battle/games" ]; then \
+	@if [ -d "$(V4_GAMES_DIR)" ]; then \
 	  sh adrift-walkthroughs/harness/run_v4_walkthroughs.sh; \
 	else \
 	  echo "v4walkthroughs: SKIP (no ADRIFT 4 game corpus: $(V4_GAMES_DIR))"; \
