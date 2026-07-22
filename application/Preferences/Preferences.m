@@ -119,6 +119,8 @@
 // "Keep games organised" controls on the Global settings pane
 @property (strong) IBOutlet NSTextField *libraryLocationField;
 @property (strong) IBOutlet NSButton *chooseLibraryButton;
+@property (weak) NSOpenPanel *libraryLocationPanel;
+@property (strong) NSURL *libraryChooserOriginalRoot;
 
 @end
 
@@ -2130,24 +2132,45 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)chooseLibraryLocation:(id)sender {
+    LibraryOrganizer *org = [LibraryOrganizer sharedOrganizer];
+    NSURL *custom = org.customLibraryURL;
+    // Remember where the library actually is now, so that whichever folder the
+    // user ends up choosing (possibly after using "Go to default", which
+    // re-opens the panel) is compared against the real current location.
+    self.libraryChooserOriginalRoot = custom ?: org.defaultLibraryRootURL;
+    [self presentLibraryChooserFromURL:self.libraryChooserOriginalRoot];
+}
+
+- (void)presentLibraryChooserFromURL:(NSURL *)startURL {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.canChooseFiles = NO;
     panel.canChooseDirectories = YES;
     panel.canCreateDirectories = YES;
     panel.allowsMultipleSelection = NO;
-
-    LibraryOrganizer *org = [LibraryOrganizer sharedOrganizer];
-    NSURL *custom = org.customLibraryURL;
-    NSURL *root = custom ?: org.defaultLibraryRootURL;
-    panel.directoryURL = root;
+    panel.directoryURL = startURL;
 
     panel.prompt = NSLocalizedString(@"Choose", nil);
     panel.message = NSLocalizedString(@"Choose a folder to keep your game library in.", nil);
+
+    NSButton *defaultButton =
+        [NSButton buttonWithTitle:NSLocalizedString(@"Go to default", nil)
+                           target:self
+                           action:@selector(goToDefaultLibraryLocation:)];
+    defaultButton.bezelStyle = NSBezelStyleRounded;
+    [defaultButton sizeToFit];
+    NSView *accessory = [[NSView alloc] initWithFrame:
+        NSMakeRect(0, 0, NSWidth(defaultButton.frame) + 40, NSHeight(defaultButton.frame) + 20)];
+    defaultButton.frameOrigin = NSMakePoint(20, 10);
+    [accessory addSubview:defaultButton];
+    panel.accessoryView = accessory;
+    self.libraryLocationPanel = panel;
 
     Preferences * __weak weakSelf = self;
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
         if (result != NSModalResponseOK)
             return;
+        BOOL locationChanged =
+            ![panel.URL.path isEqualToString:weakSelf.libraryChooserOriginalRoot.path];
         NSError *error = nil;
         if (![[LibraryOrganizer sharedOrganizer] setCustomLibraryURL:panel.URL error:&error]) {
             NSAlert *alert = [NSAlert alertWithError:error];
@@ -2155,7 +2178,26 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return;
         }
         [weakSelf updateLibraryOrganiserControls];
+        if (locationChanged &&
+            [[NSUserDefaults standardUserDefaults] boolForKey:kKeepGamesOrganisedKey])
+            [weakSelf organiseAllGames:nil];
     }];
+}
+
+- (void)goToDefaultLibraryLocation:(NSButton *)sender {
+    NSURL *defaultURL = [LibraryOrganizer sharedOrganizer].defaultLibraryRootURL;
+    // NSOpenPanel only reads directoryURL when it is first presented, so we
+    // cannot navigate the panel that is already on screen. Dismiss it and
+    // re-open a fresh panel rooted at the default library location instead.
+    [NSFileManager.defaultManager createDirectoryAtURL:defaultURL
+                           withIntermediateDirectories:YES
+                                            attributes:nil
+                                                 error:NULL];
+    [self.window endSheet:self.libraryLocationPanel returnCode:NSModalResponseCancel];
+    Preferences * __weak weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf presentLibraryChooserFromURL:defaultURL];
+    });
 }
 
 - (IBAction)organiseAllGames:(id)sender {
