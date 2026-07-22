@@ -1256,6 +1256,17 @@ FILTER="${1:-}"
 # Scarier matched him anyway because its reference matching is word-based;
 # name_match now drops name alternatives that are not whitespace-canonical
 # (a5run_ref.cpp).
+# (2026-07-22) Wumpus WIRED at MATCH 0|0, golden-backed.  An ADRIFT 5 port of
+# Gregory Yob's 1973 Hunt the Wumpus: 20 caves on a 4x5 grid, with the Wumpus,
+# two pits and two bats dealt at random by a RunImmediately System task, so the
+# script is SEED-BOUND -- under the harness's xoshiro stream the Wumpus opens in
+# cave 15, pits in 8 and 19, bats in 3 and 16.  The 14-command route wins in 13
+# turns while firing every mechanic: the paintpot, all three proximity warnings,
+# a Super Bat snatch, a deliberate miss (the Wumpus scampers, and the movement
+# command that triggers the scamper is consumed by it), and the kill.  The
+# vanilla column pins Scarier's own golden; a direct FD-vanilla diff shows 8,
+# because System.Random deals a different board and the tuned route then walks
+# past a Wumpus that is somewhere else.
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1380,6 +1391,7 @@ TempusFugit|Tempus Fugit2.taf|0|1
 SorryForYourLoss|Sorry For Your Loss.blorb|0|0
 Dreamspun|dreamspun 0.9.taf|0|0
 TheAwakeners|The Awakeners.taf|0|0
+Wumpus|Wumpus.taf|0|0
 EOF
 )
 

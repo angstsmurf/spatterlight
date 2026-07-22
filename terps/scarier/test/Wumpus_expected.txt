@@ -1,0 +1,73 @@
+Hunt the Wumpus
+This is an implementation of the famous game Hunt the Wumpus, originally created by Gregory Yob in 1973 and a precursor of true text adventures such as Colossal Cave or the early Infocom games.
+
+The deadly Wumpus lives in a network of 20 caves linked by tunnels. To kill the Wumpus you need to shoot an arrow in the right direction from an adjacent cave, but if you miss the Wumpus will wake up and scamper off to another cave. If you enter the same cave as the Wumpus then it will gobble you up and you will die a horrible death, but fortunately you have some warning of the beast's proximity as you can smell its awful stench from an adjacent cave. You only have five arrows, so use them wisely!
+
+To make matters worse, two of the caves contain bottomless pits, and two contain giant bats that will pick you up and drop you in another randomly selected cave. Again, you have some warning of their proximity as you can feel the draft of a nearby pit and hear the rustling of a nearby bat.
+
+The original version of Hunt the Wumpus had the 20 caves configured at the vertices of a dodecahedron. This is not a topology supported by ADRIFT, so the caves here are configured in a four by five array.
+
+I've also added a paintpot which you can take so that you can dab a splash of paint on each cave you pass through, so you'll know whether you've been there before. The paintpot was not a feature of the original game so you can always leave it alone.
+
+Outside
+You are standing on a grassy patch outside the entrance to the cave where the Wumpus is supposed to live. Below you can see the path that you have just climbed through the woods up the mountainside, and far below, the village where you started out.  There is a pot of red paint and a paintbrush here.  An exit leads east.
+
+> x paintpot
+A pot of red paint and a paintbrush which could be used to mark each cavern that you enter.
+
+> take paintpot
+Ok, you pick up the paintpot.
+
+> i
+You are wearing nothing, and are carrying a paintpot.
+
+> east
+You move east.
+
+Cave
+It's very dark.  To the West you can see a glimmer of light.  Exits are east, south and west.  You brush a dab of red paint onto the wall.
+
+> east
+You move east.
+
+Cave
+It's very dark. Bats nearby!   Exits are east, south and west.  You brush a dab of red paint onto the wall.
+
+> east
+You move east.
+
+Cave
+It's very dark.   A Giant Bat  is here.  Exits are east, south and west.  You brush a dab of red paint onto the wall.
+
+> x bat
+You see no such thing.
+
+> look
+Zap! Super Bat snatch! Elsewhereville for you!  You brush a dab of red paint onto the wall.
+
+> look
+
+Cave
+It's very dark. I feel a draft. Bats nearby! You can just make out a dab of red paint on the wall.  Exits are north, south and west.
+
+> shoot
+You need to shoot your arrow in a direction, as in shoot east or shoot arrow south.
+
+> shoot north
+The arrow clatters to the floor of some distant cave.
+
+> west
+You hear a distant rustling sound, like something large moving around ...
+
+> west
+You move west.
+
+Cave
+It's very dark. I smell a Wumpus!   Exits are north, east, south and west.  You brush a dab of red paint onto the wall.
+
+> shoot west
+You have killed the Wumpus! And after just 13 turns, too!
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

@@ -1,0 +1,64 @@
+# Hunt the Wumpus -- an ADRIFT 5 port of Gregory Yob's 1973 original
+#
+# Twenty caves in a four-by-five grid (ADRIFT can't do a dodecahedron), one
+# Wumpus, two bottomless pits, two giant bats and five arrows.  Everything but
+# the grid is placed at random by a RunImmediately System task ("Initialise"),
+# so THIS SCRIPT IS SEED-BOUND: it only wins against the harness's fixed
+# xoshiro stream, where the opening layout is
+#
+#     Wumpus  cave 15      pits  caves 8 and 19      bats  caves 3 and 16
+#
+# The caves are numbered 1-20 left to right, top to bottom, and each carries a
+# Cavenum property of 10*(row-1)+column -- 1..4, 11..14, 21..24, 31..34, 41..44
+# -- so "adjacent" throughout the game means +/-1 or +/-10 in Cavenum, which is
+# also how the four SHOOT tasks decide whether the arrow found the beast.
+#
+# The route below wins in 13 turns with three arrows to spare, and on the way it
+# fires every mechanic the game has:
+#
+#   * the paintpot (the author's own addition -- carry it and each new cave gets
+#     "You brush a dab of red paint onto the wall", each revisit "You can just
+#     make out a dab of red paint on the wall");
+#   * all three proximity warnings -- "Bats nearby!", "I feel a draft.",
+#     "I smell a Wumpus!";
+#   * a Super Bat snatch, which is why the walk east ends in cave 3 -- the bat
+#     is picked up on the NEXT movement command, not on entry, and dumps you in
+#     a random cave (here cave 12, in the draft of the pit in cave 8);
+#   * a deliberate miss, so the arrow "clatters to the floor of some distant
+#     cave", the Wumpus wakes and scampers off (here from cave 15 to cave 10),
+#     and -- note this -- the movement command that triggers the scamper is
+#     CONSUMED by it, so the first WEST below does not move you;
+#   * and the kill: from cave 11 the Wumpus is one cave west, so SHOOT WEST.
+#
+# Two authentic naming quirks, both from the author writing "<n>" in names:
+# every cave's short description is "Cave <15>", and the runner treats <15> as
+# markup, so all twenty rooms simply print "Cave ".  Likewise the bat is named
+# "A Giant Bat <1>", which the reference matcher takes verbatim -- so X BAT is
+# "You see no such thing." even with the bat standing in front of you.
+#
+# Ground truth: 0 hunks in both modes.  Vanilla FrankenDrift deals itself a
+# different board from System.Random, so the committed golden pins that column.
+
+# --- Outside: pick up the author's paintpot ---
+x paintpot
+take paintpot
+i
+
+# --- East along the top row: cave 1, cave 2 (bats nearby), cave 3 (the bat) ---
+east
+east
+east
+x bat
+
+# --- The snatch, and a look around wherever it dropped us (cave 12) ---
+look
+look
+
+# --- A wasted arrow, and the Wumpus moves house ---
+shoot
+shoot north
+west
+
+# --- West to cave 11, where the stench is, and the shot that ends it ---
+west
+shoot west
