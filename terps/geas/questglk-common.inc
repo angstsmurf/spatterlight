@@ -157,6 +157,23 @@ unput_window_tail (winid_t win, const std::u32string &s)
 }
 #endif
 
+/* Take `s` back off the end of `win`, but only when the whole of it came
+ * back: a partial match means the window has moved on and the caller has to
+ * leave the text alone.  Always false where there is no unput at all
+ * (CheapGlk), so a caller that degrades gracefully needs no #ifdef of its
+ * own. */
+static bool
+unput_tail_exact (winid_t win, const std::u32string &s)
+{
+#ifdef SPATTERLIGHT
+    return unput_window_tail (win, s) == s.size ();
+#else
+    (void) win;
+    (void) s;
+    return false;
+#endif
+}
+
 /* True when the whole string is well-formed UTF-8 (pure ASCII counts).  Used
  * to pick between byte (Latin-1) and codepoint-aware presentation for
  * classic-game text, whose file encoding is unknown: real Latin-1 text is
@@ -317,7 +334,92 @@ print_status_report (const std::string &status, bool utf8)
     }
 }
 
+/* ------------------------------------------------------- save / restore */
+
+/* SAVE metaverb matching.  Saving is a UI action in both reference players
+ * (a menu item, not a typed command), so the frontends own the wording. */
+[[maybe_unused]] static bool
+match_save_command (const std::string &raw)
+{
+    std::string c = lower (trim (raw));
+    return c == "save" || c == "save game";
+}
+
+/* RESTORE metaverb matching.  Bare "load" is the one form a game's own
+ * question ("get input") might plausibly be answered with, so pass `asking`
+ * while one is pending and it yields to the game; the unambiguous forms are
+ * honoured whenever they are typed. */
+static bool
+match_restore_command (const std::string &raw, bool asking = false)
+{
+    std::string c = lower (trim (raw));
+    if (c == "load")
+        return !asking;
+    return c == "restore" || c == "restore game" || c == "load game";
+}
+
+/* ---------------------------------------------------------- system help */
+
+/* #HELP metaverb matching.  The listing below is already shared; without
+ * this its trigger was the one part each frontend still spelled out for
+ * itself.  '#commands' and 'metaverbs' are accepted because the list has
+ * been called both, and neither word is plausible as game input. */
+[[maybe_unused]] static bool
+match_help_command (const std::string &raw)
+{
+    std::string c = lower (trim (raw));
+    return c == "#help" || c == "#commands" || c == "metaverbs";
+}
+
+/* The #HELP listing: the system commands that work in any game, whether the
+ * engine or the frontend handles them.  Most of the list is the same for both
+ * dialects, so the layout and the shared rows live here and each frontend
+ * passes only the rows that differ; an empty string omits a row entirely.
+ *
+ *   quit_rows   the QUIT row (Geas takes "q" as well; Quest 5 does not)
+ *   oops_rows   drawn before VERBS -- geas-runner has OOPS, Quest 5 has not
+ *   verbs_rows  the VERBS row(s), which say different things about the menu
+ *   about_rows  drawn after STATUS -- geas-runner has ABOUT, Quest 5 has not
+ *
+ * Each argument is one or more complete "  NAME  text\n" rows, indented to
+ * the same columns as the shared ones below. */
+static void
+print_system_commands (const char *quit_rows, const char *oops_rows,
+                       const char *verbs_rows, const char *about_rows)
+{
+    glk_put_string ((char *)
+        "\nThese system commands work in any game, whether Quest itself or"
+        " this interpreter handles them:\n"
+        "\n"
+        "  SAVE              Save the whole game to a file.\n"
+        "  RESTORE  (LOAD)   Restore a previously saved game.\n"
+        "  RESTART           Start the game over from the beginning.\n"
+        "  UNDO              Take back the last turn.\n");
+    glk_put_string ((char *) quit_rows);
+    glk_put_string ((char *)
+        "\n"
+        "  SCRIPT   (TRANSCRIPT)       Start recording the game text to a file.\n"
+        "  SCRIPT OFF  (UNSCRIPT)      Stop recording the transcript.\n"
+        "\n");
+    glk_put_string ((char *) oops_rows);
+    glk_put_string ((char *) verbs_rows);
+    glk_put_string ((char *)
+        "  STATUS            Show the status bar's text in full, for when it\n"
+        "                    is too long to fit beside the room name.\n");
+    glk_put_string ((char *) about_rows);
+    glk_put_string ((char *)
+        "  HELP              Show the game's own in-game help.\n"
+        "  #HELP             Show this list of system commands.\n");
+}
+
 /* -------------------------------------------------------------- side pane */
+
+/* The pane's section headings.  Quest 5 games may localize them (the
+ * InventoryLabel / PlacesObjectsLabel / CompassLabel templates); these are
+ * that engine's fallbacks and the classic runner's only wording. */
+static const char PANE_INVENTORY[] = "Inventory";
+static const char PANE_PLACES_OBJECTS[] = "Places and Objects";
+static const char PANE_COMPASS[] = "Compass";
 
 /* Open the right-hand pane: a 20%-proportional split of the main text
  * window, with a thin graphics window as its left child, drawn in the text
@@ -483,6 +585,16 @@ toggle_transcript (int on, winid_t win, strid_t *slot)
  * short form. */
 enum { POSTGAME_UNDO = 1, POSTGAME_RESTORE, POSTGAME_RESTART, POSTGAME_QUIT };
 
+/* The last thing a session prints, whether the player typed QUIT mid-game or
+ * chose it at the menu above.  The leading blank line separates it from
+ * whatever the game said last. */
+static const char QUIT_FAREWELL[] = "\nThanks for playing. Goodbye!\n";
+
+/* The menu's UNDO offer, refused.  What makes undo unavailable differs
+ * between the engines -- and so does where each frontend notices it -- but
+ * the player is told the same thing either way. */
+static const char NOTHING_TO_UNDO[] = "There is nothing to undo.\n";
+
 static void
 post_game_menu_print (void)
 {
@@ -580,6 +692,19 @@ register_path_resource (std::map<std::string, int> &ids,
     }
     return resno;
 }
+
+#else /* !SPATTERLIGHT */
+
+/* No by-name registration without the glkimp backend, so nothing can be
+ * loaded: callers see the same 0 a missing file gives them and report the
+ * sound or image as unsupported.  Defined rather than #ifdef'd at each call
+ * site so the frontends compile against a plain Glk (CheapGlk) too. */
+[[maybe_unused]] static int
+register_path_resource (std::map<std::string, int> &, const std::string &, bool)
+{
+    return 0;
+}
+
 #endif /* SPATTERLIGHT */
 
 } /* namespace questglk */

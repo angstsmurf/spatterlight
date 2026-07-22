@@ -18,6 +18,7 @@
 #include "../questglk-common.inc"
 
 using questglk::fit_status;
+using questglk::match_help_command;
 using questglk::match_status_command;
 using questglk::tail_chars;
 using questglk::utf8_cp_len;
@@ -103,6 +104,18 @@ test_match_status_command ()
   check (!match_status_command (""), "an empty line is not STATUS");
 }
 
+void
+test_match_help_command ()
+{
+  check (match_help_command ("#help"), "#HELP matches");
+  check (match_help_command ("  #HELP  "), "#HELP matches trimmed/uppercase");
+  check (match_help_command ("#commands"), "#COMMANDS matches");
+  check (match_help_command ("metaverbs"), "METAVERBS matches");
+  check (!match_help_command ("help"), "plain HELP is the game's own");
+  check (!match_help_command ("#help me"), "#HELP ME is not the listing");
+  check (!match_help_command (""), "an empty line is not #HELP");
+}
+
 }  /* namespace */
 
 int
@@ -114,6 +127,8 @@ main ()
   test_fit_status ();
   std::cout << "match_status_command:\n";
   test_match_status_command ();
+  std::cout << "match_help_command:\n";
+  test_match_help_command ();
 
   std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
 	    << " failure" << (failures == 1 ? "" : "s") << ")\n";

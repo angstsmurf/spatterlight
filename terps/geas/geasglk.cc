@@ -45,7 +45,10 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <cstdio>
 #include <cstdlib>
+#include <cstring>
+#include <initializer_list>
 
 #include "GeasRunner.hh"
 
@@ -104,12 +107,15 @@ extern "C" {
 #include "randomness.h"
 #endif
 
-winid_t mainglkwin;
-winid_t inputwin;
-winid_t bannerwin;
-winid_t objwin;                          /* right-hand pane: room objects + menus */
-winid_t gfxwin;                          /* thin divider between main and objwin */
-strid_t inputwinstream;
+/* The windows of the arrangement drawn at the top of this file.  Nothing
+ * outside this frontend touches them (the autosave module works from the
+ * serialization tags it is handed), so they stay file-local. */
+static winid_t mainglkwin = nullptr;
+static winid_t inputwin = nullptr;
+static winid_t bannerwin = nullptr;
+static winid_t objwin = nullptr;         /* right-hand pane: room objects + menus */
+static winid_t gfxwin = nullptr;         /* thin divider between main and objwin */
+static strid_t inputwinstream = nullptr;
 static strid_t transcriptstr = nullptr;  /* open transcript file, or null */
 static bool g_manual_echo = false;       /* Glk line echo off; we echo input ourselves */
 static bool g_output_seen = false;       /* set when print_* actually writes to the window */
@@ -154,12 +160,25 @@ static int ignore_lines = 0;  /* count of lines to ignore in game output */
  * any key" pause) is auto-answered instead of blocking. */
 static bool g_autorestore_booting = false;
 
-static std::string banner;
 static void draw_banner();
 static void update_objwin(GeasRunner *gr);
 static void fill_divider();
 static void ensure_objwin_open();
 static void close_objwin();
+static bool run_turn_loop(GeasRunner *gr, bool &autorestored);
+
+/* True when the trimmed, case-folded line is one of `forms`.  The frontend's
+ * metaverbs each claim a handful of spellings; matching them all one way keeps
+ * the trimming and case folding from drifting between them. */
+static bool
+is_command(const std::string &raw, std::initializer_list<const char *> forms)
+{
+    std::string c = lower(trim(raw));
+    for (const char *f : forms)
+        if (c == f)
+            return true;
+    return false;
+}
 
 /* True when the file's first bytes are the local-file-header zip magic. */
 static bool
@@ -213,11 +232,8 @@ do_restore(GeasRunner *gr)
 static bool
 handle_saverestore_command(const std::string &raw, GeasRunner *gr)
 {
-    std::string c = lower(trim(raw));
-    bool save = (c == "save" || c == "save game");
-    bool restore = (c == "restore" || c == "restore game" ||
-                    c == "load" || c == "load game");
-    if (!save && !restore)
+    bool save = match_save_command(raw);
+    if (!save && !match_restore_command(raw))
         return false;
 
     if (save)
@@ -244,11 +260,10 @@ handle_status_command(const std::string &raw)
 static bool
 handle_quit_command(const std::string &raw, bool &quitting)
 {
-    std::string c = lower(trim(raw));
-    if (c != "quit" && c != "q" && c != "quit game")
+    if (!is_command(raw, { "quit", "q", "quit game" }))
         return false;
 
-    glk_put_string((char *) "\nThanks for playing. Goodbye!\n");
+    glk_put_cstring(QUIT_FAREWELL);
     quitting = true;
     return true;
 }
@@ -257,8 +272,7 @@ handle_quit_command(const std::string &raw, bool &quitting)
 static bool
 handle_restart_command(const std::string &raw, GeasRunner *gr)
 {
-    std::string c = lower(trim(raw));
-    if (c != "restart" && c != "restart game")
+    if (!is_command(raw, { "restart", "restart game" }))
         return false;
 
     glk_window_clear(mainglkwin);
@@ -279,32 +293,51 @@ handle_restart_command(const std::string &raw, GeasRunner *gr)
 static bool
 handle_help_command(const std::string &raw)
 {
-    std::string c = lower(trim(raw));
-    if (c != "#help" && c != "#commands" && c != "metaverbs")
+    if (!match_help_command(raw))
         return false;
 
-    glk_put_string((char *)
-        "\nThese system commands work in any game, whether Quest itself or"
-        " this interpreter handles them:\n"
-        "\n"
-        "  SAVE              Save the whole game to a file.\n"
-        "  RESTORE  (LOAD)   Restore a previously saved game.\n"
-        "  RESTART           Start the game over from the beginning.\n"
-        "  UNDO              Take back the last turn.\n"
-        "  QUIT     (Q)      Stop playing and leave Geas.\n"
-        "\n"
-        "  SCRIPT   (TRANSCRIPT)       Start recording the game text to a file.\n"
-        "  SCRIPT OFF  (UNSCRIPT)      Stop recording the transcript.\n"
-        "\n"
+    print_system_commands(
+        "  QUIT     (Q)      Stop playing and leave Geas.\n",
         "  OOPS <word>       Re-run your last command with a mistyped object\n"
-        "                    word replaced by <word>.\n"
-        "  VERBS <object>    List the actions available for an object.\n"
-        "  STATUS            Show the status bar's text in full, for when it\n"
-        "                    is too long to fit beside the room name.\n"
-        "  ABOUT             Show the game's title, author, version and info.\n"
-        "  HELP              Show the game's basic in-game help.\n"
-        "  #HELP             Show this list of system commands.\n");
+        "                    word replaced by <word>.\n",
+        "  VERBS <object>    List the actions available for an object.\n",
+        "  ABOUT             Show the game's title, author, version and info.\n");
     return true;
+}
+
+/* Run one line of player input: a frontend metaverb if it is one, otherwise
+ * the game's own parser.  Both the typed-line and the clicked-hyperlink paths
+ * come here, so the two cannot drift apart over which commands the frontend
+ * claims. */
+static void
+run_or_handle_command(const std::string &cmd, GeasRunner *gr, bool &quitting)
+{
+    if (handle_transcript_command(cmd) ||
+        handle_saverestore_command(cmd, gr) ||
+        handle_restart_command(cmd, gr) ||
+        handle_help_command(cmd) ||
+        handle_status_command(cmd) ||
+        handle_quit_command(cmd, quitting))
+        return;
+
+    /* The runner echoes its own "> cmd" into the main text; when input shares
+     * that window the prompt and echo are already on screen, so swallow it. */
+    if (inputwin == mainglkwin)
+        ignore_lines = 2;
+    gr->run_command(cmd);
+}
+
+/* Print the top-level "> " prompt.  A separate input window holds nothing but
+ * the line being typed, so it is cleared first; sharing the main window
+ * instead leaves a blank line between the last game text and the prompt. */
+static void
+print_prompt()
+{
+    if (inputwin != mainglkwin)
+        glk_window_clear(inputwin);
+    else
+        glk_put_cstring("\n");
+    glk_put_string_stream(inputwinstream, (char *) "> ");
 }
 
 /* After the game ends, ask the player what to do.  Returns a POSTGAME_*
@@ -333,11 +366,36 @@ post_game_menu()
     }
 }
 
+/* The game has ended (death or win): offer undo / restore / restart / quit
+ * until one of them takes, instead of just closing the session.  Returns true
+ * when the player is back in a running game, false when they chose to quit. */
+static bool
+run_post_game_menu(GeasRunner *gr)
+{
+    for (;;) {
+        switch (post_game_menu()) {
+        case POSTGAME_UNDO:
+            if (gr->undo())
+                return true;                /* resurrected; resume play */
+            glk_put_cstring(NOTHING_TO_UNDO);
+            break;
+        case POSTGAME_RESTORE:
+            if (do_restore(gr))
+                return true;                /* restored; resume play */
+            break;
+        case POSTGAME_RESTART:
+            glk_window_clear(mainglkwin);
+            gr->restart();
+            return true;
+        default:                            /* QUIT */
+            glk_put_cstring(QUIT_FAREWELL);
+            return false;
+        }
+    }
+}
+
 void glk_main(void)
 {
-    char err_buf[1024];
-    char cur_buf[1024];
-
     /* Quest 5 games (.quest zip with game.aslx inside, or raw <asl> XML) run
      * on the native aslx engine, a separate runner sharing this frontend. */
     if (storyfilename && aslx_is_quest5_file(storyfilename)) {
@@ -356,9 +414,8 @@ void glk_main(void)
     glk_set_window(mainglkwin);
 
     if (!storyfilename) {
-	snprintf(err_buf, sizeof(err_buf), "No game name or more than one game name given.\n"
-			 "Try -h for help.\n");
-	glk_put_string(err_buf);
+        glk_put_cstring("No game name or more than one game name given.\n"
+                        "Try -h for help.\n");
         return;
     }
 
@@ -368,12 +425,10 @@ void glk_main(void)
      * dead game.  A wrapper archive holding a .quest is the usual case --
      * say so rather than opening a blank window. */
     if (file_starts_with_zip_magic(storyfilename)) {
-	snprintf(err_buf, sizeof(err_buf),
-		 "This file is a zip archive, not a Quest game.\n"
-		 "If it contains a .quest or .asl game file, unpack it first "
-		 "and open that.\n");
-	glk_put_string(err_buf);
-	return;
+        glk_put_cstring("This file is a zip archive, not a Quest game.\n"
+                        "If it contains a .quest or .asl game file, unpack it "
+                        "first and open that.\n");
+        return;
     }
 
     glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
@@ -419,12 +474,10 @@ void glk_main(void)
     g_manual_echo = (inputwin == mainglkwin) &&
                     glk_gestalt(gestalt_LineInputEcho, 0);
 
-    if (!glk_gestalt(gestalt_Timer, 0)) {
-	snprintf(err_buf, sizeof(err_buf),"\nNote -- The underlying Glk library does not support"
-                         " timers.  If this game tries to use timers, then some"
-                         " functionality may not work correctly.\n\n");
-	glk_put_string(err_buf);
-    }
+    if (!glk_gestalt(gestalt_Timer, 0))
+        glk_put_cstring("\nNote -- The underlying Glk library does not support"
+                        " timers.  If this game tries to use timers, then some"
+                        " functionality may not work correctly.\n\n");
 
     GeasRunner *gr = GeasRunner::get_runner(new GeasGlkInterface());
 
@@ -450,19 +503,21 @@ void glk_main(void)
 #endif
         gr->set_game(storyfilename);
 
-    banner = gr->get_banner();
-
-    /* Tell the host UI the game's title.  get_banner() returns
-     * "<name>, v<version> | <author>"; pass just the leading name part. */
-    std::string title = banner;
-    std::string::size_type cut = title.find(", v");
-    std::string::size_type bar = title.find(" | ");
-    if (bar != std::string::npos && (cut == std::string::npos || bar < cut))
-        cut = bar;
-    if (cut != std::string::npos)
-        title.erase(cut);
-    if (!title.empty())
-        garglk_set_story_title(title.c_str());
+#ifdef GLK_MODULE_GARGLKTEXT
+    {
+        /* Tell the host UI the game's title.  get_banner() returns
+         * "<name>, v<version> | <author>"; pass just the leading name part. */
+        std::string title = gr->get_banner();
+        std::string::size_type cut = title.find(", v");
+        std::string::size_type bar = title.find(" | ");
+        if (bar != std::string::npos && (cut == std::string::npos || bar < cut))
+            cut = bar;
+        if (cut != std::string::npos)
+            title.erase(cut);
+        if (!title.empty())
+            garglk_set_story_title(title.c_str());
+    }
+#endif
 
     /* The game's title/version/author banner is printed once into the main
      * window by the runner (set_game), before the game's own opening text --
@@ -487,29 +542,47 @@ void glk_main(void)
          * if the current preferences say no real-time events. */
         glk_request_timer_events(0);
 
+    for (;;) {
+        if (run_turn_loop(gr, autorestored))
+            break;                          /* the player quit mid-game */
+        if (!run_post_game_menu(gr))
+            break;                          /* ...or chose to at the ending */
+        /* Undone, restored or restarted: the bar, the pane and its divider
+         * all still describe the state that was left behind. */
+        if (gr->is_running()) {
+            draw_banner();
+            update_objwin(gr);
+            fill_divider();
+        }
+    }
+}
+
+/* The turn loop: print the prompt, wait for a line of input (or a click on a
+ * pane entry, or a timer tick), run it, refresh the bar and the pane -- until
+ * the game ends or the player quits, which is what the return value reports.
+ *
+ * `autorestored` is set on entry when the session was just restored from an
+ * autosave, whose restored transcript already ends with a prompt; it is
+ * cleared here so the next turn prompts normally. */
+static bool
+run_turn_loop(GeasRunner *gr, bool &autorestored)
+{
     char buf[200];
     bool quitting = false;
 
-    while(!quitting) {
-    while(gr->is_running() && !quitting) {
+    while (gr->is_running() && !quitting) {
         if (autorestored) {
             /* The restored transcript already ends with the old prompt;
              * just re-request input below without printing another. */
             autorestored = false;
         } else {
-	strncpy(cur_buf, "> ", sizeof(cur_buf));
-        if (inputwin != mainglkwin)
-            glk_window_clear(inputwin);
-        else
-            glk_put_cstring("\n");
-        glk_put_string_stream(inputwinstream, cur_buf);
-
+            print_prompt();
 #ifdef SPATTERLIGHT
-        /* Autosave at every top-level prompt: after the prompt is printed
-         * (so the GUI snapshot ends with it) but before input is requested
-         * (so the saved windows carry no pending request and a restore just
-         * re-requests input here). */
-        geas_do_autosave(gr);
+            /* Autosave at every top-level prompt: after the prompt is printed
+             * (so the GUI snapshot ends with it) but before input is requested
+             * (so the saved windows carry no pending request and a restore
+             * just re-requests input here). */
+            geas_do_autosave(gr);
 #endif
         }
 
@@ -533,16 +606,7 @@ void glk_main(void)
                      * command -- including the metaverbs below -- shows up. */
                     if (g_manual_echo)
                         echo_input_line(cmd, false);
-                    if(!handle_transcript_command(cmd) &&
-                       !handle_saverestore_command(cmd, gr) &&
-                       !handle_restart_command(cmd, gr) &&
-                       !handle_help_command(cmd) &&
-                       !handle_status_command(cmd) &&
-                       !handle_quit_command(cmd, quitting)) {
-                        if(inputwin == mainglkwin)
-                            ignore_lines = 2;
-                        gr->run_command(cmd);
-                    }
+                    run_or_handle_command(cmd, gr, quitting);
                 }
                 break;
 
@@ -564,12 +628,8 @@ void glk_main(void)
                      * prompt (no echo control, so the typed text is still on
                      * screen), today's behaviour is kept.  Typed text comes
                      * back either way, as preloaded input (ce.val1). */
-                    bool retracted = false;
-#ifdef SPATTERLIGHT
-                    if (inputwin == mainglkwin)
-                        retracted =
-                            questglk::unput_window_tail(mainglkwin, U"\n> ") == 3;
-#endif
+                    bool retracted = inputwin == mainglkwin &&
+                                     unput_tail_exact(mainglkwin, U"\n> ");
                     g_output_seen = false;
                     gr->tick_timers();
                     draw_banner();
@@ -581,13 +641,8 @@ void glk_main(void)
                          * interval-0 mayor-door check under a failed or
                          * non-Spatterlight retract) the existing prompt is
                          * left alone. */
-                        if (g_output_seen || retracted) {
-                            if (inputwin != mainglkwin)
-                                glk_window_clear(inputwin);
-                            else
-                                glk_put_cstring("\n");
-                            glk_put_string_stream(inputwinstream, (char *) "> ");
-                        }
+                        if (g_output_seen || retracted)
+                            print_prompt();
 #ifdef SPATTERLIGHT
                         /* The timer changed game state while we sat at the
                          * prompt; refresh the autosave (it skips itself when
@@ -673,22 +728,14 @@ void glk_main(void)
                     /* Echo the clicked command so the player sees what ran.  With
                      * input in the main window the "> " prompt is already there
                      * and run_command's own "> cmd" echo is suppressed
-                     * (ignore_lines below), so echo the command here -- there is
-                     * no typed text for the library to echo.  With a separate
-                     * input window run_command prints its own "> cmd" into the
-                     * main text (ignore_lines stays 0), so no manual echo. */
+                     * (run_or_handle_command's ignore_lines), so echo the command
+                     * here -- there is no typed text for the library to echo.
+                     * With a separate input window run_command prints its own
+                     * "> cmd" into the main text (ignore_lines stays 0), so no
+                     * manual echo. */
                     if (inputwin == mainglkwin)
                         echo_input_line(cmd, false);
-                    if (!handle_transcript_command(cmd) &&
-                        !handle_saverestore_command(cmd, gr) &&
-                        !handle_restart_command(cmd, gr) &&
-                        !handle_help_command(cmd) &&
-                        !handle_status_command(cmd) &&
-                        !handle_quit_command(cmd, quitting)) {
-                        if (inputwin == mainglkwin)
-                            ignore_lines = 2;
-                        gr->run_command(cmd);
-                    }
+                    run_or_handle_command(cmd, gr, quitting);
                     /* Treat the click as this turn's input so the loop exits,
                      * refreshes the pane (re-arming the link) and re-prompts. */
                     ev.type = evtype_LineInput;
@@ -718,42 +765,12 @@ void glk_main(void)
         draw_banner();
         update_objwin(gr);
     }
-
-    if (quitting)
-        break;
-
-    /* The game has ended (death or win); offer undo / restart / quit
-     * instead of just closing the session. */
-    for (;;) {
-        int c = post_game_menu();
-        if (c == POSTGAME_UNDO) {
-            if (gr->undo())
-                break;                      /* resurrected; resume play */
-            glk_put_cstring("There is nothing to undo.\n");
-        } else if (c == POSTGAME_RESTORE) {
-            if (do_restore(gr))
-                break;                      /* restored; resume play */
-        } else if (c == POSTGAME_RESTART) {
-            glk_window_clear(mainglkwin);
-            gr->restart();
-            break;
-        } else {                            /* QUIT */
-            glk_put_cstring("\nThanks for playing. Goodbye!\n");
-            quitting = true;
-            break;
-        }
-    }
-    if (gr->is_running()) {
-        draw_banner();
-        update_objwin(gr);
-        fill_divider();
-    }
-    }
+    return quitting;
 }
 
 } /* extern "C" */
 
-void
+static void
 draw_banner()
 {
   /* The current room name, left-aligned, and the status vars right-aligned.
@@ -820,9 +837,7 @@ update_objwin(GeasRunner *gr)
 {
     /* Gather everything first so we can decide whether the pane has any real
      * content before opening or closing it. */
-    std::string room = gr->get_location();
-    if (!room.empty())
-        room[0] = toupper((unsigned char) room[0]);
+    std::string room = cap_first(gr->get_location());
     g_room_name = room;
 
     v2string contents = gr->get_room_contents();
@@ -954,13 +969,13 @@ update_objwin(GeasRunner *gr)
         };
 
         if (!inventory.empty()) {
-            header("Inventory");
+            header(PANE_INVENTORY);
             for (std::vector<std::string> &item : inventory)
                 put_object(item);
         }
 
         if (!contents.empty() || !places.empty()) {
-            header("Places and Objects");
+            header(PANE_PLACES_OBJECTS);
             for (std::vector<std::string> &item : contents)
                 put_object(item);
             for (std::vector<std::string> &place : places)
@@ -968,7 +983,7 @@ update_objwin(GeasRunner *gr)
         }
 
         if (!compass.empty()) {
-            header("Compass");
+            header(PANE_COMPASS);
             for (std::vector<std::string> &exit : compass)
                 put_exit(exit);
         }
@@ -1010,7 +1025,7 @@ fill_divider()
     fill_side_divider(mainglkwin, gfxwin);
 }
 
-void
+static void
 glk_put_cstring(const char *s)
 {
     /* The cast to remove const is necessary because glk_put_string
@@ -1081,31 +1096,25 @@ GeasGlkInterface::set_style (const GeasFontStyle &style)
     return r_success;
 }
 
+/* Quest's per-passage colour changes have nowhere to go: a Glk window's
+ * colours come from stylehints fixed before it opens, and the host's theme
+ * owns them anyway.  The text keeps the player's chosen colours. */
 void
-GeasGlkInterface::set_foreground (const std::string &s)
-{ 
-    if (s != "") 
-    {
-    }
+GeasGlkInterface::set_foreground (const std::string &)
+{
 }
 
 void
-GeasGlkInterface::set_background (const std::string &s)
-{ 
-    if (s != "") 
-    {
-    }
+GeasGlkInterface::set_background (const std::string &)
+{
 }
 
 
-/* Code lifted from GeasWindow.  Should be common.  Maybe in
- * GeasInterface?
- */
+/* Read a whole file (a game's .asl source, or a library it !includes). */
 std::string
 GeasGlkInterface::get_file (const std::string &fname) const
 {
-  std::ifstream ifs;
-  ifs.open(fname.c_str(), std::ios::in | std::ios::binary);
+  std::ifstream ifs (fname.c_str(), std::ios::in | std::ios::binary);
   if (! ifs.is_open())
     {
       /* Report to the log, not the game window: a missing file is usually a
@@ -1115,15 +1124,9 @@ GeasGlkInterface::get_file (const std::string &fname) const
       std::cerr << "Couldn't open " << fname << "\n";
       return "";
     }
-  std::string rv;
-  char ch;
-  ifs.get(ch);
-  while (!ifs.eof())
-    { 
-      rv += ch;
-      ifs.get(ch);
-    } 
-  return rv;
+  std::ostringstream ss;
+  ss << ifs.rdbuf();
+  return ss.str();
 }
 
 /* Show the message (if any) and wait for a single keypress.  Used for the
@@ -1194,7 +1197,10 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
 {
     if (g_autorestore_booting)
         return 0;
-    size_t n;
+
+    size_t n = v.size();
+    if (n == 0)
+        return 0;   /* nothing to choose between; the caller's own fallback */
 
     /* Only clear a *separate* input window; if input shares the main window
      * this would wipe the whole screen before every menu. */
@@ -1202,37 +1208,23 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
         glk_window_clear(inputwin);
 
     glk_put_cstring(label.c_str());
-    glk_put_char(0x0a);
-    n = v.size();
-    for (size_t i=0; i<n; ++i)
+    glk_put_cstring("\n");
+    for (size_t i = 0; i < n; ++i)
       {
-	std::stringstream t;
-	std::string s;
-	t << i+1;
-	t >> s;
-	glk_put_cstring(s.c_str());
-	glk_put_cstring(": ");
-	glk_put_cstring(v[i].c_str());
-	glk_put_cstring("\n");
+	std::string line = std::to_string(i + 1) + ": " + v[i] + "\n";
+	glk_put_cstring(line.c_str());
       }
 
-    std::stringstream t;
-    std::string s;
-    std::string s1;
-    t << n;
-    t >> s;
-    s1 = "Choose [1-" + s + "]> ";
-    glk_put_string_stream(inputwinstream, (char *)(s1.c_str()));
+    std::string prompt = "Choose [1-" + std::to_string(n) + "]> ";
+    glk_put_string_stream(inputwinstream, (char *) prompt.c_str());
 
+    /* Anything unparseable or out of range is clamped to a valid entry, so
+     * the caller always gets an index it can use. */
     int choice = atoi(get_string().c_str());
     if (choice < 1)
-      {
-	choice = 1;
-      }
-    if ((size_t)choice > n)
-      {
-	choice = (int)n;
-      }
+      choice = 1;
+    if ((size_t) choice > n)
+      choice = (int) n;
 
     /* The chosen line was already echoed by get_string; just leave a blank
      * line after the menu. */
@@ -1241,16 +1233,18 @@ GeasGlkInterface::make_choice (const std::string &label, std::vector<std::string
     return choice - 1;
 }
 
+/* Resolve `rel_name` against the directory holding `parent` (the story file),
+ * so a game's "images/map.jpg" finds the file next to the game rather than in
+ * the process's working directory.  A relative parent, or an already-absolute
+ * name, is left to be opened as it stands. */
 std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const std::string &parent) const {
-  std::cerr << "absolute_name ('" << rel_name << "', '" << parent << "')\n";
-  if (parent[0] != '/')
+  if (parent.empty() || parent[0] != '/')
     {
       return rel_name;
     }
 
-  if (rel_name[0] == '/')
+  if (!rel_name.empty() && rel_name[0] == '/')
     {
-      std::cerr << "  --> " << rel_name << "\n";
       return rel_name;
     }
   std::vector<std::string> path;
@@ -1265,7 +1259,12 @@ std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const 
       path.push_back (parent.substr (dir_start, dir_end - dir_start));
       dir_start = dir_end + 1;
     }
-  path.pop_back();
+  /* Drop the story file's own name, leaving the directory holding it.  (A
+   * parent of just "/" contributes no components at all.) */
+  if (!path.empty())
+    {
+      path.pop_back();
+    }
   dir_start = 0;
   std::string tmp;
   while (dir_start < rel_name.length())
@@ -1283,7 +1282,11 @@ std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const 
 	}
       else if (tmp == "..")
 	{
-	  path.pop_back();
+	  /* ".." at the root has nowhere to go; stay there. */
+	  if (!path.empty())
+	    {
+	      path.pop_back();
+	    }
 	}
       else
 	{
@@ -1293,9 +1296,8 @@ std::string GeasGlkInterface::absolute_name (const std::string &rel_name, const 
   std::string rv;
   for (const auto &i: path)
     {
-      rv = rv + "/" + i;
+      rv += "/" + i;
     }
-  std::cerr << " ---> " << rv << "\n";
   return rv;
 }
 
@@ -1386,15 +1388,6 @@ GeasGlkInterface::show_image (const std::string &filename, const std::string &re
   glk_put_char (0x0a);
   return r_success;
 }
-
-
-
-
-#if 0
-void GeasGlkInterface::debug_print (std::string s) { ; }
-
-GeasResult GeasGlkInterface::pause (int msec) { return r_success; }
-#endif
 
 #ifdef SPATTERLIGHT
 

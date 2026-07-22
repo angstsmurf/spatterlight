@@ -90,9 +90,15 @@ using questglk::draw_status_banner;
 using questglk::echo_input_line;
 using questglk::fill_side_divider;
 using questglk::lower;
+using questglk::match_help_command;
+using questglk::match_restore_command;
 using questglk::match_status_command;
 using questglk::match_transcript_command;
+using questglk::NOTHING_TO_UNDO;
 using questglk::open_side_pane_windows;
+using questglk::PANE_COMPASS;
+using questglk::PANE_INVENTORY;
+using questglk::PANE_PLACES_OBJECTS;
 using questglk::play_single_sound;
 using questglk::post_game_menu_match;
 using questglk::post_game_menu_print;
@@ -102,26 +108,30 @@ using questglk::POSTGAME_RESTART;
 using questglk::POSTGAME_RESTORE;
 using questglk::POSTGAME_UNDO;
 using questglk::print_status_report;
+using questglk::print_system_commands;
 using questglk::prompt_read_save;
+using questglk::prompt_write_save;
+using questglk::put_pane_header;
+using questglk::put_pane_link;
+using questglk::put_stream_utf8;
+using questglk::QUIT_FAREWELL;
+using questglk::stop_single_sound;
+using questglk::toggle_transcript;
+using questglk::trim;
+using questglk::unput_tail_exact;
+using questglk::utf8_cp_len;
+using questglk::utf8_next_cp;
 
 /* Core's CapFirst is .NET ToUpper on the first CHARACTER, not the first
  * ASCII byte -- Greek pane labels ("τόξο") and room names must capitalize
  * ("Τόξο") exactly as under QuestViva.  questglk::cap_first stays ASCII-only
  * for the Quest 4 frontend (geas strings are Latin-1-ish, passthrough there);
- * here the engine's .NET-invariant simple case map is in this TU already. */
+ * here the engine's .NET-invariant simple case map is in this TU already, so
+ * this shadows the shared one rather than importing it. */
 static std::string cap_first(const std::string &s)
 {
     return aslx::utf8_case(s, true, true);
 }
-using questglk::prompt_write_save;
-using questglk::put_pane_header;
-using questglk::put_pane_link;
-using questglk::put_stream_utf8;
-using questglk::stop_single_sound;
-using questglk::toggle_transcript;
-using questglk::trim;
-using questglk::utf8_cp_len;
-using questglk::utf8_next_cp;
 
 winid_t gwin = nullptr;      /* main text buffer */
 winid_t gbanner = nullptr;   /* one-line status grid: room name */
@@ -222,6 +232,28 @@ std::string g_status_line;
 /* JS.updateLocation payload -- Core's own "where am I" string, preferred over
  * resolving game.pov.parent by hand (empty for old pre-JS games). */
 std::string g_location_line;
+
+/* Arm / disarm hyperlink input on both clickable windows.  Every event loop
+ * here wants the pair -- the main transcript's cmdlinks and the side pane's
+ * object and compass links -- and a Glk that reports no hyperlink support
+ * gets neither. */
+void request_hyperlinks()
+{
+    if (!g_hyperlinks)
+        return;
+    glk_request_hyperlink_event(gwin);
+    if (gobjwin)
+        glk_request_hyperlink_event(gobjwin);
+}
+
+void cancel_hyperlinks()
+{
+    if (!g_hyperlinks)
+        return;
+    glk_cancel_hyperlink_event(gwin);
+    if (gobjwin)
+        glk_cancel_hyperlink_event(gobjwin);
+}
 
 /* Inline image drawing (defined in the resources section below): draw the
  * named game resource in the main window, original size but never wider
@@ -365,7 +397,7 @@ std::string tag_attr(const std::string &tag, const std::string &attr)
     while ((pos = t.find(attr, pos)) != std::string::npos) {
         /* Whole-attribute match only: `src` must not hit inside `data-src`.
          * The char before the name must not be part of an attribute name. */
-        if (pos > 0 && (std::isalnum((unsigned char)t[pos - 1]) ||
+        if (pos > 0 && (isalnum((unsigned char) t[pos - 1]) ||
                         t[pos - 1] == '-' || t[pos - 1] == '_')) {
             pos += attr.size();
             continue;
@@ -586,7 +618,19 @@ std::string decode_entities(const std::string &s)
     return out;
 }
 
-std::string plain_text(const std::string &html, const char *brsep);
+std::string plain_text(const std::string &html, const char *brsep = " ");
+
+/* The lowercased element name of a raw tag body ("/a href=.." -> "a"), with
+ * `closing` set for an end tag.  Shared by every markup walker below. */
+std::string tag_name(const std::string &tag, bool &closing)
+{
+    closing = !tag.empty() && tag[0] == '/';
+    std::string name = lower(tag.substr(closing ? 1 : 0));
+    size_t sp = name.find_first_of(" \t\r\n/");
+    if (sp != std::string::npos)
+        name.erase(sp);
+    return name;
+}
 
 /* Case-insensitive find, for tag names in raw markup. */
 size_t find_ci(const std::string &hay, const std::string &needle, size_t from)
@@ -616,11 +660,8 @@ std::string element_inner_text(const std::string &html, size_t pos,
         size_t close = html.find('>', i);
         if (close == std::string::npos) break;
         std::string tag = html.substr(i + 1, close - i - 1);
-        bool closing = !tag.empty() && tag[0] == '/';
-        std::string tn = lower(tag.substr(closing ? 1 : 0));
-        size_t sp = tn.find_first_of(" \t\r\n/");
-        if (sp != std::string::npos) tn.erase(sp);
-        if (tn == name) {
+        bool closing;
+        if (tag_name(tag, closing) == name) {
             if (closing && --depth == 0) break;
             if (!closing && tag[tag.size() - 1] != '/') depth++;
         }
@@ -649,10 +690,8 @@ std::vector<std::string> audio_sources(const std::string &html, size_t pos,
         size_t close = html.find('>', i);
         if (close == std::string::npos) { i = html.size(); break; }
         std::string tag = html.substr(i + 1, close - i - 1);
-        bool closing = !tag.empty() && tag[0] == '/';
-        std::string tn = lower(tag.substr(closing ? 1 : 0));
-        size_t sp = tn.find_first_of(" \t\r\n/");
-        if (sp != std::string::npos) tn.erase(sp);
+        bool closing;
+        std::string tn = tag_name(tag, closing);
         if (tn == "audio") {
             if (closing && --depth == 0) { i = close + 1; break; }
             if (!closing && tag[tag.size() - 1] != '/') depth++;
@@ -735,20 +774,12 @@ std::u32string u32_from_utf8(const std::string &s)
     return out;
 }
 
-/* Take `s` back off the end of the transcript window, but only if it is
- * still exactly what is there (questglk::unput_window_tail, the tail-match
- * retract shared with the classic frontend).  Returns the count removed, 0
- * if the window has moved on -- so every caller degrades to "leave the text
- * alone". */
-size_t unput_exact(const std::u32string &s)
+/* The shared tail-match retract (questglk::unput_tail_exact), always against
+ * the transcript window: false if the window has moved on, so every caller
+ * degrades to "leave the text alone". */
+bool unput_exact(const std::u32string &s)
 {
-#ifdef SPATTERLIGHT
-    glui32 got = questglk::unput_window_tail(gwin, s);
-    return got == s.size() ? s.size() : 0;
-#else
-    (void) s;                   /* CheapGlk has no unput */
-    return 0;
-#endif
+    return unput_tail_exact(gwin, s);
 }
 
 /* ------------------------------------------------------ output sections -- */
@@ -881,8 +912,8 @@ void hide_output_section(const std::string &name)
      * line at the prompt (GlkTextBufferWindow+Output.m:187, storedNewline), so
      * the text storage lags this log by up to one newline.  Try the exact tail
      * first, then without that newline. */
-    size_t took = unput_exact(tail);
-    if (!took && !tail.empty() && tail.back() == U'\n')
+    bool took = unput_exact(tail);
+    if (!took && tail.back() == U'\n')
         took = unput_exact(tail.substr(0, tail.size() - 1));
     if (!took)
         return;                 /* tail moved on: leave the transcript alone */
@@ -919,11 +950,8 @@ void render_html_inner(const std::string &raw)
             if (close == std::string::npos) break;
             std::string tag = html.substr(i + 1, close - i - 1);
             i = close + 1;
-            /* tag name, lowercased, without leading '/' or trailing '/'. */
-            bool closing = !tag.empty() && tag[0] == '/';
-            std::string name = lower(tag.substr(closing ? 1 : 0));
-            size_t sp = name.find_first_of(" \t\r\n/");
-            if (sp != std::string::npos) name.erase(sp);
+            bool closing;
+            std::string name = tag_name(tag, closing);
 
             if (name == "br") {
                 put_uni_char('\n');     /* teed: see g_tee */
@@ -1029,10 +1057,12 @@ void render_html_inner(const std::string &raw)
             put_uni_char(utf8_next_cp(html, i));
         }
     }
-    /* Unbalanced opens (rare, malformed game HTML): restore the base style. */
+    /* Unbalanced opens (rare, malformed game HTML): restore the base style,
+     * and close any hyperlink they left open -- a span can have opened one
+     * just as an anchor can, and a stray glk_set_hyperlink(0) is a no-op. */
     if (!spans.empty() || !anchors.empty()) {
         g_bold = g_italic = g_under = 0;
-        if (g_hyperlinks && !anchors.empty())
+        if (g_hyperlinks)
             glk_set_hyperlink(0);
         apply_style();
     }
@@ -1078,7 +1108,7 @@ void render_html(const std::string &raw)
 /* Flatten a scrap of game HTML to plain text for the banner / pane labels:
  * tags stripped, entities decoded.  Newlines (from <br/>) become the given
  * separator. */
-std::string plain_text(const std::string &html, const char *brsep = " ")
+std::string plain_text(const std::string &html, const char *brsep)
 {
     std::string out;
     bool intag = false;
@@ -1284,11 +1314,24 @@ void redraw_side_pane(Interp &in)
     };
 
     World &w = in.world();
-    section(template_text_or(w, "InventoryLabel", "Inventory"), inv, false);
-    section(template_text_or(w, "PlacesObjectsLabel", "Places and Objects"),
+    section(template_text_or(w, "InventoryLabel", PANE_INVENTORY), inv, false);
+    section(template_text_or(w, "PlacesObjectsLabel", PANE_PLACES_OBJECTS),
             places, false);
-    section(template_text_or(w, "CompassLabel", "Compass"), exits, true);
+    section(template_text_or(w, "CompassLabel", PANE_COMPASS), exits, true);
     fill_pane_divider();
+}
+
+/* An Arrange or Redraw event: everything drawn outside the main buffer has to
+ * be laid out and painted again, since Glk blanks a resized graphics window and
+ * a grid window's contents do not survive either.  Every event loop below (the
+ * prompt, the wait, the pause, the sound block) handles the two events the same
+ * way, so they all come here. */
+void handle_arrange(Interp &in)
+{
+    update_banner(in);
+    fill_pane_divider();
+    grid_map_arrange();
+    panel_arrange();
 }
 
 /* ----------------------------------------------------------------- input -- */
@@ -1329,6 +1372,16 @@ void echo_metaverb(const std::string &cmd)
     echo_input(cmd);
 }
 
+/* The same, for a metaverb the host is about to handle: in prompt-first mode
+ * read_line has already echoed the accepted line, so only legacy mode (where
+ * the game side's echo is the sole record, and the game never sees a metaverb)
+ * needs one here. */
+void echo_metaverb_command(const std::string &cmd)
+{
+    if (!g_prompt_first)
+        echo_metaverb(cmd);
+}
+
 /* Fire an ASLEvent hyperlink (Core menu options): WorldModel.SendEventCore,
  * which also runs FinishTurn (v540..579) and refreshes the panes -- exactly
  * what the reference player does with an onclick.  send_event catches its
@@ -1339,9 +1392,13 @@ void run_asl_event(Interp &in, const LinkAction &act)
     in.drain_on_ready();
 }
 
+/* (ASLEvent function name, its parameter) pairs -- what a scanned JS body
+ * fires, and what the bridge queues. */
+using JsEvents = std::vector<std::pair<std::string, std::string>>;
+
 /* JS callback completions queued by the js_event_bridge hook: (js function,
  * its last argument).  Fired between turns, never mid-script. */
-std::vector<std::pair<std::string, std::string> > g_js_events;
+JsEvents g_js_events;
 
 /* Completions a game's OWN bundled JS would fire from inside a zero-argument
  * JS.func() -- indexed once per session from the <javascript src> files (see
@@ -1350,8 +1407,7 @@ std::vector<std::pair<std::string, std::string> > g_js_events;
  * name as the call's last argument and never reach this; Moquette's
  * JS.act0Clear() takes no argument and buries ASLEvent("FinishAct0Clear","")
  * in moquette.js, so without this the game stalls on the first train. */
-std::map<std::string, std::vector<std::pair<std::string, std::string> > >
-    g_js_callbacks;
+std::map<std::string, JsEvents> g_js_callbacks;
 
 /* Run the JS completion callbacks a game's own <js> animations would have
  * fired from setTimeout (see Interp::js_event_bridge).  Only an argument that
@@ -1509,11 +1565,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
 #endif
     if (want_line)
         glk_request_line_event_uni(gwin, buf, 255, 0);
-    if (g_hyperlinks) {
-        glk_request_hyperlink_event(gwin);
-        if (gobjwin)
-            glk_request_hyperlink_event(gobjwin);
-    }
+    request_hyperlinks();
     for (;;) {
         event_t ev;
         glk_select(&ev);
@@ -1643,11 +1695,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                             glk_request_line_event_uni(gwin, buf, 255, ce.val1);
                     }
 #endif
-                    if (g_hyperlinks) {
-                        glk_request_hyperlink_event(gwin);
-                        if (gobjwin)
-                            glk_request_hyperlink_event(gobjwin);
-                    }
+                    request_hyperlinks();
                     break;
                 }
                 /* A verb or a direction: run its command as if typed. */
@@ -1658,11 +1706,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                     echo_input(act.command);
                 return {InEnd::Command, act.command};
             }
-            if (g_hyperlinks) {
-                glk_request_hyperlink_event(gwin);
-                if (gobjwin)
-                    glk_request_hyperlink_event(gobjwin);
-            }
+            request_hyperlinks();
             break;
         case evtype_Timer: {
             /* A fast tick advancing the map glide leaves the pending line
@@ -1701,19 +1745,12 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
 #endif
             if (want_line)
                 glk_request_line_event_uni(gwin, buf, 255, ce.val1);
-            if (g_hyperlinks) {
-                glk_request_hyperlink_event(gwin);
-                if (gobjwin)
-                    glk_request_hyperlink_event(gobjwin);
-            }
+            request_hyperlinks();
             break;
         }
         case evtype_Arrange:
         case evtype_Redraw:
-            update_banner(in);
-            fill_pane_divider();
-            grid_map_arrange();
-            panel_arrange();
+            handle_arrange(in);
             break;
         }
     }
@@ -1726,30 +1763,18 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
 void read_keypress(Interp &in)
 {
     glk_request_char_event(gwin);
-    if (g_hyperlinks) {
-        glk_request_hyperlink_event(gwin);
-        if (gobjwin)
-            glk_request_hyperlink_event(gobjwin);
-    }
+    request_hyperlinks();
     for (;;) {
         event_t ev;
         glk_select(&ev);
         if (ev.type == evtype_CharInput && ev.win == gwin) {
-            if (g_hyperlinks) {
-                glk_cancel_hyperlink_event(gwin);
-                if (gobjwin)
-                    glk_cancel_hyperlink_event(gobjwin);
-            }
+            cancel_hyperlinks();
             return;
         }
         if (ev.type == evtype_Hyperlink &&
             (ev.win == gwin || ev.win == gobjwin)) {
             glk_cancel_char_event(gwin);
-            if (g_hyperlinks) {
-                glk_cancel_hyperlink_event(gwin);
-                if (gobjwin)
-                    glk_cancel_hyperlink_event(gobjwin);
-            }
+            cancel_hyperlinks();
             return;
         }
         if (ev.type == evtype_Timer) {
@@ -1762,22 +1787,15 @@ void read_keypress(Interp &in)
             update_timer_request(in);
             if (in.world().finished || !in.pending_wait()) {
                 glk_cancel_char_event(gwin);
-                if (g_hyperlinks) {
-                    glk_cancel_hyperlink_event(gwin);
-                    if (gobjwin)
-                        glk_cancel_hyperlink_event(gobjwin);
-                }
+                cancel_hyperlinks();
                 return;
             }
             /* Clearing the pane drops its hyperlink request; re-arm it. */
             if (g_hyperlinks && gobjwin)
                 glk_request_hyperlink_event(gobjwin);
         }
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
-            update_banner(in);
-            fill_pane_divider();
-            grid_map_arrange();
-        }
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            handle_arrange(in);
     }
 }
 
@@ -1939,20 +1957,6 @@ bool do_restore_ui(std::string &data)
     return false;
 }
 
-/* The RESTORE metaverb. Quest has no restore command of its own (loading is
- * a UI action, like the classic desktop player's menu), so the frontend owns
- * it; `save` stays with Core's own command, which lands in request_save. */
-bool is_restore_command(const std::string &raw, bool asking)
-{
-    std::string c = lower(trim(raw));
-    /* Bare "load" is the one form a game's own `get input` question might
-     * plausibly be answered with, so it yields to a pending question; the
-     * unambiguous forms are honoured whenever they are typed. */
-    if (c == "load")
-        return !asking;
-    return c == "restore" || c == "restore game" || c == "load game";
-}
-
 /* ------------------------------------------------------------- metaverbs -- */
 
 /* #HELP: list the system commands, the way the classic runner's #HELP does for
@@ -1967,31 +1971,16 @@ bool is_restore_command(const std::string &raw, bool asking)
  * plain-HELP hint below points players at it. */
 bool handle_help_command(const std::string &raw)
 {
-    std::string c = lower(trim(raw));
-    if (c != "#help" && c != "#commands" && c != "metaverbs")
+    if (!match_help_command(raw))
         return false;
-    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
-        echo_metaverb(raw);
+    echo_metaverb_command(raw);
 
-    glk_put_string((char *)
-        "\nThese system commands work in any game, whether Quest itself or"
-        " this interpreter handles them:\n"
-        "\n"
-        "  SAVE              Save the whole game to a file.\n"
-        "  RESTORE  (LOAD)   Restore a previously saved game.\n"
-        "  RESTART           Start the game over from the beginning.\n"
-        "  UNDO              Take back the last turn.\n"
-        "  QUIT              Stop playing and leave Quest.\n"
-        "\n"
-        "  SCRIPT   (TRANSCRIPT)       Start recording the game text to a file.\n"
-        "  SCRIPT OFF  (UNSCRIPT)      Stop recording the transcript.\n"
-        "\n"
+    print_system_commands(
+        "  QUIT              Stop playing and leave Quest.\n",
+        "",                     /* OOPS is a geas-runner command */
         "  VERBS <object>    List the actions available for an object, the\n"
-        "                    same menu clicking its name pops up.\n"
-        "  STATUS            Show the status bar's text in full, for when it\n"
-        "                    is too long to fit beside the room name.\n"
-        "  HELP              Show the game's own in-game help.\n"
-        "  #HELP             Show this list of system commands.\n");
+        "                    same menu clicking its name pops up.\n",
+        "");                    /* so is ABOUT */
     return true;
 }
 
@@ -2020,8 +2009,7 @@ bool handle_status_command(const std::string &raw)
 {
     if (!match_status_command(raw))
         return false;
-    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
-        echo_metaverb(raw);
+    echo_metaverb_command(raw);
     print_status_report(g_status_line, true);
     return true;
 }
@@ -2033,8 +2021,7 @@ bool handle_transcript_command(const std::string &raw)
     int on = match_transcript_command(raw);
     if (!on)
         return false;
-    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
-        echo_metaverb(raw);
+    echo_metaverb_command(raw);
     toggle_transcript(on, gwin, &gtranscript);
     return true;
 }
@@ -2050,8 +2037,7 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
     std::string c = lower(t);
     if (c != "verbs" && c.rfind("verbs ", 0) != 0)
         return false;
-    if (!g_prompt_first)        /* prompt-first: the host already echoed it */
-        echo_metaverb(raw);
+    echo_metaverb_command(raw);
 
     strid_t s = glk_window_get_stream(gwin);
 
@@ -2083,13 +2069,13 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
         /* The game's own localized template ("Δεν βλέπω κάτι τέτοιο."), run
          * through Core's ASL text processor when this Core has one -- the
          * template may carry {if:}/{random:} directives (Dream Pieces). */
-        std::string t = template_text_or(in.world(), "UnresolvedObject",
-                                         "You can't see any such thing.");
+        std::string msg = template_text_or(in.world(), "UnresolvedObject",
+                                           "You can't see any such thing.");
         Element *pt = in.world().find("ProcessText");
         if (pt && pt->kind == ElemKind::Function) {
-            Value v = in.call_function("ProcessText", {vstr(t)}, nullptr);
+            Value v = in.call_function("ProcessText", {vstr(msg)}, nullptr);
             if (v.type == Value::Type::String)
-                t = v.str;
+                msg = v.str;
         } else {
             /* Pre-580 Cores have no ProcessText wrapper; their OutputText
              * calls ProcessTextSection(text, data) with a fresh dictionary
@@ -2098,14 +2084,14 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
             if (pt && pt->kind == ElemKind::Function) {
                 Value data;
                 data.type = Value::Type::StringDict;
-                data.dict().push_back({"fulltext", vstr(t)});
+                data.dict().push_back({"fulltext", vstr(msg)});
                 Value v = in.call_function("ProcessTextSection",
-                                           {vstr(t), data}, nullptr);
+                                           {vstr(msg), data}, nullptr);
                 if (v.type == Value::Type::String)
-                    t = v.str;
+                    msg = v.str;
             }
         }
-        put_stream_utf8(s, plain_text(t) + "\n");
+        put_stream_utf8(s, plain_text(msg) + "\n");
         return true;
     }
 
@@ -2257,8 +2243,7 @@ bool js_string_literal(const std::string &js, size_t &i, std::string &out)
  * read -- a computed callback name is beyond a static scan and is left alone
  * (fire_js_events ignores any name that is not a real <function> anyway).  The
  * param argument is optional; ASLEvent("X") records an empty param. */
-void js_scan_aslevents(const std::string &body,
-                       std::vector<std::pair<std::string, std::string> > &out)
+void js_scan_aslevents(const std::string &body, JsEvents &out)
 {
     const std::string tok = "ASLEvent";
     size_t p = 0;
@@ -2400,20 +2385,17 @@ void index_bundled_js(World &w)
         return;
 
     std::set<std::string> known;
-    for (std::map<std::string, std::string>::const_iterator it = bodies.begin();
-         it != bodies.end(); ++it)
-        known.insert(it->first);
+    for (const auto &fn : bodies)
+        known.insert(fn.first);
 
     /* Pass 2: per function, the transitively-reachable ASLEvents.  DFS with a
      * visited guard -- a JS animation loop calls itself (doHeatherText) until
      * its terminal frame fires the completion, so a function legitimately
      * recurses; the guard just stops the WALK from looping. */
-    for (std::set<std::string>::const_iterator e = known.begin();
-         e != known.end(); ++e) {
-        std::vector<std::pair<std::string, std::string> > evs;
+    for (const std::string &entry : known) {
+        JsEvents evs;
         std::set<std::string> seen;
-        std::vector<std::string> stack;
-        stack.push_back(*e);
+        std::vector<std::string> stack{entry};
         while (!stack.empty()) {
             std::string f = stack.back();
             stack.pop_back();
@@ -2427,16 +2409,14 @@ void index_bundled_js(World &w)
                 stack.push_back(calls[c]);
         }
         if (!evs.empty())
-            g_js_callbacks[*e] = evs;
+            g_js_callbacks[entry] = evs;
     }
 
     if (getenv("ASLXGLK_JS_TRACE")) {
-        for (std::map<std::string, std::vector<std::pair<std::string,
-                 std::string> > >::const_iterator it = g_js_callbacks.begin();
-             it != g_js_callbacks.end(); ++it) {
-            fprintf(stderr, "[js-index] %s ->", it->first.c_str());
-            for (size_t k = 0; k < it->second.size(); k++)
-                fprintf(stderr, " %s", it->second[k].first.c_str());
+        for (const auto &entry : g_js_callbacks) {
+            fprintf(stderr, "[js-index] %s ->", entry.first.c_str());
+            for (const auto &ev : entry.second)
+                fprintf(stderr, " %s", ev.first.c_str());
             fprintf(stderr, "\n");
         }
     }
@@ -2467,15 +2447,11 @@ bool stage_temp_file(const std::string &bytes, std::string &path,
                      bool keep_for_session = false)
 {
     std::string t;
-#ifdef SPATTERLIGHT
     if (keep_for_session) {
         gettempdir();
         if (tempdir[0])
             t = tempdir;
     }
-#else
-    (void) keep_for_session;
-#endif
     if (t.empty()) {
         const char *tmpdir = getenv("TMPDIR");
         t = (tmpdir && *tmpdir) ? tmpdir : "/tmp";
@@ -2615,10 +2591,8 @@ void wait_for_sound(Interp &in, glui32 id)
             stop_sound_ui();
             return;
         }
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
-            update_banner(in);
-            grid_map_arrange();
-        }
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            handle_arrange(in);
     }
 }
 
@@ -2660,11 +2634,7 @@ void do_wait_ui(Interp &in)
     if (!gli_sa_delays)
         return;
     glk_request_char_event(gwin);
-    if (g_hyperlinks) {
-        glk_request_hyperlink_event(gwin);
-        if (gobjwin)
-            glk_request_hyperlink_event(gobjwin);
-    }
+    request_hyperlinks();
     for (;;) {
         event_t ev;
         glk_select(&ev);
@@ -2672,18 +2642,11 @@ void do_wait_ui(Interp &in)
             (ev.type == evtype_Hyperlink &&
              (ev.win == gwin || ev.win == gobjwin))) {
             glk_cancel_char_event(gwin);
-            if (g_hyperlinks) {
-                glk_cancel_hyperlink_event(gwin);
-                if (gobjwin)
-                    glk_cancel_hyperlink_event(gobjwin);
-            }
+            cancel_hyperlinks();
             return;
         }
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
-            update_banner(in);
-            fill_pane_divider();
-            grid_map_arrange();
-        }
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            handle_arrange(in);
     }
 }
 
@@ -2712,11 +2675,8 @@ void do_pause_ui(Interp &in, int ms)
         }
         if (ev.type == evtype_CharInput && ev.win == gwin)
             break;
-        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
-            update_banner(in);
-            fill_pane_divider();
-            grid_map_arrange();
-        }
+        if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+            handle_arrange(in);
     }
     glk_request_timer_events(0);
     g_timer_ms = 0;
@@ -2940,7 +2900,7 @@ bool post_game_undo(Interp &in)
     /* A game stopped by the script-error breaker has not "ended" so much as
      * broken; rolling one turn back would just run into the same wall. */
     if (in.script_errors_fatal() || !in.undo_available()) {
-        glk_put_string((char *) "There is nothing to undo.\n");
+        glk_put_string((char *) NOTHING_TO_UNDO);
         return false;
     }
     Context ctx;
@@ -2972,7 +2932,7 @@ SessionEnd post_game_menu(Interp &in, std::string &restore_data)
         case POSTGAME_RESTART:
             return SessionEnd::Restart;
         case POSTGAME_QUIT:
-            glk_put_string((char *) "\nThanks for playing. Goodbye!\n");
+            glk_put_string((char *) QUIT_FAREWELL);
             return SessionEnd::Quit;
         default:
             post_game_menu_reprompt();
@@ -3067,9 +3027,10 @@ struct BlobReader {
     }
 };
 
-/* Bumped to 2 when the output-section log joined the blob: a version-1 blob
- * has no such fields, and an autorestore that mis-parses is worse than one
- * that is discarded for a fresh start. */
+/* The blob's format stamp, bumped on every layout change (most recently when
+ * the output-section log joined it): an older blob has different fields, and
+ * an autorestore that mis-parses is worse than one discarded for a fresh
+ * start.  aslx_recover_frontend rejects anything that does not match. */
 const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 4";
 
 std::string aslx_encode_frontend(Interp &in)
@@ -3253,25 +3214,16 @@ void aslx_do_autosave(Interp &in)
 
 #endif /* SPATTERLIGHT */
 
-SessionEnd run_session(const char *storyfile, std::string &restore_data)
+/* Wire every host hook the engine offers to this frontend.  Split out of
+ * run_session, which otherwise reads as a hundred lines of assignment before
+ * the boot and turn loop it is really about; the hooks are installed once, at
+ * the top of a session, and nothing below re-reads them.
+ *
+ * `restart_requested` is the one piece of session state a hook writes: Core's
+ * `restart` (via JS.eval window.location.reload) has to end the session from
+ * inside a turn, and the turn loop checks the flag at its next safe point. */
+void install_host_hooks(Interp &in, bool &restart_requested)
 {
-    World w;
-    if (!load_file(storyfile, w, core_dir_path())) {
-        glk_put_string((char *) "Sorry, this Quest 5 game could not be loaded:\n");
-        for (const std::string &e : w.errors) {
-            glk_put_string((char *) "  ");
-            put_uni_string(e);
-            glk_put_char('\n');
-        }
-        return SessionEnd::Quit;
-    }
-
-    /* Index the game's bundled JS so a zero-arg JS.func() can fire the
-     * ASLEvent completions its body would have (see index_bundled_js). */
-    index_bundled_js(w);
-
-    Interp in(w);
-    in.print = render_html;
     /* The EXPRESSION forms of ShowMenu/ask: the engine blocks inside eval
      * until the provider returns, so the half-run script is on the C++ stack
      * and not in any snapshot.  A timer tick or a link click can open one
@@ -3291,7 +3243,6 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
      * turn finishes normally -- under a browser reload the server-side turn
      * also runs to completion -- and the session ends at the next loop
      * check, rebooting through the same teardown as the post-game menu. */
-    bool restart_requested = false;
     in.request_restart = [&restart_requested] { restart_requested = true; };
     /* Pane lists (UpdateListsAsync): only subscribe when this Glk could open
      * a side pane at startup -- an unset hook skips the whole scope
@@ -3333,10 +3284,6 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     in.start_output_section = [](const std::string &n) { start_output_section(n); };
     in.end_output_section = [](const std::string &n) { end_output_section(n); };
     in.hide_output_section = [](const std::string &n) { hide_output_section(n); };
-    /* Script errors go to stderr, not the page -- the reference web player
-     * keeps them in the browser's JavaScript console, off the transcript. The
-     * engine still logs every one (Interp::errors()), and headless output is
-     * untouched: only a host that installs this hook diverts them. */
     /* The JS callback bridge: queue only -- fire_js_events runs them between
      * turns, so a callback never lands in the middle of the script that
      * triggered it (the browser's setTimeout would not either). */
@@ -3355,17 +3302,18 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         /* Moquette-style: a zero-arg JS.func() whose bundled body fires the
          * ASLEvent(s).  Queue them in the same (func, "name param") shape
          * fire_js_events splits, so the two paths converge there. */
-        std::map<std::string, std::vector<std::pair<std::string,
-            std::string> > >::const_iterator it = g_js_callbacks.find(fn);
+        auto it = g_js_callbacks.find(fn);
         if (it == g_js_callbacks.end())
             return;
-        for (size_t k = 0; k < it->second.size(); k++) {
-            const std::string &f = it->second[k].first;
-            const std::string &p = it->second[k].second;
+        for (const auto &ev : it->second)
             g_js_events.push_back(std::make_pair(
-                fn, p.empty() ? f : f + " " + p));
-        }
+                fn, ev.second.empty() ? ev.first
+                                      : ev.first + " " + ev.second));
     };
+    /* Script errors go to stderr, not the page -- the reference web player
+     * keeps them in the browser's JavaScript console, off the transcript. The
+     * engine still logs every one (Interp::errors()), and headless output is
+     * untouched: only a host that installs this hook diverts them. */
     in.script_error = [](const std::string &message) {
         fprintf(stderr, "%s\n", message.c_str());
     };
@@ -3405,6 +3353,31 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
      * smoke harness never blocks. */
     in.do_wait = [&in] { do_wait_ui(in); };
     in.do_pause = [&in](int ms) { do_pause_ui(in, ms); };
+}
+
+SessionEnd run_session(const char *storyfile, std::string &restore_data)
+{
+    World w;
+    if (!load_file(storyfile, w, core_dir_path())) {
+        glk_put_string((char *) "Sorry, this Quest 5 game could not be loaded:\n");
+        for (const std::string &e : w.errors) {
+            glk_put_string((char *) "  ");
+            put_uni_string(e);
+            glk_put_char('\n');
+        }
+        return SessionEnd::Quit;
+    }
+
+    /* Index the game's bundled JS so a zero-arg JS.func() can fire the
+     * ASLEvent completions its body would have (see index_bundled_js). */
+    index_bundled_js(w);
+
+    Interp in(w);
+    in.print = render_html;
+    /* Set by Core's `restart` command from inside a turn; the loop below acts
+     * on it at its next safe point (see install_host_hooks). */
+    bool restart_requested = false;
+    install_host_hooks(in, restart_requested);
 
 #ifdef GLK_MODULE_GARGLKTEXT
     {
@@ -3597,9 +3570,11 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                 std::string cmd = trim(r.text);
                 if (cmd.empty())
                     continue;
-                if (is_restore_command(cmd, host_owned)) {
-                    if (!g_prompt_first)
-                        echo_metaverb(cmd);
+                /* RESTORE is the frontend's own: Quest has no restore command
+                 * (loading is a UI action, like the classic desktop player's
+                 * menu), while `save` stays with Core's, via request_save. */
+                if (match_restore_command(cmd, host_owned)) {
+                    echo_metaverb_command(cmd);
                     if (do_restore_ui(restore_data))
                         return SessionEnd::Restore;
                 } else if (!handle_transcript_command(cmd) &&
@@ -3673,6 +3648,45 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     redraw_grid_map();
     update_timer_request(in);
     }
+}
+
+/* Between sessions (RESTART/RESTORE): fresh world, fresh screen -- QuestViva
+ * reloads from disk, and a restore then applies its snapshot in run_session.
+ * Everything the frontend accumulated over a session goes with it: no sound
+ * survives (a looping one would play over the new game), no link, pane entry,
+ * frame picture or queued JS callback belongs to the game now booting, and the
+ * reloaded game re-declares its command box and click handler at
+ * InitInterface. */
+void reset_frontend_state()
+{
+    stop_sound_ui();
+    glk_window_clear(gwin);
+    g_bold = g_italic = g_under = 0;
+    apply_style();
+
+    g_links.clear();
+    g_links_spent = 0;
+    g_out_log.clear();          /* the cleared window holds nothing to retract */
+    g_sections.clear();
+
+    close_side_pane();
+    g_pane_inv.clear();
+    g_pane_places.clear();
+    g_pane_exits.clear();
+    g_pane_links.clear();
+    g_pane_expanded.clear();
+    g_pane_dirty = false;
+    g_pending_menu_alias.clear();
+    g_pending_menu_verbs.clear();
+
+    grid_map_reset();
+    panel_close();
+    g_status_line.clear();
+    g_location_line.clear();
+
+    g_command_bar = true;
+    g_click_hook = false;
+    g_js_events.clear();
 }
 
 }  // namespace
@@ -3764,39 +3778,6 @@ extern "C" void aslx_glk_main(const char *storyfile)
      * applies it on its way into the first session. */
     g_autorestore_pending = geas_autosave_exists();
 #endif
-    while (run_session(storyfile, restore_data) != SessionEnd::Quit) {
-        /* RESTART/RESTORE: fresh world, fresh screen (QuestViva reloads from
-         * disk; a restore then applies the snapshot in run_session), and no
-         * sound survives the old session (a looping one would keep playing
-         * over the new game). */
-        stop_sound_ui();
-        glk_window_clear(gwin);
-        g_links.clear();
-        g_links_spent = 0;
-        /* The cleared window holds nothing to retract. */
-        g_out_log.clear();
-        g_sections.clear();
-        g_bold = g_italic = g_under = 0;
-        apply_style();
-        /* No pane content survives the session either. */
-        close_side_pane();
-        grid_map_reset();
-        panel_close();          /* the frame picture does not outlive a session */
-        g_pane_inv.clear();
-        g_pane_places.clear();
-        g_pane_exits.clear();
-        g_pane_links.clear();
-        g_pane_expanded.clear();
-        g_pane_dirty = false;
-        g_status_line.clear();
-        g_location_line.clear();
-        /* The reloaded game declares its own command box and click handler at
-         * InitInterface. */
-        g_command_bar = true;
-        g_click_hook = false;
-        g_js_events.clear();
-        /* No verb menu survives a restart/restore either. */
-        g_pending_menu_alias.clear();
-        g_pending_menu_verbs.clear();
-    }
+    while (run_session(storyfile, restore_data) != SessionEnd::Quit)
+        reset_frontend_state();
 }
