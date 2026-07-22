@@ -1336,6 +1336,7 @@ SpaceDetective7|SpaceDetective7.blorb|0|0
 ReturnToCastleCoris|ReturnToCastleCoris.blorb|0|0
 EdithsCats|edithscats.taf|0|0
 BirthOfThePhoenix|PhoenixV3.blorb|0|0
+Jabberwocky|jabberwocky4.21.blorb|0|0
 EOF
 )
 

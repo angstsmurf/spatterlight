@@ -1,0 +1,336 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.Jabberwocky - The Untold Story
+This is a long hall. It branches off in four basic directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle.
+
+As the king enters through an open door, his chamberlain Pestelhune, follows right behind him.
+
+Just then, a group of peasants run into the hall. They seem to be spouting gibberish in numerous forms like "bbbbbb" or "spsssss". The guards quickly take control of the situation, grabbing each of the peasants and keeping them under control.
+
+Clouds of ash and plaster blow across the hall and blanket everything in it's path.
+
+"What in the world is this?" asks the king.
+"I have no idea your majesty" replies Pestelhune.
+"Please your majesty!" exclaims one of the peasants.
+"Let him go! What do you want?" the king asks.
+The peasant is freed by the guard and walks over to the king.
+"Oh your majesty! Please help us!" he replies.
+The other peasants are still spouting gibberish.
+"Please majesty! Our people are suffering!"
+"From what? Certainly our problems were solved after our champion was found and the creature was laid to rest."
+"Something else has befallen our people! Something no one has seen! It's invisible!"
+"Invisible? How could something exist that is invisible? Could someone tell me this?" exclaims the king.
+"Have no idea your majesty" replies Pestelhune.
+"Oh yes your majesty, it's there but it isn't! It comes quickly and attacks swiftly! It has petrified many people into fear! Please help us your majesty! Help us!"
+"What could all this be? I've not heard anything about this nor has anyone even brought the subject up before. Well, it seems if this creature is causing our beloved land such terror we must put a stop to it!" replies the king.
+"Oh thank you sire! Thank you! Bless you sire!" replies the peasant.
+"Oh okay, okay! Get out of here. Guards!" yells the king.
+The guards quickly grab all the peasants and push them out of the long hall. Silence is restored.
+"You know it's funny" says the king.
+"What's that sire?" replies Pestelhune.
+"Not just last week I had said my subjects have become a pain in the ass. I was wrong. They're becoming a royal pain in the ass."
+
+Bruno The Questionable shakes his head in disgust and disbelief as he walks to the throne room, his chamberlain Pestelhune following suit.
+
+Jabberwocky - The Untold Story
+
+Welcome to Jabberwocky - The Untold Story! After the great beast was slain, Dennis rode off into the sunset with the princess. Our hero is gone, but lo and behold a new hero has been found - YOU! It is your job to find this new creature and to slay it! Good luck, you're going to need it!
+
+This game is rated "R" for:
+ROYALLY SILLY, ROYALLY STUPID, ROYALLY FUNNY, ROYALLY GOOFY, ROYALLY NUTS, ROYALLY INSANE and a ROYALLY ROYAL ROYALTY of a good time! (Just to think when you sit upon your "throne" you'll royally be treated to a royal good time only royalty can. Wear your crown with pride! Sit upon your throne, fire a cannon or two and watch as a total extravaganza takes place! Who knows, you may even be able to see the fireworks from your throne or even hear them! I have to ask; what did you eat?)
+
+"I called you here because I asked you to watch the city and kingdom after the Jabberwock was slain. Apparently something is amiss. My subjects have come to me with an issue concerning an invisible monster of some sort. I want you to seek out this creature and destroy it." says King Bruno The Questionable looking at you.
+
+"I hope you can lay the people's fear to rest" says Pestelhune.
+
+"Oh yes, that is the other issue but let's focus at the task at hand. Find the beast, slay it and return to me for your reward. As king I have other duties to perform and deal with."
+
+"Just one moment your majesty. How can we be for certain that this invisible creature can be slain? I mean, how can you slay a beast that can't be seen?"
+
+"Good question Pestelhune and I for one would like an answer to this myself."
+
+"Well why not be creative about it?"
+
+"What do you mean Pestelhune? If the creature is to be found and slain you say to be creative? Like create and painting? Build a house? This is creative but how does that find our beast?"
+
+"No your majesty, that's not what I meant. I mean using your better judgement to find this mysterious invisible beast."
+
+"Now wait a minute Pestelhune. Now you're putting this beast  on trial without a fair shake through the court system. Is this fair? I think not. All shall taste the justice of the king before sentence is laid out."
+
+"Oh no your majesty, you've taken all this completely out of context."
+
+"I think not Pestelhune. You're not explaining yourself fully then are you? We've come to the conclusion that being creative to find the beast cannot come to fruition. We've also come to the conclusion that using judgement to find the beast will only result in a flawed justice system. What do you actually mean Pestelhune and please be more complete in what you say."
+
+"Your majesty, and I say your majesty in the truest sense of the word since you are king. My point is to find the beast at any cost, no matter what is needed to find it."
+
+"Pestelhune, if this beast is to be found at any cost this may cause my kingdom to fall into utter collapse. My coffers will be bled dry if we're to take this route to find the beast and have it destroyed. I don't need financial collapse of the kingdom to cause any further problems."
+
+"Okay sire. Next time I will do my best to be complete and straightforward the next time. You have my word your majesty."
+
+"I should hope so Pestelhune. You've confused me beyond belief. Being so perplexed causes me to be cross with my subjects and you know how I despise when that happens. I don't play "noughts and crosses" either. Well, not since I was a wee lad."
+
+"I'm sure you cross your "t's" and dot your "i's" though your majesty."
+
+"I do. It shows proper penmanship Pestelhune."
+
+"Yes your majesty. Thank you for that information."
+
+Throne Room
+This is the throne room of King Bruno The Questionable. On a raised platform is the throne itself (which is completely filthy considering the disrepair of the castle which is crumbling into ruin from age) and the chamberlain's chair which is coated with soot, plaster and ash from the castle which of course is in utter disrepair. On the other side of the chamber is four smaller stools which are for the "upper crust" folks (it's not time for pizza yet and be forwarned that if you end up in the dungeons that the crust on the bread is moldy) that come to visit and discuss business. The floor is covered in ash, soot and who knows what other filth that is falling from the ceiling of the castle.
+
+The king and the chamberlain are here.
+
+> e
+I move east.
+
+Long Hall
+This is a long hall. It branches off in four basic directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle.
+
+(Pretty descriptive huh? After the earful you got earlier I thought making this location a bit smaller in text would cause you not to be cross with me. The hall may be long but the description doesn't have to be. Also, it may be well to point out that crossing your eyes too much can cause serious problems later.)
+
+> n
+I move north.
+
+North Long Hall
+This is a long hall. It branches off to the north and south directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle. A blast of ash and plaster hit you from above.
+
+A hall servant is here.
+
+> n
+I move north.
+
+Back Alley
+You've reached a back alley. All directions here are blocked off by buildings. This area is used for refuse and garbage dumped off by the servants. If you think the castle was dirty, this area is much cleaner. Where is the garbage cart? Usually it's very punctual and takes all this out of here daily.  A handful of ash lies on the ground.
+
+Roger Fishfinger is here.
+
+> search garbage
+Rummaging within the pile of garbage uncovers a used chamber pot.
+
+> get chamber pot
+Ok, I pick up the chamber pot.
+
+> get ash
+Ok, I pick up the ash.
+
+> s
+I move south.
+
+North Long Hall
+This is a long hall. It branches off to the north and south directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle. A blast of ash and plaster hit you from above.
+
+A hall servant is here.
+
+> w
+I move west.
+
+Winery
+This is the king's personal winery. Racks of bottles filled with wine cover most of the walls. In other places, large barrels fill empty spaces. Cobwebs hang from corner to corner in this room and amazingly, this room has no dust, ash, plaster or soot to be found anywhere.
+
+> search wine racks
+You search the wine racks and find an empty bottle. Looks like some of the king's guards are taking a "wee nip" from the winery when he is not aware of it!
+
+> e
+I move east.
+
+North Long Hall
+This is a long hall. It branches off to the north and south directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle. A blast of ash and plaster hit you from above.
+
+A hall servant is here.
+
+> s
+I move south.
+
+Long Hall
+This is a long hall. It branches off in four basic directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle.
+
+(Pretty descriptive huh? After the earful you got earlier I thought making this location a bit smaller in text would cause you not to be cross with me. The hall may be long but the description doesn't have to be. Also, it may be well to point out that crossing your eyes too much can cause serious problems later.)
+
+> e
+I move east.
+
+Grand Chamber
+This is the Grand Chamber; it's a welcoming room for those who come to visit the king and wish to relax while they wait. A massive fireplace which is aflame shoots and crackles burning embers into the high chimney. The heat is a bit overwhelming. Above the fireplace is a huge oil painting. A royal couch sits in the center of the room. Two other doors are located at the north and east side of the room. On top of the massive amounts of heat which blast out of the fireplace, clouds of soot, ash and plaster drop down from the darkness of the ceiling above coating everything you see.  A bellows is propped up against the wall here.
+
+> get bellows
+Ok, I pick up the bellows.
+
+> search couch
+You search the couch. Seems the cushions lift out for cleaning. As if it made any difference, it's full of ash, soot and other filth I don't wish to explain. Looks like a piece of belly button lint is included in the mixture of filth. YUCK! You flip the cushions over and as you flip over the last one you find a long "skid mark" which lines the cushion from the front to the back. Ewwww. By the Blessed Sisters of Misery, you can't even imagine what or who could of made such an "impression" on such a fine piece of furniture. If this couch was a "hand me down" the king got ripped off. Speaking of "ripped off" looks like someone "ripped off" a good one on this cushion! You return the cushions to their proper places. Looks like something has fallen onto the floor.
+
+> get cork
+Ok, I pick up the cork.
+
+> close bellows
+I close the bellows.
+
+> w
+I move west.
+
+Long Hall
+This is a long hall. It branches off in four basic directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle.
+
+(Pretty descriptive huh? After the earful you got earlier I thought making this location a bit smaller in text would cause you not to be cross with me. The hall may be long but the description doesn't have to be. Also, it may be well to point out that crossing your eyes too much can cause serious problems later.)
+
+> w
+I move west.
+
+Throne Room
+This is the throne room of King Bruno The Questionable. On a raised platform is the throne itself (which is completely filthy considering the disrepair of the castle which is crumbling into ruin from age) and the chamberlain's chair which is coated with soot, plaster and ash from the castle which of course is in utter disrepair. On the other side of the chamber is four smaller stools which are for the "upper crust" folks (it's not time for pizza yet and be forwarned that if you end up in the dungeons that the crust on the bread is moldy) that come to visit and discuss business. The floor is covered in ash, soot and who knows what other filth that is falling from the ceiling of the castle.
+
+The king and the chamberlain are here.
+
+> show chamber pot
+"My word, what is this?" asks King Bruno as you hold the chamber pot up to him.
+
+"My liege, it seems the Beast has already found passage inside of the castle!" replies Pestelhune.
+
+"Wait just a moment! Mmmmm!" says the King reaching into the chamber pot and removing the turd.
+
+"Sire what are you doing?" says Pestelhune.
+
+The King takes the turd and wipes it off. He then takes a big bite of the lump and chews on it.
+
+"My God!" replies Pestelhune in disgust.
+
+"I've not tasted white chocolate in a long time! What a treat this is! Would you like a nibble Pestelhune?" asks the King.
+
+"Is that what that is sire?" asks the chamberlain.
+
+"Absolutely. What looks like a mere lump of err, poo poo is a wonderment in pure delight. Nothing wrong with it. Just a bit dirty. Are you sure you don't want a bite?"
+
+"I'm sure your majesty. Trust me." replies Pestelhune.
+
+"Your loss, my gain!" says the King chewing on his lump of white chocolate.
+
+Pestelhune breathes a sigh of relief and shakes his head.
+
+"Good job you! Now back to the task at hand!" says the King waving you off.
+
+My bad. Looks like the turd was nothing more than a candy confection of pure bliss. I feel like a real s...uh, oops; a real turd! Sorry! (Ain't I a stinker?)
+
+> e
+I move east.
+
+Long Hall
+This is a long hall. It branches off in four basic directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle.
+
+(Pretty descriptive huh? After the earful you got earlier I thought making this location a bit smaller in text would cause you not to be cross with me. The hall may be long but the description doesn't have to be. Also, it may be well to point out that crossing your eyes too much can cause serious problems later.)
+
+> s
+I move south.
+
+The Chapel
+This is the castle chapel. Stained glass windows illuminate it's darkened apses and spread across the ceiling in grand splendor like a watercolor freshly painted. Unfortunately the chapel has not escaped the crumbling age of the castle. Clouds of ash float amongst the still air as they billow in still motionlessness. It almost looks like spectral images floating in the air. A length of pews line the center of the chapel from front to back down the center of the room. At the far end of the chapel is an ornate pedistal.
+
+Left guard, the bishop, right guard and an altar boy are here.
+
+> look at right guard
+He turns to the other guard and holds his finger out to him.
+
+"Pull my finger." says Deodorant to his friend.
+
+The other guard pulls his friend's finger, which in turn releases a blast of gas so massive the momentary silence is interrupted and a sound of splintering wood fills the chapel. It feels like the whole place shook. Both guards burst out in laughter. Clouds of ash fall into the center of the chapel.
+
+"You know a man who farts in church sits in his own pew!" replies Deodorant trying to keep his composure. Both guards bust out in uncontrollable laughter.
+
+The Bishop shakes his head as the altar boy starts to cover his mouth. Without warning, the boy runs into a confessional and starts to laugh wildly. The door of the confessional rattles as the boy does his best to stop laughing. After a few moments, the laughter dies down.
+
+"Bishop! Oh Bishop!" yells Deodorant.
+
+"Yes my son. What can I do for you?" replies the Bishop.
+
+"Bishop, I need to make a confession."
+
+"Yes my son, what would you like to confess?"
+
+"I confess I farted."
+
+The entire chapel is turned into a haven for laughter. It seems the fun never ends. The echoing of uncontrollable laughter rings throughout. The door to the confessional is bouncing wildly as screams of laughter from the child prevail. The two guards roll around not able to stop laughing. A puddle of urine comes out from the bottom of the confessional door. It seems you've entered the chapel at the "high time" of the day. It's too bad they don't serve drinks to go along with the sillyness that has befallen you. Of course this isn't an inn or bar so I guess you'll just have to make due. It would be fun though considering you could make a complete ass of yourself to go along with the goofyness that has befallen this chapel.
+
+"What is this world coming to? I can't believe you two aren't drunk yet either." says the Bishop shaking his head is disbelief.
+
+After a good 30 minutes, the altar boy comes back out of the confessional and returns to the side of the Bishop. The Bishop shakes a finger at the boy as the child blushes and tries to hide his composure from shame. The guards sit back up at the pew and try to behave as normal.
+
+> throw ash
+You throw the handful of ash into the air. The Beast has reared it's ugly head! The Jabberwock was nothing compared to this; it's stench is so foul that you are about pass out from lack of oxygen. A thin trail of smoke shows where the Beast has come from; it's the guard's rear end! Holy Mother of Mirth; even the Blessed Sisters of Misery could not tolerate this horrible and terrifying abomination!
+Everyone in the chapel runs out screaming in fear. You've found the terror that is sweeping the land and now what are you going to do about it? How will you capture it, contain it and then kill it? Now is the time to prove yourself!
+
+> open bellows
+You've managed to suck the entire creature into the bellows! It grumbles and growls as it does it's best to escape. You best figure out what to do next! What can you use to contain such a stenchful creature? Any ideas? I don't see a light bulb above your head so I'm assuming you're a dim bulb.
+
+> close bellows in wine bottle
+You blow the Beast from the bellows into the wine bottle! It snarls and sneers at such a silly move and begins to escape! What do you do now oh great and solemn hero?
+
+> cork wine bottle
+You cork the bottle to keep the Beast contained within. Good job, but now how will you destroy the Beast? Hmmmm? With your good looks? Your charm? If you believe that I can smell bull uh, some poo poo in the air around you. I can see little stink lines wafting off of you. The Altar Boy whispers to Left Guard. Both the Left Guard and the Altar Boy run into the bowls of the castle.
+"I've sent my friend to the king to tell him your amazing deed. You'll definately be rewarded. Thanks so such for saving us from the foul Beast that has escaped my ass. Hope you can kill that thing!" says Deodorant to you.
+The Bishop and Right Guard return to the chapel patting you on the back for your good deed. You might want to SHOW the WINE BOTTLE to the king so he knows of your progress!
+
+> n
+I move north.
+
+Long Hall
+This is a long hall. It branches off in four basic directions to other areas of the castle. Torches which are fastened to holders illuminate the dank, foul and crumbling castle.
+
+(Pretty descriptive huh? After the earful you got earlier I thought making this location a bit smaller in text would cause you not to be cross with me. The hall may be long but the description doesn't have to be. Also, it may be well to point out that crossing your eyes too much can cause serious problems later.)
+The beast has entered this area, raining death and destruction upon all whom cross it's path. The foul stench is beyond words, causing a meltdown not only to your person but your ego as well. Your nose hairs curl in disgust and flee higher inside your nostrils. The hair on the back of your neck stands at attention as if to say "yipe"!
+
+> e
+I move east.
+
+Grand Chamber
+This is the Grand Chamber; it's a welcoming room for those who come to visit the king and wish to relax while they wait. A massive fireplace which is aflame shoots and crackles burning embers into the high chimney. The heat is a bit overwhelming. Above the fireplace is a huge oil painting. A royal couch sits in the center of the room. Two other doors are located at the north and east side of the room. On top of the massive amounts of heat which blast out of the fireplace, clouds of soot, ash and plaster drop down from the darkness of the ceiling above coating everything you see.  Also here is (belly button) lint.
+
+The king, the chamberlain and an altar boy are here.  The beast has entered this area, raining death and destruction upon all whom cross it's path. The foul stench is beyond words, causing a meltdown not only to your person but your ego as well. Your nose hairs curl in disgust and flee higher inside your nostrils. The hair on the back of your neck stands at attention as if to say "yipe"!
+
+> show wine bottle
+"Oh my! You've captured the dreaded Beast so many have feared! I say I'm impressed!" says King Bruno.
+
+The Altar Boy is here and his eyes widen as you enter. He also has a big smile on his face as he opens his arms to you. Looks like he wants you to pick him up. The child "winks" at you again. The boy then shoves a finger into his nose, pulls out a nice sized booger and flicks it at the fireplace. It snaps and crackles as the fire eats it. Hmmmm...
+
+"Please destroy this foul creature before it's too late!" cries Pestelhune to you.
+
+"Yes! The last thing we need is a thousand of these foul things clogging up the castle with their stench!" says the King.
+
+> throw wine bottle in fireplace
+You throw the bottle into the fireplace. It breaks upon impact with the stone and the flames shoot across the room. That's a spicy meatball! The Beast that was contained within the bottle begins to howl in pain and with it's last stinky breath it curls up and twists into the darkness of the chimney. You've done it; you've killed the Beast!
+
+"Now for your payment." says Pestelhune as he picks up the Altar Boy and hands him to you.
+
+"This child has asked to be with you. He has no family and has taken quite a shine to you. It seems you have won the heart of one little boy. He's all yours now."
+
+The little Altar Boy covers you in kisses as he wraps his legs around you. "I'm Hennel. I love you." says the boy. Your reward is greater than you could imagine; you get to raise a boy and have a small family. You've never had a family so this will be the time for changes. The greatest gift is to be included and have a family, so now is your chance. Very well done hero!
+
+"Daddy!" says Hennel as he snuggles up against you.
+
+*** You have won ***
+That boy is me and this game is dedicated to my father, David P. Degelmann whom we lost in 2010 at the age of 66.
+
+I learned a LOT from my father:
+
+1. Money will NOT make you happy. Only you can make your own happiness. When you find it, hold on to it and NEVER let go of it.
+
+2. A higher education WILL NOT make you happier and it will not get you as far as you want. Do things ON YOUR OWN. DO NOT rely on a better education. Learn at your OWN pace.
+
+3. Don't choose your friends, let them come to you. Even if you have a single friend this is much better than having none, but always love yourself and treat yourself as a friend. YOU are what counts.
+
+4. No matter what or how many mistakes you make, someone will be there for you. For those who critize you, harass you and talk behind your back no matter who they are (so called friends or family members) let them live their lives in hatred or misery. Live your life in the present and look forward to the future. Let all the others live in the past; you learn from it.
+
+5. Spend as much time as you can with your friends or close family members. You'll find they care about you more than you could possibly know.
+
+6. Spend time in the world and ignore the stupidity of human beings. The best things in life ARE for free; sight, taste, smell, touch and hearing. Pay attention to the world around you and it will thank you someday. You'll also be thankful for the wonderful memories later in life.
+
+7. No matter what happens or what you do, I'll love you son. Thanks Dad. That means everything to me.
+
+Thank you Dad for being my Father. I will NEVER forget you for your charm, wit, your smarts, and for you just being you. There wasn't a day that went by that you didn't get me to laugh or anyone to laugh for that matter. You looked at life with love and laughter and for this I thank you once again. You never took life too seriously.
+
+You are sorely missed. You'll never be forgotten.
+
+With love; your son. (Hope you liked the game Dad.)
+
+(I wonder where I got my humor and wit from? YOU.)
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

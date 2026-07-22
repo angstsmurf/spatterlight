@@ -1,0 +1,37 @@
+# Back Alley -- the chamber pot and the ash
+e
+n
+n
+search garbage
+get chamber pot
+get ash
+# Winery -- the empty bottle
+s
+w
+search wine racks
+# Grand Chamber -- the bellows and the cork
+e
+s
+e
+get bellows
+search couch
+get cork
+close bellows
+# Throne Room -- show the king what the Beast leaves behind
+w
+w
+show chamber pot
+# Chapel -- pull the guard's finger, then flush the Beast out
+e
+s
+look at right guard
+throw ash
+# Trap it: bellows, then bottle, then cork -- one turn each
+open bellows
+close bellows in wine bottle
+cork wine bottle
+# Grand Chamber -- report to the king and burn the Beast
+n
+e
+show wine bottle
+throw wine bottle in fireplace

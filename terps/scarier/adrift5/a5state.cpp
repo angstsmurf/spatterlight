@@ -1052,30 +1052,29 @@ a5state_character_visible_at_location (const a5_state_t *st, int ci,
 {
   if (ci < 0 || lockey == NULL || st->char_loc == NULL)
     return 0;
-  /* A character INSIDE an openable, closed, opaque container is bound to the
-     container's key and thus visible at no room (clsCharacter.BoundVisible's
-     InObject branch) -- even though MoveCharacter InsideObject synced char_loc
-     to the container's room (see the sync in ExecuteSingleAction).  This must be
-     checked BEFORE the char_loc short-circuit below, or Dracula asleep in the
-     closed casket (October 31st) / coffin (Halloween) leaks an "is here" line. */
-  if (st->char_onobj != NULL && st->char_onobj[ci] != NULL
-      && st->char_in != NULL && st->char_in[ci]
-      && obj_hides_contents (st, a5state_object_index (st, st->char_onobj[ci])))
-    return 0;
-  if (st->char_loc[ci] != NULL)
-    return streq (st->char_loc[ci], lockey);
+  /* On/In an object: the runner never consults the character's own location for
+     this -- clsCharacter.BoundVisible (clsCharacter.vb:711) hands straight off
+     to the CONTAINER's BoundVisible, so the room is derived live.  That has to
+     beat the char_loc short-circuit below, because char_loc is only a snapshot
+     taken when the character was put in the object (the sync in
+     ExecuteSingleAction, which mirrors clsCharacterLocation.LocationKey's
+     sLastLocationKey stickiness) and goes stale the moment the container is
+     carried elsewhere: Jabberwocky's Beast, sealed in the wine bottle in the
+     chapel, is "here" in every room you carry the bottle into. */
   if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
     {
       int oi = a5state_object_index (st, st->char_onobj[ci]);
-      /* clsCharacter.BoundVisible's InObject branch (clsCharacter.vb:711): a
-         character inside an openable, closed, opaque container binds to the
-         container's own key, so it is visible at no room (Halloween's Dracula
-         asleep in the closed coffin gets no "is here" line).  On-object
-         characters inherit the carrier's BoundVisible unconditionally. */
+      /* A character inside an openable, closed, opaque container binds to the
+         container's own key instead, so it is visible at no room (Halloween's
+         Dracula asleep in the closed coffin, October 31st's casket, get no "is
+         here" line).  On-object characters inherit the carrier's BoundVisible
+         unconditionally. */
       if (st->char_in != NULL && st->char_in[ci] && obj_hides_contents (st, oi))
         return 0;
       return exists_at (st, oi, lockey, 0, 1, 0);
     }
+  if (st->char_loc[ci] != NULL)
+    return streq (st->char_loc[ci], lockey);
   /* "On Character"/"In Character": a rider inherits the carrier's BoundVisible
      unconditionally (Edith on the Player is visible wherever the Player is). */
   if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
