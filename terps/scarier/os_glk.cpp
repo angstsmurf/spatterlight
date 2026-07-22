@@ -1274,6 +1274,17 @@ gsc_status_print (void)
 static void
 gsc_status_notify (void)
 {
+  if (gsc_is_a5)
+    {
+      /* ADRIFT 5 games have no scare game state, so both v4 renderers would
+         ask scr_* about a NULL game and paint "[invalid game]".  os_confirm()
+         reaches here for the shared hint display and the quit/restart
+         prompts, which both engines use. */
+      if (gsc_a5_run)
+        gsc_a5_status (gsc_a5_run);
+      return;
+    }
+
   if (gsc_status_window)
     gsc_status_update ();
   else
@@ -2014,6 +2025,64 @@ gsc_header_string (const char *message)
 
 
 /*
+ * gsc_copy_string()
+ *
+ * strdup() that passes NULL through rather than crashing on it; hint strings
+ * are NULL when the game leaves them empty.
+ */
+static char *
+gsc_copy_string (const char *string)
+{
+  return string ? strdup (string) : NULL;
+}
+
+
+/*
+ * gsc_hint_present()
+ *
+ * Offer one hint: pop the question, then each of its two answers behind its
+ * own confirm, the subtle nudge before the sledgehammer.  Returns FALSE when
+ * the player turned an answer down, which is what the callers' refusal count
+ * measures; turning the subtle answer down skips this hint's sledgehammer too.
+ *
+ * Both engines' hint displays funnel through here, so the ADRIFT 4 hints
+ * (task Question/Hint1/Hint2, reached by the game's own "hints" command) and
+ * the ADRIFT 5 ones (clsHint, reached by "glk hints") cannot drift apart.
+ *
+ * All three strings must stay valid for the whole call; see os_display_hints
+ * for why that is not free on the ADRIFT 4 side.
+ */
+static int
+gsc_hint_present (const char *question, const char *subtle,
+                  const char *unsubtle)
+{
+  gsc_normal_char ('\n');
+  gsc_standout_string (question);
+  gsc_normal_char ('\n');
+
+  if (subtle)
+    {
+      if (!os_confirm (GSC_CONF_SUBTLE_HINT))
+        return FALSE;
+      gsc_normal_char ('\n');
+      gsc_standout_string (subtle);
+      gsc_normal_string ("\n\n");
+    }
+
+  if (unsubtle)
+    {
+      if (!os_confirm (GSC_CONF_UNSUBTLE_HINT))
+        return FALSE;
+      gsc_normal_char ('\n');
+      gsc_standout_string (unsubtle);
+      gsc_normal_string ("\n\n");
+    }
+
+  return TRUE;
+}
+
+
+/*
  * os_display_hints()
  *
  * This is a very basic hints display.  In mitigation, very few games use
@@ -2031,7 +2100,8 @@ os_display_hints (scr_game game)
   for (hint = scr_get_first_game_hint (game);
        hint; hint = scr_get_next_game_hint (game, hint))
     {
-      const scr_char *hint_question, *hint_text;
+      const scr_char *unsubtle;
+      char *question, *subtle;
 
       /* If enough refusals, offer a way out of the loop. */
       if (refused >= GSC_HINT_REFUSAL_LIMIT)
@@ -2041,39 +2111,21 @@ os_display_hints (scr_game game)
           refused = 0;
         }
 
-      /* Pop the question. */
-      hint_question = scr_get_game_hint_question (game, hint);
-      gsc_normal_char ('\n');
-      gsc_standout_string (hint_question);
-      gsc_normal_char ('\n');
+      /* All three getters hand back the same buffer, refilled -- SCARE's
+         run_get_hint_common() notes its return is "valid only until the next
+         hint call" -- so the first two have to be copied before the fetch
+         that overwrites them.  Print without copying and the question comes
+         out as whatever the sledgehammer left behind.  The last fetch has
+         nothing after it, so it can be used where it lies. */
+      question = gsc_copy_string (scr_get_game_hint_question (game, hint));
+      subtle = gsc_copy_string (scr_get_game_subtle_hint (game, hint));
+      unsubtle = scr_get_game_unsubtle_hint (game, hint);
 
-      /* Print the subtle hint, or on to the next hint. */
-      hint_text = scr_get_game_subtle_hint (game, hint);
-      if (hint_text)
-        {
-          if (!os_confirm (GSC_CONF_SUBTLE_HINT))
-            {
-              refused++;
-              continue;
-            }
-          gsc_normal_char ('\n');
-          gsc_standout_string (hint_text);
-          gsc_normal_string ("\n\n");
-        }
+      if (!gsc_hint_present (question, subtle, unsubtle))
+        refused++;
 
-      /* Print the less than subtle hint, or on to the next hint. */
-      hint_text = scr_get_game_unsubtle_hint (game, hint);
-      if (hint_text)
-        {
-          if (!os_confirm (GSC_CONF_UNSUBTLE_HINT))
-            {
-              refused++;
-              continue;
-            }
-          gsc_normal_char ('\n');
-          gsc_standout_string (hint_text);
-          gsc_normal_string ("\n\n");
-        }
+      free (question);
+      free (subtle);
     }
 }
 
@@ -3030,6 +3082,137 @@ gsc_command_license (const char *argument)
 }
 
 
+/*
+ * gsc_a5_hint_text()
+ *
+ * Render one of a clsHint's answer blocks (<Subtle>/<Sledgehammer>) to plain
+ * text, or NULL when the game leaves it empty -- an author who wrote only a
+ * subtle nudge should not be asked about a blank sledgehammer.  The caller
+ * owns the returned string.
+ */
+static char *
+gsc_a5_hint_text (a5_state_t *st, const a5_xml_node_t *wrapper)
+{
+  char *text;
+
+  if (wrapper == NULL)
+    return NULL;
+
+  text = a5text_describe (st, wrapper);
+  if (text != NULL && text[strspn (text, " \t\n\r")] == '\0')
+    {
+      free (text);
+      return NULL;
+    }
+  return text;
+}
+
+
+/*
+ * gsc_a5_display_hints()
+ *
+ * The ADRIFT 5 hints display.  The runner keeps clsHint out of the parser
+ * altogether and puts it behind a Hints window on the menu bar, so there is no
+ * game command to collide with; here it hangs off "glk hints" instead, which
+ * also leaves the ~40% of ADRIFT 5 games that implement a HINT task of their
+ * own free to answer a bare "hint" themselves.
+ *
+ * A hint carries its own restriction block, which is how an author keeps the
+ * list to the puzzles actually in play; hints whose block fails are passed
+ * over exactly as though they were not there.
+ */
+static void
+gsc_a5_display_hints (void)
+{
+  a5_state_t *st = a5run_state (gsc_a5_run);
+  int index_, refused, offered;
+
+  refused = 0;
+  offered = 0;
+  for (index_ = 0; index_ < gsc_a5_adv->n_hints; index_++)
+    {
+      const a5_hint_t *hint = &gsc_a5_adv->hints[index_];
+      char *subtle, *sledgehammer;
+
+      if (!a5restr_pass (st, hint->restrictions))
+        continue;
+
+      subtle = gsc_a5_hint_text (st, hint->subtle);
+      sledgehammer = gsc_a5_hint_text (st, hint->sledgehammer);
+
+      /* Games ship half-finished hints -- an editor row with an empty question
+         and neither answer written (Death Shack's Hint2, Blender's Hint2).
+         There is nothing to ask about, so pass over them silently rather than
+         prompt against a blank heading. */
+      if ((hint->question == NULL || hint->question[0] == '\0')
+          && subtle == NULL && sledgehammer == NULL)
+        continue;
+
+      /* If enough refusals, offer a way out of the loop. */
+      if (refused >= GSC_HINT_REFUSAL_LIMIT)
+        {
+          if (!os_confirm (GSC_CONF_CONTINUE_HINTS))
+            {
+              free (subtle);
+              free (sledgehammer);
+              break;
+            }
+          refused = 0;
+        }
+
+      /* clsHint.Question is a plain String, not a Description: it is shown as
+         the author typed it, with no segment selection or ALR pass. */
+      if (!gsc_hint_present (hint->question ? hint->question : "", subtle,
+                             sledgehammer))
+        refused++;
+      offered++;
+
+      free (subtle);
+      free (sledgehammer);
+    }
+
+  if (offered == 0)
+    gsc_normal_string ("There are currently no hints available.\n");
+}
+
+
+/*
+ * gsc_command_hints()
+ *
+ * Show the game's built-in hints, if it has any.
+ */
+static void
+gsc_command_hints (const char *argument)
+{
+  assert (argument);
+
+  if (gsc_is_a5)
+    {
+      if (gsc_a5_run == NULL || gsc_a5_adv == NULL || gsc_a5_adv->n_hints == 0)
+        {
+          gsc_normal_string ("This game does not have any hints.\n");
+          return;
+        }
+      gsc_a5_display_hints ();
+      return;
+    }
+
+  /* ADRIFT <=4 hints hang off tasks, and the game's own "hints" command is
+     the usual way in; this is the same display, for the player who reached
+     for the Glk command instead.  scr_get_first_game_hint filters to the
+     hints currently in play, so an empty iteration is the "not yet" case
+     rather than a game without hints. */
+  if (gsc_game == NULL)
+    return;
+  if (scr_get_first_game_hint (gsc_game) == NULL)
+    {
+      gsc_normal_string ("There are currently no hints available.\n");
+      return;
+    }
+  os_display_hints (gsc_game);
+}
+
+
 /* Glk subcommands and handler functions. */
 typedef const struct
 {
@@ -3098,6 +3281,11 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
    "zoom",                        GSC_USAGE_ZOOM},
   {"commands",       gsc_command_commands,       TRUE,  TRUE,  FALSE,
    "commands",                    GSC_USAGE_ONOFF},
+  /* No "hint" alias row: the dispatcher matches on prefix, so a second entry
+     would make "glk hint" match two rows and report itself as ambiguous.  As
+     a bare prefix of the sole "hints" row it already resolves. */
+  {"hints",          gsc_command_hints,          FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
   {"license",        gsc_command_license,        FALSE, TRUE,  FALSE,
    NULL,                          NULL},
   {"help",           gsc_command_help,           TRUE,  TRUE,  FALSE,
@@ -3186,6 +3374,7 @@ gsc_command_summary (const char *argument)
             || entry->handler == gsc_command_help
             || entry->handler == gsc_command_map
             || entry->handler == gsc_command_zoom
+            || entry->handler == gsc_command_hints
             || entry->is_alias
             || !gsc_command_in_scope (entry))
         continue;
@@ -3480,6 +3669,24 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to disable all Glk commands, including this one."
                          "  Once turned off, there is no way to turn Glk"
                          " commands back on while inside the game.\n");
+    }
+
+  else if (matched->handler == gsc_command_hints)
+    {
+      gsc_normal_string ("Shows the hints the game's author wrote, as the"
+                         " ADRIFT Runner's Hints window does.\n\nEach hint"
+                         " asks its question first, then offers a subtle"
+                         " answer and, after that, one that simply tells you;"
+                         " answer ");
+      gsc_standout_string ("N");
+      gsc_normal_string (" to either and the next hint comes up.  Only the"
+                         " hints for puzzles you have reached are listed.\n\n");
+      gsc_standout_string ("glk hint");
+      gsc_normal_string (" abbreviates to the same command.  Many games answer"
+                         " a plain ");
+      gsc_standout_string ("hint");
+      gsc_normal_string (" with hints of their own, which are a different"
+                         " thing and are worth trying too.\n");
     }
 
   else if (matched->handler == gsc_command_license)

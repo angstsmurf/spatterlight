@@ -180,6 +180,16 @@ class Driver:
             self.arrange_pending = False
             self.reply(EVTARRANGE, payload=self.settings)
         elif self.line_peer is not None and self.script:
+            # A "key:" answer left over when a LINE is what is wanted means the
+            # script and the terp have drifted apart; drop it noisily rather
+            # than type "key:y" into the game.
+            while self.script and self.script[0].startswith("key:"):
+                self.log.append("[stray %s dropped: a line was requested]"
+                                % self.script.pop(0))
+            if not self.script:
+                self.log.append("[script done: EVTQUIT]")
+                self.reply(EVTQUIT)
+                return
             text = self.script.pop(0)
             self.log.append("> " + text)
             data = text.encode("utf-16-le")
@@ -195,7 +205,16 @@ class Driver:
         elif self.char_peer is not None:
             peer = self.char_peer
             self.char_peer = None
-            self.reply(EVTKEY, peer, 32)   # space
+            # A script entry "key:X" answers this char request with X; anything
+            # else is left for the next line request and the keypress defaults
+            # to space, which is what a "press any key" pause wants.  Y/N
+            # confirms (the hint display, quit/restart) need the real letter.
+            code = 32
+            if self.script and self.script[0].startswith("key:"):
+                spec = self.script.pop(0)[len("key:"):]
+                code = ord(spec) if len(spec) == 1 else int(spec)
+                self.log.append("key> " + spec)
+            self.reply(EVTKEY, peer, code)
         elif self.timer:
             self.reply(EVTTIMER)
         elif block == 0:

@@ -775,6 +775,30 @@ a5_load_udfs (a5_adventure_t *a)
 }
 
 static void
+a5_load_hints (a5_adventure_t *a)
+{
+  a5_xml_node_t *c;
+  int i = 0;
+  a->n_hints = a5xml_count (a->root, "Hint");
+  if (a->n_hints == 0)
+    return;
+  a->hints = (a5_hint_t *) calloc ((size_t) a->n_hints, sizeof *a->hints);
+  for (c = a->root->first_child; c != NULL; c = c->next)
+    {
+      a5_hint_t *h;
+      if (strcmp (c->name, "Hint") != 0)
+        continue;
+      h = &a->hints[i++];
+      h->node = c;
+      h->key = a5xml_child_text (c, "Key");
+      h->question = a5xml_child_text (c, "Question");
+      h->subtle = a5xml_child (c, "Subtle");
+      h->sledgehammer = a5xml_child (c, "Sledgehammer");
+      h->restrictions = a5xml_child (c, "Restrictions");
+    }
+}
+
+static void
 a5_load_filemappings (a5_adventure_t *a)
 {
   a5_xml_node_t *fm, *c;
@@ -1037,6 +1061,7 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a5_apply_group_properties (a);
   a5_load_alrs (a);
   a5_load_udfs (a);
+  a5_load_hints (a);
   a5_load_synonyms (a);
   a5_load_filemappings (a);
   a5model_build_key_index (a);
@@ -1455,6 +1480,7 @@ a5model_free (a5_adventure_t *a)
   free (a->propdefs);
   free (a->alrs);
   free (a->udfs);
+  free (a->hints);
   for (i = 0; i < a->n_synonyms; i++)
     free ((void *) a->synonyms[i].from);
   free (a->synonyms);

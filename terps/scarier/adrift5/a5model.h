@@ -261,6 +261,22 @@ typedef struct a5_udf_s {
   const a5_xml_node_t *node;
 } a5_udf_t;
 
+/* <Hint> (clsHint): one author-written question with two answers -- a subtle
+   nudge and a "sledgehammer" that just tells you -- gated by the hint's own
+   restriction block, so a hint only offers itself once its puzzle is live.
+   The Question is a plain String property (clsHint.sQuestion), not a
+   Description; only the two answers are restricted-description blocks.
+   The runner reaches these through a GUI hints window rather than a command,
+   so the port drives them from "glk hints" (os_glk gsc_a5_display_hints). */
+typedef struct a5_hint_s {
+  const char *key;
+  const char *question;               /* <Question> plain text                */
+  const a5_xml_node_t *subtle;        /* <Subtle> wrapper, or NULL            */
+  const a5_xml_node_t *sledgehammer;  /* <Sledgehammer> wrapper, or NULL      */
+  const a5_xml_node_t *restrictions;  /* <Restrictions>, or NULL (= always)   */
+  const a5_xml_node_t *node;
+} a5_hint_t;
+
 /* <Synonym>: a global word/phrase substitution applied to the player's raw
    input before task matching (clsUserSession.EvaluateInput's synonym loop).
    Several <From> phrases (often duplicated in the XML) map to one <To>
@@ -329,6 +345,7 @@ typedef struct a5_adventure_s {
   a5_propdef_t   *propdefs;   int n_propdefs;
   a5_alr_t       *alrs;       int n_alrs;
   a5_udf_t       *udfs;       int n_udfs;
+  a5_hint_t      *hints;      int n_hints;
   a5_filemap_t   *filemaps;   int n_filemaps;
   a5_synonym_t   *synonyms;   int n_synonyms;
 
