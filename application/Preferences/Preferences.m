@@ -2113,10 +2113,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
     _chooseLibraryButton.enabled = on;
 
     LibraryOrganizer *org = [LibraryOrganizer sharedOrganizer];
+    NSURL *defaultRoot = org.defaultLibraryRootURL;
     NSURL *custom = org.customLibraryURL;
-    NSURL *root = custom ?: org.defaultLibraryRootURL;
+    NSURL *root = custom ?: defaultRoot;
     NSString *path = root.path.stringByAbbreviatingWithTildeInPath;
-    if (!custom)
+    // Also treat a custom location that points at the default folder as default.
+    if ([root.path isEqualToString:defaultRoot.path])
         path = [path stringByAppendingString:NSLocalizedString(@" (default)", nil)];
     _libraryLocationField.stringValue = path ?: @"";
     _libraryLocationField.toolTip = root.path;
