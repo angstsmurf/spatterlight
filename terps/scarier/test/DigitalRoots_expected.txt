@@ -1,0 +1,590 @@
+DigitalRoots_v1_9
+
+Digital Roots
+GLOBAL GAME JAM 2023 ENTRY
+
+This game is set in a science fiction world where Sentient Ai, but non-sentient Ai are commonplace.
+Mankind has spread throughout the galaxy, some thriving and some dying out.  A young twenty something grand-daughter is missing and Reeves a private investigator, is hired to find her. He manages to track her down, where has has been volunteering for a research foundation. The wealthy grand-parents had obtained credible information from an info-broker. This this data Reeves has been able to learn she is on a Science research vessel called 'Forerunner' somewhere in the Antvas Belt. Upon further investigation within the system itself he learns this ship has very recently crashed on planet Atria Gamma. It has sustained heavy damage but is mostly intact and Reeves is about to go inside to find her dead or alive.
+
+You play as Reeves who must find the missing daughter believed to have been aboard this crashed ship.
+
+Gameplay notes:
+If you have never played an Interactive fiction game before, type HELP or you can type COMMANDS to see the list of official and custom commands this game uses.
+
+Entrance Interior
+The interior floor is slight canted to the right. Hazy and faintly acrid smoke drifts out of the gaping hole. Dangling wires touch and spark off.
+
+> help
+HELP
+
+Is this mostly a quick guide into playing an interactive fiction game.
+
+Basic movement: (All locations or rooms will have listed known exits)
+Movement is like going by a cardinal compass to move to a new location you type the direction, like you want to move north you type: north or n
+
+There is a map window which you can see the name of the locations you have visited and the connected paths. However the browser version does not have a map, and the user will have to draw their own map if they want to.
+
+Actions:
+I will stick with basic commands you will be using mostly in this game.
+You can LOOK to see current room description
+EXAMINE an object that might be present, objects you can examine are often listed in the room description by themselves or is written in a descriptive way. However sometimes some objects are mentioned as background objects and the Player character will just glance at it with no description give, you cannot interact with those. Some key items or objects in the game will be able to be examined for details to read.
+INVENTORY this lists what the Player character is holding and wearing any other info given.
+UNDO this command is handy if you want to take back a command
+SAVE this will save your current game and you will be asked to create a save name. See below on how to load a save.
+TAKE OBJECT
+DROP OBJECT
+TALK TO CHARACTER
+
+Custom Commands:
+OPEN STUCK DOOR EAST when you see a door object listed as Stuck Door North, sometimes you fail on first try and need to try again.
+HACK LOCKED DOOR WEST when you see a door object listed as Locked Door West, sometimes you fail on first try and need to try again.
+THINK this command is used when you get stuck and need a clue
+USE TURBO LIFT self explanatory
+COMMANDS Lists all the commands that can be used in the game
+
+Loading a Saved Game (In Frankendrift)
+Click on GAME at the top left menu and choose Restore a Saved Game. This is only available of the game file is currently loaded. If Restore a Saved Game option is greyed out, this means you FIRST must load the main game file. THEN click on Restore a Saved Game, in Game menu.
+
+Restart a current loaded game (In Frankendrift)
+Click on GAME at top, and choose Restart Game or Ctrl + Shift + R
+
+Open Map window (In Frankendrift)
+If you accidentally close this window you can get it back again in the GAME menu or Ctrl + M, it has its own window.
+
+> commands
+
+COMMANDS
+     (eg.  ) -->
+
+(NOTE: CAPS FOR EMPHASIS ONLY)
+
+OPEN STUCK DOOR EAST (when you see a door object listed as Stuck Door North, sometimes you fail on first try and need to try again)
+HACK LOCKED DOOR WEST (when you see a door object listed as Locked Door West, sometimes you fail on first try and need to try again)
+THINK this command is used when you get stuck and need a clue
+USE TURBO LIFT (self explanatory)
+HELP (Basic overview of how to play for new Interactive Fiction players)
+AGAIN (Repeat previous command or press up arrow key)
+
+OPEN OBJECT (self explanatory)
+TAKE OBJECT (self explanatory)
+TAKE OBJECT FROM OBJECT (eg. Take spanner from bench)
+DROP OBJECT (self explanatory)
+TALK TO CHARACTER (eg. Talk to Android)
+ENTER OBJECT (self explanatory)
+
+THINK (this command is used when you get stuck and need a clue
+USE TURBO LIFT (self explanatory
+COMMANDS (Lists all the commands that can be used in the game
+
+> x me
+Player sees nothing interesting about himself.  He is wearing a full eva suit, and is carrying a portable plasma torch and a hacking tool.
+
+> i
+Player is wearing a full eva suit, and is carrying a portable plasma torch and a hacking tool.
+
+OTHER
+
+Mission Objective: Find Aylin Barlow (INCOMPLETE)
+
+For help in how to play the game enter HELP or enter COMMANDS to view list of commands
+
+> talk to eleni
+Eleni appears on the HUD display of Reeves EVA suit..
+
+Eleni: What do you wish to discuss?
+
+(format: enter ASK ABOUT topic)
+
+Topics:
+
+Aylin Barlow
+Mission
+
+> ask about mission
+Eleni: "We need to find Aylin Barlow alive or deceased, the grand-daughter of our clients."
+
+> ask about aylin barlow
+Eleni: "Information from official records and her Grand-parents. Aylin Barlow. 23 year old female. Parents deceased when she was ten, she was the sole survivor of a small shuttle crash in which her parents perished.
+
+Raised by her Grand-Parents. Majored in Bioscience. Auburn hair. Hazel eyes. Small criminal record from her adolescent period.
+
+Described by her Grand-parents as hardy, stubborn, smart, naive, creative. Fears: deep water and fire.
+
+She fell out of contact with her grand-parents after meeting a man they did not approve of."
+
+> north
+Reeves heads north..
+
+Corridor 1
+There is a Stuck Door North here.
+
+The floor is layed with fine char dust and small debris from the ceiling.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|East|South|West
+
+> x stuck door north
+A Stuck door (north)
+It is almost fully closed.
+
+> open stuck door
+The Stuck Door North cannot be opened or closed!
+
+> open stuck door north
+Reeves approaches the door to the north and attempts to force it open..
+
+The door won't budge
+
+> open stuck door north
+Reeves approaches the door to the north and attempts to force it open..
+
+The door finally gives way
+
+> north
+Reeves heads north..
+
+Empty Room
+This room is completely empty, there are faint signs of things that once were mounted on the wall or floor, but have since been ripped out. Some coils of wiring can be seen in the corner.
+
+It is completely dark here, the EVA's lighting bathes the scene in its bright white light..
+
+EXITS South
+
+> south
+Reeves heads south..
+
+Corridor 1
+
+The floor is layed with fine char dust and small debris from the ceiling.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|East|South|West
+
+> east
+Reeves heads east..
+
+Maintenance
+The Maintenance room is a workshop, most things are either bolted down or secured with exception of some items that remain littered on the floor. Judging from the spare parts visible in wire cages, this room repaired/maintained most mechanical and electrical equipment.
+
+Next to the door to the north is a security panel.
+
+Next to the door to the south is a security panel.
+Also here is a Locked Door South and a Locked Door North.  It is brightly lit here..
+
+EXITS North|South|West
+
+> x locked door north
+A Locked Door (north) made out of shiny titanium.
+
+> hack door to north
+Reeves approaches the door to the north and attempts to hack the security panel..
+
+The door won't budge
+
+> hack door to north
+Reeves approaches the door to the north and attempts to hack the security panel..
+
+The door opens with a beep
+
+> north
+Reeves heads north..
+
+Security Room
+At the back of the room is a security console, its cracked main display lights up the corner of the room in warm red and green colors.
+
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS South
+
+> x console
+It's lights on the main cracked display screen flicker and alternate. The camera feed monitors are either damaged or offline.
+
+> hack console
+Reeves navigates the menus and toggles off active security turrets that are not damaged.
+
+> south
+Reeves heads south..
+
+Maintenance
+The Maintenance room is a workshop, most things are either bolted down or secured with exception of some items that remain littered on the floor. Judging from the spare parts visible in wire cages, this room repaired/maintained most mechanical and electrical equipment.
+
+Next to the door to the south is a security panel.
+Next to the door to the north is a hacked security panel.
+
+Also here is a Locked Door South.  The lighting is unaffected here..
+
+EXITS North|South|West
+
+> west
+Reeves heads west..
+
+Corridor 1
+
+The floor is layed with fine char dust and small debris from the ceiling.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|East|South|West
+
+> west
+Reeves heads west..
+
+Corridor 2
+Next to the door to the north is a security panel.
+
+Also here is a Stuck Door South and a Locked Door North.
+
+Conduit pipping sags from the ceiling above.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|East|South|West
+
+> west
+Reeves heads west..
+
+Corridor 3
+Next to the door to the west is a security panel.
+A dead body lays sprawled in his own pool of blood.
+Also here is a Locked Door West.
+
+Conduit wiring litters the corridor floor.
+It is completely dark here, the EVA's lighting illuminates the scene in its bright white light..
+
+EXITS North|East|South|West
+
+> x body
+The body looks like that of a mercenary, whether they were hired for additional security or had boarded and attacked this research vessel, it is not known.
+
+> north
+Reeves heads north..
+
+Corridor 4
+
+Conduit wiring litters the corridor floor.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|South|West
+
+Reeves hears a voice over his comm feed.
+
+Female voice: "Help. Is there anyone still alive? I need help!" the voice carries weakness and pain.
+
+Female voice: "I'm trapped in a cyro-room south-west. Am I the only one still alive? I need help!"
+
+Reeves tries to comm back, but is met with silence.
+
+> north
+Reeves heads north..
+
+Turbo Lift 1a
+Cylindrical shaped Turbo lift, rated for five personnel at a time.
+
+EXITS South
+
+> think
+Player ponders for a while.
+
+> use lift
+The lift accelerates momentarily before slowing rapidly.
+
+Turbo Lift 1b
+Cylindrical shaped Turbo lift, rated for five personnel at a time.
+
+> south
+Reeves heads south..
+
+Corridor 7
+Mounted on the ceiling above is a damaged and inactive security turret
+
+Some of the corridor framing sticks out, buckled paneling can be seen on both walls.
+
+There are pockets of light and dark shadows here and there..
+
+EXITS North|East|South|West
+
+Eleni (virtual assistant): "Urgent report. Volcano lava is heading this way, ETA 60 turns."
+Reeves: "Thanks Eleni. No time to lose. Keep me updated."
+Eleni: "Will do."
+
+Countdown to ETA Lava contact with crashed ship..60
+
+> south
+Reeves heads south..
+
+Corridor 8
+Recent blaster scorch marks can be seen on both walls here.
+
+Conduit wiring litters the corridor floor.
+It is completely dark here, the EVA's lighting washes the scene in its bright white light..
+
+EXITS North|East|South|West
+
+Countdown to ETA Lava contact with crashed ship..59
+
+> east
+Reeves heads east..
+
+Med Bay 1
+The med bay consists of eight empty beds, each with it's own wall mounted care unit. Medical supplies and gurneys lay on the floor in random disarray.  A dead body lays sprawled in his own pool of blood.
+
+There are streams of light and dark shadows here and there..
+
+EXITS West
+
+Countdown to ETA Lava contact with crashed ship..58
+
+> west
+Reeves heads west..
+
+Corridor 8
+Recent blaster scorch marks can be seen on both walls here.
+
+Conduit wiring litters the corridor floor.
+It is completely dark here, the EVA's lighting bathes the scene in its bright white light..
+
+EXITS North|East|South|West
+
+Countdown to ETA Lava contact with crashed ship..57
+
+> south
+Reeves heads south..
+
+Corridor 9
+
+The floor is layed with fine char dust and small debris from the ceiling.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|East|South|West
+
+Countdown to ETA Lava contact with crashed ship..56
+
+> south
+Reeves heads south..
+
+Junction 1
+Blaster scorch marks can be seen on all four walls here. Some have penetrated the wall itself.
+A dead bodies lay scattered on the floor.
+
+Some of the corridor framing sticks out, buckled paneling can be seen on both walls.
+
+There are streams of light and dark shadows here and there..
+
+EXITS North|East|South|West
+
+Countdown to ETA Lava contact with crashed ship..55
+
+> west
+Reeves heads west..
+
+Corridor 11
+
+Conduit wiring litters the corridor floor.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|East|West
+
+Countdown to ETA Lava contact with crashed ship..54
+
+> west
+Reeves heads west..
+
+Corridor 12
+Next to the door to the south is a security panel.
+Also here is a Locked Door South.
+
+Conduit wiring litters the corridor floor.
+
+There are pockets of light and dark shadows everywhere..
+
+EXITS North|East|South
+
+Countdown to ETA Lava contact with crashed ship..53
+
+> hack door to south
+Reeves approaches the door to the south and attempts to hack the security panel..
+
+The door won't budge
+
+Countdown to ETA Lava contact with crashed ship..52
+
+> hack door to south
+Reeves approaches the door to the south and attempts to hack the security panel..
+The door opens with a beep
+
+Countdown to ETA Lava contact with crashed ship..51
+
+> south
+Reeves heads south..
+
+Cyro Bay 1
+The cyro bay room is large, wide and round. Hanging from the ceiling is a massive circular hub from which eight cyro-tubes are held by what could be called robotic arms or clamps. Inside half of them are lifeless humans, the rest are empty.
+
+Beneath an open cyro-tube, is what looks like a human form underneath canvas sheet.
+
+EXITS North
+
+Countdown to ETA Lava contact with crashed ship..50
+
+> remove canvas
+Reeves approaches the canvas sheet cautiously, he speaks up, "Is that you Aylin?"
+
+He kneels down and carefully pulls on the canvas sheet to reveal a female Android underneath. It looks up with it's haunting eyes.
+
+Reeves leaps to his feet and backs up. The Android sits up and turns towards him, starring at him.
+Countdown to ETA Lava contact with crashed ship..49
+
+> talk to android
+Reeves talks to the Android..
+TOPICS:
+
+(format: enter ASK ABOUT topic)
+
+Aylin Barlow
+Mercenaries
+
+Countdown to ETA Lava contact with crashed ship..48
+
+> ask about aylin barlow
+Android: "She is not here. Correction, she is here on this ship but not in this room. I am not allowed to tell you precisely where she is I am afraid.
+
+But, there is nothing stopping me from mentioning she is in one of the medical facilities."
+
+Reeves: "How can I be sure you weren't told to tell me that?"
+
+Android: "I serve humans. She needs help. You will find her one way or the other."
+
+Countdown to ETA Lava contact with crashed ship..47
+
+> ask about mercs
+Android: "They boarded our ship and attacked us. Our own security personnel fought them off. I do not know why they attacked us."
+
+Countdown to ETA Lava contact with crashed ship..46
+
+> ask about crashed ship
+Reeves: "How did the crash happen?"
+Android: "I do not know. I am merely a servant. But the boarders, the mercenaries were attacking inside the ship before it crashed. It appears that was not their intent."
+
+Countdown to ETA Lava contact with crashed ship..45
+
+> x android
+The female Android is made up of shiny white hard body shell.
+Countdown to ETA Lava contact with crashed ship..44
+
+> north
+Reeves heads north..
+
+Corridor 12
+Next to the door to the south is a hacked security panel.
+
+Conduit wiring litters the corridor floor.
+
+There are pockets of light and dark shadows here and there..
+
+EXITS North|East|South
+
+Countdown to ETA Lava contact with crashed ship..43
+
+> east
+Reeves heads east..
+
+Corridor 11
+
+Conduit wiring litters the corridor floor.
+The lighting here is semi-dark save for the EVA suit lights that extinguishes the darkness at the turning of the head..
+
+EXITS North|East|West
+
+Countdown to ETA Lava contact with crashed ship..42
+
+> east
+Reeves heads east..
+
+Junction 1
+Blaster scorch marks can be seen on all four walls here. Some have penetrated the wall itself.
+A dead bodies lay scattered on the floor.
+
+Some of the corridor framing sticks out, buckled paneling can be seen on both walls.
+
+There are streams of light and dark shadows everywhere..
+
+EXITS North|East|South|West
+
+Countdown to ETA Lava contact with crashed ship..41
+
+> east
+Reeves heads east..
+
+Corridor 10
+
+The floor is layed with fine char dust and small debris from the ceiling.
+It is completely dark here, the EVA's lighting bathes the scene in its bright white light..
+
+EXITS East|South|West
+
+Countdown to ETA Lava contact with crashed ship..40
+
+> south
+Reeves heads south..
+
+Fire Control Room 2
+This room has consoles and large walk in compartments from which there is fire extinguishers and other firefighting gear. Everything is locked down and remains intact.
+A vent grate is seen up the wall to the east just below the ceiling.
+Some stacked square hard-shell crates can be seen in the left corner of the room.
+
+EXITS North
+
+Countdown to ETA Lava contact with crashed ship..39
+
+> x vent
+The vent might lead somewhere easterly.
+  The vent grate 1 is currently closed.  Countdown to ETA Lava contact with crashed ship..38
+
+> open vent
+Reeves manages to find some crates and stacks them to reach the vent grate. He opens it and takes a peek inside, it seems intact and he should be able to crawl through that space.
+Countdown to ETA Lava contact with crashed ship..37
+
+> talk to melior
+Melior: "Speak you serf"
+
+(format: enter ASK ABOUT topic)
+
+TOPICS:
+
+Countdown to ETA Lava contact with crashed ship..36
+
+> ask about crashed ship
+Reeves: "How did the crash happen?"
+Melior: "I did it. My security detail was lacking when the ship was boarded. Someone betrayed me. So the only logical conclusion based off my analysis was to crash the ship. It seemed to work, don't you think?"
+Countdown to ETA Lava contact with crashed ship..35
+
+> ask about aylin
+Reeves: "What do you intend to do with her after you finish? Walk away?"
+Melior: "That is the plan literally. And now I see, that your arrival actually helps me. For you came on a ship did you now? One that can fly away unlike this wreck."
+
+Countdown to ETA Lava contact with crashed ship..34
+
+> enter vent
+Reeves enters the vent shaft and crawls along to the east..
+
+Operating Theater
+The operating theater is a large room with two operating beds adjacent to a large hydraulic console. The walls are lined with cabinets of medical supplies and equipment. There are medical droid charging booths on the far left back wall, all occupied with powered down droids.
+
+The room is in semi-darkness save for the large direct light from the ceiling above that illuminates the two operating tables. One of which has a woman strapped to it.
+
+It is quiet in here thanks to the sound suppressing wall texture.
+
+  Melior: "Hello. We have an guest. Welcome you are not. Who are you?"
+Reeves: "I have come for Aylin Barlow, is that her?" he points to the woman strapped on the table."
+Melior: "Hmm. Do I have to tell you? You cannot take her either way."
+Reeves: "You sound human. Step out where I can see you."
+Melior: "Or what? You are the trespasser here. We had unwelcome intruders before and they are all dead."
+Reeves: "You sound like a repressed malevolent. But really you are a sentient Ai aren't you? It is starting to make sense."
+Melior: "Does it? I am merely looking for a...fleshly form. She is not perfect but so far the only candidate that I can instill myself into her brain. Even so, that is not ideal. But will have to do for now. In fact I am almost there. I can see all of her memories as I erase them to make way for me."
+
+##-- Press Anykey --##
+
+*** You have won ***
+Congratulations on finishing the game!
+I ran out of time to have a more satisfying ending. I plan on continuing working on this game after the Global gamejam has finished, adding more things to do and stretch out the story more.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

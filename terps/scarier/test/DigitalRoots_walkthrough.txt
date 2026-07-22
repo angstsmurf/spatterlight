@@ -1,0 +1,144 @@
+# Digital Roots -- a Global Game Jam 2023 entry (module name DigitalRoots_v1_9),
+# written over two days, 4-5 February 2023.
+#
+# Reeves, a private investigator, is looking for Aylin Barlow aboard the science
+# research vessel 'Forerunner', which has crashed on the volcanic planet Atria
+# Gamma.  Two decks of corridors, reached by one turbo lift; a lava flow starts
+# counting down the moment you step off the lift onto deck 2; and at the far end
+# of deck 2 an operating theater where the ship's sentient AI is busy writing
+# itself into the missing woman's brain.  Arriving there is the game's only
+# ending -- a Win, followed by the author's own note that he ran out of jam time
+# and means to finish the story later.
+#
+# WHAT THE MODULE ACTUALLY CONTAINS (from A5_DUMP_XML):
+#   * 45 locations, 27 objects, 4 characters, 45 variables, 95 authored tasks,
+#     one repeating turn event -- the lava clock;
+#   * doors are not exits but location groups.  A location carrying LocHasALoc*
+#     joins a LockedDoor* group, LocHasAStu* a StuckDoor* group, and eight
+#     Specific overrides on PlayerMovement (DENY/Allow per direction) turn the
+#     move into "The way north is blocked" while the group holds.  OPEN STUCK
+#     DOOR <dir> and HACK DOOR <dir> each roll rand(1,12) and only pass on 1-6,
+#     so the three failed rolls below are seed-bound, not bad luck of the draw;
+#   * the lava event ticks LavaCountd1 once a turn, but only while none of the
+#     HELP / COMMANDS / INVENTORY / talking-to-Eleni flags are set -- reading the
+#     menus really does stop the clock.
+#
+# THE CLOCK IS SHORTER THAN IT LOOKS.  CountDown2Lava starts at 60, and the task
+# that is meant to print "Warning: The Lava flow is now 25 turns away!!" carries
+# an EndGame Lose action the author left attached (so does the 10-turns-away
+# one).  So deck 2 is not 60 turns long, it is 35: at CountDown2Lava = 25 the
+# game simply ends in a loss, warning and all.  This route reaches the operating
+# theater with the counter at 34, three wasted door rolls included.
+#
+# THREE MORE AUTHOR SLIPS THE TRANSCRIPT SHOWS:
+#   * THINK is the game's advertised hint system, and it never runs.  The
+#     author's THINK task sits at priority 50043, behind the ADRIFT library's own
+#     THINK, so every THINK in the game prints "Player ponders for a while." and
+#     none of the four hints ("Enter USE LIFT", "Enter HACK CONSOLE", "Enter TALK
+#     TO ANDROID", "Enter OPEN VENT then ENTER VENT") is reachable.  Two of them
+#     are doubly unreachable: THINK - Parent only executes the lift and security
+#     room hints, never the cyro bay or fire control ones.
+#   * OPEN STUCK DOOR without a direction is caught by the library first --
+#     "The Stuck Door North cannot be opened or closed!" -- the custom task needs
+#     the direction word.
+#   * HACK CONSOLE in the security room switches every undamaged turret to
+#     inactive, and nothing anywhere reads that: the one task that tests
+#     TurretStat is titled "Turret 1 (Active) - Unused task" and is never
+#     executed.  The hack is done here because it is authored content, not
+#     because the walk needs it.
+#
+# MELIOR.  The sentient AI has three conversation topics, and meeting him ends
+# the game on arrival, so in normal play you can never use them.  TALK TO MELIOR
+# is a General task with no presence restriction at all and he is a Hidden
+# character, so the runner is happy to hold the conversation from anywhere on
+# the ship.  The three commands before ENTER VENT below are the only way to see
+# what he has to say -- that he crashed the ship himself, and what he means to do
+# with Aylin's body afterwards.
+#
+# Ground truth: 0 hunks in both modes.  The vanilla column pins Scarier's own
+# golden: every door roll and every <#oneOf()#> comes off the RNG, so stock
+# System.Random opens and jams different doors.
+
+# --- Deck 1: the two help screens the intro tells you to read ---
+help
+commands
+x me
+i
+
+# --- Eleni, the virtual assistant on the suit's HUD, has the case file ---
+talk to eleni
+ask about mission
+ask about aylin barlow
+
+# --- Corridor 1: the stuck-door mechanic, and the library beating the author ---
+north
+x stuck door north
+open stuck door
+open stuck door north
+open stuck door north
+north
+south
+
+# --- Maintenance and the security room: the hack-door mechanic, and a console
+#     whose effect nothing in the game ever reads ---
+east
+x locked door north
+hack door to north
+hack door to north
+north
+x console
+hack console
+south
+
+# --- West along deck 1, past a dead mercenary, to the lift ---
+west
+west
+west
+x body
+north
+north
+think
+use lift
+
+# --- Deck 2.  Eleni starts the lava clock the moment we step out ---
+south
+
+# --- Med Bay 1: the first of the ship's two medical facilities, and empty ---
+south
+east
+west
+
+# --- South-west to the cyro bay, behind a locked door ---
+south
+south
+west
+west
+hack door to south
+hack door to south
+south
+
+# --- The shape under the canvas is not Aylin ---
+remove canvas
+talk to android
+ask about aylin barlow
+ask about mercs
+ask about crashed ship
+x android
+
+# --- "One of the medical facilities" -- and Med Bay 1 was empty.  Back east to
+#     fire control 2, and up through the vent into the other one ---
+north
+east
+east
+east
+south
+x vent
+open vent
+
+# --- Melior's own topics, otherwise unreachable, since meeting him wins ---
+talk to melior
+ask about crashed ship
+ask about aylin
+
+# --- The operating theater ---
+enter vent

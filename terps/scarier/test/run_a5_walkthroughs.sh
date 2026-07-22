@@ -1267,6 +1267,26 @@ FILTER="${1:-}"
 # vanilla column pins Scarier's own golden; a direct FD-vanilla diff shows 8,
 # because System.Random deals a different board and the tuned route then walks
 # past a Wumpus that is somewhere else.
+# (2026-07-22) DigitalRoots WIRED at MATCH 0|0, golden-backed.  A Global Game
+# Jam 2023 entry written over two days: Reeves searches the crashed research
+# vessel 'Forerunner' for a missing woman, two decks joined by a turbo lift, with
+# doors modelled as location groups that eight PlayerMovement overrides block,
+# and OPEN STUCK DOOR <dir> / HACK DOOR <dir> each rolling rand(1,12) to pass on
+# 1-6 (so the three failed rolls in the script are seed-bound).  The 60-turn lava
+# clock is really a 35-turn one: the "Lava flow is now 25 turns away" warning
+# still carries the EndGame Lose action the author attached to it, and so does
+# the 10-turns-away one.  The 66-command route reaches the operating theater --
+# the module's only ending, a Win -- with the counter at 34.  It also documents
+# three author slips the transcript shows: THINK, the advertised hint system,
+# sits behind the library's own THINK and never runs (and its parent executes
+# only two of the four hints anyway); HACK CONSOLE deactivates every turret and
+# nothing reads that property, the only task that does being titled "Turret 1
+# (Active) - Unused task"; and Melior's three topics are unreachable in play
+# because meeting him wins the game, though TALK TO MELIOR has no presence
+# restriction and he is Hidden, so the conversation can be held from anywhere.
+# The vanilla column pins Scarier's own golden; a direct FD-vanilla diff shows
+# 62, because every door roll, every corridor description index and every
+# <#oneOf()#> comes off the RNG.
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1392,6 +1412,7 @@ SorryForYourLoss|Sorry For Your Loss.blorb|0|0
 Dreamspun|dreamspun 0.9.taf|0|0
 TheAwakeners|The Awakeners.taf|0|0
 Wumpus|Wumpus.taf|0|0
+DigitalRoots|DigitalRoots_v2.blorb|0|0
 EOF
 )
 
