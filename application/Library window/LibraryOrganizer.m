@@ -391,15 +391,46 @@ static const NSInteger kMaxDuplicateDirs = 20;
     return YES;
 }
 
-// Copies `sourceURL` and every file in its folder whose name (without
-// extension) matches, into `destDir`. Handles single-file games (just the one
-// file) and multi-file games such as AGT (.d$$ plus .da1, .da2 …).
+// The "disk set" key for a multi-disk game file, or nil if the name does not
+// look like one disk of a numbered set. Multi-disk disk-image games (e.g. the
+// Apple II Infocom titles) are split across files that share a name but for a
+// disk number following a "side"/"disk"/… word, such as "Zork Zero side 1.woz"
+// … "Zork Zero side 4.woz". The interpreters find the other sides by swapping
+// that digit (see terps/bocfel/z6/extract_apple_2.cpp), so we must keep the
+// whole set together. Replacing the digits with '#' yields a key shared by
+// every disk in the set. The keyword guard keeps genuinely different games
+// that merely carry a number (e.g. "Zork 1" vs "Zork 2") from being grouped.
+- (nullable NSString *)diskSetKeyForFilename:(NSString *)filename {
+    static NSRegularExpression *regex = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regex = [NSRegularExpression
+                 regularExpressionWithPattern:@"^(.*(?:side|disk|disc|part)[ _]*)[0-9]+(.*)$"
+                                      options:NSRegularExpressionCaseInsensitive
+                                        error:NULL];
+    });
+    NSString *lower = filename.lowercaseString;
+    NSTextCheckingResult *match =
+    [regex firstMatchInString:lower options:0 range:NSMakeRange(0, lower.length)];
+    if (!match)
+        return nil;
+    NSString *prefix = [lower substringWithRange:[match rangeAtIndex:1]];
+    NSString *suffix = [lower substringWithRange:[match rangeAtIndex:2]];
+    return [NSString stringWithFormat:@"%@#%@", prefix, suffix];
+}
+
+// Copies `sourceURL` and every file in its folder that belongs to the same
+// game, into `destDir`. A file belongs to the game when it shares the main
+// file's name without extension (AGT's .d$$ plus .da1, .da2 …; companion data
+// files; cover art) or when it is another disk of the same numbered set
+// (multi-disk .woz/.dsk games such as "Zork Zero side 1…4.woz").
 - (BOOL)copyGameFileAndSiblings:(NSURL *)sourceURL
                   intoDirectory:(NSURL *)destDir
                           error:(NSError **)outError {
     NSFileManager *fm = NSFileManager.defaultManager;
     NSURL *sourceDir = sourceURL.URLByDeletingLastPathComponent;
     NSString *stem = sourceURL.lastPathComponent.stringByDeletingPathExtension.lowercaseString;
+    NSString *diskSetKey = [self diskSetKeyForFilename:sourceURL.lastPathComponent];
 
     NSArray<NSURL *> *contents =
     [fm contentsOfDirectoryAtURL:sourceDir
@@ -415,7 +446,10 @@ static const NSInteger kMaxDuplicateDirs = 20;
             continue;
         NSString *itemStem = item.lastPathComponent.stringByDeletingPathExtension.lowercaseString;
         BOOL isMain = [item.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString];
-        if (!isMain && ![itemStem isEqualToString:stem])
+        BOOL sameStem = [itemStem isEqualToString:stem];
+        BOOL sameDiskSet = diskSetKey &&
+            [diskSetKey isEqualToString:[self diskSetKeyForFilename:item.lastPathComponent]];
+        if (!isMain && !sameStem && !sameDiskSet)
             continue;
 
         NSURL *target = [destDir URLByAppendingPathComponent:item.lastPathComponent];
