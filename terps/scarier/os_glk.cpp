@@ -4733,6 +4733,10 @@ gsc_main (void)
       /* The app resumes any interrupted sound and restores the graphics
          window pixels itself; the engine must not replay them. */
       scr_note_resources_synced (gsc_game);
+      /* ...and the blank line the engine prints before every prompt is in
+         the restored transcript too (the autosave was taken between it and
+         the prompt), so skip that one reprint as well. */
+      scr_note_autorestored ();
       glk_set_window (gsc_main_window);
       glk_set_style (style_Normal);
       gsc_autorestored = TRUE;

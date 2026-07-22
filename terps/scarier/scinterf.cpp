@@ -194,6 +194,11 @@ if_print_tag (scr_int tag, const scr_char *arg)
 }
 
 
+/* Set by scr_note_autorestored(), and cleared by the first prompt that
+   follows it; see if_read_line_common(). */
+static scr_bool if_autorestored = FALSE;
+
+
 /*
  * if_read_line_common()
  * if_read_line()
@@ -213,8 +218,16 @@ if_read_line_common (scr_char *buffer, scr_int length,
   /* Loop until valid player input is available. */
   do
     {
-      /* Space first with a blank line, and clear the buffer. */
-      if_print_character ('\n');
+      /* Space first with a blank line, and clear the buffer.  Not on the
+         first prompt after an autorestore: the restored transcript ends with
+         this blank line already, since the autosave was taken between it and
+         the prompt that follows (which the port skips for the same reason).
+         Printing it again would leave the input cursor a line below the
+         prompt it belongs to. */
+      if (if_autorestored)
+        if_autorestored = FALSE;
+      else
+        if_print_character ('\n');
       memset (buffer, NUL, length);
 
       is_line_available = read_line_function (buffer, length);
@@ -936,6 +949,22 @@ scr_note_resources_synced (scr_game game)
   game_->playing_sound = game_->requested_sound;
   game_->displayed_graphic = game_->requested_graphic;
   game_->stop_sound = FALSE;
+}
+
+
+/*
+ * scr_note_autorestored()
+ *
+ * Note that the display has been rebuilt from a snapshot taken at a prompt,
+ * so that the next prompt does not re-print the blank line that spaces it
+ * from the previous turn's text; that line is already in the restored
+ * transcript.  Used after a Spatterlight autorestore, where the port skips
+ * the prompt itself for the same reason.
+ */
+void
+scr_note_autorestored (void)
+{
+  if_autorestored = TRUE;
 }
 
 
