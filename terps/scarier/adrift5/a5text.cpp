@@ -311,10 +311,36 @@ location_long_desc (a5_state_t *st, const char *lockey)
 
 /* --------------------------------------------------------- object naming */
 
+/* An object whose Name/Prefix/Article is itself a %function% reference --
+   Dreamspun's dream pearl is literally named "%dreamtext[%dreamRNG%]%", so
+   every pearl announces a different dream -- must render expanded wherever the
+   name is used, not just where the author wrote the reference out by hand.
+   The runner gets this for free: ReplaceFunctions loops the whole substitution
+   block to a fixpoint (Global.vb:2441), so a name pasted into a message text is
+   rescanned on the next round.  Scarier's replace_functions is a single
+   left-to-right pass and never revisits what it emitted, so expand the name
+   parts here instead.  Guarded against a name that references itself. */
+static const char *
+expand_name_part (const a5_state_t *st, const char *s, char **owned)
+{
+  static int depth = 0;
+  char *p;
+  if (st == NULL || s == NULL || strchr (s, '%') == NULL || depth >= 4)
+    return s;
+  depth++;
+  p = a5text_process_noalr ((a5_state_t *) st, s);
+  depth--;
+  if (p == NULL)
+    return s;
+  *owned = p;
+  return p;
+}
+
 char *
 a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art)
 {
   sb_t sb;
+  char *own_noun = NULL, *own_prefix = NULL, *own_article = NULL;
   const char *noun = (o->n_names > 0) ? o->names[0] : o->key;
   const char *prefix = o->prefix;
   const char *article = o->article;
@@ -333,6 +359,10 @@ a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art
       if ((ov = a5state_entity_prop (st, o->key, "_ObjectArticle")) != NULL)
         article = ov;
     }
+
+  noun    = expand_name_part (st, noun,    &own_noun);
+  prefix  = expand_name_part (st, prefix,  &own_prefix);
+  article = expand_name_part (st, article, &own_article);
 
   sb_init (&sb);
   if (art == A5_ART_DEFINITE)
@@ -353,6 +383,9 @@ a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art
       sb_putc (&sb, ' ');
     }
   sb_puts (&sb, noun != NULL ? noun : "");
+  free (own_noun);
+  free (own_prefix);
+  free (own_article);
   return sb_finish (&sb);
 }
 

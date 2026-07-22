@@ -1229,6 +1229,21 @@ FILTER="${1:-}"
 # there is no male character in the game -- FD prints the same "(No male) / I
 # did not understand the word ..." pair.  See the walkthrough header.
 #
+# (2026-07-22) Dreamspun WIRED at MATCH 0|0, golden-backed.  Mizal,
+# April 2020: one room, a dream-pearl economy (capture -> spin -> weave) and a
+# hunger counter that ticks every turn, against a stream of dreams that runs dry
+# 100-110 turns after the tutorial.  The 84-command script weaves the rope to 20
+# lengths and CLIMBs DOWN TO EARTH (the other Win is to renounce crown and
+# scepter and follow the Visitor through his door).  The vanilla column pins
+# Scarier's own golden; a direct FD-vanilla diff shows 72, wholesale and by
+# construction -- every RAND draw feeds the pearl-arrival schedule, so
+# System.Random plays a different game and the tuned waits land wrong.  Two
+# engine fixes fell out: an object Name that is itself a %function% reference
+# ("%dreamtext[%dreamRNG%]%") must render expanded wherever the name is used
+# (the runner's ReplaceFunctions loops to a fixpoint, a5text.cpp), and the
+# end-of-game banner needs its blank-line separator even when the winning
+# response ends in a line of spaces (a5run.cpp emit_endgame).
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1351,6 +1366,7 @@ BirthOfThePhoenix|PhoenixV3.blorb|0|0
 Jabberwocky|jabberwocky4.21.blorb|0|0
 TempusFugit|Tempus Fugit2.taf|0|1
 SorryForYourLoss|Sorry For Your Loss.blorb|0|0
+Dreamspun|dreamspun 0.9.taf|0|0
 EOF
 )
 

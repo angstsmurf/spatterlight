@@ -1,0 +1,560 @@
+Dreamspun
+
+Palace of Dreams
+
+You have built yourself a palace on the lunar surface. Each dream you acquired so long ago, either offered or taken, was a shining pearl to heap up about you. In time you learned to do more than just eat and drink; you wound the mortals’ gossamer thoughts onto spools and arranged them by color, embroidering from these your own creations.
+
+Alas, dreams are much harder to come by now. The Prince, his servants, his children; those who made the dreams you were offered, and those who sent you out to gather the secrets of others. All fleeting things, all gone.
+
+Because none believe in you any longer, you can’t be invited to their world anymore. But every so often, a stray dream comes fluttering up, and you form it into a pearl and hold it fast. In this way you have sustained yourself for centuries...
+
+There is little here for you now.
+
+You sit upon your throne, alone as you have ever been, and dream your own dream of escape.
+
+Here is your dining table, bereft of food. Here is your work bench with spinning wheel and loom, abandoned.
+
+When you gaze out the window across the barren lunar plain, you can see a bountiful green world hanging in the glittering sky.
+
+There must be a way to reach it from your barren prison.
+
+A nacreous reticule is here, awaiting fresh dreams. It holds nothing.
+
+> x me
+You consider such vanity unbecoming.   You are wearing your crown, and are carrying your scepter.
+
+You're hungry.
+
+> i
+You are wearing your crown, and are carrying your scepter.
+
+You're hungry.
+
+> x crown
+Radiating spires of captured moonlight, mingled with dew and scarlet drops of blood. The exquisite jewel in the center is the dream of the Prince, the night you helped him defeat his greatest enemy; his brother. It shines as clear as purpose.
+
+You're hungry.
+
+> x scepter
+Your scepter casts ceaselessly shifting light through a rainbow shard of raw crystal. The first hope of the Prince, the night he awakened you and began to imagine the possibilities.
+
+You're hungry.
+
+> x throne
+Ah, your throne. Built from the dreams of the generals you helped the Prince to conquer. It shines with a fierce light. The horses they rode in their youth prance across the top in jasper and gold.
+
+You're hungry.
+
+> x window
+There are many in your palace, all gazing out onto the stark beauty and starker emptiness of the moon.
+
+It almost pains you to look at the green world suspended in the starry void.
+
+You're hungry.
+
+> x dining table
+The table is empty. The most delectable dreams, the finest viands you used to sip and sup upon here. But you cannot be so choosy now. There have been times pickings were so slim you even found yourselves looking hungrily at the walls.
+
+You're hungry.
+
+> x workbench
+You used to UNRAVEL dream pearls and WEAVE the threads into other things here. But the threads you once labored to sort are faded and prone to snap. The spinning wheel creaks in protest when you touch it, and a fine layer of lunar dust has settled on the frame of the loom.
+
+You're hungry.
+
+> x reticule
+You secure dream pearls here, when you have them.
+
+You're hungry.
+
+> about
+
+Written for the IF Stay At Home Jam, hosted by DazaKiwi.
+
+Huge thanks to MadHattersDaughter for the title art. (Other images are used without permission and will be taken down on request.)
+
+Hunger troubles you greatly.
+
+> hunger
+Hunger: 51
+
+Hunger troubles you greatly.
+
+A dream flutters in on ghostly wings--a small child's sense of wonder at their first sight of the full moon. Quick, capture it!
+
+> capture wonder
+You secure the dream in its pearl form and place it in the nacreous reticule for storage. You are terribly hungry; perhaps you should put it on the table and eat it? But they are so rare, even the weak and idle sorts, it might be best to deny yourself, and take it over to the work table to spin and weave it into something useful instead?
+
+Hunger troubles you greatly.
+
+> put wonder on dining table
+Ok, you put the small child's sense of wonder on top of the dining table.
+
+Hunger troubles you greatly.
+
+> eat wonder
+After such a long fast, even this light fare is a feast to be relished. You let the colors and sensations wash over your thoughts.
+
+It's over far too quickly, but at least you've replenished yourself a bit.
+
+You are satisfied.
+
+> i
+You are wearing your crown, and are carrying your scepter.
+
+You are satisfied.
+
+> x reticule
+You secure dream pearls here, when you have them.
+
+You are satisfied.
+
+> hunger
+Hunger: 28
+
+You are satisfied.
+
+....ah, what’s this? A lovestruck poet's wish upon the moon? How beautiful! To see a new dream here so soon after the other!
+
+> capture wish
+
+Your wonder at such good luck doesn't delay you in securing the second dream as well.
+
+You are satisfied.
+
+> put wish on workbench
+Ok, you put the lover's wish on top of the workbench.
+
+You're a bit peckish.
+
+> spin wish
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 5 lengths of shimmering thead, then move to stand before the loom.
+
+You're a bit peckish.
+
+> weave threads
+You expertly weave the threads, the length of time since you've done this not having slowed your quick, precise movements one bit. Closing your eyes, your thoughts turn to the mortal world. You envision it hanging before you at arms' length, like a blossom eager to give of its nectar. If you could just devise a way to reach across the distance. If you could only--
+
+--Ah.
+
+And just like that, it comes to you. Already you've woven the first step to your freedom.
+
+You touch the soft, tightly woven strands of the beginnings of the silvery rope. As you once sailed to the world on moonbeams, so you will again, by your own skill and craft. This simple rope is all it will take to cross the expanse of the void. You've made 3 lengths of it already. You only need to weave in more dreams, and make it longer.
+
+You're a bit peckish.
+
+> x rope
+Slender yet strong, simple yet packed with the complexities of a thousand inspiring visions.
+
+You have woven 3 lengths of rope.
+
+You're a bit peckish.
+
+> hunger
+Hunger: 34
+
+You're a bit peckish.
+
+> x palace
+You have transformed and restructured your palace many times, to amuse yourself, and to tempt in stray dreams. But ultimately the palace with all its winding halls and glowing chambers, however you shape it, no longer brings you pleasure.
+
+You're a bit peckish.
+
+> x walls
+You see no such thing.
+
+You're a bit peckish.
+
+> x lunar plain
+
+The lunar plain outside your window glows a soft golden-white, like a pearl itself, if any dreamer could dream a dream so fantastic. The moon is beautiful, but barren.
+
+You're a bit peckish.
+
+> x earth
+
+Years pass. The dreams are so infrequent that you make no progress on your rope. Do people down there just not have a sense of wonder anymore?
+
+Famished and restless, you stalk the halls of your palace-turned-prison. Solitude and boredom have you climbing the walls.
+
+You pause at a window and cast a forlorn glance up at the blue-green globe suspended in the velvety black of the night...
+
+It’s then that you see them begin to slowly emerge: a billowing stream of newly minted dreams flowing through space, directly towards the moon. Like the confetti of a thousand parades; like an emperor’s garden of butterflies cast toward your nets.
+
+In a few rotations, the first begin to arrive. Your heart is bursting with joy as you gather in the bounty. It’s not just that this plenty will satisfy your immediate needs, but that you know this may be the chance you’ve waited for. Out of these dreams and those in the remains of brilliant stream that still follows, you’ll weave your lifeline to the mortal world. Something must have happened down there, to turn imaginations, hopes, and a sense of mystery to the moon. It’s true these are not the bonfire blazing visions of the Prince and the rulers and warlords of his day, but many smaller thoughts fluttering in all at once. But so, so many. You may not ever have a chance like this again.
+
+For a short time, dreams will arrive steadily. If the stream dries up before you complete your escape, all will be lost.
+
+> x jewel
+You see no such thing.
+
+You're a bit peckish.
+
+> x lunar dust
+You see no such thing.
+
+You're a bit peckish.
+
+> x horses
+You see no such thing.
+
+You're a bit peckish.  A dream of uncertainty arrives. You place it in the reticule.
+
+> x threads
+You have 1 spools of usable dream thread here, and 3 lengths of rope attached to your loom.
+
+You're a bit peckish.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of uncertainty from the reticule.
+
+You're a bit peckish.
+
+> put dream on workbench
+Ok, you put the dream of uncertainty on top of the workbench.
+
+You're a bit peckish.
+
+> spin dream
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 7 lengths of shimmering thead, then move to stand before the loom.
+
+You're a bit peckish.
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 6 lengths long.
+
+You're a bit peckish.  A dream of dolphins arrives. You place it in the reticule.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of dolphins from the reticule.
+
+You're a bit peckish.
+
+> put dream on workbench
+Ok, you put the dream of dolphins on top of the workbench.
+
+You're a bit peckish.
+
+> spin dream
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 9 lengths of shimmering thead, then move to stand before the loom.
+
+You're hungry.
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 7 lengths long.
+
+You're hungry.
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 8 lengths long.
+
+You're hungry.
+
+> x rope
+Slender yet strong, simple yet packed with the complexities of a thousand inspiring visions.
+
+You have woven 8 lengths of rope.
+
+You're hungry.
+
+> hunger
+Hunger: 44
+
+You're hungry.  A dream of innocence arrives. You place it in the reticule.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of innocence from the reticule.
+
+You're hungry.
+
+> put dream on workbench
+Ok, you put the dream of innocence on top of the workbench.
+
+You're hungry.
+
+> spin dream
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 9 lengths of shimmering thead, then move to stand before the loom.
+
+You're hungry.
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 9 lengths long.
+
+You're hungry.
+
+> weave threads
+
+It's a day like any other, when all of a sudden a Visitor arrives.
+
+There's no fanfare, no fuss. He's simply there.
+
+He looks at you with compassionate eyes. "I hope you won't object to the interruption, but I've been observing you for some time, Tusiyu, and--"
+
+"Who--?"
+
+"--and it made me sad to see you so trapped and dependent," he continues. "I'd like to make you aware of a way to free yourself."
+
+"What--?"
+
+"That Prince of yours forged the entire connection with dreams you have, and certain things about your nature when you were still malleable and new. But you don't have to be what you are, you can cast it all aside and make your own path."
+
+"How--"
+
+"Throw down your crown and scepter, and simply follow me to freedom," he finishes, laying a hand on the knob of a door that hadn't been there a moment before. Without a word, he slips through it and departs.
+
+You stare after him, speechless.
+
+You're hungry.  A dream of curiosity arrives. You place it in the reticule.
+
+> x rope
+Slender yet strong, simple yet packed with the complexities of a thousand inspiring visions.
+
+You have woven 11 lengths of rope.
+
+Hunger troubles you greatly.
+
+> x door
+A plain wooden door, leading to somewhere unknown.
+
+You sensed intuitively that your visitor was much more powerful than you, and so...you suppose...that means he wouldn't have any need to lie.  But who can believe anything for certain?  The door is currently closed.
+
+Hunger troubles you greatly.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of curiosity from the reticule.
+
+Hunger troubles you greatly.
+
+> put dream on workbench
+Ok, you put the dream of curiosity on top of the workbench.
+
+Hunger troubles you greatly.
+
+> spin dream
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 6 lengths of shimmering thead, then move to stand before the loom.
+
+Hunger troubles you greatly.
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 12 lengths long.
+
+Hunger troubles you greatly.
+
+> x reticule
+You secure dream pearls here, when you have them.
+
+Hunger troubles you greatly.  A dream of first love arrives. You place it in the reticule.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of first love from the reticule.
+
+Hunger troubles you greatly.
+
+> put dream on dining table
+Ok, you put the dream of first love on top of the dining table.
+
+Hunger troubles you greatly.
+
+> eat dream
+You unfold your napkin and daintily take up your knife and fork.
+
+The dream is delightful, although perhaps not as substantial as you'd hoped.
+
+You're hungry.
+
+> hunger
+Hunger: 49
+
+You're hungry.
+
+> x throne
+Ah, your throne. Built from the dreams of the generals you helped the Prince to conquer. It shines with a fierce light. The horses they rode in their youth prance across the top in jasper and gold.
+
+Hunger troubles you greatly.
+
+> x window
+There are many in your palace, all gazing out onto the stark beauty and starker emptiness of the moon.
+
+It almost pains you to look at the green world suspended in the starry void.
+
+Hunger troubles you greatly.  A dream of springtime arrives. You place it in the reticule.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of springtime from the reticule.
+
+Hunger troubles you greatly.
+
+> put dream on workbench
+Ok, you put the dream of springtime on top of the workbench.
+
+Hunger troubles you greatly.
+
+> spin dream
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 8 lengths of shimmering thead, then move to stand before the loom.
+
+Hunger troubles you greatly.
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 13 lengths long.
+
+Hunger troubles you greatly.
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 16 lengths long.
+
+Hunger troubles you greatly.
+
+> x rope
+Slender yet strong, simple yet packed with the complexities of a thousand inspiring visions.
+
+You have woven 16 lengths of rope.
+
+Hunger troubles you greatly.
+
+> hunger
+Hunger: 58
+
+Hunger troubles you greatly.  A dream of beauty arrives. You place it in the reticule.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of beauty from the reticule.
+
+Hunger troubles you greatly.
+
+> put dream on workbench
+Ok, you put the dream of beauty on top of the workbench.
+
+You're famished!
+
+> spin dream
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 6 lengths of shimmering thead, then move to stand before the loom.
+
+You're famished!
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 18 lengths long.
+
+You're famished!
+
+> x reticule
+You secure dream pearls here, when you have them.
+
+You're famished!  A dream of kittens arrives. You place it in the reticule.
+
+> take dream
+(from the nacreous reticule)
+You take a dream of kittens from the reticule.
+
+You're famished!
+
+> put dream on workbench
+Ok, you put the dream of kittens on top of the workbench.
+
+You're famished!
+
+> spin dream
+Such light, airy dreams make a fine, silky thread. It feels good to go to work again, it's been far too long.
+
+You look at your spools to see that you've managed to make 10 lengths of shimmering thead, then move to stand before the loom.
+
+You're famished!
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 19 lengths long.
+
+You're famished!
+
+> weave threads
+With speed and newfound purpose you weave a handful of dream threads into the rope. It is now 22 lengths long.
+
+You're famished!
+
+After you weave in the last gossamer thread, you step back and examine your creation. The length...you measure it carefully, the silken threads cool against your skin...the length is correct. This will get you to the mortal world.
+
+Carefully you unhook the rope from your loom and coil it to sling over one slender arm.
+
+> x rope
+The rope is completed! You hold it in your hands.
+
+You need only CLIMB DOWN TO EARTH.
+
+You're famished!
+
+> i
+You are wearing your crown, and are carrying your scepter and the silvery rope.
+
+You are growing weak...you must eat!   A dream of childhood arrives. You place it in the reticule.
+
+> open door
+The brass knob is warm and inviting, and the door swings open with the lightest touch.
+
+Billowing clouds of lavender fog roll out, intermingled with the faintest hint of fine, twinkling specks of light. You try to peer past it, but the mist is too thick.
+
+You are growing weak...you must eat!
+
+> x door
+A door hangs open, leading to somewhere unknown.
+
+A thick lavender fog billows out. You can see nothing beyond it, but need only GO THROUGH THE DOOR to satisfy your curiosity.   The door is currently open.
+
+You are growing weak...you must eat!
+
+> go through the door
+
+You start to step through the door, but some force holds you back. Your scepter grows cold in your hand.
+
+You are growing weak...you must eat!
+
+> hunger
+Hunger: 74
+
+You are growing weak...you must eat!
+
+> climb down to earth
+
+The stars twinkle by as you slip down the thin filament, transitioning from the icy cold of the void to a welcome heat as you plunge through the Earth's atmosphere, trailing silver sparks. Checking yourself just above a pillowy expanse of clouds, flooded with moonlight, you take a moment to regain your composure.
+
+With each of your eight long, slender limbs trembling with anticipation, you pick your way further down the rope, breaking through the cloudmist to fix your faceted eyes upon the city below...
+
+You have such power here! It crackles through the sky all around you.
+
+"SLEEP," you command the tiny ones below.
+
+"SLEEP."
+
+"SLEEP."
+
+"SLEEP..."
+
+There are so many bright lights, and bright lives rushing to and fro beneath you. One by one, they dim and stop moving at your urging. Eventually even the machines settle down, rolling to a stop or plunging from the clouds as you did. Peace and silence roll like fog over the city, here and there interspersed with crackling fire. It's all so cozy.
+
+"NOW DREAM."
+
+*** You have won ***
+
+(Written for the IF Stay At Home Jam, hosted by DazaKiwi.
+
+Huge thanks to MadHattersDaughter for the title art. Other images are used without permission and will be removed on request.)
+Would you like to restart, restore a saved game, quit or undo the last command?
+

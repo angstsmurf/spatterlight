@@ -894,13 +894,17 @@ emit_endgame (a5_run_t *run, sb_t *out)
      death, MagneticMoon's "took too long" timer) emits its death text with a
      single trailing newline -- without this the banner would abut it, whereas a
      command-ending game's last response already ends in a blank line.  Top up
-     the trailing newlines to a blank-line separator. */
+     the trailing newlines to a blank-line separator.
+
+     Only newlines at the very end count: trailing blanks are text as far as the
+     break is concerned, so a message whose last line is all spaces still needs
+     the full break (Dreamspun's winning CLIMB DOWN TO EARTH response ends
+     "...\n\n     ", and the runner puts the banner two lines below it). */
   if (out->len > 0 && !run->in_time_tick)
     {
       size_t k = out->len;
       int nl = 0;
-      while (k > 0 && (out->p[k - 1] == '\n' || out->p[k - 1] == '\r'
-                       || out->p[k - 1] == ' ' || out->p[k - 1] == '\t'))
+      while (k > 0 && (out->p[k - 1] == '\n' || out->p[k - 1] == '\r'))
         {
           if (out->p[k - 1] == '\n') nl++;
           k--;

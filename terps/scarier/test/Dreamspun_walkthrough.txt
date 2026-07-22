@@ -1,0 +1,151 @@
+# Dreamspun -- Mizal, April 2020 (written for the IF Stay At Home Jam)
+#
+# One room, one resource loop, and a hard clock.  You are Tusiyu, a dream-eating
+# goddess the Prince imagined into being, marooned on the moon now that nobody
+# believes in you.  The whole game is the Palace of Dreams; everything else is
+# bookkeeping in five variables.
+#
+#   hunger   starts at 41 and goes up 1 every single turn.  Over 100 you fade
+#            away (Lose); below 0 you burst (Lose).  Eating a pearl at the
+#            dining table takes off RAND(6,12).
+#   threads  spinning a pearl at the work bench yields RAND(4,8).
+#   rope     weaving spends 4 threads and adds RAND(1,3).
+#
+# The opening is on rails: the first dream drifts in on turn 11, the second five
+# turns after you capture the first, and the tutorial closes once you have eaten
+# one, spun the other and woven the result.  That starts the stream: three to six
+# turns later the sky fills with dreams, hunger is reset to 30, and a fresh pearl
+# arrives in the reticule about every six turns.  It also starts the countdown --
+# 100 to 110 turns after the tutorial ends the stream runs dry, which is the
+# Apollo-lander "Neutral" ending: pretty, and a loss.
+#
+# So the loop is `take dream` / `put dream on workbench` / `spin dream` /
+# `weave threads`, with the occasional meal, until the rope is 20 lengths.  Note
+# that the arrivals are on a random schedule inside each six-turn window: a
+# `take dream` issued one turn too early just fails, so the filler commands below
+# (the flavour examines, `hunger`, `x rope`) are load-bearing -- they are where
+# the script waits for the next pearl.  Every one of them is placed against the
+# actual arrival turns of this RNG stream.
+#
+# There are TWO winning endings.  When the rope passes 10 lengths a Visitor
+# appears, tells you the crown and the scepter are the Prince's leash rather than
+# your power, and leaves a door behind: `remove crown` + `drop crown` +
+# `drop scepter` + `go through the door` is the renunciation ending.  This
+# walkthrough keeps the regalia -- so the door politely refuses ("your scepter
+# grows cold in your hand"), which is worth seeing -- and takes the ending the
+# game signposts instead: rope to 20, then CLIMB DOWN TO EARTH, and the goddess
+# puts a whole city to sleep.
+#
+# Two engine fixes came out of this game:
+#   * the dream pearl's Name is literally "%dreamtext[%dreamRNG%]%", and the
+#     runner's ReplaceFunctions loops to a fixpoint, so a name substituted into
+#     a library message gets rescanned; Scarier's single pass left it verbatim.
+#   * the winning response ends in a line of blanks, and the runner still puts
+#     the "*** You have won ***" banner a full blank line below it.
+#
+# Ground truth: 0 hunks with FD_RNG=xoshiro, and the committed golden pins the
+# vanilla side.  A direct FD-vanilla diff is 72 hunks, wholesale and by
+# construction -- every RAND draw here feeds the arrival schedule, so a
+# different generator plays a different game.
+
+# --- The palace, while you wait for the first dream (it comes on turn 11) ---
+x me
+i
+x crown
+x scepter
+x throne
+x window
+x dining table
+x workbench
+x reticule
+about
+hunger
+
+# --- Tutorial: eat the first dream, spin and weave the second ---
+capture wonder
+put wonder on dining table
+eat wonder
+i
+x reticule
+hunger
+capture wish
+put wish on workbench
+spin wish
+weave threads
+x rope
+hunger
+
+# --- Waiting out the stream's first delivery ---
+x palace
+x walls
+x lunar plain
+x earth
+x jewel
+x lunar dust
+x horses
+x threads
+
+# --- The loop ---
+take dream
+put dream on workbench
+spin dream
+weave threads
+take dream
+put dream on workbench
+spin dream
+weave threads
+weave threads
+x rope
+hunger
+take dream
+put dream on workbench
+spin dream
+weave threads
+weave threads
+
+# --- Past 10 lengths: the Visitor, and the door he leaves behind ---
+x rope
+x door
+take dream
+put dream on workbench
+spin dream
+weave threads
+
+# --- A meal, before hunger gets interesting ---
+x reticule
+take dream
+put dream on dining table
+eat dream
+hunger
+x throne
+x window
+
+# --- Back to the loom ---
+take dream
+put dream on workbench
+spin dream
+weave threads
+weave threads
+x rope
+hunger
+take dream
+put dream on workbench
+spin dream
+weave threads
+x reticule
+take dream
+put dream on workbench
+spin dream
+weave threads
+weave threads
+
+# --- 20 lengths: the rope comes off the loom ---
+x rope
+i
+open door
+x door
+# Refused: the scepter is still in your hand.  Dropping it (with the crown) is
+# the other ending; this run keeps them.
+go through the door
+hunger
+climb down to earth
