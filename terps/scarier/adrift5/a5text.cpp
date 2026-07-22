@@ -929,6 +929,35 @@ fn_charactername (a5_state_t *st, const char * /*name*/, const char *args)
 }
 
 static char *
+fn_characterproper (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* %CharacterProper[Key]% and its alias %ProperName[Key]% render
+     htblCharacters(Key).ProperName (Global.vb:2115).  Unlike %CharacterName%
+     this never consults the descriptors, the Known property or the pronoun
+     ledger -- it is the bare name, so it takes no pronoun argument and leaves
+     name_cap_eligible clear. */
+  std::string key = args ? args : "";
+  size_t b = key.find_first_not_of (" \t");
+  size_t e = key.find_last_not_of (" \t");
+  key = (b == std::string::npos) ? "" : key.substr (b, e - b + 1);
+  if (key.empty ())
+    key = st->ctx_char ? st->ctx_char : a5state_player_key (st);
+  const a5_character_t *c = a5model_character (st->adv, key.c_str ());
+  /* clsCharacter.ProperName (clsCharacter.vb:455): the runtime
+     CharacterProperName override (a typed-in player name, set via the
+     property -- clsUserSession.vb:2080) wins over the model Name, and an
+     empty name renders "Anonymous".  The runner reports an unknown key with
+     DisplayError; we have no such channel, so an unresolved character takes
+     the same "Anonymous" path a5expr's .ProperName does. */
+  const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
+                     : NULL;
+  if (pn == NULL || pn[0] == '\0')
+    pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
+                                                             : "Anonymous";
+  return strdup (pn);
+}
+
+static char *
 fn_turns (a5_state_t *st, const char * /*name*/, const char * /*args*/)
 {
   /* Global.vb:1763 substitutes %turns% with Adventure.Turns.ToString via
@@ -1477,6 +1506,8 @@ eval_function (a5_state_t *st, const char *name, const char *args)
     return fn_popupinput (st, name, args);
   if (ci_eq (name, "charactername"))
     return fn_charactername (st, name, args);
+  if (ci_eq (name, "characterproper") || ci_eq (name, "propername"))
+    return fn_characterproper (st, name, args);
   if (ci_eq (name, "convcharacter"))
     /* Global.vb:1762 substitutes %ConvCharacter% with the conversation char KEY. */
     return strdup (st->conv_char ? st->conv_char : "");
