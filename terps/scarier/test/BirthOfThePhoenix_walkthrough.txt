@@ -1,0 +1,83 @@
+# Forest Glade -- the book
+get book
+open book
+read book
+turn page
+read book
+turn page
+read book
+drop book
+# Toolshed
+e
+get flashlight
+w
+# Forest / Tree Top
+w
+climb tree
+get branch
+get net
+d
+# Bottom of the well
+n
+d
+light on
+get rubies
+u
+drop flashlight
+# Shallow Cave -- the safe
+e
+e
+turn dial
+10
+22
+35
+get diamonds
+w
+# Across the cliff
+say phoenix
+get key
+ne
+get stick
+e
+n
+wind clock
+drop key
+w
+get potion
+w
+get sapphires
+n
+drop rubies
+drop diamonds
+drop sapphires
+score
+# Back to the guardhouse
+s
+e
+e
+s
+w
+sw
+nw
+give potion
+# The maze
+nw
+n
+n
+w
+e
+catch phoenix
+get phoenix
+# Out and to the temple
+u
+se
+se
+ne
+e
+n
+w
+w
+n
+n
+i
+rub branch

@@ -1,0 +1,557 @@
+Adventure Upgrade
+There was a logic correction in version 5.0.26 which means OR restrictions after AND restrictions were not evaluated.  Would you like to auto-correct these tasks?
+
+You may not wish to do so if you have already used brackets around any OR restrictions following AND restrictions.Birth Of The Phoenix, 2011
+Birth Of The Phoenix
+Copyright 1981 Phoenix Software Inc.
+
+Welcome to adventuring. You're about to leave the ordinary, everyday world you inhabit and enter a new world...a world where magic works and things aren't quite what they seem. I suggest you read through page 6 of the manual before starting the game. Type in two word commands such as "get branch" and I'll do my very best to do what you ask.
+Remember, in the words of that famous adventurer, Q. Eldon Mugwump:
+
+   An adventurer fresh from murmisk,
+   Said, as he booted a disk,
+   You give it a try,
+   (I'm afraid I might die),
+   Press return now at your own risk.
+
+Forest Glade
+You're in a forest glade.
+
+You're in a dark forest glade. It's autumn and beautifully colored oak leaves crunch underfoot. There is a faint blue haze in the air and you can smell fragrant woodsmoke. Overhead, a flock of geese wheel in the sky as they head for their winter nesting grounds.
+
+EXITS: EAST WEST
+OBJECTS:   BOOK
+
+> get book
+OK.
+
+> open book
+OK.
+
+> read book
+The phoenix is reborn every 500 years by burning the old phoenix.
+
+> turn page
+OK.
+
+> read book
+Be sure to visit your computer store for an "Adventure In Time".
+
+> turn page
+OK.
+
+> read book
+The magic word is "PHOENIX".
+
+> drop book
+OK.
+
+> e
+
+Toolshed
+You're in a toolshed.
+
+You have come upon a toolshed at the edge of the forest. The field here is well maintained; it looks mowed. The toolshed though has not been too well kept up as it's magenta paint is
+Peeling.
+
+EXITS: WEST
+OBJECTS:   SHOVEL  FLASHLIGHT
+
+> get flashlight
+OK.
+
+> w
+
+Forest Glade
+You're in a forest glade.
+
+You're in a dark forest glade. It's autumn and beautifully colored oak leaves crunch underfoot. There is a faint blue haze in the air and you can smell fragrant woodsmoke. Overhead, a flock of geese wheel in the sky as they head for their winter nesting grounds.
+
+EXITS: EAST WEST
+OBJECTS:   BOOK
+
+> w
+
+Forest
+You're in a forest.
+
+You have wandered deeper into the forest and the towering trees block out the sun. One tree is truly majestic, at least 20 feet in diameter. Carved into the living bark of the tree
+Are tiny well worn notches which someone or something has used as steps.
+
+EXITS: NORTH EAST
+OBJECTS:   TREE
+
+> climb tree
+OK.
+
+Tree Top
+You're high up in a tree top.
+
+You have climbed the tree as far as you can go. The only way left to go is down. You have a wonderful view from up here.
+
+EXITS: DOWN
+OBJECTS:   BRANCH  NET
+
+> get branch
+OK.
+
+> get net
+OK.
+
+> d
+
+Forest
+You're in a forest.
+
+You have wandered deeper into the forest and the towering trees block out the sun. One tree is truly majestic, at least 20 feet in diameter. Carved into the living bark of the tree
+Are tiny well worn notches which someone or something has used as steps.
+
+EXITS: NORTH EAST
+OBJECTS:   TREE
+
+> n
+
+Clearing
+You're at the well in a clearing.
+
+At one time someone has lived here as can be seen from the burned out remains of the wood cabin in the center of the
+Clearing. There is a well made of dressed fieldstone here with a rope dangling from the winch supports. The bucket is gone but the rope appears sturdy. I'd be careful if I were you.
+
+EXITS: EAST SOUTH DOWN
+OBJECTS:
+
+> d
+
+Bottom Of Well
+It is very dark. You can't see anything. Do something, I'm scared of the dark.
+
+I don't like this place. Let's get out of here. I think there are snakes here. I hate snakes.....
+
+> light on
+
+The light is on, but it's mighty feeble. By the way, the switch is now jammed in the on position.
+
+> get rubies
+OK.
+
+> u
+
+Clearing
+You're at the well in a clearing.
+
+At one time someone has lived here as can be seen from the burned out remains of the wood cabin in the center of the
+Clearing. There is a well made of dressed fieldstone here with a rope dangling from the winch supports. The bucket is gone but the rope appears sturdy. I'd be careful if I were you.
+
+EXITS: EAST SOUTH DOWN
+OBJECTS:
+
+> drop flashlight
+OK.
+
+> e
+
+Edge Of Cliff
+You're at a cliff.
+
+You're standing at the edge of a cliff. There is no way down but it looks very interesting on the other side...even more interesting than this side. At the bottom, fully 300 meters down, is a snake-like river with torrents of water racing through a narrow gorge.
+
+EXITS: EAST WEST
+OBJECTS:
+
+> e
+
+Shallow Cave
+You're in a shallow cave.
+
+You stand in the entrance of a foreboding cave. There are many strange things living in caves...snakes, bats and blind fish. Some say trolls and dwarves and monsters live in caves, but we don't believe that......do we?
+
+EXITS: WEST
+OBJECTS:   DIAL  SAFE
+
+> turn dial
+
+TO WHAT #?
+
+> 10
+
+"Click"
+
+  TO WHAT #?
+
+> 22
+
+"Click"
+
+  TO WHAT #?
+
+> 35
+
+"Click"
+Clank..clunk.. the safe opens and you see a pile of diamonds.
+
+> get diamonds
+OK.
+
+> w
+
+Edge Of Cliff
+You're at a cliff.
+
+You're standing at the edge of a cliff. There is no way down but it looks very interesting on the other side...even more interesting than this side. At the bottom, fully 300 meters down, is a snake-like river with torrents of water racing through a narrow gorge.
+
+EXITS: EAST WEST
+OBJECTS:
+
+> say phoenix
+OK.
+'PHOENIX'
+Wooosssh!!! You find yourself on the
+Other side of the cliff.
+
+Cliff
+You're at a cliff.
+
+This is an interesting side of the cliff. Someone has deeply carved into the stone the numbers "10 22 35". The path that you're on isn't very wide and the gravel at the side of the path looks loose and slippery. Watch your step.
+
+EXITS: NE NW
+OBJECTS:   KEY
+
+> get key
+OK.
+
+> ne
+
+Road
+You're on a road to the mountains.
+
+You're on a steep, tortuous path climbing up into the mountains. Sheer cliffs rise high above you and gigantic boulders are strewn in your path.
+
+EXITS: EAST SW
+OBJECTS:   STICK
+
+> get stick
+OK.
+
+> e
+
+Mountains
+You're in the mountains.
+
+What a glorious sight. Looking back you can see a magnificent forest in the distance. Far ahead the sun reflects off white washed buildings that are brilliant beyond belief. The path
+Ahead leads down and to the north.
+
+EXITS: NORTH WEST
+OBJECTS:
+
+> n
+
+Mountain Pass
+You're at a mountain pass.
+
+You are going through a mountain pass. There is a huge clock standing almost 3 meters high. There is an opening at the bottom where the clock can be wound.
+
+EXITS: SOUTH WEST
+OBJECTS:   CLOCK
+
+> wind clock
+Whew..that was hard work.
+
+> drop key
+OK.
+
+> w
+
+Rocky Road
+You're on a rocky road.
+
+The road is level but full of rocks and little pebbles that keep getting in your shoes.
+
+EXITS: EAST WEST
+OBJECTS:   POTION
+
+> get potion
+OK.
+
+> w
+
+Road To Heliopolis
+You're on the road to Heliopolis.
+
+The road is paved with yellow bricks.
+There is a sign which reads:
+
+Heliopolis 13 KM. -----
+----- OZ 2200 KM.
+
+EXITS: NORTH EAST
+OBJECTS:   (SAPPHIRES)
+
+> get sapphires
+OK.
+
+> n
+
+Treasury
+You're in the treasury.
+
+WOW! You've come to the treasury. It's the safest place I know to store treasures.
+
+EXITS: NORTH SOUTH
+OBJECTS:
+
+> drop rubies
+OK.
+
+> drop diamonds
+OK.
+
+> drop sapphires
+OK.
+
+> score
+You have achieved 90 points out of 100.
+
+> s
+
+Road To Heliopolis
+You're on the road to Heliopolis.
+
+The road is paved with yellow bricks.
+There is a sign which reads:
+
+Heliopolis 13 KM. -----
+----- OZ 2200 KM.
+
+EXITS: NORTH EAST
+OBJECTS:
+
+> e
+
+Rocky Road
+You're on a rocky road.
+
+The road is level but full of rocks and little pebbles that keep getting in your shoes.
+
+EXITS: EAST WEST
+OBJECTS:
+
+> e
+
+Mountain Pass
+You're at a mountain pass.
+
+You are going through a mountain pass. There is a huge clock standing almost 3 meters high. There is an opening at the bottom where the clock can be wound.
+
+EXITS: SOUTH WEST
+OBJECTS:   KEY  CLOCK
+
+> s
+
+Mountains
+You're in the mountains.
+
+What a glorious sight. Looking back you can see a magnificent forest in the distance. Far ahead the sun reflects off white washed buildings that are brilliant beyond belief. The path
+Ahead leads down and to the north.
+
+EXITS: NORTH WEST
+OBJECTS:
+
+> w
+
+Road
+You're on a road to the mountains.
+
+You're on a steep, tortuous path climbing up into the mountains. Sheer cliffs rise high above you and gigantic boulders are strewn in your path.
+
+EXITS: EAST SW
+OBJECTS:
+
+> sw
+
+Cliff
+You're at a cliff.
+
+This is an interesting side of the cliff. Someone has deeply carved into the stone the numbers "10 22 35". The path that you're on isn't very wide and the gravel at the side of the path looks loose and slippery. Watch your step.
+
+EXITS: NE NW
+OBJECTS:
+
+> nw
+
+Guardhouse
+You're by the guardhouse.
+
+There is a tall narrow building here. A sign on the side says "Guard House". Beyond the guard house is a path that goes out of sight.
+The ground is soft and crumbly and your feet sink into it over your shoe tops. Your socks get dirty.
+
+EXITS: SE NW
+OBJECTS: GUARD
+
+> give potion
+The guard grins at you and takes a deep swig of the potion. He grunts and falls to the floor in a deep sleep with a happy look on his face.
+
+> nw
+
+Confusing Maze
+You're in a most confusing maze.
+There are exits in all directions.
+
+OBJECTS:
+
+> n
+
+Confusing Maze
+You're in a most confusing maze.
+There are exits in all directions.
+
+OBJECTS:
+
+> n
+
+Confusing Maze
+You're in a most confusing maze.
+There are exits in all directions.
+
+OBJECTS:
+
+> w
+
+Confusing Maze
+You're in a most confusing maze.
+There are exits in all directions.
+
+OBJECTS:
+
+> e
+
+Confusing Maze
+There are exits in all directions.
+
+You have come upon the inner sanctum of the phoenix. Its den is very ancient and there is a sadness in the air. The sound of distant music can be heard. In the corner is a nest made from a few old leaves and twigs.
+A slow trickle of water runs down the rocks in the opposite corner.
+
+OBJECTS:   PHOENIX
+
+> catch phoenix
+The net settles around the phoenix.
+
+> get phoenix
+OK.
+
+> u
+
+Confusing Maze
+You're in a most confusing maze.
+There are exits in all directions.
+
+OBJECTS:
+
+> se
+
+Guardhouse
+You're by the guardhouse.
+
+There is a tall narrow building here. A sign on the side says "Guard House". Beyond the guard house is a path that goes out of sight.
+The ground is soft and crumbly and your feet sink into it over your shoe tops. Your socks get dirty.
+
+EXITS: SE NW
+OBJECTS: GUARD POTION
+
+> se
+
+Cliff
+You're at a cliff.
+
+This is an interesting side of the cliff. Someone has deeply carved into the stone the numbers "10 22 35". The path that you're on isn't very wide and the gravel at the side of the path looks loose and slippery. Watch your step.
+
+EXITS: NE NW
+OBJECTS:
+
+> ne
+
+Road
+You're on a road to the mountains.
+
+You're on a steep, tortuous path climbing up into the mountains. Sheer cliffs rise high above you and gigantic boulders are strewn in your path.
+
+EXITS: EAST SW
+OBJECTS:
+
+> e
+
+Mountains
+You're in the mountains.
+
+What a glorious sight. Looking back you can see a magnificent forest in the distance. Far ahead the sun reflects off white washed buildings that are brilliant beyond belief. The path
+Ahead leads down and to the north.
+
+EXITS: NORTH WEST
+OBJECTS:
+
+> n
+
+Mountain Pass
+You're at a mountain pass.
+
+You are going through a mountain pass. There is a huge clock standing almost 3 meters high. There is an opening at the bottom where the clock can be wound.
+
+EXITS: SOUTH WEST
+OBJECTS:   KEY  CLOCK
+
+> w
+
+Rocky Road
+You're on a rocky road.
+
+The road is level but full of rocks and little pebbles that keep getting in your shoes.
+
+EXITS: EAST WEST
+OBJECTS:
+
+> w
+
+Road To Heliopolis
+You're on the road to Heliopolis.
+
+The road is paved with yellow bricks.
+There is a sign which reads:
+
+Heliopolis 13 KM. -----
+----- OZ 2200 KM.
+
+EXITS: NORTH EAST
+OBJECTS:
+
+> n
+
+Treasury
+You're in the treasury.
+
+WOW! You've come to the treasury. It's the safest place I know to store treasures.
+
+EXITS: NORTH SOUTH
+OBJECTS:   (RUBIES)  (DIAMONDS)  (SAPPHIRES)
+
+> n
+
+Temple Of The Sun
+You're in the temple of the sun.
+
+Light streams from the crystal ceiling and reflects off the golden altar in the center of the room. Three steps lead up to this magnificent platform. As you approach, you see that a phoenix has been carved into the marble base. Fresh rose petals are scattered over the floor and the air is filled with their scent.
+You feel a sense of serenity and accomplishment here.
+
+EXITS: SOUTH
+OBJECTS:   MYRRH
+
+> i
+You are carrying the following items:
+ branch,  stick and (in net) phoenix
+
+> rub branch
+The phoenix bursts from the net and plunges into the flames to be immediately consumed in a great roar of fire....but look...from the ashes arises a young, strong gorgeous bird which smiles at you and wings its way through the open window to the sun. You have scored all 100 points and won!!!!
+
+*** You have won ***
+In that game you scored 100 out of a possible 100, in 73 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+
