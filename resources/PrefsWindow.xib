@@ -2096,20 +2096,25 @@
                         <action selector="changeKeepOrganised:" target="-1" id="IfE-2A-Hko"/>
                     </connections>
                 </button>
-                <button toolTip="Choose where the library folder should live. Leave as the default to keep it inside Spatterlight's own storage." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKR-gA-Brv">
-                    <rect key="frame" x="455" y="114" width="69" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <button toolTip="Choose where the library folder should live. Leave as the default to keep it inside Spatterlight's own storage." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QKR-gA-Brv">
+                    <rect key="frame" x="419" y="114" width="69" height="24"/>
                     <buttonCell key="cell" type="push" title="Choose…" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7vj-fD-nWF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="Chs-ht-002"/>
+                        <constraint firstAttribute="width" constant="69" id="Chs-wd-001"/>
+                    </constraints>
                     <connections>
                         <action selector="chooseLibraryLocation:" target="-2" id="mkM-f0-KBd"/>
                     </connections>
                 </button>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9f-IG-BcV" userLabel="Library location">
-                    <rect key="frame" x="194" y="117" width="254" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9f-IG-BcV" userLabel="Library location">
+                    <rect key="frame" x="192" y="120" width="222" height="11"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="Lib-mx-003"/>
+                    </constraints>
                     <textFieldCell key="cell" lineBreakMode="truncatingHead" alignment="right" title="~/Library/Application Support/Spatterlight/Library" usesSingleLineMode="YES" id="PGd-Hc-M3L">
                         <font key="font" metaFont="miniSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2137,7 +2142,7 @@
                     </connections>
                 </button>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W7j-28-GPc">
-                    <rect key="frame" x="129" y="118" width="64" height="17"/>
+                    <rect key="frame" x="129" y="117" width="64" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Location: " usesSingleLineMode="YES" id="Dud-1G-HPn">
                         <font key="font" metaFont="system"/>
@@ -2146,6 +2151,12 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstItem="QKR-gA-Brv" firstAttribute="centerY" secondItem="G9f-IG-BcV" secondAttribute="centerY" id="Chs-cy-007"/>
+                <constraint firstItem="QKR-gA-Brv" firstAttribute="leading" secondItem="G9f-IG-BcV" secondAttribute="trailing" constant="7" id="Chs-ld-006"/>
+                <constraint firstItem="G9f-IG-BcV" firstAttribute="leading" secondItem="sGk-vs-Ced" secondAttribute="leading" constant="194" id="Lib-ld-004"/>
+                <constraint firstItem="G9f-IG-BcV" firstAttribute="top" secondItem="sGk-vs-Ced" secondAttribute="top" constant="196" id="Lib-tp-005"/>
+            </constraints>
             <point key="canvasLocation" x="426" y="1546.5"/>
         </view>
         <arrayController mode="entity" entityName="Theme" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" id="784" userLabel="Themes" customClass="ThemeArrayController">
