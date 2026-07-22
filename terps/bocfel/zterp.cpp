@@ -522,8 +522,10 @@ static void process_story(IO &io, long offset)
         }
         if (newmemory) {
             memory.assign(newmemory, newmemory + file_length);
+            memory_size = (uint32_t)file_length;
+        } else {
+            die("required disk image not found");
         }
-        memory_size = (uint32_t)file_length;
     }
 #endif
 
