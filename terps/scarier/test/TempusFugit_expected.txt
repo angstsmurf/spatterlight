@@ -1,0 +1,1093 @@
+Tempus Fugit
+You awake with a throbbing sensation in your head...
+What happened?  You try to remember, but you find you cannot.  What is this place?
+
+Hut of Adoamros Hawklight
+It's your home, a lovely one-room thatch-roof hut East of the Courtyard.  Also here is a bed and a trunk.  An exit leads west.
+
+> open trunk
+You open the trunk.  Inside the trunk is an ornate medallion.
+
+> get medallion
+(from the trunk)
+Ok, you take the ornate medallion from the trunk.
+
+> wear medallion
+You gently loop the ornate medallion around your neck.  Instantly there appears a beautiful lady in flowing white robes.
+
+> talk to lady
+"Greetings, Adoamros" says the Lady in White.
+
+1. "Who are you?"
+2. "What's going on?"
+3. "Why are you here?"
+
+> 3
+You notice The Lady in White is now holding a letter in her hand.  You're quite sure that wasn't there a minute ago.
+
+The Lady in White looks at you incredulously and says,
+"It seems you have been chosen by the medallion to be tested.  I have brought a letter that can only be read by the one who can save us.  Could it be that you are the one worthy enough to read the letter and accept a quest to save us all?"
+
+> no
+The Lady in White looks at you and wonders...  After a moment, she says, "Perhaps I was right about you after all.  The others said that you would be too proud for this quest, but I told them to give you a chance.  I leave you the letter, but be warned, it has tricks of its own; nevertheless, it will be your guide to the first task.  You must not fail!"
+
+As suddenly as she appeared, the Lady in White vanishes, and the letter deftly floats into your hand.
+
+> read letter
+You gently open the letter and read the swirling writing on the parchment:
+
+Greetings, Adoamros Hawklight [You wonder how it knows your name...  Then you wonder why that is your name anyway...  Oh well...].  Following is the story of things which were, no doubt still are, but perhaps will not be, depending on your success or failure.  There is a legend, passed down through the ages, of the Four Cardinals.  We do not now know their names or even their descriptions, but it is said that the Four Cardinals once held the key to maintaining order and defeating chaos.  I have compiled all I could herein, in hopes that this letter reaches the right person who might understand it and find the Four Cardinals.  The letter has been safeguarded so that only the worthy may open it.
+
+You have opened the letter and read this far, but we must take caution in revealing more.  Therefore, to prove your worth, you must answer three questions.  But be warned, should you answer incorrectly, you will surely perish.
+
+You hear a deep voice, seemingly coming from within the parchment itself, saying, "Are you ready?"
+
+> yes
+"Very good...
+#2.  Are you aware of the source of all creation?"
+
+> yes
+"You are sharp, aren't you!  And the last question:  Can you tell the difference between silver and gold?"
+
+> yes
+The deep voice chuckles.  "Brilliant, good sir!  You know, they told me you weren't this smart, but I insisted that you were!  Nevermind, nevermind, here is the rest of the letter."
+
+The parchment shimmers as new writing appears.
+
+The Legend of the Four Cardinals:
+
+There once existed Four Cardinals, each noble and generous in his own way.  The Four created perfect balance, without which the world would be doomed to utter chaos and destruction.  In a time of great turmoil, when the Four Cardinals were in danger of destruction, Lord Mardak Wolfswift the Magnificent, Bringer of Balance, Master of Elements, Champion of Order (etc. Ad finitum) sought to bind the Cardinals in place forever.  Using his vast knowledge of creation and order, Lord Mardak succeeded in his quest, and the world was at peace.  It is said that Lord Mardak composed a journal with detailed descriptions of the Four.
+
+You, being found worthy of reading this letter, must find the Journal of Mardak and decipher its meaning before it is too late.  Seek out the Journal, seek out the Four, and save the world.  [You might begin by finding the grave of Mardak Wolfswift the Magnificent, Bringer of Balance, Master of Elements, Champion of Order (etc. Ad finitum).]
+
+From this time forward, you shall be known as Adoamros Hawklight the Brave.  Good luck!
+
+You fold up the letter and put it away.
+
+> w
+(standing up first)
+You move west.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are east and west.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are south, west and southwest.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  It feels hotter in this part of the forest...  Exits are east, south and west.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  Also here is a wooden sign.  Exits are east and south.
+
+> read sign
+The sign says, "Lost already?  Perhaps you should ask for directions!"
+
+> ask directions to cemetery
+You feel silly talking to a piece of wood, but you ask anyway, "Would you please give me directions to the cemetery?"
+
+The sign shimmers and you hear a voice say, "Why, of course, dear boy!  Follow them closely and you just may succeed!
+
+Go to the Southwest corner of the Forest of Kin and speak the following words: 'On the authority of the Great Northwestern Wooden Sign, I hearby invoke the path to the divine.'
+
+Now don't you laugh, boy, or you will surely fail!  Now go!"
+
+> e
+You move east.
+
+Forest of Kin
+You are in the Forest of Kin.  It feels hotter in this part of the forest...  Exits are east, south and west.
+
+> s
+You move south.
+
+Forest of Kin
+You are in the Forest of Kin.  Also here is a tree.  Exits are north, east, south, west, northeast, southeast and southwest.
+
+> sw
+You move southwest.
+
+Forest of Kin
+You are in the Forest of Kin.  An exit leads northeast.
+
+> say On the authority of the Great Northwestern Wooden Sign, I hereby invoke the path to the divine.
+You speak the silly incantation, and the forest opens up to the South revealing a church.
+
+> s
+You move south.
+
+Church
+It is a church, probably Methobapticostalian.  Also here is an altar and a stone archway.  Exits are north and south.
+
+> look at keystone
+
+The keystone above the arch shows a picture.
+
+> get hymnal
+(from the altar)
+Ok, you take the Hymnal from the altar.
+
+> open hymnal
+You open the hymnal to The 1900 Yattendon Hymnal section and find hymn number 9.  Do you dare sing the last line?
+
+> sing Praise Father, Son, and Holy Ghost.
+As you sing, the image on the keystone above the arch shimmers and changes.
+
+> look at keystone
+
+The keystone above the arch shows a different picture than at the first!
+
+> get bible
+(from the altar)
+Upon picking up the Bible, the image on the keystone above the arch shimmers and changes once more.
+
+> look at keystone
+
+The keystone above the arch shows a different picture than at the second!
+
+> open bible
+You open the Bible.
+
+> say Precious in the eyes of Hashem is the mavet of His Chasidim
+The entire archway glows and you hear a booming voice:  "ONLY THE PENITENT MAN SHALL PASS."
+
+> kneel
+As you quickly kneel, an axe comes swinging down where your head would have been!  You're still alive!  Furthermore, the invisible barrier is now gone!  Huzzah!
+
+> s
+You move south.
+
+Cemetery
+This is the cemetery behind the Church.  Rows of gravestones and tombs abound.  Exits are north, south, southeast and southwest.
+
+> se
+You move southeast.
+
+Cemetery
+Exits are north, southeast, southwest and northwest.
+
+> se
+You move southeast.
+
+Cemetery
+There is a wooden sign here.  Exits are north, east and northwest.
+
+> read sign
+The sign says, "You again?  Do I have to keep helping you?  What exactly are you looking for?"
+
+> say the grave of Mardak Wolfswift
+Ahhhhh, you seek the grave of Mardak Wolfswift the Magnificent, Bringer of Balance, Master of Elements, Champion of Order (etc. Ad finitum), do you?  I haven't had that request in many many years, well, unless you count that man from yesterday.  Funny fellow, wearing a cloak and looking very mysterious and in a hurry.  I didn't like the guy at all, so I told him he would never find the crypt without the map of the cemetery, and only the King has the map of the cemetery!  He'd have to be an idiot to ask the King for the map of the cemetery!
+
+But you, ahh you do seem trustworthy, and you have followed directions pretty well thus far.  Alright, I'll help you.  Here's what you do:  Enter the castle and use the globe to find the path less traveled.  But you must be quick, for there will most certainly be guards looking for intruders.  Follow my directions, and you will find the location of what you seek.  Fail to heed these instructions and you will wander around forever.  Good luck!
+
+> nw
+You move northwest.
+
+Cemetery
+Exits are north, southeast, southwest and northwest.
+
+> nw
+You move northwest.
+
+Cemetery
+This is the cemetery behind the Church.  Rows of gravestones and tombs abound.  Exits are north, south, southeast and southwest.
+
+> n
+You move north.
+
+Church
+It is a church, probably Methobapticostalian.  Also here is an altar and a stone archway.  Exits are north and south.
+
+> n
+You move north.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are south and northeast.
+
+> ne
+You move northeast.
+
+Forest of Kin
+You are in the Forest of Kin.  Also here is a tree.  Exits are north, east, south, west, northeast, southeast and southwest.
+
+> e
+You move east.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> e
+You move east.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are north, east and west.
+
+> n
+You move north.
+
+Castle Entrance
+You stand at the entrance to the castle.  You would almost bet money that an evil king lives here.  Also here is a wooden sign.  Exits are north and south.
+
+> n
+You move north.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east and south.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> e
+You move east.
+
+Dining Room
+The room can comfortably sit 30 guests for dinner.  Also here is a dining table.  Exits are north and west.
+
+> get cup
+(from the dining table)
+Ok, you take the cup from the dining table.
+
+> n
+You move north.
+
+Sleeping Quarters
+These are the sleeping quarters for the servants.  You can tell because the sign on the door says "Servants' Sleeping Quarters".  Also here is a bed, a nightstand and a globe.  An exit leads south.
+
+> open globe
+You open the globe.  Inside the globe is a key.
+
+> get key
+(from the globe)
+Ok, you take the key from the globe.
+
+> get pen
+(from the nightstand)
+Ok, you take the pen from the nightstand.
+
+> s
+You move south.
+
+Dining Room
+The room can comfortably sit 30 guests for dinner.  Also here is a dining table.  Exits are north and west.
+
+> w
+You move west.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east and south.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> unlock door with key
+You unlock the library door with the key.
+
+> open door
+You open the door.
+
+> w
+You move west.
+
+Library
+You have never seen so many books in a single location.  Also here is the center bookcase, the left bookcase and the right bookcase.  An exit leads east.
+
+The footsteps are getting closer.
+
+> pull the forgotten paths
+As you pull the book, you hear a slight click, and the bookcase swings open into the wall!  Sweet!
+
+You cautiously step into the passage and close the bookcase behind you.  Phew, you are safe here.
+
+> look through spy holes
+You look through the spy holes and see the king with some cloaked "advisor" or something like that.  You listen to their conversation:
+
+King:  "You want me to give you what!?"
+Cloaked man:  "My King, I have served you faithfully all these years.  Do you not trust me with a single map?"
+King:  "Admiral, you do not know what you ask..."
+Admiral:  "I only wish to find my poor uncle's tomb, that I might pay my respects. Is this too much to ask?"
+King:  "Very well, I will grant this to you. Leave me now. I must retrieve the map myself. Come to me tonight and you may take it."
+Admiral: "You are most generous, Your Highness. I will return this evening."
+
+The Admiral bows low, turns, and exits.  As he does, you think he makes a glance your way, but perhaps it was only your imagination.
+
+The King, looking weary, stands up and surveys his throne.  He quietly speaks a few words, too soft to hear, and moves to the side of the throne, where a drawer pushes out to reveal a parchment.  The King stands silent for a moment, sighs, and pushes the drawer shut.
+
+"Later," he says, "but for now I need rest."  He turns and leaves the throne room.
+
+Well that was illuminating.  You pull away from the wall and close the panel back in place.
+
+> s
+You move south.
+
+Library
+You have never seen so many books in a single location.  Also here is the center bookcase, the left bookcase and the right bookcase.  Exits are north and east.
+
+> e
+You move east.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east, south and west.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> n
+You move north.
+
+Throne Room
+Obviously, this is the Throne Room.  You can tell because it contains a throne.  (You are pretty smart, after all.)  An exit leads south.
+
+No one is in the throne room presently, but that surely won't last for long.  Better do what you came here to do.
+
+> look at markings
+Mysterious-looking markings are etched into the base of the throne:
+
+> reveal your secrets
+You say, "Reveal your secrets" and hear a click on the side of the throne as a drawer unlocks and gently slides open.
+
+> get parchment
+(from the throne drawer)
+Ok, you take the parchment from the throne drawer.
+
+> get cemetery map
+(from the throne drawer)
+Ok, you take the cemetery map from the throne drawer.
+
+> get coin of earth
+(from the throne drawer)
+Ok, you take the Coin of Earth from the throne drawer.
+
+> s
+You move south.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east and south.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> s
+You move south.
+
+Castle Entrance
+You stand at the entrance to the castle.  You would almost bet money that an evil king lives here.  Also here is a wooden sign.  Exits are north and south.
+
+> s
+You move south.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are north, east and west.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  Also here is a tree.  Exits are north, east, south, west, northeast, southeast and southwest.
+
+> sw
+You move southwest.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are south and northeast.
+
+> s
+You move south.
+
+Church
+It is a church, probably Methobapticostalian.  Also here is an altar and a stone archway.  Exits are north and south.
+
+> s
+You move south.
+
+Cemetery
+This is the cemetery behind the Church.  Rows of gravestones and tombs abound.  Exits are north, south, southeast and southwest.
+
+> sw
+You move southwest.
+
+Cemetery
+Exits are north, east, south, west, northeast, southeast, southwest and northwest.
+
+> sw
+You move southwest.
+
+Cemetery
+Exits are northeast and southwest.
+
+> sw
+You move southwest.
+
+Cemetery
+Exits are east and northeast.
+
+> e
+You move east.
+
+Cemetery
+Exits are east and west.
+
+> e
+You move east.
+
+Cemetery
+Exits are east and west.
+
+> e
+You move east.
+
+Cemetery
+Exits are west and northeast.
+
+> ne
+You move northeast.
+
+Cemetery
+Exits are south, southeast and southwest.
+
+> se
+You move southeast.
+
+Cemetery
+Exits are east and northwest.
+
+> e
+You move east.
+
+Cemetery
+There is a crypt here.  An exit leads west.
+
+> say earth
+You face the crypt door say "Earth."  A notch appears in the door in the shape of a diamond (or more properly a rhombus set at 45 degrees).
+
+> use medallion on notch
+You set your medallion stone in the notch and hear a large thud as the door begins to open.  Success!  You put the medallion back around your neck, step into the crypt, and the door shuts behind you.
+
+> wipe lid
+You dust off the lid and find that something has been etched into the lid.  You can't quite make out what it is in its present form.
+
+> use pen and paper on lid
+You trace the relief from the lid and put the rubbing away.
+
+> push lid
+You push as hard as you can on the lid to the sarcophagus, but it only moves a centimeter.
+
+> push lid
+You push again, and feel the lid begin to give way.
+
+> push lid
+You push with all your might and the lid topples to the ground behind the sarcophagus and shatters.  What a relief that you already got that relief!
+
+> get journal
+(from the sarcophagus)
+Ok, you take the Journal from the sarcophagus.
+
+> say heart
+You say, "Heart" and watch in amazement as a doorway appears to the west.
+
+> w
+You move west.
+
+Guardian of Earth
+You are in a room, yet not so much a room as the earth itself.  It is a very metaphysical feeling, hard to describe (no pun intended (ok, maybe a little intended)).  the Guardian of the Earth is here.  An exit leads east.
+
+> talk to guardian
+You open your mouth to speak but find that you cannot.  The man before you speaks:
+
+"Greetings, Adoamros Hawklight the Brave.  You have done well to approach this place.  I am the Cardinal of the South, Guardian of the Earth, and the Keeper of the Coin of Fire.  Listen carefully, for time is short.  I am one of Four Cardinals who protect the sacred balance of life.  Only once before have we been joined together, and the time has come to join once more; you must do this for the sake of all that you hold dear, lest we all be succumbed to the forces of chaos.  I hope by now that you know where the others are, even if only vaguely.
+
+Each Guardian may only be approached with payment in hand.  You have come here bearing the Coin of Earth.  You have proven your worth, and thus I give to you the Coin of Fire.  Take it to the Cardinal of the North, the Guardian of Fire, and the Keeper of the Coin of Air.  But be warned, the others are not as kind or forthright as I.  They will strike you down with their unruly natures, for they cannot be contained easily.
+
+Good luck, Adoamros Hawklight the Valiant.  You have the Earth as your armour."
+
+The next thing you know, you are falling into the earth, and you lose consciousness.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Finally, you wake up.  You find yourself back in your home.  How did you get here?
+You also notice a new map lying next to you on the bed.
+
+> w
+You move west.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are north, east and west.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are south, west and southwest.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  It feels hotter in this part of the forest...  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are north, south and northwest.
+
+> n
+You move north.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are south and northeast.
+
+> ne
+You move northeast.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and southwest.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and northeast.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are north, east, south, west and northeast.
+
+> s
+You move south.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Also here is a shovel.  An exit leads north.
+
+> get shovel
+Ok, you pick up the shovel.
+
+> n
+You move north.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are north, east, south, west and northeast.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and northeast.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and southwest.
+
+> sw
+You move southwest.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are south and northeast.
+
+> s
+You move south.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are north, south and northwest.
+
+> s
+You move south.
+
+Forest of Kin
+You are in the Forest of Kin.  It feels hotter in this part of the forest...  Exits are north, east, south and west.
+
+> s
+You move south.
+
+Forest of Kin
+You are in the Forest of Kin.  Also here is a tree.  Exits are north, east, south, west, northeast, southeast and southwest.
+
+> e
+You move east.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> e
+You move east.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are north, east and west.
+
+> n
+You move north.
+
+Castle Entrance
+You stand at the entrance to the castle.  You would almost bet money that an evil king lives here.  Also here is a wooden sign.  Exits are north and south.
+
+> n
+You move north.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east and south.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> unlock door with key
+You unlock the library door with the key.
+
+> open door
+You open the door.
+
+> w
+You move west.
+
+Library
+You have never seen so many books in a single location.  Also here is the center bookcase, the left bookcase and the right bookcase.  Exits are north and east.
+
+> get volcano map
+(from the Hamlet)
+Ok, you take the volcano map from the Hamlet.
+
+> pull the forgotten paths
+As you pull the book, you hear a slight click, and the bookcase swings open into the wall!  Sweet!
+
+You cautiously step into the passage and close the bookcase behind you.  Phew, you are safe here.
+
+> use shovel on floor
+You position your shovel in the notch and proceed to pry up the stone, revealing a ladder beneath.
+
+> down
+You climb down the ladder.
+
+> get dr pepper
+You fill your cup with Dr. Pepper.
+
+> up
+You climb up the ladder.  Phew, you are safe here.
+
+> s
+You move south.
+
+Library
+You have never seen so many books in a single location.  Also here is the center bookcase, the left bookcase and the right bookcase.  Exits are north and east.
+
+> e
+You move east.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east, south and west.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> s
+You move south.
+
+Castle Entrance
+You stand at the entrance to the castle.  You would almost bet money that an evil king lives here.  Also here is a wooden sign.  Exits are north and south.
+
+> s
+You move south.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are north, east and west.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are south, west and southwest.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  It feels hotter in this part of the forest...  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are north, south and northwest.
+
+> n
+You move north.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are south and northeast.
+
+> ne
+You move northeast.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and southwest.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and northeast.
+
+> ne
+You move northeast.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, south, west and southwest.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Also here is a cave.  An exit leads east.
+
+> go in cave
+As you approach the cave, suddenly a wall of fire appears at the entrance, and you hear a booming voice:
+
+NONE SHALL PASS!!  Or is it, ONLY THE PENETENT MAN SHALL PASS!!  No, that's not quite right either...  hmmmm...   Oh yes, now I remember:
+
+HE WHO WISHES TO PASS MUST ANSWER ME THESE QUESTIONS THREE!
+
+WHAT IS YOUR NAME?
+
+> Adoamros Hawklight
+Hmmm, so it is...  Next question:
+
+WHAT IS YOUR QUEST?
+
+> I seek the Holy Grail
+I think you're in the wrong game...  But you get points for creativity!
+
+Last question:
+
+WHAT IS THE AIRSPEED VELOCITY OF AN UNLADEN SWALLOW?
+(hint: you must not use a question mark in your answer)
+
+> African or European
+WHAT?  I DON'T KNOW THAT!  Well, I guess you win.  You may enter.  The flames disappear, and you enter the cave.
+
+> talk to man
+The man is wearing a cloak with a hood covering his face.  He lays upon the ground and looks like he's in pain.  He notices you come into the cave, and says in an almost inaudible voice, "Help....me....drink...."
+
+> give dr pepper to man
+You give the man your cup of Dr. Pepper.  He drinks the whole cupful and, quite miraculously, stands to his feet.  You notice he is slightly shorter in height than you, but you can also sense his power as he approaches you.  He begins to reach into his cloak, quickening his pace toward you, but then he vanishes before your eyes.  What just happened?
+
+Then, the walls in the cave begin to glow and pulse slowly as a voice quite unlike any you've ever heard says:
+
+"You chose...wisely.  And now to test why you would do such a thing to one who is set on your failure and demise..."
+
+A parchment appears in the air before you.
+
+> get parchment
+Ok, you pick up the glowing parchment.
+
+> read parchment
+You read the glowing parchment:
+
+140117 151821022517 072118 25140607 0621142525 151816022618 1922050607
+10211801 072118 161801071805 0219 1814050721 1518 05182602091817
+
+Once you find the key on page 394 in the quester's book and work this out, come back here and reveal what you have found.
+
+> s
+You move south.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Also here is a cave.  Exits are north and east.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, south, west and southwest.
+
+> sw
+You move southwest.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and northeast.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and southwest.
+
+> sw
+You move southwest.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are south and northeast.
+
+> s
+You move south.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are north, south and northwest.
+
+> s
+You move south.
+
+Forest of Kin
+You are in the Forest of Kin.  It feels hotter in this part of the forest...  Exits are north, east, south and west.
+
+> s
+You move south.
+
+Forest of Kin
+You are in the Forest of Kin.  Also here is a tree.  Exits are north, east, south, west, northeast, southeast and southwest.
+
+> e
+You move east.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> e
+You move east.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are north, east and west.
+
+> n
+You move north.
+
+Castle Entrance
+You stand at the entrance to the castle.  You would almost bet money that an evil king lives here.  Also here is a wooden sign.  Exits are north and south.
+
+> n
+You move north.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east and south.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> unlock door with key
+You unlock the library door with the key.
+
+> open door
+You open the door.
+
+> w
+You move west.
+
+Library
+You have never seen so many books in a single location.  Also here is the center bookcase, the left bookcase and the right bookcase.  Exits are north and east.
+
+> read the holy grail
+You flip quickly to page 394 and find the following scrawled in the margin:
+
+Mark 10:8
+◄13
+
+> e
+You move east.
+
+Great Hall
+It is an opulent room with vaulted ceilings, large windows, and 3 large chandeliers.  You could fit a dozen of your house in this single room.  To the West is a closed door marking "Library."  Exits are north, east, south and west.
+
+You have entered the Great Hall of the castle.  Hope you don't get caught.
+
+> s
+You move south.
+
+Castle Entrance
+You stand at the entrance to the castle.  You would almost bet money that an evil king lives here.  Also here is a wooden sign.  Exits are north and south.
+
+> s
+You move south.
+
+Courtyard
+The courtyard is just West of your house.  You can make out the faint outlines of a castle to the North and a forest to the West.  Exits are north, east and west.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Forest of Kin
+You are in the Forest of Kin.  Exits are south, west and southwest.
+
+> w
+You move west.
+
+Forest of Kin
+You are in the Forest of Kin.  It feels hotter in this part of the forest...  Exits are north, east, south and west.
+
+> n
+You move north.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are north, south and northwest.
+
+> n
+You move north.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are south and northeast.
+
+> ne
+You move northeast.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and southwest.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> e
+You move east.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, west and northeast.
+
+> ne
+You move northeast.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east, south, west and southwest.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Exits are east and west.
+
+> w
+You move west.
+
+Volcano of Eruptus.
+You are on the base of the Volcano of Eruptus.  Also here is a cave.  Exits are north and east.
+
+> n
+You move north.
+
+Cleft of the Rock
+You find yourself (or is it your soul) in the cleft of the rock.  An exit leads south.
+
+> say heat
+You say, "Heat" and watch in amazement as an archway burns itself into the cave wall, opening up a passage to the east.
+
+> e
+You move east.
+
+Guardian of Fire
+The roof is on fire!  Actually, everything is on fire, yet without burning.  The Guardian of Fire is here.  An exit leads west.
+
+> talk to guardian
+You open your mouth to speak but find that you cannot.  The woman before you speaks:
+
+"You dare try to speak to me!? You presume upon my domain and for what!?" the small fiery woman says.  "Give me one reason why I should not smote you where you stand!"
+
+> give coin of earth to guardian
+Wordlessly, you present the Coin of Earth to the Guardian.
+
+"Oh," she says.  "So, it's you.  Yes, I see now your armour of Earth.  And you have his coin...  Interesting indeed.  And so you come to me to seek my aid in your quest.  I could help you, I suppose.  The man in black had an intriguing offer for me too.  He wanted me to give you a message.  What was it.....oh yes I remember now.  He said to tell you that you are still two steps behind him.  I told him I would tell you, and then I smote him and left him to die out in the front of the cave.  I wonder if he is still there...  After all, he did not have any armour as you do.  Seems you beat him to that one.  You are Valiant indeed.  Perhaps I shall aid you, since you do bear the coin and armour...  Very well, I have convince myself.
+
+"I give to you, Adoamros, the Sword of Flame.  With it shall you smite your enemies asunder.  Also, it adds at least 30 style points.  I also give to you the Coin of Air.  Doubtful my sister will come to your aid, but you can try if you like.
+
+"Now begone."
+
+Suddenly you see fire all around, getting closer and closer, until you are consumed.
+

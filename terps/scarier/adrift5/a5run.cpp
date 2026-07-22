@@ -310,6 +310,7 @@ a5run_new (const a5_adventure_t *adv)
       a5_event_rt &rt = (*run->events)[i];
       rt.status = A5_EV_NOTYET;
       rt.length_value = 0;
+      rt.length_set = 0;
       rt.timer_to_end = 0;
       rt.last_se_time = 0;
       rt.last_se_index = -1;
@@ -3149,6 +3150,7 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
               int s = 0;
               e.status       = (int)  child_long (n, "Status");
               e.length_value =        child_long (n, "Length");
+              e.length_set   = 1;                /* the save holds Length.Value */
               e.timer_to_end =        child_long (n, "Timer");
               e.last_se_time =        child_long (n, "LastSeTime");
               e.last_se_index = (int) child_long (n, "LastSeIndex");

@@ -1,0 +1,245 @@
+# Tempus Fugit -- Adamark Industries (2017)
+#
+# An unfinished game: there is no EndGame Win anywhere in the model, only
+# nineteen ways to Lose.  The deepest authored content is the Guardian of
+# Fire, so this walkthrough drives the whole authored chain -- Lady in White,
+# the wooden sign, the church archway, the cemetery, the castle, the crypt,
+# the Guardian of Earth, the volcano and the Cleft of the Rock -- and stops
+# after the Coin of Earth is handed over.
+#
+# Ground truth: 1 hunk, and it is a harness artifact, not an engine divergence.
+# The Guardian of Earth's "Finally, you wake up..." comes from a TimeBased
+# event's ExecuteTask; FrankenDrift.Headless drives its TimeBased tick OUTSIDE
+# Process(), so that text lands after the turn's end-of-turn paragraph break
+# and ends the transcript line flush against the next "> ".  Scarier commits
+# the tick as part of the same a5run_input, so it keeps the usual one-newline
+# tail and the diff shows one extra blank line there.
+
+# --- The hut: the medallion summons the Lady in White ---
+open trunk
+get medallion
+wear medallion
+talk to lady
+3
+# "Are you worthy?"  Saying yes is fatal pride; only the penitent man passes.
+no
+read letter
+yes
+yes
+yes
+
+# --- Forest of Kin: the wooden sign in the north-west corner ---
+w
+w
+n
+w
+w
+read sign
+ask directions to cemetery
+e
+s
+sw
+say On the authority of the Great Northwestern Wooden Sign, I hereby invoke the path to the divine.
+s
+
+# --- The church: the keystone tells you what to do, one picture at a time ---
+look at keystone
+get hymnal
+open hymnal
+sing Praise Father, Son, and Holy Ghost.
+look at keystone
+get bible
+look at keystone
+open bible
+say Precious in the eyes of Hashem is the mavet of His Chasidim
+kneel
+
+# --- The cemetery sign: ask it for the grave ---
+s
+se
+se
+read sign
+say the grave of Mardak Wolfswift
+
+# --- Back out of the cemetery and up to the castle ---
+nw
+nw
+n
+n
+ne
+e
+e
+n
+n
+
+# --- Castle: the dining cup, then the globe key and the pen ---
+e
+get cup
+n
+open globe
+get key
+get pen
+s
+w
+
+# --- Library: pull the book, spy on the King from the secret passage ---
+unlock door with key
+open door
+w
+pull the forgotten paths
+look through spy holes
+
+# --- Throne room: the drawer opens to the words on the markings ---
+s
+e
+n
+look at markings
+reveal your secrets
+get parchment
+get cemetery map
+get coin of earth
+s
+s
+s
+
+# --- The cemetery again, this time all the way to the crypt ---
+w
+w
+sw
+s
+s
+sw
+sw
+sw
+e
+e
+e
+ne
+se
+e
+
+# --- Inside the crypt: rub the lid before you break it ---
+say earth
+use medallion on notch
+wipe lid
+use pen and paper on lid
+push lid
+push lid
+push lid
+get journal
+say heart
+w
+
+# --- The Cardinal of the South ---
+talk to guardian
+wait
+wait
+wait
+wait
+wait
+
+# --- The volcano: the shovel lies in the ash ---
+w
+w
+n
+w
+n
+n
+ne
+e
+e
+e
+s
+get shovel
+n
+w
+w
+w
+sw
+s
+s
+s
+e
+e
+
+# --- Castle again: the volcano map is in Hamlet, the Dr. Pepper in the cellar ---
+n
+n
+unlock door with key
+open door
+w
+get volcano map
+pull the forgotten paths
+use shovel on floor
+down
+get dr pepper
+up
+s
+e
+s
+s
+
+# --- The Cleft of the Rock: three questions ---
+w
+n
+w
+n
+n
+ne
+e
+e
+ne
+w
+w
+w
+go in cave
+Adoamros Hawklight
+I seek the Holy Grail
+African or European
+talk to man
+give dr pepper to man
+get parchment
+read parchment
+
+# --- Page 394 of the quester's book is in the castle library ---
+s
+e
+e
+e
+sw
+w
+w
+sw
+s
+s
+s
+e
+e
+n
+n
+unlock door with key
+open door
+w
+read the holy grail
+e
+s
+s
+
+# --- Back to the cleft, and the Guardian of Fire ---
+w
+n
+w
+n
+n
+ne
+e
+e
+ne
+w
+w
+w
+n
+say heat
+e
+talk to guardian
+give coin of earth to guardian

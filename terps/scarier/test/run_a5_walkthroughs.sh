@@ -1337,6 +1337,7 @@ ReturnToCastleCoris|ReturnToCastleCoris.blorb|0|0
 EdithsCats|edithscats.taf|0|0
 BirthOfThePhoenix|PhoenixV3.blorb|0|0
 Jabberwocky|jabberwocky4.21.blorb|0|0
+TempusFugit|Tempus Fugit2.taf|0|1
 EOF
 )
 

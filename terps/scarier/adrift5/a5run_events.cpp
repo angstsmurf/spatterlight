@@ -44,6 +44,23 @@ static void wk_tick_all (a5_run_t *run, sb_t *out);
 static void wk_init     (a5_run_t *run, sb_t *out);
 
 static long ev_from_start (const a5_event_rt &rt) { return rt.length_value - rt.timer_to_end; }
+
+/* clsEvent.Length is a FromTo, and FromTo.Value (Global.vb:3770) resolves
+   lazily: the first read of an as-yet-unevaluated Length draws Random(from,to)
+   and caches it -- even for an event that has never started.  ev_lstop is the
+   one place that can reach a Length that lStart has not already rolled. */
+static long
+ev_length_value (a5_run_t *run, int ei)
+{
+  const a5_event_t *e = &run->adv->events[ei];
+  a5_event_rt &rt = (*run->events)[ei];
+  if (!rt.length_set)
+    {
+      rt.length_value = a5rand_between (e->length_from, e->length_to);
+      rt.length_set = 1;
+    }
+  return rt.length_value;
+}
 static long ev_from_last  (const a5_event_rt &rt) { return ev_from_start (rt) - rt.last_se_time; }
 
 /* Render a subevent/subwalk <DisplayMessage> as REAL output (marking_display=1
@@ -160,6 +177,7 @@ ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out)
     return;
   rt.status = A5_EV_RUNNING;
   rt.length_value = a5rand_between (e->length_from, e->length_to);  /* Length.Reset + first .Value */
+  rt.length_set = 1;
   rt.last_se_index = -1;
   rt.last_se_time = 0;
   for (i = 0; i < e->n_subevents; i++)
@@ -184,9 +202,15 @@ ev_lstop (a5_run_t *run, int ei, int run_subs, sb_t *out)
   if (rt.status == A5_EV_PAUSED)
     return;
   rt.status = A5_EV_FINISHED;
+  /* A repeating event whose timer sits at 0 restarts here -- and that includes
+     one that has never run at all (TimerToEndOfEvent starts at 0), so a Stop
+     control aimed at a not-yet-started repeating event STARTS it.  Tempus
+     Fugit depends on it: walking into the Castle Entrance fires the `exit
+     castle` system task, whose Stop control kicks off the 15-turn guard event
+     one turn before the Great Hall task would have. */
   if (e->repeating && rt.timer_to_end == 0)
     {
-      if (rt.length_value > 0)
+      if (ev_length_value (run, ei) > 0)
         {
           if (e->repeat_countdown)
             {
@@ -551,6 +575,7 @@ ev_init (a5_run_t *run, sb_t *out)
           {
             long delay = a5rand_between (e->start_from, e->start_to);
             rt.length_value = a5rand_between (e->length_from, e->length_to);
+            rt.length_set = 1;
             ev_set_timer_to_end (run, ei, delay + rt.length_value, out);
           }
           break;

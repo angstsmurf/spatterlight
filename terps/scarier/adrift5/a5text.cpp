@@ -280,6 +280,35 @@ a5text_location_short (a5_state_t *st, const char *lockey)
   return sb_finish (&sb);
 }
 
+/* The effective long description of a location (clsLocation.LongDescription,
+   vb:78) -- the exact mirror of ShortDescription above: the base
+   <LongDescription>, with any inherited LongLocationDescription group
+   property's SingleDescriptions appended.  Both properties are created
+   GroupOnly by FileIO (vb:2429/2441), so a whole region can be described once
+   on its group: Tempus Fugit gives its 21 numbered Volcano rooms no
+   LongDescription of their own and lets the Volcano group say "You are on the
+   base of the Volcano of Eruptus."  Without this the room bodies come out
+   empty, which also flips the object listing to the v5 empty-room "There is a
+   shovel here." instead of "Also here is a shovel." */
+static char *
+location_long_desc (a5_state_t *st, const char *lockey)
+{
+  const a5_location_t *l = lockey ? a5model_location (st->adv, lockey) : NULL;
+  const a5_prop_t *grp;
+  sb_t sb;
+  const char *default_text = NULL;
+  int first = 1, term;
+  sb_init (&sb);
+  if (l == NULL)
+    return sb_finish (&sb);
+  term = eval_desc_into (st, &sb, &first, &default_text,
+                         a5xml_child (l->node, "LongDescription"));
+  grp = a5state_location_group_prop (st, lockey, "LongLocationDescription");
+  if (!term && grp != NULL && grp->value_node != NULL)
+    eval_desc_into (st, &sb, &first, &default_text, grp->value_node);
+  return sb_finish (&sb);
+}
+
 /* --------------------------------------------------------- object naming */
 
 char *
@@ -3428,7 +3457,7 @@ view_location_impl (a5_state_t *st, const char *lockey)
        Foul's Slave Holdings / east-wing rooms).  Real-output call sites
        (emit_look, resp_flush, the game-start view) set marking_display=1. */
     char *raw, *proc;
-    raw = a5text_eval_description (st, a5xml_child (loc->node, "LongDescription"));
+    raw = location_long_desc (st, lockey);
     proc = a5text_process (st, raw);
     free (raw);
     /* Special-listed objects directly here.  The runner's ViewLocation SELECTS them

@@ -32,6 +32,10 @@ enum { A5_CMD_NONE = 0, A5_CMD_START = 1, A5_CMD_STOP = 2,
 struct a5_event_rt {
   int  status;
   long length_value;       /* resolved Length for this run                   */
+  int  length_set;         /* Length (a FromTo) has been evaluated at least
+                              once -- FromTo.Value is lazy (Global.vb:3770),
+                              so an event that never started still resolves
+                              its Length the first time anything asks        */
   long timer_to_end;
   long last_se_time;       /* iLastSubEventTime                              */
   int  last_se_index;      /* -1 = none (LastSubEvent Is Nothing)            */
