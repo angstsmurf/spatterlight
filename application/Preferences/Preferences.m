@@ -116,12 +116,9 @@
 @property (strong) IBOutlet NSLayoutConstraint *belowHeightConstraint;
 @property (strong) IBOutlet NSLayoutConstraint *bottomConstraint;
 
-// "Keep games organised" controls, built programmatically and injected into
-// the Global settings pane (see -setupLibraryOrganiserControls).
-@property (strong) NSButton *keepOrganisedCheckbox;
-@property (strong) NSTextField *libraryLocationField;
-@property (strong) NSButton *chooseLibraryButton;
-@property (strong) NSButton *organiseAllButton;
+// "Keep games organised" controls on the Global settings pane
+@property (strong) IBOutlet NSTextField *libraryLocationField;
+@property (strong) IBOutlet NSButton *chooseLibraryButton;
 
 @end
 
@@ -374,8 +371,6 @@ NSString *fontToString(NSFont *font) {
         miscPanel:_miscView,
         globalPanel:_globalView
     };
-
-    [self setupLibraryOrganiserControls];
 
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"prefsToolbar"];
     toolbar.delegate = self;
@@ -763,6 +758,8 @@ NSString *fontToString(NSFont *font) {
     _lightModeMenuItem.state = theme.hardLight;
 
     _scottAdamsFlickerCheckbox.state = theme.flicker;
+
+    [self updateLibraryOrganiserControls];
 
     if ([NSFontPanel sharedFontPanel].visible) {
         if (!selectedFontButton)
@@ -2108,93 +2105,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 #pragma mark Keep games organised
 
-// The Global settings pane is a fixed-frame (non-autolayout) form. Rather than
-// reflow the dense nib by hand, we grow the pane and add the organiser controls
-// in the freed band at the bottom. Existing controls stick to the top (they use
-// a flexible bottom margin), so growing the height simply opens room below.
-- (void)setupLibraryOrganiserControls {
-    NSView *pane = _globalView;
-    if (!pane || _keepOrganisedCheckbox)
-        return;
-
-    const CGFloat grow = 122;
-    NSRect frame = pane.frame;
-    frame.size.height += grow;
-    pane.frame = frame;   // existing subviews reflow upwards
-
-    CGFloat width = NSWidth(frame);
-
-    // Divider between the existing settings and the new section.
-    NSBox *divider = [[NSBox alloc] initWithFrame:NSMakeRect(20, 104, width - 40, 1)];
-    divider.boxType = NSBoxSeparator;
-    divider.translatesAutoresizingMaskIntoConstraints = YES;
-    divider.autoresizingMask = NSViewMaxYMargin | NSViewWidthSizable;
-    [pane addSubview:divider];
-
-    // Master checkbox.
-    _keepOrganisedCheckbox =
-    [NSButton checkboxWithTitle:NSLocalizedString(@"Keep games organised in a central library folder", nil)
-                         target:self
-                         action:@selector(changeKeepOrganised:)];
-    _keepOrganisedCheckbox.translatesAutoresizingMaskIntoConstraints = YES;
-    _keepOrganisedCheckbox.frame = NSMakeRect(58, 78, width - 78, 18);
-    _keepOrganisedCheckbox.autoresizingMask = NSViewMaxYMargin | NSViewMaxXMargin;
-    _keepOrganisedCheckbox.toolTip =
-    NSLocalizedString(@"When on, newly imported games are copied into a central library folder, arranged by group and title. Turning this off leaves games where they are.", nil);
-    [pane addSubview:_keepOrganisedCheckbox];
-
-    // Location label + path field + Choose button.
-    NSTextField *locLabel =
-    [NSTextField labelWithString:NSLocalizedString(@"Location:", nil)];
-    locLabel.translatesAutoresizingMaskIntoConstraints = YES;
-    locLabel.frame = NSMakeRect(58, 50, 66, 16);
-    locLabel.autoresizingMask = NSViewMaxYMargin | NSViewMaxXMargin;
-    [pane addSubview:locLabel];
-
-    _libraryLocationField =
-    [NSTextField textFieldWithString:@""];
-    _libraryLocationField.translatesAutoresizingMaskIntoConstraints = YES;
-    _libraryLocationField.frame = NSMakeRect(126, 48, width - 126 - 118, 21);
-    _libraryLocationField.autoresizingMask = NSViewMaxYMargin | NSViewWidthSizable;
-    _libraryLocationField.editable = NO;
-    _libraryLocationField.selectable = YES;
-    _libraryLocationField.bezeled = YES;
-    _libraryLocationField.drawsBackground = YES;
-    _libraryLocationField.lineBreakMode = NSLineBreakByTruncatingMiddle;
-    _libraryLocationField.font = [NSFont systemFontOfSize:[NSFont smallSystemFontSize]];
-    [pane addSubview:_libraryLocationField];
-
-    _chooseLibraryButton =
-    [NSButton buttonWithTitle:NSLocalizedString(@"Choose…", nil)
-                       target:self
-                       action:@selector(chooseLibraryLocation:)];
-    _chooseLibraryButton.translatesAutoresizingMaskIntoConstraints = YES;
-    _chooseLibraryButton.frame = NSMakeRect(width - 110, 44, 90, 28);
-    _chooseLibraryButton.autoresizingMask = NSViewMaxYMargin | NSViewMinXMargin;
-    _chooseLibraryButton.toolTip =
-    NSLocalizedString(@"Choose where the library folder should live. Leave as the default to keep it inside Spatterlight's own storage.", nil);
-    [pane addSubview:_chooseLibraryButton];
-
-    // Organise-existing button.
-    _organiseAllButton =
-    [NSButton buttonWithTitle:NSLocalizedString(@"Organise Existing Games…", nil)
-                       target:self
-                       action:@selector(organiseAllGames:)];
-    _organiseAllButton.translatesAutoresizingMaskIntoConstraints = YES;
-    _organiseAllButton.frame = NSMakeRect(54, 10, 220, 28);
-    _organiseAllButton.autoresizingMask = NSViewMaxYMargin | NSViewMaxXMargin;
-    _organiseAllButton.toolTip =
-    NSLocalizedString(@"Move every game already in your library into the central library folder.", nil);
-    [pane addSubview:_organiseAllButton];
-
-    [self updateLibraryOrganiserControls];
-}
-
 - (void)updateLibraryOrganiserControls {
     BOOL on = [LibraryOrganizer keepGamesOrganised];
     _keepOrganisedCheckbox.state = on ? NSOnState : NSOffState;
     _chooseLibraryButton.enabled = on;
-    _organiseAllButton.enabled = on;
 
     LibraryOrganizer *org = [LibraryOrganizer sharedOrganizer];
     NSURL *custom = org.customLibraryURL;
@@ -2210,6 +2124,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
     BOOL on = ([sender state] == NSOnState);
     [[NSUserDefaults standardUserDefaults] setBool:on forKey:kKeepGamesOrganisedKey];
     [self updateLibraryOrganiserControls];
+    if (on) {
+        [self organiseAllGames:nil];
+    }
 }
 
 - (IBAction)chooseLibraryLocation:(id)sender {
@@ -2218,6 +2135,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
     panel.canChooseDirectories = YES;
     panel.canCreateDirectories = YES;
     panel.allowsMultipleSelection = NO;
+
+    LibraryOrganizer *org = [LibraryOrganizer sharedOrganizer];
+    NSURL *custom = org.customLibraryURL;
+    NSURL *root = custom ?: org.defaultLibraryRootURL;
+    panel.directoryURL = root;
+
     panel.prompt = NSLocalizedString(@"Choose", nil);
     panel.message = NSLocalizedString(@"Choose a folder to keep your game library in.", nil);
 
@@ -2251,12 +2174,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (returnCode != NSAlertFirstButtonReturn)
             return;
 
-        weakSelf.organiseAllButton.enabled = NO;
         NSManagedObjectContext *context = libcontroller.coreDataManager.privateChildManagedObjectContext;
         context.undoManager = nil;
         [[LibraryOrganizer sharedOrganizer] organiseAllGamesInContext:context completion:^(NSUInteger organisedCount) {
             [libcontroller.coreDataManager saveChanges];
-            weakSelf.organiseAllButton.enabled = [LibraryOrganizer keepGamesOrganised];
             NSAlert *done = [[NSAlert alloc] init];
             done.messageText = NSLocalizedString(@"Finished organising games.", nil);
             done.informativeText = [NSString stringWithFormat:

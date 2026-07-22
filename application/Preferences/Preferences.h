@@ -161,15 +161,16 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSButton *recheckMissingCheckbox;
 @property (weak) IBOutlet NSTextField *recheckFrequencyTextfield;
 @property (weak) IBOutlet NSButton *saveInGameDirCheckbox;
+@property (weak) IBOutlet NSButton *keepOrganisedCheckbox;
 
 @property (weak) IBOutlet NSPopUpButton *palettePopup;
 @property (weak) IBOutlet NSPopUpButton *inventoryPopup;
 @property (weak) IBOutlet NSButton *delaysCheckbox;
 @property (weak) IBOutlet NSButton *slowDrawCheckbox;
-@property (strong) IBOutlet NSButton *hardDarkCheckbox;
-@property (strong) IBOutlet NSButton *hardLightCheckbox;
-@property (strong) IBOutlet NSButton *scottAdamsFlickerCheckbox;
-@property (strong) IBOutlet NSButton *zMachineNoErrWinCheckbox;
+@property (weak) IBOutlet NSButton *hardDarkCheckbox;
+@property (weak) IBOutlet NSButton *hardLightCheckbox;
+@property (weak) IBOutlet NSButton *scottAdamsFlickerCheckbox;
+@property (weak) IBOutlet NSButton *zMachineNoErrWinCheckbox;
 
 @property DummyTextView *dummyTextView;
 
