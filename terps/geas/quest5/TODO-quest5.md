@@ -1552,6 +1552,37 @@ stays unsupported, as in `quest4.c`.
       (night status; only the documented ICM oracle artifact remains).
       DrainTimers and Wedged-vs-Finished are both mirrored.
 
+### 7.1 More-games queue (corpus gaps)
+
+Wiring recipe per game: copy from the staging dir `~/Downloads/More Quest 5
+games` into `~/Downloads/Quest 5 games` (what `check_golden.sh` reads) + its
+MANIFEST row, then override → golden pair → native `aslx_replay` byte-diff →
+README row → one commit. See the `quest5-remaining-games` memo.
+
+Staged but unwired (`~/Downloads/More Quest 5 games`):
+
+- [ ] **Stranger** — the largest game in the corpus (~350 rooms). Blocked: a
+      real-time reflex trap makes it not oracle-winnable headless. A 287-command
+      opening plus the first full walkthrough are recorded in the
+      `quest5-stranger-unregarded` memo.
+- [ ] **Signos** (M4u, 2012, ASL 520, Quest 5.2.4515.34846; 2,311,079 bytes).
+      Fetched 2026-07-22 from
+      `ifarchive.org/if-archive/games/competition2012/quest/signos/Signos.quest`.
+      Found via ScummVM's `engines/glk/quest/detection_tables.h`, which is
+      otherwise fully covered by our goldens — it was that table's only entry we
+      lacked. Verified as ScummVM's exact file: its `DT_ENTRY0` md5
+      `636793562d75ee82a4ea10d3bd3c62d6` is a **5000-byte-prefix** hash and
+      matches; full-file md5 is `23568d251e33f0a502f8c68cf75d35b1`. English
+      despite the Spanish title. Ships **no** `<walkthrough>` element, so the
+      script must be derived from source. Media-heavy (14 images, several
+      mp3/wav) — expect the synchronous `play sound` ending-eater; see the
+      `quest5-remaining-games` memo.
+- [ ] `game.quest`, `nnnnnbhn12345ABC.quest` — placeholder/junk names; triage
+      whether either is a real game before spending a slot on it.
+
+(ScummVM's "sleepingassassin" entry shares micky's md5; it is the same file as
+*El asesino durmiente*, already wired.)
+
 ## 8. Milestones
 
 1. **Loader** ✅ (2026-07-15): unzip + XML → element tree; `dump()` debug mode.
