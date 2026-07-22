@@ -1565,18 +1565,16 @@ Staged but unwired (`~/Downloads/More Quest 5 games`):
       real-time reflex trap makes it not oracle-winnable headless. A 287-command
       opening plus the first full walkthrough are recorded in the
       `quest5-stranger-unregarded` memo.
-- [ ] **Signos** (M4u, 2012, ASL 520, Quest 5.2.4515.34846; 2,311,079 bytes).
-      Fetched 2026-07-22 from
-      `ifarchive.org/if-archive/games/competition2012/quest/signos/Signos.quest`.
-      Found via ScummVM's `engines/glk/quest/detection_tables.h`, which is
-      otherwise fully covered by our goldens — it was that table's only entry we
-      lacked. Verified as ScummVM's exact file: its `DT_ENTRY0` md5
-      `636793562d75ee82a4ea10d3bd3c62d6` is a **5000-byte-prefix** hash and
-      matches; full-file md5 is `23568d251e33f0a502f8c68cf75d35b1`. English
-      despite the Spanish title. Ships **no** `<walkthrough>` element, so the
-      script must be derived from source. Media-heavy (14 images, several
-      mp3/wav) — expect the synchronous `play sound` ending-eater; see the
-      `quest5-remaining-games` memo.
+- [x] **Signos** — WIRED as the **77th golden** (M4u, 2012, ASL 520; 2,311,079
+      bytes). Fetched 2026-07-22 from
+      `ifarchive.org/if-archive/games/competition2012/quest/signos/Signos.quest`;
+      it was the only entry in ScummVM's `engines/glk/quest/detection_tables.h`
+      not already covered by our goldens. (That table's md5 is a 5000-byte-prefix
+      hash — ours matches; full-file md5 `23568d251e33f0a502f8c68cf75d35b1`.)
+      69-step source-derived script reaches **MAX 108/108**, state=Finished,
+      errors=0; native `aslx_replay` byte-identical first try, zero engine
+      changes. The game ships a `WALKTHRU` command but it is wrong (see the
+      overrides/README row) and self-caps at "100 points".
 - [ ] `game.quest`, `nnnnnbhn12345ABC.quest` — placeholder/junk names; triage
       whether either is a real game before spending a slot on it.
 
