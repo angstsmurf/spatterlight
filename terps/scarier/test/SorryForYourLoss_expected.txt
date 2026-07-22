@@ -1,0 +1,194 @@
+Sorry For Your Loss
+Many times, when you meet someone new, the first thing you will ask them is "What do you do?" It is small talk on par with discussing the weather, and yet for so many, they don't wish for their work to define them. Despite those misgivings, we often default to work being what defines us unconsciously, having long accepted it as a foundational tenet of our lives from watching our parents interact at social gatherings, the lessons imparted in school, or perhaps absorbed from television, movies, video games, books, and other forms of media.
+
+This is a story about one such person reluctant to be defined by their vocation. Perhaps the role that I have prepared for you that has been imparted with so many of my own experiences, fears, and shortcomings is closer to you, the player, than could be admitted without the accompaniment of a brief pang of despair.
+
+To all of those possible yous that are not a figment of my own imagination, and yet relate to what is contained within, I offer my condolences.
+
+The Grassland
+You arrive in a field of tall grass and waving foliage. You feel perturbed immediately, having no recollection of traveling. The field persists in spite of your disorientation, as these things do. Above you is a light that makes you recall the sun, but you feel as though the sky is perpetually beyond the margins of your vision. No matter how far you strain your neck, the blue you'd spent your entire life knowing was supposed to be there is nowhere to be found.
+
+> x me
+You see nothing interesting about yourself.  You are wearing the grey windbreaker, the plain jeans and the brown boots.
+
+> i
+You are wearing the grey windbreaker, the plain jeans and the brown boots, and are carrying nothing.
+
+> x windbreaker
+The fabric of the windbreaker offers no sensation against your bare arms. You feel like you have a shirt on underneath it, but decide against removing the windbreaker to check.
+
+> x jeans
+Simple blue jeans, known the world over for being durable, fashionable, and endlessly customizable. They seem to be performing their intended task of keeping your legs protected from the elements admirably well.
+
+> x boots
+Boots that seem to defy specific classification. You can count somewhere between six and eight eyeholes, the dark-brown laces securely knotted. You can't be sure if they're comfortable or not, because you really can't feel your feet at all. You'll surely have time to worry about that later.
+
+> examine surroundings
+To the north is a cottage, idyllic to the point of suspicion. West, further away than the cottage, is a cluster of trees that do not give you the same sinking feeling of inevitable harm. East is a sea of unkempt greenery unbroken by trees or human architecture. This lack of landmarks makes you feel as though it would be a waste of time to go in that direction. To the south is something, although you would need to look behind you to know for certain what it is.
+
+> look behind me
+Behind you is a void. It is not like the void of space, an inky blackness punctuated with pinpricks of light that suggest that there is warmth to be found somewhere, even if you couldn't reach it. This void is an unshaded whiteness, looking like an incomplete painting at the point where it meets with the recognizable landscape. The chill underneath your skin lets you know that there is nothing good to be found there, even if you knew where to look. You face the direction that you began in.
+
+> go east
+Despite your instincts, you decide that you will take your chances with the path lacking any recognizable aberrations and begin walking east. After walking a while, you begin to wonder why you feel as though you haven't actually gone anywhere. Your steps grow more erratic as the worrying realization dawns on you that you are tracing circles through the brush. Frustrated, you return to the area relative to where you first appeared. The house to the north and the wooded area to the west wait patiently for you to pick between them.
+
+> north
+You move north.
+
+The Cottage
+You are standing outside of a cottage.
+
+> examine the cottage
+A modest dwelling, large enough to comfortably house a family of four. The surrounding yard has recently been trimmed down to a more manageable length, grassland giving way to sward. The structure is composed of bricks on a raised foundation with a stoop in front of the single door to compensate. There is one window with thick, dark-blue curtains drawn to prevent you from looking inside. A scythe rests on the side of the building, traces of green along its blade. There are no signs that anyone is currently home, but its very existence leads you to hope that there are other people here somewhere.
+
+> examine scythe
+Upon closer inspection, the scythe has, in fact, been used to trim the grass around the property, telltale clippings clinging to the edges of the blade. The handle looks rather old, warped and discolored from years of practical application, but the blade has the sheen of metal that has not seen many uses. You ponder why whomever was paying to repair the blade would not simply invest in something more modern. It might come in handy were you of a mind to explore the wooded area to the southwest.
+
+> take scythe
+You could take the scythe, especially considering how useful it could be to someone in your situation. However, the scythe does not belong to you, and you feel that it would be wrong to simply abscond with it. You could grapple with the morality of such a thing, if you really mean to have the scythe.
+
+> private property is a social construct
+So true lefty, but consider that the scythe has the potential to be community property, and that you should therefore return it when you're done using it. Good praxis does wonders for your fellow humans! Plus, private property usually refers to the hoarding of necessities, like water, shelter, land, etc... John Lennon isn't coming for your commemorative stamp collection, Sharon.
+
+> grapple with the morality
+While you have some misgivings about simply taking something that does not belong to you, the ethics of it are just that; taking someone else's property. Borrowing it, however, is an entirely different matter. Your conscience sated, you pick up the scythe.
+
+> southwest
+You move southwest.
+
+The Shady Wood
+You are at the edge of the woods.
+
+> examine the woods
+There isn't much to note, at least from what little view the trees will offer you from this side. The only way to be certain is to go onside.
+
+> in
+You move in.
+
+Further into the Woods
+You scurry forwards, taking care to avoid snagging your clothes on branches or tripping over roots. A small clearing is the reward for your persistence, little more than tamped-down grass and an oblong circle of trees.
+
+> examine the clearing
+This section of the woods is harder to examine than the outskirts, thanks to a thick canopy of overlapping tree branches As your eyes adjust, you are able to discern a patch of long, thick grass that seems to have been recently disturbed. It is the only sign of anything living ever having been here; in fact, you feel a chill up your spine as you realize that you cannot hear any sound from the forest. There is no birdsong, no sound of rustling leaves, neither from animals scurrying through the underbrush nor the wind blustering through the boughs. You don't want to stay here long.
+
+> examine grass
+Upon closer inspection, you confirm that the grass patch was definitely run through by something bigger than any creature that could make a home in such a small area of woodland. The worst of the discernible damage appears to have been done at a height coming to just above your waist. Considering the cottage to the northeast, you can't help but assume that the occupant has a child that entertains themselves by playing in the woods. To postulate further, you wonder if they dropped something that might help you get inside the cottage. You would need something that could cut through the thick fronds woven into a curtain that prevents you from doing any meaningful searching.  The recently disturbed grass is currently closed.
+
+> cut the grass
+With a few careful swings, you successfully chop down the grass. Lying on the ground is an unnaturally bright object, which you grab instinctively. It is a flashlight, although it feels too light for you to assume that it would produce light if you pushed the switch. You hear a faint clinking sound coming from inside the plastic casing when you pick it up. Near where you found the flashlight is a battery that seems to be missing its necessary companion. You take it anyhow, just to be thorough. No amount of sweeping the ground helps you locate a second battery.
+
+> examine flashlight
+A flashlight, caked with dirt. Patches of fire-engine-red plastic peek out from the veneer of hardened brown. You shake the flashlight, feeling a hollow rattling too tinny to suggest that it has two batteries (or even one, for that matter). Despite it not serving its practical function, you are curious as to what could be making the rattling noise.  The flashlight is currently closed.
+
+> open the flashlight
+After unscrewing the cap connecting the innards of the flashlight to the lens, you upend the canister until a small key slides into your waiting palm. You try not to think too hard about just what the hell a key is doing in a damn flashlight. You replace the cap.
+
+> examine key
+A housekey. The faded metal was likely once shiny, but is now tarnished from years of heavy use. It is disappointingly plain, not at all fitting the stereotype of the large and unwieldy keys that you would expect to find in a fantastical situation  such as the one you're in.
+
+> out
+You move out.
+
+The Shady Wood
+You are at the edge of the woods.
+
+> northeast
+You move northeast.
+
+The Cottage
+You are standing outside of a cottage.
+
+> replace the scythe
+You put the scythe more or less back to where you found it.
+
+> unlock door
+You put the key into the lock. It fits perfectly, and turns with a satisfying click.
+
+> in
+You move in.
+
+Inside the Cottage
+You are standing in an eat-in kitchen.
+
+> examine the kitchen
+Between the drawn curtains and the fact that no lights appear to be on in the dwelling, you're having a lot of trouble seeing. Directly ahead of you is a table with three chairs, to your right a counter with a two-compartment sink. Cabinets line the walls at eye level, and the counter angles to continue another three feet or so four drawers are beneath this perpendicular counter top, all the same size, with more cabinet doors under those. A white refrigerator sits past the edge of the counter, humming quietly. There appear to be two rooms you could move into. One looks like a small laundry area, if you can trust the miniscule amount of light. The other room is too dark for you to tell what purpose it serves. You would need a working light source to enter it.
+
+> x cabinets
+Rifling through each cabinet reveals a trove of common household tableware, drinking glasses, food storage solutions, and spices. There doesn't seem to be anything useful.
+
+> x first drawer
+The drawer closest to the refrigerator is filled with silverware, several forks, spoons, and butter knives reflecting the small amount of light in the room. None of the knives seem sharp enough to be utilized for personal defense.  The first drawer is currently closed.
+
+> x second drawer
+The second drawer contains boxes of aluminum foil, plastic wrap, and different sizes of plastic bag, from sandwich up to gallon.
+
+> x third drawer
+The third drawer holds a pad of paper, a few pens, a letter opener, and what appears to be mail that has yet to be sorted. The letter opener seems dull.
+
+> open refrigerator
+You open the refrigerator.
+
+> x refrigerator
+The light from the refrigerator helps you to see the room better, if only from the angle that it's shining from. Inside is a fairly standard assortment of perishable foodstuffs. You notice a gallon of milk, a carton of eggs, butter, various condiments and sauces, and several containers of fruit. Nothing helpful to you at the moment, however.  The refrigerator is currently open.
+
+> examine the fourth drawer
+The fourth drawer appears to be a junk drawer, a catch all for various bits and bobs that might be helpful. Screwdrivers, pencils, magnets, Allen wrenches, rubber bands, and what appear to be batteries rattle around as you pull it open. There are two batteries, but in the low light, you can't tell which one is the second D-cell battery you require to power the flashlight. You'll need to find something, or go somewhere that's brighter, to discern which one is the correct one.  The fourth drawer is currently open.  Inside the fourth drawer are the first battery and the second battery.
+
+> examine the first battery
+The battery is a C cell battery. Useful in its own way, but not to you in your current situation.
+
+> examine the second battery
+The second battery is a D cell, precisely the one you need. You remove your prize from the drawer.
+
+> add the batteries to flashlight
+You drop the battery you found in the woods into the canister of the flashlight, flat side down, followed by the one from the drawer. They make a satisfying, weighty impact against your hand. You screw the cap back on, happy with your new light source.
+
+> turn on flashlight
+You switch on the flashlight.
+
+> in
+You move in.
+
+The Living Room
+You are in the cottage's living room.
+
+> examine living room
+Swiping the flashlight's beam across the room reveals pale-yellow walls populated with still-life paintings and decorative plates. A couch rests on the east wall, a dark-brown coffee table flanking it. Perpendicular to the table is a russet-colored recliner, faded with time. There's a television set sitting in a sturdy wooden entertainment center, but the reflection on the glass blinds you for a moment. In that instant, the recliner turns, revealing that a man had been sitting in it the entire time. Your flashlight beam returns for a better look...
+
+> examine the man
+You recognize this person, even beneath all of the stomach-churning decay. This man, or what is left of him, was your father. The features that dictated his appearance linger even in what you can only imagine what is death, since the alternative is unbearable agony. Much of his left cheek is rotted away, allowing you to watch his black, swollen tongue disturbing the maggot larvae that have taken residence on the fringes of the hole. What teeth that have not blackened are yellowed with age, his skin stretched like papier-mache across a skull streaked with pathetic wisps of white hair. His left eye is crushed, leaking shiny aqeuous humor on his face. His right eye is trained on you, the color that you remember him having replaced with a cold, unfeeling darkness.
+
+"So you finally decided to show up." he creaks, as though that's a sound a human could make. His eye stays trained on you, waiting for a response.
+
+> ask the man what he's doing here
+"Nah," he coughs, his voice grinding like a saw with dulled edges. "If you haven't figured this out yet, I'm not gonna spell it out for you. I can't count on you for a goddamned thing, but I know I raised you to fucking think every once in a while, at least. So use that brain of yours and tell me what this is. What kinda place could you be in where you can't feel pain, where the sky is blinding white, where the dead can talk?"
+
+> ask the man if you are dead
+"Hah," he rasps, something like a cough and a laugh rattling his throat. "Nah, it's not that. Be a whole lot easier on you if it were. But no. You're still alive, for now. Why don't you try again?"
+
+> ask the man if this is make-believe
+"Could be," he relents. "So you should decide if you want to keep going or not. After all, it's just make-believe, right?"
+
+> tell the man you're sorry
+"Yeah, like I give a shit." He stares right through you as you say what you thought might affect him, get him to respond a certain way, to show you any other emotion besides detached disappointment. He remains as stoic as stone.
+
+> ask the man if you are dreaming
+"Bingo, kid. I came all this way from beyond the grave to haunt your unwaking hours. And you wanna know why? Because I ain't proud of you, and somewhere down in that pathetic little heart of yours, you fuckin' know it. You know getting that job you hate with that dickhead boss of yours doesn't make it any easier to live with the fact that one day, it'll maggots rentin' out space in your cheek, not mine. You know it, but you try to cover it up like the bitch you are, like the little candy-ass I tried to prevent you from becoming. Just thought you oughta know that no matter what you do, no matter where you go, no matter who you meet, it is already too late. It has always been too late. You will never do anything that could redeem the failure you are doomed to be. That's all I have time to say, because it's time for you to wake up now. Why don't you tell yourself to wake up? It'll make me go away, after all. And then you get to tell yourself that this was all some kind of stress dream, a product of your wild imagination. But some part of you will always doubt whether or not you were really talking to me. It's the part that will be right all along when you're in the ground next to me."
+
+> wake up
+The man begins to cackle, laughing at your anguish, your rage, your sorrow, whatever emotion he has successfully drawn out of you. It drones on, rising in frequency until it matches the blaring repetition of your alarm clock, forcing your eyes open and your body to jerk upright in you bed. Your sheets are drenched in sweat, chilled air clinging to your exposed skin. You gasp for air, frantically searching the room for the apparition that haunted you only moments ago. In your consciousness, you are mercifully alone.
+
+You lie in bed, staring at the ceiling. The alarm rings in your ears.
+
+> turn off the alarm clock
+Your hand scrambles for the button to silence the infernal machine blaring in your ears. The alarm is stifled as soon as you make contact with it. The digital face dutifully reminds you that it is 8:00, the time you always get up when you have to go to work.
+
+> look
+
+Your Room
+It's not much, but it's the closest thing you have to home. Your bed is pushed into the corner by the window to grant the illusion of more space. The window's blinds are closed and the curtains are drawn. A dresser longer than it is tall, made of pressboard with the veneer of mahogany, stands by the foot of your bed. A nightstand is next to your bed, with the alarm clock on top of it. Directly across from you is a small closet with the sliding door shut. In the opposite corner is a bookshelf with a TV on top of it. The TV is off, the shelves beneath housing the few pleasure purchases you've been able to make after taking care of your obligations. All of the furniture here was inherited from the home you lived in with your mom. Dad, too, except towards the end.
+
+The carpet is the same forgettable beige of a hundred-thousand other one-bedroom apartments all over the United States. The walls are an oppressively boring off-white. They are unadorned, since the conditions of your lease are to not hang or affix anything to them except for installations which are intended to be permanent. The contract's words, not yours.
+
+More often than not, you hate it here.  Also here is the closet.
+

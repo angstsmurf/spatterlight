@@ -1,0 +1,100 @@
+# Sorry For Your Loss -- Remy Allen (Inconspicuous Bosch), August 2022
+#
+# A prologue, not a game.  There is no EndGame action anywhere in the model,
+# no score, no Win and no Lose; the ADRIFT map has three pages ("Prologue",
+# "Day One", "Page 3") and only the first is populated, "Day One" holding the
+# single bedroom the dream dumps you into.  So this walkthrough drives the
+# whole authored chain -- the grassland, the scythe, the clearing in the
+# woods, the flashlight, the cottage, the batteries, the thing in the
+# recliner -- and stops after the alarm clock is silenced, which is as deep
+# as the content goes.
+#
+# Puzzle chain: the scythe by the cottage is the only cutting tool, but
+# `take scythe` is refused until you `grapple with the morality` of borrowing
+# it (there is also an easter-egg command for the same purpose, kept below).
+# The scythe unlocks the grass patch in the clearing (an Openable object whose
+# LockKey is literally Scythe1), which yields the flashlight and one D cell.
+# Opening the flashlight drops out the cottage key.  `unlock door` refuses
+# while you are still carrying the scythe, so it has to be replaced first.
+# Inside, the fourth drawer holds two batteries too dark to tell apart until
+# the refrigerator is opened for its light; examining the second one pockets
+# it.  With both cells in and the flashlight switched on, `in` from the
+# kitchen is finally permitted (the movement carries a `Flashlight1 Must
+# BeInState on` restriction), and the living room plays out to `wake up`.
+#
+# Parser footgun, and it is authentic -- FrankenDrift does exactly the same:
+# any `tell the man ...` phrasing ENDING in "him" ("tell the man you hate
+# him", "tell the man you don't need him") only parses on the very first turn
+# of the game.  After that the trailing pronoun is resolved before the task
+# is matched, there is no male character in the game to resolve it to, and
+# the command dies as "(No male) / I did not understand the word ...".  Use
+# one of the pronoun-free phrasings instead.
+#
+# Ground truth: 0 hunks, vanilla and xoshiro.
+
+# --- The Grassland ---
+x me
+i
+x windbreaker
+x jeans
+x boots
+examine surroundings
+look behind me
+# East is the joke exit: you walk in circles and come back.
+go east
+
+# --- The Cottage: borrow the scythe ---
+north
+examine the cottage
+examine scythe
+take scythe
+# Easter egg -- an alternative to grappling, with the same effect.
+private property is a social construct
+grapple with the morality
+
+# --- The woods: cut the grass patch open ---
+southwest
+examine the woods
+in
+examine the clearing
+examine grass
+cut the grass
+examine flashlight
+open the flashlight
+examine key
+
+# --- Back to the cottage; the scythe has to go back before you can unlock ---
+out
+northeast
+replace the scythe
+unlock door
+in
+
+# --- The kitchen: the refrigerator light sorts the batteries ---
+examine the kitchen
+x cabinets
+x first drawer
+x second drawer
+x third drawer
+open refrigerator
+x refrigerator
+examine the fourth drawer
+examine the first battery
+examine the second battery
+add the batteries to flashlight
+turn on flashlight
+
+# --- The living room: the man in the recliner ---
+in
+examine living room
+examine the man
+ask the man what he's doing here
+ask the man if you are dead
+ask the man if this is make-believe
+tell the man you're sorry
+ask the man if you are dreaming
+wake up
+
+# --- Your Room: end of the authored content ---
+turn off the alarm clock
+look

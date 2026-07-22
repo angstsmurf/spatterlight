@@ -1217,6 +1217,18 @@ FILTER="${1:-}"
 # random-walk RNG class (System.Random vs xoshiro sends FD-vanilla's werewolf
 # elsewhere and that run dies), so DIVERGE row, no golden.
 #
+# (2026-07-22) SorryForYourLoss WIRED at MATCH 0|0, golden-backed.  Remy Allen
+# (Inconspicuous Bosch), August 2022: a prologue with no EndGame action of any
+# kind, no score, and an ADRIFT map whose "Day One" and "Page 3" pages were
+# never filled in.  The 51-command script drives the entire authored chain
+# (scythe -> grass patch -> flashlight -> key -> cottage -> batteries -> the
+# man in the recliner -> wake up) and stops at the alarm clock, the last thing
+# the game has to say.  No engine fix was needed.  The one parser oddity is
+# authentic: `tell the man ...` phrasings ending in "him" parse only on turn 1,
+# because after that the trailing pronoun is resolved before task matching and
+# there is no male character in the game -- FD prints the same "(No male) / I
+# did not understand the word ..." pair.  See the walkthrough header.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1338,6 +1350,7 @@ EdithsCats|edithscats.taf|0|0
 BirthOfThePhoenix|PhoenixV3.blorb|0|0
 Jabberwocky|jabberwocky4.21.blorb|0|0
 TempusFugit|Tempus Fugit2.taf|0|1
+SorryForYourLoss|Sorry For Your Loss.blorb|0|0
 EOF
 )
 
