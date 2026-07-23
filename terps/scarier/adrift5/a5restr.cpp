@@ -1163,10 +1163,12 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "BeOnCharacter"))
     {
-      /* clsCharacterLocation.ExistsWhereEnum.OnCharacter: the character is
-         sitting/standing on *another character*.  char_onobj holds whatever the
-         character is on; it names a character here (vs an object). */
-      const char *onk = (ci >= 0 && st->char_onobj) ? st->char_onobj[ci] : NULL;
+      /* clsCharacterLocation.ExistsWhereEnum.OnCharacter: the character rides
+         *another character*.  The carrier lives in char_onchar (set by the
+         loader for an "On Character" start state and by the OntoCharacter
+         MoveCharacter action) -- char_onobj only ever names objects, so reading
+         it here always failed (Penrhyn's Arkell-on-Ralph follow message). */
+      const char *onk = (ci >= 0 && st->char_onchar) ? st->char_onchar[ci] : NULL;
       if (onk == NULL || a5state_character_index (st, onk) < 0)
         return 0;
       if (streq (k2, ANYCHARACTER))

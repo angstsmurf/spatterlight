@@ -1715,6 +1715,13 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
     {
       int ci = cis[ix];
       const char *k1 = st->adv->characters[ci].key;
+      /* Every MoveCharacter but OntoCharacter re-establishes the character's
+         clsCharacterLocation from scratch (FD's fresh `dest` -> ch.Move), so a
+         character that was riding a carrier stops riding it the moment it is
+         sent anywhere else -- Penrhyn drops Arkell to Location2/Hidden once he
+         is broken, and he must no longer be "on Ralph's shoulder". */
+      if (to != "OntoCharacter" && st->char_onchar != NULL)
+        st->char_onchar[ci] = NULL;
       if (to == "ToLocationGroup")
         {
           if (streq (k1, a5state_player_key (st)))
@@ -1854,6 +1861,33 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
                   if (streq (k1, a5state_player_key (st)))
                     clear_conv_if_partner_gone (run, out);
                 }
+            }
+        }
+      else if (to == "OntoCharacter")
+        {
+          /* clsUserSession MoveCharacterToEnum.OntoCharacter
+             (clsUserSession.vb:1884): the character now rides ANOTHER character
+             (clsCharacterLocation.ExistsWhere OnCharacter, Key = carrier), the
+             dynamic twin of the "On Character" start state the loader decodes
+             into char_onchar (Edith rides the Player).  Penrhyn's ArkellFoll2
+             System task runs `MoveCharacter Arkell ToSameLocationAs %Player%`
+             then `... OntoCharacter %Player%` every turn -- the second action
+             overrides the first, so Arkell perches on Ralph's shoulder and its
+             room resolves through the carrier.  FD guards against a recursive
+             placement (target is self or already riding this character) and
+             leaves the character put in that case. */
+          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+          int ti = k2 ? a5state_character_index (st, k2) : -1;
+          int recursive = (ti >= 0)
+            && (streq (k2, k1)
+                || (st->char_onchar[ti] != NULL
+                    && streq (st->char_onchar[ti], k1)));
+          if (ti >= 0 && !recursive)
+            {
+              st->char_onchar[ci] = k2;
+              st->char_loc[ci] = NULL;      /* location resolves through carrier */
+              st->char_onobj[ci] = NULL;
+              st->char_in[ci] = 0;
             }
         }
       else if (to == "ToParentLocation")

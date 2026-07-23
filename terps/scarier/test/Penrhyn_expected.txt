@@ -1,0 +1,711 @@
+Penrhyn_Adventure_Jam_v2_1
+
+The Burning Sky
+
+I am Ralph Wyndham of Penrhyn . This is my city.  It's never silent, even in the din of night. Machines always in operation, smog makes things look further away than it is. The purple and red sunsets. Gas and Electricity is the veins and the blood of this city- with commerce and technology coursing through its veins. We live in a bubble literally like those childrens snowglobes only there is no snow for us at least.
+
+Penrhyn has..a history or I should say it is part of history. The short of it is it never used to be like this until a generation or so ago the globe had a huge issue with what the high priest scientists said was the Sun had heated up by five percent. So this lead eventually lead to desertification of the land and deforestation.
+It dramatically changed the way of life. To survive cities had to build a high thick glass dome. It had some advantages for some, for us it was fresh vegetables all year round, and no cold winters. The dome itself was designed by the best minds of the world, they had five years to come up with something workable & sustainable to weather the strong angry glare of the Sun. It took six years to build before the Furnace years began."
+And that was not the worst of it. For I will tell a story of what lead to Penrhyn's downfall.
+
+You have a Codex available to use at all times when you are wanting to know more about the game world. Not everything in the game is in here. Try Ask Codex about Codex for more info,. Also there is a HELP command if you are new to IF. Adrift has a built in save game system. However when you go to load your saved game, you will need to launch Runner and choose Open Adventure and NOT Open Game.
+
+There is a Tutorial mode (currently ON which will tell you want to type when there are commands to be entered. You can turn this off and on at whim during the game with tutorial on/off
+
+Also note: feel free to change font size or color and turn off Auto Complete if it bothers you on menu bar at top of screen in Runner, click on EDIT. For this game, it is recommended to leave Graphics window OFF.
+
+#== Press Any Key to Continue ==#
+
+Ralph's Bedroom
+His room is on the second story above his fathers shop The Iron Forge. One half of his room is meticulously tidy and the other half far from it. A drafting table is set up on against the opposite wall where he likes to design things on industry standard paper. Imaginative ideas of fantastic machines and contraptions, a flight of fantasy.
+
+Ralph can go: Down  Morning
+Ralph stirs in bed while his mechanical Owl watches him from his perch stand across the room.
+
+"*Awk* awake his is. Back from the dead *awk*."
+"Good morning to you too. How long have i been sleeping?"
+"Since yesterday when they brought you back. It's late morning now it is."
+"Ah yes the mishap."
+"*Awk* as usual you did not heed my warning. Narly crushed by a horse he was. Stupid boy."
+"My head feels like a bowling ball!"
+"Arkell hungry."
+
+"You don't eat Ark. Oh no I'm suppose to be downstairs helping Father," he sits up right and winces from the sudden movement.
+"You better get dressed and go downstairs then boyo *awk!*"
+"I told you before i am not a boy, i'm nineteen! As you know next year i can become a full apprentice."
+"Arkell hungry. Arkell bored of being couped up in here."
+"Real pet birds live in cages."
+"Crazy talk. Boy crazy."
+Also here is a bedside cabinet and a single bed.  Ralph and Ark are here.
+
+> get dressed
+Ralph gets out of bed and stands up, he can feel some bruises on his back. He finds his work clothes on the chair by the bed and puts them on.
+As he does so he glances at his bedside cabinet and spots a bottle of pills.
+Ark pipes up again, "Pills. Take pills. Lots of pills, don't take them all at once. Help with your pain they will," he squawked.
+
+> take pills
+Ralph takes some pills and washes them down with a glass of water that is beside the bottle of pills.
+
+> go downstairs
+Ralph does downstairs.
+
+Iron Forge Workshop
+The workshop is best put, organized chaos. It has three tall wooden worn work benches, each marked and blackened through use over the decades.
+
+Ralph can go: West|Up
+
+Father isn't here, he must be in the front of the shop.
+Ark is here.
+
+> west
+
+Arkell follows along on Ralph's shoulder.
+You move west.
+
+Iron Forge Shop Front
+The shop front is much smaller than the backroom where the workshop is. It has a large display window and a glass door, both have iron grid bars over them. There is a shiny polished oak counter-top with the latest till machine on it. And some small metal sculpture figures Ralph made on display.
+
+Ralph can go: East|West
+Ark and Father are here.  The shop sign dangling on the front door says closed.
+
+Father is at the counter with a police officer, a friend of his Nate Wallace.
+"It's imperative that we know what is. We suspect foul play, a diver died this morning down at the Graff docks," the police officer said gravely.
+"There is an foreign ambassador's ship there in port am I correct?" Father said intrigued. The Police Officer merely nodded.
+Ralph's focus turned to the object on the counter bench-top between them is some type of small sized gadget, a small tank, coils, tubing, but seems broken, incomplete.
+"As always I will get onto it right away Nate."
+"Not to mean to put you under due pressure, but the Mayor of Pen has his eye on this case. Don't breath a word about this," Officer turns to look at Ralph standing there in the doorway.
+
+#== Press Any Key to Continue ==#
+
+"Its okay Nate he is as trustworthy as me."
+The Officer turned towards Ralph's father, "Do not tell a soul about what you are looking at here nor any details about this case. It seems there is a plot of an unknown nature unfolding."
+"Oh?"
+"I've said more than I ought, but you have helped us solve cases in the past. But you need to give this more careful inspection than usual. We need to know precisely what it is, any clues who has made it. It looks well made."
+"It does. I have to say i am excited to inspect it. Was there any other parts found it seems incomplete?"
+"No, we have some of our own divers inspecting the harbor seafloor as we speak as too the Emissary's ship The Usmea."
+The Officer puts his hat on his head and collects the bag he had brought with him and steps towards the door,"As usual give me a call when you have some concrete clues. But divulge nothing on the wire you understand. I will come to you."
+"Completely. You shall hear from me by the end of the day."
+"Splendid. Robert. Ralph," the Officer steps outside where two constables were waiting.
+"How are you doing son? Feeling better? Arkell said you were almost trampled to death," Father asked as he gathered up the mysterious object, "Come out back."
+
+> east
+
+Arkell follows along on Ralph's shoulder.
+You move east.
+
+Iron Forge Workshop
+The workshop is best put, organized chaos. It has three tall wooden worn work benches, each marked and blackened through use over the decades.
+
+Ralph can go: West|Up
+Ark and Father are here.
+
+"You heard what Nate said. This sounds like the most important case he has involved me in yet and it could have repercussions for the whole city."
+Father begins to clear away is work space for his new pressing project.
+
+[Player can only choose once]
+
+[1] Ask if Father needs any help?
+[2] Ask about the Emissary's ship
+[3] Ask Father what he thinks it could be
+
+> 1
+Father: "No son. But I do have a couple of errands for you to do, are you up to it?"
+"Course," Ralph replied without enthusiasm.
+Father: "I'd rather you rest, but there is some banking that needs to be done and a bill needs to be paid at Codgers shop. He will get cranky with me if i don't get it paid today, he will go on about it for weeks. Banking bag is under the till machine, his money is also in the bag, enclosed in an envelope. "
+Ralph: "Yes sir. I'll get right on to it and return as soon as I can."
+Father: "Good. Take your time. The shop will remain closed for the remainder of the day."
+
+Father begins to set up his equipment, he looks up,"Way you go now Son."
+
+> west
+
+Arkell follows along on Ralph's shoulder.
+You move west.
+
+Iron Forge Shop Front
+The shop front is much smaller than the backroom where the workshop is. It has a large display window and a glass door, both have iron grid bars over them. There is a shiny polished oak counter-top with the latest till machine on it. And some small metal sculpture figures Ralph made on display.
+
+Ralph can go: East|West
+Ark is here.
+
+> get money bag
+Ralph collects the money bag beneath the till machine.
+
+"Come on Arkell" Ralph says checking the bag for the money and the envelope, knowing the bird will be perched on the coat hanger as usual.
+"Arkell needs a recharge. Arkell will stay here. Be careful out there, look, both ways. Look everywhere."
+"Very funny Ark. You go recharge and I will see you later aye."
+
+> west
+You move west.
+
+Outside Father's Shop
+The wide driveway here is a non-exit one, only one way in and out. There are five story buildings above the shop and around it, in a C shape. Many balconies can be seen including the Wyndham's one above the shop.
+It is rather quiet here, not the busy part of town it used to be.
+
+Ralph's face is greeted with the usual industrial breeze of the city, whiffs of tar and diesel and hint of...perfume. You look up and see that old lady setting on the balconey a floor up. She must pour on the perfume everyday.  She seems to be the only resident who uses the balconies.
+
+"Yahooo laddy would you mind.."
+
+[1] Tell her you will
+
+[2] Tell her you can't
+
+> 1
+
+Ralph: "Yes alright. I will try to do so if i have time."
+Old Lady: "Oh thank you laddy," She tosses down a loaf of bread wrapped in a cloth as usual, "I do miss feeding them myself, at least i know they will get fed by my bread. I do terribly appreciate it lad. Don't forget to throw the bread from the jetty.
+Ralph: "How can I forget. Well i must be off." Talking to her is like being in tangled in web of conversation that is difficult to cut yourself free from, usually.
+"Cherrio," she said brightly.
+
+Ralph walks off down the driveway onto the sidewalk of the main road.
+
+Your Score increases by 1
+
+Head West to go Codgers Shop across town
+Head South to the Bank a few blocks down
+Head North to Gywlanne Gardens
+Head East back to Shop/Home
+
+Tutorial: Just type west or north and press enter key
+
+> south
+You move south.
+
+Gwylanne Bank
+
+Ralph chooses the shortest cue which turns out to be the longest wait. Finally it is his turn, you recognise the beautiful female clerk behind the counter-top bars.
+
+Ralph steps up to the counter and the clerk looks at him expectantly..
+
+Tutorial: Type hand over money bag
+
+> hand over money bag
+Ralph opens the money bag and removes the envelope before placing the money bag onto the counter.
+
+Clerk: "How is your Father today? Ralph," she takes the money out of the bag and begins to count it.
+Ralph: "Oh you know busy as usual. That's why he has me run these errands for him."
+Clerk: "You will be running the shop one day right? There you go have your bag back."
+Ralph: "Maybe. Thanks."
+
+Ralph heads to the front doors.
+
+Ralph remembers he has another errand to do..
+
+> north
+You move north.
+
+Outside Father's Shop
+Ralph returns home and  remembers he hasn't gone and paid the bill at Codgers Shop across town yet!
+
+Head West to go Codgers Shop
+Head South to the Bank
+Head North to Gywlanne Gardens
+
+> west
+You move west.
+
+Gwylanne Center Square
+
+The center square is a large concrete court yard rectangle with a fancy water foundation in the middle of it. Pigeons and people mill about, some sitting on benches reading or eating, some going to and fro. Some talking to one another.
+
+A gust of wind suddenly blows across the courtyard taking someone's newspaper across it.
+
+Head West to go Codgers Shop
+Head SouthEast to the Bank
+Head NorthEast to Gywlanne Gardens
+
+> west
+You move west.
+
+Codgers Shop
+The front shop windows are a clutter of old automata toys and whatever junk Mr Kett could find to give himself some privacy, even though his main workshop is in the back.
+
+Ralph steps inside and the bell above the door announces his arrival.
+
+The place always gives Ralph the same sensation when he first stepped in here as a little lad. His father had drummed into him the many 'You Must Not's. The many strange contraptions and parts had made him feel he was in a f
+
+"Who is it? I am rather busy and wish not to be disturbed. Oh it's you. Robert's boy. Hello."
+Ralph waves the envelope.
+Mr K: "Ah. Very good. Leave it there on the counter."
+
+Tutorial: Just type place envelope on the counter
+
+Ammiras Kett is here.
+
+> place envelope on the counter
+Ralph places the envelope onto the counter.
+Ammira's turned and nodded before turning back to what he is doing,"Very good. I am afraid I cannot have a wee chat today as much as I love out chats and your many questions (he stifles a grin) but I am busy, just too busy. I wish I could freeze time you know. Would be..ah..helpful yes."
+Ralph: "No trouble sir. I will let myself out."
+Ammira's nodded again, "Bye now lad, and tell your Pa I said hello."
+Ralph: "Will do. Bye."
+
+Ralph heads for the door..
+
+There is nothing more to do now than return home..
+
+> east
+You move east.
+
+Gwylanne Center Square
+
+The center square is a large concrete court yard rectangle with a fancy water foundation in the middle of it. Pigeons and people mill about, some sitting on benches reading or eating, some going to and fro. Some talking to one another.
+
+A busker is playing a guitar, despite missing a string it sounds pretty good.
+
+Head West to go Codgers Shop
+Head SouthEast to the Bank
+Head NorthEast to Gywlanne Gardens
+
+> northeast
+You move northeast.
+
+Gwylanne Gardens
+It took ten minutes to walk to the gardens. It is a place to unwind and take in the view, real green grass, trees and a small lake (which others state is merely a large pond).
+
+There are a couple of footpaths that snake all around the park in a pleasing way, past clusters of roses and exotic flowerbeds. Park benches can be seen dotted around, some empty some occupied.
+
+The Gardens used to be one of the draws for this district until the neighboring Hovel district which overtime eventually became more and more an eye sore with it being built up vertically. But many who live in Gwylanne has come to appreciate the gardens more having less visitors from other districts and learning to ignore the eye sore to the south. It has a lake which others state is merely a large pond which other gardens in the city do not have.
+
+Tutorial: type go to violet
+
+Violet Beggley can be seen standing on the jetty alone feeding the ducks.
+
+> go to violet
+Ralph breaks into a walk, trying not to walk too keenly and heads over the jetty by the lake.
+
+He gets closer and pretends to admire the ducks idling about further out in the water, some cleaning themselves as they float aimlessly.
+
+Violet is feeding a gaggle of ducks who are competing for the choice bits of bread thrown to them she has a gleeful face until she looks up as Ralph approaches. He tries to smile but gulps instead.
+She returns her gaze to the ducks slows down breaking up the bread before tossing it into the water.
+
+"I've come to feed the ducks too. He holds up the loaf of bread. Fancy seeing you here too."
+
+Ralph's brain suddenly goes a blank. What does he say?
+
+[1] 'Well Hello Violet' (its simple and is impossible to mess up)
+
+[2] 'I profusely apologize for my behavior the last time we met' (she might still be mad at me, but i might mess that line up completely)
+
+> 2
+"I..I..m a total complete idiot. The other day... I apologize for my behavior. I am not great with words and I should of apologized sooner but..well i am an idiot you see. I thought you didn't want ever speak to me again."
+
+Violet held her nose and glare high for a second longer before returning to feeding the ducks,"I already know that. And the apology is duly noted, even if it is a bit weak."
+
+"Do you mind if i..join you on the Jetty there? A neighbor asked me to feed the ducks down here for her as I said before."
+
+#== Press Any Key to Continue ==#
+
+"Violet! Violet!" a womans voice yells across the way without care. Onlookers turn to see what the fuss is about.  The woman continued to run holding up the bottom of her long dress in order to not fall with an urgent look on her face.
+
+"My sister. Something is wrong." Violet said and handed the remaining few slices of bread to Ralph.
+
+She hurries over to her sister who came to her panting and almost out of breath, her hair was askew.
+
+Ralph quietly wanders over not sure if he was invading their privacy whilst at the same time concerned for Violet.
+
+The two woman pay him no attention. "It's Father." Her sister sobbed, she clamped her mouth with her hand trying to get control of herself. Her eyes red from crying.
+"He...has..drowned."
+"Oh no!" exclaimed Violet, she involuntarily turns to Ralph aghast at the news. Ralph's mouth opens and then closes a loss at what to say as much as fear of saying something insensitive that would make things worse.
+
+He suddenly thought of this morning. He suddenly wanted to ask if he was a diver by any chance, but bit his tongue. The older sister grabbed Violets hand and they ran off back the way she came. Back home presumably.
+
+Ralph stood there somehow still feeling like an idiot. He gives the bread he is holding to another person passing by. They reluctantly take it.
+
+He cannot go to Violet right now.
+
+There is nothing more to do now than return home..
+
+> south
+You move south.
+
+Outside Father's Shop
+The wide driveway here is a non-exit one, only one way in and out. There are five story buildings above the shop and around it, in a C shape. Many balconies can be seen including the Wyndham's one above the shop.
+It is rather quiet here, not the busy part of town it used to be.
+
+Head West to go Codgers Shop
+Head South to the Bank
+Head North to Gywlanne Gardens
+Head East back to Home to the Shop
+
+> east
+You move east.
+
+Iron Forge Shop Front
+Ralph enters through the front door, noticing the old lady wasn't waiting upon the balcony to hear about the ducks or possibly meeting Violet.
+The shop is quiet. Too quiet. He sniffs the air and frowns.
+"Father? Arkell?"
+
+> east
+You move east.
+
+Iron Forge Workshop
+Ralph steps into the workshop and soon finds his father laying down motionless but still breathing.
+
+[1] Immediately ring for an Ambulance
+
+[2] Immediately call Police Officer Nate Wallace
+
+[3] Look for Ark (perhaps he knows what happened)
+
+[4] Assess the scene quickly first
+
+Ark and Father are here.
+
+> 4
+Ralph takes a breath and looks around immediately noticing the mysterious device brought in is missing. It looks like Father did not put up a fight. Bending down he spots a white rag found just underneath the bench near his unconscious father.
+
+Ralph carefully picks it up and holding it away from his nose sniffs the air before dropping it, his head spins slightly for a moment. He stands up and backs away.
+
+[1] Immediately ring for an Ambulance
+[2] Immediately call Police Officer Nate Wallace
+[3] Look for Ark (perhaps he knows what happened)
+[X]
+[5] Wait for the Ambulance to Arrive
+
+> 3
+Ralph searches the room for Arkell. He was about to go upstairs when he stops the birds legs sticking up in the pile of discarded parts and junk in the corner.
+
+He carefully lifts him out and turns him the right way up. It's mirror eyes dark.
+
+"Do you hear me Ark?"
+Silence. As to be expected,"I will get you fixed up soon buddy. Other pressing matters are at hand."
+Ralph carefully places Ark on a shelf nearby, he glances at him for a half a second longer.
+
+[1] Immediately ring for an Ambulance
+[2] Immediately call Police Officer Nate Wallace
+[X]
+[X]
+[5] Wait for the Ambulance to Arrive
+
+> 1
+Immediately ring for an ambulance
+
+Ralph gets to the telephoney and dials for the operator,"I need a ambulance quick. Father is unconscious."
+"Address please?"
+He gives the operator the address.
+"One will be sent shortly. Good day."
+He hangs up the receiver.
+
+[X]
+[2] Immediately call Police Officer Nate Wallace
+[X]
+[X]
+[5] Wait for the Ambulance to Arrive
+
+> 5
+
+Ralph waits for the ambulance to arrive.
+
+#== Press Any Key to Continue ==#
+
+The ambulance arrives. The sirens are silent. Two medics enter holding a stretcher.
+
+"Where is your Father?," the old medic said.
+
+Ralph steps to the left.
+
+"Ah."
+
+The two men quickly and skillfully place Father onto the stretcher.
+
+Ralph: "Which hospital are you taking him to?"
+
+Medic: "North Whent Hospital of course. Do you want to come along you are welcome to? You can lock up the shop and hop in the back with your Pa."
+
+[1] Yes
+
+[2] No
+
+> 1
+The ride was uneventful. Father was snoring.
+
+Upon arrival at the North Whent Hospital he is moved to a gurney and wheeled inside. Ralph followed closely behind.
+
+Half an hour passes by and Ralph is on the third floor in a waiting area, leaning against a large window gazing out over the city. His gaze is distracted by two woman walking below, almost clinging together walking away. He sat up, "Its Violet, Im sure." He said to himself. He watches them approach the family buggy.
+Dr: "Mr Wallace?"
+Dr: "I am Doctor Carter. I can confirm your father had been rendered unconscious by trichloromethane or more known as Chloroform. We did a full exam. No other injuries. He is fine but will be very groggy for a while. He is free to leave when he is able. You can go see him now. Ward 20."
+Ralph: "Thanks," he gets up and leaves the waiting area.
+
+#== Press Any Key to Continue ==#
+
+- Ward 20 -
+
+The ward is almost empty except for one man with head bandages closer to the room doors. Fathers bed was by the window. There must of been twelve empty beds here. It was quiet.
+
+Ralph: "Hello Father. You look half dead."
+Father: "I feel like it. Unbelievable events eh, who would of guessed."
+"Can you remember what happened?" Ralph leans in to hear better.
+
+Father lowered his voice, "For the most part yes. But no doubt Nat, ah, Officer Wallace will be here soon to take my statement. As much as I trust the man, there is something going on that makes me very paranoid. The very police department could have a bad apple."
+Ralph: "You mean like a mole for something?"
+Father: "Precisely. I say that because just before i completely went unconscious i heard my attacker use my telephoney, they asked for Special Branch. Don't ask me if i heard a mans or woman's voice because i don't recall. But i am sure what i heard was real. I must of blacked out after that."
+Ralph nods solemnly.
+
+Father motioned him to lean closer again, "I have heard Nate use that term before in the past. For the time being we cannot divulge that information to anyone, no one, you hear me. Not until we learn more."
+Ralph: "Yes Father. Do you know who attacked you?"
+"Someone with strength. I swear i recall smelling perfume, but it can't have been a woman. I didn't hear them enter i was so focused on the mysterious object. It was ingeniously made. Some kind of diving equipment, but it had to be part of something else."
+
+Father: "Whatever is going hopefully some answers will come to light. Did you get those errands done lad?"
+Ralph: "Yes."
+Father: "Good. You may as well leave and go back home for now. I will rest up some more wait for Nate then go home. He will sort me out a ride, don't worry."
+
+#== Press Any Key to Continue ==#
+
+> leave
+
+Ralph leaves the hospital after saying his goodbyes to his father. He takes a short walk to the tram station and catches a Tram car back home...
+
+#== Press Any Key to Continue ==#
+
+Outside Father's Shop
+The wide driveway here is a non-exit one, only one way in and out. There are five story buildings above the shop and around it, in a C shape. Many balconies can be seen including the Wyndham's one above the shop.
+It is rather quiet here, not the busy part of town it used to be.
+
+Head West to go Codgers Shop
+Head South to the Bank
+Head North to Gywlanne Gardens
+Head East back to Home to the Shop
+
+The whole time on the way back on the tram Ralph recounted the days events; apologizing to Violet, her sister running over to tell her their father died what Father said about what he heard and his warning at the hospital. Could it be that chemical made him hallucinate what he heard? Could his thinking be muddled?
+
+He was thankful the attacker didn't kill him. It was a bold act in itself, in broad daylight. And poor Violet, she must be gutted. He was a loss as to what he should do. Flowers seemed inappropriate. Going to see her after not really knowing if she doesn't want to speak to him at all, that would be most awkward. Calling her on the telephoney might be the least worst of options, but what would he say?
+
+He pondered these thoughts as he made his way home from the getting off the tram and headed down the no exit road to the shop. He could see police guarding the building, for some reason he didn't feel comforted by that. He would rather they weren't there at all.
+
+"Afternoon Ralph, isn't it?" the constable that was with Officer Wallace,"I am constable Niles in charge of securing the crime scene."
+Ralph: "How did you know what happened? I don't know why but I didn't call the police. I rang for the ambulance straight away."
+Niles: "Not to worry lad. The hospital called your Grandfather. Who called us. Of course we knew it was no coincidence or something considering what was entrusted to him this morning."
+
+#== Press Any Key to Continue ==#
+
+Nile: "How is your Father?"
+Ralph: "Much better, still a bit groggy should be home tonight."
+Niles: "That's good to hear. We have been ordered to keep an eye on the place for remainder of the day and tonight. Another shift will come later on and replace us. As i said this is still technically a crime scene so try not to mess about too much in there. Oh and Ainsworth is in there now taking snaps."
+"Snaps?"
+"You know photographs. Don't be disturbed by the chalk outline of where your father was lying down, its just for the records. Your dad is very lucky. You can go inside if you want or perhaps wait for the photographer to finish."
+Niles gave a smile and nod before returning to where he was standing earlier.
+
+> east
+You move east.
+
+Iron Forge Shop Front
+The shop front is much smaller than the backroom where the workshop is. It has a large display window and a glass door, both have iron grid bars over them. There is a shiny polished oak counter-top with the latest till machine on it. And some small metal sculpture figures Ralph made on display.
+
+Ralph can go: East|West
+
+> east
+You move east.
+
+Iron Forge Workshop
+The workshop is best put, organized chaos. It has three tall wooden worn work benches, each marked and blackened through use over the decades.
+
+Ralph can go: West|Up
+
+Ainsworth looks up and nods,"Will be out of the way in a moment. I have just finished. Got to get everything packed up."
+Ralph moves out of the way and watches on.
+Ainsworth: "It sure is an interesting place in here. I once had a passion for automation gadgets you know, but my father beat it out of me when i was young I am afraid. Haha."
+"Sorry to hear that. I am still learning the craft, i will be able to become a full apprentice next year when i turn twenty."
+"Really. How exciting. Give it your all I say. Having a profession you love is really a bonus," Ainsworth said as he gathered up his tripod and a suitcase which has 'Police Equipment' stenciled on the side in faded white,"Right I will be off then. Constable Niles will be right outside if you need anything."
+Ralph: "Thanks."
+
+Ark and Ned Ainsworth are here.
+
+> get arkell
+Ralph carefully lifts Arkell off the shelf where he left him turns him the right way up. It's mirror eyes are still lifeless and dark.
+
+"Do you hear me Ark?"
+Silence. As to be expected,"I will get you fixed up."
+
+He laid him down on his back carefully on workshop bench and turned on the overhead lamp.
+
+"Look at you, that dent wasn't there before," he touches the chest of the metallic bird and the head where he spots a smaller one.
+"I don't have the skill to repair you buddy and I think Father will say the same. Perhaps Mr K will be willing to repair you again? Now there is an idea."
+
+Ralph glanced at the clock on the wall, twenty to five pm, he winced it was nearly too late to call. But it wasn't technically closing time so he went to the telephoney and lifted the receiver and double pressed the discount button and waited a moment,"Operator put me through to the Codgers Shop if you please."
+Operator: "One moment."
+The line trilled and trilled some more.
+Mr Kett: "Yes?"
+Ralph: "Mr K, I mean Mr Kett. It is Ralph Wyndham speaking."
+Mr Kett: "Oh, you came in to see me today."
+Ralph: "Yes, to pay the bill for Father."
+Mr Kett: "Can I help you? I'm about to close my shop."
+Ralph: "Can I ask you a favor?"
+Mr Kett: "A favor? I don't work for charity son."
+
+[1] 'I will return the favor, it will never expire.'
+[2] 'Father will pay, you can take my word'
+
+> 1
+
+Ralph: "I will owe you the favor, it will never expire. My word is good."
+Mr Kett: "You sound worried boy even my deaf old ears can tell. What's happened?"
+Ralph: "Do you remember Arkell?"
+Mr Kett: "Do I remember Arkell, what do you think laddy i am going senile! Of course i do, a marvel of work. I enjoyed doing that little bit of work on him a number of years ago."
+Ralph: "Well, he is damaged, not working at all. We had an..incident here. Father was taken to hospital."
+Mr Kett: "Oh? Why didn't you say so before. Is your Father okay?"
+Ralph: "Yes sir. He was knocked out but other than that he is fine. He will be back tonight."
+Mr Kett: "When did this happen? You never said anything when you came to the shop."
+Ralph: "Oh no, I didn't know until I went home afterwards. Been bit of a day. Would love to get Arkell working again, but I know he is very old and that might not be possible."
+Mr Kett: "I tell you what. Bring him a long tomorrow morning and i will have a quick assessment as to whether I can fix him. But I cannot make any promises."
+Ralph: "That would be grand Mr K, I mean Mr Kett. I will see you in the morning then."
+Mr Kett: "Tell you Father to take it easy will you. Righto bye for now," he disconnects the line.
+
+Ralph: "Did you hear that Ark? He might be able to fix you tomorrow!"
+
+#== Press Any Key to Continue ==#
+
+The early evening comes. Ralph killed some time with browsing through some mechanics manuals on the kitchen table.
+
+Ralph's father comes into the kitchen, "Look who's back."
+Ralph: "Hello Father. I heard the door. Are you feeling much better? There is meal for you in the oven."
+Father: "Much. Thanks."
+
+He gets the meal out and checks if its still hot before removing the cover. He gets some eating utensils out of the draw. He then grabs two whiskey glasses from the top cubboard and a bottle of Red Oak Whiskey and put it onto the table with the meal,"Pour some in the glasses laddy."
+
+Ralph pours whiskey into both glasses.
+
+Father: "To seeing another day," he raised the glass and has a generous swig from it.
+Father: "I think the shop will be closed tomorrow. I will take the day to some cleaning and sorting, help me clear my mind."
+Ralph: "You don't mind if I go over to Mr Kett's shop tomorrow? Arkell got damaged today, I am not sure what happened to him but he was recharging when I left. Now he's not working at all."
+Father: "Have you asked Ammiras if that is okay already?"
+Ralph: "Yes I spoke to him on the wire earlier. I will go in the morning, he will see if he can do anything."
+Father: "If anyone can Ammiras can. He fixed Arkell last time if i recall?"
+
+They talk and drink for a little bit before the weariness of the day makes for an early night.
+
+Ralph goes to his room and gets set for the next morning before jumping into bed.
+
+#== Press Any Key to Continue ==#
+
+Tutorial: Just type: asleep
+
+He falls asleep..
+
+> asleep
+Morning comes.
+
+#== Press Any Key to Continue ==#
+
+Ralph gets out of bed and gets dressed eager to get to Codgers shop. He thought about skipping breakfast but thought better of it as he hurries down the stairs to the kitchen.
+
+He greets his father who is at the kitchen table eating porridge and reading the paper. Ralph helps himself to the left over porridge and wolves it down before saying goodbye and collects Arkell on the way out wrapping him in a thick towel and placing him in a pack.
+
+He heads across town, which the city that never sleeps begins a new day of busyness and constant hubbub.
+
+#== Press Any Key to Continue ==#
+
+Codgers Shop
+The front shop windows are a clutter of old automata toys and whatever junk Mr Kett could find to give himself some privacy, even though his main workshop is in the back.
+
+Ralph steps inside and the bell above the door announces his arrival.
+
+Ammiras Kett is here.  Ralph enters the Codgers shop..
+
+#== Press Any Key to Continue ==#
+
+The doorbell rings.
+
+Ralph feels apprehensive, he begins to realize that Arkell is more than just a machine and it may end up being inert forever.
+
+"Ralph? Good morning son. Just been having a talk to your pa on the wire. Glad to hear him again. Anyway let me have a look at Arkell."
+
+Tutorial: Just type give arkell to mr kett
+
+> give arkell to mr kett
+
+Ralph hands Arkell over. Mr Kett receives it with care, "Come around Lad we will go out the back."
+
+Ralph kept quiet and let the master take his time removing the tiny screws and dismantling the front outer shell compartment before getting to the interior parts. For an old man his movements were delicate and precise, like a surgeon I suppose.
+
+Twenty minutes passed in silence.
+
+"Well I have some good news and..bad news," Mr Kitt said.
+
+Ralph: "Good news first. Or maybe the bad news first. Okay, the good news first. Yes."
+
+Mr Kitt: "The Good news is I think he is fixable, bad news is I don't think i can do it. Well I could with the right tool but I don't have it nor some of the parts needed."
+
+Ralph: "Really? Is there anyone else you know who can?"
+
+Mr Kitt: "Actually I do, but I do not know if he will."
+
+Ralph: "How well do you know him? And I'm guessing he's not going to do for free or at a discount. I have some money but not a huge amount."
+
+Mr Kitt: "Well, it has been ten years since I last spoke to my brother and I think I know him well. Well enough not to have anything to do with him."
+He gives a grin,"He owes me one though. I will give him a call right now. It would be a shame to see an amazing technical marvel as such as Arkell go to scrap."
+Ralph: "Never."
+Mr Kitt: "I will give him a call. Wait here and don't touch anything."
+That seems to be what he always says when Ralph is there since a young boy. Why doesn't he just create a sign and put them everywhere. Oh there is one, why haven't I seen that before he wondered.
+
+#== Press Any Key to Continue ==#
+
+He returns after some time. Ralph had lost himself in gazing at some of the antique toy models in a glass display case by the left wall.
+
+Mr Kett: "After some..deliberation he has agreed to help, his tune changed when I said what it was. There are not many of those around anymore, least working ones or in this case recently working. I managed to convince him it is fixable."
+Ralph: "And what does he want in exchange?"
+Mr Kett: "A favor repaid, he owed me big. Be thankful he remembered. You better go today, right now in fact before he changes his mind."
+Ralph: "Alright. Where does he live? Does he have shop?"
+Mr Kitt gave a sigh, "He lives in the Hovel district I am afraid. I don't have to tell you its the worst and most dangerous district in the whole city. You will have to conceal Arkell well."
+Ralph: "Could you draw me a map?"
+Mr Kitt: "Well no. I have not set foot in there for a long time. No doubt I wouldn't recognize it nor what has changed. I understand they just build buildings and paths where ever they feel like it."
+
+Mr Kitt disappears for a moment into a storage room and returns with a ratty looking sling bag,"Here use this, it will fit tight but not stand out as being anything of importance. There will be thieves there as far as you could throw a stone. They will snatch anything that looks valuable even in broad daylight."
+Ralph: "How do you know this, if you have never been there? I'm sorry sir, I over stepped there."
+Mr Kitt: "I suggest you try to blend in and relax, but at the same time be alert. Now my brother said his shop is on the south west side. Where part of the city is underwater. But don't worry its on the third floor, which is essentially second floor."
+Ralph: "I can't swim."
+Mr Kitt: "Who said anything about swimming. Now stop interrupting me. The name of the shop is called The Badger's Crown. Right that's it off you go, I have work to do. Oh one more thing."
+Mr Kitt reaches over and tears away a sheet from a business notepad with the shop logo font on it and scribbles something done before handing it to Ralph,"Here, you will need this to get through on proper business, will be far easier for you to get in. Go through the Western gate south of here. Don't lose that paper."
+
+Ralph: "Thank you very much Mr Kitt. I am deeply grateful," Ralph said as he folded up the note and put it into his pocket then began to wrap the thick towel around Ark again before placing him into the sling bag and put it on.
+
+Mr Kitt muttered something unintelligible and was already get back to dismantling something he was working on earlier.
+
+[1] Ralph asks if he can ring Father to tell him where he is going?
+
+[2] Ralph is afraid his Father will say no
+
+> 1
+
+Ralph: "Sorry to bother you again sir. But can I ring my father to tell him I am going to be out a while?"
+Mr Kitt turns frowning and then gives a short nod before returning to his work.
+
+Ralph connects through to Fathers shop.
+
+The line trilled on and on, just as he was about to hang up Father answered.
+
+Father: "How is it going son?"
+Ralph: "Mr Kitt isn't able to fix him. But his brother has a good chance to do so."
+Father: "He lives in the Hovel District right?"
+Ralph: "Afraid so. But I really want to get Ark fixed."
+Father paused on the line for speaking again,"I recoken you are old enough to take care of yourself now. But go in there eyes wide open and half shut, if that makes sense."
+Ralph: "Blend in like."
+Father: "More or less. Walk with purpose and don't dally about, even if you are a little lost. Choose wisely who you talk to and for directions.I have to say the more I think about this the more I don't like about it."
+Ralph: "I can handle it. You know I wouldn't risk Ark for anything."
+Father: "Well. Get back as soon as you are able, before dark in any case alright?"
+Ralph: "Certainly. Thanks."
+Father: "You did good letting me know. If I don't hear from you by nightfall I will fear the worst. I can get some help on the way or go myself."
+Ralph: "I am sure it won't come to that. I better be off now. Bye Father."
+Father: "See you later."
+
+Ralph leaves the shop and makes his way to the western gateway that leads into the Hovel district.
+
+#== Press Any Key to Continue ==#
+
+Hovel District - West Gate
+The gate is compromised of two large doors which during the day one of them is open. A high crisscross wire fence with an entry door to the left that leads past a check house. And another on the opposite side is another doorway for those exiting the district.
+
+Ralph arrives to find a short cue for going in and before he knows it he is next in line.
+
+A large burly man in uniform with a truncheon tucked into his belt stands before him, "State your name, business and address," he says whilst holding a pencil and clipboard readily to record.
+
+Ralph gives the details.
+
+Guard: "Do you have a note of proof?"
+
+Tutorial: Just type: show note
+
+Gate Guard is here.
+
+> show note
+Sorry, I didn't understand that command.
+

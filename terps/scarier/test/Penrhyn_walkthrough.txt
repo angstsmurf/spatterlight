@@ -1,0 +1,37 @@
+get dressed
+take pills
+go downstairs
+west
+east
+1
+west
+get money bag
+west
+1
+south
+hand over money bag
+north
+west
+west
+place envelope on the counter
+east
+northeast
+go to violet
+2
+south
+east
+east
+4
+3
+1
+5
+1
+leave
+east
+east
+get arkell
+1
+asleep
+give arkell to mr kett
+1
+show note

@@ -1315,6 +1315,30 @@ FILTER="${1:-}"
 # 114 passing games for one emergent FD quirk.  Hence DIVERGE, documented, with a
 # maximal winning Scarier golden.  Vanilla pins Scarier's own golden (0); the
 # xoshiro column's 396 is the measured FD-vs-Scarier baseline.
+# (2026-07-23) Penrhyn: The Burning Sky WIRED at MATCH 0|0, golden-backed.  Rob
+# Sherwin, 2020: a tutorial-driven period drama (Ralph runs errands round
+# Gwylanne, his father is attacked, and he must chase a lead into the walled
+# Hovel District).  The walkthrough (37 cmds) drives the ENTIRE authored chain --
+# Act 1 Scene 1 errands, Scene 2 (father assaulted, ambulance, hospital), Scene 3
+# (Arkell the shoulder-raven damaged -> Mr Kett -> the West Gate) -- to the point
+# the game's own on-screen tutorial says "Just type: show note".  THE GAME IS
+# UNFINISHABLE from there and it is authentic authored-data breakage, not a
+# Scarier bug: FrankenDrift strands identically at the same gate.  ROOT CAUSE --
+# the West-Gate exit is gated on Noteisshow=1, set only by task GiveNoteTo (`show
+# note`), which requires the business note (object BusinessNo) held; but
+# BusinessNo starts <DynamicLocation>Hidden</DynamicLocation> and the ONLY task
+# that un-hides it (JumpToHove, `MoveObject BusinessNo ToCarriedBy %Player%`) is a
+# leftover debug command `jump to hovel` gated on `Testingact BeEqualTo 1`, and
+# Testingact is NEVER assigned 1 anywhere in the game.  So the note can never be
+# obtained, the gate never opens, and the Hovel district + Badger's Crown + the
+# "To be continued..." ending (Location42) are all unreachable.  Deriving it
+# surfaced and fixed two REAL RNG-independent engine gaps around the Arkell
+# follower (perched "on Ralph's shoulder"): MoveCharacter's OntoCharacter enum
+# was a no-op (char never placed on the carrier) and the BeOnCharacter
+# restriction read char_onobj (objects only) instead of char_onchar -- see
+# A5_WALKTHROUGH_FINDINGS.md.  After the fix the deterministic transcript is
+# byte-identical to FD; the only residual is 2 RANDOM courtyard-ambient lines
+# (xoshiro 0 proves pure RNG noise), which the committed golden pins.
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1442,6 +1466,7 @@ TheAwakeners|The Awakeners.taf|0|0
 Wumpus|Wumpus.taf|0|0
 DigitalRoots|DigitalRoots_v2.blorb|0|0
 QuestGiver|QuestGiver_v4.blorb|0|396
+Penrhyn|Penrhyn_The Burning Sky_v2.blorb|0|0
 EOF
 )
 

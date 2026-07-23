@@ -414,3 +414,60 @@ guard), `a5state_character_at_location`, and
 gated on `char_onchar[ci]!=NULL`, set only for On/InCharacter characters, so all
 other games are unaffected (full suite stays green). Golden
 `EdithsCats_expected.txt`, wired `EdithsCats|edithscats.taf|0|0`.
+
+## Penrhyn: The Burning Sky (Rob Sherwin, 2020) — UNFINISHABLE (authentic), MATCH 0|0
+
+A tutorial-driven period drama. Ralph runs morning errands round Gwylanne (bank
+a money bag, drop an envelope at Codger's, meet Violet at the gardens), his
+father is attacked at the forge (chloroform, ambulance, hospital), and Ralph
+must chase the lead into the walled **Hovel District** to find his brother. The
+37-command walkthrough drives the *entire* authored chain — Act 1 Scenes 1–3 —
+to the West Gate, where the game's own on-screen tutorial prints **"Just type:
+show note"**.
+
+**The game is unfinishable from there, and it is authentic authored-data
+breakage — not a Scarier bug: FrankenDrift strands identically at the same
+gate.** Root cause (verified in the model XML): the West-Gate exit
+(Location11 → Location22) is gated on `Noteisshow=1`, set only by task
+`GiveNoteTo` (`show/give note`), whose restrictions require the business note
+`BusinessNo` **held** (+ inside `SlingBag` + bag worn). But `BusinessNo` ships
+`<DynamicLocation>Hidden</DynamicLocation>`, and the *only* task that un-hides it
+(`JumpToHove`: `MoveObject BusinessNo ToCarriedBy %Player%`) is a leftover debug
+command `jump to hovel` gated on `Testingact BeEqualTo 1` — and **`Testingact`
+is never assigned 1 anywhere in the game** (there are zero `Testingact = …`
+actions). So the note can never be obtained, the gate never opens, and the Hovel
+District, the Badger's Crown workshop, and the "To be continued…" ending
+(Location42) are all permanently unreachable. `show note` fails with "Sorry, I
+didn't understand that command" because with the note Hidden there is no `note`
+noun in scope for `GiveNoteTo` to bind. The walkthrough legitimately terminates
+at that gate (same class as Sorry For Your Loss / The Awakeners / Tempus Fugit).
+
+**Engine fixes — the Arkell follower (dynamic On-Character).** Ralph's shoulder
+raven "Arkell" is kept on the player each turn by System task `ArkellFoll2`,
+which runs `MoveCharacter Arkell ToSameLocationAs %Player%` **then**
+`MoveCharacter Arkell OntoCharacter %Player%` (the second overrides the first;
+FD `clsUserSession.vb:1884` sets `ExistWhere=OnCharacter`). Two RNG-independent
+gaps surfaced, both fixed in the `adrift5/` engine (the runtime twins of the
+static On-Character loader path added for Edith's Cats, see above):
+
+1. **`MoveCharacter … OntoCharacter` was a no-op** — the `to`-enum switch in
+   `a5run_action.cpp` had no `OntoCharacter` case, so it fell through to
+   "best-effort no-op" and Arkell was never placed on the carrier. Added a branch
+   that sets `char_onchar[ci]` and clears `char_loc`/`char_onobj`/`char_in`
+   (with FD's self/recursive-placement guard). Also clear `char_onchar` at the
+   top of every *other* MoveCharacter branch, so a rider that is later sent
+   elsewhere (Penrhyn drops Arkell to Location2/Hidden once he is "broken")
+   stops riding — matching FD's fresh-`dest` `ch.Move`.
+2. **`BeOnCharacter` restriction read the wrong field** — `a5restr.cpp` looked at
+   `char_onobj` (which only ever names objects), so an on-character test always
+   failed. Switched it to `char_onchar`.
+
+Before the fix Scarier printed the default follow alt ("Arkell follows Ralph.")
+and omitted Ark from room listings; FD showed the on-shoulder alt ("Arkell
+follows along on Ralph's shoulder.") and "Ark … are here." After the fix the
+deterministic transcript is byte-identical to FD across the whole run. The only
+residual is 2 **random** courtyard-ambient lines (`xoshiro` mode = 0 hunks,
+proving pure RNG noise), pinned by the committed golden. Golden
+`Penrhyn_expected.txt`, wired `Penrhyn|Penrhyn_The Burning Sky_v2.blorb|0|0`.
+Full suite after the change: **115 MATCH / 11 DIVERGE, 0 FAIL**; a5 unit tests
+green.
