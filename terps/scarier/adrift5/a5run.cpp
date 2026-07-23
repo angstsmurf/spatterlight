@@ -2388,6 +2388,14 @@ save_scarier_body (sb_t *b, a5_run_t *run)
         sb_elem (b, "Position", st->char_position[i]);
       if (st->char_onobj[i] != NULL && st->char_onobj[i][0])
         sb_elem (b, "OnObj", st->char_onobj[i]);
+      /* Carrier CHARACTER key: a follower riding another character (set at
+         runtime by MoveCharacter ToOntoCharacter -- e.g. Symphonica's Rory /
+         Konkey Dong following the player).  char_loc is NULL in that case and
+         the room resolves through the carrier, so without persisting this the
+         follower would vanish from every room description after restore. */
+      if (st->char_onchar != NULL && st->char_onchar[i] != NULL
+          && st->char_onchar[i][0])
+        sb_elem (b, "OnChar", st->char_onchar[i]);
       sb_elem_l (b, "In", st->char_in ? st->char_in[i] : 0);
       sb_puts (b, "</Character>\n");
     }
@@ -3045,6 +3053,12 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
               free (st->char_position[char_i]);
               st->char_position[char_i] = strdup (pos ? pos : "Standing");
               st->char_onobj[char_i] = intern_key (adv, onobj);
+              /* Carrier character (follower riding another character).  Absent
+                 element -> intern_key(NULL) clears it, correctly un-following a
+                 character that stopped riding since the save was model-init. */
+              if (st->char_onchar != NULL)
+                st->char_onchar[char_i] =
+                  intern_key (adv, a5xml_child_text (n, "OnChar"));
               if (st->char_in != NULL)
                 st->char_in[char_i] = (char) child_long (n, "In");
               char_i++;

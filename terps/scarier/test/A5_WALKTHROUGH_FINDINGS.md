@@ -471,3 +471,41 @@ proving pure RNG noise), pinned by the committed golden. Golden
 `Penrhyn_expected.txt`, wired `Penrhyn|Penrhyn_The Burning Sky_v2.blorb|0|0`.
 Full suite after the change: **115 MATCH / 11 DIVERGE, 0 FAIL**; a5 unit tests
 green.
+
+**Symphonica64 (★ WON 74/74) — follower "is following you" rendering DIVERGE.**
+The largest a5 game in the corpus (415 rooms, 263 objects, 156 characters, 613
+tasks). The godmode-free golden collects all 74 members of the "Scores" group,
+gives the Gadget to Sir Stephen for the Ticket, and wins via the `49587948EFG`
+GoToExtens code (`*** You have won ***`). Wired `Symphonica64|symphonica.blorb|0|2116`
+against a strict dotnet-free golden (`Symphonica64_expected.txt`), so **vanilla
+= 0 hunks (MATCH)** and the save/restore self-check is **OK**.
+
+The `xoshiro` column is a large but *systemic* DIVERGE (2116 hunks), **not** a
+walkthrough or RNG defect: **1956 of the 2187 FD-only lines (89%) are the string
+"is following you."** Symphonica keeps several characters riding the player
+(Rory, Konkey Dong, Barry Leitch, …) via `MoveCharacter … OntoCharacter %Player%`.
+FrankenDrift renders such a player-follower with a dedicated "X is following you."
+room line, whereas Scarier renders the same on-character state using the
+character's ordinary walk/activity description ("Rory is here, being generically
+vicious."). Both engines track the follower identically — mechanically the game
+plays and wins the same on both — it is purely how a `OnCharacter(player)`
+character is *phrased* in the room listing. Emitting FD's "is following you"
+alt would touch every follower game in the corpus, so it is recorded here as a
+documented baseline rather than chased in this walkthrough. The residual ~231
+non-follower hunks are Kickstarter backer flavour text, river-bank descriptions,
+and inventory-line ordering.
+
+**Engine fix — carrier state now persists across save/restore.** Wiring this
+game surfaced a genuine ScarierExt save bug: the save path (`save_scarier_body`
+in `a5run.cpp`) serialised `OnObj`/`In` for each character but **not**
+`char_onchar` (the carrier CHARACTER key set at runtime by `MoveCharacter …
+OntoCharacter`). For a player-follower `char_loc` is NULL and the room resolves
+through the carrier, so after an `A5_SAVE_AT` round-trip every follower vanished
+from room descriptions (first observed at Rory/Konkey Dong, a 1060-hunk
+self-check DIFF). Added a symmetric `OnChar` element to save and restore
+(`restore_scarier_body`); an absent element `intern_key(NULL)`-clears it,
+correctly un-following a character that stopped riding since the save. After the
+fix the save/restore round-trip is byte-identical (0 hunks) and the game still
+wins. The FD-format save path (`save_fd_game`) still writes such followers as
+`Hidden` — out of scope; the ScarierExt path is what the self-check and
+Spatterlight autosave use.
