@@ -161,9 +161,9 @@ static const NSInteger kMaxDuplicateDirs = 20;
 }
 
 - (NSString *)groupNameForGame:(Game *)game {
-    NSString *group = game.metadata.group;
+    NSString *group = game.group;
     if (!group.length)
-        group = game.group;
+        group = game.metadata.group;
     if (group.length)
         return [self sanitiseName:group fallback:@"Ungrouped"];
     // No group set: file the game under a folder named after its format.
