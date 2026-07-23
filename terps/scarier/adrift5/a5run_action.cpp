@@ -1532,7 +1532,13 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
           int ci = a5state_character_index (st, k2);
           if (ci >= 0)
             {
-              const char *loc = st->char_loc[ci];
+              /* Resolve through the carrier chain, not char_loc alone: a
+                 follower riding the player (OntoCharacter) has char_loc NULL
+                 and its room resolves through the carrier -- Symphonica's
+                 `attack ickle spider with foot` drops the squashed arachnid
+                 ToSameLocationAs the spider *while it rides the player*, so
+                 the raw char_loc would hide the ingredient forever. */
+              const char *loc = a5state_character_location_key (st, ci);
               if (loc != NULL) { L->where = A5_OWHERE_LOCATION; L->key = loc; }
               else             { L->where = A5_OWHERE_HIDDEN;   L->key = NULL; }
             }
