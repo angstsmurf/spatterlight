@@ -1,0 +1,2690 @@
+Quest Giver_v4_CompReleaseVersion
+
+   #######  ##     ## ########  ######  ########     ######   #### ##     ## ######## ########
+  ##     ## ##     ## ##       ##    ##    ##       ##    ##   ##  ##     ## ##       ##     ##
+  ##     ## ##     ## ##       ##          ##       ##         ##  ##     ## ##       ##     ##
+  ##     ## ##     ## ######    ######     ##       ##   ####  ##  ##     ## ######   ########
+  ##  ## ## ##     ## ##             ##    ##       ##    ##   ##   ##   ##  ##       ##   ##
+  ##    ##  ##     ## ##       ##    ##    ##       ##    ##   ##    ## ##   ##       ##    ##
+   ##### ##  #######  ########  ######     ##        ######   ####    ###    ######## ##     ##
+
+Please type rules to learn how to play the game.
+
+This is an adventure game with a twist. You are the Quest Giver.
+
+Basic overview:
+You can have up to 3 Quest cards at at time and only 1 quest per Adventurer. Hiring Adventurers costs a commission and they will try to complete the quest over time. You cannot hire adventurers at night, sleep at a tavern to pass the night away.
+
+Note: The game will end in 10 days time (not literally) (40 turns = 1 day. 20 for daylight and 20 for night time)
+
+It can take many turns to reach a destination. Also at the moment if you head in a direction to travel to another village you cannot go back. I will fix this in future.
+
+Enter draw a quest to draw 1 card. Repeat until you have 3 Quest cards. Then type view prospects
+
+Good luck..
+
+Home Village
+This village isn't really your home but you know more people here than elsewhere. The food is great and the village is a trading hub that a lot of travelers pass through.
+
+You see a sign that tells you where the Tavern is, which is across the street.
+
+Adventurer 1, Adventurer 2, Adventurer 3 and Adventurer 4 are here.
+Exits are north and west.
+
+> rules
+Main goal:
+
+You have 10 days to complete the game. Try to accumulate as many successful quests and money earned from them. As well as accumulate as much high Quest value scores as well. All of these will be totaled at the end for your final grand score.
+
+You must go to each village and find adventurers to hire and give a quest to. Quests have two main attributes. The first being the most important. Each will be rolled against the adventurer. So luck can play a part. But try and match the adventurers attributes score as close as you can for better chance of success.
+
+Some quests are common and some rare, which might unlock new quests and rewards.
+
+Quests:
+
+You can only have up to 3 Quest cards at a time (held). You can only give one quest to one adventurer at a time.
+
+How well you match the adventurer to the quest will go in favor of it succeeding but sometimes things go wrong. Each quest has a quest value which is a score value that accumulates towards your total score at the end. Gold coins you gain from completion. But you need to spend gold coins to hire Adventurers and also sleep at a tavern. You cannot hire adventurers at night.
+
+You cannot drop quest cards you must get rid of them by give quest command when at a village where adventurers are.
+
+Villages
+Where you find adventurers to send them on quests and gain new cards if you are able to take some more.
+
+Enter Commands for all the main commands in the game.
+
+> commands
+Commands:
+
+rules  (how to play the game)
+draw card  (draw limit is 3)
+view cards (Quest cards you have in your hand)
+view prospects (Only view available adventurers stats when at a village. Alt command: view pro)
+view hired  (View Adventures you have already hired and what Quest they have)
+give a quest (choose a quest to give to an adventurer)
+view hired (view list of hired adventurers on a quest)
+east  (or E for short to move east or other directions n,s,ne,se,w etc)
+enter tavern  (Then talk to the barman for a room to sleep the night)
+talk to barman  (then ask barman about a room or rumors. Or instead ask about topic,eg a room)
+inventory  (list what you are holding and stats)
+enter tavern  (list what you are holding and stats)
+sleep  (When you have hired a room from the barman and are inside the tavern)
+wait  (pass time using up 3 turns)
+
+Best way to play is when arriving at a new village, view cards you have and then view prospects to work out if any are worth hiring before using the give quest command if there is a suitable match.
+
+> draw a quest
+You draw a quest card..
+
+You receive A wealthy man has dropped valuables in a sewer Quest card...(Quest: 1/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+He wishes to hire someone trustworthy and who is also willing to fish out his belongings out of a sewer drain.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: perception (8) | Secondary: bravery (7)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 80 gold coins
+
+> draw a quest
+You draw a quest card..
+
+You receive Peacemaker needed Quest card...(Quest: 2/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+A tavern to the South has problems with too many fights and a strong and diligent peacemaker is needed to make sure these fights are broken up and the aggressors are thrown out.
+
+It will take 13 turns until it is completed.
+
+Attributes needed: Primary: combat (9) | Secondary: charisma (7)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+
+> draw a quest
+You draw a quest card..
+
+You receive A showman needs a bull rider for his next show Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+A showman from the capital city is one rider short and needs the job spot filled quickly for the next show in a few days time.
+
+It will take 5 turns until it is completed.
+
+Attributes needed: Primary: bravery (7) | Secondary: strength (7)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 5
+Quest Reward to you for completion 60 gold coins
+
+Is is now late morning..
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A showman needs a bull rider for his next show...
+
+A showman from the capital city is one rider short and needs the job spot filled quickly for the next show in a few days time.
+
+It will take 5 turns until it is completed.
+
+Attributes needed: Primary: bravery (7) | Secondary: strength (7)
+
+Quest Score points awarded when completed: 5
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 2) Peacemaker needed...
+
+A tavern to the South has problems with too many fights and a strong and diligent peacemaker is needed to make sure these fights are broken up and the aggressors are thrown out.
+
+It will take 13 turns until it is completed.
+
+Attributes needed: Primary: combat (9) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A wealthy man has dropped valuables in a sewer...
+
+He wishes to hire someone trustworthy and who is also willing to fish out his belongings out of a sewer drain.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: perception (8) | Secondary: bravery (7)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 80 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A showman needs a bull rider for his next show
+
+[Attributes needed:]
+
+Bravery (7)
+Strength (7)
+
+Type X to Cancel if desired..
+
+1) Adventurer 1 [ Bravery: 4 | Strength: 6  | Hunting: 5 | Intellect: 2 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 7 | Craftsman: 0 ] | Hire Fee 20
+
+2) Adventurer 2 [ Bravery: 6 | Strength: 3  | Hunting: 5 | Intellect: 4 | Stealth: 2 | Charisma: 2 | Perception: 3 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+3) Adventurer 3 [ Bravery: 7 | Strength: 6  | Hunting: 5 | Intellect: 3 | Stealth: 3 | Charisma: 1 | Perception: 1 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+4) Adventurer 4 [ Bravery: 7 | Strength: 6  | Hunting: 10 | Intellect: 3 | Stealth: 3 | Charisma: 1 | Perception: 1 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+> 4
+You pick Quest number 4
+
+You give the A showman needs a bull rider for his next show to the Adventurer 4
+
+You pay Adventurer 4 the commission he asks for $20
+
+Your chosen Adventurer:
+4) Adventurer 4 [ Bravery: 7 | Strength: 6  | Hunting: 10 | Cunning: 3 | Stealth: 3 | Charisma: 1 | Perception: 1 | Combat: 5 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive Hunt an Albino Buck Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+There is a vassal who owns quite a forest. One of his men spotted an albino buck in the woods the other week. The vassal and his hunting party has failed to even see this buck and began to wonder if it is true at all.
+
+The question is simple, find and kill this albino buck.
+
+It will take 12 turns until it is completed.
+
+Attributes needed:  Primary: hunting  (10) | Secondary: stealth (8)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 70 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Hunt an Albino Buck...
+
+There is a vassal who owns quite a forest. One of his men spotted an albino buck in the woods the other week. The vassal and his hunting party has failed to even see this buck and began to wonder if it is true at all.
+
+The question is simple, find and kill this albino buck.
+
+It will take 12 turns until it is completed.
+
+Attributes needed:  Primary: hunting  (10) | Secondary: stealth (8)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 70 gold coins
+##---------------------------------------##
+
+Quest 2) Peacemaker needed...
+
+A tavern to the South has problems with too many fights and a strong and diligent peacemaker is needed to make sure these fights are broken up and the aggressors are thrown out.
+
+It will take 13 turns until it is completed.
+
+Attributes needed: Primary: combat (9) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A wealthy man has dropped valuables in a sewer...
+
+He wishes to hire someone trustworthy and who is also willing to fish out his belongings out of a sewer drain.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: perception (8) | Secondary: bravery (7)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 80 gold coins
+##---------------------------------------##
+
+Is is now noon..
+
+> 3
+You select number 3 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A wealthy man has dropped valuables in a sewer
+
+[Attributes needed:]
+
+Perception (8)
+Bravery (7)
+
+Type X to Cancel if desired..
+
+1) Adventurer 1 [ Bravery: 4 | Strength: 6  | Hunting: 5 | Intellect: 2 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 7 | Craftsman: 0 ] | Hire Fee 20
+
+2) Adventurer 2 [ Bravery: 6 | Strength: 3  | Hunting: 5 | Intellect: 4 | Stealth: 2 | Charisma: 2 | Perception: 3 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+3) Adventurer 3 [ Bravery: 7 | Strength: 6  | Hunting: 5 | Intellect: 3 | Stealth: 3 | Charisma: 1 | Perception: 1 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+> 3
+You pick Quest number 3
+
+You give the A wealthy man has dropped valuables in a sewer to the Adventurer 3
+
+You pay Adventurer 3 the commission he asks for $20
+
+Your chosen Adventurer:
+3) Adventurer 3 [ Bravery: 7 | Strength: 6  | Hunting: 5 | Cunning: 3 | Stealth: 3 | Charisma: 1 | Perception: 1 | Combat: 5 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive A trading dock needs a new Captain of the Guard Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+The trading dock Captain of the guard proved to be rotten to the core and was hanged for treason, the right man is needed to fill his shoes. But not literally.
+
+It will take 8 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: combat (8)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 8 gold coins
+
+A showman needs a bull rider for his next show has been completed by Adventurer 4
+You gain the following rewards...
+
++ $60
++ Value Score 5
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Hunt an Albino Buck...
+
+There is a vassal who owns quite a forest. One of his men spotted an albino buck in the woods the other week. The vassal and his hunting party has failed to even see this buck and began to wonder if it is true at all.
+
+The question is simple, find and kill this albino buck.
+
+It will take 12 turns until it is completed.
+
+Attributes needed:  Primary: hunting  (10) | Secondary: stealth (8)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 70 gold coins
+##---------------------------------------##
+
+Quest 2) A trading dock needs a new Captain of the Guard...
+
+The trading dock Captain of the guard proved to be rotten to the core and was hanged for treason, the right man is needed to fill his shoes. But not literally.
+
+It will take 8 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: combat (8)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 8 gold coins
+##---------------------------------------##
+
+Quest 3) Peacemaker needed...
+
+A tavern to the South has problems with too many fights and a strong and diligent peacemaker is needed to make sure these fights are broken up and the aggressors are thrown out.
+
+It will take 13 turns until it is completed.
+
+Attributes needed: Primary: combat (9) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Hunt an Albino Buck
+
+[Attributes needed:]
+
+Hunting (10)
+Stealth (8)
+
+Type X to Cancel if desired..
+
+1) Adventurer 1 [ Bravery: 4 | Strength: 6  | Hunting: 5 | Intellect: 2 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 7 | Craftsman: 0 ] | Hire Fee 20
+
+2) Adventurer 2 [ Bravery: 6 | Strength: 3  | Hunting: 5 | Intellect: 4 | Stealth: 2 | Charisma: 2 | Perception: 3 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+Is is now late afternoon..
+
+> 2
+You pick Quest number 2
+
+You give the Hunt an Albino Buck to the Adventurer 2
+
+You pay Adventurer 2 the commission he asks for $20
+
+Your chosen Adventurer:
+2) Adventurer 2 [ Bravery: 6 | Strength: 3  | Hunting: 5 | Cunning: 4 | Stealth: 2 | Charisma: 2 | Perception: 3 | Combat: 5 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive A village needs someone to train their Miltia Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A trading dock needs a new Captain of the Guard...
+
+The trading dock Captain of the guard proved to be rotten to the core and was hanged for treason, the right man is needed to fill his shoes. But not literally.
+
+It will take 8 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: combat (8)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 8 gold coins
+##---------------------------------------##
+
+Quest 2) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) Peacemaker needed...
+
+A tavern to the South has problems with too many fights and a strong and diligent peacemaker is needed to make sure these fights are broken up and the aggressors are thrown out.
+
+It will take 13 turns until it is completed.
+
+Attributes needed: Primary: combat (9) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 3
+You select number 3 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Peacemaker needed
+
+[Attributes needed:]
+
+Combat (9)
+Charisma (7)
+
+Type X to Cancel if desired..
+
+1) Adventurer 1 [ Bravery: 4 | Strength: 6  | Hunting: 5 | Intellect: 2 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 7 | Craftsman: 0 ] | Hire Fee 20
+
+> 1
+You pick Quest number 1
+
+You give the Peacemaker needed to the Adventurer 1
+
+You pay Adventurer 1 the commission he asks for $20
+
+Your chosen Adventurer:
+1) Adventurer 1 [ Bravery: 4 | Strength: 6  | Hunting: 5 | Cunning: 2 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 7 ]
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> north
+You move North..  The road gets steep as you walk up a hill that has you puffing at the top before having to go down the otherside.
+
+> north
+You move North..  The road widens as it leads to a junction you take the left.
+
+> north
+You move North..  the road narrows and where it is partially submerged in mud.
+
+> north
+You move North..  the road narrows and where it is partially submerged in mud.
+
+A wealthy man has dropped valuables in a sewer has been completed by Adventurer 3
+You gain the following rewards...
+
++ $80
++ Value Score 8
+
+Is is now late evening..
+
+> north
+You move North..  The road leads to a junction and you take the right.
+
+Yulare Village
+The village is less friendly than others. The streets often feel empty and lifeless. But there are still traders here who take advantage of the fur trappers that have lived here for generations.
+
+You see a sign that tells you where the Tavern is, just down the main street.
+
+Adventurer 5, Adventurer 6, Adventurer 7 and Adventurer 8 are here.
+Exits are south, west, southwest and northwest.  You move North..
+
+> north
+There is no route to the north, only south, west, southwest and northwest.
+
+> enter tavern
+You enter the tavern. It is full. You see the barman straightening a picture on the wall.
+
+> x tavern
+The tavern is full of patrons. There are wooden tables and chairs that have seen better days. The bar itself is bit of a clutter. It smells of beer and tobacco and reeks of sweat.
+
+Hunt an Albino Buck has been completed by Adventurer 2
+You gain the following rewards...
+
++ $70
++ Value Score 10
+
+> talk to barman
+You step up to the barman squints.
+Topics:
+
+Ask about a room
+Ask about rumors
+
+Is is now Midnight.. Somewhere a dog barks.
+
+> ask barman about rumors
+I don't have anything for you today i am afraid perhaps another time.
+
+> ask barman about a room
+"I would like to rent a room for the night," you say.
+"You look weary, sleep will do you good. Cost you 10."
+  The barman gives you room a room key, with a room number tag tied to it.
+
+Lose -10 Gold Coins
+
+Enter sleep when you are ready to go up to your room.
+
+> sleep
+
+You go up to your room and go to sleep.
+
+##-- Press Enter to Continue --#
+
+You wake in the morning.
+
+You can now leave tavern.
+
+> leave tavern
+You hand the room key back to the barman on the way out.
+
+You leave the tavern and step outside into the sunlight of the new day.
+
+Yulare Village
+The village is less friendly than others. The streets often feel empty and lifeless. But there are still traders here who take advantage of the fur trappers that have lived here for generations.
+
+You see a sign that tells you where the Tavern is, clearly visible on the hill.
+
+Adventurer 5, Adventurer 6, Adventurer 7 and Adventurer 8 are here.
+Exits are south, west, southwest and northwest.
+
+Peacemaker needed has been completed by Adventurer 1
+You gain the following rewards...
+
++ $50
++ Value Score 6
+
+> draw a quest
+You draw a quest card..
+
+You receive Prized Black Stallion Stolen Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+A powerful Vassal has set a reward for his prized black stallion to be found
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: intellect (8) | Secondary: charisma (7)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 80 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Prized Black Stallion Stolen...
+
+A powerful Vassal has set a reward for his prized black stallion to be found
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: intellect (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 80 gold coins
+##---------------------------------------##
+
+Quest 2) A trading dock needs a new Captain of the Guard...
+
+The trading dock Captain of the guard proved to be rotten to the core and was hanged for treason, the right man is needed to fill his shoes. But not literally.
+
+It will take 8 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: combat (8)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 8 gold coins
+##---------------------------------------##
+
+Quest 3) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 2
+You select number 2 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A trading dock needs a new Captain of the Guard
+
+[Attributes needed:]
+
+Intellect (9)
+Combat (8)
+
+Type X to Cancel if desired..
+
+1) Adventurer 5 [ Bravery: 1 | Strength: 1  | Hunting: 1 | Intellect: 8 | Stealth: 2 | Charisma: 6 | Perception: 4 | Combat: 1 | Craftsman: 1 ] | Hire Fee 30
+
+2) Adventurer 6 [ Bravery: 3 | Strength: 5  | Hunting: 6 | Intellect: 3 | Stealth: 6 | Charisma: 2 | Perception: 3 | Combat: 4 | Craftsman: 1 ] | Hire Fee 20
+
+3) Adventurer 7 [ Bravery: 4 | Strength: 5  | Hunting: 1 | Intellect: 5 | Stealth: 1 | Charisma: 2 | Perception: 2 | Combat: 3 | Craftsman: 8 ] | Hire Fee 30
+
+4) Adventurer 8 [ Bravery: 9 | Strength: 4  | Hunting: 1 | Intellect: 4 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 2 | Craftsman: 2 ] | Hire Fee 30
+
+Is is now late morning..
+
+> 2
+You pick Quest number 2
+
+You give the A trading dock needs a new Captain of the Guard to the Adventurer 6
+
+You pay Adventurer 6 the commission he asks for $20
+
+Your chosen Adventurer:
+2) Adventurer 6 [ Bravery: 3 | Strength: 5  | Hunting: 6 | Cunning: 3 | Stealth: 6 | Charisma: 2 | Perception: 3 | Combat: 4 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive A large bird of prey is harrassing fisherman Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+
+> x adventurer 5
+
+You see nothing usual about Adventurer 5.
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Prized Black Stallion Stolen...
+
+A powerful Vassal has set a reward for his prized black stallion to be found
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: intellect (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 80 gold coins
+##---------------------------------------##
+
+Quest 2) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A large bird of prey is harrassing fisherman...
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Prized Black Stallion Stolen
+
+[Attributes needed:]
+
+Intellect (8)
+Charisma (7)
+
+Type X to Cancel if desired..
+
+1) Adventurer 5 [ Bravery: 1 | Strength: 1  | Hunting: 1 | Intellect: 8 | Stealth: 2 | Charisma: 6 | Perception: 4 | Combat: 1 | Craftsman: 1 ] | Hire Fee 30
+
+2) Adventurer 7 [ Bravery: 4 | Strength: 5  | Hunting: 1 | Intellect: 5 | Stealth: 1 | Charisma: 2 | Perception: 2 | Combat: 3 | Craftsman: 8 ] | Hire Fee 30
+
+3) Adventurer 8 [ Bravery: 9 | Strength: 4  | Hunting: 1 | Intellect: 4 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 2 | Craftsman: 2 ] | Hire Fee 30
+
+Is is now noon..
+
+> 3
+You pick Quest number 3
+
+You give the Prized Black Stallion Stolen to the Adventurer 8
+
+You pay Adventurer 8 the commission he asks for $30
+
+Your chosen Adventurer:
+3) Adventurer 8 [ Bravery: 9 | Strength: 4  | Hunting: 1 | Cunning: 4 | Stealth: 2 | Charisma: 1 | Perception: 1 | Combat: 2 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive A large windmill on an estate is in need of repair Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+The previous hired craftsman fell off his horse and is unable to work right now. A suitably skilled craftsman to replace him is needed to get it back up and running, time lost costs money.
+
+It will take 16 turns until it is completed.
+
+Attributes needed: Primary: craftsman (8) | Secondary: intellect (7)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A large windmill on an estate is in need of repair...
+
+The previous hired craftsman fell off his horse and is unable to work right now. A suitably skilled craftsman to replace him is needed to get it back up and running, time lost costs money.
+
+It will take 16 turns until it is completed.
+
+Attributes needed: Primary: craftsman (8) | Secondary: intellect (7)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 2) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A large bird of prey is harrassing fisherman...
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A large windmill on an estate is in need of repair
+
+[Attributes needed:]
+
+Craftsman (8)
+Intellect (7)
+
+Type X to Cancel if desired..
+
+1) Adventurer 5 [ Bravery: 1 | Strength: 1  | Hunting: 1 | Intellect: 8 | Stealth: 2 | Charisma: 6 | Perception: 4 | Combat: 1 | Craftsman: 1 ] | Hire Fee 30
+
+2) Adventurer 7 [ Bravery: 4 | Strength: 5  | Hunting: 1 | Intellect: 5 | Stealth: 1 | Charisma: 2 | Perception: 2 | Combat: 3 | Craftsman: 8 ] | Hire Fee 30
+
+A trading dock needs a new Captain of the Guard has been completed by Adventurer 6
+You gain the following rewards...
+
++ $8
++ Value Score 8
+
+> 2
+You pick Quest number 2
+
+You give the A large windmill on an estate is in need of repair to the Adventurer 7
+
+You pay Adventurer 7 the commission he asks for $30
+
+Your chosen Adventurer:
+2) Adventurer 7 [ Bravery: 4 | Strength: 5  | Hunting: 1 | Cunning: 5 | Stealth: 1 | Charisma: 2 | Perception: 2 | Combat: 3 ]
+
+Is is now late afternoon..
+
+> draw a quest
+You draw a quest card..
+
+You receive A stone mason master is needed Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+A stone wall is being constructed across some land belonging to a rich official to the north, the head mason was fired for drunkenness. Time is money and a replacement needs to be filled fast while the laborers are working needing guidance to get the job done properly.
+
+It will take 25 turns until it is completed.
+
+Attributes needed: Primary: craftsman (10) | Secondary: intellect (8)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 60 gold coins
+
+> x adventurer 5
+
+You see nothing of note about Adventurer 5.
+
+> x adventurer 5
+
+You see nothing interesting about Adventurer 5.
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 2) A stone mason master is needed...
+
+A stone wall is being constructed across some land belonging to a rich official to the north, the head mason was fired for drunkenness. Time is money and a replacement needs to be filled fast while the laborers are working needing guidance to get the job done properly.
+
+It will take 25 turns until it is completed.
+
+Attributes needed: Primary: craftsman (10) | Secondary: intellect (8)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 3) A large bird of prey is harrassing fisherman...
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 2
+You select number 2 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A stone mason master is needed
+
+[Attributes needed:]
+
+Craftsman (10)
+Intellect (8)
+
+Type X to Cancel if desired..
+
+1) Adventurer 5 [ Bravery: 1 | Strength: 1  | Hunting: 1 | Intellect: 8 | Stealth: 2 | Charisma: 6 | Perception: 4 | Combat: 1 | Craftsman: 1 ] | Hire Fee 30
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> 1
+You pick Quest number 1
+
+You give the A stone mason master is needed to the Adventurer 5
+
+You pay Adventurer 5 the commission he asks for $30
+
+Your chosen Adventurer:
+1) Adventurer 5 [ Bravery: 1 | Strength: 1  | Hunting: 1 | Cunning: 8 | Stealth: 2 | Charisma: 6 | Perception: 4 | Combat: 1 ]
+
+> northwest
+You move NorthWest..  You pass over a wooden foot bridge and spot some salmon jumping upstream.
+
+> northwest
+You move NorthWest..  You stop along the way and take a stone out of your shoe.
+
+> northwest
+You move NorthWest..  You step off the road to let a horse and cart pass.
+
+Is is now late evening..
+
+> northwest
+You move NorthWest..  The road winds around a hill.
+
+> northwest
+You move NorthWest..  You pass over a wooden foot bridge and spot some salmon jumping upstream.
+
+Remote Village North
+The village sits on a valley of hills. This is an old settlement that seen many generations. One feature here is a water mill which has been rebuilt a few times over the years.
+
+You see a sign that tells you where the Tavern is, it is nearby.
+
+Adventurer 9, Adventurer 10, Adventurer 11, Adventurer 12 and Adventurer 13 are here.  Exits are south, southeast and southwest.  You move NorthWest..
+
+Prized Black Stallion Stolen has been completed by Adventurer 8
+You receive a puzzle box. A hand span high and wide. It has beautiful landscape artwork painted on all four sides and a fancy keyhole. There is no key to go with it. And it is locked.
+You receive a small blue key and a gold key. The Gold key has a fancy design on it. The blue key is solid brass painted in a faded blue, perhaps it once was bright blue.
+
+You gain the following rewards...
+
++ $80
++ Value Score 10
+
+> northwest
+There is no route to the northwest, only south, southeast and southwest.
+
+> wait
+Time passes...
+
+Is is now Midnight.. A wolf did howl.
+
+> wait
+Time passes...
+
+A large windmill on an estate is in need of repair has been completed by Adventurer 7
+You gain the following rewards...
+
++ $60
++ Value Score 7
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+The sun slowly rises above the horizon.
+
+> draw a quest
+You draw a quest card..
+
+You receive Catch a Forger Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+Some is selling forged permits for gold prospecting. They must be caught.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: perception (10)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 90 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Catch a Forger...
+
+Some is selling forged permits for gold prospecting. They must be caught.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: perception (10)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 90 gold coins
+##---------------------------------------##
+
+Quest 2) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A large bird of prey is harrassing fisherman...
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Catch a Forger
+
+[Attributes needed:]
+
+Intellect (9)
+Perception (10)
+
+Type X to Cancel if desired..
+
+1) Adventurer 9 [ Bravery: 4 | Strength: 5  | Hunting: 3 | Intellect: 6 | Stealth: 3 | Charisma: 3 | Perception: 8 | Combat: 6 | Craftsman: 3 ] | Hire Fee 30
+
+2) Adventurer 10 [ Bravery: 5 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 5 | Charisma: 5 | Perception: 4 | Combat: 10 | Craftsman: 1 ] | Hire Fee 30
+
+3) Adventurer 11 [ Bravery: 6 | Strength: 5  | Hunting: 9 | Intellect: 4 | Stealth: 4 | Charisma: 3 | Perception: 3 | Combat: 4 | Craftsman: 1 ] | Hire Fee 30
+
+4) Adventurer 12 [ Bravery: 6 | Strength: 2  | Hunting: 1 | Intellect: 4 | Stealth: 5 | Charisma: 5 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+5) Adventurer 13 [ Bravery: 4 | Strength: 4  | Hunting: 1 | Intellect: 2 | Stealth: 1 | Charisma: 1 | Perception: 2 | Combat: 6 | Craftsman: 5 ] | Hire Fee 20
+
+> 5
+You pick Quest number 5
+
+You give the Catch a Forger to the Adventurer 13
+
+You pay Adventurer 13 the commission he asks for $20
+
+Your chosen Adventurer:
+5) Adventurer 13 [ Bravery: 4 | Strength: 4  | Hunting: 1 | Cunning: 2 | Stealth: 1 | Charisma: 1 | Perception: 2 | Combat: 6 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive Cut throat bandits need dealing with Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+Bandits has been harassing a trade route and its time to deal with them.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: bravery (6)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 60 gold coins
+
+Is is now late morning..
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Cut throat bandits need dealing with...
+
+Bandits has been harassing a trade route and its time to deal with them.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: bravery (6)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 2) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A large bird of prey is harrassing fisherman...
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Cut throat bandits need dealing with
+
+[Attributes needed:]
+
+Combat (8)
+Bravery (6)
+
+Type X to Cancel if desired..
+
+1) Adventurer 9 [ Bravery: 4 | Strength: 5  | Hunting: 3 | Intellect: 6 | Stealth: 3 | Charisma: 3 | Perception: 8 | Combat: 6 | Craftsman: 3 ] | Hire Fee 30
+
+2) Adventurer 10 [ Bravery: 5 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 5 | Charisma: 5 | Perception: 4 | Combat: 10 | Craftsman: 1 ] | Hire Fee 30
+
+3) Adventurer 11 [ Bravery: 6 | Strength: 5  | Hunting: 9 | Intellect: 4 | Stealth: 4 | Charisma: 3 | Perception: 3 | Combat: 4 | Craftsman: 1 ] | Hire Fee 30
+
+4) Adventurer 12 [ Bravery: 6 | Strength: 2  | Hunting: 1 | Intellect: 4 | Stealth: 5 | Charisma: 5 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+A stone mason master is needed has been completed by Adventurer 5
+You gain the following rewards...
+
++ $60
++ Value Score 8
+
+> 2
+You pick Quest number 2
+
+You give the Cut throat bandits need dealing with to the Adventurer 10
+
+You pay Adventurer 10 the commission he asks for $30
+
+Your chosen Adventurer:
+2) Adventurer 10 [ Bravery: 5 | Strength: 4  | Hunting: 2 | Cunning: 5 | Stealth: 5 | Charisma: 5 | Perception: 4 | Combat: 10 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive A noble Statesman has committed high treason Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+The details are secret. A noble statesman has been accused of high treason and has fled. He must be found alive and brought to justice. There are already parties out there looking for him. But someone wants to hire a person who has sharp wits and is able to follow leads and question people. Someone must know something. A noble statesman cannot blend in readily even if he has changed his clothes. People will notice something. A high reward offered means the hired adventurer will have some competitors out there.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: intellect (8) | Secondary: charisma (8)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 70 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 2) A large bird of prey is harrassing fisherman...
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A noble Statesman has committed high treason...
+
+The details are secret. A noble statesman has been accused of high treason and has fled. He must be found alive and brought to justice. There are already parties out there looking for him. But someone wants to hire a person who has sharp wits and is able to follow leads and question people. Someone must know something. A noble statesman cannot blend in readily even if he has changed his clothes. People will notice something. A high reward offered means the hired adventurer will have some competitors out there.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: intellect (8) | Secondary: charisma (8)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 70 gold coins
+##---------------------------------------##
+
+Is is now noon..
+
+> 3
+You select number 3 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A noble Statesman has committed high treason
+
+[Attributes needed:]
+
+Intellect (8)
+Charisma (8)
+
+Type X to Cancel if desired..
+
+1) Adventurer 9 [ Bravery: 4 | Strength: 5  | Hunting: 3 | Intellect: 6 | Stealth: 3 | Charisma: 3 | Perception: 8 | Combat: 6 | Craftsman: 3 ] | Hire Fee 30
+
+2) Adventurer 11 [ Bravery: 6 | Strength: 5  | Hunting: 9 | Intellect: 4 | Stealth: 4 | Charisma: 3 | Perception: 3 | Combat: 4 | Craftsman: 1 ] | Hire Fee 30
+
+3) Adventurer 12 [ Bravery: 6 | Strength: 2  | Hunting: 1 | Intellect: 4 | Stealth: 5 | Charisma: 5 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+> 3
+You pick Quest number 3
+
+You give the A noble Statesman has committed high treason to the Adventurer 12
+
+You pay Adventurer 12 the commission he asks for $20
+
+Your chosen Adventurer:
+3) Adventurer 12 [ Bravery: 6 | Strength: 2  | Hunting: 1 | Cunning: 4 | Stealth: 5 | Charisma: 5 | Perception: 3 | Combat: 2 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive Kill Dire Wolves Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+There is a pack of Dire Wolves that has been plaguing a village for too long. The villagers has successfully partitioned a governor to help get rid of them.
+
+It will take 8 turns until it is completed.
+
+Attributes needed: Primary: bravery (7) | Secondary: hunting (7)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 40 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Kill Dire Wolves...
+
+There is a pack of Dire Wolves that has been plaguing a village for too long. The villagers has successfully partitioned a governor to help get rid of them.
+
+It will take 8 turns until it is completed.
+
+Attributes needed: Primary: bravery (7) | Secondary: hunting (7)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 40 gold coins
+##---------------------------------------##
+
+Quest 2) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A large bird of prey is harrassing fisherman...
+
+A lone large Kandoor Eagle for some reason other than being irritated by them, is attacking fishing boats by dropping large rocks on them. A skilled hunter who knows these birds and a good shot is needed to take care of this winged predator.
+
+It will take 18 turns until it is completed.
+
+Attributes needed: Primary: hunting (9) | Secondary: combat (9)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 3
+You select number 3 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A large bird of prey is harrassing fisherman
+
+[Attributes needed:]
+
+Hunting (9)
+Combat (9)
+
+Type X to Cancel if desired..
+
+1) Adventurer 9 [ Bravery: 4 | Strength: 5  | Hunting: 3 | Intellect: 6 | Stealth: 3 | Charisma: 3 | Perception: 8 | Combat: 6 | Craftsman: 3 ] | Hire Fee 30
+
+2) Adventurer 11 [ Bravery: 6 | Strength: 5  | Hunting: 9 | Intellect: 4 | Stealth: 4 | Charisma: 3 | Perception: 3 | Combat: 4 | Craftsman: 1 ] | Hire Fee 30
+
+Is is now late afternoon..
+
+> 2
+You pick Quest number 2
+
+You give the A large bird of prey is harrassing fisherman to the Adventurer 11
+
+You pay Adventurer 11 the commission he asks for $30
+
+Your chosen Adventurer:
+2) Adventurer 11 [ Bravery: 6 | Strength: 5  | Hunting: 9 | Cunning: 4 | Stealth: 4 | Charisma: 3 | Perception: 3 | Combat: 4 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive An informant is needed Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Kill Dire Wolves...
+
+There is a pack of Dire Wolves that has been plaguing a village for too long. The villagers has successfully partitioned a governor to help get rid of them.
+
+It will take 8 turns until it is completed.
+
+Attributes needed: Primary: bravery (7) | Secondary: hunting (7)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 40 gold coins
+##---------------------------------------##
+
+Quest 2) An informant is needed...
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 3) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Kill Dire Wolves
+
+[Attributes needed:]
+
+Bravery (7)
+Hunting (7)
+
+Type X to Cancel if desired..
+
+1) Adventurer 9 [ Bravery: 4 | Strength: 5  | Hunting: 3 | Intellect: 6 | Stealth: 3 | Charisma: 3 | Perception: 8 | Combat: 6 | Craftsman: 3 ] | Hire Fee 30
+
+> 1
+You pick Quest number 1
+
+You give the Kill Dire Wolves to the Adventurer 9
+
+You pay Adventurer 9 the commission he asks for $30
+
+Your chosen Adventurer:
+1) Adventurer 9 [ Bravery: 4 | Strength: 5  | Hunting: 3 | Cunning: 6 | Stealth: 3 | Charisma: 3 | Perception: 8 | Combat: 6 ]
+
+Cut throat bandits need dealing with has been completed by Adventurer 10
+You gain the following rewards...
+
++ $60
++ Value Score 6
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> southwest
+You move SouthWest..  You hear a horse approach from behind and you step out of the way letting it through.
+
+> southwest
+You move SouthWest..  the road narrows and where it is partially submerged in mud.
+
+Catch a Forger has been completed by Adventurer 13
+You gain the following rewards...
+
++ $90
++ Value Score 10
+
+> southwest
+You move SouthWest..  You stop along the way and take a stone out of your shoe.
+
+> southwest
+You move SouthWest..  The road widens as it leads to a junction you take the left.
+
+Is is now late evening..
+
+> southwest
+You move SouthWest..  The road widens as it leads to a junction you take the left.
+
+Valhu Village
+The village is fairly large with most of the buildings being built out of mud bricks. The streets seem to be wider than most other villages you have been to.
+
+You see a sign that tells you where the Tavern is, around the corner.
+
+Adventurer 14, Adventurer 15, Adventurer 16 and Adventurer 17 are here.  Exits are east, northeast and southeast.  You move SouthWest..
+
+> southwest
+There is no route to the southwest, only east, northeast and southeast.
+
+> wait
+Time passes...
+
+A noble Statesman has committed high treason has been completed by Adventurer 12
+You gain the following rewards...
+
++ $70
++ Value Score 8
+
+Kill Dire Wolves has been completed by Adventurer 9
+You gain the following rewards...
+
++ $40
++ Value Score 8
+
+Is is now Midnight.. A wolf did howl.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+A large bird of prey is harrassing fisherman has been completed by Adventurer 11
+You gain the following rewards...
+
++ $50
++ Value Score 7
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun slowly rises above the horizon.
+
+> draw a quest
+You draw a quest card..
+
+You receive A traders cart is in need of immediate repair Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+A traders cart is in need of immediate repair out on the road, it needs fixing before night fall.
+
+It will take 4 turns until it is completed.
+
+Attributes needed: Primary: craftsman (8) | Secondary: intellect (6)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 70 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A traders cart is in need of immediate repair...
+
+A traders cart is in need of immediate repair out on the road, it needs fixing before night fall.
+
+It will take 4 turns until it is completed.
+
+Attributes needed: Primary: craftsman (8) | Secondary: intellect (6)
+
+Quest Score points awarded when completed: 8
+Quest Reward to you for completion 70 gold coins
+##---------------------------------------##
+
+Quest 2) An informant is needed...
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 3) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A traders cart is in need of immediate repair
+
+[Attributes needed:]
+
+Craftsman (8)
+Intellect (6)
+
+Type X to Cancel if desired..
+
+1) Adventurer 14 [ Bravery: 4 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 8 | Charisma: 4 | Perception: 3 | Combat: 6 | Craftsman: 2 ] | Hire Fee 30
+
+2) Adventurer 15 [ Bravery: 5 | Strength: 5  | Hunting: 1 | Intellect: 5 | Stealth: 1 | Charisma: 5 | Perception: 8 | Combat: 2 | Craftsman: 6 ] | Hire Fee 30
+
+3) Adventurer 16 [ Bravery: 6 | Strength: 4  | Hunting: 3 | Intellect: 6 | Stealth: 5 | Charisma: 2 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+4) Adventurer 17 [ Bravery: 6 | Strength: 4  | Hunting: 3 | Intellect: 6 | Stealth: 5 | Charisma: 2 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+Is is now late morning..
+
+> 4
+You pick Quest number 4
+
+You give the A traders cart is in need of immediate repair to the Adventurer 17
+
+You pay Adventurer 17 the commission he asks for $20
+
+Your chosen Adventurer:
+4) Adventurer 17 [ Bravery: 6 | Strength: 4  | Hunting: 3 | Cunning: 6 | Stealth: 5 | Charisma: 2 | Perception: 3 | Combat: 2 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive A troll has been spotted east in a forest Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+A rogue troll is out of bounds in the eastern forest, it needs dealing with. It has been a while since such a troll has been seen in these parts, not since the truce fifty years before.
+
+It will take 20 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: bravery (9)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 60 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A troll has been spotted east in a forest...
+
+A rogue troll is out of bounds in the eastern forest, it needs dealing with. It has been a while since such a troll has been seen in these parts, not since the truce fifty years before.
+
+It will take 20 turns until it is completed.
+
+Attributes needed: Primary: intellect (9) | Secondary: bravery (9)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 2) An informant is needed...
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 3) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A troll has been spotted east in a forest
+
+[Attributes needed:]
+
+Intellect (9)
+Bravery (9)
+
+Type X to Cancel if desired..
+
+1) Adventurer 14 [ Bravery: 4 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 8 | Charisma: 4 | Perception: 3 | Combat: 6 | Craftsman: 2 ] | Hire Fee 30
+
+2) Adventurer 15 [ Bravery: 5 | Strength: 5  | Hunting: 1 | Intellect: 5 | Stealth: 1 | Charisma: 5 | Perception: 8 | Combat: 2 | Craftsman: 6 ] | Hire Fee 30
+
+3) Adventurer 16 [ Bravery: 6 | Strength: 4  | Hunting: 3 | Intellect: 6 | Stealth: 5 | Charisma: 2 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+> 3
+You pick Quest number 3
+
+You give the A troll has been spotted east in a forest to the Adventurer 16
+
+You pay Adventurer 16 the commission he asks for $20
+
+Your chosen Adventurer:
+3) Adventurer 16 [ Bravery: 6 | Strength: 4  | Hunting: 3 | Cunning: 6 | Stealth: 5 | Charisma: 2 | Perception: 3 | Combat: 2 ]
+
+A traders cart is in need of immediate repair has been completed by Adventurer 17
+You gain the following rewards...
+
++ $70
++ Value Score 8
+
+Is is now noon..
+
+> draw a quest
+You draw a quest card..
+
+You receive A scribe needs protection on a Journey Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+The well off scribe needs someone capable of defending him as well as advise on the best roads to take. He did initially have a small group of mercenaries hired but they disappeared without trace the following day they were to leave for the trip. Having had to pay up front he lost quite a bit pf money and now can only afford to hire one man.
+But the hired man will need to be pretty good at his job on his own.
+
+It will take 20 turns until it is completed.
+
+Attributes needed: Primary: combat (10) | Secondary: perception (10)
+
+Rarity: Rare
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 0 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) An informant is needed...
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 2) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+Quest 3) A scribe needs protection on a Journey...
+
+The well off scribe needs someone capable of defending him as well as advise on the best roads to take. He did initially have a small group of mercenaries hired but they disappeared without trace the following day they were to leave for the trip. Having had to pay up front he lost quite a bit pf money and now can only afford to hire one man.
+But the hired man will need to be pretty good at his job on his own.
+
+It will take 20 turns until it is completed.
+
+Attributes needed: Primary: combat (10) | Secondary: perception (10)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 0 gold coins
+##---------------------------------------##
+
+> 3
+You select number 3 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A scribe needs protection on a Journey
+
+[Attributes needed:]
+
+Combat (10)
+Perception (10)
+
+Type X to Cancel if desired..
+
+1) Adventurer 14 [ Bravery: 4 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 8 | Charisma: 4 | Perception: 3 | Combat: 6 | Craftsman: 2 ] | Hire Fee 30
+
+2) Adventurer 15 [ Bravery: 5 | Strength: 5  | Hunting: 1 | Intellect: 5 | Stealth: 1 | Charisma: 5 | Perception: 8 | Combat: 2 | Craftsman: 6 ] | Hire Fee 30
+
+> 2
+You pick Quest number 2
+
+You give the A scribe needs protection on a Journey to the Adventurer 15
+
+You pay Adventurer 15 the commission he asks for $30
+
+Your chosen Adventurer:
+2) Adventurer 15 [ Bravery: 5 | Strength: 5  | Hunting: 1 | Cunning: 5 | Stealth: 1 | Charisma: 5 | Perception: 8 | Combat: 2 ]
+
+> draw a quest
+You draw a quest card..
+
+You receive Talk a Rebel Leader into Surrendering Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+There is a rebel leader whom hasn't a chance of surviving. His men have low morale and they are almost out of supplies. Rather than finish them off, it would be better politically speaking to resolve this peacefully to prevent further flare ups in the future.
+
+It will take 7 turns until it is completed.
+
+Attributes needed:  Primary: charisma  (8) | Secondary: bravery  (6)
+
+Rarity: Common
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 40 gold coins
+
+Is is now late afternoon..
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Talk a Rebel Leader into Surrendering...
+
+There is a rebel leader whom hasn't a chance of surviving. His men have low morale and they are almost out of supplies. Rather than finish them off, it would be better politically speaking to resolve this peacefully to prevent further flare ups in the future.
+
+It will take 7 turns until it is completed.
+
+Attributes needed:  Primary: charisma  (8) | Secondary: bravery  (6)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 40 gold coins
+##---------------------------------------##
+
+Quest 2) An informant is needed...
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 3) A village needs someone to train their Miltia...
+
+Their previous trainer increased their price too far and was quickly dismissed.
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: combat (8) | Secondary: charisma (7)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 50 gold coins
+##---------------------------------------##
+
+> 3
+You select number 3 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A village needs someone to train their Miltia
+
+[Attributes needed:]
+
+Combat (8)
+Charisma (7)
+
+Type X to Cancel if desired..
+
+1) Adventurer 14 [ Bravery: 4 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 8 | Charisma: 4 | Perception: 3 | Combat: 6 | Craftsman: 2 ] | Hire Fee 30
+
+> 1
+You pick Quest number 1
+
+You give the A village needs someone to train their Miltia to the Adventurer 14
+
+You pay Adventurer 14 the commission he asks for $30
+
+Your chosen Adventurer:
+1) Adventurer 14 [ Bravery: 4 | Strength: 4  | Hunting: 2 | Cunning: 5 | Stealth: 8 | Charisma: 4 | Perception: 3 | Combat: 6 ]
+
+> southeast
+You move SouthEast..  You stop along the way and take a stone out of your shoe.
+
+> southeast
+You move SouthEast..  The road widens as it leads to a junction you take the left.
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> southeast
+You move SouthEast..  You take a shortcut through a light copse and leap over a narrow creek before connecting up to the road again.
+
+> southeast
+You move SouthEast..  You step off the road to let a horse and cart pass.
+
+> southeast
+You move SouthEast..  The road winds around a hill.
+
+River Village South
+The river is the heart of this village which most of the buildings are build upon the bank or over the river itself which is for the most part the main street. Villages use small boats to get across to the other side of the village and navigate around the buildings on high foundations.
+
+You see a sign that tells you where the Tavern is, clearly visible on the hill.
+
+Adventurer 18, Adventurer 19, Adventurer 20 and Adventurer 21 are here.  Exits are north, east, northeast and northwest.  You move SouthEast..
+
+> southeast
+There is no route to the southeast, only north, east, northeast and northwest.
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now Midnight.. A wolf did howl.
+
+A troll has been spotted east in a forest has been completed by Adventurer 16
+You gain the following rewards...
+
++ $60
++ Value Score 10
+
+> wait
+Time passes...
+
+A village needs someone to train their Miltia has been completed by Adventurer 14
+You gain the following rewards...
+
++ $50
++ Value Score 6
+
+> wait
+Time passes...
+
+A scribe needs protection on a Journey has been completed by Adventurer 15
+You gain the following rewards...
+
++ $0
++ Value Score 10
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+The sun slowly rises above the horizon.
+
+> draw a quest
+You draw a quest card..
+
+You receive Part Missing from a new Printing Press Quest card...(Quest: 3/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+This new technology is the talk of the Realm. A printing press. Revolutionary technology that some people want to replicate on their own. It has always been said the pen is mightier than the sword. The printing press is very large and heavy. But someone knowing what they were looking for, managed to disassemble a small intricate part which is not easily replaceable. The new part will have to be ordered from overseas. The question remains, who took the part and why?
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: perception (8) | Secondary: charisma (9)
+
+Rarity: Very Rare
+
+Quest Score points awarded when completed: 9
+Quest Reward to you for completion 80 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Talk a Rebel Leader into Surrendering...
+
+There is a rebel leader whom hasn't a chance of surviving. His men have low morale and they are almost out of supplies. Rather than finish them off, it would be better politically speaking to resolve this peacefully to prevent further flare ups in the future.
+
+It will take 7 turns until it is completed.
+
+Attributes needed:  Primary: charisma  (8) | Secondary: bravery  (6)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 40 gold coins
+##---------------------------------------##
+
+Quest 2) An informant is needed...
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+Quest 3) Part Missing from a new Printing Press...
+
+This new technology is the talk of the Realm. A printing press. Revolutionary technology that some people want to replicate on their own. It has always been said the pen is mightier than the sword. The printing press is very large and heavy. But someone knowing what they were looking for, managed to disassemble a small intricate part which is not easily replaceable. The new part will have to be ordered from overseas. The question remains, who took the part and why?
+
+It will take 15 turns until it is completed.
+
+Attributes needed: Primary: perception (8) | Secondary: charisma (9)
+
+Quest Score points awarded when completed: 9
+Quest Reward to you for completion 80 gold coins
+##---------------------------------------##
+
+> 3
+You select number 3 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Part Missing from a new Printing Press
+
+[Attributes needed:]
+
+Perception (8)
+Charisma (9)
+
+Type X to Cancel if desired..
+
+1) Adventurer 18 [ Bravery: 3 | Strength: 7  | Hunting: 1 | Intellect: 2 | Stealth: 1 | Charisma: 4 | Perception: 2 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+2) Adventurer 19 [ Bravery: 8 | Strength: 2  | Hunting: 4 | Intellect: 4 | Stealth: 1 | Charisma: 3 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+3) Adventurer 20 [ Bravery: 3 | Strength: 4  | Hunting: 3 | Intellect: 5 | Stealth: 2 | Charisma: 7 | Perception: 3 | Combat: 1 | Craftsman: 1 ] | Hire Fee 20
+
+4) Adventurer 21 [ Bravery: 6 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 1 | Charisma: 5 | Perception: 1 | Combat: 1 | Craftsman: 8 ] | Hire Fee 30
+
+> 3
+You pick Quest number 3
+
+You give the Part Missing from a new Printing Press to the Adventurer 20
+
+You pay Adventurer 20 the commission he asks for $20
+
+Your chosen Adventurer:
+3) Adventurer 20 [ Bravery: 3 | Strength: 4  | Hunting: 3 | Cunning: 5 | Stealth: 2 | Charisma: 7 | Perception: 3 | Combat: 1 ]
+
+> x adventurer 18
+
+You see nothing interesting about Adventurer 18.
+
+Is is now late morning..
+
+> x adventurer 18
+
+You see nothing worthy of note about Adventurer 18.
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Talk a Rebel Leader into Surrendering...
+
+There is a rebel leader whom hasn't a chance of surviving. His men have low morale and they are almost out of supplies. Rather than finish them off, it would be better politically speaking to resolve this peacefully to prevent further flare ups in the future.
+
+It will take 7 turns until it is completed.
+
+Attributes needed:  Primary: charisma  (8) | Secondary: bravery  (6)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 40 gold coins
+##---------------------------------------##
+
+Quest 2) An informant is needed...
+
+An informant is needed. There is a rumor brewing of an impending fisherman strike at the main city docks, we need someone to go and find out more and who is behind it. The right man for the job is important for success.
+
+It will take 12 turns until it is completed.
+
+Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
+
+Quest Score points awarded when completed: 7
+Quest Reward to you for completion 60 gold coins
+##---------------------------------------##
+
+> 2
+You select number 2 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: An informant is needed
+
+[Attributes needed:]
+
+Stealth (8)
+Charisma (6)
+
+Type X to Cancel if desired..
+
+1) Adventurer 18 [ Bravery: 3 | Strength: 7  | Hunting: 1 | Intellect: 2 | Stealth: 1 | Charisma: 4 | Perception: 2 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+2) Adventurer 19 [ Bravery: 8 | Strength: 2  | Hunting: 4 | Intellect: 4 | Stealth: 1 | Charisma: 3 | Perception: 3 | Combat: 2 | Craftsman: 1 ] | Hire Fee 20
+
+3) Adventurer 21 [ Bravery: 6 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 1 | Charisma: 5 | Perception: 1 | Combat: 1 | Craftsman: 8 ] | Hire Fee 30
+
+> 2
+You pick Quest number 2
+
+You give the An informant is needed to the Adventurer 19
+
+You pay Adventurer 19 the commission he asks for $20
+
+Your chosen Adventurer:
+2) Adventurer 19 [ Bravery: 8 | Strength: 2  | Hunting: 4 | Cunning: 4 | Stealth: 1 | Charisma: 3 | Perception: 3 | Combat: 2 ]
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) Talk a Rebel Leader into Surrendering...
+
+There is a rebel leader whom hasn't a chance of surviving. His men have low morale and they are almost out of supplies. Rather than finish them off, it would be better politically speaking to resolve this peacefully to prevent further flare ups in the future.
+
+It will take 7 turns until it is completed.
+
+Attributes needed:  Primary: charisma  (8) | Secondary: bravery  (6)
+
+Quest Score points awarded when completed: 6
+Quest Reward to you for completion 40 gold coins
+##---------------------------------------##
+
+Is is now noon..
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: Talk a Rebel Leader into Surrendering
+
+[Attributes needed:]
+
+Charisma (8)
+Bravery (6)
+
+Type X to Cancel if desired..
+
+1) Adventurer 18 [ Bravery: 3 | Strength: 7  | Hunting: 1 | Intellect: 2 | Stealth: 1 | Charisma: 4 | Perception: 2 | Combat: 5 | Craftsman: 0 ] | Hire Fee 20
+
+2) Adventurer 21 [ Bravery: 6 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 1 | Charisma: 5 | Perception: 1 | Combat: 1 | Craftsman: 8 ] | Hire Fee 30
+
+> 1
+You pick Quest number 1
+
+You give the Talk a Rebel Leader into Surrendering to the Adventurer 18
+
+You pay Adventurer 18 the commission he asks for $20
+
+Your chosen Adventurer:
+1) Adventurer 18 [ Bravery: 3 | Strength: 7  | Hunting: 1 | Cunning: 2 | Stealth: 1 | Charisma: 4 | Perception: 2 | Combat: 5 ]
+
+> unlock puzzle box with blue key
+
+The box makes a single clicking sound. The lid opens ajar.
+
+You discover inside..
+
+##-- Press Enter to Continue --##
+
+A folded handkerchief and 30 Quest Points.
+
+> draw a quest
+You draw a quest card..
+
+You receive A Lost ShipWreck Quest card...(Quest: 1/3)
+(Note: The Secondary Attribute has a higher roll than the first which is considered a penalty)
+
+It is rumored in parts of the land of a foreign ship that wrecked on one terrible night many years ago. Where it came from and where it was going was just as much a mystery as to where it sank. Some say there was a vast gold bullion upon it and that is why is sank leaving no trace. Others say it was just a merchant ship. But not everyone believes the stories. No trace has been seen of said ship or any gold. Still many have tried looking for it.
+
+But now you have a map on a handkerchief found inside the mysterious puzzle box. Perhaps this map reveals its watery grave? Or something else?
+This will be a private quest and you will reap all the rewards should it be successful.
+
+It will take 30 turns until it is completed.
+
+Attributes needed: Primary: intellect (10) | Secondary: charisma (10)
+
+Rarity: Very Rare
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 200 gold coins
+
+> give a quest
+View Quest Cards in your hand:
+
+Choose a Quest to give then you will see a list of Adventurers and their Stats before you choose one
+
+(Press X to Cancel)
+
+Quest 1) A Lost ShipWreck...
+
+It is rumored in parts of the land of a foreign ship that wrecked on one terrible night many years ago. Where it came from and where it was going was just as much a mystery as to where it sank. Some say there was a vast gold bullion upon it and that is why is sank leaving no trace. Others say it was just a merchant ship. But not everyone believes the stories. No trace has been seen of said ship or any gold. Still many have tried looking for it.
+
+But now you have a map on a handkerchief found inside the mysterious puzzle box. Perhaps this map reveals its watery grave? Or something else?
+This will be a private quest and you will reap all the rewards should it be successful.
+
+It will take 30 turns until it is completed.
+
+Attributes needed: Primary: intellect (10) | Secondary: charisma (10)
+
+Quest Score points awarded when completed: 10
+Quest Reward to you for completion 200 gold coins
+##---------------------------------------##
+
+Is is now late afternoon..
+
+> 1
+You select number 1 quest..
+
+Please choose an Adventurer to give the quest to..
+
+Quest: A Lost ShipWreck
+
+[Attributes needed:]
+
+Intellect (10)
+Charisma (10)
+
+Type X to Cancel if desired..
+
+1) Adventurer 21 [ Bravery: 6 | Strength: 4  | Hunting: 2 | Intellect: 5 | Stealth: 1 | Charisma: 5 | Perception: 1 | Combat: 1 | Craftsman: 8 ] | Hire Fee 30
+
+> 1
+You pick Quest number 1
+
+You give the A Lost ShipWreck to the Adventurer 21
+
+You pay Adventurer 21 the commission he asks for $30
+
+Your chosen Adventurer:
+1) Adventurer 21 [ Bravery: 6 | Strength: 4  | Hunting: 2 | Cunning: 5 | Stealth: 1 | Charisma: 5 | Perception: 1 | Combat: 1 ]
+
+> wait
+Time passes...
+
+Part Missing from a new Printing Press has been completed by Adventurer 20
+You gain the following rewards...
+
++ $80
++ Value Score 9
+
+Talk a Rebel Leader into Surrendering has been completed by Adventurer 18
+You gain the following rewards...
+
++ $40
++ Value Score 6
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> wait
+Time passes...
+
+An informant is needed has been completed by Adventurer 19
+You gain the following rewards...
+
++ $60
++ Value Score 7
+
+> wait
+Time passes...
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+Is is now Midnight.. It is very cold.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The sun slowly rises above the horizon.
+
+> wait
+Time passes...
+
+Is is now late morning..
+
+> wait
+Time passes...
+
+A Lost ShipWreck has been completed by Adventurer 21
+
+You gain 200 Gold coins and 50 Quest Value points!!
+You gain the following rewards...
+
++ $200
++ Value Score 10
+
+> wait
+Time passes...
+
+Is is now noon..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late afternoon..
+
+> wait
+Time passes...
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+Is is now Midnight.. It sounds very quiet.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun slowly rises above the horizon.
+
+> wait
+Time passes...
+
+Is is now late morning..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now noon..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late afternoon..
+
+> wait
+Time passes...
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+Is is now Midnight.. It sounds very quiet.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun slowly rises above the horizon.
+
+> wait
+Time passes...
+
+Is is now late morning..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now noon..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late afternoon..
+
+> wait
+Time passes...
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+Is is now Midnight.. Somewhere a dog barks.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun slowly rises above the horizon.
+
+> wait
+Time passes...
+
+Is is now late morning..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now noon..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late afternoon..
+
+> wait
+Time passes...
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+Is is now Midnight.. It sounds very quiet.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun slowly rises above the horizon.
+
+> wait
+Time passes...
+
+Is is now late morning..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now noon..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late afternoon..
+
+> wait
+Time passes...
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+Is is now Midnight.. It sounds very quiet.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun slowly rises above the horizon.
+
+> wait
+Time passes...
+
+Is is now late morning..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now noon..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late afternoon..
+
+> wait
+Time passes...
+
+The sun slips beneath the horizon. You cannot hire any Adventures at night. Find a tavern to enter and rent a room to sleep from a barman
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now late evening..
+
+> wait
+Time passes...
+
+Is is now Midnight.. A wolf did howl.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Is is now very earl in the morning.. but it is still dark outside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun slowly rises above the horizon.
+
+ 10 Days has passed!
+
+You managed to accumulate..
+
+Money: 1118
+Successfully Completed Quests: 21
+Quest Score Total: 60
+
+ Grand Total Score (Money + Quest Score + Number of Quests Completed): 1199
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

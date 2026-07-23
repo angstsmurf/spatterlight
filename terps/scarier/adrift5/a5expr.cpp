@@ -320,6 +320,26 @@ objs_in_location (a5_state_t *st, const char *lockey)
   return v;
 }
 
+/* Characters in a location, for the OO `.Characters` property (the runner's
+   ReplaceOOProperty "Characters" on a location, loc.CharactersInLocation).  The
+   Player counts -- the runner's list is every character whose location resolves
+   to this room, and a task Execute'd over it filters with its own restrictions
+   (Quest Giver's `view prospects` gates on HaveProperty daz7CharacterI, so the
+   Player drops out there).  a5state_character_location_key resolves a character
+   standing on furniture to the furniture's room, as clsCharacter.Location does. */
+static std::vector<std::string>
+chars_in_location (a5_state_t *st, const char *lockey)
+{
+  std::vector<std::string> v;
+  for (int i = 0; i < st->adv->n_characters; i++)
+    {
+      const char *lk = a5state_character_location_key (st, i);
+      if (lk != NULL && streq (lk, lockey))
+        v.push_back (st->adv->characters[i].key);
+    }
+  return v;
+}
+
 /* The parent key of an object (clsObject.Parent, clsObject.vb:663): the thing it
    is in/on/held/worn by/part of -- AND, for an object sitting directly in a
    location (or location group), that location key.  st->obj[oi].key holds the
@@ -668,6 +688,15 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
                 nc.keys.push_back (o);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
+      if (fn == "Characters")
+        {
+          Ctx nc; nc.is_list = 1;
+          for (auto &k : ctx.keys)
+            if (a5model_location (st->adv, k.c_str ()))
+              for (auto &c : chars_in_location (st, k.c_str ()))
+                nc.keys.push_back (c);
+          return oo_prop (st, nc, rem, depth + 1, ok);
+        }
       /* else: a property key -> filter / aggregate.  Carry it for .Sum. */
       {
         /* A SelectionOnly (valueless marker) property applied to a list is a
@@ -899,6 +928,11 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
       if (fn == "Objects")
         {
           Ctx nc; nc.is_list = 1; nc.keys = objs_in_location (st, key.c_str ());
+          return oo_prop (st, nc, rem, depth + 1, ok);
+        }
+      if (fn == "Characters")
+        {
+          Ctx nc; nc.is_list = 1; nc.keys = chars_in_location (st, key.c_str ());
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       if (fn == "LocationTo")

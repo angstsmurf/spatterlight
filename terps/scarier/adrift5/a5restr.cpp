@@ -1369,9 +1369,24 @@ pass_property (a5_state_t *st, a5_restr_t *r)
          '%' (so an object binding is not re-rendered as a display name). */
       if (rhs == value && strchr (value, '%') != NULL)
         { rhs_sub = restr_text_value (st, value); rhs = rhs_sub; }
+      /* A Text-property value is compared as a STRING EXPRESSION, so an empty
+         one is authored (and serialised) as the VB literal `""` -- Quest Giver
+         gates its "You see nothing worthy of note about ..." fallback on
+         `daz6LookAtDesc ReferencedCharacter Must EqualTo ""`.  Unquote a
+         literal so it compares as the empty string it denotes. */
+      if (rhs != NULL && strlen (rhs) >= 2 && rhs[0] == '"'
+          && rhs[strlen (rhs) - 1] == '"')
+        { char *u = strndup (rhs + 1, strlen (rhs) - 2);
+          free (rhs_sub); rhs_sub = u; rhs = rhs_sub; }
       pv = a5state_entity_prop (st, itemkey, propkey);
       if (pv == NULL && strcmp (propkey, "StaticOrDynamic") == 0)
         pv = "Static";          /* the StaticOrDynamic default for an object */
+      /* The runner's test is bItemContainsProperty (clsItem.HasProperty), THEN
+         a value compare: a property the item carries with no value at all -- an
+         un-filled Text property -- reads as "", it does not make the item
+         property-less.  Only an item genuinely lacking the property fails. */
+      if (pv == NULL && a5state_entity_has_prop (st, itemkey, propkey))
+        pv = "";
       rr = (pv != NULL) && streq (pv, rhs);
       free (rhs_sub);
     }

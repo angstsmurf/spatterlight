@@ -1395,26 +1395,17 @@ enqueue_loc_trigger_tasks (a5_run_t *run, const char *old_loc, const char *new_l
 
 /* ---- run_action per-kind handlers (extracted from run_action) ---- */
 
-static void
-act_move_object (a5_run_t *run, const char * /*kind*/,
-                 const std::vector<std::string> &tk, const char * /*body*/,
-                 int /*depth*/, sb_t * /*out*/)
+/* clsUserSession.vb:1479 MoveObjectWhat: the source of an object-set action is
+   either a single Object or one of the "Everything*" sets (a group's members,
+   everything held/worn by a character, inside/on an object, at a location, or
+   carrying a property).  MoveObject and AddObjectToGroup/RemoveObjectFromGroup
+   share the enum, so they share this collector.  Returns 0 for an unrecognised
+   selector (the caller then does nothing, as the runner does). */
+static int
+collect_object_source (a5_state_t *st, const std::string &what,
+                       const char *srckey, const char *rawkey,
+                       std::vector<int> &targets)
 {
-  a5_state_t *st = run->st;
-  if (tk.size () < 4)
-    return;
-  /* clsUserSession.vb:1479 MoveObjectWhat: the source may be a single Object
-     or an "Everything*" set (a group's members, everything held/worn by a
-     character, inside/on an object, at a location, or with a property).
-     tk[1] names the source entity; tk[2] is the destination kind; tk[3] the
-     destination key.  Collect the affected object indices, then apply the
-     same per-object move to each. */
-  const std::string &what = tk[0];
-  const char *srckey = act_key (st, tk[1].c_str ());
-  const std::string &to = tk[2];
-  const char *k2 = act_key (st, tk[3].c_str ());
-  std::vector<int> targets;
-
   if (what == "Object")
     {
       int oi = a5state_object_index (st, srckey);
@@ -1422,16 +1413,21 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
     }
   else if (what == "EverythingInGroup")
     {
-      /* a5state_object_in_group IS the merged test: a runtime @InGroup override
-         wins, else the static <Member> list decides.  The scan of the static
-         members that used to follow it was not just redundant -- it re-added a
-         member that a RemoveObjectFromGroup had explicitly taken out, because
-         the override says "0" (in_group false) while the <Member> entry is still
-         there.  Resolve the group operand through act_key like every sibling
-         branch does, too. */
-      for (int i = 0; i < st->adv->n_objects; i++)
-        if (a5state_object_in_group (st, srckey, st->adv->objects[i].key))
-          targets.push_back (i);
+      /* Walk the group's LIVE, insertion-ordered membership (the runner
+         arlMembers), not the model's object table: the runner hands the set to
+         the action in member order, and that order is observable whenever the
+         objects are appended to another group -- Quest Giver stamps its deck's
+         card IDs by member position, so a model-order copy deals the wrong card
+         for a given roll.  a5state_group_member_at IS the merged view (a
+         RemoveObjectFromGroup drops the member even though its static <Member>
+         entry survives). */
+      int n = a5state_group_count (st, srckey);
+      for (int m = 0; m < n; m++)
+        {
+          int oi = a5state_object_index (st,
+                     a5state_group_member_at (st, srckey, m));
+          if (oi >= 0) targets.push_back (oi);
+        }
     }
   else if (what == "EverythingHeldBy" || what == "EverythingWornBy")
     {
@@ -1462,10 +1458,32 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
          property added at runtime via SetProperty must be seen here, exactly as
          the character EveryoneWithProperty branch already does. */
       for (int i = 0; i < st->adv->n_objects; i++)
-        if (a5state_entity_has_prop (st, st->adv->objects[i].key, tk[1].c_str ()))
+        if (a5state_entity_has_prop (st, st->adv->objects[i].key, rawkey))
           targets.push_back (i);
     }
   else
+    return 0;
+  return 1;
+}
+
+static void
+act_move_object (a5_run_t *run, const char * /*kind*/,
+                 const std::vector<std::string> &tk, const char * /*body*/,
+                 int /*depth*/, sb_t * /*out*/)
+{
+  a5_state_t *st = run->st;
+  if (tk.size () < 4)
+    return;
+  /* tk[0] is the source selector, tk[1] the source entity; tk[2] is the
+     destination kind and tk[3] the destination key.  Collect the affected
+     object indices, then apply the same per-object move to each. */
+  const std::string &what = tk[0];
+  const char *srckey = act_key (st, tk[1].c_str ());
+  const std::string &to = tk[2];
+  const char *k2 = act_key (st, tk[3].c_str ());
+  std::vector<int> targets;
+
+  if (!collect_object_source (st, what, srckey, tk[1].c_str (), targets))
     return;
 
   for (size_t ti = 0; ti < targets.size (); ti++)
@@ -1545,21 +1563,72 @@ act_object_group (a5_run_t *run, const char *kind,
   if (tk.size () < 4)
     return;
   int add = streq (kind, "AddObjectToGroup");
-  if (tk[0] == "EverythingWithProperty")
-    {
-      /* Merged (runtime + static) test -- see the MoveObject branch. */
-      for (int i = 0; i < st->adv->n_objects; i++)
-        if (a5state_entity_has_prop (st, st->adv->objects[i].key, tk[1].c_str ()))
-          a5state_set_object_in_group (st, tk[3].c_str (),
-                                       st->adv->objects[i].key, add);
-      return;
-    }
-  if (tk[0] != "Object")
-    return;
-  const char *obj = act_key (st, tk[1].c_str ());
   const char *grp = tk[3].c_str ();
-  a5state_set_object_in_group (st, grp, obj, add);
-  return;
+  const char *srckey = act_key (st, tk[1].c_str ());
+  std::vector<int> targets;
+  /* The selector enum is MoveObject's (clsAction shares AddToGroupWhat with
+     MoveObjectWhat), so the whole "Everything*" family is legal here too --
+     Quest Giver's setup task seeds its live deck with
+     `AddObjectToGroup EverythingInGroup daz6QuestDeckM ToGroup daz6CurrentQue`,
+     and with only the single-Object form implemented the deck stayed at its
+     three authored members, so the game dealt from 3 cards instead of 20. */
+  if (!collect_object_source (st, tk[0], srckey, tk[1].c_str (), targets))
+    return;
+  for (size_t i = 0; i < targets.size (); i++)
+    a5state_set_object_in_group (st, grp, st->adv->objects[targets[i]].key, add);
+}
+
+/* Add/RemoveCharacterToGroup (clsUserSession.vb:1841): same shape as the object
+   and location group actions, over MoveCharacter's "who" enum.  Quest Giver
+   files each hired adventurer into its "Current Actively Hired Adventurers"
+   group, which is what VIEW HIRED enumerates. */
+static void
+act_character_group (a5_run_t *run, const char *kind,
+                     const std::vector<std::string> &tk, const char * /*body*/,
+                     int /*depth*/, sb_t * /*out*/)
+{
+  a5_state_t *st = run->st;
+  if (tk.size () < 4)
+    return;
+  const std::string &who = tk[0];
+  const char *whok = act_key (st, tk[1].c_str ());
+  const char *grp = tk[3].c_str ();
+  int add = streq (kind, "AddCharacterToGroup");
+  std::vector<int> cis;
+  if (who == "Character")
+    { int ci = a5state_character_index (st, whok); if (ci >= 0) cis.push_back (ci); }
+  else if (who == "EveryoneAtLocation")
+    {
+      for (int i = 0; i < st->adv->n_characters; i++)
+        if (streq (st->char_loc[i], whok) && st->char_onobj[i] == NULL)
+          cis.push_back (i);
+    }
+  else if (who == "EveryoneInGroup")
+    {
+      int n = a5state_group_count (st, whok);
+      for (int m = 0; m < n; m++)
+        { int ci = a5state_character_index (st,
+                      a5state_group_member_at (st, whok, m));
+          if (ci >= 0) cis.push_back (ci); }
+    }
+  else if (who == "EveryoneInside" || who == "EveryoneOn")
+    {
+      char want_in = (who == "EveryoneInside") ? 1 : 0;
+      for (int i = 0; i < st->adv->n_characters; i++)
+        if (streq (st->char_onobj[i], whok) && st->char_in[i] == want_in)
+          cis.push_back (i);
+    }
+  else if (who == "EveryoneWithProperty")
+    {
+      for (int i = 0; i < st->adv->n_characters; i++)
+        if (a5state_entity_has_prop (st, st->adv->characters[i].key,
+                                     tk[1].c_str ()))
+          cis.push_back (i);
+    }
+  else
+    return;
+  for (size_t i = 0; i < cis.size (); i++)
+    a5state_set_object_in_group (st, grp, st->adv->characters[cis[i]].key, add);
 }
 
 static void
@@ -2418,6 +2487,50 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
             if (group_prop_member_keys (st, args[i], gmembers))
               { giter = (int) i; break; }
 
+          /* The same plurality reaches the executed task through any OO chain
+             that lands on a COLLECTION -- `%Player%.Held.<marker>`,
+             `%Player%.Location.Characters` -- not just the `Group.Property`
+             form above.  a5expr renders such a chain as a "key1|key2|..." pipe
+             list, which is exactly the runner's reference carrying several
+             Items, so ExecuteSubTasks runs the task once per item.  Binding the
+             whole pipe list to one reference instead ran the task ONCE with a
+             list-valued reference: Quest Giver's `view cards` prints its three
+             held quests as a single merged card ("Quest 12) A showman ...,
+             Peacemaker needed and A wealthy man ...") with one ID stamp,
+             where the runner prints one card per quest.  Resolve here, against
+             the parent's live references (run_one restores them per member). */
+          if (giter < 0)
+            for (size_t i = 0; i < args.size () && i < rnames.size (); i++)
+              {
+                std::string an = args[i];
+                { size_t b1 = an.find_first_not_of (" \t");
+                  size_t e1 = an.find_last_not_of (" \t");
+                  an = (b1 == std::string::npos)
+                         ? "" : an.substr (b1, e1 - b1 + 1); }
+                if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
+                  {
+                    std::string base = an.substr (1, an.size () - 2);
+                    normalize_singular_ref (base);
+                    if (base == rnames[i])
+                      continue;         /* passed through with its own items */
+                  }
+                char *val = eval_arg_to_key (st, args[i]);
+                if (val != NULL && strchr (val, '|') != NULL)
+                  {
+                    std::string cur;
+                    for (const char *p = val; ; p++)
+                      {
+                        if (*p == '|' || *p == '\0')
+                          { gmembers.push_back (cur); cur.clear ();
+                            if (*p == '\0') break; }
+                        else cur += *p;
+                      }
+                    giter = (int) i;
+                  }
+                free (val);
+                if (giter >= 0) break;
+              }
+
           int tti = a5state_task_index (st, key.c_str ());
           bool ran_any = false;
 
@@ -2797,6 +2910,8 @@ run_action (a5_run_t *run, const char *kind, const char *body, int depth, sb_t *
     { act_conversation (run, kind, tk, body, depth, out); return; }
   if (streq (kind, "AddLocationToGroup") || streq (kind, "RemoveLocationFromGroup"))
     { act_location_group (run, kind, tk, body, depth, out); return; }
+  if (streq (kind, "AddCharacterToGroup") || streq (kind, "RemoveCharacterFromGroup"))
+    { act_character_group (run, kind, tk, body, depth, out); return; }
 }
 
 

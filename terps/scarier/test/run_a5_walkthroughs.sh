@@ -1287,6 +1287,34 @@ FILTER="${1:-}"
 # The vanilla column pins Scarier's own golden; a direct FD-vanilla diff shows
 # 62, because every door roll, every corridor description index and every
 # <#oneOf()#> comes off the RNG.
+#
+# (2026-07-23) QuestGiver WIRED at DIVERGE 0|396, golden-backed on the vanilla
+# column.  Daz Woolley, 2015: a 10-day management game -- draw quest cards, hire
+# the adventurer whose stats best fit each, and bank the countdown payouts before
+# the Grand Total Score prints on day 10.  The Scarier route (best4, 223 cmds)
+# reaches the clean ending "10 Days has passed!" with all 21 adventurers hired
+# (20 deck cards + the private-message shipwreck), 21/21 quests succeeded and a
+# Grand Total Score of 1199 -- the true maximum.  It does NOT byte-match FD, and
+# the divergence is architectural, not RNG or a fixable Scarier bug.  ROOT CAUSE
+# (line-level, via FD_DL_TRACE): the 10-day clock is a global TurnBased event
+# whose six ExecuteTask subevents fire in order each turn; the daylight-decrement
+# subevent daz61DaylightC declares ZERO references, but FD's AttemptToExecuteTask
+# does InReferences = task.CopyNewRefs(NewReferences), and CopyNewRefs
+# (clsTask.vb) copies the WHOLE ambient NewReferences with ALL its items,
+# ignoring the task's declared count.  On a give-completion turn the preceding
+# subevent daz6CheckIfAny leaves NewReferences = the merged active-quest set, so
+# daz61DaylightC's DecVariable runs once per active quest -> daylight drops by N,
+# not 1.  Both engines apply the same extra decrements, but FD front-loads them
+# onto give-completion turns while Scarier's per-member group-Execute forms the
+# plural leftover 1-2 turns later, so the clocks phase-shift and compound over
+# ten days (FD nightfalls earlier and night-rejects later gives).  Matching FD
+# would require Scarier's event-fired group-Execute to MERGE identical-text child
+# responses into a multi-item aggregate -- but the command path (VIEW CARDS =
+# daz6ViewCardsP) explicitly REQUIRES per-member, non-merged iteration
+# (a5run_action.cpp:2497), so reconciling both is high regression risk against
+# 114 passing games for one emergent FD quirk.  Hence DIVERGE, documented, with a
+# maximal winning Scarier golden.  Vanilla pins Scarier's own golden (0); the
+# xoshiro column's 396 is the measured FD-vs-Scarier baseline.
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1413,6 +1441,7 @@ Dreamspun|dreamspun 0.9.taf|0|0
 TheAwakeners|The Awakeners.taf|0|0
 Wumpus|Wumpus.taf|0|0
 DigitalRoots|DigitalRoots_v2.blorb|0|0
+QuestGiver|QuestGiver_v4.blorb|0|396
 EOF
 )
 
