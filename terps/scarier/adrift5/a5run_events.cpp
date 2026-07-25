@@ -9,8 +9,6 @@
  * exposes to the core turn loop live in a5run_internal.h.
  */
 
-#include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -18,20 +16,13 @@
 #include <string>
 #include <vector>
 
-#include "a5expr.h"
 #include "a5parse.h"
 #include "a5rand.h"
 #include "a5restr.h"
 #include "a5run.h"
 #include "a5run_internal.h"
 #include "a5sb.h"
-#include "a5sexpr.h"
 #include "a5text.h"
-
-/* A faithful port of clsEvent's turn-based state machine: IncrementTimer /
-   DoAnySubEvents / RunSubEvent / lStart / lStop, driven each turn by
-   clsUserSession.TurnBasedStuff and on task completion by the EventControls.
-   Only TurnBased events are handled (this engine has no real-time clock). */
 
 static void ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out);
 static void ev_lstop  (a5_run_t *run, int ei, int run_subs, sb_t *out);
@@ -44,6 +35,7 @@ static void wk_tick_all (a5_run_t *run, sb_t *out);
 static void wk_init     (a5_run_t *run, sb_t *out);
 
 static long ev_from_start (const a5_event_rt &rt) { return rt.length_value - rt.timer_to_end; }
+static long ev_from_last  (const a5_event_rt &rt) { return ev_from_start (rt) - rt.last_se_time; }
 
 /* clsEvent.Length is a FromTo, and FromTo.Value (Global.vb:3770) resolves
    lazily: the first read of an as-yet-unevaluated Length draws Random(from,to)
@@ -61,7 +53,26 @@ ev_length_value (a5_run_t *run, int ei)
     }
   return rt.length_value;
 }
-static long ev_from_last  (const a5_event_rt &rt) { return ev_from_start (rt) - rt.last_se_time; }
+
+/* Roll a fresh Length (clsEvent Length.Reset + first .Value): every lStart --
+   and the BetweenXY init path -- draws anew, unlike the lazy read above. */
+static long
+ev_roll_length (a5_run_t *run, int ei)
+{
+  const a5_event_t *e = &run->adv->events[ei];
+  a5_event_rt &rt = (*run->events)[ei];
+  rt.length_value = a5rand_between (e->length_from, e->length_to);
+  rt.length_set = 1;
+  return rt.length_value;
+}
+
+/* Emit an already-rendered plain message when it has output, then free it. */
+static void
+emit_owned (sb_t *out, char *m)
+{
+  if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
+  free (m);
+}
 
 /* Render a subevent/subwalk <DisplayMessage> as REAL output (marking_display=1
    so its <DisplayOnce> segments retire) and emit it when non-empty.  Shared by
@@ -74,8 +85,16 @@ emit_marked_description (a5_run_t *run, const a5_xml_node_t *desc, sb_t *out)
   st->marking_display = 1;
   char *m = a5text_describe (st, desc);
   st->marking_display = pm;
-  if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
-  free (m);
+  emit_owned (out, m);
+}
+
+/* clsTask.UnsetTask via a sub-event/sub-walk: clear the task's Completed flag. */
+static void
+unset_task (a5_state_t *st, const char *key)
+{
+  int ti = a5state_task_index (st, key);
+  if (ti >= 0)
+    st->task_done[ti] = 0;
 }
 
 /* The TimerToEndOfEvent property setter: assigning it can start a counted-down
@@ -106,8 +125,7 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
       break;
     case A5_SE_UNSETTASK:
       if (se->key != NULL)
-        { int ti = a5state_task_index (run->st, se->key);
-          if (ti >= 0) run->st->task_done[ti] = 0; }
+        unset_task (run->st, se->key);
       break;
     case A5_SE_DISPLAY:
       /* clsEvent.RunSubEvent DisplayMessage: show only if the OnlyApplyAt gate
@@ -176,8 +194,7 @@ ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out)
         || (rt.status == A5_EV_RUNNING && restart)))
     return;
   rt.status = A5_EV_RUNNING;
-  rt.length_value = a5rand_between (e->length_from, e->length_to);  /* Length.Reset + first .Value */
-  rt.length_set = 1;
+  ev_roll_length (run, ei);
   rt.last_se_index = -1;
   rt.last_se_time = 0;
   for (i = 0; i < e->n_subevents; i++)
@@ -318,6 +335,21 @@ ctrl_retrigger_blocked (const a5_adventure_t *adv,
              || task_is_descendant (adv, task_key, triggering_task.c_str (), 0));
 }
 
+/* A control's action as the shared event/walk command enum (clsEvent.Start /
+   Stop / Pause / Resume, same for clsWalk).  Shared by both control loops. */
+static int
+ctrl_to_cmd (a5_ctrl_t ctrl)
+{
+  switch (ctrl)
+    {
+    case A5_CTRL_START:   return A5_CMD_START;
+    case A5_CTRL_STOP:    return A5_CMD_STOP;
+    case A5_CTRL_SUSPEND: return A5_CMD_PAUSE;
+    case A5_CTRL_RESUME:  return A5_CMD_RESUME;
+    }
+  return A5_CMD_NONE;
+}
+
 /* clsUserSession: when a task completes (bPass), fire any EventControls. */
 void
 ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
@@ -342,13 +374,7 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
              of its override descendants already triggered. */
           if (ctrl_retrigger_blocked (run->adv, rt.triggering_task, task_key))
             continue;
-          switch (c->control)
-            {
-            case A5_CTRL_START:   ev_control (run, ei, A5_CMD_START,  task_key, out); break;
-            case A5_CTRL_STOP:    ev_control (run, ei, A5_CMD_STOP,   task_key, out); break;
-            case A5_CTRL_SUSPEND: ev_control (run, ei, A5_CMD_PAUSE,  task_key, out); break;
-            case A5_CTRL_RESUME:  ev_control (run, ei, A5_CMD_RESUME, task_key, out); break;
-            }
+          ev_control (run, ei, ctrl_to_cmd (c->control), task_key, out);
         }
     }
 }
@@ -382,6 +408,35 @@ ev_install_leftover (a5_run_t *run, const std::vector<std::string> &items)
     }
 }
 
+/* Arm the per-attempt AggregateOutput-draw deferral sink (comp_defers ->
+   display_defers).  An event/walk/LocationTrigger-fired task is its own
+   AttemptToExecuteTask in the runner (bChildTask=False, clsEvent.vb:389 /
+   clsCharacter.vb:1630 / clsUserSession.vb:3424), so ITS responses Display at
+   the end of THAT attempt (vb:782,851-856) -- which is where an
+   AggregateOutput completion's random draw resolves (ReplaceExpressions inside
+   Display).  Arm the sink around run_task and ev_defers_flush this attempt's
+   entries right after, so e.g. Symphonica 64's Schtick1 children (After +
+   aggregate `<# OneOf(..) #>` taunts, executed in list order) hold their OneOf
+   draws until AFTER the last sibling Bystander1's eager `rand(1,100)`
+   restriction draw, matching the runner's per-turn draw order. */
+static size_t
+ev_defers_arm (a5_run_t *run, std::vector<std::string> **prev)
+{
+  *prev = run->comp_defers;
+  run->comp_defers = run->display_defers;
+  run->in_ev_attempt++;
+  return run->display_defers->size ();
+}
+
+static void
+ev_defers_flush (a5_run_t *run, std::vector<std::string> *prev, size_t defer0,
+                 sb_t *out)
+{
+  run->in_ev_attempt--;
+  run->comp_defers = prev;
+  a5run_flush_display_defers_from (run, out, defer0);
+}
+
 /* Run a task fired by an event (clsUserSession.AttemptToExecuteTask, bEvent):
    restriction-checked, silent on failure, and itself a control trigger. */
 static void
@@ -408,16 +463,6 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
      `resp_flush` already leaves `st->ref_items` equal to the runner's post-Display
      `NewReferences`, so iterate it here.  A 0/1-item leftover keeps the original
      single, refs-cleared run (the overwhelmingly common case stays byte-exact). */
-  /* An event/walk/LocationTrigger-fired task is its own AttemptToExecuteTask in
-     the runner (bChildTask=False, clsEvent.vb:389 / clsCharacter.vb:1630 /
-     clsUserSession.vb:3424), so ITS responses Display at the end of THAT
-     attempt (vb:782,851-856) -- which is where an AggregateOutput completion's
-     random draw resolves (ReplaceExpressions inside Display).  Arm the deferral
-     sink around run_task and flush this attempt's entries right after, so e.g.
-     Symphonica 64's Schtick1 children (After + aggregate `<# OneOf(..) #>`
-     taunts, executed in list order) hold their OneOf draws until AFTER the
-     last sibling Bystander1's eager `rand(1,100)` restriction draw, matching
-     the runner's per-turn draw order. */
   if (st->n_ref_items > 1)
     {
       int nleft = st->n_ref_items;
@@ -426,10 +471,8 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
       const char *rbnd = (tchar == 'c') ? "ReferencedCharacters" : "ReferencedObjects";
       std::vector<const char *> items (st->ref_items, st->ref_items + nleft);
       int any_ran = 0;
-      std::vector<std::string> *prev_defers = run->comp_defers;
-      size_t defer0 = run->display_defers->size ();
-      run->comp_defers = run->display_defers;
-      run->in_ev_attempt++;
+      std::vector<std::string> *prev_defers;
+      size_t defer0 = ev_defers_arm (run, &prev_defers);
       for (const char *it : items)
         {
           /* The runner AttemptToExecuteSubTask ReDims NewReferences to this single item;
@@ -444,9 +487,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
           if (a5restr_pass (st, t->restrictions))
             { run_task (run, t, depth + 1, out); any_ran = 1; }
         }
-      run->in_ev_attempt--;
-      run->comp_defers = prev_defers;
-      a5run_flush_display_defers_from (run, out, defer0);
+      ev_defers_flush (run, prev_defers, defer0, out);
       /* Post-attempt ambient: something displayed -> the last response entry's
          items (the runner's final `NewReferences = refs`); nothing displayed ->
          the per-item AttemptToExecuteSubTask ReDim residue, which for an
@@ -499,23 +540,14 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
          TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`), desyncing the RNG. */
       const a5_xml_node_t *fm = st->restriction_text;
       if (fm != NULL)
-        {
-          char *m = a5text_describe (st, fm);
-          if (msg_has_output (m)) { sb_pspace (out); sb_puts (out, m); }
-          free (m);
-        }
+        emit_owned (out, a5text_describe (st, fm));
       return;
     }
   {
-    /* Same per-attempt aggregate-draw deferral as the plural branch above. */
-    std::vector<std::string> *prev_defers = run->comp_defers;
-    size_t defer0 = run->display_defers->size ();
-    run->comp_defers = run->display_defers;
-    run->in_ev_attempt++;
+    std::vector<std::string> *prev_defers;
+    size_t defer0 = ev_defers_arm (run, &prev_defers);
     run_task (run, t, depth + 1, out);
-    run->in_ev_attempt--;
-    run->comp_defers = prev_defers;
-    a5run_flush_display_defers_from (run, out, defer0);
+    ev_defers_flush (run, prev_defers, defer0, out);
   }
   /* This attempt Displayed at least one response: the runner re-assigns the
      ambient NewReferences to the last-inserted entry's items, which the NEXT
@@ -622,12 +654,10 @@ ev_time_tick_all (a5_run_t *run, sb_t *out)
     return;
   run->events_running = 1;
   for (ei = 0; ei < run->adv->n_events && !run->st->game_over; ei++)
-    if (run->adv->events[ei].type != NULL
-        && streq (run->adv->events[ei].type, "TimeBased"))
+    if (streq (run->adv->events[ei].type, "TimeBased"))
       ev_increment (run, ei, out);
   for (ei = 0; ei < run->adv->n_events; ei++)
-    if (run->adv->events[ei].type != NULL
-        && streq (run->adv->events[ei].type, "TimeBased"))
+    if (streq (run->adv->events[ei].type, "TimeBased"))
       (*run->events)[ei].just_started = 0;
   run->events_running = 0;
 }
@@ -655,9 +685,7 @@ ev_init (a5_run_t *run, sb_t *out)
              whole stream and every random timer downstream). */
           {
             long delay = a5rand_between (e->start_from, e->start_to);
-            rt.length_value = a5rand_between (e->length_from, e->length_to);
-            rt.length_set = 1;
-            ev_set_timer_to_end (run, ei, delay + rt.length_value, out);
+            ev_set_timer_to_end (run, ei, delay + ev_roll_length (run, ei), out);
           }
           break;
         case 1:                                  /* Immediately */
@@ -732,7 +760,13 @@ loc_is_adjacent (a5_state_t *st, const char *lockey, const char *destkey)
   return 0;
 }
 
-/* clsLocation.DirectionTo: prose direction from `fromkey` to `destkey`. */
+/* clsLocation.DirectionTo: prose direction from `fromkey` to `destkey`.
+   Prose per DIR_ORDER slot. */
+static const char *const DIR_PROSE[12] = {
+  "the north", "the east", "the south", "the west", "above", "below",
+  "inside", "outside",
+  "the north-east", "the south-east", "the south-west", "the north-west"
+};
 static std::string
 loc_direction_to (a5_state_t *st, const char *fromkey, const char *destkey)
 {
@@ -741,30 +775,8 @@ loc_direction_to (a5_state_t *st, const char *fromkey, const char *destkey)
     return "not moved";
   for (d = 0; d < 12; d++)
     if (streq (loc_raw_exit (st, fromkey, DIR_ORDER[d]), destkey))
-      switch (d)
-        {
-        case 0:  return "the north";
-        case 1:  return "the east";
-        case 2:  return "the south";
-        case 3:  return "the west";
-        case 4:  return "above";
-        case 5:  return "below";
-        case 6:  return "inside";
-        case 7:  return "outside";
-        case 8:  return "the north-east";
-        case 9:  return "the south-east";
-        case 10: return "the south-west";
-        default: return "the north-west";
-        }
+      return DIR_PROSE[d];
   return "nowhere";
-}
-
-/* The current player character's key (clsAdventure.Player.Key) -- the Type=Player
-   character at load, retargeted by a ToSwitchWith/BECOME. */
-static const char *
-walk_player_key (a5_state_t *st)
-{
-  return a5state_player_key (st);
 }
 
 /* clsCharacter.GetPropertyValue for a character property: runtime override if
@@ -790,6 +802,32 @@ char_prop_value (a5_state_t *st, const char *charkey, const char *propkey)
   return strdup (p->value ? p->value : "");
 }
 
+/* "<Name> <CharExits/CharEnters-or-default>" -- the head of both ShowEnterExit
+   messages. */
+static std::string
+wk_move_phrase (a5_state_t *st, const char *charkey, const char *propkey,
+                const char *defverb)
+{
+  char *verb = char_prop_value (st, charkey, propkey);
+  char *nm = a5text_char_proper_name (st, charkey);
+  std::string s = std::string (nm) + " " + (verb ? verb : defverb);
+  free (nm);
+  free (verb);
+  return s;
+}
+
+/* Process the composed message like any response the runner Displays -- a
+   CharExits/CharEnters property may embed <#...#> expressions (DDF's
+   wagon `<# OneOf("trundles away", ...) #>`). */
+static void
+wk_emit_move_msg (a5_state_t *st, const std::string &s, sb_t *out)
+{
+  char *proc = a5text_process (st, s.c_str ());
+  char *plain = a5text_render_plain (proc);
+  sb_pspace (out); sb_puts (out, plain);
+  free (proc); free (plain);
+}
+
 /* The "ShowEnterExit" message a walking NPC shows when it enters or leaves the
    player's room (clsWalk.DoAnySteps).  Evaluated with the character's *current*
    (pre-move) location vs the player's, and the move destination `dest`. */
@@ -803,7 +841,7 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
 
   /* The player's own walk never narrates this; only a ShowEnterExit NPC that is
      currently "at location" (not on/in an object). */
-  if (ci == a5state_character_index (st, walk_player_key (st)))
+  if (ci == a5state_character_index (st, a5state_player_key (st)))
     return;
   if (a5_prop_find (c->props, c->n_props, "ShowEnterExit") == NULL
       && a5state_entity_prop (st, c->key, "ShowEnterExit") == NULL)
@@ -813,11 +851,7 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
 
   if (streq (cloc, ploc))                      /* leaving the player's room */
     {
-      char *exits = char_prop_value (st, c->key, "CharExits");
-      char *nm = a5text_char_proper_name (st, c->key);
-      std::string s = std::string (nm) + " " + (exits ? exits : "exits");
-      free (nm);
-      free (exits);
+      std::string s = wk_move_phrase (st, c->key, "CharExits", "exits");
       if (ploc != NULL && loc_is_adjacent (st, ploc, dest))
         {
           std::string dir = loc_direction_to (st, cloc, dest);
@@ -828,21 +862,11 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
             }
         }
       s += ".";
-      /* Process the composed message like any response the runner Displays -- a
-         CharExits/CharEnters property may embed <#...#> expressions (DDF's
-         wagon `<# OneOf("trundles away", ...) #>`). */
-      char *proc = a5text_process (st, s.c_str ());
-      char *plain = a5text_render_plain (proc);
-      sb_pspace (out); sb_puts (out, plain);
-      free (proc); free (plain);
+      wk_emit_move_msg (st, s, out);
     }
   else if (streq (dest, ploc))                 /* entering the player's room */
     {
-      char *enters = char_prop_value (st, c->key, "CharEnters");
-      char *nm = a5text_char_proper_name (st, c->key);
-      std::string s = std::string (nm) + " " + (enters ? enters : "enters");
-      free (nm);
-      free (enters);
+      std::string s = wk_move_phrase (st, c->key, "CharEnters", "enters");
       if (ploc != NULL && loc_is_adjacent (st, ploc, cloc))
         {
           std::string dir = loc_direction_to (st, dest, cloc);
@@ -850,10 +874,7 @@ wk_show_enter_exit (a5_run_t *run, int ci, const char *dest, sb_t *out)
             s += " from " + dir;
         }
       s += ".";
-      char *proc = a5text_process (st, s.c_str ());
-      char *plain = a5text_render_plain (proc);
-      sb_pspace (out); sb_puts (out, plain);
-      free (proc); free (plain);
+      wk_emit_move_msg (st, s, out);
     }
 }
 
@@ -901,7 +922,7 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
           int is_group = 0, gn = 0;
           int g, c2;
           if (streq (destkey, "%Player%"))
-            destkey = walk_player_key (st);
+            destkey = a5state_player_key (st);
           for (g = 0; g < st->adv->n_groups; g++)
             if (streq (st->adv->groups[g].key, destkey))
               { is_group = 1; break; }
@@ -1008,7 +1029,7 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
             const char *comekey = sw->come_key;
             int prev = rt.came_across[i], now, cc;
             if (streq (comekey, "%Player%"))
-              comekey = walk_player_key (st);
+              comekey = a5state_player_key (st);
             cc = a5state_character_index (st, comekey);
             now = (cc >= 0 && st->char_loc[ci] != NULL
                    && streq (st->char_loc[ci], st->char_loc[cc]));
@@ -1036,8 +1057,7 @@ wk_do_subwalks (a5_run_t *run, int wi, sb_t *out)
           break;
         case A5_SW_UNSETTASK:
           if (sw->task_key != NULL)
-            { int ti = a5state_task_index (st, sw->task_key);
-              if (ti >= 0) st->task_done[ti] = 0; }
+            unset_task (st, sw->task_key);
           break;
         }
       rt.last_sw_time  = wk_from_start (rt);
@@ -1119,19 +1139,13 @@ wk_increment (a5_run_t *run, int wi, sb_t *out)
    Stop / Pause / Resume all set NextCommand; a Start after a pending Stop becomes
    a Restart). */
 static void
-wk_control (a5_run_t *run, int wi, int ctrl, const char *task_key)
+wk_control (a5_run_t *run, int wi, a5_ctrl_t ctrl, const char *task_key)
 {
   a5_walk_rt &rt = (*run->walks)[wi];
-  switch (ctrl)
-    {
-    case A5_CTRL_START:
-      rt.next_command = (rt.next_command == A5_CMD_STOP) ? A5_CMD_RESTART
-                                                         : A5_CMD_START;
-      break;
-    case A5_CTRL_STOP:    rt.next_command = A5_CMD_STOP;   break;
-    case A5_CTRL_SUSPEND: rt.next_command = A5_CMD_PAUSE;  break;
-    case A5_CTRL_RESUME:  rt.next_command = A5_CMD_RESUME; break;
-    }
+  int cmd = ctrl_to_cmd (ctrl);
+  if (cmd == A5_CMD_START && rt.next_command == A5_CMD_STOP)
+    cmd = A5_CMD_RESTART;
+  rt.next_command = cmd;
   rt.triggering_task = task_key ? task_key : "";
 }
 
