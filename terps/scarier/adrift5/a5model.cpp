@@ -186,7 +186,7 @@ a5_load_characters (a5_adventure_t *a)
 static void
 a5_parse_task (a5_task_t *t, const a5_xml_node_t *c)
 {
-  const char *prio, *rep;
+  const char *prio, *cont, *agg;
   int k;
 
   t->node = c;
@@ -208,18 +208,14 @@ a5_parse_task (a5_task_t *t, const a5_xml_node_t *c)
      left every such task non-repeatable, so a general library task like
      ExamineObjects was marked Completed after its first use and then
      skipped (e.g. `x desk` failing once any object had been examined). */
-  rep = a5xml_child_text (c, "Repeatable");
-  t->repeatable = a5xml_bool (rep);
-  {
-    const char *cont = a5xml_child_text (c, "Continue");
-    t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
-    const char *lp = a5xml_child_text (c, "LowPriority");
-    t->low_priority = a5xml_bool (lp);
-    /* clsTask.AggregateOutput defaults True; FileIO only overrides it when
-       an <Aggregate> element is present (FileIO.vb:1605). */
-    const char *agg = a5xml_child_text (c, "Aggregate");
-    t->aggregate = (agg == NULL) ? 1 : a5xml_bool (agg);
-  }
+  t->repeatable = a5xml_bool (a5xml_child_text (c, "Repeatable"));
+  cont = a5xml_child_text (c, "Continue");
+  t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
+  t->low_priority = a5xml_bool (a5xml_child_text (c, "LowPriority"));
+  /* clsTask.AggregateOutput defaults True; FileIO only overrides it when
+     an <Aggregate> element is present (FileIO.vb:1605). */
+  agg = a5xml_child_text (c, "Aggregate");
+  t->aggregate = (agg == NULL) ? 1 : a5xml_bool (agg);
   t->restrictions = a5xml_child (c, "Restrictions");
   t->actions = a5xml_child (c, "Actions");
   t->fail_override = a5xml_child (c, "FailOverride");
@@ -248,14 +244,15 @@ a5_load_variables (a5_adventure_t *a)
                 [] (a5_variable_t *v, const a5_xml_node_t *c)
                 {
                   const char *al;
+                  long len;
                   v->node = c;
                   v->key = a5xml_child_text (c, "Key");
                   v->name = a5xml_child_text (c, "Name");
                   v->type = a5xml_child_text (c, "Type");
                   v->initial = a5xml_child_text (c, "InitialValue");
                   al = a5xml_child_text (c, "ArrayLength");
-                  v->array_length = (al != NULL && strtol (al, NULL, 10) > 1)
-                                        ? (int) strtol (al, NULL, 10) : 1;
+                  len = (al != NULL) ? strtol (al, NULL, 10) : 0;
+                  v->array_length = (len > 1) ? (int) len : 1;
                 });
 }
 
@@ -280,10 +277,23 @@ static const char *
 a5_last_token (const char *s)
 {
   const char *p, *last = s ? s : "";
-  for (p = last; p != NULL && *p; p++)
+  for (p = last; *p; p++)
     if (*p == ' ' || *p == '\t')
       last = p + 1;
   return last;
+}
+
+/* Copy the first space-delimited token of `s` into buf (NUL-terminated). */
+static void
+a5_first_token (const char *s, char *buf, int cap)
+{
+  int n = 0;
+  while (s[n] != '\0' && s[n] != ' ' && n < cap - 1)
+    {
+      buf[n] = s[n];
+      n++;
+    }
+  buf[n] = '\0';
 }
 
 static a5_se_when_t
@@ -312,15 +322,16 @@ a5_parse_ctrl (const char *s)
   return A5_CTRL_START;
 }
 
-/* Parse one <Control>/<Control> body ("Start Completion TaskKey") into *cc
+/* Parse one <Control> body ("Start Completion TaskKey") into an a5_eventctrl_t
    (EventOrWalkControl, shared by events and walks).  The task key aliases the
-   final, NUL-terminated token of `text`, so it stays valid as long as the DOM. */
+   final, NUL-terminated token of the body, so it stays valid as long as the
+   DOM. */
 static void
-a5_parse_control_text (const char *text, a5_eventctrl_t *cc)
+a5_parse_control (a5_eventctrl_t *cc, const a5_xml_node_t *c)
 {
-  const char *t = text ? text : "";
+  const char *t = c->text ? c->text : "";
   const char *p = t, *toks[3]; int nt = 0;
-  char buf[64]; int n;
+  char buf[64];
   while (*p == ' ') p++;
   while (*p && nt < 3)
     {
@@ -330,9 +341,7 @@ a5_parse_control_text (const char *text, a5_eventctrl_t *cc)
     }
   if (nt >= 1)
     {
-      n = 0;
-      while (toks[0][n] && toks[0][n] != ' ' && n < 63) { buf[n] = toks[0][n]; n++; }
-      buf[n] = '\0';
+      a5_first_token (toks[0], buf, sizeof buf);
       cc->control = a5_parse_ctrl (buf);
     }
   cc->on_completion = 1;
@@ -340,6 +349,28 @@ a5_parse_control_text (const char *text, a5_eventctrl_t *cc)
     cc->on_completion = (strncmp (toks[1], "UnCompletion", 12) != 0);
   if (nt >= 3)
     cc->task_key = toks[2];
+}
+
+/* Split a subevent/subwalk <Action> into its two serialised forms: return the
+   node itself when it carries a <Description> payload (DisplayMessage), else
+   NULL after copying the leading verb of its "Verb Key" text ("ExecuteTask
+   cl_Foo") into wbuf and pointing *key at the key -- the final, NUL-terminated
+   token of the <Action> text, so it stays valid as long as the DOM.  *key is
+   left untouched when the text carries no key. */
+static const a5_xml_node_t *
+a5_action_split (const a5_xml_node_t *act, char *wbuf, int wcap,
+                 const char **key)
+{
+  const char *txt, *sp;
+  wbuf[0] = '\0';
+  if (a5xml_child (act, "Description") != NULL)
+    return act;
+  txt = act->text ? act->text : "";
+  a5_first_token (txt, wbuf, wcap);
+  sp = strchr (txt, ' ');
+  if (sp != NULL)
+    *key = sp + 1;
+  return NULL;
 }
 
 static a5_sw_when_t
@@ -358,83 +389,60 @@ a5_parse_sw_what (const char *s)
   return A5_SW_DISPLAY;
 }
 
+/* One <Step>: "Player 1" or "cl_Foo 1 To 3" -> destination key, duration
+   range.  The key is the first space-delimited token; parse the duration from
+   the rest, then truncate the (in-situ DOM) text so location aliases just the
+   key (the Step text is read nowhere else). */
+static void
+a5_parse_step (a5_walkstep_t *st, const a5_xml_node_t *c)
+{
+  char *t = (char *) (c->text ? c->text : "");
+  char *sp = strchr (t, ' ');
+  a5_parse_range (sp ? sp + 1 : NULL, &st->ft_from, &st->ft_to);
+  if (sp != NULL) *sp = '\0';
+  st->location = t;
+}
+
+/* One <Activity> of a walk (clsWalk SubWalk load). */
+static void
+a5_parse_subwalk (a5_subwalk_t *sw, const a5_xml_node_t *c)
+{
+  const char *when = a5xml_child_text (c, "When");
+  a5_xml_node_t *act = a5xml_child (c, "Action");
+  if (when != NULL && strncmp (when, "ComesAcross", 11) == 0)
+    {
+      /* "ComesAcross %Player%" -> come_key (the subject met). */
+      const char *sp = strchr (when, ' ');
+      sw->when = A5_SW_COMES_ACROSS;
+      if (sp != NULL) sw->come_key = sp + 1;
+    }
+  else
+    {
+      a5_parse_range (when, &sw->ft_from, &sw->ft_to);
+      sw->when = a5_parse_sw_when (a5_last_token (when));
+    }
+  if (act != NULL)
+    {
+      char wbuf[32];
+      sw->description = a5_action_split (act, wbuf, sizeof wbuf, &sw->task_key);
+      sw->what = (sw->description != NULL) ? A5_SW_DISPLAY
+                                           : a5_parse_sw_what (wbuf);
+    }
+  sw->only_apply_at = a5xml_child_text (c, "OnlyApplyAt");   /* sKey3 */
+}
+
 /* Parse one <Walk> body (clsWalk: FileIO.vb:1799-1865). */
 static void
 a5_parse_walk (a5_walk_t *w, const char *char_key, const a5_xml_node_t *c)
 {
-  const char *loops = a5xml_child_text (c, "Loops");
-  const char *active = a5xml_child_text (c, "StartActive");
-  const a5_xml_node_t *ch;
-  int si = 0, ki = 0, pi = 0;
-
   w->char_key = char_key;
   w->description = a5xml_child_text (c, "Description");
-  w->loops = a5xml_bool (loops);            /* GetBool: True/1/-1/Vrai */
-  w->start_active = a5xml_bool (active);
-
-  w->n_steps    = a5xml_count (c, "Step");
-  w->n_controls = a5xml_count (c, "Control");
-  w->n_subwalks = a5xml_count (c, "Activity");
-  if (w->n_steps > 0)
-    w->steps = (a5_walkstep_t *) calloc ((size_t) w->n_steps, sizeof *w->steps);
-  if (w->n_controls > 0)
-    w->controls = (a5_eventctrl_t *) calloc ((size_t) w->n_controls, sizeof *w->controls);
-  if (w->n_subwalks > 0)
-    w->subwalks = (a5_subwalk_t *) calloc ((size_t) w->n_subwalks, sizeof *w->subwalks);
-
-  for (ch = c->first_child; ch != NULL; ch = ch->next)
-    {
-      if (strcmp (ch->name, "Step") == 0 && w->steps != NULL)
-        {
-          /* "Player 1" or "cl_Foo 1 To 3" -> destination key, duration range.
-             The key is the first space-delimited token; parse the duration from
-             the rest, then truncate the (in-situ DOM) text so location aliases
-             just the key (the Step text is read nowhere else). */
-          a5_walkstep_t *st = &w->steps[pi++];
-          char *t = (char *) (ch->text ? ch->text : "");
-          char *sp = strchr (t, ' ');
-          a5_parse_range (sp ? sp + 1 : NULL, &st->ft_from, &st->ft_to);
-          if (sp != NULL) *sp = '\0';
-          st->location = t;
-        }
-      else if (strcmp (ch->name, "Control") == 0 && w->controls != NULL)
-        a5_parse_control_text (ch->text, &w->controls[ki++]);
-      else if (strcmp (ch->name, "Activity") == 0 && w->subwalks != NULL)
-        {
-          a5_subwalk_t *sw = &w->subwalks[si++];
-          const char *when = a5xml_child_text (ch, "When");
-          a5_xml_node_t *act = a5xml_child (ch, "Action");
-          if (when != NULL && strncmp (when, "ComesAcross", 11) == 0)
-            {
-              /* "ComesAcross %Player%" -> come_key (the subject met). */
-              const char *sp = strchr (when, ' ');
-              sw->when = A5_SW_COMES_ACROSS;
-              if (sp != NULL) sw->come_key = sp + 1;
-            }
-          else
-            {
-              a5_parse_range (when, &sw->ft_from, &sw->ft_to);
-              sw->when = a5_parse_sw_when (a5_last_token (when));
-            }
-          if (act != NULL)
-            {
-              if (a5xml_child (act, "Description") != NULL)
-                { sw->what = A5_SW_DISPLAY; sw->description = act; }
-              else
-                {
-                  /* "ExecuteTask cl_Foo" -> what, sKey2. */
-                  const char *txt = act->text ? act->text : "";
-                  const char *sp = strchr (txt, ' ');
-                  char wbuf[32]; int n = 0;
-                  while (txt[n] && txt[n] != ' ' && n < 31) { wbuf[n] = txt[n]; n++; }
-                  wbuf[n] = '\0';
-                  sw->what = a5_parse_sw_what (wbuf);
-                  if (sp != NULL) sw->task_key = sp + 1;
-                }
-            }
-          sw->only_apply_at = a5xml_child_text (ch, "OnlyApplyAt");   /* sKey3 */
-        }
-    }
+  /* GetBool: True/1/-1/Vrai */
+  w->loops = a5xml_bool (a5xml_child_text (c, "Loops"));
+  w->start_active = a5xml_bool (a5xml_child_text (c, "StartActive"));
+  a5_load_each (c, "Step",     &w->steps,    &w->n_steps,    a5_parse_step);
+  a5_load_each (c, "Control",  &w->controls, &w->n_controls, a5_parse_control);
+  a5_load_each (c, "Activity", &w->subwalks, &w->n_subwalks, a5_parse_subwalk);
 }
 
 static void
@@ -447,15 +455,37 @@ a5_load_walks (a5_character_t *ch)
                 });
 }
 
+/* One <SubEvent> (clsEvent SubEvent load). */
+static void
+a5_parse_subevent (a5_subevent_t *se, const a5_xml_node_t *c)
+{
+  const char *when = a5xml_child_text (c, "When");
+  const char *what_elem = a5xml_child_text (c, "What");
+  const char *only = a5xml_child_text (c, "OnlyApplyAt");
+  a5_xml_node_t *act = a5xml_child (c, "Action");
+  a5_parse_range (when, &se->ft_from, &se->ft_to);
+  se->when = a5_parse_se_when (a5_last_token (when));
+  if (act != NULL)
+    {
+      char wbuf[32];
+      se->description = a5_action_split (act, wbuf, sizeof wbuf, &se->key);
+      se->what = (se->description != NULL) ? A5_SE_DISPLAY
+                                           : a5_parse_se_what (wbuf);
+    }
+  /* The <What> element overrides the action-derived kind, and for a
+     DisplayMessage/SetLook the location/group gate is <OnlyApplyAt>
+     (FileIO.vb:1722-1723: se.eWhat / se.sKey). */
+  if (what_elem != NULL)
+    se->what = a5_parse_se_what (what_elem);   /* EnumParseSubEventWhat */
+  if (only != NULL)
+    se->key = only;
+}
+
 /* Decode the parsed-enum / range fields of one <Event> (clsEvent FileIO load). */
 static void
 a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
 {
   const char *ws = a5xml_child_text (c, "WhenStart");
-  const char *rep = a5xml_child_text (c, "Repeating");
-  const char *rc = a5xml_child_text (c, "RepeatCountdown");
-  a5_xml_node_t *ch;
-  int si = 0, ki = 0;
 
   /* WhenStartEnum: Immediately=1, BetweenXandYTurns=2, AfterATask=3.  The Adrift 5 runner
      loads this with [Enum].Parse, which also accepts the *numeric* serialisation
@@ -470,58 +500,11 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
     e->when_start = atoi (ws);
   a5_parse_range (a5xml_child_text (c, "StartDelay"), &e->start_from, &e->start_to);
   a5_parse_range (a5xml_child_text (c, "Length"),     &e->length_from, &e->length_to);
-  e->repeating       = a5xml_bool (rep);    /* GetBool: True/1/-1/Vrai */
-  e->repeat_countdown = a5xml_bool (rc);    /* JJ ships RepeatCountdown=-1 */
-
-  e->n_controls  = a5xml_count (c, "Control");
-  e->n_subevents = a5xml_count (c, "SubEvent");
-  if (e->n_controls > 0)
-    e->controls = (a5_eventctrl_t *) calloc ((size_t) e->n_controls,
-                                             sizeof *e->controls);
-  if (e->n_subevents > 0)
-    e->subevents = (a5_subevent_t *) calloc ((size_t) e->n_subevents,
-                                             sizeof *e->subevents);
-
-  for (ch = c->first_child; ch != NULL; ch = ch->next)
-    {
-      if (strcmp (ch->name, "Control") == 0 && e->controls != NULL)
-        a5_parse_control_text (ch->text, &e->controls[ki++]);
-      else if (strcmp (ch->name, "SubEvent") == 0 && e->subevents != NULL)
-        {
-          a5_subevent_t *se = &e->subevents[si++];
-          const char *when = a5xml_child_text (ch, "When");
-          const char *what_elem = a5xml_child_text (ch, "What");
-          const char *only = a5xml_child_text (ch, "OnlyApplyAt");
-          a5_xml_node_t *act = a5xml_child (ch, "Action");
-          a5_parse_range (when, &se->ft_from, &se->ft_to);
-          se->when = a5_parse_se_when (a5_last_token (when));
-          if (act != NULL)
-            {
-              if (a5xml_child (act, "Description") != NULL)
-                { se->what = A5_SE_DISPLAY; se->description = act; }
-              else
-                {
-                  /* "ExecuteTask Roller2" -> what, key. */
-                  const char *txt = act->text ? act->text : "";
-                  const char *sp = strchr (txt, ' ');
-                  char wbuf[32]; int n = 0;
-                  while (txt[n] && txt[n] != ' ' && n < 31) { wbuf[n] = txt[n]; n++; }
-                  wbuf[n] = '\0';
-                  se->what = a5_parse_se_what (wbuf);
-                  /* The key is the final token (NUL-terminated end of <Action>). */
-                  if (sp != NULL)
-                    se->key = sp + 1;
-                }
-            }
-          /* The <What> element overrides the action-derived kind, and for a
-             DisplayMessage/SetLook the location/group gate is <OnlyApplyAt>
-             (FileIO.vb:1722-1723: se.eWhat / se.sKey). */
-          if (what_elem != NULL)
-            se->what = a5_parse_se_what (what_elem);   /* EnumParseSubEventWhat */
-          if (only != NULL)
-            se->key = only;
-        }
-    }
+  /* GetBool: True/1/-1/Vrai (JJ ships RepeatCountdown=-1) */
+  e->repeating        = a5xml_bool (a5xml_child_text (c, "Repeating"));
+  e->repeat_countdown = a5xml_bool (a5xml_child_text (c, "RepeatCountdown"));
+  a5_load_each (c, "Control",  &e->controls,  &e->n_controls,  a5_parse_control);
+  a5_load_each (c, "SubEvent", &e->subevents, &e->n_subevents, a5_parse_subevent);
 }
 
 static void
@@ -727,37 +710,35 @@ struct a5_key_index
                                        tasks, variables;
 };
 
+template <typename T>
 static void
-index_family (std::unordered_map<std::string, int> &m, const char *const *keys,
-              size_t stride, int n)
+index_family (std::unordered_map<std::string, int> &m, const T *arr, int n)
 {
   int i;
   m.reserve ((size_t) n * 2);
   for (i = 0; i < n; i++)
-    {
-      const char *k = *(const char *const *)
-        ((const char *) keys + (size_t) i * stride);
-      /* emplace keeps the FIRST occurrence, matching the linear scans'
-         first-match semantics on a duplicate key. */
-      if (k != NULL)
-        m.emplace (k, i);
-    }
+    /* emplace keeps the FIRST occurrence, matching the linear scans'
+       first-match semantics on a duplicate key. */
+    if (arr[i].key != NULL)
+      m.emplace (arr[i].key, i);
 }
 
-/* First-match linear scan over a key-bearing record array, mirroring
-   index_family's stride addressing.  Used only for hand-assembled models
-   (unit-test fixtures) that carry no key_index. */
+/* Look `key` up in one family: through its hash when the model carries one,
+   else (hand-assembled unit-test fixtures) a first-match linear scan. */
+template <typename T>
 static int
-linear_scan (const char *const *keys, size_t stride, int n, const char *key)
+family_index (const std::unordered_map<std::string, int> *m, const T *arr,
+              int n, const char *key)
 {
   int i;
-  for (i = 0; i < n; i++)
+  if (m != NULL)
     {
-      const char *k = *(const char *const *)
-        ((const char *) keys + (size_t) i * stride);
-      if (k != NULL && strcmp (k, key) == 0)
-        return i;
+      std::unordered_map<std::string, int>::const_iterator it = m->find (key);
+      return it == m->end () ? -1 : it->second;
     }
+  for (i = 0; i < n; i++)
+    if (arr[i].key != NULL && strcmp (arr[i].key, key) == 0)
+      return i;
   return -1;
 }
 
@@ -765,17 +746,11 @@ static void
 a5model_build_key_index (a5_adventure_t *a)
 {
   a5_key_index *ix = new a5_key_index;
-  /* the &arr[0].key form is UB on an absent (NULL) family, hence the guards */
-  if (a->objects)
-    index_family (ix->objects,    &a->objects[0].key,    sizeof a->objects[0],    a->n_objects);
-  if (a->locations)
-    index_family (ix->locations,  &a->locations[0].key,  sizeof a->locations[0],  a->n_locations);
-  if (a->characters)
-    index_family (ix->characters, &a->characters[0].key, sizeof a->characters[0], a->n_characters);
-  if (a->tasks)
-    index_family (ix->tasks,      &a->tasks[0].key,      sizeof a->tasks[0],      a->n_tasks);
-  if (a->variables)
-    index_family (ix->variables,  &a->variables[0].key,  sizeof a->variables[0],  a->n_variables);
+  index_family (ix->objects,    a->objects,    a->n_objects);
+  index_family (ix->locations,  a->locations,  a->n_locations);
+  index_family (ix->characters, a->characters, a->n_characters);
+  index_family (ix->tasks,      a->tasks,      a->n_tasks);
+  index_family (ix->variables,  a->variables,  a->n_variables);
   a->key_index = ix;
 }
 
@@ -785,43 +760,25 @@ a5model_key_index (const a5_adventure_t *a, int kind, const char *key)
   const a5_key_index *ix = (const a5_key_index *) a->key_index;
   if (key == NULL)
     return -1;
-  if (ix == NULL)
-    {
-      /* hand-assembled model (unit-test fixtures): fall back to a linear scan.
-         The &arr[0].key form is UB on an absent (NULL) family, hence the
-         guards. */
-      switch (kind)
-        {
-        case 'O':
-          return a->objects ? linear_scan (&a->objects[0].key,
-                                           sizeof a->objects[0], a->n_objects, key) : -1;
-        case 'L':
-          return a->locations ? linear_scan (&a->locations[0].key,
-                                             sizeof a->locations[0], a->n_locations, key) : -1;
-        case 'C':
-          return a->characters ? linear_scan (&a->characters[0].key,
-                                              sizeof a->characters[0], a->n_characters, key) : -1;
-        case 'T':
-          return a->tasks ? linear_scan (&a->tasks[0].key,
-                                         sizeof a->tasks[0], a->n_tasks, key) : -1;
-        case 'V':
-          return a->variables ? linear_scan (&a->variables[0].key,
-                                             sizeof a->variables[0], a->n_variables, key) : -1;
-        }
-      return -1;
-    }
-  const std::unordered_map<std::string, int> *m = NULL;
   switch (kind)
     {
-    case 'O': m = &ix->objects;    break;
-    case 'L': m = &ix->locations;  break;
-    case 'C': m = &ix->characters; break;
-    case 'T': m = &ix->tasks;      break;
-    case 'V': m = &ix->variables;  break;
-    default:  return -1;
+    case 'O':
+      return family_index (ix ? &ix->objects : NULL,
+                           a->objects, a->n_objects, key);
+    case 'L':
+      return family_index (ix ? &ix->locations : NULL,
+                           a->locations, a->n_locations, key);
+    case 'C':
+      return family_index (ix ? &ix->characters : NULL,
+                           a->characters, a->n_characters, key);
+    case 'T':
+      return family_index (ix ? &ix->tasks : NULL,
+                           a->tasks, a->n_tasks, key);
+    case 'V':
+      return family_index (ix ? &ix->variables : NULL,
+                           a->variables, a->n_variables, key);
     }
-  std::unordered_map<std::string, int>::const_iterator it = m->find (key);
-  return it == m->end () ? -1 : it->second;
+  return -1;
 }
 
 a5_adventure_t *
