@@ -625,6 +625,89 @@ lib_select_plurality (scr_gameref_t game, scr_int object,
 
 
 /*
+ * lib_print_wrapped_object()
+ * lib_print_wrapped_npc()
+ * lib_print_response_object()
+ * lib_print_response_npc()
+ *
+ * Print an object or NPC name framed by a prefix and a suffix, the response
+ * variants selecting the prefix by Perspective.  These fold a three-call
+ * sequence repeated throughout the module.
+ */
+static void
+lib_print_wrapped_object (scr_gameref_t game, const scr_char *prefix,
+                          scr_int object, const scr_char *suffix)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter, prefix);
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, suffix);
+}
+
+static void
+lib_print_wrapped_npc (scr_gameref_t game, const scr_char *prefix,
+                       scr_int npc, const scr_char *suffix)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter, prefix);
+  lib_print_npc_np (game, npc);
+  pf_buffer_string (filter, suffix);
+}
+
+static void
+lib_print_response_object (scr_gameref_t game,
+                           const scr_char *second_person,
+                           const scr_char *first_person,
+                           const scr_char *third_person,
+                           scr_int object, const scr_char *suffix)
+{
+  lib_print_wrapped_object (game,
+                            lib_select_response (game, second_person,
+                                                 first_person, third_person),
+                            object, suffix);
+}
+
+static void
+lib_print_response_npc (scr_gameref_t game,
+                        const scr_char *second_person,
+                        const scr_char *first_person,
+                        const scr_char *third_person,
+                        scr_int npc, const scr_char *suffix)
+{
+  lib_print_wrapped_npc (game,
+                         lib_select_response (game, second_person,
+                                              first_person, third_person),
+                         npc, suffix);
+}
+
+/*
+ * lib_print_message()
+ *
+ * Buffer a fixed response message and indicate a handled command; the whole
+ * action of the many chit-chat handlers near the end of the module.
+ */
+static scr_bool
+lib_print_message (scr_gameref_t game, const scr_char *message)
+{
+  pf_buffer_string (gs_get_filter (game), message);
+  return TRUE;
+}
+
+static scr_bool
+lib_print_response_message (scr_gameref_t game,
+                            const scr_char *second_person,
+                            const scr_char *first_person,
+                            const scr_char *third_person)
+{
+  return lib_print_message (game,
+                            lib_select_response (game, second_person,
+                                                 first_person, third_person));
+}
+
+
+/*
  * lib_new_clause()
  * lib_print_clause()
  *
@@ -912,9 +995,7 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
         }
       else
         {
-          pf_buffer_string (filter, " and ");
-          lib_print_npc_np (game, trail);
-          pf_buffer_string (filter, " are here");
+          lib_print_wrapped_npc (game, " and ", trail, " are here");
         }
       pf_buffer_string (filter, ".\n");
     }
@@ -2349,10 +2430,7 @@ lib_cmd_time (scr_gameref_t game)
 scr_bool
 lib_cmd_date (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "Maybe we should just be good friends.\n");
-  return TRUE;
+  return lib_print_message (game, "Maybe we should just be good friends.\n");
 }
 
 
@@ -4382,7 +4460,6 @@ lib_object_too_large (scr_gameref_t game, scr_int object, scr_bool *is_portable)
 scr_bool
 lib_cmd_take_npc (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int npc;
   scr_bool is_ambiguous;
 
@@ -4392,9 +4469,8 @@ lib_cmd_take_npc (scr_gameref_t game)
     return is_ambiguous;
 
   /* Reject this attempt. */
-  pf_buffer_string (filter, "I don't think ");
-  lib_print_npc_np (game, npc);
-  pf_buffer_string (filter, " would appreciate being handled.\n");
+  lib_print_wrapped_npc (game, "I don't think ",
+                         npc, " would appreciate being handled.\n");
   return TRUE;
 }
 
@@ -4714,9 +4790,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
             }
           else
             {
-              pf_buffer_string (filter, " and ");
-              lib_print_object_np (game, trail);
-              pf_buffer_string (filter, " are not ");
+              lib_print_wrapped_object (game, " and ", trail, " are not ");
             }
           if (obj_is_container (game, associate))
             {
@@ -5230,13 +5304,11 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
   if (!(obj_is_container (game, associate)
         || obj_is_surface (game, associate)))
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                         "You can't take anything from ",
-                                         "I can't take anything from ",
-                                         "%player% can't take anything from "));
-      lib_print_object_np (game, associate);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You can't take anything from ",
+                                 "I can't take anything from ",
+                                 "%player% can't take anything from ",
+                                 associate, ".\n");
       return FALSE;
     }
 
@@ -5822,29 +5894,25 @@ lib_cmd_give_object_npc (scr_gameref_t game)
   /* Reject if not holding the object offered. */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You don't have ",
-                                             "I don't have ",
-                                             "%player% doesn't have "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You don't have ",
+                                 "I don't have ",
+                                 "%player% doesn't have ",
+                                 object, "!\n");
       return TRUE;
     }
 
   /* After all that, the npc is disinterested. */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
-  pf_buffer_string (filter, " doesn't seem interested in ");
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_wrapped_object (game, " doesn't seem interested in ",
+                            object, ".\n");
   return TRUE;
 }
 
 scr_bool
 lib_cmd_give_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
   scr_bool is_ambiguous;
 
@@ -5856,20 +5924,16 @@ lib_cmd_give_object (scr_gameref_t game)
   /* Reject if not holding the object offered. */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You don't have ",
-                                             "I don't have ",
-                                             "%player% doesn't have "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You don't have ",
+                                 "I don't have ",
+                                 "%player% doesn't have ",
+                                 object, "!\n");
       return TRUE;
     }
 
   /* After all that, we have to ask (and shouldn't this be "to whom?"). */
-  pf_buffer_string (filter, "Give ");
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, " to who?\n");
+  lib_print_wrapped_object (game, "Give ", object, " to who?\n");
   return TRUE;
 }
 
@@ -6514,13 +6578,11 @@ lib_cmd_open_object (scr_gameref_t game)
       return TRUE;
 
     case OBJ_LOCKED:
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You can't open ",
-                                             "I can't open ",
-                                             "%player% can't open "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, " as it is locked!\n");
+      lib_print_response_object (game,
+                                 "You can't open ",
+                                 "I can't open ",
+                                 "%player% can't open ",
+                                 object, " as it is locked!\n");
       return TRUE;
 
     default:
@@ -6528,13 +6590,11 @@ lib_cmd_open_object (scr_gameref_t game)
     }
 
   /* The object isn't openable. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You can't open ",
-                                         "I can't open ",
-                                         "%player% can't open "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, "!\n");
+  lib_print_response_object (game,
+                             "You can't open ",
+                             "I can't open ",
+                             "%player% can't open ",
+                             object, "!\n");
   return TRUE;
 }
 
@@ -6563,13 +6623,11 @@ lib_cmd_close_object (scr_gameref_t game)
   switch (openness)
     {
     case OBJ_OPEN:
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You close ",
-                                             "I close ",
-                                             "%player% closes "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You close ",
+                                 "I close ",
+                                 "%player% closes ",
+                                 object, ".\n");
 
       /* Set closed state. */
       gs_set_object_openness (game, object, OBJ_CLOSED);
@@ -6590,13 +6648,11 @@ lib_cmd_close_object (scr_gameref_t game)
     }
 
   /* The object isn't closeable. */
-  pf_buffer_string (filter,
-                        lib_select_response (game,
-                                         "You can't close ",
-                                         "I can't close ",
-                                         "%player% can't close "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, "!\n");
+  lib_print_response_object (game,
+                             "You can't close ",
+                             "I can't close ",
+                             "%player% can't close ",
+                             object, "!\n");
   return TRUE;
 }
 
@@ -6658,9 +6714,7 @@ lib_attempt_key_acquisition (scr_gameref_t game, scr_int object)
     }
   else
     {
-      pf_buffer_string (filter, "(Picking up ");
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, " first)\n");
+      lib_print_wrapped_object (game, "(Picking up ", object, " first)\n");
     }
 
   /* Take possession of the object. */
@@ -6829,9 +6883,7 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                                                        verb->cant[1],
                                                        verb->cant[2]));
                 lib_print_object_np (game, object);
-                pf_buffer_string (filter, " with ");
-                lib_print_object_np (game, key);
-                pf_buffer_string (filter, ".\n");
+                lib_print_wrapped_object (game, " with ", key, ".\n");
                 return TRUE;
               }
           }
@@ -6845,13 +6897,11 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
           {
             if (with_key)
               {
-                pf_buffer_string (filter,
-                                  lib_select_response (game,
-                                                       "You are not holding ",
-                                                       "I am not holding ",
-                                                       "%player% is not holding "));
-                lib_print_object_np (game, key);
-                pf_buffer_string (filter, ".\n");
+                lib_print_response_object (game,
+                                           "You are not holding ",
+                                           "I am not holding ",
+                                           "%player% is not holding ",
+                                           key, ".\n");
               }
             else
               {
@@ -6874,9 +6924,7 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                                                verb->does[1],
                                                verb->does[2]));
         lib_print_object_np (game, object);
-        pf_buffer_string (filter, " with ");
-        lib_print_object_np (game, key);
-        pf_buffer_string (filter, ".\n");
+        lib_print_wrapped_object (game, " with ", key, ".\n");
         return TRUE;
       }
 
@@ -7279,9 +7327,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
                           "I put ",
                           "%player% puts ");
       else
-        pf_buffer_string (filter, " and ");
-      lib_print_object_np (game, trail);
-      pf_buffer_string (filter, " inside ");
+        lib_print_wrapped_object (game, " and ", trail, " inside ");
       lib_print_object_np (game, container);
       pf_buffer_character (filter, '.');
     }
@@ -7332,9 +7378,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
         }
       else
         {
-          pf_buffer_string (filter, " and ");
-          lib_print_object_np (game, trail);
-          pf_buffer_string (filter, " are too big");
+          lib_print_wrapped_object (game, " and ", trail, " are too big");
         }
       pf_buffer_string (filter, " to fit inside ");
       lib_print_object_np (game, container);
@@ -7379,9 +7423,8 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
           pf_buffer_string (filter, " and ");
           lib_print_object_np (game, trail);
         }
-      pf_buffer_string (filter, " can't fit inside ");
-      lib_print_object_np (game, container);
-      pf_buffer_string (filter, " at the moment.");
+      lib_print_wrapped_object (game, " can't fit inside ",
+                                container, " at the moment.");
     }
   has_printed |= count > 0;
 
@@ -7462,13 +7505,11 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
   /* Verify that the container object is a container. */
   if (!obj_is_container (game, container))
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                        "You can't put anything inside ",
-                                        "I can't put anything inside ",
-                                        "%player% can't put anything inside "));
-      lib_print_object_np (game, container);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You can't put anything inside ",
+                                 "I can't put anything inside ",
+                                 "%player% can't put anything inside ",
+                                 container, "!\n");
       return FALSE;
     }
 
@@ -7743,18 +7784,14 @@ lib_put_on_not_supporter_filter (scr_gameref_t game,
 static scr_bool
 lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
   /* Verify that the supporter object is a supporter. */
   if (!obj_is_surface (game, supporter))
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                            "You can't put anything on ",
-                                            "I can't put anything on ",
-                                            "%player% can't put anything on "));
-      lib_print_object_np (game, supporter);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You can't put anything on ",
+                                 "I can't put anything on ",
+                                 "%player% can't put anything on ",
+                                 supporter, "!\n");
       return FALSE;
     }
 
@@ -7909,13 +7946,11 @@ lib_cmd_read_object (scr_gameref_t game)
   is_readable = prop_get_boolean (bundle, "B<-sis", vt_key);
   if (!is_readable)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You can't read ",
-                                             "I can't read ",
-                                             "%player% can't read "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You can't read ",
+                                 "I can't read ",
+                                 "%player% can't read ",
+                                 object, "!\n");
       return TRUE;
     }
 
@@ -7957,15 +7992,11 @@ lib_cmd_read_object (scr_gameref_t game)
 scr_bool
 lib_cmd_read_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
   /* Reject the attempt. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You see no such thing.\n",
-                                         "I see no such thing.\n",
-                                         "%player% sees no such thing.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You see no such thing.\n",
+                                     "I see no such thing.\n",
+                                     "%player% sees no such thing.\n");
 }
 
 
@@ -7993,9 +8024,7 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
     {
       pf_buffer_string (filter, "You can't ");
       pf_buffer_string (filter, verb);
-      pf_buffer_string (filter, " with ");
-      lib_print_object_np (game, weapon);
-      pf_buffer_string (filter, "!\n");
+      lib_print_wrapped_object (game, " with ", weapon, "!\n");
       return;
     }
 
@@ -8077,13 +8106,11 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   /* Ensure the referenced object is held. */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are not holding ",
-                                             "I am not holding ",
-                                             "%player% is not holding "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You are not holding ",
+                                 "I am not holding ",
+                                 "%player% is not holding ",
+                                 object, ".\n");
       return TRUE;
     }
 
@@ -8122,13 +8149,11 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   weapon = prop_get_boolean (bundle, "B<-sis", vt_key);
   if (weapon)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You swing at ",
-                                             "I swing at ",
-                                             "%player% swings at "));
-      lib_print_npc_np (game, npc);
-      pf_buffer_string (filter, " with ");
+      lib_print_response_npc (game,
+                              "You swing at ",
+                              "I swing at ",
+                              "%player% swings at ",
+                              npc, " with ");
       lib_print_object_np (game, object);
       pf_buffer_string (filter,
                         lib_select_response (game,
@@ -8142,9 +8167,8 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
        * TODO Adrift uses "affective" [sic] here.  Should SCARIER be right, or
        * bug-compatible?
        */
-      pf_buffer_string (filter, "I don't think ");
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, " would be a very effective weapon.\n");
+      lib_print_wrapped_object (game, "I don't think ",
+                                object, " would be a very effective weapon.\n");
     }
   return TRUE;
 }
@@ -8300,13 +8324,11 @@ lib_cmd_wield (scr_gameref_t game)
   /* The weapon must be held, and must actually be a weapon. */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are not holding ",
-                                             "I am not holding ",
-                                             "%player% is not holding "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You are not holding ",
+                                 "I am not holding ",
+                                 "%player% is not holding ",
+                                 object, ".\n");
       return TRUE;
     }
   if (!battle_is_weapon (game, object))
@@ -8320,13 +8342,11 @@ lib_cmd_wield (scr_gameref_t game)
     }
 
   gs_set_playerwield (game, object);
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You are now wielding ",
-                                         "I am now wielding ",
-                                         "%player% is now wielding "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_response_object (game,
+                             "You are now wielding ",
+                             "I am now wielding ",
+                             "%player% is now wielding ",
+                             object, ".\n");
   return TRUE;
 }
 
@@ -8351,13 +8371,11 @@ lib_cmd_unwield (scr_gameref_t game)
     }
 
   gs_set_playerwield (game, -1);
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You are no longer wielding ",
-                                         "I am no longer wielding ",
-                                         "%player% is no longer wielding "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_response_object (game,
+                             "You are no longer wielding ",
+                             "I am no longer wielding ",
+                             "%player% is no longer wielding ",
+                             object, ".\n");
   return TRUE;
 }
 
@@ -8412,7 +8430,6 @@ lib_cmd_kiss_npc (scr_gameref_t game)
 scr_bool
 lib_cmd_kiss_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
   scr_bool is_ambiguous;
 
@@ -8422,20 +8439,16 @@ lib_cmd_kiss_object (scr_gameref_t game)
     return is_ambiguous;
 
   /* Reject this attempt. */
-  pf_buffer_string (filter, "I'm not sure ");
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, " would appreciate that.\n");
+  lib_print_wrapped_object (game, "I'm not sure ",
+                            object, " would appreciate that.\n");
   return TRUE;
 }
 
 scr_bool
 lib_cmd_kiss_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
   /* Reject this attempt. */
-  pf_buffer_string (filter, "I'm not sure it would appreciate that.\n");
-  return TRUE;
+  return lib_print_message (game, "I'm not sure it would appreciate that.\n");
 }
 
 
@@ -8469,11 +8482,8 @@ lib_cmd_buy_object (scr_gameref_t game)
 scr_bool
 lib_cmd_buy_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
   /* Reject this attempt. */
-  pf_buffer_string (filter, "I don't think that is for sale.\n");
-  return TRUE;
+  return lib_print_message (game, "I don't think that is for sale.\n");
 }
 
 
@@ -8486,7 +8496,6 @@ lib_cmd_buy_other (scr_gameref_t game)
 scr_bool
 lib_cmd_break_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
   scr_bool is_ambiguous;
 
@@ -8496,28 +8505,22 @@ lib_cmd_break_object (scr_gameref_t game)
     return is_ambiguous;
 
   /* Reject this attempt. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You might need ",
-                                         "I might need ",
-                                         "%player% might need "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_response_object (game,
+                             "You might need ",
+                             "I might need ",
+                             "%player% might need ",
+                             object, ".\n");
   return TRUE;
 }
 
 scr_bool
 lib_cmd_break_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
   /* Reject this attempt. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You might need that.\n",
-                                         "I might need that.\n",
-                                         "%player% might need that.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You might need that.\n",
+                                     "I might need that.\n",
+                                     "%player% might need that.\n");
 }
 
 
@@ -8549,11 +8552,8 @@ lib_cmd_smell_object (scr_gameref_t game)
 scr_bool
 lib_cmd_smell_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
   /* Reject this attempt. */
-  pf_buffer_string (filter, "That smells normal.\n");
-  return TRUE;
+  return lib_print_message (game, "That smells normal.\n");
 }
 
 
@@ -8566,7 +8566,6 @@ lib_cmd_smell_other (scr_gameref_t game)
 scr_bool
 lib_cmd_sell_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
   scr_bool is_ambiguous;
 
@@ -8576,19 +8575,15 @@ lib_cmd_sell_object (scr_gameref_t game)
     return is_ambiguous;
 
   /* Reject this attempt. */
-  pf_buffer_string (filter, "No-one is interested in buying ");
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_wrapped_object (game, "No-one is interested in buying ",
+                            object, ".\n");
   return TRUE;
 }
 
 scr_bool
 lib_cmd_sell_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "No-one is interested in buying that.\n");
-  return TRUE;
+  return lib_print_message (game, "No-one is interested in buying that.\n");
 }
 
 
@@ -8600,7 +8595,6 @@ lib_cmd_sell_other (scr_gameref_t game)
 scr_bool
 lib_cmd_eat_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
   scr_int object;
@@ -8614,26 +8608,22 @@ lib_cmd_eat_object (scr_gameref_t game)
   /* Check that we have the object to eat. */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are not holding ",
-                                             "I am not holding ",
-                                             "%player% is not holding "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You are not holding ",
+                                 "I am not holding ",
+                                 "%player% is not holding ",
+                                 object, ".\n");
       return TRUE;
     }
 
   /* Check for static object moved to player by event. */
   if (obj_is_static (game, object))
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You can't eat ",
-                                             "I can't eat ",
-                                             "%player% can't eat "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You can't eat ",
+                                 "I can't eat ",
+                                 "%player% can't eat ",
+                                 object, ".\n");
       return TRUE;
     }
 
@@ -8644,24 +8634,22 @@ lib_cmd_eat_object (scr_gameref_t game)
   edible = prop_get_boolean (bundle, "B<-sis", vt_key);
   if (!edible)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You can't eat ",
-                                             "I can't eat ",
-                                             "%player% can't eat "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You can't eat ",
+                                 "I can't eat ",
+                                 "%player% can't eat ",
+                                 object, ".\n");
       return TRUE;
     }
 
   /* Confirm, and hide the object. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You eat ",
-                                         "I eat ", "%player% eats "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter,
-                    ".  Not bad, but it could do with a pinch of salt!\n");
+  lib_print_response_object (game,
+                             "You eat ",
+                             "I eat ",
+                             "%player% eats ",
+                             object,
+                             ".  Not bad, but it could do with a"
+                             " pinch of salt!\n");
   gs_object_make_hidden (game, object);
   return TRUE;
 }
@@ -8951,7 +8939,6 @@ lib_cmd_lie_on_floor (scr_gameref_t game)
 scr_bool
 lib_cmd_get_off_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
   scr_bool is_ambiguous;
 
@@ -8963,23 +8950,20 @@ lib_cmd_get_off_object (scr_gameref_t game)
   /* Reject the attempt if the player is not on the given object. */
   if (gs_playerparent (game) != object)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are not on ",
-                                             "I am not on ",
-                                             "%player% is not on "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You are not on ",
+                                 "I am not on ",
+                                 "%player% is not on ",
+                                 object, "!\n");
       return TRUE;
     }
 
   /* Confirm movement. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You get off ", "I get off ",
-                                         "%player% gets off "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_response_object (game,
+                             "You get off ",
+                             "I get off ",
+                             "%player% gets off ",
+                             object, ".\n");
 
   /* Adjust player position and parent. */
   gs_set_playerposition (game, 0);
@@ -9135,24 +9119,20 @@ lib_cmd_locate_object (scr_gameref_t game)
 
     case OBJ_HELD_PLAYER:
       pf_new_sentence (filter);
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are carrying ",
-                                             "I am carrying ",
-                                             "%player% is carrying "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You are carrying ",
+                                 "I am carrying ",
+                                 "%player% is carrying ",
+                                 object, "!\n");
       return TRUE;
 
     case OBJ_WORN_PLAYER:
       pf_new_sentence (filter);
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are wearing ",
-                                             "I am wearing ",
-                                             "%player% is wearing "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, "!\n");
+      lib_print_response_object (game,
+                                 "You are wearing ",
+                                 "I am wearing ",
+                                 "%player% is wearing ",
+                                 object, "!\n");
       return TRUE;
 
     case OBJ_HELD_NPC:
@@ -9193,9 +9173,7 @@ lib_cmd_locate_object (scr_gameref_t game)
               pf_buffer_string (filter,
                                 lib_select_plurality (game, object,
                                                       " is", " are"));
-              pf_buffer_string (filter, " a part of ");
-              lib_print_npc_np (game, parent);
-              pf_buffer_string (filter, ".\n");
+              lib_print_wrapped_npc (game, " a part of ", parent, ".\n");
             }
           else
             pf_buffer_string (filter, "I don't know where that is.\n");
@@ -9307,13 +9285,11 @@ lib_cmd_locate_npc (scr_gameref_t game)
   /* See if this NPC has been seen yet. */
   if (!gs_npc_seen (game, npc))
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You haven't seen ",
-                                             "I haven't seen ",
-                                             "%player% hasn't seen "));
-      lib_print_npc_np (game, npc);
-      pf_buffer_string (filter, " yet!\n");
+      lib_print_response_npc (game,
+                              "You haven't seen ",
+                              "I haven't seen ",
+                              "%player% hasn't seen ",
+                              npc, " yet!\n");
       return TRUE;
     }
 
@@ -9325,9 +9301,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
     }
   if (room == gs_room_count (game))
     {
-      pf_buffer_string (filter, "I don't know where ");
-      lib_print_npc_np (game, npc);
-      pf_buffer_string (filter, " is.\n");
+      lib_print_wrapped_npc (game, "I don't know where ", npc, " is.\n");
       return TRUE;
     }
 
@@ -9509,9 +9483,7 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
                                                "   %player% is wielding "));
       else
         {
-          pf_buffer_string (filter, "   ");
-          lib_print_npc_np (game, npc);
-          pf_buffer_string (filter, " is wielding ");
+          lib_print_wrapped_npc (game, "   ", npc, " is wielding ");
         }
       lib_print_object_np (game, weapon);
       pf_buffer_string (filter, ".\n");
@@ -9580,13 +9552,11 @@ lib_cmd_status_npc (scr_gameref_t game)
   /* Refuse to report on a character the player has not encountered. */
   if (!gs_npc_seen (game, npc))
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You haven't seen ",
-                                             "I haven't seen ",
-                                             "%player% hasn't seen "));
-      lib_print_npc_np (game, npc);
-      pf_buffer_string (filter, " yet!\n");
+      lib_print_response_npc (game,
+                              "You haven't seen ",
+                              "I haven't seen ",
+                              "%player% hasn't seen ",
+                              npc, " yet!\n");
       return TRUE;
     }
 
@@ -9604,34 +9574,24 @@ lib_cmd_status_npc (scr_gameref_t game)
 scr_bool
 lib_cmd_profanity (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    "I really don't think there's any need for language like"
-                    " that!\n");
-  return TRUE;
+  return lib_print_message (game,
+                            "I really don't think there's any need for language like"
+                            " that!\n");
 }
 
 scr_bool
 lib_cmd_examine_all (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "Please examine one object at a time.\n");
-  return TRUE;
+  return lib_print_message (game, "Please examine one object at a time.\n");
 }
 
 scr_bool
 lib_cmd_examine_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You see no such thing.\n",
-                                         "I see no such thing.\n",
-                                         "%player% sees no such thing.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You see no such thing.\n",
+                                     "I see no such thing.\n",
+                                     "%player% sees no such thing.\n");
 }
 
 scr_bool
@@ -9647,184 +9607,127 @@ lib_cmd_locate_other (scr_gameref_t game)
 scr_bool
 lib_cmd_unix_like (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "This isn't Unix you know!\n");
-  return TRUE;
+  return lib_print_message (game, "This isn't Unix you know!\n");
 }
 
 scr_bool
 lib_cmd_dos_like (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "This isn't Dos you know!\n");
-  return TRUE;
+  return lib_print_message (game, "This isn't Dos you know!\n");
 }
 
 scr_bool
 lib_cmd_cry (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "There's no need for that!\n");
-  return TRUE;
+  return lib_print_message (game, "There's no need for that!\n");
 }
 
 scr_bool
 lib_cmd_dance (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You do a little dance.\n",
-                                         "I do a little dance.\n",
-                                         "%player% does a little dance.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You do a little dance.\n",
+                                     "I do a little dance.\n",
+                                     "%player% does a little dance.\n");
 }
 
 scr_bool
 lib_cmd_eat_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "I don't understand what you are trying to eat.\n");
-  return TRUE;
+  return lib_print_message (game,
+                            "I don't understand what you are trying to eat.\n");
 }
 
 scr_bool
 lib_cmd_fight (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "There is nothing worth fighting here.\n");
-  return TRUE;
+  return lib_print_message (game, "There is nothing worth fighting here.\n");
 }
 
 scr_bool
 lib_cmd_feed (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "There is nothing worth feeding here.\n");
-  return TRUE;
+  return lib_print_message (game, "There is nothing worth feeding here.\n");
 }
 
 scr_bool
 lib_cmd_feel (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                              "You feel nothing out of the ordinary.\n",
-                              "I feel nothing out of the ordinary.\n",
-                              "%player% feels nothing out of the ordinary.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+      "You feel nothing out of the ordinary.\n",
+      "I feel nothing out of the ordinary.\n",
+      "%player% feels nothing out of the ordinary.\n");
 }
 
 scr_bool
 lib_cmd_fly (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You can't fly.\n",
-                                         "I can't fly.\n",
-                                         "%player% can't fly.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You can't fly.\n",
+                                     "I can't fly.\n",
+                                     "%player% can't fly.\n");
 }
 
 scr_bool
 lib_cmd_hint (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    "You're just going to have to work it out for"
-                    " yourself...\n");
-  return TRUE;
+  return lib_print_message (game,
+                            "You're just going to have to work it out for"
+                            " yourself...\n");
 }
 
 scr_bool
 lib_cmd_hum (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You hum a little tune.\n",
-                                         "I hum a little tune.\n",
-                                         "%player% hums a little tune.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You hum a little tune.\n",
+                                     "I hum a little tune.\n",
+                                     "%player% hums a little tune.\n");
 }
 
 scr_bool
 lib_cmd_jump (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "Wheee-boinng.\n");
-  return TRUE;
+  return lib_print_message (game, "Wheee-boinng.\n");
 }
 
 scr_bool
 lib_cmd_listen (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                              "You hear nothing out of the ordinary.\n",
-                              "I hear nothing out of the ordinary.\n",
-                              "%player% hears nothing out of the ordinary.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+      "You hear nothing out of the ordinary.\n",
+      "I hear nothing out of the ordinary.\n",
+      "%player% hears nothing out of the ordinary.\n");
 }
 
 scr_bool
 lib_cmd_please (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                        "Your kindness gets you nowhere.\n",
-                                        "My kindness gets me nowhere.\n",
-                                        "%player%'s kindness gets nowhere.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "Your kindness gets you nowhere.\n",
+                                     "My kindness gets me nowhere.\n",
+                                     "%player%'s kindness gets nowhere.\n");
 }
 
 scr_bool
 lib_cmd_punch (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "Who do you think you are, Mike Tyson?\n");
-  return TRUE;
+  return lib_print_message (game, "Who do you think you are, Mike Tyson?\n");
 }
 
 scr_bool
 lib_cmd_run (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "Why would you want to run?\n",
-                                         "Why would I want to run?\n",
-                                         "Why would %player% want to run?\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "Why would you want to run?\n",
+                                     "Why would I want to run?\n",
+                                     "Why would %player% want to run?\n");
 }
 
 scr_bool
 lib_cmd_shout (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "Aaarrrrgggghhhhhh!\n");
-  return TRUE;
+  return lib_print_message (game, "Aaarrrrgggghhhhhh!\n");
 }
 
 scr_bool
@@ -9865,134 +9768,75 @@ lib_cmd_say (scr_gameref_t game)
 scr_bool
 lib_cmd_sing (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You sing a little song.\n",
-                                         "I sing a little song.\n",
-                                         "%player% sings a little song.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You sing a little song.\n",
+                                     "I sing a little song.\n",
+                                     "%player% sings a little song.\n");
 }
 
 scr_bool
 lib_cmd_sleep (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "Zzzzz.  Bored are you?\n");
-  return TRUE;
+  return lib_print_message (game, "Zzzzz.  Bored are you?\n");
 }
 
 scr_bool
 lib_cmd_talk (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                  "No-one listens to your rabblings.\n",
-                                  "No-one listens to my rabblings.\n",
-                                  "No-one listens to %player%'s rabblings.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+      "No-one listens to your rabblings.\n",
+      "No-one listens to my rabblings.\n",
+      "No-one listens to %player%'s rabblings.\n");
 }
 
 scr_bool
 lib_cmd_thank (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "You're welcome.\n");
-  return TRUE;
+  return lib_print_message (game, "You're welcome.\n");
 }
 
 scr_bool
 lib_cmd_whistle (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You whistle a little tune.\n",
-                                         "I whistle a little tune.\n",
-                                         "%player% whistles a little tune.\n"));
-  return TRUE;
+  return lib_print_response_message (game,
+                                     "You whistle a little tune.\n",
+                                     "I whistle a little tune.\n",
+                                     "%player% whistles a little tune.\n");
 }
 
 scr_bool
 lib_cmd_interrogation (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_char *string = NULL;
+  static const scr_char *const RESPONSES[] = {
+    "Why do you want to know?\n",
+    "Interesting question.\n",
+    "Let me think about that one...\n",
+    "I haven't a clue!\n",
+    "All these questions are hurting my head.\n",
+    "I'm not going to tell you.\n",
+    "Someday I'll know the answer to that one.\n",
+    "I could tell you, but then I'd have to kill you.\n",
+    "Ha, as if I'd tell you!\n",
+    "Ask me again later.\n",
+    "I don't know - could you ask anyone else?\n",
+    "Err, yes?!?\n",
+    "Let me just check my memory banks...\n",
+    "Because that's just the way it is.\n",
+    "Do I ask you all sorts of awkward questions?\n",
+    "Questions, questions...\n",
+    "Who cares.\n"
+  };
 
-  switch (scr_randomint (1, 17))
-    {
-    case 1:
-      string = "Why do you want to know?\n";
-      break;
-    case 2:
-      string = "Interesting question.\n";
-      break;
-    case 3:
-      string = "Let me think about that one...\n";
-      break;
-    case 4:
-      string = "I haven't a clue!\n";
-      break;
-    case 5:
-      string = "All these questions are hurting my head.\n";
-      break;
-    case 6:
-      string = "I'm not going to tell you.\n";
-      break;
-    case 7:
-      string = "Someday I'll know the answer to that one.\n";
-      break;
-    case 8:
-      string = "I could tell you, but then I'd have to kill you.\n";
-      break;
-    case 9:
-      string = "Ha, as if I'd tell you!\n";
-      break;
-    case 10:
-      string = "Ask me again later.\n";
-      break;
-    case 11:
-      string = "I don't know - could you ask anyone else?\n";
-      break;
-    case 12:
-      string = "Err, yes?!?\n";
-      break;
-    case 13:
-      string = "Let me just check my memory banks...\n";
-      break;
-    case 14:
-      string = "Because that's just the way it is.\n";
-      break;
-    case 15:
-      string = "Do I ask you all sorts of awkward questions?\n";
-      break;
-    case 16:
-      string = "Questions, questions...\n";
-      break;
-    default:
-      string = "Who cares.\n";
-      break;
-    }
-
-  pf_buffer_string (filter, string);
-  return TRUE;
+  return lib_print_message (game,
+                            RESPONSES[scr_randomint (1, 17) - 1]);
 }
 
 scr_bool
 lib_cmd_xyzzy (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    "I'm sorry, but XYZZY doesn't do anything special in"
-                    " this game!\n");
-  return TRUE;
+  return lib_print_message (game,
+                            "I'm sorry, but XYZZY doesn't do anything special in"
+                            " this game!\n");
 }
 
 scr_bool
@@ -10014,11 +9858,8 @@ lib_cmd_egotistic (scr_gameref_t game)
 scr_bool
 lib_cmd_yes_or_no (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter,
-                    "That's interesting, but it doesn't mean much.\n");
-  return TRUE;
+  return lib_print_message (game,
+                            "That's interesting, but it doesn't mean much.\n");
 }
 
 
@@ -10032,7 +9873,6 @@ lib_cmd_yes_or_no (scr_gameref_t game)
 scr_bool
 lib_cmd_ask_npc (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int npc;
   scr_bool is_ambiguous;
 
@@ -10042,16 +9882,14 @@ lib_cmd_ask_npc (scr_gameref_t game)
     return is_ambiguous;
 
   /* Incomplete ask command, so offer help and return. */
-  pf_buffer_string (filter, "Use the format \"ask ");
-  lib_print_npc_np (game, npc);
-  pf_buffer_string (filter, " about [subject]\".\n");
+  lib_print_wrapped_npc (game, "Use the format \"ask ",
+                         npc, " about [subject]\".\n");
   return TRUE;
 }
 
 scr_bool
 lib_cmd_ask_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
   scr_bool is_ambiguous;
 
@@ -10061,25 +9899,20 @@ lib_cmd_ask_object (scr_gameref_t game)
     return is_ambiguous;
 
   /* No reply. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You get no reply from ",
-                                         "I get no reply from ",
-                                         "%player% gets no reply from "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_response_object (game,
+                             "You get no reply from ",
+                             "I get no reply from ",
+                             "%player% gets no reply from ",
+                             object, ".\n");
   return TRUE;
 }
 
 scr_bool
 lib_cmd_ask_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
   /* Incomplete ask command, so offer help and return. */
-  pf_buffer_string (filter,
-                    "Use the format \"ask [character] about [subject]\".\n");
-  return TRUE;
+  return lib_print_message (game,
+                            "Use the format \"ask [character] about [subject]\".\n");
 }
 
 
@@ -10091,10 +9924,7 @@ lib_cmd_ask_other (scr_gameref_t game)
 scr_bool
 lib_cmd_kill_other (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  pf_buffer_string (filter, "Now that isn't very nice.\n");
-  return TRUE;
+  return lib_print_message (game, "Now that isn't very nice.\n");
 }
 
 
@@ -10895,7 +10725,6 @@ lib_cmd_unlock_what (scr_gameref_t game)
 scr_bool
 lib_cmd_verb_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int count, object, index_;
 
@@ -10919,16 +10748,14 @@ lib_cmd_verb_object (scr_gameref_t game)
   var_set_ref_object (vars, object);
 
   /* Print don't understand message. */
-  pf_buffer_string (filter, "I don't understand what you want me to do with ");
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
+  lib_print_wrapped_object (game, "I don't understand what you want me to do with ",
+                            object, ".\n");
   return TRUE;
 }
 
 scr_bool
 lib_cmd_verb_npc (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int count, npc, index_;
 
@@ -10952,9 +10779,8 @@ lib_cmd_verb_npc (scr_gameref_t game)
   var_set_ref_character (vars, npc);
 
   /* Print don't understand message; unlike objects, there's no "me" here. */
-  pf_buffer_string (filter, "I don't understand what you want to do with ");
-  lib_print_npc_np (game, npc);
-  pf_buffer_string (filter, ".\n");
+  lib_print_wrapped_npc (game, "I don't understand what you want to do with ",
+                         npc, ".\n");
   return TRUE;
 }
 
