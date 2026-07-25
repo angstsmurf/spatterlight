@@ -300,25 +300,17 @@ object_is_in_or_on (a5_state_t *st, int oi, const char *k2, a5_owhere_t want)
 
 /* ------------------------------------------------------ object sub-evaluator */
 
-/* Does an object "have" a property, mirroring clsObject.HasProperty over the
-   merged (static + runtime) property table?  A runtime SetProperty override
-   wins (an `<Unselected>` value means the SelectionOnly property was removed,
-   per clsUserSession.vb:2058 -- e.g. `SetProperty Flashlight Purchased
-   Selected` from a "buy" task); otherwise the model's static prop set.  The
-   static layer alone is not enough: SelectionOnly props such as Purchased are
-   only ever added at runtime. */
+/* The ANYOBJECT / NOOBJECT quantifier shared by pass_object's whole-table
+   scans: true for ANYOBJECT when some object satisfies `pred`, for NOOBJECT
+   when none does. */
+template <typename F>
 static int
-obj_has_property (const a5_state_t *st, const char *okey, const char *propkey)
+any_no_object (a5_state_t *st, const char *k1, F pred)
 {
-  int i;
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, okey) && streq (st->ov[i].prop, propkey))
-      return strstr (st->ov[i].value, "Unselected") == NULL;
+  int i, any = 0;
   for (i = 0; i < st->adv->n_objects; i++)
-    if (streq (st->adv->objects[i].key, okey))
-      return a5_prop_find (st->adv->objects[i].props,
-                           st->adv->objects[i].n_props, propkey) != NULL;
-  return 0;
+    if (pred (i)) { any = 1; break; }
+  return streq (k1, ANYOBJECT) ? any : !any;
 }
 
 static int
@@ -331,12 +323,8 @@ pass_object (a5_state_t *st, a5_restr_t *r)
   if (streq (r->op, "BeAtLocation"))
     {
       if (streq (k1, NOOBJECT) || streq (k1, ANYOBJECT))
-        {
-          int i, any = 0;
-          for (i = 0; i < st->adv->n_objects; i++)
-            if (a5state_object_at_location (st, i, k2, 0)) { any = 1; break; }
-          return streq (k1, ANYOBJECT) ? any : !any;
-        }
+        return any_no_object (st, k1, [&] (int i)
+                 { return a5state_object_at_location (st, i, k2, 0); });
       return a5state_object_at_location (st, oi, k2, 0);
     }
   if (streq (r->op, "BeOnObject") || streq (r->op, "BeInsideObject"))
@@ -344,13 +332,9 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       a5_owhere_t want = streq (r->op, "BeOnObject")
                            ? A5_OWHERE_ON_OBJECT : A5_OWHERE_IN_OBJECT;
       if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
-        {
-          int i, any = 0;
-          for (i = 0; i < st->adv->n_objects; i++)
-            if (st->obj[i].where == want && streq (st->obj[i].key, k2))
-              { any = 1; break; }
-          return streq (k1, ANYOBJECT) ? any : !any;
-        }
+        return any_no_object (st, k1, [&] (int i)
+                 { return st->obj[i].where == want
+                          && streq (st->obj[i].key, k2); });
       if (oi < 0) return 0;
       if (streq (k2, ANYOBJECT))
         return st->obj[oi].where == want;
@@ -363,14 +347,10 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       a5_owhere_t want = streq (r->op, "BeHeldByCharacter")
                            ? A5_OWHERE_HELD_BY : A5_OWHERE_WORN_BY;
       if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
-        {
-          int i, any = 0;
-          for (i = 0; i < st->adv->n_objects; i++)
-            if (st->obj[i].where == want
-                && (streq (k2, ANYCHARACTER) || streq (st->obj[i].key, k2)))
-              { any = 1; break; }
-          return streq (k1, ANYOBJECT) ? any : !any;
-        }
+        return any_no_object (st, k1, [&] (int i)
+                 { return st->obj[i].where == want
+                          && (streq (k2, ANYCHARACTER)
+                              || streq (st->obj[i].key, k2)); });
       if (oi < 0) return 0;
       /* BeHeldByCharacter recurses through held containers (the runner's
          IsHoldingObject); BeWornByCharacter is a direct check. */
@@ -407,14 +387,16 @@ pass_object (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "HaveProperty"))
     {
+      /* clsObject.HasProperty over the merged (static + runtime) table:
+         a5state_entity_has_prop consults the SetProperty override layer
+         (`<Unselected>` = removed, clsUserSession.vb:2058) before the model's
+         static props -- SelectionOnly props such as Purchased are only ever
+         added at runtime. */
       if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
-        {
-          int i, any = 0;
-          for (i = 0; i < st->adv->n_objects; i++)
-            if (obj_has_property (st, st->adv->objects[i].key, k2)) { any = 1; break; }
-          return streq (k1, ANYOBJECT) ? any : !any;
-        }
-      return oi >= 0 && obj_has_property (st, k1, k2);
+        return any_no_object (st, k1, [&] (int i)
+                 { return a5state_entity_has_prop (st, st->adv->objects[i].key,
+                                                   k2); });
+      return oi >= 0 && a5state_entity_has_prop (st, k1, k2);
     }
   if (streq (r->op, "BeInState"))
     {
@@ -679,32 +661,45 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
 
 /* -------------------------------------------------- character sub-evaluator */
 
-/* AloneWithChar (clsCharacter.AloneWithChar): the single other character in the
-   same location as `charkey`, or NULL if there are zero or more than one.
-   the runner compares resolved Location.LocationKey values, so a character seated on /
-   inside furniture counts as present (Lost Children's Anne rocks in her chair
-   while the player says hello). */
-static const char *
-alone_with_char (a5_state_t *st, const char *charkey)
+/* The OTHER characters sharing `ci`'s resolved room, capped at 2 (enough to
+   distinguish alone / exactly-one / crowd).  Compares resolved
+   Location.LocationKey values, so a character seated on / inside furniture
+   counts as present (Lost Children's Anne rocks in her chair while the player
+   says hello).  When the count is exactly 1, *other receives that
+   character's key. */
+static int
+chars_sharing_room (a5_state_t *st, int ci, const char **other)
 {
-  int ci = a5state_character_index (st, charkey);
   const char *cloc = (ci >= 0) ? a5state_character_location_key (st, ci) : NULL;
-  const char *found = NULL;
   int count = 0, i;
+  if (other != NULL)
+    *other = NULL;
   if (cloc == NULL)
-    return NULL;
-  for (i = 0; i < st->adv->n_characters; i++)
+    return 0;
+  for (i = 0; i < st->adv->n_characters && count <= 1; i++)
     {
       const char *oloc;
       if (i == ci)
         continue;
       oloc = a5state_character_location_key (st, i);
       if (oloc != NULL && streq (oloc, cloc))
-        { count++; found = st->adv->characters[i].key; }
-      if (count > 1)
-        return NULL;
+        {
+          count++;
+          if (other != NULL)
+            *other = st->adv->characters[i].key;
+        }
     }
-  return (count == 1) ? found : NULL;
+  return count;
+}
+
+/* AloneWithChar (clsCharacter.AloneWithChar): the single other character in the
+   same location as `charkey`, or NULL if there are zero or more than one. */
+static const char *
+alone_with_char (a5_state_t *st, const char *charkey)
+{
+  const char *other;
+  int ci = a5state_character_index (st, charkey);
+  return (chars_sharing_room (st, ci, &other) == 1) ? other : NULL;
 }
 
 /* Does character `charkey` hold (where==HELD_BY) or wear (WORN_BY) any object? */
@@ -751,21 +746,6 @@ char_holds_object (a5_state_t *st, const char *charkey, const char *objkey,
       return 0;
     }
   return 0;
-}
-
-/* Does a character "have" a property, mirroring clsCharacter.HasProperty over
-   the merged (static + runtime) property table?  A runtime SetProperty override
-   wins (an `<Unselected>` value means the SelectionOnly property was removed,
-   per clsUserSession.vb:2058); otherwise the model's static prop set. */
-static int
-char_has_property (const a5_state_t *st, const char *ckey, const char *propkey)
-{
-  int i;
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, ckey) && streq (st->ov[i].prop, propkey))
-      return strstr (st->ov[i].value, "Unselected") == NULL;
-  const a5_character_t *c = a5model_character (st->adv, ckey);
-  return c != NULL && a5_prop_find (c->props, c->n_props, propkey) != NULL;
 }
 
 static int
@@ -931,16 +911,7 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          so e.g. Grandpa's `vnl_JustTalk` ("talk" near Molly) wrongly fired when
          Molly was elsewhere, swallowing the turn. */
       const char *obs_loc;
-      if (k2 == NULL || streq (k2, a5state_player_key (st)))
-        obs_loc = a5state_player_location (st);
-      else if (streq (k2, ANYCHARACTER))
-        obs_loc = NULL;
-      else
-        { int oc = a5state_character_index (st, k2);
-          /* effective location: an observer seated ON furniture (Grandpa on
-             his rocking chair) has char_loc NULL. */
-          obs_loc = a5state_character_location_key (st, oc); }
-      if (k2 != NULL && streq (k2, ANYCHARACTER))
+      if (streq (k2, ANYCHARACTER))
         {
           /* any observer: the subject (or any subject) co-located with any *other*
              character. */
@@ -955,6 +926,13 @@ pass_character (a5_state_t *st, a5_restr_t *r)
             }
           return 0;
         }
+      if (k2 == NULL || streq (k2, a5state_player_key (st)))
+        obs_loc = a5state_player_location (st);
+      else
+        /* effective location: an observer seated ON furniture (Grandpa on
+           his rocking chair) has char_loc NULL. */
+        obs_loc = a5state_character_location_key (st,
+                    a5state_character_index (st, k2));
       if (obs_loc == NULL)
         return 0;
       if (streq (k1, ANYCHARACTER))
@@ -987,11 +965,11 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       if (streq (k1, ANYCHARACTER))
         {
           for (int s = 0; s < st->adv->n_characters; s++)
-            if (char_has_property (st, st->adv->characters[s].key, k2))
+            if (a5state_entity_has_prop (st, st->adv->characters[s].key, k2))
               return 1;
           return 0;
         }
-      return ci >= 0 && char_has_property (st, k1, k2);
+      return ci >= 0 && a5state_entity_has_prop (st, k1, k2);
     }
   if (streq (r->op, "Exist"))
     return ci >= 0;
@@ -1130,25 +1108,9 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       return streq (aw, k2);
     }
   if (streq (r->op, "BeAlone"))
-    {
-      /* clsCharacter.IsAlone: resolved Location.LocationKey compare, so a
-         character on/in furniture still breaks solitude. */
-      int i;
-      const char *rloc = (ci >= 0) ? a5state_character_location_key (st, ci)
-                                   : NULL;
-      if (rloc == NULL)
-        return 1;
-      for (i = 0; i < st->adv->n_characters; i++)
-        {
-          const char *oloc;
-          if (i == ci)
-            continue;
-          oloc = a5state_character_location_key (st, i);
-          if (oloc != NULL && streq (oloc, rloc))
-            return 0;
-        }
-      return 1;
-    }
+    /* clsCharacter.IsAlone: resolved Location.LocationKey compare, so a
+       character on/in furniture still breaks solitude. */
+    return chars_sharing_room (st, ci, NULL) == 0;
   if (streq (r->op, "BeOnCharacter"))
     {
       /* clsCharacterLocation.ExistsWhereEnum.OnCharacter: the character rides
@@ -1208,17 +1170,20 @@ str_compare_op (const char *op, const char *cur, const char *rhs)
   return 1;
 }
 
-/* The numeric ("Be"-prefixed) comparison operators over longs, shared by the
-   ReferencedNumber and numeric-variable branches of pass_variable.  No BeContain
-   (numbers do not substring-match); an unknown op is the lenient pass. */
+/* The numeric comparison operators over longs, shared by the ReferencedNumber
+   and numeric-variable branches of pass_variable ("Be"-prefixed ops) and the
+   inequality branch of pass_property (bare ops).  No BeContain (numbers do not
+   substring-match); an unknown op is the lenient pass. */
 static int
 num_compare_op (const char *op, long cur, long rhs)
 {
-  if (streq (op, "BeEqualTo"))               return cur == rhs;
-  if (streq (op, "BeGreaterThan"))           return cur > rhs;
-  if (streq (op, "BeGreaterThanOrEqualTo"))  return cur >= rhs;
-  if (streq (op, "BeLessThan"))              return cur < rhs;
-  if (streq (op, "BeLessThanOrEqualTo"))     return cur <= rhs;
+  if (strncmp (op, "Be", 2) == 0)
+    op += 2;
+  if (streq (op, "EqualTo"))               return cur == rhs;
+  if (streq (op, "GreaterThan"))           return cur > rhs;
+  if (streq (op, "GreaterThanOrEqualTo"))  return cur >= rhs;
+  if (streq (op, "LessThan"))              return cur < rhs;
+  if (streq (op, "LessThanOrEqualTo"))     return cur <= rhs;
   return 1;
 }
 
@@ -1404,10 +1369,7 @@ pass_property (a5_state_t *st, a5_restr_t *r)
       else
         { rhs_ev = a5text_eval_expression (st, value);
           rv = rhs_ev ? strtol (rhs_ev, NULL, 10) : 0; }
-      if (strcmp (op, "GreaterThanOrEqualTo") == 0)      rr = lv >= rv;
-      else if (strcmp (op, "GreaterThan") == 0)          rr = lv > rv;
-      else if (strcmp (op, "LessThanOrEqualTo") == 0)    rr = lv <= rv;
-      else                                               rr = lv < rv;
+      rr = num_compare_op (op, lv, rv);
       free (rhs_ev);
     }
   else
@@ -1754,17 +1716,6 @@ a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
   return eval_restrictions (st, restrictions, NULL);
 }
 
-/* Does a `<ref_alias> Must Exist` restriction (e.g. "ReferencedObject2") fall
- * *within* the task's evaluated BracketSequence?  ADRIFT evaluates only the first
- * M restrictions, where M is the number of '#' placeholders in the bracket (the
- * restrictions list may be longer than the bracket -- a truncated/malformed bracket
- * simply leaves the trailing restrictions unevaluated, exactly as eval_block does).
- * Used to decide whether an unmatched reference is genuinely *required*: if its
- * Must Exist is never evaluated, the task does not actually need it, so a sibling
- * reference's out-of-scope ambiguity ("You can't see any oil!") surfaces instead of
- * this reference's no-reference fallback ("Sorry, I'm not sure which object...").
- * Mirrors the pour task (`#A#A#`, object2's Exist truncated -> cantsee) vs the blow
- * / hang tasks (object2's Exist inside the bracket -> no-reference message). */
 /* The first <Restriction> child whose parsed spec satisfies `match`, or NULL.
  * `limit` caps how many restrictions are looked at (-1 = all); `match` is
  * handed the type node (its name is the restriction's type -- "Object",
@@ -1799,6 +1750,17 @@ restr_find (const a5_xml_node_t *restrictions, int limit, F match)
   return NULL;
 }
 
+/* Does a `<ref_alias> Must Exist` restriction (e.g. "ReferencedObject2") fall
+ * *within* the task's evaluated BracketSequence?  ADRIFT evaluates only the first
+ * M restrictions, where M is the number of '#' placeholders in the bracket (the
+ * restrictions list may be longer than the bracket -- a truncated/malformed bracket
+ * simply leaves the trailing restrictions unevaluated, exactly as eval_block does).
+ * Used to decide whether an unmatched reference is genuinely *required*: if its
+ * Must Exist is never evaluated, the task does not actually need it, so a sibling
+ * reference's out-of-scope ambiguity ("You can't see any oil!") surfaces instead of
+ * this reference's no-reference fallback ("Sorry, I'm not sure which object...").
+ * Mirrors the pour task (`#A#A#`, object2's Exist truncated -> cantsee) vs the blow
+ * / hang tasks (object2's Exist inside the bracket -> no-reference message). */
 int
 a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alias)
 {
