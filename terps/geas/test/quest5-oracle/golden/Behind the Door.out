@@ -1,0 +1,221 @@
+It all started around a month ago, when you received the first postcard with imprinted exotic flowers and beautiful butterflies. The postcards continued to arrive in your mailbox - without any text apart from the address, which was not so far from your house.
+
+Finally, you decided to come over and find out about the sender.
+
+> x door
+
+The whole building doesn't look somewhat special, but all the curtains are down and the door is... not really locked?
+> go inside
+
+You press the handle and make a step inside. You stand in the darkness and suddenly hear how the door behind you slowly closes with an unbearably high pitched squeak. You turn around and try to pull. Closed. You stand by a wall, afraid of moving any further.
+
+> touch wall
+
+You touch the wall near you and find something that resembles a switch.
+> switch on switch
+
+You turn the switch on and you find yourself in a small cozy room. There is a table, a cupboard and another door in the north direction
+
+(Oh, and you got a compass and fancy stuff. Just click on objects and choose an action.)
+> x table
+
+Old wooden table, on which you can see one very small marble ball.
+> take ball
+
+You take the marble ball and drop it in your pocket, hoping you will need it at some point.
+> open cupboard
+
+You open the cupboard and cough because of the dust.
+In the cupboard, you find some books and a small chessboard. No figures though.
+> take chessboard
+
+The chessboard is so small that it fits in a pocket of your jacket.
+> north
+
+You make a step in the dark and enter a hall lit by candles. On the other side  you see two stone lions sitting in front of a door. You can go back south.
+
+> use ball
+
+You take the marble out of your pocket.
+The lions slowly move their heads and look at it with interest (magic creatures!). You throw the ball in their direction, and big stone animals leave their pedestals with a heavy sound. They gracely approach the marble ball and start walking around it.
+Hey, the exit north is free!
+> north
+
+You pass the lions, open the door and enter a winter garden. You can smell some unknown flowers. There is a fountain in the middle of the room, a small glasshouse in the east direction and another door on the west. After enjoying the view, you notice an old man sitting on a bench with his eyes closed.
+
+> x fountain
+
+Light  plays with water droplets. You almost hear their melody.
+Oh, and there is a little jar in the water!
+> take jar
+
+You put your hand in the cold water and pick up the jar. How many things do you have to carry with you to get out of here?
+> east
+
+You enter a glasshouse... And it is full of butterflies and exotic trees, exactly like on the postcards that you have received. You can exit west
+
+> catch butterflies
+
+You choose the most beautiful butterfly and catch it with a jar. You close the jar and take it with you.
+> west
+
+You are in a winter garden. There is a fountain, a small glasshouse in the east direction and a door on the west. The man is sitting on a bench.
+
+> south
+
+You are in a hall. There are two lions. You can go south or north.
+
+> open jar
+
+You open a jar, and your butterfly flies out. The lions got distructed from the marble ball they have been playing with.
+
+> take ball
+
+You take the marble again. Missed it already?
+> north
+
+You are in a winter garden. There is a fountain, a small glasshouse in the east direction and a door on the west. The man is sitting on a bench.
+
+> west
+
+You enter a tiny room, most probably used for storage. There is a commode and an interesting box. You can exit east
+
+> x box
+
+The box is covered with some blue dust.
+> brush
+
+Shuhhh
+You brush the dust away from the box.
+> use ball
+
+The marble perfectly matches the missing place in the box.
+In the box you find a black queen and a bunch of old postcards, some of them with fresh postage stamps.
+> take queen
+
+You take the queen with you.
+> take postcards
+
+You pick two postcards and put them in your pocket.
+> east
+
+You are in a winter garden. There is a fountain, a small glasshouse in the east direction and a door on the west. The man is sitting on a bench.
+
+> speak to man
+
+You come closer and say: "Hi!". The man slowly opens his eyes, raises his head and looks at you. Then he smiles.
+
+ "I am glad you came here. I was so alone and I wanted someone to enjoy the magic of this place."
+
+ "Why are you alone? Have you sent the postcards to me?" - you are curious to know all about it.
+
+ "I am a keeper of the house, I cannot leave it. I just put the first random address that I found on the map."
+
+Ask about the exit
+> ask1
+
+ "The door is locked, can you let me out?" - you ask.
+
+ The man sighs. "I am in need for a company at least for some time. Would you like to play chess with me?"
+
+ You hesitate. Maybe you could just break a window and get out of here, but you feel somehow related. And why not to play chess?
+So you answer: "Ok, but just once."
+
+ "Unfortunately, I could not find my chessboard and I lack one figure," - says the old man quietly. "They should be somewhere in the house. If you bring them, we could play."
+
+ Ahh, this guy can't do things on his own? Ok, but it should not be hard to find the things, right?
+(Especially, the chessboard is already with you.)
+> give chessboard
+
+You take the chessboard and place it on the bench.
+> give queen
+
+You give the queen to the old man. He takes it and puts on the board along the other figures.
+> speak to man
+
+The old man says: "Let's play!"
+Are you playing black or white?
+1: white
+2: black
+> 1
+You choose to play white.
+You played for about a half an hour, and you lost.
+
+You ask the man: "Ok, is it enough?" and he answers: "Wait, you will leave without even trying to win?"
+
+Do you want to play again?
+1: play further
+2: refuse
+> 2
+Seems like he knows some tricks and good combinations. Maybe you could find some notes or a chess book in the house?
+> south
+
+You are in a hall. The lions don't care about you anymore, so you can go rather south or north.
+
+> south
+
+You are in a room. There is a table, a cupboard and a door in the north direction.
+
+> books
+
+The books that you see:
+1: "Cooking and relativistic physics for kids under 7"
+2: "Playing petanque in public toilets. Pro and contra"
+3: "How to annoy people in traffic jams"
+> 3
+ You start looking through the pages. "Always remember to prepare a bottle of Cola before the ride and e4 e5 Nf3 d6 d4 Bg4 d4xe5 Bxf3... " It seems you found it!
+You tear the page out of the book (no respect!) and take it with you.
+> north
+
+You are in a hall. The lions don't care about you anymore, so you can go rather south or north.
+
+> north
+
+You are in a winter garden. There is a fountain, a small glasshouse in the east direction and a door on the west. The man is sitting on a bench.
+
+> speak to man
+
+The old man is happy that you are back. "Let's play!"
+
+You chose to play white and decided to use one of the tactics described in a book. It seems like the man noticed, but did not show that. So you don't know if he just let you win or it was your achievement. Nevermind.
+
+The old man looks pretty happy.
+"Thank you for playing with me. It was a pleasure. I will open you the front door, so you can leave whenever you want."
+
+The man slowly stands up and goes in the direction of the entrance. But then he suddenly stops, turns to you and says:
+
+"You know, you can stay here as long as you want. The house is much bigger than this garden, and you can meet many magical creatures. What do you think?"
+
+1: "Hm, sounds like a good idea!"
+2: "No, thank you, I would like to return to my house."
+> 2
+You politely refuse the proposal. The old man sighs and walks away.
+> east
+
+You enter a glasshouse... And it is full of butterflies and exotic trees, exactly like on the postcards that you have received. You can exit west
+
+> catch butterflies
+
+You choose the most beautiful butterfly and catch it with a jar. You close the jar and take it with you.
+> west
+
+You are in a winter garden. There is a fountain, a small glasshouse in the east direction and a door on the west. The man is sitting on a bench.
+
+> south
+
+You are in a hall. The lions don't care about you anymore, so you can go rather south or north.
+
+> south
+
+You are in the entrance room. You can leave now.
+
+> go leave
+
+You are pushing the door, it's already dark outside. It's been a pretty weird day, hm? Will you dream about the butterfly house, fantastic lions and the weird (most probably simply insane) keeper? Will he send postcards someone else? Who knows...
+
+You let the butterfly free from the jar.
+And you've got some postcards ;)
+
+ Game is over
+
+[state=Finished]
