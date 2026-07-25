@@ -51,6 +51,12 @@ extern char *a5expr_eval (a5_state_t *st, const char *firstkeys,
  */
 extern char *a5expr_replace (a5_state_t *st, const char *text);
 
+/* The byte just past the ".step(args)?..." chain beginning at `dot`, using the
+   same key-character set a5expr_replace scans with (\w plus '|', and UTF-8 high
+   bytes, so a key like "ClaudeMoné" scans whole).  a5text needs this to find the
+   end of a "%reference%.Prop..." chain before handing it to a5expr_eval. */
+extern const char *a5expr_scan_chain (const char *dot);
+
 /* a5expr_replace in EXPRESSION mode (the runner ReplaceOO bExpression=True,
    Global.vb:645): non-integer OO values are emitted as quoted string
    literals so a `X.Prop & %text%` concatenation parses. */

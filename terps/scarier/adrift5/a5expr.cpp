@@ -970,8 +970,8 @@ is_key_char (char c)
 }
 
 /* The byte just past a ".step(args)?..." chain that begins at `dot`. */
-static const char *
-scan_chain (const char *dot)
+const char *
+a5expr_scan_chain (const char *dot)
 {
   const char *r = dot;
   while (*r == '.')
@@ -1018,7 +1018,7 @@ expr_replace_impl (a5_state_t *st, const char *text, int expression)
                   resolvable = 1;
               if (resolvable)
                 {
-                  const char *chain_end = scan_chain (k);
+                  const char *chain_end = a5expr_scan_chain (k);
                   if (chain_end > k)        /* at least one valid ".step" */
                     {
                       std::string chain (k, (size_t) (chain_end - k));

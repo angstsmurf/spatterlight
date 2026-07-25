@@ -2404,25 +2404,6 @@ is_signed_int (const char *s)
   return 1;
 }
 
-/* End of a ".step(args)..." property chain that starts at `dot` (mirrors the
-   scan in a5expr_replace). */
-static const char *
-sexpr_scan_chain (const char *dot)
-{
-  const char *r = dot;
-  while (*r == '.')
-    {
-      const char *seg = r + 1;
-      if (!isalpha ((unsigned char) *seg))
-        break;
-      r = seg;
-      while (isalnum ((unsigned char) *r) || *r == '_' || *r == '|') r++;
-      if (*r == '(')
-        { int d = 1; r++; while (*r && d > 0) { if (*r == '(') d++; else if (*r == ')') d--; r++; } }
-    }
-  return r;
-}
-
 /* Emit a substituted value into `sb`, quoting it (the Adrift 5 runner's bExpression
    path) unless it is a bare integer or we are already inside a quoted literal. */
 static void
@@ -2469,7 +2450,7 @@ expr_substitute (a5_state_t *st, const char *src)
                   char *fk = oo_firstkey (st, name);
                   if (fk != NULL)
                     {
-                      const char *chain_end = sexpr_scan_chain (q + 1);
+                      const char *chain_end = a5expr_scan_chain (q + 1);
                       char *chain = strndup (q + 1, (size_t) (chain_end - (q + 1)));
                       int flist = ci_eq (name, "objects")
                                   || ci_eq (name, "characters");
