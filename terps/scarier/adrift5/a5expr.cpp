@@ -96,27 +96,6 @@ loc_exit_dest (a5_state_t *st, const char *lockey, const char *dir)
   return NULL;
 }
 
-static int
-loc_has_exit (a5_state_t *st, const char *lockey, const char *dir)
-{
-  const a5_location_t *l = a5model_location (st->adv, lockey);
-  const a5_xml_node_t *c;
-  if (l == NULL)
-    return 0;
-  for (c = l->node->first_child; c != NULL; c = c->next)
-    {
-      const char *d, *dest;
-      if (strcmp (c->name, "Movement") != 0)
-        continue;
-      d = a5xml_child_text (c, "Direction");
-      if (!streq (d, dir))
-        continue;
-      dest = a5xml_child_text (c, "Destination");
-      return dest != NULL && dest[0] != '\0';
-    }
-  return 0;
-}
-
 /* The localized, lowercased display name for a direction's `.List`
    (LCase(DirectionName) -- "NorthEast" -> "northeast", or the game's localized
    "Nordøst" -> "nordøst"). */
@@ -146,6 +125,21 @@ render_dirs (const std::vector<std::string> &dirs, const std::string &args)
   return out;
 }
 
+/* The directions (DirectionsEnum order) in which `charkey` has a usable route
+   from `lockey` -- a5restr exit-restriction evaluation, unlike the raw
+   loc_exit_dest read used by a location's own `.Exits`. */
+static std::vector<std::string>
+char_exit_dirs (a5_state_t *st, const char *charkey, const char *lockey)
+{
+  std::vector<std::string> dirs;
+  if (lockey != NULL)
+    for (int i = 0; i < 12; i++)
+      if (a5restr_exit_in_direction (st, charkey, lockey, kEnumDirs[i], NULL)
+          != NULL)
+        dirs.push_back (kEnumDirs[i]);
+  return dirs;
+}
+
 /* clsCharacter.ListExits(sFromLocation, iExitCount): the character's routes
    evaluated FROM a given location (clsLocation.ViewLocation passes Me.Key, so
    a %DisplayLocation[other]% view lists the OTHER room's exits, not the
@@ -155,36 +149,19 @@ char *
 a5expr_list_exits (a5_state_t *st, const char *charkey, const char *lockey,
                    long *count)
 {
-  std::vector<std::string> dirs;
-  if (lockey != NULL)
-    for (int i = 0; i < 12; i++)
-      if (a5restr_exit_in_direction (st, charkey, lockey, kEnumDirs[i], NULL)
-          != NULL)
-        dirs.push_back (kEnumDirs[i]);
+  std::vector<std::string> dirs = char_exit_dirs (st, charkey, lockey);
   if (count != NULL)
     *count = (long) dirs.size ();
   return strdup (render_dirs (dirs, "").c_str ());
 }
 
-static char item_kind (a5_state_t *st, const char *key);   /* 'o'/'c'/'l'/'g'/0 */
-
-/* Objects held (where == HELD_BY) by a character key. */
+/* Objects held (HELD_BY) or worn (WORN_BY) directly by a character key. */
 static std::vector<std::string>
-objs_held_by (a5_state_t *st, const char *charkey)
+objs_carried_by (a5_state_t *st, const char *charkey, a5_owhere_t where)
 {
   std::vector<std::string> v;
   for (int i = 0; i < st->adv->n_objects; i++)
-    if (st->obj[i].where == A5_OWHERE_HELD_BY && streq (st->obj[i].key, charkey))
-      v.push_back (st->adv->objects[i].key);
-  return v;
-}
-
-static std::vector<std::string>
-objs_worn_by (a5_state_t *st, const char *charkey)
-{
-  std::vector<std::string> v;
-  for (int i = 0; i < st->adv->n_objects; i++)
-    if (st->obj[i].where == A5_OWHERE_WORN_BY && streq (st->obj[i].key, charkey))
+    if (st->obj[i].where == where && streq (st->obj[i].key, charkey))
       v.push_back (st->adv->objects[i].key);
   return v;
 }
@@ -288,7 +265,7 @@ add_descendants (a5_state_t *st, std::vector<std::string> &keys)
      seen so a cycle cannot grow `keys` without bound (infinite loop / OOM). */
   std::unordered_set<std::string> seen (keys.begin (), keys.end ());
   for (size_t i = 0; i < keys.size (); i++)
-    for (auto &c : objs_children (st, keys[i].c_str (), 0))
+    for (auto &c : objs_children (st, keys[i].c_str (), A5_CH_BOTH))
       if (seen.insert (c).second)
         keys.push_back (c);
 }
@@ -425,7 +402,7 @@ item_name (a5_state_t *st, const std::string &key, a5_article_t art)
 /* Join a key list as a "List"/"Name" string per the args (and/or, article). */
 static std::string
 render_list (a5_state_t *st, const std::vector<std::string> &keys,
-             const std::string &args, int is_name)
+             const std::string &args)
 {
   std::string a = lower (args);
   std::string sep = " and ";
@@ -434,7 +411,6 @@ render_list (a5_state_t *st, const std::vector<std::string> &keys,
   a5_article_t art = A5_ART_DEFINITE;
   if (contains (a, "indefinite")) art = A5_ART_INDEFINITE;
   else if (contains (a, "none"))  art = A5_ART_NONE;
-  (void) is_name;
 
   if (keys.empty ())
     return "nothing";
@@ -467,6 +443,17 @@ render_list (a5_state_t *st, const std::vector<std::string> &keys,
 
 static std::string oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty,
                             int depth, int *ok);
+
+/* Pipe-join a key (or direction) list -- the bare-reference terminal: with no
+   further step, the expression's value is the key list itself. */
+static std::string
+join_keys (const std::vector<std::string> &keys)
+{
+  std::string r;
+  for (size_t i = 0; i < keys.size (); i++)
+    { if (i) r += "|"; r += keys[i]; }
+  return r;
+}
 
 /* Parse "Func(args).Rest" -> function / args / remainder, per ReplaceOOProperty. */
 static void
@@ -563,8 +550,7 @@ resolve_first (a5_state_t *st, const std::string &firstkeys)
   if (parts.size () > 1)
     {
       ctx.is_list = 1;
-      for (auto &k : parts)
-        ctx.keys.push_back (k);
+      ctx.keys = parts;
       return ctx;
     }
   if (parts.size () == 1)
@@ -617,6 +603,42 @@ selection_only_prop (const a5_state_t *st, const std::string &key,
   return 1;
 }
 
+/* Shared single-item terminal for a property key `fn` (the trailing "else" of
+   the object/character/location branches): the SelectionOnly marker, the
+   stored value (walked into when it is itself an entity key and steps remain),
+   a rich <Description> Text value rendered from its value_node (the
+   flashlight's WhenOn; the Danish library's %character%.dk_BestemtKar name
+   properties -- "0" broke Halloween's "Dracula ligger inde i kisten."), the
+   exists-but-empty "" (clsProperty.Value of a blank Description -- Magnetic
+   Moon's blank Lid.ReadText concatenates `Lid.ReadText & %text%` into "mike",
+   not "0"), and the shared missing-property default "0" (ReplaceOOProperty,
+   Global.vb:1225). */
+static std::string
+item_prop_terminal (a5_state_t *st, const std::string &key, const std::string &fn,
+                    const std::string &rem, const a5_prop_t *props, int n_props,
+                    int depth, int *ok)
+{
+  std::string sel;
+  if (selection_only_prop (st, key, fn, &sel))
+    return sel;
+  const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
+  if (v != NULL)
+    {
+      /* if the value is itself an entity key and there's a remainder, walk it */
+      if (!rem.empty () && item_kind (st, v) != 0)
+        { Ctx nc; nc.keys.push_back (v); return oo_prop (st, nc, rem, depth + 1, ok); }
+      return v;
+    }
+  const a5_prop_t *pr = a5_prop_find (props, n_props, fn.c_str ());
+  if (pr != NULL && pr->value_node != NULL)
+    { char *d = a5text_eval_description (st, pr->value_node);
+      std::string r = d ? d : ""; free (d); return r; }
+  if (pr != NULL)
+    return "";
+  if (!rem.empty ()) { *ok = 0; return ""; }
+  return "0";
+}
+
 /*
  * Evaluate the navigation step `sProperty` against `ctx`.  *ok stays 1 unless the
  * whole expression turns out to be unresolvable (the "#*!~#" sentinel).
@@ -632,8 +654,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
   if (ctx.is_dirs)
     {
       if (fn.empty ())
-        { std::string r; for (size_t i = 0; i < ctx.dirs.size (); i++)
-            { if (i) r += "|"; r += ctx.dirs[i]; } return r; }
+        return join_keys (ctx.dirs);
       if (fn == "Count")
         return std::to_string (ctx.dirs.size ());
       if (fn == "List" || fn == "Name")
@@ -662,8 +683,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
   if (ctx.is_list)
     {
       if (fn.empty ())
-        { std::string r; for (size_t i = 0; i < ctx.keys.size (); i++)
-            { if (i) r += "|"; r += ctx.keys[i]; } return r; }
+        return join_keys (ctx.keys);
       if (fn == "Count")
         return std::to_string (ctx.keys.size ());
       if (fn == "Sum")
@@ -678,7 +698,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         { std::string r; for (auto &k : ctx.keys)
             { if (!r.empty ()) r += "  "; r += item_description (st, k); } return r; }
       if (fn == "List" || fn == "Name")
-        return render_list (st, ctx.keys, args, fn == "Name");
+        return render_list (st, ctx.keys, args);
       if (fn == "Parent")
         {
           Ctx nc; nc.is_list = 1;
@@ -743,10 +763,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
                 nc.keys.push_back (k);
             if (!rem.empty ())
               return oo_prop (st, nc, rem, depth + 1, ok);
-            std::string r;
-            for (size_t i = 0; i < nc.keys.size (); i++)
-              { if (i) r += "|"; r += nc.keys[i]; }
-            return r;
+            return join_keys (nc.keys);
           }
         Ctx nc; nc.is_list = 1; nc.keys = ctx.keys; nc.prop_key = fn;
         if (!rem.empty ())
@@ -806,33 +823,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       /* a property key on the object */
-      {
-        std::string sel;
-        if (selection_only_prop (st, key, fn, &sel)) return sel;
-        const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
-        if (v != NULL)
-          {
-            /* if the value is itself an entity key and there's a remainder, walk it */
-            if (!rem.empty () && item_kind (st, v) != 0)
-              { Ctx nc; nc.keys.push_back (v); return oo_prop (st, nc, rem, depth + 1, ok); }
-            return v;
-          }
-        /* a Text property's value is a rich <Description> (value_node), e.g.
-           the flashlight's WhenOn -> "The flashlight is now emitting a strong
-           light."; render it (clsItemWithProperties property string value). */
-        const a5_prop_t *pr = a5_prop_find (o->props, o->n_props, fn.c_str ());
-        if (pr != NULL && pr->value_node != NULL)
-          { char *d = a5text_eval_description (st, pr->value_node);
-            std::string r = d ? d : ""; free (d); return r; }
-        /* A property that EXISTS but is empty is "" (clsProperty.Value ->
-           StringData.ToString of a blank Description), not the missing-
-           property "0" -- Magnetic Moon's blank Lid.ReadText concatenates
-           `Lid.ReadText & %text%` into "mike", not "0". */
-        if (pr != NULL)
-          return "";
-        if (!rem.empty ()) { *ok = 0; return ""; }
-        return "0";
-      }
+      return item_prop_terminal (st, key, fn, rem, o->props, o->n_props,
+                                 depth, ok);
     }
 
   if (kind == 'c')
@@ -860,11 +852,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           int ci = a5state_character_index (st, key.c_str ());
           const char *cl = (ci >= 0) ? st->char_loc[ci] : NULL;
           Ctx nc; nc.is_dirs = 1;
-          if (cl != NULL)
-            for (int i = 0; i < 12; i++)
-              if (a5restr_exit_in_direction (st, st->adv->characters[ci].key,
-                                             cl, kEnumDirs[i], NULL) != NULL)
-                nc.dirs.push_back (kEnumDirs[i]);
+          nc.dirs = char_exit_dirs (st, key.c_str (), cl);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       if (fn == "Held" || fn == "Worn")
@@ -876,8 +864,9 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           std::string a = lower (args);
           int include_sub = !(a == "false" || a == "0");
           Ctx nc; nc.is_list = 1;
-          nc.keys = (fn == "Held") ? objs_held_by (st, key.c_str ())
-                                   : objs_worn_by (st, key.c_str ());
+          nc.keys = objs_carried_by (st, key.c_str (),
+                                     fn == "Held" ? A5_OWHERE_HELD_BY
+                                                  : A5_OWHERE_WORN_BY);
           if (include_sub)
             add_descendants (st, nc.keys);
           return oo_prop (st, nc, rem, depth + 1, ok);
@@ -887,9 +876,9 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           /* clsCharacter WornAndHeld OO step (Global.vb:1350): worn objects
              followed by held objects, as one list. */
           Ctx nc; nc.is_list = 1;
-          nc.keys = objs_worn_by (st, key.c_str ());
-          std::vector<std::string> held = objs_held_by (st, key.c_str ());
-          for (auto &h : held) nc.keys.push_back (h);
+          nc.keys = objs_carried_by (st, key.c_str (), A5_OWHERE_WORN_BY);
+          for (auto &h : objs_carried_by (st, key.c_str (), A5_OWHERE_HELD_BY))
+            nc.keys.push_back (h);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       if (fn == "Location")
@@ -913,35 +902,13 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           Ctx nc; nc.keys.push_back (pk);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
-      {
-        std::string sel;
-        if (selection_only_prop (st, key, fn, &sel)) return sel;
-        const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
-        if (v != NULL)
-          {
-            if (!rem.empty () && item_kind (st, v) != 0)
-              { Ctx nc; nc.keys.push_back (v); return oo_prop (st, nc, rem, depth + 1, ok); }
-            return v;
-          }
-        /* A Text property's value is a rich <Description> (value_node) --
-           same clsItemWithProperties path as the object branch above; the
-           Danish library's %character%.dk_BestemtKar name properties are
-           this shape ("0" broke Halloween's "Dracula ligger inde i kisten."). */
-        const a5_prop_t *pr = a5_prop_find (c->props, c->n_props, fn.c_str ());
-        if (pr != NULL && pr->value_node != NULL)
-          { char *d = a5text_eval_description (st, pr->value_node);
-            std::string r = d ? d : ""; free (d); return r; }
-        if (pr != NULL)
-          return "";                     /* exists but empty (see object branch) */
-        if (!rem.empty ()) { *ok = 0; return ""; }
-        return "0";
-      }
+      return item_prop_terminal (st, key, fn, rem, c->props, c->n_props,
+                                 depth, ok);
     }
 
   if (kind == 'l')
     {
       const a5_location_t *l = a5model_location (st->adv, key.c_str ());
-      (void) l;
       if (fn.empty ())          return key;
       if (fn == "Name" || fn == "List")
         { char *n = a5text_location_short_plain (st, key.c_str ());
@@ -951,7 +918,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         {
           Ctx nc; nc.is_dirs = 1;
           for (int i = 0; i < 12; i++)
-            if (loc_has_exit (st, key.c_str (), kEnumDirs[i]))
+            if (loc_exit_dest (st, key.c_str (), kEnumDirs[i]) != NULL)
               nc.dirs.push_back (kEnumDirs[i]);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
@@ -989,33 +956,13 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
                   }
               cur.clear ();
             }
-          if (dests.size () == 1)
-            nc.keys = dests;
-          else
-            { nc.is_list = 1; nc.keys = dests; }
+          nc.keys = dests;
+          if (dests.size () != 1)
+            nc.is_list = 1;
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
-      {
-        std::string sel;
-        if (selection_only_prop (st, key, fn, &sel)) return sel;
-        const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
-        if (v != NULL)
-          {
-            if (!rem.empty () && item_kind (st, v) != 0)
-              { Ctx nc; nc.keys.push_back (v); return oo_prop (st, nc, rem, depth + 1, ok); }
-            return v;
-          }
-        /* Rich <Description> Text property, as in the object/character
-           branches (clsItemWithProperties string value). */
-        const a5_prop_t *pr = a5_prop_find (l->props, l->n_props, fn.c_str ());
-        if (pr != NULL && pr->value_node != NULL)
-          { char *d = a5text_eval_description (st, pr->value_node);
-            std::string r = d ? d : ""; free (d); return r; }
-        if (pr != NULL)
-          return "";                     /* exists but empty (see object branch) */
-        if (!rem.empty ()) { *ok = 0; return ""; }
-        return "0";
-      }
+      return item_prop_terminal (st, key, fn, rem, l->props, l->n_props,
+                                 depth, ok);
     }
 
   *ok = 0;
@@ -1073,8 +1020,7 @@ scan_chain (const char *dot)
       if (!isalpha ((unsigned char) *seg))
         break;
       r = seg;
-      while (isalnum ((unsigned char) *r) || *r == '_' || *r == '|'
-             || (unsigned char) *r >= 0x80)
+      while (is_key_char (*r))
         r++;
       if (*r == '(')
         {
