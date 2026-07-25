@@ -16,6 +16,7 @@
 typedef struct { char *p; size_t len, cap; } sb_t;
 
 void  sb_init   (sb_t *b);
+void  sb_reserve (sb_t *b, size_t cap);
 void  sb_puts   (sb_t *b, const char *s);
 void  sb_putc   (sb_t *b, char c);
 void  sb_putn   (sb_t *b, const char *s, size_t n);

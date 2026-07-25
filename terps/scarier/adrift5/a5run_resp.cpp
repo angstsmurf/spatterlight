@@ -34,11 +34,25 @@
 #include "a5text.h"
 #include "a5xml.h"
 
+/* ref_value slots are only ever read as C strings (the state is calloc'd, so
+   every slot is NUL-terminated from birth), and a whole-array memcpy moves
+   16 x A5_REFVAL_LEN = ~32 KB per call -- act_set_tasks pays a take/restore
+   pair per SetTasks-Execute member, which profiling showed dominating the
+   event path.  Copy each slot's string contents instead; the bytes past a
+   slot's NUL are unobservable. */
+static void
+ref_slots_copy (char (*dst)[A5_REFVAL_LEN], const char (*src)[A5_REFVAL_LEN])
+{
+  int i;
+  for (i = 0; i < 16; i++)
+    memcpy (dst[i], src[i], strlen (src[i]) + 1);
+}
+
 void
 ref_snap_take (a5_state_t *st, ref_snap *s)
 {
   memcpy (s->ref_name, st->ref_name, sizeof s->ref_name);
-  memcpy (s->ref_value, st->ref_value, sizeof s->ref_value);
+  ref_slots_copy (s->ref_value, st->ref_value);
   s->n_refbind = st->n_refbind;
   s->ref_object1_plural = st->ref_object1_plural;
   s->ref_character1_plural = st->ref_character1_plural;
@@ -47,7 +61,7 @@ void
 ref_snap_restore (a5_state_t *st, const ref_snap *s)
 {
   memcpy (st->ref_name, s->ref_name, sizeof s->ref_name);
-  memcpy (st->ref_value, s->ref_value, sizeof s->ref_value);
+  ref_slots_copy (st->ref_value, s->ref_value);
   st->n_refbind = s->n_refbind;
   st->ref_object1_plural = s->ref_object1_plural;
   st->ref_character1_plural = s->ref_character1_plural;

@@ -392,6 +392,10 @@ struct a5_run_s {
   std::string last_turn_text;
   std::vector<std::string> undo_turn_text;
 
+  /* Size of the last a5run_save_blob result: pre-sizes the next blob's buffer
+     so the per-turn undo snapshot skips the double-and-copy realloc ladder. */
+  size_t save_blob_hint = 0;
+
   /* Cached pre-order DOM node list of adv->doc (immutable after load) plus a
      node->index map, built lazily once and reused by save_scarier_body /
      restore_scarier_body to map <DisplayOnce> segments to and from their stable

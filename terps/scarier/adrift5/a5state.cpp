@@ -880,6 +880,66 @@ a5state_player_location (const a5_state_t *st)
   return st->char_loc[pi];
 }
 
+static const char *char_location_key_depth (const a5_state_t *st, int ci,
+                                            int depth);
+
+/* The FIRST location (model order) where object `oi` exists -- the direct
+   equivalent of probing every location through a5state_object_at_location,
+   which profiling showed as an O(n_locations x placement-chain) hotspot: a
+   character seated On/In furniture resolves its room through this on every
+   visibility test of every object it holds or wears.  Each case mirrors the
+   corresponding exists_at (visible=0, directly=0) arm below and returns the
+   key of the first location that arm would accept. */
+static const char *
+obj_first_location_key (const a5_state_t *st, int oi, int depth)
+{
+  const a5_objloc_t *loc;
+
+  if (oi < 0 || depth > 32)
+    return NULL;
+  loc = &st->obj[oi];
+
+  switch (loc->where)
+    {
+    case A5_OWHERE_ALLROOMS:
+      return st->adv->n_locations > 0 ? st->adv->locations[0].key : NULL;
+    case A5_OWHERE_HIDDEN:
+    case A5_OWHERE_NONE:
+      /* exists_at accepts only the literal lockey "Hidden", so the probe scan
+         finds a match just when a location is actually keyed "Hidden". */
+      return a5model_key_index (st->adv, 'L', "Hidden") >= 0 ? "Hidden" : NULL;
+    case A5_OWHERE_LOCATION:
+      return loc->key != NULL
+             && a5model_key_index (st->adv, 'L', loc->key) >= 0
+             ? loc->key : NULL;
+    case A5_OWHERE_LOCGROUP:
+      {
+        /* Membership is runtime-mutable and per-location; keep the scan. */
+        int li;
+        for (li = 0; li < st->adv->n_locations; li++)
+          if (a5state_object_in_group (st, loc->key,
+                                       st->adv->locations[li].key))
+            return st->adv->locations[li].key;
+        return NULL;
+      }
+    case A5_OWHERE_IN_OBJECT:
+    case A5_OWHERE_ON_OBJECT:
+    case A5_OWHERE_PART_OBJECT:
+      return obj_first_location_key (st, a5state_object_index (st, loc->key),
+                                     depth + 1);
+    case A5_OWHERE_HELD_BY:
+    case A5_OWHERE_WORN_BY:
+    case A5_OWHERE_PART_CHAR:
+      {
+        int ci = a5state_character_index (st, loc->key);
+        const char *k = char_location_key_depth (st, ci, depth + 1);
+        return k != NULL && a5model_key_index (st->adv, 'L', k) >= 0
+               ? k : NULL;
+      }
+    }
+  return NULL;
+}
+
 /* A character's EFFECTIVE location key: char_loc when set, else resolved
    through the on/in-object carrier (a char whose model start is "On Object"
    -- GFS's Grandpa on his rocking chair -- has char_loc NULL; The runner derives
@@ -893,11 +953,10 @@ char_location_key_depth (const a5_state_t *st, int ci, int depth)
     return st->char_loc[ci];
   if (st->char_onobj != NULL && st->char_onobj[ci] != NULL)
     {
-      int li;
-      for (li = 0; li < st->adv->n_locations; li++)
-        if (a5state_object_key_at_location (st, st->char_onobj[ci],
-                                            st->adv->locations[li].key, 0))
-          return st->adv->locations[li].key;
+      const char *k = obj_first_location_key (st,
+          a5state_object_index (st, st->char_onobj[ci]), depth + 1);
+      if (k != NULL)
+        return k;
     }
   /* A character riding another character (ExistWhere On/InCharacter -- Edith on
      the Player) inherits the carrier's effective room; the runner derives

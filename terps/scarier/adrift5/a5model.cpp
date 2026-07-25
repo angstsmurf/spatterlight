@@ -9,6 +9,7 @@
 #include <strings.h>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "a5blorb.h"
 #include "a5deobf.h"
@@ -703,39 +704,99 @@ a5model_resource_for_file (const a5_adventure_t *a, const char *src)
 /* One hash per entity family, key -> array index.  Built once after load and
    consulted by every a5model_* / a5state_*_index lookup: the corpus replays
    otherwise spend the bulk of their time in linear strcmp scans (Starship
-   Quest alone holds ~2000 tasks and every OO read walks them). */
+   Quest alone holds ~2000 tasks and every OO read walks them).
+
+   Open-addressed, keyed by the model's own stable `key` pointers: profiling
+   showed unordered_map<std::string,int>::find dominating the visibility hot
+   path purely on the temporary std::string built for every const char * probe
+   (its ctor's memmove/strlen were top-of-stack).  This table hashes the C
+   string directly and compares with strcmp -- no per-lookup allocation or
+   copy.  Slots hold the entry's hash for a cheap pre-compare. */
+struct a5_key_table
+{
+  struct slot { const char *key; unsigned hash; int idx; };
+  std::vector<slot> slots;      /* size is a power of two; key==NULL = empty */
+  size_t mask = 0;
+
+  static unsigned
+  hash_key (const char *s)
+  {
+    /* FNV-1a. */
+    unsigned h = 2166136261u;
+    for (; *s; s++)
+      {
+        h ^= (unsigned char) *s;
+        h *= 16777619u;
+      }
+    return h;
+  }
+
+  void
+  build (size_t n)
+  {
+    size_t cap = 16;
+    while (cap < n * 2)
+      cap <<= 1;
+    slots.assign (cap, slot{NULL, 0, -1});
+    mask = cap - 1;
+  }
+
+  void
+  insert_first (const char *key, int idx)
+  {
+    /* Keep the FIRST occurrence of a duplicate key, matching the linear
+       scans' first-match semantics. */
+    unsigned h = hash_key (key);
+    size_t i = h & mask;
+    while (slots[i].key != NULL)
+      {
+        if (slots[i].hash == h && strcmp (slots[i].key, key) == 0)
+          return;
+        i = (i + 1) & mask;
+      }
+    slots[i] = slot{key, h, idx};
+  }
+
+  int
+  find (const char *key) const
+  {
+    unsigned h = hash_key (key);
+    size_t i = h & mask;
+    while (slots[i].key != NULL)
+      {
+        if (slots[i].hash == h && strcmp (slots[i].key, key) == 0)
+          return slots[i].idx;
+        i = (i + 1) & mask;
+      }
+    return -1;
+  }
+};
+
 struct a5_key_index
 {
-  std::unordered_map<std::string, int> objects, locations, characters,
-                                       tasks, variables;
+  a5_key_table objects, locations, characters, tasks, variables;
 };
 
 template <typename T>
 static void
-index_family (std::unordered_map<std::string, int> &m, const T *arr, int n)
+index_family (a5_key_table &m, const T *arr, int n)
 {
   int i;
-  m.reserve ((size_t) n * 2);
+  m.build ((size_t) (n > 0 ? n : 1));
   for (i = 0; i < n; i++)
-    /* emplace keeps the FIRST occurrence, matching the linear scans'
-       first-match semantics on a duplicate key. */
     if (arr[i].key != NULL)
-      m.emplace (arr[i].key, i);
+      m.insert_first (arr[i].key, i);
 }
 
 /* Look `key` up in one family: through its hash when the model carries one,
    else (hand-assembled unit-test fixtures) a first-match linear scan. */
 template <typename T>
 static int
-family_index (const std::unordered_map<std::string, int> *m, const T *arr,
-              int n, const char *key)
+family_index (const a5_key_table *m, const T *arr, int n, const char *key)
 {
   int i;
   if (m != NULL)
-    {
-      std::unordered_map<std::string, int>::const_iterator it = m->find (key);
-      return it == m->end () ? -1 : it->second;
-    }
+    return m->find (key);
   for (i = 0; i < n; i++)
     if (arr[i].key != NULL && strcmp (arr[i].key, key) == 0)
       return i;

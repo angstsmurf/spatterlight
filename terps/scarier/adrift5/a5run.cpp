@@ -1646,6 +1646,22 @@ grab_it (a5_run_t *run, const std::string &in)
     v.push_back (k);
   };
 
+  /* Visibility is invariant across both scope tiers (this scan mutates
+     nothing), yet the tiered loops asked obj_visible/char_visible -- a key
+     hash lookup plus a player-location re-resolution plus a placement-chain
+     walk -- up to twice per entity per turn, which profiling showed as the
+     single biggest a5run_input_inner cost on large games.  Compute each
+     entity's visibility once, by model index, with the player location
+     hoisted. */
+  const char *ploc = a5state_player_location (st);
+  std::vector<char> ovis ((size_t) st->adv->n_objects);
+  std::vector<char> cvis ((size_t) st->adv->n_characters);
+  for (int i = 0; i < st->adv->n_objects; i++)
+    ovis[(size_t) i] = ploc != NULL
+      && a5state_object_visible_at_location (st, i, ploc, 0);
+  for (int i = 0; i < st->adv->n_characters; i++)
+    cvis[(size_t) i] = a5state_character_at_location (st, i, ploc);
+
   /* Visible first, then seen (eScope.Visible To eScope.Seen). */
   for (scope = 0; scope < 2; scope++)
     {
@@ -1653,8 +1669,10 @@ grab_it (a5_run_t *run, const std::string &in)
       for (oi = 0; oi < st->adv->n_objects; oi++)
         {
           const a5_object_t *o = &st->adv->objects[oi];
-          int inscope = (scope == 0) ? obj_visible (st, o->key)
-                                     : (!obj_visible (st, o->key) && obj_seen_p (st, o->key));
+          int inscope = (scope == 0)
+            ? ovis[(size_t) oi]
+            : (!ovis[(size_t) oi]
+               && st->obj_seen != NULL && st->obj_seen[oi]);
           if (!inscope)
             continue;
           int is_plural = (o->article != NULL && lower (o->article) == "some");
@@ -1668,8 +1686,10 @@ grab_it (a5_run_t *run, const std::string &in)
       for (ci = 0; ci < st->adv->n_characters; ci++)
         {
           const a5_character_t *c = &st->adv->characters[ci];
-          int inscope = (scope == 0) ? char_visible (st, c->key)
-                                     : (!char_visible (st, c->key) && char_seen_p (st, c->key));
+          int inscope = (scope == 0)
+            ? cvis[(size_t) ci]
+            : (!cvis[(size_t) ci]
+               && st->char_seen != NULL && st->char_seen[ci]);
           if (!inscope)
             continue;
           int matched = 0;
@@ -2270,34 +2290,99 @@ a5run_time_tick (a5_run_t *run)
 static void
 xml_esc (sb_t *b, const char *s)
 {
-  const char *p;
+  const char *p, *plain;
   if (s == NULL)
     return;
-  for (p = s; *p; p++)
-    switch (*p)
-      {
-      case '&': sb_puts (b, "&amp;"); break;
-      case '<': sb_puts (b, "&lt;");  break;
-      case '>': sb_puts (b, "&gt;");  break;
-      case '"': sb_puts (b, "&quot;"); break;
-      default:  sb_putc (b, *p);     break;
-      }
+  /* Copy unescaped runs in bulk; the per-turn undo snapshot calls this for
+     every entity key, so byte-at-a-time sb_putc was a measured hotspot. */
+  for (p = plain = s; *p; p++)
+    {
+      const char *rep;
+      size_t rn;
+      switch (*p)
+        {
+        case '&': rep = "&amp;";  rn = 5; break;
+        case '<': rep = "&lt;";   rn = 4; break;
+        case '>': rep = "&gt;";   rn = 4; break;
+        case '"': rep = "&quot;"; rn = 6; break;
+        default:  continue;
+        }
+      if (p > plain)
+        sb_putn (b, plain, (size_t) (p - plain));
+      sb_putn (b, rep, rn);
+      plain = p + 1;
+    }
+  if (p > plain)
+    sb_putn (b, plain, (size_t) (p - plain));
 }
 
 static void
 sb_elem (sb_t *b, const char *tag, const char *val)
 {
-  sb_puts (b, "<"); sb_puts (b, tag); sb_puts (b, ">");
+  /* Fast path: assemble "<tag>escaped-val</tag>\n" in one stack buffer and
+     append it with a single sb_putn.  Long values (or long tags) fall back to
+     piecewise appends; both spell the same bytes. */
+  size_t tl = strlen (tag);
+  if (val != NULL && tl + 10 <= 96)
+    {
+      char buf[192];
+      size_t n = 0, guard = sizeof buf - (tl + 4);  /* keep room for "</tag>\n" */
+      const char *p;
+      buf[n++] = '<';
+      memcpy (buf + n, tag, tl); n += tl;
+      buf[n++] = '>';
+      for (p = val; *p; p++)
+        {
+          if (n + 6 > guard)
+            break;
+          switch (*p)
+            {
+            case '&': memcpy (buf + n, "&amp;", 5);  n += 5; break;
+            case '<': memcpy (buf + n, "&lt;", 4);   n += 4; break;
+            case '>': memcpy (buf + n, "&gt;", 4);   n += 4; break;
+            case '"': memcpy (buf + n, "&quot;", 6); n += 6; break;
+            default:  buf[n++] = *p; break;
+            }
+        }
+      if (*p == '\0')
+        {
+          buf[n++] = '<'; buf[n++] = '/';
+          memcpy (buf + n, tag, tl); n += tl;
+          buf[n++] = '>'; buf[n++] = '\n';
+          sb_putn (b, buf, n);
+          return;
+        }
+    }
+  sb_putn (b, "<", 1); sb_putn (b, tag, tl); sb_putn (b, ">", 1);
   xml_esc (b, val);
-  sb_puts (b, "</"); sb_puts (b, tag); sb_puts (b, ">\n");
+  sb_putn (b, "</", 2); sb_putn (b, tag, tl); sb_putn (b, ">\n", 2);
+}
+
+/* Render `v` in decimal into the tail of caller-provided buf[cap]; returns a
+   pointer to the first digit (snprintf takes macOS locale locks -- measured
+   directly in the per-turn snapshot profile). */
+static char *
+render_long (char *buf, size_t cap, long v)
+{
+  char *q = buf + cap;
+  unsigned long u = v < 0 ? (unsigned long) -(v + 1) + 1 : (unsigned long) v;
+  *--q = '\0';
+  do
+    {
+      *--q = (char) ('0' + (u % 10));
+      u /= 10;
+    }
+  while (u != 0);
+  if (v < 0)
+    *--q = '-';
+  return q;
 }
 
 static void
 sb_elem_l (sb_t *b, const char *tag, long v)
 {
   char num[32];
-  snprintf (num, sizeof num, "%ld", v);
-  sb_elem (b, tag, num);
+  sb_elem (b, tag, render_long (num, sizeof num, v));
 }
 
 /* Pre-order list of every node in the game DOM, so a <DisplayOnce> segment
@@ -2446,9 +2531,10 @@ save_scarier_body (sb_t *b, a5_run_t *run)
           for (e = 0; e < adv->variables[i].array_length; e++)
             {
               char nb[32];
-              snprintf (nb, sizeof nb, "%s%ld", e > 0 ? "," : "",
-                        st->var_arr[i][e]);
-              sb_puts (&ab, nb);
+              const char *num = render_long (nb, sizeof nb, st->var_arr[i][e]);
+              if (e > 0)
+                sb_putn (&ab, ",", 1);
+              sb_putn (&ab, num, (size_t) (nb + sizeof nb - 1 - num));
             }
           char *joined = sb_finish (&ab);
           sb_elem (b, "Arr", joined);
@@ -2939,6 +3025,8 @@ a5run_save_blob (a5_run_t *run, size_t *out_len, int lean)
   if (run == NULL)
     return NULL;
   sb_init (&b);
+  if (run->save_blob_hint > 0)
+    sb_reserve (&b, run->save_blob_hint + 128);
   sb_puts (&b, "<Game>\n");
   save_fd_game (&b, run, lean);
   /* Scarier-private, full-fidelity snapshot; The Adrift 5 runner's LoadState ignores
@@ -2947,6 +3035,7 @@ a5run_save_blob (a5_run_t *run, size_t *out_len, int lean)
   save_scarier_body (&b, run);
   sb_puts (&b, "</ScarierExt>\n");
   sb_puts (&b, "</Game>\n");
+  run->save_blob_hint = b.len;
   if (out_len != NULL)
     *out_len = b.len;
   return sb_finish (&b);

@@ -102,19 +102,36 @@ ensure_dirs_default ()
 
 static std::string cached_dirs_re;   /* invalidated by a5parse_set_directions */
 
-/* Compiled-regex cache for match_one_pattern, keyed by the (variant-expanded)
-   command pattern.  convert_to_re + std::regex compilation measured ~8-10% of
-   run time -- it recompiled the same pattern on every task-command probe, every
-   turn -- yet a pattern always yields the same regex and ref names.  Compile
-   each once and reuse.  Invalidated alongside cached_dirs_re when the direction
-   table changes, since a %direction% group embeds directions_re() output. */
+/* Compiled-regex cache, keyed by the ORIGINAL command pattern; each entry
+   holds every wildcard variant pre-expanded and pre-compiled.  convert_to_re +
+   std::regex compilation measured ~8-10% of run time -- it recompiled the same
+   pattern on every task-command probe, every turn -- yet a pattern always
+   yields the same regexes and ref names.  Caching the whole variant list also
+   drops the per-probe variant_pattern() string rebuild and the hash of the
+   (longer) expanded string that the old per-variant cache paid.  Invalidated
+   alongside cached_dirs_re when the direction table changes, since a
+   %direction% group embeds directions_re() output.
+
+   `prefixes` is a first-word prefilter derived from the compiled regex: when
+   non-empty, any input the regex could accept MUST start (ASCII
+   case-insensitively) with one of these lowercase literals, so a cheap prefix
+   test rejects most of the task list without touching std::regex execution --
+   which profiling showed dominating scan_tasks (50%+ of a stress replay).
+   Empty means the filter could not be derived; the regex always runs. */
 struct a5_compiled_pattern
 {
   bool ok = false;
   std::regex re;
   std::vector<std::string> refs;
+  std::vector<std::string> prefixes;
 };
-static std::unordered_map<std::string, a5_compiled_pattern> cached_patterns;
+
+struct a5_pattern_variants
+{
+  int total = 1;
+  std::vector<a5_compiled_pattern> v;   /* size == total */
+};
+static std::unordered_map<std::string, a5_pattern_variants> cached_variants;
 
 void
 a5parse_set_directions (const char *const *raw_by_enum)
@@ -125,7 +142,7 @@ a5parse_set_directions (const char *const *raw_by_enum)
   g_dirs_init = false;
   ensure_dirs_default ();
   cached_dirs_re.clear ();
-  cached_patterns.clear ();
+  cached_variants.clear ();
   if (raw_by_enum == NULL)
     return;
   for (e = 0; e < 12; e++)
@@ -576,41 +593,237 @@ trim (const std::string &s)
   return s.substr (a, b - a + 1);
 }
 
-/* Match `input` against one already-variant-expanded pattern string. */
+/* ------------------------------------------------- first-word prefilter */
+
+/* ASCII-only lowercase: deterministic regardless of the process locale (C
+   tolower is locale-sensitive; std::regex::icase folds through the classic
+   locale's ctype, which is ASCII-only -- match that exactly). */
+static char
+ascii_lower (unsigned char c)
+{
+  return (char) (c >= 'A' && c <= 'Z' ? c + ('a' - 'A') : c);
+}
+
+/* Index of the ')' closing the '(' at s[open], honouring escapes and
+   character classes; npos when unbalanced. */
+static size_t
+re_group_end (const std::string &s, size_t open)
+{
+  int depth = 0;
+  bool cls = false;
+  for (size_t i = open; i < s.size (); i++)
+    {
+      char c = s[i];
+      if (c == '\\') { i++; continue; }
+      if (cls) { if (c == ']') cls = false; continue; }
+      if (c == '[') { cls = true; continue; }
+      if (c == '(')
+        depth++;
+      else if (c == ')')
+        {
+          depth--;
+          if (depth == 0)
+            return i;
+        }
+    }
+  return std::string::npos;
+}
+
+/* Does the regex contain a '|' at paren depth 0?  ADRIFT's global '/'->'|'
+   leaves bare word alternations UNSCOPED ("^x on|against y$"), where only the
+   first branch is '^'-anchored -- a first-word test is unsound there. */
+static bool
+re_has_toplevel_alt (const std::string &s)
+{
+  int depth = 0;
+  bool cls = false;
+  for (size_t i = 0; i < s.size (); i++)
+    {
+      char c = s[i];
+      if (c == '\\') { i++; continue; }
+      if (cls) { if (c == ']') cls = false; continue; }
+      if (c == '[') { cls = true; continue; }
+      if (c == '(')
+        depth++;
+      else if (c == ')')
+        depth--;
+      else if (c == '|' && depth == 0)
+        return true;
+    }
+  return false;
+}
+
+/* The literal chars a match MUST begin with at s[i]: scan until a regex
+   metacharacter, a non-ASCII byte (std::regex::icase folds bytes, not UTF-8;
+   stopping keeps the test byte-exact), or a char made optional by a following
+   quantifier.  Stopping early only WEAKENS the filter, never breaks it. */
+static std::string
+re_leading_literal (const std::string &s, size_t i)
+{
+  static const char meta[] = "\\^$.|?*+()[]{}";
+  std::string out;
+  for (; i < s.size (); i++)
+    {
+      unsigned char c = (unsigned char) s[i];
+      if (c >= 0x80 || strchr (meta, (char) c) != NULL)
+        break;
+      if (i + 1 < s.size () && strchr ("?*+{", s[i + 1]) != NULL)
+        break;
+      out += ascii_lower (c);
+    }
+  return out;
+}
+
+/* Accumulate the possible first-literal set at s[i].  A leading non-capturing
+   group of alternatives contributes each alternative's leading literal; when
+   the group is optional ("(?:the )?north") the continuation's literals are
+   possible too.  Returns false (filter unavailable) whenever any path could
+   start with something non-literal -- references, wildcards, quantified heads. */
+static bool
+collect_prefixes (const std::string &s, size_t i,
+                  std::vector<std::string> &out, int depth)
+{
+  if (depth > 3 || out.size () > 8)
+    return false;
+  if (i >= s.size ())
+    return false;
+  if (s.compare (i, 3, "(?:") == 0)
+    {
+      size_t close = re_group_end (s, i);
+      if (close == std::string::npos)
+        return false;
+      char q = close + 1 < s.size () ? s[close + 1] : '\0';
+      if (q == '*' || q == '+' || q == '{')
+        return false;
+      /* Split the group body on its top-level '|'s. */
+      std::string body = s.substr (i + 3, close - (i + 3));
+      size_t start = 0;
+      int d = 0;
+      bool cls = false;
+      for (size_t k = 0; k <= body.size (); k++)
+        {
+          char c = k < body.size () ? body[k] : '|';
+          if (k < body.size ())
+            {
+              if (c == '\\') { k++; continue; }
+              if (cls) { if (c == ']') cls = false; continue; }
+              if (c == '[') { cls = true; continue; }
+              if (c == '(') { d++; continue; }
+              if (c == ')') { d--; continue; }
+              if (c != '|' || d != 0)
+                continue;
+            }
+          std::string lit = re_leading_literal (body.substr (start, k - start), 0);
+          if (lit.empty () || out.size () >= 8)
+            return false;
+          out.push_back (lit);
+          start = k + 1;
+        }
+      if (q == '?')
+        return collect_prefixes (s, close + 2, out, depth + 1);
+      return true;
+    }
+  std::string lit = re_leading_literal (s, i);
+  if (lit.empty ())
+    return false;
+  out.push_back (lit);
+  return true;
+}
+
+static void
+derive_prefilter (const std::string &re_str, std::vector<std::string> &out)
+{
+  out.clear ();
+  if (re_str.size () < 2 || re_str[0] != '^')
+    return;
+  if (re_has_toplevel_alt (re_str))
+    return;
+  std::vector<std::string> tmp;
+  if (!collect_prefixes (re_str, 1, tmp, 0) || tmp.empty ())
+    out.clear ();
+  else
+    out = tmp;
+}
+
+/* Does `input` start (ASCII case-insensitively) with one of cp's literals?
+   An empty literal list means the filter is unavailable -> pass. */
+static bool
+prefilter_pass (const a5_compiled_pattern &cp, const char *input)
+{
+  if (cp.prefixes.empty ())
+    return true;
+  for (const std::string &p : cp.prefixes)
+    {
+      size_t k = 0;
+      for (; k < p.size (); k++)
+        {
+          char c = input[k];
+          if (c == '\0' || ascii_lower ((unsigned char) c) != p[k])
+            break;
+        }
+      if (k == p.size ())
+        return true;
+    }
+  return false;
+}
+
+/* Compile one already-variant-expanded pattern string. */
+static void
+compile_pattern (const std::string &pattern, a5_compiled_pattern &cp)
+{
+  std::string re_str;
+  std::vector<std::string> refs;
+  if (convert_to_re (pattern.c_str (), re_str, refs))
+    {
+      try
+        {
+          cp.re = std::regex (re_str,
+                              std::regex::ECMAScript | std::regex::icase);
+          cp.refs = std::move (refs);
+          cp.ok = true;
+          derive_prefilter (re_str, cp.prefixes);
+        }
+      catch (const std::regex_error &)
+        {
+          cp.ok = false;
+        }
+    }
+}
+
+static std::string variant_pattern (const char *pattern, int variant,
+                                    int *total);
+
+/* The cached, fully-compiled wildcard-variant list for a command pattern. */
+static const a5_pattern_variants &
+pattern_variants (const char *pattern)
+{
+  std::string key = pattern ? pattern : "";
+  auto it = cached_variants.find (key);
+  if (it != cached_variants.end ())
+    return it->second;
+  a5_pattern_variants pv;
+  int total = 0;
+  variant_pattern (key.c_str (), -1, &total);   /* count only */
+  pv.total = total;
+  pv.v.resize ((size_t) total);
+  for (int vi = 0; vi < total; vi++)
+    {
+      int t = 0;
+      compile_pattern (variant_pattern (key.c_str (), vi, &t), pv.v[vi]);
+    }
+  return cached_variants.emplace (std::move (key), std::move (pv)).first->second;
+}
+
+/* Match `input` against one pre-compiled pattern variant. */
 static int
-match_one_pattern (const std::string &pattern, const char *input, a5_match_t *m)
+match_one_pattern (const a5_compiled_pattern &cp, const char *input,
+                   a5_match_t *m)
 {
   if (m != NULL)
     m->n_refs = 0;
-
-  /* Compile (or reuse) the regex for this pattern.  convert_to_re + the
-     std::regex ctor are the expensive part and depend only on `pattern` (plus
-     the direction table, which invalidates the cache when it changes), so both
-     the compiled regex and the ref-name list are memoized per pattern. */
-  auto it = cached_patterns.find (pattern);
-  if (it == cached_patterns.end ())
-    {
-      a5_compiled_pattern cp;
-      std::string re_str;
-      std::vector<std::string> refs;
-      if (convert_to_re (pattern.c_str (), re_str, refs))
-        {
-          try
-            {
-              cp.re = std::regex (re_str,
-                                  std::regex::ECMAScript | std::regex::icase);
-              cp.refs = std::move (refs);
-              cp.ok = true;
-            }
-          catch (const std::regex_error &)
-            {
-              cp.ok = false;
-            }
-        }
-      it = cached_patterns.emplace (pattern, std::move (cp)).first;
-    }
-  const a5_compiled_pattern &cp = it->second;
   if (!cp.ok)
+    return 0;
+  if (input != NULL && !prefilter_pass (cp, input))
     return 0;
 
   std::smatch mt;
@@ -689,11 +902,10 @@ int
 a5parse_match_command_v (const char *pattern, const char *input, a5_match_t *m,
                          int variant)
 {
-  int total = 0;
-  std::string pat = variant_pattern (pattern, variant, &total);
-  if (variant < 0 || variant >= total)
+  const a5_pattern_variants &pv = pattern_variants (pattern);
+  if (variant < 0 || variant >= pv.total)
     return -1;
-  return match_one_pattern (pat, input, m);
+  return match_one_pattern (pv.v[(size_t) variant], input, m);
 }
 
 int
@@ -701,10 +913,8 @@ a5parse_match_command (const char *pattern, const char *input, a5_match_t *m)
 {
   /* The single-pattern form matches the original command verbatim (all
      wildcards intact) -- the LAST variant. */
-  int total = 0;
-  variant_pattern (pattern, -1, &total);        /* count only */
-  std::string pat = variant_pattern (pattern, total - 1, &total);
-  return match_one_pattern (pat, input, m) == 1;
+  const a5_pattern_variants &pv = pattern_variants (pattern);
+  return match_one_pattern (pv.v[(size_t) (pv.total - 1)], input, m) == 1;
 }
 
 const char *

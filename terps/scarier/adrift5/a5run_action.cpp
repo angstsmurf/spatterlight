@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include <algorithm>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -2844,9 +2845,11 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
 
              Heap, not stack: a ref_snap is ~33 KB (16 x A5_REFVAL_LEN), and
              this frame sits on the Execute recursion cycle, so a by-value
-             local made every nested Execute cost 33 KB of C stack. */
-          std::vector<ref_snap> parent_refs (1);
-          ref_snap_take (st, &parent_refs[0]);
+             local made every nested Execute cost 33 KB of C stack.  Plain
+             `new` (no value-init): a vector element was zeroing all 33 KB
+             before ref_snap_take overwrote it, once per SetTasks Execute. */
+          std::unique_ptr<ref_snap> parent_refs (new ref_snap);
+          ref_snap_take (st, parent_refs.get ());
           if (giter >= 0)
             {
               /* Iterate the executed task once per resolved group member,
@@ -2866,7 +2869,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
               std::string saved = args[giter];
               for (const std::string &mk : gmembers)
                 {
-                  ref_snap_restore (st, &parent_refs[0]);
+                  ref_snap_restore (st, parent_refs.get ());
                   args[giter] = mk;
                   /* Inside an event/walk/LocationTrigger-fired attempt, attach
                      this member to the response entry its run reached (the
@@ -2898,7 +2901,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
             }
           else
             run_one ();
-          ref_snap_restore (st, &parent_refs[0]);
+          ref_snap_restore (st, parent_refs.get ());
 
           /* Mark done + fire completion controls once per AttemptToExecuteTask
              (the runner flips task.Completed once), and only when the task actually

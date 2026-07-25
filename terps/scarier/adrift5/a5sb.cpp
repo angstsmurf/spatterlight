@@ -12,6 +12,20 @@
 void
 sb_init (sb_t *b) { b->p = NULL; b->len = b->cap = 0; }
 
+/* Grow the backing store to at least `cap` bytes up front (a size hint from
+   the caller -- e.g. the previous turn's snapshot length), sparing the
+   double-and-copy ladder sb_putn would otherwise climb. */
+void
+sb_reserve (sb_t *b, size_t cap)
+{
+  if (cap <= b->cap)
+    return;
+  b->p = (char *) realloc (b->p, cap);
+  b->cap = cap;
+  if (b->p != NULL)
+    b->p[b->len] = '\0';
+}
+
 /* Append the n-byte span [s, s+n) verbatim.  The one place the buffer grows;
    sb_puts/sb_putc are length-computing wrappers around it. */
 void
