@@ -1,0 +1,129 @@
+Untitled
+You use simple commands to make things happen here.
+For instance, you might say "sleep" to go back to bed or "awaken" or "wake up" to get back up again. There are some places where there are hints for what you have to do. There are also commands you may think to give the game that aren't hinted at. Have fun.
+
+>You wake up with a gulp of musty air. Your back hurts. The ground is cold.
+
+In your home
+This is your home and it has been your home for a while. It is dark and dusty. You have a bedroll on the floor and a small chest pushed against an ashy wall. You have a nightstand outfitted with a nice, crank-powered radio, too. You don't really have much to do down here, but it's better than what is going on above ground.
+
+There is a hatch that leads outside, but you don't really want to go out right now.  An exit leads out.
+
+> x chest
+There is nothing special about the small chest.  The small chest is currently closed.
+
+> open chest
+You open the small chest.  Inside the small chest is a jug of water.
+
+> x radio
+This is a radio. Sometimes you have to crank the handle on the side to recharge the battery.
+
+Crackly voices come through when you turn it on. Sometimes you can talk to them.
+
+> turn on radio
+The CB radio is already on!
+
+> listen
+You listen to the radio crackle as it usually does. A stronger voice breaks through. It has an accent, and it belongs to a woman who doesn't speak much English.
+
+She tells you it is Saturday, at 9:22 PM.
+She tells you it has been six months and four days since
+The bomb was dropped. She says the next round of rations
+Will be delivered Sunday at 6 AM. The radio woman wishes
+You a pleasant night, and her voice dies out.
+
+> x water
+It's half full. Drink it?
+
+> drink water
+As delicious as the jug of water looks, you are not thirsty right now.  You drink the water anyway, gingerly taking a gulp. You have to ration it.
+The amount of water missing is barely noticeable. Good job.
+
+> drink water
+As delicious as the jug of water looks, you are not thirsty right now.  You drink the water anyway, gingerly taking a gulp. You have to ration it.
+The amount of water missing is barely noticeable. Good job.
+
+> think
+You think about your situation for a while.
+
+You feel lonely.
+
+> sleep
+You lie down on your bedroll and take a nap.
+
+> wake up
+Goodmorning, sunshine.
+
+> out
+You move out.
+
+Outside
+This is the outside world. Everything looks normal, honestly.
+However, the radio woman tells you the air outside will make your cells divide at an alarming rate until your shell simply cannot hold all your inside in...
+
+You don't like thinking about what happens next. You curse the nuclear fallout that ruined this place.
+
+It's honestly pretty pleasant, aside from that. There is a trail through the woods, slightly overgrown. The trees are tall and straight and solid. They're blooming white and pink.  There is a ill-looking fox here. It moves about dizzily, stumbling over its feet and drooling. The poor thing has radiation sickness. Perhaps you could examine it or pick it up.  The path here is overgrown but still navigable.  An exit leads in.
+
+> x fox
+It is drooling and moving in a dizzy, jerky fashion. It seems friendly enough though.
+
+>Touch fox
+>Pick Up fox
+
+> touch fox
+Sorry, I'm not sure which object you are trying to touch.
+
+> take fox
+Ok, you pick up the sickly fox.
+
+> drop fox
+You set the fox back down.
+
+> take fox
+You are already carrying the sickly fox!
+
+> x path
+There is nothing special about the overgrown path.
+
+> in
+You move in.
+
+In your home
+This is your home and it has been your home for a while. It is dark and dusty. You have a bedroll on the floor and a small chest pushed against an ashy wall. You have a nightstand outfitted with a nice, crank-powered radio, too. You don't really have much to do down here, but it's better than what is going on above ground.
+
+There is a hatch that leads outside, but you don't really want to go out right now.  An exit leads out.
+
+> drop fox
+...What fox? You're inside.
+
+> out
+You move out.
+
+Outside
+This is the outside world. Everything looks normal, honestly.
+However, the radio woman tells you the air outside will make your cells divide at an alarming rate until your shell simply cannot hold all your inside in...
+
+You don't like thinking about what happens next. You curse the nuclear fallout that ruined this place.
+
+It's honestly pretty pleasant, aside from that. There is a trail through the woods, slightly overgrown. The trees are tall and straight and solid. They're blooming white and pink.  The path here is overgrown but still navigable.  An exit leads in.
+
+> wave fox
+Why would you do that???!! The fox yelps in pain. It runs away from you!
+
+> in
+You move in.
+
+In your home
+This is your home and it has been your home for a while. It is dark and dusty. You have a bedroll on the floor and a small chest pushed against an ashy wall. You have a nightstand outfitted with a nice, crank-powered radio, too. You don't really have much to do down here, but it's better than what is going on above ground.
+
+There is a hatch that leads outside, but you don't really want to go out right now.  An exit leads out.
+
+> turn off radio
+The radio doesn't turn off. It hums still. Distant voices fade in and out, but mostly, you hear static. "Bzzz."
+
+You might be able to make out some words more clearly if you try and listen.
+
+>Listen
+>Turn Radio Off
+

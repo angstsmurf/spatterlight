@@ -1,0 +1,43 @@
+# Escape from the house 2 -- Matti Virtanen (adrift.co).  ★ WON.
+# Twelve rooms of an ordinary Finnish house and exactly ZERO custom tasks: the
+# whole game is stdlib plus one locked door.  The abloy key is inside the
+# kitchen table; unlock and open the outside door in the corridor and step south
+# into the garden, whose room description IS the ending ("You win the game! It
+# took %Turns% turns!") -- there is no EndGame action, so the turn count in that
+# line is part of the golden and this route must not gain or lose a command.
+# Route below tours every room (workroom, laundry, both bathrooms, cellar, both
+# upstairs bedrooms) before leaving.
+x table
+x tv
+turn on tv
+x settee
+west
+x papers
+east
+south
+x cupboard
+open cupboard
+x table
+look in table
+take key
+west
+x washing machine
+x jeans
+take jeans
+wear jeans
+east
+down
+x jar
+open jar
+up
+east
+x door
+unlock door with key
+open door
+up
+north
+east
+south
+west
+down
+south

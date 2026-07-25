@@ -1,0 +1,173 @@
+OS
+C:\>dir/Plugin.exe
+
+Initializing System Setup
+Loading settings
+[DOS]  Command.COM  AutoExe.DLL  Serial.NUM  Debug.DAT
+
+Welcome Tester
+
+Connecting to Server
+Downloading Config.Sys Web.Config
+Installing Drivers...
+
+Press [space] to Continue
+
+You are online
+You are currently in The Chat Room
+Patron(s) currently online: 12,204
+Patron(s) currently in your room: 2
+
+Please type [begin] to start
+
+> who
+Tester
+
+7
+C
+7
+D
+6
+2
+1
+3
+2
+7
+
+End
+
+> ai
+
+AiMReele99: Hmm?
+
+> noam
+
+[Session Resumed]
+
+AiMReele99: Adrift is getting worse... let's Restart Tester
+NoamChomsky has joined.
+
+Press [Enter] to begin chat session
+
+> check money
+Checking Money...
+
+Tester has 40 dollars
+
+AiMReele99 has 40 dollars
+
+> begin
+20 bucks hit the game table
+
+AiMReele99: Here we go
+
+You have 20 dollars left.
+
+AiMReele99: First card.
+
+Queen of Hearts
+Points in Hand: 10
+
+AiMReele99: Hit or Surrender?
+
+> hit
+
+AiMReele99: Boom!
+
+Eight of Clubs
+Points in Hand: 18
+
+AiMReele99: Stand, or Hit Again?
+
+> hit again
+
+AiMReele99: Pop!
+
+Four of Hearts
+Points in Hand: 22
+
+AiMReele99: BUSTED
+Tester loses 20 to AiMReele99
+
+AiMReele99: Oooo I needed that. Thanks, haha
+
+AiMReele99: Do not worry, you can get it back in the Next Round
+
+> dabble
+
+AiMReele99 bets 1.
+
+AiMReele99: Thwack!
+AiMReele99 draws a Jack of Clubs
+
+AiMReele99: Bwak!
+AiMReele99 hits for a Two of Diamonds
+
+AiMReele99: Wham!
+AiMReele99 hits again for a Six of Hearts
+
+Tester wins!
+Checking Money...
+
+Tester has 20 dollars
+
+AiMReele99 has 59 dollars
+
+AiMReele99: Play again !
+
+> check money
+Checking Money...
+
+Tester has 20 dollars
+
+AiMReele99 has 59 dollars
+
+> begin
+15 bucks hit the game table
+
+AiMReele99: Here we go
+
+You have 5 dollars left.
+
+AiMReele99: First card.
+
+Four of Diamonds
+Points in Hand: 4
+
+AiMReele99: Hit or Surrender?
+
+> hit
+
+AiMReele99: Boom!
+
+Two of Diamonds
+Points in Hand: 6
+
+AiMReele99: Stand, or Hit Again?
+
+> dabble
+
+AiMReele99 bets 11.
+
+AiMReele99: Bam!
+AiMReele99 draws a Six of Clubs
+
+AiMReele99: Bomp!
+AiMReele99 hits for a Eight of Hearts
+
+AiMReele99 wins.
+Checking Money...
+
+Tester has 5 dollars
+
+AiMReele99 has 70 dollars
+
+AiMReele99: Play again !
+
+> check money
+Checking Money...
+
+Tester has 5 dollars
+
+AiMReele99 has 70 dollars
+

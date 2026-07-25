@@ -1,0 +1,37 @@
+Untitled
+
+Book Room
+There is a book in the room.  Also here is a book.
+
+> x book
+This is a book. Now, try to read it.   The book is currently closed.
+
+> read book
+
+> take book
+Ok, you pick up the book.
+
+> open book
+You open the book.
+
+> read book
+Opening the book, you read page one. Keep reading until you are done you quitter!!
+
+> read book
+You read page two. Doing good so far. Almost done!!
+
+> read book
+As always, that was a great "read" and you look forward to "reading" it again soon. But, for now you close the book and have to get on with your life.
+
+> read book
+Your favorite thing is to read books. But they are easier to read if you open them first.
+
+> open book
+You open the book.
+
+> read book
+Opening the book, you read page one. Keep reading until you are done you quitter!!
+
+> close book
+You close the book.
+

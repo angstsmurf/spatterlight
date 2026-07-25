@@ -1,0 +1,41 @@
+# NYC holiday -- "Holiday, Migrate or Bust" tutorial game (adrift.co).  ★ WON.
+# Two rooms, one NPC: ATM (the parent) must be talked into paying for the
+# geography-trip hostel in New York.  The chain is note -> key -> drawer ->
+# passport, plus the crumpled letter in your college bag: `give paper to atm`
+# gets the form filled in, `give passport to atm` wins.
+# Also swept here: the tablet's turn-it-on-first override, the vacuum chore
+# ATM asked for, and the several Specific ask/show/give/kiss overrides that all
+# answer with the same "I can't afford that right now" brush-off.
+x desk
+x tablet
+turn on tablet
+x tablet
+x bed
+x pillow
+look in pillow
+take key
+x drawer
+unlock drawer with key
+open drawer
+x passport
+x note
+read note
+x photograph
+take passport
+x bag
+open bag
+x paper
+read paper
+take paper
+x textbook
+x ringbinder
+x wallet
+x keys
+north
+x atm
+kiss atm
+push vacuum
+ask atm about holiday
+show paper to atm
+give paper to atm
+give passport to atm

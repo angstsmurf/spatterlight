@@ -1,0 +1,71 @@
+Untitled
+
+Cell
+Here you are in probably the most abjectly miserable looking cell your captors could find for you. Everything is a varying shade of a Bleakish Brown or Gloomy Grey. The doors are caged up and the bed is nailed to the floorboard.
+
+You've done something. Whether it was the wrong or right thing to do is meaningless now. What is important is that you're stuck here in solitary for the time being. Better make the most of it.
+
+> x me
+You see nothing interesting about yourself.
+
+> i
+You are wearing nothing, and are carrying nothing.
+
+> sleep
+You aren't feeling tired at the moment.
+
+> sing
+You sing a little song.
+
+> jump
+You jump on the spot.
+
+> wait
+Time passes...
+
+> listen
+You hear nothing out of the ordinary.
+
+> north
+There is no route to the north.
+
+> south
+There is no route to the south.
+
+> east
+There is no route to the east.
+
+> west
+There is no route to the west.
+
+> up
+There is no route up.
+
+> down
+There is no route down.
+
+> out
+There is no route out.
+
+> in
+There is no route in.
+
+> smell
+Smell what?
+
+> xyzzy
+Sorry, I'm not sure which object you are trying to smell.
+
+> take bed
+Sorry, I'm not sure which object you are trying to take.
+
+> look
+
+Cell
+Here you are in probably the most abjectly miserable looking cell your captors could find for you. Everything is a varying shade of a Bleakish Brown or Gloomy Grey. The doors are caged up and the bed is nailed to the floorboard.
+
+You've done something. Whether it was the wrong or right thing to do is meaningless now. What is important is that you're stuck here in solitary for the time being. Better make the most of it.
+
+> score
+Your score is 0 out of a maximum of 0. (NaN%)
+

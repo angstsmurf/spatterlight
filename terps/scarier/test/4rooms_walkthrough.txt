@@ -1,0 +1,21 @@
+# 4rooms -- "Untitled" (adrift.co), a four-room demo "made to show what can be
+# done".  Two custom tasks only: `take ring` (EndGame Lose -- the ring is
+# poisoned) and `read note` (EndGame Win).  This route tours all four rooms,
+# exercises the stdlib container/surface verbs on the TV/sofa/chest, and WINS
+# via the note inside the envelope.  The poisoned ring is deliberately left in
+# the chest -- taking it ends the game.
+x tv
+x sofa
+sit on sofa
+stand
+west
+x chest
+open chest
+look in chest
+east
+south
+x envelope
+take envelope
+open envelope
+i
+read note

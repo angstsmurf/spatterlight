@@ -1,0 +1,175 @@
+Untitled
+You are the hero known as Nolanus, your mission is to find your way through this odd maze of monsters.
+
+Labyrinth Entrance
+A dimly lit room with one torch and a passage to the north. There is a rope lying on the floor and 1000 feet above there is an entrance, that probably explains the bump on your head!  Also here is a rope, a torch and a skeleton.  An exit leads north.
+
+> take torch
+Ok, you pick up the torch.
+
+> take rope
+Ok, you pick up the rope.
+
+> x skeleton
+It's a skeleton, pretty big skull. Hmm... maybe it has some useful items on it.  Inside the skeleton is a bone.
+
+> take bone
+(from the skeleton)
+Ok, you take the bone from the skeleton.
+
+> x skull
+Well, it's nothing more than a skull, but I'm strangely attracted to those teeth.  Inside the skull is a tooth.
+
+> take tooth
+(from the skull)
+Ok, you take the tooth from the skull.
+
+> north
+You move north.
+
+Dark Hallway
+A very dark room with just enough light to see your way around. A tall Zeus statue stands in the room.  Also here is a Zeus statue.  Exits are north and south.
+
+> x zeus statue
+ Zeus is the god of all gods, and king of all humans. Open this container to receive his gift to you.  The Zeus statue is currently closed.
+
+> open zeus statue
+You open the Zeus statue.  Inside the Zeus statue is a reflective shield.
+
+> take shield
+(from the Zeus statue)
+Ok, you take the reflective shield from the Zeus statue.
+
+> north
+You move north.
+
+The room of Cerberus
+This is a gated room with Cerberus, the three-headed dog guardian of the underworld, blocking the exit to the north. There is a statue of Hermes.  Cerberus is here.  An exit leads south.
+
+> x cerberus
+A three-headed dog that protects the gates of the underworld.
+
+> open hermes statue
+You open the Hermes statue.
+
+> give bone to cerberus
+You give Cerberus the skeleton bone. He really seems to like it. Should keep him busy for hours.
+
+> north
+You move north.
+
+The room of Three Witches
+In this room is a statue of the goddess Demeter with a cornucopia at her feet. Oh yeah, there are also three witches in front of the exit to the west. They're holding signs that say "Please help. We've lost our EAR," "our EYE", and "our TOOTH."   Also here is a Demeter statue.  The three witches is here.  An exit leads south.
+
+> x witches
+Odd beings, but helpless none the less. The Stygian the three witches share one eye, one tooth and one ear between them.
+
+> x cornucopia
+It's a large basket filled with fruits and vegetables. There's a lot of corn... and a lollipop?  Inside the cornucopia are a strange lollipop and  corn.
+
+> take corn
+(from the cornucopia)
+Ok, you take the corn from the cornucopia.
+
+> take lollipop
+(from the cornucopia)
+Ok, you take the strange lollipop from the cornucopia.
+
+> x lollipop
+LOOKS a little strange...  An eye is on the strange lollipop.
+
+> give corn to witches
+You give the Three Witches an eye, a tooth and an, uh, ear.
+
+"Our eye! Our tooth! Our ear? Oh well, close enough. Looks like corn on the cob for dinner tonight girls and maybe a game of charades."
+
+The witches move away from the door.
+
+> west
+You move west.
+
+The Room of the Minotaur
+Inside this room, the Minotaur and Polydeuces are staring at each from opposite sides of the room.
+
+The Minotaur seems sad. Polydeuces seems a bit punchy.  Also here is an Ares statue.  The minotaur and the demigod Polydeuces are here.  An exit leads east.
+
+> x minotaur
+The minotaur sits in front of the exit to the east. The half man, half bull is crying and has a cowbell around his neck.  He is wearing a collar.  Inside the collar is a cowbell.
+
+> x polydeuces
+The son of Zeus and a Spartan woman. He is a great boxer and a hero.
+
+> x ares statue
+In Greek mythology, Ares was the god of war. He was the son of Zeus and Hera. Ares became  the father of many children and most of them became very warlike.  Inside the Ares statue is the nemean lion hide.
+
+> take hide
+(from the Ares statue)
+Ok, you take the nemean lion hide from the Ares statue.
+
+> x collar
+It's a collar. Hanging from the collar is a cowbell.  Inside the collar is a cowbell.
+
+> take cowbell
+(from the collar)
+You take the cowbell from the Minotaur. The bell rings and the last thing you see for the next 5 minutes is Polydeuce's fist.
+
+When you awaken, you still hear ringing, but it's not the bell. The bell's broken. Your nose might be, too.
+
+> west
+You move west.
+
+The Room of Three Beauties
+A room with statues of Aphrotite, Hera, and Athena. In the middle stands a table with beautiful curves and designs, I wonder what lays on top.  An exit leads east.
+
+> x table
+A wooden table.  A crinkly note and the apple of discord are on the table.
+
+> read note
+Here is the apple of discord, a gift for the fairest.
+
+> take apple of discord
+(from the table)
+Ok, you take the apple of discord from the table.
+
+> put apple of discord on hera statue
+You place the apple into the outstretched palms of the statue.
+
+The three statues come to life and start kicking, scratching and biting each other and saying really not nice things like, "Your nose is too big to be the fairest." "I've seen better hair on a baboon." and "Goddess of love? More like goddess of lard!"
+
+Since their fight has taken them away from the door, you should probably slip out before they notice you.
+
+> west
+You move west.
+
+another dark hallway
+This is one dark hallway. You see a figure ahead just in front of another door.  Also here is a stone statue.  Exits are east and west.
+
+> x stone statue
+Hmm... You've never seen this god before, in fact, You don't even think it's a god at all, it looks like a warrior, and it's strange how it seems so lifelike...
+
+You hear hissing and rattling from the room ahead. Could it be the Medusa?
+
+You blow out your torch and get out your reflective shield. No way that snake headed gorgon is turning you to stone.
+
+Prepare to die, Medusa!
+
+> wear hide
+Ok, you put on the nemean lion hide.
+
+> i
+You are wearing the nemean lion hide, and are carrying a rope, a torch, a reflective shield, a strange lollipop and the apple of discord.
+
+> west
+You move west.
+
+Medusa's Den
+This is Medusa's Den.
+
+Medusa is here.  An exit leads east.
+
+*** You have lost ***
+Well... you found Medusa's den, but seriously, what did you expect. Everyone knows Perseus killed the Medusa. And seeing how you're not him, you didn't defeat her.
+
+You slowly feel your flesh turning to stone as you wonder what it will be like in the afterlife. Maybe you'll be end up in the Elysium Fields (sounds like a sequel).
+Would you like to restart, restore a saved game, quit or undo the last command?
+

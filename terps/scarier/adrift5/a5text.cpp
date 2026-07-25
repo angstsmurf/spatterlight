@@ -824,6 +824,111 @@ a5text_character_subjective (a5_state_t *st, const a5_character_t *c)
   return character_name (st, c, A5_PRO_SUBJ);
 }
 
+/* Global.vb:1286-1319, the character branch of ReplaceOOProperty's "Name":
+   parse the (args) into clsCharacter.Name's Pronoun / Article / bForcePronoun /
+   bExplicitArticle, then run clsCharacter.vb:323's own logic.  Two things
+   differ from the OBJECT `.Name` the rest of a5expr shares: the default article
+   is DEFINITE ("opposite default from objects" -- so `%character%.Name` on an
+   introduced NPC is "the black rat"), and the args can name a PRONOUN, with a
+   bare "None" meaning "never pronoun-replace" rather than "no article". */
+char *
+a5text_character_oo_name (a5_state_t *st, const a5_character_t *c,
+                          const char *args)
+{
+  std::string a = args != NULL ? args : "";
+  for (char &ch : a) ch = (char) tolower ((unsigned char) ch);
+  auto has = [&](const char *n) { return a.find (n) != std::string::npos; };
+  /* ContainsWord: whole-word, so "indefinite" does not answer for "definite". */
+  auto word = [&](const char *n) {
+    size_t nl = strlen (n), p = 0;
+    while ((p = a.find (n, p)) != std::string::npos)
+      {
+        int lok = (p == 0) || !isalnum ((unsigned char) a[p - 1]);
+        int rok = (p + nl >= a.size ()) || !isalnum ((unsigned char) a[p + nl]);
+        if (lok && rok) return true;
+        p += nl;
+      }
+    return false;
+  };
+
+  int art_definite = 1, art_none = 0, explicit_article = 0;
+  a5_pronoun_t pr = A5_PRO_SUBJ;
+  int pronoun_none = 0, force_pronoun = 0;
+
+  if (has ("none"))
+    {
+      /* "None" is ambiguous between the article and the pronoun; the runner
+         disambiguates on the other words present, defaulting to the pronoun. */
+      if (has ("definite"))                       /* covers "indefinite" too */
+        pronoun_none = 1;
+      else if (has ("force") || has ("objective") || has ("possessive")
+               || has ("reflective"))
+        art_none = 1;
+      else
+        pronoun_none = 1;
+    }
+  if (has ("force")) force_pronoun = 1;
+  if (has ("objective") || has ("object") || has ("target")) pr = A5_PRO_OBJ;
+  if (has ("possessive") || has ("possess"))                 pr = A5_PRO_POSS;
+  if (has ("reflective") || has ("reflect"))                 pr = A5_PRO_REFL;
+  if (word ("definite"))
+    { art_definite = 1; art_none = 0; explicit_article = 1; }
+  if (word ("indefinite"))
+    { art_definite = 0; art_none = 0; explicit_article = 1; }
+
+  /* clsCharacter.Name's bDisplaying block (vb:331-334). */
+  int replace_with_pronoun = force_pronoun;
+  if (st->intro_active)
+    {
+      if (!explicit_article && !art_none && !art_definite && c != NULL
+          && st->char_introduced != NULL)
+        {
+          int ci = a5state_character_index (st, c->key);
+          if (ci >= 0 && st->char_introduced[ci]) art_definite = 1;
+        }
+      if (c != NULL && st->char_introduced != NULL)
+        {
+          int ci = a5state_character_index (st, c->key);
+          if (ci >= 0) st->char_introduced[ci] = 1;
+        }
+      int persp = char_perspective (st, c);
+      if (persp == 1 || persp == 2) replace_with_pronoun = 1;
+    }
+  if (pronoun_none) replace_with_pronoun = 0;
+
+  if (replace_with_pronoun)
+    return character_name (st, c, pr);
+
+  /* The non-pronoun branch: Known -> ProperName, else Descriptor(Article). */
+  int known_set = c != NULL && a5state_entity_has_prop (st, c->key, "Known");
+  char *nm;
+  if (known_set || c == NULL || c->n_descriptors == 0)
+    {
+      const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
+                         : NULL;
+      if (pn == NULL || pn[0] == '\0')
+        pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
+                                                                  : "Anonymous";
+      nm = strdup (pn);
+    }
+  else
+    {
+      sb_t sb;
+      sb_init (&sb);
+      if (!art_none && c->article != NULL && c->article[0] != '\0')
+        { sb_puts (&sb, art_definite ? "the" : c->article); sb_putc (&sb, ' '); }
+      if (c->prefix != NULL && c->prefix[0] != '\0')
+        { sb_puts (&sb, c->prefix); sb_putc (&sb, ' '); }
+      sb_puts (&sb, c->descriptors[0]);
+      nm = sb_finish (&sb);
+    }
+  if (pr == A5_PRO_POSS)
+    { size_t n = strlen (nm); char *s = (char *) malloc (n + 3);
+      memcpy (s, nm, n); s[n] = '\''; s[n + 1] = 's'; s[n + 2] = '\0';
+      free (nm); return s; }
+  return nm;
+}
+
 char *
 a5text_char_proper_name (a5_state_t *st, const char *charkey)
 {
@@ -881,6 +986,15 @@ oo_firstkey (a5_state_t *st, const char *name)
   else if (ci_eq (name, "characters") || ci_eq (name, "character")
            || ci_eq (name, "character1"))
     k = a5state_lookup_ref (st, "ReferencedCharacter");
+  /* ...and the indexed character slots, exactly like %object2%..%object5%.
+     A two-character command (`#-- Enemy attacks friend --# %character1%
+     attacks %character2%`, Beginner's Cave's combat engine) binds
+     ReferencedCharacter2 through the same SetTasks-Execute parameter path;
+     without these its message rendered the token verbatim. */
+  else if (ci_eq (name, "character2")) k = a5state_lookup_ref (st, "ReferencedCharacter2");
+  else if (ci_eq (name, "character3")) k = a5state_lookup_ref (st, "ReferencedCharacter3");
+  else if (ci_eq (name, "character4")) k = a5state_lookup_ref (st, "ReferencedCharacter4");
+  else if (ci_eq (name, "character5")) k = a5state_lookup_ref (st, "ReferencedCharacter5");
   if (k == NULL && (ci_eq (name, "object") || ci_eq (name, "objects")))
     k = a5state_lookup_ref (st, "ReferencedObject");
   if (k != NULL)
@@ -1670,9 +1784,18 @@ eval_function (a5_state_t *st, const char *name, const char *args)
             return strdup (o->key);
         }
       else if (ci_eq (name, "character") || ci_eq (name, "characters")
-               || ci_eq (name, "character1"))
+               || ci_eq (name, "character1") || ci_eq (name, "character2")
+               || ci_eq (name, "character3") || ci_eq (name, "character4")
+               || ci_eq (name, "character5"))
         {
-          const char *key = a5state_lookup_ref (st, "ReferencedCharacter");
+          const char *cref = "ReferencedCharacter";
+          char cbuf[24];
+          if (isdigit ((unsigned char) name[strlen (name) - 1])
+              && name[strlen (name) - 1] != '1')
+            { snprintf (cbuf, sizeof cbuf, "ReferencedCharacter%c",
+                        name[strlen (name) - 1]);
+              cref = cbuf; }
+          const char *key = a5state_lookup_ref (st, cref);
           const a5_character_t *ch = key ? a5model_character (st->adv, key) : NULL;
           if (ch != NULL && ch->name != NULL)
             return strdup (ch->name);
@@ -1993,7 +2116,9 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                           || ci_eq (name, "object1") || ci_eq (name, "object2")
                           || ci_eq (name, "object3") || ci_eq (name, "object4")
                           || ci_eq (name, "object5") || ci_eq (name, "character")
-                          || ci_eq (name, "characters") || ci_eq (name, "character1"))
+                          || ci_eq (name, "characters") || ci_eq (name, "character1")
+                          || ci_eq (name, "character2") || ci_eq (name, "character3")
+                          || ci_eq (name, "character4") || ci_eq (name, "character5"))
                         {
                           free (name);
                           p = q + 1;
@@ -2224,6 +2349,12 @@ static char *
 auto_capitalise (const char *src)
 {
   return auto_capitalise_ex (src, 1);
+}
+
+int
+a5text_is_sentence_start (const char *text, size_t pos)
+{
+  return is_sentence_start (text, pos, 1);
 }
 
 /* --------------------------------------------------- perspective conjugation */
@@ -2483,6 +2614,41 @@ expr_bears_random (const char *body)
   return 0;
 }
 
+/* Would SUBSTITUTING this `<#...#>` body draw?  True when it holds a
+   `%name[args]%` reference whose args invoke an RNG function -- OS/PlugIn.Exe
+   deals its cards with `<#if(%bjValue[1]%=10, %cardPicture[RAND(1, 4)]%, ..)#>`.
+   Such a body cannot be frozen operand-first (the usual deferral): the draw
+   would land at render time, ahead of the `%cardType[RAND(1, 4)]%` that follows
+   it in the text, while the runner -- which holds the WHOLE aggregate message to
+   Display -- draws them in text order.  So defer the raw body instead. */
+static int
+expr_sub_draws_random (const char *body)
+{
+  for (const char *p = body; *p != '\0'; p++)
+    {
+      if (*p != '%')
+        continue;
+      const char *q = p + 1;
+      while (*q != '\0' && (isalnum ((unsigned char) *q) || *q == '_'
+                            || *q == '-'))
+        q++;
+      if (q == p + 1 || *q != '[')
+        continue;
+      const char *cb = strchr (q, ']');
+      if (cb == NULL || cb[1] != '%')
+        continue;
+      {
+        char *args = strndup (q + 1, (size_t) (cb - q - 1));
+        int r = expr_bears_random (args);
+        free (args);
+        if (r)
+          return 1;
+      }
+      p = cb;
+    }
+  return 0;
+}
+
 /* Evaluate every `<#...#>` expression in `src` (the Adrift 5 runner ReplaceExpressions:
    substitute the body, then reduce it to its string value). */
 static char *
@@ -2503,6 +2669,22 @@ replace_expressions (a5_state_t *st, const char *src)
           if (end != NULL)
             {
               char *inner = strndup (p + 2, (size_t) (end - (p + 2)));
+              if (st->expr_defer != NULL && expr_sub_draws_random (inner))
+                {
+                  /* Raw-body deferral (see expr_sub_draws_random): push the
+                     UNSUBSTITUTED body, tagged \003, so both its substitution
+                     draws and its reduce happen at the end-of-command flush,
+                     in this block's text position. */
+                  std::vector<std::string> *sink =
+                      (std::vector<std::string> *) st->expr_defer;
+                  char mark[24];
+                  snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
+                  sink->push_back (std::string ("\003") + inner);
+                  sb_puts (&sb, mark);
+                  free (inner);
+                  p = end + 2;
+                  continue;
+                }
               char *sub = expr_substitute (st, inner);
               /* Resolve any BARE OO-chain (no leading %) left in the body, e.g.
                  `<#LCASE(cl_Door1.OpenStatus)#>` in a room description --
@@ -2574,6 +2756,11 @@ a5text_eval_expression (a5_state_t *st, const char *expr)
     sub = oo;
   }
   val = a5_eval_sexpr (sub);
+  /* A5_TRACE_EXPR=1 shows each restriction/SetVariable expression as raw ->
+     substituted -> value; the substituted form is where most divergences from
+     the runner live (an OO chain that resolved to "" instead of "0", say). */
+  if (getenv ("A5_TRACE_EXPR") != NULL)
+    fprintf (stderr, "A5_EXPR: %s  ==>  %s  ==>  %s\n", expr, sub, val);
   free (sub);
   return val;   /* a5_eval_sexpr never returns NULL */
 }
@@ -3275,7 +3462,7 @@ note_marked_output (a5_state_t *st, const char *marked)
 
 char *
 a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
-                    int *pre_alr_ink, int *raw_nonblank)
+                    int *pre_alr_ink, int *raw_nonblank, char **marked)
 {
   char *raw = a5text_eval_description (st, wrapper);
   if (raw_nonblank != NULL)
@@ -3286,6 +3473,8 @@ a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
   char *plain = a5text_render_plain (capped);
   plain = ps_mark_trailing (capped, plain);
   note_marked_output (st, capped);
+  if (marked != NULL)
+    *marked = strdup (capped != NULL ? capped : "");
   free (raw);
   free (inner);
   free (persp);
@@ -3304,7 +3493,8 @@ a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
    still re-renders -- and still draws its <# Either #> -- on the post-action
    compare. */
 char *
-a5text_process_frozen (a5_state_t *st, const char *raw, int *pre_alr_ink)
+a5text_process_frozen (a5_state_t *st, const char *raw, int *pre_alr_ink,
+                       char **marked)
 {
   char *inner = process_inner_ex (st, raw, 0, pre_alr_ink);
   char *persp = resolve_perspective (st, inner);
@@ -3312,6 +3502,8 @@ a5text_process_frozen (a5_state_t *st, const char *raw, int *pre_alr_ink)
   char *plain = a5text_render_plain (capped);
   plain = ps_mark_trailing (capped, plain);
   note_marked_output (st, capped);
+  if (marked != NULL)
+    *marked = strdup (capped != NULL ? capped : "");
   free (inner);
   free (persp);
   free (capped);

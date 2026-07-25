@@ -1,0 +1,35 @@
+# Save the Kitten -- "Test.taf" on adrift.co (the author never retitled it).
+# ★ WON.  Tommy's kitten is stuck up the old tree and every one of the game's
+# many endings is one command long; this route takes the only one where both you
+# and the cat survive: pick up the hose Tommy left in the backyard and `shoot`.
+#
+# Deliberately avoided: `water the flowers` and `smell the flowers` (Lose), the
+# rocks in the shed (`eat rock` = Lose, `throw rocks` = a Win where you brain
+# the kitten onto the trampoline), and the slide/swing (Wins where YOU die --
+# the author tagged them Win anyway).  Also note the catch-all "things" task,
+# which turns any `wait`/`jump`/`sleep`/`scream`/`climb` into a Lose, so this
+# route never idles.
+#
+# PARSER NOTE: only the bare `shoot` alternative fires.  The task's other
+# commands are written `* shoot * (the) kitten *`, and neither Scarier nor
+# FrankenDrift matches "shoot the kitten" against them -- verified identical on
+# both engines, so the three refusals below are authentic ADRIFT behaviour, not
+# a Scarier parser gap.
+x flowers
+open door
+walk outside
+x hose
+north
+x kitten
+south
+west
+x flowers
+west
+x rocks
+east
+east
+take hose
+shoot the kitten
+spray kitten
+north
+shoot

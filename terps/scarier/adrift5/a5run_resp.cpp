@@ -28,6 +28,7 @@
 #include "a5model.h"
 #include "a5restr.h"
 #include "a5run.h"
+#include "a5sexpr.h"
 #include "a5run_internal.h"
 #include "a5sb.h"
 #include "a5text.h"
@@ -74,8 +75,23 @@ sink_len (a5_run_t *run, sb_t *out)
 char *
 render_comp_test (a5_state_t *st, const a5_xml_node_t *comp)
 {
+  return render_comp_test_ex (st, comp, NULL);
+}
+
+/* render_comp_test, additionally handing back the still-MARKED-UP render.
+   The runner compares its pre- and post-action renders as the RAW strings its
+   ReplaceExpressions produced -- tags and all -- so a difference that lives
+   only inside a stripped tag still counts as "the actions changed the
+   message".  Beginner's Cave's combat messages end in
+   `<# "<" & rand(0,1000000) & ">" #>`, i.e. a pseudo-tag whose whole purpose is
+   to make every render differ; comparing the PLAIN text made the two renders
+   look identical, so Scarier took the runner's they-agree branch and drew a
+   third time, sliding the whole combat RNG stream by one. */
+char *
+render_comp_test_ex (a5_state_t *st, const a5_xml_node_t *comp, char **marked)
+{
   int pm = st->marking_display; st->marking_display = 0;
-  char *m = a5text_describe (st, comp);
+  char *m = a5text_describe_ex (st, comp, NULL, NULL, marked);
   st->marking_display = pm;
   return m;
 }
@@ -192,7 +208,22 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
     {
       int pm = st->marking_display; st->marking_display = 1;
       int raw_nonblank = 0, pre_alr_ink = 0;
-      char *m = a5text_describe_ex (st, comp, &pre_alr_ink, &raw_nonblank);
+      /* A single-reference AggregateOutput completion bearing a text function:
+         the runner stores the RAW template and only ReplaceExpressions it at
+         end-of-command Display -- AFTER e.g. the stock Look's two test renders
+         of the destination room view.  Render the static skeleton now (the
+         verb-conjugation context stays current), but push the `<#..#>` draw to
+         the display_defers sink so the xoshiro stream stays aligned (Quest
+         Giver's "You move North.. <#OneOf..#>" flavor must draw after the
+         tavern-sign OneOf in the room description, not before). */
+      void *prev_ed = st->expr_defer;
+      if (t != NULL && t->aggregate && comp_bears_function (comp))
+        st->expr_defer = run->display_defers;
+      char *mk = NULL;
+      char *m = a5text_describe_ex (st, comp, &pre_alr_ink, &raw_nonblank, &mk);
+      std::string marked = mk != NULL ? mk : "";
+      free (mk);
+      st->expr_defer = prev_ed;
       st->marking_display = pm;
       /* The runner's AddResponse output test (bHasOutput) sees the message BEFORE the
          trailing-whitespace trim, so a whitespace-only "\n" completion counts
@@ -214,11 +245,19 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
          A marks-only render with NO pre-ALR ink (Amazon's ts_tasSunset "<>"
          off-hours completion) fails the runner's gate and is dropped as before. */
       if (!has && !(pre_alr_ink && !r.empty ())) return;
+      /* The runner keys htblResponses by the message as ReplaceFunctions left
+         it -- markup and all -- and Display() strips the tags only on the way
+         out, so two responses that differ ONLY inside a stripped tag are
+         DISTINCT there.  Beginner's Cave exploits exactly that to get one line
+         per blow: every combat message ends in
+         `<# "<" & rand(0,1000000) & ">" #>`, a per-render pseudo-tag.  Keying
+         the dedup on the plain text swallowed the second "A hit!" of a
+         round. */
       for (auto &e : rm->ents)
-        if (!e.aggregate && e.is_pass == is_pass && e.rendered == r) return;
+        if (!e.aggregate && e.is_pass == is_pass && e.key == marked) return;
       resp_entry e;
       e.is_pass = is_pass; e.aggregate = false; e.comp = NULL;
-      e.rendered = r; e.item = item;
+      e.rendered = r; e.key = marked; e.item = item;
       resp_insert (rm, e, pos);
     }
 }
@@ -232,10 +271,10 @@ resp_add_text (a5_run_t *run, const char *text, bool is_pass, int pos)
   if (!msg_has_output (text)) return;
   std::string r = text;
   for (auto &e : rm->ents)
-    if (!e.aggregate && e.is_pass == is_pass && e.rendered == r) return;
+    if (!e.aggregate && e.is_pass == is_pass && e.key == r) return;
   resp_entry e;
   e.is_pass = is_pass; e.aggregate = false; e.comp = NULL;
-  e.rendered = r; e.item = rm->cur_item;
+  e.rendered = r; e.key = r; e.item = rm->cur_item;
   resp_insert (rm, e, pos);
 }
 
@@ -281,7 +320,7 @@ resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
     if (!e.aggregate && !e.is_pass && e.rendered == r) return;
   resp_entry e;
   e.is_pass = false; e.aggregate = false; e.comp = NULL; e.fail_comp = fm;
-  e.rendered = r; e.item = item;
+  e.rendered = r; e.key = r; e.item = item;
   if (!item.empty ()) e.obj_keys.push_back (item);
   ref_snap_take (st, &e.snap); e.has_snap = true;
   resp_insert (rm, e, -1);
@@ -421,6 +460,47 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
           }
         else
           text = e.rendered;
+
+        /* A `\004N\004` sentinel in an eagerly-rendered entry marks a deferred
+           `<#..#>`/%var[rand]% draw (see resp_add_comp): the runner's Display
+           renders responses IN ORDER, drawing each response's expressions at
+           its slot -- so the movement completion's OneOf must draw here,
+           BEFORE a later is_look entry's final room-view render, not at the
+           post-drain display_defers flush.  Resolve the sentinels now (left
+           to right, the runner's ReplaceExpressions scan) and blank the sink
+           bodies so the later flush neither re-draws nor re-splices them. */
+        if (run->display_defers != NULL
+            && text.find ('\004') != std::string::npos)
+          {
+            std::string res;
+            size_t p = 0;
+            while (p < text.size ())
+              {
+                if (text[p] == '\004')
+                  {
+                    size_t q = text.find ('\004', p + 1);
+                    if (q != std::string::npos)
+                      {
+                        int idx = atoi (text.substr (p + 1, q - p - 1).c_str ());
+                        if (idx >= 0
+                            && (size_t) idx < run->display_defers->size ())
+                          {
+                            std::string &body = (*run->display_defers)[idx];
+                            char *val = (!body.empty () && body[0] == '\001')
+                                ? a5text_process_noalr (st, body.c_str () + 1)
+                                : a5_eval_sexpr (body.c_str ());
+                            if (val != NULL) res += val;
+                            free (val);
+                            body = "\001";       /* consumed: no re-draw */
+                          }
+                        p = q + 1;
+                        continue;
+                      }
+                  }
+                res += text[p++];
+              }
+            text = res;
+          }
 
         /* Marks-only entries (see resp_add_comp) are emitted too: the runner Displayed
            the markup skeleton, so it space-joins here and leaves the buffer

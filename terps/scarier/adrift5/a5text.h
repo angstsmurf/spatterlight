@@ -144,6 +144,11 @@ extern char *a5text_process_nocap (a5_state_t *st, const char *src);
    ALR (GFS "17000" -> "1.700.0") must not rewrite a stored number. */
 extern char *a5text_process_noalr (a5_state_t *st, const char *src);
 
+/* Would a lowercase letter at byte offset `pos` of `text` be capitalised by the
+   runner's CapAfterFullStop?  For the deferred-draw flush, which splices its
+   values in after a5text_process's cap pass has already run. */
+extern int a5text_is_sentence_start (const char *text, size_t pos);
+
 /* Evaluate a raw expression string (Global.EvaluateExpression): substitute its
    %references%/OO chains then reduce to a string value.  Heap; never NULL. */
 extern char *a5text_eval_expression (a5_state_t *st, const char *expr);
@@ -214,15 +219,25 @@ extern char *a5text_describe_marked (a5_state_t *st, const a5_xml_node_t *wrappe
    counts as task output there (it stops an After-children scan) although the
    rendered plain text trims to nothing (The Salvage's per-move station-known
    task suppresses the fuel-consumption child that way). */
+/* *marked (optional, caller-freed) additionally returns the still-MARKED-UP
+   render -- what the runner's AddResponse stores and keys htblResponsesPass on,
+   before Display() strips the tags.  Two responses whose only difference is
+   inside a stripped tag are DISTINCT there but identical in the plain text
+   (Beginner's Cave defeats the dedup on purpose with `<# "<" & rand(0,1000000)
+   & ">" #>` so each "Dodged!" prints), so the dedup has to key on this. */
 extern char *a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
-                                 int *pre_alr_ink, int *raw_nonblank = 0);
+                                 int *pre_alr_ink, int *raw_nonblank = 0,
+                                 char **marked = 0);
 
 /* a5text_describe_ex on a PRE-FROZEN raw template from a5text_eval_description:
    function/OO/expression/ALR passes only, segment selection NOT re-evaluated
    (the runner re-renders its captured sMessage string around a Before task's actions;
    pre_alr_ink may be NULL). */
+/* *marked (optional, caller-freed) additionally returns the still-MARKED-UP
+   render -- the string the runner actually compares across the actions (its
+   sMessage still carries the markup; Display() strips it only at output). */
 extern char *a5text_process_frozen (a5_state_t *st, const char *raw,
-                                    int *pre_alr_ink);
+                                    int *pre_alr_ink, char **marked = 0);
 
 /* The full "LOOK" view of the player's current location (plain text). */
 extern char *a5text_view_location (a5_state_t *st);
@@ -238,6 +253,14 @@ extern char *a5text_object_name (const a5_state_t *st, const a5_object_t *o,
  * Mirrors clsCharacter.Name(Subjective).  Heap-allocated.
  */
 extern char *a5text_character_subjective (a5_state_t *st, const a5_character_t *c);
+
+/*
+ * `%character%.Name(args)` -- Global.vb:1286's character branch, whose article
+ * defaults to Definite (the opposite of an object's) and whose args may select
+ * a pronoun.  Heap-allocated.
+ */
+extern char *a5text_character_oo_name (a5_state_t *st, const a5_character_t *c,
+                                       const char *args);
 
 /*
  * A character's display name with only the first letter upper-cased

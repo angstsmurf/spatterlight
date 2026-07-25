@@ -1,0 +1,166 @@
+Escape from the house 2
+You are Matti Virtanen, a Finnish guy. You can't speak English well, so here is lot of spelling and grammar faults. You start from living room. Your goal is to escape from the house to the garden.
+
+Living room
+This is a living room. To the west is work room and to the east is ground floor bathroom. To the south is kitchen.  On a table is a tv.  Also here is a leather settee and a leather armchair.  Exits are east, south and west.
+
+> x table
+On the table is a tv.  A flat tv is on the wooden table.
+
+> x tv
+TV is off.
+
+> turn on tv
+You switch on the flat TV.
+
+> x settee
+There is nothing special about the leather settee.
+
+> west
+You move west.
+
+Workroom
+This is a workroom. To the east is living room.  On the worktable is lot of papers.  An exit leads east.
+
+> x papers
+To the papers is written:
+
+To win the game from starting at living room:
+>south
+>take key
+>east
+>unlock door
+>open door
+>south
+
+After those commands you win!
+
+> east
+You move east.
+
+Living room
+This is a living room. To the west is work room and to the east is ground floor bathroom. To the south is kitchen.  On a table is a tv.  Also here is a leather settee and a leather armchair.  Exits are east, south and west.
+
+> south
+You move south.
+
+Kitchen
+This is the kitchen. To th east is corridor and to the north is ground floor bathroom. To the west is laundry room. Here is stairs to cellar. Type "down" to go to cellar.  Here is a cupboar at a wall.  The range is turned off.  Also here is a kitchen table.  Exits are north, east, west and down.
+
+> x cupboard
+There is nothing special about the cupboard.  Inside the cupboard are a silver spoon, a silver fork, a silver butter knife and a poslin plate.
+
+> open cupboard
+The cupboard cannot be opened or closed!
+
+> x table
+There is nothing special about the kitchen table.  Inside the kitchen table is an abloy key.
+
+> look in table
+There is nothing special about the kitchen table.  Inside the kitchen table is an abloy key.
+
+> take key
+(from the kitchen table)
+Ok, you take the abloy key from the kitchen table.
+
+> west
+You move west.
+
+Laundry room
+ This is the laundry room, room where clothes are washed. To the east is kitchen.  Also here is a dirty blue jeans.  An exit leads east.
+
+> x washing machine
+There is nothing special about the washing machine.
+
+> x jeans
+There is nothing special about the dirty blue jeans.
+
+> take jeans
+Ok, you pick up the dirty blue jeans.
+
+> wear jeans
+Ok, you put on the dirty blue jeans.
+
+> east
+You move east.
+
+Kitchen
+This is the kitchen. To th east is corridor and to the north is ground floor bathroom. To the west is laundry room. Here is stairs to cellar. Type "down" to go to cellar.  Here is a cupboar at a wall.  The range is turned off.  Also here is a kitchen table.  Exits are north, east, west and down.
+
+> down
+You move down.
+
+Cellar
+This is cellar. Here is stairs to kitchen (up).  Also here is a honey jar.  An exit leads up.
+
+> x jar
+There is nothing special about the honey jar.  The honey jar is currently closed.
+
+> open jar
+You open the honey jar.
+
+> up
+You move up.
+
+Kitchen
+This is the kitchen. To th east is corridor and to the north is ground floor bathroom. To the west is laundry room. Here is stairs to cellar. Type "down" to go to cellar.  Here is a cupboar at a wall.  The range is turned off.  Also here is a kitchen table.  Exits are north, east, west and down.
+
+> east
+You move east.
+
+Corridor
+This is the corridor. To the north is ground floor bathroom and to the west is the kitchen. Here is stairs to hallway (up). Here is a door to south which leads out.  Door is shut.  Exits are north, west and up.
+
+> x door
+There is nothing special about the outside door.  The outside door is currently locked.
+
+> unlock door with key
+You unlock the outside door with the abloy key.
+
+> open door
+You open the outside door.
+
+> up
+You move up.
+
+Hallway
+This is the hallway. To the north is master bedroom and to the east is upper floor bedroom.  Exits are north, east and down.
+
+> north
+You move north.
+
+Master bedroom
+This is a master bedroom. To the east is upper floor bathroom and to the south is hallway.  Also here is a waterbed.  Exits are east and south.
+
+> east
+You move east.
+
+Upper floor bathroom
+This is upper floor bathroom. To the south is the upper floor bathroom and to the west is the hallway.  Also here is a bathtub.  Exits are south and west.
+
+> south
+You move south.
+
+Upper floor bedroom
+This is upper floor bedroom. To the west is hallway and to the north is upper floor bathroom.  Also here is a single bed.  Exits are north and west.
+
+> west
+You move west.
+
+Hallway
+This is the hallway. To the north is master bedroom and to the east is upper floor bedroom.  Exits are north, east and down.
+
+> down
+You move down.
+
+Corridor
+This is the corridor. To the north is ground floor bathroom and to the west is the kitchen. Here is stairs to hallway (up). Here is a door to south which leads out.  Exits are north, south, west and up.
+
+> south
+You move south.
+
+Garden
+This is a garden. Here is door to the house.
+
+You win the game! It took 33 turns! Now you can close the game.  An exit leads north.
+

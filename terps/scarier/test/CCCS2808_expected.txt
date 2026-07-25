@@ -1,0 +1,249 @@
+Untitled
+Welcome to the Central Coast Cloud School Virtual Campus Game..... you will find lots of clues in here that will help you to solve a big question in the last week.
+
+At home
+You are in your bedroom.  Also here is A full school uniform, a pair of Black Leather Shoes and a suspicious pink sticky note.  An exit leads east.
+
+> read sticky note
+The Mr Men material is solid with a thick backing that looks like it could have once been a curtain.
+
+> x school uniform
+There is nothing special about the full school uniform.
+
+> wear school uniform
+You are not carrying the full school uniform!
+
+> wear black leather shoes
+You are not carrying the pair of Black Leather Shoes!
+
+> east
+(standing up first)
+You move east.
+
+School
+Central Coast Cloud School.  All students are in perfect school uniform.  You can smell a strange smell coming from the playground and notice different coloured sticky notes inside different classroom windows. To your north is the Maths classroom and to the east is the Principal's office. There is a large cloud in the sky, it almost looks like you could go up.  Also here is a gold sticky note.  Exits are north, east, west and northeast.
+
+> read sticky note
+Sally's watch is 2 minutes fast but she thinks it's 2 minutes slow
+
+> east
+You move east.
+
+Principals Office
+There is a photo collage mug on the desk full of a strange pink liquid.  Also here is a Cupboard and an orange sticky note.  An exit leads west.
+
+> x mug
+There is nothing special about the photo collage mug.
+
+> read sticky note
+Anne's watch is broken, it sits on the time 1:43.  She thinks it works and that coincidently, each time she looks at the clock it is either 1:43am or 1:43pm.
+
+> x cupboard
+There is nothing special about the Cupboard.  The Cupboard is currently closed.
+
+> open cupboard
+You open the Cupboard.  Inside the Cupboard is a Ironman costume and a red sticky note.
+
+> read sticky note
+Which ?  The red sticky note or the orange sticky note.
+
+> x costume
+There is nothing special about the Ironman costume.
+
+> west
+You move west.
+
+School
+Central Coast Cloud School.  All students are in perfect school uniform.  You can smell a strange smell coming from the playground and notice different coloured sticky notes inside different classroom windows. To your north is the Maths classroom and to the east is the Principal's office. There is a large cloud in the sky, it almost looks like you could go up.  Also here is a gold sticky note.  Exits are north, east, west and northeast.
+
+> northeast
+You move northeast.
+
+Library
+You enter the library, it smells of old books and coffee beans.  Also here is a skull key and a scale model pirates chest.  Exits are west, down, southwest and northwest.
+
+> x pirates chest
+Gleaming with gems, this scale model pirates chest has a small key hole, if you shake it it sounds like there could be something inside.  The scale model pirates chest is currently closed.
+
+> take key
+Ok, you pick up the skull key.
+
+> unlock pirates chest with key
+You can't unlock the scale model pirates chest as it is not locked!
+
+> open pirates chest
+You open the scale model pirates chest.  Inside the scale model pirates chest is a Harry Potter Novel and a pink sticky note.
+
+> read novel
+The science lab is a great place to look
+If you like what's written inside this book
+1-2-3 is what you'll see
+But 3-4-5 will help you survive
+
+Signed, Mr Kerwin
+
+> read sticky note
+Sally's watch is 12 minutes fast but she thinks it is 10 minutes slow.
+
+> down
+You move down.
+
+Restricted Section
+The restricted section is very dark and smells of mould.  There are shelves and shelves of old books.  Also here is a silver sticky note and a creepy book.  An exit leads up.
+
+> read sticky note
+Harry's watch is 13 minutes slow but he think's it is 10 minutes slow
+
+> x book
+There is nothing special about the creepy book.
+
+> up
+You move up.
+
+Library
+You enter the library, it smells of old books and coffee beans.  Also here is a scale model pirates chest.  Exits are west, down, southwest and northwest.
+
+> northwest
+You move northwest.
+
+Science Lab 2
+This is your old Science classroom form last year, the slight burning smell reminds you of that experiment you did when the teacher set your hands on fire.  Good times.  Also here is a purple sticky note.  Exits are south, out and southeast.
+
+> read sticky note
+Anthony's watch is 8 minutes fast but he thinks it is 1 minute slow.
+
+> x stuff
+There is nothing special about the Science Stuff.  The Science Stuff is currently open.
+
+> south
+You move south.
+
+Science Lab 1
+Exits are north, east, south and west.
+
+> x chemicals
+There is nothing special about the dangerous looking chemicals.
+
+> west
+You move west.
+
+Playground
+You walk into the playground, it is very cloudy, there is an funny smell.  You notice a tall building you have never seen before.  Also here is a green sticky note and a football.  Exits are east, west, down, in and southwest.
+
+> read sticky note
+There is a clue written on the protractor in the Maths classroom.
+
+> x football
+There is nothing special about the football.
+
+> x building
+There is nothing special about the strange Building.
+
+> west
+You move west.
+
+Stinky Swamp
+The bog of eternal stench, a very large swap at the back of the playground, it is fenced off with a gate.  An exit leads east.
+
+> x gate
+A big old gate with a lock on the front, the lock looks old fashion, like a skull key might fit in it.  The gate is currently closed.
+
+> east
+You move east.
+
+Playground
+You walk into the playground, it is very cloudy, there is an funny smell.  You notice a tall building you have never seen before.  Also here is a green sticky note and a football.  Exits are east, west, down, in and southwest.
+
+> down
+You move down.
+
+Abandoned mine shaft
+A very creepy old mine shaft, it looks like noone has been down here in 50 years.  It smells very strange.  The blue sticky note has some writing on it.  You can stick this sticky note to your shirt to keep a track of it, you will need it later.  Try to "wear" or "read" it.  Also here is a green lunch box.  An exit leads up.
+
+> x lunch box
+There is nothing special about the green lunch box.  The green lunch box is currently closed.
+
+> open lunch box
+You open the green lunch box.  Inside the green lunch box is a blue sticky note and a rotten sandwich.
+
+> read sticky note
+Leah's watch is 6 minutes fast but she thinks it's 15 minutes slow.
+
+> x sandwich
+There is nothing special about the rotten sandwich.
+
+> up
+You move up.
+
+Playground
+You walk into the playground, it is very cloudy, there is an funny smell.  You notice a tall building you have never seen before.  Also here is a green sticky note and a football.  Exits are east, west, down, in and southwest.
+
+> southwest
+You move southwest.
+
+Maths Classroom
+There is a small Protractor here.  Exits are north, south, west, up and northeast.
+
+> x protractor
+There is nothing special about the small Protractor.
+
+> read protractor
+Laura's watch is 8 minutes fast but she thinks it's 9 minutes fast
+
+> west
+You move west.
+
+Computer Lab
+The computer lab smells strong of a mixture of coffee and spare computer parts.  The letters JK are scratched into the top corner of the whiteboard.  Also here is a new MacBook Air.  An exit leads east.
+
+> x desk
+There is nothing special about the desk.  A yellow sticky note and a working commodore 64 are on the desk.
+
+> read sticky note
+Michael's watch is 8 minutes fast but he think it's running on time.
+
+> x commodore 64
+There is nothing special about the working Commodore 64.
+
+> east
+You move east.
+
+Maths Classroom
+There is a small Protractor here.  Exits are north, south, west, up and northeast.
+
+> up
+You move up.
+
+The Attic
+The Attic is long and triangluar shaped, the cieling is low and you can only stand up in the middle of the room.  You can smell roses.    Also here is a Length Mr Men Material, an old Desk and an old diary.  An exit leads down.
+
+> x desk
+There is nothing special about the old Desk.
+
+> read diary
+You can find all the secrets of the world if you can open this diary.
+
+> take mr men material
+Ok, you pick up the Length Mr Men Material.
+
+> wear mr men material
+Ok, you put on the Length Mr Men Material.
+
+> down
+You move down.
+
+Maths Classroom
+There is a small Protractor here.  Exits are north, south, west, up and northeast.
+
+> south
+You move south.
+
+School
+Central Coast Cloud School.  All students are in perfect school uniform.  You can smell a strange smell coming from the playground and notice different coloured sticky notes inside different classroom windows. To your north is the Maths classroom and to the east is the Principal's office. There is a large cloud in the sky, it almost looks like you could go up.  Also here is a gold sticky note.  Exits are north, east, west, up and northeast.
+
+> up
+You move up.
+
+University Campus
+Tall university building  An exit leads down.
+

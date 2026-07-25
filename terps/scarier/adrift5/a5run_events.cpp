@@ -353,6 +353,35 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
     }
 }
 
+/* Install an attempt's final response entry's reference items (run->ev_tbl,
+   see a5run_internal.h) as the ambient leftover the NEXT event task's
+   CopyNewRefs iterates -- the runner's end-of-attempt Display loop
+   `NewReferences = refs` (clsUserSession.vb:851-856).  Keys are mapped to
+   stable model-key pointers; unknown keys drop out. */
+static void
+ev_install_leftover (a5_run_t *run, const std::vector<std::string> &items)
+{
+  a5_state_t *st = run->st;
+  st->n_ref_items = 0;
+  st->ref_items_type = 'o';
+  for (const std::string &k : items)
+    {
+      const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+      const char *stable = NULL;
+      if (o != NULL)
+        stable = o->key;
+      else
+        {
+          int ci = a5state_character_index (st, k.c_str ());
+          if (ci >= 0)
+            { stable = st->adv->characters[ci].key;
+              st->ref_items_type = 'c'; }
+        }
+      if (stable != NULL && st->n_ref_items < A5_MAX_ITEMS)
+        st->ref_items[st->n_ref_items++] = stable;
+    }
+}
+
 /* Run a task fired by an event (clsUserSession.AttemptToExecuteTask, bEvent):
    restriction-checked, silent on failure, and itself a control trigger. */
 static void
@@ -400,6 +429,7 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
       std::vector<std::string> *prev_defers = run->comp_defers;
       size_t defer0 = run->display_defers->size ();
       run->comp_defers = run->display_defers;
+      run->in_ev_attempt++;
       for (const char *it : items)
         {
           /* The runner AttemptToExecuteSubTask ReDims NewReferences to this single item;
@@ -414,8 +444,22 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
           if (a5restr_pass (st, t->restrictions))
             { run_task (run, t, depth + 1, out); any_ran = 1; }
         }
+      run->in_ev_attempt--;
       run->comp_defers = prev_defers;
       a5run_flush_display_defers_from (run, out, defer0);
+      /* Post-attempt ambient: something displayed -> the last response entry's
+         items (the runner's final `NewReferences = refs`); nothing displayed ->
+         the per-item AttemptToExecuteSubTask ReDim residue, which for an
+         event task is a single task-declared-ref-shaped [nil] -- NOT the
+         incoming plural.  (FD trace: at night Quest Giver's daz61DaylightC
+         fails its Daytrue restriction silently for both stale quest items and
+         daz61DaylightC1 still enters with refs=[nil], so the night counter
+         ticks once.)  Only an attempt that early-returns above (Completed &&
+         !Repeatable) leaves the ambient untouched. */
+      if (run->ev_tbl != NULL && !run->ev_tbl->keys.empty ())
+        ev_install_leftover (run, run->ev_tbl->refs.back ());
+      else
+        st->n_ref_items = 0;
       /* Only "complete" (mark done + fire EventControls) if the task actually
          ran for at least one item -- a task whose restrictions fail for every
          item never bPass'd in the runner, so its completion controls must NOT fire.
@@ -467,10 +511,17 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
     std::vector<std::string> *prev_defers = run->comp_defers;
     size_t defer0 = run->display_defers->size ();
     run->comp_defers = run->display_defers;
+    run->in_ev_attempt++;
     run_task (run, t, depth + 1, out);
+    run->in_ev_attempt--;
     run->comp_defers = prev_defers;
     a5run_flush_display_defers_from (run, out, defer0);
   }
+  /* This attempt Displayed at least one response: the runner re-assigns the
+     ambient NewReferences to the last-inserted entry's items, which the NEXT
+     event task's CopyNewRefs iterates (see ev_tbl in a5run_internal.h). */
+  if (run->ev_tbl != NULL && !run->ev_tbl->keys.empty ())
+    ev_install_leftover (run, run->ev_tbl->refs.back ());
   if (ti >= 0)
     st->task_done[ti] = 1;
   ev_on_task_completed (run, key, out);
@@ -489,11 +540,18 @@ attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t *out)
   exec_resp_scope escope;
   std::set<std::string> *prev = run->ev_seen;
   exec_resp_scope *prev_escope = run->exec_scope;
+  /* Each attempt gets its own response table (the runner's per-attempt
+     htblResponsesPass); a nested attempt (a completion control starting an
+     event whose 0-turn subevents fire more tasks) is isolated the same way. */
+  ev_resp_tbl tbl;
+  ev_resp_tbl *prev_tbl = run->ev_tbl;
+  run->ev_tbl = &tbl;
   run->ev_seen = &seen;
   run->exec_scope = &escope;
   attempt_event_task_impl (run, key, depth, out);
   run->ev_seen = prev;
   run->exec_scope = prev_escope;
+  run->ev_tbl = prev_tbl;
   exec_scope_flush (run, &escope, out);
 }
 

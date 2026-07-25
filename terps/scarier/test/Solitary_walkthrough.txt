@@ -1,0 +1,26 @@
+# Solitary -- "Four Walls and a Toilet" / Solitary.taf (adrift.co).  One room,
+# ZERO objects, ZERO custom tasks: the whole game is its intro paragraph.  That
+# makes it a pure standard-library conformance tour -- every line below is
+# stdlib output (examine-self, inventory, sleep/sing/jump/wait, the "no route"
+# refusals, listen/smell, the "which object" second-chance prompt chain, and the
+# 0-out-of-0 "(NaN%)" score line, which is authentic ADRIFT arithmetic).
+x me
+i
+sleep
+sing
+jump
+wait
+listen
+north
+south
+east
+west
+up
+down
+out
+in
+smell
+xyzzy
+take bed
+look
+score

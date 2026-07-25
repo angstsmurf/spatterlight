@@ -1,0 +1,106 @@
+# Dementophobia (ALPHA DEMO) -- Zachary Reese, 2016.  A Silent-Hill-flavoured
+# horror demo: Jack Berkowitz wakes in a boat drifting into Midnight Falls.
+# UNFINISHABLE AS BUILT -- there is no win, and two thirds of the authored
+# content is unreachable by the intended route.  This walkthrough covers every
+# reachable line anyway, in three clearly separated parts.
+#
+# PART 1 (the intended route, and where it dies).  Boat -> Shoreline -> Forest
+# -> Long Road -> Old Bridge -> Mountain Road -> Rural Street.  The boat's
+# north exit is gated on `Lantern Must BeInState on`, so the lantern must be
+# switched on, not merely carried (the first `north` here pins that refusal).
+# At Rural Street the gas-station cutscene chain runs: approach gas station ->
+# approach man -> help man -> stand still.
+#
+# The deadlock: Location7's south exit needs `Question Must BeComplete`, and
+# Question ("stand still") needs HelpMan.  But completing HelpMan also arms the
+# General task StandStill (priority 39), whose command list is every direction
+# word plus "go" and "gas station", restricted only to Location7 + HelpMan
+# complete.  Nothing ever clears it, and it carries no EndGame action -- so
+# from the moment you help the man, every movement command at Rural Street
+# prints "the slayer slashes you in half ... G A M E  O V E R" and leaves you
+# standing exactly where you were, forever.  The single `south` after `stand
+# still` is that dead end; the `east` after it shows it swallows the way back
+# too.  Locations 8-15 and 54-57 (gas station, house, kitchen, bedrooms) are
+# therefore permanently unreachable, and with them the knife, the axe, the
+# oven/corpse/burned-key chain and the TV.
+#
+# PART 2 (orphaned content).  The house-arc set pieces were authored as General
+# tasks with NO location restriction at all, so they still fire from Rural
+# Street: the oven, the four photographs, the army uniform and its folded note,
+# the shower curtain, the hallway light switch, and the Affection ->
+# Procreation -> Patricide password chain (Umb1/Umb2/Umb3, each gated on the
+# one before).  Running them here is the only way this text can ever be seen.
+# `Read paper` is deliberately used for the uniform note while `pick up paper`
+# is used later in room 602: both tasks answer "read paper", and once
+# LookUnifor is complete ReadSmallP wins the tie.
+#
+# PART 3 (the hotel, likewise reached by an unrestricted task).  The lobby
+# scene -- approach blonde woman, give the name "Jack Berkowitz", give Caroline
+# your coat, approach the desk, read the manifest -- is all unrestricted, and
+# `press button` (6fButton) MoveCharacters the player straight to Location20,
+# the sixth floor, from wherever they are standing.  From there the demo plays
+# out as designed: 604 -> `enter bathroom` (note the library "not sure which
+# object" refusal printing BEFORE EnterBathr's own move takes effect -- both
+# tasks match) -> `leave bathroom` set piece -> the long corridor -> walk, then
+# run -> room 602 -> the paper -> "TO BE CONTINUED...".  The closing
+# `walk north` fires WalkHallwa1, the only EndGame in the whole game, and it is
+# a Lose.
+#
+# Clean 0|0 in both RNG modes on the first pass; no engine work needed.
+x me
+i
+x lantern
+take lantern
+north
+turn on lantern
+north
+x id
+take id
+read id
+x diary number 1
+take diary number 1
+read diary number 1
+north
+investigate whimper
+north
+take diary number 2
+read diary number 2
+west
+look at sign
+west
+west
+approach gas station
+approach man
+help man
+stand still
+south
+east
+approach oven.
+open oven
+Look at wedding photograph
+Look at child photograph
+Look at family photograph
+Look at veteran photograph
+Look inside uniform
+Read paper
+Pull back shower curtain
+Turn off light
+Affection
+Procreation
+Patricide
+approach blonde woman
+Jack Berkowitz
+Give Caroline coat
+approach desk
+Read manifest
+press button
+look
+north
+enter bathroom
+look
+leave bathroom
+walk down hallway
+run down hallway
+enter 602
+pick up paper
+walk north

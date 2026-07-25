@@ -599,6 +599,24 @@ resolve_first (a5_state_t *st, const std::string &firstkeys)
   return ctx;   /* empty: unresolved */
 }
 
+/* A SelectionOnly property carries no value, so on a SINGLE item the runner
+   answers the marker itself: "1" when the item has it (ReplaceOOProperty,
+   Global.vb:1216 for objects, :1397 characters, :1538 locations) and "0" when
+   it does not (the shared missing-property default, vb:1225).  Returning ""
+   instead disarms Beginner's Cave: `ready` is gated on `%object%.s_Weapon=1`
+   and every combat roll reads `.s_Readyweapo.s_Weapon`.  (On a LIST the same
+   property is a filter, not a value -- handled in the list branch below.) */
+static int
+selection_only_prop (const a5_state_t *st, const std::string &key,
+                     const std::string &fn, std::string *out)
+{
+  const a5_propdef_t *pd = a5model_propdef (st->adv, fn.c_str ());
+  if (pd == NULL || !streq (pd->type, "SelectionOnly"))
+    return 0;
+  *out = a5state_entity_has_prop (st, key.c_str (), fn.c_str ()) ? "1" : "0";
+  return 1;
+}
+
 /*
  * Evaluate the navigation step `sProperty` against `ctx`.  *ok stays 1 unless the
  * whole expression turns out to be unresolvable (the "#*!~#" sentinel).
@@ -789,6 +807,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         }
       /* a property key on the object */
       {
+        std::string sel;
+        if (selection_only_prop (st, key, fn, &sel)) return sel;
         const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
         if (v != NULL)
           {
@@ -822,7 +842,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
       if (fn.empty ())          return key;
       if (fn == "Description")  return item_description (st, key);
       if (fn == "Name")
-        { char *n = a5text_character_subjective (st, c);
+        { char *n = a5text_character_oo_name (st, c, args.c_str ());
           std::string r = n ? n : key; free (n); return r; }
       if (fn == "ProperName")
         { /* clsCharacter.ProperName (Global.vb:1334): the CharacterProperName
@@ -894,6 +914,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       {
+        std::string sel;
+        if (selection_only_prop (st, key, fn, &sel)) return sel;
         const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
         if (v != NULL)
           {
@@ -974,6 +996,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
       {
+        std::string sel;
+        if (selection_only_prop (st, key, fn, &sel)) return sel;
         const char *v = a5state_entity_prop (st, key.c_str (), fn.c_str ());
         if (v != NULL)
           {

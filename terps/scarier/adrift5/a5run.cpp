@@ -356,6 +356,8 @@ a5run_new (const a5_adventure_t *adv)
   run->look_pending = 0;
   run->look_pos = 0;
   run->task_raw_output = 0;
+  run->in_ev_attempt = 0;
+  run->ev_tbl = NULL;
   run->in_time_tick = 0;
   run->real_time = 0;
   run->cur_score_ti = -1;
@@ -1296,24 +1298,30 @@ build_known_words (a5_run_t *run)
             kw->insert (w);
         }
     }
-  /* Nouns: each object's article + prefix words + names (original case). */
+  /* Nouns: each object's article + prefix words + names.  The runner adds each
+     arlNames entry WHOLE (vb:3531 `Add(sWord)` over the name list -- no word
+     split), so a multi-word name like "quest 3" never makes the bare word "3"
+     known; Quest Giver's night-rejected menu digit must fall to "I did not
+     understand the word \"3\".", not the catch-all. */
   for (i = 0; i < adv->n_objects; i++)
     {
       const a5_object_t *o = &adv->objects[i];
       if (o->article && o->article[0]) kw->insert (o->article);
       for (auto &w : split_ws (o->prefix)) kw->insert (w);
       for (j = 0; j < o->n_names; j++)
-        for (auto &w : split_ws (o->names[j])) kw->insert (w);
+        if (o->names[j] && o->names[j][0]) kw->insert (o->names[j]);
     }
-  /* Characters: article + prefix words + descriptors (original case) + proper
-     name (the one field the runner lowercases, vb:3522). */
+  /* Characters: article + prefix words + descriptors (whole entries, like the
+     runner's arlDescriptors loop) + proper name (the one field the runner
+     lowercases, vb:3522). */
   for (i = 0; i < adv->n_characters; i++)
     {
       const a5_character_t *c = &adv->characters[i];
       if (c->article && c->article[0]) kw->insert (c->article);
       for (auto &w : split_ws (c->prefix)) kw->insert (w);
       for (j = 0; j < c->n_descriptors; j++)
-        for (auto &w : split_ws (c->descriptors[j])) kw->insert (w);
+        if (c->descriptors[j] && c->descriptors[j][0])
+          kw->insert (c->descriptors[j]);
       if (c->name && c->name[0]) kw->insert (lower (c->name));
     }
   /* Adverbs: every direction word (sDirectionsRE split on "|"). */

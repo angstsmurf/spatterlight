@@ -1288,33 +1288,31 @@ FILTER="${1:-}"
 # 62, because every door roll, every corridor description index and every
 # <#oneOf()#> comes off the RNG.
 #
-# (2026-07-23) QuestGiver WIRED at DIVERGE 0|396, golden-backed on the vanilla
-# column.  Daz Woolley, 2015: a 10-day management game -- draw quest cards, hire
-# the adventurer whose stats best fit each, and bank the countdown payouts before
-# the Grand Total Score prints on day 10.  The Scarier route (best4, 223 cmds)
-# reaches the clean ending "10 Days has passed!" with all 21 adventurers hired
-# (20 deck cards + the private-message shipwreck), 21/21 quests succeeded and a
-# Grand Total Score of 1199 -- the true maximum.  It does NOT byte-match FD, and
-# the divergence is architectural, not RNG or a fixable Scarier bug.  ROOT CAUSE
-# (line-level, via FD_DL_TRACE): the 10-day clock is a global TurnBased event
-# whose six ExecuteTask subevents fire in order each turn; the daylight-decrement
-# subevent daz61DaylightC declares ZERO references, but FD's AttemptToExecuteTask
-# does InReferences = task.CopyNewRefs(NewReferences), and CopyNewRefs
-# (clsTask.vb) copies the WHOLE ambient NewReferences with ALL its items,
-# ignoring the task's declared count.  On a give-completion turn the preceding
-# subevent daz6CheckIfAny leaves NewReferences = the merged active-quest set, so
-# daz61DaylightC's DecVariable runs once per active quest -> daylight drops by N,
-# not 1.  Both engines apply the same extra decrements, but FD front-loads them
-# onto give-completion turns while Scarier's per-member group-Execute forms the
-# plural leftover 1-2 turns later, so the clocks phase-shift and compound over
-# ten days (FD nightfalls earlier and night-rejects later gives).  Matching FD
-# would require Scarier's event-fired group-Execute to MERGE identical-text child
-# responses into a multi-item aggregate -- but the command path (VIEW CARDS =
-# daz6ViewCardsP) explicitly REQUIRES per-member, non-merged iteration
-# (a5run_action.cpp:2497), so reconciling both is high regression risk against
-# 114 passing games for one emergent FD quirk.  Hence DIVERGE, documented, with a
-# maximal winning Scarier golden.  Vanilla pins Scarier's own golden (0); the
-# xoshiro column's 396 is the measured FD-vs-Scarier baseline.
+# (2026-07-23, MATCH 0|0 since 2026-07-25) QuestGiver, golden-backed on the
+# vanilla column.  Daz Woolley, 2015: a 10-day management game -- draw quest
+# cards, hire the adventurer whose stats best fit each, and bank the countdown
+# payouts before the Grand Total Score prints on day 10.  Originally wired
+# DIVERGE 0|396: the 10-day clock is a global TurnBased event whose six
+# ExecuteTask subevents fire in order each turn; the daylight-decrement subevent
+# daz61DaylightC declares ZERO references, but FD's AttemptToExecuteTask does
+# InReferences = task.CopyNewRefs(NewReferences), and the ambient NewReferences
+# after the preceding daz6CheckIfAny attempt is that attempt's LAST displayed
+# response's reference items -- daz6CheckIfAny4's whitespace-only "\n\n"
+# completion, which the runner's bHasOutput COUNTS as output and which merges
+# every active quest into one response entry.  So daylight drops once per
+# active-with-countdown quest, every daytime turn, where Scarier ticked once.
+# Scarier now models the whole pipeline (the per-attempt response table ev_tbl
+# in a5run_internal.h: raw-branch-text keyed merge, per-item eager branch
+# selection, post-attempt NewReferences leftover, the [nil] reset after a
+# silently-failing attempt, plus the runner's whole-name known-words list and
+# Display-ordered `<#..#>` draws on the response-map path) and the walkthrough
+# is byte-identical to FD under both RNG modes.  NOTE: the 223-cmd route was
+# derived under Scarier's OLD slower clock, where it hired all 21 adventurers
+# for the true-max Grand Total 1199; under the now-FD-faithful clock the same
+# route night-loses several gives and ends at 9 quests / Grand Total 427 (which
+# IS what real ADRIFT produces for this route).  Re-deriving a max-score route
+# under the corrected clock is an open follow-up (see
+# test/TODO_questgiver_divergence.md).
 # (2026-07-23) Penrhyn: The Burning Sky WIRED at MATCH 0|0, golden-backed.  Rob
 # Sherwin, 2020: a tutorial-driven period drama (Ralph runs errands round
 # Gwylanne, his father is attacked, and he must chase a lead into the walled
@@ -1339,6 +1337,50 @@ FILTER="${1:-}"
 # A5_WALKTHROUGH_FINDINGS.md.  After the fix the deterministic transcript is
 # byte-identical to FD; the only residual is 2 RANDOM courtyard-ambient lines
 # (xoshiro 0 proves pure RNG noise), which the committed golden pins.
+#
+# OS (PlugIn.Exe) budgets 0|1.  (Vanilla is a golden diff once a golden exists,
+# so its column is 0 even though a direct FD vanilla run diverges in ~20 places
+# -- pure blackjack RNG noise.)  The single xoshiro hunk is architectural.
+# PlayerWin is a Specific override on Stand1's AfterTextAndActions that sets
+# Aipoints = 0, and the runner expands an AggregateOutput message at Display --
+# i.e. AFTER those actions -- so its %aiPoints% reads 0 and it prints "Tester
+# wins!".  Scarier renders the static skeleton at emit time (deferring only the
+# random-bearing pieces), still sees 22, and prints "AiMReele99 wins.".  Closing
+# it means deferring whole aggregate messages, which would put pSpace/position
+# semantics at risk across the entire corpus.  See test/OS_walkthrough.txt.
+#
+# BeginnersCave budgets 0|0.  The T&T solo dungeon, and the only corpus game
+# whose EVERY turn of substance is a combat round, so a direct vanilla FD run
+# (System.Random) necessarily fights a different battle -- ~136 hunks of pure
+# RNG noise.  The vanilla column is a golden diff, so it is 0; xoshiro 0 is the
+# real ground-truth result.  The 81-command route is a
+# 100% win: all seven treasures plus all three captives out alive.  Getting
+# there needed two engine fixes.  (1) a SelectionOnly property read off a
+# SINGLE item answers "1"/"0", not "" (Global.vb:1216/1397/1538, default :1225)
+# -- without it `ready` rejects every weapon and the to-hit roll reads a blank
+# .s_Readyweapo.s_Weapon.  (2) the runner's pre/post-action message comparison
+# AND its htblResponses dedup key on the still-MARKED-UP render.  Every combat
+# message here ends in `<# "<" & rand(0,1000000) & ">" #>`, a pseudo-tag that
+# exists only to make consecutive messages differ; comparing the stripped text
+# made the renders look equal, so Scarier took the they-agree branch and drew a
+# third random (sliding the whole combat stream by one) and swallowed the second
+# "A hit!" of a multi-blow round.  See test/BeginnersCave_walkthrough.txt.
+#
+# BadlandsDemo budgets 0|0.  A 23-command one-room escape demo, clean on the
+# first pass -- no engine work needed.  Worth keeping for its three-deep
+# Specific-override chain (PaintObjec1 -> PaintTheob -> PaintNewKe) and for the
+# non-openable-container refusal.  See test/BadlandsDemo_walkthrough.txt.
+#
+# Dementophobia budgets 0|0.  An unfinishable alpha demo: completing HelpMan
+# arms a priority-39 General task whose command list is every direction word,
+# restricted to Rural Street with no way to clear it, so the intended route
+# dead-ends there and locations 8-15/54-57 are unreachable forever.  The
+# walkthrough plays the prologue, pins the dead end, then reaches the orphaned
+# house-arc set pieces and the whole hotel act through tasks the author left
+# without location restrictions (`press button` teleports to the sixth floor
+# from anywhere).  Ends on WalkHallwa1, the game's only EndGame, a Lose.  Clean
+# on the first pass.  See test/Dementophobia_walkthrough.txt.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1465,9 +1507,26 @@ Dreamspun|dreamspun 0.9.taf|0|0
 TheAwakeners|The Awakeners.taf|0|0
 Wumpus|Wumpus.taf|0|0
 DigitalRoots|DigitalRoots_v2.blorb|0|0
-QuestGiver|QuestGiver_v4.blorb|0|396
+QuestGiver|QuestGiver_v4.blorb|0|0
 Penrhyn|Penrhyn_The Burning Sky_v2.blorb|0|0
 Symphonica64|symphonica.blorb|0|0
+4rooms|4rooms.blorb|0|0
+BookBuildingTutorial|Book building tutorial.taf|0|0
+AnswerGame|answer game.taf|0|0
+Solitary|Solitary.taf|0|0
+SchoolProject|school project.taf|0|0
+NastyEscape|First real game.taf|0|0
+NastyEscapeBarrels|First real game.taf|0|0
+InYourHome|in your home.taf|0|0
+EscapeFromTheHouse2|The escape from the house 2.taf|0|0
+SaveTheKitten|Save the Kitten.taf|0|0
+CCCS2808|CCCS2808.taf|0|0
+NYCHoliday|NYC holiday.taf|0|0
+OS|PlugIn.Exe.taf|0|1
+APlace|project_actuallyfinal.taf|0|0
+BeginnersCave|BeginnersCave.taf|0|0
+BadlandsDemo|Badlands Demo v2.taf|0|0
+Dementophobia|Dementophobia Alpha Demo.blorb|0|0
 EOF
 )
 

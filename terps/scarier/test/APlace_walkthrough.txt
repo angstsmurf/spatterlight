@@ -1,0 +1,72 @@
+# A Place -- "project_actuallyfinal.taf", Kain Masterman 2015 (adrift.co).
+# ★ WON.  A 16-room beginner's dungeon with a strict item chain and an
+# achievement list printed at the win banner; this route collects four of them
+# (Thieves' Hideout, killed the gate guard, took the cake without asking, stole
+# the Gray Star).
+#
+# CHAIN: examine the chair (the key is UNDER it -- `x chair` is the only way to
+# find it) -> unlock/open the north door -> take the cake TWICE (the old lady's
+# first refusal is a warning, not a failure) -> gem from the pantry -> `push
+# wall` in the Fountain Room opens the Thieves' Hideout and its lockpick ->
+# `put gem in fountain` drains the pool into a staircase -> down to the Gate
+# Room -> give the cake to the locker-room guard -> pistol + clip + key card
+# from the open locker, `put clip in pistol` to load -> `unlock case with
+# lockpick` in the shop for the Gray Star -> `shoot guard` in the Gate Room is
+# the ONLY thing that sets Gateopen (the gate key card is a red herring) ->
+# `turn on machine` -> south -> `push button`.
+#
+# The Button Room is toured but its big red button is only examined: pushing it
+# twice is an instant-death ending (ActuallyPu disintegrates you).
+read note
+x chair
+take key
+unlock door with key
+open door
+north
+west
+x old lady
+take cake
+take cake
+south
+take gem
+north
+east
+north
+push wall
+north
+take lockpick
+south
+put gem in fountain
+west
+x foreman
+east
+down
+x guard
+east
+x guard
+give cake to guard
+east
+look in locker
+take pistol
+take clip
+take card
+put clip in pistol
+west
+north
+north
+x button
+south
+south
+south
+x case
+unlock case with lockpick
+take gray star
+north
+west
+shoot guard
+south
+look
+turn on machine
+south
+look
+push button

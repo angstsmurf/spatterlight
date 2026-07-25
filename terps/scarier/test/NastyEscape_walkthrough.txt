@@ -1,0 +1,43 @@
+# The Nasty Escape -- S11m0niC, "First real game.taf" (adrift.co).  ★ WON.
+# You wake locked in an abandoned basement; the only way out is the crack in the
+# wall.  Full route: widen the hole, stand the wooden box under it to reach it,
+# climb out, take the rakes from the front yard, rake the garden for the large
+# key, unlock the house, and go up to the bedroom -- where the win is NOT a task
+# at all but a conversation Topic on the old lady ("game/trap/test/why/lock/
+# basement/you/who") whose Actions carry EndGame Win.  She is your grandmother
+# and the whole basement was an inheritance test.
+#
+# Also toured here: both dead-end doors (the smashed basement door from either
+# side) and the first two of the three cat kicks.  The THIRD kick, in the garden
+# after the cat has fled there, is EndGame Lose -- and grandma tells you as much
+# ("don't kick it - it's very dangerous").  Note the game's authored quirk that
+# stdlib replies come back in the first person ("I move north").
+x barrels
+x box
+x hole
+open door
+enlarge hole
+open door
+break door
+take box
+put box down
+stand on box
+climb through hole
+x cat
+kick cat
+north
+kick cat
+southeast
+take rakes
+east
+rake garden
+take key
+west
+southeast
+x chair
+down
+open door
+up
+up
+x lady
+ask lady about game

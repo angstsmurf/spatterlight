@@ -1,0 +1,20 @@
+The Nasty Escape
+Hello. This is S11m0niC and you're playing my first real text adventure. I am still kinda n00bish at this, so don't expect a lot. This game's played like any other standard text adventure. Enjoy!
+
+Dark basement
+You wake up in a dark, wet basement. Judging by the crushed support beams, partially caved-in ceiling and damaged walls, this basement has been abandoned for a long time. There is a thin stream of light coming in from a tiny hole in one of the walls. The light lets you see some barrels in the corner and a wooden box of sorts.
+
+> x barrels
+In the corner of the room, you see some barrels. They have a skull and crossbones drawn on them and appear to be leaking a dense, smelly fluid.
+
+> sit on barrels
+So, you read the description huh? Curious chap, aren't you?
+
+As you sit on the barrels, you feel a strong force moving through your butt. Then, all of a sudden, you are launched through the ceiling of the basement, through the first floor of the house, then the second, then through the roof. You keep flying for a few minutes, then start falling. Hard ground moves closer and closer, and then... you land. WTF did you think would happen? It's called interactive FICTION for a reason! You get up and... you're home.
+
+You win! Now go back and try to win the game the legitimate way! (may include a bit more thinking)
+
+*** You have won ***
+Thanks for playing! Play again to explore other options you may have missed.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

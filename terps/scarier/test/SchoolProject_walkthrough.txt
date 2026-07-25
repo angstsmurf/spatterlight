@@ -1,0 +1,54 @@
+# school project -- "Untitled" (adrift.co).  A Greek-mythology labyrinth: you
+# are Nolanus, dropped down a shaft into Hades and working west past Cerberus,
+# the Graeae, the Minotaur and the three goddesses.  UNWINNABLE BY DESIGN --
+# every puzzle is solvable, but the last room (Medusa's Den) carries an
+# unconditional System LocationTrigger task whose only action is EndGame Lose,
+# and the "the exit!" location has no inbound movement at all.  The joke ending
+# says so out loud ("everyone knows Perseus killed the Medusa").
+#
+# Full puzzle route: torch (the two hallways are dark without it), skeleton bone
+# -> Cerberus, the corn/tooth/eye trio -> the Graeae (the "eye" is the strange
+# lollipop in Demeter's cornucopia), the cowbell gag that gets you punched by
+# Polydeuces (which is what actually opens the west door), the nemean lion hide
+# out of the Ares statue, and the apple of discord onto a goddess's palms.
+# Note the parser quirks this exercises: "apple" alone is not a known word (the
+# object is named "apple of discord"), and the goddess statues answer to
+# "<name> statue" but not to the bare name.
+take torch
+take rope
+x skeleton
+take bone
+x skull
+take tooth
+north
+x zeus statue
+open zeus statue
+take shield
+north
+x cerberus
+open hermes statue
+give bone to cerberus
+north
+x witches
+x cornucopia
+take corn
+take lollipop
+x lollipop
+give corn to witches
+west
+x minotaur
+x polydeuces
+x ares statue
+take hide
+x collar
+take cowbell
+west
+x table
+read note
+take apple of discord
+put apple of discord on hera statue
+west
+x stone statue
+wear hide
+i
+west

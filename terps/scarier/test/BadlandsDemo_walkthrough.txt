@@ -1,0 +1,44 @@
+# Badlands Demo v2 -- Adam Myers, 2016.  A one-room ADRIFT 5 escape demo
+# ("Rad Adam and the Mystery of the Old Factory, Volume VI"): you locked
+# yourself in a key factory and then dropped the blue door key down the grate.
+# WIN in 23 commands, and the whole puzzle chain is here.
+#
+# The chain: the key blank is inside the cardboard box on the shelf; the blue
+# spray paint is inside the (closed) locker.  `put blank on machine` then
+# `turn on machine` -- TurnOnKeyM is a Specific override on SwitchObjectOn
+# whose only gate is `Blank Must BeOnObject Machine`, so switching it on with
+# the blank still in your hands just hums and switches off again.  The cut key
+# is the WRONG COLOUR, so `paint key with spray paint` (PaintNewKe, a Specific
+# override two levels down: PaintObjec1 -> PaintTheob -> PaintNewKe) swaps Key2
+# for the blue Key1 and hides the can.  Then unlock, OPEN (GoingEastV requires
+# `Door Must BeInState Open`, not merely unlocked), and east -> EndGame Win.
+#
+# The examines are kept in deliberately: they are this demo's whole content,
+# and they exercise the ADRIFT `<audio play src=...>` inline tag (stripped),
+# the "(from the cardboard box)" implicit-take announcement, and the
+# object-state descriptions that change after the cut and after the paint.
+# The `open box` line is also kept: the box is a non-openable container, so it
+# pins the library's "cannot be opened or closed!" refusal.
+x me
+i
+x pistol
+x grate
+x shelf
+x box
+open box
+take blank
+x blank
+open locker
+take spray paint
+x spray paint
+x machine
+put blank on machine
+turn on machine
+i
+x key
+paint key with spray paint
+x key
+x door
+unlock door with key
+open door
+east

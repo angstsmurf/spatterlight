@@ -1,0 +1,87 @@
+Badlands Demo
+It all started with the financial meltdown. The delicate scale of economics suddenly tipped. Every country in the world went simultaneously bankrupt. You'd think that would have evened things out and brought people closer together and promoted cooperation in an attempt to overcome the hard times as one big happy global family. But instead we went a different way. The resource wars led to nuclear war, and when the human race was at its weakest the aliens thought it would be a good time to take over. They released their biological pathogens to wipe out the remaining humans, but one of the alien scientists cut a few corners and soon the alien super-virus mutated and the infected became shambling, flesh-eating zombies. Now that was a true low point for humanity but the good news is the zombies ate most of the aliens so there's that, it's all about perspective really.
+
+------------------------------------------------
+
+You were bravely exploring the badlands when you turned the corner and encountered a vicious gang of badland marauders... who had been bitten and turned by a hoard of zombies... who were still there... also some malicious atomic mutants were hanging around. So being the quick witted survivor that you are you ran like jack-rabbit from a furry convention. You stumbled into a nearby factory, found the blue key near the blue door and locked yourself inside. It's been a few hours now and you're sure they've moved on. The time has come to unlock the door and escape... but you tripped and the blue key fell down the sewer grate. Oops.
+
+------------------------------------------------
+
+Key Factory
+This is a dusty, musty, pre-disaster warehouse where it appears pin and tumbler keys were made. Like every place in the badlands it's extremely dirty and pretty brown. (That is to say it's fairly brown, not pretty) There is a grate on the floor that, even if it weren't welded in place, is rusted in place. Even if it weren't so well secured the grate's weight is so great, trying to lift it is a thing you'd hate. Just leave the grate alone alright!  There is a wooden shelf along the north wall.  A rusty old locker sits in the north west corner of the room.  A blue steel door is built into the east wall.  There is a key cutter in the center of the room.  An exit leads east.
+
+> x me
+You're Rad Adam, a name you gave yourself because you're sooo rad. You're uncle tried explaining to you that in the badlands that's not always a good thing, but you never had the attention span to really listen to him. You're one rude dude with attitude, even if you weren't the greatest survivor in the badlands you'd be the ghost with the most because you're just that cool. It's your dream to go out and make a name for yourself, to prove to what's left of the world what you've always known, that you are the bravest, boldest, baddest, best, most brilliant, most alliterative guy out there.  You are carrying a broken pistol.
+
+> i
+You are wearing nothing, and are carrying a broken pistol.
+
+> x pistol
+It's a Drebin, Ibsen, & Campbell, .45 caliber handgun. That's eight inches of long hard D.I.C. that feels good in you hand. Too bad the firing pin is missing.
+
+> x grate
+It's as big, heavy, and welded in place as it ever was.
+
+> x shelf
+It's just an old stock shelf.  A cardboard box is on the wooden shelf.
+
+> x box
+It's a dusty old cardboard box that probably would fall apart if not for the decades of spider webs covering its surface.  Inside the cardboard box is a key blank.
+
+> open box
+The cardboard box cannot be opened or closed!
+
+> take blank
+(from the cardboard box)
+Ok, you take the key blank from the cardboard box.
+
+> x blank
+This is an old piece of brass that's roughly the shape of a key except for, much like the guy who replaced your spleen after that shootout in Austin, not having any teeth.
+
+> open locker
+You open the storage locker.  Inside the storage locker is a blue can of spray paint.
+
+> take spray paint
+(from the storage locker)
+Ok, you take the blue can of spray paint from the storage locker.
+
+> x spray paint
+A pre-disaster can of blue Knocksville Lead Co. Brand spray paint.
+
+> x machine
+It's a dusty old pre-disaster key cutting machine. It's a miracle it still works.
+
+> put blank on machine
+Ok, you put the key blank on top of the key cutting machine.
+
+> turn on machine
+You switch on the key cutting machine and carefully shape the key blank into a perfect copy of the blue key you lost earlier.
+
+> i
+You are wearing nothing, and are carrying a new key, a blue can of spray paint and a broken pistol.
+
+> x key
+It's a brand spankin' new pin and tumbler key and it looks exactly like the blue key you dropped down he grate, save for being a more conventional color.
+
+> paint key with spray paint
+You coat the key with the last of the spray paint and toss the empty can away. Now you have a pretty blue key.
+
+> x key
+It is a brand new pin and tumbler key... and now it's blue and kinda sticky.
+
+> x door
+It's a pre-disaster metal door that still has a few flakes of blue paint clinging to the less rusty parts. Its solid steel construction means, unless it's unlocked, nobody's going through it. (Good thing to or you might be even more brainless right now.)  The blue door is currently locked.
+
+> unlock door with key
+You unlock the blue door with the blue key.
+
+> open door
+You open the blue door.
+
+> east
+You exit east through the blue door and back out into the badlands.
+
+*** You have won ***
+And so ends the exciting adventure of "Rad Adam and the Mystery of the Old Factory (Volume VI)". Once again you have faced insurmountable odds and won the day! It just goes to show, no old dilapidated, nearly collapsing structure that you happen to trap yourself inside of can hold you for long.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

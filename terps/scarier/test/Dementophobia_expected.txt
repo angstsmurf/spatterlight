@@ -1,0 +1,417 @@
+Dementophobia (ALPHA DEMO)
+
+Boat
+You awaken in a boat, slowly flowing with the nearly dead current in the middle of a misty river.  Also here is An Antique Lantern.
+
+> x me
+You see nothing interesting about yourself.
+
+> i
+You are wearing nothing, and are carrying nothing.
+
+> x lantern
+An old, rustic lantern. It's light is dim, but it's better than nothing.
+
+> take lantern
+Ok, you pick up the Antique Lantern.
+
+> north
+A sharp darkness pierces the river. You can barely see outside the boat.
+
+> turn on lantern
+You switch on the Antique Lantern.
+
+> north
+You move north.
+
+Shoreline
+You enter the shoreline.  Also here is a State ID and a Blue Diary number 1.  An exit leads north.
+
+> x id
+There is nothing special about the State ID.
+
+> take id
+Ok, you pick up the State ID.
+
+> read id
+Most of the information is illegible, as if smudged away by water. The name, however, is still readable:
+
+BERKOWITZ, JACK
+
+> x diary number 1
+A blue diary. The name "JACK BERKOWITZ" is written on the cover.
+
+> take diary number 1
+Ok, you pick up the Blue Diary number 1.
+
+> read diary number 1
+The doctors said that she only has fourteen days. If only she hadn't contracted that damn disease...
+
+I can't stand seeing her like this.
+
+> north
+You move north.
+
+Forest
+As you enter the forest, a sharp, chillingly human whimper fills your ears.  Exits are north and south.
+
+> investigate whimper
+As you investigate the whimper, you realize that it is not a human, but a wolf. Chunks of flesh are missing, as it appears to have been eaten alive by something else...
+
+> north
+You move north.
+
+Long Road
+You step onto a long, dormant road.  Also here is a Blue Diary number 2.  An exit leads west.
+
+> take diary number 2
+Ok, you pick up the Blue Diary number 2.
+
+> read diary number 2
+I can't stand seeing her like this. So lifeless...
+
+I would do anything just to be with her again. To kiss her again. To hold her hand again. To tell her I love her again.
+
+> west
+You move west.
+
+Old Bridge
+You step onto an old wooden bridge. Some of the planks are missing.
+
+There appears to be a sign here, carried away by the wind.  Exits are east and west.
+
+> look at sign
+The sign, rusted and fallen over, reads:
+
+ WELCOME TO
+
+MIDNIGHT FALLS
+
+> west
+You move west.
+
+Mountain Road
+You start to walk down a long, winding, mountain road. The gaurd rail is out, and the road seems to get steeper and steeper with each and every step you take.  Exits are east and west.
+
+> west
+You move west.
+
+Rural Street
+You enter a rural street, lit by streetlights. You see a gas station in the distance.  An exit leads east.
+
+> approach gas station
+As you approach the gas station, a man is running from a pack of wolves.
+
+> approach man
+As you approach the man, he falls. The wolves begin to feast on his flesh. He cries out, begging for help.
+
+> help man
+As you try to help the man, the wolves run away. The man breaths a sigh of relief when suddenly, a tall -- possibly eight foot tall entity approaches him. Cold sweat begins to run down the man's face as it approaches him, wearing a dark, heavy robe, and imprisoned by chains. A massive, medieval-era battle axe in it's hands. A faded dark red color stains the blade. It is the slayer
+
+"Please, not you! Not me!" cries the man.
+
+The slayer approaches the man. It raises it's axe.
+
+"Please! I'm sorry! I didn't mean to do it! GOD FORGIVE ME!!!"
+
+The heavy blade of the axe comes crashing down on the man.
+
+The man crawls weakly toward you.
+
+He reaches his blood-soaked arm up to you.
+
+"HELP....ME..." pleads the man.
+
+And then, it is all over. The slayer raises it's blood soaked axe.
+
+It stares you dead in the eye.
+
+> stand still
+You stand your ground.
+
+"What are you?" you ask it.
+
+You look at it's distorted, demonic face, it's eyes covered by a blood-soaked cloth tied around it's head.
+
+It turns around, and walks away.
+
+It vanishes.
+
+> south
+Right as you begin to move the slayer slashes you in half at the waist with it's massive axe.
+
+G A M E  O V E R
+
+> east
+Right as you begin to move the slayer slashes you in half at the waist with it's massive axe.
+
+G A M E  O V E R
+
+> approach oven.
+As you approach the oven, you smell sulfur, along with faint screaming. Something is burning inside the oven.
+
+> open oven
+You try to open the oven, but it has been melted shut. The screaming intensifies, and then stops altogether.
+
+> Look at wedding photograph
+A wedding photograph. Something is off about this picture...
+
+> Look at child photograph
+A photograph of a child, presumably of the couple in the wedding photo. Something is off about this picture...
+
+> Look at family photograph
+A photograph of a seemingly happy family. There is a slight bevel...
+
+> Look at veteran photograph
+A photograph of an army veteran.
+
+> Look inside uniform
+You find a small folded paper inside of the army uniform.
+
+> Read paper
+The paper reads:
+
+"I'm sorry son. Your mother...she loved you very much. I had to do it. I couldn't stand seeing her like this."
+
+> Pull back shower curtain
+You pull back the shower curtain to reveal a woman lying naked and motionless in the shower. There are markings around her neck and throat.
+
+> Turn off light
+You flip the hallway light switch, turning the lights off. A word appears on each photograph.
+
+> Affection
+You hear something click.
+
+> Procreation
+You hear something click.
+
+> Patricide
+The door has unlocked.
+
+> approach blonde woman
+As you approach the woman, she turns to you:
+
+"Hey. You seem new here. What's your name?"
+
+> Jack Berkowitz
+"Jack Berkowitz. Why do you want to know?" you tell the woman.
+
+"I just wanted to know your name, relax. I'm Caroline."
+
+She offers her hand, but you don't take it.
+
+"Is there something you wanted?" you tell her
+
+"Kind of strange place, isn't it?"
+
+"Yeah...it is."
+
+"Are you okay?" she inquires,
+
+"Yeah, it's nothing." you reply.
+
+"speaking of nothing -- how did you get here?"
+
+"What do you mean?"
+
+"I must be dreaming this...this place can't be real. It can't be."
+
+"Real enough for me, that's for sure..."
+
+"I was driving home from work," she tells you,"when I got into an accident. Strange thing was, there were no other cars on the road that night. Next thing I knew I found myself awake in this strange down."
+
+"Yeah..."
+
+"Are you sure you're alright?"
+
+"Yeah. I'm fine."
+
+"Well then if you are real -- a real, breathing human being -- how did you end up here?"
+
+"I don't want to talk about it...it's nothing you want to hear, anyways. Long story."
+
+"Fine. Don't tell me."
+
+You sigh, and then tell her:
+
+"It felt like I was being taken over by something...it was as if the Angel of Death was looking into my soul..."
+
+"Well...since you're here...maybe you can help me with something."
+
+"such as?"
+
+"You see...my boyfriend is here. A couple of months back, he went missing. But I saw him just now. I swear it. I'm not hallucinating. I thought I was, but I'm not."
+
+"So? Go find him. What do you need me for?"
+
+You walk away.
+
+Caroline walks after you.
+
+"Hey."
+
+You stop, and turn around. She walks up to you.
+
+"You're big and strong. You can protect me, can't you?"
+
+As she says this, a voice pierces you mind:
+
+"Just promise me one thing...that we will always be together. Always. Forever."
+
+Caroline inquires: "Are you sure you're okay?"
+
+"Yeah I'm fine."
+
+"So?"
+
+"Okay. I'll protect you."
+
+"You promise? I mean...I've seen those things. I've seen...HIM. I don't want to die."
+
+"I promise. Now let's go."
+
+> Give Caroline coat
+"You cold?" You ask her.
+
+"Freezing. I've never felt this old in my life."
+
+You give her your leather Jacket.
+
+"Here. Take this."
+
+"Are you sure?"
+
+"Yeah, I'm fine."
+
+"What about you?"
+
+"Take it. Cold doesn't bother me."
+
+She puts on the Jacket.
+
+"Something the matter?" She asks.
+
+"You just remind me of someone I know...someone important to me."
+
+"Who?" she asks, but you don't want to tell her.
+
+> approach desk
+You approach the front desk. A hotel manifest is in front of you.
+
+> Read manifest
+A list of names, scrawled in blood:
+
+JOE BALL
+CHARLES ALBRIGHT
+ANGELO BUONO JR.
+TED BUNDY
+CHARLES MANSON
+ALBERT FISH
+JEFFREY DAHMER
+ED GEIN
+DENNIS RADER
+
+> press button
+The elevator hums into motion. For a minute you swear you saw a message flicker across the small screen:
+
+WELCOME TO HELL
+
+The message disappears almost instantly.
+
+Finally, you arrive at the sixth floor.
+
+> look
+
+Sixth floor
+The Sixth floor.
+
+Caroline tells you to try the fourth room.  An exit leads north.
+
+> north
+You move north.
+
+604
+Room 604.
+
+Nothing out of the ordinary. Completely orderly, almost as if recently prepared.
+
+"I guess he's not here." Says Caroline, standing near the doorway.
+
+Something catches your eye: a light coming from the bathroom door.  An exit leads south.
+
+> enter bathroom
+Sorry, I'm not sure which object you are trying to enter.
+
+> look
+
+604 Bathroom
+The bathroom.
+
+Seemingly nothing out of the ordinary.
+
+> leave bathroom
+The door slams shut as you attempt to leave the bathroom.
+
+The lights begin to flicker as the mirror cracks and shatters.
+
+Blood begins to flow down the walls as if they were alive. You try to pound on the door.
+
+"Open the door!!" You cry out.
+
+And then the power goes out completely.
+
+Behind you, a corpse, illuminated by a candle.
+
+It bears the eerie resemblance of yourself.
+
+"SOMEBODY OPEN THE DOOR!!! CAROLINE?!" You yell out.
+
+No response.
+
+Suddenly, you are knocked off your feet.
+
+And then it -- the slayer -- appears before you.
+
+It raises its axe.
+
+You throw your arms up in defense as it brings the axe down.
+
+Right before the blade collides with your flesh, you find yourself in a long corridor. No door on either side.
+
+Something drawing you in...you feel the urge to walk forward.
+
+> walk down hallway
+You begin to walk down the hallway, when suddenly, the slayer appears behind you.
+
+It begins to walk after you.
+
+> run down hallway
+You run as fast as you can to get away from it, but it always seems to be right behind you.
+
+Up ahead, room 602.
+
+> enter 602
+Sorry, I'm not sure which object you are trying to enter.
+
+> pick up paper
+The paper reads:
+
+"He stands tall against the sinners and the guilty,
+Punishment knows no name like his.
+He stands strong against the wicked,
+For they know no name like his.
+Like a rock, he stands,
+For the wicked shall know no name like his."
+
+The slayer enters the room.
+
+TO BE CONTINUED...
+
+> walk north
+You walk briskly down the hallway. The slayer catches up to you, raising his axe. He slams the blade into your spine as you collapse. He executes you.
+
+G A M E  O V E R
+
+*** You have lost ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

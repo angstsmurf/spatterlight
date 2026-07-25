@@ -1,0 +1,115 @@
+The Nasty Escape
+Hello. This is S11m0niC and you're playing my first real text adventure. I am still kinda n00bish at this, so don't expect a lot. This game's played like any other standard text adventure. Enjoy!
+
+Dark basement
+You wake up in a dark, wet basement. Judging by the crushed support beams, partially caved-in ceiling and damaged walls, this basement has been abandoned for a long time. There is a thin stream of light coming in from a tiny hole in one of the walls. The light lets you see some barrels in the corner and a wooden box of sorts.
+
+> x barrels
+In the corner of the room, you see some barrels. They have a skull and crossbones drawn on them and appear to be leaking a dense, smelly fluid.
+
+> x box
+You look at the box. It's not very big, any appears to be empty. It surprises you that it's actually quite sturdy, opposed to everything else in this basement.  The wooden box is currently closed.
+
+> x hole
+You approach the hole in the wall. You have to stretch a bit, since it's near the ceiling. It's quite small, just enough for you to stick a couple fingers through. You look through and see that it's just above ground. You can see a bush which must be growing in front of the hole, but you can't see much else.
+
+> open door
+You can't see any doors!
+
+> enlarge hole
+You try to widen the hole enough for you to squeeze through. You have to work for a bit, but luckily the wall is weak from age and you eventually manage to remove enough bricks to make a relatively large hole. But, it's still too high for you to go through.
+
+> open door
+You try to open the door, but because it's badly crushed you can do nothing. It's still fairly strong through, so breaking it isn't possible either.
+
+> break door
+You desperately try to break the door, punch it, kick it, run into it but nothing helps. The door is very strong and withstands your beating easily.
+
+> take box
+Ok, I pick up the wooden box.
+
+> put box down
+You put the box down in front of the hole.
+
+> stand on box
+I stand on the wooden box.
+
+> climb through hole
+You have successfully climbed through the hole. You are now outside.
+
+> x cat
+You see a cat. It's gray with black spots.
+
+> kick cat
+You kick the cat. The cat looks up at you with great sadness. Then it slowly walks north and disappears behind the corner.
+
+> north
+I move north.
+
+Front yard
+You see a small yard. It contains the entrance to the house to the southeast and the small path leading back to the hole in the basement wall. The entire yard, just like the entire area around the house, is surrounded by a brick wall. There are also some rakes leaned against the house wall.  You also see the cat you kicked sitting by the brick wall, still looking at you with sadness in his eyes.
+
+> kick cat
+You kick the cat again. The cat looks up at you again, now with obvious anger in his eyes. Then he stands up again and runs across the yard, to the garden on the east.
+
+> southeast
+You can't go through the door, because it's locked.
+
+> take rakes
+Ok, I pick up the rakes.
+
+> east
+I move east.
+
+Garden
+The garden seems to be abandoned just as everything else. The flowers have withered long ago, weeds have taken over and now it's hard to even navigate it.  The cat is sitting a little to the left, with obvious hatred in his eyes.
+
+> rake garden
+You take the rakes and rake the garden. You rake for a while, and find nothing. You almost give up when you notice something shining in the dirt. You clear the dirt off and find that it's a large key.
+
+> take key
+Ok, I pick up the large key.
+
+> west
+I move west.
+
+Front yard
+You see a small yard. It contains the entrance to the house to the southeast and the small path leading back to the hole in the basement wall. The entire yard, just like the entire area around the house, is surrounded by a brick wall. There are also some rakes leaned against the house wall.
+
+> southeast
+You open the door with the key. You are now standing in the living room of the house.
+
+> x chair
+It's a simple old chair.
+
+> down
+I move down.
+
+Staircase to basement
+You descend the staircase to find a door. The opening mechanism on the door is smashed and it's obvious that someone wanted this door to never open. You doubt you can open this door in any way.
+
+> open door
+You try to open the door, but the handle doesn't budge. The door is also too strong to break through, so it looks like the only way in or out of the basement is the hole in the wall.
+
+> up
+I move up.
+
+Living room
+You are in the living room of the house. It's almost empty, except for a carpet with a maze drawn on it, a wooden chair and a staircase leading up into the darkness and down, probably into the cellar.
+
+> up
+I move up.
+
+Bedroom
+This room is sure a change. A red carpet leads from the door to a big bed, complete with silk pillows and covers, there's a generous amount of light coming in from the windows, and the overall look of the room is more like a queen's bedroom. But what surprises you the most is that there's an old lady lying in the bed looking at you.  The old lady is here.
+
+> x lady
+On the silk bed lays an old lady; she is obviously very old, probably over a 100. She looks at you, but says nothing.
+
+> ask lady about game
+You probably weren't pleased with being locked up in a basement and having to figure a way out of it and then into this house and all that. But trust me, it was for a purpose. Luke, I am your grandmother. This "game", as you could call it, was a test. A test to see if you are intelligent enough to receive my heritage. You may be pleased to know that it includes around 42,000,000 dollars, this entire property, my 4 businesses and my cat. Just a tip: don't kick it - it's very dangerous. Anyway, you have proven to me. I now see that you're worthy of my heritage and I hereby give it all to you. I will die soon, and you are my only heir. Please take care of all this, and please, I beg you, feed my cat.
+
+*** You have won ***
+Thanks for playing! Play again to explore other options you may have missed.
+Would you like to restart, restore a saved game, quit or undo the last command?
+

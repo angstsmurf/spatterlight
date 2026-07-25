@@ -102,15 +102,25 @@ is_numeric_str (const std::string &s)
   return digit && i == n;
 }
 
-/* VB Val(): the leading numeric prefix of a string, else 0. */
+/* VB Val(): the leading numeric prefix of a string, else 0.
+
+   clsVariable keeps every reduced token as a STRING, so a division by zero --
+   which Math.Round(x / 0) leaves as Double.NaN -- is stored as the literal text
+   "NaN", and any later Val() of it is 0, not NaN.  (Beginner's Cave leans on
+   this: its to-hit formula divides the armour-penalty sum by an unarmoured
+   NPC's RequiredEx sum, i.e. 0/0, so every enemy attack goes through the
+   NaN path.)  strtod would happily read "NaN"/"inf" back as those values, so
+   answer 0 for them here. */
 double
 val_of (const Val &v)
 {
   if (v.isnum)
-    return v.n;
+    return (isnan (v.n) || isinf (v.n)) ? 0.0 : v.n;
   const char *p = v.s.c_str ();
   char *end;
   double d = strtod (p, &end);
+  if (isnan (d) || isinf (d))
+    return 0.0;
   return (end == p) ? 0.0 : d;
 }
 
@@ -416,8 +426,14 @@ parse_add (Parser &p)
         {
           p.adv ();
           Val right = parse_mul (p);
-          bool ln = left.isnum || is_numeric_str (left.s);
-          bool rn = right.isnum || is_numeric_str (right.s);
+          /* IsNumeric() on the token's STRING form, exactly as clsVariable
+             tests it -- so a "NaN" (or "∞") operand is NOT numeric and this
+             falls through to concatenation: `50 + NaN - 15` reduces to
+             "50NaN" and then Val("50NaN") - 15 == 35.  That quirk is load-
+             bearing in Beginner's Cave, whose combat rolls all divide by an
+             unarmoured NPC's zero RequiredEx sum. */
+          bool ln = is_numeric_str (left.s);
+          bool rn = is_numeric_str (right.s);
           if (ln && rn) left = mk_num (val_of (left) + val_of (right));
           else left = mk_str (left.s + right.s);
         }
@@ -443,8 +459,7 @@ parse_cmp (Parser &p)
       std::string op = o;
       p.adv ();
       Val right = parse_add (p);
-      bool both_num = (left.isnum || is_numeric_str (left.s))
-                   && (right.isnum || is_numeric_str (right.s));
+      bool both_num = is_numeric_str (left.s) && is_numeric_str (right.s);
       int res = 0;
       if (op == "EQ")
         res = both_num ? (val_of (left) == val_of (right)) : (left.s == right.s);

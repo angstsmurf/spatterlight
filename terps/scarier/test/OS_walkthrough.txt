@@ -1,0 +1,50 @@
+# OS -- "PlugIn.Exe.taf" (adrift.co).  A 2014 one-room demo: a chat room with
+# two bots (AiMReele99, NoamChomsk1) plus a working blackjack table.  No score,
+# no ending, nothing to win -- this route exercises what the game actually
+# implements: the username prompt, both conversation trees, and two full hands
+# of blackjack (one won on a double hit, one lost).
+#
+# INPUT PROMPTS -- the blank lines below are NOT padding:
+#   line 1  `Tester`  answers Task2's %popupinput["First Enter Your UserName"]%
+#   line 2  (blank)   answers the "Press [space] to Continue" wait
+#   after `noam`, the blank answers NoamChomsk1's <waitkey>
+#   `20` / `15`      answer %popupinput["Place your bet.No refunds.", %playerMoney%]%
+#
+# ENGINE NOTES.  This game drove three fixes, all suite-verified:
+#   * SetVariable `FOR Loop = 1 TO 3 : SET Bjvalue[Loop] = ... : NEXT Loop` used
+#     to be a silent no-op (split_assignment cut at the first `=`), so every
+#     card dealt as "Zero of Spades".
+#   * The card line mixes %cardPicture[RAND(1,4)]% INSIDE a `<#if(..)#>` with
+#     %cardType[RAND(1,4)]% outside it.  The runner holds the whole aggregate
+#     message to Display and draws in text order; we now defer such a `<#..#>`
+#     body raw (tag \003) so its substitution draws at the flush, in position.
+#   * A sentinel emitted inside a stripped tag (`<wait %Tpaus%>` wrapping
+#     `<#rand(5, 9)#>`) has no text position; it now sorts at the previous
+#     entry's position instead of last, keeping its draw in push order.
+#
+# DOCUMENTED DIVERGENCE (1 xoshiro hunk, budgeted): "AiMReele99 wins." where FD
+# says "Tester wins!".  PlayerWin is a Specific override on Stand1's
+# AfterTextAndActions and sets Aipoints = 0; the runner expands the aggregate
+# message at Display, AFTER those actions, so its %aiPoints% reads 0.  Scarier
+# renders the static skeleton at emit time and defers only random-bearing
+# pieces, so it still sees 22.  Closing it means deferring whole aggregate
+# messages, which would put pSpace/position semantics at risk across the entire
+# corpus -- budgeted here instead.
+Tester
+
+who
+ai
+noam
+
+check money
+begin
+20
+hit
+hit again
+dabble
+check money
+begin
+15
+hit
+dabble
+check money

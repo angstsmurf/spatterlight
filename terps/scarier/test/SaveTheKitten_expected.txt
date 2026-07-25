@@ -1,0 +1,96 @@
+Save the Kitten
+You are at home alone. The rest of your family is at the hospital because your son Tommy hit his head again. You walk to the back of your house to water your favorite vase of flowers. You are holding a watering can. You are standing by the back door. To the left of the door are your flowers.
+
+You hear a loud sound. It sounds like a small animal. It does not sound happy. The noise is coming from outside the door.
+
+What do you do?
+
+> x flowers
+A vase of your favorite flowers.
+
+> open door
+The door is open. You are standing in the doorway and can see your backyard. You still hear the noise. It is coming from your backyard. The animal sounds very scared.  What do you do?
+
+> walk outside
+You walk through the door. You are in your backyard. As you walk you almost trip on the hose lying on the ground. Tommy must have left it there. This makes you angry.
+
+To your right is the slide and swing that your son likes to play on. To your left is the garden it is full of beautiful flowers and vegetables.
+
+Behind the garden you can see your shed.In front of you is the big old tree.
+
+You see where the sound is coming from. Your family’s kitten is hanging from the tree. He looks like he is going to fall. What do you do?
+
+> x hose
+The hose is very big and able to shoot a lot of water.
+
+> north
+You move north.
+
+The old tree
+You are at the old tree. Behind the tree is the fence. You can see that your neighbors bought a new trampoline but it is pretty far away.
+
+High up in the tree you see Tommy's kitten. He looks like he is going to fall at any moment. He is not where you can catch him. If he falls he will certainly die. What do you do?  Kitten is here.
+
+> x kitten
+The kitten is hanging from the tree. He looks like he will fall at any minute. If you don't save him he will probably die.
+
+> south
+You move south.
+
+backyard
+To your right is the slide and swing that your son likes to play on. To your left is the garden it is full of beautiful flowers and vegetables.  Behind the garden you can see your shed. Your son Tommy left it open again. This makes you angry. In front of you is the big old tree. You see a small fury animal in the tree.
+
+> west
+You move west.
+
+the garden
+You are at the garden. It is full of beautiful flowers.  To the left of the garden you can see your shed.
+
+> x flowers
+Your favorite flowers.
+
+> west
+You move west.
+
+The shed
+You are at the shed. Your son Tommy left it open again. This makes you angry. You do not see any of your gardening tools. Instead, it is full of rocks. You did not put the rocks here. It was probably Tommy. Tommy is creative. The kitten continues to cry.
+
+> x rocks
+The rocks are heavy but small enough to carry. They look like they would be easy to throw.
+
+> east
+You move east.
+
+the garden
+You are at the garden. It is full of beautiful flowers.  To the left of the garden you can see your shed.
+
+> east
+You move east.
+
+backyard
+To your right is the slide and swing that your son likes to play on. To your left is the garden it is full of beautiful flowers and vegetables.  Behind the garden you can see your shed. Your son Tommy left it open again. This makes you angry. In front of you is the big old tree. You see a small fury animal in the tree.
+
+> take hose
+Ok, you pick up the hose.
+
+> shoot the kitten
+Sorry, I didn't understand that command.
+
+> spray kitten
+Sorry, I didn't understand that command.
+
+> north
+You move north.
+
+The old tree
+You are at the old tree. Behind the tree is the fence. You can see that your neighbors bought a new trampoline but it is pretty far away.
+
+High up in the tree you see Tommy's kitten. He looks like he is going to fall at any moment. He is not where you can catch him. If he falls he will certainly die. What do you do?  Kitten is here.
+
+> shoot
+The water knocks the kitten into your neighbor's backyard onto their trampoline. The kitten is saved.
+
+*** You have won ***
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

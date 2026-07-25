@@ -119,6 +119,7 @@ struct resp_entry {
   const a5_xml_node_t *comp;      /* aggregate: re-rendered at flush            */
   const a5_xml_node_t *fail_comp; /* fail: the restriction <Message> node       */
   std::string rendered;           /* non-aggregate / fail: final text           */
+  std::string key;                /* dedup key: the still-MARKED render (below)  */
   std::vector<std::string> obj_keys;  /* merged %objects% items (aggregate)     */
   std::string obj2;               /* %object2% snapshot (first occurrence)      */
   std::string item;               /* the single item this entry was made for    */
@@ -269,6 +270,37 @@ struct a5_run_s {
      station-known "\n" child must stop the scan before the fuel task). */
   int    task_raw_output;
 
+  /* Depth of event/walk/LocationTrigger-fired task attempts currently running
+     (attempt_event_task_impl).  Inside such an attempt the runner's end-of-attempt
+     Display loop re-assigns the ambient NewReferences to the LAST-inserted
+     response entry's reference items (clsUserSession.vb:851-856) -- so a
+     SetTasks-Execute over a group whose members share one response entry
+     (identical raw output, incl. a whitespace-only completion, which the runner's
+     bHasOutput counts) leaves a PLURAL leftover that the NEXT event task's
+     CopyNewRefs iterates once per item.  Quest Giver's per-turn daz6CheckIfAny4
+     sweep over the active-quest group is the canonical case: its blank "\n\n"
+     completion merges every active quest into one response, and daz61DaylightC
+     (0 declared refs) then decrements daylight once per quest.
+
+     Because the ambient only changes AT the Display (not while the attempt's
+     own actions still run -- they read the attempt-entry InReferences copy),
+     the winner is collected in the ev_lo stash below and installed into
+     st->ref_items only when the attempt finishes.  All of it is gated on this
+     flag, so the command path (view cards' per-member card printing) is
+     untouched. */
+  int    in_ev_attempt;
+
+  /* The attempt's ordered response table (the runner's htblResponsesPass, one
+     per AttemptToExecuteTask): every completion with a non-blank RAW template
+     (bHasOutput) inserts an entry keyed by its CompletionMessage node, and a
+     repeat of the same completion MERGES (that is also what the ev_seen text
+     dedup drops from the output).  act_set_tasks' event group-Execute attaches
+     each member to the entry its run last touched, so the final entry's
+     accumulated members are the attempt's post-Display leftover.  Installed by
+     attempt_event_task (stack-allocated per attempt, nested attempts isolated);
+     NULL on every command path. */
+  struct ev_resp_tbl *ev_tbl;
+
   /* Set while the once-per-input TimeBased tick (ev_time_tick_all) and its
      finish_turn run.  The runner's TimeBasedStuff FLUSHES the tick's own output
      (Display("", True)) before CheckEndOfGame emits the banner as a fresh
@@ -365,6 +397,25 @@ struct a5_run_s {
    land where the runner leaves them, not where a stable sort would. */
 extern void net_introspective_sort (const a5_adventure_t *adv,
                                     std::vector<int> &keys);
+
+/* One event/walk/LocationTrigger attempt's ordered response table (see ev_tbl
+   above) -- just enough of the runner's htblResponsesPass to know which entry
+   was inserted LAST and which reference items merged into each entry.  An entry
+   is keyed by its CompletionMessage node PLUS the eagerly-evaluated raw branch
+   text (the runner keys by the per-subtask CompletionMessage.ToString: the
+   restriction-gated branch is selected per item, and only identical raw texts
+   merge -- Quest Giver's daz61DaylightC shows "Is is now late afternoon.." for
+   the item that lands the counter on 5 AND the comment branch for the next
+   item, two separate responses).  `touches` counts every insert-or-merge so
+   act_set_tasks can tell whether a group member's run reached the table at
+   all; `last` is the entry it reached. */
+struct ev_resp_tbl {
+  std::vector<const void *> keys;
+  std::vector<std::string> texts;
+  std::vector<std::vector<std::string>> refs;
+  int touches = 0;
+  int last = -1;
+};
 
 /* One SetTasks-Execute response scope (see exec_scope above). */
 struct exec_resp_scope {
@@ -502,6 +553,8 @@ void   ref_snap_take (a5_state_t *st, ref_snap *s);
 void   ref_snap_restore (a5_state_t *st, const ref_snap *s);
 size_t sink_len (a5_run_t *run, sb_t *out);
 char  *render_comp_test (a5_state_t *st, const a5_xml_node_t *comp);
+char  *render_comp_test_ex (a5_state_t *st, const a5_xml_node_t *comp,
+                            char **marked);
 int    comp_bears_function (const a5_xml_node_t *n);
 void   resp_insert (resp_map *rm, resp_entry &e, int pos);
 void   resp_add_comp (a5_run_t *run, const a5_task_t *t,

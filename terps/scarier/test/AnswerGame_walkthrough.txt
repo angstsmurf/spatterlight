@@ -1,0 +1,20 @@
+# answer game -- "Untitled" (adrift.co).  A one-room joke: Lumbot asks you to
+# guess the command it is thinking of, and a single General task with the bare
+# `%text%` command matches ABSOLUTELY ANYTHING, so every guess is "correct".
+# The eleven-branch restriction ladder on Wincount walks a different
+# congratulation each turn; turn 10 is the `<waitkey>` "you have won the game"
+# speech, and from turn 11 on the reply is a `<# OneOf(...) #>` draw -- so the
+# vanilla column carries an RNG residual while the xoshiro column must be clean.
+guess
+another guess
+third time lucky
+four
+five
+six
+seven
+eight
+nine
+ten
+eleven
+twelve
+thirteen

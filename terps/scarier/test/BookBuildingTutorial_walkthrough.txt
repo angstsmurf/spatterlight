@@ -1,0 +1,18 @@
+# Book building tutorial -- "Untitled" (adrift.co).  A one-room, one-object
+# ADRIFT 5 tutorial demonstrating a multi-page readable: `read book` while
+# holding it open bumps the ReadBook counter (IncrementR), and once the counter
+# passes 2 the higher-priority ReadBook task prints the last page and closes the
+# book behind you.  There is no ending; this route walks the whole counter cycle
+# through both pages, the last-page close, and the re-read refusal, then reopens
+# and reads once more to show the counter keeps climbing.
+x book
+read book
+take book
+open book
+read book
+read book
+read book
+read book
+open book
+read book
+close book

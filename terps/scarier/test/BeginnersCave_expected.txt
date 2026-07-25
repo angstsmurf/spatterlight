@@ -1,0 +1,760 @@
+Untitled
+
+You have no trouble finding a horse that you, well, borrow to take you to the sight of your first adventure. You follow several signs which lead you to the Beginner's Cave.
+
+As you stand there, the local Knight Marshal comes out to inspect you.
+
+Eventually the Knight Marshal says, "You may now proceed." He then walks away.
+
+You are at the cave entrance. (N/S)
+The entrance is to the south with a sign over it reading, "Beginners Only!". To the north is the road back to town.
+
+> south
+You move south.
+
+You are in a dark north/south tunnel.
+To the north you see bright light streaming in from the outside. To the south you see flickering torch light, but you cannot make out any details.
+
+> south
+You move south.
+
+You are in a large chamber. (N/S/E/W)
+You are in a huge chamber where the roof rises out of sight. Burning torches line the walls making it easy to see. Tunnels lead north and south, and there are small chambers to the east and west.
+
+> east
+You move east.
+
+You are in the east side chamber. (W)
+It is very cold here and the only light comes in dimly from the large chamber to the west.
+
+There is a bottle with a strange potion inside of it here! It has a label stuck to it that you could READ.
+
+There is a grizzled old Hermit (who smells as if he hasn't taken a bath in forty years) in the room.
+
+> take potion
+Ok, you pick up the healing potion.
+
+> west
+You move west.
+
+You are in a large chamber. (N/S/E/W)
+You are in a huge chamber where the roof rises out of sight. Burning torches line the walls making it easy to see. Tunnels lead north and south, and there are small chambers to the east and west.  Hermit enters from the east.
+
+> south
+You move south.
+
+You are at the north end of a long passage. (N/S/E/W)
+A tunnel goes north and east and west are doors that are bolted shut. (Locking something in?). In the dim light you can see that the hall goes south but you cannot make out any details.  Hermit enters from the north.
+
+> west
+You move west.
+
+You are in a west cell. (E)
+You are in a small stark cell with a door on the east side of the room.
+
+A human warrior stands before you, armed with a longsword and carrying a shield. On his shield is a sticker which says, "Hi, I'm Heinrich!"  Hermit enters from the east.
+
+> east
+You move east.
+
+You are at the north end of a long passage. (N/S/E/W)
+A tunnel goes north and east and west are doors that are bolted shut. (Locking something in?). In the dim light you can see that the hall goes south but you cannot make out any details.  Hermit enters from the west.  Heinrich enters from the west.
+
+> north
+You move north.
+
+You are in a large chamber. (N/S/E/W)
+You are in a huge chamber where the roof rises out of sight. Burning torches line the walls making it easy to see. Tunnels lead north and south, and there are small chambers to the east and west.  Hermit enters from the south.  Heinrich enters from the south.
+
+> west
+You move west.
+
+You are in the west side chamber. (E)
+It is very cold here and the only light comes in dimly from the large chamber to the east.
+
+You see a large pile of gleaming diamonds here!
+There are a black rat, a brown rat and a tan rat here.
+
+You see three huge rats charging at you! One is black, one is brown, and one is tan. Each one has sharp white teeth.
+Hermit enters from the east.  Heinrich enters from the east.
+
+> attack black rat
+Birgitte attacks the black rat.
+Your axe ability increased!
+A hit!
+The black rat is hurting.
+
+The black rat attacks Birgitte.
+Dodged!
+
+The brown rat attacks Birgitte.
+Dodged!
+
+The tan rat attacks Birgitte.
+Dodged!
+
+Heinrich attacks the brown rat.
+Dodged!
+
+Hermit attacks the brown rat.
+A hit!
+The brown rat is hurting.
+
+> attack brown rat
+Birgitte attacks the brown rat.
+Dodged!
+
+The black rat attacks Birgitte.
+Dodged!
+
+The brown rat attacks Birgitte.
+Dodged!
+
+The tan rat attacks Birgitte.
+Dodged!
+
+Heinrich attacks the tan rat.
+A hit!
+The tan rat is badly injured!
+
+Hermit attacks the brown rat.
+Dodged!
+
+> attack tan rat
+Birgitte attacks the tan rat.
+Your axe ability increased!
+A hit!
+The tan rat is dead!
+
+The black rat attacks Heinrich.
+Dodged!
+
+The brown rat attacks Heinrich.
+A hit!
+Heinrich is in good shape.
+
+Heinrich attacks the black rat.
+A hit!
+The black rat is dead!
+
+Hermit attacks the brown rat.
+Dodged!
+
+> attack brown rat
+Birgitte attacks the brown rat.
+Dodged!
+
+The brown rat attacks Hermit.
+A hit!
+Hermit is in pain.
+
+Heinrich attacks the brown rat.
+Dodged!
+
+Hermit attacks the brown rat.
+Dodged!
+
+> attack brown rat
+Birgitte attacks the brown rat.
+Your axe ability increased!
+A hit!
+The brown rat is badly injured!
+
+The brown rat attacks Hermit.
+Dodged!
+
+Heinrich attacks the brown rat.
+A hit!
+The brown rat is dead!
+
+> take diamonds
+Ok, you pick up the pile of diamonds.
+
+> east
+You move east.
+
+You are in a large chamber. (N/S/E/W)
+You are in a huge chamber where the roof rises out of sight. Burning torches line the walls making it easy to see. Tunnels lead north and south, and there are small chambers to the east and west.  Hermit enters from the west.  Heinrich enters from the west.
+
+> south
+You move south.
+
+You are at the north end of a long passage. (N/S/E/W)
+A tunnel goes north and east and west are doors that are bolted shut. (Locking something in?). In the dim light you can see that the hall goes south but you cannot make out any details.  Hermit enters from the north.  Heinrich enters from the north.
+
+> east
+You move east.
+
+You are in an east cell. (W)
+You are in a small stark cell with a door on the west side of the room.  You see sack of coins.
+
+There is a huge, hairy, strong and angry Gorilla in the room with you!  Hermit enters from the west.  Heinrich enters from the west.
+
+> attack Gorilla
+Birgitte attacks Gorilla.
+Dodged!
+
+Gorilla attacks Birgitte.
+Dodged!
+
+Heinrich attacks Gorilla.
+A hit!
+Gorilla is hurting.
+
+Hermit attacks Gorilla.
+Dodged!
+
+> attack Gorilla
+Birgitte attacks Gorilla.
+Your axe ability increased!
+A hit!
+Gorilla is hurting.
+
+Gorilla attacks Birgitte.
+Dodged!
+
+Heinrich attacks Gorilla.
+A hit!
+Gorilla is in pain.
+
+Hermit attacks Gorilla.
+Dodged!
+
+> attack Gorilla
+Birgitte attacks Gorilla.
+A hit!
+Gorilla is badly injured!
+
+Gorilla attacks Birgitte.
+Dodged!
+
+Heinrich attacks Gorilla.
+Dodged!
+
+Hermit attacks Gorilla.
+Dodged!
+
+> attack Gorilla
+Birgitte attacks Gorilla.
+Dodged!
+
+Gorilla attacks Birgitte.
+Dodged!
+
+Heinrich attacks Gorilla.
+Dodged!
+
+Hermit attacks Gorilla.
+A hit!
+Gorilla is at death's door!
+
+> attack Gorilla
+Birgitte attacks Gorilla.
+Dodged!
+
+Gorilla attacks Birgitte.
+Dodged!
+
+Heinrich attacks Gorilla.
+Dodged!
+
+Hermit attacks Gorilla.
+Dodged!
+
+> attack Gorilla
+Birgitte attacks Gorilla.
+Your axe ability increased!
+A hit!
+Gorilla is dead!
+
+> take sack
+Ok, you pick up the sack with 50 gold coins inside.
+
+> west
+You move west.
+
+You are at the north end of a long passage. (N/S/E/W)
+A tunnel goes north and east and west are doors that are bolted shut. (Locking something in?). In the dim light you can see that the hall goes south but you cannot make out any details.  Hermit enters from the east.  Heinrich enters from the east.
+
+> south
+You move south.
+
+You are at the middle of a long passage. (N/S/E/W)
+Doors are bolted on both sides of you (east and west). The hall extends north and south.  Hermit enters from the north.  Heinrich enters from the north.
+
+> south
+You move south.
+
+You are at the south end of a long passage. (N/S/E/W)
+To your great shock there are doors to the east and west. The hall goes north from here and a broken tunnel goes south.  Hermit enters from the north.  Heinrich enters from the north.
+
+> east
+You move east.
+
+You are in an east cell. (W)
+You are in a small stark cell with a door on the west side.
+
+There is a large chest in the center of the room.  Hermit enters from the west.  Heinrich enters from the west.
+
+> open chest
+As you approach the chest, it suddenly comes alive and two tentacles come out of the sides, holding you fast. Another tentacle rises from the top and attempts to hurt you.
+
+Mimic attacks Birgitte.
+Dodged!
+
+Heinrich attacks Mimic.
+Dodged!
+
+Hermit attacks Mimic.
+A hit!
+Mimic is in good shape.
+
+> attack Mimic
+Birgitte attacks Mimic.
+Your armor expertise increased!
+A hit!
+Mimic is hurting.
+
+Mimic attacks Birgitte.
+Dodged!
+
+Heinrich attacks Mimic.
+Dodged!
+
+Hermit attacks Mimic.
+Dodged!
+
+> attack Mimic
+Birgitte attacks Mimic.
+Your axe ability increased!
+A hit!
+Mimic is in pain.
+
+Mimic attacks Birgitte.
+Dodged!
+
+Heinrich attacks Mimic.
+Dodged!
+
+Hermit attacks Mimic.
+A hit!
+Mimic is badly injured!
+
+> attack Mimic
+Birgitte attacks Mimic.
+A hit!
+Mimic is badly injured!
+
+Mimic attacks Birgitte.
+Dodged!
+
+Heinrich attacks Mimic.
+Dodged!
+
+Hermit attacks Mimic.
+Dodged!
+
+> attack Mimic
+Birgitte attacks Mimic.
+A hit!
+Mimic is at death's door!
+
+Mimic attacks Birgitte.
+Dodged!
+
+Heinrich attacks Mimic.
+Dodged!
+
+Hermit attacks Mimic.
+A hit!
+Mimic dropped something!  Mimic is dead!
+
+> take ring
+Ok, you pick up the gold ring.
+
+> west
+You move west.
+
+You are at the south end of a long passage. (N/S/E/W)
+To your great shock there are doors to the east and west. The hall goes north from here and a broken tunnel goes south.  Hermit enters from the east.  Heinrich enters from the east.
+
+> south
+You move south.
+
+You are in a broken north/south tunnel.
+The sides of the tunnel are very broken and rough. You see torch light to the south. The east wall has a smooth shape in the center, about the size of a door.  Hermit enters from the north.  Heinrich enters from the north.
+
+> x shape
+You've found a hidden tunnel going off to the east!
+
+> east
+You move east.
+
+You are in an east/west tunnel with faint music.
+You are in a secret east/west passage. You hear a faint melody coming from the east.  Hermit enters from the west.  Heinrich enters from the west.
+
+> east
+You move east.
+
+You are in an east/west tunnel with loud music.
+You can very clearly hear religious music being played and can smell incense from the east.  Hermit enters from the west.  Heinrich enters from the west.
+
+> east
+You move east.
+
+You are at the temple. (W)
+You are in a temple that has paintings of great deeds covering the walls. There are two altars here, one covered with gold paint and the other stained with blood. The only exit leads to the west.
+
+You find several spices. They are of a rare variety and quite valuable.
+
+There is a huge man in religious garb with an insane look on his face here. In his right hand, he carries a mace.
+
+You see a beautiful girl in a flowing white dress. You recognize her as Cynthia Luxom, Duke Luxom's not-too-bright daughter.  Hermit enters from the west.  Heinrich enters from the west.
+
+> attack Priest
+Birgitte attacks the priest.
+A hit!
+The priest is in pain.
+
+The priest attacks Cynthia.
+A hit!
+Cynthia is in pain.
+
+Cynthia attacks the priest.
+Dodged!
+
+Heinrich attacks the priest.
+A hit!
+The priest dropped something!  The priest is dead!
+
+> take spices
+Ok, you pick up the spices.
+
+> west
+You move west.
+
+You are in an east/west tunnel with loud music.
+You can very clearly hear religious music being played and can smell incense from the east.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> west
+You move west.
+
+You are in an east/west tunnel with faint music.
+You are in a secret east/west passage. You hear a faint melody coming from the east.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> west
+You move west.
+
+You are in a broken north/south tunnel.
+The sides of the tunnel are very broken and rough. You see torch light to the south. The east wall has a smooth shape in the center, about the size of a door.
+
+You see a secret passage east.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> south
+You move south.
+
+You are at a T-intersection; North by E/W.
+A brightly burning torch is bolted to the south wall. Dark tunnels lead north and east. To the west is a place where once a door stood, but it has been torn from its hinges.  Hermit enters from the north.  Heinrich enters from the north.  Cynthia enters from the north.
+
+> west
+You move west.
+
+You are in the library. (E)
+You are in what was obviously once a library. Most of the books have been destroyed, with the scraps left lying on the ground. A door, torn from its hinges, also lies on the floor. The exit is to the east.
+
+There is an old book here. It glows in the darkness and is remarkably well preserved.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> take book
+Ok, you pick up the book.
+
+> east
+You move east.
+
+You are at a T-intersection; North by E/W.
+A brightly burning torch is bolted to the south wall. Dark tunnels lead north and east. To the west is a place where once a door stood, but it has been torn from its hinges.  Hermit enters from the west.  Heinrich enters from the west.  Cynthia enters from the west.
+
+> east
+You move east.
+
+You are in an east/west tunnel.
+You are in an unremarkable tunnel. You can see torch light in both directions.  Hermit enters from the west.  Heinrich enters from the west.  Cynthia enters from the west.
+
+> east
+You move east.
+
+You are at the top of a stairway. (W/D)
+You are at an unremarkable stone landing at the top of a flight of stairs. A single torch is bolted to the wall. A tunnel heads back west. It looks very dark down there...  Hermit enters from the west.  Heinrich enters from the west.  Cynthia enters from the west.
+
+> down
+You move down.
+
+You are at the bottom of a stairway. (E/U)
+You are at an unremarkable stone landing at the bottom of a flight of stairs. A light can be seen at the top and a very dim light can be seen down the tunnel to the east.  Hermit enters from above.  Heinrich enters from above.  Cynthia enters from above.
+
+> east
+You move east.
+
+You are in an east/west tunnel.
+You are in a very rough tunnel carved out of a series of natural caverns. Dim light can be seen in both directions.  Hermit enters from the west.  Heinrich enters from the west.  Cynthia enters from the west.
+
+> east
+You move east.
+
+You are in an east/west tunnel smelling of salt.
+You see light to the east, and feel a cool wind coming from there. In the wind you smell a hint of salt.  Hermit enters from the west.  Heinrich enters from the west.  Cynthia enters from the west.
+
+> east
+You move east.
+
+You are in the Pirate's Cove. (E/W)
+You are at a small bay. Cliffs rise on either side of you so that the only exit is back in the tunnel to the west. A broken old boat is resting on the bank of the rough and stormy sea. All around you is salt water, as far as the eye can see.  Also here is a large pile of jewels.
+
+You see a man with a beard and a brass ring in his ear. He is wearing clothes made out of silk and is wielding a very fancily engraved sword.
+
+As the Pirate mutters a word you can't hear, bright green flames surround the blade of his sword.
+Hermit enters from the west.  Heinrich enters from the west.  Cynthia enters from the west.
+
+> attack Pirate
+Birgitte attacks the pirate.
+Your axe ability increased!
+Your armor expertise increased!
+A hit!
+The pirate is in good shape.
+
+The pirate attacks Birgitte.
+Dodged!
+
+Cynthia attacks the pirate.
+Dodged!
+
+Heinrich attacks the pirate.
+Dodged!
+
+Hermit attacks the pirate.
+Dodged!
+
+> attack Pirate
+Birgitte attacks the pirate.
+A hit!
+The pirate is hurting.
+
+The pirate attacks Birgitte.
+A hit!
+Birgitte is hurting.
+
+Cynthia attacks the pirate.
+Dodged!
+
+Heinrich attacks the pirate.
+A hit!
+The pirate is hurting.
+
+Hermit attacks the pirate.
+Dodged!
+
+> attack Pirate
+Birgitte attacks the pirate.
+Dodged!
+
+The pirate attacks Birgitte.
+A hit!
+Birgitte is in pain.
+
+Cynthia attacks the pirate.
+Dodged!
+
+Heinrich attacks the pirate.
+Dodged!
+
+Hermit attacks the pirate.
+A hit!
+The pirate is in pain.
+
+> attack Pirate
+Birgitte attacks the pirate.
+Dodged!
+
+The pirate attacks Birgitte.
+A hit!
+Birgitte is at death's door!
+
+Cynthia attacks the pirate.
+Dodged!
+
+Heinrich attacks the pirate.
+Dodged!
+
+Hermit attacks the pirate.
+A hit!
+The pirate is badly injured!
+
+> drink potion
+You drink the bottle.
+
+It heals Birgitte 24 hit points.
+
+Birgitte is in perfect health.
+
+The bottle is all gone!
+
+The pirate attacks Birgitte.
+A hit!
+Birgitte is hurting.
+
+Cynthia attacks the pirate.
+Dodged!
+
+Heinrich attacks the pirate.
+Dodged!
+
+Hermit attacks the pirate.
+A hit!
+The pirate is badly injured!
+
+> attack Pirate
+Birgitte attacks the pirate.
+Your axe ability increased!
+A hit!
+The pirate is at death's door!
+
+The pirate attacks Birgitte.
+Dodged!
+
+Cynthia attacks the pirate.
+Dodged!
+
+Heinrich attacks the pirate.
+Dodged!
+
+Hermit attacks the pirate.
+Dodged!
+
+> attack Pirate
+Birgitte attacks the pirate.
+Dodged!
+
+The pirate attacks Birgitte.
+Dodged!
+
+Cynthia attacks the pirate.
+Dodged!
+
+Heinrich attacks the pirate.
+Dodged!
+
+Hermit attacks the pirate.
+Dodged!
+
+> attack Pirate
+Birgitte attacks the pirate.
+A hit!
+The pirate dropped something!  The pirate is dead!
+
+> take jewels
+Ok, you pick up the large pile of jewels.
+
+> take trollsfire
+Ok, you pick up the TrollsFire.
+
+> west
+You move west.
+
+You are in an east/west tunnel smelling of salt.
+You see light to the east, and feel a cool wind coming from there. In the wind you smell a hint of salt.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> west
+You move west.
+
+You are in an east/west tunnel.
+You are in a very rough tunnel carved out of a series of natural caverns. Dim light can be seen in both directions.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> west
+You move west.
+
+You are at the bottom of a stairway. (E/U)
+You are at an unremarkable stone landing at the bottom of a flight of stairs. A light can be seen at the top and a very dim light can be seen down the tunnel to the east.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> up
+You move up.
+
+You are at the top of a stairway. (W/D)
+You are at an unremarkable stone landing at the top of a flight of stairs. A single torch is bolted to the wall. A tunnel heads back west. It looks very dark down there...  Hermit enters from below.  Heinrich enters from below.  Cynthia enters from below.
+
+> west
+You move west.
+
+You are in an east/west tunnel.
+You are in an unremarkable tunnel. You can see torch light in both directions.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> west
+You move west.
+
+You are at a T-intersection; North by E/W.
+A brightly burning torch is bolted to the south wall. Dark tunnels lead north and east. To the west is a place where once a door stood, but it has been torn from its hinges.  Hermit enters from the east.  Heinrich enters from the east.  Cynthia enters from the east.
+
+> north
+You move north.
+
+You are in a broken north/south tunnel.
+The sides of the tunnel are very broken and rough. You see torch light to the south. The east wall has a smooth shape in the center, about the size of a door.
+
+You see a secret passage east.  Hermit enters from the south.  Heinrich enters from the south.  Cynthia enters from the south.
+
+> north
+You move north.
+
+You are at the south end of a long passage. (N/S/E/W)
+To your great shock there are doors to the east and west. The hall goes north from here and a broken tunnel goes south.  Hermit enters from the south.  Heinrich enters from the south.  Cynthia enters from the south.
+
+> north
+You move north.
+
+You are at the middle of a long passage. (N/S/E/W)
+Doors are bolted on both sides of you (east and west). The hall extends north and south.  Hermit enters from the south.  Heinrich enters from the south.  Cynthia enters from the south.
+
+> north
+You move north.
+
+You are at the north end of a long passage. (N/S/E/W)
+A tunnel goes north and east and west are doors that are bolted shut. (Locking something in?). In the dim light you can see that the hall goes south but you cannot make out any details.  Hermit enters from the south.  Heinrich enters from the south.  Cynthia enters from the south.
+
+> north
+You move north.
+
+You are in a large chamber. (N/S/E/W)
+You are in a huge chamber where the roof rises out of sight. Burning torches line the walls making it easy to see. Tunnels lead north and south, and there are small chambers to the east and west.  Hermit enters from the south.  Heinrich enters from the south.  Cynthia enters from the south.
+
+> north
+You move north.
+
+You are in a dark north/south tunnel.
+To the north you see bright light streaming in from the outside. To the south you see flickering torch light, but you cannot make out any details.  Hermit enters from the south.  Heinrich enters from the south.  Cynthia enters from the south.
+
+> north
+You move north.
+
+You are at the cave entrance. (N/S)
+The entrance is to the south with a sign over it reading, "Beginners Only!". To the north is the road back to town.  Hermit enters from the south.  Heinrich enters from the south.  Cynthia enters from the south.
+
+> north
+You successfully ride off into the sunset!
+
+When you return to the main hall, you sell the following objects:
+A pile of diamonds (10%)
+A gold ring (10%)
+Some spices (10%)
+A magic book (10%)
+A large pile of jewels (10%)
+
+In addition you found:
+A sack with 50 gold coins (10%)
+A magical sword named TrollsFire (10%)
+
+You also rescued the hermit. (10%)
+You also rescued Heinrich. (10%)
+You also rescued Cynthia. (10%)
+
+You solved 100% of that adventure - well done!!!
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

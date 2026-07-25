@@ -1,0 +1,9 @@
+# The Nasty Escape -- the OTHER ending (same game file as NastyEscape).
+# Task1 rewards anyone who reads the starting room description closely enough to
+# try sitting on the barrels: it is an instant EndGame Win ("So, you read the
+# description huh?").  It is gated MustNot-BeComplete on Task4, the climb
+# through the hole, so it is only reachable before you escape the basement --
+# afterwards the same command answers "Too late baby ;)".  Two commands, so it
+# cannot be folded into the main route, which needs the climb.
+x barrels
+sit on barrels

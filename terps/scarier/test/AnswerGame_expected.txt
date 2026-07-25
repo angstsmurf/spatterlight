@@ -1,0 +1,131 @@
+Untitled
+
+Hold onto your socks folks! Here we go!
+
+Welcome! My name is Lumbot. I was created to play a game with you.
+
+To win, you must simply be either incredibly lucky, or read my mind. Simple!
+
+Your first question is even simpler:
+
+Can you guess the command I want you to type?
+
+> guess
+You typed 'guess'!
+
+Wow! I can't believe you figured it out on your first try!
+
+Score is 1.
+
+Okay, now what's the next command I'm thinking of?
+
+> another guess
+You typed 'another guess'!
+
+Three in a row!
+
+Score is 2.
+
+Okay, now what's the next command I'm thinking of?
+
+> third time lucky
+You typed 'third time lucky'!
+
+And again! You're breaking records here!
+
+Score is 3.
+
+Okay, now what's the next command I'm thinking of?
+
+> four
+You typed 'four'!
+
+Correct! I am quite impressed.
+
+Score is 4.
+
+Okay, now what's the next command I'm thinking of?
+
+> five
+You typed 'five'!
+
+Correct again! I am collecting such fascinating data on you here. You are truly one of a kind.
+
+Score is 5.
+
+Okay, now what's the next command I'm thinking of?
+
+> six
+You typed 'six'!
+
+That's right! Are you sure you're not cheating?
+
+Score is 6.
+
+Okay, now what's the next command I'm thinking of?
+
+> seven
+You typed 'seven'!
+
+Incorr--no wait. Correct. Again.
+
+Score is 7.
+
+Okay, now what's the next command I'm thinking of?
+
+> eight
+You typed 'eight'!
+
+Right again. This is truly amazing.
+
+Score is 8.
+
+Okay, now what's the next command I'm thinking of?
+
+> nine
+You typed 'nine'!
+
+That...is correct! I'm not quite sure what to make of this. You are exceeding all expectations and your results are off the charts!
+
+Score is 9.
+
+Okay, now what's the next command I'm thinking of?
+
+> ten
+You typed 'ten'!
+
+...
+
+...I must say, whatever your abilities, whether luck or skill, they are quite beyond anything I've ever encountered before. Ten in a row is so statistically improbable it may as well be impossible. I'll need some time to process this data. You can consider yourself to have 'won the game', although I'm sure that's a rather paltry accomplishment in light of the wonders of intellect you've proven yourself capable of. But I certainly would appreciate the chance to collect more data. Please, continue playing as long as you like.
+
+Score is 10.
+
+What is the next command?
+
+> eleven
+You typed 'eleven'!
+
+That is incredible!
+
+Score is 11.
+
+What is the next command?
+
+> twelve
+You typed 'twelve'!
+
+That is marvelous!
+
+Score is 12.
+
+What is the next command?
+
+> thirteen
+You typed 'thirteen'!
+
+That is impressive!
+
+Score is 13.
+
+What is the next command?
+

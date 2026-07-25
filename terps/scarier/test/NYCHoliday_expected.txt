@@ -1,0 +1,139 @@
+Untitled
+
+This is a tutorial game for Holiday, Migrate or Bust.  Welcome!
+
+You can interact with items by using these commands:
+
+Examine
+Push
+Turn on / turn off
+Read
+Take
+Unlock
+Open
+Ask
+Give
+Go north / south
+
+Items are referred to by their last name only, e.g. "textbook" instead of "your copy of the OCR textbook".
+
+bedroom
+You are inside your bedroom at home.  It is full of all your favourite things, and also your bag full of college work.  A desk is in the corner, next to your bed.  You hear your parent/guardian, who we will refer to as ATM from now on, humming in the kitchen.    An exit leads north.
+
+> x desk
+The beautiful desk is made from wood, highly polished and intricately carved.  What a lovely room you have.   Your top-of-the-range tablet is on the large desk, and inside is a brass handled drawer.
+
+> x tablet
+You need to turn it on first.
+
+> turn on tablet
+You switch on the top-of-the-range tablet.
+
+> x tablet
+Lucky you; a brand new, high spec tablet lies gleaming on the desk.  ATM must be extremely generous.  I wonder what else you could ask for?
+
+> x bed
+Nothing unusual to see here.  A fluffy pillow is on the tidily made bed.
+
+> x pillow
+A mostly comfortable pillow, but it has something small and metallic inside.    Inside the fluffy pillow is a shiny key.
+
+> look in pillow
+A mostly comfortable pillow, but it has something small and metallic inside.    Inside the fluffy pillow is a shiny key.
+
+> take key
+(from the fluffy pillow)
+Ok, you take the shiny key from the fluffy pillow.
+
+> x drawer
+The drawer is in the desk.  The brass handled drawer is currently locked.
+
+> unlock drawer with key
+You unlock the brass handled drawer with the shiny key.
+
+> open drawer
+You open the brass handled drawer.  Inside the brass handled drawer is your shiny red pre-Brexit passport, a crisp £20 note and a Doreen Massey photograph.
+
+> x passport
+Your lovely, slightly younger self stares back at you wearing a glum, passport-suitable expression.
+
+> x note
+J. M. W. Turner looks up at you, whilst her Majesty faces the floor.
+
+> read note
+There is nothing worth reading on the crisp £20 note.
+
+> x photograph
+There's an inscription on the back... " if history is about time, geography is about space".  So poetic.
+
+> take passport
+(from the brass handled drawer)
+Ok, you take the shiny red pre-Brexit passport from the brass handled drawer.
+
+> x bag
+Your "insert whatever brand is coolest*" college bag.
+
+*Sorry, I've no idea what this is: I'm 42.    The college bag is currently closed.
+
+> open bag
+You open the college bag.  Inside the college bag is your bunch of keys, your designer wallet, a screwed up piece of paper, your copy of the OCR textbook and a huge ringbinder.
+
+> x paper
+Looks like that's been at the bottom of your bag for a while.
+
+> read paper
+Dear parents/guardians,
+
+We're very excited to announce that this year's Geography fieldtrip is to New York City... blah blah... staying in a hostel... blah blah... valuable fieldwork experience... blah blah... need a passport... blah blah... £500 for 5 nights, all inclusive...
+
+Yours,
+Sarah Graham
+Geography Teacher and trip organiser
+
+> take paper
+(from the college bag)
+Ok, you take the screwed up piece of paper from the college bag.
+
+> x textbook
+Bright yellow and every bit as exciting as it sounds.
+
+> x ringbinder
+Despite courses being digitally based, there's still so much paper!
+
+> x wallet
+So pretty.  The designer wallet is currently closed.
+
+> x keys
+House key, garage key, pool house key, private gym locker key, key for your Ferrari (joke)... that's a lot of keys for a teenager!
+
+> north
+You move north.
+
+kitchen
+A regular kitchen, really.  ATM is happily humming over by the stove, there's a sink over by the window and a vacuum propped up against the wall.  ATM is here.  An exit leads south.
+
+> x atm
+ATM is wearing nice clothes for an old person. Let's hope they're feeling generous today.
+
+> kiss atm
+"Aww, that's nice, but I still can't afford that holiday."
+
+> push vacuum
+Ah, the floor is looking much cleaner now.  ATM will be pleased.
+
+> ask atm about holiday
+"Sorry, I can't afford that right now!  Maybe if you helped out around the house more I might think about it..."
+
+> show paper to atm
+ATM seems suitably unimpressed.
+
+> give paper to atm
+"I'll fill this in immediately.  You'll need your passport too.  Please bring it to me."
+
+> give passport to atm
+"Yay! Pack your bags, you're off to the Big Apple!  I hope that hostel is Instagramable."
+
+*** You have won ***
+Hip hip hooray, you're off to the Big Apple!
+Would you like to restart, restore a saved game, quit or undo the last command?
+

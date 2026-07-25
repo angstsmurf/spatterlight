@@ -1,0 +1,71 @@
+# CCCS2808 -- "Central Coast Cloud School Virtual Campus Game" (adrift.co).
+# A classroom exercise, not a story: fourteen rooms of a school seeded with ten
+# coloured sticky notes that state a logic puzzle about whose watch is fast or
+# slow ("you will find lots of clues in here that will help you to solve a big
+# question in the last week").  There is no ending, no score and exactly ONE
+# custom task -- everything else is stdlib, which makes this a broad
+# scenery/container/wearable conformance sweep.
+#
+# The route visits every location, reads every sticky note (including the two
+# hidden inside the pirate's chest and the lunch box), unlocks the chest with
+# the library key, and finishes by wearing the Mr Men Material -- the only
+# gated exit in the game, School -> Up -> University Campus.
+read sticky note
+x school uniform
+wear school uniform
+wear black leather shoes
+east
+read sticky note
+east
+x mug
+read sticky note
+x cupboard
+open cupboard
+read sticky note
+x costume
+west
+northeast
+x pirates chest
+take key
+unlock pirates chest with key
+open pirates chest
+read novel
+read sticky note
+down
+read sticky note
+x book
+up
+northwest
+read sticky note
+x stuff
+south
+x chemicals
+west
+read sticky note
+x football
+x building
+west
+x gate
+east
+down
+x lunch box
+open lunch box
+read sticky note
+x sandwich
+up
+southwest
+x protractor
+read protractor
+west
+x desk
+read sticky note
+x commodore 64
+east
+up
+x desk
+read diary
+take mr men material
+wear mr men material
+down
+south
+up

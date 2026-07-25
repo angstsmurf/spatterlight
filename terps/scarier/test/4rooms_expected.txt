@@ -1,0 +1,59 @@
+Untitled
+This is a small "game" that was made to show what can be done
+
+Great Room
+A large room with a TV and a sofa  Exits are south and west.
+
+> x tv
+Just an ordinary TV but this one is broken
+
+> x sofa
+A small brown sofa
+
+> sit on sofa
+You sit on the brown sofa.
+
+> stand
+(on the brown sofa)
+You can't stand on the brown sofa!
+
+> west
+(getting off the brown sofa first)
+
+> x chest
+You see no such thing.
+
+> open chest
+Open what?
+
+> look in chest
+You see no such thing.
+
+> east
+There is no route to the east, only south and west.
+
+> south
+You move south.
+
+Bedroom
+A bed room with walnut paneling  Also here is a small, white envelope.  Exits are north and east.
+
+> x envelope
+A sealed envelope  The small, white envelope is currently closed.
+
+> take envelope
+Ok, you pick up the small, white envelope.
+
+> open envelope
+You open the small, white envelope.  Inside the small, white envelope is a Note.
+
+> i
+You are wearing nothing, and are carrying a small, white envelope.  Inside the small, white envelope is a Note.
+
+> read note
+You have won!!
+
+*** You have won ***
+That's the end!
+Would you like to restart, restore a saved game, quit or undo the last command?
+

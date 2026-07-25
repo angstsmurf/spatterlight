@@ -1,0 +1,124 @@
+# Beginner's Cave -- an ADRIFT 5 conversion of the solo Tunnels & Trolls
+# adventure, played as the warrior Birgitte (axe + leather mail, 20 HP).
+# MAX ROUTE: 100% -- all seven treasures sold (diamonds L4, sack of 50 gold L8,
+# gold ring off the Mimic L14, spices L18, magic book L20, jewels L26,
+# TrollsFire off the Pirate L26) AND all three captives (Hermit L5, Heinrich
+# L7, Cynthia L18) still alive and following when you walk out north.
+#
+# Route order matters, but the opposite way round from what it looks like.
+# Each captive starts FOLLOWING the moment you first enter their room, and
+# the Eamon combat module makes every follower both fight for you and soak
+# blows in your place (FriendSele/EnemySelec pick a random target among the
+# player and their friends).  So the Hermit and Heinrich are collected FIRST,
+# before a single fight: three extra bodies swing at the rats, the Gorilla,
+# the Mimic and the Pirate, and the Priest goes down in one player swing
+# because Cynthia and the other two are already hitting him.  Collecting the
+# captives last -- the intuitive "keep them out of danger" reading -- makes
+# Birgitte fight all five encounters alone and she dies at the Gorilla.
+# The healing potion (L5) is picked up on the way past and saved: `fight`
+# drinks it only once health drops to badly-injured/death's-door, which on
+# this route happens during the Pirate.
+#
+# Two deliberate omissions: `read book` is an instant EndGame Lose ("You are
+# turning into a small fish!") and `eat spices` silently consumes a 10%
+# treasure.  `x shape` at the broken tunnel (L15) is mandatory -- it opens the
+# hidden east passage to the temple.
+#
+# This game is pure combat RNG, so only FD_RNG=xoshiro can match hunk-for-hunk;
+# vanilla FD draws from System.Random and fights a different battle.
+#
+# Engine fidelity this game drove (both fixed for it):
+#  * a5expr.cpp: a SelectionOnly property read off a SINGLE item answers "1"
+#    when the item has it and "0" when it does not (Global.vb:1216/1397/1538,
+#    missing-property default at :1225).  Returning "" disarmed the whole
+#    combat system: `ready` is gated on %object%.s_Weapon=1 and every to-hit
+#    roll reads .s_Readyweapo.s_Weapon.
+#  * a5run_action.cpp / a5run_resp.cpp: the runner's pre/post-action message
+#    comparison and its htblResponses dedup both key on the still-MARKED-UP
+#    render, not the displayed text.  Every combat message here ends in
+#    `<# "<" & rand(0,1000000) & ">" #>` -- a pseudo-tag that exists purely so
+#    consecutive messages differ.  Comparing the stripped text made the two
+#    renders look identical, so Scarier took the they-agree branch and drew a
+#    third random, sliding the entire combat stream by one; and it collapsed
+#    the second "A hit!" of a multi-blow round.
+south
+south
+east
+take potion
+west
+south
+west
+east
+north
+west
+attack black rat
+attack brown rat
+attack tan rat
+attack brown rat
+attack brown rat
+take diamonds
+east
+south
+east
+attack Gorilla
+attack Gorilla
+attack Gorilla
+attack Gorilla
+attack Gorilla
+attack Gorilla
+take sack
+west
+south
+south
+east
+open chest
+attack Mimic
+attack Mimic
+attack Mimic
+attack Mimic
+take ring
+west
+south
+x shape
+east
+east
+east
+attack Priest
+take spices
+west
+west
+west
+south
+west
+take book
+east
+east
+east
+down
+east
+east
+east
+attack Pirate
+attack Pirate
+attack Pirate
+attack Pirate
+drink potion
+attack Pirate
+attack Pirate
+attack Pirate
+take jewels
+take trollsfire
+west
+west
+west
+up
+west
+west
+north
+north
+north
+north
+north
+north
+north
+north

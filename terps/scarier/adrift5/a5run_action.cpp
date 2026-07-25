@@ -187,12 +187,32 @@ split_assignment (const std::string &body, std::string &name, std::string &value
   return 1;
 }
 
+/* Copy of `s` with leading/trailing spaces and tabs removed. */
 static std::string
-lower_copy (const std::string &s)
+trim_ws (const std::string &s)
 {
-  std::string r = s;
-  for (char &c : r) c = (char) tolower ((unsigned char) c);
-  return r;
+  size_t b = s.find_first_not_of (" \t");
+  if (b == std::string::npos)
+    return "";
+  size_t e = s.find_last_not_of (" \t");
+  return s.substr (b, e - b + 1);
+}
+
+/* Split a '|'-separated list, keeping empty fields (the shape of the runner's
+   Items array for a pipe-list reference). */
+static std::vector<std::string>
+split_pipe (const char *s)
+{
+  std::vector<std::string> v;
+  std::string cur;
+  for (const char *p = s; ; p++)
+    {
+      if (*p == '|' || *p == '\0')
+        { v.push_back (cur); cur.clear (); if (*p == '\0') break; }
+      else
+        cur += *p;
+    }
+  return v;
 }
 
 /* True if `v` is, after trimming, a single top-level call "name(...)" spanning
@@ -229,7 +249,8 @@ a5_bare_function_call (const std::string &v, std::string &name)
 static void emit_look (a5_run_t *run, sb_t *out);
 static std::string render_look_string (a5_run_t *run);
 static void emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out);
-static void emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out);
+static void emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out,
+                               const char *dedup_key = 0);
 static std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
 
 /* Render the room view as REAL output -- marking_display=1 so its <DisplayOnce>
@@ -395,10 +416,7 @@ refs_from_bindings (a5_state_t *st, const a5_task_t *t)
 static char *
 eval_arg_to_key (a5_state_t *st, const std::string &arg)
 {
-  std::string a = arg;
-  size_t b = a.find_first_not_of (" \t");
-  size_t e = a.find_last_not_of (" \t");
-  a = (b == std::string::npos) ? "" : a.substr (b, e - b + 1);
+  std::string a = trim_ws (arg);
   /* A bare entity key (no %...% at all, e.g. `vnl_Dial`) is already a key -- pass
      it through verbatim.  It must NOT go through a5text_process, whose display
      pipeline auto-capitalises the first letter ("vnl_Dial" -> "Vnl_Dial") and so
@@ -417,7 +435,17 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
         { std::string cap = "ReferencedObject"; if (lname.size () > 6) cap += lname.substr (6);
           k = a5state_lookup_ref (st, cap.c_str ()); if (!k) k = a5state_lookup_ref (st, "ReferencedObject"); }
       else if (lname.rfind ("character", 0) == 0)
-        k = a5state_lookup_ref (st, "ReferencedCharacter");
+        { /* Indexed exactly like the object branch above: `%character2%` is
+             ReferencedCharacter2, NOT the bare ReferencedCharacter.  Beginner's
+             Cave's combat loop passes the DEFENDER on as
+             `Execute EnemyHits (%character2%)` from a task whose %character1%
+             is the attacker, so collapsing the index bound the damage task to
+             the attacking rat -- every enemy hit wounded the attacker and
+             skipped the player's armour absorption. */
+          std::string cap = "ReferencedCharacter";
+          if (lname.size () > 9) cap += lname.substr (9);
+          k = a5state_lookup_ref (st, cap.c_str ());
+          if (!k) k = a5state_lookup_ref (st, "ReferencedCharacter"); }
       if (k != NULL) return strdup (k);
     }
   /* A function/OO arg (e.g. %PropertyValue[%object1%,LockKey]%) evaluates to an
@@ -425,6 +453,21 @@ eval_arg_to_key (a5_state_t *st, const std::string &arg)
      would turn "s_SkeletonKe" into "S_SkeletonKe" and break the case-sensitive
      lookup (same class of bug as the bare-key `vnl_Dial` case above). */
   return a5text_process_nocap (st, a.c_str ());
+}
+
+/* True when a SetTasks-Execute argument names the target task's own reference
+   (`%objects%` for "objects", singular `%object%` normalising to "object1") --
+   the runner's pass-the-live-reference-through case (clsUserSession.vb:2188,
+   `sParam = sRef`), which must leave the existing binding untouched. */
+static bool
+arg_is_ref_passthrough (const std::string &arg, const std::string &rname)
+{
+  std::string an = trim_ws (arg);
+  if (an.size () < 2 || an.front () != '%' || an.back () != '%')
+    return false;
+  std::string base = an.substr (1, an.size () - 2);
+  normalize_singular_ref (base);
+  return base == rname;
 }
 
 /* A bare `Group.<Property>` SetTasks-Execute argument is an OO reference that
@@ -444,10 +487,8 @@ group_prop_member_keys (a5_state_t *st, const std::string &arg,
                         std::vector<std::string> &out)
 {
   out.clear ();
-  size_t b = arg.find_first_not_of (" \t");
-  if (b == std::string::npos) return false;
-  size_t e = arg.find_last_not_of (" \t");
-  std::string a = arg.substr (b, e - b + 1);
+  std::string a = trim_ws (arg);
+  if (a.empty ()) return false;
   /* A bare OO reference carries no %tokens% (those go through the text engine)
      and is a single-level `Group.Property`. */
   if (a.find ('%') != std::string::npos) return false;
@@ -691,9 +732,8 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
         }
       net_introspective_sort (run->adv, kids);
     }
-  for (size_t oi = 0; oi < kids.size (); oi++)
+  for (int cidx : kids)
       {
-        int cidx = kids[oi];
         const a5_task_t *child = &run->adv->tasks[cidx];
         if (!refs_match_specifics (st, child, parent, refs)) continue;
 
@@ -1234,6 +1274,7 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
   {
     std::vector<size_t> sslots;               /* slots holding sexpr entries */
     std::vector<std::pair<long, size_t> > spos;    /* (text pos, entry idx)  */
+    long lastpos = -1;
     for (size_t k = from; k < sink->size (); k++)
       {
         const std::string &body = (*sink)[k];
@@ -1242,10 +1283,15 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
         char mark[24];
         snprintf (mark, sizeof mark, "\004%d\004", (int) k);
         const char *at = out->p != NULL ? strstr (out->p, mark) : NULL;
+        /* A sentinel with no text position was emitted inside a tag that the
+           renderer then stripped (OS/PlugIn.Exe holds its pause in
+           `<wait %Tpaus%>`, whose `<#rand(5, 9)#>` still has to DRAW in text
+           order).  Give it the previous entry's key so the stable sort keeps
+           it in push order rather than banishing it to the end. */
+        if (at != NULL)
+          lastpos = (long) (at - out->p);
         sslots.push_back (k - from);
-        spos.push_back (std::make_pair (at != NULL ? (long) (at - out->p)
-                                                   : (long) out->len + (long) k,
-                                        k));
+        spos.push_back (std::make_pair (lastpos, k));
       }
     std::stable_sort (spos.begin (), spos.end ());
     for (size_t i = 0; i < sslots.size (); i++)
@@ -1264,6 +1310,10 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
           std::string v = render_look_marked (run);
           val = strdup (v.c_str ());
         }
+      else if (!body.empty () && body[0] == '\003')
+        /* Raw `<#..#>` body held whole (its %ref[RAND]% substitution draws):
+           substitute AND reduce here, at the flush. */
+        val = a5text_eval_expression (run->st, body.c_str () + 1);
       else
         val = (!body.empty () && body[0] == '\001')
                 ? a5text_process_noalr (run->st, body.c_str () + 1)
@@ -1274,6 +1324,14 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
       if (at != NULL)
         {
           size_t pos = (size_t) (at - out->p);
+          /* The runner reduces expressions INSIDE Display, so its
+             CapAfterFullStop pass still sees the drawn value; ours ran back at
+             a5text_process time, before this splice.  Re-apply the cap for a
+             value that lands at a sentence start (OS/PlugIn.Exe's card line
+             begins with the deferred `<#if(..)#>`, "four of Diamonds"). */
+          if (val != NULL && islower ((unsigned char) val[0])
+              && a5text_is_sentence_start (out->p, pos))
+            val[0] = (char) toupper ((unsigned char) val[0]);
           std::string tail (out->p + pos + ml, out->len - pos - (size_t) ml);
           out->len = pos;
           out->p[pos] = '\0';
@@ -1537,9 +1595,9 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
   if (!collect_object_source (st, what, srckey, tk[1].c_str (), targets))
     return;
 
-  for (size_t ti = 0; ti < targets.size (); ti++)
+  for (int oi : targets)
     {
-      a5_objloc_t *L = &st->obj[targets[ti]];
+      a5_objloc_t *L = &st->obj[oi];
       if (to == "ToCarriedBy")      { L->where = A5_OWHERE_HELD_BY;   L->key = k2; }
       else if (to == "ToWornBy")    { L->where = A5_OWHERE_WORN_BY;   L->key = k2; }
       else if (to == "OntoObject")  { L->where = A5_OWHERE_ON_OBJECT; L->key = k2; }
@@ -1601,7 +1659,6 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
             }
         }
     }
-  return;
 }
 
 static void
@@ -1631,79 +1688,19 @@ act_object_group (a5_run_t *run, const char *kind,
      three authored members, so the game dealt from 3 cards instead of 20. */
   if (!collect_object_source (st, tk[0], srckey, tk[1].c_str (), targets))
     return;
-  for (size_t i = 0; i < targets.size (); i++)
-    a5state_set_object_in_group (st, grp, st->adv->objects[targets[i]].key, add);
+  for (int oi : targets)
+    a5state_set_object_in_group (st, grp, st->adv->objects[oi].key, add);
 }
 
-/* Add/RemoveCharacterToGroup (clsUserSession.vb:1841): same shape as the object
-   and location group actions, over MoveCharacter's "who" enum.  Quest Giver
-   files each hired adventurer into its "Current Actively Hired Adventurers"
-   group, which is what VIEW HIRED enumerates. */
-static void
-act_character_group (a5_run_t *run, const char *kind,
-                     const std::vector<std::string> &tk, const char * /*body*/,
-                     int /*depth*/, sb_t * /*out*/)
+/* The "who" selectors shared by MoveCharacter and Add/RemoveCharacterToGroup
+   (clsAction reuses MoveCharacterWhoEnum, clsUserSession.vb:1689/1841): collect
+   the affected character indices.  Returns 0 for a selector it does not cover
+   -- EveryoneWithProperty's presence test differs between the two actions, so
+   it stays with each caller. */
+static int
+collect_character_who (a5_state_t *st, const std::string &who, const char *whok,
+                       std::vector<int> &cis)
 {
-  a5_state_t *st = run->st;
-  if (tk.size () < 4)
-    return;
-  const std::string &who = tk[0];
-  const char *whok = act_key (st, tk[1].c_str ());
-  const char *grp = tk[3].c_str ();
-  int add = streq (kind, "AddCharacterToGroup");
-  std::vector<int> cis;
-  if (who == "Character")
-    { int ci = a5state_character_index (st, whok); if (ci >= 0) cis.push_back (ci); }
-  else if (who == "EveryoneAtLocation")
-    {
-      for (int i = 0; i < st->adv->n_characters; i++)
-        if (streq (st->char_loc[i], whok) && st->char_onobj[i] == NULL)
-          cis.push_back (i);
-    }
-  else if (who == "EveryoneInGroup")
-    {
-      int n = a5state_group_count (st, whok);
-      for (int m = 0; m < n; m++)
-        { int ci = a5state_character_index (st,
-                      a5state_group_member_at (st, whok, m));
-          if (ci >= 0) cis.push_back (ci); }
-    }
-  else if (who == "EveryoneInside" || who == "EveryoneOn")
-    {
-      char want_in = (who == "EveryoneInside") ? 1 : 0;
-      for (int i = 0; i < st->adv->n_characters; i++)
-        if (streq (st->char_onobj[i], whok) && st->char_in[i] == want_in)
-          cis.push_back (i);
-    }
-  else if (who == "EveryoneWithProperty")
-    {
-      for (int i = 0; i < st->adv->n_characters; i++)
-        if (a5state_entity_has_prop (st, st->adv->characters[i].key,
-                                     tk[1].c_str ()))
-          cis.push_back (i);
-    }
-  else
-    return;
-  for (size_t i = 0; i < cis.size (); i++)
-    a5state_set_object_in_group (st, grp, st->adv->characters[cis[i]].key, add);
-}
-
-static void
-act_move_character (a5_run_t *run, const char * /*kind*/,
-                    const std::vector<std::string> &tk, const char * /*body*/,
-                    int /*depth*/, sb_t *out)
-{
-  a5_state_t *st = run->st;
-  if (tk.size () < 3)
-    return;
-  /* The "who" set: a single Character, or one of the runner's bulk source forms
-     (clsAction.MoveCharacterWhoEnum, clsUserSession.vb:1689) -- e.g. the
-     wand-teleport `EveryoneAtLocation Location33 ToLocation Location34`.
-     Token layout is identical to MoveObject: tk[0]=who, tk[1]=who-key,
-     tk[2]=to, tk[3]=to-key. */
-  const std::string &who = tk[0];
-  const char *whok = act_key (st, tk[1].c_str ());
-  std::vector<int> cis;
   if (who == "Character")
     { int ci = a5state_character_index (st, whok); if (ci >= 0) cis.push_back (ci); }
   else if (who == "EveryoneAtLocation")
@@ -1729,7 +1726,79 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
         if (streq (st->char_onobj[i], whok) && st->char_in[i] == want_in)
           cis.push_back (i);
     }
-  else if (who == "EveryoneWithProperty")
+  else
+    return 0;
+  return 1;
+}
+
+/* Add/RemoveCharacterToGroup (clsUserSession.vb:1841): same shape as the object
+   and location group actions, over MoveCharacter's "who" enum.  Quest Giver
+   files each hired adventurer into its "Current Actively Hired Adventurers"
+   group, which is what VIEW HIRED enumerates. */
+static void
+act_character_group (a5_run_t *run, const char *kind,
+                     const std::vector<std::string> &tk, const char * /*body*/,
+                     int /*depth*/, sb_t * /*out*/)
+{
+  a5_state_t *st = run->st;
+  if (tk.size () < 4)
+    return;
+  const std::string &who = tk[0];
+  const char *whok = act_key (st, tk[1].c_str ());
+  const char *grp = tk[3].c_str ();
+  int add = streq (kind, "AddCharacterToGroup");
+  std::vector<int> cis;
+  if (who == "EveryoneWithProperty")
+    {
+      for (int i = 0; i < st->adv->n_characters; i++)
+        if (a5state_entity_has_prop (st, st->adv->characters[i].key,
+                                     tk[1].c_str ()))
+          cis.push_back (i);
+    }
+  else if (!collect_character_who (st, who, whok, cis))
+    return;
+  for (int ci : cis)
+    a5state_set_object_in_group (st, grp, st->adv->characters[ci].key, add);
+}
+
+/* Move character CI to room NEW_LOC (AtLocation), with the player-move
+   bookkeeping in the runner's order: the LocationTrigger enqueue against the
+   old room first, then the assignment, then the conversation-partner check.
+   CLEAR_ONOBJ also drops any on/in-object binding before the partner check
+   (the "now at location" destinations); the furniture-sync callers keep the
+   binding they just set. */
+static void
+relocate_char (a5_run_t *run, int ci, const char *new_loc, int clear_onobj,
+               sb_t *out)
+{
+  a5_state_t *st = run->st;
+  int is_player = streq (st->adv->characters[ci].key, a5state_player_key (st));
+  if (is_player)
+    enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
+  st->char_loc[ci] = new_loc;
+  if (clear_onobj)
+    st->char_onobj[ci] = NULL;
+  if (is_player)
+    clear_conv_if_partner_gone (run, out);
+}
+
+static void
+act_move_character (a5_run_t *run, const char * /*kind*/,
+                    const std::vector<std::string> &tk, const char * /*body*/,
+                    int /*depth*/, sb_t *out)
+{
+  a5_state_t *st = run->st;
+  if (tk.size () < 3)
+    return;
+  /* The "who" set: a single Character, or one of the runner's bulk source forms
+     (clsAction.MoveCharacterWhoEnum, clsUserSession.vb:1689) -- e.g. the
+     wand-teleport `EveryoneAtLocation Location33 ToLocation Location34`.
+     Token layout is identical to MoveObject: tk[0]=who, tk[1]=who-key,
+     tk[2]=to, tk[3]=to-key. */
+  const std::string &who = tk[0];
+  const char *whok = act_key (st, tk[1].c_str ());
+  std::vector<int> cis;
+  if (who == "EveryoneWithProperty")
     {
       for (int i = 0; i < st->adv->n_characters; i++)
         if (a5_prop_find (st->adv->characters[i].props,
@@ -1737,7 +1806,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
             || a5state_entity_prop (st, st->adv->characters[i].key, whok) != NULL)
           cis.push_back (i);
     }
-  else
+  else if (!collect_character_who (st, who, whok, cis))
     return;
   if (cis.empty ())
     return;
@@ -1768,9 +1837,8 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
           group_dest = ld ? ld->key : m;
         }
     }
-  for (size_t ix = 0; ix < cis.size (); ix++)
+  for (int ci : cis)
     {
-      int ci = cis[ix];
       const char *k1 = st->adv->characters[ci].key;
       /* Every MoveCharacter but OntoCharacter re-establishes the character's
          clsCharacterLocation from scratch (FD's fresh `dest` -> ch.Move), so a
@@ -1780,14 +1848,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
       if (to != "OntoCharacter" && st->char_onchar != NULL)
         st->char_onchar[ci] = NULL;
       if (to == "ToLocationGroup")
-        {
-          if (streq (k1, a5state_player_key (st)))
-            enqueue_loc_trigger_tasks (run, st->char_loc[ci], group_dest);
-          st->char_loc[ci] = group_dest;
-          st->char_onobj[ci] = NULL;
-          if (streq (k1, a5state_player_key (st)))
-            clear_conv_if_partner_gone (run, out);
-        }
+        relocate_char (run, ci, group_dest, 1, out);
       else if (to == "InDirection")
         {
           const char *dir = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
@@ -1807,24 +1868,14 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
                         && st->adv->groups[g].n_members > 0)
                       { dest = st->adv->groups[g].members[0]; break; }
                 }
-              if (streq (k1, a5state_player_key (st)))
-                enqueue_loc_trigger_tasks (run, st->char_loc[ci], dest);
-              st->char_loc[ci] = dest;
-              st->char_onobj[ci] = NULL;   /* now "at location" */
-              if (streq (k1, a5state_player_key (st)))
-                clear_conv_if_partner_gone (run, out);
+              relocate_char (run, ci, dest, 1, out);   /* now "at location" */
             }
         }
       else if (to == "ToLocation")
         {
           const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           const char *new_loc = streq (k2, "Hidden") ? NULL : k2;
-          if (streq (k1, a5state_player_key (st)))
-            enqueue_loc_trigger_tasks (run, st->char_loc[ci], new_loc);
-          st->char_loc[ci] = new_loc;
-          st->char_onobj[ci] = NULL;       /* now "at location" */
-          if (streq (k1, a5state_player_key (st)))
-            clear_conv_if_partner_gone (run, out);
+          relocate_char (run, ci, new_loc, 1, out);    /* now "at location" */
         }
       else if (to == "ToStandingOn" || to == "ToSittingOn" || to == "ToLyingOn")
         {
@@ -1866,13 +1917,7 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
                         { loc = st->adv->locations[li].key; break; }
                 }
               if (loc != NULL && !streq (loc, st->char_loc[ci]))
-                {
-                  if (streq (k1, a5state_player_key (st)))
-                    enqueue_loc_trigger_tasks (run, st->char_loc[ci], loc);
-                  st->char_loc[ci] = loc;
-                  if (streq (k1, a5state_player_key (st)))
-                    clear_conv_if_partner_gone (run, out);
-                }
+                relocate_char (run, ci, loc, 0, out);
             }
         }
       else if (to == "InsideObject" || to == "OntoObject")
@@ -1909,15 +1954,8 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
                   if (a5state_object_key_at_location (st, k2,
                                                       st->adv->locations[li].key, 0))
                     { loc = st->adv->locations[li].key; break; }
-              if (loc != NULL && (st->char_loc[ci] == NULL
-                                  || !streq (loc, st->char_loc[ci])))
-                {
-                  if (streq (k1, a5state_player_key (st)))
-                    enqueue_loc_trigger_tasks (run, st->char_loc[ci], loc);
-                  st->char_loc[ci] = loc;
-                  if (streq (k1, a5state_player_key (st)))
-                    clear_conv_if_partner_gone (run, out);
-                }
+              if (loc != NULL && !streq (loc, st->char_loc[ci]))
+                relocate_char (run, ci, loc, 0, out);
             }
         }
       else if (to == "OntoCharacter")
@@ -2048,17 +2086,118 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
             a5state_mark_loc_seen (st, st->char_loc[ci]);
         }
     }
-  return;
+}
+
+/* Store `val` into a Text variable, honouring an array subscript.  A Text array
+   keeps its elements newline-separated inside the one var_text string (the
+   InitialValue layout that expr_substitute reads back), so an element store has
+   to split, pad to the declared length, replace, and rejoin -- assigning the
+   whole string would wipe the siblings.  elem <= 0 or a non-array variable
+   overwrites wholesale, as before.  Takes ownership of `val`. */
+static void
+store_text_var (a5_state_t *st, int vi, long elem, char *val)
+{
+  long len = st->adv->variables[vi].array_length;
+  if (len <= 1 || elem <= 0)
+    {
+      free (st->var_text[vi]);
+      st->var_text[vi] = val;
+      return;
+    }
+  if (elem > len)
+    len = elem;
+  std::vector<std::string> lines ((size_t) len);
+  {
+    const char *s = st->var_text[vi] != NULL ? st->var_text[vi] : "";
+    for (long i = 0; i < len && *s != '\0'; i++)
+      {
+        const char *nl = strchr (s, '\n');
+        lines[(size_t) i].assign (s, nl != NULL ? (size_t) (nl - s) : strlen (s));
+        if (nl == NULL)
+          break;
+        s = nl + 1;
+      }
+  }
+  lines[(size_t) elem - 1] = val != NULL ? val : "";
+  free (val);
+  std::string joined;
+  for (long i = 0; i < len; i++)
+    {
+      if (i > 0)
+        joined += '\n';
+      joined += lines[(size_t) i];
+    }
+  free (st->var_text[vi]);
+  st->var_text[vi] = strdup (joined.c_str ());
 }
 
 static void
 act_set_variable (a5_run_t *run, const char *kind,
                   const std::vector<std::string> & /*tk*/, const char *body,
-                  int /*depth*/, sb_t * /*out*/)
+                  int depth, sb_t *out)
 {
   a5_state_t *st = run->st;
   std::string name, value, idxstr;
   int vi;
+  /* "FOR <var> = a TO b : SET <assignment> : NEXT <var>" (FileIO.vb:365-374,
+     the SetVariable twin of act_set_tasks' Execute loop).  Unlike SetTasks,
+     the counter IS visible to the body: the runner substitutes it wherever the
+     loop variable appears, which in practice is the element index
+     (`SET Points[Loop] = 0`) and the %Loop% reference.  OS/PlugIn.Exe deals
+     its blackjack hand with `FOR Loop = 1 TO 3 : SET Bjvalue[Loop] =
+     %cardValue[RAND(1, 13)]% : NEXT Loop`, so without this the whole hand
+     stays 0 and every card renders as "Zero of ...". */
+  {
+    std::string b = body;
+    size_t bs = b.find_first_not_of (" \t");
+    if (bs != std::string::npos && strncasecmp (b.c_str () + bs, "FOR ", 4) == 0)
+      {
+        size_t c1 = b.find (':', bs);
+        size_t c2 = b.rfind (':');
+        if (c1 != std::string::npos && c2 != std::string::npos && c2 > c1)
+          {
+            std::string head = b.substr (bs + 4, c1 - bs - 4);
+            std::string inner = b.substr (c1 + 1, c2 - c1 - 1);
+            size_t eq = head.find ('=');
+            size_t tp = head.find (" TO ");
+            if (eq != std::string::npos && tp != std::string::npos && tp > eq)
+              {
+                std::string lv = head.substr (0, eq);
+                while (!lv.empty () && isspace ((unsigned char) lv.back ()))
+                  lv.pop_back ();
+                size_t a = lv.find_first_not_of (" \t");
+                lv = (a == std::string::npos) ? "" : lv.substr (a);
+                long from = strtol (head.c_str () + eq + 1, NULL, 10);
+                long to   = strtol (head.c_str () + tp + 4, NULL, 10);
+                a = inner.find_first_not_of (" \t");
+                if (a != std::string::npos) inner = inner.substr (a);
+                while (!inner.empty () && isspace ((unsigned char) inner.back ()))
+                  inner.pop_back ();
+                if (strncasecmp (inner.c_str (), "SET ", 4) == 0)
+                  inner = inner.substr (4);
+                if (!lv.empty () && !inner.empty ()
+                    && depth < A5_MAX_ACTION_DEPTH)
+                  {
+                    std::string pct = "%" + lv + "%", brk = "[" + lv + "]";
+                    for (long l = from; l <= to && !st->game_over; l++)
+                      {
+                        char num[24];
+                        snprintf (num, sizeof num, "%ld", l);
+                        std::string it = inner, rep;
+                        size_t p;
+                        while ((p = it.find (pct)) != std::string::npos)
+                          it.replace (p, pct.size (), num);
+                        rep = std::string ("[") + num + "]";
+                        while ((p = it.find (brk)) != std::string::npos)
+                          it.replace (p, brk.size (), rep);
+                        run_action (run, kind, it.c_str (), depth + 1, out);
+                      }
+                  }
+                return;
+              }
+          }
+      }
+  }
   if (!split_assignment (body, name, value))
     return;
   /* The runner's action parser splits the LHS at '[' (FileIO.vb: sKey1 =
@@ -2100,6 +2239,10 @@ act_set_variable (a5_run_t *run, const char *kind,
           elem_idx = ivi >= 0 ? a5state_var_get_elem (st, ivi, 1) : 0;
         }
     }
+  /* A subscript-less assignment to a Text array keeps the historic wholesale
+     overwrite (it is how the newline-joined InitialValue is set en bloc); only
+     an explicit `Var[i] =` replaces a single element. */
+  long text_elem = idxstr.empty () ? 0 : elem_idx;
   if (streq (st->adv->variables[vi].type, "Text") && streq (kind, "SetVariable"))
     {
       /* The runner evaluates the RHS as an expression, so a bare string-literal value
@@ -2120,11 +2263,10 @@ act_set_variable (a5_run_t *run, const char *kind,
          instead of falling into the plain %ref%-substitution below, which
          left the literal "UCASE(...)" wrapper in the stored string. */
       std::string call_name;
-      if (a5_bare_function_call (tv, call_name) && a5sexpr_is_function (lower_copy (call_name)))
+      if (a5_bare_function_call (tv, call_name) && a5sexpr_is_function (lower (call_name)))
         {
           char *ev = a5text_eval_expression (st, tv.c_str ());
-          free (st->var_text[vi]);
-          st->var_text[vi] = ev;
+          store_text_var (st, vi, text_elem, ev);
           return;
         }
       /* A string-concatenation expression -- a `+` operator outside any
@@ -2147,8 +2289,7 @@ act_set_variable (a5_run_t *run, const char *kind,
         if (has_plus)
           {
             char *ev = a5text_eval_expression (st, tv.c_str ());
-            free (st->var_text[vi]);
-            st->var_text[vi] = ev;
+            store_text_var (st, vi, text_elem, ev);
             return;
           }
       }
@@ -2228,8 +2369,7 @@ act_set_variable (a5_run_t *run, const char *kind,
          at position 0 ("an" -> "An"), so %playeraxe% mid-sentence wrongly
          shows "You have An axe" instead of "an axe". */
       char *proc = a5text_process_nocap (st, tv.c_str ());
-      free (st->var_text[vi]);
-      st->var_text[vi] = proc;
+      store_text_var (st, vi, text_elem, proc);
     }
   else
     {
@@ -2283,7 +2423,6 @@ act_set_variable (a5_run_t *run, const char *kind,
       else                                  newval = st->var_num[vi] - delta;
       a5state_var_set_elem (st, vi, elem_idx, newval);
     }
-  return;
 }
 
 static void
@@ -2409,7 +2548,6 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
       int ci = a5state_character_index (st, k1);
       if (ci >= 0) { free (st->char_position[ci]); st->char_position[ci] = strdup (val.c_str ()); }
     }
-  return;
 }
 
 static void
@@ -2421,7 +2559,6 @@ act_end_game (a5_run_t *run, const char * /*kind*/,
   st->game_over = 1;
   free (st->end_message);
   st->end_message = strdup (tk.empty () ? "" : tk[0].c_str ());
-  return;
 }
 
 static void
@@ -2458,7 +2595,6 @@ act_time (a5_run_t *run, const char * /*kind*/,
     }
   for (long i = 0; i < n && !st->game_over; i++)
     ev_tick_all (run, out);
-  return;
 }
 
 /* Scoped bump of run->exec_depth (the SetTasks-Execute runaway guard,
@@ -2557,12 +2693,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
             if (lp != std::string::npos && rp != std::string::npos && rp > lp)
               {
                 have_args = true;
-                std::string argstr = b.substr (lp + 1, rp - lp - 1);
-                std::string cur;
-                for (char c : argstr)
-                  { if (c == '|') { args.push_back (cur); cur.clear (); }
-                    else cur += c; }
-                args.push_back (cur);
+                args = split_pipe (b.substr (lp + 1, rp - lp - 1).c_str ());
               }
           }
           std::vector<std::string> rnames = command_refs (tt);
@@ -2593,29 +2724,12 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
           if (giter < 0)
             for (size_t i = 0; i < args.size () && i < rnames.size (); i++)
               {
-                std::string an = args[i];
-                { size_t b1 = an.find_first_not_of (" \t");
-                  size_t e1 = an.find_last_not_of (" \t");
-                  an = (b1 == std::string::npos)
-                         ? "" : an.substr (b1, e1 - b1 + 1); }
-                if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
-                  {
-                    std::string base = an.substr (1, an.size () - 2);
-                    normalize_singular_ref (base);
-                    if (base == rnames[i])
-                      continue;         /* passed through with its own items */
-                  }
+                if (arg_is_ref_passthrough (args[i], rnames[i]))
+                  continue;             /* passed through with its own items */
                 char *val = eval_arg_to_key (st, args[i]);
                 if (val != NULL && strchr (val, '|') != NULL)
                   {
-                    std::string cur;
-                    for (const char *p = val; ; p++)
-                      {
-                        if (*p == '|' || *p == '\0')
-                          { gmembers.push_back (cur); cur.clear ();
-                            if (*p == '\0') break; }
-                        else cur += *p;
-                      }
+                    gmembers = split_pipe (val);
                     giter = (int) i;
                   }
                 free (val);
@@ -2624,6 +2738,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
 
           int tti = a5state_task_index (st, key.c_str ());
           bool ran_any = false;
+          int  ran_count = 0;        /* per-call: run_one reached execution */
 
           /* The Completed/Repeatable gate is the runner's AttemptToExecuteTask entry
              test, evaluated ONCE per Execute -- so a non-repeatable task run
@@ -2676,25 +2791,15 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                          literal key, or an expanded group member) instead builds
                          the runner's UserDefinedRef, whose fresh items carry NO
                          sCommandReference -- bind an empty typed text. */
-                      std::string an = args[i];
-                      { size_t b1 = an.find_first_not_of (" \t");
-                        size_t e1 = an.find_last_not_of (" \t");
-                        an = (b1 == std::string::npos)
-                               ? "" : an.substr (b1, e1 - b1 + 1); }
-                      if (an.size () >= 2 && an.front () == '%' && an.back () == '%')
-                        {
-                          std::string base = an.substr (1, an.size () - 2);
-                          normalize_singular_ref (base);
-                          if (base == rnames[i])
-                            continue;               /* pass the ref through */
-                        }
+                      if (arg_is_ref_passthrough (args[i], rnames[i]))
+                        continue;                   /* pass the ref through */
                       char *val = eval_arg_to_key (st, args[i]);
                       deferred.push_back (std::make_pair (i, std::string (val)));
                       free (val);
                     }
-                  for (size_t d = 0; d < deferred.size (); d++)
-                    bind_reference (st, rnames[deferred[d].first].c_str (),
-                                    deferred[d].second.c_str (), "");
+                  for (auto &d : deferred)
+                    bind_reference (st, rnames[d.first].c_str (),
+                                    d.second.c_str (), "");
                 }
               /* AttemptToExecuteTask: gate on Completed/Repeatable and the
                  task's own restrictions (with any refs just bound above) --
@@ -2752,6 +2857,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
               std::vector<ref_info> refs = refs_from_bindings (st, tt);
               execute_task_with_overrides (run, tt, refs, 0, out);
               ran_any = true;
+              ran_count++;
           };
 
           /* The runner wraps each SetTasks Execute in `oExistingRefs = NewReferences`
@@ -2793,7 +2899,29 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                 {
                   ref_snap_restore (st, &parent_refs[0]);
                   args[giter] = mk;
+                  /* Inside an event/walk/LocationTrigger-fired attempt, attach
+                     this member to the response entry its run reached (the
+                     runner AddResponse keys every subtask completion with the
+                     iterated reference; a repeat of the same completion MERGES
+                     its item into the existing entry).  The attempt's final
+                     entry becomes the post-Display NewReferences leftover the
+                     next event task iterates -- see ev_tbl in a5run_internal.h.
+                     Quest Giver: daz6CheckIfAny4's blank "\n\n" completion
+                     merges every active quest into one entry, so
+                     daz61DaylightC then decrements daylight once per quest.
+                     The COMMAND path (ev_tbl NULL) is untouched -- view cards'
+                     per-member card printing stays per-member. */
+                  int t0 = run->ev_tbl != NULL ? run->ev_tbl->touches : 0;
                   run_one ();
+                  if (run->in_ev_attempt && run->ev_tbl != NULL
+                      && run->ev_tbl->touches > t0 && run->ev_tbl->last >= 0
+                      && (size_t) run->ev_tbl->last < run->ev_tbl->refs.size ())
+                    {
+                      std::vector<std::string> &ms
+                          = run->ev_tbl->refs[run->ev_tbl->last];
+                      if (std::find (ms.begin (), ms.end (), mk) == ms.end ())
+                        ms.push_back (mk);
+                    }
                   if (st->game_over && !was_over)
                     break;
                 }
@@ -2819,7 +2947,6 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
       if (tk.size () >= 2)
         { int ti = a5state_task_index (st, tk[1].c_str ()); if (ti >= 0) st->task_done[ti] = 0; }
     }
-  return;
 }
 
 static void
@@ -2880,7 +3007,6 @@ act_conversation (a5_run_t *run, const char * /*kind*/,
   char *subj = a5text_process (st, subjraw.c_str ());
   exec_conversation (run, ckey, conv_type, subj, out);
   free (subj);
-  return;
 }
 
 static void
@@ -2945,9 +3071,8 @@ act_location_group (a5_run_t *run, const char *kind,
     }
   else
     return;
-  for (size_t i = 0; i < locs.size (); i++)
-    a5state_set_object_in_group (st, grp, locs[i].c_str (), add);
-  return;
+  for (const std::string &lk : locs)
+    a5state_set_object_in_group (st, grp, lk.c_str (), add);
 }
 
 void
@@ -3019,14 +3144,8 @@ current_obj_ref_keys (a5_state_t *st)
   const char *p = a5state_lookup_ref (st, "ReferencedObjects");
   if (p != NULL && p[0] != '\0')
     {
-      std::string cur;
-      for (const char *q = p; ; q++)
-        {
-          if (*q == '|' || *q == '\0')
-            { if (!cur.empty ()) v.push_back (cur); cur.clear ();
-              if (*q == '\0') break; }
-          else cur += *q;
-        }
+      for (const std::string &k : split_pipe (p))
+        if (!k.empty ()) v.push_back (k);
       return v;
     }
   p = a5state_lookup_ref (st, "ReferencedObject1");
@@ -3068,11 +3187,37 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
     }
   int pre_alr_ink = 0;
   int raw_nonblank = 0;
-  char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink, &raw_nonblank);
+  char *marked = NULL;
+  char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink, &raw_nonblank,
+                                &marked);
   run->st->marking_display = prev_mark;
   if (raw_nonblank)
     run->task_raw_output = 1;
-  emit_message_body (run, m, pre_alr_ink, out);
+  /* Event/walk/LocationTrigger attempt (non-aggregate path -- the aggregate
+     one keys on the raw branch text up in run_task): a completion whose RAW
+     template is non-blank (the runner's AddResponse bHasOutput -- a
+     whitespace-only "\n\n" counts) inserts or merges a response-table entry
+     keyed by its CompletionMessage node.  The table's final entry decides the
+     attempt's post-Display NewReferences leftover (see ev_tbl,
+     a5run_internal.h). */
+  if (run->in_ev_attempt && run->ev_tbl != NULL && raw_nonblank)
+    {
+      ev_resp_tbl *tb = run->ev_tbl;
+      size_t e;
+      for (e = 0; e < tb->keys.size (); e++)
+        if (tb->keys[e] == (const void *) comp && tb->texts[e].empty ())
+          break;
+      if (e == tb->keys.size ())
+        {
+          tb->keys.push_back ((const void *) comp);
+          tb->texts.push_back (std::string ());
+          tb->refs.push_back (std::vector<std::string> ());
+        }
+      tb->last = (int) e;
+      tb->touches++;
+    }
+  emit_message_body (run, m, pre_alr_ink, out, marked);
+  free (marked);
 }
 
 /* Append an already-rendered completion message `m` (ownership taken; freed here)
@@ -3083,18 +3228,23 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
    renders the leading indent before a search-triggered encounter title (Tingalan's
    Search " " completion -> Execute encounter). */
 static void
-emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out)
+emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out,
+                   const char *dedup_key)
 {
   if (msg_has_output (m))
     {
+      /* The runner keys htblResponsesPass on the still-marked-up message, so a
+         difference that lives inside a tag Display later strips still makes two
+         responses distinct; `m` is post-strip, so prefer the marked-up form. */
+      const char *dk = dedup_key != NULL ? dedup_key : m;
       /* Within an event-fired task chain, dedup identical completion messages
          (the runner's htblResponsesPass, keyed by text): show the first, drop repeats.
          Keeps the first occurrence's position -- which, for a message emitted
          before a later <cls>, means it is wiped by that clear (Pathway's banner). */
       if (run->ev_seen != NULL)
         {
-          if (run->ev_seen->count (m)) { free (m); return; }
-          run->ev_seen->insert (m);
+          if (run->ev_seen->count (dk)) { free (m); return; }
+          run->ev_seen->insert (dk);
         }
       /* Per-command pass-response text dedup (the runner's htblResponsesPass keying):
          a command that reaches the same completion text twice -- e.g. two
@@ -3102,7 +3252,7 @@ emit_message_body (a5_run_t *run, char *m, int pre_alr_ink, sb_t *out)
          cl_ToCrawler11 AND cl_ToCrawler12, both the crawler journey) -- shows
          it once, keeping the first occurrence's position. */
       if (run->exec_scope != NULL
-          && !run->exec_scope->pass_seen.insert (m).second)
+          && !run->exec_scope->pass_seen.insert (dk).second)
         { free (m); return; }
       /* A pass response with output: record its bound object references for
          the pass-cancels-fail rule (the runner keys every AddResponse with the
@@ -3402,9 +3552,11 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
      runs) or, for an unchanged AggregateOutput task, left deferred so a second
      item merges into its %objects% list. */
   char *resp_pre = NULL;
+  char *resp_pre_marked = NULL;
   int   resp_pos = -1;
   char *flat_raw = NULL;         /* flat-path frozen Before template + snapshot */
   char *flat_pre = NULL;
+  char *flat_pre_marked = NULL;
   int   flat_pre_ink = 0;
   int   flat_inter = 0;
   sb_t  flat_abuf; sb_init (&flat_abuf);
@@ -3412,7 +3564,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
     {
       if (run->resp != NULL)
         {
-          resp_pre = render_comp_test (run->st, comp);
+          resp_pre = render_comp_test_ex (run->st, comp, &resp_pre_marked);
           resp_pos = (int) run->resp->ents.size ();
           /* The runner renders task.CompletionMessage.ToString with bTestingOutput
              False BEFORE the actions (clsUserSession.vb:1167), retiring any
@@ -3454,20 +3606,25 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              messages -- this fast path keeps them byte-stable.  (defer_look also
              stays here: the interleaved path below buffers action output, which
              would break look_pos indexing into `out`.) */
-          char *e1 = render_comp_test (run->st, comp);
-          char *e2 = render_comp_test (run->st, comp);
-          if (e1 != NULL && e2 != NULL && strcmp (e1, e2) != 0)
+          char *m1 = NULL, *m2 = NULL;
+          char *e1 = render_comp_test_ex (run->st, comp, &m1);
+          char *e2 = render_comp_test_ex (run->st, comp, &m2);
+          int renders_differ = (m1 != NULL && m2 != NULL && strcmp (m1, m2) != 0);
+          free (m2);
+          if (e1 != NULL && e2 != NULL && renders_differ)
             {
               /* First two renders differ: the runner pins the pre-action snapshot and the
                  finalize replace is a no-op on the already-plain text (no 3rd
                  draw). */
               free (e2);
-              emit_message_body (run, e1, 0, out);
+              emit_message_body (run, e1, 0, out, m1);
+              free (m1);
             }
           else
             {
               free (e1);
               free (e2);
+              free (m1);
               emit_completion (run, comp, out);   /* finalize: 3rd render + display */
             }
         }
@@ -3497,7 +3654,8 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
           run->st->marking_display = 1;
           flat_raw = a5text_eval_description (run->st, comp);
           run->st->marking_display = 0;
-          flat_pre = a5text_process_frozen (run->st, flat_raw, &flat_pre_ink);
+          flat_pre = a5text_process_frozen (run->st, flat_raw, &flat_pre_ink,
+                                            &flat_pre_marked);
           run->st->marking_display = pm;
           flat_inter = 1;
         }
@@ -3582,42 +3740,118 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
          for display (the finalize draw, real marking). */
       int pm = run->st->marking_display;
       run->st->marking_display = 0;
-      char *post = a5text_process_frozen (run->st, flat_raw, NULL);
+      char *post_marked = NULL;
+      char *post = a5text_process_frozen (run->st, flat_raw, NULL, &post_marked);
       run->st->marking_display = pm;
-      if (flat_pre != NULL && post != NULL && strcmp (flat_pre, post) != 0)
-        { emit_message_body (run, flat_pre, flat_pre_ink, out); flat_pre = NULL; }
+      /* Compare the MARKED renders: that is the string the runner holds in
+         sMessage (clsUserSession.vb:1200), so a change confined to markup --
+         Beginner's Cave's `<# "<" & rand(0,1000000) & ">" #>` cache-buster --
+         counts, and the runner then pins the pre-action text instead of
+         drawing a third time. */
+      int changed = (flat_pre_marked != NULL && post_marked != NULL
+                     && strcmp (flat_pre_marked, post_marked) != 0);
+      free (post_marked);
+      if (flat_pre != NULL && post != NULL && changed)
+        { emit_message_body (run, flat_pre, flat_pre_ink, out, flat_pre_marked);
+          flat_pre = NULL; }
       else
         {
           int fin_ink = 0;
+          char *fin_marked = NULL;
           pm = run->st->marking_display;
           run->st->marking_display = 1;
-          char *fin = a5text_process_frozen (run->st, flat_raw, &fin_ink);
+          char *fin = a5text_process_frozen (run->st, flat_raw, &fin_ink,
+                                             &fin_marked);
           run->st->marking_display = pm;
-          emit_message_body (run, fin, fin_ink, out);
+          emit_message_body (run, fin, fin_ink, out, fin_marked);
+          free (fin_marked);
         }
       free (post);
     }
   free (flat_pre);
+  free (flat_pre_marked);
   free (flat_raw);
   if (flat_abuf.len > 0) { sb_pspace (out); sb_puts (out, flat_abuf.p); }
   free (flat_abuf.p);
 
   if (before && comp != NULL && run->resp != NULL)
     {
-      char *post = render_comp_test (run->st, comp);
-      if (t->aggregate && resp_pre != NULL && post != NULL
-          && strcmp (resp_pre, post) == 0)
+      char *post_marked = NULL;
+      char *post = render_comp_test_ex (run->st, comp, &post_marked);
+      /* Marked compare, as in the flat path above (vb:1200's sMessage still
+         carries its markup). */
+      int same = (resp_pre_marked != NULL && post_marked != NULL
+                  && strcmp (resp_pre_marked, post_marked) == 0);
+      free (post_marked);
+      if (t->aggregate && resp_pre != NULL && post != NULL && same)
         resp_add_comp (run, t, comp, true, resp_pos);      /* deferred + merge */
       else if (resp_pre != NULL)
         resp_add_text (run, resp_pre, true, resp_pos);     /* pinned pre-action */
       free (post);
     }
   free (resp_pre);
+  free (resp_pre_marked);
 
   if (!before && comp != NULL)
     {
       if (run->resp != NULL)
         resp_add_comp (run, t, comp, true);
+      else if (run->comp_defers != NULL && t->aggregate
+               && run->in_ev_attempt && run->ev_tbl != NULL)
+        {
+          /* Event/walk/LocationTrigger attempt: the runner adds this After
+             completion per subtask pass via CompletionMessage.ToString -- the
+             restriction-gated branch is selected EAGERLY (at this item's
+             state, retiring DisplayOnce), and the resulting RAW branch text
+             keys the response table.  A repeat of the same raw MERGES: one
+             response, no second render, no second `<#..#>` draw.  A DIFFERENT
+             raw from the same completion node is its own response (Quest
+             Giver's daylight task landing on 5 mid-iteration).  Functions in a
+             NEW entry render with the `<#..#>` draw deferred to the attempt's
+             Display flush, mirroring the runner's aggregate expansion. */
+          a5_state_t *st2 = run->st;
+          int pm2 = st2->marking_display;
+          st2->marking_display = 1;
+          char *raw = a5text_eval_description (st2, comp);
+          st2->marking_display = pm2;
+          std::string rawtext = raw != NULL ? raw : "";
+          free (raw);
+          if (!rawtext.empty ())
+            {
+              run->task_raw_output = 1;      /* the runner's bHasOutput */
+              ev_resp_tbl *tb = run->ev_tbl;
+              size_t e;
+              for (e = 0; e < tb->keys.size (); e++)
+                if (tb->keys[e] == (const void *) comp
+                    && tb->texts[e] == rawtext)
+                  break;
+              if (e < tb->keys.size ())
+                { tb->last = (int) e; tb->touches++; }
+              else
+                {
+                  tb->keys.push_back ((const void *) comp);
+                  tb->texts.push_back (rawtext);
+                  tb->refs.push_back (std::vector<std::string> ());
+                  tb->last = (int) tb->keys.size () - 1;
+                  tb->touches++;
+                  size_t sink0 = run->comp_defers->size ();
+                  size_t out0 = out->len;
+                  st2->expr_defer = run->comp_defers;
+                  pm2 = st2->marking_display;
+                  st2->marking_display = 1;
+                  int ink = 0;
+                  char *mk = NULL;
+                  char *m = a5text_process_frozen (st2, rawtext.c_str (),
+                                                   &ink, &mk);
+                  st2->marking_display = pm2;
+                  st2->expr_defer = NULL;
+                  emit_message_body (run, m, ink, out, mk);
+                  free (mk);
+                  if (out->len == out0)
+                    run->comp_defers->resize (sink0);
+                }
+            }
+        }
       else if (run->comp_defers != NULL && t->aggregate)
         {
           /* AggregateOutput completion on the eager command path: render the

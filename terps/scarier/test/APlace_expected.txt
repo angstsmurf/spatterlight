@@ -1,0 +1,266 @@
+A Place
+You awaken in a room, with no idea of how you got here. There's nothing in the room but a single chair.
+
+If you've never played a text adventure game before, here are some helpful commands: "take ", "go (north, south, east, west, up, down)", "examine ", "say hello".
+You can usually make something happen by typing it in, ex.
+"put rock into box."
+Remember to ask characters about relevant objects in the area, ex. "ask guard about room".
+Your goal is to get to the Victory! Room.
+Have fun!
+
+The Starting Room
+To the north is a door. There is a chair here.  Unfortunately, the door is locked. You must find a key!  Also here is a note.
+
+> read note
+The note reads, "Welcome to A Place! This is a game used to collect data for a science fair project. As such, it is short and simple, but you should enjoy it somewhat, I hope. Remember to report your results at the end!" This note makes no sense to you whatsoever, so you just put it away.
+
+> x chair
+You look at the chair, but see nothing. Mildly frustrated, you look under the chair, and there's the key!
+
+> take key
+(from the wooden chair)
+Ok, you take the Starting Room door key from the wooden chair.
+
+> unlock door with key
+You unlock the Starting Room door with the Starting Room door key.
+
+> open door
+You open the Starting Room door.
+
+> north
+You move north.
+
+Hallway
+A long hallway. To the south is the Starting Room, to the west is the Kitchen, and to the north is the Fountain Room.
+
+> west
+You move west.
+
+Kitchen
+You enter a small kitchen. To the south is the pantry. To the east is a hallway.  Also here is the piece of cake.  The old lady is here.
+
+> x old lady
+A sweet the old lady.
+
+> take cake
+You reach for the cake, and the old lady says, "Don't just take that! Ask permission first." (Type "take cake" again to take it anyways.)
+
+> take cake
+Ok, you pick up the piece of cake.
+
+> south
+You move south.
+
+Pantry
+A small pantry. To the north is the kitchen.  Also here is a small red gem.
+
+> take gem
+Ok, you pick up the small red gem.
+
+> north
+You move north.
+
+Kitchen
+You enter a small kitchen. To the south is the pantry. To the east is a hallway.  The old lady is here.
+
+> east
+You move east.
+
+Hallway
+A long hallway. To the south is the Starting Room, to the west is the Kitchen, and to the north is the Fountain Room.
+
+> north
+You move north.
+
+Fountain Room
+A large room with a fountain in the middle. To the south is a hallway. To the west is the Labor Room.  There is a weak-looking wall to the north.
+
+> push wall
+You push the weak section of wall, and it collapses, revealing a small room!
+
+> north
+You move north.
+
+Thieves' Hideout
+A small room carved into the wall. To the south is the Fountain Room.  Also here is a lockpick.
+
+> take lockpick
+Ok, you pick up the lockpick.
+
+> south
+You move south.
+
+Fountain Room
+A large room with a fountain in the middle. To the south is a hallway. To the west is the Labor Room.  The Thieves' Hideout is to the north.
+
+> put gem in fountain
+You put the small red gem inside the fountain.  The gem fits perfectly! The fountain stops spraying water, the water drains from the pool, and the bottom of the pool drops in sections to create a staircase. It seems you've found the way forward!
+
+> west
+You move west.
+
+Labor Room
+In this room, you see several men running in hamster wheels. There is a foreman standing in the center of the room. To the east is the Fountain Room.  The foreman is here.
+
+> x foreman
+A man overseeing the work in the labor room.
+
+> east
+You move east.
+
+Fountain Room
+A large room with a fountain in the middle. To the south is a hallway. To the west is the Labor Room.  The Thieves' Hideout is to the north.
+
+> down
+You move down.
+
+Gate Room
+A large room with modern decor. There is a guarded gate to the south. To the east is a hallway.  The guard looks at you suspiciously.
+
+> x guard
+A tough-looking man who's duty it is to make sure no unauthorized people pass through the gate.
+
+> east
+You move east.
+
+Hallway
+A long hallway. There is a shop to the south. There is a gaurd in front of a door to the east. There is a door to the north. To the east is the Gate Room.
+The locker room guard is here.
+
+> x guard
+A fat man who guards the entrance to the guard locker rooms.
+
+> give cake to guard
+You hand the guard the piece of cake. He says thank you very much, I'll let you in to the room now.
+
+> east
+You move east.
+
+Guards' Locker Room
+A large room containing many lockers. One of them is open. To the west is a hallway.
+
+> look in locker
+A guard's locker. They forgot to lock it.  The locker is currently open.  Inside the locker are a gate key card, a 9mm pistol and a 9mm clip.
+
+> take pistol
+(from the locker)
+Ok, you take the 9mm pistol from the locker.
+
+> take clip
+(from the locker)
+Ok, you take the 9mm clip from the locker.
+
+> take card
+(from the locker)
+Ok, you take the gate key card from the locker.
+
+> put clip in pistol
+You load your handgun.
+
+> west
+You move west.
+
+Hallway
+A long hallway. There is a shop to the south. There is a gaurd in front of a door to the east. There is a door to the north. To the east is the Gate Room.
+The locker room guard is here.
+
+> north
+You move north.
+
+Corridor
+A short corridor leading to a room. To the north is a door. To the south is the hallway. A message painted on the wall in neon green reads, "DO NOT PRESS THE BUTTON IN THAT ROOM."
+
+> north
+Before you leave the room, a voice tells you, "Do not press the large button in the next room."  You move north.
+
+Button Room
+A small room containing a single large red button labelled, "DO NOT PRESS." To the south is a corridor.
+
+> x button
+A large red button with the words "DO NOT PRESS" stamped on it.
+
+> south
+You move south.
+
+Corridor
+A short corridor leading to a room. To the north is a door. To the south is the hallway. A message painted on the wall in neon green reads, "DO NOT PRESS THE BUTTON IN THAT ROOM."
+
+> south
+You move south.
+
+Hallway
+A long hallway. There is a shop to the south. There is a gaurd in front of a door to the east. There is a door to the north. To the east is the Gate Room.
+The locker room guard is here.
+
+> south
+You move south.
+
+Shop
+A small shop selling various goods. It appears the shopkeeper is away. All the items are locked inside a display case. A sign reads, "Put money in the register and the case will open." To the north is a hallway.
+
+> x case
+The glass display case contains all of the items for sale. Right now it's empty except for the Gray Star.  Right now it's empty.  The glass case is currently locked.
+
+> unlock case with lockpick
+You manage to pick the lock on the case. It pops open, allowing easy access to the Gray Star.
+
+> take gray star
+(from the glass case)
+Ok, you take the Gray Star from the glass case.
+
+> north
+You move north.
+
+Hallway
+A long hallway. There is a shop to the south. There is a gaurd in front of a door to the east. There is a door to the north. To the east is the Gate Room.
+The locker room guard is here.
+
+> west
+You move west.
+
+Gate Room
+A large room with modern decor. There is a guarded gate to the south. To the east is a hallway.  The guard looks at you suspiciously.
+
+> shoot guard
+You fire several rounds into the guard's head, instantly killing him and causing him to fall onto the gate controls, opening the gate.
+
+> south
+You move south.
+
+Enigmatic Machine
+A huge room containing a machine. The machine has three star-shaped slots on it. A sign reads, "The machine will activate and reveal the way when the correct object is inserted into the slot." The Gate Room is to the north.
+
+> look
+
+Enigmatic Machine
+A huge room containing a machine. The machine has three star-shaped slots on it. A sign reads, "The machine will activate and reveal the way when the correct object is inserted into the slot." The Gate Room is to the north.
+
+> turn on machine
+You place the Gray Star into its slot, then flip the switch. The machine rumbles to life, then splits apart to reveal a doorway filled with light to the south.
+
+> south
+You move south.
+
+Victory!
+The final room. Push the button to win.
+
+> look
+
+Victory!
+The final room. Push the button to win.
+
+> push button
+Good job! You win.
+
+*** You have won ***
+Good job on winning, mate.
+Your list of achievements:
+
+You found the Thieves' Hideout.
+You killed the gate guard.
+You took the cake without asking.
+You stole the Gray Star.
+
+Congratulations. Take a picture of this screen and send it to kainmasterman@gmail.com so I get something out of you playing it. Thanks for your time!
+Would you like to restart, restore a saved game, quit or undo the last command?
+

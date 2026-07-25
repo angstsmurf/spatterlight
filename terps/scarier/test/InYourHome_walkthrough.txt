@@ -1,0 +1,35 @@
+# in your home -- "Untitled" (adrift.co).  A tiny two-room post-fallout mood
+# piece: a bunker with a bedroll, a chest, a crank radio and a rationed jug of
+# water, and the irradiated world one hatch above.  There is NO ending and no
+# score -- every custom task is a Specific override on a stdlib verb, so this
+# route is really a sweep of those overrides: drink (two different tasks, the
+# second one grumbling about rationing), the radio that refuses to switch off
+# and prints its own inline ">Listen / >Turn Radio Off" menu, listen, think,
+# sleep/awaken, and the sickly fox outside (examine prints ">Touch fox / >Pick
+# Up fox", but "touch" is not actually a known verb here -- an authored typo the
+# engine must reproduce faithfully).  Waving the fox makes it run away, which is
+# why it is the last thing done to it.
+x chest
+open chest
+x radio
+turn on radio
+listen
+x water
+drink water
+drink water
+think
+sleep
+wake up
+out
+x fox
+touch fox
+take fox
+drop fox
+take fox
+x path
+in
+drop fox
+out
+wave fox
+in
+turn off radio
