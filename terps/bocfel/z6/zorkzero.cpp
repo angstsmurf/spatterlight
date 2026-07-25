@@ -925,15 +925,26 @@ void z0_update_colors(void) {
     if (default_bg == 0)
         default_bg = 1;
 
+    // Under Spatterlight the game's DEFAULT-FG/DEFAULT-BG globals are kept at
+    // 1 ("default", i.e. the theme colours): the DEFAULT_COLORS entry point
+    // rewrites them to 1 whenever the game calls DEFAULT-COLORS. Write 1 here
+    // too, not the computed platform defaults: r383+ paint the bordered status
+    // line with <COLOR ,DEFAULT-FG ,DEFAULT-BG> (CLEAR-BORDER,
+    // UPDATE-STATUS-LINE), and the manual-restore path
+    // (z0_update_after_restore) is a caller with no game DEFAULT-COLORS call
+    // afterwards -- pushing the platform values (Amiga: BLACK on LIGHTGREY)
+    // into the globals there turned the left status window black-on-grey at
+    // the first border change after a restore. The computed
+    // default_fg/default_bg are still applied to the current colours below,
+    // so the screen still gets the right defaults.
+    //
     // DEFAULT-FG/DEFAULT-BG (and their DEFAULT-COLORS routine) do not exist in
     // early revisions such as r343; their finder leaves the indices at 0. Guard
-    // the writes so we don't clobber global 0 every time colours update. The
-    // computed default_fg/default_bg are still applied to the current colours
-    // below, so the screen still gets the right defaults.
+    // the writes so we don't clobber global 0 every time colours update.
     if (zg.DEFAULT_FG != 0)
-        set_global(zg.DEFAULT_FG, default_fg);
+        set_global(zg.DEFAULT_FG, DEFAULT_COLOUR);
     if (zg.DEFAULT_BG != 0)
-        set_global(zg.DEFAULT_BG, default_bg);
+        set_global(zg.DEFAULT_BG, DEFAULT_COLOUR);
 
     if (graphics_type == kGraphicsTypeApple2) { // Only default colors are allowed with Apple 2 graphics
         current_fg = WHITE_COLOUR;
@@ -2789,6 +2800,17 @@ void z0_update_after_autorestore(void) {
     // can crash during autorestore (see the screenmode guard in
     // z0_update_after_restore).
     update_user_defined_colours();
+
+    // Re-assert the DEFAULT-FG/DEFAULT-BG == 1 invariant (see the comment in
+    // z0_update_colors). An autosave written by a session where a manual
+    // restore had pushed the platform defaults into these globals carries the
+    // stale values, and the game paints the bordered status line with
+    // <COLOR ,DEFAULT-FG ,DEFAULT-BG> on the next border change.
+    if (zg.DEFAULT_FG != 0)
+        set_global(zg.DEFAULT_FG, DEFAULT_COLOUR);
+    if (zg.DEFAULT_BG != 0)
+        set_global(zg.DEFAULT_BG, DEFAULT_COLOUR);
+
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
     for (auto &window : windows) {
