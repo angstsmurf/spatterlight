@@ -7115,6 +7115,51 @@ gsc_command_zoom (const char *argument)
 
 
 /*
+ * gsc_a5_present_intro()
+ *
+ * Show a fresh run's opening: the intro text (paged by gsc_a5_display, so
+ * <cls>/<waitkey> marks in it work as they do in the official Runner), then
+ * any cover media, then the live-state panes.
+ */
+static void
+gsc_a5_present_intro (a5_run_t *run)
+{
+  char *text = a5run_intro (run);
+
+  gsc_a5_display (text);
+  free (text);
+  gsc_a5_present_intro_media (run);
+  gsc_a5_status (run);
+  gsc_map_redraw ();
+}
+
+
+/*
+ * gsc_a5_restart_run()
+ *
+ * Replace the run with a new one on the same adventure and replay its
+ * opening.  Reached both from RESTART at the prompt and from RESTART at the
+ * end-of-game banner; `run` aliases gsc_a5_run, so redraws follow it across
+ * the swap.  Does not return if the new run cannot be allocated.
+ */
+static void
+gsc_a5_restart_run (a5_run_t *&run)
+{
+  a5run_free (run);
+  run = a5run_new (gsc_a5_adv);
+  if (!run)
+    {
+      gsc_a5_put_string ("Out of memory restarting game.\n");
+      glk_exit ();
+    }
+  gsc_a5_stop_all_sounds ();
+  gsc_a5_start_real_time (run);
+  glk_window_clear (gsc_main_window);
+  gsc_a5_present_intro (run);
+}
+
+
+/*
  * gsc_a5_main()
  *
  * Run the ADRIFT 5 game in a single text-buffer window: print the intro, then
@@ -7249,12 +7294,7 @@ gsc_a5_main (void)
   else
     {
 #endif
-  text = a5run_intro (run);
-  gsc_a5_display (text);
-  free (text);
-  gsc_a5_present_intro_media (run);
-  gsc_a5_status (run);
-  gsc_map_redraw ();
+  gsc_a5_present_intro (run);
 #ifdef SPATTERLIGHT
     }
 #endif
@@ -7318,24 +7358,7 @@ gsc_a5_main (void)
                 }
             }
           if (!resumed)
-            {
-              a5run_free (run);
-              run = a5run_new (gsc_a5_adv);
-              if (!run)
-                {
-                  gsc_a5_put_string ("Out of memory restarting game.\n");
-                  glk_exit ();
-                }
-              gsc_a5_stop_all_sounds ();
-              gsc_a5_start_real_time (run);
-              glk_window_clear (gsc_main_window);
-              text = a5run_intro (run);
-              gsc_a5_display (text);
-              free (text);
-              gsc_a5_present_intro_media (run);
-              gsc_a5_status (run);
-              gsc_map_redraw ();
-            }
+            gsc_a5_restart_run (run);
         }
 
       /* If a "help" request was noted last turn, hint at "glk help". */
@@ -7371,22 +7394,7 @@ gsc_a5_main (void)
 
       if (gsc_a5_match_command (input, "restart"))
         {
-          a5run_free (run);
-          run = a5run_new (gsc_a5_adv);
-          if (!run)
-            {
-              gsc_a5_put_string ("Out of memory restarting game.\n");
-              glk_exit ();
-            }
-          gsc_a5_stop_all_sounds ();
-          gsc_a5_start_real_time (run);
-          glk_window_clear (gsc_main_window);
-          text = a5run_intro (run);
-          gsc_a5_display (text);
-          free (text);
-          gsc_a5_present_intro_media (run);
-          gsc_a5_status (run);
-          gsc_map_redraw ();
+          gsc_a5_restart_run (run);
           continue;
         }
 

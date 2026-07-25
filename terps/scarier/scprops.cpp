@@ -494,6 +494,61 @@ prop_add_child (scr_prop_noderef_t parent,
 
 
 /*
+ * prop_trace_value()
+ * prop_trace_keys()
+ *
+ * Trace helpers shared by prop_put() and prop_get().  The first prints one
+ * property value according to the type character in format[0]; the second
+ * prints the comma-separated key elements described by format[3...].  Both
+ * are only ever called with prop_trace set.
+ */
+static void
+prop_trace_value (scr_char type, const scr_vartype_t vt_value)
+{
+  switch (type)
+    {
+    case PROP_STRING:
+      scr_trace ("\"%s\"", vt_value.string);
+      break;
+    case PROP_INTEGER:
+      scr_trace ("%ld", vt_value.integer);
+      break;
+    case PROP_BOOLEAN:
+      scr_trace ("%s", vt_value.boolean ? "true" : "false");
+      break;
+
+    default:
+      scr_trace ("%p [invalid type]", vt_value.voidp);
+      break;
+    }
+}
+
+static void
+prop_trace_keys (const scr_char *format, const scr_vartype_t vt_key[])
+{
+  scr_int index_;
+
+  for (index_ = 0; format[index_ + 3] != NUL; index_++)
+    {
+      scr_trace ("%s", index_ > 0 ? "," : "");
+      switch (format[index_ + 3])
+        {
+        case PROP_KEY_STRING:
+          scr_trace ("\"%s\"", vt_key[index_].string);
+          break;
+        case PROP_KEY_INTEGER:
+          scr_trace ("%ld", vt_key[index_].integer);
+          break;
+
+        default:
+          scr_trace ("%p [invalid type]", vt_key[index_].voidp);
+          break;
+        }
+    }
+}
+
+
+/*
  * prop_put()
  *
  * Add a property to a properties set.  Duplicate entries will replace
@@ -524,40 +579,9 @@ prop_put (scr_prop_setref_t bundle, const scr_char *format,
   if (prop_trace)
     {
       scr_trace ("Property: put ");
-      switch (format[0])
-        {
-        case PROP_STRING:
-          scr_trace ("\"%s\"", vt_value.string);
-          break;
-        case PROP_INTEGER:
-          scr_trace ("%ld", vt_value.integer);
-          break;
-        case PROP_BOOLEAN:
-          scr_trace ("%s", vt_value.boolean ? "true" : "false");
-          break;
-
-        default:
-          scr_trace ("%p [invalid type]", vt_value.voidp);
-          break;
-        }
+      prop_trace_value (format[0], vt_value);
       scr_trace (", key \"%s\" : ", format);
-      for (index_ = 0; format[index_ + 3] != NUL; index_++)
-        {
-          scr_trace ("%s", index_ > 0 ? "," : "");
-          switch (format[index_ + 3])
-            {
-            case PROP_KEY_STRING:
-              scr_trace ("\"%s\"", vt_key[index_].string);
-              break;
-            case PROP_KEY_INTEGER:
-              scr_trace ("%ld", vt_key[index_].integer);
-              break;
-
-            default:
-              scr_trace ("%p [invalid type]", vt_key[index_].voidp);
-              break;
-            }
-        }
+      prop_trace_keys (format, vt_key);
       scr_trace ("\n");
     }
 
@@ -704,23 +728,7 @@ prop_get (scr_prop_setref_t bundle, const scr_char *format,
   if (prop_trace)
     {
       scr_trace ("Property: get, key \"%s\" : ", format);
-      for (index_ = 0; format[index_ + 3] != NUL; index_++)
-        {
-          scr_trace ("%s", index_ > 0 ? "," : "");
-          switch (format[index_ + 3])
-            {
-            case PROP_KEY_STRING:
-              scr_trace ("\"%s\"", vt_key[index_].string);
-              break;
-            case PROP_KEY_INTEGER:
-              scr_trace ("%ld", vt_key[index_].integer);
-              break;
-
-            default:
-              scr_trace ("%p [invalid type]", vt_key[index_].voidp);
-              break;
-            }
-        }
+      prop_trace_keys (format, vt_key);
       scr_trace ("\n");
     }
 
@@ -777,22 +785,7 @@ prop_get (scr_prop_setref_t bundle, const scr_char *format,
   if (prop_trace)
     {
       scr_trace ("Property: ...get returned : ");
-      switch (format[0])
-        {
-        case PROP_STRING:
-          scr_trace ("\"%s\"", vt_rvalue->string);
-          break;
-        case PROP_INTEGER:
-          scr_trace ("%ld", vt_rvalue->integer);
-          break;
-        case PROP_BOOLEAN:
-          scr_trace ("%s", vt_rvalue->boolean ? "true" : "false");
-          break;
-
-        default:
-          scr_trace ("%p [invalid type]", vt_rvalue->voidp);
-          break;
-        }
+      prop_trace_value (format[0], *vt_rvalue);
       scr_trace ("\n");
     }
   return TRUE;

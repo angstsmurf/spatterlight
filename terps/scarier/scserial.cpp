@@ -477,6 +477,38 @@ ser_buffer_boolean (scr_bool boolean)
 
 
 /*
+ * ser_variable_count()
+ * ser_variable_at()
+ *
+ * The game's variables as the serializer walks them.  Save and load both
+ * visit every variable in declaration order and switch on its type, so the
+ * count and the name/type lookup are shared; only the transfer differs.
+ */
+static scr_int
+ser_variable_count (scr_prop_setref_t bundle)
+{
+  scr_vartype_t vt_key[1];
+
+  vt_key[0].string = "Variables";
+  return prop_get_child_count (bundle, "I<-s", vt_key);
+}
+
+static scr_int
+ser_variable_at (scr_prop_setref_t bundle, scr_int index_,
+                 const scr_char **name)
+{
+  scr_vartype_t vt_key[3];
+
+  vt_key[0].string = "Variables";
+  vt_key[1].integer = index_;
+  vt_key[2].string = "Name";
+  *name = prop_get_string (bundle, "S<-sis", vt_key);
+  vt_key[2].string = "Type";
+  return prop_get_integer (bundle, "I<-sis", vt_key);
+}
+
+
+/*
  * ser_save_game()
  *
  * Serialize a game and save its state using the given callback and opaque.
@@ -621,20 +653,12 @@ ser_save_game (scr_gameref_t game,
     }
 
   /* Save each variable. */
-  vt_key[0].string = "Variables";
-  var_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  var_count = ser_variable_count (bundle);
 
   for (index_ = 0; index_ < var_count; index_++)
     {
       const scr_char *name;
-      scr_int var_type;
-
-      vt_key[1].integer = index_;
-
-      vt_key[2].string = "Name";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
-      vt_key[2].string = "Type";
-      var_type = prop_get_integer (bundle, "I<-sis", vt_key);
+      scr_int var_type = ser_variable_at (bundle, index_, &name);
 
       switch (var_type)
         {
@@ -1170,20 +1194,12 @@ ser_load_game (scr_gameref_t game,
     }
 
   /* Restore each variable. */
-  vt_key[0].string = "Variables";
-  var_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  var_count = ser_variable_count (bundle);
 
   for (index_ = 0; index_ < var_count; index_++)
     {
       const scr_char *name;
-      scr_int var_type;
-
-      vt_key[1].integer = index_;
-
-      vt_key[2].string = "Name";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
-      vt_key[2].string = "Type";
-      var_type = prop_get_integer (bundle, "I<-sis", vt_key);
+      scr_int var_type = ser_variable_at (bundle, index_, &name);
 
       switch (var_type)
         {

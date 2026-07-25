@@ -1984,6 +1984,49 @@ parse_fixup_v390_v380_room_alts (void)
 
 
 /*
+ * parse_write_restrmask()
+ *
+ * Count the restrictions written so far under the current key, and store a
+ * RestrMask that 'and's them all together ("#", "#A#", "#A#A#", ...).  Both
+ * the 3.9 and the 3.8 task conversions end by doing exactly this.  A task
+ * with no restrictions gets no mask at all, as before.
+ */
+static void
+parse_write_restrmask (void)
+{
+  scr_vartype_t vt_key, vt_value;
+  scr_int restriction_count;
+
+  /* Get a count of restrictions. */
+  vt_key.string = "Restrictions";
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  restriction_count = parse_get_child_count ();
+  parse_pop_key ();
+
+  /* Allocate and fill a new mask for these restrictions. */
+  if (restriction_count > 0)
+    {
+      scr_char *restrmask;
+      scr_int index_;
+      size_t restrmask_size = parse_checked_multiply (restriction_count, 2);
+
+      restrmask = (decltype(restrmask)) scr_malloc (restrmask_size);
+      strncpy (restrmask, "#", restrmask_size);
+      for (index_ = 1; index_ < restriction_count; index_++)
+        strncat (restrmask, "A#", 2);
+
+      vt_key.string = "RestrMask";
+      parse_push_key (vt_key, PROP_KEY_STRING);
+      vt_value.string = restrmask;
+      parse_put_property (vt_value, PROP_STRING);
+      parse_pop_key ();
+
+      prop_adopt (parse_bundle, restrmask);
+    }
+}
+
+
+/*
  * parse_fixup_v390()
  *
  * Handler for fixup special items to help with conversions from TAF version
@@ -2067,37 +2110,7 @@ parse_fixup_v390 (const scr_char *fixup)
 
   /* Create a RestrMask that 'and's all the restrictions together. */
   else if (strcmp (fixup, "|V390_TASK:$RestrMask|") == 0)
-    {
-      scr_vartype_t vt_key, vt_value;
-      scr_int restriction_count;
-
-      /* Get a count of restrictions. */
-      vt_key.string = "Restrictions";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      restriction_count = parse_get_child_count ();
-      parse_pop_key ();
-
-      /* Allocate and fill a new mask for these restrictions. */
-      if (restriction_count > 0)
-        {
-          scr_char *restrmask;
-          scr_int index_;
-          size_t restrmask_size = parse_checked_multiply (restriction_count, 2);
-
-          restrmask = (decltype(restrmask)) scr_malloc (restrmask_size);
-          strncpy (restrmask, "#", restrmask_size);
-          for (index_ = 1; index_ < restriction_count; index_++)
-            strncat (restrmask, "A#", 2);
-
-          vt_key.string = "RestrMask";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.string = restrmask;
-          parse_put_property (vt_value, PROP_STRING);
-          parse_pop_key ();
-
-          prop_adopt (parse_bundle, restrmask);
-        }
-    }
+    parse_write_restrmask ();
 
   /*
    * Increment var1 for variable restrictions to compensate for there being no
@@ -2738,13 +2751,12 @@ parse_fixup_v380 (const scr_char *fixup)
   /* Create version 4.0 task restrictions from a version 3.8 task. */
   else if (strcmp (fixup, "|V380_TASK:_Restrictions_|") == 0)
     {
-      scr_vartype_t vt_key, vt_value;
+      scr_vartype_t vt_key;
       scr_bool holding, tasknotdone, notinsameroom;
       scr_int holdobj1, holdobj2, holdobj3, task;
       scr_int wearobj1, wearobj2, npc, obj1, obj1room, obj2;
       const scr_char *holdmsg, *taskmsg, *wearmsg, *companymsg;
       const scr_char *obj1msg;
-      scr_int restriction_count;
 
       /* Create restrictions for objects not held or absent. */
       vt_key.string = "HoldingSameRoom";
@@ -2878,32 +2890,8 @@ parse_fixup_v380 (const scr_char *fixup)
           parse_fixup_v380_objstate_restr (obj2, var1, var2, obj2msg);
         }
 
-      /* Get a count of restrictions created. */
-      vt_key.string = "Restrictions";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      restriction_count = parse_get_child_count ();
-      parse_pop_key ();
-
-      /* Allocate and fill a new mask for these restrictions. */
-      if (restriction_count > 0)
-        {
-          scr_char *restrmask;
-          scr_int index_;
-          size_t restrmask_size = parse_checked_multiply (restriction_count, 2);
-
-          restrmask = (decltype(restrmask)) scr_malloc (restrmask_size);
-          strncpy (restrmask, "#", restrmask_size);
-          for (index_ = 1; index_ < restriction_count; index_++)
-            strncat (restrmask, "A#", 2);
-
-          vt_key.string = "RestrMask";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.string = restrmask;
-          parse_put_property (vt_value, PROP_STRING);
-          parse_pop_key ();
-
-          prop_adopt (parse_bundle, restrmask);
-        }
+      /* Mask off the restrictions just created. */
+      parse_write_restrmask ();
     }
 
   /*

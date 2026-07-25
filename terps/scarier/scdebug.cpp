@@ -771,6 +771,33 @@ debug_print_variable (scr_gameref_t game, scr_int variable)
 
 
 /*
+ * debug_print_position()
+ *
+ * Print a stand/sit/lie position, indented as a detail line.  Players and
+ * NPCs use the same encoding, and both dumps print it identically.
+ */
+static void
+debug_print_position (scr_int position)
+{
+  switch (position)
+    {
+    case 0:
+      if_print_debug ("    Standing\n");
+      break;
+    case 1:
+      if_print_debug ("    Sitting\n");
+      break;
+    case 2:
+      if_print_debug ("    Lying\n");
+      break;
+    default:
+      if_print_debug ("    [Invalid position]\n");
+      break;
+    }
+}
+
+
+/*
  * debug_game()
  *
  * Display overall game details.
@@ -960,21 +987,7 @@ debug_player (scr_gameref_t game,
       if_print_debug_character ('\n');
     }
 
-  switch (gs_playerposition (game))
-    {
-    case 0:
-      if_print_debug ("    Standing\n");
-      break;
-    case 1:
-      if_print_debug ("    Sitting\n");
-      break;
-    case 2:
-      if_print_debug ("    Lying\n");
-      break;
-    default:
-      if_print_debug ("    [Invalid position]\n");
-      break;
-    }
+  debug_print_position (gs_playerposition (game));
 
   if (gs_playerparent (game) != -1)
     {
@@ -1259,21 +1272,7 @@ debug_dump_npc (scr_gameref_t game, scr_int npc)
       if_print_debug_character ('\n');
     }
 
-  switch (gs_npc_position (game, npc))
-    {
-    case 0:
-      if_print_debug ("    Standing\n");
-      break;
-    case 1:
-      if_print_debug ("    Sitting\n");
-      break;
-    case 2:
-      if_print_debug ("    Lying\n");
-      break;
-    default:
-      if_print_debug ("    [Invalid position]\n");
-      break;
-    }
+  debug_print_position (gs_npc_position (game, npc));
 
   if (gs_npc_parent (game, npc) != -1)
     {
