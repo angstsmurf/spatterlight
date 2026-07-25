@@ -30,6 +30,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "zlib.h"
 #include "scarier.h"
 #include "scprotos.h"
@@ -288,11 +290,35 @@ ser_buffer_character (scr_char character)
 static void
 ser_buffer_buffer (const scr_char *buffer, scr_int length)
 {
-  scr_int index_;
+  scr_int offset = 0;
 
-  /* Add each character to the buffer. */
-  for (index_ = 0; index_ < length; index_++)
-    ser_buffer_character (buffer[index_]);
+  /* Allocate the buffer if not yet done. */
+  if (!ser_buffer)
+    {
+      assert (ser_buffer_length == 0);
+      ser_buffer = (decltype(ser_buffer)) scr_malloc (BUFFER_SIZE);
+    }
+
+  /* Copy in chunks, flushing eagerly whenever the buffer fills -- every
+   * helper (ser_buffer_character included) relies on the buffer never being
+   * left exactly full.  The undo snapshot funnels the whole game state
+   * through here every turn, so this is memcpy rather than the old
+   * per-character loop; the deflate stream sees the same byte sequence
+   * either way (Z_NO_FLUSH output depends only on the data). */
+  while (offset < length)
+    {
+      scr_int chunk;
+
+      chunk = BUFFER_SIZE - ser_buffer_length;
+      if (chunk > length - offset)
+        chunk = length - offset;
+      memcpy (ser_buffer + ser_buffer_length, buffer + offset, chunk);
+      ser_buffer_length += chunk;
+      offset += chunk;
+
+      if (ser_buffer_length == BUFFER_SIZE)
+        ser_flush (FALSE);
+    }
 }
 
 static void
@@ -304,13 +330,43 @@ ser_buffer_string (const scr_char *string)
   ser_buffer_character (NEWLINE);
 }
 
+/*
+ * ser_render_ulong()
+ *
+ * Render an unsigned magnitude as decimal digits, returning the advanced
+ * output pointer.  Hand-rolled because the snprintf calls these helpers made
+ * per value profiled at ~15% of a bulk headless replay (macOS snprintf takes
+ * locale locks); the rendered bytes are identical.
+ */
+static scr_char *
+ser_render_ulong (scr_char *out, unsigned long magnitude)
+{
+  scr_char digits[24];
+  scr_int count = 0;
+
+  do
+    {
+      digits[count++] = (scr_char) ('0' + magnitude % 10);
+      magnitude /= 10;
+    }
+  while (magnitude > 0);
+  while (count > 0)
+    *out++ = digits[--count];
+  return out;
+}
+
 static void
 ser_buffer_int (scr_int value)
 {
   scr_char buffer[32];
+  scr_char *out = buffer;
 
-  /* Convert to a string and buffer that. */
-  snprintf (buffer, sizeof(buffer), "%ld", value);
+  /* Convert to a string ("%ld") and buffer that. */
+  if (value < 0)
+    *out++ = '-';
+  out = ser_render_ulong (out, value < 0 ? -(unsigned long) value
+                                         : (unsigned long) value);
+  *out = '\0';
   ser_buffer_string (buffer);
 }
 
@@ -318,9 +374,15 @@ static void
 ser_buffer_int_special (scr_int value)
 {
   scr_char buffer[32];
+  scr_char *out = buffer;
 
-  /* Weirdo formatting for compatibility. */
-  snprintf (buffer, sizeof(buffer), "% ld ", value);
+  /* Weirdo formatting for compatibility: "% ld " -- a sign column (space for
+   * non-negative, '-' for negative) and a trailing space. */
+  *out++ = value < 0 ? '-' : ' ';
+  out = ser_render_ulong (out, value < 0 ? -(unsigned long) value
+                                         : (unsigned long) value);
+  *out++ = ' ';
+  *out = '\0';
   ser_buffer_string (buffer);
 }
 
@@ -376,6 +438,131 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
 }
 
 /*
+ * Cached immutable serializer inputs.
+ *
+ * memo_save_game() drives ser_save_game() every turn for the undo ring, and
+ * before caching the serializer re-read the same immutable bundle properties
+ * each time: every static object's "Where" room list (2 x room_count
+ * prop_get_boolean calls per ROOMLIST_SOME_ROOMS object per turn -- the
+ * largest remaining prop_get consumer in a bulk-replay profile), every
+ * event's starter task, and every variable's name and type.  Remember each
+ * answer the first time it is read.  As with the task cache (sctasks.cpp),
+ * caching is lazy -- the first touch goes through the same fatal-checking
+ * prop_get_* wrappers, so a malformed game fails exactly as before -- and the
+ * cache tracks a single game, dropped by gs_destroy() via ser_forget_game().
+ * Only the save path caches; ser_load_game() is a once-per-restore walk.
+ */
+static const void *ser_cache_game = NULL;
+/* Per static object, the exact int sequence its room list emits (leading
+ * count, then rooms); always non-empty once built, so empty() = not built. */
+static std::vector<std::vector<scr_int> > ser_cache_object_rooms;
+static std::vector<scr_int> ser_cache_event_task;      /* -1 = not built */
+static scr_int ser_cache_var_count = -1;
+static std::vector<const scr_char *> ser_cache_var_name;  /* NULL = unbuilt */
+static std::vector<scr_int> ser_cache_var_type;
+
+static void
+ser_synchronize_cache (scr_gameref_t game)
+{
+  if (ser_cache_game != game)
+    {
+      ser_cache_object_rooms.assign (gs_object_count (game),
+                                     std::vector<scr_int> ());
+      ser_cache_event_task.assign (gs_event_count (game), -1);
+      ser_cache_var_count = -1;
+      ser_cache_var_name.clear ();
+      ser_cache_var_type.clear ();
+      ser_cache_game = game;
+    }
+}
+
+/*
+ * ser_forget_game()
+ *
+ * Drop any serializer cache built for the given game.  Called from
+ * gs_destroy() so a stale cache can never outlive its game.
+ */
+void
+ser_forget_game (const void *game)
+{
+  if (ser_cache_game == game)
+    {
+      ser_cache_game = NULL;
+      ser_cache_object_rooms.clear ();
+      ser_cache_event_task.clear ();
+      ser_cache_var_count = -1;
+      ser_cache_var_name.clear ();
+      ser_cache_var_type.clear ();
+    }
+}
+
+/*
+ * ser_object_static_rooms()
+ *
+ * The int sequence (count, then 1-based rooms) emitted for an unmoved static
+ * object's bundle "Where" room list, built from the immutable bundle
+ * properties on first use and cached thereafter.
+ */
+static const std::vector<scr_int> &
+ser_object_static_rooms (scr_gameref_t game, scr_int object)
+{
+  std::vector<scr_int> &cached = ser_cache_object_rooms[object];
+
+  if (cached.empty ())
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[5];
+      scr_int type, count, room;
+
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "Where";
+      vt_key[3].string = "Type";
+      type = prop_get_integer (bundle, "I<-siss", vt_key);
+      switch (type)
+        {
+        case ROOMLIST_ONE_ROOM:
+          vt_key[3].string = "Room";
+          room = prop_get_integer (bundle, "I<-siss", vt_key);
+          cached.push_back (1);
+          cached.push_back (room);
+          break;
+
+        case ROOMLIST_SOME_ROOMS:
+          vt_key[3].string = "Rooms";
+          count = 0;
+          for (room = 0; room < gs_room_count (game); room++)
+            {
+              vt_key[4].integer = room + 1;
+              if (prop_get_boolean (bundle, "B<-sissi", vt_key))
+                count++;
+            }
+          cached.push_back (count);
+          for (room = 0; room < gs_room_count (game); room++)
+            {
+              vt_key[4].integer = room + 1;
+              if (prop_get_boolean (bundle, "B<-sissi", vt_key))
+                cached.push_back (room + 1);
+            }
+          break;
+
+        case ROOMLIST_ALL_ROOMS:
+          cached.push_back (gs_room_count (game));
+          for (room = 0; room < gs_room_count (game); room++)
+            cached.push_back (room + 1);
+          break;
+
+        case ROOMLIST_NO_ROOMS:
+        case ROOMLIST_NPC_PART:
+        default:
+          cached.push_back (0);
+          break;
+        }
+    }
+  return cached;
+}
+
+/*
  * ser_save_object_location()
  *
  * Buffer an object's location in ADRIFT layout.  A dynamic (movable) object is
@@ -388,10 +575,6 @@ ser_save_battle_block (scr_gameref_t game, scr_int npc)
 static void
 ser_save_object_location (scr_gameref_t game, scr_int object)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
-  scr_int type, count, room;
-
   if (!obj_is_static (game, object))
     {
       ser_buffer_int (gs_object_position (game, object));
@@ -412,59 +595,24 @@ ser_save_object_location (scr_gameref_t game, scr_int object)
       return;
     }
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Where";
-  vt_key[3].string = "Type";
-  type = prop_get_integer (bundle, "I<-siss", vt_key);
-  switch (type)
-    {
-    case ROOMLIST_ONE_ROOM:
-      vt_key[3].string = "Room";
-      room = prop_get_integer (bundle, "I<-siss", vt_key);
-      ser_buffer_int_special (1);
-      ser_buffer_int_special (room);
-      break;
+  {
+    const std::vector<scr_int> &rooms = ser_object_static_rooms (game, object);
+    std::vector<scr_int>::size_type index_;
 
-    case ROOMLIST_SOME_ROOMS:
-      vt_key[3].string = "Rooms";
-      count = 0;
-      for (room = 0; room < gs_room_count (game); room++)
-        {
-          vt_key[4].integer = room + 1;
-          if (prop_get_boolean (bundle, "B<-sissi", vt_key))
-            count++;
-        }
-      ser_buffer_int_special (count);
-      for (room = 0; room < gs_room_count (game); room++)
-        {
-          vt_key[4].integer = room + 1;
-          if (prop_get_boolean (bundle, "B<-sissi", vt_key))
-            ser_buffer_int_special (room + 1);
-        }
-      break;
-
-    case ROOMLIST_ALL_ROOMS:
-      ser_buffer_int_special (gs_room_count (game));
-      for (room = 0; room < gs_room_count (game); room++)
-        ser_buffer_int_special (room + 1);
-      break;
-
-    case ROOMLIST_NO_ROOMS:
-    case ROOMLIST_NPC_PART:
-    default:
-      ser_buffer_int_special (0);
-      break;
-    }
+    for (index_ = 0; index_ < rooms.size (); index_++)
+      ser_buffer_int_special (rooms[index_]);
+  }
 }
 
 static void
 ser_buffer_uint (scr_uint value)
 {
   scr_char buffer[32];
+  scr_char *out;
 
-  /* Convert to a string and buffer that. */
-  snprintf (buffer, sizeof(buffer), "%lu", value);
+  /* Convert to a string ("%lu") and buffer that. */
+  out = ser_render_ulong (buffer, (unsigned long) value);
+  *out = '\0';
   ser_buffer_string (buffer);
 }
 
@@ -526,6 +674,11 @@ ser_save_game (scr_gameref_t game,
   /* Store the callback and opaque references, for writer functions. */
   ser_callback = callback;
   ser_opaque = opaque;
+
+  /* Reset the immutable-input cache if this is not the game it was built
+   * for; the undo ring calls this every turn, so the reads cached below
+   * matter. */
+  ser_synchronize_cache (game);
 
   /*
    * Write the ADRIFT v4 version line first, so the real Runner (and other v4
@@ -613,18 +766,23 @@ ser_save_game (scr_gameref_t game,
     {
       scr_int startertype, task;
 
-      /* Get starter task, if any. */
-      vt_key[0].string = "Events";
-      vt_key[1].integer = index_;
-      vt_key[2].string = "StarterType";
-      startertype = prop_get_integer (bundle, "I<-sis", vt_key);
-      if (startertype == 3)
+      /* Get starter task, if any (immutable, so cached after first read). */
+      task = ser_cache_event_task[index_];
+      if (task < 0)
         {
-          vt_key[2].string = "TaskNum";
-          task = prop_get_integer (bundle, "I<-sis", vt_key);
+          vt_key[0].string = "Events";
+          vt_key[1].integer = index_;
+          vt_key[2].string = "StarterType";
+          startertype = prop_get_integer (bundle, "I<-sis", vt_key);
+          if (startertype == 3)
+            {
+              vt_key[2].string = "TaskNum";
+              task = prop_get_integer (bundle, "I<-sis", vt_key);
+            }
+          else
+            task = 0;
+          ser_cache_event_task[index_] = task;
         }
-      else
-        task = 0;
 
       /* Save event details. */
       ser_buffer_int (gs_event_time (game, index_));
@@ -652,13 +810,30 @@ ser_save_game (scr_gameref_t game,
         ser_buffer_int_special (gs_npc_walkstep (game, index_, walk));
     }
 
-  /* Save each variable. */
-  var_count = ser_variable_count (bundle);
+  /* Save each variable.  The count and each name/type pair are immutable,
+   * so they are cached after the first turn's walk; only the values change. */
+  var_count = ser_cache_var_count;
+  if (var_count < 0)
+    {
+      var_count = ser_variable_count (bundle);
+      ser_cache_var_count = var_count;
+      ser_cache_var_name.assign (var_count, (const scr_char *) NULL);
+      ser_cache_var_type.assign (var_count, 0);
+    }
 
   for (index_ = 0; index_ < var_count; index_++)
     {
-      const scr_char *name;
-      scr_int var_type = ser_variable_at (bundle, index_, &name);
+      const scr_char *name = ser_cache_var_name[index_];
+      scr_int var_type;
+
+      if (name)
+        var_type = ser_cache_var_type[index_];
+      else
+        {
+          var_type = ser_variable_at (bundle, index_, &name);
+          ser_cache_var_name[index_] = name;
+          ser_cache_var_type[index_] = var_type;
+        }
 
       switch (var_type)
         {

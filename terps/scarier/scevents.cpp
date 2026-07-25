@@ -26,6 +26,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -33,6 +35,183 @@
 
 /* Trace flag, set before running. */
 static scr_bool evt_trace = FALSE;
+
+
+/*
+ * Cached per-event definition properties.
+ *
+ * evt_tick_events() visits every event every turn, and before caching each
+ * visit re-read the same immutable event definition fields (starter, pauser,
+ * resumer, object moves, restart times, room list) from the bundle -- after
+ * the round of task/parser/serializer caches these reads were the largest
+ * remaining prop_get() consumer.  Remember each field the first time it is
+ * read.  As elsewhere (sctasks.cpp task cache), caching is per field and
+ * lazy: the first touch goes through the same fatal-checking prop_get_*
+ * wrapper the uncached code used, so a malformed game fails identically, and
+ * a field never read before is never read now.  The cache tracks a single
+ * game; gs_destroy() calls evt_forget_game().
+ */
+enum
+{
+  EVT_STARTER_TYPE, EVT_TASK_NUM, EVT_PAUSE_TASK, EVT_PAUSER_COMPLETED,
+  EVT_RESUME_TASK, EVT_RESUMER_COMPLETED, EVT_OBJ1, EVT_OBJ1_DEST,
+  EVT_TIME1, EVT_TIME2, EVT_OBJ2, EVT_OBJ2_DEST, EVT_OBJ3, EVT_OBJ3_DEST,
+  EVT_TASK_AFFECTED, EVT_TASK_FINISHED, EVT_RESTART_TYPE, EVT_START_TIME,
+  EVT_END_TIME, EVT_PREF_TIME1, EVT_PREF_TIME2, EVT_WHERE_TYPE,
+  EVT_WHERE_ROOM, EVT_FIELD_COUNT
+};
+
+enum
+{ EVT_CACHE_UNKNOWN = 0, EVT_CACHE_FALSE = 1, EVT_CACHE_TRUE = 2 };
+
+typedef struct
+{
+  scr_uint known;                     /* bitmask over the field enum */
+  scr_int value[EVT_FIELD_COUNT];
+  std::vector<scr_byte> where_rooms;  /* per-room tri-state, sized lazily */
+} scr_event_props_t;
+
+static const void *evt_cache_game = NULL;
+static std::vector<scr_event_props_t> evt_cache;
+static scr_int evt_cache_version = 0;  /* bundle "Version", 0 = unknown */
+
+/*
+ * evt_cache_entry()
+ *
+ * Return the cache entry for an event, resetting the cache if it was built
+ * for a different game.
+ */
+static scr_event_props_t *
+evt_cache_entry (scr_gameref_t game, scr_int event)
+{
+  if (evt_cache_game != game)
+    {
+      scr_event_props_t initial;
+
+      initial.known = 0;
+      evt_cache.assign (gs_event_count (game), initial);
+      evt_cache_version = 0;
+      evt_cache_game = game;
+    }
+  return &evt_cache[event];
+}
+
+/*
+ * evt_forget_game()
+ *
+ * Drop any event property cache built for the given game.  Called from
+ * gs_destroy() so a stale cache can never outlive its game.
+ */
+void
+evt_forget_game (const void *game)
+{
+  if (evt_cache_game == game)
+    {
+      evt_cache_game = NULL;
+      evt_cache.clear ();
+      evt_cache_version = 0;
+    }
+}
+
+/*
+ * evt_cached_integer()
+ * evt_cached_boolean()
+ * evt_cached_where_integer()
+ * evt_cached_where_room_boolean()
+ *
+ * Lazily cached reads of immutable "Events" bundle fields: a named integer
+ * or boolean directly under the event, a named integer under the event's
+ * "Where" room list, and one room's membership boolean in that list.
+ */
+static scr_int
+evt_cached_integer (scr_gameref_t game, scr_int event, scr_int field,
+                    const scr_char *name)
+{
+  scr_event_props_t *cached = evt_cache_entry (game, event);
+
+  if (!(cached->known & ((scr_uint) 1 << field)))
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[3];
+
+      vt_key[0].string = "Events";
+      vt_key[1].integer = event;
+      vt_key[2].string = name;
+      cached->value[field] = prop_get_integer (bundle, "I<-sis", vt_key);
+      cached->known |= (scr_uint) 1 << field;
+    }
+  return cached->value[field];
+}
+
+static scr_bool
+evt_cached_boolean (scr_gameref_t game, scr_int event, scr_int field,
+                    const scr_char *name)
+{
+  scr_event_props_t *cached = evt_cache_entry (game, event);
+
+  if (!(cached->known & ((scr_uint) 1 << field)))
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[3];
+
+      vt_key[0].string = "Events";
+      vt_key[1].integer = event;
+      vt_key[2].string = name;
+      cached->value[field] = prop_get_boolean (bundle, "B<-sis", vt_key);
+      cached->known |= (scr_uint) 1 << field;
+    }
+  return (scr_bool) cached->value[field];
+}
+
+static scr_int
+evt_cached_where_integer (scr_gameref_t game, scr_int event, scr_int field,
+                          const scr_char *name)
+{
+  scr_event_props_t *cached = evt_cache_entry (game, event);
+
+  if (!(cached->known & ((scr_uint) 1 << field)))
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[4];
+
+      vt_key[0].string = "Events";
+      vt_key[1].integer = event;
+      vt_key[2].string = "Where";
+      vt_key[3].string = name;
+      cached->value[field] = prop_get_integer (bundle, "I<-siss", vt_key);
+      cached->known |= (scr_uint) 1 << field;
+    }
+  return cached->value[field];
+}
+
+static scr_bool
+evt_cached_where_room_boolean (scr_gameref_t game, scr_int event, scr_int room)
+{
+  scr_event_props_t *cached = evt_cache_entry (game, event);
+  scr_vartype_t vt_key[5];
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool result;
+
+  vt_key[0].string = "Events";
+  vt_key[1].integer = event;
+  vt_key[2].string = "Where";
+  vt_key[3].string = "Rooms";
+  vt_key[4].integer = room;
+
+  /* An out-of-range room can't be cached; take the uncached path so it
+   * behaves exactly as before. */
+  if (room < 0 || room >= gs_room_count (game))
+    return prop_get_boolean (bundle, "B<-sissi", vt_key);
+
+  if (cached->where_rooms.empty ())
+    cached->where_rooms.assign (gs_room_count (game), EVT_CACHE_UNKNOWN);
+
+  if (cached->where_rooms[room] == EVT_CACHE_UNKNOWN)
+    cached->where_rooms[room] = prop_get_boolean (bundle, "B<-sissi", vt_key)
+                                ? EVT_CACHE_TRUE : EVT_CACHE_FALSE;
+
+  return cached->where_rooms[room] == EVT_CACHE_TRUE;
+}
 
 
 /*
@@ -65,16 +244,10 @@ evt_any_task_in_state (scr_gameref_t game, scr_bool state)
 scr_bool
 evt_can_see_event (scr_gameref_t game, scr_int event)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
   scr_int type;
 
   /* Check room list for the event and return it. */
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-  vt_key[2].string = "Where";
-  vt_key[3].string = "Type";
-  type = prop_get_integer (bundle, "I<-siss", vt_key);
+  type = evt_cached_where_integer (game, event, EVT_WHERE_TYPE, "Type");
   switch (type)
     {
     case ROOMLIST_NO_ROOMS:
@@ -83,14 +256,12 @@ evt_can_see_event (scr_gameref_t game, scr_int event)
       return TRUE;
 
     case ROOMLIST_ONE_ROOM:
-      vt_key[3].string = "Room";
-      return prop_get_integer (bundle, "I<-siss", vt_key)
+      return evt_cached_where_integer (game, event, EVT_WHERE_ROOM, "Room")
              == gs_playerroom (game);
 
     case ROOMLIST_SOME_ROOMS:
-      vt_key[3].string = "Rooms";
-      vt_key[4].integer = gs_playerroom (game);
-      return prop_get_boolean (bundle, "B<-sissi", vt_key);
+      return evt_cached_where_room_boolean (game, event,
+                                            gs_playerroom (game));
 
     default:
       scr_fatal ("evt_can_see_event: invalid type, %ld\n", type);
@@ -169,12 +340,21 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
 static scr_bool
 evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_int version;
 
-  vt_key[0].string = "Version";
-  version = prop_get_integer (bundle, "I<-s", vt_key);
+  /* The TAF version is immutable; read it once per game.  (evt_cache_entry
+   * synchronizes the cache, including the version slot, to this game.) */
+  evt_cache_entry (game, event);
+  version = evt_cache_version;
+  if (version == 0)
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[1];
+
+      vt_key[0].string = "Version";
+      version = prop_get_integer (bundle, "I<-s", vt_key);
+      evt_cache_version = version;
+    }
   if (version < TAF_VERSION_400)
     {
       scr_int time1, time2;
@@ -186,12 +366,8 @@ evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
       gs_set_event_state (game, event, ES_RUNNING);
 
       /* Set up event time to be one less than a proper start. */
-      vt_key[0].string = "Events";
-      vt_key[1].integer = event;
-      vt_key[2].string = "Time1";
-      time1 = prop_get_integer (bundle, "I<-sis", vt_key);
-      vt_key[2].string = "Time2";
-      time2 = prop_get_integer (bundle, "I<-sis", vt_key);
+      time1 = evt_cached_integer (game, event, EVT_TIME1, "Time1");
+      time2 = evt_cached_integer (game, event, EVT_TIME2, "Time2");
       gs_set_event_time (game, event, scr_randomint (time1, time2) - 1);
     }
 
@@ -239,21 +415,15 @@ evt_start_event (scr_gameref_t game, scr_int event)
     }
 
   /* Move event object to destination. */
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-  vt_key[2].string = "Obj1";
-  obj1 = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
-  vt_key[2].string = "Obj1Dest";
-  obj1dest = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
+  obj1 = evt_cached_integer (game, event, EVT_OBJ1, "Obj1") - 1;
+  obj1dest = evt_cached_integer (game, event, EVT_OBJ1_DEST, "Obj1Dest") - 1;
   evt_move_object (game, obj1, obj1dest);
 
   /* Set the event's state and time. */
   gs_set_event_state (game, event, ES_RUNNING);
 
-  vt_key[2].string = "Time1";
-  time1 = prop_get_integer (bundle, "I<-sis", vt_key);
-  vt_key[2].string = "Time2";
-  time2 = prop_get_integer (bundle, "I<-sis", vt_key);
+  time1 = evt_cached_integer (game, event, EVT_TIME1, "Time1");
+  time2 = evt_cached_integer (game, event, EVT_TIME2, "Time2");
   gs_set_event_time (game, event, scr_randomint (time1, time2));
 
   if (evt_trace)
@@ -269,16 +439,7 @@ evt_start_event (scr_gameref_t game, scr_int event)
 static scr_int
 evt_get_starter_type (scr_gameref_t game, scr_int event)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_int startertype;
-
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-  vt_key[2].string = "StarterType";
-  startertype = prop_get_integer (bundle, "I<-sis", vt_key);
-
-  return startertype;
+  return evt_cached_integer (game, event, EVT_STARTER_TYPE, "StarterType");
 }
 
 
@@ -325,25 +486,21 @@ evt_finish_event (scr_gameref_t game, scr_int event)
     }
 
   /* Move event objects to destination. */
-  vt_key[2].string = "Obj2";
-  obj2 = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
-  vt_key[2].string = "Obj2Dest";
-  obj2dest = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
+  obj2 = evt_cached_integer (game, event, EVT_OBJ2, "Obj2") - 1;
+  obj2dest = evt_cached_integer (game, event, EVT_OBJ2_DEST, "Obj2Dest") - 1;
   evt_move_object (game, obj2, obj2dest);
 
-  vt_key[2].string = "Obj3";
-  obj3 = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
-  vt_key[2].string = "Obj3Dest";
-  obj3dest = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
+  obj3 = evt_cached_integer (game, event, EVT_OBJ3, "Obj3") - 1;
+  obj3dest = evt_cached_integer (game, event, EVT_OBJ3_DEST, "Obj3Dest") - 1;
   evt_move_object (game, obj3, obj3dest);
 
   /* See if there is an affected task. */
-  vt_key[2].string = "TaskAffected";
-  task = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
+  task = evt_cached_integer (game, event, EVT_TASK_AFFECTED, "TaskAffected")
+         - 1;
   if (task >= 0 && task < gs_task_count (game))
     {
-      vt_key[2].string = "TaskFinished";
-      taskfinished = prop_get_boolean (bundle, "B<-sis", vt_key);
+      taskfinished = evt_cached_boolean (game, event, EVT_TASK_FINISHED,
+                                         "TaskFinished");
       if (taskfinished)
         {
           /*
@@ -378,8 +535,8 @@ evt_finish_event (scr_gameref_t game, scr_int event)
     }
 
   /* Handle possible restart. */
-  vt_key[2].string = "RestartType";
-  restarttype = prop_get_integer (bundle, "I<-sis", vt_key);
+  restarttype = evt_cached_integer (game, event, EVT_RESTART_TYPE,
+                                    "RestartType");
   switch (restarttype)
     {
     case 0:                    /* Don't restart. */
@@ -422,10 +579,9 @@ evt_finish_event (scr_gameref_t game, scr_int event)
             scr_int start, end;
 
             gs_set_event_state (game, event, ES_WAITING);
-            vt_key[2].string = "StartTime";
-            start = prop_get_integer (bundle, "I<-sis", vt_key);
-            vt_key[2].string = "EndTime";
-            end = prop_get_integer (bundle, "I<-sis", vt_key);
+            start = evt_cached_integer (game, event, EVT_START_TIME,
+                                        "StartTime");
+            end = evt_cached_integer (game, event, EVT_END_TIME, "EndTime");
             gs_set_event_time (game, event, scr_randomint (start, end));
             break;
           }
@@ -469,15 +625,10 @@ evt_has_starter_task (scr_gameref_t game, scr_int event)
 static scr_bool
 evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_int task;
   scr_bool start;
 
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-  vt_key[2].string = "TaskNum";
-  task = prop_get_integer (bundle, "I<-sis", vt_key);
+  task = evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum");
 
   start = FALSE;
   if (task == 0)
@@ -497,18 +648,12 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
 static scr_bool
 evt_pauser_task_is_complete (scr_gameref_t game, scr_int event)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_int pausetask;
   scr_bool completed, pause;
 
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-
-  vt_key[2].string = "PauseTask";
-  pausetask = prop_get_integer (bundle, "I<-sis", vt_key);
-  vt_key[2].string = "PauserCompleted";
-  completed = !prop_get_boolean (bundle, "B<-sis", vt_key);
+  pausetask = evt_cached_integer (game, event, EVT_PAUSE_TASK, "PauseTask");
+  completed = !evt_cached_boolean (game, event, EVT_PAUSER_COMPLETED,
+                                   "PauserCompleted");
 
   pause = FALSE;
   if (pausetask == 1)
@@ -528,18 +673,13 @@ evt_pauser_task_is_complete (scr_gameref_t game, scr_int event)
 static scr_bool
 evt_resumer_task_is_complete (scr_gameref_t game, scr_int event)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_int resumetask;
   scr_bool completed, resume;
 
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-
-  vt_key[2].string = "ResumeTask";
-  resumetask = prop_get_integer (bundle, "I<-sis", vt_key);
-  vt_key[2].string = "ResumerCompleted";
-  completed = !prop_get_boolean (bundle, "B<-sis", vt_key);
+  resumetask = evt_cached_integer (game, event, EVT_RESUME_TASK,
+                                   "ResumeTask");
+  completed = !evt_cached_boolean (game, event, EVT_RESUMER_COMPLETED,
+                                   "ResumerCompleted");
 
   resume = FALSE;
   if (resumetask == 1)
@@ -575,8 +715,7 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
   vt_key[0].string = "Events";
   vt_key[1].integer = event;
 
-  vt_key[2].string = "PrefTime1";
-  preftime1 = prop_get_integer (bundle, "I<-sis", vt_key);
+  preftime1 = evt_cached_integer (game, event, EVT_PREF_TIME1, "PrefTime1");
   if (preftime1 == gs_event_time (game, event))
     {
       vt_key[2].string = "PrefText1";
@@ -592,8 +731,7 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
       res_handle_resource (game, "sisi", vt_key);
     }
 
-  vt_key[2].string = "PrefTime2";
-  preftime2 = prop_get_integer (bundle, "I<-sis", vt_key);
+  preftime2 = evt_cached_integer (game, event, EVT_PREF_TIME2, "PrefTime2");
   if (preftime2 == gs_event_time (game, event))
     {
       vt_key[2].string = "PrefText2";

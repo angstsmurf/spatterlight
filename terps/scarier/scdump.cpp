@@ -95,7 +95,6 @@ scr_dump_structure_once (scr_gameref_t game)
   static scr_bool dumped = FALSE;
   static scr_bool checked_env = FALSE;
   static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events;
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int t, i;
 
   /* This is called from every task_can_run_task_directional() -- per task,
@@ -111,6 +110,8 @@ scr_dump_structure_once (scr_gameref_t game)
     }
   if (!trace_tasks && !dump_objloc && !dump_tasks && !trace_events)
     return;
+
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   if (trace_tasks)
     {

@@ -439,6 +439,9 @@ extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_forget_game (const void *game);
 extern void uip_debug_trace (scr_bool flag);
 extern void task_forget_game (const void *game);
+extern void ser_forget_game (const void *game);
+extern void evt_forget_game (const void *game);
+extern void run_forget_game (const void *game);
 
 /* Library perspective enumeration and functions. */
 enum

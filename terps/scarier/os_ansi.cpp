@@ -333,7 +333,10 @@ os_confirm (scr_int type)
         }
       printf ("? [Y/N] ");
       fflush (stdout);
-      fgets (buffer, sizeof (buffer), stdin);
+      /* EOF mid-prompt leaves buffer stale; without this check the loop spun
+       * forever reprinting the question.  Answer as the feof case above. */
+      if (!fgets (buffer, sizeof (buffer), stdin))
+        return type == SCR_CONF_QUIT;
     }
   while (toupper (buffer[0]) != 'Y' && toupper (buffer[0]) != 'N');
 
@@ -359,7 +362,8 @@ os_open_file (scr_bool is_save)
 
   printf ("Enter saved game to %s: ", is_save ? "save" : "load");
   fflush (stdout);
-  fgets (path, sizeof (path), stdin);
+  if (!fgets (path, sizeof (path), stdin))
+    return NULL;
   if (path[strlen (path) - 1] == '\n')
     path[strlen (path) - 1] = '\0';
 

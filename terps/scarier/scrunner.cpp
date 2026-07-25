@@ -705,6 +705,79 @@ run_notify_score_change (scr_gameref_t game)
 
 
 /*
+ * Cached per-task command patterns.
+ *
+ * run_match_task_common() is called for every task on every player command,
+ * and before caching it re-read the task's (Reverse)Command pattern strings
+ * from the bundle on each attempt.  The patterns are immutable once a game
+ * is loaded, and prop_get_string() returns stable pointers into the bundle,
+ * so remember each task's pattern list (per direction) the first time it is
+ * walked; the walk itself goes through the same fatal-checking prop_get_*
+ * wrappers the uncached code used.  The cache tracks a single game;
+ * gs_destroy() calls run_forget_game().
+ */
+typedef struct
+{
+  scr_bool known[2];                          /* indexed [forwards] */
+  std::vector<const scr_char *> patterns[2];
+} scr_task_commands_t;
+
+static const void *run_cache_game = NULL;
+static std::vector<scr_task_commands_t> run_cache;
+
+static const std::vector<const scr_char *> &
+run_task_command_patterns (scr_gameref_t game, scr_int task,
+                           scr_bool forwards)
+{
+  const int direction = forwards ? 1 : 0;
+  scr_task_commands_t *cached;
+
+  if (run_cache_game != game)
+    {
+      run_cache.assign (gs_task_count (game), scr_task_commands_t ());
+      run_cache_game = game;
+    }
+
+  cached = &run_cache[task];
+  if (!cached->known[direction])
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[4];
+      scr_int command_count, command;
+
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = forwards ? "Command" : "ReverseCommand";
+      command_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      cached->patterns[direction].reserve (command_count);
+      for (command = 0; command < command_count; command++)
+        {
+          vt_key[3].integer = command;
+          cached->patterns[direction]
+              .push_back (prop_get_string (bundle, "S<-sisi", vt_key));
+        }
+      cached->known[direction] = TRUE;
+    }
+  return cached->patterns[direction];
+}
+
+/*
+ * run_forget_game()
+ *
+ * Drop any command pattern cache built for the given game.  Called from
+ * gs_destroy() so a stale cache can never outlive its game.
+ */
+void
+run_forget_game (const void *game)
+{
+  if (run_cache_game == game)
+    {
+      run_cache_game = NULL;
+      run_cache.clear ();
+    }
+}
+
+/*
  * run_match_task_common()
  * run_match_task_commands()
  * run_match_task_functions()
@@ -720,16 +793,11 @@ run_match_task_common (scr_gameref_t game,
                        scr_int task, const scr_char *string, scr_bool forwards,
                        scr_bool is_library, scr_bool is_normal)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
-  scr_int command_count, command;
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, forwards);
+  const scr_int command_count = (scr_int) patterns.size ();
+  scr_int command;
   scr_bool is_matched;
-
-  /* Get the count of task commands. */
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = task;
-  vt_key[2].string = forwards ? "Command" : "ReverseCommand";
-  command_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
   /* Iterate over commands, looking for patterns that match string. */
   is_matched = FALSE;
@@ -739,8 +807,7 @@ run_match_task_common (scr_gameref_t game,
       scr_int first;
 
       /* Retrieve the pattern for this command, find its first character. */
-      vt_key[3].integer = command;
-      pattern = prop_get_string (bundle, "S<-sisi", vt_key);
+      pattern = patterns[command];
       first = strspn (pattern, WHITESPACE);
 
       /* Match using either the parser, or the special function matcher. */
