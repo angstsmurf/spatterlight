@@ -3197,7 +3197,7 @@ static const char * const GSC_USAGE_ONOFFSTATUS[] = {"on", "off", "status",
                                                      NULL};
 static const char * const GSC_USAGE_ONOFF[] = {"on", "off", NULL};
 static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
-                                             "zoom [in|out|auto]", NULL};
+                                             "zoom [in | out | auto]", NULL};
 static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", NULL};
 
 static void gsc_command_summary (const char *argument);
@@ -3274,7 +3274,7 @@ gsc_command_in_scope (gsc_commandref_t entry)
  * gsc_command_usage()
  *
  * Print the one-line synopsis of the arguments a Glk command accepts, for
- * example "Glk map can be on, off, top, right, or zoom [in|out|auto]."  Both
+ * example "Glk map can be on, off, top, right, or zoom [in | out | auto]."  Both
  * a command handed an argument it doesn't understand and the foot of that
  * command's "glk help" entry print this, so the two can never disagree.
  */
@@ -3393,13 +3393,7 @@ gsc_command_help (const char *command)
                          " the abbreviation is unambiguous.  Use ");
       gsc_standout_string ("glk help");
       gsc_normal_string (" followed by a Glk command name for help on that"
-                         " command, or put the ");
-      gsc_standout_string ("help");
-      gsc_normal_string (" after the command name instead; ");
-      gsc_standout_string ("glk help map");
-      gsc_normal_string (" and ");
-      gsc_standout_string ("glk map help");
-      gsc_normal_string (" are the same.\n");
+                         " command.\n");
       return;
     }
 
@@ -6940,7 +6934,7 @@ gsc_command_map (const char *argument)
 /*
  * gsc_command_zoom()
  *
- * "glk zoom [in|out|auto]".  Plain "glk zoom" zooms in, and "default" is a
+ * "glk zoom [in | out | auto]".  Plain "glk zoom" zooms in, and "default" is a
  * synonym for "auto".  A manual zoom is kept until "auto" puts the map back
  * to fitting itself to its window; meanwhile the view pans to keep the
  * player on-screen (map_frame).
