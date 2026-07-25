@@ -81,10 +81,11 @@ static void
 emit_marked_description (a5_run_t *run, const a5_xml_node_t *desc, sb_t *out)
 {
   a5_state_t *st = run->st;
-  int pm = st->marking_display;
-  st->marking_display = 1;
-  char *m = a5text_describe (st, desc);
-  st->marking_display = pm;
+  char *m;
+  {
+    a5_mark_guard mg (st, 1);
+    m = a5text_describe (st, desc);
+  }
   emit_owned (out, m);
 }
 
@@ -723,30 +724,6 @@ static const char *const DIR_ORDER[12] = {
   "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
 
-/* The raw Destination of `lockey` in canonical direction `dir`, ignoring route
-   restrictions (clsLocation.arlDirections(d).LocationKey: adjacency uses the
-   unconditional map), or NULL. */
-static const char *
-loc_raw_exit (a5_state_t *st, const char *lockey, const char *dir)
-{
-  const a5_location_t *l = lockey ? a5model_location (st->adv, lockey) : NULL;
-  const a5_xml_node_t *c;
-  if (l == NULL)
-    return NULL;
-  for (c = l->node->first_child; c != NULL; c = c->next)
-    {
-      const char *d, *dest;
-      if (strcmp (c->name, "Movement") != 0)
-        continue;
-      d = a5xml_child_text (c, "Direction");
-      if (!streq (d, dir))
-        continue;
-      dest = a5xml_child_text (c, "Destination");
-      return (dest != NULL && dest[0] != '\0') ? dest : NULL;
-    }
-  return NULL;
-}
-
 /* clsLocation.IsAdjacent: any exit of `lockey` whose destination is `destkey`. */
 static int
 loc_is_adjacent (a5_state_t *st, const char *lockey, const char *destkey)
@@ -755,7 +732,7 @@ loc_is_adjacent (a5_state_t *st, const char *lockey, const char *destkey)
   if (lockey == NULL || destkey == NULL)
     return 0;
   for (d = 0; d < 12; d++)
-    if (streq (loc_raw_exit (st, lockey, DIR_ORDER[d]), destkey))
+    if (streq (a5model_exit_dest (st->adv, lockey, DIR_ORDER[d]), destkey))
       return 1;
   return 0;
 }
@@ -774,7 +751,7 @@ loc_direction_to (a5_state_t *st, const char *fromkey, const char *destkey)
   if (streq (fromkey, destkey))
     return "not moved";
   for (d = 0; d < 12; d++)
-    if (streq (loc_raw_exit (st, fromkey, DIR_ORDER[d]), destkey))
+    if (streq (a5model_exit_dest (st->adv, fromkey, DIR_ORDER[d]), destkey))
       return DIR_PROSE[d];
   return "nowhere";
 }

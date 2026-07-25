@@ -29,6 +29,7 @@
 #include "a5sb.h"
 #include "a5sexpr.h"
 #include "a5text.h"
+#include "a5util.h"
 
 /* A reference alias split into its base ("object1" -> "object") and, when
    `num_out` is non-NULL, its trailing digit run ("object1" -> "1").  ADRIFT
@@ -590,15 +591,6 @@ set_amb_result (a5_state_t *st, amb_info *amb, const std::string &name,
 }
 
 /* -------------------------------------------- multiple-object references */
-
-static std::string
-trim_ws (const std::string &s)
-{
-  size_t a = s.find_first_not_of (" \t");
-  if (a == std::string::npos) return "";
-  size_t b = s.find_last_not_of (" \t");
-  return s.substr (a, b - a + 1);
-}
 
 /*
  * InputMatchesObject (clsUserSession.vb:5378): every object whose name matches

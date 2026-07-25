@@ -41,6 +41,7 @@
 #include "a5sb.h"
 #include "a5sexpr.h"
 #include "a5text.h"
+#include "a5util.h"
 
 /* Debug/trace switches, resolved from the environment ONCE.  These sit on hot
    paths -- A5DBG_SPEC is tested per override child per item, A5_TRACE_SETVAR and
@@ -187,17 +188,6 @@ split_assignment (const std::string &body, std::string &name, std::string &value
   return 1;
 }
 
-/* Copy of `s` with leading/trailing spaces and tabs removed. */
-static std::string
-trim_ws (const std::string &s)
-{
-  size_t b = s.find_first_not_of (" \t");
-  if (b == std::string::npos)
-    return "";
-  size_t e = s.find_last_not_of (" \t");
-  return s.substr (b, e - b + 1);
-}
-
 /* Split a '|'-separated list, keeping empty fields (the shape of the runner's
    Items array for a pipe-list reference). */
 static std::vector<std::string>
@@ -260,11 +250,8 @@ static std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
 std::string
 render_look_marked (a5_run_t *run)
 {
-  int pm = run->st->marking_display;
-  run->st->marking_display = 1;
-  std::string v = render_look_string (run);
-  run->st->marking_display = pm;
-  return v;
+  a5_mark_guard mg (run->st, 1);
+  return render_look_string (run);
 }
 
 /* ----------------------------------------- specific-override task dispatch */
@@ -3167,8 +3154,6 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
      time.  Mirror a5text_view_location: render under marking_display.  Fixes
      Anno's MovingFrom5 ("step into the hotel" once, "step into the reception"
      thereafter). */
-  int prev_mark = run->st->marking_display;
-  run->st->marking_display = 1;
   if (run->immediate_emit)
     {
       /* Startup RunImmediately path: render in two stages so the markup-bearing
@@ -3177,10 +3162,13 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
          tags leaves any character -- so a title-music task's `<audio ...> ` keeps
          its trailing space to join onto the title.  a5text_describe ==
          eval_description -> process -> render_plain. */
-      char *raw   = a5text_eval_description (run->st, comp);
-      char *proc  = a5text_process (run->st, raw);
-      char *plain = a5text_render_plain (proc);
-      run->st->marking_display = prev_mark;
+      char *raw, *proc, *plain;
+      {
+        a5_mark_guard mg (run->st, 1);
+        raw   = a5text_eval_description (run->st, comp);
+        proc  = a5text_process (run->st, raw);
+        plain = a5text_render_plain (proc);
+      }
       if (fd_has_output (run->st, proc)) { sb_pspace (out); sb_puts (out, plain); }
       free (raw); free (proc); free (plain);
       return;
@@ -3188,9 +3176,12 @@ emit_completion (a5_run_t *run, const a5_xml_node_t *comp, sb_t *out)
   int pre_alr_ink = 0;
   int raw_nonblank = 0;
   char *marked = NULL;
-  char *m = a5text_describe_ex (run->st, comp, &pre_alr_ink, &raw_nonblank,
-                                &marked);
-  run->st->marking_display = prev_mark;
+  char *m;
+  {
+    a5_mark_guard mg (run->st, 1);
+    m = a5text_describe_ex (run->st, comp, &pre_alr_ink, &raw_nonblank,
+                            &marked);
+  }
   if (raw_nonblank)
     run->task_raw_output = 1;
   /* Event/walk/LocationTrigger attempt (non-aggregate path -- the aggregate
@@ -3423,10 +3414,8 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
          (LostLabyrinth's riding OneOf: 2 draws, first one shown); for the usual
          static view the two renders draw nothing and agree, so this is
          draw- and output-neutral. */
-      int pm = run->st->marking_display;
-      run->st->marking_display = 0;
-      std::string e1 = render_look_string (run);
-      run->st->marking_display = pm;
+      std::string e1;
+      { a5_mark_guard mg (run->st, 0); e1 = render_look_string (run); }
 
       /* The response slot is reserved BEFORE the actions run (vb:1189
          iResponsePosition), so any output the actions produce follows the
@@ -3448,10 +3437,8 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                       (run->resp == NULL && !run->defer_look) ? &abuf : out);
       run->cur_score_ti = saved_sti;
 
-      pm = run->st->marking_display;
-      run->st->marking_display = 0;
-      std::string e2 = render_look_string (run);
-      run->st->marking_display = pm;
+      std::string e2;
+      { a5_mark_guard mg (run->st, 0); e2 = render_look_string (run); }
 
       if (e1 != e2)
         {
@@ -3579,11 +3566,8 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              the first-time text on every later squeeze without this. */
           if (!t->aggregate)
             {
-              int pm = run->st->marking_display;
-              run->st->marking_display = 1;
-              char *mark = a5text_eval_description (run->st, comp);
-              run->st->marking_display = pm;
-              free (mark);
+              a5_mark_guard mg (run->st, 1);
+              free (a5text_eval_description (run->st, comp));
             }
         }
       else if (!comp_bears_function (comp) || run->defer_look)
@@ -3650,13 +3634,13 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              banish task's actions hide the Spectre, so a live re-select
              dropped the Either-bearing segment from the post-action compare
              and its draw vanished from the stream. */
-          int pm = run->st->marking_display;
-          run->st->marking_display = 1;
-          flat_raw = a5text_eval_description (run->st, comp);
-          run->st->marking_display = 0;
-          flat_pre = a5text_process_frozen (run->st, flat_raw, &flat_pre_ink,
-                                            &flat_pre_marked);
-          run->st->marking_display = pm;
+          {
+            a5_mark_guard mg (run->st, 1);
+            flat_raw = a5text_eval_description (run->st, comp);
+            run->st->marking_display = 0;   /* the frozen re-render is a test */
+            flat_pre = a5text_process_frozen (run->st, flat_raw, &flat_pre_ink,
+                                              &flat_pre_marked);
+          }
           flat_inter = 1;
         }
     }
@@ -3738,11 +3722,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
          FROZEN template: pin the pre-action snapshot when the renders differ
          (the runner displays the test render; no third draw), else render once more
          for display (the finalize draw, real marking). */
-      int pm = run->st->marking_display;
-      run->st->marking_display = 0;
       char *post_marked = NULL;
-      char *post = a5text_process_frozen (run->st, flat_raw, NULL, &post_marked);
-      run->st->marking_display = pm;
+      char *post;
+      {
+        a5_mark_guard mg (run->st, 0);
+        post = a5text_process_frozen (run->st, flat_raw, NULL, &post_marked);
+      }
       /* Compare the MARKED renders: that is the string the runner holds in
          sMessage (clsUserSession.vb:1200), so a change confined to markup --
          Beginner's Cave's `<# "<" & rand(0,1000000) & ">" #>` cache-buster --
@@ -3758,11 +3743,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
         {
           int fin_ink = 0;
           char *fin_marked = NULL;
-          pm = run->st->marking_display;
-          run->st->marking_display = 1;
-          char *fin = a5text_process_frozen (run->st, flat_raw, &fin_ink,
-                                             &fin_marked);
-          run->st->marking_display = pm;
+          char *fin;
+          {
+            a5_mark_guard mg (run->st, 1);
+            fin = a5text_process_frozen (run->st, flat_raw, &fin_ink,
+                                         &fin_marked);
+          }
           emit_message_body (run, fin, fin_ink, out, fin_marked);
           free (fin_marked);
         }
@@ -3810,10 +3796,11 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
              NEW entry render with the `<#..#>` draw deferred to the attempt's
              Display flush, mirroring the runner's aggregate expansion. */
           a5_state_t *st2 = run->st;
-          int pm2 = st2->marking_display;
-          st2->marking_display = 1;
-          char *raw = a5text_eval_description (st2, comp);
-          st2->marking_display = pm2;
+          char *raw;
+          {
+            a5_mark_guard mg (st2, 1);
+            raw = a5text_eval_description (st2, comp);
+          }
           std::string rawtext = raw != NULL ? raw : "";
           free (raw);
           if (!rawtext.empty ())
@@ -3837,13 +3824,14 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                   size_t sink0 = run->comp_defers->size ();
                   size_t out0 = out->len;
                   st2->expr_defer = run->comp_defers;
-                  pm2 = st2->marking_display;
-                  st2->marking_display = 1;
                   int ink = 0;
                   char *mk = NULL;
-                  char *m = a5text_process_frozen (st2, rawtext.c_str (),
-                                                   &ink, &mk);
-                  st2->marking_display = pm2;
+                  char *m;
+                  {
+                    a5_mark_guard mg (st2, 1);
+                    m = a5text_process_frozen (st2, rawtext.c_str (),
+                                               &ink, &mk);
+                  }
                   st2->expr_defer = NULL;
                   emit_message_body (run, m, ink, out, mk);
                   free (mk);

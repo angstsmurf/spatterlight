@@ -416,14 +416,6 @@ split_ws (const char *s)
   return v;
 }
 
-std::string
-lower (const std::string &s)
-{
-  std::string o = s;
-  for (char &c : o) c = (char) tolower ((unsigned char) c);
-  return o;
-}
-
 /* The lowercased, whitespace-trimmed input line (clsUserSession lowercases
    sInput up front). */
 static std::string
@@ -1251,10 +1243,10 @@ a5run_intro (a5_run_t *run)
     {
       /* Real output: retire DisplayOnce segments (view_location_impl honours
          the ambient marking flag; see a5text.cpp). */
-      int pm = run->st->marking_display;
-      run->st->marking_display = 1;
-      look = a5text_view_location (run->st);
-      run->st->marking_display = pm;
+      {
+        a5_mark_guard mg (run->st, 1);
+        look = a5text_view_location (run->st);
+      }
       sb_puts (&out, look);
       free (look);
     }

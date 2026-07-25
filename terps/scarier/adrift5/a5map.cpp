@@ -54,30 +54,21 @@ dir_index (const char *s)
 static const char *
 movement_dest (const a5_location_t *loc, const char *dir, int *dotted)
 {
-  const a5_xml_node_t *c;
+  const a5_xml_node_t *m, *r;
+  const char *dest;
   if (dotted != NULL)
     *dotted = 0;
-  if (loc == NULL || loc->node == NULL)
+  m = a5model_movement (loc, NULL, dir);
+  if (m == NULL)
     return NULL;
-  for (c = loc->node->first_child; c != NULL; c = c->next)
-    {
-      const char *d, *dest;
-      const a5_xml_node_t *r;
-      if (strcmp (c->name, "Movement") != 0)
-        continue;
-      d = a5xml_child_text (c, "Direction");
-      if (d == NULL || strcmp (d, dir) != 0)
-        continue;
-      dest = a5xml_child_text (c, "Destination");
-      if (dest == NULL || dest[0] == '\0')
-        return NULL;
-      /* A restricted movement is drawn dotted (Map.vb:1441, DottedLink). */
-      r = a5xml_child (c, "Restrictions");
-      if (dotted != NULL && r != NULL && r->n_children > 0)
-        *dotted = 1;
-      return dest;
-    }
-  return NULL;
+  dest = a5xml_child_text (m, "Destination");
+  if (dest == NULL || dest[0] == '\0')
+    return NULL;
+  /* A restricted movement is drawn dotted (Map.vb:1441, DottedLink). */
+  r = a5xml_child (m, "Restrictions");
+  if (dotted != NULL && r != NULL && r->n_children > 0)
+    *dotted = 1;
+  return dest;
 }
 
 static int

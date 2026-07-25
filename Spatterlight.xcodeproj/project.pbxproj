@@ -2996,6 +2996,7 @@
 		A5B00000000000000000010E /* a5run_conv.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_conv.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000110 /* a5run_resp.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5run_resp.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000109 /* a5sb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5sb.h; sourceTree = "<group>"; };
+		A5B000000000000000000111 /* a5util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5util.h; sourceTree = "<group>"; };
 		A5B00000000000000000010A /* a5run_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5run_internal.h; sourceTree = "<group>"; };
 		A5HDR000000000000000001 /* a5blorb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5blorb.h; sourceTree = "<group>"; };
 		A5HDR000000000000000002 /* a5deobf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5deobf.h; sourceTree = "<group>"; };
@@ -5992,6 +5993,7 @@
 				A5MAP0000000000000000002 /* a5map.cpp */,
 				A5MAP0000000000000000003 /* a5map.h */,
 				A5B000000000000000000109 /* a5sb.h */,
+				A5B000000000000000000111 /* a5util.h */,
 				A5B000000000000000000102 /* a5sb.cpp */,
 				A5HDR000000000000000001 /* a5blorb.h */,
 				A5HDR000000000000000002 /* a5deobf.h */,

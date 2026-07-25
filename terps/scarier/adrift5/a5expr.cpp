@@ -22,21 +22,8 @@
 #include "a5parse.h"
 #include "a5restr.h"
 #include "a5text.h"
+#include "a5util.h"
 #include "a5xml.h"
-
-static int
-streq (const char *a, const char *b)
-{
-  return a != NULL && b != NULL && strcmp (a, b) == 0;
-}
-
-static std::string
-lower (const std::string &s)
-{
-  std::string o = s;
-  for (char &c : o) c = (char) tolower ((unsigned char) c);
-  return o;
-}
 
 static int
 contains (const std::string &hay, const char *needle)
@@ -69,33 +56,6 @@ static const char *kEnumDirs[12] = {
   "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
 
-/* A location has an exit in `dir` if its Movement table names that direction
-   with a non-empty Destination -- the Adrift 5 runner's location `.Exits` checks
-   arlDirections(d).LocationKey <> "" and does NOT apply the route's
-   restrictions (unlike a character's HasRouteInDirection). */
-static const char *
-loc_exit_dest (a5_state_t *st, const char *lockey, const char *dir)
-{
-  /* The raw <Movement> Destination key in `dir`, or NULL (the runner arlDirections
-     LocationKey read -- no exit-restriction evaluation). */
-  const a5_location_t *l = a5model_location (st->adv, lockey);
-  const a5_xml_node_t *c;
-  if (l == NULL)
-    return NULL;
-  for (c = l->node->first_child; c != NULL; c = c->next)
-    {
-      const char *d, *dest;
-      if (strcmp (c->name, "Movement") != 0)
-        continue;
-      d = a5xml_child_text (c, "Direction");
-      if (!streq (d, dir))
-        continue;
-      dest = a5xml_child_text (c, "Destination");
-      return (dest != NULL && dest[0] != '\0') ? dest : NULL;
-    }
-  return NULL;
-}
-
 /* The localized, lowercased display name for a direction's `.List`
    (LCase(DirectionName) -- "NorthEast" -> "northeast", or the game's localized
    "Nordøst" -> "nordøst"). */
@@ -127,7 +87,7 @@ render_dirs (const std::vector<std::string> &dirs, const std::string &args)
 
 /* The directions (DirectionsEnum order) in which `charkey` has a usable route
    from `lockey` -- a5restr exit-restriction evaluation, unlike the raw
-   loc_exit_dest read used by a location's own `.Exits`. */
+   a5model_exit_dest read used by a location's own `.Exits`. */
 static std::vector<std::string>
 char_exit_dirs (a5_state_t *st, const char *charkey, const char *lockey)
 {
@@ -918,7 +878,7 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
         {
           Ctx nc; nc.is_dirs = 1;
           for (int i = 0; i < 12; i++)
-            if (loc_exit_dest (st, key.c_str (), kEnumDirs[i]) != NULL)
+            if (a5model_exit_dest (st->adv, key.c_str (), kEnumDirs[i]) != NULL)
               nc.dirs.push_back (kEnumDirs[i]);
           return oo_prop (st, nc, rem, depth + 1, ok);
         }
@@ -948,8 +908,8 @@ oo_prop (a5_state_t *st, Ctx ctx, const std::string &sProperty, int depth, int *
               for (int d = 0; d < 12; d++)
                 if (cur == lower (kEnumDirs[d]))
                   {
-                    const char *dest = loc_exit_dest (st, key.c_str (),
-                                                      kEnumDirs[d]);
+                    const char *dest = a5model_exit_dest (st->adv, key.c_str (),
+                                                         kEnumDirs[d]);
                     if (dest != NULL)
                       dests.push_back (dest);
                     break;

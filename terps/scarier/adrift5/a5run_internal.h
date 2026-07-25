@@ -20,6 +20,7 @@
 #include "a5parse.h"
 #include "a5run.h"
 #include "a5sb.h"
+#include "a5util.h"
 
 /* Per-event runtime (clsEvent instance state).  Status mirrors
    clsEvent.StatusEnum; the timers mirror TimerToEndOfEvent / iLastSubEventTime /
@@ -456,12 +457,6 @@ struct exec_resp_scope {
   size_t look_len = 0;
 };
 
-static inline int
-streq (const char *a, const char *b)
-{
-  return a != NULL && b != NULL && strcmp (a, b) == 0;
-}
-
 /* Outcome of resolve_refine (reference resolution -> disambiguation). */
 enum { RR_NOMATCH = 0, RR_OK, RR_FAIL, RR_AMBIG, RR_CANTSEE, RR_NOREF };
 
@@ -489,7 +484,6 @@ struct amb_info {
 int  msg_has_output (const char *m);
 int  fd_has_output (a5_state_t *st, const char *raw);
 std::vector<std::string> split_ws (const char *s);
-std::string lower (const std::string &s);
 
 /* a5run_events.cpp (events + walks runtime) */
 void ev_init          (a5_run_t *run, sb_t *out);

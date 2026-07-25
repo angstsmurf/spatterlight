@@ -409,6 +409,16 @@ extern void a5model_free (a5_adventure_t *adv);
 extern const a5_prop_t *a5_prop_find (const a5_prop_t *props, int n,
                                       const char *key);
 
+/* The scalar value of an object's authored (model) property, or NULL when the
+   object has no such property.  Note this is the *authored* value: a runtime
+   override is only visible through a5state_entity_prop(). */
+static inline const char *
+obj_prop (const a5_object_t *o, const char *key)
+{
+  const a5_prop_t *p = a5_prop_find (o->props, o->n_props, key);
+  return p ? p->value : NULL;
+}
+
 /* Per-type key lookups (linear; adequate for load + Phase 1). */
 extern const a5_object_t    *a5model_object    (const a5_adventure_t *a, const char *key);
 extern const a5_location_t  *a5model_location  (const a5_adventure_t *a, const char *key);
@@ -421,5 +431,24 @@ extern const a5_propdef_t   *a5model_propdef   (const a5_adventure_t *a, const c
    resource number via <FileMappings>, matching on the path's basename.  Returns
    -1 when there is no matching mapping. */
 extern int a5model_resource_for_file (const a5_adventure_t *a, const char *src);
+
+/* ------------------------------------------------------------- exit lookups */
+
+/* The location's <Movement> child for canonical direction `dir`, or NULL.  Pass
+   the previous result back as `after` to resume the scan: a location may hold
+   more than one Movement for a direction, and a5restr_exit_in_direction walks
+   past the route-restricted ones to reach the next candidate.  Pass after=NULL
+   to start from the first child. */
+extern const a5_xml_node_t *a5model_movement (const a5_location_t *loc,
+                                              const a5_xml_node_t *after,
+                                              const char *dir);
+
+/* The raw Destination key of `lockey`'s first exit in `dir`, or NULL when there
+   is no such exit (or its Destination is empty).  This is the runner's
+   arlDirections(d).LocationKey read: the *unconditional* map, with no route
+   restriction evaluated -- unlike a character's HasRouteInDirection, which goes
+   through a5restr_exit_in_direction. */
+extern const char *a5model_exit_dest (const a5_adventure_t *a,
+                                      const char *lockey, const char *dir);
 
 #endif

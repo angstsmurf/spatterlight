@@ -526,4 +526,27 @@ extern const char *a5state_var_text_by_name (const a5_state_t *st, const char *n
 extern long a5state_var_get_elem (const a5_state_t *st, int vi, long idx);
 extern void a5state_var_set_elem (a5_state_t *st, int vi, long idx, long value);
 
+/* Scoped set of st->marking_display -- the runner's ambient bTestingOutput.
+   Rendering happens in two modes: a REAL render (marking_display=1) retires
+   <DisplayOnce> segments and runs the Introduced dance, a peek/test render
+   (0) must leave both untouched.  Every such render has to put the previous
+   value back afterwards, and doing that by hand is how a5run_action's
+   Execute-Look path ended up needing the same restore on two separate exits.
+   Declare the guard instead:  a5_mark_guard mg (st, 1);
+
+   A body may still assign st->marking_display directly within the scope (the
+   look-then-test sequences do); the guard restores whatever was current when
+   it was constructed. */
+struct a5_mark_guard {
+  a5_state_t *st;
+  int prev;
+  a5_mark_guard (a5_state_t *s, int value) : st (s), prev (s->marking_display)
+  {
+    s->marking_display = value;
+  }
+  ~a5_mark_guard () { st->marking_display = prev; }
+  a5_mark_guard (const a5_mark_guard &) = delete;
+  a5_mark_guard &operator= (const a5_mark_guard &) = delete;
+};
+
 #endif

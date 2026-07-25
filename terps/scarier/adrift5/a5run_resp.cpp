@@ -90,10 +90,8 @@ render_comp_test (a5_state_t *st, const a5_xml_node_t *comp)
 char *
 render_comp_test_ex (a5_state_t *st, const a5_xml_node_t *comp, char **marked)
 {
-  int pm = st->marking_display; st->marking_display = 0;
-  char *m = a5text_describe_ex (st, comp, NULL, NULL, marked);
-  st->marking_display = pm;
-  return m;
+  a5_mark_guard mg (st, 0);
+  return a5text_describe_ex (st, comp, NULL, NULL, marked);
 }
 
 /* Does this CompletionMessage bear a text-changing function -- an embedded
@@ -173,10 +171,12 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
           bool same = false;
           if (lcomp != NULL)
             {
-              int pm = st->marking_display; st->marking_display = 0;
-              char *rawc = a5text_eval_description (st, comp);
-              char *rawl = a5text_eval_description (st, lcomp);
-              st->marking_display = pm;
+              char *rawc, *rawl;
+              {
+                a5_mark_guard mg (st, 0);
+                rawc = a5text_eval_description (st, comp);
+                rawl = a5text_eval_description (st, lcomp);
+              }
               same = rawc != NULL && rawl != NULL && streq (rawc, rawl);
               free (rawc); free (rawl);
             }
@@ -206,25 +206,28 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
     }
   else
     {
-      int pm = st->marking_display; st->marking_display = 1;
       int raw_nonblank = 0, pre_alr_ink = 0;
-      /* A single-reference AggregateOutput completion bearing a text function:
-         the runner stores the RAW template and only ReplaceExpressions it at
-         end-of-command Display -- AFTER e.g. the stock Look's two test renders
-         of the destination room view.  Render the static skeleton now (the
-         verb-conjugation context stays current), but push the `<#..#>` draw to
-         the display_defers sink so the xoshiro stream stays aligned (Quest
-         Giver's "You move North.. <#OneOf..#>" flavor must draw after the
-         tavern-sign OneOf in the room description, not before). */
-      void *prev_ed = st->expr_defer;
-      if (t != NULL && t->aggregate && comp_bears_function (comp))
-        st->expr_defer = run->display_defers;
-      char *mk = NULL;
-      char *m = a5text_describe_ex (st, comp, &pre_alr_ink, &raw_nonblank, &mk);
-      std::string marked = mk != NULL ? mk : "";
-      free (mk);
-      st->expr_defer = prev_ed;
-      st->marking_display = pm;
+      char *m;
+      std::string marked;
+      {
+        a5_mark_guard mg (st, 1);
+        /* A single-reference AggregateOutput completion bearing a text function:
+           the runner stores the RAW template and only ReplaceExpressions it at
+           end-of-command Display -- AFTER e.g. the stock Look's two test renders
+           of the destination room view.  Render the static skeleton now (the
+           verb-conjugation context stays current), but push the `<#..#>` draw to
+           the display_defers sink so the xoshiro stream stays aligned (Quest
+           Giver's "You move North.. <#OneOf..#>" flavor must draw after the
+           tavern-sign OneOf in the room description, not before). */
+        void *prev_ed = st->expr_defer;
+        if (t != NULL && t->aggregate && comp_bears_function (comp))
+          st->expr_defer = run->display_defers;
+        char *mk = NULL;
+        m = a5text_describe_ex (st, comp, &pre_alr_ink, &raw_nonblank, &mk);
+        marked = mk != NULL ? mk : "";
+        free (mk);
+        st->expr_defer = prev_ed;
+      }
       /* The runner's AddResponse output test (bHasOutput) sees the message BEFORE the
          trailing-whitespace trim, so a whitespace-only "\n" completion counts
          as task output -- it stops an After-children scan (The Salvage's
@@ -437,9 +440,11 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
                 if (!e.obj2.empty ())
                   bind_reference (st, "object2", e.obj2.c_str (), e.obj2.c_str ());
               }
-            int pm = st->marking_display; st->marking_display = 1;
-            char *m = a5text_describe (st, e.comp);
-            st->marking_display = pm;
+            char *m;
+            {
+              a5_mark_guard mg (st, 1);
+              m = a5text_describe (st, e.comp);
+            }
             if (m != NULL) text = m;
             free (m);
           }

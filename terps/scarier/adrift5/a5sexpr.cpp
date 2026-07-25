@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "a5sexpr.h"
+#include "a5util.h"
 
 /* Wired to a5rand_between by the run harness; NULL in RNG-less builds. */
 long (*a5sexpr_rng_hook) (long lo, long hi) = NULL;
@@ -134,14 +135,6 @@ struct Tok {
   double num;
 };
 
-std::string
-lower (const std::string &s)
-{
-  std::string o = s;
-  for (char &c : o) c = (char) tolower ((unsigned char) c);
-  return o;
-}
-
 std::vector<Tok>
 tokenise (const char *expr)
 {
@@ -249,14 +242,6 @@ is_function (const std::string &lid)
   for (int i = 0; fns[i]; i++)
     if (lid == fns[i]) return true;
   return false;
-}
-
-std::string
-to_proper (const std::string &s)
-{
-  std::string o = lower (s);
-  if (!o.empty ()) o[0] = (char) toupper ((unsigned char) o[0]);
-  return o;
 }
 
 Val

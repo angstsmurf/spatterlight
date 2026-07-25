@@ -9,15 +9,9 @@
 
 #include "a5restr.h"
 #include "a5state.h"
+#include "a5util.h"
 
 /* ----------------------------------------------------------------- helpers */
-
-static const char *
-obj_prop (const a5_object_t *o, const char *key)
-{
-  const a5_prop_t *p = a5_prop_find (o->props, o->n_props, key);
-  return p ? p->value : NULL;
-}
 
 static int
 obj_has_prop (const a5_object_t *o, const char *key)
@@ -30,12 +24,6 @@ chr_prop (const a5_character_t *c, const char *key)
 {
   const a5_prop_t *p = a5_prop_find (c->props, c->n_props, key);
   return p ? p->value : NULL;
-}
-
-static int
-streq (const char *a, const char *b)
-{
-  return a != NULL && b != NULL && strcmp (a, b) == 0;
 }
 
 /* The runtime property override for (entity, prop), or NULL. */

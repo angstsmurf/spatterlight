@@ -14,6 +14,7 @@
 #include "a5deobf.h"
 #include "a5model.h"
 #include "a5parse.h"   /* a5_correct_command (CorrectCommand) */
+#include "a5util.h"
 
 /* ------------------------------------------------------------------ helpers */
 
@@ -1540,4 +1541,35 @@ a5model_propdef (const a5_adventure_t *a, const char *key)
     if (a->propdefs[i].key != NULL && strcmp (a->propdefs[i].key, key) == 0)
       return &a->propdefs[i];
   return NULL;
+}
+
+/* ------------------------------------------------------------- exit lookups */
+
+const a5_xml_node_t *
+a5model_movement (const a5_location_t *loc, const a5_xml_node_t *after,
+                  const char *dir)
+{
+  const a5_xml_node_t *c;
+
+  if (loc == NULL || loc->node == NULL || dir == NULL)
+    return NULL;
+  c = (after != NULL) ? after->next : loc->node->first_child;
+  for (; c != NULL; c = c->next)
+    {
+      if (strcmp (c->name, "Movement") != 0)
+        continue;
+      if (streq (a5xml_child_text (c, "Direction"), dir))
+        return c;
+    }
+  return NULL;
+}
+
+const char *
+a5model_exit_dest (const a5_adventure_t *a, const char *lockey, const char *dir)
+{
+  const a5_location_t *l = (lockey != NULL) ? a5model_location (a, lockey) : NULL;
+  const a5_xml_node_t *m = a5model_movement (l, NULL, dir);
+  const char *dest = (m != NULL) ? a5xml_child_text (m, "Destination") : NULL;
+
+  return (dest != NULL && dest[0] != '\0') ? dest : NULL;
 }

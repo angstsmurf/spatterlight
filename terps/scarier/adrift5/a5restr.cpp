@@ -16,6 +16,7 @@
 #include "a5rand.h"
 #include "a5restr.h"
 #include "a5text.h"
+#include "a5util.h"
 
 int a5restr_trace = 0;
 
@@ -110,12 +111,6 @@ restr_type_node (const a5_xml_node_t *restriction)
 }
 
 /* ------------------------------------------------------------- value helpers */
-
-static int
-streq (const char *a, const char *b)
-{
-  return a != NULL && b != NULL && strcmp (a, b) == 0;
-}
 
 static const char *
 resolve_key (a5_state_t *st, const char *k)
@@ -243,13 +238,6 @@ num_value (a5_state_t *st, const char *k)
       return e;
     }
   return strtol (s != NULL ? s : "0", NULL, 10);
-}
-
-static const char *
-obj_prop (const a5_object_t *o, const char *key)
-{
-  const a5_prop_t *p = a5_prop_find (o->props, o->n_props, key);
-  return p ? p->value : NULL;
 }
 
 /* clsCharacter.IsHoldingObject (clsCharacter.vb:895): an object counts as held
@@ -653,15 +641,15 @@ a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
   l = a5model_location (st->adv, lockey);
   if (l == NULL)
     return NULL;
-  for (c = l->node->first_child; c != NULL; c = c->next)
+  /* A location may carry more than one <Movement> for a direction; a route
+     blocked by its own restrictions is skipped and the scan resumes at the
+     next candidate, so this walks a5model_movement rather than taking its
+     first hit. */
+  for (c = a5model_movement (l, NULL, dir); c != NULL;
+       c = a5model_movement (l, c, dir))
     {
-      const char *d, *dest;
+      const char *dest;
       const a5_xml_node_t *mr;
-      if (strcmp (c->name, "Movement") != 0)
-        continue;
-      d = a5xml_child_text (c, "Direction");
-      if (!streq (d, dir))
-        continue;
       mr = a5xml_child (c, "Restrictions");
       if (mr != NULL && !a5restr_pass (st, mr))
         {                               /* route blocked by its restriction */

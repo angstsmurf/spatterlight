@@ -17,14 +17,9 @@
 #include "a5sb.h"     /* sb_t growable string builder (shared with a5run_*) */
 #include "a5sexpr.h"
 #include "a5text.h"
+#include "a5util.h"
 
 /* ----------------------------------------------------------- small helpers */
-
-static int
-streq (const char *a, const char *b)
-{
-  return a != NULL && b != NULL && strcmp (a, b) == 0;
-}
 
 static int
 ci_eq (const char *a, const char *b)
@@ -478,22 +473,6 @@ chars_on_in (a5_state_t *st, const char *objkey, int on)
         v.push_back (&st->adv->characters[i]);
     }
   return v;
-}
-
-/*
- * Port of Global.ToProper (bForceRestLower=True): upper-case the first char and
- * lower-case the rest of the string.  Used by DisplayObjectChildren on the
- * on-object list so "The Yellow Note, The Silver Gun and The Silver Bullets"
- * renders as "The yellow note, the silver gun and the silver bullets".
- */
-static std::string
-to_proper (const std::string &s)
-{
-  std::string r = s;
-  for (size_t i = 0; i < r.size (); i++)
-    r[i] = (i == 0) ? (char) toupper ((unsigned char) r[i])
-                    : (char) tolower ((unsigned char) r[i]);
-  return r;
 }
 
 /*
@@ -3536,11 +3515,11 @@ char_here_desc (a5_state_t *st, const a5_character_t *c)
          customs official stands here."). */
       if (p->value_node != NULL)
         {
-          int prev_mark = st->marking_display;
           char *raw;
-          st->marking_display = 1;
-          raw = a5text_eval_description (st, p->value_node);
-          st->marking_display = prev_mark;
+          {
+            a5_mark_guard mg (st, 1);
+            raw = a5text_eval_description (st, p->value_node);
+          }
           result = process_inner (st, raw, 0);     /* %functions% / OO pass */
           free (raw);
         }
