@@ -38,6 +38,14 @@ ASLXRTDEPS := ../quest5/aslx.cc ../quest5/aslx.hh ../quest5/aslx-runtime.cc ../q
 # Needs the local game corpus, so it is built on demand and not part of check.
 ASLXREPLAY := aslx_replay
 
+# Quest 5 native link reporter: replays a .cmd walkthrough like aslx_replay but
+# prints the visible TEXT of the command link each step clicks (harvested from
+# the Core text processor's <a data-command="..."> markup). Corpus-dependent,
+# so built on demand and not part of check.
+#   make aslx_linkcapture
+#   ASLX_CORE=../quest5/aslx-core ./aslx_linkcapture "<game.quest>" "<script.cmd>"
+ASLXLINKCAP := aslx_linkcapture
+
 # Quest 5 Glk frontend smoke harness: the real aslxglk.cc against the in-repo
 # CheapGlk, driven by piping commands to stdin. Built on demand.
 ASLXGLK := aslxglk_smoke
@@ -80,6 +88,9 @@ $(ASLXLINKBIN): $(ASLXLINKSRC) ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
 
 $(ASLXREPLAY): $(ASLXREPLAY).cc $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXREPLAY).cc $(ASLXLIBS) -o $@
+
+$(ASLXLINKCAP): $(ASLXLINKCAP).cc $(ASLXRTDEPS)
+	$(CXX) $(CXXFLAGS) $(ASLXLINKCAP).cc $(ASLXLIBS) -o $@
 
 $(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
             ../questglk-common.inc $(ASLXRTDEPS)

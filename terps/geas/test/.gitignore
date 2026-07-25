@@ -9,5 +9,6 @@
 # The fixtures/ games are ours, and are committed.
 /games/
 /aslx_replay
+/aslx_linkcapture
 /aslxglk_smoke
 /aslxglk_link_tests
