@@ -4667,12 +4667,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
           if (count > 0)
             {
               if (count == 1)
-                {
-                  lib_new_clause (game, has_printed);
-                  lib_print_object_np (game, trail);
-                }
+                lib_new_clause (game, has_printed);
               else
                 pf_buffer_string (filter, ", ");
+              lib_print_object_np (game, trail);
             }
           trail = object;
           count++;
