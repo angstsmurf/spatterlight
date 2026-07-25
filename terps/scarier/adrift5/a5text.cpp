@@ -10,7 +10,6 @@
 
 #include <algorithm>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include "a5expr.h"
@@ -498,15 +497,15 @@ to_proper (const std::string &s)
 }
 
 /*
- * Port of clsObject.DisplayObjectChildren: "<on-list> is/are on <the object>[,
- * and inside is/are <in-list>]." — the on-list ToProper-cased, both lists using
- * the objects' own (indefinite) articles, the parent definite.  The inside list
- * is suppressed for a closed openable object.  Returns "" when there is nothing
- * to show (the ListObjectsOnAndIn caller only invokes it for objects that have
- * children, so the "Nothing is on or inside ..." fallback never surfaces here).
+ * The on/in children listing shared by DisplayObjectChildren and the
+ * List(bIncludeSubObjects) path: "<on-list> is/are on <the object>[, and
+ * inside is/are <in-list>]" — the on-list ToProper-cased, both lists using
+ * the objects' own (indefinite) articles, the parent definite, no trailing
+ * period.  The inside list is suppressed for a closed openable object.
+ * Returns "" when there is nothing to show.
  */
 static std::string
-display_object_children (a5_state_t *st, const char *objkey)
+object_children_block (a5_state_t *st, const char *objkey)
 {
   const a5_object_t *o = a5model_object (st->adv, objkey);
   std::vector<const char *> on = objects_on_in (st, objkey, A5_OWHERE_ON_OBJECT);
@@ -542,13 +541,27 @@ display_object_children (a5_state_t *st, const char *objkey)
       s += lst;
       free (lst);
     }
-  if (!on.empty () || !in.empty ())
-    s += ".";
-  /* clsObject.DisplayObjectChildren: nothing on or inside -> the canned line
-     (only surfaced by ListObjectsOnAndIn when the resolved set is a single
-     childless object). */
-  if (s.empty ())
-    { s = "Nothing is on or inside "; s += defn ? defn : objkey; s += "."; }
+  free (defn);
+  return s;
+}
+
+/*
+ * Port of clsObject.DisplayObjectChildren: the children block above with its
+ * closing period, or the canned "Nothing is on or inside ..." line (only
+ * surfaced by ListObjectsOnAndIn when the resolved set is a single childless
+ * object).
+ */
+static std::string
+display_object_children (a5_state_t *st, const char *objkey)
+{
+  std::string s = object_children_block (st, objkey);
+  if (!s.empty ())
+    return s + ".";
+  const a5_object_t *o = a5model_object (st->adv, objkey);
+  char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (objkey);
+  s = "Nothing is on or inside ";
+  s += defn;
+  s += ".";
   free (defn);
   return s;
 }
@@ -570,33 +583,12 @@ list_objects_subobj (a5_state_t *st, const std::vector<const char *> &keys)
   free (main);
   for (const char *ok : keys)
     {
-      const a5_object_t *o = a5model_object (st->adv, ok);
-      std::vector<const char *> on = objects_on_in (st, ok, A5_OWHERE_ON_OBJECT);
-      std::vector<const char *> in = objects_on_in (st, ok, A5_OWHERE_IN_OBJECT);
-      int openable = o && a5_prop_find (o->props, o->n_props, "Openable") != NULL;
-      if (openable)
-        { const char *os = a5state_entity_prop (st, ok, "OpenStatus");
-          if (os == NULL || !streq (os, "Open")) in.clear (); }
-      char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (ok);
-      if (!on.empty ())
-        {
-          if (!out.empty ()) out += ".  ";
-          char *lst = list_objects (st, on);
-          out += to_proper (lst); free (lst);
-          out += (on.size () == 1) ? " is on " : " are on ";
-          out += defn;
-        }
-      if (!in.empty ())
-        {
-          if (!on.empty ())
-            out += ", and inside";
-          else
-            { if (!out.empty ()) out += ".  "; out += "Inside "; out += defn; }
-          out += (in.size () == 1) ? " is " : " are ";
-          char *lst = list_objects (st, in);
-          out += lst; free (lst);
-        }
-      free (defn);
+      std::string blk = object_children_block (st, ok);
+      if (blk.empty ())
+        continue;
+      if (!out.empty ())
+        out += ".  ";
+      out += blk;
     }
   return strdup (out.c_str ());
 }
@@ -688,6 +680,35 @@ char_perspective (const a5_state_t *st, const a5_character_t *c)
 
 typedef enum { A5_PRO_SUBJ, A5_PRO_OBJ, A5_PRO_POSS, A5_PRO_REFL } a5_pronoun_t;
 
+/* clsCharacter.ProperName (clsCharacter.vb:455): the runtime
+   CharacterProperName override (a typed-in player name, set via SetProperty --
+   clsUserSession.vb:2080) wins over the model Name, and an empty name renders
+   "Anonymous". */
+static const char *
+char_proper_name_raw (const a5_state_t *st, const a5_character_t *c)
+{
+  const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
+                     : NULL;
+  if (pn == NULL || pn[0] == '\0')
+    pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
+                                                              : "Anonymous";
+  return pn;
+}
+
+/* The possessive form of a heap-allocated name: append 's, consuming nm. */
+static char *
+possessive (char *nm)
+{
+  size_t n = strlen (nm);
+  char *s = (char *) malloc (n + 3);
+  memcpy (s, nm, n);
+  s[n] = '\'';
+  s[n + 1] = 's';
+  s[n + 2] = '\0';
+  free (nm);
+  return s;
+}
+
 /*
  * A third-person character's displayed name, mirroring clsCharacter.Name's
  * non-pronoun branch: a "Known"-and-selected character (or one with no
@@ -730,17 +751,7 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite,
   int known_set = c != NULL && a5state_entity_has_prop (st, c->key, "Known");
   int use_proper = known_set || c == NULL || c->n_descriptors == 0;
   if (use_proper)
-    {
-      /* clsCharacter.ProperName: the runtime CharacterProperName override
-         (set via SetProperty, e.g. a typed-in player name) wins over the
-         model Name; "" -> "Anonymous". */
-      const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
-                         : NULL;
-      if (pn == NULL || pn[0] == '\0')
-        pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
-                                                                  : "Anonymous";
-      return strdup (pn);
-    }
+    return strdup (char_proper_name_raw (st, c));
   {
     sb_t sb;
     sb_init (&sb);
@@ -810,11 +821,7 @@ character_name (a5_state_t *st, const a5_character_t *c, a5_pronoun_t pr,
   /* third person: the display name (possessive adds 's) */
   {
     char *nm = character_display_name (st, c, 0);
-    if (pr == A5_PRO_POSS)
-      { size_t n = strlen (nm); char *s = (char *) malloc (n + 3);
-        memcpy (s, nm, n); s[n] = '\''; s[n + 1] = 's'; s[n + 2] = '\0';
-        free (nm); return s; }
-    return nm;
+    return (pr == A5_PRO_POSS) ? possessive (nm) : nm;
   }
 }
 
@@ -903,14 +910,7 @@ a5text_character_oo_name (a5_state_t *st, const a5_character_t *c,
   int known_set = c != NULL && a5state_entity_has_prop (st, c->key, "Known");
   char *nm;
   if (known_set || c == NULL || c->n_descriptors == 0)
-    {
-      const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
-                         : NULL;
-      if (pn == NULL || pn[0] == '\0')
-        pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
-                                                                  : "Anonymous";
-      nm = strdup (pn);
-    }
+    nm = strdup (char_proper_name_raw (st, c));
   else
     {
       sb_t sb;
@@ -922,11 +922,7 @@ a5text_character_oo_name (a5_state_t *st, const a5_character_t *c,
       sb_puts (&sb, c->descriptors[0]);
       nm = sb_finish (&sb);
     }
-  if (pr == A5_PRO_POSS)
-    { size_t n = strlen (nm); char *s = (char *) malloc (n + 3);
-      memcpy (s, nm, n); s[n] = '\''; s[n + 1] = 's'; s[n + 2] = '\0';
-      free (nm); return s; }
-  return nm;
+  return (pr == A5_PRO_POSS) ? possessive (nm) : nm;
 }
 
 char *
@@ -1017,7 +1013,6 @@ fn_player (a5_state_t *st, const char * /*name*/, const char * /*args*/)
 {
   const a5_character_t *p = a5model_character (st->adv, a5state_player_key (st));
   return character_name (st, p, A5_PRO_SUBJ);
-  return NULL;
 }
 
 static char *
@@ -1048,7 +1043,6 @@ fn_popupinput (a5_state_t * /*st*/, const char * /*name*/, const char *args)
       if (ans != NULL) return ans;
     }
   return strdup (dflt.c_str ());
-  return NULL;
 }
 
 static char *
@@ -1101,7 +1095,6 @@ fn_charactername (a5_state_t *st, const char * /*name*/, const char *args)
   else
     ch = a5model_character (st->adv, a5state_player_key (st));
   return character_name (st, ch, pr, /*consult_ledger=*/!pron_none);
-  return NULL;
 }
 
 static char *
@@ -1119,18 +1112,10 @@ fn_characterproper (a5_state_t *st, const char * /*name*/, const char *args)
   if (key.empty ())
     key = st->ctx_char ? st->ctx_char : a5state_player_key (st);
   const a5_character_t *c = a5model_character (st->adv, key.c_str ());
-  /* clsCharacter.ProperName (clsCharacter.vb:455): the runtime
-     CharacterProperName override (a typed-in player name, set via the
-     property -- clsUserSession.vb:2080) wins over the model Name, and an
-     empty name renders "Anonymous".  The runner reports an unknown key with
-     DisplayError; we have no such channel, so an unresolved character takes
-     the same "Anonymous" path a5expr's .ProperName does. */
-  const char *pn = c ? a5state_entity_prop (st, c->key, "CharacterProperName")
-                     : NULL;
-  if (pn == NULL || pn[0] == '\0')
-    pn = (c != NULL && c->name != NULL && c->name[0] != '\0') ? c->name
-                                                             : "Anonymous";
-  return strdup (pn);
+  /* The runner reports an unknown key with DisplayError; we have no such
+     channel, so an unresolved character takes the same "Anonymous" path
+     a5expr's .ProperName does. */
+  return strdup (char_proper_name_raw (st, c));
 }
 
 static char *
@@ -1146,7 +1131,6 @@ fn_turns (a5_state_t *st, const char * /*name*/, const char * /*args*/)
   char buf[32];
   snprintf (buf, sizeof buf, "%d", st->turns > 0 ? st->turns - 1 : 0);
   return strdup (buf);
-  return NULL;
 }
 
 static char *
@@ -1169,7 +1153,6 @@ fn_alonewithchar (a5_state_t *st, const char * /*name*/, const char * /*args*/)
         { count++; found = st->adv->characters[i].key; }
     }
   return strdup ((count == 1) ? found : "NoCharacter");
-  return NULL;
 }
 
 static char *
@@ -1179,7 +1162,6 @@ fn_locationname (a5_state_t *st, const char * /*name*/, const char *args)
   if (key != NULL && a5model_location (st->adv, key) != NULL)
     return a5text_location_short (st, key);
   return strdup ("");
-  return NULL;
 }
 
 static char *
@@ -1206,7 +1188,6 @@ fn_locationof (a5_state_t *st, const char * /*name*/, const char *args)
       }
   }
   return strdup ("");
-  return NULL;
 }
 
 static char *
@@ -1244,7 +1225,6 @@ fn_displaylocation (a5_state_t *st, const char * /*name*/, const char *args)
       return s;
     }
   return strdup ("");
-  return NULL;
 }
 
 static char *
@@ -1302,7 +1282,6 @@ fn_object_names (a5_state_t *st, const char *name, const char *args)
       return strdup ("nothing");
   }
   return strdup (args ? args : "");
-  return NULL;
 }
 
 static char *
@@ -1352,7 +1331,6 @@ fn_propertyvalue (a5_state_t *st, const char * /*name*/, const char *args)
   if (pr->value_node != NULL)
     return a5text_eval_description (st, pr->value_node);
   return strdup (pr->value ? pr->value : "");
-  return NULL;
 }
 
 static char *
@@ -1391,7 +1369,6 @@ fn_parentof (a5_state_t *st, const char * /*name*/, const char *args)
       { char *pp = a5expr_eval (st, c->key, ".Parent"); if (pp) return pp; }
   }
   return strdup (k ? k : "");
-  return NULL;
 }
 
 static char *
@@ -1410,7 +1387,6 @@ fn_list_objects_on_in (a5_state_t *st, const char *name, const char *args)
                                        Magnetic Moon's "On the desk are
                                        nothing." */
   return list_objects (st, v);
-  return NULL;
 }
 
 static char *
@@ -1437,7 +1413,6 @@ fn_list_objects_on_and_in (a5_state_t *st, const char * /*name*/, const char *ar
       out += d;
     }
   return strdup (out.c_str ());
-  return NULL;
 }
 
 static char *
@@ -1481,7 +1456,6 @@ fn_list_characters (a5_state_t *st, const char *name, const char *args)
   out += ".";
   free (defn);
   return strdup (out.c_str ());
-  return NULL;
 }
 
 static char *
@@ -1501,7 +1475,6 @@ fn_list_held_worn (a5_state_t *st, const char *name, const char *args)
   /* %ListWorn% / %ListHeld% pass bIncludeSubObjects=True (Global.vb:2182/
      2225): append each object's on/inside-contents listing. */
   return list_objects_subobj (st, v);
-  return NULL;
 }
 
 static char *
@@ -1568,7 +1541,6 @@ fn_list_exits (a5_state_t *st, const char * /*name*/, const char *args)
     return strdup ("nowhere");
   char *lst = a5expr_eval (st, args, ".Exits.List");
   return lst ? lst : strdup ("nowhere");
-  return NULL;
 }
 
 static char *
@@ -1579,7 +1551,6 @@ fn_list_objects_at_location (a5_state_t *st, const char * /*name*/, const char *
     if (a5state_object_at_location (st, i, args, 1))
       v.push_back (st->adv->objects[i].key);
   return list_objects (st, v);
-  return NULL;
 }
 
 static char *
@@ -1590,7 +1561,6 @@ fn_number_as_text (a5_state_t * /*st*/, const char * /*name*/, const char *args)
   long n = strtol (args, NULL, 10);
   if (n >= 0 && n <= 12) return strdup (ones[n]);
   return strdup (args);
-  return NULL;
 }
 
 static char *
@@ -1605,7 +1575,6 @@ fn_case (a5_state_t * /*st*/, const char *name, const char *args)
   else if (s[0])
     s[0] = toupper ((unsigned char) s[0]);
   return s;
-  return NULL;
 }
 
 /* Evaluate one %Name[args]% (args already function-expanded), or NULL. */
@@ -1913,7 +1882,6 @@ pron_capture (a5_state_t *st, long off)
   st->pron_pending_pron = 0;
 }
 
-static char *replace_functions (a5_state_t *st, const char *src, int as_arg);
 static char *str_replace_all (const char *src, const char *find,
                               const char *repl);
 static int expr_bears_random (const char *body);
@@ -3467,18 +3435,8 @@ a5text_describe_ex (a5_state_t *st, const a5_xml_node_t *wrapper,
   char *raw = a5text_eval_description (st, wrapper);
   if (raw_nonblank != NULL)
     *raw_nonblank = (raw != NULL && raw[0] != '\0');
-  char *inner = process_inner_ex (st, raw, 0, pre_alr_ink);
-  char *persp = resolve_perspective (st, inner);
-  char *capped = auto_capitalise (persp);
-  char *plain = a5text_render_plain (capped);
-  plain = ps_mark_trailing (capped, plain);
-  note_marked_output (st, capped);
-  if (marked != NULL)
-    *marked = strdup (capped != NULL ? capped : "");
+  char *plain = a5text_process_frozen (st, raw, pre_alr_ink, marked);
   free (raw);
-  free (inner);
-  free (persp);
-  free (capped);
   return plain;
 }
 
