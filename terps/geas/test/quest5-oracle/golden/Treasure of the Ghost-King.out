@@ -1,0 +1,1548 @@
+Treasure of the Ghost-King
+By Craig Dutton (c) 2012
+
+In a land peopled by demons and the undead, a fabulous treasure is to be found.  In the Firecloud Caves King Obian's tomb protects this treasure.
+
+Your mission is to overcome all obstacles placed in your way and achieve your goal.  Can you find the Treasure of the Ghost-King?
+
+You are by Blood river.
+You can go southeast.
+The southside of this fast-flowing river is wide and looks treacherous. The village of Garstein lies to the southeast. A wooden bridge spans across the river.
+> southeast
+
+> southeast
+
+You are in the village of Garstein.
+You can go northwest, in, east, south or west.
+This village is very small and contains only the Crow's wings tavern. A cornfield lies to the south while the Firecloud Caves can be seen to the east.
+> in
+
+> in
+
+You are in the Crow's wings tavern.
+You can go out.
+A small dingy tavern with wooden chairs and tables.
+You can see Erasmus Thorl the Landlord.
+> speak to Erasmus Thorl
+
+> speak to Erasmus Thorl
+'Please help! A Haggwort is terrorizing the cornfield. Can you help get rid of it?' he pleads.
+You ask what a Haggwort is?
+'It's a possesed scarecrow-type thing!' he replies.
+That's cleared that up, then!
+> out
+
+> out
+
+You are in the village of Garstein.
+You can go northwest, in, east, south or west.
+This village is very small and contains only the Crow's wings tavern. A cornfield lies to the south while the Firecloud Caves can be seen to the east.
+> south
+
+> south
+
+You are in the cornfield.
+You can go north.
+A small field laden with tall stems of corn. An eerie silence hangs heavily in the air and the field is void of any wildlife.
+You can see a Haggwort and a scythe.
+> take scythe
+
+> take scythe
+You pick it up.
+> use scythe on Haggwort
+
+> use scythe on Haggwort
+You chop off the Haggwort's head and it rolls on the ground towards you. Luckily, that sorts out the evil scarecrow for good.
+> use scythe on head
+
+> use scythe on head
+You slice it open and wretch as a mass of maggots crawl out of it.
+> take maggots
+
+> take maggots
+You pick them up.
+> north
+
+> north
+
+You are in the village of Garstein.
+You can go northwest, in, east, south or west.
+This village is very small and contains only the Crow's wings tavern. A cornfield lies to the south while the Firecloud Caves can be seen to the east.
+> west
+
+> west
+
+You are in the Fenton hills.
+You can go east, west or southwest.
+These small hills lead to Ralton Abbey to the west, the village of Garstein to the east and the village of Ravendale to the southwest.
+> southwest
+
+> southwest
+
+You are in the village of Ravendale.
+You can go northeast, in, southeast or southwest.
+A small village outside a Blacksmith's forge. Fenton hills lie to the north while the Forest of Shadows lies to the southwest.
+> southeast
+
+> southeast
+
+You are at the Crystal Falls.
+You can go northwest or in.
+The small waterfall cascades down into a small pool at its foot. A small cave can be seen behind the sparkling curtain of water.
+> in
+
+> in
+
+You are in the cave.
+You can go out.
+A small wet cave with a strange stone carving on the far wall.
+> x stone carving
+
+> x stone carving
+It has four buttons with symbols etched into them at the top-left, top-right, bottom-left and bottom-right.
+
+> push earth button
+
+> push earth button
+You hear a click.
+> push water button
+
+> push water button
+You hear a click.
+> push air button
+
+> push air button
+You hear a click.
+> push fire button
+
+> push fire button
+You hear a click.
+A secret recess opens.
+> x recess
+
+> x recess
+A small hole.
+It contains a mirror.
+> take mirror
+
+> take mirror
+You pick it up.
+> out
+
+> out
+
+You are at the Crystal Falls.
+You can go northwest or in.
+The small waterfall cascades down into a small pool at its foot. A small cave can be seen behind the sparkling curtain of water.
+> northwest
+
+> northwest
+
+You are in the village of Ravendale.
+You can go northeast, in, southeast or southwest.
+A small village outside a Blacksmith's forge. Fenton hills lie to the north while the Forest of Shadows lies to the southwest.
+> northeast
+
+> northeast
+
+You are in the Fenton hills.
+You can go east, west or southwest.
+These small hills lead to Ralton Abbey to the west, the village of Garstein to the east and the village of Ravendale to the southwest.
+> east
+
+> east
+
+You are in the village of Garstein.
+You can go northwest, in, east, south or west.
+This village is very small and contains only the Crow's wings tavern. A cornfield lies to the south while the Firecloud Caves can be seen to the east.
+> northwest
+
+> northwest
+
+You are by Blood river.
+You can go southeast.
+The southside of this fast-flowing river is wide and looks treacherous. The village of Garstein lies to the southeast. A wooden bridge spans across the river.
+> cross wooden bridge
+
+> cross wooden bridge
+You cross the bridge to the other side.
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> northeast
+
+> northeast
+
+You are outside the Witch's cottage.
+You can go southwest, in, north or northeast.
+In the midst of Woven Wood you are standing outside the Witch's cottage. With white-washed walls, a small round window surrounded by red roses and a wooden porch leading to the inside; it looks quite inviting. But you have heard of the cruel Witch's reputation for not suffering fools or visitors gladly.
+You can see a birdbath.
+> north
+
+> north
+
+You are on Willow farm.
+You can go south, west or in.
+A small farm house and a barn are the only buildings to be seen here.
+> in
+
+> in
+
+You are in the farm house.
+You can go out.
+A small quaint house with sparse furniture is all that lies before you.
+You can see Nimon Krene the Farmer.
+> give scythe to Nimon Krene the Farmer
+
+> give scythe to Nimon Krene the Farmer
+'It's not exactly what I had in mind but it will come in handy.' he shrugs and takes the scythe and leaves.
+> open cupboard
+
+> open cupboard
+You open it.
+> take hacksaw
+
+> take hacksaw
+You pick it up.
+> take hammer
+
+> take hammer
+You pick it up.
+> out
+
+> out
+
+You are on Willow farm.
+You can go south, west or in.
+A small farm house and a barn are the only buildings to be seen here.
+> west
+
+> west
+
+You are in the barn.
+You can go east.
+A small barn with straw laid across the ground.
+> x straw
+
+> x straw
+Dirty straw!
+You find some seeds.
+> take seeds
+
+> take seeds
+You pick them up.
+> east
+
+> east
+
+You are on Willow farm.
+You can go south, west or in.
+A small farm house and a barn are the only buildings to be seen here.
+> south
+
+> south
+
+You are outside the Witch's cottage.
+You can go southwest, in, north or northeast.
+In the midst of Woven Wood you are standing outside the Witch's cottage. With white-washed walls, a small round window surrounded by red roses and a wooden porch leading to the inside; it looks quite inviting. But you have heard of the cruel Witch's reputation for not suffering fools or visitors gladly.
+You can see a birdbath.
+> open window
+
+> open window
+You open the window.
+> southwest
+
+> southwest
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> northwest
+
+> northwest
+
+You are on the rocky path.
+You can go southeast, west or north.
+A narrow rocky path splits leading to the north where the gates of Castle Bloodreich can be seen and to the west where a quarry resides. To the southeast lies Blood River.
+> west
+
+> west
+
+You are in the quarry.
+You can go east.
+An old abandoned quarry with rocks and debris strewn all over the place.
+You can see a cart.
+> x cart
+
+> x cart
+A broken wooden cart with no wheels.
+It contains a shovel.
+> take shovel
+
+> take shovel
+You pick it up.
+> east
+
+> east
+
+You are on the rocky path.
+You can go southeast, west or north.
+A narrow rocky path splits leading to the north where the gates of Castle Bloodreich can be seen and to the west where a quarry resides. To the southeast lies Blood River.
+> north
+
+> north
+
+You are outside the gates of Castle Bloodreich.
+You can go south or in.
+The huge imposing gates to Castle Bloodreich lie open to you as they lead into the small courtyard. Castle Bloodreich as everybody knows is home to Prince Bloodreich, a vampire. For over 300 years he has reigned supreme over this land and only a foolhardy adventurer, like yourself, could rid this land of such an evil creature.
+> in
+
+> in
+
+You are in the courtyard.
+You can go out, west or in.
+A small, square courtyard with the way into the castle to the north and the family crypt to the west.
+> in
+
+> in
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> east
+
+> east
+
+You are in the study.
+You can go west or north.
+A small room with a mahogany desk.
+You can see a desk and a library door.
+> x desk
+
+> x desk
+A simple wooden desk.
+On top rests a brandy and a red book.
+> take red book
+
+> take red book
+You pick it up.
+> tear red book
+
+> tear red book
+You tear the book to shreds and hidden in the spine is a bronze key.
+> unlock library door
+
+> unlock library door
+Unlocked with the bronze key.
+> open library door
+
+> open library door
+You open it.
+> drop bronze key
+
+> drop bronze key
+You drop it.
+> north
+
+> north
+
+You are in the library.
+You can go south.
+The shelves are filled with many books on various subjects.
+> x shelves
+
+> x shelves
+Lined with many books.
+It contains a blue book and a green book.
+> take blue book
+
+> take blue book
+You pick it up.
+> read blue book
+
+> read blue book
+There is a section on Prince Bloodreich. It mentions that since he is a Grand Vampire then a silver-tipped stake will destroy him. An ordinary one used on him would just annoy slightly.
+> drop blue book
+
+> drop blue book
+You drop it.
+> take green book
+
+> take green book
+You pick it up.
+> read green book
+
+> read green book
+It tells you about an occult mirror with a solid gold frame. It allows the user to see the true forms of Demons disguised as humans and it can trap them inside the mirror itself. It doesn't work on humans that are just possessed. However, the mirror must be blessed first to work.
+> drop green book
+
+> drop green book
+You drop it.
+> south
+
+> south
+
+You are in the study.
+You can go west or north.
+A small room with a mahogany desk.
+You can see a desk (on which there is a brandy), a library door and a bronze key.
+> take brandy
+
+> take brandy
+You pick it up.
+> west
+
+> west
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> west
+
+> west
+
+You are in the dining room.
+You can go east or north.
+A long dining table stands in the centre of the room.
+> north
+
+> north
+
+You are in the kitchen.
+You can go south.
+A large kitchen with a stove and a wooden table stands in the centre.
+You can see Gregor the Servant.
+> give brandy to Gregor the Servant
+
+> give brandy to Gregor the Servant
+He grabs it and runs off to consume it.
+> take bucket
+
+> take bucket
+You pick it up.
+> south
+
+> south
+
+You are in the dining room.
+You can go east or north.
+A long dining table stands in the centre of the room.
+> east
+
+> east
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> up
+
+> up
+
+You are on the landing.
+You can go down, south, north or west.
+At the top of the stairs exits lead to various rooms.
+> west
+
+> west
+
+You are in the laboratory.
+You can go east.
+A small room with scientific equipment and jars filled with parts of unfortunate creatures lie before you.
+You can see Doctor Hans Blutzig.
+> use hacksaw on manacle
+
+> use hacksaw on manacle
+You cut the chain and the Doctor is free.
+'Thanks!' he grins and runs out of the room. Where's your reward?
+> drop hacksaw
+
+> drop hacksaw
+You drop it.
+> open glass jar
+
+> open glass jar
+You open it.
+It contains a hand.
+> x hand
+
+> x hand
+A rotting human hand with a ring on its finger.
+> use maggots on hand
+
+> use maggots on hand
+These maggots love dead flesh and make a meal out of the hand.
+> take ruby ring
+
+> take ruby ring
+You pick it up.
+> east
+
+> east
+
+You are on the landing.
+You can go down, south, north or west.
+At the top of the stairs exits lead to various rooms.
+> north
+
+> north
+
+You are in the suite of rooms.
+You can go south or east.
+The open rooms are decorated with various garish-looking furniture. A small anteroom leads to the east.
+You can see Lady Unya Bloodreich.
+> give ruby ring to Lady Unya Bloodreich
+
+> give ruby ring to Lady Unya Bloodreich
+She takes it off you.
+'Where did you get this?' she asks earnestly.
+You tell her about the Doctor.
+'If I find him I'll pull out his entrails and give them to the dogs. This ring belonged to my late husband. Filthy bodysnatcher!' she screams.
+After she has calmed down she turns back to you.
+'Thank you for bringing this to my attention.' she pauses and continues, 'There is a young girl locked in the crypt. I'll let you free her. I think the Prince has forgotten about her anyway.'
+She offers you an iron key.
+> take iron key
+
+> take iron key
+You pick it up.
+> south
+
+> south
+
+You are on the landing.
+You can go down, south, north or west.
+At the top of the stairs exits lead to various rooms.
+> down
+
+> down
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> out
+
+> out
+
+You are in the courtyard.
+You can go out, west or in.
+A small, square courtyard with the way into the castle to the north and the family crypt to the west.
+> west
+
+> west
+
+You are outside the crypt.
+You can go east or down.
+At the far west side of the courtyard with stone steps leading down into the dingy Bloodreich family crypt.
+You can see a gate.
+> unlock gate
+
+> unlock gate
+Unlocked with the iron key.
+> open gate
+
+> open gate
+You open it.
+> drop iron key
+
+> drop iron key
+You drop it.
+> down
+
+> down
+
+You are in the family crypt.
+You can go up.
+A small stone-walled crypt with little but death and decay to keep you company.
+You can see Tanith Tallus.
+> speak to Tanith Tallus
+
+> speak to Tanith Tallus
+'I suppose you're here to take me to the Prince?' she sobs.
+You tell her she is free and she hugs you before heading for home.
+> up
+
+> up
+
+You are outside the crypt.
+You can go east or down.
+At the far west side of the courtyard with stone steps leading down into the dingy Bloodreich family crypt.
+You can see a gate and an iron key.
+> east
+
+> east
+
+You are in the courtyard.
+You can go out, west or in.
+A small, square courtyard with the way into the castle to the north and the family crypt to the west.
+> out
+
+> out
+
+You are outside the gates of Castle Bloodreich.
+You can go south or in.
+The huge imposing gates to Castle Bloodreich lie open to you as they lead into the small courtyard. Castle Bloodreich as everybody knows is home to Prince Bloodreich, a vampire. For over 300 years he has reigned supreme over this land and only a foolhardy adventurer, like yourself, could rid this land of such an evil creature.
+> south
+
+> south
+
+You are on the rocky path.
+You can go southeast, west or north.
+A narrow rocky path splits leading to the north where the gates of Castle Bloodreich can be seen and to the west where a quarry resides. To the southeast lies Blood River.
+> southeast
+
+> southeast
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> use bucket on river
+
+> use bucket on river
+You fill the bucket with water.
+> west
+
+> west
+
+You are in the graveyard.
+You can go east or in.
+A low mist hangs heavily amongst the gravestones as a church lies nearby.
+You can see a pile of soil.
+> in
+
+> in
+
+You are in the church.
+You can go out.
+A small church with a pulpit and wooden pews.
+You can see Father Heinrik Tallus and Tanith Tallus.
+> give mirror to Father Heinrik Tallus
+
+> give mirror to Father Heinrik Tallus
+He blesses the mirror for you with a few holy words.
+> out
+
+> out
+
+You are in the graveyard.
+You can go east or in.
+A low mist hangs heavily amongst the gravestones as a church lies nearby.
+You can see a pile of soil.
+> empty bucket
+
+> empty bucket
+As you empty out the water it turns the soil into a pile of mud.
+> use bucket on pile of mud
+
+> use bucket on pile of mud
+You fill the bucket with mud.
+> east
+
+> east
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> northeast
+
+> northeast
+
+You are outside the Witch's cottage.
+You can go southwest, in, north or northeast.
+In the midst of Woven Wood you are standing outside the Witch's cottage. With white-washed walls, a small round window surrounded by red roses and a wooden porch leading to the inside; it looks quite inviting. But you have heard of the cruel Witch's reputation for not suffering fools or visitors gladly.
+You can see a birdbath.
+> use bucket on porch
+
+> use bucket on porch
+You empty out the mud all over the porch.
+> southwest
+
+> southwest
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> use bucket on river
+
+> use bucket on river
+You fill the bucket with water.
+> northeast
+
+> northeast
+
+You are outside the Witch's cottage.
+You can go southwest, in, north or northeast.
+In the midst of Woven Wood you are standing outside the Witch's cottage. With white-washed walls, a small round window surrounded by red roses and a wooden porch leading to the inside; it looks quite inviting. But you have heard of the cruel Witch's reputation for not suffering fools or visitors gladly.
+You can see a birdbath.
+> use bucket on birdbath
+
+> use bucket on birdbath
+You fill the birdbath with water. Moments later a small Goldfinch arrivers and enjoys a nice bath.
+> drop bucket
+
+> drop bucket
+You drop it.
+> in
+
+> in
+
+You are inside the Witch's cottage.
+You can go out.
+It is a small abode with carved furniture strewn across the cottage. The smell of decay and the loud sound of her black cat purring doesn't put you at any ease at all.
+You can see Zeegra the Witch, a wand and a black cat.
+> drop seeds
+
+> drop seeds
+You drop them.
+> out
+
+> out
+
+You are outside the Witch's cottage.
+You can go southwest, in, north or northeast.
+In the midst of Woven Wood you are standing outside the Witch's cottage. With white-washed walls, a small round window surrounded by red roses and a wooden porch leading to the inside; it looks quite inviting. But you have heard of the cruel Witch's reputation for not suffering fools or visitors gladly.
+You can see a birdbath (containing water), a Goldfinch and a bucket.
+
+The Goldfinch flies through the open window and helps herself to the seeds. The Witch enraged by the bird's twittering comes thundering out of the cottage. She slips on the mud and breaks her scrawny neck. The Goldfinch flies outside and off to pastures new.
+> in
+
+> in
+
+You are inside the Witch's cottage.
+You can go out.
+It is a small abode with carved furniture strewn across the cottage. The smell of decay and the loud sound of her black cat purring doesn't put you at any ease at all.
+You can see a wand and a black cat.
+> take wand
+
+> take wand
+You pick it up.
+> out
+
+> out
+
+You are outside the Witch's cottage.
+You can go southwest, in, north or northeast.
+In the midst of Woven Wood you are standing outside the Witch's cottage. With white-washed walls, a small round window surrounded by red roses and a wooden porch leading to the inside; it looks quite inviting. But you have heard of the cruel Witch's reputation for not suffering fools or visitors gladly.
+You can see a birdbath (containing water), a bucket and Zeegra the Witch.
+> northeast
+
+> northeast
+
+You are in Woven Wood.
+You can go southwest or north.
+This wood is home to all manner of creatures and a sense of being watched through the darkned trees make you nervous. A large tower can be seen to the north and a white cottage to the southwest.
+You can see a log.
+> push log
+
+> push log
+You push the log and find a key!
+> take copper key
+
+> take copper key
+You pick it up.
+> north
+
+> north
+
+You are outside Woven Tower.
+You can go south or in.
+A large round grey-stoned tower with a conical black roof stands in front of you.
+You can see a tower door.
+> unlock tower door
+
+> unlock tower door
+Unlocked with the copper key.
+> open tower door
+
+> open tower door
+You open it.
+> drop copper key
+
+> drop copper key
+You drop it.
+> in
+
+> in
+
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps lead up to a small room.
+> up
+
+> up
+
+You are in the Tower room.
+You can go down.
+The round room has a small narrow window that sees right across Woven Wood. A sense of learning passes your mind as strange instruments, books and journals, incredible experiments and impossible artifacts scatter this room.
+You can see a shield and a statue of scholar.
+> move shield
+
+> move shield
+You find the shield slides to one side revealing a small recess.
+> x recess
+
+> x recess
+A small hole in the wall.
+It contains a skull.
+> take skull
+
+> take skull
+You pick it up.
+> wave wand
+
+> wave wand
+You wave the wand and slowly the statue comes to life. Actually restores life as the scholar had been turned to stone by the evil Witch.
+> drop wand
+
+> drop wand
+You drop it.
+> speak to Willheim Bourg
+
+> speak to Willheim Bourg
+'Thank you. I thought I'd be a statue forever. The Witch turned me to stone because she accused me of trying to steal her wand. I never did.' he replies.
+> speak to Willheim Bourg
+
+> speak to Willheim Bourg
+'I came to this land to find a way to kill the vampire Prince Bloodreich. I've come to the conclusion that a wooden stake piercing his heart will destroy him.  But find his coffin first and destroy it otherwise he can restore himself to full power.' he says.
+'Wood from an oak is the best for a stake. Take this axe and search the wood or forest for one.'
+> take axe
+
+> take axe
+You pick it up.
+> down
+
+> down
+
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps lead up to a small room.
+> out
+
+> out
+
+You are outside Woven Tower.
+You can go south or in.
+A large round grey-stoned tower with a conical black roof stands in front of you.
+You can see a tower door and a copper key.
+> south
+
+> south
+
+You are in Woven Wood.
+You can go southwest or north.
+This wood is home to all manner of creatures and a sense of being watched through the darkned trees make you nervous. A large tower can be seen to the north and a white cottage to the southwest.
+You can see a log.
+> southwest
+
+> southwest
+
+You are outside the Witch's cottage.
+You can go southwest, in, north or northeast.
+In the midst of Woven Wood you are standing outside the Witch's cottage. With white-washed walls, a small round window surrounded by red roses and a wooden porch leading to the inside; it looks quite inviting. But you have heard of the cruel Witch's reputation for not suffering fools or visitors gladly.
+You can see a birdbath (containing water), a bucket and Zeegra the Witch.
+> southwest
+
+> southwest
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> cross wooden bridge
+
+> cross wooden bridge
+You cross the bridge to the other side.
+
+You are by Blood river.
+You can go southeast.
+The southside of this fast-flowing river is wide and looks treacherous. The village of Garstein lies to the southeast. A wooden bridge spans across the river.
+> southeast
+
+> southeast
+
+You are in the village of Garstein.
+You can go northwest, in, east, south or west.
+This village is very small and contains only the Crow's wings tavern. A cornfield lies to the south while the Firecloud Caves can be seen to the east.
+> west
+
+> west
+
+You are in the Fenton hills.
+You can go east, west or southwest.
+These small hills lead to Ralton Abbey to the west, the village of Garstein to the east and the village of Ravendale to the southwest.
+> west
+
+> west
+
+You are outside Ralton Abbey.
+You can go east or in.
+A small but imposing abbey with carved grotesques on the walls.
+You can see an abbey door.
+> open abbey door
+
+> open abbey door
+The door opens.
+> in
+
+> in
+
+You are in a small hall.
+You can go out, down, north or west.
+The Abbot's room and the chapel leads to the north and west respectively while steps lead down into the dark cellar.
+> down
+
+> down
+
+You are in the cellar.
+You can go up.
+A small dark, wet cellar with a few scurrying noises heard in the dark corners.
+You can see a coalpile.
+> use shovel on coalpile
+
+> use shovel on coalpile
+You dig around the coalpile and find a small hand bell.
+> take bell
+
+> take bell
+You pick it up.
+> up
+
+> up
+
+You are in a small hall.
+You can go out, down, north or west.
+The Abbot's room and the chapel leads to the north and west respectively while steps lead down into the dark cellar.
+> out
+
+> out
+
+You are outside Ralton Abbey.
+You can go east or in.
+A small but imposing abbey with carved grotesques on the walls.
+You can see an abbey door.
+> east
+
+> east
+
+You are in the Fenton hills.
+You can go east, west or southwest.
+These small hills lead to Ralton Abbey to the west, the village of Garstein to the east and the village of Ravendale to the southwest.
+> southwest
+
+> southwest
+
+You are in the village of Ravendale.
+You can go northeast, in, southeast or southwest.
+A small village outside a Blacksmith's forge. Fenton hills lie to the north while the Forest of Shadows lies to the southwest.
+> southwest
+
+> southwest
+
+You are in the Forest of Shadows.
+You can go northeast, west or south.
+Imposing oak trees dwarf you as you look around this creepy forest. A ruined belltower lies to the west while a remarkable vision of red and white lies to the south through the trees.
+> west
+
+> west
+
+You are in the ruins of a bell tower.
+You can go east.
+Inside these ruins hangs a rusted bell attached to a wooden beam.
+> ring bell
+
+> ring bell
+The faint sound of the hand bell echoes through the darkened tower. A chill runs through yours bones as a ghostly apparition appears before you.
+> speak to Ghost of Saint Augustine
+
+> speak to Ghost of Saint Augustine
+'I sense an evil in Ralton Abbey. I was its founder and you must help the Abbot. He has been possessed but the relic you seek that will exorcise him has been stolen by an educated thief!' he moans.
+> drop bell
+
+> drop bell
+You drop it.
+> east
+
+> east
+
+You are in the Forest of Shadows.
+You can go northeast, west or south.
+Imposing oak trees dwarf you as you look around this creepy forest. A ruined belltower lies to the west while a remarkable vision of red and white lies to the south through the trees.
+> use axe on trees
+
+> use axe on trees
+You cut down one oak and then start shaping part of it to make a wooden stake.
+> take wooden stake
+
+> take wooden stake
+You pick it up.
+> drop axe
+
+> drop axe
+You drop it.
+> south
+
+> south
+
+You are in the circus campsite.
+You can go north, in or east.
+A large red and white striped Big Top tent lies before you while the contents of a smaller tent lies to the east.
+> in
+
+> in
+
+You are in the Big Top.
+You can go out.
+A small circus ring with wooden benches surrounding it greets you as you enter.
+You can see a Maelok the Ringmaster.
+> use mirror on Maelok the Ringmaster
+
+> use mirror on Maelok the Ringmaster
+The mirror shows Maelok's true form - a demon. Suddenly the ground shakes and a vortex eminating from the mirror sucks the demon into it trapping him forever.
+> take gold key
+
+> take gold key
+You pick it up.
+> drop mirror
+
+> drop mirror
+You drop it.
+> out
+
+> out
+
+You are in the circus campsite.
+You can go north, in or east.
+A large red and white striped Big Top tent lies before you while the contents of a smaller tent lies to the east.
+> east
+
+> east
+
+You are in the Hall of Curios.
+You can go west.
+This small tent is hardly a 'hall' perhaps it should be a 'haul' as all manner of strange artifacts lie before you.
+You can see a display case.
+> unlock display case
+
+> unlock display case
+Unlocked with the gold key.
+> open display case
+
+> open display case
+You open it.
+It contains a silver medallion.
+> x display case
+
+> x display case
+A sturdy display case.
+It contains a silver medallion.
+> take silver medallion
+
+> take silver medallion
+You pick it up.
+> drop gold key
+
+> drop gold key
+You drop it.
+> west
+
+> west
+
+You are in the circus campsite.
+You can go north, in or east.
+A large red and white striped Big Top tent lies before you while the contents of a smaller tent lies to the east.
+> north
+
+> north
+
+You are in the Forest of Shadows.
+You can go northeast, west or south.
+Imposing oak trees dwarf you as you look around this creepy forest. A ruined belltower lies to the west while a remarkable vision of red and white lies to the south through the trees.
+You can see an axe.
+> northeast
+
+> northeast
+
+You are in the village of Ravendale.
+You can go northeast, in, southeast or southwest.
+A small village outside a Blacksmith's forge. Fenton hills lie to the north while the Forest of Shadows lies to the southwest.
+> in
+
+> in
+
+You are in the Blacksmith's forge.
+You can go out.
+A small iron forge with a small fire eminating from it.
+You can see Gunthar Renn the Blacksmith.
+> give wooden stake to Gunthar Renn the Blacksmith
+
+> give wooden stake to Gunthar Renn the Blacksmith
+He takes it off you.
+> give silver medallion to Gunthar Renn the Blacksmith
+
+> give silver medallion to Gunthar Renn the Blacksmith
+He takes it off you.
+
+The Blacksmith melts the silver medallion and sets to work on attaching it to the wooden stake. A while later he has finished.
+> take wooden stake
+
+> take wooden stake
+You pick it up.
+> out
+
+> out
+
+You are in the village of Ravendale.
+You can go northeast, in, southeast or southwest.
+A small village outside a Blacksmith's forge. Fenton hills lie to the north while the Forest of Shadows lies to the southwest.
+> northeast
+
+> northeast
+
+You are in the Fenton hills.
+You can go east, west or southwest.
+These small hills lead to Ralton Abbey to the west, the village of Garstein to the east and the village of Ravendale to the southwest.
+> west
+
+> west
+
+You are outside Ralton Abbey.
+You can go east or in.
+A small but imposing abbey with carved grotesques on the walls.
+You can see an abbey door.
+> in
+
+> in
+
+You are in a small hall.
+You can go out, down, north or west.
+The Abbot's room and the chapel leads to the north and west respectively while steps lead down into the dark cellar.
+> north
+
+> north
+
+You are in the Abbot's room.
+You can go south.
+A small desk and a chair are all that greets you in this room.
+You can see Abbot Unwahn.
+> use skull on Abbot Unwahn
+
+> use skull on Abbot Unwahn
+You place the skull against the Abbot's forehead and he screams bloody murder! The demon inside him is exorcised and the Abbot collapses to the floor. You help him up and he soon recovers.
+> drop skull
+
+> drop skull
+You drop it.
+> speak to Abbot Unwahn
+
+> speak to Abbot Unwahn
+'Thank you for ridding me of such evil. Take this as a reward.' he smiles as he offers you a golden cross.
+> take golden cross
+
+> take golden cross
+You pick it up.
+> south
+
+> south
+
+You are in a small hall.
+You can go out, down, north or west.
+The Abbot's room and the chapel leads to the north and west respectively while steps lead down into the dark cellar.
+> out
+
+> out
+
+You are outside Ralton Abbey.
+You can go east or in.
+A small but imposing abbey with carved grotesques on the walls.
+You can see an abbey door.
+> east
+
+> east
+
+You are in the Fenton hills.
+You can go east, west or southwest.
+These small hills lead to Ralton Abbey to the west, the village of Garstein to the east and the village of Ravendale to the southwest.
+> east
+
+> east
+
+You are in the village of Garstein.
+You can go northwest, in, east, south or west.
+This village is very small and contains only the Crow's wings tavern. A cornfield lies to the south while the Firecloud Caves can be seen to the east.
+> northwest
+
+> northwest
+
+You are by Blood river.
+You can go southeast.
+The southside of this fast-flowing river is wide and looks treacherous. The village of Garstein lies to the southeast. A wooden bridge spans across the river.
+> cross wooden bridge
+
+> cross wooden bridge
+You cross the bridge to the other side.
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> northwest
+
+> northwest
+
+You are on the rocky path.
+You can go southeast, west or north.
+A narrow rocky path splits leading to the north where the gates of Castle Bloodreich can be seen and to the west where a quarry resides. To the southeast lies Blood River.
+> north
+
+> north
+
+You are outside the gates of Castle Bloodreich.
+You can go south or in.
+The huge imposing gates to Castle Bloodreich lie open to you as they lead into the small courtyard. Castle Bloodreich as everybody knows is home to Prince Bloodreich, a vampire. For over 300 years he has reigned supreme over this land and only a foolhardy adventurer, like yourself, could rid this land of such an evil creature.
+> in
+
+> in
+
+You are in the courtyard.
+You can go out, west or in.
+A small, square courtyard with the way into the castle to the north and the family crypt to the west.
+> in
+
+> in
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> north
+
+> north
+
+You are in the gallery.
+You can go south.
+Portraits of ancestors line the walls. However, you are drawn to one painting of a house with a garden barely hidden by the trees of an ominous-looking forest.
+> x painting
+
+> x painting
+As you stare at the painting it gets larger and larger until you realize you are being sucked into the painting itself.
+
+You are in the painted forest.
+You can go east.
+Being inside the actual painting is remarkable at first but terrifying at the prospect of never leaving it forever. An east path leads to the garden.
+> east
+
+> east
+
+You are in the painted garden.
+You can go west, in or southeast.
+The garden you are in, complete with a vegetable patch, and the house you are standing outside has an actual texture of oils on canvas.
+> use shovel on vegetable patch
+
+> use shovel on vegetable patch
+You dig the patch and actually dig a hole in the canvas.
+> x hole
+
+> x hole
+A small hole in the vegetable patch.
+It contains an ivory key.
+> take ivory key
+
+> take ivory key
+You pick it up.
+> drop shovel
+
+> drop shovel
+You drop it.
+> in
+
+> in
+
+You are inside the painted house.
+You can go out.
+Inside the house is doom and gloom. To whomever painted the picture didn't have the ability to paint what was inside in any detail, so you are left with a void of blackness.
+You can see a coffin.
+> use hammer on coffin
+
+> use hammer on coffin
+You smash the coffin to pieces.
+> out
+
+> out
+
+You are in the painted garden.
+You can go west, in or southeast.
+The garden you are in, complete with a vegetable patch, and the house you are standing outside has an actual texture of oils on canvas.
+You can see a hole and a shovel.
+> southeast
+
+> southeast
+
+You are by the painted wall.
+You can go northwest.
+The high wall of painted bricks is laden with nothing else but wallflowers and badly painted ones too.
+> use hammer on wall
+
+> use hammer on wall
+You make an opening in the wall.
+> drop hammer
+
+> drop hammer
+You drop it.
+> enter opening
+
+> enter opening
+You crawl through the opening and appear back in the gallery.
+
+You are in the gallery.
+You can go south.
+Portraits of ancestors line the walls. However, you are drawn to one painting of a house with a garden barely hidden by the trees of an ominous-looking forest.
+> south
+
+> south
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> up
+
+> up
+
+You are on the landing.
+You can go down, south, north or west.
+At the top of the stairs exits lead to various rooms.
+> south
+
+> south
+
+You are in the south tower.
+You can go north.
+A small round tower overlooking the courtyard.
+You can see a small writing on wall.
+> x small writing on wall
+
+> x small writing on wall
+
+As the trees grow,
+As the tides turn,
+As the lightning strikes,
+As the flames burn.
+
+> north
+
+> north
+
+You are on the landing.
+You can go down, south, north or west.
+At the top of the stairs exits lead to various rooms.
+> north
+
+> north
+
+You are in the suite of rooms.
+You can go south or east.
+The open rooms are decorated with various garish-looking furniture. A small anteroom leads to the east.
+You can see Lady Unya Bloodreich.
+> east
+
+> east
+
+You are in the anteroom.
+You can go west or north.
+You are inside a small anteroom where you know that beyond the door lies Prince Bloodreich's sanctum.
+You can see a sanctum door.
+> unlock sanctum door
+
+> unlock sanctum door
+Unlocked with the ivory key.
+> open sanctum door
+
+> open sanctum door
+You open it.
+> drop ivory key
+
+> drop ivory key
+You drop it.
+> north
+
+> north
+
+You are in Prince Bloodreich's sanctum.
+You can go south.
+A large darkly decorated room with rich black drapes and darkwood furniture.
+You can see Prince Elvric Bloodreich.
+> use golden cross on Prince Elvric Bloodreich
+
+> use golden cross on Prince Elvric Bloodreich
+The Prince cowers at the cross and backs away slightly.
+> use wooden stake on Prince Elvric Bloodreich
+
+> use wooden stake on Prince Elvric Bloodreich
+You stab him in the heart with the silver-tipped stake and he screams to hell and back. He starts to crumble to dust and as if on cue, a small gust of wind blows his remains into oblivion. You have vanquished the vampire!
+> take gold crown
+
+> take gold crown
+You pick it up.
+> south
+
+> south
+
+You are in the anteroom.
+You can go west or north.
+You are inside a small anteroom where you know that beyond the door lies Prince Bloodreich's sanctum.
+You can see a sanctum door and an ivory key.
+> west
+
+> west
+
+You are in the suite of rooms.
+You can go south or east.
+The open rooms are decorated with various garish-looking furniture. A small anteroom leads to the east.
+You can see Lady Unya Bloodreich.
+> south
+
+> south
+
+You are on the landing.
+You can go down, south, north or west.
+At the top of the stairs exits lead to various rooms.
+> down
+
+> down
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> west
+
+> west
+
+You are in the dining room.
+You can go east or north.
+A long dining table stands in the centre of the room.
+> x dining table
+
+> x dining table
+Long and made of mahogany.
+Upon it rests a candlestick.
+> take candlestick
+
+> take candlestick
+You pick it up.
+> east
+
+> east
+
+You are in the entrance hall.
+You can go out, east, up, west or north.
+A large entrance hall with rich drapes and wooden panels lining the walls. A grand staircase leads up to the next floor and exits to various rooms surround you.
+> out
+
+> out
+
+You are in the courtyard.
+You can go out, west or in.
+A small, square courtyard with the way into the castle to the north and the family crypt to the west.
+> out
+
+> out
+
+You are outside the gates of Castle Bloodreich.
+You can go south or in.
+The huge imposing gates to Castle Bloodreich lie open to you as they lead into the small courtyard. Castle Bloodreich as everybody knows is home to Prince Bloodreich, a vampire. For over 300 years he has reigned supreme over this land and only a foolhardy adventurer, like yourself, could rid this land of such an evil creature.
+> south
+
+> south
+
+You are on the rocky path.
+You can go southeast, west or north.
+A narrow rocky path splits leading to the north where the gates of Castle Bloodreich can be seen and to the west where a quarry resides. To the southeast lies Blood River.
+> southeast
+
+> southeast
+
+You are by Blood River.
+You can go northeast, northwest or west.
+The northside of this fast-flowing river is wide and looks treacherous. Woven wood can be found to the northeast and Willow farm to the north. The ominous-looking Castle Bloodreich can be seen to the northwest. A wooden bridge spans across the river.
+> cross wooden bridge
+
+> cross wooden bridge
+You cross the bridge to the other side.
+
+You are by Blood river.
+You can go southeast.
+The southside of this fast-flowing river is wide and looks treacherous. The village of Garstein lies to the southeast. A wooden bridge spans across the river.
+> southeast
+
+> southeast
+
+You are in the village of Garstein.
+You can go northwest, in, east, south or west.
+This village is very small and contains only the Crow's wings tavern. A cornfield lies to the south while the Firecloud Caves can be seen to the east.
+> east
+
+> east
+
+You are at the cave entrance to the Firecloud Caves.
+You can go west or in.
+The cave entrance going into the Firecloud Caves is small and narrow. Within it resides the tomb of King Obian and the treasure you seek.
+> in
+
+> in
+
+You are in the antechamber.
+You can go out or east.
+A stone chamber with a stone door leading into King Obian's tomb.
+You can see a stone door.
+> open stone door
+
+> open stone door
+You open it.
+> use candlestick on stone door
+
+> use candlestick on stone door
+You place the candlestick in the opening of the door.
+> east
+
+> east
+
+You are in King Obian's tomb.
+You can go west.
+A palatial chamber with a stone sarcophagus in the centre of the chamber.
+> open sarcophagus
+
+> open sarcophagus
+You open it.
+It contains a skeleton.
+> x skeleton
+
+> x skeleton
+King Obian himself. He's looked better.
+The Ghost of King Obian appears before you and looks to be expecting something.
+> give gold crown to Ghost of King Obain
+
+> give gold crown to Ghost of King Obain
+The King nods and fades away. The crown vanishes from your hands. On the wall a row of shields magically appear.
+> x shields
+
+> x shields
+
+The colours on the four shields are: gules, viridescent, alabaster, lily, cobalt, malachite, cerulean, cerise, xanthin, chocolate, byzantine, celandine and bole.
+
+'Say what is lost that is simple and true!' repeats a voice in your mind.
+> say purple
+
+> say purple
+'Purple.' you say.
+An exit magically appears to the east.
+> east
+
+> east
+
+You are in the secret repository.
+You can go west.
+A large chamber filled with all manner of treasure.
+> take treasure
+
+> take treasure
+You pick it up.
+
+Congratulations! You have found the Treasure of the Ghost-King. You are rich beyond your wildest dreams.
+
+The End
+[state=Finished]
