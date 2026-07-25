@@ -5581,26 +5581,74 @@ lib_cmd_take_from_npc_multiple (scr_gameref_t game)
 
 
 /*
- * lib_drop_backend()
- *
- * Common backend handler for dropping objects.  Drops all objects currently
- * referenced in the game, trying game commands first, and then moving other
- * unhandled objects to the player room floor.
- *
- * Objects to action are flagged in object_references; objects requested but
- * deemed not actionable are flagged in multiple_references.
+ * The verb-specific half of drop, remove, and put-on.  All three list the
+ * objects they acted on, then list the ones they had to leave alone, and
+ * differ only in how an object moves and in the words around the lists.
  */
-static void
-lib_drop_backend (scr_gameref_t game)
+typedef struct
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object_count, object, count, trail;
+  void (*move) (scr_gameref_t game, scr_int object, scr_int target);
+  const scr_char *onto;       /* " onto ", or NULL where there is no target */
+  const scr_char *does[3];    /* "You drop ", and so on */
+  const scr_char *lacks[3];   /* "You are not holding ", and so on */
+  scr_char lacks_end;         /* Terminator for the "not holding" list */
+} lib_move_verb_t;
+
+static void
+lib_move_to_room (scr_gameref_t game, scr_int object, scr_int target)
+{
+  (void) target;
+  gs_object_to_room (game, object, gs_playerroom (game));
+}
+
+static void
+lib_move_to_player (scr_gameref_t game, scr_int object, scr_int target)
+{
+  (void) target;
+  gs_object_player_get (game, object);
+}
+
+static void
+lib_move_onto (scr_gameref_t game, scr_int object, scr_int target)
+{
+  gs_object_move_onto (game, object, target);
+}
+
+static const lib_move_verb_t LIB_DROP_VERB = {
+  lib_move_to_room, NULL,
+  {"You drop ", "I drop ", "%player% drops "},
+  {"You are not holding ", "I am not holding ", "%player% is not holding "},
+  '.'
+};
+
+static const lib_move_verb_t LIB_REMOVE_VERB = {
+  lib_move_to_player, NULL,
+  {"You remove ", "I remove ", "%player% removes "},
+  {"You are not wearing ", "I am not wearing ", "%player% is not wearing "},
+  '!'
+};
+
+static const lib_move_verb_t LIB_PUT_ON_VERB = {
+  lib_move_onto, " onto ",
+  {"You put ", "I put ", "%player% puts "},
+  {"You are not holding ", "I am not holding ", "%player% is not holding "},
+  '.'
+};
+
+
+/*
+ * lib_move_try_commands()
+ *
+ * Try game commands for all referenced objects.  If any succeed, remove that
+ * reference from the list.  Returns TRUE if any game command printed, which
+ * is what tells the caller's lists whether they have to indent past it.
+ */
+static scr_bool
+lib_move_try_commands (scr_gameref_t game, const scr_char *command)
+{
+  scr_int object_count, object;
   scr_bool has_printed;
 
-  /*
-   * Try game commands for all referenced objects first.  If any succeed,
-   * remove that reference from the list.
-   */
   has_printed = FALSE;
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
@@ -5608,14 +5656,36 @@ lib_drop_backend (scr_gameref_t game)
       if (!game->object_references[object])
         continue;
 
-      if (lib_try_game_command_short (game, "drop", object))
+      if (lib_try_game_command_short (game, command, object))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
         }
     }
 
-  /* Drop every object that remains referenced. */
+  return has_printed;
+}
+
+
+/*
+ * lib_move_backend()
+ *
+ * Shared tail of the drop, remove, and put-on handlers.  Moves and lists
+ * every object still flagged in object_references, then lists the ones left
+ * in multiple_references as objects the player hasn't got.  The caller has
+ * already offered the objects to the game's own handlers, and says with
+ * has_printed whether any of those printed anything.
+ */
+static void
+lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
+                  scr_int target, scr_bool has_printed)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object_count, object, count, trail;
+
+  object_count = gs_object_count (game);
+
+  /* Move every object that remains referenced. */
   count = 0;
   trail = -1;
   for (object = 0; object < object_count; object++)
@@ -5631,9 +5701,9 @@ lib_drop_backend (scr_gameref_t game)
                 pf_buffer_string (filter, "  ");
               pf_buffer_string (filter,
                                 lib_select_response (game,
-                                                     "You drop ",
-                                                     "I drop ",
-                                                     "%player% drops "));
+                                                     verb->does[0],
+                                                     verb->does[1],
+                                                     verb->does[2]));
             }
           else
             pf_buffer_string (filter, ", ");
@@ -5642,7 +5712,7 @@ lib_drop_backend (scr_gameref_t game)
       trail = object;
       count++;
 
-      gs_object_to_room (game, object, gs_playerroom (game));
+      verb->move (game, object, target);
     }
 
   if (count >= 1)
@@ -5653,18 +5723,23 @@ lib_drop_backend (scr_gameref_t game)
             pf_buffer_string (filter, "  ");
           pf_buffer_string (filter,
                             lib_select_response (game,
-                                                 "You drop ",
-                                                 "I drop ",
-                                                 "%player% drops "));
+                                                 verb->does[0],
+                                                 verb->does[1],
+                                                 verb->does[2]));
         }
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
+      if (verb->onto)
+        {
+          pf_buffer_string (filter, verb->onto);
+          lib_print_object_np (game, target);
+        }
       pf_buffer_character (filter, '.');
     }
   has_printed |= count > 0;
 
-  /* Note any remaining multiple references left out of the drop operation. */
+  /* Note any remaining multiple references left out of the operation. */
   count = 0;
   trail = -1;
   for (object = 0; object < object_count; object++)
@@ -5680,9 +5755,9 @@ lib_drop_backend (scr_gameref_t game)
                 pf_buffer_string (filter, "  ");
               pf_buffer_string (filter,
                                 lib_select_response (game,
-                                                   "You are not holding ",
-                                                   "I am not holding ",
-                                                   "%player% is not holding "));
+                                                     verb->lacks[0],
+                                                     verb->lacks[1],
+                                                     verb->lacks[2]));
             }
           else
             pf_buffer_string (filter, ", ");
@@ -5702,15 +5777,35 @@ lib_drop_backend (scr_gameref_t game)
             pf_buffer_string (filter, "  ");
           pf_buffer_string (filter,
                             lib_select_response (game,
-                                                 "You are not holding ",
-                                                 "I am not holding ",
-                                                 "%player% is not holding "));
+                                                 verb->lacks[0],
+                                                 verb->lacks[1],
+                                                 verb->lacks[2]));
         }
       else
         pf_buffer_string (filter, " or ");
       lib_print_object_np (game, trail);
-      pf_buffer_character (filter, '.');
+      pf_buffer_character (filter, verb->lacks_end);
     }
+}
+
+
+/*
+ * lib_drop_backend()
+ *
+ * Common backend handler for dropping objects.  Drops all objects currently
+ * referenced in the game, trying game commands first, and then moving other
+ * unhandled objects to the player room floor.
+ *
+ * Objects to action are flagged in object_references; objects requested but
+ * deemed not actionable are flagged in multiple_references.
+ */
+static void
+lib_drop_backend (scr_gameref_t game)
+{
+  scr_bool has_printed;
+
+  has_printed = lib_move_try_commands (game, "drop");
+  lib_move_backend (game, &LIB_DROP_VERB, -1, has_printed);
 }
 
 
@@ -6321,124 +6416,10 @@ lib_cmd_wear_multiple (scr_gameref_t game)
 static void
 lib_remove_backend (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object_count, object, count, trail;
   scr_bool has_printed;
 
-  /*
-   * Try game commands for all referenced objects first.  If any succeed,
-   * remove that reference from the list.
-   */
-  has_printed = FALSE;
-  object_count = gs_object_count (game);
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->object_references[object])
-        continue;
-
-      if (lib_try_game_command_short (game, "remove", object))
-        {
-          game->object_references[object] = FALSE;
-          has_printed = TRUE;
-        }
-    }
-
-  /* Remove every object referenced. */
-  count = 0;
-  trail = -1;
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->object_references[object])
-        continue;
-
-      if (count > 0)
-        {
-          if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You remove ",
-                                                     "I remove ",
-                                                     "%player% removes "));
-            }
-          else
-            pf_buffer_string (filter, ", ");
-          lib_print_object_np (game, trail);
-        }
-      trail = object;
-      count++;
-
-      gs_object_player_get (game, object);
-    }
-
-  if (count >= 1)
-    {
-      if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You remove ",
-                                                 "I remove ",
-                                                 "%player% removes "));
-        }
-      else
-        pf_buffer_string (filter, " and ");
-      lib_print_object_np (game, trail);
-      pf_buffer_character (filter, '.');
-    }
-  has_printed |= count > 0;
-
-  /* Note any remaining multiple references left out of the remove operation. */
-  count = 0;
-  trail = -1;
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      if (count > 0)
-        {
-          if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                   "You are not wearing ",
-                                                   "I am not wearing ",
-                                                   "%player% is not wearing "));
-            }
-          else
-            pf_buffer_string (filter, ", ");
-          lib_print_object_np (game, trail);
-        }
-      trail = object;
-      count++;
-
-      game->multiple_references[object] = FALSE;
-    }
-
-  if (count >= 1)
-    {
-      if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are not wearing ",
-                                                 "I am not wearing ",
-                                                 "%player% is not wearing "));
-        }
-      else
-        pf_buffer_string (filter, " or ");
-      lib_print_object_np (game, trail);
-      pf_buffer_character (filter, '!');
-    }
+  has_printed = lib_move_try_commands (game, "remove");
+  lib_move_backend (game, &LIB_REMOVE_VERB, -1, has_printed);
 }
 
 
@@ -8013,8 +7994,7 @@ lib_check_put_on_recursion (scr_gameref_t game,
 static void
 lib_put_on_backend (scr_gameref_t game, scr_int supporter)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object_count, object, count, trail;
+  scr_int object_count, object;
   scr_bool has_printed;
 
   /*
@@ -8045,104 +8025,7 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
         }
     }
 
-  /* Put on every object that remains referenced. */
-  count = 0;
-  trail = -1;
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->object_references[object])
-        continue;
-
-      if (count > 0)
-        {
-          if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You put ",
-                                                     "I put ",
-                                                     "%player% puts "));
-            }
-          else
-            pf_buffer_string (filter, ", ");
-          lib_print_object_np (game, trail);
-        }
-      trail = object;
-      count++;
-
-      gs_object_move_onto (game, object, supporter);
-    }
-
-  if (count >= 1)
-    {
-      if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You put ",
-                                                 "I put ",
-                                                 "%player% puts "));
-        }
-      else
-        pf_buffer_string (filter, " and ");
-      lib_print_object_np (game, trail);
-      pf_buffer_string (filter, " onto ");
-      lib_print_object_np (game, supporter);
-      pf_buffer_character (filter, '.');
-    }
-  has_printed |= count > 0;
-
-  /* Note any remaining multiple references left out of the operation. */
-  count = 0;
-  trail = -1;
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      if (count > 0)
-        {
-          if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                   "You are not holding ",
-                                                   "I am not holding ",
-                                                   "%player% is not holding "));
-            }
-          else
-            pf_buffer_string (filter, ", ");
-          lib_print_object_np (game, trail);
-        }
-      trail = object;
-      count++;
-
-      game->multiple_references[object] = FALSE;
-    }
-
-  if (count >= 1)
-    {
-      if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are not holding ",
-                                                 "I am not holding ",
-                                                 "%player% is not holding "));
-        }
-      else
-        pf_buffer_string (filter, " or ");
-      lib_print_object_np (game, trail);
-      pf_buffer_character (filter, '.');
-    }
+  lib_move_backend (game, &LIB_PUT_ON_VERB, supporter, has_printed);
 }
 
 
