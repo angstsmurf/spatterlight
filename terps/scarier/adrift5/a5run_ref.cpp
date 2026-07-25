@@ -11,23 +11,17 @@
  */
 
 #include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <algorithm>
-#include <set>
 #include <string>
 #include <vector>
 
-#include "a5expr.h"
 #include "a5parse.h"
-#include "a5rand.h"
 #include "a5restr.h"
 #include "a5run.h"
 #include "a5run_internal.h"
-#include "a5sb.h"
-#include "a5sexpr.h"
 #include "a5text.h"
 #include "a5util.h"
 
@@ -254,38 +248,48 @@ character_words (a5_state_t *st, const a5_character_t *c,
     }
 }
 
-/* All object keys whose names match `text` (the full any-scope match set, as
-   clsUserSession.InputMatchesObject builds -- no scope filter), ordered
-   visible-first then seen then the rest.  The ordering is only a default-pick
-   hint; resolve_refine narrows the set by the Applicable/Visible/Seen tiers. */
-static std::vector<const char *>
-resolve_object_candidates (a5_state_t *st, const std::string &text)
+/* Match `text` against an object's effective naming (the singular counterpart
+   of name_match_plural below). */
+static int
+name_match_object (a5_state_t *st, const a5_object_t *o, const std::string &text)
 {
-  std::vector<const char *> vis, seen, rest;
-  const char *ploc = a5state_player_location (st);
-  for (int i = 0; i < st->adv->n_objects; i++)
-    {
-      const a5_object_t *o = &st->adv->objects[i];
-      obj_naming n = effective_naming (st, o);
-      if (!name_match (n.article, n.prefix,
-                       n.names.empty () ? NULL : &n.names[0],
-                       (int) n.names.size (), text))
-        continue;
-      if (ploc != NULL && a5state_object_visible_at_location (st, i, ploc, 0))
-        vis.push_back (o->key);
-      else if (st->obj_seen != NULL && st->obj_seen[i])
-        seen.push_back (o->key);   /* known but not here now */
-      else
-        rest.push_back (o->key);
-    }
-  std::vector<const char *> all;
-  all.insert (all.end (), vis.begin (), vis.end ());
-  all.insert (all.end (), seen.begin (), seen.end ());
-  all.insert (all.end (), rest.begin (), rest.end ());
-  return all;
+  obj_naming n = effective_naming (st, o);
+  return name_match (n.article, n.prefix,
+                     n.names.empty () ? NULL : &n.names[0],
+                     (int) n.names.size (), text);
 }
 
-/* clsObject.GuessPluralFromNoun (defined below; shared with emit_cantsee). */
+/* Re-order object keys visible-first, then seen, then the rest -- the
+   default-pick ordering every object candidate set carries (it is only a hint;
+   resolve_refine narrows the set by the Applicable/Visible/Seen tiers). */
+static std::vector<std::string>
+order_visible_first (a5_state_t *st, const std::vector<std::string> &keys)
+{
+  std::vector<std::string> vis, seen, rest, out;
+  for (auto &k : keys)
+    {
+      if (obj_visible (st, k.c_str ()))     vis.push_back (k);
+      else if (obj_seen_p (st, k.c_str ())) seen.push_back (k);
+      else                                  rest.push_back (k);
+    }
+  out.insert (out.end (), vis.begin (),  vis.end ());
+  out.insert (out.end (), seen.begin (), seen.end ());
+  out.insert (out.end (), rest.begin (), rest.end ());
+  return out;
+}
+
+/* All object keys whose names match `text` (the full any-scope match set, as
+   clsUserSession.InputMatchesObject builds -- no scope filter), ordered
+   visible-first. */
+static std::vector<std::string>
+resolve_object_candidates (a5_state_t *st, const std::string &text)
+{
+  std::vector<std::string> matched;
+  for (int i = 0; i < st->adv->n_objects; i++)
+    if (name_match_object (st, &st->adv->objects[i], text))
+      matched.push_back (st->adv->objects[i].key);
+  return order_visible_first (st, matched);
+}
 
 /* Like name_match, but the candidate nouns are the objects' *plural* forms, so
    a plural reference ("balls"/"boxes"/"knives") matches each object whose noun
@@ -306,10 +310,10 @@ name_match_plural (a5_state_t *st, const a5_object_t *o, const std::string &text
 
 /* All character keys whose names match `text`, visible-first (full any-scope
    set, mirroring InputMatchesCharacter). */
-static std::vector<const char *>
+static std::vector<std::string>
 resolve_character_candidates (a5_state_t *st, const std::string &text)
 {
-  std::vector<const char *> vis, rest;
+  std::vector<std::string> vis, rest;
   const char *ploc = a5state_player_location (st);
   for (int i = 0; i < st->adv->n_characters; i++)
     {
@@ -330,10 +334,8 @@ resolve_character_candidates (a5_state_t *st, const std::string &text)
       else
         rest.push_back (c->key);
     }
-  std::vector<const char *> all;
-  all.insert (all.end (), vis.begin (), vis.end ());
-  all.insert (all.end (), rest.begin (), rest.end ());
-  return all;
+  vis.insert (vis.end (), rest.begin (), rest.end ());
+  return vis;
 }
 
 /* PossibleKeys: narrow a candidate list to those entities every word of the
@@ -383,9 +385,8 @@ bind_reference (a5_state_t *st, const char *group, const char *value,
   if (!cap.empty ()) cap[0] = (char) toupper ((unsigned char) cap[0]);
   /* "objects"/"characters" -> singular "Object"/"Character" stem too */
   std::string stem = cap;
-  if (stem.size () > 1 && stem.back () == 's' && num.empty ()
-      && (base == "objects" || base == "characters"))
-    stem = stem.substr (0, stem.size () - 1);
+  if (num.empty () && (base == "objects" || base == "characters"))
+    stem.pop_back ();
 
   auto bind = [&](const std::string &alias) {
     a5state_bind_ref (st, alias.c_str (), value);
@@ -556,6 +557,19 @@ char_seen_p (a5_state_t *st, const char *key)
   return i >= 0 && st->char_seen != NULL && st->char_seen[i];
 }
 
+/* The same predicates dispatched on the reference type ('o' / 'c'). */
+static int
+ent_visible (a5_state_t *st, char type, const char *key)
+{
+  return type == 'o' ? obj_visible (st, key) : char_visible (st, key);
+}
+
+static int
+ent_seen (a5_state_t *st, char type, const char *key)
+{
+  return type == 'o' ? obj_seen_p (st, key) : char_seen_p (st, key);
+}
+
 /* Is at least one candidate key currently visible?  Gates the "Which X?" prompt
    vs "You can't see any <plural>!" (DisplayAmbiguityQuestion bCanSeeAny). */
 static int
@@ -563,8 +577,7 @@ any_candidate_visible (a5_state_t *st, const std::vector<std::string> &keys,
                        char type)
 {
   for (auto &k : keys)
-    if (type == 'o' ? obj_visible (st, k.c_str ())
-                    : char_visible (st, k.c_str ()))
+    if (ent_visible (st, type, k.c_str ()))
       return 1;
   return 0;
 }
@@ -612,11 +625,8 @@ match_object_one (a5_state_t *st, const std::string &input,
   for (int i = 0; i < st->adv->n_objects; i++)
     {
       const a5_object_t *o = &st->adv->objects[i];
-      obj_naming n = effective_naming (st, o);
       int hit = plural ? name_match_plural (st, o, input)
-                       : name_match (n.article, n.prefix,
-                                     n.names.empty () ? NULL : &n.names[0],
-                                     (int) n.names.size (), input);
+                       : name_match_object (st, o, input);
       if (!hit)
         continue;
       result = true;
@@ -779,25 +789,6 @@ pick_item_key (a5_state_t *st, const std::vector<std::string> &cands)
   return cands.empty () ? std::string () : cands[0];
 }
 
-/* Re-order a candidate list visible-first, then seen, then the rest (the same
-   default-pick ordering resolve_object_candidates produces), so a single-item
-   %objects% reference refines and disambiguates exactly like a bare %object%. */
-static std::vector<std::string>
-order_visible_first (a5_state_t *st, const std::vector<std::string> &keys)
-{
-  std::vector<std::string> vis, seen, rest, out;
-  for (auto &k : keys)
-    {
-      if (obj_visible (st, k.c_str ()))     vis.push_back (k);
-      else if (obj_seen_p (st, k.c_str ())) seen.push_back (k);
-      else                                  rest.push_back (k);
-    }
-  out.insert (out.end (), vis.begin (),  vis.end ());
-  out.insert (out.end (), seen.begin (), seen.end ());
-  out.insert (out.end (), rest.begin (), rest.end ());
-  return out;
-}
-
 /*
  * Resolve the plural %objects% reference (the only reference whose base is
  * "objects") to a concrete item list -- InputMatchesObjects + the single-
@@ -927,15 +918,15 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
 
   int is_list = text.find (" and ") != std::string::npos
                 || text.find (',') != std::string::npos;
-  int any_visible = 0, any_seen = 0;
+  std::vector<std::string> vis, seen;
   for (auto &k : all_keys)
     {
-      if (obj_visible (st, k.c_str ())) any_visible = 1;
-      if (obj_seen_p  (st, k.c_str ())) any_seen = 1;
+      if (obj_visible (st, k.c_str ()))  vis.push_back (k);
+      if (obj_seen_p  (st, k.c_str ()))  seen.push_back (k);
     }
   int none_passed = chosen.empty ();
   if (none_passed && items.size () > 1 && !had_all && !is_list
-      && any_seen && !any_visible)
+      && !seen.empty () && vis.empty ())
     {
       /* A single NOUN (not "all", not an explicit "X and Y" list) that name-
          matched several objects, none of which pass the restrictions, is
@@ -985,12 +976,6 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
          out-of-scope "documents" part of distant cabinets) renders only the
          visible "travel documents" in the "take ... out of whatever it is in
          first" message, not both. */
-      std::vector<std::string> vis, seen;
-      for (auto &k : all_keys)
-        {
-          if (obj_visible (st, k.c_str ()))  vis.push_back (k);
-          if (obj_seen_p  (st, k.c_str ()))  seen.push_back (k);
-        }
       if (!vis.empty ())       chosen = vis;
       else if (!seen.empty ()) chosen = seen;
       else                     chosen = all_keys;
@@ -1041,6 +1026,31 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
   rref noref_r;
   int plural_idx = -1;
   std::string plural_text;
+
+  /* A reference that names no entity at all.  A task only "matches" such input
+     if it has a `Must Exist` restriction of the reference's type
+     (clsUserSession's second-chance pass, gated on HasObjectExistRestriction /
+     HasCharacterExistRestriction); then the first such reference is remembered
+     as the no-reference fallback (sNoRefTask) and left unbound so the caller
+     can surface its Must-Exist message.  Returns false -- the command does not
+     match this task at all -- when the restriction is missing. */
+  auto note_noref = [&] (const rref &r) {
+    if (!have_noref)
+      {
+        if (!a5restr_has_exist (t->restrictions, r.type))
+          return false;
+        have_noref = 1; noref_r = r;
+      }
+    return true;
+  };
+  /* Report the recorded no-reference fallback to the caller (empty amb->keys
+     marks it as a no-reference, not an ambiguity). */
+  auto noref_result = [&] () {
+    if (amb != NULL)
+      { amb->ref_name = noref_r.name; amb->type = noref_r.type;
+        amb->ref_text = noref_r.text; amb->keys.clear (); }
+    return RR_NOREF;
+  };
 
   a5state_clear_refs (st);
   run->pending_failover = NULL;
@@ -1101,23 +1111,13 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
               continue;                                           /* multi/all */
             }
           r.type = 'o';
-          if (ok && items.size () == 1)
-            r.orig = order_visible_first (st, items[0]);
-          else
-            { std::vector<const char *> c =
-                resolve_object_candidates (st, r.text);
-              for (const char *k : c) r.orig.push_back (k); }
+          r.orig = (ok && items.size () == 1)
+            ? order_visible_first (st, items[0])
+            : resolve_object_candidates (st, r.text);
           if (r.orig.empty ())
             {
-              /* The reference names no object.  A task only "matches" such input
-                 if it has an Object `Must Exist` restriction (clsUserSession's
-                 second-chance pass, gated on HasObjectExistRestriction); else the
-                 command simply does not match this task. */
-              if (have_noref)
-                continue;
-              if (!a5restr_has_exist (t->restrictions, 'o'))
+              if (!note_noref (r))
                 return RR_NOMATCH;
-              have_noref = 1; noref_r = r;
               continue;
             }
           r.keys = r.orig;
@@ -1144,27 +1144,15 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
         { r.orig.assign (1, force_key); r.keys = r.orig; }
       else
         {
-          std::vector<const char *> c = (r.type == 'o')
+          r.orig = (r.type == 'o')
             ? resolve_object_candidates (st, r.text)
             : resolve_character_candidates (st, r.text);
-          if (c.empty ())
+          if (r.orig.empty ())
             {
-              /* The reference names no entity at all.  A task only "matches"
-                 such input if it has a `Must Exist` restriction of this
-                 reference's type (clsUserSession's second-chance pass, gated on
-                 HasObjectExistRestriction / HasCharacterExistRestriction); then
-                 it is remembered as the no-reference fallback (sNoRefTask) and
-                 the reference is left unbound so the caller can surface its
-                 Must-Exist message.  Without such a restriction the command does
-                 not match this task at all. */
-              if (have_noref)
-                continue;
-              if (!a5restr_has_exist (t->restrictions, r.type))
+              if (!note_noref (r))
                 return RR_NOMATCH;
-              have_noref = 1; noref_r = r;
               continue;
             }
-          for (const char *k : c) r.orig.push_back (k);
           r.keys = r.orig;
         }
       bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
@@ -1226,28 +1214,18 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       else if (pass.size () > 1)  { r.keys = pass;   more = 1; }
       else                        { r.keys = pass;   more = 0; }
 
-      /* Tier 2: Visible. */
-      if (more)
+      /* Tiers 2 and 3: Visible, then Seen. */
+      for (int tier = 0; more && tier < 2; tier++)
         {
-          std::vector<std::string> vis;
+          std::vector<std::string> keep;
           for (auto &k : r.keys)
-            if (r.type == 'o' ? obj_visible (st, k.c_str ())
-                              : char_visible (st, k.c_str ()))
-              vis.push_back (k);
-          if (vis.empty ())          { r.keys = r.orig; more = 1; }
-          else if (vis.size () > 1)  { r.keys = vis;    more = 1; }
-          else                       { r.keys = vis;    more = 0; }
-        }
-
-      /* Tier 3: Seen. */
-      if (more)
-        {
-          std::vector<std::string> sn;
-          for (auto &k : r.keys)
-            if (r.type == 'o' ? obj_seen_p (st, k.c_str ())
-                              : char_seen_p (st, k.c_str ()))
-              sn.push_back (k);
-          r.keys = sn.empty () ? r.orig : sn;
+            if (tier == 0 ? ent_visible (st, r.type, k.c_str ())
+                          : ent_seen (st, r.type, k.c_str ()))
+              keep.push_back (k);
+          if (keep.empty ())
+            r.keys = r.orig;
+          else
+            { r.keys = keep; more = keep.size () > 1; }
         }
 
       bind_reference (st, r.name.c_str (), r.keys[0].c_str (), r.text.c_str ());
@@ -1291,10 +1269,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
       for (auto &r : refs)
         if (r.keys.size () > 1)
           return set_amb_result (st, amb, r.name, r.type, r.text, r.keys, 1);
-      if (amb != NULL)
-        { amb->ref_name = noref_r.name; amb->type = noref_r.type;
-          amb->ref_text = noref_r.text; amb->keys.clear (); }
-      return RR_NOREF;
+      return noref_result ();
     }
 
   /* Post-refine: a reference left with >1 candidate is an ambiguity.  The Runner
@@ -1319,12 +1294,7 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
   /* No sibling reference was ambiguous: honour the deferred (optional)
      no-reference fallback (GetGeneralTask sNoRefTask). */
   if (have_noref)
-    {
-      if (amb != NULL)
-        { amb->ref_name = noref_r.name; amb->type = noref_r.type;
-          amb->ref_text = noref_r.text; amb->keys.clear (); }
-      return RR_NOREF;
-    }
+    return noref_result ();
 
   /* Bind the resolved singular references, then resolve the deferred plural
      %objects% reference against them. */
@@ -1343,10 +1313,9 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           if (!a5restr_has_exist (t->restrictions, 'o'))
             return RR_NOMATCH;
           /* Treat like sNoRefTask: defer so a later task can claim. */
-          if (amb != NULL)
-            { amb->ref_name = "objects"; amb->type = 'o';
-              amb->ref_text = plural_text; amb->keys.clear (); }
-          return RR_NOREF;
+          noref_r.name = "objects"; noref_r.type = 'o';
+          noref_r.text = plural_text;
+          return noref_result ();
         }
       if (pr != RR_OK)
         return pr;                  /* RR_FAIL / RR_CANTSEE (amb already set) */
