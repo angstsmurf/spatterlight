@@ -1769,6 +1769,29 @@ relocate_char (a5_run_t *run, int ci, const char *new_loc, int clear_onobj,
     clear_conv_if_partner_gone (run, out);
 }
 
+/* The room that hosts object `objkey`.  A character seated on / put inside an
+   object has its location keyed off that object (the runner's
+   clsCharacterLocation.LocationKey follows it), so this is what the
+   furniture/container branches sync char_loc to.  `cur` (the character's
+   current room, or NULL for a plain first-match scan) wins when the object is
+   present there too: a static placed at a location GROUP exists at many rooms
+   (AoK's cell floor, Group74), and a bare first-match scan would teleport the
+   player out of the cell on `lie down`.  NULL if the object is nowhere. */
+static const char *
+object_host_location (a5_state_t *st, const char *objkey, const char *cur,
+                      int directly)
+{
+  int oj = a5state_object_index (st, objkey);
+  if (oj < 0)
+    return NULL;
+  if (cur != NULL && a5state_object_at_location (st, oj, cur, directly))
+    return cur;
+  for (int li = 0; li < st->adv->n_locations; li++)
+    if (a5state_object_at_location (st, oj, st->adv->locations[li].key, directly))
+      return st->adv->locations[li].key;
+  return NULL;
+}
+
 static void
 act_move_character (a5_run_t *run, const char * /*kind*/,
                     const std::vector<std::string> &tk, const char * /*body*/,
@@ -1799,6 +1822,10 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
     return;
 
   const std::string &to = tk[2];
+  /* Every MoveCharacterTo variant that takes a target (location, group,
+     furniture, container, character, direction) reads it from the same token;
+     act_key is a pure lookup, so resolve it once for the whole action. */
+  const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
   /* ToLocationGroup: the runner computes dest.Key = group.RandomKey ONCE per action
      (clsUserSession.vb:1767), so the whole MoveCharacter draws a single
      RandomKey and sends every affected character to the SAME room -- e.g.
@@ -1810,11 +1837,10 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
          <Member> list: procedural games (Skybreak) populate the destination
          group at runtime via AddLocationToGroup right before the jump, so a
          static read finds 0 members and the player lands nowhere. */
-      const char *gk = act_key (st, tk[3].c_str ());
-      int n = a5state_group_count (st, gk);
+      int n = a5state_group_count (st, k2);
       if (n > 0)
         {
-          const char *m = a5state_group_member_at (st, gk,
+          const char *m = a5state_group_member_at (st, k2,
                                                    a5rand_between (0, n - 1));
           /* Canonicalise to the stable model location key: the gm entry is
              an owned copy that is freed when the group is cleared later this
@@ -1838,11 +1864,10 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
         relocate_char (run, ci, group_dest, 1, out);
       else if (to == "InDirection")
         {
-          const char *dir = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
-          const char *canon = a5parse_canonical_direction (dir);
+          const char *canon = a5parse_canonical_direction (k2);
           const char *here = st->char_loc[ci];
           const char *dest;
-          if (canon == NULL) canon = dir;   /* already canonical */
+          if (canon == NULL) canon = k2;    /* already canonical */
           dest = here ? a5restr_exit_in_direction (st, k1, here, canon, NULL)
                       : NULL;
           if (dest != NULL)
@@ -1860,7 +1885,6 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
         }
       else if (to == "ToLocation")
         {
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           const char *new_loc = streq (k2, "Hidden") ? NULL : k2;
           relocate_char (run, ci, new_loc, 1, out);    /* now "at location" */
         }
@@ -1868,7 +1892,6 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
         {
           const char *pos = (to == "ToSittingOn") ? "Sitting"
                           : (to == "ToLyingOn")   ? "Lying" : "Standing";
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           free (st->char_position[ci]);
           st->char_position[ci] = strdup (pos);
           a5state_set_prop (st, k1, "CharacterPosition", pos);
@@ -1879,30 +1902,11 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
           else
             {
               st->char_onobj[ci] = k2; st->char_in[ci] = 0;
-              /* The runner keys the character's location off the furniture
-                 (ExistsWhere OnObject -> clsCharacterLocation.LocationKey
-                 follows the object), so seating someone on a chair in
-                 ANOTHER room moves them there -- GFS's John Boom "invites
-                 you in" seats the player on the living-room cosy chair.
-                 Scarier stores the room explicitly: sync it. */
-              int oj = a5state_object_index (st, k2);
-              const char *loc = NULL;
-              if (oj >= 0)
-                {
-                  /* A static object placed at a location GROUP exists at
-                     many rooms (AoK's cell floor, Group74): keep the
-                     character where it is when the furniture is present
-                     there too, else the first-match scan below teleports
-                     the player out of the cell on `lie down`. */
-                  if (st->char_loc[ci] != NULL
-                      && a5state_object_at_location (st, oj, st->char_loc[ci], 1))
-                    loc = st->char_loc[ci];
-                  else
-                    for (int li = 0; li < st->adv->n_locations; li++)
-                      if (a5state_object_at_location (st, oj,
-                                                      st->adv->locations[li].key, 1))
-                        { loc = st->adv->locations[li].key; break; }
-                }
+              /* Seating someone on a chair in ANOTHER room moves them there --
+                 GFS's John Boom "invites you in" seats the player on the
+                 living-room cosy chair.  Scarier stores the room explicitly:
+                 sync it. */
+              const char *loc = object_host_location (st, k2, st->char_loc[ci], 1);
               if (loc != NULL && !streq (loc, st->char_loc[ci]))
                 relocate_char (run, ci, loc, 0, out);
             }
@@ -1916,31 +1920,17 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
              read it back correctly -- e.g. FBA's `hide in niche`
              (MoveCharacter Player InsideObject cl_Niche1) which the custodian
              "goes past" check gates on. */
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           if (k2 != NULL)
             {
               st->char_onobj[ci] = k2;
               st->char_in[ci] = (to == "InsideObject") ? 1 : 0;
-              /* The runner keys the character's location off the container
-                 (clsCharacterLocation.LocationKey follows the object), so
-                 putting someone inside an object in ANOTHER room moves them
+              /* Putting someone inside an object in ANOTHER room moves them
                  there -- Axe of Kolt sends Grat from his burrow (Loc112)
                  into the loo hut (Object358 @Loc107); leaving char_loc at
                  the burrow made the Caught-By-Grat death (gated on him
                  being AT Loc112) fire while he was in the loo.  Sync it,
                  like the sit-on-furniture branch above. */
-              const char *loc = NULL;
-              /* Prefer the character's current room when the container is
-                 present there (multi-location statics), like the
-                 sit-on-furniture sync above. */
-              if (st->char_loc[ci] != NULL
-                  && a5state_object_key_at_location (st, k2, st->char_loc[ci], 0))
-                loc = st->char_loc[ci];
-              else
-                for (int li = 0; li < st->adv->n_locations; li++)
-                  if (a5state_object_key_at_location (st, k2,
-                                                      st->adv->locations[li].key, 0))
-                    { loc = st->adv->locations[li].key; break; }
+              const char *loc = object_host_location (st, k2, st->char_loc[ci], 0);
               if (loc != NULL && !streq (loc, st->char_loc[ci]))
                 relocate_char (run, ci, loc, 0, out);
             }
@@ -1958,7 +1948,6 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
              room resolves through the carrier.  FD guards against a recursive
              placement (target is self or already riding this character) and
              leaves the character put in that case. */
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           int ti = k2 ? a5state_character_index (st, k2) : -1;
           int recursive = (ti >= 0)
             && (streq (k2, k1)
@@ -1989,7 +1978,6 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
              "follow" task `MoveCharacter Character8 ToSameLocationAs %Player%`
              brings him along on a teleport.  Object target: the object's
              containing location. */
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           int ti = k2 ? a5state_character_index (st, k2) : -1;
           const char *old_loc = st->char_loc[ci];
           if (ti >= 0)
@@ -2000,14 +1988,9 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
             }
           else
             {
-              int oj = k2 ? a5state_object_index (st, k2) : -1;
-              const char *loc = NULL;
-              if (oj >= 0)
-                for (int li = 0; li < st->adv->n_locations; li++)
-                  if (a5state_object_at_location (st, oj,
-                                                  st->adv->locations[li].key, 1))
-                    { loc = st->adv->locations[li].key; break; }
-              st->char_loc[ci] = loc;          /* NULL => Hidden */
+              /* NULL => Hidden */
+              st->char_loc[ci] = (k2 != NULL)
+                ? object_host_location (st, k2, NULL, 1) : NULL;
               st->char_onobj[ci] = NULL;
             }
           if (streq (k1, a5state_player_key (st)))
@@ -2024,7 +2007,6 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
              mechanism).  The player viewpoint, %Player% resolution and scope
              then follow the new character; the old player stays put, now an
              NPC.  Otherwise, actually exchange the two characters' locations. */
-          const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
           const char *pk = a5state_player_key (st);
           int bi = k2 ? a5state_character_index (st, k2) : -1;
           if (k2 == NULL || bi < 0)
