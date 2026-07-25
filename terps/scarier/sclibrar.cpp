@@ -6936,421 +6936,264 @@ lib_attempt_key_acquisition (scr_gameref_t game, scr_int object)
 
 
 /*
- * lib_cmd_unlock_object_with()
+ * The verb-specific half of lock and unlock.  The two commands run the same
+ * steps -- disambiguate the object, check its openness, look up the key it
+ * takes, check the player holds that key, then flip the state -- and differ
+ * only in the openness they act on, the openness they leave behind, and the
+ * words they print.
+ */
+typedef struct
+{
+  scr_int required_openness;      /* Openness the verb acts on */
+  scr_int new_openness;           /* Openness it leaves behind */
+  const scr_char *verb;           /* "lock", for disambiguation */
+  const scr_char *verb_with;      /* "lock that with", ditto */
+  const scr_char *prompt;         /* Asked when no key was referenced */
+  const scr_char *nothing_to;     /* " anything to lock " */
+  const scr_char *wrong_state[2]; /* Singular and plural state refusal */
+  const scr_char *cant[3];        /* "You can't lock ", and so on */
+  const scr_char *does[3];        /* "You lock ", and so on */
+} lib_lock_verb_t;
+
+static const lib_lock_verb_t LIB_UNLOCK_VERB = {
+  OBJ_LOCKED, OBJ_CLOSED,
+  "unlock", "unlock that with",
+  "What do you want to unlock that with?\n",
+  " anything to unlock ",
+  {" is not locked!\n", " are not locked!\n"},
+  {"You can't unlock ", "I can't unlock ", "%player% can't unlock "},
+  {"You unlock ", "I unlock ", "%player% unlocks "}
+};
+
+static const lib_lock_verb_t LIB_LOCK_VERB = {
+  OBJ_CLOSED, OBJ_LOCKED,
+  "lock", "lock that with",
+  "What do you want to lock that with?\n",
+  " anything to lock ",
+  {" is already locked!\n", " are already locked!\n"},
+  {"You can't lock ", "I can't lock ", "%player% can't lock "},
+  {"You lock ", "I lock ", "%player% locks "}
+};
+
+/* What lib_lock_check_openness() made of the object's current state. */
+enum {
+  LIB_LOCK_PROCEED, LIB_LOCK_REFUSED, LIB_LOCK_NOT_LOCKABLE
+};
+
+
+/*
+ * lib_lock_check_openness()
  *
- * Attempt to unlock the referenced object.
+ * Decide whether the object is in a state this verb can work on, printing
+ * the refusal itself if it is not.  Locking something that stands open is
+ * refused in its own terms; every other openness the verb doesn't act on
+ * gets the "is not locked"/"is already locked" complaint.  Anything with no
+ * openness at all isn't lockable, and the caller says so.
+ */
+static scr_int
+lib_lock_check_openness (scr_gameref_t game, scr_int object,
+                         const lib_lock_verb_t *verb)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int openness;
+
+  openness = gs_object_openness (game, object);
+  if (openness == verb->required_openness)
+    return LIB_LOCK_PROCEED;
+
+  if (verb->new_openness == OBJ_LOCKED && openness == OBJ_OPEN)
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             verb->cant[0],
+                                             verb->cant[1],
+                                             verb->cant[2]));
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter, " as it is open.\n");
+      return LIB_LOCK_REFUSED;
+    }
+
+  if (openness == OBJ_OPEN || openness == OBJ_CLOSED || openness == OBJ_LOCKED)
+    {
+      pf_new_sentence (filter);
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter,
+                        lib_select_plurality (game, object,
+                                              verb->wrong_state[0],
+                                              verb->wrong_state[1]));
+      return LIB_LOCK_REFUSED;
+    }
+
+  return LIB_LOCK_NOT_LOCKABLE;
+}
+
+
+/*
+ * lib_lock_backend()
+ *
+ * Attempt to lock or unlock the referenced object.  With with_key set the
+ * key comes from the player's own referenced text and has to be the right
+ * one; otherwise the object's key is looked up and the player tries to lay
+ * hands on it first.
+ */
+static scr_bool
+lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
+                  scr_bool with_key)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object, key = -1;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced object, and if none, consider complete. */
+  object = lib_disambiguate_object (game, verb->verb, &is_ambiguous);
+  if (object == -1)
+    return is_ambiguous;
+
+  /*
+   * Now try to get the key from referenced text, and disambiguate as usual.
+   */
+  if (with_key)
+    {
+      const scr_var_setref_t vars = gs_get_vars (game);
+
+      if (!uip_match ("%object%", var_get_ref_text (vars), game))
+        {
+          pf_buffer_string (filter, verb->prompt);
+          return TRUE;
+        }
+      key = lib_disambiguate_object (game, verb->verb_with, NULL);
+      if (key == -1)
+        return TRUE;
+    }
+
+  /* React to the request based on openness state. */
+  switch (lib_lock_check_openness (game, object, verb))
+    {
+    case LIB_LOCK_REFUSED:
+      return TRUE;
+
+    case LIB_LOCK_PROCEED:
+      {
+        scr_vartype_t vt_key[3];
+        scr_int key_index, the_key;
+
+        vt_key[0].string = "Objects";
+        vt_key[1].integer = object;
+        vt_key[2].string = "Key";
+        key_index = prop_get_integer (bundle, "I<-sis", vt_key);
+        if (key_index == -1)
+          break;
+
+        the_key = obj_dynamic_object (game, key_index);
+        if (with_key)
+          {
+            if (the_key != key)
+              {
+                pf_buffer_string (filter,
+                                  lib_select_response (game,
+                                                       verb->cant[0],
+                                                       verb->cant[1],
+                                                       verb->cant[2]));
+                lib_print_object_np (game, object);
+                pf_buffer_string (filter, " with ");
+                lib_print_object_np (game, key);
+                pf_buffer_string (filter, ".\n");
+                return TRUE;
+              }
+          }
+        else
+          {
+            key = the_key;
+            lib_attempt_key_acquisition (game, key);
+          }
+
+        if (gs_object_position (game, key) != OBJ_HELD_PLAYER)
+          {
+            if (with_key)
+              {
+                pf_buffer_string (filter,
+                                  lib_select_response (game,
+                                                       "You are not holding ",
+                                                       "I am not holding ",
+                                                       "%player% is not holding "));
+                lib_print_object_np (game, key);
+                pf_buffer_string (filter, ".\n");
+              }
+            else
+              {
+                pf_buffer_string (filter,
+                                  lib_select_response (game,
+                                                       "You don't have",
+                                                       "I don't have",
+                                                       "%player% doesn't have"));
+                pf_buffer_string (filter, verb->nothing_to);
+                lib_print_object_np (game, object);
+                pf_buffer_string (filter, " with!\n");
+              }
+            return TRUE;
+          }
+
+        gs_set_object_openness (game, object, verb->new_openness);
+        pf_buffer_string (filter,
+                          lib_select_response (game,
+                                               verb->does[0],
+                                               verb->does[1],
+                                               verb->does[2]));
+        lib_print_object_np (game, object);
+        pf_buffer_string (filter, " with ");
+        lib_print_object_np (game, key);
+        pf_buffer_string (filter, ".\n");
+        return TRUE;
+      }
+
+    default:
+      break;
+    }
+
+  /* The object isn't lockable. */
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         verb->cant[0],
+                                         verb->cant[1],
+                                         verb->cant[2]));
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, ".\n");
+  return TRUE;
+}
+
+
+/*
+ * lib_cmd_unlock_object_with()
+ * lib_cmd_unlock_object()
+ * lib_cmd_lock_object_with()
+ * lib_cmd_lock_object()
+ *
+ * Attempt to lock or unlock the referenced object, either with the key the
+ * player named or with one selected automatically.
  */
 scr_bool
 lib_cmd_unlock_object_with (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, key, openness;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "unlock", &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous;
-
-  /*
-   * Now try to get the key from referenced text, and disambiguate as usual.
-   */
-  if (!uip_match ("%object%", var_get_ref_text (vars), game))
-    {
-      pf_buffer_string (filter, "What do you want to unlock that with?\n");
-      return TRUE;
-    }
-  key = lib_disambiguate_object (game, "unlock that with", NULL);
-  if (key == -1)
-    return TRUE;
-
-  /* React to the request based on openness state. */
-  openness = gs_object_openness (game, object);
-  switch (openness)
-    {
-    case OBJ_OPEN:
-    case OBJ_CLOSED:
-      pf_new_sentence (filter);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is not locked!\n",
-                                              " are not locked!\n"));
-      return TRUE;
-
-    case OBJ_LOCKED:
-      {
-        scr_vartype_t vt_key[3];
-        scr_int key_index, the_key;
-
-        vt_key[0].string = "Objects";
-        vt_key[1].integer = object;
-        vt_key[2].string = "Key";
-        key_index = prop_get_integer (bundle, "I<-sis", vt_key);
-        if (key_index == -1)
-          break;
-
-        the_key = obj_dynamic_object (game, key_index);
-        if (the_key != key)
-          {
-            pf_buffer_string (filter,
-                              lib_select_response (game,
-                                                   "You can't unlock ",
-                                                   "I can't unlock ",
-                                                   "%player% can't unlock "));
-            lib_print_object_np (game, object);
-            pf_buffer_string (filter, " with ");
-            lib_print_object_np (game, key);
-            pf_buffer_string (filter, ".\n");
-            return TRUE;
-          }
-
-        if (gs_object_position (game, key) != OBJ_HELD_PLAYER)
-          {
-            pf_buffer_string (filter,
-                              lib_select_response (game,
-                                                   "You are not holding ",
-                                                   "I am not holding ",
-                                                   "%player% is not holding "));
-            lib_print_object_np (game, key);
-            pf_buffer_string (filter, ".\n");
-            return TRUE;
-          }
-
-        gs_set_object_openness (game, object, OBJ_CLOSED);
-        pf_buffer_string (filter,
-                          lib_select_response (game,
-                                               "You unlock ",
-                                               "I unlock ",
-                                               "%player% unlocks "));
-        lib_print_object_np (game, object);
-        pf_buffer_string (filter, " with ");
-        lib_print_object_np (game, key);
-        pf_buffer_string (filter, ".\n");
-        return TRUE;
-      }
-
-    default:
-      break;
-    }
-
-  /* The object isn't lockable. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You can't unlock ",
-                                         "I can't unlock ",
-                                         "%player% can't unlock "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
-  return TRUE;
+  return lib_lock_backend (game, &LIB_UNLOCK_VERB, TRUE);
 }
 
-
-/*
- * lib_cmd_unlock_object()
- *
- * Attempt to unlock the referenced object, automatically selecting key.
- */
 scr_bool
 lib_cmd_unlock_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, openness;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "unlock", &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous;
-
-  /* React to the request based on openness state. */
-  openness = gs_object_openness (game, object);
-  switch (openness)
-    {
-    case OBJ_OPEN:
-    case OBJ_CLOSED:
-      pf_new_sentence (filter);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is not locked!\n",
-                                              " are not locked!\n"));
-      return TRUE;
-
-    case OBJ_LOCKED:
-      {
-        scr_vartype_t vt_key[3];
-        scr_int key_index, key;
-
-        vt_key[0].string = "Objects";
-        vt_key[1].integer = object;
-        vt_key[2].string = "Key";
-        key_index = prop_get_integer (bundle, "I<-sis", vt_key);
-        if (key_index == -1)
-          break;
-
-        key = obj_dynamic_object (game, key_index);
-        lib_attempt_key_acquisition (game, key);
-        if (gs_object_position (game, key) != OBJ_HELD_PLAYER)
-          {
-            pf_buffer_string (filter,
-                              lib_select_response (game,
-                                                   "You don't have",
-                                                   "I don't have",
-                                                   "%player% doesn't have"));
-            pf_buffer_string (filter, " anything to unlock ");
-            lib_print_object_np (game, object);
-            pf_buffer_string (filter, " with!\n");
-            return TRUE;
-          }
-
-        gs_set_object_openness (game, object, OBJ_CLOSED);
-        pf_buffer_string (filter,
-                          lib_select_response (game,
-                                               "You unlock ",
-                                               "I unlock ",
-                                               "%player% unlocks "));
-        lib_print_object_np (game, object);
-        pf_buffer_string (filter, " with ");
-        lib_print_object_np (game, key);
-        pf_buffer_string (filter, ".\n");
-        return TRUE;
-      }
-
-    default:
-      break;
-    }
-
-  /* The object isn't lockable. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You can't unlock ",
-                                         "I can't unlock ",
-                                         "%player% can't unlock "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
-  return TRUE;
+  return lib_lock_backend (game, &LIB_UNLOCK_VERB, FALSE);
 }
 
-
-/*
- * lib_cmd_lock_object_with()
- *
- * Attempt to lock the referenced object.
- */
 scr_bool
 lib_cmd_lock_object_with (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, key, openness;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "lock", &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous;
-
-  /*
-   * Now try to get the key from referenced text, and disambiguate as usual.
-   */
-  if (!uip_match ("%object%", var_get_ref_text (vars), game))
-    {
-      pf_buffer_string (filter, "What do you want to lock that with?\n");
-      return TRUE;
-    }
-  key = lib_disambiguate_object (game, "lock that with", NULL);
-  if (key == -1)
-    return TRUE;
-
-  /* React to the request based on openness state. */
-  openness = gs_object_openness (game, object);
-  switch (openness)
-    {
-    case OBJ_OPEN:
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You can't lock ",
-                                             "I can't lock ",
-                                             "%player% can't lock "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, " as it is open.\n");
-      return TRUE;
-
-    case OBJ_CLOSED:
-      {
-        scr_vartype_t vt_key[3];
-        scr_int key_index, the_key;
-
-        vt_key[0].string = "Objects";
-        vt_key[1].integer = object;
-        vt_key[2].string = "Key";
-        key_index = prop_get_integer (bundle, "I<-sis", vt_key);
-        if (key_index == -1)
-          break;
-
-        the_key = obj_dynamic_object (game, key_index);
-        if (the_key != key)
-          {
-            pf_buffer_string (filter,
-                              lib_select_response (game,
-                                                   "You can't lock ",
-                                                   "I can't lock ",
-                                                   "%player% can't lock "));
-            lib_print_object_np (game, object);
-            pf_buffer_string (filter, " with ");
-            lib_print_object_np (game, key);
-            pf_buffer_string (filter, ".\n");
-            return TRUE;
-          }
-
-        if (gs_object_position (game, key) != OBJ_HELD_PLAYER)
-          {
-            pf_buffer_string (filter,
-                              lib_select_response (game,
-                                                   "You are not holding ",
-                                                   "I am not holding ",
-                                                   "%player% is not holding "));
-            lib_print_object_np (game, key);
-            pf_buffer_string (filter, ".\n");
-            return TRUE;
-          }
-
-        gs_set_object_openness (game, object, OBJ_LOCKED);
-        pf_buffer_string (filter, lib_select_response (game,
-                                                       "You lock ",
-                                                       "I lock ",
-                                                       "%player% locks "));
-        lib_print_object_np (game, object);
-        pf_buffer_string (filter, " with ");
-        lib_print_object_np (game, key);
-        pf_buffer_string (filter, ".\n");
-        return TRUE;
-      }
-
-    case OBJ_LOCKED:
-      pf_new_sentence (filter);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is already locked!\n",
-                                              " are already locked!\n"));
-      return TRUE;
-
-    default:
-      break;
-    }
-
-  /* The object isn't lockable. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You can't lock ",
-                                         "I can't lock ",
-                                         "%player% can't lock "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
-  return TRUE;
+  return lib_lock_backend (game, &LIB_LOCK_VERB, TRUE);
 }
 
-
-/*
- * lib_cmd_lock_object()
- *
- * Attempt to lock the referenced object, automatically selecting key.
- */
 scr_bool
 lib_cmd_lock_object (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, openness;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "lock", &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous;
-
-  /* React to the request based on openness state. */
-  openness = gs_object_openness (game, object);
-  switch (openness)
-    {
-    case OBJ_OPEN:
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You can't lock ",
-                                             "I can't lock ",
-                                             "%player% can't lock "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, " as it is open.\n");
-      return TRUE;
-
-    case OBJ_CLOSED:
-      {
-        scr_vartype_t vt_key[3];
-        scr_int key_index, key;
-
-        vt_key[0].string = "Objects";
-        vt_key[1].integer = object;
-        vt_key[2].string = "Key";
-        key_index = prop_get_integer (bundle, "I<-sis", vt_key);
-        if (key_index == -1)
-          break;
-
-        key = obj_dynamic_object (game, key_index);
-        lib_attempt_key_acquisition (game, key);
-        if (gs_object_position (game, key) != OBJ_HELD_PLAYER)
-          {
-            pf_buffer_string (filter,
-                              lib_select_response (game,
-                                                   "You don't have",
-                                                   "I don't have",
-                                                   "%player% doesn't have"));
-            pf_buffer_string (filter, " anything to lock ");
-            lib_print_object_np (game, object);
-            pf_buffer_string (filter, " with!\n");
-            return TRUE;
-          }
-
-        gs_set_object_openness (game, object, OBJ_LOCKED);
-        pf_buffer_string (filter,
-                          lib_select_response (game,
-                                               "You lock ",
-                                               "I lock ",
-                                               "%player% locks "));
-        lib_print_object_np (game, object);
-        pf_buffer_string (filter, " with ");
-        lib_print_object_np (game, key);
-        pf_buffer_string (filter, ".\n");
-        return TRUE;
-      }
-
-    case OBJ_LOCKED:
-      pf_new_sentence (filter);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is already locked!\n",
-                                              " are already locked!\n"));
-      return TRUE;
-
-    default:
-      break;
-    }
-
-  /* The object isn't lockable. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You can't lock ",
-                                         "I can't lock ",
-                                         "%player% can't lock "));
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, ".\n");
-  return TRUE;
+  return lib_lock_backend (game, &LIB_LOCK_VERB, FALSE);
 }
 
 
