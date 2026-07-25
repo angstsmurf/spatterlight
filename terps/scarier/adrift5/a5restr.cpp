@@ -1765,12 +1765,46 @@ a5restr_pass (a5_state_t *st, const a5_xml_node_t *restrictions)
  * this reference's no-reference fallback ("Sorry, I'm not sure which object...").
  * Mirrors the pour task (`#A#A#`, object2's Exist truncated -> cantsee) vs the blow
  * / hang tasks (object2's Exist inside the bracket -> no-reference message). */
+/* The first <Restriction> child whose parsed spec satisfies `match`, or NULL.
+ * `limit` caps how many restrictions are looked at (-1 = all); `match` is
+ * handed the type node (its name is the restriction's type -- "Object",
+ * "Character", ...) and the parsed spec, whose buffer this owns. */
+template <typename F>
+static const a5_xml_node_t *
+restr_find (const a5_xml_node_t *restrictions, int limit, F match)
+{
+  const a5_xml_node_t *c;
+  int i = 0;
+
+  if (restrictions == NULL)
+    return NULL;
+  for (c = restrictions->first_child; c != NULL; c = c->next)
+    {
+      const a5_xml_node_t *tn;
+      a5_restr_t r;
+      int hit;
+      if (strcmp (c->name, "Restriction") != 0)
+        continue;
+      if (limit >= 0 && i++ >= limit)
+        break;
+      tn = restr_type_node (c);
+      if (tn == NULL)
+        continue;
+      parse_spec (&r, tn->text);
+      hit = match (tn, &r);
+      free (r.buf);
+      if (hit)
+        return c;
+    }
+  return NULL;
+}
+
 int
 a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alias)
 {
   const a5_xml_node_t *c;
   const char *bracket;
-  int n = 0, M, i;
+  int n = 0, M;
 
   if (restrictions == NULL || ref_alias == NULL)
     return 0;
@@ -1778,60 +1812,29 @@ a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alia
     if (strcmp (c->name, "Restriction") == 0)
       n++;
   bracket = a5xml_child_text (restrictions, "BracketSequence");
-  if (bracket == NULL || bracket[0] == '\0')
-    M = n;                       /* default bracket ANDs every restriction */
-  else
-    { M = 0; for (const char *q = bracket; *q; q++) if (*q == '#') M++; }
+  /* an absent bracket ANDs every restriction */
+  M = (bracket == NULL || bracket[0] == '\0') ? n : count_hashes (bracket);
 
-  i = 0;
-  for (c = restrictions->first_child; c != NULL; c = c->next)
-    {
-      const a5_xml_node_t *tn;
-      a5_restr_t r;
-      int hit;
-      if (strcmp (c->name, "Restriction") != 0)
-        continue;
-      if (i >= M)
-        break;                   /* beyond the evaluated bracket prefix */
-      tn = restr_type_node (c);
-      if (tn != NULL)
-        {
-          parse_spec (&r, tn->text);
-          hit = (strcmp (r.key1, ref_alias) == 0 && streq (r.op, "Exist"));
-          free (r.buf);
-          if (hit)
-            return 1;
-        }
-      i++;
-    }
-  return 0;
+  return restr_find (restrictions, M,          /* only the bracket prefix */
+                     [ref_alias] (const a5_xml_node_t *tn, const a5_restr_t *r)
+                     {
+                       (void) tn;
+                       return strcmp (r->key1, ref_alias) == 0
+                              && streq (r->op, "Exist");
+                     }) != NULL;
 }
 
 int
 a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
 {
   const char *want_type = (type == 'c') ? "Character" : "Object";
-  const a5_xml_node_t *c;
 
-  if (restrictions == NULL)
-    return 0;
-  for (c = restrictions->first_child; c != NULL; c = c->next)
-    {
-      const a5_xml_node_t *tn;
-      a5_restr_t r;
-      int hit;
-      if (strcmp (c->name, "Restriction") != 0)
-        continue;
-      tn = restr_type_node (c);
-      if (tn == NULL || strcmp (tn->name, want_type) != 0)
-        continue;
-      parse_spec (&r, tn->text);
-      hit = streq (r.op, "Exist");
-      free (r.buf);
-      if (hit)
-        return 1;
-    }
-  return 0;
+  return restr_find (restrictions, -1,
+                     [want_type] (const a5_xml_node_t *tn, const a5_restr_t *r)
+                     {
+                       return strcmp (tn->name, want_type) == 0
+                              && streq (r->op, "Exist");
+                     }) != NULL;
 }
 
 /* The <Message> node of the first Object restriction "<ReferencedObject...> Must
@@ -1844,26 +1847,14 @@ a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
 const a5_xml_node_t *
 a5restr_exist_message (const a5_xml_node_t *restrictions)
 {
-  const a5_xml_node_t *c;
-
-  if (restrictions == NULL)
-    return NULL;
-  for (c = restrictions->first_child; c != NULL; c = c->next)
-    {
-      const a5_xml_node_t *tn;
-      a5_restr_t r;
-      int hit;
-      if (strcmp (c->name, "Restriction") != 0)
-        continue;
-      tn = restr_type_node (c);
-      if (tn == NULL || strcmp (tn->name, "Object") != 0)
-        continue;
-      parse_spec (&r, tn->text);
-      hit = streq (r.op, "Exist")
-            && r.key1 != NULL && strncmp (r.key1, "ReferencedObject", 16) == 0;
-      free (r.buf);
-      if (hit)
-        return a5xml_child (c, "Message");
-    }
-  return NULL;
+  const a5_xml_node_t *c =
+    restr_find (restrictions, -1,
+                [] (const a5_xml_node_t *tn, const a5_restr_t *r)
+                {
+                  return strcmp (tn->name, "Object") == 0
+                         && streq (r->op, "Exist")
+                         && r->key1 != NULL
+                         && strncmp (r->key1, "ReferencedObject", 16) == 0;
+                });
+  return (c != NULL) ? a5xml_child (c, "Message") : NULL;
 }
