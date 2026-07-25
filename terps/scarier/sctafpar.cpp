@@ -2162,30 +2162,39 @@ enum { V380_OBJ_CAPACITY_MULT = 10, V380_OBJ_DEFAULT_SIZE = 2 };
 enum { V380_TASK_MOVEMENTS = 6 };
 
 /*
+ * parse_fixup_v380_entry()
  * parse_fixup_v380_action()
  *
- * Helper for parse_fixup_v380(), adds a task action.
+ * Helper for parse_fixup_v380(), adds a task action or restriction.  Both
+ * are written the same way, into the list named by `collection`; the only
+ * difference is that a restriction carries a failure message, and every
+ * restriction has one.
+ *
+ * parse_fixup_v380_restr(), below, is the other face of the helper; it sits
+ * with the restriction handlers it serves.
  */
 static void
-parse_fixup_v380_action (scr_int type, scr_int var_count,
-                         scr_int var1, scr_int var2, scr_int var3)
+parse_fixup_v380_entry (const scr_char *collection,
+                        scr_int type, scr_int var_count,
+                        scr_int var1, scr_int var2, scr_int var3,
+                        const scr_char *failmessage)
 {
   scr_vartype_t vt_key, vt_value;
-  scr_int action_count;
+  scr_int entry_count;
 
-  /* Get a count of actions so far defined for the task. */
-  vt_key.string = "Actions";
+  /* Get a count of entries so far defined for the task. */
+  vt_key.string = collection;
   parse_push_key (vt_key, PROP_KEY_STRING);
-  action_count = parse_get_child_count ();
+  entry_count = parse_get_child_count ();
   parse_pop_key ();
 
-  /* Write actions key, reversed to emulate parse actions. */
-  vt_key.integer = action_count;
+  /* Write the collection key, reversed to emulate parse actions. */
+  vt_key.integer = entry_count;
   parse_push_key (vt_key, PROP_KEY_INTEGER);
-  vt_key.string = "Actions";
+  vt_key.string = collection;
   parse_push_key (vt_key, PROP_KEY_STRING);
 
-  /* Write new action according to the given arguments. */
+  /* Write the new entry according to the given arguments. */
   vt_key.string = "Type";
   parse_push_key (vt_key, PROP_KEY_STRING);
   vt_value.integer = type;
@@ -2216,8 +2225,24 @@ parse_fixup_v380_action (scr_int type, scr_int var_count,
       parse_pop_key ();
     }
 
+  if (failmessage)
+    {
+      vt_key.string = "FailMessage";
+      parse_push_key (vt_key, PROP_KEY_STRING);
+      vt_value.string = failmessage;
+      parse_put_property (vt_value, PROP_STRING);
+      parse_pop_key ();
+    }
+
   parse_pop_key ();
   parse_pop_key ();
+}
+
+static void
+parse_fixup_v380_action (scr_int type, scr_int var_count,
+                         scr_int var1, scr_int var2, scr_int var3)
+{
+  parse_fixup_v380_entry ("Actions", type, var_count, var1, var2, var3, NULL);
 }
 
 
@@ -2317,60 +2342,8 @@ parse_fixup_v380_restr (scr_int type, scr_int var_count,
                         scr_int var1, scr_int var2, scr_int var3,
                         const scr_char *failmessage)
 {
-  scr_vartype_t vt_key, vt_value;
-  scr_int restriction_count;
-
-  /* Get a count of restrictions so far defined for the task. */
-  vt_key.string = "Restrictions";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  restriction_count = parse_get_child_count ();
-  parse_pop_key ();
-
-  /* Write restrictions key, reversed to emulate parse actions. */
-  vt_key.integer = restriction_count;
-  parse_push_key (vt_key, PROP_KEY_INTEGER);
-  vt_key.string = "Restrictions";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-
-  /* Write new restriction according to the given arguments. */
-  vt_key.string = "Type";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = type;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-
-  vt_key.string = "Var1";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = var1;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-
-  if (var_count > 1)
-    {
-      vt_key.string = "Var2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      vt_value.integer = var2;
-      parse_put_property (vt_value, PROP_INTEGER);
-      parse_pop_key ();
-    }
-
-  if (var_count > 2)
-    {
-      vt_key.string = "Var3";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      vt_value.integer = var3;
-      parse_put_property (vt_value, PROP_INTEGER);
-      parse_pop_key ();
-    }
-
-  vt_key.string = "FailMessage";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.string = failmessage;
-  parse_put_property (vt_value, PROP_STRING);
-  parse_pop_key ();
-
-  parse_pop_key ();
-  parse_pop_key ();
+  parse_fixup_v380_entry ("Restrictions", type, var_count,
+                          var1, var2, var3, failmessage);
 }
 
 

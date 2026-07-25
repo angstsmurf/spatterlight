@@ -545,24 +545,29 @@ var_select_plurality (scr_gameref_t game, scr_int object,
 
 
 /*
+ * var_list_at_object()
  * var_list_in_object()
+ * var_list_on_object()
  *
- * List the objects in a given container object.
+ * List the objects held in a given container object, or standing on a given
+ * surface object.  `position` picks which, and `singular` and `plural` are
+ * the phrase joining the list to the associate.
  */
 static void
-var_list_in_object (scr_gameref_t game, scr_int container)
+var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
+                    const scr_char *singular, const scr_char *plural)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int object, count, trail;
 
-  /* List out the objects contained in this object. */
+  /* List out the objects held by this object. */
   count = 0;
   trail = -1;
   for (object = 0; object < gs_object_count (game); object++)
     {
-      /* Contained? */
-      if (gs_object_position (game, object) == OBJ_IN_OBJECT
-          && gs_object_parent (game, object) == container)
+      /* Contained, or standing on? */
+      if (gs_object_position (game, object) == position
+          && gs_object_parent (game, object) == associate)
         {
           if (count > 0)
             {
@@ -584,76 +589,33 @@ var_list_in_object (scr_gameref_t game, scr_int container)
           var_print_object (game, trail);
           var_append_temp (vars,
                            var_select_plurality (game, trail,
-                                                 " is inside ",
-                                                 " are inside "));
+                                                 singular, plural));
         }
       else
         {
           var_append_temp (vars, " and ");
           var_print_object (game, trail);
-          var_append_temp (vars, " are inside ");
+          var_append_temp (vars, plural);
         }
 
-      /* Print out the container. */
-      var_print_object_np (game, container);
+      /* Print out the container or surface. */
+      var_print_object_np (game, associate);
       var_append_temp (vars, ".");
     }
 }
 
+static void
+var_list_in_object (scr_gameref_t game, scr_int container)
+{
+  var_list_at_object (game, container, OBJ_IN_OBJECT,
+                      " is inside ", " are inside ");
+}
 
-/*
- * var_list_on_object()
- *
- * List the objects on a given surface object.
- */
 static void
 var_list_on_object (scr_gameref_t game, scr_int supporter)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int object, count, trail;
-
-  /* List out the objects standing on this object. */
-  count = 0;
-  trail = -1;
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      /* Standing on? */
-      if (gs_object_position (game, object) == OBJ_ON_OBJECT
-          && gs_object_parent (game, object) == supporter)
-        {
-          if (count > 0)
-            {
-              if (count > 1)
-                var_append_temp (vars, ", ");
-
-              /* Print out the current list object. */
-              var_print_object (game, trail);
-            }
-          trail = object;
-          count++;
-        }
-    }
-  if (count >= 1)
-    {
-      /* Print out final listed object. */
-      if (count == 1)
-        {
-          var_print_object (game, trail);
-          var_append_temp (vars,
-                           var_select_plurality (game, trail,
-                                                 " is on ", " are on "));
-        }
-      else
-        {
-          var_append_temp (vars, " and ");
-          var_print_object (game, trail);
-          var_append_temp (vars, " are on ");
-        }
-
-      /* Print out the surface. */
-      var_print_object_np (game, supporter);
-      var_append_temp (vars, ".");
-    }
+  var_list_at_object (game, supporter, OBJ_ON_OBJECT,
+                      " is on ", " are on ");
 }
 
 

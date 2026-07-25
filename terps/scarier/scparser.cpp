@@ -1599,25 +1599,32 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
 
 
 /*
+ * uip_match_entity()
  * uip_match_character()
+ * uip_match_object()
  *
- * Match a %character% reference.  This function searches all NPC names and
- * aliases for possible matches, and sets the game npc_references flag
- * for any that match.  The final one to match is also stored in variables.
+ * Match a %character% or an %object% reference.  These search all of the NPC
+ * or object names and aliases for possible matches, and set the game's
+ * npc_references or object_references flag for any that match.  The final
+ * one to match is also stored in variables.
  */
 static scr_bool
-uip_match_character (scr_ptnoderef_t node)
+uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
 {
   const scr_gameref_t game = uip_get_game ();
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int npc_count, npc, max_extent;
+  scr_int entity_count, index, max_extent;
   scr_char input_lead;
 
   if (uip_trace)
-    scr_trace ("UIParser: attempting to match %%character%%\n");
+    scr_trace ("UIParser: attempting to match %s\n",
+               is_character ? "%character%" : "%object%");
 
-  /* Clear all current character references. */
-  gs_clear_npc_references (game);
+  /* Clear all current references. */
+  if (is_character)
+    gs_clear_npc_references (game);
+  else
+    gs_clear_object_references (game);
 
   /* Ensure cached candidates for this game, and get the input's lead
      character -- a candidate whose own leads differ cannot match. */
@@ -1625,51 +1632,41 @@ uip_match_character (scr_ptnoderef_t node)
   input_lead = scr_tolower (uip_string[uip_skip_article (uip_string,
                                                          uip_posn)]);
 
-  /* Iterate characters, looking for a name or alias match. */
+  const std::vector<scr_uip_entity_t> &cache = is_character
+                                               ? uip_cache_npcs
+                                               : uip_cache_objects;
+  std::vector<scr_bool> &references = is_character
+                                      ? game->npc_references
+                                      : game->object_references;
+
+  /* Iterate entities, looking for a name or alias match. */
   max_extent = 0;
-  npc_count = uip_cache_npcs.size ();
-  for (npc = 0; npc < npc_count; npc++)
+  entity_count = cache.size ();
+  for (index = 0; index < entity_count; index++)
     {
-      const scr_uip_entity_t &entity = uip_cache_npcs[npc];
+      const scr_uip_entity_t &entity = cache[index];
       scr_int alias_count, alias, extent;
 
-      if (uip_trace)
-        scr_trace ("UIParser: trying %s\n", entity.name.plain);
-
-      /* Compare this name, both prefixed and not. */
-      if (input_lead == entity.name.lead_prefixed
-          || input_lead == entity.name.lead_plain)
-        {
-          extent = uip_compare_candidate (entity.name);
-          if (extent > 0 && uip_match_remainder (node, extent))
-            {
-              if (uip_trace)
-                scr_trace ("UIParser: matched\n");
-
-              /* Increase the maximum match extent if required. */
-              max_extent = (extent > max_extent) ? extent : max_extent;
-
-              /* Save match in variables and game. */
-              var_set_ref_character (vars, npc);
-              game->npc_references[npc] = TRUE;
-            }
-        }
-
-      /* Now compare against all NPC aliases. */
+      /*
+       * Compare the entity's name, then each of its aliases, both prefixed
+       * and not.  Alias -1 stands for the name itself.
+       */
       alias_count = entity.aliases.size ();
-      for (alias = 0; alias < alias_count; alias++)
+      for (alias = -1; alias < alias_count; alias++)
         {
-          const scr_uip_candidate_t &alias_name = entity.aliases[alias];
+          const scr_uip_candidate_t &candidate = alias < 0
+                                                 ? entity.name
+                                                 : entity.aliases[alias];
 
           if (uip_trace)
-            scr_trace ("UIParser: trying alias %s\n", alias_name.plain);
+            scr_trace ("UIParser: trying %s%s\n",
+                       alias < 0 ? "" : "alias ", candidate.plain);
 
-          if (input_lead != alias_name.lead_prefixed
-              && input_lead != alias_name.lead_plain)
+          if (input_lead != candidate.lead_prefixed
+              && input_lead != candidate.lead_plain)
             continue;
 
-          /* Compare this alias name, both prefixed and not. */
-          extent = uip_compare_candidate (alias_name);
+          extent = uip_compare_candidate (candidate);
           if (extent > 0 && uip_match_remainder (node, extent))
             {
               if (uip_trace)
@@ -1679,8 +1676,11 @@ uip_match_character (scr_ptnoderef_t node)
               max_extent = (extent > max_extent) ? extent : max_extent;
 
               /* Save match in variables and game. */
-              var_set_ref_character (vars, npc);
-              game->npc_references[npc] = TRUE;
+              if (is_character)
+                var_set_ref_character (vars, index);
+              else
+                var_set_ref_object (vars, index);
+              references[index] = TRUE;
             }
         }
     }
@@ -1696,103 +1696,16 @@ uip_match_character (scr_ptnoderef_t node)
   return FALSE;
 }
 
+static scr_bool
+uip_match_character (scr_ptnoderef_t node)
+{
+  return uip_match_entity (node, TRUE);
+}
 
-/*
- * uip_match_object()
- *
- * Match an %object% reference.  This function searches all object names and
- * aliases for possible matches, and sets the game object_references flag
- * for any that match.  The final one to match is also stored in variables.
- */
 static scr_bool
 uip_match_object (scr_ptnoderef_t node)
 {
-  const scr_gameref_t game = uip_get_game ();
-  const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int object_count, object, max_extent;
-  scr_char input_lead;
-
-  if (uip_trace)
-    scr_trace ("UIParser: attempting to match %%object%%\n");
-
-  /* Clear all current object references. */
-  gs_clear_object_references (game);
-
-  /* Ensure cached candidates for this game, and get the input's lead
-     character -- a candidate whose own leads differ cannot match. */
-  uip_synchronize_cache (game);
-  input_lead = scr_tolower (uip_string[uip_skip_article (uip_string,
-                                                         uip_posn)]);
-
-  /* Iterate objects, looking for a name or alias match. */
-  max_extent = 0;
-  object_count = uip_cache_objects.size ();
-  for (object = 0; object < object_count; object++)
-    {
-      const scr_uip_entity_t &entity = uip_cache_objects[object];
-      scr_int alias_count, alias, extent;
-
-      if (uip_trace)
-        scr_trace ("UIParser: trying %s\n", entity.name.plain);
-
-      /* Compare this name, both prefixed and not. */
-      if (input_lead == entity.name.lead_prefixed
-          || input_lead == entity.name.lead_plain)
-        {
-          extent = uip_compare_candidate (entity.name);
-          if (extent > 0 && uip_match_remainder (node, extent))
-            {
-              if (uip_trace)
-                scr_trace ("UIParser: matched\n");
-
-              /* Increase the maximum match extent if required. */
-              max_extent = (extent > max_extent) ? extent : max_extent;
-
-              /* Save match in variables and game. */
-              var_set_ref_object (vars, object);
-              game->object_references[object] = TRUE;
-            }
-        }
-
-      /* Now compare against all object aliases. */
-      alias_count = entity.aliases.size ();
-      for (alias = 0; alias < alias_count; alias++)
-        {
-          const scr_uip_candidate_t &alias_name = entity.aliases[alias];
-
-          if (uip_trace)
-            scr_trace ("UIParser: trying alias %s\n", alias_name.plain);
-
-          if (input_lead != alias_name.lead_prefixed
-              && input_lead != alias_name.lead_plain)
-            continue;
-
-          /* Compare this alias name, both prefixed and not. */
-          extent = uip_compare_candidate (alias_name);
-          if (extent > 0 && uip_match_remainder (node, extent))
-            {
-              if (uip_trace)
-                scr_trace ("UIParser: matched\n");
-
-              /* Increase the maximum match extent if required. */
-              max_extent = (extent > max_extent) ? extent : max_extent;
-
-              /* Save match in variables and game. */
-              var_set_ref_object (vars, object);
-              game->object_references[object] = TRUE;
-            }
-        }
-    }
-
-  /* On match, advance position and return successfully. */
-  if (max_extent > 0)
-    {
-      uip_posn = max_extent;
-      return TRUE;
-    }
-
-  /* No match. */
-  return FALSE;
+  return uip_match_entity (node, FALSE);
 }
 
 

@@ -40,6 +40,24 @@ static scr_bool obj_trace = FALSE;
 
 
 /*
+ * obj_get_flag()
+ *
+ * Return the given boolean property of an object.
+ */
+static scr_bool
+obj_get_flag (scr_gameref_t game, scr_int object, const scr_char *name)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = name;
+  return prop_get_boolean (bundle, "B<-sis", vt_key);
+}
+
+
+/*
  * obj_is_static()
  * obj_is_surface()
  * obj_is_container()
@@ -49,189 +67,139 @@ static scr_bool obj_trace = FALSE;
 scr_bool
 obj_is_static (scr_gameref_t game, scr_int object)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_bool bstatic;
-
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Static";
-  bstatic = prop_get_boolean (bundle, "B<-sis", vt_key);
-  return bstatic;
+  return obj_get_flag (game, object, "Static");
 }
 
 scr_bool
 obj_is_container (scr_gameref_t game, scr_int object)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_bool is_container;
-
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Container";
-  is_container = prop_get_boolean (bundle, "B<-sis", vt_key);
-  return is_container;
+  return obj_get_flag (game, object, "Container");
 }
 
 scr_bool
 obj_is_surface (scr_gameref_t game, scr_int object)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_bool is_surface;
-
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Surface";
-  is_surface = prop_get_boolean (bundle, "B<-sis", vt_key);
-  return is_surface;
+  return obj_get_flag (game, object, "Surface");
 }
 
 
 /*
- * obj_container_object()
+ * obj_nth_object()
+ * obj_object_index()
  *
- * Return the index of the n'th container object found.
- */
-scr_int
-obj_container_object (scr_gameref_t game, scr_int n)
-{
-  scr_int object, count;
-
-  /* Progress through objects until n containers found. */
-  count = n;
-  for (object = 0; object < gs_object_count (game) && count >= 0; object++)
-    {
-      if (obj_is_container (game, object))
-        count--;
-    }
-  return object - 1;
-}
-
-
-/*
- * obj_container_index()
+ * Adrift numbers objects of a given kind separately from objects at large,
+ * so most kinds need a pair of functions to convert between the two: the
+ * n'th object matching some property, and the count of matching objects that
+ * precede a given one.  These walk the objects for any such property.
  *
- * Return index such that obj_container_object(index) == objnum.
+ * They are inverses, in that obj_nth_object (obj_object_index (o)) == o for
+ * any matching object o.
  */
-scr_int
-obj_container_index (scr_gameref_t game, scr_int objnum)
+typedef scr_bool (*obj_matcherref_t) (scr_gameref_t game, scr_int object);
+
+static scr_int
+obj_nth_object (scr_gameref_t game, obj_matcherref_t matches, scr_int n)
 {
-  scr_int object, count;
-
-  /* Progress through objects up to objnum. */
-  count = 0;
-  for (object = 0; object < objnum; object++)
-    {
-      if (obj_is_container (game, object))
-        count++;
-    }
-  return count;
-}
-
-
-/*
- * obj_surface_object()
- *
- * Return the index of the n'th surface object found.
- */
-scr_int
-obj_surface_object (scr_gameref_t game, scr_int n)
-{
-  scr_int object, count;
-
-  /* Progress through objects until n surfaces found. */
-  count = n;
-  for (object = 0; object < gs_object_count (game) && count >= 0; object++)
-    {
-      if (obj_is_surface (game, object))
-        count--;
-    }
-  return object - 1;
-}
-
-
-/*
- * obj_surface_index()
- *
- * Return index such that obj_surface_object(index) == objnum.
- */
-scr_int
-obj_surface_index (scr_gameref_t game, scr_int objnum)
-{
-  scr_int object, count;
-
-  /* Progress through objects up to objnum. */
-  count = 0;
-  for (object = 0; object < objnum; object++)
-    {
-      if (obj_is_surface (game, object))
-        count++;
-    }
-  return count;
-}
-
-
-/*
- * obj_stateful_object()
- *
- * Return the index of the n'th openable or statussed object found.
- */
-scr_int
-obj_stateful_object (scr_gameref_t game, scr_int n)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object, count;
 
   /* Progress through objects until n matches found. */
   count = n;
   for (object = 0; object < gs_object_count (game) && count >= 0; object++)
     {
-      scr_vartype_t vt_key[3];
-      scr_bool is_openable, is_statussed;
-
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Openable";
-      is_openable = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-      vt_key[2].string = "CurrentState";
-      is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-      if (is_openable || is_statussed)
+      if (matches (game, object))
         count--;
     }
   return object - 1;
 }
 
-
-/*
- * obj_stateful_index()
- *
- * Return index such that obj_stateful_object(index) == objnum.
- */
-scr_int
-obj_stateful_index (scr_gameref_t game, scr_int objnum)
+static scr_int
+obj_object_index (scr_gameref_t game, obj_matcherref_t matches, scr_int objnum)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object, count;
 
   /* Progress through objects up to objnum. */
   count = 0;
   for (object = 0; object < objnum; object++)
     {
-      scr_vartype_t vt_key[3];
-      scr_bool is_openable, is_statussed;
-
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Openable";
-      is_openable = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-      vt_key[2].string = "CurrentState";
-      is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-      if (is_openable || is_statussed)
+      if (matches (game, object))
         count++;
     }
   return count;
+}
+
+
+/*
+ * obj_container_object()
+ * obj_container_index()
+ *
+ * Convert between object and container numbering.
+ */
+scr_int
+obj_container_object (scr_gameref_t game, scr_int n)
+{
+  return obj_nth_object (game, obj_is_container, n);
+}
+
+scr_int
+obj_container_index (scr_gameref_t game, scr_int objnum)
+{
+  return obj_object_index (game, obj_is_container, objnum);
+}
+
+
+/*
+ * obj_surface_object()
+ * obj_surface_index()
+ *
+ * Convert between object and surface numbering.
+ */
+scr_int
+obj_surface_object (scr_gameref_t game, scr_int n)
+{
+  return obj_nth_object (game, obj_is_surface, n);
+}
+
+scr_int
+obj_surface_index (scr_gameref_t game, scr_int objnum)
+{
+  return obj_object_index (game, obj_is_surface, objnum);
+}
+
+
+/*
+ * obj_is_stateful()
+ * obj_stateful_object()
+ * obj_stateful_index()
+ *
+ * Convert between object and stateful object numbering.  An object is
+ * stateful if it is openable, or if it carries a set of states.
+ */
+static scr_bool
+obj_is_stateful (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_bool is_openable, is_statussed;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Openable";
+  is_openable = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
+  vt_key[2].string = "CurrentState";
+  is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
+  return is_openable || is_statussed;
+}
+
+scr_int
+obj_stateful_object (scr_gameref_t game, scr_int n)
+{
+  return obj_nth_object (game, obj_is_stateful, n);
+}
+
+scr_int
+obj_stateful_index (scr_gameref_t game, scr_int objnum)
+{
+  return obj_object_index (game, obj_is_stateful, objnum);
 }
 
 
@@ -285,53 +253,41 @@ obj_state_name (scr_gameref_t game, scr_int objnum)
 
 
 /*
+ * obj_is_dynamic()
  * obj_dynamic_object()
  *
  * Return the index of the n'th non-static object found.
  */
+static scr_bool
+obj_is_dynamic (scr_gameref_t game, scr_int object)
+{
+  return !obj_is_static (game, object);
+}
+
 scr_int
 obj_dynamic_object (scr_gameref_t game, scr_int n)
 {
-  scr_int object, count;
-
-  /* Progress through objects until n matches found. */
-  count = n;
-  for (object = 0; object < gs_object_count (game) && count >= 0; object++)
-    {
-      if (!obj_is_static (game, object))
-        count--;
-    }
-  return object - 1;
+  return obj_nth_object (game, obj_is_dynamic, n);
 }
 
 
 /*
+ * obj_is_wearable()
  * obj_wearable_object()
  *
  * Return the index of the n'th wearable object found.
  */
+static scr_bool
+obj_is_wearable (scr_gameref_t game, scr_int object)
+{
+  return !obj_is_static (game, object)
+         && obj_get_flag (game, object, "Wearable");
+}
+
 scr_int
 obj_wearable_object (scr_gameref_t game, scr_int n)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, count;
-
-  /* Progress through objects until n matches found. */
-  count = n;
-  for (object = 0; object < gs_object_count (game) && count >= 0; object++)
-    {
-      if (!obj_is_static (game, object))
-        {
-          scr_vartype_t vt_key[3];
-
-          vt_key[0].string = "Objects";
-          vt_key[1].integer = object;
-          vt_key[2].string = "Wearable";
-          if (prop_get_boolean (bundle, "B<-sis", vt_key))
-            count--;
-        }
-    }
-  return object - 1;
+  return obj_nth_object (game, obj_is_wearable, n);
 }
 
 
@@ -547,60 +503,49 @@ enum
 };
 
 /*
+ * obj_has_sit_lie()
+ * obj_is_standable()
+ * obj_is_lieable()
  * obj_standable_object()
+ * obj_lieable_object()
  *
- * Return the index of the n'th standable object found.
+ * Return the index of the n'th standable or lieable object found.  Both
+ * flags live in the one SitLie property.
  */
+static scr_bool
+obj_has_sit_lie (scr_gameref_t game, scr_int object, scr_int mask)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "SitLie";
+  return (prop_get_integer (bundle, "I<-sis", vt_key) & mask) != 0;
+}
+
+static scr_bool
+obj_is_standable (scr_gameref_t game, scr_int object)
+{
+  return obj_has_sit_lie (game, object, OBJ_STANDABLE_MASK);
+}
+
+static scr_bool
+obj_is_lieable (scr_gameref_t game, scr_int object)
+{
+  return obj_has_sit_lie (game, object, OBJ_LIEABLE_MASK);
+}
+
 scr_int
 obj_standable_object (scr_gameref_t game, scr_int n)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, count;
-
-  /* Progress through objects until n standable found. */
-  count = n;
-  for (object = 0; object < gs_object_count (game) && count >= 0; object++)
-    {
-      scr_vartype_t vt_key[3];
-      scr_int sit_lie_flags;
-
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "SitLie";
-      sit_lie_flags = prop_get_integer (bundle, "I<-sis", vt_key);
-      if (sit_lie_flags & OBJ_STANDABLE_MASK)
-        count--;
-    }
-  return object - 1;
+  return obj_nth_object (game, obj_is_standable, n);
 }
 
-
-/*
- * obj_lieable_object()
- *
- * Return the index of the n'th lieable object found.
- */
 scr_int
 obj_lieable_object (scr_gameref_t game, scr_int n)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, count;
-
-  /* Progress through objects until n lieable found. */
-  count = n;
-  for (object = 0; object < gs_object_count (game) && count >= 0; object++)
-    {
-      scr_vartype_t vt_key[3];
-      scr_int sit_lie_flags;
-
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "SitLie";
-      sit_lie_flags = prop_get_integer (bundle, "I<-sis", vt_key);
-      if (sit_lie_flags & OBJ_LIEABLE_MASK)
-        count--;
-    }
-  return object - 1;
+  return obj_nth_object (game, obj_is_lieable, n);
 }
 
 
@@ -649,6 +594,78 @@ obj_appears_plural (scr_gameref_t game, scr_int object)
 
 
 /*
+ * obj_static_in_room()
+ *
+ * Return TRUE if a given static object is currently in a given room.  Static
+ * objects have no position of their own; instead they carry a list of the
+ * rooms they appear in, unless an event has moved them.
+ *
+ * Two of the cases only count where the caller is willing to look through a
+ * holder: an object an event has moved into the player's hands, and one that
+ * is part of an NPC.  `is_indirect` says whether it is.
+ */
+static scr_bool
+obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
+                    scr_bool is_indirect)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int type;
+
+  /* Static object moved to player or room by event? */
+  if (!gs_object_static_unmoved (game, object))
+    {
+      if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
+        return is_indirect ? gs_player_in_room (game, room) : FALSE;
+      else
+        return gs_object_position (game, object) - 1 == room;
+    }
+
+  /* Check and return the room list for the object. */
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Where";
+  vt_key[3].string = "Type";
+  type = prop_get_integer (bundle, "I<-siss", vt_key);
+  switch (type)
+    {
+    case ROOMLIST_ALL_ROOMS:
+      return TRUE;
+    case ROOMLIST_NO_ROOMS:
+      return FALSE;
+
+    case ROOMLIST_ONE_ROOM:
+      vt_key[3].string = "Room";
+      return prop_get_integer (bundle, "I<-siss", vt_key) == room + 1;
+
+    case ROOMLIST_SOME_ROOMS:
+      vt_key[3].string = "Rooms";
+      vt_key[4].integer = room + 1;
+      return prop_get_boolean (bundle, "B<-sissi", vt_key);
+
+    case ROOMLIST_NPC_PART:
+      {
+        scr_int npc;
+
+        if (!is_indirect)
+          return FALSE;
+
+        vt_key[2].string = "Parent";
+        npc = prop_get_integer (bundle, "I<-sis", vt_key);
+        if (npc == 0)
+          return gs_player_in_room (game, room);
+        else
+          return npc_in_room (game, npc - 1, room);
+      }
+
+    default:
+      scr_fatal ("obj_static_in_room: invalid type, %ld\n", type);
+      return FALSE;
+    }
+}
+
+
+/*
  * obj_directly_in_room_internal()
  * obj_directly_in_room()
  *
@@ -657,52 +674,9 @@ obj_appears_plural (scr_gameref_t game, scr_int object)
 static scr_bool
 obj_directly_in_room_internal (scr_gameref_t game, scr_int object, scr_int room)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-
   /* See if the object is static or dynamic. */
   if (obj_is_static (game, object))
-    {
-      scr_vartype_t vt_key[5];
-      scr_int type;
-
-      /* Static object moved to player or room by event? */
-      if (!gs_object_static_unmoved (game, object))
-        {
-          if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
-            return FALSE;
-          else
-            return gs_object_position (game, object) - 1 == room;
-        }
-
-      /* Check and return the room list for the object. */
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Where";
-      vt_key[3].string = "Type";
-      type = prop_get_integer (bundle, "I<-siss", vt_key);
-      switch (type)
-        {
-        case ROOMLIST_ALL_ROOMS:
-          return TRUE;
-        case ROOMLIST_NO_ROOMS:
-        case ROOMLIST_NPC_PART:
-          return FALSE;
-
-        case ROOMLIST_ONE_ROOM:
-          vt_key[3].string = "Room";
-          return prop_get_integer (bundle, "I<-siss", vt_key) == room + 1;
-
-        case ROOMLIST_SOME_ROOMS:
-          vt_key[3].string = "Rooms";
-          vt_key[4].integer = room + 1;
-          return prop_get_boolean (bundle, "B<-sissi", vt_key);
-
-        default:
-          scr_fatal ("obj_directly_in_room_internal:"
-                    " invalid type, %ld\n", type);
-          return FALSE;
-        }
-    }
+    return obj_static_in_room (game, object, room, FALSE);
   else
     return gs_object_position (game, object) == room + 1;
 }
@@ -736,63 +710,9 @@ obj_directly_in_room (scr_gameref_t game, scr_int object, scr_int room)
 static scr_bool
 obj_indirectly_in_room_internal (scr_gameref_t game, scr_int object, scr_int room)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-
   /* See if the object is static or dynamic. */
   if (obj_is_static (game, object))
-    {
-      scr_vartype_t vt_key[5];
-      scr_int type;
-
-      /* Static object moved to player or room by event? */
-      if (!gs_object_static_unmoved (game, object))
-        {
-          if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
-            return gs_player_in_room (game, room);
-          else
-            return gs_object_position (game, object) - 1 == room;
-        }
-
-      /* Check and return the room list for the object. */
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Where";
-      vt_key[3].string = "Type";
-      type = prop_get_integer (bundle, "I<-siss", vt_key);
-      switch (type)
-        {
-        case ROOMLIST_ALL_ROOMS:
-          return TRUE;
-        case ROOMLIST_NO_ROOMS:
-          return FALSE;
-
-        case ROOMLIST_ONE_ROOM:
-          vt_key[3].string = "Room";
-          return prop_get_integer (bundle, "I<-siss", vt_key) == room + 1;
-
-        case ROOMLIST_SOME_ROOMS:
-          vt_key[3].string = "Rooms";
-          vt_key[4].integer = room + 1;
-          return prop_get_boolean (bundle, "B<-sissi", vt_key);
-
-        case ROOMLIST_NPC_PART:
-          {
-            scr_int npc;
-
-            vt_key[2].string = "Parent";
-            npc = prop_get_integer (bundle, "I<-sis", vt_key);
-            if (npc == 0)
-              return gs_player_in_room (game, room);
-            else
-              return npc_in_room (game, npc - 1, room);
-          }
-
-        default:
-          scr_fatal ("obj_indirectly_in_room_internal:"
-                    " invalid type, %ld\n", type);
-          return FALSE;
-        }
-    }
+    return obj_static_in_room (game, object, room, TRUE);
   else
     {
       scr_int parent, position;
