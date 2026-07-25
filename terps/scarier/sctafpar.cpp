@@ -634,12 +634,181 @@ parse_get_string_property (void)
 }
 
 
+/*
+ * parse_get_keyed_integer()
+ * parse_get_keyed_boolean()
+ * parse_get_keyed_string()
+ * parse_get_keyed_child_count()
+ * parse_put_keyed_integer()
+ * parse_put_keyed_string()
+ *
+ * Convenience wrappers that push the given string key, get or put the
+ * property, and pop the key again.  Almost every property access in the
+ * specials and fixups below is this push-access-pop dance.
+ */
+static scr_int
+parse_get_keyed_integer (const scr_char *key)
+{
+  scr_vartype_t vt_key;
+  scr_int retval;
+
+  vt_key.string = key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  retval = parse_get_integer_property ();
+  parse_pop_key ();
+
+  return retval;
+}
+
+static scr_bool
+parse_get_keyed_boolean (const scr_char *key)
+{
+  scr_vartype_t vt_key;
+  scr_bool retval;
+
+  vt_key.string = key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  retval = parse_get_boolean_property ();
+  parse_pop_key ();
+
+  return retval;
+}
+
+static const scr_char *
+parse_get_keyed_string (const scr_char *key)
+{
+  scr_vartype_t vt_key;
+  const scr_char *retval;
+
+  vt_key.string = key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  retval = parse_get_string_property ();
+  parse_pop_key ();
+
+  return retval;
+}
+
+static scr_int
+parse_get_keyed_child_count (const scr_char *key)
+{
+  scr_vartype_t vt_key;
+  scr_int retval;
+
+  vt_key.string = key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  retval = parse_get_child_count ();
+  parse_pop_key ();
+
+  return retval;
+}
+
+static void
+parse_put_keyed_integer (const scr_char *key, scr_int value)
+{
+  scr_vartype_t vt_key, vt_value;
+
+  vt_key.string = key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  vt_value.integer = value;
+  parse_put_property (vt_value, PROP_INTEGER);
+  parse_pop_key ();
+}
+
+static void
+parse_put_keyed_string (const scr_char *key, const scr_char *value)
+{
+  scr_vartype_t vt_key, vt_value;
+
+  vt_key.string = key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  vt_value.string = value;
+  parse_put_property (vt_value, PROP_STRING);
+  parse_pop_key ();
+}
+
+
+/*
+ * parse_put_indexed_integer()
+ * parse_put_indexed_boolean()
+ *
+ * As above, but store list_key[index_] = value, pushing both the list key
+ * string and the element index.
+ */
+static void
+parse_put_indexed_integer (const scr_char *list_key,
+                           scr_int index_, scr_int value)
+{
+  scr_vartype_t vt_key, vt_value;
+
+  vt_key.string = list_key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  vt_key.integer = index_;
+  parse_push_key (vt_key, PROP_KEY_INTEGER);
+  vt_value.integer = value;
+  parse_put_property (vt_value, PROP_INTEGER);
+  parse_pop_key ();
+  parse_pop_key ();
+}
+
+static void
+parse_put_indexed_boolean (const scr_char *list_key,
+                           scr_int index_, scr_bool value)
+{
+  scr_vartype_t vt_key, vt_value;
+
+  vt_key.string = list_key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  vt_key.integer = index_;
+  parse_push_key (vt_key, PROP_KEY_INTEGER);
+  vt_value.boolean = value;
+  parse_put_property (vt_value, PROP_BOOLEAN);
+  parse_pop_key ();
+  parse_pop_key ();
+}
+
+
+/*
+ * parse_get_global_boolean()
+ *
+ * Retrieve a boolean property of the game's Globals node directly from the
+ * bundle, ignoring the current parse key stack.
+ */
+static scr_bool
+parse_get_global_boolean (const scr_char *name)
+{
+  scr_vartype_t vt_key[2];
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = name;
+  return prop_get_boolean (parse_bundle, "B<-ss", vt_key);
+}
+
+
 /* Parse error jump buffer. */
 static jmp_buf parse_taf_error;
 
 /* Pushback line, and pushback requested flag. */
 static const scr_char *parse_pushback_line = NULL;
 static scr_bool parse_use_pushback = FALSE;
+
+/*
+ * parse_taf_fail()
+ *
+ * Report a bad or exhausted TAF stream with a stack backtrace, then longjmp
+ * out of the parse.  Does not return.
+ */
+static void
+parse_taf_fail (const scr_char *reason, scr_int line)
+  __attribute__ ((__noreturn__));
+
+static void
+parse_taf_fail (const scr_char *reason, scr_int line)
+{
+  scr_error ("%s at line %ld\n", reason, line);
+  parse_stack_backtrace ();
+  scr_longjmp (parse_taf_error, 1);
+}
+
 
 /*
  * parse_get_taf_string()
@@ -669,12 +838,8 @@ parse_get_taf_string (void)
       /* Get the next line, and complain if absent. */
       line = taf_next_line (parse_taf);
       if (!line)
-        {
-          scr_error ("parse_get_taf_string:"
-                    " out of TAF data at line %ld\n", parse_tafline);
-          parse_stack_backtrace ();
-          scr_longjmp (parse_taf_error, 1);
-        }
+        parse_taf_fail ("parse_get_taf_string: out of TAF data",
+                        parse_tafline);
 
       /* Note this line for possible pushback. */
       parse_pushback_line = line;
@@ -697,12 +862,8 @@ parse_get_taf_integer (void)
   /* Get line, and scan for a single integer; return it. */
   line = parse_get_taf_string ();
   if (sscanf (line, "%ld", &integer) != 1)
-    {
-      scr_error ("parse_get_taf_integer:"
-                " invalid integer at line %ld\n", parse_tafline - 1);
-      parse_stack_backtrace ();
-      scr_longjmp (parse_taf_error, 1);
-    }
+    parse_taf_fail ("parse_get_taf_integer: invalid integer",
+                    parse_tafline - 1);
 
   return integer;
 }
@@ -719,12 +880,8 @@ parse_get_taf_boolean (void)
    */
   line = parse_get_taf_string ();
   if (sscanf (line, "%lu", &boolean) != 1)
-    {
-      scr_error ("parse_get_taf_boolean:"
-                " invalid boolean at line %ld\n", parse_tafline - 1);
-      parse_stack_backtrace ();
-      scr_longjmp (parse_taf_error, 1);
-    }
+    parse_taf_fail ("parse_get_taf_boolean: invalid boolean",
+                    parse_tafline - 1);
   if (boolean != 0 && boolean != 1)
     {
       scr_error ("parse_get_taf_boolean:"
@@ -780,24 +937,49 @@ static void parse_class (const scr_char *class_);
 static void parse_descriptor (const scr_char *descriptor);
 
 /*
- * parse_array()
+ * parse_element_list()
  *
- * Parse a descriptor [] array.
+ * Split a list of descriptor elements on the given separator characters,
+ * and parse each element in turn.  Both a class descriptor (space-separated)
+ * and the tail of a conditional expression (comma-separated) are such lists.
  */
 static void
-parse_array (const scr_char *array)
+parse_element_list (const scr_char *list, const scr_char *separators)
 {
-  scr_int count, index_;
-  scr_char element[PARSE_TEMP_LENGTH];
+  scr_int next;
 
-  if (parse_trace)
-    scr_trace ("Parse: entering array %s\n", array);
+  for (next = 0; list[next] != NUL; )
+    {
+      scr_char element[PARSE_TEMP_LENGTH];
+      size_t length;
 
-  /* Find the count of elements in the array, and the element itself. */
-  if (sscanf (array, "[%ld]%[^ ]", &count, element) != 2)
-    scr_fatal ("parse_array: bad array, %s\n", array);
+      /* Isolate the next element of the list. */
+      length = strcspn (list + next, separators);
+      if (length == 0 || length >= sizeof (element))
+        scr_fatal ("parse_element_list: bad list, %s\n", list + next);
+      memcpy (element, list + next, length);
+      element[length] = NUL;
 
-  /* Parse the element for array count iterations, each a key. */
+      /* Parse this isolated element. */
+      parse_element (element);
+
+      /* Advance over the element and any trailing separators. */
+      next += length;
+      next += strspn (list + next, separators);
+    }
+}
+
+/*
+ * parse_repeat_element()
+ *
+ * Parse the given element count times, pushing the iteration index as a
+ * key on each pass.  Common back end for [] arrays and V/W vectors.
+ */
+static void
+parse_repeat_element (const scr_char *element, scr_int count)
+{
+  scr_int index_;
+
   for (index_ = 0; index_ < count; index_++)
     {
       scr_vartype_t vt_key;
@@ -809,6 +991,28 @@ parse_array (const scr_char *array)
 
       parse_pop_key ();
     }
+}
+
+
+/*
+ * parse_array()
+ *
+ * Parse a descriptor [] array.
+ */
+static void
+parse_array (const scr_char *array)
+{
+  scr_int count;
+  scr_char element[PARSE_TEMP_LENGTH];
+
+  if (parse_trace)
+    scr_trace ("Parse: entering array %s\n", array);
+
+  /* Find the count of elements in the array, and the element itself. */
+  if (sscanf (array, "[%ld]%[^ ]", &count, element) != 2)
+    scr_fatal ("parse_array: bad array, %s\n", array);
+
+  parse_repeat_element (element, count);
 
   if (parse_trace)
     scr_trace ("Parse: leaving array %s\n", array);
@@ -816,42 +1020,19 @@ parse_array (const scr_char *array)
 
 
 /*
- * parse_vector_common()
  * parse_vector()
  * parse_vector_alternate()
  *
- * Parse a variable-length vector of properties.
+ * Parse a variable-length vector of properties, sized by a count from the
+ * input file, or by that count plus one for the version < 4 'W' form.
  */
-static void
-parse_vector_common (const scr_char *vector, scr_int count)
-{
-  scr_int index_;
-
-  /* Parse the vector property count times, pushing a key on each. */
-  for (index_ = 0; index_ < count; index_++)
-    {
-      scr_vartype_t vt_key;
-
-      vt_key.integer = index_;
-      parse_push_key (vt_key, PROP_KEY_INTEGER);
-
-      parse_element (vector + 1);
-
-      parse_pop_key ();
-    }
-}
-
 static void
 parse_vector (const scr_char *vector)
 {
-  scr_int count;
-
   if (parse_trace)
     scr_trace ("Parse: entering vector %s\n", vector);
 
-  /* Find the count of elements in the vector, and parse. */
-  count = parse_get_taf_integer ();
-  parse_vector_common (vector, count);
+  parse_repeat_element (vector + 1, parse_get_taf_integer ());
 
   if (parse_trace)
     scr_trace ("Parse: leaving vector %s\n", vector);
@@ -860,14 +1041,10 @@ parse_vector (const scr_char *vector)
 static void
 parse_vector_alternate (const scr_char *vector)
 {
-  scr_int count;
-
   if (parse_trace)
     scr_trace ("Parse: entering alternate vector %s\n", vector);
 
-  /* Element count, this is a vector described by size - 1. */
-  count = parse_get_taf_integer () + 1;
-  parse_vector_common (vector, count);
+  parse_repeat_element (vector + 1, parse_get_taf_integer () + 1);
 
   if (parse_trace)
     scr_trace ("Parse: leaving alternate vector %s\n", vector);
@@ -883,7 +1060,6 @@ parse_vector_alternate (const scr_char *vector)
 static scr_bool
 parse_test_expression (const scr_char *test_expression)
 {
-  scr_vartype_t vt_key;
   scr_char plhs[PARSE_TEMP_LENGTH];
   scr_int rhs;
   scr_bool retval = FALSE;
@@ -893,10 +1069,7 @@ parse_test_expression (const scr_char *test_expression)
     {
     case PARSE_BOOLEAN:
       /* Read boolean property and return its value. */
-      vt_key.string = test_expression + 1;
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      retval = parse_get_boolean_property ();
-      parse_pop_key ();
+      retval = parse_get_keyed_boolean (test_expression + 1);
       break;
 
     case PARSE_INTEGER:
@@ -908,30 +1081,18 @@ parse_test_expression (const scr_char *test_expression)
         }
 
       /* Read integer property and return comparison. */
-      vt_key.string = plhs;
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      retval = (parse_get_integer_property () == rhs);
-      parse_pop_key ();
+      retval = (parse_get_keyed_integer (plhs) == rhs);
       break;
 
     case PARSE_STRING:
       /* Read property and return TRUE if not an empty string. */
-      vt_key.string = test_expression + 1;
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      retval = !scr_strempty (parse_get_string_property ());
-      parse_pop_key ();
+      retval = !scr_strempty (parse_get_keyed_string (test_expression + 1));
       break;
 
     case PARSE_GLOBAL_EXPRESSION:
-      {
-        scr_vartype_t vt_gkey[2];
-
-        /* Read the given Global boolean property and return it. */
-        vt_gkey[0].string = "Globals";
-        vt_gkey[1].string = test_expression + 1;
-        retval = prop_get_boolean (parse_bundle, "B<-ss", vt_gkey);
-        break;
-      }
+      /* Read the given Global boolean property and return it. */
+      retval = parse_get_global_boolean (test_expression + 1);
+      break;
 
     default:
       scr_fatal ("parse_test_expression:"
@@ -963,26 +1124,10 @@ parse_expression (const scr_char *expression)
                : parse_test_expression (test_expression);
   if (is_present)
     {
-      scr_int next;
-
       /*
        * Following the ':' may be a single element, or a comma-separated list.
        */
-      for (next = strlen (test_expression) + 2; expression[next] != NUL; )
-        {
-          scr_char element[PARSE_TEMP_LENGTH];
-
-          /* Get the next individual element to parse. */
-          if (sscanf (expression + next, "%[^,]", element) != 1)
-            scr_fatal ("parse_expression: bad list, %s\n", expression + next);
-
-          /* Parse this isolated element. */
-          parse_element (element);
-
-          /* Advance to the start of the next element. */
-          next += strlen (element);
-          next += strspn (expression + next, ",");
-        }
+      parse_element_list (expression + strlen (test_expression) + 2, ",");
     }
 
   if (parse_trace)
@@ -1266,10 +1411,10 @@ parse_get_v400_resource_offset (const scr_char *name,
 
 
 /*
- * parse_handle_v400_resources()
+ * parse_handle_v400_resource()
  *
- * Extra special handling for version 4.0 resources; extracts details of
- * the resource just parsed, and adds an offset property for each defined.
+ * Extra special handling for a version 4.0 resource; extracts details of
+ * the sound or graphic just parsed, and adds an offset property if defined.
  *
  * A warning -- Adrift seems to use -ve numbers as lengths for resources
  * already parsed, where TAF files include the resource.  It's unclear
@@ -1282,103 +1427,32 @@ parse_get_v400_resource_offset (const scr_char *name,
  * our parse_resources table, but not always...
  */
 static void
-parse_handle_v400_resources (scr_bool has_sound, scr_bool has_graphics)
+parse_handle_v400_resource (const scr_char *file_key,
+                            const scr_char *length_key,
+                            const scr_char *offset_key)
 {
-  scr_vartype_t vt_key, vt_value;
   const scr_char *file;
-  scr_int length, offset;
+  scr_int length;
+
+  /* Retrieve the file and length information for the resource just parsed. */
+  file = parse_get_keyed_string (file_key);
+  length = parse_get_keyed_integer (length_key);
 
   /*
-   * Retrieve the file and length for the sound just parsed.  If there's a
-   * file of non-zero length, rewrite its offset.
+   * If defined and has a length, rewrite the offset, and also the length
+   * in case changed.
    */
-  if (has_sound)
+  if (!scr_strempty (file) && length != 0)
     {
-      /* Retrieve the file and length information. */
-      vt_key.string = "SoundFile";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      file = parse_get_string_property ();
-      parse_pop_key ();
+      scr_int real_length;
 
-      vt_key.string = "SoundLen";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      length = parse_get_integer_property ();
-      parse_pop_key ();
+      parse_put_keyed_integer (offset_key,
+                               parse_get_v400_resource_offset (file, length,
+                                                               &real_length));
 
-      /*
-       * If defined and has a length, rewrite the offset, and also the length
-       * in case changed.
-       */
-      if (!scr_strempty (file) && length != 0)
-        {
-          scr_int real_length;
-
-          offset = parse_get_v400_resource_offset (file, length, &real_length);
-          vt_key.string = "SoundOffset";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-
-          vt_value.integer = offset;
-          parse_put_property (vt_value, PROP_INTEGER);
-
-          parse_pop_key ();
-
-          /* Rewrite length if changed. */
-          if (real_length != length)
-            {
-              vt_key.string = "SoundLen";
-              parse_push_key (vt_key, PROP_KEY_STRING);
-
-              vt_value.integer = real_length;
-              parse_put_property (vt_value, PROP_INTEGER);
-
-              parse_pop_key ();
-            }
-        }
-    }
-
-  /* Now do the same thing for graphics. */
-  if (has_graphics)
-    {
-      /* Retrieve the file and length information. */
-      vt_key.string = "GraphicFile";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      file = parse_get_string_property ();
-      parse_pop_key ();
-
-      vt_key.string = "GraphicLen";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      length = parse_get_integer_property ();
-      parse_pop_key ();
-
-      /*
-       * If defined and has a length, rewrite the offset, and also the length
-       * in case changed.
-       */
-      if (!scr_strempty (file) && length != 0)
-        {
-          scr_int real_length;
-
-          offset = parse_get_v400_resource_offset (file, length, &real_length);
-          vt_key.string = "GraphicOffset";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-
-          vt_value.integer = offset;
-          parse_put_property (vt_value, PROP_INTEGER);
-
-          parse_pop_key ();
-
-          /* Rewrite length if changed. */
-          if (real_length != length)
-            {
-              vt_key.string = "GraphicLen";
-              parse_push_key (vt_key, PROP_KEY_STRING);
-
-              vt_value.integer = real_length;
-              parse_put_property (vt_value, PROP_INTEGER);
-
-              parse_pop_key ();
-            }
-        }
+      /* Rewrite length if changed. */
+      if (real_length != length)
+        parse_put_keyed_integer (length_key, real_length);
     }
 }
 
@@ -1398,19 +1472,12 @@ parse_special (const scr_char *special)
   /* Special handling for version 4.0 resources. */
   if (strcmp (special, "{V400_RESOURCE}") == 0)
     {
-      scr_vartype_t vt_key[2];
-      scr_bool has_sound, has_graphics;
-
-      /* Get sound and graphics global flags. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "Sound";
-      has_sound = prop_get_boolean (parse_bundle, "B<-ss", vt_key);
-
-      vt_key[1].string = "Graphics";
-      has_graphics = prop_get_boolean (parse_bundle, "B<-ss", vt_key);
-
-      /* Apply special handling to the resources. */
-      parse_handle_v400_resources (has_sound, has_graphics);
+      /* Handle whichever resources the global flags say are in use. */
+      if (parse_get_global_boolean ("Sound"))
+        parse_handle_v400_resource ("SoundFile", "SoundLen", "SoundOffset");
+      if (parse_get_global_boolean ("Graphics"))
+        parse_handle_v400_resource ("GraphicFile", "GraphicLen",
+                                    "GraphicOffset");
     }
 
   /* Parse a version 4.0 optional set of room exit information. */
@@ -1446,14 +1513,11 @@ parse_special (const scr_char *special)
   else if (strcmp (special, "{ROOM_LIST0}") == 0
            || strcmp (special, "{ROOM_LIST1}") == 0)
     {
-      scr_vartype_t vt_key, vt_value;
+      scr_vartype_t vt_key;
       scr_int room_count, num_rooms, type, index_;
 
       /* Retrieve the room list type. */
-      vt_key.string = "Type";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      type = parse_get_integer_property ();
-      parse_pop_key ();
+      type = parse_get_keyed_integer ("Type");
 
       /* Write remaining room list depending on the type. */
       switch (type)
@@ -1479,23 +1543,9 @@ parse_special (const scr_char *special)
             num_rooms = room_count;
 
           /* Store an array of rooms flags for each room. */
-          vt_key.string = "Rooms";
-          parse_push_key (vt_key, PROP_KEY_STRING);
           for (index_ = 0; index_ < num_rooms; index_++)
-            {
-              scr_bool this_room;
-
-              /* Get flag for this room. */
-              this_room = parse_get_taf_boolean ();
-
-              /* Store flag directly. */
-              vt_key.integer = index_;
-              parse_push_key (vt_key, PROP_KEY_INTEGER);
-              vt_value.boolean = this_room;
-              parse_put_property (vt_value, PROP_BOOLEAN);
-              parse_pop_key ();
-            }
-          parse_pop_key ();
+            parse_put_indexed_boolean ("Rooms", index_,
+                                       parse_get_taf_boolean ());
           break;
 
         default:
@@ -1512,10 +1562,7 @@ parse_special (const scr_char *special)
       /* Check object's Where room list Type for NPC part. */
       vt_key.string = "Where";
       parse_push_key (vt_key, PROP_KEY_STRING);
-      vt_key.string = "Type";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      type = parse_get_integer_property ();
-      parse_pop_key ();
+      type = parse_get_keyed_integer ("Type");
       parse_pop_key ();
 
       /* Get Parent if the object is part of an NPC. */
@@ -1526,52 +1573,25 @@ parse_special (const scr_char *special)
   /* Parse a list of rooms and times for a walk. */
   else if (strcmp (special, "{WALK:#Rooms_#Times}") == 0)
     {
-      scr_vartype_t vt_key, vt_value;
       scr_int num_stops, index_;
 
       /* Obtain the count of stops in this walk. */
-      vt_key.string = "NumStops";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      num_stops = parse_get_integer_property ();
-      parse_pop_key ();
+      num_stops = parse_get_keyed_integer ("NumStops");
 
       /* Look for a room and time for each stop. */
       for (index_ = 0; index_ < num_stops; index_++)
         {
-          scr_int room, time;
-
-          /* Parse and store Rooms[index_]. */
-          vt_key.string = "Rooms";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_key.integer = index_;
-          parse_push_key (vt_key, PROP_KEY_INTEGER);
-
-          room = parse_get_taf_integer ();
-
-          vt_value.integer = room;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-          parse_pop_key ();
-
-          /* Parse and store Times[index_]. */
-          vt_key.string = "Times";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_key.integer = index_;
-          parse_push_key (vt_key, PROP_KEY_INTEGER);
-
-          time = parse_get_taf_integer ();
-
-          vt_value.integer = time;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-          parse_pop_key ();
+          parse_put_indexed_integer ("Rooms", index_,
+                                     parse_get_taf_integer ());
+          parse_put_indexed_integer ("Times", index_,
+                                     parse_get_taf_integer ());
         }
     }
 
   /* Parse a room group variable size boolean list. */
   else if (strcmp (special, "{ROOM_GROUP:[]BList}") == 0)
     {
-      scr_vartype_t vt_key, vt_value;
+      scr_vartype_t vt_key;
       scr_int num_rooms, index_, l2index_;
       scr_bool in_group;
 
@@ -1586,31 +1606,11 @@ parse_special (const scr_char *special)
           in_group = parse_get_taf_boolean ();
 
           /* Store raw flag as List[index_]. */
-          vt_key.string = "List";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_key.integer = index_;
-          parse_push_key (vt_key, PROP_KEY_INTEGER);
-          vt_value.boolean = in_group;
-          parse_put_property (vt_value, PROP_BOOLEAN);
-
-          parse_pop_key ();
-          parse_pop_key ();
+          parse_put_indexed_boolean ("List", index_, in_group);
 
           /* Store in-group index'es as List2[0..n]. */
           if (in_group)
-            {
-              vt_key.string = "List2";
-              parse_push_key (vt_key, PROP_KEY_STRING);
-              vt_key.integer = l2index_;
-              parse_push_key (vt_key, PROP_KEY_INTEGER);
-              vt_value.integer = index_;
-              parse_put_property (vt_value, PROP_INTEGER);
-
-              parse_pop_key ();
-              parse_pop_key ();
-
-              l2index_++;
-            }
+            parse_put_indexed_integer ("List2", l2index_++, index_);
         }
     }
 
@@ -1626,96 +1626,82 @@ parse_special (const scr_char *special)
 
 
 /*
+ * parse_fixup_room_alt_put_res()
+ *
+ * Helper for parse_fixup_v390_v380_room_alt(); write one Res1/Res2 resource
+ * node of a room alt.  Because this is not version 4.0, we can ignore
+ * lengths, and set them to zero.
+ */
+static void
+parse_fixup_room_alt_put_res (const scr_char *res_key,
+                              scr_bool has_sound, scr_bool has_graphics,
+                              const scr_char *soundfile,
+                              const scr_char *graphicfile)
+{
+  scr_vartype_t vt_key;
+
+  if (!has_sound && !has_graphics)
+    return;
+
+  vt_key.string = res_key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+  if (has_sound)
+    {
+      parse_put_keyed_string ("SoundFile", soundfile);
+      parse_put_keyed_integer ("SoundLen", 0);
+    }
+  if (has_graphics)
+    {
+      parse_put_keyed_string ("GraphicFile", graphicfile);
+      parse_put_keyed_integer ("GraphicLen", 0);
+    }
+  parse_pop_key ();
+}
+
+
+/*
  * parse_fixup_v390_v380_room_alt()
  *
  * Helper for parse_fixup_v390_v380_room_alts().  Handles creation of
- * version 4.0 room alts for version 3.9 and version 3.8 games.
+ * version 4.0 room alts for version 3.9 and version 3.8 games.  The M2
+ * "else" text and the Changed room name are always empty in a converted
+ * alt, and only the Res1 resource is ever copied over from the main room.
  */
 static void
 parse_fixup_v390_v380_room_alt (const scr_char *m1, scr_int type,
                                 const scr_char *resource1,
-                                const scr_char *m2, scr_int var2,
-                                const scr_char *resource2,
-                                scr_int hide_objects,
-                                const scr_char *changed,
+                                scr_int var2, scr_int hide_objects,
                                 scr_int var3, scr_int display_room)
 {
-  scr_vartype_t vt_key, vt_value, vt_gkey[2];
+  scr_vartype_t vt_key;
   scr_bool has_sound, has_graphics;
   scr_int alt_count;
   const scr_char *soundfile1, *graphicfile1;
-  const scr_char *soundfile2, *graphicfile2;
 
   /*
    * Initialize resource files to empty, for cases where no resource is copied
-   * over from the main room (NULL resource1/2).
+   * over from the main room (NULL resource1).
    */
   soundfile1 = "";
   graphicfile1 = "";
-  soundfile2 = "";
-  graphicfile2 = "";
 
   /* Get sound and graphics flags, always FALSE for version 3.8. */
-  vt_gkey[0].string = "Globals";
-  vt_gkey[1].string = "Sound";
-  has_sound = prop_get_boolean (parse_bundle, "B<-ss", vt_gkey);
-
-  vt_gkey[1].string = "Graphics";
-  has_graphics = prop_get_boolean (parse_bundle, "B<-ss", vt_gkey);
+  has_sound = parse_get_global_boolean ("Sound");
+  has_graphics = parse_get_global_boolean ("Graphics");
 
   /* Get a count of alts so far defined for the room. */
-  vt_key.string = "Alts";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  alt_count = parse_get_child_count ();
-  parse_pop_key ();
+  alt_count = parse_get_keyed_child_count ("Alts");
 
-  /*
-   * Lookup any resource details now, and save them.  Because this is not
-   * version 4.0, we can ignore lengths, and set them to zero when needed.
-   */
-  if (has_sound || has_graphics)
+  /* Lookup any resource details now, and save them. */
+  if ((has_sound || has_graphics) && resource1)
     {
-      if (resource1)
-        {
-          vt_key.string = resource1;
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          if (has_sound)
-            {
-              vt_key.string = "SoundFile";
-              parse_push_key (vt_key, PROP_KEY_STRING);
-              soundfile1 = parse_get_string_property ();
-              parse_pop_key ();
-            }
-          if (has_graphics)
-            {
-              vt_key.string = "GraphicFile";
-              parse_push_key (vt_key, PROP_KEY_STRING);
-              graphicfile1 = parse_get_string_property ();
-              parse_pop_key ();
-            }
-          parse_pop_key ();
-        }
-
-      if (resource2)
-        {
-          vt_key.string = resource2;
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          if (has_sound)
-            {
-              vt_key.string = "SoundFile";
-              parse_push_key (vt_key, PROP_KEY_STRING);
-              soundfile2 = parse_get_string_property ();
-              parse_pop_key ();
-            }
-          if (has_graphics)
-            {
-              vt_key.string = "GraphicFile";
-              parse_push_key (vt_key, PROP_KEY_STRING);
-              graphicfile2 = parse_get_string_property ();
-              parse_pop_key ();
-            }
-          parse_pop_key ();
-        }
+      vt_key.string = resource1;
+      parse_push_key (vt_key, PROP_KEY_STRING);
+      if (has_sound)
+        soundfile1 = parse_get_keyed_string ("SoundFile");
+      if (has_graphics)
+        graphicfile1 = parse_get_keyed_string ("GraphicFile");
+      parse_pop_key ();
     }
 
   /*
@@ -1729,119 +1715,22 @@ parse_fixup_v390_v380_room_alt (const scr_char *m1, scr_int type,
   vt_key.string = "Alts";
   parse_push_key (vt_key, PROP_KEY_STRING);
 
-  /* Write M1 and Type. */
-  vt_key.string = "M1";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.string = m1;
-  parse_put_property (vt_value, PROP_STRING);
-  parse_pop_key ();
-  vt_key.string = "Type";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = type;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
+  /* Write M1 and Type, with any resources retrieved above. */
+  parse_put_keyed_string ("M1", m1);
+  parse_put_keyed_integer ("Type", type);
+  parse_fixup_room_alt_put_res ("Res1", has_sound, has_graphics,
+                                soundfile1, graphicfile1);
 
-  /* If resources, add these as retrieved above. */
-  if (has_sound || has_graphics)
-    {
-      vt_key.string = "Res1";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      if (has_sound)
-        {
-          vt_key.string = "SoundFile";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.string = soundfile1;
-          parse_put_property (vt_value, PROP_STRING);
-          parse_pop_key ();
-          vt_key.string = "SoundLen";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.integer = 0;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-        }
-      if (has_graphics)
-        {
-          vt_key.string = "GraphicFile";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.string = graphicfile1;
-          parse_put_property (vt_value, PROP_STRING);
-          parse_pop_key ();
-          vt_key.string = "GraphicLen";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.integer = 0;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-        }
-      parse_pop_key ();
-    }
-
-  /* Write M2 and Var2. */
-  vt_key.string = "M2";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.string = m2;
-  parse_put_property (vt_value, PROP_STRING);
-  parse_pop_key ();
-  vt_key.string = "Var2";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = var2;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-
-  /* If resources, again add these as retrieved above. */
-  if (has_sound || has_graphics)
-    {
-      vt_key.string = "Res2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      if (has_sound)
-        {
-          vt_key.string = "SoundFile";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.string = soundfile2;
-          parse_put_property (vt_value, PROP_STRING);
-          parse_pop_key ();
-          vt_key.string = "SoundLen";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.integer = 0;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-        }
-      if (has_graphics)
-        {
-          vt_key.string = "GraphicFile";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.string = graphicfile2;
-          parse_put_property (vt_value, PROP_STRING);
-          parse_pop_key ();
-          vt_key.string = "GraphicLen";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.integer = 0;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-        }
-      parse_pop_key ();
-    }
+  /* Write the empty M2, Var2, and empty Res2 resources. */
+  parse_put_keyed_string ("M2", "");
+  parse_put_keyed_integer ("Var2", var2);
+  parse_fixup_room_alt_put_res ("Res2", has_sound, has_graphics, "", "");
 
   /* Finish off with the last four alt properties. */
-  vt_key.string = "HideObjects";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = hide_objects;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-  vt_key.string = "Changed";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.string = changed;
-  parse_put_property (vt_value, PROP_STRING);
-  parse_pop_key ();
-  vt_key.string = "Var3";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = var3;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-  vt_key.string = "DisplayRoom";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = display_room;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
+  parse_put_keyed_integer ("HideObjects", hide_objects);
+  parse_put_keyed_string ("Changed", "");
+  parse_put_keyed_integer ("Var3", var3);
+  parse_put_keyed_integer ("DisplayRoom", display_room);
 
   parse_pop_key ();
   parse_pop_key ();
@@ -1850,6 +1739,31 @@ parse_fixup_v390_v380_room_alt (const scr_char *m1, scr_int type,
 
 /* Multiplier for combination AltDesc Type and HideObject values. */
 enum { V390_V380_ALT_TYPEHIDE_MULT = 10 };
+
+/*
+ * parse_fixup_v390_v380_task_alt()
+ *
+ * Helper for parse_fixup_v390_v380_room_alts().  If the given task
+ * alternate description is defined, create a room alt to add after the
+ * main description, one that stops printing once done.
+ */
+static void
+parse_fixup_v390_v380_task_alt (const scr_char *task_key,
+                                const scr_char *desc_key,
+                                const scr_char *res_key)
+{
+  scr_int var2;
+
+  var2 = parse_get_keyed_integer (task_key);
+  if (var2 > 0)
+    {
+      parse_fixup_v390_v380_room_alt (parse_get_keyed_string (desc_key),
+                                      0 /* Task condition */,
+                                      res_key, var2, 0, 0,
+                                      1 /* Print after main and stop */);
+    }
+}
+
 
 /*
  * parse_fixup_v390_v380_room_alts()
@@ -1861,124 +1775,43 @@ enum { V390_V380_ALT_TYPEHIDE_MULT = 10 };
 static void
 parse_fixup_v390_v380_room_alts (void)
 {
-  scr_vartype_t vt_key;
-  const scr_char *m1, *m2, *changed;
-  scr_int type, var2, hide_objects, var3, display_room;
-
-  /* Room alt invariants. */
-  m2 = "";                      /* No else text */
-  changed = "";                 /* No changed room name */
+  const scr_char *m1;
+  scr_int var3;
 
   /*
    * Create a room alt to override all others, controlled by an object
    * condition and with optional object hiding.
    */
-  type = 2;                     /* Object condition */
-  display_room = 0;             /* Override all others */
-
-  vt_key.string = "Obj";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  var3 = parse_get_integer_property ();
-  parse_pop_key ();
-
+  var3 = parse_get_keyed_integer ("Obj");
   if (var3 > 0)
     {
-      scr_int typehideobjects;
+      scr_int typehideobjects, var2, hide_objects;
 
-      vt_key.string = "AltDesc";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      m1 = parse_get_string_property ();
-      parse_pop_key ();
-
-      vt_key.string = "TypeHideObjects";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      typehideobjects = parse_get_integer_property ();
-      parse_pop_key ();
+      m1 = parse_get_keyed_string ("AltDesc");
+      typehideobjects = parse_get_keyed_integer ("TypeHideObjects");
 
       var2 = typehideobjects / V390_V380_ALT_TYPEHIDE_MULT;
       hide_objects = typehideobjects % V390_V380_ALT_TYPEHIDE_MULT;
 
-      parse_fixup_v390_v380_room_alt (m1, type, "AltRes",
-                                      m2, var2, NULL,
-                                      hide_objects, changed, var3,
-                                      display_room);
+      parse_fixup_v390_v380_room_alt (m1, 2 /* Object condition */,
+                                      "AltRes", var2, hide_objects, var3,
+                                      0 /* Override all others */);
     }
 
-  /*
-   * If a second task alternate description is defined, create a room alt to
-   * add after the main description, one that stops printing once done.
-   */
-  type = 0;                     /* Task condition */
-  display_room = 1;             /* Print after main and stop */
-
-  vt_key.string = "Task2";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  var2 = parse_get_integer_property ();
-  parse_pop_key ();
-
-  if (var2 > 0)
-    {
-      vt_key.string = "AddDesc2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      m1 = parse_get_string_property ();
-      parse_pop_key ();
-
-      var3 = 0;
-      hide_objects = 0;
-
-      parse_fixup_v390_v380_room_alt (m1, type, "Task2Res",
-                                      m2, var2, NULL,
-                                      hide_objects, changed, var3,
-                                      display_room);
-    }
-
-  /* Do the same for any first task additional description. */
-  type = 0;                     /* Task condition */
-  display_room = 1;             /* Print after main and stop */
-
-  vt_key.string = "Task1";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  var2 = parse_get_integer_property ();
-  parse_pop_key ();
-
-  if (var2 > 0)
-    {
-      vt_key.string = "AddDesc1";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      m1 = parse_get_string_property ();
-      parse_pop_key ();
-
-      var3 = 0;
-      hide_objects = 0;
-
-      parse_fixup_v390_v380_room_alt (m1, type, "Task1Res",
-                                      m2, var2, NULL,
-                                      hide_objects, changed, var3,
-                                      display_room);
-    }
+  /* Create alts for the second and first task additional descriptions. */
+  parse_fixup_v390_v380_task_alt ("Task2", "AddDesc2", "Task2Res");
+  parse_fixup_v390_v380_task_alt ("Task1", "AddDesc1", "Task1Res");
 
   /*
    * If still printing at this point, we need a catch-all room alt that will
-   * print.  So create one with an always true condition.
+   * print.  So create one with an always true condition (no task).
    */
-  type = 0;                     /* Task condition */
-  display_room = 2;             /* Lowest priority output */
-
-  vt_key.string = "LastDesc";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  m1 = parse_get_string_property ();
-  parse_pop_key ();
-
+  m1 = parse_get_keyed_string ("LastDesc");
   if (!scr_strempty (m1))
     {
-      var2 = 0;                 /* No task - always TRUE */
-      var3 = 0;
-      hide_objects = 0;
-
-      parse_fixup_v390_v380_room_alt (m1, type, "LastRes",
-                                      m2, var2, NULL,
-                                      hide_objects, changed, var3,
-                                      display_room);
+      parse_fixup_v390_v380_room_alt (m1, 0 /* Task condition, always TRUE */,
+                                      "LastRes", 0, 0, 0,
+                                      2 /* Lowest priority output */);
     }
 }
 
@@ -1994,14 +1827,10 @@ parse_fixup_v390_v380_room_alts (void)
 static void
 parse_write_restrmask (void)
 {
-  scr_vartype_t vt_key, vt_value;
   scr_int restriction_count;
 
   /* Get a count of restrictions. */
-  vt_key.string = "Restrictions";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  restriction_count = parse_get_child_count ();
-  parse_pop_key ();
+  restriction_count = parse_get_keyed_child_count ("Restrictions");
 
   /* Allocate and fill a new mask for these restrictions. */
   if (restriction_count > 0)
@@ -2015,14 +1844,54 @@ parse_write_restrmask (void)
       for (index_ = 1; index_ < restriction_count; index_++)
         strncat (restrmask, "A#", 2);
 
-      vt_key.string = "RestrMask";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      vt_value.string = restrmask;
-      parse_put_property (vt_value, PROP_STRING);
-      parse_pop_key ();
-
+      parse_put_keyed_string ("RestrMask", restrmask);
       prop_adopt (parse_bundle, restrmask);
     }
+}
+
+
+/*
+ * parse_fixup_conditional_increment()
+ *
+ * Rewrite an integer property as one greater if its current value exceeds
+ * the given threshold.  Two version 3.9 fixups are exactly this.
+ */
+static void
+parse_fixup_conditional_increment (const scr_char *key, scr_int threshold)
+{
+  scr_int value;
+
+  value = parse_get_keyed_integer (key);
+  if (value > threshold)
+    parse_put_keyed_integer (key, value + 1);
+}
+
+
+/*
+ * parse_fixup_openable_key()
+ *
+ * Common helper for parse_fixup_v390() and parse_fixup_v380(); exchange
+ * openable values 5 and 6, and write a -1 Key for openable objects.  A
+ * version 3.8 game may also hold the odd Openable value of 1, which is
+ * rewritten as zero.
+ */
+static void
+parse_fixup_openable_key (scr_bool rewrite_one_as_zero)
+{
+  scr_int openable;
+
+  /* Retrieve Openable, and if 5 or 6, exchange. */
+  openable = parse_get_keyed_integer ("Openable");
+  if (openable == 5 || openable == 6)
+    parse_put_keyed_integer ("Openable", (openable == 5) ? 6 : 5);
+
+  /* If the odd value of 1, rewrite as zero. */
+  else if (rewrite_one_as_zero && openable == 1)
+    parse_put_keyed_integer ("Openable", 0);
+
+  /* For openable objects, store a Key of -1. */
+  if (openable == 5 || openable == 6)
+    parse_put_keyed_integer ("Key", -1);
 }
 
 
@@ -2040,37 +1909,13 @@ parse_fixup_v390 (const scr_char *fixup)
 
   /* Fixup a version 3.9 task action by incrementing Type > 4. */
   if (strcmp (fixup, "|V390_TASK_ACTION:Type>4?#Type++|") == 0)
-    {
-      scr_vartype_t vt_key, vt_value;
-      scr_int type;
-
-      /* Retrieve Type, and if > 4, increment. */
-      vt_key.string = "Type";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      type = parse_get_integer_property ();
-
-      if (type > 4)
-        {
-          vt_value.integer = type + 1;
-          parse_put_property (vt_value, PROP_INTEGER);
-        }
-
-      parse_pop_key ();
-    }
+    parse_fixup_conditional_increment ("Type", 4);
 
   /* Handle either Expr or Var5 for version 3.9 task actions. */
   else if (strcmp (fixup, "|V390_TASK_ACTION:$Expr_#Var5|") == 0)
     {
-      scr_vartype_t vt_key;
-      scr_int var2;
-
       /* Either Expr or Var5, depending on Var2. */
-      vt_key.string = "Var2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      var2 = parse_get_integer_property ();
-      parse_pop_key ();
-
-      if (var2 == 5)
+      if (parse_get_keyed_integer ("Var2") == 5)
         parse_descriptor ("$Expr ZVar5");
       else
         parse_descriptor ("EExpr #Var5");
@@ -2080,33 +1925,7 @@ parse_fixup_v390 (const scr_char *fixup)
    * Exchange openable values 5 and 6, and write -1 key for openable objects.
    */
   else if (strcmp (fixup, "|V390_OBJECT:_Openable_,Key|") == 0)
-    {
-      scr_vartype_t vt_key, vt_value;
-      scr_int openable;
-
-      /* Retrieve Openable, and if 5 or 6, exchange. */
-      vt_key.string = "Openable";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      openable = parse_get_integer_property ();
-
-      if (openable == 5 || openable == 6)
-        {
-          vt_value.integer = (openable == 5) ? 6 : 5;
-          parse_put_property (vt_value, PROP_INTEGER);
-        }
-
-      parse_pop_key ();
-
-      /* For openable objects, store a Key of -1. */
-      if (openable == 5 || openable == 6)
-        {
-          vt_key.string = "Key";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.integer = -1;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-        }
-    }
+    parse_fixup_openable_key (FALSE);
 
   /* Create a RestrMask that 'and's all the restrictions together. */
   else if (strcmp (fixup, "|V390_TASK:$RestrMask|") == 0)
@@ -2117,23 +1936,7 @@ parse_fixup_v390 (const scr_char *fixup)
    * referenced text comparison (no string variables).
    */
   else if (strcmp (fixup, "|V390_TASK_RESTR:Var1>0?#Var1++|") == 0)
-    {
-      scr_vartype_t vt_key, vt_value;
-      scr_int var1;
-
-      /* Retrieve Var1, and if greater than zero, increment. */
-      vt_key.string = "Var1";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      var1 = parse_get_integer_property ();
-
-      if (var1 > 0)
-        {
-          vt_value.integer = var1 + 1;
-          parse_put_property (vt_value, PROP_INTEGER);
-        }
-
-      parse_pop_key ();
-    }
+    parse_fixup_conditional_increment ("Var1", 0);
 
   /* Convert version 3.9 fixed alts into a version 4.0 array. */
   else if (strcmp (fixup, "|V390_ROOM:_Alts_|") == 0)
@@ -2179,14 +1982,11 @@ parse_fixup_v380_entry (const scr_char *collection,
                         scr_int var1, scr_int var2, scr_int var3,
                         const scr_char *failmessage)
 {
-  scr_vartype_t vt_key, vt_value;
+  scr_vartype_t vt_key;
   scr_int entry_count;
 
   /* Get a count of entries so far defined for the task. */
-  vt_key.string = collection;
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  entry_count = parse_get_child_count ();
-  parse_pop_key ();
+  entry_count = parse_get_keyed_child_count (collection);
 
   /* Write the collection key, reversed to emulate parse actions. */
   vt_key.integer = entry_count;
@@ -2195,44 +1995,14 @@ parse_fixup_v380_entry (const scr_char *collection,
   parse_push_key (vt_key, PROP_KEY_STRING);
 
   /* Write the new entry according to the given arguments. */
-  vt_key.string = "Type";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = type;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-
-  vt_key.string = "Var1";
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_value.integer = var1;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-
+  parse_put_keyed_integer ("Type", type);
+  parse_put_keyed_integer ("Var1", var1);
   if (var_count > 1)
-    {
-      vt_key.string = "Var2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      vt_value.integer = var2;
-      parse_put_property (vt_value, PROP_INTEGER);
-      parse_pop_key ();
-    }
-
+    parse_put_keyed_integer ("Var2", var2);
   if (var_count > 2)
-    {
-      vt_key.string = "Var3";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      vt_value.integer = var3;
-      parse_put_property (vt_value, PROP_INTEGER);
-      parse_pop_key ();
-    }
-
+    parse_put_keyed_integer ("Var3", var3);
   if (failmessage)
-    {
-      vt_key.string = "FailMessage";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      vt_value.string = failmessage;
-      parse_put_property (vt_value, PROP_STRING);
-      parse_pop_key ();
-    }
+    parse_put_keyed_string ("FailMessage", failmessage);
 
   parse_pop_key ();
   parse_pop_key ();
@@ -2348,6 +2118,34 @@ parse_fixup_v380_restr (scr_int type, scr_int var_count,
 
 
 /*
+ * parse_v380_object_to_dynamic()
+ *
+ * Helper for the version 3.8 restriction fixups; count the dynamic
+ * (non-static) objects among objects 0 to last_object inclusive, and
+ * return that count less one, converting an object index into an index
+ * that considers only dynamic objects.
+ */
+static scr_int
+parse_v380_object_to_dynamic (scr_int last_object)
+{
+  scr_vartype_t vt_key[3];
+  scr_int object, dynamic;
+
+  dynamic = 0;
+  for (object = 0; object <= last_object; object++)
+    {
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "Static";
+      if (!prop_get_boolean (parse_bundle, "B<-sis", vt_key))
+        dynamic++;
+    }
+
+  return dynamic - 1;
+}
+
+
+/*
  * parse_fixup_v380_obj_restr()
  * parse_fixup_v380_task_restr()
  * parse_fixup_v380_wear_restr()
@@ -2440,18 +2238,7 @@ parse_fixup_v380_wear_restr (scr_int wearobj, const scr_char *failmessage)
       obj_index = object - 1;
 
       /* Now convert wearobj from object index to dynamic index. */
-      dynamic = 0;
-      for (object = 0; object <= obj_index; object++)
-        {
-          scr_bool bstatic;
-
-          vt_key[1].integer = object;
-          vt_key[2].string = "Static";
-          bstatic = prop_get_boolean (parse_bundle, "B<-sis", vt_key);
-          if (!bstatic)
-            dynamic++;
-        }
-      dynamic--;
+      dynamic = parse_v380_object_to_dynamic (obj_index);
 
       /* Create version 4.0 restriction for object worn by player. */
       parse_fixup_v380_restr (0, 3, dynamic + 3, 2, 0, failmessage);
@@ -2534,19 +2321,7 @@ parse_fixup_v380_objstate_restr (scr_int obj, scr_int ivar1, scr_int ivar2,
     }
 
   /* Convert obj from object to dynamic index. */
-  dynamic = 0;
-  for (object = 0; object <= obj - 1; object++)
-    {
-      scr_bool bstatic;
-
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Static";
-      bstatic = prop_get_boolean (parse_bundle, "B<-sis", vt_key);
-      if (!bstatic)
-        dynamic++;
-    }
-  dynamic--;
+  dynamic = parse_v380_object_to_dynamic (obj - 1);
 
   /* Create version 4.0 object location restrictions for the rest. */
   switch (ivar1)
@@ -2589,29 +2364,13 @@ parse_fixup_v380 (const scr_char *fixup)
   /* Convert container capacity attributes to version 4.0 values. */
   if (strcmp (fixup, "|V380_OBJECT:#Capacity*10+2|") == 0)
     {
-      scr_vartype_t vt_key, vt_value;
-      scr_int surfacecontainer;
-
-      /* Get the object surface and container attributes. */
-      vt_key.string = "SurfaceContainer";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      surfacecontainer = parse_get_integer_property ();
-      parse_pop_key ();
-
       /* Convert capacity from version 3.8 format to version 4.0. */
-      if (surfacecontainer == V380_OBJ_IS_CONTAINER)
+      if (parse_get_keyed_integer ("SurfaceContainer") == V380_OBJ_IS_CONTAINER)
         {
-          scr_int capacity;
-
-          vt_key.string = "Capacity";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          capacity = parse_get_integer_property ();
-
-          capacity = capacity * V380_OBJ_CAPACITY_MULT + V380_OBJ_DEFAULT_SIZE;
-
-          vt_value.integer = capacity;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
+          parse_put_keyed_integer ("Capacity",
+                                   parse_get_keyed_integer ("Capacity")
+                                   * V380_OBJ_CAPACITY_MULT
+                                   + V380_OBJ_DEFAULT_SIZE);
         }
     }
 
@@ -2620,73 +2379,23 @@ parse_fixup_v380 (const scr_char *fixup)
    * (interpret as 0), and write -1 key for openable objects.
    */
   else if (strcmp (fixup, "|V380_OBJECT:_Openable_,Key|") == 0)
-    {
-      scr_vartype_t vt_key, vt_value;
-      scr_int openable;
-
-      /* Retrieve Openable, and if 5 or 6, exchange. */
-      vt_key.string = "Openable";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      openable = parse_get_integer_property ();
-
-      if (openable == 5 || openable == 6)
-        {
-          vt_value.integer = (openable == 5) ? 6 : 5;
-          parse_put_property (vt_value, PROP_INTEGER);
-        }
-
-      /* If the odd value of 1, rewrite as zero. */
-      else if (openable == 1)
-        {
-          vt_value.integer = 0;
-          parse_put_property (vt_value, PROP_INTEGER);
-        }
-
-      parse_pop_key ();
-
-      /* For openable objects, store a Key of -1. */
-      if (openable == 5 || openable == 6)
-        {
-          vt_key.string = "Key";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          vt_value.integer = -1;
-          parse_put_property (vt_value, PROP_INTEGER);
-          parse_pop_key ();
-        }
-    }
+    parse_fixup_openable_key (TRUE);
 
   /* Create version 4.0 task actions from a version 3.8 task. */
   else if (strcmp (fixup, "|V380_TASK:_Actions_|") == 0)
     {
       scr_vartype_t vt_key;
-      scr_int score;
-      scr_bool killsplayer, wingame;
-      scr_int movement;
-
-      /* Retrieve the score change for the task. */
-      vt_key.string = "Score";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      score = parse_get_integer_property ();
-      parse_pop_key ();
+      scr_int score, movement;
 
       /* Create any appropriate score change action. */
+      score = parse_get_keyed_integer ("Score");
       if (score != 0)
         parse_fixup_v380_action (4, 1, score, 0, 0);
 
-      /* Get player death and game winning flags. */
-      vt_key.string = "KillsPlayer";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      killsplayer = parse_get_boolean_property ();
-      parse_pop_key ();
-      vt_key.string = "WinGame";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      wingame = parse_get_boolean_property ();
-      parse_pop_key ();
-
       /* Create any appropriate game ending actions. */
-      if (killsplayer)
+      if (parse_get_keyed_boolean ("KillsPlayer"))
         parse_fixup_v380_action (6, 1, 2, 0, 0);
-      if (wingame)
+      if (parse_get_keyed_boolean ("WinGame"))
         parse_fixup_v380_action (6, 1, 0, 0, 0);
 
       /* Handle each defined movement for the task. */
@@ -2700,18 +2409,9 @@ parse_fixup_v380 (const scr_char *fixup)
           parse_push_key (vt_key, PROP_KEY_STRING);
 
           /* Retrieve the movement parameters. */
-          vt_key.string = "Var1";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          mvar1 = parse_get_integer_property ();
-          parse_pop_key ();
-          vt_key.string = "Var2";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          mvar2 = parse_get_integer_property ();
-          parse_pop_key ();
-          vt_key.string = "Var3";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          mvar3 = parse_get_integer_property ();
-          parse_pop_key ();
+          mvar1 = parse_get_keyed_integer ("Var1");
+          mvar2 = parse_get_keyed_integer ("Var2");
+          mvar3 = parse_get_keyed_integer ("Var3");
 
           parse_pop_key ();
           parse_pop_key ();
@@ -2724,143 +2424,52 @@ parse_fixup_v380 (const scr_char *fixup)
   /* Create version 4.0 task restrictions from a version 3.8 task. */
   else if (strcmp (fixup, "|V380_TASK:_Restrictions_|") == 0)
     {
-      scr_vartype_t vt_key;
-      scr_bool holding, tasknotdone, notinsameroom;
-      scr_int holdobj1, holdobj2, holdobj3, task;
-      scr_int wearobj1, wearobj2, npc, obj1, obj1room, obj2;
-      const scr_char *holdmsg, *taskmsg, *wearmsg, *companymsg;
-      const scr_char *obj1msg;
+      scr_bool holding;
+      scr_int obj2;
+      const scr_char *holdmsg;
 
       /* Create restrictions for objects not held or absent. */
-      vt_key.string = "HoldingSameRoom";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      holding = parse_get_boolean_property ();
-      parse_pop_key ();
-
-      vt_key.string = "HoldObj1";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      holdobj1 = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "HoldObj2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      holdobj2 = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "HoldObj3";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      holdobj3 = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "HoldMsg";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      holdmsg = parse_get_string_property ();
-      parse_pop_key ();
-
-      parse_fixup_v380_obj_restr (holding, holdobj1, holdmsg);
-      parse_fixup_v380_obj_restr (holding, holdobj2, holdmsg);
-      parse_fixup_v380_obj_restr (holding, holdobj3, holdmsg);
+      holding = parse_get_keyed_boolean ("HoldingSameRoom");
+      holdmsg = parse_get_keyed_string ("HoldMsg");
+      parse_fixup_v380_obj_restr (holding,
+                                  parse_get_keyed_integer ("HoldObj1"),
+                                  holdmsg);
+      parse_fixup_v380_obj_restr (holding,
+                                  parse_get_keyed_integer ("HoldObj2"),
+                                  holdmsg);
+      parse_fixup_v380_obj_restr (holding,
+                                  parse_get_keyed_integer ("HoldObj3"),
+                                  holdmsg);
 
       /* Create any task state restriction. */
-      vt_key.string = "TaskNotDone";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      tasknotdone = parse_get_boolean_property ();
-      parse_pop_key ();
-
-      vt_key.string = "Task";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      task = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "TaskMsg";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      taskmsg = parse_get_string_property ();
-      parse_pop_key ();
-
-      parse_fixup_v380_task_restr (tasknotdone, task, taskmsg);
+      parse_fixup_v380_task_restr (parse_get_keyed_boolean ("TaskNotDone"),
+                                   parse_get_keyed_integer ("Task"),
+                                   parse_get_keyed_string ("TaskMsg"));
 
       /* Create any object not worn restrictions. */
-      vt_key.string = "WearObj1";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      wearobj1 = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "WearObj2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      wearobj2 = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "WearMsg";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      wearmsg = parse_get_string_property ();
-      parse_pop_key ();
-
-      parse_fixup_v380_wear_restr (wearobj1, wearmsg);
-      parse_fixup_v380_wear_restr (wearobj2, wearmsg);
+      parse_fixup_v380_wear_restr (parse_get_keyed_integer ("WearObj1"),
+                                   parse_get_keyed_string ("WearMsg"));
+      parse_fixup_v380_wear_restr (parse_get_keyed_integer ("WearObj2"),
+                                   parse_get_keyed_string ("WearMsg"));
 
       /* Check for presence/absence of NPCs restriction. */
-      vt_key.string = "NotInSameRoom";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      notinsameroom = parse_get_boolean_property ();
-      parse_pop_key ();
-
-      vt_key.string = "NPC";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      npc = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "CompanyMsg";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      companymsg = parse_get_string_property ();
-      parse_pop_key ();
-
-      parse_fixup_v380_npc_restr (notinsameroom, npc, companymsg);
+      parse_fixup_v380_npc_restr (parse_get_keyed_boolean ("NotInSameRoom"),
+                                  parse_get_keyed_integer ("NPC"),
+                                  parse_get_keyed_string ("CompanyMsg"));
 
       /* Create any object location restriction. */
-      vt_key.string = "Obj1";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      obj1 = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "Obj1Room";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      obj1room = parse_get_integer_property ();
-      parse_pop_key ();
-
-      vt_key.string = "Obj1Msg";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      obj1msg = parse_get_string_property ();
-      parse_pop_key ();
-
-      parse_fixup_v380_objroom_restr (obj1, obj1room, obj1msg);
+      parse_fixup_v380_objroom_restr (parse_get_keyed_integer ("Obj1"),
+                                      parse_get_keyed_integer ("Obj1Room"),
+                                      parse_get_keyed_string ("Obj1Msg"));
 
       /* And finally, any object state restriction. */
-      vt_key.string = "Obj2";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      obj2 = parse_get_integer_property ();
-      parse_pop_key ();
-
+      obj2 = parse_get_keyed_integer ("Obj2");
       if (obj2 > 0)
         {
-          scr_int var1, var2;
-          const scr_char *obj2msg;
-
-          vt_key.string = "Obj2Var1";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          var1 = parse_get_integer_property ();
-          parse_pop_key ();
-
-          vt_key.string = "Obj2Var2";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          var2 = parse_get_integer_property ();
-          parse_pop_key ();
-
-          vt_key.string = "Obj2Msg";
-          parse_push_key (vt_key, PROP_KEY_STRING);
-          obj2msg = parse_get_string_property ();
-          parse_pop_key ();
-
-          parse_fixup_v380_objstate_restr (obj2, var1, var2, obj2msg);
+          parse_fixup_v380_objstate_restr (obj2,
+                                        parse_get_keyed_integer ("Obj2Var1"),
+                                        parse_get_keyed_integer ("Obj2Var2"),
+                                        parse_get_keyed_string ("Obj2Msg"));
         }
 
       /* Mask off the restrictions just created. */
@@ -2968,26 +2577,13 @@ parse_fixup_v380 (const scr_char *fixup)
   /* Convert carry limit into version 4.0-like size and weight limits. */
   else if (strcmp (fixup, "|V380_MaxSize_MaxWt_|") == 0)
     {
-      scr_vartype_t vt_key, vt_value;
-      scr_int maxcarried;
+      scr_int limit;
 
-      vt_key.string = "MaxCarried";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      maxcarried = parse_get_integer_property ();
-      parse_pop_key ();
+      limit = parse_get_keyed_integer ("MaxCarried") * V380_OBJ_CAPACITY_MULT
+              + V380_OBJ_DEFAULT_SIZE;
 
-      vt_value.integer = maxcarried * V380_OBJ_CAPACITY_MULT
-                         + V380_OBJ_DEFAULT_SIZE;
-
-      vt_key.string = "MaxSize";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      parse_put_property (vt_value, PROP_INTEGER);
-      parse_pop_key ();
-
-      vt_key.string = "MaxWt";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      parse_put_property (vt_value, PROP_INTEGER);
-      parse_pop_key ();
+      parse_put_keyed_integer ("MaxSize", limit);
+      parse_put_keyed_integer ("MaxWt", limit);
     }
 
   /* Add up positive scoring tasks to arrive at max score. */
@@ -3023,19 +2619,15 @@ parse_fixup_v380 (const scr_char *fixup)
   /* Convert walk meetobject from dynamic index to object. */
   else if (strcmp (fixup, "|V380_WALK:_MeetObject_|") == 0)
     {
-      scr_vartype_t vt_key, vt_value, vt_gkey[3];
-      scr_int meetobject, count, object_count, object;
-
-      vt_key.string = "MeetObject";
-      parse_push_key (vt_key, PROP_KEY_STRING);
-      meetobject = parse_get_integer_property ();
+      scr_vartype_t vt_gkey[3];
+      scr_int count, object_count, object;
 
       /* Get a count of objects. */
       vt_gkey[0].string = "Objects";
       object_count = prop_get_child_count (parse_bundle, "I<-s", vt_gkey);
 
       /* Convert dynamic index to object, and rewrite. */
-      count = meetobject - 1;
+      count = parse_get_keyed_integer ("MeetObject") - 1;
       for (object = 0; object < object_count && count >= 0; object++)
         {
           scr_bool bstatic;
@@ -3048,9 +2640,7 @@ parse_fixup_v380 (const scr_char *fixup)
         }
       object--;
 
-      vt_value.integer = object;
-      parse_put_property (vt_value, PROP_INTEGER);
-      parse_pop_key ();
+      parse_put_keyed_integer ("MeetObject", object);
     }
 
   /* Convert version 3.8 room data into a version 4.0 alts array. */
@@ -3167,24 +2757,7 @@ parse_element (const scr_char *element)
 static void
 parse_descriptor (const scr_char *descriptor)
 {
-  scr_int next;
-
-  /* Find and parse each element in the descriptor. */
-  for (next = 0; descriptor[next] != NUL; )
-    {
-      scr_char element[PARSE_TEMP_LENGTH];
-
-      /* Isolate the next descriptor element. */
-      if (sscanf (descriptor + next, "%[^ ]", element) != 1)
-        scr_fatal ("parse_element: no element, %s\n", descriptor + next);
-
-      /* Parse this isolated element. */
-      parse_element (element);
-
-      /* Advance over the element and any trailing whitespace. */
-      next += strlen (element);
-      next += strspn (descriptor + next, " ");
-    }
+  parse_element_list (descriptor, " ");
 }
 
 
