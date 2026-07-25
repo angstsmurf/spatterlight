@@ -625,6 +625,46 @@ lib_select_plurality (scr_gameref_t game, scr_int object,
 
 
 /*
+ * lib_new_clause()
+ * lib_print_clause()
+ *
+ * Start a new clause in the turn's output.  Where something has already been
+ * printed this turn, the clause is set off from it by two spaces; the rest is
+ * either a fresh sentence, or the phrase appropriate to the perspective.
+ *
+ * List handlers hold each item back until they know whether it is the last,
+ * so the clause that introduces a list has to be printed at whichever point
+ * the first item finally emerges -- inside the loop when a second item turns
+ * up, or in the tail when the list held only one.  These keep the two copies
+ * of it from drifting apart.
+ */
+static void
+lib_new_clause (scr_gameref_t game, scr_bool has_printed)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (has_printed)
+    pf_buffer_string (filter, "  ");
+  pf_new_sentence (filter);
+}
+
+static void
+lib_print_clause (scr_gameref_t game, scr_bool has_printed,
+                  const scr_char *second_person,
+                  const scr_char *first_person,
+                  const scr_char *third_person)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (has_printed)
+    pf_buffer_string (filter, "  ");
+  pf_buffer_string (filter,
+                    lib_select_response (game, second_person,
+                                         first_person, third_person));
+}
+
+
+/*
  * lib_get_npc_inroom_text()
  *
  * Returns the inroom description to be use for an NPC; if the NPC has
@@ -2800,13 +2840,10 @@ lib_cmd_examine_self (scr_gameref_t game)
           if (count > 0)
             {
               if (count == 1)
-                {
-                  pf_buffer_string (filter,
-                                    lib_select_response (game,
-                                                     "  You are wearing ",
-                                                     "  I am wearing ",
-                                                     "  %player% is wearing "));
-                }
+                lib_print_clause (game, TRUE,
+                                  "You are wearing ",
+                                  "I am wearing ",
+                                  "%player% is wearing ");
               else
                 pf_buffer_string (filter, ", ");
               lib_print_object (game, trail);
@@ -2819,13 +2856,10 @@ lib_cmd_examine_self (scr_gameref_t game)
     {
       /* Print out final listed object. */
       if (count == 1)
-        {
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "  You are wearing ",
-                                                 "  I am wearing ",
-                                                 "  %player% is wearing "));
-        }
+        lib_print_clause (game, TRUE,
+                          "You are wearing ",
+                          "I am wearing ",
+                          "%player% is wearing ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object (game, trail);
@@ -3125,9 +3159,7 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
             {
               if (count == 1)
                 {
-                  if (is_described)
-                    pf_buffer_string (filter, "  ");
-                  pf_new_sentence (filter);
+                  lib_new_clause (game, is_described);
                   lib_print_npc_np (game, npc);
                   pf_buffer_string (filter, " is wearing ");
                 }
@@ -3144,9 +3176,7 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
       /* Print out final listed object. */
       if (count == 1)
         {
-          if (is_described)
-            pf_buffer_string (filter, "  ");
-          pf_new_sentence (filter);
+          lib_new_clause (game, is_described);
           lib_print_npc_np (game, npc);
           pf_buffer_string (filter, " is wearing ");
         }
@@ -3170,9 +3200,7 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
                 {
                   if (!wearing)
                     {
-                      if (is_described)
-                        pf_buffer_string (filter, "  ");
-                      pf_new_sentence (filter);
+                      lib_new_clause (game, is_described);
                       lib_print_npc_np (game, npc);
                     }
                   else
@@ -3194,9 +3222,7 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
         {
           if (!wearing)
             {
-              if (is_described)
-                pf_buffer_string (filter, "  ");
-              pf_new_sentence (filter);
+              lib_new_clause (game, is_described);
               lib_print_npc_np (game, npc);
             }
           else
@@ -3375,11 +3401,7 @@ lib_list_in_object_alternate (scr_gameref_t game,
           if (count > 0)
             {
               if (count == 1)
-                {
-                  if (is_described)
-                    pf_buffer_string (filter, "  ");
-                  pf_new_sentence (filter);
-                }
+                lib_new_clause (game, is_described);
               else
                 pf_buffer_string (filter, ", ");
 
@@ -3395,9 +3417,7 @@ lib_list_in_object_alternate (scr_gameref_t game,
       /* Print out final listed object. */
       if (count == 1)
         {
-          if (is_described)
-            pf_buffer_string (filter, "  ");
-          pf_new_sentence (filter);
+          lib_new_clause (game, is_described);
           lib_print_object (game, trail);
           pf_buffer_string (filter,
                             lib_select_plurality (game, trail,
@@ -3498,11 +3518,7 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described
           if (count > 0)
             {
               if (count == 1)
-                {
-                  if (is_described)
-                    pf_buffer_string (filter, "  ");
-                  pf_new_sentence (filter);
-                }
+                lib_new_clause (game, is_described);
               else
                 pf_buffer_string (filter, ", ");
 
@@ -3518,9 +3534,7 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described
       /* Print out final listed object. */
       if (count == 1)
         {
-          if (is_described)
-            pf_buffer_string (filter, "  ");
-          pf_new_sentence (filter);
+          lib_new_clause (game, is_described);
           lib_print_object (game, trail);
           pf_buffer_string (filter,
                             lib_select_plurality (game, trail,
@@ -3567,9 +3581,7 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
   /* Ensure this is a stateful object. */
   if (is_statussed)
     {
-      if (is_described)
-        pf_buffer_string (filter, "  ");
-      pf_new_sentence (filter);
+      lib_new_clause (game, is_described);
       lib_print_object_np (game, object);
       pf_buffer_string (filter,
                         lib_select_plurality (game, object, " is ", " are "));
@@ -3657,36 +3669,24 @@ lib_cmd_examine_object (scr_gameref_t game)
   switch (openness)
     {
     case OBJ_OPEN:
-      if (is_described)
-        pf_buffer_string (filter, "  ");
-      pf_new_sentence (filter);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is open.", " are open."));
-      is_described |= TRUE;
-      break;
-
     case OBJ_CLOSED:
-      if (is_described)
-        pf_buffer_string (filter, "  ");
-      pf_new_sentence (filter);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is closed.", " are closed."));
-      is_described |= TRUE;
-      break;
-
     case OBJ_LOCKED:
-      if (is_described)
-        pf_buffer_string (filter, "  ");
-      pf_new_sentence (filter);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is locked.", " are locked."));
-      is_described |= TRUE;
+      {
+        /* Singular and plural state, indexed by openness from OBJ_OPEN. */
+        static const scr_char *const states[][2] = {
+          {" is open.", " are open."},
+          {" is closed.", " are closed."},
+          {" is locked.", " are locked."}
+        };
+        const scr_char *const *state = states[openness - OBJ_OPEN];
+
+        lib_new_clause (game, is_described);
+        lib_print_object_np (game, object);
+        pf_buffer_string (filter,
+                          lib_select_plurality (game, object,
+                                                state[0], state[1]));
+        is_described |= TRUE;
+      }
       break;
 
     default:
@@ -4619,9 +4619,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    */
   if (too_heavy != -1)
     {
-      if (has_printed)
-        pf_buffer_string (filter, "  ");
-      pf_new_sentence (filter);
+      lib_new_clause (game, has_printed);
       lib_print_object_np (game, too_heavy);
       pf_buffer_string (filter,
                         lib_select_plurality (game, too_heavy, " is", " are"));
@@ -4637,13 +4635,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
     }
   else if (too_large != -1)
     {
-      if (has_printed)
-        pf_buffer_string (filter, "  ");
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "Your hands are full",
-                                             "My hands are full",
-                                             "%player%'s hands are full"));
+      lib_print_clause (game, has_printed,
+                        "Your hands are full",
+                        "My hands are full",
+                        "%player%'s hands are full");
       if (too_large_portable)
         pf_buffer_string (filter, " at the moment");
       pf_buffer_character (filter, '.');
@@ -4673,9 +4668,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
             {
               if (count == 1)
                 {
-                  if (has_printed)
-                    pf_buffer_string (filter, "  ");
-                  pf_new_sentence (filter);
+                  lib_new_clause (game, has_printed);
                   lib_print_object_np (game, trail);
                 }
               else
@@ -4691,9 +4684,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
         {
           if (count == 1)
             {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_new_sentence (filter);
+              lib_new_clause (game, has_printed);
               lib_print_object_np (game, trail);
               pf_buffer_string (filter,
                                 lib_select_plurality (game, trail,
@@ -4744,9 +4735,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
             {
               if (count == 1)
                 {
-                  if (has_printed)
-                    pf_buffer_string (filter, "  ");
-                  pf_new_sentence (filter);
+                  lib_new_clause (game, has_printed);
                   lib_print_npc_np (game, associate);
                   pf_buffer_string (filter, " is not carrying ");
                 }
@@ -4764,9 +4753,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
         {
           if (count == 1)
             {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_new_sentence (filter);
+              lib_new_clause (game, has_printed);
               lib_print_npc_np (game, associate);
               pf_buffer_string (filter, " is not carrying ");
               lib_print_object_np (game, trail);
@@ -4809,15 +4796,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You've already got ",
-                                                     "I've already got ",
-                                                     "%player% already has "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You've already got ",
+                              "I've already got ",
+                              "%player% already has ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -4831,15 +4813,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You've already got ",
-                                                 "I've already got ",
-                                                 "%player% already has "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You've already got ",
+                          "I've already got ",
+                          "%player% already has ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
@@ -4860,15 +4837,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                               "You're already wearing ",
-                                               "I'm already wearing ",
-                                               "%player% is already wearing "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You're already wearing ",
+                              "I'm already wearing ",
+                              "%player% is already wearing ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -4882,15 +4854,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                               "You're already wearing ",
-                                               "I'm already wearing ",
-                                               "%player% is already wearing "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You're already wearing ",
+                          "I'm already wearing ",
+                          "%player% is already wearing ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
@@ -4917,9 +4884,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
             {
               if (count == 1)
                 {
-                  if (has_printed)
-                    pf_buffer_string (filter, "  ");
-                  pf_new_sentence (filter);
+                  lib_new_clause (game, has_printed);
                   lib_print_npc_np (game, gs_object_parent (game, trail));
                   pf_buffer_string (filter,
                                     lib_select_response (game,
@@ -4941,9 +4906,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
         {
           if (count == 1)
             {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_new_sentence (filter);
+              lib_new_clause (game, has_printed);
               lib_print_npc_np (game, gs_object_parent (game, trail));
               pf_buffer_string (filter,
                                 lib_select_response (game,
@@ -4969,15 +4932,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You can't take ",
-                                                     "I can't take ",
-                                                     "%player% can't take "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You can't take ",
+                              "I can't take ",
+                              "%player% can't take ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -4991,15 +4949,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You can't take ",
-                                                 "I can't take ",
-                                                 "%player% can't take "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You can't take ",
+                          "I can't take ",
+                          "%player% can't take ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
@@ -5696,15 +5649,10 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     verb->does[0],
-                                                     verb->does[1],
-                                                     verb->does[2]));
-            }
+            lib_print_clause (game, has_printed,
+                              verb->does[0],
+                              verb->does[1],
+                              verb->does[2]);
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -5718,15 +5666,10 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 verb->does[0],
-                                                 verb->does[1],
-                                                 verb->does[2]));
-        }
+        lib_print_clause (game, has_printed,
+                          verb->does[0],
+                          verb->does[1],
+                          verb->does[2]);
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
@@ -5750,15 +5693,10 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     verb->lacks[0],
-                                                     verb->lacks[1],
-                                                     verb->lacks[2]));
-            }
+            lib_print_clause (game, has_printed,
+                              verb->lacks[0],
+                              verb->lacks[1],
+                              verb->lacks[2]);
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -5772,15 +5710,10 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 verb->lacks[0],
-                                                 verb->lacks[1],
-                                                 verb->lacks[2]));
-        }
+        lib_print_clause (game, has_printed,
+                          verb->lacks[0],
+                          verb->lacks[1],
+                          verb->lacks[2]);
       else
         pf_buffer_string (filter, " or ");
       lib_print_object_np (game, trail);
@@ -6063,15 +5996,10 @@ lib_wear_backend (scr_gameref_t game)
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You put on ",
-                                                     "I put on ",
-                                                     "%player% puts on "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You put on ",
+                              "I put on ",
+                              "%player% puts on ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -6085,15 +6013,10 @@ lib_wear_backend (scr_gameref_t game)
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You put on ",
-                                                 "I put on ",
-                                                 "%player% puts on "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You put on ",
+                          "I put on ",
+                          "%player% puts on ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
@@ -6115,15 +6038,10 @@ lib_wear_backend (scr_gameref_t game)
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                               "You are already wearing ",
-                                               "I am already wearing ",
-                                               "%player% is already wearing "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You are already wearing ",
+                              "I am already wearing ",
+                              "%player% is already wearing ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -6137,15 +6055,10 @@ lib_wear_backend (scr_gameref_t game)
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                               "You are already wearing ",
-                                               "I am already wearing ",
-                                               "%player% is already wearing "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You are already wearing ",
+                          "I am already wearing ",
+                          "%player% is already wearing ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
@@ -6166,15 +6079,10 @@ lib_wear_backend (scr_gameref_t game)
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                   "You are not holding ",
-                                                   "I am not holding ",
-                                                   "%player% is not holding "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You are not holding ",
+                              "I am not holding ",
+                              "%player% is not holding ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -6188,15 +6096,10 @@ lib_wear_backend (scr_gameref_t game)
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are not holding ",
-                                                 "I am not holding ",
-                                                 "%player% is not holding "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You are not holding ",
+                          "I am not holding ",
+                          "%player% is not holding ");
       else
         pf_buffer_string (filter, " or ");
       lib_print_object_np (game, trail);
@@ -6214,15 +6117,10 @@ lib_wear_backend (scr_gameref_t game)
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You can't wear ",
-                                                     "I can't wear ",
-                                                     "%player% can't wear "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You can't wear ",
+                              "I can't wear ",
+                              "%player% can't wear ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -6236,15 +6134,10 @@ lib_wear_backend (scr_gameref_t game)
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You can't wear ",
-                                                 "I can't wear ",
-                                                 "%player% can't wear "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You can't wear ",
+                          "I can't wear ",
+                          "%player% can't wear ");
       else
         pf_buffer_string (filter, " or ");
       lib_print_object_np (game, trail);
@@ -6579,13 +6472,10 @@ lib_cmd_inventory (scr_gameref_t game)
           if (count > 0)
             {
               if (count == 1)
-                {
-                  pf_buffer_string (filter,
-                                    lib_select_response (game,
-                                                       "You are wearing ",
-                                                       "I am wearing ",
-                                                       "%player% is wearing "));
-                }
+                lib_print_clause (game, FALSE,
+                                  "You are wearing ",
+                                  "I am wearing ",
+                                  "%player% is wearing ");
               else
                 pf_buffer_string (filter, ", ");
               lib_print_object (game, trail);
@@ -6598,13 +6488,10 @@ lib_cmd_inventory (scr_gameref_t game)
     {
       /* Print out final listed object. */
       if (count == 1)
-        {
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are wearing ",
-                                                 "I am wearing ",
-                                                 "%player% is wearing "));
-        }
+        lib_print_clause (game, FALSE,
+                          "You are wearing ",
+                          "I am wearing ",
+                          "%player% is wearing ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object (game, trail);
@@ -7504,15 +7391,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You put ",
-                                                     "I put ",
-                                                     "%player% puts "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You put ",
+                              "I put ",
+                              "%player% puts ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -7527,15 +7409,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You put ",
-                                                 "I put ",
-                                                 "%player% puts "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You put ",
+                          "I put ",
+                          "%player% puts ");
       else
         pf_buffer_string (filter, " and ");
       lib_print_object_np (game, trail);
@@ -7565,9 +7442,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
         {
           if (count == 1)
             {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_new_sentence (filter);
+              lib_new_clause (game, has_printed);
               lib_print_object_np (game, trail);
             }
           else
@@ -7583,9 +7458,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
     {
       if (count == 1)
         {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_new_sentence (filter);
+          lib_new_clause (game, has_printed);
           lib_print_object_np (game, trail);
           pf_buffer_string (filter,
                             lib_select_plurality (game, trail,
@@ -7618,11 +7491,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_new_sentence (filter);
-            }
+            lib_new_clause (game, has_printed);
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -7637,9 +7506,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
     {
       if (count == 1)
         {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_new_sentence (filter);
+          lib_new_clause (game, has_printed);
           lib_print_object_np (game, trail);
         }
       else
@@ -7664,15 +7531,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
       if (count > 0)
         {
           if (count == 1)
-            {
-              if (has_printed)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                   "You are not holding ",
-                                                   "I am not holding ",
-                                                   "%player% is not holding "));
-            }
+            lib_print_clause (game, has_printed,
+                              "You are not holding ",
+                              "I am not holding ",
+                              "%player% is not holding ");
           else
             pf_buffer_string (filter, ", ");
           lib_print_object_np (game, trail);
@@ -7686,15 +7548,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
   if (count >= 1)
     {
       if (count == 1)
-        {
-          if (has_printed)
-            pf_buffer_string (filter, "  ");
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are not holding ",
-                                                 "I am not holding ",
-                                                 "%player% is not holding "));
-        }
+        lib_print_clause (game, has_printed,
+                          "You are not holding ",
+                          "I am not holding ",
+                          "%player% is not holding ");
       else
         pf_buffer_string (filter, " or ");
       lib_print_object_np (game, trail);
