@@ -163,6 +163,14 @@ public:
    * sync with `props` by add_prop (). */
   mutable PropsIndex props_index;
   std::vector<ObjectRecord> objs;
+  /* Index of `objs` by lower-cased object name, for the container/parent chain
+   * walks (obj_parent, room_of, container_in_scope) that regen runs per object
+   * per turn.  The object list is fixed at load -- records change fields but
+   * are never added or removed during play -- so the indices stay valid; a
+   * copy or undo-restore starts it invalid (see PropsIndex) and it is rebuilt
+   * on first use.  Duplicate names keep definition order, matching the old
+   * first-match linear scans. */
+  mutable PropsIndex objs_index;
   std::vector<ExitRecord> exits;
   std::vector<TimerRecord> timers;
   std::vector<SVarRecord> svars;
@@ -186,6 +194,11 @@ public:
   void ensure_props_index () const;
   /* The props records for `name` (newest last), or nullptr if it has none. */
   const std::vector<size_t> *prop_records (const std::string &name) const;
+
+  /* (Re)build objs_index if it is not valid. */
+  void ensure_objs_index () const;
+  /* The objs records named `name` (definition order), or nullptr if none. */
+  const std::vector<size_t> *obj_records (const std::string &name) const;
 
   /* Capture this state into an undo snapshot (records props by length only),
    * and restore from one (truncating props back to that length).  See

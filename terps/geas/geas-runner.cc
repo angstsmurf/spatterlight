@@ -626,33 +626,31 @@ void geas_implementation::set_obj_action (const string &obj, const string &act)
 
 void geas_implementation::move (const string &obj, const string &dest)
 {
-  for (auto &i: state.objs)
-    if (ci_equal (i.name, obj))
-      {
-	i.parent = dest;
-	gi->update_sidebars();
-	regen_var_objects();
-	return;
-      }
-  gi->debug_print ("Tried to move nonexistent object '" + obj + 
+  if (const vector<size_t> *v = state.obj_records (obj))
+    {
+      state.objs[(*v)[0]].parent = dest;
+      gi->update_sidebars();
+      regen_var_objects();
+      return;
+    }
+  gi->debug_print ("Tried to move nonexistent object '" + obj +
 		   "' to '" + dest + "'.");
 }
 
 string geas_implementation::get_obj_parent (const string &obj)
 {
-  //obj = lcase (obj);
-  for (const auto &i: state.objs)
-    if (ci_equal (i.name, obj))
-      return i.parent;
+  if (const vector<size_t> *v = state.obj_records (obj))
+    return state.objs[(*v)[0]].parent;
   gi->debug_print ("Tried to find parent of nonexistent object " + obj);
   return "";
 }
 
 bool geas_implementation::is_held (const string &name) const
 {
-  for (const auto &o: state.objs)
-    if (ci_equal (o.name, name) && ci_equal (o.parent, "inventory"))
-      return true;
+  if (const vector<size_t> *v = state.obj_records (name))
+    for (size_t idx: *v)
+      if (ci_equal (state.objs[idx].parent, "inventory"))
+	return true;
   for (const string &it: state.items)
     if (ci_equal (it, name))
       return true;
@@ -695,15 +693,10 @@ bool geas_implementation::container_in_scope (const string &name, const vector<s
   string cur = name;
   for (int guard = 0; guard < kMaxContainerDepth; guard++)
     {
-      const ObjectRecord *obj = NULL;
-      for (const auto &o: state.objs)
-	if (ci_equal (o.name, cur))
-	  {
-	    obj = &o;
-	    break;
-	  }
-      if (obj == NULL)
+      const vector<size_t> *v = state.obj_records (cur);
+      if (v == NULL)
 	return false;
+      const ObjectRecord *obj = &state.objs[(*v)[0]];
       bool is_surface = has_obj_property (obj->name, "surface");
       if ((!has_obj_property (obj->name, "container") && !is_surface) ||
 	  has_obj_property (obj->name, "hidden"))
@@ -731,9 +724,8 @@ bool geas_implementation::container_in_scope (const string &name, const vector<s
 
 string geas_implementation::obj_parent (const string &obj) const
 {
-  for (const auto &o: state.objs)
-    if (ci_equal (o.name, obj))
-      return o.parent;
+  if (const vector<size_t> *v = state.obj_records (obj))
+    return state.objs[(*v)[0]].parent;
   return "";
 }
 

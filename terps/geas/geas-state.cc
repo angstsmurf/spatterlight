@@ -380,6 +380,33 @@ void GeasState::ensure_props_index () const
   props_index.valid = true;
 }
 
+void GeasState::ensure_objs_index () const
+{
+  if (objs_index.valid)
+    return;
+  objs_index.map.clear ();
+  for (size_t i = 0; i < objs.size (); i++)
+    objs_index.map[lcase (objs[i].name)].push_back (i);
+  objs_index.valid = true;
+}
+
+const vector<size_t> *GeasState::obj_records (const string &name) const
+{
+  ensure_objs_index ();
+  /* Lowercase into a reused buffer, as prop_records does: the ASCII fold here
+   * matches ci_equal, so a hit is exactly what the old linear scans matched. */
+  string &key = objs_index.key_scratch;
+  size_t nn = name.size ();
+  key.resize (nn);
+  for (size_t i = 0; i < nn; i++)
+    {
+      unsigned char c = (unsigned char) name[i];
+      key[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
+    }
+  auto it = objs_index.map.find (key);
+  return it == objs_index.map.end () ? nullptr : &it->second;
+}
+
 const vector<size_t> *GeasState::prop_records (const string &name) const
 {
   ensure_props_index ();
@@ -431,6 +458,7 @@ void GeasState::restore_undo (const UndoState &u)
   ivars = u.ivars;
   items = u.items;
   props_index.valid = false;   /* derived index no longer matches props */
+  objs_index.valid = false;    /* objs was wholesale replaced above */
 }
 
 GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
