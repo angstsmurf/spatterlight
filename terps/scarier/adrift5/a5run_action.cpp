@@ -1197,13 +1197,64 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
 void
 a5run_flush_display_defers (a5_run_t *run, sb_t *out)
 {
+  a5run_flush_display_defers_from (run, out, 0);
+}
+
+/* Partial flush: draw + splice only the sink entries from index `from` on,
+   leaving earlier entries (and their sentinels in `out`) pending.  An
+   event/walk/LocationTrigger-fired task is its own AttemptToExecuteTask in the
+   runner (bChildTask=False), so ITS aggregate responses Display -- and draw --
+   at the end of that attempt (clsUserSession.vb:782,851-856), while the
+   player command's own deferred draws stay held to the later command flush.
+   attempt_event_task flushes its attempt's entries through here. */
+void
+a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
+{
   std::vector<std::string> *sink = run->display_defers;
-  if (sink == NULL || sink->empty ())
+  if (sink == NULL || sink->size () <= from)
     return;
   void *prev_ed = run->st->expr_defer;
   run->st->expr_defer = NULL;                 /* no re-deferral during the draw */
-  for (size_t k = 0; k < sink->size (); k++)
+
+  /* Draw order.  The runner's Display expands ONE response at a time: its
+     ReplaceFunctions pass first (each `%var[rand]%` -- our \001 entries -- in
+     that pass's own scan order), then ReplaceExpressions over the fully
+     OO-substituted text, which reduces every `<#..#>` LEFT TO RIGHT -- so a
+     `<#OneOf#>` nested inside an OO description read (Symphonica's Rory
+     `CharHereDesc` inside `Player.Location.Description`) draws AFTER a
+     textually-earlier top-level `<#OneOf#>`, even though Scarier's render
+     pushed the nested one to the sink first (the OO pass runs before the
+     expression scan).  Re-order ONLY the untagged sexpr entries among
+     themselves by their sentinel's text position; \001 (function-pass) and
+     \002 (room view) entries keep their push slots, which already mirror the
+     runner's per-response pass order. */
+  std::vector<size_t> slot_entry;             /* entry index drawn at each slot */
+  for (size_t k = from; k < sink->size (); k++)
+    slot_entry.push_back (k);
+  {
+    std::vector<size_t> sslots;               /* slots holding sexpr entries */
+    std::vector<std::pair<long, size_t> > spos;    /* (text pos, entry idx)  */
+    for (size_t k = from; k < sink->size (); k++)
+      {
+        const std::string &body = (*sink)[k];
+        if (body == "\002" || (!body.empty () && body[0] == '\001'))
+          continue;
+        char mark[24];
+        snprintf (mark, sizeof mark, "\004%d\004", (int) k);
+        const char *at = out->p != NULL ? strstr (out->p, mark) : NULL;
+        sslots.push_back (k - from);
+        spos.push_back (std::make_pair (at != NULL ? (long) (at - out->p)
+                                                   : (long) out->len + (long) k,
+                                        k));
+      }
+    std::stable_sort (spos.begin (), spos.end ());
+    for (size_t i = 0; i < sslots.size (); i++)
+      slot_entry[sslots[i]] = spos[i].second;
+  }
+
+  for (size_t s = 0; s < slot_entry.size (); s++)
     {
+      size_t k = slot_entry[s];
       const std::string &body = (*sink)[k];
       char *val;
       if (body == "\002")
@@ -1232,7 +1283,7 @@ a5run_flush_display_defers (a5_run_t *run, sb_t *out)
       free (val);
     }
   run->st->expr_defer = prev_ed;
-  sink->clear ();
+  sink->resize (from);
 }
 
 /* Flush a SetTasks-Execute response scope: emit each buffered fail message

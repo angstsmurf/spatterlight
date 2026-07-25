@@ -379,6 +379,16 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
      `resp_flush` already leaves `st->ref_items` equal to the runner's post-Display
      `NewReferences`, so iterate it here.  A 0/1-item leftover keeps the original
      single, refs-cleared run (the overwhelmingly common case stays byte-exact). */
+  /* An event/walk/LocationTrigger-fired task is its own AttemptToExecuteTask in
+     the runner (bChildTask=False, clsEvent.vb:389 / clsCharacter.vb:1630 /
+     clsUserSession.vb:3424), so ITS responses Display at the end of THAT
+     attempt (vb:782,851-856) -- which is where an AggregateOutput completion's
+     random draw resolves (ReplaceExpressions inside Display).  Arm the deferral
+     sink around run_task and flush this attempt's entries right after, so e.g.
+     Symphonica 64's Schtick1 children (After + aggregate `<# OneOf(..) #>`
+     taunts, executed in list order) hold their OneOf draws until AFTER the
+     last sibling Bystander1's eager `rand(1,100)` restriction draw, matching
+     the runner's per-turn draw order. */
   if (st->n_ref_items > 1)
     {
       int nleft = st->n_ref_items;
@@ -387,6 +397,9 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
       const char *rbnd = (tchar == 'c') ? "ReferencedCharacters" : "ReferencedObjects";
       std::vector<const char *> items (st->ref_items, st->ref_items + nleft);
       int any_ran = 0;
+      std::vector<std::string> *prev_defers = run->comp_defers;
+      size_t defer0 = run->display_defers->size ();
+      run->comp_defers = run->display_defers;
       for (const char *it : items)
         {
           /* The runner AttemptToExecuteSubTask ReDims NewReferences to this single item;
@@ -401,6 +414,8 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
           if (a5restr_pass (st, t->restrictions))
             { run_task (run, t, depth + 1, out); any_ran = 1; }
         }
+      run->comp_defers = prev_defers;
+      a5run_flush_display_defers_from (run, out, defer0);
       /* Only "complete" (mark done + fire EventControls) if the task actually
          ran for at least one item -- a task whose restrictions fail for every
          item never bPass'd in the runner, so its completion controls must NOT fire.
@@ -447,7 +462,15 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
         }
       return;
     }
-  run_task (run, t, depth + 1, out);
+  {
+    /* Same per-attempt aggregate-draw deferral as the plural branch above. */
+    std::vector<std::string> *prev_defers = run->comp_defers;
+    size_t defer0 = run->display_defers->size ();
+    run->comp_defers = run->display_defers;
+    run_task (run, t, depth + 1, out);
+    run->comp_defers = prev_defers;
+    a5run_flush_display_defers_from (run, out, defer0);
+  }
   if (ti >= 0)
     st->task_done[ti] = 1;
   ev_on_task_completed (run, key, out);

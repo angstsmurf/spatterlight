@@ -472,28 +472,35 @@ proving pure RNG noise), pinned by the committed golden. Golden
 Full suite after the change: **115 MATCH / 11 DIVERGE, 0 FAIL**; a5 unit tests
 green.
 
-**Symphonica64 (★ WON 74/74) — follower "is following you" rendering DIVERGE.**
+**Symphonica64 (★ WON 74/74) — static-follower loader gap FIXED (2116 → 263).**
 The largest a5 game in the corpus (415 rooms, 263 objects, 156 characters, 613
 tasks). The godmode-free golden collects all 74 members of the "Scores" group,
 gives the Gadget to Sir Stephen for the Ticket, and wins via the `49587948EFG`
-GoToExtens code (`*** You have won ***`). Wired `Symphonica64|symphonica.blorb|0|2116`
+GoToExtens code (`*** You have won ***`). Wired `Symphonica64|symphonica.blorb|0|263`
 against a strict dotnet-free golden (`Symphonica64_expected.txt`), so **vanilla
 = 0 hunks (MATCH)** and the save/restore self-check is **OK**.
 
-The `xoshiro` column is a large but *systemic* DIVERGE (2116 hunks), **not** a
-walkthrough or RNG defect: **1956 of the 2187 FD-only lines (89%) are the string
-"is following you."** Symphonica keeps several characters riding the player
-(Rory, Konkey Dong, Barry Leitch, …) via `MoveCharacter … OntoCharacter %Player%`.
-FrankenDrift renders such a player-follower with a dedicated "X is following you."
-room line, whereas Scarier renders the same on-character state using the
-character's ordinary walk/activity description ("Rory is here, being generically
-vicious."). Both engines track the follower identically — mechanically the game
-plays and wins the same on both — it is purely how a `OnCharacter(player)`
-character is *phrased* in the room listing. Emitting FD's "is following you"
-alt would touch every follower game in the corpus, so it is recorded here as a
-documented baseline rather than chased in this walkthrough. The residual ~231
-non-follower hunks are Kickstarter backer flavour text, river-bank descriptions,
-and inventory-line ordering.
+The `xoshiro` column WAS a 2116-hunk DIVERGE, of which **1956 (89%) were the
+line "1980s Barry Leitch is following you."** — present in FD, absent in Scarier.
+This turned out NOT to be a rendering-phrasing difference (both engines share the
+identical `char_here_desc` render path, and the *dynamic* followers Rory / Konkey
+Dong, moved at runtime via `MoveCharacter … OntoCharacter %Player%`, already
+resolved correctly). Barry is a **static** `CharacterLocation="On Character"`
+follower whose `CharOnWho` is the *variable* `"%Player%"`, and the static-model
+loader (`a5state.cpp`) stored that literal verbatim. Every downstream carrier
+lookup (`a5state_character_index("%Player%")` → −1) then dropped Barry from every
+room listing, so his authored `CharHereDesc` ("%CharacterName% is following you.")
+never printed. **Fix:** normalise `%Player%` → `st->player_key` when decoding the
+static On/In-Character start state (`resolve_carrier`), mirroring the object
+loader's existing `%Player%` normalisation — a pure loader gap the character
+branch never received. Barry now resolves to the player's room and the line
+appears 1956× exactly as FD does. Whole-suite re-run confirmed **no other game
+changed** (Symphonica is the corpus's only static `%Player%`-carrier follower;
+Edith's Cats used the literal key `Player`, not the variable). The residual 263
+hunks are non-follower RNG/prose noise: Rory's `OneOf` taunt variants ("being
+generically vicious" / "glaring at you angrily" / "chewing your toe", which
+System.Random can't align to xoshiro), river-bank description variants,
+Kickstarter backer flavour text, and inventory-line ordering.
 
 **Engine fix — carrier state now persists across save/restore.** Wiring this
 game surfaced a genuine ScarierExt save bug: the save path (`save_scarier_body`
@@ -509,3 +516,47 @@ fix the save/restore round-trip is byte-identical (0 hunks) and the game still
 wins. The FD-format save path (`save_fd_game`) still writes such followers as
 `Hidden` — out of scope; the ScarierExt path is what the self-check and
 Spatterlight autosave use.
+
+**Symphonica64 residual FIXED (263 → 0): now MATCH 0|0.** The 263-hunk xoshiro
+residual (documented in the retired `TODO_symphonica_schtick_ordering.md`) came
+apart into three distinct engine gaps, each fixed against the runner sources:
+
+1. **Event-fired tasks now defer AggregateOutput completion draws to the end of
+   their own attempt** (`attempt_event_task_impl`, `a5run_events.cpp`). An
+   event/walk/LocationTrigger-fired task is its own `AttemptToExecuteTask` in
+   the runner (`bChildTask=False`, clsEvent.vb:389 / clsCharacter.vb:1630 /
+   clsUserSession.vb:3424), so its aggregate responses Display — and expand
+   their `<# OneOf #>`s — at the END of that attempt (vb:782,851-856), after
+   every SetTasks-Execute'd sibling has run its eager restriction rands.
+   Scarier rendered them inline in `run_task`, so Symphonica's per-turn
+   Schtick1 children (After + aggregate `<# OneOf #>` taunts for Rory, the
+   exposed Karateka, Sir Mart et al.) drew BEFORE the last sibling Bystander1's
+   `rand(1,100)` restriction, phase-shifting the whole stream once per turn —
+   the bulk of the 263. The command path's existing `display_defers` sink is
+   now armed per event-task attempt and partially flushed
+   (`a5run_flush_display_defers_from`) at its end.
+
+2. **Deferred `<#..#>` draws flush in TEXT order, not push order**
+   (`a5run_flush_display_defers_from`, `a5run_action.cpp`). The runner's
+   Display expands one response at a time: ReplaceFunctions first, then
+   ReplaceExpressions over the fully OO-substituted text LEFT TO RIGHT
+   (Global.vb:523-524, 510-516). A `<#OneOf#>` nested inside an OO description
+   read — Rory's `CharHereDesc` taunt inside ZoneFantas's
+   `Player.Location.Description` completion — therefore draws AFTER the
+   textually-earlier top-level teleport `<#OneOf#>`, while Scarier's sink
+   received the nested one first (the OO pass runs before the expression
+   scan). The flush now re-orders the untagged sexpr entries among themselves
+   by sentinel text position; `\001` (function-pass) and `\002` (room view)
+   entries keep their push slots, which already mirror the runner's pass order.
+
+3. **A SelectionOnly list filter with a `(False)`/`(0)` argument inverts**
+   (`oo_prop`, `a5expr.cpp`). `%Player%.Held(False).Isscore(False).List(..)` —
+   the game's inventory line for NON-score items — kept the score-carrying
+   members regardless of the argument. ReplaceOOProperty drops a has-property
+   member on `"false"/"0"` (Global.vb:971) and keeps a lacks-property member
+   (vb:1040); Scarier now does the same.
+
+Golden re-blessed, MAP re-wired `Symphonica64|symphonica.blorb|0|0`. Full suite
+after the three fixes: **116 MATCH / 11 DIVERGE, 0 FAIL** — no other game moved
+in either column, save/restore self-checks all OK, a5 unit tests and the v4
+corpus green.

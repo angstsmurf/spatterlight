@@ -90,6 +90,20 @@ compute_objloc (const a5_object_t *o, a5_objloc_t *loc)
     }
 }
 
+/* Static CharOnWho/CharInsideWho may be the variable "%Player%" rather than a
+   concrete character key; the Adrift runner resolves it to Adventure.Player.Key
+   in every accessor (clsCharacterLocation.Key).  Resolve it once at load so the
+   carrier chain (a5state_character_location_key / _visible_at_location) finds it
+   -- otherwise an On-Character follower with CharOnWho=%Player% (Symphonica's
+   "Barry Leitch is following you.") never resolves to the player's room and is
+   dropped from every location listing.  st->player_key is already decoded when
+   this runs (do NOT hardcode "Player": some games rename the player). */
+static const char *
+resolve_carrier (const a5_state_t *st, const char *k)
+{
+  return (k != NULL && streq (k, "%Player%")) ? st->player_key : k;
+}
+
 /* ------------------------------------------------------------------- public */
 
 a5_state_t *
@@ -159,9 +173,9 @@ a5state_new (const a5_adventure_t *adv)
             { st->char_onobj[i] = chr_prop (c, "CharInsideWhat");
               if (st->char_in != NULL) st->char_in[i] = 1; }
           else if (streq (cl, "On Character"))
-            st->char_onchar[i] = chr_prop (c, "CharOnWho");
+            st->char_onchar[i] = resolve_carrier (st, chr_prop (c, "CharOnWho"));
           else if (streq (cl, "In Character"))
-            st->char_onchar[i] = chr_prop (c, "CharInsideWho");
+            st->char_onchar[i] = resolve_carrier (st, chr_prop (c, "CharInsideWho"));
           st->char_position[i] = strdup (pos ? pos : "Standing");
         }
       /* FileIO.vb:851-862: after load, if the Player's location is Hidden or has

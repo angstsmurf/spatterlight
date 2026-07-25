@@ -322,7 +322,10 @@ struct a5_run_s {
      inside an AggregateOutput completion message -- either a `<#OneOf/Rand#>`
      expression or a `%var[rand()]%` model-variable index -- is rendered as a
      `\004<idx>\004` sentinel and its body pushed to the sink, then drawn + spliced
-     back at end-of-turn Display (a5run_flush_display_defers).  NULL on the
+     back at end-of-turn Display (a5run_flush_display_defers).  Also armed for
+     each event/walk/LocationTrigger-fired task attempt (attempt_event_task),
+     whose entries flush at the end of that attempt instead (the runner's
+     bChildTask=False Display, a5run_flush_display_defers_from).  NULL on the
      plural/movement (resp map) path and outside a command. */
   std::vector<std::string> *comp_defers;
 
@@ -443,6 +446,7 @@ void ev_tick_all      (a5_run_t *run, sb_t *out);
 void ev_time_tick_all (a5_run_t *run, sb_t *out);
 void drain_tasks_to_run (a5_run_t *run, sb_t *out);
 void a5run_flush_display_defers (a5_run_t *run, sb_t *out);
+void a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from);
 void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
 
 /* a5run_ref.cpp (reference resolution + multiple-object references) */

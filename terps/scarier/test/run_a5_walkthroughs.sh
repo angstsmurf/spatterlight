@@ -1467,7 +1467,7 @@ Wumpus|Wumpus.taf|0|0
 DigitalRoots|DigitalRoots_v2.blorb|0|0
 QuestGiver|QuestGiver_v4.blorb|0|396
 Penrhyn|Penrhyn_The Burning Sky_v2.blorb|0|0
-Symphonica64|symphonica.blorb|0|2116
+Symphonica64|symphonica.blorb|0|0
 EOF
 )
 
