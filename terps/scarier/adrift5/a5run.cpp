@@ -396,6 +396,8 @@ a5run_free (a5_run_t *run)
   delete run->known_words;
   delete run->tasks_to_run;
   delete run->display_defers;
+  delete run->dom_nodes;
+  delete run->dom_index;
   delete run;
 }
 
@@ -2312,6 +2314,23 @@ collect_dom_nodes (const a5_xml_node_t *n,
     }
 }
 
+/* Build (once) the run's cached pre-order DOM node list + node->index map from
+   adv->doc, and reuse it thereafter.  adv->doc is immutable after load, so the
+   walk and map are computed on first use and shared by every subsequent
+   save/restore, instead of re-walking the whole DOM on each per-turn snapshot. */
+static void
+ensure_dom_cache (a5_run_t *run)
+{
+  if (run->dom_nodes != NULL)
+    return;
+  run->dom_nodes = new std::vector<const a5_xml_node_t *>;
+  run->dom_index = new std::unordered_map<const void *, int>;
+  collect_dom_nodes (a5xml_root (run->adv->doc), *run->dom_nodes);
+  run->dom_index->reserve (run->dom_nodes->size () * 2);
+  for (size_t k = 0; k < run->dom_nodes->size (); k++)
+    (*run->dom_index)[(const void *) (*run->dom_nodes)[k]] = (int) k;
+}
+
 /* Resolve a holder/location key to the model's own stable string pointer (so it
    survives the save buffer being freed).  Keys are globally unique in ADRIFT. */
 static const char *
@@ -2345,7 +2364,6 @@ save_scarier_body (sb_t *b, a5_run_t *run)
 {
   a5_state_t *st = run->st;
   const a5_adventure_t *adv = run->adv;
-  std::vector<const a5_xml_node_t *> dom;
   int i, native;
   unsigned int rng[4];
 
@@ -2551,17 +2569,19 @@ save_scarier_body (sb_t *b, a5_run_t *run)
       sb_puts (b, "</Walk>\n");
     }
 
-  /* Displayed <DisplayOnce> segments (by DOM pre-order index). */
+  /* Displayed <DisplayOnce> segments (by DOM pre-order index).  The cached
+     node->index map turns the old O(n_disp_once x nodes) linear pointer search
+     into a hash lookup per displayed segment. */
   if (st->n_disp_once > 0)
     {
       int j;
-      collect_dom_nodes (a5xml_root (adv->doc), dom);
+      ensure_dom_cache (run);
       for (j = 0; j < st->n_disp_once; j++)
         {
-          size_t k;
-          for (k = 0; k < dom.size (); k++)
-            if (dom[k] == st->disp_once[j])
-              { sb_elem_l (b, "Displayed", (long) k); break; }
+          std::unordered_map<const void *, int>::const_iterator it
+            = run->dom_index->find ((const void *) st->disp_once[j]);
+          if (it != run->dom_index->end ())
+            sb_elem_l (b, "Displayed", (long) it->second);
         }
     }
 
@@ -2709,12 +2729,26 @@ group_candidate_key (const a5_adventure_t *adv, const a5_group_t *g, int j)
 }
 
 static void
-save_fd_game (sb_t *b, a5_run_t *run)
+save_fd_game (sb_t *b, a5_run_t *run, int lean)
 {
   a5_state_t *st = run->st;
   const a5_adventure_t *adv = run->adv;
   const char *player = a5state_player_key (st);
   int i, w;
+
+  /* In "lean" mode -- the per-turn undo snapshot (a5run_snapshot) -- skip this
+     whole FrankenDrift-interop per-entity body.  Our own restore reads ALL state
+     back from <ScarierExt> (restore_scarier_body) and consumes only the <Group>
+     order list emitted below from this fd body (restore_group_order); nothing
+     here (Location/Object/Task/Event/Character/Variable) is read on the undo
+     path.  Its cost is dominated by fd_write_props writing every property of
+     every entity every turn -- the single biggest per-turn hotspot (~59% of the
+     Fortress-of-Fear walkthrough in profiling).  This body exists purely so a
+     foreign ADRIFT Runner / FrankenDrift can load a Scarier *file* save; the
+     undo stack is never written to disk, so lean snapshots restore byte-for-byte
+     identically without it. */
+  if (!lean)
+    {
 
   /* Locations: property overrides only (base props are static; The runner recomputes
      inherited ones).  Emit a <Location> only when it has a runtime override so
@@ -2862,6 +2896,8 @@ save_fd_game (sb_t *b, a5_run_t *run)
       sb_puts (b, "</Variable>\n");
     }
 
+    }  /* end if (!lean) */
+
   /* Groups: live runtime membership for every group type, in arlMembers
      INSERTION order -- the runner's clsGameState writer does `For Each sMember
      In grp.arlMembers`, and that order is load-bearing: RandomKey picks a
@@ -2891,8 +2927,12 @@ save_fd_game (sb_t *b, a5_run_t *run)
   sb_elem_l (b, "Turns", st->turns);
 }
 
-char *
-a5run_save (a5_run_t *run, size_t *out_len)
+/* Serialise the runtime to a <Game> blob.  `lean` drops the FrankenDrift-interop
+   per-entity body (save_fd_game keeps only the <Group> order list restore needs)
+   -- used by the per-turn undo snapshot, which never leaves the process.  A full
+   (lean=0) blob is what a5run_save hands the frontend for on-disk file saves. */
+static char *
+a5run_save_blob (a5_run_t *run, size_t *out_len, int lean)
 {
   sb_t b;
 
@@ -2900,7 +2940,7 @@ a5run_save (a5_run_t *run, size_t *out_len)
     return NULL;
   sb_init (&b);
   sb_puts (&b, "<Game>\n");
-  save_fd_game (&b, run);
+  save_fd_game (&b, run, lean);
   /* Scarier-private, full-fidelity snapshot; The Adrift 5 runner's LoadState ignores
      any <Game> child it does not query, so <ScarierExt> is invisible to it. */
   sb_puts (&b, "<ScarierExt>\n");
@@ -2910,6 +2950,12 @@ a5run_save (a5_run_t *run, size_t *out_len)
   if (out_len != NULL)
     *out_len = b.len;
   return sb_finish (&b);
+}
+
+char *
+a5run_save (a5_run_t *run, size_t *out_len)
+{
+  return a5run_save_blob (run, out_len, 0);
 }
 
 /* strtol on a child's text (0 when absent). */
@@ -2984,7 +3030,6 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
   unsigned int rng[4] = { 0, 0, 0, 0 };
   int native = 0, rng_i = 0;
   int obj_i = 0, char_i = 0, var_i = 0, ev_i = 0, wk_i = 0;
-  std::vector<const a5_xml_node_t *> dom;
 
   restore_reset (run);
 
@@ -3209,10 +3254,9 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
       else if (streq (nm, "Displayed"))
         {
           long k = strtol (n->text ? n->text : "-1", NULL, 10);
-          if (dom.empty ())
-            collect_dom_nodes (a5xml_root (adv->doc), dom);
-          if (k >= 0 && k < (long) dom.size ())
-            a5state_disp_once_mark (st, dom[(size_t) k]);
+          ensure_dom_cache (run);
+          if (k >= 0 && k < (long) run->dom_nodes->size ())
+            a5state_disp_once_mark (st, (*run->dom_nodes)[(size_t) k]);
         }
       else if (streq (nm, "Look"))
         {
@@ -3606,7 +3650,7 @@ a5run_snapshot (a5_run_t *run)
 
   if (run == NULL)
     return;
-  blob = a5run_save (run, &len);
+  blob = a5run_save_blob (run, &len, 1);   /* lean: skip the FD-interop body */
   if (blob == NULL)
     return;
   undo_push (run, std::string (blob, len), run->last_turn_text);

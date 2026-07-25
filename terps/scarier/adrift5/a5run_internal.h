@@ -14,6 +14,7 @@
 
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -390,6 +391,15 @@ struct a5_run_s {
      followed by the restored session's sTurnOutput. */
   std::string last_turn_text;
   std::vector<std::string> undo_turn_text;
+
+  /* Cached pre-order DOM node list of adv->doc (immutable after load) plus a
+     node->index map, built lazily once and reused by save_scarier_body /
+     restore_scarier_body to map <DisplayOnce> segments to and from their stable
+     index.  adv->doc never changes during a run, so this avoids a full DOM walk
+     (and, on save, an O(n_disp_once x nodes) linear pointer search) on every
+     per-turn undo snapshot.  Owned; NULL until first use, freed in a5run_free. */
+  std::vector<const a5_xml_node_t *> *dom_nodes = NULL;
+  std::unordered_map<const void *, int> *dom_index = NULL;
 };
 
 /* a5run_sort.cpp: the .NET introspective sort (clsTask.Children /
