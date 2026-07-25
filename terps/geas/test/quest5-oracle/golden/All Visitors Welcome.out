@@ -1,0 +1,606 @@
+All Visitors Welcome
+
+by Bitter Karella
+
+You startle awake -- just in time to see the last sliver of sun dip below the tree-covered horizon.
+
+How long were you asleep?  Granted, you don't see much traffic up here at Sloane Rock State Historic Park during the off season. You don't think you've seen a single visitor all week.  But it still wouldn't be good if one of the rangers happened by and saw you snoozing on the job.  You need this job.
+
+When you saw the ad on Craigslist for a "part-time seasonal interpretive specialist" at a state park, you thought it sounded pretty exciting.  But it turns out that Sloane Rock is pretty far off the beaten path, way out in the dense, mountainous pine woods of the high Sierra and only the most dedicated tourists make the trek during the summer.  In the autumn, it's dead.
+
+Which is presumably why they leave park maintenance to an underpaid peon like you.  All you really do is unlock the doors in the mornings, clean the bathrooms, occasionally give directions to motorists who get lost on their way to something more exciting, and take passive-aggressive abuse from the rangers whenever they stop by on their rounds. Oh, and chase away those pesky teenagers.
+
+You stretch and check your watch.  7:00 p.m. The day shift ended two hours ago.  Where is Roy? He was supposed to relieve you so that you could finally go home.
+
+At your training, the Head Ranger was really adament that the visitor center never be unattended because of some incident a few years back when a few punk kids spraypainted graffiti all over the outside walls.  Whatever.  You haven't seen another soul all day.
+
+So where IS Roy?
+
+You are on a roof.
+You can see binoculars and a lawn chair.
+You can go down.
+The roof of the Sloane Rock Historical Park visitor center is just a plane of bare concrete. You can return down to the inside back office of the visitor center via a hatch in the floor.  Beyond the cement roof, as far as you can see, stretches the dark, unbroken expanse of the Sierra National Forest.
+> down
+
+> down
+
+You are in an office.
+You can see a computer, a telephone, a book shelf, a keypad and a sticky note.
+You can go up, east, south or west.
+The back office is where you spend most of your day when you're not at the front desk. It's a small cramped room, several desks lined up against one wall. The lead interpreter gets a computer and a telephone on her desk, but as a part-time hire you don't rate the same courtesy. There is a bookshelf, filled with various research and reference books, historical documents, and state parks rule binders, leaning against the opposite wall.
+> check messages telephone
+
+> check messages telephone
+Noticing that the message light is blinking, you tap the "Play Messages" button.
+
+"Hey, this is Roy," says a hoarse, sniffley voice, "Listen, I'm sorry, I got a some real bad bug an' I just can't make it into work today. Tell the summer hire I won't be in. Take it easy, man."
+
+The machine clicks to signal the end of the message. Well, that's just great. You can't leave until someone comes to relieve you, so what are you supposed to do now?
+> x sticky note
+
+> x sticky note
+There's a yellow sticky note stuck to the telephone.
+> read sticky note
+
+> read sticky note
+"NOTE: Do not engage Charlene Danning!! Alert rangers if Danning calls"
+> x book shelf
+
+> x book shelf
+It's a book shelf full of books. Most of them are park rules and regulations, but there are a couple actually devoted to history.  You would think there would be more of those, considering that the history is the entire point of this park.
+
+You notice a Unit History binder and a historical research binder.
+> ask folder about roy jones
+
+> ask folder about roy jones
+Roy Jones is currently employed at Sloane Rock SHP as an interpretive specialist. The binder doesn't say much other than that he has a habit of not showing up for work and has faced discipline for unexcused absences several times.
+> ask folder about artifact x-6768
+
+> ask folder about artifact x-6768
+Artifact x-6768 is thought to be an original Sloane artifact, although this has never been substantiated. It is considered to be one of the most valuable items in the collection, and is therefore to be stored in the artifact storage and not put out for public display.  Its providence is unknown, since all records relating to its acquisition have been lost.  Over the years, several unsuccessful attempts have been made to more closely study the artifact. The first study took place in 1955 under the direction of Dr. Jasper Grossman. The second study commenced in 1995 under the direction of Dr. Charlene Danning.
+> ask folder about charlene danning
+
+> ask folder about charlene danning
+Charlene Danning was a special curator brought in specifically to study artifact x-6768 in 1995. She worked at Sloane Rock State Historical Park for approximately two years, during which time she exhibited increasingly erratic behavior culminating in a threat against the life of Supervising Ranger Larry Sabler. Danning was terminated from her state parks position in 1997.
+> ask folder about larry sabler
+
+> ask folder about larry sabler
+Larry Sabler became supervising ranger in 1986 and retired in 2002. He recorded numerous incidents of "unprofessional conduct" regarding special curator Charlene Danning, including a growing obsession with artifact X-6768. According to Sabler's notes, Danning came to believe that she could communicate with the object and that it was commanding her using some form of telepathy; he had her removed after she threatened to kill him if he restrained her from acting on X-6768's orders. In her exit interview, she said that X-6768 wanted her to return it to its birthplace at Sloane Rock so that "it could go back to its people."
+> ask binder about lazarus sloane
+
+> ask binder about lazarus sloane
+Little is known of the early life of Lazarus Sloane. He made the overland journey to California in 1849 after news arrived from the west of the gold discovery at Sutter's Mill on the American River.
+
+By all accounts, Sloane was an ambitious man not shy to use any means to get ahead.  After arriving in California, Sloane spent two unsuccessful seasons mining in Coloma.  Local newspapers mention that Sloane was involved in several attacks on Chinese and Chilean mining camps.
+
+After growing disillusioned with mining, Sloane traveled north, where his luck would change.  He eventually befriended and partnered with a Dutch immigrant named Mureen van der Wald who had acquired a 2200 acre Mexican land grant called Rancho de Piedra Grande.  The relationship was reportedly stormy, the two men often coming to blows over differing opinions for how to develop the ranch. Van der Wald was mauled to death by wild animals in 1853, leaving his land to Sloane.
+
+Sloane mounted several expeditions to eradicate the local Pombo Indians before razing more of the forest on the lower acreage to make room for expanded animal husbandry operations. Left alone, Sloane manifested an until now unknown aptitude for management, eventually turning the newly christened Sloane Ranch into a successful meat production empire that sold beef, pork, mutton and other meats all over the country and the world.
+> ask binder about jaskakno
+
+> ask binder about jaskakno
+Jask'akno is a mythical figure associated with Sloane Rock in the folklore of the Pombo Indians. Since the Pombo left no written records, very little is known about it -- Jask'akno is mentioned several times in Lazarus Sloane's diaries. In one instance, Sloane demanded that a Pombo brave tell him about the secret details of the tribe's religious ceremonies, but was rebuffed as it would anger Jask'akno for a white man to know such things.   It is believed that the petroglyphs on Sloane Rock might be intended to either summon or ward away Jask'akno.
+
+Folklorist D.E. Holt identified Jask'akno as the trickster in the Pombo legend 'How the Dark Started.'
+> west
+
+> west
+
+You are in a supply closet.
+You can see Emergency flares.
+You can go east.
+It's a cramped room filled with cleaning supplies and emergency equipment.
+> take flares
+
+> take flares
+You grab an emergency flare. This might come in handy.
+> east
+
+> east
+
+You are in an office.
+You can see a computer, a telephone, a book shelf, a keypad, a sticky note, an unit history folder and a Sloane history research binder.
+You can go up, east, south or west.
+The back office is where you spend most of your day when you're not at the front desk. It's a small cramped room, several desks lined up against one wall. The lead interpreter gets a computer and a telephone on her desk, but as a part-time hire you don't rate the same courtesy. There is a bookshelf, filled with various research and reference books, historical documents, and state parks rule binders, leaning against the opposite wall.
+> east
+
+> east
+
+You are in a hallway.
+You can see a cork board and a fire extinguisher.
+You can go north, east or west.
+The hallway is a simple corridor connecting the head ranger's office to the north with the breakroom to the south. The office is to the west, but  to the east... that's the gift shop and all the areas open to the public.  You can goof off all you want back here, but once you go into the gift shop you have to be on your best behavior. You wouldn't want to listen to another angry rant from some entitled retiree or soccer mom about how you're not smiling widely enough.
+> x cork board
+
+> x cork board
+It's a corkboard covered in papers and stickynotes. It's mostly the usual OSHA and labor rights notices that you see in most offices, but there are a couple notes from the head ranger tacked up.
+> read note
+
+> read note
+"To all staff, It has come to my attention that the visitor center is sometimes unmanned at night. This is unacceptable. Due to recent vandalism incidents, I am instituting a new policy to have the visitor center manned 24 hours a day. I will be assigning you to work in shifts. Do not leave the visitor center before your replacement comes on shift. If you leave the visitor center unattended, YOU WILL BE DISCIPLINED and face possible TERMINATION. Thank you for your cooperation. Signed, Steve Baker, Head Ranger"
+> read memo
+
+> read memo
+"To all Staff, No staff member is to work over 8 hours. If you are caught working over 8 hours, you will face discipline and possible termination.  If you are put in a situation where you cannot avoid working over 8 hours, contact me for authorization first.  Signed, Steve Baker, Head Ranger."  Huh, you know, it would have been useful if he'd actually included his phone number there.
+> east
+
+> east
+
+You are in a gift shop.
+You can see a cash register.
+You can go west, east, north or south.
+The gift shop is a large, dimly-lit room, its walls lined with high wooden shelves full of knickknacks, curios, and souveneirs.  After all, what visit to Sloane Rock Park would be complete without a snowglobe or an "Sloane Rock is for Lovers" bumper sticker?
+
+Above the cash register, out of the public's view, the head ranger has posted a large banner reminding you: "ALL VISITORS WELCOME."
+> east
+
+> east
+
+You are in a museum.
+You can see a "1. A Man of Ambition", a "2. A Changing Landscape", a "3. A Pioneer Remembered", a "4. An Enduring Mystery", a "5. A Diverse Operation", a rattle and a plaque.
+You can go west or north.
+The museum is a cavernous, dimly-lit room. Alcove lighting highlights various panel displays that detail various aspects of the life of Lazarus Sloane. In the center of the room are several cases housing native Pombo tribal artifacts. The room's floor is lined with worn indoor/outdoor carpet.
+> x rattle
+
+> x rattle
+It's a Pombo ceremonial rattle made out of deer hooves, one of the few genuine Pombo artifacts still in existance. It's securely protected behind a thick layer of glass. An informational plaque is set into the wall next to it.
+> read plaque
+
+> read plaque
+You read the plaque: "Ceremonial Rattle (circa 1800). The Pombo used rattles much like this in sweat house rituals intended to repel evil spirits.  A medicine man would burn sage and cedarwood, both thought to have magical powers capable of binding spirits to human will, while chanting specific incantations and making noise with deer hoof rattles. The noise was thought to disturb spirits and drive them away."
+> west
+
+> west
+
+You are in a gift shop.
+You can see a cash register.
+You can go west, east, north or south.
+The gift shop is a large, dimly-lit room, its walls lined with high wooden shelves full of knickknacks, curios, and souveneirs.  After all, what visit to Sloane Rock Park would be complete without a snowglobe or an "Sloane Rock is for Lovers" bumper sticker?
+
+Above the cash register, out of the public's view, the head ranger has posted a large banner reminding you: "ALL VISITORS WELCOME."
+> west
+
+> west
+
+You are in a hallway.
+You can see a cork board, a fire extinguisher, a memo, a note and a motivational poster.
+You can go north, east or west.
+The hallway is a simple corridor connecting the head ranger's office to the north with the breakroom to the south. The office is to the west, but  to the east... that's the gift shop and all the areas open to the public.  You can goof off all you want back here, but once you go into the gift shop you have to be on your best behavior. You wouldn't want to listen to another angry rant from some entitled retiree or soccer mom about how you're not smiling widely enough.
+> west
+
+> west
+
+You are in an office.
+You can see a computer, a telephone, a book shelf, a keypad, a sticky note, an unit history folder and a Sloane history research binder.
+You can go up, east, south or west.
+The back office is where you spend most of your day when you're not at the front desk. It's a small cramped room, several desks lined up against one wall. The lead interpreter gets a computer and a telephone on her desk, but as a part-time hire you don't rate the same courtesy. There is a bookshelf, filled with various research and reference books, historical documents, and state parks rule binders, leaning against the opposite wall.
+> switch on computer
+
+> switch on computer
+You turn the computer on.
+> x computer
+
+> x computer
+It's a big heavy desktop computer, the kind you only find in government offices. It looks like the last person to use the computer was cataloging the park's inventory of artifacts:    "Artifact y-3433.Provenance: Donation.Description: Pombo doll, made of buckskin, with tule reed hair, possibly representing Jask'akno.Artifact y-2367. Provenance: Donation. Description: Deerhoof ceremonial rattle.Artifact x-6768. Provenance: Unknown Description: Unavailable."
+You hear the office telephone ring.
+> answer telephone
+
+> answer telephone
+You pick up the phone receiver and immediately launch into your spiel: "Sloane Rock State Historic Park, how can I help you?"
+
+"He's not meant for this world!" babbles a hysterical woman's voice. "He shouldn't be here! Sloane did it! His world wants him back! They've always wanted him! Take him back!"
+
+The line goes dead.
+> east
+
+> east
+
+You are in a hallway.
+You can see a cork board, a fire extinguisher, a memo, a note and a motivational poster.
+You can go north, east or west.
+The hallway is a simple corridor connecting the head ranger's office to the north with the breakroom to the south. The office is to the west, but  to the east... that's the gift shop and all the areas open to the public.  You can goof off all you want back here, but once you go into the gift shop you have to be on your best behavior. You wouldn't want to listen to another angry rant from some entitled retiree or soccer mom about how you're not smiling widely enough.
+> east
+
+> east
+
+You are in a gift shop.
+You can see a cash register.
+You can go west, east, north or south.
+The gift shop is a large, dimly-lit room, its walls lined with high wooden shelves full of knickknacks, curios, and souveneirs.  After all, what visit to Sloane Rock Park would be complete without a snowglobe or an "Sloane Rock is for Lovers" bumper sticker?
+
+Above the cash register, out of the public's view, the head ranger has posted a large banner reminding you: "ALL VISITORS WELCOME."
+> east
+
+> east
+
+You are in a museum.
+You can see a "1. A Man of Ambition", a "2. A Changing Landscape", a "3. A Pioneer Remembered", a "4. An Enduring Mystery", a "5. A Diverse Operation", a rattle and a plaque.
+You can go west or north.
+The museum is a cavernous, dimly-lit room. Alcove lighting highlights various panel displays that detail various aspects of the life of Lazarus Sloane. In the center of the room are several cases housing native Pombo tribal artifacts. The room's floor is lined with worn indoor/outdoor carpet.
+> north
+
+> north
+
+You are in an atrium.
+You can see a front door.
+You can go south or north.
+It's a small foyer connecting to the museum. The door to the north opens onto the parking lot.
+> north
+
+> north
+
+You are in a parking lot.
+You can see a pick up truck and a trailhead marker.
+You can go north, south, east or in.
+The parking lot is empty except for your car, parked in the Employees Only spot at the far end.  The road from the parking lot leads off to the west.  An interpretive hiking trail winds off into the woods to the north.
+
+You hear something rustling in the underbrush to the north, right at the edge of the woods but quickly receeding into the distance.  If you didn't know better, you'd think it sounded like human footfalls.
+
+Oh no, it must be those darn teenagers again.
+> x trailhead marker
+
+> x trailhead marker
+It's a sign marking where the interpretive trail begins.
+> in
+
+> in
+
+You are in a pick up truck.
+You can see a steering wheel and a glove box.
+You can go out.
+The windshield is scratched up, the steering wheel is bent, the bucket seats are torn to shreds and oozing foam rubber, and the knob at the end of the stick shift is missing. This truck has seen a lot of wear and tear. Of course, State Parks would never spring to buy a new truck as long as this hunk of junk is still vaguely mobile.
+> open glove box
+
+> open glove box
+You open the glove box.
+You see a small key inside the glove box, with the phrase A-2 etched into the handle. An A-2 key! One of the maintenance guys must have left it behind.
+> take a-2 key
+
+> take a-2 key
+You pocket the A-2 key.
+> out
+
+> out
+
+You are in a parking lot.
+You can see a pick up truck and a trailhead marker.
+You can go north, south, east or in.
+The parking lot is empty except for your car, parked in the Employees Only spot at the far end.  The road from the parking lot leads off to the west.  An interpretive hiking trail winds off into the woods to the north.
+> east
+
+> east
+
+You are in a footpath.
+You can go west or south.
+The footpath is illuminated by the visitor center's floodlights.
+> south
+
+> south
+
+You are in a footpath.
+You can go north or south.
+The footpath is illuminated by the visitor center's floodlights.
+> open door
+
+> open door
+You unlock the toolshed.
+> south
+
+> south
+
+You are in a tool shed.
+You can see a crowbar.
+You can go north.
+The interior of the toolshed is musty and strewn with cobwebs. There's a very strong chemical smell that makes you nervous to spend a lot of time in here without a respirator; you feel like everything in here probably causes cancer. The walls are lined with old paint cans, garden tools, hoses, and various other dusty equipment that the maintenance guys clearly aren't using as often as they should.
+> take crowbar
+
+> take crowbar
+You grab the crowbar.  You never know when this could be useful.
+> north
+
+> north
+
+You are in a footpath.
+You can go north or south.
+The footpath is illuminated by the visitor center's floodlights.
+> north
+
+> north
+
+You are in a footpath.
+You can go west or south.
+The footpath is illuminated by the visitor center's floodlights.
+> west
+
+> west
+
+You are in a parking lot.
+You can see a pick up truck and a trailhead marker.
+You can go north, south, east or in.
+The parking lot is empty except for your car, parked in the Employees Only spot at the far end.  The road from the parking lot leads off to the west.  An interpretive hiking trail winds off into the woods to the north.
+> light flare
+
+> light flare
+You light the flare.
+> north
+
+> north
+
+You are in a Trail.
+You can go north or south.
+You're on a narrow dirt trail leading through the woods.
+> north
+
+> north
+
+You are in a trail.
+You can go south or north.
+You're on a narrow dirt trail leading through the woods.
+> north
+
+> north
+
+You are in a trail.
+You can go south or north.
+You're on a narrow dirt trail leading through the woods.
+> north
+
+> north
+You hear some distant rustling as you approach the clearing, but no one's around when you step off the path.  However, you note with dismay, the ground is littered with empty beer cans and someone has tagged Sloane Rock with spray paint. Shit. You're gonna get reamed for that.
+
+Hey, just hey did those kids get up here anyway? You didn't see any other cars in the lot besides your own.
+
+You are in a clearing.
+You can see Sloane Rock, a beer cans and a graffiti.
+You can go south.
+You're in a large clearing in the middle of the woods. A large rock, covered in scratchy petroglyphs, rests in the center of the clearing, surrounded by a low metal fence. Someone has sprayed graffiti, in big jagged red letters, on the north side of the rock.
+> x sloane rock
+
+> x sloane rock
+It's a large volcanic rock covered in mysterious petroglyphs.  You have no clue what any of these petroglyphs mean.
+> read graffiti
+
+> read graffiti
+"Jask'akno Lives"
+> south
+
+> south
+
+You are in a trail.
+You can go south or north.
+You're on a narrow dirt trail leading through the woods.
+You feel like you're not alone in these woods.
+> south
+
+> south
+
+You are in a trail.
+You can go south or north.
+You're on a narrow dirt trail leading through the woods.
+You get the distinct sensation that someone... or something... is watching you.
+> south
+
+> south
+
+You are in a Trail.
+You can go north or south.
+You're on a narrow dirt trail leading through the woods.
+There is definitely an alien presence here... you can feel it.
+> south
+
+> south
+
+You are in a parking lot.
+You can see a pick up truck and a trailhead marker.
+You can go north, south, east or in.
+The parking lot is empty except for your car, parked in the Employees Only spot at the far end.  The road from the parking lot leads off to the west.  An interpretive hiking trail winds off into the woods to the north.
+Something is watching you. You don't know what, but you're positive that it doesn't have good intentions.
+> south
+
+> south
+
+You are in an atrium.
+You can see a front door.
+You can go south or north.
+It's a small foyer connecting to the museum. The door to the north opens onto the parking lot.
+> south
+
+> south
+
+You are in a museum.
+You can see a "1. A Man of Ambition", a "2. A Changing Landscape", a "3. A Pioneer Remembered", a "4. An Enduring Mystery", a "5. A Diverse Operation", a rattle and a plaque.
+You can go west or north.
+The museum is a cavernous, dimly-lit room. Alcove lighting highlights various panel displays that detail various aspects of the life of Lazarus Sloane. In the center of the room are several cases housing native Pombo tribal artifacts. The room's floor is lined with worn indoor/outdoor carpet.
+> break glass case
+
+> break glass case
+Driven by panic, you heft the crowbar at the case, smashing the glass into shards with a loud crash.  With the case destroyed, you can now reach the rattle.
+> take rattle
+
+> take rattle
+You carefully reach through the broken glass to grab the rattle.
+> west
+
+> west
+
+You are in a gift shop.
+You can see a cash register.
+You can go west, east, north or south.
+The gift shop is a large, dimly-lit room, its walls lined with high wooden shelves full of knickknacks, curios, and souveneirs.  After all, what visit to Sloane Rock Park would be complete without a snowglobe or an "Sloane Rock is for Lovers" bumper sticker?
+
+Above the cash register, out of the public's view, the head ranger has posted a large banner reminding you: "ALL VISITORS WELCOME."
+> open cash register
+
+> open cash register
+You tap the SALE button and the cash drawer pops open.
+> take cash
+
+> take cash
+Fuck it, you don't have time to worry about keeping this lousy job when you're probably going to be killed by a ghost! You grab the cash out of the register and shove it in your pocket. Might as well die rich!
+> west
+
+> west
+
+You are in a hallway.
+You can see a cork board, a memo, a note and a motivational poster.
+You can go north, east or west.
+The hallway is a simple corridor connecting the head ranger's office to the north with the breakroom to the south. The office is to the west, but  to the east... that's the gift shop and all the areas open to the public.  You can goof off all you want back here, but once you go into the gift shop you have to be on your best behavior. You wouldn't want to listen to another angry rant from some entitled retiree or soccer mom about how you're not smiling widely enough.
+> open door
+
+> open door
+You're definitely going to get fired over this, but what the hell -- you don't need this job THAT much and desperate times call for desperate measures. You jam the crowbar into the doorjam and pull until the door busts open with a loud crackling, splintering sound. The ruined door swings open easily.
+> north
+
+> north
+
+You are in a ranger office.
+You can see a desk, a chair, a filing cabinet, a computer and a radio.
+You can go south.
+This is the supervising ranger's office. He doesn't spend a lot of time here, so it hasn't been personalized very much. There's a desk with a large desktop computer in the center of the room, and a metal filing cabinet shoved in the corner.  A heavy two-way radio unit sits on the desk next to the computer.
+> open desk
+
+> open desk
+You open the desk drawer.
+There's a scrap of crumpled notebook paper at the bottom of the drawer.
+> read scrap paper
+
+> read scrap paper
+"4488"
+> x radio
+
+> x radio
+A hand-held two-way radio. In theory, you could use it to call the rangers for back-up -- if, A, you could stomach telling them to come rescue you from a ghost and, B, it had batteries.  B is really the more important consideration right now.
+> south
+
+> south
+
+You are in a hallway.
+You can see a cork board, a memo, a note and a motivational poster.
+You can go north, east or west.
+The hallway is a simple corridor connecting the head ranger's office to the north with the breakroom to the south. The office is to the west, but  to the east... that's the gift shop and all the areas open to the public.  You can goof off all you want back here, but once you go into the gift shop you have to be on your best behavior. You wouldn't want to listen to another angry rant from some entitled retiree or soccer mom about how you're not smiling widely enough.
+> west
+
+> west
+
+You are in an office.
+You can see a computer, a telephone, a book shelf, a keypad, a sticky note, an unit history folder and a Sloane history research binder.
+You can go up, east, south or west.
+The back office is where you spend most of your day when you're not at the front desk. It's a small cramped room, several desks lined up against one wall. The lead interpreter gets a computer and a telephone on her desk, but as a part-time hire you don't rate the same courtesy. There is a bookshelf, filled with various research and reference books, historical documents, and state parks rule binders, leaning against the opposite wall.
+> use keypad
+
+> use keypad
+What 4 digits do you enter?
+> 4488
+The door to the artifact room clicks open.
+> south
+
+> south
+
+You are in an artifact storage.
+You can see a sheet.
+You can go north.
+The artifact storage is a dark musty room, the walls are lined with metal shelves, which, in turn, are filled with cardboard boxes. In the center of the room is a gurney. Something is lying on the gurney, covered by a white sheet.
+> take sheet
+
+> take sheet
+With tremblin fingers, you grab the sheet off the gurney to reveal... what appears to be a mummy. Yes, it's the mummified body of a small child, tiny and withered, its empty eye sockets as dark as two bottomless pits, its tiny mouth pulled open by the drying skin of its jaw into a silent scream.
+> take mummy
+
+> take mummy
+You steel your nerves and hoist the mummy up off the gurney, balancing the delicate body in your arms.  It's surprisingly light and the dried skin crackle against your fingers like paper mache.
+> north
+
+> north
+
+You are in an office.
+You can see a computer, a telephone, a book shelf, a keypad, a sticky note, an unit history folder and a Sloane history research binder.
+You can go up, east, south or west.
+The back office is where you spend most of your day when you're not at the front desk. It's a small cramped room, several desks lined up against one wall. The lead interpreter gets a computer and a telephone on her desk, but as a part-time hire you don't rate the same courtesy. There is a bookshelf, filled with various research and reference books, historical documents, and state parks rule binders, leaning against the opposite wall.
+> east
+
+> east
+
+You are in a hallway.
+You can see a cork board, a memo, a note and a motivational poster.
+You can go north, east or west.
+The hallway is a simple corridor connecting the head ranger's office to the north with the breakroom to the south. The office is to the west, but  to the east... that's the gift shop and all the areas open to the public.  You can goof off all you want back here, but once you go into the gift shop you have to be on your best behavior. You wouldn't want to listen to another angry rant from some entitled retiree or soccer mom about how you're not smiling widely enough.
+> east
+
+> east
+
+You are in a gift shop.
+You can see a cash register.
+You can go west, east, north or south.
+The gift shop is a large, dimly-lit room, its walls lined with high wooden shelves full of knickknacks, curios, and souveneirs.  After all, what visit to Sloane Rock Park would be complete without a snowglobe or an "Sloane Rock is for Lovers" bumper sticker?
+
+Above the cash register, out of the public's view, the head ranger has posted a large banner reminding you: "ALL VISITORS WELCOME."
+> east
+
+> east
+
+You are in a museum.
+You can see a "1. A Man of Ambition", a "2. A Changing Landscape", a "3. A Pioneer Remembered", a "4. An Enduring Mystery", a "5. A Diverse Operation" and a plaque.
+You can go west or north.
+The museum is a cavernous, dimly-lit room. Alcove lighting highlights various panel displays that detail various aspects of the life of Lazarus Sloane. In the center of the room are several cases housing native Pombo tribal artifacts. The room's floor is lined with worn indoor/outdoor carpet.
+> north
+
+> north
+
+You are in an atrium.
+You can see a front door.
+You can go south or north.
+It's a small foyer connecting to the museum. The door to the north opens onto the parking lot.
+> north
+
+> north
+
+You are in a parking lot.
+You can see a pick up truck and a trailhead marker.
+You can go north, south, east or in.
+The parking lot is empty except for your car, parked in the Employees Only spot at the far end.  The road from the parking lot leads off to the west.  An interpretive hiking trail winds off into the woods to the north.
+Something is watching you. You don't know what, but you're positive that it doesn't have good intentions.
+> north
+
+> north
+
+You are in a Trail.
+You can go north or south.
+You're on a narrow dirt trail leading through the woods.
+There is definitely an alien presence here... you can feel it.
+> north
+
+> north
+
+You are in a trail.
+You can go south or north.
+You're on a narrow dirt trail leading through the woods.
+You get the distinct sensation that someone... or something... is watching you.
+> north
+
+> north
+
+You are in a trail.
+You can go south or north.
+You're on a narrow dirt trail leading through the woods.
+You feel like you're not alone in these woods.
+> north
+
+> north
+
+You are in a clearing.
+You can see Sloane Rock, a beer cans and a graffiti.
+You can go south.
+You're in a large clearing in the middle of the woods. A large rock, covered in scratchy petroglyphs, rests in the center of the clearing, surrounded by a low metal fence. Someone has sprayed graffiti, in big jagged red letters, on the north side of the rock.
+> put mummy on rock
+
+> put mummy on rock
+As carefully as you can, you gingerly balance the mummy on the rock. Instantly, you feel a great sense of relief.  Whatever presence has been dogging you, you feel that it's suddenly retreated,
+
+The wind whips through the dense trees, making the branches creak and sway. In the dark, your eyes play tricks on you...because it almost looks like there might be a figure out there among the trees, something inhumanly tall and inhumanly thin, swaying in the wind as if to camoflage itself as a tree.
+
+But then, two big white staring eyes suddenly blink open. Two pinprick pupils bore down on you. You can't look away from that awful face -- is it a face? It's nothing but two white eyes in an inky void, two white eyes staring at you, full of some unknowable emotion -- not anger, not fear, but something far beyond human ken, something you could never hope to understand. And then the hands.  You don't see them, but you can sense long rubbery arms pulling away from the darkness of the being's torso, reaching out, fingers coalescing... are they reaching for you? Or for the mummy?
+
+You don't stay to find out.  You run. You don't have the presence of mind to scream, but you run. The flare falls from your hands as you barrel through the woods, tripping over roots and crashing through branches, but you finally emerge, bruised and beaten, into the safety of the parking lot. The visitor center never looked so inviting! You lock yourself in and wait, trembling til morning.
+
+The next day, you are immediately fired for going over your eight hour shift. You hear rumblings that there might even be legal action taken over the disappearance of a priceless original artifact.  But at least you're still alive. And you don't think you would have stayed there much longer anyway... not knowing what's out there in those woods.
+[state=Finished]
