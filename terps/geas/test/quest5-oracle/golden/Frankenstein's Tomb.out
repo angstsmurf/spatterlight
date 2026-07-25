@@ -1,0 +1,497 @@
+Frankenstein's Tomb
+By Craig Dutton (c) 2017
+
+You had escaped from your creator Viktor Frankenstein at last!
+
+On escaping his castle you made your way to the city docks and stowed on board a ship heading towards the Polar Regions on a scientific expedition.  Alas, Viktor discovered you had stowed away and used his own ship to follow you.
+
+Weeks later had passed and the expedition came to a woeful end.  The ship had frozen in the ice and the crew perished. You were the only survivor.
+
+A frozen wastland lies before you and Viktor is not too far behind.  You can't run all your life so a final confrontation with your creator awaits you!
+
+By the trapped ship
+The frozen ship, dead in the cold waters of the north, looks pitiful. The silence deafens you in a way and the cold bites your skin. A desolate place indeed.
+You can go east or to the deck of the ship.
+> x me
+
+Looking monstrously good.
+> go to deck of the ship
+
+On the ship's deck
+A thin layer of white covers everything leaving a frozen scene of death.
+You can go by the trapped ship.
+You can see some dead bodies.
+> x dead bodies
+
+The frozen dead bodies of the unfortunate crew. Some of their limbs are hanging by the sinews from the time you ripped them off in anger. They were trying to kill you! They didn't matter then and they don't matter now.
+> go to trapped ship
+
+By the trapped ship
+The frozen ship, dead in the cold waters of the north, looks pitiful. The silence deafens you in a way and the cold bites your skin. A desolate place indeed.
+You can go east or to the deck of the ship.
+> east
+
+By the fogbank
+The cold swirling mass clings tightly to the sea underneath it as you see nothing beyond the fog and sense no one is watching back. You feel utterly alone.
+You can go west or north.
+> north
+
+On the icy wastes
+The icy wastes lead to a large ice bridge spanning the sea to the unseen other side.
+You can go south or east.
+You can see an ice bridge.
+> east
+
+On the icy wastes
+The desolate cold wasteland stretches far and wide. An igloo stands nearby.
+You can go west, in or north.
+> in
+
+Inside the igloo
+It's slightly less chilly in here but there are no signs of anyone having been here for months perhaps years.
+You can go out.
+You can see a shovel.
+> take shovel
+
+You pick it up.
+> out
+
+On the icy wastes
+The desolate cold wasteland stretches far and wide. An igloo stands nearby.
+You can go west, in or north.
+> north
+
+By the thermal springs
+The heat from the hot springs give some comfort from the bleak cold eternal winter.
+You can go north or south.
+You can see a blizzard.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The snow and wind pushes you back.
+> north
+
+The blizzard dies down and soon disappears.
+> north
+
+On the edge of a chasm
+Journey's end it seems?! A deep drop of about 100 metres lie down below ending at a blanket of snow.
+You can go south.
+> jump in chasm
+
+You take the plunge and land softly in a blanket of snow.
+
+In the snow-filled chasm
+The frost in your fingers and toes get worse when you scramble around in the snow. To the north a cave entrance leads through a tunnel to a valley on the other side.
+You can go north.
+> north
+
+In the alien city square
+The sight of strange alien structures astound you. The ice covered edifices tower over you like giants of frost and you wonder how long they have been here? Long abandoned, though.
+You can go south, in or north.
+> in
+
+In the ice hall
+The chamber walls reach up high towards a swirling cloud of fog where the ceiling should be. A silvery dais; a raised platform stands in the middle of the chamber.
+You can go out.
+You can see a dais and a strip of metal.
+> x dais
+
+A large silvery round platform.
+It contains a silver cube.
+> take silver cube
+
+You pick it up.
+> take metal
+
+You pick it up.
+> read metal
+
+It's coloured with yellow, green, blue and red from left to right.
+> out
+
+In the alien city square
+The sight of strange alien structures astound you. The ice covered edifices tower over you like giants of frost and you wonder how long they have been here? Long abandoned, though.
+You can go south, in or north.
+> north
+
+On the path
+The path passes a tall crystal tower standing like a gigantic ice Titan over you and continues either northeast or south.
+You can go south, in or northeast.
+> northeast
+
+By the obelisk
+A cut-off area of the alien city with a single structure of an obelisk. You're not sure if it was used as a monument or if it was just decorative? Either way it's old and worse for wear.
+You can go southwest.
+> push obelisk
+
+You push it very hard and it falls over leaving the base intact.
+> x base
+
+The base is intact.
+You find a glowing crystal inside.
+> take glowing crystal
+
+You pick it up.
+> take stone block
+
+You pick it up.
+> southwest
+
+On the path
+The path passes a tall crystal tower standing like a gigantic ice Titan over you and continues either northeast or south.
+You can go south, in or northeast.
+> in
+
+In the crystal tower
+The crystal steps wind in a spiral to the top of the semi-transparent structure.
+You can go out or up.
+> up
+
+In the crystal chamber
+A round chamber with crystal walls, floor and a domed ceiling. A short black tube-like console stands to one side next to a pit in the centre of the room. On the wall opposite a wheel and a lever are seen next to each other. The most remarkable thing is the large red crystal rod hanging mysteriously without support centrally above the pit. You have no idea what this place was used for but it looks important.
+You can go down.
+You can see a console, a wheel, a lever, a rod, a dome and a pit.
+> x console
+
+A rounded black column situated on one side of the chamber.
+It contains a red button, a yellow button, a green button and a blue button.
+> look behind console
+
+You find an open recess.
+> put glowing crystal in recess
+
+Done.
+> turn wheel
+
+You turn the wheel and the dome opens up letting in sunlight.
+> pull lever
+
+You pull the lever and the pit opens.
+> push yellow button
+
+You hear a loud ping. It's the correct button sequence.
+> push green button
+
+You hear a loud ping. It's the correct button sequence.
+> push blue button
+
+You hear a loud ping. It's the correct button sequence.
+> push red button
+
+You hear a loud ping. It's the correct button sequence and the rod starts pulsating giving off a strong glow. A beam of red light shoots down into the pit. The pit acts like a battery and charges up the city's power.
+> push lever
+
+You push the lever and the pit closes.
+The rod stops glowing now the pit has closed.
+> take glowing crystal
+
+You pick it up.
+> down
+
+In the crystal tower
+The crystal steps wind in a spiral to the top of the semi-transparent structure.
+You can go out or up.
+> out
+
+On the path
+The path passes a tall crystal tower standing like a gigantic ice Titan over you and continues either northeast or south.
+You can go south, in or northeast.
+> south
+
+In the alien city square
+The sight of strange alien structures astound you. The ice covered edifices tower over you like giants of frost and you wonder how long they have been here? Long abandoned, though.
+You can go south, in or north.
+> in
+
+In the ice hall
+The chamber walls reach up high towards a swirling cloud of fog where the ceiling should be. A silvery dais; a raised platform stands in the middle of the chamber.
+You can go out.
+You can see a dais.
+> stand on dais
+
+As soon as you stand on it you are teleported elsewhere...
+
+By the fogbank
+The cold swirling mass clings tightly to the sea underneath it as you see nothing beyond the fog and sense no one is watching back. You feel utterly alone.
+You can go west or north.
+> north
+
+On the icy wastes
+The icy wastes lead to a large ice bridge spanning the sea to the unseen other side.
+You can go south or east.
+You can see an ice bridge.
+> east
+
+On the icy wastes
+The desolate cold wasteland stretches far and wide. An igloo stands nearby.
+You can go west, in or north.
+> north
+
+By the thermal springs
+The heat from the hot springs give some comfort from the bleak cold eternal winter.
+You can go north or south.
+> use silver cube on waters
+
+The cube melts and within it you find a silver key.
+> take silver key
+
+You pick it up.
+> south
+
+On the icy wastes
+The desolate cold wasteland stretches far and wide. An igloo stands nearby.
+You can go west, in or north.
+> west
+
+On the icy wastes
+The icy wastes lead to a large ice bridge spanning the sea to the unseen other side.
+You can go south or east.
+You can see an ice bridge.
+> cross ice bridge
+
+You cross to the other side.
+
+By the avalanche
+A wall of snow blocking your way makes you feel deflated.
+You can see an ice bridge.
+> dig avalanche
+
+You dig a hole deep into the snow and find a way through.
+> north
+
+By the ice mountains
+A tunnel leads south and a log cabin stands nearby as you're surrounded by high ice-covered mountains.
+You can go south or in.
+> in
+
+In the log cabin
+A wooden structure which has been abandoned for years.
+You can go out or down.
+You can see a trapdoor, a bed and a table.
+> break trapdoor
+
+You smash the trapdoor with the stone block.
+> down
+
+In the ice tunnel
+The cold walls make you shiver slightly as you decide whether to go north or up.
+You can go up or north.
+> north
+
+In the frozen chamber
+This ice-covered chamber ends with a solid iron door to the west.
+You can go south or west.
+You can see an iron door.
+> unlock iron door
+
+Unlocked.
+> open iron door
+
+You open it.
+> west
+
+In the subterranean cavern
+An enclosed ice cavern with a small lake. Large stalagtites hang precariously above you as Frankenstein's ship is moored nearby.
+You can go east or on to the deck of the ship.
+> go to deck
+
+On the deck of Frankenstein's ship
+The contrast between this ship and the expedition ship is obvious. Most of the ice has melted and it's ready to set sail again. There is no one about! A cabin can be seen to the east while below deck is a cargo hold.
+You can go east, down or to the subterranean cavern.
+> down
+
+In the cargo hold
+A dark and damp hold with water dripping from the ceiling.
+You can go up.
+You can see a cask of gunpowder.
+> take cask of gunpowder
+
+You pick it up.
+> up
+
+On the deck of Frankenstein's ship
+The contrast between this ship and the expedition ship is obvious. Most of the ice has melted and it's ready to set sail again. There is no one about! A cabin can be seen to the east while below deck is a cargo hold.
+You can go east, down or to the subterranean cavern.
+> leave ship
+
+You leave the ship.
+
+In the subterranean cavern
+An enclosed ice cavern with a small lake. Large stalagtites hang precariously above you as Frankenstein's ship is moored nearby.
+You can go east or on to the deck of the ship.
+> east
+
+In the frozen chamber
+This ice-covered chamber ends with an open iron door to the west.
+You can go south or west.
+You can see an iron door.
+> south
+
+In the ice tunnel
+The cold walls make you shiver slightly as you decide whether to go north or up.
+You can go up or north.
+> up
+
+In the log cabin
+A wooden structure which has been abandoned for years. A hole in the trapdoor leads down into a tunnel.
+You can go out or down.
+You can see a trapdoor, a bed and a table.
+> out
+
+By the ice mountains
+A tunnel leads south and a log cabin stands nearby as you're surrounded by high ice-covered mountains.
+You can go south or in.
+> south
+
+By the avalanche
+The hole you dug reaches a natural tunnel though the mountain to the other side.
+You can go north.
+You can see an ice bridge.
+> cross ice bridge
+
+You cross to the other side.
+
+On the icy wastes
+The icy wastes lead to a large ice bridge spanning the sea to the unseen other side.
+You can go south or east.
+You can see an ice bridge.
+> east
+
+On the icy wastes
+The desolate cold wasteland stretches far and wide. An igloo stands nearby.
+You can go west, in or north.
+> north
+
+By the thermal springs
+The heat from the hot springs give some comfort from the bleak cold eternal winter.
+You can go north or south.
+> north
+
+On the edge of a chasm
+Journey's end it seems?! A deep drop of about 100 metres lie down below ending at a blanket of snow.
+You can go south.
+> jump in chasm
+
+You take the plunge and land softly in a blanket of snow.
+
+In the snow-filled chasm
+The frost in your fingers and toes get worse when you scramble around in the snow. To the north a cave entrance leads through a tunnel to a valley on the other side.
+You can go north.
+> north
+
+In the alien city square
+The sight of strange alien structures astound you. The ice covered edifices tower over you like giants of frost and you wonder how long they have been here? Long abandoned, though.
+You can go south, in or north.
+> north
+
+On the path
+The path passes a tall crystal tower standing like a gigantic ice Titan over you and continues either northeast or south.
+You can go south, in or northeast.
+> in
+
+In the crystal tower
+The crystal steps wind in a spiral to the top of the semi-transparent structure.
+You can go out or up.
+> up
+
+In the crystal chamber
+A round chamber with crystal walls, floor and a domed ceiling. A short black tube-like console stands to one side next to a pit in the centre of the room. On the wall opposite a wheel and a lever are seen next to each other. The most remarkable thing is the large red crystal rod hanging mysteriously without support centrally above the pit. You have no idea what this place was used for but it looks important.
+You can go down.
+You can see a console (on which there is a red button, a yellow button, a green button and a blue button), a wheel, a lever, a rod, a dome, a pit and a recess.
+> pull lever
+
+You pull the lever and the pit opens.
+> put cask of gunpowder in pit
+
+Done.
+
+Your creator Viktor Frankenstein walks into the chamber and pleads for you to return home with him.
+> push yellow button
+
+You hear a loud ping. It's the correct button sequence.
+> push green button
+
+You hear a loud ping. It's the correct button sequence.
+> push blue button
+
+You hear a loud ping. It's the correct button sequence.
+> push red button
+
+You hear a loud ping. It's the correct button sequence and the rod starts pulsating giving off a strong glow. A beam of red light shoots down into the pit. The pit acts like a battery and charges up the city's power.
+The beam of light heats up the cask of gunpowder!
+
+Frankenstein leaps into action and pushes you out of the way of the blast. Unfortunately, he takes the full force of it and is ripped asunder scattering bodies parts all over the chamber. As you stare at your creator's remains you speak.
+
+"I shall die, and what I now feel be no longer felt. Soon these burning miseries will be extinct. I shall ascend my funeral pile triumphantly and exult in the agony of the torturing flames. The light of that conflagration will fade away; my ashes will be swept into the sea by the winds. My spirit will sleep in peace, or if it thinks, it will not surely think thus. Farewell."
+
+The End
+[state=Finished]
