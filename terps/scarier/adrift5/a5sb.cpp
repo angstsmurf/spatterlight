@@ -12,32 +12,12 @@
 void
 sb_init (sb_t *b) { b->p = NULL; b->len = b->cap = 0; }
 
-void
-sb_puts (sb_t *b, const char *s)
-{
-  size_t n;
-  if (s == NULL) return;
-  n = strlen (s);
-  if (b->len + n + 1 > b->cap)
-    {
-      size_t cap = b->cap ? b->cap : 128;
-      while (cap < b->len + n + 1) cap *= 2;
-      b->p = (char *) realloc (b->p, cap);
-      b->cap = cap;
-    }
-  memcpy (b->p + b->len, s, n);
-  b->len += n;
-  b->p[b->len] = '\0';
-}
-
-void
-sb_putc (sb_t *b, char c) { char t[2] = { c, '\0' }; sb_puts (b, t); }
-
-/* Append the n-byte span [s, s+n) verbatim (a length-delimited sb_puts). */
+/* Append the n-byte span [s, s+n) verbatim.  The one place the buffer grows;
+   sb_puts/sb_putc are length-computing wrappers around it. */
 void
 sb_putn (sb_t *b, const char *s, size_t n)
 {
-  if (s == NULL || n == 0) return;
+  if (s == NULL) return;
   if (b->len + n + 1 > b->cap)
     {
       size_t cap = b->cap ? b->cap : 128;
@@ -50,6 +30,15 @@ sb_putn (sb_t *b, const char *s, size_t n)
   b->len += n;
   b->p[b->len] = '\0';
 }
+
+void
+sb_puts (sb_t *b, const char *s)
+{
+  if (s != NULL) sb_putn (b, s, strlen (s));
+}
+
+void
+sb_putc (sb_t *b, char c) { sb_putn (b, &c, 1); }
 
 char *
 sb_finish (sb_t *b) { return b->p ? b->p : strdup (""); }

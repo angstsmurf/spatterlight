@@ -2634,32 +2634,20 @@ fd_object_location (const a5_objloc_t *l, const char **dyn, const char **stat,
     }
 }
 
-/* clsEvent.StatusEnum name for the runtime status int. */
+/* clsEvent.StatusEnum / clsWalk.StatusEnum name for the runtime status int.
+   clsWalk's enum has no CountingDownToStart (walks have no StartDelay), so for
+   a walk that value is unrepresentable and falls back to NotYetStarted. */
 static const char *
-fd_event_status (int status)
+fd_status_name (int status, int is_walk)
 {
   switch (status)
     {
     case A5_EV_NOTYET:    return "NotYetStarted";
     case A5_EV_RUNNING:   return "Running";
-    case A5_EV_COUNTDOWN: return "CountingDownToStart";
+    case A5_EV_COUNTDOWN: return is_walk ? "NotYetStarted" : "CountingDownToStart";
     case A5_EV_PAUSED:    return "Paused";
     case A5_EV_FINISHED:  return "Finished";
     default:              return "NotYetStarted";
-    }
-}
-
-/* clsWalk.StatusEnum name (no CountingDownToStart -- walks have no StartDelay). */
-static const char *
-fd_walk_status (int status)
-{
-  switch (status)
-    {
-    case A5_EV_NOTYET:   return "NotYetStarted";
-    case A5_EV_RUNNING:  return "Running";
-    case A5_EV_PAUSED:   return "Paused";
-    case A5_EV_FINISHED: return "Finished";
-    default:             return "NotYetStarted";
     }
 }
 
@@ -2788,7 +2776,7 @@ save_fd_game (sb_t *b, a5_run_t *run)
                                      : e.last_se_index;
       sb_puts (b, "<Event>\n");
       sb_elem (b, "Key", adv->events[i].key);
-      sb_elem (b, "Status", fd_event_status (e.status));
+      sb_elem (b, "Status", fd_status_name (e.status, 0));
       sb_elem_l (b, "Timer", e.timer_to_end);
       sb_elem_l (b, "SubEventTime", e.last_se_time);
       sb_elem_l (b, "SubEventIndex", sei);
@@ -2829,7 +2817,7 @@ save_fd_game (sb_t *b, a5_run_t *run)
           if (wk.char_index != i)
             continue;
           sb_puts (b, "<Walk>\n");
-          sb_elem (b, "Status", fd_walk_status (wk.status));
+          sb_elem (b, "Status", fd_status_name (wk.status, 1));
           sb_elem_l (b, "Timer", wk.timer_to_end);
           sb_puts (b, "</Walk>\n");
         }

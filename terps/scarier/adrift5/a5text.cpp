@@ -247,45 +247,25 @@ a5text_eval_description (a5_state_t *st, const a5_xml_node_t *wrapper)
   return sb_finish (&sb);
 }
 
-/* The effective short description of a location (clsLocation.ShortDescription,
-   vb:62): the base <ShortDescription> Description, with any inherited
-   ShortLocationDescription group property's SingleDescriptions appended -- so a
-   DarkLocations member with no LightSources in scope renders "Everything is
-   dark" (its dark alternate is StartDescriptionWithThis + restricted).  Routed
-   through by %LocationName%, %DisplayLocation%'s room name, and the
-   `.ShortDescription` OO reads, mirroring the runner where every short-name read goes
-   through the property getter. */
-char *
-a5text_location_short (a5_state_t *st, const char *lockey)
-{
-  const a5_location_t *l = lockey ? a5model_location (st->adv, lockey) : NULL;
-  const a5_prop_t *dark;
-  sb_t sb;
-  const char *default_text = NULL;
-  int first = 1, term;
-  sb_init (&sb);
-  if (l == NULL)
-    return sb_finish (&sb);
-  term = eval_desc_into (st, &sb, &first, &default_text,
-                         a5xml_child (l->node, "ShortDescription"));
-  dark = a5state_location_group_prop (st, lockey, "ShortLocationDescription");
-  if (!term && dark != NULL && dark->value_node != NULL)
-    eval_desc_into (st, &sb, &first, &default_text, dark->value_node);
-  return sb_finish (&sb);
-}
+/* The effective Short/LongDescription of a location (clsLocation.vb:62/78): the
+   base <`tag`> Description, with any inherited `group_prop` group property's
+   SingleDescriptions appended.
 
-/* The effective long description of a location (clsLocation.LongDescription,
-   vb:78) -- the exact mirror of ShortDescription above: the base
-   <LongDescription>, with any inherited LongLocationDescription group
-   property's SingleDescriptions appended.  Both properties are created
-   GroupOnly by FileIO (vb:2429/2441), so a whole region can be described once
-   on its group: Tempus Fugit gives its 21 numbered Volcano rooms no
-   LongDescription of their own and lets the Volcano group say "You are on the
-   base of the Volcano of Eruptus."  Without this the room bodies come out
-   empty, which also flips the object listing to the v5 empty-room "There is a
-   shovel here." instead of "Also here is a shovel." */
+   Short: a DarkLocations member with no LightSources in scope renders
+   "Everything is dark" (its dark alternate is StartDescriptionWithThis +
+   restricted).  Routed through by %LocationName%, %DisplayLocation%'s room
+   name, and the `.ShortDescription` OO reads, mirroring the runner where every
+   short-name read goes through the property getter.
+
+   Long: both properties are created GroupOnly by FileIO (vb:2429/2441), so a
+   whole region can be described once on its group: Tempus Fugit gives its 21
+   numbered Volcano rooms no LongDescription of their own and lets the Volcano
+   group say "You are on the base of the Volcano of Eruptus."  Without this the
+   room bodies come out empty, which also flips the object listing to the v5
+   empty-room "There is a shovel here." instead of "Also here is a shovel." */
 static char *
-location_long_desc (a5_state_t *st, const char *lockey)
+location_desc (a5_state_t *st, const char *lockey, const char *tag,
+               const char *group_prop)
 {
   const a5_location_t *l = lockey ? a5model_location (st->adv, lockey) : NULL;
   const a5_prop_t *grp;
@@ -296,11 +276,25 @@ location_long_desc (a5_state_t *st, const char *lockey)
   if (l == NULL)
     return sb_finish (&sb);
   term = eval_desc_into (st, &sb, &first, &default_text,
-                         a5xml_child (l->node, "LongDescription"));
-  grp = a5state_location_group_prop (st, lockey, "LongLocationDescription");
+                         a5xml_child (l->node, tag));
+  grp = a5state_location_group_prop (st, lockey, group_prop);
   if (!term && grp != NULL && grp->value_node != NULL)
     eval_desc_into (st, &sb, &first, &default_text, grp->value_node);
   return sb_finish (&sb);
+}
+
+char *
+a5text_location_short (a5_state_t *st, const char *lockey)
+{
+  return location_desc (st, lockey, "ShortDescription",
+                        "ShortLocationDescription");
+}
+
+static char *
+location_long_desc (a5_state_t *st, const char *lockey)
+{
+  return location_desc (st, lockey, "LongDescription",
+                        "LongLocationDescription");
 }
 
 /* --------------------------------------------------------- object naming */
