@@ -113,6 +113,8 @@ A5OBJECTS = $(A5DIR)/a5blorb.o $(A5DIR)/a5deobf.o $(A5DIR)/a5xml.o	\
 	  $(A5DIR)/a5expr.o $(A5DIR)/a5sexpr.o $(A5DIR)/a5text.o	\
 	  $(A5DIR)/a5parse.o $(A5DIR)/a5rand.o $(A5DIR)/a5sb.o		\
 	  $(A5DIR)/a5run_ref.o $(A5DIR)/a5run_events.o			\
+	  $(A5DIR)/a5run_conv.o $(A5DIR)/a5run_resp.o			\
+	  $(A5DIR)/a5run_sort.o						\
 	  $(A5DIR)/a5run_action.o $(A5DIR)/a5run.o $(A5DIR)/a5map.o
 A5HEADERS = $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h	\
 	  $(A5DIR)/a5model.h $(A5DIR)/a5state.h $(A5DIR)/a5restr.h	\

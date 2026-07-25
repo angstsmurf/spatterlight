@@ -363,6 +363,61 @@ gsc_fatal (const char *string)
 
 
 /*
+ * gsc_hint_window_styles()
+ * gsc_open_main_window()
+ * gsc_open_status_window()
+ *
+ * Window prologue shared by the ADRIFT <=4 and ADRIFT 5 main loops.
+ *
+ * Style hints have to be set before the window they apply to is opened.
+ * Centered text (<center>/<centre> sections) renders through two user styles
+ * hinted for centered justification: User1 plain, User2 bold (Glk styles
+ * don't combine, so <center><b> title lines need their own style).  The a5
+ * renderer strips <b> and so uses only User1, but both paths hint the pair
+ * identically.  Libraries that ignore justification hints show these as
+ * ordinary left-flush text.  User1 on the grid is the reverse-video status
+ * line.
+ *
+ * The status window is a nicety; we can live without it.  It is opened
+ * separately from the main window because the <=4 path prints its
+ * "no game file" complaint in between.
+ */
+static void
+gsc_hint_window_styles (void)
+{
+  glk_stylehint_set (wintype_TextBuffer, style_User1,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+
+  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+}
+
+static void
+gsc_open_main_window (void)
+{
+  gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+  if (!gsc_main_window)
+    {
+      gsc_fatal ("GLK: Can't open main window");
+      glk_exit ();
+    }
+  glk_window_clear (gsc_main_window);
+  glk_set_window (gsc_main_window);
+  glk_set_style (style_Normal);
+}
+
+static void
+gsc_open_status_window (void)
+{
+  gsc_status_window = glk_window_open (gsc_main_window,
+                                       winmethod_Above | winmethod_Fixed,
+                                       1, wintype_TextGrid, 0);
+}
+
+
+/*
  * gsc_malloc()
  *
  * Non-failing malloc; call gsc_fatal and exit if memory allocation fails.
@@ -1122,6 +1177,48 @@ gsc_is_string_usable (const scr_char *string)
 
 
 /*
+ * gsc_status_begin()
+ * gsc_status_end()
+ *
+ * Open and close a status line redraw, shared by the ADRIFT <=4 and ADRIFT 5
+ * status lines.  gsc_status_begin() makes the status window current, blanks
+ * it, and fills its width with User1 spaces so that the reverse-video bar
+ * spans the whole line; it returns FALSE, having done nothing, if there is
+ * no status window or it has no height, in which case the caller has nothing
+ * to draw.  gsc_status_end() hands the current window back to the main one.
+ */
+static scr_bool
+gsc_status_begin (glui32 *width)
+{
+  glui32 height, index;
+
+  if (!gsc_status_window)
+    return FALSE;
+
+  glk_window_get_size (gsc_status_window, width, &height);
+  if (height == 0)
+    return FALSE;
+
+  glk_window_clear (gsc_status_window);
+  glk_window_move_cursor (gsc_status_window, 0, 0);
+  glk_set_window (gsc_status_window);
+
+  glk_set_style (style_User1);
+  for (index = 0; index < *width; index++)
+    glk_put_char (' ');
+  glk_window_move_cursor (gsc_status_window, 0, 0);
+
+  return TRUE;
+}
+
+static void
+gsc_status_end (void)
+{
+  glk_set_window (gsc_main_window);
+}
+
+
+/*
  * gsc_status_update()
  *
  * Update the status line from the current game state.  This is for windowing
@@ -1130,23 +1227,12 @@ gsc_is_string_usable (const scr_char *string)
 static void
 gsc_status_update (void)
 {
-  glui32 width, height;
-  int index;
+  glui32 width;
   assert (gsc_status_window);
 
-  glk_window_get_size (gsc_status_window, &width, &height);
-  if (height > 0)
+  if (gsc_status_begin (&width))
     {
       const scr_char *room;
-
-      glk_window_clear (gsc_status_window);
-      glk_window_move_cursor (gsc_status_window, 0, 0);
-      glk_set_window (gsc_status_window);
-
-      glk_set_style(style_User1);
-      for (index = 0; index < width; index++)
-        glk_put_char (' ');
-      glk_window_move_cursor (gsc_status_window, 0, 0);
 
       /* See if the game is indicating any current player room. */
       room = scr_get_game_room (gsc_game);
@@ -1189,7 +1275,7 @@ gsc_status_update (void)
             }
         }
 
-      glk_set_window (gsc_main_window);
+      gsc_status_end ();
     }
 }
 
@@ -2479,6 +2565,48 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 static void gsc_command_usage (const char *command);
 
 /*
+ * gsc_open_log_stream()
+ *
+ * Prompt for a log file and open a stream on it, in the way all three of the
+ * logging commands below want it done.  `must_exist` is for the read log,
+ * which reads back a file rather than writing one.  Returns NULL, having
+ * already complained under `label`, where the player cancelled the prompt or
+ * the file would not open.
+ */
+static strid_t
+gsc_open_log_stream (const char *label, glui32 usage, glui32 mode,
+                     scr_bool must_exist)
+{
+  frefid_t fileref;
+  strid_t stream;
+
+  fileref = glk_fileref_create_by_prompt (usage, (glui32) mode, 0);
+  if (fileref && must_exist && !glk_fileref_does_file_exist (fileref))
+    {
+      glk_fileref_destroy (fileref);
+      fileref = NULL;
+    }
+  if (!fileref)
+    {
+      gsc_standout_string (label);
+      gsc_standout_string (" failed.\n");
+      return NULL;
+    }
+
+  stream = glk_stream_open_file (fileref, (glui32) mode, 0);
+  glk_fileref_destroy (fileref);
+  if (!stream)
+    {
+      gsc_standout_string (label);
+      gsc_standout_string (" failed.\n");
+      return NULL;
+    }
+
+  return stream;
+}
+
+
+/*
  * gsc_command_script()
  *
  * Turn game output scripting (logging) on and off.  A bare "glk script" acts,
@@ -2493,31 +2621,19 @@ gsc_command_script (const char *argument)
 
   if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
     {
-      frefid_t fileref;
-
       if (gsc_transcript_stream)
         {
           gsc_normal_string ("Glk transcript is already on.\n");
           return;
         }
 
-      fileref = glk_fileref_create_by_prompt (fileusage_Transcript
-                                              | fileusage_TextMode,
-                                              filemode_WriteAppend, 0);
-      if (!fileref)
-        {
-          gsc_standout_string ("Glk transcript failed.\n");
-          return;
-        }
-
-      gsc_transcript_stream = glk_stream_open_file (fileref,
-                                                    filemode_WriteAppend, 0);
-      glk_fileref_destroy (fileref);
+      gsc_transcript_stream = gsc_open_log_stream ("Glk transcript",
+                                                   fileusage_Transcript
+                                                   | fileusage_TextMode,
+                                                   filemode_WriteAppend,
+                                                   FALSE);
       if (!gsc_transcript_stream)
-        {
-          gsc_standout_string ("Glk transcript failed.\n");
-          return;
-        }
+        return;
 
       glk_window_set_echo_stream (gsc_main_window, gsc_transcript_stream);
 
@@ -2568,31 +2684,18 @@ gsc_command_inputlog (const char *argument)
 
   if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
     {
-      frefid_t fileref;
-
       if (gsc_inputlog_stream)
         {
           gsc_normal_string ("Glk input logging is already on.\n");
           return;
         }
 
-      fileref = glk_fileref_create_by_prompt (fileusage_InputRecord
-                                              | fileusage_BinaryMode,
-                                              filemode_WriteAppend, 0);
-      if (!fileref)
-        {
-          gsc_standout_string ("Glk input logging failed.\n");
-          return;
-        }
-
-      gsc_inputlog_stream = glk_stream_open_file (fileref,
-                                                  filemode_WriteAppend, 0);
-      glk_fileref_destroy (fileref);
+      gsc_inputlog_stream = gsc_open_log_stream ("Glk input logging",
+                                                 fileusage_InputRecord
+                                                 | fileusage_BinaryMode,
+                                                 filemode_WriteAppend, FALSE);
       if (!gsc_inputlog_stream)
-        {
-          gsc_standout_string ("Glk input logging failed.\n");
-          return;
-        }
+        return;
 
       gsc_normal_string ("Glk input logging is now on.\n");
     }
@@ -2639,37 +2742,18 @@ gsc_command_readlog (const char *argument)
 
   if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
     {
-      frefid_t fileref;
-
       if (gsc_readlog_stream)
         {
           gsc_normal_string ("Glk read log is already on.\n");
           return;
         }
 
-      fileref = glk_fileref_create_by_prompt (fileusage_InputRecord
-                                              | fileusage_BinaryMode,
-                                              filemode_Read, 0);
-      if (!fileref)
-        {
-          gsc_standout_string ("Glk read log failed.\n");
-          return;
-        }
-
-      if (!glk_fileref_does_file_exist (fileref))
-        {
-          glk_fileref_destroy (fileref);
-          gsc_standout_string ("Glk read log failed.\n");
-          return;
-        }
-
-      gsc_readlog_stream = glk_stream_open_file (fileref, filemode_Read, 0);
-      glk_fileref_destroy (fileref);
+      gsc_readlog_stream = gsc_open_log_stream ("Glk read log",
+                                                fileusage_InputRecord
+                                                | fileusage_BinaryMode,
+                                                filemode_Read, TRUE);
       if (!gsc_readlog_stream)
-        {
-          gsc_standout_string ("Glk read log failed.\n");
-          return;
-        }
+        return;
 
       gsc_normal_string ("Glk read log is now on.\n");
     }
@@ -2703,50 +2787,95 @@ gsc_command_readlog (const char *argument)
 
 
 /*
- * gsc_command_abbreviations()
+ * gsc_command_toggle()
  *
- * Turn abbreviation expansions on and off.
+ * The shape every on/off port option takes: "on" and "off" set it, saying so
+ * unless it was already that way; a bare command reports the current setting;
+ * anything else is a usage error.
+ *
+ * `label` opens each of those messages and carries its own verb, since some
+ * of the options are plural ("Glk abbreviation expansions are ...", "Glk
+ * combat assist is ..."), and `on_detail` and `off_detail` finish the two
+ * "is now ..." messages -- for most options just ".\n", but the ones that
+ * deviate from the original Runner say what they do and why there.
+ *
+ * `empty_acts` is for options where a bare command is worth treating as "on"
+ * rather than as a question, and which therefore never report.
  */
 static void
-gsc_command_abbreviations (const char *argument)
+gsc_command_toggle (const char *argument, const char *name,
+                    const char *label, scr_bool state,
+                    void (*set_state) (scr_bool),
+                    const char *on_detail, const char *off_detail,
+                    scr_bool empty_acts)
 {
+  const scr_bool is_empty = strlen (argument) == 0;
+
   assert (argument);
 
-  if (scr_strcasecmp (argument, "on") == 0)
+  if (scr_strcasecmp (argument, "on") == 0 || (empty_acts && is_empty))
     {
-      if (gsc_abbreviations_enabled)
+      if (state)
         {
-          gsc_normal_string ("Glk abbreviation expansions are already on.\n");
+          gsc_normal_string (label);
+          gsc_normal_string (" already on.\n");
           return;
         }
 
-      gsc_abbreviations_enabled = TRUE;
-      gsc_normal_string ("Glk abbreviation expansions are now on.\n");
+      set_state (TRUE);
+      gsc_normal_string (label);
+      gsc_normal_string (" now on");
+      gsc_normal_string (on_detail);
     }
 
   else if (scr_strcasecmp (argument, "off") == 0)
     {
-      if (!gsc_abbreviations_enabled)
+      if (!state)
         {
-          gsc_normal_string ("Glk abbreviation expansions are already off.\n");
+          gsc_normal_string (label);
+          gsc_normal_string (" already off.\n");
           return;
         }
 
-      gsc_abbreviations_enabled = FALSE;
-      gsc_normal_string ("Glk abbreviation expansions are now off.\n");
+      set_state (FALSE);
+      gsc_normal_string (label);
+      gsc_normal_string (" now off");
+      gsc_normal_string (off_detail);
     }
 
-  else if (strlen (argument) == 0)
+  else if (is_empty)
     {
-      gsc_normal_string ("Glk abbreviation expansions are ");
-      gsc_normal_string (gsc_abbreviations_enabled ? "on" : "off");
+      gsc_normal_string (label);
+      gsc_normal_char (' ');
+      gsc_normal_string (state ? "on" : "off");
       gsc_normal_string (".\n");
     }
 
   else
     {
-      gsc_command_usage ("abbreviations");
+      gsc_command_usage (name);
     }
+}
+
+
+/*
+ * gsc_command_abbreviations()
+ *
+ * Turn abbreviation expansions on and off.
+ */
+static void
+gsc_set_abbreviations (scr_bool state)
+{
+  gsc_abbreviations_enabled = state;
+}
+
+static void
+gsc_command_abbreviations (const char *argument)
+{
+  gsc_command_toggle (argument, "abbreviations",
+                      "Glk abbreviation expansions are",
+                      gsc_abbreviations_enabled, gsc_set_abbreviations,
+                      ".\n", ".\n", FALSE);
 }
 
 
@@ -2759,52 +2888,22 @@ gsc_command_abbreviations (const char *argument)
  * the objects currently held on each check (legacy SCARIER behaviour).
  */
 static void
+gsc_set_capacity (scr_bool state)
+{
+  scr_set_game_capacity_recompute (gsc_game, state);
+}
+
+static void
 gsc_command_capacity (const char *argument)
 {
-  assert (argument);
-
-  if (scr_strcasecmp (argument, "on") == 0)
-    {
-      if (scr_get_game_capacity_recompute (gsc_game))
-        {
-          gsc_normal_string ("Glk carrying capacity recompute is already"
-                             " on.\n");
-          return;
-        }
-
-      scr_set_game_capacity_recompute (gsc_game, TRUE);
-      gsc_normal_string ("Glk carrying capacity recompute is now on; the load"
-                         " is summed afresh from held objects on each check"
-                         " (legacy SCARIER behaviour).\n");
-    }
-
-  else if (scr_strcasecmp (argument, "off") == 0)
-    {
-      if (!scr_get_game_capacity_recompute (gsc_game))
-        {
-          gsc_normal_string ("Glk carrying capacity recompute is already"
-                             " off.\n");
-          return;
-        }
-
-      scr_set_game_capacity_recompute (gsc_game, FALSE);
-      gsc_normal_string ("Glk carrying capacity recompute is now off; a running"
-                         " total is kept as the original ADRIFT Runner"
-                         " does.\n");
-    }
-
-  else if (strlen (argument) == 0)
-    {
-      gsc_normal_string ("Glk carrying capacity recompute is ");
-      gsc_normal_string (scr_get_game_capacity_recompute (gsc_game)
-                         ? "on" : "off");
-      gsc_normal_string (".\n");
-    }
-
-  else
-    {
-      gsc_command_usage ("capacity");
-    }
+  gsc_command_toggle (argument, "capacity",
+                      "Glk carrying capacity recompute is",
+                      scr_get_game_capacity_recompute (gsc_game),
+                      gsc_set_capacity,
+                      "; the load is summed afresh from held objects on each"
+                      " check (legacy SCARIER behaviour).\n",
+                      "; a running total is kept as the original ADRIFT Runner"
+                      " does.\n", FALSE);
 }
 
 
@@ -2822,49 +2921,14 @@ gsc_command_capacity (const char *argument)
 static void
 gsc_command_combat_assist (const char *argument)
 {
-  assert (argument);
-
-  if (scr_strcasecmp (argument, "on") == 0)
-    {
-      if (scr_get_combat_assist ())
-        {
-          gsc_normal_string ("Glk combat assist is already on.\n");
-          return;
-        }
-
-      scr_set_combat_assist (TRUE);
-      gsc_normal_string ("Glk combat assist is now on.  Note this deviates from"
-                         " the original ADRIFT Runner and is intended only for"
-                         " games whose combat data is broken (every character's"
-                         " Accuracy and Agility left at 0).  It takes effect for"
-                         " the next fight; games that configure combat are"
-                         " unaffected.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "off") == 0)
-    {
-      if (!scr_get_combat_assist ())
-        {
-          gsc_normal_string ("Glk combat assist is already off.\n");
-          return;
-        }
-
-      scr_set_combat_assist (FALSE);
-      gsc_normal_string ("Glk combat assist is now off; combat matches the"
-                         " original ADRIFT Runner.\n");
-    }
-
-  else if (strlen (argument) == 0)
-    {
-      gsc_normal_string ("Glk combat assist is ");
-      gsc_normal_string (scr_get_combat_assist () ? "on" : "off");
-      gsc_normal_string (".\n");
-    }
-
-  else
-    {
-      gsc_command_usage ("combatassist");
-    }
+  gsc_command_toggle (argument, "combatassist", "Glk combat assist is",
+                      scr_get_combat_assist (), scr_set_combat_assist,
+                      ".  Note this deviates from the original ADRIFT Runner"
+                      " and is intended only for games whose combat data is"
+                      " broken (every character's Accuracy and Agility left at"
+                      " 0).  It takes effect for the next fight; games that"
+                      " configure combat are unaffected.\n",
+                      "; combat matches the original ADRIFT Runner.\n", FALSE);
 }
 
 
@@ -2881,47 +2945,13 @@ gsc_command_combat_assist (const char *argument)
 static void
 gsc_command_move_assist (const char *argument)
 {
-  assert (argument);
-
-  if (scr_strcasecmp (argument, "on") == 0)
-    {
-      if (scr_get_move_assist ())
-        {
-          gsc_normal_string ("Glk move assist is already on.\n");
-          return;
-        }
-
-      scr_set_move_assist (TRUE);
-      gsc_normal_string ("Glk move assist is now on.  Note this deviates from the"
-                         " original ADRIFT Runner and is intended only for games"
-                         " with a broken move task (a destination room left"
-                         " unset) that would otherwise be unwinnable.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "off") == 0)
-    {
-      if (!scr_get_move_assist ())
-        {
-          gsc_normal_string ("Glk move assist is already off.\n");
-          return;
-        }
-
-      scr_set_move_assist (FALSE);
-      gsc_normal_string ("Glk move assist is now off; moves match the original"
-                         " ADRIFT Runner.\n");
-    }
-
-  else if (strlen (argument) == 0)
-    {
-      gsc_normal_string ("Glk move assist is ");
-      gsc_normal_string (scr_get_move_assist () ? "on" : "off");
-      gsc_normal_string (".\n");
-    }
-
-  else
-    {
-      gsc_command_usage ("moveassist");
-    }
+  gsc_command_toggle (argument, "moveassist", "Glk move assist is",
+                      scr_get_move_assist (), scr_set_move_assist,
+                      ".  Note this deviates from the original ADRIFT Runner"
+                      " and is intended only for games with a broken move task"
+                      " (a destination room left unset) that would otherwise be"
+                      " unwinnable.\n",
+                      "; moves match the original ADRIFT Runner.\n", FALSE);
 }
 
 
@@ -2936,42 +2966,20 @@ gsc_command_move_assist (const char *argument)
  * plain "verbose" and "brief" game commands continue to work as before.
  */
 static void
+gsc_set_verbose (scr_bool state)
+{
+  scr_set_game_verbose (gsc_game, state);
+}
+
+static void
 gsc_command_verbose (const char *argument)
 {
-  assert (argument);
-
-  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
-    {
-      if (scr_get_game_verbose (gsc_game))
-        {
-          gsc_normal_string ("Glk verbose descriptions are already on.\n");
-          return;
-        }
-
-      scr_set_game_verbose (gsc_game, TRUE);
-      gsc_normal_string ("Glk verbose descriptions are now on; the game always"
-                         " gives long descriptions of locations, even ones"
-                         " you've visited before.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "off") == 0)
-    {
-      if (!scr_get_game_verbose (gsc_game))
-        {
-          gsc_normal_string ("Glk verbose descriptions are already off.\n");
-          return;
-        }
-
-      scr_set_game_verbose (gsc_game, FALSE);
-      gsc_normal_string ("Glk verbose descriptions are now off; long"
-                         " descriptions are given for places never before"
-                         " visited and short descriptions otherwise.\n");
-    }
-
-  else
-    {
-      gsc_command_usage ("verbose");
-    }
+  gsc_command_toggle (argument, "verbose", "Glk verbose descriptions are",
+                      scr_get_game_verbose (gsc_game), gsc_set_verbose,
+                      "; the game always gives long descriptions of locations,"
+                      " even ones you've visited before.\n",
+                      "; long descriptions are given for places never before"
+                      " visited and short descriptions otherwise.\n", TRUE);
 }
 
 
@@ -4835,20 +4843,7 @@ gsc_main (void)
       glk_exit ();
     }
 
-  /*
-   * Centered text (<center>/<centre> sections) renders through two user
-   * styles hinted for centered justification before the window they apply
-   * to is opened: User1 plain, User2 bold (Glk styles don't combine, so
-   * <center><b> title lines need their own style).  Libraries that ignore
-   * justification hints show these as ordinary left-flush text.
-   */
-  glk_stylehint_set (wintype_TextBuffer, style_User1,
-                     stylehint_Justification, stylehint_just_Centered);
-  glk_stylehint_set (wintype_TextBuffer, style_User2,
-                     stylehint_Justification, stylehint_just_Centered);
-  glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
-
-  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+  gsc_hint_window_styles ();
 
   /* Create the Glk window, and set its stream as the current one.  An
      autorestore adopts the archived windows below instead: opening any here
@@ -4856,15 +4851,7 @@ gsc_main (void)
      gsc_autorestore_wanted). */
   if (!autorestore)
     {
-      gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
-      if (!gsc_main_window)
-        {
-          gsc_fatal ("GLK: Can't open main window");
-          glk_exit ();
-        }
-      glk_window_clear (gsc_main_window);
-      glk_set_window (gsc_main_window);
-      glk_set_style (style_Normal);
+      gsc_open_main_window ();
 
       /* If there's a problem with the game file, complain now. */
       if (!gsc_game)
@@ -4876,10 +4863,7 @@ gsc_main (void)
           glk_exit ();
         }
 
-      /* Try to create a one-line status window.  We can live without it. */
-      gsc_status_window = glk_window_open (gsc_main_window,
-                                           winmethod_Above | winmethod_Fixed,
-                                           1, wintype_TextGrid, 0);
+      gsc_open_status_window ();
     }
 
   /* Does the game define a MAP verb of its own?  If so it keeps it, and the
@@ -6489,24 +6473,14 @@ gsc_a5_present_intro_media (a5_run_t *run)
 static void
 gsc_a5_status (a5_run_t *run)
 {
-  glui32 width, height;
+  glui32 width;
   char *room;
   char right[96];
   long score, maxscore;
   size_t rlen;
 
-  if (!gsc_status_window)
+  if (!gsc_status_begin (&width))
     return;
-
-  glk_window_get_size (gsc_status_window, &width, &height);
-  glk_window_clear (gsc_status_window);
-  glk_set_window (gsc_status_window);
-  glk_set_style (style_User1);
-
-  /* Fill the bar so the reverse-video background spans the whole width. */
-  glk_window_move_cursor (gsc_status_window, 0, 0);
-  for (glui32 i = 0; i < width; i++)
-    glk_put_char (' ');
 
   /* Right-hand score / moves. */
   score = a5run_score (run);
@@ -6537,7 +6511,7 @@ gsc_a5_status (a5_run_t *run)
       glk_put_string (right);
     }
 
-  glk_set_window (gsc_main_window);
+  gsc_status_end ();
 }
 
 
@@ -7180,36 +7154,15 @@ gsc_a5_main (void)
   autorestore = gsc_autorestore_wanted ();
 #endif
 
-  /* Centered-text styles, as in gsc_main: User1 centered, User2 centered
-     bold.  The a5 renderer strips <b>, so only User1 is used here, but keep
-     the pair hinted identically in both paths. */
-  glk_stylehint_set (wintype_TextBuffer, style_User1,
-                     stylehint_Justification, stylehint_just_Centered);
-  glk_stylehint_set (wintype_TextBuffer, style_User2,
-                     stylehint_Justification, stylehint_just_Centered);
-  glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
-  /* One-line reverse-video status window above the story window. */
-  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+  gsc_hint_window_styles ();
 
   /* An autorestore adopts the archived windows further down instead: opening
      any here would cost the player the host's restored ones (see
      gsc_autorestore_wanted). */
   if (!autorestore)
     {
-      gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
-      if (!gsc_main_window)
-        {
-          gsc_fatal ("GLK: Can't open main window");
-          glk_exit ();
-        }
-      glk_window_clear (gsc_main_window);
-
-      gsc_status_window = glk_window_open (gsc_main_window,
-                                           winmethod_Above | winmethod_Fixed,
-                                           1, wintype_TextGrid, 0);
-
-      glk_set_window (gsc_main_window);
-      glk_set_style (style_Normal);
+      gsc_open_main_window ();
+      gsc_open_status_window ();
     }
 
   /* Present turns interactively: keep <cls>/<waitkey>/<img> as positional
