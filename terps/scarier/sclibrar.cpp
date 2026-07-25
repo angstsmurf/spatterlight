@@ -4122,17 +4122,72 @@ lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
 
 
 /*
- * lib_apply_multiple_filter()
- * lib_apply_except_filter()
+ * lib_print_nothing_held()
+ *
+ * The complaint the "<verb> all [except ...]" commands make when the filter
+ * left them with nothing to work on: "You are not holding anything[ else]",
+ * or the wearing form, rounded off by `tail`.
+ */
+static void
+lib_print_nothing_held (scr_gameref_t game, scr_bool worn,
+                        scr_bool add_else, const scr_char *tail)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (worn)
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           "You are not wearing anything",
+                                           "I am not wearing anything",
+                                           "%player% is not wearing anything"));
+  else
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           "You are not holding anything",
+                                           "I am not holding anything",
+                                           "%player% is not holding anything"));
+  if (add_else)
+    pf_buffer_string (filter, " else");
+  pf_buffer_string (filter, tail);
+}
+
+
+/*
+ * lib_multiple_retains_associate()
+ *
+ * The "put the box in the box" case: the object list named the very object
+ * the command acts through.  Complains and returns TRUE where it did.
+ */
+static scr_bool
+lib_multiple_retains_associate (scr_gameref_t game, scr_int associate,
+                                const scr_char *verb)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (!game->multiple_references[associate])
+    return FALSE;
+
+  pf_buffer_string (filter, "I only understood you as far as wanting to ");
+  pf_buffer_string (filter, verb);
+  pf_buffer_character (filter, ' ');
+  lib_print_object_np (game, associate);
+  pf_buffer_string (filter, ".\n");
+  return TRUE;
+}
+
+
+/*
+ * lib_apply_filter()
  *
  * Apply filters for multiple object frontends.  Transfer multiple object
  * references into standard object references, using the supplied filter.
- * The first is inclusive, the second exclusive.
+ * `is_except` inverts the sense of the parsed list: its objects are the ones
+ * to leave behind, and everything else the filter admits is referenced.
  */
 static scr_int
-lib_apply_multiple_filter (scr_gameref_t game,
-                           scr_bool (*filter) (scr_gameref_t, scr_int, scr_int),
-                           scr_int filter_arg, scr_int *references)
+lib_apply_filter (scr_gameref_t game,
+                  scr_bool (*filter) (scr_gameref_t, scr_int, scr_int),
+                  scr_int filter_arg, scr_bool is_except, scr_int *references)
 {
   scr_int count, object, references_;
 
@@ -4147,56 +4202,24 @@ lib_apply_multiple_filter (scr_gameref_t game,
   references_ = references ? *references : 0;
   for (object = 0; object < gs_object_count (game); object++)
     {
-      if (filter (game, object, filter_arg))
+      scr_bool is_listed;
+
+      if (!filter (game, object, filter_arg))
+        continue;
+
+      /* Consume the list entry, if this object was one. */
+      is_listed = game->multiple_references[object];
+      if (is_listed)
         {
-          /* Transfer the reference. */
-          if (game->multiple_references[object])
-            {
-              game->object_references[object] = TRUE;
-              count++;
-              game->multiple_references[object] = FALSE;
-              references_--;
-            }
+          game->multiple_references[object] = FALSE;
+          references_--;
         }
-    }
 
-  /* Copy back the updated reference count, return count. */
-  if (references)
-    *references = references_;
-  return count;
-}
-
-static scr_int
-lib_apply_except_filter (scr_gameref_t game,
-                         scr_bool (*filter) (scr_gameref_t, scr_int, scr_int),
-                         scr_int filter_arg, scr_int *references)
-{
-  scr_int count, object, references_;
-
-  /* Clear all object references initially. */
-  gs_clear_object_references (game);
-
-  /*
-   * Find objects included by the filter, and transfer the reference of each
-   * from the multiple references into standard references.
-   */
-  count = 0;
-  references_ = references ? *references : 0;
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (filter (game, object, filter_arg))
+      /* Reference the listed objects, or -- for "all except" -- the rest. */
+      if (is_except ? !is_listed : is_listed)
         {
-          /* If excepted, remove from exceptions, else add to references. */
-          if (game->multiple_references[object])
-            {
-              game->multiple_references[object] = FALSE;
-              references_--;
-            }
-          else
-            {
-              game->object_references[object] = TRUE;
-              count++;
-            }
+          game->object_references[object] = TRUE;
+          count++;
         }
     }
 
@@ -5028,9 +5051,8 @@ lib_cmd_take_all (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_take_filter, -1,
-                                       NULL);
+  objects = lib_apply_filter (game,
+                              lib_take_filter, -1, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_take_backend (game);
@@ -5043,19 +5065,19 @@ lib_cmd_take_all (scr_gameref_t game)
 
 
 /*
- * lib_cmd_take_except_multiple()
+ * lib_take_multiple_common()
  *
- * Take all objects currently available to the player, excepting those listed
- * in %text%.
+ * Take the objects available to the player and listed in %text%, or -- for
+ * is_except -- every one of them but those listed.
  */
-scr_bool
-lib_cmd_take_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int objects, references;
 
-  /* Parse the multiple objects list to find leave target objects. */
-  if (!lib_parse_multiple_objects (game, "leave",
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
                                    lib_take_filter, -1,
                                    &references))
     return FALSE;
@@ -5063,17 +5085,17 @@ lib_cmd_take_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_take_filter, -1,
-                                     &references);
+  objects = lib_apply_filter (game,
+                              lib_take_filter, -1, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_take_backend (game);
   else
     {
-      if (objects == 0)
-        pf_buffer_string (filter, "There is nothing else to pick up here.");
-      else
-        pf_buffer_string (filter, "There is nothing to pick up here.");
+      pf_buffer_string (filter, "There is nothing");
+      if (is_except && objects == 0)
+        pf_buffer_string (filter, " else");
+      pf_buffer_string (filter, " to pick up here.");
     }
 
   pf_buffer_character (filter, '\n');
@@ -5082,35 +5104,21 @@ lib_cmd_take_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_take_except_multiple()
  * lib_cmd_take_multiple()
  *
- * Take all objects currently available to the player and listed in %text%.
+ * Facets of lib_take_multiple_common().
  */
+scr_bool
+lib_cmd_take_except_multiple (scr_gameref_t game)
+{
+  return lib_take_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_take_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int objects, references;
-
-  /* Parse the multiple objects list to find take target objects. */
-  if (!lib_parse_multiple_objects (game, "take",
-                                   lib_take_filter, -1,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_take_filter, -1,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_take_backend (game);
-  else
-    pf_buffer_string (filter, "There is nothing to pick up here.");
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_take_multiple_common (game, FALSE);
 }
 
 
@@ -5273,9 +5281,8 @@ lib_cmd_take_all_from (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_take_from_filter, associate,
-                                       NULL);
+  objects = lib_apply_filter (game,
+                              lib_take_from_filter, associate, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_take_from_object_backend (game, associate);
@@ -5288,13 +5295,15 @@ lib_cmd_take_all_from (scr_gameref_t game)
 
 
 /*
- * lib_cmd_take_from_except_multiple()
+ * lib_take_from_multiple_common()
  *
- * Take all objects contained in or supported by a given object, excepting
- * those listed in %text%.
+ * Take the objects inside or on an object and listed in %text%, or -- for
+ * is_except -- every one of them but those listed.  Neither is mandatory:
+ * plain "take <object>" works fine with containers and surfaces, but they
+ * are a standard in Adrift so here they are.
  */
-scr_bool
-lib_cmd_take_from_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int associate, objects, references;
@@ -5305,8 +5314,8 @@ lib_cmd_take_from_except_multiple (scr_gameref_t game)
   if (associate == -1)
     return is_ambiguous;
 
-  /* Parse the multiple objects list to find leave target objects. */
-  if (!lib_parse_multiple_objects (game, "leave",
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
                                    lib_take_from_filter, associate,
                                    &references))
     return FALSE;
@@ -5318,23 +5327,18 @@ lib_cmd_take_from_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* As a special case, complain about requests to retain the associate. */
-  if (game->multiple_references[associate])
-    {
-      pf_buffer_string (filter,
-                        "I only understood you as far as wanting to leave ");
-      lib_print_object_np (game, associate);
-      pf_buffer_string (filter, ".\n");
-      return TRUE;
-    }
+  if (is_except
+      && lib_multiple_retains_associate (game, associate, "leave"))
+    return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_take_from_filter, associate,
-                                     &references);
+  objects = lib_apply_filter (game,
+                              lib_take_from_filter, associate, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_take_from_object_backend (game, associate);
   else
-    lib_take_from_empty (game, associate, TRUE);
+    lib_take_from_empty (game, associate, is_except);
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -5342,47 +5346,21 @@ lib_cmd_take_from_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_take_from_except_multiple()
  * lib_cmd_take_from_multiple()
  *
- * Take the objects currently inside an object and listed in %text%.  This
- * function isn't mandatory -- plain "take <object>" works fine with contain-
- * ers and surfaces, but it's a standard in Adrift so here it is.
+ * Facets of lib_take_from_multiple_common().
  */
+scr_bool
+lib_cmd_take_from_except_multiple (scr_gameref_t game)
+{
+  return lib_take_from_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_take_from_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int associate, objects, references;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced object, and if none, consider complete. */
-  associate = lib_disambiguate_object (game, "take from", &is_ambiguous);
-  if (associate == -1)
-    return is_ambiguous;
-
-  /* Parse the multiple objects list to find take target objects. */
-  if (!lib_parse_multiple_objects (game, "take",
-                                   lib_take_from_filter, associate,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Validate the associate object to take from. */
-  if (!lib_take_from_is_valid (game, associate))
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_take_from_filter, associate,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_take_from_object_backend (game, associate);
-  else
-    lib_take_from_empty (game, associate, FALSE);
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_take_from_multiple_common (game, FALSE);
 }
 
 
@@ -5425,9 +5403,8 @@ lib_cmd_take_all_from_npc (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_take_from_npc_filter, associate,
-                                       NULL);
+  objects = lib_apply_filter (game,
+                              lib_take_from_npc_filter, associate, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_take_from_npc_backend (game, associate);
@@ -5444,13 +5421,13 @@ lib_cmd_take_all_from_npc (scr_gameref_t game)
 
 
 /*
- * lib_cmd_take_from_npc_except_multiple()
+ * lib_take_from_npc_multiple_common()
  *
- * Attempt to take all objects held or worn by a given NPC, excepting those
- * listed in %text%.
+ * Attempt to take the objects held or worn by an NPC and listed in %text%,
+ * or -- for is_except -- every one of them but those listed.
  */
-scr_bool
-lib_cmd_take_from_npc_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_take_from_npc_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int associate, objects, references;
@@ -5461,8 +5438,8 @@ lib_cmd_take_from_npc_except_multiple (scr_gameref_t game)
   if (associate == -1)
     return is_ambiguous;
 
-  /* Parse the multiple objects list to find leave target objects. */
-  if (!lib_parse_multiple_objects (game, "leave",
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
                                    lib_take_from_npc_filter, associate,
                                    &references))
     return FALSE;
@@ -5470,16 +5447,19 @@ lib_cmd_take_from_npc_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_take_from_npc_filter, associate,
-                                     &references);
+  objects = lib_apply_filter (game,
+                              lib_take_from_npc_filter, associate, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_take_from_npc_backend (game, associate);
   else
     {
       pf_new_sentence (filter);
       lib_print_npc_np (game, associate);
-      pf_buffer_string (filter, " is not carrying anything else!");
+      pf_buffer_string (filter, " is not carrying anything");
+      if (is_except)
+        pf_buffer_string (filter, " else");
+      pf_buffer_character (filter, '!');
     }
 
   pf_buffer_character (filter, '\n');
@@ -5488,46 +5468,21 @@ lib_cmd_take_from_npc_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_take_from_npc_except_multiple()
  * lib_cmd_take_from_npc_multiple()
  *
- * Attempt to take the objects currently held or worn by an NPC and listed
- * in %text%.
+ * Facets of lib_take_from_npc_multiple_common().
  */
+scr_bool
+lib_cmd_take_from_npc_except_multiple (scr_gameref_t game)
+{
+  return lib_take_from_npc_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_take_from_npc_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int associate, objects, references;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced NPC, and if none, consider complete. */
-  associate = lib_disambiguate_npc (game, "take from", &is_ambiguous);
-  if (associate == -1)
-    return is_ambiguous;
-
-  /* Parse the multiple objects list to find take target objects. */
-  if (!lib_parse_multiple_objects (game, "take",
-                                   lib_take_from_npc_filter, associate,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_take_from_npc_filter, associate,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_take_from_npc_backend (game, associate);
-  else
-    {
-      pf_new_sentence (filter);
-      lib_print_npc_np (game, associate);
-      pf_buffer_string (filter, " is not carrying anything!");
-    }
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_take_from_npc_multiple_common (game, FALSE);
 }
 
 
@@ -5769,9 +5724,8 @@ lib_cmd_drop_all (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_drop_filter, -1,
-                                       NULL);
+  objects = lib_apply_filter (game,
+                              lib_drop_filter, -1, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_drop_backend (game);
@@ -5790,19 +5744,19 @@ lib_cmd_drop_all (scr_gameref_t game)
 
 
 /*
- * lib_cmd_drop_except_multiple()
+ * lib_drop_multiple_common()
  *
- * Drop all objects currently held by the player, excepting those listed in
- * %text%.
+ * Drop the objects held by the player and listed in %text%, or -- for
+ * is_except -- every one of them but those listed.
  */
-scr_bool
-lib_cmd_drop_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int objects, references;
 
-  /* Parse the multiple objects list to find retain target objects. */
-  if (!lib_parse_multiple_objects (game, "retain",
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "drop",
                                    lib_drop_filter, -1,
                                    &references))
     return FALSE;
@@ -5810,22 +5764,13 @@ lib_cmd_drop_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_drop_filter, -1,
-                                     &references);
+  objects = lib_apply_filter (game,
+                              lib_drop_filter, -1, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_drop_backend (game);
   else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You are not holding anything",
-                                           "I am not holding anything",
-                                           "%player% is not holding anything"));
-      if (objects == 0)
-        pf_buffer_string (filter, " else");
-      pf_buffer_character (filter, '.');
-    }
+    lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -5833,41 +5778,21 @@ lib_cmd_drop_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_drop_except_multiple()
  * lib_cmd_drop_multiple()
  *
- * Drop all objects currently held by the player and listed in %text%.
+ * Facets of lib_drop_multiple_common().
  */
+scr_bool
+lib_cmd_drop_except_multiple (scr_gameref_t game)
+{
+  return lib_drop_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_drop_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int objects, references;
-
-  /* Parse the multiple objects list to find drop target objects. */
-  if (!lib_parse_multiple_objects (game, "drop",
-                                   lib_drop_filter, -1,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_drop_filter, -1,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_drop_backend (game);
-  else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                          "You are not holding anything.",
-                                          "I am not holding anything.",
-                                          "%player% is not holding anything."));
-    }
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_drop_multiple_common (game, FALSE);
 }
 
 
@@ -6190,9 +6115,8 @@ lib_cmd_wear_all (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_wear_filter, -1,
-                                       NULL);
+  objects = lib_apply_filter (game,
+                              lib_wear_filter, -1, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_wear_backend (game);
@@ -6212,19 +6136,19 @@ lib_cmd_wear_all (scr_gameref_t game)
 
 
 /*
- * lib_cmd_wear_except_multiple()
+ * lib_wear_multiple_common()
  *
- * Wear all wearable objects currently held by the player, excepting those
- * listed in %text%.
+ * Wear the wearable objects held by the player and listed in %text%, or --
+ * for is_except -- every one of them but those listed.
  */
-scr_bool
-lib_cmd_wear_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_wear_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int objects, references;
 
-  /* Parse the multiple objects list to find retain target objects. */
-  if (!lib_parse_multiple_objects (game, "retain",
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "wear",
                                    lib_wear_filter, -1,
                                    &references))
     return FALSE;
@@ -6232,22 +6156,14 @@ lib_cmd_wear_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_wear_filter, -1,
-                                     &references);
+  objects = lib_apply_filter (game,
+                              lib_wear_filter, -1, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_wear_backend (game);
   else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You are not holding anything",
-                                           "I am not holding anything",
-                                           "%player% is not holding anything"));
-      if (objects == 0)
-        pf_buffer_string (filter, " else");
-      pf_buffer_string (filter, " that can be worn.");
-    }
+    lib_print_nothing_held (game, FALSE, is_except && objects == 0,
+                            " that can be worn.");
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -6255,43 +6171,21 @@ lib_cmd_wear_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_wear_except_multiple()
  * lib_cmd_wear_multiple()
  *
- * Wear all objects currently held by the player, wearable, and listed
- * in %text%.
+ * Facets of lib_wear_multiple_common().
  */
+scr_bool
+lib_cmd_wear_except_multiple (scr_gameref_t game)
+{
+  return lib_wear_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_wear_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int objects, references;
-
-  /* Parse the multiple objects list to find wear target objects. */
-  if (!lib_parse_multiple_objects (game, "wear",
-                                   lib_wear_filter, -1,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_wear_filter, -1,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_wear_backend (game);
-  else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You are not holding anything",
-                                           "I am not holding anything",
-                                           "%player% is not holding anything"));
-      pf_buffer_string (filter, " that can be worn.");
-    }
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_wear_multiple_common (game, FALSE);
 }
 
 
@@ -6343,9 +6237,8 @@ lib_cmd_remove_all (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_remove_filter, -1,
-                                       NULL);
+  objects = lib_apply_filter (game,
+                              lib_remove_filter, -1, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_remove_backend (game);
@@ -6365,19 +6258,22 @@ lib_cmd_remove_all (scr_gameref_t game)
 
 
 /*
- * lib_cmd_remove_except_multiple()
+ * lib_remove_multiple_common()
  *
- * Remove all objects currently worn by the player, excepting those listed
- * in %text%.
+ * Remove the objects worn by the player and listed in %text%, or -- for
+ * is_except -- every one of them but those listed.
+ *
+ * The two forms disagree over the empty complaint: the except form says
+ * "not wearing", the plain one "not holding".  Kept as it stands upstream.
  */
-scr_bool
-lib_cmd_remove_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_remove_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int objects, references;
 
-  /* Parse the multiple objects list to find retain target objects. */
-  if (!lib_parse_multiple_objects (game, "retain",
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "remove",
                                    lib_remove_filter, -1,
                                    &references))
     return FALSE;
@@ -6385,22 +6281,14 @@ lib_cmd_remove_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_remove_filter, -1,
-                                     &references);
+  objects = lib_apply_filter (game,
+                              lib_remove_filter, -1, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_remove_backend (game);
   else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You are not wearing anything",
-                                           "I am not wearing anything",
-                                           "%player% is not wearing anything"));
-      if (objects == 0)
-        pf_buffer_string (filter, " else");
-      pf_buffer_string (filter, " that can be removed.");
-    }
+    lib_print_nothing_held (game, is_except, is_except && objects == 0,
+                            " that can be removed.");
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -6408,42 +6296,21 @@ lib_cmd_remove_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_remove_except_multiple()
  * lib_cmd_remove_multiple()
  *
- * Remove all objects currently worn by the player, and listed in %text%.
+ * Facets of lib_remove_multiple_common().
  */
+scr_bool
+lib_cmd_remove_except_multiple (scr_gameref_t game)
+{
+  return lib_remove_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_remove_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int objects, references;
-
-  /* Parse the multiple objects list to find remove target objects. */
-  if (!lib_parse_multiple_objects (game, "remove",
-                                   lib_remove_filter, -1,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_remove_filter, -1,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_remove_backend (game);
-  else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You are not holding anything",
-                                           "I am not holding anything",
-                                           "%player% is not holding anything"));
-      pf_buffer_string (filter, " that can be removed.");
-    }
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_remove_multiple_common (game, FALSE);
 }
 
 
@@ -7647,9 +7514,9 @@ lib_cmd_put_all_in (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_put_in_not_container_filter,
-                                       container, NULL);
+  objects = lib_apply_filter (game,
+                              lib_put_in_not_container_filter,
+                              container, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_put_in_backend (game, container);
@@ -7671,13 +7538,15 @@ lib_cmd_put_all_in (scr_gameref_t game)
 
 
 /*
- * lib_cmd_put_in_except_multiple()
+ * lib_put_in_multiple_common()
  *
- * Put all objects currently held by the player into an object, excepting
- * those listed in %text%.
+ * Put the objects held by the player and listed in %text% into an object,
+ * or -- for is_except -- every one of them but those listed.  The except
+ * form has to keep the container itself out of the list it builds, so it
+ * filters on a different predicate.
  */
-scr_bool
-lib_cmd_put_in_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int container, objects, references;
@@ -7688,10 +7557,11 @@ lib_cmd_put_in_except_multiple (scr_gameref_t game)
   if (container == -1)
     return is_ambiguous;
 
-  /* Parse the multiple objects list to find retain target objects. */
-  if (!lib_parse_multiple_objects (game, "retain",
-                                   lib_put_in_not_container_filter,
-                                   container, &references))
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
+                                   is_except ? lib_put_in_not_container_filter
+                                             : lib_put_in_filter,
+                                   is_except ? container : -1, &references))
     return FALSE;
   else if (references == 0)
     return TRUE;
@@ -7701,32 +7571,20 @@ lib_cmd_put_in_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* As a special case, complain about requests to retain the container. */
-  if (game->multiple_references[container])
-    {
-      pf_buffer_string (filter,
-                        "I only understood you as far as wanting to retain ");
-      lib_print_object_np (game, container);
-      pf_buffer_string (filter, ".\n");
-      return TRUE;
-    }
+  if (is_except
+      && lib_multiple_retains_associate (game, container, "retain"))
+    return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_put_in_not_container_filter,
-                                     container, &references);
+  objects = lib_apply_filter (game,
+                              is_except ? lib_put_in_not_container_filter
+                                        : lib_put_in_filter,
+                              is_except ? container : -1, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_put_in_backend (game, container);
   else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You are not holding anything",
-                                           "I am not holding anything",
-                                           "%player% is not holding anything"));
-      if (objects == 0)
-        pf_buffer_string (filter, " else");
-      pf_buffer_character (filter, '.');
-    }
+    lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -7734,52 +7592,21 @@ lib_cmd_put_in_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_put_in_except_multiple()
  * lib_cmd_put_in_multiple()
  *
- * Put all objects currently held by the player and listed in %text% into an
- * object.
+ * Facets of lib_put_in_multiple_common().
  */
+scr_bool
+lib_cmd_put_in_except_multiple (scr_gameref_t game)
+{
+  return lib_put_in_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_put_in_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int container, objects, references;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced object, and if none, consider complete. */
-  container = lib_disambiguate_object (game, "put that into", &is_ambiguous);
-  if (container == -1)
-    return is_ambiguous;
-
-  /* Parse the multiple objects list to find retain target objects. */
-  if (!lib_parse_multiple_objects (game, "move",
-                                   lib_put_in_filter, -1,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Validate the container object to put into. */
-  if (!lib_put_in_is_valid (game, container))
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_put_in_filter, -1,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_put_in_backend (game, container);
-  else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                          "You are not holding anything.",
-                                          "I am not holding anything.",
-                                          "%player% is not holding anything."));
-    }
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_put_in_multiple_common (game, FALSE);
 }
 
 
@@ -7959,9 +7786,9 @@ lib_cmd_put_all_on (scr_gameref_t game)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_multiple_filter (game,
-                                       lib_put_on_not_supporter_filter,
-                                       supporter, NULL);
+  objects = lib_apply_filter (game,
+                              lib_put_on_not_supporter_filter,
+                              supporter, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_put_on_backend (game, supporter);
@@ -7983,13 +7810,14 @@ lib_cmd_put_all_on (scr_gameref_t game)
 
 
 /*
- * lib_cmd_put_on_except_multiple()
+ * lib_put_on_multiple_common()
  *
- * Put all objects currently held by the player onto an object, excepting
- * those listed in %text%.
+ * Put the objects held by the player and listed in %text% onto an object,
+ * or -- for is_except -- every one of them but those listed.  As with
+ * putting in, the except form filters the supporter itself out of the list.
  */
-scr_bool
-lib_cmd_put_on_except_multiple (scr_gameref_t game)
+static scr_bool
+lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int supporter, objects, references;
@@ -8000,10 +7828,11 @@ lib_cmd_put_on_except_multiple (scr_gameref_t game)
   if (supporter == -1)
     return is_ambiguous;
 
-  /* Parse the multiple objects list to find retain target objects. */
-  if (!lib_parse_multiple_objects (game, "retain",
-                                   lib_put_on_not_supporter_filter,
-                                   supporter, &references))
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
+                                   is_except ? lib_put_on_not_supporter_filter
+                                             : lib_put_on_filter,
+                                   is_except ? supporter : -1, &references))
     return FALSE;
   else if (references == 0)
     return TRUE;
@@ -8013,32 +7842,20 @@ lib_cmd_put_on_except_multiple (scr_gameref_t game)
     return TRUE;
 
   /* As a special case, complain about requests to retain the supporter. */
-  if (game->multiple_references[supporter])
-    {
-      pf_buffer_string (filter,
-                        "I only understood you as far as wanting to retain ");
-      lib_print_object_np (game, supporter);
-      pf_buffer_string (filter, ".\n");
-      return TRUE;
-    }
+  if (is_except
+      && lib_multiple_retains_associate (game, supporter, "retain"))
+    return TRUE;
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_except_filter (game,
-                                     lib_put_on_not_supporter_filter,
-                                     supporter, &references);
+  objects = lib_apply_filter (game,
+                              is_except ? lib_put_on_not_supporter_filter
+                                        : lib_put_on_filter,
+                              is_except ? supporter : -1, is_except,
+                              &references);
   if (objects > 0 || references > 0)
     lib_put_on_backend (game, supporter);
   else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You are not holding anything",
-                                           "I am not holding anything",
-                                           "%player% is not holding anything"));
-      if (objects == 0)
-        pf_buffer_string (filter, " else");
-      pf_buffer_character (filter, '.');
-    }
+    lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -8046,52 +7863,21 @@ lib_cmd_put_on_except_multiple (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_put_on_except_multiple()
  * lib_cmd_put_on_multiple()
  *
- * Put all objects currently held by the player and listed in %text% onto an
- * object.
+ * Facets of lib_put_on_multiple_common().
  */
+scr_bool
+lib_cmd_put_on_except_multiple (scr_gameref_t game)
+{
+  return lib_put_on_multiple_common (game, TRUE);
+}
+
 scr_bool
 lib_cmd_put_on_multiple (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int supporter, objects, references;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced object, and if none, consider complete. */
-  supporter = lib_disambiguate_object (game, "put that onto", &is_ambiguous);
-  if (supporter == -1)
-    return is_ambiguous;
-
-  /* Parse the multiple objects list to find retain target objects. */
-  if (!lib_parse_multiple_objects (game, "move",
-                                   lib_put_on_filter, -1,
-                                   &references))
-    return FALSE;
-  else if (references == 0)
-    return TRUE;
-
-  /* Validate the supporter object to put into. */
-  if (!lib_put_on_is_valid (game, supporter))
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_multiple_filter (game,
-                                       lib_put_on_filter, -1,
-                                       &references);
-  if (objects > 0 || references > 0)
-    lib_put_on_backend (game, supporter);
-  else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                          "You are not holding anything.",
-                                          "I am not holding anything.",
-                                          "%player% is not holding anything."));
-    }
-
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_put_on_multiple_common (game, FALSE);
 }
 
 
