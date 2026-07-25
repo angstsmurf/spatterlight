@@ -38,6 +38,37 @@ streq (const char *a, const char *b)
   return a != NULL && b != NULL && strcmp (a, b) == 0;
 }
 
+/* The runtime property override for (entity, prop), or NULL. */
+static const a5_prop_ov_t *
+ov_find (const a5_state_t *st, const char *entkey, const char *propkey)
+{
+  int i;
+  for (i = 0; i < st->n_ov; i++)
+    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
+      return &st->ov[i];
+  return NULL;
+}
+
+static const a5_group_t *
+find_group (const a5_adventure_t *adv, const char *key)
+{
+  int i;
+  for (i = 0; i < adv->n_groups; i++)
+    if (streq (adv->groups[i].key, key))
+      return &adv->groups[i];
+  return NULL;
+}
+
+static int
+group_has_static_member (const a5_group_t *g, const char *key)
+{
+  int m;
+  for (m = 0; m < g->n_members; m++)
+    if (streq (g->members[m], key))
+      return 1;
+  return 0;
+}
+
 /* Decode an object's location property block into an a5_objloc_t. */
 static void
 compute_objloc (const a5_object_t *o, a5_objloc_t *loc)
@@ -171,7 +202,7 @@ a5state_new (const a5_adventure_t *adv)
             st->char_onobj[i] = chr_prop (c, "CharOnWhat");
           else if (streq (cl, "In Object"))
             { st->char_onobj[i] = chr_prop (c, "CharInsideWhat");
-              if (st->char_in != NULL) st->char_in[i] = 1; }
+              st->char_in[i] = 1; }
           else if (streq (cl, "On Character"))
             st->char_onchar[i] = resolve_carrier (st, chr_prop (c, "CharOnWho"));
           else if (streq (cl, "In Character"))
@@ -320,13 +351,12 @@ a5state_free (a5_state_t *st)
   free (st->char_introduced);
   free (st->obj_seen);
   free (st->loc_seen);
-  if (st->adv != NULL)
-    for (i = 0; i < st->adv->n_characters; i++)
-      {
-        if (st->seen_stash_obj  != NULL) free (st->seen_stash_obj[i]);
-        if (st->seen_stash_char != NULL) free (st->seen_stash_char[i]);
-        if (st->seen_stash_loc  != NULL) free (st->seen_stash_loc[i]);
-      }
+  for (i = 0; i < st->adv->n_characters; i++)
+    {
+      if (st->seen_stash_obj  != NULL) free (st->seen_stash_obj[i]);
+      if (st->seen_stash_char != NULL) free (st->seen_stash_char[i]);
+      if (st->seen_stash_loc  != NULL) free (st->seen_stash_loc[i]);
+    }
   free (st->seen_stash_obj);
   free (st->seen_stash_char);
   free (st->seen_stash_loc);
@@ -338,7 +368,7 @@ a5state_free (a5_state_t *st)
   free (st->s_her);
   free ((void *) st->char_onobj);
   free (st->char_in);
-  if (st->var_arr != NULL && st->adv != NULL)
+  if (st->var_arr != NULL)
     for (i = 0; i < st->adv->n_variables; i++)
       free (st->var_arr[i]);
   free (st->var_arr);
@@ -362,7 +392,7 @@ a5state_in_group_or_location (const a5_state_t *st, const char *charkey,
                               const char *key)
 {
   const char *cloc;
-  int ci, i;
+  int ci;
   if (key == NULL || key[0] == '\0')
     return 0;
   ci = a5state_character_index (st, charkey ? charkey : a5state_player_key (st));
@@ -373,17 +403,10 @@ a5state_in_group_or_location (const a5_state_t *st, const char *charkey,
   if (a5model_location (st->adv, key) != NULL)
     return streq (cloc, key);
   /* A group key: the character's location is one of its members. */
-  for (i = 0; i < st->adv->n_groups; i++)
-    if (streq (st->adv->groups[i].key, key))
-      {
-        const a5_group_t *g = &st->adv->groups[i];
-        int m;
-        for (m = 0; m < g->n_members; m++)
-          if (streq (g->members[m], cloc))
-            return 1;
-        return 0;
-      }
-  return 0;
+  {
+    const a5_group_t *g = find_group (st->adv, key);
+    return g != NULL && group_has_static_member (g, cloc);
+  }
 }
 
 /* -------------------------------------------------------- SetLook look stack */
@@ -517,17 +540,16 @@ a5state_lookup_ref (const a5_state_t *st, const char *name)
 const char *
 a5state_entity_prop (const a5_state_t *st, const char *entkey, const char *propkey)
 {
-  int i;
   const a5_object_t *o;
   const a5_character_t *c;
   const a5_location_t *l;
   const a5_prop_t *p;
+  const a5_prop_ov_t *ov;
 
   if (entkey == NULL || propkey == NULL)
     return NULL;
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
-      return st->ov[i].value;
+  if ((ov = ov_find (st, entkey, propkey)) != NULL)
+    return ov->value;
 
   /* Fall back to the model's static value. */
   o = a5model_object (st->adv, entkey);
@@ -554,19 +576,17 @@ int
 a5state_entity_has_prop (const a5_state_t *st, const char *entkey,
                          const char *propkey)
 {
-  int i;
   const a5_object_t *o;
   const a5_character_t *c;
   const a5_location_t *l;
+  const a5_prop_ov_t *ov;
 
   if (entkey == NULL || propkey == NULL)
     return 0;
   /* A runtime SetProperty override wins; an `<Unselected>` value means the
      SelectionOnly property was removed (clsUserSession.vb:2058). */
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
-      return st->ov[i].value == NULL
-               || strstr (st->ov[i].value, "Unselected") == NULL;
+  if ((ov = ov_find (st, entkey, propkey)) != NULL)
+    return ov->value == NULL || strstr (ov->value, "Unselected") == NULL;
   o = a5model_object (st->adv, entkey);
   if (o != NULL && a5_prop_find (o->props, o->n_props, propkey) != NULL)
     return 1;
@@ -603,23 +623,15 @@ a5state_object_in_group (const a5_state_t *st, const char *grpkey,
                          const char *objkey)
 {
   char key[160];
-  const char *ov;
-  int i, m;
+  const a5_prop_ov_t *ov;
+  const a5_group_t *g;
   if (grpkey == NULL || objkey == NULL)
     return 0;
   group_prop_key (key, sizeof key, grpkey);
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, objkey) && streq (st->ov[i].prop, key))
-      return streq (st->ov[i].value, "1");
-  for (i = 0; i < st->adv->n_groups; i++)
-    if (streq (st->adv->groups[i].key, grpkey))
-      {
-        for (m = 0; m < st->adv->groups[i].n_members; m++)
-          if (streq (st->adv->groups[i].members[m], objkey))
-            return 1;
-        return 0;
-      }
-  return 0;
+  if ((ov = ov_find (st, objkey, key)) != NULL)
+    return streq (ov->value, "1");
+  g = find_group (st->adv, grpkey);
+  return g != NULL && group_has_static_member (g, objkey);
 }
 
 /* --- Live group membership (the runner clsGroup.arlMembers): ordered + distinct. --- */
@@ -771,16 +783,15 @@ void
 a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
                   const char *value)
 {
-  int i;
+  a5_prop_ov_t *ov;
   if (entkey == NULL || propkey == NULL)
     return;
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, entkey) && streq (st->ov[i].prop, propkey))
-      {
-        free (st->ov[i].value);
-        st->ov[i].value = strdup (value ? value : "");
-        return;
-      }
+  if ((ov = (a5_prop_ov_t *) ov_find (st, entkey, propkey)) != NULL)
+    {
+      free (ov->value);
+      ov->value = strdup (value ? value : "");
+      return;
+    }
   if (st->n_ov >= st->cap_ov)
     {
       int nc = st->cap_ov ? st->cap_ov * 2 : 8;
@@ -927,20 +938,13 @@ static int
 obj_hides_contents (const a5_state_t *st, int parent)
 {
   const char *pkey, *os;
-  int i, openable = 0;
 
   if (parent < 0)
     return 0;
   pkey = st->adv->objects[parent].key;
 
   /* Openable = HasProperty("Openable"), runtime override winning. */
-  for (i = 0; i < st->n_ov; i++)
-    if (streq (st->ov[i].entity, pkey) && streq (st->ov[i].prop, "Openable"))
-      { openable = strstr (st->ov[i].value, "Unselected") == NULL; goto have_openable; }
-  openable = a5_prop_find (st->adv->objects[parent].props,
-                           st->adv->objects[parent].n_props, "Openable") != NULL;
-have_openable:
-  if (!openable)
+  if (!a5state_entity_has_prop (st, pkey, "Openable"))
     return 0;
 
   /* IsOpen: OpenStatus absent (Nothing) or "Open" => open => visible. */
@@ -1124,26 +1128,30 @@ a5state_var_set_elem (a5_state_t *st, int vi, long idx, long value)
     st->var_num[vi] = value;                   /* element-1 mirror */
 }
 
-int
-a5state_var_num_by_name (const a5_state_t *st, const char *name, long *out)
+static int
+var_index_by_name (const a5_state_t *st, const char *name)
 {
   int i;
   for (i = 0; i < st->adv->n_variables; i++)
     if (streq (st->adv->variables[i].name, name))
-      {
-        if (out != NULL)
-          *out = st->var_num[i];
-        return 1;
-      }
-  return 0;
+      return i;
+  return -1;
+}
+
+int
+a5state_var_num_by_name (const a5_state_t *st, const char *name, long *out)
+{
+  int i = var_index_by_name (st, name);
+  if (i < 0)
+    return 0;
+  if (out != NULL)
+    *out = st->var_num[i];
+  return 1;
 }
 
 const char *
 a5state_var_text_by_name (const a5_state_t *st, const char *name)
 {
-  int i;
-  for (i = 0; i < st->adv->n_variables; i++)
-    if (streq (st->adv->variables[i].name, name))
-      return st->var_text[i];
-  return NULL;
+  int i = var_index_by_name (st, name);
+  return (i >= 0) ? st->var_text[i] : NULL;
 }
