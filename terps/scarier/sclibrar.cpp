@@ -7327,7 +7327,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
                           "I put ",
                           "%player% puts ");
       else
-        lib_print_wrapped_object (game, " and ", trail, " inside ");
+        pf_buffer_string (filter, " and ");
+      /* The trailing object and " inside " print on BOTH branches -- folding
+       * them into the else lost the single-object "I put X inside Y" form. */
+      lib_print_wrapped_object (game, "", trail, " inside ");
       lib_print_object_np (game, container);
       pf_buffer_character (filter, '.');
     }
