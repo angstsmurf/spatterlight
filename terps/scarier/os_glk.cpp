@@ -796,6 +796,17 @@ static const gsc_locale_t *const GSC_AVAILABLE_LOCALES[] = {
 static const gsc_locale_t *gsc_locale = NULL;
 static const gsc_locale_t *const gsc_fallback_locale = &GSC_LATIN1_LOCALE;
 
+/*
+ * gsc_current_locale()
+ *
+ * The locale to read and write with: the game's, or the fallback.
+ */
+static const gsc_locale_t *
+gsc_current_locale (void)
+{
+  return gsc_locale ? gsc_locale : gsc_fallback_locale;
+}
+
 
 /*
  * gsc_set_locale()
@@ -979,19 +990,13 @@ gsc_put_char_locale (scr_char ch,
 static void
 gsc_put_char (const scr_char character)
 {
-  const gsc_locale_t *locale;
-
-  locale = gsc_locale ? gsc_locale : gsc_fallback_locale;
-  gsc_put_char_locale (character, locale, FALSE);
+  gsc_put_char_locale (character, gsc_current_locale (), FALSE);
 }
 
 static void
 gsc_put_char_alternate (const scr_char character)
 {
-  const gsc_locale_t *locale;
-
-  locale = gsc_locale ? gsc_locale : gsc_fallback_locale;
-  gsc_put_char_locale (character, locale, TRUE);
+  gsc_put_char_locale (character, gsc_current_locale (), TRUE);
 }
 
 static void
@@ -1125,10 +1130,7 @@ gsc_read_line_locale (scr_char *buffer,
 static scr_int
 gsc_read_line (scr_char *buffer, scr_int length)
 {
-  const gsc_locale_t *locale;
-
-  locale = gsc_locale ? gsc_locale : gsc_fallback_locale;
-  return gsc_read_line_locale (buffer, length, locale);
+  return gsc_read_line_locale (buffer, length, gsc_current_locale ());
 }
 
 
@@ -1219,6 +1221,27 @@ gsc_status_end (void)
 
 
 /*
+ * gsc_status_line_text()
+ *
+ * The game's status line or, when the game does not set a usable one, the
+ * score formatted into the caller's buffer.
+ */
+static const scr_char *
+gsc_status_line_text (char *score, size_t length)
+{
+  const scr_char *status;
+
+  status = scr_get_game_status_line (gsc_game);
+  if (!gsc_is_string_usable (status))
+    {
+      snprintf (score, length, "Score: %ld", scr_get_game_score (gsc_game));
+      status = score;
+    }
+  return status;
+}
+
+
+/*
  * gsc_status_update()
  *
  * Update the status line from the current game state.  This is for windowing
@@ -1257,12 +1280,7 @@ gsc_status_update (void)
           gsc_put_string (room);
 
           /* Get the game's status line, or if none, format score. */
-          status = scr_get_game_status_line (gsc_game);
-          if (!gsc_is_string_usable (status))
-            {
-              snprintf (score, sizeof(score), "Score: %ld", scr_get_game_score (gsc_game));
-              status = score;
-            }
+          status = gsc_status_line_text (score, sizeof (score));
 
           /* Print the status line or score at window right, if it fits. */
           if (width > strlen (status) + GSC_STATUS_SLOP + 1)
@@ -1325,12 +1343,7 @@ gsc_status_print (void)
       gsc_status_safe_strcat (buffer, sizeof (buffer), room);
 
       /* Get the game's status line, or if none, format score. */
-      status = scr_get_game_status_line (gsc_game);
-      if (!gsc_is_string_usable (status))
-        {
-          snprintf (score, sizeof(score), "Score: %ld", scr_get_game_score (gsc_game));
-          status = score;
-        }
+      status = gsc_status_line_text (score, sizeof (score));
 
       /* Append the status line or score. */
       gsc_status_safe_strcat (buffer, sizeof (buffer), " | ");
@@ -1468,17 +1481,20 @@ static const glui32 GSC_CANCEL_WAIT_1 = ' ',
 
 
 /*
- * gsc_output_register_help_request()
+ * gsc_note_help_request()
  * gsc_output_silence_help_hints()
  * gsc_output_provide_help_hint()
  *
- * Register a request for help, and print a note of how to get Glk command
- * help from the interpreter unless silenced.
+ * Register a standalone "help" at the start of the player's input, and print
+ * a note of how to get Glk command help from the interpreter unless silenced.
  */
 static void
-gsc_output_register_help_request (void)
+gsc_note_help_request (const char *command)
 {
-  gsc_help_requested = TRUE;
+  if (scr_strncasecmp (command, "help", strlen ("help")) == 0
+      && strspn (command + strlen ("help"), "\t ")
+         == strlen (command + strlen ("help")))
+    gsc_help_requested = TRUE;
 }
 
 static void
@@ -1503,6 +1519,27 @@ gsc_output_provide_help_hint (void)
 
 
 /*
+ * gsc_font_top()
+ *
+ * The current top of the font stack, or the default font on an empty stack.
+ */
+static gsc_font_size_t
+gsc_font_top (void)
+{
+  gsc_font_size_t font;
+
+  if (gsc_font_index > 0)
+    font = gsc_font_stack[gsc_font_index - 1];
+  else
+    {
+      font.is_monospaced = FALSE;
+      font.size = GSC_DEFAULT_FONT_SIZE;
+    }
+  return font;
+}
+
+
+/*
  * gsc_set_glk_style()
  *
  * Set a Glk style based on the top of the font stack and attributes.
@@ -1510,20 +1547,9 @@ gsc_output_provide_help_hint (void)
 static void
 gsc_set_glk_style (void)
 {
-  scr_bool is_monospaced;
-  scr_int font_size;
-
-  /* Get the current font stack top, or default value. */
-  if (gsc_font_index > 0)
-    {
-      is_monospaced = gsc_font_stack[gsc_font_index - 1].is_monospaced;
-      font_size = gsc_font_stack[gsc_font_index - 1].size;
-    }
-  else
-    {
-      is_monospaced = FALSE;
-      font_size = GSC_DEFAULT_FONT_SIZE;
-    }
+  const gsc_font_size_t font = gsc_font_top ();
+  const scr_bool is_monospaced = font.is_monospaced;
+  const scr_int font_size = font.size;
 
   /*
    * Map the font and current attributes into a Glk style.  Because Glk styles
@@ -1596,20 +1622,10 @@ gsc_handle_font_tag (const scr_char *argument)
   if (gsc_font_index < GSC_MAX_STYLE_NESTING)
     {
       scr_char *lower, *face, *size;
-      scr_bool is_monospaced;
-      scr_int index_, font_size;
+      scr_int index_;
 
-      /* Get the current top of stack, or default on empty stack. */
-      if (gsc_font_index > 0)
-        {
-          is_monospaced = gsc_font_stack[gsc_font_index - 1].is_monospaced;
-          font_size = gsc_font_stack[gsc_font_index - 1].size;
-        }
-      else
-        {
-          is_monospaced = FALSE;
-          font_size = GSC_DEFAULT_FONT_SIZE;
-        }
+      /* Start from the current top of stack, or default on empty stack. */
+      gsc_font_size_t font = gsc_font_top ();
 
       /* Copy and convert argument to all lowercase. */
       lower = (decltype(lower)) gsc_malloc (strlen (argument) + 1);
@@ -1625,8 +1641,8 @@ gsc_handle_font_tag (const scr_char *argument)
            * There may be plenty of monospaced fonts, but we do only courier
            * and terminal.
            */
-          is_monospaced = strncmp (face, "face=\"courier\"", 14) == 0
-                          || strncmp (face, "face=\"terminal\"", 15) == 0;
+          font.is_monospaced = strncmp (face, "face=\"courier\"", 14) == 0
+                               || strncmp (face, "face=\"terminal\"", 15) == 0;
         }
 
       /* Find the size= portion of the tag argument. */
@@ -1638,12 +1654,12 @@ gsc_handle_font_tag (const scr_char *argument)
           /* Deal with incremental and absolute sizes. */
           if (strncmp (size, "size=+", 6) == 0
               && sscanf (size, "size=+%lu", &value) == 1)
-            font_size += value;
+            font.size += value;
           else if (strncmp (size, "size=-", 6) == 0
                    && sscanf (size, "size=-%lu", &value) == 1)
-            font_size -= value;
+            font.size -= value;
           else if (sscanf (size, "size=%lu", &value) == 1)
-            font_size = value;
+            font.size = value;
         }
 
       /* Done with tag argument copy. */
@@ -1652,8 +1668,7 @@ gsc_handle_font_tag (const scr_char *argument)
       /*
        * Push the new font setting onto the font stack, and set Glk style.
        */
-      gsc_font_stack[gsc_font_index].is_monospaced = is_monospaced;
-      gsc_font_stack[gsc_font_index++].size = font_size;
+      gsc_font_stack[gsc_font_index++] = font;
       gsc_set_glk_style ();
     }
 }
@@ -2004,26 +2019,18 @@ os_print_tag (scr_int tag, const scr_char *argument)
 void
 os_print_string (const scr_char *string)
 {
-  scr_bool is_monospaced;
   assert (string);
   assert (glk_stream_get_current ());
 
   /*
-   * Get the monospace font setting from the current top of stack, or
-   * default on empty stack.  If set, we may need to use an alternative
-   * function to write this string.
-   */
-  if (gsc_font_index > 0)
-    is_monospaced = gsc_font_stack[gsc_font_index - 1].is_monospaced;
-  else
-    is_monospaced = FALSE;
-
-  /*
+   * If the current top of the font stack is monospaced, we may need to use an
+   * alternative function to write this string.
+   *
    * The main window should always be the currently set window at this point,
    * so we never be attempting monospaced output to the status window.
    * Nevertheless, check anyway.
    */
-  if (is_monospaced
+  if (gsc_font_top ().is_monospaced
       && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
     gsc_put_string_alternate (string);
   else
@@ -2456,6 +2463,21 @@ gsc_close_title_graphic (void)
 #endif
 
 
+/*
+ * gsc_refresh_windows()
+ *
+ * Refresh the size-sensitive windows, on Glk Arrange and Redraw events.
+ */
+static void
+gsc_refresh_windows (void)
+{
+  gsc_status_redraw ();
+#ifdef SPATTERLIGHT
+  gsc_title_redraw ();
+#endif
+}
+
+
 #ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
 /*
  * os_show_graphic()
@@ -2607,182 +2629,114 @@ gsc_open_log_stream (const char *label, glui32 usage, glui32 mode,
 
 
 /*
- * gsc_command_script()
+ * gsc_command_logging()
  *
- * Turn game output scripting (logging) on and off.  A bare "glk script" acts,
- * rather than reports: it is a synonym for "glk script on", since that is what
- * someone typing it almost always wants.  "glk script status" reports instead,
- * and is what the summary polls.
+ * The shape all three logging commands take: "on" opens the log stream via
+ * the file prompt and "off" closes it, each saying so unless the log was
+ * already that way; a bare command acts rather than reports -- it is a
+ * synonym for "on", since that is what someone typing it almost always wants;
+ * "status" reports instead, and is what the summary polls; anything else is a
+ * usage error.
+ *
+ * `stream` is the log's stream global, `label` opens every message, and
+ * `is_transcript` additionally attaches or detaches the stream as the main
+ * window's echo stream, which is what makes the transcript a transcript.
+ */
+static void
+gsc_command_logging (const char *argument, const char *name,
+                     const char *label, strid_t *stream,
+                     glui32 usage, glui32 mode, scr_bool must_exist,
+                     scr_bool is_transcript)
+{
+  assert (argument);
+
+  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
+    {
+      if (*stream)
+        {
+          gsc_normal_string (label);
+          gsc_normal_string (" is already on.\n");
+          return;
+        }
+
+      *stream = gsc_open_log_stream (label, usage, mode, must_exist);
+      if (!*stream)
+        return;
+
+      if (is_transcript)
+        glk_window_set_echo_stream (gsc_main_window, *stream);
+
+      gsc_normal_string (label);
+      gsc_normal_string (" is now on.\n");
+    }
+
+  else if (scr_strcasecmp (argument, "off") == 0)
+    {
+      if (!*stream)
+        {
+          gsc_normal_string (label);
+          gsc_normal_string (" is already off.\n");
+          return;
+        }
+
+      glk_stream_close (*stream, NULL);
+      *stream = NULL;
+
+      if (is_transcript)
+        glk_window_set_echo_stream (gsc_main_window, NULL);
+
+      gsc_normal_string (label);
+      gsc_normal_string (" is now off.\n");
+    }
+
+  else if (scr_strcasecmp (argument, "status") == 0)
+    {
+      gsc_normal_string (label);
+      gsc_normal_string (" is ");
+      gsc_normal_string (*stream ? "on" : "off");
+      gsc_normal_string (".\n");
+    }
+
+  else
+    {
+      gsc_command_usage (name);
+    }
+}
+
+
+/*
+ * gsc_command_script()
+ * gsc_command_inputlog()
+ * gsc_command_readlog()
+ *
+ * Turn game output scripting (logging), game input logging, and input log
+ * read-back on and off.
  */
 static void
 gsc_command_script (const char *argument)
 {
-  assert (argument);
-
-  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
-    {
-      if (gsc_transcript_stream)
-        {
-          gsc_normal_string ("Glk transcript is already on.\n");
-          return;
-        }
-
-      gsc_transcript_stream = gsc_open_log_stream ("Glk transcript",
-                                                   fileusage_Transcript
-                                                   | fileusage_TextMode,
-                                                   filemode_WriteAppend,
-                                                   FALSE);
-      if (!gsc_transcript_stream)
-        return;
-
-      glk_window_set_echo_stream (gsc_main_window, gsc_transcript_stream);
-
-      gsc_normal_string ("Glk transcript is now on.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "off") == 0)
-    {
-      if (!gsc_transcript_stream)
-        {
-          gsc_normal_string ("Glk transcript is already off.\n");
-          return;
-        }
-
-      glk_stream_close (gsc_transcript_stream, NULL);
-      gsc_transcript_stream = NULL;
-
-      glk_window_set_echo_stream (gsc_main_window, NULL);
-
-      gsc_normal_string ("Glk transcript is now off.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "status") == 0)
-    {
-      gsc_normal_string ("Glk transcript is ");
-      gsc_normal_string (gsc_transcript_stream ? "on" : "off");
-      gsc_normal_string (".\n");
-    }
-
-  else
-    {
-      gsc_command_usage ("script");
-    }
+  gsc_command_logging (argument, "script", "Glk transcript",
+                       &gsc_transcript_stream,
+                       fileusage_Transcript | fileusage_TextMode,
+                       filemode_WriteAppend, FALSE, TRUE);
 }
 
-
-/*
- * gsc_command_inputlog()
- *
- * Turn game input logging on and off.  As with script, a bare "glk inputlog"
- * acts rather than reports, and is a synonym for "glk inputlog on"; "glk
- * inputlog status" reports instead.
- */
 static void
 gsc_command_inputlog (const char *argument)
 {
-  assert (argument);
-
-  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
-    {
-      if (gsc_inputlog_stream)
-        {
-          gsc_normal_string ("Glk input logging is already on.\n");
-          return;
-        }
-
-      gsc_inputlog_stream = gsc_open_log_stream ("Glk input logging",
-                                                 fileusage_InputRecord
-                                                 | fileusage_BinaryMode,
-                                                 filemode_WriteAppend, FALSE);
-      if (!gsc_inputlog_stream)
-        return;
-
-      gsc_normal_string ("Glk input logging is now on.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "off") == 0)
-    {
-      if (!gsc_inputlog_stream)
-        {
-          gsc_normal_string ("Glk input logging is already off.\n");
-          return;
-        }
-
-      glk_stream_close (gsc_inputlog_stream, NULL);
-      gsc_inputlog_stream = NULL;
-
-      gsc_normal_string ("Glk input log is now off.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "status") == 0)
-    {
-      gsc_normal_string ("Glk input logging is ");
-      gsc_normal_string (gsc_inputlog_stream ? "on" : "off");
-      gsc_normal_string (".\n");
-    }
-
-  else
-    {
-      gsc_command_usage ("inputlog");
-    }
+  gsc_command_logging (argument, "inputlog", "Glk input logging",
+                       &gsc_inputlog_stream,
+                       fileusage_InputRecord | fileusage_BinaryMode,
+                       filemode_WriteAppend, FALSE, FALSE);
 }
 
-
-/*
- * gsc_command_readlog()
- *
- * Set the game input log, to read input from a file.  As with script, a bare
- * "glk readlog" acts rather than reports, and is a synonym for "glk readlog
- * on"; "glk readlog status" reports instead.
- */
 static void
 gsc_command_readlog (const char *argument)
 {
-  assert (argument);
-
-  if (scr_strcasecmp (argument, "on") == 0 || strlen (argument) == 0)
-    {
-      if (gsc_readlog_stream)
-        {
-          gsc_normal_string ("Glk read log is already on.\n");
-          return;
-        }
-
-      gsc_readlog_stream = gsc_open_log_stream ("Glk read log",
-                                                fileusage_InputRecord
-                                                | fileusage_BinaryMode,
-                                                filemode_Read, TRUE);
-      if (!gsc_readlog_stream)
-        return;
-
-      gsc_normal_string ("Glk read log is now on.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "off") == 0)
-    {
-      if (!gsc_readlog_stream)
-        {
-          gsc_normal_string ("Glk read log is already off.\n");
-          return;
-        }
-
-      glk_stream_close (gsc_readlog_stream, NULL);
-      gsc_readlog_stream = NULL;
-
-      gsc_normal_string ("Glk read log is now off.\n");
-    }
-
-  else if (scr_strcasecmp (argument, "status") == 0)
-    {
-      gsc_normal_string ("Glk read log is ");
-      gsc_normal_string (gsc_readlog_stream ? "on" : "off");
-      gsc_normal_string (".\n");
-    }
-
-  else
-    {
-      gsc_command_usage ("readlog");
-    }
+  gsc_command_logging (argument, "readlog", "Glk read log",
+                       &gsc_readlog_stream,
+                       fileusage_InputRecord | fileusage_BinaryMode,
+                       filemode_Read, TRUE, FALSE);
 }
 
 
@@ -4067,14 +4021,7 @@ os_read_line (scr_char *buffer, scr_int length)
               int posn;
 
               posn = strspn (buffer, "\t ");
-              if (scr_strncasecmp (buffer + posn, "help", strlen ("help"))== 0)
-                {
-                  if (strspn (buffer + posn + strlen ("help"), "\t ")
-                      == strlen (buffer + posn + strlen ("help")))
-                    {
-                      gsc_output_register_help_request ();
-                    }
-                }
+              gsc_note_help_request (buffer + posn);
 
               if (gsc_command_escape (buffer))
                 {
@@ -4140,6 +4087,36 @@ os_read_line_debug (scr_char *buffer, scr_int length)
 
 
 /*
+ * gsc_get_choice_key()
+ *
+ * Wait for a keypress matching one of the uppercase characters in `choices`,
+ * ignoring Glk special keys, and return it uppercased.
+ */
+static scr_char
+gsc_get_choice_key (const char *choices)
+{
+  scr_char response;
+
+  do
+    {
+      event_t event;
+
+      /* Wait for a standard key, ignoring Glk special keys. */
+      do
+        {
+          glk_request_char_event (gsc_main_window);
+          gsc_event_wait (evtype_CharInput, &event);
+        }
+      while (event.val1 > UCHAR_MAX);
+      response = glk_char_to_upper (event.val1);
+    }
+  while (response == '\0' || !strchr (choices, response));
+
+  return response;
+}
+
+
+/*
  * os_confirm()
  *
  * Confirm a game action with a yes/no prompt.
@@ -4196,21 +4173,8 @@ os_confirm (scr_int type)
     }
   glk_put_string ("? ");
 
-  /* Loop until 'yes' or 'no' returned. */
-  do
-    {
-      event_t event;
-
-      /* Wait for a standard key, ignoring Glk special keys. */
-      do
-        {
-          glk_request_char_event (gsc_main_window);
-          gsc_event_wait (evtype_CharInput, &event);
-        }
-      while (event.val1 > UCHAR_MAX);
-      response = glk_char_to_upper (event.val1);
-    }
-  while (response != 'Y' && response != 'N');
+  /* Wait until 'yes' or 'no' entered. */
+  response = gsc_get_choice_key ("YN");
 
   /* Echo the confirmation response, and a new line. */
   glk_set_style (style_Input);
@@ -4283,11 +4247,7 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         {
         case evtype_Arrange:
         case evtype_Redraw:
-          /* Refresh any sensitive windows on size events. */
-          gsc_status_redraw ();
-#ifdef SPATTERLIGHT
-          gsc_title_redraw ();
-#endif
+          gsc_refresh_windows ();
           break;
 
         case evtype_MouseInput:
@@ -4473,66 +4433,38 @@ gsc_callback (void *opaque, scr_byte *buffer, scr_int length)
 static enum gsc_end_option
 gsc_get_ending_option (void)
 {
-  scr_char response;
+  const char *echo;
+  enum gsc_end_option option;
 
   /* Ensure back to normal style, and update status. */
   gsc_reset_glk_style ();
   gsc_status_notify ();
 
-  /* Prompt for restart, undo, or quit. */
+  /* Prompt for restart, undo, or quit, and wait for one of the three. */
   glk_put_string ("\nWould you like to RESTART, UNDO a turn, or QUIT? ");
-
-  /* Loop until 'restart', 'undo' or 'quit'. */
-  do
+  switch (gsc_get_choice_key ("RUQ"))
     {
-      event_t event;
-
-      do
-        {
-          glk_request_char_event (gsc_main_window);
-          gsc_event_wait (evtype_CharInput, &event);
-        }
-      while (event.val1 > UCHAR_MAX);
-      response = glk_char_to_upper (event.val1);
+    case 'R':
+      echo = "Restart";
+      option = GAME_RESTART;
+      break;
+    case 'U':
+      echo = "Undo";
+      option = GAME_UNDO;
+      break;
+    default:
+      echo = "Quit";
+      option = GAME_QUIT;
+      break;
     }
-  while (response != 'R' && response != 'U' && response != 'Q');
 
   /* Echo the confirmation response, and a new line. */
   glk_set_style (style_Input);
-  switch (response)
-    {
-    case 'R':
-      glk_put_string ("Restart");
-      break;
-    case 'U':
-      glk_put_string ("Undo");
-      break;
-    case 'Q':
-      glk_put_string ("Quit");
-      break;
-    default:
-      gsc_fatal ("GLK: Invalid response encountered");
-      glk_exit ();
-    }
+  glk_put_string ((char *) echo);
   glk_set_style (style_Normal);
   glk_put_char ('\n');
 
-  /* Return the appropriate value for response. */
-  switch (response)
-    {
-    case 'R':
-      return GAME_RESTART;
-    case 'U':
-      return GAME_UNDO;
-    case 'Q':
-      return GAME_QUIT;
-    default:
-      gsc_fatal ("GLK: Invalid response encountered");
-      glk_exit ();
-    }
-
-  /* Unreachable; supplied to suppress compiler warning. */
-  return GAME_QUIT;
+  return option;
 }
 
 
@@ -5089,13 +5021,6 @@ gsc_a5_put_string (const char *string)
 }
 
 /*
- * gsc_a5_read_line()
- *
- * Read a line of player input into buf as UTF-8 (so accented input round-trips
- * to the a5 parser).  Returns the byte length stored.  Reuses gsc_event_wait so
- * window resize / redraw events are handled while waiting.
- */
-/*
  * gsc_a5_start_real_time()
  *
  * Decide whether this session runs the game's TimeBased events in real time,
@@ -5188,11 +5113,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
         {
         case evtype_Arrange:
         case evtype_Redraw:
-          /* Refresh any sensitive windows on size events. */
-          gsc_status_redraw ();
-#ifdef SPATTERLIGHT
-          gsc_title_redraw ();
-#endif
+          gsc_refresh_windows ();
           break;
 
         case evtype_MouseInput:
@@ -5501,10 +5422,7 @@ gsc_a5_command_escape (char *input)
         memmove (command, command + 1, strlen (command));
       else
         {
-          if (scr_strncasecmp (command, "help", strlen ("help")) == 0
-              && strspn (command + strlen ("help"), "\t ")
-                 == strlen (command + strlen ("help")))
-            gsc_output_register_help_request ();
+          gsc_note_help_request (command);
 
           if (gsc_command_escape (input))
             {
@@ -6913,6 +6831,23 @@ gsc_map_show (void)
 }
 
 /*
+ * gsc_map_hide()
+ *
+ * Close the map pane, dropping the record of what was drawn there.
+ */
+static void
+gsc_map_hide (void)
+{
+  if (gsc_map_window)
+    {
+      glk_window_close (gsc_map_window, NULL);
+      gsc_map_window = NULL;
+    }
+  gsc_map_shown = FALSE;
+  gsc_map_screen_drop ();
+}
+
+/*
  * gsc_map_toggle()
  *
  * Show or hide the map pane.  The window is opened on first use (and only for
@@ -6923,13 +6858,7 @@ gsc_map_toggle (void)
 {
   if (gsc_map_shown)
     {
-      if (gsc_map_window)
-        {
-          glk_window_close (gsc_map_window, NULL);
-          gsc_map_window = NULL;
-        }
-      gsc_map_shown = FALSE;
-      gsc_map_screen_drop ();
+      gsc_map_hide ();
       gsc_normal_string ("Map hidden.\n");
       return;
     }
@@ -6955,14 +6884,7 @@ gsc_map_place (int at_top)
       return;
     }
 
-  if (gsc_map_shown)
-    {
-      glk_window_close (gsc_map_window, NULL);
-      gsc_map_window = NULL;
-      gsc_map_shown = FALSE;
-      gsc_map_screen_drop ();
-    }
-
+  gsc_map_hide ();
   gsc_map_at_top = at_top;
   gsc_map_show ();
 }
@@ -7085,6 +7007,44 @@ gsc_command_zoom (const char *argument)
     }
   gsc_map_zoom = stepped;
   gsc_map_redraw ();
+}
+
+
+/*
+ * gsc_a5_try_undo()
+ * gsc_a5_try_restore()
+ *
+ * The UNDO and RESTORE actions shared by the running-game prompt and the
+ * end-of-game banner.  Each performs the action, reports it, and brings the
+ * live-state panes up to date, returning TRUE on success.  The undo failure
+ * message is left to the callers, which word it differently.
+ */
+static int
+gsc_a5_try_undo (a5_run_t *run)
+{
+  if (!a5run_undo (run))
+    return FALSE;
+
+  gsc_a5_put_string ("The previous turn has been undone.\n");
+  gsc_a5_undo_look (run);
+  gsc_a5_status (run);
+  gsc_map_redraw ();
+  return TRUE;
+}
+
+static int
+gsc_a5_try_restore (a5_run_t *run)
+{
+  if (!gsc_a5_restore (run))
+    {
+      gsc_a5_put_string ("Restore failed.\n");
+      return FALSE;
+    }
+
+  /* Don't let a later UNDO jump back across the restore boundary. */
+  a5run_undo_forget (run);
+  gsc_a5_put_string ("Game restored.\n");
+  return TRUE;
 }
 
 
@@ -7285,12 +7245,8 @@ gsc_a5_main (void)
                 break;
               if (gsc_a5_match_command (input, "undo"))
                 {
-                  if (a5run_undo (run))
+                  if (gsc_a5_try_undo (run))
                     {
-                      gsc_a5_put_string ("The previous turn has been undone.\n");
-                      gsc_a5_undo_look (run);
-                      gsc_a5_status (run);
-                      gsc_map_redraw ();
                       resumed = 1;
                       break;
                     }
@@ -7299,14 +7255,11 @@ gsc_a5_main (void)
                 }
               if (gsc_a5_match_command (input, "restore"))
                 {
-                  if (gsc_a5_restore (run))
+                  if (gsc_a5_try_restore (run))
                     {
-                      a5run_undo_forget (run);
-                      gsc_a5_put_string ("Game restored.\n");
                       resumed = 1;
                       break;
                     }
-                  gsc_a5_put_string ("Restore failed.\n");
                   continue;
                 }
             }
@@ -7369,30 +7322,19 @@ gsc_a5_main (void)
 
       if (gsc_a5_match_command (input, "restore"))
         {
-          if (gsc_a5_restore (run))
-            {
-              /* Don't let a later UNDO jump back across the restore boundary. */
-              a5run_undo_forget (run);
-              gsc_a5_put_string ("Game restored.\n");
-            }
-          else
-            gsc_a5_put_string ("Restore failed.\n");
+          gsc_a5_try_restore (run);
           continue;
         }
 
       if (gsc_a5_match_command (input, "undo"))
         {
-          if (a5run_undo (run))
+          if (!gsc_a5_try_undo (run))
             {
-              gsc_a5_put_string ("The previous turn has been undone.\n");
-              gsc_a5_undo_look (run);
-              gsc_a5_status (run);
-              gsc_map_redraw ();
+              if (a5run_turns (run) == 0)
+                gsc_a5_put_string ("You can't undo what hasn't been done.\n");
+              else
+                gsc_a5_put_string ("Sorry, no more undo is available.\n");
             }
-          else if (a5run_turns (run) == 0)
-            gsc_a5_put_string ("You can't undo what hasn't been done.\n");
-          else
-            gsc_a5_put_string ("Sorry, no more undo is available.\n");
           continue;
         }
 
