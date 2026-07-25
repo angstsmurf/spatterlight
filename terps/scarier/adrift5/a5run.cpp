@@ -43,6 +43,19 @@ int a5run_trace = 0;
 
 /* -------------------------------------------------------------- message tests */
 
+/* A non-spanning presentation sentinel: a stripped-tag stand-in (A5_ALR_MARK)
+   or one of the interactive-mode marks.  None of these are visible output.
+   (The spanning A5_IMG_MARK / A5_WINDOW_MARK pairs are handled at each call
+   site, since their payload must be skipped as a unit.) */
+static int
+is_pres_mark (char c)
+{
+  return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
+      || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
+      || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
+      || c == A5_ENDWINDOW_MARK;
+}
+
 /* The runner's bHasOutput (clsUserSession.vb:1272) for an ALREADY-RENDERED plain message
    (the form Scarier holds at every response/emit site, after markup has been
    converted to plain).  The runner keeps a message unless StripCarats leaves the empty
@@ -76,10 +89,7 @@ msg_has_output (const char *m)
             continue;
           m = e;
         }
-      else if (*m != A5_ALR_MARK && *m != A5_WAITKEY_MARK
-               && *m != A5_CENTER_MARK && *m != A5_ENDCENTER_MARK
-               && *m != A5_BOLD_MARK && *m != A5_ENDBOLD_MARK
-               && *m != A5_ENDWINDOW_MARK)
+      else if (!is_pres_mark (*m))
         return 1;
     }
   return 0;
@@ -101,10 +111,7 @@ msg_ends_with_cls (const char *m)
       char c = m[n - 1];
       if (c == A5_CLS_MARK)
         return 1;
-      if (c != A5_ALR_MARK && c != A5_WAITKEY_MARK
-          && c != A5_CENTER_MARK && c != A5_ENDCENTER_MARK
-          && c != A5_BOLD_MARK && c != A5_ENDBOLD_MARK
-          && c != A5_ENDWINDOW_MARK)
+      if (!is_pres_mark (c))
         return 0;
       n--;
     }
@@ -415,6 +422,17 @@ lower (const std::string &s)
   std::string o = s;
   for (char &c : o) c = (char) tolower ((unsigned char) c);
   return o;
+}
+
+/* The lowercased, whitespace-trimmed input line (clsUserSession lowercases
+   sInput up front). */
+static std::string
+normalise_input (const char *line)
+{
+  std::string in = lower (line ? line : "");
+  size_t a = in.find_first_not_of (" \t");
+  size_t b = in.find_last_not_of (" \t");
+  return (a == std::string::npos) ? std::string () : in.substr (a, b - a + 1);
 }
 
 /* Reference resolution + multiple-object references live in
@@ -999,6 +1017,18 @@ emit_end_prompt (sb_t *out)
   sb_puts (out, "\n\n");
 }
 
+/* Compact `s` in place, dropping every occurrence of the byte `c`. */
+static void
+strip_byte (char *s, char c)
+{
+  char *r, *w;
+  if (s == NULL)
+    return;
+  for (r = w = s; *r != '\0'; r++)
+    if (*r != c) *w++ = *r;
+  *w = '\0';
+}
+
 /* Expand any deferred-variable sentinels (A5_VARDEF_MARK, a5text.h) currently
    in the turn buffer with the variables' CURRENT values.  Called at the
    Scarier equivalents of the runner's Display commits (see the claimed-command path)
@@ -1041,13 +1071,7 @@ finish_turn (a5_run_t *run, sb_t *out)
      accumulation -- sb_pspace saw them as non-newline tails and inserted the join
      spaces.  Strip them now, before the ALR match and the trailing-whitespace
      trim, so they never reach the output. */
-  if (raw != NULL)
-    {
-      char *r, *w;
-      for (r = w = raw; *r != '\0'; r++)
-        if (*r != A5_PS_MARK) *w++ = *r;
-      *w = '\0';
-    }
+  strip_byte (raw, A5_PS_MARK);
   /* Deferred-variable sentinels (a bare %var% inside an eagerly-applied ALR
      NewText) resolve here with the end-of-turn value -- the runner Display's
      ReplaceFunctions runs before its ReplaceALRs (Global.vb:523).  A second
@@ -1069,12 +1093,7 @@ finish_turn (a5_run_t *run, sb_t *out)
      ALR pass above could not match an OldText across a stripped tag, exactly
      like the runner's Display-time ReplaceALRs over the still-marked-up buffer.  Drop
      them before the output is shown. */
-  {
-    char *r, *w;
-    for (r = w = fin; *r != '\0'; r++)
-      if (*r != A5_ALR_MARK) *w++ = *r;
-    *w = '\0';
-  }
+  strip_byte (fin, A5_ALR_MARK);
   /* Normalise only the very end of the turn: the runner's pSpace model leaves a message
      ending in trailing spaces or a paragraph break, and the runner then appends its own
      end-of-turn vbCrLf pair.  The interior pSpace joins are what matter for
@@ -1815,7 +1834,7 @@ a5run_input_inner (a5_run_t *run, const char *line)
 {
   a5_state_t *st = run->st;
   sb_t out;
-  std::string in = lower (line ? line : "");
+  std::string in = normalise_input (line);
   std::string fail_text;
   int have_fail = 0, have_amb = 0, amb_ti = -1, amb_ci = -1, amb_cantsee = 0;
   int have_noref = 0, noref_ti = -1, noref_ci = -1;
@@ -1823,12 +1842,6 @@ a5run_input_inner (a5_run_t *run, const char *line)
 
   sb_init (&out);
   a5run_media_begin (run);
-  /* trim */
-  {
-    size_t a = in.find_first_not_of (" \t");
-    size_t b = in.find_last_not_of (" \t");
-    in = (a == std::string::npos) ? "" : in.substr (a, b - a + 1);
-  }
   if (a5run_trace)
     fprintf (stderr, "\n=== INPUT: \"%s\" ===\n", in.c_str ());
   if (in.empty ())
@@ -2129,12 +2142,7 @@ static char *
 endgame_guard_input (a5_run_t *run, const char *line)
 {
   sb_t out;
-  std::string in = lower (line ? line : "");
-  {
-    size_t a = in.find_first_not_of (" \t");
-    size_t b = in.find_last_not_of (" \t");
-    in = (a == std::string::npos) ? "" : in.substr (a, b - a + 1);
-  }
+  std::string in = normalise_input (line);
 
   sb_init (&out);
   a5run_media_begin (run);
@@ -3304,6 +3312,21 @@ fd_event_index (const a5_adventure_t *adv, const char *key)
   return -1;
 }
 
+/* Apply every <Property> child of `n` as a runtime override on `entkey`. */
+static void
+restore_props (a5_state_t *st, const a5_xml_node_t *n, const char *entkey)
+{
+  const a5_xml_node_t *c;
+  for (c = n->first_child; c != NULL; c = c->next)
+    if (streq (c->name, "Property"))
+      {
+        const char *pk = a5xml_child_text (c, "Key");
+        const char *pv = a5xml_child_text (c, "Value");
+        if (pk != NULL)
+          a5state_set_prop (st, entkey, pk, pv ? pv : "");
+      }
+}
+
 static void
 restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
 {
@@ -3318,19 +3341,12 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
     {
       const char *nm = n->name;
       if (streq (nm, "Turns"))
-        st->turns = (int) strtol (n->text ? n->text : "0", NULL, 10);
+        st->turns = (int) node_long (n);
       else if (streq (nm, "Location"))
         {
           const char *lk = a5xml_child_text (n, "Key");
           if (lk != NULL)
-            for (c = n->first_child; c != NULL; c = c->next)
-              if (streq (c->name, "Property"))
-                {
-                  const char *pk = a5xml_child_text (c, "Key");
-                  const char *pv = a5xml_child_text (c, "Value");
-                  if (pk != NULL)
-                    a5state_set_prop (st, lk, pk, pv ? pv : "");
-                }
+            restore_props (st, n, lk);
         }
       else if (streq (nm, "Object"))
         {
@@ -3349,15 +3365,7 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
               else
                 st->obj[oi].key =
                   intern_key (adv, a5xml_child_text (n, "LocationKey"));
-              for (c = n->first_child; c != NULL; c = c->next)
-                if (streq (c->name, "Property"))
-                  {
-                    const char *pk = a5xml_child_text (c, "Key");
-                    const char *pv = a5xml_child_text (c, "Value");
-                    if (pk != NULL)
-                      a5state_set_prop (st, adv->objects[oi].key, pk,
-                                        pv ? pv : "");
-                  }
+              restore_props (st, n, adv->objects[oi].key);
             }
         }
       else if (streq (nm, "Task"))
@@ -3450,15 +3458,7 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
                         a5state_mark_loc_seen (st, k);
                     }
 
-              for (c = n->first_child; c != NULL; c = c->next)
-                if (streq (c->name, "Property"))
-                  {
-                    const char *pk = a5xml_child_text (c, "Key");
-                    const char *pv = a5xml_child_text (c, "Value");
-                    if (pk != NULL)
-                      a5state_set_prop (st, adv->characters[ci].key, pk,
-                                        pv ? pv : "");
-                  }
+              restore_props (st, n, adv->characters[ci].key);
             }
         }
       else if (streq (nm, "Variable"))
@@ -3601,6 +3601,19 @@ a5run_restore (a5_run_t *run, const char *data, size_t len)
    the corpus (Tingalan, ~400K a snapshot) holds about 6MB. */
 enum { A5_UNDO_DEPTH = 16 };
 
+/* Push a snapshot + its turn text, dropping the oldest entry at depth. */
+static void
+undo_push (a5_run_t *run, std::string blob, std::string turn_text)
+{
+  if (run->undo_stack.size () >= A5_UNDO_DEPTH)
+    {
+      run->undo_stack.erase (run->undo_stack.begin ());
+      run->undo_turn_text.erase (run->undo_turn_text.begin ());
+    }
+  run->undo_stack.push_back (std::move (blob));
+  run->undo_turn_text.push_back (std::move (turn_text));
+}
+
 /* Capture the current runtime as an undo point (a5run_save pushed onto the
    run's undo stack).  Call from the frontend just BEFORE a5run_input, so the
    snapshot is the pre-turn state (a5run_input increments st->turns on entry).
@@ -3616,13 +3629,7 @@ a5run_snapshot (a5_run_t *run)
   blob = a5run_save (run, &len);
   if (blob == NULL)
     return;
-  if (run->undo_stack.size () >= A5_UNDO_DEPTH)
-    {
-      run->undo_stack.erase (run->undo_stack.begin ());
-      run->undo_turn_text.erase (run->undo_turn_text.begin ());
-    }
-  run->undo_stack.push_back (std::string (blob, len));
-  run->undo_turn_text.push_back (run->last_turn_text);
+  undo_push (run, std::string (blob, len), run->last_turn_text);
   free (blob);
 }
 
@@ -3701,14 +3708,9 @@ a5run_undo_push_blob (a5_run_t *run, const char *blob, size_t len,
 {
   if (run == NULL || blob == NULL)
     return;
-  if (run->undo_stack.size () >= A5_UNDO_DEPTH)
-    {
-      run->undo_stack.erase (run->undo_stack.begin ());
-      run->undo_turn_text.erase (run->undo_turn_text.begin ());
-    }
-  run->undo_stack.push_back (std::string (blob, len));
-  run->undo_turn_text.push_back (std::string (turn_text == NULL ? "" : turn_text,
-                                              turn_text == NULL ? 0 : tt_len));
+  undo_push (run, std::string (blob, len),
+             std::string (turn_text == NULL ? "" : turn_text,
+                          turn_text == NULL ? 0 : tt_len));
 }
 
 void
