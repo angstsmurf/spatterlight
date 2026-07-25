@@ -29,22 +29,37 @@ a5xml_bool (const char *s)
       || strcmp (s, "-1") == 0       || strcasecmp (s, "Vrai") == 0;
 }
 
+/* Every collector and per-type loader below has the same scaffold: count the
+   direct children named `tag`, allocate that many records, then walk the
+   children again and fill one record per match.  This factors the scaffold
+   out so each caller supplies only the per-record fill. */
+template <typename T, typename F>
+static void
+a5_load_each (const a5_xml_node_t *node, const char *tag, T **arr, int *out_n,
+              F fill)
+{
+  const a5_xml_node_t *c;
+  int i = 0;
+
+  *out_n = (node != NULL) ? a5xml_count (node, tag) : 0;
+  if (*out_n == 0)
+    return;
+  *arr = (T *) calloc ((size_t) *out_n, sizeof **arr);
+  for (c = node->first_child; c != NULL; c = c->next)
+    if (strcmp (c->name, tag) == 0)
+      fill (&(*arr)[i++], c);
+}
+
 /* Collect the text of every direct child named `tag` into a new const char*[]. */
 static const char **
 a5_collect_text (const a5_xml_node_t *node, const char *tag, int *out_n)
 {
-  int n = a5xml_count (node, tag);
-  const char **arr;
-  a5_xml_node_t *c;
-  int i = 0;
-
-  *out_n = n;
-  if (n == 0)
-    return NULL;
-  arr = (const char **) malloc ((size_t) n * sizeof *arr);
-  for (c = node->first_child; c != NULL; c = c->next)
-    if (strcmp (c->name, tag) == 0)
-      arr[i++] = c->text;
+  const char **arr = NULL;
+  a5_load_each (node, tag, &arr, out_n,
+                [] (const char **slot, const a5_xml_node_t *c)
+                {
+                  *slot = c->text;
+                });
   return arr;
 }
 
@@ -52,32 +67,22 @@ a5_collect_text (const a5_xml_node_t *node, const char *tag, int *out_n)
 static a5_prop_t *
 a5_collect_props (const a5_xml_node_t *node, int *out_n)
 {
-  int n = a5xml_count (node, "Property");
-  a5_prop_t *arr;
-  a5_xml_node_t *c;
-  int i = 0;
-
-  *out_n = n;
-  if (n == 0)
-    return NULL;
-  arr = (a5_prop_t *) calloc ((size_t) n, sizeof *arr);
-  for (c = node->first_child; c != NULL; c = c->next)
-    {
-      a5_xml_node_t *value;
-      if (strcmp (c->name, "Property") != 0)
-        continue;
-      arr[i].key = a5xml_child_text (c, "Key");
-      value = a5xml_child (c, "Value");
-      if (value != NULL)
-        {
-          if (value->n_children > 0)
-            arr[i].value_node = value;   /* rich (Description) value */
-          else
-            arr[i].value = value->text;  /* simple scalar */
-        }
-      /* else: flag property (both NULL) */
-      i++;
-    }
+  a5_prop_t *arr = NULL;
+  a5_load_each (node, "Property", &arr, out_n,
+                [] (a5_prop_t *p, const a5_xml_node_t *c)
+                {
+                  const a5_xml_node_t *value;
+                  p->key = a5xml_child_text (c, "Key");
+                  value = a5xml_child (c, "Value");
+                  if (value != NULL)
+                    {
+                      if (value->n_children > 0)
+                        p->value_node = value;   /* rich (Description) value */
+                      else
+                        p->value = value->text;  /* simple scalar */
+                    }
+                  /* else: flag property (both NULL) */
+                });
   return arr;
 }
 
@@ -96,229 +101,162 @@ a5_prop_find (const a5_prop_t *props, int n, const char *key)
 static void
 a5_load_objects (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_objects = a5xml_count (a->root, "Object");
-  if (a->n_objects == 0)
-    return;
-  a->objects = (a5_object_t *) calloc ((size_t) a->n_objects, sizeof *a->objects);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_object_t *o;
-      if (strcmp (c->name, "Object") != 0)
-        continue;
-      o = &a->objects[i++];
-      o->node = c;
-      o->key = a5xml_child_text (c, "Key");
-      o->article = a5xml_child_text (c, "Article");
-      o->prefix = a5xml_child_text (c, "Prefix");
-      o->names = a5_collect_text (c, "Name", &o->n_names);
-      o->props = a5_collect_props (c, &o->n_props);
-    }
+  a5_load_each (a->root, "Object", &a->objects, &a->n_objects,
+                [] (a5_object_t *o, const a5_xml_node_t *c)
+                {
+                  o->node = c;
+                  o->key = a5xml_child_text (c, "Key");
+                  o->article = a5xml_child_text (c, "Article");
+                  o->prefix = a5xml_child_text (c, "Prefix");
+                  o->names = a5_collect_text (c, "Name", &o->n_names);
+                  o->props = a5_collect_props (c, &o->n_props);
+                });
 }
 
 static void
 a5_load_locations (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_locations = a5xml_count (a->root, "Location");
-  if (a->n_locations == 0)
-    return;
-  a->locations = (a5_location_t *) calloc ((size_t) a->n_locations, sizeof *a->locations);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_location_t *l;
-      if (strcmp (c->name, "Location") != 0)
-        continue;
-      l = &a->locations[i++];
-      l->node = c;
-      l->key = a5xml_child_text (c, "Key");
-      l->props = a5_collect_props (c, &l->n_props);
-    }
+  a5_load_each (a->root, "Location", &a->locations, &a->n_locations,
+                [] (a5_location_t *l, const a5_xml_node_t *c)
+                {
+                  l->node = c;
+                  l->key = a5xml_child_text (c, "Key");
+                  l->props = a5_collect_props (c, &l->n_props);
+                });
 }
 
 static void a5_load_walks (a5_character_t *ch);   /* defined below the helpers */
 
-/* Parse a character's <Topic> children (clsTopic / FileIO topic load).  The
+/* Parse one of a character's <Topic> children (clsTopic / FileIO topic load).  The
    first direct <Description> child is the reply; <Restrictions>/<Actions> are
    the topic-level gating block and action list. */
 static void
-a5_load_topics (a5_character_t *ch)
+a5_parse_topic (a5_topic_t *t, const a5_xml_node_t *c)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  ch->n_topics = a5xml_count (ch->node, "Topic");
-  if (ch->n_topics == 0)
-    return;
-  ch->topics = (a5_topic_t *) calloc ((size_t) ch->n_topics, sizeof *ch->topics);
-  for (c = ch->node->first_child; c != NULL; c = c->next)
-    {
-      a5_topic_t *t;
-      if (strcmp (c->name, "Topic") != 0)
-        continue;
-      t = &ch->topics[i++];
-      t->key = a5xml_child_text (c, "Key");
-      t->parent_key = a5xml_child_text (c, "ParentKey");
-      if (t->parent_key == NULL) t->parent_key = "";
-      t->keywords = a5xml_child_text (c, "Keywords");
-      if (t->keywords == NULL) t->keywords = "";
-      /* Topic flags via FileIO.GetBool semantics (True/1/-1/Vrai), not a bare
-         "1": RtC serialises <IsIntro>True</IsIntro> etc., so a "1"-only test
-         left every topic flag false and the whole conversation system inert
-         (say/ask/tell/command always fell to "ignores you" / "doesn't appear
-         to understand you"). */
-      t->is_intro     = a5xml_bool (a5xml_child_text (c, "IsIntro"));
-      t->is_ask       = a5xml_bool (a5xml_child_text (c, "IsAsk"));
-      t->is_tell      = a5xml_bool (a5xml_child_text (c, "IsTell"));
-      t->is_command   = a5xml_bool (a5xml_child_text (c, "IsCommand"));
-      t->is_farewell  = a5xml_bool (a5xml_child_text (c, "IsFarewell"));
-      t->stay_in_node = a5xml_bool (a5xml_child_text (c, "StayInNode"));
-      /* clsUserSession game-start init (vb:259): command-topic keywords go
-         through CorrectCommand exactly like task commands, so an optional
-         leading group absorbs its adjacent space (`{say} [hello]` ->
-         `{say }[hello]`) and the bare form matches (October 31st's gardener
-         explicit intro `say hello to ghost` -> subject "hello"). */
-      if (t->is_command)
-        t->keywords = a5_correct_command (t->keywords);
-      t->conversation = a5xml_child (c, "Description");
-      t->restrictions = a5xml_child (c, "Restrictions");
-      t->actions = a5xml_child (c, "Actions");
-    }
+  t->key = a5xml_child_text (c, "Key");
+  t->parent_key = a5xml_child_text (c, "ParentKey");
+  if (t->parent_key == NULL) t->parent_key = "";
+  t->keywords = a5xml_child_text (c, "Keywords");
+  if (t->keywords == NULL) t->keywords = "";
+  /* Topic flags via FileIO.GetBool semantics (True/1/-1/Vrai), not a bare
+     "1": RtC serialises <IsIntro>True</IsIntro> etc., so a "1"-only test
+     left every topic flag false and the whole conversation system inert
+     (say/ask/tell/command always fell to "ignores you" / "doesn't appear
+     to understand you"). */
+  t->is_intro     = a5xml_bool (a5xml_child_text (c, "IsIntro"));
+  t->is_ask       = a5xml_bool (a5xml_child_text (c, "IsAsk"));
+  t->is_tell      = a5xml_bool (a5xml_child_text (c, "IsTell"));
+  t->is_command   = a5xml_bool (a5xml_child_text (c, "IsCommand"));
+  t->is_farewell  = a5xml_bool (a5xml_child_text (c, "IsFarewell"));
+  t->stay_in_node = a5xml_bool (a5xml_child_text (c, "StayInNode"));
+  /* clsUserSession game-start init (vb:259): command-topic keywords go
+     through CorrectCommand exactly like task commands, so an optional
+     leading group absorbs its adjacent space (`{say} [hello]` ->
+     `{say }[hello]`) and the bare form matches (October 31st's gardener
+     explicit intro `say hello to ghost` -> subject "hello"). */
+  if (t->is_command)
+    t->keywords = a5_correct_command (t->keywords);
+  t->conversation = a5xml_child (c, "Description");
+  t->restrictions = a5xml_child (c, "Restrictions");
+  t->actions = a5xml_child (c, "Actions");
 }
 
 static void
 a5_load_characters (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_characters = a5xml_count (a->root, "Character");
-  if (a->n_characters == 0)
-    return;
-  a->characters = (a5_character_t *) calloc ((size_t) a->n_characters, sizeof *a->characters);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_character_t *ch;
-      if (strcmp (c->name, "Character") != 0)
-        continue;
-      ch = &a->characters[i++];
-      ch->node = c;
-      ch->key = a5xml_child_text (c, "Key");
-      ch->name = a5xml_child_text (c, "Name");
-      ch->article = a5xml_child_text (c, "Article");
-      ch->prefix = a5xml_child_text (c, "Prefix");
-      ch->type = a5xml_child_text (c, "Type");
-      ch->perspective = a5xml_child_text (c, "Perspective");
-      ch->descriptors = a5_collect_text (c, "Descriptor", &ch->n_descriptors);
-      ch->props = a5_collect_props (c, &ch->n_props);
-      a5_load_topics (ch);
-      a5_load_walks (ch);
-    }
+  a5_load_each (a->root, "Character", &a->characters, &a->n_characters,
+                [] (a5_character_t *ch, const a5_xml_node_t *c)
+                {
+                  ch->node = c;
+                  ch->key = a5xml_child_text (c, "Key");
+                  ch->name = a5xml_child_text (c, "Name");
+                  ch->article = a5xml_child_text (c, "Article");
+                  ch->prefix = a5xml_child_text (c, "Prefix");
+                  ch->type = a5xml_child_text (c, "Type");
+                  ch->perspective = a5xml_child_text (c, "Perspective");
+                  ch->descriptors = a5_collect_text (c, "Descriptor",
+                                                     &ch->n_descriptors);
+                  ch->props = a5_collect_props (c, &ch->n_props);
+                  a5_load_each (c, "Topic", &ch->topics, &ch->n_topics,
+                                a5_parse_topic);
+                  a5_load_walks (ch);
+                });
+}
+
+static void
+a5_parse_task (a5_task_t *t, const a5_xml_node_t *c)
+{
+  const char *prio, *rep;
+  int k;
+
+  t->node = c;
+  t->key = a5xml_child_text (c, "Key");
+  prio = a5xml_child_text (c, "Priority");
+  t->priority = (prio != NULL) ? strtol (prio, NULL, 10) : 0;
+  t->type = a5xml_child_text (c, "Type");
+  t->run_immediately = a5xml_bool (a5xml_child_text (c, "RunImmediately"));
+  t->location_trigger = a5xml_child_text (c, "LocationTrigger");
+  t->commands = a5_collect_text (c, "Command", &t->n_commands);
+  /* Apply clsUserSession.CorrectCommand to every command (the runner does this once
+     at game-start init).  The collected pointers alias the XML tree; replace
+     each with an owned, bracket-corrected copy (freed in a5model_free). */
+  for (k = 0; k < t->n_commands; k++)
+    ((char **) t->commands)[k] = a5_correct_command (t->commands[k]);
+  /* clsTask.Repeatable via FileIO.GetBool (FileIO.vb:1604) -- accepts
+     True/1/-1/Vrai, not just the numeric "1".  RtC (and other Generator
+     versions) serialise <Repeatable>True</Repeatable>; reading only "1"
+     left every such task non-repeatable, so a general library task like
+     ExamineObjects was marked Completed after its first use and then
+     skipped (e.g. `x desk` failing once any object had been examined). */
+  rep = a5xml_child_text (c, "Repeatable");
+  t->repeatable = a5xml_bool (rep);
+  {
+    const char *cont = a5xml_child_text (c, "Continue");
+    t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
+    const char *lp = a5xml_child_text (c, "LowPriority");
+    t->low_priority = a5xml_bool (lp);
+    /* clsTask.AggregateOutput defaults True; FileIO only overrides it when
+       an <Aggregate> element is present (FileIO.vb:1605). */
+    const char *agg = a5xml_child_text (c, "Aggregate");
+    t->aggregate = (agg == NULL) ? 1 : a5xml_bool (agg);
+  }
+  t->restrictions = a5xml_child (c, "Restrictions");
+  t->actions = a5xml_child (c, "Actions");
+  t->fail_override = a5xml_child (c, "FailOverride");
+
+  /* Specific-override linkage. */
+  t->general_key = a5xml_child_text (c, "GeneralTask");
+  t->override_type = a5xml_child_text (c, "SpecificOverrideType");
+  a5_load_each (c, "Specific", &t->specifics, &t->n_specifics,
+                [] (a5_specific_t *sp, const a5_xml_node_t *s)
+                {
+                  sp->type = a5xml_child_text (s, "Type");
+                  sp->keys = a5_collect_text (s, "Key", &sp->n_keys);
+                });
 }
 
 static void
 a5_load_tasks (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_tasks = a5xml_count (a->root, "Task");
-  if (a->n_tasks == 0)
-    return;
-  a->tasks = (a5_task_t *) calloc ((size_t) a->n_tasks, sizeof *a->tasks);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_task_t *t;
-      const char *prio, *rep;
-      if (strcmp (c->name, "Task") != 0)
-        continue;
-      t = &a->tasks[i++];
-      t->node = c;
-      t->key = a5xml_child_text (c, "Key");
-      prio = a5xml_child_text (c, "Priority");
-      t->priority = (prio != NULL) ? strtol (prio, NULL, 10) : 0;
-      t->type = a5xml_child_text (c, "Type");
-      t->run_immediately = a5xml_bool (a5xml_child_text (c, "RunImmediately"));
-      t->location_trigger = a5xml_child_text (c, "LocationTrigger");
-      t->commands = a5_collect_text (c, "Command", &t->n_commands);
-      /* Apply clsUserSession.CorrectCommand to every command (the runner does this once
-         at game-start init).  The collected pointers alias the XML tree; replace
-         each with an owned, bracket-corrected copy (freed in a5model_free). */
-      {
-        int k;
-        for (k = 0; k < t->n_commands; k++)
-          ((char **) t->commands)[k] = a5_correct_command (t->commands[k]);
-      }
-      /* clsTask.Repeatable via FileIO.GetBool (FileIO.vb:1604) -- accepts
-         True/1/-1/Vrai, not just the numeric "1".  RtC (and other Generator
-         versions) serialise <Repeatable>True</Repeatable>; reading only "1"
-         left every such task non-repeatable, so a general library task like
-         ExamineObjects was marked Completed after its first use and then
-         skipped (e.g. `x desk` failing once any object had been examined). */
-      rep = a5xml_child_text (c, "Repeatable");
-      t->repeatable = a5xml_bool (rep);
-      {
-        const char *cont = a5xml_child_text (c, "Continue");
-        t->continue_lower = (cont != NULL && strcmp (cont, "ContinueAlways") == 0);
-        const char *lp = a5xml_child_text (c, "LowPriority");
-        t->low_priority = a5xml_bool (lp);
-        /* clsTask.AggregateOutput defaults True; FileIO only overrides it when
-           an <Aggregate> element is present (FileIO.vb:1605). */
-        const char *agg = a5xml_child_text (c, "Aggregate");
-        t->aggregate = (agg == NULL) ? 1 : a5xml_bool (agg);
-      }
-      t->restrictions = a5xml_child (c, "Restrictions");
-      t->actions = a5xml_child (c, "Actions");
-      t->fail_override = a5xml_child (c, "FailOverride");
-
-      /* Specific-override linkage. */
-      t->general_key = a5xml_child_text (c, "GeneralTask");
-      t->override_type = a5xml_child_text (c, "SpecificOverrideType");
-      t->n_specifics = a5xml_count (c, "Specific");
-      if (t->n_specifics > 0)
-        {
-          a5_xml_node_t *s;
-          int si = 0;
-          t->specifics = (a5_specific_t *) calloc ((size_t) t->n_specifics,
-                                                   sizeof *t->specifics);
-          for (s = c->first_child; s != NULL; s = s->next)
-            {
-              if (strcmp (s->name, "Specific") != 0)
-                continue;
-              t->specifics[si].type = a5xml_child_text (s, "Type");
-              t->specifics[si].keys = a5_collect_text (s, "Key",
-                                                       &t->specifics[si].n_keys);
-              si++;
-            }
-        }
-    }
+  a5_load_each (a->root, "Task", &a->tasks, &a->n_tasks, a5_parse_task);
 }
 
 static void
 a5_load_variables (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_variables = a5xml_count (a->root, "Variable");
-  if (a->n_variables == 0)
-    return;
-  a->variables = (a5_variable_t *) calloc ((size_t) a->n_variables, sizeof *a->variables);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_variable_t *v;
-      if (strcmp (c->name, "Variable") != 0)
-        continue;
-      v = &a->variables[i++];
-      v->node = c;
-      v->key = a5xml_child_text (c, "Key");
-      v->name = a5xml_child_text (c, "Name");
-      v->type = a5xml_child_text (c, "Type");
-      v->initial = a5xml_child_text (c, "InitialValue");
-      {
-        const char *al = a5xml_child_text (c, "ArrayLength");
-        v->array_length = (al != NULL && strtol (al, NULL, 10) > 1)
-                              ? (int) strtol (al, NULL, 10) : 1;
-      }
-    }
+  a5_load_each (a->root, "Variable", &a->variables, &a->n_variables,
+                [] (a5_variable_t *v, const a5_xml_node_t *c)
+                {
+                  const char *al;
+                  v->node = c;
+                  v->key = a5xml_child_text (c, "Key");
+                  v->name = a5xml_child_text (c, "Name");
+                  v->type = a5xml_child_text (c, "Type");
+                  v->initial = a5xml_child_text (c, "InitialValue");
+                  al = a5xml_child_text (c, "ArrayLength");
+                  v->array_length = (al != NULL && strtol (al, NULL, 10) > 1)
+                                        ? (int) strtol (al, NULL, 10) : 1;
+                });
 }
 
 /* Parse "1" or "1 To 5" (a FromTo range) into [*from, *to].  The scan stops at
@@ -502,15 +440,11 @@ a5_parse_walk (a5_walk_t *w, const char *char_key, const a5_xml_node_t *c)
 static void
 a5_load_walks (a5_character_t *ch)
 {
-  const a5_xml_node_t *c;
-  int i = 0;
-  ch->n_walks = a5xml_count (ch->node, "Walk");
-  if (ch->n_walks == 0)
-    return;
-  ch->walks = (a5_walk_t *) calloc ((size_t) ch->n_walks, sizeof *ch->walks);
-  for (c = ch->node->first_child; c != NULL; c = c->next)
-    if (strcmp (c->name, "Walk") == 0)
-      a5_parse_walk (&ch->walks[i++], ch->key, c);
+  a5_load_each (ch->node, "Walk", &ch->walks, &ch->n_walks,
+                [ch] (a5_walk_t *w, const a5_xml_node_t *c)
+                {
+                  a5_parse_walk (w, ch->key, c);
+                });
 }
 
 /* Decode the parsed-enum / range fields of one <Event> (clsEvent FileIO load). */
@@ -593,47 +527,29 @@ a5_parse_event_body (a5_event_t *e, const a5_xml_node_t *c)
 static void
 a5_load_events (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_events = a5xml_count (a->root, "Event");
-  if (a->n_events == 0)
-    return;
-  a->events = (a5_event_t *) calloc ((size_t) a->n_events, sizeof *a->events);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_event_t *e;
-      if (strcmp (c->name, "Event") != 0)
-        continue;
-      e = &a->events[i++];
-      e->node = c;
-      e->key = a5xml_child_text (c, "Key");
-      e->type = a5xml_child_text (c, "Type");
-      a5_parse_event_body (e, c);
-    }
+  a5_load_each (a->root, "Event", &a->events, &a->n_events,
+                [] (a5_event_t *e, const a5_xml_node_t *c)
+                {
+                  e->node = c;
+                  e->key = a5xml_child_text (c, "Key");
+                  e->type = a5xml_child_text (c, "Type");
+                  a5_parse_event_body (e, c);
+                });
 }
 
 static void
 a5_load_groups (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_groups = a5xml_count (a->root, "Group");
-  if (a->n_groups == 0)
-    return;
-  a->groups = (a5_group_t *) calloc ((size_t) a->n_groups, sizeof *a->groups);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_group_t *g;
-      if (strcmp (c->name, "Group") != 0)
-        continue;
-      g = &a->groups[i++];
-      g->node = c;
-      g->key = a5xml_child_text (c, "Key");
-      g->type = a5xml_child_text (c, "Type");
-      g->name = a5xml_child_text (c, "Name");
-      g->members = a5_collect_text (c, "Member", &g->n_members);
-      g->props = a5_collect_props (c, &g->n_props);
-    }
+  a5_load_each (a->root, "Group", &a->groups, &a->n_groups,
+                [] (a5_group_t *g, const a5_xml_node_t *c)
+                {
+                  g->node = c;
+                  g->key = a5xml_child_text (c, "Key");
+                  g->type = a5xml_child_text (c, "Type");
+                  g->name = a5xml_child_text (c, "Name");
+                  g->members = a5_collect_text (c, "Member", &g->n_members);
+                  g->props = a5_collect_props (c, &g->n_props);
+                });
 }
 
 /* Object-group property inheritance (clsItemWithProperties.htblProperties layers
@@ -689,139 +605,82 @@ a5_apply_group_properties (a5_adventure_t *a)
 static void
 a5_load_propdefs (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_propdefs = a5xml_count (a->root, "Property");
-  if (a->n_propdefs == 0)
-    return;
-  a->propdefs = (a5_propdef_t *) calloc ((size_t) a->n_propdefs, sizeof *a->propdefs);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_propdef_t *p;
-      if (strcmp (c->name, "Property") != 0)
-        continue;
-      p = &a->propdefs[i++];
-      p->node = c;
-      p->key = a5xml_child_text (c, "Key");
-      p->type = a5xml_child_text (c, "Type");
-      p->property_of = a5xml_child_text (c, "PropertyOf");
-      p->dependent_key = a5xml_child_text (c, "DependentKey");
-      p->append_to = a5xml_child_text (c, "AppendTo");
-    }
+  a5_load_each (a->root, "Property", &a->propdefs, &a->n_propdefs,
+                [] (a5_propdef_t *p, const a5_xml_node_t *c)
+                {
+                  p->node = c;
+                  p->key = a5xml_child_text (c, "Key");
+                  p->type = a5xml_child_text (c, "Type");
+                  p->property_of = a5xml_child_text (c, "PropertyOf");
+                  p->dependent_key = a5xml_child_text (c, "DependentKey");
+                  p->append_to = a5xml_child_text (c, "AppendTo");
+                });
 }
 
 static void
 a5_load_alrs (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_alrs = a5xml_count (a->root, "TextOverride");
-  if (a->n_alrs == 0)
-    return;
-  a->alrs = (a5_alr_t *) calloc ((size_t) a->n_alrs, sizeof *a->alrs);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_alr_t *r;
-      if (strcmp (c->name, "TextOverride") != 0)
-        continue;
-      r = &a->alrs[i++];
-      r->node = c;
-      r->key = a5xml_child_text (c, "Key");
-      r->old_text = a5xml_child_text (c, "OldText");
-      r->new_text = a5xml_child (c, "NewText");
-    }
+  a5_load_each (a->root, "TextOverride", &a->alrs, &a->n_alrs,
+                [] (a5_alr_t *r, const a5_xml_node_t *c)
+                {
+                  r->node = c;
+                  r->key = a5xml_child_text (c, "Key");
+                  r->old_text = a5xml_child_text (c, "OldText");
+                  r->new_text = a5xml_child (c, "NewText");
+                });
 }
 
 static void
 a5_load_synonyms (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_synonyms = a5xml_count (a->root, "Synonym");
-  if (a->n_synonyms == 0)
-    return;
-  a->synonyms = (a5_synonym_t *) calloc ((size_t) a->n_synonyms, sizeof *a->synonyms);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_synonym_t *s;
-      if (strcmp (c->name, "Synonym") != 0)
-        continue;
-      s = &a->synonyms[i++];
-      s->node = c;
-      s->key = a5xml_child_text (c, "Key");
-      s->from = a5_collect_text (c, "From", &s->n_from);
-      s->to = a5xml_child_text (c, "To");
-    }
+  a5_load_each (a->root, "Synonym", &a->synonyms, &a->n_synonyms,
+                [] (a5_synonym_t *s, const a5_xml_node_t *c)
+                {
+                  s->node = c;
+                  s->key = a5xml_child_text (c, "Key");
+                  s->from = a5_collect_text (c, "From", &s->n_from);
+                  s->to = a5xml_child_text (c, "To");
+                });
 }
 
 static void
 a5_load_udfs (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_udfs = a5xml_count (a->root, "Function");
-  if (a->n_udfs == 0)
-    return;
-  a->udfs = (a5_udf_t *) calloc ((size_t) a->n_udfs, sizeof *a->udfs);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_udf_t *u;
-      if (strcmp (c->name, "Function") != 0)
-        continue;
-      u = &a->udfs[i++];
-      u->node = c;
-      u->key = a5xml_child_text (c, "Key");
-      u->name = a5xml_child_text (c, "Name");
-    }
+  a5_load_each (a->root, "Function", &a->udfs, &a->n_udfs,
+                [] (a5_udf_t *u, const a5_xml_node_t *c)
+                {
+                  u->node = c;
+                  u->key = a5xml_child_text (c, "Key");
+                  u->name = a5xml_child_text (c, "Name");
+                });
 }
 
 static void
 a5_load_hints (a5_adventure_t *a)
 {
-  a5_xml_node_t *c;
-  int i = 0;
-  a->n_hints = a5xml_count (a->root, "Hint");
-  if (a->n_hints == 0)
-    return;
-  a->hints = (a5_hint_t *) calloc ((size_t) a->n_hints, sizeof *a->hints);
-  for (c = a->root->first_child; c != NULL; c = c->next)
-    {
-      a5_hint_t *h;
-      if (strcmp (c->name, "Hint") != 0)
-        continue;
-      h = &a->hints[i++];
-      h->node = c;
-      h->key = a5xml_child_text (c, "Key");
-      h->question = a5xml_child_text (c, "Question");
-      h->subtle = a5xml_child (c, "Subtle");
-      h->sledgehammer = a5xml_child (c, "Sledgehammer");
-      h->restrictions = a5xml_child (c, "Restrictions");
-    }
+  a5_load_each (a->root, "Hint", &a->hints, &a->n_hints,
+                [] (a5_hint_t *h, const a5_xml_node_t *c)
+                {
+                  h->node = c;
+                  h->key = a5xml_child_text (c, "Key");
+                  h->question = a5xml_child_text (c, "Question");
+                  h->subtle = a5xml_child (c, "Subtle");
+                  h->sledgehammer = a5xml_child (c, "Sledgehammer");
+                  h->restrictions = a5xml_child (c, "Restrictions");
+                });
 }
 
 static void
 a5_load_filemappings (a5_adventure_t *a)
 {
-  a5_xml_node_t *fm, *c;
-  int i = 0;
-  fm = a5xml_child (a->root, "FileMappings");
-  if (fm == NULL)
-    return;
-  a->n_filemaps = a5xml_count (fm, "Mapping");
-  if (a->n_filemaps == 0)
-    return;
-  a->filemaps = (a5_filemap_t *) calloc ((size_t) a->n_filemaps, sizeof *a->filemaps);
-  for (c = fm->first_child; c != NULL; c = c->next)
-    {
-      const char *num;
-      a5_filemap_t *m;
-      if (strcmp (c->name, "Mapping") != 0)
-        continue;
-      m = &a->filemaps[i++];
-      num = a5xml_child_text (c, "Resource");
-      m->number = num != NULL ? atoi (num) : -1;
-      m->file = a5xml_child_text (c, "File");
-    }
+  a5_load_each (a5xml_child (a->root, "FileMappings"), "Mapping",
+                &a->filemaps, &a->n_filemaps,
+                [] (a5_filemap_t *m, const a5_xml_node_t *c)
+                {
+                  const char *num = a5xml_child_text (c, "Resource");
+                  m->number = num != NULL ? atoi (num) : -1;
+                  m->file = a5xml_child_text (c, "File");
+                });
 }
 
 /* The basename of an original (usually Windows) media path. */
