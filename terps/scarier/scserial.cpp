@@ -44,25 +44,23 @@ static const scr_char CARRIAGE_RETURN = '\r';
 static const scr_char NUL = '\0';
 
 /*
- * Sentinel that introduces SCARIER's private Battle System state, written (for
- * battle games only) as extra lines after the ADRIFT turns count.  Our loader
- * uses its presence to tell a SCARIER battle save from one without combat state;
- * it is deliberately non-numeric so it can never be mistaken for a numeric
- * ADRIFT field.
+ * Legacy sentinel that introduced SCARIER's old private Battle System block,
+ * once written (for battle games only) as extra lines after the ADRIFT turns
+ * count.  Current saves no longer emit it: the live battle state is interleaved
+ * inline in the player and NPC records, matching the Runner's own layout (see
+ * ser_save_battle_block and the version-header note below).  The marker is kept
+ * only so ser_load_game can still read those older SCARIER saves; it is
+ * deliberately non-numeric so it can never be mistaken for a numeric ADRIFT
+ * field.
  *
- * Why a private trailing block rather than the Runner's own layout: the real
- * ADRIFT .tas (reverse-engineered from run400.exe savegame @477318) interleaves
- * battle data -- a 15-field block right after the player fields, and a 17-field
- * block inside each NPC's record (after "seen", before the walk steps), both
- * gated on the battle-system flag, with live stamina at sub-struct index 2 and
- * the remaining fields the mutable Max/Hi/Lo attributes that the "Change
- * <attribute>" task action can alter.  SCARIER does not model those mutable
- * attributes (it rolls them fresh from the bundle), and SCARIER's stream already
- * omits ADRIFT's leading "<chr 172>major.minor.rev" version line, so its saves
- * are not byte-loadable by the Runner regardless.  Persisting the subset SCARIER
- * actually tracks (stamina, counters, wielded weapon -- the Runner itself does
- * not save the weapon, resetting it on load) as a clearly-delimited trailing
- * block is therefore both sufficient and the least invasive choice.
+ * The Runner's layout (reverse-engineered from run400.exe savegame @477318)
+ * interleaves battle data -- a 15-field block right after the player fields, and
+ * a 17-field block inside each NPC's record (after "seen", before the walk
+ * steps), both gated on the battle-system flag, with live stamina near the front
+ * of each block and the Max/Hi/Lo attributes that the "Change <attribute>" task
+ * action can alter following it.  Newer SCARIER saves reproduce that layout (and
+ * emit the leading version line below), so they are byte-loadable by the Runner;
+ * older saves that predate the change carry the trailing marker block instead.
  */
 /*
  * Battle state block markers.  Version 2 adds the mutable per-character battle
@@ -390,7 +388,8 @@ ser_buffer_int_special (scr_int value)
  * The Runner stores the four ranged battle attributes in the save in the order
  * Strength, Defence, Accuracy, Agility -- SCARIER's scr_battle_t slots 0, 2, 1, 3
  * (BATTLE_STRENGTH/ACCURACY/DEFENSE/AGILITY) -- and writes each as max, hi, lo.
- * (Confirmed against real run400.exe saves; see TODO_save_compat.md.)
+ * (Order derived from real run400.exe saves; the original capture notes are no
+ * longer in the tree, so re-confirm against a Runner save before changing it.)
  */
 static const scr_int SER_BATTLE_SLOTS[BATTLE_ATTR_COUNT] = {
   BATTLE_STRENGTH, BATTLE_DEFENSE, BATTLE_ACCURACY, BATTLE_AGILITY
@@ -407,6 +406,11 @@ static const scr_int SER_BATTLE_SLOTS[BATTLE_ATTR_COUNT] = {
  * (the Runner's player sub-struct index 38).  The Runner prints these with the
  * raw VB Print numeric format, i.e. space-padded; ser_buffer_int_special matches
  * it byte for byte.
+ *
+ * NOTE: the byte-exact correspondence to real run400.exe saves was originally
+ * validated against captured .tas fixtures; those notes are no longer checked
+ * into the tree, so treat cross-Runner compatibility as unverified against this
+ * repo alone until re-confirmed with a Runner-produced battle save.
  */
 static void
 ser_save_battle_block (scr_gameref_t game, scr_int npc)
@@ -981,8 +985,8 @@ ser_restore_battle_attributes (scr_battle_t *battle)
  * ser_restore_battle_block()
  *
  * Read back one character's interleaved ADRIFT battle block, in the order
- * ser_save_battle_block() wrote it.  The stamina counter is not part of the
- * Runner layout, so it keeps the value battle_start() seeded (0).
+ * ser_save_battle_block() wrote it, restoring live stamina and (for the player)
+ * the wielded weapon or (for an NPC) the attack counter as it goes.
  */
 static void
 ser_restore_battle_block (scr_gameref_t game, scr_int npc)
