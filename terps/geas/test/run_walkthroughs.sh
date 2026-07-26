@@ -58,6 +58,12 @@ play HauntedHorror      "HauntedHorror/haunted_horror.asl" "Haunted Horror - com
 play KingsQuestV        "KQ5_Full_final_1124.asl"     "Kings Quest V - command script (raw).txt"                 "HAPPILY EVER AFTER" --tick --seed 1
 play Annabel            "annabel.cas"                 "annabel - command script (raw).txt"                       "YOU HAVE FOUND ANNABEL" --tick
 play Lovesong           "lovesong.asl"                "Lovesong - command script (raw).txt"                      "*THE END*"
+play RedSauceMonday     "redsaucemonday.asl"          "Red Sauce Monday - command script (raw).txt"              "You beat the game"
+# Blade Sentinel cannot be finished -- its gate puzzle and its Observatory are
+# both walled off by authoring bugs that the real Quest engine walls off too
+# (see the script's header).  The marker is the furthest reachable state, the
+# Garden after the "wake" cutscene, not a win.
+play BladeSentinel      "blade sentinel.asl"          "Blade Sentinel - command script (raw).txt"                "delightfull green surrounds you"
 play WorldsEnd          "worldsend/world's end.asl"   "Worlds End - command script (raw).txt"                    "slumps to the ground dead" \
     --tick --save-scum \
     --fight "use vial1 on cube|use vial2 on cube=The cube explodes" \

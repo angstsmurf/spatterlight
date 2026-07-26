@@ -6,7 +6,7 @@ Three layers, in increasing distance from a real game:
 | --- | --- | --- |
 | `run_fixtures.sh` | nothing (in-repo) | engine behaviour, against golden transcripts |
 | `geas_unit_tests` | nothing (in-repo) | corrupt saves and parser edges no player can drive |
-| `run_walkthroughs.sh` | the game corpus (local) | regressions in 21 real games |
+| `run_walkthroughs.sh` | the game corpus (local) | regressions in 24 real games |
 
 `make check` runs the first two — they are self-contained, so they are the ones
 worth wiring into CI.
@@ -25,7 +25,7 @@ make clean
 Small hand-written `.asl` games, each paired with a `.cmd` script and a golden
 `.expected` transcript. They exist because **the game corpus cannot catch these
 bugs**: a shipped game only walks the paths its author happened to walk, so a
-crash or a wrong string in an unvisited corner leaves all 21 walkthroughs
+crash or a wrong string in an unvisited corner leaves all 24 walkthroughs
 byte-identical. Every fixture here was checked against a pre-fix engine and
 either crashes it or produces different output; each file's header comment says
 what it guards.
