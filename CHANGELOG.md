@@ -22,7 +22,8 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the ol
 - Multi-level UNDO. The original runner only remembers a single turn.
 - Saves files in the Adrift 5 runner and FrankenDrift .tas format, which can be moved between the three in either direction.
 - Supported: Danish, real-time events. Not supported: font tags, text colors.
-- Many of the Glk meta-commands (transcript, input log, summary and so on) from SCARE are available in Adrift 5 games as well.
+- Multi-floor maps may look confusing and broken.
+- Many of the Glk meta-commands (transcript, input log, summary and so on) from Adrift 4 / SCARE are available in Adrift 5 games as well.
 - Status side panel in *Alien Diver*.
 
 #### Adrift 4
@@ -50,6 +51,7 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the ol
 - A VERBS command that lists available verbs for an object, similar to the contextual verb menus of the original Quest 4 runner.
 - UNDO.
 - OOPS (Quest 4 only).
+- No support for text colors, custom fonts, or CSS effects.
 - Some Quest 5 games use a lot of JavaScript, which Geas struggles with.
 
 ### Comprehend
