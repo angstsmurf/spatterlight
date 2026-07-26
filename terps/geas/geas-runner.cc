@@ -2979,10 +2979,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
       string obj = match.bindings[0].var_text;
-      string script;
-      if (get_obj_action (obj, "speak", script))
-	run_script_as (obj, script);
-      else
+      /* Action first, then property -- the order Quest's ExecSpeak uses (it
+	 scans the object's actions for "speak", then its properties, and only
+	 then falls back to the default message).  This used to look at actions
+	 alone, so the common `speak <He jests with you.>` form -- which the
+	 loader stores as a *property* -- printed "He says nothing." for every
+	 character in a game.  Red Sauce Monday is all of them but one. */
+      if (!dispatch_obj_verb (obj, "speak"))
 	display_error ("defaultspeak", obj);
       return true;
     }

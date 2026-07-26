@@ -1,0 +1,25 @@
+
+Speak
+
+You are in Room
+There is james, tom, amy and selena here.
+A room.
+
+> speak to james
+He jests with you.
+
+> speak to tom
+He replies, "Hello!"
+
+> speak to amy
+The action ran.
+
+> speak to selena
+She says nothing.
+
+> talk to james
+He jests with you.
+
+> speak james
+He jests with you.
+[runner] turns=6 leftover=0 running=true
