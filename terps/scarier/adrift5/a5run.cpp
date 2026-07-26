@@ -3027,6 +3027,16 @@ a5run_save_blob (a5_run_t *run, size_t *out_len, int lean)
   sb_init (&b);
   if (run->save_blob_hint > 0)
     sb_reserve (&b, run->save_blob_hint + 128);
+  /* Match the real ADRIFT 5 Runner's FileIO framing: a UTF-8 BOM and an XML
+     declaration, and -- critically -- NO trailing newline after the root
+     </Game>.  The Runner's .NET XmlReader treats a byte after the root element
+     as trailing document content; a trailing '\n' pushes it onto a phantom
+     next line where it scans one byte into the decompressor's zero padding and
+     aborts with "illegal hex value 0x00".  A genuine Runner save ends exactly
+     at "</Game>", so the reader finalises on the end-element and never scans
+     further.  Our own a5xml_parse skips the BOM and <?xml?> prolog, so these
+     additions are transparent to Scarier's restore. */
+  sb_puts (&b, "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
   sb_puts (&b, "<Game>\n");
   save_fd_game (&b, run, lean);
   /* Scarier-private, full-fidelity snapshot; The Adrift 5 runner's LoadState ignores
@@ -3034,7 +3044,7 @@ a5run_save_blob (a5_run_t *run, size_t *out_len, int lean)
   sb_puts (&b, "<ScarierExt>\n");
   save_scarier_body (&b, run);
   sb_puts (&b, "</ScarierExt>\n");
-  sb_puts (&b, "</Game>\n");
+  sb_puts (&b, "</Game>");
   run->save_blob_hint = b.len;
   if (out_len != NULL)
     *out_len = b.len;

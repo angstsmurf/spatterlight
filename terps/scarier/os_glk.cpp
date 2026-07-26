@@ -5442,8 +5442,11 @@ gsc_a5_command_escape (char *input)
  *
  * Serialise the a5 runtime state (a5run_save -> the Adrift 5 runner <Game> XML), then
  * zlib-deflate it to the Glk-prompted save file.  The zlib framing (RFC 1950,
- * no header/obfuscation) is exactly what the Adrift 5 runner's FileIO.SaveState writes,
- * so the file is interoperable with the ADRIFT 5 Runner.
+ * no header/obfuscation) matches the Adrift 5 runner's FileIO.SaveState; a5run_save
+ * emits the Runner's UTF-8 BOM + <?xml?> declaration and, crucially, no trailing
+ * newline after </Game> (a trailing byte makes the Runner's XmlReader scan into the
+ * inflate zero-padding and reject the save as "illegal hex value 0x00").  The file
+ * is thus interoperable with the ADRIFT 5 Runner.
  */
 static void
 gsc_a5_save (a5_run_t *run)
