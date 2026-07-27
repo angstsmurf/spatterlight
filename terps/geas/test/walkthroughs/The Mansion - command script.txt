@@ -1,0 +1,483 @@
+The Mansion (mansion.asl, v1.0, by Nick Dablin) - walkthrough.
+Win marker: "completed the game".
+The last command, "use fire ax on man", reaches `define object <Man in Black
+Suit>` through its `alt <Man>`, so this game is also what pins down alt-name
+matching (it is ASL 311, below the 391 that enables word-inside-a-name
+matching, and the alt comparison has to be case-insensitive).
+Start: Entrance Hall, west end.
+
+east
+go to cupboard under the stairs
+out
+west
+west
+look at dining room painting
+examine dining room painting
+north
+take vase
+drop vase
+south
+west
+west
+take gold flute
+north
+take requiem of open doors
+south
+use requiem of open doors with grand piano
+east
+north
+north
+north
+look at mirror
+1
+south
+east
+west
+south
+south
+east
+east
+east
+east
+examine table
+1
+examine mysterious carving
+east
+examine drinks cabinet
+1
+examine drinks cabinet
+1
+west
+north
+east
+west
+south
+west
+look at staircase
+1
+west
+take stone shield
+west
+north
+north
+west
+look at ladder
+1
+east
+east
+north
+take tv-vcr combination
+south
+south
+examine keypad
+north
+west
+west
+look at ladder
+1
+east
+south
+south
+east
+east
+east
+north
+east
+use key 003
+east
+east
+take concrete block
+west
+west
+south
+west
+look at staircase
+1
+west
+west
+west
+north
+use tv-vcr combination with electric socket
+south
+east
+east
+east
+east
+north
+use bottle with sink
+use concrete block with sink
+take gold key
+1
+take key 001
+drop empty bottle
+south
+west
+look at staircase
+1
+west
+west
+use key 001
+west
+examine wardrobe
+1
+take video tape
+west
+take ivory horn
+east
+east
+east
+east
+look at staircase
+1
+west
+west
+west
+north
+use video tape with tv-vcr combination
+drop video tape
+south
+east
+east
+east
+east
+north
+east
+examine sack of potatoes
+1
+west
+south
+west
+west
+west
+west
+north
+north
+east
+use star pendant with plinth
+north
+north
+take spider book
+take science book
+west
+take gunpowder book
+take map of second floor
+take key 002
+east
+south
+south
+west
+south
+south
+east
+east
+east
+look at staircase
+1
+west
+west
+north
+use key 002
+west
+examine bedside table
+1
+west
+take pot of gunpowder
+east
+east
+south
+east
+east
+look at staircase
+1
+east
+use horn with mysterious carving
+1
+use horn with mysterious carving
+east
+east
+look at grandfather clock
+1
+1
+3
+look at grandfather clock
+1
+2
+9
+look at grandfather clock
+1
+1
+7
+examine wooden panel
+1
+take letter
+north
+take art gallery painting
+south
+west
+west
+west
+west
+west
+take dining room painting
+west
+examine security shutter
+east
+use art gallery painting with empty frame
+east
+east
+east
+east
+east
+north
+use dining room painting with empty frame
+take key 004
+south
+west
+west
+west
+look at staircase
+1
+east
+use key 004
+east
+take rusty key
+west
+north
+north
+use rusty key
+north
+take blowtorch
+east
+take box
+west
+examine gunpowder book
+use shell casings with shotgun shell machine
+use pot of gunpowder with shotgun shell machine with casings
+take shotgun shells
+drop pot
+north
+east
+north
+examine dress
+1
+south
+west
+west
+west
+examine hanging basket
+north
+look at staircase
+1
+look at button
+1
+west
+south
+south
+west
+south
+south
+east
+east
+east
+look at staircase
+1
+west
+west
+north
+north
+west
+north
+use silver key
+north
+take stone sword
+use stone shield with statue
+use stone sword with statue
+look at post-it note
+examine statue
+1
+1
+north
+examine telescope
+1
+take fire ax
+drop post-it note
+south
+south
+look at ladder
+1
+east
+east
+south
+examine keypad
+east
+take key handle
+west
+north
+west
+west
+look at ladder
+1
+east
+south
+south
+east
+east
+look at staircase
+1
+west
+use fire ax
+north
+north
+take key head
+south
+west
+take dirty note
+east
+north
+north
+east
+use fire ax
+east
+east
+north
+use gold flute with metal plinth
+use shotgun shells with shotgun
+use shotgun with glass pillar
+take jewelled key
+east
+south
+east
+use jewelled key
+east
+east
+south
+west
+west
+west
+take bone
+east
+east
+east
+north
+west
+west
+west
+west
+west
+south
+south
+examine kennel
+give bone to dog
+examine kennel
+1
+west
+south
+east
+look at staircase
+1
+east
+north
+north
+north
+east
+east
+use office key
+east
+use fire ax with window
+south
+take diary
+use key head with key handle
+use blowtorch with broken key
+north
+west
+west
+west
+south
+south
+south
+west
+look at staircase
+1
+west
+north
+north
+north
+east
+east
+use mended key
+south
+east
+east
+examine diary
+examine jacuzzi
+1
+west
+west
+north
+east
+east
+east
+east
+south
+west
+west
+south
+west
+use lever with machine
+3
+east
+north
+east
+east
+north
+west
+west
+west
+west
+west
+southwest
+south
+south
+east
+look at staircase
+1
+east
+north
+north
+north
+east
+east
+south
+take fuse
+north
+west
+west
+south
+south
+south
+west
+look at staircase
+1
+west
+north
+north
+north
+east
+east
+east
+east
+east
+east
+south
+west
+west
+north
+use fuse with elevator power machine
+south
+south
+south
+examine elevator button
+1
+north
+
+use fire ax on man

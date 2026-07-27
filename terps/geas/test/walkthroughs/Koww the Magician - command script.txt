@@ -1,0 +1,30 @@
+The Adventures of Koww the Magician (KOWW1.ASL) - walkthrough
+Completes the game ("You fly up and over the chasm!").
+You start carrying milk. The grappling-hook / duck-turd / purple-paint
+chain is just the optional "secret feature" and is skipped here.
+Start: Koww's Chasm.
+
+east                                  (-> Zeke's Farm)
+go to zeke's silo
+give milk to zeke                     (he trades you a pitchfork)
+out                                   (-> Zeke's Farm)
+use pitchfork on haystack             (uncovers a jade statuette)
+south                                 (-> Goblin Trail)
+south                                 (-> Goblin Lair)
+go to inside the goblin lair
+give jade statuette to goblin king    (he gives you goblin spit)
+out                                   (-> Goblin Lair)
+north                                 (-> Goblin Trail)
+north                                 (-> Zeke's Farm)
+north                                 (-> Land of the NecroYaks)
+north                                 (-> Ambush Point)
+search                                (yaks take the spit, drop a wing feather)
+south
+south                                 (-> Zeke's Farm)
+east                                  (-> Phoenix Mountain Pass)
+east                                  (-> Phoenix Peak)
+yes                                   (the Phoenix asks Yes/No; this game wants the word YES, not a number -> you have the wing feather -> fly scroll)
+west
+west                                  (-> Zeke's Farm)
+west                                  (-> Koww's Chasm)
+use fly scroll                        (fly over the chasm -> win)

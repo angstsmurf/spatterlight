@@ -7,7 +7,7 @@
 #   ./run_walkthroughs.sh [games dir] ["extra walkthroughs dir"]
 #
 # The command scripts we derived ourselves live in ./walkthroughs and are
-# committed, so a fresh checkout only needs the games.  The eleven
+# committed, so a fresh checkout only needs the games.  The three
 # "<title> - walkthrough.txt" files are other people's work and are not
 # redistributed here; point the second argument at a directory holding those to
 # include them, otherwise they SKIP.  A walkthrough is looked up in ./walkthroughs
@@ -52,17 +52,17 @@ play() {
     fi
 }
 
-play Adventure           "adventure.cas"               "Adventure - walkthrough.txt"                               "Credits room"
-play Assassination       "attempted_assassination.asl" "Attempted Assassination - walkthrough.txt"                 "YOU WIN"
+play Adventure           "adventure.cas"               "Adventure - command script.txt"                            "Credits room"
+play Assassination       "attempted_assassination.asl" "Attempted Assassination - command script.txt"              "YOU WIN"
 play BrokenMirror        "BMTSFD.asl"                  "Broken Mirror - The Screaming Fountain - walkthrough.txt"  "completed the rather short demo"
 play FadeToWhite         "White.asl"                   "Fade to White - walkthrough.txt"                           "END OF DEMO"
-play Koww                "KOWW1.ASL"                   "Koww the Magician - walkthrough.txt"                       "over the chasm"
-play MagicWorld          "Magic.asl"                   "Magic World - walkthrough.txt"                             "won the game"
-play SirLoin             "sirloin.cas"                 "Sir Loin and the coming of age - walkthrough.txt"          "To be continued"
-play Space               "space.asl"                   "Space - The Final Fuck Up - walkthrough.txt"               "pint or two"
+play Koww                "KOWW1.ASL"                   "Koww the Magician - command script.txt"                    "over the chasm"
+play MagicWorld          "Magic.asl"                   "Magic World - command script.txt"                          "won the game"
+play SirLoin             "sirloin.cas"                 "Sir Loin and the coming of age - command script.txt"       "To be continued"
+play Space               "space.asl"                   "Space - The Final Fuck Up - command script.txt"            "pint or two"
 play Uranus              "uranus.asl"                  "Uranus or Bust - walkthrough.txt"                          "BOOOOOM"
-play GatheredInDarkness  "Gatheredindarkness.cas"      "Gathered in Darkness - walkthrough.txt"                    "Congrats"
-play Mansion             "mansion.asl"                 "The Mansion - walkthrough.txt"                             "completed the game"
+play GatheredInDarkness  "Gatheredindarkness.cas"      "Gathered in Darkness - command script.txt"                 "Congrats"
+play Mansion             "mansion.asl"                 "The Mansion - command script.txt"                          "completed the game"
 play BearCampsite        "Bear Campsite.cas"           "Bear Campsite - command script.txt"                        "escape the hazardous campsite"
 play EscapeHouse         "escape.asl"                  "Escape from this house - command script.txt"               "You are free"
 play SirLoin2            "sirloin2.cas"                "sirloin2 - command script.txt"                             "passed the test" --tick

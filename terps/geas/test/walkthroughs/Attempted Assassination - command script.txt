@@ -1,0 +1,40 @@
+Attempted Assassination (attempted_assassination.asl) - walkthrough
+Completes the game ("GAME OVER - YOU WIN"). At the final duel menu, choose
+the first or second option.
+Start: Your House.
+
+up
+take pocket knife
+down
+west
+open cabinets
+take gun
+east
+south
+west
+speak to man
+take key
+up
+use key on door
+north
+use telescope
+out
+down
+use key on car
+north
+north
+use pocket knife on woman
+up
+southwest
+use gun on door
+north
+north
+talk to dark clothed man
+take bobby pin
+west
+west
+use bobby pin on door
+north
+talk to boss
+use gun on boss
+talk to boss

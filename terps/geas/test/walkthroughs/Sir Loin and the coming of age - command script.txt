@@ -1,0 +1,460 @@
+Sir Loin and the coming of age (sirloin.cas, by CJ) - walkthrough.
+Win marker: "To be continued".  The game ends on a cliffhanger -- Queen
+Winalot is kidnapped -- rather than on a win; sirloin2 and sirloin3 continue
+the story and have their own command scripts here.
+Start: the Royal stables.
+
+
+
+take scroll
+read it
+x trough
+x mule
+x nosebag
+open nosebag
+take carrot
+out
+x stone
+x sword
+take sword
+n
+look at stan
+speak to stan
+give scroll to stan
+x jug
+look at board
+read it
+read it
+read it
+read it
+read it
+read it
+read it
+s
+w
+look at gnome
+x gnome
+x rod
+take rod
+look at vine
+use rod on vine
+take grapes
+e
+s
+w
+look at press
+x press
+use grapes on press
+look at harness
+look at saddle
+take saddle
+look at basin
+x basin
+e
+n
+go to stable
+use saddle on mule
+mount mule
+use carrot on rod
+use rod on mule's head
+use rod on mule
+x basin
+use jug on basin
+e
+n
+n
+give jug to Stan
+n
+look at statue
+look at vase
+x vase
+take key
+look at painting
+x it
+n
+speak to king
+
+w
+look at sir halibut
+speak to sir
+Yes
+x glasses
+e
+e
+listen
+use glasses
+look at marlon
+speak to marlon
+Yes
+x blanket
+w
+s
+w
+look at table
+look at fireplace
+look at cabinet
+open cabinet
+w
+look at chef
+speak to chef
+Yes
+x cherries
+e
+e
+s
+s
+s
+w
+use cherries on press
+use rod on mule
+x basin
+take puree
+e
+n
+n
+n
+w
+w
+give puree to chef
+x pie
+eat pie
+x ring
+x cupboards
+open cupboards
+x sack
+take it
+x peas
+take it
+e
+e
+n
+e
+give ring to Marlon
+take blanket
+w
+s
+s
+s
+go to stable
+use glasses
+x hay
+take key
+1
+out
+n
+n
+n
+w
+give key to sir
+1
+x box
+open box
+look at sword
+x it
+take it
+look at shooter
+take it
+e
+s
+s
+s
+e
+n
+n
+look at queen
+speak to queen
+Yes
+x kit
+x graves
+use kit on graves
+s
+w
+use kit on sword
+1
+s
+e
+look at sir
+x black
+x white
+x stool
+take black
+take white
+speak to sir
+give sword to sir
+give rubbing to sir
+1
+x fake
+w
+w
+use sack on press
+use rod on mule
+x basin
+take potato
+e
+n
+go to stable
+use black on trough
+use white on trough
+use potato on grey
+use sword on mash
+out
+use blanket on stone
+2
+n
+n
+n
+give sword to king
+out
+use glasses
+Yes
+n
+speak to Stan
+x pass
+n
+w
+x Marlon
+speak to Marlon
+give brass rubbing kit to Marlon
+x note
+w
+x Queen
+speak to Queen
+Yes
+x laundry
+take it
+e
+e
+s
+s
+w
+x mule
+take mule
+use blanket
+take mule
+look at strap
+take it
+x mule
+out
+e
+n
+x sir
+x kite
+speak to sir
+s
+w
+s
+w
+look at press
+x press
+x scrap
+take scrap
+x basin
+take basin
+wear basin
+use strap on basin
+x helmet
+e
+give pass to guard
+s
+x wood pile
+w
+look at hive
+x hive
+look at bees
+e
+e
+x maker
+s
+x frame
+mount frame
+x Patch
+use rod on Patch
+throw rod
+take rod
+throw rod
+take satchel
+look at satchel
+n
+w
+s
+go to Pet Grooming Centre
+look at Woodhouse
+look at cages
+take soap
+speak to Woodhouse
+give satchel to Woodhouse
+x whistle
+use whistle
+out
+w
+x tree
+x crate
+open crate
+x label
+take it
+x sir
+x kitten
+speak to sir
+use whistle
+x kitten
+speak to sir
+use shooter on kitten
+speak to sir
+princess
+x chamber key
+take it
+e
+go to casino
+x croupier
+speak to croupier
+x machine
+pull lever
+use label on machine
+x lemon
+out
+go to blacksmith
+x matches
+take matches
+x furnace
+x bowl
+x button
+out
+n
+n
+n
+e
+go to pond
+use laundry on water
+out
+w
+s
+s
+e
+s
+use laundry on frame
+n
+u
+x pedals
+x socket
+use pedals
+d
+s
+take laundry
+n
+w
+n
+n
+n
+n
+w
+w
+give laundry to queen
+x sheet
+wear sheet
+e
+e
+e
+e
+x chest
+open it
+x mask
+take it
+use shooter on mask
+x tank
+x suit
+x skeleton
+take it
+w
+s
+s
+s
+e
+give sheet to sir
+give skeleton to sir
+x ghost costume
+take it
+w
+n
+e
+n
+wear ghost costume
+take kite
+s
+go to pond
+dive
+x handle
+out
+w
+s
+s
+use matches on wood pile
+x bonfire
+e
+u
+use handle on socket
+turn handle
+use pedals
+d
+w
+w
+x hive
+x honey
+take it
+x beeswax
+take it
+e
+s
+go to pet grooming centre
+give beeswax to Woodhouse
+x tortoise
+out
+n
+n
+n
+n
+n
+e
+use tortoise on tank
+x key
+take it
+w
+w
+use key on cabinet
+x cup
+take it
+use honey on cup
+use lemon on cup
+use matches on fireplace
+use cup on fireplace
+take Marlon's drink
+give it to Marlon
+x spell
+take it
+e
+s
+s
+s
+w
+use spell on scrap metal
+take scrap
+e
+s
+s
+go to blacksmith
+use matches on furnace
+use scrap on furnace
+use kite on bowl
+push button
+x shield
+take shield
+out
+n
+n
+n
+n
+speak to stan
+
+
+
+
+

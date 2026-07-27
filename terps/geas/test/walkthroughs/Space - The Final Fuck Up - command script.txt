@@ -1,0 +1,14 @@
+Space: The Final Fuck Up (space.asl) - walkthrough
+Completes the game ("...fly off to the nearest pub for a pint or two.").
+Note "go to sciece lab" uses the game's misspelled room name.
+Start: Stasis Room.
+
+open cupboard
+take jar
+use jar on liquid
+out
+go to sciece lab
+use liquid on microscope
+out
+go to the bridge
+use liquid on alien

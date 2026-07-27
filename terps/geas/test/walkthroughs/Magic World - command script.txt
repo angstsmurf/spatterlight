@@ -1,0 +1,18 @@
+Magic World (Magic.asl) - walkthrough
+Completes the game ("Congrats! You've won the game!").
+Start: Entry Hall.
+
+examine sword
+destroy sword
+west
+read book of enemies
+east
+northwest
+northeast
+take wand
+examine wand
+southwest
+southeast
+west
+down
+use wand on evil dwarf

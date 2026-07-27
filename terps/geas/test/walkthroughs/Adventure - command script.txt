@@ -1,0 +1,24 @@
+Adventure (adventure.cas, by Caden James) - walkthrough
+Tours every room to the Credits room. This game has no formal "win"; taking
+the gold just gets you bitten. The last three lines exercise the library
+verbs (jump/listen/wait).
+Start: Entryway.
+
+xyzzy
+north
+east
+open tinted jar
+west
+west
+east
+north
+north
+take gold
+south
+west
+down
+east
+look credits
+jump
+listen
+wait

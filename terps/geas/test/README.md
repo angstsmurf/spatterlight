@@ -123,7 +123,7 @@ whole script ran), else 1.
 A simple game just needs a win marker:
 
 ```sh
-./geas_walkthrough_runner --win "won the game" Magic.asl "Magic World - walkthrough.txt"
+./geas_walkthrough_runner --win "won the game" Magic.asl "Magic World - command script.txt"
 ```
 
 World's End needs all three extras: timer ticking (its dynamite fuse is a
@@ -149,7 +149,7 @@ so with the games in `./games` no arguments are needed:
 ```
 
 The games are copyrighted and stay local-only (`games/` is gitignored), so point
-the script elsewhere if you keep them somewhere else. Eleven of the games are
+the script elsewhere if you keep them somewhere else. Three of the games are
 played against a `<title> - walkthrough.txt` written by someone else; those are
 not redistributed here, so they SKIP unless you pass a directory holding them:
 
