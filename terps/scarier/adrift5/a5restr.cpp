@@ -1548,6 +1548,18 @@ eval_block (a5_state_t *st, a5_restr_t *rs, const a5_xml_node_t **nodes, int n,
           return 0;
         }
       {
+        /* Out of range means the block has more '#' terms than the task has
+           restrictions, i.e. a malformed game file; treat it as a pass so a
+           broken block cannot lock a task out.  The runner has no equivalent
+           branch -- RestrictionArrayList.Item returns Nothing on a range error
+           and restx.Copy then throws, which GetGeneralTask swallows into
+           "I didn't understand that command".  Note idx is *our own local*,
+           passed down through this recursion, whereas the runner's iRestNum is a
+           session field: a HaveRouteInDirection restriction re-enters restriction
+           evaluation and used to leave the outer walk on the wrong index (fixed
+           in ADRIFT 5.0.36 by saving/restoring it; see
+           test/BugHuntOnMenelaus_walkthrough.txt).  We are immune by
+           construction, so this branch is unreachable for well-formed games. */
         int my = (*idx)++;
         first = (my < n) ? pass_single (st, &rs[my]) : 1;
         if (my < n)
