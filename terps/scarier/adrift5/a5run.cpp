@@ -81,10 +81,11 @@ msg_has_output (const char *m)
     return 0;
   for (; *m != '\0'; m++)
     {
-      if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK || *m == A5_SOUND_MARK)
+      if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK || *m == A5_SOUND_MARK
+          || *m == A5_WAIT_MARK)
         {
-          /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024 span
-             (or a stray mark). */
+          /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024 /
+             \026<seconds>\026 span (or a stray mark). */
           const char *e = strchr (m + 1, *m);
           if (e == NULL)
             continue;
@@ -112,13 +113,14 @@ msg_ends_with_cls (const char *m)
       char c = m[n - 1];
       if (c == A5_CLS_MARK)
         return 1;
-      if (c == A5_SOUND_MARK)
+      if (c == A5_SOUND_MARK || c == A5_WAIT_MARK)
         {
-          /* A trailing \024<index>\024 sound span is presentation, not output
-             -- step back over the whole span (a stray unpaired mark reads as
-             text, like any other unrecognised byte). */
+          /* A trailing \024<index>\024 sound or \026<seconds>\026 wait span
+             is presentation, not output -- step back over the whole span (a
+             stray unpaired mark reads as text, like any other unrecognised
+             byte). */
           size_t j = n - 1;
-          while (j > 0 && m[j - 1] != A5_SOUND_MARK)
+          while (j > 0 && m[j - 1] != c)
             j--;
           if (j == 0)
             return 0;

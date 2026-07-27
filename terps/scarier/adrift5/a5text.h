@@ -109,12 +109,18 @@
        state there -- Death Shack's Introduction opens <center> and never
        closes it, yet the Runner shows the first room description (the next
        commit, clsUserSession.vb game-start) left-aligned.
+     - <wait N> leaves an A5_WAIT_MARK-delimited delay, \026<seconds>\026
+       (the tag's argument verbatim; fractions allowed), so the host can run
+       a timed pause where the tag sits, the way the Runner's rendering
+       pauses mid-Display -- Death Shack types its 80-point title one letter
+       per <wait 3>.  A bare <wait> carries an empty span and pauses not at
+       all, like the ADRIFT 4 path's unparsable-argument case.
 
    finish_turn keeps all of these in the returned turn text; a host that never
    enables interactive mode (the headless dump / ground-truth harness) sees no
    behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE),
-   \x11 (DC1), \x12 (DC2), \x13 (DC3), \x14 (DC4) and \x15 (NAK) never occur
-   in game text. */
+   \x11 (DC1), \x12 (DC2), \x13 (DC3), \x14 (DC4), \x15 (NAK) and \x16 (SYN)
+   never occur in game text. */
 #define A5_IMG_MARK '\006'
 #define A5_WAITKEY_MARK '\007'
 #define A5_CENTER_MARK '\016'
@@ -125,6 +131,7 @@
 #define A5_ENDWINDOW_MARK '\023'
 #define A5_SOUND_MARK '\024'
 #define A5_COMMIT_MARK '\025'
+#define A5_WAIT_MARK '\026'
 
 /* Interactive-presentation mode toggle (default off; see marks above). */
 extern void a5text_set_interactive (int on);

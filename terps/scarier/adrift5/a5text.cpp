@@ -2773,11 +2773,12 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
          the ink verdict must come out identical in both modes. */
       for (; *q; q++)
         {
-          if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK || *q == A5_SOUND_MARK)
+          if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK || *q == A5_SOUND_MARK
+              || *q == A5_WAIT_MARK)
             {
               /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024
-                 span (the window name is a routing tag, not visible ink), or a
-                 stray unpaired mark. */
+                 / \026<seconds>\026 span (the window name is a routing tag,
+                 not visible ink), or a stray unpaired mark. */
               const char *e = strchr (q + 1, *q);
               if (e == NULL)
                 continue;
@@ -3062,6 +3063,19 @@ a5text_render_plain (const char *src)
           else if (a5_interactive_mode && strcmp (name, "waitkey") == 0)
             /* Interactive pause point; doubles as the usual ALR tag blocker. */
             sb_putc (&sb, A5_WAITKEY_MARK);
+          else if (a5_interactive_mode && strcmp (name, "wait") == 0)
+            {
+              /* Timed pause <wait N>: leave the delay argument as a
+                 positional \026<seconds>\026 span for the host to run a
+                 cancelable timer at, the way the Runner's rendering pauses
+                 mid-Display (<wait is in its valid-tag list,
+                 clsUserSession.vb).  Death Shack's title cards type one
+                 80-point letter per <wait 3>. */
+              const char *arg = tag[4] == ' ' ? tag + 5 : "";
+              sb_putc (&sb, A5_WAIT_MARK);
+              sb_puts (&sb, arg);
+              sb_putc (&sb, A5_WAIT_MARK);
+            }
           else if (a5_interactive_mode
                    && (strcmp (name, "center") == 0
                        || strcmp (name, "centre") == 0))

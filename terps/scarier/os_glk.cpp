@@ -1761,6 +1761,13 @@ gsc_handle_wait_tag (const scr_char *argument)
 {
   double delay = 0.0;
 
+#ifdef SPATTERLIGHT
+  /* Honour Spatterlight's delays preference: when it is off, timed waits are
+     skipped outright.  Both engines funnel their pauses through here -- the
+     ADRIFT 4 <wait x.x> tag and the ADRIFT 5 A5_WAIT_MARK span. */
+  if (!gli_sa_delays)
+    return;
+#endif
   /* Ignore the wait tag if the Glk doesn't have timers. */
   if (!glk_gestalt (gestalt_Timer, 0))
     return;
@@ -5086,9 +5093,9 @@ gsc_unput_tail (const char *s)
  * gsc_a5_sound_marks_only()
  *
  * True when a turn text carries no visible output -- nothing but positional
- * A5_SOUND_MARK spans and whitespace (a sound-only commit's spans keep the
- * text non-empty where it used to render to "").  True for "" itself, so a
- * caller can use this as its whole output-less test.
+ * A5_SOUND_MARK / A5_WAIT_MARK spans and whitespace (a sound-only commit's
+ * spans keep the text non-empty where it used to render to "").  True for ""
+ * itself, so a caller can use this as its whole output-less test.
  */
 static int
 gsc_a5_sound_marks_only (const char *text)
@@ -5099,9 +5106,9 @@ gsc_a5_sound_marks_only (const char *text)
     return TRUE;
   for (p = text; *p != '\0'; p++)
     {
-      if (*p == A5_SOUND_MARK)
+      if (*p == A5_SOUND_MARK || *p == A5_WAIT_MARK)
         {
-          const char *e = strchr (p + 1, A5_SOUND_MARK);
+          const char *e = strchr (p + 1, *p);
           if (e == NULL)
             return FALSE;
           p = e;
@@ -5184,7 +5191,9 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                      have fired yet and the sweep plays them all), and
                      possibly a silent score change for the status line
                      (a separate window, so no need to touch the pending
-                     input request). */
+                     input request).  A <wait> with no visible output to
+                     pace is dropped -- it must not stall the player's
+                     pending line input. */
                   gsc_a5_show_media (gsc_a5_run);
                   gsc_a5_status (gsc_a5_run);
                   free (text);
@@ -6139,12 +6148,12 @@ gsc_a5_open_side_window (void)
  * Present one turn's text.  The engine runs in interactive mode (see
  * a5text.h), so the text carries presentation marks: draw each embedded
  * image at its marked position, pause for a keypress at each <waitkey>
- * mark, clear the story window at each <cls> mark, show <center> spans
- * in the centered style_User1 (hinted for centered justification before the
- * window opened), and <b> spans in bold.  This is the same presentation the
- * official Runner's output pane gives, e.g., Anno 1700's intro: credits and
- * cover image, "Press any key", then a cleared screen for the opening
- * narrative.
+ * mark and for a timed delay at each <wait N> mark, clear the story window
+ * at each <cls> mark, show <center> spans in the centered style_User1
+ * (hinted for centered justification before the window opened), and <b>
+ * spans in bold.  This is the same presentation the official Runner's
+ * output pane gives, e.g., Anno 1700's intro: credits and cover image,
+ * "Press any key", then a cleared screen for the opening narrative.
  */
 static void
 gsc_a5_display (const char *text)
@@ -6168,7 +6177,7 @@ gsc_a5_display (const char *text)
           && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
           && *p != A5_ENDBOLD_MARK && *p != A5_WINDOW_MARK
           && *p != A5_ENDWINDOW_MARK && *p != A5_SOUND_MARK
-          && *p != A5_COMMIT_MARK)
+          && *p != A5_COMMIT_MARK && *p != A5_WAIT_MARK)
         {
           p++;
           continue;
@@ -6248,6 +6257,25 @@ gsc_a5_display (const char *text)
           else if (*p == A5_ENDBOLD_MARK && bold_depth > 0)
             bold_depth--;
           glk_set_style (gsc_a5_span_style (center_depth, bold_depth));
+        }
+      else if (*p == A5_WAIT_MARK)
+        {
+          /* Timed-pause slot: \026<seconds>\026.  Run the same cancelable
+             timer delay the ADRIFT 4 path gives its <wait x.x> tag, so
+             Death Shack's letter-at-a-time title cards play out in real
+             time (an empty or unparsable argument pauses not at all). */
+          const char *e = strchr (p + 1, A5_WAIT_MARK);
+          if (e != NULL)
+            {
+              char arg[16];
+              size_t n = (size_t) (e - (p + 1));
+              if (n >= sizeof arg)
+                n = sizeof arg - 1;
+              memcpy (arg, p + 1, n);
+              arg[n] = '\0';
+              gsc_handle_wait_tag (arg);
+              p = e;
+            }
         }
       else if (*p == A5_SOUND_MARK)
         {
