@@ -26,11 +26,20 @@ static unsigned char *find_string(unsigned char *storyvp,  int32 extent, char *s
     return NULL;
 }
 
-/* A Quest 4 file begins with its header. For simplicity, we consider QCGF001 (Quest 1 format header) invalid */
+/* A compiled Quest file begins with its container header, and three versions
+ * exist: QCGF001 is the Quest 2.x era format, 002 adds three more text-mode
+ * block types, and 003 appends a resource catalogue. Quest reads all three with
+ * one decompiler (LoadCASFile, V4Game.cs:1921) and so does geas (readfile.cc,
+ * "Three compiled-game container versions exist"), so claim all three. Only 002
+ * used to be claimed here, which left QCGF001 games (Bargain, MagicSwordP1) and
+ * QCGF003 ones (Beyond Exile 2.2, Forward and Back) unrecognised even though
+ * they play. */
 static bool quest4_header_found(unsigned char *story_file) {
     if(story_file == NULL)
         return false;
-    return memcmp(story_file, "QCGF002", 7) == 0;
+    if (memcmp(story_file, "QCGF00", 6) != 0)
+        return false;
+    return story_file[6] >= '1' && story_file[6] <= '3';
 }
 
 /* We simply look for the string "asl-version" inside an ASL "define block" */
