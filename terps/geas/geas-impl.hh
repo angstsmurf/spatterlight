@@ -226,6 +226,12 @@ public:
    * interpreter mid-turn. */
   static constexpr size_t kMaxVarIndex = 100000;
 
+  /* Flatten type `typenm` onto `obj` at runtime -- the shared half of the
+   * `type <obj; typenm>` statement and of 4.10 `create object` (ExecType,
+   * V4Game.cs:4455-4476).  Records "!type <name>" membership markers, which
+   * eval_cond's `type` condition consults beside the static block. */
+  void apply_type (const std::string &obj, const std::string &typenm);
+
   void regen_var_look ();
   void regen_var_dirs ();
   void regen_var_objects ();
@@ -362,6 +368,13 @@ public:
    * flag from its container's state, so pane/here/exists/resolution agree. */
   void update_container_visibility (const std::string &only_parent = "");
   bool sweeping = false;   /* re-entry guard for update_container_visibility */
+  /* regen_var_objects is deferred: mutators (move, set_obj_property, clone,
+   * goto) raise this flag and the derived quest.objects/quest.formatobjects
+   * strings are rebuilt only when one of them is actually read (see the flush
+   * in get_svar).  They used to be rebuilt ~2.6x per turn, which profiling
+   * showed dominating large games (regen_var_objects was 68% of KQ5's
+   * inclusive time). */
+  bool objs_vars_dirty_ = false;
   /* Default "open <container>" behaviour: mark the container open and reveal/
    * list its contents -- both objects declared inside with a bare "<container>"
    * line (which we un-hide) and objects parented to it.  Returns false if the
@@ -437,8 +450,21 @@ public:
    * plus "if too small, grow") oscillate forever.  Quest itself only guards
    * `exec` (ExecExec, V4Game.Part2.cs:2197, limit 500) and would smash its own
    * stack here; we cap every nesting path so a buggy game file cannot take the
-   * interpreter down with it.  Quest's number and its wording are reused. */
+   * interpreter down with it.  Quest's number and its wording are reused.
+   *
+   * Lower under AddressSanitizer: its redzones inflate run_script's frame
+   * several-fold, so 500 nested frames overflow the sanitizer's stack before
+   * this guard ever trips (fixtures/scriptdepth.asl found this).  Production
+   * builds keep Quest's number. */
+#if defined(__has_feature)
+# if __has_feature(address_sanitizer)
+  static constexpr int kMaxScriptDepth = 100;
+# else
   static constexpr int kMaxScriptDepth = 500;
+# endif
+#else
+  static constexpr int kMaxScriptDepth = 500;
+#endif
   int script_depth = 0;
   void run_procedure (const std::string &);
   void run_procedure (const std::string &, std::vector<std::string> args);

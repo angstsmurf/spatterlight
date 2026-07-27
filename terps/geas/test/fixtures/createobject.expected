@@ -1,0 +1,21 @@
+
+CreateObject
+
+You are in Start
+There is widget here.
+
+> x widget
+Nothing out of the ordinary.
+
+> rub widget
+It gleams.
+
+> probe
+It sparkles. w=1
+
+> check
+SHINY YES
+
+> take widget
+You can't take it.
+[runner] turns=5 leftover=0 running=true

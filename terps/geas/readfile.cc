@@ -27,6 +27,7 @@
 #include <iostream>
 #include "readfile.hh"
 #include "geas-util.hh"
+#include "istring.hh"
 #include "reserved_words.hh"
 #include "GeasRunner.hh"
 #include "general.hh"

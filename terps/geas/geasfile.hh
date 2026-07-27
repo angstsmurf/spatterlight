@@ -177,6 +177,15 @@ struct GeasFile
   std::set<std::string> get_obj_keys (const std::string &) const;
   void get_obj_keys (const std::string &, std::set<std::string> &) const;
   void get_type_keys (const std::string &, std::set<std::string> &) const;
+  /* Flatten a type for the runtime `type <obj; typename>` statement: every
+   * property (name, value -- "!" for a negated one) and action (name, script)
+   * the type carries, recursing through included types in declaration order,
+   * plus the names of every type visited.  Mirrors GetPropertiesInType and
+   * ExecType's flattening (V4Game.cs:6257-6345, 4455-4476). */
+  void flatten_type (const std::string &typenamex,
+		     std::vector<std::pair<std::string, std::string>> &props,
+		     std::vector<std::pair<std::string, std::string>> &actions,
+		     std::vector<std::string> &included, int depth = 0) const;
 
   bool obj_has_action (const std::string &objname, const std::string &propname) const;
   bool get_obj_action (const std::string &objname, const std::string &propname,

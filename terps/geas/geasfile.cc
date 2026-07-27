@@ -247,17 +247,27 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 	    for (const string &j : split_param (param_contents (p)))
 	      {
 		std::string::size_type idx;
+		GeasBlock::dir d;
 		/* CI: BeginsWith "not " (AddToObjectProperties, V4Game.cs:4034). */
 		if (starts_with_i (j, "not "))
-		  b.obj_prop.push_back ({false, trim (j.substr (4)), "!", false});
+		  d = {false, trim (j.substr (4)), "!", false};
 		else if ((idx = j.find ('=')) != string::npos)
 		  /* Quest trims both sides of the "=" (AddToObjectProperties,
 		   * V4Game.cs:4021-4025), so "volume = 30" is the value 30, not
 		   * " 30" -- which a game then prints, or does arithmetic on. */
-		  b.obj_prop.push_back ({false, trim (j.substr (0, idx)),
-					 trim (j.substr (idx + 1)), true});
+		  d = {false, trim (j.substr (0, idx)),
+		       trim (j.substr (idx + 1)), true};
 		else
-		  b.obj_prop.push_back ({false, j, "", true});
+		  d = {false, j, "", true};
+		b.obj_prop.push_back (d);
+		/* Into the type-side list too: GetPropertiesInType accepts a
+		 * "properties <...>" line inside a define type
+		 * (V4Game.cs:6335-6337), accumulating it exactly like the bare
+		 * lines below, and the object loader flattens the result onto
+		 * the object (V4Game.Part2.cs:3388-3389).  Without this,
+		 * get_type_property never saw such a line and the property was
+		 * invisible through inheritance. */
+		b.type_prop.push_back (d);
 	      }
 	}
       /* Action lines: object-style keeps the script after "<name> " (substr
@@ -499,6 +509,35 @@ void GeasFile::get_type_property (const string &typenamex, const string &propnam
 }
 	      
 
+
+void GeasFile::flatten_type (const string &typenamex,
+			     std::vector<std::pair<std::string, std::string>> &props,
+			     std::vector<std::pair<std::string, std::string>> &actions,
+			     std::vector<std::string> &included, int depth) const
+{
+  /* A type may include itself through a cycle; GetPropertiesInType would
+   * recurse forever there too, so any sane bound is fine. */
+  if (depth > 32)
+    return;
+  const GeasBlock *block = find_by_name ("type", typenamex);
+  if (block == NULL)
+    {
+      debug_print ("No such type '" + typenamex + "'");
+      return;
+    }
+  ensure_cached (*block);
+  included.push_back (typenamex);
+  for (const GeasBlock::dir &d: block->type_prop)
+    {
+      if (d.is_type)
+	flatten_type (d.a, props, actions, included, depth + 1);
+      else
+	props.push_back ({d.a, d.bv ? d.b : "!"});
+    }
+  for (const GeasBlock::dir &d: block->type_act)
+    if (!d.is_type)
+      actions.push_back ({d.a, d.b});
+}
 
 bool GeasFile::obj_of_type (const string &objname, const string &typenamex) const
 {
