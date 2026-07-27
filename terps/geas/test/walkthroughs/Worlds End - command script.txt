@@ -1,3 +1,32 @@
+World's End! (worldsend/world's end.asl, v1.0, by GAMER!, QDK Pro 4.03,
+ASL 400) - walkthrough.
+Win marker: "slumps to the ground dead", the opening of the game's `define
+text <win>`; the run ends on its "(to be continued)".
+
+The first input is the "tester" that answers the startscript's `enter <name>`
+prompt, not a command.
+
+This is the only script in the suite that needs all three runner extras, so
+run_walkthroughs.sh passes them (and GEAS_SEED is fixed, but the seed does not
+decide the outcome -- --save-scum does):
+
+  * --tick, for the dynamite.  `define timer <dynamite>` has interval <5> and
+    starts disabled; lighting the stick planted by the spaceship turns it on,
+    and the explosion hides the spaceship, which is what lets "examine crop
+    circle" in the fields reveal the sleepville security chip the game needs
+    later.  Without ticks the fuse never burns down.
+  * two --fight specs, for the two fights the game decides with $rand(1; 2)$:
+      - the hovering cube in the sahara desert.  Each vial does 5 of its 10
+        health on a coin flip, so both have to land, while `define timer <cube>`
+        (interval <1>) takes 10 health off you every other turn.  A missed
+        vial1 is caught and can be thrown again; a missed vial2 prints nothing
+        at all.
+      - the alien warlord, 10 damage each way on the same coin flip.
+  * --save-scum, which is what actually wins those two: a losing streak of
+    flips can kill you outright, so the runner restores and throws again.
+
+Start: hometown (the room prints its description, not a name).
+
 tester
 speak to statue
 take cat
