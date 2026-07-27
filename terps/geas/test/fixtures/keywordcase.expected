@@ -1,0 +1,29 @@
+
+KeywordCase, v7
+
+flag on: OK
+set string: hello
+repeat until: OK
+for each: rock
+onchange: counter changed
+timerstate: 1
+You are in Start
+There is rock here.
+You can go north.
+
+> xyzzy
+Que?
+
+> x boulder
+Just a rock.
+
+> take rock
+Taken.
+
+> drop rock
+It bounces.
+
+> north
+You are in Cellar
+A damp cellar.
+[runner] turns=5 leftover=0 running=true

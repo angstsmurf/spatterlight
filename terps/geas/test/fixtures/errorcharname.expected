@@ -1,0 +1,9 @@
+
+CharacterName
+
+You are in Bar
+There is barman here.
+
+> give coin to barman
+Barman waves the coin away.
+[runner] turns=1 leftover=0 running=true

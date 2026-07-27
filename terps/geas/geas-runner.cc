@@ -101,9 +101,6 @@ static const std::vector<verb_def> &builtin_verbs ()
   return table;
 }
 
-
-
-
 GeasRunner *GeasRunner::get_runner (GeasInterface *gi) {
   return new geas_implementation (gi);
 }
@@ -208,8 +205,9 @@ void geas_implementation::set_svar (const string &varname, size_t index, const s
 	      string script = "";
 	      std::string::size_type c1, c2;
 	      for (uint j = 0; j < go.data.size(); j ++)
-		// SENSITIVE ?
-		if (first_token (go.data[j], c1, c2) == "onchange")
+		/* CI: Quest reads the block's keywords with BeginsWith, which
+		 * lowercases (V4Game.Part2.cs:715). */
+		if (ci_equal (first_token (go.data[j], c1, c2), "onchange"))
 		  script = trim (go.data[j].substr (c2 + 1));
 	      if (script != "")
 		run_script (script);
@@ -305,8 +303,8 @@ void geas_implementation::set_ivar (const string &varname, size_t index, double 
 	      string script = "";
 	      std::string::size_type c1, c2;
 	      for (uint j = 0; j < go.data.size(); j ++)
-		// SENSITIVE?
-		if (first_token (go.data[j], c1, c2) == "onchange")
+		/* CI -- see set_svar. */
+		if (ci_equal (first_token (go.data[j], c1, c2), "onchange"))
 		  script = trim (go.data[j].substr (c2 + 1));
 	      if (script != "")
 		run_script (script);
@@ -315,11 +313,9 @@ void geas_implementation::set_ivar (const string &varname, size_t index, double 
     }
 }
 
-
-
 ostream &operator<< (ostream &o, const match_binding &mb)
 {
-  o << "MB['" << mb.var_name << "' == '" << mb.var_text << "' @ " 
+  o << "MB['" << mb.var_name << "' == '" << mb.var_text << "' @ "
     << mb.start << " to " << mb.end << "]";
   return o;
 }
@@ -350,7 +346,6 @@ bool geas_implementation::has_obj_action (const string &obj, const string &prop)
   return get_obj_action (obj, prop, tmp);
 }
 
-
 /* The runtime (state.props) half of an action lookup, shared by the object and
    room forms below: true if a "action <name> ..." record set at runtime answers
    the question, with the script in rv. */
@@ -365,7 +360,8 @@ bool geas_implementation::runtime_action (const string &objname, const string &a
     for (auto ri = recs->rbegin (); ri != recs->rend (); ++ri)
       {
 	const string &line = state.props[*ri].data;
-	// SENSITIVE?
+	/* Internal record format -- geas itself writes "action <...>" (see
+	 * set_obj_action), so the exact compare is right. */
 	if (first_token (line, c1, c2) != "action")
 	  continue;
 	tok = next_token (line, c1, c2);
@@ -1243,15 +1239,17 @@ void geas_implementation::display_error (string errorname, string obj)
       if (!get_obj_property (obj, "gender", tmp))
 	tmp = "it";
       set_svar ("quest.error.gender", tmp);
-      
+
       if (!get_obj_property (obj, "article", tmp))
 	tmp = "it";
       set_svar ("quest.error.article", tmp);
-     
+
       GEAS_DBG << "In erroring " << errorname << " / " << obj << ", qeg == "
 	   << get_svar ("quest.error.gender") << ", qea == "
 	   << get_svar ("quest.error.article") << endl;
-      // TODO quest.error.charactername 
+      /* quest.error.charactername is deliberately not set here: Quest fills it
+       * only in ExecGive's refusal path, so geas does too (see the give
+       * handler in try_match). */
     }
 
   const GeasBlock *game = gf.find_by_name ("game", "game");
@@ -1264,8 +1262,9 @@ void geas_implementation::display_error (string errorname, string obj)
   for (const string &line: game->data)
     {
       string tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "error")
+      /* The keyword is CI -- Quest scans for it with BeginsWith
+       * (SetUpUserDefinedPlayerErrors, V4Game.Part2.cs:1386)... */
+      if (ci_equal (tok, "error"))
 	{
 	  tok = next_token (line, c1, c2);
 	  if (is_param (tok))
@@ -1273,7 +1272,8 @@ void geas_implementation::display_error (string errorname, string obj)
 	      string text = param_contents(tok);
 	      std::string::size_type index = text.find (';');
 	      string errortype = trim (text.substr (0, index));
-	      // SENSITIVE?
+	      /* ...but the error name inside the parameter is case-sensitive:
+	       * Quest switches on it un-lowercased (ibid. 1394). */
 	      if (errortype == errorname)
 		{
 		  print_eval_p (trim (text.substr (index+1)));
@@ -1284,84 +1284,63 @@ void geas_implementation::display_error (string errorname, string obj)
 	    gi->debug_print ("Bad error line: " + line);
 	}
     }
-  
-  // ARE THESE SENSITIVE?
-  if (errorname == "badcommand")
-    print_eval ("I don't understand your command. Type HELP for a list of valid commands.");
-  else if (errorname == "badgo")
-    print_eval ("I don't understand your use of 'GO' - you must either GO in some direction, or GO TO a place.");
-  else if (errorname == "badgive")
-    print_eval ("You didn't say who you wanted to give that to.");
-  else if (errorname == "badcharacter")
-    print_eval ("I can't see anybody of that name here.");
-  else if (errorname == "noitem")
-    print_eval ("You don't have that.");
-  else if (errorname == "itemunwanted")
-    print_eval_p ("#quest.error.gender# doesn't want #quest.error.article#.");
-  else if (errorname == "badlook")
-    print_eval ("You didn't say what you wanted to look at.");
-  else if (errorname == "badthing")
-    print_eval ("I can't see that here.");
-  else if (errorname == "defaultlook")
-    print_eval ("Nothing out of the ordinary.");
-  else if (errorname == "defaultspeak")
-    print_eval_p ("#quest.error.gender# says nothing.");
-  else if (errorname == "baditem")
-    print_eval ("I can't see that anywhere.");
-  else if (errorname == "defaulttake")
-    print_eval ("You pick #quest.error.article# up.");
-  else if (errorname == "baduse")
-    print_eval ("You didn't say what you wanted to use that on.");
-  else if (errorname == "defaultuse")
-    print_eval ("You can't use that here.");
-  else if (errorname == "defaultput")
-    print_eval_p ("You can't put #quest.error.article# there.");
-  /* PlayerError.CantRemove / PlayerError.DefaultRemove, the two messages the
-   * container half of "remove" falls back on (V4Game.Part2.cs:449-451). */
-  else if (errorname == "cantremove")
-    print_eval ("You can't remove that.");
-  else if (errorname == "defaultremove")
-    print_eval ("Done.");
-  else if (errorname == "defaultwait")
-    print_eval ("Time passes...");
-  else if (errorname == "defaultverb")
-    print_eval ("You can't do that.");
-  else if (errorname == "alreadyopen")
-    print_eval ("It is already open.");
-  else if (errorname == "alreadyclosed")
-    print_eval ("It is already closed.");
-  else if (errorname == "cantopen")
-    print_eval ("You can't open that.");
-  else if (errorname == "cantclose")
-    print_eval ("You can't close that.");
-  else if (errorname == "defaultopen")
-    print_eval ("You open it.");
-  else if (errorname == "defaultclose")
-    print_eval ("You close it.");
-  else if (errorname == "locked")
+
+  /* The built-in default messages, used when the game block declares no
+   * "error <name; ...>" of its own.  An entry marked pcase goes through
+   * print_eval_p, which capitalises the first letter after substitution
+   * (the message may open with a #quest.error.gender# pronoun). */
+  struct default_error { const char *name; const char *text; bool pcase; };
+  static const default_error default_errors[] = {
+    { "badcommand",     "I don't understand your command. Type HELP for a list of valid commands.", false },
+    { "badgo",          "I don't understand your use of 'GO' - you must either GO in some direction, or GO TO a place.", false },
+    { "badgive",        "You didn't say who you wanted to give that to.", false },
+    { "badcharacter",   "I can't see anybody of that name here.",       false },
+    { "noitem",         "You don't have that.",                         false },
+    { "itemunwanted",   "#quest.error.gender# doesn't want #quest.error.article#.", true },
+    { "badlook",        "You didn't say what you wanted to look at.",   false },
+    { "badthing",       "I can't see that here.",                       false },
+    { "defaultlook",    "Nothing out of the ordinary.",                 false },
+    { "defaultspeak",   "#quest.error.gender# says nothing.",           true },
+    { "baditem",        "I can't see that anywhere.",                   false },
+    { "defaulttake",    "You pick #quest.error.article# up.",           false },
+    { "baduse",         "You didn't say what you wanted to use that on.", false },
+    { "defaultuse",     "You can't use that here.",                     false },
+    { "defaultput",     "You can't put #quest.error.article# there.",   true },
+    /* PlayerError.CantRemove / PlayerError.DefaultRemove, the two messages the
+     * container half of "remove" falls back on (V4Game.Part2.cs:449-451). */
+    { "cantremove",     "You can't remove that.",                       false },
+    { "defaultremove",  "Done.",                                        false },
+    { "defaultwait",    "Time passes...",                               false },
+    { "defaultverb",    "You can't do that.",                           false },
+    { "alreadyopen",    "It is already open.",                          false },
+    { "alreadyclosed",  "It is already closed.",                        false },
+    { "cantopen",       "You can't open that.",                         false },
+    { "cantclose",      "You can't close that.",                        false },
+    { "defaultopen",    "You open it.",                                 false },
+    { "defaultclose",   "You close it.",                                false },
     /* PlayerError.Locked, the message a locked exit prints when it declares no
      * lockmessage of its own (V4Game.Part2.cs:452). */
-    print_eval ("The exit is locked.");
-  else if (errorname == "defaultout")
-    print_eval ("There's nowhere you can go out to around here.");
-  else if (errorname == "badplace")
-    print_eval ("You can't go there.");
-  else if (errorname == "defaultexamine")
-    print_eval ("Nothing out of the ordinary.");
-  else if (errorname == "badtake")
-    print_eval ("You can't take #quest.error.article#.");
-  else if (errorname == "cantdrop")
-    print_eval ("You can't drop that here.");
-  else if (errorname == "defaultdrop")
-    print_eval ("You drop #quest.error.article#.");
-  else if (errorname == "baddrop")
-    print_eval ("You are not carrying such a thing.");
-  else if (errorname == "badpronoun")
-    print_eval ("I don't know what '#quest.error.pronoun#' you are referring to.");
-  else if (errorname == "badexamine")
-    print_eval ("You didn't say what you wanted to examine.");
-  else
-    gi->debug_print ("Bad error name " + errorname);
+    { "locked",         "The exit is locked.",                          false },
+    { "defaultout",     "There's nowhere you can go out to around here.", false },
+    { "badplace",       "You can't go there.",                          false },
+    { "defaultexamine", "Nothing out of the ordinary.",                 false },
+    { "badtake",        "You can't take #quest.error.article#.",        false },
+    { "cantdrop",       "You can't drop that here.",                    false },
+    { "defaultdrop",    "You drop #quest.error.article#.",              false },
+    { "baddrop",        "You are not carrying such a thing.",           false },
+    { "badpronoun",     "I don't know what '#quest.error.pronoun#' you are referring to.", false },
+    { "badexamine",     "You didn't say what you wanted to examine.",   false },
+  };
+  for (const default_error &e: default_errors)
+    if (errorname == e.name)
+      {
+	if (e.pcase)
+	  print_eval_p (e.text);
+	else
+	  print_eval (e.text);
+	return;
+      }
+  gi->debug_print ("Bad error name " + errorname);
 }
 
 string geas_implementation::displayed_name (const string &obj) const
@@ -1396,7 +1375,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
   const GeasBlock *gb = gf.find_by_name ("room", room);
   if (gb == NULL)
     return rv;
-  
+
   string line, tok;
   std::string::size_type c1, c2;
   for (const auto &line: gb->data)
@@ -1507,8 +1486,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
 		break;
 	      }
 	}
-      
-      
+
     }
 
   GEAS_DBG << "get_places (" << room << ") -> " << rv << "\n";
@@ -1687,7 +1665,6 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
 	GEAS_DBG << "Processing exit line '" << i->dest << "'\n";
 	tok = first_token (line, c1, c2);
 	GEAS_DBG << "   first tok is " << tok << " (vs. exit)\n";
-	// SENSITIVE?
 	/* A "noexit <dir>" record (pushed by disconnect) removes that exit;
 	 * the latest record for the direction wins over an earlier create-exit
 	 * or the static room exit below. */
@@ -2258,7 +2235,7 @@ void geas_implementation::set_game (const string &s)
 	      string ver = next_token (s, tok_start, tok_end);
 	      if (!is_param(ver))
 		{
-		  gi->debug_print ("Version " + s + " has invalid version " + 
+		  gi->debug_print ("Version " + s + " has invalid version " +
 				   ver);
 		  continue;
 		}
@@ -2278,8 +2255,9 @@ void geas_implementation::set_game (const string &s)
 	  else if (tok == "default")
 	    {
 	      tok = next_token (s, tok_start, tok_end);
-	      // SENSITIVE?
-	      if (tok == "fontname")
+	      /* Sub-keywords are CI too: Quest matches the whole "default
+	       * fontname" phrase with BeginsWith (V4Game.Part2.cs:661-669). */
+	      if (ci_equal (tok, "fontname"))
 		{
 		  tok = next_token (s, tok_start, tok_end);
 		  if (!is_param (tok))
@@ -2287,8 +2265,7 @@ void geas_implementation::set_game (const string &s)
 		  else
 		    gi->set_default_font (param_contents(tok));
 		}
-	      // SENSITIVE?
-	      else if (tok == "fontsize")
+	      else if (ci_equal (tok, "fontsize"))
 		{
 		  tok = next_token (s, tok_start, tok_end);
 		  if (!is_param (tok))
@@ -2319,8 +2296,7 @@ void geas_implementation::set_game (const string &s)
 		 scope.  Ignore the declaration instead; the multiplayer-only
 		 features (chat, challenges) simply never happen.  */
 	      tok = next_token (s, tok_start, tok_end);
-	      // SENSITIVE?
-	      if (tok == "singleplayer" || tok == "multiplayer")
+	      if (ci_equal (tok, "singleplayer") || ci_equal (tok, "multiplayer"))
 		continue;
 	      gi->debug_print ("Unexpected game type " + s);
 	    }
@@ -2337,7 +2313,7 @@ void geas_implementation::set_game (const string &s)
 		  state.location = param_contents (tok);
 		}
 	    }
-	}      
+	}
 
       const GeasBlock &game = gf.block ("game", 0);
       GEAS_DBG << gf << endl;
@@ -2356,7 +2332,7 @@ void geas_implementation::set_game (const string &s)
 
       /* Quest "startitems <a; b; ...>": the player's initial inventory. */
       for (const auto &i: game.data)
-	if (first_token (i, c1, c2) == "startitems")
+	if (ci_equal (first_token (i, c1, c2), "startitems"))
 	  {
 	    tok = next_token (i, c1, c2);
 	    if (is_param (tok))
@@ -2376,8 +2352,9 @@ void geas_implementation::set_game (const string &s)
 	 startscript).  Stopping at the first would silently drop the game's
 	 initialisation -- or the library's. */
       for (const auto &i: game.data)
-	// SENSITIVE?
-	if (first_token (i, c1, c2) == "startscript")
+	/* CI: Quest matches "startscript " with BeginsWith
+	 * (V4Game.Part2.cs:7971). */
+	if (ci_equal (first_token (i, c1, c2), "startscript"))
 	  run_script_as ("game", i.substr (c2 + 1));
 
       /* ... unless the startscript asked for no intro, in which case it has
@@ -2447,8 +2424,6 @@ void geas_implementation::regen_var_objects ()
       if (ci_equal (room_of_parent (i.parent), state.location) &&
 	  !get_obj_property (i.name, "hidden", tmp) &&
 	  !get_obj_property (i.name, "invisible", tmp))
-	  //!state.objs[i].hidden &&
-	  //!state.objs[i].invisible)
 	objs.push_back (i.name);
     }
   string qobjs = "", qfobjs = "";
@@ -2487,7 +2462,7 @@ void geas_implementation::regen_var_objects ()
   set_svar ("quest.formatobjects", qfobjs);
 }
 
-void geas_implementation::regen_var_room () 
+void geas_implementation::regen_var_room ()
 {
   set_svar ("quest.currentroom", state.location);
 
@@ -2506,11 +2481,10 @@ void geas_implementation::regen_var_room ()
   if (get_room_property (state.location, "prefix", tmp))
     formatroom = tmp + " " + formatroom;
   if (get_room_property (state.location, "suffix", tmp))
-    formatroom = formatroom + " " + tmp;  
+    formatroom = formatroom + " " + tmp;
   set_svar ("quest.formatroom", formatroom);
 
 }
-
 
 void geas_implementation::regen_var_look ()
 {
@@ -2520,8 +2494,7 @@ void geas_implementation::regen_var_look ()
   set_svar ("quest.lookdesc", look_tag);
 }
 
-
-void geas_implementation::regen_var_dirs() 
+void geas_implementation::regen_var_dirs()
 {
   vector <string> dirs;
   // the -1 is so that it skips 'out'
@@ -2544,8 +2517,7 @@ void geas_implementation::regen_var_dirs()
     }
   set_svar ("quest.doorways.dirs", exits);
 
-
-   string out_dest = exit_dest (state.location, "out");
+  string out_dest = exit_dest (state.location, "out");
   /* An "out { ... }" script is not a destination: readfile de-inlines the block
    * into "out do <!intprocNNN>", and a room name never contains an angle
    * bracket.  Quest keeps the two apart at the source level -- Out.Text stays
@@ -2593,7 +2565,7 @@ void geas_implementation::regen_var_dirs()
 
       set_svar ("quest.doorways.out.display", tmp);
     }
-   
+
   current_places = get_places (state.location);
   string printed_places = "";
   for (size_t i = 0; i < current_places.size(); i ++)
@@ -2650,8 +2622,6 @@ void geas_implementation::regen_var_dirs()
     }
 }
 
-
-
 /* "take off", "pick up", "look at", ... -- phrasal verbs whose leading word is a
  * common synonym target.  A single-word synonym (e.g. KQ5's "take = get") must
  * not rewrite the lead word of one of these, or "take off cloak" turns into
@@ -2669,7 +2639,19 @@ static bool is_phrasal_verb_lead (const string &phrase)
   return false;
 }
 
-// TODO:  SENSITIVE???
+/* Synonym matching follows Quest (V4Game.Part2.cs:4143-4164): the typed command
+ * is lowercased before this runs, and each synonym's left-hand word is searched
+ * for verbatim -- case-sensitively, whitespace-flanked -- within it, in file
+ * order, left to right, repeatedly.  So a capitalised synonym word in the game
+ * file never fires, in Quest or here.
+ *
+ * The order is settled by SetUpSynonyms (V4Game.Part2.cs:1277-1313): one
+ * record per left-hand word, file line by file line, words left to right
+ * within a line -- the same order the nested loops below walk.  One divergence
+ * is deliberate: Quest refuses at load any synonym whose word appears whole
+ * inside its own replacement ("pole = flag pole" is logged and dropped), where
+ * geas keeps it and instead skips occurrences already sitting inside an
+ * expansion -- such a synonym works here and is merely dead in Quest. */
 string geas_implementation::substitute_synonyms (string s) const
 {
   string orig = s;
@@ -2688,9 +2670,6 @@ string geas_implementation::substitute_synonyms (string s) const
   const GeasBlock *gb = gf.find_by_name ("synonyms", "");
   if (gb != NULL)
     {
-      /* TODO: exactly in what order does it try synonyms?
-       * Does it have to be flanked by whitespace?
-       */
       for (auto &line: gb->data)
 	{
 	  std::string::size_type index = line.find ('=');
@@ -2759,7 +2738,7 @@ string geas_implementation::substitute_synonyms (string s) const
   GEAS_DBG << "substitute_synonyms (" << orig << ") -> '" << s << "'\n";
   return s;
 }
- 
+
 bool geas_implementation::is_running () const
 {
   return is_running_;
@@ -2782,19 +2761,21 @@ std::string geas_implementation::get_banner ()
 
           for (const string &line: gb->data)
             {
-              if (first_token (line, c1, c2) == "game" &&
-                  next_token (line, c1, c2) == "version" &&
+              /* CI: Quest reads these with FindStatement ("game version" etc.),
+               * which matches with BeginsWith (V4Game.Part2.cs:3616-3619). */
+              if (ci_equal (first_token (line, c1, c2), "game") &&
+                  ci_equal (next_token (line, c1, c2), "version") &&
                   is_param (tok = next_token (line, c1, c2)))
                 {
                   banner += ", v";
                   banner += eval_param (tok);
                 }
             }
-  
+
           for (const string &line: gb->data)
             {
-               if (first_token (line, c1, c2) == "game" &&
-                   next_token (line, c1, c2) == "author" &&
+               if (ci_equal (first_token (line, c1, c2), "game") &&
+                   ci_equal (next_token (line, c1, c2), "author") &&
                    is_param (tok = next_token (line, c1, c2)))
                 {
                   banner += " | ";
@@ -2809,7 +2790,6 @@ std::string geas_implementation::get_banner ()
 void geas_implementation::run_command (const string &s1)
 {
   string s = s1;
-  /* if s == "restore" or "restart" or "quit" or "undo" */
 
   if (!is_running_)
     return;
@@ -2835,8 +2815,10 @@ void geas_implementation::run_command (const string &s1)
 
   if (!state.running)
     return;
-  // TODO: does this get the original command, or the lowercased version?
-  set_svar ("quest.originalcommand", s);
+  /* Quest lowercases the input before storing it, so quest.originalcommand is
+   * "original" only in that it precedes synonym substitution
+   * (V4Game.Part2.cs:4143-4145). */
+  set_svar ("quest.originalcommand", lcase (s));
   s = substitute_synonyms (lcase(s));
   set_svar ("quest.command", s);
 
@@ -2911,12 +2893,7 @@ void geas_implementation::run_command (const string &s1)
 
   if (!dont_process)
     {
-      if (try_match (s, false, false))
-	{
-	  /* TODO TODO */
-	  // run after turn events ???
-	}
-      else
+      if (!try_match (s, false, false))
 	display_error ("badcommand");
     }
 
@@ -2951,8 +2928,8 @@ ostream &operator<< (ostream &o, const match_rv &rv)
 {
   o << "match_rv {" << (rv.success ? "TRUE" : "FALSE") << ": [";
   o << rv.bindings;
-  o << "]}"; 
-  return o; 
+  o << "]}";
+  return o;
 }
 
 match_rv geas_implementation::match_command (const string &input, const string &action) const
@@ -2980,12 +2957,12 @@ match_rv geas_implementation::match_command (const string &input, uint ichar, co
 	{
 	  return match_rv (ichar == input.length(), rv);
 	}
-      if (action[achar] == '#') 
+      if (action[achar] == '#')
 	{
-	  
+
 	  achar ++;
 	  string varname;
-	  while (achar != action.length() && action[achar] != '#') 
+	  while (achar != action.length() && action[achar] != '#')
 	    {
 	      varname += action[achar];
 	      achar ++;
@@ -3008,7 +2985,6 @@ match_rv geas_implementation::match_command (const string &input, uint ichar, co
 	    }
 	  return match_rv (achar == action.length(), rv);
 	}
-      // SENSITIVE?
       if (ichar == input.length() || !c_equal_i (input[ichar], action[achar]))
 	return match_rv ();
       ++ achar;
@@ -3064,7 +3040,6 @@ static bool match_object_alts (string text, const vector<string> &alts, bool is_
   return false;
 }
 
-
 bool geas_implementation::match_object (const string &text, const string &name, bool is_internal, bool allow_partial) const
 {
   GEAS_DBG << "* * * match_object (" << text << ", " << name << ", "
@@ -3101,8 +3076,8 @@ bool geas_implementation::match_object (const string &text, const string &name, 
       for (const string &line: gb->data)
 	{
 	  string tok = first_token (line, c1, c2);
-	  // SENSITIVE?
-	  if (tok == "alt")
+	  /* CI: BeginsWith "alt " (V4Game.Part2.cs:3287). */
+	  if (ci_equal (tok, "alt"))
 	    {
 	      tok = next_token (line, c1, c2);
 	      if (!is_param (tok))
@@ -3126,10 +3101,8 @@ bool geas_implementation::match_object (const string &text, const string &name, 
   return false;
 }
 
-
 bool geas_implementation::dereference_vars (vector<match_binding> &bindings, bool is_internal) const
 {
-  /* TODO */
   vector<string> where;
   where.push_back ("inventory");
   where.push_back (state.location);
@@ -3217,7 +3190,6 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
 	  bool is_used = false;
 	  for (auto &loc: where)
 	    {
-	      // SENSITIVE?
 	      /* Quest scopes a typed noun on the object's room and its hidden flag
 	       * alone: DisambObjHere matches ContainerRoom against the room (and
 	       * the inventory) and tests Exists, which is what the hidden property
@@ -3260,7 +3232,7 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
     {
       uint num = 0;
       num = gi->make_choice ("Which " + name + " do you mean?", printed_objs);
-			     
+
       return objs[num];
     }
   if (objs.size() == 1)
@@ -3273,13 +3245,11 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
   return "!";
 }
 
-
 void geas_implementation::set_vars (const vector<match_binding> &v)
 {
   for (const auto &i: v)
     set_svar (i.var_name, i.var_text);
 }
-
 
 bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool is_internal)
 {
@@ -3433,7 +3403,6 @@ bool geas_implementation::try_game_verb (const string &cmd, bool is_internal)
 
 bool geas_implementation::try_match (string cmd, bool is_internal, bool is_normal)
 {
-
   string tok;
   match_rv match;
 
@@ -3723,6 +3692,11 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       else
 	{
 	  string tmp;
+	  /* The refusal fills the quest.error.* family as ExecGive does
+	   * (V4Game.Part2.cs:4788-4795, and 4835-4838 on the ASL2 side):
+	   * charactername is the recipient's object name, gender and article
+	   * come from the two objects. */
+	  set_svar ("quest.error.charactername", second);
 	  if (!get_obj_property (second, "gender", tmp))
 	    tmp = "it";
 	  set_svar ("quest.error.gender", tmp);
@@ -3733,7 +3707,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	}
       return true;
     }
-   
+
   /* Quest's standard "remove" verb, e.g. "remove book of keys from odd book
    * shelf": from 3.91 it is the container half of "put", handled by the
    * *container*, not by the item (ExecAddRemove, V4Game.cs:2369-2624).  Without
@@ -3986,7 +3960,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       }
   }
 
-
   if ((match = match_command (cmd, "take #@object#")) ||
       (match = match_command (cmd, "get #@object#")) ||
       (match = match_command (cmd, "pick up #@object#")))
@@ -4077,7 +4050,6 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       return true;
     }
 
-
   if ((match = match_command (cmd, "drop #@object#")))
     {
       if (!dereference_vars (match.bindings, is_internal))
@@ -4102,7 +4074,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  run_script_as (obj, scr);
 	  return true;
 	}
-	  
+
       const GeasBlock *gb = gf.find_by_name ("object", obj);
       if (gb != NULL)
 	{
@@ -4112,13 +4084,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    {
 	      line = gb->data[i];
 	      tok = first_token (line, c1, c2);
-	      // SENSITIVE?
-	      if (tok == "drop")
+	      /* CI, sub-keywords included: Quest reads all three with
+	       * BeginsWith (ExecDrop, V4Game.cs:5577-5635). */
+	      if (ci_equal (tok, "drop"))
 		{
 		  script_begins = c2;
 		  tok = next_token (line, c1, c2);
-		  // SENSITIVE?
-		  if (tok == "everywhere")
+		  if (ci_equal (tok, "everywhere"))
 		    {
 		      tok = next_token (line, c1, c2);
 		      move (obj, state.location);
@@ -4130,8 +4102,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 			gi->debug_print ("Expected param after drop everywhere in " + line);
 		      return true;
 		    }
-		  // SENSITIVE?
-		  if (tok == "nowhere")
+		  if (ci_equal (tok, "nowhere"))
 		    {
 		      /* Advance to the message first: this tested is_param() on the
 		       * keyword "nowhere" itself, which is never a param, so the
@@ -4171,8 +4142,8 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	display_error ("defaultspeak", obj);
       return true;
     }
-        
-  if (cmd == "exit" || cmd == "out" || cmd == "go out") 
+
+  if (cmd == "exit" || cmd == "out" || cmd == "go out")
     {
       /* "out" is the one direction Quest stores as both a destination and a
        * script: the room parser fills Out.Text from the parameter *and*
@@ -4198,7 +4169,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  return true;
 	}
       const GeasBlock *gb = gf.find_by_name ("room", state.location);
-      if (gb == NULL) 
+      if (gb == NULL)
 	{
 	  gi->debug_print ("Bad room");
 	  return true;
@@ -4273,7 +4244,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  }
 	if (is_script)
 	  run_script_as (state.location, tok);
-	else 
+	else
 	  {
 	    string dest, unused_prefix;
 	    split_exit_dest (tok, dest, unused_prefix);
@@ -4402,9 +4373,9 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	std::string::size_type d1, d2;
 	string t;
 	for (const string &line: gb->data)
-	  // SENSITIVE?
-	  if (first_token (line, d1, d2) == "game" &&
-	      next_token (line, d1, d2) == key &&
+	  /* CI: FindStatement/BeginsWith, as in get_banner. */
+	  if (ci_equal (first_token (line, d1, d2), "game") &&
+	      ci_equal (next_token (line, d1, d2), key) &&
 	      is_param (t = next_token (line, d1, d2)))
 	    print_formatted (label + eval_param (t));
       };
@@ -4415,13 +4386,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
       return true;
     }
-  
+
   if (ci_equal (cmd, "quit"))
     {
       is_running_ = false;
       return true;
     }
-
 
   return false;
 }
@@ -4467,7 +4437,7 @@ void geas_implementation::run_script (const string &s, string &rv)
     return;
 
   tok = first_token (s, c1, c2);
-  
+
   if (tok == "") return;
 
   if (tok[0] == '{')
@@ -4503,13 +4473,21 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  gi->debug_print ("Error: no semicolon in " + s);
 	  return;
 	}
-      set_obj_action (trim (tok.substr (0, index)), 
+      set_obj_action (trim (tok.substr (0, index)),
 		      "<" + trim (tok.substr (index+1)) + "> " + s.substr (c2 + 1));
       return;
     }
-  else if (tok == "animate")
+  else if (tok == "animate" || tok == "font" || tok == "helpclear" ||
+	   tok == "helpclose" || tok == "mailto" || tok == "modvolume" ||
+	   tok == "msgto" || tok == "panes" || tok == "shell" ||
+	   tok == "shellexe" || tok == "type" || tok == "with")
     {
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
+      /* Recognised statements with nothing to do here -- not "unrecognised
+       * script".  helpclear/helpclose really do nothing in Quest 5 either
+       * (V4Game.Part2.cs:5782, 5988); animate/mailto/modvolume/shell/shellexe
+       * drive host facilities geas does not provide; msgto and with are
+       * multiplayer (QNSO); font, panes and type are TODO. */
+      return;
     }
   /* Quest's container statements, all ASL >= 3.91: "add <child; parent>" puts an
    * object into a container, "remove <child>" takes it back out, and
@@ -4626,7 +4604,8 @@ void geas_implementation::run_script (const string &s, string &rv)
        * Run the script of the first case whose (semicolon-separated) value
        * equals the selector; "case else" matches anything. */
       tok = next_token (s, c1, c2);
-      if (tok != "case")
+      /* CI: BeginsWith "select case " / "case " (V4Game.cs:2877). */
+      if (!ci_equal (tok, "case"))
 	{
 	  gi->debug_print ("Expected 'case' after 'select' in " + s);
 	  return;
@@ -4654,7 +4633,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	      {
 		std::string::size_type d1, d2;
 		string line = proc.data[j];
-		if (first_token (line, d1, d2) != "case")
+		if (!ci_equal (first_token (line, d1, d2), "case"))
 		  continue;
 		string t2 = next_token (line, d1, d2);
 		if (ci_equal (t2, "else"))
@@ -4700,8 +4679,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 	{
 	  line = gb->data[ln];
 	  tok = first_token (line, c1, c2);
-	  // SENSITIVE?
-	  if (tok == "info")
+	  /* Both keywords CI: FindStatement / BeginsWith (SetUpChoiceForm,
+	   * V4Game.Part2.cs:627-634). */
+	  if (ci_equal (tok, "info"))
 	    {
 	      tok = next_token (line, c1, c2);
 	      if (is_param (tok))
@@ -4709,8 +4689,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	      else
 		gi->debug_print ("Expected parameter after info in " + line);
 	    }
-	  // SENSITIVE?
-	  else if (tok == "choice")
+	  else if (ci_equal (tok, "choice"))
 	    {
 	      tok = next_token (line, c1, c2);
 	      if (is_param (tok))
@@ -4808,18 +4787,22 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "create")
     {
       tok = next_token (s, c1, c2);
-      // SENSITIVE?
-      if (tok == "exit") // create exit
+      /* The created kind is CI: ExecuteCreate tests "room "/"exit " with
+       * BeginsWith (V4Game.cs:5240-5244), as ExecuteCreateExit does the
+       * direction names (V4Game.cs:5432 ff.). */
+      if (ci_equal (tok, "exit")) // create exit
 	{
 	  string dir = "";
 
 	  tok = next_token (s, c1, c2);
 	  if (!is_param (tok))
 	    {
-	      dir = tok;
+	      /* Folded, so the stored record matches the engine's own
+	       * lowercase direction names wherever it is read back. */
+	      dir = lcase (tok);
 	      tok = next_token (s, c1, c2);
 	    }
-	  
+
 	  if (!is_param (tok))
 	    {
 	      gi->debug_print ("Expected param after create exit in " + s);
@@ -4866,20 +4849,18 @@ void geas_implementation::run_script (const string &s, string &rv)
 		}
 
 	  if (dir != "")
-	    state.exits.push_back (ExitRecord (args[0], 
+	    state.exits.push_back (ExitRecord (args[0],
 					       "exit "+dir+" <"+tok+">"));
 	  else
 	    state.exits.push_back (ExitRecord (args[0], "exit <" + tok + ">"));
 	  regen_var_dirs();
 	  return;
 	}
-      // SENSITIVE?
-      else if (tok == "object") // create object
+      else if (ci_equal (tok, "object")) // create object
 	{
 	  /* TODO */
 	}
-      // SENSITIVE?
-      else if (tok == "room") // create room
+      else if (ci_equal (tok, "room")) // create room
 	{
 	  /* Quest appends an empty room to _rooms -- no description, no exits
 	   * (ExecuteCreate, V4Game.cs:5244-5276) -- so the only thing that
@@ -4913,7 +4894,8 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "destroy")
     {
       tok = next_token (s, c1, c2);
-      if (tok != "exit")
+      /* CI: BeginsWith "destroy exit " (V4Game.Part2.cs). */
+      if (!ci_equal (tok, "exit"))
 	{
 	  gi->debug_print ("expected 'exit' after 'destroy' in " + s);
 	  return;
@@ -4952,7 +4934,9 @@ void geas_implementation::run_script (const string &s, string &rv)
           gi->debug_print ("Expected <room; direction> after disconnect in " + s);
           return;
         }
-      state.exits.push_back (ExitRecord (args[0], "noexit " + args[1]));
+      /* Folded like create exit's direction, so the record matches the
+       * engine's lowercase direction names when read back. */
+      state.exits.push_back (ExitRecord (args[0], "noexit " + lcase (trim (args[1]))));
       regen_var_dirs ();
       return;
     }
@@ -5020,7 +5004,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       else
 	run_procedure (fname);
-	  
+
       return;
     }
   else if (tok == "doaction")
@@ -5074,7 +5058,8 @@ void geas_implementation::run_script (const string &s, string &rv)
       if (index != string::npos)
 	{
 	  string tmp = trim (tok.substr (index+1));
-	  // SENSITIVE?
+	  /* Case-sensitive, as in Quest: the trimmed modifier is compared
+	   * with == (V4Game.Part2.cs:2227). */
 	  if (tmp == "normal")
 	    {
 	      try_match (trim (tok.substr (0, index)), true, true);
@@ -5095,11 +5080,11 @@ void geas_implementation::run_script (const string &s, string &rv)
     {
       tok = next_token (s, c1, c2);
       bool is_on;
-      // SENSITIVE?
-      if (tok == "on")
+      /* CI: ExecuteFlag tests "on "/"off " with BeginsWith
+       * (V4Game.cs:3686-3690). */
+      if (ci_equal (tok, "on"))
 	is_on = true;
-      // SENSITIVE?
-      else if (tok == "off")
+      else if (ci_equal (tok, "off"))
 	is_on = false;
       else
 	{
@@ -5115,16 +5100,12 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected param after flag " + onoff + " in " + s);
       return;
     }
-  else if (tok == "font")
-    {
-      /* TODO */
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
   else if (tok == "for")
     {
       tok = next_token (s, c1, c2);
-      // SENSITIVE?
-      if (tok == "each")
+      /* "each" and every sub-keyword below are CI: ExecForEach reads them
+       * all with BeginsWith (V4Game.cs:7212, 4975-5017). */
+      if (ci_equal (tok, "each"))
 	{
 	  /* Quest's ExecForEach takes three kinds of thing -- "object", "exit"
 	   * and "room" -- and serves all three from the one _objs array, picking
@@ -5135,16 +5116,13 @@ void geas_implementation::run_script (const string &s, string &rv)
 	   * at all, so the three cases split up here.  Only "object" used to be
 	   * implemented, and it walked the rooms too. */
 	  tok = next_token (s, c1, c2);
-	  // SENSITIVE?
-	  bool want_room = (tok == "room"), want_exit = (tok == "exit");
-	  // SENSITIVE?
-	  if ((tok == "object" || want_room || want_exit) &&
-	      next_token (s, c1, c2) == "in")
+	  bool want_room = ci_equal (tok, "room"), want_exit = ci_equal (tok, "exit");
+	  if ((ci_equal (tok, "object") || want_room || want_exit) &&
+	      ci_equal (next_token (s, c1, c2), "in"))
 	    {
 	      tok = next_token (s, c1, c2);
 	      string script = s.substr (c2);
-	      // SENSITIVE?
-	      if (tok == "game")
+	      if (ci_equal (tok, "game"))
 		{
 		  /* "in game" leaves inLocation empty, which matches every
 		   * container -- including none, so the "game" pseudo-object
@@ -5228,7 +5206,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	    run_script (script);
 	  return;
 	}
-      
+
     }
   else if (tok == "foreground")
     {
@@ -5301,15 +5279,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after goto in " + s);
       return;
     }
-  else if (tok == "helpclear")
-    {
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
-  else if (tok == "helpclose")
-    {
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
-  // SENSITIVE?
   /* "hideobject"/"hidechar" are the Quest 2.x spellings of "hide". */
   else if (tok == "hide" || tok == "hideobject" || tok == "hidechar")
     {
@@ -5335,10 +5304,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 	      }
 	}
       else
-	gi->debug_print ("Expected param after conceal in " + s);
+	gi->debug_print ("Expected param after hide in " + s);
       return;
     }
-  // SENSITIVE?
   /* "showobject"/"showchar" are the Quest 2.x spellings of "show". */
   else if (tok == "show" || tok == "showobject" || tok == "showchar")
     {
@@ -5351,18 +5319,20 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  set_obj_property (name, "not hidden");
 	}
       else
-	gi->debug_print ("Expected param after conceal in " + s);
+	gi->debug_print ("Expected param after show in " + s);
       return;
     }
   else if (tok == "if")
     {
       std::string::size_type begin_cond = c2 + 1, end_cond, begin_then, end_then;
 
+      /* "then" -- and "else" below -- is matched case-sensitively, as in
+       * Quest: ExecuteIf locates both with a plain InStr
+       * (V4Game.Part2.cs:5631, 5644). */
       do {
 	tok = next_token (s, c1, c2);
-	// SENSITIVE?
       } while (tok != "then" && tok != "");
-      
+
       if (tok == "")
 	{
 	  gi->debug_print ("Expected then in if: " + s);
@@ -5396,11 +5366,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 	    brace_count ++;
 	  else if (tok[i] == '}')
 	    brace_count --;
-	// SENSITIVE?
       } while (tok != "" && !(brace_count == 0 && tok == "else"));
       end_then = c1;
 
-      
       if (eval_conds (cond_str))
 	run_script (s.substr (begin_then, end_then - begin_then), rv);
       else if (c2 < s.length())
@@ -5409,7 +5377,6 @@ void geas_implementation::run_script (const string &s, string &rv)
     }
   else if (tok == "inc" || tok == "dec")
     {
-      // SENSITIVE?
       bool is_dec = (tok == "dec");
       tok = next_token (s, c1, c2);
       if (!is_param (tok))
@@ -5478,15 +5445,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       gi->update_sidebars();
       return;
     }
-  else if (tok == "mailto")
-    {
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
-  else if (tok == "modvolume")
-    {
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
-  // SENSITIVE?
   /* "movechar"/"moveobject" are the Quest 2.x spellings of "move". */
   else if (tok == "move" || tok == "movechar" || tok == "moveobject")
     {
@@ -5522,11 +5480,6 @@ void geas_implementation::run_script (const string &s, string &rv)
 	gi->debug_print ("Expected parameter after " + stmt + " in " + s);
       return;
     }
-  else if (tok == "msgto")
-    {
-      /* QNSO */
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
   else if (tok == "outputoff")
     {
       outputting = false;
@@ -5544,17 +5497,12 @@ void geas_implementation::run_script (const string &s, string &rv)
       auto_intro_ = false;
       return;
     }
-  else if (tok == "panes")
-    {
-      /* TODO */
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
   else if (tok == "pause")
     {
       tok = next_token (s, c1, c2);
       if (!is_param (tok))
 	{
-	  gi->debug_print ("Expected parameter after pause in " + s);;
+	  gi->debug_print ("Expected parameter after pause in " + s);
 	  return;
 	}
       int i = (int) eval_double (param_contents(tok));
@@ -5595,7 +5543,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       is_running_ = false;   /* end the game so the host stops prompting */
       return;
     }
-  // SENSITIVE?
   else if (tok == "playwav" || tok == "playmidi" || tok == "playmod")
     {
       /* play{wav,midi,mod} <file>        -- play (music loops by default)
@@ -5650,13 +5597,14 @@ void geas_implementation::run_script (const string &s, string &rv)
   else if (tok == "repeat")
     {
       tok = next_token (s, c1, c2);
-      // SENSITIVE?
-      if (tok != "while" && tok != "until")
+      /* CI: ExecuteRepeat tests "while "/"until " with BeginsWith
+       * (V4Game.cs:6002-6007). */
+      if (!ci_equal (tok, "while") && !ci_equal (tok, "until"))
 	{
 	  gi->debug_print ("Expected while or until after repeat in " + s);
 	  return;
 	}
-      bool is_while = (tok == "while");
+      bool is_while = ci_equal (tok, "while");
       std::string::size_type start_cond = c2, end_cond = string::npos;
       /* Quest does not use a keyword to separate the condition from the loop
        * body: ExecuteRepeat (V4Game.cs:6018-6034) walks the '>' characters and
@@ -5687,8 +5635,8 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       string cond = trim (s.substr (start_cond, end_cond - start_cond));
       string script = trim (s.substr (end_cond));
-      GEAS_DBG << "Interpreting '" << s << "' as (" 
-	   << (is_while ? "WHILE" : "UNTIL") << ") (" 
+      GEAS_DBG << "Interpreting '" << s << "' as ("
+	   << (is_while ? "WHILE" : "UNTIL") << ") ("
 	   << cond << ") {" << script << "}\n";
       while (state.running && eval_conds (cond) == is_while)
 	run_script(script);
@@ -5761,8 +5709,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  run_set_collectable (eval_param (tok));
 	  return;
 	}
-      // SENSITIVE?
-      if (tok == "interval")
+      /* CI, like the type keywords below: ExecuteSet reads them all with
+       * BeginsWith (V4Game.Part2.cs:6104-6141). */
+      if (ci_equal (tok, "interval"))
 	{
 	  tok = next_token (s, c1, c2);
 	  if (!is_param (tok))
@@ -5780,8 +5729,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  string timer_name = trim (tok.substr (0, index));
 	  uint time_val = parse_int (trim (tok.substr (index+1)));
 
+	  /* Timer names compare LCase'd (V4Game.Part2.cs:6120). */
 	  for (TimerRecord &i: state.timers)
-	    if (i.name == timer_name)
+	    if (ci_equal (i.name, timer_name))
 	      {
 		i.interval = time_val;
 		return;
@@ -5789,10 +5739,10 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  gi->debug_print ("no interval named " + timer_name + " found!");
 	  return;
 	}
-      // SENSITIVE?
-      if (tok == "string" || tok == "numeric" || tok == "collectable")
+      if (ci_equal (tok, "string") || ci_equal (tok, "numeric") ||
+	  ci_equal (tok, "collectable"))
 	{
-	  vartype = tok;
+	  vartype = lcase (tok);
 	  tok = next_token (s, c1, c2);
 	}
       if (!is_param (tok))
@@ -5910,14 +5860,6 @@ void geas_implementation::run_script (const string &s, string &rv)
       set_ivar (varname, eval_double(tok.substr (index+1)));
       return;
     }
-  else if (tok == "shell")
-    {
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
-  else if (tok == "shellexe")
-    {
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
-    }
   else if (tok == "speak")
     {
       tok = next_token (s, c1, c2);
@@ -5939,15 +5881,15 @@ void geas_implementation::run_script (const string &s, string &rv)
     }
   else if (tok == "timeron" || tok == "timeroff")
     {
-      // SENSITIVE?
       bool running = (tok == "timeron");
-      //tok = lcase (next_token (s, c1, c2));
       tok = next_token (s, c1, c2);
       if (is_param (tok))
 	{
 	  tok = eval_param (tok);
+	  /* Timer names are matched case-insensitively: SetTimerState LCases
+	   * both sides (V4Game.Part2.cs:565). */
 	  for (auto &timer: state.timers)
-	    if (timer.name == tok)
+	    if (ci_equal (timer.name, tok))
 	      {
 		/* Quest's SetTimerState only flips TimerActive and raises
 		 * BypassThisTurn; it never touches TimerTicks
@@ -5970,14 +5912,9 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  gi->debug_print ("No timer " + tok + " found");
 	  return;
 	}
-      gi->debug_print (string ("Expected parameter after timer") + 
+      gi->debug_print (string ("Expected parameter after timer") +
 		       (running ? "on" : "off") + " in " + s);
       return;
-    }
-  else if (tok == "type")
-    {
-      /* TODO */
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   else if (tok == "wait")
     {
@@ -5996,11 +5933,6 @@ void geas_implementation::run_script (const string &s, string &rv)
        * emits a blank-line separator (see GeasInterface::clear_screen). */
       gi->clear_screen ();
       return;
-    }
-  else if (tok == "with")
-    {
-      // QNSO
-      return;   /* recognised, nothing to do -- not "unrecognised script" */
     }
   gi->debug_print ("Unrecognized script " + s);
 }
@@ -6139,12 +6071,12 @@ bool geas_implementation::eval_cond (const string &s)
       vector<string> args = split_param (eval_param (tok));
       bool do_report = false;
       for (uint i = 1; i < args.size(); i ++)
-	// SENSITIVE?
-	if (args[i] == "report")
+	/* CI + trimmed: Quest compares LCase(Trim(...)) == "report"
+	 * (V4Game.cs:5905). */
+	if (ci_equal (trim (args[i]), "report"))
 	  do_report = true;
 	else
 	  gi->debug_print ("Got modifier " + args[i] + " after exists");
-      //args[0] = lcase (args[0]);
       if (const vector<size_t> *v = state.obj_records (args[0]))
 	{
 	  const ObjectRecord &o = state.objs[(*v)[0]];
@@ -6180,7 +6112,6 @@ bool geas_implementation::eval_cond (const string &s)
 	  gi->debug_print ("expected parameter after got in " + s);
 	  return false;
 	}
-      //tok = lcase (trim (eval_param (tok)));
       tok = trim (eval_param (tok));
       /* Quest 2.x item inventory -- consulted only below ASL 2.80, since
        * ExecuteIfGot looks at nothing but the object's room from there on
@@ -6232,7 +6163,6 @@ bool geas_implementation::eval_cond (const string &s)
 	  gi->debug_print ("expected parameter after here in " + s);
 	  return false;
 	}
-      //tok = lcase (trim (eval_param (tok)));
       tok = trim (eval_param (tok));
       if (const vector<size_t> *v = state.obj_records (tok))
 	{
@@ -6333,12 +6263,10 @@ bool geas_implementation::eval_cond (const string &s)
       vector<string> args = split_param (eval_param (tok));
       bool do_report = false;
       for (uint i = 1; i < args.size(); i ++)
-	// SENSITIVE?
-	if (args[i] == "report")
+	if (ci_equal (trim (args[i]), "report"))
 	  do_report = true;
 	else
-	  gi->debug_print ("Got modifier " + args[i] + " after exists");
-      //args[0] = lcase (args[0]);
+	  gi->debug_print ("Got modifier " + args[i] + " after real");
       if (state.obj_records (args[0]) != NULL)
 	return true;
       if (do_report)
@@ -6394,7 +6322,6 @@ string geas_implementation::run_function (const string &pname, vector<string> ar
 {
   GEAS_DBG << "run_function (w/ args) " << pname << " (" << args << ")\n";
   /* Parameter is handled specially because it can't change the stack */
-  // SENSITIVE?
   if (pname == "parameter")
     {
       if (args.size() != 1)
@@ -6425,7 +6352,7 @@ string geas_implementation::run_function (const string &pname, vector<string> ar
 
 string geas_implementation::bad_arg_count (const string &fname)
 {
-  gi->debug_print ("Called " + fname + " with " + 
+  gi->debug_print ("Called " + fname + " with " +
 		   string_int(function_args.size()) + " arguments.");
   return "";
 }
@@ -6433,9 +6360,13 @@ string geas_implementation::bad_arg_count (const string &fname)
 string geas_implementation::run_function (const string &pname)
 {
   GEAS_DBG << "geas_implementation::run_function (" << pname << ", " << function_args << ")\n";
-  //pname = lcase (pname);
-  // SENSITIVE?
-  if (pname == "getobjectname") 
+  /* Built-in function names are case-sensitive, as in Quest: DoInternalFunction
+   * compares each name with == on the un-lowercased string (V4Game.cs:6862 ff.),
+   * so $UCase(...)$ is "No such function" there and here.  (geas is laxer than
+   * Quest for *user-defined* names below -- Quest's block dictionary is
+   * case-sensitive (DefineBlockParam, V4Game.cs:1195-1233), geas matches them
+   * with ci_equal.) */
+  if (pname == "getobjectname")
     {
       if (function_args.size() == 0)
 	return bad_arg_count (pname);
@@ -6451,8 +6382,7 @@ string geas_implementation::run_function (const string &pname)
 	}
       bool is_internal = false;
       return get_obj_name (function_args[0], where, is_internal);
-    } 
-  // SENSITIVE?
+    }
   else if (pname == "loadmethod")
     {
       /* "normal" for a fresh game, "loaded" once a save has been restored. */
@@ -6504,15 +6434,13 @@ string geas_implementation::run_function (const string &pname)
 	}
       return "";
     }
-  // SENSITIVE?
   else if (pname == "locationof")
-    { 
+    {
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
 
       return get_obj_parent (function_args[0]);
     }
-  // SENSITIVE?
   else if (pname == "objectproperty")
     {
       if (function_args.size() != 2)
@@ -6522,27 +6450,25 @@ string geas_implementation::run_function (const string &pname)
       get_obj_property (function_args[0], function_args[1], rv);
       return rv;
     }
-  // SENSITIVE?
   else if (pname == "timerstate")
     {
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
 
       string timername = function_args[0];
+      /* Timer names CI, like timeron/timeroff (V4Game.cs:7087). */
       for (const auto &timer: state.timers)
-	if (timer.name == timername)
+	if (ci_equal (timer.name, timername))
 	  return timer.is_running ? "1" : "0";
       return "!";
     }
-  // SENSITIVE?
   else if (pname == "displayname")
     {
       if (function_args.size() != 1)
 	return bad_arg_count (pname);
-      
+
       return displayed_name (function_args[0]);
     }
-  // SENSITIVE?
   else if (pname == "capfirst")
     {
       if (function_args.size() != 1)
@@ -6550,7 +6476,6 @@ string geas_implementation::run_function (const string &pname)
 
       return pcase (function_args[0]);
     }
-  // SENSITIVE?
   else if (pname == "instr")
     {
       if (function_args.size() != 2 && function_args.size() != 3)
@@ -6576,7 +6501,6 @@ string geas_implementation::run_function (const string &pname)
       else
 	return string_int (rv + 1);
     }
-  // SENSITIVE?
   else if (pname == "lcase")
     {
       if (function_args.size() != 1)
@@ -6587,19 +6511,17 @@ string geas_implementation::run_function (const string &pname)
 	rv[i] = tolower (rv[i]);
       return rv;
     }
-  // SENSITIVE?
   else if (pname == "left")
     {
       if (function_args.size() != 2)
 	return bad_arg_count(pname);
-       
+
       uint i = parse_int (function_args[1]);
       if (i > function_args[0].length())
 	return function_args[0];
       else
 	return function_args[0].substr (0, i);
     }
-  // SENSITIVE?
   else if (pname == "lengthof")
     {
       if (function_args.size() != 1)
@@ -6607,7 +6529,6 @@ string geas_implementation::run_function (const string &pname)
 
       return string_int (function_args[0].length());
     }
-  // SENSITIVE?
   else if (pname == "mid")
     {
       /* Quest's Mid is 1-based (it is VB's), and its length argument is
@@ -6635,7 +6556,6 @@ string geas_implementation::run_function (const string &pname)
 	return str.substr (pos);
       return str.substr (pos, (size_t) len);
     }
-  // SENSITIVE?
   else if (pname == "right")
     {
       if (function_args.size() != 2)
@@ -6661,7 +6581,6 @@ string geas_implementation::run_function (const string &pname)
 	  return string_int (i.max());
       return "0";
     }
-  // SENSITIVE?
   else if (pname == "round")
     {
       /* Quest "$round(<expr>; <decimals>)$": evaluate the (double) expression
@@ -6687,7 +6606,6 @@ string geas_implementation::run_function (const string &pname)
 	}
       return out;
     }
-  // SENSITIVE?
   else if (pname == "ucase")
     {
       if (function_args.size() != 1)
@@ -6698,7 +6616,6 @@ string geas_implementation::run_function (const string &pname)
 	rv[i] = toupper (rv[i]);
       return rv;
     }
-  // SENSITIVE?
   else if (pname == "rand")
     {
       if (function_args.size() != 2)
@@ -6719,14 +6636,20 @@ string geas_implementation::run_function (const string &pname)
 	}
       unsigned long long range = (unsigned long long) (upper - lower) + 1ULL;
 
-      // TODO: change this to use the high order bits of the random # instead
+      /* Quest maps a float draw onto the range -- Int(NextDouble() * (b-a+1))
+       * + a over .NET's Random (DoInternalFunction "rand",
+       * V4Game.cs:6982-6988) -- so no mapping here can reproduce its values
+       * and games cannot depend on specific draws.  The modulo mapping is kept
+       * deliberately: the seeded walkthrough corpus was derived against this
+       * exact draw sequence, and xoshiro128** has full-quality low bits, so
+       * the classic low-bits worry only ever applied to the plain rand()
+       * fallback below. */
 #ifdef SPATTERLIGHT
       return string_int (lower + (long long) (erkyrath_random() % range));
 #else
       return string_int (lower + (long long) (rand() % range));
 #endif
     }
-  // SENSITIVE?
   else if (pname == "speechenabled")
     {
       if (function_args.size() != 0)
@@ -6735,32 +6658,27 @@ string geas_implementation::run_function (const string &pname)
       return "0";
       /* TODO: return 1 if speech is enabled */
     }
-  // SENSITIVE?
   else if (pname == "symbol")
     {
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
 
-      // SENSITIVE?
       if (function_args[0] == "gt")
 	return ">";
-      // SENSITIVE?
       else if (function_args[0] == "lt")
 	return "<";
       gi->debug_print ("Bad symbol argument: " + function_args[0]);
       return "";
     }
-  // SENSITIVE?
   else if (pname == "numberparameters")
     return string_int (function_args.size());
-  // SENSITIVE?
   else if (pname == "thisobject")
     return this_object;
 
   /* disconnectedby, id, name, removeformatting */
 
   string rv = "";
-  
+
   for (uint i = 0; i < gf.size ("function"); i ++)
     if (ci_equal (gf.block ("function", i).name, pname))
       {
@@ -6776,8 +6694,6 @@ string geas_implementation::run_function (const string &pname)
   gi->debug_print ("No function " + pname + " found.");
   return "";
 }
-
-
 
 v2string geas_implementation::get_inventory ()
 {
@@ -7207,7 +7123,7 @@ vstring geas_implementation::get_status_vars ()
   for (size_t i = 0; i < gf.size("variable"); i ++)
     {
       const GeasBlock &gb = gf.block ("variable", i);
-      
+
       bool nozero = false;
       string disp;
       bool is_numeric = true;
@@ -7218,13 +7134,15 @@ vstring geas_implementation::get_status_vars ()
 	{
 	  GEAS_DBG << "  g_s_v:  " << line << endl;
 	  tok = first_token (line, c1, c2);
-	  // SENSITIVE?
-	  if (tok == "display")
+	  /* The block's keywords are CI (BeginsWith, V4Game.Part2.cs:704-728);
+	   * the "type string" *value* is not -- Quest compares the raw text
+	   * (ibid. 707), so "type String" is an unrecognised type there and
+	   * here. */
+	  if (ci_equal (tok, "display"))
 	    {
 	      tok = next_token (line, c1, c2);
 
-	      // SENSITIVE?
-	      if (tok == "nozero")
+	      if (ci_equal (tok, "nozero"))
 		{
 		  nozero = true;
 		  tok = next_token (line, c1, c2);
@@ -7234,17 +7152,15 @@ vstring geas_implementation::get_status_vars ()
 	      else
 		disp = tok;
 	    }
-	  // SENSITIVE?
-	  else if (tok == "type")
+	  else if (ci_equal (tok, "type"))
 	    {
 	      tok = next_token (line, c1, c2);
-	      // SENSITIVE?
 	      if (tok == "string")
 		is_numeric = false;
 	    }
 	}
 
-      GEAS_DBG << "  g_s_v, block 2, tok == '" << tok << "'" << endl; 
+      GEAS_DBG << "  g_s_v, block 2, tok == '" << tok << "'" << endl;
       if (! (is_numeric && nozero && get_ivar (gb.name) == 0) && disp != "")
 	{
 	  disp = param_contents (disp);
@@ -7480,7 +7396,7 @@ string geas_implementation::eval_string_body (const string &s)
 	  string tmp1 = s.substr (i + 1, j - i - 1);
 	  GEAS_DBG << "e_s: first substr was '" << tmp1 << "'\n";
 	  string tmp = eval_string_body (tmp1);
-	  GEAS_DBG << "e_s: eval substr " + s + "': '" + tmp + "'\n"; 
+	  GEAS_DBG << "e_s: eval substr " + s + "': '" + tmp + "'\n";
 
 	  string func_eval;
 
@@ -7531,7 +7447,6 @@ string geas_implementation::eval_string_body (const string &s)
 	rv += s[i];
     }
 
-
   return rv;
 }
 
@@ -7579,8 +7494,8 @@ void geas_implementation::tick_timers()
 	      for (const auto &line: gb->data)
 		{
 		  string tok = first_token (line, c1, c2);
-		  // SENSITIVE?
-		  if (tok == "action")
+		  /* CI: BeginsWith "action " (SetUpTimers, V4Game.Part2.cs:1337). */
+		  if (ci_equal (tok, "action"))
 		    {
 		      due.push_back (line.substr (c2));
 		      break;
@@ -7604,11 +7519,9 @@ void geas_implementation::tick_timers()
  *                                 *
  ***********************************/
 
-
 GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
 {
   std::string::size_type i, j;
-
 
   for (i = 0; i < s.length(); i ++)
     {
@@ -7623,7 +7536,8 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
           if (i == s.length())
             continue;
 
-	  // Are the | codes case-sensitive?
+	  /* The | codes are case-sensitive: Quest's TextFormatter switches on
+	     the raw one- and two-character code. */
           switch (s[i])
             {
             case 'u': cur_style.is_underlined = true; break;
@@ -7656,7 +7570,7 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
 		i ++;
 		if (i == s.length() || !(s[i] >= '0' && s[i] <= '9'))
 		  continue;
-		
+
 		int newsize = parse_int (s.substr(j, i-j));
 		if (newsize > 0)
 		  cur_style.size = newsize;
