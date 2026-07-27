@@ -1,0 +1,27 @@
+
+Altcase
+
+You are in Lab
+There is Man in a black suit, Fire ax and heavy oak door here.
+
+> x man
+There's nothing special about the man.
+
+> x MAN
+There's nothing special about the man.
+
+> x man in a black suit
+There's nothing special about the man.
+
+> x oak
+You don't see any oak.
+
+> x heavy oak door
+A heavy oak door.
+
+> take fire ax
+You pick it up.
+
+> use fire ax on man
+The ax lops his arm off at the elbow.
+[runner] turns=7 leftover=0 running=true

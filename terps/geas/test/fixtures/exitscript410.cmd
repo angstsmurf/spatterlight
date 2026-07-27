@@ -1,0 +1,14 @@
+look
+west
+north
+east
+south
+up
+look
+down
+openup
+west
+north
+east
+south
+look

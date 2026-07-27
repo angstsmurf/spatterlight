@@ -1,0 +1,35 @@
+
+Setcase
+
+You are in Hall
+The hall.
+
+> shownum
+MixedCase is 7
+
+> showstr
+StringVar is original
+
+> showgold
+Gold is 10
+
+> resetnum
+
+> shownum
+MixedCase is 3
+
+> resetstr
+
+> showstr
+StringVar is rewritten
+
+> addgoldlower
+
+> showgold
+Gold is 10
+
+> addgoldexact
+
+> showgold
+Gold is 15
+[runner] turns=11 leftover=0 running=true

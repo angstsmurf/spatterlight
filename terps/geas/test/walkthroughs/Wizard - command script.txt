@@ -1,0 +1,1471 @@
+Wizard v1.3 (by Wonderjudge, ASL 410, distributed as an obfuscated .cas)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "You have finished Wizard!!".
+Needs --tick: almost every gate in the game is a `define timer` with a turn
+interval, and geas only advances timers when the runner ticks them.  Needs
+GEAS_SEED=1 for one reason only (see IDIOCY below).
+No score in this game; the win is `playerwin` from the endgame.
+1088 turns, 1218 script lines - the extra lines are menu picks, `ask` answers
+and `enter` answers, none of which the runner counts as turns.
+
+You are a month-old apprentice at the wizards' tower by the sea.  A summoning
+has gone wrong, the grand wizard seals your bedroom door "for your own
+protection", and then screams start coming down the hall.  By the time the seal
+fades the tower is empty: the students are dead, the masters are prisoners in
+the castle across the sea, and Grackon - one of your own elders - has sold the
+order to the Red Scorpions.  The whole game is about the spellbook.  You start
+with three spells and finish with twelve plus their reverses, and every single
+new spell has to be found on a scroll, scribed, and then usually reverse-learned
+before it becomes the tool that opens the next area.
+
+THE SPELLBOOK IS THE MAP.  `memorize` and `rmemorize` both open a numbered menu
+over the twelve spellbook slots, so the script is full of bare numbers:
+  1 Illuminate  2 Unlock  3 Scribe  4 Detect magic  5 Levitate  6 Enfeeble
+  7 Bremoval    8 Charm   9 Bind   10 Enchant      11 Stabilize 12 Shield
+`rmemorize` on the same number gives the reverse - Deluminate, Lock, Gravitate,
+Enlighten, Badder, Unbind, Disenchant, Destabilize.  You may hold at most five
+memorized spells at once (`ns`), casting one frees its slot, and casting is
+never gated - only memorizing is.  Slots 4-12 are all acquired in play: Detect
+magic from the dusty scroll under the bed, Levitate from the invisible scroll
+you REACH IN TELESCOPE for on the roof, Enfeeble from the secret library scroll,
+Bremoval from Mercoz's Rainbow book, Charm from the icy scroll in the crystal
+cavern, Bind from the crumpled scroll the songbird drops, Enchant from the holey
+scroll under the boulder, Stabilize from the shiny scroll the bead table prints,
+and Shield from the stained scroll the captured wizards pass through the hole.
+
+IDIOCY IS COMPULSORY, AND IS THE ONLY RNG IN THE GAME.  The secret library
+scroll enters Enfeeble into the spellbook with its description set to the
+literal string "?", and `rmemorize`'s Enfeeble case refuses while that is still
+the description ("You don't know what the spell does yet").  So Enlighten - the
+prerequisite for memorizing Bremoval or Badder at all, and for `banish` in the
+last scene - can only be unlocked by casting Enfeeble on yourself first.  That
+sets `idiot2`, whose `beforeturn ... dontprocess` swallows every command for the
+next 45 turns, so lines 167-212 are 46 forced `wait`s.  The game's one and only
+`$rand(1; 5)$` is the drooling message picked each of those turns, and roll 5
+makes you throw the spellbook on the floor - hence `take spellbook` at line 213.
+Under GEAS_SEED=1 roll 5 lands early and the pickup is real; that draw is the
+whole reason the seed is pinned.
+
+THE 60-TURN OPENING.  Bedroom1's east exit is the sealed door, and nothing
+unseals it: the `door1` timer runs for 60 turns from the startscript and then
+prints "Your door suddenly stops glowing!".  Lines 16-70 are that wait, done
+after the four things worth doing in the dark bedroom.
+
+THE PORTAL IS THE OVERWORLD.  The summoning lab's Swirling Misty Portal is the
+only way off the tower's island.  `portal1` cycles `portal2` every 15 turns
+through black(1) - red(2) - yellow(3) - blue(4), and ENTER PORTAL reads the
+current value: black kills nothing but wastes the trip, red goes to Forest1,
+yellow to the Small ledge, blue to the Lake shore.  The colour is only printed
+by the room's entry `script` and by LOOK AT PORTAL - a bare LOOK will not tell
+you - so the script probes with `look at portal` and then pads with `wait` until
+the wanted colour comes round.  That padding is why the run is 1088 turns; the
+wait blocks at (counting from the Start: line) 16-70, 167-212, 294-328,
+460-496, 562-606, 855-930, 946-984, 995-1018 and 1035-1048 are all
+either timer waits or portal-phase alignment, and they are tuned to this exact
+script - inserting or deleting a turn anywhere before them will land the wrong
+colour.  Every destination has its
+own Misty White Portal home.  Late in the game `stabilize swirling misty portal`
+(line 1161) freezes it white forever, which is the fifth destination: the
+Outside gate of the enemy castle.
+
+The colour is worth being able to compute, because retuning these blocks by hand
+is otherwise guesswork.  `portal2` is never initialised, so it starts at 0, and
+`portal1` is `enabled` from the start of play with `interval <15>`, so it fires
+on turns 15, 30, 45, ... - a Quest timer counts TimerTicks up to its interval
+and then resets, which makes the period exactly the interval and not one more
+(Tick, V4Game.Part2.cs:91-129).  A command issued on turn n therefore sees the
+value written by the k'th firing, k = floor((n-1)/15), and that value is
+((k-1) mod 4) + 1.  So over turns 15k+1 .. 15k+15 the mist is black for
+k = 1, 5, 9 ..., red for k = 2, 6, 10 ..., yellow for k = 3, 7, 11 ... and blue
+for k = 4, 8, 12 ...; k = 0 is the opening 15 turns, when portal2 is still 0 and
+LOOK AT PORTAL prints no colour line at all because no `select case` arm
+matches.  In turn numbers, the blue windows - the ones this route wants four
+times over, for the sand, the boat, the water bucket and the rope - are turns
+61-75, 121-135, 181-195, 241-255 and so on every 60 turns.
+
+THE POTION FACTORY.  Seven of the eight potions are made, not found, and the
+mixed ones are made from the made ones, so the Alchemy labratory is visited six
+times.  One-off setup: LOOK AT POTION DISPENSER and LOOK AT POTION MIXER (geas
+keeps a container's contents out of scope until the container has been looked
+at, which is faithful Quest behaviour, and the beaker lives in the dispenser).
+A primary potion is eight turns - `use bucket of sand on glass machine`, `take
+empty beaker`, `use empty beaker on potion dispenser`, `push red|yellow|blue
+button`, `take beaker`, `use beaker on potion mixer`, `pull lever`, `take
+<colour> potion` - and a mix is four: both inputs onto the mixer, `pull lever`,
+`take <result>`.  The blue button is unlabelled until `use label on unlabeled
+button` (line 377); the label itself is inside the tavern's Bottle of sludge and
+has to be BADDERed into a "Label2" you can carry.  The Empty bucket from the
+closet starts magical, so `use empty bucket on sand` at the lake makes a Bucket
+of sand that never runs out - infinite beakers.
+The pair table (`define procedure <mix2>`) is: R+Y=Orange, R+B=Indigo,
+Y+B=Green, B+Green=Violet, B+Orange=(B+O), Y+(B+O)=(B+O+Y), Indigo+Violet=
+(V+I), R+(V+I)=(V+I+R), Green+(V+I+R)=(V+I+R+G), and finally
+(V+I+R+G)+(B+O+Y)=Rainbow.  The five combination bottles have no alias, so they
+must be typed exactly as they are named: `take potion (v+i)`, `use potion
+(b+o+y) on potion mixer`.  Lines 647-768 are the whole Rainbow chain in one
+sitting - twelve primaries and nine mixes - because each mix has an "only one of
+each potion type" guard and the chain has to be walked in order.
+What the potions do: Red = `cr`, cold resistance, for the Snowblown path.
+Orange = `bf`, fire breath, for the wall of ice and the spider web.  Yellow =
+`bu`, gills, for the flooded cavern.  Green = `sa`, speak with animals, for the
+giant mouse.  Blue = `fr`, fire resistance, for Grackon's opening spell.  Violet
+dissolves the boulder on the Tiny ledge.  Rainbow = `i1`, 30 turns of
+invincibility, the only way past the booby-trapped front doors.
+
+THE SIXTEEN YELLOW BEADS.  Every bead is `alias <Yellow Bead>`, so from the
+second one on every TAKE YELLOW BEAD raises a disambiguation menu, and geas
+orders that menu by object *definition* order in the file, counting inventory
+and room candidates together.  The bare numbers after each `take yellow bead`
+were computed that way (definition lines 1368, 1523, 1563, 1696, 1802, 1847,
+2929, 3080, 3396, 3466, 3793, 3875, 4002, 4111, 4162, 4385), which is why the
+index climbs from 1 to 16 across the run rather than staying at 1.
+The beads go onto the Strange Table in the extradimensional Room - a room you
+carry in your pocket, because `bremoval broom` turns the closet Broom into a
+Room and `enter room` walks into it.  With all sixteen placed the table becomes
+a 4x4 lights-out grid drawn entirely in .jpg tiles, i.e. completely invisible in
+a text runner; the coordinates are column a-d by row 1-4 and each press toggles
+itself and its orthogonal neighbours.  All sixteen start lit, and the shortest
+of the sixteen solutions is exactly four presses whose toggle sets partition the
+board: C1, A2, D3, B4 (lines 1148-1151).  The table then prints the shiny scroll
+= Stabilize.
+
+  1. The tower (lines 1-98).  Illuminate, dress, the dusty scroll under the bed
+     (Detect magic), Scribe, Unlock, then the 60-turn door wait.  Up to the roof
+     for REACH IN TELESCOPE (Levitate); `unlock door` and into the closet for
+     the Broom and the Empty bucket.  The Collapsed wall in the stairwell is
+     passed with `levitate collapsed wall` + yes, which also moves the wall to
+     the far side, so every later trip through the stairwell needs another
+     Levitate (lines 843 and 940).  The library's chandelier is reached from the
+     balcony one floor above it: `gravitate chandelier` at line 93 brings it
+     down, and EXAMINE BROKEN CHANDELIER in the library below is the first bead.
+  2. Library and barracks (99-157).  The control desk is a menu-driven
+     catalogue with three options, all three of which are used.  Option 1 wants
+     a row (1-2000) and a book (a-e): 1112 and "c" is a hollowed-out book with a
+     bead in it, and that call number is written on Mercoz's smudged note, which
+     this route does not pick up until line 154 - the script simply uses it
+     early.  Option 2 with the topic "portals" is the in-game explanation of the
+     colour cycle, including "never enter when the mist is black".  Option 3 is
+     the librarian insisting there are no secrets in the library, and it has to
+     be asked six times (lines 106-115) before it gives up and produces the
+     secret library scroll = Enfeeble.
+     The Main Entrance's south door is blocked by two Giant statues: EXAMINE
+     GIANT STATUES + yes opens a `repeat until` over six flags (each statue's
+     arm, shield and head), and every control locks or unlocks one of the
+     others, so it is not six moves but ten.  Lines 124-133 are a
+     breadth-first-search solution: 1, 3, 5, 2, 3, 4, 6, 1, 4, 2.
+     Behind the door Delbat is the one other surviving apprentice; Mercoz's body
+     in the dormitory's south wing carries the Rainbow book (Bremoval), the
+     smudged note and a bead.
+  3. Enfeeble, Enlighten, loadout (158-227).  Scribe both books, cast Enfeeble,
+     sit out the 45 idiot turns, pick the spellbook back up, `rmemorize` 6 for
+     Enlighten, cast it, and use the 40-turn `int1` window to memorize Bremoval
+     and Badder - the only two spells whose memorization checks `int1`.
+  4. First red portal (228-286).  Fill the bucket at the lake on the way past,
+     then the Alchemy lab for Red and Orange, drunk immediately for `cr`+`bf`.
+  5. Yellow portal: the mountain (287-345).  Snowblown path needs `cr`; the wall
+     of ice needs fire breath; `bremoval beast` turns the Beast into a Beas...
+     into nothing and re-creates the destroyed east exit of the Small cave (the
+     startscript destroys it at load).  The Crystal cavern has the icy scroll
+     (Charm) and a bead but no exit - `deluminate` is the way out, so the trip
+     is ordered to cast Bremoval first and free the slot for it.
+  6. Red portal: the town (346-424).  `bremoval boars` gives the Oars.  The
+     small boy has to be Charmed before he will talk, and his puzzle is
+     ten-peg solitaire in the game's own move order; the answer sequence is
+     remove peg 2 then choices 1,1,1,1,2,1,1,1, which yields the bag of
+     marbles, two red marbles and a bead.  Charm the bartender twice for the
+     bottle of sludge, LOOK AT the bottle before TAKE LABEL (the seen gate
+     again), then `badder label`.  The stables hide a bead in the hay and the
+     Oat that becomes the Boat.
+  7. Blue and red portals: bind, purse, shells, church (425-461).  The songbird
+     in the oak drops the crumpled scroll (Bind).  `bind shady looking man`
+     stops the mugging that otherwise robs you; his purse holds a copper coin,
+     and the coin must be taken into inventory proper, because the street
+     merchant's `got <Copper coin>` does not see a coin sitting inside a carried
+     container.  The shell game is rigged in your favour by `levitate ball`
+     before picking a shell.  In the church, `detect magic` is what reveals the
+     bead in the basket.
+  8. The lake and the sunken temple, first visit (462-544).  Yellow potion for
+     gills, `badder oat` for the Boat, `unbind rope` to open the trap door, and
+     then the flooded cavern east to the temple.  `badder rain` in the north
+     wing turns the endless rain into the Brain and permanently drains the
+     temple (`flood1`), which is also what makes the cavern walkable later.
+  9. The Rainbow potion (545-797).  Violet for the boulder on the Tiny ledge
+     (holey scroll = Enchant) with a red-potion trip up the mountain, then the
+     long uninterrupted chain to Rainbow.
+ 10. The mouse hole (866-962).  Green potion for `sa`, Indigo to shrink, then
+     the Enormous Area behind the closet mouse hole.  All eight of its exits
+     loop back to itself and the hole to the Large mouse hole only exists if you
+     entered from the Closet, so this has to be a dedicated trip up the tower.
+     Ask the giant mouse for its third option after pushing the yellow ball, and
+     the `shrink` timer (80 turns) dumps you back out with the bead.
+ 11. Bucket of water and the ent (963-1024).  `disenchant bucket of sand`,
+     empty it, fill it with lake water, `enchant bucket of water` - the Fire
+     checks `property <Bucket of water; magical>` and a non-magical bucketful
+     just wastes the bucket.  Putting the fire out makes the ent clear the
+     spiders, which unlocks Forest3 south; behind the web (burned with fire
+     breath) are the last outdoor bead and the stone Head.
+ 12. The golem (1051-1106).  Two red marbles for the eye sockets and the Brain
+     for the skull, then `use head on giant statue`.  SPEAK TO GOLEM + yes
+     swaps your mind into it: your inventory and your memorized spells are
+     parked in the `wstuff` room and the golem's hands are too big to pick
+     anything up except objects typed `golem` and the Strange machine.  As the
+     golem: smash the small shelf, carry the timber to the east wing, feed the
+     furnace, carry the machine back to the main hall, smash the stone coffin,
+     then SPEAK TO YOURSELF + yes to swap back - which is also what moves the
+     bead the golem could not pick up into the room you can reach.  With the
+     furnace lit, LOOK AT STRANGE MACHINE offers the lever puzzle twice: 1,3,1
+     drops the Powerfull scroll (Banish) and 1,3,1,2 drops the sixteenth bead.
+ 13. The bead table and Stabilize (1107-1164).  `bremoval broom`, in, sixteen
+     beads, four presses, out, scribe the shiny scroll, and freeze the portal
+     white.
+ 14. Reconnaissance (1165-1188).  The Iron gate is magical from the start, so
+     `unlock iron gate` fails until `disenchant iron gate`.  `gravitate
+     drawbridge` sets `draw1` permanently.  Then swim the moat to the cracked
+     wall and SPEAK TO HOLE for the stained scroll (Shield).  This trip has to
+     happen before the lever is pulled: once `end1` is set, the Moat's entry
+     script drops piranhas in it and kills you outright.
+ 15. The assault (1189-1220).  Memorize Shield, Enlighten, Gravitate, Levitate
+     and Destabilize - the full five - and carry the Powerfull scroll, the bag
+     of marbles and the Blue and Rainbow potions.  Drink Rainbow on the castle
+     grounds (the gargoyles at the front door kill anyone without `i1`), Shield
+     and Enlighten and Blue in the cell corridor, then PULL LEVER + yes.
+     From there it is a five-move chase, and the sequence is forced by `end2`:
+     `drop bag of marbles` (which is scripted to reset `end2` to 0, and is the
+     only thing that stops the scorpions in the long hallway), `gravitate giant
+     chandelier` (drops `end2` again and carries you to the grounds), `levitate
+     drawbridge` (strands them and carries you to the gate).  Quest evaluates a
+     room's `afterturn` against the room you were in when the command started,
+     not the one you moved to, which is exactly why this chain survives.
+     At the gate `ending1` counts up one per turn: 1 is Grackon's flames
+     (survived with `fr`), 2 is his magical darts (survived with `shield1`), 3
+     is the long complex spell, and 4 melts you if he is still there.  `banish
+     grackon` only works while `ending1` is exactly 3 and only while `int1`
+     still holds, which is why Enlighten is cast eight turns earlier and not
+     sooner.  Banishing him lets the rest of the Red Scorpions through the gate,
+     so the portal home is no longer an escape - `destabilize swirling misty
+     portal` blows it up instead, the scorpions take you, and the order is safe.
+     You lose, and you win.
+
+No geas divergences turned up in this game; it exercised a lot of the engine
+(nested selections, `repeat until`, `for each object in <room>`, `enter`,
+container `seen` gating, timers under `--tick`, definition-order
+disambiguation) and matched throughout.
+Start:
+memorize
+1
+illuminate
+look at dresser
+open dresser
+take robe
+wear robe
+look under bed
+take dusty scroll
+memorize
+3
+scribe dusty scroll
+memorize
+2
+read spellbook
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+east
+northwest
+southeast
+reach in telescope
+memorize
+3
+scribe invisible scroll
+down
+unlock door
+east
+take broom
+take empty bucket
+west
+northeast
+southwest
+memorize
+5
+levitate collapsed wall
+yes
+south
+rmemorize
+5
+gravitate chandelier
+north
+southeast
+north
+examine broken chandelier
+take yellow bead
+speak to control desk
+1
+1112
+c
+speak to control desk
+2
+portals
+speak to control desk
+3
+speak to control desk
+3
+speak to control desk
+3
+speak to control desk
+3
+speak to control desk
+3
+take secret library scroll
+take yellow bead
+2
+south
+northwest
+east
+examine giant statues
+yes
+1
+3
+5
+2
+3
+4
+6
+1
+4
+2
+knock on door
+east
+speak to delbat
+3
+speak to delbat
+5
+northwest
+examine beds
+take yellow bead
+4
+examine night stands
+take small note
+read small note
+i
+southeast
+west
+south
+examine body
+examine mercoz
+take rainbow book
+take smudged note
+read smudged note
+take yellow bead
+4
+memorize
+3
+scribe secret library scroll
+memorize
+3
+scribe rainbow book
+memorize
+6
+enfeeble
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+take spellbook
+rmemorize
+6
+enlighten
+memorize
+7
+memorize
+7
+rmemorize
+7
+rmemorize
+7
+rmemorize
+7
+spells
+north
+west
+northeast
+south
+enter portal
+use empty bucket on sand
+enter misty white portal
+north
+north
+look at potion dispenser
+look at potion mixer
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use red potion on potion mixer
+use yellow potion on potion mixer
+pull lever
+take orange potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+south
+south
+drink red potion
+drink orange potion
+enter portal
+north
+northeast
+breathe on wall of ice
+north
+bremoval beast
+rmemorize
+1
+east
+take icy scroll
+take yellow bead
+6
+deluminate
+west
+south
+southwest
+south
+enter misty white portal
+memorize
+3
+scribe icy scroll
+memorize
+8
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+enter portal
+north
+bremoval boars
+take oars
+northeast
+charm small boy
+speak to small boy
+yes
+2
+1
+1
+1
+1
+2
+1
+1
+1
+take bag of marbles
+take red marble
+1
+take red marble
+2
+take yellow bead
+7
+memorize
+8
+northwest
+examine shelves
+charm bartender
+speak to bartender
+4
+speak to bartender
+5
+look at bottle of sludge
+take label
+badder label
+southeast
+east
+examine pile of hay
+take yellow bead
+8
+take oat
+west
+southwest
+south
+enter misty white portal
+north
+north
+use label on unlabeled button
+look at potion dispenser
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use yellow potion on potion mixer
+use blue potion on potion mixer
+pull lever
+take green potion
+memorize
+3
+memorize
+5
+memorize
+4
+spells
+south
+south
+drink green potion
+enter portal
+east
+climb oak tree
+speak to songbird
+down
+take crumpled scroll
+scribe crumpled scroll
+memorize
+9
+west
+north
+northeast
+northwest
+north
+bind shady looking man
+examine shady looking man
+take small purse
+open purse
+look at purse
+take copper coin
+southeast
+speak to street merchant
+yes
+look under table
+levitate ball
+pick left shell
+up
+north
+detect magic
+look at basket
+take yellow bead
+9
+south
+south
+southwest
+south
+enter misty white portal
+north
+north
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+rmemorize
+9
+south
+south
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+drink yellow potion
+enter portal
+badder oat
+enter boat
+unbind rope
+take rope
+down
+east
+north
+badder rain
+take brain
+south
+west
+examine silt
+take yellow bead
+11
+up
+enter boat
+enter misty white portal
+north
+north
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use yellow potion on potion mixer
+use blue potion on potion mixer
+pull lever
+take green potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use blue potion on potion mixer
+use green potion on potion mixer
+pull lever
+take violet potion
+memorize
+3
+south
+south
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+drink red potion
+enter portal
+north
+northeast
+east
+use rope on rock
+south
+use violet potion on boulder
+take holey scroll
+scribe holey scroll
+down
+enter misty white portal
+north
+north
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use red potion on potion mixer
+use yellow potion on potion mixer
+pull lever
+take orange potion
+rmemorize
+10
+memorize
+10
+south
+south
+north
+north
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use red potion on potion mixer
+use blue potion on potion mixer
+pull lever
+take indigo potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use yellow potion on potion mixer
+use blue potion on potion mixer
+pull lever
+take green potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use blue potion on potion mixer
+use green potion on potion mixer
+pull lever
+take violet potion
+use indigo potion on potion mixer
+use violet potion on potion mixer
+pull lever
+take potion (v+i)
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+use red potion on potion mixer
+use potion (v+i) on potion mixer
+pull lever
+take potion (v+i+r)
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use yellow potion on potion mixer
+use blue potion on potion mixer
+pull lever
+take green potion
+use green potion on potion mixer
+use potion (v+i+r) on potion mixer
+pull lever
+take potion (v+i+r+g)
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use blue potion on potion mixer
+use orange potion on potion mixer
+pull lever
+take potion (b+o)
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use yellow potion on potion mixer
+use potion (b+o) on potion mixer
+pull lever
+take potion (b+o+y)
+use potion (v+i+r+g) on potion mixer
+use potion (b+o+y) on potion mixer
+pull lever
+take rainbow potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use red potion on potion mixer
+use yellow potion on potion mixer
+pull lever
+take orange potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push red button
+take beaker
+use beaker on potion mixer
+pull lever
+take red potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use red potion on potion mixer
+use blue potion on potion mixer
+pull lever
+take indigo potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push yellow button
+take beaker
+use beaker on potion mixer
+pull lever
+take yellow potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+use yellow potion on potion mixer
+use blue potion on potion mixer
+pull lever
+take green potion
+use bucket of sand on glass machine
+take empty beaker
+use empty beaker on potion dispenser
+push blue button
+take beaker
+use beaker on potion mixer
+pull lever
+take blue potion
+memorize
+5
+south
+up
+southeast
+northeast
+levitate collapsed wall
+yes
+northeast
+northwest
+east
+drink green potion
+drink indigo potion
+go to large mouse hole
+push yellow ball
+speak to giant mouse
+3
+west
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look
+take yellow bead
+1
+spells
+memorize
+5
+west
+northeast
+southwest
+levitate collapsed wall
+yes
+southeast
+northwest
+northeast
+south
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look at portal
+wait
+look at portal
+enter portal
+spells
+disenchant bucket of sand
+empty bucket
+use empty bucket on water
+enchant bucket of water
+enter misty white portal
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look at portal
+enter portal
+west
+use bucket of water on fire
+east
+south
+south
+drink orange potion
+breathe on web
+look
+take head
+take yellow bead
+9
+north
+north
+enter misty white portal
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look at portal
+enter portal
+enter boat
+down
+east
+use red marble on head
+1
+use red marble on head
+use brain on head
+use head on giant statue
+speak to golem
+yes
+north
+break small shelf
+take broken shelf
+south
+east
+use broken shelf on furnace
+take strange machine
+west
+drop strange machine
+south
+break stone coffin
+north
+speak to yourself
+yes
+look
+look at strange machine
+yes
+1
+3
+1
+take powerfull scroll
+look at strange machine
+yes
+1
+3
+1
+2
+look
+take yellow bead
+14
+north
+take yellow bead
+15
+south
+south
+take yellow bead
+16
+take penned note
+read penned note
+north
+west
+up
+enter boat
+enter misty white portal
+spells
+rmemorize
+6
+enlighten
+memorize
+7
+bremoval broom
+enter room
+look
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+use yellow bead on strange table
+1
+look at strange table
+yes
+c1
+a2
+d3
+b4
+look
+take shiny scroll
+read shiny scroll
+out
+memorize
+3
+scribe shiny scroll
+memorize
+11
+stabilize swirling misty portal
+look at portal
+memorize
+2
+rmemorize
+10
+rmemorize
+5
+memorize
+3
+spells
+enter portal
+disenchant iron gate
+unlock iron gate
+east
+gravitate drawbridge
+go to moat
+southeast
+north
+speak to hole
+take stained scroll
+scribe stained scroll
+south
+northwest
+out
+west
+enter portal
+memorize
+12
+rmemorize
+6
+rmemorize
+5
+memorize
+5
+rmemorize
+11
+spells
+enter portal
+east
+drink rainbow potion
+east
+east
+south
+south
+shield
+enlighten
+drink blue potion
+pull lever
+yes
+drop bag of marbles
+gravitate giant chandelier
+levitate drawbridge
+wait
+wait
+wait
+banish grackon
+destabilize swirling misty portal

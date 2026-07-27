@@ -1,0 +1,27 @@
+Posh's New Year's Eve v1.0 by ondre (QDK 3.03, ASL 300)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "You wake up into the first day".
+
+A one-room, five-command vignette.  Everything about it is in the game block:
+
+  * The startscript runs "shell <Posh.txt>" (a no-op outside Windows Quest) and
+    then "choose <LEGAL NOTICE>", a two-choice menu.  Choice 1 is NO, which
+    prints the notice and calls "exec <quit>" -- so the very first line of the
+    script has to be the 2 that picks YES, or the game is over before it starts.
+    Answering with anything that is not a listed choice counts as NO.
+  * The only puzzle is a two-step gate: "fuck posh" checks the Posh object's
+    "untouched" property and merely says "Try to arouse her." while it is set.
+    TOUCH POSH clears it (property <Posh; not untouched>), after which the same
+    command runs the ending text and "playerwin".
+
+LOOK, LOOK AT POSH and TALK TO POSH are the rest of the implemented verbs; they
+are in the script only so a regression would show up as a diff rather than as a
+silently shorter transcript.
+
+Start:
+2
+look
+look at posh
+talk to posh
+touch posh
+fuck posh

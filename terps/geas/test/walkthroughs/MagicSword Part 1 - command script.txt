@@ -1,0 +1,324 @@
+MagicSword Part 1: Legacy of Earth -- Dom, QDK Pro 1.02, asl-version 217.
+
+A big, sprawling, half-finished sword-and-sorcery game: five towns and a
+forest maze drawn with real care, a hand-rolled combat system built on
+seventeen collectables, and then a door at the end of it that the author
+never got round to putting anything behind.  It is worth being clear about
+what "winning" means here before the route below, because the ending is not
+a climax.  Walk into the gatehouse beyond Hallucination Forest, talk to the
+Guardian of Maren, and he tells you so himself (procedure 102):
+
+    "Yet again this is the end of the line #name#.  You can go no further.
+     There is nothing beyond the door leading outside.  It has not yet been
+     created.....  Still your path has not been particually difficult, and
+     you probably got here with ease."
+
+He then asks whether you are finished or wish to return.  Say yes and you
+get `msg <For now:|n...You Win!>` and `playerwin` (procedure 204).  That is
+the game's one and only playerwin, so it is the marker this script is
+verified against -- but it is an author's bookmark for a Part 2 that does
+not exist, not a victory.  Everything before it is a real game, and the
+illness plot does resolve properly on the way.
+
+THE ILLNESS PLOT.  You are a graduate of a magic academy; the Head Luridii
+sends you to the village of Fennat, where people are dying of a disease
+that arrived with a mist over Hallucination Forest.  The mist is made by an
+Evil Druidess in an underground den, from the spores of a creature called
+Sporogia which her sister used to help her stir into gas.  Kill Sporogia and
+kill the druidess and %Illness% flips to 0.  This matters mechanically as
+well as narratively: GH1's gatehouse place is
+
+    place <the; Gatehouse> if is <%Illness%;1> then do <~Internal Procedure 291> else goto <FGH>
+
+so while the illness is live the gatehouse only tells you Fennat is in
+quarantine.  The endgame is unreachable until the plot is finished.  There
+is no way to shortcut it.
+
+THE FIVE KEYSTONES.  Getting to the druidess means opening the stone in the
+deep forest clearing (FD1), which has five hollows.  Each `use keystone on
+stone` runs procedure 111 -- decrement Key, increment Unlocked -- and the
+fifth calls procedure 110, which prints "and a door opens!!!" and does
+`goto <FDO>` on the spot.  Exactly five keystones exist, and this route
+collects all five:
+
+  1. The Archer Sprite east of the forest edge, killed by throwing the
+     dagger and picking it up again (procedure 119).
+  2. The Entangled Sprite, freed by cutting its thorny bush with the dagger;
+     it hands you one in thanks (procedure 133).
+  3. The three Warsprites in FI2, fought one at a time with the sword; the
+     last one's death conjures a keystone (procedure 194).
+  4. The Oggy-Waggi plant's bush, where a previous victim left one
+     (procedure 148).
+  5. The pair of demons guarding a keystone on a table in FD2.  Taking it in
+     the open runs procedure 124 and the demons take it back off you and
+     hurt you; cast the fog spell first and procedure 123 lets you sneak it
+     away.  The fog lasts a handful of turns (Fogtimer), so cast it in the
+     room you intend to steal in.
+
+Two more keystone-granting procedures are dead code -- 139 ("The sprite
+falls.  He drops a keystone...") and 170, the entire Axe Sprite encounter --
+neither is referenced anywhere in the file.  So is FI3's alternative north
+exit:
+
+    north if has <Unlocked;=6> and is <%Illness%;1> then goto <FDO> else goto <FD1>
+
+Unlocked can never reach 6, because there are five hollows, five keystones,
+and the fifth one teleports you into FDO anyway.  Which makes FDO a one-way
+door: it has no exit back to the forest, and its only place is the
+Underground Den.  Do not go into the stone clearing until you are ready to
+finish the illness plot, and do not expect to come back out for supplies.
+
+COMBAT.  Every fight is the author's own script, and each one wants a
+specific weapon; the wrong one is either refused or costs you Health.  In
+practice: flam spell on plant and tree enemies (demon tree, tree demon,
+Golomoshk), air rush spell on airborne ones (smoke whisp, Sporogia), light
+flash spell on the wraith, sword on ordinary bodies (bandit, sprite,
+warsprites), thrown dagger on the ranged ones who otherwise shoot you while
+you close (the Sniper, the Archer Sprite -- throw, then TAKE DAGGER, then
+throw again), and dagger on the Oggy-Waggi plant's tendrils and body.  The
+counts below are the exact number of hits each enemy's HP needs at seed 1;
+a surplus cast just says "You don't see any...", but a shortfall leaves the
+enemy alive and hitting back.  Health is bought back three astrals at a time
+by taking a room at an inn -- the Sword and Staff in Calamatra, the Jolly
+Woodman in Fennat -- which is why the route detours to them twice.
+
+AZAMBRI NEVER SHOWS UP.  Procedure 79 wants an ally for the Golomoshk
+fight and does `showchar <Azambri@GProad1>`, which cannot resolve: below ASL
+281 Quest's SetAvailability does not accept a room qualifier on a character
+that is not defined in that room, and Azambri is defined elsewhere.  geas is
+faithful here (verified against QuestViva's pre-281 SetAvailability), and it
+does not matter, because the author wrote his own fallback into the same
+procedure: with no ally the fight simply runs solo.  Golomoshk takes seven
+flam casts alone.  She turns up again in the wake-up scene at the end
+regardless, since procedure 181 shows her by name with no room.
+
+ENGINE NOTE -- the game-block `use <X>` fallback.  This game is unwinnable
+on a geas that lacks it, and it is the reason the interpreter grew
+find_game_block_line.  Dom declares four use scripts in the *game* block
+rather than on the objects:
+
+    use <Sword>
+    use <Staff>
+    use <Immune Potion> do <~Internal Procedure 242>
+    use <Potion> do <~Internal Procedure 241>
+
+Below ASL 280, Quest's ExecUse (V4Game.Part2.cs:5472-5497) searches the
+room's use list, then FindLine over the game block, and then gives up with
+the defaultuse error; the object's own use action is not in the chain at
+all.  geas used to stop at the room, so USE IMMUNE POTION answered with
+Dom's defaultuse text, "You might want to, but you can't."  That potion is
+the witch's gift and the only thing that sets %Immune%, and Hallucination
+Forest kills anyone who enters without it (procedure 103: you cough, sit
+down, and die of the disease).  Without the fallback the forest -- which is
+to say the rest of the game -- is sealed off.  The route below drinks both
+game-block potions, the Immune Potion at the witch's house and the doctor's
+healing Potion before the last fight, so it exercises the path twice.
+
+QUIRKS WORTH KNOWING, all of which cost turns to discover:
+
+  * `place` exits answer to GO TO <name>, not to the bare name.  Typing
+    "study" or "training room 1" gets "I don't understand your command".
+  * A plain (unscripted) place answers to the destination room's *alias*,
+    not to the text in the place line.  `place <the; Doctors>` leads to a
+    room aliased "the Doctors House", so it is GO TO THE DOCTORS HOUSE.
+  * `ask` prompts are numbered menus in this runner: answer 1 or 2, never
+    yes/no.  There are five of them in this route, and two of them
+    (procedure 47's "Are there any last things you want to do here?" and
+    procedure 102's "Are you finished now?") branch on the answer.
+  * The academy will not let you leave until you have spoken to the Head
+    Luridii, been to the training room for both teachers, cleared the
+    training gauntlet, and then returned and spoken to him twice -- the
+    first time to decline his offer of more time (answer 2), the second to
+    be sent on your way.
+  * The first command of the game is not a command: the start script asks
+    for your name with `enter`, so the script's first line is the name.
+
+Route: academy (name, Head Luridii, both teachers, training gauntlet, heal
+gem, back to the Head) -> Calamatra road (tree demon, bandit, Golomoshk) ->
+Calamatra (sorcerer's spell, inn) -> north to Fennat (Sniper on the way,
+witch's Immune Potion) -> forest sweep for the five keystones, with inn and
+doctor stops for Health -> stone clearing -> FDO -> Underground Den
+(druidess's sister, Sporogia) -> den again (she takes your staff) -> dagger
+on the Evil Druidess -> Ferran House 2, illness cured, staff back -> back
+across the forest to GH1 -> gatehouse -> Guardian of Maren -> yes.
+
+Verified: 170 turns, `--win "You Win!"`, seed 1.
+
+Start:
+Sassanka
+speak to head luridii
+out
+go to training room 1
+speak to magic teacher
+speak to combat master
+northeast
+use flam spell on demon tree
+use air rush spell on smoke whisp
+use light flash spell on evil wraith
+use flam spell on mage
+use flam spell on mage
+use flam spell on mage
+use flam spell on mage
+take heal gem
+southwest
+out
+go to study
+speak to head luridii
+2
+speak to head luridii
+out
+northeast
+northeast
+use flam spell on tree demon
+northeast
+north
+north
+north
+north
+use sword on bandit
+north
+north
+use flam spell on golomoshk
+use flam spell on golomoshk
+use flam spell on golomoshk
+use flam spell on golomoshk
+use flam spell on golomoshk
+use flam spell on golomoshk
+use flam spell on golomoshk
+south
+south
+south
+go to sorcerers house
+speak to sorcerer
+out
+go to sword and staff inn
+speak to innkeepers wife
+1
+out
+north
+north
+north
+north
+north
+northwest
+throw dagger at sniper
+take dagger
+throw dagger at sniper
+take dagger
+northwest
+go to witches house
+speak to witch
+use immune potion
+out
+east
+northeast
+east
+use sword on sprite
+northeast
+east
+throw dagger at archer sprite
+take dagger
+throw dagger at archer sprite
+take dagger
+throw dagger at archer sprite
+take dagger
+throw dagger at archer sprite
+take dagger
+southeast
+west
+use dagger on thorny bush
+southeast
+use sword on warsprite1
+use sword on warsprite1
+use sword on warsprite2
+use sword on warsprite2
+use sword on warsprite3
+use sword on warsprite3
+southeast
+north
+west
+southwest
+north
+west
+southwest
+west
+go to jolly woodman inn
+speak to landlady
+1
+out
+east
+northeast
+east
+south
+northeast
+southeast
+southeast
+use dagger on tendrils
+use dagger on oggy-waggi plant
+use dagger on oggy-waggi plant
+use dagger on oggy-waggi plant
+use dagger on oggy-waggi plant
+use dagger on oggy-waggi plant
+use dagger on oggy-waggi plant
+use dagger on oggy-waggi plant
+northwest
+northeast
+use fog spell
+take keystone
+southwest
+northwest
+southwest
+north
+west
+southwest
+west
+go to jolly woodman inn
+speak to landlady
+1
+out
+north
+go to the doctors house
+speak to assistant
+1
+out
+south
+east
+northeast
+east
+south
+northeast
+southeast
+north
+use keystone on stone
+use keystone on stone
+use keystone on stone
+use keystone on stone
+use keystone on stone
+go to underground den
+use sword on evil druidess2
+use air rush spell on sporogia
+use air rush spell on sporogia
+use air rush spell on sporogia
+use air rush spell on sporogia
+use air rush spell on sporogia
+use air rush spell on sporogia
+use air rush spell on sporogia
+use air rush spell on sporogia
+use air rush spell on sporogia
+use potion
+go to underground den
+use dagger on evil druidess
+take staff
+out
+south
+east
+northeast
+east
+northeast
+east
+southeast
+southeast
+go to gatehouse
+east
+speak to guardian of maren
+1

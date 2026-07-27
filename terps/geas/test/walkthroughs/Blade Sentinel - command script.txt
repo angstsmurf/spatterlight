@@ -1,0 +1,111 @@
+The Blade Sentinel (Mihalis "DarkAng3l" Georgostathis, QDK 3.1, ASL 310, Quest
+comp 2002) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Marker: "delightfull green surrounds you".
+
+*** THIS GAME CANNOT BE FINISHED. ***  The marker above is not a win, it is the
+furthest state the game can reach: the Garden/Gate, immediately after the
+"boom"/"wake" cutscene.  Two separate authoring bugs wall the rest of the game
+off, and both were checked against the real Quest engine (QuestViva's
+V4Game/ExecuteCondition + GetObjectProperty) -- geas reproduces Quest here, it
+does not cause it:
+
+  1. THE GATE.  `Gate` has no south exit; the only thing that ever creates one
+     is `define procedure <vitrues>`:
+
+         if ( vitrue = all ) then create exit south <Gate; Castle>
+
+     `( a = b )` is not an ASL condition.  Quest's condition parser only knows
+     the got/has/ask/is/here/exists/real/property/action/type/flag forms, so
+     every branch of that procedure -- including the one that opens the gate --
+     is dead.  That is why PRESS VALOUR below prints nothing at all: even the
+     "The button clicks as you press it." message can never fire.  The author
+     wanted `if is <#vitrue#; =; all>`.  Everything past the gate (Castle,
+     Surgery, Alpha Force, the Headquarters where PRESS ALARM BUTTON calls
+     playerwin) is therefore unreachable.
+
+  2. THE OBSERVATORY, for the record.  Patch a `south <Castle>` exit into Gate
+     and the rest of the game does play through -- statue, doctor, Vixen,
+     knives, Rubic's cube, bottles, key card -- until `define room <Observatory>`
+     defines no exits at all.  Its description promises "An exit to the East
+     leads to the Training room", but there is none, so the key card can be
+     picked up and never carried out.  Fixing the gate alone would not make the
+     game winnable.
+
+A third dead idiom is harmless but worth knowing, because it changes what the
+script has to type: the game tests valued properties with
+
+     if property <Skippy's computer; password=false>
+
+which asks whether a property *named* "password=false" exists.  It never does
+(the declaration `properties <password=false>` stores name "password", value
+"false"), so the check is always false.  Result: the login screen is skipped
+entirely -- the first TAKE COMPUTER goes straight to the menu, so no password is
+ever typed, and the answer "fuck" the game sets up in `set string <fuck; fuck>`
+is never asked for.  The same idiom disables The Crusader's and Rock Hard's
+`active`/`cube` gates in the unreachable half.
+
+Route notes for the reachable game:
+
+  * Morning: SHOWER before dressing (the `blur` blocks TAKE CLOTHES), and dress
+    before the hall (the west exit checks `got clothes`).
+  * The envelope must be taken but need not be opened yet; the north exit takes
+    either it or the hilt.  It does have to be opened before leaving the police
+    department, though, which checks `got hilt`.
+  * At the office, TAKE NEWSPAPER is what brings Jim in, and Jim's conversation
+    is what hands over the folder.  Both are required.
+  * Carrying the folder home is what spawns the droid, which knocks you down on
+    its own (an afterturn), so no fight is needed -- just TAKE HILT off the
+    floor.
+  * At the warehouse the two guards must be split up: ATTACK BINS in the alley
+    lures the tall one south, drop him there, and only then is the short one
+    alone enough to jump.
+  * The cyborg cannot be beaten head-on; JUMP ON CRATE, then CUT ROPE.
+
+Start:
+north
+shower
+out
+south
+look at closet
+take clothes
+west
+look at envelope
+take envelope
+north
+east
+take newspaper
+read newspaper
+look at Jim
+speak to Jim
+1
+look at your desk
+west
+open envelope
+south
+look at hilt
+take hilt
+south
+attack bins
+attack tall guard
+north
+attack short guard
+look at Cyborg
+jump on crate
+cut rope
+look at man
+speak to man
+look at computer
+take computer
+1
+north
+look at goon
+attack goon
+look at Torenti's desk
+north
+look at note
+south
+look at Golden Gate
+look at panel
+press Valour
+press all
+south

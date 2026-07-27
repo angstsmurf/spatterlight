@@ -257,7 +257,9 @@ bool deserialize_undo_history (const std::string &data,
       if (!count (n)) return false;
       for (size_t i = 0; i < n; i++)
         { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
-          o.invisible = (gis.get_char() == 0); o.parent = gis.get_str(); u.objs.push_back (o); }
+          o.invisible = (gis.get_char() == 0); o.parent = gis.get_str();
+          o.is_room = (o.hidden && o.invisible);   /* see ObjectRecord::is_room */
+          u.objs.push_back (o); }
       if (!count (n)) return false;
       for (size_t i = 0; i < n; i++)
         { string s = gis.get_str(), d = gis.get_str(); u.exits.push_back (ExitRecord (s, d)); }
@@ -337,7 +339,9 @@ bool deserialize_game (const std::string &filedata, std::string &gamename, GeasS
   if (!count (n)) return false;
   for (size_t i = 0; i < n; i ++)
     { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
-      o.invisible = (gis.get_char() == 0); o.parent = gis.get_str(); gs.objs.push_back (o); }
+      o.invisible = (gis.get_char() == 0); o.parent = gis.get_str();
+      o.is_room = (o.hidden && o.invisible);   /* see ObjectRecord::is_room */
+      gs.objs.push_back (o); }
   if (!count (n)) return false;
   for (size_t i = 0; i < n; i ++)
     { string s = gis.get_str(), d = gis.get_str(); gs.exits.push_back (ExitRecord (s, d)); }
@@ -361,12 +365,23 @@ bool deserialize_game (const std::string &filedata, std::string &gamename, GeasS
   return true;
 }
 
+/* The index key for an object name: lower-cased and trimmed.  Trimmed because
+ * readfile.cc registers every block under its trim()'d name, so a runtime name
+ * that still carries a stray space -- "Something 'Bout A Hex" both defines and
+ * gives its journal as `<Journal >' -- has to land on the same key as the
+ * definition, or its properties are set on one name and read back from another.
+ * See GeasFile::build_name_key, which folds the same way. */
+static string name_index_key (const string &name)
+{
+  return lcase (trim (name));
+}
+
 void GeasState::add_prop (const string &name, const string &data)
 {
   /* Maintain the index incrementally only while it is valid; otherwise leave
      it to be rebuilt lazily on the next lookup (e.g. right after a load). */
   if (props_index.valid)
-    props_index.map[lcase (name)].push_back (props.size ());
+    props_index.map[name_index_key (name)].push_back (props.size ());
   props.push_back (PropertyRecord (name, data));
 }
 
@@ -376,8 +391,19 @@ void GeasState::ensure_props_index () const
     return;
   props_index.map.clear ();
   for (size_t i = 0; i < props.size (); i++)
-    props_index.map[lcase (props[i].name)].push_back (i);
+    props_index.map[name_index_key (props[i].name)].push_back (i);
   props_index.valid = true;
+}
+
+void GeasState::add_object (const ObjectRecord &o)
+{
+  objs.push_back (o);
+  /* Not maintained incrementally: the two-pass build orders objects before
+     like-named rooms, so an append cannot just be tacked onto the back of that
+     name's list.  Runtime objects arrive only from `clone`, so rebuilding once
+     on the next lookup is cheaper than getting the ordering right here. */
+  objs_index.valid = false;
+  objs_index.map.clear ();
 }
 
 void GeasState::ensure_objs_index () const
@@ -385,22 +411,39 @@ void GeasState::ensure_objs_index () const
   if (objs_index.valid)
     return;
   objs_index.map.clear ();
+  /* Two passes so that the objects and characters called `name` come before the
+     room called `name`.  Lookups that take the first record -- what is its
+     parent, is it here, is it held -- mean the object: Quest answers those from
+     _objs and _chars alone (ExecuteIfHere, ExecuteIfGot, LocationOf), and the
+     room half of such a pair is only ever named explicitly, by goto or by a
+     room-scoped property lookup.  The room record stays in the list so a
+     container room can still be walked up to as a parent. */
   for (size_t i = 0; i < objs.size (); i++)
-    objs_index.map[lcase (objs[i].name)].push_back (i);
+    if (!objs[i].is_room)
+      objs_index.map[name_index_key (objs[i].name)].push_back (i);
+  for (size_t i = 0; i < objs.size (); i++)
+    if (objs[i].is_room)
+      objs_index.map[name_index_key (objs[i].name)].push_back (i);
   objs_index.valid = true;
 }
 
 const vector<size_t> *GeasState::obj_records (const string &name) const
 {
   ensure_objs_index ();
-  /* Lowercase into a reused buffer, as prop_records does: the ASCII fold here
-   * matches ci_equal, so a hit is exactly what the old linear scans matched. */
+  /* Lowercase (and trim -- see name_index_key) into a reused buffer, as
+   * prop_records does: the ASCII fold here matches ci_equal, so a hit is exactly
+   * what the old linear scans matched. */
   string &key = objs_index.key_scratch;
-  size_t nn = name.size ();
+  size_t beg = 0, end = name.size ();
+  while (beg < end && isspace ((unsigned char) name[beg]))
+    beg ++;
+  while (end > beg && isspace ((unsigned char) name[end - 1]))
+    end --;
+  size_t nn = end - beg;
   key.resize (nn);
   for (size_t i = 0; i < nn; i++)
     {
-      unsigned char c = (unsigned char) name[i];
+      unsigned char c = (unsigned char) name[beg + i];
       key[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
     }
   auto it = objs_index.map.find (key);
@@ -410,15 +453,20 @@ const vector<size_t> *GeasState::obj_records (const string &name) const
 const vector<size_t> *GeasState::prop_records (const string &name) const
 {
   ensure_props_index ();
-  /* Build the lowercased key into a reused buffer rather than allocating an
-   * lcase() temporary on every lookup (this is on the get_obj_property /
-   * get_obj_action runtime path). */
+  /* Build the lowercased, trimmed key (see name_index_key) into a reused buffer
+   * rather than allocating an lcase() temporary on every lookup (this is on the
+   * get_obj_property / get_obj_action runtime path). */
   string &key = props_index.key_scratch;
-  size_t nn = name.size ();
+  size_t beg = 0, end = name.size ();
+  while (beg < end && isspace ((unsigned char) name[beg]))
+    beg ++;
+  while (end > beg && isspace ((unsigned char) name[end - 1]))
+    end --;
+  size_t nn = end - beg;
   key.resize (nn);
   for (size_t i = 0; i < nn; i++)
     {
-      unsigned char c = (unsigned char) name[i];
+      unsigned char c = (unsigned char) name[beg + i];
       key[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
     }
   auto it = props_index.map.find (key);
@@ -474,6 +522,7 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       data.parent = "";
       data.hidden = false;
       data.invisible = true;
+      data.is_room = false;
       objs.push_back (data);
     }
 
@@ -485,6 +534,7 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       data.name = go.name;
       data.parent = "";
       data.hidden = data.invisible = true;
+      data.is_room = true;
       objs.push_back (data);
     }
 
@@ -508,7 +558,20 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	    {
 	      std::string p = next_token (line, c1, c2);
 	      if (is_param (p))
-		data.parent = param_contents (p);
+		{
+		  data.parent = param_contents (p);
+		  /* Quest converts the line into the object's own "parent"
+		   * property while loading -- AddToObjectProperties ("parent=" +
+		   * ..., V4Game.Part2.cs:3538-3540) -- which is the very property
+		   * DoAddRemove writes when something is put into a container
+		   * during play.  Record it here as well, so a game that starts an
+		   * object off inside a container can still read back
+		   * #obj:parent#.  Teaching geasfile.cc's obj_tag_property list
+		   * about "parent" would not work instead: that would rewrite the
+		   * definition line as a properties line, and it is the raw line
+		   * that this loop scans for.  */
+		  add_prop (data.name, "properties parent=" + data.parent);
+		}
 	      break;
 	    }
 	}
@@ -526,7 +589,35 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 		break;
 	      }
 	  }
+      /* Quest's post-definition fixup for visibility.  Only a *bare* "hidden"
+       * tag line actually leaves an object non-existent: the loop that reads an
+       * object definition raises its local `hidden' flag on
+       * Strings.Trim (_lines[j]) == "hidden" alone, and when the definition ends
+       * it says (V4Game.Part2.cs:3550-3553)
+       *
+       *     if (!hidden) o.Exists = true;
+       *
+       * so a "hidden" that arrived any other way -- through
+       * "properties <hidden; ...>", or through an included type -- is undone on
+       * the spot and the object starts off visible after all.  (The property is
+       * still recorded, and setting it during play does hide the object;
+       * V4Game.cs:4169-4179.  It is only the load-time write that gets reversed.)
+       *
+       * geas rewrites the bare tag into "properties <hidden>" as it reads the
+       * file, so by the time anything looks the property up the two spellings
+       * are indistinguishable.  readfile.cc marks the bare form with an extra
+       * "!hiddentag" property as it does that rewrite (see the comment there);
+       * this is where the mark is read back.  Slackers Inc.'s "Revenge of the
+       * Shadow Masters" turns on it: its Mug o' Grog is declared
+       * `properties <hidden; Drink; buy; steal>' with no bare tag and nothing
+       * ever calls `show' on it, and the grog is the base of the Drink of
+       * Immortality that unlocks the Refuge of Riddles -- the whole second half
+       * of the demo. */
+      if (gf.obj_has_property (data.name, "hidden")
+	  && !gf.obj_has_property (data.name, "!hiddentag"))
+	add_prop (data.name, "properties not hidden");
       data.hidden = data.invisible = false;
+      data.is_room = false;
       objs.push_back (data);
     }
 
@@ -543,6 +634,7 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       else
 	data.parent = param_contents (go.parent);
       data.hidden = data.invisible = false;
+      data.is_room = false;
       objs.push_back (data);
     }
 

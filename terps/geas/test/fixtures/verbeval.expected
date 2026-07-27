@@ -1,0 +1,24 @@
+
+verbeval
+
+You are in r
+There is lamp and rock here.
+
+> take lamp
+You pick it up.
+
+> take rock
+You pick it up.
+
+> buff lamp
+lamp gleams
+
+> buff rock
+nothing to buff
+
+> drop lamp
+lamp put down, drop script ran
+
+> drop rock
+rock put down, drop script ran
+[runner] turns=6 leftover=0 running=true

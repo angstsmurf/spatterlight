@@ -1,0 +1,46 @@
+
+ContVisScope
+
+You are in Room
+There is sarcophagus and chest here.
+A dusty chamber.
+
+> look
+You are in Room
+There is sarcophagus and chest here.
+A dusty chamber.
+
+> reveal goth
+
+> x goth
+A bored goth.
+
+> x chest
+A tin chest.
+
+> x goth
+A bored goth.
+
+> open chest
+You open it.
+
+> x goth
+A bored goth.
+
+> take coin
+(first removing it from chest)
+Done.
+You pick it up.
+
+> put coin in chest
+You put coin in chest.
+
+> x goth
+A bored goth.
+
+> x sarcophagus
+A stone sarcophagus.
+
+> x goth
+You don't see any goth.
+[runner] turns=12 leftover=0 running=true

@@ -1,0 +1,235 @@
+Prison Break
+Prison Break.asl, ASL 410, "Created with QDK 4.1.5", Roy Wong, copyright "No
+rights reserved."
+
+You are Boyboy, a teddy bear, taped shut inside a cardboard box in a storage room
+on Christmas Eve because your owner Freda does not want you any more.  Dungdung
+the cat claws you out and recruits you.  Three rooms, no score, no timers, no
+randomness, and -- unusually -- no way to lose.  65 turns below, which is the
+whole game plus every SPEAK TO joke.
+
+The marker is the last line of the escape ending.  Neither ending uses `playerwin`
+or `playerlose`; both finish with a bare `stop`.
+
+
+THERE ARE NO COMPASS DIRECTIONS
+
+Travel is three game-level commands, each gated on a flag:
+
+    command <go to kitchen>       requires flag <opendoor>
+    command <go to sitting room>  requires flag <speakkdd3>
+    command <go to dark room>     always refuses: "There is no point going back
+                                  there."
+
+Everything else is state held in flags and read back out through the rooms'
+`description` blocks.  The Storage Room's description is a five-deep nested
+`if not flag` ladder, and each rung prints the nudge for whatever you are
+supposed to do next ("You really should thank Dungdung for her help first.",
+"The room is too dark.  You cannot see much.", "You see the key being trapped
+between two giant cardboard boxes.").  In this game LOOK is the hint system, and
+it is also the trigger: the first LOOK after thanking Dungdung is what reveals
+the toy arrow, the glasses and the matches, and the first LOOK in the kitchen
+after talking to her is what reveals the pen and the paper.
+
+
+PUZZLE ONE: THE STORAGE ROOM
+
+  SPEAK TO MYSTERY VOICE                -> she becomes Dungdung
+  SPEAK TO DUNGDUNG (four-deep menu)    -> she cuts the tape; you are out
+  SPEAK TO DUNGDUNG                     -> thank her
+  LOOK                                  -> toy arrow, glasses, matches
+  USE MATCHES                           -> reveals a scented candle, out of reach
+                                           on top of a large box
+  USE TOY ARROW ON CANDLE               -> knocks it to the floor
+  USE MATCHES ON CANDLE                 -> light; reveals the key, wedged between
+                                           two boxes the two of you cannot move
+  USE TOY ARROW ON GLASSES              -> suction cup pressed onto the lens =
+                                           one long reaching hook
+  USE LONG HOOK ON KEY                  -> you have the key
+  USE KEY                               -> Dungdung stands on your shoulders and
+                                           opens the door
+  GO TO KITCHEN
+
+USE TOY ARROW ON KEY before building the hook gets the explicit hint ("still too
+short... You may need to use the arrow on something to extend its length"), which
+is in the script because it is the only clue for the combination.
+
+
+PUZZLE TWO: THE KITCHEN
+
+  SPEAK TO DUNGDUNG (three-deep menu)   -> she admits nothing much
+  USE KEY                               -> the storeroom key was the cabinet key
+                                           all along; you get a can of salmon
+  LOOK                                  -> pen, paper
+  USE PEN ON CANNED SALMON              -> you jump on it as a lever and snap it;
+                                           leaves the ink cartridge, and Dungdung
+                                           points out a locked glass cupboard with
+                                           a butter knife on the top shelf
+  USE PAPER ON CUPBOARD                 -> slid under the door as a landing pad
+  USE INK CARTRIDGE ON KNIFE            -> pushed off the shelf onto the paper,
+                                           pull the paper back out
+  USE KNIFE ON CANNED SALMON            -> open
+  SPEAK TO DUNGDUNG                     -> she hands you "the entrance key"
+  GO TO SITTING ROOM
+
+The paper is the one ordering constraint in the game, and even that is signposted:
+USE INK CARTRIDGE ON KNIFE with no paper in place tells you exactly what is
+missing.  The script does it in the wrong order first so the refusal shows up in
+the transcript.
+
+READ PAPER is the only content behind any of the eleven blanket verbs, and it is a
+nice touch: it is Freda's moving checklist ("cardboard box X 20 / duck tape X 2 /
+book lorry / get key / get sofa / more paints / check holidays"), it is the same
+sheet you shove under the cupboard door, and the ending has her picking it up off
+the kitchen floor and adding "kitchen wraping paper" to it.
+
+
+THE ENDGAME IS A CHOOSE-YOUR-OWN-ADVENTURE
+
+Entering the Sitting Room is not parser-driven at all.  The room's description
+prints, waits for a key, and then runs `choose <escape1>`; ten selections
+(escape1 through escape12) form a branching tree, and every leaf either descends
+further or `goto`s one of the two ending rooms.  The path below is:
+
+  escape1   sneak to the corner where the Pucca doll is    -> escape2
+  escape2   tell Pucca to take care of Freda for you       -> escape5
+  escape5   hide behind the bookshelf                      -> escape7
+  escape7   sneak behind the coat rack                     -> escape8
+  escape8   the key wouldn't work, climb out the window    -> escape11
+  escape11  climb out the window and leave                 -> Somewhere You Belong
+
+Only that one leaf reaches the escape ending.  "Make a run to the door!" at
+escape6/7 puts you in escape9, where Freda sees you; escape9 and escape12 are
+mostly direct jumps to the other ending.  The best joke in the tree is escape10:
+if you choose to unlock the front door with the key Dungdung gave you, the key
+does not work -- because it is the kitchen cabinet key again, which the game has
+been hinting at since she palmed it to you while eating your salmon.
+
+Both endings are real endings, not a win and a loss.
+
+  Ending: Somewhere You Belong -- you climb out, Freda sees you go and does
+    nothing, and you lie down in an alley wishing never to wake up.  A poor man
+    finds you and gives you to his daughter Ameli for Christmas.
+
+  Ending: The Truth (alias "Ending: The Abandoned Doll") -- Freda picks you up.
+    The box was for moving house, the "truck people" are movers, she is taking you
+    with her, and the doll being left behind is Pucca.  It is longer and better
+    written than the escape, and it is what you get for every wrong answer in the
+    tree, which reads like the point.
+
+
+AUTHORING NOTES
+
+  * State changes are done by swapping whole objects rather than editing one.
+    There are four objects called "key" (`key`, then `key2`/`key3`/`key4` each
+    carrying `alias <key>`), three called Dungdung, two papers and two knives.
+    Each swap is a `hide`/`show`/`give` triple.
+  * The candle's `use` tag, its `action <light>` tag and the matches' `use on
+    <candle>` tag are three verbatim copies of the same twelve-line script, and
+    the matches' `use` and `action <light>` are two more.
+  * The help text exists three times -- `command <help#something#>`,
+    `command <help>`, and inline in the Storage Room's first description -- with
+    the examples reworded ("kiss baby", "eat candy", "kick dog" in the room copy
+    versus "play piano", "eat candy", "read newspaper" in the command copy).
+  * Eleven verbs (wear, put on, shoot, punch, kick, kiss, eat, light, kill, read,
+    open, break, insert) are declared at game level with a blanket refusal, and
+    the objects that answer them do so through `properties <punch = ...>` lists.
+    Dungdung has two different sets, one per room: in the storage room she "seems
+    really mad" if you kick her, and in the kitchen -- after she has got what she
+    wanted out of you -- she dodges and jokes about it.  That is why PUNCH
+    DUNGDUNG is in the script.
+  * Every single object answers SPEAK TO with a line in its own voice.  The toy
+    arrow is embarrassed about its suction cup, the ink cartridge hates you for
+    breaking its body, the butter knife wants out of the cupboard as much as you
+    want out of the house, and all four keys insist there is no escape.
+  * `command <the #something#>` and `error <badcommand; ...>` both exist to catch
+    players who type "use A on the B".  There is also a
+    `command <fuck#word#;rape#word#> msg <You shouldn't say something like that.>`
+  * The in-game instructions describe `panes on`, an inventory box in the upper
+    right, and browsing your command history with the up arrow -- the Quest 4
+    Windows runner's UI.  Where the game says "press the up arrow until you see
+    'speak to d'", this script just types the command.
+
+start:
+help
+look
+speak to mystery voice
+1
+speak to dungdung
+1
+1
+1
+1
+look at dungdung
+punch dungdung
+speak to dungdung
+2
+look
+look at toy arrow
+take toy arrow
+speak to toy arrow
+look at glasses
+take glasses
+speak to glasses
+look at matches
+take matches
+speak to matches
+use glasses
+use matches
+look at candle
+take candle
+use toy arrow on candle
+look at candle
+use matches on candle
+look at key
+take key
+speak to dungdung
+3
+use toy arrow on key
+use toy arrow on glasses
+look at long hook
+speak to long hook
+use long hook on key
+speak to dungdung
+look at key
+use key
+go to kitchen
+look at dungdung
+speak to dungdung
+2
+2
+1
+look at key
+use key
+look at canned salmon
+look
+look at pen
+take pen
+speak to pen
+look at paper
+take paper
+read paper
+use pen on paper
+use pen on canned salmon
+look at ink cartridge
+look at cupboard
+look at knife
+speak to knife
+use ink cartridge on knife
+use paper on cupboard
+use ink cartridge on knife
+look at knife
+speak to knife
+use knife on canned salmon
+look at dungdung
+speak to dungdung
+1
+look at key
+go to dark room
+go to sitting room
+1
+2
+2
+1
+2
+1

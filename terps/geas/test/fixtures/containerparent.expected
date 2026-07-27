@@ -1,0 +1,95 @@
+
+Containerparent
+
+You are in Vault
+There is chest, sack, bones, pedestal and crate here.
+The vault.
+
+> show
+parent of bones is []
+
+> openit
+
+> look at chest
+A sturdy chest.
+
+> stow
+
+> show
+parent of bones is [chest]
+
+> look
+You are in Vault
+There is chest, sack, bones, pedestal and crate here.
+The vault.
+
+> unstow
+
+> show
+parent of bones is []
+
+> look
+You are in Vault
+There is chest, sack, bones, pedestal and crate here.
+The vault.
+
+> stash
+
+> show
+parent of bones is []
+
+> take sack
+You pick it up.
+
+> take bones
+You pick it up.
+
+> use sack on pedestal
+The pedestal springs a trap!
+
+> opensack
+
+> put bones in sack
+You put bones in sack.
+
+> show
+parent of bones is [sack]
+
+> use sack on pedestal
+The pedestal accepts the offering.
+
+> take bones
+(first removing it from sack)
+You can't remove that.
+
+> i
+You are carrying:
+sack
+bones
+
+> show
+parent of bones is [sack]
+
+> use sack on pedestal
+The pedestal accepts the offering.
+
+> marbleparent
+parent of marble is [crate]
+
+> freemarble
+
+> marbleparent
+parent of marble is []
+
+> look
+You are in Vault
+There is chest, pedestal and crate here.
+The vault.
+
+> revealmarble
+
+> look
+You are in Vault
+There is chest, pedestal, crate and marble here.
+The vault.
+[runner] turns=28 leftover=0 running=true

@@ -1,0 +1,16 @@
+north
+opennorth
+north
+home
+openeast
+east
+home
+opensouth
+south
+home
+shutnorth
+north
+home
+opennorth
+north
+home

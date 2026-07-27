@@ -1,0 +1,122 @@
+A certain Oscar
+Oscar.asl, v1.00, ASL 217, "created by QDK Pro 1.0", author Ido Angel, AI42 Ltd.
+
+UNFINISHABLE -- this is the opening scene of an abandoned game, not a game.  The
+script below is a furthest-reachable-state run: it exercises every room, object,
+verb and message the file actually contains, and stops because there is nothing
+further to reach.
+
+
+WHAT IS IN THE FILE
+
+611 lines, of which about 400 are the `standard.lib` / `movecont.lib` glue that
+QDK Pro pastes into every project (the ten-deep `take all` unroller, the
+$instr$/$mid$ comma-splitting of `#quest.objects#`, the "What do you want to
+...?" `enter` prompts).  The author's own content is two rooms and five objects:
+
+  hospital room, in bed    tv, window, bed, remote control, and `yourself`
+  hospital room            bed (a second, differently-worded copy)
+
+There are no exits of any kind.  N/S/E/W are all "You can't go that way."; the
+description says the door east is locked and there is no door object; the window
+has an `open`/`close` handler whose entire job is to say it cannot be opened.
+The two rooms are connected only by the bed: GET UP (also GET OUT OF BED, STAND,
+CLIMB OFF BED and nine more synonyms) runs Internal Procedure 137, which does
+`goto <hospital room>` plus `movechar` and drags the tv and window along with it;
+SIT ON BED (also LIE DOWN, RETURN TO BED, GET IN BED, ...) runs 66 and goes back.
+
+`collectables <Score 0r100=0 ...>` declares a hundred-point score.  Nothing in
+the file ever adds to it.  `define text <win>` and `define text <lose>` are both
+empty and there is no `playerwin` or `playerlose` anywhere, so the game cannot
+end.  The intro text -- a page of dreamlike prose about the word SHAKESPEARE
+freezing in mid-air -- is the only writing that was finished.
+
+
+THE TV IS NOT IMPLEMENTED
+
+The premise is clearly meant to be the television.  It is the one non-white
+object in the room, the remote is described as having exactly two buttons marked
+"ON" and "OFF", and `~Internal Procedure 141` (the room's arrival script) sets
+`tv` to the string "off".  But:
+
+  * There is no `use` handler on the remote and no `turn on` command, so no
+    input can change that string.  TURN ON TV falls through to "You can't do
+    that."  USE REMOTE ON TV cannot even find the remote (see below).
+  * The tv's `look` tag reads
+        look if is <tv;on> then msg <...is now off.> else msg <...is off.>
+    -- both branches say off, so even a working switch would show nothing.
+  * `~Internal Procedure 139` is the "look at the television picture" handler:
+    `if here <tvon> then exec <x tvon>` / `if here <tvoff> then exec <x tvoff>`.
+    Neither `tvon` nor `tvoff` is defined anywhere in the file, and 139 is never
+    called by anything.
+
+So the remote's two buttons are the whole of the unwritten game.
+
+
+TWO AUTHORING BUGS THE SCRIPT WALKS INTO DELIBERATELY
+
+Both are the game's, not the interpreter's; they are in the script because a
+transcript that hides them would be misleading about what state is reachable.
+
+1. Taking the remote destroys it.  `~Internal Procedure 140` is
+       msg <You take the remote control in your hand.>
+       moveobject <remote control;yourself>
+       setstring <remote;taken>
+   `yourself` is not the player -- it is a `define room <yourself>` that
+   movecont.lib uses as a container, listed in
+   `set <standard.lib.containers;yourself>`.  So the remote is moved into a room
+   you can never enter.  The confirmation message prints, INVENTORY still says
+   "You are carrying nothing", and the object is gone for the rest of the
+   session; Procedure 137's `if is <#remote#;untaken> then moveobject <remote
+   control;hospital room>` will not bring it back, because 140 just set the flag
+   to "taken".  The script therefore looks at the remote before taking it.
+
+2. The player character is listed as furniture, and doubles.  `yourself` is
+   both that container room and a `define character <yourself>` marked
+   `invisible` inside the bed room -- but the room object carries
+   `prefix <You are currently holding:>`, so LOOK reports "There is You are
+   currently holding: yourself here."  Getting up and lying down again runs
+   `movechar <yourself;...>` a second time and the line appears twice in one
+   room listing.
+
+3. Room descriptions never print.  The game header says
+   `description do <~Internal Procedure 143>`, and Internal Procedure 143 is
+   not defined in the file -- 0 through 142 are, 143 is not.  Every LOOK prints
+   the object list and nothing else, which is why the long room description
+   quoted above is visible only in the source.
+
+
+THE SCRIPT
+
+Everything reachable, in the only order that shows all of it: the full object
+sweep from the bed (where the remote is), the window's refusal in both
+directions, TAKE ALL (which finds nothing, because every object except the
+remote is `invisible`), then out of bed for the second bed description and the
+relocated tv and window, then the remote -- examined first, then taken, with the
+inventory check that proves where it went -- and back to bed.  The win marker is
+that take message, which is as deep as this file goes.
+
+start:
+look
+look at bed
+look at tv
+look at window
+look at remote control
+look at yourself
+speak to yourself
+open window
+close window
+take all
+inventory
+get up
+look
+look at bed
+look at tv
+look at window
+look at remote control
+take remote control
+inventory
+look
+return to bed
+look at bed
+about

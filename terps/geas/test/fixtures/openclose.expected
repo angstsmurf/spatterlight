@@ -1,0 +1,40 @@
+
+OpenClose
+
+You are in Room
+There is crate, safe and chest here.
+A plain room.
+
+> look in crate
+It is closed.
+
+> take coin
+You don't see any coin.
+
+> open crate
+You open it.
+
+> look in crate
+Inside you see coin.
+
+> take coin
+(first removing it from crate)
+Done.
+You pick it up.
+
+> close crate
+You close it.
+
+> look in crate
+It is closed.
+
+> open safe
+The safe swings open.
+
+> open chest
+You lever the chest open.
+
+> inventory
+You are carrying:
+coin
+[runner] turns=10 leftover=0 running=true

@@ -1,0 +1,34 @@
+
+Verbspace
+
+You are in Hall
+There is box, door and coin here.
+The hall.
+
+> use box
+You press the box.
+
+> use key in door
+The door swings open.
+
+> use door
+The door has no button.
+
+> pick up coin
+PICKED UP the coin.
+
+> take coin
+TOOK the coin.
+
+> take, take coin
+PICKED UP the coin.
+
+> jab coin
+POKED the coin.
+
+> shove coin
+You can't do that.
+
+> poke coin
+POKED the coin.
+[runner] turns=9 leftover=0 running=true

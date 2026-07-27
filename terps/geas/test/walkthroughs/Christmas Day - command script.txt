@@ -1,0 +1,41 @@
+Christmas day by Sarah (QDK Lite 4.03, ASL 400)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "Thanks for playing".
+
+Six rooms off a central Hallway and one chain of three uses.  The whole game is
+"open your present": the Big gift in the Living room is a closed container
+holding a Teddy bear, and USE KNIFE ON BIG GIFT is the only script that calls
+playerwin.
+
+The chain:  Key (Dining room) -> Case (parents' room) -> Knife -> Big gift.
+
+Two things that look like bugs but are the game as written:
+
+  * TAKE BIG GIFT prints nothing at all.  "take give <Big gift>" is parsed as a
+    take *action* whose whole body is "give <Big gift>", and an action beats the
+    object's own "take=You took your gift." property, so the gift is silently
+    picked up.
+  * USE KEY ON CASE says "You open the case." and reveals the Knife, but it only
+    calls "show <Knife>" -- it never opens the Case, and the Knife is parented
+    inside it, so it stays out of reach.  OPEN CASE is still needed, and it
+    prints the Case's own "It needs a key." message while opening it anyway:
+    Quest treats a non-empty "open" property as "openable, and here is the text"
+    and opens the container after printing it (ExecOpenClose, V4Game.cs:2814).
+    Reading that line as a refusal and stopping there is the way to get stuck.
+
+Everything else in the game is scenery with a joke "take" message.
+
+Start:
+look
+south
+south
+take big gift
+north
+east
+take key
+west
+west
+use key on case
+open case
+take knife
+use knife on big gift

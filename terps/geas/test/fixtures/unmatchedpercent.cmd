@@ -1,0 +1,9 @@
+look
+pct
+hash
+empty
+both
+paired
+north
+look
+south

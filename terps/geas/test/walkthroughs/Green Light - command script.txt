@@ -1,0 +1,244 @@
+Green Light
+Carlii Cortez, 2002, v1.0 "Prereleased", ASL 310, "Created with QDK 3.1"
+
+Green text on a black background, Verdana 8, and a game blurb that warns you it
+is "long and often complex and challenging" and begs you to save often.  It is
+in fact a single tower with fourteen rooms in it, and the whole thing is one
+lock-and-key chain plus one cooking recipe.  You play Jem, and the ending tells
+you what you are.
+
+
+THE THREE SLOT CARDS
+
+The tower room you start in has three blank panels and a grate in the floor, and
+every card opens one more of the tower's hidden doors:
+
+  card A -> panel A   creates  tower room --south--> lab
+  card B -> panel B   creates  tower room --southwest--> bedroom
+  card C -> panel C   creates  bedroom --south--> library   (the endgame)
+
+Card A is under the grate and needs the crowbar.  Card B is in the kitchen
+cupboard.  Card C is in the storeroom, behind the monster.  Each `use card X on
+panel X` does `create exit`, `lose` and `hide`, so the cards are consumed.
+
+Your starting inventory arrives by the QDK 3.1 idiom of putting objects in a
+room literally called `inventory` -- the crowbar is defined there and you are
+holding it on turn one.  There is a second bookkeeping room, `spare room`, that
+holds every object the game will later conjure into your hands (card B, the cup
+of water, the dough, all the bread stages).  It has a `west <tower room>` exit
+and a description about a huge window, but nothing anywhere leads into it, so it
+is limbo with a door.
+
+
+THE CUPBOARD
+
+`x cupboard` in the kitchen opens a nine-drawer selection, one drawer per look:
+
+  drawer 4  card B          (guarded by `if got <card B>` -- see below)
+  drawer 7  1 gold coin     (guarded by the string variable #goldcoin#)
+  drawer 8  a cup           (guarded by the string variable #cup#)
+
+and the other six are "nothing :(".  Drawer 4's guard is a `got` test rather
+than a one-shot flag, so once you have spent card B on panel B the drawer
+cheerfully produces another one.  Nothing needs a second card B, but it is the
+kind of thing that tells you which drawers the author tested.
+
+The cup is the one that matters: it becomes the cup of milk, and the milk is
+what gets you past the monster.  Do not use the fountain room's
+`fill cup with water` command on it -- that swaps the cup for a cup of water,
+which the milking procedure does not accept and which the monster (twice stated
+to be allergic to water) would not drink anyway.
+
+The `coins` variable that drawer 7 and the vase feed is displayed in the pane
+and never read by anything.  The vase pays `$rand(3;5)$` coins, so the number is
+different every run.
+
+
+THE FIGARI BREAD
+
+The recipe is printed on the kitchen's cooking book (`read book`) and this is
+the whole middle of the game:
+
+  flour  =  wheat -> grain -> hopper -> flour, carried in the pot
+            (cythe from the shed to `pick wheat`; `take flour` needs the pot)
+  water  =  `use jug on fountain`, jug from the potions room
+  clove  =  drop the giant's vase in the bedroom
+  sugar  =  `use vial on sack of sugar` in the pantry, vial from the potions room
+
+  use jug of water on pot with flour      -> dough
+  use Clove of Figari on dough            -> figari dough
+  use figari dough on baking dish         -> uncooked Figari bread
+  use uncooked Figari bread on oven       -> Figari bread
+  use vial of sugar on Figari bread       -> sugared Figari bread
+
+Each step is a procedure that loses one object and gives the next, so the chain
+has to run in exactly that order.  The vase is `take`-then-`drop`: taking it
+warns you it is delicate, dropping it smashes it and spills the clove and the
+coins.  (Taking the pieces of ceramic afterwards is optional and does nothing;
+the game just likes that you tidied up.)
+
+Milk is separate: `milk cow` in the wheatfield needs the cup *and* the gloves
+from the shed, per the sign in the field.
+
+Getting to the wheatfield at all needs the gold key from the balcony, and the
+balcony needs the whole bedroom sequence: climb the giant's bed, `pull string`
+(which drops a ladder and dumps you back on the floor), climb the bed again, then
+`climb ladder`.  `use key on window` in the fountain room creates the place exit
+out into the field.
+
+
+THE MONSTER
+
+The eight-eyed monster stands in the fountain room's east exit, which is a
+script that refuses to move you while it is `here`.  Note that it has to be
+named in full every time: it is `define object <eight-eyed monster>` with
+`alt <8-eyed monster>` (green_light.asl:372-373) and nothing shorter, and the
+game is ASL 310, so a bare "monster" resolves to nothing at all.  Quest only
+matches a word taken from the middle of a name for ASL 391 and up, and only
+while abbreviations are on (Disambiguate, V4Game.cs:4762-4772; see
+fixtures/abbrev.asl and fixtures/abbrevoff.asl).
+
+It will not take food until you have talked it round, and the conversation is
+four nested selections deep, one correct answer each:
+
+  speak to eight-eyed monster -> monster   1  "Hello. How are you?"
+                              -> monster2  2  "...you mustn't get much company."
+                              -> monster3  1  "I feel sorry for ya."
+                              -> monster4  3  "...bring some food from the kitchen?"
+
+Only that last choice sets `#fmonster#`, which is what the monster's `give`
+handler needs.  Every other branch is a rebuff, and speaking to it again after
+`#fmonster#` is set just gets "Where's my food?" -- so the four numbers have to
+be right the first time through.
+
+Then `give sugared Figari bread to eight-eyed monster` (it asks for something to
+wash it down with) and `give cup of milk to eight-eyed monster`, which hides the
+monster and `create exit east <fountain room; hallway>`.  Hallway east is the
+storeroom and card C.
+
+
+ODDS AND ENDS
+
+The game block carries a leftover debug cheat: `command <a> give <card C>`.
+Typing a single "a" hands you the last card and skips the monster, the bread,
+the milk, the cow and the key entirely -- that is to say, most of the game.
+This script does not use it.
+
+`define procedure <read-book>`, which opens a "which book would you like to read
+in the library?" selection with "The Art Of Potions" in it, is never called from
+anywhere.  So the three potion recipes it prints (a transformation potion needs
+eight human eyes; an explosive potion needs a Figari clove) are unreachable, and
+so is the potion bottle from the potions room, which nothing in the game uses.
+The two `command <eat ... Figari bread>` handlers in the game block are the same
+sort of tease: they answer "You feel it serves some sort of purpose..."
+
+The library's north exit is `north msg <The door has been slam shut behind you.>`
+-- once in, you stay in.  That is fine, because `speak to Mervil` ends the game:
+the giant tells Jem he is one of Mervil's experiments, made with a formula
+called Green Light, hands the formula over, panics, and the procedure calls
+`playerwin`.  The win text advertises a sequel, Green Light: Gold Expansion.
+
+The lab prints "You are in the the labratory" -- the room has `indescription
+<You are in the:>` and `prefix <the>` and an `alias`, and all three land in the
+same sentence.  Quest does the same; it is the author's doubling, not ours.
+
+Every transition is padded with `pause` (up to 4500ms in the bedroom), which the
+runner ignores.
+
+
+Start:
+i
+x grate
+use crowbar on grate
+take card A
+use card A on panel A
+s
+x table
+open trap door
+go to potions room
+take potion bottle
+take jug
+take vial
+go to lab
+e
+use jug on fountain
+s
+x cooking book
+read book
+x cupboard
+8
+x cupboard
+4
+x cupboard
+7
+take pot
+take baking dish
+go to pantry
+use vial on sack of sugar
+out
+n
+w
+n
+use card B on panel B
+sw
+x vase
+take vase
+drop vase
+take pieces of ceramic
+go to top of the bed
+x string
+pull string
+go to top of the bed
+climb ladder
+x key
+take key
+go to top of the bed
+go to bedroom
+ne
+s
+e
+x window
+use key on window
+go to wheatfield
+x sign
+x cow
+n
+x cythe
+take cythe
+take gloves
+x hopper
+s
+pick wheat
+milk cow
+n
+use grain on hopper
+take flour
+s
+go to fountain room
+use jug of water on pot with flour
+use Clove of Figari on dough
+s
+use figari dough on baking dish
+use uncooked Figari bread on oven
+use vial of sugar on Figari bread
+n
+x eight-eyed monster
+speak to eight-eyed monster
+1
+2
+1
+3
+give sugared Figari bread to eight-eyed monster
+give cup of milk to eight-eyed monster
+e
+e
+take card C
+w
+w
+w
+n
+use card C on panel C
+sw
+s
+x Mervil
+speak to Mervil

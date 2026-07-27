@@ -1,0 +1,257 @@
+Pyramid Of Terror
+v1, ASL 410, "Created with QDK 4.1.5"
+
+Sutekh, Egyptian god of destruction and dust, has been sending you visions, so
+you climb down a manhole in the road outside your Victorian folly and go looking
+for him.  Thirteen rooms, one word, no score.  The whole game is a hunt for the
+letters of MARZIPAN, because the hermit in the cell below the chamber of fire
+knows what nobody else will tell you: Sutekh cannot abide wedding-cake, and a
+wedding-cake ingredient is the only thing that will kill him.  Once you have
+guessed the word you do not need to type it -- you need to be holding the yellowy
+blob and DROP it in his chamber.  85 turns below, taking in every room, every
+timer and every one of the letters.
+
+
+THE LETTERS
+
+  M   the rug in the sarcophagus chamber; also the magnolia walls of the
+      seemingly empty room ("Magnolia begins with an M")
+  A   inside the sarcophagus -- LOOK AT it before you open it
+  R   the Jane Eyre book, once the goth lets you read it
+  Z   the stone king in the chessboard room ("a zip, I tells ya")
+  I   the seven-legged spider in the cobweb
+  P   the condensation on the oven window, after SWITCH ON OVEN
+  A,N the magnifying glass in Sutekh's chamber: the letters PAN drift behind
+      the lens
+
+The M and the A in the sarcophagus chamber are `invisible` objects, so they are
+never listed; you find them by reading the room description and typing the noun.
+
+
+THE SPINE
+
+Only thirteen of the 85 turns are load-bearing:
+
+  n n n n e e            sewer -> passageway -> sarcophagus chamber -> kitchen
+                         -> temple of enticement -> chessboard room ->
+                         seemingly empty room
+  take marzipan
+  e / dive in            swimming-pool, then the dive into Sutekh's chamber
+  drop marzipan          the trapdoor above clicks open
+  up                     your drawing-room
+  play record player     reveals the joint
+  smoke joint            wins
+
+Everything else -- the goth, the gingerbread man, the hermit, the coffee-shop --
+is optional colour.  The script below does all of it, because most of it is where
+the game's authoring quirks live.
+
+
+THE TWO ONE-WAY UNLOCKS
+
+The chamber of fire and the hermit's cell hang off a northwest exit from the
+sarcophagus chamber that starts locked, and the only thing that unlocks it is the
+gingerbread man's `drop` tag:
+
+    drop {
+        unlock <sarcophagus chamber; northwest>
+        goto <sarcophagus chamber>
+        ...
+    }
+
+So you must open the oven (SWITCH ON OVEN first, for the P), take the gingerbread
+man, and DROP him -- anywhere, the script teleports you back to the sarcophagus
+chamber itself.  EAT GINGERBREAD MAN instead is instant death (`playerlose`), and
+the object warns you which way round it goes if you SPEAK TO it first.
+
+The other locked exit is `up` out of Sutekh's chamber, unlocked by dropping (or
+throwing) the marzipan at him.  Dropping the blob anywhere else silently loses
+it, and there is no second one, so the run is dead if you drop it early -- the
+`action <drop>` script runs `lose <yellowy blob>` on both branches.
+
+
+THE GOTH AND THE COFFEE-SHOP
+
+The goth is `parent <sarcophagus>` and `hidden`; the sarcophagus's open script
+reveals her with a bare `show <goth>` and never opens the sarcophagus.  Give her
+the brass ring, LOOK AT her to reveal the Jane Eyre book, TAKE the book (she
+refuses, and the refusal is the hint), then GIVE JANE EYRE BOOK TO GOTH and she
+invites you for a coffee.  The command that accepts is YES GOTH -- `action <yes>`
+on the goth, reachable because the game defines `verb <yes>` and the synonym
+`accept = yes`.
+
+That teleports both of you to the coffee-shop, which has no exits at all: the
+only way out is USE CAFETIERE (or MAKE COFFEE, a game command that works
+anywhere) and then DRINK AMERICANO, whose script does
+`goto <seemingly empty room>`.  So the coffee-shop is a second, prettier route
+into the room with the marzipan in it.  Three kinds of bean sit there for a
+`weigh` command whose body the author left empty -- WEIGH ROBUSTA BEANS prints
+nothing at all, in Quest as much as here -- and LOOK AT them for the weights.
+The special Sutekh beans cannot be taken.
+
+
+THE VENDING MACHINE
+
+The vending machine in the seemingly empty room is a `transparent` `container`
+holding Maltesers, monster munch and a raspberry slushpuppy, and WAVE CANE in
+that room is what opens it.  But the wave script only shows two of the three:
+
+    remove <raspberry slushpuppy> / <monster munch> / <Maltesers>
+    show <raspberry slushpuppy>
+    show <monster munch>
+    show <monster munch>       ! the Maltesers line the author meant to write
+
+The Maltesers are therefore only takeable if something else has already cleared
+their hidden flag -- and LOOK AT VENDING MACHINE does it, because looking marks
+the machine `seen` and a transparent, seen container makes its contents
+available.  So the order in the script matters: look at the machine, then wave
+the cane.  (The machine's own look text is the stock "Nothing out of the
+ordinary."; the author gave it no description.)
+
+DRINK SLUSHPUPPY starts the marzipan timer, which nags you every ten turns until
+STOP DRINKING -- a game command, not the slushpuppy's `action <stop >`, whose
+name has a stray trailing space and can never be typed.
+
+
+THE TIMERS
+
+Seven, of which two are on from the start: `sutekh timer` (20) nags while you
+carry the brass ring, `horus timer` (30) while you carry the lichen.  The other
+five are turned on by scripts -- the pipe in the temple, the spider's venom, the
+slushpuppy's tartrazine, the record player's Kashka, and the mummy vision that
+the mouldy Snickers gives you.  None of them can kill you; the Snickers vision is
+cleared by SICK UP SNICKERS, the pipe by STOP PIPE.  At 85 turns the script trips
+most of them at least once, which is why the transcript has stray nags in it.
+
+
+THREE ENGINE FIXES CAME OUT OF THIS GAME
+
+All three are pinned by fixtures now (danglthen, verbeval, contviscope).
+
+1.  `verb <drop #@object#>` in the game block.  QDK invites this mistake: the
+    author typed the whole command form into the verb box.  Quest reads a verb's
+    name list with GetParameter, so `#@object#` -- there is no string variable
+    "object" -- collapses to nothing and leaves the unmatchable name "drop ".
+    The verb is dead and DROP falls through to Quest's own handling, which runs
+    the object's `drop` tag.  geas read the name unevaluated, matched it as a
+    two-noun pattern, and answered "Consider it dropped." to every DROP in the
+    game -- including DROP GINGERBREAD MAN, i.e. the only way into the second
+    half of the map.
+
+2.  USE CANE.  Its script nests a dangling `then` inside a braced then-branch,
+    which readfile's de-inlining pass splits into two independent statements
+    exactly as Quest's ConvertMultiLineSections does.  Quest runs an empty
+    then-script and then the next line unconditionally; geas started the
+    then-branch one character past the "then" token and ran off the end of the
+    string, aborting the process.
+
+3.  SPEAK TO GOTH.  She is revealed inside a sarcophagus that is never opened, so
+    her visibility depends on nothing re-deriving the hidden flags of the
+    sarcophagus's contents.  Quest's every runtime call to
+    UpdateVisibilityInContainers names one container; geas swept them all, so the
+    first unrelated LOOK AT a container anywhere in the game put her back out of
+    scope and both SPEAK TO GOTH and GIVE BOOK TO GOTH answered "You don't see
+    any goth."
+
+
+OTHER THINGS WORTH KNOWING
+
+`command <speak to>` is defined in the game block with an empty body, and it is
+harmless: a user command with no #parameter# in it matches only the exact text
+"speak to", so SPEAK TO RAT never reaches it and falls through to the built-in
+handling, which runs the rat's own `speak` tag.  Typing SPEAK TO on its own is
+the one command in the game that prints nothing.  The same is true of
+`command <weigh #@object#>`, except that one does have a parameter, so it
+swallows every WEIGH and prints nothing for all of them.
+
+DIVE IN is a game command (`splash; swim; dive in; make a splash`) that does
+`goto <Sutekh's Chamber Of Cruelty>` from anywhere.  You can therefore reach
+Sutekh from turn one; without the marzipan there is nothing to do there and the
+trapdoor stays shut, so it is not a shortcut.
+
+start:
+look at rat
+speak to rat
+take brass ring
+take blob of lichen
+n
+take pair of sunglasses
+take blind man's white cane
+use cane
+n
+look at sarcophagus
+speak to sarcophagus
+open sarcophagus
+give brass ring to goth
+look at goth
+take jane eyre book
+give jane eyre book to goth
+n
+switch on oven
+look at oven
+open oven
+take gingerbread man
+speak to gingerbread man
+look at mesh bin
+take lilt can
+drop gingerbread man
+nw
+look at sign
+look at cobweb
+speak to seven-legged spider
+take seven-legged spider
+down
+speak to hermit
+take snickers
+eat snickers
+sick up snickers
+up
+se
+n
+n
+smoke pipe
+stop pipe
+drink concoctions
+take marble sparrow
+e
+speak to granite queen
+befriend king
+w
+s
+s
+speak to goth
+yes goth
+look at Seattle Sound
+weigh Robusta beans
+weigh Arabica beans
+weigh special Sutekh beans
+take special Sutekh beans
+take Robusta beans
+speak to goth
+use cafetiere
+take Americano
+drink Americano
+look at magnolia walls
+look at vending machine
+wave cane
+take Maltesers
+take monster munch
+take raspberry slushpuppy
+drink slushpuppy
+stop drinking
+speak to marzipan
+take marzipan
+e
+look at wedding-cake
+dive in
+take magnifying glass
+use magnifying glass
+speak to Sutekh
+drop marzipan
+up
+open drapes
+take scroll
+read scroll
+look at globe
+play record player
+smoke joint

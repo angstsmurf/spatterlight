@@ -1,0 +1,721 @@
+The Maze
+Tim Hamilton, v1.1, ASL 410, "Created with QDK Pro 4.1.1", signed "By Wonderjudge"
+
+One room.  `define room <Maze>` is the whole game, and the intro says so out
+loud: "I left the debug windows on in this one so you could see that the game was
+made all in one room."  The 15x20 hedge maze the player walks around in lives
+entirely in two numerics and four strings.
+
+
+THE MAP IS FOUR STRINGS
+
+    set numeric <xpos; 8>
+    set numeric <ypos; 0>
+    set string <north1; yyyyyynynynnyny,ynnyynnyynyyyyy,...>   (20 rows of 15)
+    set string <south1; ...>  <east1; ...>  <west1; ...>
+
+`%ypos%*16+%xpos%` indexes straight into the comma-joined string: row y occupies
+1-based characters y*16+1 .. y*16+15 and the comma sits at y*16+16, so x runs
+1..15 and y runs 0..19 and the arithmetic needs no adjusting.  Start is (8,0),
+bottom middle; the way out is north from (8,19).
+
+Each compass tag is a script that reads its own character and either walks or
+refuses:
+
+    north {
+        set numeric <number1; %ypos%*16+%xpos%>
+        set string <north2; $mid(#north1#; %number1%; 1)$>
+        if not is <#north2#;y> then {
+            flag off <gates2>  do <gates1>
+            if flag <gates2> then msg <There is an iron gate blocking the path.>
+            else { inc <ypos; 1>  do <exits1>  goto <Maze> }
+        }
+        else { inc <ypos; 1>  do <exits1>  goto <Maze> }
+    }
+
+and `exits1` re-shapes the room to match the new square:
+
+    if is <#north2#;n> then destroy exit <Maze; north> else create exit north <Maze; Maze>
+    ... the same for south, east and west ...
+
+There is a subtlety here worth spelling out, because it is the whole reason the
+maze has walls at all.  `gates1` is a `select case <#north2#>` with cases for
+r, o, e, g, b, i, v, l and x -- and *no case for n*.  So a hedge does not stop
+the direction script: reach it and it walks you through.  What stops you is that
+`exits1` destroyed the exit on the way in, so the direction is not there to be
+typed.  The wall is in the exit table, not in the movement code.
+
+That leans on two pieces of ASL 4.10 exit behaviour that geas did not have
+before this game (both now fixed, both pinned by fixtures/destroyexit.asl and
+its pre-4.10 twin fixtures/destroyexit400.asl):
+
+  * `destroy exit <Maze; north>` has to take a *directional* exit away.  From
+    4.10 on DestroyExit hands the exit to RoomExits.RemoveExit, which clears the
+    exit object's Exists flag whichever kind it is (V4Game.cs:3595-3606,
+    RoomExits.cs:575-591).  Before 4.10 the same statement only searched the
+    room's places list, so a direction name matched nothing and it did nothing.
+
+  * the re-created exit has to keep running the declared script.  From 4.10 on a
+    direction's exit is one long-lived object whose script is set once and never
+    cleared: `create exit north <Maze; Maze>` reuses the existing object
+    (RoomExits.cs:20-33), assigns the new destination, and only calls SetScript
+    if the new tag brings a script of its own -- and Go tests for a script before
+    the destination (RoomExit.cs:240-259).  Before 4.10 there are no exit objects
+    and `create exit` overwrites the room's North field with a plain destination
+    (V4Game.cs:5429-5450), which is what "Bear Campsite" and the Sir Loin games
+    rely on.  Had 4.10 behaved that way too, every `create exit north <Maze;
+    Maze>` would have re-entered the room with the coordinates untouched and the
+    player could never have moved a single square.
+
+`exits1` writes `create exit west <Maze; Entrance>` -- and there is no room
+called Entrance.  It never matters, because the declared west script wins, so
+the destination is never consulted.  It is a leftover from an earlier draft in
+which the maze had a second room.
+
+
+THE COLOUR CHARACTERS
+
+Anything other than y or n in the four strings is a gate, and each one blocks a
+single square in a single direction -- the reverse crossing is always plain y, so
+gates are one-way turnstiles you can always walk back through:
+
+  'r' (3,9)  east  -> (4,9)   Red gate,      guards the Yellow ball
+  'e' (15,5) north -> (15,6)  Yellow gate,   guards the Orange dispenser
+  'o' (8,8)  north -> (8,9)   Orange gate,   guards the two plinths
+  'b' (7,7)  west  -> (6,7)   Blue gate,     guards the Green dispenser
+  'g' (15,18)north -> (15,19) Green gate,    guards the Indigo dispenser
+  'i' (12,10)south -> (12,9)  Indigo gate,   guards the Black key
+  'v' (1,15) south -> (1,14)  Violet gate,   guards the White key
+  'l' (8,0)  south            the front gate; `flag on <gates2>` unconditionally
+  'x' (8,19) north            the way out; `playerwin` if flags wk and bk are set
+
+Note the yellow gate's letter is 'e', not 'y': 'y' already means "open", so the
+author had to spell yellow with its second letter.
+
+`gates1` tests each coloured gate with `if not is <#Red gate:position1#;0> then
+flag on <gates2>`, and answering a gate's riddle does `property <Red gate;
+position1=0>`.  So "opening" a gate means moving its object to column 0, which no
+square has -- the `afterturn` loop then hides it, and the gate is both gone from
+the room and no longer blocking.  One property does the work of a lock, a flag
+and a scenery removal.
+
+
+BALLS, DISPENSERS, CLUES
+
+Three rubber balls are lying in the maze -- Red (12,0), Yellow (4,9), Blue
+(1,11) -- and seven dispensers each want a particular set of them fed in before
+they print a clue:
+
+  Red      (1,0)    red
+  Yellow   (3,2)    yellow
+  Orange   (15,6)   red + yellow
+  Green    (6,8)    yellow + blue
+  Blue     (4,18)   blue
+  Indigo   (15,19)  blue + red
+  Violet   (9,19)   red + yellow + blue
+
+The multi-ball ones are bookkept with a pair of flags per dispenser, so order
+does not matter: the red branch prints the clue `if ... and flag <orange1>` and
+otherwise sets `orange2`, and the yellow branch does the mirror image.  Each
+`use <X ball>` ends with `add <X ball; Red dispenser>` -- the ball drops into the
+dispenser's collector bin rather than back into your hand, so every visit costs
+a TAKE to get the ball out again.  The script also stamps the ball's position1 /
+position2 to the current square, which is what makes that TAKE legal (see
+below).
+
+The riddles and their answers:
+
+  red     What gets wetter and wetter the more it dries?            towel
+  orange  What building can have a million stories?                 library
+  yellow  ...he had seven brothers with seven wives who had seven
+          sons with seven brides.  How many were going to st. ives? 1
+  green   What you find inside the answer to the orange clue
+          + hell -l + f.                                           bookshelf
+  blue    If a man gives one son 12 cents and another son 13 cents
+          what time is it?                                         145 (or 1:45)
+  indigo  Descramble 'ebereeepk'.                                  beekeeper
+  violet  (the answer to the blue clue - the number of sevens
+          mentioned in the yellow clue) times (the answer to the
+          yellow clue + 1)                                         282
+
+The violet one is the only real chain: 145 - 4 sevens = 141, times (1 + 1) = 282.
+Red accepts "towel" or "a towel", orange "library" or "a library", green
+"bookshelf" or "a bookshelf", blue "145" or "1:45"; yellow, indigo and violet
+take exactly one string each.
+
+The indigo gate is `define object <Indingo gate>` -- misspelt, with no alias to
+paper over it -- so USE INDIGO CLUE ON INDIGO GATE is answered with "You don't
+see any indigo gate."  The command that works is USE INDIGO CLUE ON INDINGO
+GATE, and this script types it that way.  Worth knowing that when the USE fails
+the `enter <command1>` prompt never happens, so the answer on the next line is
+read as a command and the run quietly drifts one step out of alignment.
+
+
+THE ANTI-CHEAT
+
+The intro's "the only way you can lose is by using the debug window to cheat" is
+literal.  `define options` has `debug on`, which in the original runner let you
+move objects around by hand, so the author wired a tripwire:
+
+    afterturn {
+        for each object in <Maze> if is <#(quest.thing):position1#;%xpos%>
+            and is <#(quest.thing):position2#;%ypos%> then show <#quest.thing#>
+            else hide <#quest.thing#>
+        for each object in <inventory> if not is <#(quest.thing):t#;1> then playerlose
+    }
+
+Every object carries its own position1 / position2 and is shown or hidden each
+turn to match where you are standing; that is what makes one room look like three
+hundred.  And nothing may be in your inventory unless it has `t=1`, which only
+the redefined TAKE grants:
+
+    command <take #@command1#> {
+        if is <#(command1):position1#;%xpos%> and is <#(command1):position2#;%ypos%>
+            then property <#command1#; t=1>
+        exec <take #command1#; normal>
+    }
+
+-- i.e. only if the object really was on your square.  DROP is redefined to stamp
+position1 / position2 to where you dropped it.  Conjure an object into your
+pockets from the debug pane and the next `afterturn` ends the game with
+`|jc|cr|b|s72Cheater!`.
+
+The plinths at (8,9) and (8,10) take the White and Black keys (either by USE or
+by PUT IN, both spelt out in full), set flags wk and bk, and the second one adds
+"You hear a creaking noise from somewhere to the north" -- the rear Gate at
+(8,19) unlocking.  Each plinth politely refuses the other colour's key.
+
+
+TWO GEAS DIVERGENCES VISIBLE HERE
+
+Quest prints neither the room's object line nor the "You can go ..." line when a
+description tag is in force -- ShowRoomInfo only emits roomDisplayText and
+doorwayString `if (!descTagExist)` (V4Game.Part2.cs:3927-3941).  geas prints both
+regardless, deliberately, so that a custom-described room still tells the player
+what is present and which way out.  In this game that has two visible effects:
+the exits line gives the hedge walls away for free, and the object line lags one
+turn behind, because the `afterturn` show/hide runs *after* the room has been
+described -- so the square you have just left still seems to hold its objects.
+The game's own description block does the coordinate filtering correctly and
+prints "There is a Gate here." for the right square; the extra line underneath it
+is geas's.  (Once a key is in a plinth it also stays in that redundant line
+forever: it is inside a container rather than loose in the room, so the
+`afterturn` loop never sees it to hide it.)
+
+The room's `script msg <|s00You can go #quest.doorways#>` prints "You can go "
+and nothing else, in Quest as much as here.  There is no bare `#quest.doorways#`
+variable -- only `.dirs`, `.places`, `.out` and `.out.display` -- so the author
+was reaching for something that was never there.  It shows up after every move
+and never after a LOOK, because `script` is the on-entry tag.
+
+
+THE ROUTE
+
+439 of the 492 turns below are single-letter compass moves; there is no way
+around that in a maze this size.  The order is forced by the colour chain: red
+ball and red dispenser are the only things reachable at the start, and each clue
+opens the gate that reaches the next ball or dispenser.  Red -> yellow ball ->
+yellow -> orange -> the plinth square, blue ball -> blue -> green -> violet ->
+green gate -> indigo -> black key, violet gate -> white key, both plinths, and
+then the long walk to (8,19) and north.
+
+Start:
+e
+e
+e
+e
+take red ball
+w
+w
+w
+w
+w
+w
+w
+n
+n
+w
+s
+s
+w
+n
+w
+s
+w
+use red ball on red dispenser
+read red clue
+take red clue
+take red ball
+e
+n
+e
+s
+e
+n
+n
+e
+s
+s
+e
+e
+e
+n
+n
+w
+w
+n
+e
+e
+n
+w
+n
+n
+n
+n
+n
+w
+w
+s
+s
+w
+s
+w
+n
+w
+n
+e
+n
+use red clue on red gate
+towel
+e
+take yellow ball
+w
+s
+w
+s
+e
+s
+e
+n
+e
+n
+n
+e
+e
+s
+s
+s
+s
+s
+e
+s
+w
+w
+s
+e
+e
+s
+s
+w
+w
+w
+n
+n
+w
+s
+s
+w
+n
+w
+s
+w
+n
+n
+e
+e
+use yellow ball on yellow dispenser
+read yellow clue
+take yellow clue
+take yellow ball
+w
+w
+s
+s
+e
+n
+e
+s
+e
+n
+n
+e
+s
+s
+e
+e
+e
+e
+e
+n
+e
+n
+e
+s
+e
+s
+e
+e
+n
+n
+n
+n
+n
+use yellow clue on yellow gate
+1
+n
+use red ball on orange dispenser
+use yellow ball on orange dispenser
+read orange clue
+take orange clue
+take red ball
+take yellow ball
+s
+s
+s
+w
+n
+w
+n
+n
+e
+n
+e
+n
+w
+n
+w
+s
+w
+w
+n
+w
+w
+s
+w
+use orange clue on orange gate
+library
+n
+n
+n
+w
+w
+w
+s
+w
+w
+n
+w
+s
+w
+n
+take blue ball
+s
+e
+n
+e
+s
+e
+e
+n
+e
+n
+e
+n
+n
+n
+w
+w
+n
+w
+n
+n
+use blue ball on blue dispenser
+read blue clue
+take blue clue
+take blue ball
+s
+s
+e
+s
+e
+e
+e
+s
+s
+s
+s
+s
+s
+s
+e
+n
+e
+e
+s
+e
+e
+n
+e
+s
+e
+s
+w
+s
+w
+s
+s
+e
+s
+e
+s
+s
+s
+w
+w
+n
+w
+n
+w
+s
+w
+s
+w
+w
+n
+n
+w
+w
+n
+e
+e
+n
+w
+n
+n
+n
+use blue clue on blue gate
+145
+w
+n
+use yellow ball on green dispenser
+use blue ball on green dispenser
+read green clue
+take green clue
+take yellow ball
+take blue ball
+s
+e
+s
+s
+s
+e
+s
+w
+w
+s
+e
+e
+s
+s
+e
+e
+n
+e
+n
+e
+s
+e
+s
+e
+e
+n
+n
+n
+w
+n
+w
+n
+n
+e
+n
+e
+n
+w
+n
+w
+s
+w
+w
+n
+w
+w
+s
+w
+n
+n
+n
+n
+n
+n
+n
+n
+n
+e
+n
+e
+e
+n
+w
+w
+use red ball on violet dispenser
+use yellow ball on violet dispenser
+use blue ball on violet dispenser
+read violet clue
+take violet clue
+take red ball
+take yellow ball
+take blue ball
+e
+e
+e
+e
+e
+s
+s
+e
+n
+use green clue on green gate
+bookshelf
+n
+use blue ball on indigo dispenser
+use red ball on indigo dispenser
+read indigo clue
+take indigo clue
+take red ball
+take blue ball
+s
+s
+w
+s
+e
+s
+w
+s
+e
+s
+w
+w
+n
+w
+s
+w
+s
+e
+s
+e
+s
+w
+use indigo clue on indingo gate
+beekeeper
+s
+take black key
+n
+e
+n
+w
+n
+w
+w
+w
+s
+w
+w
+w
+w
+s
+w
+w
+n
+e
+n
+e
+n
+w
+w
+n
+w
+n
+n
+w
+s
+use violet clue on violet gate
+282
+s
+take white key
+n
+n
+e
+s
+s
+e
+s
+e
+e
+s
+w
+s
+w
+s
+e
+e
+n
+e
+e
+e
+s
+s
+use white key on white plinth
+n
+use black key on black plinth
+n
+w
+w
+n
+e
+n
+w
+n
+w
+w
+n
+w
+n
+n
+w
+w
+n
+n
+e
+s
+e
+n
+e
+e
+s
+s
+e
+n
+n
+e
+e
+n

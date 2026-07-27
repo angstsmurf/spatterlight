@@ -13,6 +13,10 @@
 #
 # The transcripts must be reproducible, so the seed is fixed -- and no fixture
 # prints a raw random number, since rand() differs between C libraries.
+#
+# A fixture that needs extra runner flags puts them in a <label>.args file next
+# to its .cmd; timerperiod.args holds "--tick", which is what lets a timer be
+# tested at all from a script (one tick per turn, as the geasglk frontend does).
 
 set -u
 here=$(cd "$(dirname "$0")" && pwd)
@@ -32,7 +36,10 @@ for game in "$F"/*.asl; do
     script="$F/$label.cmd"
     [ -f "$script" ] || continue          # e.g. a library included by another
     expected="$F/$label.expected"
-    got=$("$RUN" --echo --seed 1 "$game" "$script" 2>&1)
+    args=""
+    [ -f "$F/$label.args" ] && args=$(cat "$F/$label.args")
+    # unquoted on purpose: the .args file is a list of flags, not one word
+    got=$("$RUN" --echo --seed 1 $args "$game" "$script" 2>&1)
     if [ "$bless" = yes ]; then
         printf '%s\n' "$got" > "$expected"
         printf '%-16s BLESSED\n' "$label"

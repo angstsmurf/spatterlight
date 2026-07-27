@@ -1,0 +1,285 @@
+Spectrum
+Mocha Man, 2002, v1.1, ASL 311, "Created with QDK 3.12"
+
+The file is called "treasure hunt.asl" and the game inside it is called Spectrum.
+It is exactly what its own help text says it is -- a forty-room colour maze with
+eight treasures in it and a safe room in the middle to pile them up in -- but the
+half of the game that comes after the maze is not advertised anywhere, and the
+title screen only hints at it: "as you progress in the game more and more of
+another conflict reveals itself..."
+
+
+THE TITLE SCREEN
+
+`start <Beginning of Game>` is not the maze.  It is a room whose whole content is
+a blurb and `command <start> { msg <Happy hunting!> goto <Safe> }`, so the first
+thing a player types is START.  Its `indescription <:>` is a bare colon, which
+Quest strips before appending the room name, so the heading comes out as a
+leading space and then "Welcome to spectrum!." -- the author wanted no lead-in at
+all and this is the idiom for it.  The Blank room and the End of Game room do the
+same thing.
+
+`help` and `credits` are game-level commands and both are worth reading once.
+The credits end with "NOTE: There are not any cheats for this game. No. None. Of
+course not. I'm not nervous. Do I look nervous? No cheats. Nada. heh heh..."
+which is a fair warning, because the game block defines three:
+
+  scotty    goto <Safe>                      (skip the title screen)
+  slimjim   all eight keys
+  jackpot   all eight treasures, the Rainbow Key, the Flute, the Sheet Music,
+            the takeable cat, and `reveal`s the three invisible ones
+
+This script uses none of them.
+
+
+EIGHT TREASURES, EIGHT KEYS
+
+Four treasures are lying in the open and four are behind a tool:
+
+  gold bar          Silver      (Silver is behind Lime's gecko-key gate)
+  Silver Bracelet   Not Gold    (behind any of three shimmer-key gates)
+  Watch             Aqua        (behind Jade's shell-key gate)
+  Opal              Indigo      (behind Slate's sky-key gate)
+  Pearls            Dark        `take` checks got <Flashlight>
+  diamonds          Brown       `take` checks got <pirate>
+  Emerald           Blank       `take` checks got <Screwdriver>
+  Sword             SE grey     `take` checks got <Stone>
+
+The left column above is the defined object; three of those objects are typed as
+something else, because an alias replaces the name for every purpose the parser
+has.  `define object <gold>` is `alias <gold bar>` (treasure hunt.asl:100-101),
+`<Pearls>` is `alias <Pearl>` -- singular, though every message calls them pearls
+(308-309) -- and `<Sword>` is `alias <Titanium Sword>` (781-782).  The game is
+ASL 311, so the full alias is the only thing that works: Quest matches a word
+taken from the middle of a name only for ASL 391 and up (Disambiguate,
+V4Game.cs:4762-4772; fixtures/abbrev.asl).  TAKE SWORD and TAKE PEARLS both miss.
+
+The keys themselves are all just lying there: Gecko in Magenta, Shimmer in
+Teal, Flashlight in Peach, Shell in Tan, Screwdriver in Maroon, pirate in Clover,
+Sky in Blue, Stone in Pine.  So there is no lock-and-key ordering puzzle at all,
+only a mapping problem: every gated exit is a script that prints a riddle about
+the key it wants ("A very sparkly key would do the trick here.") and `goto`s the
+room you are already standing in if you do not have it.
+
+Two shortcuts are worth knowing.  The Eraser room's eight directions all lead to
+Safe, so it is a free ride home, and White, Brown and Indigo each border it.  And
+the safe room itself has eight exits, of which west and northwest are both
+Lavender.
+
+The room holding the Silver Bracelet is `define room <Not Gold>` with
+`alias <Gold Room>`.  There is already an object called `gold`, and rather than
+find out what QDK does about that the author renamed the room and papered over it
+with the alias.
+
+
+DEPOSITING
+
+The safe room's script tests `here <gold> and here <Silver Bracelet> and ...` for
+all eight, so the treasures have to be on the floor, not in your pockets -- hence
+the else message, "Once all eight treasues are in this room, exit it and then
+re-enter it."  Any exit and any return will do; this script steps east into
+Magenta and back.
+
+Seven of the eight treasures use `drop everywhere <text>`, which moves the object
+into the room in the ordinary way.  The gold bar instead has a full custom
+`drop { lose <gold> ... }`, and that works for the same reason: `lose` is
+PlayerItem with got=False, which for ASL>=280 moves the object into the current
+room (V4Game.Part2.cs:6637).  It is `drop` under another name.  The same script
+also does `set numeric <treasures; +1>` on a variable that is never declared,
+never displayed and never read -- and that only the gold bar would ever
+increment, so even as a counter it was wrong.
+
+Depositing hands you the Rainbow Key, `create exit out <Safe; Hallway>`, and
+strips all eight keys back into the Storage room, which is the author's object
+limbo (`look <you should not read this during gameplay. If you do something is
+very wrong.>`).  The Flute, the Sheet Music and the cat survive, which is the
+whole point.
+
+
+THE CAT
+
+The hallway past the safe room is a loop of eight corners, and its only feature
+is that seven of them are identical filler.  The eighth, West Hallway, has a
+script:
+
+  if got <takeable cat> then create exit east <W Hall; entry hall>
+
+Nothing anywhere tells you this except the `hint` command, which is pasted
+verbatim into all eight hallway rooms and says outright: go back and get a cat.
+The cat is in Ginger, and it is invisible -- Ginger has two cat objects, a scenery
+`define object <cat> alias <cats>` for the room's "cats everywhere" and a
+`define object <takeable cat> alias <cat>` that `reveal`s itself when taken.  TAKE
+CAT resolves to the takeable one, X CATS to the scenery one, and PET CAT is a
+third thing again, a room command.
+
+Beyond the hidden door the cat is taken away from you on the spot: entry hall's
+script has `lose <takeable cat>` / `move <takeable cat; W Hall>` and a line about
+the cat refusing to leave the carpet.  That is fine -- the door it opened stays
+open -- and the other branch of that same script is the game's last little grace
+note, which you do not see until the very end.
+
+
+AARGH
+
+East out of the entry hall needs the Rainbow Key, and behind it is Aargh, who is
+"bigger than you, initially not very friendly, and currently mad that you stole
+his treasures".  There is no combat.  `command <hint>` in his room says "Aargh
+hates music.  A lot," and the answer is PLAY FLUTE with both the Flute and the
+Sheet Music in hand.
+
+Both of those are `invisible` objects that `reveal` themselves on take, and
+neither is ever listed in a room.  They are announced in prose instead: Aqua's
+description ends "...and there is a flute nearby, half buried in the sand", and
+White's ends "There is also a small peice of paper that, upon further
+examination, reveals itself to be a peice of sheet music."  If you read room
+descriptions you cannot miss them; if you play by the object list you will get to
+Aargh with nothing to do.
+
+The best-hidden piece of writing in the game is the foreshadowing.  SW Grey
+Cavern -- a filler room in a block of four identical filler rooms -- has an extra
+paragraph: "In front of you are the remains of some sort of woodwind instrument
+and signs of something violent," and the object confirms it, "bits and pieces of
+what looks like maybe a clarinet or something.  There are large chunks missing
+out of the concrete nearby and the activity is recent."  Somebody else worked
+this out, and did not get far enough away.
+
+Playing the flute reduces Aargh to ashes with a Prism in them, and the Prism is
+what the entry hall's other branch tests: with it, the cat comes back to you and
+`create exit out <entry hall; End of Game>` appears.  The Prism has
+`drop nowhere <You must always keep the prism.>`, so once taken it is yours.
+Go west, then OUT.
+
+
+ODDS AND ENDS
+
+SE Grey's `command <flip switch>` prints "You can hear the doors out of the
+cavern unlatch" and `clone`s a `hidden` object called `Switch Side` into the other
+three grey rooms.  Nothing reads it, and the four caverns' exits are plain place
+exits that are open from the start, so the switch is scenery with a sound effect.
+The script flips it anyway, because it is the only interactive thing down there
+apart from the Sword.
+
+The silliest room is Tan, a desert with one exit: `walk desert` asks "do you
+REALLY want to walk the desert?", the game-level `yes` answers "Well tough.  You
+can't commit suicide in this game," and the shell key is sitting in the sand.
+Brown's `go upstairs` ("And what?  Get killed by a pirate?  Let's focus here.")
+and Celedon's `take frog` are the same joke.  Orange's feast is invisible and
+exists only so that examining it can describe Thanksgiving dinner.
+
+`define text <intro>`, `<win>` and `<lose>` are all present and all empty.
+
+The exit line that follows a `create exit out` reads "You can go out to Great
+Job!." because the destination's alias is "Great Job!" and Quest names the room
+rather than the direction's target for out-exits (V4Game.Part2.cs:7292).  Quest
+puts that sentence and the "You can go east or west." sentence on one line; geas
+gives them a line each, as it does for every game.
+
+
+Start:
+help
+credits
+start
+n
+look at shimmer key
+take shimmer key
+s
+e
+take gecko key
+w
+s
+take flashlight
+w
+s
+walk desert
+yes
+take shell
+n
+w
+s
+take watch
+take flute
+n
+e
+e
+e
+s
+take screwdriver
+n
+e
+take sky key
+n
+x feast
+e
+take emerald
+n
+e
+take stone key
+n
+n
+take opal
+s
+s
+s
+s
+s
+flip switch
+take titanium sword
+w
+look at remains
+n
+w
+w
+nw
+ne
+e
+take gold bar
+n
+e
+take music
+n
+n
+w
+n
+take silver bracelet
+n
+w
+n
+take pirate
+e
+x cats
+pet cat
+take cat
+e
+e
+s
+take pearl
+n
+e
+go upstairs
+take diamonds
+e
+n
+drop gold bar
+drop silver bracelet
+drop pearl
+drop watch
+drop diamonds
+drop opal
+drop emerald
+drop titanium sword
+i
+e
+w
+out
+hint
+e
+s
+e
+e
+x aargh
+speak to aargh
+hint
+play flute
+take prism
+w
+out

@@ -1,0 +1,14 @@
+
+Stopafter
+
+You are in Hall
+The hall.
+
+> look
+You are in Hall
+The hall.
+(a turn passed)
+
+> halt
+before stop
+[runner] turns=2 leftover=0 running=false

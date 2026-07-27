@@ -1,0 +1,164 @@
+Londe Perplex -- Kirk Gough, v1.0, ASL 410 (QDK 4.1.4)
+======================================================
+
+Seven rooms of second-person mysticism in which a chorus of unseen "guardians"
+narrates your progress through the powers of the mind.  Mechanically it is a
+chain of five custom verbs and one selection menu, and every room description
+ends with a red line telling you which verbs it will answer:
+
+    Ballroom        You may PLAY, you may FEEL, you may ATTACK.
+    Mind corridor   You may KILL. You may LOVE.
+    West War        You may ATTACK.
+    Maze            You may OPEN, CLOSE, DESTROY, ATTACK, EMBRACE.
+    Forest          You may ATTACK.
+    East Evermore   You may ATTACK, you may DANCE, you may JUMP.
+    Edge            !mih eerf yam uoY
+
+That last one is not a typo.  The Edge's description is `|jc` (centred) and then
+switches to `|jl` for a line printed backwards -- "You may free him!" -- which is
+the only place the game tells you the verb that wins it.
+
+Two of those hints are lethal.  The Forest says "There are three Freighters here
+and we need you to attack them", and all three freighters answer
+`action <Attack> playerlose`.  East Evermore says "You may ATTACK" above a
+paragraph begging you not to, and the Bollbellians have `look playerlose`,
+`speak playerlose` and an attack script that also loses.  JUMP there is not a
+death but a quit: its script ends in `stop`, so you walk out of Londe and the
+game simply stops.
+
+The route
+---------
+    Ballroom -> Mind corridor -> (West War) -> Maze -> Forest -> Mind corridor
+    -> East Evermore -> Edge
+
+    ATTACK SCEPTRES                 the sceptres are `invisible`, so nothing in
+                                    the Ballroom listing hints at them; punching
+                                    them does `give <Pain>`
+    TAKE PIANO KEY
+    N, LOVE INSANITY                `action <love>` does `give <Rage>`
+    TAKE INSANITY
+    W, USE RAGE ON WARRIOR, E       optional -- see below
+    N, SPEAK TO RIDDLER             the riddle: "a frantic creature like you
+                                    embraces his disease"
+    TAKE BROKEN TILE
+    USE INSANITY ON DOOR            `create exit north <Maze; Forest>` and
+                                    `unlock <Maze; north>`
+    N, SPEAK TO GUARDIANS           the Discus (see below)
+    USE DISCUS ON FREIGHTER 1/2/3
+    S, S, E
+    USE DISCUS ON BOLLBELLIANS      `hide <Bollbellians>` and
+                                    `unlock <East Evermore; east>`
+    E, FREE OMENGUARDIAN            opens `define selection <OMENGUARDIAN menu>`
+    5                               "Use Piano Key on the OMENGUARDIAN":
+                                    `hide <OMENGUARDIAN>` then `playerwin`
+
+The Discus, and why this game needed engine work
+------------------------------------------------
+Speaking to the guardians is the one puzzle with real machinery behind it:
+
+    define object <Personified Sacred Guardians>
+        alt <guardians>
+        speak {
+            add <Discus; Magic Box>
+            msg <...They show you Discus...The magic box has been opened.>
+            background <white>
+            open <Magic Box>
+            property <Discus; take=You may now take the Discus...>
+            give <Discus>
+        }
+
+    define object <Discus>
+        take msg <You cannot take it just yet.>
+        parent <Magic Box>
+
+`add <child; parent>` and `open <container>` are Quest *statements* -- ASL >= 3.91
+script commands, distinct from the ADD and OPEN verbs, silent, and with no
+container check of any kind (V4Game.Part2.cs:5900-5915).  geas had neither, so
+the two lines were logged as unrecognised script and the Discus stayed sealed in
+the container it was declared inside for the whole game: SPEAK TO GUARDIANS
+printed its paragraph and then "You don't see any discus" was the answer to
+every Discus command, which left the Bollbellians' exit locked and the game
+unwinnable.  Both statements (plus `remove` and `close`) are implemented now;
+test/fixtures/addremove.asl and addremove391.asl pin them, including the 4.10-only
+rule that `add` also marks the parent "seen" without which the contents stay
+invisible.
+
+Note that the Magic Box is `container` with an `open <It cannot be opened. You
+can barely see it in the mist.>` message override, so OPEN MAGIC BOX by hand can
+never work -- the script statement is the only thing that opens it.
+
+The door in the Maze is the same trick in reverse.  It is a container whose
+`open` line is "The door is locked. Speak to the Riddler.", and USE INSANITY ON
+DOOR does not touch it: it rewrites that message to "You have opened the door
+with insanity. Well done." and separately unlocks the *room exit*.  So OPEN DOOR
+congratulates you and does nothing, before and after, and the north exit is what
+actually changes.  (The script's `create exit north <Maze; Forest>` is redundant
+beside the `north locked <Forest>` the room already declares.)
+
+Optional to a fault
+-------------------
+Almost none of the above is load-bearing.  Verified minimal wins:
+
+  * 15 turns.  The Freighters guard nothing -- the Forest's only exit is the
+    south one you came in by -- so all three USE DISCUS commands can be dropped.
+    Pain and Rage are ordinary visible room objects with a bare `take` sitting in
+    plain sight before you earn them, so TAKE PAIN and TAKE RAGE replace ATTACK
+    SCEPTRES and LOVE INSANITY outright.
+
+  * 12 turns.  The menu's choice scripts carry no `got` guards whatsoever, so
+    "Use Piano Key on the OMENGUARDIAN" wins whether or not you ever picked the
+    piano key up.  N, TAKE INSANITY, N, USE INSANITY ON DOOR, N, SPEAK TO
+    GUARDIANS, S, S, E, USE DISCUS ON BOLLBELLIANS, E, FREE OMENGUARDIAN, 5.
+
+The West War is a whole room of that kind: the Warrior is `use on <Warrior >` --
+with the trailing space the object name carries -- and destroying him sets no
+flag, unlocks no exit and is never mentioned again.  The Broken Tile is menu
+choice 1, which fails.  Both are in the script below because they are plainly the
+intended route.
+
+The menu
+--------
+Six choices against the OMENGUARDIAN, and FREE OMENGUARDIAN can be repeated:
+
+    1  Broken Tile   fails, and `hide <Discus>`
+    2  Insanity      fails, and hides Pain, Discus and the Piano key
+    3  Discus        playerlose
+    4  Rage          playerlose
+    5  Piano Key     hide <OMENGUARDIAN>, playerwin
+    6  Pain          fails, and hides the Piano key, Insanity, Rage and Discus
+
+Choices 1, 2 and 6 read as soft-locks -- they strip the items the other choices
+name -- but since nothing is guarded, choice 5 still wins after any of them.
+The only unrecoverable answers are 3 and 4.
+
+Loose ends: the Statues in the Maze threaten that speaking to them will make you
+"die in desperation here" and then do nothing at all; the Dance in the Ballroom
+is `invisible` and reachable only by LOOK AT DANCE; and the Discus's
+Bollbellians script contains `create exit east <; >`, a create-exit with both
+parameters empty, which is ignored.
+
+Start:
+attack sceptres
+take piano key
+n
+love insanity
+take insanity
+w
+use rage on warrior
+e
+n
+speak to riddler
+take broken tile
+use insanity on door
+n
+speak to guardians
+use discus on freighter 1
+use discus on freighter 2
+use discus on freighter 3
+s
+s
+e
+use discus on bollbellians
+e
+free omenguardian
+5

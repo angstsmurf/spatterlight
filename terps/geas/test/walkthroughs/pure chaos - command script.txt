@@ -1,0 +1,379 @@
+pure chaos -- chaos entertainment, v1.0, ASL 400 (QDK Pro 4.0.5)
+================================================================
+distributed as "game.asl"
+
+You are a detective.  A briefcase on your desk holds a note with a phone number
+and a disc with symbols on it; the voice on the phone is being slaughtered; you
+pick the lock of a mansion and the door closes behind you.  Thirty-four rooms
+later the floor gives way and you wake strapped to a table with somebody holding
+a scalpel, which the game calls winning.
+
+It is a key-and-code game, and a tidy one under the spelling: five locks, each
+opened by something found behind the last, and three numeric codes each written
+down somewhere in scrambled English.  What makes it worth keeping is the fourth
+code -- the one that opens the only door that matters -- because the author wrote
+it into the game in a way Quest destroys before the player ever sees it.
+
+The chain
+---------
+    hallway        the disc is in your hands from the startscript.
+    living room    EXAMINE FIREPLACE  -> "help me! 7706!"
+                   EXAMINE RUG        -> "bcoom frieapcle / zmea drsi bxo cdo
+                                        3806. / dsriazme n"
+                   LOOK UNDER RUG     -> a piece of string.
+    hallway (mid)  USE PIECE OF STRING ON CHEST -> the silver key.
+    living room    USE SILVER KEY ON CABINET    -> a sheet of music.
+    music room S   USE MUSIC ON PIANO           -> "You play: a d f b".
+    music room N   OPEN SAFE, answer 1462 (a=1, d=4, f=6, b=2) -> the money;
+                   SEARCH MONEY -> the bronze key.
+    hallway (mid)  USE BRONZE KEY -- no target -- `create exit east <gfhm; gr>`.
+    games room     LOOK UNDER PING-PONG TABLE -> the note, "teh yke si ni eht
+                   cchuo" (the key is in the couch);
+                   TAKE BOTTLE then DROP BOTTLE smashes it -> the shards.
+    living room    USE SHARDS ON COUCH -> a clock hand.
+    hallway S      USE CLOCK HAND ON CLOCK twice (clock -> clock2 -> clock3),
+                   then EXAMINE CLOCK runs `do <clock>`, which asks for four hand
+                   positions: 7, 7, 0, 6 -- the fireplace's number, one digit per
+                   hand -> a small box.
+                   TAKE BOX, OPEN BOX, answer 3806 (the rug's) -> the gold key.
+    living room    USE GOLD KEY ON KEYHOLE -> `create exit north <lr; sh>`.
+    secret hallway USE KEYPAD, answer 1225.  That is the win.
+
+Where 1225 was supposed to come from
+------------------------------------
+Behind the kitchen's locked north door is a deck, and under the deck a back yard
+with a piece of paper in it.  Getting there is the game's whole optional half:
+
+    observatory door  USE DWS ON OBSERVATORY DOOR    (see below)
+    observatory       USE TAPE ON TELESCOPE -> flag <telescope>
+                      PUSH SYMBOL           -> needs flag <telescope>,
+                                               sets flag <symbol>
+    white room        PUSH CARVING          -> needs flag <symbol>,
+                                               sets flag <carving>
+    blue room         PUSH CARVINGS         -> sets flag <carvings>
+    hallway (mid)     PUSH BUTTON           -> needs all three flags; "You hear a
+                                               sound to the north."
+    kitchen           `north if flag <button> then goto <deck>`
+
+and READ PAPER at the end of it says:
+
+    action <read> msg <It reads:|n"pssaowrd --%-- --%----->
+
+`%-- --%` is a variable reference as far as Quest is concerned, so the paper
+prints "pssaowrd ---32767-----": GetNumericContents answers -32767 for a variable
+that does not exist, the two dashes either side of it are literal, and the
+password is gone.  (geas prints the same -32767, which is why the fixture
+undefnum.asl exists.)  1225 is not derivable from anything else in the file --
+nothing else in 1082 lines mentions it -- so the entire flag chain above leads to
+a blank, and the only way in is to read the ASL.
+
+The script walks it anyway, because it is most of the game's content and because
+the flag gates are the one place the author's `if flag ... and flag ... and flag`
+logic has to work.
+
+The blue room: 3 carvings, 4 pushes
+-----------------------------------
+`action <push> choose <carvings>` puts up a three-way selection, and the numeric
+variable behind it is a state machine that resets on any wrong move:
+
+    choice <left>    if %carvings% = 1 then inc else set 1
+    choice <middle>  if %carvings% = 3 then WIN   else "Nothing happens.", set 1
+    choice <right>   if %carvings% = 2 then inc   else "Nothing happens.", set 1
+
+From 0 that means LEFT (sets 1), LEFT again (1 -> 2), RIGHT (2 -> 3), MIDDLE
+(wins) -- four pushes, not three, and the first LEFT is a reset rather than a
+step.  The variable's own `onchange msg <The carving sinks into the wall.>` fires
+on all four, so the three losing-looking moves and the three winning ones print
+the same line; only the last is the plural "The carvings sink into the wall."
+There is no clue to the order anywhere in the game.
+
+The script answers the selection with 1, 1, 3, 2.  Answers are numbers: Quest's
+make_choice reads the queued line with atoi and clamps into range, so "left"
+would be 0 and clamp to 1 -- which happens to be right for the first push and
+wrong for the other three, the sort of accident that is hard to spot without the
+menu in the transcript.  (The runner prints the numbered menu for exactly that
+reason.)
+
+USE DWS ON OBSERVATORY DOOR
+---------------------------
+The kid's-room square joins the disc: USE DISC ON SQUARE hides both and gives you
+an object whose name is `dws` and whose alias is "disc with square".  The
+observatory door wants `use <dws>`, and the obvious command for it cannot be
+typed:
+
+    USE DISC WITH SQUARE ON OBSERVATORY DOOR
+
+splits on " with " long before it splits on " on ", and the header's own synonym
+line -- `use disc with square = use disc on square` -- rewrites the front of it
+first for good measure.  So the door has to be opened by the internal name, USE
+DWS ON OBSERVATORY DOOR.  Likewise LOOK AT BOX2 in the kid's room: `box2` is
+`alias <box>` and the box from the clock is already in your inventory, so LOOK AT
+BOX is a two-way disambiguation between two options both displayed as "box".
+
+The magnifying glass, and the star map
+--------------------------------------
+    define object <magnifying glass>
+     look <It's just a small magnifying glass.>
+     parent <closet>
+
+No `take` line, so ExecTake falls through to BadTake and it can never leave the
+bedroom closet (V4Game.Part2.cs:5174-5225).  Two objects carry `use <magnifying
+glass>` properties that therefore cannot fire: the bed's tiny writing, and the
+fireplace's
+
+    You notice that there are symbols on the firelace. ... Suddenly you notice
+    that they are stars. This is some kind of map!
+
+which together with the tape's "It's got some stars on it", the telescope, and the
+declared-but-never-read `starmap` variable is clearly a puzzle that was designed
+and then abandoned.  The fireplace's second EXAMINE property ends "You notice
+writing to small to read." -- the hint for a glass you cannot pick up.  The script
+leaves both commands out.
+
+The rug, and what QDK does to a semicolon
+-----------------------------------------
+    properties <e;nw;s;e;u;ntereodce";e;w;ntree cedo;help us!;examine=Cut into
+                the rug is|n"bcoom frieapcle|nzmea drsi bxo cdo 3806.|ndsriazme n>
+
+The author typed the rug's text into QDK's properties box with |n line breaks in
+it, and Quest splits a properties list on ';' -- so "enter code" and "enter the
+code" and "help us!" all became valueless properties named after their own
+fragments, and only the final `examine=` survived as something with a value.  The
+fireplace has the same accident in miniature: two `examine` properties with the
+same name, and AddToObjectProperties replaces rather than appends
+(V4Game.cs:3995-4067), so the second -- the longer one -- is what EXAMINE
+FIREPLACE prints.  The piano's list declares `examine` and `play` twice each.
+
+The maze
+--------
+TURN ON TV in the games room drops you into your character's maze: gm1 north to
+gm2, gm2 east to gm3, gm3 west to `endgame`, and every other direction to
+`bladesdie`, a room with no `look` at all whose *description* prints "Your
+character falls into blades and dies!" and gotos the games room.  `endgame` is
+built the same way -- description prints the credits, then `script goto <gr>`
+returns you -- which only works if the room is described before its entry script
+runs, the order PlayGame uses (V4Game.Part2.cs:6674-6710).
+
+The engine fix this game needed
+-------------------------------
+The winning script ends:
+
+    msg <PUSH A KEY TO CONTINUE!|n|w|nYou wake up tied to a bed.>
+    goto <bed>
+    goto <bedtied>
+
+`bed` is an *object* in the bedroom.  The room the author meant is `bedtied`,
+which carries `alias <bed>` -- and GetRoomID matches RoomName only, never the
+alias (V4Game.cs:6348-6365), so Quest logs "No such room 'bed'", does not move,
+and the next line gets it right.  geas moved anyway, which invented a room out of
+the name; rooms and objects share one property table, so the win printed
+
+    You are in a bed
+    It's tiny! This is weird.
+
+-- the bed's prefix and look text, rendered as a place -- before the second goto
+found the real room.  goto_room now refuses a room that does not exist, and
+`create room` records the name so that the one legitimate way to have an
+undeclared room still works.  test/fixtures/gotonoroom.asl pins all of it.
+
+Loose ends
+----------
+Nine of the objects the script handles are pure scenery: the notebook and pen in
+your own bedroom (the pen does open the coke), the scroll on the bathroom window
+ledge, the vial of black liquid on the balcony, the sereal box, the chairs on the
+deck, the tape recorder ("You insert the tape and push play but nothing
+happens"), the empty closet, and the empty box2 under the kid's bed.  The
+balcony's north window looks into "a small room.  Maybe there's a way to open the
+window" -- there is not.  `define variable <cabinet>` is a string set to "locked"
+that nothing reads, with `onchange msg <>`; `starmap` is a numeric set to 1 that
+nothing reads.  The three `playwav`/`playmp3` files and `brawl 1.wav`/`brawl
+2.wav` are not distributed with the .asl.
+
+186 commands, 174 turns.  The marker is the `bedtied` room script's line.
+
+Start:
+i
+look at disc
+look at clock
+w
+examine fireplace
+examine rug
+look under rug
+take piece of string
+e
+n
+use piece of string on chest
+take silver key
+s
+w
+use silver key on cabinet
+look at music
+e
+n
+w
+look at piano
+examine piano
+play piano
+use music on piano
+n
+look at safe
+open safe
+1462
+look at money
+search money
+take bronze key
+s
+e
+use bronze key
+e
+look at ping-pong table
+look under ping-pong table
+take note
+read note
+take bottle
+drop bottle
+take shards
+look at x box
+open x box
+take tape
+look at tape
+look at tape recorder
+use tape on tape recorder
+turn on tv
+n
+e
+w
+look
+w
+s
+w
+use shards on couch
+take clock hand
+e
+use clock hand on clock
+look at clock
+use clock hand on clock
+examine clock
+7
+7
+0
+6
+take box
+open box
+3806
+i
+w
+use gold key on keyhole
+e
+n
+n
+up
+up
+s
+e
+look at bed
+look under bed
+look at box2
+open box2
+take square
+look at square
+use disc on square
+look at dws
+w
+n
+down
+e
+look at observatory door
+use dws on observatory door
+n
+look at telescope
+use tape on telescope
+look at telescope
+look at symbol
+push symbol
+s
+e
+look at closet
+open closet
+w
+w
+s
+e
+s
+look at toilet
+turn on sink
+look at window
+examine window
+take scroll
+look at scroll
+n
+w
+w
+s
+s
+look under bed
+open bedside table
+take notebook
+take pen
+n
+n
+w
+n
+take vial
+examine vial
+look at window
+s
+e
+e
+n
+down
+e
+open fridge
+look at coke
+open coke
+use pen on coke
+open cupboard
+look at sereal box
+w
+s
+s
+w
+n
+w
+look at carving
+push carving
+e
+e
+look at carvings
+push carvings
+1
+push carvings
+1
+push carvings
+3
+push carvings
+2
+w
+s
+e
+n
+push button
+n
+e
+n
+look
+look at table
+look at chairs
+down
+look at paper
+read paper
+up
+s
+w
+s
+s
+w
+n
+look at keypad
+use keypad
+1225

@@ -1,0 +1,58 @@
+Mystery Quest v1.0 by Christian Draper (QDK 3.12, ASL 311)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "job well done".
+
+Five rooms, one chain, one ending.  The whole game is: the "coal" in the
+Kitchen stove is a disguised diamond, and putting it in the Secret Cavern's dumb
+waiter proves how the smugglers move it.  USE DIAMOND ON DUMB WAITER calls
+playerwin (the Secret Cavern also has a "command <put diamond in dumb waiter>"
+that does the same thing).
+
+The chain:  EXAMINE STOVE reveals the Coal -> OPEN TRUCK on the Front Lawn
+reveals the Hammer -> USE HAMMER ON COAL makes the Diamond -> TURN BIRDBATH
+drops you into the Secret Cavern.
+
+Nearly everything in this game is revealed by EXAMINE rather than LOOK AT: the
+objects that matter are declared "hidden invisible" and their container's
+examine script calls both "show" and "reveal".  Guessing LOOK AT instead is the
+way to conclude the game is unfinishable.
+
+Two things that look like bugs but are the game as written:
+
+  * USE PAINTING answers "You don't have that."  Quest's "use" with no "on"
+    disambiguates its object against the *inventory* only (ExecUse,
+    V4Game.Part2.cs:5285-5292), so a room-level "use <Painting>" script can
+    never fire for scenery you cannot pick up.  The author noticed and added
+    "command <move painting>", which is what the script uses; the dumb waiter it
+    reveals is a red herring anyway -- the ending is reached from below.
+  * TAKE COAL prints "You pick t up."  The Coal is declared "article <t>", an
+    author typo for "it", and Quest prints the article it is given.  The Oven has
+    the same typo.
+  * OPEN TRUCK is not the same as USE PICKUP TRUCK: both print the hammer line,
+    but only the room's "command <open truck>" calls "reveal <Hammer>" as well as
+    "show", and the Hammer is declared both hidden and invisible, so after USE it
+    would stay out of reach.
+
+The Sticks/Torch pair is a dead end -- nothing in the game is dark and no script
+ever asks for the Torch -- but the two commands are in the script so a regression
+in "use X on Y" scripts that swap inventory around would show up as a diff.
+
+Start:
+examine painting
+move painting
+examine dumb waiter
+examine fireplace
+take sticks
+use sticks on fireplace
+east
+east
+examine stove
+take coal
+west
+north
+open truck
+take hammer
+use hammer on coal
+examine birdbath
+turn birdbath
+use diamond on dumb waiter

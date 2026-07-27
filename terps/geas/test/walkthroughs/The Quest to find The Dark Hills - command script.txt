@@ -1,0 +1,278 @@
+The Quest to find The Dark Hills (Slackers Inc., v2.0, 2009; QDK Pro 4.1.2,
+ASL 410) -- a genuine win, but not through `playerwin'.
+
+This is the game that Revenge of the Shadow Masters is a demo of the sequel to,
+and unlike that demo it is finished and it can be won.  There is no `playerwin'
+anywhere in the file, though, and no score: the ending is built out of timers.
+The Dark Hills room script does `timeron <Alexendre on>' and `set numeric
+<enemy health; 100>'; `Alexendre on' (interval 16) announces him and starts
+`Alexendre Attack' (interval 6); and that attack timer is the only thing in the
+game that ever checks whether the last enemy is dead -- when it ticks and finds
+enemy health at or below zero it prints "You've defeated him!" and chains
+`Credits 1' through `Credits 6' (intervals 6, 6, 6, 8, 6, 6), the last of which
+prints "THE END" and calls `stop'.  So the whole game must be run with --tick,
+and the marker here is "defeated him" rather than "THE END": the runner matches
+markers case-insensitively and the tunnel under the cathedral describes
+"something at the end of the tunnel" long before you get anywhere near the
+credits.  The transcript does run all the way through to THE END and the runner
+reports running=false, so the `stop' at the end of the credits is what ends it.
+
+Combat, and why this script waits so much.  Every fight works the same way: a
+room script turns on an "On" timer, the On timer shows the enemy and sets enemy
+health to 100, and an "Attack" timer then ticks every few turns doing damage
+until the turn on which it finds enemy health <= 0, at which point it hides the
+enemy and unlocks the exit.  Two consequences.  First, you cannot hit an enemy
+before its On timer has fired, because the enemy is `hidden' until then -- the
+five `wait's in Fates Passage are the bobcat's `interval <5>'.  Second, killing
+an enemy does not open anything by itself; the *next* tick of its attack timer
+does, so the `wait's that follow each kill are load-bearing too, and the sixteen
+in The Dark Hills are Alexendre's `interval <16>' arriving before you are
+allowed to fight him at all.  The weapons: the can of body spray does
+`dec <enemy health; 50>' -- but only inside `if got <Full Lighter>', which is
+why the lighter has to be filled before you leave the house -- and the blue
+towel from Damien's does `dec <enemy health; 100>' on all seven named beasts,
+one line each, with no message of its own, which is why `use towel on bobcat'
+looks like it did nothing.  The mountain lion therefore takes two sprays and
+the bobcat one towel, and Alexendre, whose only `use on' handler in the game is
+the body spray's, takes two more sprays.
+
+The house.  `open book' drops the Key out of the old school book, `open desk'
+reveals the map, the body spray, the lighter, the pen and the letter opener,
+`use key on door' unlocks north, and the Back Pack is lying in the room.  The
+Living Room is the real gate: its `afterturn' unlocks east only when you hold
+the Full Lighter *and* the map *and* the back pack *and* have at least $10, and
+because the unlock happens in `afterturn' the first attempt to leave always
+fails -- the exit opens on the turn after the refusal.  That is what the
+`search sofa' turn is doing here; it also finds a twenty-dollar bill, which the
+route does not need but which is the only other money in the first half.  The
+$10 itself comes from the night stand in the computer room, along with the
+bottle of lighter fluid; `use lighter fluid on lighter' is what makes the Full
+Lighter.  The detour west into the bathroom for `open medicine cabinet' and the
+`take radio' in the bedroom look like scenery-poking and are not: the radio, the
+baby powder and the bottle of tylenol are the three things the tribal leader
+trades for near the end of the game, forty turns later and with no way back.
+
+Outside.  Taking the Axe is what unlocks the northeast exit (its `gain' script
+does the unlock, so merely holding it is enough), and `take wood' followed by
+`use full lighter on wood' makes the Torch -- `take wood' prints nothing at all,
+its take script being a bare `give' with no message.  The other way to a torch
+is `kick desk' back home for a piece of desk, which costs 10 health, so the wood
+is the cheaper route.  Do not go into the pub: The Pub's only exit is
+`south locked <Outside the Pub>' and the sole thing that unlocks it is buying a
+beer for $3.50, so a player who wanders in for atmosphere pays a toll to get
+out again.  In The Forest, `use axe on east tree' is the only correct move --
+the axe has a `use on' handler for eight trees, and seven of the eight
+destinations (Callisto Road, Tribal Village, Forest of Demise, End of the line,
+Jack's Mark) are one-line rooms whose script is just `stop', i.e. instant death
+with a paragraph of explanation.
+
+The churches.  Damien's Books needs `look for towel' before `take towel' will
+work.  In the cathedral basement `use torch' shows a trap door and `open trap
+door' does `create exit down' into the tunnel; the tunnel's own rats are on a
+20-turn fuse and this route is through it in two turns, so they never appear.
+In the basement of the second church, `open coffin' gives Clue 1 -- and the
+wall tiles must be left alone.  Looking at them once gets a warning ("Open the
+coffin if you must, but leave use alone or turn into dust"); looking a second
+time hides the Torch and starts `Time passes in the crypt', which chains
+`missing objects 1', `2' and `3' -- between them they hide the map, the key, the
+back pack, the body spray, the Full Lighter, the axe and most of the rest of
+your inventory -- and then `Crypt Ending', which stops the game.  Upstairs the
+clues have to be found in order, `look at alter', `look at pews', `look at
+candles', `look at flowers', because each look is what puts the next clue where
+it can be taken, and then `levitate' reveals a second map object whose presence
+in your inventory is what the room's `afterturn' tests before unlocking north.
+
+Menus.  Two rooms ask `if ask <Do you want to save?>' on first entry -- the
+Living Room and Outside the Pub -- and in geas as in Quest a pending prompt eats
+the next line of input, so each is followed by an explicit "no".  `take map'
+after `levitate' is a disambiguation rather than a question: the map from the
+desk is `Map to The Dark Hills' with `alias <map>' and the new one is plainly
+called `Map', so both answer to "map" and the answer 2 picks the new one.  Get
+any of the three wrong and nothing complains; the following command is silently
+spent as the answer and the route falls apart a few turns later.  Hugo Sawyer's
+`speak' script has four `wait <Press any key to continue...>' pauses in it,
+which the runner steps through without needing script lines.
+
+The fork.  Zephyrus Way offers three ways to the Dark Hills and they are real
+alternatives, all ending in the same room.  North is the longest: The Road Less
+Traveled, a log cabin that wants a first aid kit, a journal and a sewing kit, the
+Witch's Inn, and then The River, where the boat has a hole in it and the *towel*
+is the plug -- so the north branch and the towel-as-weapon are mutually
+exclusive.  Northeast is Dead Mans path, a chain of four timed fights (snakes,
+eagle, bear, and the Black Beast of Epsilon, each one's death starting the next
+one's On timer) followed by the Supherous of the Enchanted Oasis, which hits for
+20.  This script takes the northwest branch, Fates Passage, because it is the
+one that turns those three household objects into the tribal leader's necklace,
+shield and deer meat: "if you want necklace, you must first give me boom boom
+box" is the radio, "mystic smoke" is the baby powder and "happy pills" are the
+tylenol, and the Campsite's `afterturn' unlocks northeast once all three are in
+hand.  Then the graveyard: `speak to hugo sawyer' for the errand, `look for
+grave stone' (the author wrote that one command twelve times over, with every
+combination of search/look, grave/grave stone/tomb stone and an optional
+article), `take shovel', `use shovel on grave stone' for the ring, and
+`give ring to hugo sawyer', whose script does the unlock east into the Dark
+Hills.
+
+Engine notes.  Nothing here needed a change, which is worth recording because
+its sequel did: this game hides 45 objects and every one of them uses the bare
+`hidden' tag, so the load-time rule that Revenge of the Shadow Masters ran
+afoul of -- Quest undoing a hidden that arrived through a `properties' line,
+V4Game.Part2.cs:3550-3553, pinned by fixtures/hiddenprops.asl -- never comes up.
+The bare tags are doing real work, too: the baby powder and the tylenol are
+hidden inside the medicine cabinet and only `open medicine cabinet' reveals
+them.  Unused here but present in the file: `command <list rooms>' and
+`command <list objects>' are cheat menus that can hand over items or `goto' the
+final room outright, and `Take all' is implemented with
+`for each object in <#quest.currentroom#>'.  The typos in the transcript
+("expline", "amazment", "gound", "vivid remind", "too quite") are the author's,
+as is the habit of describing exits in prose that does not match the compass
+directions that actually work.
+
+Verified: 139 turns, 142 script lines (three of them eaten by the two save
+prompts and the map disambiguation), marker "defeated him", seed 1, run with
+--tick; reaches THE END and the game stops.
+
+Start:
+open book
+take key
+open desk
+take body spray
+take map
+take lighter
+take back pack
+take radio
+w
+open medicine cabinet
+take baby powder
+take tylenol
+e
+use key on door
+n
+e
+open night stand
+take lighter fluid
+take ten dollar bill
+use lighter fluid on lighter
+w
+n
+no
+search sofa
+e
+use body spray on mountain lion
+use body spray on mountain lion
+n
+no
+take axe
+take wood
+use full lighter on wood
+ne
+use axe on east tree
+e
+ne
+look for towel
+take towel
+sw
+nw
+d
+use torch
+open trap door
+d
+u
+open coffin
+take clue 1
+u
+look at alter
+take clue 2
+look at pews
+take clue 3
+look at candles
+take clue 4
+look at flowers
+take final clue
+levitate
+take map
+2
+n
+nw
+wait
+wait
+wait
+wait
+wait
+use towel on bobcat
+wait
+wait
+wait
+nw
+give radio to tribal leader
+give baby powder to tribal leader
+give tylenol to tribal leader
+ne
+speak to hugo sawyer
+look for grave stone
+take shovel
+use shovel on grave stone
+take ring
+give ring to hugo sawyer
+e
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+use body spray on alexendre
+use body spray on alexendre
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait

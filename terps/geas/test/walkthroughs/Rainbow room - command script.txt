@@ -1,0 +1,159 @@
+Rainbow room
+ASL 410, "Created with QDK Pro 4.1.2", no author credited
+
+You wake up in a stranger's apartment with a headache and no memory of getting
+there.  The apartment is one room downstairs divided into four corners, plus a
+bedroom and a bathroom upstairs, and the way out is a door with seven coloured
+switches on it.
+
+
+THE CODE IS ROB
+
+The door's `east` script wants `rswitch`, `oswitch` and `bswitch` on and the
+other four -- yellow, green, indigo, violet -- off.  Red, Orange, Blue: the name
+of the boy the apartment's owner is obsessed with.  Nothing states the code
+outright; the diary is what tells you there is one ("I've installed a foolproof
+door with a color code, so only I can enter and exit my house") and who Rob is,
+and you are expected to put those together.
+
+The game block's `flip all` command is a trap dressed as a convenience: it turns
+all seven switches on at once, which trips the "you must've flipped the wrong
+switches" branch every time.  Flip the three by hand.
+
+Diary page seven says "it might come in handy to know Rob's last name" -- but no
+last name appears anywhere in the game and nothing ever asks for one.  Either a
+puzzle got cut or the hint means Rob's *first* name and the page was written
+before the author settled on it.
+
+
+FOUR ENDINGS
+
+The east exit calls `playerwin` on all four of its branches, so any escape is a
+"win"; which text you get depends on two flags:
+
+  gotdiary + policecalled   copdiary -- the good one: Cindy is committed, Rob
+                                       goes into protective custody
+  policecalled only         cop      -- nobody believes you, Rob and Cindy both
+                                       die, and you are arrested for it
+  gotdiary only             diary    -- the police act, but too late
+  neither                   none     -- you go home and read about it in the
+                                       paper weeks later
+
+This script takes the first.  `gotdiary` is literally "the diary is in your
+inventory" -- dropping it clears the flag -- so carry it out of the building.
+`policecalled` needs `dial 911` (or 999) from the sitting area *after* the diary
+has been read.
+
+
+THE ORDER OF OPERATIONS
+
+Everything in this game hangs off one flag chain, and it only runs one way:
+
+  look at bed          shows the blanket and the pillow
+  examine pillow       shows the diary underneath
+  take diary           -> flag gotdiary
+  examine couch        shows the small key wedged in the cushions
+  read diary           needs the small key; page 11 -> flag diaryread
+  look under couch     needs diaryread; shows the fuse, out of reach
+  use spatula          needs the spatula from the kitchen drawer -> flag gotfuse
+                       (and hands you the fuse directly)
+  dial 911             needs diaryread -> flag policecalled
+  use fuse             only works standing in Closet NW -> flag fuseset
+  look at door         shows the seven switches -> flag seeswitch
+  flip red/orange/blue needs fuseset, or the switches do nothing at all
+
+Note LOOK AT versus EXAMINE.  This game gives most objects both a `look` and an
+`examine`, and they do different things: the bed's `look` reveals the pillow
+while its `examine` is a joke ("Yep... a girly bed..."), and the pillow's
+`examine` is what reveals the diary.  X and EXAMINE go to the examine
+property/action; LOOK AT goes to `look`.  Getting that backwards is how you
+conclude there is nothing in the bedroom.
+
+The fuse cannot be taken by hand -- its `take` checks `gotfuse`, which only the
+spatula's `use` action sets, and that action hands you the fuse itself.  So
+`take fuse` is never the answer and `use spatula` is, while standing in the
+sitting area with the fuse revealed.
+
+`use fuse` is likewise the only way to fit it: the fuse's `use on <fuse box>`
+handler is an empty script, so aiming it at the box explicitly does nothing at
+all.  Its `action <use>` is what checks the room and sets `fuseset`.
+
+
+ODDS AND ENDS
+
+The pillow uses `flag <fuse>` as its own already-looked-at marker -- a flag that
+has nothing to do with the fuse object and is never read anywhere else.  It
+works, but it reads like a bug when you are tracing the fuse chain.
+
+The `dial` command has two easter-egg numbers, 0800BRASHERE and 0800BRABASHD,
+spelled out on the lingerie catalog you `read` in the sitting area.  Both only
+answer from the phone in the sitting area; everywhere else you get "No phone to
+dial here."
+
+The lingerie catalog's `action <use>` tests `#quest.currentroom# = Bathroom`
+while the room is defined as `define room <bathroom>`, and the equivalent
+game-level command spells it lowercase.  Both work: Quest rewrites `if (a = b)`
+into `if is <a;b>` at load time (ConvertFriendlyIfs, V4Game.cs:332) and
+ExecuteIfIs compares LCase to LCase, so the casing never mattered.  geas folds
+case in the same place, which this game is a decent accidental test of.
+
+`define timer <pee>` is `disabled` and nothing ever enables it; the toilet's own
+`action <use>` prints the timer's punchline itself after a `pause <10000>`.  So
+the timer is dead code, and the ten-second pause it was presumably meant to
+replace is still in the game.
+
+The ballerina outfit is a one-way door of its own: `wear tutu` swaps it for
+"Ballerina outfit (worn)", which has `drop nowhere <It's too tight to take off!>`
+and stays on you for the rest of the game.  `dance` while wearing it gets a
+different message.  None of it affects the ending.
+
+
+Start:
+look at bed
+examine pillow
+x diary
+take diary
+open wardrobe
+take tutu
+wear tutu
+dance
+look at desk
+take pen
+s
+x toilet
+open medicine cabinet
+n
+d
+examine couch
+take small key
+x small key
+take lingerie catalog
+read lingerie catalog
+dial 0800brashere
+read diary
+11
+2
+look under couch
+e
+open drawer
+take spatula
+open cupboards
+take frying pan
+w
+use spatula
+dial 911
+ne
+w
+examine fuse box
+use fuse
+examine fuse box
+examine coat rack
+open tool box
+e
+look at door
+look at red switch
+flip red switch
+look at red switch
+flip orange switch
+flip blue switch
+e

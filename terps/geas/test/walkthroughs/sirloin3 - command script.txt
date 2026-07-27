@@ -1,0 +1,457 @@
+Sir Loin 3: The Quest for the Holy Quail ("Solo Hands", CJ, QDK Pro 4.03, ASL 400)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "COMPLETED THE GAME".  REQUIRES --tick.
+
+Full verified playthrough (exit 0, 404 turns).  The intro is skipped at the
+startscript's "if ask <Do you want to skip the intro>" -- that is the leading 1 --
+and the game's own TASKS command is the in-game hint list if the route below ever
+needs re-deriving.
+
+Worth knowing while reading the transcript:
+
+  * The game block declares "verb <examine>" with no default script at all
+    (decompiled line 78).  A verb declaration is matched ahead of every built-in --
+    ExecCommand tries user commands, then ExecVerb, and only then its own
+    "examine "/"x " handling (V4Game.Part2.cs:4205-4240) -- and ExecVerb falls
+    through action, then property, then the (empty) default, so EXAMINE prints
+    nothing whatever it is aimed at.  X still works, because the verb is named
+    "examine" and nothing else.  The EXAMINE lines below are therefore no-ops kept
+    for readability, and anything the route actually depends on is written LOOK AT.
+    The combination lock in the Outer Sanctum is the one place it matters: its
+    "look" script is what asks for the code and creates the exits north and south
+    (decompiled line 3231), so the script says LOOK AT COMBINATION LOCK.
+  * Several ask/get_string prompts consume the following line, which is why bare
+    YES / yes / 1 answers appear between commands.
+
+Start:
+look
+examine bed
+take blanket
+open fridge
+take milk
+look at sink
+take bowl
+out
+x dragon
+read signpost
+speak to dragon
+x Cyril
+speak to Cyril
+YES
+look at broken spectacles
+w
+x pump
+x drain
+x Simon
+speak to Simon
+yes
+count fingers
+speak to Simon
+s
+x Gnomeo
+speak to Gnomeo
+YES
+n
+e
+e
+go to Blacksmith
+x anvil
+x hammer
+x furnace
+x bucket
+take bucket
+x bellows
+take bellows
+x glass cutting device
+out
+ne
+x tree
+x Winnie
+speak to Winnie
+shake tree
+speak to Winnie
+n
+look at flowers
+take flowers
+x bouquet
+x cat
+x barrel
+open barrel
+take saw
+x doorstep
+use bowl on doorstep
+use milk on bowl
+x bottle
+take bowl
+go to Cottage (inside)
+look at Winnie
+look at oven
+look at rosette
+read rosette
+look at piggybank
+look at couldron
+speak to Winnie
+look at ring of fire
+speak to Winnie
+YES
+YES
+speak to Winnie
+YES
+speak to Winnie
+out
+s
+use saw on tree
+use saw on fallen tree
+take firewood
+x stump
+sw
+w
+w
+use bucket on drain
+turn pump
+take bucket of water
+e
+e
+go to Blacksmith
+use bucket of water on furnace
+use firewood on furnace
+use ring of fire on furnace
+look at gold ring
+use bellows on furnace
+use bottle on anvil
+pull lever
+take shards
+look at shards
+look at glass disc
+use glass disc on glass cutting device
+look at lenses
+use lenses on broken spectacles
+look at mended spectacles
+out
+w
+give mended spectacles to Cyril
+n
+look at Cyril
+read notice
+speak to Cyril
+look at desk
+look at ink pot
+look at in box
+look at out box
+look at papers
+use bellows on papers
+take ink pot
+use bouquet on ink pot
+look at bouquet
+look at empty pot
+s
+w
+s
+give bouquet to Gnomeo
+n
+e
+n
+speak to Cyril
+look at dragon pass
+speak to Cyril
+2
+s
+w
+use bucket on drain
+turn pump
+take bucket of water
+e
+give dragon pass to dragon
+wear blanket
+up
+use bucket of water on steps
+up
+speak to yeti
+up
+west
+examine remains
+take iron key
+examine remains
+take bones
+examine remains
+take card
+east
+down
+down
+ring bell
+speak to dragon
+yes
+e
+go to laundrette
+examine washing machines
+take sock
+out
+ne
+n
+examine flowers
+follow bees
+wear sock
+2
+examine hive
+out
+e
+e
+ne
+n
+go to cottage (inside)
+speak to Winnie
+give honeycomb to Winnie
+out
+s
+sw
+go to Blacksmith
+use piggybank on anvil
+pull lever
+examine smashed pig
+take buttons
+take token
+use buttons on sticky sock
+out
+go to laundrette
+use token on vending machine
+take can of soda
+drink can of soda
+out
+se
+s
+examine sand
+use iron key on chest
+take bolt cutters
+use bucket on sand
+n
+nw
+go to Blacksmith
+use bolt cutters on glass cutting device
+take glass cutting device
+use glass cutting device on anvil
+pull lever
+examine scrap metal
+take diamond
+use diamond on gold ring
+out
+w
+speak to dragon
+yes
+examine carcass
+take hair
+use hair on sticky sock
+wear blanket
+up
+count steps
+up
+up
+speak to Gnomeo
+yes
+give diamond ring to Gnomeo
+sw
+speak to workman
+speak to Rod
+yes
+use bones on grinder
+use empty can on grinder
+use bucket of sand on grinder
+use saw on grinder
+take cement mix
+give cement mix to Rod
+ne
+down
+down
+down
+ring bell
+speak to dragon
+yes
+e
+go to laundrette
+use cement mix on tumble dryer
+out
+se
+s
+use bucket on sand
+n
+nw
+go to laundrette
+use bucket of sand on tumble dryer
+out
+se
+use bucket on skip
+nw
+go to laundrette
+use bucket of gravel on tumble dryer
+out
+se
+use bucket on skip
+nw
+go to laundrette
+use bucket of gravel on tumble dryer
+out
+w
+w
+use bucket on drain
+turn pump
+take bucket of water
+e
+e
+go to laundrette
+use bucket of water on tumble dryer
+spin tumble dryer
+use bucket on concrete
+out
+w
+speak to dragon
+yes
+wear blanket
+up
+up
+up
+sw
+give bucket of concrete to Rod
+ne
+give cathedral pass to guard
+north
+give library book to receptionist
+east
+speak to Gnomeo
+yes
+speak to Queen
+west
+south
+sw
+speak to Rod
+use shards on cement topped wall
+ne
+down
+down
+down
+ring bell
+speak to dragon
+yes
+north
+speak to Cyril
+3
+yes
+south
+e
+ne
+n
+go to cottage (inside)
+speak to Winnie
+use empty pot on couldron
+out
+s
+use pot of jam on stump
+sw
+w
+speak to dragon
+yes
+wear blanket
+up
+up
+up
+north
+east
+give blank marriage certificate to Gnomeo
+north
+give blank marriage certificate to cook
+speak to cook
+take salt block
+sw
+south
+sw
+use salt block on grinder
+use bowl on salt pile
+ne
+north
+ne
+give bowl of salt to cook
+west
+use food on table
+use pot of ants on banquet
+north
+look at combination lock
+yes
+0
+south
+south
+south
+south
+down
+down
+down
+ring bell
+speak to dragon
+yes
+north
+give blank marriage certificate to Cyril
+use bellows on papers
+use blank marriage certificate on in tray
+look
+look
+look
+look
+use bellows on papers
+look at out tray
+south
+speak to dragon
+yes
+wear blanket
+up
+up
+up
+north
+east
+give marriage certificate to Gnomeo
+west
+south
+down
+down
+down
+ring bell
+speak to dragon
+yes
+e
+se
+s
+wear sock puppet
+speak to tent
+go to Puppet Theatre interior
+give invitation to Daisy
+examine hamper
+take skull
+out
+n
+nw
+ne
+n
+examine flowers
+follow bees
+kneel
+pray
+speak to ghost
+give card to ghost
+speak to ghost
+give skull to ghost
+take spirit ball
+out
+e
+speak to dragon
+yes
+wear blanket
+up
+up
+up
+north
+north
+north
+north
+take feather
+smash spirit ball
+south
+south
+south
+east
+give quail feather to Queen

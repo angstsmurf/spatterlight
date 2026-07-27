@@ -1,0 +1,275 @@
+The Pilgrims Progress (TA) -- Jason Dyer, v0.075, QDK Pro 4.0.5 (ASL 400)
+
+Stage 1 of part 1 of a straight retelling of Bunyan, and by the look of the
+qdk-notes ("Convert to everyday language & NKJV", "LOOK whenever a new exit is
+created") the author stopped there.  You are Christian: you read the Bible in a
+field, fail to convince your family, meet Evangelist, lose Pliable in the Slough
+of Despond, are talked off the road by Mr Worldly Wiseman, and are put back on it
+in time to reach the wicket gate.  Almost every step forward is a `create exit`
+fired by an action rather than a door you can find, so the map only opens up in
+the order the book does.
+
+
+There is no win and no score
+
+`define text <win>` and `define text <lose>` are both empty and nothing ever
+calls playerwin.  The furthest state is the room `wicket gate`, whose look text
+is the ending:
+
+    Over the gate there was written, "Knock, and it shall be opened to you."
+    WELL DONE!
+    YOU HAVE COMPLETED STAGE 1 OF PART 1 OF THIS ADVENTURE
+    LOOk OUT FOR STAGE 2 - COMING SOON ...
+
+so that is the marker.  The `Percent Complete` variable in the status bar is the
+game's own progress measure and it only ever reaches 7.5 -- it is set to 5 in the
+slough and 7.5 on the high hill, and the two death messages quote it back at you
+("You have mastered 7.5 percent of this adventure").  Stage 1 really is one
+fortieth of Bunyan.
+
+Two deaths are reachable and both are real `stop`s: sinking in the Slough of
+Despond, and walking up into the dark at the top of the high hill without a lit
+candle.
+
+
+The route
+
+READ BOOK in the opening field is the whole first puzzle -- it runs the `Read
+Bible` procedure and does `create exit <fields; house>`, so the house does not
+exist until you have read.  SPEAK TO WIFE in the house gotos the bedroom; LIE ON
+BED (the bed's `action <lie on>`, not SLEEP -- `command <sleep>` answers "Sleep
+on what?") passes the night, sets `night over` and `unlocked`, and lets OPEN DOOR
+create the exit to the landing.  SPEAK TO WIFE again on the landing -- she is a
+separate object, `wife2` with `alias <wife>` -- drops you into the nine-room
+field maze.
+
+The maze is the one thing in the game you cannot walk straight through.
+Evangelist appears in `fields2` only when
+
+    property <fields3; visited> and ... and property <fields10; visited>
+        and got <cry for help> and %first meet evangelist% = 1
+
+i.e. every one of the other eight fields has been entered, you are holding the
+`cry for help` from `fields10`, and you have come back to `fields2`.  Every field
+is aliased `fields` and looks identical ("You are walking in the fields ..."), so
+the exits are the only way to tell them apart:
+
+    fields2  n->3  s->7  ne->9        fields7   n->2  s->8
+    fields3  n->4  s->2  e->9         fields8   n->7  s->2  e->10  w->6
+    fields4  s->3  sw->5              fields9   e->10 w->3  nw->4  sw->2
+    fields5  e->3  w->6  ne->4 se->2  fields10  w->9
+    fields6  e->5
+
+The script's N N SW W E SE S S E W SW covers all eight and picks up the two
+things worth having on the way: the box of matches in `fields6` and the `cry for
+help` in `fields10`.  Take the matches even though nothing asks you to -- see
+below.
+
+SPEAK TO EVANGELIST hands over the parchment roll.  Read it with X PARCHMENT
+ROLL, not READ PARCHMENT ROLL: the roll's `look` is what sets `flag on <parchment
+roll read>`, and the game block's `verb <read #text#> msg <You can't read that.>`
+swallows READ before it can reach the object.  (READ BOOK works only because the
+book carries an explicit `action <read>`.)  Then SPEAK TO EVANGELIST a second
+time for the "keep that light in your eye" speech, which creates the exit from
+`fields4` to the wide plain and starts the `flee too slowly` timer -- if that
+fires you are dumped back in the bedroom with the candle blown out, so go: N, N,
+GO TO WIDE PLAIN, GO TO MIDDLE OF THE PLAIN, GIVE BOOK TO PLIABLE.  Handing
+Pliable the book is what turns the timer off, converts him, sends Obstinate home
+and opens the way to the slough.
+
+The Slough of Despond is a waiting game.  `command <struggle>` has two halves:
+while `%struggle in bog%` (initially 3) is non-zero it just decrements, and only
+once that has run out does it check `%sinking% < 8` and let you out.  `sinking`
+starts at 10 and is decremented by the `sinking in mire` timer alone, which
+starts at interval 15 and shortens itself to 10 when it first fires and to 5 when
+Pliable gives up and climbs out on his own side -- so you need three firings
+before STRUGGLE will work, and the fourth firing (`case <0>`) is the death.  The
+script says STRUGGLE 43 times and the 43rd is the one that gets you out; the
+count is exact on purpose, because a spare STRUGGLE anywhere else in the game
+with `%sinking% < 8` re-runs the escape branch and teleports you back to the
+sound ground.
+
+After that it is a straight line: GO TO CROSSING OF WAYS, SPEAK TO WORLDLY
+WISEMAN, TAKE GOOD COUNSEL (the taking is what creates the exit to the high
+hill), GO TO HIGH HILL, U, U, TAKE REGRET, then D, D back down -- `high hill`'s
+script waits for `got <regret>` before it produces Evangelist, and Evangelist is
+what creates the exit to the wicket gate.  SPEAK TO EVANGELIST, GO TO WICKET
+GATE.
+
+
+The candle, the matches and the fourth level of the hill
+
+`high hill4`, one level above where the regret is, carries the qdk-note
+
+    '!qdk-note:  No death if got candle and candle lit. Put matches in field.
+
+and its script kills you outright unless `flag <candle is lit>` and `got
+<candle>`.  Nothing in the game hints at this: the candle is a piece of bedroom
+scenery you can walk past, taking it explicitly blows it out (`action <take>`
+does `flag off <candle is lit>`), and the matches are lying in one field of a
+nine-room maze that has no reason to be searched except that Evangelist will not
+appear until you have.  The author's note is the only reason to connect them.
+The wicket gate is reachable without ever going up there, so the script climbs to
+`high hill4` with the candle lit purely to prove the survival branch works -- it
+creates an east exit back to `high hill2` and a down exit, and prints "You temble
+and quake exceedingly with fear ...".
+
+
+What this game needed from the engine
+
+geas did not implement the `visited` room property at all.  Quest's PlayGame
+stamps every room it enters with it (V4Game.Part2.cs:6688-6708), and this game
+tests it in two places -- so without the stamp Evangelist never appears in
+`fields2` and stage 1 cannot be finished.  Which side of the room's own entry
+script the stamp lands on is version-dependent, and that turns out to matter
+here:
+
+    if ((ASLVersion >= 391) & (ASLVersion < 410)) AddToObjectProperties("visited", ...)
+    await ShowRoomInfo(room, ctx)
+    ... run the room's script ...
+    if (ASLVersion >= 410) AddToObjectProperties("visited", ...)
+
+At ASL 400, as here, a room is already `visited` by the time its own script runs.
+`middle of the plain` is written as
+
+    script if property <middle of the plain; visited> then  else msg <The
+        neighbors also came out to see you flee ...>
+
+which is the usual "first visit only" idiom -- and at 400 it can never fire, so
+that paragraph of Bunyan is simply never printed.  Under 410 it would.  Quest
+evidently moved the stamp for exactly this reason.  fixtures/visited.asl and
+fixtures/visited410.asl pin both halves down.
+
+
+Odds and ends
+
+  * The intro appears twice.  The startscript is `clear / displaytext <intro> /
+    pause <2000> / clear`, and Quest then displays the intro section again by
+    itself unless a startscript says `nointro` (V4Game.Part2.cs:7987).  In the
+    real player the two `clear`s wipe the first copy off the screen; in a
+    transcript both survive.
+  * `define text <bible text 4>` is dead.  The `Read Bible` procedure only
+    switches on cases 1, 2 and 3, and the wicket gate sets `bible text` to 4, so
+    the "Enter by the narrow gate" verse the ending is written up to can never be
+    read.  READ BOOK there falls through to `case else` -- "You read the book."
+  * Every room from `sound ground` on says "You are at the high hill" whatever
+    level of it you are on: `high hill2`, `high hill3` and `high hill4` all carry
+    `alias <high hill>`, exactly as the nine fields all say "fields".
+  * `command <help>` is room-sensitive and worth typing in the two places it has
+    something to say: the slough ("You will need to struggle hard ...") and the
+    middle of the plain ("Pliable might be interested in the book.").
+  * The `time passes` timer is switched on again by `afterturn` every single
+    turn, so its "Time passes ..." fires every 200 turns for the rest of the
+    game.  It does nothing else.
+  * The burden never comes off -- `drop nowhere <You cannot seem to drop the
+    great burden from your back.>`.  In Bunyan it falls off at the cross, which
+    would have been stage 2.
+
+Start:
+x book
+take book
+read book
+go to house
+x wife
+speak to wife
+x candle
+take candle
+lie on bed
+open door
+go to landing
+speak to wife
+n
+n
+sw
+w
+x matches
+take matches
+e
+se
+s
+s
+e
+x cry for help
+take cry for help
+w
+sw
+x evangelist
+speak to evangelist
+x parchment roll
+speak to evangelist
+n
+n
+go to wide plain
+go to middle of the plain
+x obstinate
+x pliable
+give book to pliable
+go to miry slough
+x slough
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+struggle
+read book
+go to crossing of ways
+x worldly wiseman
+speak to worldly wiseman
+x good counsel
+take good counsel
+speak to worldly wiseman
+go to high hill
+x sign
+x hill
+u
+u
+x regret
+take regret
+light candle
+x candle
+u
+d
+d
+d
+speak to evangelist
+speak to evangelist
+go to wicket gate
+read book

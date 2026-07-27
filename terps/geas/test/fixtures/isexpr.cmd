@@ -1,0 +1,14 @@
+plus
+minus
+times
+divide
+paren
+notequal
+bare
+hyphen
+divzero
+trailing
+greet
+stopnow
+plus
+look

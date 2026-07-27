@@ -1,0 +1,31 @@
+
+bareuseroom
+
+You are in r1
+There is torch and lamp here.
+You can go west.
+Room one.
+
+> take torch
+You pick it up.
+
+> take lamp
+You pick it up.
+
+> use torch
+The room handler ran.
+
+> use lamp
+The lamp's own handler ran.
+
+> west
+You are in r2
+You can go east.
+Room two.
+
+> use torch
+The object handler ran.
+
+> use lamp
+The lamp's own handler ran.
+[runner] turns=7 leftover=0 running=true

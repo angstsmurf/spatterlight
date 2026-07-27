@@ -1,0 +1,374 @@
+Ghost Light -- ASL 410, QDK Pro 4.1.1.  The file is called asdarknessfalls2.cas;
+the game inside it calls itself Ghost Light, and nothing in it ever mentions
+darkness falling, so the title used here is the one in the define game block.
+
+You are an investigator of the supernatural, walking in through the gates of a
+coastal manor house to find out what has been killing people there.  The gates
+slam behind you and never open again -- 26 rooms, one win, four ways to die, all
+four of them in the last five turns of the game.  It is a well built and
+genuinely fair puzzle box: everything needed is findable, the two number codes
+are both properly clued, and the endgame is spelled out in a manuscript you can
+read beforehand.
+
+IT MUST BE RUN WITH --tick.  Not for flavour: the only source of salt in the
+game is boiling a pot of sea water dry over a campfire, and the boiling is done
+by `define timer <boilaway>` with `interval <20>`.  Without a timer tick there
+is no salt, and without salt the demon dodges the chandelier and kills you.
+Three more timers matter -- `pentime` (20) is how long the laser pen stays
+balanced on the tripod, `demontime` (20) is how long the demon lets you think,
+and `pausetime` (70) is the reprieve the salt circle buys -- so the whole
+endgame is on a clock as well.
+
+THE TWO CODES.  Under the guillotine in the gate house is "Opening the safe is
+as easy as A,B,C", and the three letters are scattered: A=7 is scratched on the
+matchbox found among the gravestones, B=8 is scrawled on the wall by the
+bricked-up front door, and the desk in the gate house is etched "C=AxB", which
+makes C 56.  So the safe is 7856, and it holds the telescope.
+
+The electronic lock on the door into the manor wants 4190, and that one is a
+homophone riddle.  The door's warning reads "Beyond the door feeds Ageroth the
+Demon.  Only the noble can pass beyond"; the gravestone the statue's spear
+points at belongs to Sir Cedric De Margain, a nobleman; and scrawled on it in
+blood is "FOR ONE I KNOW".  Read it aloud as digits -- FOR is four, ONE is one,
+I is the ninth letter, and KNOW is no, which is nought.  4190.
+
+Nothing in the game checks whether you have found any of that.  Both codes are
+typed into `enter <code>` prompts and compared with `if is <#code#;7856>`, so a
+player who knows the answers can walk straight past the whole telescope chain.
+The script below does it the intended way anyway, because it is the only place
+the second code exists in the game and because the chain is the best puzzle in
+here: attach the telescope to the tripod in the front loft, look through it to
+see which way the statue's spear points, take it off again, stick the putty to
+the tripod, balance the laser pen on the putty, and then run -- rear loft, out of
+the window, down the trellis, across the driveway and into the graveyard -- and
+chalk the grave the red dot is sitting on before `pentime` drops the pen.  Seven
+moves and one CHALK, against a twenty-turn timer.
+
+EXAMINE IS NOT LOOK AT.  The game block defines `verb <examine;x> msg <Examining
+that reveals nothing more>` as a catch-all, so EXAMINE on any object that keeps
+its secret in a `look` script -- the gravestones, the pile of rubbish, the
+cooking pot -- answers with that brush-off, while LOOK AT the same object runs
+the script and finds the thing.  Objects that define their own `action <examine>`
+(the statue, the hedge, the shelves, the bin, the boxes, the seaweed, the altar,
+the sign) work either way.  Sorting out which is which is most of what makes a
+first playthrough slow, and the script uses whichever form the object actually
+answers to.  The one that costs a game if you get it wrong is the altar: LOOK AT
+ALTAR only describes it, and EXAMINE ALTAR is what turns up the chisel that frees
+the spear.
+
+THE KEY IN THE DRAIN.  The gate house is locked and its key is down the drain in
+the lower driveway, out of arm's reach behind a grill.  It is not there when
+you arrive: `drainkey` only shows it after the plastic brick found in the seaweed
+has been dropped down the *upper* drain and a potful of sea water has been poured
+after it to wash brick and key down to the lower one.  Then the aerial from the
+loft boxes, with the sticky putty off the back of the DO NOT ENTER sign on its
+end, fishes it out.  That one puzzle is why the first third of the route is a
+long loop out to the cove and back, and it gates everything else: the gate house
+holds the string, the telescope and the lever that opens the garage.
+
+THE COOKING POT.  `action <climb>` on the trellis refuses outright while you are
+carrying the cooking pot, and the trellis is the only way into the house.  Since
+the pot is needed twice -- once to flush the drain, once to boil down the salt --
+the route is built so that the second use, which ends with `use cooking pot on
+A-frame` taking it out of your hands for good, happens before the last two
+climbs.
+
+THE CANDLES.  The machine in the workshop under the garage wants wax, wicks and
+118 degrees.  Wicks are 20cm lengths of string -- the length comes from the
+manual, and the guillotine will not cut the string until the manual has been read
+-- soaked in the bottle of turps in the garage after a sachet of vinegar found in
+the rubbish has been poured in.  118 comes off three dials: the first adds 110,
+120 or 130, the second 0 or 5, the third 2 either way, so it is 120 + 0 - 2, and
+`tempdial` resets the readout to zero on a wrong guess.  Then PUSH BUTTON.
+`makecandle` branches on whether blood has been poured into the machine, so the
+white candles must be made first: they are what goes into the candelabra on the
+north balcony, which when lit shows the draught that reveals the secret button,
+which opens the store where the blood pack is.  Only then can the blood candles
+be made, and the wax, the wicks and the dials all have to be set up a second
+time because the machine resets them.
+
+Also note the blade.  Removing the guillotine blade with the screwdriver is what
+cuts the chandelier rope at the end, but the blade has to come off *after* the
+string is cut, since a bladeless guillotine cannot cut anything.
+
+THE ENDGAME, in the order the manuscript in the secret store gives it: secure the
+demon in a circle of salt, bind it in iron with blood candles surrounding it,
+then pierce its heart with stone.  In practice everything has to be staged before
+the summoning, because SUMMON DEMON starts `demontime` and locks the door back to
+the loft:
+
+  * lower the chandelier from the south balcony, go down to the hall, put the
+    blood candles in its five pentagram slots and light them, then come back up
+    and raise it again;
+  * go down to the hall and SUMMON DEMON, which throws you back onto the east
+    balcony as Ageroth crawls onto the altar;
+  * MAKE SALT CIRCLE, which needs the jar of salt and the `onbalcony` flag -- set
+    by entering the *west* balcony and cleared only by going back into the front
+    loft, so it is still on -- and which swaps `demontime` for the longer
+    `pausetime`;
+  * cut the rope on the south balcony, dropping the raised chandelier onto a
+    demon that can no longer dodge;
+  * THROW SPEAR.
+
+Each of those has a death waiting behind it.  Cut the rope with no salt circle
+and the demon steps aside; cut it with no lit blood candles in the chandelier and
+it bursts back out of the iron; go down the stairs into the hall at any point
+after the summoning and the game asks whether you really mean it and kills you if
+you say yes; and let `demontime` run out at any stage and Ageroth takes you
+apart.  The spear must also not be thrown early -- `action <throw>` outside the
+`almostdone` state just loses it.
+
+No engine divergence came out of this game; it is here for the timer plumbing,
+the two `enter <code>` prompts, the three `define selection` dials, and as the
+suite's only test of a game whose win depends on a real-time timer expiring on
+schedule.
+
+Verified: 235 turns, --tick, `--win "YOU HAVE JUST KILLED THE DEMON"`, seed 1.
+
+Start:
+push gates
+north
+east
+examine statue
+look at plinth
+look at spear
+examine hedge
+southeast
+look at gravestones
+take matches
+examine matches
+northwest
+north
+west
+north
+examine front door
+take sign
+examine sign
+south
+northwest
+examine wall
+north
+look at rubbish
+take vinegar
+down
+look at a-frame
+out
+lift carpet
+take screwdriver
+out
+northeast
+take driftwood
+examine seaweed
+take plastic brick
+southwest
+use driftwood on campfire
+up
+south
+climb trellis
+use screwdriver on window
+use boomerang on window
+enter window
+examine boxes
+take aerial
+use putty on aerial
+use sign on locked door
+use screwdriver on keyhole
+take sign
+take loft key
+use loft key on locked door
+south
+take specimin jar
+look at electronic door lock
+1
+4190
+north
+out
+down
+north
+down
+take cooking pot
+northeast
+use cooking pot on sea
+southwest
+up
+south
+southeast
+south
+use plastic brick on drain
+use cooking pot on drain
+south
+use aerial with putty on key
+use gate house key on gate house door
+west
+examine desk
+open drawer
+take ball of string
+open safe
+1
+7856
+take telescope
+pull lever
+east
+north
+north
+east
+east
+examine shelves
+take chalk
+push car
+up
+examine bin
+take black box
+remove putty
+use aerial on black box
+down
+use remote control
+take laser pen
+down
+read manual
+up
+west
+west
+south
+south
+west
+use ball of string on guillotine
+use screwdriver on guillotine
+take blade
+east
+north
+north
+east
+east
+use vinegar on turps
+use pieces of string on turps
+down
+take blocks of wax
+turn dials
+2
+0
+-
+use wicks on machine
+push button
+up
+west
+west
+northwest
+north
+down
+northeast
+use cooking pot on sea
+southwest
+use cooking pot on a-frame
+use matches on campfire
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look at cooking pot
+use specimin jar on salt
+up
+south
+climb trellis
+enter window
+south
+use telescope on tripod
+look through telescope
+take telescope
+use putty on tripod
+use laser pen on tripod
+north
+out
+down
+southeast
+south
+east
+southeast
+use chalk on grave
+examine grave
+northwest
+west
+north
+northwest
+climb trellis
+enter window
+south
+east
+northeast
+use white candles on candelabra
+use matches on candelabra
+push button
+enter doorway
+open fridge
+take blood pack
+read manuscript
+out
+southeast
+down
+examine altar
+take chisel
+up
+northwest
+southwest
+west
+north
+out
+down
+southeast
+east
+east
+down
+use blood pack on machine
+take blocks of wax
+turn dials
+2
+0
+-
+use wicks on machine
+push button
+up
+west
+west
+south
+east
+use chisel on spear
+take spear
+west
+north
+northwest
+climb trellis
+enter window
+south
+east
+southeast
+lower chandelier
+northeast
+down
+use blood candles on chandelier
+use matches on chandelier
+up
+southwest
+raise chandelier
+northeast
+down
+summon demon
+1
+make salt circle
+southwest
+use blade on rope
+throw spear

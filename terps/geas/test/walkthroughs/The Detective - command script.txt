@@ -1,0 +1,270 @@
+The Detective -- Catalin Nita, v1.0, 2005 (The Detective.cas, ASL 350)
+
+A thriller told entirely through room descriptions, with no objects, no
+inventory, no verbs and no library: 27 rooms, each of which is one scene, and
+every action in the game is a room-level `command <...>` whose script is either a
+msg or a `goto` to the next scene.  You never examine anything and you never
+carry anything -- the "Inventory:" list on bridge street is text inside the
+room's look tag.  Detective Peterson investigates a warehouse, loses his wife,
+is blackmailed into a murder and a bank robbery, and the story switches you
+between playing Peterson and playing the police officer chasing him.
+
+Type what the room prints.  A scene that ends "type enter to continue" means the
+literal command ENTER; some scenes want E, or S, or H, or P instead, and which
+one it is is arbitrary.  Where a room offers a choice, one branch is usually
+`playerlose` with a message calling it "one of the unfortunate endings" -- there
+are twelve of those, and they are the only endings the engine recognises as
+endings at all.
+
+
+There is no playerwin
+
+The file contains no `playerwin` anywhere, and `define text <win>` is empty.  Part
+2 finishes in the Las Vegas warehouse with
+
+    congrutalations. You have just completed 'The last detective'
+    Enter this password at the main menu to unlock 'special features.
+    zx12df
+
+and then sends you back to the office, still running.  That line is the marker.
+
+
+The password gates
+
+The office is both the first room and the main menu, and it is where the game's
+three passwords are typed.  Its own look text advertises two of them without
+saying what they are:
+
+    type the password here if you want to play  ' part 2'
+    type the password here if you want to access 'special features'
+
+  * WERTYUSDF unlocks part 2.  It is printed at the end of part 1.
+  * ZX12DF unlocks the special features.  It is printed at the end of part 2.
+  * MATE is the reward for finishing the "situations" minigame, and typing it at
+    the special-features menu plays a coda in which the boss reveals that the
+    body in the park was the wife's twin sister and the real wife was alive
+    underground in the American warehouse -- which contradicts the study scene in
+    part 1, where the son finds his mother murdered.  The game shipped both.
+
+Because all three are commands in the office, all three work the moment you
+start: nothing checks whether you have earned them.  The script below earns them
+in order anyway.
+
+Part 1 opens on something else entirely -- a five-question true/false quiz about
+Harry Potter and the Half-Blood Prince, offering "the magnificent prize money",
+with four wrong answers that are each a `playerlose`.  Answering the fifth
+correctly prints "type enter to continue", and ENTER is what finally produces the
+1) new game / 2) story menu.  The right answers are TRUE, 607, BLOOMSBURY,
+HALF-BLOOD PRINCE.
+
+Every keypad in the game is the same puzzle: you are shown four or five digits
+"jumbled up" and have to type the intended order, which you cannot deduce -- you
+have to know it.  The ones on the critical path are 376 (back entrance, from
+637) and 3296 (warehouse gate, from 2639).  The C4 puzzle is stranger: you are
+shown 7291 and have to answer with letters, DBCA, under a scheme the trainee
+explains with two worked examples that do not agree with each other.
+
+
+Branches the script takes, and the ones it doesn't
+
+Two scenes fork into different rooms rather than into a loss, and the script
+takes the longer side of both:
+
+  * The lounge offers GET A PIZZA or WATCH TV.  Watching TV goes straight to HQ;
+    the pizza detours through the Pizza Hut, where all three toppings lead to
+    the same phone call.
+  * HQ offers a fake ID or the helicopter.  The fake ID goes straight to the
+    facility; the helicopter adds a scene where you are shot down and parachute
+    in.  Both land outside the facility.
+
+The one place a wrong-looking answer is required is the trainee's office: the
+question is "do you get it, yes or no", and NO prints the second worked example.
+The script answers NO and then YES, which is allowed because both are just
+commands.
+
+Two `command <>` entries with no name at all sit in HQ and at 25 Bridge St, and
+`command <up>` and `command <left>` in the facility car park have no script, so
+those two turns print nothing.  The script types them to show they exist.
+
+The special features are three minigames that are pure keypad drills.  The
+30-level keypad run in the script is the full set of answers; the "situations"
+run is levels 1 to 5 (USE C4, HOUSE, UNIVERSE, then either direction in the
+forest, then 32036), whose reward is the MATE password.
+
+Start:
+do questionaire
+true
+607
+bloomsbury
+half-blood prince
+enter
+2
+1
+get a pizza
+go to pizza hut
+olives
+enter
+go to HQ
+get in through the roof using the helicopter
+e
+use parachute
+e
+jump on back of van
+exit van
+enter the drivers seat
+take note
+up
+left
+right
+down
+kill him
+go to computer room
+security
+click on my folder
+click on internet explorer
+click on rubbish bin
+www.warehouses.org.uk
+go north west
+hide
+e
+go to living room
+go to kitchen
+go to toilet
+go to attic
+go to bedroom
+check under bed
+go to the study
+enter
+use chair
+use wooden stick
+use rope
+climb on chair
+tie it to rope
+push
+pull
+go left
+enter
+read note
+go to the park
+examine body
+take parchment
+go to 25 bridge st
+wait a little longer
+knock him out
+e
+enter
+use gloves
+use sofres
+take it with me
+enter
+point gun at receptionist
+e
+e
+376
+go at reception
+go upstairs
+take pack
+enter
+e
+go to the warehouse
+3296
+go north
+go east
+go west
+go south
+take picklock
+use picklock
+enter
+go to the rubbish bin
+e
+s
+wertyusdf
+start
+457
+321
+978
+483
+530
+1475
+4632
+6041
+2341
+79155
+part2
+take ticket
+go to florence train station
+show ticket
+enter the train
+go to the restaurant
+pizza
+drink
+enter
+go to the bathroom
+go to my room
+e
+enter
+hand him the cell phone
+get out of here
+enter
+go to the trainee's office
+go to carlton street
+take package
+enter
+no
+yes
+go to the helicopter
+enter the helicopter
+e
+set the c4
+dbca
+get out of here
+enter
+main menu
+zx12df
+a note from the creator
+minigames
+keypad
+124
+753
+681
+789
+213
+109
+240
+096
+876
+5692
+1067
+7831
+7890
+5139
+9678
+3123
+9812
+9672
+0423
+8567
+5129
+9012
+6231
+8462
+4351
+0341
+4372
+5294
+96850
+06571
+C4
+badce
+situations
+p
+hint 1
+use c4
+hint 2
+house
+hint 3
+universe
+north
+32036
+mate
+h

@@ -1,0 +1,30 @@
+
+Givethe
+
+You are in Gate
+There is the gatekeeper and an apple here.
+A gate, and a man in front of it.
+
+> i
+You are carrying:
+letter
+
+> give letter to gatekeeper
+"That's the one," he says, and stands aside.
+
+> give the gatekeeper the letter
+"That's the one," he says, and stands aside.
+
+> give the man the letter
+"That's the one," he says, and stands aside.
+
+> give man the letter
+"That's the one," he says, and stands aside.
+
+> give the gatekeeper the apple
+You don't have that.
+
+> give the officer the letter to sign
+You don't see any the officer the letter.
+You don't see any sign.
+[runner] turns=7 leftover=0 running=true

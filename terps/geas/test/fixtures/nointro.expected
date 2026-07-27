@@ -1,0 +1,14 @@
+
+nointro
+
+Credits first...
+Here is the intro, exactly once.
+
+...and now the game.
+You are in r
+A room.
+
+> look
+You are in r
+A room.
+[runner] turns=1 leftover=0 running=true

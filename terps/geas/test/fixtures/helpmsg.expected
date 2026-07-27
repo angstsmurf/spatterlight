@@ -1,0 +1,32 @@
+
+Helpmsg
+
+You are in Study
+There is scroll here.
+The study.
+
+> hint
+The key is under the mat.
+
+> story
+Here beginneth the legend.
+It is two lines long.
+
+
+> shut
+Still printing after helpclose.
+And after helpclear.
+
+> both
+msg first,
+then helpmsg,
+Here beginneth the legend.
+It is two lines long.
+
+Here beginneth the legend.
+It is two lines long.
+
+
+> read scroll
+It says: mind the step.
+[runner] turns=5 leftover=0 running=true

@@ -1,0 +1,16 @@
+Darkness (by Sarah, QDK Lite 4.03) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "succesfully get out".
+
+Shortest winning path (7 turns).  Avoid two instant-death traps: going east from
+the Hallway into Saloon 666, and examining David's bed in the start room (its look
+runs playerlose).  The Exit door key in the start room is a red herring, and the
+Mortuary's Key is only an alternative way to open the Case -- neither is needed.
+
+Start:
+s
+w
+open case
+take hammer
+e
+use hammer on exit door
+s

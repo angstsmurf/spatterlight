@@ -1,0 +1,413 @@
+Mitchell Quest -- command script
+================================
+
+Game:      Mitchell Quest, version 1.1  (games/MitchellQuest.cas)
+Author:    Robert "Torgo" Sedler
+Copyright: (c)2003 Torgoesque Games
+Engine:    ASL 311, "Created with QDK 3.12 and a 12 pack of Schlitz"
+Marker:    "You wonder if Burger King is still open"
+Length:    245 turns (246 script lines -- one of them answers a disambiguation menu)
+
+WHAT THIS GAME IS
+-----------------
+An MST3K fanfic in Quest form.  You are Mitchell -- the greasy, perpetually
+drunk cop from the 1975 movie riffed in the final Joel episode of Mystery
+Science Theater 3000 -- and you have come to Deaney's mansion to shoot Deaney.
+Roughly thirty-five rooms: the mansion above ground, then a cave system, a
+river, a torture chamber and finally Hell, where Deaney turns out to be Satan.
+The narrator spends the entire game insulting the player, and the game insults
+itself just as often ("this stupid, poorly described river").  Nearly every
+noun answers LOOK, EXAMINE and SPEAK TO separately with three different jokes,
+so this script examines and talks to a great deal of scenery on purpose.
+
+The `define game` block installs *twenty* `error <...>` overrides -- badcommand,
+badthing, badplace, itemunwanted, defaultuse, cantdrop, noitem, badexamine,
+badgo, baduse, badgive, badtake, baditem, baddrop, badpronoun, defaultdrop,
+defaultexamine, defaultlook, defaultspeak and defaulttake -- which is more of
+the parser's error surface than any other game in this suite replaces at once.
+That is most of what makes this game worth having as a regression: every
+unrecognised or default-handled command in geas has to route through a
+game-supplied string rather than the built-in one.
+
+THE CRITICAL PATH
+-----------------
+Everything is `use <thing>` on `<thing>`; there are no verbs to discover.
+
+  1. Mitchell's Ford LTD (start): TAKE CROWBAR.
+  2. Front Entrance: TAKE KEY, TAKE REMOTE- LATTICE, TAKE REMOTE- FRONT GATES.
+     USE KEY ON LOCKED DOOR opens the Gun Room to the west.
+  3. Gun Room: USE CROWBAR ON FANCY CABINETS.  Mitchell smashes every gun in
+     the house to splinters and leaves exactly one box of .38 AMMO intact.
+     TAKE .38 AMMO -- this is the win condition, three hundred turns early.
+  4. Bathroom: TAKE PENCIL.  The remotes have recessed buttons, so
+     USE PENCIL ON REMOTE- LATTICE is what actually opens the Cedar Lattice
+     (an exit west from the Upstairs Hallway into Deaney's Bedroom).
+  5. Kitchen: USE CROWBAR ON REFRIGERATOR reveals the CAN O SCHLITZ.  Take it.
+     It is never consumed, and it is needed three separate times.
+  6. Computer Room (east of the Upstairs Hallway): EXAMINE PILES OF JUNK
+     yields the RUSTY KEY.
+  7. Garage Bay 2: USE RUSTY KEY ON CHEST yields the BFH (Big Effing Hammer).
+  8. Basement: USE BFH ON SMALL DOOR opens south into the Crawlspace, and the
+     Crawlspace opens south into the Well Room -- the whole underground half of
+     the game hangs off that one hammer blow.
+  9. Well Room: TAKE GOLD KEY.  Torch Room (west): TAKE COIL OF ROPE,
+     TAKE TORCH STUB.
+ 10. Upstairs Bathroom: USE GOLD KEY ON MEDICINE CHEST yields MATCHES (the
+     object is `Medecine chest`, but its alias spells it right).  The
+     torch stub is too damp to light, so USE TORCH STUB ON MICROWAVE (Deaney's
+     bathroom has a microwave next to the toilet; the Bathroom downstairs
+     complains about *not* having one) to get a DRY TORCH STUB, then
+     USE MATCHES ON DRY TORCH STUB for the BURNING TORCH.
+ 11. West River Bank (east of the Well Room): EXAMINE FOOTPRINTS is the only
+     thing that creates the exit north, and LOOK AT FOOTPRINTS is not enough.
+ 12. West River Ledge: USE COIL OF ROPE ON HOOK swings you to the East River
+     Ledge.  The same command on the far ledge's own hook swings you back, so
+     the rope is the river's only crossing in both directions and gets used
+     four times over the course of this script.
+ 13. East River Bank -> east -> Torture Chamber Entrance -> east -> Stone
+     Passage -> east -> Sign Room -> east -> Evil Darkness.  Going SOUTH from
+     Evil Darkness while carrying the burning torch drops you into the tunnel
+     maze; without it you pass out and wake up back in the Torch Room.
+ 14. The tunnel maze is four rooms, most of whose exits loop back onto
+     themselves.  In: SOUTH, WEST, NORTH, WEST.  Out: EAST four times, then
+     NORTH.  SPEAK TO CRAZY OLD BASTARD at the Torture Chamber Entrance while
+     carrying the Schlitz gets you the *exit* half of that ("I can't tell you
+     how to get through the tunnels, I couldn't do it!") and nothing else.
+ 15. Teleportation Room: EXAMINE WEIRD MACHINE reveals the FUEL FUNNEL, and
+     USE CAN O SCHLITZ ON FUEL FUNNEL teleports you to the Satellite of Love.
+ 16. Satellite of Love: SPEAK TO CROW makes Crow run off and drop his
+     screenplay, EARTH vs SOUP.  Take it.  USE CAN O SCHLITZ ON ANOTHER FUEL
+     FUNNEL returns you to the tunnels.
+ 17. Deaney's Bedroom: GIVE SCREENPLAY TO LINDA EVANS.  She is too stoned to
+     notice she has dropped a TINY KEY.  Take it.
+ 18. Torture Chamber Entrance: NORTH now works.  TAKE HARPOON GUN.
+ 19. Benton's Room: USE HARPOON GUN ON BENTON THE LOUSY BUTLER, then
+     EXAMINE BENTON'S BODY to be handed the AMULET.
+ 20. Entrance to Hell: NORTH is blocked by an invisible force until you hold
+     the Amulet.  In Hell, TAKE MITCHELL'S GUN and USE .38 AMMO ON MITCHELL'S
+     GUN to get the LOADED GUN.
+ 21. Throne Room (east of Hell): USE LOADED GUN ON DEANEY.  `playerwin`.
+
+There is a single `playerwin` in the file and it is that line.
+
+SIX WAYS TO DIE (thirteen `playerlose` statements)
+--------------------------------------------------
+  * The Street.  USE PENCIL ON REMOTE- FRONT GATES opens the front gates, and
+    then going WEST from the Driveway walks you into the road at night and
+    under a car.  The whole room is nothing but a `script` that prints and
+    loses -- there is no way to enter it and survive.  This script opens the
+    gates anyway (it is a joke worth firing) and simply never goes west.
+  * JUMP ACROSS / LEAP ACROSS / JUMP ACROSS RIVER / LEAP ACROSS RIVER at
+    either river bank.  Both banks define all four phrasings, all eight
+    identical, all fatal -- Mitchell sinks like a boat anchor.
+  * USE HARPOON GUN ON CROW or USE MITCHELL'S GUN ON CROW.  You miss, you
+    puncture the hull of the Satellite of Love, and it implodes.  (USE CROWBAR
+    ON CROW is safe and the game congratulates you sarcastically for thinking
+    of it: "MY GOD! That is SO clever!!!!!! But it's also pointless.")
+  * USE MITCHELL'S GUN ON DEANEY before loading it.  Same text as the win up
+    to the trigger pull, then "THE GUN ISN'T LOADED!!!"  Load it in Hell.
+  * USE HARPOON GUN ON DEANEY.  You miss.  Deaney does the MANOS hand gesture.
+
+AUTHORING QUIRKS
+----------------
+The Gun Room defines *three separate objects all named `chalk outline`*, with
+no aliases and no distinguishing names, so EXAMINE CHALK OUTLINE raises a
+three-way disambiguation menu whose options are identical.  The script answers
+`1`.  This is the only prompt in the run, and forgetting it silently eats the
+following command as the menu answer (geas parses menu input with atoi, so
+"examine fancy cabinets" becomes 0, clamps to 1, and picks the first outline).
+
+`examine bar` in the Living Room is not an examine at all: it gets Mitchell
+"Dudley Moore bombed" and `goto`s him to the Bathroom, which is where the
+Pencil is.  It is the intended way to find the Pencil, and it is the only
+teleport in the mansion.
+
+The Key carries a stray `action <key> create exit west <; Gun Room>` tag -- a
+verb literally named "key", with an *empty* from-room in the create-exit --
+alongside the locked door's own `use <Key>`.  Only the door's version is
+reachable by normal play; the `action` tag looks like a first attempt left in.
+
+The running fly gag is a four-room relay of five separate objects.  A `fly`
+buzzes in the Teleportation Room; teleporting to the Satellite of Love hides
+it and shows `fly2` in the Computer Room, on the far side of the map ("Hey,
+where did that fly go?").  CATCH FLY in the Computer Room hides that one and
+shows `fly3` in the Well Room; CATCH FLY there shows `fly4` in the Hallway;
+CATCH FLY in the Hallway finally gives you a `dead fly`.  This script chases
+it through all four rooms, which is why the route doubles back through the
+Crawlspace twice -- it is show/hide/reveal churn across four rooms and the
+best exercise of that machinery in the corpus.
+
+`Another Fuel Funnel` on the Satellite of Love has `alias <Fuel Funnel>`, the
+same name as the hidden object in the Teleportation Room, and the Weird
+Machine's examine is gated on `if exists <Fuel Funnel>`.  The two never share
+a room, so the collision is harmless, but it is a real name clash across rooms.
+The Weird Machine is the same trick (`Another Weird Machine` / `alias <Weird
+Machine>`), and so is the bathroom fixture (`plain toilet` / `alias <toilet>`
+downstairs against `Toilet` / `alias <Toilet>` in Deaney's).
+
+Where the alias differs from the object name, the alias is the only thing the
+parser answers to, and at ASL 311 there is no partial matching to fall back on
+(Quest matches a word from the middle of a name only for ASL 391 and up:
+Disambiguate, V4Game.cs:4762-4772; fixtures/abbrev.asl).  Two of those bite:
+the bathroom cabinet is `define object <Medecine chest>` with `alias <medicine
+chest>`, so the walkthrough must spell it *correctly* even though the game
+misspells it, and the television is `<Goldstar Television>` with `alias
+<Goldstar>`, so TAKE GOLDSTAR TELEVISION finds nothing and TAKE GOLDSTAR works.
+The torch is a pair like the funnels: `<Torch stub>` and, after the microwave,
+`<dry torch stub>` with `alias <torch stub>`.
+
+Other flavour deliberately included: the Empty Schlitz Can in the LTD is dry
+("dryer than a covered bridge"); OPEN SMALL PRESENT and OPEN BIG PRESENT under
+the Christmas tree are game-level commands yielding panties and a GoldStar
+television; EAT SAMMICH; USE COIL OF ROPE ON WELL fishes a Hoyt Axton record
+out of the well; USE CROWBAR ON SUGGESTION BOX in the Torture Chamber yields a
+paper; SPEAK TO BFH and SPEAK TO CAN O SCHLITZ both have custom replies.  The
+win text ends "You wonder if Burger King is still open.  THE END".
+
+start:
+look
+take crowbar
+examine empty schlitz can
+start LTD
+search
+west
+look
+south
+look
+east
+use crowbar on refrigerator
+look at can o schlitz
+take can o schlitz
+speak to can o schlitz
+examine can o schlitz
+take sammich
+eat sammich
+open refrigerator
+south
+look at aluminum foil
+examine aluminum foil
+punch aluminum foil
+north
+north
+take key
+examine key
+take remote- lattice
+take remote- front gates
+examine locked door
+use key on locked door
+west
+examine chalk outline
+1
+examine fancy cabinets
+use crowbar on fancy cabinets
+look at .38 ammo
+take .38 ammo
+examine .38 ammo
+look at destroyed cabinets
+east
+east
+open small present
+open big present
+take panties
+take goldstar
+examine christmas tree
+examine bar
+look
+take pencil
+examine toilet
+use pencil on remote- lattice
+use pencil on remote- front gates
+north
+east
+look at dead guy
+examine dead guy
+use crowbar on dead guy
+west
+north
+east
+examine big yellow thing
+east
+examine piles of junk
+take rusty key
+examine computer
+west
+north
+examine medicine chest
+examine microwave
+south
+west
+look at linda evans
+speak to linda evans
+take baby oil
+examine mirror
+examine bed
+east
+south
+south
+west
+west
+south
+examine chest
+use rusty key on chest
+look at BFH
+take BFH
+speak to BFH
+north
+east
+east
+east
+use BFH on small door
+south
+south
+look
+take gold key
+examine gold key
+examine well
+west
+take coil of rope
+examine coil of rope
+take torch stub
+east
+use coil of rope on well
+examine hoyt axton record
+north
+north
+west
+north
+east
+north
+use gold key on medicine chest
+take matches
+examine matches
+use matches on torch stub
+use torch stub on microwave
+use matches on torch stub
+examine burning torch
+examine toilet
+south
+south
+south
+east
+south
+south
+east
+look at footprints
+examine footprints
+north
+north
+examine hook
+use coil of rope on hook
+south
+south
+east
+examine red sign
+look at crazy old bastard
+speak to crazy old bastard
+north
+east
+examine big sign
+east
+examine large wooden sign
+north
+examine inscription
+north
+south
+east
+south
+south
+west
+north
+west
+look at fly
+examine weird machine
+use can o schlitz on fuel funnel
+look
+examine weird machine
+look at crow
+speak to crow
+take screenplay
+examine screenplay
+use pencil on screenplay
+use can o schlitz on fuel funnel
+east
+east
+east
+east
+north
+west
+west
+west
+west
+north
+north
+use coil of rope on hook
+south
+south
+west
+north
+north
+west
+north
+east
+east
+look at fly
+catch fly
+west
+west
+give screenplay to linda evans
+take tiny key
+examine tiny key
+east
+south
+south
+east
+south
+south
+catch fly
+north
+north
+west
+look at fly
+catch fly
+examine dead fly
+east
+south
+south
+east
+north
+north
+use coil of rope on hook
+south
+south
+east
+north
+look
+take harpoon gun
+examine harpoon gun
+examine rack
+examine iron maiden
+use crowbar on suggestion box
+take paper
+examine paper
+north
+look at benton the lousy butler
+speak to benton the lousy butler
+use harpoon gun on benton the lousy butler
+examine benton's body
+examine amulet
+south
+south
+east
+east
+north
+north
+look
+take mitchell's gun
+examine mitchell's gun
+use .38 ammo on mitchell's gun
+examine loaded gun
+examine neon sign
+east
+look at deaney
+speak to deaney
+use loaded gun on deaney

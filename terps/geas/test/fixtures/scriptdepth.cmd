@@ -1,0 +1,3 @@
+descend
+oscillate
+look

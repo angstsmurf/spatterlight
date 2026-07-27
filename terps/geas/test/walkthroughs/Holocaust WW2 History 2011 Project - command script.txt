@@ -1,0 +1,269 @@
+Holocaust WW2 History 2011 Project -- anonymous, ASL 410 (QDK 4.1.5)
+====================================================================
+distributed as "final of social studies.cas"
+
+A ninth-grade social studies project, and it is exactly that: twenty-nine rooms
+reconstructing Dachau -- the Administration Building, the Jourhaus gate with
+"Arbeit macht frei" on it, three sets of prisoner barracks, the bunker and prison
+cells, the greenhouse, the gas chamber, a guard tower -- with every person in the
+camp frozen in place and a photograph or a translated document behind almost every
+object.  You are a student who fell asleep in class.  The whole puzzle is to work
+out where you are and say it out loud.
+
+    define object <Green Figure>
+        look <Its a strange green figure with long ears and who is very short.>
+        speak msg <"You who are hmmm?", the green figure speaks.  "Figured out
+                   where you are have you yet, hmm?"  "Well when you have, tell
+                   me and help you leave this place I can.">
+        action <speak I am in Dachau> {
+            msg <You win! HMMMMMMMM................................................>
+            playerwin
+        }
+
+Yoda is in a wash basin in Barracks 4.  SPEAK I AM IN DACHAU GREEN FIGURE is the
+win, and there are three clues that spell the name out and stop one letter short
+each time:
+
+    Barracks 5, TOUCH OPEN WOUND   "I am in a concentration camp in Germany that
+                                   is very famous and is called D...."
+    Gas Chamber, the German Coins  "CURSE YOU CAMP DAC-..."
+    the Lobby note                 "Take the new guests to the shower as soon as
+                                   they get here."  Hmm strange.
+
+The engine fix this game needed
+-------------------------------
+The header declares nineteen game-scope verbs, and several of them have a trailing
+space in the name because that is what the author typed into QDK's verb box:
+
+    verb <use > msg <You can't use  that.>
+    verb <use key in> msg <You can't use key in that.>
+    ...
+    verb <use> msg <You can't use that.>
+
+Quest reads a verb name with GetParameter, which does not trim (V4Game.cs:1874),
+and ExecVerb then tests `BeginsWith(cmd, thisVerb & " ")` (ibid. 2978-3003).  So
+"verb <use >" is matched against "use  " with two spaces and can never fire, and
+the next verb in declaration order gets the input.  That is load-bearing here:
+the only locked door in the game is opened by the Closed Door's `action <use key
+in>`, which is reachable solely because the dead "verb <use >" is skipped.  geas
+trimmed the name, so "use " claimed every USE in the file, USE KEY IN CLOSED DOOR
+answered "You don't see any key in closed door.", and Big Office 2 -- Himmler's
+office, with the aerial photograph of the camp on the desk -- was unreachable.
+test/fixtures/verbspace.asl pins the rule in both directions, since the same
+trailing space is *not* dead when the name sits in a semicolon list.
+
+What those verbs do to the rest of the game
+-------------------------------------------
+ExecVerb runs before every built-in command (V4Game.Part2.cs:4205-4240), so a
+game-scope `verb` shadows the engine's own handling of that word.  This header
+declares `verb <take>` and `verb <pick up; take, take>`, which between them
+shadow TAKE and PICK UP for the entire game -- and neither does anything but look
+up a property on the object.  The result is that almost nothing can actually be
+picked up:
+
+    take key                 -> "I got a key!!!"   (properties <take = ...>)
+    pick up piece of paper   -> "I now have it."
+    take huge map            -> "I now have it.  There is a pen under this map!!!"
+    take german coins        -> "You now have them!"
+
+and the inventory stays empty through all of it.  The one exception is the
+photograph in Office 2, which carries a real script:
+
+    action <pick up> { give <Picture 2>  msg <I now have it!> }
+
+so Picture 2 is the only object you ever hold.  The winning text -- "Then you put
+your hand in your pocket and out tumbles the camera letter and other things you
+picked up along your travels..." -- describes an inventory the game cannot give
+you.  (Note also that the comma in "pick up; take, take" means the second name
+registers as "take, take"; Quest splits that list on semicolons only.  So TAKE is
+handled by the separate `verb <take>` further down, and TAKE, TAKE X really does
+work, using the "pick up" property.)
+
+Three more verbs are dead the same way -- `verb <talk >`, `verb <talk to >` and
+`verb <open >` -- which is why TALK TO GREEN FIGURE falls through to the engine's
+own "talk to " handling and reaches his `speak` script instead of a verb default.
+And `verb <open left drawer>` needs an object after it to match at all, so OPEN
+LEFT DRAWER on its own is handled by plain `verb <open>` against the "Left drawer"
+object, whose `action <open>` is what reveals the Letter.  The Big Desk's own
+`properties <open left drawer = There is a letter here.>` is unreachable: OPEN
+LEFT DRAWER BIG DESK does match, but the desk also carries an `action <open left
+drawer>` of the same name, actions are checked first, and that one is a silent
+show/reveal pair.
+
+The Administration Building
+---------------------------
+    Lobby           the Big Desk.  OPEN LEFT DRAWER reveals the Letter; opening
+                    the Letter (a `container`) reveals the Note about the showers.
+    West Hallway     you trip over the carpet on the way in; PULL CARPET reveals
+                    the Key.
+    Big Office 1     the Box, "a radio of some sort".  USE BOX plays imperial.wav
+                    (the Imperial March -- absent from the .cas, so silent here)
+                    and starts a 10-second timer that keeps reporting the music.
+                    Its `if is <#quest.currentroom#;Big Office 2>` guard on the
+                    30-second stop timer can never be true, since you are
+                    standing in Big Office 1 when you press it, so the music
+                    never stops.
+    Office 2         the Papers, and the photograph of Himmler visiting Dachau.
+    Office 5         the note dated June 6 1942 about the new gas chambers.
+    Office 1/3/4     "just an empty white room" x2, and the stairs down.
+    North Hallway    the locked door.  USE KEY IN CLOSED DOOR opens it; the script
+                    also does `create room <Big Office 2>` and unlocks the exit
+                    three times over, twice with the same line.
+    Big Office 2     the frozen man at the desk and the aerial view of the camp.
+    Bunker Room      the map of occupied Germany; TAKE HUGE MAP reveals the Pen,
+                    OPEN PEN spills the note saying it was Himmler's, presented
+                    on his 1936 visit.
+    Open prison cell a frozen prisoner and a copy of Mein Kampf ("EWW! Why would
+                    I want that trashy book!").
+
+Outside
+-------
+Six barracks, three crossroads, the gate, the greenhouse, the gas chamber, the
+guard tower.  Points of interest:
+
+    First set        Person 1's tattoo (140603), and the necklace in the guard's
+                     pocket with a family photograph in it.
+    Barracks 1       the toilet, and Gringarth Schmidt's letter at the bottom of
+                     it -- "I am a German political prisoner held in my own
+                     country by my own people".  It is `invisible` and nothing
+                     ever `show`s it, so you have to know to LOOK AT DIRTY PIECE
+                     OF PAPER; the toilet's own description is the only hint.
+    Second set       the Camera.  USE CAMERA shows three of the game's photographs
+                     in a row.
+    Barracks 5       the injured man and the open wound.
+    Gas Chamber      PULL LOOSE STONE, then OPEN SMALL BOX for the coins.
+    Guard Tower      USE MACHINE GUN is the game's only loss: you hit people below,
+                     "thus changing the future and in fact making it so that you
+                     were never born."  The script below looks at it and leaves it
+                     alone.
+    Entrance         the gate is locked and the barbed wire stops you climbing it.
+                     There is no way out of the camp; Yoda is the exit.
+
+Loose ends
+----------
+`Barracks7` is a duplicate of Barracks 1 (same room text, same toilet, same
+letter, all the objects re-declared with a "2" suffix and aliased back) whose only
+exit leads west to First set of Buildings -- but First set's east exit goes to
+Barracks 1, so nothing reaches it.  `command <>` in the header is an empty
+declaration QDK emitted.  The four game-scope `action` blocks at the top of
+`define game` -- `action <yell "I am in Dachau!"> playerwin`, `action <yell I am
+in Dachau>` (which calls playerwin twice), `action <I am in Dachau>` and `action
+<say I am in Dachau>` -- are the author's earlier attempts at the win condition;
+actions belong to objects, so none of them is reachable.  `verb <speak I am i
+Dachau>` is a typo of the winning verb, kept alongside it.
+
+A hundred and four commands.  The marker is from `define text <win>`.
+
+Two things print nothing and do so faithfully, so they are left out of the run:
+TAKE PIECE OF PAPER, because a bare `take` line inside an object is filed by Quest
+as a *property* named "take" with an empty value (V4Game.Part2.cs:3417-3420) and
+then Printed; and LOOK AT PICTURE in Office 2, which is `look picture <...>` with
+no text at all.  The latter is also why the aerial photograph has to be examined
+in Big Office 2 *before* Office 2's photograph is picked up -- Picture 2 is
+`alias <Picture>`, and once it is in the inventory the two are ambiguous.
+
+Start:
+look at people
+look at big desk
+open right drawer
+open left drawer
+look at envelope
+open letter
+read note
+w
+pull carpet
+look at key
+take key
+w
+look at box
+use box
+e
+e
+n
+look at closed door
+use key in closed door
+n
+look at desk
+look at picture
+s
+s
+w
+n
+look at papers
+pick up picture
+i
+s
+s
+e
+e
+look at piece of paper
+w
+n
+s
+s
+e
+n
+look at giant table
+look at huge map
+take huge map
+look at pen
+open pen
+look at small piece of paper
+s
+s
+look at frozen man
+look at book
+n
+w
+n
+w
+s
+s
+e
+look at gate
+w
+s
+look at person 1
+look at tattoo
+look at person 2
+look at metal object
+pick up metal object
+e
+look at toilet
+look at dirty piece of paper
+w
+w
+e
+s
+look at camera
+use camera
+e
+w
+w
+look at injured man
+touch open wound
+e
+s
+e
+w
+s
+w
+up
+look at frozen guard
+look at machine gun
+down
+e
+e
+e
+pull loose stone
+open small box
+look at german coins
+take german coins
+w
+w
+n
+w
+look at basin with water
+look at green figure
+talk to green figure
+speak I am in Dachau green figure

@@ -1,0 +1,43 @@
+
+gameblockuse
+
+You are in r1
+There is torch, flask, lamp and candle here.
+You can go west.
+Room one.
+
+> take torch
+You pick it up.
+
+> take flask
+You pick it up.
+
+> take lamp
+You pick it up.
+
+> take candle
+You pick it up.
+
+> use torch
+The room handler for the torch ran.
+
+> use flask
+The game-block handler for the flask ran.
+
+> use lamp
+You might want to, but you can't.
+
+> use candle
+The game-block handler for the candle ran.
+
+> west
+You are in r2
+You can go east.
+Room two.
+
+> use torch
+The game-block handler for the torch ran.
+
+> use flask
+The game-block handler for the flask ran.
+[runner] turns=11 leftover=0 running=true

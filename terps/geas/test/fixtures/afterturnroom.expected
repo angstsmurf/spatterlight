@@ -1,0 +1,80 @@
+
+AfterTurnRoom
+
+You are in hall
+You can go north, east or west.
+A plain hall.
+
+> look
+You are in hall
+You can go north, east or west.
+A plain hall.
+[hall afterturn]
+[game afterturn]
+
+> north
+You are in plain
+You can go south.
+An open plain.
+[hall afterturn]
+[game afterturn]
+
+> look
+You are in plain
+You can go south.
+An open plain.
+[plain afterturn]
+[game afterturn]
+
+> south
+You are in hall
+You can go north, east or west.
+A plain hall.
+[plain afterturn]
+[game afterturn]
+
+> east
+You are in quiet
+You can go south.
+A quiet corner.
+[hall afterturn]
+[game afterturn]
+
+> look
+You are in quiet
+You can go south.
+A quiet corner.
+[game afterturn]
+
+> south
+You are in hall
+You can go north, east or west.
+A plain hall.
+[game afterturn]
+
+> west
+You are in deadly
+You can go east.
+A deadly cell.
+[hall afterturn]
+[game afterturn]
+
+> look
+You are in deadly
+You can go east.
+A deadly cell.
+[deadly afterturn -- game hook suppressed]
+
+> east
+You are in hall
+You can go north, east or west.
+A plain hall.
+[deadly afterturn -- game hook suppressed]
+
+> look
+You are in hall
+You can go north, east or west.
+A plain hall.
+[hall afterturn]
+[game afterturn]
+[runner] turns=11 leftover=0 running=true

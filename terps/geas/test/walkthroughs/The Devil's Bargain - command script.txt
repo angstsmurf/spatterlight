@@ -1,0 +1,168 @@
+The Devil's Bargain (staringmonkey, Beta 1.0, ASL 210)
+======================================================
+
+A Monty-Python-soaked crime sandbox set on four street corners.  You play "a
+common thug living life on the streets", and the stated objective is to buy a
+$1000 Ibanez guitar from the pawn shop on Maple Avenue so you can start a band
+that will rule the world.  You start with $10 and a map.
+
+The game is a sandbox with five separate winning moves -- the guitar is only the
+signposted one:
+
+  * Buy the guitar for $1000 at the pawn shop (this script).
+  * Dial the phone booth at Arc and Stricker: `take phone_booth`, then seven
+    digits that sum to 28 with the 8 key broken (4-4-4-4-4-4-4 works).
+  * `speak to police officer: maston thrust` in the police lobby, report the Pawn
+    Shop Owner as a drug dealer, and agree to testify (1 / 1 / 1).  The rank and
+    the colon are part of the name -- `define character <Police Officer: Maston
+    Thrust>` (Bargain.cas.asl:945), with no alias and no alt -- and the game is
+    ASL 210, so nothing shorter reaches him: Quest matches a word taken from the
+    middle of a name only for ASL 391 and up (Disambiguate, V4Game.cs:4762-4772;
+    fixtures/abbrev.asl).  His two colleagues are defined the same way.
+  * Two more via the bank vault and the back room.
+
+Every one of them ends with `playerwin`, and `define text <win>` is shared, so
+the win marker "You have won The Devil's Bargain" is what all five print.  This
+script takes the guitar route because it is the one the game's own objective
+text names, and because it exercises the container library (see below).
+
+Money
+-----
+Nothing is scattered as cash; you have to sell things.  The two big earners are
+enough on their own:
+
+  * Church sanctuary, north of Stricker Street1.  `take holy computer` opens a
+    menu; choice 4, "Draw a monkey in Paint", hands you a **monkey drawing**.
+    Teller 1 in the bank lobby offers $850 for it on sight -- her `speak` script
+    checks `got <monkey drawing>` before it falls through to the usual menu.
+    Do NOT pick choice 2 on that menu ("Look up pornographical sites"): it zeroes
+    your Dollars, sets Ban, and throws you out of the church for good.
+  * The captain's cedar desk in the police station holds **incriminating
+    photos** of Captain Herris and Officer Maston Thrust.  Maston, behind the
+    counter in the lobby, pays $800 to make them go away -- again checked on
+    `got <photos>` ahead of his menu.  He then runs his menu anyway, so the
+    "yes" to his offer has to be followed by a menu answer; choice 2 ("turn
+    myself in for murder") is a harmless brush-off.
+
+$10 + $850 + $800 = $1660, comfortably over the guitar's $1000.
+
+Getting behind the police counter
+---------------------------------
+`north` from the police lobby answers "You don't have authorization to access
+this area." until you are carrying the **police pass**, which is in the wallet
+in Floyd's Pet Shop, south of Stricker Street1 through Laser's Mini-Mall.
+`speak to floyd` opens a menu; 1 then 3 then 5 walks down to the branch that
+hands it over.  Note the mini-mall's shops are `place` rooms, so Floyd's is
+entered as `GO TO FLOYD'S PET SHOP` and left with `OUT`.
+
+The church door frisks you and confiscates any weapon on the way in, and the
+monk gives it back on the way out, so visiting the church costs nothing.  The
+priest's opening menu appears the moment you enter (the room script ends with
+`choose <Priest>`); choices 2, 3 and 5 are all harmless one-line refusals.
+
+Street map (all of it)
+----------------------
+    arc drive3  -- east -> bank lobby,   west -> police lobby
+        |south
+    arc and stricker  -- east -> stricker street3,  west -> stricker street2
+        |south
+    arc drive2 (start)  -- west -> pawn shop,  south -> arc drive1
+
+    stricker street2  -- north -> police lobby,  south -> pawn shop,
+                         west  -> stricker street1
+    stricker street1  -- north -> church,        south -> laser's mini-mall
+
+Authoring quirks this game exposed in geas
+------------------------------------------
+Three engine bugs had to be fixed before the game was playable at all; each has
+a fixture pinning it.
+
+`nointro` (fixtures/nointro.asl).  The `<Beginning>` startscript opens with
+`nointro` and ends with an explicit `displaytext <intro>`, so the intro lands
+after the credits crawl and the three name/quest/colour questions.  Quest arms an
+`_autoIntro` flag before the startscripts and only auto-displays `<intro>` if it
+is still set (V4Game.Part2.cs:7946 and 7987); geas had no `nointro` statement and
+always displayed it, printing the whole intro twice.
+
+`do { ... }` (fixtures/doblock.asl).  De-inlining a brace block appends the
+loader's own call to whatever preceded the `{`, so a line that already ended in
+`do` becomes `... else do do <!intprocN>`.  Quest doesn't care because it reads
+the procedure name with GetParameter, which scans the line for the first
+parameter (V4Game.Part2.cs:5754-5756); geas required it to be the token straight
+after `do` and silently skipped every such block.  This game writes all of its
+nested conditionals that way, so, for one visible example, the `<Answers>`
+procedure never printed the reply about your favourite colour and never re-asked
+when the colour was outside the author's list.
+
+Room/object name collisions and `gettag` (fixtures/roomobjname.asl).  The
+hand-rolled standard library builds containers out of *rooms*: to list what is
+in the desk it saves `#quest.currentroom#`, goes `outputoff`, `goto <desk>`,
+reads `#quest.formatobjects#`, and goes back -- so `define room <desk>` sits
+alongside the `define object <desk>` the player can see, and likewise for box,
+wallet, briefcase and panel 579.  geas resolved such a name to the room, so
+`x desk` printed the room's `look` text ("object"), the room's listing prefix was
+pasted onto the object ("There is Inside the cedar desk are desk here."), and
+`here <desk>` was false -- which made `Special_Take_Proc` fall through to
+`exec <take photos;normal>` and answer "You don't see any photos."  An
+unqualified lookup now answers for the object, as in Quest, where rooms and
+objects live in separate collections.  The room half is read back with the
+deprecated `gettag`, which is room-scoped by definition (V4Game.cs:6899) and
+which geas did not implement at all: the library uses `$gettag(X;prefix)$` for a
+container's listing prefix and `$gettag(X;look)$` returning the literal string
+"object" or "character" to tell the two kinds apart.
+
+Two hazards to know about
+-------------------------
+`Felonist` runs as a room script on most of the map: `if has <Felony;+$rand(0;
+100)$> then do <Arrest Procedure>`.  With Felony still 0 a roll of 0 fires an
+arrest that releases you immediately, but the release teleports you to Arc
+Drive2, which would derail everything after it.  It does not fire under the
+suite's fixed seed; a different seed may need the route re-derived.
+
+`buy` is a synonym for `take` and `examine`/`inspect` for `look at`, so `take
+guitar` is how you buy it -- it runs `<Buy Guitar>`, which asks for confirmation
+and then checks `has <Dollars;-1000>`.
+
+Wins in 28 turns.
+
+start:
+Petter
+to rock
+blue
+north
+west
+west
+south
+go to floyd's pet shop
+speak to floyd
+1
+3
+5
+out
+north
+north
+2
+take holy computer
+4
+south
+east
+north
+north
+east
+take photos
+i
+west
+south
+speak to police officer: maston thrust
+yes
+2
+east
+east
+speak to teller 1
+yes
+west
+south
+south
+west
+take guitar
+yes

@@ -1,0 +1,324 @@
+Freshman Fantastic Boy
+Freshman Fantastic Boy.cas, v1.0, ASL 410, "Created with QDK 4.1.5", author Marilyn
+
+An adult game set at Fantastic University, a low-gravity space-station college.
+Seventeen rooms, ten women, and a single number to optimise.  There is no
+`playerwin` anywhere in the file: the win condition is an `afterturn` block that
+fires when ten flags are all set *and* the score is exactly 10.  Everything
+below is bookkeeping -- who gates on what, and which conversational branches
+give you the point rather than just the flag.  124 turns, every room visited,
+score 10 of 10.
+
+The prose is pornographic and the script below runs through all of it; nothing
+in this file reproduces it.
+
+
+THE WIN CHECK, AND THE TRAP IN IT
+
+    afterturn {
+        if flag <faesatisfied> and flag <teressasatisfied> and flag <smithsatified>
+           and flag <lizbethsatisfied> and flag <elindasatified> and flag <bethsatisfied>
+           and flag <renesatisfied> and flag <janesatisfied>
+           and flag <thistlethimblesatisfied> and flag <dimplebottomsatisfied> then {
+            if is <%score%;10> then msg <...You Stud!...> else msg <You didn't manage to...>
+        }
+    }
+
+Note `smithsatified` and `elindasatified` -- the author dropped the s in both,
+and since Quest flags are created by first use the typos are simply what those
+two flags are called.  They are spelled the same way at both ends, so they work.
+
+The trap is the `else`.  Seven of the ten conversations offer a branch that sets
+the flag but does not `inc <score; 1>`:
+
+    elinda2  "feel her up"                    flag, no point (and no elinda3)
+    elinda3  "no"                             flag, no point
+    rene2    "no"                             flag, no point
+    lizbeth3 "no"                             flag, no point
+    jane2    "Sex" / "A thank you would be nice"   flag, no point
+    jane3    "no"                              flag, no point
+    thistlethimbl2  revenge / cop a feel       flag, no point
+
+Take any of them and the game becomes unwinnable without saying so: once the
+tenth flag lands, the `afterturn` starts printing "You didn't manage to sleep
+with everybody" after *every* subsequent command, forever.  That repeating
+message is the only failure notice in the game -- there is no `playerlose`
+either, and `define text <lose>` is never referenced.
+
+Beth is the exception: her third selection sets no flag at all on the wrong
+branches, so a mistake there is recoverable -- SPEAK TO BETH again.
+
+
+THE HOTNESS ECONOMY
+
+Every gift to a woman is guarded by `if is <%hotness%;gt;N>`; note `gt`, not
+`gt=`, so you need N+1.  Hotness starts at 0.
+
+  entrance form, Major   +2 for P.E., Space Law, Medicine or Spaceship Piloting
+                         +1 for Cosmic Art, Robotics or Spaceship Design
+  USE COLOGNE            +1  (once; the bottle hides itself)
+  USE MACHINE in the gym +1  (once, `usedequipment`)
+  USE SHOWER in the gym  +1  (once, `showerused`)
+  each conquest          +1
+
+That is 5 points of non-conquest hotness, and the ten gates are:
+
+  Fae            >1   give her the student compass she lost
+  Teressa        >2   give her the lunch Spaulding hands over
+  Elinda         >2   give her the tea pot Spocter has in his pocket
+  Beth           >4   checked on the *conversation*, not a gift
+  Rene           >5   give her Beelfetter's medicine
+  Lizbeth        --   no hotness gate at all, only `flag <mapfixed>`
+  Dimplebottom   >7   give her the bra from the girls' dorm dresser
+  Dr Smith       >8   give her the repaired cleaning robot
+  Thistlethimble >9   give her the rare painting
+  Professor Jane >10  give her the case transcripts
+
+Since each conquest is worth a point of hotness, the gates are satisfiable in
+exactly the printed order with only the Major bonus, but the script takes the
+cologne, the machine and the shower anyway -- they buy three turns of slack and
+they are two of the three things RATE, EXAMINE and USE exist for.  Order matters
+only in that you cannot do Jane before nine others; the script's route is
+chosen to keep the walking down, which is why Teressa (gate >2) happens at
+hotness 6.
+
+RATE <woman> reports her `sexy` property, i.e. the number you must beat.  The
+command is defined as `command <rate#@object#>` -- no space before the
+parameter -- and matches RATE FAE regardless, in Quest and here.
+
+
+CREDITS
+
+The Job selection is the only source of starting money: Towel Boy 150, Library
+Monitor 100, Janitor 50.  Teressa's shop sells cologne 50, calculator 10,
+flowers 20, towel 20 and a map of the galaxy 20 -- 120 credits for the lot, so
+Towel Boy buys everything at once.  Dimplebottom's "Ask about your work study
+job" adds 10 credits and can be repeated as often as you like, so no choice here
+is fatal; it is just slower.
+
+Only the map is load-bearing (Lizbeth).  The flowers buy the Book of Poems from
+Samuel, which is where the answer to Beth's riddle comes from.  The calculator
+and the towel buy hints: Tom names Dimplebottom's bra fetish, Bud Dearborn tells
+you about the machine and the shower.
+
+
+THE SUPPORTING CHAIN
+
+  SEARCH                 a game command, hard-keyed to two rooms:
+                           in `passage`  -> the Key
+                           in `closet`   -> the Rare painting
+                         anywhere else it prints "you don't find anything".
+  EXAMINE DRESSER        girls' dorm; `action <examine>` shows the Bra.
+  EXAMINE MACHINE        gym; `action <examine>` shows the case transcripts.
+  USE KEY                needs `exists <box>`, so carry the tool box out of
+                         classroom 101; it `remove`s the Tool from the box and
+                         shows it in the room, so TAKE TOOL afterwards.
+  USE TOOL               needs `exists <cleaning robot>`; sets `robotfixed`.
+  GIVE MAP TO ALDRIN     teacher's lounge; sets `mapfixed`.  Giving Lizbeth an
+                         uncorrected map just hands it back.
+  GIVE FLOWERS TO SAMUEL passage; hands over the Book of Poems, whose first line
+                         is "Love is like a fish that yearns for yarn".  Beth's
+                         `enter <poemword>` wants exactly `yarn`.
+  SPEAK TO SPOCTER       classroom 102, third choice: the tea pot.
+  SPEAK TO BEELFETTER    his office, second choice ("Rene is sick"): the
+                         medicine.  It tests no flag, so you can collect it
+                         before you have ever met Rene.
+  SPEAK TO SPAULDING     cafeteria, third choice: the lunch.
+
+
+GETTING AROUND
+
+The corridor and the passage use `place` rather than compass exits for five
+rooms -- passage, classroom 101, classroom 102, Professor Jane's Office,
+Professor Beelfetter's Office -- so the command is GO TO PASSAGE, GO TO
+CLASSROOM 101 and so on.  The offices and classrooms also have `out`, which is
+shorter.  GO PASSAGE and ENTER PASSAGE both fail.
+
+Six of the conquests end with a `goto` that teleports you: Fae, Dimplebottom and
+Elinda drop you in the girls' dorm, Teressa in the closet, Beth, Thistlethimble
+and Jane in the corridor, and Rene all the way back to the orientation room.
+The script's route is built around those, which is why it walks the
+hallway--store--corridor spine so many times.
+
+
+AUTHORING ODDITIES (all harmless)
+
+  * `command <>` sits in the passage room definition -- an empty user command
+    with an empty name.  It matches nothing and does nothing.
+  * The lunch and the robot both `hide` themselves on success and then `give`
+    themselves back on the next line, outside the branch the author meant; you
+    end the game carrying two invisible objects.
+  * The hallway's description says the boys' dorm is north and the girls' south;
+    the exits are the other way round.
+  * Doctor Spocter's `speak` guards on `flag <done>` -- the flag the tea pot
+    branch sets -- so after you have the pot he only says his greeting.
+  * Professor Beelfetter and, oddly, Jim, Bud Dearborn and the exercise machine
+    are all `displaytype <Object>`; only the women are `Character`.
+
+Nothing in this game needed an engine change: it loaded, parsed and played
+correctly on the first attempt, including the `place` navigation, the
+`rate#@object#` pattern, the `enter <poemword>` string compare and the
+ten-way `and` chain in the `afterturn`.
+
+start:
+take T-shirt
+take Shorts
+wear T-shirt
+wear Shorts
+take student compass
+read plaque
+read monitor
+Stud
+3
+3
+e
+rate Fae
+speak to Fae
+1
+give compass to Fae
+look at Dresser
+open Dresser
+take panties
+examine dresser
+take bra
+s
+s
+rate dimplebottom
+speak to Tom
+speak to Armando
+1
+give panties to Armando
+speak to dimplebottom
+1
+n
+e
+rate Teressa
+speak to Teressa
+1
+1
+speak to Teressa
+1
+2
+speak to Teressa
+1
+3
+speak to Teressa
+1
+4
+speak to Teressa
+1
+5
+use cologne
+n
+search
+take painting
+take robot
+s
+e
+go to classroom 101
+rate Lizbeth
+speak to Lizbeth
+1
+look at box
+take box
+out
+go to passage
+speak to Samuel
+give flowers to Samuel
+look at book of poems
+search
+take key
+use key
+take tool
+use tool
+w
+speak to Doctor Aldrin
+give map to Doctor Aldrin
+e
+go to Professor Beelfetter's Office
+speak to Beelfetter
+2
+out
+e
+rate Rene
+speak to Rene
+3
+speak to Gregory
+3
+w
+go to corridor
+e
+speak to Jim
+speak to Bud Dearborn
+give towel to Bud Dearborn
+look at machine
+examine machine
+take case transcripts
+use machine
+use shower
+w
+go to classroom 102
+speak to Spocter
+2
+speak to Spocter
+3
+out
+n
+speak to Spaulding
+3
+rate Elinda
+speak to Elinda
+3
+rate thistlethimble
+speak to thistlethimble
+1
+s
+w
+give lunch to Teressa
+s
+e
+n
+give tea pot to Elinda
+2
+1
+s
+e
+e
+s
+rate Beth
+speak to Beth
+2
+1
+yarn
+3
+go to passage
+e
+give medicine to Rene
+2
+e
+e
+e
+go to classroom 101
+give map to Lizbeth
+1
+out
+w
+w
+s
+give bra to dimplebottom
+s
+e
+e
+s
+give robot to Doctor Smith
+n
+n
+give painting to thistlethimble
+1
+go to passage
+go to Professor Jane's Office
+speak to Professor Jane
+4
+give case transcripts to Professor Jane
+2
+1

@@ -1,0 +1,150 @@
+All the news that's fit to print -- anonymous, QDK 4.1.4 (ASL 410)
+
+A journalism-simulation sketch about the November 2011 pepper-spraying of student
+protesters at UC Davis, lightly renamed "UC Cashell".  You are a new reporter at
+the Daily Objective and every room is a menu: the Lobby (displayed as
+"Introduction") sends you to The Field, and The Field is a hub of seven
+categories -- Administration, Police, Protestors, Students, Business Sector,
+Activist organizations, Professors -- plus the editor's desk.  Interviews are
+SPEAK TO commands whose scripts are chains of `if ask <...>`, so playing it is a
+series of Yes/No prompts, and every answer worth having ends in `give <some
+quote>`: the quotes are objects parked in a room called `hidden` and moved into
+your inventory as you collect them.
+
+
+There is no win
+
+`define room <the end>` is empty -- no look text, no script, no playerwin -- so
+the furthest state the game has is standing in it, which prints the default "You
+are in the end" and nothing else.  The script below stops there, and that line is
+the marker.
+
+The editor's desk explains a mechanic that was never written:
+
+    [Now that you have your raw material for your article, here's where you put
+    them into paragraphs.]  ...  [Put X in Paragraph Y, for paragraphs one to six]
+
+There are no paragraph objects anywhere in the file and no `put` handling beyond
+whatever stdverbs.lib refuses by default, so the inverted-pyramid editing the
+whole game is built to set up cannot be done.  The turn limit went the same way.
+`define game` declares
+
+    define variable <Inventory space>
+        type numeric
+        value <8>
+        display <Turns left>
+
+which nothing ever decrements, and the author says so in the opening text: "[Note:
+Turns were not implemented properly.  When you have 8 items in your inventory,
+'go to editor' from the field.]"  In practice the editor is reachable from The
+Field from the first turn, whatever you are carrying, because it is just another
+`place`.
+
+
+What the script does
+
+Interviews everyone in all seven categories -- 24 SPEAK TO commands, 32 quotes --
+and then walks to the editor and into the end.  Answering every prompt Yes gets
+every quote, with two exceptions worth knowing about:
+
+  * The Professor of Communications studies is a joke at the reporter's expense:
+
+        speak if not ask <Soldier, you're setting foot behind enemy lines. Turn
+        back?> then give <comm prof>
+
+    You have to answer *No* to get the interview, so that one prompt is answered
+    2 where every other is 1.
+
+  * SPEAK TO FRINGE prints nothing at all.  Its whole definition is `speak give
+    <marcus protest>` -- the item arrives, there is no text, and the turn looks
+    empty.  That is the game, not the interpreter.
+
+Two authoring slips show up in the collected inventory.  Shawna Stone's
+pepper-spray answer in the Police category ends `give <chancellor pepper spray>`
+instead of `give <shawna pepper spray>`, so her quote is filed under the
+Chancellor and `shawna pepper spray` -- which is defined in `hidden` -- is
+unreachable.  And several branches carry a stray `give <>` with no parameter
+(three of them in the President's and the Chief's scripts), which does nothing.
+
+The one interview that hands over nothing on purpose is the student far away from
+the event, whose two answers are the point ("I have no idea what the protest is
+about", "Well, he must have done something").
+
+Objects are addressed by their internal names, which are usually shorter than the
+labels the menus print: "Cellphones", "on campus", "far away", "Fringe",
+"Debt free", "Business professionals", "Communications studies".  Abbreviations
+are on (`define options / abbreviations on`), so GO TO BUSINESS SECTOR and GO TO
+ACTIVIST ORGANIZATIONS work as written.
+
+Start:
+go to the field
+go to administration
+speak to president
+1
+1
+speak to chancellor
+1
+1
+speak to communications director
+1
+i
+go to the field
+go to police
+speak to directly involved officer
+speak to other officer at the scene
+1
+1
+1
+1
+1
+speak to chief
+1
+1
+go to the field
+go to protestors
+speak to protestors at random
+1
+1
+1
+1
+1
+1
+1
+1
+1
+speak to press tent
+1
+1
+speak to fringe
+go to the field
+go to students
+speak to cellphones
+1
+speak to on campus
+1
+1
+speak to far away
+1
+1
+go to the field
+go to business sector
+speak to student loans bankers
+1
+speak to business professionals
+1
+1
+go to the field
+go to activist organizations
+speak to aclu
+speak to debt free
+go to the field
+go to professors
+speak to communications studies
+2
+speak to psychology
+speak to economics
+i
+go to the field
+go to editor
+go to the end
+look

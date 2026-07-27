@@ -1,0 +1,127 @@
+ThunderClan Mystery 1, Unseen Enemy -- Hazelstiltskin, v1, ASL 410 (QDK Lite 4.1.2)
+===================================================================================
+
+Warrior Cats fan fiction, subtitled "(RP with your cat!!)", in which you are an
+unnamed ThunderClan kit -- the game literally prints "____kit" and tells you in
+the startscript that "where it says ____kit, that is your kit's name."  It is a
+roleplay prop rather than a puzzle game: eight rooms, four collectables, and one
+long conversation with Jayfeather that teaches you the game's whole interface.
+
+The other half of the startscript explains the strangest thing about it:
+
+    where it says, 'type', it means use your webcam to speak it or if it doesnt
+    work then unplug your microphone or webcam and let microsoft sam do the work!
+
+The author is using ASL's `speak <text>` statement, which is text-to-speech
+(ExecuteScript -> Speak -> _player.Speak, V4Game.Part2.cs:5776 and 2166) and
+prints nothing.  Whole stretches of this game are written as speech: the Elders'
+Den conversation, the Fallen Tree quiz and the escape run are all `msg` prompts
+followed by `speak <...>` lines carrying the answers, which the player is
+supposed to hear read aloud and repeat into a microphone.  Headless -- and in any
+Quest without a voice -- they are simply silent, so the transcript reads as the
+game asking questions and then congratulating you for answering them.
+
+The verb interface
+------------------
+`define game` declares eleven custom verbs, seven of them with a default
+"You can't <verb> that." message, and Jayfeather answers to five of them through
+a mix of `action` blocks and a `properties` list.  Each one tells you the next:
+
+    SPEAK TO JAYFEATHER             "Type, Talk Jayfeather"
+    TALK JAYFEATHER                 property Talk -> "Ask for Catmint. Jayfeather"
+    ASK FOR CATMINT. JAYFEATHER     `show <Catmint>` + `give <Catmint>`, then
+                                    "Type, Next.. Jayfeather"  (the full stop is
+                                    part of the verb name)
+    NEXT.. JAYFEATHER               six `unlock` lines for exits that do not
+                                    exist yet -- all of them errors -- and
+                                    "Type, Exits List Jayfeather"
+    EXITS LIST JAYFEATHER           six `create exit <ThunderClan Clearing; ...>`
+                                    lines, which is what actually opens the camp
+
+Until EXITS LIST the clearing has one exit (north, back to Firestar's Den), so
+that command is the gate on the entire game.
+
+GET HERB JAYFEATHER is a sixth, off the chain: the object carries
+`list <get herb>` in its definition and `action <GET HERB> helpmsg <***TYPER GET
+HERB***>`, the author's note-to-self about the typo.  Which brings us to the
+engine fix.
+
+The engine fix this game needed
+-------------------------------
+Quest 4 had a second window for help text and four statements that wrote to it.
+The Quest 5 player has no such window, so `helpmsg <text>` goes to ordinary
+output via Print (V4Game.Part2.cs:5778-5781) and `helpdisplaytext <name>` goes
+through DisplayTextSection (ibid. 5972-5975); only `helpclose` and `helpclear`
+still do nothing.  geas -- which also has one output stream -- treated helpmsg
+and helpdisplaytext as no-ops, so GET HERB JAYFEATHER printed a blank line where
+Quest prints "***TYPER GET HERB***".  Both now print; test/fixtures/helpmsg.asl
+pins all four statements.
+
+The four collectables
+---------------------
+Outside of Camp lists them: Catmint, Toy Mouse, Fish Scale, Twoleg Necklace.
+Nothing checks for them -- there is no `if got` anywhere in the file, and no
+`playerwin` or `playerlose` either -- so they are inventory for the sequel that
+never came.  Each comes from a different room, and two of them from room scripts
+that also create the exit back out again:
+
+    Nursery                     nothing at all ("Nothing to see here.")
+    Warriors and Apprentices Den script `give <Toy Mouse>`; the Toy Mouse is also
+                                a takeable object in the room, so TAKE TOY MOUSE
+                                works and is what the prose asks for
+    Elders Den                  Purdy's story about Longtail; the script does
+                                `goto <ThunderClan Clearing>` halfway through and
+                                then keeps printing, so you are bounced back to
+                                the clearing while still reading it, and it ends
+                                with `flag on <Important Event 1>` -- a flag
+                                nothing ever tests
+    Medicine Cat's Den          SPEAK TO BRIARLIGHT AND TOADSTEP is required
+                                twice over: it is the only source of the Fish
+                                Scale scene and the only thing that runs
+                                `create exit <Medicine Cat's Den; ThunderClan
+                                Clearing>`, so without it you are stuck in the
+                                den.  The Fish Scale itself must then be taken.
+    Fallen Tree                 the quiz, `give <Twoleg Necklace>`, the escape
+                                run, and finally `create exit <Fallen Tree;
+                                Outside of Camp>`
+
+The Fallen Tree is where the whole design shows: one turn's script asks four
+Warriors trivia questions, speaks their answers, times a thirty-second escape
+with `set interval <Timer 30 seconds; 30>` against a timer that was never
+defined (an error -- there is no `define timer` in this file), narrates you
+speeding up and slowing down, and hands you the ending, all without the player
+typing anything.
+
+Outside of Camp prints "To Be Contenued....." and the copyright note and stops.
+There is no `playerwin`, so the marker for the regression suite is the sign-off
+line, "This was ThunderClan Mystery 1, Unseen Enemy, Part 1."
+
+Room names
+----------
+GO TO takes the destination's alias where one exists (PlaceExist,
+V4Game.Part2.cs:6566-6580), so it is GO TO THE NURSERY for `define room <Nursery>
+alias <The Nursery>`, and the plain names elsewhere.  Both `place` exits and the
+created ones are listed together, which is why the clearing ends up advertising
+Firestar's Den twice over -- once as the `north` exit and once as a place.
+
+Start:
+s
+speak to jayfeather
+talk jayfeather
+get herb jayfeather
+ask for catmint. jayfeather
+next.. jayfeather
+exits list jayfeather
+go to the nursery
+go to thunderclan clearing
+go to warriors and apprentices den
+take toy mouse
+go to thunderclan clearing
+go to elders den
+go to medicine cat's den
+speak to briarlight and toadstep
+take fish scale
+go to thunderclan clearing
+go to fallen tree
+i
+go to outside of camp

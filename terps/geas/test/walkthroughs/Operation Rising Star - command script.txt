@@ -1,0 +1,55 @@
+Operation Rising Star by AAB (QDK 4.1.4, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "reverse before passing out".
+
+Twenty-odd rooms of an office tower after a massacre, no inventory puzzle at all,
+and one winning move: USE CARD READER in Room A6, which is "action <Use>
+playerwin" on the reader.  The route is four commands -- SOUTH from the Lift to
+the Main Hall, SOUTHEAST to the Office Hall, SOUTHWEST to Room A6, then USE CARD
+READER.
+
+The keycard the game keeps talking about does not exist.  The File on the
+janitor's desk in Maintenance explains that the Room A6 emergency exit "will need
+an emergency keycard" and that Dr. Lothelia, Dr. Patterson and the Janitor have
+one; there is no keycard object anywhere in the file, Dr. Lothelia's Lab is
+locked with "There's something heavy resting on the door" and nothing unlocks it,
+and the reader's own description settles it -- "It's broken and is always set on
+UNLOCKED|nI'd better try and Use it."  So the reader wins on its own.
+
+The one thing that can go wrong is leaving by the emergency exit instead of using
+it.  Room A6's "southwest <END>" points at a room the game never defines, so
+SOUTHWEST there drops you into an exitless "END" with the game still running --
+a hole to fall into, not an ending.
+
+Everything else is scenery: the Switchblade and the Shotgun are takeable and do
+nothing, Ms. Lambert begs for the hemostatic medicine that is not in the game
+either, the Cafeteria Menu and the Break Room Jukebox are notes to the reader,
+and the Men's Bathroom, Woman's Bathroom, Kitchen, Dr. Lothelia's Lab and Room A5
+are all locked from the far side with no key.
+
+Worth knowing while reading the transcript:
+
+  * The game block declares "verb <Use> msg <You can't Use that.>", and that is
+    why this game needs Quest's dispatch order to be right.  ExecCommand tries
+    user commands, then ExecVerb, and only reaches its own built-in "use "
+    handling if neither claimed the input (V4Game.Part2.cs:4205-4240), so the
+    game's verb takes over USE entirely and the reader's "action <Use>" is what
+    answers it.  geas used to check game-scope verbs last, after the built-ins,
+    and USE CARD READER printed "You don't have that." -- the game was
+    unwinnable.
+  * Because the verb owns the whole command, the two-object form goes with it:
+    USE SWITCHBLADE ON BLOOD COVERED BODY answers "You don't see any switchblade
+    on blood covered body", the verb having matched "use " and taken all the rest
+    as one object name.  That is ExecVerb's Disambiguate call, not a parser bug.
+  * Both the game block and Room A6 carry a "command <>" with an empty pattern --
+    the game's runs playerwin, Room A6's is empty.  They are leftovers from a
+    blank QDK command dialog; nothing a player can type matches an empty pattern.
+  * The win text is deliberately not a happy ending: the player gets outside and
+    is then shot, stabbed, set on fire and left for dead, and crawls into a car.
+    It is still playerwin, and the game stops there.
+
+Start:
+south
+southeast
+southwest
+use card reader

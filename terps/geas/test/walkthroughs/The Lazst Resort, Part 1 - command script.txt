@@ -1,0 +1,340 @@
+The Lazst Resort, Part 1 -- B.J. Best (Quest 3.11, asl-version 311)
+
+A murder-mystery weekend at a decaying lakeside hotel that never quite made it
+out of the 1970s.  You check in, you poke at everything the resort still has
+working, and eventually you find Ray Lazst -- the proprietor and the man who
+organised the murder mystery -- genuinely dead in the walk-in freezer.  Part 1
+ends there; the author never wrote Part 2.
+
+Scoring is out of 125 and the win text prints a rank drawn from a ladder, of
+which only the top rung -- "Perfectionist" -- is reachable at exactly 125.  That
+makes it an unusually strict win marker: this script cannot drift a single point
+without failing.  The 125 comes from twenty separate awards, most of them for
+merely *using* a piece of hotel equipment (the telephone +3, the toilet +2, the
+shower +1, the clock radio +2, the ballroom microphone +1, the lobby's Chicago
+Manual of Style +1, the lamppost +1, the jukebox +2, the piano +2, the cocktail
++1, the Diet Pepsi +3, opening the can +2) plus the real puzzles: the
+housekeeping padlock +5, finding the corpse +20, the string-and-toilet-roll dumb
+waiter +10, driving the car +1, the compass +10, the island keyboard +15, and
+retrieving the office key +5, with +38 for the ending itself.  Nothing in the
+game is optional if you want the rank, which is why the script visits every
+bathroom fixture in the place.
+
+Two of the puzzle answers do not exist in the story file as text at all.  They
+are in the .jpg files the game shows with `picture`, and the ASL only contains
+the bare numeric and string comparisons the images are supposed to teach you:
+
+  * The housekeeping-closet padlock (`use lock`, three `enter` prompts) wants
+    8, 20, 6 -- the dartboard in the bar, `dartboard.jpg`.
+  * The island shed's keyboard (`use keyboard`, one `enter` prompt) wants
+    "cion" -- the kids' crossword on page B-4 of the newspaper,
+    `crossword.JPG`.
+
+Both are checked here against the source's own literal comparisons rather than
+against the pictures, since a headless runner never shows them.
+
+Timing.  The game has four `define timer` blocks and the interesting one is
+`drinktimer`, interval 30: when you tip Jack the bartender and order a drink,
+the cocktail is not made for thirty turns.  There is no way to hurry it and the
+cocktail is worth a point, so the script spends the wait in the bar -- the timer
+action checks `if here <jar>`, i.e. whether you are still standing at the bar,
+and sends you down a different branch if you wandered off.  Overshooting is
+harmless while an excursion would have to land back on exactly the right turn,
+so the wait is deliberately spent reading the newspaper cover to cover (which is
+also where the crossword lives) and looking at the fixtures.  This walkthrough
+therefore needs --tick, so that `tick_timers` runs once per turn and the timer
+intervals behave as turn counts.
+
+Two commands the author wrote are dead, and they are dead in real Quest too --
+this is not an interpreter divergence.  `define synonyms` maps `drive = use` and
+`type = use`, and Quest applies synonym substitution to the whole input line
+before any command matching (V4Game.Part2.cs:4149-4163 rewrites
+`" " + input + " "`, so even a bare one-word `drive` is caught).  So
+`command <drive>` and `command <type on keyboard>` can never fire; the surviving
+routes into the same scripts are USE CAR (line 29) and USE KEYBOARD (line 58),
+which is what this script uses.  In the same vein `open`, `read`, `play`,
+`drink`, `wear`, `climb`, `close`, `tie`, `fill` and a dozen more all collapse to
+`use`, and `in` collapses to `on` -- hence USE OARS ON OARLOCKS and
+USE MICROPHONE WITH MAGNET ON SHINY THING.
+
+One naming trap: the bed and the bathroom both sit in `place <your; room>`, but
+the room's own alias is "hotel room", so the exit reads "your hotel room" and
+GO TO YOUR ROOM fails.  The script says GO TO HOTEL ROOM.
+
+Route notes.  The first-floor corridor is five rooms long -- from the downstairs
+landing you go north five times to reach `1st hall 1` and the padlocked
+housekeeping closet -- and getting that count wrong silently strands you one
+room short of the closet, room 105 and the ladder.  The lake is a hand-built
+grid of eighteen `bay` rooms reached by rowboat (five dollars to Hank at the
+pier, and you must fit the oars to the oarlocks before anything moves); the
+shiny thing you fish up with the magnetised microphone is at bay 14, two moves
+southwest-ish of the mooring, and the island is northwest from the far corner of
+the grid.
+
+Money is exactly sufficient and is spent in this order: one dollar for the
+newspaper, one for the jukebox, one for the piano, one to tip Jack, two for the
+drink, five for the boat -- nine of the starting twenty left over.
+
+Verified: 234 turns, 125/125, rank "Perfectionist".
+
+Start:
+go to hotel room
+use telephone
+use radio
+go to the bathroom
+use toilet
+use shower
+go to hotel room
+west
+south
+south
+south
+south
+south
+east
+east
+south
+use wall
+use lightswitch
+go to the stage
+take microphone
+use microphone
+go to the ballroom
+north
+west
+west
+go to the downstairs landing
+south
+east
+use bell
+speak to bobbie
+2
+examine clue 1
+examine clue 2
+take newspaper
+west
+south
+use jukebox
+use piano
+examine dartboard
+use note
+east
+tip jack
+speak to jack
+6
+take quarters
+use newspaper
+1
+use newspaper
+2
+use newspaper
+3
+use newspaper
+4
+use newspaper
+5
+use newspaper
+6
+use newspaper
+7
+use newspaper
+8
+1
+use newspaper
+8
+2
+use newspaper
+8
+3
+use newspaper
+8
+4
+look at jar
+look at jack
+look at dollar
+look
+look at jar
+look at jack
+look at dollar
+look
+look at jar
+look at jack
+look at dollar
+look
+look at jar
+look at jack
+look at dollar
+look
+look at jar
+look at jack
+use cocktail
+i
+west
+north
+north
+go to the upstairs landing
+east
+east
+north
+use vending machine
+2
+examine clue 3
+use can
+use ice machine
+south
+west
+west
+go to the downstairs landing
+south
+south
+east
+south
+use hand dryer
+north
+west
+north
+north
+north
+north
+north
+north
+north
+north
+use lock
+8
+20
+6
+west
+take roll
+take shirt
+use shirt
+east
+south
+south
+south
+south
+south
+east
+take cart
+west
+north
+north
+north
+use door
+take ladder
+take key
+west
+south
+south
+south
+east
+east
+south
+use string
+use roll on string
+south
+use freezer
+examine corpse
+speak to ray
+1
+speak to ray
+2
+speak to ray
+3
+take magnets
+go to the basement stairs
+north
+north
+north
+take wine bottle
+south
+south
+south
+go to the kitchen
+north
+north
+west
+west
+south
+west
+north
+north
+north
+go to your car
+use glove compartment
+take needle
+take manual
+use manual
+use car
+out
+south
+south
+south
+west
+west
+speak to lamppost
+south
+south
+east
+take corkscrew
+use corkscrew on wine bottle
+west
+south
+south
+use magnet on needle
+use needle on cork
+use cork on glass of water
+use magnet on microphone
+west
+use padlock
+go to the shed
+take oars
+out
+east
+south
+speak to hank
+yes
+go to the rowboat
+use oars on oarlocks
+south
+south
+southwest
+use microphone with magnet on shiny thing
+east
+east
+east
+south
+out
+west
+northwest
+use keyboard
+cion
+go to the island shed
+examine ice pick
+out
+southeast
+east
+go to the rowboat near island
+north
+west
+west
+north
+north
+north
+out
+north
+north
+north
+north
+north
+east
+east
+east
+north
+east
+east
+south
+south
+go to the basement stairs
+north
+use door key on office door

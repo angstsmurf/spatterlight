@@ -1,0 +1,115 @@
+Escape the Elevator -- Andrew Trewin ("Thana"), QDK Pro 4.02, ASL 400
+=====================================================================
+
+Six rooms, one puzzle chain, and an ending that kills you and calls it a win.
+You are Dr. Froth, third-richest man alive and not actually a doctor; Elex
+DePaw has been hired to kill you.  The whole game happens in and above one
+elevator.
+
+Getting started
+---------------
+The start room is called "Welcome -" and its `indescription` is ".- :", so the
+game opens with the header ".-  Welcome -." before the instructions.  The room
+has two commands and no exits: STORY prints the backstory, START clears the
+screen and goes to the Elevator.  Both are in the script below, in that order.
+
+The one thing you must not skip
+-------------------------------
+TAKE ASHTRAY in the *lit* Elevator.  The Ashtray is bolted down, so its take
+script gives you the Burning Cigar instead, hides the Ashtray and shows a second
+object, "Ashtray (Without Cigar)", that is aliased "Ashtray" and describes the
+same ash without the cigar.  The cigar is the only thing you carry out of the lit
+room, and the entire puzzle chain runs off it.
+
+The elevator's own `command <Use Control Panel>` then prints the "Going Up"
+cutscene and drops you into a different room, Dark Elevator, from which there is
+no way back -- so the cigar cannot be fetched afterwards.  Dark Elevator is a
+full duplicate of the elevator with its own copies of every object (Mirror2,
+Ashtray2, Control Panel2, Golden Hand Rails2, Emergency Exit2), each aliased to
+the undecorated name, which is why the walkthrough's later commands still say
+"golden hand rails" and "mirror".  The duplicate Ashtray2 is a dead end on
+purpose: TAKE ASHTRAY there answers "the Cigar inside has gone out, making no
+real use for the whole thing."
+
+The chain, in the dark
+----------------------
+  USE BURNING CIGAR ON GOLDEN HAND RAILS -- the gold turns out to be paint; you
+      burn through the rail and are given the "Gold Rail" (a wooden one).
+  USE GOLD RAIL ON MIRROR -- smashes it and `move`s Shards of Glass into the
+      room.
+  TAKE SHARDS OF GLASS -- the shards stay put; you are given one Glass Shard.
+  USE GLASS SHARD ON EMERGENCY EXIT -- you unscrew the four bolts, the Hole
+      object is shown, and the script runs
+          create exit up <Dark Elevator; Elevator Shaft>
+
+That last line is the joke of the game: Dark Elevator already declares
+`up <Elevator Shaft>` in its own room block, so UP works from the moment you
+arrive and the whole cigar-rail-mirror-shard sequence is optional.  You can win
+this game in five commands (START, USE CONTROL PANEL, UP, UP, PUSH FIRE BUTTON,
+GO TO ELEVATOR MAINTENANCE ROOM) without ever touching the ashtray.  The script
+below does it the intended way, so the transcript covers every object.
+
+Note also that Dark Elevator declares `command <Use Control Panel> msg <It
+doesn't respond.>` while its Control Panel2 object carries a `use` script that
+replays the whole "Going Up" cutscene.  The room command wins -- Quest matches
+room and game commands before it ever reaches the USE verb -- so the cutscene in
+the object is unreachable.  That is what the game intends; the elevator is
+supposed to be dead.
+
+Where the objects live
+----------------------
+The four things you are given -- Burning Cigar, Gold Rail, Shards of Glass and
+Glass Shard -- are defined in a room called "Store" that the player can never
+reach, the standard QDK trick for objects that appear mid-game.  `give <Gold
+Rail>` moves the object out of Store and into the inventory, which is what
+PlayerItem does from ASL 2.80 on (V4Game.Part2.cs:6594-6647); below that version
+the same line would only have flipped an item flag and the object would have sat
+in Store for ever.
+
+Upwards, and the ending
+-----------------------
+UP puts you on the roof of the elevator (Support Cables, Fire Ladder -- the
+ladder's description is truncated mid-sentence in the source: "A thin ladder
+built into the wall, it").  UP again climbs the ladder to a room aliased
+"Elevator Shaft (Climbing Fire Ladder)", whose `command <Push Fire Button>`
+opens the elevator door and moves you to the Hallway.  The Fire Button object
+itself has no `use` script, so PUSH FIRE BUTTON is the room command, not the
+object.
+
+The Hallway's only exit is `place <the; Elevator Maintenance Room>` -- a
+two-field place parameter, which under ASL 4.00 means prefix "the" plus the
+destination, so the room lists "You can go to the Elevator Maintenance Room".
+
+Entering that room runs its `script`, and the script is the ending: Elex DePaw
+introduces herself, refuses your bribe, throws her knife into your heart, and
+"you look down to the handle prutruding from your chest, and fall down dead."
+The very next line is `playerwin`.  The game defines no `define text <win>`, so
+nothing is printed after the death and the marker for this walkthrough is the
+death itself.  Escaping the elevator is, apparently, all that was being scored.
+
+Start:
+story
+start
+look
+x mirror
+x ashtray
+take ashtray
+i
+use control panel
+look
+use burning cigar on golden hand rails
+use gold rail on mirror
+look
+take shards of glass
+use glass shard on emergency exit
+x hole
+up
+x support cables
+x fire ladder
+up
+x elevator door
+x fire button
+push fire button
+look
+x pot plant
+go to Elevator Maintenance Room

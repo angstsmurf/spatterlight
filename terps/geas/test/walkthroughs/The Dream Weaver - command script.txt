@@ -1,0 +1,200 @@
+The Dream Weaver -- Bad Omen, 2001, ASL 217 (QDK 1.02)
+======================================================
+
+A stoner dream-quest in seventeen rooms, and one of the more sincerely strange
+things in the Quest 4 corpus.  A wizard has told you that the only way to stop a
+recurring dream is to kill the Dream Weaver inside it, "he didn`t say how to do
+it though" -- and indeed the game never finds out either.  Every puzzle in it is
+solved by packing a hooka with a Good Nugget and smoking it.
+
+The game cannot be won.  There is no `playerwin` anywhere in the file; the only
+`playerlose` is in an unreachable procedure; and the last room, Mystic Ruins,
+describes paths leading in seven directions and declares none of them.  So this
+is a furthest-reachable-state script.  It ends on the Blue Flamed Torch, the last
+object the game will ever give you, and the marker is its take message: "you
+could almost swear you say a skull in the flame".
+
+The engine fix this game needed
+-------------------------------
+`take hooka` runs
+
+    define procedure <~Internal Procedure 2>
+     msg <You take the hooka and put it in your coat pocket>
+     give <Hooka>
+     hideobject <Hooka>
+    end define
+
+which is the standard Quest 2.x idiom: hand the player the *item* and hide the
+like-named scenery *object* it was standing in for.  Below ASL 2.80 those are two
+unrelated tables.  PlayerItem only sets `Got` on the item and never touches an
+object (V4Game.Part2.cs:6658-6669); SetAvailability only clears `Exists` on the
+object and never touches an item.  From 2.80 on they are the same thing: give
+moves the object to "inventory" and lose moves it back to the current room
+(ibid. 6604-6647), and `if got` becomes `(ContainerRoom == "inventory") & Exists`
+(V4Game.cs:7370-7378).
+
+geas moved the object at every ASL version, so `hideobject <Hooka>` looked like a
+held object being destroyed and took the item with it: the hooka vanished on the
+turn you picked it up and the game was unwinnable from its second puzzle on.
+Both halves are now version-gated -- give/lose only touch an object from 2.80 up,
+and `got` at 2.80 and above additionally requires the object not be hidden, so
+the two answers agree with the inventory listing.  test/fixtures/itemhide217.asl
+and itemhide280.asl are the same game at the two versions and pin both.
+
+Nothing else in the file depends on the split, but everything does: the Hooka,
+Chest, Key, Glowing Mushroom and Small Torch are all taken by that same
+give-then-hide pair.
+
+The Good Nugget economy
+-----------------------
+`items <Good Nugget; Hooka; Lighter; Chest; Key; Locket; Glowing Mushroom; Good
+Brazilian Kind; Blue Flamed Torch>`, and you start with the Lighter.  The nugget
+is the game's currency and there are three places that grow one:
+
+    Concack Beach (north)         `command <take pot plant>` -> proc 19, refillable
+    Sleeping Forest (North West)  `command <take pot plant>` -> `give <Good
+                                  Brazilian Kind>`, a *different* item, with no
+                                  message at all -- it just silently appears
+    Concack Beach (north)         procs 0 and 10 are byte-identical copies of 19
+                                  that nothing calls
+
+Three things spend a nugget, and each is a puzzle:
+
+    Small Hut, `use hooka`        proc 4 -> proc 7: reveals the Sign and the Key
+    The end of the world          proc 8: the only way out of the trap room
+    Large Hut, `use <hooka>`      proc 21: `lose <good nugget>`
+
+Only the first two are reachable, because "use hooka" in the Large Hut matches
+the room's `command <Use hooka>` first -- ExecCommand tries user commands at
+V4Game.Part2.cs:4208 and does not reach the built-in `use ` handling at 4428 --
+so proc 20 runs and proc 21 never does.  That is a mercy: proc 21 prints nothing
+and would silently eat a nugget.  (It would not actually eat one in Quest
+either.  It says `lose <good nugget>` and the declared item is "Good Nugget";
+below ASL 2.80 the item lookup is case-sensitive, so Quest logs an error and
+nothing happens.  geas matches case-insensitively here, a divergence left alone
+because geas does not track the declared item list at all.)
+
+The Small Hut sequence is the game's one real puzzle.  Bring a nugget, take the
+hooka, smoke it, and proc 7 does `lose <Good Nugget>` then `showobject <Sign>`
+and `showobject <Key>`.  The sign, which was "writing in some forign tounge that
+you don`t understand", is now Robbert's letter to Cathrine, drafted into a war
+and leaving her "little joey and the crop to make the money off of".  The key
+opens the chest in the Sleeping Forest.  It is the only piece of the game where
+the plot and the mechanic line up.
+
+Two rooms with no exits
+-----------------------
+Both are reached by walking in an inviting direction and both are permanent.
+
+    The end of the world      south from Concack Beach (south).  The room
+                              description is a full loss narration -- "You have
+                              just lost although it doesn`t say so there is
+                              nothing you can do but watch as the stars pass you
+                              by" -- and it is not a `playerlose`, so the game
+                              stays running and the parser keeps taking input.
+                              `use <Hooka>` with a nugget is the escape hatch
+                              (proc 8, back to Concack Beach (south)); without
+                              one you get "You have nothing to smoke in that"
+                              forever.
+    Sleeping Forest (North East)  northeast from Sleeping Forest (North West).
+                              A single paragraph about vines grazing your back,
+                              no exits, no objects, no commands, and no way out
+                              at all.  The script below does not go there.
+
+The route
+---------
+    Concack Beach -> N -> (north) -> N -> (north)2 -> N -> Small Hut
+    -> S -> swim to island -> Small Island -> N -> Large Hut
+    -> S,S,S -> (north) -> S -> Concack Beach -> S -> (south) -> S -> the end of
+    the world -> [smoke] -> (south) -> N -> W -> Sleeping Forest
+    -> N -> (North) -> follow deer trail -> (North West) -> W -> (North West 2)
+    -> Mystic Ruins
+
+Forty-one turns.  Notes on the odd steps:
+
+    SWIM TO ISLAND        Concack Beach (north)2 declares three commands for it
+                          ("swim to the isle", "swim to the island", "swim to
+                          island") and no exit; the island is "about 700 meters"
+                          away from the beach below and "about 10 feet" from
+                          here, which the game notices out loud.
+    USE HOOKA (Large Hut) proc 20: you share the pipe with Cathrine, "you feel an
+                          inner bond", and `showchar <Cathrine>` finally makes
+                          her visible -- she was in the room description from the
+                          start.  Understanding her does not let you talk to her:
+                          she has no `speak`, so SPEAK TO CATHRINE is "She says
+                          nothing."
+    TAKE POT PLANT (2nd)  the nugget for the trip off the end of the world.
+    USE KEY ON CHEST      proc 16, `showobject <Glowing Mushroom>`.  The Sleeping
+                          Forest declares `use <Key>` at room level too (proc 18,
+                          a byte-identical copy), so plain USE KEY works as well.
+                          Do not TAKE CHEST first: proc 12 pockets and hides it,
+                          and then there is nothing there to unlock.
+    W into (North West 2) the room's `script` fires `if got <Glowing Mushroom>`
+                          and the mushroom heats up in your pocket -- the game's
+                          one bit of foreshadowing that works.
+    USE GLOWING MUSHROOM  proc 22: the cap fits the "inward hemisphere" in the
+                          stone carving and the wall opens.  The room also
+                          declares `northeast <Mystic Ruins>` outright, so the
+                          puzzle is optional and the mushroom is not consumed.
+
+Loose ends
+----------
+Seven of the twenty-four procedures are unreachable: 0 and 10 (copies of 19), 3
+(empty), 5 ("Me casa Su casa" / "Wow you must be higher than you though",
+presumably Cathrine's first intelligible words), 9 (`say <Hey how did you get my
+bong this was mine and joey`s>` + `lose <hooka>`, clearly meant for the Large
+Bong, which has no scripts at all), 11 (following the beach footprints to a
+`goto <Marijauna Field>` -- a room that does not exist, where "a woman and a
+child" are harvesting, i.e. Cathrine and Joey), and 1, the only `playerlose`:
+swimming out and opening your own thigh to bring the sharks.  Nothing calls it,
+so the game has no losing ending either.
+
+`define text <win>` and `define text <lose>` are both present and both empty.
+The Ancient Scroll on Robbert's tombstone in the Sleeping Forest (North West) has
+no `look` and no `take` -- "Nothing out of the ordinary." -- which is the closest
+the file comes to admitting it stopped.  The Locket on the beached whale's tusk
+and the Good Brazilian Kind are likewise collected and never used; `collectables
+<>` is empty, so they are just inventory.
+
+Start:
+look at sign
+n
+look at pot plant
+take pot plant
+speak to odd looking fish
+n
+n
+take hooka
+i
+use hooka
+look at sign
+look at key
+take key
+s
+swim to island
+n
+use hooka
+look at cathrine
+s
+s
+s
+take pot plant
+s
+s
+look at tusk
+take locket
+s
+use hooka
+n
+w
+look at chest
+use key on chest
+take glowing mushroom
+n
+follow deer trail
+take pot plant
+i
+w
+use glowing mushroom
+look at small torch
+take small torch

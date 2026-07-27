@@ -1,0 +1,351 @@
+"Sutekh Is Hiding In Your Priory"
+Author unrecorded -- the game block carries no `game author` line, only
+`game info <Created with QDK 4.1.5>`.  ASL 410, ships as a plain .asl.
+Command script for terps/geas/test/run_walkthroughs.sh.
+
+Verified: 158 turns, leftover 0, WON.  No --tick needed.
+
+
+WHY THIS GAME IS IN THE SUITE
+
+Almost every other game in the corpus is a room-and-object game that happens to have
+a few `command <...>` lines.  This one is the other way round: the priory is a stage set
+for six global parameterised commands, and the interesting engine surface is all in the
+game block, not in the rooms.  It has
+
+  * `afterturn` running a nine-deep nested if/else chain over a turn counter, ending in
+    `playerlose` at exactly 200 turns -- so the whole walkthrough is played against a
+    hard budget that the engine itself enforces;
+  * `dec <number of turns; 6>` and `dec <number of turns; 2>` -- objects that hand turns
+    *back*, so the counter has to be writable downward as well as up;
+  * `command <dial #number#>`, `<say #text#>`, `<summon #spirit#>` and `<shout #loudly#>`,
+    each dispatching on `select case <#param#>` with multi-value cases
+    (`case <satan; the devil; devil; lucifer; set; sados; saddos>`) and a `case else`;
+  * `if ask <...> then ... else ...` -- the `fly` command, where the Yes branch is a
+    `playerlose` and the No branch is a `goto`, so the answer the runner feeds in is
+    load-bearing rather than cosmetic;
+  * five `choose <selection>` menus (books, newspaper, comic, gravestones, hymn book);
+  * `lock` / `unlock` in the two-argument `<room; direction>` form, next to the
+    author's stray `unlock <; >` with *both* arguments empty;
+  * a rash of empty-argument commands -- `show <>`, `goto <>`, `flag on <>`,
+    `timeroff <>` -- which QDK emitted whenever the author left a field blank in the
+    editor.  Seven of them are on the winning path.  None may abort the turn.
+
+There is exactly one `playerwin`, on the rose, and getting to it means threading past
+about eighteen `playerlose` traps, several of which look like ordinary scenery.
+
+
+THE SHAPE OF THE GAME
+
+The intro tells you the truth: find and give Sutekh the one thing that banishes him,
+then do "a couple of other duties".  Concretely, `playerwin` lives on the rose's
+`give to <monk>` handler and fires only `if flag <mummy flag>`, and `mummy flag` is set
+in exactly one place -- Sutekh's `give <signed photo>` handler, and only if you are also
+carrying the amulet.  So the spine is:
+
+  amulet + signed photo  ->  banish Sutekh in the priesthole  ->  rose to the monk.
+
+Each of the three has a wrinkle.
+
+  The amulet is buried in the mossy wood.  `take shovel`, `use shovel` (the shovel's
+  `use` has no target, so plain "use shovel" is the whole command), `open trinket box`,
+  `take amulet of something-or-other`.  The amulet has no `alt` names, so you must type
+  all four words.  Do NOT then hand the shovel to the woodsman on the road, however
+  much he asks: `give <shovel>` on him is a death.
+
+  The signed photo is on the counter in the cathedral tea-room, and it is `hidden` until
+  you `look at counter` -- the counter's `look` script is what does `show <signed photo>`
+  (followed by a bare `show <>`).  Nothing announces it; you just have to take it
+  afterwards.  The beam in the porch and the scratches on it spell out the hint.
+
+  The priesthole is reached by `bounce on bed` in the bedroom -- `get into bed` is a
+  death, and so is `enter wardrobe`.  The bedroom door is `east locked` from the
+  observatory and is unlocked by `sing to david bowie` in the ruined summerhouse, whose
+  handler ends with the empty `unlock <; >`.  Once in the priesthole, `down` is locked
+  until Sutekh is gone, so there is no way out but through him.
+
+And then the twist that catches everybody: the `sutekh` object in the priesthole is
+`hidden`, and the *only* thing anywhere in the game that shows it is
+`command <summon #spirit#>` with `case <sutekh>`.  You have to summon the demon by name
+before you can hand him the photograph.  A player who never types "summon sutekh" stands
+in an apparently empty slit-room with a locked exit and no way to finish.
+
+
+GETTING TO THE TEA-ROOM, AND BACK
+
+The tea-room has no exits at all.  There are two ways in.  The canonical one is the
+scone: `switch on oven` in the servant's area, `cook scone mix`, then `eat scone`, whose
+action is a bare `goto <cathedral tea-room>`.  The other is `fly`, a global command
+gated on `if ask <Are you really sure?...>`: answer Yes and you flap off the branch and
+die, answer No and the game rewards your good sense by teleporting you to the tea-room
+anyway.  Note `fly` has no room check despite its prose, so it works from anywhere --
+this script uses it from the graveyard, which is also where it gets its `ask` coverage.
+
+The way out is `eat slice of walnut cake`, which `goto`s the road outside the grounds and
+then `hide`s the cake.  There is only one cake and it is not replaced, so the tea-room is
+a one-way trip: if you go there twice you are stranded.  That is why this script bakes
+the scone but eats it *inside* the tea-room -- the re-`goto` is harmless and it still
+exercises the scone's handler.
+
+`switch on oven` is worth doing early for its own sake.  `flag <oven on>` is read by
+Mr Loftus, by the phoenix, and -- crucially -- by the Hake of Retribution, below.
+
+
+THE HAKE, WHICH IS A DEATH ROOM WITH A FLAG-GATED EXIT
+
+`cross bridge` at the canal drops you into "the deep", a room with no exits and one
+character.  `speak to hake of retribution` branches on `flag <oven on>`: with the oven
+off the Hake eats you (`playerlose`); with it on he offers to release you if you sing.
+`sing to hake of retribution` then `goto`s you back to the canal.  So an ordinary-looking
+scenery verb in the kitchen, twenty rooms earlier, is the difference between a death and
+a detour.  Worth keeping in the script for exactly that reason.
+
+
+THE MUMMY HAS TO BE WALKED ROUND THE HOUSE BY HAND
+
+Freeing the mummy is the second of the intro's "couple of other duties", and it is also
+the tidiest way out of the priory after Sutekh is gone.  `burn down priory` needs three
+things at once: `here <mummy of all malevolence>`, `flag <mummy flag>`, and the book of
+matches from the woodsman's hut.  But the mummy starts nowhere: `play organ` in the music
+room is what `show`s her, and after that she only moves when prodded, along a chain
+written entirely as `here <object>` tests:
+
+  prod her while `here <church organ>`   (music room)      -> move to panelled library
+  prod her while `here <bust of a poet>` (panelled library)-> move to porch
+  prod her while `here <doormat>`        (porch)           -> move to bedroom
+
+The tests are on *scenery objects*, not on room names, and they are checked in that
+order with no `else`, so the sequence is forced: music room, then library, then porch,
+and only then is she in the bedroom where you will be standing when you come down out of
+the priesthole.  Prod her anywhere else and nothing at all happens.  This script does the
+three prods on the way past each room, which costs no extra movement.
+
+`burn down priory` also `lock`s the road's south exit and `show`s the priory object, so
+after it fires you are outside for good -- which is fine, because everything left to do
+(rose, monk) is out there.  The alternative exit is `rub brass lantern`, which teleports
+you to the road and locks the same exit; the lantern on the eastern lawn is what
+Stonehouse means by "the eastern lawn holds the key" when the gate refuses you.
+
+
+THE CHILD, WHICH IS THE ONE OPTIONAL BIT THIS SCRIPT KEEPS
+
+`poke doorbell` in the porch is not a trap, it is the entrance: it drops you into the
+secret tunnel, and west of that is the boutique of injury with a sick child.  `take mould`
+in the tunnel, `give mould to child` (a `give to <child>` handler on the mould, the
+mirror image of the `give <signed photo>` handler on Sutekh -- the game uses both
+directions of the give idiom), and he tells you who he is.  `take child` then teleports
+the pair of you to the graveyard and `move`s him there, and `bury child` lays him to rest
+-- but only `if flag <candle on>`, which is set by `speak to candle` in the church.  It
+buys nothing towards the win; it is in the script because it is the only place in the
+corpus where a character is carried by being taken and re-parented by the same handler.
+
+
+AUTHORING QUIRKS WORTH KNOWING
+
+`define synonyms` is processed on whole-word boundaries over the raw input line before
+any command matching happens (Quest's ConvertCommand, V4Game.Part2.cs:4150-4164), and
+so a synonym can reach past the parser and rewrite a command the author meant to keep:
+
+  `make = cook` means the command `make it stop` -- the author's own way of silencing the
+  Sutekh timer -- is rewritten to "cook it stop" before `command <make it stop>` is ever
+  considered, so that command can never match.  The response is "You don't see any it
+  stop."  geas reproduces this exactly, which is the point of having the game here.
+
+The rest of the table works as intended, including the two entries that look as though
+they ought to break.  `pull pipe = open organ` rewrites to a command naming an object that
+is called "a church organ", with no `alias` and no `alt` -- and it still resolves, because
+the game sets `abbreviations on`, and Quest's `Disambiguate` (V4Game.cs:4599) falls back to
+a word-start-anchored substring pass over prefix+alias when nothing matched exactly, so
+" a church organ" matches " organ".  All three of `pull pipe`, `open organ` and
+`open church organ` print the organ's `open` script -- the one that reveals the
+jackal-masked Stonehouse inside it.  This script uses `open church organ` so the line
+still reads correctly if the option is ever honoured more strictly.  `finger = push` is
+likewise deliberate: the dado's "Have you fingered the panel?" really is a hint that
+`finger panel` works, and `strike match = burn down priory` the same.
+
+Other things to know:
+
+  * `#number#` in `dial #number#` is a free-text parameter, not a number: `case <home>`
+    and `case <random number>` are matched as literal strings, so "dial home" and
+    "dial random number" are both real telephone numbers in this town.
+  * `pick apple` does `dec <number of turns; 6>` and prints "five free goes"; the
+    afterturn increment of 1 makes the net saving five, exactly as advertised.
+    `eat pastries` in the tea-room refunds one turn the same way.  Both are used here.
+  * but `eat apple` while holding one is a death, and the apple is `invisible`, so it is
+    easy to pick one up and forget it is there.
+  * `kill transluscent figure` is a death *only* before turn 50 (`if ( %number of turns%
+    > 50 )`), which is the game's little joke about impatience.
+  * `use kaleidoscope on stained-glass window` is a death, in the middle of a list of
+    seventeen perfectly harmless `use on` targets.
+  * the priory's `look` and the bedroom's `description` both branch on `flag <mummy flag>`,
+    so the endgame re-describes the place as burning.
+  * the ghostly priest interludes at 44, 88, 99, 133, 144 and 166 turns are the visible
+    proof that the `afterturn` chain is being walked to the right depth.  This run is
+    158 turns, so it sees the first five and not the sixth.
+
+
+start:
+watch television
+switch off television
+watch television
+read book
+1
+speak to bust of a poet
+push panel
+take kaleidoscope
+look through kaleidoscope
+speak to david bowie
+sing to david bowie
+use kaleidoscope on david bowie
+dance with david bowie
+put out fire
+relight fire
+south
+take shovel
+use shovel
+open trinket box
+take amulet of something-or-other
+south
+speak to sarah jane smith
+dance with sarah jane smith
+north
+climb oak
+take phoenix egg
+speak to phoenix
+dream
+down
+north
+north
+pick apple
+speak to mars
+use kaleidoscope on statuette
+speak to statuette
+kiss statuette
+hide under arch
+look at arrow
+walk through arch
+north
+read newspaper
+4
+wear fez
+up
+look through telescope
+use kaleidoscope on dome
+down
+west
+look under snooker table
+pot pink
+pot black
+take chalk
+chalk cue
+touch screen
+north
+read sheet music
+sing sheet music
+open church organ
+look at sutekh
+use kaleidoscope on sute stonehouse
+play organ
+speak to mummy of all malevolence
+prod mummy of all malevolence
+south
+west
+switch on oven
+cook scone mix
+take scone
+open bin
+look at bin
+east
+east
+east
+east
+prod mummy of all malevolence
+west
+look at dado
+dial 48207
+dial 999
+dial home
+speak to hatstand
+say hello
+north
+look at beam
+prod mummy of all malevolence
+poke doorbell
+take mould
+west
+speak to child
+give mould to child
+speak to child
+look at child
+take child
+read graves
+5
+take rose
+northwest
+speak to mr loftus
+squeeze horn
+east
+cross bridge
+speak to hake of retribution
+sing to hake of retribution
+west
+follow tire-marks
+northeast
+east
+look at hymn book
+read hymn book
+2
+speak to monk
+look at monk
+speak to candle
+west
+bury child
+fly
+2
+eat scone
+look at counter
+take signed photo
+take slice of walnut cake
+speak to jim bowen
+listen to jim bowen
+speak to gargoyle
+eat pastries
+speak to alison mablethorpe
+eat slice of walnut cake
+speak to woodsman
+south
+east
+shout help
+shout jim bowen
+take brass lantern
+east
+read issue of the priesthole
+1
+take book of matches with one match left
+west
+west
+west
+speak to transluscent figure
+east
+south
+south
+west
+up
+east
+look at four-poster bed
+bounce on bed
+summon buddha
+summon jim bowen
+summon les dennis
+summon sutekh
+look at sutekh
+speak to sutekh
+kiss sutekh
+give signed photo to sutekh
+down
+burn down priory
+look at priory
+use kaleidoscope on priory
+northeast
+east
+give rose to monk

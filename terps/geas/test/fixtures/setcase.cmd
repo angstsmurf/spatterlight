@@ -1,0 +1,12 @@
+Start:
+shownum
+showstr
+showgold
+resetnum
+shownum
+resetstr
+showstr
+addgoldlower
+showgold
+addgoldexact
+showgold

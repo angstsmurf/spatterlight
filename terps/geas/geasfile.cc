@@ -53,9 +53,26 @@ void GeasFile::debug_print (const string &s) const
 void GeasFile::build_name_key (std::string &out, const string &type,
 			      const string &name)
 {
+  /* Surrounding whitespace is not part of a name.  readfile.cc registers every
+   * block under trim()'d name (see the comment there), so the lookup key has to
+   * be trimmed too, or a game that spells the same name with a stray space in
+   * one place and without it in another can never match its own definition.
+   * Quest does neither -- it compares the raw parameter against the raw
+   * definition, so both spellings have to agree exactly -- but since geas has
+   * already folded the two spellings together in the definition table, folding
+   * them here as well is what makes the two halves consistent.  "Something
+   * 'Bout A Hex" needs it: the journal is `define object <Journal >' and the
+   * knapsack hands it over with `give <Journal >', while `if got <Journal>'
+   * elsewhere drops the space. */
+  size_t beg = 0, end = name.size ();
+  while (beg < end && isspace ((unsigned char) name[beg]))
+    beg ++;
+  while (end > beg && isspace ((unsigned char) name[end - 1]))
+    end --;
+
   /* One sized write into the reused buffer rather than reserve + push_back per
    * char (which was a profile hotspot): resize once, then fill directly. */
-  size_t tn = type.size (), nn = name.size ();
+  size_t tn = type.size (), nn = end - beg;
   out.resize (tn + 1 + nn);
   char *p = &out[0];
   std::memcpy (p, type.data (), tn);
@@ -63,7 +80,7 @@ void GeasFile::build_name_key (std::string &out, const string &type,
   char *q = p + tn + 1;
   for (size_t i = 0; i < nn; i++)
     {
-      unsigned char c = (unsigned char) name[i];
+      unsigned char c = (unsigned char) name[beg + i];
       q[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
     }
 }
@@ -136,9 +153,20 @@ size_t GeasFile::size (const std::string &type) const {
 
 void GeasFile::ensure_cached (const GeasBlock &b) const
 {
-  if (b.cache_built)
+  if (b.cache_built && b.cached_lines == b.data.size ())
     return;
+  if (b.cache_built)
+    {
+      /* The block grew since the cache was built (see GeasBlock::cached_lines):
+       * start over rather than append, so nothing is counted twice. */
+      b.obj_prop.clear (); b.obj_act.clear ();
+      b.type_prop.clear (); b.type_act.clear ();
+      b.parent_types.clear ();
+      b.commands.clear ();
+      b.beforeturns.clear (); b.afterturns.clear ();
+    }
   b.cache_built = true;
+  b.cached_lines = b.data.size ();
 
   std::string::size_type c1, c2;
   for (const string &line : b.data)
@@ -218,8 +246,11 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 		if (starts_with (j, "not "))
 		  b.obj_prop.push_back ({false, trim (j.substr (4)), "!", false});
 		else if ((idx = j.find ('=')) != string::npos)
+		  /* Quest trims both sides of the "=" (AddToObjectProperties,
+		   * V4Game.cs:4021-4025), so "volume = 30" is the value 30, not
+		   * " 30" -- which a game then prints, or does arithmetic on. */
 		  b.obj_prop.push_back ({false, trim (j.substr (0, idx)),
-					 j.substr (idx + 1), true});
+					 trim (j.substr (idx + 1)), true});
 		else
 		  b.obj_prop.push_back ({false, j, "", true});
 	      }
@@ -385,39 +416,19 @@ void GeasFile::get_type_keys (const string &typen, set<string> &rv) const
   GEAS_DBG << "Returning (" << rv << ")\n";
 }
 
-bool GeasFile::get_obj_property (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
+bool GeasFile::block_property (const GeasBlock &block, const string &propname, string &string_rv) const
 {
-  GEAS_DBG << "g_o_p: Getting prop <" << propname << "> of obj <" << objname << ">\n";
-  string_rv = "!";
   bool bool_rv = false;
-
-
-
-  auto oti = obj_types.find (objname);
-  if (oti == obj_types.end ())
-    {
-      debug_print ("Checking nonexistent object <" + objname + "> for property <" + propname + ">");
-      return false;
-    }
-  const string &objtype = oti->second;
-
-  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
-
-  if (block == NULL)
-    {
-      gi->debug_print ("get_obj_property: no block for object '" + objname + "'");
-      return false;
-    }
-  ensure_cached (*block);
+  ensure_cached (block);
   /* A property set directly on the object always wins over one it inherits from
    * a type, as in Quest -- regardless of whether the `type <...>` line precedes
    * or follows the property line in the source.  So resolve inherited types
    * first, then let the object's own properties override.  (For the common
    * type-first ordering this is identical to a single in-order pass.) */
-  for (const GeasBlock::dir &d: block->obj_prop)
+  for (const GeasBlock::dir &d: block.obj_prop)
     if (d.is_type)
       get_type_property (d.a, propname, bool_rv, string_rv);
-  for (const GeasBlock::dir &d: block->obj_prop)
+  for (const GeasBlock::dir &d: block.obj_prop)
     if (!d.is_type && ci_equal (d.a, propname))
       {
 	string_rv = d.b;
@@ -426,6 +437,42 @@ bool GeasFile::get_obj_property (const string &objname, const string &propname, 
   GEAS_DBG << "g_o_p: Ultimately returning " << (bool_rv ? "true" : "false")
        << ", with string <" << string_rv << ">\n\n";
   return bool_rv;
+}
+
+bool GeasFile::get_obj_property (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
+{
+  GEAS_DBG << "g_o_p: Getting prop <" << propname << "> of obj <" << objname << ">\n";
+  string_rv = "!";
+
+  const string *oti = obj_type_of (objname);
+  if (oti == NULL)
+    {
+      debug_print ("Checking nonexistent object <" + objname + "> for property <" + propname + ">");
+      return false;
+    }
+  const string &objtype = *oti;
+
+  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
+
+  if (block == NULL)
+    {
+      gi->debug_print ("get_obj_property: no block for object '" + objname + "'");
+      return false;
+    }
+  return block_property (*block, propname, string_rv);
+}
+
+bool GeasFile::get_room_property (const string &roomname, const string &propname, string &string_rv) const
+{
+  GEAS_DBG << "g_r_p: Getting prop <" << propname << "> of room <" << roomname << ">\n";
+  string_rv = "!";
+  const GeasBlock *block = find_by_name ("room", roomname);
+  if (block == NULL)
+    {
+      debug_print ("Checking nonexistent room <" + roomname + "> for property <" + propname + ">");
+      return false;
+    }
+  return block_property (*block, propname, string_rv);
 }
 
 void GeasFile::get_type_property (const string &typenamex, const string &propname, bool &bool_rv, string &string_rv) const
@@ -453,14 +500,14 @@ void GeasFile::get_type_property (const string &typenamex, const string &propnam
 
 bool GeasFile::obj_of_type (const string &objname, const string &typenamex) const
 {
-  auto oti = obj_types.find (objname);
-  if (oti == obj_types.end ())
+  const string *oti = obj_type_of (objname);
+  if (oti == NULL)
     {
       debug_print ("Checking nonexistent obj <" + objname + "> for type <" +
 		   typenamex + ">");
       return false;
     }
-  const string &objtype = oti->second;
+  const string &objtype = *oti;
 
   const GeasBlock *block = find_by_name (objtype, objname);
 
@@ -498,37 +545,18 @@ bool GeasFile::type_of_type (const string &subtype, const string &supertype) con
 
 
 
-bool GeasFile::get_obj_action (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
+bool GeasFile::block_action (const GeasBlock &block, const string &actname, string &string_rv) const
 {
-  GEAS_DBG << "g_o_a: Getting action <" << propname << "> of object <" << objname << ">\n";
-  string_rv = "!";
   bool bool_rv = false;
-
-  auto oti = obj_types.find (objname);
-  if (oti == obj_types.end ())
-    {
-      debug_print ("Checking nonexistent object <" + objname + "> for action <" + propname + ">.");
-      return false;
-    }
-  const string &objtype = oti->second;
-
-  //reserved_words *rw;
-
-  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
-  if (block == NULL)
-    {
-      gi->debug_print ("get_obj_action: no block for object '" + objname + "'");
-      return false;
-    }
-  ensure_cached (*block);
-  /* As with properties (see get_obj_property), an action defined directly on the
+  ensure_cached (block);
+  /* As with properties (see block_property), an action defined directly on the
    * object overrides one inherited from a type irrespective of source order:
    * resolve inherited types first, then the object's own actions. */
-  for (const GeasBlock::dir &d: block->obj_act)
+  for (const GeasBlock::dir &d: block.obj_act)
     if (d.is_type)
-      get_type_action (d.a, propname, bool_rv, string_rv);
-  for (const GeasBlock::dir &d: block->obj_act)
-    if (!d.is_type && ci_equal (d.a, propname))
+      get_type_action (d.a, actname, bool_rv, string_rv);
+  for (const GeasBlock::dir &d: block.obj_act)
+    if (!d.is_type && ci_equal (d.a, actname))
       {
 	string_rv = d.b;
 	bool_rv = true;
@@ -539,15 +567,50 @@ bool GeasFile::get_obj_action (const string &objname, const string &propname, st
   return bool_rv;
 }
 
+bool GeasFile::get_obj_action (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
+{
+  GEAS_DBG << "g_o_a: Getting action <" << propname << "> of object <" << objname << ">\n";
+  string_rv = "!";
+
+  const string *oti = obj_type_of (objname);
+  if (oti == NULL)
+    {
+      debug_print ("Checking nonexistent object <" + objname + "> for action <" + propname + ">.");
+      return false;
+    }
+  const string &objtype = *oti;
+
+  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
+  if (block == NULL)
+    {
+      gi->debug_print ("get_obj_action: no block for object '" + objname + "'");
+      return false;
+    }
+  return block_action (*block, propname, string_rv);
+}
+
+bool GeasFile::get_room_action (const string &roomname, const string &actname, string &string_rv) const
+{
+  GEAS_DBG << "g_r_a: Getting action <" << actname << "> of room <" << roomname << ">\n";
+  string_rv = "!";
+  const GeasBlock *block = find_by_name ("room", roomname);
+  if (block == NULL)
+    {
+      debug_print ("Checking nonexistent room <" + roomname + "> for action <" + actname + ">.");
+      return false;
+    }
+  return block_action (*block, actname, string_rv);
+}
+
 bool GeasFile::get_obj_default_action (const string &objname, string &string_rv) const
 {
-  auto oti = obj_types.find (objname);
-  if (oti == obj_types.end ())
+  const string *oti = obj_type_of (objname);
+  if (oti == NULL)
     {
       debug_print ("Checking nonexistent object <" + objname + "> for default action.");
       return false;
     }
-  const GeasBlock *block = find_by_name (oti->second, objname);
+  const GeasBlock *block = find_by_name (*oti, objname);
   if (block == NULL)
     return false;
   std::string::size_type c1, c2;
@@ -588,11 +651,59 @@ void GeasFile::get_type_action (const string &typenamex, const string &actname, 
     }
 }
  
+/* Fold to lower case in place, matching the ASCII fold build_name_key uses (and
+ * lcase() under the C locale), without allocating a fresh string per call.
+ * Surrounding whitespace is dropped for the same reason build_name_key drops it:
+ * block names are registered trimmed, so keys derived from them must be too. */
+static void fold_lower_into (std::string &out, const string &s)
+{
+  size_t beg = 0, end = s.size ();
+  while (beg < end && isspace ((unsigned char) s[beg]))
+    beg ++;
+  while (end > beg && isspace ((unsigned char) s[end - 1]))
+    end --;
+  size_t n = end - beg;
+  out.resize (n);
+  for (size_t i = 0; i < n; i++)
+    {
+      unsigned char c = (unsigned char) s[beg + i];
+      out[i] = (c >= 'A' && c <= 'Z') ? (char) (c + 32) : (char) c;
+    }
+}
+
+const std::string *GeasFile::obj_type_of (const string &name) const
+{
+  fold_lower_into (obj_type_scratch, name);
+  auto it = obj_types.find (obj_type_scratch);
+  return it == obj_types.end () ? NULL : &it->second;
+}
+
 void GeasFile::register_block (const string &blockname, const string &blocktype)
 {
-  auto it = obj_types.find (blockname);
+  std::string key;
+  fold_lower_into (key, blockname);
+  auto it = obj_types.find (key);
   if (it != obj_types.end ())
     {
+      /* A room and an object may legitimately share a name: Quest keeps rooms
+       * in _rooms and objects in _objs, so "define room <box>" (the interior a
+       * container's contents are parked in) coexists with "define object <box>"
+       * (the box the player sees).  This map answers the question "what is
+       * <name>?" for lookups that did not say, and those are object lookups --
+       * the room half is asked for by name through find_by_name ("room", ...)
+       * or get_room_property.  So let an object or character displace a room.
+       *
+       * "The Devil's Bargain" has five such pairs (box, desk, wallet,
+       * briefcase, panel 579); with the room winning, examining the desk
+       * printed the room's look text, the room prefix was pasted onto the
+       * object in every listing, and "here <desk>" was false, so its whole
+       * container library refused to hand anything over. */
+      if ((blocktype == "object" || blocktype == "character") &&
+	  it->second == "room")
+	{
+	  it->second = blocktype;
+	  return;
+	}
       /* Quest allows the same object name in several rooms (e.g. a "Colony
        * Ship" object defined in three space rooms).  Don't abort the whole
        * game over it -- warn and keep the first registration. */
@@ -601,7 +712,49 @@ void GeasFile::register_block (const string &blockname, const string &blocktype)
 		   it->second + ">.");
       return;
     }
-  obj_types[blockname] = blocktype;
+  obj_types[key] = blocktype;
+}
+
+void GeasFile::register_clone (const string &srcname, const string &newname)
+{
+  std::string srckey, newkey;
+  fold_lower_into (srckey, srcname);
+  fold_lower_into (newkey, newname);
+  if (srckey == newkey || newkey == "")
+    return;
+
+  /* What is <newname>?  Whatever the source was.  Set before the definition
+   * aliases so a cloned room still answers "room" to obj_type_of. */
+  auto ot = obj_types.find (srckey);
+  if (ot != obj_types.end () && obj_types.find (newkey) == obj_types.end ())
+    obj_types[newkey] = ot->second;
+
+  /* Point the new name at the source's definition block(s).  name_index keys
+   * are "<blocktype>\1<lowercased name>", so every key whose name half is the
+   * source gets a twin whose name half is the clone -- which covers the
+   * object/character block and, for a cloned room, the room block too, without
+   * this having to know which of them the game meant.  Collect first: inserting
+   * into an unordered_map while iterating it may rehash.
+   *
+   * An existing definition of that name is left alone.  Quest appends the clone
+   * to the end of _objs while GetObjectIdNoAlias returns the *first* match, so
+   * a name that is already defined in the file keeps its own definition -- and
+   * geas's obj_records is in the same definition order, so the record side
+   * agrees. */
+  std::vector<std::pair<std::string, std::vector<size_t> > > twins;
+  for (const auto &e: name_index)
+    {
+      const std::string &k = e.first;
+      if (k.size () > srckey.size () + 1 &&
+	  k[k.size () - srckey.size () - 1] == '\1' &&
+	  k.compare (k.size () - srckey.size (), srckey.size (), srckey) == 0)
+	twins.push_back (std::make_pair
+			 (k.substr (0, k.size () - srckey.size ()) + newkey,
+			  e.second));
+    }
+  for (const auto &t: twins)
+    if (name_index.find (t.first) == name_index.end ())
+      name_index[t.first] = t.second;
 }
 
 string GeasFile::static_svar_lookup (const string &varname) const
@@ -707,8 +860,32 @@ string GeasFile::static_eval (const string &input) const
 	  size_t j;
 	  for (j = i+1; j < input.length() && input[j] != '#'; j ++)
 	    ;
+	  /* An unmatched conversion character is not fatal in Quest: each pass of
+	   * ConvertParameter (V4Game.cs:6697-6701) reports
+	   * "Line parameter <...> has missing #" to the log -- a WarningError, so
+	   * nothing the player sees -- and yields the string "<ERROR>" for the
+	   * whole parameter, after which play continues normally.  Throwing here
+	   * instead escaped all the way out to set_game's catch, which abandoned
+	   * the rest of startup and left the game silent from the first turn on;
+	   * "The Statue of Riddles" has a room described as "100% empty" and was
+	   * unplayable for that one stray percent sign.
+	   *
+	   * Quest stores the literal text "<ERROR>" as the value instead, and this
+	   * is the only chance to do the same: it resolves definition-level text
+	   * once at load, exactly as we do here (SetUpRoomData calls GetParameter on
+	   * a room's "look" line, V4Game.Part2.cs:1170-1172), and never re-converts
+	   * it when the room is shown.  We cannot, though -- these results are
+	   * re-emitted as "properties <name=value>" lines, and next_token
+	   * (readfile.cc:56-62) ends a <...> token at the *first* '>', so "<ERROR>"
+	   * would be read back as "<ERROR".  Leaving the text alone thus prints the
+	   * raw "100% empty" where Quest prints "<ERROR>"; the runtime paths
+	   * (eval_string, for msg and script parameters) do emit the marker, and
+	   * those are the ones games actually build text with. */
 	  if (j == input.length())
-	    throw string ("Error processing '" + input + "', odd hashes");
+	    {
+	      debug_print ("Line parameter <" + input + "> has missing #");
+	      return input;
+	    }
 	  size_t k;
 	  for (k = i + 1; k < j && input[k] != ':'; k ++)
 	    ;
@@ -754,7 +931,10 @@ string GeasFile::static_eval (const string &input) const
 	  for (j = i + 1; j < input.length() && input[j] != '%'; j ++)
 	    ;
 	  if (j == input.length())
-	    throw string ("Error processing '" + input + "', unmatched %");
+	    {
+	      debug_print ("Line parameter <" + input + "> has missing %");
+	      return input;
+	    }
 	  rv += static_ivar_lookup (input.substr (i+1, j-i-1));
 	  i = j;
 	}

@@ -246,6 +246,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 	{
 	  string tok = first_token (line, t1, t2);
 	  string rest = next_token (line, t1, t2);
+	  bool drop_line = false;
 
 
 	  if (props[tok] && dir_tag_property[tok])
@@ -253,9 +254,82 @@ void GeasFile::read_into (const vector<string> &in_data,
 	      out_data.push_back (line);
 	    }
 
-	  if (props[tok] && rest == "")
+	  /* Quest keeps a bare "open"/"close" line, and one whose whole argument is
+	     a plain <message>, as a *property*; only a scripted form ("open msg
+	     <...>", "open { ... }") becomes an action.  ExecOpenClose reads that
+	     property both to decide whether the container may be opened at all and
+	     for the text to print (V4Game.Part2.cs:3470-3503, V4Game.cs:2814).
+	     Checked ahead of the generic handling below, where "open"/"close" appear
+	     in `actions` and so would become an empty action that opens the
+	     container while printing nothing -- or, for the <message> form, a line
+	     geas recognises as neither property nor action and drops. */
+	  if (actions[tok] && (tok == "open" || tok == "close") &&
+	      (rest == "" || is_param (rest)))
+	    {
+	      line = "properties <" + tok +
+		(rest == "" ? "" : "=" + param_contents (rest)) + ">";
+	    }
+	  /* Container listing lines.  Quest keeps the <text> form of `list`,
+	     `list empty` and `list closed` as a property of that name and the
+	     scripted form as an action; "list empty off"/"list closed off" are the
+	     defaults and record nothing, while "list off" records the property
+	     "not list" to suppress listing altogether (ProcessListInfo,
+	     V4Game.cs:3457-3528, reached from the container branch of the object
+	     loader, V4Game.Part2.cs:3542-3546).  geas dropped all of them on the
+	     floor -- "list" is in neither the props nor the actions word list, so
+	     the raw line fell through to become a *type* property named after the
+	     whole line -- which left the "list closed" text unreachable and, worse,
+	     made `property <X; list empty>` always false.  Games use that condition
+	     to ask "is this container empty?", because Quest's `property` condition
+	     only tests whether the property exists (ExecuteIfProperty,
+	     V4Game.cs:5991) and a container that is not empty prints its contents
+	     instead.  "Shipwrecked" is unwinnable without it: the raft's last piece
+	     is `use <crate2>`, guarded by `if property <crate2; list empty>`. */
+	  else if (tok == "list")
+	    {
+	      string propname = "list";
+	      if (rest == "empty" || rest == "closed")
+		{
+		  propname = "list " + rest;
+		  rest = next_token (line, t1, t2);
+		}
+	      if (rest == "off")
+		{
+		  if (propname == "list")
+		    line = "properties <not list>";
+		  else
+		    drop_line = true;
+		}
+	      else if (is_param (rest))
+		line = "properties <" + propname + "=" + param_contents (rest) + ">";
+	      else if (rest == "")
+		drop_line = true;
+	      else
+		line = "action <" + propname + "> " + line.substr (t1);
+	    }
+	  else if (props[tok] && rest == "")
 	    {
 	      line = "properties <" + tok + ">";
+
+	      /* Quest's object loader treats the two spellings of "hidden"
+	         differently, and this rewrite is exactly what makes them
+	         indistinguishable afterwards, so record which one we saw while we
+	         still can.  Only a bare "hidden" line raises the loader's local
+	         `hidden' flag (V4Game.Part2.cs:3238-3248); "properties <hidden>"
+	         and a hidden inherited from a type merely add the property
+	         (V4Game.Part2.cs:3378-3381), and when the definition ends the
+	         loader undoes their effect on visibility with
+	         "if (!hidden) o.Exists = true" (V4Game.Part2.cs:3550-3553).  So
+	         only the bare tag hides an object at load time; the property still
+	         hides it if something *writes* it later at runtime
+	         (V4Game.cs:4169-4179).  Revenge of the Shadow Masters depends on
+	         this: its Mug o' Grog is "properties <hidden; ...>" and has to be
+	         on sale in the bar from turn one, and the grog gates the whole
+	         second half of the game.  GeasState's constructor reads the marker
+	         back; types are excluded because a type's hidden goes through the
+	         property path in Quest too.  */
+	      if (tok == "hidden" && blocktype != "type")
+		line = "properties <hidden; !hiddentag>";
 	    }
 	  else if (props[tok] && is_param(rest))
 	    {
@@ -364,7 +438,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 		  out_data.push_back ("ERROR " + line);
 		}
 	    }
-	  else
+	  else if (!drop_line)
 	    {
 	      out_data.push_back(line);
 	    }
@@ -383,7 +457,12 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
 
   static string pass_names[] =
     {"game", "type", "room", "variable", "object", "character", "procedure",
-     "function", "selection", "synonyms", "text", "timer"};
+     "function", "selection", "synonyms", "text", "timer",
+     /* "define options" is a nameless block like "define synonyms"; without a
+	pass for it the whole block was dropped, so "abbreviations off" -- the
+	only line in it geas acts on -- could never be seen (SetUpOptions,
+	V4Game.Part2.cs:875-896). */
+     "options"};
 
   reserved_words recursive_passes ("game", "room", (char*) NULL),
     object_passes ("game", "room", "objects", (char*) NULL);
@@ -407,8 +486,18 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
       // SENSITIVE?
       else if (this_pass == "object" || this_pass == "character")
 	{
-	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", "surface", "transparent", "seen", "opened", "closed", "remove", (char *) NULL);
-	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", "open", "close", "remove", (char *) NULL);
+	  /* "add" belongs in both lists for the same reason "remove" does: Quest's
+	     container mechanic looks for an *action* called "add" on the container
+	     first and falls back to a *property* of that name (DoAddRemove,
+	     V4Game.cs:2578-2636), so `add { ... }` / `add msg <...>` is a script and
+	     `add <text>` / a bare `add` is a property.  It used to be in neither, so
+	     an `add` block was emitted as a raw line that nothing ever read -- which
+	     silently disabled every scripted container in the game.  "Shipwrecked"
+	     is unwinnable without it: its lit lantern only reaches the tomb by way
+	     of `put lantern in basket`, and the basket's `add` script is what sets
+	     the flag the tomb doors check. */
+	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", "surface", "transparent", "seen", "opened", "closed", "add", "remove", (char *) NULL);
+	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", "open", "close", "add", "remove", (char *) NULL);
 	}
 	  
       depth = 0;
@@ -440,14 +529,35 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
 	    }
 	  else if (is_end_define (v[i]))
 	    {
-	      -- depth;
+	      /* An "end define" with no block open.  Quest's section scan starts at
+	       * each line beginning "define", counts its way to the matching "end
+	       * define" and then jumps the loop counter past it
+	       * (V4Game.cs:1745-1787), so a stray one at top level is a line the
+	       * scan simply steps over: the sections after it are still found.  The
+	       * only code that objects is CheckSections, which calls it a fatal
+	       * error and refuses the file -- except that Quest skips that check
+	       * outright for three games it names in its own source, "bargain.cas",
+	       * "easymoney.asl" and "musicvf1.cas" (V4Game.cs:106-110, 1735-1741).
+	       *
+	       * "Venus flytrap: Romantic Music" (musicvf1.cas) is one of them: it
+	       * closes `define procedure <noclothesdie>` twice.  Letting depth go
+	       * negative here meant that from that line on `depth == 1` was never
+	       * true again, so every later top-level block was dropped -- two thirds
+	       * of the procedures, all of the copied-in standard library, and the win
+	       * text -- and the game loaded into a state where no command did
+	       * anything at all. */
+	      if (depth > 0)
+		-- depth;
+	      else
+		GEAS_DBG << "readfile: 'end define' with no block open, ignoring: "
+			 << v[i] << endl;
 	    }
 	}
     }
 
 }
 
-static bool decompile (const string &data, vector<string> &rv);
+static bool decompile (const string &data, int cas_version, vector<string> &rv);
 
 static bool preprocess (vector<string> v, const string &fname, vector<string> &rv, GeasInterface *gi);
 
@@ -464,10 +574,22 @@ GeasFile read_geas_file (GeasInterface *gi, const string &filename)
   bool success;
 
   GEAS_DBG << "Header is '" << file_contents.substr (0, 7) << "'.\n";
-  if (file_contents.size() > 8 && file_contents.substr (0, 7) == "QCGF002")
+  /* Three compiled-game container versions exist, and Quest reads all three
+     with one decompiler (LoadCASFile, V4Game.cs:1921): QCGF001 is the Quest 2.x
+     era format, 002 adds three more text-mode block types, and 003 appends a
+     resource catalogue.  Only 002 used to be recognised here, so a 001 or 003
+     game fell through to the plain-text path and loaded as nothing at all. */
+  int cas_version = 0;
+  if (file_contents.size() > 8 && file_contents.compare (0, 4, "QCGF") == 0)
     {
-      GEAS_DBG << "Decompiling\n";
-      success = decompile (file_contents, data);
+      if (file_contents.compare (4, 3, "001") == 0)      cas_version = 1;
+      else if (file_contents.compare (4, 3, "002") == 0) cas_version = 2;
+      else if (file_contents.compare (4, 3, "003") == 0) cas_version = 3;
+    }
+  if (cas_version != 0)
+    {
+      GEAS_DBG << "Decompiling (CAS v" << cas_version << ")\n";
+      success = decompile (file_contents, cas_version, data);
     }
   else
     {
@@ -535,48 +657,71 @@ ostream &operator << (ostream &o, const GeasFile &gf)
 
 
 
+/* The CAS keyword table, byte value -> ASL keyword, transcribed from the real
+   Quest's own quest.dat (QuestViva Legacy/Libraries/quest.dat, read by
+   LoadCASKeywords).  Slots 0, 10 and 252-255 hold quest.dat's "!"-prefixed
+   control codes (!null, !quote, !startcat, !endcat, !unknown, !cr) rather than
+   keywords; decompile() recognises those by byte value, so they stay empty here.
+
+   Everything from 96 (verb) up used to be missing, which is why decompiling a
+   .cas game silently *deleted* those keywords from the line -- so containers,
+   surfaces, verbs, menus and lock/unlock, all of which geas implements, were
+   dead for every compiled game while working fine in the .asl equivalent. */
 static const string compilation_tokens[256] =
-{"", "game", "procedure", "room", "object", "character", "text", "selection", 
- "define", "end", "", "asl-version", "game", "version", "author", "copyright", 
- "info", "start", "possitems", "startitems", "prefix", "look", "out", "gender",
- "speak", "take", "alias", "place", "east", "north", "west", "south", "give", 
- "hideobject", "hidechar", "showobject", "showchar", "collectable", 
- "collecatbles", "command", "use", "hidden", "script", "font", "default", 
- "fontname", "fontsize", "startscript", "nointro", "indescription", 
- "description", "function", "setvar", "for", "error", "synonyms", "beforeturn",
- "afterturn", "invisible", "nodebug", "suffix", "startin", "northeast", 
- "northwest", "southeast", "southwest", "items", "examine", "detail", "drop", 
- "everywhere", "nowhere", "on", "anything", "article", "gain", "properties", 
- "type", "action", "displaytype", "override", "enabled", "disabled", 
- "variable", "value", "display", "nozero", "onchange", "timer", "alt", "lib", 
- "up", "down", "gametype", "singleplayer", "multiplayer", "", "", "", "", "",
+{"", "game", "procedure", "room", "object", "character", "text",
+ "selection", "define", "end", "", "asl-version", "game", "version",
+ "author", "copyright", "info", "start", "possitems", "startitems",
+ "prefix", "look", "out", "gender", "speak", "take", "alias", "place",
+ "east", "north", "west", "south", "give", "hideobject", "hidechar",
+ "showobject", "showchar", "collectable", "collecatbles", "command", "use",
+ "hidden", "script", "font", "default", "fontname", "fontsize",
+ "startscript", "nointro", "indescription", "description", "function",
+ "setvar", "for", "error", "synonyms", "beforeturn", "afterturn",
+ "invisible", "nodebug", "suffix", "startin", "northeast", "northwest",
+ "southeast", "southwest", "items", "examine", "detail", "drop",
+ "everywhere", "nowhere", "on", "anything", "article", "gain", "properties",
+ "type", "action", "displaytype", "override", "enabled", "disabled",
+ "variable", "value", "display", "nozero", "onchange", "timer", "alt",
+ "lib", "up", "down", "gametype", "singleplayer", "multiplayer", "verb",
+ "menu", "container", "surface", "transparent", "opened", "parent", "open",
+ "close", "add", "remove", "list", "empty", "closed", "options",
+ "abbreviations", "locked", "", "", "", "", "", "", "", "", "", "", "", "",
  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
- "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
- "", "", "", "", "", "", "", "", "", "", "", "do", "if", "got", "then", "else",
- "has", "say", "playwav", "lose", "msg", "not", "playerlose", "playerwin", 
- "ask", "goto", "set", "show", "choice", "choose", "is", "setstring", 
- "displaytext", "exec", "pause", "clear", "debug", "enter", "movechar", 
- "moveobject", "revealchar", "revealobject", "concealchar", "concealobject",
- "mailto", "and", "or", "outputoff", "outputon", "here", "playmidi", "drop", 
- "helpmsg", "helpdisplaytext", "helpclear", "helpclose", "hide", "show", 
- "move", "conceal", "reveal", "numeric", "string", "collectable", "property", 
- "create", "exit", "doaction", "close", "each", "in", "repeat", "while", 
- "until", "timeron", "timeroff", "stop", "panes", "on", "off", "return", 
- "playmod", "modvolume", "clone", "shellexe", "background", "foreground",
- "wait", "picture", "nospeak", "animate", "persist", "inc", "dec", "flag", 
- "dontprocess", "destroy", "beforesave", "onload", "", "", "", "", "", "", 
- "", "", "", "", "", "", "", "", "", "", "", "" };
+ "", "", "", "", "", "", "do", "if", "got", "then", "else", "has", "say",
+ "playwav", "lose", "msg", "not", "playerlose", "playerwin", "ask", "goto",
+ "set", "show", "choice", "choose", "is", "setstring", "displaytext",
+ "exec", "pause", "clear", "debug", "enter", "movechar", "moveobject",
+ "revealchar", "revealobject", "concealchar", "concealobject", "mailto",
+ "and", "or", "outputoff", "outputon", "here", "playmidi", "drop",
+ "helpmsg", "helpdisplaytext", "helpclear", "helpclose", "hide", "show",
+ "move", "conceal", "reveal", "numeric", "string", "collectable",
+ "property", "create", "exit", "doaction", "close", "each", "in", "repeat",
+ "while", "until", "timeron", "timeroff", "stop", "panes", "on", "off",
+ "return", "playmod", "modvolume", "clone", "shellexe", "background",
+ "foreground", "wait", "picture", "nospeak", "animate", "persist", "inc",
+ "dec", "flag", "dontprocess", "destroy", "beforesave", "onload", "playmp3",
+ "extract", "shell", "popup", "select", "case", "lock", "unlock", "", "",
+ "", "", "", "", "", "", "", ""
+};
 
 
-bool decompile (const string &s, vector<string> &rv)
+bool decompile (const string &s, int cas_version, vector<string> &rv)
 {
   string cur_line, tok;
   uint expect_text = 0, obfus = 0;
   unsigned char ch;
-  
+
   for (uint i = 8; i < s.length(); i ++)
     {
       ch = s[i];
+      /* CAS v3 appends a resource catalogue (!startcat .. !endcat) followed by
+	 the packed resource data.  Quest stops scanning script the moment it
+	 meets !startcat at a token position (V4Game.cs:1947) -- everything past
+	 it is binary, not script -- and so do we.  The test has to be at a token
+	 position: inside a quoted string, a text block or an !unknown run the
+	 same byte is just data. */
+      if (cas_version >= 3 && ch == 252 && obfus == 0 && expect_text != 2)
+	break;
       if (obfus == 1 && ch == 0)
 	{
 	  cur_line += "> ";
@@ -634,8 +779,13 @@ bool decompile (const string &s, vector<string> &rv)
       else
 	{
 	  tok = compilation_tokens[ch];
-	  if ((tok == "text" || tok == "synonyms" || tok == "type") && 
-	      cur_line == "define ")
+	  /* Blocks whose body is stored as raw obfuscated text rather than as
+	     tokens.  "define text" is text-mode in every version; synonyms, type
+	     and menu only from v2 on (V4Game.cs:2059), since v1 predates them. */
+	  if (cur_line == "define " &&
+	      (tok == "text" ||
+	       (cas_version >= 2 &&
+		(tok == "synonyms" || tok == "type" || tok == "menu"))))
 	    {
 	      expect_text = 1;
 	    }

@@ -1,0 +1,80 @@
+A day at the redsauce office -- QDK Lite 4.1.2, asl-version 410.  The file is
+game329.asl.
+
+A companion piece to Red Sauce Monday, which is already in the suite: the same
+Stoke web agency, the same staff, written as an in-joke for the team.  Tom
+introduces it himself -- "This is a standard text adventure, so remember to LOOK
+at things, SPEAK to everyone and GIVE things to them when necessary" -- and that
+is the whole game.  There is a crocodile sitting at your desk and nine
+colleagues between you and getting rid of it.
+
+There is no playerwin and no score.  The win is a message on the rubber band's
+`use on <CROCODILE>` -- "You beat the game, so well done.|n|nNow, whose turn is
+it to make the teas?" -- and that is the marker.  The game keeps running
+afterwards, because nothing ever ends it.
+
+THE CHAIN is strictly linear and every link is a GIVE except the last two:
+
+    can of pepsi -> TOM       -> banana
+    banana       -> AMY       -> banana skin
+    banana skin  -> CHRIS     -> banjo
+    banjo        -> TIM       -> magazine on Twitter
+    magazine     -> SIMON     -> cup of coffee
+    cup of coffee-> ROGER     -> anime DVD
+    anime DVD    -> SELENA    -> M&Ms
+    M&Ms         -> MILTON    -> cheeky pose
+    cheeky pose  -> JAMES     -> rubber band     (USE, not GIVE)
+    rubber band  -> CROCODILE -> the ending      (USE ON)
+
+Each colleague's SPEAK text is the hint for what they want, so the intended way
+to play is to talk to all nine and work out the order.  The route below just
+does the chain.
+
+THREE THINGS THAT ARE EASY TO MISS.
+
+  * NORTH from outside does not get you in.  The Front door room's description
+    is the whole hint -- "Try opening the door first." -- and it is the door's
+    `action <open>` that runs `goto <office>`.
+  * The can of pepsi does not exist until you LOOK AT the FRIDGE: the fridge's
+    look script ends with `reveal <CAN>`.  It is the only object in the game
+    hidden behind a look, and the chain cannot start without it.
+  * The last link is USE CHEEKY POSE ON JAMES rather than GIVE.  James declares
+    `use <CHEEKY POSE>` and the pose has no `give to` at all, so GIVE POSE TO
+    JAMES gets nowhere.  (The game block also declares a
+    `verb <use cheeky look on james>` that does the same thing, which is
+    presumably where the author started before moving it onto James.)
+
+AUTHORING QUIRK, visible in the transcript.  The door's open script conceals the
+entire cast so that the office listing is not a spoiler, but three of the
+conceals -- magazine on Twitter, banana skin, banjo -- are written *after* its
+`goto <office>`.  The goto prints the room first, so the first look at the
+office lists three objects that are gone by the time you look again.  That is
+faithful: a script keeps running after a goto, it just runs too late to affect
+the description the goto already printed.
+
+The rest is scenery with jokes on it: the garden south of the office tells you
+off for not working, the football table lets you CHALLENGE CHRIS or CHALLENGE
+TIM and then admits you have no chance and bounces you back, the shelves
+remember Selena's doweling faux pas, and SPEAK TO FRIDGE gets "You say 'Open
+Sesame', but nothing happens.  Because this isn't Kings Quest".
+
+Verified: 17 turns, marker "You beat the game", seed 1.
+
+Start:
+north
+open door
+speak to team
+south
+look at fridge
+take can
+give can to tom
+give banana to amy
+give banana skin to chris
+give banjo to tim
+give magazine to simon
+give cup of coffee to roger
+give anime dvd to selena
+give m&ms to milton
+use cheeky pose on james
+north
+use rubber band on crocodile

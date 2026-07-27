@@ -1,0 +1,133 @@
+Kurri Ming -- Slackers Inc. (Stephen Brown), v1.0, ASL 410
+==========================================================
+
+Four rooms, one puzzle chain, and a gimmick: you play two characters and swap
+between them with a global command, because nearly every object in the game
+refuses to be touched by the wrong one.
+
+    command <Switch Character> {
+        if flag <kuroda> then {
+            if ( #character# = Kurri ) then {
+                hide <Kuroda Kinji>  show <Kurri Ming>
+                set string <character; Kuroda>
+                msg <You are now playing as Kuroda Kinji!> }
+            else { ...the mirror image... } }
+        else msg <To enable this feature, you must first meet up with Kuroda.>
+    }
+
+The flag is set by the Living Room's first-visit description, so SWITCH CHARACTER
+does nothing at all until you have walked east then north.  The in-game
+instructions point you at a `define menu <switch character>` in Quest's toolbar
+rather than at the command, but typing it works, which is what the script does.
+
+Rooms 1, 2 and 3 each carry `script { if flag <kuroda> then { move <Kurri Ming;
+Room N>  move <Kuroda Kinji; Room N> } }`, so whichever of the pair you are not
+follows you everywhere.  Inventory is shared -- there is one player object -- so
+"Kuroda takes the Simon Game" and "Kurri is carrying the Simon Game" are the same
+sentence.
+
+Who can do what
+---------------
+    Kurri only    take Glock 9mm, take Box of Snap and Pops, take Fuse,
+                  take Hair Pin, fire the gun, use the fuse, use the tape,
+                  use the makeshift bomb
+    Kuroda only   take Simon Game, take Computer Chip, insert the chip,
+                  use the Rubber Band, PROGRAM COMPUTER CHIP
+    either        take Rubber Band, take Roll of Tape (both bare `take`)
+
+The Roll of Tape is declared `properties <kuroda object>` and yet its `use on
+<Makeshift Bomb>` demands Kurri; the labels are decoration, only the
+`if ( #character# = ... )` guards inside the scripts matter.
+
+The chain
+---------
+    1. (Kurri, Room 1)   TAKE FUSE, TAKE TAPE, TAKE RUBBER BAND
+    2. E, N              first visit to the Living Room wakes Kuroda and turns on
+                         the `kuroda` flag -- switching is now possible
+    3. (Kurri, Room 3)   TAKE GLOCK, TAKE BOX OF SNAP AND POPS
+    4. USE GLOCK ON COMPUTER
+                         "SHOOT THE COMPUTER!" -- reveals the Computer Chip
+    5. USE FUSE ON BOX OF SNAP AND POPS      -> Makeshift Bomb
+    6. USE TAPE ON MAKESHIFT BOMB            -> Makeshift Bomb2 (alias
+                                                "Makeshift Bomb"), the stable one
+    7. S, W back to Room 1, where the Simon Game is
+    8. USE MAKESHIFT BOMB ON SIMON GAME      -> flag <simon back exposed>
+                                                (checks `got <Roll of Tape>`,
+                                                which the tape step did not
+                                                consume)
+    9. SWITCH CHARACTER -> Kuroda; TAKE SIMON GAME
+   10. E, N; TAKE COMPUTER CHIP
+   11. USE COMPUTER CHIP ON SIMON GAME       -> flag <chip in simon>
+   12. USE RUBBER BAND ON SIMON GAME          (see below)
+   13. PROGRAM COMPUTER CHIP -> the Key
+   14. USE KEY ON DOOR -> `goto <Room 4>`, and Room 4's `script playerwin`
+
+Step 12 is optional.  The rubber band's script only prints "Now you need to
+program the chip" and sets nothing; PROGRAM's guard is `if flag <chip in simon>`,
+which step 11 already set.  It is in the script below because it is obviously
+meant to be part of the sequence -- the Key's description is "a rather odd
+looking key, consisting of a simon game, computer chip, and a rubber band".
+
+Step 14 does not unlock anything.  Room 3's exit is
+
+    east locked <Room 4; I still think there is something I need to do before I
+      can go this way.>
+
+and stays locked forever; the Key simply teleports you past it.
+
+The advertised feature
+----------------------
+The startscript is a tutorial for a verb:
+
+    verb <List Commands For> msg <You can't List Commands For that.>
+
+Every object that matters answers LIST COMMANDS FOR X with its own list of legal
+commands, which makes the game close to unlosable.  The scenery does not: the
+Cannon, Bannana Peal, Umbrella, Wand and Computer declare `properties <List
+Commands For>` but no matching `action`, so asking about them falls through to
+the verb's own "You can't List Commands For that."
+
+Counters and loose ends
+-----------------------
+    define variable <Bullets>        display nozero <Bullets: !>
+    define variable <Snap and Pops>  display nozero <Pops: !>
+
+Taking the Glock does `inc <bullets; 2>`, shooting the computer `dec <bullets;
+1>`, and nothing ever reads the total.  The box of snap and pops holds 50, and
+building the bomb does `set <snap and pops; 0>` -- an untyped `set` on a numeric
+variable, legal from ASL 2.80 on.  Setting one off by hand has its guard
+backwards:
+
+    use { if ( %snap and pops% <= 40 ) then msg <I think I should hang on to
+          these, they might come in handy.> else { ...dec... } }
+
+so you may burn the first ten and then the game decides they are precious.
+
+The Hair Pin in Room 1 is takeable by Kurri and has no use anywhere.  Room 3
+contains a `command <>` with an empty name and no body.  Room 1's return
+description reads, in full, "Edit later.. This is for when player comes back into
+their room."
+
+Start:
+take fuse
+take tape
+take rubber band
+e
+n
+take glock
+take box of snap and pops
+use glock on computer
+use fuse on box of snap and pops
+use tape on makeshift bomb
+s
+w
+use makeshift bomb on simon game
+switch character
+take simon game
+e
+n
+take computer chip
+use computer chip on simon game
+use rubber band on simon game
+program computer chip
+use key on door

@@ -1,0 +1,25 @@
+
+repeatcond
+
+You are in Chamber
+A round stone chamber.
+
+> countup
+n is now 1
+n is now 2
+n is now 3
+done at 3
+
+> countdown
+countdown ended at 0
+
+> both
+n 1 m 9
+n 2 m 8
+stopped at n 2 m 8
+
+> untilflag
+bumped to 1
+bumped to 2
+untilflag ended at 2
+[runner] turns=4 leftover=0 running=true

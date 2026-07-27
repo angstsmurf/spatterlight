@@ -1,0 +1,43 @@
+
+VerbFirst
+
+You are in Room
+There is widget, rope, lever, cushion and rock here.
+A plain room.
+
+> use widget
+You use the widget.
+
+> use rope
+The rope is too short.
+
+> use lever
+The lever clunks.
+
+> use rock
+You can't use that.
+
+> use widget on rock
+You don't see any widget on rock.
+
+> poke cushion
+The cushion wobbles.
+
+> prod cushion
+The cushion wobbles.
+
+> poke rock
+Poking that achieves nothing.
+
+> examine widget
+
+> x widget
+A widget.
+
+> take rock
+You pick it up.
+
+> i
+You are carrying:
+rock
+[runner] turns=12 leftover=0 running=true

@@ -1,0 +1,24 @@
+
+Nametrim
+
+You are in Camp
+A camp with a knapsack in the corner.
+
+> check
+[got: no]
+[got, spelled with the space: no]
+
+> rummage
+You dig through the knapsack.
+
+> check
+[got: yes]
+[got, spelled with the space: yes]
+
+> x journal
+Pages of cramped handwriting.
+
+> i
+You are carrying:
+Journal
+[runner] turns=5 leftover=0 running=true

@@ -1,0 +1,36 @@
+
+GainScript
+
+You are in Beach
+There is pebble, shell, twig and reed here.
+A flat grey beach.
+
+> look
+You are in Beach
+There is pebble, shell, twig and reed here.
+A flat grey beach.
+
+> take pebble
+You pick it up.
+The pebble is warm.
+
+> x mark
+A mark in the sand.
+
+> take shell
+You prise the shell out of the sand.
+The shell smells of salt.
+
+> take twig
+You leave the twig where it lies.
+
+> take reed
+You snap off the reed.
+The reed rattles.
+
+> i
+You are carrying:
+pebble
+shell
+reed
+[runner] turns=7 leftover=0 running=true

@@ -1,0 +1,21 @@
+
+usename
+
+You are in Range
+There is rifle, wand, target and rock here.
+
+> take rifle
+You pick it up.
+
+> take wand
+You pick it up.
+
+> use rifle on target
+hit by rifle, power 2
+
+> use wand on target
+hit by wand, power 5
+
+> use wand on rock
+waved at rock, power 3
+[runner] turns=5 leftover=0 running=true

@@ -1,0 +1,175 @@
+Day In the Life: Teacher -- Jordan, ASL 350
+===========================================
+
+Mr. Smith teaches 7th grade, and the game is his timetable: wake up, find the
+car keys, remember your lunch, teach nine periods, grade the papers, go back to
+bed.  The whole thing is a linear chain of `show`/`hide` on hidden objects, with
+exactly one thing that can go wrong.
+
+It is also a QDK Pro 3.53 game with no compass directions at all.  Every exit is
+a `place <Room>`, so movement is GO TO <ROOM>, and the two floors of the house
+are joined only by two hand-written room commands:
+
+    define room <Upstairs Hallway>
+        command <go down stairs> goto <Downstairs Hallway>
+    define room <Downstairs Hallway>
+        command <go up stairs> goto <Upstairs Hallway>
+
+The descriptions tell you so, which is just as well, because GO TO DOWNSTAIRS
+HALLWAY does not work from upstairs.
+
+TAKE does everything
+--------------------
+There is no custom verb in the game.  Every interaction is the object's `take`
+script, whatever it actually represents:
+
+    take light             turn on the closet light  (reveals the car keys)
+    take Refridgerator     open the fridge and pocket your lunch
+    take Car               drive to school (only `if got <car keys>`)
+    take Papers            collect the ungraded papers at the final bell
+    take The Car           drive home from school
+    take The Bed           go to sleep -- `take playerwin`, the ending
+
+and TAKE RECEPTIONIST gets you "No way! I don't want to touch HER!".  Teaching a
+class is SPEAK TO instead: each period is a hidden object whose `speak` script
+prints one of three shared `define text` blocks (LA 1, Science, Math -- reused
+three times each), hides itself, shows the next period, and stamps the clock.
+
+The clock
+---------
+    define variable <The Time>  type numeric  value <8>  display <It is ! o' clock.>
+
+It is a plain number, not a time, so the status pane cycles through "It is 8 o'
+clock", "It is 830 o' clock", "It is 915 o' clock", "It is 10 o' clock", 11, 12,
+1245, 130, 215, 3, 345, 6, 630 and finally "It is 9 o' clock" for bedtime.  Every
+period sets it directly; nothing ever reads it.
+
+The one way to lose -- and the two ways not to
+----------------------------------------------
+Lunchtime is the only branch.  In the Teacher's Lounge:
+
+    define object <Other Teachers>
+        speak if got <Deluxe Cuisine> then { ...chat, show <2nd Math>... }
+        else { msg <You sit down and realize-- you forgot your lunch at home!!!!>
+               playerlose }
+
+So you must be holding the Deluxe Cuisine before 12 o'clock, and there are two
+ways to get it:
+
+  1. TAKE REFRIDGERATOR in the Kitchen before leaving home.  This is what the
+     lose text tells you to do ("Next time remember to check the fridge at home")
+     and it is what the script below does.
+
+  2. Forget it, and in Room 101 TAKE DESK, which yields a Package addressed to
+     Mrs. Swoon; SPEAK TO MRS. SWOON in Room 102 and she recognises it as her own
+     lunch, gives it to you, and keeps her PB&J.
+
+The two are mutually exclusive, deliberately:
+
+    define object <Desk>
+        take { if got <Deluxe Cuisine> then msg <You attempt to pick up the huge
+               desk, but since you didn't do well in Gym, you strain some
+               muscles.|n"Ow."> else { ...give <Package>... } }
+
+Once the fridge lunch is in your hands the desk is just a desk, so route 1 closes
+route 2 for good.  (And if you have already given Mrs. Swoon the package, taking
+the fridge lunch too is impossible -- you were never home again.)
+
+Order of periods
+----------------
+The chain is fixed and each link is only reachable in one room, so the walk is a
+lot of trips through School- Hallway.  Room 101 is Language Arts, 104 Math, 105
+Science, and the Teacher's Lounge holds both lunch and the papers:
+
+    Room 101  speak to 1st Class      8:30 -> 9:15
+    Room 101  speak to 2nd Class      9:15 -> 10:00
+    Room 105  speak to 1st Science   10:00 -> 11:00
+    Room 104  speak to 1st Math      11:00 -> 12:00
+    Lounge    speak to Other Teachers  12:00 -> 12:45   (needs the lunch)
+    Room 104  speak to 2nd Math      12:45 -> 1:30
+    Room 101  speak to 3rd Class      1:30 -> 2:15
+    Room 105  speak to 2nd Science    2:15 -> 3:00
+    Room 105  speak to 3rd Science    3:00 -> 3:45, and the Papers appear
+    Lounge    take Papers            3:45 -> 6:00, and The Car appears
+    Front     take The Car           6:00 -> 6:30, and you are home
+    Dining    use Papers             -> 9:00, and The Bed appears
+    Bedroom   take The Bed           playerwin
+
+MY SCHEDULE, lying on the front-hall floor, is the in-game version of that table
+(USE MY SCHEDULE prints it), and it is accurate apart from listing "6:00-
+Departure" as the last entry.
+
+The toilet trap
+---------------
+Nothing else in the game can be got wrong, but one thing can waste half an hour:
+
+    define object <Toilet>       (Bathroom)
+        take if ask <Do I really need to go?> then {
+            timeron <Toilet>
+            destroy exit <Bathroom; Upstairs Hallway>
+            hide <Toilet> }
+        else say <No, I don't need to.>
+
+    define timer <Toilet> interval <30> ... create exit <Bathroom; Upstairs Hallway>
+
+Answer YES and the door out of the bathroom is destroyed for thirty turns, with
+no exits at all and nothing to do; the timer then flushes and rebuilds it.  It is
+the game's only timer and its only `destroy exit`.  This script stays out of the
+bathroom.
+
+Other scenery: the Living Room TV is `take choose <TV>`, a `choose` pointed at a
+prose `define text` rather than a list of options, so it opens a menu with
+nothing in it -- avoid.  The Lunch Lady in the cafeteria and Mrs. Swoon's
+no-package greeting are flavour.  The Garage has no `place` exits whatsoever, so
+once you walk in the only way out is to drive to school.
+
+Start:
+go to bedroom
+go to closet
+take light
+take car keys
+go to bedroom
+go to upstairs hallway
+go down stairs
+go to dining room
+go to kitchen
+take refridgerator
+go to garage
+take car
+go to school- hallway
+go to room 101
+speak to 1st class
+speak to 2nd class
+go to school- hallway
+go to room 105
+speak to 1st science
+go to school- hallway
+go to room 104
+speak to 1st math
+go to school- hallway
+go to school- front
+go to teacher's lounge
+speak to other teachers
+go to school- hallway
+go to room 104
+speak to 2nd math
+go to school- hallway
+go to room 101
+speak to 3rd class
+go to school- hallway
+go to room 105
+speak to 2nd science
+speak to 3rd science
+go to school- hallway
+go to school- front
+go to teacher's lounge
+take papers
+go to school- hallway
+go to school- front
+take the car
+go to dining room
+use papers
+go to downstairs hallway
+go up stairs
+go to bedroom
+take the bed

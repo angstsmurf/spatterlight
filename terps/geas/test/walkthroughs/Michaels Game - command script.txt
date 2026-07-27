@@ -1,0 +1,404 @@
+Michael's Game -- command script
+================================
+
+Game:      Michael's Game  (games/Michaels Game.asl)
+Author:    "Connie Strump"
+Copyright: "Groupon Inc 0169"
+Engine:    ASL 410, QDK 4.1.4 (the `game info` line claims QDK Pro 4.1.2)
+Marker:    "DOOR TO THE END OF THIS DUMB GAME unguarded"
+Length:    172 turns (173 script lines -- one of them answers the art quiz)
+
+*** THIS GAME CANNOT BE FINISHED.  See "THE DEAD FINAL DOOR" below. ***
+The marker above is the furthest reachable state: every puzzle in the game is
+solved, the guard is asleep and the final door is unlocked.  Walking through it
+does nothing, in geas and in real Quest 4 alike.
+
+WHAT THIS GAME IS
+-----------------
+An office in-joke, written at Groupon and lightly filed off as "Gloopon".  The
+framing: you are Michael, a child who has been raised in a single room by the
+company, and the narrator is the company -- relentlessly condescending, forever
+reminding you how lucky you are and how dangerous everywhere else is.  The
+joke underneath is that Michael himself has hidden six notes through the game
+he was given as a teaching tool, and they are a smuggled plea for help ("HELLO
+GLOOPONS. ITS ME MICHAEL. IM SO SORRY... SO BEAT THE GAME SO YOU CAN STOP ME").
+Eleven rooms, a five-step chemistry puzzle, and a great deal of swearing.
+
+The map is the game's one genuinely good joke, and it is also a puzzle answer.
+Five rooms form a north-south spine, and three two-room arms run east off the
+top, middle and bottom of it:
+
+    Jungle Room ---- The Louvre ---- Underwater Room
+        |
+    Public Employee Room
+        |
+    The Library ---- Gloopon office ---- Michael's Room
+        |
+    Independence Hall
+        |
+    The Science Lab ---- The Oval Office ---- The Moon
+
+That is a capital **E**, and the answer to the guard's riddle ("assuming that
+every room in this game is the same size, when you draw them out on a map what
+letter do they make the shape of?") is E.  Exactly eleven rooms, which is
+5 + 3x2 -- the author counted.
+
+THE CRITICAL PATH
+-----------------
+Michael's Room (start):
+  TURN SILVER HANDLE (on the toilet) drops a CD out of the ceiling.  Take it.
+  USE CD ON MICHAEL'S COMPUTER shoots a Key out of the disc drive.  Take it.
+  USE KEY unlocks the door west.  TYPE PASSWORD123 is optional -- it is
+  Michael's message, and it is where the game's conceit is spelled out.
+
+Gloopon office: TAKE GLITTER.  You need it much later, and it is the only
+  object in the room that is not lethal.
+
+Public Employee Room (Library north): SPEAK TO POLICE OFFICER, SPEAK TO
+  FIREMAN, SPEAK TO CONSTRUCTION WORKER.  Each hands over one item -- a note,
+  the LIGHTER, and the HAMMER -- and the game apologises for using them as a
+  shortcut ("These people are great and not at all a shortcut for the game
+  programmer in giving you clues").
+
+The Library: SMASH GLASS CASE with the hammer, then TAKE MACHETE.
+  LOOK AT OTHER BOOKSHELF is what reveals A NOTE FROM MICHAEL.
+
+Back in Michael's Room, now that you have the lighter:
+  BURN MONKEY POSTER reveals the Louvre key (called "Gold Key" in the text).
+  BURN SHARK POSTER reveals the Glass of milk.  Take both.  The Glass of milk
+  is one of the guard's three sleep items, so this pair of arson jokes is on
+  the critical path.
+
+Jungle Room (Public Employee Room north): TAKE SHOVEL, then DIG SHOVEL -- and
+  the shovel's own description apologises for the phrasing: "because of this
+  dumb program I have to tell you that to dig with this thing you have to type
+  'dig shovel'.  I am sorry about this."  HACK VINES with the machete unlocks
+  the door east.
+
+The Louvre: LOOK AT ARTS starts a five-option art quiz; the right answer is
+  option 4, `dbface`.  It reveals A FOURTH NOTE FROM MICHAEL, and taking that
+  note while holding both the Louvre key and the Glass of milk triggers the
+  ghost who tells you the checkpoint password ("say goodbye, english
+  breakfast", which teleports you here with your inventory intact if you die).
+  USE LOUVRE KEY unlocks the door east.
+
+Underwater Room: a 60-second drown timer starts the moment you arrive, the
+  door behind you is re-locked by the room's own script, and the way out is
+  inside a chest.  TAKE BRASS KEY first (it is loose in the room and it is the
+  only way into the bottom third of the map).  Then OPEN CHEST, which offers
+  "a gold key, a silver key, and a pretzel key" and lets you take exactly one
+  -- taking any one hides the other two.  Take the GOLD KEY: USE GOLD KEY
+  unlocks the west door.  The other two are traps in the cruellest possible
+  way; see "THE CHEST" below.
+
+The Library: USE BRASS KEY unlocks the door south.
+
+Independence Hall: SPEAK TO GEORGE WASHINGTON, then TAKE THING (out from under
+  his hat) for the sixth note and the hint about "my wife's nickname according
+  to Groupon Says".
+
+The Science Lab.  Take calcium, pieces of aluminum, dog bones, cinnamon and
+  the highlighter, then run the recipe the six notes spell out:
+    COMBINE CALCIUM AND PIECES OF ALUMINUM        -> calcuminum
+    COMBINE DOG BONES AND HIGHLIGHTER             -> fluorescent bone paste
+    PUT FLUORESCENT BONE PASTE OVER BUNSEN BURNER -> science crystal
+    COMBINE CALCUMINUM AND CINNAMON               -> cinnamonium
+    COMBINE CINNAMONIUM AND SCIENCE CRYSTAL       -> unobtainium
+    COMBINE GLITTER AND UNOBTAINIUM               -> less boring unobtainium
+  Then GIVE LESS BORING UNOBTAINIUM TO REYNOLD, which unlocks the door east.
+  Both the verb and the name matter here; see "TWO WAYS THE SCIENCE LAB LIES"
+  below.  Giving him the plain unobtainium first is worth doing once for the
+  rejection speech ("sure it's a new element and all but it's soooo boring").
+
+The Oval Office: SAY BETSY ROSS drops the OLD TIMEY SLEEP HAT out of a secret
+  ceiling panel.  Take it.  Do not push the big red button.
+
+The Moon: the room description asks a yes-or-no question ("Was the game
+  designer to lazy to set up a challenge in this room?").  Answer YES and a
+  teddy bear appears.  Take it.
+
+The Library, finally: GIVE GLASS OF MILK TO GUARD, GIVE OLD TIMEY SLEEP HAT TO
+  GUARD, GIVE TEDDY BEAR TO GUARD.  He then poses the map riddle, and SAY E
+  puts him to sleep and unlocks the door west -- "leaving this DOOR TO THE END
+  OF THIS DUMB GAME unguarded".  That is as far as the game goes.
+
+THE DEAD FINAL DOOR
+-------------------
+The Library declares its west exit as one line:
+
+  west locked <...guard won't let you> locked <...> locked <...> msg <You've beaten the game>
+
+Quest parses a directional exit tag by taking the direction, then an optional
+`locked`, then -- if what remains starts with "<" -- the *first* <...> as the
+tag's parameter and everything after that closing ">" as the exit's **script**
+(RoomExits.AddExitFromTag, RoomExits.cs:141-186).  For a directional exit that
+parameter is the lock message, never a destination.  So this exit is a locked
+script exit whose lock message is the guard's refusal and whose script is the
+single line
+
+  locked <...> locked <...> msg <You've beaten the game>
+
+and ExecuteScript splits a script on CRLF only, then dispatches one leading
+keyword per line with BeginsWith (V4Game.Part2.cs:5686-5722).  The keyword here
+is `locked`, which is not a script statement, so Quest logs "Unrecognized
+keyword" and does nothing.  The `msg` is never reached.  The author wrote three
+lock messages and the win text on one line; only the first survives, and the
+win text is dead code.  There is no `playerwin` anywhere in the file.
+
+geas reproduces this exactly -- `west` prints nothing and does not move -- and
+fixtures/exitscript410.asl pins that behaviour along with the general
+one-statement-per-line rule, so that nobody later "fixes" it into a loop.
+
+TWO WAYS THE SCIENCE LAB LIES
+-----------------------------
+1. USE is a dead end; COMBINE is the real verb.  `calcium` carries an
+   object-level `use <pieces of aluminum>` that reports success and does
+   `give <calcuminium>` -- misspelled, with an extra i.  No object by that name
+   exists, so USE CALCIUM ON PIECES OF ALUMINUM consumes both reagents and
+   hands you nothing, permanently.  The game-level `combine #object1# and
+   #object2#` command spells it `calcuminum` and works.  The notes from Michael
+   all say "Combine", which is the only warning you get.
+
+2. The robot's name decides whether you can win.  The game-level handler opens
+
+     if ( #object1# = unobtainium ) and ( #object2# = reynold )
+        or ( #object2# = R.E.Y.N.O.L.D. ) then { reject } else { accept... }
+
+   Left-associated, that is `(A and B) or C`.  So *any* give addressed to
+   "R.E.Y.N.O.L.D." takes the reject branch no matter what you are handing
+   over, and the accept branch is unreachable through that name.  Addressing
+   him as "reynold" makes C false, A false, and drops into the else.  This
+   script therefore says GIVE LESS BORING UNOBTAINIUM TO REYNOLD.  Worth
+   knowing that the same else branch holds all three of the guard's sleep-item
+   handlers, which is why they work at all.
+
+THE CHEST
+---------
+The Underwater Room's chest offers "a gold key, a silver key, and a pretzel
+key" and lets you take one.  The silver key is an object named
+`old timey sleep cap` and the pretzel key is an object named `teddy bear` --
+namesakes of the two real sleep items, `old timey sleep hat` in the Oval Office
+and `teddy bear1` on the Moon.  The guard's handlers test `got <old timey sleep
+hat>` and `got <teddy bear1>`, so neither chest item can ever satisfy him.
+Taking either one hides the gold key, which is the only thing that unlocks the
+way out, and the room is on a 60-second drown timer.  There is also a
+`skeleton key` behind the pirate skull whose use message is "Sorry, this key
+don't to a damn thing", and a `key-shaped rock` that is "just a rock".  Four
+decoy keys, one real one.
+
+WAYS TO DIE
+-----------
+  * TOUCH COMPUTERS, TOUCH PHONES or TOUCH BREAKABLE THINGS in the Gloopon
+    office -- the room description warns you off all three by name, and the
+    computers one is the game explaining that "the real robots that we really
+    installed in the real Groupon office come down and kill you".
+  * TOUCH PLANT in the Library.
+  * PUSH BUTTON in the Oval Office (every nuclear weapon on Earth).
+  * USE CALCIUM ON CINNAMON, ON DOG BONES or ON HIGHLIGHTER -- "terrible poison
+    that kills everything".  Note these are the object-level `use` handlers,
+    i.e. the same wrong verb that silently eats your reagents in case 1 above.
+  * Staying in the Underwater Room for 60 seconds (the `Drown` timer).  This
+    harness does not advance timers, so the script is not racing it, but the
+    route is written to leave promptly anyway.
+
+AUTHORING QUIRKS
+----------------
+`say` always prints "No one can hear you. What a dweeb" first, whatever you
+say, because the handler is `if (#text# = goodbye, english breakfast) then
+{...} else msg <...>` followed by further un-elsed `if`s.  Those later `if`s
+have the same broken precedence as the robot's: `say Betsy Ross` and `say E`
+fire their branches regardless of the `flag <in oval>` / `flag <in library>`
+guards the author meant to attach, because the `and flag <...>` binds only to
+the last of four or-ed text comparisons.  The script still visits the right
+rooms, since what the branches do is `show` an object that lives there.
+
+Fourteen game-level `verb <x> msg <...>` fallbacks (burn, turn, touch, smash,
+dig, hack, open, push, ride, "change channel on", "insert CD into", "turn
+silver handle on", "type password123 on", and `ride ` again with a stray
+trailing space) are answered by per-object `action <verb>` handlers -- the
+stdverbs.lib idiom, and this game leans on it for nearly every puzzle, so the
+script burns, turns, touches, smashes, digs, hacks and rides a lot of scenery.
+
+Also deliberately included: BURN PAINTING, which is the only refusal with
+feelings ("A single tear runs from the gentleman's eye. You monster!"); BURN
+BED, whose refusal is "No! You can't burn this. Do your homework!"; RIDE
+STRANGE BIKE; CHANGE CHANNEL ON TELEVISION ("good job reading the game
+manual!"); LOOK AT A BOOK in the Underwater Room, which is the first paragraph
+of Moby-Dick; and LOOK AT THE DECLARATION OF INDEPENDENCE, which is not the
+Declaration of Independence but Bill Pullman's speech from Independence Day.
+The three jungle animals all explode if you burn, smash or hack them.
+
+start:
+look
+look at bed
+look at television
+change channel on television
+look at harold's room
+look at painting
+burn painting
+look at strange bike
+ride strange bike
+look at carpet
+look at wallpaper
+look at under bed
+look at toilet
+look at silver handle
+turn silver handle
+look at cd
+take cd
+look at michael's computer
+type password123
+use cd on michael's computer
+look at key
+take key
+use key
+west
+look
+look at computers
+look at phones
+look at glitter
+take glitter
+west
+look
+look at bookshelf
+look at globe
+look at other bookshelf
+take a note from michael
+look at a note from michael
+look at television
+look at guard
+speak to guard
+look at glass case
+smash glass case
+north
+look
+look at police officer
+speak to police officer
+take another note from michael
+look at another note from michael
+look at fireman
+speak to fireman
+look at lighter
+look at construction worker
+speak to construction worker
+south
+smash glass case
+take machete
+look at machete
+east
+east
+burn monkey poster
+look at louvre key
+take louvre key
+burn shark poster
+take glass of milk
+burn bed
+west
+west
+north
+north
+look
+look at monkey
+look at elephant
+look at tiger
+look at trees
+look at shovel
+take shovel
+dig shovel
+take yet another note from michael
+look at yet another note from michael
+look at vines
+hack vines
+east
+look
+look at davinci code
+look at arts
+4
+take a fourth note from michael
+look at a fourth note from michael
+use louvre key
+east
+look
+take brass key
+look at brass key
+look at a fifth note from michael
+take a fifth note from michael
+look at a pirate skull
+look at a book
+look at dolphin
+look at school of fish
+look at chest
+open chest
+take gold key
+use gold key
+west
+west
+south
+south
+use brass key
+south
+look
+look at george washington
+speak to george washington
+take thing
+look at the sixth note from michael
+look at albert einstein
+speak to albert einstein
+look at sherlock holmes
+speak to sherlock holmes
+south
+look
+look at science table
+look at r.e.y.n.o.l.d.
+speak to r.e.y.n.o.l.d.
+look at calcium
+take calcium
+look at pieces of aluminum
+take pieces of aluminum
+look at dog bones
+take dog bones
+look at cinnamon
+take cinnamon
+look at highlighter
+take highlighter
+look at bunsen burner
+combine calcium and pieces of aluminum
+combine dog bones and highlighter
+put fluorescent bone paste over bunsen burner
+combine calcuminum and cinnamon
+combine cinnamonium and science crystal
+look at unobtainium
+give unobtainium to r.e.y.n.o.l.d.
+combine glitter and unobtainium
+look at less boring unobtainium
+give less boring unobtainium to reynold
+east
+look
+look at desk
+look at eagle rug
+look at fireplace
+look at picture of abraham lincoln
+look at button
+say Betsy Ross
+look at old timey sleep hat
+take old timey sleep hat
+east
+look
+look at cheese
+look at the american flag
+look at astro man
+yes
+look at teddy bear
+take teddy bear
+west
+west
+north
+north
+speak to guard
+give glass of milk to guard
+give old timey sleep hat to guard
+give teddy bear to guard
+speak to guard
+look at guard
+say E
+west

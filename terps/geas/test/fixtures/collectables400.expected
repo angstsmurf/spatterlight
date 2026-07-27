@@ -1,0 +1,48 @@
+
+Collectables400
+
+You are in Vault
+The vault.
+
+> report
+Purse variable 42 tilde ~Purse~
+[status]
+Purse: 42
+
+> count purse
+purse 100
+
+> count stash
+stash 7
+
+> fill purse
+
+> report
+Purse variable 500 tilde ~Purse~
+
+> count purse
+purse 100
+
+> fill collectable
+
+> report
+Purse variable 500 tilde ~Purse~
+
+> count purse
+purse not 100
+
+> fill stash
+
+> count stash
+stash not 7
+
+> count stash 9
+stash 9
+
+> fill stash badly
+
+> count stash 9
+stash 9
+[status]
+Purse: 500
+[runner] turns=14 leftover=0 running=true

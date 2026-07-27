@@ -1,0 +1,50 @@
+
+Items280
+
+You are in Room
+There is slot here.
+A plain room.
+
+> check
+got coin: no
+
+> arm
+
+> check
+got coin: yes
+
+> i
+You are carrying:
+coin
+
+> use coin on slot
+The coin drops into the slot.
+
+> confiscate
+
+> check
+got coin: no
+
+> i
+You are carrying nothing.
+
+> use coin on slot
+You don't have that.
+
+> phantom
+
+> i
+You are carrying nothing.
+
+> arm
+
+> disarm
+
+> i
+You are carrying nothing.
+
+> look
+You are in Room
+There is slot and coin here.
+A plain room.
+[runner] turns=15 leftover=0 running=true

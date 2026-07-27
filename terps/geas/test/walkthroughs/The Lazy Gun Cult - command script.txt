@@ -1,0 +1,167 @@
+The Lazy Gun Cult (part one) -- Felic Roman, 2005 (lazy gun cult part one.asl, ASL 350)
+
+A proper puzzle game, and the first one in this batch: 20 rooms of a country
+mansion, a ritual to assemble, and an ending in which you become the statue you
+have spent the game feeding.  You are a paranormal investigator who got an
+anonymous tip and let himself in; the front door shuts fast behind you on turn
+one.  Part two "will be finished soon" and never was.
+
+
+There is no playerwin
+
+The ritual moves you to `define room <The Message>`, whose look text is the whole
+ending:
+
+    This is the message.
+
+    You have completed part one of 'The Lazy Gun Cult'.  Part two begins where
+    you left off, as the statue in the ritual room.  It will be finished soon.
+
+That is the marker.  There is no `playerlose` either -- the two ways to die both
+just print "You have died.  Type RESTART to begin again from the start, or LOAD
+to play from a saved point." and hand the turn back, so a game where you have
+drunk the poison early carries on with the bottle gone and the ritual now
+impossible.  `define text <win>` and `define text <lose>` are both empty.
+
+
+The ritual
+
+The statue in the ritual room wants four artifacts, each of them marked with a
+red K, and each of them behind a puzzle:
+
+  * the foreign coin -- TAKE COIN in front of the blue painting, plucked off the
+    necklace of the woman in it.  The room swaps the painting for `blue painting
+    2`, identical except that the necklace now has "a black indentation".
+  * your own hand -- the bronze hand in the Display Room sits under a glass
+    case.  Smash the case with the hammer (hidden on the corpse at the top of
+    the stairs, found by examining it) and then TAKE BRONZE HAND: the pillar
+    drops it away and a hatchet on a wire takes your hand off at the wrist.  From
+    that turn on the game's `afterturn` prints "The stump of your arm is bleeding
+    profusely..." in yellow, for the rest of the game, including after the
+    ending.
+  * the ceremonial arrow -- in the workdesk drawer in the hidden workroom, which
+    needs the small key.
+  * the Inca head-dress, completed with the pewter feather -- USE FEATHER ON
+    HEAD-DRESS at the end of the eastern corridor.
+
+Then PRESS BUTTON opens the statue's mouth and drops a living heart on the
+ground.  USE OIL ON HEART (the cask is on the plinth in the eastern corridor),
+USE MATCHES ON HEART, and finally DRINK BOTTLE -- the poison from the workroom,
+whose label reads "lethal if all artifacts are not activated" and whose
+accompanying note explains that the soul transfer needs fire.  Drinking it
+anywhere else, or here before the heart is burning, is the death that isn't a
+death.
+
+The hidden half of the map is entered from the staircase: X ALCOVE on the
+mid-landing to find the lever, PULL LEVER to open a hatch, ENTER HATCH, then up a
+ladder to a venting tube and south to the workroom.  The small key is not there
+-- it comes from the lion's-head bannister at the foot of the stairs, TWIST HEAD,
+which drops it out of the lion's mouth.  Going DOWN from the workroom is a chute
+into the Control Room, a booth the size of a phone box with two levers and a
+peephole: PULL SHORT LEVER rotates the code wheel and the peephole then shows the
+painted woman's eyes replaced by two silver numbers, 5 and 7.  That is the
+combination for the typewriter bolted to the wall of the Large Antechamber:
+TYPE '57', with the quotes, because the command is `command <type '57'>`.  PULL
+LONG LEVER is the only way out of the Control Room and it drops you back down by
+the paintings.
+
+The route below walks all of that in one pass, and examines things along the way
+-- the guest book in the entrance hall (whose page lists four cult members, one
+signature unreadable and annotated "(whisper words)"), the note, the bottle's
+label, the coin, the arrow, and the hand, which has a K coagulated on its palm.
+
+
+Dead content
+
+`define room <Ritual Room (statue'd)>` is written and unreachable.  It is the
+scene the ending describes -- looking out from inside the statue at moonlight,
+your own body sprawled in front of you clutching the bottle -- but the ritual
+`goto`s The Message directly and nothing ever goes there.  `define text
+<describe>` is likewise unused: the game overrides room display with its own
+`description` script in `define game`, which is also why every room prints its
+parts in a fixed order.  The win sequence contains a stray `show <small key>`,
+re-showing a key that has been in your pocket for fifty turns.
+
+Start:
+look at guest book
+x guest book
+n
+x red painting
+x blue painting
+take coin
+x blue painting
+i
+n
+twist head
+x key
+take key
+u
+x alcove
+pull lever
+x hatch
+enter hatch
+u
+s
+x drawer
+open drawer
+x drawer
+take bottle
+x bottle
+take feather
+x feather
+take matches
+take arrow
+x arrow
+take note
+x note
+d
+read plaque
+x peephole
+pull short lever
+x peephole
+pull long lever
+n
+u
+u
+x corpse
+x corpse
+take hammer
+w
+nw
+n
+x symbols
+x typewriter
+type '57'
+w
+x bronze hand
+x glass case
+use hammer on glass case
+take bronze hand
+take hand
+x hand
+e
+s
+se
+e
+e
+x oil
+take oil
+s
+x head-dress
+take head-dress
+use feather on head-dress
+n
+n
+e
+x statue
+use head-dress on statue
+use hand on statue
+use arrow on statue
+use coin on statue
+press button
+x heart
+use oil on heart
+use matches on heart
+x heart
+drink bottle
+look

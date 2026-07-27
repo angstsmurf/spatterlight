@@ -1,0 +1,140 @@
+Escape from this house (CJN, QDK Pro 3.53, Quest 3.5) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "You are free".
+
+David Welbourn's Key & Compass page for this game is a MAP ONLY (no command list),
+so this winning path was derived by reading the game source (escape.asl). 15 rooms,
+fully deterministic (no timers/RNG). Puzzle chain:
+  snowman (hat+scarf+carrot+coal) -> Colin + pipe; pipe->Old Man = toy car;
+  empty wallet->Old Man = silver coin; soap in toilet moves Old Man, drugged
+  coffee -> sleeping man -> secret paper; paper in bathroom mirror -> safe combo
+  -> photographs; wine+photographs+onion -> the lady gives the house key; all five
+  toys + basket -> Colin gives the gold key; umbrella->balloon, knife->rubber
+  pieces, gold key+rubber+silver coin on the driveway control box -> gates open.
+
+The game is ASL 350, so every noun below has to be an object's full name, alias
+or alt name -- Quest only matches a word taken from the middle of a name for ASL
+391 and up (Disambiguate, V4Game.cs:4762-4772; fixtures/abbrev.asl).  Three of
+those names are longer than the prose above suggests: the bathroom's cupboard is
+`define object <Bathroom Cabinet>` (escape.asl:709), the man is `<Old Man>`
+(378), and the slot on the driveway box is `define object <coin slot>` with
+`alias <Control box with Coin Slot>` (787-788).  That last alias is shared with
+`<Earthed coin slot>` (802), the object that replaces it once the rubber pieces
+are on -- only one of the pair is ever shown, so the same typed phrase reaches
+whichever state the box is in, and the two `use` lines below read identically
+while landing on different objects.
+
+Start:
+examine coat stand
+examine coat
+take hat
+take scarf
+take umbrella
+examine wallet
+take laundry token
+take empty wallet
+take painting
+examine desk
+n
+w
+examine table
+take carrot
+take onion
+take small knife
+e
+e
+examine fireplace
+take coal
+w
+w
+w
+speak to small boy
+yes
+look at snowman
+take pipe
+e
+e
+n
+e
+give pipe to old man
+take toy car
+give empty wallet to old man
+take silver coin
+w
+u
+e
+examine sink
+take empty beaker
+examine shower
+take toy plane
+examine bathroom cabinet
+take sleeping tablets
+w
+w
+take toy train
+e
+d
+d
+use empty beaker on keg
+take glass of wine
+s
+take basket
+use laundry token on machine
+take soap powder
+n
+u
+u
+e
+use soap powder on toilet
+w
+d
+e
+use sleeping tablets on cup of coffee
+examine old man
+take secret paper
+w
+u
+e
+use secret paper on bathroom cabinet
+w
+d
+s
+s
+use safe combination on small safe
+take photographs
+use small knife on drawer
+take toy boat
+n
+n
+u
+n
+give glass of wine to lady
+give photographs to lady
+give onion to lady
+take house key
+s
+d
+s
+s
+use house key on main doors
+s
+take toy dog
+n
+n
+n
+u
+w
+speak to colin
+take gold key
+e
+d
+s
+s
+s
+give umbrella to colin
+use small knife on balloon
+take rubber pieces
+examine control box
+use gold key on gold padlock
+use rubber pieces on control box with coin slot
+use silver coin on control box with coin slot
+s

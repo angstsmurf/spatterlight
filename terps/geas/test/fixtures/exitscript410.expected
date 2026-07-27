@@ -1,0 +1,58 @@
+
+ExitScript410
+
+You are in Start
+You can go north, south, east, west or up.
+The starting room.
+
+> look
+You are in Start
+You can go north, south, east, west or up.
+The starting room.
+
+> west
+The guard will not let you past.
+
+> north
+Not yet.
+
+> east
+Not yet either.
+
+> south
+Nor this one.
+
+> up
+You are in Town
+You can go down.
+A small town.
+
+> look
+You are in Town
+You can go down.
+A small town.
+
+> down
+You are in Start
+You can go north, south, east, west or up.
+The starting room.
+
+> openup
+Every exit is unlocked now.
+
+> west
+
+> north
+The north script ran.
+
+> east
+first statement
+
+> south
+About to leave.
+
+> look
+You are in Start
+You can go north, south, east, west or up.
+The starting room.
+[runner] turns=14 leftover=0 running=true

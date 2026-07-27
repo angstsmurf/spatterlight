@@ -96,6 +96,91 @@ double eval_double (const string &s)
   return p.expr ();
 }
 
+/* A stricter cousin of DoubleParser: it refuses everything Quest's
+ * ExpressionHandler refuses.  Quest splits the expression on + - * / and
+ * demands that every element between the operators be numeric
+ * (V4Game.cs:3190-3200), so an operand that is not arithmetic through and
+ * through fails instead of being read up to the first unusable character. */
+namespace {
+  struct StrictParser {
+    const string &s;
+    size_t i = 0, n;
+    bool ok = true;
+    StrictParser (const string &str) : s (str), n (str.length ()) {}
+    void skipws () { while (i < n && isspace ((unsigned char) s[i])) i++; }
+    double expr () {
+      double v = term ();
+      for (;;) {
+	skipws ();
+	if (ok && i < n && (s[i] == '+' || s[i] == '-')) {
+	  char op = s[i++];
+	  double r = term ();
+	  v = (op == '+') ? v + r : v - r;
+	} else break;
+      }
+      return v;
+    }
+    double term () {
+      double v = factor ();
+      for (;;) {
+	skipws ();
+	if (ok && i < n && (s[i] == '*' || s[i] == '/')) {
+	  char op = s[i++];
+	  double r = factor ();
+	  if (op == '*')
+	    v *= r;
+	  else if (r == 0.0)
+	    /* Quest reports "Division by zero" as a failed expression, leaving
+	       the operand as it was.  */
+	    { ok = false; return 0; }
+	  else
+	    v /= r;
+	} else break;
+      }
+      return v;
+    }
+    double factor () {
+      skipws ();
+      if (i < n && (s[i] == '+' || s[i] == '-')) {
+	char op = s[i++];
+	double v = factor ();
+	return (op == '-') ? -v : v;
+      }
+      if (i < n && s[i] == '(') {
+	i++;
+	double v = expr ();
+	skipws ();
+	if (i < n && s[i] == ')')
+	  i++;
+	else
+	  ok = false;
+	return v;
+      }
+      size_t start = i;
+      while (i < n && isdigit ((unsigned char) s[i])) i++;
+      if (i < n && s[i] == '.') { i++; while (i < n && isdigit ((unsigned char) s[i])) i++; }
+      if (i == start || (i == start + 1 && s[start] == '.')) { ok = false; return 0; }
+      return atof (s.substr (start, i - start).c_str ());
+    }
+  };
+}
+
+bool eval_numeric_expr (const string &s, string &result)
+{
+  /* A bare number is arithmetic too, but Quest hands it back verbatim -- the
+     result of an expression without operators is the element itself, not a
+     reformatted number -- so leave those alone and keep "5.0" as "5.0". */
+  if (s.find_first_of ("+-*/()") == string::npos)
+    return false;
+  StrictParser p (s);
+  double v = p.expr ();
+  p.skipws ();
+  if (!p.ok || p.i != p.n)
+    return false;
+  result = fmt_double (v);
+  return true;
+}
+
 string fmt_double (double d)
 {
   if (d == floor (d) && fabs (d) < 1e15)

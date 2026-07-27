@@ -1,0 +1,40 @@
+
+containeradd
+
+You are in Hold
+There is basket, sack, crate, lantern, rope and pebble here.
+The hold of a boat.
+
+> take lantern
+You pick it up.
+
+> take rope
+You pick it up.
+
+> take pebble
+You pick it up.
+
+> put rope in basket
+The basket is only big enough for the lantern.
+
+> put lantern in basket
+The lantern settles into the basket.
+
+> look in basket
+Inside you see lantern.
+
+> report
+cargo = [lantern]
+
+> put rope in sack
+You stuff it into the sack.
+
+> look in sack
+Inside you see rope.
+
+> put pebble in crate
+You put pebble in crate.
+
+> look in crate
+Inside you see pebble.
+[runner] turns=11 leftover=0 running=true

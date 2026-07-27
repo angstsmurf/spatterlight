@@ -1,0 +1,396 @@
+Nearco -- Jhames, QDK Lite 4.1.5, asl-version 410.  In Spanish.
+
+Nearco cannot be finished, and the reason is an engine rule rather than a
+missing room: the three doors that lead to the rest of the game are opened
+with a statement that, from ASL 4.10 on, cannot open them.  This script
+therefore plays the game out to its furthest reachable state and stops there.
+Everything up to that point works, and there is a lot of it -- a desert, three
+storeys of cave maze, an archer who chases you, two fights, a palace, and all
+three of the stone cylinders that are supposed to do the opening.
+
+THE WALL.  Each of the three coin rooms sits behind a blocked doorway declared
+in the room block like this (PBE2, and the same line in PPE6 east and PSG2
+west):
+
+    north msg <Parece como si en esa direccion hubiese una puerta.  Pero no
+               consigues ver la forma de abrir la losa que bloquea el paso
+               hacia la otra estancia.>
+
+and each is meant to be opened by pushing a stone cylinder in the palace,
+three levels up, whose selection script runs
+
+    create exit north <PBE2; PBF2>
+
+From ASL 4.10 on that cannot work.  A direction's exit is a long-lived object
+and re-creating it reuses the old object rather than building a new one --
+RoomExits.SetDirection says why in as many words, and RemoveExit repeats it
+(RoomExits.cs:20-33, 575-591):
+
+    Don't remove directional exits, as if they're recreated a new object will
+    be created which will have the same name as the old one.  This is because
+    we can't delete objects yet...
+
+AddExitFromCreateScript rewrites the statement into the tag `north <PBF2>`
+(RoomExits.cs:199-256), AddExitFromTag finds nothing after the ">" and so calls
+SetToRoom and never SetScript (RoomExits.cs:161-192), and Go tests for a script
+before it looks at the destination (RoomExit.cs:240-259).  The declared refusal
+message is that script, it is still there, and it still runs.  The new
+destination is dead weight.  Below 4.10 the same statement would have worked:
+there are no exit objects, ExecuteCreateExit assigns r.North.Data and stamps
+r.North.Type back to Text (V4Game.cs:5429-5450), wiping the script -- which is
+how "Bear Campsite" (ASL 400) opens its way past the grizzly.  Jhames wanted
+that behaviour out of a 4.10 game and could not have it.
+
+geas is faithful here, and it has to be: Tim Hamilton's "The Maze" (also ASL
+410) holds a 15x20 hedge maze in a single room whose four compass exits are
+scripts that adjust %xpos%/%ypos%, and it destroys and re-creates those exits
+on every move -- passing "<Maze; Maze>" -- purely so the walls show up in
+#quest.doorways#.  If the create replaced the script, that game would become
+one room you can never leave.  The two games want opposite things from the same
+statement, and Quest 4.1 answers the way that suits The Maze.  Pinned by
+fixtures/createexitscript410.asl and its 400 twin.
+
+So: the cylinders are pushed, the message says "Aparentemente has abierto algo
+en algun sitio", the wav plays, and the losa still will not budge.  The marker
+is the resurrected Persian's farewell speech in PBE2, the last thing the game
+has to say to a player who has done everything that can be done.  It is worth
+reading: he shakes your hand, says he has enjoyed working with you, has to go
+because it is his wedding anniversary, and asks you to put in a word with the
+CAAD so he gets nominated for best supporting actor for his death scene in the
+cave -- treading on his own big toe, he feels, lent it credibility.
+
+WHAT THE ROUTE DOES.  Nearco is a soldier of Alexander the Great, sent to find
+the treasure of Darius III Codomannus.  He starts in the desert with a helmet,
+a sword and a handkerchief.
+
+  * The desert is a four-step tool chain.  USE HUESO ON PANUELO wraps the bone
+    in the cloth and gives an unlit torch; USE PIEDRA ON ROCA strikes a prism
+    out of the rock; USE CASCO ON PRISMA fits the prism into the helmet; and
+    USE ANTORCHA ON CASCO CON PRISMA focuses the sun through it and lights the
+    torch.  Desierto's north exit is `if got <Antorcha_encendida> then goto
+    <Cueva_con_Luz> else goto <Cueva>`, so without the torch the cave is dark
+    and there is nothing to do in it.
+  * The bottom storey (PB) is a 6x6 grid of one-way-ish corridors, walked in 27
+    moves to PBE2, where a Persian archer starts shooting.  The room script
+    flags persatesigue, marches you through PBE4 to PBD4, dumps the archer
+    behind you, and hands you his bow and four arrows.
+  * The middle storey (PP) ends at PPE6, where two Persians are playing dice.
+    One USE ARCO ON SOLDADO PERSA spends two arrows, kills both, and runs
+    `create exit west <PPE6; PPE5>` -- a direction the room block never
+    declared, so that one really does open, and it is the only way on.
+  * The top storey (PS) is drawn on the diagonals: almost every exit is ne, nw,
+    se or sw.  Persa4 in PSD4 dies to USE ESPADA and opens southwest to PSC3,
+    again an undeclared direction.  The bracelet in PSC3 is loot, nothing more.
+  * The palace above is two long ranks of corridors.  Three rooms (A19, B19,
+    C19) hold a stone cylinder sticking out of the wall; EXAMINE CILINDRO DE
+    PIEDRA runs the object's `action <examine>`, which `choose`s the selection
+    that pushes it.  Answer Si.  Pushing the first one also swaps the dead
+    archer in PBE2 for the resurrected one who wants his award.
+  * Then back down, and the two losa doors within reach are tried once each --
+    PSG2 west and PBE2 north -- so the transcript records both refusals.  The
+    third, PPE6 east, is the same statement.
+
+WHAT IS BEHIND THEM, for the record.  Each coin room holds one coin, and each
+of PBD4, PPD4 and PSC3 holds a slot (ranura) on a pedestal "like a Persian
+Coca-Cola machine".  The coins go in in any order; the third one to be
+inserted makes a chest appear in that room.  The chest yields a parchment whose
+writing has faded, and PSE6's fireplace has soot in it: USE PERGAMINO ON
+HOLLIN dusts the soot over the vellum, it catches in the grooves the scribe's
+goose quill pressed into the skin, and the text comes back.  EXAMINE PERGAMINO
+then hides the pushed cylinder in B19 and reveals a "ranura circular" in its
+place; examining that offers the last selection, and Si drops you down a stone
+chute to EndCapitulo, `playerwin`, and the closing text -- your next step is to
+meet the god RAR, who will ask you a question so you can go on playing the
+adventures of NEARCO.  The goose feather lying in PPD1 is a red herring, but a
+fair one: it is a hint at the quill.
+
+QUIRKS WORTH KNOWING.
+
+  * PANUELO is spelled with an n-tilde, and geas passes story-file bytes
+    through untouched rather than transcoding them, so the command that uses it
+    has to carry the same raw CP1252 byte (0xF1) the .cas does.  Line 5 of the
+    route below does; a UTF-8 n-tilde would not match.
+  * `define options abbreviations on` is set, so n/s/e/w/ne/nw/se/sw/up/down
+    all work, which is what makes a 250-turn maze crawl bearable.
+  * USE A ON B tries A's `use on <B>` first and only then B's `use <A>`.  USE
+    ANTORCHA ON CASCO CON PRISMA lights the torch; the same two objects the
+    other way round get a refusal.
+  * The game block declares `verb <examine> msg <No puedes examinar eso.>`,
+    which is a catch-all that beats an object's `look`.  Objects with their own
+    `action <examine>` still answer, which is exactly how the cylinders and the
+    revealed parchment are meant to be operated.
+  * Selections come up as numbered menus; the answer is not a turn.  Si is
+    accepted as well as 1.
+  * PSA7 is a one-way trapdoor: walking in drops you through a stone chute to
+    PBD5, two storeys down.  It is the only quick way back to the bottom, and
+    the route uses it to reach PBE2 at the end.
+  * The startscript's `wait` after the intro does not consume a script line.
+  * Boton3 is declared with `suffix <un>` where the author meant a prefix, so
+    C19 reports "There is cilindro de piedra un here".  Harmless.
+
+Route: desert tool chain -> PB maze and the archer chase -> up to PP, kill the
+dice players with the bow -> up to PS, kill Persa4 with the sword, take the
+bracelet -> up to the palace, push all three cylinders -> down to PSG2 and try
+the losa -> PSA7 trapdoor to PBD5 -> PBE2, try the losa, and hear the Persian
+out.
+
+Verified: 253 turns, marker "actor secundario", seed 1.  No win: there is none
+to reach.
+
+Start:
+take hueso
+take piedra
+use piedra on roca
+use casco on prisma
+use hueso on pañuelo
+use antorcha on casco con prisma
+north
+west
+n
+e
+n
+w
+n
+e
+e
+s
+e
+s
+w
+s
+e
+e
+e
+n
+w
+n
+e
+n
+n
+w
+s
+w
+n
+w
+w
+examine soldado persa
+n
+w
+w
+w
+up
+s
+e
+s
+w
+s
+e
+take pluma
+e
+n
+e
+s
+e
+e
+e
+n
+w
+w
+n
+e
+e
+n
+w
+n
+use arco on soldado persa
+w
+s
+w
+n
+w
+w
+s
+e
+s
+e
+up
+nw
+ne
+se
+w
+nw
+ne
+se
+n
+nw
+ne
+s
+nw
+sw
+nw
+e
+sw
+se
+sw
+s
+se
+w
+nw
+sw
+w
+n
+ne
+nw
+s
+ne
+e
+nw
+w
+n
+e
+e
+s
+se
+use espada on persa
+sw
+sw
+take brazalete
+se
+sw
+s
+sw
+s
+up
+w
+s
+s
+e
+e
+n
+n
+e
+s
+s
+e
+n
+n
+se
+se
+n
+n
+e
+s
+s
+e
+n
+n
+se
+ne
+s
+s
+ne
+e
+e
+se
+n
+n
+se
+se
+n
+n
+e
+e
+examine cilindro de piedra
+Si
+s
+examine cilindro de piedra
+Si
+s
+examine cilindro de piedra
+Si
+n
+n
+w
+w
+s
+s
+nw
+nw
+s
+s
+nw
+w
+w
+sw
+n
+n
+sw
+nw
+s
+s
+w
+w
+nw
+nw
+s
+s
+w
+w
+w
+w
+n
+n
+e
+down
+n
+ne
+n
+w
+ne
+nw
+ne
+ne
+nw
+n
+w
+w
+s
+e
+se
+w
+sw
+n
+se
+sw
+s
+e
+ne
+se
+e
+nw
+n
+ne
+nw
+ne
+w
+se
+ne
+se
+n
+sw
+se
+s
+nw
+sw
+se
+e
+nw
+sw
+se
+e
+w
+n
+w
+w
+n
+speak to soldado persa

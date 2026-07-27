@@ -1,0 +1,82 @@
+Love Song. (Mihalis "DarkAng3l" Georgostathis, 2001, QDK 1.0 Beta 3A, ASL 210)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "*THE END*".
+
+Thirty-one commands, no timers, no RNG and no prompts.  A teenage metalhead has
+to write a song for Christine and play it at the school gig.
+
+THE DREAM.  The game opens in a forest that turns out to be a dream, and it has
+to be played out before the real day starts.  TAKE VINES, north to the chasm,
+TIE VINES TO TREE (a room command, not an object action -- it makes a rope down
+to the flower), TAKE FLOWER, then back south and west and north to the small
+tree, where GIVE FLOWER TO CHRISTINE moves her to the waterfall.  Follow her
+south and south, and UNDRESS: you jump into the lake and wake up in your bedroom
+with your mother emptying a bucket over you.  There is no way to skip the dream
+and nothing in it carries over.
+
+THE SONG.  LOOK NOTE is the to-do list (write a song; rehearse in David's
+garage).  TAKE BOX `showobject`s the playboy magazines that were `hidden` under
+the records; TAKE PLAYBOY MAGAZINES drops a photo of Christine out of one and is
+what makes you "very inspired"; TAKE ELECTRIC GUITAR arms you.  PLAY GUITAR then
+writes the song -- procedure 36 is `if got <magazine> and is <#organ#;guitar>`
+(lovesong.asl:539-542), so without the magazine the same command only prints
+"After playing a few chords you quit."
+
+THE GIG.  South three times, west and south twice to the garage, GIVE SONG TO
+DAVID for the rehearsal, then back north twice, west to the school, north to the
+cafe and west onto the stage -- whose description is gated on
+`got <guitar> and here <David> and got <song>` (188).  PLAY SONG runs the gig and
+`goto`s backstage; EAST into the shadows and TALK TO SHADOW is the win, a
+`speak playerwin` on the shadow object (227).
+
+TWO NAMING QUIRKS, WHICH TOGETHER MAKE THE SCRIPT LOOK INCONSISTENT
+
+  * The game is ASL 210 and QDK 1.0 gave nothing an alias, so an object has to be
+    named in full: TAKE PLAYBOY MAGAZINES and TAKE ELECTRIC GUITAR, never TAKE
+    MAGAZINES or TAKE GUITAR.  Quest matches a word taken from the middle of a
+    name only for ASL 391 and up (Disambiguate, V4Game.cs:4762-4772; see
+    fixtures/abbrev.asl).
+  * PLAY GUITAR, one line later, must use the *short* word -- because it is not
+    an object lookup at all.  Every room defines `command <play #organ#>` (45,
+    127, 189), and `#organ#` is a text placeholder compared as a string:
+    `if is <#organ#;guitar>`.  PLAY ELECTRIC GUITAR fails that compare and does
+    nothing.  (The guitar object is not even in the room by then: taking it hands
+    you the *item* `guitar` and `moveobject`s the object to a junk room, 482-486.)
+
+That item/object split is the ASL 210 world all through -- `items <guitar; song;
+magazine; flower; vines>` in the game block is Quest 2's parallel item list, so
+`got <guitar>` is an item flag and `electric guitar` is a separate object that
+gets swept into `junk` the moment it is taken.  See fixtures/items210.asl.
+
+Start:
+take vines
+north
+tie vines to tree
+take flower
+south
+west
+north
+give flower to christine
+south
+south
+undress
+look note
+take box
+take playboy magazines
+take electric guitar
+play guitar
+south
+south
+south
+west
+south
+south
+give song to david
+north
+north
+west
+north
+west
+play song
+east
+talk to shadow

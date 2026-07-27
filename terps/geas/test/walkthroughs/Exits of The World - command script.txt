@@ -1,0 +1,145 @@
+Exits of The World -- Jim R. Harbis, QDK Lite 4.1.1, ASL 410
+============================================================
+
+A very small Doctor Who game: fourteen rooms, five objects that matter, and one
+win.  You are the Doctor, standing at "The World" with Davros' Lair below you;
+Davros has enslaved humanity and your belongings were scattered when you last
+regenerated.  Recovering two of them -- the Sonic Screwdriver and the Type 40
+TARDIS -- is the whole of the game, and everything else follows from those.
+
+What the geography actually is
+------------------------------
+"The World" is a hub with ten directional exits.  Nine of them lead to rooms
+named Exit 1 to Exit 10, and all ten of those rooms share the alias "Exits of
+The World", the prefix "the" and the description "These are indeed the ends of
+the earth..." -- so the compass rose looks like one enormous room that you can
+wander for ever without getting anywhere.  Only two of the ten have an exit that
+leaves the ring:
+
+  * Exit 10 (DOWN from The World) has `out <J'doon Impound>` -- the pound where
+    your TARDIS is chained up.  This is the way in.
+  * Exit 9 (UP from The World) has
+        out locked <Skarro; This leads to Skarro. home planet of the Daleks.
+                    You need a ship to get there.>
+    which is the game's one locked exit and its one real gate.
+
+That lock is worth a note.  Quest's RoomExit.Go tests the lock before it looks
+at anything else (RoomExit.cs:240-259) and the "locked" keyword is stripped for
+"out" by the same parser that handles north/south (RoomExits.cs:143-147), so
+Quest refuses the exit and prints the message.  geas used to check locks only in
+its directional loop, so OUT from Exit 9 teleported you to Skarro on turn one --
+with no TARDIS, no screwdriver and no way to leave again, since Skarro's two
+`place` exits both need the TARDIS.  That is fixed, with fixtures/outlocked.asl
+guarding it; the script below walks up to the lock deliberately (UP then OUT) so
+that the refusal appears in the transcript.
+
+The other gate is the hub's own `place` exit:
+
+    place <Davros' Lair> if got <Type 40 TARDIS> and got <Dalekanium Panels>
+        then goto <Davros' Lair> else msg <Even though you want to confront
+        Davros right now, you need to upgrade your ship...>
+
+GO TO DAVROS' LAIR is therefore refused until you hold both the ship and the
+Dalekanium armour for it.  The room also declares, on the line above,
+`out <Davros' Lair>` -- a plain, unguarded exit to the same place.  So OUT from
+The World walks into the lair with no ship and no armour at all, which makes the
+guarded place exit ornamental: the author gated the polite route and left the
+back door open.  The script uses the intended route (GO TO) and only after the
+guard is satisfied, so the refusal is shown once and then honoured.
+
+The chain
+---------
+The startscript conceals Dalekanium Panels, microbacteria, Dead Davros, Radar
+Device and Re-configured Radar Device, and hides Martha Jones and the Humans.
+Every one of those is switched on by a single specific action, in this order:
+
+  1. SPEAK TO ENSLAVED HUMANS.  Their speak script has two halves: with the
+     TARDIS they beg for a doctor, without it they only moan -- and the
+     *without* half is the one that `reveal`s the Sonic Screwdriver ("A pretty
+     black girl dropped something on the ground").  Speak to them after you have
+     the TARDIS and you never get the screwdriver, and with no screwdriver
+     nothing else in the game opens.  This is the one place where the game can be
+     made unwinnable, and it is the first thing you do.
+  2. TAKE SPACE.  "space" is an object in The World whose take script reveals
+     *and* gives the microbacteria -- you reach into the sky and come back with a
+     handful of them.  Nothing hints at it; X SPACE only says outer space is
+     vast and mysterious.
+  3. DOWN, OUT to J'doon Impound, TAKE TYPE 40 TARDIS.  Its take script checks
+     `if got <Sonic Screwdriver>`: with it you free the ship, without it "Your
+     TARDIS is bounded by chains. There is a lock, but you have no key."
+  4. GO TO SKARRO (now that the ship makes the `place` exits work), USE SONIC
+     SCREWDRIVER ON DALEK SHELLS to reveal the Dalekanium Panels, TAKE them.
+  5. GO TO THE WORLD, GO TO DAVROS' LAIR -- both guards now satisfied.
+  6. SPEAK TO DAVROS and pick choice 1.  Choice 2 ("No, I don't...") is
+     `playerlose`: he shoots you with a portable Dalek ray gun.  Choice 1 gets
+     you nothing but a taunt about monologuing, which is fine -- the answer is
+     not in the conversation.
+  7. USE MICROBACTERIA ON DAVROS.  He is eaten alive by the enzymes; that hides
+     Davros and reveals Dead Davros and the Radar Device.
+  8. TAKE RADAR DEVICE, USE SONIC SCREWDRIVER ON RADAR DEVICE (hides it, reveals
+     the Re-configured Radar Device), TAKE RE-CONFIGURED RADAR DEVICE.
+  9. OUT to The World, USE RE-CONFIGURED RADAR DEVICE ON ENSLAVED HUMANS.  The
+     slaves are hidden and both the Humans and Martha Jones are shown.
+ 10. SPEAK TO HUMANS, choice 3 -- the one that ends "...Ms. Jones, would you
+     care to travel with me?".  Its script `show`s Martha Jones, who is already
+     shown by step 9, so its real job is the line "Speak to Ms. Jones to
+     continue."  Choices 1 and 2 are dead ends that leave the game running.
+ 11. SPEAK TO MARTHA JONES, choice 1 -- her selection has exactly one choice and
+     it is `playerwin`.
+
+Notes on the objects
+--------------------
+  * The Sonic Screwdriver is `drop nowhere <You need to be less careless.>`, so
+    it cannot be lost, and `invisible` until the slaves drop it.
+  * "space" is `drop nowhere <>` with an empty message -- dropping it prints a
+    blank line.  It is never actually taken (its take script gives you
+    microbacteria instead), so this never comes up.
+  * The Dalekanium Panels have a bare `take` with no message, so taking them
+    prints the default "You pick them up."  They are never used on anything: the
+    "upgrade your ship" they are supposed to be for is only the `place` guard's
+    `got` test.
+  * Davros' Lair has no `look` of its own, so entering it prints the game's
+    default description.
+
+The script wins the game on the last line; the win text is
+"...plotting the coordinates for your next adventure."
+
+Start:
+x enslaved humans
+speak to enslaved humans
+x sonic screwdriver
+take sonic screwdriver
+x space
+take space
+x microbacteria
+go to Davros' Lair
+up
+out
+down
+down
+out
+x type 40 tardis
+take type 40 tardis
+go to Skarro
+x dalek shells
+use sonic screwdriver on dalek shells
+take dalekanium panels
+go to The World
+go to Davros' Lair
+x davros
+speak to davros
+1
+use microbacteria on davros
+x dead davros
+x radar device
+take radar device
+use sonic screwdriver on radar device
+take re-configured radar device
+out
+use re-configured radar device on enslaved humans
+x humans
+speak to humans
+3
+x martha jones
+speak to martha jones
+1

@@ -1,0 +1,64 @@
+TARDIS Escape v.002 by Jim R. Harbis (QDK Lite 4.1.1, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "Thank you".
+
+Six rooms, one linear chain of unlocks.  The Doctor has locked you in his TARDIS;
+GIVE TRENCHCOAT TO THE DOCTOR outdoors calls playerwin.  DIAL PHONE at the TARDIS
+Door forfeits (playerlose) and is the only other ending.
+
+The chain, all of it in the Console Room to start with:
+
+  * LOOK AT COAT RACK runs "show <trenchcoat2>" -- the coat is hidden by the
+    startscript, so nothing else reveals it.
+  * The Sonic Screwdriver is nested two containers deep: pocket inside
+    trenchcoat, screwdriver (and the first half of the note) inside pocket.
+  * USE SONIC SCREWDRIVER ON WARDROBE STAIRCASE unlocks up, USE ... ON ZERO
+    CHAMBER DOOR unlocks the Wardrobe's west, and the Zero Chamber holds the
+    crowbar.
+  * USE CROWBAR ON FLOOR GRATING unlocks down to the Maintainence Area and the
+    TARDIS Key, and USE TARDIS KEY ON DOOR at the TARDIS Door unlocks the way out.
+
+Worth knowing while reading the transcript:
+
+  * LOOK AT TRENCHCOAT and LOOK AT POCKET are load-bearing, not flavour.  Quest
+    only lets you reach a container's contents once the container has been seen:
+    contents are available if the parent is a surface, or is (open or transparent)
+    AND seen (V4Game.Part2.cs:7694), and looking at it is what sets "seen"
+    (V4Game.cs:2141-2146).  Both are declared "opened", so no OPEN is needed --
+    but without the two LOOK ATs, TAKE SONIC SCREWDRIVER answers "Sorry... you
+    never acquired that..." and the game looks unfinishable.  LOOK AT CLOSET
+    upstairs is there for the same reason, ahead of OPEN CLOSET.
+  * The game renames most of Quest's stock refusals ("Stop being selfish!",
+    "Look in your inventory, you greedy pig!"), so an error message here rarely
+    looks like an error message.
+  * The Console Room's exit is written "west <TARDIS Door; This door is
+    deadbolted...>" without the "locked" keyword.  From ASL 4.10 on that second
+    field is a lock message on an *unlocked* exit, so it is never printed and
+    WEST simply works; before 4.10 the same line would have walked you into a
+    room named after the message.  geas used to do the latter for every game.
+
+Start:
+look at coat rack
+take trenchcoat
+look at trenchcoat
+look at pocket
+take sonic screwdriver
+take note
+use sonic screwdriver on wardrobe staircase
+up
+look at closet
+open closet
+take scrap
+use sonic screwdriver on zero chamber door
+west
+take crowbar
+east
+down
+use crowbar on floor grating
+down
+take tardis key
+up
+west
+use tardis key on door
+west
+give trenchcoat to the doctor

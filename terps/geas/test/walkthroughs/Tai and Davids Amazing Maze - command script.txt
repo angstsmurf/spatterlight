@@ -1,0 +1,204 @@
+Tai & David's Amazing Maze -- Tai & David, v1, ASL 410 (QDK Pro 4.1)
+====================================================================
+distributed as "TDAMAZINGMAZE.cas"
+
+Two teenagers built the front hall of a treasure-hunting game and then stopped.
+There is a main room with a gatekeeper, a cafe off to one side with a coffee
+lady, a creepy man and a locked trunk, a vault you can walk into but not out of,
+and -- past the gate -- a staircase, a corridor and one puzzle room with a box in
+it.  Open the box, put the gem in the hole, walk north, and the ninth room in the
+file tells you that this is the end of Version 1.  "Your goal is to find all 10
+Magic Artifacts," says the intro; the file contains one.
+
+The gate is the whole game, and it opens on a command the player would never
+guess from Quest's own grammar:
+
+    Give The Gatekeeper the Document of Approval
+
+That is the game's own hint text, typed out verbatim by the gatekeeper when you
+ask him about the document, and it is the only phrasing that works -- there is no
+"give document to gatekeeper" path, because `unlock <Main Room; north>` lives in
+the object's `give <Document of Approval2>` script and nothing else in 793 lines
+touches that lock.  geas did not implement the form, which made the game
+unfinishable.  See "The engine fixes this game needed" below.
+
+The route
+---------
+    Main Room     SPEAK TO THE GATEKEEPER, ask him everything (1, 2, 3, 4).  He
+                  is Crokk; the tips list the asdf shortcut, the 10 artifacts and
+                  the two status variables.
+                  TAKE MONEYBAG, OPEN MONEYBAG -> 10 coins on top of the 10 you
+                  start with.  (`open` runs `lose <Moneybag>`, so the bag lands
+                  back on the floor of the room it was opened in and the room
+                  keeps listing it.)
+    The Vault     east.  Nothing here but the description -- a trophy room for a
+                  game that has no trophies yet -- and `west locked <Main Room;
+                  The enourmous stainless steel door doesn't budge.>` with
+                  nothing anywhere to unlock it.  ASDF is the way out.
+    The Cafe      SPEAK TO JILL: 1, 3, then 2 for the document.  Choice 2 hands
+                  over `Document of Approval` and the invisible flag object
+                  `variabledocument1235`, which is what the gatekeeper's menu
+                  checks with `if got <...>` before it will print the hint.
+                  SIGN DOCUMENT hides it and gives you `Document of Approval2`,
+                  the copy pre-signed by "Seth Rogers" (neither author's name).
+                  BUY FROM JILL -> coffee, 5 coins; and again -> smoothie, 12.
+                  TAKE GOLD KEY.
+    Main Room     GIVE THE GATEKEEPER THE DOCUMENT OF APPROVAL -> north unlocks.
+    Room1         north, then down.
+    Room2         north.
+    Room3         USE GOLD KEY ON BOX -> Artifact 1, an enormous green gem.
+                  USE GREEN GEM ON OCTAGONAL HOLE -> north unlocks.
+    Room4         north.  That is the end of Version 1.
+
+42 turns, 58 commands.  There is no `playerwin` anywhere in the game, so the
+marker is Room4's own `indescription`.
+
+Nine rooms, one of them a warehouse
+-----------------------------------
+`OBJECTHOLDER` is the QDK habit of parking every object that has to be handed out
+later in a room the player never visits, and moving or giving it from there.  It
+holds fourteen objects, and three of them can never come out:
+
+  * `Jill's Trunk Key`.  The cafe's Trunk answers `use <Jill's Trunk Key>` with
+    "You open the trunk and reveal 5 items" -- it hides itself and moves in
+    `Trunk2`, an open container with the same alias -- but no script anywhere
+    gives, moves or reveals the key.  The five items do not exist either.  OPEN
+    TRUNK is answered by a `properties <Open = You jiggle the handle, but it is
+    locked.>` entry, so the trunk is a locked box with no key and nothing in it.
+  * `Moneybag3` and `Moneybag4`, unused duplicates of the bag in the main room
+    (`Moneybag2` is unused too, and all four have identical scripts).
+  * `Box2`, the opened box, which *is* moved -- to `3: challenge 1 -artif`.  The
+    room is called `Room3: challenge 1 -artif`, so the box goes to a room that
+    does not exist and is simply gone; the octagonal hole's unreachable `add`
+    script gets the same name wrong in a `create exit`.  After USE GOLD KEY ON
+    BOX the room lists nothing but the hole, while its static description still
+    says "There is a black box with a keyhole sitting in the middle of the room."
+
+`hall`, alias "The First Corridor", is a room with no description and no exits
+that nothing ever goes to.  `define procedure <1a>` is empty.
+
+ASDF, and the room with all the rooms in it
+-------------------------------------------
+    command <asdf> {
+        choose <Are you sure-asdf>
+        goto <>
+    }
+
+The selection's Yes branch does the `goto <The Cafe>`; the `goto <>` after it
+runs either way, and its room name is empty.  GetRoomID cannot match "" against
+any RoomName, so Quest logs "No such room ''" and leaves the player where the
+menu put them (V4Game.Part2.cs:6674-6684).
+
+There is also a game-level `action <asdf>` that skips the confirmation and gotos
+the cafe directly; a command of the same name shadows it and nothing calls the
+action by name, so it never runs.
+
+The engine fixes this game needed
+---------------------------------
+1.  GIVE's second form.  ExecGive splits the text after "give " on the first
+    " to " and, if there is none, on the first " the " -- with the recipient
+    before the separator and the item after (V4Game.Part2.cs:4618-4643).  So
+    "give the gatekeeper the document of approval" resolves as recipient "the
+    gatekeeper" (his `alt` list covers it) and item "document of approval", and
+    "the officer the letter to sign" splits on " to " instead and fails, because
+    " to " is tried first.  geas knew the "X to Y" pattern only and answered the
+    other with "I don't understand your command", which left the gate shut.
+    test/fixtures/givethe.asl pins both forms and the precedence between them.
+
+2.  `goto` to a room that does not exist, which "pure chaos" needed first and
+    this game needs for the `goto <>` above.  Before that fix, one ASDF put you
+    here:
+
+        You are in
+        There is game, The Main Room, The Cafe, Room1, OBJECTHOLDER, The First
+        Corridor, Challenge Room, Room2, Room and The Vault here.
+
+    -- a nameless room whose "contents" are every top-level object in the file,
+    the nine rooms and the `game` object itself, because they all have no parent
+    and so matched the empty location.  It has no exits.  ASDF gets you out of
+    it, which is the only reason the game was still playable.
+    test/fixtures/gotonoroom.asl pins the fix.
+
+Odds and ends
+-------------
+`startscript displaytext <intro>` plus the ASL>=391 automatic intro means the
+intro is printed twice, faithfully (see the note in the "pure chaos" script).
+
+Buying a second coffee while holding `Coffee2` runs `inc <coins; 5>` where every
+other branch of that seven-deep if/else does `dec` -- the shop pays you.
+Drinking the first smoothie runs `set <health; 15>` rather than `inc`, so it
+knocks 85 health off a player at full strength; `Smoothie2`, bought second, does
+the `inc`.  Neither shows in a transcript, because Health and Coins are status
+variables.
+
+Four cheat commands are left in: `cheattoroom1davidtai`, `cheattoroom3davidtai`
+(which also gives the gold key), `cheattoroom4davidtai` and
+`cheattogetdocdavidtai`.  The last gives `Document of Approval2` but not
+`variabledocument1235`, so a cheating player can open the gate but still gets
+told to go and see Jill.
+
+The game defines 29 verbs of its own before the standard library ones, several of
+them obscene, two of which start the `lost5 coins` timer as a punishment; `verb
+<give to >` has a trailing space in its name and `verb <>` has no name at all.
+The vulgarity is also why Jill and the octagonal hole carry the properties they
+do.  None of it is on the route.
+
+Start:
+look
+look at the gatekeeper
+speak to the gatekeeper
+1
+2
+3
+4
+look at moneybag
+take moneybag
+open moneybag
+e
+look
+w
+asdf
+1
+look at jill
+speak to jill
+1
+3
+2
+look at document
+sign document
+look at document
+buy from jill
+1
+1
+buy from jill
+2
+1
+i
+look at coffee
+drink coffee
+look at smoothie
+look at trunk
+open trunk
+look at creepy guy
+speak to man
+2
+2
+2
+look at fireplace
+look at gold key
+take gold key
+e
+speak to the gatekeeper
+4
+give the gatekeeper the document of approval
+n
+down
+n
+look at box
+look at octagonal hole
+use gold key on box
+look at artifact 1
+speak to green gem
+use green gem on octagonal hole
+look
+n

@@ -1,0 +1,36 @@
+
+InlineExpr
+
+You are in Room
+There is bottle here.
+A plain room.
+
+> sums
+2 + 2 = 4
+precedence: 14
+parens: 20
+negatives: -7
+division: 3.5
+no operator: 7
+variable: 42
+literal brace: {2+2}
+left alone: {not an expression}
+
+> look at bottle
+There is 30 percent left, and '30' has no stray space.
+
+> shrink
+
+> look at bottle
+There is 20 percent left, and '20' has no stray space.
+
+> shrink
+
+> look at bottle
+There is 10 percent left, and '10' has no stray space.
+
+> shrink
+
+> look at bottle
+There is 0 percent left, and '0' has no stray space.
+[runner] turns=8 leftover=0 running=true

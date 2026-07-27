@@ -1,0 +1,806 @@
+Barbarian (by Wonderjudge, QDK Pro 4.1.1, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "You have finished Barbarian!".
+Needs GEAS_SEED=1: eight scripted fights are won with fixed menu answers, and
+one five-stage trap sequence has a fixed answer per stage.
+Final score 250 out of 250, in 508 turns (633 script lines; the extra
+lines are menu answers, which the runner does not count as turns).
+
+You are Tandum, heir to the chieftainship of the village of Golsiv.  Thorgin,
+the shifty elder holding the seat in your stead, sets you three tasks he expects
+you to die attempting; Councilman Hardin, your late father's friend, hands out
+the destinations.  The tasks are a jewel in a graveyard crypt, a dragon scale on
+Fang mountain, and - once you have worked out that Thorgin is selling the
+village to the Red Scorpions - Thorgin himself, in a duel to the death on the
+proving grounds.  Everything is one continuous run; there are no section markers
+in the script body, because a `!` line after Start: would be sent as a command.
+
+WHY EVERY OPTIONAL FIGHT IS COMPULSORY.  Winning a fight gives +1 health and +1
+maxhealth, and Gak the blacksmith will only teach a new attack once maxhealth
+passes a threshold: Cleave at >11, Unseat at >13, Behead at >15, Vault at >16
+(the last also being the game's last 10 points).  The final duel opens with a
+mounted phase whose loop is `repeat until not flag <enemymounted>`, and the only
+thing in the whole procedure that clears that flag - short of your own death -
+is the Vault (`define procedure <thorgincombat>`).  So the game is unwinnable
+unless maxhealth reaches 17 before the council scene, which means the orc, the
+bear, the graveyard skeleton, the crypt skeletons, the mercenary, the six
+goblins and the ogre all have to be beaten.  Hence lines 105-124 and 129-149:
+the merchant's orc and the mounted bear look optional and are not.
+
+COMBAT IS FULLY DETERMINISTIC.  Every round draws one `$rand(1; 4)$` for the
+enemy's response, and geas's test build seeds plain `srand(atoi(GEAS_SEED))`, so
+under GEAS_SEED=1 the whole stream is known in advance.  `combat` and `mcombat`
+consume one draw per round; `multicombat` (two foes at once, used by the crypt
+skeletons and the goblin lair) consumes two, the second one unconditionally.
+Your menu answer is read *before* that round's draw, so a fight can be planned
+offline round by round, and because no non-combat turn touches the generator,
+inserting or removing map moves anywhere in the script cannot invalidate a plan.
+Two tactical facts drive most of the answer sequences below: a thrust (2) does
+no damage but leaves the enemy off balance, and a Cleave (4) against an
+off-balance enemy does 6, so 2-then-4 is six damage every two rounds at no risk;
+and a Cleave against a shield-block mode permanently rewrites that slot of the
+enemy's mode table to the weakest mode, which is why the ogre collapses so fast.
+
+  1. Golsiv, day one (lines 1-104).  The vase on the parlour mantle has to be
+     SHAKEn and then BROKEn for the chisel; the chisel opens your own bedroom
+     window from the alley, which is the only way to the pile of clothes.  Gak
+     gives you the battle axe, Selma the seer sells the green potion, Turner
+     sells the vegetables, Tessi the cook turns a tomato and a lettuce into the
+     cabbage, and the cabbage is the one thing the wild horse in the corner
+     stall will eat.  Hardin's "Hi there Hardin!" at 103-104 only checks the axe,
+     but that is what unlocks the roads west and south out of the crossroads.
+  2. The orc and the bear (105-128).  The traveling merchant on the western
+     road is being robbed: `attack orc` then 3,2,3,1,1.  The black bear on the
+     southern road is fought from horseback: 1,1,1,2,1.  Take the head and the
+     skin.
+  3. Armour (129-155).  Gak makes the studs, Inga the tanner turns studs + skin
+     into the studded leather and the bear head into a helmet.  With axe, horse
+     and armour all three, Hardin creates the exit to Chantly graveyard - a
+     "place" exit, so the command is `go to chantly graveyard`, not the bare
+     name.
+  4. Chantly graveyard (156-199).  EXAMINE GRAVESTONES in each of the nine
+     plots turns up the props; the tree branch, the cloth and the flint and
+     steel make the torch.  Pressing the plate in each of the four corner
+     graveyards opens the crypt in the middle, and pressing them again in the
+     same order at 291-302 is what reopens the gate on the way out.  The
+     graveyard skeleton: 2,4,4.  TAKE PILE OF BONES - those bones are used
+     three separate times later and are never consumed.
+  5. The crypt (200-248).  Four tombs, each with a coffin and a rock.  EXAMINE
+     COFFIN in a tomb before you can do anything with it; the mummy in Tomb2
+     wants the torch (its timer kills you in a handful of turns otherwise) and
+     leaves the silver coin and the dusty scroll.  Each rock has to be carried
+     to the coffin of a *different* tomb - the four PUT ROCK IN COFFIN lines
+     are the long walks at 216-248.
+  6. The ring puzzle (253-260).  EXAMINE STONE DOOR, answer yes, then the six
+     rings in the order 1,3,3,5,5,7.
+  7. The Eye of the East (261-271).  The statue holds the wooden shield; the
+     large tomb holds the sack.  PUT PILE OF BONES IN SACK, then USE SACK ON
+     PEDESTAL: the pedestal will only trade the eye for the sack while
+     `is <#Pile of bones:parent#; Sack>` holds, and springs a lethal trap
+     otherwise.  You must be wielding the shield when the red cloaked figure
+     appears in the doorway, hence the axe/shield swap either side of it.
+  8. Out of the crypt (272-290).  PULL LEVER, then the two crypt skeletons in
+     `multicombat`: 3,2,4,3,4,1,4.  The Note they leave is the first of the
+     three pieces of evidence.  UNWIELD TORCH is safe here and only here: the
+     game block's afterturn drops any unwielded torch and it goes out, and the
+     crypt is behind you.
+  9. Night one, and Thorgin's second task (303-358).  EXAMINE RUGS in the
+     chieftan's chamber for the Parchment (evidence two); Marta puts you up for
+     the night; in the morning Thorgin takes the eye, Gak teaches the Cleave,
+     and Selma and Hardin between them point you at the wizard's tower.
+ 10. The wizard and the mercenary (359-388).  KNOCK ON DOORS, GIVE DUSTY SCROLL
+     TO WIZARD for the blue potion (the only thing that will get you past the
+     dragon's breath).  The imposing figure on the way to Fang mountain is a
+     Red Scorpion assassin: 3,2,3,1,2,1,1,1.  EXAMINE DEAD MAN, then TAKE EYE
+     OF THE EAST - that second eye is evidence three, and the game will not let
+     you leave until you have searched him.
+ 11. Spiked boots (389-411).  Gak's spikes plus Inga make the spiked boots,
+     without which the ice on the great stair is fatal.
+ 12. Fang mountain and Fred (412-440).  USE PILE OF BONES ON IRON DOOR, DRINK
+     BLUE POTION *before* entering the cavern (its script kills you outright
+     without the potion's 40-turn timer), then SPEAK TO DRAGON and say yes:
+     Fred is friendly, and will hand over a scale in exchange for the two
+     treasures the goblins and the wizards stole from him.  The first is behind
+     the wooden door: the goblin lair, six goblins in three pairs, thirteen
+     rounds of `multicombat`, 1,2,4,2,4,2,4,4,2,4,4,4,3.
+ 13. The altar trap (441-447).  REMOVE LARGE RUBY FROM LARGE ALTAR, yes, and
+     then five dodges in a row - 1 (shield up, against the darts), 4 (duck,
+     ceiling blade), 5 (jump, blade at your feet), 2 (dodge, the axe from the
+     altar top), 3 (run, the ceiling comes down).  Every other answer at every
+     stage is instant death.
+ 14. The wizards' diamond (448-476).  Fred trades the ruby for the magic ring.
+     Through the portal: USE PILE OF BONES ON IRON DOOR again, take the diamond
+     off the pedestal to raise the portcullis, and RUB MAGIC RING *before*
+     putting it back - the alarm brings a red cloaked figure whose magical
+     flames are survivable only while the ring's own 40-turn timer is running.
+     EXAMINE DEAD WIZARD reveals the lever; USE CHISEL ON LEVER jams the
+     portcullis open so the diamond can leave the room.  USE BATTLE AXE ON
+     CEILING at the end of the tunnel brings it down behind you and stops the
+     pursuit timer - going east with the diamond instead is death.
+ 15. Home with the scale (477-504).  Fred *tosses* the scale on the floor, so
+     TAKE DRAGON SCALE is not optional: the crossroads nightfall scene checks
+     `got <Dragon scale>` and packs you straight back to Fang mountain without
+     it.  Hardin's second option is the accusation; Marta's daughter Megan is
+     missing, and Gak's "other way in" hint reveals the loose stone behind the
+     great hall fireplace.
+ 16. The hedge maze (505-547).  Twenty rooms and four dead ends, each dead end
+     holding one part of the well winch: metal bar, chain, bucket, handle.  USE
+     CHAIN ON METAL BAR, USE BUCKET ON BAR AND CHAIN, USE HANDLE ON BAR CHAIN
+     AND BUCKET, USE BAR CHAIN AND BUCKET ON WELL.  Each stage re-parents the
+     handle to the new well object and TURN HANDLE checks
+     `is <#handle:parent#; Well4>`, so the four USEs have to be done in exactly
+     this order.
+ 17. Carrying Megan out (548-577).  Megan refuses to be picked up while
+     anything at all is wielded, so both the axe and the shield go away first;
+     `wield` refuses while you are carrying her, so they stay away.  Going down
+     at Hedge maze6 while carrying her makes her hand over the iron key, which
+     unlocks the gate at Hedge maze1 - she is dropped for the ogre fight and
+     collected again afterwards.
+ 18. The ogre (578-597).  `attack ogre` then 2,2,2,4,2,4,3,3,2,4,3,2,4:
+     thirteen rounds, no damage taken at all.  Its mode table is 1,5,7,11 and
+     the Cleave in round 4 rewrites the 5 (shield block) slot to 1, after which
+     thrust-then-Cleave finishes it.  Then back for Megan and south twice to
+     the village center, where walking in with her while Marta is there is the
+     reunion: +40 points and health restored to maxhealth.
+ 19. The council (598-610).  Gak teaches the Behead and the Vault (maxhealth is
+     17 by now), Thorgin concedes the second task, and in the dining hall you
+     SPEAK TO MEMBERS OF THE COUNCIL first - the give handlers all refuse until
+     you have addressed them - then hand over the note, the parchment and the
+     eye.  Marta and Megan are the fourth piece of evidence, and Thorgin throws
+     down the gauntlet.
+ 20. The duel (611-633).  Mount up, wield the axe *and* the shield, and say yes
+     to Hardin at the crossroads.  Mounted phase: answer 4, the Vault, which
+     unhorses both of you in one round and is the only exit from that loop.  On
+     foot, Thorgin wears a healing ring - the round after his health drops
+     below 10 he jumps back and resets it to 25 - so no amount of damage can
+     kill him.  What the heal does do is set the flag whose branch lets a
+     thrust knock him off balance, and a Behead against an off-balance opponent
+     sets his health to 0 outright.  Hence 4,4,1,1,3,4,1,2,6: chip him to 9,
+     let him heal, thrust, behead.  The shield matters because it blocks the
+     whole `enemyatt2` = 4 branch of every attack mode; without it this route
+     costs six extra health.
+
+Two engine divergences turned up here, both now fixed with fixtures.  The
+game's own `unwield` command computes `$left(#command1#; %length1%)$` over
+"Battle axe (wielded)" to get back to "Battle axe"; geas ended the argument
+list at the *first* right paren, so the argument list collapsed to one item,
+the function returned nothing, and the weapon simply vanished instead of being
+handed back.  Quest's DoFunction takes the last one (InStrRev, V4Game.cs:6745).
+And Quest records containment as the child's "parent" property, which games
+read back as `#child:parent#` - both the crypt pedestal and the hedge-maze well
+winch are built on that check, and geas kept containment only in its own
+parent field, so neither puzzle could ever match.
+Start:
+2
+north
+speak to thorgin
+west
+examine fireplace
+look at mantle
+take vase
+shake vase
+break vase
+take chisel
+open window
+out
+use chisel on your window
+open your window
+enter your window
+take pile of clothes
+west
+east
+east
+south
+south
+south
+south
+speak to hardin
+2
+coins
+north
+north
+north
+east
+speak to gak
+1
+speak to gak
+3
+speak to gak
+5
+speak to gak
+3
+take battle axe
+wield battle axe
+coins
+west
+west
+speak to stable boy
+2
+speak to stable boy
+2
+speak to stable boy
+2
+east
+south
+west
+speak to marta
+3
+east
+south
+east
+speak to selma
+2
+yes
+drink green potion
+west
+north
+north
+west
+speak to horse
+east
+south
+east
+speak to turner
+2
+speak to turner
+4
+speak to turner
+6
+speak to turner
+6
+west
+north
+north
+east
+north
+speak to tessi
+3
+give tomato to tessi
+1
+give tomato to tessi
+give lettuce to tessi
+i
+south
+west
+south
+west
+give cabbage to horse
+speak to stable boy
+2
+yes
+take horse
+east
+south
+south
+south
+speak to hardin
+1
+west
+attack orc
+3
+2
+3
+1
+1
+coins
+east
+take horse
+mount horse
+south
+attack bear
+1
+1
+1
+2
+1
+take bear head
+take bear skin
+dismount
+north
+north
+drop horse
+west
+speak to inga
+2
+east
+north
+north
+east
+speak to gak
+2
+speak to gak
+3
+west
+south
+south
+west
+give studs to inga
+give bear skin to inga
+give bear head to inga
+yes
+wear studded leather
+wear helmet
+east
+take horse
+south
+speak to hardin
+1
+mount horse
+go to chantly graveyard
+dismount
+drop horse
+north
+west
+examine gravestones
+north
+examine gravestones
+use battle axe on tree branch
+take tree branch
+north
+examine gravestones
+east
+examine gravestones
+take cloth
+east
+examine gravestones
+south
+examine gravestones
+take flint and steel
+use cloth on tree branch
+use flint and steel on tree branch
+i
+south
+examine gravestones
+north
+northwest
+west
+push plate
+southeast
+southeast
+push plate
+west
+west
+push plate
+northeast
+northeast
+push plate
+southwest
+attack skeleton
+2
+4
+4
+take pile of bones
+down
+east
+examine coffin
+west
+west
+examine coffin
+east
+north
+east
+open coffin
+use torch on mummy
+take silver coin
+take dusty scroll
+read dusty scroll
+west
+west
+take rock
+east
+north
+west
+examine coffin
+put rock in coffin
+east
+east
+examine coffin
+west
+south
+west
+take rock
+east
+north
+east
+put rock in coffin
+west
+south
+west
+take rock
+east
+south
+east
+put rock in coffin
+west
+north
+west
+take rock
+east
+south
+west
+put rock in coffin
+east
+north
+north
+north
+examine stone door
+yes
+1
+3
+3
+5
+5
+7
+north
+examine statue
+take wooden shield
+take sack
+put pile of bones in sack
+unwield battle axe
+wield wooden shield
+use sack on pedestal
+attack red cloaked figure
+unwield wooden shield
+wield battle axe
+south
+pull lever
+south
+south
+south
+south
+unwield torch
+wield wooden shield
+attack skeletons
+3
+2
+4
+3
+4
+1
+4
+take note
+read note
+take pile of bones
+northeast
+push plate
+southwest
+southwest
+push plate
+northeast
+southeast
+push plate
+northwest
+northwest
+push plate
+southeast
+south
+south
+take horse
+mount horse
+west
+north
+north
+north
+dismount
+drop horse
+north
+north
+east
+examine rugs
+take parchment
+read parchment
+west
+south
+south
+south
+west
+speak to marta
+3
+yes
+east
+north
+north
+speak to thorgin
+south
+east
+speak to gak
+3
+west
+south
+south
+south
+speak to hardin
+1
+speak to hardin
+2
+north
+east
+speak to selma
+2
+west
+south
+speak to hardin
+2
+north
+north
+north
+take horse
+mount horse
+south
+south
+south
+go to wizard's tower
+knock on doors
+give dusty scroll to wizard
+east
+speak to hardin
+1
+go to fang mountain
+speak to figure
+attack figure
+3
+2
+3
+1
+2
+1
+1
+1
+examine dead man
+take gold coin
+take eye of the east
+out
+dismount
+drop horse
+northeast
+take horse
+mount horse
+south
+north
+dismount
+drop horse
+west
+speak to inga
+2
+east
+north
+north
+east
+speak to gak
+2
+yes
+west
+south
+south
+west
+give spikes to inga
+wear spiked boots
+east
+take horse
+mount horse
+south
+go to fang mountain
+dismount
+drop horse
+northeast
+northeast
+use pile of bones on iron door
+west
+drink blue potion
+north
+west
+west
+speak to dragon
+yes
+east
+east
+south
+use battle axe on wooden door
+west
+west
+1
+2
+4
+2
+4
+2
+4
+4
+2
+4
+4
+4
+3
+remove large ruby from large altar
+yes
+1
+4
+5
+2
+3
+take large ruby
+east
+north
+west
+west
+speak to fred
+3
+take magic ring
+wear magic ring
+west
+west
+enter portal
+use pile of bones on iron door
+south
+south
+remove large diamond from pedestal
+rub magic ring
+put large diamond on pedestal
+examine dead wizard
+use chisel on lever
+south
+remove large diamond from pedestal
+north
+north
+enter portal
+use battle axe on ceiling
+east
+speak to fred
+3
+take dragon scale
+east
+east
+south
+east
+southwest
+southwest
+take horse
+mount horse
+south
+speak to hardin
+2
+north
+north
+speak to marta
+1
+speak to marta
+2
+north
+east
+speak to gak
+2
+west
+dismount
+drop horse
+north
+west
+enter fireplace
+push loose stone
+down
+west
+north
+north
+take metal bar
+south
+south
+south
+west
+north
+take chain
+south
+east
+south
+west
+west
+west
+west
+take bucket
+east
+east
+north
+west
+west
+north
+north
+north
+take handle
+south
+south
+east
+north
+north
+east
+east
+south
+west
+south
+use chain on metal bar
+use bucket on bar and chain
+use handle on bar chain and bucket
+use bar chain and bucket on well
+turn handle
+speak to megan
+2
+unwield battle axe
+unwield wooden shield
+take megan
+north
+east
+north
+west
+west
+south
+south
+west
+south
+east
+east
+south
+east
+east
+north
+north
+down
+south
+south
+west
+west
+use iron key on iron gate
+drop megan
+wield battle axe
+south
+attack ogre
+2
+2
+2
+4
+2
+4
+3
+3
+2
+4
+3
+2
+4
+north
+unwield battle axe
+take megan
+south
+south
+south
+north
+east
+speak to gak
+3
+west
+north
+speak to thorgin
+east
+speak to members of the council
+give note to members of the council
+give parchment to members of the council
+give eye of the east to members of the council
+west
+south
+wield battle axe
+wield wooden shield
+take horse
+mount horse
+south
+south
+south
+speak to hardin
+1
+yes
+attack thorgin
+4
+4
+4
+1
+1
+3
+4
+1
+2
+6

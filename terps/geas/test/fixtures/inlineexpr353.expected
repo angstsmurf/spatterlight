@@ -1,0 +1,20 @@
+
+InlineExpr353
+
+You are in Room
+There is bottle here.
+A plain room.
+
+> sums
+2 + 2 = {2+2}
+no operator: {  7  }
+literal brace: {{2+2}}
+
+> look at bottle
+There is { 30 } percent left.
+
+> shrink
+
+> look at bottle
+There is { { 30 - 10 } } percent left.
+[runner] turns=4 leftover=0 running=true

@@ -1,0 +1,36 @@
+Escape the Bear Campsite (CJ592, 2008, Quest 4.0) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "escape the hazardous campsite".
+
+Derived from David Welbourn's Key & Compass solution, with three fixes for this
+.cas build (his solution was written against a different version):
+  * after "remove string" the string must be picked up explicitly ("take string")
+    before it can be combined with the hook.
+  * the muddy ground needs THREE taps to raise a worm, not the two his note claims.
+  * the fish is caught with an explicit "use fishing line on lake" (his text jumps
+    straight to the baited catch).
+Single room; the "west" exit just leads into the lake (no room there).
+
+Start:
+search lake
+use rock on crate
+x wood pile
+take nail
+search wood pile
+take yoyo
+use rock on nail
+take hook
+x yoyo
+remove string
+take plastic ball
+take string
+use string on hook
+tap muddy ground
+tap muddy ground
+tap muddy ground
+take worm
+use worm on fishing line
+use fishing line on lake
+use plastic ball on fish
+s
+throw fish
+s

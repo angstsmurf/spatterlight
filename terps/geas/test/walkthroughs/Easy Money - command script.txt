@@ -1,0 +1,181 @@
+Easy Money -- Keyz Karanza, v1.0, ASL 210
+=========================================
+
+Two rooms, no objects, no puzzles: this is a commodities-trading game built
+entirely out of Quest's collectables, and it is the corpus's test case for them.
+You start in the Stock Exchange with 100 dollars and 1000 points, and you win
+the moment you hold more than 4999 dollars.  Going OUT to the street loses.
+
+    afterturn {
+    if has <Money; +4999> then do <winner>
+    if is <#quest.currentroom#;the street> then playerlose
+    }
+
+Note "+4999", not "=5000": `has <name; +N>` is *strictly* greater than N, so the
+target is 5000 dollars and the intro's "Parle your 100 dollars into 5000" is
+exactly right.
+
+Collectables
+------------
+The whole game state is one line of the game block: 34 collectables, three per
+company (stock held, price per share, last change) plus Money, Score and five
+scratch values the Buy and Sell dialogues pass around.
+
+    collectables <Money dp=100 [! Dollars]; Score p=1000 [! Points];
+                  BCBBstock dp=0 [! BCBB shares]; BCBBstat n=10 [];
+                  BCBBchange n=0 []; ... BuyChoice dp=0 []; ...>
+
+"dp" is a "p" range -- never below zero -- with the "d" meaning "leave this line
+out of the status pane while it is zero", which is how the pane shows only the
+shares you actually own.  The eight "[]" price and change entries have an empty
+display string and so are never shown at all; the game prints them itself in the
+stock report.  All eight companies start at 10 dollars a share.
+
+Two things in here only work at all because the game declares ASL 210.  Below
+2.80 there are no numeric or string variables, so a bare `set <X; +1>` *is* a
+collectable set; and below 3.20 `~X~` in a parameter is the collectable's value,
+which is how the game does arithmetic on them:
+
+    setvar <Cost; ~BuyNumber~*~BCBBstat~>
+    if has <Money; -%Cost%> then msg <You don't have enough money!>
+        else do <RingMeUpBCBBFinal>
+
+`setvar` is the one place a real numeric variable appears, and it is used purely
+as a scratch pad, because `%Cost%` can then be substituted back into the next
+`set`.  DetermLow and DetermHigh do the same thing in reverse -- after clamping a
+price they copy it into a same-named numeric variable with
+`setvar <BCBBstat; ~BCBBstat~>` -- so that the report's `%BCBBstat%` has
+something to read.
+
+Note also `if has <BCBBstock; -SellNumber>`: the operand is not a number, so
+Quest reads it as the name of another collectable, and SellNumber is one.  That
+is the "you don't have that much stock" check, and it works.  (Contrast
+lovesong.asl, which writes `if has <chrlock;1>` with no +/-/= at all: the
+operator is then the character "1", which matches nothing, and the condition is
+false for ever.)
+
+How the market moves
+--------------------
+NEXT costs 8 points and redraws the market:
+
+    setvar <ratel; $rand(-7;-1)$>
+    setvar <rateh; $rand(1;7)$>
+    set <BCBBchange; =$rand(%ratel%;%rateh%)$>      (and seven more)
+
+so every company in a given turn draws its change from the same range, and that
+range is itself random -- a turn can be capped at -1..+7 or at -7..+1.  Prices
+are then clamped to 1..50.  Buying and selling do not move the market at all, so
+under a fixed seed the price path depends on nothing but the number of NEXTs
+issued, and a script can be written against it.  This one is written against
+GEAS_SEED=1, which run_walkthroughs.sh sets; the whole corpus is seeded that way.
+
+The trading dialogue
+--------------------
+BUY and SELL each open a `choose` menu of the eight companies (1 = Bloated Colon
+Baked Beans, 2 = Laughin Jacks Antidepressants, 3 = Pizza Face Pimple Cream,
+4 = Psycho Mutt Dog Treats, 5 = Sea Bass Feminine Deodorant, 6 = Skull Crusher
+Pain Reliever, 7 = Sinead O Conner Hair Tonic, 8 = Tough Luck Bail Bonds) and
+then `enter` the number of shares.  So each trade is three script lines: the
+command, the menu number, the share count.  There is no confirmation and no
+output on success -- a trade that works prints nothing at all, which is why the
+transcript below is mostly stock reports.
+
+The affordability test is `if has <Money; -%Cost%>`, i.e. "money strictly less
+than the cost", so spending your last dollar to the penny is allowed.  That
+matters: every buy below is for the largest whole number of shares the cash
+covers.
+
+The route
+---------
+Eight round trips, ten NEXTs, and the win lands on the tenth.  Prices are per
+share, at the turn named:
+
+    turn  0  buy  10 Skull Crusher   @10  -- 100 dollars, all of it
+    turn  2  sell                    @14  ->  140
+    turn  2  buy  23 Laughin Jacks   @ 6
+    turn  3  sell                    @10  ->  232
+    turn  3  buy  33 Tough Luck      @ 7
+    turn  4  sell                    @ 9  ->  298
+    turn  4  buy  74 Pizza Face      @ 4
+    turn  5  sell                    @ 5  ->  372
+    turn  5  buy  41 Tough Luck      @ 9
+    turn  6  sell                    @11  ->  454
+    turn  6  (hold -- turn 7 is down across the board)
+    turn  7  buy  75 Laughin Jacks   @ 6
+    turn  8  sell                    @12  ->  904
+    turn  8  buy 904 Pizza Face      @ 1   -- the one that decides the game
+    turn  9  sell                    @ 5  -> 4520
+    turn  9  buy 301 Bloated Colon   @15
+    turn 10  sell                    @17  -> 5122, and the win fires
+
+Pizza Face Pimple Cream bottoming out at the clamp floor of 1 on turn 8 is what
+makes ten turns enough: a dollar a share turns 904 dollars into 904 shares, and
+four turns later they are worth five times that.  Without it the same seed still
+wins, just later.
+
+The ending
+----------
+`winner` prints "Your final score is ~Score~ points!" -- 920, since ten NEXTs
+cost 8 points each -- and then `playerwin`, which shows the game's `define text
+<win>`: "YOU DID IT! Congratulations! Now you can put your kids in college...for
+a week, maybe...at a community college."
+
+Start:
+buy
+6
+10
+next
+next
+sell
+6
+10
+buy
+2
+23
+next
+sell
+2
+23
+buy
+8
+33
+next
+sell
+8
+33
+buy
+3
+74
+next
+sell
+3
+74
+buy
+8
+41
+next
+sell
+8
+41
+next
+buy
+2
+75
+next
+sell
+2
+75
+buy
+3
+904
+next
+sell
+3
+904
+buy
+1
+301
+next
+sell
+1
+301

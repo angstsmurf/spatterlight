@@ -1,0 +1,90 @@
+Permanant Room (Permanant Room.asl, by Wyatt Arent, QDK Lite 4.03, asl-version 400)
+==================================================================================
+
+A one-room escape puzzle, and a tidy one: you wake with no memory in the
+"Permanant Room", and everything you need is hidden in the furniture.  It is
+winnable, and the ending is unusual -- the south exit leads to a room called
+Exit whose entire `description` is a message plus `playerwin`, so simply walking
+through the front door wins.  The marker is "You escape the permanant room".
+
+The chain, which the note found in the sofa hints at ("The insides of a time
+teller is the perfect picture for mechanics"):
+
+  quarter under the sofa, pen in the plant pot, watch under the carpet, chisel in
+  the end table's drawer, and a safe behind the wall paper (which also reveals
+  the screw holding the safe shut) -> USE QUARTER ON SCREW unscrews it -> OPEN
+  SAFE reveals a mechanical slot with a keyhole -> USE CHISLE ON WATCH opens the
+  watch -> USE PEN ON PAPER, which only works while you are holding the opened
+  watch, draws the mechanism on the blank sheet from the end table -> USE USED
+  PAPER ON SLOT trades the drawing for a twisted key -> USE KEY ON FRONT DOOR ->
+  OPEN FRONT DOOR creates the south exit -> SOUTH.
+
+Two things about the way it is built that the script depends on:
+
+  * Every hiding place is a game-level `command <...>` with a long synonym list
+    (pull/tear/rip/peel + up/back + carpet/wall paper, look under sofa/couch,
+    look in pot/look at pot, open drawer), not an action on the object -- so the
+    verbs are fixed and X CARPET or X WALL PAPER tells you nothing, both being
+    `invisible` objects.  The end table is the exception: it has an
+    `action <open>` of its own, so OPEN END TABLE works too and even spells
+    "drawer" correctly, where the command's copy of the message says "droor".
+  * Each command guards on `if not got <item>` -- inventory, not existence -- so
+    an item you reveal but do not pick up is found again, with the same text,
+    every time you repeat the command.  The script therefore takes each item in
+    the turn after revealing it.  The one place this matters is the wall paper,
+    whose guard reads the wrong flag (`slot found` rather than `safe found`): it
+    keeps announcing the safe until you have actually opened it.  Peeling it
+    again after the screw is off is harmless, though -- the screw was moved to
+    the author's off-stage "Other Room", and the command's `show <Screw>` cannot
+    bring it back from there.
+
+The script also visits the parts that are pure decoration: HELP (the author's own
+verb list), the television (WATCH TV), the sofa (SIT ON SOFA), the dead phone,
+the blank paper before it is drawn on, TAKE DIRT, LOOK AT KEY HOLE, and USE NOTE
+ON SLOT, which the slot rejects.  Near the end it opens the left door and walks
+WEST, which shows what those two side doors are for: their `action <open>` does
+`create exit west <Permanant Room; Permanant Room>`, so each door leads back into
+the room you are already in.  (The Right Door defines `action <close>` twice, and
+the second copy clears the *west* exit rather than its own; both doors are
+otherwise unused by the puzzle.)
+
+Start:
+help
+x tv
+watch tv
+x sofa
+sit on sofa
+take note
+read note
+x phone
+use phone
+take paper
+read paper
+look under sofa
+take quarter
+look in pot
+take dirt
+take pen
+pull up carpet
+take watch
+open drawer
+take chisle
+peel back wall paper
+x safe
+x screw
+use quarter on screw
+open safe
+x mechanical slot
+look at key hole
+use note on slot
+use chisle on watch
+x opened watch
+use pen on paper
+use used paper on slot
+take key
+open front door
+use key on front door
+open front door
+open left door
+west
+south

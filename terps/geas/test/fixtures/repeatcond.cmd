@@ -1,0 +1,4 @@
+countup
+countdown
+both
+untilflag

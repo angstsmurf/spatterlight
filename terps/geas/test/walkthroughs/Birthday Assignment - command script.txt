@@ -1,0 +1,213 @@
+The Birthday Assignment
+Patrick Hosseini, ASL 410, "Created with QDK 4.1.5"
+
+A demo, and it says so: three towns' worth of setup, one shopping trip, one
+airship crisis, and then the credits.  You are nineteen, you have just been
+handed your uncle's delivery ship, and everything the game asks of you happens
+in the town of Prospect before you ever take off.
+
+
+WHAT THE GAME IS ACTUALLY SCORING
+
+Two numeric variables, both shown in the right-hand pane:
+
+  Money           starts at 1600, displayed "Credits: !c" (nozero)
+  Crew Tolerance  starts at 3, displayed "CT: !"
+
+The game block's afterturn fires `playerlose` the moment CT hits zero, with a
+mutiny message.  Nothing raises CT except three purchases-and-decisions, and
+nothing else in the demo can be won or lost, so the whole game is a budgeting
+puzzle: 1600 credits against 3430 credits of things to buy.
+
+  Kevin, over a drink (KevinM2)          30c   hires him as crew
+  ten kegs of beer, from the barkeep    500c   CT +1
+  armaments for the crew (Gunshop)      900c   flag <arms>
+  a "Battle Cannon" (Gunshop)          1000c   flag <cannon> -- see below
+  engine upgrade, from Lionel          1000c   flag <engine>
+
+Only two of the last three flags are ever consulted, and only one of them at a
+time, because the crisis branches: flag <engine> settles the "fly around the
+storm" branch, flag <cannon> settles "wait it out, then fight pirates with the
+cannon", flag <arms> settles "wait it out, then let them board".  Any one of
+those three, bought and then matched with the branch that reads it, ends the
+demo at CT +1.  Buy the wrong one and you take -2 or -3 instead, which from a
+starting 3 is a mutiny or very nearly one.
+
+This script buys Kevin, the kegs and the cannon (1530c), spends 20c more on a
+misjudged punch, and finishes with 50 credits and CT 5.
+
+
+THE ROUTE
+
+  office -> c_square -> alley -> tavern -> gunshop -> docks -> mechanic
+  -> ship -> "man helm" -> seq1 -> crunch1 -> crunch1a -> Era int -> EDock
+
+The office door locks behind you: c_square's exit west is
+`west locked <office; The office has been closed for the day...>`, so the
+advisor's tutorial is a one-shot.  The ship takes off on `man helm` -- the helm
+object has `properties <man>` and `action <man> goto <seq1>` -- and the game
+block defines a bare `verb <man>` so that manning anything else gets a refusal
+rather than a parser error.
+
+From `seq1` on, the player never types a command again.  Every remaining beat is
+a `wait` followed by a `choose`, so the tail of this script is nothing but menu
+numbers.
+
+
+THE MENU NUMBERS
+
+Selections in this game are dense and they re-enter themselves, which makes the
+numbers hard to read back later.  In order, as the script types them:
+
+  speak to kevin -> KevinM
+     2  ask what he'll spend it on   -> KevinM2
+     2  offer to take him drinking (30c)  -- hires him, `hide <kevin>`
+  speak to bartender -> tavern
+     1  ask for a beer  (re-enters the tavern menu)
+     3  anything interesting to do   (the dust-storm hint)
+  speak to bartender
+     2  ask for information -> the keg offer -> buykeg
+     1  accept (500c), CT +1
+  speak to bartender
+     4  nothing, I'm good thanks
+  speak to gunsmith -> Gunshop
+     3  ask for information
+  speak to gunsmith
+     2  the Battle Cannon (1000c) -- she sells you a "Heavy Repeater" instead,
+        Class D licence and all, but the flag is still <cannon>
+  (entering the garage auto-runs `choose <lionel talk>`)
+     1  "Greasemonkey?" -> enginetalk
+     2  ask for information  (re-enters enginetalk)
+     3  decline the offer
+  speak to lionel -> enginetalk
+     3  decline again
+  punch lionel -> punch
+     1  beg for forgiveness -- free the first time (see below)
+  man helm -> crunch1
+     3  wait for the storm to subside -> pirates -> crunch1a
+     1  use your mounted cannon -- flag <cannon> is set, CT +1
+
+`wait` does not consume a script line, and there are a lot of waits in the
+endgame; `choose` does.  That asymmetry is the only thing that makes this tail
+legible.
+
+
+THE PUNCH VERB
+
+`verb <punch>` exists mostly as a joke and this script exercises all of it:
+punching the advisor and Kevin gets a scripted brush-off from an object
+property, punching the barkeep costs 20 credits (or `playerlose` if you cannot
+pay), and punching Lionel opens the `punch` selection.  Lionel's menu is
+flag-guarded: the *first* time, "Beg for forgiveness" sets `flag on <punch>` and
+costs nothing, and only a repeat performance costs CT -1.  "Take him on" always
+costs CT -1.  Either choice `goto <docks>`, which is convenient -- the script
+uses the free beg as its ride back out of the garage.
+
+The 20c to the barkeep is not necessary, but leaving it in keeps a check on the
+`if ( %money% >= 20 )` path and still finishes with credits to spare.
+
+
+WHAT THIS GAME NEEDED FROM THE ENGINE
+
+The demo ends in a room defined as `define room <EDock>` and reached by
+`goto <Edock>` from the room before it.  Quest does not care: every name lookup
+in the engine goes through an LCase-to-LCase comparison (GetRoomID,
+GetObjectIDNoAlias and friends), so the two spellings are the same room.  geas
+kept its name -> block-type map keyed by the exact spelling, so `find_by_name`
+(which folds case) found the room while the property and action getters decided
+it had no properties, no actions and no type at all.  The visible symptom was
+precise and baffling: you arrived at "You are in edock", with no description,
+and the demo simply stopped -- the room's `script`, which prints the ending and
+calls `playerwin`, never ran.  Fixed by folding the key (fixtures/namecase.asl).
+
+The same fix exposed a second, smaller divergence: with the room found again,
+geas printed the name using whatever casing the `goto` had used.  Quest prints
+`_rooms[id].RoomName`, the spelling from `define room` (ShowRoomInfo,
+V4Game.Part2.cs:3709-3712), so this now says "You are in EDock" as it should.
+
+
+ODDS AND ENDS
+
+`define room <Era int>` is a room with nothing in it but a script that prints
+one line, waits, and `goto <Edock>`; it exists purely to put a keypress between
+the crisis and the ending.  Its name has a space in it, which is legal and which
+this script never has to type.
+
+The alley's script swaps its description once Kevin is hired, and hiring him
+also `hide <kevin>`s the object, so the "old man in raggedy clothes" paragraph
+and the man himself disappear together.
+
+Several objects are `invisible` and exist only to be examined -- the table in
+the office, the sky in the alley, the guns in the shop, the bar and tables in
+the tavern.  Most of them also answer `speak to`, always with the same joke
+(you talk to the furniture, the furniture answers).  The script pokes all of
+them on the way past because they are the only content the demo has.
+
+Money's `display nozero` means the Credits line vanishes rather than showing 0,
+which is a nice touch you will not see on this route -- 50 credits survive.
+
+
+Start:
+x advisor
+punch advisor
+take advisor
+x table
+speak to table
+speak to advisor
+e
+x fountain
+speak to fountain
+drink fountain
+splash fountain
+play in fountain
+take fountain
+x benches
+sit benches
+speak to benches
+w
+n
+x kevin
+punch kevin
+x sky
+speak to kevin
+2
+2
+n
+x bartender
+x tables
+sit tables
+speak to tables
+x bar
+speak to bartender
+1
+3
+speak to bartender
+2
+1
+speak to bartender
+4
+punch bartender
+w
+x guns
+speak to guns
+take guns
+speak to gunsmith
+3
+speak to gunsmith
+2
+n
+s
+s
+e
+n
+1
+2
+3
+speak to lionel
+3
+punch lionel
+1
+s
+man helm
+3
+1

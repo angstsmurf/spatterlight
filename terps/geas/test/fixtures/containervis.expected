@@ -1,0 +1,62 @@
+
+ContainerVis
+
+You are in Room
+There is case here.
+A plain room.
+
+> look
+You are in Room
+There is case here.
+A plain room.
+
+> take hammer
+You don't see any hammer.
+
+> reveal hammer
+
+> look
+You are in Room
+There is case and hammer here.
+A plain room.
+
+> take hammer
+
+> i
+You are carrying:
+hammer
+
+> open case
+You open it.
+
+> take knife
+(first removing it from case)
+Done.
+You pick it up.
+
+> put knife in case
+You put knife in case.
+
+> close case
+You close it.
+
+> take knife
+You don't see any knife.
+
+> reveal nail
+
+> look
+You are in Room
+There is case and nail here.
+A plain room.
+
+> x case
+A wooden case.
+
+> take nail
+You don't see any nail.
+
+> reveal nail
+
+> take nail
+[runner] turns=17 leftover=0 running=true

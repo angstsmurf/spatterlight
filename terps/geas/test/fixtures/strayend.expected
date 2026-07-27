@@ -1,0 +1,28 @@
+
+Strayend
+
+You are in Hall
+The hall.
+
+> one
+The early procedure ran.
+
+> two
+The late procedure ran.
+
+> three
+You are in Attic
+The attic.
+
+> look
+You are in Attic
+The attic.
+
+> back
+You are in Hall
+The hall.
+
+> look
+You are in Hall
+The hall.
+[runner] turns=6 leftover=0 running=true

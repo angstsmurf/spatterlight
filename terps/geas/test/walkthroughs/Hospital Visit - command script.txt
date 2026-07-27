@@ -1,0 +1,91 @@
+Hospital Visit (Hospital visit.asl, by Katamari, QDK 4.1.4, asl-version 410)
+===========================================================================
+
+You are visiting Robbie, a colleague who was thrown out of a 34th-floor window
+for losing the 2007 credit adjustment figures, and you have his get-well card
+and cake.  He is in Room 101 on the thirteenth floor.  GIVE CARD TO ROBBIE is
+`playerwin`, and the win text is worth reading: Robbie disappears out of his
+window while you wait in the corridor, and "Looks like we need to buy a new
+present" -- which is the marker this script checks for.
+
+The whole game hangs on one object.  There is exactly one "Get well soon!" Card,
+and three characters have a script for it:
+
+  * Robbie, in Room 101: `give <"Get well soon!" Card> playerwin`.
+  * The Shady Man, in the thirteenth floor hall, who asks for it outright:
+    he burns it and calls `playerlose`, which prints the (long, and much better
+    written) losing text in which you and Robbie go over the balcony together.
+  * The dying Female Patient in Ward 1, whose script would trade it for her
+    granddaughter's Last Card.
+
+Only the first two can actually happen.  The Female Patient's line is written
+`give to <"Get well soon!" Card>`, and in Quest "give to <X>" on an object means
+"when *this object* is given to X" -- so hers only fires if you hand the old
+woman to the card.  ExecGive looks for the recipient's `give <item>` first, then
+the item's `give to <recipient>`, then the two `anything` catch-alls, and none of
+them match here (V4Game.Part2.cs:4724-4780), so she answers with the standard
+"She doesn't want it." even in the real engine.  The script speaks to her, and to
+the Shady Man, and hands the card to neither.
+
+The two gift exchanges that do work are the other way round:
+
+  * GIVE CAKE TO RECEPTIONIST -- the cake's own `give to <Receptionist>` fires
+    (the receptionist's `give to <Cake>` is written backwards the same way the
+    Female Patient's is, so it is his cake-side script that never runs), and you
+    get a Box of Cigars.  Note the win text says "You hand the presents you have
+    over to Robbie", but the cigars and the cake are not checked for anything.
+  * GIVE FOLDABLE WHEELCHAIR TO OLD MAN in the Disabled Toilet -- written the
+    right way round, `give <Foldable Wheelchair>` -- gets you the Music Box.
+
+Everything else is scenery, and the script tours it: both other wards (Ward 2's
+1938 patient records and its dead flashlight, Ward 3's vending machine that only
+takes money you do not have, and the cat), the cafeteria menu and Dinner Lady
+Dorris ("No food left. Goodbye!" plus three stray quote marks the author left
+in), and the Mad Patient in reception.
+
+Two things that look like bugs and are not:
+
+  * NORTHWEST from the Hall is the stairs, and they are locked forever: "A
+    maintence sign is covering the door", with no key anywhere.  The lift is the
+    only way up, which is why the script goes NORTH then UP.
+  * The Thirteeth Floor Hall (the author's spelling) has no `look` or
+    `description` line at all, so arriving there prints the exit list and
+    nothing else.  Four of its five doors are locked with a flavour message
+    apiece; only SOUTHWEST, Room 101, opens.
+
+Start:
+x receptionist
+speak to receptionist
+speak to mad patient
+take card
+take cake
+give cake to receptionist
+i
+north
+take foldable wheelchair
+west
+speak to old man
+give foldable wheelchair to old man
+east
+northeast
+speak to female patient
+southwest
+east
+x patient records 1938
+take flashlight
+west
+southeast
+x vending machine
+speak to cat
+northwest
+southwest
+x menu
+speak to dinner lady dorris
+northeast
+northwest
+north
+up
+x shady man
+speak to shady man
+southwest
+give card to robbie

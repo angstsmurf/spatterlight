@@ -1,0 +1,316 @@
+Mario Is Missing 2: Ultimate Quest (Jordan, QDK Pro 3.53, ASL 350)
+==================================================================
+
+Part 2 of a fan-made three-part Paper Mario pastiche.  You are Luigi, hunting for
+the kidnapped Mario across 86 rooms of Glitzville, Toad Town, Hooktail Castle,
+Shy Guy's Toy Box, Goomba City, Dry Dry Desert and the Boo Mansion, mostly by
+whacking bosses in the correct order.  Nearly every puzzle is "hit the right
+object with the right verb"; the interesting part is that the wrong verb usually
+calls `playerlose` on the spot, and there are 21 such instant deaths.
+
+Two endings, both `playerwin`:
+
+  * Secret Room- Ending -- at Fahr Outpost, `speak to x naut` and answer his
+    password menu with choice 3, "There there now password outpost".  (Choice 4,
+    "Hurry hurry now Luigi password outpost", is the decoy and kills you.)
+  * REAL Ending -- the Thousand-Year Door, reached by showing the Bob-omb at Fahr
+    Outpost the Bob-omb doll.  `take thousand year door`, say yes, and the game
+    prints "(Congratulations on finding the secret ending!)" -- the author labelled
+    the *canonical* ending "secret", which is what this script's win marker
+    matches.
+
+This route takes the REAL Ending, because it needs one more item than the
+password does and so covers strictly more of the game.
+
+Verbs
+-----
+`take X` is the all-purpose attack, `speak to X` the all-purpose conversation, and
+`examine X` is a *different* action from `look at X` -- both are defined
+separately on many objects and only one of them advances the plot.  In the
+training room the chain is deliberately one of each: `look at bench` reveals the
+seat, `examine seat` reveals the bathroom, `speak to bathroom` reveals the enemy,
+`take enemy` starts the first fight.  In the Shy Guy Army fight, phase four is
+cleared with `examine shy stack` and nothing else.
+
+Almost all of the bosses fall to the Glitz Pit stage lights, picked up with `take
+lights` mid-fight against Giga BowZer and used as `use lights on <boss>`.  They
+are confiscated on entering the Boo Mansion foyer (`lose <lights>`), which is
+also the point at which the vacuum cleaner takes over as the weapon -- so the
+whole Dry Dry Desert chapter has to be finished before the mansion.
+
+Item and flag dependencies (the real map of the game)
+-----------------------------------------------------
+  Stone keys      Petalburg, `speak to mayor kroop`     -> Stone Warp Pipe works
+  Radio           Hooktail Castle- Secret Room          -> Dull T trades the Toy Box
+  Toy Box         Dull T, menu choice 2                 -> `use toy box` enters it
+  20 Gooms        dropped by Commander Murder           -> Goomba Gate, Yellow Binary
+  Yellow Binary   Dull T, menu choice 5                 -> Yellow Pipe to Dry Dry
+  bow tie         Luigi Duplighost puzzle
+  party hat       GBL Duplighost puzzle                 -> both free the Mayor
+  Dry Dry Hammer  dropped by Ultima Bones               -> smashes the Forever Gate rock
+  Vaccuum Cleaner Boo Mansion side room "Room"          -> Boo fight, hidden doors
+  Bob-omb Doll    `use vaccuum cleaner` in "Room"       -> Fahr Outpost -> the door
+
+Goomba Gate has no exit into it: the way in is `use mushroom`, the free red
+mushroom from the Shroom Market, whose use script teleports you there.  Getting
+back out to Toad Town needs the `out` exit that the Highway's own `north` handler
+creates -- `north` there prints a paragraph and creates three exits without
+moving you, so it has to be typed even though it looks like a no-op.
+
+The two Duplighost puzzles are coin flips with a death on the wrong side.  Hit
+`luigi` (not `luigi?`) and `gbl?` (not `gbl`); the giveaway is in the two
+selection menus, where the fake answers the "if I asked the other guy" riddle the
+way a liar would.  Each correct hit drops the hat or tie, and taking it warps you
+back to the City Hall, whose description re-runs and frees the Mayor once both
+are held.
+
+Timers -- why this script runs with --tick
+------------------------------------------
+Three timers, and the game cannot be finished without them, so the runner needs
+`--tick` (one tick per turn, as the geasglk frontend does):
+
+  * Cannon My Way Out! (interval 5).  Armed by `take cannons` in Shy Guy's
+    Playground and again by `take cannon` in the War Room; if it fires you are
+    strapped to the cannon and killed.  Both times the very next command fires the
+    cannon and disarms it.
+  * Blast, The Nuclear Blast Is Bad! (interval 15).  Armed by `take nuclear
+    reactor` in the Doopliss fight.  The escape is six moves -- staircase,
+    weapons research, Goomba City, west, out, `take bomb shelter` -- and taking
+    the shelter is what disarms it and opens the Forever Gate.
+  * Wow... It's COOL In Here! (interval 60).  Armed by `speak to bootler` in Lady
+    Bow's Room and the *only* way to reach Fahr Outpost, hence the 60 `look`s
+    near the end of this script.  There is nothing to do while the Cool Moon
+    rises; Bootler even says so ("About... 1 minute").
+
+Deaths this script threads past
+-------------------------------
+`take machine gun` (Magnus 2.0), `use lights on hooktail`, `take the general`
+before firing the cannons, `take general tank`, `take man` or `take woman` at the
+Dry Dry shop stands, `take king koopa`, `take ultima bones`, `take boorawn`
+bare-handed, going `west` from the Goomba Highway after the tanks activate, and
+`take luigi?` / `take gbl` in the Duplighost puzzles.  Also note `take box3` is
+the *orange* box: the ten colour-coded boxes on Hooktail's third floor are a Half
+Life joke and only the orange one goes on the invisible pedestal.
+
+Authoring quirk this game exposed in geas
+-----------------------------------------
+Bare `use <item>` with no target (fixtures/bareuseroom.asl, bareuseroom410.asl).
+Quest checks the current room's own list of bare-use handlers before the item's
+own `use` action -- but only below ASL 410 (ExecUse, V4Game.Part2.cs:5348-5368);
+from 410 on the room's list is never consulted for a bare use.  geas checked the
+room first at every version.  This game is 350 and depends on the room winning
+twice: the vacuum cleaner's own `use` only comments on the noise, while the dusty
+side room's `use <Vaccuum Cleaner>` uncovers the Bob-omb doll and the third
+floor's uncovers the door to Lady Bow.  Without the room-first half neither the
+doll nor Fahr Outpost exists and the game is unwinnable; without the 410 gate,
+geas would run a room handler that Quest 4 ignores.
+
+Wins in 202 turns, 60 of which are waiting for the moon.
+
+start:
+speak to gba
+look at bench
+examine seat
+speak to bathroom
+take enemy
+take rawk hawk
+take magnus
+take magnus claws
+speak to magnus 2
+speak to machine gun
+take air vent
+go to glitz pit- arena
+go to boss- giga bowzer
+take giga bowzer
+take lights
+use lights on giga bowzer
+use lights on dark prince
+use lights on the machine
+take shroom market
+northwest
+take green pipe
+east
+speak to mayor kroop
+west
+take stone warp pipe
+go to hooktail castle- main hall
+take stairs
+speak to x-naut
+go to hooktail castle- third floor
+take box3
+use box3 on pedestal
+take tallest tower
+take hooktail
+go to hooktail castle- secret room
+take radio
+go to toad town- main sqaure
+go to toad town- item shop
+speak to dull t
+2
+use toy box
+east
+speak to dark shadow
+take cannons
+use cannons on the general
+go to toy box- blue station
+speak to train toad
+take bombs
+go to toy box- blue to pink
+go to toy box- pink station
+speak to anti guy
+go to toy box- pink to green
+go to toy box- green station
+go to toy box- green to red
+go to toy box- red station
+go to toy box- pre-war room
+go to toy box- war room
+take cannon
+use cannon on general guy
+speak to anti-guy
+go to toy box- secret plans room
+speak to the culprit
+take general death 2.0
+go to boss- shadow luigi
+use lights on bowser jr
+take shy squad
+speak to stilt guys
+take anti- guy
+examine shy stack
+use lights on general tank
+use lights on lightbulb
+take tank
+take commander murder
+take springboard
+go to toad town- item shop
+speak to dull t
+5
+out
+use mushroom
+speak to gate
+go to goomba city- main street
+go to goomba city- 1st avenue
+go to goomba city- lab
+go to goomba city- 1st avenue
+go to goomba city- main street
+go to goomba city- 2nd avenue
+north
+north
+east
+go to goomba city- city hall
+take duplighosts
+take luigi dooplighost
+take luigi
+yes
+take bow tie
+take goombella duplighost
+take gbl?
+take party hat
+go to goomba city
+go to goomba city- weapons research
+take door
+go to goomba city- rooftop
+go to boss- doopliss
+take doopliss
+take nuclear reactor
+go to goomba city- spiral staircase
+go to goomba city- weapons research
+go to goomba city
+west
+out
+take bomb shelter
+northwest
+take yellow pipe
+speak to nomadimouse
+go to dry dry outpost- shop stands
+take man2
+go to dry dry desert
+speak to bowser
+take ruins
+go to dry dry ruins- emperor's chamber
+take emperor's chair
+use lights on king koopa
+take dry bones
+use lights on ultima bones
+southeast
+go to toad town- forever gate
+use dry dry hammer on big rock
+go to forever forest
+go to forever forest- boo mansion entrance
+go to boo mansion- foyer
+go to room
+take vaccuum cleaner
+use vaccuum cleaner
+go to boo mansion- foyer
+go to room2
+take record player
+use vaccuum cleaner on dust
+take fireplace
+use vaccuum cleaner on boo
+use vaccuum cleaner on boorawn
+take real boorawn
+use vaccuum cleaner
+take giant door
+speak to bootler
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+speak to bob-omb
+take thousand year door
+yes

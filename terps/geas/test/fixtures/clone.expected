@@ -1,0 +1,73 @@
+
+Clone
+
+You are in Market
+There is Tomato here.
+You can go out to Larder.
+The market.
+
+> check tomato
+tomato is green.
+
+> here
+
+> look
+You are in Market
+There is Tomato and Tomato3 here.
+You can go out to Larder.
+The market.
+
+> look at tomato3
+A round red tomato.
+
+> check tomato3
+tomato3 is green.
+
+> mark tomato
+
+> check tomato
+tomato is ripe.
+
+> check tomato3
+tomato3 is green.
+
+> stock
+
+> check tomato2
+tomato2 is ripe.
+
+> unmark tomato2
+
+> check tomato2
+tomato2 is green.
+
+> check tomato
+tomato is ripe.
+
+> take tomato3
+You pick it up.
+
+> i
+You are carrying:
+Tomato3
+
+> out
+You are in Larder
+There is Tomato2 here.
+You can go out to Market.
+The larder.
+
+> look
+You are in Larder
+There is Tomato2 here.
+You can go out to Market.
+The larder.
+
+> take tomato2
+You pick it up.
+
+> i
+You are carrying:
+Tomato3
+Tomato2
+[runner] turns=19 leftover=0 running=true

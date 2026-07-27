@@ -1,0 +1,253 @@
+Into The Briny Blue
+briny blue.asl, ASL 410, "Created with QDK 4.1.5", Scott Lange and Abigail Auner,
+Henchcorp Productions, 2011.  The ABOUT text says "Programmed in six hours" and
+"Our third text adventure made, our first one that's any good."
+
+You are Secret Serviceman Shane Georgeson, sent to find the President, who was
+last seen three hundred miles off the coast of Florida looking for Atlantis.  No
+score, no timers, no randomness.  117 turns below, which is the whole game plus
+every joke response worth reading.
+
+
+THE GAME IS A STRAIGHT LINE WITH ONE PUZZLE
+
+The boat has five rooms (office, hallway, captain's quarters, storeroom /
+Shane's private storage, diving deck, crow's nest) and the ocean is a single
+descending corridor.  Almost every compass direction underwater is either a
+self-loop -- `north <ocean1>` inside room `ocean1` -- or a `locked` exit whose
+only content is a joke ("After hours of travelling upwards, you arrive on the
+coast of Panama.  Realizing that you don't speak the language, you swim back out
+to where you were and dive back 200 feet.").  There is exactly one branch, at
+the ocean floor, and the branch is a dead end: north is a room containing a pile
+of rocks, west is the way onward.
+
+The one thing you have to work out is on the diving deck:
+
+    LOWER LADDER    -> `create exit down <loading area; ocean1>`
+
+That is the game's only `create exit`.  LOWER is in the verb list precisely
+because of this one object.  Everything else is TAKE, then DOWN eleven times.
+
+The route: office -> S -> S (storeroom) -> S (Shane's storage: TAKE GUN, TAKE
+NOTE) -> N N -> E (captain's quarters) -> W -> UP (crow's nest) -> DOWN -> W
+(diving deck: WEAR WETSUIT, LOWER LADDER) -> DOWN x4 -> NE -> NE -> NW (TAKE
+BRACELET) -> N -> N -> DOWN x5 -> (ocean floor) N, S, W (TAKE FOLDER), W, W, N,
+N, DOWN, DOWN, DOWN -> NW -> E -> TAKE HAM RADIO.
+
+
+THE JOKE IS THAT THE GAME TAKES YOUR EQUIPMENT AWAY
+
+The air tank is introduced with "WARNING: If you remove the scuba tank at any
+time, you will run out of air and die!", and its `drop` tag really is a
+`playerlose`.  Then the descent rooms' `script` blocks strip you anyway, one
+item per room:
+
+    ocean6      272 feet   "Your air tank explodes"        lose + hide air tank
+    ocean7      unknown    the Tandy 400 implodes          lose + hide computer
+    ocean8      700+ feet  the wetsuit tears               lose + hide wetsuit
+    oceanfloor2 ~1100 feet everything else is crushed      lose + hide note,
+                                                           bracelet, folder, gun
+
+Nothing bad happens.  By the time you reach King Neptune's living room you are,
+in the game's own words, "oxygen-less, naked", and still fine.  The gear was
+never a resource; the warnings were the gag.
+
+The two objects that look like clues are also gags.  The president's tracking
+bracelet (tunnel2) and the president's manilla folder (path1) each have a
+`use <tracking>` response that stops to tell you the tracker is not beeping, and
+both are destroyed at the last ocean floor.  Neither is needed for anything.
+
+
+THE ENDING
+
+TAKE HAM RADIO in Neptune's garage.  The radio's `take` tag is a page-and-a-half
+phone call from Commander Kenneth McDavidson: the mission was called off four
+weeks ago, the intel was wrong -- the President went missing three *feet* from
+the White House swimming pool, not three hundred *miles* off Florida -- and
+Captain Darrel went home when they found out, assuming Shane was aboard.  Then
+`playerwin`.  `define text <win>` is the two words "You win!".
+
+Going EAST from Neptune's living room into the garage is irreversible: the room's
+only exit is `west locked <nothing; Drat!  Someone appears to have shut and
+locked the door on you!  If only there was a key around here somewhere...>`, and
+there is no key in the file.  The teased upstairs bedroom (`up locked` in the
+living room, same "if only there was a key" line) has no room behind it either.
+Since the garage is also the win, none of that matters -- but do the trident and
+the recliner first, because you cannot come back.
+
+
+SIX WAYS TO DIE
+
+  * DROP AIR TANK, or USE GUN ON AIR TANK.
+  * USE CONTROLS -- you steer the ship into the cliffs of Dover.
+  * SIT ON CONTROLS, TURN ON CONTROLS, PLAY WITH CONTROLS -- three more,
+    separately written, all on the same object in the captain's quarters.  That
+    one control panel is responsible for four of the game's losses.
+  * SLEEP ON HERMIT CRABS at 75 feet.
+
+Five of these are written `playerlose` twice in a row, which is an authoring tic
+and harmless.
+
+
+HOW THE VERBS WORK
+
+The file `!include <stdverbs.lib>` and then does everything through property
+strings.  Each object carries e.g.
+
+    properties <read = "S.G."; play with = You fiddle with it, grow bored, ...>
+
+and the game defines a fallback for each verb at game level (`verb <read> msg
+<That particular item is illegible.  Try others.>`).  Where a verb needs to do
+more than print, it becomes a block instead: `action <lower>` on the ladder,
+`action <wear>` on the wetsuit, `action <play with>` on the seagulls (which
+chases you out of the crow's nest), `action <sleep on>` on the hermit crabs
+(which kills you).
+
+The two in-game verb lists disagree with each other and with the file: HELP says
+"only the following verbs" and lists twelve including USE, while VERBS says
+"COMPLETE VERB LIST" and gives eleven, dropping USE and adding GET.  USE is the
+verb the entire game runs on.
+
+
+ODDITIES
+
+  * `define room <nothing>` (line 144) is a real room with a full exit table --
+    north/south to ocean5, east to `end of the tunnel`, west/northwest/northeast
+    to ocean4, up to the boat, down to the cliff.  It is the target named by
+    about twenty `locked <nothing; ...>` exits, and because `locked` prints its
+    message without moving you, the room is never entered.  If any one of those
+    locks were dropped, that room's `east` exit would skip most of the game.
+  * The captain's quarters defines `define object <bed>` completely empty --
+    no tags at all -- immediately above `define object <darrel bed>` with
+    `alias <bed>`, which is the one you actually interact with.
+  * USE COMPUTER ON <anything> is a running commentary the authors wrote for
+    about fifteen objects; the computer is handed to you by the office's
+    `script give <computer>` and is `drop nowhere`, so you cannot lose it before
+    the ocean crushes it.
+  * The joke `alt` names are worth knowing because they are the only clue that
+    the authors were amusing themselves: the Oriental rug answers to "alice",
+    the tracking bracelet to "carol", Darrel's bed to "sleepytime", the pile of
+    rocks to "rockstars", the hermit crabs to "seafood".
+  * `define options` has `debug on` and `panes disabled`.
+  * The wetsuit's `action <wear>` ends with a bare `give <>` -- an empty give.
+    geas ignores it; the message "You're wearing it!" prints normally.
+
+start:
+look
+look at bed
+look at computer
+look at reflection
+look at sign
+read sign
+play with sign
+make bed
+sleep on bed
+south
+south
+look at sign
+read sign
+look at drawers
+south
+look at gun
+take gun
+read gun
+look at note
+take note
+read note
+north
+north
+east
+look at darrel
+talk to darrel
+look at bookshelf
+look at rug
+look at bed
+look at desk
+look at controls
+read controls
+use computer on rug
+give computer to darrel
+use note from commander on darrel
+use gun on darrel
+west
+up
+look at seagulls
+talk to seagulls
+use gun on seagulls
+down
+west
+look at air tank
+look at wetsuit
+read wetsuit
+wear wetsuit
+look at ladder
+sleep on ladder
+lower ladder
+down
+look at fish
+read fish
+use gun on fish
+use computer on fish
+down
+look at plants
+talk to plants
+look at hermit crabs
+play with hermit crabs
+down
+northeast
+northeast
+northwest
+look at bracelet
+take bracelet
+read bracelet
+use computer on bracelet
+north
+look at wall markings
+read wall markings
+use computer on wall markings
+use tracking on wall markings
+north
+down
+down
+down
+down
+down
+look at sign
+read sign
+north
+look at rock pile
+sleep on rock pile
+use gun on rock pile
+south
+west
+look at folder
+take folder
+read folder
+use tracking on folder
+west
+west
+look at building
+talk to building
+use gun on building
+north
+north
+down
+down
+look at vault
+talk to vault
+turn on vault
+down
+look at house
+read house
+northwest
+look at recliner
+look at trident
+take trident
+talk to trident
+read trident
+use trident on recliner
+east
+look at HAM radio
+talk to HAM radio
+read HAM radio
+take HAM radio

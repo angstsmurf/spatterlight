@@ -1,0 +1,70 @@
+
+Createexitscript
+
+You are in Cell
+You can go north or south.
+A cell.  Barred door north, exercise yard south.
+
+> north
+A guard blocks the way north.
+
+> opennorth
+
+> north
+You are in Freedom
+You can go down.
+Free at last.
+
+> home
+You are in Cell
+You can go north or south.
+A cell.  Barred door north, exercise yard south.
+
+> openeast
+
+> east
+You are in Freedom
+You can go down.
+Free at last.
+
+> home
+You are in Cell
+You can go north, south or east.
+A cell.  Barred door north, exercise yard south.
+
+> opensouth
+
+> south
+You are in Freedom
+You can go down.
+Free at last.
+
+> home
+You are in Cell
+You can go north, south or east.
+A cell.  Barred door north, exercise yard south.
+
+> shutnorth
+
+> north
+You are in Freedom
+You can go down.
+Free at last.
+
+> home
+You are in Cell
+You can go north, south or east.
+A cell.  Barred door north, exercise yard south.
+
+> opennorth
+
+> north
+You are in Freedom
+You can go down.
+Free at last.
+
+> home
+You are in Cell
+You can go north, south or east.
+A cell.  Barred door north, exercise yard south.
+[runner] turns=16 leftover=0 running=true

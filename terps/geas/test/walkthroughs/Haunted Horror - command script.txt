@@ -1,0 +1,95 @@
+Haunted Horror (Matt Slotnick, 2005) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "you escaped your doom".
+
+Run with --tick: the win is timer-driven.  Taking the Notice fires timeron on a
+13-tick timer whose action is `if got <Answer Sheet> then playerwin`, so the long
+tail of moves below exists only to burn the 13 ticks while holding the sheet.
+Without --tick the timer never counts down and the game cannot be won.
+
+Notes on a few lines (all faithful to the prose walkthrough; none block the win):
+  * the leading "n" is the answer to the "What is your name?" prompt -- get_string
+    consumes the first queued line (north is not reachable on the Porch until the
+    doorbell is rung anyway).
+  * "talk to man" is omitted: it is `speak choose <Living Room>`, an optional
+    conversation menu the prose walkthrough itself marks "you don't have to do
+    this", and it would eat the following command as a menu pick.
+  * "give safe paper to man" is only a +7 score bonus; the safe code drops the
+    paper in the room (move, not take) and the prose walkthrough never grabs it,
+    so this prints "You do not have that object" -- harmless, one turn.
+  * "get small box" has to name the object in full.  It is `define object <Small
+    Box>` (haunted_horror.asl:360) with no alias and no alt, and the game is ASL
+    350, so GET BOX finds nothing: Quest matches a word taken from the middle of
+    a name only for ASL 391 and up (Disambiguate, V4Game.cs:4762-4772; see
+    fixtures/abbrev.asl).  The colour combination that opens it is a game-level
+    `command <Green-Red-Blue-Orange-Black>` gated on `got <Small Box>` (29), so
+    the box has to be in hand, not merely in the room.
+  * The script ends the turn the timer fires.  The two trailing "s" moves the
+    prose walkthrough has after the last real action are not here: the 13th tick
+    lands on the previous command, and any line after the win would be counted as
+    unplayed (the runner reports leftover=0 on a script that ends exactly there).
+
+Start:
+n
+ring doorbell
+n
+w
+nw
+get paper
+se
+nw
+get cord
+se
+e
+e
+ne
+2-50-7
+sw
+w
+give safe paper to man
+n
+n
+use cord on tv
+s
+u
+1-3-4-8-9-10
+n
+w
+search shelves
+get notebook
+read notebook
+e
+n
+get small box
+green-red-blue-orange-black
+get key
+s
+e
+35-15
+e
+use key
+n
+8-6
+w
+13
+n
+n
+open chest 3
+get panel
+switch 1
+switch 2
+switch 3
+e
+get notice
+get answer sheet
+w
+s
+s
+e
+s
+w
+w
+s
+d
+s
+s
+s

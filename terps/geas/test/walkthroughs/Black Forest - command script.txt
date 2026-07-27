@@ -1,0 +1,273 @@
+Black Forest (Part I)
+Blackforest.asl, ASL 217, "created by QDK 1.01" / game info "Created with QDK 1.0
+(Beta 5)", Devon Oratz, Silent Cities of The Mind, copyright 2000-2001.  The
+declared game version is "Alpha".
+
+Amnesia horror.  You come to in total darkness with something poking into your
+ribs and no idea who you are; two flashbacks over the next hundred turns tell you
+that you are a psychologist, and that is all you ever learn.  No score, no
+timers, no randomness, no NPCs except a cat.  105 turns below, which is the whole
+game plus both optional flashbacks.
+
+This is Part I of two.  The last room, Black Gate, is a `playerwin` whose room
+description is a note asking you to open the "Black Forest Part II" file with the
+password 'cheese'; `define text <win>` is the single line "Please open file
+'BlackForest2'".  Part II is not in this corpus, so this is the whole of the
+shipped story.
+
+
+THE OPENING
+
+The first room contains one object, a Knob, and no exits.  TURN KNOB, PULL KNOB
+and TAKE KNOB all do the same thing -- you were shut in a closet and the knob was
+the doorknob -- and dump you into the Basement.
+
+
+ACT ONE: THE HOUSE
+
+  Basement       LOOK AT GLISTENING METAL   -> hides it, shows the Small Key
+                 TAKE SMALL KEY
+                 UNLOCK GATE DOOR WITH KEY  -> hides Gate Door, opens north
+  Closet (east)  PULL LIGHT CORD            -> reveals Rope, Screwdriver,
+                                               Flashlight (all three are
+                                               `invisible` until the light is on)
+                 TAKE ROPE / SCREWDRIVER / FLASHLIGHT
+  Living Room    TAKE CANDLE
+  Boiler Room    LIGHT BOILER WITH CANDLE   -> the shadow-being, flashback 1
+  Dirty Bathroom TAKE METAL ROD             -> gives the Manhole Opener
+
+The Rope and the Screwdriver are the two objects the rest of the game needs.  The
+Flashlight is a pure red herring: "there are no batteries", and nothing in the
+file ever refers to it again.
+
+
+THE CANDLE INTERLOCK -- THE ONE THING THAT CAN LOCK YOU OUT OF CONTENT
+
+The Basement's west exit is `if got <Candle> then goto <Boiler Room>`, and the
+candle exists in exactly one window:
+
+  * `~Internal Procedure 15` (TAKE METAL ROD) ends with
+    `if got <Candle> then do <~Internal Procedure 18>`, which blows the candle out
+    and `lose`s it.
+  * The candle's own take tag is `if got <Manhole Opener> then msg <Holding the
+    manhole opener in both hands, you can't also take the candle.>`.
+  * And going to the Boiler Room at all costs the candle anyway --
+    `~Internal Procedure 21` does `lose <Candle>` on the way out.
+
+So the Boiler Room can be entered once, only after taking the candle and before
+taking the metal rod, and the candle cannot be recovered afterwards (`lose` drops
+it into the Boiler Room, but `hideobject` from the take script has already hidden
+it, so it is not there to pick up).  Take the rod first and the best scene in the
+game is gone for good.  This script does the boiler, then the rod.
+
+That scene is worth the detour: lighting the gas summons a man-shaped thing
+"sculpted of the primordial darkness itself", knocks you out, and plays
+`define text <Shadow1>` -- your graduation from Harberry Medical College, licence
+to practise psychology.  The only other flashback is LOOK AT TREES in Frost
+Fusion (`~Internal Procedure 46`): shadow ichor lunges out of the ice into your
+eyes and you see yourself signing a property deed for a psychotherapy practice in
+Thorn Valley, Maine.  Both are one-shot -- 46 ends `hideobject <Trees>`.
+
+
+ACT TWO: THE ROADS AND THE SEWER
+
+The house's Backyard opens onto a road running east and west.  East is a
+three-room dead end that exists only for atmosphere and for the game's title
+image: Straight Road, Dark Vista, and The Edge, where the world has been sheared
+off and the road stops in front of a wall of nothing.  Going south there is a
+refusal, not a death ("the flapping of leathery wings can be faintly heard from
+the abyss").  Note that the object is literally named `The Abyss`, so you have to
+type LOOK AT THE ABYSS -- LOOK AT ABYSS finds nothing.
+
+West is the way on:
+
+  Dead End       OPEN MANHOLE WITH MANHOLE OPENER  -> `choose <Dark Hole>`
+                 The selection has four choices and reappears every time you LOOK
+                 AT HOLE.  2) Jump in is one of the game's five deaths.  4) Climb
+                 Down runs `~Internal Procedure 28`, which finds no ladder and
+                 then, `if got <Rope>`, offers "Will you use your rope to climb
+                 down?" -- yes ties the rope off and drops you into the sewers.
+  Sewer W        LOOK AT GRATE -> `choose <Sewer Grating>`, choice 4, Remove the
+                 screws, then yes -> the grate comes off and west opens.
+
+That grate choice is written
+
+    choice <Remove the screws> if got <Screwdriver> then if ask <Will you unscrew
+      the screws?> then do <~Internal Procedure 34> else msg <With what?, you
+      can't take them out with your fingers.>
+
+-- the `else` binds to the inner `if ask`, so "With what?" is what you get for
+answering *no* while holding the screwdriver, and picking the choice without a
+screwdriver at all prints nothing whatsoever.
+
+Beyond the grate is a crawlway into a second, entirely separate road network
+(Two-Lane Road, Concrete Wall, Road 2, Endless Road, The Dam).  Endless Road's
+north exit points at Endless Road, which is the joke.  LOOK AT GRAPHITTI at the
+Concrete Wall -- the misspelling is the object's real name -- is the game's one
+outright genre nod: "The crimson king is coming!! All hail the unnamed!"
+
+
+ACT THREE: UNDER THE ICE
+
+  Surface Control  LOOK AT LEVER, yes    -> the floor is a freight elevator; it
+                                            descends into a refrigerated room
+  Frozen Forest    north, north
+  Icy Stump        LOOK AT STUMP         -> reveals the Spiral
+                   TURN SPIRAL           -> reveals the Depression
+                   PUSH DEPRESSION, yes  -> the stump is a hatch; climb down
+  Frost Chamber E  TAKE SHINY BLUE CRYSTAL  -> the Ice Stone
+  Frost Chamber W  TAKE BLUE CRYSTAL        -> the Sleet Stone
+
+Taking the second crystal shuts down the Frost Fusion globe, and from then on
+every room in the forest prints a thawing message instead of its normal script.
+Go back up the ladder and south twice: the Frozen Forest's south exit is
+`if got <Sleet Stone> and got <Ice Stone> then do <~Internal Procedure 58>`, and
+58 floods the elevator shaft, drops an emergency ladder and puts you on the dam
+with the lake coming over the wall.
+
+That is the endgame, and it is four rooms of one-way choices with only one safe
+answer at each:
+
+  Flooding Dam     north = drowned in a suction pipe        SOUTH
+  Flooding Road    north = swept into the drainage tunnel
+                   south = swept into the drainage tunnel   EAST
+  Flooded Sewers   east  = the thing in the tunnel          SOUTH  -> Black Gate
+
+Three of those four deaths are the same monster: the tentacle at the mouth of the
+big drainage pipe in the Concrete Wall, which the graffiti warned you about
+sixty turns earlier ("BEWARE THE BeASt, On our flesh, he shall feast").  With the
+manhole death that makes five ways to die, none of them reachable by accident.
+
+
+AUTHORING ODDITIES
+
+  * QDK 1.0 had no way to share a script between two `command` lines, so eleven
+    of the sixty-four procedures are byte-for-byte duplicates of another one:
+    0/1 (turn vs pull knob), 6/7/8/9 (four phrasings of unlocking the gate),
+    21/22, 25/26, 35/37, 47/49.  Procedures 19 and 20 operate on a `Gas Valve`
+    object that is never defined anywhere in the file, and nothing calls them.
+  * Both outdoor road rooms carry `alias <Road>`, and the room QDK named
+    `Conrete Wall` keeps the typo with `alias <Concrete Wall>` papered over it.
+  * `items <Small Key; Rope; Flashlight; Screwdriver; Candle; Manhole Opener; Ice
+    Stone; Sleet Stone>` is the complete inventory of the game; `collectables`
+    and `define text <intro>` are both empty.
+  * `ask` renders as a 1) Yes / 2) No menu and the runner reads the answer with
+    atoi, so a yes must be written `1` and a no `2` -- the spelled-out word "no"
+    parses as 0, clamps to option 1 and takes the Yes branch.
+
+start:
+look
+look at knob
+turn knob
+look
+look at gate door
+open door
+unlock gate door
+look at glistening metal
+look at small key
+take small key
+unlock gate door with key
+east
+look
+look at light cord
+pull light cord
+look at rope
+take rope
+look at screwdriver
+take screwdriver
+look at flashlight
+take flashlight
+west
+north
+east
+look at black cat
+speak to black cat
+pet cat
+look at candle
+take candle
+west
+south
+west
+look at boiler
+light boiler with candle
+look
+north
+west
+look at refrigerator
+southwest
+look at mirror
+look at metal rod
+take metal rod
+northeast
+east
+east
+south
+look at swingset
+east
+east
+south
+look at the abyss
+south
+north
+west
+west
+west
+west
+look at manhole
+open manhole with manhole opener
+1
+look at hole
+3
+look at hole
+4
+1
+look at rope
+west
+look at grate
+4
+1
+west
+west
+south
+look at drainage pipe
+look at graphitti
+north
+north
+north
+north
+south
+east
+look at lever
+1
+look at button
+north
+north
+north
+south
+look at stump
+look at spiral
+pull spiral
+turn spiral
+look at depression
+push depression
+1
+look at globe
+look at tubing
+look at trees
+look at ladder
+2
+east
+look at shiny blue crystal
+take shiny blue crystal
+west
+west
+look at blue crystal
+take blue crystal
+east
+look at ladder
+1
+south
+south
+south
+east
+south

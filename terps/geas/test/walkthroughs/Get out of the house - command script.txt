@@ -1,0 +1,240 @@
+"Get out of the house!" (gooth913.asl) -- Steve Lingle, ASL 350
+================================================================================
+Command script for terps/geas/test/run_walkthroughs.sh.
+
+Verified: 67 turns, leftover 0, WON.  No flags needed -- no timers, no random
+numbers, no menus.  The win marker is "CONGRATULATIONS", the last line of the
+`define text <win>` section.
+
+
+WHY THIS GAME IS IN THE SUITE
+
+It is a twelve-room one-joke house-escape written in QDK 3.52, and it is here
+because of how it is built rather than what it is about.  Nothing in it is
+timed, nothing is random, and it wins on the first attempt -- which makes it a
+clean regression for a pile of ASL 3.5 mechanics that the bigger corpus games
+only exercise one or two at a time:
+
+  * `create exit <dir> <Src; Dest>` overwriting an exit that already has a
+    *script* on it (twice, and the game is unwinnable without it -- see below);
+  * `show`/`hide` object swap chains three and four states deep (machine ->
+    machine2 -> machine3 -> machine4; loose tile -> tile1 -> tile2);
+  * `exists <obj>` used as the only state variable in the game -- there is not a
+    single `flag` or numeric variable outside the two winning flags;
+  * `gain` scripts on take (`gain give <cork>`, `gain reveal <grungy bathrobe>`,
+    `gain { hide <table2> show <table> }`);
+  * `use <obj>` / `use on <obj>` / `use anything` on the same object, and the
+    two-argument `use X on Y` reaching an object in a different room's `define`
+    block (the ceramic glue in Bedroom2 acting on the broken tile in the
+    Bathroom);
+  * `drop everywhere` and `drop nowhere`;
+  * one `move <mobile home; Front Hall>` firing from a `use on` handler.
+
+It also parses two pieces of authoring debris without complaining, which is
+worth keeping under test: the Bathroom block ends with three bare keywords in a
+row -- `script`, `beforeturn`, `script`, none of them given a body -- and the
+Couch block contains `action <>`, an action with an empty name.
+
+
+THE EXIT THAT ONLY WORKS BY ACCIDENT
+
+The Kitchen's north exit is a script:
+
+    north if got <string fragment> then { ... goto <Bedroom2> }
+          else msg <This door is determined to be locked. ...>
+
+There is no object called "string fragment" anywhere in the file.  The Chimney
+defines `fragment` (invisible, no properties) and its string hands that over with
+`give <fragment>`, so the author's own condition can never be true and the else
+branch is all that exit will ever print.  The game is only completable because
+`take string` *also* runs
+
+    create exit north <Kitchen; Bedroom2>
+    create exit south <Bedroom2; Kitchen>
+
+and at ASL < 410 a `create exit north` assigns straight into the room's north
+slot as plain text -- `r.North.Data = destRoom; r.North.Type =
+TextActionType.Text` (ExecuteCreateExit, V4Game.cs:5433-5437).  That discards the
+script wholesale, condition and all, so the door silently becomes an ordinary
+exit.  geas does the same, which is what this script depends on.  (The `create
+exit` block in the Front Hall's tile handler works the same way, except there the
+exits are new rather than overwritten.)
+
+The bare `create exit <Den; Chimney>` in the fire handler is the other form -- a
+"go to" place rather than a compass direction -- and it is redundant, because the
+Den already has `up` scripted to move you into the Chimney once the fireplace is
+out.  Quest would in fact log "Exit from 'Den' to 'Chimney' already exists" the
+second time round (V4Game.cs:5405-5409); it is created only once here, so nothing
+shows.
+
+
+THE TILE PUZZLE, WHICH HAS A GOOD PATH AND A BAD PATH
+
+The Bathroom's `loose tile` is the game's one real puzzle and its `take` handler
+is four consecutive `if`s -- not an if/else chain -- over whether the decorative
+pillow and the grungy bathrobe still `exists`.  Both objects are hidden the moment
+you place them on the shower floor, so "exists" here means "has not been placed
+yet", and only the fourth branch is the good one:
+
+    pillow unplaced, robe unplaced   -> broken tile
+    pillow unplaced, robe placed     -> broken tile
+    pillow placed,   robe unplaced   -> broken tile
+    pillow placed,   robe placed     -> tile1        (intact)
+
+The prose attached to the branches is shuffled relative to the conditions -- the
+"lands on the decorative bathroom pillow and bounces off softly" text is on the
+*neither-placed* branch -- but the state changes are right, and this script takes
+the fourth branch: TAKE PILLOW, TAKE BATHROBE, USE PILLOW ON SHOWER, USE BATHROBE
+ON SHOWER, TAKE LOOSE TILE.  The author clearly expected most players to break it
+and rewards them with the second path instead: the broken pieces become
+`broken tile2` (takeable) and the ceramic glue from Bedroom2's closet welds them
+back into `tile2`, either as `use glue on broken tile2` or via the game-level
+`command <glue tile>`.  This script carries the glue but never needs it.
+
+The conversion is done by examining the gap in the Front Hall, which is a
+three-way `if`/`if`/`if` on whichever tile state you are in and does its work
+silently -- X GAP prints only the 3"x3" line while, behind it, `tile1` becomes
+`tile2` back in the Bathroom.  (The object is `define object <opening>` with
+`alias <gap>`, gooth913.asl:876-877, and the alias is the only name the parser
+knows it by: the game is ASL 350, and Quest matches a word taken from the middle
+of a name only for ASL 391 and up -- Disambiguate, V4Game.cs:4762-4772, and
+fixtures/abbrev.asl.  X OPENING finds nothing.)  If you have not touched the tile at all,
+that same examine reaches into the Bathroom and *breaks* it for you ("You also
+hear a crash coming from the bathroom"), which closes off the good path
+permanently.  So the order here matters: drop the tile safely first, then examine
+the gap, then walk back to the Bathroom to pick the repaired tile up.
+
+
+THE CHAIN
+
+  1. You start sitting on a couch, in a room called Couch that is a duplicate of
+     the Living Room with everything answering "you can't manipulate that from
+     your present physical position".  TAKE RUBBER BAND, STAND.  (Two rubber
+     bands exist, one per room; standing up hides the Living Room's copy if you
+     took the Couch's, so there is never an ambiguity.)
+  2. TAKE COUCH -- a joke that turns out to be load-bearing.  The Front Hall's
+     peep hole is checked with `here <couch1>`, so you must be carrying the couch
+     around for LOOK AT PEEP HOLE to reveal the front hall tile.  PRESS TILE
+     river-dances the front door open.
+  3. Bathroom: the tile puzzle above.
+  4. Front Closet (south of the Front Hall, once the tile is pressed): the empty
+     bucket.
+  5. Kitchen: TAKE BOTTLE -- taking it `gain give <cork>`s the cork straight into
+     your hands, corked bottle and all.  Den: TAKE PENCIL.  USE PENCIL ON BOTTLE
+     pushes the cork in and drops the rust-laden key out.
+  6. FILL BUCKET at the kitchen faucet (only works while holding the empty
+     bucket), then PUT OUT FIRE in the Den.  UP into the Chimney, TAKE STRING --
+     which is the `create exit` above.
+  7. Kitchen north to Bedroom2.  X CLOSET reveals the glue, the shoe and the
+     shiny red button all at once; the dirty sock is lying in the open.  (X BED
+     reveals a "lost treasure" you are not allowed to take.  That is the whole
+     joke.)
+  8. Dining Room north, with the key, into Bedroom1.  USE SHINY RED BUTTON ON
+     MACHINE -> machine2 (both `button` and `button2` are `alias <shiny red
+     button>`, gooth913.asl:1191-1192 and 1299-1300, so that is the noun; PRESS
+     BUTTON below is the room's own `command <press button>` (1124), literal text
+     rather than an object lookup, which is why the short name works there).  PRESS BUTTON -> the flimsy plastic ring snaps
+     and shoots you in the eye -> machine3.  USE RUBBER BAND ON MACHINE belts the
+     pulleys -> machine4.  PRESS BUTTON -> the gap opens in the Front Hall.  The
+     button must be pressed twice, and the first press has to be the one that
+     breaks the ring; there is no way to fit the rubber band before it goes.
+  9. Front Hall: X GAP, fetch the repaired tile from the Bathroom, USE TILE ON
+     GAP -- `tile2` is `alias <tile>` (415-416), like every other state of it.  That one handler is the game's climax and fires six state
+     changes at once -- the kitchen chandelier falls (hiding the table and
+     revealing the shards *and* the now-unplugged toaster), the dining room card
+     table collapses, and the mobile-home postcard is `move`d from the Front
+     Closet to the Front Hall floor.
+ 10. TAKE UNPLUGGED TOASTER, carry it to the Den, PLUG IN TOASTER, USE TOASTER.
+     You are electrocuted through the den window into the front yard, and the two
+     `create exit` calls in that handler wire the yard up behind you.
+ 11. GIVE SOCK TO LADY, GIVE SHOE TO LADY.  Each sets one of `winning 1` /
+     `winning 2` and then tests both, so either order wins.
+
+
+WHAT THIS SCRIPT SKIPS
+
+  * The chair-on-table business in the Kitchen.  USE CHAIR ON TABLE makes
+    `table2` and STAND ON TABLE then `exec <x chandelier>`s -- and the chandelier
+    examine says, in as many words, "What were expecting, a hidden key?  It's not
+    here".  It is a dead end by design, and step 9 destroys the chandelier
+    anyway.
+  * TAKE TOASTER while it is still plugged in beside the kitchen faucet, which
+    throws you into the Living Room instead of through a window.  Same handler,
+    branched on `here <faucet>` versus `here <outlet>`.
+  * The two suicides (KILL SELF, STRANGLE SELF, both `playerlose` after a stray
+    meteor), BRUSH TEETH, USE TOILET -- which is an `if ask <...Are you a girl?>`,
+    the only prompt in the game -- and the whole family of joke verbs the game
+    block defines against `#@object#`: ABUSE, FONDLE, HIT, HUG, KICK, KISS,
+    PUNCH, SLAP, BITE, KILL.  Several `command <hint>` handlers per room, too,
+    two of which are `choose` menus.
+  * Breaking the TV, which the game admits "had no purpose in this game".
+
+
+start:
+take rubber band
+stand
+take couch
+east
+take pillow
+take bathrobe
+use pillow on shower
+use bathrobe on shower
+take loose tile
+west
+south
+look at peep hole
+press tile
+south
+take bucket
+north
+north
+north
+take bottle
+south
+west
+take pencil
+use pencil on bottle
+east
+north
+fill bucket
+south
+west
+put out fire
+up
+take string
+down
+east
+north
+north
+x closet
+take glue
+take shoe
+take shiny red button
+take dirty sock
+south
+west
+north
+use shiny red button on machine
+press button
+use rubber band on machine
+press button
+south
+south
+east
+south
+x gap
+north
+east
+take tile
+west
+south
+use tile on gap
+north
+north
+take unplugged toaster
+south
+west
+plug in toaster
+use toaster
+give sock to lady
+give shoe to lady

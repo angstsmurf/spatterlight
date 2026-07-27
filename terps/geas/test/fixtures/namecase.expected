@@ -1,0 +1,20 @@
+
+Namecase
+
+You are in Lobby
+There is LampPost here.
+The lobby.
+
+> probe
+[property: polished]
+[property: shiny, inherited]
+[type: brass]
+
+> rub LAMPPOST
+[action: rubbed]
+
+> hop
+You are in EDock
+The dock.
+[room script ran]
+[runner] turns=3 leftover=0 running=true

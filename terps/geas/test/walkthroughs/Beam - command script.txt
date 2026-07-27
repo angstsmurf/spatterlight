@@ -1,0 +1,121 @@
+Beam (Madrone Eddy, 2006, QDK Pro 3.53) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "safe on Earth".  REQUIRES --tick (heavily timer-driven).
+
+Derived from the "bare minimum walkthrough" in the hint file, fixed for this .cas build:
+  * AIRLOCK CYCLING: you enter from the south (south door open); the north door only opens once
+    the south auto-closes (Door Airlock South timer, 5 ticks). So wait ~4 turns in the airlock,
+    then "open door" -> it pops a choose-menu ("Which door?"); answer "1" (North Door).
+  * AIR: opening the north door starts a ~90-tick hypoxia countdown; the maze to the machine is
+    short enough to beat it without the optional air bottle.
+  * WIN TIMING: inside the machine, the launch sequence is Launch(30)->Space(12)->Atmosphere(12)
+    ->Earth(10), and each step costs interval + 1 turns, not interval: Quest's SetTimerState only
+    flips TimerActive and raises BypassThisTurn, never resetting TimerTicks (V4Game.Part2.cs:561-574),
+    so the tick that turns a timer on is spent on the bypass flag instead of counting.  The
+    "safe to exit" window therefore opens 31 + 13 + 13 + 11 = 68 turns after you climb in and stays
+    open the 13 turns Machine in Atmosphere Exit(12) needs to close it.  Wait 68 turns then "out".
+    Exiting during space/atmosphere = instant death.
+
+Start:
+up
+get branch
+down
+get branch
+up
+up
+in
+use branch on hatch
+up
+west
+west
+north
+north
+northeast
+northeast
+east
+examine door
+use lever
+north
+look
+look
+look
+look
+open door
+1
+north
+north
+west
+northwest
+southwest
+south
+north
+south
+examine belly
+in
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+out

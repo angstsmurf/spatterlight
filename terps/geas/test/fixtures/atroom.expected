@@ -1,0 +1,44 @@
+
+Atroom
+
+You are in the study.
+There is book here.
+You can go to the Hall.
+
+> look
+You are in the study.
+There is book here.
+You can go to the Hall.
+
+> hide far book
+Tried to hide the book in the hall.
+
+> look
+You are in the study.
+There is book here.
+You can go to the Hall.
+
+> showlinda
+Tried to reveal Linda.
+
+> get book
+You take the book.
+
+> i
+You are carrying:
+book
+
+> look
+You are in the study.
+You can go to the Hall.
+
+> go to hall
+You are in the hall.
+There is Linda here.
+You can go to the Study.
+
+> look
+You are in the hall.
+There is Linda here.
+You can go to the Study.
+[runner] turns=9 leftover=0 running=true

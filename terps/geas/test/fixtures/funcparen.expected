@@ -1,0 +1,18 @@
+
+Funcparen
+
+You are in Workshop
+A workshop.
+
+> strip Battle axe (wielded)
+base is [battle axe]
+
+> strip Broadsword (wielded)
+base is [broadsword]
+
+> chunk Battle axe (wielded)
+chunk is [axe]
+
+> bare
+right is [(b) c]
+[runner] turns=4 leftover=0 running=true

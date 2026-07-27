@@ -1,0 +1,523 @@
+"The Former" (former.asl) -- Derek W., ASL 350
+================================================================================
+Command script for terps/geas/test/run_walkthroughs.sh.
+
+Verified: 231 turns, leftover 0, WON.  No flags needed -- there is not a single
+timer or `rand` in the file.  The win marker is "have learned the whole truth",
+from `define text <win>`.
+
+
+WHY THIS GAME IS IN THE SUITE
+
+It is a 74-room detective story built in QDK 3.53, and it is the largest
+purely-deterministic ASL 350 game in the corpus.  You wake up in an abandoned
+factory as robot 10-126 with your memory wiped, and spend the game interrogating
+witnesses about two murders before discovering you committed them.  There are no
+combat rolls, no chance factors and nothing on a clock, so every one of the 231
+turns below is doing real work, and any divergence shows up immediately.
+
+What it exercises that the rest of the corpus does not:
+
+  * ten invisible marker objects tested in one enormous `if ... and ... and not
+    ... then` (see below) -- the widest boolean condition in the corpus;
+  * `place` rooms used as a conversation system.  Every witness is a room whose
+    `description` is the menu of things you may ask, and every question is a
+    room-scoped `command <...?>`, including four that only appear once a flag
+    object exists.  Five witnesses, and two of them `goto` you back out of the
+    conversation as their parting shot;
+  * the show/hide-versus-reveal/conceal distinction, hard.  `exists` is the
+    game's only state test, and the author is scrupulous about pairing
+    `hide`+`conceal` and `show`+`reveal` -- except where he isn't, and those
+    places are exactly where the interesting behaviour lives;
+  * `Dead Body` -> `dead body 2` -> `Dead body 3` swap chains, all four bodies
+    wearing the alias "Dead Body" so that X DEAD BODY means something different
+    each time -- three deep in the landfill, four deep in the mansion office;
+  * `give <Data Chips>` on three different NPCs with three different guards;
+  * a room `script` that fires on entry and `goto`s you somewhere else (mine3);
+  * one `create exit` firing from inside a condition evaluated in a *different*
+    room -- the gate below opens the Science Center elevator while you are
+    standing in the factory.
+
+It also parses a fair amount of authoring debris without complaint: the `start`
+room block ends with five bare `- Who am I?`-style lines (44-48) left over from
+the author pasting his own menu into QDK, the mansion den contains a naked
+`use <>` with no object and no body (1347), `define synonyms` is empty, and the
+Landfill Compactor's `south` exit points at the Landfill Compactor (840).
+
+
+THE TEN-MARKER GATE, AND WHY 15/15 CLUES CAN STILL LOSE
+
+The game is in two acts.  Act 1 ends when you read the Journal in your bedroom
+chest, which is a one-way `goto <Utility End>`; from there three forced moves
+north put you back in the factory next to the PDA you killed, and examining it
+runs the only decision in the game (room `end`, object `PDA2`, line 1639):
+
+    if exists <clue-test9> and exists <clue- test 10> and not exists <test-clue>
+      and exists <test-clue 3> and exists <test - clue 6> and exists <clue - test2>
+      and not exists <clue -test 4> and exists <clue - test5>
+      and not exists <clue - test 8> and exists <clue- test 7>
+    then { create exit <scicenter S; Elevator> goto <end2> }
+    else playerlose
+
+Note the internal spacing: `clue-test9`, `clue- test 10`, `clue -test 4`,
+`clue - test 8`.  Ten different objects, ten different ideas about where the
+spaces go, and Quest object names are matched with the spacing intact -- so this
+is also a decent test that the loader is not normalising whitespace inside
+`<...>`.
+
+Seven of them start `hidden invisible` (do not exist) and must be `show`n; three
+of them -- `test-clue`, `clue -test 4`, `clue - test 8` -- start `invisible`
+only (they *do* exist) and must be `hide`den.  That inversion is the whole trick:
+the three you have to destroy are the three "prove a negative" beats of the
+plot.  You hide `test-clue` by asking the repair droid what model the motherboard
+came from, `clue -test 4` by reading the girl's diary, and `clue - test 8` by
+reading her brother's ledger in his oil cellar.
+
+Running alongside all of this is a completely separate counter, `CLUE`, displayed
+as "Clues: !/15".  Nine of the ten markers bump it; six other examines bump it
+too; and the total is exactly 15, so a full playthrough reads 15/15.  But the
+counter is cosmetic -- the gate does not look at it.  The marker that does *not*
+touch it is `test - clue 6`, and that is where the trap is.
+
+
+THE TRAP: LIGHTING THE TORCH TOO EARLY MAKES THE GAME UNWINNABLE
+
+`test - clue 6` is set by *failing*.  Walking east or west out of mine4 without a
+light runs
+
+    east {
+        msg <The lack of light is becomng unbearable. ...>
+        show <test - clue 6>
+    }
+
+and the marker exists purely as a record that you have bumped into the dark.  Its
+visible purpose is to unlock the line "Do you sell flashlights here?" in the
+repair droid's menu -- but that line is a plain room `command`, guarded only by
+`if not exists <Wallet>`, so it can be typed by a player who has never set foot
+in the mines.  Buy the torch first and then
+
+    use <Flashlight> {
+        create exit east <mine4; mine5>
+        create exit west <mine4; mine6>
+        msg <You click the flashlight on.>
+    }
+
+overwrites both scripted exits with plain text destinations -- at ASL < 410
+`ExecuteCreateExit` assigns straight into the room's slot (`r.East.Data =
+destRoom; r.East.Type = TextActionType.Text`, V4Game.cs:5433-5437), discarding
+the script wholesale, exactly as in "Get out of the house!".  The
+`show <test - clue 6>` is gone for good, the marker can never be set, and the
+game is unwinnable from that moment on.
+
+This is not theoretical, and it takes one edit to see: delete the single `east`
+command that this script types in the dark (the one whose only output is "The lack
+of light is becomng unbearable") and the run still collects all fifteen clues,
+still reaches the PDA, and still ends in
+
+    You have finished the game, but without learning the whole truth.
+    Congradulations, I suppose.
+
+So the script below deliberately walks into the dark once before buying the
+flashlight, and then walks all the way back out to the repair shop and in again.
+Those fourteen moves are not padding.
+
+
+THE MONEY
+
+`DC` ("Data Chips: !") has exactly two sources: the Chair Pocket in your living
+room (+10) and the Wallet that falls out of the beureau in your back room (+50).
+There are four sinks: the bartender's key (-5), the repair droid's briefing
+(-20), the weapons lady's records (-20) and the flashlight (-10).  That is 60 in
+and 55 out, with no slack for a second purchase, and `dec <DC; N>` never checks
+whether you can afford it -- the counter would simply go negative.
+
+The affordability test is not the counter, though.  It is
+
+    give <Data Chips> if not exists <Wallet> then { ... } else msg <What, you
+      think I'm going to tell you sensitive information for that little bit?>
+
+on both the repair droid and the weapons lady, and the same guard on the
+flashlight.  `take <Wallet>` does `conceal` + `hide` + `inc <DC; 50>`, so "not
+exists <Wallet>" means "you have picked your wallet up".  Three of the four
+purchases are therefore locked behind a room in the far corner of the map that
+nothing in the game points you towards, which is why this script detours to the
+office before going to the pub at all.  (The bartender has no such guard; his
+five chips come out of the Chair Pocket.)
+
+
+THE ROUTE
+
+  1. Factory.  Ask Data all five questions off the opening menu, then south into
+     fac S and GO TO PANTRY for the desk key and the box.  fac W: USE DESK KEY ON
+     DESK, TAKE RUSTY KEY.
+  2. Utility Region.  USE RUSTY KEY ON RECYCLING PLANT DOOR opens the west exit.
+     In the plant, USE BOX ON KEY ON A STRING pops the box (the key is bolted to
+     the wall, so the box has to come to it), USE DOOR KEY ON SMALL DOOR opens
+     the parts closet, TAKE SERVICE DROID HEAD.  At the exit gate, USE SERVICE
+     DROID HEAD ON UTILITY REGION GATE reads the dead droid's digital imprint and
+     lets you out of the district.
+  3. Industrial Region.  SPEAK TO CAR -- it opens its doors for you, which is how
+     you learn it is yours, and `create exit east` gives you the rest of the
+     island.  (`take` on the car refuses: stealing is outside your parameters.)
+  4. Your house, 7th Street.  X FILES -> X LETTER is the map: eight `create exit`
+     calls in one handler, wiring urban to street5, Commercial1, City1, the
+     Science Center and the Housing Office.  X FILES again (it is now `Files2`
+     wearing the same alias) turns up the Room Key.  Living room: GO TO CHAIR,
+     X CHAIR POCKET, TAKE DATA CHIPS.
+  5. Your office.  USE ROOM KEY opens the back room; X BEUREAU, TAKE WALLET.
+     Everything expensive is now affordable.
+  6. City Pub.  GO TO INTERROGATE BARTENDER, ask where the back door goes, then
+     whether you may borrow the key, then GIVE DATA CHIPS TO BARTENDER.  OUT, GO
+     TO INTERROGATE BARFLY, "have you seen me talking to anyone?" -- he names a
+     short guy and passes out, which is `clue- test 10` and also
+     `destroy exit <pub; interrogate - barfly>`, so it is one-shot.  USE BAR KEY
+     in the pub itself opens the alley.
+  7. Alleyway.  X LARGE DUMPSTER, TAKE MOTHERBOARD SHARDS (which hands you a fragment
+     and creates the repair droid interrogation), X TINY MOTHERBOARD FRAGMENT --
+     the flashback that `reveal`s the Dresser back in your bedroom.  The dresser
+     is invisible until this examine, so the bedroom has to be visited *after*
+     the alley, not before.
+  8. Bedroom.  X DRESSER, TAKE RUSTY KEY.  (Both stairways in the house are
+     objects whose `look` property does the moving, so the command is LOOK AT
+     STAIRS, not UP.  Every staircase in the game works this way.)
+  9. Landfill.  USE RUSTY KEY ON LANDFILL DOOR, east twice, X DEAD BODY twice.
+     The first examine creates the weapons lady interrogation; the second reveals
+     the word "Latter" carved into his arm, which is `Dead body 3` -- the object
+     that unlocks a "Does the word latter mean anything to you?" line in every
+     interrogation menu in the game and the `Latter` topic on your computer.
+ 10. Weapons Shop, via the Ghettos.  Ask about a weapon that could puncture a
+     model 7 (a foiling lance), ask who bought one, GIVE DATA CHIPS TO WEAPONS
+     LADY for `clue - test2`.  Only *then* ask her about the Latter: that handler
+     ends with `goto <Ghettos2>`, so it throws you out of the shop and out of the
+     conversation.
+ 11. Back room.  GO TO YOUR COMPUTER, search LATTER.  The flashback creates
+     `create exit west <industrial2; Mine entrance2>` -- which overwrites the
+     decoy `Mine entrance1` (a dead-end room that exists only to tell you not to
+     go in without a reason).
+ 12. Mines, first pass.  west, west, south to mine4 and try EAST in the dark.
+     See above; this is the whole reason for the trip.
+ 13. Repair Shop.  Ask what model the motherboard came from (hides `test-clue`),
+     ask about the Latter, ask who they are, GIVE DATA CHIPS TO REPAIR DROID for
+     `test-clue 3`, and DO YOU SELL FLASHLIGHTS HERE? for the torch.
+ 14. Mines, second pass.  USE FLASHLIGHT, then east to mine5: X MYSTERIOUS OBJECT
+     -> X ROBOT ARM for `clue- test 7`.  Back west and around to mine7: X DEAD
+     BODY reveals the girl's Diary, X DIARY hides `clue -test 4`.  Now walk back
+     north into mine3, whose entry `script` sees that both the Diary and the Robot
+     Arm exist, prints "The person who did it was... You.", sets `clue - test5`
+     and `goto`s you to your office.
+ 15. office2 is a second copy of your office with a five-`wait` monologue, two
+     paragraphs of which are conditional on your having bribed the lady and the
+     droid.  It ends by creating the Housing Office interrogation.
+ 16. Housing Office -> "im looking for a model 5 on 3rd street" -> `create exit
+     northwest <urban; street3>`, and 3rd Street is the mansion.
+ 17. Mansion.  X DOORBELL creates the front door.  The gold Key is on a pedestal
+     in the upstairs bedroom; it unlocks the den's east door into the garage;
+     LOOK AT WINDOW climbs out into the backyard; GO TO TERRACE, LOOK AT WINDOW
+     again and you are in the locked office with the brother's body -- which is
+     the point, because the door was locked from the inside and the killer went
+     out the same window you came in.  X DEAD BODY three times: the first gives a
+     clue and `show`s the Chest under your own dresser, the third turns up a
+     skeleton key.  That key opens the den's cellar stairs (a `stairs3`/`stairs4`
+     swap), and X LEDGER down there hides `clue - test 8`.
+ 18. Home.  X CHEST UNDERNEITH YOUR DRESSER (the object is `<Chest>`, but its
+     alias is that whole phrase, misspelling and all -- former.asl:590-591),
+     X LATTER H.Q. KEY (for `clue-test9`; the inscription reads
+     "Elevator 5, Lobby in Science Center", which is the only hint about where
+     the endgame is), TAKE LATTER H.Q. KEY, and only then X JOURNAL.  The Journal
+     is four `wait`s of confession followed by `goto <Utility End>` and there is
+     no way back; take the key first or act 2 is unwinnable.
+
+
+ACT TWO IS ACT ONE AGAIN
+
+Past the gate, `end2` drops you into a duplicated factory -- `fac W2`, `fac C2`,
+`fac S2`, `fac pantry2`, `utility outside2`, `utility exit2`,
+`rec plant entrance2` -- with a fresh desk key, box, key-on-a-string, door key
+and service droid head, because the pantry says "all locks and keys have been put
+back.  How strange.  Perhaps done by a maintainence droid?".  So the last twenty
+commands are the first twenty again, and the second copy is worth having under
+test: the duplicated objects carry the same aliases as the originals, and the
+originals are still around (concealed, or hidden) rather than destroyed, so every
+one of those commands is a resolution test.  `Desk2` even carries handlers for
+both `use <desk key>` and `use <desk key2>`, the author evidently unsure which
+name would win.
+
+The route out is the same too: recycling plant, box, small door, droid head,
+gate.  Then east, north and east across the island to the Science Center, GO TO
+ELEVATOR 5 -- the exit the gate condition created twenty turns earlier while you
+were standing in the factory -- and USE LATTER H.Q. KEY ON SMALL KEYHOLE.
+
+
+THREE THINGS THIS SCRIPT HAD TO WORK AROUND
+
+  * Every `place` has to be entered as GO TO <alias>; the bare alias is not a
+    command.  That is five interrogations, two pantries, the chair, the terrace,
+    the computer and the elevator.
+  * Every noun has to be an object's full alias.  The game is ASL 350, and Quest
+    matches a word taken from the middle of a name only for ASL 391 and up
+    (Disambiguate, V4Game.cs:4762-4772; fixtures/abbrev.asl), so the two places
+    where the alias is longer than the thing it names have to be typed out: the
+    alley's `<Dumpster>` is `alias <Large Dumpster>` (former.asl:734-735) and the
+    bedroom's `<Chest>` is `alias <Chest Underneith Your Dresser>` (590-591).
+    Both have a plain-named twin -- `Dumpster2` is `alias <Dumpster>` (799-800),
+    which is why X DUMPSTER is not simply an abbreviation of the first one but a
+    different object, concealed until the alley has been searched.
+  * USE BOX ON KEY is ambiguous -- the Recycling Plant Entrance holds both `key`
+    ("Key on a String") and the `doorkey` you are about to receive ("Door Key"),
+    and the disambiguation prompt eats the script's next line.  Spelled out in
+    full as USE BOX ON KEY ON A STRING it resolves cleanly, which also confirms
+    the two-argument `use` splits at the first " on " rather than the last.
+
+
+WHAT THIS SCRIPT SKIPS
+
+  * Most of each interrogation menu.  Only the questions that change state are
+    typed; the bartender's model number, the barfly's boasting, the lady's
+    "Whats behind the locked door?" (a joke: "All my dead bodies, of course")
+    and the three questions Data answers in `end2` are flavour.  The script does
+    ask all five opening questions, because the room text says to.
+  * `Mine entrance1`, the Landfill Compactor and its self-referential south exit,
+    the mansion's four-door fridge and its pool table, the `Messy Files`,
+    the room called `mansion wine cellar` whose own description insists it is an
+    Oil Cellar, `Broken motherboard2`,
+    `Tiny Shard 2`, `chair2`, `dresser2`, `Dead Body7` and the other half-dozen
+    "you already did that" replacement objects.
+  * `command <hint> msg <Hints are for sissies.  Figure it out!>`, `command
+    <jump>` and `command <hello>`, the game's entire help system.
+  * The bar key, which the pub's handler claims you hand back ("You give the key
+    back before heading out") but only `conceal`s -- it is in your inventory,
+    invisibly, for the rest of the game.
+
+
+start:
+who am i?
+where am i?
+what am i doing here?
+who wiped my memory?
+how can i get my memory back?
+south
+go to pantry
+take desk key
+take box
+out
+north
+west
+use desk key on desk
+take rusty key
+east
+south
+south
+use rusty key on recycling plant door
+west
+use box on key on a string
+use door key on small door
+take service droid head
+east
+south
+use service droid head on utility region gate
+south
+speak to car
+east
+north
+west
+north
+x files
+x letter
+x files
+take room key
+north
+go to chair
+x chair pocket
+take data chips
+out
+south
+south
+east
+south
+south
+south
+use room key
+south
+x beureau
+take wallet
+north
+north
+east
+east
+go to interrogate bartender
+where does the back door go?
+may i borrow the key?
+give data chips to bartender
+out
+go to interrogate barfly
+have you seen me talking to anyone?
+use bar key
+east
+x large dumpster
+take motherboard shards
+x tiny motherboard fragment
+west
+west
+north
+northwest
+west
+north
+north
+look at stairs
+x dresser
+take rusty key
+look at stairs
+south
+south
+east
+south
+west
+north
+north
+use rusty key on landfill door
+east
+east
+x dead body
+x dead body
+west
+west
+south
+south
+south
+south
+east
+go to interrogate weapons lady
+what kind of weapon could puncture through a model 7 robot?
+who has bought a foiling lance?
+give data chips to weapons lady
+does the word latter mean anything to you?
+north
+east
+south
+south
+go to your computer
+latter
+out
+north
+north
+west
+west
+west
+south
+east
+north
+east
+east
+north
+east
+east
+east
+go to interrogate repair droid
+what model did this motherboard chip come from?
+does the word latter mean anything to you?
+who are the latter?
+give data chips to repair droid
+do you sell flashlights here?
+out
+west
+west
+west
+south
+west
+west
+south
+use flashlight
+east
+x mysterious object
+x robot arm
+west
+west
+south
+x dead body
+x diary
+north
+east
+north
+north
+north
+north
+north
+go to interrogate housing officer
+im looking for a model 5 on 3rd street
+out
+south
+northwest
+north
+x doorbell
+north
+west
+northeast
+look at stairs
+southeast
+take key
+northwest
+look at stairs
+east
+southeast
+use key
+east
+look at window
+go to terrace
+look at window
+x dead body
+x dead body
+x dead body
+take key
+west
+look at stairs
+east
+southeast
+use key
+look at stairs
+x ledger
+look at stairs
+west
+south
+south
+southeast
+west
+north
+north
+look at stairs
+x chest underneith your dresser
+x latter h.q. key
+take latter h.q. key
+x journal
+north
+north
+north
+x pda
+whats going on?
+why do i still have my memory?
+what should i do now?
+south
+go to pantry
+take desk key
+take box
+out
+north
+west
+use desk key on desk
+take rusty key
+east
+south
+south
+use rusty key on recycling plant door
+west
+use box on key on a string
+use door key on small door
+take service droid head
+east
+south
+use service droid head on utility region gate
+south
+east
+north
+east
+go to elevator 5
+use latter h.q. key on small keyhole

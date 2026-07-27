@@ -1,0 +1,262 @@
+Assassin (Mocha Man and Eager Elmer, QDK 3.12, ASL 311, version "1.0- silent
+death", 2002-03) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Marker: "the corruption was left to the Mafia".
+135 turns, no timers, so no --tick.
+
+An open-map mafia game: 104 rooms laid out as a real street grid (Elm, Main,
+Hilton, Print, Grey, the Ave, plus a gravel back road), and four missions handed
+out one at a time.  The credits admit it "was based on a game written for a
+graphing calculator (sad but true)", which shows in the structure: almost all of
+the map is scenery with a joke room description, and the mission chain touches
+maybe fifteen rooms of it.  The route below is the shortest path through that
+chain with no exploration and no wasted turns.
+
+THE ECONOMY IS NOT A PUZZLE.  The help text advertises four ways to make money
+-- burgling the four lockpickable houses and selling the loot at Paul's Pawn
+Shop, gambling at Lucky's Casino, street racing the Tattoed Man, and the mission
+payouts -- and the walkthrough uses only the last one.  `cash` starts at 20;
+joining pays 500, mission 1 pays 1000, mission 2 pays 1000.  That is 2520, and
+the only two things you have to buy are the Uzi (2000, leaving 520) and the
+silencer (200, bought after mission 3 has paid another 4000).  So Louie's Easy
+Lockpick, the four houses, the vase/stereo/camera/laptop, the two cars, the
+casino and the race are all optional -- which matters here because `gamble` is
+`$rand(1;2)$` and the street race ends in `playerlose` if you turn up on foot.
+
+WHAT GATES WHAT.  Every step is a `got <...>` check on an invisible marker
+object in the hidden `Mission Status` room:
+
+  * Vinnie will not appear in the Tavern once you hold the Mafia Member Card;
+    the Tavern's entry script only moves him in on the *un*carded branch.  So
+    the very first thing that happens in the game has to be SPEAK TO VINNIE.
+  * `create exit east <Fake Intro Club; N. Gravel>` is what lets you out of the
+    club at all.  The Fake Intro Club has no exits of its own -- decline the
+    card and DeStefano teleports you out instead.
+  * `More E Elm`'s west exit is `if got <mission 1> then msg <The crowd is too
+    big. You'll get caught.>`, so the walk out to the Red Jacket Man is a
+    dead-end corridor and the trip back to Vinnie has to retrace east and then
+    up the gravel road.  That is the long stretch of `east`s below.
+  * `SafeSmart Bank`'s north exit needs mission 3, `W. Hilton 1`'s west exit
+    needs mission 4, and `Mayor's Front Garden`'s west exit needs the Keycard.
+
+FIVE WAYS TO DIE, ALL AVOIDED BELOW.
+
+  1. The Police Woman.  Shooting the Red Jacket Man moves her to S. Gravel, and
+     S. Gravel's entry script fires her interrogation the moment you walk back
+     through it.  Answer 1 ("I, uh... didn't hear anything, officer.");
+     answer 2 is "RUN!!" and she shoots you in the back.
+  2. The mission-2 policeman, likewise parked in Ave Parking by the explosion
+     and likewise fired from the room script.  Here it is the *polite* answer
+     that kills you -- "No, but whatever it was, it wasn't me." leads to "can I
+     see some ID, sir?" and BUSTED.  Answer 2, "Shoot the cop".
+  3. The Angry Guard.  Entering the vault swaps the Tied up Guard for an Angry
+     Guard back in the Security Room, and the Security Room's entry script
+     execs SPEAK TO ANGRY GUARD for you on the way out.  Surviving needs
+     `got <Bulletproof Vest> and got <have uzi>` -- both, not either.
+  4. The upstairs hallway.  `W. Hilton 1`'s west exit sets `security; active`
+     as it drops you in the garden, and the hallway's entry script is
+     `if ( #security# = active ) then ... playerlose`.  You must FLIP SWITCH
+     downstairs first.  (Also: never SPEAK TO the Mayor Guard standing in that
+     hallway.  He is described as "facing the other way, unaware of your
+     presence"; talking to him sounds the alarm.  Walking past him is fine, and
+     USE PISTOL ON GUARD would work too -- it is just two wasted turns.)
+  5. Shooting any mafia member -- either Vinnie, either Delsa, any of the four
+     DeStefanos, either Louie, or the Mafia Salesman -- is an instant loss, with
+     a hand-written death message per pair.  There are twelve such handlers on
+     the Pistol alone.
+
+THE PASSWORD IS TIFFANY.  You learn it in the duck-pond cutscene: the woman who
+killed Louie has "a small piece of paper that says 'TIFFANY'" on her.  The
+mansion's own `hint` command points back at it ("do you remember what the slip
+of paper said on Louie's Killer?").  FLIP SWITCH uses `enter <password>`, so the
+answer is its own script line and costs no turn.
+
+THE VAULT LEVERS.  `#lev1#`, `#lev2#` and `#lev3#` are never declared as
+variables; the only thing that ever initialises them is SafeSmart Bank's entry
+script, and only on the `if got <mission 3>` branch -- it sets all three to
+"up".  The vault door wants up/down/down, so exactly two flips are needed.  Two
+notes on typing them: a lever is flipped by TAKEing it (the room description
+says so, and the room's own `command <mission>` repeats it), and all three carry
+an ordinal alias -- `<Lever 1>` / `alias <1st Lever>`, `<Lever 2>` /
+`alias <2nd Lever>`, `<Lever 3>` / `alias <3rd Lever>` (assassin.asl:2426-2452).
+The alias is the only name the parser knows, and the game is ASL 311, so there is
+no partial matching to fall back on either (Quest matches a word from the middle
+of a name only for ASL 391 and up: Disambiguate, V4Game.cs:4762-4772;
+fixtures/abbrev.asl).  TAKE 2ND LEVER works; TAKE LEVER 2 does not.  The same
+goes for the target of the first shot: he is `define object <Red Jacket Man>` with
+`alias <Red Jacket>` (936-937), so the command is USE PISTOL ON RED JACKET.
+
+TWO SEARCHES.  The Molitov Cocktails and the Bulletproof Vest are both behind a
+room-level `command <search ...>` rather than any property of the object you are
+searching, and in both cases the object's own `look` denies having anything:
+the Lost and Found "smells like gasoline... there probably isn't anything you
+need", and the Coat Rack has "a few jackets... nothing you need most likely".
+The bomb is in "EDUCATIONAL territory" per the mission envelope -- the
+Elementary/Middle School's lost and found, not the High School.  The vest is
+hinted twice: by Liz in the Loomis Offices (menu option 3) and by Zeke's last
+menu line, "Mah brother Paul said somethin' once about hiding a bulletproof
+vest in a coat rack somewheres".
+
+AN AUTHORING BUG WORTH KNOWING, because it explains why the route never picks a
+fight with a cop.  Buying a gun does `clone <Uzi; Buy Uzi; Guns>` + `give <Buy
+Uzi>`, so the thing in your inventory is called "Buy Uzi", not "Uzi".  The Uzi
+purchase separately hands you the invisible marker `have uzi`, and the Angry
+Guard checks *that* -- which is the only reason a bought Uzi works at all.  The
+`police` selection, which is what you get if you shoot the Snobby Lady and then
+meet one of the two cloned Angry Cops, instead checks `got <Uzi>` and `got
+<Shotgun>` directly.  A purchased weapon therefore never satisfies it and the
+"fight" branch always ends in "Arrested!!".  Nothing in the main line goes near
+that selection.
+
+The Spy Facility takes `use molitov cocktails` with no target: it is a
+room-level `use <Molitov Cocktails>`, which is also what the room's `hint` tells
+you ("try USEing it on its own").  DeStefano at Main and Ave and the Bad Cop at
+the club are both spoken to for you by the room's entry script, so neither gets
+a line here.
+
+Start:
+start
+south
+speak to vinnie
+1
+speak to destefano
+1
+east
+speak to vinnie
+south
+south
+southwest
+west
+west
+west
+use pistol on red jacket
+east
+east
+east
+northeast
+1
+north
+north
+speak to vinnie
+west
+west
+west
+west
+west
+west
+west
+south
+west
+look at envelope
+1
+east
+north
+east
+east
+east
+east
+south
+west
+search lost and found
+take molitov cocktails
+east
+north
+west
+west
+north
+west
+west
+north
+north
+use molitov cocktails
+south
+2
+south
+south
+southwest
+south
+west
+look at envelope
+east
+north
+east
+east
+east
+east
+south
+east
+east
+look at phone
+1
+southeast
+southwest
+west
+west
+west
+west
+west
+west
+north
+speak to zeke
+3
+south
+west
+west
+west
+west
+search coat rack
+take bulletproof vest
+east
+east
+east
+east
+east
+north
+north
+north
+west
+north
+north
+take 2nd lever
+take 3rd lever
+north
+take bag of money
+take stack of bills
+south
+south
+south
+speak to delsa
+east
+south
+south
+south
+south
+speak to paul
+4
+2
+north
+north
+north
+east
+east
+east
+east
+west
+west
+west
+west
+west
+south
+look at louie's body
+west
+east
+north
+west
+speak to destefano
+1
+west
+west
+flip switch
+tiffany
+north
+east
+use pistol on mayor

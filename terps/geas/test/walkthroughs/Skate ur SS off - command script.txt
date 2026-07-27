@@ -1,0 +1,138 @@
+Skate ur @SS off -- Wilson Trent, v0.4a, ASL 410 (QDK Lite 4.1.2)
+=================================================================
+
+A skateboarding trick simulator with no adventure in it: four rooms, no puzzle,
+no score threshold and no `playerwin` or `playerlose` anywhere in the file.  The
+whole game is fifteen `command` blocks in `define game` driving four one-second
+timers, and the only thing to do is chain tricks for points.  This script is
+therefore a demonstration run, not a walkthrough -- the marker is the 720 spin,
+the biggest single trick the game can score (+100), not a win.
+
+How it plays
+------------
+    OLLIE                   status -> in the air, air time 5, "Come down tick" on
+    LEFT / RIGHT            +/-90 degrees while airborne; 180/360/540/720 score
+                            10/25/50/100
+    KICKFLIP, IMPOSSIBLE    +20 / +50 while airborne; on the ground you fall
+    GRIND RAIL              only in the air (the rail is in Training 1)
+    SKATE UP QUARTER PIPE   the other way into the air
+    MANUAL, then UP / DOWN  alternate them to keep a manual alive, +10 a tick
+    LAND                    ends a manual or an air trick cleanly
+    REVERT                  a flat +10, any time, any status
+    RESET SCORE             score to 0, and `inc <rank; 20>` (see below)
+    TUTORIAL                prints `define text <intro>` again
+    CHANGE / STOP / RESUME SONG    three `playwav` tracks and a `define menu`
+
+The timers all re-arm themselves from inside their own action:
+
+    define timer <Come down tick>
+        interval <1>
+        action { dec <air time left>  ...  timeron <Come down tick>  ... }
+
+and Quest's `timeron` sets BypassThisTurn, so a timer never fires on the turn it
+was switched on.  Re-arming every tick therefore halves the clock: an air time of
+5 lasts about ten turns, which is why eight RIGHTs fit inside one OLLIE.  The
+countdown messages in the transcript come out on alternate turns for the same
+reason.
+
+LAND during a grind only half-works.  The Grind action leaves `status` alone (it
+was already "in the air") and starts `grind tick` beside the air timer; LAND
+looks at `status`, switches off "Come down tick" and reports the score, but never
+touches `grind tick` -- so the grind keeps paying out +10 a tick while you skate
+around, which is visible in the transcript as "4s left to grind" arriving after
+the landing.
+
+The spin scoring, and the engine fix it needed
+----------------------------------------------
+    command <right> {
+        if ( #status# = in the air ) then {
+            inc <degrees turned; 90>
+            select case <%degrees turned%> {
+                case <180> { msg <180 spin.  +10pts.>  inc <score; 10>}
+                ...
+
+`degrees turned` is never declared -- there is no `define variable` for it, only
+the `set numeric <degrees turned; 0>` the landing timer does.  Quest handles that:
+ExecuteIncDec reads the variable with GetNumericContents, gets the -32767
+"no such variable" answer, clamps anything at or below -32766 to zero, and stores
+0 + 90.  geas was missing the clamp, so the first RIGHT left -32677 and none of
+the four `case` labels could ever match -- every spin in the game scored nothing.
+Fixed, with test/fixtures/undefnum.asl to pin it.  The same clamp is why RESET
+SCORE's `inc <rank; 20>` now creates `rank` at 20; nothing in the game displays
+it, so that one is invisible either way.
+
+Half Pipe Central
+-----------------
+The Skate Lobby declares
+
+    place locked <Half Pipe Central; You have yet to unlock this Skate Zone.>
+
+which QDK Lite emitted and Quest has no idea what to do with.  Quest matches the
+line on the `place ` prefix alone, reads the parameter, splits it on the
+semicolon and takes the *second* half as the room name and the first as a
+prefix -- so a real Quest player sees "You can go to Skate Shop, Half Pipe
+Central You have yet to unlock this Skate Zone., or Level 1", and GO TO HALF PIPE
+CENTRAL is rejected because the place is now filed under that whole sentence.
+geas drops the malformed place instead and answers "You can't go there.".  The
+room is unreachable either way -- which is just as well, since its nine objects
+(two half pipes, three rails, stairs, two ramps and a side walk) have no
+descriptions and no actions at all.
+
+The shop that cannot sell anything
+----------------------------------
+`define variable <Credits>` starts at 0 and nothing in the game ever incs it, so
+the clerk's "If you have Credits you can buy boards and unlock more areas to
+skate in" is the whole of the economy.  Six of the eleven decks (Mana Palation,
+Happy Trails, Sonata Burst, Element, Sonata Classic and Amplitude Greatness) are
+`invisible` with nothing anywhere to show them.  Of the five you can see, four
+have a bare `take` and the Darkstar Deck has none -- but its `action <equip>`
+still fires, so EQUIP DARKSTAR DECK works on a board you do not own.  Equipping
+only sets the `Skateboard deck` status variable; no deck changes anything.
+
+The Default Deck is `drop nowhere <YOU CANNOT DROP YOUR SKATEBOARD!>` and is
+handed over by the startscript along with the Music Player, which is the one
+object in the Skate Lobby.
+
+The run below
+-------------
+Tutorial and music, a manual chain, a REVERT, a deliberate KICKFLIP on the ground
+(the -100pt fall, whose three recovery ticks are spent shopping), the shop and
+the clerk, the locked place, the Training Area's quarter pipe and rail, then RESET
+SCORE so the finale stands alone: OLLIE, eight RIGHTs for the 720, LAND at
+225pts.
+
+Start:
+tutorial
+look at music player
+change song
+stop song
+resume song
+manual
+up
+down
+land
+revert
+kickflip
+go to skate shop
+look
+speak to clerk
+look at graybone deck
+take graybone deck
+equip graybone deck
+go out
+go to half pipe central
+go to level 1
+skate up quarter pipe
+grind rail
+land
+reset score
+ollie
+right
+right
+right
+right
+right
+right
+right
+right
+land

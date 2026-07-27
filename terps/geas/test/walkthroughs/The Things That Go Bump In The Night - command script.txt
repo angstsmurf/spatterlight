@@ -1,0 +1,451 @@
+The Things That Go Bump In The Night, by Tim Hamilton (QDK 4.1.6, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "Not on my watch."
+
+340 turns, and by far the largest Quest 4 game in the corpus: 87 rooms, four
+separate buildings, a dozen keyed and coded doors, and five timed set-pieces
+that kill you if you spend a turn in the wrong place.  You are the lone night
+security guard at a smelting complex; something has turned the fence live,
+knocked out the water pump, filled the site with chemical mist and let a great
+many things out of their cages.
+
+Nearly every room is `properties <dark>`, so TURN ON FLASHLIGHT on turn 8 is
+load-bearing for the rest of the game -- several exits check
+`is <#Flashlight:suffix#;(providing light)>` and simply refuse to let you leave.
+
+Things worth knowing before reading the script:
+
+THE FIRE EXTINGUISHER IS AMMUNITION.  `fe` is a 0-5 gauge on the small
+extinguisher (0-10 on the large one) and every spray decrements it.  It is spent
+on the corridor creature, the vine and the black mass, which empties it -- so the
+Smelter Lunch Room has a *second*, fresh one behind the glass of a Fire Cabinet
+(USE HAMMER ON CABINET breaks the glass).  That refill is not optional: the
+octopus fight below needs `%fe%` to be at least 5 when the fifth spray lands.
+
+FOUR DEAD FUSES OUT, FOUR GOOD ONES IN.  The water pump in the Pump House will
+not reset until fuse1..fuse4 are all parented to the Fuse Box, and the box's
+`add` script counts what is still parented to it and refuses a fifth.  The four
+good fuses are scattered across the site (New, Good, Dusty, Wet -- the wet one
+comes out of the pump's own drainage valve).  This is the game that pinned down
+geas's implied-REMOVE-before-TAKE bug: geas used to take a parented object
+without clearing its `parent` property, so the box stayed "full" of fuses it no
+longer held and the pump could never be reset.  See fixtures/takefromcontainer.
+
+THE GAS CAN IS A THREE-STATE MACHINE.  `gascan1`: 0 empty, 2 oil only, 3 gas+oil
+mix, 1 straight gas.  The chainsaw wants the mix and the Makeshift Bomb wants
+straight gas, so the oil goes in *first* (while the can is still empty), then the
+Fuel Pumps, then FILL CHAINSAW empties it, and only then is it refilled with
+plain gas at the pumps for the bomb three hours of game-time later.
+
+THE OCTOPUS (East Smelter Courtyard).  Eight tentacles.  Three chainsaw slices
+take out most of them, but the third throws the chainsaw over the fence, which is
+why the fire extinguisher is dropped in this room *before* the fight starts -- the
+menu's "pick up the extinguisher" choice needs it here.  Then the flashlight
+blinds it and five sprays finish it.  On the fifth spray the `arms=0` branch wins
+the race against the `f=5` (empty extinguisher) branch, which is what lets the
+extinguisher survive the fight to be thrown at the beast at the end.  The menu
+answers below are option *numbers*, and they do not count as turns.
+
+THE HUGE SPIDER (Smelting Plant).  The plant is a 3x3 grid tracked in
+`location2`, and `beforeturn` recomputes the spider's approach (`spider3`) from
+your *pre-move* location.  Two things freeze it: SHINE LIGHT ON SPIDER sets
+`spider4` unconditionally, buying two still turns, and USE RADIO sets both
+`spider4` and `spider5`, buying one -- so the radio conversation that talks Neva
+through the overhead ladle controls doubles as a stall.  That is the only way to
+walk the ladle into the centre square while the spider sits at range 5, and then
+USE HUNTING RIFLE ON CHAIN drops it.
+
+THE CLOWN (Recycle Work Lab).  USE LEAF BLOWER ON BALLOON ANIMALS is what sets
+`search1=1`; without it the five examinable spots only ever get `search1` to 5
+and the Button never appears.  So the blower has to be fired *before* the
+examines, and re-fired between them, because each round the balloons drift back
+and the clown closes in.  USE FLASHLIGHT ON CLOWN is the reset that keeps
+bloodloss at zero.  Five spots (lab benches, x-ray machine, microscope, furnace,
+eye wash station), then PRESS BUTTON, then the Door Handle is under the benches.
+
+THE RING OF KEYS (Refinery Courtyard) is a four-step Rube Goldberg: LOOK AT TABLE
+reveals the keys on a stone table on the far side of an electrified fence; the
+Magnet from the Smelter Storeroom taped to the Mop Handle from the Maid's Closet
+reaches them, but the magnet touches the fence and the keys are flung up into the
+elm tree; SHAKE BRANCHES drops them into a pile of leaves; the Rake from the
+Work Shed digs them out.  Note that CLIMB TREE is refused both while the keys are
+still on the table and once the leaf pile exists, so the climb has exactly one
+turn of opportunity.
+
+THE BLOB (Refinery Main Floor).  LOWER LEVER in the control room drops the chain
+hoist so it can be climbed; the Makeshift Bomb (large extinguisher duct-taped to
+a full gas can) is thrown at the blob and shot from up on the chain, and it only
+works when `%fe%` > 5 -- entering the control room for the first time sets `fe`
+to 10, so the large extinguisher must not be sprayed on anything first.  LOCK
+DOOR on the way out is the non-obvious one: Refinery Main Floor's entry script is
+
+    if flag <chainlift1> and flag <kp11> then { ...the chain rises... }
+
+so if you leave the control-room door unlocked, Dave gets in behind you and
+raises the chain, and there is no way off the floor.
+
+THE BAT AND THE HOSE.  You cannot carry the Ladder and the Hose at the same time,
+and the roof needs both: the ladder goes on the Hooks to open the ceiling hatch,
+you fetch the hose, then the ladder is pulled up after you (which destroys the
+DOWN exit) and laid across the Gap to the lab roof.  USE HOSE ON PIPE ties the
+hose to the fire-suppressant machine first -- the bat carries you off no matter
+what, and holding the other end of that hose is the only thing between you and
+the ground.  It is also, later, what pipes the suppressant into the ventilation
+system once the chemical valve behind the lab has been shut with the Wrench.
+
+THE GLASSES SWAP is the ending.  Neva has been your sidekick since the gypsum
+pile; she is also the one holding a gun to your head in the Secret Labratory, and
+the gremlins are keyed to whoever is wearing the signal glasses.  So you give her
+the plain Safety Glasses from the Supply Room and wear the pair she "dropped"
+behind the lab.  Get that backwards and the gremlins eat you.  After that it is a
+strict turn budget: `throw hammer at fire alarm` (which needs Hose2 parented to
+the Ventilation System, or the alarm sounds and nothing happens), retrieve the
+hammer -- the throw drops it -- then two turns through the Underground Tunnel
+(`tunnel1` > 2 and Dave escapes) and one on the runway.
+
+Two lines below look like mistakes and are not.  Line 179 (I) is a deliberate
+inventory check inside the octopus aftermath; and LOOK in the Secret Labratory is
+a sacrificial turn, because that room's `beforeturn` is `if here <Dave> then
+dontprocess` -- the first command you type there is swallowed by design while the
+Neva-betrayal scene plays out in `afterturn`.
+
+Start:
+look at monitors
+look at cabinets
+open cabinets
+take flashlight
+take electronic key
+take hand radio
+turn on flashlight
+east
+north
+take fire extinguisher
+southwest
+take soap
+northeast
+south
+east
+south
+examine desk
+open drawer
+take note
+read note
+examine computer
+take flash drive
+north
+northwest
+look at first aid box
+open first aid box
+take gauze
+east
+north
+open door
+yes
+spray creature
+open door
+north
+west
+look at gypsum pile
+examine skid steer
+take wrench
+take feet
+use soap on vine
+take fire extinguisher
+spray vine
+look at legs
+take door opener
+east
+south
+east
+examine argon tank
+turn valve
+out
+up
+look at door
+use electronic key on key pad
+open door
+south
+examine desk
+take rounded key
+turn on lap top
+use flash drive on lap top
+look at lap top
+north
+west
+down
+west
+north
+look at door
+use electronic key on key pad
+open door
+press opener
+look at fork lift
+use rounded key on ignition
+enter fork lift
+turn on fork lift
+raise lever
+east
+north
+east
+spray bear
+spray bear
+use flashlight on bear
+raise lever
+examine wreckage
+south
+west
+examine alarm panel
+east
+southwest
+take hammer
+northeast
+southeast
+take gas can
+go to work truck
+open glove box
+look at glove box
+take dusty fuse
+out
+northwest
+east
+use hammer on hatch
+open hatch
+use flashlight on hatch
+spray black mass
+west
+south
+look at water pump
+turn drainage valve
+take wet fuse
+look at fuse box
+open fuse box
+take dead fuse
+take fried fuse
+take cracked fuse
+take cooked fuse
+put new fuse in fuse box
+put good fuse in fuse box
+put dusty fuse in fuse box
+put wet fuse in fuse box
+press reset button
+north
+east
+turn valve
+west
+north
+east
+east
+southwest
+north
+east
+examine shelves
+examine shelves
+take can of oil
+take duct tape
+find boots
+find jack
+find magnet
+take floor jack
+take magnet
+use oil on gas can
+west
+north
+southwest
+use hammer on cabinet
+look at cabinet
+take fire extinguisher
+northeast
+south
+south
+northeast
+drop fire extinguisher
+use gas can on pumps
+west
+west
+south
+southwest
+take chainsaw
+fill chainsaw
+northeast
+north
+east
+east
+turn on chainsaw
+cut posts
+cut octopus
+yes
+2
+2
+2
+3
+1
+3
+3
+3
+3
+3
+3
+use gas can on pumps
+up
+i
+go to water tank
+look at dead body
+examine dead body
+take electronic key
+out
+northwest
+north
+south
+southeast
+down
+southwest
+west
+look at door
+use electronic key on key pad
+open door
+north
+speak to workers
+3
+take tiny key
+south
+south
+east
+northeast
+west
+west
+south
+southeast
+go to work truck
+look at gun rack
+unlock gun rack
+take hunting rifle
+out
+northwest
+north
+east
+east
+southwest
+west
+use electronic key on key pad
+open door
+west
+yes
+shine light on spider
+northwest
+look at large ladle
+east
+use radio
+use radio
+2
+use radio
+3
+shine light on spider
+use hunting rifle on chain
+west
+north
+northeast
+look at closet
+open closet
+take bolt cutters
+take screwdriver
+southwest
+south
+use bolt cutters on shed
+go to work shed
+take leaf blower
+take rake
+turn on leaf blower
+out
+north
+northeast
+northwest
+south
+use leaf blower on balloon animals
+use flashlight on clown
+examine lab benches
+examine x-ray machine
+use leaf blower on balloon animals
+use flashlight on clown
+examine microscope
+examine furnace
+use leaf blower on balloon animals
+use flashlight on clown
+examine eye wash station
+use leaf blower on balloon animals
+use flashlight on clown
+press button
+examine lab benches
+take door handle
+north
+southwest
+look at door
+use door handle on door
+open door
+use floor jack on access door
+north
+east
+south
+take mop handle
+tape magnet to mop handle
+north
+east
+south
+look at table
+use mop magnet on ring of keys
+climb tree
+shake branches
+down
+use rake on pile of leaves
+take ring of keys
+north
+east
+unlock door
+open door
+examine long console
+lower lever
+take large fire extinguisher
+tape gas can to large fire extinguisher
+south
+lock door
+east
+north
+yes
+climb chain
+throw makeshift bomb at giant black blob
+use hunting rifle on makeshift bomb
+up
+north
+take safety glasses
+take ladder
+south
+use ladder on hooks
+north
+take hose
+south
+up
+examine machine
+use hose on pipe
+take ladder
+use ladder on gap
+take hose
+west
+use flashlight on bat
+take neva's glasses
+examine chemical tanks
+use wrench on valve
+use hose on ventilation system
+up
+give safety glasses to neva
+wear neva's glasses
+north
+look at metal door
+look at key pad
+yes
+pine fresh
+north
+look
+throw hammer at fire alarm
+take hammer
+north
+north
+throw hammer at dave

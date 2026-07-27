@@ -1,0 +1,172 @@
+Kingdom (Grecianu Andrei-Paul, v0.9, ASL 300, QDK 3.03) -- command script
+
+Kingdom is not an adventure.  It is a one-room, turn-based management sim: your
+liege has handed you a fief with three villages in it, and you type orders at a
+prompt until you are exiled, killed, or overthrown.  There is no map, no
+inventory, no object anywhere in the file, and -- this is the important part --
+no way to win.  `playerwin' does not appear in the source, `define text <win>'
+is an empty block, and the eight endings the game does have are all `playerlose'.
+So this entry is a furthest-reachable-state pin in the mould of Blade Sentinel,
+Theses of Canada and Incident of the Undead: the marker is a line of the
+game's own text at the end of the route, not a victory.
+
+
+WHY IT CANNOT BE WON, AND WHY IT BARELY CAN BE SURVIVED
+
+The whole game is one balance sheet, and the author tilted it.  `beforeturn'
+recomputes some seventy-five numeric variables -- per-village growth, riot
+pressure, prosperity, siege strength -- and then does this:
+
+        set numeric <Gold; %Gold%-%Army%>
+
+Upkeep is one gold per knight per season.  Gold starts at $rand(30;60)$ and the
+army at $rand(10;20)$, so on a bad roll the treasury is empty at the end of the
+second season and there is nothing the player can do about it: the subtraction
+happens in `beforeturn', before the first command of the turn is even read.
+`afterturn' then checks
+
+        if ( %gold% <= 0 ) then ...
+
+and exiles you, with a one-in-three reprieve of $rand(5;15)$ gold from the liege.
+Income cannot keep up.  The three villages' tributes are %V<N>econ% gold each,
+and V<N>econ is clamped to %V<N>max% = %V<N>pop%/2 -- in practice one to five
+gold a season each.  "Ask more funds from liege" pays $rand(10;30)$ but ends the
+game outright on a 1-in-4, and "Organize tournament" and every village funding
+proposal only spend.
+
+Which leaves firing knights, and that is the trap.  Cutting the army is the only
+real lever on upkeep, but the army is also the only thing that suppresses a
+revolt: `V<N>battle riot' compares %Army% against the village garrison and, if
+the garrison wins, sets Army to 0 and calls `playerlose'.  Sieges work the same
+way.  So the treasury pushes the army down and the villages punish you for it,
+and this route dies of exactly that -- see the last three lines below.
+
+
+WHAT THE ROUTE DOES
+
+Six seasons, thirty-two script lines, and every menu answered.
+
+  * Fire a knight whenever upkeep looks fatal, and tour a village in between --
+    "Travel to VillageN" is the cheap move, $rand(2;4)$ gold, and it is also the
+    only way to see a village's numbers (V<N>inspection reads out the leader's
+    competence, food, prosperity, riot pressure and population).
+  * Receive every village leader who turns up with the tribute.  Refusing him
+    prints "He has left, sorely insulted" and costs happiness, and happiness is
+    what riot pressure is computed from.
+  * Take the standard tribute -- "That will be fine".  "Ask for double" pays
+    %V<N>econ2% but subtracts $rand(1;3)$ happiness, which is the same bad trade
+    as insulting the leader.
+  * Refuse every funding proposal.  Each one wants ten to forty gold for a
+    field, a workshop, a knight or a shrine, and the treasury does not have it.
+
+At the end of season six Village3 revolts -- "Village3 has overthrown thine
+authority and the leader hasn't come in this season."  The last command rides
+out to put the revolt down, and by then the four firings have taken the army
+below Village3's garrison:
+
+        We have been defeated by Village3's army.
+        And thus ends your rule.
+
+That first line is the marker.  "And thus ends your rule." is `define text
+<lose>' and prints for all eight endings, so it would match a run that regressed
+into a turn-one bankruptcy just as happily; the battle line is specific to this
+route.
+
+
+THE FIVE HUNDRED LINES OF SUCCESSION
+
+Most of this transcript -- roughly five hundred of its six hundred and ninety
+lines -- is one sentence repeated:
+
+        The leader of Village1 has died and his son has taken over.
+
+That is faithful, and it is worth explaining because it is what task #1's geas
+fix was about.  When a village is sacked its population drops by $rand(5;20)$,
+and `V<N>pop's own onchange floors it at 1 -- so %V<N>max%, which is
+%V<N>pop%/2 in integer arithmetic, becomes 0.  Now look at V<N>army's handler:
+
+        onchange {
+                if ( %V1army% > %V1max% ) then set numeric <V1army; %V1max%>
+                if ( %V1army% < 1 ) then {
+                        set numeric <V1army; 1>
+                        msg <The leader of Village1 has died and his son has taken over.>
+                        set numeric <V1comp; $rand(10;70)$>
+                }
+        }
+
+With max at 0 the two clauses fight each other: the clamp writes 0, which is
+below 1, so the second clause writes 1 and announces the succession -- and that
+assignment re-enters onchange, where the clamp writes 0 again.  Quest has no
+re-entrancy guard whatsoever; SetNumericVariableContents runs the handler
+unconditionally on every write
+
+        if (!string.IsNullOrEmpty(_numericVariable[numNumber].OnChangeScript) & !_gameIsRestoring)
+            await ExecuteScript(script, ctx);
+
+(V4Game.Part2.cs:526-530), so Quest 4 ping-pongs here too and keeps ping-ponging
+until VB6 runs out of stack.  geas used to follow it off that cliff; now the
+recursion is bounded and the game continues.  The repeated line is the visible
+shape of that bound, which makes this walkthrough its regression test.
+
+
+QUIRKS
+
+  * The startscript says `Type "start" for game to begin.' and there is no
+    `start' command anywhere in the file.  Nothing needs typing: the room
+    description has already printed by then, and unrecognised input simply
+    passes a turn.  The help text is honest about it -- "To pass a turn, Do one
+    of the commands or write anything else you want."
+  * It also says "respect wording and casing", which is superstition.  Quest
+    matches `command <Fire knight>' case-insensitively, and so does geas.
+  * Every village turn can raise three `if ask' / `define selection' menus in a
+    row: the leader with the tribute, the tax rate, the funding proposal.  The
+    runner feeds script lines to a pending menu exactly as it feeds commands, so
+    an answer and a command are the same kind of line here and miscounting them
+    silently turns the rest of the route into garbage.  --echo's `[choice] N'
+    lines are the only way to tell an answered menu from a pending one, and
+    every menu in this script has one.  Menu answers also draw from the RNG
+    stream, so changing one answer changes every roll after it.
+  * Two copy-paste bugs, both preserved: `command <Summon knight from Village3>'
+    guards on `not ( %V1rioting% = 3 )' where it means %V3rioting%, and
+    V2taxes' "Ask for double" credits the happiness penalty to V1happ instead of
+    V2happ.
+  * The author's typos are load-bearing for the marker text, so leave them
+    alone: "Village3 can give you 1 gold pieces.", "for to hire a new knight",
+    "simoly", "sufficint", "knigdom", "unsuccesses".
+
+Verified: 6 turns, 32 script lines, marker "We have been defeated by Village3's
+army", seed 1.  No win: there is none to reach.
+
+Start:
+Fire knight
+1
+1
+2
+2
+1
+2
+2
+Travel to Village1
+1
+2
+1
+2
+2
+Fire knight
+1
+1
+2
+2
+1
+2
+2
+Travel to Village2
+1
+2
+2
+Fire knight
+1
+1
+2
+2
+Travel to Village3

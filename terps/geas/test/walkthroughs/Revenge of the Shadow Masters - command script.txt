@@ -1,0 +1,187 @@
+Revenge of the Shadow Masters (Slackers Inc., "Demo 0.5.2", 2010; QDK Pro 4.1.3,
+ASL 410) -- furthest-reachable-state pin, not a win.
+
+There is no `playerwin' anywhere in this game and no scoring: it is the opening
+two levels of a planned sequel to something called The Quest to Find the Dark
+Hills, released as a demo and never finished.  The demo announces its own end in
+the Refuge of Riddles, whose room script prints "You have reached the end of this
+version. Please give us feedback..." -- but three more rooms exist south of it
+and are reachable, so the marker for this walkthrough is the description of the
+last one, Abyss of the Wise3: "Coming up on a stream, you see what you believe to
+be a dwarf."  Beyond that the file stops being a game: `Abyss of the Wise4', `5'
+and `6' are defined, with their own scenery and their own characters (Ike, a
+blacksmith who looks like Mortimer), but they have no exits at all and nothing
+anywhere links to them, so no sequence of commands can enter them.  The Refuge's
+other exit, northeast to `Mine of the Crystal', names a room that was never
+written.  So the transcript this script produces is the whole of the playable
+game.
+
+The shape of it.  You start in a cave on the wrong side of the Dark Hills with a
+towel, an axe, a shield, an amulet and a rock.  Moving the rock uncovers your
+backpack, and *taking* the backpack is what unlocks the cave's northeast exit
+(the `gain' script does `unlock <The Cave; northeast>'), so the game cannot be
+left until you have it.  The backpack is a container and has to be opened before
+its pocket knife and first aid kit can be taken -- both of them, plus the shield,
+are the three gifts the tribal leader asks for at the very end of the demo, so
+they have to be carried the whole way.  `look at bush' on the Path to Village is
+the one piece of scenery you must poke: it hands over the crowbar and a
+twenty-dollar bill, and you need both.  Money starts at $30 and the run spends
+$5 on a mela oak leaf, $5 on a piece of mirror, $5 on a mug o' grog and $15 on a
+hotel room, so the extra $20 from the bush is not optional.
+
+The middle of the game is the Drink of Immortality.  In the hotel room, `look at
+bed' puts a heavy book where you can read it -- it is "The Manual of
+Immortality", and reading it gives the recipe: a mela oak leaf and a pinch of
+salt into a mug of grog.  The leaf comes from Pomona's Plants and Petals (`buy
+mela oak'), the grog from The Conjurer's Bar (`buy mug o' grog'), and the salt is
+lying loose in Casa De Comida.  Use the salt on the mug and then the leaf on the
+mug -- the second `use' is what produces the drink -- and the drink's `gain'
+script is what unlocks the Town of Nevanwatts's southeast exit to the Refuge of
+Riddles, so merely *holding* it is enough.  Do not drink it: that starts a chain
+of three timers that ends with "Oh no, I'm back at the begining!!", hides your
+shield and axe and sends you back to the cave.  Do not skip anything else: the
+two locked
+exits below the Refuge are opened by conversation, `speak to lucy' then answer 3,
+and `speak to mortimer' then answer 3, and each of the three "I still think there
+is something I need to do before I go that way" messages is a separate gate.
+The last one is the tribal leader: answer 3 to hear the request, hand over the
+pocket knife, the first aid kit and the shield, then speak to him again and he
+gives you the sacred fire and unlocks the way south to the dwarf.
+
+The hotel room key comes from a timer, and this is the one thing about this game
+that needs a runner flag.  `speak to thomas' at the Holistic Resort desk starts
+`define timer <get a room>' with `interval <5>', and the key only arrives when
+that timer fires five turns later.  This script takes the key and uses it on the
+hotel's front door and on room 115, so it must be run with --tick or the clerk
+never comes back and both doors stay shut.  A crowbar-only route is possible --
+the crowbar has `use on' handlers for all three doors, each guarded by
+`if got <Room Key>' so it refuses once you have the key -- but the timer is the
+more interesting thing to exercise, and this script uses the crowbar for the
+men's restroom (before the key arrives) and the key for the two hotel doors, so
+one transcript covers both paths.  The walk down to the restroom and back is what
+gives the five turns time to elapse.
+
+Menus.  Six conversations here `choose' a text menu, and in geas as in Quest a
+pending menu eats the next line of input as its answer, so every one of them is
+followed by an explicit number: Damien takes two answers in a row (1 then 4),
+Thomas 3, Ed 3, Lucy 3, Mortimer 3, and the tribal leader 3.  `read book' in the
+hotel room is a *disambiguation* rather than a conversation -- the towel book
+from the backpack is still in inventory and both objects answer to "book" -- so
+it needs an answer too, 2 for the Manual.  Getting any of these wrong does not
+produce an error message; it silently spends the following command as a menu
+answer, and the route then quietly falls apart several turns later.
+
+Engine note.  This game is the reason geas now distinguishes Quest's two
+spellings of `hidden'.  The Mug o' Grog is declared `properties <hidden; Drink;
+buy; steal>' with no bare `hidden' line and nothing in the game ever calls `show'
+on it, and Quest's object loader undoes a load-time hidden that arrived through a
+properties line -- `if (!hidden) o.Exists = true' at the end of the definition
+loop, V4Game.Part2.cs:3550-3553 -- so in Quest the grog is on sale from turn one.
+geas used to hide it, which made the drink unmakeable and the whole second half
+of the demo unreachable.  Seven objects here use the properties spelling and are
+now visible from the start, which is faithful but does look odd in places (the
+map behind the picture frame, the Post-it, the leaf).  The Back Pack is the
+instructive one: its author wrote *both* a bare `hidden' tag and
+`properties <hidden>', and since the bare tag is what raises the loader's flag it
+stays hidden -- which is why the cave listing is unchanged and `move rock' still
+has something to reveal.  fixtures/hiddenprops.asl pins all four combinations.
+
+Other quirks worth knowing.  Several rooms `clear' the screen in their
+description, so a transcript of this game is mostly single screens.  The game
+defines a `command <end game>' that just starts the credits timer, and a
+`0 money' cheat command; neither is used here.  The typos in the transcript
+("wrecked havoc", "fifteen dollas", "remodling", "usful") are the author's.  The
+`Amulet' disappears from the cave listing after the first look because the
+opening script takes it.  Casa De Comida claims to be closed for remodelling from
+the town description but is enterable anyway, which is how the salt is reachable.
+
+Verified: 78 turns, 86 script lines, marker "you see what you believe to be a
+dwarf", seed 1, run with --tick.  No win: there is none in the file.
+
+Start:
+move rock
+take back pack
+open back pack
+take pocket knife
+take first aid kit
+take shield
+take towel
+ne
+look at bush
+n
+ne
+e
+speak to damien
+1
+4
+w
+speak to thomas
+3
+s
+look at picture frame
+remove picture
+take map
+use crowbar on door to men's restroom
+look at map
+e
+look at stalls
+flush toilet
+look at note
+w
+n
+e
+e
+use room key on door to hotel
+e
+e
+s
+use room key on door
+e
+look at bed
+read book
+2
+look at plant
+eat leaf
+look at phone
+look at note
+move pillows
+look at post it
+w
+n
+w
+w
+w
+w
+sw
+e
+buy mela oak
+w
+n
+e
+speak to ed
+3
+look at shelves
+buy piece of mirror
+w
+ne
+buy mug o' grog
+sw
+w
+take salt
+use salt on mug o' grog
+use mela oak on mug o' grog
+e
+se
+speak to lucy
+3
+sw
+speak to mortimer
+3
+s
+speak to tribal leader
+3
+give pocket knife to tribal leader
+give first aid kit to tribal leader
+give shield to tribal leader
+speak to tribal leader
+s

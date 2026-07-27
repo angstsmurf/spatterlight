@@ -1,0 +1,10 @@
+north
+south
+down
+shove
+south
+lever
+down
+out
+bribe
+out

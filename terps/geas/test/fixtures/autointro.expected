@@ -1,0 +1,13 @@
+
+autointro
+
+Startscript ran first.
+Here is the intro, exactly once.
+
+You are in r
+A room.
+
+> look
+You are in r
+A room.
+[runner] turns=1 leftover=0 running=true

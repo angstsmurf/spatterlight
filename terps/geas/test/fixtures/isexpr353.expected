@@ -1,0 +1,43 @@
+
+IsExpr353
+
+You are in Room
+A room.
+
+> plus
+plus: no
+
+> minus
+minus: no
+
+> times
+times: no
+
+> divide
+divide: no
+
+> paren
+paren: no
+
+> notequal
+notequal: yes
+
+> bare
+bare: yes
+
+> hyphen
+hyphen: yes
+
+> divzero
+divzero: yes
+
+> trailing
+trailing: yes
+
+> greet
+Hello #name#, you have %one% coin.
+
+
+> stopnow
+Stopping.
+[runner] turns=12 leftover=2 running=false

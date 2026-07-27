@@ -1,0 +1,664 @@
+Shiversword Tales -- command script
+=========================================
+
+("Shiversword: The Beginning", CJ, QDK Pro 4.02, ASL 400.  The file ships as
+shiversword1.cas; the `define game` name is "Shiversword Tales".  This is the
+prequel to "Shiversword 2", which is also in the suite.)
+
+
+WHY THIS GAME IS IN THE SUITE
+
+Two reasons.
+
+First, it is the second game here that cannot be finished without --tick, and it
+needs timers for something quite different from Shiversword 2.  Where Shiversword
+2 uses one long `interval <10>` as a delayed *grant*, this game uses a chain of
+seven five-turn timers as a *scene clock*.  Sharon's party is driven entirely by
+timers 5, 10, 15, 20, 25, 30 and 35, each of which hides one set of guests, shows
+another, re-`goto`es you into the room and then arms the next timer:
+
+    define timer <5>
+        interval <5>
+        action {
+            msg <Suddenly the people in the party change over.>
+            hide <Sir Lankylegs>
+            show <Sir Dwane>
+            show <Queen Winalot>
+            timeron <10>
+            timeroff <5>
+            goto <Scone Cottage>
+        }
+        disabled
+
+Timer 35 is the only writer of `scone = 7`, `lemon = 7`, `laura = 7` and
+`mama = 9`, and it is also what moves John Lemon out of the village square and
+into Lutes for Loot.  Nothing after the party -- the lute, the tuxedo, cheering
+Mama up, the birdcage, the ending itself -- can be reached any other way.  So
+without --tick the walkthrough does not merely score badly, it stalls at turn
+248 with the player stuck in Scone Cottage for ever (`south` is guarded by
+`if flag <partyon> then msg <You cannot leave whilst the party is swinging.>`).
+That makes this a good regression on the *cadence* of tick_timers(): the script
+below is written against the exact phase lengths, so a timer that fired one turn
+early or late would leave a guest un-drinked and cost the tuxedo.  And the phases
+are *six* turns long, not five, because `timeron` does not restart the clock: it
+only flips TimerActive and raises BypassThisTurn (SetTimerState,
+V4Game.Part2.cs:561-574), so the tick belonging to the turn that arms a timer is
+spent on the bypass flag instead of being counted.  Every link in a chain of
+`interval <5>` timers therefore costs 5 + 1 turns, and the party runs 41 turns
+rather than the 35 its seven intervals suggest.
+
+Second, it is the only game in the suite whose ending is scored on three
+independent axes, all of which this script maxes out.  `theend` prints:
+
+    if is <%mama%;11>            -> GOLD STAR   (else SILVER)
+    if is <%cleaning%;10>        -> GOLD STAR   (else SILVER, or BRONZE below 7)
+    if got <Tuxedo (worn)>       -> GOLD STAR   (else SILVER for clothing, BRONZE)
+
+There is no `playerwin` anywhere in the file; `theend` just ends with `stop`.
+The win marker is therefore the last line of prose, "TO BE CONTINUED".  Verify
+the three gold stars by eye -- the runner cannot see them.
+
+
+THE BUILT-IN PROGRESS ORACLE
+
+`command <tasks>` prints the live to-do list, keyed on the state variables, e.g.
+
+    if is <%knutt%;3>  then msg <Give leaflets to five people wearing your peanut costume>
+    if is <%lute%;2> and not flag <givecatgut> then msg <Bake some cat gut and give it to Larry>
+    if is <%cleaning%;gt=;1> then msg <Try to get ten cleaning points>
+
+It is the fastest way to re-orient if you edit this script and something goes
+quiet.  It costs a turn, so the shipped script does not use it.
+
+
+THE GOLD LEDGER IS EXACTLY BALANCED -- AND ONE ENTRY IS A `set`, NOT AN `inc`
+
+Every gold piece in the game is spoken for, and the sequence below spends the
+last one on the last purchase it needs.  In:
+
+    Mr P Knutt, five leaflets delivered   set numeric <gold; 3>      -> 3
+    Harry Snotter, rabbit returned in hat inc <gold; 1>              -> 1
+    Nobby Lastic, scarecrow built         inc <gold; 3>              -> 3
+    Larry, package delivered to Sharon    inc <gold; 1>              -> 4
+    Sharon, autographed advert            inc <gold; 1>              -> 5
+    Sharon, security + musician found     inc <gold; 3>              -> 8
+    Sharon, party wages                   inc <gold; 2>              -> 10
+    Sharon, "my guests were impressed"    inc <gold; 1>  (drinky>=2) -> 11
+  Out:
+    bag of cat food                       dec <gold; 3>              -> 0
+    bottle of bleach                      dec <gold; 1>              -> 0
+    the lute                              dec <gold; 10>             -> 1
+    box of chocolates                     dec <gold; 1>              -> 0
+
+Note the first line.  Knutt pays with `set numeric <gold; 3>`, not `inc`, so any
+gold you are holding when you hand in the leaflets is destroyed.  That fixes the
+order of the whole first half: the leaflet round must come *before* Harry's
+rabbit and before Nobby's scarecrow, and the 3-gold bag of cat food must be
+bought immediately afterwards.  Do the rabbit first and you finish the leaflets
+with 3 gold instead of 4, and can never afford the bleach.
+
+
+THE CLEANING LEDGER: TEN POINTS, ONE OF THEM PAID FOR TWICE
+
+Exactly ten `inc <cleaning; 1>` sites exist:
+
+     1. `make bed`                                   bedroom
+     2. `use face mask on cat vomit`                 living room
+     3. `use bleach on stain`                        living room
+     4. `use wrapper on bin`                         street
+     5. `use bleach on cupboard`                     kitchen
+     6. `use carrot tops on compost heap`            Pumpkin patch
+     7. `give jar of sweets to Lucy`                 village square
+     8. `clean boots`                                Lutes for Loot (post-party)
+     9. `give clean socks to McNasty`                Store (post-party)
+    10. `speak to canary`                            Scone Cottage (post-party)
+
+Two decrements exist as well, and one of them is unavoidable.  `take sheet` is
+gated on `mamagone`, and when it fires it always costs a point and unmakes the
+bed:
+
+    take {
+        if flag <mamagone> then {
+            msg <You take the sheet but you have messed up the bed yu made. ...>
+            ... flag off <madebed> ... dec <cleaning; 1>
+        }
+        else msg <You had best not take the sheet whilst your Mama is at home. ...>
+    }
+
+You need the sheet, because reading the Invitation sets `togainvite` and the
+sheet is the only thing that can then become the `Toga (worn)` that Sharon
+demands at the door.  The point comes back after the party: timer 35 strips the
+toga and hands you the plain `sheet` again, so `use sheet on bed` followed by
+`make bed` re-earns it.  That is why site 1 appears twice in the script.
+
+The other decrement is avoidable and is a genuine trap: re-`open`ing the kitchen
+cupboard after you have put the bleach inside tips it back out and takes the
+point away.  This script opens the cupboard exactly once, early, for the jar of
+pickled onions, and never touches it again after the bleach goes in.
+
+Finally, `use wet socks on oven` *claims* a cleaning point --
+
+    msg <... they come out nice and dry and toasty warm!|n|nYou have earned a cleaning point>
+
+-- but the handler contains no `inc`.  It is an author bug, not a divergence;
+the point really arrives one step later, when the dry socks are handed to
+McNasty.  Do not "fix" the script by dropping that step.
+
+
+THE PEANUT COSTUME HAS TO GO ON TWICE
+
+Almost every social gate in the game is keyed on `peanutworn`, and the costume
+can only be put on or taken off in the bedroom (`if here <dresser>`), so the
+route is built around two costume phases with a clothed interval between them.
+
+Phase 1 (costume) does everything that needs a peanut in the village: the five
+leaflets (Mama in the kitchen, Mrs Lastic and Harry Snotter in the square, Larry
+in his shop -- which only exists after John Lemon names it and `create exit`s the
+northwest link -- and Zoe at the zoo gate), Lucy dropping her sweets in fright,
+and Mrs Lastic's `speak` handler, whose costume branch is what `create exit`s the
+street/allotment pair and thereby the entire farm half of the map.
+
+The clothed interval buys the cat food and the bleach, feeds the cat three times
+(the third bowl is what produces the vomit), and gets into the zoo, whose north
+exit demands `got <clothing (worn)>`.
+
+Phase 2 (costume) collects the three things only a peanut can get: the walking
+stick McNasty throws at you, the boots and socks he hurls out of his back window,
+and the broken fence in the elephant enclosure.
+
+Between the phases the costume also has to come off so that `use straw on
+clothing` can turn your everyday clothes into the scarecrow body.  That handler
+does `flag off <opendrawer>`, which is the author's way of letting you `open
+drawer` a second time for a fresh set of clothes -- otherwise you would be naked
+and unable to leave the bedroom (`down` is guarded on `clothed`).
+
+
+THE THREE INTERLOCKS WORTH UNDERSTANDING
+
+1.  `shutshop`.  McNasty must be asleep in his back room before the yard window
+    is any use, and the procedure that puts him there is called from two places,
+    each of which checks the *other's* flag:
+
+        Store script:   if flag <buybleach>       then do <shutshop>
+        buy bleach:     if flag <freakedmcnasty1> then do <shutshop>
+
+    So the shop shuts on whichever of "buy the bleach" and "walk in dressed as a
+    peanut" happens second.  Buying the bleach requires being out of costume
+    (once `freakedmcnasty1` is set the street's `south` refuses to let a peanut
+    back in), and the boots require being in costume, so the bleach must come
+    first and the store-freak must open phase 2.  Note also that the freak is the
+    only source of `stick2`, and `stick2` is the only thing `Soil` accepts as the
+    base of the scarecrow.
+
+2.  `blinded`.  Nellie will only charge the fence for someone in the peanut
+    costume, but the zoo's north exit will only pass a peanut while Zoe cannot
+    see.  Zoe is blinded by handing her a face mask you have sprinkled with onion
+    powder (`use onion powder on face mask`, then `give face mask to zoe`), and
+    Nellie's own handler does `flag off <blinded>` the moment she crashes through
+    -- so there is exactly one trip through that window, and everything else in
+    the zoo has to be done clothed.  The onion chain is single-use: one jar of
+    pickled onions, drained in the collander, grated once.
+
+    Zoe's blinding is also the only source of the `nuts` packet (`zoe` 4 -> 5),
+    and the nuts are what make Nellie jump on the performing stage and press the
+    wood pulp flat.  Handing them over does *not* consume them, so the same
+    packet later goes into the canary's feeding bowl.
+
+3.  Three elephant masks.  `Elephant masks` re-stocks (`if got <face mask> then
+    msg <You already have an elephant face mask>`), so you take one at a time and
+    make three trips to the kiosk: one to poison and give to Zoe, one to mop up
+    the cat vomit, one to become the scarecrow's face.  The vomit and the pumpkin
+    both explicitly refuse the onion-powdered mask, which is why the poisoned one
+    has to be spent on Zoe.
+
+    Straw likewise has to be taken twice from the yard pile -- once for the
+    scarecrow body, once for the birdcage -- and the pumpkin pile is drawn on
+    twice: once for the scarecrow head (pumpkin + mask + bonnet fires `makehead`)
+    and once, after the party, as something to break the Trowel in so that the
+    handle can become the canary's new perch.
+
+4.  Dress the pumpkin somewhere else.  `take pumpkin pile` does `show <pumpkin>`
+    + `give <pumpkin>`, which leaves you holding `pumpkin` while `pumpkin pile`
+    is still standing in the Pumpkin patch.  ExecUse resolves the *target* half
+    of USE against the current room first and only falls back to the inventory on
+    a miss (V4Game.Part2.cs:5376-5390), and the ASL >= 391 abbreviation pass
+    matches a typed word against any whole-word run of an object's name
+    (Disambiguate, V4Game.cs:4730-4767), so in that room "pumpkin" reaches
+    `pumpkin pile` -- which has no `use` scripts -- and USE FACE MASK ON PUMPKIN
+    dies with "You can't use that here."  The pumpkin also has `drop nowhere <>`,
+    so it cannot be put back down to make it the room's pumpkin either.  The fix
+    is simply to walk north into the vegetable plot first: the item half of USE
+    has to be held, and away from the pile "pumpkin" can only mean the one you
+    are carrying.
+
+
+THE PARTY: 41 TURNS, SIX DRINKS, TWO PHASES IMPOSSIBLE
+
+`drinky >= 2` is worth an extra gold piece and `drinky >= 5` is worth the tuxedo,
+so the tuxedo gold star lives or dies in the party.  Every guest has a
+`drinklanky`-style flag that makes a second drink a no-op -- except Marlon, whose
+handler increments on repeats as well, which is the author's safety valve.  The
+seven phases, numbered from the turn you answer Sharon's `ask` (that turn arms
+timer 5 and is itself a bypass turn), are:
+
+    turns  1- 5   Lankylegs, King Arnold, Laura      -> Lankylegs (1), Arnold (2)
+    turns  6-11   Dwane, Arnold, Queen, Laura        -> Dwane (3), Queen (4)
+    turns 12-17   Dwane, Marlon, Queen, Laura, MAMA  -> nothing: Mama blocks all
+    turns 18-23   Marlon, Laura, Larry               -> Marlon (5), Larry (6)
+    turns 24-29   Arnold, Laura, Larry               -> nothing new
+    turns 30-35   everyone, MAMA                     -> nothing: Mama blocks all
+    turns 36-41   Lankylegs, Dwane, Marlon, Laura,   -> timer 35 ends the party
+                  Larry
+
+Only the first phase is five turns long, because timer 5 is armed from the
+`party` procedure in the middle of a turn rather than from another timer's
+action; the other six are six turns each.  Laura Norder refuses on duty, and
+every giver is wrapped in `if here <Mama2> then msg <You cannot offer a drink
+when Mama is in the room>`, so twelve of the 41 turns are dead by construction.
+Six drinks is comfortably clear of the five needed; the filler turns are spent on
+`look at drinks`, which is safe in every phase.  Note that the last filler has to
+land exactly on turn 41: timer 35 is what teleports you to the bedroom, and the
+`use sheet on bed` that follows can only work once you are there.
+
+Note also that `laura` will not become party security until `cleaning >= 6`, so
+the six cleaning points that are reachable before the party are not optional --
+they are a hard gate on the party existing at all.
+
+
+AUTHORING QUIRKS WORTH KNOWING
+
+*   `show` is not `give`.  The single most expensive mistake in drafting this was
+    forgetting `take lute` after Larry fetches it: his handler is `show <lute>`,
+    which only makes the object visible in Lutes for Loot.  `mama = 9`'s reply
+    and John's `lemon = 7` offer are both gated on `got <lute>`, so without that
+    one `take` the game silently refuses to end and Mama never forgives you.  The
+    same applies to `onions`, `vinegar`, `shavings`, `wood pulp`, `wet socks`,
+    `clean socks`, `carrot tops`, `wood` and `Cat gut (baked)`, all of which are
+    `show`n rather than `give`n.
+
+*   The house is a `place`, not a direction: `place <Shiversword's house>` in the
+    street, and the room itself is a pure trampoline whose `script` does
+    `goto <living room>`.  The command is `go to shiversword's house`.
+
+*   `Cat gut (baked)` really is called that, parentheses and all, so the script
+    contains `take cat gut (baked)` and `give cat gut (baked) to larry`.
+
+*   Line 1773 of the decompiled source is a bare `flag on <>` -- an empty flag
+    name, left behind in Larry's `give <pressed wood>` handler.  Quest sets a
+    flag whose name is the empty string and carries on; geas does the same.  It
+    is harmless, but it is the sort of thing that makes a stricter parser abort a
+    load, so it is worth having in the corpus.
+
+*   Several handlers depend on being read top-to-bottom with no `else`: Mama's
+    `speak` tests `mama` 11, 10, 9, 7, 6, 5, then `peanutworn` (which does
+    `inc <mama; 60>`), then 4, 3, 2, 1, then undoes the +60 with
+    `if is <%mama%;gt;50> and is <%mama%;lt;70> then dec <mama; 60>`.  The +60/-60
+    dance exists purely so that the costume line can print without falling
+    through into the numbered branches.
+
+*   `make bed` sets `mama = 3` directly (`if is <%mama%;lt;3>`), so the opening
+    conversation with Mama can be skipped entirely; the script goes straight from
+    the bed to the coupon.
+
+
+Verified: 345 turns, leftover 0, WON, all three GOLD STARs.  Requires --tick.
+
+start:
+look at dresser
+open drawer
+wear clothing
+examine mattress
+take silver coin
+make bed
+down
+look at mat
+take advert
+west
+speak to mama
+open cupboard
+take pickled onions
+use pickled onions on collander
+take onions
+take vinegar
+use onions on cheese grater
+east
+out
+south
+give coupon to mcnasty
+north
+speak to mr p knutt
+1
+go to shiversword's house
+up
+remove clothing
+wear peanut costume
+down
+west
+give leaflets to mama
+east
+out
+north
+speak to john lemon
+give advert to john lemon
+speak to mrs lastic
+give leaflets to mrs lastic
+give leaflets to harry snotter
+speak to lucy lastic
+take sweets
+northwest
+give leaflets to larry
+speak to larry
+southeast
+northeast
+give leaflets to zoe
+southwest
+south
+speak to mr p knutt
+north
+speak to harry snotter
+1
+south
+east
+northeast
+listen
+wear magic hat
+say invisibunny
+remove magic hat
+use magic hat on rabbit
+take carrot tops
+southwest
+speak to nobby
+1
+southeast
+examine pumpkin pile
+use carrot tops on compost heap
+south
+take straw
+north
+northwest
+west
+go to shiversword's house
+up
+remove peanut costume
+use straw on clothing
+open drawer
+wear clothing
+down
+out
+south
+examine stock
+buy cat food
+north
+go to shiversword's house
+look at mat
+take ticket
+use cat food on bowl
+use cat food on bowl
+use cat food on bowl
+examine cat vomit
+take cat gut
+out
+use wrapper on bin
+north
+northeast
+give ticket to zoe
+north
+take elephant masks
+use onion powder on face mask
+south
+give face mask to zoe
+north
+take elephant masks
+south
+southwest
+south
+go to shiversword's house
+use face mask on cat vomit
+west
+speak to mama
+east
+out
+north
+give magic hat to harry
+south
+south
+examine stock
+buy bleach
+north
+go to shiversword's house
+use bleach on stain
+west
+use bleach on cupboard
+examine oven
+take baking tray
+use vinegar on baking tray
+use cat gut on baking tray
+use baking tray on oven
+take cat gut (baked)
+use sweets on jar
+east
+out
+north
+give jar of sweets to lucy
+give silver coin to lucy
+south
+go to shiversword's house
+up
+remove clothing
+wear peanut costume
+down
+out
+south
+take stick
+east
+southeast
+south
+tap window
+tap window
+tap window
+take left boot
+take right boot
+take smelly socks
+north
+northwest
+west
+north
+northeast
+north
+northeast
+speak to nellie
+speak to zoe
+southwest
+south
+go to shiversword's house
+up
+remove peanut costume
+wear clothing
+down
+out
+north
+northeast
+north
+northeast
+examine pile of wood
+take wood
+southwest
+south
+southwest
+south
+go to shiversword's house
+west
+use wood on cheese grater
+take shavings
+use shavings on washing machine
+take wood pulp
+use smelly socks on washing machine
+take wet socks
+use wet socks on oven
+take clean socks
+east
+out
+north
+northeast
+north
+northeast
+use wood pulp on performing stage
+give nuts to nellie
+lift stage
+take pressed wood
+southwest
+take elephant masks
+south
+southwest
+northwest
+give cat gut (baked) to larry
+give pressed wood to larry
+speak to larry
+1
+southeast
+south
+east
+southeast
+take pumpkin pile
+north
+use face mask on pumpkin
+use bonnet on pumpkin
+use stick on soil
+use scarecrow head on stick
+use scarecrow body on stick
+west
+speak to nobby
+west
+north
+give package to sharon
+northwest
+speak to larry
+southeast
+north
+give advert to sharon
+speak to sharon
+1
+south
+speak to laura
+speak to laura
+speak to john lemon
+give pair of boots to john lemon
+north
+speak to sharon
+south
+go to shiversword's house
+look at mat
+take invitation
+read invitation
+up
+remove clothing
+take sheet
+wear sheet
+down
+out
+north
+north
+speak to sharon
+1
+give drinks to sir lankylegs
+give drinks to king arnold
+look at drinks
+look at drinks
+look at drinks
+give drinks to sir dwane
+give drinks to queen winalot
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+give drinks to marlon
+give drinks to larry the lute
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+look at drinks
+use sheet on bed
+make bed
+wear clothing
+down
+out
+north
+north
+speak to sharon
+south
+northwest
+speak to larry
+take lute
+clean boots
+southeast
+south
+go to shiversword's house
+west
+speak to mama
+east
+out
+south
+examine stock
+buy chocolates
+give clean socks to mcnasty
+north
+go to shiversword's house
+west
+give chocolates to mama
+east
+out
+east
+southeast
+south
+take straw
+north
+take pumpkin pile
+north
+take trowel
+use trowel on pumpkin
+south
+northwest
+west
+north
+north
+use broken handle on empty cage
+use pumpkin seeds on empty cage
+use nuts on empty cage
+use straw on empty cage
+speak to canary
+south
+south
+go to shiversword's house
+up
+remove clothing
+wear tuxedo
+down
+out
+north
+northwest
+speak to john lemon
+1

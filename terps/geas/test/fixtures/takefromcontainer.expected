@@ -1,0 +1,70 @@
+
+TakeFromContainer
+
+You are in Pantry
+There is tin, box, jar and urn here.
+A pantry lined with shelves.
+
+> look at tin
+A biscuit tin.
+
+> look at box
+A cardboard box.
+
+> look at jar
+A screw jar.
+
+> look at urn
+A sealed urn.
+
+> check
+coin:[tin] pin:[box] nut:[jar] bolt:[jar] key:[urn]
+
+> take coin
+(first removing it from tin)
+Done.
+You pick it up.
+
+> take pin
+(first removing it from box)
+You fish it out of the box.
+You pick it up.
+
+> take nut
+(first removing it from jar)
+You pick the nut out of the jar.
+You pick it up.
+
+> take bolt
+(first removing it from jar)
+The bolt is rusted into place.
+
+> take key
+(first removing it from urn)
+You can't remove that.
+
+> take ring
+You slip the ring off the urn's neck.
+
+> i
+You are carrying:
+coin
+pin
+nut
+ring
+
+> check
+coin:[] pin:[] nut:[] bolt:[jar] key:[urn]
+
+> remove coin from tin
+Done.
+
+> put pin in box
+You put pin in box.
+
+> remove pin
+You fish it out of the box.
+
+> remove key
+You can't remove that.
+[runner] turns=17 leftover=0 running=true

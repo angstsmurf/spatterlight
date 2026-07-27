@@ -1,0 +1,91 @@
+YOU ARE A TIGER (YOU ARE A TIGER.cas, QDK 4.1.5, asl-version 410)
+=================================================================
+
+This is not a winnable game; it is the opening scene of one.  The whole file is
+a single room -- SWEET-ASS BEDROOM -- with no exits of any kind, no score, no
+playerwin, and nothing that ends the game.  You wake up hungover as a rap
+mogul, you are told "Didn't you have something you needed to do today? Better
+figure it out!", and then there is no way to leave the bedroom and do it.  Two
+of the counters the author set up (Oontz Completion, AcheQuotes Found) exist
+only to be incremented; nothing ever reads them.  Sam is waiting in a living
+room that was never written, and Eazy's backing track can be found on the
+computer but never finished or sent.
+
+So this script is a furthest-reachable-state transcript rather than a
+walkthrough: it visits everything the room contains, plays all six voicemails,
+and then empties both consumables, which is the last state change the game has
+to offer.  The win marker is the burrito's "You ate the whole thing" line -- the
+end of the content, not a victory.
+
+What the script does, in order, and why that order:
+
+  * LOOK AT BED, SPEAK TO BED, then LOOK UNDER BED.  "look under" is one of the
+    game's own verbs (`verb <look under>`), and the bed's `action <look under>`
+    is what produces the Jack Daniels: the bottle is defined `hidden`, and the
+    action does `give` + `show`.  Until then there is no whiskey to drink.
+
+  * LOOK AT COMPUTER before the voicemails.  Looking at it sets the TrackFind
+    flag, and Eazy's message branches on it: with the flag you get the "so that
+    unfinished track on your computer is for Eazy..." follow-up, without it just
+    "Did you finish that track before you went out last night?".  This is the
+    only piece of state in the game that two different scenes share.
+
+  * LOOK AT PHONE followed by a bare "1".  Both LOOK AT PHONE and the game's
+    own CHECK VOICEMAIL command run `choose <voicemail>`, and a selection eats
+    the next line of the script as its answer -- the answer is the 1-based index
+    of the choice, so the six numbered lines here are Girlfriend, Sister, Eazy,
+    Sam, Dad, Unknown Caller.  (SPEAK TO PHONE is a plain property, no menu.)
+
+  * DRINK JACK DANIELS three times, EAT BURRITO three times.  Both objects start
+    at `properties <volume = 30>` and shrink with
+    `property <obj; volume = { #obj:volume# - 10 }>`, i.e. Quest's inline-brace
+    arithmetic, which only exists from ASL 3.91 on.  On the third go the volume
+    reaches 0, the `if is <#obj:volume#;0>` test fires, the object hides itself
+    and prints its closing line.  Note the whiskey prints "Looks like you're all
+    out of this stuff!" *before* "Ahh, mother's milk" -- the author put the test
+    ahead of the message -- and that the burrito's blank `msg <>` is why there is
+    an empty line after each bite.
+
+  * LOOK AT MIRROR twice, once at the start and once at the end.  The mirror is
+    a `select case <%abs%>` over eleven exact multiples of ten; abs starts at 50
+    and each bite of burrito knocks off 10, so the first look gives the abs-50
+    text and the last the abs-20 one.  Any value the cases do not list would
+    print nothing at all, which is why the script eats exactly three times.
+
+Nothing else in the room does anything: the desk, and every lib verb in the
+QDK-generated header, only print refusals.
+
+Start:
+look at bed
+speak to bed
+look under bed
+look at jack daniels
+speak to jack daniels
+look at mirror
+speak to mirror
+look at desk
+speak to desk
+look at computer
+speak to computer
+look at phone
+1
+check voicemail
+2
+check voicemail
+3
+check voicemail
+4
+check voicemail
+5
+check voicemail
+6
+speak to phone
+look at burrito
+speak to burrito
+drink jack daniels
+drink jack daniels
+drink jack daniels
+eat burrito
+eat burrito
+eat burrito
+look at mirror

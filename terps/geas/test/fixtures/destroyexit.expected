@@ -1,0 +1,33 @@
+
+destroyexit
+
+You are at square 0.
+You can go north or south.
+
+> look
+You are at square 0.
+You can go north or south.
+
+> n
+north script, now 1
+
+> wall
+hedge grows over the north gap
+
+> look
+You are at square 1.
+You can go south.
+
+> n
+You can't go that way.
+
+> gap
+hedge opens again
+
+> look
+You are at square 1.
+You can go north or south.
+
+> n
+north script, now 2
+[runner] turns=8 leftover=0 running=true

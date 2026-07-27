@@ -1,0 +1,31 @@
+
+Timerperiod
+
+You are in Car
+The inside of a car.
+
+> t
+[turn]
+
+> t
+[turn]
+[pulse]
+
+> stop drive
+[switching the drive off]
+
+> t
+[turn]
+[pulse]
+
+> t
+[turn]
+
+> start drive
+[switching the drive back on]
+[pulse]
+
+> t
+[turn]
+[drive]
+[runner] turns=7 leftover=0 running=true

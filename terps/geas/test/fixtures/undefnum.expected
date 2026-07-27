@@ -1,0 +1,35 @@
+
+Undefnum
+
+You are in Lab
+The lab.
+
+> bump
+ghost = 90
+case 90 matched
+
+> bump
+ghost = 180
+case 180 matched
+
+> drop it
+shade = -90
+
+> drop it
+shade = -180
+
+> step
+tally = 1
+
+> step
+tally = 2
+
+> step
+tally = 3
+
+> sink
+sunk = 5
+
+> plumb
+deep = 5
+[runner] turns=9 leftover=0 running=true

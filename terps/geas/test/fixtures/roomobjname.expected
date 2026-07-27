@@ -1,0 +1,31 @@
+
+roomobjname
+
+You are in r1
+There is a cedar desk here.
+Room one.
+
+> x desk
+A cedar desk.
+
+> probe
+here desk: yes
+locationof desk = [r1]
+locationof photos = [desk]
+gettag desk prefix = [Inside the cedar desk are]
+gettag desk look = [object]
+gettag r1 look = [Room one.]
+gettag photos look = []
+gettag desk suffix = [, gathering dust]
+
+> go to desk
+You can't go there.
+
+> look
+You are in r1
+There is a cedar desk here.
+Room one.
+
+> x photos
+You don't see any photos.
+[runner] turns=5 leftover=0 running=true

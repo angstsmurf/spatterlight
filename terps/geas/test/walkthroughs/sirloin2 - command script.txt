@@ -1,0 +1,678 @@
+Sir Loin 2 / Shiversword 2 ("loin2", CJ592, Quest 4.0) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "passed the test".  REQUIRES --tick (timer-driven Crusoe + others).
+
+Full verified playthrough (exit 0). David Welbourn's solution.html does NOT run on this .cas build;
+this was re-derived from the decompiled source (decompiled (uncas)/sirloin2.asl) by aligning his
+route and fixing ~21 divergences: mast-rod-in-pool, ring/rod direction, net-on-shelf, the doctor
+clue3 chain (-> Chipper's Field), whack-a-rat club cheat, the lute-music guard round-trip (penny),
+cannon->tube3->telescope (-> Tower courtyard), safe/door/pedestal yes+password prompts (meat/McBurga/
+nolram), the Shiversword wedding (rings+rice+contract -> panpipes), and the tower ritual
+(wear bowl+drapes at the pedestal, kneel, say NOLRAM). Many "speak/ask" prompts eat the next line,
+so several "yes" answers are injected.
+
+Start:
+speak to king arnold
+speak to king arnold
+take chamber key
+s
+e
+look at diving suit
+open helmet
+take metal ring
+take curved glass disc
+take metal bowl
+examine tortoise
+take letter
+take tortoise
+w
+drop tortoise
+lift painting
+take silver key
+e
+look at tortoise
+w
+search urn
+take ruby
+n
+give letter to king arnold
+use ruby on throne
+pull lever
+n
+n
+out
+go to north gate
+s
+s
+e
+speak to king
+speak to king
+examine bin
+take letter
+read letter
+w
+n
+n
+out
+go to century gate
+s
+look at pool
+look at fish
+x boy
+talk to boy
+talk to Colin
+talk to Colin
+talk to Colin
+look at mast
+climb mast
+look at pool
+take metal rod
+use metal rod on metal ring
+w
+look at desk
+look at bell
+ring bell
+look at magazine
+read magazine
+read magazine
+read magazine
+take shampoo
+x shampoo
+e
+n
+out
+go to north gate
+s
+s
+s
+e
+look at nets
+use metal rod and hoop on shelf
+take net
+look at net
+x net
+pull thread
+x thread
+use net on rod
+w
+n
+n
+n
+out
+go to century gate
+s
+use bowl on pool
+use rod on fish
+use shampoo on pool
+remove net
+use rod on pool
+n
+out
+go to grove entrance
+speak to Colin
+n
+s
+out
+go to Carnivora
+x novice
+speak to novice
+Yes
+x novice
+look at rack
+look at man
+look at cage
+look at lankylegs
+speak to lankylegs
+show letter to lankylegs
+speak to novice
+Yes
+out
+go to fool's bypass
+look at halibut
+look at doctor
+look at cart
+look at trees
+x poster
+take poster
+look at trees
+take nail
+x nail
+speak to doctor
+out
+go to grove entrance
+n
+e
+look at wild
+look at swede
+take swede
+w
+s
+out
+go to carnivora
+show swede to novice
+x handkerchief
+take it
+out
+go to grove entrance
+n
+ne
+look at swampy water
+use handkerchief on swampy water
+sw
+s
+out
+go to fool's bypass
+use handkerchief on halibut
+speak to halibut
+speak to doctor
+pull cart
+speak to doctor
+lift halibut
+out
+go to carnivora
+drop swede
+talk to novice
+Yes
+use handkerchief on man
+x shiversword
+speak to shiversword
+talk to novice
+Yes
+out
+go to grove entrance
+n
+n
+look at stones
+x stones
+look at bumpy stone
+lift bumpy stone
+look at leather case
+open case
+look at lute
+take lute
+look at ties
+take ties
+s
+s
+out
+go to century gate
+s
+use handkerchief on pool
+speak to Colin
+w
+s
+look at doctor
+look at halibut
+speak to doctor
+use ties on handkerchief
+wear face mask
+speak to Sir Halibut
+speak to doctor
+n
+e
+n
+out
+go to chipper's field
+look at ring master
+speak to ring master
+look at Candi Floss
+speak to Candi Floss
+w
+look at stella
+speak to stella
+yes
+use club on tube
+take rat
+take tube
+look at rat
+x rat
+look at tube
+x tube
+look at joey
+speak to joey
+look at table
+e
+e
+look at junk
+search junk
+search junk
+search junk
+search junk
+search junk
+look at cup
+take cup
+look at bicycle
+take wheel
+look at wheel
+look at crutch
+x crutch
+x stop
+x crutch
+x saddle
+take saddle
+x cans
+take cans
+use saddle on crutch
+use wheel on crutch
+look at unicycle
+w
+out
+go to century gate
+s
+use cup on pool
+give unicycle to colin
+look at juggling balls
+n
+out
+go to chipper's field
+w
+give cans to joey
+give balls to joey
+e
+se
+look at campfire
+look at pot
+use cup on pot
+look at pygmy
+speak to pygmy
+speak to caribou
+look at window
+look at boxes
+nw
+out
+go to grove entrance
+n
+w
+look
+look
+look
+look
+look
+look
+look
+look
+speak to crusoe
+e
+s
+out
+go to carnivora
+give cup to novice
+look at bottle
+take swede
+out
+go to chipper's field
+se
+speak to caribou
+look at book
+nw
+out
+go to century gate
+s
+use cup on pool
+w
+s
+give book to doctor
+look at beaker
+n
+e
+n
+out
+go to chipper's field
+se
+go to large caravan
+look at donna
+look at window
+look at chair
+look at cushions
+speak to donna
+speak to donna
+use hot water bottle on cushions
+out
+use rat on window
+go to large caravan
+look at rat
+play lute
+out
+search boxes
+take flask
+look at flask
+nw
+out
+go to north gate
+s
+s
+s
+show lute to guard
+play lute
+play lute
+e
+take tortoise
+w
+drop tortoise
+use cup on gunpowder
+lift painting
+take silver key
+n
+n
+n
+out
+go to chipper's field
+se
+go to large caravan
+play lute
+out
+nw
+out
+go to north gate
+s
+s
+s
+give music to guard
+n
+n
+n
+out
+go to chipper's field
+se
+go to large caravan
+play lute
+look at penny
+out
+nw
+give penny to Candi Floss
+eat candyfloss
+look at plastic bag
+sw
+look at shelley
+talk to shelley
+throw ball
+talk to shelley
+use rubber stop on tube
+use nail on tube
+use thread on flask
+use wick on tube
+use cup of gunpowder on tube
+look at cannon
+use wooden ball on cannon
+use curved glass disc on cannon
+take tube3
+look at coconut
+take coconut
+look at post
+take post
+talk to shelley
+kiss shelley
+take hairgrip
+look at hairgrip
+use nail on coconut
+use nail on coconut
+use coconut on beaker
+use flask on beaker
+ne
+se
+use beaker on campfire
+nw
+out
+go to grove entrance
+n
+nw
+x patch
+take wild speckled mushrooms
+use wild speckled mushrooms on beaker
+look at antidote
+se
+s
+out
+go to century gate
+s
+w
+s
+give antidote to doctor
+speak to halibut
+show letter to halibut
+n
+e
+use cup on pool
+use bag on fish
+empty bowl
+n
+out
+go to north gate
+s
+s
+w
+look at bunting
+take bunting
+e
+n
+n
+out
+go to chipper's field
+w
+give fish in a bag to joey
+give bunting to joey
+look at ticket
+e
+give ticket to ring master
+s
+look at board
+look at knife
+take knife
+use knife on swede
+look at cage
+x cage
+look at dwane
+speak to dwane
+n
+se
+use chopped swede on pot
+use cup on pot
+nw
+out
+go to carnivora
+give cup to novice
+n
+look at tapestry
+x tapestry
+look at safe
+open safe
+yes
+meat
+look at bananas
+take bananas
+w
+x books
+s
+yes
+McBurga
+s
+untie shiversword
+give lute to shiversword
+talk to shiversword
+look at book
+n
+e
+s
+out
+go to chipper's field
+se
+go to large caravan
+give book to donna
+look at love letter
+out
+nw
+out
+go to carnivora
+n
+w
+s
+give love letter to shiversword
+n
+e
+s
+out
+go to chipper's field
+se
+go to large caravan
+talk to donna
+talk to shiversword
+yes
+talk to shiversword
+use knife on rat
+give rice to shiversword
+look at contract
+out
+nw
+out
+go to north gate
+s
+s
+s
+give contract to guard
+n
+n
+n
+out
+go to century gate
+s
+w
+use knife on bell
+s
+give contract to doctor
+n
+e
+n
+out
+go to chipper's field
+give contract to ring master
+se
+go to large caravan
+give contract to shiversword
+out
+nw
+s
+use bananas on dwane
+use face mask on post
+use coconut on catapult
+speak to dwane
+give hairgrip to dwane
+show letter to dwane
+eat bananas
+look at banana skin
+n
+out
+go to carnivora
+n
+w
+s
+use hairgrip on cage
+n
+e
+s
+out
+go to grove entrance
+n
+speak to halibut
+marlon
+look at silver box
+take it
+use silver key on silver box
+take scroll
+x scroll
+smell scroll
+read scroll
+s
+out
+go to chipper's field
+se
+use scroll on campfire
+read scroll
+nw
+out
+go to grove entrance
+n
+n
+sw
+n
+se
+ne
+s
+nw
+say reveal
+n
+use disc on tube3
+use telescope
+s
+s
+s
+out
+go to tower courtyard
+look at window
+look at gargoyle
+use telescope
+look at door
+use bell on door
+ring bell
+n
+x table
+x jar
+take jar
+use nail on jar
+s
+out
+go to grove entrance
+n
+use net on rod
+use rod on pixie
+s
+out
+go to north gate
+s
+s
+s
+use pixie dust shaker on statue
+take copper key
+n
+n
+n
+out
+go to tower courtyard
+n
+u
+x statue
+look at drapes
+x drapes
+climb drapes
+take drapes
+take rings
+use banana skin on pole
+take rings
+d
+s
+out
+go to chipper's field
+se
+go to large caravan
+give rings to shiversword
+talk to shiversword
+panpipes
+play panpipes
+out
+nw
+out
+go to tower courtyard
+n
+u
+use panpipes on statue
+u
+look at pedestal
+look at paintings
+read paintings
+wear bowl
+wear drapes
+kneel on pedestal
+yes
+nolram
+u
+look at window
+u
+Yes

@@ -1,0 +1,316 @@
+One Robot
+Michael Tritz, v1.0, ASL 350, "Created with QDK 3.53 - UNREGISTERED EVALUATION VERSION"
+
+You are E173-BETA, code name PATRICK, a servant robot rolling off a production
+line in the walled city of Meliosis in the year 3058.  166 rooms and three
+continents later you fire the assassin robot Horikama out of a cannon.  Almost
+every gate in the game is a `use <weapon> on <thing>` or a `speak to` that
+reveals the next weapon, so the walkthrough is a chain of errands with a great
+deal of walking between them; 148 turns, no score.
+
+
+THE WEAPON CHAIN
+
+  Box of Weapons (Weapon Shop back room)  -> Boss Hunter gives the Beam Sword
+  Beam Sword on Commuter 1                -> reveals the Energy Bazooka
+  Energy Bazooka on the Unused Gate       -> `create exit south <Ruin; South Nibel>`,
+                                             i.e. the way out of Meliosis
+  Beam Sword on the Judge                 -> recruits Horikama and Apoc
+  Horikama + Apoc in inventory            -> the Instructor uploads Flying Data
+                                             and reveals the CP 9000 Keys
+  Chain Gun (Exile Island scrap heap)     -> the three thugs, and L913
+  Shining Swords (behind a cracked wall)  -> the boulder, and the endgame
+
+The Thin Sword and the Gun in the optional training course are never needed
+again; the course is walked anyway below, because it is three rooms long and the
+Super Switch Presser 2000 that ends it is the game's one joke prop.  Its own
+gating is the only `exists` test in the game written the right way round: the
+Switch electrocutes you unless both training bots are already down, and Training
+Bot 2 refuses to be shot if the first one is still standing.
+
+Three of the rewards -- Beam Sword, Energy Bazooka, CP 9000 Keys -- are declared
+`invisible` and turned on with `reveal`.  In Quest that flag suppresses the room
+listing only; DisambObjHere resolves a typed noun on the availability flag that
+show/hide sets and never consults visibility, so an invisible object is already
+referrable.  So TAKE CP 9000 KEYS works in the hangar before you ever visit
+flight school, in Quest as much as here.  This script plays it straight and
+talks to the Instructor first.
+
+
+THE FLIGHT GRID
+
+Once the Cheese-Puff 9000 starts, flying is an 8x8 grid of rooms literally named
+`<0,0>` .. `<6,7>` wired to each other with all eight compass directions -- 61
+rooms of pure connective tissue.  Three cells have real names instead, and those
+are the only three with a `down`:
+
+  Air over Space Center           = (1,3)   down -> Hangar (Nibel)
+  Air over Exile Island Airport   = (1,5)   down -> Exile Island Hangar
+  Air Over Crudaso Airport        = (5,5)   down -> needs the landing pass
+
+so the whole of the air travel in this walkthrough is E E, then S S S S.  Row 6
+has no south exits and column 7 no east ones: that is the edge of the map.  Two
+rooms are mis-titled -- `define room <2,>` and `define room <3,>` -- and the
+author papered over it with `alias <2,1>` and `alias <3,1>` rather than fixing
+the name, so their neighbours point at `<2,>` and `<3,>` and it all still hangs
+together.
+
+Landing at Crudaso is the one place the game asks you to type something that is
+not a command: `down` prints "Enter the code found on the back of your Crudaso
+Landing Pass" and the room defines `command <87461983> goto <Hangar 3>`.  The
+code is in the pass's own look text.  The pass is `hidden` in the Scrap Heap and
+cannot be picked up there -- joining the resistance in the Huge Chamber is what
+`show`s it and `move`s it into your ship.
+
+Take the Chain Gun out of the Huge Pile before you fly on.  There is no way back
+to Exile Island afterwards: Ignition 3 in the Crudaso hangar answers "Not going
+back just yet!  You have a mission!", and the gun is needed for the three thugs
+in Crudaso City and for L913 on the 80th floor.  Refusing the resistance is a
+`playerlose`.
+
+
+THE TWO INVERTED BOSS CHECKS
+
+Both observatory bosses are guarded by four switches, and both tests are written
+backwards:
+
+    use <Shining Swords> if exists <switch 1> and exists <switch 2> and
+        exists <switch 3> and exists <switch 4> then { ...weakened... }
+        else msg <The base is too strong to be attacked.  Maybe if you hit
+                  those switches...>
+
+`exists` is false once an object has been hidden -- the Mayor's House uses it
+correctly two hours earlier, printing "Get out of my house!" while all three
+thugs still exist and dropping the boat key once they are gone.  So Horikama
+Base and the Horikama Shield Generator can only be attacked while their switches
+are *intact*, and hitting the switches the game tells you to hit locks the run:
+the boss becomes permanently unattackable and neither observatory floor has a way
+back down.  The winning move is to walk straight past all eight switches.
+(Observatory 2F's switch7 and switch8 hide `switch 3` and `switch 4` -- the
+switches on the floor below -- which is the copy-paste that produced the whole
+pattern.)
+
+
+OTHER AUTHORING HOLES WORTH KNOWING
+
+The Weapon Shop's back room was meant to be locked.  The shop defines an
+`invisible` Key with `use on <Locked Door>` that would `create exit west <;
+Back Room>` -- but nothing ever reveals the Key, there is no Locked Door object
+anywhere in the file, and the shop already declares `west <Back Room>` outright.
+So you simply walk in and take the box.
+
+`Air over SD` is a room you can never stand in: its `script` immediately goes to
+the Shopping District, which is how climbing west off the transit roof drops you
+into the human-only district.  Its look text mentions a ladder, which belongs to
+`Air over SD 2` (same alias, the climb back up).
+
+Horikama 2 and Apoc 2 -- the recruitable copies -- are defined in Town Square,
+not in the Town Hall where the judge dies, so you have to walk back south to
+take them.  Their `take <You recruited Horikama.>` form is the whole recruitment
+mechanic; the Instructor's test is `if got <Horikama 2> and got <Apoc 2>`.  The
+original Horikama's `speak` is `if exists <Judge> then msg <...>` with no else
+branch, so he goes silent for the rest of the game once the court scene is over.
+Horikama 5 is never hidden after the duel either, so Observatory (3F) ends up
+holding both the assassin and his own unconscious body.
+
+Boarding the SS Cheese hides Horikama 2 and Apoc 2 out of your inventory; from
+there on they are scenery in each scripted room.
+
+
+DISAMBIGUATION
+
+The three thugs all display as "Thug" and the eight switches all display as
+"Switch", so USE CHAIN GUN ON THUG raises "Which thug do you mean?".  The script
+answers 1 twice; the third blast finds only one thug left and asks nothing.  In
+Observatory (3F) USE SHINING SWORDS ON HORIKAMA needs no answer, because
+Horikama 5's alias matches exactly while "Horikama (unconscious)" would only
+match on a partial word run, and an exact match wins outright.
+
+
+ROOM LOOK TEXT AND SEMICOLONS
+
+Crudaso City's Intersection 1 declares
+
+    look <Cheese Street runs northeast to west; Milk Avenue runs north to south.>
+
+and prints only "Cheese Street runs northeast to west" -- in Quest too.  From
+ASL 350 on, a room's look tag is also copied into the room object's property
+list with AddToObjectProperties ("look=" + r.Look, V4Game.Part2.cs:1170-1177),
+that routine splits its argument on ';' (V4Game.cs:3995-4031), and ShowRoomInfo
+prefers the property over the room's own Look field
+(V4Game.Part2.cs:3863-3875) -- so the second half of the sentence becomes a
+property named " Milk Avenue runs north to south." and is never printed.  Below
+350 no property is written and the whole sentence survives; geas rewrites the tag
+into a property whatever the version, so a pre-350 game with a semicolon in a
+room look would lose its tail where Quest would not.  Nothing in the corpus does
+that, so this is noted rather than changed.
+
+
+THE ROUTE
+
+Factory and training course, then the Hunter's Agency errand, the Beam Sword,
+the Energy Bazooka, and out through the City Gates into Nibel.  Cheese Town for
+the court scene and the two recruits, the Space Center for flying lessons and
+the plane.  Fly east to Exile Island for the Chain Gun and the resistance, then
+south to Crudaso: kill the gang for the mayor, buy passage with the boat key,
+and let the captain wreck the ship on the way.  Down the hole on the Mysterious
+Island, the Shining Swords behind the cracked wall, split the boulder, and ride
+the resistance's tunnel into the basement of Government Tower.  Then up: L913 on
+80, both observatory bosses without touching a single switch, the duel with
+Horikama, and the cannon on the roof.
+
+Start:
+w
+s
+w
+w
+take thin sword
+use thin sword on training bot
+w
+take gun
+use gun on training bot
+take super switch presser 2000
+w
+use super switch presser 2000 on switch
+s
+s
+s
+sw
+nw
+n
+speak to boss hunter
+s
+se
+s
+up
+w
+w
+w
+take box of weapons
+e
+e
+up
+e
+down
+n
+nw
+n
+speak to boss hunter
+take beam sword
+s
+se
+use beam sword on commuter
+e
+e
+speak to hunter agent
+take energy bazooka
+w
+s
+use energy bazooka on unused gate
+s
+s
+w
+nw
+n
+speak to horikama
+n
+speak to apoc
+use beam sword on judge
+s
+take horikama
+take apoc
+s
+se
+n
+ne
+n
+n
+up
+e
+speak to instructor
+yes
+w
+w
+go to cheese-puff 9000
+take cp 9000 keys
+use cp 9000 keys on ignition
+yes
+e
+e
+down
+e
+e
+e
+s
+s
+s
+s
+take chain gun
+w
+down
+e
+e
+yes
+take crudaso landing pass
+use cp 9000 keys on ignition
+s
+s
+s
+s
+down
+87461983
+se
+sw
+sw
+sw
+n
+n
+use chain gun on thug
+1
+use chain gun on thug
+1
+use chain gun on thug
+s
+s
+w
+sw
+w
+nw
+w
+take boat's key
+e
+se
+e
+sw
+sw
+give boat's key to captain
+yes
+speak to apoc
+n
+w
+up
+e
+w
+down
+e
+look at cracked wall
+take shining swords
+w
+use shining swords on boulder
+down
+e
+n
+up
+up
+e
+up
+n
+use chain gun on l913
+use shining swords on horikama base
+use shining swords on horikama shield generator
+use shining swords on horikama
+take horikama (unconscious)
+e
+up
+w
+give horikama (unconscious) to meliosis cannon

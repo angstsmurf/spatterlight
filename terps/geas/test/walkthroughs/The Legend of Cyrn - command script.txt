@@ -1,0 +1,274 @@
+The Legend of Cyrn -- command script
+==========================================
+
+"The Legend of Cyrn" v1.0, by Graham Kelly, (c) 2002, ASL 300, "Created with
+QDK 3.03".  Distributed as Magic-2.asl (1652 lines of plain ASL -- no .cas to
+decompile), and one of the very few asl-version <300> games in this corpus, so
+it is useful mainly as a Quest *3* feature test: `define selection` / `choose`,
+`ask`, `enter`, `place`, `create exit`, `doaction`, `use <a> on <b>`,
+`give <a> to <b>`, and object disambiguation resolved by `detail`.
+
+It is explicitly a demo.  From its own intro text: "This is the demo of my
+rather large, soon-to-be-released game ... I promise the full version out within
+the year."  It never arrived, and the file contains no `playerwin` at all --
+`define text <win>` and `define text <lose>` are both empty blocks.  The only
+`playerlose` is the joke death for `wear fine cloak`.  So the furthest reachable
+state is the author's own end-of-demo notice, printed from the room script of
+Path9, the one room past the town's rear gate:
+
+    define room <Path9>
+        script msg <Ahead lies the Highway. Through it all of Cyrn is open to
+                    you. Good Luck.|n|nEND OF DEMO>
+
+This script reaches it in 72 turns with an otherwise clean transcript.  Marker:
+    END OF DEMO
+
+
+CHOOSE HUMAN, OR THE GAME IS OVER IMMEDIATELY
+---------------------------------------------
+The start room is `signup room`, a room with no exits at all, whose script asks
+your name with `enter <playername>` and then hands off to `choose <Race>`.  Each
+of the nine choices in `define selection <Race>` confirms with
+`if ask <Do you wish to choose this race?>` and then `goto`s a racial starting
+room -- but only Human and Half-Elf go to <Hall of Records>.  The other seven go
+to Wood, Mountainside, Hole, Forest, Hut or House, and every one of those rooms
+is declared with nothing but a `look` and an `indescription`: no exits, no
+objects you can use, no way out.  Picking any race but 1 or 4 ends the demo on
+turn zero, exactly as the intro warns.  Hence the script's first three lines:
+a name, `1` (Human), `1` (Yes).
+
+Two authoring slips in that selection are worth knowing about even though this
+route dodges both.  The Dwarf branch has a redundant second `goto <Mountainside>`
+after the if, so declining it still teleports you there.  And in every branch
+except Human's, the `set <Race; ...>` sits *after* the if rather than inside it,
+so declining a race (which recurses via `else choose <Race>`) sets Race to the
+race you refused on the way back out of the recursion -- accept Elf-then-Human
+and you end up a Human standing in the Hall of Records who is described as an
+Elf.  Answering Yes to the first prompt avoids the whole tangle.
+
+
+THE MEDALLION DEADLOCK, AND WHY THE TRAINING HALL IS MANDATORY
+--------------------------------------------------------------
+The first half of the demo is a three-part errand for the Curator, each part
+paying out one medallion:
+
+    speak to Curator          -> Scroll
+    give Scroll to Scholar6   -> Fine Cloak       (in Hall of Records5)
+    give Fine Cloak to Curator-> Medallion  (bronze), and Curator becomes Curator2
+    speak to Curator2, Yes    -> moves Head Librarian2 to the Study Hall
+    speak to Head Librarian, choose 1, `study books` -> the Dream
+    any direction in the Dream-> wake with the Writ of Knowledge
+    give Writ to Curator2     -> Medallion2 (silver), Curator becomes Curator3
+    speak to Curator3, Yes    -> Medallion3 (gold)
+
+The gold medallion is what opens the silver gates:
+
+    define room <Gateway>
+        east if got <Medallion3> then goto <outside the great gates>
+             else msg <The gates will not let you pass.>
+
+and then the courtyard's exit to the outside world tests the same flag the other
+way round:
+
+    define room <outside the great gates>
+        north if got <Medallion3> then msg <You try, but it seems a magical
+              barrier is blocking the way.> else goto <Path>
+
+Read literally that is a deadlock: you can only leave northwards while lacking
+the very medallion that let you in, and Medallion3's `drop` is refused ("I think
+the Curator wants you to keep that"), while the only container that could hold
+it -- the knapsack -- is for sale in a shop on the far side of the barrier.
+
+The escape hatch is the Training Hall, which looks like optional flavour and
+isn't.  The Magic Chamber's third lesson does all of this at once:
+
+    command <cast shield spell> ... {
+        goto <Training Hall3>
+        lose <Medallion> ... lose <Medallion2> ... lose <Medallion3> ...
+        create exit east <Hall of Records; outside the great gates>
+        create exit west <outside the great gates; Hall of Records>
+        set <Gold; 200>
+        timeron <food timer>  timeron <drink timer>
+    }
+
+Confiscating the medallions is what unlocks `north`, and the same script is the
+game's only source of money.  The two lessons also have to be taken in the order
+combat-then-magic, because each one moves you to a different copy of the hall:
+`attack dummy` drops you in Training Hall2, whose only inner door is east to the
+Magic Chamber, and `cast shield spell` drops you in Training Hall3, which has no
+inner doors at all.  Take magic first and the Combat Chamber is unreachable for
+the rest of the game.  (All it costs is +1 agility, which nothing reads, but the
+one-way room shuffle is the interesting part.)
+
+
+TWO SCHOLARS THAT LOOK IDENTICAL
+--------------------------------
+Hall of Records5 holds Scholar5 and Scholar6, with identical `prefix <a>`,
+`suffix <taking notes>` and `displaytype <human>`, so the room lists "There is a
+Scholar taking notes and a Scholar taking notes here."  They differ only by
+`detail <Sleeping>` and `detail <Awake>`, and only Scholar6 -- the awake one,
+whose `look` mentions a red-orange cloak -- has the `give to` handler that trades
+the Scroll for the Fine Cloak.  So `give scroll to scholar` raises
+
+    Which scholar do you mean?
+    1) Sleeping
+    2) Awake
+
+and the script answers `2`.  Forget that answer and the menu silently eats the
+following command (menu input goes through atoi, so a direction word parses as 0
+and clamps to option 1), which is how the first draft of this script gave the
+scroll to a sleeping man and then walked into a wall for sixty turns.
+
+The five Hall of Records rooms are likewise all `alias <Hall of Records>` with
+one shared `look`, so the map has to be walked by exits rather than recognised
+by description:
+
+    HoR   E->Gateway   W->HoR2
+    HoR2  N->HoR4      S->HoR3   E->HoR
+    HoR3  N->HoR2      W->HoR5            (HoR5 also NW->Hall of Learning)
+    HoR4  N->Hall2 (the Curator's study)  S->HoR2
+
+The Dream is nine identical blocks: all eight compass directions run the same
+wake-up script, hand over the Writ, and `goto <Study Hall>`, so any direction
+works.
+
+
+THE OIL CHAIN
+-------------
+Everything after the gates is one four-item craft:
+
+    speak to Merchant (Path4), choice 1  -> bag of clay, 50 of your 200 gold
+    mold clay                            -> a game-level command that
+                                            `doaction <bag of clay; mold clay>`,
+                                            setting clayshape to "lopsided pot"
+    use bag of clay on kiln (Potting Room, SW of Town Square then south)
+                                         -> Lopsided Pot (the clay is not spent)
+    take olive tree (Path5)              -> Olives (its `look` hands them over
+                                            too, so looking at the tree twice
+                                            is a free olive dispenser)
+    use olives on mortar and pestle (Apothecary, W of Town Square) -> Oil
+    use oil on lopsided pot              -> Oil-filled Pot
+    give oil-filled pot to guard (Path8) -> create exit north <Path8; Path9>
+
+The Guard states the price himself if you `speak to` him ("You must submit one
+jar of oil as an Offering of Passage"), via a one-choice `define selection`.
+Note the clay must be moulded before it goes in the kiln -- the `use on <kiln>`
+handler tests `if ( #clayshape# = lopsided pot )` and otherwise refuses.
+
+
+DEAD ENDS AND DEAD CODE (none of it on the critical path)
+--------------------------------------------------------
+  * The gold bar is a money pump: 35gp from the shopkeeper, then `give gold bar
+    to Smelter` for a 5gp fee returns 100gp, for +60 per lap.  It also carries
+    `type <valuable>`, whose `action <steal>` yanks the bar to the alcove off
+    Town Square.  With 200 gold from training and one 50gp purchase needed, none
+    of it matters.
+  * Two of the inn's three rooms cannot be entered.  `Hall`'s doors test
+    `if ( Smalllock = 1 )` and `if ( Medlock = 1 )` -- the bare variable names,
+    not `%Smalllock%` / `%Medlock%`, so Quest 3 compares the literal strings
+    "Smalllock" and "Medlock" against "1" and the condition is never true.  The
+    Small Key's own `use on <East Door>` compounds it by setting Smalllock to 1
+    in *both* arms of its if, and the Medium Key has no `take` at all.  Only
+    Hall3's west door uses `%Grandlock%` correctly, so the Grand Room is the one
+    reachable bedroom -- and the `inn` selection never checks or deducts gold, so
+    the 100gp suite is free.  Sleeping only bumps Daystatus, which gates the
+    merchant's buy-back option and the Potter's excuse line.
+  * All four timers are real-time (`interval <60>` for light and shield,
+    `interval <1200>` for food and drink) and the harness does not advance them
+    without --tick, so this script runs without it.  Just as well: `Health` is
+    never defined anywhere in the file, so the food and drink timers decrement a
+    variable that does not exist.
+  * The game block ends every turn with `afterturn do <merchant_proc>`, and no
+    `define procedure <merchant_proc>` exists -- the only procedure in the file
+    is `statusproc`.  QuestViva's ExecuteDo reports the miss as
+    `LogASLError("No such procedure " + procedureName, LogType.WarningError)`
+    (V4Game.cs:5809-5813), which is a log-channel warning and not player-visible
+    text, so geas's silent skip leaves the transcript identical.
+  * `command <wear fine cloak>` is the whole game's only death: the Head Scholar
+    appears, tells you off, and `playerlose`.  Carrying the cloak to the Curator
+    unworn is the "first test".
+  * The Bakery is defined with a description and no exits and is never linked to
+    anything, and the Spear in the Goblin/Troll hut can only be taken by a race
+    that cannot leave the room it is in.
+
+start:
+Cyrn
+1
+1
+west
+north
+north
+speak to curator
+out
+south
+south
+west
+give scroll to scholar
+2
+east
+north
+north
+north
+give fine cloak to curator
+speak to curator
+1
+out
+south
+south
+west
+northwest
+north
+north
+west
+speak to head librarian
+1
+study books
+north
+out
+south
+south
+southeast
+east
+north
+north
+north
+give writ of knowledge to curator
+speak to curator
+1
+out
+south
+east
+east
+east
+south
+west
+attack dummy
+east
+cast light spell
+cast dart spell
+cast shield spell
+out
+north
+north
+east
+east
+speak to merchant
+1
+east
+take olive tree
+east
+north
+north
+southwest
+south
+mold clay
+use bag of clay on kiln
+out
+out
+west
+use olives on mortar and pestle
+use oil on lopsided pot
+out
+north
+give oil-filled pot to guard
+north

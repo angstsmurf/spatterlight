@@ -1,0 +1,360 @@
+"Zombies Attack" (Zombies Attack.cas) -- Ryan Le Quesne / "Hulkman508", ASL 410
+================================================================================
+Command script for terps/geas/test/run_walkthroughs.sh.
+
+Verified: 143 turns, leftover 0, WON.  Needs BOTH --tick and --seed 4.
+The win marker is "You completed the game in", from the timer that ends the game.
+
+
+WHY THIS GAME NEEDS A SEED, AND WHY IT NEEDS --tick
+
+Almost every obstacle here is a coin flip.  The author's own help text says so:
+"If you're confronted with a situation of chance (or based on chance) then don't
+forget to save prior to taking a risk."  Concretely, a dozen `define selection`
+blocks are built out of
+
+    set <chance factor; 0>
+    inc <chance factor; $rand(1; 10)$>
+    if is <%chance factor%;gt=;8> then ...you die... else ...you live...
+
+and the game politely prints the odds before each one ("There's a 7/10 chance
+that you will successfully make it across").  So the script is only reproducible
+against a fixed RNG stream, hence --seed 4.  Four rolls decide this run:
+
+    pick the lock with the aerial          9/10   (a 10 snaps it and hides the drawer)
+    fight the fat security zombie          8/10   (a 9 or 10 costs a health level
+                                                   and re-asks, which would throw
+                                                   the script's answers out of step)
+    cross the plank over the collapsed corridor
+                                           7/10   (failure is death)
+    shoot the two zombies on the ground floor
+                                           8/10   (failure drops the gun and re-asks)
+
+Seed 4 wins all four on the first attempt, which is what keeps the answer lines
+below aligned; there is no retry logic in a command script.
+
+--tick is needed because the whole game is on timers, and so is the ending.  The
+opening zombie only gets to its feet twelve ticks after you open your front door
+(`timer <Zombie gettin up>`, interval 12), and if you are still standing there
+eight, nine, eight, ten and eleven ticks later the `Start zombie attacking`
+chain walks your health down Perfect -> Good -> Bad -> Critical -> dead.  The
+eight filler turns in the script before ATTACK ZOMBIE are that wait; they are
+spent usefully (the bathroom first aid kit) but they are not optional.
+
+The ending is a four-timer relay off the Street room's script:
+
+    Plane (12)  ->  Plane crash (6)  ->  Scream (6)  ->  End (9)
+
+`timer <End>` prints "You completed the game in %turns% turns" and then calls
+playerwin, so the 35 LOOKs at the bottom of the script are simply the ticks that
+relay needs.  Each link costs interval + 1 turns, not interval: Quest's
+SetTimerState only flips TimerActive and raises BypassThisTurn and never touches
+TimerTicks (V4Game.Part2.cs:561-574), so the turn that arms a timer is spent on
+the bypass flag instead of being counted.  13 + 7 + 7 + 10 = 37 ticks from the
+turn you step into the Street, which is turn 106 of this route.  Without --tick you can walk out of the building and stand in
+the street for ever.
+
+
+THE ENGINE BUG THIS GAME FOUND
+
+Every one of those chance rolls resets its counter with
+
+    set <chance factor; 0>
+
+while the variable itself was created by the startscript as
+
+    set numeric <Chance factor; 0>
+
+-- lower-case c against upper-case C.  Quest does not care: an untyped `set`
+resolves its name through SetUnknownVariableType, whose three scans (string
+variables, then numeric, then collectables) all compare LCase against LCase
+(V4Game.Part2.cs:592-618), and the numeric set it dispatches to matches
+case-insensitively too, rewriting the stored name to whatever casing was just
+used (SetNumericVariableContents, V4Game.Part2.cs:495-505).
+
+geas compared the names exactly, so it never found the variable and never
+performed the reset.  `inc` and the %...%/#...# reads were already
+case-insensitive, so the counter kept incrementing from roll to roll and sailed
+past every threshold: after two or three rolls the lock could not be picked, no
+fight could be won and the plank always gave way.  Sweeping eighty seeds found
+not one that could reach the ground floor.  Fixed, with fixtures/setcase.asl
+pinning the three-way scan -- including the asymmetry that a collectable found
+by the case-insensitive scan is then rejected by the case-SENSITIVE set it
+dispatches to (ExecuteSetCollectable, V4Game.cs:6059-6067), which geas matches.
+
+
+THE AUTHOR'S OWN WALKTHROUGH IS IN THE FILE
+
+`command <Hint 3#Answer#>` is a fourteen-deep if/else over progress flags, and
+the deepest branches are a real walkthrough: "Type 'exit bed' will get you out
+of bed", "To get the horn you need to pick the lock in apartment 5C, using the
+aerial as a lockpick", "At the bottom of the stairs if you look at the cracked
+wall you can get a plank from it".  Each hint level is a separate command (HINT,
+HINT 2, HINT 3 / ANSWER) over the same flag chain, and the chain is maintained
+by the *room scripts*: entering the Downstairs landing sets `gettin past
+zombies`, looking at Door 5A promotes it to `howto get stuff`, taping the horn
+promotes that to `taped horn`, and so on.  That is a lot of flag bookkeeping to
+get right and it is all observable, which makes this game a good test even
+though this script never types HINT.
+
+
+THE SPINE
+
+  1. Get out of bed in the dark, feel your way north, TURN ON LIGHTS.  Something
+     knocks.  Take the laptop off the desk -- it is the only weapon in the flat.
+  2. OPEN DOOR (a `choose <open door>` menu).  A man falls through.  Twelve ticks
+     later he is a zombie; ATTACK ZOMBIE with the laptop kills him and wrecks the
+     laptop.  Grab the first aid kit from the bathroom drawers while you wait.
+  3. OPEN DOOR again -- the Door (startunlocked) object the menu revealed -- and
+     you are in the fifth-floor corridor.
+  4. Take the AERIAL from the roof (it also kills the TV picture in 5C, which the
+     game notices), the CROWBAR from the cupboard in apartment 5C, and pick the
+     bedroom's locked drawer with the aerial for the HORN.
+  5. KICK DOOR 5A -- it is loosened, so a kick, a hit or a punch all work, or the
+     crowbar -- and take the TAPE from the cabinet.  USE TAPE ON HORN makes a
+     taped horn that sounds continuously: a throwable distraction.
+  6. USE CROWBAR ON DEAD BODY frees the jammed elevator doors.  Do this now; the
+     elevator is the only way down later and nothing reminds you.
+  7. THROW TAPED HORN at the three zombies penned behind the barricade downstairs.
+     Fighting them is a 2/10 chance at full health and the game says so.
+  8. In the offices, ATTACK FAT ZOMBIE with the crowbar for the SECURITY KEY,
+     unlock the security office, take the POWER KEY and the FLASHLIGHT.
+  9. Back up to the roof: USE POWER KEY ON POWER BOX, LOOK AT POWER BOX, restore
+     the power.  Only the elevator comes back, which is all you need.
+ 10. Take the elevator to floor 3.  It jams between floors: OPEN ROOF PANEL, climb
+     out, down the side ledge, north and east, and step through the third-floor
+     doors.
+ 11. Floor 3 is dark.  Take the BROOM from the closet and the MEDICAL KIT from the
+     bathroom (use it -- the fat zombie bit you, and health sets the odds for the
+     plank and the last fight), then TURN ON FLASHLIGHT.
+ 12. Apartment 3B holds five or six dormant zombies and a floor of broken glass.
+     Crossing the glass is a 6/10 noise check; USE BROOM ON GLASS SHARDS sweeps it
+     silently instead, with no roll at all.  Beyond it is a gun case with seven
+     rounds of AMMUNITION.
+ 13. Down to the bottom of the stairs.  LOOK AT CRACKED WALL yields a plank; USE
+     PLANK ON PARTIAL LEDGE bridges the collapsed corridor; CROSS PLANK LEDGE is
+     the 7/10 roll.
+ 14. Apartment 2A: LOOK AT DEAD WOMAN takes the HAND GUN, and the window opens
+     onto the outside ledge.  Round the building, in through the second window,
+     LOOK AT HOLE, down the ramp -- and two zombies are waiting.  With gun and
+     crowbar both in hand the game asks which; the gun at Perfect health is 8/10.
+ 15. North, north, and you are in the street.  Then wait.
+
+
+WHAT THIS SCRIPT DELIBERATELY SKIPS
+
+  * Apartment 3C.  Opening its door starts `timer <Rabid zombie before>`, and six
+    ticks later a rabid zombie leaps out; the fight is 7/10 and losing runs the
+    two-stage `Dying perfect rabid z` timers that kill you in five more ticks.
+    The reward is the FINE PLANK, which would raise the plank crossing from 7/10
+    to 9/10.  Trading one 7/10 roll for a different 7/10 roll plus a timer is not
+    a bargain, and the author agrees: HINT 3 says "The apartments on the sides are
+    optional".
+  * The optional scenery and side objects: the elevator's Floor 5 button once you
+    are trapped (which runs `timeron <>` -- a timer call with an empty name, one
+    of several blanks the author left in the selection blocks), the pain killer
+    on the ground floor (`define variable <Pain killer>`, a one-slot damage
+    shield), the remote and the TV in 5C, and the status commands HEALTH, TURNS,
+    TURNS ON and TURNS OFF.
+  * `command <All flags>` -- an author's debug switch that turns on all eight
+    progress flags at once (display turns, body gone, antenna gone, power on, fat
+    z notifier, flashlight on, zombie gone, floor1 zombies dead).  Useful when
+    re-deriving this route by hand; not used here, since it skips the objects the
+    flags are supposed to stand for.
+  * `command <Hello>` and `command <Yes you#Yeah you#>` are jokes, not content.
+
+
+OTHER THINGS WORTH KNOWING
+
+  * The flashlight really does run out.  There are two counters: `Battery invis`,
+    the reserve, set to 100 by the startscript, and `Battery`, the status-line
+    gauge, which starts at 0.  TURN ON copies the reserve into the gauge with
+    `inc <battery; %battery invis%>`; TURN OFF (and DROP) zeroes the gauge again;
+    and all 43 room scripts decrement both, but only inside `if flag <flashlight
+    on>`, so the reserve only drains while the torch is lit.  `define variable
+    <Battery>` carries `onchange if is <%battery%;0> then flag off <flashlight
+    on>`, so the torch snuffs itself out on the hundredth lit turn -- and the dark
+    rooms `goto <Darkness>` from their own scripts when it is off, which runs
+    `timeron <Darkness room rerturn 1>` and walks you back out blind.  This script
+    lights the torch at the last possible moment and puts it out in the street,
+    spending about twenty of the hundred turns.  (TURN OFF's `set <battery; 0>` is
+    a second, quieter dependent of the casing fix above: lower-case `battery`
+    against the `Battery` the variable block declares.)
+  * `define variable <Health>` is a *string* -- "Perfect", "Good", "Bad",
+    "Critical", "dead" -- with `onchange if is <#health#;dead> then playerlose`.
+    So death is not a script statement anywhere in this game; it is a side effect
+    of assigning a string, and it fires from inside timers as often as from
+    commands.  Every `set string <health; Dead>` in the file relies on it.
+  * the intro is three `wait` prompts deep before the title card.  `wait <>` and
+    `wait <Press any key to continue . . .>` both cost no script line in this
+    harness (wait_keypress is overridden), so the script starts straight in at
+    EXIT BED.
+  * `command <Turns>` and the `afterturn` block keep two counters, `turns` and
+    `turns display`, the second gated on `flag <display turns>` so that TURNS ON
+    starts counting from where you switched it on.  The ending quotes the first.
+  * the author spells the same object two ways more than once -- `hide <Glash
+    shards>` next to `hide <Glass shards>` in the broom handler, "Hangun" and
+    "Handugn" in four selection names, `unlock <Downstairs; down>` written three
+    times in three handlers for the same horn.  None of it matters, because Quest
+    ignores a `hide` of a nonexistent object, and neither does it here.
+  * `open drawers` / `open cabinet` / `open cupboard` / `open medical kit box`
+    are all `container` + `remove`, so their contents only become takeable after
+    the open.  Several of them print their reveal text from the `open` line
+    rather than listing objects, which is why the transcript reads as prose.
+
+
+start:
+exit bed
+north
+turn on lights
+take laptop
+open door
+1
+east
+open drawers
+take first aid kit
+west
+look at man
+look at desk
+look at bed
+i
+look
+look
+look
+look
+attack zombie
+open door
+west
+up
+take aerial
+down
+open door 5c
+open cupboard
+take crowbar
+east
+use aerial on locked drawer
+1
+take horn
+west
+out
+east
+north
+kick door 5a
+open cabinet
+take tape
+use tape on horn
+out
+use crowbar on dead body
+south
+west
+down
+throw taped horn
+down
+east
+south
+attack fat zombie
+1
+take security key
+out
+east
+use security key on security office door
+north
+open cabinet
+take power key
+take flashlight
+out
+west
+west
+up
+up
+up
+use power key on power box
+look at power box
+1
+down
+east
+north
+open elevator
+look at button panel
+3
+1
+open roof panel
+look at open roof panel
+look at elevator side
+north
+east
+look at doors
+east
+take broom
+out
+northwest
+open medical kit box
+take medical kit
+use medical kit
+southeast
+turn on flashlight
+north
+west
+1
+use broom on glass shards
+northwest
+open case
+southeast
+out
+north
+down
+look at cracked wall
+south
+use plank on partial ledge
+cross plank ledge
+1
+west
+look at dead woman
+open window
+east
+east
+south
+south
+west
+look at hole
+1
+1
+1
+north
+north
+turn off flashlight
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look

@@ -1,0 +1,50 @@
+Incident of the Undead (Part 1) v1 (QDK 4.1.4, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Marker: "get on my nerves".
+
+NOT A WIN -- Part 1 stops mid-sentence.  There is no score and no playerwin
+anywhere in the file; the last room, Wolverine, has a single exit back east and
+no contents, so the marker is Buck's closing line as the truck pulls in there,
+the furthest reachable state.
+
+Ten rooms, one object and a run of "command <WORD>" handlers.  The route is the
+one the Far Driveway description spells out: fetch the Golf Club from the Shed
+(northwest of the House Sports Area), then walk to the far left of the highway.
+
+From South Straits Highway Far Left on the game is a branching quiz where every
+wrong branch prints "YOU DIED" and then tells you which word to type to carry on
+-- the deaths are prose, not playerlose, so the script only ever types the
+surviving branch: WAIT, LEFT, YES, B.
+
+Worth knowing while reading the transcript:
+
+  * TAKE GOLF CLUB prints nothing at all, and that is the game as written:
+    "action <take> give <Golf Club>" is a take *action* whose body is the give,
+    and an action beats any default message, so the club is picked up silently.
+    The INVENTORY line after it is in the script to prove it worked.
+  * SOUTH STRAITS HIGHWAY LEFT warns "you have to type west to get it to work".
+    The author's worry was misplaced: the room has both a west exit and a
+    "command <WEST>" of its own, and the plain exit is enough.
+  * The B branch chains "goto <...Border>", a msg, "goto <Wolverine>", a msg and
+    a stop, so one command prints two room descriptions.  That is Quest running
+    the whole script body after the move, not a lost turn.
+  * The final "command <>" line in that room defines a handler for the empty
+    command and is simply ignored.
+
+Start:
+north
+north
+west
+northwest
+take golf club
+inventory
+southeast
+east
+north
+north
+west
+west
+wait
+left
+yes
+b

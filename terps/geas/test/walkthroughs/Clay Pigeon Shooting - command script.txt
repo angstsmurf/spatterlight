@@ -1,0 +1,83 @@
+Clay Pigeon Shooting by Tomo (QDK Pro 4.1.4, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "head back to the cabin for a scotch".
+
+One room, one activity: shoot ten clay pigeons and then ask Billy Bob for your
+score, which is the game's only playerwin (it lives twice over, in the object's
+"speak" script and in the game block's "command <talk to Bob>", both gated on the
+"finished shooting" flag).
+
+The whole game is the game block's five commands.  TAKE ALL hands you the
+shotgun, the ammo, the ear plugs and the eye protection off the table; PULL
+releases a pigeon and decrements "targets in trap"; FIRE runs the "shoot target"
+procedure; LOAD runs "load shotgun"; EQUIP opens a selection menu.  What gates
+PULL is the "protection" string variable, which has to read exactly "eyes and
+ears" -- one piece of protection is not enough, and with neither Billy Bob just
+lectures you.
+
+The script equips with USE EAR PLUGS and USE EYE PROTECTION rather than EQUIP,
+because they run the same two scripts directly: each object's "use" script sets
+"protection" to its own value, or to "eyes and ears" if the other one is already
+on.  EQUIP works too but goes through "choose <protection>", and a selection
+consumes the following script line as its choice number.
+
+Then it is ten rounds of LOAD, PULL, FIRE.  Only the ten PULLs actually matter --
+"targets in trap" hitting 0 is what sets the "finished shooting" flag, and
+nothing checks whether you shot at any of them -- so a player who never fires
+still wins, with a score of 0.
+
+Worth knowing while reading the transcript:
+
+  * The score in the win line is not reproducible across platforms.  "shoot
+    target" sets "hit or miss" to $rand(1; 2)$ and the variable's onchange script
+    is what awards the points, so the hits depend on the C library's rand();
+    under this seed the run scores 15.  The win marker is deliberately the part
+    of Billy Bob's line that carries no number.
+  * Every FIRE prints a hit-or-miss line even when the roll repeats, because
+    Quest 4 runs a numeric variable's onchange script on every set, changed value
+    or not (SetNumericVariableContents, V4Game.Part2.cs:526).
+  * LOAD after a shot only "pop[s] an extra shell into the barrel": one shell is
+    spent per FIRE, and the "shells in shotgun" onchange sets the "first barrel"
+    flag at 2, which is why every hit here is a 3-point first-barrel kill.
+  * The run deliberately does not use --tick.  The "clay pigeon" timer counts a
+    launched pigeon out of range after 15 seconds and hides it again; with no
+    timers running each pigeon simply waits to be shot at.
+  * WEAR EAR PLUGS prints a blank line rather than a refusal: the game declares
+    "verb <wear>" and the plugs carry "properties <wear>" with no value, so
+    ExecVerb finds the property and prints its empty contents.
+
+Start:
+take all
+use ear plugs
+use eye protection
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+load
+pull
+fire
+speak to bob

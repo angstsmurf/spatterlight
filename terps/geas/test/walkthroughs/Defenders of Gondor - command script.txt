@@ -1,0 +1,53 @@
+Defenders of Gondor v1 by Nathan Lindsell (QDK 3.02, ASL 300)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "rewards you for your bravery".
+
+Nine rooms of Tolkien scenery with exactly one winning move: USE A DAGGER ON A
+NAZGUL in the Northern Tower, which is the Morgul Blade's "use on <Nazgul>"
+script and calls playerwin.
+
+The indefinite articles are not a typo.  This author writes them into the alias
+-- `alias <a dagger>` (defenders-of-gondor.asl:160) and `define object <Nazgul>`
+/ `alias <a nazgul>` (252-253) -- and once an object has an alias, that is the
+only name the parser knows it by.  The game is ASL 300, so there is no help from
+abbreviations either: Quest matches a word taken from the middle of a name only
+for ASL 391 and up (Disambiguate, V4Game.cs:4762-4772; fixtures/abbrev.asl).
+A bare DAGGER finds nothing here.
+
+The route is six commands.  EAST from the Pelannor Fields to the River, USE BOAT
+TO CROSS RIVER (a room command -- there is no exit east, and USE BOAT on its own
+only says you could use it to cross), EAST to Minis Morgul, TAKE A DAGGER, then
+NORTHEAST to the tower.
+
+Everything else in the game is optional or a dead end:
+
+  * The Gondorian captain at the Crossroads tells you the city password,
+    'woloskgn', which is a room command at the Gates of Minis Tirith and opens
+    the way to the two Minis Tirith rooms.  Nothing there is needed to win --
+    and the only thing to do with the child who lives there is the Morgul
+    Blade's most gratuitous "use on" script.
+  * ELBERETH in the tower conceals the Nazgul without winning, so a player who
+    tries the famous word first makes the game unwinnable.  LET THERE BE LIGHT
+    disposes of the Troll, which never does anything either way.
+  * JUMP INTO RIVER (both banks) and COMMIT SUICIDE are the game's three
+    playerlose commands.
+
+Worth knowing while reading the transcript:
+
+  * The room's "afterturn msg <Your Command, Sire?>" prints once more after the
+    winning move.  Quest runs the afterturn script at the end of the same
+    ExecCommand that finished the game -- there is no game-over check in front
+    of it (V4Game.Part2.cs:4562-4587) -- so the extra line is faithful.
+  * "There is  a boat here." has two spaces because the boat's alias is written
+    " a boat", with the space inside the parameter.
+  * Every object here carries "look msg <...>" and "examine msg <...>"
+    separately, so LOOK AT and EXAMINE print different text -- unusual, and
+    unrelated to the win.
+
+Start:
+east
+use boat to cross river
+east
+take a dagger
+northeast
+use a dagger on a nazgul

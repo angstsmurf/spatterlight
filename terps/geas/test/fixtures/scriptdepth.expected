@@ -1,0 +1,19 @@
+
+ScriptDepth
+
+You are in Room
+There is clamp here.
+A room.
+
+> descend
+descended, countdown is 0
+
+> oscillate
+before
+after: oscillate is 1
+
+> look
+You are in Room
+There is clamp here.
+A room.
+[runner] turns=3 leftover=0 running=true

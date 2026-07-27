@@ -1,0 +1,14 @@
+look
+mkattic
+mkloft
+look
+mkattic
+look
+mkcellar
+look
+mklowercellar
+look
+rmattic
+look
+mkattic
+look

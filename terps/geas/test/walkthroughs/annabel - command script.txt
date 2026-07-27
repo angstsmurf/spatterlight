@@ -1,0 +1,337 @@
+Where's annabel? (QDK 3.53 unregistered, ASL 350) - raw command script for
+geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "YOU HAVE FOUND ANNABEL".
+
+Run with --tick.  The game has two timers and both of them are death clocks, so
+ticking makes it harder, not easier; the script defuses each one on the very next
+turn.  219 commands, no RNG, wins in 209 turns.
+
+A private detective is hired by Griswold to find his fiancee Annabel, last seen
+in the village of Insania.  Twenty-one rooms: a garden with a well, the village
+square, an inn, the Warden's office, a herb garden, two market stalls, a building
+site, an amphitheatre with a prop shed, four forest quarters, a theatre and Chad
+the Bad's secret hideout.
+
+THE SPINE.  Everything funnels into one lock: `use <Small silver key>` on the
+Large Chest in the Prop Shed (annabel.asl:1194) is the win.  The key falls out of
+Chad's pocket, Chad is only reachable with the Secret Map, and Baggie the barmaid
+only hands the map over when you are carrying cheese, an onion, a potato and salt
+all at once (Baggie2's `speak`, 423-431).  Those four are the four separate quest
+chains:
+
+  * POTATO.  Cut the well's mesh (USE WIRE CUTTERS ON WELL), which leaves a piece
+    of wire behind; the wire cutters are in the Warden's tool box.  Buy the
+    turnip, mask it, let Baggie turn it into a Bobo Head, plant the broom's pole
+    in the mud and top it with the head -- the scarecrow distracts short-sighted
+    Jumbo.  Separately, USE TROWEL ON MUDDY PATCH digs up a muddy nugget, and
+    washing it in the well makes it a potato, not the gold you were hoping for.
+  * CHEESE.  Sprinkle the itching powder (from Bobo's joke stall) on Bob the
+    builder's Big Mac, then USE FULL WATERING CAN ON BOB: he thinks it is
+    raining, puts the coat on and runs off scratching, leaving his lunch box.
+    TAKE CHEESE SANDWICH then EXAMINE CHEESE SANDWICH splits it into cheese and
+    white bread -- and brings Bob straight back, so the order matters.
+  * SALT.  Robin Hatz is superstitious: three pieces of bad luck (the skull from
+    the stocks, the tarot card, and a stuffed cat fired at the closet door) make
+    him throw salt over his shoulder and leave the shaker behind (`luckout`,
+    2080-2087).  The same procedure also does `show <Usher>`, so the drama
+    group's ticket seller does not exist until Robin has fled.
+  * ONION.  Buy the ticket for 5 gold, which `create exit`s the Theatre both
+    ways, and give Anna the blue topped mushroom from the split tree stump.
+
+Along the way the Warden wants a sandwich (a mud-dipped white loaf as
+"wholemeal", a headless rubber chicken dipped in the same mud as the "roast
+rabbit", swapped for the real rabbit while Jumbo is talking to the scarecrow,
+plus mint), which pays out the wanted poster, which is what tells Baggie who Chad
+is.  Basil and Rosemary pay 3 gold three times over (ring, luggage label, grey
+flowers) and are the game's only real income.
+
+Gold, in order: 2 from Griswold, -1 licence fee, +3 ring, -1 turnip, -2 rubber
+chicken, +3 luggage label, +3 grey flowers, -5 ticket, leaving 2.  Note the
+licence fee is `if is <%Gold%;2> then dec <Gold; 1>` (495) -- an exact-value
+compare, so it is only ever charged when you happen to hold exactly two coins.
+Paying it first, as the script does, is the expensive way to do it.
+
+THE TWO TIMERS
+  * `thief`, interval 15 (2108).  TAKE TOMATO arms it and it ends the game in the
+    stocks.  Only the Barrel of Tomatoes turns it off, either by putting the
+    tomato back or by USE RED NOSE ON BARREL OF TOMATOES, which is what the
+    script does on the following turn.
+  * `chad`, interval 13 (2118).  Agreeing to tell Chad why you have come starts
+    it; he shoots you when it fires.  USE BRUSH ON CHAD (the broom's brush, sold
+    to him as a hedgehog) is the only `timeroff`, again on the next turn.
+
+WHY EVERY NOUN IS SPELLED OUT IN FULL
+
+The game is ASL 350, and it gives nothing an `alt` list -- not one object in
+2100 lines.  Quest only matches a word taken from the middle of a name for ASL
+391 and up (Disambiguate, V4Game.cs:4762-4772; see fixtures/abbrev.asl), so the
+only string that reaches an object here is its alias, in full.  That is why the
+script says LOOK TOOL BOX, TAKE TRADING LICENCE, USE RED NOSE ON BARREL OF
+TOMATOES and GIVE BLUE TOPPED MUSHROOM TO ANNA rather than the shorter forms.
+
+The aliases are doing real work, because this game builds every state change out
+of clone objects: `<Bobo1>`/`<Bobo2>`, `<Warden1>`..`<warden4>`, `<Baggie1>`/
+`<Baggie2>`, `<Basil and Rosemary>`/`<Basil2>`/`<Basil3>`, `<Bob1>`/`<Bob2>`,
+`<Chad>`..`<Chad4>`, `<Well>`/`<Opened Well>`, `<Pole>`/`<Pole2>`,
+`<Lunch1>`/`<Lunch2>` -- each pair or family sharing one alias, exactly one of
+them visible at a time.  So WELL means the closed well before the wire cutters
+and the open one afterwards, and BASIL AND ROSEMARY means whichever of the three
+couples is currently on the bench.  geas will also answer to the raw ObjectName
+(BOBO1), a divergence Quest does not have, and no line here relies on it.
+
+Three name spellings look like mistakes and only one of them is:
+
+  * `<Meryy Menfolk>` (1503) really is misspelled, and it has no alias, so the
+    typo is the only name that works: GIVE BOBO'S CARD TO MERYY MENFOLK.  The
+    author spelled it "Merry" correctly in every message around it.
+  * `<Gaint turnip>` (877) is misspelled too, but it carries
+    `alias <Giant turnip>`, so the alias silently repairs it and the script uses
+    the correct spelling.
+  * BOW AND ARROW AND STUFFED CAT is not a mouthful for its own sake.  The
+    Closet has two separate `use` scripts (1210, 1223): `use <Bow2>`, whose alias
+    is the whole phrase, is the one that scares Robin, and `use <Bow and arrow>`
+    -- a different object, with the plain name -- just prints a "nice shot" and
+    counts for nothing.  Only the long form advances the luck counter.
+
+LOOK AND EXAMINE ARE NOT SYNONYMS HERE
+
+The game's own information screen says so ("Remember to LOOK AT and EXAMINE
+objects as they may produce different results"), and it means it: `look` is the
+script that reveals hidden objects on the tool box (987), the notice board (1166)
+and Bobo's pile of jokes (759), while `examine` is the revealing one on the
+broom, the small crate, the thyme, the wheelbarrow, the camp, the tent and the
+lunch box.  Hence the mixture of LOOK TOOL BOX and EXAMINE SMALL CRATE.
+
+Two related habits: the Photograph is shown with USE, never GIVE (`give to
+anything` refuses it, 127, and the information screen spells this out), and
+TAKE BROOM has to come before EXAMINE BROOM -- examining it breaks it into the
+pole and the brush, and the `if got <Broom>` branch (1127-1137) only puts the
+pieces in your hands if you were holding it.
+
+One flourish the script skips: four different characters accept flowers, and
+giving all four colours away summons a fairy and one of the four "secret gems"
+(`fairy`, 2097).  The gems are pure score and the win does not need them.
+
+The two leading LOOK commands are free turns -- the intro room's four `wait`
+calls take no input, so nothing is eaten and the game starts in the Garden.
+
+Start:
+look
+look
+w
+n
+use photograph on baggie
+use photograph on bobo
+take bobo's card
+s
+give bobo's card to warden
+yes
+take trading licence
+use photograph on warden
+yes
+n
+give trading licence to bobo
+take red nose
+e
+n
+look tool box
+take wire cutters
+s
+use wire cutters on well
+take wire
+w
+w
+w
+s
+take broom
+examine broom
+use wire on stage
+take dramatic key
+look notice board
+take leaflet
+w
+examine small crate
+take clown mask
+take bootlace tie
+use wire on bootlace tie
+e
+n
+e
+e
+e
+use hook and line on well
+use hook and line on well
+use hook and line on well
+take ring
+s
+examine thyme
+take watering can
+take mint
+give ring to basil and rosemary
+n
+use watering can on well
+w
+w
+speak to jumbo
+take giant turnip
+yes
+use clown mask on giant turnip
+take tomato
+use red nose on barrel of tomatoes
+w
+speak to bobo
+take itching powder
+look jokes
+take rubber chicken
+yes
+use wire cutters on rubber chicken
+e
+e
+use tomato on stocks
+take skull
+yes
+n
+give turnip with clown mask to baggie
+s
+e
+n
+use itching powder on big mac
+use full watering can on bob
+examine lunch box
+take cheese sandwich
+examine cheese sandwich
+s
+w
+w
+use full watering can on hard ground
+use white bread on muddy patch
+use headless chicken on muddy patch
+use pole on muddy patch
+use bobo head on pole
+use fake rabbit on roast rabbit
+use mint on roast rabbit
+use roast rabbit with mint on wholemeal bread
+e
+s
+give warden's sandwich to warden
+take wanted poster
+n
+n
+give wanted poster to baggie
+yes
+s
+e
+n
+examine wheelbarrow
+take trowel
+take plantcutters
+take big mac
+s
+w
+s
+give big mac to bob the builder
+take axe
+n
+w
+use trowel on muddy patch
+take muddy nugget
+e
+e
+use muddy nugget on well
+n
+n
+nw
+give bobo's card to meryy menfolk
+examine camp
+examine tent
+take stuffed cat
+take bow and arrow
+use stuffed cat on bow and arrow
+use wire cutters on suitcase
+take new shoes
+take new suit
+take luggage label
+ne
+use axe on stump
+take blue topped mushroom
+se
+give leaflet to robin hatz
+give skull to robin hatz
+nw
+sw
+se
+s
+s
+s
+give luggage label to basil and rosemary
+n
+n
+n
+nw
+speak to basil and rosemary
+yes
+se
+s
+s
+s
+give wedding photo to sage
+n
+use plantcutters on grey flowers
+n
+n
+nw
+give grey flowers to basil and rosemary
+se
+s
+s
+w
+w
+w
+speak to meryy menfolk
+s
+w
+give tarot card to robin hatz
+use new shoes on table
+use bow and arrow and stuffed cat on closet
+take salt
+e
+n
+e
+e
+speak to usher
+yes
+w
+w
+s
+e
+give blue topped mushroom to anna
+w
+n
+e
+e
+n
+speak to baggie
+take secret map
+s
+e
+n
+n
+nw
+ne
+use secret map
+speak to chad
+yes
+yes
+use brush on chad
+take small silver key
+out
+sw
+se
+s
+s
+w
+w
+w
+s
+w
+use small silver key on large chest

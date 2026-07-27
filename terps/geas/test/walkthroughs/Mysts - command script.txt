@@ -1,0 +1,87 @@
+Mysts (mysts.asl, by Mihalis "DarkAng3l" Georgostathis, QDK 3.1, asl-version 310)
+=================================================================================
+
+A short Lovecraftian piece set on the coast of the Peloponnese: your master
+Athinodoros has brought you to an abandoned cape and ordered you up the cliff to
+toll the bell in the black temple at the top.  It is winnable in ten moves, and
+its own win text calls it what it is -- "End of the preview.", which is the
+marker this script checks.
+
+The whole game is one errand with one obstacle: you cannot reach the bell, so you
+have to throw something at it.  The stone is in the cave, and the cave is off the
+plateau at the top of the *left* path, while the temple is at the top of the
+*right* one:
+
+  Beach -W-> Lower path -N-> Left (lower) -W-> Left (middle) -W-> Left (higher)
+        -N-> Plateau -W-> Cave                     [the vision hands you a stone]
+  Lower path -S-> Right (lower) -W-> Right (middle) -W-> Right (higher)
+        -N-> Top of the cliff (right) -W-> Outside building -N-> Inside building
+  USE STONE ON BELL                                             [playerwin]
+
+Note the geography is deliberately unhelpful and the script walks all of it: the
+left path only ever reaches the plateau ("No path leads further up"), and from
+the right path the *south* fork -- Top of the cliff (left side) -- is a dead end
+across a canyon from the temple, with nothing there but the view and the way
+back.  The two paths never meet at the top.
+
+The stone is not lying about; it comes from a set piece.  Entering the Cave runs
+a room `script` that fires while you do not have the stone: the Orama1 vision, in
+which you are cornered by two red eyes in a distorted version of the cave and
+"reach for a stone", and you come out of it holding one.  The same script swaps
+your mood -- the game tracks it as carried objects, `give <upset>` / `lose <calm>`
+followed by `move <calm; feelings>` to shove the old mood into an off-stage room
+called "feelings" -- which is why the inventory reads "upset" and "stone" and
+never anything as helpful as a list of exits.
+
+The script then walks WEST from the cave into the room called Spook, which the
+author wrote as a one-way trap: it prints the screaming-in-the-dark scene, sends
+you back to the Plateau and leaves you `frightened`.  Once you are, the Cave's
+description checks for it and bounces you straight out again -- "On no way should
+you enter this vile cavern." -- and this is the only thing in the game that can
+lock content away, so the script visits Spook only after the stone is safely in
+hand.  (It is not actually fatal: the Cave's script runs on entry regardless of
+the bounce, so a player who somehow lost the stone would be handed another one
+along with a repeat of the vision.  Try dropping it instead and you get the
+stone's own `drop everywhere <Who needs it?>`, and no way to pick it up again --
+it has no `take` line at all, so "You can't take it.")
+
+Everything else here is scenery the script looks at on the way: your master, who
+cannot be spoken to ("You wouldn't dare"), the bushes on the right path, the
+statue in the temple (too big to carry, and you "wouldn't even dare to touch
+it"), and the bell itself.  Tolling it is the end: the statue comes alive behind
+you, the fog uncovers an island that was not in the bay before, and you wake on
+a boat heading for it with your master and four strangers.
+
+Start:
+x your master
+speak to your master
+i
+west
+north
+west
+west
+north
+west
+i
+x stone
+west
+west
+south
+east
+east
+south
+south
+west
+x bushes
+take bushes
+west
+south
+north
+north
+west
+north
+x statue
+take statue
+x bell
+take bell
+use stone on bell

@@ -1,0 +1,40 @@
+
+Itemhide280
+
+You are in Cellar
+There is lamp here.
+The cellar.
+
+> look
+You are in Cellar
+There is lamp here.
+The cellar.
+
+> check
+got lamp: no
+
+> take lamp
+You pocket the lamp.
+
+> i
+You are carrying nothing.
+
+> check
+got lamp: no
+
+> look
+You are in Cellar
+The cellar.
+
+> ditch
+
+> check
+got lamp: no
+
+> i
+You are carrying nothing.
+
+> look
+You are in Cellar
+The cellar.
+[runner] turns=10 leftover=0 running=true

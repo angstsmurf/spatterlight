@@ -1,0 +1,49 @@
+Escape the Prison! by Tomsa (QDK 4.11, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "You are finally free".
+
+One room and a party of three.  The whole game is a party-switching puzzle: the
+"available characters" object is a menu (look choose <character list>) that sets
+the numeric variable %character% to 1 = Mandrake the Mage, 2 = Tara the Thief,
+3 = Hans the Cleric, and each of the three steps only works while the right one
+of those is selected.  Mandrake is hidden at startscript and Tara starts dead
+(flag on <Tara dead>), so the party begins as Hans whether you ask for him or
+not -- but asking is what makes the transcript readable.
+
+The chain:
+
+  * As Hans, USE SPELL OF RESURRECTION ON TARA THE THIEF.  The spell lives in
+    the unreachable room <hidden> and is handed over by the startscript's
+    "give <available characters>"; only Hans's branch clears the "tara dead"
+    flag.
+  * Switch to Tara (choice 2).
+  * GIVE ROTTEN APPLE TO DONK.  Donk is the party's inventory donkey; feeding
+    him the apple the guard throws in runs "show <leather pouch>; hide <rotten
+    apple>", i.e. the pouch drops with the dung.  EAT ROTTEN APPLE and USE
+    ROTTEN APPLE both call playerlose instead.
+  * LOOK AT LEATHER POUCH, then TAKE LOCK PICK.
+  * USE LOCK PICK ON IRON DOOR, which is gated on %character% = 2 -- "Tara is
+    the only one who knows how to use a lock pick" -- and unlocks the north
+    exit.  NORTH reaches <free>, whose script is playerwin.
+
+The LOOK AT LEATHER POUCH step is not decoration.  The pouch is a container
+declared "opened", and the lock pick is parented inside it, but Quest gates a
+container's contents on the container having been *seen*, not merely listed in
+the room description: contents are reachable only if the parent is a surface, or
+is (open or transparent) AND seen (V4Game.Part2.cs:7694).  Looking at the pouch
+is what sets that property (V4Game.cs:2141-2146).  Without it TAKE LOCK PICK
+correctly answers "You don't see any lock pick."  TAKE LEATHER POUCH followed by
+TAKE LOCK PICK works too, for the same reason.
+
+Start:
+look at available characters
+3
+use spell of resurrection on tara the thief
+look at available characters
+2
+take rotten apple
+give rotten apple to donk
+look at leather pouch
+take lock pick
+use lock pick on iron door
+north

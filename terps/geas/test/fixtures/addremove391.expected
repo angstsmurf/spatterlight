@@ -1,0 +1,60 @@
+
+Addremove391
+
+You are in Vault
+There is chest and coin here.
+The vault.
+
+> look
+You are in Vault
+There is chest and coin here.
+The vault.
+
+> openit
+
+> stow
+
+> look
+You are in Vault
+There is chest here.
+The vault.
+
+> look at chest
+A sturdy chest.
+
+> look
+You are in Vault
+There is chest, pebble and coin here.
+The vault.
+
+> unstow
+
+> closeit
+
+> look
+You are in Vault
+There is chest and pebble here.
+The vault.
+
+> take coin
+You don't see any coin.
+
+> i
+You are carrying nothing.
+
+> noparent
+
+> nosuchchild
+
+> look
+You are in Vault
+There is chest and pebble here.
+The vault.
+
+> openit
+
+> look
+You are in Vault
+There is chest, pebble and coin here.
+The vault.
+[runner] turns=16 leftover=0 running=true

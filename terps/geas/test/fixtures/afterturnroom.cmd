@@ -1,0 +1,11 @@
+look
+north
+look
+south
+east
+look
+south
+west
+look
+east
+look

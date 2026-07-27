@@ -1,0 +1,41 @@
+
+Gotonoroom
+
+You are in Hall
+There is a bed here.
+The hall.
+
+> object
+Still here.
+
+> look
+You are in Hall
+There is a bed here.
+The hall.
+
+> alias
+
+> look
+You are in Hall
+There is a bed here.
+The hall.
+
+> real
+You are in bunk
+The bedroom.
+
+> look
+You are in bunk
+The bedroom.
+
+> back
+You are in Hall
+There is a bed here.
+The hall.
+
+> attic
+You are in Attic
+
+> look
+You are in Attic
+[runner] turns=9 leftover=0 running=true

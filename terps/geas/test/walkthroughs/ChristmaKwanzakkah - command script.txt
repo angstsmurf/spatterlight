@@ -1,0 +1,150 @@
+ChristmaKwanzakkah
+"Steve the gaming guy", ASL 350, "Created with QDK 3.53 - UNREGISTERED EVALUATION
+VERSION"
+
+A December 2007 speed-comp entry, and it says so in its own scenery: the first
+hall's look text is "there is not much to see because today is 12/20/07 and it is
+the deadline for creating and sending in this game.  So deal with it."  Nine
+rooms, three bosses, and a great many jokes at the player's expense.  38 turns.
+
+The shape is: collect every weapon in the toy room, wave the biggest one at four
+increasingly large shopping crowds to get the first block key, then alternate
+boss fight / block key / locked door three times and take the tree.
+
+
+WEAPONS ARE NUMBERS
+
+Every weapon carries `properties <weapon=N>`, and that number is the whole combat
+system:
+
+  small gun, pistol, rubberband gun   1
+  sniper rifle                        2      -2 hit points
+  flame thrower                       3      -3
+  hand grenade                        3      -3, then moves itself to <inven>
+  rocket launcher                     4      -4, reusable
+
+The three bosses are `define variable` numerics in the game block -- Kevin 6,
+Kenan 10, Hank 20 -- with an `onchange` that prints the roar of pain, and each
+boss room has an `afterturn` that checks `%X% < 1`, evaporates him and drops the
+next block key.  Overkill is free, so the shortest kills are rocket+flame for
+Kevin (6), rocket+rocket+sniper for Kenan (10), and five rockets for Hank (20).
+Save the grenade: one throw sends it to the `inven` room, which is this game's
+bit-bucket -- dead bosses and spent items all get `move`d there.
+
+Hank's onchange taunt is guarded by `( %Hank% = 15 ) or ( %Hank% = 14 ) or
+( %Hank% = 13 ) and ( %Hank% = 12 )`, which cannot be what the author meant and
+never fires the way he wanted; it is harmless either way.
+
+
+THE CROWD WALL, AND THE ENGINE FIX IT NEEDED
+
+The corner room holds four objects named crowd, big crowd, bigger crowd and
+biggest crowd, each with the same catch-all handler at a different threshold:
+
+    use anything if ( #(quest.use.object.name):weapon# > 2 ) then {
+        msg <You wave the #quest.use.object.name# in the air like a wild ape
+             and the bigger crowd runs in terror!>
+        move <bigger crowd; inven>
+    }
+    else msg <The crowd ignores you completely.>
+
+so the thresholds are >0, >1, >2, >3 and the rocket launcher (4) clears all four
+by itself.  Once the room holds no crowd, its `afterturn` reveals the arch block.
+
+`quest.use.object.name` is the string variable Quest sets to tell a catch-all use
+script which object filled the blank -- ExecUse assigns it in both directions,
+the held item's name for the target's `use anything` and the target's name for
+the item's `use on anything` (V4Game.Part2.cs:5439-5460).  geas set a variable
+called `quest.use.object` instead, which no game ever reads, so every weapon in
+this game read as having no power at all: the crowds ignored a rocket launcher
+and all three bosses were unkillable.  Fixed, and pinned by
+fixtures/usename.asl, which covers both directions.
+
+
+THREE BLOCKS, THREE DOORS, AND ONE OF THEM IS BEHIND YOU
+
+  arch block    (corner room, after the crowds)  ->  small hall, west  -> Kevin
+  cross block   (Kevin evaporates)               ->  small hall, east  -> Kenan
+  wiggly block  (Kenan evaporates)               ->  Kevin's room, south -> the
+                                                     first hall, and Hank
+
+The third keyhole is the one to watch: `block3`, alias "wiggly keyhole", is
+defined inside *Kevin's room*, not in the small hall with the other two, so after
+killing Kenan you walk back west through the room you already cleared to use it.
+The first hall's east door is simply open -- "Since there were only three
+unlocking blocks made, the author left this door wide open to face your doom".
+
+The keyholes are objects rather than door properties, so the syntax is
+USE <block> ON <shape> KEYHOLE.  Say "keyhole" alone at your peril: the arch
+keyhole and the cross keyhole both answer to the alt "keyhole", and so does the
+wiggly one.  The blocks and the keyholes also overlap -- the arch block's alts
+are "arch block" and "arch", and the keyhole object is itself named `arch` -- but
+they are never in the same room together except in the small hall, where "block"
+is unambiguous because the wiggly block and the cross block are still elsewhere.
+
+
+THE HOUSE STYLE
+
+`take all` and `get all` are custom game commands looping `for each object in
+<#quest.currentroom#>`, using a `stay` property to mark scenery and a `take`
+property to mark loot -- the author's intro tells you to use them, and the toy
+room's three containers each reveal their contents with `show` *and* `reveal`
+(the weapons are declared both `hidden` and `invisible`).  So looking at the
+shelf, the chest and the bag and then typing TAKE ALL arms you completely in four
+turns.  The tail of that command, `if got <#quest.thing#> then msg <You've
+already taken every visible item!>`, tests the loop variable after the loop and
+so fires more or less at random; it is cosmetic.
+
+Game-wide interceptions replace OPEN, CLOSE and EAT with jokes ("Nothing in this
+game needs to be opened or closed... Not even the #thing#"), and HINT prints a
+short walkthrough of its own.
+
+The best of the throwaway objects is `Hol bathroom` in the toy room: the entrance
+to the room you started in is a takeable object, and taking it sets
+`flag on <took exit>`, after which the toy room's west exit answers "You can't go
+there anymore, remember?  You wanted to take the entrance."  It cannot be
+dropped.  This script leaves it alone.
+
+The End Room opens with a long fake-out -- you are told you have been sucked into
+another game, given the opening of a different one, and then told "STOP...  I'm
+totally screwing with you now."  TAKE TREE is `playerwin`.
+
+Start:
+e
+look at shelf
+look at chest
+look at bag
+take all
+i
+e
+use rocket launcher on crowd
+use rocket launcher on big crowd
+use rocket launcher on bigger crowd
+use rocket launcher on biggest crowd
+take block
+w
+s
+use block on arch keyhole
+w
+use rocket launcher on christmas kevin
+use flame thrower on christmas kevin
+take cross block
+e
+use cross block on cross keyhole
+e
+use rocket launcher on kwanzaa kenan
+use rocket launcher on kwanzaa kenan
+use sniper rifle on kwanzaa kenan
+take wiggly block
+w
+w
+use wiggly block on wiggly keyhole
+s
+e
+use rocket launcher on hanukkah hank
+use rocket launcher on hanukkah hank
+use rocket launcher on hanukkah hank
+use rocket launcher on hanukkah hank
+use rocket launcher on hanukkah hank
+e
+take tree

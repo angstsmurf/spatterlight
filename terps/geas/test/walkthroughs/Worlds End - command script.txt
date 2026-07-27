@@ -1,0 +1,309 @@
+tester
+speak to statue
+take cat
+east
+teleport
+1
+talk to woman
+Yes
+give cat to woman
+teleport
+west
+north
+speak to gun seller
+1
+1
+south
+use smg on plinth
+take heatville chip
+east
+use heatville chip on device
+teleport
+2
+speak to man
+1
+speak to trader
+1
+teleport
+teleport
+1
+use smg on ice statue
+take diamond
+teleport
+teleport
+2
+give diamond to man
+go to night club
+use smg on drunk alien
+take lighter
+use knife on guitar
+use teleporter
+use smg on alien
+turn on computer
+teleport
+teleport
+2
+go to night club
+give teleporter to bartender
+out
+teleport
+teleport
+1
+look
+examine flag pole
+use axe on pole
+take pole
+teleport
+teleport
+2
+north
+use smg on alien
+1
+use smg on alien
+take ice gem
+south
+teleport
+teleport
+1
+go to ice forest
+use ice gem on bench
+down
+use knife on book
+take key
+up
+out
+teleport
+teleport
+2
+north
+get in spaceship
+use key on cupboard
+take dynamite
+out
+use dynamite on spaceship
+use lighter on dynamite
+south
+look
+look
+look
+look
+look
+look
+north
+examine crop circle
+take sleepville chip
+south
+teleport
+use sleepville chip on device
+teleport
+3
+use screwdriver on bed
+take screw
+teleport
+use awakeville chip on device
+teleport
+4
+speak to man
+1
+open manhole
+down
+north
+west
+use axe on bunk
+take leg
+use leg on chandelier
+use smg on grate
+use smg on water pipe
+west
+use screw on elevator
+use screwdriver on elevator
+use pole on hole
+take flame thrower
+south
+use flame thrower on chest
+take dog
+south
+turn on computers
+bloodbath
+2
+1
+north
+north
+west
+north
+speak to guard
+1
+arctic
+north
+examine crator
+take bloodbath city chip
+use smg on light
+search corpse
+use teleporter on light
+east
+teleport
+4
+give dog to man
+teleport
+west
+north
+speak to gun seller
+2
+1
+south
+east
+use bloodbath city chip on device
+teleport
+5
+search corpse
+open box
+take eye
+use eye on statue
+use laser pistol on trap door
+down
+take vial
+use vial on scientist
+use laser pistol on scientist
+take paper
+down
+use axe on barrels
+take pen
+use pen on paper
+use paper2 on elevator
+go to elevator
+use keypad
+mut
+examine equipment
+take hammer
+use hammer on equipment
+take s
+unzip s
+examine s
+take scart lead
+take parachute
+wear parachute
+use scart lead on socket
+search junk
+open suitcase
+1
+1873
+open suitcase
+take map
+south
+take chips
+get on bus
+1
+use map
+give chips to scientist
+take vial1
+take vial2
+use vial1 on cube
+use vial2 on cube
+use vial1 on cube
+use vial2 on cube
+use vial1 on cube
+use vial2 on cube
+use vial1 on cube
+use vial2 on cube
+use vial1 on cube
+use vial2 on cube
+use vial1 on cube
+use vial2 on cube
+take dumbville chip
+south
+east
+use dumbville chip on device
+teleport
+6
+examine jewelry
+take skull
+teleport
+teleport
+1
+go to ice forest
+north
+go to elevatorroom
+take axe
+take smg
+take laser pistol
+out
+use axe on tree
+search wood pile
+open sack
+take triangle
+take remote
+south
+out
+teleport
+teleport
+6
+use remote on gates
+north
+use triangle on door
+east
+examine pond
+use smg on duck
+take glasses
+west
+south
+teleport
+teleport
+5
+give glasses to woman
+teleport
+teleport
+6
+north
+east
+use triangle2 on bench
+west
+open door
+north
+speak to oracle
+south
+south
+teleport
+use darkness chip on device
+teleport
+7
+north
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord
+use laser pistol on warlord

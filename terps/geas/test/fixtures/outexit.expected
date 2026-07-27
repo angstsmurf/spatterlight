@@ -1,0 +1,35 @@
+
+OutExit
+
+You are in Hall
+You can go out to Porch.
+A hall.
+
+> out
+You are in Porch
+You can go out to Hall.
+You can go north.
+A porch.
+
+> out
+The door has swollen shut.
+
+> pry
+
+> out
+The door has swollen shut.
+
+> north
+You are in Garden
+You can go south.
+A garden.
+
+> out
+There's nowhere you can go out to around here.
+
+> dig
+
+> out
+You are in Cellar
+A cellar.
+[runner] turns=8 leftover=0 running=true

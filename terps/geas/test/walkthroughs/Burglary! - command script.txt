@@ -1,0 +1,277 @@
+Burglary!
+Burglary!.asl, v69.105, ASL 350, "Created with QDK 3.53 - UNREGISTERED VERSION", author "Himself"
+
+You are a burglar in a suburban American house at one in the morning, after one
+specific object the game never names.  Twenty-two rooms (nine of them outdoors
+walking the perimeter), no score, no timers, no randomness.  The whole thing is
+a single crafting chain punctuated by seven instant-loss traps.  106 turns below;
+the run also collects the optional post-it-note ending.
+
+
+THE CHAIN, START TO FINISH
+
+Outside, to get in:
+
+  Garden      TAKE SOMETHING...           -> Trowel
+  Pool        TAKE TOWEL
+  anywhere    USE TOWEL ON TROWEL         -> Toweled Trowel
+  East Side   USE TOWELED TROWEL ON WINDOW 2
+                                          -> `create exit west <East Side; Living Room>`
+
+There are eight windows around the house and each has a `use <Towel>` and a
+`use <Trowel 1>` joke that refuses.  Only two accept the Toweled Trowel, and
+picking the wrong one loses: the West Back window's EXAMINE says "The floor is
+wooden", and breaking it drops glass on that wooden floor and wakes the house.
+East Side Window 2's EXAMINE says "the floor is carpeted and probably pretty
+soft".  That is the whole puzzle -- read every window before you swing.
+
+Inside, in the order the script does it:
+
+  Living Room   DISASSEMBLE PICTURE 1                 -> moves Key here
+  Foyer         EXAMINE CLOSET                        -> moves Coats + Safebox here
+                EXAMINE COATS                         -> moves Wallet here
+                EXAMINE WALLET                        -> gives Drivers License
+                USE SMALL KEY ON SAFEBOX              -> moves Pen-like object here
+  Dining Room   EXAMINE CHINA CABINET                 -> moves Pen here
+  Hall 1st      EXAMINE PAINTING                      -> moves Safe here
+  Kitchen       EXAMINE CABINET                       -> moves Pack of gum here
+  Bathroom (up) EXAMINE TOILET                        -> moves Plunger here
+                SEPARATE PLUNGER                      -> Flange + Handle
+  Porch         USE HANDLE ON DOG                     -> dog pacified; moves the
+                                                         Porch Lamp/Table/Chairs
+                                                         in from `Porch objects`
+                EXAMINE TABLE                         -> moves Batteries here
+                USE BATTERIES ON PEN-LIKE OBJECT      -> Laser
+                CHEW GUM                              -> Gum (chewed)
+                USE GUM (CHEWED) ON FLANGE            -> Sticky Plunger Head
+  Hall 1st      USE GUMMY FLANGE ON SAFE              -> Safe2 ("Safe with Flange")
+                USE LASER ON SAFE WITH FLANGE         -> Safe3 ("Opened Safe")
+                REACH SAFE                            -> Small box
+                OPEN SMALL BOX  + three asks          -> playerwin
+
+Those nouns are the aliases, not the object names, and at ASL 350 nothing shorter
+or longer will do -- Quest matches a word taken from the middle of a name only
+for ASL 391 and up (Disambiguate, V4Game.cs:4762-4772; fixtures/abbrev.asl).  The
+plunger comes apart into `define object <Plunger head>` / `alias <Flange>` and
+`<Plunger handle>` / `alias <Handle>` (Burglary!.asl:507-508, 531-532), and gum
+on the flange makes `<Sticky Plunger Head>` / `alias <Gummy Flange>` (574-575):
+so the walkthrough says HANDLE, FLANGE and GUMMY FLANGE, and PLUNGER HANDLE finds
+nothing.  EXAMINE TABLE on the porch is the same story from the other end --
+`<Porch Table>` is `alias <Table>` (1177-1178), and the Dining Room's own
+`<Table>` (922) answers to exactly the same word one room away.
+
+The flange is the good idea in this game: the laser cuts a disc out of the safe
+door, and without something stuck to the disc it falls inside and wakes the
+house.  USE LASER ON SAFE before fitting the flange asks "Would you like to cut
+a hole into the safe?" and the yes branch is a `playerlose`.
+
+Half of these verbs are not in the HELP list.  DISASSEMBLE, SEPARATE, CHEW,
+REACH and DIVE exist only as `command <verb#object#>` definitions at game level,
+and each one is hinted in an EXAMINE description ("...can be disassembled",
+"...made up of two parts which might be able to be separated", "This gum can be
+chewed", "You can probably dive off this thing").  READ HOUSE NUMBER in the
+Front Door room is the game's one easter egg: 69,105, which is also its version
+number.
+
+
+THE OPTIONAL ENDING
+
+`playerwin` is preceded by `if flag <post it> then msg <Oh... and the family
+will find a note that says "#post it#" in the morning.  Classy!>`, so the win
+text is longer if you leave a note.  To get there:
+
+  Hall 2nd    SOUTHEAST                     -> "The door to the guestroom.  It's
+                                               locked." and moves Guestroom Door
+                                               into the hall
+              USE DRIVERS LICENSE ON GUESTROOM DOOR
+                                            -> `create exit southeast <Hall 2nd; Guestroom>`
+  Guestroom   USE PEN ON POST-IT NOTES      -> `enter <post it>`; the next line
+                                               typed is the message
+
+The other three bedrooms off Hall 2nd are `northwest`/`northeast`/`southwest`
+`msg` exits -- they print a paragraph about a sleeping family member and never
+move you.  Card-shimming a door with a stolen driver's licence is the only use
+the licence has.
+
+
+SEVEN WAYS TO LOSE
+
+None of them are avoidable by accident; all seven are things a curious player
+does on turn one.
+
+  1. SOUTH at the Front Gate -- "chicken out", `playerlose` before the message.
+  2. DIVE at the Pool -- a 10.0 cannonball.
+  3. USE TOWELED TROWEL ON WINDOW (West Back) -- the wooden kitchen floor.
+  4. EXAMINE STEREO, answer yes to "Would you like to turn it on?"
+  5. EXAMINE TV, answer yes to the same.
+  6. USE LASER ON SAFE (no flange), answer yes.
+  7. SPEAK TO SMALL KEY twice.
+
+The last one is the strangest thing in the file, and it is the only place the
+game uses a variable at all:
+
+    define variable <Speak>  type numeric  value <0>
+      onchange if ( Speak = Spoke ) then playerlose
+    define variable <Spoke>  type numeric  value <2>
+
+The Key's `speak` tag does `inc <Speak; 1>`.  Nothing else in the game touches
+either variable, so Spoke stays 2 forever and the second time you talk to the
+small silver key -- and only that one object -- the burglar is caught.  Every
+other object in the house has a `speak` response scolding you for talking out
+loud; exactly one of them counts.  The script speaks to the key once.
+
+
+A SCRIPTING FOOTGUN WORTH RECORDING
+
+geas renders Quest's `ask <...>` as a numbered menu, "1) Yes  2) No", and the
+walkthrough runner reads the answer with `atoi` -- so a No has to be written as
+`2`.  Spelling it "no" parses as 0, which the runner clamps up to option 1, and
+you get Yes.  The first draft of this script answered the stereo prompt with the
+word "no" and lost the game on turn 45.  ("yes" happens to work for the same
+reason, which is why it appears at the end of this script and in every other
+walkthrough in this directory, but "no" never does.)
+
+
+AUTHORING ODDITIES
+
+  * `Object Room` and `Porch objects` are the two staging rooms.  Almost every
+    item in the game starts in one of them and is teleported in by a `move` in
+    some other object's EXAMINE tag, which is why the house looks empty until
+    you start opening things.
+  * The Living Room's first turn is unusual: the `description` block is where
+    the Flashlight is handed over (`if flag <1>`), and it ends by turning flag 1
+    off and flag 2 on so that the `script` block prints the actual room
+    description on every visit after that.  So on the way in you get the
+    flashlight paragraph and the object list, but the room description only
+    appears the second time you enter.
+  * `Outside`, `Inside` and `upstairs` are maintained purely to choose between
+    Map.gif, Map2.gif and Map3.gif for the MAP command.  None of the three
+    images ship with the file.
+  * Three exit/description mismatches: the Pool says the garden is east (the
+    exit is west, with the east exit going to East Back); the upstairs Bathroom
+    says "You can move east into the hall" (the exit is south); and both the
+    Front Gate and the Front Door define one of their exits twice.
+  * The Library bookshelf's EXAMINE is `choose <Bookshelf>`, a ten-item
+    selection of verbatim 2006-era Wikipedia articles (tonsilloliths, boiserie,
+    the Painted Stork, Venus Express...).  It consumes a numbered answer; the
+    script takes choice 2, Boiserie, because both front doors are described as
+    having one.
+  * `Picture 1`'s LOOK sets `property <Picture 1; <Picture1; alias=Beach
+    Picture>>` -- note the misspelled object name inside, so the rename never
+    lands.  The two upstairs pictures do the same thing with the correct name
+    and are renamed to "Persistence of Memory" and "Starry Night" once looked at.
+
+start:
+look
+east
+examine window
+north
+examine window 1
+examine window 2
+examine water spicket
+north
+examine window
+north
+look
+examine towel
+take towel
+examine diving board
+examine picnic set
+west
+look
+examine something...
+take something...
+examine garden globe
+use towel on trowel
+south
+examine window
+south
+examine electric meter
+south
+examine window
+east
+north
+read house number
+examine front door
+north
+south
+east
+north
+use toweled trowel on window 2
+west
+look
+examine picture 1
+disassemble picture 1
+take small key
+speak to small key
+examine picture 2
+examine couch
+examine stereo
+2
+examine tv
+2
+southeast
+examine bookshelf
+2
+look at oriental rug
+west
+examine closet
+examine coats
+examine wallet
+use small key on safebox
+take pen-like object
+west
+examine china cabinet
+take pen
+north
+examine bust
+examine painting
+examine safe
+west
+examine toilet
+east
+east
+examine cabinet
+take pack of gum
+examine refrigerator
+east
+southwest
+up
+look
+examine picture us 1
+southeast
+use drivers license on guestroom door
+north
+examine toilet
+take plunger
+separate plunger
+south
+southeast
+examine bedside table
+examine post-it notes
+use pen on post-it notes
+Thanks for the hospitality.
+look at post-it notes
+northwest
+down
+northeast
+west
+northeast
+use handle on dog
+examine table
+take batteries
+use batteries on pen-like object
+chew gum
+use gum (chewed) on flange
+north
+examine door
+south
+southwest
+west
+use gummy flange on safe
+use laser on safe with flange
+reach safe
+open small box
+yes
+yes
+yes

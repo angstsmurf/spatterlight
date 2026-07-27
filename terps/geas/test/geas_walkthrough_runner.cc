@@ -32,6 +32,9 @@
 
     --echo        Echo the full transcript to stdout (otherwise only a short
                   summary, plus the tail, is printed).
+
+  A script line of "[status]" is not passed to the game: it prints the status
+  pane's current contents (get_status_vars ()) into the transcript instead.
     --seed N      RNG seed (overrides $GEAS_SEED).
     --max-reloads N   Per-turn save-scum reload cap (default 20000).
 
@@ -70,6 +73,13 @@ namespace {
    readfile.cc); trim () strips all isspace, so it also drops CR from CRLF. */
 std::deque<std::string> g_queue;
 
+/* Thrown once the game has asked for input far more often than the script can
+   answer.  A Quest game that validates its input ("How many players?" ... "Try
+   again.") loops until it gets something it likes, and real Quest just blocks on
+   the prompt; headless, an empty queue answers "" forever and the game spins,
+   filling the transcript.  Bail out instead of running until the OS kills us. */
+struct InputExhausted { };
+
 std::string
 dirname_of (const std::string &p)
 {
@@ -82,6 +92,14 @@ class RunnerInterface : public GeasInterface
 public:
   std::string log;            /* full transcript, for marker detection */
   bool echo = false;
+  /* Put text in the transcript from outside the engine, for the runner's own
+     meta-commands (see "[status]"). */
+  void emit (const std::string &s) { print_normal (s); }
+  /* Consecutive answers served from an empty queue; see InputExhausted.  The cap
+     is generous because a game may legitimately keep asking after the script
+     ends (an end-of-game "press any key", a final menu) without looping. */
+  int starved = 0;
+  static const int kMaxStarved = 200;
 
 protected:
   GeasResult print_normal (const std::string &s) override
@@ -102,7 +120,13 @@ protected:
 
   void set_foreground (const std::string &) override { }
   void set_background (const std::string &) override { }
-  void debug_print (const std::string &) override { }
+  /* Silent by default -- the engine's diagnostics would swamp a transcript --
+   * but set GEAS_DEBUG=1 to see them on stderr when chasing a load problem. */
+  void debug_print (const std::string &s) override
+  {
+    if (getenv ("GEAS_DEBUG"))
+      std::cerr << "[geas] " << s << std::endl;
+  }
   GeasResult wait_keypress (const std::string &) override { return r_success; }
   GeasResult pause (int) override { return r_success; }
   /* Inherit GeasInterface::clear_screen (), which emits a blank-line separator
@@ -111,7 +135,12 @@ protected:
   std::string get_string () override
   {
     if (g_queue.empty ())
-      return "";
+      {
+	if (++starved > kMaxStarved)
+	  throw InputExhausted ();
+	return "";
+      }
+    starved = 0;
     std::string s = g_queue.front ();
     g_queue.pop_front ();
     log += "[input] " + s + "\n";
@@ -121,13 +150,29 @@ protected:
   uint make_choice (const std::string &info,
 		    std::vector<std::string> choices) override
   {
-    log += info + "\n";
-    int c = 1;
-    if (!g_queue.empty ())
+    /* Echo the menu, not just log it: a `choose` that prints nothing makes the
+     * turn that triggered it look like a command with no output, and the choice
+     * numbers are what a script has to supply -- the answer is read with atoi,
+     * so "1" and not "left".  Numbering them here is what makes that visible. */
+    emit (info + "\n");
+    for (size_t i = 0; i < choices.size (); i ++)
       {
+	std::ostringstream ss;
+	ss << (i + 1) << ") " << choices[i] << "\n";
+	emit (ss.str ());
+      }
+    int c = 1;
+    if (g_queue.empty ())
+      {
+	if (++starved > kMaxStarved)
+	  throw InputExhausted ();
+      }
+    else
+      {
+	starved = 0;
 	std::string s = g_queue.front ();
 	g_queue.pop_front ();
-	log += "[choice] " + s + "\n";
+	emit ("[choice] " + s + "\n");
 	c = atoi (s.c_str ());
       }
     if (c < 1)
@@ -382,8 +427,16 @@ main (int argc, char **argv)
   gi = new RunnerInterface ();
   gi->echo = opt_echo;
   gr = GeasRunner::get_runner (gi);   /* may consume a leading name/answer */
-  gr->set_game (game);
-  if (!gr->is_running ())
+  bool exhausted = false;
+  try
+    {
+      gr->set_game (game);
+    }
+  catch (const InputExhausted &)
+    {
+      exhausted = true;
+    }
+  if (!exhausted && !gr->is_running ())
     {
       std::cerr << "[runner] game failed to load\n";
       return 3;
@@ -399,10 +452,24 @@ main (int argc, char **argv)
   };
 
   long turns = 0;
-  while (gr->is_running () && !g_queue.empty ())
+  try
+    {
+  while (!exhausted && gr->is_running () && !g_queue.empty ())
     {
       std::string c = g_queue.front ();
       g_queue.pop_front ();
+      /* "[status]" is a runner meta-command, not a game command: it writes what
+	 a frontend would be showing in the status pane into the transcript, so a
+	 fixture can check it.  A real frontend refreshes that pane after every
+	 turn; asking for it explicitly keeps it out of the transcripts that do
+	 not care about it. */
+      if (lcase (c) == "[status]")
+	{
+	  gi->emit ("[status]\n");
+	  for (const std::string &sv : gr->get_status_vars ())
+	    gi->emit (sv + "\n");
+	  continue;
+	}
       if (const Fight *f = find_fight (c))
 	{
 	  run_fight (*f);
@@ -426,6 +493,14 @@ main (int argc, char **argv)
       scummed (c, win_marker, opt_scum);
       turns++;
     }
+    }
+  catch (const InputExhausted &)
+    {
+      exhausted = true;
+    }
+  if (exhausted)
+    std::cerr << "[runner] input exhausted: the game kept asking for input the"
+		 " script cannot answer\n";
 
   bool won = !win_marker.empty () && seen (win_marker);
   std::string tail = gi->log.size () > 1400
@@ -438,7 +513,8 @@ main (int argc, char **argv)
     std::cout << " WON=" << (won ? "YES" : "no");
   std::cout << "\n";
 
-  int rc = win_marker.empty () ? (g_queue.empty () ? 0 : 1) : (won ? 0 : 1);
+  int rc = exhausted ? 1
+	   : win_marker.empty () ? (g_queue.empty () ? 0 : 1) : (won ? 0 : 1);
   delete gr;
   delete gi;
   return rc;

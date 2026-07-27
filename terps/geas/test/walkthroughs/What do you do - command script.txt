@@ -1,0 +1,130 @@
+"What do you do?" (FHA.asl) -- OrenjiJusu, v0.1, ASL 410
+========================================================
+
+A fifteen-minute QDK Lite sketch, and mostly a death trap: of the twelve rooms,
+five kill you on entry and one more kills you if you take any exit at all.  You
+are Jeff, caught in bed with the crime boss's wife; Harry has run off to tell
+Frank; Frank is on his way with a gun; your sister Alice is face-down drunk at
+the bar with the car keys in her handbag.
+
+There are two winning endings.  This script takes the one that actually prints
+something, which is not the obvious one.
+
+    define object <Honda Civic>            (Outside the Pub)
+        use <Car keys> {
+            playerwin
+            msg <You quickly start up the car and speed off, ...|nYou havce won.>
+        }
+
+Steal Alice's keys, USE CAR KEYS ON HONDA CIVIC, and the game is won -- in
+silence.  Note the order: `playerwin` comes first and the message second, and in
+Quest that message never runs.  `ExecuteScript` returns immediately for every
+line once the game has finished (V4Game.Part2.cs:5695-5698, the
+`if (_gameFinished) return;` sitting right after the empty-line check), so
+`playerwin` does not merely end the game, it abandons the rest of the enclosing
+script.  The game declares no `define text <win>` either, so the car ending is
+a completely silent win: the last thing on screen is the description of Outside
+the Pub.  All of the ending text -- including the game's only use of the word
+"won", typo and all -- is unreachable.
+
+The author got the order right in the other ending, six lines further down the
+same file, which is why this script ends with the knife instead.
+
+The keys
+--------
+    define object <Alice's bag>   container  opened
+        take <You find the keys inside the bag and drop the 600lbs of make up...>
+        open <You manage to find the keys inside the bag and pocket them.>
+    define object <Car keys>      parent <Alice's bag>
+        take give <Car keys>
+        drop nowhere <>
+
+Three different authored ways to end up with the keys, and the bag is already
+`opened`, so the simplest -- TAKE CAR KEYS -- works straight away.  `take give
+<Car keys>` prints nothing, which is why the transcript shows no response at all
+to the one command that decides the game; an I is in the script below to make it
+visible.  `drop nowhere <>` means the keys cannot be dropped anywhere.
+
+The ending this script uses
+---------------------------
+Frank is fought in Street with frank, which is west of Street East and which the
+author wired as a point of no return: every one of its ten exits, OUT included,
+leads to a room called Death whose script is `playerlose`.  So you arrive there
+with a weapon or you do not arrive there.
+
+    define object <Knife>                  (in the Bin, Street East)
+        use <Frank> msg <...You have survived.>
+        use on <Frank> {
+            msg <...You have survived.>
+            playerwin
+        }
+
+    "...you manage to catch him off guard and stab him in the gut. he manages to
+     get off a shot into your kneecap... Luckily for you, frank bled out...
+     You have survived."
+
+Message first, `playerwin` second, so the text is printed and the win marker has
+something to match.  Both spellings of the use handler are defined and carry the
+same prose; only the two-argument `use on <Frank>` form has the `playerwin`, so
+USE KNIFE ON FRANK is the phrasing that ends the game -- a bare USE KNIFE with
+Frank present prints the same paragraph and leaves you standing there.
+
+The Pistol from the Alleyway corpse in Street
+west loses instead ("Frank already had his drawn"), and the Machete from behind
+the Titanic Poster in Frank's office has no `use on <Frank>` at all -- only a
+`use on <Harry>`, which reduces him to lumps of meat and is entirely optional.
+Harry can also be killed bare-handed via a `properties <Kill = ...>` /
+`action <Kill>` pair, the only verb definition in the game.
+
+Everything that kills you
+-------------------------
+  * Hamleaf Town Pub ,f  -- north from Outside the Pub.  A second copy of the
+    starting room, `alias <Hamleaf town Pub>`, whose look text is Frank shooting
+    you between the eyes and whose `script` is `playerlose`.  Its south exit
+    points at "Outside the bar", a room that does not exist.
+  * Country road -- east from Street East.  Frank runs you down with the car.
+  * Rip in reality -- the `place <Rip in reality>` object in Street South, and
+    the room behind it.  A velociraptor in a tweed suit and top hat.
+  * Death -- reached from any exit of Street with frank.
+  * Street South itself is survivable; only entering the rip is not.
+
+The bin's look script is `msg <Knife>` followed by the real description, so
+LOOK AT BIN prints a bare line reading "Knife" before it prints anything else --
+the author debugging in public.
+
+The map
+-------
+                Hamleaf Town Pub ,f (death)
+                        |  (north)
+    Frank's office -- Outside the Pub -- Street East -- Country road (death)
+                     /      |       \                        (west back)
+        Street west         |        Street South
+             |              |             |
+        Street with frank --+-------------+      -> all exits: Death
+
+    Hamleaf Town Pub -- east --> The bar -- west --> HTP, after bar -- south -->
+    Outside the Pub
+
+The pub is really three rooms sharing two aliases: the start room, "HTP, after
+bar" (same description plus "You hear shouting coming from up stairs"), and the
+lethal ",f" copy.  Going east then west from the start therefore does not return
+you where you began -- it advances the plot one notch.
+
+The car keys are collected on the way anyway: they are the one command in the
+game that decides an ending, and carrying them past Frank costs nothing.
+
+Start:
+e
+look at alice's bag
+take car keys
+i
+w
+s
+e
+look at bin
+take knife
+i
+west
+look at frank
+speak to frank
+use knife on frank

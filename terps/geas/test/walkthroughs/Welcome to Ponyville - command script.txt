@@ -1,0 +1,513 @@
+"Welcome to Ponyville" (Ponyville.asl) -- Klondikekun, version 0.2, ASL 410
+===========================================================================
+Command script for terps/geas/test/run_walkthroughs.sh.
+
+Verified: 185 turns, leftover 0, no --tick.  The end-of-content marker is
+"You pack up and head out with her", which is the last line the game prints.
+It is NOT a playerwin -- see THE ENDING, below.
+
+
+WHY THIS GAME IS IN THE SUITE
+
+A My Little Pony fan game, and structurally unlike anything else in the corpus:
+it is a dating-sim/stat-builder rather than a puzzle game.  There are no keys, no
+locked doors on the critical path and nothing to carry except one jar of medicine.
+What there is instead:
+
+  * 34 numeric variables, 31 of them with an `onchange msg` -- so every stat and
+    every one of the 21 relationship counters narrates itself ("Your STR is now
+    21!", "Your Relationship with Luna is now 8.").  A wrong `inc` shows up
+    immediately in the transcript, which makes this a good regression for
+    variable arithmetic and for `display` / `display nozero` panes;
+  * `define variable <NewDay>` with `value <1>` and `onchange msg <It's a  new
+    day!>`, driving the whole game: the content ends when NewDay reaches 14, and
+    the only way to move it is to find something worth doing with a day;
+  * 30 `define selection` blocks and 28 `choose` calls, 15 `if ask`;
+  * `create room <...>` twice, for rooms that have no `define room` anywhere in
+    the file (see below);
+  * three `define procedure`s, one of which (`New Day`) is re-entrant in the
+    sense that it can call another procedure that itself does a `goto` and a
+    `clear` before returning;
+  * `property <obj; name>` as both a condition and a statement, with the author
+    using two different spellings of "false" -- only one of which is false.
+
+Only three `playerlose` in 2137 lines, all in one place (a sexual-assault verb
+handler in the Chapter 1 party scene, reachable only by typing it).  Nothing on
+this script's path can kill you, and nothing on it is optional-but-fatal, which
+is unusual enough to be worth having.
+
+
+THE ENDING, AND WHY THERE IS NO playerwin
+
+`define procedure <New Day>` (line 1728) increments NewDay and then checks it:
+
+    if ( %newday% = 13 ) then { ...Rainbow Dash knocks on the window... }
+    if ( %newday% = 14 ) then {
+        wait <>
+        clear
+        msg <Today is the big day. The Wonderbolts are performing today. ...
+             You pack up and head out with her.>
+        stop
+        wait <>
+        msg <|b---...---|nThis ends Chapter 2. ...>
+        playerwin }
+
+The `stop` is where the game really ends.  Quest's ExecuteScript returns
+immediately for every line once the game has finished
+(V4Game.Part2.cs:5695-5698, the `if (_gameFinished) return;` right after the
+empty-line check), and `stop` is FinishGame(StopType.Null)
+(V4Game.Part2.cs:5798-5801), so the three statements after it -- including the
+"This ends Chapter 2" card and the `playerwin` -- never run.  A braced block is
+executed a line at a time by that same function, so sitting inside the same
+{ } as the `stop` buys them nothing.
+
+geas used to run them, which made this look like a winnable game; the guard is
+now in place (fixtures/stopafter.asl, fixtures/winafter.asl) and the last thing
+the game prints is "You pack up and head out with her."  That is the marker this
+script matches on.  It is the author's own end of content -- version 0.2 stops
+at the end of chapter 2 -- and reaching it still requires playing all thirteen
+days correctly, so it is as good a completion test as a playerwin would be.
+
+`New Day` ends with `set numeric <yourhp; 100>`, after the day-14 block.  That
+line is dead too on the last day, which does not matter, but it is the reason
+the battle system heals you between days on every other day.
+
+
+THE DAY LEDGER, WHICH IS THE WHOLE PUZZLE
+
+NewDay starts at 1 and has to reach 14, so `New Day` has to be entered thirteen
+times.  There is no clock: a day passes only when you do something the author
+attached `do <New Day>` to, and there are exactly ten such places in the file.
+Wandering, shopping, talking to the wrong pony and every one of the side quests
+below cost turns and advance nothing.  So the script is a schedule.
+
+    day  1 -> 2   win the Corrupted Tree fight (CH2 TREEFITE)
+    day  2 -> 3   Twilight's ice-cream date in Canterlot
+    day  3 -> 4   Cheerilee's class (create room <Ponyville School>)
+    day  4 -> 5   sort Big Mac's apples
+    day  5 -> 6   applebuck with Applejack
+    day  6 -> 7   assist Rarity  (this New Day also fires `do <Luna Time>`)
+    day  7 -> 8   go to bed early and meet Luna at midnight
+    day  8 -> 9   assist Rarity
+    day  9 -> 10  applebuck with Applejack
+    day 10 -> 11  help Big Mac
+    day 11 -> 12  spend the day in Twilight's library
+    day 12 -> 13  assist Rarity        (Rainbow Dash knocks: NewDay = 13)
+    day 13 -> 14  applebuck with Applejack   -> end of content
+
+Six of those thirteen are one-offs that unlock in a fixed order; the last six are
+repeatable jobs, and the script uses Rarity / Applejack / Big Mac / Twilight in
+rotation only because it reads better than doing the same one six times.  Any
+mix works.
+
+Two traps in the ledger:
+
+  * `define selection <Debug>` -- reachable with the KLONDIKE command, because
+    the game ships with `debug on` -- contains `choice <End of Days> { set
+    numeric <newday; 13> do <New Day> }`.  That is a one-command win and the
+    script deliberately does not use it.  It does open the Debug menu once, to
+    exercise a `command` that is nothing but a `choose`, and picks "Change Race"
+    -> "Earth Pony", which is what the player already is.
+  * the CH2 futon's early-bed branch does its own `inc <newday; 1>` outside
+    `New Day`, so it skips the 13 and 14 checks entirely.  If the futon is the
+    increment that lands on 14, the game simply carries on with no ending.  This
+    script uses it for 7 -> 8, well clear of the end.
+
+
+CHAPTER 1 IS A FLAG CHAIN RUN OUT OF ROOM SCRIPTS
+
+The first 42 turns are a guided tour of the Mane Six with no puzzles at all, but
+they are not skippable and they are not free-form.  Each scene is a `script`
+block on a room that tests a flag, plays, and sets the next flag:
+
+    ch1-celestia -> ch1-celestia2 -> ch1-twilight -> ch1-twilight2 ->
+    ch1-rainbowdash -> ch1-rarity -> ch1-applejack -> ch1-applejack2 ->
+    ch1-bigmac -> ch1-Fluttershy -> ch1-PinkiePieParty
+
+so the tour is driven by *entering rooms in the right order*, and entering the
+right room with the wrong flag set prints nothing.  The route in the script below
+walks the chain; the apparently redundant moves in it (going southeast and back,
+crossing the Town Square three times) are re-entries that trigger the next link.
+
+Chapter 1's exits are `locked` with a refusal message -- `east locked <CH 1 The
+Everfree Forest; Yeah...no. How about you don't go into The Everfree Forest right
+now?>` -- and their Chapter 2 twins drop the `locked` keyword while keeping the
+second argument.  So the same two-argument exit is a wall in chapter 1 and an
+ordinary door in chapter 2, with the message silently unused.  That contrast is
+worth having in the suite: the message must not print when the exit is open.
+
+
+THE CHARACTER CREATION IS LOAD-BEARING
+
+`startscript` asks two questions and this script answers Male and Earth Pony;
+the futon on the first night asks a third (the major) and it answers Athletic.
+That is not cosmetic:
+
+  * STR gains: `if flag <athletic> then inc <str; 3> else inc <str; 1>`, applied
+    at four different points, plus a sex bonus and a race bonus in the futon
+    script.  The script reaches STR 16 before the tree fight.
+  * `define selection <Fighting A Tree>`: Attack does `dec <treehp; %str%>`, so
+    the tree's 100 hp falls in seven rounds at STR 16 while it does a flat
+    `dec <yourhp; 12>` per round from 100.  Anything much weaker faints, which
+    routes you into `define procedure <Fainted>` and costs the fight.
+  * a unicorn would get the two-`dec <treehp; %wis%>` Magic branch instead, and
+    a pegasus a different Rainbow Dash conversation on day 13.  Earth pony gets
+    neither, which is the plainest path.
+  * DEX < 8 when Spike falls out of the tree, so he lands face-first.  That is
+    the version of the scene this transcript shows; it changes nothing else.
+
+The author's own typos are visible here and geas has to survive them: the futon
+script contains `inc <int; 2>`, `inc <int; 5>` and `inc <day; 1>` and there is no
+`int` and no `day` variable in the file (the day counter is `NewDay`).
+
+
+create room, WHICH MAKES A ROOM OUT OF NOTHING
+
+Cheerilee's class and Celestia's dinner both happen in rooms that do not exist:
+
+    create room <Ponyville School>     (line 1035)
+    goto <Ponyville School>
+    ...
+    create room <Royal Dining Room>    (line 1579)
+    goto <Royal Dining Room>
+
+Neither name has a `define room` anywhere in the file.  Quest's ExecuteCreate
+(V4Game.cs:5240-5275) builds a blank room and its shadow object from scratch --
+no alias, no description, no exits, and for ASL >= 410 an empty RoomExits -- so
+the player is standing in a nameless void with no way out except the scripted
+`goto` at the end of the scene.  The transcript shows this: the two scenes print
+their prose with no room banner at all.  An engine that refused the `goto`, or
+that offered an exit, would strand or derail the player.
+
+
+property <obj; name> IS AN EXISTENCE TEST, NOT A VALUE TEST
+
+Quest's `property` condition calls GetObjectProperty with existsOnly set, which
+returns "yes" for any property whose *name* is present regardless of its value
+(V4Game.cs:5991 and 6217-6244).  The author used both idioms and they do not mean
+the same thing:
+
+    properties <not lvl1>       -- Zecora, the Zebra, Cheerilee: really absent,
+                                   so `property <obj; lvl1>` is false, and
+                                   `property <obj; lvl1>` as a statement later
+                                   flips it to true.  These gate one-off scenes.
+    properties <lvl1 = 0>       -- Big Mac, Princess Celestia: present with the
+                                   value 0, so `property <obj; lvl1>` is true
+                                   from the first turn.
+
+Big Mac's handler is `if not flag <ch2-bigmac1> or not property <CH2 Big Mac;
+lvl1>`, and the second half of that test is therefore dead: he takes the
+first-meeting branch until `ch2-bigmac1` is set and the repeat branch forever
+after.  Which is what the author wanted, by accident.
+
+The Everfree Forest's east exit is a script over the same test --
+`if not property <CH 2 Zebra ; lvl1> then goto <CH 2 Strange Hut> else goto <CH 2
+Zecoras Home>` -- so the same compass direction leads to two different rooms
+depending on whether you have met Zecora.  Note the space before the semicolon
+in the object name.
+
+
+THE SIDE QUEST THIS SCRIPT KEEPS
+
+None of it advances a day, and it is in the script because it is the only place
+in the corpus that exercises both spellings of the give idiom on one object:
+
+    speak to pinkie pie          Sugarcube Corner.  Mrs Cake is ill.
+                                 -> flag on <ch2-mrscake>
+    speak to mr. cake            reads that flag back
+    east, east (Everfree)        -> Strange Hut, because the Zebra property is
+                                    still absent
+    speak to mysterious zebra    she walks you home and `property <CH 2 Zebra;
+                                 lvl1>` flips; the forest's east exit now leads
+                                 somewhere else
+    east, east                   -> Zecora's Home
+    speak to zecora              gated on ch2-zecora2 (set by winning the tree
+                                 fight) and ch2-mrscake -> reveal + give the Jar
+    give jar of something to mr. cake
+                                 -> the Jar's `give to <CH 2 Mr. Cake>` handler
+    speak to pinkie pie          now reads the flag that handler set
+
+The Jar defines `give <CH 2 Mr. Cake>` and `give to <CH 2 Mr. Cake>` with
+identical bodies, and `drop nowhere <>`.  The chain also crosses a genuine
+authoring bug that costs nothing: the flag Zecora clears is `ch2-mrcake` and the
+one she was gated on is `ch2-mrscake`, two different names one letter apart, so
+the medicine can be fetched more than once.
+
+
+OTHER THINGS WORTH KNOWING
+
+  * `command <>` at line 53 -- a command with no name at all, emitted by QDK for
+    a field the author left blank.  It must not swallow input.
+  * Princess Celestia's speak handler opens with the same condition twice:
+
+        if flag <ch 2 celestia 1> then
+        if flag <ch 2 celestia 1> then { ... }
+
+    the first line being an `if ... then` whose entire body is the next
+    statement.  The dinner scene is behind both of them.
+
+  * the futon is operated with LOOK AT FUTON.  Its whole script -- the early-bed
+    question, the Luna patrol, the night-time `goto`, the return -- hangs off the
+    `look` action; there is no `sleep on futon` (the game block's default
+    `verb <sleep on>` just says you can't).
+  * `if ask <...>` answers matter in both directions here.  "Work with Applejack
+    today?" No costs you the day; "Accept the Invitation?" No gets you a telling
+    off from a princess and then the dinner anyway; "Is this a date?" changes
+    only Twilight's reply.  Every one of them is answered explicitly in the
+    script, because a missing answer is parsed with atoi and silently becomes 1.
+  * Luna is a three-stage chain spread across `New Day`: `lunaev1-1` (set by
+    delivering the Mysterious Letter to Celestia in Canterlot) is promoted to
+    `lunaev1-2` on the next new day, that to `ch2 meeting luna` on the one after,
+    and only then does `New Day` call `do <Luna Time>`.  So the letter has to be
+    delivered three days before the meeting can happen, and the meeting itself
+    is what sets `ch2_luna`, which is what makes the futon offer the early night.
+    Two of the "wasted" days in the ledger are really waiting for this.
+  * the train to Canterlot costs 10 bits and the check is `if ( %bits% > 10 )` --
+    strictly greater, so 10 bits exactly is not enough.  The script banks Big
+    Mac's and Cheerilee's tips before it needs the second fare.
+  * `Relationship` is a single `msg` interpolating 21 variables in one line; the
+    script runs it once, near the end, as a cheap check that every counter moved.
+  * the Chapter 2 Everfree Forest room script still tests `flag <battle-help
+    spike>`, which the tree-fight victory clears, so re-entering the forest after
+    the fight is quiet.  Entering it before Twilight sends you is what arms it.
+
+
+start:
+2
+1
+north
+2
+speak to front desk pony
+west
+look at futon
+1
+east
+speak to periwinkle
+south
+east
+northeast
+northwest
+north
+speak to princess celestia
+1
+south
+southwest
+southeast
+east
+speak to princess celestia
+2
+east
+northeast
+northwest
+northwest
+1
+1
+2
+southeast
+north
+south
+1
+southeast
+southwest
+southeast
+northwest
+west
+west
+northwest
+west
+3
+west
+east
+northeast
+southeast
+northeast
+1
+2
+southwest
+southwest
+west
+north
+west
+east
+south
+east
+northeast
+northwest
+northwest
+speak to twilight sparkle
+southeast
+southeast
+east
+1
+look at corrupted tree
+2
+speak to corrupted tree
+1
+wait
+1
+wait
+1
+wait
+1
+wait
+1
+wait
+1
+east
+south
+speak to lyra
+east
+northeast
+northwest
+northwest
+speak to twilight sparkle
+1
+1
+2
+east
+south
+west
+speak to cheerilee
+1
+2
+1
+east
+south
+south
+speak to train attendee
+1
+north
+east
+north
+speak to hooded figure
+read letter
+north
+speak to princess celestia
+give letter to princess celestia
+south
+south
+south
+speak to train attendee
+1
+north
+west
+northwest
+west
+look at big mac
+speak to big mac
+2
+east
+south
+west
+northwest
+west
+speak to applejack
+2
+speak to applejack
+1
+east
+south
+east
+southeast
+speak to rarity
+1
+2
+3
+speak to rarity
+1
+east
+south
+east
+northeast
+northwest
+north
+speak to pinkie pie
+speak to mr. cake
+south
+southeast
+east
+east
+speak to mysterious zebra
+east
+east
+speak to zecora
+west
+west
+northwest
+north
+give jar of something to mr. cake
+speak to pinkie pie
+south
+southeast
+southwest
+west
+north
+west
+look at futon
+1
+2
+2
+east
+south
+south
+speak to train attendee
+1
+north
+north
+north
+speak to princess celestia
+1
+2
+1
+3
+south
+south
+south
+speak to train attendee
+1
+north
+east
+southeast
+speak to rarity
+1
+east
+south
+west
+northwest
+west
+speak to applejack
+1
+east
+south
+west
+northwest
+west
+speak to big mac
+1
+east
+south
+east
+northeast
+northwest
+northwest
+speak to twilight sparkle
+1
+east
+south
+east
+southeast
+speak to rarity
+1
+STATUS
+Relationship
+KLONDIKE
+1
+3
+look at calendar
+east
+south
+west
+northwest
+west
+speak to applejack
+1

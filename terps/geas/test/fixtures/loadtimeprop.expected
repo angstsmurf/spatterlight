@@ -1,0 +1,25 @@
+
+LoadTimeProp
+
+You are in Room
+There is bottle of gin, crate and flask here.
+A plain room.
+
+> look at bottle
+There is 30 percent left.
+
+> look at crate
+It holds ! jars.
+
+> probe
+bottle: weight 2, alias bottle of gin
+crate: count 7
+
+> look at flask
+The flask is 30 percent full.
+
+> pour
+
+> look at flask
+The flask is 10 percent full.
+[runner] turns=6 leftover=0 running=true

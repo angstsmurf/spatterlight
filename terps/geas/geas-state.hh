@@ -39,6 +39,13 @@ struct ObjectRecord
 {
   std::string name, parent;
   bool hidden, invisible;
+  /* True for the placeholder record every "define room" gets.  Quest keeps
+     rooms in _rooms and objects in _objs, so a game may name a container room
+     after the object the player sees ("define room <box>" beside "define
+     object <box>"); geas keeps both in one vector, and a lookup by name has to
+     be able to tell them apart.  Not serialized: rooms are the only records
+     built with hidden and invisible both set, so a loaded state derives it. */
+  bool is_room;
   
   //ObjectRecord (std::string in_name, std::string in_parent) : name (in_name), parent (in_parent), hidden (false), concealed (false) {}
 
@@ -55,6 +62,12 @@ struct TimerRecord
   std::string name;
   bool is_running;
   uint interval, timeleft;
+  /* Quest's TimerType.BypassThisTurn: "don't trigger timer during the turn it
+   * was first enabled" (SetTimerState, V4Game.Part2.cs:561-574).  Every
+   * timeron/timeroff raises it, and the next tick spends it instead of
+   * counting.  Not part of the save format -- Quest saves TimerTicks and not
+   * this flag (V4Game.Part2.cs:344) -- so it defaults to false on load. */
+  bool bypass = false;
 };
 
 struct SVarRecord
@@ -132,8 +145,8 @@ struct PropsIndex
  * log every turn: we record only its length and truncate back to it on undo.
  * That keeps per-turn undo cost flat no matter how long the game has run,
  * instead of growing with the property history.  Everything else here is small
- * and bounded (the object list is fixed at load; vars/exits/items grow only
- * slowly), so those are copied normally.  props_index is derived and rebuilt
+ * and bounded (the object list grows only by `clone`; vars/exits/items grow
+ * only slowly), so those are copied normally.  props_index is derived and rebuilt
  * lazily, so it is not stored. */
 struct UndoState
 {
@@ -165,11 +178,11 @@ public:
   std::vector<ObjectRecord> objs;
   /* Index of `objs` by lower-cased object name, for the container/parent chain
    * walks (obj_parent, room_of, container_in_scope) that regen runs per object
-   * per turn.  The object list is fixed at load -- records change fields but
-   * are never added or removed during play -- so the indices stay valid; a
-   * copy or undo-restore starts it invalid (see PropsIndex) and it is rebuilt
-   * on first use.  Duplicate names keep definition order, matching the old
-   * first-match linear scans. */
+   * per turn.  Records change fields but are never removed during play, and the
+   * only thing that appends is `clone` (add_object, which invalidates the
+   * index), so the indices stay valid; a copy or undo-restore starts it invalid
+   * (see PropsIndex) and it is rebuilt on first use.  Duplicate names keep
+   * definition order, matching the old first-match linear scans. */
   mutable PropsIndex objs_index;
   std::vector<ExitRecord> exits;
   std::vector<TimerRecord> timers;
@@ -190,6 +203,9 @@ public:
   /* Append a runtime property/action record (the only way props grows during
    * play), keeping props_index in sync if it is currently built. */
   void add_prop (const std::string &name, const std::string &data);
+  /* Append a world object during play (Quest's `clone`), invalidating
+   * objs_index so the next lookup sees it. */
+  void add_object (const ObjectRecord &o);
   /* (Re)build props_index if it is not valid (e.g. after a copy/load). */
   void ensure_props_index () const;
   /* The props records for `name` (newest last), or nullptr if it has none. */
@@ -197,7 +213,9 @@ public:
 
   /* (Re)build objs_index if it is not valid. */
   void ensure_objs_index () const;
-  /* The objs records named `name` (definition order), or nullptr if none. */
+  /* The objs records named `name`, or nullptr if none: objects and characters
+     first (in definition order), then any like-named room -- see
+     ensure_objs_index and ObjectRecord::is_room. */
   const std::vector<size_t> *obj_records (const std::string &name) const;
 
   /* Capture this state into an undo snapshot (records props by length only),

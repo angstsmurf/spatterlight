@@ -1,0 +1,110 @@
+The Hobbit: Vol I -- Nathan Lindsell (Orcrist Games, 2000), ASL 210
+===================================================================
+
+A retelling of the first third of the book as a corridor of nineteen rooms.
+Every room's description is a slab of narration, every correct move is EAST, and
+every other direction is either scenery or death.  There is no puzzle, no score
+and -- despite the game declaring one -- no win:
+
+    define text <win>
+    You have won the Game! Well done! Email: nplindsell@classicfm.net to be put
+    in THE HOBBIT hall of fame. <Tolkien>
+    end define
+
+Nothing anywhere in the file calls `playerwin`.  The last room, Gollum_escape,
+ends on "Well, Mr. Baggins, you did well. Now we must be on..." and the game
+keeps running with a single exit back to Gollum's cave.  Vol II was never
+written, so that line is the furthest reachable state and it is what this script
+is checked against -- it is not a win.
+
+The route
+---------
+    The Shire -> Dwarves teaparty -> Adventure -> Trollshaws -> Roast Mutton ->
+    Steal Mutton -> Taken Meat -> Cave -> Rivendell -> Misty Mountains ->
+    Shelter -> Prisoners -> Escape_goblins -> Gollum's Cave -> Gollum_escape
+
+Fourteen EASTs, and the only real choice is at Shelter, where SOUTH ("run") and
+EAST ("captured") both land in Escape_goblins.  This script takes the captured
+branch, which is the book's -- Gandalf kills the Goblin Chieftain -- and which
+also has the Goblin Knife lying in it.
+
+Everything that kills you
+-------------------------
+Five rooms exist solely to end the game, each with `script playerlose <>`:
+
+    South              south from Trollshaws, Roast Mutton, Steal Mutton,
+                       Taken Meat or Prisoners.  "You get lost, and can't find
+                       your way."  It also contains a Map whose script is
+                       `take lose <map>` -- a trap that takes your map away in a
+                       room you are already dead in.
+    Escape             north from Roast Mutton, Steal Mutton or Taken Meat.  You
+                       run from the trolls empty-handed and the dwarves abandon
+                       you.  The room has no exits at all.
+    north              north from Rivendell.  A Warg eats you.
+    Gollum eat         south from Gollum's Cave.  You wait instead of putting on
+                       the ring.
+
+So SOUTH is fatal for five rooms running, NORTH is fatal for four, and the two
+fatal norths and the safe norths are never distinguished by the descriptions.
+
+Objects
+-------
+    items <; map; key; pipe; food; orcrist; sting; Dungeon lamp; treasure; mutton>
+
+That is the Quest 2.x item list -- with an empty first entry, which QDK 1.0
+emitted for an empty list and then never cleaned up when items were added -- and
+`collectables <>` is declared empty beside it.  Nothing in the game reads either;
+every object's script is just `take give <itself>`, so picking things up is
+purely cosmetic.  Two of them are `look give` rather than `take give`, meaning
+LOOKING at them is what puts them in your pack: the Dungeon lamp in the troll
+cave, and the Mutton in Steal Mutton.
+
+QDK 1.0 also had no way to move an object between rooms, so the author
+re-declared it instead, and the file ends up with a "ring" defined in three
+consecutive rooms, a "map" in three, a "food" in three and a "Pipe" in two.  Each
+copy is a separate record in its own room, but Quest resolves an object by name to
+whichever was defined first, so TAKE MAP in Rivendell moves the teaparty's map --
+which you are already carrying -- and Rivendell's own map stays on the floor.
+(This is the game that made geas list a room's contents from each record's own
+parent instead of from its name; see test/fixtures/dupnames.asl.  Before that fix
+Escape_goblins reported "There is magic Ring, magic ring and magic ring here.")
+
+Rivendell carries `script give <food>`, so Elrond's hospitality is the one thing
+handed to you rather than taken.
+
+Characters are `define character` blocks with nothing but a gender and a prefix,
+which is why the room lines read "There is wizard Gandalf, dwarf Thorin and
+dwarves 13-dwarve(s) here."  The dwarf count is spelled four different ways
+across the file -- "12-Dwarve(s)", "12-Dwarves", "12-dwarves", "12-dwarfs",
+"13-dwarve(s)" -- each a separate character record, which is how Bilbo's tally
+silently goes from twelve to thirteen once he catches up with them after Gollum.
+Only one of them says anything: the goblins, whose `speak` is "Who are these
+miserable persons?", the same line the Chieftain has already said in prose.
+
+The pickups below are optional to a man; they are in the script because the game
+is otherwise fourteen identical commands.
+
+Start:
+take pipe
+e
+take map
+take key
+e
+e
+e
+e
+e
+e
+take orcrist
+take sting
+take treasure
+e
+e
+e
+e
+take goblin knife
+e
+take ring
+e
+e
+inventory

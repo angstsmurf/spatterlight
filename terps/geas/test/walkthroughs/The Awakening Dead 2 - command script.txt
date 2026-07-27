@@ -1,0 +1,51 @@
+The Awakening Dead 2 (QDK 4.1.5, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "hand Big Joe the can".
+
+Nine rooms around a crossroads, one puzzle chain, one ending: GIVE CAN OF BAKED
+BEANS TO BIG JOE in the Boarded Up House calls playerwin.
+
+The chain is three "use X on Y" scripts, each of which moves the next link out of
+the hidden holding room:
+
+  * USE KNIFE ON LOOTER on Vesterlit Avenue (the knife starts in your car, and
+    has to be taken -- it is not in your inventory) kills him and drops the
+    First Aid Kit there.
+  * USE FIRST AID KIT ON WOUNDED POLICE OFFICER, same room, trades it for his
+    Pistol, which the script also gives you directly.
+  * USE PISTOL ON ZOMBIE at the Gas Station leaves the Can Of Baked Beans the
+    zombie was standing over.
+
+Route: OUT of the car to the Street, NORTH to the Crossroads, then EAST for the
+avenue and WEST-SOUTH for the gas station, and finally NORTH-WEST from the
+crossroads for Big Joe's house.
+
+Worth knowing while reading the transcript:
+
+  * Nothing here is a container and nothing is hidden behind a LOOK AT, so the
+    only sequencing rule is that each "use" needs its object in your inventory:
+    TAKE FIRST AID KIT before using it, and the pistol arrives already held.
+  * SPEAK TO BIG JOE and SPEAK TO THE POLICE OFFICER are what tell you what they
+    want.  They are pure flavour for the runner, so the script skips them.
+  * The Mattress's "action <sleep on>" is empty, and the game's own "verb <sleep
+    on>" answers "You can't sleep on that." -- resting in the house is scenery,
+    not an ending.
+
+Start:
+take knife
+out
+north
+east
+use knife on looter
+take first aid kit
+use first aid kit on wounded police officer
+west
+west
+south
+use pistol on zombie
+take can of baked beans
+north
+east
+north
+west
+give can of baked beans to big joe

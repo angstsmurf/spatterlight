@@ -1,0 +1,32 @@
+
+Visited
+
+You are in hall
+You can go north.
+The hall.
+[hall script: hall visited]
+[hall script: study NOT visited]
+
+> checkhall
+[check: hall visited]
+[check: study NOT visited]
+[check: cellar NOT visited]
+
+> north
+You are in study
+You can go south.
+The study.
+[study script: study visited]
+
+> south
+You are in hall
+You can go north.
+The hall.
+[hall script: hall visited]
+[hall script: study visited]
+
+> checkhall
+[check: hall visited]
+[check: study visited]
+[check: cellar NOT visited]
+[runner] turns=4 leftover=0 running=true

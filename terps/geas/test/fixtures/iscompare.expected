@@ -1,0 +1,28 @@
+
+IsCompare
+
+You are in Room
+A plain room.
+
+> two
+bolt = bolt: yes
+bolt = salt: no
+weight = weight: yes
+weight = freight: no
+bolt = BOLT: yes
+
+> three
+explicit =: yes
+bolt != salt: yes
+bolt != bolt: no
+7 gt 3: yes
+7 lt 3: no
+7 gt= 7: yes
+7 lt= 7: yes
+bolt lt 3: yes
+bad operator: no
+
+> paren
+paren gt=: yes
+paren =: yes
+[runner] turns=3 leftover=0 running=true

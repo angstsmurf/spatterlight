@@ -1,0 +1,24 @@
+
+danglthen
+
+You are in r
+There is shades and cane here.
+
+> take cane
+You pick it up.
+
+> use cane
+try it with the shades on
+
+> wave cane
+waved, shades or not
+
+> take shades
+You pick it up.
+
+> use cane
+strut like Ray Charles
+
+> wave cane
+waved, shades or not
+[runner] turns=6 leftover=0 running=true

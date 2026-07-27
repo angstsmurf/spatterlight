@@ -1,0 +1,41 @@
+Theses of Canada by Linus (QDK Lite 4.03, ASL 400)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Marker: "historians forgot about these folks".
+
+NOT A WIN -- the game has no ending.  All 90 lines of it are five rooms, one
+readable Textbook and three professors (Creighton, Innes, Turner) standing in
+the rooms named after their theses of Canadian history.  There is no score, no
+"playerwin", no flag and no object to carry anywhere; the Room of the Forgotten
+People, reachable from any of the three thesis rooms, is as far as the game
+goes.  So the marker is that room's description, the furthest reachable state,
+and the script's job is to prove every room and every implemented verb still
+works rather than to finish anything.
+
+Worth knowing while reading the transcript:
+
+  * The Classroom lists its three neighbours twice -- once as compass exits and
+    once as "You can go to LR Laurentian Room, SR Staples Room, or FR Frontier
+    Room."  That is not a decompiler artefact: for ASL below 410 Quest reads
+    "place <LR; Laurentian Room>" as prefix "LR" plus destination "Laurentian
+    Room" and prints the prefix ahead of the bolded room name (see the place
+    list built in V4Game.Part2.cs:7790-7818).  The author evidently meant the
+    prefixes as clickable abbreviations.
+  * Professor Donald Creighton has no "look" property, so LOOK AT him gives the
+    defaultexamine message.  Turner and Innes have one.
+  * The game block defines "verb <open>" and "verb <read>" as global fallbacks,
+    which is why READ TEXTBOOK reaches the object's own read property instead of
+    "I don't understand your command".
+
+Start:
+look at textbook
+read textbook
+take textbook
+west
+look at donald creighton
+east
+east
+look at frederick turner
+west
+north
+look at harold innes
+north

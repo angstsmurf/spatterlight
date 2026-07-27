@@ -52,6 +52,8 @@ extern std::string string_geas_block (const GeasBlock &);
 
 extern bool starts_with (const std::string &, const std::string &);
 extern bool ends_with (const std::string &, const std::string &);
+extern bool starts_with_i (const std::string &, const std::string &);
+extern bool ends_with_i (const std::string &, const std::string &);
 
 template <
 typename T,
@@ -74,6 +76,12 @@ extern double eval_double (const std::string &s);
  * with no decimal point ("37", "-5"), otherwise with trailing zeros trimmed
  * ("0.498", "14.8"). */
 extern std::string fmt_double (double d);
+/* Evaluate a string as a complete arithmetic expression, the way Quest's
+ * ExpressionHandler does: true (and the formatted value in RESULT) only if the
+ * whole string is arithmetic and holds an operator, false -- leaving RESULT
+ * untouched -- for a bare number, a non-numeric operand, or a division by zero.
+ * Used for the two sides of an "is" comparison; see eval_is_operand. */
+extern bool eval_numeric_expr (const std::string &s, std::string &result);
 
 extern std::string pcase (std::string s);
 extern std::string ucase (std::string s);

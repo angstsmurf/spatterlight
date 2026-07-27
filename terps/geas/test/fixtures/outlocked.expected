@@ -1,0 +1,37 @@
+
+OutLocked
+
+You are in Cell
+You can go out to Yard.
+You can go north, south or down.
+A cell.  Doors lead out, north, south and down.
+
+> north
+The door does not budge.
+
+> south
+You hear voices behind the door.
+
+> down
+The door does not budge.
+
+> shove
+
+> south
+You slip into the vestry.
+
+> lever
+
+> down
+You climb down into the cellar.
+
+> out
+The guard shakes his head.
+
+> bribe
+
+> out
+You are in Yard
+You can go out to Cell.
+The prison yard.
+[runner] turns=10 leftover=0 running=true

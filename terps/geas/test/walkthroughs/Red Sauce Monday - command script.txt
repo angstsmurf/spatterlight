@@ -1,0 +1,65 @@
+Red Sauce Monday, aka "A day at the redsauce office" (QDK Lite 4.1.2, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "You beat the game".
+
+An in-joke office game with one puzzle: a nine-link chain of fetch-and-give.
+Every character wants what the previous one handed you, and the chain has to be
+walked in exactly this order:
+
+  fridge -> CAN -> Tom -> BANANA -> Amy -> BANANA SKIN -> Chris -> BANJO
+  -> Tim -> MAGAZINE ON TWITTER -> Simon -> CUP OF COFFEE -> Roger
+  -> ANIME DVD -> Selena -> M&MS -> Milton -> CHEEKY POSE -> James
+  -> RUBBER BAND -> crocodile.
+
+Three gates that are easy to miss:
+
+  * SPEAK TO TEAM is what introduces the cast.  Until then the individual
+    characters do not exist, so nothing can be given to anybody.  It also walks
+    you to your desk, hence the SOUTH on the next line.
+  * LOOK AT FRIDGE is what reveals the CAN.  There is no other way to get one.
+  * Opening the front door conceals JAMES, so he is never listed in the room --
+    but he is still reachable by name, and USE CHEEKY POSE ON JAMES is the only
+    thing that produces the RUBBER BAND.  (The game also defines a verb spelled
+    "use cheeky look on james" for this, but it is dead code: "use ... on ..."
+    is a built-in command and parses first, giving "You don't see any cheeky
+    look.")
+
+The football table is a joke - CHALLENGE CHRIS and CHALLENGE TIM can never be
+won, they just bounce you back to the office.  Both are included below anyway,
+along with a SPEAK to every character, because those lines are what the game
+uses to hint the chain and they are worth exercising: the SPEAK responses were
+all being swallowed until the `speak` property lookup was fixed (see
+fixtures/speak.asl).
+
+Start:
+north
+open door
+look at team
+speak to team
+south
+speak to tom
+look at fridge
+take can
+give can to tom
+speak to amy
+give banana to amy
+speak to chris
+give banana skin to chris
+speak to tim
+give banjo to tim
+speak to simon
+give magazine to simon
+speak to roger
+give cup of coffee to roger
+speak to selena
+give anime dvd to selena
+speak to milton
+give m&ms to milton
+speak to james
+use cheeky pose on james
+i
+challenge chris
+challenge tim
+north
+look at crocodile
+use rubber band on crocodile

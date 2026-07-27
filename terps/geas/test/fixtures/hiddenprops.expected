@@ -1,0 +1,42 @@
+
+HiddenProps
+
+You are in bar
+There is viaprops and viatype here.
+The bar.
+
+> props
+bare: hidden
+viaprops: not hidden
+viatype: not hidden
+both: hidden
+
+> look at viaprops
+A properties-line object.
+
+> letout
+
+> props
+bare: not hidden
+viaprops: not hidden
+viatype: not hidden
+both: not hidden
+
+> look
+You are in bar
+There is bare, viaprops, viatype and both here.
+The bar.
+
+> shutin
+
+> props
+bare: not hidden
+viaprops: hidden
+viatype: not hidden
+both: not hidden
+
+> look
+You are in bar
+There is bare, viatype and both here.
+The bar.
+[runner] turns=8 leftover=0 running=true

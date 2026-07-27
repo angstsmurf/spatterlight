@@ -1,0 +1,89 @@
+Where's my cell phone (where's my cell phone.asl, QDK Pro 4.1.1, asl-version 410)
+================================================================================
+
+A five-room scavenger hunt around one house: your phone rings, it is not in your
+pocket, and you have to find it.  It is winnable, in eight moves if you know
+them, and the win is OPEN PEN in the office -- the phone is defined as a child
+of the pen, which is a "container" whose open script is `playerwin`.  Quest
+prints the game's `define text <win>` section on playerwin (FinishGame ->
+DisplayTextSection("win"), V4Game.Part2.cs:7424-7428), which is the
+"Congratulations you found your cell phone and you win!" line after the author's
+own stray "win" prefix in the open message.
+
+This script is the full tour rather than the eight-move path, because almost
+everything in the house is a joke, a red herring or a note from the author, and
+the tour is what the game is actually made of.  Things worth knowing:
+
+  * The two locked doors are both opened by pushing an *invisible* object, not by
+    using a key.  The kitchen's north door is unlocked by PUSH BUTTON (the
+    `button` object's `action <push>` does `unlock <kitchen; north>`) and the
+    bedroom's east door by PUSH SQUARE.  Both objects are `invisible`, so they
+    are never listed and never described -- you are told about them only in the
+    descriptions of the two keys ("...unlocks the bedroom when you push the
+    button on it").
+  * USE BEDROOM KEY does *not* unlock anything, even though it says "you should
+    now be able to unlock the bedroom door".  Its script is
+    `unlock <kitchen; bedroom>` followed by two copies of `unlock <; >`: the
+    second parameter of `unlock` is a direction, and "bedroom" is a room, so
+    nothing matches.  The script keeps the line anyway, immediately followed by
+    the NORTH it does not enable ("The exit is locked.") and then the PUSH BUTTON
+    that does -- that pair is the point of including it.  The office key is the
+    same kind of ornament; PUSH SQUARE is what opens the east door.
+  * Several objects are `invisible` children of furniture and only appear in
+    prose: the cell phone case (in the bed, mentioned by X BED), the drawer and
+    the door in the dresser, the desk drawer, and the email on the computer.
+    They can all be referred to regardless, which is how OPEN CELL PHONE CASE
+    and OPEN DESK DRAWER work with the object never having been listed.
+  * X and LOOK AT are different verbs here.  The author put the real content in
+    `properties <examine = ...>` on the bed, the candy bar, the two keys and the
+    jacket, while `look <...>` holds a plainer description -- so X BED finds the
+    phone case and LOOK AT BED does not.  Likewise READ (notepad, record book,
+    dream game book, email) and DRINK (pepsi) and SIT ON (toilet) are all
+    properties, reached through the `verb <...>` lines in the game block.
+  * Dead ends the script walks into deliberately: the apple is "stuck inside the
+    fridge. Hee hee" and cannot be taken; the candy bar has a pin-hole in the
+    wrapper and belongs in the waste can ("you put it into file number 13"); the
+    cell phone case is empty; the jacket's pockets are empty; and the email
+    offers to mail the author for hints.
+
+Start:
+speak to rosey
+open fridge
+take pepsi
+drink pepsi
+take apple
+open cupboard
+open cereal box
+take bedroom key
+examine bedroom key
+x candy bar
+take candy bar
+put candy bar in waste can
+use bedroom key
+north
+push button
+north
+x bed
+open cell phone case
+open drawer
+open door
+take notepad
+read notepad
+take office key
+push square
+up
+open cardboard box
+take old jacket.
+examine old jacket.
+read dream game book
+down
+west
+sit on toilet
+east
+east
+x computer
+read email
+open desk drawer
+take record book
+read record book
+open pen

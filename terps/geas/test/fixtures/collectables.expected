@@ -1,0 +1,119 @@
+
+Collectables
+
+You are in Vault
+The vault.
+
+> report
+Money 100 Health 90 Debt 5 Ammo 3 Rank 4 Cap 10 Sacks 0 Plain 7
+[status]
+100 Dollars
+You owe 5 dollars
+3 bullets
+Rank 4
+Cap 10
+You have 7 Plain
+
+> test rich
+not over 100
+
+> test poor
+not under 100
+
+> test exact
+exactly 100
+
+> test bare
+bare failed
+
+> test unknown
+unknown failed
+
+> borrow
+
+> phantom
+
+> report
+Money 100 Health 90 Debt 8 Ammo 3 Rank 4 Cap 10 Sacks 0 Plain 7
+
+> lowercase
+
+> report
+Money 100 Health 90 Debt 8 Ammo 3 Rank 4 Cap 10 Sacks 0 Plain 7
+
+> earn
+
+> test rich
+over 100
+
+> spend
+
+> report
+Money 40 Health 90 Debt 8 Ammo 3 Rank 4 Cap 10 Sacks 0 Plain 7
+[status]
+40 Dollars
+You owe 8 dollars
+3 bullets
+Rank 4
+Cap 10
+You have 7 Plain
+
+> overspend
+
+> report
+Money 0 Health 90 Debt 8 Ammo 3 Rank 4 Cap 10 Sacks 0 Plain 7
+
+> heal
+
+> report
+Money 0 Health 100 Debt 8 Ammo 3 Rank 4 Cap 10 Sacks 0 Plain 7
+
+> wound
+
+> report
+Money 0 Health 0 Debt 8 Ammo 3 Rank 4 Cap 10 Sacks 0 Plain 7
+
+> promote
+
+> report
+Money 0 Health 0 Debt 8 Ammo 3 Rank 6 Cap 10 Sacks 0 Plain 7
+
+> demote
+
+> report
+Money 0 Health 0 Debt 8 Ammo 3 Rank 2 Cap 10 Sacks 0 Plain 7
+
+> raise cap
+
+> report
+Money 0 Health 0 Debt 8 Ammo 3 Rank 2 Cap 0 Sacks 0 Plain 7
+
+> fire
+
+> bag
+[status]
+You owe 8 dollars
+1 bullet
+Rank 2
+Cap 0
+2 sacks
+You have 7 Plain
+
+> unbag
+[status]
+You owe 8 dollars
+1 bullet
+Rank 2
+Cap 0
+You have 7 Plain
+
+> earn
+
+> undo
+Undone.
+You are in Vault
+The vault.
+
+> report
+Money 0 Health 0 Debt 8 Ammo 1 Rank 2 Cap 0 Sacks 0 Plain 7
+[runner] turns=33 leftover=0 running=true

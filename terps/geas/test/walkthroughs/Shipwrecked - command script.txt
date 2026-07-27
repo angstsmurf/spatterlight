@@ -1,0 +1,684 @@
+Shipwrecked (by Wonderjudge, version 1.3, QDK Pro 4.1.1, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "You have completed Shipwrecked".
+Needs GEAS_SEED=1: three of the fights below are won with fixed menu answers.
+
+A big, generous treasure hunt across three islands.  You wash up on the west
+shore of island A with nothing; you leave on a repaired sail boat.  In between:
+a pirate sloop to loot, a raft to build, a native village to bribe, a monkey to
+befriend, a jungle tomb to light and rob, a volcanic island to bridge, and a
+nine-piece sliding-tile door guarding a Manbearpig.  The script below is one
+continuous run of 419 turns; the section markers are the only comments.
+
+  1. Island A, the wreck (lines 1-83).  Collect timber, hammer, skull, canteen,
+     coconut, spear.  THROW COCONUT knocks the machete out of the palm - and
+     the coconut stays behind in the Meadow, which is why line 172 walks back
+     for it much later (it is the only thing that will break the bee hive).
+     The machete cuts the vines and the wall of vegetation; the pick axe opens
+     the boulder; the stone rod opens the temple door and, used on the cave
+     drawings, is the hint for the colored-hole puzzle.  The raft is assembled
+     out of the tortoise shell, timber, rope, hooks, oars, crate and chest of
+     gold - and then you must be holding almost nothing, hence the six DROPs:
+     the raft refuses to launch while you are overloaded.
+  2. The pirate sloop (84-141).  MOP + KEY RING gets you out of the brig.  READ
+     BOOK sets the flag that makes you competent with a cutlass - without it
+     every KILL answers "you don't know what you are doing with that cutlass"
+     and the game is unwinnable.  RAISE SHIP'S FLAG drops the cutlass onto the
+     deck.  The drunken pirate, the ship's wheel, the pry bar, the barrel, the
+     parrot (feed it a cracker, then SPEAK to it, then say SKULLDUGGERY to the
+     closet) and the pistol all come from here.
+  3. Island A again (142-271).  The angry villager has to be killed before the
+     village will let you east; the sack of rum buys off the villagers inside.
+     The tall grass hides the box of matches.  The row boat is the ferry back
+     and forth to the sloop.  The monkey follows you once you SPEAK TO MONKEY
+     and stays riding your back for the rest of the game - keep it, the Ruins
+     refuse to let you in while the loose Monkey object still exists, and the
+     iron grate in the west tomb can only be opened by it.
+  4. The colored holes (206-215).  EXAMINE STONE BUILDING reveals them; USE
+     STONE ROD ON COLORED HOLES then asks seven times which hole to press.  The
+     order 5 6 4 1 2 3 7 is the one the cave drawings describe.
+  5. The cannon (247-258).  LOOK IN CANNON is what finds ceramic tile2.  LOAD
+     CANNON twice (gunpowder, then the cannon ball), TAKE LARGE RUBY off the
+     wall, FIRE CANNON to blow the village gate.
+  6. Island B, the volcano (272-295).  Sail across, bridge the lava stream with
+     the pile of timber, quench the hot tile with the bottle of water for
+     ceramic tile5, and pick up the empty jar on the west hill.  Note line 268:
+     the box of matches is deliberately left ashore, because swimming through
+     the long tunnel ruins anything you carry that is not sealed in honey.
+  7. The ant hill and the bee hive (296-339).  Fill the jar at the ant hill,
+     carry the jar of ants to the anteater in the wooded grove, bring the
+     anteater back, and EXAMINE ANT HILL for ceramic tile6 and the sapphire.
+     USE COCONUT ON BEE HIVE then EXAMINE BEE HIVE for the emerald, the small
+     basket and the honey.  The lantern is on the cliff top, which needs the
+     spiked boots from the monkey nest.
+  8. The tomb (340-358 and the tomb block that follows).  This is the fiddliest
+     sequence in the game and it must be done in exactly this order: LIGHT
+     TORCHES at the tomb entrance (needs the matches), go back up, tie the
+     small basket to the rope on the stone dais, PUT LANTERN IN BASKET, LOWER
+     BASKET, and only then descend - the archway blows the lantern out if you
+     carry it, and refuses to let you past unless the lit lantern has already
+     been lowered ahead of you.  The same rule applies leaving the main tomb,
+     which is why the lantern goes back into the basket at the end.
+  9. The three wings.  East: the dead thing must be fought hand to hand (the
+     pistol was already spent on the pirate captain), 14 hit points.  West:
+     EXAMINE IRON GRATE reveals the small opening, and USE MONKEY ON SMALL
+     OPENING is the only way through.  South: all four gems go into the stone
+     door, one at a time.  Each wing holds one ceramic tile.
+ 10. Island B again, and island C.  Collect the five cached tiles at the east
+     shore, fill the jar with honey in the valley, PUT BOX OF MATCHES IN JAR OF
+     HONEY (this is what lets them survive the swim), take the barrel of
+     gunpowder out of the sail boat's hold, sail over, swim the long tunnel,
+     DROP BARREL OF GUNPOWDER on the south hill and LIGHT GUNPOWDER to clear
+     the rubble.
+ 11. The sliding-tile door.  EXAMINE STONE DOOR reveals the indentation; the
+     eight tiles 1,2,3,4,6,7,8,9 go in in any order, tile5 last.  LOOK AT
+     INDENTATION then asks "Do you wish to move the tiles?" and, once you
+     answer yes, repeats a five-way menu (1 up, 2 down, 3 left, 4 right,
+     5 exit) until the picture is right.  The start layout is 6 8 1 / 3 2 4 /
+     9 7 5 with the blank at bottom-left and the goal is 1 4 7 / 2 5 8 / 3 6 9;
+     the twenty moves below solve it.  USE CERAMIC TILE5 ON INDENTATION then
+     grinds the door open.
+ 12. Manbearpig, 50 hit points, the longest fight in the game.  Killing it
+     reveals the main sail and the black pearl and unlocks the door again.
+     USE MAIN SAIL ON RIGGING and SAIL ends the game - and note that the sail
+     has to go on LAST, because while the bare Rigging is still there SAIL is
+     the ferry command that shuttles you between islands.
+
+Deterministic combat.  Every fight is the same two-step loop: `combat` rolls
+$rand(1;5)$ into tt1, asks how you attack, then rolls again and asks how you
+defend.  For the attack, the choice that scores 2 damage is tt1-dependent
+(1->2, 2->3, 3->2, 4->5, 5->4); for the defence, picking the number equal to
+tt1 blocks completely.  Under GEAS_SEED=1 the whole $rand stream is macOS
+libc srand(1)/rand(), so the runs below (11 answers for the drunken pirate,
+11 for the angry villager, 17 for the dead thing, 55 for Manbearpig) take zero
+damage and never miss.  They are position-dependent: every `gain do <invent1>`
+- that is, every treasure or tile you pick up - burns one more $rand, so
+inserting or removing a TAKE anywhere above will desynchronise every fight
+after it.
+
+Inventory.  `invent1` also enforces a limit of 14 carried items, not counting
+the lantern, the spiked boots, the monkey, or anything inside a container you
+are carrying; go over it and the game drops a random object.  That is why the
+script caches the five ceramic tiles and the empty bottle on the east shore
+(297-302) instead of carrying them around.
+
+Engine notes - divergences this game exposed, all now fixed:
+
+  * `list empty` / `list closed` were being dropped by the loader, so
+    `property <crate2; list empty>` was always false and the last piece of the
+    raft could never be added (fixtures/listempty.asl).
+  * `repeat until <cond> <script>` with no `do` keyword was parsed as needing a
+    literal `do` and the whole loop was silently discarded, which left USE
+    STONE ROD ON COLORED HOLES doing nothing at all (fixtures/repeatcond.asl).
+  * A scripted `out { ... }` exit had its de-inlined script text pasted into the
+    room description ("You can go out to do <!intproc242>.") on the sail boat
+    (fixtures/outscript.asl).
+  * A container's `add` action/property was never consulted by `put X in Y`,
+    and `add` was in neither of the loader's reserved-word lists, so PUT LANTERN
+    IN BASKET and PUT BOX OF MATCHES IN JAR OF HONEY both fell through to
+    geas's generic "You put X in Y." and set no flags (fixtures/containeradd.asl).
+  * `got <X>` only looked at the object's immediate parent, so the matches
+    stopped counting as carried once they were inside the jar of honey and
+    LIGHT GUNPOWDER answered "You don't have anything to light it with."  Quest
+    copies the container's ContainerRoom onto whatever is added to it, so it
+    stays "got"; geas now walks the container chain, as its `here` already did.
+
+Two walkthrough footguns worth remembering for other QDK games:
+
+  * This game defines its own `verb <open>`, which bypasses geas's built-in
+    open command and therefore never marks the container "seen" - and an unseen
+    container keeps its contents out of scope.  Hence the LOOK AT STONE
+    SARCOPHAGUS before every OPEN STONE SARCOPHAGUS, and the LOOK AT STONE BOX
+    on line 217.  This is faithful: Quest gates container contents on Seen the
+    same way.
+  * A room exit created at runtime with `place <...>` is entered with GO TO
+    <name>, not with the bare name; hence GO TO STONE BUILDING and GO TO SAIL
+    BOAT rather than STONE BUILDING / SAIL BOAT.
+
+Scoring.  This run finishes on ending1 with 30/400, the "you feel the outcome
+could have been better" ending; all three endings print the same win text.  The
+higher endings want the treasures deposited in the glass case in the sail
+boat's hold (and, for ending3, five different things tea-bagged), which is a
+much longer game than winning it.
+
+Start:
+take pile of timber
+northeast
+examine pile of rocks
+take small hammer
+take skull
+take rusted canteen
+south
+shake tree
+take coconut
+south
+take crude spear
+east
+throw coconut
+take machete
+west
+north
+use machete on vines
+take makeshift rope
+east
+use machete on wall of vegitation
+east
+flip over tortoise shell
+take pick axe
+west
+west
+north
+east
+use pick axe on large boulder
+east
+east
+use rusted canteen on stream
+west
+west
+west
+south
+east
+take stone rod
+use stone rod on stone door
+enter dark opening
+use skull on stone slab
+east
+take crude shovel
+take oars
+west
+up
+west
+north
+east
+east
+use stone rod on cave drawings
+west
+west
+south
+east
+enter dark opening
+south
+take chest of gold
+north
+up
+south
+south
+use crude spear on crate
+take crate
+west
+dig
+take pirate hooks
+east
+north
+northeast
+use pile of timber on tortoise shell
+use makeshift rope on makeshift raft
+use pirate hooks on makeshift raft
+use oars on makeshift raft
+use crate on makeshift raft
+use chest of gold on makeshift raft
+drop small hammer
+drop machete
+drop stone rod
+drop pick axe
+drop crude spear
+drop crude shovel
+i
+sail
+take mop
+examine cell door
+use mop on key ring
+south
+examine cots
+take book
+read book
+down
+take sack of rum
+take silver bar
+up
+up
+raise ship's flag
+take cutlass
+kill drunken pirate
+5
+5
+4
+3
+2
+4
+4
+4
+3
+examine dead pirate
+take iron key
+tea bag dead pirate
+north
+take ship's wheel
+take pry bar
+south
+south
+use iron key on oak door
+use pry bar on barrel
+take cracker
+down
+give cracker to parrot
+speak to parrot
+skullduggery
+examine painting
+take small key
+look at closet
+use small key on closet
+open closet
+take pistol
+take small urn
+take ivory tusk
+up
+north
+enter row boat
+drop mop
+drop book
+drop iron key
+drop small key
+drop small urn
+drop ivory tusk
+drop silver bar
+east
+east
+kill angry villager
+4
+5
+3
+3
+2
+4
+3
+1
+2
+4
+3
+east
+give sack of rum to angry villagers
+take bottle of rum
+drink bottle of rum
+east
+examine patch of tall grass
+take box of matches
+west
+west
+west
+west
+enter row boat
+take small hammer
+take crude spear
+take stone rod
+take crude shovel
+southwest
+take coconut
+north
+west
+north
+east
+east
+east
+use empty bottle on stream
+west
+west
+west
+south
+east
+east
+enter row boat
+east
+move rockslide
+use crude spear on small crack
+take ceramic tile1
+drop crude spear
+east
+south
+speak to monkey
+south
+southwest
+west
+look at monkey nest
+take spiked boots
+wear spiked boots
+take ceramic tile3
+take large diamond
+east
+east
+southeast
+examine stone building
+use stone rod on colored holes
+5
+6
+4
+1
+2
+3
+7
+drop stone rod
+go to stone building
+look at stone box
+open stone box
+take rope
+take ceramic tile41
+out
+south
+south
+use rope on stone dais
+northeast
+north
+east
+east
+south
+east
+use crude shovel on large crate
+use pry bar on large crate
+look at large crate
+take box of nails
+drop pry bar
+north
+north
+use crude shovel on cannon ball
+take cannon ball
+drop crude shovel
+south
+go to sail boat
+use pistol on pirate captain
+drop pistol
+use ship's wheel on wheel stand
+out
+west
+west
+west
+west
+north
+west
+look in cannon
+take ceramic tile2
+load cannon
+load cannon
+take large ruby
+fire cannon
+east
+south
+west
+take pile of timber
+east
+east
+east
+east
+east
+drop box of matches
+go to sail boat
+sail
+out
+east
+down
+south
+use pile of timber on stream of lava
+drop small hammer
+south
+use bottle of water on hot tile
+take ceramic tile5
+north
+southeast
+south
+east
+northwest
+take empty jar
+northeast
+west
+down
+northwest
+north
+up
+west
+go to sail boat
+sail
+out
+take box of matches
+drop empty bottle
+drop ceramic tile1
+drop ceramic tile2
+drop ceramic tile3
+drop ceramic tile4
+drop ceramic tile5
+south
+west
+use empty jar on ant hill
+north
+west
+west
+south
+south
+southwest
+east
+southeast
+south
+southeast
+give jar of ants to anteater
+take anteater
+northwest
+north
+southeast
+north
+east
+east
+south
+drop anteater
+examine ant hill
+take ceramic tile6
+take large sapphire
+north
+west
+north
+use coconut on bee hive
+examine bee hive
+take large emerald
+take small basket
+west
+north
+take lantern
+light lantern
+south
+south
+south
+south
+southwest
+east
+southeast
+south
+down
+light torches
+up
+south
+use small basket on rope
+put lantern in basket
+lower basket
+north
+down
+south
+take lantern
+i
+east
+kill dead thing
+2
+5
+2
+5
+4
+2
+2
+1
+2
+5
+3
+4
+5
+4
+2
+3
+2
+south
+look at stone sarcophagus
+open stone sarcophagus
+take ceramic tile8
+north
+west
+west
+examine iron grate
+use monkey on small opening
+south
+look at stone sarcophagus
+open stone sarcophagus
+take ceramic tile7
+north
+east
+south
+use large ruby on stone door
+use large diamond on stone door
+use large emerald on stone door
+use large sapphire on stone door
+south
+look at stone sarcophagus
+open stone sarcophagus
+take ceramic tile9
+north
+north
+put lantern in basket
+north
+up
+northeast
+north
+north
+east
+use empty jar on honey
+put box of matches in jar of honey
+south
+east
+east
+take ceramic tile1
+take ceramic tile2
+take ceramic tile3
+take ceramic tile4
+take ceramic tile5
+go to sail boat
+down
+take barrel of gunpowder
+up
+sail
+out
+east
+down
+south
+southeast
+south
+east
+southwest
+drop barrel of gunpowder
+light gunpowder
+south
+examine stone door
+use ceramic tile1 on indentation
+use ceramic tile2 on indentation
+use ceramic tile3 on indentation
+use ceramic tile4 on indentation
+use ceramic tile6 on indentation
+use ceramic tile7 on indentation
+use ceramic tile8 on indentation
+use ceramic tile9 on indentation
+look at indentation
+yes
+4
+4
+2
+2
+3
+1
+4
+2
+3
+3
+1
+1
+4
+2
+4
+2
+3
+3
+1
+4
+use ceramic tile5 on indentation
+south
+kill huge monsterous creature
+5
+3
+2
+5
+4
+5
+3
+1
+2
+1
+5
+3
+4
+4
+2
+1
+2
+5
+5
+1
+5
+4
+2
+2
+2
+3
+2
+3
+2
+3
+3
+1
+2
+2
+3
+1
+3
+4
+2
+2
+2
+1
+4
+1
+3
+3
+5
+1
+4
+5
+5
+5
+2
+1
+3
+take main sail
+take black pearl
+north
+north
+northeast
+west
+down
+northwest
+north
+up
+west
+go to sail boat
+use main sail on rigging
+sail

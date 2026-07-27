@@ -1,0 +1,334 @@
+Enterprising in space
+Enter.asl, v1.0, ASL 311, "Created with QDK 3.12", author FireJuggler, 2003
+
+A Star Trek parody in which you are Captain Cork and the entire goal, stated in
+the intro text, is to bed Lt. Youhera; everything else on the ship is a step
+towards that.  Thirteen rooms, no score, no inventory puzzles worth the name.
+It is an adult game and the prose is pornographic; nothing in this file
+reproduces it.  172 turns below, visiting every room, every object and every
+one of the author's joke responses.
+
+
+THE SHAPE OF THE GAME
+
+There are no flags and no variables anywhere in the file.  Every piece of state
+is an object being hidden and another being shown: Youhera is eleven separate
+objects (Youhera, Youhera2 through Youhera11, Youhera13 and Youhera14 -- the
+numbering skips 12), the Ships Mate is three, Nurse Baker is seven, Nurse Foster
+five and Nurse Kelly five.  All the variants of a person share one `alias`, so
+SPEAK TO YOUHERA always addresses whichever one is currently visible, and the
+game is a state machine you advance by talking to people in the right order.
+
+Movement is entirely by `place`: the Turbolift links to all seven decks and the
+rooms link back to it.  Where a room has an `alias` you must type the alias --
+GO TO CREW'S QUARTERS and GO TO YOUHERA'S QUARTERS, with the apostrophe; GO TO
+CREWS QUARTERS is "You can't go there."  The three epilogue rooms created later
+have no alias, so those are GO TO FOSTERS QUARTERS and so on.
+
+
+THE YOUHERA LADDER
+
+  Youhera    -> Youhera2   carry the Dildo.  The Bridge has both a
+                           `beforeturn override` and an `afterturn` doing
+                           `if got <Dildo> then hide <Youhera> / show <Youhera2>`,
+                           so the swap happens the moment you walk in with it.
+  Youhera2   -> Youhera3   SPEAK TO YOUHERA, answer the ask; she takes you to her
+                           quarters.
+  Youhera3   -> Youhera4   USE DILDO ON YOUHERA.  This also reveals Nurse Kelly,
+                           Nurse Baker and Nurse Foster in the Hospital, which is
+                           the only thing that starts the nurse chain.
+  Youhera4   -> Youhera5   SPEAK TO YOUHERA.
+  Youhera5   -> Youhera6   carry the Chocolate (its `gain` script does the swap).
+  Youhera6   -> Youhera7   SPEAK TO YOUHERA, answer the ask.
+  Youhera7   -> Youhera8   GIVE CHOCOLATE TO YOUHERA.  USE CHOCOLATE ON YOUHERA
+                           only tells you to give it to her instead.
+  Youhera8   -> Youhera9   SPEAK TO YOUHERA.
+  Youhera9   -> Youhera10  carry the rope (its `gain` script).
+  Youhera10  -> Youhera11  SPEAK TO YOUHERA; she walks to the Turbolift and you
+                           have to follow her there.
+  Youhera11  -> Youhera13  SPEAK TO YOUHERA in the Turbolift.
+  Youhera13  -> won        USE ROPE ON YOUHERA in the Captain's Quarters.
+
+So the three things that actually gate the game are the Dildo, the Chocolate and
+the rope, and two of the three are gated by `gain` scripts rather than by
+anything you type.
+
+
+WHERE THE THREE OBJECTS COME FROM
+
+The Dildo is the easy one: in Engineering, SPEAK TO SHIPS MATE and say yes to
+"Will you order her to her knees?".  Engineering's `beforeturn override if here
+<Dildo>` then swaps in Ships Mate2 -- it fires while the Dildo is still on the
+floor, i.e. on the very turn you TAKE it, which is why she has already changed
+by the time you look at her again.
+
+The rope is a prop left behind by a hollow-deck glitch.  You need Nurse Kelly's
+program card, which you get by feeding her, which means finishing the nurses.
+
+The Chocolate is at the end of the same nurse chain:
+
+  SPEAK TO NURSE FOSTER          reveals the Regulations Manual -- in the
+                                 Captain's Quarters, a room the game has given
+                                 you no reason to visit yet.
+  TAKE REGULATIONS MANUAL        its `gain` swaps in Nurse Baker2.  This one
+                                 worked even before the engine fix below,
+                                 because the author wrote it as
+                                 `take give <Regulations Manual>` and the give
+                                 statement runs gain scripts correctly.
+  SPEAK TO NURSE BAKER           -> Nurse Foster2
+  SPEAK TO NURSE FOSTER + ask    both nurses go to the Captain's Quarters
+  SPEAK TO NURSE FOSTER + ask    (there) -> Baker4 / Foster4
+  SPEAK TO NURSE FOSTER          -> the combined object "Nurses Foster and Baker"
+  TAKE NURSES FOSTER AND BAKER   -> Nurse Kelly3, and
+                                 `create exit <Crews Quarters; Fosters Quarters>`
+  SPEAK TO NURSE KELLY           (Hospital) -> Nurse Baker5, in the Galley
+  TAKE NURSE BAKER               -> the Sandwitch and Nurse Baker6
+  TAKE SANDWITCH                 its `gain` -> Nurse Kelly4, in the Exam Room
+  TAKE NURSE BAKER               -> the Chocolate, and the Bakers Quarters exit
+  TAKE CHOCOLATE                 its `gain` -> Youhera6
+  GIVE SANDWITCH TO NURSE KELLY  (Exam Room) -> the hollow deck program card,
+                                 and the Kellys Quarters exit
+  USE HOLLOW DECK PROGRAM CARD ON CARD READER   -> the Virtual Dominatrix, and
+                                 the card is consumed and replaced by a
+                                 "Useless card" you keep for the rest of the game
+  TAKE VIRTUAL DOMINATRIX        -> the rope
+
+Note the ordering constraint that is easy to get wrong: the rope's `gain` swaps
+Youhera9 for Youhera10, so it does nothing if you pick the rope up before you
+have talked Youhera up to state 9.  The script below finishes the Chocolate leg
+and the two conversations after it *before* going to the Hollow Deck.
+
+The three "quarters" rooms -- Fosters, Bakers and Kellys -- are pure epilogue.
+They define no exits of their own; the only way back out is the reverse half of
+each `create exit` pair, which the author did remember to write.
+
+
+THE ASK PROMPTS AND THE ENDING
+
+Five `ask` prompts drive the plot, and geas renders each as a two-item selection
+(1) Yes (2) No; the script answers them with the word "yes", which works.
+
+The last one is the win itself.  USE ROPE ON YOUHERA ends with
+
+    if ask <You have won would you like to stop playing?> then playerwin
+
+and then, either way, the author's thank-you note and paypal address, followed by
+`show <Youhera14>`.  Saying yes prints `define text <win>` and stops.  Saying no
+leaves you in the Captain's Quarters with Youhera14, a repeatable epilogue scene
+-- and no second chance at the win, because Youhera13 has already been hidden.
+The script says yes.  `define text <lose>` is empty and there is no `playerlose`
+anywhere: you cannot lose this game, only fail to finish it.
+
+
+ONE ENGINE FIX CAME OUT OF THIS GAME
+
+Pinned by the new `gainscript` fixture.
+
+An object's `gain` script must run when the object is taken.  Quest's ExecTake,
+for a bare `take` or a `take <message>`, prints the message and then calls
+PlayerItem(item, true), which moves the object to the inventory and runs its
+GainScript (V4Game.Part2.cs:5205-5215 and 6631-6634).  geas dispatched that
+through the two-argument `run_script` overload, whose signature is
+(script, &return_value) -- so it ran the object's *name* as a script line and
+dropped the gain script into the return value, silently.  Only a scripted take
+that hands the object over with `give <self>` still worked, because the give
+statement has its own correct implementation, and that is exactly the form the
+Regulations Manual uses, which is why the game looked healthy for its first
+forty turns.  The Sandwitch, the Chocolate and the rope are all bare takes, and
+all three gate the rest of the game: without the fix the Exam Room is empty,
+Youhera never leaves state 5, and the game is unwinnable.
+
+
+ODDS AND ENDS
+
+  * Every inanimate object has a joke `speak` response -- the Dildo, the
+    Sandwitch, the Chocolate, the rope, both cards, the Regulations Manual.  The
+    script talks to all of them.
+  * Dr. Boner is dead in an insta-freeze chamber and Solo and Checkup are busy
+    with each other; the author's stated reason for both is that it removes them
+    as competition.
+  * Nurse Kelly3's look, take, speak and examine tags each carry a stray
+    `hide <Nurse Baker2>`, as does the Sandwitch's gain -- the author cleaning up
+    after a state he had already left.
+  * The Ships Mate, both nurses and Kelly all have repeatable final states, so
+    the game has more content after the win than before it.
+
+start:
+look at youhera
+speak to youhera
+examine youhera
+look at spork
+speak to spork
+examine spork
+look at boner
+speak to boner
+examine boner
+look at solo and checkup
+speak to solo and checkup
+examine solo and checkup
+go to turbolift
+go to engineering
+look at ships mate
+examine ships mate
+speak to ships mate
+yes
+take dildo
+look at dildo
+examine dildo
+speak to dildo
+use dildo on ships mate
+take ships mate
+look at ships mate
+speak to ships mate
+examine ships mate
+take ships mate
+go to turbolift
+go to bridge
+use dildo on spork
+use dildo on boner
+use dildo on youhera
+look at youhera
+examine youhera
+speak to youhera
+yes
+look at youhera
+examine youhera
+use dildo on youhera
+speak to youhera
+go to crew's quarters
+go to turbolift
+go to hospital
+look at nurse kelly
+speak to nurse kelly
+examine nurse kelly
+look at nurse baker
+speak to nurse baker
+examine nurse baker
+look at nurse foster
+speak to nurse foster
+examine nurse foster
+go to turbolift
+go to captains quarters
+look at regulations manual
+examine regulations manual
+speak to regulations manual
+take regulations manual
+go to turbolift
+go to hospital
+speak to nurse baker
+speak to nurse foster
+yes
+look at nurse baker
+speak to nurse baker
+examine nurse baker
+look at nurse foster
+speak to nurse foster
+yes
+look at nurse baker
+speak to nurse baker
+examine nurse baker
+look at nurse foster
+examine nurse foster
+speak to nurse foster
+look at nurses foster and baker
+examine nurses foster and baker
+speak to nurses foster and baker
+take nurses foster and baker
+go to turbolift
+go to hospital
+speak to nurse kelly
+examine nurse kelly
+go to turbolift
+go to galley
+look at nurse baker
+speak to nurse baker
+examine nurse baker
+take nurse baker
+take sandwitch
+look at sandwitch
+examine sandwitch
+speak to sandwitch
+speak to nurse baker
+take nurse baker
+take chocolate
+look at chocolate
+examine chocolate
+speak to chocolate
+go to turbolift
+go to hospital
+go to exam room
+look at nurse kelly
+examine nurse kelly
+speak to nurse kelly
+give sandwitch to nurse kelly
+take hollow deck program card
+look at hollow deck program card
+examine hollow deck program card
+speak to hollow deck program card
+go to hospital
+go to turbolift
+go to bridge
+look at youhera
+examine youhera
+speak to youhera
+yes
+look at youhera
+examine youhera
+speak to youhera
+give chocolate to youhera
+look at youhera
+take youhera
+speak to youhera
+go to crew's quarters
+go to fosters quarters
+look at nurse foster
+speak to nurse foster
+examine nurse foster
+take nurse foster
+go to crew's quarters
+go to bakers quarters
+look at nurse baker
+speak to nurse baker
+examine nurse baker
+take nurse baker
+go to crew's quarters
+go to kellys quarters
+look at nurse kelly
+speak to nurse kelly
+examine nurse kelly
+take nurse kelly
+go to crew's quarters
+go to turbolift
+go to hollow deck
+look at card reader
+examine card reader
+speak to card reader
+use hollow deck program card on card reader
+look at useless card
+examine useless card
+speak to useless card
+look at virtual dominatrix
+examine virtual dominatrix
+speak to virtual dominatrix
+take virtual dominatrix
+look at rope
+examine rope
+speak to rope
+take rope
+go to turbolift
+go to bridge
+look at youhera
+examine youhera
+speak to youhera
+go to turbolift
+look at youhera
+examine youhera
+take youhera
+speak to youhera
+go to captains quarters
+look at youhera
+examine youhera
+speak to youhera
+give rope to youhera
+use rope on youhera
+yes

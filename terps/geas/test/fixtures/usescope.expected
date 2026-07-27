@@ -1,0 +1,34 @@
+
+Usescope
+
+You are in Bar
+There is Jim-n-Ginger, Jim-n-Ginger, Jim-n-Ginger, napkin, napkin, hex circle and wallet here.
+The bar. Drinks everywhere.
+
+> use jim-n-ginger on hex circle
+You don't have that.
+
+> take my drink
+You pick it up.
+
+> take my napkin
+You pick it up.
+
+> take wallet
+You pick it up.
+
+> inventory
+You are carrying:
+Jim-n-Ginger
+napkin
+wallet
+
+> use jim-n-ginger on hex circle
+You tip your Jim-n-Ginger over the hex circle.
+
+> use jim-n-ginger on napkin
+You mop the bar with the bar's own napkin.
+
+> use jim-n-ginger on wallet
+You wipe the drink poured for you on your wallet.
+[runner] turns=8 leftover=0 running=true

@@ -1,0 +1,629 @@
+Blight of Elantria -- command script
+==========================================
+
+"Blight of Elantria" v3, by Craig Dutton, (c) 2011, ASL 410, "Created with
+QDK 4.1.5".  Shipped as a compiled Blight of Elantria.cas; read the source with
+    perl terps/geas/uncas.pl "Blight of Elantria.cas" blight.asl
+which yields 2941 lines.  At 80 rooms it is the largest map in this suite, and a
+completely straight-faced high-fantasy treasure hunt: a demon named Xanthos
+(spelt "Xanthus" in the intro text and "Xanthos" everywhere else) is raising an
+undead army in the Southern Peaks, and the only thing that can stop him is the
+Pandemonica, a demonic tome he keeps in his own dungeon.
+
+This script wins the game outright in 401 turns.  Marker:
+    "Elantria is in your debt forever"
+Run it without --tick (see THE BELL below) and under the harness's GEAS_SEED=1
+(see THE SCROLL below -- the answer to one puzzle is drawn from the RNG).
+
+
+WHY THIS GAME IS WORTH KEEPING
+------------------------------
+It found a real engine divergence, and it is the only game in the suite whose
+critical path depends on the exact turn a room's `afterturn` hook fires.
+
+Quest reads the current room's index *once*, at the top of ExecCommand
+(V4Game.Part2.cs:4116, `var roomID = GetRoomID(_currentRoom, ctx)`), and reuses
+that one index for both the beforeturn hook (4177-4188) and the afterturn hook
+(4567-4581).  Nothing recomputes it after the command has been dispatched, so
+the afterturn that runs at the end of a turn always belongs to the room the
+player was standing in when the turn *started*.  Walk into a room and its own
+afterturn stays quiet until the following turn.  geas used to look the block up
+from the post-command location instead, which fired the new room's afterturn on
+arrival.  Fixed in geas-runner.cc (run_command now snapshots
+turn_start_location); pinned by fixtures/afterturnroom.asl.
+
+The Ice Queen's throne room is built on that one turn of grace:
+
+    define room <throne room>
+        south <crystal chamber>
+        afterturn {
+            if not flag <icequeendead> then { msg <...she kills you...> playerlose stop }
+        }
+
+and the Queen herself stands in that room, so `use warhammer on ice queen` has
+to be typed *inside* it.  With Quest's timing you get exactly one turn: the turn
+you walk north still belongs to the crystal chamber, and the turn you swing the
+warhammer sets `icequeendead` before the throne room's afterturn tests it.  Fire
+the new room's afterturn on arrival instead and the Queen kills you as you step
+through the door, the ice key never drops, the Pandemonica's chest keeps one of
+its two locks, and the game is unwinnable.  The transcript shows the intended
+shape working: entering prints the room description, and it is the *next* turn
+that would have killed you.
+
+Beyond that it is a good exercise in bulk: 80 rooms, ~120 objects, nine keys of
+six different metals, thirty-odd `use <a> on <b>` handlers, `create exit` in
+three different syntaxes, two container-scope quirks, an RNG-derived password, a
+follower NPC driven from a game-level `afterturn`, and eight ways to die.
+
+
+THE SCROLL (why this walkthrough is seed-locked)
+-----------------------------------------------
+`startscript` ends with
+
+    set numeric <scrollnumber; $rand(1; 10000)$>
+
+and the tower of knowledge holds "1000's" of scrolls:
+
+    take { msg <Which scroll from 1 to 10,000?>  enter <scrollnum>  ... }
+
+Only the one numbered %scrollnumber% is the scroll of translation, and the
+translation spell is mandatory -- `use scroll on pandemonica` sets
+`tometranslated`, without which `use pandemonica on blue fire` refuses and the
+Orb of Blood never appears.  The number is legitimately discoverable in-game:
+`turn mirror` in the tower of light aims the Mirror of Enlightenment at the ball
+of energy overhead, and `look at mirror` then reads it out.  This script does
+both (the transcript prints "The mirror's reflection shows you the number:
+6808.") and then answers 6808, because the `enter` prompt needs a literal.  That
+6808 is the first and only value the RNG is asked for in the whole game, so it
+is a pure function of the seed: under a different seed the mirror will report a
+different number and the line after `take scrolls` must be changed to match.
+`enter` consumes the following script line without spending a turn, which is why
+the turn count is 401 for 402 script lines.
+
+
+THE BELL (why this walkthrough runs without --tick)
+---------------------------------------------------
+Smashing the black sphere in the echo chamber is fatal unless you are deaf:
+
+    use on <sphere> { if not flag <skullfound> and flag <deaf> then {...show <skull>...}
+                      else { msg <...your ears start to bleed and you fall down dead.> playerlose stop } }
+
+You go deaf by ringing the belfry bell, which also starts
+
+    define timer <bell>  interval <60>  action { flag off <deaf> ... }
+
+-- sixty seconds of *real* time, not sixty turns.  The belfry is in the
+graveyard in the northern forest; the echo chamber is inside Xanthos' cave
+system past the grassy plain, roughly thirty rooms and (in this route) two
+hundred turns away, and the warhammer you need to smash the sphere with is in
+the ice palace, further still.  There is no plausible way to make that trip in a
+minute, so as written the puzzle is only solvable because the harness does not
+advance real-time timers unless --tick is passed.  Left as-is deliberately: the
+walkthrough exercises the ring/deaf/smash chain, and adding --tick would turn a
+sloppy timer into a hard block.
+
+
+TWO CONTAINERS THAT HIDE THEIR CONTENTS
+---------------------------------------
+Three of the game's payoffs sit inside containers that the player has to open
+by hand even though nothing in the prose says they are shut, because the author
+declared the container `opened` (or opened it from a script) but left the child
+objects out of scope until an explicit open:
+
+  * the secret recess in the temple, revealed by `use salt on bowl`, holds the
+    bronze key and the ruby -- `open recess` first;
+  * the sarcophagus in the crypt, which `use shovel on sarcophagus` already
+    calls `open <sarcophagus>` on, holds a `hidden` corpse -- `look in
+    sarcophagus` first, then `look at corpse` drops the gold key;
+  * the hollow in the restored oak in forest3, revealed by `look at oak`, holds
+    Prince Einhart's crown -- `open hollow` first.
+
+Without those three extra commands `take bronze key`, `look at corpse` and
+`take crown` all answer "You don't see any ...".
+
+
+THE SHOVEL, WHICH MUST BE BROKEN AND MENDED IN THE RIGHT ORDER
+--------------------------------------------------------------
+The shovel from the wizard's flowerbed has four `use on` handlers and a
+life-cycle:
+
+    use on <grave>        needs `not flag <shovelbroken>`  -> digs up the coffin
+    use on <avalanche1>   needs `not flag <shovelbroken>`  -> digs up the Goblin
+    use on <sarcophagus>  if `not flag <shovelfixed>` it BREAKS the shovel;
+                          otherwise it levers the lid off
+    use on <sap>          mends it (`shovelfixed` on, `shovelbroken` off)
+
+So the sarcophagus can only be opened by a shovel that has already been broken
+on it once and then mended, and the mending has to happen in forest2 -- the sap
+from the yadda tree has no `take`, so it can never leave the room where the
+knife cut it.  This script therefore digs the grave first (while the shovel is
+whole), snaps the shovel on the sarcophagus, walks two rooms to forest2 to glue
+it, walks back to lever the lid, and only much later digs out the Goblin.  The
+same trip to the sap also mends the boathouse oar, which is the only way to
+reach the island.
+
+
+ONE APPLE, TWO TAKERS
+---------------------
+The barrel in the cellar holds exactly one apple, and two characters want it.
+`give apple to horse` just eats it ("The horse take it and munches it up"), while
+`give apple to ogre` buys the pickaxe -- and the pickaxe is the only thing that
+clears the fallen rocks, which is the only way to the Ice Dragon's lair, which
+is the only source of the gemstone of light, which is the only thing that kills
+the Krahl Crones and drops the fire key, which is one of the Pandemonica chest's
+two locks.  Feeding the horse quietly ends the game.  (`eat apple` does the same
+damage.)
+
+The horse is wanted for something else entirely, and takes two rides.  In the
+stables `ride horse` moves it to forest1 and bumps `horseride` to 1; riding it
+again in forest1 makes it rear into the trees and dislodge a Zuzu bird's egg,
+which Malbus trades for the amulet.  The two branches are tested in the wrong
+order in the source (`if is <%horseride%;1>` comes first, then a redundantly
+nested `if is <%horseride%;0>`), which is harmless but explains why the first
+ride does not also produce the egg.
+
+
+THE KRAHL CRONES WILL EAT YOU FOR THE WRONG PRESENT
+---------------------------------------------------
+    give anything { msg <'Wrong, my dear...'  The witches grab you and eat you alive!> playerlose stop }
+
+Only three gifts are safe -- the dead mouse from the belfry rafters, the severed
+hand cut off the avalanche Goblin, and the skull from inside the black sphere --
+and all three are needed: `makepotion` has to reach 3 before the cavern's
+afterturn (`if here <Krahl Crones> then do <potioncreated>`) will brew the Potion
+of Decay.  The witches also have to be alive to brew it, so the gemstone of
+light that obliterates them and drops the fire key must be used *after* the
+potion is in hand.  Malbus then turns the Potion of Decay into the Potion of
+Life, which revives the dead oak in forest3.
+
+
+SMALL THINGS
+------------
+  * `create exit <great hall; secret room>`, fired by turning the wheel behind
+    the banquet-hall tapestry, is the two-parameter form: a *place* exit, not a
+    directional one.  The great hall then reports "You can go to secret room."
+    and the command is `go to secret room` -- no compass direction reaches it.
+    The other two are ordinary: `create exit north <fallen rocks; lair>` and
+    `create exit west <hall of mists; lava river 1>`.
+  * The stone head's combination is written on the sign in the oak-panelled
+    room: 'PUSH LEFT, PUSH BOTTOM, PUSH MIDDLE, PUSH RIGHT.'  Bottom is the
+    mouth and middle is the nose, so the order is left eye, mouth, nose, right
+    eye, stepping `headcomb` 0->4; any push out of sequence resets it to 0.  Say
+    "left eye" and "right eye" in full -- both objects carry `alt <... eye>`.
+  * The Trapper needs two conversations and a shield.  His first reply is fixed
+    until you have actually seen a dragon, and the flag for that is set by the
+    lair's room entry `script`, so you must walk into the lair once (which is
+    survivable) and then go back to the log cabin.  His second reply sets
+    `trapperfollows`, and the game-level `afterturn if flag <trapperfollows>
+    then move <Trapper; #quest.currentroom#>` walks him along behind you.  Once
+    he is holding the shield the lair's `south` exit kills you both instead of
+    letting you leave, and only firing the golden arrow clears the flag again --
+    so `give shield to trapper` and `use arrow on ice dragon` have to be
+    consecutive.
+  * `use pandemonica on fire` raises a disambiguation menu, because by then you
+    are also carrying the fire key.  Say `use pandemonica on blue fire`.
+  * The lamp is the only way home.  The ice bridge melts behind you as you cross
+    ("it crashes and melts into the lava river"), and the far bank's only exit
+    leads deeper in, to Xanthos' sanctum.  `rub lamp` beside the lava river once
+    Xanthos has been destroyed teleports you back to Malbus, where `speak to
+    malbus` is the game's single `playerwin`.  Take the lamp with `steal lamp`:
+    plain `take lamp` is refused while Malbus is watching ("That lamp is
+    useless, don't bother with it").
+  * The gemstone's handler ends with `show <cauldron>`, and no object called
+    "cauldron" is defined anywhere in the 2941 lines -- a dangling `show` that
+    Quest and geas both ignore.
+  * Eight ways to die: firing the arrow at the Ice Dragon without the Trapper
+    holding the shield (two separate branches), leaving the lair while he holds
+    it, smashing the sphere while you can still hear, entering or lingering in
+    the throne room while the Queen lives, speaking to her, offering her
+    anything, looking at the webs in the cavern of webs, and offering the Krahl
+    Crones anything but their three dead things.
+  * `use <a> on <b>` in real Quest requires b to be in the room or in your
+    inventory (`Disambiguate(useOn, _currentRoom)` then `Disambiguate(useOn,
+    "inventory")`, V4Game.Part2.cs:5380-5403, else PlayerError.BadThing); geas
+    does not check.  Every `use ... on ...` below is typed in the room that holds
+    the target, so the script is faithful to the real interpreter too.
+
+start:
+north
+north
+east
+lift tapestry
+turn wheel
+east
+open cupboard
+take salt
+down
+open barrel
+take apple
+up
+west
+west
+west
+open telescope
+take lens
+northwest
+lift painting
+take disc
+southeast
+east
+up
+give lens to count balthor
+take shield
+down
+southwest
+ride horse
+out
+south
+south
+east
+ride horse
+take egg
+east
+south
+use salt on bowl
+open recess
+take bronze key
+take ruby
+out
+west
+west
+south
+southeast
+southeast
+south
+south
+east
+take knife
+west
+north
+southwest
+look at pocket
+take snuffbox
+west
+use knife on sack
+take copper key
+out
+northeast
+north
+northwest
+northwest
+use knife on yadda tree
+southwest
+cross bridge
+north
+take oar
+out
+south
+enter waterfall
+use disc on indent
+take iron key
+out
+southeast
+look at flowerbed
+take shovel
+south
+give egg to malbus
+take amulet
+use ruby on amulet
+steal lamp
+out
+northwest
+north
+cross bridge
+northeast
+use oar on sap
+southeast
+south
+use iron key on gate
+open gate
+use shovel on grave
+open coffin
+pull skeleton
+take bone
+west
+use copper key on casket
+open casket
+take crucifix
+up
+scare bats
+take mouse
+ring bell
+down
+out
+down
+use shovel on sarcophagus
+up
+north
+northwest
+use shovel on sap
+southeast
+south
+down
+use shovel on sarcophagus
+look in sarcophagus
+look at corpse
+take gold key
+up
+north
+northwest
+north
+west
+use gold key on tower door
+open tower door
+west
+up
+take puzzlebox
+up
+throw puzzlebox
+down
+down
+out
+take ring
+east
+south
+southeast
+southeast
+use oar on boat
+use bronze key on grating
+open grating
+down
+use crucifix on ghoul
+take blue crystal
+up
+use oar on boat2
+south
+give ring to elf
+take bow
+take arrow
+southwest
+south
+use crucifix on farmer
+take red crystal
+out
+northeast
+south
+south
+southwest
+west
+southwest
+south
+give apple to ogre
+take pickaxe
+north
+northwest
+rub amulet
+cross cloud bridge
+west
+west
+southwest
+west
+up
+read sign
+down
+east
+south
+push left eye
+push mouth
+push nose
+push right eye
+take emerald
+north
+northeast
+east
+east
+cross cloud bridge
+southeast
+northeast
+out
+northeast
+southeast
+southwest
+use shovel on avalanche
+use knife on goblin
+take hand
+northeast
+south
+east
+north
+use pickaxe on rocks
+north
+south
+south
+west
+south
+speak to trapper
+out
+east
+north
+north
+give shield to trapper
+use arrow on ice dragon
+take gemstone
+south
+south
+southeast
+give bone to wolf
+east
+south
+turn mirror
+look at mirror
+north
+east
+use blue crystal on monolith
+use red crystal on monolith
+east
+take scrolls
+6808
+take scroll
+west
+west
+northwest
+take sheet music
+southeast
+west
+northwest
+west
+north
+northwest
+north
+north
+north
+northwest
+northwest
+north
+north
+north
+north
+go to secret room
+use emerald on clock
+take green crystal
+out
+south
+south
+south
+south
+southwest
+cross bridge
+south
+southeast
+south
+give sheet music to malbus
+out
+northwest
+north
+cross bridge
+northeast
+southeast
+southeast
+south
+south
+south
+southeast
+south
+east
+southeast
+east
+northwest
+play organ
+rub lamp
+take wand
+southeast
+east
+use green crystal on monolith
+take warhammer
+north
+use warhammer on ice queen
+take ice key
+south
+west
+west
+northwest
+west
+north
+northwest
+southwest
+west
+north
+use warhammer on sphere
+take skull
+south
+southwest
+northwest
+cross cloud bridge
+west
+west
+southwest
+west
+up
+north
+give mouse to krahl crones
+give hand to krahl crones
+give skull to krahl crones
+take potion
+use gemstone on krahl crones
+take fire key
+south
+south
+use ice key on chest
+use fire key on chest
+open chest
+take pandemonica
+use scroll on pandemonica
+read pandemonica
+north
+down
+east
+northeast
+east
+east
+cross cloud bridge
+southeast
+northeast
+out
+northeast
+north
+north
+north
+northwest
+northwest
+southwest
+cross bridge
+south
+southeast
+south
+give potion to malbus
+out
+northwest
+north
+cross bridge
+northeast
+southeast
+use potion on oak
+look at oak
+open hollow
+take crown
+southeast
+south
+south
+south
+southeast
+south
+east
+southeast
+east
+north
+up
+north
+use pandemonica on blue fire
+take orb
+south
+down
+south
+west
+northwest
+west
+north
+northwest
+southwest
+west
+southwest
+northwest
+cross cloud bridge
+west
+north
+give crown to ghost
+take battlehorn
+south
+west
+northwest
+blow battlehorn
+west
+wave wand
+cross ice bridge
+west
+use orb on xanthos
+throw orb
+east
+rub lamp
+speak to malbus

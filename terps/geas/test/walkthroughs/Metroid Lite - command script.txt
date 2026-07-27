@@ -1,0 +1,174 @@
+DJay32's "Metroid" Lite -- DJay32, ASL 400 (QDK Lite 4.03, unregistered)
+========================================================================
+
+Metroid fan fiction with six rooms and about a dozen objects wrapped around four
+long `define text` blocks.  You are Chief Officer Harvey Donaldson of survey team
+Mika-70 Wolf, at a Galactic Federation board meeting where the Space Pirate
+scientist Rlge pulls a plasma rifle on Seargent Dane and takes Ridley's remains
+hostage.  Samus cannot shoot him (the pipes are the ship's structural support and
+he has promised to blow the ship if he sees anyone helping her), so your job is
+to find her a weapon without Rlge noticing.
+
+The game says so itself in `define text <win>`: "There are TWO endings to this.
+No, Rlge escaping isn't one of them.  Did you find both?"  Both are `playerwin`
+and both print that same text, so the difference is entirely in how you get
+there -- and they are mutually exclusive, because they need the same object.
+
+The opening menu
+----------------
+The Boardroom's `script` runs on the very first turn: two `wait`s around
+`displaytext <The Board Meeting>`, then
+
+    choose <Rlge>
+
+so the first line of the script below is eaten by the menu, before any command.
+The three choices are
+
+    1  ...the steam pipe     `create exit <Boardroom; Hallway>` -- the game
+    2  ...the airlock        `stop` -- GAME OVER, everyone blown into space
+    3  ...Rlge's head        `stop` -- GAME OVER, Samus shoots Dane by mistake
+
+Choice 1 is the only one that does not end the game on turn one.  (`define text
+<intro>` prints before all this, unprompted, as Quest always does with a text
+block of that name.)
+
+The route
+---------
+    Boardroom -> Hallway -> Piperoom -> Boardroom East -> Hallway
+    -> Hidden Secrets -> Hallway -> Piperoom -> Boardroom East
+    -> Mika-70 Wolf Ship
+
+    1                       shoot the steam pipe; Samus runs after the safe
+    GO TO HALLWAY
+    GO TO PIPEROOM          the Pipe Room Showdown; the room's script prints it,
+                            sends you straight back to the hallway, arms
+                            `five minutes to kill` and opens the way east
+    GO TO BOARDROOM         Boardroom East, aliased "Boardroom"
+    SPEAK TO RUNDAS         `show <ice weapon>` + `give <ice weapon>`
+    GO TO HALLWAY           carrying it: Samus shakes her head, Rlge shouts
+                            about his heat-generating armour, and the script
+                            does `create exit <Hallway; Hidden Secrets>`
+    GO TO STORAGE ROOM      Hidden Secrets, aliased "Storage Room"
+    TAKE PLASMA RIFLE
+    TAKE HEAT-SEEKING PROGRAM
+    USE HEAT-SEEKING PROGRAM ON PLASMA RIFLE
+                            hides both and gives you the HSPF, the "Heat-Seeking
+                            Plasma Rifle version 2.6"
+    GO TO HALLWAY
+    GO TO PIPEROOM          the `if got <HSPF>` branch of the hallway's place
+                            script: Samus shoots him in the jaw, `timeroff`,
+                            Boardroom Victory, and the safe turns out to be empty
+    GO TO YOUR SHIP         Mika-70 Wolf Ship; its description arms `GFTZ`
+    TAKE RLGE'S SHIP        "Alright, I've locked on to him." -- `take` on the
+                            Class-A Space Pirate Frigate is the targeting
+    SHOOT RLGE'S SHIP       `if got <Class-A Space Pirate Frigate> then playerwin`
+
+Fourteen turns.  The last command can equally be USE RLGE'S SHIP ON TARGETING
+COMPUTER: the computer carries `use <Class-A Space Pirate Frigate>`, which also
+does `timeroff <GFTZ>  playerwin`.  It has to be phrased in that order, though.
+ExecUse disambiguates the *used* item against the inventory and answers "You
+don't have that." if it is not there (V4Game.Part2.cs:5284-5300), and the
+targeting computer has no `take`, so USE TARGETING COMPUTER ON RLGE'S SHIP can
+never fire.  With the operands swapped the held frigate is the item and Quest's
+"first check b for use <a>" step finds the computer's script (ibid. 5407-5420).
+
+The other ending
+----------------
+The Plasma Rifle has two uses and you only ever get one rifle, so the second
+ending replaces everything from USE HEAT-SEEKING PROGRAM on:
+
+    TAKE PLASMA RIFLE, GO TO HALLWAY, GO TO BOARDROOM
+    GIVE PLASMA RIFLE TO DANE       he trades it for his book:
+                                    `hide <Plasma Rifle>`, `show <Psychology
+                                    for Dummies>` -- in the storage room
+    GO TO HALLWAY, GO TO STORAGE ROOM
+    OPEN PSYCHOLOGY FOR DUMMIES     the book is a `container` whose `open` script
+                                    is `show <slip of paper>  give <slip of
+                                    paper>`; the slip reads "30328."
+    GO TO HALLWAY, GO TO BOARDROOM
+    GIVE SLIP OF PAPER TO RUNDAS    he reads it, walks out, kills Rlge offscreen
+                                    -- `playerwin` + `timeroff`
+
+Seventeen turns, verified.  What "30328" means is never explained; giving the
+slip to Dane instead makes him tear it up ("Well, THAT was a waste."), and it is
+`hide`den afterwards, which loses the ending for that run.  Note the book is
+never `take`n in the route above: `open` works on it where it lies.
+
+The clocks
+----------
+Two timers, both `disabled` at load, both interval-based, and both wired to a
+`stop`:
+
+    five minutes to kill    300s, armed by the Piperoom script, disarmed by
+                            either win.  Rlge blows the ship: GAME OVER.
+    GFTZ                    60s, armed by the ship's `description` script.
+                            Rlge crosses out of the trade zone: GAME OVER.
+
+Neither timer re-arms itself, so `--tick` (one second a turn) gives you 300 and
+60 turns respectively -- ample for a 14-turn run, but the ship sequence is only
+three commands and it is meant to feel tight.
+
+Two boardrooms, and the exit names
+----------------------------------
+`Boardroom East` is `alias <Boardroom>`, a second room with the same displayed
+name as the one you start in, and there is no way back to the original -- the
+Hallway's only ways out are Piperoom, Boardroom East and (later) Hidden Secrets.
+`Hidden Secrets` is likewise `alias <Storage Room>`, and both rooms answer only
+to their aliases: PlaceExist rewrites a plain place's name to the destination's
+alias before comparing (V4Game.Part2.cs:6566-6580), so GO TO HIDDEN SECRETS is
+"You can't go there." even though that is the name the game's own `create exit`
+line uses.
+
+The engine fix this game needed
+-------------------------------
+Boardroom East's exit script is not guarded:
+
+    place <Hallway> {
+        if got <ice weapon> then {
+            msg <...>
+            create exit <Hallway; Hidden Secrets>
+            goto <Hallway> } else goto <Hallway>
+    }
+
+so every trip from the boardroom to the hallway creates that exit again.  Quest
+refuses: below ASL 4.10 ExecuteCreateExit scans the room's Places list for the
+destination and, finding it, logs "Exit from 'Hallway' to 'Hidden Secrets'
+already exists" and returns (V4Game.cs:5385-5409); from 4.10 on the places are a
+dictionary keyed by destination, so AddPlaceExit deletes the old entry before
+inserting the new one (RoomExits.cs:46-56) -- replaced, not duplicated, and moved
+to the end of the listing.  geas just appended, so the second trip produced
+
+    You can go to Piperoom, Boardroom, Storage Room, or Storage Room.
+
+Fixed with both versions' behaviour, pinned by test/fixtures/createexitdup.asl
+and createexitdup410.asl.
+
+Loose ends
+----------
+The starchart in the hallway is `look picture popup <sr388loc.jpg@157x144;
+SR388?>` and the image is not in the file, so LOOK AT STARCHART shows nothing
+headless; showing it to Dane gets the game's one bit of foreshadowing about SR388
+(the setting of Metroid II).  `Psychology for Dummies` reads "page 34: Remember
+to tell them to spin around multiple times", which nothing uses.  GIVE ICE WEAPON
+TO DANE gets "Ha.  You call that a weapon?" and changes nothing -- the ice weapon
+exists only to satisfy the `if got` above, and is never fired.  The Frigate is
+`drop everywhere <Damn! I've lost him!>`, which does drop it and does lose the
+lock.  `define text <lose>` ("And you... are dead.") is never displayed: both
+game-overs are `stop`, not `playerlose`.
+
+Start:
+1
+go to hallway
+go to piperoom
+go to boardroom
+speak to rundas
+go to hallway
+go to storage room
+take plasma rifle
+take heat-seeking program
+use heat-seeking program on plasma rifle
+go to hallway
+go to piperoom
+go to your ship
+take rlge's ship
+shoot rlge's ship

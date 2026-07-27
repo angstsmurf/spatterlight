@@ -1,0 +1,58 @@
+Riddle Run v1.0 by Hayden A. Schiff (QDK Lite 4.02, ASL 400)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "won Riddle Run".
+
+Five rooms, five riddles, no objects to speak of.  You type the answer to the
+riddle as a command, confirm it at the "Is that your final answer?" prompt, and
+the answer's script runs "create exit out <Room n; Room n+1>" -- so OUT is the
+only movement command in the game.  Entering the Victory Room calls playerwin.
+
+The answers, in order: TELESCOPE, TV (or TELEVISION), LIGHTBULB (or LIGHT BULB),
+then Room 4, then TEXT.
+
+Room 4 is the joke room.  Its riddle is "THE ANSWER IS NOT GRASS", and:
+
+  * GRASS is an instant playerlose -- the game kills you for not reading.
+  * NOT GRASS gets a compliment and then the real riddle, "I LIKE PIZZA / YES I
+    DO / I ALSO LIKE ICE CREAM / WHAT ABOUT YOU?", whose answer is I LIKE ICE
+    CREAM or I DON'T LIKE ICE CREAM.  Either opens the door, and neither needs
+    the NOT GRASS step first, so the script answers it directly.
+  * ROOM 4 HINT is a trap unless the two-minute room4hint timer has already
+    handed you the Room4Hint object: without it the command calls playerlose.
+    (The timer is never enabled by anything in the file, so the hint is
+    unreachable in a real game too.)
+
+Three things worth knowing while reading the transcript:
+
+  * Every answer is confirmed through "if ask <Is that your final answer?>", so
+    each riddle costs two script lines: the answer, then 1 for Yes.  Answering
+    No only gets "Then why'd you say it if you didn't mean it?!?" -- the door
+    stays shut and the answer can be retyped.
+  * The trophy the game awards depends on three chained timers (2 minutes for
+    silver, then 3 for bronze, then 4 for the participation medal), and the
+    walkthrough runner does not tick timers unless asked, so this run finishes
+    "under 2 minutes" with the GoldMedal the startscript hands out.  The Victory
+    Room's description has no branch for the gold trophy, so it prints the win
+    text and nothing else -- that is the game as written, not a missing message.
+  * The win text greets the player by name.  From ASL 3.92 on Quest runs each
+    line of a "define text" block through GetParameter before printing it
+    (DisplayTextSection, V4Game.Part2.cs:4089-4096); geas printed the lines raw,
+    so the reporter used to shout "#playername#" at the winner.
+
+Start:
+Petter
+telescope
+1
+out
+tv
+1
+out
+lightbulb
+1
+out
+i like ice cream
+1
+out
+text
+1
+out

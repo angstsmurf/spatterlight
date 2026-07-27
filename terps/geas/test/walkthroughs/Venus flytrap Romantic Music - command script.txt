@@ -1,0 +1,184 @@
+Venus flytrap: Romantic Music -- Nicky Leech, v1.0 (musicvf1.cas, ASL 210)
+
+A one-house sex farce in thirteen rooms.  You are Leonard; you want the lodger's
+Nat King Cole CD; the lodger is Linda Venus, and she is in the shower.  Episode
+one ends when a bus pulls up in the street.  Its win text, in full, is "End of
+episode one." -- there is no episode two.
+
+
+The route
+
+Everything hangs off one chain, and every link is a flag set by a procedure:
+
+  READ RED BOOK      "You Too Can Have A Photographic Memory"  -> photo=y
+  READ GREEN BOOK    "How to Juggle by I. Dropballs"           -> juggle=y
+                     (readgreenbook checks photo first: green book read on its
+                      own prints "You read the green book." and sets nothing.
+                      The joke is that you cannot remember how to juggle unless
+                      you have already read the memory book.)
+  JUGGLE BALLS       only in the street (confirmjuggle tests
+                     #quest.currentroom#), only with juggle=y (otherwise
+                     juggleup drops the balls on the pavement), and only pays
+                     out if `here <hat>` -- so the hat has to be lying in the
+                     street, not on your head.  DROP HAT first, then juggle: an
+                     elderly woman puts a GBP 2 coin in it, and yesmoney flips
+                     to n so it happens once.
+  BUY CONDOMS        in the public convenience, spends the coin.
+  TAKE ROMANTIC MUSIC in the lodger's room, holding the condoms.
+
+The balls are in the attic, and the attic is reached by the steps from the
+kitchen -- carried to the landing, dropped, and then LOCKed before being
+CLIMBed.  CLIMB STEPS on unlocked steps runs climbdie, which is `show
+<steps.gif>` and `playerlose`: the only fatal move on the critical path that
+isn't about clothes.
+
+Take the music without the condoms and vertakemusic sends you to takemusic ->
+sleeplinda, which ends `if got <everyday clothes> then do <clothesdie> else do
+<noclothesdie>` -- two different scenes, both finishing in `pounce`, which is
+`show <faint.gif>` and `playerlose`.  With the condoms you get sleeplinda2
+instead, which is the same scene up to "Do you want the music or not?" and then
+runs clothesdrop: `lose <everyday clothes>` plus `moveobject <everyday clothes;
+#quest.currentroom#>`.  Your clothes are now on the lodger's floor.  TAKE
+EVERYDAY CLOTHES again before you leave the house, because the street's
+description procedure begins
+
+    expocheck2: if got <everyday clothes> then do <expocheck> else do <police>
+
+and police is `show <exposure.gif>` and `playerlose`.  expocheck then tests
+game=y -- set by takemusiccondom along with lb=n (Linda is out of the shower for
+good, so the bathroom finally opens) and bd=c -- and hands off to endpartone,
+which reveals Haidee at the bus stop and calls playerwin.
+
+"go to" wants the bare room name, not the `place` prefix: GO TO PARENT'S BEDROOM
+works, GO TO YOUR PARENT'S BEDROOM does not.  That is Quest's behaviour too --
+Disambiguate strips a leading "the " and matches the alias, and the
+prefix-tolerant abbreviation pass is gated on ASLVersion >= 391 (V4Game.cs:4599-
+4790).  At ASL 210 nothing here is prefix-aware.
+
+The script below takes the long way round on purpose, to walk over the parts of
+the game that are easy to get wrong: the attic before the steps ("You cannot
+reach."), the bathroom while Linda is still in it ("The door is locked."), both
+books examined before they are read, the shoes taken so the dog shit in the
+street lands on `tread1` rather than on bare socks, and the bathroom revisited
+after the scene to show it has unlocked.
+
+
+The engine fixes this game needed
+
+Three, and it loaded into a corpse without any of them.
+
+1. A stray `end define`.  Line 517 closes `define procedure <noclothesdie>` a
+   second time.  geas's section scan let the block depth go negative there, and
+   from that line on the `depth == 1` test that decides whether to record a
+   top-level block was never true again -- so two thirds of the procedures, the
+   whole of the standard library the author had pasted in at the end, and
+   `define text <win>` were all silently dropped.  The game printed its first
+   room and then no command did anything at all.  Quest's own scan just steps
+   over the line (V4Game.cs:1745-1787); the one thing that objects is
+   CheckSections, which calls it a fatal error -- except that Quest skips
+   CheckSections outright for three files it names in its source, and this is
+   one of them:
+
+       if (filenameNoPath == "bargain.cas" || filenameNoPath == "easymoney.asl"
+           || filenameNoPath == "musicvf1.cas") _skipCheckFile = true;
+
+   Quest carries a second hardcoded concession to this game as well -- `if
+   (filenameNoPath == "musicvf1.cas") _useStaticFrameForPictures = true;`
+   (V4Game.cs:1727), because the author expected the .gifs in a popup window.
+   Pinned by test/fixtures/strayend.asl.
+
+2. The Quest 2.x "name@room" reference.  This is a 2.x game all the way through:
+   `give <X>` adds to the item list without moving the world object, so every
+   pickup is a pair, `give <steps>` followed by `hideobject
+   <steps@#quest.currentroom#>`.  geas passed the whole "steps@kitchen" string
+   through as an object name, matched nothing, and hid nothing, so everything
+   you picked up went on being listed in the room you took it from.  The same
+   form is how both characters are staged -- `showchar <Linda@lodger's room>`,
+   `showchar <Haidee@street>` -- so neither of them ever appeared.  Below ASL
+   281 SetAvailability splits at the "@" and matches the half after it against
+   the object's ContainerRoom (V4Game.Part2.cs:2994-3068).  Pinned by
+   test/fixtures/atroom.asl.
+
+3. Not this game's, but found next door and needed by the same batch: GIVE's
+   second word order (fixtures/givethe.asl).
+
+
+Odds and ends
+
+Every room in this game carries a `description` tag, most of them `description
+do <proc>` dispatching on flags, which is how the landing manages four
+different paragraphs and how the street manages to be a checkpoint.  Two of
+those procedures move you: atticdes sets bd=at and goes straight back to the
+landing, bathdes does the same while lb=y, so GO TO ATTIC and GO TO BATHROOM
+before their time are answered by the landing's description with an extra line
+tacked on.  Being sent elsewhere from inside a room description leaves the exit
+line printed twice, which is why the transcript has two "You can go to your
+bedroom, ..." lines for those turns.
+
+`attic2` is both a room (the real attic, with the balls in it) and a procedure;
+`goto <attic2>` at line 699 gets the room and `do <attic2>` at 782 gets the
+procedure.  Neither of the second pair of attic branches can fire, though:
+they switch on `ad`, which startscript sets to n and nothing ever sets to y.
+`changelb` is defined and never called.  `checkbd2` reads `if is <#bd#; at>
+then <attica2> else do <ldd2>` -- the `then` branch is missing its `do`, so the
+one path through it that matters does nothing.
+
+The dog shit is a four-way gag: treadchk picks tread1/2/3/4 by what is on your
+feet (shoes, socks, both, neither), sets tshit=y, and every later visit to the
+street prints `smell` instead.
+
+Start:
+look
+look at bed
+take everyday clothes
+i
+go to landing
+go to attic
+go to parent's bedroom
+take hat
+out
+go to bathroom
+go to hallway
+go to front room
+x green book
+x red book
+take red book
+read red book
+take green book
+read green book
+out
+go to kitchen
+take socks
+take shoes
+take steps
+out
+go to landing
+drop steps
+lock steps
+climb steps
+take balls
+out
+go to hallway
+go to street
+juggle balls
+drop hat
+juggle balls
+i
+go to public convenience
+x condom machine
+buy condoms
+out
+take hat
+go to hallway
+go to landing
+go to lodger's room
+x romantic music
+take romantic music
+take everyday clothes
+wake linda
+x linda
+out
+go to bathroom
+out
+go to hallway
+go to street

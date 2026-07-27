@@ -1,0 +1,251 @@
+ESPER: The Secret of Drom Bennacht
+ESPER, v.1.2, ASL 350, "Created with QDK 3.53 - UNREGISTERED VERSION", !include <Typelib.qlb>
+
+You are an investigator for ESPER -- Extraordinary Supernatural Phenomena
+Explored and Revealed -- called to a Scottish castle because the dying patriarch
+Angus Winters has been hearing the Bean Sidhe.  By the time the butler lets you
+in, the man who hired you has been shot dead in his study, and the case has
+turned into a murder mystery with a Lovecraftian basement.  24 rooms, no score,
+no inventory puzzles at all: the entire game is a chain of four gates, and it
+ends with a four-question viva voce that you either pass or die on.  114 turns
+below, taking in every room and every conversation.
+
+
+THE FOUR GATES
+
+  1. RING DOORBELL on the porch.  The Porch has no north exit until then; the
+     command runs `create exit north <Porch; Lobby>`.  Ringing twice gets you a
+     scolding from the butler and nothing else.
+
+  2. TAKE WALDEN in the guest room.  This is a room-scope `command`, not an
+     object -- the bookshelf's `walden` is TLTscenery and cannot be taken by the
+     ordinary verb -- and it does `move <walden; storage>` plus
+     `create exit up <Guest Room; Top of North Tower>`.  Jenny tells you about
+     it if you ask her about Drom Bennacht.
+
+  3. ZACAR in the music room.  The word comes from the "Words of Power" section
+     of the grimoire in the Secret Chamber, and the "Personal Notes" section
+     tells you where to use it: Jonathan Winters sealed the chapel stairs and
+     parked the phonograph on top of them.  The room command does
+     `create exit down <Music Room; Dark Corridor>`.
+
+  4. ZACAR again, once you are sealed in below.  This time it is the game-scope
+     `command <zacar>`, which does nothing at all unless the `deathcoming` flag
+     is set; with it set it runs `zacargate`, which turns off the death timer,
+     makes you effectively invisible, and brings James and Moira in with the
+     drugged Jenny to start the ritual.
+
+Everything else in the castle is evidence, not machinery.
+
+
+THE TWO DEATH TIMERS
+
+Entering the Dark Corridor seals the way back up ("The way is sealed!" is the
+`up` exit's whole implementation) and starts `Death`, interval 75, which walks
+the robed pair in and shoots you.  Saying ZACAR turns `Death` off and starts
+`deathtwo`, interval 90, at which point the ritual completes and the world ends.
+Both are generous -- this script reaches the endgame 8 turns after going down --
+but they are the only two ways to lose apart from a wrong answer, plus one
+trap: ATTACK anything in the Large Room while the ritual is running breaks the
+invisibility and loses immediately.
+
+
+THE VIVA
+
+SPEAK TO ROBED MAN (or the woman -- both `action <speak>` entries are
+`do <endgame>`) starts a four-selection interrogation.  Every wrong choice runs
+`diedummy`, which shoots you on the spot, so the four answers are the whole
+endgame:
+
+  Why must the Elder Gods be called?  -> 3  Because the world is theirs and
+                                             they want it back.
+  Why did we kill Winters?            -> 2  You considered him a fool and did
+                                             not want him to fail to properly
+                                             perform the ceremony.
+  What was the Banshee?               -> 3  It was the vibration of the old
+                                             belfry ropes.
+  Who killed Laird Winters?           -> 1  James did it.
+
+Each answer is fairly earned somewhere in the castle: the grimoire's
+Introduction and Elder Gods sections for the first, the Ritual section for the
+second, TURN CRANK on the roof above Angus' room for the third, and the seal on
+James' wardrobe read against the grimoire's "Seals of Power" for the fourth.
+None of that is enforced -- the selections do not test a single flag, so a
+player who guesses right wins without leaving the guest room -- but the script
+below earns them all, which is also the only way to see most of the game.
+
+The one place evidence does change the game is Angus: the crank sets
+`flag on <turncrank>`, and his `action <speak>` switches from "Damned...  Bean
+Sidhe..." to "Heard... her... again!!!" afterwards.  Worth the walk back
+upstairs, which is why the script makes it.
+
+Note also that the Seals of Power section only prints its second paragraph --
+the one that names James -- if you have LOOKed AT the seal on his wardrobe
+first (`flag <seallook>`).  So do James' room before the tower.
+
+
+TYPELIB
+
+The game includes Typelib.qlb and tags its objects TLTscenery, TLTactor,
+TLTreadable and (for the necklace) TLTshirt, but uses almost none of the
+library's machinery: the scenery tag is there to make things unremovable and the
+actor tag to make people speakable, both of which the game also spells out by
+hand.  The necklace is the one TLTshirt, so WEAR NECKLACE works.
+
+
+THE EASTER EGG
+
+The necklace under Moira's bed is, by the author's own admission in its examine
+text, "not actually good for anything.  It was going to be, but I never wound up
+implementing it."  There is a second way to get it: the undocumented game
+command BUTTMONKEY, a reward for reading the readme file, which does
+`give <Necklace>` with a message about the short story that shipped with the
+game.  The script below takes the bed route.
+
+
+A NOTE ON THE ROOM HEADERS
+
+Several rooms print a truncated location line -- "You are in the", "You are on"
+-- with no room name after it.  That is the game, not the interpreter: Quest
+appends the room name to an `indescription` only when the line ends with a
+colon, and this author ended none of them with one (V4Game.Part2.cs:1783-1802).
+The three basement rooms sidestep it by printing `#quest.currentroom#`
+themselves inside a `description` block, which is why only they read properly.
+
+start:
+s
+look at detector
+examine detector
+take EMF Detector
+take File Folder
+read folder
+out
+look at jeep
+examine jeep
+n
+n
+knock
+look at doorbell
+ring doorbell
+ring doorbell
+n
+speak to butler
+1
+speak to butler
+2
+speak to butler
+3
+speak to butler
+4
+e
+e
+look at wardrobe
+examine wardrobe
+look at seal
+examine bed
+w
+n
+speak to Moira
+1
+speak to Moira
+2
+speak to Moira
+3
+speak to Moira
+4
+look at table
+look at chandelier
+n
+look at blood
+examine blood
+w
+examine phonograph
+e
+s
+s
+w
+n
+n
+n
+e
+speak to Angus
+examine Angus
+w
+w
+speak to Jenny
+1
+speak to Jenny
+2
+speak to Jenny
+3
+e
+n
+look at bed
+s
+s
+s
+s
+w
+w
+examine bed
+i
+wear necklace
+examine necklace
+e
+n
+n
+examine bookshelf
+examine walden
+take walden
+up
+sw
+look at pedestal
+examine grimoire
+read grimoire
+1
+read grimoire
+2
+read grimoire
+3
+read grimoire
+5
+read grimoire
+6
+read grimoire
+4
+ne
+se
+examine pulley
+examine crank
+turn crank
+nw
+down
+s
+s
+e
+n
+n
+n
+e
+speak to Angus
+w
+s
+s
+s
+e
+n
+n
+w
+zacar
+down
+s
+s
+zacar
+n
+look at Jenny
+speak to Jenny
+speak to robed man
+3
+2
+3
+1

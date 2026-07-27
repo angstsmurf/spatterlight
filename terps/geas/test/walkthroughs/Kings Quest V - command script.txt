@@ -1,0 +1,701 @@
+King's Quest V - text adventure (full playthrough) - raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "HAPPILY EVER AFTER".
+
+Run with:  --tick --seed 1   (timers must tick; the maze monster and Mordack's
+black cat are RNG, so the navigation/wait counts below are tuned to seed 1).
+
+Notes:
+ * the first "look" is eaten by the opening "press any key" (get_string) at start.
+ * long runs of "look" are deliberate waits for turn-based timers (desert thirst is
+   a counter, but the inn rat, desert bandit, mountain/ocean/castle creatures, and
+   Mordack's appearance are all timers that advance one tick per turn).
+ * every noun is an object's alias or one of its alt names, never the raw name of
+   a `define object` that has an alias.  The game is ASL 350, so there is no
+   partial matching to fall back on either -- Quest matches a word taken from the
+   middle of a name only for ASL 391 and up (Disambiguate, V4Game.cs:4762-4772;
+   fixtures/abbrev.asl).  Two lines look odd because of it: the lamp Graham gives
+   the old witch is `define object <lamp>` with `alias <large lamp>`
+   (KQ5_Full_final_1124.asl:3432-3433), so it has to be TAKE LARGE LAMP, and the
+   coin in the same cave is `<gold coin>` with `alias <coin>` (3418-3419), so it
+   has to be the shorter TAKE COIN.  Most of the game's scenery is generous with
+   `alt` lists (the ape-like creature answers to six names), which is why the rest
+   of the script reads naturally.
+ * desert/dark-forest/inn "save?" prompts are answered 2 (No); the gypsy skip
+   prompt is 1 (Yes); the inn door menu is 1 then 2; the battle picks 1/2/3/4
+   (tiger/rabbit/weasel/rain) to counter Mordack's insect/dragon/cobra/fire.
+
+Start:
+look
+s
+s
+e
+examine barrel
+take old fish
+w
+e
+take silver coin
+w
+w
+enter
+buy pie
+out
+w
+w
+throw fish to bear
+take honey comb
+take stick
+n
+throw stick to dog
+s
+w
+2
+w
+w
+w
+w
+w
+drink
+w
+w
+n
+n
+hide
+look
+look
+look
+drink
+w
+w
+s
+s
+s
+drink
+w
+s
+s
+s
+go to the small tent
+take staff
+out
+drink
+e
+n
+n
+n
+drink
+e
+e
+e
+take shoe
+w
+n
+n
+n
+drink
+n
+wave staff
+enter
+take coin
+take large lamp
+out
+s
+drink
+e
+e
+s
+s
+drink
+e
+e
+e
+e
+e
+e
+n
+n
+give coin to gypsy
+1
+wear amulet
+s
+s
+e
+take haystack
+e
+n
+throw shoe at cat
+n
+n
+n
+2
+e
+give large lamp to old witch
+look
+n
+w
+n
+open chest
+take spinning wheel
+open drawer
+take brown pouch
+examine skull
+take small key
+open pouch
+out
+e
+open door
+take gold heart
+w
+w
+drop emerald
+drop emerald
+squeeze honey comb
+drop emerald
+w
+s
+w
+give gold heart to weeping willow
+take harp
+w
+take tambourine
+e
+s
+give spinning wheel to old gnome
+s
+e
+e
+e
+go to the Tailor's Shop
+give golden needle to sales clerk
+out
+go to the Toy Shop
+give marionette to toy shop owner
+out
+go to the shoemaker's shop
+give nice shoes to shoemaker
+out
+w
+w
+w
+enter inn
+1
+2
+listen to men
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+take rope
+break lock
+n
+open pantry
+take lamb
+w
+e
+n
+e
+scare snake
+e
+wear cloak
+n
+eat lamb
+throw rope
+2
+climb rope
+2
+cross gap
+e
+ride sled
+e
+give lamb to eagle
+n
+play harp
+e
+throw pie at yeti
+n
+take crystal
+s
+w
+speak to wolf
+s
+up
+take locket
+take iron bar
+n
+use wax on boat
+take boat
+e
+e
+e
+s
+e
+play harp
+take fishing hook
+s
+take Cedric
+s
+take shell
+take boat
+s
+w
+w
+w
+w
+ring bell
+give shell to old man
+speak to old man
+take fish
+n
+use crystal on statues
+n
+w
+open grate
+down
+s
+e
+e
+n
+e
+n
+e
+n
+n
+e
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+use tambourine on monster
+take hair pin
+s
+n
+s
+w
+w
+w
+n
+open door
+open cabinet
+take peas
+n
+give locket to Cassima
+e
+e
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+examine mouse hole
+use fishing hook on cheese
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+west
+n
+e
+e
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+spill peas
+s
+w
+throw fish to cat
+use empty bag on cat
+up
+w
+s
+read book
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+n
+take Mordack's wand
+e
+e
+up
+use Mordack's wand on machine
+use crispin's wand on machine
+use cheese on machine
+take crispin's wand
+cast spell
+1
+cast spell
+2
+cast spell
+3
+cast spell
+4

@@ -6,7 +6,7 @@ Three layers, in increasing distance from a real game:
 | --- | --- | --- |
 | `run_fixtures.sh` | nothing (in-repo) | engine behaviour, against golden transcripts |
 | `geas_unit_tests` | nothing (in-repo) | corrupt saves and parser edges no player can drive |
-| `run_walkthroughs.sh` | the game corpus (local) | regressions in 24 real games |
+| `run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 111 real games |
 
 `make check` runs the first two — they are self-contained, so they are the ones
 worth wiring into CI.
@@ -25,7 +25,7 @@ make clean
 Small hand-written `.asl` games, each paired with a `.cmd` script and a golden
 `.expected` transcript. They exist because **the game corpus cannot catch these
 bugs**: a shipped game only walks the paths its author happened to walk, so a
-crash or a wrong string in an unvisited corner leaves all 24 walkthroughs
+crash or a wrong string in an unvisited corner leaves all 111 walkthroughs
 byte-identical. Every fixture here was checked against a pre-fix engine and
 either crashes it or produces different output; each file's header comment says
 what it guards.
@@ -118,15 +118,27 @@ GEAS_SEED=1 ./geas_walkthrough_runner --tick --save-scum \
   --fight "use vial1 on cube|use vial2 on cube=The cube explodes" \
   --fight "use laser pistol on warlord=slumps to the ground dead" \
   --win "slumps to the ground dead" \
-  "worldsend/world's end.asl" "Worlds End - command script (raw).txt"
+  "games/worldsend/world's end.asl" "walkthroughs/Worlds End - command script.txt"
 ```
 
 ## Running a whole collection
 
 `run_walkthroughs.sh` plays a set of games against their scripts and prints a
-PASS/FAIL table. The games and walkthroughs are not in this repo; point the
-script at your own copies:
+PASS/FAIL table. The command scripts live in `./walkthroughs` and are committed,
+so with the games in `./games` no arguments are needed:
+
+```sh
+./run_walkthroughs.sh
+```
+
+The games are copyrighted and stay local-only (`games/` is gitignored), so point
+the script elsewhere if you keep them somewhere else. Eleven of the games are
+played against a `<title> - walkthrough.txt` written by someone else; those are
+not redistributed here, so they SKIP unless you pass a directory holding them:
 
 ```sh
 ./run_walkthroughs.sh "/path/to/Geas games" "/path/to/Geas walkthroughs"
 ```
+
+A walkthrough is looked up in `./walkthroughs` first and in that directory
+second, so a local copy never shadows a committed script.

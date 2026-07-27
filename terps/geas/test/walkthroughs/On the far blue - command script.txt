@@ -1,0 +1,428 @@
+On the far blue -- Odeon, v1.0, ASL 410 (QDK 4.1.5)
+===================================================
+distributed as "On the far blue.cas"
+
+A shipwreck survival game, and the only thing in the Quest 4 corpus so far that is
+timed from the first turn to the last.  You wake in a locked sailor's cabin with
+five minutes before the ship goes down, and every stage after that has its own
+clock: two minutes to seal yourself into a beer barrel, two minutes on a raft with
+a shark that keeps coming back, forty-five seconds in a forest with the man who
+sank your ship.  Eighteen timers, `a` through `r`, do all of it.
+
+Because of that this is the first script in the suite that needs the runner's
+--tick, which calls tick_timers() once per turn -- one second per turn.  Every
+number below is therefore a turn count, and the raft section in particular is
+arithmetic: the commands have to land on exact turns or a timer kills you.
+
+The clocks
+----------
+    a-e   1,60,120,180,240   the countdown announcements on the ship
+    f     300                the ship sinks and you drown
+    g     120                you failed to secure the barrel lid and drown
+    h     300                +1 Hunger, then re-arms itself
+    i     10                 a shark surfaces; arms j
+    j     25                 the shark pulls you off the raft
+    k     10                 re-arms i (this is what makes the shark recur)
+    l     120                "You reached land!" -- the raft crossing is over
+    m     50                 the raft snags on a rock; arms n
+    n     20                 the sharks roll the raft
+    o,p,q 10,15,15           Mad Simon taunting you from cover; q reveals him
+    r     5                  Mad Simon kills you
+
+The startscript arms a-f and h.  `jump off board` turns a-f off and arms g;
+securing the lid turns g off.  h is armed for the whole game and never turned off,
+but Hunger only kills at `gt=;11` -- 3300 turns -- so the seagull eggs on Southern
+rock island are a mechanic with nothing to do.  A full run is 233 turns, so Hunger
+never even reaches 1.
+
+The ship: two words beginning with C
+------------------------------------
+LOOK AT PILLOW says to look under it, `verb <look under>` is declared in the header
+with no message at all, and the Pillow carries `action <look under>` -- so LOOK
+UNDER PILLOW is the cabin key, and USE CABIN KEY ON CABIN DOOR is the way out.
+(The bare verb declaration means LOOK UNDER anything else prints nothing, which is
+faithful: with no script after the `>`, ExecVerb runs ExecuteScript("") --
+V4Game.cs:3060-3066.)
+
+Old Sam on the upperdeck found a key and put it in the captain's cabin; Steve on
+the lowerdeck lost the Galley keys up there.  Between them that is the whole
+sequence, and the captain's cabin door is the one puzzle in the game:
+
+    First : what glow's in the dark but is often dark when it glow's outside?
+    And the second : What animal is men's best friend? You will need to use his
+    first latin name.
+    Both words begin with the letter ''C''
+
+candle and Canis.  What the door does not say is that they are not two answers but
+one command.  The header declares `verb <candle>`, and the lowerdeck holds an
+invisible object called `Canis` whose only job is to carry `action <candle>`, so
+the door opens to CANDLE CANIS -- verb plus noun, in that order, with no prompt of
+any kind asking for either.  Sam's second line, "No! the light from the candle is
+out!", is the hint for the first word; the candle itself is an ordinary scenery
+object on the upperdeck.
+
+Canis also carries `action <lamp>` with the same goto, left over from when the verb
+was called `lamp`.  The rename was only half done -- the verb's default message is
+still "You can't lamp that." -- and since no `verb <lamp>` survives, LAMP CANIS is
+"I don't understand your command."  Two spellings of the answer, one of them dead.
+
+Then USE GALLEY KEY ON GALLEY DOOR, TAKE BEER BARREL (which `show`s the otherwise
+hidden, invisible `board`), and JUMP OFF BOARD.
+
+The barrel: two keys through the lid
+------------------------------------
+TAKE METAL RING, USE METAL RING ON LID -- which swaps both objects for a third,
+"Lid with metal ring" -- then USE CABIN KEY ON LID WITH METAL RING and USE GALLEY
+KEY ON LID WITH METAL RING.  Each `inc <key's attached; 1>`, and the variable's
+onchange fires at 2: you sleep, the barrel beaches, and `goto <Northen rock
+island>`.  Both keys are consumed (hidden), which is fine -- nothing needs them
+again -- and the door they came from is gone with the ship.
+
+The rock island: build an axe
+-----------------------------
+The only untimed part of the game.  Five rooms around Middle Rock island.
+
+    Western    Sam's body, and the invisible Dagger at his waist.  TAKE DAGGER,
+               TAKE PIECE OF SMALL ROPE.
+    Southern   the seagulls.  TAKE SEAGULL EGG, then USE YOURSELF ON SEAGULL EGG
+               eats it -- `Yourself` is a real object, given to you by the
+               startscript, and "You can eat thing's by using yourself on it."
+    Middle     the giant rock with a badger's cave under it.  USE DAGGER ON CAVE
+               collapses the ground, rolls the rock east, and stocks the eastern
+               area with wood and stone.
+    Eastern    TAKE BRANCH, USE DAGGER ON BRANCH -> Stick; TAKE ROCK; USE STICK ON
+               ROCK -> Semi axe; USE PIECE OF SMALL ROPE ON SEMI AXE -> Axe.
+               Then USE AXE ON SMALL FOREST -> Poles.
+    Northen    USE DAGGER ON ROPE STUCK IN THE SAND reveals the Rope; TAKE ROPE.
+
+Back east, USE ROPE ON POLES makes the Wooden raft and shows an invisible object
+called `sail` whose `action <Set>` is the launch, so the command is SET SAIL
+(`verb <Set>`).  The raft is `show`n but never `give`n, so it stays in the room --
+which is correct, you are pushing it into the water from there.
+
+Three objects in this game cannot be addressed at all, because their names contain
+a Windows-1252 curly apostrophe that no player can type: `Piece's of the broken
+rock` and `Broken tree's` in the eastern area, and `Seagull nest's` in the south.
+All three are listed in the room description, all three answer "You don't see any
+...", and one of them -- the nests -- has the only joke about killing the birds
+attached to it.  They are left out of the script.  (Everything else in the file
+uses a plain ASCII apostrophe, including `Pile of large beer barrel's` and
+`Captain's table`, both of which work.)
+
+The raft: 120 turns, and the shark cycle
+----------------------------------------
+Entering "On the raft" arms i, l and m.  Counting turns from SET SAIL:
+
+    T+10   the shark surfaces, j armed (25 turns to live)
+    T+11   USE DAGGER ON SHARK    -> Wounded shark, j re-armed, i off
+    T+12   USE AXE ON WOUNDED SHARK -> shark dead, i and j off, k armed
+    T+23   k fires and re-arms i
+    T+33   the shark is back
+
+so the period is 21 turns from one killing blow to the next surfacing, and the
+whole crossing costs five sharks.  The dagger alone is not enough (the wounded
+shark ignores it) and the axe alone is not enough (the healthy one dodges it): it
+has to be dagger then axe, in that order, both within j's 25 turns.
+
+Layered on top of that, m fires at T+50 and snags the raft on a rock with n armed
+for 20 turns; USE AXE ON SEA ROCK at T+51 clears it and turns m off for good, so
+it happens only once.  The script therefore reads: ten waits, kill, twenty-one
+waits, kill, fifteen waits, free the raft, five waits, kill, twenty-one waits,
+kill, twenty-one waits, kill, sixteen waits -- and l fires on turn 120 exactly,
+which is why the last shark of the crossing is killed on turns 119 and 120 and
+never gets a sixth appearance.  `lib command <wait> msg <Time passes.>` is the
+filler; the run uses 105 of them.
+
+Timer l's action turns off i, j, k, m and n (twice over, in the author's usual
+style), which matters: without it the shark timer would follow you ashore.
+
+The forest: forty-nine seconds
+------------------------------
+The beach is one room with one exit.  Going north into The forest runs a script
+that arms o and `destroy exit <The forest; Eastern beach of forest island >` --
+you cannot go back.  o(10), p(15) and q(15) chain one into the next, and every
+step costs interval + 1 turns because Quest's SetTimerState only flips TimerActive
+and raises BypassThisTurn, never resetting TimerTicks (V4Game.Part2.cs:561-574):
+o at +11 and p at +27 are taunts, q at +43 shows Mad Simon and arms r(5), and r
+kills you at +49.  So there are exactly five turns to act, and
+again it is dagger then axe: USE DAGGER ON MAD SIMON turns r off and leaves
+Wounded Simon, USE AXE ON WOUNDED SIMON does `create exit <The forest; Village>`,
+and GO TO VILLAGE is the win.  Simon was the madman laughing at you on the
+upperdeck five minutes and two hundred turns ago; the game never explains why he
+is here, or why he wanted the ship sunk.
+
+Do NOT take the rock
+--------------------
+On Eastern rock island the axe is built by USE STICK ON ROCK, and the script that
+does it is `use <Stick>` on the object `Rock` -- so Rock has to be the thing the
+*second* blank resolves to.  ExecUse resolves that blank against the current room
+first and only falls back to the inventory on a miss (V4Game.Part2.cs:5376-5390),
+and the same room also holds `Piece's of the broken rock', whose name ends in the
+word "rock".  So the moment you TAKE ROCK -- whose script `give`s it, moving it to
+the inventory -- USE STICK ON ROCK stops finding Rock in the room, the ASL >= 391
+abbreviation pass matches "rock" against "Piece's of the broken rock" instead
+(Disambiguate, V4Game.cs:4730-4767; this game declares `abbreviations on'), and the
+axe can never be built.  Leave the rock lying where the giant rock dropped it: the
+item half of USE has to be held, the target half does not.
+
+Notes on the verbs
+------------------
+The header declares `verb <take> msg <You can't take that.>`, and a game-scope verb
+runs ahead of every built-in command (V4Game.Part2.cs:4205-4240), so TAKE is
+handled by that verb for the whole game -- ExecTake is never reached.  In practice
+this changes nothing, because a `take { ... }` block inside an object is filed as
+an *action* named "take" (V4Game.Part2.cs:3438) and ExecVerb finds actions first,
+so TAKE DAGGER and TAKE BRANCH still run their scripts.  It does mean that TAKE
+anything-else gives the verb's message rather than the engine's, and that the
+several `take` scripts which are just `reveal`/`show`/`give` with no `msg` print
+nothing at all -- TAKE ROPE and TAKE METAL RING are both silent, and both are
+faithful, since a script-type take runs the script and nothing else
+(V4Game.Part2.cs:5212-5215).
+
+Half of the author's `take` scripts do their reveal/show/give pair twice in a row,
+and the Rock and the branch do it twice with the message in the middle.  It is
+harmless -- giving an object you already hold is a no-op -- and it is the clearest
+sign in the file of someone clicking "add line" in QDK until it worked.
+
+`verb <eat>`, `verb <use seagull egg>` and `verb <enter>` exist only as defaults;
+nothing carries a matching property.  `define selection <Enter cabin>` at the
+bottom of the file -- "Enter captain cabin?", yes/no, with the yes branch doing the
+`goto <Captain cabin>` the riddle now does -- is never shown by anything, an
+earlier and much kinder version of the door puzzle.
+
+232 turns.  The marker is the Village room script's win text.
+
+Start:
+look
+look at bed
+look at pillow
+look under pillow
+look at cabin key
+look at your treasure chest
+use cabin key on cabin door
+speak to captain seval
+speak to steve
+speak to mast
+up
+speak to old sam
+look at candle
+speak to simon
+down
+look at captain cabin door
+candle canis
+look at captain's table
+i
+out
+use galley key on galley door
+look at pile of large beer barrel's
+take beer barrel
+out
+jump off board
+look
+take metal ring
+use metal ring on lid
+use cabin key on lid with metal ring
+use galley key on lid with metal ring
+look at broken beer barrel
+look at rope stuck in the sand
+s
+look at giant rock
+speak to giant rock
+look at badger
+w
+look at body washed a shore
+take dagger
+look at piece off timber
+take piece of small rope
+e
+s
+take seagull egg
+look at seagull egg
+use yourself on seagull egg
+n
+use dagger on cave
+e
+take branch
+use dagger on branch
+use stick on rock
+look at semi axe
+use piece of small rope on semi axe
+look at axe
+use axe on small forest
+look at poles
+w
+n
+use dagger on broken beer barrel
+use dagger on rope stuck in the sand
+take rope
+s
+e
+use rope on poles
+look at wooden raft
+set sail
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+use dagger on shark
+use axe on wounded shark
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+use dagger on shark
+use axe on wounded shark
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+use axe on sea rock
+wait
+wait
+wait
+wait
+wait
+use dagger on shark
+use axe on wounded shark
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+use dagger on shark
+use axe on wounded shark
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+use dagger on shark
+use axe on wounded shark
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+n
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+use dagger on mad simon
+use axe on wounded simon
+go to village

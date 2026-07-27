@@ -1,0 +1,463 @@
+Shiversword 2 (CJ, QDK Pro 4.02, ASL 400) -- winning command script
+===================================================================
+
+WHY THIS GAME IS IN THE SUITE
+
+  It is the corpus's only walkthrough that is *unwinnable without timers*.  Not
+  "harder without timers" -- flatly unwinnable.  The `photo` timer is the sole
+  writer of `edison = 7`:
+
+      define timer <photo>
+        interval <10>
+        action { set numeric <edison; 7>  timeroff <photo> }
+        disabled
+
+  and `edison = 7` is the only state in which Edison hands over his camera.  No
+  camera means no photograph of Simon, which means no fifth song, and
+  `comppart1` refuses to start the talent contest while `songsknown <= 4`.  So
+  the whole back half of the game -- contract, clippers, wool, dress, disguise,
+  seance, Royal Court -- hangs off one `interval <10>` firing.  Run this script
+  without --tick and it stalls at "It seems he is too busy photographing the
+  lightning to pay any attention to you."
+
+  Two more timers matter, and both are `interval <7>`:
+
+    * `glove` takes the gardening gloves back off your hands seven turns after
+      you put them on.  You need them for exactly three turns on the Lightning
+      plain (ram the rod in, clip the battery to the rod, pick the battery up),
+      so this is pressure rather than a puzzle -- but it does mean you must
+      travel to the plain *before* wearing them, not after.
+    * `elliottq` is a genuine deadline: once you are sitting in the medium's
+      chair in disguise, Elliott asks his question and you have seven turns to
+      `read biography` before he gives up and leaves.  The script answers on
+      the very next turn.
+
+  Beyond the timers this is a broad, well-behaved exercise of the ASL 4 feature
+  set: a World Map hub built entirely out of `create exit` (eight destinations
+  appear one at a time), `choose` selections whose choice bodies `do` procedures
+  that themselves contain `choose` (Sharon -> comppart1 -> comppart2 -> three
+  nested `choose <perform>` calls inside a single turn), `ask` yes/no prompts
+  guarding money, `enter` free-text input at the Oracle, and the
+  worn-clothing-as-separate-object idiom (`cloak` / `cloak (worn)`,
+  `gloves` / `gloves (worn)`, `green wool` / `green wig (worn)`,
+  `red wool` / `red wig (worn)`, `dress` / `dress (worn)`) with room `script`
+  blocks that silently swap the worn form back when you leave.
+
+
+THE SHAPE OF THE GAME
+
+  You are Shiversword, a bard.  John Lemon died leaving you a map to the Magic
+  Harp.  There is no Magic Harp; there is a Magic Carp, and it has ended up in
+  the Queen's palace by way of Elliott the treasure hunter.  Getting Elliott to
+  tell you that requires impersonating his medium, which requires winning a
+  televised talent contest, which requires knowing five songs.
+
+  Songs are the spine.  `songsknown` starts at 2 (Yesteryear, Mysterious Wench)
+  and each new one is written when something inspires you -- but only once the
+  Oracle has given you the songbook, which he does when you hand him back the
+  blank `book1` he gave you for playing him Mysterious Wench:
+
+      3  look at light        (the shaft of light in the dark passage)
+      4  ask Olive about Elliott
+      5  use camera on Simon
+
+  `songlistmenu` picks which selection `play lute` shows, so the choice numbers
+  shift as you learn songs.  At the point this script plays for Edison the menu
+  is `songs3`: 1 Hopelessly Devoted, 2 Ray of Light, 3 Yesteryear,
+  4 Mysterious Wench.
+
+
+THE GOLD LEDGER IS EXACTLY BALANCED
+
+  Eight gold pieces exist in the game and eight are spent.  There is no slack,
+  and the order matters because two of the purchases have hard minimums.
+
+      +2  sell the map to the Oracle (you have already used it)
+      -1  Simon's entry fee for The Eggs Factor
+      -1  the clip holding the opera glasses in the theatre box
+      +1  return Elliott's wallet to Olive
+      -1  Madam Mayi's reading
+      +2  sell Simon's autograph to the Oracle
+      +2  bring Al Chemist his five snails
+      +1  give Edison his camera back (battery removed)
+      -5  Bing's sachet of red hair dye
+
+  The red dye is the crunch: `if is <%gold%;gt=;5>`, and the only way to be
+  holding five at once is to have banked every single source above it.  In
+  particular the camera must be handed back *before* you shop, which means the
+  Emporium door must already be open, which means Cherie must already have
+  given you the dress.
+
+
+THE OPENING: TEMPLE, ORACLE, VILLAGE
+
+  `read map` opens Shurlee Temple.  In the ruins, `look at mausoleum` then
+  `push iron gate` opens the way down; the chamber holds an iron `rod`.  Take
+  the rod back up to the temple and `use rod on head` to lever the statue's
+  head aside -- that punches the light shaft that makes the dark passage
+  passable and, incidentally, opens the `hole` that later hides a snail.  The
+  rod is *not* consumed here, which is the only reason the game is finishable:
+  the same rod becomes the lightning rod two hours later.
+
+  Down in the crypt the dais holds a `cloth` with a coat of arms.  Showing it
+  to the Oracle at Fax By The Sea puts Elliott's Bottom on the map; selling him
+  the map funds Simon's entry fee.
+
+
+THE MIDDLE: FOUR FAVOURS, ALL INTERLOCKING
+
+  Olive at Elliott Manor wants the cloth, then the wallet (theatre box, behind
+  a cushion, reached with the `box key` swiped off her desk while she is out
+  buying a show ticket -- and she only leaves the desk if you give her the
+  leaflet after playing her Hopelessly Devoted).
+
+  Edison in the pasture wants, in order: a song about light (`edison` 1 -> 2),
+  a scout with the opera glasses (2 -> 3, which puts the Lightning plain on the
+  map and moves him there), a lightning rod (3 -> 4, `use rod on burnt patch`
+  while wearing the gloves the sheep was standing on), and a charged battery
+  (4 -> 5 -> 6, which starts the `photo` timer).  Ten turns later he is
+  `edison = 7` and gives you the camera plus the business card whose `read`
+  action adds Burningham.
+
+  Al Chemist in Burningham wants a replacement microscope lens -- the opera
+  glasses, which is why they must be spent on Edison first -- and pays in a
+  mortar and pestle.  Grinding grass in it yields the `green paste` (wig dye)
+  and breaks the pestle into the `clay bowl` (fish net).  Then he wants five
+  snails, which only exist once `snailhunt` is on:
+
+      examine hole        Shurlee Temple
+      examine altar       the ruins
+      examine dais        the crypt
+      examine valve       the sheep dip
+      examine long grass  the pasture
+
+  Madam Mayi wants a gold piece.  Pay it, pick any of the three `askme`
+  questions (all three end "She's right!"), and she leaves -- hanging her cloak
+  on the chair on her way out.
+
+
+THE EGGS FACTOR: 25 IS THE ONLY WINNING SCORE
+
+  Bing Harbor scores 24 out of 30 and `comppart2` needs `%xfactorscore% gt 24`.
+  The fresh-performance marks are Yesteryear 5, Ray of Light 4,
+  Mysterious Wench 7, Hopelessly Devoted 8, You're So Vain 10; repeats are
+  scored 2, -1, 2, 1, 3.  Three distinct songs, best three: 10 + 8 + 7 = 25.
+  The next-best combination is 10 + 8 + 5 = 23.  So the script's answers -- 5,
+  3, 2 -- are not one winning line, they are the *only* winning line.
+
+  All three `choose <perform>` calls happen inside the single turn spent on
+  `speak to sharon`, along with the `ask` that starts the contest, so that one
+  command consumes four script lines.
+
+  Winning hides Simon, Sharon and the Bouncer, moves Bing to his barber shop,
+  opens Burningham's east/west exits, confiscates your pass, and sets
+  `olive = 7`.  Note the ordering trap this creates: Simon is gone afterwards,
+  so `use camera on Simon` -- the fifth song -- has to happen before you ever
+  speak to Sharon.  If you lose, `comppart2` clears the played flags and lets
+  you try again, so the contest itself is forgiving; the *setup* is not.
+
+
+THE ENDGAME: ONE FLEECE, TWO WIGS
+
+  There is exactly one sheep and therefore exactly one fleece, and it has to be
+  green first and red second.
+
+      contract -> Bing -> clippers -> shear the sheep -> plain wool
+      green paste on plain wool -> green wool  (Madam Mayi's hair)
+      camera on the shorn sheep -> poodle photo -> Cherie -> collar and lead
+      collar and lead on the sheep -> Cherie's shop, cherie = 4
+      speak to Cherie -> party dress, and the Emporium doors unlock
+
+  The fake crystal ball is the other half of the disguise: the contest prize is
+  a crystal bowl, `remove battery` splits the camera into an empty camera and a
+  charged battery, the battery lights the bulb scavenged from the lighting rig
+  under the stage, and the glowing bulb dropped in the bowl is a mystic's orb.
+  Cloak + green wig + orb on the table, `sit on chair`, and Elliott walks in.
+
+  Answer his question from the biography and the seance runs: there was never a
+  harp, the carp is at the palace, and the ball smashes back into a plain bulb.
+  Now the fleece can be recycled -- `turn valve`, `use bleach on tank`, wash the
+  green wool clean, dye the plain wool red -- because the barn's entry script
+  demands both the dress and red wool before it will let you stay:
+
+      script {
+        ...
+        if got <dress> and got <red wool> then { ...wear them... }
+        else { msg <You decide to retreat...>  goto <Royal Court> }
+      }
+
+  Scoop the carp out of the press with the clay bowl, which gets you spotted
+  (`followersmad`), then `speak to magic carp` -- the wish that gets you out is
+  the one John Lemon promised.  Slip northeast, north, and hand the fish to the
+  Queen.
+
+
+AUTHORING QUIRKS WORTH KNOWING
+
+  * QDK emitted several handlers twice, with the *second* copy carrying the
+    extra line that actually matters.  `biography`'s `action <read>` appears
+    twice, identical except that the second ends `do <reading>`; the Mystic's
+    chair has two `action <sit on>` blocks, only the second reaching
+    `do <chairsit>`; the business card has two `action <read>` blocks, only the
+    second creating the Burningham exit.  Anything that keeps the *first*
+    definition instead of the last makes this game unfinishable at three
+    separate points.
+  * The barn's exit is written with an empty `then`:
+    `northeast { if flag <followersmad> then else { ... goto <Royal Court> } }`
+    -- an inverted guard spelled the lazy way.
+  * `command <remove battery>` is one command with two independent `if got`
+    blocks, so holding both the camera and a glowing bulb would take both
+    apart in a single turn.
+  * The Chic Boutique, Bing's Barbers and the palace have no `look` at all, so
+    entering them prints exits and objects and nothing else.
+  * `Theatre` exists only to `goto <auditorium>` from its script -- you never
+    see its own description twice.
+  * The Oracle's `obj` procedure `enter`s a free-text subject and string-matches
+    it; every branch is a pure hint, so the script never uses it.  Asking about
+    "snails" is how a player is expected to learn that snails hide in places
+    already examined.
+  * The Statue in the Royal Court "smells faintly of mashed potato".  There is
+    nothing to do with it.
+
+
+Verified: 222 turns, leftover 0, WON.  Requires --tick.
+
+start:
+read map
+go to shurlee temple
+north
+look at mausoleum
+push iron gate
+down
+look at broken gate
+take rod
+up
+south
+use rod on head
+north
+down
+south
+south
+look at dais
+take cloth
+look at cloth
+north
+north
+up
+south
+out
+go to fax by the sea
+speak to oracle
+play lute
+2
+give book to oracle
+give map to oracle
+1
+give cloth to oracle
+out
+go to shurlee temple
+north
+down
+south
+look at light
+north
+up
+south
+out
+go to elliott's bottom
+speak to simon
+speak to simon
+1
+north
+speak to olive
+give cloth to olive
+speak to olive
+speak to olive
+1
+play lute
+1
+give leaflet to olive
+look at desk
+take box key
+south
+west
+give pass to bouncer
+up
+examine chairs
+take wallet
+look at opera glasses
+1
+down
+out
+north
+give wallet to olive
+south
+east
+north
+speak to edison
+play lute
+2
+use opera glasses
+take long grass
+south
+use grass on sheep
+take gloves
+west
+west
+west
+pull lever
+examine lighting rig
+take bulb
+examine lighting rig
+take flat battery
+climb rig
+east
+out
+out
+go to lightning plain
+wear gloves
+use rod on burnt patch
+use flat battery on lightning rod
+take charged battery
+give charged battery to edison
+out
+go to elliott's bottom
+northwest
+speak to madam mayi
+1
+1
+southeast
+east
+north
+take long grass
+south
+west
+out
+go to lightning plain
+speak to edison
+read business card
+out
+go to elliott's bottom
+use camera on simon
+out
+go to fax by the sea
+give autograph to oracle
+1
+out
+go to burningham
+west
+speak to al
+give opera glasses to al
+speak to al
+use grass on mortar and pestle
+east
+out
+go to shurlee temple
+examine hole
+north
+examine altar
+down
+south
+south
+examine dais
+north
+north
+up
+south
+out
+go to elliott's bottom
+east
+down
+turn valve
+examine valve
+take bleach
+up
+north
+examine long grass
+south
+west
+out
+go to burningham
+west
+speak to al
+east
+out
+go to elliott's bottom
+west
+northwest
+speak to sharon
+1
+5
+3
+2
+east
+out
+north
+speak to olive
+south
+out
+go to burningham
+east
+give contract to bing
+west
+out
+go to elliott's bottom
+east
+use clippers on sheep
+take plain wool
+use camera on sheep
+use green paste on plain wool
+west
+out
+go to burningham
+south
+read rosette
+speak to cherie
+give poodle photo to cherie
+north
+out
+go to elliott's bottom
+east
+use collar and lead on sheep
+speak to cherie
+remove battery
+use charged battery on bulb
+north
+north
+give empty camera to edison
+south
+east
+take red dye
+1
+west
+out
+go to elliott's bottom
+use glowing bulb on crystal bowl
+northwest
+use fake ball on table
+wear cloak
+wear green wool
+sit on chair
+read biography
+remove cloak
+southeast
+east
+down
+use bleach on tank
+use green wool on tank
+use red dye on plain wool
+up
+west
+out
+go to royal court
+north
+speak to queen
+south
+southwest
+examine press
+use clay bowl on magic carp
+speak to magic carp
+northeast
+north
+give magic carp to queen
+

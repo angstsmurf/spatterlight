@@ -1,0 +1,269 @@
+Operation: Sleepover (Justin Bailey / Junkosoft, v2.0, ©2001-2005; ASL 350,
+`nodebug', start <bed2>) -- an ending reached through a procedure, not
+`playerwin'.
+
+Content note, since the abbreviation in the banner is not obvious: this is an
+"AR/TG" game, i.e. age-regression and gender-transformation transformation
+fiction.  A faery turns the fifteen-year-old narrator into a toddler and then
+into a nine-year-old girl, and the goal is to be let into his sister's slumber
+party.  It is not pornographic -- there is no sexual content in it at all -- but
+it is squarely in that genre and the prose dwells on clothes, cuteness and
+embarrassment throughout.  It is here because the machinery underneath it is
+unusually interesting, not for the story.
+
+There is no `playerwin', no `playerlose' and no score display.  Every ending in
+the game -- and there are several, including two deaths by sticking metal
+objects into the electrical outlets -- funnels into `define procedure <thend>',
+which walks the inventory building two strings with `$objectproperty()$' and
+`$displayname()$', prints "You finished this game as #name[sex]#, a %age% year
+old #gender[sex]#.", then "The End", then calls `stop'.  So the runner sees
+running=false at the end and the marker has to come out of `thend'.  The marker
+used here is "job well done", which is the last line of `thend':
+
+    if property <atari; dead> and got <cookies> then msg <|wCongratulations on
+    a job well done. ...  |crSay Justin Bailey|cb in your bedroom next time you
+    play.>
+
+That line only prints if the Atari has been played to death *and* the cookies
+have been baked, so the marker pins the good ending rather than merely reaching
+an ending -- which matters here, because walking into an outlet also reaches
+`thend' and would satisfy any marker taken from its earlier lines.
+
+The name prompt is seed-dependent, and this is the one thing to know before
+editing this transcript.  `qna.playersetup' calls `qna.randnames', which builds
+two twenty-entry string arrays and picks with `$rand(1;20)$' twice: `name[0]'
+from the girls' list and `name[1]' from the boys'.  Under --seed 1 those come
+out Hannah (female[8]) and Hayden (male[10]).  The party door then does
+`enter <planswer>' and compares your answer to `#name[0]#' -- the *girl* name --
+so the line "Hannah" in this script is only correct at seed 1.  Answer with the
+boy's name and Amy says "this party is for girls only"; answer with anything
+else and she says she doesn't know anyone by that name; either way the game does
+not end and the following script line is eaten as a command.  (`say justin
+bailey' in the bedroom overrides both names to Justin/Bailey, which is the
+Metroid password joke the author is named after; it also opens a second game,
+on which see below.)
+
+Four script lines are swallowed by `enter' prompts rather than run as commands:
+two "yes" answers to the crawlspace's "It's dark down there.  Are you sure?",
+the name, and the trivia letter.  That is the whole difference between the 96
+lines below and the 92 turns the runner counts.
+
+The three shapes of the game.  Scene 1: a fifteen-year-old boy.  Amisael has
+magically locked the bedroom door in the opening scene, and `say open sesame'
+unlocks it -- the author's idea of a fair first puzzle, given that the room's
+own hint is "I'm not giving you a hint for this room.  It's too easy."  From
+there the route is a scavenger hunt for two mixtures: the bottle of lighter
+fluid on Mom's dresser plus the lighter from the kitchen junk drawer make a
+working lighter, and the orange juice from the dining room plus the vodka in the
+fridge make a screwdriver, which the game itself admits "doesn't really make
+much sense when you think about it".  Amy is standing in the dining room and
+blocks both of its exits until `speak to amy' moves her out (and teleports you
+downstairs).  The lighter is what survives the pitch-dark crawlspace: `north'
+from the laundry room runs `do <dark>', which is an `enter'-prompted
+confirmation followed by `goto <dark>', and `dark' counts turns and feeds you to
+the grues on the fifth one.  `use lighter' there is the only way through, and it
+lands you in the west crawlspace, where the big cardboard box is `properties
+<taped>' and `use scissors on box' does
+`for each object in <crawl1> if property <#quest.thing#; boxed> then show' --
+one line that empties the whole box at once, revealing the Atari, the cow
+jammies, an old skirt and some action figures.  Then `look at vent' in the east
+crawlspace, which is gated on `%age%;15' and `%sex%;1', ends scene 1: Amisael
+catches you spying and regresses you to a toddler.
+
+Scene 3, the toddler, exists for exactly one reason.  Being small is what makes
+the heating vent in your own bedroom reachable: `vent2' is `hidden', and the
+only `show <vent2>' in the file is inside bed2's own description, guarded by
+`if is <%age%;2>'.  So you cannot pry the vent open as a teenager -- the object
+is not there to be prized at.  As a toddler `use screwdriver on vent' does
+`create exit north <bed2; bed3>' and `create exit south <bed3; bed2>', and Amy's
+bedroom, whose door is locked from the inside and cannot be unlocked from the
+hallway, is finally reachable.  Note that the regression ran `returninv', which
+sends every non-clothes item in your inventory back to its `homeroom' property,
+so the lighter and the scissors are back in the junk drawer -- but the box stays
+cut open and the lighter stays `full', which is why the second trip into the
+dark only needs `open drawer' and `take lighter'.  Do not touch the knitting
+needle or the screwdriver in the living room while small: both have
+`use on <outlets>' handlers that fry you and call `thend'.
+
+Scene 4 is the endgame, and taking the crystal ball is the hinge.  Its `take'
+script sets age 9 and sex 0, strips everything you were wearing into the
+`clothes' holding room, dresses you in a cami and red panties (shir 2, pant 2),
+sets `pjlevel' to 1, banishes Amisael, and -- the part that matters for routing
+-- does `create exit south <bed3;>' and `create exit north <bed2;>' with *empty*
+destinations, sealing the vent passage behind you.  geas drops those exits
+entirely (neither room lists them afterwards and both directions answer "You
+can't go that way"), which is the intended effect; there is then exactly one way
+out of Amy's room, and it is `unlock door', whose script requires `%size%;gt;1'
+and so was unavailable to the toddler.  Miss that and the game is unwinnable
+with the player standing in a room with no exits.
+
+The party door.  `command <knock>' in the downstairs hallway requires sex 0 and
+then runs `do <party>', which after the name check demands `%shir% >= 2',
+`%pant% >= 3' and `%pjlevel% >= 2' before Amy will let you in.  This is the QNA
+clothing library, and it is the best thing in the game: garments are `type
+<clothes>' subtypes carrying `pant' and `shir' layer values (`sleeper' is 4/4,
+`dress' 8/8, and so on) plus a `size' property, and `qna.wearable' refuses a
+garment whose layer value is `lt=' the total you are already wearing (you would
+be putting an underlayer on over an outer one) or whose size falls outside
+`%size%'..`%size%+1'.  `qna.agesize' derives `size' from `age', so every
+transformation silently resizes the entire wardrobe through `qna.resize'.  The
+cow jammies are `size=4' and age 9 gives size 4, so they fit only in this scene;
+they are also `properties <ripped>' with an `action <before>' that refuses the
+wear outright, and the only cure is `use sewing kit on jammies', which is itself
+gated on `%sex%;0' ("Sewing isn't exactly a manly activity").  The sewing kit is
+`hidden' under the black sweater in the living room and is revealed by
+`take sweater' -- which only works once Mom has been moved out of the room,
+which the toddler transformation did.  Wearing them adds their `pjlevel=2', so
+pjlevel goes 1 -> 3 and shir/pant go 2 -> 6.  Beware the decoys: the sweater's
+own `action <after>' does `set <pjlevel; %pjlevel% - 5>' and the old skirt's
+does the same, so a player who dresses up in the things lying around fails Amy's
+inspection while wearing more clothes than the route does.  Carrying them is
+harmless; wearing them is not.
+
+The trivia question is a non-puzzle wearing a puzzle's clothes.  `party' rolls
+`set numeric <trivia; $rand(1;3)$>' twice in a row (the first roll is dead code)
+and prints one of three sports questions -- Babe Ruth's statue, the Alamodome,
+Terry Bradshaw -- and all three set `answer' to `a', so the letter "a" is
+correct whatever the seed does.  Getting it right is what turns you back into a
+boy; getting it wrong ends the game as Amy's new little sister.  Both endings
+run `thend'.
+
+The cookies are the other half of the marker, and they are only bakeable in
+scene 4: `use chocolate chips on flour' checks `if is <%sex%;1>' and refuses
+with "You don't know anything about cooking", so the girl gets "Using your
+female intuition, you toss together some cookie dough" and the boy gets nothing.
+`use dough on oven' bakes them.  Note the kitchen's exit script,
+`for each object in <kitchen> move <#quest.thing#; $objectproperty(#quest.thing#;
+homeroom)$>' -- everything you leave lying on the kitchen floor is teleported
+home the moment you walk east, so the flour and sugar cannot be hoarded.  The
+Atari is the last errand: `use atari on television' in the living room runs
+`leonpreview', which prints a trailer for an unwritten Junkosoft game and sets
+`property <atari; dead>'.
+
+What this route deliberately skips.  `say justin bailey' in the bedroom followed
+by `use atari on television' does not print the trailer at all; it starts a
+whole second game inside the file (rooms `1'-`7' and `a'-`h', lines 1489-2205,
+with its own inventory, its own age counter and its own scoring), and finishing
+that one with a perfect 137 is the only thing in the file that ever sets
+`property <pocketwatch; magic>'.  Carrying a magic pocketwatch into the party
+switches both party endings to much stranger ones -- a body swap with Amy, or
+being trapped in Amisael's body -- but it is a second walkthrough's worth of
+work for a variant ending, so this transcript takes the plain branch and does
+not pick the watch up at all.  Also unvisited: the red swimming trunks, which
+`open dresser' produces in scene 4 as another Metroid joke (they are what Samus
+wears under the password this author is named after) and which advance `scene'
+to 5 without unlocking anything.  This script takes them because they cost one
+turn and they prove the scene counter moves; they are still in inventory,
+unworn, in the closing summary.
+
+Engine notes.  Nothing here needed a change.  Worth recording anyway: the empty
+`create exit <dir> <room;>' form described above; the malformed take script at
+line 638, `take if here <mom> (%scene% = 1) then msg <...>', where the author
+seems to have meant an `and' between two conditions -- this route never takes
+the knitting needle, so what geas makes of it is untested and worth a look if
+anyone ever routes through the living room as a toddler; and `properties
+<homeroom=...>' being used as a poor man's object-return system, which combines
+with `for each object in <inventory>' and `$objectproperty()$' to do everything
+the clothing library needs without a single array of object names.
+
+Verified: 92 turns, 96 script lines (four of them eaten by the two darkness
+prompts, the name prompt and the trivia prompt), marker "job well done",
+seed 1, no --tick; reaches "The End" and the game stops.
+
+Start:
+look at desk
+look at book
+say open sesame
+nw
+nw
+look at dresser
+take lighter fluid
+se
+down
+e
+n
+speak to amy
+s
+up
+e
+n
+w
+open drawer
+take lighter
+take scissors
+use lighter fluid on lighter
+e
+s
+w
+down
+n
+w
+n
+yes
+use lighter
+use scissors on box
+e
+look at vent
+e
+s
+up
+e
+n
+take orange juice
+w
+open fridge
+take vodka
+use orange juice on vodka
+e
+s
+w
+up
+se
+look at vent
+use screwdriver on vent
+n
+take ball
+unlock door
+sw
+se
+open dresser
+take trunks
+nw
+down
+e
+take sweater
+take sewing kit
+n
+w
+open fridge
+take chocolate chips
+open cabinets
+use chocolate chips on flour
+use dough on oven
+open drawer
+take lighter
+e
+s
+w
+down
+n
+w
+n
+yes
+use lighter
+take atari
+take jammies
+s
+e
+s
+up
+e
+use atari on television
+use sewing kit on jammies
+wear jammies
+w
+down
+n
+knock
+Hannah
+a

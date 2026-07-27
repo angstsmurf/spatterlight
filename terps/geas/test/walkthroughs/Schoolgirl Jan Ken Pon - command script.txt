@@ -1,0 +1,44 @@
+Schoolgirl Jan-Ken-Pon! (QDK Pro 4.1.2, ASL 410)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Win marker: "lost all her clothes".
+SEED-DEPENDENT: needs GEAS_SEED=1, which run_walkthroughs.sh exports.
+
+One room, one NPC, and a game of strip rock-paper-scissors, first to five.  The
+scoring lives entirely in variable onchange handlers in the game block: SPEAK TO
+SCHOOLGIRL opens the "jan-ken-pon" selection, the choice sets %jankenpon player%
+and then rolls %jankenpon girl% with $rand(1; 3)$, and the girl variable's
+onchange compares the two, prints the result and increments "player score" or
+"girl score".  Those two scores have onchange handlers of their own that strip a
+garment per point and call playerwin / playerlose at 5.
+
+The girl's rolls come from one $rand(1; 3)$ per round and do not depend on what
+the player picks, so under a fixed seed the whole match is a known sequence.  At
+GEAS_SEED=1 she plays paper, scissors, scissors, paper, scissors -- so scissors,
+rock, rock, scissors, rock beats her 5-0 without a single garment lost.  (A sixth
+rand is drawn before the match, in the intro procedure, to pick which underwear
+the "panties" string holds -- pink thong under this seed.)
+
+How the input lines pair up, which is not obvious from the file:
+
+  * The first SPEAK opens the "start game" selection, so the next line (1 = Yes)
+    answers that, and the line after it answers the jan-ken-pon menu that the Yes
+    branch chains into -- one turn, two menus, three script lines.  The "wait
+    <Press any button...>" between them consumes nothing.
+  * Every later round is two lines: SPEAK, then 1/2/3 for rock/paper/scissors.
+  * An answer that is not a listed choice counts as choice 1, so a stray command
+    in a menu slot silently plays Rock rather than erroring.  Losing count here
+    is the way to end up naked.
+
+Start:
+look at schoolgirl
+speak to schoolgirl
+1
+3
+speak to schoolgirl
+1
+speak to schoolgirl
+1
+speak to schoolgirl
+3
+speak to schoolgirl
+1

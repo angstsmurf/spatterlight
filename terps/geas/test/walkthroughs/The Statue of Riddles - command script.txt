@@ -1,0 +1,189 @@
+"The Statue of Riddles" -- Andrew "Thanatos" Trewin, QDK Pro 4.04, finished 9 February 2009
+Command script for geas_walkthrough_runner.  57 turns; wins.
+
+WHY THIS GAME IS IN THE SUITE
+
+Because for years it was not playable at all.  The Dome of Wits -- the last room, the one
+with the ending in it -- is described as "This massive dome is completely blank. Yep, 100%
+empty."  That stray percent sign has no partner, and geas used to `throw` out of
+GeasFile::static_eval when it hit one.  The throw was caught all the way out in set_game,
+which quietly abandoned the rest of startup, so the game printed no title, no intro and no
+room description, and every command afterwards was a no-op.  One typo in a joke, 500 lines
+away from the start, and the whole game was a black screen.
+
+Quest never had that problem: each pass of ConvertParameter (V4Game.cs:6697-6701) logs
+"Line parameter <...> has missing %" as a WarningError -- which is a log-channel entry the
+player never sees -- and substitutes the literal text "<ERROR>" for the whole parameter,
+then carries on.  geas now does the same on the runtime paths; see
+fixtures/unmatchedpercent.asl for the one place it still can't (a definition-level property,
+because the marker's angle brackets don't survive re-serialization into a
+`properties <name=value>` line).
+
+THE SHAPE OF THE GAME
+
+Nine Stone Faces are scattered across the map.  Speaking to one teleports you into a Room of
+Riddles, where the Statue of Riddles asks a riddle and `choose`s from a twelve-way selection;
+eleven answers kill you outright ("Unfortunetly you didn't notice the giant axe attached to
+the roof") and the twelfth hands over an item, teleports you back out, and shuts that face's
+mouth.  So the map only opens up in the order the riddles are answered, and the walkthrough is
+essentially a fixed sequence of Face -> Statue -> number.
+
+The nine answers, by riddle number:
+
+  1  no beginning, no end, symbol of the world's cycles ......  6  A circle
+  2  hammer to break myself, melted by fire ..................  2  A pebble
+  3  spirited jig, wind feeds me, water is my bane ...........  6  Fire
+  4  weighs nothing, but a box with it is lighter ............ 11  A hole
+  5  a man stepped on me, sat to find me, left with me .......  1  A splinter
+  6  captures a picture, kept forever, gone when you're dead ..  9  A memory
+  7  not dirt nor grime, struggle and I'll pull you deep .....  5  Quicksand
+  8  "Qaz Wsx Edc Rfv Tgb Yhn Ujm Ik Ol?" ....................  5  The letter P
+  9  alive without breath, dressed in mail but never a clink .  4  A fish
+
+Riddle 8 is the one worth pausing on: those are the columns of a QWERTY keyboard read
+downwards, and the missing column is P.
+
+THE OPENING DEADLOCK
+
+The temple's own front door is the last thing you can open.  Stone Face1 at the Ruin Entrance
+is declared `hidden`, buried behind thorny Vines that can only be cut with the Machete; the
+Machete is riddle 4's reward on the Island; the Island can only be reached by canoe; and the
+canoe's two oars are riddles 2 and 3, out on the Cliff and down in the Cave.  So the whole
+first act runs backwards through the numbering -- 2, 3, 4, then 1 -- and only riddle 1 swaps
+the Huge Door for "Huge Door (Open)" and `create exit north` into the Entrance Hall.
+
+The canoe is assembled from three separate objects (Canoe, CanoeRightOar, CanoeLeftOar) so
+that either oar may be fitted first, plus a fourth copy (CanoeBothOars2) parked on the Island
+so the trip home works.  Both oars carry `alt <Oar>`, so "use oar on canoe" is ambiguous --
+this script always names them in full.  Note also that `command <use canoe>` in the Lake is
+guarded by `if here <CanoeBothOars>` with no `else`: row before the canoe is finished and the
+game says absolutely nothing.
+
+THE FOUR ELEMENTAL ROOMS AND THE SKELETON
+
+The Entrance Hall has four doors, one per element, each holding a Stone Face (riddles 5-8) and
+each yielding one piece of Thanatos's kit: Helm (fire), Armour (water), Sword (wind), Shield
+(earth).  The Skeleton of Thanatos is `parent <Sarcophagus>`, so the sarcophagus must be
+opened before he is in scope at all, and his `speak` gates on `got` all four pieces at once --
+with anything less he just repeats the couplet.  Hand over all four and he crumbles, dropping
+the Ghost Key, which is `use`d on the Strange Door to be "sucked inside" the Madness Room.
+
+THE MADNESS ROOM
+
+Three headless/bodiless/legless ghosts, and they must be spoken to in order: Aeven refuses
+until `not here <Estaq>` and Monty until `not here <Aeven>` (a solved ghost is `move`d to the
+Storeroom, which is how "not here" doubles as "already answered").  Answers: Estaq 4 (A
+sword), Aeven 3 (The stars), Monty 12 (Silence).  Monty's script has a visible slip -- the
+scolding line is emitted unconditionally before the gate is tested, so even on the turn he
+finally asks his riddle he opens with "Aeven is the second one thy must speak to."  Monty's
+success `create exit north` into the Circular Room.
+
+THE ENDGAME
+
+Riddle 9 in the Circular Room creates the `up` exit (and drops a Ladder that is pure scenery --
+the room's own description promises "If you had a ladder you could climb it", but the exit is
+made by the riddle, not by the ladder).  Up is the Bridge, where the now-armoured Thanatos
+blocks the north exit with a script exit rather than a flag: `north if here <Thanatos> then msg
+<...> else goto <Dome of Wits>`.  His three riddles are chained selections -- answering one
+`choose`s the next inside the same turn -- so three answers are consumed by a single "speak to
+thanatos": 3 (the prince is 30 and the princess is 40), 1 (Freedom!), 10 (Bacteria).  Then
+north, and speaking to the Overlord -- who is a Hobbit -- runs the Chuck Norris gag and the
+credits, and `playerwin`.  The win marker is the last credit line, "One Hobbit was forced into
+slave labour in the making of this game."
+
+AUTHORING QUIRKS WORTH KNOWING
+
+* Riddle 6, choice 3 ("Shadows") prints the *wrong*-answer message -- axe, roof, and all --
+  and then runs `playerwin` instead of `playerlose`.  Answering the sixth riddle wrongly in
+  exactly one specific way therefore wins the game outright, roughly a third of the way in.
+  This script deliberately takes the long road; keep the marker on the credits text so the
+  regression covers the whole game and not the typo.
+* Riddle 2's success script forgets to place Shut Stone Face2, and moves Stone Face2 to the
+  Cliff it is already standing on.  The face on the Cliff therefore never closes: its riddle
+  can be answered again and again, spawning another Right Oar each time.
+* Riddle 5's success uses `background <...>` where every other riddle uses `msg <...>`, so the
+  "Correct. You have survived this round." line arrives through a different channel.
+* `define selection <playthegame>` is never `choose`n by anything.  It belongs to a completely
+  different, item-passing Imp game, and answering "No" to it would melt the player into an Imp.
+  It is dead code that survived a copy-paste.
+* The Storeroom is the author's offstage junk drawer -- every "used up" object is `move`d there
+  -- and it has no exits, so it is unreachable in play.  Its description ("A riddle to hard for
+  you? By all means, look around... Well, I can. But meh.") is aimed at players reading the ASL
+  rather than playing the game, and it holds a Scroll whose `look` prints a CONGRATULATIONS
+  banner and calls `playerwin`: a second, entirely unreachable ending.  Also in there: a
+  baseball bat marked "Property of Tr0n", blunt scissors, and a jar of red dye, none of which
+  any script ever mentions again.
+
+start:
+west
+north
+speak to stone face
+speak to statue of riddles
+2
+take right oar
+south
+south
+speak to stone face
+speak to statue of riddles
+6
+take left oar
+north
+use right oar on canoe
+use left oar on canoe
+use canoe
+speak to stone face
+speak to statue of riddles
+11
+take machete
+use canoe
+east
+use machete on vines
+speak to stone face
+speak to statue of riddles
+6
+north
+west
+speak to stone face
+speak to statue of riddles
+1
+take helm
+east
+east
+speak to stone face
+speak to statue of riddles
+9
+take armour
+west
+northeast
+speak to stone face
+speak to statue of riddles
+5
+take sword
+southwest
+northwest
+speak to stone face
+speak to statue of riddles
+5
+take shield
+southeast
+open sarcophagus
+speak to skeleton
+take ghost key
+use ghost key on strange door
+speak to estaq
+4
+speak to aeven
+3
+speak to monty
+12
+north
+speak to stone face
+speak to statue of riddles
+4
+up
+speak to thanatos
+3
+1
+10
+north
+speak to overlord

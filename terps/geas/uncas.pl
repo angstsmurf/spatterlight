@@ -69,7 +69,16 @@ my @hash_data =
      [81, 'enabled'], [82, 'disabled'], [83, 'variable'], [84, 'value'], 
      [85, 'display'], [86, 'nozero'], [87, 'onchange'], [88, 'timer'], 
      [89, 'alt'], [90, 'lib'], [91, 'up'], [92, 'down'], [93, 'gametype'], 
-     [94, 'singleplayer'], [95, 'multiplayer'], [150, 'do'], [151, 'if'], 
+     [94, 'singleplayer'], [95, 'multiplayer'],
+     # 96..112 and 238..245 were missing here (and in readfile.cc's copy of the
+     # same table) so every keyword in them decompiled to nothing.  Transcribed
+     # from the real Quest's quest.dat.
+     [96, 'verb'], [97, 'menu'], [98, 'container'], [99, 'surface'],
+     [100, 'transparent'], [101, 'opened'], [102, 'parent'], [103, 'open'],
+     [104, 'close'], [105, 'add'], [106, 'remove'], [107, 'list'],
+     [108, 'empty'], [109, 'closed'], [110, 'options'], [111, 'abbreviations'],
+     [112, 'locked'],
+     [150, 'do'], [151, 'if'],
      [152, 'got'], [153, 'then'], [154, 'else'], [155, 'has'], [156, 'say'], 
      [157, 'playwav'], [158, 'lose'], [159, 'msg'], [160, 'not'], 
      [161, 'playerlose'], [162, 'playerwin'], [163, 'ask'], [164, 'goto'], 
@@ -92,7 +101,9 @@ my @hash_data =
      [225, 'foreground'], [226, 'wait'], [227, 'picture'], [228, 'nospeak'],
      [229, 'animate'], [230, 'persist'], [231, 'inc'], [232, 'dec'], 
      [233, 'flag'], [234, 'dontprocess'], [235, 'destroy'],
-     [236, 'beforesave'], [237, 'onload']);
+     [236, 'beforesave'], [237, 'onload'],
+     [238, 'playmp3'], [239, 'extract'], [240, 'shell'], [241, 'popup'],
+     [242, 'select'], [243, 'case'], [244, 'lock'], [245, 'unlock']);
 
 my %tokens = ();
 my %rtokens = ();
@@ -134,13 +145,28 @@ sub uncompile_fil {
     my $curline = "";
 
 
+    # Three compiled-game container versions exist: QCGF001, 002 (three more
+    # text-mode block types) and 003 (a trailing resource catalogue).  Quest
+    # reads all three with one decompiler; so do we.  See readfile.cc.
+    my $cas_version = 0;
+    if (join ('', @dat[0..3]) eq 'QCGF') {
+	$cas_version = 1 if join ('', @dat[4..6]) eq '001';
+	$cas_version = 2 if join ('', @dat[4..6]) eq '002';
+	$cas_version = 3 if join ('', @dat[4..6]) eq '003';
+    }
+
     my $obfus = 0;
-    my $expect_text == 0;
+    my $expect_text = 0;
     my ($ch, $chn, $tok);
     for (my $n = 8; $n < @dat; $n ++) {
 	$ch = $dat[$n];
 	$chn = ord $ch;
 	$tok = $rtokens{$ch};
+	# A v3 catalogue (!startcat .. !endcat) plus its packed resource data
+	# follows the script; everything past it is binary, so stop.  The test only
+	# holds at a token position -- inside a quoted string, a text block or an
+	# !unknown run the same byte is just data.
+	last if $cas_version >= 3 && $chn == 252 && $obfus == 0 && $expect_text != 2;
 	if ($obfus == 1 && $chn == 0) {
 	    #print $OFH "> ";
 	    $curline .= "> ";
@@ -183,7 +209,11 @@ sub uncompile_fil {
 	    push @output, $curline;
 	    $curline = "";	    
 	} else {
-	    if (($tok eq 'text' || $tok eq 'synonyms' || $tok eq 'type') &&
+	    # "define text" is text-mode in every version; synonyms, type and menu
+	    # only from v2 on, since v1 predates them.
+	    if (($tok eq 'text' ||
+		 ($cas_version >= 2 && ($tok eq 'synonyms' || $tok eq 'type' ||
+					$tok eq 'menu'))) &&
 	    	$dat[$n - 1] eq chr(8)) {
 		$expect_text = 1;
 	    }

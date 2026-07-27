@@ -1,0 +1,10 @@
+Start:
+object
+look
+alias
+look
+real
+look
+back
+attic
+look

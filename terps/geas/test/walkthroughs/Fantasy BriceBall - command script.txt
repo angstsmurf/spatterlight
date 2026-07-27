@@ -1,0 +1,127 @@
+Fantasy BriceBall, Episode 1: the 2002 Revival -- Brice R. Binder, ASL 400
+==========================================================================
+
+A fetch quest across an eleven-room map of Alameda, California.  You are a
+foreign exchange student in Mr. Simpson's ESL class; your tutor Brice mentions
+the lost sport of BriceBall; you then recruit four more players and gather six
+props, and walk onto the field.  There is nothing to solve and nothing to fail
+at except one thing (see below), so the script is a route, not a solution.
+
+The win is a room script, so it fires on entry to BriceBall Memorial Field:
+
+    script if got <Brice> and got <old baseball bat> and got <three old tennis
+      balls> and got <pen> and got <backstop> and got <tow rope> and got <Corey>
+      and got <Ivana> and got <Hector> and got <Cynthia> and got <official
+      BriceBall scorecard> then playerwin
+      else msg <You are not ready to play yet. ...>
+
+`got` is inventory, and the four recruits are ordinary objects you TAKE -- which
+is where the one way to lose comes in: every character carries
+
+    drop playerlose
+
+so DROP anyone, or INVENTORY-shuffle carelessly, and the game ends with "The only
+rule of this game is to keep your most precious commodity: PLAYERS!"  The field
+can be re-entered as often as you like, though: a premature visit only prints the
+"not ready" message.
+
+The list
+--------
+SPEAK TO BRICE is a four-screen conversation ending in `reveal <List>`, and the
+List's description is the checklist: a bat, tennis balls, a backstop, a blank
+scorecard, a pen, a rope.  It is pure documentation -- nothing checks whether you
+ever read it, and the recruits are not on it at all.  The four `wait <Hit any key
+to continue|cb>` pauses inside the speak script do not consume a script line, so
+each SPEAK is a single command here.
+
+Two of the six props are inside containers, both `opened` and both needing a LOOK
+before the object exists to take:
+
+    define object <garbage can>          (Tennis Courts)
+        look { reveal <three old tennis balls>  remove <three old tennis balls> }
+
+    define object <Brice's car>          (Parking Lot)
+        look { remove <backstop>  msg <Brice opens his trunk...> }
+
+The garbage can's look script has no `msg` at all, so LOOK AT GARBAGE CAN prints
+nothing whatsoever and then the balls are takeable -- easy to read as a dead end.
+Both objects also declare `parent`, so before the reveal/remove they are listed
+as container contents rather than as room objects.
+
+Red herrings
+------------
+Three characters cannot be recruited and have no TAKE script: Bill in the Velour
+Grill ("Go back to where you came from!"), Mr. Simpson in the classroom, and
+Betty on Otis Drive, whose "I'll do anything for fifty bucks!" is followed by the
+author's own aside, "** You don't have $50 **".  There is no money in the game.
+
+The map
+-------
+                          BriceBall Memorial Field
+                                    |
+    Tennis Courts --- Parking Lot ---
+                            |
+    Writing 3 Class -- Tutoring Center
+                            |
+                      Webster Street              Brice's room
+                            |                          |
+    Lincoln Avenue -- Your Appartment            big blue house
+        |     \                                        |
+    Hardware   Franklin Park --------------------------/
+     Store          |
+                Otis Drive --- Velour Grill Restaurant
+
+(Lincoln Avenue's east exit and Franklin Park's west exit connect; big blue house
+is UP/DOWN to Brice's room.)
+
+The route below is a single loop that ends in the Parking Lot, so the two
+container props are picked up last and the final move east is the win.
+
+Pickups in order: Brice and Ivana and Hector (talk, then take), the pen at home,
+Cynthia on Lincoln Avenue, the tow rope in the Hardware Store, the bat in
+Franklin Park, the scorecard in Brice's room, Corey at the Velour Grill, the
+tennis balls at the courts, the backstop from the car.
+
+Start:
+speak to brice
+take brice
+w
+speak to ivana
+take ivana
+e
+s
+speak to hector
+take hector
+s
+take pen
+e
+speak to cynthia
+take cynthia
+s
+take tow rope
+n
+e
+take old baseball bat
+e
+up
+take official briceball scorecard
+down
+w
+s
+e
+speak to corey
+take corey
+w
+n
+w
+w
+n
+n
+n
+w
+look at garbage can
+take three old tennis balls
+e
+look at brice's car
+take backstop
+e

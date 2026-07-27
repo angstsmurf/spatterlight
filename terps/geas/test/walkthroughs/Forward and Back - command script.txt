@@ -1,0 +1,66 @@
+Forward and Back v1.0 by MarcroSoft (QDK 4.x, ASL 400)
+- raw command script for geas_walkthrough_runner.
+Game system: Quest 4.  Marker: "you lost!".
+SEED-DEPENDENT: needs GEAS_SEED=1, which run_walkthroughs.sh exports.
+
+Not an adventure at all: a hot-seat implementation of the dice game where a 6
+takes a die out of play, a 1 passes one forward and a 2 passes one back.  There
+is one room, no objects, and one command -- OK, which rolls the current player's
+dice.  There is no playerwin anywhere in the file, so nothing here can be won.
+The two endings, both reached through "stop", are:
+
+  * procedure <lose>: fires when the roll leaves exactly one die in the game,
+    and names the player still holding it -- "<name>, you lost!"
+  * procedure <nolose>: fires when a roll takes the last two or more dice out
+    at once -- "All the dice have come out. A tie!"
+
+The lose test is checked first, so the tie needs every remaining die to come up
+6 on the same roll.  Under GEAS_SEED=1 that does not happen for any small
+player/dice combination, so the losing ending is the one the script drives to.
+
+The script answers the startscript's three prompts (3 players; Marc, Anna, Bo;
+2 dice each) and then rolls twelve times, which is exactly how long the match
+lasts at this seed: Bo's last 6 leaves Anna holding the only die.
+
+Worth knowing while reading the transcript:
+
+  * A player can be named twice in a row, and a player who is not the next one
+    round the table can be.  Procedure <next> skips anyone down to zero dice,
+    and a 1 or a 2 hands a die to the neighbour rather than dropping it, so the
+    turn order wanders.  "Marc, your dice show: 2 2." sending both dice to Bo
+    (player 1's "back" neighbour is player %players%) is the game working.
+  * Every roll calls playwav <n.wav> through procedure <sounds>, and the .wav
+    files are not in the download.  A missing sound is silently ignored.
+  * Three engine details this game leans on, all of them fixed for it:
+      - "enter <players>" fills the *string* variable and "set numeric
+        <players; #players#>" then converts it.  Quest keeps string and numeric
+        variables in two independent arrays, so the same name can hold one of
+        each (SetNumericVariableContents, V4Game.Part2.cs:477-536); geas used to
+        refuse the numeric definition, leaving %players% at -32767 and the
+        validation loop asking "How many players are playing?" forever.
+      - "if is <%diceout%+1;%totaldice%>" is arithmetic, not text.  From ASL
+        3.91 on ExecuteIfIs runs both operands through ExpressionHandler
+        (V4Game.cs:7479-7494), so this compares 2 with 2; comparing the strings
+        "1+1" and "2" instead meant the losing ending never fired and the match
+        ran on past its end.
+      - "stop" is FinishGame(StopType.Null) (V4Game.Part2.cs:5798-5801) -- the
+        game is over, exactly as after playerwin, only with no closing text.
+
+Start:
+3
+Marc
+Anna
+Bo
+2
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok

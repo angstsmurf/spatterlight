@@ -1,0 +1,335 @@
+Metal Sonic's Quest (Jordan Dooling, v4.0, QDK 3.53 UNREGISTERED; ASL 350,
+`gametype multiplayer', `!include <net.lib>', start <Multiplayer Lobby>) -- 148
+rooms of Sonic the Hedgehog fan fiction, and the game that found a real geas
+bug.
+
+Why it is in the corpus.  geas used to refuse to run it.  The game block
+declares `gametype multiplayer', and geas answered that with
+`throw string ("Error: geas is single player only.")'.  The throw came from the
+middle of the loop that reads the game block, so it also skipped the `start'
+line two lines below it, and the exception was swallowed by the `catch (string)'
+around the loader -- so there was no error message either.  The game came up
+with "You are in " and all 148 rooms listed as objects in scope.  QuestViva
+never reads the declaration at all: "gametype" and "multiplayer" appear in the
+runner only as entries in the keyword table (Libraries/quest.dat:98,100), and
+when play begins the game block is scanned for exactly one thing, a line
+beginning "start " (V4Game.Part2.cs:7992-7999).  A multiplayer-declared game is
+therefore an ordinary single-player game that starts in its declared room, and
+the multiplayer machinery -- `player startscript', `disconnect msg', the
+`define options / login on / register on' block, chat, challenges -- simply
+never comes up.  geas now ignores the declaration;
+fixtures/multiplayer.asl pins that.  The file's `!include <net.lib>' on line 4
+needs nothing either: net.lib is one of the standard libraries that ship with
+Quest rather than with games, so geas recognises the name and skips it
+(readfile.cc:929-937), exactly as it does for stdverbs.lib.
+
+Getting around.  Almost nothing in this game has compass exits; the author
+navigates with `place'.  He also misunderstood the two-parameter form:
+`place <gate; Knothole Junkyard- Gatekeeper>' does not create a room called
+"gate", it prints "gate" as a prefix in front of the bolded destination, and the
+command is still `go to Knothole Junkyard- Gatekeeper'.  (That is what Quest
+does -- `PlaceExist' strips "any prefix and semicolon" before matching, at
+V4Game.Part2.cs:6543-6590, and `GetGoToExits' builds the exit list the same way
+at 7783-7821.)  The very first room's own instructions therefore lie: it says
+`just type "go to gate" and go there', and that is not a command this game
+understands.  Every movement line below is a full destination room name, spelled
+exactly as the `define room' spells it, punctuation and all -- including the
+inconsistent chapter-6 abbreviations (`Egg Fortress- Elevator' upstairs but
+`E.F.- Restroom' one floor up, `E.F- 3rd Floor' with the dot missing).  The two
+exceptions are Area 51 and Area 51 SECRET ROOM, the only compass-linked pair in
+the file, hence the bare `w' and `e' in the middle of the transcript.
+
+--tick is required, and this is the only game in the corpus where the timers are
+load-bearing rather than lethal.  Campaign mode has two hard gates that nothing
+but a timer can open.  `Campaign Mode- Skydive' arms `O400 hours' (interval 30)
+and the timer's action is `show <JUMP!>'; the `JUMP!' object is the room's only
+exit and is `hidden' until then, so the thirty `look' turns in the middle of
+this script are the game, not padding.  `Campaign Mode- Fight' arms
+`wait for it.....' (interval 5), whose action shows the `gun' *and* arms `life'
+(interval 10) -- so after five turns of waiting you have ten turns to
+`take gun', and the gun's own script is what does `timeroff <life>'.  Miss it
+and you are dumped back to the lobby with "Mission Failed".  The death timers
+this route does meet are all answered on the turn they are armed: the three
+Area 51 boss rooms arm `Reflex time' (10), `Round 2' (5) and `Final shot' (3),
+and every branch of `choose <Final Boss>' turns all three off, so the selection
+prompt is the entire boss fight.
+
+No `playerwin', and the credits are behind both game modes.  `define text <win>'
+is the credits roll ending "THE     END!!!!!!", and it says so itself:
+"You have beaten both game modes".  It is displayed by exactly one room,
+`Metal's Past- The thing', and getting there means running the whole unlock
+chain:
+
+  * `Game Complete!' (end of chapter 7) does `show <Unlockable>', which puts an
+    object in the lobby whose `take' goes to `Metal's Past- Egg Fleet'.
+  * `Game Complete!' also carries `use <Hidden Key> goto <Extra-start>', which
+    opens chapter 8, the Extra chapter.  That is a room-level bare
+    `use <object>' line, and it only works because this game is ASL 350: from
+    410 on Quest never consults a room's `use <obj>' line, so a 410 port of this
+    game would be unable to reach its own bonus chapter.
+  * `Extra- Finished' (end of chapter 8) does `show <Locked>', an object in
+    `Metal's Past- Seaside Hill' leading on to `Metal's Past- Egg Base'.
+  * `Campaign Mode- Complete' -- the end of the *other* game mode -- does
+    `show <also Locked>', and that object, in `Metal's Past- Knothole', is the
+    only way into `Metal's Past- The thing'.
+
+So the marker is "you have beaten both game modes", which cannot be reached by
+any shorter route, and the game keeps running afterwards: there is no `stop', no
+`playerwin' and no score anywhere in the file, so the runner reports
+running=true at the end.
+
+Chapter 3 has three player characters and this route takes the third.  `Choose'
+runs `choose <Character select>': Metal Sonic, Shadow or Meta Tails.  Meta Tails
+is two rooms long -- `Operation 1' leads straight to `Battle Royale' -- while
+the Metal branch walks the streets and the sewers into `Hidden Hideout METAL',
+whose description admits "the way I came in... is blocked" and whose only exit
+is a `2nd door' shown by the `Light passing' timer (interval 30), and the Shadow
+branch arms `Sneak time' (interval 150), which teleports you back to the start
+of the chapter.  All three converge on `Battle Royale' and
+`choose <Metal again>', where only choice 4, the Sniper Rifle, wins; choice 1
+lands in a room that offers to "cheat to the finish" and gets you there anyway,
+and 2 and 3 are `playerlose'.  Meta Tails' other option, `Operation 2', is a
+one-line joke ending -- you wait for an audience so long that you rust away.
+
+Chapter 4's lost woods are a maze with one safe path and two identical-looking
+deaths.  From `Angel Island- Lost Woods' both `deep' and `deeper' are safe, and
+each offers a `web' and a lair -- `cave' has the tarantula, `even deeper' has
+the tiger, and both kill the whole party.  `web' leads to `treetop' either way.
+The dragon has to be recruited first: `speak to Echidna Male' in
+`Angel Island- Town' asks "Accept the mission?" and drops you back in the caves,
+and `Angel Island- Lost Caves' then asks "Talk to the dragon?" -- answer no and
+you are bounced back to the caves with nothing.  `Angel Island- Gate' and the
+`Echidna Female' (a `choose <Speak to>' menu of three questions) are pure
+colour; the route skips them.
+
+Chapter 5 is played rather than skipped.  `Ice Cap- Head' has an undocumented
+room `command <skip_down_mountain>' that jumps straight to `Ice Cap- Finale',
+and the game's own hint menu advertises it -- as `skip_the_mountain', which does
+not exist anywhere in the file.  This script instead does the snowboard
+sequence, a four-deep chain of nested `choose' calls (`Character' -> `Metal
+snow' -> `Metal2' -> `Metallast') in which exactly one path per level survives;
+as Metal Sonic that is Right, Left, Far left.  Every branch, winning or not,
+does `timeroff <Knuckles Explosion>', so the 60-turn bomb never actually gets a
+chance to go off -- but it is armed, and it is the reason the room shouts
+"SNOWBOARD FOR YOUR LIVES!".
+
+Chapter 6's boss has a good ending that the game cannot reach.  `E.F.-Boss' runs
+`choose <Rouge>' on entry, which chains into `1 leg' and then `No legs', a
+three-way choice whose `info' line promises "No answer is wrong!".  One of them
+is: "(Good) Spare Her" prints its speech, awards the sixth chaos emerald in
+prose, and has no `goto' -- so the player is left standing in `E.F.-Boss', whose
+`choose' only fires on entry, with no exits and no ending.  There is a
+`define room <End good>' holding the good ending's `displaytext' and a `stop',
+and nothing in the file ever goes there.  The neutral (Uzi) and bad (grenades)
+branches both `goto <Area 51-Gate>', so this route shoots her.
+
+Chapter 7 is the one real puzzle in the game, and it pays off an item from
+chapter 1.  The `map' taken from `Monorail 01- Outside' fifty-odd turns earlier
+describes itself as "A map of The Junkyard.... it's useless...."; in
+`Area 51 Screening Room' the `giant map' of the whole journey is missing its
+junkyard section, and `use map on giant map' is what reveals `a door'.  The
+chain before it is `examine box' at the gate (which shows `a window' -- taking a
+window is how you get in, through a toilet), then in the screening room
+`take statue' shows the `batteries' and `use batteries on lamppost' scares off
+the ghosts and produces the map puzzle.  `Area 51 SECRET ROOM', one room west of
+the hub, hands over the `Hidden Key' from a room-level `script give <Hidden
+Key>' just for walking in -- that is chapter 8's entry ticket, and it is the
+"biggest secret in the game" the `displaytext' brags about.
+
+The briefcase.  `examine Door?' in `Area 51- Bathroom' turns a door into a
+`Briefcase'; giving it to the `Strange Man' in the lobby (Mr. Metalism, the
+self-declared co-creator of the sequel) does `show <Demo Stand>' in Unlockable
+Hall.  That matters because the credits text ends "Only thing left to do? Get
+the MSQ2 Demo!", so two turns of detour make the game's closing claim true.  The
+demo itself -- the `MSQ2D-' rooms plus `Hallway', `Kitchen',
+`Shopping District', `Buy' and `Outdoors', with its own shop, its own currency
+and a `print_out_a_million_dollar_bill.exe' cheat -- has no ending ("you just
+type \"lobby\" to end the demo") and is not played here.
+
+Authoring oddities worth recording, all of which geas takes in its stride:
+`script timeroff <Search time!>' in the lobby names a timer that is never
+defined, and so do `timeron <timer for spike>' and `timeron <second>' in the
+Stardust Speedway selections; `Egg Base- Lab later' has a bare `place <>' with
+an empty parameter; `Campaign Mode- Indoors' defines `< door>' with a leading
+space in the object name (`take door' still finds it); and
+`Campaign Mode- Tails' room' is entered whether or not you are armed -- the
+`if got <fully loaded shotgun>' / `if got <fully loaded handgun>' chain in its
+entry script is the only difference between the mission succeeding and
+"MISSION   FAILED!", which is why this script picks a gun up off the floor in
+`Campaign Mode- Target Achiever'.  Cheat commands deliberately unused:
+`teleport_room', `super_info', `warp_me_there_now_please', `gimme_it_or_else'.
+
+Verified: 137 turns, 168 script lines (31 of them eaten by selection menus and
+`if ask' prompts, and 35 of them the two timer waits), marker
+"you have beaten both game modes", seed 1, --tick.  The game does not stop, so
+the runner ends with running=true.
+
+Start:
+speak to lobby desk
+1
+yes
+n
+go to Knothole- South
+go to Knothole- Downtown
+take monorail 01
+take ladder
+take map
+take ladder for climbing
+take chair
+go to Sonic's House
+2
+go to Egg Base- Hallway
+go to Egg Base- Mess Hall
+take bench
+yes
+take cupboard
+take open vault
+take key
+1
+go to Top Story Tonight
+go to To court
+go to Choose
+3
+go to Operation 1
+go to Battle Royale
+4
+go to Angel Island- Entrance
+go to Angel Island- Caves
+go to Angel Island- Town
+speak to Echidna Male
+yes
+go to Angel Island- Lost Caves
+yes
+go to Angel Island- Burned Village
+go to Angel Island- Burned Gate
+go to Angel Island- Lost Woods
+go to deeper
+go to web
+go to treetop
+go to Burned Hewewe
+1
+1
+go to Ice Cap- Foot
+go to Ice Cap- Ski Lift
+take ski lift
+go to Ice Cap- Snowboard
+1
+2
+1
+1
+go to Cemetary
+go to Morph
+4
+go to Egg Fortress- Receptionists Room
+go to Egg Fortress- Elevator
+go to E.F.- Restroom
+go to E.F- 3rd Floor
+go to E.F.- Eggman's Office
+go to E.F.-Boss
+1
+1
+2
+examine box
+take a window
+yes
+examine Door?
+take Briefcase
+go to Area 51
+w
+e
+e
+take statue
+take batteries
+use batteries on lamppost
+use map on giant map
+take a door
+go to Area 51- Boss
+1
+go to Area 51 Boss part2
+1
+go to Area 51 FINAL boss
+1
+go to Game Complete!
+use Hidden Key
+take Control Pad
+take stick
+use stick on Control Pad
+take elevator
+go to Extra- Tornado
+go to Extra- MC's head
+2
+go to Extra- Finished
+go to Multiplayer Lobby
+give Briefcase to Strange Man
+speak to lobby desk
+2
+yes
+2
+go to Campaign Mode- Plan room
+go to Campaign Mode- Target Achiever-034
+go to Campaign Mode- Skydive
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+take JUMP!
+go to Campaign Mode- Start point mission
+go to Campaign Mode- Behind MAMS
+go to Campaign Mode- Sonikku's Room
+go to Campaign Mode- The lab
+go to Campaign Mode- Mess Hall
+go to Campaign Mode- the next day
+go to Campaign Mode- Plan
+go to Campaign Mode- Target Achiever
+take fully loaded shotgun
+go to Campaign Mode- Roof
+take Window
+take door
+go to Campaign Mode- Lab 2
+go to Campaign Mode- FINAL MISSION
+take the door
+look
+look
+look
+look
+look
+take gun
+go to Campaign Mode- Commander Metal's Final Online Time
+take FINAL BATTLE
+1
+1
+take Racetrack
+1
+1
+go to Multiplayer Lobby
+take Unlockable
+go to Metal's Past- Seaside Hill
+take Locked
+go to Metal's Past- Knothole
+take also Locked

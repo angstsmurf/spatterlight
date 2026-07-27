@@ -1,0 +1,17 @@
+
+doblock
+
+bare block ran
+then-block ran
+still in the then-block
+grey matched at depth 2
+back at depth 1
+named procedure ran
+named procedure got seven
+You are in r
+A room.
+
+> look
+You are in r
+A room.
+[runner] turns=1 leftover=0 running=true

@@ -1,0 +1,70 @@
+
+gotcontainer
+
+You are in Shore
+There is jar and matches here.
+You can go north.
+A stretch of shore.
+
+> check
+no matches
+here matches
+no jar
+
+> take jar
+You pick it up.
+
+> take matches
+You pick it up.
+
+> check
+got matches
+not here matches
+got jar
+
+> put matches in jar
+You put matches in jar.
+
+> check
+got matches
+not here matches
+got jar
+
+> i
+You are carrying:
+jar
+matches
+
+> north
+You are in Water
+You can go south.
+Waist-deep water.
+
+> check
+got matches
+not here matches
+got jar
+
+> south
+You are in Shore
+You can go north.
+A stretch of shore.
+
+> drop jar
+You drop it.
+
+> check
+no matches
+here matches
+no jar
+
+> take matches
+(first removing it from jar)
+Done.
+You pick it up.
+
+> check
+got matches
+not here matches
+no jar
+[runner] turns=14 leftover=0 running=true

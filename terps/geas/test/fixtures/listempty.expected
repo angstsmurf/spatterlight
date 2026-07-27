@@ -1,0 +1,40 @@
+
+listempty
+
+You are in Beach
+There is crate, chest, barrel and pebble here.
+A sandy beach.
+
+> check crate
+crate reads empty
+
+> check chest
+chest reads empty
+
+> look in crate
+There is nothing in the crate.
+
+> look in barrel
+You peer into the barrel and see your own reflection.
+
+> look in chest
+The chest is shut.
+
+> open chest
+You open the chest.
+
+> look in chest
+The chest is empty.
+
+> take pebble
+You pick it up.
+
+> put pebble in crate
+You put pebble in crate.
+
+> check crate
+crate reads empty
+
+> look in crate
+Inside you see pebble.
+[runner] turns=11 leftover=0 running=true
