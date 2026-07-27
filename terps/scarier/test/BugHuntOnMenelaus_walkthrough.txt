@@ -18,12 +18,25 @@
 # room, retracts the screen and kills the 5th Meneltra.
 #   FrankenDrift ORIGINALLY dropped that move ("Sorry, I didn't understand that
 # command.") after the elevator -- the known ADRIFT Runner v5.0.35 bug fixed in
-# v5.0.36 (game hint thread: intfiction.org/t/63289).  Root cause in FD:
-# cl_PlayerMove1's bracket sequence indexes past its restriction list, PassSingle-
-# Restriction got a Nothing, restx.Copy threw an NRE, and GetGeneralTask's catch
-# aborted the whole turn -> "didn't understand".  FIXED in FrankenDrift
-# (FrankenDrift.Adrift/clsUserSession.vb: guard `If restx Is Nothing Then Return
-# False`).  FD now walks the corridor and WINS 100/100, so this is an FD MATCH
+# v5.0.36 (game hint thread: intfiction.org/t/63289).  Root cause: FrankenDrift's
+# snapshot predates that 5.0.36 fix, which is a save/restore of iRestNum in
+# PassRestrictions.  iRestNum (the index the bracket-sequence walk is on) is a
+# session field, and restriction evaluation is RE-ENTRANT: cl_PlayerMove1's
+# HaveRouteInDirection restriction reaches clsCharacter.HasRouteInDirection, which
+# calls PassRestrictions again for the corridor direction's own "(#O#)" block.  That
+# inner walk left iRestNum at 2, so the outer walk resumed at 2 instead of 1 and ran
+# past the end of cl_PlayerMove1's restriction list; RestrictionArrayList.Item
+# returns Nothing on a range error, restx.Copy threw an NRE, PassSingleRestriction's
+# own catch could not contain it (its ErrMsg text dereferences restx again), and
+# GetGeneralTask swallowed the escaping second NRE -> "didn't understand".
+#   Note this is FD-specific: the current ADRIFT 5 Runner has the save/restore.
+# FIXED in FrankenDrift by porting it (FrankenDrift.Adrift/clsUserSession.vb,
+# PassRestrictions; awlck/frankendrift#75).  An earlier fix here guarded
+# `If restx Is Nothing Then Return False` in PassSingleRestriction, but that only
+# caught indices that ran off the END of the list -- instrumenting this very
+# playthrough logs 110 re-entrant PassRestrictions calls, so most corrupted indices
+# land on a valid-but-wrong restriction and were silently mis-evaluated.
+# FD now walks the corridor and WINS 100/100, so this is an FD MATCH
 # (0 vanilla; 2 xoshiro = a minor `read sign` parser divergence).  The Scarier-side
 # engine change that first unlocked the game was MoveCharacter ToSwitchWith / BECOME
 # player-switching (previously a no-op, so every marine stayed stuck in the
