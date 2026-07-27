@@ -1,0 +1,44 @@
+
+verbmenu
+
+You are in Yard
+There is painting, crate and sack here.
+
+> verbs painting
+You can:
+Look at
+Examine
+Take
+
+> lift painting
+I don't understand your command. Type HELP for a list of valid commands.
+
+> take painting
+You lift it away and find a safe.
+
+> verbs crate
+You can:
+Look at
+Examine
+Take
+Hoist
+
+> hoist crate
+You heave the crate up onto its end.
+
+> heave crate
+You heave the crate up onto its end.
+
+> raise crate
+I don't understand your command. Type HELP for a list of valid commands.
+
+> verbs sack
+You can:
+Look at
+Examine
+Take
+Remove
+
+> remove sack
+You work the sack free of the netting.
+[runner] turns=9 leftover=0 running=true

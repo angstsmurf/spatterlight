@@ -520,6 +520,24 @@ v2string geas_implementation::object_verbs (const string &obj) const
   if (responds ("speak")) add ("Speak to");
   if (responds ("use"))   add ("Use");
   if (responds ("read"))  add ("Read");
+  /* "remove <object>" is a command in its own right, and when the object is not
+     inside a container it falls back on the object's own `remove` action or
+     property (see the "remove #@object#" handler) -- which is how Shiversword
+     Tales' clothes and Bear Campsite's tangled string come off.  It used to
+     reach the menu only as a side-effect of harvesting the action list below.
+
+     Two other things answer a bare responds("remove") and are not that.  A
+     container's `remove` is the container half of "put", the handler for taking
+     something back *out* of it, and says nothing about removing the container
+     itself: "City of Blood" tags seven of its containers with a valueless
+     `properties <remove>` and not one of them can be removed.  And a valueless
+     property prints nothing at all, since dispatch_obj_verb formats the empty
+     string, so it is no response either. */
+  string rem;
+  if ((get_obj_action (obj, "remove", rem) ||
+       (get_obj_property (obj, "remove", rem) && trim (rem) != "")) &&
+      !has_obj_property (obj, "container") && !has_obj_property (obj, "surface"))
+    add ("Remove");
 
   /* Built-in multi-synonym verbs (the same table try_match dispatches through):
      list one when the object defines a matching action/property.  The container
@@ -532,16 +550,6 @@ v2string geas_implementation::object_verbs (const string &obj) const
   if (has_obj_property (obj, "container") || has_obj_property (obj, "surface"))
     { add ("Open"); add ("Close"); add ("Look in"); }
 
-  /* The object's own explicit `action <verb>` definitions carry custom verbs
-     the tables above don't know about.  Skip the engine-internal action keys
-     that are never player-typed menu verbs. */
-  auto is_skipped = [] (const string &key) {
-    static const char *skip[] = { "gain", "lose", "description", "script" };
-    for (const char *s: skip)
-      if (ci_equal (key, s))
-	return true;
-    return false;
-  };
   /* Returns true when a verb phrase names a specific second object, e.g.
      "break with fire-axe", "use fire ax" or "give to guard".  Such entries
      are spoilery and omitted; the plain forms with no noun ("Use", "Give
@@ -566,6 +574,21 @@ v2string geas_implementation::object_verbs (const string &obj) const
       }
     return false;
   };
+  /* An object's `action <verb>` list is NOT a source of menu verbs on its own.
+     Quest only ever runs an action whose key the engine dispatches -- the
+     universal verbs and the built-in table above, plus the second-noun handlers
+     (use/give/put) -- or one named by a `verb`/`lib verb` declaration in the
+     *game* block; ExecVerb (V4Game.cs:2952-2955) scans nowhere else.  So an
+     author who writes `action <lift>` and no `verb <lift>` has written dead
+     code: LIFT PAINTING is "I don't understand your command" in real Quest too.
+     Harvesting the action list unconditionally put such a verb in the menu,
+     where clicking it typed a command the parser then rejected -- "Escape from
+     this house" advertised Lift on its painting, which is reachable only by
+     TAKE.  The one exception is the GIVE catch-all below, which the engine does
+     dispatch with no declaration.
+
+     (Nothing is lost for a genuinely declared verb: the game-block loop that
+     follows adds it, checking the same object for the same handler.) */
   const GeasBlock *ob = gf.find_by_name ("object", obj);
   if (ob != NULL)
     for (const string &line: ob->data)
@@ -577,29 +600,14 @@ v2string geas_implementation::object_verbs (const string &obj) const
 	if (!is_param (nm))
 	  continue;
 	for (const string &v: split_param (param_contents (nm)))
-	  {
-	    string key = trim (v);
-	    /* The two GIVE catch-alls (see the "give ... to ..." handler in
-	       run_commands).  "give to anything" is this object being handed
-	       over, so it makes a menu entry -- but only as the start of a
-	       command, since the recipient is still missing.  "give anything"
-	       is the mirror case, this object receiving something the player
-	       has not named yet; that command starts with the *other* object,
-	       so there is nothing here to offer.  Both would otherwise be
-	       listed raw ("Give anything", "Give to anything"), reading as two
-	       duplicate verbs that do nothing when clicked.  Checked before
-	       has_indirect_object, which drops the named-recipient forms. */
-	    if (ci_equal (key, "give anything"))
-	      continue;
-	    if (ci_equal (key, "give to anything"))
-	      {
-		add ("Give to...", "give " + alias + " to ", true);
-		continue;
-	      }
-	    if (is_skipped (key) || has_indirect_object (key))
-	      continue;
-	    add (label_of (v));
-	  }
+	  /* "give to anything" is this object being handed to someone the
+	     player has not named yet, so it makes an entry -- but only as the
+	     start of a command.  (Its mirror, "give anything", is this object
+	     *receiving* something; that command starts with the other object,
+	     so there is nothing here to offer.  See the "give ... to ..."
+	     handler in run_commands.) */
+	  if (ci_equal (trim (v), "give to anything"))
+	    add ("Give to...", "give " + alias + " to ", true);
       }
 
   /* Global `verb <name[;syn]> ...` declarations the object responds to. */
@@ -620,10 +628,28 @@ v2string geas_implementation::object_verbs (const string &obj) const
 	  continue;
 	if (!is_param (names_tok))
 	  continue;
-	vector<string> names = split_param (param_contents (names_tok));
+	/* The action or property the verb looks for on the object is whatever
+	   follows a colon, and the colon is taken out of the name list; with no
+	   colon it is the first (or only) name (V4Game.cs:2958-2976, mirrored in
+	   try_game_verb).  So "verb <hoist;lift:raise>" is typed as HOIST or
+	   LIFT, labelled "Hoist", and looks for `action <raise>` -- checking
+	   responds() against the typed name instead missed every colon form.
+	   (try_game_verb reads the name list with eval_param, which is not const;
+	   an unresolved #string# reference in a verb name only arises in the QDK
+	   mistake that leaves the verb dead anyway, so take it as written.) */
+	string names_str = param_contents (names_tok), key;
+	std::string::size_type colon = names_str.find (':');
+	if (colon != string::npos)
+	  {
+	    key = trim (names_str.substr (colon + 1));
+	    names_str = trim (names_str.substr (0, colon));
+	  }
+	vector<string> names = split_param (names_str);
 	if (names.empty () || trim (names[0]) == "")
 	  continue;
-	if (responds (trim (names[0])) && !has_indirect_object (trim (names[0])))
+	if (key == "")
+	  key = trim (names[0]);
+	if (responds (key) && !has_indirect_object (trim (names[0])))
 	  add (label_of (names[0]));
       }
 
@@ -4288,8 +4314,11 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
    * right-click verb context menu in the original Windows Quest 4.  ASL4 has no
    * single per-object verb list, so object_verbs() synthesises one from the
    * sources the engine actually dispatches through: the universal verbs, the
-   * built-in multi-synonym verbs the object responds to, its own action
-   * definitions, and any global `verb` declaration it handles. */
+   * built-in multi-synonym verbs the object responds to, and any global `verb`
+   * declaration it handles.  (Quest's own pane menu is a fixed four-entry list
+   * that ignores the object entirely -- _listVerbs, V4Game.Part2.cs:6458-6471 --
+   * so this is deliberately richer, but it must never offer a verb the parser
+   * would reject; see the note in object_verbs.) */
   if ((match = match_command (cmd, "verbs #@object#")))
     {
       if (!dereference_vars (match.bindings, is_internal))

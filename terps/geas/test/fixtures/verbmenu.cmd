@@ -1,0 +1,9 @@
+verbs painting
+lift painting
+take painting
+verbs crate
+hoist crate
+heave crate
+raise crate
+verbs sack
+remove sack
