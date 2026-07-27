@@ -871,13 +871,16 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
      walk (a lone `Player 0` step, Loops; every step's turn count is exactly 0) --
      can never restart: wk_lstop's `length > 0` guard (a faithful port of the runner's,
      which avoids the infinite lStart<->lStop recursion a 0-length restart would
-     cause) leaves it Finished immediately after its lStart.  But the real ADRIFT
-     Runner still steps the walker toward the player every turn: IncrementTimer
-     calls DoAnySteps each tick and, with length 0, from_start stays 0 so the step
-     re-fires.  FrankenDrift's DoAnySteps `Status = Running` gate silently broke
-     this (Son of Camelot's Megan never follows to Merlin's grave, so the game is
-     unwinnable).  Let a Finished structural-0 loop through so its follow step
-     fires each turn.  Test the *model* step counts, not the runtime rt.length: a
+     cause) leaves it Finished immediately after its lStart.  DoAnySteps' plain
+     `Status = Running` gate then means the lone step never fires again and the
+     walker never moves at all -- so these walks are dead in the real ADRIFT
+     Runner too, not just in FrankenDrift (Son of Camelot's Megan never follows to
+     Merlin's grave, so the game is unwinnable; fix offered upstream as
+     jcwild/ADRIFT-5#16).  Everything else is already in place for them to work:
+     IncrementTimer calls DoAnySteps each tick regardless of status, and with
+     length 0 from_start stays 0, so the step matches every tick.  Let a Finished
+     structural-0 loop through so its follow step fires each turn.  Test the
+     *model* step counts, not the runtime rt.length: a
      normal patrol walk STOPPED before it ever started (e.g. Fortress of Fear's
      Custodian, whose control stops one of three alternative patrols at init) is
      also Finished with rt.length still 0 (never lStart'd), but its steps carry
