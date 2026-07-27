@@ -1,0 +1,22 @@
+
+partialmatch400
+
+You are in Hall
+There is Red Rose, Brass Key, Rusty Key, Standing Stone and stone here.
+
+> examine rose
+A single red rose.
+
+> examine key
+Which key do you mean?
+1) Brass Key
+2) Rusty Key
+[choice] 1
+A brass key.
+
+> examine stone
+A pebble.
+
+> examine standing stone
+A tall standing stone.
+[runner] turns=4 leftover=0 running=true

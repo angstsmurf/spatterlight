@@ -1,0 +1,18 @@
+
+partialmatch
+
+You are in Hall
+There is Red Rose, Brass Key, Rusty Key, Standing Stone and stone here.
+
+> examine rose
+A single red rose.
+
+> examine key
+You don't see any key.
+
+> examine stone
+A pebble.
+
+> examine standing stone
+A tall standing stone.
+[runner] turns=4 leftover=0 running=true

@@ -22,8 +22,17 @@
 ' case-sensitive test both EXAMINE MAN and that winning command answered "You
 ' don't have any object by that name" and the game could not be finished.
 '
-' `x oak' is the control: matching an alt is not the same as matching a word
-' inside a name, and at ASL 311 the partial pass must stay switched off.
+' `x lamp' is the control, and it has to be a word that appears nowhere in the
+' object's name or alias.  Geas runs the loose whole-word pass below 391 as well
+' now, accepting it when it names exactly one object (see get_obj_name and
+' partialmatch.asl), so "man" would resolve through `Man in a black suit' even if
+' the alt comparison were broken again -- the Mansion lines above no longer
+' isolate this bug by themselves.  "lamp" is not a word of `brass lantern', so
+' only the alt can match it.
+'
+' `x oak' shows that new rule from the other side: at ASL 311 Quest refuses a
+' word taken from the middle of `heavy oak door', and geas hands it back because
+' nothing else in the room can be meant.
 define game <Altcase>
  asl-version <311>
  start <Lab>
@@ -44,5 +53,10 @@ define room <Lab>
 
  define object <heavy oak door>
   examine msg <A heavy oak door.>
+ end define
+
+ define object <brass lantern>
+  alt <Lamp>
+  examine msg <A brass lantern.>
  end define
 end define

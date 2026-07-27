@@ -2,7 +2,7 @@
 Altcase
 
 You are in Lab
-There is Man in a black suit, Fire ax and heavy oak door here.
+There is Man in a black suit, Fire ax, heavy oak door and brass lantern here.
 
 > x man
 There's nothing special about the man.
@@ -13,8 +13,14 @@ There's nothing special about the man.
 > x man in a black suit
 There's nothing special about the man.
 
+> x lamp
+A brass lantern.
+
+> x LAMP
+A brass lantern.
+
 > x oak
-You don't see any oak.
+A heavy oak door.
 
 > x heavy oak door
 A heavy oak door.
@@ -24,4 +30,4 @@ You pick it up.
 
 > use fire ax on man
 The ax lops his arm off at the elbow.
-[runner] turns=7 leftover=0 running=true
+[runner] turns=9 leftover=0 running=true

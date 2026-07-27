@@ -3194,8 +3194,21 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
    * nicety, it decides which of two like-named objects a puzzle sees, and
    * Permanant Room turns it off precisely so that "use pen on paper" reaches
    * the held `Peice of Paper' (aliased "paper") instead of stopping at the
-   * scenery `Wall Paper' in the room. */
-  bool try_partial = use_abbreviations_ && asl_version_ >= 391;
+   * scenery `Wall Paper' in the room.
+   *
+   * One deliberate divergence: we run the loose pass below 391 too, but only
+   * accept it when it names exactly one object.  Half the corpus predates 391,
+   * and in those games roughly 27 nouns per object list are words sitting
+   * inside a name that Quest simply refuses -- a worn necklace whose alias
+   * TypeLib has rewritten to `Necklace [worn]' stops answering to "necklace"
+   * (DromBennacht).  Unique-match-only is what makes that safe to hand back:
+   * it can turn a refusal into a success, but it can never ask a
+   * disambiguation question Quest would not have asked, and never pick a
+   * different object than Quest picked -- and ambiguity is the whole failure
+   * mode, which is why Permanant Room above needed an escape hatch that a
+   * pre-391 author had no reason to write. */
+  bool try_partial = use_abbreviations_;
+  bool unique_only = asl_version_ < 391;
   for (int pass = 0; pass < (try_partial ? 2 : 1) && objs.empty(); pass ++)
     {
       bool allow_partial = (pass == 1);
@@ -3233,6 +3246,13 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
 		printed_name = tmp;
 	      printed_objs.push_back (printed_name);
 	    }
+	}
+      /* An ambiguous loose match below 391 is dropped rather than put to the
+	 player: Quest found nothing here, so the answer stays "nothing". */
+      if (allow_partial && unique_only && objs.size () > 1)
+	{
+	  objs.clear ();
+	  printed_objs.clear ();
 	}
     }
   GEAS_DBG << "objs == " << objs << ", printed_objs == " << printed_objs << "\n";

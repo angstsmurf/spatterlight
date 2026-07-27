@@ -51,6 +51,7 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the ol
 - A VERBS command that lists available verbs for an object, similar to the contextual verb menus of the original Quest 4 runner.
 - UNDO.
 - OOPS (Quest 4 only).
+- Games written before Quest 3.91 also understand a noun taken from the middle of an object's name, which the original runner only did from 3.91 on. It is accepted only when a single object can be meant, so it can make a refused noun work but never change which object a command finds. About half the Quest games out there predate 3.91: *ESPER Drom Bennacht*, for one, will now show you the necklace you are wearing.
 - No support for text colors, custom fonts, or CSS effects.
 - Some Quest 5 games use a lot of JavaScript, which Geas struggles with.
 
