@@ -2773,10 +2773,11 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
          the ink verdict must come out identical in both modes. */
       for (; *q; q++)
         {
-          if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK)
+          if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK || *q == A5_SOUND_MARK)
             {
-              /* Skip the \006<number>\006 / \022<name>\022 span (the window name
-                 is a routing tag, not visible ink), or a stray unpaired mark. */
+              /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024
+                 span (the window name is a routing tag, not visible ink), or a
+                 stray unpaired mark. */
               const char *e = strchr (q + 1, *q);
               if (e == NULL)
                 continue;
@@ -2932,7 +2933,8 @@ a5text_set_popup_cb (a5_popup_cb cb, void *ctx)
 /* Parse an <img>/<audio> tag body (without the angle brackets) and report it to
    the installed media sink: src="..." (image/sound file), and for <audio> the
    play/stop verb, channel=N and an optional loop flag.  Returns the sink's
-   resolved resource number for an image (-1 otherwise). */
+   resolved resource number for an image, its recorded-event slot for a sound
+   (see a5_media_cb), -1 when the sink has nothing for the caller to mark. */
 static int
 a5_emit_media (const std::string &tag, int is_img)
 {
@@ -2989,13 +2991,15 @@ a5_emit_media (const std::string &tag, int is_img)
         channel = atoi (tag.c_str () + cp);
       }
     if (is_pause)
-      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_PAUSE, NULL, channel, 0);
+      return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_PAUSE, NULL,
+                            channel, 0);
     else if (is_stop)
-      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_STOP, NULL, channel, 0);
+      return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND_STOP, NULL,
+                            channel, 0);
     else
-      a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND, src.c_str (), channel, loop);
+      return a5_media_sink (a5_media_sink_ctx, A5_MEDIA_SOUND, src.c_str (),
+                            channel, loop);
   }
-  return -1;
 }
 
 /* ----------------------------------------------------------- plain renderer */
@@ -3098,14 +3102,23 @@ a5text_render_plain (const char *src)
               /* Embedded media: report it out of band; it still drops from the
                  plain text (so the text output is unchanged).  Interactively an
                  image also leaves \006<resource>\006 at the tag's position so
-                 the host draws it where the author placed it. */
-              int res = a5_emit_media (std::string (p + 1, tagend),
-                                       strcmp (name, "img") == 0);
-              if (a5_interactive_mode && res > 0)
+                 the host draws it where the author placed it, and a sound
+                 leaves \024<event index>\024 so the host starts/stops it there
+                 -- ahead of any later <waitkey>, as the Runner does. */
+              int is_img = strcmp (name, "img") == 0;
+              int res = a5_emit_media (std::string (p + 1, tagend), is_img);
+              if (a5_interactive_mode && is_img && res > 0)
                 {
                   char nbuf[16];
                   snprintf (nbuf, sizeof nbuf, "%c%d%c",
                             A5_IMG_MARK, res, A5_IMG_MARK);
+                  sb_puts (&sb, nbuf);
+                }
+              else if (a5_interactive_mode && !is_img && res >= 0)
+                {
+                  char nbuf[16];
+                  snprintf (nbuf, sizeof nbuf, "%c%d%c",
+                            A5_SOUND_MARK, res, A5_SOUND_MARK);
                   sb_puts (&sb, nbuf);
                 }
               else

@@ -72,10 +72,15 @@ typedef struct {
   int number;        /* Blorb resource number, or -1                            */
   int channel;       /* sound channel 1..8 (audio; 1 = the default), else 0     */
   int loop;          /* sound loop flag                                         */
+  int shown;         /* host bookkeeping: presented at its positional mark      */
 } a5_media_event_t;
 
 extern int                     a5run_media_count (a5_run_t *run);
 extern const a5_media_event_t *a5run_media_get   (a5_run_t *run, int i);
+/* Flag event i `shown`: the host presented it at its positional A5_SOUND_MARK
+   in the turn text, so the after-the-turn media sweep must not replay it.
+   Cleared with the rest of the event when the list is rebuilt next turn. */
+extern void                    a5run_media_note_shown (a5_run_t *run, int i);
 
 /* Save/restore (Phase 5).  a5run_save serialises the full mutable runtime state
    -- object/character locations, variable values, completed tasks, property

@@ -81,9 +81,10 @@ msg_has_output (const char *m)
     return 0;
   for (; *m != '\0'; m++)
     {
-      if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK)
+      if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK || *m == A5_SOUND_MARK)
         {
-          /* Skip the \006<number>\006 / \022<name>\022 span (or a stray mark). */
+          /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024 span
+             (or a stray mark). */
           const char *e = strchr (m + 1, *m);
           if (e == NULL)
             continue;
@@ -111,6 +112,19 @@ msg_ends_with_cls (const char *m)
       char c = m[n - 1];
       if (c == A5_CLS_MARK)
         return 1;
+      if (c == A5_SOUND_MARK)
+        {
+          /* A trailing \024<index>\024 sound span is presentation, not output
+             -- step back over the whole span (a stray unpaired mark reads as
+             text, like any other unrecognised byte). */
+          size_t j = n - 1;
+          while (j > 0 && m[j - 1] != A5_SOUND_MARK)
+            j--;
+          if (j == 0)
+            return 0;
+          n = j - 1;
+          continue;
+        }
       if (!is_pres_mark (c))
         return 0;
       n--;
@@ -233,8 +247,11 @@ a5run_turns (a5_run_t *run) { return run->st->turns; }
 
 /* a5text media sink: resolve the src path to a Blorb resource number (via the
    game's <FileMappings>) and record the event on the run's per-turn list.
-   Returns the resolved number so the renderer can leave a positional image
-   mark in interactive mode (see A5_IMG_MARK). */
+   For an image, returns the resolved number so the renderer can leave a
+   positional image mark in interactive mode (see A5_IMG_MARK); for a sound,
+   the recorded event's list index, which the renderer likewise leaves as a
+   positional A5_SOUND_MARK so the host can fire the event where the tag sits
+   (before a later <waitkey>) and flag it shown (a5run_media_note_shown). */
 static int
 a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
 {
@@ -244,6 +261,7 @@ a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
   ev.channel = channel;
   ev.loop = loop;
   ev.number = (src != NULL) ? a5model_resource_for_file (run->adv, src) : -1;
+  ev.shown = 0;
   /* A description may be rendered more than once internally during a turn; drop
      an image already recorded this turn so it is not shown twice. */
   if (kind == A5_MEDIA_IMAGE)
@@ -252,7 +270,8 @@ a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
           && (*run->media)[i].number == ev.number)
         return ev.number;
   run->media->push_back (ev);
-  return ev.number;
+  return kind == A5_MEDIA_IMAGE ? ev.number
+                                : (int) run->media->size () - 1;
 }
 
 /* Install/remove the media sink around a turn's text generation. */
@@ -278,6 +297,13 @@ a5run_media_get (a5_run_t *run, int i)
   if (i < 0 || (size_t) i >= run->media->size ())
     return NULL;
   return &(*run->media)[i];
+}
+
+void
+a5run_media_note_shown (a5_run_t *run, int i)
+{
+  if (i >= 0 && (size_t) i < run->media->size ())
+    (*run->media)[i].shown = 1;
 }
 
 a5_run_t *

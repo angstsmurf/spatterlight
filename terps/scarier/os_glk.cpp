@@ -196,6 +196,7 @@ static a5_run_t *gsc_a5_run = NULL;
 static void gsc_a5_status (a5_run_t *run);
 static void gsc_a5_display (const char *text);
 static int gsc_a5_show_media (a5_run_t *run);
+static void gsc_a5_media_fire (a5_run_t *run, int idx);
 static void gsc_a5_undo_look (a5_run_t *run);
 
 /* Set when this session drives the game's TimeBased events off a wall-clock
@@ -5082,6 +5083,36 @@ gsc_unput_tail (const char *s)
 #endif
 
 /*
+ * gsc_a5_sound_marks_only()
+ *
+ * True when a turn text carries no visible output -- nothing but positional
+ * A5_SOUND_MARK spans and whitespace (a sound-only commit's spans keep the
+ * text non-empty where it used to render to "").  True for "" itself, so a
+ * caller can use this as its whole output-less test.
+ */
+static int
+gsc_a5_sound_marks_only (const char *text)
+{
+  const char *p;
+
+  if (text == NULL)
+    return TRUE;
+  for (p = text; *p != '\0'; p++)
+    {
+      if (*p == A5_SOUND_MARK)
+        {
+          const char *e = strchr (p + 1, A5_SOUND_MARK);
+          if (e == NULL)
+            return FALSE;
+          p = e;
+        }
+      else if (*p != ' ' && *p != '\t' && *p != '\n' && *p != '\r')
+        return FALSE;
+    }
+  return TRUE;
+}
+
+/*
  * gsc_a5_await_line()
  *
  * Wait for line input on the main window, servicing resize redraws and, in
@@ -5146,10 +5177,12 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
 
               if (text == NULL)
                 break;                          /* silent tick */
-              if (text[0] == '\0')
+              if (gsc_a5_sound_marks_only (text))
                 {
-                  /* An output-less commit: at most sounds to start or stop,
-                     and possibly a silent score change for the status line
+                  /* An output-less commit: at most sounds to start or stop
+                     (their positional marks are all the text holds, so none
+                     have fired yet and the sweep plays them all), and
+                     possibly a silent score change for the status line
                      (a separate window, so no need to touch the pending
                      input request). */
                   gsc_a5_show_media (gsc_a5_run);
@@ -6134,7 +6167,7 @@ gsc_a5_display (const char *text)
           && *p != A5_IMG_MARK && *p != A5_CENTER_MARK
           && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
           && *p != A5_ENDBOLD_MARK && *p != A5_WINDOW_MARK
-          && *p != A5_ENDWINDOW_MARK)
+          && *p != A5_ENDWINDOW_MARK && *p != A5_SOUND_MARK)
         {
           p++;
           continue;
@@ -6205,6 +6238,20 @@ gsc_a5_display (const char *text)
             bold_depth--;
           glk_set_style (gsc_a5_span_style (center_depth, bold_depth));
         }
+      else if (*p == A5_SOUND_MARK)
+        {
+          /* Sound slot: \024<media event index>\024.  Fire it here, at the
+             tag's place in the text -- before any later <waitkey>, so e.g. a
+             sting cued ahead of a keypress-paced cutscene starts immediately
+             (Pervert Action Crisis' maid encounter). */
+          const char *e = strchr (p + 1, A5_SOUND_MARK);
+          if (e != NULL)
+            {
+              if (gsc_a5_run != NULL)
+                gsc_a5_media_fire (gsc_a5_run, (int) atol (p + 1));
+              p = e;
+            }
+        }
       else
         {
           /* Image slot: \006<Blorb resource number>\006. */
@@ -6228,12 +6275,106 @@ gsc_a5_display (const char *text)
 }
 
 /*
+ * gsc_a5_sound_event()
+ *
+ * Execute one collected sound event: start, stop or pause its channel.
+ */
+static void
+gsc_a5_sound_event (const a5_media_event_t *m)
+{
+  int ch = m->channel;
+  int trace = getenv ("A5_TRACE_MEDIA") != NULL;
+
+  if (!gsc_a5_sound_ok)
+    {
+      if (trace)
+        fprintf (stderr, "[a5 media] kind=%d ch=%d (no sound support)\n",
+                 m->kind, ch);
+      return;
+    }
+  /* The Runner has channels 1..8; a channel outside that range makes
+     the whole tag a no-op there (clsSound.vb), so ignore it here too. */
+  if (ch < 1 || ch >= GSC_A5_MAX_CHANNELS)
+    {
+      if (trace)
+        fprintf (stderr, "[a5 media] ignore kind=%d ch=%d (range)\n",
+                 m->kind, ch);
+      return;
+    }
+  if (gsc_a5_channels[ch] == NULL)
+    gsc_a5_channels[ch] = glk_schannel_create ((glui32) ch);
+  if (gsc_a5_channels[ch] == NULL)
+    return;
+  if (m->kind == A5_MEDIA_SOUND_STOP)
+    {
+      if (trace)
+        fprintf (stderr, "[a5 media] stop ch=%d\n", ch);
+      glk_schannel_stop (gsc_a5_channels[ch]);
+      gsc_a5_chan_sound[ch] = 0;
+    }
+  else if (m->kind == A5_MEDIA_SOUND_PAUSE)
+    {
+      if (trace)
+        fprintf (stderr, "[a5 media] pause ch=%d\n", ch);
+      glk_schannel_pause (gsc_a5_channels[ch]);
+    }
+  else if (m->number > 0)
+    {
+      /* Playing the sound a channel is already playing leaves it
+         alone in the Runner ("just leave as is", clsSound.vb) -- a
+         room description that embeds its background music must not
+         restart the track every time the room is re-shown.  Only a
+         different sound (re)starts the channel. */
+      if ((glui32) m->number == gsc_a5_chan_sound[ch])
+        {
+          if (trace)
+            fprintf (stderr, "[a5 media] keep ch=%d snd=%d (already "
+                     "playing)\n", ch, m->number);
+          glk_schannel_unpause (gsc_a5_channels[ch]);
+        }
+      else
+        {
+          if (trace)
+            fprintf (stderr, "[a5 media] play ch=%d snd=%d loop=%d\n",
+                     ch, m->number, m->loop);
+          glk_schannel_play_ext (gsc_a5_channels[ch],
+                                 (glui32) m->number,
+                                 m->loop ? 0xffffffffu : 1, 0);
+          gsc_a5_chan_sound[ch] = (glui32) m->number;
+        }
+    }
+}
+
+/*
+ * gsc_a5_media_fire()
+ *
+ * Fire the sound event behind a positional A5_SOUND_MARK in the turn text --
+ * at its place in the display, ahead of any later <waitkey> pause, the way
+ * the Runner acts on an <audio> tag the moment its DisplayText reaches it.
+ * Flags the event shown so gsc_a5_show_media's after-the-turn sweep does not
+ * replay it.
+ */
+static void
+gsc_a5_media_fire (a5_run_t *run, int idx)
+{
+  const a5_media_event_t *m = a5run_media_get (run, idx);
+
+  if (m == NULL || m->kind == A5_MEDIA_IMAGE)
+    return;
+  gsc_a5_sound_event (m);
+  a5run_media_note_shown (run, idx);
+}
+
+/*
  * gsc_a5_show_media()
  *
  * Present the media events the engine collected for the turn just rendered:
  * start/stop sounds on their channels (images are drawn inline at their text
- * marks by gsc_a5_display).  Returns the number of images the turn embedded,
- * so the caller can decide whether to fall back to the cover.
+ * marks by gsc_a5_display, and sounds whose text reached the display already
+ * fired at their own positional marks -- this sweep catches events whose
+ * rendering was dropped, e.g. a deduped repeat response).  Returns the number
+ * of images the turn embedded, so the caller can decide whether to fall back
+ * to the cover.
  */
 static int
 gsc_a5_show_media (a5_run_t *run)
@@ -6253,62 +6394,14 @@ gsc_a5_show_media (a5_run_t *run)
           if (m->number > 0)
             images++;
         }
-      else if (gsc_a5_sound_ok)
+      else if (m->shown)
         {
-          int ch = m->channel;
-
-          /* The Runner has channels 1..8; a channel outside that range makes
-             the whole tag a no-op there (clsSound.vb), so ignore it here too. */
-          if (ch < 1 || ch >= GSC_A5_MAX_CHANNELS)
-            {
-              if (trace)
-                fprintf (stderr, "[a5 media] ignore kind=%d ch=%d (range)\n",
-                         m->kind, ch);
-              continue;
-            }
-          if (gsc_a5_channels[ch] == NULL)
-            gsc_a5_channels[ch] = glk_schannel_create ((glui32) ch);
-          if (gsc_a5_channels[ch] == NULL)
-            continue;
-          if (m->kind == A5_MEDIA_SOUND_STOP)
-            {
-              if (trace)
-                fprintf (stderr, "[a5 media] stop ch=%d\n", ch);
-              glk_schannel_stop (gsc_a5_channels[ch]);
-              gsc_a5_chan_sound[ch] = 0;
-            }
-          else if (m->kind == A5_MEDIA_SOUND_PAUSE)
-            {
-              if (trace)
-                fprintf (stderr, "[a5 media] pause ch=%d\n", ch);
-              glk_schannel_pause (gsc_a5_channels[ch]);
-            }
-          else if (m->number > 0)
-            {
-              /* Playing the sound a channel is already playing leaves it
-                 alone in the Runner ("just leave as is", clsSound.vb) -- a
-                 room description that embeds its background music must not
-                 restart the track every time the room is re-shown.  Only a
-                 different sound (re)starts the channel. */
-              if ((glui32) m->number == gsc_a5_chan_sound[ch])
-                {
-                  if (trace)
-                    fprintf (stderr, "[a5 media] keep ch=%d snd=%d (already "
-                             "playing)\n", ch, m->number);
-                  glk_schannel_unpause (gsc_a5_channels[ch]);
-                }
-              else
-                {
-                  if (trace)
-                    fprintf (stderr, "[a5 media] play ch=%d snd=%d loop=%d\n",
-                             ch, m->number, m->loop);
-                  glk_schannel_play_ext (gsc_a5_channels[ch],
-                                         (glui32) m->number,
-                                         m->loop ? 0xffffffffu : 1, 0);
-                  gsc_a5_chan_sound[ch] = (glui32) m->number;
-                }
-            }
+          if (trace)
+            fprintf (stderr, "[a5 media] skip kind=%d ch=%d (fired at its "
+                     "mark)\n", m->kind, m->channel);
         }
+      else
+        gsc_a5_sound_event (m);
     }
   return images;
 }

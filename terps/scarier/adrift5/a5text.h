@@ -95,11 +95,18 @@
        host can route the enclosed text to a named secondary window (a Glk host
        through a side text-buffer window).  A <cls> inside the span clears that
        window, not the main story window.
+     - <audio ...> leaves an A5_SOUND_MARK-delimited media-list index,
+       \024<index>\024 (the a5run_media_* slot the sink recorded the event
+       in), so the host can start/stop the sound where the tag sits in the
+       text -- BEFORE any later <waitkey> pause, the way the Runner's
+       DisplayText acts on an audio tag the moment it reaches it (Pervert
+       Action Crisis strikes its sting ahead of a keypress-paced cutscene).
 
    finish_turn keeps all of these in the returned turn text; a host that never
    enables interactive mode (the headless dump / ground-truth harness) sees no
    behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE),
-   \x11 (DC1), \x12 (DC2) and \x13 (DC3) never occur in game text. */
+   \x11 (DC1), \x12 (DC2), \x13 (DC3) and \x14 (DC4) never occur in game
+   text. */
 #define A5_IMG_MARK '\006'
 #define A5_WAITKEY_MARK '\007'
 #define A5_CENTER_MARK '\016'
@@ -108,6 +115,7 @@
 #define A5_ENDBOLD_MARK '\021'
 #define A5_WINDOW_MARK '\022'
 #define A5_ENDWINDOW_MARK '\023'
+#define A5_SOUND_MARK '\024'
 
 /* Interactive-presentation mode toggle (default off; see marks above). */
 extern void a5text_set_interactive (int on);
@@ -168,9 +176,12 @@ extern char *a5text_render_plain (const char *src);
  */
 enum { A5_MEDIA_IMAGE = 1, A5_MEDIA_SOUND = 2, A5_MEDIA_SOUND_STOP = 3,
        A5_MEDIA_SOUND_PAUSE = 4 };
-/* The callback returns the Blorb resource number the src path resolved to (or
-   -1 when unknown); the renderer only uses it for images in interactive mode,
-   to leave the positional \006<number>\006 mark (see A5_IMG_MARK). */
+/* For an image the callback returns the Blorb resource number the src path
+   resolved to (or -1 when unknown); the renderer uses it in interactive mode
+   to leave the positional \006<number>\006 mark (see A5_IMG_MARK).  For a
+   sound it returns the sink's slot for the recorded event (a5run: the
+   media-list index) or -1 to suppress the mark; in interactive mode the
+   renderer leaves it as the positional \024<index>\024 mark (A5_SOUND_MARK). */
 typedef int (*a5_media_cb) (void *ctx, int kind, const char *src,
                             int channel, int loop);
 extern void a5text_set_media_sink (a5_media_cb cb, void *ctx);
