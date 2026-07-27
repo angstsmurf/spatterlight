@@ -131,23 +131,26 @@ bool find_token (const string &s, const string &tok, std::string::size_type &tok
 
 static bool is_define (const string &s)
 {
-  return get_token(s) == "define";
+  /* CI: Quest spots block headers with the lowercasing BeginsWith
+   * ("define ", V4Game.cs:241). */
+  return ci_equal (get_token (s), "define");
 }
 
 
 static bool is_start_textmode (const string &s)
 {
   std::string::size_type start_char, end_char = 0;
-  if (next_token (s, start_char, end_char) != "define") return false;
+  if (!ci_equal (next_token (s, start_char, end_char), "define")) return false;
   string tmp = next_token (s, start_char, end_char);
-  // SENSITIVE?
-  return tmp == "text" || tmp == "synonyms";
+  /* CI: BeginsWith "define text" / "define synonyms" (V4Game.cs:246). */
+  return ci_equal (tmp, "text") || ci_equal (tmp, "synonyms");
 }
 
 static bool is_end_define (const string &s)
 {
   std::string::size_type start_char, end_char = 0;
-  // SENSITIVE?
+  /* Case-sensitive, as in Quest: the section scan closes a block only on
+   * Trim(line) == "end define", raw (V4Game.cs:248). */
   return (next_token (s, start_char, end_char) == "end" &&
 	  next_token (s, start_char, end_char) == "define");
 }
@@ -175,17 +178,21 @@ void GeasFile::read_into (const vector<string> &in_data,
   out_block.parent = in_parent;
   std::string::size_type t1, t2;
   string line = in_data[cur_line];
-  // SENSITIVE?
   string token = first_token (line, t1, t2);
   // Was assert(token == "define"); a malformed file would abort the whole
   // interpreter. Log and proceed so loading degrades rather than crashing.
-  if (token != "define")
+  if (!ci_equal (token, "define"))
     GEAS_DBG << "readfile: expected 'define' but got '" << token << "' in: " << line << endl;
-  string blocktype = out_block.blocktype = next_token (line, t1, t2); // "object", or the like
+  /* The block type is folded: Quest finds blocks of nearly every kind with the
+   * lowercasing BeginsWith ("define room ", "define type ", "define timer ",
+   * ...), so "define Room" is a room there.  (Its procedure/function/
+   * selection/text lookups go through a case-sensitive dictionary instead
+   * (DefineBlockParam, V4Game.cs:1207-1214) -- geas is deliberately laxer
+   * there, as it already is about those blocks' names.) */
+  string blocktype = out_block.blocktype = lcase (next_token (line, t1, t2));
   type_indecies[blocktype].push_back (blocknum);
   string name = next_token (line, t1, t2); // "<itemname>", or the like
 
-  // SENSITIVE?
   if (blocktype == "game")
     {
       out_block.name = "game";
@@ -206,7 +213,6 @@ void GeasFile::read_into (const vector<string> &in_data,
   //out_block.lname = lcase (out_block.nname);
 
   // apparently not all block types are unique ... TODO which?
-  // SENSITIVE?
   if (blocktype == "room" || blocktype == "object" || blocktype == "game" ||
       blocktype == "character")
     {
@@ -218,12 +224,10 @@ void GeasFile::read_into (const vector<string> &in_data,
    * (incrementally growing) set of blocks it did when it scanned linearly. */
   name_index[name_key (blocktype, out_block.name)].push_back (blocknum);
 
-  // SENSITIVE?
   if (blocktype == "room" && find_by_name ("type", "defaultroom"))
     {
       out_data.push_back ("type <defaultroom>");
     }
-  // SENSITIVE?
   if (blocktype == "object" && find_by_name ("type", "default"))
     {
       out_data.push_back ("type <default>");
@@ -245,13 +249,22 @@ void GeasFile::read_into (const vector<string> &in_data,
       else if (depth == 1)
 	{
 	  string tok = first_token (line, t1, t2);
+	  std::string::size_type tokend = t2;
 	  string rest = next_token (line, t1, t2);
 	  bool drop_line = false;
+	  /* Quest recognises a keyword with something after it via the
+	   * lowercasing BeginsWith ("alias ", "use ", "north ", ...), but a
+	   * bare-word line with a raw Trim(line) == "hidden" compare
+	   * (InitialiseObject, V4Game.Part2.cs:3242-3376).  So fold the token
+	   * whenever the line carries more, and compare it raw when the
+	   * keyword is the whole line. */
+	  string ltok = (rest == "") ? tok : lcase (tok);
 
-
-	  if (props[tok] && dir_tag_property[tok])
+	  if (props[ltok] && dir_tag_property[ltok])
 	    {
-	      out_data.push_back (line);
+	      /* Store the direction folded: the exit machinery in geas-runner
+	       * compares these first words against its lowercase names. */
+	      out_data.push_back (ltok + line.substr (tokend));
 	    }
 
 	  /* Quest keeps a bare "open"/"close" line, and one whose whole argument is
@@ -263,10 +276,10 @@ void GeasFile::read_into (const vector<string> &in_data,
 	     in `actions` and so would become an empty action that opens the
 	     container while printing nothing -- or, for the <message> form, a line
 	     geas recognises as neither property nor action and drops. */
-	  if (actions[tok] && (tok == "open" || tok == "close") &&
+	  if (actions[ltok] && (ltok == "open" || ltok == "close") &&
 	      (rest == "" || is_param (rest)))
 	    {
-	      line = "properties <" + tok +
+	      line = "properties <" + ltok +
 		(rest == "" ? "" : "=" + param_contents (rest)) + ">";
 	    }
 	  /* Container listing lines.  Quest keeps the <text> form of `list`,
@@ -285,15 +298,15 @@ void GeasFile::read_into (const vector<string> &in_data,
 	     V4Game.cs:5991) and a container that is not empty prints its contents
 	     instead.  "Shipwrecked" is unwinnable without it: the raft's last piece
 	     is `use <crate2>`, guarded by `if property <crate2; list empty>`. */
-	  else if (tok == "list")
+	  else if (ltok == "list")
 	    {
 	      string propname = "list";
-	      if (rest == "empty" || rest == "closed")
+	      if (ci_equal (rest, "empty") || ci_equal (rest, "closed"))
 		{
-		  propname = "list " + rest;
+		  propname = "list " + lcase (rest);
 		  rest = next_token (line, t1, t2);
 		}
-	      if (rest == "off")
+	      if (ci_equal (rest, "off"))
 		{
 		  if (propname == "list")
 		    line = "properties <not list>";
@@ -309,6 +322,8 @@ void GeasFile::read_into (const vector<string> &in_data,
 	    }
 	  else if (props[tok] && rest == "")
 	    {
+	      /* tok, not ltok: a bare-word flag line is case-sensitive in
+	       * Quest (see the ltok comment above). */
 	      line = "properties <" + tok + ">";
 
 	      /* Quest's object loader treats the two spellings of "hidden"
@@ -331,28 +346,27 @@ void GeasFile::read_into (const vector<string> &in_data,
 	      if (tok == "hidden" && blocktype != "type")
 		line = "properties <hidden; !hiddentag>";
 	    }
-	  else if (props[tok] && is_param(rest))
+	  else if (props[ltok] && is_param(rest))
 	    {
-	      line = "properties <" + tok + "=" + param_contents(rest) + ">";
+	      line = "properties <" + ltok + "=" + param_contents(rest) + ">";
 	    }
-	  else if (actions[tok] && 
-		   (tok == "use" || tok == "give" || !is_param(rest)))
+	  /* The use/give forms and their on/to/anything sub-keywords are all CI:
+	   * AddToUseInfo/AddToGiveInfo read them with BeginsWith
+	   * (V4Game.cs:4230-4330). */
+	  else if (actions[ltok] &&
+		   (ltok == "use" || ltok == "give" || !is_param(rest)))
 	    {
-	      // SENSITIVE?
-	      if (tok == "use")
+	      if (ltok == "use")
 		{
 		  string lhs = "action <use ";
-		  // SENSITIVE?
-		  if (rest == "on")
+		  if (ci_equal (rest, "on"))
 		    {
 		      rest = next_token (line, t1, t2);
 		      string rhs = line.substr (t2);
-		      // SENSITIVE?
-		      if (rest == "anything")
+		      if (ci_equal (rest, "anything"))
 			{
 			  line = lhs + "on anything> " + rhs;
 			}
-		      // SENSITIVE?
 		      else if (is_param (rest))
 			{
 			  line = lhs + "on " + param_contents(rest) + "> " + rhs;
@@ -362,8 +376,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 			  line = "ERROR: " + line;
 			}
 		    }
-		  // SENSITIVE?
-		  else if (rest == "anything")
+		  else if (ci_equal (rest, "anything"))
 		    {
 		      line = lhs + "anything> " + line.substr (t2);
 		    }
@@ -376,17 +389,14 @@ void GeasFile::read_into (const vector<string> &in_data,
 		      line = "action <use> " + line.substr (t1);
 		    }
 		}
-	      // SENSITIVE?
-	      else if (tok == "give")
-		{ 
+	      else if (ltok == "give")
+		{
 		  string lhs = "action <give ";
-		  // SENSITIVE?
-		  if (rest == "to")
+		  if (ci_equal (rest, "to"))
 		    {
 		      rest = next_token (line, t1, t2);
 		      string rhs = line.substr (t2);
-		      // SENSITIVE?
-		      if (rest == "anything")
+		      if (ci_equal (rest, "anything"))
 			line = lhs + "to anything> " + rhs;
 		      else if (is_param(rest))
 			line = lhs + "to " + param_contents(rest) + "> " + rhs;
@@ -396,8 +406,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 			  line = "ERROR: " + line;
 			}
 		    }
-		  // SENSITIVE?
-		  else if (rest == "anything")
+		  else if (ci_equal (rest, "anything"))
 		    {
 		      line = lhs + "anything> " + line.substr (t2);
 		    }
@@ -412,7 +421,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 		}
 	      else
 		{
-		  line = "action <" + tok + "> " + line.substr (t1);
+		  line = "action <" + ltok + "> " + line.substr (t1);
 		}
 	    }
 	  //else
@@ -420,8 +429,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 	  // recalculating tok because it might have changed
 	  /* TODO: Make sure this only happens on object-type blocks */
 	  tok = first_token (line, t1, t2);
-	  // SENSITIVE?
-	  if (tok == "properties")
+	  if (ci_equal (tok, "properties"))
 	    {
 	      rest = next_token (line, t1, t2);
 	      if (is_param (rest))
@@ -477,13 +485,11 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
       //bool is_object = object_passes[this_pass];
 
       reserved_words actions ((char *) NULL), props ((char *) NULL);
-      // SENSITIVE?
       if (this_pass == "room")
 	{
 	  props = reserved_words ("look", "alias", "prefix", "indescription", "description", "north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "out", "up", "down", (char *) NULL);
 	  actions = reserved_words ("use", "description", "script", "north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "out", "up", "down", (char *) NULL);
 	}
-      // SENSITIVE?
       else if (this_pass == "object" || this_pass == "character")
 	{
 	  /* "add" belongs in both lists for the same reason "remove" does: Quest's
@@ -506,23 +512,21 @@ GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
 	  if (is_define(v[i]))
 	    {
 	      ++ depth;
-	      string blocktype = nth_token (v[i], 2);
+	      /* Folded, like read_into's blocktype. */
+	      string blocktype = lcase (nth_token (v[i], 2));
 	      if (depth == 1)
 		{
 		  parenttype = blocktype;
 		  parentname = nth_token (v[i], 3);
-		  
-		  // SENSITIVE?
+
 		  if (blocktype == this_pass)
 		    read_into (v, "", i, recursive, props, actions);
 		}
 	      else if (depth == 2 && blocktype == this_pass)
 		{
-		  // SENSITIVE?
 		  if ((this_pass == "object" || this_pass == "character") &&
 		      parenttype == "room")
 		    read_into (v, parentname, i, false, props, actions);
-		  // SENSITIVE?
 		  else if (this_pass == "variable" && parenttype == "game")
 		    read_into (v, "", i, false, props, actions);
 		}

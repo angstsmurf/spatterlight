@@ -173,7 +173,11 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
     {
       string tok = first_token (line, c1, c2);
 
-      if (tok == "type")
+      /* Keyword compares here are CI: a `type` line and a raw (game-written)
+       * properties/action line are read by Quest with the lowercasing
+       * BeginsWith (GetPropertiesInType, V4Game.cs:6291-6328; InitialiseObject,
+       * V4Game.Part2.cs:3378-3405). */
+      if (ci_equal (tok, "type"))
 	{
 	  string p = next_token (line, c1, c2);
 	  if (is_param (p))
@@ -236,14 +240,15 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
        * pathological item (e.g. a literal property named "not foo") that the
        * original's query-dependent compares treated differently never occurs as
        * a real lookup. */
-      if (tok == "properties")
+      if (ci_equal (tok, "properties"))
 	{
 	  string p = next_token (line, c1, c2);
 	  if (is_param (p))
 	    for (const string &j : split_param (param_contents (p)))
 	      {
 		std::string::size_type idx;
-		if (starts_with (j, "not "))
+		/* CI: BeginsWith "not " (AddToObjectProperties, V4Game.cs:4034). */
+		if (starts_with_i (j, "not "))
 		  b.obj_prop.push_back ({false, trim (j.substr (4)), "!", false});
 		else if ((idx = j.find ('=')) != string::npos)
 		  /* Quest trims both sides of the "=" (AddToObjectProperties,
@@ -257,7 +262,7 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 	}
       /* Action lines: object-style keeps the script after "<name> " (substr
        * c2+1); type-style keeps it from c2 -- matching the two original loops. */
-      else if (tok == "action")
+      else if (ci_equal (tok, "action"))
 	{
 	  string p = next_token (line, c1, c2);
 	  if (is_param (p))
@@ -323,8 +328,8 @@ void GeasFile::get_obj_keys (const string &obj, set<string> &rv) const
       line = gb->data[i];
       GEAS_DBG << "  handling line <" << line << ">\n";
       tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "properties")
+      /* CI keyword compares -- see ensure_cached. */
+      if (ci_equal (tok, "properties"))
 	{
 	  tok = next_token (line, c1, c2);
 	  if (is_param(tok))
@@ -334,8 +339,7 @@ void GeasFile::get_obj_keys (const string &obj, set<string> &rv) const
 		{
 		  GEAS_DBG << "   handling parameter <" << j << ">\n";
 		  std::string::size_type k = j.find('=');
-		  // SENSITIVE?
-		  if (starts_with (j, "not "))
+		  if (starts_with_i (j, "not "))
 		    {
 		      rv.insert (trim (j.substr(4)));
 		      GEAS_DBG << "     adding <" << trim (j.substr(4))
@@ -355,8 +359,7 @@ void GeasFile::get_obj_keys (const string &obj, set<string> &rv) const
 		}
 	    }
 	}
-      // SENSITIVE?
-      else if (tok == "type")
+      else if (ci_equal (tok, "type"))
 	{
 	  tok = next_token (line, c1, c2);
 	  if (is_param (tok))
@@ -388,8 +391,8 @@ void GeasFile::get_type_keys (const string &typen, set<string> &rv) const
   for (const string &line: gb->data)
     {
       tok = first_token (line, c1, c2);
-      // SENSITIVE?
-      if (tok == "type")
+      /* CI keyword compares -- see ensure_cached. */
+      if (ci_equal (tok, "type"))
 	{
 	  tok = next_token (line, c1, c2);
 	  if (is_param(tok))
@@ -398,8 +401,7 @@ void GeasFile::get_type_keys (const string &typen, set<string> &rv) const
 	      GEAS_DBG << "      g_t_k: Adding <" << tok << "> to rv: " << rv << "\n";
 	    }
 	}
-      // SENSITIVE?
-      else if (tok == "action")
+      else if (ci_equal (tok, "action"))
 	{
 	  GEAS_DBG << "       action, skipping\n";
 	}
@@ -621,8 +623,11 @@ bool GeasFile::get_obj_default_action (const string &objname, string &string_rv)
   for (const string &line: block->data)
     {
       string tok = first_token (line, c1, c2);
-      if (tok == "" || tok == "alt" || tok == "alias" || tok == "properties" ||
-	  tok == "action" || tok == "type" || tok == "drop")
+      /* CI, so a mixed-case keyword line is never mistaken for the anonymous
+       * default action. */
+      if (tok == "" || ci_equal (tok, "alt") || ci_equal (tok, "alias") ||
+	  ci_equal (tok, "properties") || ci_equal (tok, "action") ||
+	  ci_equal (tok, "type") || ci_equal (tok, "drop"))
 	continue;
       string_rv = trim (line);
       return true;
@@ -776,21 +781,20 @@ string GeasFile::static_svar_lookup (const string &varname) const
 	  {
 	    string line = vb.data[j];
 	    tok = first_token (line, c1, c2);
-	    // SENSITIVE?
-	    if (tok == "type")
+	    /* The keywords are CI (BeginsWith, V4Game.Part2.cs:704-731); the
+	     * type *value* is not -- Quest compares the raw text (ibid. 707),
+	     * so "type String" is an unrecognised type there and here. */
+	    if (ci_equal (tok, "type"))
 	      {
 		tok = next_token (line, c1, c2);
-		// SENSITIVE?
 		if (tok == "numeric")
-		  throw string ("Trying to evaluate int var '" + varname + 
+		  throw string ("Trying to evaluate int var '" + varname +
 				"' as string");
-		// SENSITIVE?
 		if (tok != "string")
 		  throw string ("Bad variable type " + tok);
 		found_typeline = true;
 	      }
-	    // SENSITIVE?
-	    else if (tok == "value")
+	    else if (ci_equal (tok, "value"))
 	      {
 		tok = next_token (line, c1, c2);
 		if (!is_param (tok))
@@ -822,20 +826,17 @@ string GeasFile::static_ivar_lookup (const string &varname) const
 	  for (const string &line: vb.data)
 	    {
 	      tok = first_token (line, c1, c2);
-	      // SENSITIVE?
-	      if (tok == "type")
+	      /* CI keywords, CS type value -- see static_svar_lookup. */
+	      if (ci_equal (tok, "type"))
 		{
 		  tok = next_token (line, c1, c2);
-		  // SENSITIVE?
 		  if (tok == "string")
-		    throw string ("Trying to evaluate string var '" + varname + 
+		    throw string ("Trying to evaluate string var '" + varname +
 				  "' as numeric");
-		  // SENSITIVE?
 		  if (tok != "numeric")
 		    throw string ("Bad variable type " + tok);
 		}
-	      // SENSITIVE?
-	      else if (tok == "value")
+	      else if (ci_equal (tok, "value"))
 		{
 		  tok = next_token (line, c1, c2);
 		  if (!is_param (tok))
