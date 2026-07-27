@@ -1973,43 +1973,53 @@ void geas_implementation::look()
 			 + get_svar ("quest.formatroom"));
     }
 
-  /* List the objects and characters present.  The default room display always
-   * did this; do it after a custom description too -- otherwise a character such
-   * as World's End's snowville "woman" is never mentioned and the player has no
-   * way to know it is there.  Like the exits below, the original Quest runner
-   * printed this inline in the main text ("There is a key here.") *and* mirrored
-   * it in its objects pane, so print it in the main window even on a host that
-   * provides such a pane (see has_objects_window); the pane stays a
-   * supplementary copy. */
+  /* The object list and the exit lines belong to the *default* room display, and
+   * a description tag replaces that display whole: ShowRoomInfo builds "You are
+   * in ...", the object list and the three exit lines into one roomDisplayText
+   * and prints it only when no description tag was found, then runs the tag
+   * instead (V4Game.Part2.cs:3924-3956; the pre-2.80 path does the same at
+   * 2088-2117).  A description that wants any of it prints it itself, which is
+   * exactly what "Barbarian" and "The Maze" do -- both end their description
+   * with `msg <You can go #quest.doorways#.>`, and geas adding its own copy gave
+   * them the line twice.
+   *
+   * The regen calls stay outside the test: quest.formatobjects and the
+   * quest.doorways family are readable by game script, and Quest fills them in
+   * on the way through here whether or not it prints them. */
   regen_var_objects ();
-  if ((tmp = get_svar ("quest.formatobjects")) != "")
-    print_eval ("There is #quest.formatobjects# here.");
-
-  /* List the available exits, after the objects.  The original Quest runner
-   * printed these directly in the main text ("You can go north, south, east or
-   * west.") *and* mirrored them in its compass/exits pane -- the pane was just a
-   * set of clickable shortcuts, not a replacement for the inline line.  So
-   * always print them in the main window, even on a host that also provides a
-   * room-exits pane (see has_objects_window / get_room_exits); the pane stays a
-   * supplementary copy.  Do this whether or not the room has a custom
-   * description -- otherwise the player has no way to know which way to go out
-   * of a custom-described room. */
-  /* The *display* form, so an "out <the; town>" prefix shows up here ("You can
-   * go out to the town."), as it does in the typelib's own version of this line
-   * and in the "places" line below. */
-  if (get_svar ("quest.doorways.out") != ""
-      && (tmp = get_svar ("quest.doorways.out.display")) != "")
-    print_formatted ("You can go out to " + tmp + ".");
-  if ((tmp = get_svar ("quest.doorways.dirs")) != "")
-    print_eval ("You can go #quest.doorways.dirs#.");
-  if ((tmp = get_svar ("quest.doorways.places")) != "")
-    print_formatted ("You can go to " + tmp + ".");
-
   if (!described)
     {
-      if ((tmp = get_svar ("quest.lookdesc")) != "")
-	print_formatted (tmp);
+      /* The original Quest runner printed both of these inline in the main text
+       * ("There is a key here.", "You can go north, south, east or west.") *and*
+       * mirrored them in its objects and compass panes -- the panes were
+       * clickable shortcuts, not a replacement for the lines.  So print them in
+       * the main window even on a host that provides such panes (see
+       * has_objects_window / get_room_exits); a pane stays a supplementary
+       * copy. */
+      if ((tmp = get_svar ("quest.formatobjects")) != "")
+	print_eval ("There is #quest.formatobjects# here.");
+
+      /* The exits, after the objects.  The *display* form, so an
+       * "out <the; town>" prefix shows up here ("You can go out to the town."),
+       * as it does in the typelib's own version of this line and in the
+       * "places" line below. */
+      if (get_svar ("quest.doorways.out") != ""
+	  && (tmp = get_svar ("quest.doorways.out.display")) != "")
+	print_formatted ("You can go out to " + tmp + ".");
+      if ((tmp = get_svar ("quest.doorways.dirs")) != "")
+	print_eval ("You can go #quest.doorways.dirs#.");
+      if ((tmp = get_svar ("quest.doorways.places")) != "")
+	print_formatted ("You can go to " + tmp + ".");
     }
+
+  /* The room's "look" text is the one part of this that a description tag does
+   * not always replace.  Below ASL 3.10 it is printed after the tag as well as
+   * after the default display, and only from 3.10 on is a described room left to
+   * print it itself: showLookText starts true and is cleared by
+   * `descTagExist And ASLVersion >= 310` (V4Game.Part2.cs:3881-3927, 3958-3963). */
+  if ((!described || asl_version_ < 310)
+      && (tmp = get_svar ("quest.lookdesc")) != "")
+    print_formatted (tmp);
 }
 
 bool geas_implementation::timer_will_fire ()

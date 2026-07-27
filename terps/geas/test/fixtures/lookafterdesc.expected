@@ -1,0 +1,26 @@
+
+lookafterdesc
+
+A cramped study.
+Books to the ceiling.
+
+> look
+A cramped study.
+Books to the ceiling.
+
+> east
+You are in hall
+There is umbrella here.
+You can go west.
+A portrait of the founder.
+
+> look
+You are in hall
+There is umbrella here.
+You can go west.
+A portrait of the founder.
+
+> west
+A cramped study.
+Books to the ceiling.
+[runner] turns=4 leftover=0 running=true

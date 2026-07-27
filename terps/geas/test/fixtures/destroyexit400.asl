@@ -18,6 +18,11 @@ define game <destroyexit400>
     startscript set numeric <xpos; 0>
     description {
         msg <You are at square %xpos%.>
+        ! As in destroyexit.asl, the exits are printed here because a description
+        ! tag replaces the default room display: without this there is nothing to
+        ! read a destroyed exit off.  #quest.doorways# is 4.10 only, so this
+        ! pre-4.10 game uses the older per-kind variable.
+        msg <You can go #quest.doorways.dirs#.>
     }
 end define
 

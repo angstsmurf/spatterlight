@@ -41,9 +41,12 @@
 ' compass order -- east before north -- because Quest lists them in tag order,
 ' not in the fixed north/south/east/west order of the pre-4.10 line.
 '
-' geas prints its own "You can go ..." line after a custom description as well,
-' which real Quest does not (see display_room in geas-runner.cc), so each room
-' here is followed by a second, engine-generated copy of the exits.
+' Every room here has a custom description, so the exits (and the object list)
+' are whatever the description prints and nothing else: a description tag
+' replaces the default room display whole (V4Game.Part2.cs:3924-3956).  geas used
+' to add its own copy of both lines on top, which is what gave "Barbarian" and
+' "The Maze" -- whose descriptions end with `msg <You can go #quest.doorways#.>`
+' -- their exits twice.
 
 define game <ForEachExit>
  asl-version <410>

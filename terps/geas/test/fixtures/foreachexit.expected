@@ -7,9 +7,6 @@ exit: hall.exit1
 exit: hall.north
 exit count: 3
 You can go east, north or cellar.
-There is lamp here.
-You can go north or east.
-You can go to cellar.
 
 > rooms
 rooms: 4  objects (game object included): 3
@@ -23,9 +20,6 @@ exit: study.north
 exit: study.out
 exit count: 2
 You can go north or out.
-There is coin here.
-You can go out to hall.
-You can go north.
 
 > remake
 north remade
@@ -36,9 +30,6 @@ exit: study.north
 exit: study.out
 exit count: 2
 You can go north or out.
-There is coin here.
-You can go out to hall.
-You can go north.
 
 > north
 -- hall --
@@ -47,9 +38,6 @@ exit: hall.exit1
 exit: hall.north
 exit count: 3
 You can go east, north or cellar.
-There is lamp here.
-You can go north or east.
-You can go to cellar.
 
 > go to cellar
 -- cellar --

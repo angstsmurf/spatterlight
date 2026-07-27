@@ -37,6 +37,12 @@
 ' decide whether the reference resolves and then use the bare name.  The case with
 ' no "@" at all is knowingly left as it was: Quest below 281 presumes the current
 ' room there, where geas looks for the name wherever it is.
+'
+' Whether a thing is hidden or shown is visible only in the room's object list,
+' so the rooms below say where you are with `indescription` and not with a
+' `description` tag: a description tag replaces the whole default room display,
+' object list included (V4Game.Part2.cs:2088-2117 for a 2.x game), and there
+' would be nothing left to read the result off.
 
 define game <Atroom>
  asl-version <210>
@@ -49,7 +55,7 @@ define game <Atroom>
 end define
 
 define room <Study>
- description <You are in the study.>
+ indescription <You are in the study.>
  place <the; Hall>
 
  define object <book>
@@ -58,7 +64,7 @@ define room <Study>
 end define
 
 define room <Hall>
- description <You are in the hall.>
+ indescription <You are in the hall.>
  place <the; Study>
 
  define character <Linda>

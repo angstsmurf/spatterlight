@@ -21,6 +21,11 @@ define game <destroyexit>
     startscript set numeric <xpos; 0>
     description {
         msg <You are at square %xpos%.>
+        ! The exits have to be printed here.  A description tag replaces the
+        ! default room display whole (V4Game.Part2.cs:3924-3956), so the engine's
+        ! own "You can go ..." line -- which is what a destroyed exit has to stop
+        ! appearing in -- is not printed for a room that has one.
+        msg <You can go #quest.doorways#.>
     }
 end define
 
