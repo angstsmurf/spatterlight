@@ -1,24 +1,41 @@
 # geas tests
 
-Three layers, in increasing distance from a real game:
+Four layers, in increasing distance from a real game:
 
 | what | needs | catches |
 | --- | --- | --- |
+| `make syntax` | nothing (in-repo) | code that only compiles as one translation unit |
 | `run_fixtures.sh` | nothing (in-repo) | engine behaviour, against golden transcripts |
 | `geas_unit_tests` | nothing (in-repo) | corrupt saves and parser edges no player can drive |
 | `run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 111 real games |
 
-`make check` runs the first two — they are self-contained, so they are the ones
+`make check` runs the first three — they are self-contained, so they are the ones
 worth wiring into CI.
 
 ## Build
 
 ```sh
 make            # builds ./geas_walkthrough_runner
-make check      # + ./geas_unit_tests, then runs both test suites
+make syntax     # per-file syntax check of every engine source (see below)
+make check      # syntax, + ./geas_unit_tests, then runs both test suites
 make asan       # same under AddressSanitizer/UBSan -- see the warning below
 make clean
 ```
+
+## Per-file syntax check (`make syntax`)
+
+Every harness here unity-includes the engine: `geas_walkthrough_runner.cc`
+`#include`s all six engine `.cc` files, so they become **one** translation unit.
+That means a function defined in one `.cc` and called from another compiles
+cleanly even when no header declares it — the caller simply sees the earlier
+definition. The Xcode build compiles those files separately and rejects it.
+
+This is a real failure mode, not a hypothetical one: a missing `starts_with_i`
+prototype in `geas-util.hh` passed the fixtures, the unit tests *and* all 111
+walkthroughs, and broke the app build. `make syntax` runs `-fsyntax-only` over
+each source on its own — including `geasglk.cc`, `quest5/aslxglk.cc` and
+`geasglkterm.c`, which no harness here compiles at all — in a few seconds, and
+is a prerequisite of `make check`.
 
 ## Fixtures (`fixtures/`, `run_fixtures.sh`)
 

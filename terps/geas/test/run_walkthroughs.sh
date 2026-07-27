@@ -29,7 +29,11 @@ wtpath() {
 }
 
 RUN="$here/geas_walkthrough_runner"
-[ -x "$RUN" ] && [ "$RUN" -nt "$here/geas_walkthrough_runner.cc" ] || make -C "$here" >/dev/null || exit 1
+# Always ask make: the runner unity-includes the engine sources, so a binary that
+# is newer than geas_walkthrough_runner.cc can still be older than the edit being
+# tested.  The Makefile depends on ../*.cc and ../*.hh, so this is a no-op when
+# nothing has changed.
+make -C "$here" >/dev/null || exit 1
 
 export GEAS_SEED=1
 pass=0; fail=0

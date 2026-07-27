@@ -1,7 +1,10 @@
 # Build the headless geas walkthrough/regression runner and the unit tests.
 #
 #   make            build ./geas_walkthrough_runner
-#   make check      build both, then run the unit tests and the fixture games
+#   make check      syntax-check every engine source, build both, then run the
+#                   unit tests and the fixture games
+#   make syntax     compile each engine source on its own, no linking (see the
+#                   note above the target -- the harnesses cannot catch this)
 #   make asan       same, with AddressSanitizer/UBSan (several of the bugs the
 #                   fixtures guard are undefined behaviour that a plain -O2
 #                   build does not fault on -- it just returns garbage)
@@ -11,6 +14,7 @@
 # own quoted includes resolve relative to that directory, so -I.. is enough.
 
 CXX      ?= clang++
+CC       ?= clang
 CXXFLAGS ?= -std=c++17 -O2 -w -I..
 ASANFLAGS := -std=c++17 -O1 -g -w -I.. -fsanitize=address,undefined
 
@@ -97,7 +101,35 @@ $(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
 	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(ASLXGLK).cc ../quest5/aslxglk.cc \
 	    $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $@
 
-check: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
+# Compile each engine source as its own translation unit, semantic analysis only.
+#
+# Every harness above unity-includes the engine sources -- the walkthrough runner
+# #includes all six engine .cc files -- so a function defined in one .cc and called
+# from another builds fine here even when no header declares it -- the caller
+# just sees the earlier definition. The real Xcode build compiles the same files
+# separately and rejects it. That is not hypothetical: a missing `starts_with_i`
+# prototype in geas-util.hh passed all three suites and broke the app build.
+#
+# -fsyntax-only skips codegen and linking, so this covers every source --
+# including the two Glk frontends and geasglkterm.c, which no in-repo harness
+# compiles at all -- in a few seconds. It is a prerequisite of `check`.
+SYNTAXCXX := $(wildcard ../*.cc) $(wildcard ../quest5/*.cc)
+SYNTAXC := $(wildcard ../*.c)
+# -I$(CHEAPGLK) is only for glk.h; the frontends are never linked here.
+SYNTAXFLAGS := -w -I.. -I$(CHEAPGLK)
+
+syntax:
+	@fail=0; \
+	for f in $(SYNTAXCXX); do \
+	    $(CXX) -std=c++17 -fsyntax-only $(SYNTAXFLAGS) $$f || fail=1; \
+	done; \
+	for f in $(SYNTAXC); do \
+	    $(CC) -fsyntax-only $(SYNTAXFLAGS) $$f || fail=1; \
+	done; \
+	if [ $$fail -ne 0 ]; then echo "syntax: FAILED"; exit 1; fi; \
+	echo "syntax: $(words $(SYNTAXCXX) $(SYNTAXC)) sources OK"
+
+check: syntax $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 	./$(TESTBIN)
 	./$(ASLXBIN)
 	./$(ASLXRTBIN)
@@ -120,4 +152,4 @@ asan: $(SRC) $(TESTSRC) $(DEPS)
 clean:
 	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 
-.PHONY: all check asan clean
+.PHONY: all syntax check asan clean
