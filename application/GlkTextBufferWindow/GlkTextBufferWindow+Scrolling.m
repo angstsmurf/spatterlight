@@ -671,6 +671,31 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 
     if (pauseScrolling || _lastseen == 0 || textstorage.length == 0)
         return;
+
+    // A window whose entire content fits within the viewport has nothing to
+    // scroll: the whole document is already visible from the top. Never scroll
+    // such a window. Otherwise the doc-fit anchor below (or the cap math in
+    // scrollToBottomAnimated) can push the top content off-screen — e.g. the
+    // Quest "Compass" side panel, whose short text fits but whose textview
+    // frame is still at its unlaid-out 10,000,000-pt sentinel height, so
+    // NSHeight(_textview.frame) below reads that phantom value and wrongly
+    // trips the pagination branch. Measure the real document height from the
+    // layout manager (as markLastSeen does), not the unreliable frame. This
+    // mirrors the same guard in restoreScroll. Skipped for large documents,
+    // which cannot fit and where forcing the layout needed to measure the true
+    // height would be expensive.
+    if (textstorage.length < 50000) {
+        NSRange glyphs = [layoutmanager glyphRangeForTextContainer:container];
+        if (glyphs.length) {
+            NSRect lastLine =
+                [layoutmanager lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
+                                                effectiveRange:nil];
+            if (NSMaxY(lastLine) <= NSHeight(scrollview.contentView.bounds)) {
+                [self scrollToTop];
+                return;
+            }
+        }
+    }
 //
 //    if (textstorage.length < 1000000)
 //        // first, force a layout so we have the correct textview frame
