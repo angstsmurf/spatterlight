@@ -22,12 +22,16 @@ void  sb_putc   (sb_t *b, char c);
 void  sb_putn   (sb_t *b, const char *s, size_t n);
 char *sb_finish (sb_t *b);
 
-/* Resolve any <cls> markers (A5_CLS_MARK) within b->p[floor .. len).  The runner's
-   Display renders per commit (bCommit=True flushes the accumulated sOutputText
-   through one EmitHtml call, where <cls> clears that call's buffer); so a <cls>
-   wipes everything back to the LAST commit boundary, not the whole turn.  `floor`
-   is the offset of the current commit's start.  Drops everything from `floor` up
-   to and including the last marker in the range, leaving the surviving tail. */
+/* Resolve one commit's markers within b->p[floor .. len).  The runner's Display
+   renders per commit (bCommit=True flushes the accumulated sOutputText through
+   one Source2HTML parse, where <cls> clears that call's buffer); so a <cls>
+   wipes everything back to the LAST commit boundary, not the whole turn, and a
+   <center>/<b> span still open when the commit ends dies with it.  `floor` is
+   the offset of the current commit's start.  Headless, drops everything from
+   `floor` up to and including the last <cls> marker in the range, leaving the
+   surviving tail; interactive, instead leaves an A5_COMMIT_MARK at the
+   boundary when the commit dangles a span, for the host to reset span state
+   at (see a5text.h). */
 void  sb_resolve_cls (sb_t *b, size_t floor);
 
 /* Replace the oldn-byte span at `off` with the NUL-terminated `s` (grows or

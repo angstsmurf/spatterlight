@@ -6167,7 +6167,8 @@ gsc_a5_display (const char *text)
           && *p != A5_IMG_MARK && *p != A5_CENTER_MARK
           && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
           && *p != A5_ENDBOLD_MARK && *p != A5_WINDOW_MARK
-          && *p != A5_ENDWINDOW_MARK && *p != A5_SOUND_MARK)
+          && *p != A5_ENDWINDOW_MARK && *p != A5_SOUND_MARK
+          && *p != A5_COMMIT_MARK)
         {
           p++;
           continue;
@@ -6220,6 +6221,16 @@ gsc_a5_display (const char *text)
           /* gsc_a5_status leaves the main window selected; restore the span's
              routing window so text after the pause stays in it. */
           glk_set_window (cur_window);
+        }
+      else if (*p == A5_COMMIT_MARK)
+        {
+          /* Display-commit boundary with a dangling span (a5text.h): each
+             commit is its own Source2HTML parse in the Runner, so a <center>
+             or <b> left open there ends now -- Death Shack's Introduction
+             never closes its <center>, and the first room description (the
+             next commit) must come out left-aligned, not centered. */
+          center_depth = bold_depth = 0;
+          glk_set_style (gsc_a5_span_style (0, 0));
         }
       else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
                || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK)

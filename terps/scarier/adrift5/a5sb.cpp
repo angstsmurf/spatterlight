@@ -61,10 +61,45 @@ void
 sb_resolve_cls (sb_t *b, size_t floor)
 {
   size_t last = (size_t) -1, i;
-  /* Interactive hosts present the pre-<cls> text themselves and clear their
-     window at the mark, so the wipe must not happen here (see a5text.h). */
-  if (a5text_interactive ()) return;
   if (b->p == NULL || floor > b->len) return;
+  /* Interactive hosts present the pre-<cls> text themselves and clear their
+     window at the mark, so the wipe must not happen here (see a5text.h).
+     But the commit boundary still closes every open span: the Runner renders
+     each Display commit through its own Source2HTML parse, so a <center> or
+     <b> the commit never closes dies with it -- Death Shack's Introduction
+     opens <center> without closing it, yet the first room description (the
+     next commit) shows left-aligned.  When this commit dangles a span, leave
+     an A5_COMMIT_MARK for the host to reset its span state at, placed before
+     the commit's trailing whitespace so the buffer keeps the tail shape that
+     sb_pspace and the finish_turn trim inspect. */
+  if (a5text_interactive ())
+    {
+      int center = 0, bold = 0;
+      for (i = floor; i < b->len; i++)
+        {
+          char c = b->p[i];
+          if (c == A5_CENTER_MARK) center++;
+          else if (c == A5_ENDCENTER_MARK) { if (center > 0) center--; }
+          else if (c == A5_BOLD_MARK) bold++;
+          else if (c == A5_ENDBOLD_MARK) { if (bold > 0) bold--; }
+        }
+      if (center > 0 || bold > 0)
+        {
+          char mark[2] = { A5_COMMIT_MARK, '\0' };
+          size_t at = b->len;
+          /* Zero-width sentinels (pSpace/stripped-tag marks) count as tail
+             here too, so finish_turn's strip and trailing-whitespace trim see
+             the same byte run they did before the insertion. */
+          while (at > floor
+                 && (b->p[at - 1] == '\n' || b->p[at - 1] == '\r'
+                     || b->p[at - 1] == ' ' || b->p[at - 1] == '\t'
+                     || b->p[at - 1] == A5_PS_MARK
+                     || b->p[at - 1] == A5_ALR_MARK))
+            at--;
+          sb_splice (b, at, 0, mark);
+        }
+      return;
+    }
   for (i = floor; i < b->len; i++)
     if (b->p[i] == A5_CLS_MARK) last = i;
   if (last == (size_t) -1) return;
