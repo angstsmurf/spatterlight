@@ -496,6 +496,7 @@
 		C305EA1E264B014D009DC78C /* CommandScriptHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C305EA1D264B014D009DC78C /* CommandScriptHandler.m */; };
 		C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3074B8725A1F461003E80C6 /* VersionFormatter.m */; };
 		C3075513265C2D2E00931D5B /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
+		C30894AA30189A58001D9C54 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C384A68A2C6EB64E0081FC50 /* libz.tbd */; };
 		C308E68E2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C308E68D2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.m */; };
 		C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C309882E25CB1ACD00750F72 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
@@ -3981,6 +3982,7 @@
 				C311DEF725C472E500484639 /* Quartz.framework in Frameworks */,
 				C309887C25CB26BF00750F72 /* CoreData.framework in Frameworks */,
 				C3F53C70271BBAF300538393 /* BlorbFramework.framework in Frameworks */,
+				C30894AA30189A58001D9C54 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
