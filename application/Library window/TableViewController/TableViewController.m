@@ -67,18 +67,31 @@
     _ifictionMatches = [[NSMutableDictionary alloc] init];
     _ifictionPartialMatches = [[NSMutableDictionary alloc] init];
 
-    NSError *error;
-    NSURL *appSuppDir = [[NSFileManager defaultManager]
-                         URLForDirectory:NSApplicationSupportDirectory
-                         inDomain:NSUserDomainMask
-                         appropriateForURL:nil
-                         create:YES
-                         error:&error];
-    if (error)
-        NSLog(@"libctl: Could not find Application Support directory! %@",
-              error);
+    // Home lives in the shared app-group container so the QuickLook/Thumbnailer
+    // extensions - separate sandboxed processes sharing the group - can reach the
+    // files stored under it. Mirrors FolderAccess +bookmarkPath and
+    // LibraryOrganizer -defaultLibraryRootURL.
+    NSString *groupIdentifier =
+    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
+    _homepath = groupIdentifier.length ?
+    [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier] : nil;
 
-    _homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
+    if (!_homepath) {
+        // No group container (e.g. missing entitlement): fall back to the app's
+        // own Application Support/Spatterlight folder.
+        NSError *error;
+        NSURL *appSuppDir = [[NSFileManager defaultManager]
+                             URLForDirectory:NSApplicationSupportDirectory
+                             inDomain:NSUserDomainMask
+                             appropriateForURL:nil
+                             create:YES
+                             error:&error];
+        if (error)
+            NSLog(@"libctl: Could not find Application Support directory! %@",
+                  error);
+
+        _homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
+    }
 
     NSString *key;
     NSSortDescriptor *sortDescriptor;

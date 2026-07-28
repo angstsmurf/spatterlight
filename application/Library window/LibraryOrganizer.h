@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// `BOOL`: master switch for the feature. Defaults to NO.
 extern NSString * const kKeepGamesOrganisedKey;
 /// `NSData`: security-scoped bookmark for a user-chosen library folder.
-/// Absent means the default location inside the app container is used.
+/// Absent means the default location inside the app-group container is used.
 extern NSString * const kOrganiseDirBookmarkKey;
 
 @interface LibraryOrganizer : NSObject
@@ -33,15 +33,16 @@ extern NSString * const kOrganiseDirBookmarkKey;
 /// Convenience reader for the `KeepGamesOrganised` user default.
 + (BOOL)keepGamesOrganised;
 
-/// The default library location: a "Library" folder inside Spatterlight's own
-/// Application Support container. Always writable, never needs a sandbox grant.
+/// The default library location: a "Library" folder inside the shared app-group
+/// container, so the QuickLook/Thumbnailer extensions can reach the game files.
+/// Always writable, never needs a sandbox grant.
 @property (readonly) NSURL *defaultLibraryRootURL;
 
 /// The resolved custom library folder, or nil when the default is in use.
 - (nullable NSURL *)customLibraryURL;
 
 /// The library root actually in effect (custom folder if configured, else the
-/// default container location). Optionally creates it. Returns nil on failure.
+/// default app-group location). Optionally creates it. Returns nil on failure.
 - (nullable NSURL *)libraryRootURLCreatingIfNeeded:(BOOL)create;
 
 /// Store (or clear, when `url` is nil) a custom library location. The location

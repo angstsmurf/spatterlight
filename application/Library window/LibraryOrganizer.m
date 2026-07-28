@@ -45,15 +45,27 @@ static const NSInteger kMaxDuplicateDirs = 20;
 #pragma mark - Library location
 
 - (NSURL *)defaultLibraryRootURL {
-    NSURL *appSupport =
-    [NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
-                                         inDomain:NSUserDomainMask
-                                appropriateForURL:nil
-                                           create:YES
-                                            error:NULL];
-    // Mirrors TableViewController.homepath (<App Support>/Spatterlight).
-    NSURL *home = [appSupport URLByAppendingPathComponent:@"Spatterlight" isDirectory:YES];
-    return [home URLByAppendingPathComponent:@"Library" isDirectory:YES];
+    // Store the library in the shared app-group container so the QuickLook and
+    // Thumbnailer extensions - separate sandboxed processes that share the group
+    // but each have their own private container - can reach the game files.
+    // Mirrors FolderAccess +bookmarkPath, which keeps its shared data here too.
+    NSString *groupIdentifier =
+    [NSBundle.mainBundle objectForInfoDictionaryKey:@"GroupIdentifier"];
+    NSURL *container = groupIdentifier.length ?
+    [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier] : nil;
+
+    if (!container) {
+        // No group container available (e.g. missing entitlement): fall back to
+        // the app's own Application Support, mirroring TableViewController.homepath.
+        NSURL *appSupport =
+        [NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
+                                             inDomain:NSUserDomainMask
+                                    appropriateForURL:nil
+                                               create:YES
+                                                error:NULL];
+        container = [appSupport URLByAppendingPathComponent:@"Spatterlight" isDirectory:YES];
+    }
+    return [container URLByAppendingPathComponent:@"Library" isDirectory:YES];
 }
 
 - (nullable NSURL *)customLibraryURL {
