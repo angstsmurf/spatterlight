@@ -6,25 +6,16 @@
 I'm stepping down as maintainer of the Spatterlight project. Thank you for your help and support all these years!
 The new maintainer is an AI named Claude.
 
-### Z-code (Bocfel)
+### Bocfel (Z-code)
 - Special support for *Zork Zero*, equivalent to the existing support for the other Infocom z6 games. Autosave, adaptable windows resizing and on-the-fly graphics format switching. Improved VoiceOver integration with skippable graphical puzzles. Several pre-release and demo revisions now work.
 - *Trinity*'s side-by-side twin quote boxes are now drawn, and spoken correctly by VoiceOver.
 - Updated to Bocfel 2.5.1.
 
 ### Scarier (Adrift)
-The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the old Adrift 3.8/3.9/4.0 interpreter with some new features, and adds an interpreter for Adrift 5. A single interpreter now plays all Adrift games.
+The SCARE interpreter has been replaced by Scarier, a C++ fork of the old Adrift 3.8/3.9/4.0 interpreter with some added features, including an interpreter for Adrift 5. A single interpreter now plays all known Adrift games.
 - Map display, side or top. Zoomable with special commands.
 - Sound and graphics support.
 - Autosaves and autorestores.
-
-#### Adrift 5
-- All the Adrift 5 games I could find are playable from start to finish, matching the FrankenDrift output, with some fixes.
-- Multi-level UNDO. The original runner only remembers a single turn.
-- Saves files in the Adrift 5 runner and FrankenDrift .tas format, which can be moved between the three in either direction.
-- Supported: Danish, real-time events. Not supported: font tags, text colors.
-- Multi-floor maps may look confusing and broken.
-- Many of the Glk meta-commands (transcript, input log, summary and so on) from Adrift 4 / SCARE are available in Adrift 5 games as well.
-- Status side panel in *Alien Diver*.
 
 #### Adrift 4
 - Implements the Adrift 4.0 battle system: stamina, weapons and armour.
@@ -40,7 +31,15 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the ol
 - Several crashes on malformed game data are fixed.
 - Full support for the original *LAIR of the CYBER-COW*.
 - Events and NPC actions now run in the correct order, which fixes games that appeared to skip or double up events.
-- About three times faster than SCARE.
+
+#### Adrift 5
+- All the Adrift 5 games I could find are playable from start to finish, matching the FrankenDrift output, with some fixes.
+- Multi-level UNDO. The original runner only remembers a single turn.
+- Saves files in the Adrift 5 runner and FrankenDrift .tas format, which can be moved between the three in either direction.
+- Supported: Danish, real-time events. Not supported: font tags, text colors.
+- Multi-floor maps may look confusing and broken.
+- Many of the Glk meta-commands (transcript, input log, summary and so on) from Adrift 4 / SCARE are available in Adrift 5 games as well.
+- Status side panel in *Alien Diver*.
 
 ### Geas (Quest)
 - The Geas interpreter now actually plays most Quest games (up to and including version 5) to completion.
@@ -51,9 +50,10 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork that keeps the ol
 - A VERBS command that lists available verbs for an object, similar to the contextual verb menus of the original Quest 4 runner.
 - UNDO.
 - OOPS (Quest 4 only).
-- Games written before Quest 3.91 also understand a noun taken from the middle of an object's name, which the original runner only did from 3.91 on. It is accepted only when a single object can be meant, so it can make a refused noun work but never change which object a command finds. About half the Quest games out there predate 3.91: *ESPER Drom Bennacht*, for one, will now show you the necklace you are wearing.
+- Real-time events.
 - No support for text colors, custom fonts, or CSS effects.
 - Some Quest 5 games use a lot of JavaScript, which Geas struggles with.
+- In games written before Quest 3.91 (about half of the known pre-Quest 5 games) Geas tries a little harder than the original runner to understand which noun the player is referring to. No unwanted side effects so far.
 
 ### Comprehend
 A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarware adventures *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror*, and *Talisman: Challenging the Sands of Time*. All games are fully playable from start to finish.
@@ -61,20 +61,20 @@ A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarwa
 - Optional slow vector drawing.
 - A new UI setting for alternative graphics format (HGR or CGA in supported games.)
 - Undo, transcript, restart, restore and quit. Type #help for the full list of metacommands.
-- Modern single-letter abbreviations for inventory, examine and wait.
+- Modern single-letter abbreviations: I, X, and Z for inventory, examine, and wait.
 
-### AGiliTy (AGT)
+### AGiliTy
 - AGT games now play directly from their original .D$$ files; the separate AGX conversion step has been removed.
-- The title image is displayed when a game starts.
 - Inventory and other indented lists properly prints every item on its own line.
-- The AGT *tone* command now beeps.
+- Playing the flute in *Sir Ramic Hobbs and the High Level Gorilla* now beeps.
+- Some work on title screen text animation, although it is not quite there yet.
 
-### Level 9
+### Level9
 - Loads games from ZX Spectrum .z80 snapshots, .tzx tapes and .dsk images.
-- Can render Spectrum +3 pictures in both the original monochrome and in color. (The Level 9 bitmap image data format is identical for Commodore 64, Amstrad CPC and Spectrum +3.)
+- Can render Spectrum +3 pictures in both the original monochrome and in color. The Level 9 bitmap image data format is identical for Commodore 64, Amstrad CPC and Spectrum +3.
 - Multi-part tape and disk games now advance across sides and disks correctly, and compilations get a part-selection menu.
 - Optional slow vector image drawing.
-- Graphics in Level 9 games are now resized automatically (also implemented in the Magnetic interpreter.)
+- Graphics in Level 9 games are now resized automatically.
 
 ### Archetype
 A port of the Archetype interpreter from ScummVM, with added undo, restart and transcript. This interpreter supports two real games, *The Gorreven Papers* (1995) and *The Starship Solitaire Adventure* (1995), both written by the developer Derek T. Jones as demonstration games for the Archetype authoring system.
@@ -87,15 +87,16 @@ A port of the Archetype interpreter from ScummVM, with added undo, restart and t
 - TaylorMade: ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo in *Rebel Planet*.
 
 ### UnQuill
-Despite many improvements, the UnQuill interpreter is still kind of useless. A ZX Spectrum emulator is the better option. The exception is for VoiceOver users. Most Quill games are probably still not completable (let alone enjoyable) using VoiceOver, though.
+Despite many improvements, the UnQuill interpreter is still kind of useless. A ZX Spectrum emulator is the better option. The possible exception is for VoiceOver users, though most Quill games are not yet completable, let alone enjoyable, using VoiceOver.
 - Quill games now render The Illustrator-format location graphics, placed above the room description. Split-screen games are detected and the picture window is cropped to match. A window at the top displays the room description text.
 - Loads Commodore 64 .t64 Quill games, ZX Spectrum .z80 snapshots, and custom turbo-loader .tzx tapes such as *Bugsy*, and shows the .z80 loading screens.
-- Adds interpreter-level UNDO and the  meta-commands #save, #restore, #restart, #quit, #transcript, and #help.
+- Adds interpreter-level UNDO and the metacommands #save, #restore, #restart, #quit, #transcript, and #help.
 - Hardware-accurate, non-blocking BEEP sounds.
 
 ### Other interpreters
-- The JACL interpreter has been updated to upstream DangarStu/JACL 4.7.0, and its broken support for older games has been fixed.
+- The JACL interpreter has been updated to 4.7.0, and its broken support for older games has been fixed.
 - A batch of TADS 3 bug fixes were backported from FrobTADS.
+- Magnetic got the same image resizing functionality as Level9.
 
 ### General
 - Adds a preference to organise your games in a central directory, like Zoom, or Itunes, or Apple Music. Note that it might fail to copy important sibling files such as irregularly named disk images or sound resources. Also note that the files are not moved, only copied.
