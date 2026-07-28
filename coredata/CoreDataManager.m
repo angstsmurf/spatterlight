@@ -98,6 +98,14 @@
     // A correct chain can never need more hops than there are model versions.
     NSUInteger maxSteps = allModels.count + 1;
 
+    // Our real store is opened with persistent history tracking enabled. Once a
+    // store has been opened with NSPersistentHistoryTrackingKey, every later
+    // open must pass it too, or Core Data forces the store into read-only mode
+    // (and logs a fault). The migrated temp store inherits that marker from the
+    // source, so the migrate/replace operations below must carry the option as
+    // well to stay consistent.
+    NSDictionary *storeOptions = @{ NSPersistentHistoryTrackingKey: @YES };
+
     for (NSUInteger step = 0; step < maxSteps; step++) {
         NSDictionary *metadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type
                                                                                             URL:sourceURL
@@ -156,11 +164,11 @@
                                                        [[NSProcessInfo processInfo] globallyUniqueString]]];
         if (![manager migrateStoreFromURL:sourceURL
                                      type:type
-                                  options:nil
+                                  options:storeOptions
                          withMappingModel:mappingModel
                          toDestinationURL:tempURL
                           destinationType:type
-                       destinationOptions:nil
+                       destinationOptions:storeOptions
                                     error:error]) {
             [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:destinationModel]
              destroyPersistentStoreAtURL:tempURL withType:type options:nil error:NULL];
@@ -171,9 +179,9 @@
         NSPersistentStoreCoordinator *replacer = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:destinationModel];
         NSError *replaceError = nil;
         BOOL replaced = [replacer replacePersistentStoreAtURL:sourceURL
-                                          destinationOptions:nil
+                                          destinationOptions:storeOptions
                                   withPersistentStoreFromURL:tempURL
-                                               sourceOptions:nil
+                                               sourceOptions:storeOptions
                                                    storeType:type
                                                        error:&replaceError];
         [replacer destroyPersistentStoreAtURL:tempURL withType:type options:nil error:NULL];
