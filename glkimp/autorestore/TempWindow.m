@@ -313,6 +313,7 @@
     win->line_request = line_request;
     win->line_request_uni = line_request_uni;
     win->mouse_request = mouse_request;
+    win->echo_line_input = echo_line_input;
 
     win->bbox.x0 = x0;
     win->bbox.y0 = y0;
