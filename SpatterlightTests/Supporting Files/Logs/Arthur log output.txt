@@ -1140,7 +1140,7 @@ Interpreter: bocfel
 [MSG] cmd=INITMOUSE a1=3 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=1 a2=228928 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=1 a2=0 a3=0 len=0
@@ -1185,7 +1185,7 @@ Please press Y or N>
 [MSG] cmd=INITMOUSE a1=3 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=2 a2=228928 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=1 a2=0 a3=0 len=0
@@ -1232,7 +1232,7 @@ Slowly you approach the sword. Driven by some inner force, you clasp your hand a
 [MSG] cmd=INITMOUSE a1=3 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=2 a2=228928 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=1 a2=0 a3=0 len=0
@@ -1245,9 +1245,9 @@ Slowly you approach the sword. Driven by some inner force, you clasp your hand a
 [MSG] cmd=SIZWIN a1=3 a2=0 a3=0 len=24
 [MSG] cmd=INITMOUSE a1=3 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=2 a2=228928 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=PURGEIMG a1=3 a2=144000 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=1 a2=0 a3=0 len=0
@@ -1295,9 +1295,9 @@ Slowly you approach the sword. Driven by some inner force, you clasp your hand a
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=2 a2=228928 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PURGEIMG a1=3 a2=144000 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=1 a3=0 len=0
@@ -1322,10 +1322,10 @@ Slowly you approach the sword. Driven by some inner force, you clasp your hand a
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=MOVETO a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=146
@@ -1387,7 +1387,7 @@ Slowly you approach the sword. Driven by some inner force, you clasp your hand a
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -1577,7 +1577,7 @@ Your vision clears and you are no longer in the cave.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -1712,7 +1712,7 @@ From down the street you hear the sound of approaching voices. It sounds like so
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -1787,7 +1787,7 @@ You hear steps outside the gate and see moonlight glinting off soldiers' helmets
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -1870,7 +1870,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2140,7 +2140,7 @@ At this last pronouncement, the crowd cheers and rushes toward Lot. His guards c
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2224,7 +2224,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2489,7 +2489,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2546,7 +2546,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2605,7 +2605,7 @@ You hear the thunder of approaching hooves, but see nothing. Moments later you f
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2662,7 +2662,7 @@ You hear the thunder of approaching hooves, but see nothing. Moments later you f
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2727,7 +2727,7 @@ Merlin waves his hand over you and mumbles a few words. "There. It is done. The 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2786,7 +2786,7 @@ In the center of the room is a perfectly round crystal ball. On the ground near 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -2888,7 +2888,7 @@ Merlin glances up from his scroll and gives you a look of mild reproval. "Be on 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3013,7 +3013,7 @@ Your stomach makes grumbling noises.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3072,7 +3072,7 @@ You hear the thunder of approaching hooves, but see nothing. Moments later you f
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3129,7 +3129,7 @@ You hear the thunder of approaching hooves, but see nothing. Moments later you f
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3186,7 +3186,7 @@ You hear the thunder of approaching hooves, but see nothing. Moments later you f
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3270,7 +3270,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3327,7 +3327,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3384,7 +3384,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3441,7 +3441,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3525,7 +3525,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3584,7 +3584,7 @@ The tavern's kitchen is to the south.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3668,7 +3668,7 @@ The cook takes a backhanded swipe at the bird and mutters, "Sharrup."
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -3924,7 +3924,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -4443,7 +4443,7 @@ A large farmer says, "I'll believe in 'is tale of angels when me billy goat stan
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -4527,7 +4527,7 @@ On the table you see a bird dropping.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -4717,7 +4717,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -4986,7 +4986,7 @@ Another farmer says, "'E's got 'is nerve, 'e 'as. Closin' up the castle so's nar
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -5370,7 +5370,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -5427,7 +5427,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -5484,7 +5484,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -5639,7 +5639,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -5757,7 +5757,7 @@ You see a building stone here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -6227,7 +6227,7 @@ cell key: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -6327,7 +6327,7 @@ The prisoner follows you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -6441,7 +6441,7 @@ The prisoner follows you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -6551,7 +6551,7 @@ The prisoner follows you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7089,7 +7089,7 @@ On the kitchen table you see a pumice stone.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7232,7 +7232,7 @@ Everything you were wearing magically reappears in its place.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7383,7 +7383,7 @@ The prisoner follows you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7446,7 +7446,7 @@ The prisoner follows you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7699,7 +7699,7 @@ The prisoner follows you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7819,7 +7819,7 @@ The smith walks off toward the town gate and quickly disappears from sight.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7878,7 +7878,7 @@ You see a wooden key and a bottle here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -7976,7 +7976,7 @@ You see a wooden key and a bottle here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8060,7 +8060,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8117,7 +8117,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8354,7 +8354,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8411,7 +8411,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8470,7 +8470,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8527,7 +8527,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8638,7 +8638,7 @@ Do you want to shield your (1) head, (2) body, or (3) leg?
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8748,7 +8748,7 @@ The knight stumbles around the clearing, cleaning up after the joust. He ties th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8805,7 +8805,7 @@ The knight stumbles around the clearing, cleaning up after the joust. He ties th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8915,7 +8915,7 @@ The knight stumbles around the clearing, cleaning up after the joust. He ties th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -8986,7 +8986,7 @@ The knight stumbles around the clearing, cleaning up after the joust. He ties th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -9157,7 +9157,7 @@ The knight stumbles around the clearing, cleaning up after the joust. He ties th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -9269,7 +9269,7 @@ You see a sword, a shield, a bottle and an ivory key here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -9541,7 +9541,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -9655,7 +9655,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -9717,7 +9717,7 @@ You see a sword, a shield and a bottle here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -9828,7 +9828,7 @@ You see a table here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -9992,7 +9992,7 @@ You see a sword, a shield and a bottle here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -10092,7 +10092,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -10206,7 +10206,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -10263,7 +10263,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -10990,7 +10990,7 @@ bottle: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11064,7 +11064,7 @@ You hear a strange murmuring coming from beneath the rock.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11179,7 +11179,7 @@ You hear a strange murmuring coming from beneath the rock.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11296,7 +11296,7 @@ You hear a rustling in the undergrowth, as if something had approached the glade
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11415,7 +11415,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11514,7 +11514,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11571,7 +11571,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11681,7 +11681,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11738,7 +11738,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11848,7 +11848,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11907,7 +11907,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -11964,7 +11964,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12021,7 +12021,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12121,7 +12121,7 @@ You hear the thunder of approaching hooves, but see nothing. Moments later you f
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12210,7 +12210,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12425,7 +12425,7 @@ brass egg: Done.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12482,7 +12482,7 @@ brass egg: Done.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12541,7 +12541,7 @@ The red knight stands at attention before you, staring off into the distance. He
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12598,7 +12598,7 @@ The red knight stands at attention before you, staring off into the distance. He
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12655,7 +12655,7 @@ The red knight stands at attention before you, staring off into the distance. He
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12717,7 +12717,7 @@ The red knight stands at attention before you, staring off into the distance. He
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12833,7 +12833,7 @@ The red knight stands at attention before you, staring off into the distance. He
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12937,7 +12937,7 @@ The red knight stands at attention before you, staring off into the distance. He
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -12997,7 +12997,7 @@ The red knight stands at attention before you, staring off into the distance. He
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -13219,7 +13219,7 @@ The giant kraken follows you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -13383,7 +13383,7 @@ The giant kraken recoils for a moment, and then reaches out a slimy tentacle tow
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -13554,7 +13554,7 @@ A slimy tentacle wraps around you, and the kraken begins to squeeze.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -13728,7 +13728,7 @@ You see a sword, a bag and a shield here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -13963,7 +13963,7 @@ You see a sword, a bag and a shield here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14380,7 +14380,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14437,7 +14437,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14494,7 +14494,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14551,7 +14551,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14649,7 +14649,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14706,7 +14706,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14845,7 +14845,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -14897,7 +14897,7 @@ Light filters down from the surface above, and strong rapids block passage to th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15316,7 +15316,7 @@ There is an apple here, gently bobbing up and down in the water.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15417,7 +15417,7 @@ shield: Taken. It dries quickly.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15474,7 +15474,7 @@ shield: Taken. It dries quickly.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15531,7 +15531,7 @@ shield: Taken. It dries quickly.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15588,7 +15588,7 @@ shield: Taken. It dries quickly.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15647,7 +15647,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15704,7 +15704,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15761,7 +15761,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15871,7 +15871,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -15931,7 +15931,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -16041,7 +16041,7 @@ You see a sword here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -16326,7 +16326,7 @@ You see a sword, a tusk, a bag and a shield here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -16517,7 +16517,7 @@ shield: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -16680,7 +16680,7 @@ shield: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -16818,7 +16818,7 @@ In the distance, you hear the sound of the bells calling the monks to prayer.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -16888,7 +16888,7 @@ You see a sword, a bag and a shield here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17149,7 +17149,7 @@ The glint catches the giant raven's eye and it swoops down towards the grove.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17248,7 +17248,7 @@ You see a gold egg here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17365,7 +17365,7 @@ You hear the beat of approaching wings.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17459,7 +17459,7 @@ The giant raven arrives in the nest, drops the brass egg, and chases you out.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17529,7 +17529,7 @@ You see a gold egg, a sword, a bag and a shield here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17772,7 +17772,7 @@ shield: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17882,7 +17882,7 @@ shield: Taken.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17941,7 +17941,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -17998,7 +17998,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18055,7 +18055,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18116,7 +18116,7 @@ You see some weeds here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18179,7 +18179,7 @@ You see a crutch and a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18318,7 +18318,7 @@ You see a crutch and a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18469,7 +18469,7 @@ You see a crutch here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18571,7 +18571,7 @@ You see a crutch here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18632,7 +18632,7 @@ After a few moments, the peasant begins to stir. When he is fully conscious he s
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18826,7 +18826,7 @@ After a few moments, the peasant begins to stir. When he is fully conscious he s
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18885,7 +18885,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -18942,7 +18942,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19175,7 +19175,7 @@ Across the bog to the west, you see the vague outline of an island with what app
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19493,7 +19493,7 @@ Your blade slices through the air and knocks the knight's sword from his grasp! 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19632,7 +19632,7 @@ Your blade slices through the air and knocks the knight's sword from his grasp! 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19689,7 +19689,7 @@ Your blade slices through the air and knocks the knight's sword from his grasp! 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19746,7 +19746,7 @@ Your blade slices through the air and knocks the knight's sword from his grasp! 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19803,7 +19803,7 @@ Your blade slices through the air and knocks the knight's sword from his grasp! 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19852,7 +19852,7 @@ Your blade slices through the air and knocks the knight's sword from his grasp! 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -19992,7 +19992,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -20128,7 +20128,7 @@ Ghosts close in around you, shrieking and howling. They stand between you and th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -20216,7 +20216,7 @@ The noise of your entry awakens the basilisk, who begins to cast around bleary-e
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -20355,7 +20355,7 @@ The heat begins to make you sweat.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -20507,7 +20507,7 @@ You're feeling much cooler.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -20620,7 +20620,7 @@ Your body temperature returns to normal.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -20731,7 +20731,7 @@ The cold begins to creep into your bones.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21030,7 +21030,7 @@ You're beginning to thaw out.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21168,7 +21168,7 @@ Your blood is warming up.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21309,7 +21309,7 @@ Your body temperature returns to normal.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21380,7 +21380,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21521,7 +21521,7 @@ Please answer YES or NO>
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21642,7 +21642,7 @@ You open the right manacle. The demon catches on to your plan and screams at you
 [MSG] cmd=INITMOUSE a1=3 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=85 a2=166624 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
@@ -21681,10 +21681,10 @@ You open the right manacle. The demon catches on to your plan and screams at you
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=MOVETO a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=146
@@ -21778,7 +21778,7 @@ You open the right manacle. The demon catches on to your plan and screams at you
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21886,7 +21886,7 @@ You open the right manacle. The demon catches on to your plan and screams at you
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -21943,7 +21943,7 @@ You open the right manacle. The demon catches on to your plan and screams at you
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22000,7 +22000,7 @@ You open the right manacle. The demon catches on to your plan and screams at you
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22059,7 +22059,7 @@ You see a bag and some black armour here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22199,7 +22199,7 @@ dragon hair: Done.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22424,7 +22424,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22481,7 +22481,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22538,7 +22538,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22595,7 +22595,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22652,7 +22652,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22709,7 +22709,7 @@ You see a slean here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -22768,7 +22768,7 @@ The knight removes his stare from the horizon long enough to say, "You still may
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23033,7 +23033,7 @@ The knight removes his stare from the horizon long enough to say, "You still may
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23090,7 +23090,7 @@ The knight removes his stare from the horizon long enough to say, "You still may
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23149,7 +23149,7 @@ The knight removes his stare from the horizon long enough to say, "You still may
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23206,7 +23206,7 @@ The knight removes his stare from the horizon long enough to say, "You still may
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23464,7 +23464,7 @@ You awaken the next morning to the sound of the bells calling the monks to praye
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23521,7 +23521,7 @@ You awaken the next morning to the sound of the bells calling the monks to praye
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23580,7 +23580,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23637,7 +23637,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23694,7 +23694,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -23787,7 +23787,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24249,7 +24249,7 @@ A school of minnows scurries out of your way, but a tasty-looking one lags behin
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24306,7 +24306,7 @@ A school of minnows scurries out of your way, but a tasty-looking one lags behin
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24363,7 +24363,7 @@ A school of minnows scurries out of your way, but a tasty-looking one lags behin
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24420,7 +24420,7 @@ A school of minnows scurries out of your way, but a tasty-looking one lags behin
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24479,7 +24479,7 @@ You see a hole here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24563,7 +24563,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24620,7 +24620,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24679,7 +24679,7 @@ You see a wooden key here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24783,7 +24783,7 @@ You see a wooden key here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -24999,7 +24999,7 @@ On the ground is a thorny sprig that has fallen from the bush.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25103,7 +25103,7 @@ On the ground is a thorny sprig that has fallen from the bush.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25265,7 +25265,7 @@ You see a wooden key here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25416,7 +25416,7 @@ The sprig of hawthorn falls to the ground.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25504,7 +25504,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25563,7 +25563,7 @@ You see a hole here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25620,7 +25620,7 @@ You see a hole here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25677,7 +25677,7 @@ You see a hole here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25734,7 +25734,7 @@ You see a hole here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25793,7 +25793,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25854,7 +25854,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25911,7 +25911,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -25970,7 +25970,7 @@ You see a sword, a shield, a gold key and a bag here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26514,7 +26514,7 @@ Before you can thank her she vanishes in a flash of light leaving the gauntlet b
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26573,7 +26573,7 @@ Before you can thank her she vanishes in a flash of light leaving the gauntlet b
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26630,7 +26630,7 @@ Before you can thank her she vanishes in a flash of light leaving the gauntlet b
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26687,7 +26687,7 @@ Before you can thank her she vanishes in a flash of light leaving the gauntlet b
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26746,7 +26746,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26803,7 +26803,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26860,7 +26860,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26917,7 +26917,7 @@ The red knight acknowledges your arrival with a polite nod and indicates that yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -26976,7 +26976,7 @@ You see a hole here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27060,7 +27060,7 @@ The village idiot is here, idly playing with a dead mouse that lies at his feet.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27500,7 +27500,7 @@ red piece of glass: The idiot smacks you on the head and says, "Nasty boy. Keep 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27561,7 +27561,7 @@ red piece of glass: The idiot smacks you on the head and says, "Nasty boy. Keep 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27622,7 +27622,7 @@ red piece of glass: The idiot smacks you on the head and says, "Nasty boy. Keep 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27685,7 +27685,7 @@ He stands up and stalks out of the Great Hall. His guards seize you and strip yo
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27809,7 +27809,7 @@ Your gambit is successful. You knock aside Lot's sword and push him to the groun
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27919,7 +27919,7 @@ Your gambit is successful. You knock aside Lot's sword and push him to the groun
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -27978,7 +27978,7 @@ Lot and the crowd follow you.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=519680 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=10 a3=0 len=40
@@ -28015,7 +28015,7 @@ Lot and the crowd follow you.
 [MSG] cmd=INITMOUSE a1=3 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=84 a2=228928 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0

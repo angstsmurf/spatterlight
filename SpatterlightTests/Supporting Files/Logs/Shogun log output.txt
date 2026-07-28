@@ -390,7 +390,7 @@ Interpreter: bocfel
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=1 a2=256000 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
@@ -411,7 +411,7 @@ Interpreter: bocfel
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=12
@@ -438,7 +438,7 @@ Amiga Interpreter version 6.83
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -536,7 +536,7 @@ Amiga Interpreter version 6.83
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -584,14 +584,14 @@ Amiga Interpreter version 6.83
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=7 a2=117760 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=674
 [TEXT] The gale tears at you, biting deep within, and you know that if you don't make landfall soon you'll all be dead. You are John Blackthorne, Pilot-Major of a dead fleet: one ship left out of five, eight and twenty men out of one hundred and seven, and only ten of those can walk. Little food, almost no water, and that brackish and foul.
 
@@ -1576,14 +1576,14 @@ The anchor hangs over the side, ready to be dropped if ever, by the grace of God
 
 
 [MSG] cmd=PURGEIMG a1=8 a2=121440 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=208
 [TEXT] As you enter, a volley of feeble curses greets you. You close the door and they subside. No one moves.
 
@@ -3687,7 +3687,7 @@ The sea race quickens. The ship is in the neck and dead, but then the keel scrap
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -3782,7 +3782,7 @@ The sea race quickens. The ship is in the neck and dead, but then the keel scrap
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -4187,14 +4187,14 @@ All your life you have heard rumors of Portugal's secret empire in the East, how
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=9 a2=104512 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=842
 [TEXT] You reach to open the door, reeling slightly as you are still very weak, and put out a hand to steady yourself but the light, square wood laths can't bear your weight and they shatter, paper ripping apart.  You marvel at how flimsy it is, not at all like the sturdy wooden doors of England. Are there no thieves here?
 
@@ -4464,14 +4464,14 @@ You see the middle-aged woman here.
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=10 a2=80592 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=12
@@ -4778,14 +4778,14 @@ Suddenly the attack ceases. A young man is ten paces away. He wears two scabbard
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=11 a2=89792 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=618
 [TEXT] The young man is a head shorter and much younger than you, his handsome face slightly pockmarked though. He wears breeches and clogs and a light kimono with two scabbarded swords stuck into the belt. One is daggerlike, the other, a two-handed killing sword, is long and slightly curved.
 
@@ -5587,7 +5587,7 @@ As you climb down the gangway you can still feel the sweat trickling down your s
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -5682,7 +5682,7 @@ As you climb down the gangway you can still feel the sweat trickling down your s
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -6119,7 +6119,7 @@ Yabu smiles happily at you and your crewmen, then points to you and barks an add
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -6214,7 +6214,7 @@ Yabu smiles happily at you and your crewmen, then points to you and barks an add
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -6316,14 +6316,14 @@ There is no answer.
 [TEXT] Time passes...
 
 [MSG] cmd=PURGEIMG a1=13 a2=101568 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=576
 [TEXT] 
 The trapdoor opens. Omi looks down at you. Beside him are Mura and the priest. Everyone is still yelling. Omi motions to Mura, who nods and leaves.
@@ -7348,7 +7348,7 @@ Before long, even your hatred of Omi becomes a banked fire as the heat of the ba
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -7377,7 +7377,7 @@ Before long, even your hatred of Omi becomes a banked fire as the heat of the ba
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=70
 [TEXT] 
 
@@ -7399,7 +7399,7 @@ Yabu and Omi are sitting sipping
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -7410,7 +7410,7 @@ Yabu and Omi are sitting sipping
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -7505,7 +7505,7 @@ Yabu and Omi are sitting sipping
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -8516,7 +8516,7 @@ There are a sea chest and a desk here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -8545,7 +8545,7 @@ There are a sea chest and a desk here.
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=770
 [TEXT] 
 
@@ -8555,7 +8555,7 @@ Omi and the others waited on the jetty until the galley rounded the headland and
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -8566,7 +8566,7 @@ Omi and the others waited on the jetty until the galley rounded the headland and
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -8661,7 +8661,7 @@ Omi and the others waited on the jetty until the galley rounded the headland and
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -8720,14 +8720,14 @@ Rodrigues stands at the helm.
 The helm is here, turned to port now. The life line secures you as the deck pitches and rolls.
 
 [MSG] cmd=PURGEIMG a1=15 a2=111872 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=450
 [TEXT] "Watch out forward!" Rodrigues shouts. The galley rolls sickeningly, twenty oars pulling at air instead of sea and there is chaos aboard. The first comber has struck and the port gunwale is awash. The galley is floundering.
 
@@ -9200,7 +9200,7 @@ You hold course toward the bay. Rodrigues shouts, "God curse you, you'll kill us
 
 [MSG] cmd=FLOWBREAK a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=16 a2=201664 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -9211,7 +9211,7 @@ You hold course toward the bay. Rodrigues shouts, "God curse you, you'll kill us
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=576
 [TEXT] A great wave comes out of the north. The galley has taken much water previously, now you're awash and being driven backward towards the rock-infested shore.
 
@@ -9301,14 +9301,14 @@ Rodrigues splashes to the surface, but the current is carrying him further away.
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=17 a2=91504 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=316
 [TEXT] You throw the oar toward Rodrigues. It crashes into the water near him and he lunges for it.
 
@@ -10141,7 +10141,7 @@ Yabu kicks off his thong slippers. He takes the swords out of his belt and puts 
 
 [MSG] cmd=FLOWBREAK a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=18 a2=201664 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -10152,7 +10152,7 @@ Yabu kicks off his thong slippers. He takes the swords out of his belt and puts 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=690
 [TEXT] Yabu climbs down the side of the cliff with great skill.
 
@@ -10710,7 +10710,7 @@ Yabu bows back, stiffly. But inside, he smiles.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -10739,7 +10739,7 @@ Yabu bows back, stiffly. But inside, he smiles.
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1268
 [TEXT] 
 
@@ -10751,7 +10751,7 @@ Rodrigues is tended by a Japanese doctor with strange ideas, such as keeping the
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -10762,7 +10762,7 @@ Rodrigues is tended by a Japanese doctor with strange ideas, such as keeping the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -10857,7 +10857,7 @@ Rodrigues is tended by a Japanese doctor with strange ideas, such as keeping the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -10890,7 +10890,7 @@ Rodrigues is tended by a Japanese doctor with strange ideas, such as keeping the
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=FLOWBREAK a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=19 a2=201664 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -10901,7 +10901,7 @@ Rodrigues is tended by a Japanese doctor with strange ideas, such as keeping the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=952
 [TEXT] You take your leave of Rodrigues, and then you are on deck, your mind whirling from the impact of Osaka, its immensity, the teeming anthills of people, and the enormous castle that dominates the city. From within the castle's vastness comes the soaring beauty of the donjon, seven or eight stories high, pointed gables with curved roofs at each level, the tiles all gilded and the walls blue.
 
@@ -10937,14 +10937,14 @@ This is the immense audience room. The room is forty paces square and ten high, 
 
 
 [MSG] cmd=PURGEIMG a1=20 a2=118496 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=762
 [TEXT] Toranaga is repairing a broken wing feather of a hooded falcon as delicately as any ivory carver.
 
@@ -11175,7 +11175,7 @@ Toranaga turns and beckons to the lean-faced Portuguese who is sitting patiently
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=648
 [TEXT] Father Alvito is a graceful, handsome man, perhaps a few years older than you. He wears tabi socks and a flowing kimono that seems, on him, to belong. A rosary and a carved golden cross hang at his belt. He has an easy elegance, and the aura of strength and natural power of the Jesuits.
 
@@ -11483,14 +11483,14 @@ Toranaga says, "Welcome, Lord Ishido. Please sit there." He gestures at the sing
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=22 a2=94208 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1510
 [TEXT] Ishido Kazunari is tall, lean, swarthy and very tough, a little younger than Toranaga. He is dressed in the Gray uniform.
 
@@ -11544,7 +11544,7 @@ Toranaga smiles. "You're a man of vast humor, Lord Ishido. I agree the sooner th
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -11573,7 +11573,7 @@ Toranaga smiles. "You're a man of vast humor, Lord Ishido. I agree the sooner th
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2258
 [TEXT] 
 
@@ -11589,7 +11589,7 @@ Toranaga is livid. Why had Kiyama and Onoshi defected to Ishido? Four to one mea
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -11600,7 +11600,7 @@ Toranaga is livid. Why had Kiyama and Onoshi defected to Ishido? Four to one mea
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -11695,7 +11695,7 @@ Toranaga is livid. Why had Kiyama and Onoshi defected to Ishido? Four to one mea
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -12750,7 +12750,7 @@ The iron door of the cell swings open. Guards begin to call names from a list. T
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1170
 [TEXT] 
 
@@ -13456,7 +13456,7 @@ Then Yabu laughs, and everyone joins in. He bows mockingly. "Ah so, Anjin-sama!"
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -13485,7 +13485,7 @@ Then Yabu laughs, and everyone joins in. He bows mockingly. "Ah so, Anjin-sama!"
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1516
 [TEXT] 
 
@@ -13495,7 +13495,7 @@ You know, beyond all doubt, because of what Friar Domingo told you about the Por
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -13506,7 +13506,7 @@ You know, beyond all doubt, because of what Friar Domingo told you about the Por
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -13601,7 +13601,7 @@ You know, beyond all doubt, because of what Friar Domingo told you about the Por
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -14088,7 +14088,7 @@ Soon the interview is over, and the Heir is sent for his swimming lesson. Torana
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -14117,7 +14117,7 @@ Soon the interview is over, and the Heir is sent for his swimming lesson. Torana
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2032
 [TEXT] 
 
@@ -14131,7 +14131,7 @@ Ferriera, the Spanish Captain of the Black Ship, says coldly, "The sooner the he
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -14142,7 +14142,7 @@ Ferriera, the Spanish Captain of the Black Ship, says coldly, "The sooner the he
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -14237,7 +14237,7 @@ Ferriera, the Spanish Captain of the Black Ship, says coldly, "The sooner the he
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -14270,7 +14270,7 @@ Ferriera, the Spanish Captain of the Black Ship, says coldly, "The sooner the he
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=FLOWBREAK a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=23 a2=201664 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -14281,7 +14281,7 @@ Ferriera, the Spanish Captain of the Black Ship, says coldly, "The sooner the he
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=586
 [TEXT] Just after dusk Kiri waddled nervously down the steps. She headed for her curtained litter that stood near the little tea house just inside the garden. You are leaning against the wall near the fortified gate. You are wearing a belted kimono of the Browns and tabi socks and military thongs.
 
@@ -15081,14 +15081,14 @@ There is a slight hesitation between the sobs and the figure bows an assent.
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=24 a2=122176 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=148
 [TEXT] Ishido and the others whirl on you dumbfounded.
 
@@ -15693,7 +15693,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -15747,7 +15747,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -15797,7 +15797,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -15847,7 +15847,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -15897,7 +15897,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -15947,7 +15947,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -15997,7 +15997,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16055,7 +16055,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16105,7 +16105,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16155,7 +16155,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16213,7 +16213,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16271,7 +16271,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16325,7 +16325,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16375,7 +16375,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16425,7 +16425,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16475,7 +16475,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16525,7 +16525,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16575,7 +16575,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16625,7 +16625,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16675,7 +16675,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16725,7 +16725,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16783,7 +16783,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16833,7 +16833,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16883,7 +16883,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16933,7 +16933,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -16983,7 +16983,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17033,7 +17033,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17087,7 +17087,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17137,7 +17137,7 @@ You see Buntaro, Yabu and Mariko here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17166,7 +17166,7 @@ The arrows come out of the night, the first impaling the captain through the thr
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=33 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -17319,14 +17319,14 @@ A shower of arrows straddles both litters. One thuds into the ground where Marik
 [TEXT] Time passes...
 
 [MSG] cmd=PURGEIMG a1=25 a2=120704 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=658
 [TEXT] Buntaro shields Toranaga's litter with his body as best he can, then whips open the curtains. Two arrows are imbedded in Toranaga's chest and side, and he jerks them out of the armor he wears beneath the kimono. He fights his way out of the litter and stands in the street, sword drawn, an incongruous figure in kimono and hat.
 
@@ -17657,7 +17657,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17753,7 +17753,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17803,7 +17803,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17853,7 +17853,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17903,7 +17903,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -17953,7 +17953,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18003,7 +18003,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18057,7 +18057,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18111,7 +18111,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18161,7 +18161,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18211,7 +18211,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18261,7 +18261,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18311,7 +18311,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18365,7 +18365,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18419,7 +18419,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18469,7 +18469,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18519,7 +18519,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18569,7 +18569,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18619,7 +18619,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18669,7 +18669,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18719,7 +18719,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18769,7 +18769,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18827,7 +18827,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18877,7 +18877,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18931,7 +18931,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -18981,7 +18981,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19031,7 +19031,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19097,7 +19097,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19147,7 +19147,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19197,7 +19197,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19247,7 +19247,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19297,7 +19297,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19351,7 +19351,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19401,7 +19401,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19451,7 +19451,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19521,7 +19521,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19575,7 +19575,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19633,7 +19633,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19683,7 +19683,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19733,7 +19733,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19783,7 +19783,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19833,7 +19833,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19883,7 +19883,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19937,7 +19937,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -19991,7 +19991,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITMOUSE a1=0 a2=0 a3=0 len=0
 [MSG] cmd=TERMINATORS a1=1 a2=26 a3=0 len=104
@@ -20010,7 +20010,7 @@ You see Buntaro, Yabu, Mariko and Toranaga here.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=18 a3=0 len=0
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
@@ -20692,7 +20692,7 @@ Bastard, you think. You're a cruel, cold-gutted, heartless bastard but you've go
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -20721,7 +20721,7 @@ Bastard, you think. You're a cruel, cold-gutted, heartless bastard but you've go
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1004
 [TEXT] 
 
@@ -20741,7 +20741,7 @@ But best of all, he says he will return the
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -20752,7 +20752,7 @@ But best of all, he says he will return the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -20847,7 +20847,7 @@ But best of all, he says he will return the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -21072,14 +21072,14 @@ Toranaga and Mariko teeter on the brink of the cleft. As though in a nightmare y
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=26 a2=128064 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=868
 [TEXT] You come out of your stupor and lunge forward. Your left hand grabs Toranaga's sash.
 
@@ -21393,14 +21393,14 @@ Toranaga points to the fissure that almost swallowed him, now only a narrow ditc
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=27 a2=109664 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=166
 [TEXT] You kneel in front of Toranaga and offer your sword as a sword should be offered. "
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
@@ -21528,7 +21528,7 @@ You lay full length on the ground and look up at the sky. A moment ago you were 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -21557,20 +21557,20 @@ You lay full length on the ground and look up at the sky. A moment ago you were 
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
 
 [MSG] cmd=PURGEIMG a1=37 a2=139104 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=5694
 [TEXT] At the Hour of the Goat the sentries on the bridge stand aside. The cortege begins to cross. First are the heralds carrying banners bedecked with the all-powerful cipher of the Regents, then the rich palanquin, and finally more guards.
 
@@ -21610,7 +21610,7 @@ Toranaga studies the scroll interminably.
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -21621,7 +21621,7 @@ Toranaga studies the scroll interminably.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -21716,7 +21716,7 @@ Toranaga studies the scroll interminably.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -21866,14 +21866,14 @@ pair of sandals: Dropped.
 socks: Dropped.
 
 [MSG] cmd=PURGEIMG a1=33 a2=123648 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=98
 [TEXT] 
 Mariko climbs into the tub and begins bathing.
@@ -22010,7 +22010,7 @@ As the bath finishes and you climb out, you try to hide your anticipation of the
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=6
 [TEXT] 
 
@@ -23288,7 +23288,7 @@ Yoshinaka seems to still be in his room.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -23317,7 +23317,7 @@ Yoshinaka seems to still be in his room.
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1058
 [TEXT] 
 
@@ -23359,7 +23359,7 @@ Yabu quails as he sees the Imperial seal. No one, not even Toranaga, could refus
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -23370,7 +23370,7 @@ Yabu quails as he sees the Imperial seal. No one, not even Toranaga, could refus
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -23465,7 +23465,7 @@ Yabu quails as he sees the Imperial seal. No one, not even Toranaga, could refus
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -24185,7 +24185,7 @@ Mariko makes a half-bow to the room and leaves. Yabu steps forward with you and 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -24280,7 +24280,7 @@ Mariko makes a half-bow to the room and leaves. Yabu steps forward with you and 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -24891,7 +24891,7 @@ She bows and walks toward the gateway. All in the avenue and all on the battleme
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -24920,7 +24920,7 @@ She bows and walks toward the gateway. All in the avenue and all on the battleme
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=840
 [TEXT] 
 
@@ -24948,7 +24948,7 @@ He walks over to the window. "Suppose she's disarmed? Capture her! Confine her u
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -24959,7 +24959,7 @@ He walks over to the window. "Suppose she's disarmed? Capture her! Confine her u
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -25054,7 +25054,7 @@ He walks over to the window. "Suppose she's disarmed? Capture her! Confine her u
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -25580,14 +25580,14 @@ Mariko looks once again at the knife. She says "Kasigi Yabu-sama! It seems Lord 
 [TEXT] Time passes...
 
 [MSG] cmd=PURGEIMG a1=28 a2=127440 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1036
 [TEXT] 
 With her right hand, Mariko makes the sign of the cross, then leans forward and takes the knife and touches it to her lips as though to taste the polished steel. She changes her grip and holds the knife firmly with her right hand under the left side of her throat.
@@ -25823,7 +25823,7 @@ Mariko tries to grope to her feet. She fails. She tries a second time. Again she
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -25918,7 +25918,7 @@ Mariko tries to grope to her feet. She fails. She tries a second time. Again she
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -27404,14 +27404,14 @@ Suddenly, a secret door on the south side of the room bursts open, and a black-c
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=29 a2=79120 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=914
 [TEXT] The pistol goes off, and the back of the ninja leader's head disappears, momentarily stopping the charge. The shot alerts the Captain of the Grays.
 
@@ -28419,14 +28419,14 @@ A ferocious pounding on the door, iron clanging on iron, then the voice begins, 
 [TEXT] Time passes...
 
 [MSG] cmd=PURGEIMG a1=30 a2=128064 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=776
 [TEXT] Mariko presses back against the iron and calls out firmly, "I, Toda Mariko, protest this shameful attack and by my death --" The explosion blows you aside as the door wrenches loose from its hinges and blasts into the room and shrieks off a far wall. The detonation knocks you off your feet. Smoke gushes into the room, the ninja following instantly. The door comes to rest in a corner.
 
@@ -28738,7 +28738,7 @@ Your head seems to burst with red and purple light and you collapse. Kind hands 
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -28767,7 +28767,7 @@ Your head seems to burst with red and purple light and you collapse. Kind hands 
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1296
 [TEXT] 
 
@@ -28779,7 +28779,7 @@ She mounts painfully to the battlement. Everyone bows to her.
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -28790,7 +28790,7 @@ She mounts painfully to the battlement. Everyone bows to her.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -28885,7 +28885,7 @@ She mounts painfully to the battlement. Everyone bows to her.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -29230,14 +29230,14 @@ The pistol is leveled at you, Vinck's eyes staring with demented antagonism, the
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
 [MSG] cmd=PURGEIMG a1=36 a2=66000 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=1 a2=16777215 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=362
 [TEXT] You close his eyes and pick him up and sling him over your shoulder and walk back. Samurai run toward you, Naga and Yabu at their head.
 
@@ -29280,7 +29280,7 @@ The pistol is leveled at you, Vinck's eyes staring with demented antagonism, the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0
@@ -29375,7 +29375,7 @@ The pistol is leveled at you, Vinck's eyes staring with demented antagonism, the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=1 a2=-1 a3=-1 len=0
@@ -30018,7 +30018,7 @@ Toranaga smiles.
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=1 a3=1 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -30047,7 +30047,7 @@ Toranaga smiles.
 [TEXT] 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=156
 [TEXT] 
 
@@ -30071,7 +30071,7 @@ Before long, you and a hundred samurai are working to raise the keel of the
 
 
 [MSG] cmd=PURGEIMG a1=5 a2=6804 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 
@@ -30082,7 +30082,7 @@ Before long, you and a hundred samurai are working to raise the keel of the
 [MSG] cmd=SETBGND a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=PURGEIMG a1=600 a2=531200 a3=0 len=113
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=0 a3=8 len=0

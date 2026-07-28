@@ -1073,7 +1073,7 @@
 
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '2:08 p.m.'"];
+    predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '2:10 p.m.'"];
     expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
     XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
 

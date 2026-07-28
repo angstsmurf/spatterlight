@@ -52,6 +52,7 @@ southeast
 north
 examine shelves
 take music
+open desk
 take key
 south
 northwest
@@ -126,6 +127,7 @@ down
 north
 use keypad
 west
+open trunk
 take syringe
 use syringe on bucket
 east

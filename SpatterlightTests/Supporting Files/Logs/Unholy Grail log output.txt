@@ -51,7 +51,7 @@ Interpreter: jacl
 [MSG] cmd=FINDIMAGE a1=1 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
 [MSG] cmd=LOADIMAGE a1=1 a2=74 a3=58279 len=209
-[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=20
+[MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1896
 [TEXT] 
 Copyright (c) 2008 Stuart Allen.

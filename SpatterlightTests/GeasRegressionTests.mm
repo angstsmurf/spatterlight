@@ -51,7 +51,7 @@ const char *kFixture =
     "end define\n"
     "define object <apple>\n"
     "look <A shiny red apple.>\n"
-    "properties <hidden>\n"
+    "hidden\n"
     "end define\n"
     "define object <coin>\n"
     "look <A gold coin.>\n"

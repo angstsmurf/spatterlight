@@ -448,18 +448,18 @@ The fire alarm keeps ringing.
 Taken.
 
 >READ SCRAP
-It reads:  "30-6-51".
+It reads:  "29-1-54".
 
 (Footnote 21)
 
->TURN DIAL TO 30
-The dial spins smoothly as you turn it to 30.
+>TURN DIAL TO 29
+The dial spins smoothly as you turn it to 29.
 
->TURN DIAL TO 6
-The dial spins smoothly as you turn it to 6.
+>TURN DIAL TO 1
+The dial spins smoothly as you turn it to 1.
 
->TURN DIAL TO 51
-The dial spins smoothly as you turn it to 51.
+>TURN DIAL TO 54
+The dial spins smoothly as you turn it to 54.
 
 >OPEN SAFE
 The safe opens with a soft click.
@@ -622,7 +622,7 @@ You miss the basket.  Hell, you miss the backboard.
 Taken.
 
 >SHOOT BASKET
-You shoot, but you're a little wide and the basketball makes a rubbery thump against the backboard before bouncing away from the basket.
+You shoot and watch hopefully as the ball bounces tantalizingly off the rim three or four times before falling outside.
 
 >SHOOT BASKET
 You miss the basket.  Hell, you miss the backboard.
@@ -738,16 +738,17 @@ Anne is young, maybe twenty-one, and got this job either on some kind of summer-
 >ASK ANNE ABOUT FINA
 "Who shall I say is here?" Anne asks, looking you up and down.  "Um...forget it.  I'll just buzz him."  She punches a couple of buttons on her phone and speaks very briefly into it before hanging up.
 
->WAIT FOR FINA
-Time passes...
-
 The phone rings.  Anne answers it, listens briefly, then transfers the call.
 
-Do you want to keep waiting (YES or NO)? Y
+>WAIT FOR FINA
+Time passes...
 
 Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recognize you, but he manages to greet you with one of those practised smiles that suggests you're the best thing that's happened to him all day.  "Hi there.  Stuart Fina."
 
 (Stuart has arrived.  It is now 12:34 p.m.)
+
+>Y
+Better start with a verb.
 
 >EXAMINE FINA
 Stuart is a young guy, maybe only twenty-seven or twenty-eight.  His look is carefully constructed:  he sports a trendy Van Dyke beard to show the artists he's not a suit, and a crisply pressed white shirt and red power-tie to show the suits that the Van Dyke is just camouflage.
@@ -758,10 +759,10 @@ Stuart is a young guy, maybe only twenty-seven or twenty-eight.  His look is car
 >ASK FINA ABOUT BILLY
 Stuart looks over at Billy, and says quietly to you:  "I don't know anything about him."
 
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
 >ASK FINA ABOUT PAINTER
 "Yeah, well, geez..."  Stuart trails off, shaking his head.  "God, I really don't know what to say...I mean it's terrible, absolutely terrible.  She had such a bright future.  She was going to be a huge star.  Her picture, the one she was doing with us--it's going to be a hit.  A huge hit.  When people see it they're going to think about James Dean and Marilyn Monroe and all wonder 'What if...?'"
-
-The phone rings.  Anne answers it, listens briefly, then transfers the call.
 
 >ASK FINA ABOUT BIXBY
 "He's Cindy's agent.  He was, I mean.  I never really had any dealings with him."
@@ -769,17 +770,19 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 >ASK FINA ABOUT HOLLY
 "Holly Golden was the hot thing for quite a while," Stuart tells you.  "But, you know, people always want a new hot thing.  She even tried for the role in Hugs and Kisses, but we went with Cindy Painter."
 
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
+
 >SHOW PHOTOS TO FINA
 Stuart's eyes widen.  "I can't believe that.  I mean...where did you get those?"
-
-The phone rings.  Anne answers it and takes down a message.
 
 >WAIT
 Time passes...
 
-The phone rings.  Anne answers it and takes down a message.
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
 
 Do you want to keep waiting (YES or NO)? YES
+
+The phone rings.  Anne answers it, listens briefly, then transfers the call.
 
 Stuart looks at his watch.  "Oh, you know what?  I'm forgetting a meeting.  Would you excuse me?  Anne, let anyone who calls know I've gone out to a meeting."  He smiles and heads outside.
 
@@ -947,6 +950,9 @@ Time passes...
 >WAIT
 Time passes...
 
+>WAIT
+Time passes...
+
 The apartment door opens.  You turn to look, expecting to see Billy standing there--
 
---but instead you're greeted by the snarling face of Stuart Fina.  Stuart bursts in on you.  And he's got a gun that he's pointing right at you.  Not everyday that happens.  It's maybe worth pointing out just briefly that the guy with the gun is crazed.  A moment of surprising clarity ensues where 
+--but instead you're greeted by the snarling face of Stuart Fina.  Stuart bursts in on you.  And he's got a gun that he's pointing right at you.  Not everyday that happens.  It's maybe worth point
