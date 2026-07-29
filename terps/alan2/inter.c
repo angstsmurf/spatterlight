@@ -550,7 +550,7 @@ void interpret(adr)
       }
       case I_AND: {
 	Aptr lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -566,7 +566,7 @@ void interpret(adr)
       }
       case I_OR: {
 	Aptr lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -582,7 +582,7 @@ void interpret(adr)
       }
       case I_NE: {
 	Aptr lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -595,7 +595,7 @@ void interpret(adr)
       }
       case I_EQ: {
 	Aptr lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -608,7 +608,7 @@ void interpret(adr)
       }
       case I_STREQ: {
 	Aptr lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -621,7 +621,7 @@ void interpret(adr)
       }
       case I_STREXACT: {
 	Aptr lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -636,7 +636,7 @@ void interpret(adr)
       }
       case I_LE: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -649,7 +649,7 @@ void interpret(adr)
       }
       case I_GE: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -662,7 +662,7 @@ void interpret(adr)
       }
       case I_LT: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -675,7 +675,7 @@ void interpret(adr)
       }
       case I_GT: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -688,7 +688,7 @@ void interpret(adr)
       }
       case I_PLUS: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -701,7 +701,7 @@ void interpret(adr)
       }
       case I_MINUS: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -714,7 +714,7 @@ void interpret(adr)
       }
       case I_MULT: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();
@@ -727,7 +727,7 @@ void interpret(adr)
       }
       case I_DIV: {
 	Aint lh, rh;
-	if (header->vers[0] == 2 && header->vers[1] == 7) /* Check for 2.7 version */
+	if (header->vers[0] == 2 && header->vers[1] <= 7) /* Operands were pushed in the other order before 2.8 */
 	  swap();
 	rh = pop();
 	lh = pop();

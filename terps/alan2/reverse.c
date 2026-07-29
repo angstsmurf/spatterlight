@@ -101,6 +101,12 @@ static void reverseMsgs(adr)
   MsgElem *e = (MsgElem *) &memory[adr];
 
   if (adr != 0 && !endOfTable(e)) {
+    if (header->vers[0] == 2 && header->vers[1] < 7) {
+      /* Up to 2.6 a message was a (fpos, len) pair into the text file,
+	 so there are no statements to reverse. */
+      reverseTable(adr, sizeof(MsgElem26));
+      return;
+    }
     reverseTable(adr, sizeof(MsgElem));
     while (!endOfTable(e)) {
       reverseStms(e->stms);

@@ -6,6 +6,7 @@
 
 \*----------------------------------------------------------------------*/
 
+#define V26COMPATIBLE
 #define V27COMPATIBLE
 
 #include "sysdep.h"
@@ -707,6 +708,22 @@ void prmsg(msg)
      MsgKind msg;		/* IN - message number */
 #endif
 {
+#ifdef V26COMPATIBLE
+  if (header->vers[0] == 2 && header->vers[1] < 7) {
+    /* Up to 2.6 the message table held (fpos, len) pairs pointing straight
+       into the text file, instead of addresses to statement code. */
+    MsgElem26 *msgs26 = (MsgElem26 *) msgs;
+
+    if (msg == M_QUITACTION) {	/* Did not exist before 2.7 */
+      output("Do you want to RESTART, RESTORE or QUIT? ");
+      return;
+    }
+    if (msg == M_ARTICLE)	/* Moved when M_QUITACTION was inserted */
+      msg = M_ARTICLE26;
+    print(msgs26[msg].fpos, msgs26[msg].len);
+    return;
+  }
+#endif
   interpret(msgs[msg].stms);
 }
 
@@ -1465,6 +1482,11 @@ static void checkvers(header)
 #ifdef V25COMPATIBLE
     if (header->vers[0] == 2 && header->vers[1] == 5) /* Check for 2.5 version */
       /* This we can convert later if needed... */;
+    else
+#endif
+#ifdef V26COMPATIBLE
+    if (header->vers[0] == 2 && header->vers[1] == 6) /* Check for 2.6 version */
+      /* Handled by runtime version checks in prmsg() and reverseMsgs() */;
     else
 #endif
 #ifdef V27COMPATIBLE
