@@ -104,19 +104,16 @@ A lowly acolyte stands guard outside the door to the caravan.
 The acolyte attempts to clap with one hand, cupping the other hand over his
 ear the better to hear the sound it makes.
 
->[x the acolyte]
-A little dude with orange robes, horn-rimmed glasses and a flat-top. If he
+>A little dude with orange robes, horn-rimmed glasses and a flat-top. If he
 was any more square you could use him as a table.  The acolyte is carrying a
 pair of chopsticks.
 
->[x chopsticks]
-You see nothing special about the pair of chopsticks.
+>You see nothing special about the pair of chopsticks.
 
 The acolyte attempts to catch a passing fly with his chopsticks. They say
 that a man who can catch a fly with chopsticks can do anything.
 
->[ask the acolyte about lama]
-'His holiness the Lama will be able to answer all your questions.' says the
+>'His holiness the Lama will be able to answer all your questions.' says the
 acolyte dismissively.
 
 >Sanctum Sanctorum
@@ -174,8 +171,7 @@ accepted."
 
 A lowly acolyte stands guard outside the door to the caravan.
 
->[give eggs to the acolyte]
-You decide against giving the jar to the acolyte. You doubt that he'd be of
+>You decide against giving the jar to the acolyte. You doubt that he'd be of
 any help in getting the lid off, and you'd probably never see it again.
 
 The acolyte attempts to catch a passing fly with his chopsticks. They say
@@ -208,11 +204,9 @@ snow.
 the poor little dude buried underneath it. Ah, what the heck. He had it
 coming.  Inside the pile of snow is a pair of chopsticks.
 
->[take chopsticks]
-You take the pair of chopsticks from the pile of snow.
+>You take the pair of chopsticks from the pile of snow.
 
->[x clothes line]
-On second glance, the 'prayer flags' turn out to be the Dada Lama's laundry,
+>On second glance, the 'prayer flags' turn out to be the Dada Lama's laundry,
 attached to the ropes with clothes pegs.  You try not to look too closely at
 the Guru's undergarments with their dried-in stains, but your eye can't help
 being drawn to a single yak's wool sock also pegged to the line. The thing is
@@ -224,8 +218,7 @@ other sock is a riddle that will probably never be solved.
 
 >You take a yak's wool sock from the clothes line.
 
->[x clothes line]
-On second glance, the 'prayer flags' turn out to be the Dada Lama's laundry,
+>On second glance, the 'prayer flags' turn out to be the Dada Lama's laundry,
 attached to the ropes with clothes pegs.  A clothes peg is on the clothes
 line.
 
@@ -320,12 +313,10 @@ and sharp.
 
 >You pick up the disposable razor.
 
->[x glacier]
-The surface of the ice is covered with a thick layer of frost, which the
+>The surface of the ice is covered with a thick layer of frost, which the
 light cannot penetrate.
 
->[rub glacier]
-You rub away the frost and gaze into the pure ice, clear as crystal. For the
+>You rub away the frost and gaze into the pure ice, clear as crystal. For the
 briefest of moments, you glimpse another face, leathery and ancient, staring
 back at you. Someone, or something, has been trapped in the ice, perhaps for
 aeons! Within seconds the ice has frosted over again.
@@ -378,8 +369,7 @@ scrawny looking beast without its wool.
 >Knit one, pearl one... Granny taught you well. After many patient hours you
 produce a sock that more or less exactly resembles the other one.
 
->[x sock]
-The biggest socks you've ever seen. You can't imagine what kind of creature
+>The biggest socks you've ever seen. You can't imagine what kind of creature
 could have such abominably big feet.
 
 >You move out.
@@ -439,8 +429,7 @@ middle of a bubbling hot-tub surrounded by topless beauties.  The brunette
 massages the old man's scalp whilst the blonde lovingly soaps his scanty
 beard.
 
->[x seat]
-A sort of sofa runs around all three sides of one end of the caravan. The
+>A sort of sofa runs around all three sides of one end of the caravan. The
 seating is upholstered in foam rubber with a nylon cover of blue and orange
 mandalas. Trippy.  The seat is closed.
 
@@ -495,8 +484,7 @@ valley like the world's most dogged Slush Puppie. Scattered around are
 immense boulders deposited here by the glacier during its inexorable retreat.
 Who knows what else might have been swept up in this monstrous river of ice?
 
->[melt glacier]
-After many, many hours of patient work, you manage to melt a hole in the ice
+>After many, many hours of patient work, you manage to melt a hole in the ice
 big enough to  crawl through.
 
 >You move in.
@@ -518,8 +506,7 @@ cold.
 pound fact with muscles like marshmallows and incredibly large, incredibly
 cold feet.
 
->[give sock to yeti]
-Gingerly you tug the socks over the yeti's enormous tootsies, and having lit
+>Gingerly you tug the socks over the yeti's enormous tootsies, and having lit
 the blue touchpaper, stand back. After a few moments, his eyelids flicker. A
 few moments after that, his eyes flick open, he jumps to his feet, does a
 little dance and gives you big, hairy, smelly bear-hug before tearing off

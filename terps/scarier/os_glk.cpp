@@ -379,6 +379,17 @@ gsc_fatal (const char *string)
  * ordinary left-flush text.  User1 on the grid is the reverse-video status
  * line.
  *
+ * Header and Subheader are hinted the other way, left-flush.  This port uses
+ * them purely as stand-ins for a large <font size=...> and for <b> (see
+ * gsc_set_glk_style()) -- they never mean "this is a heading" -- but a library
+ * is free to render Header as a centered heading, and some do (Spatterlight's
+ * Zoom theme centers it).  Justification is a paragraph attribute, so a single
+ * Header-styled character is enough to centre the whole paragraph it starts:
+ * "The Warlord, The Princess & The Bulldog" opens every room description with
+ * a <font size=+10> drop cap, which centered the entire description under that
+ * theme.  In the Runner nothing but <center>/<right> ever moves text off the
+ * left margin, so pin these two down and leave alignment to those tags alone.
+ *
  * The status window is a nicety; we can live without it.  It is opened
  * separately from the main window because the <=4 path prints its
  * "no game file" complaint in between.
@@ -391,6 +402,11 @@ gsc_hint_window_styles (void)
   glk_stylehint_set (wintype_TextBuffer, style_User2,
                      stylehint_Justification, stylehint_just_Centered);
   glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+
+  glk_stylehint_set (wintype_TextBuffer, style_Header,
+                     stylehint_Justification, stylehint_just_LeftFlush);
+  glk_stylehint_set (wintype_TextBuffer, style_Subheader,
+                     stylehint_Justification, stylehint_just_LeftFlush);
 
   glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
 }
@@ -1139,13 +1155,6 @@ gsc_read_line (scr_char *buffer, scr_int length)
 /*  Glk port status line functions                                     */
 /*---------------------------------------------------------------------*/
 
-/*
- * Slop for right-justification of status lines, as an attempt to compensate
- * for the fact that some characters in a games status line may use more than
- * one position when printed, a particular problem in gost 16876-71 Cyrillic.
- */
-static const scr_int GSC_STATUS_SLOP = 10;
-
 /* Size of saved status buffer used for non-windowing Glk status lines. */
 enum { GSC_STATUS_BUFFER_LENGTH = 74 };
 
@@ -1243,6 +1252,63 @@ gsc_status_line_text (char *score, size_t length)
 
 
 /*
+ * gsc_status_printed_width()
+ *
+ * The number of grid cells gsc_put_string() will fill for this string.  Nearly
+ * always one per byte, but a character with neither an iso 8859-1 nor a
+ * printable unicode form falls back to a multi-character ascii substitute (see
+ * gsc_put_char_locale()) -- "sh" for a Cyrillic sha, say -- so a plain strlen()
+ * can under-count.  This mirrors gsc_put_char_locale()'s decision tree so that
+ * right-justification lands where the text actually ends.
+ *
+ * Upstream instead subtracted a flat ten-column "slop" from the right margin to
+ * absorb that case, which left every status line -- all-ascii ones included --
+ * floating well short of the right edge.
+ */
+static glui32
+gsc_status_printed_width (const scr_char *string)
+{
+  const gsc_codepages_t *codepage = &gsc_current_locale ()->main;
+  glui32 width = 0;
+  scr_int index_;
+
+  for (index_ = 0; string[index_] != '\0'; index_++)
+    {
+      const unsigned char character = (unsigned char) string[index_];
+      const glui32 unicode = codepage->unicode[character];
+      const char *const ascii = codepage->ascii[character];
+
+      if (unicode > 0)
+        {
+          /* Printed as iso 8859-1, or directly as unicode: one cell either way. */
+          if (unicode < GSC_ISO_8859_EQUIVALENCE
+              && (unicode == '\n'
+                  || (unicode >= GSC_MIN_PRINTABLE
+                      && unicode <= GSC_MAX_PRINTABLE)
+                  || glk_gestalt (gestalt_CharOutput,
+                                  unicode) == gestalt_CharOutput_ExactPrint))
+            {
+              width++;
+              continue;
+            }
+          if (gsc_unicode_enabled
+              && glk_gestalt (gestalt_CharOutput,
+                              unicode) == gestalt_CharOutput_ExactPrint)
+            {
+              width++;
+              continue;
+            }
+        }
+
+      /* Otherwise an ascii substitute, or the '?' stand-in for no mapping. */
+      width += ascii ? (glui32) strlen (ascii) : 1;
+    }
+
+  return width;
+}
+
+
+/*
  * gsc_status_update()
  *
  * Update the status line from the current game state.  This is for windowing
@@ -1275,6 +1341,7 @@ gsc_status_update (void)
         {
           const scr_char *status;
           char score[64] = {0};
+          glui32 status_width;
 
           /* Print the player location. */
           glk_window_move_cursor (gsc_status_window, 1, 0);
@@ -1283,13 +1350,16 @@ gsc_status_update (void)
           /* Get the game's status line, or if none, format score. */
           status = gsc_status_line_text (score, sizeof (score));
 
-          /* Print the status line or score at window right, if it fits. */
-          if (width > strlen (status) + GSC_STATUS_SLOP + 1)
+          /*
+           * Print the status line or score at window right, if it fits, ending
+           * one column short of the edge to match the one-column indent the
+           * room name gets at the left (and the a5 status line's right margin).
+           */
+          status_width = gsc_status_printed_width (status);
+          if (width > status_width + 2)
             {
-              glui32 position;
-
-              position = width - strlen (status) - GSC_STATUS_SLOP;
-              glk_window_move_cursor (gsc_status_window, position - 1, 0);
+              glk_window_move_cursor (gsc_status_window,
+                                      width - status_width - 1, 0);
               gsc_put_string (status);
             }
         }

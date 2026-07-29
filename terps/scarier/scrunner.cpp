@@ -1104,6 +1104,14 @@ run_game_commands_in_library_context (scr_gameref_t game, const scr_char *string
  * here first, and skips its expansion when the game already recognises the raw
  * input.
  *
+ * The string is run through the game's input synonyms before matching, exactly
+ * as run_game_task_commands() does with real input.  Without that, a game that
+ * routes a letter to its tasks indirectly looks unclaimed: "The Warlord, The
+ * Princess & The Bulldog" maps "i" to the synonym "iii" and keys its inventory
+ * task on "iii", so probing the raw "i" found nothing and the port expanded it
+ * to "inventory" -- announcing "[i -> inventory]" for what the author had
+ * already handled.
+ *
  * Matching has the same incidental side effects as ordinary command matching
  * (it may set referenced-object/NPC/variable state via uip_match()), but this
  * is harmless: the probe runs before input is submitted, and the real command
@@ -1117,6 +1125,11 @@ run_does_command_match (scr_gameref_t game, const scr_char *string)
   /* Only meaningful while a game is actually running. */
   if (!run_is_running (game))
     return FALSE;
+
+  /* Apply input synonyms, so indirection through a synonym still counts. */
+  scr_owned_string filtered (pf_filter_input (string, gs_get_bundle (game)));
+  if (filtered)
+    string = scr_normalize_string (filtered.get ());
 
   /* Iterate over every task, ignoring those not runnable. */
   task_count = gs_task_count (game);
@@ -1444,7 +1457,17 @@ run_player_input (scr_gameref_t game)
    */
   command = replaced ? scr_normalize_string (replaced.get ())
             : (filtered ? scr_normalize_string (filtered.get ()) : line_element);
-  if (command != line_element)
+
+  /*
+   * Echo the rewritten command, but only when a pronoun fired.  Upstream SCARE
+   * echoed it for synonyms too, which is noise the Runner never prints and which
+   * exposes authoring the player is not meant to see: "The Warlord, The Princess
+   * & The Bulldog" routes "i"/"inv"/"inventory" through a synonym to the keyword
+   * its inventory task listens for, so every "i" answered with a bare "[iii]".
+   * A pronoun is different -- "it" and "her" are ambiguous by nature, and the
+   * echo is the only way the player learns what they bound to.
+   */
+  if (replaced)
     {
       if_print_tag (SCR_TAG_ITALICS, "");
       if_print_character ('[');

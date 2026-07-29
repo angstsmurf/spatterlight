@@ -440,49 +440,37 @@ here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
 cage.  There is also a stable here.  The rear entrance to the big top is to
 your south, as are the dressing rooms.
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
 Barb walks in from the south.
 
->[ask barb about videotape]
-(Your score has increased by 10)
+>(Your score has increased by 10)
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
 retrieves the video tape. "Is this yours?"
 
 She hands you the video tape.
 
->[ask barb about videotape]
-Barb does not respond to your question.
+>Barb does not respond to your question.
 
->[ask barb about videotape]
-Barb does not respond to your question.
+>Barb does not respond to your question.
 
->[ask barb about videotape]
-Barb does not respond to your question.
+>Barb does not respond to your question.
 
 Barb walks out to the south.
 
->[ask barb about videotape]
-Use the format "ask [character] about [subject]".
+>Use the format "ask [character] about [subject]".
 
 >You move south.
 Backyard
@@ -529,11 +517,9 @@ Also here is the battery.
 
 >You pick up the battery.
 
->[put battery in videocamera]
-You put the battery inside the videocamera.
+>You put the battery inside the videocamera.
 
->[put videotape in videocamera]
-You put the videotape inside the videocamera.
+>You put the videotape inside the videocamera.
 
 >You move down.
 Center Ring
@@ -575,8 +561,7 @@ Barb is here.
 
 Barb walks away to the south.
 
->[use videocamera]
-(Your score has increased by 10)
+>(Your score has increased by 10)
 You film the animals with the video camera.  Wow, it seems your mission is a
 success!  Congratulations!
 

@@ -50,8 +50,7 @@ to the horizon between the trees.
 
 Also here is a sharp knife.
 
->[get knife]
-You pick up the sharp knife.
+>You pick up the sharp knife.
 
 >You move east.
 Woodland
@@ -150,8 +149,7 @@ entrance is to the South.
 >(Your score has increased by 10)
 You discover a small gold coin.
 
->[get coin]
-You've already got the gold coin!
+>You've already got the gold coin!
 
 >You move out.
 Mountains
@@ -177,8 +175,7 @@ treetops. A few feet away you can see the remains of a small fire.
 >(Your score has increased by 10)
 As you rummage through the ashes of the fire you discover an old torn note.
 
->[get note]
-You've already got the torn note!
+>You've already got the torn note!
 
 >You move southeast.
 Gloomy Forest
@@ -204,8 +201,7 @@ travellers in need of a drink.
 As the coin splashes into the water of the fountain there is a bright flash
 and you see the gold coin has become a golden flute.
 
->[get flute]
-You take the golden flute from the water fountain.
+>You take the golden flute from the water fountain.
 
 >You move west.
 Road Junction
@@ -237,8 +233,7 @@ You stand on the bank of a beautiful sparkling lake surrounded be many plants
 of all kinds. There must be well over a thousand different types of plants
 here.
 
->[get clover]
-(Your score has increased by 20)
+>(Your score has increased by 20)
 You take some of the magic clover leaves.
 
 >You move east.

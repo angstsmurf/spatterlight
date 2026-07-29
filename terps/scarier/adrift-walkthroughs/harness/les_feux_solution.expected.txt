@@ -195,8 +195,7 @@ réconfortant !
 
 Sorties évidentes: Nord et Ouest.
 
->[open coffre]
-Alors que vous touchez le coffre fort, le couvercle vole en éclat ! Un grand
+>Alors que vous touchez le coffre fort, le couvercle vole en éclat ! Un grand
 chauve
 humanoïde bien laid passe à travers - vous reconnaissez de suite que c'est un
 
@@ -223,8 +222,7 @@ Vous arrivez à éviter l'attaque de l'ogre.
 >Vous frappez  ogre.
 Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
 
->[w]
-Vous vous déplacez vers l'ouest.
+>Vous vous déplacez vers l'ouest.
 
 CAVERNE STERILE
 Cette caverne est stérile mais une étrange odeur de combustion légère émane
@@ -401,8 +399,7 @@ Sorties évidentes: Nord-Est et Sud-Ouest.
 >Avant même que vous ne puissiez même toucher la porte, un petit homme faché
 l'ouvre et sort.
 
->[x petit homme]
-Il vous regarde de haut en bas avant de dire d'un air hautin:
+>Il vous regarde de haut en bas avant de dire d'un air hautin:
         "le Bonjour à vous, puis-je demander pourquoi L'ENFER me fait dérangé
 ?"
 

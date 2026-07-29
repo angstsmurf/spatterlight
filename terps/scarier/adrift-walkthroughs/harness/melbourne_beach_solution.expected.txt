@@ -392,11 +392,9 @@ spins the excess out.
 
 >You now have the pile of wet clothes.
 
->[open drier]
-You open the dryer.
+>You open the dryer.
 
->[put wet clothes in drier]
-You put the wet clothes inside the dryer.
+>You put the wet clothes inside the dryer.
 
 >You set the dryer for an appropriate period of time and turn it on.  It spins
 the clothes around for a while, humming merrily, then stops.

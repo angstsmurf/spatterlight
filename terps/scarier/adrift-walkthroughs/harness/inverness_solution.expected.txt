@@ -166,8 +166,7 @@ What am I?
 [hint, format the solution as "answer foo" or "say foo", where foo is your
 answer]
 
->[say step]
-(Your score has increased by 10)
+>(Your score has increased by 10)
 The box slowly opens.
 
 >You take the old key from the wooden box.

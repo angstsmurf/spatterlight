@@ -24,8 +24,7 @@ seen one very like, located near a ruined abbey in the Fens.  I wouldn't look
 at that thorn bush again for anything in the world. Or the abbey for that
 matter."
 
->[ask wilkens about priory]
-"This ruined abbey was in the fens, a few miles south of a village modern map
+>"This ruined abbey was in the fens, a few miles south of a village modern map
 makers have apparently given up for dead. I tracked down the location through
 Ordnance Survey maps and correspondence with several vicars in the
 surrounding country. I would not give you directions  any sooner than I would
@@ -191,8 +190,7 @@ The vicar glances around nervously.
 your surprise they burst into flames.  In moments firelight has pushed the
 night into the corners of the room
 
->[ask vicar about priory]
-"The ruined abbey dates to an ancient time, before even King Lucius, who was
+>"The ruined abbey dates to an ancient time, before even King Lucius, who was
 our first Christian King.. The church and vicarage were built after the abbey
 had fallen into ruin or been demolished. The villagers used stones scavenged
 from the ruins. A common practice. At any rate, I believe those stones were

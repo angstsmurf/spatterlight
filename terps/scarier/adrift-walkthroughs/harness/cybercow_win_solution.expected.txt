@@ -364,25 +364,21 @@ The CyberCow is here.
 
 You can move west and up.
 
->[x cybercow]
-The CyberCow's right eye has been replaced by a redly glowing lense deeply
+>The CyberCow's right eye has been replaced by a redly glowing lense deeply
 embedded in its skull -- probably night vision, or infrared, you'd guess.
 You can tell by this and a thousand other indicators that this is no ordinary
 CyberCow; just as you can tell by the "I (heart) snailz" tattoo that it has
 been radically customized.
 
->[milk cybercow]
-The CyberCow dances away skittishly.  Perhaps if you could make friends or
+>The CyberCow dances away skittishly.  Perhaps if you could make friends or
 distract it somehow...
 
->[give snail to cybercow]
-The CyberCow sticks out its tongue and snatches up the snail, which it
+>The CyberCow sticks out its tongue and snatches up the snail, which it
 gobbles up in a spectacular display of crunching and slurping.
 
 The CyberCow gives you a look, as if inviting you to try some for yourself.
 
->[milk cybercow]
-While the CyberCow continues crunching and slurping delightedly on the snail,
+>While the CyberCow continues crunching and slurping delightedly on the snail,
 you fill the bowl with warm, fragrant CyberCow milk.
 
 >That's a bit of a trick carrying a warm bowl of fresh, frothing CyberCow milk
