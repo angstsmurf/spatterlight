@@ -120,7 +120,6 @@ have obviously reached the food limit for now.
 
 You look at the meat and realise that you have to cook it. A fireplace is
 nearby, but you need wood for it to work.
-
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
 bed taking up most of the space. You don't get many luxuries whilst staying
@@ -150,7 +149,6 @@ though, as it is a long climb.
 >You struggle up the hill. It doesn't look that far, but you are very unfit
 and it is a huge effort for you to reach the top. You take a quick break at
 the top to recover your breath.
-
 Top of a hill
 On one side, you can see back down into the valley you came from. On the
 other side, there is nothing but a blank sky-coloured wall. The view would be
@@ -202,7 +200,6 @@ as you come to a crashing halt at the bottom.
 You do not feel injured, which is good, but you do feel exhausted. You go
 back to the cottage and take a rest in the bed. Eventually you get back up
 when the hunger becomes unbearable.
-
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
 bed taking up most of the space. You don't get many luxuries whilst staying

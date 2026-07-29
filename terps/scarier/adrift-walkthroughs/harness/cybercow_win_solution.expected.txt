@@ -195,7 +195,6 @@ Also here are the heavy cross.
 You can move north, east, south and west.
 
 >You tie the rope to the well.
-
 Chapel Yard
 You are at the well.   One end of the rope is tied to the well quite
 securely; the rest lies on the ground.  Your humble abode is to the east.
@@ -375,7 +374,6 @@ distract it somehow...
 
 >The CyberCow sticks out its tongue and snatches up the snail, which it
 gobbles up in a spectacular display of crunching and slurping.
-
 The CyberCow gives you a look, as if inviting you to try some for yourself.
 
 >While the CyberCow continues crunching and slurping delightedly on the snail,
@@ -383,7 +381,6 @@ you fill the bowl with warm, fragrant CyberCow milk.
 
 >That's a bit of a trick carrying a warm bowl of fresh, frothing CyberCow milk
 -- but you manage it.
-
 Chapel Yard
 You are at the well.   One end of the rope is tied to the well quite
 securely; the rest lies on the ground.  Your humble abode is to the east.
@@ -407,7 +404,6 @@ It is daytime.
 
 Vluurinik flies in from the west.
 Whoah!  That bowl of milk has captured Vluurinik's attention!
-
 Before you can react, Vluurinik snatches up the bowl of milk and (flying low
 from the weight of the thing) makes for the meadow!
 
@@ -482,7 +478,6 @@ You can only move up.
 
 >You put the terrified, struggling fairy into the yawning chest cavity of the
 robot and seal her in.  There is moment of silence...
-
 The robot grabs your arm and twists it behind your back!
 -PATHETIC. HUMAN.-SAY. UNCLE.-
 
@@ -491,9 +486,7 @@ The robot grabs your arm and twists it behind your back!
 -SAY. UNCLE.- Robot commands.
 
 >-I. THOUGHT. SO. - YOU. ARE. WEAK. - LIKE. ALL. HUMANS.-
-
 The robot seems smug.
-
 -WHY. DID. YOU. CONSTRUCT. ME. PATHETIC. HUMAN.- The Robot demands.
 You are being telepathically probed!
 
@@ -689,12 +682,10 @@ With your grip on the cold iron rim of the bell, you try not to wonder how
 badly cracked the bell is.
 The water carries the bell up the inside of the bell tower -- you watch the
 spiral stairway unwind into the water below.
-
 As the water level crests the platform and brings the bell to the very top of
 the tower, you grab hold of the bell chassis:
 You pull your way along the rocker arm and outside.
 The steeple sinks gradually into the water behind you.
-
 In the Bell (floating in a vast expanse of water)
 You are careful to keep your weight opposite the crack, so the leaky surface
 of the bell stays out of the water.  The iron bell wouldn't have to take on

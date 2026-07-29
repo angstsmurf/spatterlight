@@ -160,7 +160,6 @@ Also here are the heavy cross.
 You can move north, east, south and west.
 
 >You tie the rope to the well.
-
 Chapel Yard
 You are at the well.   One end of the rope is tied to the well quite
 securely; the rest lies on the ground.  Your humble abode is to the east.
@@ -301,12 +300,10 @@ You can move west and up.
 
 >The CyberCow sticks out its tongue and snatches up the snail, which it
 gobbles up in a spectacular display of crunching and slurping.
-
 The CyberCow gives you a look, as if inviting you to try some for yourself.
 
 >While the CyberCow continues crunching and slurping delightedly on the snail,
 you fill the bowl with warm, fragrant CyberCow milk.
-
 A warm, gentle rain begins.
 
 >You move up.

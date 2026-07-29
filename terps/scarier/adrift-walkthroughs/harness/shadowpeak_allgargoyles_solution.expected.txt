@@ -274,9 +274,7 @@ Fang is here.
 
 You can move north, east and west.
 Seeker hums!
-
 Seeker hums!
-
 Fang hits you, but it doesn't seem to do any damage.
 
 >You move east.
@@ -560,14 +558,12 @@ As you open the sarcophagus, a faint wisp of smoke permeates the air. It
 gradually takes shape into a frightening sight: a transparent form of a man
 with red gleaming eyes, dressed in old robes and wielding a smoky sword now
 stands in front of you!!! This be Alam Nadeer, the dreaded wraith.
-
 Seeker hums!
 
 >You take the vial from the sarcophagus.
 
 Fetlar the overly fetid flies off.
 Seeker hums!
-
 Alam Nadeer hits you, but it doesn't seem to do any damage.
 
 >You stand on the sarcophagus.
@@ -577,7 +573,6 @@ Seeker hums!
 As you reach up and turn the handle, it jams into position, and a secret
 passage is revealed in the northern wall.
 Seeker hums!
-
 Alam Nadeer hits you, but it doesn't seem to do any damage.
 
 >(Getting off the sarcophagus first)
@@ -971,7 +966,6 @@ the light of day makes it harder for him to see.
 Fetlar the overly fetid flutters down.
 You feel weak, and very tired. Your strength starts to ebb away. You
 definitely need to sleep.
-
 Seeker Hums!
 
 >You move south.
@@ -986,9 +980,7 @@ Arthur, a zombie villager, is here.
 
 You can move north, east, south, west and down.
 Seeker hums!
-
 Seeker hums!
-
 You see a horrible sight. Arthur, one of the village zombies, is pulling
 himself along by his arms, as his legs have long since been eaten away.
 
@@ -1023,7 +1015,6 @@ Boris drags himself off to the east.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >You hit Holga.
@@ -1117,7 +1108,6 @@ Boris drags himself off to the east.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >I don't understand what you want me to do with the dead Holga zombie.
@@ -1135,7 +1125,6 @@ Seeker hums!
 
 Arthur pulls himself in from below.
 Seeker hums!
-
 You manage to avoid Jarris's attack.
 
 >I don't understand what you want me to do with the dead Holga zombie.
@@ -1209,7 +1198,6 @@ Boris drags himself off to the east.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 You manage to avoid Jarris's attack.
 
@@ -1256,7 +1244,6 @@ Boris drags himself off to the east.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >You hit Jarris.
@@ -1274,7 +1261,6 @@ Seeker hums!
 
 Arthur pulls himself in from below.
 Seeker hums!
-
 You manage to avoid Jarris's attack.
 
 >(Your score has increased by 10)
@@ -1291,7 +1277,6 @@ Seeker Hums!
 
 Arthur pulls himself in from below.
 Seeker hums!
-
 Seeker Hums!
 
 >I don't understand what you want me to do with the dead Jarris zombie.
@@ -1321,7 +1306,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from below.
 Seeker hums!
-
 Seeker Hums!
 
 >I don't understand what you want me to do with the dead Jarris zombie.
@@ -1372,7 +1356,6 @@ Boris drags himself off to the east.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >I don't understand what you want me to do with the dead Jarris zombie.
@@ -1546,7 +1529,6 @@ Boris drags himself off to the east.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >I don't understand what you want me to do with the dead Jarris zombie.
@@ -1668,7 +1650,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -1737,7 +1718,6 @@ Holga stumbles off to the east.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -1772,7 +1752,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -1815,7 +1794,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -1855,7 +1833,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -1895,7 +1872,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -1940,7 +1916,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -2017,7 +1992,6 @@ Seeker hums!
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -2042,7 +2016,6 @@ Jarris lumbers off to the east.
 
 Boris lumbers in from below.
 Seeker hums!
-
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
@@ -2065,7 +2038,6 @@ Seeker hums!
 
 Arthur pulls himself in from the east.
 Seeker hums!
-
 Seeker Hums!
 
 >Time passes...
@@ -2289,7 +2261,6 @@ Lazaraz, servant of Morac, is here.
 
 You can move north, east, south, west and down.
 Seeker hums!
-
 Seeker hums!
 
 Holga stumbles off to the east.
@@ -2298,7 +2269,6 @@ Jarris lumbers off to below.
 
 Arthur pulls himself in from below.
 Seeker hums!
-
 Seeker Hums!
 
 >You move south.
@@ -2377,14 +2347,12 @@ You can only move east.
 
 >You open the large wooden box.  Inside the large wooden box is a leg of lamb.
 Seeker hums!
-
 You manage to avoid Bambi's attack.
 
 >You take the leg of lamb from the large wooden box.
 Bambi, a child zombie, climbs out of the box. Covered in salt, she edges
 towards you.
 Seeker hums!
-
 You manage to avoid Bambi's attack.
 
 >(Your score has increased by 10)
@@ -2649,12 +2617,10 @@ Haraxis, the giant spider, is here.
 
 You can only move down.
 Seeker hums!
-
 Seeker hums!
 
 >You hit Haraxis.
 Seeker hums!
-
 Haraxis hits you.
 
 >Time passes...
@@ -2662,7 +2628,6 @@ Seeker hums!
 
 >You hit Haraxis.
 Seeker hums!
-
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >Time passes...
@@ -2684,7 +2649,6 @@ Seeker hums!
 
 >You hit Haraxis.
 Seeker hums!
-
 Haraxis hits you.
 
 >Time passes...
@@ -2692,7 +2656,6 @@ Seeker hums!
 
 >You hit Haraxis.
 Seeker hums!
-
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >Time passes...
@@ -2700,7 +2663,6 @@ Seeker hums!
 
 >You hit Haraxis.
 Seeker hums!
-
 Haraxis hits you.
 
 >Time passes...
@@ -2709,7 +2671,6 @@ Seeker hums!
 >You hit Haraxis.
 The salt slips through your fingers.
 Seeker hums!
-
 Haraxis hits you.
 
 >Time passes...
@@ -2957,7 +2918,6 @@ You can move north, east, south, west, up and down.
 Berto flutters in.
 Abruptly the music stops...
 Seeker hums!
-
 Berto is walking up and down on the pipe organ.
 
 >Time passes...
@@ -2966,28 +2926,24 @@ from what you are doing as the four stone gargoyles in the main hall spring
 to life! They unfold their wings and start to fly down, menacingly, towards
 you.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You hit Gargoyle #2.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
-
 Gargoyle #4 hits you, but it doesn't seem to do any damage.
 
 >You hit Gargoyle #3.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You hit Gargoyle #4.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
-
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
@@ -3002,7 +2958,6 @@ You can only move north.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You drop the sword.
@@ -3058,13 +3013,11 @@ Seeker hums!
 
 >You pick up the Shield.
 Seeker hums!
-
 You hear the sound of a cat’s "meow".
 Gargoyle #1 hits you.
 
 >You pick up gold coin.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move north.
@@ -3079,7 +3032,6 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move east.
@@ -3092,12 +3044,10 @@ You can move east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You take the venison from the table.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move west.
@@ -3112,7 +3062,6 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-
 You see a pair of cat’s eyes looking at you from the shadows. As soon as you
 notice them, they are gone.
 Berto squawks the words, "Quoth said the raven....... nevermore!"
@@ -3123,24 +3072,20 @@ Seeker hums!
 
 >Time passes...
 Seeker hums!
-
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >Time passes...
 Seeker hums!
-
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 >Time passes...
 Seeker hums!
-
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >Time passes...
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >Time passes...
@@ -3148,12 +3093,10 @@ Seeker hums!
 
 >Time passes...
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >Time passes...
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >Time passes...
@@ -3161,7 +3104,6 @@ You manage to avoid Gargoyle #1's attack.
 Melvin waddles in from the west.
 Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
-
 "Hello there. Melvin’s the name, and riddles are my game. Up, up to the very
 top; up, up, you must not stop; up, up to the very top; once you’re there, no
 need to knock," says Melvin, looking rather pleased with himself.
@@ -3169,7 +3111,6 @@ need to knock," says Melvin, looking rather pleased with himself.
 >Time passes...
 Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
-
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 You manage to avoid Gargoyle #1's attack.
 
@@ -3177,19 +3118,16 @@ You manage to avoid Gargoyle #1's attack.
 
 Berto flies out of the room.
 Seeker hums!
-
 A black cat suddenly darts in front of you and off into the shadows.
 
 >Time passes...
 
 Melvin waddles out to the west.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >Time passes...
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >Time passes...
@@ -3202,20 +3140,17 @@ Melvin waddles in from the west.
 Berto flutters in.
 Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >Time passes...
 Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
-
 You hear the sound of a cat’s "meow".
 You manage to avoid Gargoyle #1's attack.
 
 >Time passes...
 Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move west.
@@ -3232,10 +3167,8 @@ Gargoyle #1 flies in from the east.
 
 Melvin waddles in from the east.
 Seeker hums!
-
 Zandos grinds his teeth impatiently.
 Seeker hums!
-
 "Hello, friend" says a most unsavoury voice coming from the huge tentacled
 monstrosity which stands entrapped in the pentagram. "My name is Zandos. Is
 there anything I can help you with, my friend?"
@@ -3254,7 +3187,6 @@ You can move north and south.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move south.
@@ -3274,7 +3206,6 @@ Seeker hums!
 >You pick up the lantern.
 Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
-
 You see a pair of cat’s eyes looking at you from the shadows. As soon as you
 notice them, they are gone.
 You hear the shuffling of feet elsewhere in the castle.
@@ -3297,7 +3228,6 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move north.
@@ -3312,9 +3242,7 @@ You can move east, south and west.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Seeker hums!
-
 The demon’s eyes watch you as you move about the room.
 
 >You move east.
@@ -3329,7 +3257,6 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move east.
@@ -3357,7 +3284,6 @@ Gargoyle #1 flies in from the west.
 
 Melvin waddles in from the west.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move down.
@@ -3368,7 +3294,6 @@ You can move up and down.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move down.
@@ -3386,13 +3311,11 @@ hands, and sniffs the air around you.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-
 You hear Melvin singing. He must be somewhere nearby.
 Woody, the wererat, starts a coughing fit. His ribs nearly burst through his
 skinny body. The sound he makes is horrible, and phlegm flies everywhere from
 his long snout. Then he seems to regain his composure, and looks at you with
 disgust in his small beady eyes.
-
 Woody moans and wines about something totally irrelevant, then turns round
 and casually spits on you.
 
@@ -3406,7 +3329,6 @@ You can move south and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-
 Hundreds of rats are here. They gnaw at your feet, but the thick leather
 boots you wear protect you sufficiently enough.
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
@@ -3425,7 +3347,6 @@ Seeker hums!
 
 >You take the chisel from the pile of rubble.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move north.
@@ -3438,7 +3359,6 @@ You can move south and west.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Hundreds of rats are here. They gnaw at your feet, but the thick leather
 boots you wear protect you sufficiently enough.
 
@@ -3457,7 +3377,6 @@ Gargoyle #1 flies in from the east.
 
 Woody scampers away to the north.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You move up.
@@ -3480,7 +3399,6 @@ You can move south, west and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move west.
@@ -3493,7 +3411,6 @@ You can move east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-
 Dong! You hear a bell toll elsewhere in the castle.
 
 >You move west.
@@ -3508,7 +3425,6 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move down.
@@ -3521,7 +3437,6 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move north.
@@ -3536,23 +3451,18 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Seeker hums!
-
 A faint mist starts collecting in the room.
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You open the coffin #7.  Inside the coffin #7 is a brooch and The remains of
 Maldus.
 Seeker hums!
-
 Seeker hums!
 
 >You take the brooch from the coffin #7.
 Seeker hums!
-
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move south.
@@ -3581,7 +3491,6 @@ Gargoyle #1 flies in from below.
 
 Berto flies out of the room.
 Seeker hums!
-
 You hear the shuffling of feet elsewhere in the castle.
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
@@ -3601,9 +3510,7 @@ Gargoyle #1 flies in from the east.
 
 Melvin waddles out to the south.
 Seeker hums!
-
 Seeker hums!
-
 A black cat suddenly darts in front of you and off into the shadows.
 The demon’s eyes watch you as you move about the room.
 You manage to avoid Gargoyle #1's attack.
@@ -3624,13 +3531,11 @@ You can move east and south.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >(Your score has increased by 5)
 The painting is ripped open, revealing a secret passage leading northward.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move north.
@@ -3642,7 +3547,6 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move north.
@@ -3658,9 +3562,7 @@ Shadow meeeows...
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 10)
@@ -3668,7 +3570,6 @@ You hit Shadow.
 As you kill the cat, the witch drops to the floor in a heap, screaming in
 agony. Slowly she decays away to nothing.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move north.
@@ -3683,7 +3584,6 @@ You can only move south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 You suddenly feel rather dizzy, so dizzy that you black out and fall to the
 ground unconscious. When you awake, you do not know how long you have been
 unconscious for, but you feel much better now.
@@ -3691,7 +3591,6 @@ Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You take the scroll from the shrine.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move south.
@@ -3716,7 +3615,6 @@ You can move north and south.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You move south.
@@ -3749,9 +3647,7 @@ You can move east, south and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-
 Seeker hums!
-
 The demon’s eyes watch you as you move about the room.
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
@@ -3759,9 +3655,7 @@ Gargoyle #1 hits you, but it doesn't seem to do any damage.
 Zandos suddenly backs off. He eyes you cautiously. The scroll burns away as
 the spell is cast.
 Seeker hums!
-
 Seeker hums!
-
 The demon’s eyes watch you as you move about the room.
 You manage to avoid Gargoyle #1's attack.
 
@@ -3770,7 +3664,6 @@ Zandos shouts, "Free, free at last!" He heaves his great body out into the
 main hall and up the stairs. You hear a loud bang and the crackling of
 energy.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move east.
@@ -3796,7 +3689,6 @@ You can move up and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-
 Dong! You hear a bell toll elsewhere in the castle.
 You feel the hairs on the back your neck stand up.
 You manage to avoid Gargoyle #1's attack.
@@ -3815,12 +3707,10 @@ Seeker hums!
 
 >You unlock steel door with the brooch.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You open steel door.
 Seeker hums!
-
 You hear Melvin singing. He must be somewhere nearby.
 
 >You move north.
@@ -3834,7 +3724,6 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move north.
@@ -3852,38 +3741,29 @@ Seeker hums!
 
 >You hit Colos.
 Seeker hums!
-
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You hit Colos.
 Seeker hums!
-
 Seeker hums!
 
 >You hit Colos.
 Seeker hums!
-
 "What is the password?" booms the golem again.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You hit Colos.
 Seeker hums!
-
 The golem looks like it’s getting impatient.
 Seeker hums!
-
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
-
 Gargoyle #1 hits you.
 
 >You hit Colos.
 Seeker hums!
-
 Colos seems to have gotten sick of waiting. Deciding you don't know the
 password after all, the golem attempts to squash you with its huge fists.
 Seeker hums!
@@ -3891,14 +3771,12 @@ Seeker hums!
 >(Your score has increased by 5)
 BOOM! The golem explodes in a shower of dust.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move south.
@@ -3924,7 +3802,6 @@ You can move north and down.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move down.
@@ -3935,7 +3812,6 @@ You can move up and down.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move down.
@@ -3950,7 +3826,6 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-
 You hear the shuffling of feet elsewhere in the castle.
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
@@ -3965,12 +3840,10 @@ You can move east and west.
 Gargoyle #1 flies in from the west.
 Strange, some more venison has just appeared on the table!
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You take the venison from the table.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You eat the venison.  Not bad, but it could do with a pinch of salt!
@@ -3981,7 +3854,6 @@ Seeker hums!
 
 >You take the venison from the table.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move east.
@@ -3995,7 +3867,6 @@ You can move south, west and down.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move south.
@@ -4008,7 +3879,6 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move west.
@@ -4022,14 +3892,12 @@ You can only move east.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-
 Melvin says, "Here, Shadow. Here, pussy, pussy."
 
 >You pick up the stake.
 
 Melvin waddles out to the east.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You move east.
@@ -4043,7 +3911,6 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You move north.
@@ -4057,7 +3924,6 @@ You can move south, west and down.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move west.
@@ -4070,7 +3936,6 @@ You can move east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move west.
@@ -4085,7 +3950,6 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move down.
@@ -4098,7 +3962,6 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move south.
@@ -4115,33 +3978,26 @@ Please set me free," she cries.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-
 Seeker hums!
 
 >You pick up silver key.
 Seeker hums!
-
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You unlock the cell door with silver key.
 Seeker hums!
-
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You open the cell door.
 Seeker hums!
-
 As you open the cell door, Margo springs to her feet. You notice a terrible
 change coming over her, she flings the cell door wide open, ripping it off
 its hinges. Hair quickly starts to grow all over her body. You stand,
 stunned, as she continues to destroy the cell. Suddenly she stops and stands
 transformed before you. Margo, the village maid, is a werewolf.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >(Your score has increased by 5)
@@ -4150,7 +4006,6 @@ Margo falls backward, and her eyes roll up into her head. Phew, she is dead.
 
 Margo enters.
 Seeker hums!
-
 You hear Melvin singing. He must be somewhere nearby.
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
@@ -4169,7 +4024,6 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You move north.
@@ -4184,37 +4038,29 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Seeker hums!
 
 >You open the coffin #2.  Inside the coffin #2 is a sceptre.
 Seeker hums!
-
 Grazilda lies in her coffin.
 Grazilda’s eyes flick open.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >As you plunge the stake into Grazilda’s heart, she screams and wines with the
 pain. Her whole body convulses, then at last she is silent. Her body
 evaporates into the air, along with the stake that brought about her end.
 Seeker hums!
-
 Seeker hums!
 
 >You take the sceptre from the coffin #2.
 Seeker hums!
-
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You open the coffin #11.
 Seeker hums!
-
 Seeker hums!
-
 The coffin is empty. You can only wonder where the occupant is now.
 You hear the shuffling of feet elsewhere in the castle.
 
@@ -4228,7 +4074,6 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move up.
@@ -4243,7 +4088,6 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 You manage to avoid Gargoyle #1's attack.
 
@@ -4267,7 +4111,6 @@ You can move north and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move north.
@@ -4281,7 +4124,6 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Gargoyle #1 hits you.
 
 >You move east.
@@ -4308,12 +4150,10 @@ your bravery, you shall be rewarded." As she says this, she hands you a
 golden key. "Good luck, brave sir knight," she says, "I will join my true
 love at last. Thank you, so very much." And with this, she vanishes.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You unlock iron chest with golden key.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You open iron chest.  Inside iron chest is a ballista bolt.
@@ -4321,7 +4161,6 @@ Seeker hums!
 
 >You take the ballista bolt from iron chest.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move west.
@@ -4344,7 +4183,6 @@ You can move south and up.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You move up.
@@ -4357,19 +4195,16 @@ You can only move down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-
 Dong! You hear a bell toll elsewhere in the castle.
 You suddenly feel slightly lightheaded, with the horrible feeling of
 butterflies in your stomach. You realise that Morac must be very close by.
 
 >You put on the Shield.
 Seeker hums!
-
 You manage to avoid Gargoyle #1's attack.
 
 >You open wooden door.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 5)
@@ -4385,7 +4220,6 @@ You can only move south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 The wooden door slams shut.
 A huge fireball hurtles from Morac toward you. Luckily for you, the shield
 that you wear takes the brunt of it.
@@ -4395,7 +4229,6 @@ tactic. His eyes fix on your own as he tries to hypnotize you.
 >(Your score has increased by 5)
 You do so, thwarting Morac’s attack yet again.
 Seeker hums!
-
 Morac’s face turns red with rage. He suddenly holds one hand up, palm open,
 as you feel a tugging sensation from your chest.
 You manage to avoid Gargoyle #1's attack.
@@ -4407,7 +4240,6 @@ You rush to the window to watch him fall to the courtyard below, but he does
 not. With the flapping sound of wings, you see Morac land safely on the back
 of a huge black dragon.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move north.
@@ -4420,7 +4252,6 @@ You can move south and down.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move down.
@@ -4434,7 +4265,6 @@ You can move north and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You move north.
@@ -4450,7 +4280,6 @@ You can move south and down.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-
 The ballista is ready to fire.
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
@@ -4460,14 +4289,12 @@ dragon’s neck. The dragon tumbles down outside the castle walls and into the
 ocean. Morac seems to have vanished. Then you catch a glimpse of a bat flying
 northward to the stone henge.
 Seeker hums!
-
 Gargoyle #1 hits you, but it doesn't seem to do any damage.
 
 >You hit Gargoyle #1.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
-
 You hear Melvin singing. He must be somewhere nearby.
 You suddenly feel a nasty smack on the back of your head. You drift into
 darkness and awaken in a rather different room. You hear Melvin’s voice,
@@ -4743,11 +4570,9 @@ have halted the battle from below, as both sides are now even, and a
 stalemate has taken place.
 You stare, stunned, at the devastation below, for what seems like ages, and
 think it would be dangerous to move any further east.
-
 The sky is filled with arrows and crossbow bolts. Men and undead alike fall
 like flies below on the battlefield, while dark shapes like dragons fly above
 in the sky, taking care not to be hit by the missiles.
-
 Seeker hums!
 
 >Time passes...
@@ -4825,9 +4650,7 @@ Fang is here.
 
 You can move north, east and west.
 Seeker hums!
-
 Seeker hums!
-
 You manage to avoid Fang's attack.
 
 >You move west.
@@ -4881,7 +4704,6 @@ very uneasy. Frescos cover both the west and east walls. The corridor comes
 to a dead end to the north.
 Suddenly a huge stone block slams down behind you, blocking you in! The block
 has words carved into it.
-
 The huge stone block starts sliding slowly northward. It looks like it would
 crush you against the northern wall, if given time to do so.
 
@@ -4895,7 +4717,6 @@ You manage to nip in and crawl eastward just before the boulder blocks off
 the opening of the panel.
 This crawl way runs from west to east, although the western exit is blocked
 by the huge block of stone.
-
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
@@ -5332,7 +5153,6 @@ You can only move down.
 The wind suddenly swirls around you, and, as if by magic, you are lifted from
 the top of the mountain and realise you are standing on a grey-coloured
 cloud. The cloud gently floats you back down to ground level.
-
 A chill wind blows southerly.
 
 >You move south.
@@ -5376,7 +5196,6 @@ The landscape here is scorched and black. Flames shoot up out of the foul
 earth, and all is lit by a deep red sky. It seems the only safe way to travel
 is past a rather large, black iron gate to north, or south to a river of
 lava.
-
 You hear a load voice boom out!! "Well, well, well, you didn’t think it would
 be that easy, did you? The staff you broke was also infused with Morac’s
 magic, under my supervision, of course. Yes, he infused it with black magic,
@@ -5412,7 +5231,6 @@ partially hidden by the robes that he wears.
 >Time passes...
 Charon, the ferryman, arrives at the shore. He holds out a bony skeletal
 hand, apparently waiting for payment.
-
 You see something sailing across the River Styx!
 
 >Charon takes the gold coin in his bony hand, and pushes you on board with his
@@ -5472,7 +5290,6 @@ You can only move south.
 Cerberus belches forth an ear-splitting howl, sounding an alarm to anyone
 listening. While doing so, a jet of flame streams from one of its heads and
 sears you with its blistering heat.
-
 Seeker Hums!
 Cerberus hits you, but it doesn't seem to do any damage.
 
@@ -5535,10 +5352,8 @@ Glitter are here, to name but a few members of this gathering of devils) and
 speaks again, "Let this be a warning to anyone who fails me." Asmodeus turns
 his gaze back onto you. "As for you, brave knight of Tesslesar, you have two
 choices: join me as a servant of evil, or die! Choose now; join, or die."
-
 A large portcullis slams down behind you, blocking you from the golden door
 and your only way out!
-
 Seeker Hums!
 
 >As you blow the horn, the throne room rumbles and shakes. You heave your
@@ -5550,7 +5365,6 @@ at bay, and giving you enough time to make your escape. One of the angels
 takes you by the hand, and in her sweet voice says, "It’s time, Loralang."
 With this, the room fades from view, and is replaced by your king’s chambers
 back home!
-
 The king’s eyes open wide as you return home. "I knew my favourite knight
 would succeed," he says.
 You hand over the sceptre to the king. "With this we will be able to defend

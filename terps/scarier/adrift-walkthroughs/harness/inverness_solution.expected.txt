@@ -47,7 +47,6 @@ all professions that go the primrose way to the everlasting bonfire."
 "Anon, anon! I pray you, remember the porter."
 
 The door creaks slowly open.  You move north.
-
 Entrance Hall
 This is the entrance hall of Inverness Castle, which is lit by torches on the
 walls.  The walls are decorated in large tapestries.  The sitting room is to

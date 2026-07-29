@@ -1472,8 +1472,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
           reversemessage = prop_get_string (bundle, "S<-sis", vt_key);
           if (!scr_strempty (reversemessage))
             {
-              pf_buffer_paragraph (filter, reversemessage);
-              pf_buffer_character (filter, '\n');
+              pf_buffer_paragraph_line (filter, reversemessage);
               status |= TRUE;
             }
 
@@ -1508,8 +1507,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
                             " trying to repeat completed action, aborting\n");
                 }
 
-              pf_buffer_paragraph (filter, repeattext);
-              pf_buffer_character (filter, '\n');
+              pf_buffer_paragraph_line (filter, repeattext);
               status |= TRUE;
               return status;
             }
@@ -1532,8 +1530,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   completetext = prop_get_string (bundle, "S<-sis", vt_key);
   if (!scr_strempty (completetext))
     {
-      pf_buffer_paragraph (filter, completetext);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_paragraph_line (filter, completetext);
       status |= TRUE;
     }
 
@@ -1594,8 +1591,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
   if (!scr_strempty (additionalmessage))
     {
-      pf_buffer_paragraph (filter, additionalmessage);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_paragraph_line (filter, additionalmessage);
       status |= TRUE;
     }
 
@@ -1649,8 +1645,7 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
            * "done" (more accurately, we've output text, so the task command
            * searching in the main run loop can exit...).
            */
-          pf_buffer_paragraph (filter, fail_message);
-          pf_buffer_character (filter, '\n');
+          pf_buffer_paragraph_line (filter, fail_message);
           return TRUE;
         }
 

@@ -255,7 +255,6 @@ barn, of no great architectural merit. A sign above the door bears the legend
 >You place the clothes peg on your nose.
 
 >Clothes peg firmly in place, you step bravely into the yak shed.
-
 Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous
@@ -348,7 +347,6 @@ barn, of no great architectural merit. A sign above the door bears the legend
 'Yak Shed'. To the east, a rugged path leads down into the valley.
 
 >Clothes peg firmly in place, you step bravely into the yak shed.
-
 Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous

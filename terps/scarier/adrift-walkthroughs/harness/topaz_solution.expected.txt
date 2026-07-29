@@ -32,7 +32,6 @@ and are now only leaveless branches blowing back and forth.
 >The bare fields stretch far into the distance.
 
 >You bow your head against the rain, and move north.
-
 Muddy Path
 You are halted in the middle of the trail, the storm beating down upon you.
 The sky above is grey, and rolls with darkening clouds. The mud here is
@@ -77,7 +76,6 @@ Everywhere is blackness.
 A gentle orange glow ignites itself a few feet away to the west.
 
 >You follow the glow.
-
 Darkness
 The sword lies on the floor, a soft amber glow shining from the jewel in its
 hilt. It creates a small pool of light around you. Absolute darkness
@@ -178,7 +176,6 @@ Try it on, whispers Topaz.
 
 >You slip the ring on your finger, and your surroundings disappear, and
 rearrange themselves.
-
 Congratulations!
 Forest Clearing
 Sun shines down through the leaves, lighting up the deep blue sky. Trees form

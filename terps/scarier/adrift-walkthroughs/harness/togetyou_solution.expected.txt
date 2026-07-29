@@ -41,7 +41,6 @@ drink?
 
 >(Your score has increased by 1)
 They are now Infected!
-
 The Infected Throat
 You are in a smooth, slippery tube with a shiny pink lining.  From here to
 you can go to the ear, nose, mouth or stomach.  The tonsils are red and
@@ -67,7 +66,6 @@ looks nasty," you smile to yourself.
 
 >(Your score has increased by 1)
 It is now Infected!
-
 The Infected Stomach
 It holds all the food just eaten and is squeezed by the muscular walls, with
 a little help from some acid.  From here you can go to the ear, nose, mouth
@@ -82,7 +80,6 @@ ear canal is full of wax, which will need to be removed.
 >You can't see too much for all the ear wax in the ear canal.
 
 >You spit out the acid, which dissolves the ear wax.
-
 The Ear
 This is the outer ear canal, which is the part of the ear you can see from
 outside. From here to you can go to the throat, nose, mouth or stomach.  In
@@ -92,7 +89,6 @@ the ear canal you can see a tiny cut.
 
 >(Your score has increased by 1)
 It is now Infected!
-
 The Ear
 This is the outer ear canal, which is the part of the ear you can see from
 outside. From here to you can go to the throat, nose, mouth or stomach.  In
@@ -116,7 +112,6 @@ interesting.
 
 >(Your score has increased by 1)
 It is now Infected!
-
 The Infected Mouth
 Resting on the tongue, above and below you are the teeth (look a little
 yellow).  A nasty mouth ulcer is just to you left.  From here to you can go
@@ -160,7 +155,6 @@ better.
 
 >(Your score has increased by 1)
 It is now Infected!
-
 The Infected Nose
 The inside of the nose is lined with some sort of a thin, moist, layer of
 tissue. At the back of the nose you can just see the adenoids.  From here to

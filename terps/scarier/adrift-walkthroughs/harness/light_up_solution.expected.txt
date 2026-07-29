@@ -84,7 +84,6 @@ nowhere is a recipe for disaster.
 
 I step foot into the house. God, I hope he's here. Shane. That's my son's
 name. I hope Shane's here.
-
 House (Den)
 Life does not belong here. Toys strewn everywhere, a broken television, a
 streak of blood across the carpet leading to another room (north). And there
@@ -212,7 +211,6 @@ Chapter Two: The Field
 
 I feel like I ran a million miles on one foot. Body aches like hell.
 Everything hurts. Ugh.
-
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -248,7 +246,6 @@ anything of interest for some distance (east).
 
 >(Your score has increased by 2)
 I forge eastward.
-
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
@@ -766,7 +763,6 @@ air...so hard to breathe.
 "You made it to your second trial. That is wonderful. Some people cannot even
 make it that far. I will reward you with more information as you get used to
 your surroundings."
-
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -1152,7 +1148,6 @@ Everything goes black.
 [Press any key to continue]
 
 And then everything lights up.
-
 Cell 4
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
@@ -1399,7 +1394,6 @@ Here we go again.
 [Press any key to continue]
 
 I can see again.
-
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1602,7 +1596,6 @@ Chapter Four: The Death
 [Press any key to continue]
 
 "Move north. You'll find him. Ask for battle tips if you feel overwhelmed."
-
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -3153,7 +3146,6 @@ Chapter Five: The Waste Land
 [Press any key to continue]
 
 I wake up in a dump.
-
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.

@@ -52,7 +52,6 @@ Also here is a Linux disc and a music megaphone.
 
 >You climb inside the teleporter and with a blinding flash of light you find
 yourself in the TechTV offices.
-
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
 take you back to Planet X is here.  North will take you to the The Screen
@@ -574,7 +573,6 @@ here.
 
 >You climb inside the teleporter and with a blinding flash of light you find
 yourself in the TechTV offices.
-
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
 take you back to Planet X is here.  North will take you to the The Screen
@@ -727,7 +725,6 @@ on the Launch Pad.  There is a console here.
 >You press the green button and the ship takes off with a roar, quickly
 blasting its way out of Planet X's atmosphere.  Within minutes you approach a
 what looks to be a rip in the fabric of space and time, and slow to a stop.
-
 In Rocket by space-time rift
 You are in the small, crowded cockpit of the Rocket.  There is a console
 here.  Through the window you can see a gaping rift in the space time
@@ -782,7 +779,6 @@ on the Launch Pad.  There is a console here.
 >You press the green button and the ship takes off with a roar, quickly
 blasting its way out of Planet X's atmosphere.  Within minutes you approach a
 small artificial satellite above Planet X, and slow to a stop.
-
 In Rocket by Satellite
 You are in the small, crowded cockpit of the rocket.  There is a console
 here.  Outside the window you can see a satellite.  You may exit the rocket
@@ -825,7 +821,6 @@ on the Launch Pad.  There is a console here.
 >You press the green button and the ship takes off with a roar, quickly
 blasting its way out of Planet X's atmosphere.  Within minutes you approach a
 what looks to be a flying saucer, and slow to a stop.
-
 In Rocket near Saucer
 You are in the small, crowded cockpit of the Rocket.  There is a console
 here.  Through the glass you can see a flying saucer.  You can exit the

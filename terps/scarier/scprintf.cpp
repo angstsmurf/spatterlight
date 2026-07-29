@@ -1091,6 +1091,33 @@ pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
 
 
 /*
+ * pf_buffer_paragraph_line()
+ *
+ * Buffer a paragraph and terminate it with a line break, but only add one if
+ * the paragraph did not already end with a break of its own -- the trailing
+ * counterpart to the leading-break collapse above.
+ *
+ * Task and event texts are terminated with a newline so the next thing printed
+ * starts on a fresh line.  Authors who end their text with "<br>" get that line
+ * break as well, and the doubled break shows as a blank line the Adrift runner
+ * does not print.  "The Warlord, The Princess & The Bulldog" builds its
+ * inventory from one task per object, each with text like "*<tab>your uniform
+ * (worn)<br>", so every item in the listing was followed by a blank line.
+ */
+void
+pf_buffer_paragraph_line (scr_filterref_t filter, const scr_char *string)
+{
+  const scr_char *buffered;
+
+  pf_buffer_paragraph (filter, string);
+
+  buffered = pf_get_buffer (filter);
+  if (!buffered || !pf_text_ends_with_break (buffered))
+    pf_buffer_character (filter, '\n');
+}
+
+
+/*
  * pf_prepend_string()
  *
  * Add a string to the front of the printfilter buffer, rather than to the

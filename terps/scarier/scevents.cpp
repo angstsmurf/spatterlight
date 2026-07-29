@@ -404,8 +404,7 @@ evt_start_event (scr_gameref_t game, scr_int event)
       starttext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (starttext))
         {
-          pf_buffer_paragraph (filter, starttext);
-          pf_buffer_character (filter, '\n');
+          pf_buffer_paragraph_line (filter, starttext);
         }
 
       /* Handle any associated resource. */
@@ -475,8 +474,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
       finishtext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (finishtext))
         {
-          pf_buffer_paragraph (filter, finishtext);
-          pf_buffer_character (filter, '\n');
+          pf_buffer_paragraph_line (filter, finishtext);
         }
 
       /* Handle any associated resource. */
@@ -722,8 +720,7 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
       preftext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (preftext))
         {
-          pf_buffer_paragraph (filter, preftext);
-          pf_buffer_character (filter, '\n');
+          pf_buffer_paragraph_line (filter, preftext);
         }
 
       vt_key[2].string = "Res";
@@ -738,8 +735,7 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
       preftext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (preftext))
         {
-          pf_buffer_paragraph (filter, preftext);
-          pf_buffer_character (filter, '\n');
+          pf_buffer_paragraph_line (filter, preftext);
         }
 
       vt_key[2].string = "Res";

@@ -397,7 +397,6 @@ gigantic bowl and a trowel.
 I can move north and east.
 
 >I move east.
-
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly

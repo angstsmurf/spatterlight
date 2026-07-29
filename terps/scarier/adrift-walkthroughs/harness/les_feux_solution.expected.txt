@@ -31,15 +31,10 @@ survivre jusqu'à ce que vous le rencontriez. Plus facile à dire qu'à faire...
 les caractéristiques de votre personnage:
 
 Mise à jour de vos points de compétence...
-
 Points de Compétence: 10
-
 Mise à jour de vos points d'endurance...
-
 Points d'endurance: 13
-
 Mise à jour de vos points de chance...
-
 Points de chance: 12
 
 Tapez "statut" ou "stat" a tout moment pour voir les caractéristiques de
@@ -223,7 +218,6 @@ Vous arrivez à éviter l'attaque de l'ogre.
 Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
 
 >Vous vous déplacez vers l'ouest.
-
 CAVERNE STERILE
 Cette caverne est stérile mais une étrange odeur de combustion légère émane
 de l'ouest.
@@ -412,7 +406,6 @@ votre magasin." d'une voix idiote?
 
 >“Vous vous moquez de moi ?” dit le marchand en fureur. Il crie alors,
 “GARDES!”
-
 Trois gardes du chaos arrivent de nulle part.
 
 Vous arrivez à éviter l'attaque du voyou.
