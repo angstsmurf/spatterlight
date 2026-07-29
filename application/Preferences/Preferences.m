@@ -85,6 +85,7 @@
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
+    NSUInteger restoreSelectionAttempts;
     CGFloat defaultWindowHeight;
     CGFloat restoredPreviewHeight;
     NSView *currentPanel;
@@ -200,21 +201,32 @@ static Preferences *prefs = nil;
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl {
     if (prefs) {
+        // Never read the theme global raw here. It can be nil if the built-in
+        // themes could not be created at startup, or if an earlier call handed
+        // restoreThemeSelection: an empty themes table. objectWithID: raises on
+        // a nil object ID, so a nil theme used to abort the app on game launch.
+        // currentTheme recreates a default theme when this happens.
+        Theme *currentTheme = [Preferences currentTheme];
+
         Game *game = nil;
         if (ctrl.game)
-            game = [theme.managedObjectContext objectWithID:ctrl.game.objectID];
+            game = [currentTheme.managedObjectContext objectWithID:ctrl.game.objectID];
         if (prefs.currentGame == game)
             return;
         if (ctrl == nil) {
             prefs.currentGame = nil;
-        } else {
+        } else if (currentTheme) {
             prefs.currentGame = game;
-            Theme *ctrlCtxTheme = [ctrl.game.managedObjectContext objectWithID:theme.objectID];
+            Theme *ctrlCtxTheme = [ctrl.game.managedObjectContext objectWithID:currentTheme.objectID];
             if (!ctrl.theme)
                 ctrl.theme = ctrlCtxTheme;
-            theme = [theme.managedObjectContext objectWithID:ctrl.theme.objectID];
+            // ctrl.theme is still nil if the game has no context of its own.
+            if (ctrl.theme)
+                theme = [currentTheme.managedObjectContext objectWithID:ctrl.theme.objectID];
             if (!game.theme)
                 game.theme = theme;
+        } else {
+            prefs.currentGame = game;
         }
         [prefs restoreThemeSelection:theme];
         prefs.themesHeader.stringValue = [prefs themeScopeTitle];
@@ -800,17 +812,22 @@ NSString *fontToString(NSFont *font) {
 
 - (Theme *)defaultTheme {
     if (_defaultTheme == nil) {
+        // Go through the accessor, not the ivar: this is the last-resort path
+        // used by +currentTheme, and it may run before the nib bindings have
+        // populated _managedObjectContext. A nil context here silently returns
+        // a nil theme, which is what we are trying to recover from.
+        NSManagedObjectContext *context = self.managedObjectContext;
         NSFetchRequest *fetchRequest = [Theme fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
         NSError *error = nil;
-        NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 
         if (fetchedObjects && fetchedObjects.count) {
             _defaultTheme = fetchedObjects[0];
         } else {
             if (error != nil)
                 NSLog(@"Preferences defaultTheme: %@", error);
-            _defaultTheme = [BuiltInThemes createDefaultThemeInContext:_managedObjectContext forceRebuild:NO];
+            _defaultTheme = [BuiltInThemes createDefaultThemeInContext:context forceRebuild:NO];
         }
     }
     return _defaultTheme;
@@ -1015,11 +1032,30 @@ NSString *fontToString(NSFont *font) {
         return;
     }
     NSArray *themes = arrayController.arrangedObjects;
-    theme = sender;
-    if (![themes containsObject:sender]) {
-        theme = themes.lastObject;
+    if (!themes.count && sender) {
+        // windowDidLoad calls us 0.1 seconds after the nib loads, which is not
+        // always long enough for the themes array controller to have fetched its
+        // content. Wait for it instead of giving up: the old code cleared the
+        // theme global here, and the next game launch then aborted the app in
+        // changeCurrentGlkController:.
+        if (restoreSelectionAttempts++ < 20) {
+            [self performSelector:@selector(restoreThemeSelection:) withObject:sender afterDelay:0.1];
+            return;
+        }
+        NSLog(@"Preferences restoreThemeSelection: themes table still empty, giving up");
         return;
     }
+    restoreSelectionAttempts = 0;
+    if (![themes containsObject:sender]) {
+        // Fall back to the last theme in the table, but never leave the global
+        // nil: everything downstream (changeCurrentGlkController: in particular)
+        // assumes that a current theme exists.
+        Theme *fallback = themes.lastObject ? themes.lastObject : sender;
+        if (fallback)
+            theme = fallback;
+        return;
+    }
+    theme = sender;
     NSUInteger row = [themes indexOfObject:theme];
 
     disregardTableSelection = NO;
