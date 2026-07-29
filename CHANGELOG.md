@@ -1,5 +1,14 @@
 # Change log
 
+## Unreleased
+
+### Alan 2
+- Alan 2 now plays games compiled with Alan 2.5 and 2.6, such as *Don't Be Late!* and *The Hollywood Murders*, which it previously rejected.
+- Support for pictures and sounds in Alan 2 games such as *The Hollywood Murders* and *A Matter of Time*.
+
+### General
+- Fixes to scrolling after a game changes a text window's size.
+
 ## Release 1.5.2
 
 ### Announcement
@@ -103,6 +112,7 @@ Despite many improvements, the UnQuill interpreter is still kind of useless. A Z
 - Adds a preference to cap the scrollback buffer length. Crucial for performance during the endgame of *Zork Zero*.
 - Scrolling up to read during real-time or command-script output now pauses auto-scroll, and scrolling back to the bottom resumes it without getting stuck. This does not work very reliably, but a little better than it used to.
 - Fixes horizontal and vertical drift of margin images.
+- When a game opens a graphics window above the story window without printing any new text (as the Alan 2 DOS games do for their pictures), the story text no longer scrolls away from the prompt at the bottom.
 - Several VoiceOver improvements: the custom rotors are reachable from the command prompt, side-by-side quote boxes are read as two separate blocks, announcements are no longer dropped or cut off around graphics, and the "speak status bar" command now reads every non-main text window rather than only the status line.
 - All bundled interpreters now share a single deterministic random-number generator (stolen from Glulxe).
 - More reliable migration from older library database formats.
