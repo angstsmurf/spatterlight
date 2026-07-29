@@ -61,6 +61,7 @@
                           gapAttributes:(NSDictionary *)gapAttrs;
 - (NSArray<NSAttributedString *> *)quoteBoxRowsOfString:(NSAttributedString *)string;
 - (NSAttributedString *)quoteBoxSpaces:(NSUInteger)count attributes:(NSDictionary *)attributes;
+- (void)fixCollapsingSpaceRows;
 @end
 
 @implementation GlkTextGridWindow
@@ -561,6 +562,76 @@
     _pendingBackgroundCol = bgCol;
 }
 
+// With certain fonts, a line consisting of nothing but spaces "collapses": the
+// text system gives it a zero-width used rect and draws none of it, so a blank
+// reverse-video row is not painted at all. Replacing the row's first space with a
+// non-breaking one is enough to stop that. (Idea originally from David
+// Schweinsberg and Yazmin.) Still reproducible today -- of the fixed-pitch
+// families installed here it hits Source Code Pro, PT Mono, Noto Sans Mono and
+// our own bundled FreeFont3, while Courier, Monaco, Menlo, Courier New, Andale
+// Mono and SF Mono are unaffected.
+//
+// Only rows that are *entirely* whitespace collapse: one ordinary glyph anywhere
+// in the row and the text system paints the background across the full width
+// again. So we decide this per row on the finished buffer, rather than on every
+// string handed to printToWindow:. Doing it at print time stamped a non-breaking
+// space into any string that merely began with one, which is how ADRIFT status
+// lines picked up a stray U+00A0 in column 0 -- Scarier fills the whole bar with
+// spaces in style_User1 before writing the room name over it, so the fill was
+// substituted even though the finished row was never blank. In a font without a
+// U+00A0 glyph that shows up as an "unprintable character" box.
+//
+// A game that prints its own non-breaking space in column 0 of a non-blank row
+// gets it turned back into an ordinary space, which renders identically. Rows
+// whose font has no U+00A0 glyph at all are left alone; see below.
+- (void)fixCollapsingSpaceRows {
+    if (cols == 0 || _bufferTextStorage.length == 0)
+        return;
+
+    static NSCharacterSet *nonSpace = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        const unichar spaces[2] = {' ', 0xa0};
+        nonSpace = [[NSCharacterSet characterSetWithCharactersInString:
+                     [NSString stringWithCharacters:spaces length:2]] invertedSet];
+    });
+
+    const unichar nbsp = 0xa0;
+    NSString *nbspString = [NSString stringWithCharacters:&nbsp length:1];
+    NSString *string = _bufferTextStorage.string;
+    NSUInteger length = string.length;
+
+    for (NSUInteger start = 0; start < length; start += cols + 1) {
+        NSRange row = NSMakeRange(start, MIN(cols, length - start));
+        if (row.length == 0)
+            break;
+
+        BOOL blank = ([string rangeOfCharacterFromSet:nonSpace
+                                              options:0
+                                                range:row].location == NSNotFound);
+        BOOL substituted = ([string characterAtIndex:row.location] == nbsp);
+        if (blank == substituted)
+            continue;
+
+        // A font with no U+00A0 glyph draws an "unprintable character" box in its
+        // place, which is worse than the collapsed row we are trying to avoid, so
+        // leave those rows as they are. (Undoing an earlier substitution is never
+        // skipped: that is the direction that removes such a box.)
+        if (blank) {
+            NSFont *font = [_bufferTextStorage attribute:NSFontAttributeName
+                                                 atIndex:row.location
+                                          effectiveRange:NULL];
+            if (font && !font.hasNonBreakingSpaceGlyph)
+                continue;
+        }
+
+        // replaceCharactersInRange:withString: gives the new character the
+        // attributes of the one it replaces, so the row's background run survives.
+        [_bufferTextStorage replaceCharactersInRange:NSMakeRange(row.location, 1)
+                                          withString:blank ? nbspString : @" "];
+    }
+}
+
 - (void)flushDisplay {
     // Making the textview temporarily editable
     // reduces flicker in Hugo Tetris, for some reason.
@@ -583,6 +654,8 @@
 
     if (!transparent)
         [self checkForUglyBorder];
+
+    [self fixCollapsingSpaceRows];
 
     if (_pendingBackgroundCol) {
         _textview.backgroundColor = _pendingBackgroundCol;
@@ -919,17 +992,14 @@
         return;
     }
 
-    // With certain fonts and sizes, strings containing only spaces will "collapse."
-    // So if the first character is a space, we replace it with a &nbsp;
-    if ([string hasPrefix:@" "]) {
-        const unichar nbsp = 0xa0;
-        NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
-        string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
-    // Speak each letter when typing in Bureaucracy form
-    } else if (glkctl.form
-               && string.length == 1
-               && _keyPressTimeStamp.timeIntervalSinceNow > -0.5
-               && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
+    // Speak each letter when typing in Bureaucracy form. (Strings starting with a
+    // space never reached this branch before fixCollapsingSpaceRows took over the
+    // collapsing-space workaround, so keep excluding them.)
+    if (![string hasPrefix:@" "]
+        && glkctl.form
+        && string.length == 1
+        && _keyPressTimeStamp.timeIntervalSinceNow > -0.5
+        && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
         // Don't echo keys if speak command setting is off
         if (glkctl.theme.vOSpeakCommand) {
             [glkctl speakStringNow:[string lowercaseString]];

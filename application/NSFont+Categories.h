@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSFont *)fontToFitWidth:(CGFloat)desiredWidth sampleText:(NSString *)text;
 - (CGFloat)widthForPointSize:(CGFloat)guess sampleText:(NSString *)text;
+- (BOOL)hasNonBreakingSpaceGlyph;
 
 @end
 

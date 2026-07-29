@@ -7,6 +7,8 @@
 
 #import "NSFont+Categories.h"
 
+#import <CoreText/CoreText.h>
+
 @implementation NSFont (Categories)
 
 // Find a font size to match a certain width in points.
@@ -54,6 +56,33 @@
     dic[NSFontAttributeName] = newFont;
     CGFloat textWidth = [text sizeWithAttributes:dic].width;
     return textWidth;
+}
+
+// Whether this font can draw a non-breaking space (U+00A0). Not every font can:
+// asking for one in a font without the glyph gets us the "unprintable character"
+// box instead. Glyph coverage does not vary with point size, so we cache the
+// answer per font name.
+- (BOOL)hasNonBreakingSpaceGlyph {
+    static NSMutableDictionary<NSString *, NSNumber *> *cache = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cache = [[NSMutableDictionary alloc] init];
+    });
+
+    NSString *name = self.fontName;
+    if (!name)
+        return NO;
+
+    NSNumber *cached = cache[name];
+    if (cached)
+        return cached.boolValue;
+
+    unichar character = 0xa0;
+    CGGlyph glyph = 0;
+    BOOL found = (CTFontGetGlyphsForCharacters((__bridge CTFontRef)self,
+                                               &character, &glyph, 1) && glyph != 0);
+    cache[name] = @(found);
+    return found;
 }
 
 @end
