@@ -1309,6 +1309,94 @@ gsc_status_printed_width (const scr_char *string)
 
 
 /*
+ * gsc_status_writer_t
+ *
+ * How a given engine's status line renders text: the number of grid cells a
+ * string fills, the call that prints it, and the start of the character after
+ * the one at a given point (a byte step for the ADRIFT <=4 codepage strings, a
+ * UTF-8 step for the ADRIFT 5 ones).  gsc_status_put_right() needs all three.
+ */
+typedef struct
+{
+  glui32 (*width) (const scr_char *string);
+  void (*print) (const scr_char *string);
+  const scr_char *(*next) (const scr_char *string);
+} gsc_status_writer_t;
+
+static const scr_char *
+gsc_status_next_byte (const scr_char *string)
+{
+  return string + 1;
+}
+
+static const gsc_status_writer_t GSC_STATUS_WRITER = {
+  gsc_status_printed_width, gsc_put_string, gsc_status_next_byte
+};
+
+/* Head-truncation marker, and the least text worth printing after it. */
+static const char *const GSC_STATUS_ELLIPSIS = "...";
+enum { GSC_STATUS_ELLIPSIS_WIDTH = 3, GSC_STATUS_MIN_TAIL = 1 };
+
+
+/*
+ * gsc_status_put_right()
+ *
+ * Print the status text right-justified on the status line, ending one column
+ * short of the right edge to match the one-column indent the room name gets at
+ * the left.  The room name is already on the line, and room_end is the first
+ * free column after it, so the status may use only the columns from there on,
+ * and must leave at least one blank between the two.
+ *
+ * A status too long for that gap is truncated at its head: the tail carries
+ * the parts that change -- score, moves, time, whatever the game keeps there --
+ * so it is the head that gets replaced with "...".  If not even the "..." and a
+ * character of text will fit, the status is dropped rather than allowed to run
+ * into the room name.
+ */
+static void
+gsc_status_put_right (glui32 width, glui32 room_end,
+                      const scr_char *status,
+                      const gsc_status_writer_t *writer)
+{
+  glui32 avail, status_width;
+
+  /* Columns between the room name (plus one blank) and the right margin. */
+  if (width < room_end + 2)
+    return;
+  avail = width - room_end - 2;
+
+  status_width = writer->width (status);
+  if (status_width <= avail)
+    {
+      glk_window_move_cursor (gsc_status_window,
+                              width - status_width - 1, 0);
+      writer->print (status);
+      return;
+    }
+
+  /* Too wide: find the longest tail that fits alongside the "...". */
+  if (avail < GSC_STATUS_ELLIPSIS_WIDTH + GSC_STATUS_MIN_TAIL)
+    return;
+
+  while (*status != '\0')
+    {
+      status = writer->next (status);
+
+      status_width = writer->width (status);
+      if (status_width <= avail - GSC_STATUS_ELLIPSIS_WIDTH)
+        {
+          glk_window_move_cursor (gsc_status_window,
+                                  width - status_width
+                                  - GSC_STATUS_ELLIPSIS_WIDTH - 1, 0);
+          writer->print (GSC_STATUS_ELLIPSIS);
+          writer->print (status);
+          return;
+        }
+    }
+}
+
+
+/*
  * gsc_status_update()
  *
  * Update the status line from the current game state.  This is for windowing
@@ -1341,7 +1429,6 @@ gsc_status_update (void)
         {
           const scr_char *status;
           char score[64] = {0};
-          glui32 status_width;
 
           /* Print the player location. */
           glk_window_move_cursor (gsc_status_window, 1, 0);
@@ -1350,18 +1437,9 @@ gsc_status_update (void)
           /* Get the game's status line, or if none, format score. */
           status = gsc_status_line_text (score, sizeof (score));
 
-          /*
-           * Print the status line or score at window right, if it fits, ending
-           * one column short of the edge to match the one-column indent the
-           * room name gets at the left (and the a5 status line's right margin).
-           */
-          status_width = gsc_status_printed_width (status);
-          if (width > status_width + 2)
-            {
-              glk_window_move_cursor (gsc_status_window,
-                                      width - status_width - 1, 0);
-              gsc_put_string (status);
-            }
+          /* Print the status line or score at window right. */
+          gsc_status_put_right (width, 1 + gsc_status_printed_width (room),
+                                status, &GSC_STATUS_WRITER);
         }
 
       gsc_status_end ();
@@ -6582,6 +6660,48 @@ gsc_a5_present_intro_media (a5_run_t *run)
 }
 
 /*
+ * gsc_a5_printed_width()
+ * gsc_a5_next_char()
+ *
+ * The grid cells gsc_a5_put_string() fills for a UTF-8 string, and the start of
+ * the character following the one a string points at.  With Unicode output each
+ * multi-byte sequence prints as a single cell; without it the bytes go out as
+ * they are, one cell each.  Stepping is by whole sequences either way, so that
+ * a truncated tail stays well-formed UTF-8.
+ */
+static glui32
+gsc_a5_printed_width (const char *string)
+{
+  const unsigned char *p = (const unsigned char *) string;
+  glui32 width = 0;
+
+  if (!gsc_unicode_enabled)
+    return (glui32) strlen (string);
+
+  for (; *p != '\0'; p++)
+    {
+      if ((*p & 0xc0) != 0x80)
+        width++;
+    }
+  return width;
+}
+
+static const char *
+gsc_a5_next_char (const char *string)
+{
+  const unsigned char *p = (const unsigned char *) string + 1;
+
+  while ((*p & 0xc0) == 0x80)
+    p++;
+  return (const char *) p;
+}
+
+static const gsc_status_writer_t GSC_A5_STATUS_WRITER = {
+  gsc_a5_printed_width, gsc_a5_put_string, gsc_a5_next_char
+};
+
+
+/*
  * gsc_a5_status()
  *
  * Redraw the one-line status window: the current room name at the left, and the
@@ -6594,7 +6714,7 @@ gsc_a5_status (a5_run_t *run)
   char *room;
   char right[96];
   long score, maxscore;
-  size_t rlen;
+  glui32 room_end;
 
   if (!gsc_status_begin (&width))
     return;
@@ -6614,19 +6734,16 @@ gsc_a5_status (a5_run_t *run)
   /* Room name at the left. */
   glk_window_move_cursor (gsc_status_window, 1, 0);
   room = a5run_location_name (run);
+  room_end = 1;
   if (room)
     {
       gsc_a5_put_string (room);
+      room_end += gsc_a5_printed_width (room);
       free (room);
     }
 
-  /* Right-justified score/moves, if it fits. */
-  rlen = strlen (right);
-  if (width > rlen + 2)
-    {
-      glk_window_move_cursor (gsc_status_window, width - (glui32) rlen - 1, 0);
-      glk_put_string (right);
-    }
+  /* Right-justified score/moves. */
+  gsc_status_put_right (width, room_end, right, &GSC_A5_STATUS_WRITER);
 
   gsc_status_end ();
 }
