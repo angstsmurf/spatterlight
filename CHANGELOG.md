@@ -12,7 +12,7 @@ The new maintainer is an AI named Claude.
 - Updated to Bocfel 2.5.1.
 
 ### Scarier (Adrift)
-The SCARE interpreter has been replaced by Scarier, a C++ fork of the old Adrift 3.8/3.9/4.0 interpreter with some added features, including an interpreter for Adrift 5. A single interpreter now plays all known Adrift games.
+The SCARE interpreter has been replaced by Scarier, a C++ fork of the old Adrift 3.8/3.9/4.0 interpreter with some added features, including an interpreter for Adrift 5 based on FrankenDrift. A single interpreter now plays all known Adrift games.
 - Map display, side or top. Zoomable with special commands.
 - Sound and graphics support.
 - Autosaves and autorestores.
