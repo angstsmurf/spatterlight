@@ -62,15 +62,14 @@ OBJECTS = arun.o \
 	sysdep.o \
 	alan.version.o
 
-# my package didn't include sources for dumpacd
-#all: $(GLKTARGET) dumpacd
+# dumpacd is a stand-alone debugging tool, build it with "make dumpacd"
 all: $(GLKTARGET)
 
 $(GLKTARGET) : $(OBJECTS) $(GLKOBJS)
 	$(LINK) -o $(GLKTARGET) $(OBJECTS) $(GLKOBJS) $(LDFLAGS) $(LIBS)
 
-dumpacd: dumpacd.o reverse.o spa.o
-	$(LINK) -o dumpacd $(LDFLAGS) dumpacd.o reverse.o spa.o
+dumpacd: dumpacd.o reverse.o
+	$(LINK) -o dumpacd $(LDFLAGS) dumpacd.o reverse.o
 
 spa.o: spa.c spa.h
 	$(CC) $(CFLAGS) -DSTDIONONCONST -c spa.c -o spa.o 
@@ -95,7 +94,7 @@ chartest.o: chartest.c
 debug.o: debug.c types.h sysdep.h acode.h alan.version.h readline.h inter.h \
  main.h parse.h exe.h debug.h glkio.h
 decode.o: decode.c main.h types.h sysdep.h acode.h decode.h
-dumpacd.o: dumpacd.c types.h sysdep.h acode.h spa.h
+dumpacd.o: dumpacd.c types.h sysdep.h acode.h reverse.h
 exe.o: exe.c types.h sysdep.h acode.h readline.h main.h parse.h \
  inter.h stack.h decode.h exe.h
 genalan.o: genalan.c spa.h

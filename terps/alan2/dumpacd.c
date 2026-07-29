@@ -22,13 +22,14 @@ Aword *memory;
 AcdHdr *header;
 
 static int memTop = 0;			/* Top of load memory */
+static Aword acdcrc = 0;		/* Checksum calculated at load time */
 
 static char *acdfnm;
 
 /* Dump flags */
 
 static int dumpdict, dumpatrs, dumpacts, dumpobjs, dumplocs, dumpstxs,
-dumpvrbs, dumpevts, dumpcnts, dumpruls, dumpstms;
+dumpvrbs, dumpevts, dumpcnts, dumpmsgs, dumpstms;
 
 int eot(Aword *adr)
 {
@@ -41,6 +42,15 @@ static void syserr(char str[])
 {
   printf("ERROR - %s\n", str);
   exit(0);
+}
+
+
+/* Up to 2.6 the message table held (fpos, len) pairs pointing into the text
+   file instead of addresses to statement code, and a syntax element flagged
+   "multiple" with a plain Boolean. */
+static int isPreV27(void)
+{
+  return header->vers[0] == 2 && header->vers[1] < 7;
 }
 
 
@@ -68,8 +78,8 @@ static void dumpAwords(Aaddr awords)
   if (awords == 0) return;
 
   for (adr = addrTo(awords); *(adr+1) != EOF; adr++)
-    printf("%ld, ", *adr);
-  printf("%ld\n", *adr);
+    printf("%d, ", *adr);
+  printf("%d\n", *adr);
 }
 
 
@@ -118,23 +128,23 @@ static void dumpDict(int level, Aword dict)
     indent(level);
     printf("WRD: \n");
     indent(level+1);
-    printf("WRD: %ld(0x%lx)", wrd->wrd, wrd->wrd);
+    printf("WRD: %d(0x%x)", wrd->wrd, wrd->wrd);
     if (wrd->wrd != 0)
       printf(" -> \"%s\"", (char *)&memory[wrd->wrd]);
     printf("\n");
     indent(level+1);
-    printf("CLASS: %ld = ", wrd->class); dumpWrdClass(wrd->class);
+    printf("CLASS: %d = ", wrd->class); dumpWrdClass(wrd->class);
     indent(level+1);
-    printf("CODE: %ld\n", wrd->code);
+    printf("CODE: %d\n", wrd->code);
     indent(level+1);
-    printf("ADJREFS: %ld(0x%lx)", wrd->adjrefs, wrd->adjrefs);
+    printf("ADJREFS: %d(0x%x)", wrd->adjrefs, wrd->adjrefs);
     if (wrd->adjrefs != 0) {
       printf(" -> ");
       dumpAwords(wrd->adjrefs);
     } else
       printf("\n");
     indent(level+1);
-    printf("NOUNREFS: %ld(0x%lx)", wrd->nounrefs, wrd->nounrefs);
+    printf("NOUNREFS: %d(0x%x)", wrd->nounrefs, wrd->nounrefs);
     if (wrd->nounrefs != 0) {
       printf(" -> ");
       dumpAwords(wrd->nounrefs);
@@ -163,9 +173,9 @@ static void dumpAtrs(int level, Aword atrs)
     indent(level);
     printf("ATR: #%d\n", atrno);
     indent(level+1);
-    printf("VAL: %ld\n", atr->val);
+    printf("VAL: %d\n", atr->val);
     indent(level+1);
-    printf("STRADR: %ld(0x%lx)", atr->stradr, atr->stradr);
+    printf("STRADR: %d(0x%x)", atr->stradr, atr->stradr);
     if (atr->stradr != 0)
       printf(" -> \"%s\"", (char *)&memory[atr->stradr]);
     printf("\n");
@@ -191,9 +201,9 @@ static void dumpChks(int level, Aword chks)
     indent(level);
     printf("CHK:\n");
     indent(level+1);
-    printf("EXP: %ld(0x%lx)\n", chk->exp, chk->exp);
+    printf("EXP: %d(0x%x)\n", chk->exp, chk->exp);
     indent(level+1);
-    printf("STMS: %ld(0x%lx)\n", chk->stms, chk->stms);
+    printf("STMS: %d(0x%x)\n", chk->stms, chk->stms);
   }
 }
 
@@ -234,14 +244,14 @@ static void dumpAlts(int level, Aword alts)
     indent(level);
     printf("ALT:\n");
     indent(level+1);
-    printf("PARAM: %ld\n", alt->param);
+    printf("PARAM: %d\n", alt->param);
     indent(level+1);
     printf("QUAL: "); dumpQual(alt->qual); printf("\n");
     indent(level+1);
-    printf("CHECKS: %ld(0x%lx)\n", alt->checks, alt->checks);
+    printf("CHECKS: %d(0x%x)\n", alt->checks, alt->checks);
     dumpChks(level+2, alt->checks);
     indent(level+1);
-    printf("ACTION: %ld(0x%lx)\n", alt->action, alt->action);
+    printf("ACTION: %d(0x%x)\n", alt->action, alt->action);
   }
 }
 
@@ -264,9 +274,9 @@ static void dumpVrbs(int level, Aword vrbs)
     indent(level);
     printf("VRB:\n");
     indent(level+1);
-    printf("CODE: %ld\n", vrb->code);
+    printf("CODE: %d\n", vrb->code);
     indent(level+1);
-    printf("ALT: %ld(0x%lx)\n", vrb->alts, vrb->alts);
+    printf("ALT: %d(0x%x)\n", vrb->alts, vrb->alts);
     dumpAlts(level+2, vrb->alts);
   }
 }
@@ -290,15 +300,15 @@ static void dumpCnts(int level, Aword cnts)
     indent(level);
     printf("CNT:\n");
     indent(level+1);
-    printf("LIMS: %ld(0x%lx)\n", cnt->lims, cnt->lims);
+    printf("LIMS: %d(0x%x)\n", cnt->lims, cnt->lims);
     indent(level+1);
-    printf("HEADER: %ld(0x%lx)\n", cnt->header, cnt->header);
+    printf("HEADER: %d(0x%x)\n", cnt->header, cnt->header);
     indent(level+1);
-    printf("EMPTY: %ld(0x%lx)\n", cnt->empty, cnt->empty);
+    printf("EMPTY: %d(0x%x)\n", cnt->empty, cnt->empty);
     indent(level+1);
-    printf("PARENT: %ld\n", cnt->parent);
+    printf("PARENT: %d\n", cnt->parent);
     indent(level+1);
-    printf("NAM: %ld(0x%lx)\n", cnt->nam, cnt->nam);
+    printf("NAM: %d(0x%x)\n", cnt->nam, cnt->nam);
 
   }
 }
@@ -323,23 +333,23 @@ static void dumpObjs(int level, Aword objs)
     indent(level);
     printf("OBJ: #%d\n", objno);
     indent(level+1);
-    printf("LOC: %ld\n", obj->loc);
+    printf("LOC: %d\n", obj->loc);
     indent(level+1);
     printf("DESCRIBE: %s\n", obj->describe?"Yes":"No");
     indent(level+1);
-    printf("ATRS: %ld(0x%lx)\n", obj->atrs, obj->atrs);
+    printf("ATRS: %d(0x%x)\n", obj->atrs, obj->atrs);
     dumpAtrs(level+2, obj->atrs);
     indent(level+1);
-    printf("CONT: %ld(0x%lx)\n", obj->cont, obj->cont);
+    printf("CONT: %d(0x%x)\n", obj->cont, obj->cont);
     indent(level+1);
-    printf("VRBS: %ld(0x%lx)\n", obj->vrbs, obj->vrbs);
+    printf("VRBS: %d(0x%x)\n", obj->vrbs, obj->vrbs);
     dumpVrbs(level+2, obj->vrbs);
     indent(level+1);
-    printf("DSCR1: %ld(0x%lx)\n", obj->dscr1, obj->dscr1);
+    printf("DSCR1: %d(0x%x)\n", obj->dscr1, obj->dscr1);
     indent(level+1);
     printf("ART: %s\n", obj->art?"Yes":"No");
     indent(level+1);
-    printf("DSCR2: %ld(0x%lx)\n", obj->dscr2, obj->dscr2);
+    printf("DSCR2: %d(0x%x)\n", obj->dscr2, obj->dscr2);
   }
 }
 
@@ -363,29 +373,29 @@ static void dumpActs(int level, Aword acts)
     indent(level);
     printf("ACT: #%d\n", actno);
     indent(level+1);
-    printf("LOC: %ld\n", act->loc);
+    printf("LOC: %d\n", act->loc);
     indent(level+1);
     printf("DESCRIBE: %s\n", act->describe?"Yes":"No");
     indent(level+1);
-    printf("NAM: %ld(0x%lx)\n", act->nam, act->nam);
+    printf("NAM: %d(0x%x)\n", act->nam, act->nam);
     indent(level+1);
-    printf("ATRS: %ld(0x%lx)\n", act->atrs, act->atrs);
+    printf("ATRS: %d(0x%x)\n", act->atrs, act->atrs);
     dumpAtrs(level+2, act->atrs);
     indent(level+1);
-    printf("CONT: %ld(0x%lx)\n", act->cont, act->cont);
+    printf("CONT: %d(0x%x)\n", act->cont, act->cont);
     indent(level+1);
-    printf("SCRIPT: %ld(0x%lx)\n", act->script, act->script);
+    printf("SCRIPT: %d(0x%x)\n", act->script, act->script);
     indent(level+1);
-    printf("SCRADR: %ld(0x%lx)\n", act->scradr, act->scradr);
+    printf("SCRADR: %d(0x%x)\n", act->scradr, act->scradr);
     indent(level+1);
-    printf("STEP: %ld\n", act->step);
+    printf("STEP: %d\n", act->step);
     indent(level+1);
-    printf("COUNT: %ld\n", act->count);
+    printf("COUNT: %d\n", act->count);
     indent(level+1);
-    printf("VRBS: %ld(0x%lx)\n", act->vrbs, act->vrbs);
+    printf("VRBS: %d(0x%x)\n", act->vrbs, act->vrbs);
     dumpVrbs(level+2, act->vrbs);
     indent(level+1);
-    printf("DSCR: %ld(0x%lx)\n", act->dscr, act->dscr);
+    printf("DSCR: %d(0x%x)\n", act->dscr, act->dscr);
   }
 }
 
@@ -408,14 +418,14 @@ static void dumpExts(int level, Aword exts)
     indent(level);
     printf("EXT:\n");
     indent(level+1);
-    printf("CODE: %ld\n", ext->code);
+    printf("CODE: %d\n", ext->code);
     indent(level+1);
-    printf("CHECKS: %ld(0x%lx)\n", ext->checks, ext->checks);
+    printf("CHECKS: %d(0x%x)\n", ext->checks, ext->checks);
     dumpChks(level+2, ext->checks);
     indent(level+1);
-    printf("ACTION: %ld(0x%lx)\n", ext->action, ext->action);
+    printf("ACTION: %d(0x%x)\n", ext->action, ext->action);
     indent(level+1);
-    printf("NEXT: %ld(0x%lx)\n", ext->next, ext->next);
+    printf("NEXT: %d(0x%x)\n", ext->next, ext->next);
   }
 }
 
@@ -439,21 +449,21 @@ static void dumpLocs(int level, Aword locs)
     indent(level);
     printf("LOC: #%d\n", locno);
     indent(level+1);
-    printf("NAMS: %ld(0x%lx)\n", loc->nams, loc->nams);
+    printf("NAMS: %d(0x%x)\n", loc->nams, loc->nams);
     indent(level+1);
-    printf("DSCR: %ld(0x%lx)\n", loc->dscr, loc->dscr);
+    printf("DSCR: %d(0x%x)\n", loc->dscr, loc->dscr);
     indent(level+1);
-    printf("DOES: %ld(0x%lx)\n", loc->does, loc->does);
+    printf("DOES: %d(0x%x)\n", loc->does, loc->does);
     indent(level+1);
-    printf("DESCRIBE: %ld\n", loc->describe);
+    printf("DESCRIBE: %d\n", loc->describe);
     indent(level+1);
-    printf("ATRS: %ld(0x%lx)\n", loc->atrs, loc->atrs);
+    printf("ATRS: %d(0x%x)\n", loc->atrs, loc->atrs);
     dumpAtrs(level+2, loc->atrs);
     indent(level+1);
-    printf("EXTS: %ld(0x%lx)\n", loc->exts, loc->exts);
+    printf("EXTS: %d(0x%x)\n", loc->exts, loc->exts);
     dumpExts(level+2, loc->exts);
     indent(level+1);
-    printf("VRBS: %ld(0x%lx)\n", loc->vrbs, loc->vrbs);
+    printf("VRBS: %d(0x%x)\n", loc->vrbs, loc->vrbs);
     dumpVrbs(level+2, loc->vrbs);
   }
 }
@@ -475,11 +485,14 @@ static void dumpElms(int level, Aword elms)
 
   for (elm = (ElmElem *)addrTo(elms); !endOfTable(elm); elm++) {
     indent(level);
-    printf("ELM: #%ld\n", elm->code);
+    printf("ELM: #%d\n", elm->code);
     indent(level+1);
-    printf("FLAGS: %ld(0x%lx)\n", elm->flags, elm->flags);
+    if (isPreV27())		/* Was a plain Boolean before 2.7 */
+      printf("MULTIPLE: %s\n", elm->flags?"Yes":"No");
+    else
+      printf("FLAGS: %d(0x%x)\n", elm->flags, elm->flags);
     indent(level+1);
-    printf("NEXT (%s): %ld(0x%lx)\n", elm->code==-2?"cla":"elm", elm->next, elm->next);
+    printf("NEXT (%s): %d(0x%x)\n", elm->code==-2?"cla":"elm", elm->next, elm->next);
     if(elm->code != EOS) {
       dumpElms(level+2, elm->next);
     }
@@ -503,10 +516,57 @@ static void dumpStxs(int level, Aword stxs)
 
   for (stx = (StxElem *)addrTo(stxs); !endOfTable(stx); stx++) {
     indent(level);
-    printf("STX: #%ld\n", stx->code);
+    printf("STX: #%d\n", stx->code);
     indent(level+1);
-    printf("ELMS: %ld(0x%lx)\n", stx->elms, stx->elms);
+    printf("ELMS: %d(0x%x)\n", stx->elms, stx->elms);
     dumpElms(level+2, stx->elms);
+  }
+}
+
+
+
+/*----------------------------------------------------------------------
+
+  dumpMsgs()
+
+  Dump the message table
+
+ */
+static void dumpMsgs(int level, Aword msgs)
+{
+  int msgno;
+
+  if (msgs == 0) return;
+
+  if (isPreV27()) {
+    MsgElem26 *msg;
+
+    for (msg = (MsgElem26 *)addrTo(msgs), msgno = 0; !endOfTable(msg);
+	 msg++, msgno++) {
+      indent(level);
+      printf("MSG: #%d%s\n", msgno,
+	     msgno == M_ARTICLE26? " (ARTICLE)": "");
+      indent(level+1);
+      printf("FPOS: %d(0x%x)\n", msg->fpos, msg->fpos);
+      indent(level+1);
+      printf("LEN: %d\n", msg->len);
+    }
+    if (msgno != M_MSGMAX26)
+      printf("WARNING! Expected %d messages in a %d.%d file, found %d.\n",
+	     M_MSGMAX26, header->vers[0], header->vers[1], msgno);
+  } else {
+    MsgElem *msg;
+
+    for (msg = (MsgElem *)addrTo(msgs), msgno = 0; !endOfTable(msg);
+	 msg++, msgno++) {
+      indent(level);
+      printf("MSG: #%d\n", msgno);
+      indent(level+1);
+      printf("STMS: %d(0x%x)\n", msg->stms, msg->stms);
+    }
+    if (msgno != MSGMAX)
+      printf("WARNING! Expected %d messages in a %d.%d file, found %d.\n",
+	     MSGMAX, header->vers[0], header->vers[1], msgno);
   }
 }
 
@@ -524,7 +584,7 @@ static void dumpStms(Aword pc)
   Aword i;
 
   while(TRUE) {
-    printf("\n%4lx: ", pc);
+    printf("\n%4x: ", pc);
     if (pc > memTop)
       syserr("Dumping outside program memory.");
 
@@ -532,7 +592,7 @@ static void dumpStms(Aword pc)
     
     switch (I_CLASS(i)) {
     case C_CONST:
-      printf("PUSH  \t%5ld", I_OP(i));
+      printf("PUSH  \t%5d", I_OP(i));
       break;
     case C_CURVAR:
       switch (I_OP(i)) {
@@ -830,64 +890,55 @@ static void dumpStms(Aword pc)
  */
 static void dumpACD(void)
 {
-  Aword crc = 0;
-  int i;
-
   printf("VERSION: %d.%d(%d)%c\n", header->vers[0],
 	 header->vers[1], header->vers[2], header->vers[3]?header->vers[3]:' ');
-  printf("SIZE: %ld(0x%lx)\n", header->size, header->size);
+  printf("SIZE: %d(0x%x)\n", header->size, header->size);
   printf("PACK: %s\n", header->pack?"Yes":"No");
-  printf("PAGLEN: %ld\n", header->paglen);
-  printf("PAGWIDTH: %ld\n", header->pagwidth);
+  printf("PAGLEN: %d\n", header->paglen);
+  printf("PAGWIDTH: %d\n", header->pagwidth);
   printf("DEBUG: %s\n", header->debug?"Yes":"No");
-  printf("DICT: %ld(0x%lx)\n", header->dict, header->dict);
+  printf("DICT: %d(0x%x)\n", header->dict, header->dict);
   if (dumpdict) dumpDict(1, header->dict);
-  printf("OATRS: %ld(0x%lx)\n", header->oatrs, header->oatrs);
+  printf("OATRS: %d(0x%x)\n", header->oatrs, header->oatrs);
   if (dumpatrs) dumpAtrs(1, header->oatrs);
-  printf("LATRS: %ld(0x%lx)\n", header->latrs, header->latrs);
+  printf("LATRS: %d(0x%x)\n", header->latrs, header->latrs);
   if (dumpatrs) dumpAtrs(1, header->latrs);
-  printf("AATRS: %ld(0x%lx)\n", header->aatrs, header->aatrs);
+  printf("AATRS: %d(0x%x)\n", header->aatrs, header->aatrs);
   if (dumpatrs) dumpAtrs(1, header->aatrs);
-  printf("ACTS: %ld(0x%lx)\n", header->acts, header->acts);
+  printf("ACTS: %d(0x%x)\n", header->acts, header->acts);
   if (dumpacts) dumpActs(1, header->acts);
-  printf("OBJS: %ld(0x%lx)\n", header->objs, header->objs);
+  printf("OBJS: %d(0x%x)\n", header->objs, header->objs);
   if (dumpobjs) dumpObjs(1, header->objs);
-  printf("LOCS: %ld(0x%lx)\n", header->locs, header->locs);
+  printf("LOCS: %d(0x%x)\n", header->locs, header->locs);
   if (dumplocs) dumpLocs(1, header->locs);
-  printf("STXS: %ld(0x%lx)\n", header->stxs, header->stxs);
+  printf("STXS: %d(0x%x)\n", header->stxs, header->stxs);
   if (dumpstxs) dumpStxs(1, header->stxs);
-  printf("VRBS: %ld(0x%lx)\n", header->vrbs, header->vrbs);
+  printf("VRBS: %d(0x%x)\n", header->vrbs, header->vrbs);
   if (dumpvrbs) dumpVrbs(1, header->vrbs);
-  printf("EVTS: %ld(0x%lx)\n", header->evts, header->evts);
-  printf("CNTS: %ld(0x%lx)\n", header->cnts, header->cnts);
+  printf("EVTS: %d(0x%x)\n", header->evts, header->evts);
+  printf("CNTS: %d(0x%x)\n", header->cnts, header->cnts);
   if (dumpcnts) dumpCnts(1, header->cnts);
-  printf("RULS: %ld(0x%lx)\n", header->ruls, header->ruls);
-  printf("INIT: %ld(0x%lx)\n", header->init, header->init);
-  printf("START: %ld(0x%lx)\n", header->start, header->start);
-  printf("MSGS: %ld(0x%lx)\n", header->msgs, header->msgs);
-  printf("OBJ-MIN: %3ld MAX: %3ld\n", header->objmin, header->objmax);
-  printf("ACT-MIN: %3ld MAX: %3ld\n", header->actmin, header->actmax);
-  printf("CNT-MIN: %3ld MAX: %3ld\n", header->cntmin, header->cntmax);
-  printf("LOC-MIN: %3ld MAX: %3ld\n", header->locmin, header->locmax);
-  printf("DIR-MIN: %3ld MAX: %3ld\n", header->dirmin, header->dirmax);
-  printf("EVT-MIN: %3ld MAX: %3ld\n", header->evtmin, header->evtmax);
-  printf("RUL-MIN: %3ld MAX: %3ld\n", header->rulmin, header->rulmax);
-  printf("MAXSCORE: %ld\n", header->maxscore);
-  printf("SCORES: %ld(0x%lx)\n", header->scores, header->scores);
-  printf("FREQ: %ld(0x%lx)\n", header->freq, header->freq);
-  printf("ACDCRC: 0x%lx ", header->acdcrc);
-  /* Calculate checksum */
-  for (i = sizeof(*header)/sizeof(Aword); i < memTop; i++) {
-    crc += memory[i]&0xff;
-    crc += (memory[i]>>8)&0xff;
-    crc += (memory[i]>>16)&0xff;
-    crc += (memory[i]>>24)&0xff;
-  }
-  if (crc != header->acdcrc)
-    printf("WARNING! Expected 0x%lx\n", crc);
+  printf("RULS: %d(0x%x)\n", header->ruls, header->ruls);
+  printf("INIT: %d(0x%x)\n", header->init, header->init);
+  printf("START: %d(0x%x)\n", header->start, header->start);
+  printf("MSGS: %d(0x%x)\n", header->msgs, header->msgs);
+  if (dumpmsgs) dumpMsgs(1, header->msgs);
+  printf("OBJ-MIN: %3d MAX: %3d\n", header->objmin, header->objmax);
+  printf("ACT-MIN: %3d MAX: %3d\n", header->actmin, header->actmax);
+  printf("CNT-MIN: %3d MAX: %3d\n", header->cntmin, header->cntmax);
+  printf("LOC-MIN: %3d MAX: %3d\n", header->locmin, header->locmax);
+  printf("DIR-MIN: %3d MAX: %3d\n", header->dirmin, header->dirmax);
+  printf("EVT-MIN: %3d MAX: %3d\n", header->evtmin, header->evtmax);
+  printf("RUL-MIN: %3d MAX: %3d\n", header->rulmin, header->rulmax);
+  printf("MAXSCORE: %d\n", header->maxscore);
+  printf("SCORES: %d(0x%x)\n", header->scores, header->scores);
+  printf("FREQ: %d(0x%x)\n", header->freq, header->freq);
+  printf("ACDCRC: 0x%x ", header->acdcrc);
+  if (acdcrc != header->acdcrc)
+    printf("WARNING! Expected 0x%x\n", acdcrc);
   else
     printf("Ok.\n");
-  printf("TXTCRC: 0x%lx\n", header->txtcrc);
+  printf("TXTCRC: 0x%x\n", header->txtcrc);
   if (dumpstms != 0)
     dumpStms(dumpstms);
 }
@@ -903,6 +954,7 @@ static void load(char acdfnm[])
 {
   AcdHdr tmphdr;
   FILE *codfil;
+  int i;
 
   if ((codfil = fopen(acdfnm, "rb")) == NULL) {
     printf("Could not open ACD-file '%s'\n", acdfnm);
@@ -925,65 +977,106 @@ static void load(char acdfnm[])
   if (memTop != tmphdr.size)
     printf("WARNING! Could not read all ACD code.");
 
+  /* Calculate the checksum while the code is still exactly as on file;
+     reversing it leaves "done" markers behind in some of the tables. */
+  for (i = sizeof(*header)/sizeof(Aword); i < memTop; i++) {
+    acdcrc += memory[i]&0xff;
+    acdcrc += (memory[i]>>8)&0xff;
+    acdcrc += (memory[i]>>16)&0xff;
+    acdcrc += (memory[i]>>24)&0xff;
+  }
+
 #ifdef REVERSED
   printf("Hmm, this is a little-endian machine, please wait a moment while I fix byte ordering....\n");
-  reverseACD(0);		/* Reverse all words in the ACD file */
+  /* Reverse all words in the ACD file */
+  reverseACD(header->vers[0] == 2 && header->vers[1] == 5);
   printf("OK.\n");
 #endif
 }
 
-/* SPA Option handling */
+/*----------------------------------------------------------------------
 
-#include "spa.h"
+  Option handling
+
+  The original tool used Thomas Nilsson's SPA package, which is not part of
+  this source tree, so the few options it needs are parsed by hand.
+
+ */
+static struct {
+  char *name;
+  int *flag;
+  char *doc;
+} flags[] = {
+  {"dict", &dumpdict, "dump details on dictionary entries"},
+  {"atrs", &dumpatrs, "dump details on default attribute entries"},
+  {"acts", &dumpacts, "dump details on actor entries"},
+  {"objs", &dumpobjs, "dump details on object entries"},
+  {"locs", &dumplocs, "dump details on location entries"},
+  {"stxs", &dumpstxs, "dump details on syntax entries"},
+  {"vrbs", &dumpvrbs, "dump details on verb entries"},
+  {"evts", &dumpevts, "dump details on event entries"},
+  {"cnts", &dumpcnts, "dump details on container entries"},
+  {"msgs", &dumpmsgs, "dump details on message entries"},
+  {NULL, NULL, NULL}
+};
 
 
-static SPA_FUN(usage)
+static void usage(void)
 {
-  printf("Usage: DUMPACD <acdfile> [-help] [options]\n");
+  int i;
+
+  printf("Usage: dumpacd <acdfile> [-help] [options]\n");
+  printf("    -%-17s%s\n", "help", "this help");
+  for (i = 0; flags[i].name != NULL; i++)
+    printf("    -%-17s%s\n", flags[i].name, flags[i].doc);
+  printf("    -%-17s%s\n", "stms <address>",
+	 "dump statement opcodes starting at <address>");
 }
 
 
-static SPA_ERRFUN(paramError)
+static void badArg(char *arg)
 {
-  char *sevstr;
+  printf("Unknown or malformed argument: '%s'\n", arg);
+  usage();
+  exit(EXIT_FAILURE);
+}
 
-  switch (sev) {
-  case 'E': sevstr = "error"; break;
-  case 'W': sevstr = "warning"; break;
-  default: sevstr = "internal error"; break;
+
+static void arguments(int argc, char **argv)
+{
+  int i, j;
+
+  for (i = 1; i < argc; i++) {
+    if (argv[i][0] != '-') {
+      if (acdfnm != NULL)
+	badArg(argv[i]);
+      acdfnm = argv[i];
+      continue;
+    }
+    if (strcmp(&argv[i][1], "help") == 0) {
+      usage();
+      exit(EXIT_SUCCESS);
+    }
+    if (strcmp(&argv[i][1], "stms") == 0) {
+      if (++i == argc)
+	badArg(argv[i-1]);
+      dumpstms = strtol(argv[i], NULL, 0);
+      continue;
+    }
+    for (j = 0; flags[j].name != NULL; j++)
+      if (strcmp(&argv[i][1], flags[j].name) == 0) {
+	*flags[j].flag = TRUE;
+	break;
+      }
+    if (flags[j].name == NULL)
+      badArg(argv[i]);
   }
-  printf("Parameter %s: %s, %s\n", sevstr, msg, add);
-  usage(NULL, NULL, 0);
-  exit(EXIT_FAILURE);
+
+  if (acdfnm == NULL) {
+    usage();
+    exit(EXIT_FAILURE);
+  }
 }
-
-static SPA_FUN(extraArg)
-{
-  printf("Extra argument: '%s'\n", rawName);
-  usage(NULL, NULL, 0);
-  exit(EXIT_FAILURE);
-}
-
-static SPA_FUN(xit) {exit(EXIT_SUCCESS);}
-
-static SPA_DECLARE(arguments)
-     SPA_STRING("acdfile", "file name of the ACD-file to dump", acdfnm, NULL, NULL)
-     SPA_FUNCTION("", "extra argument", extraArg)
-SPA_END
-
-static SPA_DECLARE(options)
-     SPA_HELP("help", "this help", usage, xit)
-     SPA_FLAG("dict", "dump details on dictionary entries", dumpdict, FALSE, NULL)
-     SPA_FLAG("atrs", "dump details on default attribute entries", dumpatrs, FALSE, NULL)
-     SPA_FLAG("acts", "dump details on actor entries", dumpacts, FALSE, NULL)
-     SPA_FLAG("objs", "dump details on object entries", dumpobjs, FALSE, NULL)
-     SPA_FLAG("locs", "dump details on location entries", dumplocs, FALSE, NULL)
-     SPA_FLAG("stxs", "dump details on syntax entries", dumpstxs, FALSE, NULL)
-     SPA_FLAG("vrbs", "dump details on verb entries", dumpvrbs, FALSE, NULL)
-     SPA_FLAG("evts", "dump details on event entries", dumpevts, FALSE, NULL)
-     SPA_FLAG("cnts", "dump details on container entries", dumpcnts, FALSE, NULL)
-     SPA_INTEGER("stms <address>", "dump statement opcodes starting at <address>", dumpstms, 0, NULL)
-SPA_END
 
 
 
@@ -997,15 +1090,7 @@ SPA_END
   */
 int main(int argc, char **argv)
 {
-  int nArgs;
-
-  nArgs = spaProcess(argc, argv, arguments, options, paramError);
-  if (nArgs == 0) {
-    usage(NULL, NULL, 0);
-    exit(EXIT_FAILURE);
-  } else if (nArgs > 1)
-    exit(EXIT_FAILURE);
-
+  arguments(argc, argv);
   load(acdfnm);
   dumpACD();
   exit(0);

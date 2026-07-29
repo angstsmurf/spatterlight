@@ -4,7 +4,7 @@ chartest.o: chartest.c
 debug.o: debug.c types.h sysdep.h acode.h version.h readline.h inter.h \
  main.h parse.h exe.h debug.h
 decode.o: decode.c main.h types.h sysdep.h acode.h decode.h
-dumpacd.o: dumpacd.c types.h sysdep.h acode.h spa.h
+dumpacd.o: dumpacd.c types.h sysdep.h acode.h reverse.h
 exe.o: exe.c types.h sysdep.h acode.h readline.h main.h parse.h \
  inter.h stack.h decode.h exe.h
 genalan.o: genalan.c spa.h
