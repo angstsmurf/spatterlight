@@ -6,6 +6,7 @@
 
 \*----------------------------------------------------------------------*/
 
+#define V25COMPATIBLE
 #define V26COMPATIBLE
 #define V27COMPATIBLE
 
@@ -718,8 +719,13 @@ void prmsg(msg)
       output("Do you want to RESTART, RESTORE or QUIT? ");
       return;
     }
-    if (msg == M_ARTICLE)	/* Moved when M_QUITACTION was inserted */
+    if (msg == M_ARTICLE) {	/* Moved when M_QUITACTION was inserted */
+#ifdef V25COMPATIBLE
+      if (header->vers[1] < 6)	/* Did not exist at all before 2.6 */
+	return;
+#endif
       msg = M_ARTICLE26;
+    }
     print(msgs26[msg].fpos, msgs26[msg].len);
     return;
   }
@@ -1444,6 +1450,47 @@ static char txtfnm[256] = "";
 static char logfnm[256] = "";
 
 
+#ifdef V25COMPATIBLE
+/*----------------------------------------------------------------------
+
+  c25to26ACD()
+
+  Convert a loaded 2.5 object table to the 2.6 format, which added the
+  'art' field for the ARTICLE clause. Rather than expanding the table in
+  place, which would move every following table and require relocating all
+  addresses in the image, build the wider table in the spare memory above
+  the loaded code and point the header at it.
+
+ */
+#ifdef _PROTOTYPES_
+static void c25to26ACD(void)
+#else
+static void c25to26ACD()
+#endif
+{
+  int i;
+  int noOfObjs = header->objmax - header->objmin + 1;
+  ObjElem25 *old = (ObjElem25 *) addrTo(header->objs);
+  ObjElem *new = (ObjElem *) addrTo(memTop);
+
+  for (i = 0; i < noOfObjs; i++) {
+    new[i].loc = old[i].loc;
+    new[i].describe = old[i].describe;
+    new[i].atrs = old[i].atrs;
+    new[i].cont = old[i].cont;
+    new[i].vrbs = old[i].vrbs;
+    new[i].dscr1 = old[i].dscr1;
+    new[i].art = 0;		/* No ARTICLE clause before 2.6 */
+    new[i].dscr2 = old[i].dscr2;
+  }
+
+  header->objs = memTop;
+  memTop += noOfObjs*sizeof(ObjElem)/sizeof(Aword);
+  memory[memTop++] = (Aword) EOF;	/* End of table marker */
+}
+#endif
+
+
 /*----------------------------------------------------------------------
 
   checkvers()
@@ -1547,8 +1594,10 @@ static void load()
   if (memory == NULL) {
 #ifdef V25COMPATIBLE
     if (tmphdr.vers[0] == 2 && tmphdr.vers[1] == 5)
-      /* We need some more memory to expand 2.5 format*/
-      memory = allocate((tmphdr.size+tmphdr.objmax-tmphdr.objmin+1+2)*sizeof(Aword));
+      /* We need room for a rebuilt, wider object table above the code */
+      memory = allocate((tmphdr.size
+			 + (tmphdr.objmax-tmphdr.objmin+1)*sizeof(ObjElem)/sizeof(Aword)
+			 + 1)*sizeof(Aword));
     else
 #endif
       memory = allocate(tmphdr.size*sizeof(Aword));

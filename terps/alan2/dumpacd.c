@@ -54,6 +54,14 @@ static int isPreV27(void)
 }
 
 
+/* Before 2.6 an object element had no 'art' field, so the table is one word
+   narrower per entry. */
+static int isPreV26(void)
+{
+  return header->vers[0] == 2 && header->vers[1] < 6;
+}
+
+
 static void indent(int level)
 {
   int i;
@@ -324,12 +332,19 @@ static void dumpCnts(int level, Aword cnts)
  */
 static void dumpObjs(int level, Aword objs)
 {
-  ObjElem *obj;
+  Aword *entry;
   int objno = header->objmin;
+  int pre26 = isPreV26();
+  int size = (pre26? sizeof(ObjElem25) : sizeof(ObjElem))/sizeof(Aword);
 
   if (objs == 0) return;
 
-  for (obj = (ObjElem *)addrTo(objs); !endOfTable(obj); obj++, objno++) {
+  for (entry = addrTo(objs); !endOfTable(entry); entry += size, objno++) {
+    /* The 2.5 layout is the 2.6 one without 'art', so everything up to and
+       including 'dscr1' can be read through the narrower struct. */
+    ObjElem25 *obj = (ObjElem25 *)entry;
+    Aaddr dscr2 = pre26? obj->dscr2 : ((ObjElem *)entry)->dscr2;
+
     indent(level);
     printf("OBJ: #%d\n", objno);
     indent(level+1);
@@ -346,10 +361,12 @@ static void dumpObjs(int level, Aword objs)
     dumpVrbs(level+2, obj->vrbs);
     indent(level+1);
     printf("DSCR1: %d(0x%x)\n", obj->dscr1, obj->dscr1);
+    if (!pre26) {
+      indent(level+1);
+      printf("ART: %s\n", ((ObjElem *)entry)->art?"Yes":"No");
+    }
     indent(level+1);
-    printf("ART: %s\n", obj->art?"Yes":"No");
-    indent(level+1);
-    printf("DSCR2: %d(0x%x)\n", obj->dscr2, obj->dscr2);
+    printf("DSCR2: %d(0x%x)\n", dscr2, dscr2);
   }
 }
 
