@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 1.5.2
 
 ### Announcement
 I'm stepping down as maintainer of the Spatterlight project. Thank you for your help and support all these years!
@@ -38,25 +38,25 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork of the old Adrift
 - Saves files in the Adrift 5 runner and FrankenDrift .tas format, which can be moved between the three in either direction.
 - Supported: Danish, real-time events. Not supported: font tags, text colors.
 - Multi-floor maps may look confusing and broken.
-- Many of the Glk meta-commands (transcript, input log, summary and so on) from Adrift 4 / SCARE are available in Adrift 5 games as well.
+- Many of the *glk* meta-commands (*transcript*, *inputlog*, *summary* and so on) from Adrift 4 / SCARE are available in Adrift 5 games as well.
 - Status side panel in *Alien Diver*.
 
 ### Geas (Quest)
-- The Geas interpreter now actually plays most Quest games (up to and including version 5) to completion.
+The new Geas interpreter actually plays most Quest games (up to and including version 5) to completion.
 - Displays pictures, plays MIDI and MOD music.
 - Animated grid map display.
 - Autosaves and autorestores.
 - A new side panel shows inventory, objects and exits as hyperlinks. Status variables are shown in the status bar.
 - A VERBS command that lists available verbs for an object, similar to the contextual verb menus of the original Quest 4 runner.
 - UNDO.
-- OOPS (Quest 4 only).
+- OOPS (Quest 4 only.)
 - Real-time events.
 - No support for text colors, custom fonts, or CSS effects.
 - Some Quest 5 games use a lot of JavaScript, which Geas struggles with.
-- In games written before Quest 3.91 (about half of the known pre-Quest 5 games) Geas tries a little harder than the original runner to understand which noun the player is referring to. No unwanted side effects so far.
+- In games written before Quest 3.91 (about half of the known pre-Quest 5 games) Geas tries a little harder than the original runner to understand which noun the player is referring to. No unwanted side effects found so far.
 
 ### Comprehend
-A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarware adventures *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror*, and *Talisman: Challenging the Sands of Time*. All games are fully playable from start to finish.
+A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarware adventures *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror*, and *Talisman: Challenging the Sands of Time*. All games are playable from start to finish.
 - The Apple II disk versions (.dsk and .woz) are supported, as well as the MS-DOS versions.
 - Optional slow vector drawing.
 - A new UI setting for alternative graphics format (HGR or CGA in supported games.)
@@ -77,14 +77,13 @@ A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarwa
 - Graphics in Level 9 games are now resized automatically.
 
 ### Archetype
-A port of the Archetype interpreter from ScummVM, with added undo, restart and transcript. This interpreter supports two real games, *The Gorreven Papers* (1995) and *The Starship Solitaire Adventure* (1995), both written by the developer Derek T. Jones as demonstration games for the Archetype authoring system.
+A port of the Archetype interpreter from ScummVM, with added undo, restart and transcript. This interpreter supports two games, *The Gorreven Papers* (1995) and *The Starship Solitaire Adventure* (1995), both written by the developer Derek T. Jones as demonstration games for his Archetype authoring system.
 
-### Scott Adams and related
+### ScottFree
 - ZX Spectrum loading screens are shown as title images in Scott (also in Taylormade and UnQuill.)
 - Adds support for the elusive Alkatraz-protected *Scott Adams Scoops* TZX tape image (and many other new game veriants.)
 - The Apple II, Atari 8-bit and ZX Spectrum vector renderers have had a couple of bug fixes, mostly to do with the draw order of object images.
 - The Atari 8-bit slow-draw pauses now matches the real machine.
-- TaylorMade: ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo in *Rebel Planet*.
 
 ### UnQuill
 Despite many improvements, the UnQuill interpreter is still kind of useless. A ZX Spectrum emulator is the better option. The possible exception is for VoiceOver users, though most Quill games are not yet completable, let alone enjoyable, using VoiceOver.
@@ -94,13 +93,14 @@ Despite many improvements, the UnQuill interpreter is still kind of useless. A Z
 - Hardware-accurate, non-blocking BEEP sounds.
 
 ### Other interpreters
+- TaylorMade: ZX Spectrum BEEP sound is now reproduced at hardware-accurate pitch and tempo in *Rebel Planet*.
 - The JACL interpreter has been updated to 4.7.0, and its broken support for older games has been fixed.
 - A batch of TADS 3 bug fixes were backported from FrobTADS.
 - Magnetic got the same image resizing functionality as Level9.
 
 ### General
 - Adds a preference to organise your games in a central directory, like Zoom, or Itunes, or Apple Music. Note that it might fail to copy important sibling files such as irregularly named disk images or sound resources. Also note that the files are not moved, only copied.
-- Adds a preference to cap the scrollback buffer length.
+- Adds a preference to cap the scrollback buffer length. Crucial for performance during the endgame of *Zork Zero*.
 - Scrolling up to read during real-time or command-script output now pauses auto-scroll, and scrolling back to the bottom resumes it without getting stuck. This does not work very reliably, but a little better than it used to.
 - Fixes horizontal and vertical drift of margin images.
 - Several VoiceOver improvements: the custom rotors are reachable from the command prompt, side-by-side quote boxes are read as two separate blocks, announcements are no longer dropped or cut off around graphics, and the "speak status bar" command now reads every non-main text window rather than only the status line.
@@ -110,8 +110,9 @@ Despite many improvements, the UnQuill interpreter is still kind of useless. A Z
 - The library search bar is cleared automatically when a newly added game would otherwise be hidden.
 - Fixes occasional misdrawn rows in the library game table.
 - Numerous robustness and crash fixes across the bundled interpreters, and many pointless changes to placate Xcode's static analyzer.
-- Attempts to fix the one-pixel preview-colour line in the Preferences panel after restart.
+- Unsuccessfully attempts to fix the one-pixel preview-colour line in the Preferences panel after restart.
 - Corrupt or truncated Blorb files no longer read past the end of the file, and Blorbs with a bad length field (such as most Adrift 5 games) can now be read.
+- Theme-related crash at startup fixed. 
 
 ## Release 1.4.9
 - A hotfix for a crash that could happen when opening older library databases.
