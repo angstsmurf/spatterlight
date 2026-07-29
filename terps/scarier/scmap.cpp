@@ -35,6 +35,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <string>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scmap.h"
@@ -786,18 +788,42 @@ sm_view_seen (void *ctx, const char *lockey)
   return gs_room_seen (game, room) ? 1 : 0;
 }
 
+/* The name in the room box, filtered and untagged exactly the way the status
+   line's copy of the same name is (scrunner.c run_update_status).  A room's
+   Short is raw author text, and authors do put tags in it: warlord.taf names
+   its rooms "<d1>Ravine<d2>" and A Spot of Bother "<d1>Hallway<d2>", markers
+   the runner's rich-text control simply drops on display.  Handing the raw
+   string to the renderer would paint those tags into the boxes, and would also
+   leave the map disagreeing with the status line about what the room is
+   called.
+
+   pf_filter() hands back an allocation, so the answer is parked in a rotating
+   set of strings, for the same reason sm_view_exit_dest() rotates its key
+   buffers: callers do only ever use a label before asking for the next one,
+   but a single slot would quietly make that a requirement. */
 static const char *
 sm_view_name (void *ctx, const char *lockey)
 {
+  static std::string names[8];
+  static int next = 0;
   scr_gameref_t game = (scr_gameref_t) ctx;
   scr_int room;
+  scr_char *filtered;
 
   if (game == NULL || lockey == NULL)
     return NULL;
   room = atol (lockey);
   if (room < 0 || room >= gs_room_count (game))
     return NULL;
-  return lib_get_room_name (game, room);
+
+  filtered = pf_filter (lib_get_room_name (game, room),
+                        gs_get_vars (game), gs_get_bundle (game));
+  pf_strip_tags (filtered);
+
+  std::string &slot = names[next++ & 7];
+  slot.assign (filtered);
+  scr_free (filtered);
+  return slot.c_str ();
 }
 
 /* Where the exit in `dir` currently leads, restrictions applied.  Everything
