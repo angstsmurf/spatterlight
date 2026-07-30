@@ -268,6 +268,7 @@
     }
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:self.theme];
     [self notePreferencesChanged:notification];
+    self.restoredStylesStale = NO;
     self.shouldStoreScrollOffset = YES;
 
     // Now we can actually show the window

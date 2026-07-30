@@ -88,6 +88,11 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property (weak) Theme *stashedTheme;
 @property NSString *oldThemeName;
 
+// Set during autorestore when the autosaved theme name cannot be resolved to
+// an existing theme, meaning the archived window styles may not match the
+// current theme and must be rebuilt. See runTerpWithAutorestore.
+@property BOOL restoredStylesStale;
+
 @property NSData *gameData;
 @property NSURL *gameFileURL;
 @property NSAlert *slowReadAlert;

@@ -709,12 +709,23 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // created, so the restored UI renders correctly. The original theme is
     // stashed and will be restored after the autorestore process completes.
     _stashedTheme = theme;
+    _restoredStylesStale = NO;
     Theme *restoredTheme = [self findThemeByName:restoredControllerLate.oldThemeName];
     if (restoredTheme && restoredTheme != theme) {
         NSLog(@"GlkController runtTerpWithAutorestore: Temporarily set theme to %@", restoredTheme.name);
         _theme = restoredTheme;
         NSLog(@"GlkController runtTerpWithAutorestore: BufNormal font name to %@", restoredTheme.bufferNormal.font.displayName);
-    } else _stashedTheme = nil;
+    } else {
+        _stashedTheme = nil;
+        // If the autosaved theme name could not be resolved to an existing
+        // theme, there was no temporary theme to render with, so the archived
+        // window styles may belong to a different theme than the current one.
+        // Flag this so the style rebuild in notePreferencesChanged is not
+        // skipped during autorestore, which would otherwise leave the restored
+        // windows showing stale fonts/colors (e.g. the default serif font when
+        // the game is set to the DOSBox theme).
+        _restoredStylesStale = (restoredTheme == nil);
+    }
 
     // If this is not a window restoration done by the system,
     // we now re-enter fullscreen manually if the game was
@@ -1961,7 +1972,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     for (GlkWindow *win in _gwindows.allValues)
     {
-        if (!autorestoring || win.theme != theme) {
+        if (!autorestoring || win.theme != theme || _restoredStylesStale) {
             win.theme = theme;
             [win prefsDidChange];
         }
