@@ -327,16 +327,36 @@
             // restoreScroll / layoutComplete path is not needed there.
             // (On a rewrap this is a stale-layout best effort that reduces
             // the visible jump; the scheduled restoreScroll finishes the job.)
-            if (wasAtBottom && !self.scrolledToBottom) {
+            //
+            // A scroll-to-bottom that is still in flight (queued callback or
+            // running animation) counts as "was at bottom": when a game
+            // prints a line and then opens a graphics window above this one
+            // (Alan 2's pause-then-viewer sequence), the append and the frame
+            // shrink arrive in separate flushes, and at this point the view
+            // still sits one line above the bottom waiting for the delayed
+            // scroll. That callback caps its advance to one viewport of the
+            // now-shrunken window, which strands the view mid-scrollback with
+            // nothing scheduled to finish the job. For the in-flight case the
+            // re-pin is capped at _lastseen so it can never race past output
+            // the player hasn't acknowledged.
+            BOOL bottomScrollInFlight = scrollToBottomPending
+                || (scrolling && lastAtBottom);
+            if ((wasAtBottom || bottomScrollInFlight) && !self.scrolledToBottom) {
                 NSClipView *clipView = scrollview.contentView;
                 CGFloat viewportHeight = NSHeight(clipView.bounds);
                 CGFloat newBottom = NSMaxY(_textview.frame) - viewportHeight
                                     + _textview.textContainerInset.height;
+                if (!wasAtBottom && newBottom > (CGFloat)_lastseen)
+                    newBottom = (CGFloat)_lastseen;
                 if (newBottom > clipView.bounds.origin.y) {
                     [clipView scrollToPoint:NSMakePoint(clipView.bounds.origin.x, newBottom)];
                     [scrollview reflectScrolledClipView:clipView];
                 }
-                lastAtBottom = YES;
+                // The capped in-flight re-pin may stop short of the true
+                // bottom; only record "at bottom" when that is actually so,
+                // or a later restoreScroll would jump past unread text.
+                if (wasAtBottom || self.scrolledToBottom)
+                    lastAtBottom = YES;
             }
 
             if (rewrapRestore) {

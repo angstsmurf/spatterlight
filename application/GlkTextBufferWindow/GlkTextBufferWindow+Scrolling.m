@@ -730,9 +730,20 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         CGFloat lineHeight = self.theme.bufferCellHeight;
         CGFloat advance = viewportHeight - lineHeight;
         if (advance < lineHeight) advance = viewportHeight;
+        // Pace the advance from the read boundary, not from the raw scroll
+        // position: content above _lastseen has been acknowledged, so moving
+        // through it is free, and only the advance past it is capped to one
+        // viewport. With a full-height viewport the two are the same
+        // (origin + viewport == _lastseen at the keypress), but when the
+        // viewport has since shrunk — a graphics window opened above this
+        // one — the raw distance to cover is mostly read content, and capping
+        // it would strand the view mid-scrollback with nothing scheduled to
+        // finish the job (Alan 2's pause-then-viewer sequence).
+        CGFloat freePos = (CGFloat)_lastseen - viewportHeight;
+        if (freePos < currentPos) freePos = currentPos;
         CGFloat target = (CGFloat)_lastseen;
-        if (target - currentPos > advance) {
-            target = currentPos + advance;
+        if (target - freePos > advance) {
+            target = freePos + advance;
         }
         // Anchor to "last on-screen line at top, with one line of
         // overlap": when the doc fit fully in the viewport at the
@@ -824,8 +835,15 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
             CGFloat lineHeight = self.theme.bufferCellHeight;
             CGFloat advance = viewportHeight - lineHeight;
             if (advance < lineHeight) advance = viewportHeight;
-            if (bottom - currentPosition > advance) {
-                bottom = currentPosition + advance;
+            // As in reallyPerformScroll's paginate branch: pace from the
+            // read boundary rather than the raw position, so that when the
+            // viewport shrank (graphics window opened above) the already-read
+            // content between the old and new viewport bottoms does not eat
+            // the whole advance and strand the view short of the new text.
+            CGFloat freePosition = (CGFloat)self->_lastseen - viewportHeight;
+            if (freePosition < currentPosition) freePosition = currentPosition;
+            if (bottom - freePosition > advance) {
+                bottom = freePosition + advance;
             }
 
             // Also never advance past `_lastseen` — the bottom of the
