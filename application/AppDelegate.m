@@ -164,6 +164,13 @@ PasteboardFilePasteLocation;
         abort();
     }
 
+    // Repair libraries migrated by an early IfidToHashMigrationPolicy that
+    // could cross a game's title with a same-ifid sibling's filename.
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasRepairedCrossedTitles"]) {
+        [self.coreDataManager repairCrossedFilenameTitles];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasRepairedCrossedTitles"];
+    }
+
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"SplitView" bundle:nil];
     _libctl = (LibController *)[storyboard instantiateControllerWithIdentifier:@"LibraryWindowController"];
     _libctl.tableViewController = _tableViewController;

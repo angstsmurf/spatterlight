@@ -1867,4 +1867,76 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                    @"a 12-byte non-IFRS FORM is not a Blorb");
 }
 
+#pragma mark - Crossed filename-title repair
+
+// Build a standalone in-memory context on the Spatterlight model, independent
+// of the shared test store, so this repair test can't disturb (or be disturbed
+// by) other tests.
+- (NSManagedObjectContext *)freshInMemoryContext {
+    NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
+    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    XCTAssertNotNil(model, @"Spatterlight model should load from the app bundle");
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+    NSError *error = nil;
+    [coordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error];
+    XCTAssertNil(error, @"in-memory store should be created: %@", error);
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    context.persistentStoreCoordinator = coordinator;
+    return context;
+}
+
+- (Game *)insertGameWithPath:(NSString *)path
+                        ifid:(NSString *)ifid
+                       title:(NSString *)title
+                   inContext:(NSManagedObjectContext *)context {
+    Game *game = [NSEntityDescription insertNewObjectForEntityForName:@"Game" inManagedObjectContext:context];
+    game.path = path;
+    game.ifid = ifid;
+    Metadata *metadata = [NSEntityDescription insertNewObjectForEntityForName:@"Metadata" inManagedObjectContext:context];
+    metadata.title = title;
+    game.metadata = metadata;
+    return game;
+}
+
+// Regression test for the bug where an early IfidToHashMigrationPolicy could
+// leave a game wearing a same-ifid sibling's filename as its title (an Apple II
+// .woz disk image of The Sorcerer of Claymorge Castle titled "claymorge.z80").
+- (void)testRepairCrossedFilenameTitles {
+    NSManagedObjectContext *context = [self freshInMemoryContext];
+    NSString *ifid = @"TEST-CLAYMORGE";
+
+    // The bug: the .woz game is titled with the .z80 sibling's filename.
+    Game *woz = [self insertGameWithPath:@"/Games/claymorge.woz" ifid:ifid title:@"claymorge.z80" inContext:context];
+    // The sibling, correctly titled with its own filename.
+    Game *z80 = [self insertGameWithPath:@"/Games/claymorge.z80" ifid:ifid title:@"claymorge.z80" inContext:context];
+    // An unrelated game with a real title that must not be touched.
+    Game *other = [self insertGameWithPath:@"/Games/curses.z5" ifid:@"ZCODE-16-950520" title:@"Curses" inContext:context];
+
+    NSUInteger repaired = [CoreDataManager repairCrossedFilenameTitlesInContext:context];
+
+    XCTAssertEqual(repaired, 1UL, @"exactly the crossed .woz title should be repaired");
+    XCTAssertEqualObjects(woz.metadata.title, @"claymorge.woz",
+                          @"the .woz game should be retitled to its own filename");
+    XCTAssertEqualObjects(z80.metadata.title, @"claymorge.z80",
+                          @"a game titled with its own filename must be left alone");
+    XCTAssertEqualObjects(other.metadata.title, @"Curses",
+                          @"a real title must not be mistaken for a filename");
+}
+
+// A game with no file path (missing file) whose title is a sibling's filename
+// should fall back to "Untitled" rather than keep the wrong name.
+- (void)testRepairCrossedFilenameTitlesFallsBackToUntitledWhenPathMissing {
+    NSManagedObjectContext *context = [self freshInMemoryContext];
+    NSString *ifid = @"TEST-NOPATH";
+
+    [self insertGameWithPath:@"/Games/real.z80" ifid:ifid title:@"real.z80" inContext:context];
+    Game *missing = [self insertGameWithPath:nil ifid:ifid title:@"real.z80" inContext:context];
+
+    NSUInteger repaired = [CoreDataManager repairCrossedFilenameTitlesInContext:context];
+
+    XCTAssertEqual(repaired, 1UL);
+    XCTAssertEqualObjects(missing.metadata.title, @"Untitled",
+                          @"a crossed game with no path should become Untitled");
+}
+
 @end

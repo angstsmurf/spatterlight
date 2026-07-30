@@ -141,20 +141,29 @@
         NSString *ifidStr = game.ifid;
         if (ifidStr.length == 0) {
             NSLog(@"createRelationshipsForDestinationInstance: Error! Game has no ifid?");
-        } else {
-            if ([dInstance valueForKey:@"ifid"]) {
-                request.predicate = [NSPredicate predicateWithFormat:@"hashTag LIKE %@", [dInstance valueForKey:@"ifid"]];
-                NSArray<Metadata *> *result = [dContext executeFetchRequest:request error:&error2];
-                if (result.count) {
-                    Metadata *metadata = result.firstObject;
-                    if (metadata.game) {
-                        NSLog(@"createRelationshipsForDestinationInstance: Error! Metadata %@ already has game (%@)!", metadata.title, metadata.game.ifid);
-                    }
-                    game.metadata = metadata;
-                    metadata.hashTag = nil;
-                } else {
-                    NSLog(@"createRelationshipsForDestinationInstance: Found no suitable Metadata instance for game!");
+        } else if (game.metadata == nil && [dInstance valueForKey:@"ifid"]) {
+            request.predicate = [NSPredicate predicateWithFormat:@"hashTag LIKE %@", [dInstance valueForKey:@"ifid"]];
+            NSArray<Metadata *> *result = [dContext executeFetchRequest:request error:&error2];
+            // Several games can share an ifid, and the Metadata mapping made
+            // one hashTag-tagged copy per source game. Claim only a copy that
+            // no other game has taken yet. Stealing an already-owned copy (as
+            // the old firstObject grab did) is what left a game wearing a
+            // sibling's filename-derived title, e.g. an Apple II .woz disk
+            // image titled "claymorge.z80" after the Spectrum sibling.
+            Metadata *metadata = nil;
+            for (Metadata *candidate in result) {
+                if (candidate.game == nil) {
+                    metadata = candidate;
+                    break;
                 }
+            }
+            if (metadata) {
+                game.metadata = metadata;
+                metadata.hashTag = nil;
+            } else if (result.count) {
+                NSLog(@"createRelationshipsForDestinationInstance: All %lu Metadata copies for ifid %@ are already claimed by other games.", (unsigned long)result.count, ifidStr);
+            } else {
+                NSLog(@"createRelationshipsForDestinationInstance: Found no suitable Metadata instance for game!");
             }
             if (game.metadata == nil) {
                 NSLog(@"createRelationshipsForDestinationInstance: Game has no metadata!");

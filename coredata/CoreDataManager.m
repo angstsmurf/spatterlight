@@ -10,6 +10,8 @@
 #import "MyCoreDataCoreSpotlightDelegate.h"
 #import "FolderAccess.h"
 #import "AppDelegate.h"
+#import "Game.h"
+#import "Metadata.h"
 
 @interface CoreDataManager () {
     NSString *modelName;
@@ -456,6 +458,67 @@
     pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
     homeString = [[NSString pathWithComponents:pathComponents] stringByAppendingString:@"/Library/Application Support/Spatterlight/"];
     return [NSURL fileURLWithPath:homeString isDirectory:YES];
+}
+
+// One-time repair for stores migrated by an early version of
+// IfidToHashMigrationPolicy, which could leave a game wearing another
+// same-ifid game's filename as its title (e.g. an Apple II .woz disk image
+// titled "claymorge.z80" after its Spectrum sibling). We detect a metadata
+// whose title is *exactly the filename of a different game* and reset it to
+// the game's own filename.
+- (void)repairCrossedFilenameTitles {
+    NSManagedObjectContext *context = self.mainManagedObjectContext;
+    if (!context)
+        return;
+
+    [context performBlockAndWait:^{
+        NSUInteger repaired = [CoreDataManager repairCrossedFilenameTitlesInContext:context];
+        if (repaired) {
+            NSLog(@"repairCrossedFilenameTitles: fixed %lu crossed title(s).", (unsigned long)repaired);
+            NSError *saveError = nil;
+            if (![context save:&saveError])
+                NSLog(@"repairCrossedFilenameTitles: save failed: %@", saveError);
+        }
+    }];
+}
+
++ (NSUInteger)repairCrossedFilenameTitlesInContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Game"];
+    NSError *error = nil;
+    NSArray<Game *> *games = [context executeFetchRequest:request error:&error];
+    if (!games.count)
+        return 0;
+
+    // filename (last path component) -> the games that actually own it
+    NSMutableDictionary<NSString *, NSMutableArray<Game *> *> *gamesByFilename = [NSMutableDictionary new];
+    for (Game *game in games) {
+        NSString *filename = game.path.lastPathComponent;
+        if (!filename.length)
+            continue;
+        NSMutableArray<Game *> *owners = gamesByFilename[filename];
+        if (!owners) {
+            owners = [NSMutableArray new];
+            gamesByFilename[filename] = owners;
+        }
+        [owners addObject:game];
+    }
+
+    NSUInteger repaired = 0;
+    for (Game *game in games) {
+        NSString *title = game.metadata.title;
+        if (!title.length)
+            continue;
+        // If this game's title is exactly some game's filename, and this game
+        // is not among the owners of that filename, the title was crossed
+        // during migration. Reset it to this game's own filename.
+        NSArray<Game *> *owners = gamesByFilename[title];
+        if (owners && ![owners containsObject:game]) {
+            NSString *ownFilename = game.path.lastPathComponent;
+            game.metadata.title = ownFilename.length ? ownFilename : @"Untitled";
+            repaired++;
+        }
+    }
+    return repaired;
 }
 
 - (void)saveChanges {
