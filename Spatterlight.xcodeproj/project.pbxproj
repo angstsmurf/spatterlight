@@ -297,6 +297,7 @@
 		965038FF09F2D4750083E64E /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031F009F29EE10083E64E /* debug.c */; };
 		9650390009F2D4750083E64E /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031F209F29EE10083E64E /* decode.c */; };
 		9650390109F2D4750083E64E /* exe.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031F609F29EE10083E64E /* exe.c */; };
+		C3FACE0300000000A1A20003 /* glkmedia.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0300000000A1A20001 /* glkmedia.c */; };
 		9650390209F2D4750083E64E /* glkio.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031F909F29EE10083E64E /* glkio.c */; };
 		9650390309F2D4750083E64E /* glkstart.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031FB09F29EE10083E64E /* glkstart.c */; };
 		9650390409F2D4750083E64E /* inter.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031FD09F29EE10083E64E /* inter.c */; };
@@ -2412,6 +2413,8 @@
 		965031F409F29EE10083E64E /* dependencies.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dependencies.mk; sourceTree = "<group>"; };
 		965031F509F29EE10083E64E /* dumpacd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dumpacd.c; sourceTree = "<group>"; };
 		965031F609F29EE10083E64E /* exe.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exe.c; sourceTree = "<group>"; };
+		C3FACE0300000000A1A20001 /* glkmedia.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glkmedia.c; sourceTree = "<group>"; };
+		C3FACE0300000000A1A20002 /* glkmedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glkmedia.h; sourceTree = "<group>"; };
 		965031F709F29EE10083E64E /* exe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exe.h; sourceTree = "<group>"; };
 		965031F809F29EE10083E64E /* genalan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = genalan.c; sourceTree = "<group>"; };
 		965031F909F29EE10083E64E /* glkio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glkio.c; sourceTree = "<group>"; };
@@ -5053,6 +5056,8 @@
 				965031F809F29EE10083E64E /* genalan.c */,
 				965031FA09F29EE10083E64E /* glkio.h */,
 				965031F909F29EE10083E64E /* glkio.c */,
+				C3FACE0300000000A1A20002 /* glkmedia.h */,
+				C3FACE0300000000A1A20001 /* glkmedia.c */,
 				965031FC09F29EE10083E64E /* glkstart.h */,
 				965031FB09F29EE10083E64E /* glkstart.c */,
 				965031FE09F29EE10083E64E /* inter.h */,
@@ -8522,6 +8527,7 @@
 				9650390009F2D4750083E64E /* decode.c in Sources */,
 				9650390109F2D4750083E64E /* exe.c in Sources */,
 				9650390209F2D4750083E64E /* glkio.c in Sources */,
+				C3FACE0300000000A1A20003 /* glkmedia.c in Sources */,
 				9650390309F2D4750083E64E /* glkstart.c in Sources */,
 				9650390409F2D4750083E64E /* inter.c in Sources */,
 				9650390509F2D4750083E64E /* main.c in Sources */,
@@ -10536,6 +10542,7 @@
 					"-Wno-parentheses",
 					"-DGLK",
 					"-DREVERSED",
+					"-DSPATTERLIGHT",
 				);
 				PRODUCT_NAME = alan2;
 				SKIP_INSTALL = YES;
@@ -10571,6 +10578,7 @@
 					"-Wno-parentheses",
 					"-DGLK",
 					"-DREVERSED",
+					"-DSPATTERLIGHT",
 				);
 				PRODUCT_NAME = alan2;
 				SKIP_INSTALL = YES;

@@ -23,6 +23,10 @@
 
 #include "exe.h"
 
+#ifdef SPATTERLIGHT
+#include "glkmedia.h"
+#endif
+
 #define WIDTH 80
 
 #define N_EVTS 100
@@ -122,8 +126,14 @@ void sys(fpos, len)
 
   getstr(fpos, len);            /* Returns address to string on stack */
   command = (char *)pop();
+#ifdef SPATTERLIGHT
+  /* Games drive DOS media helpers (VIEWER.EXE, SBPLAY.EXE, pause)
+     through SYSTEM; map those onto Glk instead of running anything */
+  glkmedia_system(command);
+#else
 #if 0
   int tmp = system(command);
+#endif
 #endif
   free(command);
 }
