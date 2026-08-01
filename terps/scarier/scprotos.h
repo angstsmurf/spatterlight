@@ -566,7 +566,6 @@ extern scr_bool lib_cmd_kill_npc_with (scr_gameref_t game);
 extern scr_bool lib_cmd_fight_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_fight_npc_with (scr_gameref_t game);
 extern scr_bool lib_cmd_wield (scr_gameref_t game);
-extern scr_bool lib_cmd_unwield (scr_gameref_t game);
 extern scr_bool lib_cmd_sit_on_object (scr_gameref_t game);
 extern scr_bool lib_cmd_sit_on_floor (scr_gameref_t game);
 extern scr_bool lib_cmd_lie_on_object (scr_gameref_t game);
@@ -834,7 +833,9 @@ extern void battle_change_attribute (scr_gameref_t game, scr_int npc,
                                      scr_int attribute, scr_int value);
 extern scr_bool battle_is_weapon (scr_gameref_t game, scr_int object);
 extern scr_int battle_weapon_method (scr_gameref_t game, scr_int object);
-extern scr_int battle_player_default_weapon (scr_gameref_t game);
+extern scr_int battle_player_wielded_weapon (scr_gameref_t game);
+extern scr_int battle_player_weapon_count (scr_gameref_t game);
+extern scr_int battle_player_best_weapon (scr_gameref_t game);
 extern scr_int battle_combatant_weapon (scr_gameref_t game, scr_int npc);
 extern void battle_attribute_report (scr_gameref_t game, scr_int npc,
                                      const scr_char *base,

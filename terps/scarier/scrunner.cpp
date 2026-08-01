@@ -382,7 +382,6 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"status %character%", lib_cmd_status_npc},
   {"[status/stats]", lib_cmd_status_player},
   {"wield %object%", lib_cmd_wield},
-  {"[unwield/sheath/sheathe]", lib_cmd_unwield},
   {"version", lib_cmd_version},
 
   {"[locate/where {is/are}/find] %object%", lib_cmd_locate_object},

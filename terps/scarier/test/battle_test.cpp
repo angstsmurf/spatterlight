@@ -21,6 +21,9 @@
  *      2026-08-01): eff_str = 10 -> 10-3 = 7 damage, rock leaves inventory
  *   3. worn armour adds to defence: Robot's 8-str blow vs Def 5 + vest 5 = 10
  *      is fully absorbed (0 damage); removing the vest lets 8-5 = 3 through.
+ *   4. the wield model (run400, settled live 2026-08-01): no auto-wield at
+ *      battle start, an armed attack persists the wield, a landed throw and
+ *      a drop clear it, and re-taking a dropped weapon does not re-wield.
  *
  * Exits 0 on success, 1 on any mismatch.
  */
@@ -106,12 +109,24 @@ main (int argc, char **argv)
   check ("rock method == throw(5)", battle_weapon_method (game, rock), 5);
   check ("vest is not a weapon", battle_is_weapon (game, vest), 0);
 
+  /* 4a. The wield is a persistent reference, empty at battle start: with no
+   *     wield set the combatant weapon is bare hands, never the best carried
+   *     weapon.  Take the rock so two weapons are carried. */
+  check ("no wield at battle start", gs_playerwield (game), -1);
+  gs_object_player_get (game, rock);
+  check ("two weapons carried", battle_player_weapon_count (game), 2);
+  check ("no wield means bare hands",
+         battle_combatant_weapon (game, -1), -1);
+
   /* 1. shoot weapon replaces strength: 30 - Def(3) = 27 damage. */
   gs_set_npc_stamina (game, robot, 100);
   before = gs_npc_stamina (game, robot);
   battle_player_attack (game, robot, blaster);
   after = gs_npc_stamina (game, robot);
   check ("shoot blaster damage (replace)", before - after, 27);
+
+  /* 4b. The armed attack persisted the blaster as the wield. */
+  check ("armed attack persists the wield", gs_playerwield (game), blaster);
 
   /* 2. A landed throw deals base strength only (HitValue never contributes
    *    in 4.0: 10 - Def(3) = 7) and the weapon lands in the player's room. */
@@ -122,6 +137,16 @@ main (int argc, char **argv)
   check ("throw rock damage (Str only)", before - after, 7);
   check ("thrown rock lands in the room",
          gs_object_position (game, rock), gs_playerroom (game) + 1);
+  check ("landed throw clears the wield", gs_playerwield (game), -1);
+
+  /* 4c. Dropping the wielded weapon clears the wield -- no fallback to
+   *     another carried weapon -- and re-taking it does not re-wield. */
+  battle_player_attack (game, robot, blaster);
+  check ("re-armed with the blaster", gs_playerwield (game), blaster);
+  gs_object_to_room (game, blaster, gs_playerroom (game));
+  check ("dropping the wield clears it", gs_playerwield (game), -1);
+  gs_object_player_get (game, blaster);
+  check ("re-taking does not re-wield", gs_playerwield (game), -1);
 
   /* 3a. With the vest worn, the Robot's blow (Str 8) vs Def 5 + armour 5 = 10
    *     is fully absorbed.  Robot has Speed 0 so it strikes every tick. */

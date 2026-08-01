@@ -79,7 +79,7 @@ int main(int c,char**v){
   gs_set_playerwield(g,w);
   gs_set_npc_location(g,en,gs_playerroom(g)+1);
   printf("default_weapon after wield = %ld (weapon obj = %ld)\n",
-         (long)battle_player_default_weapon(g),(long)w);
+         (long)battle_player_wielded_weapon(g),(long)w);
 
   /* resolve a fight: keep player alive, attack enemy with the wielded weapon */
   printf("--- fight (player attacks; stamina kept up so we can watch enemy fall) ---\n");

@@ -8032,21 +8032,18 @@ lib_cmd_read_other (scr_gameref_t game)
 /*
  * lib_battle_player_strike()
  *
- * Shared Battle System helper: resolve the weapon the player strikes the NPC
- * with (the explicit object, else the player's default weapon), enforce a
- * method verb's weapon-method requirement, then deliver the blow.  method is -1
- * for a generic attack, or a method code 0..5 (chop/cut/hit/shoot/stab/throw)
- * that the wielded weapon must match; verb names the action for the mismatch
- * message.  No requirement is imposed when striking bare-handed.
+ * Shared Battle System helper: enforce a method verb's weapon-method
+ * requirement, then deliver the blow with the given weapon (-1 for bare
+ * hands).  method is -1 for a generic attack, or a method code 0..5
+ * (chop/cut/hit/shoot/stab/throw) that the weapon must match; verb names the
+ * action for the mismatch message.  No requirement is imposed when striking
+ * bare-handed, so an unarmed method verb lands a plain blow (Runner-verified).
  */
 static void
 lib_battle_player_strike (scr_gameref_t game, scr_int npc,
                           const scr_char *verb, scr_int method, scr_int weapon)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-
-  if (weapon < 0)
-    weapon = battle_player_default_weapon (game);
 
   if (method >= 0 && weapon >= 0
       && battle_weapon_method (game, weapon) != method)
@@ -8089,11 +8086,35 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
   if (npc == -1)
     return is_ambiguous;
 
-  /* With the Battle System enabled, resolve a real attack (bare-handed, or
-   * with the player's wielded or best carried weapon). */
+  /* With the Battle System enabled, resolve a real attack. */
   if (battle_is_enabled (game))
     {
-      lib_battle_player_strike (game, npc, verb, method, -1);
+      scr_int weapon = battle_player_wielded_weapon (game);
+
+      /*
+       * With no wield set the Runner auto-selects a solitary carried weapon
+       * (the blow then persists it as the wield), fights bare-handed when
+       * carrying none, and with two or more carried weapons asks -- a
+       * rhetorical question, always worded with "attack" whatever the verb,
+       * that costs no combat turn and whose reply is not read as an answer
+       * (settled live 2026-08-01).
+       */
+      if (weapon < 0)
+        {
+          const scr_int count = battle_player_weapon_count (game);
+
+          if (count > 1)
+            {
+              pf_buffer_string (filter, "What do you want to attack ");
+              lib_print_npc_np (game, npc);
+              pf_buffer_string (filter, " with?\n");
+              game->is_admin = TRUE;
+              return TRUE;
+            }
+          if (count == 1)
+            weapon = battle_player_best_weapon (game);
+        }
+      lib_battle_player_strike (game, npc, verb, method, weapon);
       return TRUE;
     }
 
@@ -8329,12 +8350,13 @@ lib_cmd_fight_npc_with (scr_gameref_t game)
 
 /*
  * lib_cmd_wield()
- * lib_cmd_unwield()
  *
- * Battle System weapon selection.  "wield <weapon>" remembers a held weapon as
- * the player's default for combat; "unwield" forgets it, reverting to the best
- * carried weapon.  Both fall through to other grammar when the Battle System is
- * disabled, as plain wielding is not otherwise modelled.
+ * Battle System weapon selection.  "wield <weapon>" sets a held weapon as the
+ * player's persistent wield; the wield is cleared -- not swapped for another
+ * carried weapon -- when the weapon leaves the player's hands.  There is no
+ * "unwield" verb (the Runner answers "I don't understand.").  Falls through to
+ * other grammar when the Battle System is disabled, as plain wielding is not
+ * otherwise modelled.
  */
 scr_bool
 lib_cmd_wield (scr_gameref_t game)
@@ -8370,40 +8392,22 @@ lib_cmd_wield (scr_gameref_t game)
       return TRUE;
     }
 
-  gs_set_playerwield (game, object);
-  lib_print_response_object (game,
-                             "You are now wielding ",
-                             "I am now wielding ",
-                             "%player% is now wielding ",
-                             object, ".\n");
-  return TRUE;
-}
-
-scr_bool
-lib_cmd_unwield (scr_gameref_t game)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
-
-  if (!battle_is_enabled (game))
-    return FALSE;
-
-  object = gs_playerwield (game);
-  if (object < 0)
+  /* Wielding the already-wielded weapon is acknowledged, not repeated. */
+  if (gs_playerwield (game) == object)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are not wielding anything.\n",
-                                             "I am not wielding anything.\n",
-                                          "%player% is not wielding anything.\n"));
+      lib_print_response_object (game,
+                                 "You are already wielding ",
+                                 "I am already wielding ",
+                                 "%player% is already wielding ",
+                                 object, ".\n");
       return TRUE;
     }
 
-  gs_set_playerwield (game, -1);
+  gs_set_playerwield (game, object);
   lib_print_response_object (game,
-                             "You are no longer wielding ",
-                             "I am no longer wielding ",
-                             "%player% is no longer wielding ",
+                             "You wield ",
+                             "I wield ",
+                             "%player% wields ",
                              object, ".\n");
   return TRUE;
 }
@@ -9438,7 +9442,9 @@ lib_cmd_score (scr_gameref_t game)
  * (npc < 0) or a given NPC.  Stamina is the live game state value; the other
  * attributes show their configured [lo, hi] range alongside a fresh effective
  * roll that folds in the combatant's wielded weapon and worn armour, as the
- * Runner's status display does.  The wielded weapon, if any, is named last.
+ * Runner's status display does.  Until a wield is set the player's values are
+ * bare -- no would-be weapon is folded in -- and the last line names the
+ * wielded weapon, or "nothing".
  */
 static void
 lib_print_battle_attribute (scr_gameref_t game, scr_int npc,
@@ -9500,23 +9506,22 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
   lib_print_battle_attribute (game, npc, "   Defence:  ", "Defense");
   lib_print_battle_attribute (game, npc, "   Agility:  ", "Agility");
 
-  /* Name the weapon the combatant is wielding, if any. */
+  /* Name the weapon the combatant is wielding -- "nothing" when unarmed, as
+   * the Runner's status display does. */
   weapon = battle_combatant_weapon (game, npc);
+  if (npc < 0)
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           "   You are wielding ",
+                                           "   I am wielding ",
+                                           "   %player% is wielding "));
+  else
+    lib_print_wrapped_npc (game, "   ", npc, " is wielding ");
   if (weapon >= 0)
-    {
-      if (npc < 0)
-        pf_buffer_string (filter,
-                          lib_select_response (game,
-                                               "   You are wielding ",
-                                               "   I am wielding ",
-                                               "   %player% is wielding "));
-      else
-        {
-          lib_print_wrapped_npc (game, "   ", npc, " is wielding ");
-        }
-      lib_print_object_np (game, weapon);
-      pf_buffer_string (filter, ".\n");
-    }
+    lib_print_object_np (game, weapon);
+  else
+    pf_buffer_string (filter, "nothing");
+  pf_buffer_string (filter, ".\n");
 }
 
 

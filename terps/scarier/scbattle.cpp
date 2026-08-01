@@ -929,6 +929,14 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
   if (method < 0 || method > 5)
     method = -1;
 
+  /*
+   * Every armed player attack persists the weapon as the wield, before the
+   * hit test -- so a miss persists it too (Battles.bas Proc_11_1 sets
+   * global_78 on entry).  A landed throw clears it again below.
+   */
+  if (attacker == BATTLE_PLAYER && weapon >= 0)
+    gs_set_playerwield (game, weapon);
+
   if (battle_unconfigured
       || battle_legacy
       || battle_eff_accuracy (game, attacker, weapon)
@@ -1144,14 +1152,17 @@ battle_weapon_method (scr_gameref_t game, scr_int object)
 }
 
 /*
- * battle_player_default_weapon()
+ * battle_player_wielded_weapon()
  *
- * Return the weapon the player would attack with by default: the explicitly
- * wielded weapon if it is still held and a weapon, otherwise the best carried
- * weapon (-1 for bare hands).
+ * Return the weapon the player has wielded, or -1 for none.  The wield is a
+ * persistent reference, not a per-attack default (Runner: Battles.bas
+ * global_78, settled live 2026-08-01): "wield", "attack ... with" and every
+ * other armed blow set it, and it is cleared -- never replaced by another
+ * carried weapon -- when the weapon leaves the player's hands.  The held and
+ * is-a-weapon checks are belt-and-braces against a stale reference.
  */
 scr_int
-battle_player_default_weapon (scr_gameref_t game)
+battle_player_wielded_weapon (scr_gameref_t game)
 {
   const scr_int wielded = gs_playerwield (game);
 
@@ -1159,19 +1170,48 @@ battle_player_default_weapon (scr_gameref_t game)
       && gs_object_position (game, wielded) == OBJ_HELD_PLAYER
       && battle_object_is_weapon (game, wielded))
     return wielded;
+  return -1;
+}
+
+/*
+ * battle_player_weapon_count()
+ * battle_player_best_weapon()
+ *
+ * Count the weapons the player is carrying, and return the carried weapon
+ * with the highest hit value (-1 for none).  With no wield set, a bare attack
+ * auto-selects a solitary carried weapon, but asks rather than pick among two
+ * or more (Battles.bas attack handler, Proc_11_10/Proc_11_12).
+ */
+scr_int
+battle_player_weapon_count (scr_gameref_t game)
+{
+  scr_int object, count = 0;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (battle_object_is_weapon (game, object)
+          && gs_object_position (game, object) == OBJ_HELD_PLAYER)
+        count++;
+    }
+  return count;
+}
+
+scr_int
+battle_player_best_weapon (scr_gameref_t game)
+{
   return battle_best_weapon (game, -1);
 }
 
 /*
  * battle_combatant_weapon()
  *
- * Return the weapon a combatant fights with: the player's default weapon
+ * Return the weapon a combatant fights with: the player's wielded weapon
  * (npc < 0) or an NPC's best carried weapon (-1 for bare hands).
  */
 scr_int
 battle_combatant_weapon (scr_gameref_t game, scr_int npc)
 {
-  return (npc < 0) ? battle_player_default_weapon (game)
+  return (npc < 0) ? battle_player_wielded_weapon (game)
                    : battle_best_weapon (game, npc);
 }
 
@@ -1206,14 +1246,15 @@ battle_attribute_report (scr_gameref_t game, scr_int npc, const scr_char *base,
 /*
  * battle_player_attack()
  *
- * Resolve a player-initiated attack on an NPC.  When weapon is -1 the player's
- * default weapon (wielded, else best carried, else bare hands) is used.
+ * Resolve a player-initiated attack on an NPC.  When weapon is -1 the wielded
+ * weapon, if any, is used (bare hands otherwise) -- the bare-attack auto-select
+ * and the ask-with-two-carried-weapons cases live in the command layer.
  */
 void
 battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon)
 {
   if (weapon < 0)
-    weapon = battle_player_default_weapon (game);
+    weapon = battle_player_wielded_weapon (game);
   battle_resolve (game, BATTLE_PLAYER, npc, weapon, TRUE);
 }
 

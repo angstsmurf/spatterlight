@@ -159,11 +159,22 @@ Highest value first:
         fails to match and it falls back to the plain player `status`.
       * Bonus: `attack <typo>` → "Who do you want to attack?" DOES tick
         combat in run400; "I don't understand." parse errors don't.
-      Scarier divergences (all still unported): per-attack default weapon
-      with best-carried fallback (never asks, never persists); status folds
-      the would-be default pre-attack; `unwield` exists and reverts to best
-      carried; wield message wording ("You are now wielding ..." vs "Player
-      wield the sword.").
+      **PORTED 2026-08-01** (scbattle.cpp/sclibrar.cpp/scgamest.cpp): the
+      wield is now a persistent ref -- every armed player blow persists it
+      (as Proc_11_1 does, before the hit test, so a miss persists too); bare
+      `attack` auto-selects a solitary carried weapon, fights bare-handed
+      with none, and with 2+ asks the rhetorical "What do you want to attack
+      X with?" (is_admin, so no combat turn passes and the reply is not read
+      as an answer); the wield clears when the weapon leaves the player's
+      hands (gs_carried_track chokepoint -- drop/throw/give/put/wear; and
+      re-taking does NOT re-wield) with no best-carried fallback; `unwield`
+      removed; `wield` says "You wield the sword." / "You are already
+      wielding the sword."; status always prints the wielding line
+      ("nothing" when unarmed) and folds only the actual wield.  All 77
+      corpus goldens passed unchanged.  Still diverging (cosmetic): status
+      layout (no Max column, no "(bonus)" parens); "You are not holding X."
+      vs the Runner's "Player aren't carrying the sword!" [sic] on wielding
+      a non-held object.
 - [x] **RNG — re-opened and closed again: the won't-fix stands.** *(2026-08-01.)*
       run400 has **9 `Randomize` call sites**: `Form1.Form_Load` seeds from
       `Timer` at startup; `Form1.dencode` and `Sub_22_30` use the deterministic
@@ -248,11 +259,11 @@ Surface facts learned on the way (all consistent between engines unless noted):
   `light_up` was the one corpus casualty — its Chip fight and Death
   gauntlet were re-derived (582-command route, still 73 pts + THE END) and
   its golden re-blessed.
-  The `status` "wielding" line diverges: Scarier names the would-be default
-  weapon where the Runner shows "wielding nothing" (and bare stats) until a
-  wield is set — the full Runner model is now settled, see the
-  "Player-facing surface" item above (persistent wield ref; auto-select
-  persists; asks on 2+ held weapons; no `unwield`; drop clears to nothing).
+  The `status` "wielding" line matches since the wield-model port
+  (2026-08-01): "wielding nothing" (and bare stats) until a wield is set —
+  see the "Player-facing surface" item above (persistent wield ref;
+  auto-select persists; asks on 2+ held weapons; no `unwield`; drop clears
+  to nothing — all ported).
 - Runner battle messages use the player's *name* where SCARE substitutes
   "you"/"your", with second-person verb agreement kept ("Player manage to
   avoid Robot's attack." — sic). Miss messages otherwise identical.
@@ -474,7 +485,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Integer division rounding | see `ADRIFT4_vs_ADRIFT5.md` | — | v4-vs-v5 difference already recorded; confirm the v4 half against run400. |
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
 | Battle messages | second person ("you"/"your") | run400 uses player's name with 2nd-person verb forms ("Player manage to avoid…"); run390 uses second person | Presentational only; "you" kept (matches run390). Method-verb weapon narration **ported 2026-08-01**, verified live in BOTH Runners; noted §1 surface facts. |
-| Wield model | per-attack default (wielded-else-best-carried); silent pick with 2+ weapons; `unwield` reverts to best carried; status folds the would-be default | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`). Unported; only visible with 2+ carried weapons or in `status` before the first attack — measure corpus impact before adopting. |
+| Wield model | ~~per-attack default~~ **PORTED 2026-08-01**: persistent wield ref, matching the Runner | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`) and **ported the same day** — all 77 corpus goldens unchanged. Remaining cosmetic gaps: status layout (Max column, "(bonus)" parens), "not holding" wording. |
 | Thrown (method 5) weapon | drop + version-split damage ported | moves to the room on a player throw in BOTH Runners; damage = Str-only in run400 (HitValue ignored), Str+HitValue in run390 | **Confirmed live in both Runners and PORTED 2026-08-01** (probes `pTD`/`p39td`; see §1 surface facts). `light_up` route re-derived. |
 | Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
 | Event TaskAffected execution | version-gated: 3.9 = matcher dispatch (wildcard steal, silent restricted skip), 4.0 = direct run (loud FailMessage) | run390 and run400 genuinely differ — same converted probe, opposite behavior | **Fixed 2026-08-01** (§2); both halves verified live. |
@@ -490,8 +501,9 @@ damage floor, worn armour and the RNG question are all settled live; see §1.)*
 
 1. §1 remainder — *(done 2026-08-01, second batch: cadence, recovery, target
    select + the scr_randomint fix, death path, and the shoot rule in BOTH
-   Runners.)* Still open: StaminaTask/KilledTask (needs authored tasks in the
-   probe generator) and the player-facing wield/status surface items.
+   Runners.)* The player-facing wield/status surface was settled AND ported
+   2026-08-01 (see the divergence table).  Still open: StaminaTask/KilledTask
+   (needs authored tasks in the probe generator).
 2. §3(a) whole-corpus 3.9 differential — *(done 2026-08-01 via the gen400
    structural oracle plus four run390 probes: room-alt ordering and the battle
    attribute index were both wrong and are now fixed; every other V390 fixup is
