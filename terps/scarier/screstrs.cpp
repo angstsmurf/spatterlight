@@ -227,6 +227,19 @@ restr_pass_task_object_location (scr_gameref_t game,
   else if (var1 == 2)
     object = var_get_ref_object (vars);
   else if (var1 >= 3)
+    /*
+     * Confirmed against run400.exe 2026-08-01: Var1 - 3 indexes the DYNAMIC
+     * objects only, 0-based, not the full object list.  Four probes on Topaz
+     * (dynamics are object 5 `Topaz`, in room 4, and object 8 `ring`, hidden)
+     * pin both halves down -- addressing Var1 = 3 as "in room 4" passes, which
+     * a full-list reading could not do (object 3 is the static `sky`), and
+     * Var1 = 4 as "in room 4" fails, which an off-by-one base could not do.
+     * Var1 = 5 and 6 make the runner raise "evaluate error - Subscript out of
+     * range", so its array really is the two-element dynamic one.  SCARE is
+     * softer there: obj_nth_object() runs off the end and hands back the last
+     * object.  Silent and wrong, but harmless -- no shipped game can contain
+     * such an index, because loading it would crash the runner.
+     */
     object = obj_dynamic_object (game, var1 - 3);
   else
     scr_fatal ("restr_pass_task_object_location: bad var1, %ld\n", var1);
