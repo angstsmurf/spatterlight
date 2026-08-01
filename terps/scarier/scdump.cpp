@@ -462,8 +462,18 @@ scr_dump_structure_once (scr_gameref_t game)
               const scr_char *s = scdump_object_name (game, obj);
               snprintf (nm, sizeof nm, " obj%ld=[%s]", obj, s ? s : "");
             }
-          fprintf (stderr, "    ACT type=%ld v1=%ld v2=%ld v3=%ld%s\n",
+          fprintf (stderr, "    ACT type=%ld v1=%ld v2=%ld v3=%ld%s",
                    atype, v1, v2, v3, nm);
+          if (atype == 3)
+            {
+              const scr_char *expr;
+
+              k[4].string = "Expr";
+              expr = prop_get_string (bundle, "S<-sisis", k);
+              if (expr && expr[0] != '\0')
+                fprintf (stderr, " expr=[%s]", expr);
+            }
+          fprintf (stderr, "\n");
         }
     }
 

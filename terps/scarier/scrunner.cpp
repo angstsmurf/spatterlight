@@ -841,6 +841,45 @@ run_match_task_common (scr_gameref_t game,
               fprintf (stderr, "MATCH task=%ld pattern=[%s] input=[%s]\n",
                        task, pattern, string);
           }
+          {
+            /* SCR_TRACE_SCOPE: report matches the real Runner would refuse
+             * or bind differently.  Its parser only matches a %object%
+             * against objects present to the player (probed live in Topaz
+             * and pBP2), while uip_match_entity() has no scope filter and
+             * binds the LAST name match.  SCOPE-MISS = no matched object is
+             * present (the Runner would fail the whole command); SCOPE-BIND
+             * = the bound object is absent while a present one also
+             * matched (the Runner would bind the present one). */
+            static const scr_bool trace_scope =
+                getenv ("SCR_TRACE_SCOPE") != NULL;
+            if (trace_scope && strstr (pattern, "%object%") != NULL)
+              {
+                const scr_var_setref_t vars = gs_get_vars (game);
+                scr_int object, present, matched, room, bound_present;
+
+                room = gs_playerroom (game);
+                present = matched = 0;
+                bound_present = FALSE;
+                for (object = 0; object < gs_object_count (game); object++)
+                  {
+                    if (!game->object_references[object])
+                      continue;
+                    matched++;
+                    if (obj_indirectly_in_room (game, object, room))
+                      {
+                        present++;
+                        if (object == var_get_ref_object (vars))
+                          bound_present = TRUE;
+                      }
+                  }
+                if (matched > 0 && present == 0)
+                  fprintf (stderr, "SCOPE-MISS task=%ld pattern=[%s]"
+                           " input=[%s]\n", task, pattern, string);
+                else if (present > 0 && !bound_present)
+                  fprintf (stderr, "SCOPE-BIND task=%ld pattern=[%s]"
+                           " input=[%s]\n", task, pattern, string);
+              }
+          }
 #endif
           break;
         }

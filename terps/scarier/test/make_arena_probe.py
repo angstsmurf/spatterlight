@@ -80,7 +80,10 @@ def build(cfg):
         s(len(restrs))
         for (v1, v2, v3, fail) in restrs:
             s(0); s(v1); s(v2); s(v3); s(fail)  # Type-0 object-location restriction
-        s(0)                                    # Actions
+        actions = t.get('actions', [])          # raw field tuples, e.g. type-3
+        s(len(actions))                         # set-var: (3, varidx0, 5, 0, expr, 0)
+        for a in actions:
+            for f in a: s(f)
         s("A".join(["#"] * len(restrs)))        # RestrMask: "#", "#A#", ...
     s(0)                                    # events
 
@@ -99,7 +102,12 @@ def build(cfg):
         s(sl); s(sh); s(al); s(ah); s(dl); s(dh); s(gl); s(gh)
         s(speed); s(ktask); s(rec); s(stask)  # Speed KilledTask Recovery StaminaTask
 
-    s(0); s(0); s(0); s(0); s(0)            # groups syns vars alrs font
+    s(0); s(0)                              # groups syns
+    vars_ = cfg.get('vars', [])             # (name, type 0=int/1=str, value-string)
+    s(len(vars_))
+    for (name, vtype, val) in vars_:
+        s(name); s(vtype); s(val)
+    s(0); s(0)                              # alrs font
     s("2026")
     return ("\r\n".join(L) + "\r\n").encode("latin-1")
 
@@ -189,6 +197,47 @@ CONFIGS = {
           ("Droid",0,2,100,0,0,0,0,0,0,0,0,0,0,0,2)],
     tasks=[dict(commands=["zzkilled"], complete="KILLEDTASK FIRED."),
            dict(commands=["zzstamina"], complete="STAMINATASK FIRED.")]),
+ # Expression-division rounding probe (§4): each `/` reduction rounds
+ # immediately -- run400 computes Round((a/b) + 0.000001), VB6 banker's
+ # rounding with an epsilon that biases halves toward +infinity.
+ # Expected (P-code-derived): 5/2=3, -5/2=-2, 7/2=4, -7/2=-3, 1/2=1,
+ # -1/2=0, 4/2=2, 22/7=3.
+ 'DIV': dict(name="Probe DIV",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    vars=[("v1",0,"0"),("v2",0,"0"),("v3",0,"0"),("v4",0,"0"),
+          ("v5",0,"0"),("v6",0,"0"),("v7",0,"0"),("v8",0,"0")],
+    tasks=[dict(commands=["divtest"],
+                complete="R= %v1% %v2% %v3% %v4% %v5% %v6% %v7% %v8% =R",
+                actions=[(3,0,5,0,"5/2",0),
+                         (3,1,5,0,"-5/2",0),
+                         (3,2,5,0,"7/2",0),
+                         (3,3,5,0,"-7/2",0),
+                         (3,4,5,0,"1/2",0),
+                         (3,5,5,0,"-1/2",0),
+                         (3,6,5,0,"4/2",0),
+                         (3,7,5,0,"22/7",0)])]),
+ # Second-round division probe: v1/v3/v5 hold true negative values, so
+ # %v1%/2 is a genuine negative dividend with no unary minus in the
+ # expression -- this separates "round half away from zero" from "unary
+ # minus reduces after the division" (both print -3 for the literal -5/2).
+ 'DIV2': dict(name="Probe DIV2",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    vars=[("v1",0,"0"),("v2",0,"0"),("v3",0,"0"),("v4",0,"0"),
+          ("v5",0,"0"),("v6",0,"0"),("v7",0,"0"),("v8",0,"0")],
+    tasks=[dict(commands=["divtest"],
+                complete="R= %v1% %v2% %v3% %v4% %v5% %v6% %v7% %v8% =R",
+                actions=[(3,0,5,0,"0-5",0),
+                         (3,1,5,0,"%v1%/2",0),
+                         (3,2,5,0,"0-7",0),
+                         (3,3,5,0,"%v3%/2",0),
+                         (3,4,5,0,"0-1",0),
+                         (3,5,5,0,"%v5%/2",0),
+                         (3,6,5,0,"-5/2",0),
+                         (3,7,5,0,"3/2",0)])]),
  'RC': dict(name="Probe RC",
     player=(200,10,10,60,60,0,0,0,0,3),
     rooms=[("Test Arena","A bare arena.",{1:1}),
