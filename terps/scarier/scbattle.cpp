@@ -833,18 +833,11 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
   /* Note where the NPC dies before anything can relocate it. */
   room = gs_npc_location (game, npc) - 1;
 
-  task = battle_npc_battle_task (game, npc, "KilledTask");
-  if (task >= 0)
-    task_run_task (game, task, TRUE);
-  else if (visible)
-    {
-      pf_buffer_character (filter, '\n');
-      battle_print_combatant (game, npc, 0);
-      pf_buffer_string (filter, " falls down, dead.\n");
-    }
-
   /* Re-home the dead NPC's held and worn objects to that room, so its
-   * inventory is not orphaned along with the hidden character. */
+   * inventory is not orphaned along with the hidden character.  The Runner
+   * does this before the KilledTask runs (Battles.bas Proc_11_3, the
+   * -200/-300 sweep ahead of the task dispatch), so a KilledTask restriction
+   * can already see the corpse's effects lying in the room. */
   if (room >= 0)
     {
       for (object = 0; object < gs_object_count (game); object++)
@@ -855,6 +848,22 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
               && gs_object_parent (game, object) == npc)
             gs_object_to_room (game, object, room);
         }
+    }
+
+  /* A set KilledTask replaces the default death message outright -- verified
+   * live in run400 2026-08-01 (probe pKT: "Player hit Robot.  KILLEDTASK
+   * FIRED.", no "falls down, dead."), and the 3.9 Runner dispatches it the
+   * same way (probe p39kt).  The default corpse line is 4.0-only: run390
+   * prints NOTHING when a task-less NPC dies (probed live, and the string
+   * " falls down, dead." does not exist anywhere in its binary). */
+  task = battle_npc_battle_task (game, npc, "KilledTask");
+  if (task >= 0)
+    task_run_task (game, task, TRUE);
+  else if (visible && !battle_legacy)
+    {
+      pf_buffer_character (filter, '\n');
+      battle_print_combatant (game, npc, 0);
+      pf_buffer_string (filter, " falls down, dead.\n");
     }
 
   /* Remove the dead NPC from play (location zero is "hidden"). */
@@ -891,9 +900,16 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
   else
     gs_set_npc_stamina (game, npc, stamina);
 
-  /* Run the NPC's low-stamina task when dropping below 10% of maximum. */
+  /* Run the NPC's low-stamina task when dropping below 10% of maximum.  The
+   * Runner tests `stamina < max / 10` in floating point (Battles.bas
+   * Proc_11_0, CDbl throughout) and re-runs the task on EVERY qualifying hit
+   * -- verified live in run400 2026-08-01 (probe pKT: STAMINATASK FIRED on
+   * both hits inside the window, default death line on the killing blow).
+   * `stamina * 10 < maximum` is the integer-exact form of the float test;
+   * plain integer `maximum / 10` truncates and misses the boundary when
+   * maximum is not a multiple of 10 (e.g. max 95, stamina 9). */
   maximum = battle_attribute_max (game, npc, "Stamina");
-  if (maximum > 0 && stamina < maximum / 10)
+  if (maximum > 0 && stamina * 10 < maximum)
     {
       task = battle_npc_battle_task (game, npc, "StaminaTask");
       if (task >= 0)

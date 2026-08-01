@@ -126,8 +126,25 @@ Highest value first:
       run400 answers "Robot isn't here!" / "Player cannot see Robot from
       here." where SCARE says "I don't understand." / "Player sees no such
       thing." — semantics match (location `0xFB`), wording differs.
-      **StaminaTask/KilledTask still untested** (needs a probe with authored
-      tasks — the generator writes none yet).
+- [x] **StaminaTask/KilledTask — settled live 2026-08-01** (probe `pKT` in
+      `make_arena_probe.py`, which now authors tasks; 3.9 half via
+      `make_39_ktprobe.py` in run390).  run400: a set KilledTask **replaces**
+      the "falls down, dead." line ("Player hit Robot.  KILLEDTASK FIRED.");
+      StaminaTask fires on **every** hit that leaves `0 < stamina <
+      max/10` — twice in the probe window (hits leaving 8 and 4 of max
+      100) — and does NOT fire on the killing blow.  run390 dispatches
+      KilledTask identically ("You shoot Robot with the blaster.
+      KILLEDTASK FIRED.").  Decompile (Battles.bas Proc_11_0/Proc_11_3)
+      pins two boundary details the probes can't: the threshold divide is
+      **floating point** (`CDbl(max)/10`), and the corpse's held/worn
+      objects are re-homed to the death room *before* the KilledTask runs.
+      Three faithfulness fixes ported (scbattle.cpp): re-home before task,
+      `stamina * 10 < maximum` (integer-exact float form), and the default
+      corpse line version-gated on `!battle_legacy` — **run390 prints
+      NOTHING when a task-less NPC dies** (probed live; the string
+      " falls down, dead." does not exist in its binary).
+      Corpus: secret_of_lost_world (3.9, Ghost death) re-blessed; all
+      76 rows PASS.
 - [x] **Player-facing surface — settled live 2026-08-01** (probe `pWS` in
       `make_arena_probe.py`: sword Method 1 / HitValue 10 / Acc 15 + axe
       Method 0 / HitValue 20 / Acc 5, both held; unseen Ghost NPC in a second
@@ -517,7 +534,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 |---|---|---|---|
 | Negated `Var2` inside the any/no-object quantifier | negates once around the whole quantifier (the meaningful reading) | its per-object switch handles `Var2` 0–5 only, so "any" always fails and "no" always passes | **Deliberate, confirmed live.** No corpus game authors it. Keep. |
 | Dynamic-object index past the end (`Var1 ≥ 3 + ndynamics`) | clamps to the last object | raises "Subscript out of range" and dies | **Deliberate.** Unreachable in any shipped game. Keep. |
-| Body-part statics in a `Var1 = 2` restriction | positioned at `OBJ_PART_NPC` | statics have no location field, so they read hidden | **Untested.** Probe with a body-part static; the only surviving gap from the `Var1 = 2` fix. |
+| Body-part statics in a `Var1 = 2` restriction | positioned at `OBJ_PART_NPC` | ~~statics have no location field, so they read hidden~~ **theory refuted live** — the Runner answers exactly like Scarier | **Settled 2026-08-01, NO divergence** (probes `pBP`/`pBP2` in `make_arena_probe.py`): with the parent NPC present, is-hidden FAILS, visible-to PASSES, not-hidden PASSES — for an NPC part and a player part alike, byte-identical to Scarier; visible-to tracks the parent NPC's room. With the parent absent, the Runner's `%object%` scope filter refuses the part ("I don't understand.") — that is the separate scope-filter row below, not a body-part issue. |
 | Object scope when matching a task command | `uip_match_entity()` has no scope filter at all — matches anything | won't match an object that isn't present ("I don't understand what you mean!") | **Confirmed divergence, unfixed.** Measure corpus impact before touching it; it changes which task fires whenever a command names a distant object. |
 | 3.9 shoot-Method strength | version-gated: 3.9 adds `HitValue` to base Str, 4.0 replaces | both confirmed live (run390 one-shot / run400 two hits) | **Fixed 2026-08-01** (`7a4cb7c2`). |
 | Upgraded-3.9 combat | `SCR_ASSUME_COMBAT` opt-in; matches author intent | **stalemates, confirmed live 2026-08-01** (Azra: converted acc/agi all 0-0) | Settled — opt-in stays. |
@@ -542,8 +559,9 @@ damage floor, worn armour and the RNG question are all settled live; see §1.)*
 1. §1 remainder — *(done 2026-08-01, second batch: cadence, recovery, target
    select + the scr_randomint fix, death path, and the shoot rule in BOTH
    Runners.)* The player-facing wield/status surface was settled AND ported
-   2026-08-01 (see the divergence table).  Still open: StaminaTask/KilledTask
-   (needs authored tasks in the probe generator).
+   2026-08-01 (see the divergence table).  *(Third batch, same day:
+   StaminaTask/KilledTask settled live in both Runners and ported —
+   `make_arena_probe.py` now authors tasks and statics.  §1 is CLOSED.)*
 2. §3(a) whole-corpus 3.9 differential — *(done 2026-08-01 via the gen400
    structural oracle plus four run390 probes: room-alt ordering and the battle
    attribute index were both wrong and are now fixed; every other V390 fixup is
@@ -553,6 +571,7 @@ damage floor, worn armour and the RNG question are all settled live; see §1.)*
    Runners, plus the worn-drop library rule and thetest's ALRs.  Fixed and
    re-blessed; inverness soft-locks in the real run390 and Scarier
    deliberately doesn't import that.)*
-4. §4 body-part statics and the scope filter — small, self-contained.
+4. §4 body-part statics — *(done 2026-08-01: NO divergence, theory refuted
+   live; see the table.)*  The scope filter — measure corpus impact.
 5. §3(b) `Les Feux de l'enfer` — the last conversion-damage candidate, and the
    most work per answer.
