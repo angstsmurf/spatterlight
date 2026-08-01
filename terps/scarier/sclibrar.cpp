@@ -8153,14 +8153,15 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   if (object == -1)
     return TRUE;
 
-  /* Ensure the referenced object is held. */
+  /* Ensure the referenced object is held.  The Runner: "Player is not
+   * carrying the rock!" (probe pWS2 -- unlike wield's "aren't carrying"). */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
       lib_print_response_object (game,
-                                 "You are not holding ",
-                                 "I am not holding ",
-                                 "%player% is not holding ",
-                                 object, ".\n");
+                                 "You are not carrying ",
+                                 "I am not carrying ",
+                                 "%player% is not carrying ",
+                                 object, "!\n");
       return TRUE;
     }
 
@@ -8174,7 +8175,7 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
           lib_print_object_np (game, object);
           pf_buffer_string (filter,
                             lib_select_plurality (game, object, " is", " are"));
-          pf_buffer_string (filter, " not a weapon.\n");
+          pf_buffer_string (filter, " not a weapon!\n");
           return TRUE;
         }
       lib_battle_player_strike (game, npc, verb, method, object);
@@ -8372,14 +8373,15 @@ lib_cmd_wield (scr_gameref_t game)
   if (object == -1)
     return TRUE;
 
-  /* The weapon must be held, and must actually be a weapon. */
+  /* The weapon must be held, and must actually be a weapon.  The Runner's
+   * refusal is "Player aren't carrying the rock!" [sic] (probe pWS2). */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
       lib_print_response_object (game,
-                                 "You are not holding ",
-                                 "I am not holding ",
-                                 "%player% is not holding ",
-                                 object, ".\n");
+                                 "You aren't carrying ",
+                                 "I am not carrying ",
+                                 "%player% aren't carrying ",
+                                 object, "!\n");
       return TRUE;
     }
   if (!battle_is_weapon (game, object))
@@ -8388,7 +8390,7 @@ lib_cmd_wield (scr_gameref_t game)
       lib_print_object_np (game, object);
       pf_buffer_string (filter,
                         lib_select_plurality (game, object, " is", " are"));
-      pf_buffer_string (filter, " not a weapon.\n");
+      pf_buffer_string (filter, " not a weapon!\n");
       return TRUE;
     }
 
@@ -9437,26 +9439,48 @@ lib_cmd_score (scr_gameref_t game)
  * lib_print_battle_attribute()
  * lib_print_battle_status()
  *
- * Helpers for the Battle System "status" command.  Print one labelled
- * attribute as "Lo-Hi   <current>", and a full status report for the player
- * (npc < 0) or a given NPC.  Stamina is the live game state value; the other
- * attributes show their configured [lo, hi] range alongside a fresh effective
- * roll that folds in the combatant's wielded weapon and worn armour, as the
- * Runner's status display does.  Until a wield is set the player's values are
- * bare -- no would-be weapon is folded in -- and the last line names the
- * wielded weapon, or "nothing".
+ * Helpers for the Battle System "status" command, matching the Runner's
+ * status table (settled live 2026-08-01, probes pWS/pWS2): a header row
+ * "Range / Max / Current value (inc weapons/armour)", then one row per
+ * attribute.  The stamina row is live / max / live (no lo-hi range); the
+ * other rows are "lo-hi", the configured max, a fresh effective roll that
+ * folds in the wielded weapon and worn armour, and -- for the three rows
+ * equipment can affect -- the equipment share in parentheses (agility takes
+ * none, so its row has no parenthesis).  The table has no leading "You
+ * have:" line, and the trailing wielding line is indented to the first
+ * column and names the weapon with its article prefix ("a sword"), or
+ * "nothing".  Until a wield is set the player's values are bare -- no
+ * would-be weapon is folded in.
  */
+enum
+{ STATUS_COL_LABEL = 16,
+  STATUS_COL_RANGE = 14,
+  STATUS_COL_MAX = 12,
+  STATUS_COL_CURRENT = 12
+};
+
 static void
 lib_print_battle_attribute (scr_gameref_t game, scr_int npc,
-                            const scr_char *label, const scr_char *base)
+                            const scr_char *label, const scr_char *base,
+                            scr_bool has_bonus)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_char buffer[64];
+  scr_char buffer[96], range[32];
   scr_int lo, hi, current;
 
   battle_attribute_report (game, npc, base, &lo, &hi, &current);
-  pf_buffer_string (filter, label);
-  snprintf (buffer, sizeof (buffer), "%ld-%ld   %ld", lo, hi, current);
+  snprintf (range, sizeof (range), "%ld-%ld", lo, hi);
+  if (has_bonus)
+    snprintf (buffer, sizeof (buffer), "%-*s%-*s%-*ld%-*ld(%ld)",
+              STATUS_COL_LABEL, label, STATUS_COL_RANGE, range,
+              STATUS_COL_MAX, battle_attribute_max (game, npc, base),
+              STATUS_COL_CURRENT, current,
+              battle_attribute_bonus (game, npc, base));
+  else
+    snprintf (buffer, sizeof (buffer), "%-*s%-*s%-*ld%ld",
+              STATUS_COL_LABEL, label, STATUS_COL_RANGE, range,
+              STATUS_COL_MAX, battle_attribute_max (game, npc, base),
+              current);
   pf_buffer_string (filter, buffer);
   pf_buffer_character (filter, '\n');
 }
@@ -9465,60 +9489,58 @@ static void
 lib_print_battle_status (scr_gameref_t game, scr_int npc)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_char buffer[32];
+  scr_char buffer[96];
   scr_int stamina, maxstamina, weapon;
 
   maxstamina = battle_attribute_max (game, npc, "Stamina");
 
-  /* Print the report header, naming the player or character. */
-  if (npc < 0)
-    pf_buffer_string (filter,
-                      lib_select_response (game,
-                                           "You have:\n",
-                                           "I have:\n",
-                                           "%player% has:\n"));
-  else
+  /* A character with no stamina configured is not a combatant. */
+  if (npc >= 0 && maxstamina <= 0)
     {
       lib_print_npc_np (game, npc);
-      pf_buffer_string (filter, " has:\n");
-
-      /* A character with no stamina configured is not a combatant. */
-      if (maxstamina <= 0)
-        {
-          pf_buffer_string (filter, "   Nothing worth mentioning.\n");
-          return;
-        }
+      pf_buffer_string (filter, " has:\n   Nothing worth mentioning.\n");
+      return;
     }
 
-  stamina = (npc < 0)
-            ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
-
-  pf_buffer_string (filter, "   Stamina:  ");
-  snprintf (buffer, sizeof (buffer), "%ld", stamina);
-  pf_buffer_string (filter, buffer);
-  pf_buffer_string (filter, " out of ");
-  snprintf (buffer, sizeof (buffer), "%ld", maxstamina);
+  /* The header row, indented past the label column as the Runner's is. */
+  snprintf (buffer, sizeof (buffer), "%-*s%-*s%-*s%s",
+            STATUS_COL_LABEL, "", STATUS_COL_RANGE, "Range",
+            STATUS_COL_MAX, "Max", "Current value (inc weapons/armour)");
   pf_buffer_string (filter, buffer);
   pf_buffer_character (filter, '\n');
 
-  lib_print_battle_attribute (game, npc, "   Strength: ", "Strength");
-  lib_print_battle_attribute (game, npc, "   Accuracy: ", "Accuracy");
-  lib_print_battle_attribute (game, npc, "   Defence:  ", "Defense");
-  lib_print_battle_attribute (game, npc, "   Agility:  ", "Agility");
+  /* The stamina row is live / max / live -- no lo-hi range, no bonus. */
+  stamina = (npc < 0)
+            ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
+  snprintf (buffer, sizeof (buffer), "%-*s%-*ld%-*ld%ld",
+            STATUS_COL_LABEL, "Stamina:", STATUS_COL_RANGE, stamina,
+            STATUS_COL_MAX, maxstamina, stamina);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_character (filter, '\n');
 
-  /* Name the weapon the combatant is wielding -- "nothing" when unarmed, as
-   * the Runner's status display does. */
+  lib_print_battle_attribute (game, npc, "Hit strength:", "Strength", TRUE);
+  lib_print_battle_attribute (game, npc, "Accuracy:", "Accuracy", TRUE);
+  lib_print_battle_attribute (game, npc, "Defense value:", "Defense", TRUE);
+  lib_print_battle_attribute (game, npc, "Agility:", "Agility", FALSE);
+
+  /* Name the weapon the combatant is wielding -- "nothing" when unarmed --
+   * with the article prefix the Runner uses ("... is wielding a sword."). */
   weapon = battle_combatant_weapon (game, npc);
+  snprintf (buffer, sizeof (buffer), "%-*s", STATUS_COL_LABEL, "");
+  pf_buffer_string (filter, buffer);
   if (npc < 0)
     pf_buffer_string (filter,
                       lib_select_response (game,
-                                           "   You are wielding ",
-                                           "   I am wielding ",
-                                           "   %player% is wielding "));
+                                           "You are wielding ",
+                                           "I am wielding ",
+                                           "%player% is wielding "));
   else
-    lib_print_wrapped_npc (game, "   ", npc, " is wielding ");
+    {
+      lib_print_npc_np (game, npc);
+      pf_buffer_string (filter, " is wielding ");
+    }
   if (weapon >= 0)
-    lib_print_object_np (game, weapon);
+    lib_print_object (game, weapon);
   else
     pf_buffer_string (filter, "nothing");
   pf_buffer_string (filter, ".\n");

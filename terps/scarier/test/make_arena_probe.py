@@ -144,6 +144,17 @@ CONFIGS = {
              ("an","axe",1,1,0,20,0,5,0)],
     npcs=[("Robot",0,2,250,0,1,0,0,0,0,0,0,0,0),
           ("Ghost",1,0,50,0,1,0,0,0,0,0,0,0,0)]),
+ # Status-layout probe (the pWS cosmetics follow-up): the Robot always hits
+ # (Acc 50 vs player Agi 0) for exactly 5 (Str 5-5 vs Def 0), so the player's
+ # live stamina drops below max and the status table's Stamina cells become
+ # distinguishable; its own 30 stamina takes visible damage for the NPC table.
+ # The rock is an in-room weapon for the wield-not-carried wording.
+ 'WS2': dict(name="Probe WS2",
+    player=(200,10,10,20,20,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","sword",1,1,0,10,1,15,0),
+             ("a","rock",4,1,0,3,0,0,0)],
+    npcs=[("Robot",0,2,30,5,5,50,50,0,0,0,0,0,0)]),
  # Throw-drop probe (settled live 2026-08-01): a method-5 throw moves the
  # weapon to the room and deals base-Strength-only damage (HitValue ignored).
  'TD': dict(name="Probe TD",

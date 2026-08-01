@@ -198,10 +198,33 @@ Highest value first:
       `attack` with two carried weapons ASKED instead of silently picking.
       Repaired with a zero-turn-cost edit: the first post-retake attack is
       now explicit (`attack cat with sword`), which persists the wield for
-      every later bare attack.  Still diverging (cosmetic): status layout
-      (no Max column, no "(bonus)" parens); "You are not holding X." vs the
-      Runner's "Player aren't carrying the sword!" [sic] on wielding a
-      non-held object.
+      every later bare attack.  ~~Still diverging (cosmetic): status layout;
+      "not holding" wording.~~  **Cosmetics PORTED 2026-08-01** after a
+      second probe (`pWS2` in `make_arena_probe.py`: the Robot always hits
+      for exactly 5, so live stamina drops below max and the status table's
+      Stamina cells become distinguishable):
+      * Status is a four-column table — header `Range / Max / Current value
+        (inc weapons/armour)` (indented past the label column; run400 pads
+        it with an *invisible* `<0>`-colored "Stamina:" chunk and vbTabs),
+        labels `Stamina: / Hit strength: / Accuracy: / Defense value: /
+        Agility:`, and NO "You have:" lead-in for player or NPC.  The
+        Stamina row is **live / max / live** (no lo-hi, no parens — pinned
+        by pWS2's damaged 195/200/195 and the Robot's 10/30/10); the three
+        equipment rows are `lo-hi / max / current / (equipment share)`;
+        Agility has no paren.  The trailing line is indented to the first
+        column and names the weapon with its *article prefix* ("Player is
+        wielding a sword."), "nothing" when unarmed; NPC status is the same
+        table ending "Robot is wielding nothing."
+      * Wielding a non-carried object: "Player aren't carrying the rock!"
+        [sic] — but `attack X with <non-carried>` says "Player **is not**
+        carrying the rock!" (both probed live; the two paths genuinely use
+        different verb forms).  Both tick combat.  The non-weapon refusal
+        ends "!" (" is not a weapon!").
+      Ported in sclibrar.cpp (`lib_print_battle_status`/`_attribute`,
+      `lib_cmd_wield`, `lib_battle_attack_with`) + scbattle.cpp
+      (`battle_attribute_bonus`).  Zero golden fallout (no corpus
+      walkthrough runs `status` or a failing wield; colony's "not holding"
+      line is the untouched `wear` path); all 76 rows re-verified PASS.
 - [x] **RNG — re-opened and closed again: the won't-fix stands.** *(2026-08-01.)*
       run400 has **9 `Randomize` call sites**: `Form1.Form_Load` seeds from
       `Timer` at startup; `Form1.dencode` and `Sub_22_30` use the deterministic
@@ -554,7 +577,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Unary minus in expressions | folded into the literal: `-5/2` = (−5)/2 = **−2** | tokenised as an *operator* that reduces after `/`: `-5/2` = 0−(5/2) = 0−3 = **−3** | **NEW divergence, found 2026-08-01 by `pDIV` (its only diverging cell — the `pDIV2` variable forms all agree, which is what pins the cause to the tokeniser, not the rounding).** Zero corpus exposure: none of the 47 authored expressions uses a unary minus (`SCR_DUMP_TASKS` now prints `expr=[...]` on type-3 ACT lines). Documented, not fixed — reshaping scexpr's parser to give unary minus binary-minus precedence risks more than it buys. ~~Open tangent: ADRIFT 5 shares this token engine, so a5sexpr's literal `-5/2` deserves the same one-probe check.~~ **Probed 2026-08-01: NO divergence on the ADRIFT 5 side.** A 44-row battery through the REAL `clsVariable.SetToExpression` (scratch C# driver against the FrankenDrift.Adrift Release dll — no adventure loaded, bare `clsAdventure` + registered vars) matches a5sexpr row-for-row on both the raw string and the `SafeInt(Val())` readback. clsVariable *does* tokenise leading `-` as an operator (`GetToken` clsVariable.vb:134) and reduces the dangling `op expr` pair on run 2 (clsVariable.vb:959-972), after `/` rounded on run 1 — but v5's `Math.Round(AwayFromZero)` is symmetric (`round(-q) == -round(q)`), so the operator parse and a5sexpr's folded parse coincide everywhere, including the var-token vs textual-substitution split (`%v1%/2` with v1=−5). The v4 divergence exists only because run400's `+0.000001` epsilon rounding is asymmetric. Sole divergent row: `-2^-1` (= −0.5) reads back −1 in FD under an English locale (`SafeInt` = VB `Int()` floor) vs 0 from scarier's strtol — and even the real runner is locale-dependent there (comma-decimal `Val("-0,5")` → 0). Kept as-is: fractional results need `^` with a negative outcome, zero corpus exposure. Battery banked as unary-minus cases in `test/a5sexpr_test.cpp`. |
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
 | Battle messages | second person ("you"/"your") | run400 uses player's name with 2nd-person verb forms ("Player manage to avoid…"); run390 uses second person | Presentational only; "you" kept (matches run390). Method-verb weapon narration **ported 2026-08-01**, verified live in BOTH Runners; noted §1 surface facts. |
-| Wield model | ~~per-attack default~~ **PORTED 2026-08-01**: persistent wield ref, matching the Runner | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`) and **ported the same day**. Corpus fallout (found late — stale-binary erratum, see §1): 3 wording goldens + the Shadowpeak routes' post-chapel bare attacks, all repaired/re-blessed. Remaining cosmetic gaps: status layout (Max column, "(bonus)" parens), "not holding" wording. |
+| Wield model | ~~per-attack default~~ **PORTED 2026-08-01**: persistent wield ref, matching the Runner | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`) and **ported the same day**. Corpus fallout (found late — stale-binary erratum, see §1): 3 wording goldens + the Shadowpeak routes' post-chapel bare attacks, all repaired/re-blessed. ~~Remaining cosmetic gaps: status layout (Max column, "(bonus)" parens), "not holding" wording.~~ **Cosmetics ported 2026-08-01** (probe `pWS2`; see §1): four-column status table (Range/Max/Current + equipment share in parens, Stamina row = live/max/live, no "You have:" header, article-prefix wielding line), wield refusal "aren't carrying …!" vs attack-with "is not carrying …!". |
 | Thrown (method 5) weapon | drop + version-split damage ported | moves to the room on a player throw in BOTH Runners; damage = Str-only in run400 (HitValue ignored), Str+HitValue in run390 | **Confirmed live in both Runners and PORTED 2026-08-01** (probes `pTD`/`p39td`; see §1 surface facts). `light_up` route re-derived. |
 | Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
 | Event TaskAffected execution | version-gated: 3.9 = matcher dispatch (wildcard steal, silent restricted skip), 4.0 = direct run (loud FailMessage) | run390 and run400 genuinely differ — same converted probe, opposite behavior | **Fixed 2026-08-01** (§2); both halves verified live. |

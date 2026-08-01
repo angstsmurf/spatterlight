@@ -840,6 +840,8 @@ extern scr_int battle_combatant_weapon (scr_gameref_t game, scr_int npc);
 extern void battle_attribute_report (scr_gameref_t game, scr_int npc,
                                      const scr_char *base,
                                      scr_int *lo, scr_int *hi, scr_int *current);
+extern scr_int battle_attribute_bonus (scr_gameref_t game, scr_int npc,
+                                       const scr_char *base);
 extern void battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon);
 extern void battle_tick (scr_gameref_t game);
 

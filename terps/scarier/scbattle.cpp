@@ -1260,6 +1260,38 @@ battle_attribute_report (scr_gameref_t game, scr_int npc, const scr_char *base,
 }
 
 /*
+ * battle_attribute_bonus()
+ *
+ * The equipment share of an effective attribute, for the status table's
+ * parenthesized column: the wielded weapon's HitValue for strength and its
+ * Accuracy for accuracy, the worn armour's summed ProtectionValue for
+ * defence.  Agility and stamina take no equipment bonus (the Runner's status
+ * prints no parenthesis on those rows).
+ */
+scr_int
+battle_attribute_bonus (scr_gameref_t game, scr_int npc, const scr_char *base)
+{
+  const scr_int weapon = battle_combatant_weapon (game, npc);
+
+  if (strcmp (base, "Strength") == 0)
+    return (weapon >= 0) ? battle_object_battle (game, weapon, "HitValue") : 0;
+  if (strcmp (base, "Accuracy") == 0)
+    return (weapon >= 0) ? battle_object_battle (game, weapon, "Accuracy") : 0;
+  if (strcmp (base, "Defense") == 0)
+    {
+      scr_int object, value = 0;
+
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          if (battle_object_worn_by (game, object, npc))
+            value += battle_object_battle (game, object, "ProtectionValue");
+        }
+      return value;
+    }
+  return 0;
+}
+
+/*
  * battle_player_attack()
  *
  * Resolve a player-initiated attack on an NPC.  When weapon is -1 the wielded
