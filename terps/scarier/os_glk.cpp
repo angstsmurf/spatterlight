@@ -1596,10 +1596,22 @@ gsc_status_redraw (void)
 static int gsc_help_requested = FALSE,
            gsc_help_hints_silenced = FALSE;
 
-/* Font descriptor type, encapsulating size and monospaced boolean. */
+/*
+ * Symbol fonts.  A <font face="..."> naming one of these selects a font whose
+ * bytes are pictograms rather than letters, so the text inside the tag has to
+ * be translated to the equivalent Unicode symbols rather than printed as
+ * Latin-1 (see gsc_put_string_symbol()).
+ */
+typedef enum {
+  GSC_SYMBOL_NONE = 0,
+  GSC_SYMBOL_WEBDINGS
+} gsc_symbol_font_t;
+
+/* Font descriptor type, encapsulating size, monospaced boolean, and face. */
 typedef struct {
   scr_bool is_monospaced;
   scr_int size;
+  gsc_symbol_font_t symbol_font;
 } gsc_font_size_t;
 
 /* Font stack and attributes for nesting tags. */
@@ -1683,6 +1695,7 @@ gsc_font_top (void)
     {
       font.is_monospaced = FALSE;
       font.size = GSC_DEFAULT_FONT_SIZE;
+      font.symbol_font = GSC_SYMBOL_NONE;
     }
   return font;
 }
@@ -1758,6 +1771,127 @@ gsc_set_glk_style (void)
 
 
 /*
+ * Webdings-to-Unicode translation table, indexed by character code.
+ *
+ * Webdings is a symbol font: its byte values are pictograms, not letters, so a
+ * game that writes <font face="Webdings">...</font> is drawing pictures with
+ * what would otherwise be text.  Glk has no way to select a font by name, but
+ * most Webdings pictograms were given Unicode code points in Unicode 7.0 (the
+ * Wingdings/Webdings additions), so they can be reproduced by translating to
+ * the equivalent Unicode character and printing that instead.
+ *
+ * The character-to-pictogram assignments were read off the glyph names in the
+ * `post` table of the Webdings font itself, rather than guessed: entry 0xFF,
+ * for instance, is the glyph named "peace", i.e. U+1F54A DOVE OF PEACE.  That
+ * is the one this table actually exists for -- Topaz (Woodfish) draws a dove
+ * under its title with <font face="Webdings" size=72>\xFF</font>, which
+ * without translation prints as a stray "y-umlaut".  The rest are filled in
+ * where the Unicode equivalent is unambiguous; entries left 0 have no good
+ * equivalent and print as '?'.
+ */
+static const glui32 GSC_WEBDINGS_TO_UNICODE[] = {
+  /* 0x00 */
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  /* 0x20 space, spider, web, no-piracy, sunglasses, trophy, medal, link */
+  0x0020, 0x1F577, 0x1F578, 0x1F572, 0x1F576, 0x1F3C6, 0x1F396, 0x1F517,
+  /* 0x28 speech bubbles, then new/updated/hot/ribbon/checkerboard (no map) */
+  0x1F5E8, 0x1F5E9, 0, 0, 0, 0, 0, 0,
+  /* 0x30 window controls (no map), then transport controls */
+  0, 0, 0, 0, 0, 0, 0, 0x23EA,
+  0x23E9, 0x23EE, 0x23ED, 0x23F8, 0x23F9, 0x23FA, 0, 0x1F5F3,
+  /* 0x40 tools, construction, town/city/site/desert/factory (no map), home */
+  0x1F6E0, 0x1F6A7, 0, 0, 0, 0, 0, 0,
+  0x1F3E0, 0x1F3D6, 0x1F3DD, 0x1F6E3, 0, 0x26F0, 0x1F441, 0x1F442,
+  /* 0x50 park, tent, rail (no map), stadium, ship, sound on/off */
+  0x1F3DE, 0x26FA, 0, 0x1F3DF, 0x1F6F3, 0x1F50A, 0x1F507, 0,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  /* 0x60 loop/check (no map), bicycle, ... fire ... */
+  0, 0, 0x1F6B2, 0, 0, 0, 0x1F525, 0,
+  0x2695, 0x2139, 0x1F6E9, 0x1F6F0, 0, 0, 0, 0x26F5,
+  /* 0x70 police, refresh/close/help (no map), train, metro, bus, flag */
+  0x1F693, 0, 0, 0, 0x1F686, 0x1F687, 0x1F68D, 0x1F6A9,
+  0, 0x26D4, 0x1F6AD, 0, 0, 0, 0, 0,
+  /* 0x80 men, women, boy/girl (no map), baby */
+  0x1F6B9, 0x1F6BA, 0, 0, 0x1F6BC, 0, 0, 0x26F7,
+  0, 0x1F3CC, 0x1F3CA, 0x1F3C4, 0x1F3CD, 0x1F3CE, 0x1F698, 0,
+  /* 0x90 ... credit card ... mail ... */
+  0, 0, 0, 0x1F4B3, 0, 0, 0, 0,
+  0, 0, 0, 0x1F582, 0, 0, 0, 0,
+  /* 0xA0 ... clipboard, calendar, book, news, art, theatre, music */
+  0, 0, 0, 0, 0x1F4CB, 0, 0x1F4C5, 0x1F56E,
+  0, 0x1F5DE, 0, 0, 0, 0x1F3A8, 0x1F3AD, 0x1F3B5,
+  /* 0xB0 microphone, headphones, disc, film frames, ticket, clapper, video */
+  0, 0x1F3A4, 0x1F3A7, 0x1F4BF, 0x1F39E, 0, 0x1F39F, 0x1F3AC,
+  0, 0x1F4F9, 0, 0x1F4FB, 0x1F39A, 0x1F39B, 0x1F4FA, 0,
+  /* 0xC0 ... joystick ... fax, pager, mobile ... printer */
+  0, 0, 0, 0x1F579, 0, 0, 0x1F4E0, 0x1F4DF,
+  0x1F4F1, 0, 0x1F5A8, 0, 0, 0, 0, 0x1F512,
+  /* 0xD0 unlocked, ... weather from 0xD5 */
+  0x1F513, 0, 0, 0, 0, 0x2600, 0x1F324, 0x1F325,
+  0x1F326, 0x2601, 0x1F328, 0x1F327, 0x1F329, 0x1F32A, 0x1F32C, 0x1F32B,
+  /* 0xE0 moon, thermometer, ... dining ... parking, wheelchair, warning */
+  0x1F319, 0x1F321, 0, 0, 0x1F374, 0, 0, 0,
+  0x1F17F, 0x267F, 0x26A0, 0, 0, 0, 0, 0,
+  /* 0xF0 ... airplane, animal, bird, fish, dog, cat, rockets */
+  0, 0x2708, 0, 0x1F426, 0x1F41F, 0x1F415, 0x1F408, 0,
+  /* 0xF8 rockets (no map), world map, globes, and the peace dove at 0xFF */
+  0, 0, 0, 0x1F5FA, 0x1F30D, 0x1F30E, 0x1F30F, 0x1F54A
+};
+
+/*
+ * gsc_put_string_symbol()
+ *
+ * Write a string whose bytes are symbol-font pictograms, translating each to
+ * its Unicode equivalent.  Characters with no equivalent, and any character
+ * the Glk library cannot print exactly, fall back to '?' -- the same thing
+ * gsc_put_char_locale() does when it runs out of options.
+ */
+static void
+gsc_put_string_symbol (const scr_char *string, gsc_symbol_font_t symbol_font)
+{
+  scr_int index_;
+
+  assert (string);
+
+  for (index_ = 0; string[index_] != '\0'; index_++)
+    {
+      const unsigned char character = (unsigned char) string[index_];
+      glui32 unicode = 0;
+
+      if (symbol_font == GSC_SYMBOL_WEBDINGS)
+        unicode = GSC_WEBDINGS_TO_UNICODE[character];
+
+      /*
+       * Newlines are layout, not pictograms, and have to survive translation
+       * so that centring and line breaks still work inside the tag.
+       */
+      if (character == '\n')
+        {
+          glk_put_char ('\n');
+          continue;
+        }
+
+      if (unicode > 0 && unicode < GSC_ISO_8859_EQUIVALENCE)
+        {
+          glk_put_char ((unsigned char) unicode);
+          continue;
+        }
+
+      if (unicode > 0 && gsc_unicode_enabled
+          && glk_gestalt (gestalt_CharOutput,
+                          unicode) == gestalt_CharOutput_ExactPrint)
+        {
+          gsc_put_char_uni (unicode, NULL);
+          continue;
+        }
+
+      glk_put_char ('?');
+    }
+}
+
+
+/*
  * gsc_handle_font_tag()
  * gsc_handle_endfont_tag()
  *
@@ -1792,6 +1926,13 @@ gsc_handle_font_tag (const scr_char *argument)
            */
           font.is_monospaced = strncmp (face, "face=\"courier\"", 14) == 0
                                || strncmp (face, "face=\"terminal\"", 15) == 0;
+
+          /*
+           * Symbol faces need their content translated to Unicode rather than
+           * printed as text; see gsc_put_string_symbol().
+           */
+          font.symbol_font = strncmp (face, "face=\"webdings\"", 15) == 0
+                             ? GSC_SYMBOL_WEBDINGS : GSC_SYMBOL_NONE;
         }
 
       /* Find the size= portion of the tag argument. */
@@ -2186,7 +2327,10 @@ os_print_string (const scr_char *string)
    * so we never be attempting monospaced output to the status window.
    * Nevertheless, check anyway.
    */
-  if (gsc_font_top ().is_monospaced
+  if (gsc_font_top ().symbol_font != GSC_SYMBOL_NONE
+      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+    gsc_put_string_symbol (string, gsc_font_top ().symbol_font);
+  else if (gsc_font_top ().is_monospaced
       && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
     gsc_put_string_alternate (string);
   else

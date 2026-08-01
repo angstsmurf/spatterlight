@@ -98,3 +98,114 @@ compiled out (dead code). `build.sh` now defines `-DSCARIER_DUMP_TOOLS`; the
 tools are env-var-gated, so the binary is behaviourally identical with the vars
 unset (all 17 goldens still pass) but `SCR_DUMP_TASKS` / `SCR_TRACE_TASKS` /
 `SCR_DUMP_OBJLOC` now work for route debugging.
+
+## The real-Runner menu divergence — closed (2026-07-31)
+
+An open question from the Plover TODO: on a real ADRIFT 4 Runner session the
+game reportedly got stuck after the two numbered menu answers — every later
+command replied "Choose an option to speak" — while SCARE exits the menu after
+exactly two answers. The suspicion was an off-by-one in the Runner's
+move-player destination. A run400.exe P-code audit refutes that:
+
+- The task **action executor** is `mdlSpreadTheLoad.Sub_20_11` (`Sub_20_33` is
+  the event engine; the turn loop is inline in `Form1.Text1_KeyPress`). Its
+  move-player "to room" case (action type 1, Var2=0, @ `0008CA07`) stores
+  `Var3 + 1` into the Runner's **1-based** room slot — semantically identical
+  to SCARE's 0-based `gs_move_player_to_room (game, var3)`.
+- Type-2 (task) restrictions (`Sub_20_3` @ `000810DE`) evaluate
+  `Tasks(Var1-1).completed == 1 - Var2`: 1-based task refs, "must (not) be
+  done" — identical to SCARE's decode of task 5's gate on task 16.
+- Event starter task refs are 1-based, set-task actions (type 5) are 0-based —
+  both matching SCARE.
+- "Choose an option to speak" occurs exactly **once** in the (inflated) taf, in
+  task 10's take-sword CompleteText. The menu rooms 4/5 have empty
+  descriptions and no alternates, so no data path lets the Runner repeat that
+  line.
+
+So by its own disassembly the real Runner walks the same menu path SCARE does
+(`1` → task 14 → room 5; `1`/`2` → task 16 → room 3; `n` → task 5, gated on
+task 16 done → skeleton). The stuck session remains unexplained but is not the
+Runner's canonical behavior — the Key & Compass solution is native-ADRIFT and
+documents the whole game past the menu. No SCARE change needed.
+
+## Confirmed empirically on the real Runner (2026-08-01)
+
+The static argument above is now backed by an actual run. Petter's refined
+report was that the break is at **`x skeleton`** — that command and every one
+after it answering "Choose an option to speak" — i.e. *after* both menu answers
+and the room move had already worked.
+
+**It does not reproduce.** run400.exe was run under Wine on this M1 (see
+`~/adrift-battle/runner/wine/README.md` for the harness) with the authentic
+ADRIFT 4.0 runtime from ifarchive's `ADRIFT40.zip`, whose `run400.exe` is
+byte-identical to our copy (MD5 `f7077dddb00b2d1623857ab9b4d1fbc8`) — so this is
+the canonical build, not a variant. The full 23-command route was typed in and
+the game **won**:
+
+- `take sword` → menu opens; `1` → Topaz's introduction + level-2 menu;
+  `1` → "Hmmm. How odd. You will explore now, mortal." — menu exits cleanly
+  after exactly two answers, matching SCARE.
+- `n` → skeleton room.
+- **`x skeleton` → "The skeleton is stretched out upon the ground, his bones
+  corroded by age, and smothered with dust. You notice a silver ring on one
+  skeletal finger."** No "Choose an option to speak".
+- `x silver ring` / `talk to topaz` / `take silver ring` ×2 / `wear ring` →
+  "Forest Clearing", "The two of you set out into the forest.",
+  "[Press any key to end]", status bar **"Congratulations!"**.
+
+### What has been ruled out
+
+- **Auto complete.** It is on by default and does demonstrably corrupt input (in
+  one session it turned `take sword` into `take swordrd`, "Take what?"), but
+  Petter reproduces the break on Windows 10 with Auto complete *off*, so this is
+  not the cause.
+- **A different Runner build.** MD5 as above; banner reads "Version 4.00 / ©
+  Campbell Wild 1998-2012 / Last build: 6th September 2012 (Release 52)".
+- **Swedish system locale.** Re-run in a `sv_SE.UTF-8` Wine prefix, with the
+  locale verified live (the Runner's message boxes came up **"Ja" / "Nej"**).
+  The route still won. This matches static analysis of the P32Dasm listing:
+  run400 contains no `Like`, `CInt` or `CDbl`, and parses numbers with `Val`,
+  which is locale-independent by definition.
+
+### Still open: the **MORE** pagination prompt
+
+The one input-eating mechanism that *did* reproduce here. At the small default
+window size the Runner paginates constantly, and the response to `n` (into the
+skeleton room) ends on a MORE bar — so the first keystroke of the next command
+is consumed dismissing it and `x skeleton` arrives as ` skeleton` → "I don't
+understand what you want me to do with the skeleton." This happened on both
+replays, at exactly the command Petter named. It is environment-dependent
+(window size, font size, Verbose setting), which would explain why it shows on
+one machine and not another. It has *not* been confirmed as Petter's mechanism —
+his symptom is a repeated "Choose an option to speak", not a parser error.
+
+The data argument still stands regardless: "Choose an option to speak" occurs
+exactly once in the inflated taf (task 10's CompleteText), task 10 is
+non-repeatable and in room 3, and menu rooms 4/5 have empty descriptions. No
+legitimate data path re-emits it, so SCARE is faithful here.
+
+## Fixed: the Webdings dove on the title screen (2026-08-01)
+
+A genuine, separate incompatibility, and this one *is* ours. Topaz draws a dove
+under its title with
+
+```
+<font face="Webdings" size=72>\xFF</font>
+```
+
+Webdings is a symbol font, so `\xFF` is a pictogram, not a letter. Scarier
+ignored `face=` (it only ever checked for Courier/Terminal to pick a monospaced
+style) and printed the raw byte, which came out as a stray `ÿ`.
+
+`os_glk.cpp` now tracks symbol faces on the font stack and translates their
+content to the Unicode equivalents, so `\xFF` prints as **U+1F54A DOVE OF
+PEACE** 🕊. The character-to-pictogram assignments were read off the glyph names
+in the `post` table of the shipped Webdings font rather than guessed — entry
+`0xFF` is the glyph literally named `peace`.
+
+Scope check: Webdings is used by exactly one game in the 81-file v4 corpus
+(this one); the other `face=` values in the corpus are ordinary text fonts.
+(29 corpus files are ADRIFT 3.9-obfuscated and were not scanned.) The ANSI
+walkthrough harness is deliberately left alone — it is a byte-oriented
+transcript tool, not a display port, so `topaz_solution.expected.txt` still
+holds the raw `0xFF` and the regression row still passes.
