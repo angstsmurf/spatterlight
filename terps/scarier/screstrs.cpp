@@ -83,7 +83,7 @@ restr_object_in_place (scr_gameref_t game,
                        scr_int object, scr_int var2, scr_int var3)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int npc;
+  scr_int npc, holder;
 
   if (restr_trace)
     {
@@ -145,23 +145,68 @@ restr_object_in_place (scr_gameref_t game,
       return obj_indirectly_in_room (game, object,
                                      gs_npc_location (game, npc) - 1);
 
+    /*
+     * "Inside" and "on top of" both index a sublist -- containers for one,
+     * surfaces for the other -- with Var3 - 1, and there is NO "nothing"
+     * option.  SCARE used to read Var3 = 0 as "is not inside anything" and
+     * return the negation of the position test; the guess was flagged with a
+     * `/ * Nothing? * /` comment, and it was wrong.
+     *
+     * Probed 2026-08-01 against run400.exe, using a Topaz variant whose
+     * `hedges` (an all-rooms static, so it is in the start room) was flipped to
+     * a container with the dynamic `ring` starting inside it -- the runner
+     * loads it and agrees, answering `look in bushes` with "The silver ring is
+     * inside the hedges":
+     *
+     *   Var1  Var2  Var3  meaning                            runner  old SCARE
+     *   4     4     1     ring is inside container 1         PASS    pass
+     *   4     4     0     ring is inside nothing             fail    fail
+     *   3     4     0     Topaz-object is inside nothing     fail    PASS  <--
+     *   3     10    0     Topaz-object is NOT inside nothing PASS    fail  <--
+     *   4     5     0     ring is on top of nothing          fail    PASS  <--
+     *   3     11    0     ...is NOT on top of nothing        PASS    fail  <--
+     *
+     * Row 1 confirms the 1-based container-sublist index.  The rest are all
+     * explained by Var3 = 0 producing index -1, which no object can match: the
+     * plain form is then always false and the negated form always true.  So
+     * return FALSE here and let the caller's negation do the rest.
+     *
+     * The Generator agrees -- its restriction dropdown strings run
+     * "in room / held by / worn by / visible to / inside object / on object"
+     * with a "- No room -" sentinel for the in-room case and no counterpart for
+     * the other two, so Var3 = 0 is not authorable at all.  Nothing in the v4
+     * corpus has it either: all 111 inside/on-top-of restrictions use Var3 >= 1.
+     *
+     * An index past the end of the sublist answers false in the runner without
+     * complaint (unlike Var1, which raises "Subscript out of range").
+     * obj_nth_object() overruns to the last object instead of failing, so test
+     * what came back rather than trusting it.  That can only reject an index
+     * that was already out of range -- a valid one always yields a real
+     * container/surface.
+     */
     case 4:
     case 10:                   /* Inside */
-      if (var3 == 0)            /* Nothing? */
-        return gs_object_position (game, object) != OBJ_IN_OBJECT;
+      if (var3 == 0)
+        return FALSE;
+
+      holder = obj_container_object (game, var3 - 1);
+      if (holder < 0 || !obj_is_container (game, holder))
+        return FALSE;
 
       return gs_object_position (game, object) == OBJ_IN_OBJECT
-             && gs_object_parent (game, object) == obj_container_object (game,
-                                                                      var3 - 1);
+             && gs_object_parent (game, object) == holder;
 
     case 5:
     case 11:                   /* On top of */
-      if (var3 == 0)            /* Nothing? */
-        return gs_object_position (game, object) != OBJ_ON_OBJECT;
+      if (var3 == 0)
+        return FALSE;
+
+      holder = obj_surface_object (game, var3 - 1);
+      if (holder < 0 || !obj_is_surface (game, holder))
+        return FALSE;
 
       return gs_object_position (game, object) == OBJ_ON_OBJECT
-             && gs_object_parent (game, object) == obj_surface_object (game,
-                                                                      var3 - 1);
+             && gs_object_parent (game, object) == holder;
 
     default:
       scr_fatal ("restr_object_in_place: bad var2, %ld\n", var2);
