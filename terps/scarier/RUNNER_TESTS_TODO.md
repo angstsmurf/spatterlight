@@ -85,12 +85,17 @@ Highest value first:
       *(2026-08-01.)* Probe `pM3` (robot stamina 35, harmless; player Str 10 +
       blaster HitValue 30 Method 3): run400 kills on the **second** attack —
       30/hit, base Str replaced, exactly Scarier's rule; SCARE identical. The
-      **3.9 half is staged but unrun**: `test/make_39_probe.py` authors and
+      **3.9 half settled live too**: `test/make_39_probe.py` authors and
       packs a real V390 file (obfuscation + the `sPassword` field's own
       `Mid(5,4)=="Wild"` check, which run390 validates — same rule as the 4.0
-      trailer) and run390 *accepts* it; the fight itself still needs a
-      screen-unlocked session. Scarier on the same 3.9 file kills on hit 2
-      (zeroing applied to 3.9 — the suspected-wrong half).
+      trailer), and run390 **one-shots** the 35-stamina robot — damage 40 =
+      Str 10 + HitValue 30, added regardless of Method. Scarier's zeroing was
+      wrong for 3.9 and is now version-gated on `battle_legacy` (commit
+      `7a4cb7c2`); only ALEXIS shifted in the corpus (battle flavor, still
+      wins, re-blessed). Bonus run390 observations: battle messages use
+      second person ("Robot hits you") where run400 prints the player's
+      name, no corpse line prints on NPC death ("Robot isn't here!" next
+      turn), and a parse-error turn *does* tick combat in run390.
 - [x] **Speed / cadence.** *(2026-08-01, live.)* Speed 2 → hits on turns
       2,4,6,8; Speed 3 → 3,6,9 (first attack on turn N, countdown starts at
       Speed); Speed 1 → irregular 1–2-turn gaps (5 hits/10 turns) consistent
@@ -296,7 +301,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Dynamic-object index past the end (`Var1 ≥ 3 + ndynamics`) | clamps to the last object | raises "Subscript out of range" and dies | **Deliberate.** Unreachable in any shipped game. Keep. |
 | Body-part statics in a `Var1 = 2` restriction | positioned at `OBJ_PART_NPC` | statics have no location field, so they read hidden | **Untested.** Probe with a body-part static; the only surviving gap from the `Var1 = 2` fix. |
 | Object scope when matching a task command | `uip_match_entity()` has no scope filter at all — matches anything | won't match an object that isn't present ("I don't understand what you mean!") | **Confirmed divergence, unfixed.** Measure corpus impact before touching it; it changes which task fires whenever a command names a distant object. |
-| 3.9 shoot-Method strength | zeroes base Str (4.0 rule) | 3.9 adds `HitValue` regardless of method | **Known-wrong, unreachable.** Folded into §1. |
+| 3.9 shoot-Method strength | version-gated: 3.9 adds `HitValue` to base Str, 4.0 replaces | both confirmed live (run390 one-shot / run400 two hits) | **Fixed 2026-08-01** (`7a4cb7c2`). |
 | Upgraded-3.9 combat | `SCR_ASSUME_COMBAT` opt-in; matches author intent | **stalemates, confirmed live 2026-08-01** (Azra: converted acc/agi all 0-0) | Settled — opt-in stays. |
 | Restriction evaluation order | evaluates all, no short-circuit | `Sub_20_65` replaces `#` with T/F in a bool-expr string, so it can't short-circuit either | Believed matched. **Verify** a restriction with a side effect actually runs. |
 | Integer division rounding | see `ADRIFT4_vs_ADRIFT5.md` | — | v4-vs-v5 difference already recorded; confirm the v4 half against run400. |
@@ -312,11 +317,10 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 *(2026-08-01: the old item 1 is done — stalemate, hit test, exclusive Hi,
 damage floor, worn armour and the RNG question are all settled live; see §1.)*
 
-1. §1 remainder — *(mostly done 2026-08-01, second batch: cadence, recovery,
-   target select + the scr_randomint fix, death path, 4.0 shoot rule.)* Still
-   open: the run390 shoot fight (probe built and loading; needs an unlocked
-   screen), StaminaTask/KilledTask (needs authored tasks in the probe
-   generator), and the player-facing wield/status surface items.
+1. §1 remainder — *(done 2026-08-01, second batch: cadence, recovery, target
+   select + the scr_randomint fix, death path, and the shoot rule in BOTH
+   Runners.)* Still open: StaminaTask/KilledTask (needs authored tasks in the
+   probe generator) and the player-facing wield/status surface items.
 2. §3(a) whole-corpus 3.9 differential — one scripted sweep, broad coverage, and
    it exercises fixups nothing else touches.
 3. §2 wildcard ordering — needs a purpose-built probe game, and the fix churns
