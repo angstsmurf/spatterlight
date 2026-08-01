@@ -34,7 +34,6 @@ can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
 A woman cries out in terror at your sudden appearance and rushes away into
 the building. A few other people in the court yard stare at you in confusion.
-It appears as if an execution is about to be start.
 
 >   Suddenly a dozen armed guards wearing shiny chain mail armour burst out of
 the building to the east and charge towards you. You are weaponless and have
@@ -121,7 +120,6 @@ can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
 
 EXITS:  north, east, south and west.
-It appears as if an execution is about to be start.
 
 >You move south.
 Garden
@@ -148,7 +146,6 @@ can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
 
 EXITS:  north, east, south and west.
-It appears as if an execution is about to be start.
 
 >You move east.
 Temple Entry Hall
@@ -317,7 +314,6 @@ can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
 
 EXITS:  north, east, south and west.
-It appears as if an execution is about to be start.
 
 >You move west.
 Outside the Temple Gate

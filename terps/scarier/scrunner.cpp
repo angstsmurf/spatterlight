@@ -1249,6 +1249,114 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
 
 
 /*
+ * run_event_task()
+ *
+ * Run the task executed by a finishing event (its TaskAffected, with
+ * "task finished" unset).  Like the walk tasks above, the reference Runner
+ * does not run this task by its stored index: it submits the task's command
+ * text through the task matcher, and the first task in list order that
+ * matches the text -- a `*` wildcard matches it like any other input -- and
+ * whose "where" and restrictions pass is the one that fires.  So a runnable
+ * wildcard task earlier in the list steals the event's execution outright
+ * (its text prints instead, the affected task does not run), and the theft
+ * happens even when the affected task itself could not run where the player
+ * is standing.  Restricted matches are passed over silently.
+ *
+ * All of this is verified against the live 3.9 Runner (see
+ * RUNNER_TESTS_TODO.md section 2): "thetest" depends on the stealing -- its
+ * "Nice try fish face!" `*` task fires on the same turn as the library drop
+ * because an always-restarting one-turn event executes a task every turn,
+ * and the author's ALRs splice the two messages -- while a probe with the
+ * wildcard placed after the affected task shows list order deciding the
+ * winner, and a probe without any event shows no same-turn firing at all.
+ *
+ * The literal-text comparison below backstops the pattern matcher for the
+ * customary un-typeable "#name" commands, which never survive the player
+ * input path; the matcher is still consulted so wildcard patterns match.
+ */
+void
+run_event_task (scr_gameref_t game, scr_int eventtask)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  const scr_char *command;
+  scr_int task_count, task;
+
+  /* Get the event task's first command pattern; nothing to match if absent. */
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = eventtask;
+  vt_key[2].string = "Command";
+  vt_key[3].integer = 0;
+  command = prop_get_string (bundle, "S<-sisi", vt_key);
+  if (scr_strempty (command))
+    {
+      /* No command text to dispatch; run the task directly. */
+      if (task_can_run_task_directional (game, eventtask, TRUE)
+          && run_task_is_unrestricted (game, eventtask))
+        task_run_task (game, eventtask, TRUE);
+      return;
+    }
+
+  /* Run the first task in list order the command text matches. */
+  task_count = gs_task_count (game);
+  for (task = 0; task < task_count; task++)
+    {
+      scr_bool is_matched;
+
+      if (!task_can_run_task (game, task)
+          || !task_can_run_task_directional (game, task, TRUE))
+        continue;
+
+      if (task == eventtask)
+        is_matched = TRUE;
+      else
+        {
+          const scr_char *other;
+
+          is_matched = run_match_task_commands (game, task, command,
+                                                TRUE, FALSE);
+          if (!is_matched)
+            {
+              vt_key[1].integer = task;
+              other = prop_get_string (bundle, "S<-sisi", vt_key);
+              vt_key[1].integer = eventtask;
+              is_matched = scr_strcasecmp (command, other) == 0;
+            }
+        }
+      if (!is_matched)
+        continue;
+
+      if (run_task_is_unrestricted (game, task))
+        {
+#ifdef SCARIER_DUMP_TOOLS
+          {
+            static const scr_bool trace_evtask =
+                getenv ("SCR_TRACE_EVENT_TASK") != NULL;
+            if (trace_evtask && task != eventtask)
+              fprintf (stderr, "EVTASK steal: task=%ld stole [%s] from"
+                       " task=%ld\n", task, command, eventtask);
+          }
+#endif
+          task_run_task (game, task, TRUE);
+          return;
+        }
+    }
+
+#ifdef SCARIER_DUMP_TOOLS
+  {
+    static const scr_bool trace_evtask =
+        getenv ("SCR_TRACE_EVENT_TASK") != NULL;
+    if (trace_evtask)
+      fprintf (stderr, "EVTASK no-run: [%s] task=%ld candone=%d dir=%d\n",
+               command, eventtask,
+               (int) task_can_run_task (game, eventtask),
+               (int) task_can_run_task_directional (game, eventtask, TRUE));
+  }
+#endif
+}
+
+
+/*
  * run_all_commands()
  * run_game_task_commands()
  *

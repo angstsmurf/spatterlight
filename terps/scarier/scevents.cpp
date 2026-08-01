@@ -330,20 +330,17 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
 
 
 /*
- * evt_fixup_v390_v380_immediate_restart()
+ * evt_taf_version()
  *
- * Versions 3.9 and 3.8 differ from version 4.0 on immediate restart; they
- * "miss" the event start actions and move one step into the event without
- * comment.  It's arguable if this is a feature or a bug; nevertheless, we
- * can do the same thing here, though it's ugly.
+ * Return the game's TAF version.  It is immutable, so it is read once per
+ * game and cached (evt_cache_entry synchronizes the cache, including the
+ * version slot, to this game).
  */
-static scr_bool
-evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
+static scr_int
+evt_taf_version (scr_gameref_t game, scr_int event)
 {
   scr_int version;
 
-  /* The TAF version is immutable; read it once per game.  (evt_cache_entry
-   * synchronizes the cache, including the version slot, to this game.) */
   evt_cache_entry (game, event);
   version = evt_cache_version;
   if (version == 0)
@@ -355,6 +352,23 @@ evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
       version = prop_get_integer (bundle, "I<-s", vt_key);
       evt_cache_version = version;
     }
+  return version;
+}
+
+
+/*
+ * evt_fixup_v390_v380_immediate_restart()
+ *
+ * Versions 3.9 and 3.8 differ from version 4.0 on immediate restart; they
+ * "miss" the event start actions and move one step into the event without
+ * comment.  It's arguable if this is a feature or a bug; nevertheless, we
+ * can do the same thing here, though it's ugly.
+ */
+static scr_bool
+evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
+{
+  const scr_int version = evt_taf_version (game, event);
+
   if (version < TAF_VERSION_400)
     {
       scr_int time1, time2;
@@ -518,8 +532,34 @@ evt_finish_event (scr_gameref_t game, scr_int event)
           if (evt_trace)
             scr_trace ("Event: event cleared task %ld\n", task);
         }
+      else if (evt_taf_version (game, event) < TAF_VERSION_400)
+        {
+          /*
+           * The 3.9 Runner dispatches the task by its command text through
+           * the task matcher rather than running it by index: a runnable
+           * `*` wildcard task earlier in the list steals the execution, and
+           * a restricted match is passed over silently, its FailMessage
+           * unprinted.  The dispatch is not gated on the affected task's
+           * own runnability -- a wildcard can fire even when the affected
+           * task could not run here.  See run_event_task() and
+           * RUNNER_TESTS_TODO.md section 2; "thetest" depends on the
+           * stealing.
+           */
+          if (evt_trace)
+            scr_trace ("Event: event dispatching task %ld forwards\n", task);
+
+          run_event_task (game, task);
+        }
       else if (task_can_run_task_directional (game, task, TRUE))
         {
+          /*
+           * The 4.0 Runner runs the affected task directly: no wildcard
+           * interception, and failing restrictions print their FailMessage
+           * (which task_run_task does) -- Shadowpeak's ambient bell/rat
+           * lines are exactly such prints.  Both halves verified live
+           * against run390/run400 with the same gen400-converted probe;
+           * see RUNNER_TESTS_TODO.md section 2.
+           */
           if (evt_trace)
             scr_trace ("Event: event running task %ld forwards\n", task);
 

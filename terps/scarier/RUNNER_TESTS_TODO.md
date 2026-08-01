@@ -199,50 +199,82 @@ Surface facts learned on the way (all consistent between engines unless noted):
   command." in SCARE); write probe saves in a room *before* the enemy.
 - An unrecognised NPC name in `attack <x>` gets "Who do you want to attack?".
 
-## 2. Wildcard / any-turn task turn-ordering divergence
+## 2. Wildcard / any-turn task turn-ordering divergence — SETTLED 2026-08-01
 
-Found 2026-08-01 while correcting the `thetest` walkthrough; **not fixed**.
+**Both candidate causes were real, and neither was what the original notes
+guessed.** Wildcard tasks are input-matched in both engines — there is no
+end-of-turn wildcard pass at all.  The same-turn firing in `thetest` comes
+from its always-restarting one-turn *events*, and the sole-response mystery
+was the author's own ALRs.  Six authored probes
+(`test/make_39_wildprobe.py` and inline variants), a neutralized-ALR rebuild
+of thetest, and cross-checks of the same gen400-converted probe in **both**
+run390 and run400 settled everything.  Fixed in `scevents.cpp` /
+`scrunner.cpp` (`run_event_task`) / `sclibrar.cpp`; goldens re-blessed
+(thetest, gateway, inverness + padded route; Shadowpeak byte-identical again
+after the version gate).
 
-`*`-wildcard tasks (`ALTCMD [*]`, `where=3`) appear to fire a turn late in
-Scarier relative to the Runner.
+What was actually established, each verified live:
 
-Evidence, `thetest` `TASK 2 #clothesnot`
-(`RESTR type=0 v1=3 v2=8 v3=0` = "clothes NOT worn by player"; actions = move
-clothes to worn, score −1):
+- [x] **No end-of-turn wildcard pass.** A `*` task gated on "rock held", with
+      no events in the game, does NOT fire on the `take rock` turn in run390 —
+      it fires on the next command, exactly like Scarier always did.  Both
+      positive (v2=1) and negated (v2=7/8) restrictions behave the same way.
+- [x] **Events with a TaskAffected are the real mechanism.** thetest runs an
+      always-restarting 1-turn event every turn.  In the **3.9 Runner** the
+      event's "execute task" is dispatched by command text through the normal
+      task matcher: the first task in list order that matches the text (`*`
+      matches anything) *and* passes where+restrictions fires — so a runnable
+      wildcard earlier in the list **steals the execution outright** (the
+      affected task does not run that turn), a restricted match is passed
+      over silently (its FailMessage is NOT printed), and restrictions are
+      evaluated against post-library state.  Order decides: with the ticker
+      task before the wildcard, no steal ever happens.
+- [x] **The 4.0 Runner reverted (or never had) all of that.** The *same*
+      gen400-converted probe in run400: no interception ever, the affected
+      task runs directly, and a failing restriction prints its FailMessage
+      loudly every turn.  That is exactly SCARE's original
+      `task_can_run_task_directional → task_run_task` code — unsurprising,
+      since SCARE was written against the 4.0 Runner.  Scarier now version-
+      gates: `< TAF_VERSION_400` dispatches through `run_event_task()`, 4.0
+      keeps the direct run.  Shadowpeak's ambient bell/rat lines are 4.0
+      FailMessage prints and survive unchanged; gateway's four
+      "execution is about to be start." lines were 3.9 FailMessage prints
+      and correctly vanish.
+- [x] **The thetest ALRs manufacture the "sole response".** The raw run390
+      output for `drop clothes` (ALR patterns neutralized in a rebuilt .taf)
+      is "You drop your clothes.  Nice try fish face!" — library message plus
+      stolen-event task text, one paragraph.  The author's ALR rewrites that
+      exact combined string to "Nice try fish face!", and a second ALR turns
+      the `remove clothes` variant into "Lunatic, eh?  Yes?  Well tough." —
+      the observed stray "!" is the leftover the pattern doesn't consume.
+      Scarier emits the two texts as separate lines, so the combined-pattern
+      ALR cannot match: **known residual cosmetic divergence** (the Runner
+      joins a turn's output with two spaces into one paragraph and ALRs the
+      whole; Scarier ALRs per string).
+- [x] **Library `drop` of a worn item implicitly removes it** — in BOTH
+      Runners ("You drop the cloak.", inventory empty after), while `drop
+      all` leaves worn items alone (also verified).  Scarier used to refuse
+      ("You are not holding..."); fixed via `lib_drop_named_filter` (named
+      drops accept worn, the drop-all universe stays held-only).
+- [x] **Scarier deliberately does NOT implement the Runner's completed-`*`
+      claiming.** In run390 a completed non-repeatable `*` task answers every
+      later command "You have already done that." — which **soft-locks
+      inverness in the real 3.9 Runner**: after the dressing-room scene the
+      catch event's execution and every movement command are eaten, and the
+      game cannot proceed (verified live to the lock).  Scarier skips
+      completed tasks in both the input matcher and the event dispatch, so
+      inverness stays winnable (route padded with two `z`; the catch fires
+      one turn later than run390 would have, because Scarier's event-start
+      scan runs before the steal completes the gating task within the same
+      event phase).  Same faithful-vs-playable call as Topaz.
 
-| input | 3.9 Runner | Scarier |
-|---|---|---|
-| `drop clothes` | "Nice try fish face!", −1, clothes never come off | "You are not holding your clothes." |
-| `remove clothes` | "Lunatic, eh?  Yes?  Well tough.!", −1 | "You remove your clothes." — fish face lands on the *next* command |
-| `drop fluff` | "You drop the fluff.  The fluff is dragged away into the machine." (one turn) | split over two turns |
-
-For the Runner to answer "Nice try fish face!" as the *sole* response to
-`drop clothes`, the restriction must have been true at evaluation time — i.e.
-the library `drop` had already taken the clothes off, and the wildcard task ran
-**after** it, same turn. (Neutral commands with the clothes on do *not* fire it,
-so the restriction itself is being read correctly.)
-
-To settle:
-
-- [ ] Separate the two candidate causes — they are independently testable.
-      (a) Does ADRIFT 4 run `where=3`/`*` tasks at *end of turn*, after the
-      library action, rather than as input-matched tasks? (b) Does the Runner's
-      library `drop` of a *worn* item implicitly remove it first, where Scarier's
-      refuses? Test (b) in a game with **no** wildcard task.
-- [ ] Where does the wildcard pass sit relative to events? Cross-check with
-      `SCR_TRACE_EVENTS` on the Scarier side.
-- [ ] Find the `remove clothes` task in the dump and check its restriction — the
-      "Lunatic, eh?" text means a *second* authored task is involved, and its
-      behaviour may discriminate between (a) and (b).
-- [ ] Ground truth: the turn loop lives inline in `Form1.Text1_KeyPress`;
-      `Sub_20_3` = restriction eval, `Sub_20_11` = action executor,
-      `Sub_20_33` = events.
-- [ ] **Build a minimal probe game** (one `*` task, one library action) rather
-      than reasoning from `thetest`. Changing this will re-bless a lot of
-      goldens, so it must be probed, not guessed.
-
-Low urgency — no reachable score changed in `thetest` — but high value for
-confidence in every `*`-task game.
+Residual small divergences, noted not fixed: run390 appends task text to
+`i`/inventory output where Scarier lets the wildcard replace it; the Runner
+substitutes the player's name with second-person verb forms ("Player drop the
+cloak."); and the ALR-over-joined-paragraph difference above.  Open question
+for another day: whether `run_npc_walk_task()` (walk CharTask/ObjectTask
+dispatch, currently "run every same-command task") is also wildcard-
+interceptable in the 3.9 Runner — same probe recipe would answer it.
 
 ## 3. 3.9 → 4.0 conversion
 
@@ -360,6 +392,9 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Battle messages | second person ("you"/"your") | player's name with 2nd-person verb forms ("Player manage to avoid…") | Presentational only; noted §1 surface facts. |
 | Battle-start wield | auto-wields best weapon | wields nothing; auto-selects held weapon per `attack` | Same outcomes on all probes; surface divergence only. |
 | Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
+| Event TaskAffected execution | version-gated: 3.9 = matcher dispatch (wildcard steal, silent restricted skip), 4.0 = direct run (loud FailMessage) | run390 and run400 genuinely differ — same converted probe, opposite behavior | **Fixed 2026-08-01** (§2); both halves verified live. |
+| Named `drop` of a worn item | implicitly removes then drops (named only; `drop all` skips worn) | same, in BOTH Runners | **Fixed 2026-08-01** (`lib_drop_named_filter`). |
+| Completed non-repeatable `*` task | skipped by matcher and event dispatch | claims every later command: "You have already done that." — soft-locks inverness for real | **Deliberate divergence.** Do not import; see §2. |
 
 ---
 
@@ -376,8 +411,11 @@ damage floor, worn armour and the RNG question are all settled live; see §1.)*
    structural oracle plus four run390 probes: room-alt ordering and the battle
    attribute index were both wrong and are now fixed; every other V390 fixup is
    confirmed.)*
-3. §2 wildcard ordering — needs a purpose-built probe game, and the fix churns
-   goldens, so do it when there's room to re-bless carefully.
+3. §2 wildcard ordering — *(done 2026-08-01: no end-of-turn pass exists; the
+   mechanism was event task-execution dispatch, version-split between the two
+   Runners, plus the worn-drop library rule and thetest's ALRs.  Fixed and
+   re-blessed; inverness soft-locks in the real run390 and Scarier
+   deliberately doesn't import that.)*
 4. §4 body-part statics and the scope filter — small, self-contained.
 5. §3(b) `Les Feux de l'enfer` — the last conversion-damage candidate, and the
    most work per answer.

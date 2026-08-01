@@ -5782,6 +5782,25 @@ lib_drop_filter (scr_gameref_t game, scr_int object, scr_int unused)
          && gs_object_position (game, object) == OBJ_HELD_PLAYER;
 }
 
+/*
+ * lib_drop_named_filter()
+ *
+ * Variant of the above for explicitly named objects.  The Runner also drops
+ * a *worn* object named in a drop command, implicitly removing it first --
+ * "drop cloak" while wearing it answers "You drop the cloak." -- while a bare
+ * "drop all" leaves worn items alone.  Both verified live against run390;
+ * see RUNNER_TESTS_TODO.md section 2.
+ */
+static scr_bool
+lib_drop_named_filter (scr_gameref_t game, scr_int object, scr_int unused)
+{
+  assert (unused == -1);
+
+  return !obj_is_static (game, object)
+         && (gs_object_position (game, object) == OBJ_HELD_PLAYER
+             || gs_object_position (game, object) == OBJ_WORN_PLAYER);
+}
+
 
 /*
  * lib_cmd_drop_all()
@@ -5825,11 +5844,18 @@ static scr_bool
 lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
   scr_int objects, references;
+
+  /*
+   * Named objects may also be dropped from worn; the "all" universe that
+   * "drop all except ..." works over is held objects only.
+   */
+  resolver = is_except ? lib_drop_filter : lib_drop_named_filter;
 
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "retain" : "drop",
-                                   lib_drop_filter, -1,
+                                   resolver, -1,
                                    &references))
     return FALSE;
   else if (references == 0)
@@ -5837,7 +5863,7 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Filter objects into references, then handle with the backend. */
   objects = lib_apply_filter (game,
-                              lib_drop_filter, -1, is_except,
+                              resolver, -1, is_except,
                               &references);
   if (objects > 0 || references > 0)
     lib_drop_backend (game);

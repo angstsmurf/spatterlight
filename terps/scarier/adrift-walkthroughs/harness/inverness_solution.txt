@@ -35,5 +35,7 @@ unlock desk
 open desk
 take letter
 s
-search bedroom
+z
 look
+z
+z
