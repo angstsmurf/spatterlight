@@ -110,8 +110,35 @@ restr_object_in_place (scr_gameref_t game,
 
     case 1:
     case 7:                    /* Held by */
+      /*
+       * "Held by the player" is broader than it sounds.  The Adrift 4 runner
+       * answers TRUE for an object the player is *wearing* as well as one
+       * being carried, and also for an object sitting inside a container that
+       * the player carries or wears -- one level of nesting, not a recursive
+       * search.  See the notes above restr_pass_task_object_location below.
+       *
+       * Note that none of this applies to the NPC forms, nor to "worn by":
+       * those really are the single exact position test they look like.
+       */
       if (var3 == 0)            /* Player */
-        return gs_object_position (game, object) == OBJ_HELD_PLAYER;
+        {
+          scr_int position, parent, parent_position;
+
+          position = gs_object_position (game, object);
+          if (position == OBJ_HELD_PLAYER || position == OBJ_WORN_PLAYER)
+            return TRUE;
+
+          if (position != OBJ_IN_OBJECT)
+            return FALSE;
+
+          parent = gs_object_parent (game, object);
+          if (parent < 0 || parent >= gs_object_count (game))
+            return FALSE;
+
+          parent_position = gs_object_position (game, parent);
+          return parent_position == OBJ_HELD_PLAYER
+                 || parent_position == OBJ_WORN_PLAYER;
+        }
       else if (var3 == 1)       /* Ref character */
         npc = var_get_ref_character (vars);
       else

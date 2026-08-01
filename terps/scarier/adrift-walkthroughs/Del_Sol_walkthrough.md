@@ -2,12 +2,12 @@
 
 - **Engine:** ADRIFT 4 (Battle System used in the surreal "dream" sequences).
 - **Result:** **UNWINNABLE — no reachable ending. Max score reached by a robust
-  deterministic tour: 24/46.** The structural maximum is 46, but the win and the
+  deterministic tour: 26/46.** The structural maximum is 46, but the win and the
   final +10 are both orphaned (see below), and the timed class windows / mutually
   exclusive dialogue choices put the remainder out of reach in a single play.
 - Solution file: `harness/del_sol_solution.txt` — a 112-line cycling tour (one
   command per turn, repeated across the timed classes so each scoring task fires
-  when its room is active). Reaches 24/46 deterministically.
+  when its room is active). Reaches 26/46 deterministically.
 
 ## Premise / structure
 
@@ -48,8 +48,18 @@ dream/next-class events fire, and the dream interludes shift the timing
 unpredictably) and **mutually exclusive choices** (e.g. accepting `gamble` +1 vs
 declining `no` +10; `pass note` vs `write note to hina`; the various `make out`
 flirtations vs Noslen's standing with Hina). The banked cycling tour reliably
-banks **24/46** every run; pushing higher would require frame-perfect alignment
+banks **26/46** every run; pushing higher would require frame-perfect alignment
 to each class's short window for no payoff (there is still no ending).
+
+The tour banked 24/46 until 2026-08-01, when Scarier's "held by the player"
+restriction was corrected to match the Runner (an object inside a container the
+player carries or wears counts as held — see `ADRIFT4_vs_ADRIFT5.md` §6). Task 6
+requires "pencil held by the player" and the pencil lives inside the carried
+backpack, so `take notes` now succeeds in Physics instead of answering "Take
+what?", for +2. Verified on the real 4.0 Runner by transplanting a Scarier-written
+`.tas` save 60 turns in and replaying the turn: it answers "Staring at the
+direction of the teacher, you write the stuff you see on the board." at Score 8,
+exactly as Scarier now does.
 
 ## Notes
 

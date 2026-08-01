@@ -26,18 +26,40 @@ Room 0 (machine + colour door)  --E-->  Room 1 "The Room of Eternal Dialing"
 
 ## The 5 points you can actually get
 
-In Room 0 a wrecked-machine cut-scene fires after a few turns: a machine
-"allergic to fluff" drags the fluff out of your clothes, sneezes itself to
-pieces, and leaves a **colour-changing key** inside. That cut-scene (`#finalfluff`,
-task 3) is the **only reachable `ChangeScore` action**, worth **+5**. Just wait:
+In Room 0 you are strapped to a conveyer feeding a machine that is **allergic to
+fluff**, and your shorts have a zipped **pocket** with an endless supply of it.
+Feed the machine three times (it "has 3 sets of giant teeth") and it sneezes
+itself to pieces, leaving a **colour-changing key** inside. That cut-scene
+(`#finalfluff`, task 3) is the **only reachable `ChangeScore` action**, worth
+**+5**:
 
 ```
-z   z   z   z   z   z        <- the machine breaks here: "(score has increased by 5)"
+open clothes                 <- "You unzip the pocket."  (the pocket is a part-of
+                                static; the *container* is the clothes themselves)
+take fluff                   <- the pocket refills after every fluff you remove
+drop fluff                   <- "The fluff is dragged away into the machine."
+z                            <- the machine grabs it on the FOLLOWING turn
+take fluff / drop fluff / z  <- second set of teeth
+take fluff / drop fluff / z  <- third: "(score has increased by 5)"
 take key                     <- a key whose colour changes every turn
 unlock door                  <- never works (see below); the door just recolours
 east                         <- "You can't go in any direction!"  (sealed)
 score                        <- 5 out of a maximum of 25
 ```
+
+The fluff must be **taken out of the pocket and dropped by hand** — waiting does
+nothing, because `#finalfluff`'s restriction is "fluff is *not* held by the
+player" and, in ADRIFT 4, fluff sitting in a container you are *wearing* counts
+as held. SCARE used to get that wrong (see `screstrs.cpp`, the "Held by" case),
+which made a bare `z z z z z z` appear to solve it; that was an engine bug, not
+the intended route. Verified against the real ADRIFT 3.9 Runner under Wine:
+same commands, same cut-scene text, `Score: 5`.
+
+Note the one-turn lag on the `z` lines: SCARE runs the machine's grab task on the
+turn *after* the drop, whereas the Runner prints "You drop the fluff." and the
+grab in the same turn. The reachable score is identical either way; the lag is a
+separate, still-open task-ordering difference (`*`-wildcard / any-turn tasks) and
+is unrelated to the object-location decode.
 
 Every other point source is in Rooms 1–4, which are unreachable.
 

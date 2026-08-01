@@ -1,8 +1,15 @@
 z
 z
 z
+open clothes
+take fluff
+drop fluff
 z
+take fluff
+drop fluff
 z
+take fluff
+drop fluff
 z
 take key
 unlock door

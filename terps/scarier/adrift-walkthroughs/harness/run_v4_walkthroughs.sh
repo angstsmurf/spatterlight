@@ -121,7 +121,7 @@ tcom_solution.txt|tcom.taf|the file entitled "tcom2"
 think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
 toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICALLY EARTH
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
-del_sol_solution.txt|Del Sol.taf|Your score is 24 out of a maximum of 46.
+del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|A murderer thou shalt be
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.

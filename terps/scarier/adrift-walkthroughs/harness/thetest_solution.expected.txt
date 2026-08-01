@@ -37,9 +37,23 @@ Somewhere you don't want to be
 Actually you might want to be here, but you can see nothing, smell nothing,
 hear nothing, taste nothing and feel nothing.
 
->The fluff is dragged away into the machine.  It sneezes loudly.
+>You unzip the pocket.  Some more fluff is inside your clothes.
+
+>You take the more fluff from your clothes.
+
+>You drop the fluff.
 
 >The fluff is dragged away into the machine.  It sneezes loudly.
+
+>You take the more fluff from your clothes.
+
+>You drop the fluff.
+
+>The fluff is dragged away into the machine.  It sneezes loudly.
+
+>You take the more fluff from your clothes.
+
+>You drop the fluff.
 
 >(Your score has increased by 5)
 The fluff rolls away into the machine.  You wait. The machine starts crying
@@ -48,10 +62,10 @@ You've just thrown a bit of fluff into a machine thats allergic to it.  The
 conveyer stops a moment later, and you keep running and are thrown against
 the opposite wall.
 
->You take the blue key from the machine.
+>You take the violet key from the machine.
 
->You insert the weathered pewter key into the lock but instead of unlocking
-the door turns brown.
+>You insert the green key into the lock but instead of unlocking the door
+turns weathered pewter.
 
 >You can't go in any direction!
 
