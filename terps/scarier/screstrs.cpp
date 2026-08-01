@@ -97,10 +97,11 @@ restr_object_in_place (scr_gameref_t game,
     case 0:
     case 6:                    /* In room */
       /*
-       * Callers only ever pass dynamic objects here (the Adrift 4 runner's
-       * object-location restriction ignores statics entirely -- see the static
-       * filter in restr_pass_task_object_location below), so `position` is
-       * meaningful: -1 is genuinely "hidden", and >= 1 is the room, 1-based.
+       * `position` is meaningful for a dynamic object: -1 is genuinely
+       * "hidden", and >= 1 is the room, 1-based.  A static can still reach
+       * here through the "referenced object" form, and then reads as hidden
+       * until something moves it -- which is what the Adrift 4 runner does
+       * too.  See restr_pass_task_object_location below.
        */
       if (var3 == 0)
         return gs_object_position (game, object) == OBJ_HIDDEN;
@@ -196,7 +197,26 @@ restr_pass_task_object_location (scr_gameref_t game,
   else
     scr_fatal ("restr_pass_task_object_location: bad var2, %ld\n", var2);
 
-  /* Now find the addressed object. */
+  /*
+   * Now find the addressed object.
+   *
+   * DELIBERATE DIVERGENCE for the "any object" / "no object" forms combined
+   * with a negated Var2 (6..11).  We negate once, at the end of the loop
+   * below, so "ANY object is NOT in room R" means "no dynamic object is in
+   * room R" and "NO object is NOT in room R" means "some dynamic object is in
+   * room R".  The real Runner cannot express either: the per-object condition
+   * switch inside its any/no loop (mdlSpreadTheLoad.Sub_20_3, dispatch chain
+   * at 000807EE..00080AF1) has cases for Var2 0..5 only, so a negated Var2
+   * matches nothing, and the loop result collapses to a constant -- "any
+   * object" always FAILS and "no object" always PASSES, whatever Var3 and the
+   * world state are.
+   *
+   * Verified 2026-08-01 against run400.exe itself (Wine/Rosetta), with twelve
+   * hand-built single-restriction Topaz variants: the six Var2 < 6 probes all
+   * agree, and the six negated ones show the Runner returning that constant.
+   * We keep the meaningful reading; nothing in the v4 corpus authors a negated
+   * any/no object-location restriction, so no game can tell the difference.
+   */
   if (var1 == 0)
     {
       object = -1;              /* No object */
@@ -212,23 +232,47 @@ restr_pass_task_object_location (scr_gameref_t game,
     scr_fatal ("restr_pass_task_object_location: bad var1, %ld\n", var1);
 
   /*
-   * Here it seems that we have to special case static objects that may have
-   * crept in through the referenced object.  The object in place function
-   * isn't built to handle these.
+   * A static object can arrive here through the "referenced object" form, and
+   * unlike the any/no quantifier above the runner does NOT filter it out: it
+   * evaluates the condition on whatever %object% matched.  SCARE used to
+   * reject statics unconditionally at this point, which made "the referenced
+   * object is visible to the player" -- by far the most common way this form
+   * is authored, 25 of the 30 occurrences in the v4 corpus -- impossible to
+   * satisfy by naming any piece of scenery.
    *
-   * TODO What is the meaning of applying object restrictions to static
-   * objects?
+   * Verified 2026-08-01 against run400.exe (Wine/Rosetta), with six
+   * single-restriction Topaz variants whose task command is `probe %object%`
+   * and whose referenced object is the static `sky`:
+   *
+   *   Var2  Var3  meaning                     runner
+   *   0     0     is hidden                   PASS
+   *   0     1     is in room 1 (player's)     fail
+   *   0     4     is in room 4                fail
+   *   1     0     is held by the player       fail
+   *   3     0     is visible to the player    PASS
+   *   6     0     is NOT hidden               fail
+   *
+   * Falling through to restr_object_in_place() reproduces all six.  The two
+   * halves come out right for different reasons, and both are worth spelling
+   * out:
+   *
+   *  - "Visible to" is genuinely computed.  The runner splits static from
+   *    dynamic there (mdlSpreadTheLoad.Sub_20_7) and consults the authored
+   *    per-room list; so does obj_indirectly_in_room() via obj_static_in_room.
+   *    Note `sky` is a Where-type-3 (all rooms) static, hence PASS -- and note
+   *    that Var3 = 1 above is FALSE even though `sky` is in every room, which
+   *    is what proves the "in room" case is NOT consulting that same list.
+   *
+   *  - The other cases match only because both engines end up reading a
+   *    location field that statics never maintain.  The runner keeps a static's
+   *    whereabouts in the per-room array at [1C] but still reads the dynamic
+   *    location int at [1A] here, and that stays at its initial -1; SCARE
+   *    likewise leaves an unmoved static's `position` at OBJ_HIDDEN.  So both
+   *    answer "hidden", accidentally in agreement.  Body-part statics are the
+   *    one place the accident breaks down: SCARE gives them OBJ_PART_NPC, so
+   *    "is hidden" is FALSE where the runner would say TRUE.  Left alone --
+   *    it is the saner answer, and no corpus game asks.
    */
-  if (var1 == 2 && object != -1 && obj_is_static (game, object))
-    {
-      if (restr_trace)
-        {
-          scr_trace ("Restr:"
-                    " restriction object %ld is static, rejecting\n", object);
-        }
-
-      return FALSE;
-    }
 
   /* Try to put it all together. */
   if (object == -1)

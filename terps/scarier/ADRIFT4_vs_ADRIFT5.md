@@ -18,6 +18,8 @@ Three sub-versions distinguished by a 12-byte magic signature:
 - **v4.0**: payload is **zlib-compressed** (deflate). Embedded resources (sounds, graphics) may follow the game data; `parse_add_resources_offset()` records their byte offset.
 - **v3.9 / v3.8**: payload is **XOR-obfuscated** using the Visual Basic PRNG (`taf_random()`, seeded at `PRNG_INITIAL_STATE = 0x00a09e86`).
 
+A v4.0 file is `[14-byte signature][8 ASCII digits][zlib stream][15-byte trailer]`. The digits are `filesize - 14` in decimal, and the trailer is `0x00`, twelve bytes, `CR LF`. Those twelve bytes are the author's 8-character password as `password[0:4] + "Wild" + password[4:8]` (Campbell **Wild**, ADRIFT's author), XOR-obfuscated with the *same* Visual Basic PRNG the v3.9/3.8 files use, indexed by absolute file offset — i.e. the stream is advanced `filesize - 14` times and then applied to the twelve bytes. `run400.exe` decodes it at load and rejects the file with "Error - Not an Adventure file." unless characters 5-8 are `Wild`. Scarier reads neither the size field nor the trailer, which is why it happily loads a file the Runner would refuse; anything that *writes* a `.taf` must reproduce both.
+
 The decompressed stream is a sequence of newline-terminated text fields, with per-version 3-byte multi-line separators (`{0xbd,0xd0,0x00}` for v4.0, `{0x2a,0x2a,0x00}` for v3.9/3.8). This stream is walked by the schema-driven parser `parse_game()` in `sctafpar.cpp` according to one of three parse schema tables (`V400_PARSE_SCHEMA` etc.), producing a flat `scr_prop_setref_t` property bundle.
 
 Saved games use the same zlib-compressed text format, beginning with `SER_VERSION_HEADER = "\xAC400052"`. Battle state is appended after the turn count as a private `ScarierBattleState/2` block.
@@ -143,6 +145,10 @@ Action types: the executor (`Sub_20_11` in the original Runner, `sctasks.cpp` in
 | 6 | Change object state |
 | 7 | Change battle attribute |
 | 8–9 | Parsed by data model; executor ignores |
+
+Type-0 (object location) `Var1` selects the object: 0 = no object, 1 = any object, 2 = referenced object, ≥3 = dynamic object `Var1 − 3`. `Var2` is the condition (0 = in room, 1 = held by, 2 = worn by, 3 = visible to, 4 = inside, 5 = on top of) with 6–11 the negated forms. The "any"/"no" forms range over **dynamic objects only** in both engines. Scarier applies the negation once, around the whole quantifier; the Runner's own per-object switch handles `Var2` 0–5 only, so for it a negated `Var2` makes "any object" always fail and "no object" always pass. Scarier keeps the meaningful reading — see the comment in `restr_pass_task_object_location()`; no corpus game authors that combination.
+
+The `Var1 = 2` (referenced object) form is the one place a **static** object reaches this code, and the Runner does not filter it out — it evaluates the condition on whatever `%object%` matched. Scarier used to reject statics unconditionally there, which made "the referenced object is visible to the player" unsatisfiable for any piece of scenery; that is how 25 of the 30 occurrences of this form in the v4 corpus are authored (`adriftorama`, `goldilocks`, `circus`). Fixed 2026-08-01 after probing the real Runner: "visible to" is genuinely computed from the static's authored room list in both engines, while "in room"/"held by"/… read a location field statics never maintain and so answer "hidden" in both. Scarier's only remaining difference is body-part statics, which it positions at `OBJ_PART_NPC` rather than hidden.
 
 Task scoring via `taskstate.scored`; one undo level via `game->undo` deep copy.
 
