@@ -738,6 +738,7 @@ extern scr_bool run_game_task_commands (scr_gameref_t game,
                                        const scr_char *string);
 extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);
+extern void run_task_command_dispatch (scr_gameref_t game, scr_int task);
 extern scr_bool run_does_command_match (scr_gameref_t game,
                                        const scr_char *string);
 extern scr_gameref_t run_create (scr_read_callbackref_t callback, void *opaque);

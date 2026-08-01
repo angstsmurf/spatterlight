@@ -271,10 +271,32 @@ What was actually established, each verified live:
 Residual small divergences, noted not fixed: run390 appends task text to
 `i`/inventory output where Scarier lets the wildcard replace it; the Runner
 substitutes the player's name with second-person verb forms ("Player drop the
-cloak."); and the ALR-over-joined-paragraph difference above.  Open question
-for another day: whether `run_npc_walk_task()` (walk CharTask/ObjectTask
-dispatch, currently "run every same-command task") is also wildcard-
-interceptable in the 3.9 Runner — same probe recipe would answer it.
+cloak."); and the ALR-over-joined-paragraph difference above.
+
+- [x] **Walk CharTask/ObjectTask dispatch is wildcard-interceptable in the
+      3.9 Runner, and a direct run in the 4.0 Runner — settled live
+      2026-08-01** (`test/make_39_walkprobe.py` / `test/make_400_walkprobe.py`,
+      variants E/F/G: looping two-stop walk, NPC Bob meets the player every
+      other turn, CharTask = an un-typeable `#met` task).  run390's arrival
+      turns print `WILDCARD FIRED.  Bob BOB ENTERS..  WILDCARD FIRED.` with
+      the `*` task listed first (the second is the stolen walk dispatch;
+      `CHARTASK FIRED.` never appears), and `... CHARTASK FIRED.` with the
+      task order swapped — list order decides, exactly the event dispatch
+      semantics, and statically the same P-code (Form1.characters at
+      0005AAD5/0005AB88 = Form1.checkevent at 00048D83: copy
+      `tasks[n-1].command[0]`, call `Form1.tasks(1)`).  A restricted walk
+      task is skipped *silently* in run390 but prints its FailMessage
+      (`METFAIL.`) in run400, whose walk handler (Sub_20_2 at
+      00068B8E/00068BED) calls the same direct by-index runner (Sub_20_22)
+      as its events.  Fixed: `run_npc_walk_task()` now version-gates —
+      pre-4.0 shares the event dispatch (`run_task_command_dispatch()`),
+      4.0 runs directly via `task_run_task` (loud FailMessage).  Whole
+      corpus unchanged (110 PASS) — no corpus game has a stealable walk.
+      Also observed, noted not chased: a 1-stop non-looping walk never runs
+      at all in either live Runner, while Scarier ticks it once during
+      startup (the probe's CharTask fired before the first prompt); and
+      run390 matches `*` tasks against an *empty* input line where Scarier
+      does not.
 
 ## 3. 3.9 → 4.0 conversion
 

@@ -1196,55 +1196,44 @@ run_game_functions (scr_gameref_t game, const scr_char *string)
  * run_npc_walk_task()
  *
  * Run the task triggered by an NPC walk meeting a character or an object (a
- * walk's CharTask or ObjectTask).  The reference Runner does not run this one
- * task by its stored index: it copies the task's command text and dispatches
- * it through the same task matcher used for player input, so every task that
- * shares that command is a candidate and the one whose "Where the task can be
- * run" room list matches the player's location (and whose restrictions pass)
- * is what actually fires.  This matters when an author splits one logical
- * reaction across several same-command tasks, one per room -- e.g. "Lair of
- * the CyberCow" has two "#lured" tasks (steeple and chapel yard) so the fairy
- * snatches the milk bowl in whichever of those rooms the player is standing.
- * Running only the literal walk task would fire just one room's variant.
+ * walk's CharTask or ObjectTask).  The 3.9 Runner does not run this one task
+ * by its stored index: it copies the task's command text into the input
+ * global and calls the task matcher, instruction-for-instruction the same
+ * dispatch its events use (Form1.characters at 0005AAD5/0005AB88 vs
+ * Form1.checkevent at 00048D83, all three "copy tasks[n-1].command[0], call
+ * Form1.tasks(1)"), so everything verified for event dispatch holds here
+ * too: the first task in list order that matches and passes where +
+ * restrictions fires, an earlier runnable `*` wildcard steals the execution
+ * outright, and a restricted match is skipped silently.  Verified live in
+ * run390 (test/make_39_walkprobe.py variants E/F/G): with a wildcard first
+ * the arrival turn prints the wildcard's text twice and the walk task's
+ * never, with the walk task first it fires itself, and a restricted walk
+ * task prints nothing.  The matcher dispatch is also what fans one walk
+ * trigger out across same-command tasks -- e.g. "Lair of the CyberCow" has
+ * two "#lured" tasks (steeple and chapel yard) and the fairy snatches the
+ * milk bowl in whichever of those rooms the player is standing.
  *
- * The walk task's command is matched here by exact command text rather than by
- * the pattern matcher, because these tasks customarily use an un-typeable
- * "#name" command, which the normal command matcher deliberately skips.
+ * The 4.0 Runner instead runs the task directly by index -- its walk handler
+ * calls the same direct task runner (Sub_20_22) as its events -- so there is
+ * no interception, and a failing restriction prints its FailMessage (which
+ * task_run_task does).  Verified live in run400 (test/make_400_walkprobe.py
+ * variants E/G): the walk task fires with a wildcard listed before it, and
+ * a restricted walk task prints its FailMessage on every arrival turn.
  */
 void
 run_npc_walk_task (scr_gameref_t game, scr_int walktask)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
-  const scr_char *command;
-  scr_int task_count, task;
+  scr_vartype_t vt_key;
+  scr_int version;
 
-  /* Get the walk task's first command pattern; nothing to match if absent. */
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = walktask;
-  vt_key[2].string = "Command";
-  vt_key[3].integer = 0;
-  command = prop_get_string (bundle, "S<-sisi", vt_key);
-  if (scr_strempty (command))
-    return;
+  vt_key.string = "Version";
+  version = prop_get_integer (bundle, "I<-s", &vt_key);
 
-  /* Run every same-command task the player's room and restrictions permit. */
-  task_count = gs_task_count (game);
-  for (task = 0; task < task_count; task++)
-    {
-      const scr_char *other;
-
-      if (!task_can_run_task_directional (game, task, TRUE))
-        continue;
-
-      vt_key[1].integer = task;
-      other = prop_get_string (bundle, "S<-sisi", vt_key);
-      if (scr_strcasecmp (command, other) != 0)
-        continue;
-
-      if (run_task_is_unrestricted (game, task))
-        task_run_task (game, task, TRUE);
-    }
+  if (version < TAF_VERSION_400)
+    run_task_command_dispatch (game, walktask);
+  else if (task_can_run_task_directional (game, walktask, TRUE))
+    task_run_task (game, walktask, TRUE);
 }
 
 
@@ -1252,8 +1241,8 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * run_event_task()
  *
  * Run the task executed by a finishing event (its TaskAffected, with
- * "task finished" unset).  Like the walk tasks above, the reference Runner
- * does not run this task by its stored index: it submits the task's command
+ * "task finished" unset) in a pre-4.0 game.  The reference Runner does not
+ * run this task by its stored index: it submits the task's command
  * text through the task matcher, and the first task in list order that
  * matches the text -- a `*` wildcard matches it like any other input -- and
  * whose "where" and restrictions pass is the one that fires.  So a runnable
@@ -1273,16 +1262,20 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * The literal-text comparison below backstops the pattern matcher for the
  * customary un-typeable "#name" commands, which never survive the player
  * input path; the matcher is still consulted so wildcard patterns match.
+ *
+ * run_task_command_dispatch() is the dispatch itself, shared with the 3.9
+ * walk CharTask/ObjectTask path above (in the 3.9 Runner both are the same
+ * P-code sequence); run_event_task() is the event-facing name.
  */
 void
-run_event_task (scr_gameref_t game, scr_int eventtask)
+run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
   const scr_char *command;
   scr_int task_count, task;
 
-  /* Get the event task's first command pattern; nothing to match if absent. */
+  /* Get the task's first command pattern; nothing to match if absent. */
   vt_key[0].string = "Tasks";
   vt_key[1].integer = eventtask;
   vt_key[2].string = "Command";
@@ -1353,6 +1346,12 @@ run_event_task (scr_gameref_t game, scr_int eventtask)
                (int) task_can_run_task_directional (game, eventtask, TRUE));
   }
 #endif
+}
+
+void
+run_event_task (scr_gameref_t game, scr_int eventtask)
+{
+  run_task_command_dispatch (game, eventtask);
 }
 
 
