@@ -88,6 +88,16 @@ CONFIGS = {
     npcs=[("Aly",0,1,250,3,3,50,50,0,0,0,0,0,0),
           ("Foe",0,2,250,5,5,50,50,0,0,0,0,0,0),
           ("Bystander",0,0,250,7,7,50,50,0,0,0,0,0,0)]),
+ # Wield/status surface probe: two held weapons with split best-ness (axe =
+ # higher HitValue, sword = higher Accuracy) + an unseen NPC in a second room.
+ # Player Acc 20-20 so a weapon's accuracy bonus is visible in status rolls.
+ 'WS': dict(name="Probe WS",
+    player=(200,10,10,20,20,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{}),("Back Room","A back room.",{})],
+    objects=[("a","sword",1,1,0,10,1,15,0),
+             ("an","axe",1,1,0,20,0,5,0)],
+    npcs=[("Robot",0,2,250,0,1,0,0,0,0,0,0,0,0),
+          ("Ghost",1,0,50,0,1,0,0,0,0,0,0,0,0)]),
  # Throw-drop probe (settled live 2026-08-01): a method-5 throw moves the
  # weapon to the room and deals base-Strength-only damage (HitValue ignored).
  'TD': dict(name="Probe TD",

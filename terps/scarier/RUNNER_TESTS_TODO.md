@@ -128,13 +128,42 @@ Highest value first:
       thing." — semantics match (location `0xFB`), wording differs.
       **StaminaTask/KilledTask still untested** (needs a probe with authored
       tasks — the generator writes none yet).
-- [ ] **Player-facing surface**: `wield`/`unwield`, best weapon = highest
-      `HitValue`, "You can't `<verb>` with X!", and "can't get status of a
-      character you've not seen yet!". Partially probed 2026-08-01 — the
-      `status` layout is now known (columns
-      `Range / Max / Current value (inc weapons/armour)`, then
-      "Player is wielding …"), and see the surface notes below for
-      auto-select-on-attack.
+- [x] **Player-facing surface — settled live 2026-08-01** (probe `pWS` in
+      `make_arena_probe.py`: sword Method 1 / HitValue 10 / Acc 15 + axe
+      Method 0 / HitValue 20 / Acc 5, both held; unseen Ghost NPC in a second
+      room).  run400's model is a persistent wield ref, NOT a per-attack
+      default:
+      * Start: "Player is wielding nothing" and the status Current values are
+        BARE — no would-be weapon folded (Str 10, Acc 20 with both weapons
+        held).  Once something is wielded, status folds ONLY that weapon,
+        with the bonus in parentheses ("30   (20)").
+      * Bare `attack X`: uses the wielded weapon if set; else with exactly
+        ONE held weapon it auto-selects it AND SETS the wield (status shows
+        it afterwards); else with 2+ held weapons it asks "What do you want
+        to attack Robot with?" — rhetorical (a bare noun reply is a parse
+        error; no combat tick), you must retype `attack X with Y`.  So the
+        player-side "best weapon = highest HitValue" silent pick never
+        happens in run400 — Proc_11_12's best-by-HitValue is the NPC picker
+        (and the single-held trivial case).
+      * `attack X with Y` and `wield Y` ("Player wield the sword.") both set
+        the wield.  **There is NO `unwield` verb** ("I don't understand." —
+        it is a SCARE invention).  `drop` of the wielded weapon clears the
+        wield to NOTHING — no fallback to another held weapon (status back
+        to bare values).
+      * Method verbs: wrong-method wielded → "Player can't cut with the
+        axe!" (and combat DOES tick); matching → normal attack; nothing
+        wielded/held → a plain bare blow ("Player hit Robot.") — Scarier's
+        unarmed-verb interpretation confirmed.
+      * `status <unseen npc>` does NOT print the "can't get status of a
+        character you've not seen yet!" string — the %character% simply
+        fails to match and it falls back to the plain player `status`.
+      * Bonus: `attack <typo>` → "Who do you want to attack?" DOES tick
+        combat in run400; "I don't understand." parse errors don't.
+      Scarier divergences (all still unported): per-attack default weapon
+      with best-carried fallback (never asks, never persists); status folds
+      the would-be default pre-attack; `unwield` exists and reverts to best
+      carried; wield message wording ("You are now wielding ..." vs "Player
+      wield the sword.").
 - [x] **RNG — re-opened and closed again: the won't-fix stands.** *(2026-08-01.)*
       run400 has **9 `Randomize` call sites**: `Form1.Form_Load` seeds from
       `Timer` at startup; `Form1.dencode` and `Sub_22_30` use the deterministic
@@ -219,11 +248,11 @@ Surface facts learned on the way (all consistent between engines unless noted):
   `light_up` was the one corpus casualty — its Chip fight and Death
   gauntlet were re-derived (582-command route, still 73 pts + THE END) and
   its golden re-blessed.
-  The `status` "wielding" line still diverges: Scarier names the would-be
-  default weapon where the Runner shows "wielding nothing" until an attack;
-  matching it needs the open wield/unwield surface probes below (does the
-  Runner's auto-select persist? does its pre-attack status roll exclude the
-  weapon accuracy bonus?).
+  The `status` "wielding" line diverges: Scarier names the would-be default
+  weapon where the Runner shows "wielding nothing" (and bare stats) until a
+  wield is set — the full Runner model is now settled, see the
+  "Player-facing surface" item above (persistent wield ref; auto-select
+  persists; asks on 2+ held weapons; no `unwield`; drop clears to nothing).
 - Runner battle messages use the player's *name* where SCARE substitutes
   "you"/"your", with second-person verb agreement kept ("Player manage to
   avoid Robot's attack." — sic). Miss messages otherwise identical.
@@ -445,7 +474,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Integer division rounding | see `ADRIFT4_vs_ADRIFT5.md` | — | v4-vs-v5 difference already recorded; confirm the v4 half against run400. |
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
 | Battle messages | second person ("you"/"your") | run400 uses player's name with 2nd-person verb forms ("Player manage to avoid…"); run390 uses second person | Presentational only; "you" kept (matches run390). Method-verb weapon narration **ported 2026-08-01**, verified live in BOTH Runners; noted §1 surface facts. |
-| Battle-start wield | no auto-wield; per-attack default weapon (Runner model) | wields nothing; auto-selects held weapon per `attack` | Mechanics match; only the `status` "wielding" line still diverges (see §1 surface facts). |
+| Wield model | per-attack default (wielded-else-best-carried); silent pick with 2+ weapons; `unwield` reverts to best carried; status folds the would-be default | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`). Unported; only visible with 2+ carried weapons or in `status` before the first attack — measure corpus impact before adopting. |
 | Thrown (method 5) weapon | drop + version-split damage ported | moves to the room on a player throw in BOTH Runners; damage = Str-only in run400 (HitValue ignored), Str+HitValue in run390 | **Confirmed live in both Runners and PORTED 2026-08-01** (probes `pTD`/`p39td`; see §1 surface facts). `light_up` route re-derived. |
 | Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
 | Event TaskAffected execution | version-gated: 3.9 = matcher dispatch (wildcard steal, silent restricted skip), 4.0 = direct run (loud FailMessage) | run390 and run400 genuinely differ — same converted probe, opposite behavior | **Fixed 2026-08-01** (§2); both halves verified live. |
