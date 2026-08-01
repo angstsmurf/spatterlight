@@ -212,6 +212,62 @@ printf 'restore\ny\n/path/to/topaz.tas\nx skeleton\nquit\ny\n' \
 A count mismatch on restore is the cheapest possible "wrong game file"
 detector — worth reaching for first the next time a save won't load.
 
+## Save round-trip verified against the real Runner (2026-08-01)
+
+Both directions of `.tas` interop are now confirmed against a live `run400.exe`
+(comp build, under Wine — see `~/adrift-battle/runner/wine/README.md`):
+
+- **Runner → SCARE** — Petter's two stuck saves restore in SCARE and reproduce
+  his sessions exactly (that is what cracked the mystery above).
+- **SCARE → Runner** — a save SCARE wrote after the first 16 commands of
+  `topaz_solution.txt` was loaded in the Runner with `restore`
+  ("Loading game... done.", status bar `scare_made.tas`), came back in the right
+  room with the right inventory, and **played on to the win** from there —
+  `The two of you set out into the forest.`, status bar `Congratulations!`.
+  So `ser_save_game`'s Runner-format output is not merely parseable, it is
+  semantically correct.
+
+Structurally the two saves of the same state are **157 records vs 157**, every
+field in the same slot. The only format-relevant difference is record 8, the
+player name: the Runner writes `Anonymous`, SCARE writes `''` (SCARE emits
+`Globals.PlayerName` verbatim, and Topaz leaves it blank). The Runner accepts
+the empty string without complaint. (Records 154/155 — elapsed seconds and turn
+count — differ for benign harness reasons.)
+
+### `g` is *again* — and Auto complete can fake a parser divergence
+
+Step 22 of the route is `g`. Driving it by hand on the Runner first looked like
+a standard-library divergence: `g` echoed as `get` and answered "Take what?",
+suggesting SCARE's `{"[again/g]", lib_cmd_again}` (`scrunner.cpp:355`) was
+wrong. It is not. **Options → Auto complete was still on**, and it rewrites the
+input box *before* the command is echoed — so `g` was literally replaced with
+`get` and the transcript showed a verb the player never typed.
+
+With Auto complete off, the Runner agrees with SCARE:
+
+```
+x fields
+The bare fields stretch far into the distance.
+
+g
+(x fields)
+The bare fields stretch far into the distance.
+```
+
+The `(command)` line is the Runner echoing what it is repeating; SCARE prints
+no such line, which is the only difference here. One genuine edge-case
+divergence did fall out: the Runner stores the raw previous input *including*
+`g`/`again`, so `x fields` / `g` / `again` replays the literal string `g` and
+answers "I don't understand what you mean!". SCARE deliberately skips storing a
+repeat command as the prior element (`scrunner.cpp:1575`), so its second repeat
+still re-runs `x fields`. Nothing in the corpus depends on it.
+
+So Auto complete is not just an input mangler — it can manufacture a
+convincing-looking parser difference. Turn it off before reading anything into
+a Runner transcript. (Related trap: sending a bare space to dismiss a MORE bar
+will *activate the highlighted menu item* if a menu is open, which is how it
+got switched back on mid-test.)
+
 ## Fixed: the Webdings dove on the title screen (2026-08-01)
 
 A genuine, separate incompatibility, and this one *is* ours. Topaz draws a dove
