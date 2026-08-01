@@ -123,7 +123,6 @@ sink, mirror, and this one happens to have a shower.  The walls appear as if
 they are being shook by a small earthquake.
 
 You can move west and in.
-You hear the trains whistle blow loudly.
 
 >You move west.
 Lavatory Car
@@ -133,7 +132,6 @@ corridor.  The walls appear as if they are being shook by a small earthquake.
 Also here is a sign.
 
 You can move north, east, south and west.
-You are thrown backward as the train begins to pull away from the station.
 
 >You move south.
 Dining Car
@@ -144,8 +142,6 @@ booth with a large table.  The walls appear as if they are being shook by a
 small earthquake.
 
 You can only move north.
-You feel the vibration of the train as it slowly picks up speed. A low rumble
-can be heard from the advancing train.
 
 >(Your score has increased by 5)
 You gaze at the menu.
@@ -153,15 +149,19 @@ You gaze at the menu.
 Gimme Atip enters.
 
 >For some reason you feel compelled to take the spoon from the table.
+You hear the trains whistle blow loudly.
 
 >(Your score has increased by 5)
 You tell the waiter what you'd like. He looks at you kind of funny then walks
 away.
 
 Gimme Atip walks off.
+You are thrown backward as the train begins to pull away from the station.
 
 >(Your score has increased by 20)
 You toss the coin to the waiter. "Now I give you tip, don't eat food."
+You feel the vibration of the train as it slowly picks up speed. A low rumble
+can be heard from the advancing train.
 
 >(Your score has increased by 10)
 You being a wise guy decide to give the waiter a tip. You look at him and say

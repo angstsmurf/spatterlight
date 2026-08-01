@@ -14,7 +14,7 @@ things moving just beyond the edges of your vision. A desk sits against one
 wall. A single window looks out onto the night. The study door is to the
 east.
 
-Wilkens stares down into his tumbler.
+Wilkens frowns and sighs.
 
 >"The Glastonbury Thorn is quite interesting. Supposedly, it blooms only at
 Christmas, outside Glastonbury Abbey.  Legend has it the thorn grew where the
@@ -184,7 +184,7 @@ window into a gray rectangle, but seems hardly strong enough to penetrate the
 glass. Where the south wall must be there is a black gap you guess is a
 fireplace.
 
-The vicar glances around nervously.
+The vicar lets out a soft sigh.
 
 >You put the sticks into the fireplace.  They are light as ancient bones. To
 your surprise they burst into flames.  In moments firelight has pushed the

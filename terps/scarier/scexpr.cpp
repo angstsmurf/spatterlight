@@ -723,7 +723,7 @@ expr_eval_action (scr_int token)
          * Pick one of the top N items at random, then unstack all N and
          * push back the value of the one picked.
          */
-        pick = scr_rand () % argument_count;
+        pick = scr_randomint (0, argument_count - 1);
         for (index_ = 0; index_ < argument_count; index_++)
           {
             scr_int val;

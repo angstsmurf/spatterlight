@@ -34,7 +34,7 @@ west.
 OK, you're now wearing the jeans. They are a little snug but seem to fit for
 now.  The pair of jeans has four pockets you can put small items in.
 
-Kitty sashays in.
+Kitty saunters in.
 
 >You open the closet.  Inside the closet is a shirt.
 
@@ -53,7 +53,7 @@ This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
 
-Kitty sashays in from the east.
+Kitty saunters in from the east.
 
 >You move west.
 Judy's bedroom
@@ -83,7 +83,7 @@ Judy's bedroom is to the west. The hallway continues to the south.
 
 David is here.
 
-David withdraws to the north.
+David leaves to the north.
 
 >You move south.
 Outside den
@@ -122,7 +122,7 @@ Judy is here, whistling happily.
 
 >You open the leather purse.  A set of car keys is inside the leather purse.
 
-Judy strolls away.
+Judy walks out.
 
 >You take the set of car keys from the leather purse.
 
@@ -187,7 +187,7 @@ and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
 
-David sashays in from the north-east.
+David comes in from the north-east.
 
 >You move northeast.
 Entrance hall
@@ -346,7 +346,7 @@ proceeds north and south.
 Kitty is here. You're not allergic, are you?  Judy is here, whistling
 happily.
 
-Kitty withdraws to the east.
+Kitty retreats to the east.
 
 >You move south.
 Entrance hall
@@ -450,12 +450,11 @@ Also here is a chess table.
 David strolls into the room.  You two sit down and play chess. You won the
 game.  Congratulations!
 
-Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
-
->You and David play a game of chess. You lost the game.  Too bad.  Better luck
-next time!
-
 Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
+
+>You and David play a game of chess. You won the game.  Congratulations!
+
+Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
 
 >You and David play a game of chess. You lost the game.  Too bad.  Better luck
 next time!
@@ -479,7 +478,6 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
-You smell fresh coffee.
 
 >You move east.
 Laundry

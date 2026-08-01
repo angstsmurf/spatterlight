@@ -782,6 +782,7 @@ Tunnel 3
 The path splits to the east and west.
 
 You can move east, south and west.
+Trace hits Big rat.
 
 >You move east.
 Tunnel 4
@@ -1216,7 +1217,7 @@ Soldier 2 is here.
 You can move east and west.
 Trace hits Soldier 2.
 Enevez hits Soldier 2.
-Soldier 2 hits Trace, but it doesn't seem to do any damage.
+Soldier 2 hits Enevez.
 
 >You move west.
 Mika castle gate
@@ -1280,7 +1281,6 @@ into." says Xozim.
 Trace hits Xozim.
 Enevez hits Xozim.
 Enevez hits Xozim.
-Xozim hits you.
 
 >Time passes...
 Trace hits Xozim.
@@ -1290,7 +1290,7 @@ Xozim hits you.
 Trace hits Xozim.
 Enevez hits Xozim.
 Enevez hits Xozim.
-Xozim hits you.
+Xozim hits Enevez.
 (Your score has increased by 50)
 Trace hits Xozim.
 You thrust your sword into the demon´s chest one final time. The demon

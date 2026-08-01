@@ -68,7 +68,7 @@ too_much_exercise_solution.txt|exercise.taf|Congratulations!
 yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition
 buried_alive_solution.txt|buried.taf|Well done. You got to the end
 confession_solution.txt|Confession(1).taf|Striking a plea deal
-snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game
+snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEED=2
 veteran_solution.txt|veteran.taf|fulfilling your destiny
 togetyou_solution.txt|togetyou.taf|another flesh-sack
 zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies
@@ -76,9 +76,9 @@ adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
 cruel_solution.txt|CAH.taf|destroyed our reality
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 shred_em_solution.txt|shreddem.taf|Due to lack of evidence
-shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak
-shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak
-shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak
+shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
+shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
+shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.
@@ -97,7 +97,7 @@ archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued
 # final "Your score is N out of a maximum of M." line as their marker so the
 # documented maxima stay locked; win rows use the game's own victory text.
 bomb_threat_solution.txt|Bomb Threat.taf|Congratulations!
-circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=2
+circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=17
 colony_solution.txt|Colony.taf|Congratulations!
 cyber_solution.txt|cyber.taf|THE END,or is it?
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
@@ -108,8 +108,8 @@ donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
 funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
 gateway_solution.txt|gateway.taf|THE END
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
-jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!
-light_up_solution.txt|light_up_4summer_comp.taf|THE END
+jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=11
+light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=2
 maincourse_solution.txt|Main Course.taf|You're on your way home with just a little indigestion!
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
@@ -123,7 +123,7 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|A murderer thou shalt be
-les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.
+les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
 mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|Your score is 25 out of a maximum of 100.

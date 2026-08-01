@@ -417,14 +417,13 @@ Hope hits you.
 
 >You hit Hope.
 
->You hit Hope.
-Hope hits you.
-
 >(Your score has increased by 10)
 You hit Hope.
 
 "I...I'll never return to that box!!!" Hope says trembling as she takes a
 step back. A bright white light flashes and she is gone.
+
+>Your words... they're so unclear
 
 >Your words... they're so unclear
 

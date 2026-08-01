@@ -48,9 +48,9 @@ floor soon or this psycho might blow the place up.
 The Footpath
 You are standing on the footpath. It is very busy here. To the west of you is
 the Imperial Agency building, where the bomb is supposed to be planted.  A
-car turns into another road and speeds off.  A man walks out of the Imperial
-Agency building to the west of you. There is a manhole here which leads in
-the sewers.
+bus stops in the boss zone and waits for people to board it.  A man in a
+hurry runs into you. He gives you a cold stare then walks off . There is a
+manhole here which leads in the sewers.
 
 There are exits west and in.
 
@@ -190,9 +190,9 @@ You can move east and in.
 The Footpath
 You are standing on the footpath. It is very busy here. To the west of you is
 the Imperial Agency building, where the bomb is supposed to be planted.  A
-truck pulls up to the red light and honks his horn.  A young child runs down
-the footpath being pursued by his mother. There is a manhole here which leads
-in the sewers.
+car brakes suddenly, and five cars behind it start honking there horns.  A
+lady walks by and drops her bag. She picks it up again and walks off. There
+is a manhole here which leads in the sewers.
 
 You can move west, down and in.
 

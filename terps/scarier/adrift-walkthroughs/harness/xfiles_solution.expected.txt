@@ -470,83 +470,7 @@ garage for some reason.  Maybe it's just the cold.
 Volunteer is here.
 
 You can move north, east, south, west, in and southwest.
-
->You move north.
-Davis Storage Warehouse - Baltimore, MD
-You stand outside the garage that the warehouse key indicated.  Nothing seems
-out of place.    You can use the warehouse key to enter the building.
-
-You can move south and in.
 Your legs are sore.
-
->You move in.
-Alan Dale Motel - Bellefleur, OR
-This is the Alan Dale Motel.  There's a small counter here against the wall,
-but no one in sight.  There's a stairway here.
-
-You can move up and out.
-
->You move up.
-Room 8
-This is the small room you and the Lone Gunmen are renting while you stay in
-Bellefleur.  Fully outfitted with computer equipment, you wonder how long
-this will last.  At least the window offers a nice view of the town.
-
-Also here is A Folding Table and A Phone Book.
-
-You can only move down.
-
->(Your score has increased by 1)
-Always the rebel, you mock Langly sarcastically as you pet his computer.  He
-comes at you from across the room.  "Hey man, what the hell do you think
-you're doing?!!"  Skinner tries to grab him but he's too fast and shoves you
-hard on the shoulders.  He pushes you harder then you anticipated and you
-stumble backwards over a computer wire.
-
-SMACK!
-
-You wake up with a bag of ice on your head.  Skinner and the Lone Gunmen peer
-down at you, worried.  Frohike is yelling at Byers, "Man, punkass.  If Scully
-ever hears you did this, she's going to kick your ass."  Skinner shuts them
-up. "I think he's coming around.  Nathan, do you hear me?"  Your head is sore
-but you nod.  They help you out.  Langly moves to other side of the room.
-
->(Your score has increased by 1)
-The Lone Gunmen decide to call it quits for the day.  Your lodgings are
-decided first.  "The kid's sleeping on the floor," Langly declares.  Skinner
-says, "I've got the recliner."  Frohike states, "We'll take the bed then, I
-guess."  Skinner kills the lights and the only illumination left in the room
-comes from the labtop on the folding table.
- "'Night, Narc, Hippie Jerk."
-"Goodnight, Langly.  Goodnight, Frohike."
-"'Night Punkass.  Goodnight, Byers.  'Night Will, 'Night Skinman."
-"Don't call me that.  Shut the hell up.  Good night, everybody."
-The night passes peacefully enough save the snoring of the old men in the
-room with you.  You drift in and out of sleep.
-
->You pick up the Phone Book.
-
->You open the Phone Book.
-
->(Your score has increased by 1)
-You search through the phone book for the name but it must be unlisted.
-Doesn't anyone in this damn community have a telephone?
-
->(Standing up first)
-You move down.
-Alan Dale Motel - Bellefleur, OR
-This is the Alan Dale Motel.  There's a small counter here against the wall,
-but no one in sight.  There's a stairway here.
-
-You can move up and out.
-
->You move out.
-Outside Alan Dale Motel - Bellefleur, OR
-You're standing outside of a small motel.  The place is worn down but seems
-well kept.
-There is a man sitting in a dark car here.
-
-You can move north, east, west and in.
 
 >You move north.
 Town Square - Bellefleur, OR
@@ -560,6 +484,30 @@ Also here is VW Van.
 
 You can move east, south, west, northeast, southeast, southwest and
 northwest.
+
+>You can't go in that direction, but you can move east, south, west,
+northeast, southeast, southwest and northwest.
+
+>You can't go in that direction, but you can move east, south, west,
+northeast, southeast, southwest and northwest.
+
+>You can't touch that.
+
+>Zzzzz.  Bored are you?
+
+>Take what?
+
+>Open what?
+
+>Have X-Ray vision, do you?
+
+>You can't go in that direction, but you can move east, south, west,
+northeast, southeast, southwest and northwest.
+
+>You can't go in that direction, but you can move east, south, west,
+northeast, southeast, southwest and northwest.
+
+>You can't go in that direction (at present).
 
 >You move southeast.
 Outside Dean's Diner - Bellefleur, OR
@@ -642,9 +590,6 @@ to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 Also here is VW Van.
-Langly is here.
-
-Frohike and Skinner are here.
 
 You can move south, in and southwest.
 

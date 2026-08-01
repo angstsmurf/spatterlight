@@ -130,8 +130,6 @@ Stu stands around looking tough with his rifle
 
 >You love zombies in movies, but zombies in real life are real douchebags.
 
-The zombies began to surround you and Stu.
-
 >You rev the chainsaw and hold it high in the air. Stu cocks his rifle, and
 the two of you begin a slicin' and blastin' spree through the crowd of
 zombies. Blood and guts spray everywhere as you two take down the zombies.
@@ -181,9 +179,9 @@ You have no time to look around because a vicious zombie dog is staring you
 down. Any second now he's going to jump and eat your juicy brain. Trust me,
 that'd really suck. You better stop him, and you better do it fast.
 
-The zombie dog jumps up and eats your face in one bite. What a douche.
-
 >Zombie dogs. Why did it have to be zombie dogs.
+
+The zombie dog jumps up and eats your face in one bite. What a douche.
 
 >With no other options, you pull out the toy whistle and blow on it. The high
 frequency pitch of the whistle sounds the dog yelping into the night, or in

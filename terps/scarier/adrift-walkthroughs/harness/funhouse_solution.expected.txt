@@ -103,7 +103,6 @@ You can move north, east, south and west.
 Bouncer walks towards you from the west.
 
 Mafia man  from the west.
-Mafia man manages to avoid Bumpy the clown's attack.
 
 >You move north.
 Fun slide
@@ -146,9 +145,9 @@ Mafia man  from the north.
 Mafia man manages to avoid Bumpy the clown's attack.
 
 >You pick up the kewbie doll.
+Mafia man manages to avoid Bumpy the clown's attack.
 
 >You pick up the cassette.
-Mafia man manages to avoid Bumpy the clown's attack.
 Bumpy the clown manages to avoid Mafia man's attack.
 
 >You move west.

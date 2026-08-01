@@ -91,6 +91,7 @@ money. You have $490 and 50 cents.
 
 >You take a decent bite out of the steak. It tastes delicious. Another
 masterpiece from Harthro's grill.
+Harthro hollers, "Don't forget to put yet dirty dishes on the rack!"
 
 >You move west.
 In a busy street

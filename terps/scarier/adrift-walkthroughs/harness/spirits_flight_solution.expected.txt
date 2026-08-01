@@ -140,6 +140,7 @@ The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A fierce wind blows.
 
 Moyru is here.
+Lamanluie hits Moyru.
 
 >You hit Moyru.
 Moyru cackles one last time before her body melts into a puddle of water.
@@ -172,11 +173,11 @@ must be the ridge of storms.
 Fergo is here.
 
 You can only move down.
-Fergo hits you.
-Lamanluie hits Fergo.
 
 >(Your score has increased by 10)
 You hit Fergo.
+Fergo hits Lamanluie.
+Lamanluie hits Fergo.
 Fergo collapses. The wind elemental leaves his body and transforms itself
 into an object.
 The Fletched Spear floats magically into your hands.
@@ -273,6 +274,7 @@ Serpanern is here.
 
 You can only move north.
 Lamanluie hits Serpanern.
+Serpanern hits you.
 
 >You hit Serpanern.
 It's body shrivels and is instantly consumed by fishes.
@@ -310,11 +312,10 @@ wondrous colour hang from the ceiling. Bleeched coral is growing in the far
 corner.
 
 Crynasalda is here.
-Crynasalda hits Lamanluie.
+Lamanluie hits Crynasalda.
 
 >(Your score has increased by 10)
 You hit Crynasalda.
-Lamanluie hits Crynasalda.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
@@ -394,6 +395,7 @@ and dry.  A lizard is here.
 Slikerma is here.
 
 You can only move west.
+You feel cold.
 
 >You walk west.
 Vulcan's Forge
@@ -412,6 +414,7 @@ hotter as you reach the volcano itself. The water elemental does you a favour
 and cools you down slightly.
 
 You can move south and northeast.
+You feel cold.
 
 >You walk northeast.
 Spiral Path
@@ -429,7 +432,7 @@ from your body drips onto the ground and sizzles mightily.
 Kelorano is here.
 
 You can only move west.
-Lamanluie hits Kelorano.
+You feel cold.
 Kelorano hits Lamanluie.
 
 >(Your score has increased by 10)
@@ -445,7 +448,8 @@ Also here are The Amber of Flames.
 
 Lamanluie and Kelorano are here.
 You feels as though you should leave quickly.
-Kelorano hits you.
+Lamanluie hits Kelorano.
+Kelorano hits Lamanluie.
 
 >You pick up the Amber of Flames.
 Lamanluie hits Kelorano.
@@ -483,7 +487,6 @@ and dry.  A lizard is hissing at you, blocking your way.  A lizard is here.
 Slikerma is here.
 
 You can only move west.
-Lamanluie hits Slikerma.
 Slikerma hits Lamanluie, but it doesn't seem to do any damage.
 
 >You hit Slikerma.

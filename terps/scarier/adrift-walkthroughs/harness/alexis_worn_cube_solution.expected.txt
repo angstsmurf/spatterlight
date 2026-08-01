@@ -68,9 +68,9 @@ water in the distance.
 
 You can also see the Tonerith stone.
 There is a grey wolf circling you.
-Wolf hits you, but it doesn't seem to do any damage.
 
 >You hit Wolf.
+Wolf hits you, but it doesn't seem to do any damage.
 
 >You hit Wolf.
 Wolf hits you, but it doesn't seem to do any damage.
@@ -535,50 +535,52 @@ There is a Forester Goblin hanging from a tree here.
 Forester Goblin hits you, but it doesn't seem to do any damage.
 
 >You hit Forester Goblin.
+Forester Goblin hits you, but it doesn't seem to do any damage.
 
 >You hit Forester Goblin.
 Forester Goblin hits you, but it doesn't seem to do any damage.
 
 >You hit Forester Goblin.
+Forester Goblin hits you, but it doesn't seem to do any damage.
 
 >You hit Forester Goblin.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
 Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
+
+>You hit Forester Goblin.
+
+Forester Goblin jumps through the trees to you.
 The birds high above your head hoot and cheep to each other.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
-
->You hit Forester Goblin.
-
-Forester Goblin jumps through the trees to you.
 
 >You pick up the Kedarn stone.
 
@@ -623,12 +625,11 @@ Longmore king hits you, but it doesn't seem to do any damage.
 Longmore king hits you, but it doesn't seem to do any damage.
 
 >You hit Longmore king.
-Longmore king hits you, but it doesn't seem to do any damage.
-
->You hit Longmore king.
 
 >You hit Longmore king.
 Longmore king hits you, but it doesn't seem to do any damage.
+
+>You hit Longmore king.
 
 >You hit Longmore king.
 The swamp monster slowly melts into the marsh. It then dissapears.
@@ -687,6 +688,7 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.
 There is an eagle above you circling around your head.
+Eagle hits you, but it doesn't seem to do any damage.
 
 >You hit Eagle.
 Eagle hits you, but it doesn't seem to do any damage.
@@ -738,6 +740,8 @@ This path threads over the bottoms of many mountains. On each side are
 extremely steep mountains. It is impossible to attempt to climb up any.
 Southwest will take you towards Glaven. Northeast takes you further along the
 pass. East takes you along a valley ridge.
+Out of the corner of your eye you notice something dart behind you. You spin
+around to see what it was but it doesn't appear to be here.
 
 >You move northeast.
 Nelone mountain pass
@@ -799,6 +803,7 @@ This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
 further up the mountain.
+You get up and start walking again.
 
 >You move northeast.
 Uron Dark Path
@@ -813,7 +818,6 @@ Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.
-You get up and start walking again.
 
 >You move northeast.
 Uron Dark Path
@@ -850,7 +854,6 @@ Larnt is here.
 
 Haron follows you from the south.
 Haron hits Larnt.
-Larnt hits you, but it doesn't seem to do any damage.
 
 >You hit Larnt.
 Larnt hits you, but it doesn't seem to do any damage.

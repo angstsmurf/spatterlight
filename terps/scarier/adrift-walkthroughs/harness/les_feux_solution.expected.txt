@@ -31,11 +31,11 @@ survivre jusqu'à ce que vous le rencontriez. Plus facile à dire qu'à faire...
 les caractéristiques de votre personnage:
 
 Mise à jour de vos points de compétence...
-Points de Compétence: 10
+Points de Compétence: 12
 Mise à jour de vos points d'endurance...
-Points d'endurance: 13
+Points d'endurance: 24
 Mise à jour de vos points de chance...
-Points de chance: 12
+Points de chance: 11
 
 Tapez "statut" ou "stat" a tout moment pour voir les caractéristiques de
 votre personnage.
@@ -209,8 +209,7 @@ Vous arrivez à éviter l'attaque de l'ogre.
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
->Vous frappez  ogre,
-mais cela ne fait aucun domage.
+>Vous frappez  ogre.
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
@@ -302,13 +301,7 @@ Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
->Vous frappez  demon,
-mais cela ne fait aucun domage.
-
-Vous arrivez à éviter l'attaque du démon d'éffroi.
-
->Vous frappez  demon,
-mais cela ne fait aucun domage.
+>Vous frappez  demon.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
@@ -316,6 +309,8 @@ Vous arrivez à éviter l'attaque du démon d'éffroi.
 Le démon d'éffroi s'éffondre sur le sol et disparaît dans
 un nuage de fumée rouge. Ce qui reste du Démon est sur le sol, sur les murs,
 et sur vous. La chance vous sourit...
+
+>Je ne comprends pas votre commande !
 
 >Vous ouvrez la porte qui grince bruyemment...
 
@@ -338,7 +333,7 @@ d'entrer dans cet salle.
                                         [Appuyez sur une touche pour
 continuer]
 
-Vous avez pris rapidement dans le sac une clef en forme de squelette.
+Vous avez pris rapidement dans le sac une chaine en bronze.
 
 TUNNEL SOMBRE
 
@@ -406,72 +401,41 @@ votre magasin." d'une voix idiote?
 
 >“Vous vous moquez de moi ?” dit le marchand en fureur. Il crie alors,
 “GARDES!”
-Trois gardes du chaos arrivent de nulle part.
+Deux gardes arrivent de nulle part !
 
 Vous arrivez à éviter l'attaque du voyou.
 
 Vous arrivez à éviter l'attaque du voleur.
-
-Vous arrivez à éviter l'attaque du skinned.
 
 >Vous frappez  voyou.
 
 Vous arrivez à éviter l'attaque du voyou.
 
 Vous arrivez à éviter l'attaque du voleur.
-
-Vous arrivez à éviter l'attaque du skinned.
-
->Vous frappez  voyou.
-
-Vous arrivez à éviter l'attaque du voyou.
-Un voleur vous frappe.
-
-Vous arrivez à éviter l'attaque du skinned.
 
 >Vous frappez  voyou.
 Le voyou du chaos s'écroule par terre dans une marre de sang.
 
 Vous arrivez à éviter l'attaque du voleur.
 
-Vous arrivez à éviter l'attaque du skinned.
+>Je ne comprends pas votre commande !
 
 >Vous frappez  voleur.
 
 Vous arrivez à éviter l'attaque du voleur.
 
-Vous arrivez à éviter l'attaque du skinned.
-
->Vous frappez  voleur,
-mais cela ne fait aucun domage.
-
-Un voleur vous frappe.
-
-Vous arrivez à éviter l'attaque du skinned.
-
->Vous frappez  voleur,
-mais cela ne fait aucun domage.
-
-Vous arrivez à éviter l'attaque du voleur.
-
-Vous arrivez à éviter l'attaque du skinned.
-
 >Vous frappez  voleur.
 
 Vous arrivez à éviter l'attaque du voleur.
-
-Vous arrivez à éviter l'attaque du skinned.
-
->Vous frappez  voleur.
-
-Vous arrivez à éviter l'attaque du voleur.
-
-Vous arrivez à éviter l'attaque du skinned.
 
 >Vous frappez  voleur.
 Le voleur du chaos tombe raide mort sur le sol.
 
-Vous arrivez à éviter l'attaque du skinned.
+>Je ne comprends pas votre commande !
+
+>Je ne comprends pas votre commande !
+
+>Je ne comprends pas votre commande !
 
 >Vous vous déplacez vers le Nord-Est.
 

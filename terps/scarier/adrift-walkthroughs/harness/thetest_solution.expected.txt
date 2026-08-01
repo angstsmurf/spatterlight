@@ -62,10 +62,10 @@ You've just thrown a bit of fluff into a machine thats allergic to it.  The
 conveyer stops a moment later, and you keep running and are thrown against
 the opposite wall.
 
->You take the violet key from the machine.
+>You take the blue key from the machine.
 
->You insert the green key into the lock but instead of unlocking the door
-turns weathered pewter.
+>You insert the black key into the lock but instead of unlocking the door
+turns yellow.
 
 >You can't go in any direction!
 

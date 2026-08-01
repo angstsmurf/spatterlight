@@ -168,6 +168,7 @@ draft.  Yup, its still the first day.
 Jackass Trying to Kill You is here.
 
 You can move north and south.
+Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 2)
 You hit Jackass Trying to Kill You.

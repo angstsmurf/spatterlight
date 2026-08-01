@@ -119,6 +119,7 @@ Directly under the bridge is cold and muddy.  Your feet sink at least a
 couple of inches with each step, leading you to believe it's not so dry of a
 creek after all.  You can cross the creek to the east or west.
 A big fat ugly troll is here.
+You manage to avoid Troll's attack.
 
 >The Troll is uglier than most, and seems very nasty.  Troll is carrying a
 rusty key and a bar.

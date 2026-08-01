@@ -153,7 +153,6 @@ failed. And died.
 To the west there is a large chamber from which a humming sound emanates; to
 the east you can make out a statue.  The cage is now raised and the bottom is
 level with the floor.
-Beast hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 5)
 As you grab the crown, you notice the beast inside start to stir. Your left

@@ -81,21 +81,48 @@ Highest value first:
       stamina 200→155 = exactly 5/hit; the Runner's `status` shows Defense
       "0-0 0 **5 (5)**". SCARE identical (155). The highest-risk formula is
       confirmed.
-- [ ] **shoot (Method 3) zeroes base strength.** A known unfixed divergence:
-      that's the 4.0 rule and Scarier applies it to 3.9 too, where 3.9 adds
-      `HitValue` regardless of method. No corpus game ships a shoot weapon, so
-      author one and run it in *both* Runners.
-- [ ] **Speed / cadence.** `0→every turn, 1→rnd(1..2), 2/3/4→fixed`, plus the
-      countdown's off-by-one.
-- [ ] **Recovery counter.** `if counter==0 { counter=Recovery; if stamina<max
-      stamina++ }; counter--` — an off-by-one here is invisible in short fights.
-- [ ] **Target select.** `myAtt == 3 − theirAtt`, an enemy additionally targets a
-      co-located player, neutral targets nothing. Watch the attitude enum: the
-      action combo is `0=Ally,1=Neutral,2=Enemy` but internal/combat is
-      `0=Neutral,1=Ally,2=Enemy`.
-- [ ] **StaminaTask** fires at `0 < stamina < max/10`; **death** runs KilledTask
-      else "…falls down, dead.", sets location `0xFB`, and clears other NPCs
-      targeting the dead one.
+- [x] **shoot (Method 3) zeroes base strength — 4.0 half confirmed live.**
+      *(2026-08-01.)* Probe `pM3` (robot stamina 35, harmless; player Str 10 +
+      blaster HitValue 30 Method 3): run400 kills on the **second** attack —
+      30/hit, base Str replaced, exactly Scarier's rule; SCARE identical. The
+      **3.9 half is staged but unrun**: `test/make_39_probe.py` authors and
+      packs a real V390 file (obfuscation + the `sPassword` field's own
+      `Mid(5,4)=="Wild"` check, which run390 validates — same rule as the 4.0
+      trailer) and run390 *accepts* it; the fight itself still needs a
+      screen-unlocked session. Scarier on the same 3.9 file kills on hit 2
+      (zeroing applied to 3.9 — the suspected-wrong half).
+- [x] **Speed / cadence.** *(2026-08-01, live.)* Speed 2 → hits on turns
+      2,4,6,8; Speed 3 → 3,6,9 (first attack on turn N, countdown starts at
+      Speed); Speed 1 → irregular 1–2-turn gaps (5 hits/10 turns) consistent
+      with `rnd(1..2)`. SCARE identical on 2/3 (byte-same hit turns).
+- [x] **Recovery counter.** *(2026-08-01, live.)* Probe `pRC` (Recovery 3, take
+      3×5 damage, retreat, status per turn): run400 regains +1 at turns 2, 5, 8
+      — the same curve SCARE produces (its statuses step 187/188/189 at
+      5/8/11). Phase and period match.
+- [x] **Target select.** *(2026-08-01, live — and it found a real Scarier
+      bug.)* Probe `pTS` (Aly att 1, Foe att 2, Bystander att 0, all
+      co-located): run400's Foe picks the player *or* the ally per turn
+      (P,A,P,A,A over five turns); Aly attacks Foe every turn; Bystander
+      never acts; nobody targets the neutral. Scarier's Foe picked the SAME
+      target every turn of a session (12/12), because `scr_randomint` mapped
+      the congruential generator with `% range` and an LCG mod 2^32 has
+      period-2 low bits — `(state>>1) % 2` alternates strictly, and a fixed
+      even draw cadence pins every pick. **Fixed** (scutils.cpp): multiply-
+      shift on the full 31-bit value, which is also what VB6's `Int(Rnd*N)`
+      does; `scexpr.cpp`'s EITHER() pick had the same modulo. The fix
+      re-sequenced every seeded transcript: v4 corpus re-blessed (see note
+      below), four rows re-seeded (snakes 2, jason 11, light_up 2, circus
+      2→17, les_feux 138), and the three Shadowpeak routes — battle lengths
+      threaded too tightly to survive any new sequence (no seed in 1–800
+      works) — pin the old mapping via `SCR_LEGACY_RANDMAP=1`, a documented
+      harness-only compatibility hook.
+- [x] **Death path (no KilledTask).** *(2026-08-01, live, via `pM3`.)*
+      "Robot falls down, dead." (byte-same in SCARE), corpse leaves scope:
+      run400 answers "Robot isn't here!" / "Player cannot see Robot from
+      here." where SCARE says "I don't understand." / "Player sees no such
+      thing." — semantics match (location `0xFB`), wording differs.
+      **StaminaTask/KilledTask still untested** (needs a probe with authored
+      tasks — the generator writes none yet).
 - [ ] **Player-facing surface**: `wield`/`unwield`, best weapon = highest
       `HitValue`, "You can't `<verb>` with X!", and "can't get status of a
       character you've not seen yet!". Partially probed 2026-08-01 — the
@@ -131,6 +158,23 @@ result. One probe = one ~2-minute Wine session. Degenerate (`Lo == Hi`) stats
 make a probe immune to the per-session RNG, so single sessions are conclusive
 for formula questions. Remember the settle-Return first, and count event lines
 in the transcript instead of trusting the intended turn count.
+
+Now in-repo: **`test/make_arena_probe.py`** (parameterized 4.0 probes — rooms
+with exits, multiple NPCs with attitudes/speed/recovery, weapon/armour
+objects; the M3/SP*/TS/RC configs are inline) and **`test/make_39_probe.py`**
+(a genuine V390 file run390 loads: VB-PRNG obfuscation from absolute offset
+14, and `sPassword` must be `pw[0:4]+"Wild"+pw[4:8]` — run390 checks
+`Mid(5,4)`, the analogue of the 4.0 trailer check; `"    Wild    "` is the
+no-password form).
+
+**Corpus re-bless note (2026-08-01):** the `scr_randomint` low-bit fix (see
+Target select above) changed every seeded transcript. All v4 goldens were
+re-blessed after triage: 26 rows differed only in random flavor (event timing,
+battle-roll variance) with win/score markers intact; five rows needed a new
+per-row `SCR_SEED` to re-thread; the three Shadowpeak rows run under
+`SCR_LEGACY_RANDMAP=1`. Re-deriving Shadowpeak under the fixed mapping is
+open follow-up work — the routes fight several battles whose exact lengths
+and a ~50-turn timer must all line up.
 
 Surface facts learned on the way (all consistent between engines unless noted):
 
@@ -259,6 +303,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
 | Battle messages | second person ("you"/"your") | player's name with 2nd-person verb forms ("Player manage to avoid…") | Presentational only; noted §1 surface facts. |
 | Battle-start wield | auto-wields best weapon | wields nothing; auto-selects held weapon per `attack` | Same outcomes on all probes; surface divergence only. |
+| Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
 
 ---
 
@@ -267,10 +312,11 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 *(2026-08-01: the old item 1 is done — stalemate, hit test, exclusive Hi,
 damage floor, worn armour and the RNG question are all settled live; see §1.)*
 
-1. §1 remainder — speed/cadence, recovery counter, target select,
-   StaminaTask/death, and the 3.9 shoot-Method divergence (needs a 3.9-schema
-   probe for run390). The arena-probe recipe makes each of these a ~2-minute
-   session.
+1. §1 remainder — *(mostly done 2026-08-01, second batch: cadence, recovery,
+   target select + the scr_randomint fix, death path, 4.0 shoot rule.)* Still
+   open: the run390 shoot fight (probe built and loading; needs an unlocked
+   screen), StaminaTask/KilledTask (needs authored tasks in the probe
+   generator), and the player-facing wield/status surface items.
 2. §3(a) whole-corpus 3.9 differential — one scripted sweep, broad coverage, and
    it exercises fixups nothing else touches.
 3. §2 wildcard ordering — needs a purpose-built probe game, and the fix churns

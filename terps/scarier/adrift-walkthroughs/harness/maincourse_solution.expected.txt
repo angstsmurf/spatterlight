@@ -83,11 +83,9 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-Cat is here.
-
 There are exits north, south and west.
 
-Cat quietly exits to the west.
+Cat sheepishly enters from the west.
 
 Somorph thinking that Brian did this.
 
@@ -111,20 +109,18 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
+Cat is here.
+
 SoMorph can move north, south and west.
 
-Cat sheepishly enters from the west.
+Cat quietly exits to the west.
 
 Or maybe SoMorph got drunk?
 
 Somorph cannot remember much. Just in case, SoMorph will have words with
 Brian when Somorph get home.
 
-You manage to avoid Cat's attack.
-
->Cat manages to avoid your attack.
-
-Cat quietly exits to the north.
+>I don't understand what you mean!
 
 >
 Corridor Alpha
@@ -143,21 +139,19 @@ To east is bathroom, but door is closed.
 
 SoMorph can move north, south and west.
 
-Cat sheepishly enters from the north.
-
-Somorph think he not on planet Omorphos any more.
-
-Somorph on some ship. Must change course to go home.
-
-And have words with Brian.
-
-You manage to avoid Cat's attack.
+Cat sheepishly enters from the west.
 
 >You hit Cat.
 With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead!
 
 Somorph not stop thumping cat with tentacle till cat much flatter. Easier to
 eat that way...
+
+Somorph think he not on planet Omorphos any more.
+
+Somorph on some ship. Must change course to go home.
+
+And have words with Brian.
 
 >
 It takes a long while, but SeMorph eat cat.
@@ -166,17 +160,17 @@ It takes a long while, but SeMorph eat cat.
 
 SeMorph think Cat make fun appetiser...
 
-Cat sheepishly enters from the south.
+Cat sheepishly enters from the west.
 Somorph think he need loo now...
 
 >SoMorph picks up the cat fur.
 
-Cat quietly exits to the west.
+Cat quietly exits to the south.
 SoMorph really need to go toilet...
 
 >SoMorph opens the bathroom door.
 
-Cat sheepishly enters from the west.
+Cat sheepishly enters from the south.
 SoMorph need loo badly!
 
 >SoMorph moves east.
@@ -203,7 +197,11 @@ SoMorph try hold it in...
 
 >SoMorph opens the toilet.
 
+Cat sheepishly enters from the west.
+
 >SoMorph decide SoMorph *really* need to go the loo.
+
+Cat quietly exits to the west.
 SoMorph squeeze his four sphincters and holds onto bathroom walls with
 tentacles for support.
 
@@ -235,6 +233,8 @@ SoMorph hopes sphincters will re-align soon. Makes SoMorph feel queesy...
 
 >SoMorph opens the bathroom door.
 
+Cat sheepishly enters from the west.
+
 >SoMorph moves west.
 Corridor Alpha
 
@@ -254,7 +254,7 @@ Human is here.
 
 SoMorph can move north, east, south and west.
 
-Cat sheepishly enters from the west.
+Cat sheepishly enters from the east.
 
 Human runs screaming to the west.
 
@@ -275,7 +275,7 @@ Human is here.
 
 SoMorph can only move east.
 
->You hit Human.
+>Human manages to avoid your attack.
 
 Human runs screaming to the east.
 
@@ -294,8 +294,6 @@ SoMorph see exit to East.
 
 SoMorph can only move east.
 
-Cat sheepishly enters from the east.
-
 >
 Cryo Stasis Room
 
@@ -309,20 +307,20 @@ SoMorph think at least room is clean. Wish room was warmer.
 
 SoMorph see exit to East.
 
-Cat is here.
-
 SoMorph can only move east.
-
-Cat quietly exits to the east.
 
 Human runs screaming from the east.
 
 >You hit Human.
+
+Cat sheepishly enters from the east.
 With mighty swipe of tentacle, SoMorph kill Alan Davies till he dead!
 
 Then SoMorph poke Alan Davies with tentacle for few minutes. To be sure...
 
 >I don't understand what you are trying to eat.
+
+Cat quietly exits to the east.
 SoMorph prepare for main course.
 
 Very slowly, SoMorph start at extremities.
@@ -336,8 +334,6 @@ Later, SoMorph put human head in mouth and bites it off body.
 There is much blood, which help SoMorph chew rest of human down.
 
 >SoMorph removes the cat fur.
-
-Cat sheepishly enters from the east.
 SoMorph think SoMorph ate too much.
 
 SoMorph steady self against wall with tentacle, and hack up something.
@@ -363,9 +359,9 @@ To east is bathroom, but door is closed.
 
 SoMorph can move north, east, south and west.
 
-Cat sheepishly enters from the west.
+Cat sheepishly enters from the east.
 
-Human runs screaming from the north.
+Human runs screaming from the east.
 
 >SoMorph moves north.
 Command Deck

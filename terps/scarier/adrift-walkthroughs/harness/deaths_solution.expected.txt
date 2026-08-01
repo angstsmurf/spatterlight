@@ -261,7 +261,7 @@ Debbie is here.
 You can move east and west.
 
 Joshua walks in  from the east.
-Debbie hits Joshua, but it doesn't seem to do any damage.
+Debbie hits you, but it doesn't seem to do any damage.
 
 >You move west.
 Corner of hall
@@ -300,10 +300,10 @@ Demon is here.
 You can move east, west and down.
 
 Joshua walks in  from below.
-Demon hits you, but it doesn't seem to do any damage.
+Demon hits Joshua, but it doesn't seem to do any damage.
 
 >the witch disappears with a laugh
-Demon hits Joshua, but it doesn't seem to do any damage.
+Demon hits you, but it doesn't seem to do any damage.
 
 >You move up.
 Attic
@@ -314,7 +314,7 @@ Dark force is here.
 You can only move down.
 
 Joshua walks in  from below.
-Dark force hits you.
+Dark force hits Joshua, but it doesn't seem to do any damage.
 
 >(Your score has increased by 10)
 as the dard force crumbles into dust you are swept out of the house and

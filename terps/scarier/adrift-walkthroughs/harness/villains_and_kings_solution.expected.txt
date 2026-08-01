@@ -86,7 +86,6 @@ You can move north and south.
 Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 >You take the Soap on a rope from Cracked Broken Window.
-Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 >Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
 Cracked Broken Window is open.

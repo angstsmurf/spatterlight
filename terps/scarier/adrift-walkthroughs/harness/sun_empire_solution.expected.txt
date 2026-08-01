@@ -361,43 +361,45 @@ door disappears in a cloud of  dust and debris.  There is the sound of
 shattering glass and wrenching metal as the steel support beam fails and
 crashes down into the laboratory control room.
 Mark Eridian hits Skyrv.
-You manage to avoid Skyrv's attack.
-
->Time passes...
-You can hear the wail of a distant emergency siren.
-Skynd manages to avoid Mark Eridian's attack.
-Mark Eridian manages to avoid Skyrv's attack.
 Skynd hits Mark Eridian, but it doesn't seem to do any damage.
 
 >Time passes...
+You can hear the wail of a distant emergency siren.
+Skyrv manages to avoid Mark Eridian's attack.
+Skyrv hits you.
+
+>Time passes...
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
+Skyrv manages to avoid Mark Eridian's attack.
+You manage to avoid Skynd's attack.
 
 >(Your score has increased by 5)
 Time passes...
 You can hear the wail of a distant emergency siren.
-Mark Eridian hits Skynd.
-In complete surprise, the attack catches the Orgaan off guard taking him down
-forever.
-Skyrv hits Mark Eridian, but it doesn't seem to do any damage.
-
->(Your score has increased by 5)
-Time passes...
-A previously non-descript red light blinks to life in the center of the
-ceiling.
 Mark Eridian hits Skyrv.
 The attack cuts down the Orgaan who falls face forward to the floor.
 
 >Time passes...
+A previously non-descript red light blinks to life in the center of the
+ceiling.
+Skynd manages to avoid Mark Eridian's attack.
+Skynd hits Mark Eridian.
+
+>Time passes...
 You can hear the wail of a distant emergency siren.
+Skynd manages to avoid Mark Eridian's attack.
+You manage to avoid Skynd's attack.
 
 >Time passes...
 A previously non-descript red light blinks to life in the center of the
 ceiling.
+Mark Eridian hits Skynd.
 
 >You pick up the 401K Auto Rifle.
 You can hear the wail of a distant emergency siren.
+Skynd manages to avoid Mark Eridian's attack.
+Mark Eridian manages to avoid Skynd's attack.
 
 >(Your score has increased by 5)
 Pressing the genetic sampler to its arm, you take Skyrv's genetic sample.
@@ -406,6 +408,8 @@ it off and take it with you.
 
 A previously non-descript red light blinks to life in the center of the
 ceiling.
+Skynd manages to avoid Mark Eridian's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 5)
 Pressing the genetic sampler to its arm, you take that Orgaan's genetic
@@ -413,6 +417,8 @@ sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
 
 You can hear the wail of a distant emergency siren.
+Skynd manages to avoid Mark Eridian's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 5)
 Pressing the genetic sampler to his arm, you take Mhentsh's genetic sample.
@@ -421,6 +427,8 @@ it off and take it with you.
 
 A previously non-descript red light blinks to life in the center of the
 ceiling.
+Mark Eridian hits Skynd.
+Skynd hits you.
 
 >(Your score has increased by 5)
 Pressing the genetic sampler to his arm, you take Marks genetic sample.
@@ -428,6 +436,8 @@ Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
 
 You can hear the wail of a distant emergency siren.
+Skynd manages to avoid Mark Eridian's attack.
+You manage to avoid Skynd's attack.
 
 >You move south.
 Control Stairwell
@@ -438,12 +448,20 @@ Also here is a dead Orgaan soldier.
 
 Mark Eridian walks in from the north.
 
+Skynd runs in from the north.
+Mark Eridian hits Skynd, but it doesn't seem to do any damage.
+
 >Jeriah is not here to take a genetic sample from.
+Skynd manages to avoid Mark Eridian's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 5)
 Pressing the genetic sampler to its arm, you take that Orgaan's genetic
 sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
+
+Skynd manages to avoid Mark Eridian's attack.
+You manage to avoid Skynd's attack.
 
 >You move up.
 Control Room Patio
@@ -458,6 +476,10 @@ Also here is a dead Jeriah.
 
 Mark Eridian walks in from below.
 
+Skynd runs in from below.
+Skynd manages to avoid Mark Eridian's attack.
+You manage to avoid Skynd's attack.
+
 >You move west.
 Control Room
 Dimly lit with only a few non-broken flourescent lights, dust hangs in the
@@ -470,9 +492,13 @@ natural and treacherous walkway from the laboratory control room to the
 breached cafeteria.  The code red warning light is on.
 
 Mark Eridian walks in from the east.
+
+Skynd runs in from the east.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
 BeeDoop...  BeeDoop... There appears to be some activity on the VidCom.
+Mark Eridian hits Skynd, but it doesn't seem to do any damage.
+You manage to avoid Skynd's attack.
 
 >(Your score has increased by 10)
 Answering the vidcom, a Kantan security guard appears on the small monitor.
@@ -498,13 +524,18 @@ black.
 The lab rocks slightly at the concusion of almost simultaneous grenade
 explosions.
 You can hear the wail of a distant emergency siren.
+Skynd manages to avoid Mark Eridian's attack.
+Skynd hits Mark Eridian, but it doesn't seem to do any damage.
 
 >You open the drawer.  Inside the drawer is a data chip.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
+Mark Eridian hits Skynd, but it doesn't seem to do any damage.
 
 >You take the data chip from the drawer.
 You can hear the wail of a distant emergency siren.
+Mark Eridian hits Skynd, but it doesn't seem to do any damage.
+Skynd hits Mark Eridian, but it doesn't seem to do any damage.
 
 >(Your score has increased by 10)
 Setting the data chip on the desk next to the computer, you begin speaking to
@@ -534,8 +565,10 @@ else, Tangee?"
 The computer goes black.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
+Skynd manages to avoid Mark Eridian's attack.
 
->You move west.
+>(Your score has increased by 5)
+You move west.
 Cafeteria
 Strewn about in disarray, the cafeteria common area normally seats over a
 hundred at rows of metal tables.  Cloth back chairs are overturned amid the
@@ -551,6 +584,11 @@ unblocked.  However, if you walk into the hallway, they'll see you long
 before you can escape past them.
 
 Mark Eridian walks in from the east.
+
+Skynd runs in from the east.
+Mark Eridian hits Skynd.
+In complete surprise, the attack catches the Orgaan off guard taking him down
+forever.
 
 >(Your score has increased by 10)
 Taking the element of surprise, you prime the grenade and roll it down the
@@ -664,6 +702,8 @@ discern no movement from the reception area.  Your grenade has taken out most
 of the desk.  Small pieces of Orgaan are blown everywhere in the reception
 area and the east/west hall.  Now you can see that the main entrance is
 blocked by a collapse of the ceiling.
+
+Also here is a Skynd.
 
 Mark Eridian walks in from the north.
 

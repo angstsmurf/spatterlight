@@ -156,21 +156,19 @@ cauldron go; in the poison'd entrails throw," she chants.
 
 The three weird sisters chant together . . .
 
-First put your foot out,
-Lean forward and I'm done;
-If there are lots of me,
-Please take me one by one.
-What am I?
+A hundred brothers lie next to each other;
+Each white and fine -- they've only one spine.
+I am the tongue that lies between two.
+Remove me to gather their wisdom to you.
 
 [hint, format the solution as "answer foo" or "say foo", where foo is your
 answer]
 
->(Your score has increased by 10)
-The box slowly opens.
+>Wow!  That achieved a lot.
 
->You take the old key from the wooden box.
+>Take what?
 
->You take the scroll from the wooden box.
+>Take what?
 
 >You move north.
 Road to Forres
@@ -197,7 +195,7 @@ leads up to the upstairs hall.  You can also go east to the servant's
 quarters, north-east to the kitchen staff's quarters, south-east to the
 sitting room or south to the entrance hall.
 
-Porter enters from the south.
+Porter sashays in from the south.
 
 >You move up.
 North Upstairs Hall
