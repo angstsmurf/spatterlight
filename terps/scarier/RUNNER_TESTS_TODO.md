@@ -522,11 +522,22 @@ do not patch) vs *Scarier divergence* (→ engine fix).
       `adrift-walkthroughs/TODO_decode_sub_20_74.md`, pruned in `aa30ba4f`; read
       it with
       `git show aa30ba4f^:terps/scarier/adrift-walkthroughs/TODO_decode_sub_20_74.md`.
-- [ ] **`Les Feux de l'enfer`** (French, 289 tasks) — the only remaining 4.0
-      candidate.
-- [ ] Established and worth not re-deriving: no 4.0 game has an out-of-range
+- [x] **`Les Feux de l'enfer` — CLOSED 2026-08-01: it was never a conversion
+      at all.** Data proof: of its 131 "change battle attribute" actions, 51
+      use attribute indices 5/9/10 (the Max-Accuracy and Agility families),
+      which **do not exist in 3.9** — a 3.9→4.0 conversion can only emit
+      {0,1,2,3,4,7,8,11}.  The game was authored natively in the 4.0
+      Generator (its header byte already said native 4.0;
+      `Les_Feux_de_l_enfer_walkthrough.md` and the 2026-06-26/27
+      WALKTHROUGH_TODO entries had separately established that its
+      unwinnability is BY DESIGN — zero win-type EndGame actions — and that
+      the one unreachable +10 is an authored restriction orphan the real
+      Runner fails identically).  Nothing here for the engine.
+- [x] Established and worth not re-deriving: no 4.0 game has an out-of-range
       task/event reference, so any conversion damage is subtle (off-by-one,
-      wrong field meaning), never wholesale.
+      wrong field meaning), never wholesale.  With Les Feux reclassified as
+      native, **no author-side conversion-damage candidate remains — §3(b)
+      is CLOSED.**
 
 ## 4. Contested semantics — Scarier deliberately differs, or nobody has checked
 
@@ -579,5 +590,13 @@ damage floor, worn armour and the RNG question are all settled live; see §1.)*
    NEW unary-minus tokeniser divergence, zero corpus exposure; see the
    table.)*  §4 is CLOSED except for implementing nothing — every row is now
    settled, measured, or deliberately kept.
-5. §3(b) `Les Feux de l'enfer` — the last conversion-damage candidate, and the
-   most work per answer.
+5. §3(b) `Les Feux de l'enfer` — *(closed 2026-08-01: its battle-attribute
+   actions use 4.0-only attribute indices, so it is native 4.0, not a
+   conversion; unwinnability was already established as by-design.  §3(b)
+   has no remaining candidates.)*
+
+**2026-08-01: every numbered item in this file is now settled, measured, or
+deliberately kept.** What remains open is recorded inline: the scope filter
+and the unary-minus tokeniser (both zero-corpus-impact, documented in §4's
+table), re-deriving Shadowpeak under the fixed RNG mapping (§1 corpus note),
+and the a5sexpr `-5/2` tangent (§4 table).
