@@ -256,15 +256,66 @@ reasoned guess: `V390_TASK_ACTION: Type>4?#Type++`,
 `V390_TASK: $RestrMask`, `V390_V380_ROOM_EXIT`, and
 `V390_V380_ALT_TYPEHIDE_MULT = 10`.
 
-- [ ] **Whole-corpus 3.9 differential.** Now that run390 runs, the cheapest test
-      by far: for every 3.x game in `games/` (roughly 23 of ~50 by header byte
-      8 = `0x94`), drive the same short input script through run390 and Scarier
-      and diff. Each fixup above is exercised by *some* game; a bad one shows up
-      as a systematic mismatch rather than a one-off.
-- [ ] **Use gen400 as an oracle.** The Generator can load a 3.9 game and save it
-      as 4.0. Diff the resulting 4.0 field values against what Scarier's V390
-      fixups produce for the same source file. That is a far stronger oracle
-      than a transcript diff, and it has never been tried.
+- [x] **Whole-corpus 3.9 differential — DONE 2026-08-01. Two real bugs found and
+      fixed; every other fixup is confirmed.** Method: gen400 as a *structural*
+      oracle rather than a transcript one (below), plus live run390 probes for
+      the two disputes it raised.
+- [x] **gen400 as an oracle — DONE, and it works far better than a transcript
+      diff.** File → Open a 3.9 `.taf` in gen400, then Save As 4.0; play both
+      files under Scarier with `SCR_DUMP_TASKS=1` and diff the structural dumps
+      (`scdump.cpp` — the ALT and OPENABLE sections were added for exactly this).
+      All 28 3.9 games in `adrift-walkthroughs/games/` were converted. **Caveat
+      learned the hard way: gen400 is not ground truth, only a second opinion.**
+      Both times the dumps disagreed, run390 sided with Scarier's guards or
+      against the Generator's arithmetic — so treat a mismatch as a question,
+      then answer it by playing.
+
+Verdicts, fixup by fixup:
+
+- [x] **`V390_OBJECT: _Openable_,Key` (the 5 ↔ 6 swap)** — verified. The new
+      `OPENABLE` dump section prints raw Openable/Key for every object (the
+      older `LOCKKEY` line only fires for a resolvable key, and pre-4.0 games
+      never have one). Zero mismatches corpus-wide.
+- [x] **`V390_TASK_RESTR: Var1>0?#Var1++`, `V390_TASK: $RestrMask`,
+      `V390_TASK_ACTION: Type>4?#Type++`, `V390_V380_ROOM_EXIT`** — verified.
+      Every TASK / RESTR / EXIT / EVENT / WALK line matches the Generator's own
+      conversion in all 28 games.
+- [x] **Room-alt *ordering* — was wrong, now fixed (run390-verified).**
+      `lib_find_starting_alt()` scans the alt array **backwards** for the first
+      matching method-0/1 alt, so the least specific alt must be emitted first
+      and the most specific last. `parse_fixup_v390_v380_room_alts()` emitted
+      them the other way round. Correct order is
+      `[LastDesc catch-all (disp 2), Task1 alt, Task2 alt, object alt (disp 0)]`.
+      Three authored probes settled it live (`test/make_39_altprobe{,2,3}.py`):
+      (1) after the gating task completes the Runner prints the AddDesc
+      **instead of** the LastDesc, and with both tasks done Task2 wins;
+      (2) an alt whose Task1/Obj is **0** is ignored entirely — Scarier's
+      zero-guards are right and gen400 over-converts, which is all that the
+      residual `cv13`/`cv20`/`cv23` ALT diffs are; (3) an applicable object alt
+      outranks both task alts. Eight goldens re-blessed, corpus all-PASS.
+- [x] **"Change battle attribute" attribute index — was wrong, now fixed
+      (run390-verified).** A 3.9 character record is only
+      `Stamina / Strength / Defence` (plus `Attitude` and `Speed` for NPCs) —
+      no Accuracy, no Agility — so the 3.9 dropdown is eight entries and 4.0's
+      twelve are that list with the Accuracy and Agility pairs spliced in:
+      **0-4 unchanged, 5 → 7 (Defence), 6 → 8 (Max Defence), 7 → 11 (Speed)**.
+      Scarier was feeding the raw 3.9 index to the 4.0 table, so a 3.9 game that
+      handed the player armour instead made them a better shot. Fixed as
+      `|V390_TASK_ACTION:_BattleAttr_|`; affects six corpus games (Matt's House,
+      Phoenix_Destiny, SecretOfLostWorld, The_Spirits_Flight, deaths, gateway),
+      three goldens re-blessed (all pure combat flavour — the player now
+      correctly stops taking damage, and `deaths` even kills the demon).
+      Probe: `test/make_39_battleattr_probe.py` — Robot Strength 20 vs player
+      Defence 0, `zop` adds 40 to attribute 6, `zap` adds 40 to attribute 5.
+      run390's `status` prints exactly three player lines,
+      `Stamina / Hit strength / Defense value`, as `current (max)`; after `zop`
+      it reads `Defense value: 0 (40)` and hits still take 20, after `zap` it
+      reads `40 (40)` and every hit is "doesn't seem to do any damage".
+      **gen400 gets this wrong**: it maps 6 → 8 and 7 → 11 correctly but turns
+      5 into 11 as well, which is what a cascade of un-chained `If`s does
+      (5 → 7, and then that same 7 → 11). Those 17 remaining dump mismatches are
+      Generator bugs, not Scarier bugs, and are the *only* thing left in the
+      differential.
 
 ### (b) Author-side conversion damage (the parked deep-dive)
 
@@ -321,8 +372,10 @@ damage floor, worn armour and the RNG question are all settled live; see §1.)*
    select + the scr_randomint fix, death path, and the shoot rule in BOTH
    Runners.)* Still open: StaminaTask/KilledTask (needs authored tasks in the
    probe generator) and the player-facing wield/status surface items.
-2. §3(a) whole-corpus 3.9 differential — one scripted sweep, broad coverage, and
-   it exercises fixups nothing else touches.
+2. §3(a) whole-corpus 3.9 differential — *(done 2026-08-01 via the gen400
+   structural oracle plus four run390 probes: room-alt ordering and the battle
+   attribute index were both wrong and are now fixed; every other V390 fixup is
+   confirmed.)*
 3. §2 wildcard ordering — needs a purpose-built probe game, and the fix churns
    goldens, so do it when there's room to re-bless carefully.
 4. §4 body-part statics and the scope filter — small, self-contained.

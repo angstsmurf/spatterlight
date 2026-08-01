@@ -219,7 +219,7 @@ Passage in the Caves of eternal night
 The walls are dripping with water, it is extremely dark and the walls appear
 to be made from a very hard rock. Northwest of here the caves continue.
 Southeast will take you out of the cave.  You can see a large area in the
-cave up ahead.  It is too dark to carry on in the caves.
+cave up ahead.
 
 Serond follows you from the south-east.
 
@@ -267,8 +267,7 @@ This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.  The path
-northwest is being blocked by a large troll.
+out across the floor. He has large scratches all over his body.
 
 Also here are some grotty rags and a large club.
 
@@ -308,8 +307,7 @@ This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.  The path
-northwest is being blocked by a large troll.
+out across the floor. He has large scratches all over his body.
 
 Also here are some grotty rags and a large club.
 
@@ -320,7 +318,7 @@ Passage in the Caves of eternal night
 The walls are dripping with water, it is extremely dark and the walls appear
 to be made from a very hard rock. Northwest of here the caves continue.
 Southeast will take you out of the cave.  You can see a large area in the
-cave up ahead.  It is too dark to carry on in the caves.
+cave up ahead.
 
 Serond follows you from the north-west.
 
@@ -533,7 +531,7 @@ Southeast wooden hut
 The hut is very small but has many cupboards around it's borders. There is a
 door leading east, but it is locked. It simply has the words: "Nnem shclam
 quaten" (Translated as sleeping quarters)  There is an unlocked weapons
-cupboard.  There is a large weapons cupboard that is locked.
+cupboard.
 
 Serond follows you from the north-west.
 

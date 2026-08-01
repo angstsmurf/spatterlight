@@ -124,8 +124,7 @@ ground below!  You can see where it landed, quite close to the well.
 Top of Bell Tower
 You are at the top of the church's bell tower.  A rickety spiral staircase
 leads down to the ground.  The empty bell chassis has marks on it you noticed
-when you were untying the rope.  The empty bell chassis has a rope tied to an
-armature to permit ringing.
+when you were untying the rope.
 
 You can move down and out.
 
@@ -164,11 +163,7 @@ Chapel Yard
 You are at the well.   One end of the rope is tied to the well quite
 securely; the rest lies on the ground.  Your humble abode is to the east.
 Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.  You are at the well.  You have
-fond childhood memories of this well, although none of them are occurring to
-you right now.  Your humble abode is to the east.  Fields are to the west.
-The chapel is on top of the hill to the south.  Down the hill to the north
-there is the bus stop.
+the hill to the north there is the bus stop.
 It is daytime.
 
 Also here are the heavy cross.
@@ -230,14 +225,10 @@ You can move north, east and south.
 
 >You move north.
 Chapel Yard
-You are at the well.   One end of the rope is tied to the well quite
-securely; the rest lies on the ground.  Your humble abode is to the east.
-Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.  You are at the well.  You have
-fond childhood memories of this well, although none of them are occurring to
-you right now.  Your humble abode is to the east.  Fields are to the west.
-The chapel is on top of the hill to the south.  Down the hill to the north
-there is the bus stop.
+You are at the well.   The rope, which is tied to the well quite securely,
+leads down.  Your humble abode is to the east.  Fields are to the west.  The
+chapel is on top of the hill to the south.  Down the hill to the north there
+is the bus stop.
 It is daytime.
 Vluurinik flits around.
 
@@ -248,7 +239,6 @@ Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
-There is a couch here.
 
 You can move west and down.
 
@@ -271,20 +261,15 @@ Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
-There is a couch here.
 
 You can move west and down.
 
 >You move west.
 Chapel Yard
-You are at the well.   One end of the rope is tied to the well quite
-securely; the rest lies on the ground.  Your humble abode is to the east.
-Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.  You are at the well.  You have
-fond childhood memories of this well, although none of them are occurring to
-you right now.  Your humble abode is to the east.  Fields are to the west.
-The chapel is on top of the hill to the south.  Down the hill to the north
-there is the bus stop.
+You are at the well.   The rope, which is tied to the well quite securely,
+leads down.  Your humble abode is to the east.  Fields are to the west.  The
+chapel is on top of the hill to the south.  Down the hill to the north there
+is the bus stop.
 It is raining quite heavily.
 It is daytime.
 
@@ -309,14 +294,10 @@ you fill the bowl with warm, fragrant CyberCow milk.
 
 >You move up.
 Chapel Yard
-You are at the well.   One end of the rope is tied to the well quite
-securely; the rest lies on the ground.  Your humble abode is to the east.
-Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.  You are at the well.  You have
-fond childhood memories of this well, although none of them are occurring to
-you right now.  Your humble abode is to the east.  Fields are to the west.
-The chapel is on top of the hill to the south.  Down the hill to the north
-there is the bus stop.
+You are at the well.   The rope, which is tied to the well quite securely,
+leads down.  Your humble abode is to the east.  Fields are to the west.  The
+chapel is on top of the hill to the south.  Down the hill to the north there
+is the bus stop.
 It is raining quite heavily.
 It is daytime.
 Vluurinik flits around.
@@ -343,8 +324,7 @@ You can move west, up and in.
 Top of Bell Tower
 You are at the top of the church's bell tower.  A rickety spiral staircase
 leads down to the ground.  The empty bell chassis has marks on it you noticed
-when you were untying the rope.  The empty bell chassis has a rope tied to an
-armature to permit ringing.
+when you were untying the rope.
 
 You can move down and out.
 
@@ -354,8 +334,7 @@ You can see the chapel yard and the well directly below.  To the east, as if
 in miniature, the little cottage; to the west the wide expanse of meadow.
 Down the hill, past the well to the north, you can see the bus stop.  From
 here, it all looks very small.  The top of the steeple has broken, and rotten
-wood beams sticking out at funny angles.  The cross attached to the steeple
-is slightly crooked.
+wood beams sticking out at funny angles.
 It is raining quite heavily.
 It is daytime.
 Vluurinik flits around.
@@ -381,8 +360,7 @@ The rain has stopped.
 Top of Bell Tower
 You are at the top of the church's bell tower.  A rickety spiral staircase
 leads down to the ground.  The empty bell chassis has marks on it you noticed
-when you were untying the rope.  The empty bell chassis has a rope tied to an
-armature to permit ringing.
+when you were untying the rope.
 
 You can move down and out.
 
@@ -404,14 +382,10 @@ You can move north, east and south.
 
 >You move north.
 Chapel Yard
-You are at the well.   One end of the rope is tied to the well quite
-securely; the rest lies on the ground.  Your humble abode is to the east.
-Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.  You are at the well.  You have
-fond childhood memories of this well, although none of them are occurring to
-you right now.  Your humble abode is to the east.  Fields are to the west.
-The chapel is on top of the hill to the south.  Down the hill to the north
-there is the bus stop.
+You are at the well.   The rope, which is tied to the well quite securely,
+leads down.  Your humble abode is to the east.  Fields are to the west.  The
+chapel is on top of the hill to the south.  Down the hill to the north there
+is the bus stop.
 It is daytime.
 
 You can move north, east, south, west and down.
@@ -437,14 +411,10 @@ Vluurinik flies off to the east.
 
 >You move east.
 Chapel Yard
-You are at the well.   One end of the rope is tied to the well quite
-securely; the rest lies on the ground.  Your humble abode is to the east.
-Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.  You are at the well.  You have
-fond childhood memories of this well, although none of them are occurring to
-you right now.  Your humble abode is to the east.  Fields are to the west.
-The chapel is on top of the hill to the south.  Down the hill to the north
-there is the bus stop.
+You are at the well.   The rope, which is tied to the well quite securely,
+leads down.  Your humble abode is to the east.  Fields are to the west.  The
+chapel is on top of the hill to the south.  Down the hill to the north there
+is the bus stop.
 It is daytime.
 Vluurinik flits around.
 
@@ -455,7 +425,6 @@ Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
-There is a couch here.
 
 You can move west and down.
 
@@ -476,20 +445,15 @@ Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
-There is a couch here.
 
 You can move west and down.
 
 >You move west.
 Chapel Yard
-You are at the well.   One end of the rope is tied to the well quite
-securely; the rest lies on the ground.  Your humble abode is to the east.
-Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.  You are at the well.  You have
-fond childhood memories of this well, although none of them are occurring to
-you right now.  Your humble abode is to the east.  Fields are to the west.
-The chapel is on top of the hill to the south.  Down the hill to the north
-there is the bus stop.
+You are at the well.   The rope, which is tied to the well quite securely,
+leads down.  Your humble abode is to the east.  Fields are to the west.  The
+chapel is on top of the hill to the south.  Down the hill to the north there
+is the bus stop.
 It is daytime.
 
 You can move north, east, south, west and down.

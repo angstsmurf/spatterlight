@@ -189,8 +189,7 @@ Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
-  The penguins are happily dancing around Megan's G4.  There's a huge pile of
-purple penguins here, as well as Megan's G4.
+  The penguins are happily dancing around Megan's G4.
 
 >You move north.
 Studio lobby
@@ -245,18 +244,14 @@ On top of a hill
 You are standing on top of a rocky hill.  To the west is a building bedecked
 with garish flashing lights.  A sign on top of the building reads "The
 Fantabulous Mr. Universe Contest."     The building is now quite silent.
-East will take you to the entrance of the studio.  You hear a lot of cheering
-and cheesy music emanating from the building.  East will take you to the
-entrance of the studio.
+East will take you to the entrance of the studio.
 
 >You move east.
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
 ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
-west.  South will lead you back into the studio.  A twisty path leads east of
-here, a road leads north, and a hill lies to the west, behind which you hear
-some kind of commotion.  South will lead you back into the studio.
+west.  South will lead you back into the studio.
 
 >You move east.
 Twisty path
@@ -293,9 +288,7 @@ Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
 ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
-west.  South will lead you back into the studio.  A twisty path leads east of
-here, a road leads north, and a hill lies to the west, behind which you hear
-some kind of commotion.  South will lead you back into the studio.
+west.  South will lead you back into the studio.
 
 >You move north.
 Crossroads
@@ -340,9 +333,8 @@ barely hear his continued snoring.
 Hotel lobby
 This is the lobby of the Planet X Luxury Hotel.  West takes you back outside,
 while to the north you can see some kind of game room.  Through the open
-doors to the west you can see the bulldozer continuing its approach.  Through
-the open doors to the west you can see the bulldozer continuing its approach.
- There is a glass case here.  The Asteroids game is here.
+doors to the west you can see the bulldozer continuing its approach.  The
+Asteroids game is here.
 
 Also here are the game tokens, a bazooka and broken glass.
 
@@ -478,9 +470,7 @@ Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
 ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
-west.  South will lead you back into the studio.  A twisty path leads east of
-here, a road leads north, and a hill lies to the west, behind which you hear
-some kind of commotion.  South will lead you back into the studio.
+west.  South will lead you back into the studio.
 
 >You move south.
 Studio lobby
@@ -499,9 +489,7 @@ Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
 ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
-west.  South will lead you back into the studio.  A twisty path leads east of
-here, a road leads north, and a hill lies to the west, behind which you hear
-some kind of commotion.  South will lead you back into the studio.
+west.  South will lead you back into the studio.
 
 >You move north.
 Crossroads
@@ -546,9 +534,7 @@ Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
 ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
-west.  South will lead you back into the studio.  A twisty path leads east of
-here, a road leads north, and a hill lies to the west, behind which you hear
-some kind of commotion.  South will lead you back into the studio.
+west.  South will lead you back into the studio.
 
 >You move south.
 Studio lobby
@@ -561,8 +547,7 @@ Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
-  The penguins are happily dancing around Megan's G4.  There's a huge pile of
-purple penguins here, as well as Megan's G4.
+  The penguins are happily dancing around Megan's G4.
 
 >You move east.
 Lab Area A
@@ -630,8 +615,7 @@ Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
-  The penguins are happily dancing around Megan's G4.  There's a huge pile of
-purple penguins here, as well as Megan's G4.
+  The penguins are happily dancing around Megan's G4.
 
 >You move north.
 Studio lobby
@@ -644,9 +628,7 @@ Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
 ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
-west.  South will lead you back into the studio.  A twisty path leads east of
-here, a road leads north, and a hill lies to the west, behind which you hear
-some kind of commotion.  South will lead you back into the studio.
+west.  South will lead you back into the studio.
 
 >You move east.
 Twisty path
@@ -867,8 +849,7 @@ Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
-  The penguins are happily dancing around Megan's G4.  There's a huge pile of
-purple penguins here, as well as Megan's G4.
+  The penguins are happily dancing around Megan's G4.
 
 >You move east.
 Lab Area A

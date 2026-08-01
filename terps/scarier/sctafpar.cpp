@@ -228,7 +228,8 @@ static const scr_parse_schema_t V390_PARSE_SCHEMA[] = {
    "#Type |V390_TASK_ACTION:Type>4?#Type++| ?#Type=0:#Var1,#Var2,#Var3"
    " ?#Type=1:#Var1,#Var2,#Var3 ?#Type=2:#Var1,#Var2"
    " ?#Type=3:#Var1,#Var2,#Var3,|V390_TASK_ACTION:$Expr_#Var5|"
-   " ?#Type=4:#Var1 ?#Type=6:#Var1,ZVar2,ZVar3 ?#Type=7:#Var1,#Var2,#Var3"},
+   " ?#Type=4:#Var1 ?#Type=6:#Var1,ZVar2,ZVar3"
+   " ?#Type=7:#Var1,#Var2,#Var3,|V390_TASK_ACTION:_BattleAttr_|"},
   {"ROOM_LIST0",
    "#Type {ROOM_LIST0}"},
   {"EVENT",
@@ -1771,6 +1772,16 @@ parse_fixup_v390_v380_task_alt (const scr_char *task_key,
  * Common helper function for parse_fixup_v390() and parse_fixup_v380(),
  * converts version 3.9 and version 3.8 fixed room description alts into
  * an equivalent array of version 4.0 style room alts.
+ *
+ * The order matters, and is the opposite of what reads naturally.  Alts are
+ * selected by lib_find_starting_alt(), which scans the array *backwards* for
+ * the first matching method-0/1 alt, then prints forwards from there, adding
+ * only later method-2 alts.  So the least specific alt has to come first and
+ * the most specific last: LastDesc catch-all, Task1, Task2, then the object
+ * alt that overrides everything.  This matches the alt array that the ADRIFT
+ * Generator itself writes when it converts a 3.9 game to 4.0, and matches the
+ * 3.9 Runner, which prints the AddDesc *instead of* the LastDesc rather than
+ * as well as it (verified live -- see RUNNER_TESTS_TODO.md section 3a).
  */
 static void
 parse_fixup_v390_v380_room_alts (void)
@@ -1779,8 +1790,24 @@ parse_fixup_v390_v380_room_alts (void)
   scr_int var3;
 
   /*
-   * Create a room alt to override all others, controlled by an object
-   * condition and with optional object hiding.
+   * The catch-all room alt, printed only when no other alt applies.  Its
+   * condition is an always-true task condition.
+   */
+  m1 = parse_get_keyed_string ("LastDesc");
+  if (!scr_strempty (m1))
+    {
+      parse_fixup_v390_v380_room_alt (m1, 0 /* Task condition, always TRUE */,
+                                      "LastRes", 0, 0, 0,
+                                      2 /* Lowest priority output */);
+    }
+
+  /* Create alts for the first and second task additional descriptions. */
+  parse_fixup_v390_v380_task_alt ("Task1", "AddDesc1", "Task1Res");
+  parse_fixup_v390_v380_task_alt ("Task2", "AddDesc2", "Task2Res");
+
+  /*
+   * Last, and so overriding all the others, a room alt controlled by an
+   * object condition and with optional object hiding.
    */
   var3 = parse_get_keyed_integer ("Obj");
   if (var3 > 0)
@@ -1796,22 +1823,6 @@ parse_fixup_v390_v380_room_alts (void)
       parse_fixup_v390_v380_room_alt (m1, 2 /* Object condition */,
                                       "AltRes", var2, hide_objects, var3,
                                       0 /* Override all others */);
-    }
-
-  /* Create alts for the second and first task additional descriptions. */
-  parse_fixup_v390_v380_task_alt ("Task2", "AddDesc2", "Task2Res");
-  parse_fixup_v390_v380_task_alt ("Task1", "AddDesc1", "Task1Res");
-
-  /*
-   * If still printing at this point, we need a catch-all room alt that will
-   * print.  So create one with an always true condition (no task).
-   */
-  m1 = parse_get_keyed_string ("LastDesc");
-  if (!scr_strempty (m1))
-    {
-      parse_fixup_v390_v380_room_alt (m1, 0 /* Task condition, always TRUE */,
-                                      "LastRes", 0, 0, 0,
-                                      2 /* Lowest priority output */);
     }
 }
 
@@ -1847,6 +1858,44 @@ parse_write_restrmask (void)
       parse_put_keyed_string ("RestrMask", restrmask);
       prop_adopt (parse_bundle, restrmask);
     }
+}
+
+
+/*
+ * parse_fixup_v390_battle_attribute()
+ *
+ * Rewrite the attribute index of a version 3.9 "Change battle attribute" task
+ * action into its version 4.0 equivalent.
+ *
+ * A 3.9 character has only Stamina, Strength, Defence and (for NPCs) Attitude
+ * and Speed -- see the 3.9 BATTLE and NPC_BATTLE schemas above, which have no
+ * Accuracy or Agility fields at all.  Its Generator dropdown is therefore the
+ * eight-entry list
+ *
+ *     0 Attitude  1 Stamina  2 Max Stamina  3 Strength  4 Max Strength
+ *     5 Defence   6 Max Defence  7 Speed
+ *
+ * and version 4.0 is that same list with the two new Accuracy and Agility
+ * pairs spliced in, so the mapping is 0-4 unchanged, 5->7, 6->8, 7->11.
+ * Without this the three moved indices land on Accuracy, Max Accuracy and
+ * Defence, and a 3.9 game that hands the player armour instead makes it a
+ * better shot.
+ *
+ * Note that gen400's own 3.9 -> 4.0 conversion agrees on 6->8 and 7->11 but
+ * turns 5 into 11 as well -- a cascade of un-chained `If`s that rewrites 5 to
+ * 7 and then that 7 to 11.  It is the Generator that is wrong; see
+ * RUNNER_TESTS_TODO.md section 3(a).
+ */
+static void
+parse_fixup_v390_battle_attribute (void)
+{
+  static const scr_int MAPPING[] = {0, 1, 2, 3, 4, 7, 8, 0xB};
+
+  const scr_int attribute = parse_get_keyed_integer ("Var1");
+
+  if (attribute >= 0 && attribute < (scr_int) (sizeof (MAPPING)
+                                               / sizeof (MAPPING[0])))
+    parse_put_keyed_integer ("Var1", MAPPING[attribute]);
 }
 
 
@@ -1910,6 +1959,10 @@ parse_fixup_v390 (const scr_char *fixup)
   /* Fixup a version 3.9 task action by incrementing Type > 4. */
   if (strcmp (fixup, "|V390_TASK_ACTION:Type>4?#Type++|") == 0)
     parse_fixup_conditional_increment ("Type", 4);
+
+  /* Remap the attribute index of a 3.9 "Change battle attribute" action. */
+  else if (strcmp (fixup, "|V390_TASK_ACTION:_BattleAttr_|") == 0)
+    parse_fixup_v390_battle_attribute ();
 
   /* Handle either Expr or Var5 for version 3.9 task actions. */
   else if (strcmp (fixup, "|V390_TASK_ACTION:$Expr_#Var5|") == 0)

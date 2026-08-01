@@ -242,6 +242,31 @@ scr_dump_structure_once (scr_gameref_t game)
                  : "?");
     }
 
+  /* Raw Openable/Key, whatever their values.  LOCKKEY above only fires for a
+   * resolvable key, and pre-4.0 games never have one (parse_fixup_openable_key
+   * always writes Key = -1), so this is the line that lets the gen400
+   * conversion oracle check the V390/V380_OBJECT fixup that swaps Openable
+   * 5 and 6.  See RUNNER_TESTS_TODO.md section 3(a). */
+  for (i = 0; i < gs_object_count (game); i++)
+    {
+      scr_vartype_t ok[3];
+      scr_int openable, key = 0;
+      scr_vartype_t ov;
+      ok[0].string = "Objects";
+      ok[1].integer = i;
+      ok[2].string = "Openable";
+      openable = prop_get_integer (bundle, "I<-sis", ok);
+      if (openable == 0)
+        continue;
+      ok[2].string = "Key";
+      if (prop_get (bundle, "I<-sis", &ov, ok))
+        key = ov.integer;
+      fprintf (stderr, "OPENABLE obj=%ld [%s] openable=%ld key=%ld\n",
+               i, scdump_object_name (game, i)
+                    ? scdump_object_name (game, i) : "",
+               openable, key);
+    }
+
   /* Surface / container index enumeration (chisel-of-the-ages hunt). */
   {
     scr_int si = 0, ci = 0;
@@ -605,6 +630,38 @@ scr_dump_structure_once (scr_gameref_t game)
             if (dest > 0)
               fprintf (stderr, "EXIT room=%ld %s -> dest=%ld gateTask=%ld expectDone=%ld v3=%ld\n",
                        r, dirs[d], dest - 1, v1 - 1, v2, v3);
+          }
+      }
+
+    /* Room description alts.  In 4.0 these are an authored array; in 3.9/3.8
+     * they are synthesised by parse_fixup_v390_v380_room_alts() from the
+     * fixed AltDesc/Task1/Task2/LastDesc fields, so dumping them is how the
+     * gen400 conversion oracle checks that fixup (see RUNNER_TESTS_TODO.md
+     * §3a). */
+    for (r = 0; r < rcount; r++)
+      {
+        scr_int a, acount;
+        rk[1].integer = r;
+        rk[2].string = "Alts";
+        acount = prop_get_child_count (bundle, "I<-sis", rk);
+        for (a = 0; a < acount; a++)
+          {
+            scr_int type = 0, v2 = 0, v3 = 0, disp = 0, hide = 0;
+            const scr_char *m1 = NULL, *m2 = NULL;
+            scr_vartype_t av;
+            rk[3].integer = a;
+            rk[4].string = "Type"; if (prop_get (bundle, "I<-sisis", &av, rk)) type = av.integer;
+            rk[4].string = "Var2"; if (prop_get (bundle, "I<-sisis", &av, rk)) v2 = av.integer;
+            rk[4].string = "Var3"; if (prop_get (bundle, "I<-sisis", &av, rk)) v3 = av.integer;
+            rk[4].string = "DisplayRoom"; if (prop_get (bundle, "I<-sisis", &av, rk)) disp = av.integer;
+            rk[4].string = "HideObjects"; if (prop_get (bundle, "I<-sisis", &av, rk)) hide = av.integer;
+            rk[4].string = "M1"; if (prop_get (bundle, "S<-sisis", &av, rk)) m1 = av.string;
+            rk[4].string = "M2"; if (prop_get (bundle, "S<-sisis", &av, rk)) m2 = av.string;
+            fprintf (stderr,
+                     "ALT room=%ld alt=%ld type=%ld v2=%ld v3=%ld"
+                     " disp=%ld hide=%ld m1=[%s] m2=[%s]\n",
+                     r, a, type, v2, v3, disp, hide,
+                     m1 ? m1 : "", m2 ? m2 : "");
           }
       }
   }

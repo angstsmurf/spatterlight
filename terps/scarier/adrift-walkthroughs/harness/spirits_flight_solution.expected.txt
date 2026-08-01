@@ -113,9 +113,7 @@ She picks up her scimitar "Now,where to first?"
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
 floating around the place. This place is dead quiet.  A voice in your mind
-whispers "Wind is next, west you go."  A voice in your mind whispers "Find
-the elementals. South is your first direction. The fighter must accompany
-you."
+whispers "Wind is next, west you go."
 
 You can move south and west.
 
@@ -189,15 +187,14 @@ behind you, showing the path out.
 >You move out.
 Cliff Top
 The cliff is high up in the clouds.  The cavern you went through does not
-exist.  The wind blows downwards towards a cavern. It whistles, "Come help
-me."
+exist.
 
 You can only move north.
 
 >You walk north.
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
-A steady wind blows.  A fierce wind blows.
+A steady wind blows.
 
 Morana is here.
 
@@ -212,8 +209,7 @@ Morana screeches before she disappears in a puff of smoke.
 Whistle Hamlet
 The place is full of pine trees. Log-houses dot the area.  People smile at
 you as you past, hopeful that soon the elementals will be returned to the
-Stone Circle.  People are locked inside their homes, scared of the missing
-wind elemental.
+Stone Circle.
 
 Fernipor is here.
 
@@ -229,9 +225,7 @@ You can move east and southwest.
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
 floating around the place. This place is dead quiet.  A voice in your mind
-whispers "Wind is next, west you go."  A voice in your mind whispers "Find
-the elementals. South is your first direction. The fighter must accompany
-you."
+whispers, "East to water, then the others"
 
 You can move east, south and west.
 
@@ -274,7 +268,7 @@ Serpanern is here.
 
 You can only move north.
 Lamanluie hits Serpanern.
-Serpanern hits you.
+Serpanern hits you, but it doesn't seem to do any damage.
 
 >You hit Serpanern.
 It's body shrivels and is instantly consumed by fishes.
@@ -299,7 +293,7 @@ You can move west and down.
 The mirror shatters easily with the use of The Spirit Dagger.
 Cavern of Mirages
 The carvern is covered in translucent ice.  Borken pieces of the mirror are
-on the floor.  A mirror stands
+on the floor.
 
 Also here is A snow flake.
 
@@ -327,7 +321,7 @@ The Sea Serpent's Scales floats magically onto your body.
 >You climb up.
 Cavern of Mirages
 The carvern is covered in translucent ice.  Borken pieces of the mirror are
-on the floor.  A mirror stands
+on the floor.
 
 Also here is A snow flake.
 
@@ -349,8 +343,7 @@ You can move north and up.
 The Merfolk's Domain
 The place is an amazing splendour of coral buildings and fish schools. The
 wind elemental does you a favour and allows you to breathe underwater.  The
-Merfolk swim around happily.  The Merfolk are slightly agitated at the
-water's fierce churning
+Merfolk swim around happily.
 
 Korishia is here.
 
@@ -373,9 +366,7 @@ You can move east and west.
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
 floating around the place. This place is dead quiet.  A voice in your mind
-whispers "Wind is next, west you go."  A voice in your mind whispers "Find
-the elementals. South is your first direction. The fighter must accompany
-you."
+whispers, "East to water, then the others"
 
 You can move east, south, west and northwest.
 
@@ -482,7 +473,7 @@ You can move north and east.
 >You walk east.
 Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
-and dry.  A lizard is hissing at you, blocking your way.  A lizard is here.
+and dry.  A lizard is hissing at you, blocking your way.
 
 Slikerma is here.
 
@@ -505,9 +496,7 @@ You can move north and southeast.
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
 floating around the place. This place is dead quiet.  A voice in your mind
-whispers "Wind is next, west you go."  A voice in your mind whispers "Find
-the elementals. South is your first direction. The fighter must accompany
-you."
+whispers, "East to water, then the others"
 
 You can move north, east, south, west and northwest.
 

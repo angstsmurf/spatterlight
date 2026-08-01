@@ -167,7 +167,7 @@ Also here is a folder and a garage-door opener.
 Garage
 The garage has a large door on the east side.  The laundry is to the east,
 and another small door is on the south wall.  A spare refrigerator is on the
-west wall, as is the garage door opener.  The car door is unlocked.
+west wall, as is the garage door opener.  The car door is open.
 
 >You move west.
 Laundry
@@ -490,7 +490,7 @@ south is the half-bath.
 Garage
 The garage has a large door on the east side.  The laundry is to the east,
 and another small door is on the south wall.  A spare refrigerator is on the
-west wall, as is the garage door opener.  The car door is unlocked.
+west wall, as is the garage door opener.  The car door is open.
 
 >You move in.
 Car

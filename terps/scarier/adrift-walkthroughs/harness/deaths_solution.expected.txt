@@ -239,7 +239,7 @@ Ross hits you, but it doesn't seem to do any damage.
 ross dissapears and you don't know where he went
 
 Joshua walks in .
-Ross hits you, but it doesn't seem to do any damage.
+Joshua hits Ross.
 
 >You move north.
 Hall1 east
@@ -300,10 +300,10 @@ Demon is here.
 You can move east, west and down.
 
 Joshua walks in  from below.
-Demon hits Joshua, but it doesn't seem to do any damage.
+Joshua hits Demon.
+the demon disappears in a flash of light
 
 >the witch disappears with a laugh
-Demon hits you, but it doesn't seem to do any damage.
 
 >You move up.
 Attic
@@ -314,7 +314,7 @@ Dark force is here.
 You can only move down.
 
 Joshua walks in  from below.
-Dark force hits Joshua, but it doesn't seem to do any damage.
+Dark force hits you.
 
 >(Your score has increased by 10)
 as the dard force crumbles into dust you are swept out of the house and
