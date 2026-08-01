@@ -85,8 +85,6 @@ To east is bathroom, but door is closed.
 
 There are exits north, south and west.
 
-Cat sheepishly enters from the west.
-
 Somorph thinking that Brian did this.
 
 Brian not like Somorph. Brian rival for Somorph's job on home planet
@@ -109,18 +107,22 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-Cat is here.
-
 SoMorph can move north, south and west.
 
-Cat quietly exits to the west.
+Cat sheepishly enters from the east.
 
 Or maybe SoMorph got drunk?
 
 Somorph cannot remember much. Just in case, SoMorph will have words with
 Brian when Somorph get home.
 
->I don't understand what you mean!
+>You hit Cat.
+
+Cat sheepishly enters.
+With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead!
+
+Somorph not stop thumping cat with tentacle till cat much flatter. Easier to
+eat that way...
 
 >
 Corridor Alpha
@@ -137,21 +139,23 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
+Also here is a dead cat.
+
+Cat is here.
+
 SoMorph can move north, south and west.
 
-Cat sheepishly enters from the west.
-
->You hit Cat.
-With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead!
-
-Somorph not stop thumping cat with tentacle till cat much flatter. Easier to
-eat that way...
+Cat quietly exits to the south.
 
 Somorph think he not on planet Omorphos any more.
 
 Somorph on some ship. Must change course to go home.
 
 And have words with Brian.
+
+>I don't understand what you want me to do with the dead cat.
+
+Cat sheepishly enters from the south.
 
 >
 It takes a long while, but SeMorph eat cat.
@@ -160,17 +164,17 @@ It takes a long while, but SeMorph eat cat.
 
 SeMorph think Cat make fun appetiser...
 
-Cat sheepishly enters from the west.
+Cat quietly exits to the east.
 Somorph think he need loo now...
 
 >SoMorph picks up the cat fur.
 
-Cat quietly exits to the south.
+Cat sheepishly enters from the east.
 SoMorph really need to go toilet...
 
 >SoMorph opens the bathroom door.
 
-Cat sheepishly enters from the south.
+Cat quietly exits to the north.
 SoMorph need loo badly!
 
 >SoMorph moves east.
@@ -195,13 +199,13 @@ SoMorph try hold it in...
 
 >SoMorph closes the bathroom door.
 
->SoMorph opens the toilet.
-
 Cat sheepishly enters from the west.
 
->SoMorph decide SoMorph *really* need to go the loo.
+>SoMorph opens the toilet.
 
 Cat quietly exits to the west.
+
+>SoMorph decide SoMorph *really* need to go the loo.
 SoMorph squeeze his four sphincters and holds onto bathroom walls with
 tentacles for support.
 
@@ -233,8 +237,6 @@ SoMorph hopes sphincters will re-align soon. Makes SoMorph feel queesy...
 
 >SoMorph opens the bathroom door.
 
-Cat sheepishly enters from the west.
-
 >SoMorph moves west.
 Corridor Alpha
 
@@ -250,11 +252,11 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-Human is here.
+Cat and Human are here.
 
 SoMorph can move north, east, south and west.
 
-Cat sheepishly enters from the east.
+Cat quietly exits to the south.
 
 Human runs screaming to the west.
 
@@ -312,15 +314,11 @@ SoMorph can only move east.
 Human runs screaming from the east.
 
 >You hit Human.
-
-Cat sheepishly enters from the east.
 With mighty swipe of tentacle, SoMorph kill Alan Davies till he dead!
 
 Then SoMorph poke Alan Davies with tentacle for few minutes. To be sure...
 
 >I don't understand what you are trying to eat.
-
-Cat quietly exits to the east.
 SoMorph prepare for main course.
 
 Very slowly, SoMorph start at extremities.
@@ -357,9 +355,11 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
+Cat is here.
+
 SoMorph can move north, east, south and west.
 
-Cat sheepishly enters from the east.
+Cat quietly exits to the east.
 
 Human runs screaming from the east.
 
@@ -384,8 +384,6 @@ Also here is some catnip.
 Frank is here.
 
 SoMorph can only move south.
-
-Cat sheepishly enters from the south.
 
 >
 SeMorph hear screeching sound of brakes applied too suddenly, and whole ship

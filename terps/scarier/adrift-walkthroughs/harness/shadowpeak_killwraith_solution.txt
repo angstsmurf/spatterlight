@@ -1,5 +1,7 @@
 # Shadowpeak ADRIFT 4.0 - ALTERNATIVE walkthrough: KILL THE WRAITH FIRST.
-# Deterministic 0-death WIN, 740/790. Run:
+# Deterministic 0-death WIN, 735/790 (was 740: the Fang +5 is lost since the
+# 2026-08-01 walk-timing fix -- he wanders in a turn later and re-tuning his
+# ambush desyncs the crypt fuse; accepted). Run:
 #   SC_SEED=1 sh harness/play.sh games/Shadowpeak.taf shadowpeak_killwraith_solution.txt
 #
 # Variant of the canonical 710/790 win that ALSO:
@@ -8,7 +10,7 @@
 #   * kills Fang the wolf in the swamp (room 27, T31 +5, self-syncing attack/z
 #     loop because Fang wanders rooms 27-33); and
 #   * cuts down the werewolf Margo in the prison (room 98, T255 +5).
-# Net: 710 + 20 + 5 + 5 = 740/790. The killing of the wraith shifts the seeded
+# Net (post walk-timing fix): 735/790 -- Fang +5 no longer lands. The killing of the wraith shifts the seeded
 # combat RNG, so the deep-dungeon Damastus maze chase was re-derived (greedy BFS)
 # and the Hell Cerberus fight widened to 8 attacks.
 #
@@ -398,6 +400,11 @@ one
 se
 s
 s
+# WALK-TIMING RE-TUNE (2026-08-01, startup walk tick removed): every walker now
+# arrives one turn later, so wait one turn on the drawbridge -- entering the
+# castle entrance a turn later keeps Maretta's attack cadence off the arrival
+# turn (without it she lands a ~29-damage hit the moment she materialises).
+z
 s
 # TICK-ORDER RE-TUNE (NPCs now walk before events, faithful to Runner): Maretta's
 # walk charTask (T156 garlic save +5) no longer fires on the arrival turn itself;
@@ -415,6 +422,9 @@ s
 s
 z
 attack gargoyle #2
+z
+# WALK-TIMING RE-TUNE: #3's post-animation flight is one turn later; wait a
+# turn or the shatter task misses it.
 attack gargoyle #3
 attack gargoyle #4
 s
@@ -466,7 +476,10 @@ w
 destroy painting #6
 n
 n
-attack cat
+# WIELD-MODEL RE-TUNE: the chapel drop cleared the wield and re-taking does
+# not re-wield, so the first post-chapel attack must name the weapon (a bare
+# attack with two carried weapons now asks, faithfully to run400).
+attack cat with sword
 n
 take scroll
 s
@@ -651,7 +664,8 @@ open golden chest
 pull lever
 crawl
 e
-z
+# WALK-TIMING RE-TUNE: one fewer wait here -- Edna must die before the crypt
+# floor-trap fuse expires, and the re-threaded fight needs the extra stab turn.
 z
 sleep
 attack edna
@@ -662,6 +676,10 @@ attack edna
 attack edna
 attack edna
 attack edna
+z
+z
+z
+z
 take fleshy mound
 n
 throw flesh
@@ -705,16 +723,18 @@ press stone button
 # else BFS-step toward him; then walk to the bronze button (151). Re-derive
 # with chase.py (SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35) if upstream turns change.
 s
-attack damastus
-attack damastus
 s
+s
+n
+attack damastus
+n
 attack damastus
 s
 attack damastus
 s
 attack damastus
 n
-n
+attack damastus
 n
 n
 e

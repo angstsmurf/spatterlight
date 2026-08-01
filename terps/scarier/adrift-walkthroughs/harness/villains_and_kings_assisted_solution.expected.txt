@@ -88,7 +88,7 @@ You can move west and in.
 
 >You take Kinda Sharp Sword from Weapon Rack.
 
->You are now wielding Kinda Sharp Sword.
+>You wield Kinda Sharp Sword.
 
 >You move west.
 Courtyard

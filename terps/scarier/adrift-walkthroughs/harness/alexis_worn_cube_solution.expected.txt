@@ -76,8 +76,9 @@ Wolf hits you, but it doesn't seem to do any damage.
 Wolf hits you, but it doesn't seem to do any damage.
 
 >You hit Wolf.
+Wolf hits you, but it doesn't seem to do any damage.
 
->Command not understood
+>You hit Wolf.
 
 >Command not understood
 
@@ -112,8 +113,6 @@ towards Kedarn forest to the northeast. West will take you to Tonerith
 junction.  There is a large dwarven bridgekeeper blocking your way across the
 bridge.
 The Bridgekeeper is here.
-
->You hit Bridgekeeper.
 Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
 damage.
 
@@ -148,6 +147,10 @@ Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 >You hit Bridgekeeper.
+
+>You hit Bridgekeeper.
+Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+damage.
 
 >You move west.
 Tonerith junction
@@ -252,14 +255,14 @@ Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.
 
 Narfild is here.
-
->You cut Narfild with the small sword.
 Narfild hits you with the large club, but it doesn't seem to do any damage.
 
 >You cut Narfild with the small sword.
 
 >You cut Narfild with the small sword.
 Narfild hits you with the large club, but it doesn't seem to do any damage.
+
+>You cut Narfild with the small sword.
 
 >You cut Narfild with the small sword.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
@@ -359,8 +362,6 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
 
 >You move southeast.
 Longmore pass
@@ -523,8 +524,6 @@ Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
 any damage.
 
 >You cut Forester Goblin with the small sword.
-Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
-any damage.
 
 >You cut Forester Goblin with the small sword.
 Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
@@ -539,39 +538,39 @@ The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
 Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
->You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
 The birds high above your head hoot and cheep to each other.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
+
+>You cut Forester Goblin with the small sword.
+
+Forester Goblin jumps through the trees to you.
 
 >You pick up the Kedarn stone.
 
@@ -615,16 +614,16 @@ Longmore king stabs you with the pointy stick, but it doesn't seem to do any
 damage.
 
 >You cut Longmore king with the small sword.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
-
->You cut Longmore king with the small sword.
 
 >You cut Longmore king with the small sword.
 Longmore king stabs you with the pointy stick, but it doesn't seem to do any
 damage.
 
 >You cut Longmore king with the small sword.
+
+>You cut Longmore king with the small sword.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
 >You cut Longmore king with the small sword.
 The swamp monster slowly melts into the marsh. It then dissapears.
@@ -686,9 +685,9 @@ There is an eagle above you circling around your head.
 Eagle hits you, but it doesn't seem to do any damage.
 
 >You cut Eagle with the small sword.
-Eagle hits you, but it doesn't seem to do any damage.
 
 >You cut Eagle with the small sword.
+Eagle hits you, but it doesn't seem to do any damage.
 
 >You cut Eagle with the small sword.
 The eagle makes a last flap of it's enormous wings and falls deep into the
@@ -735,8 +734,8 @@ This path threads over the bottoms of many mountains. On each side are
 extremely steep mountains. It is impossible to attempt to climb up any.
 Southwest will take you towards Glaven. Northeast takes you further along the
 pass. East takes you along a valley ridge.
-Out of the corner of your eye you notice something dart behind you. You spin
-around to see what it was but it doesn't appear to be here.
+You spin around, trying to see anything behind you, nothing of importance can
+be seen.
 
 >You move northeast.
 Nelone mountain pass
@@ -806,7 +805,6 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.
 There is a large Narn here.
-Karurn hits you, but it doesn't seem to do any damage.
 
 >You move northwest.
 Uron Dark Path
@@ -848,11 +846,7 @@ corridor. East will take you into a smaller room.
 Larnt is here.
 
 Haron follows you from the south.
-Haron cuts Larnt with the elven sword.
-
->You cut Larnt with the small sword.
-Larnt cuts you with the blade from Uron, but it doesn't seem to do any
-damage.
+Larnt cuts Haron with the blade from Uron.
 
 >You cut Larnt with the small sword.
 Haron cuts Larnt with the elven sword.
@@ -860,6 +854,9 @@ Larnt cuts you with the blade from Uron, but it doesn't seem to do any
 damage.
 
 >You cut Larnt with the small sword.
+
+>You cut Larnt with the small sword.
+Haron cuts Larnt with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -998,10 +995,6 @@ the South. He then smiles, and says:
  Just us now, no escape.
 
 Haron follows you.
-Haron cuts Urgorn with the elven sword.
-Urgorn shoots Haron with the ball of fire.
-
->You cut Urgorn with the small sword.
 
 >You cut Urgorn with the small sword.
 Haron cuts Urgorn with the elven sword.
@@ -1010,7 +1003,8 @@ Haron cuts Urgorn with the elven sword.
 
 >You cut Urgorn with the small sword.
 Haron cuts Urgorn with the elven sword.
-Urgorn shoots Haron with the ball of fire.
+Urgorn shoots you with the ball of fire, but it doesn't seem to do any
+damage.
 
 >You cut Urgorn with the small sword.
 
@@ -1018,6 +1012,9 @@ Urgorn shoots Haron with the ball of fire.
 Haron cuts Urgorn with the elven sword.
 
 >You cut Urgorn with the small sword.
+
+>You cut Urgorn with the small sword.
+Haron cuts Urgorn with the elven sword.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

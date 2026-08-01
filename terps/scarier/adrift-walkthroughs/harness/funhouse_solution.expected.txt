@@ -18,24 +18,19 @@ twos and a lighter.
 
 There is an exit south.
 
-Tall man walks towards you from the south.
-
-Mafia man .
-
 >You move south.
 Main ticket booth
 What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.
 
 Also here is a hundred dollars, a drink and a ticket.
+The tall man is pleasant.
 
 Ticket man and Your children 8) are here.
 
 There are exits north and east.
 
-Tall man walks towards you from the north.
-
-Mafia man  from the north.
+Mafia man .
 
 >(Your score has increased by 100)
 You pick up the hundred dollars.
@@ -158,8 +153,6 @@ Creepy......
 Vampire is here.
 
 You can move east, south and west.
-
-Bouncer walks towards you from the east.
 
 Mafia man  from the east.
 

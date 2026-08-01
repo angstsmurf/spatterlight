@@ -280,8 +280,6 @@ stairs leading up and washes the ground with fuzzy warmth.
 
 EXITS:  south, up and down.
 
-A Little Boy  walks towards you from above.
-
 >You move south.
 Corridore
 Walking down the hall you come upon a door to the east. To the north another,

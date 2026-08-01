@@ -18,18 +18,8 @@ There is an exit west.
 
 >(Your score has increased by 5)
 as you open the mail box it explodes and is distroyed
-Ghost hits you, but it doesn't seem to do any damage.
-Wolfe hits you, but it doesn't seem to do any damage.
-Cat hits you, but it doesn't seem to do any damage.
-Vampire hits you, but it doesn't seem to do any damage.
-Witch hits you, but it doesn't seem to do any damage.
 
 >You pick up the silver-key.
-Ghost hits you, but it doesn't seem to do any damage.
-Wolfe hits you, but it doesn't seem to do any damage.
-Cat hits you, but it doesn't seem to do any damage.
-Vampire hits you, but it doesn't seem to do any damage.
-Witch hits you, but it doesn't seem to do any damage.
 
 >You move west.
 Front door
@@ -314,7 +304,7 @@ Dark force is here.
 You can only move down.
 
 Joshua walks in  from below.
-Dark force hits you.
+Dark force hits Joshua, but it doesn't seem to do any damage.
 
 >(Your score has increased by 10)
 as the dard force crumbles into dust you are swept out of the house and

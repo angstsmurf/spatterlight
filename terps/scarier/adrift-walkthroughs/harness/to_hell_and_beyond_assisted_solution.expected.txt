@@ -774,15 +774,14 @@ Tunnel 2
 The tunnel continues to the north.
 
 You can move north and south.
-Trace hits Big rat with the Whip.
-You kill the rat. You get 7 gold coins.
 
 >You move north.
 Tunnel 3
 The path splits to the east and west.
 
+Big rat is here.
+
 You can move east, south and west.
-Trace hits Big rat with the Whip.
 
 >You move east.
 Tunnel 4
@@ -1168,7 +1167,7 @@ You can only move out.
 
 >You buy the bladed whip.
 
->You are now wielding the claymore.
+>You wield the claymore.
 
 >You move out.
 Sulfan market 1
@@ -1286,11 +1285,11 @@ Enevez hits Xozim with the Staff.
 Trace hits Xozim with the Whip.
 Enevez hits Xozim with the Staff.
 Enevez hits Xozim with the Staff.
-Xozim hits you.
+Xozim hits Enevez.
 Trace hits Xozim with the Whip.
 Enevez hits Xozim with the Staff.
 Enevez hits Xozim with the Staff.
-Xozim hits Enevez.
+Xozim hits you.
 (Your score has increased by 50)
 Trace hits Xozim with the Whip.
 You thrust your sword into the demon´s chest one final time. The demon

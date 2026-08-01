@@ -2405,47 +2405,50 @@ Red Riven manages to avoid Donna's attack.
 Chip hits Red Riven.
 Donna manages to avoid Red Riven's attack.
 
->You throw the double-lighter at Red Riven, but it doesn't seem to do any
-damage.
+>What do you want to attack Red Riven with?
+
+>I've already got the double-lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 Scotty hits Red Riven, but it doesn't seem to do any damage.
 Red Riven manages to avoid Chip's attack.
 
->I pick up the double-lighter.
+>I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 Lina hits Red Riven.
 Scotty hits Red Riven.
 Tippant hits Red Riven.
-Donna hits Red Riven.
-Red Riven hits Chip.
+Red Riven manages to avoid Donna's attack.
+Red Riven hits Tippant.
 
->I've already got the lighter!
+>What do you want to attack Red Riven with?
+
+>I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
-Lina hits Red Riven.
 Scotty hits Red Riven.
-Red Riven manages to avoid Chip's attack.
-
->You throw the double-lighter at Red Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
+
+>I've already got the lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
->I pick up the double-lighter.
+>I don't understand what you mean.
 
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
+>I've already got the double-lighter!
 
 >I've already got the lighter!
 
@@ -2457,6 +2460,9 @@ sand-like nature. I barely avoid it.
 >I've already got the double-lighter!
 
 >I've already got the lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -2474,10 +2480,9 @@ It thunders in the distance. Streaks of green lightning are in the sky.
 
 >I've already got the double-lighter!
 
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
 >I've already got the lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2486,30 +2491,16 @@ is spreading all over my body.
 
 >I've already got the double-lighter!
 
-The sound of knives scraping against glass reverberate across the landscape.
-
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
 >I've already got the lighter!
 
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
->I don't understand what you mean.
-
->I've already got the double-lighter!
-
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
-
->I've already got the lighter!
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
 
 >I move north.
 The Death
@@ -2519,9 +2510,11 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
 
 >I move north.
 The Death
@@ -2533,113 +2526,128 @@ same...but everything is so different. It is not clear where I can go.
 I feel a presence. A higher is here.
 Lina hits Higher.
 Scotty hits Higher.
+Tippant hits Higher, but it doesn't seem to do any damage.
 Donna hits Higher.
+Higher hits Tippant.
+
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Lina hits Higher.
+Scotty hits Higher.
 Chip hits Higher.
 
->You throw the double-lighter at Higher.
+>I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 Scotty hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher, but it doesn't seem to do any damage.
+Chip hits Higher.
 
->I pick up the double-lighter.
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
-
-Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
-the ground long enough for it to calm to a breeze.
 Lina hits Higher.
 Scotty hits Higher.
-Tippant hits Higher.
-Donna hits Higher.
-Chip hits Higher.
-Higher hits Chip.
+Chip hits Higher, but it doesn't seem to do any damage.
 
 >I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
+
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
+Lina hits Higher.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Tippant hits Higher.
+Donna hits Higher, but it doesn't seem to do any damage.
+Chip hits Higher, but it doesn't seem to do any damage.
+Higher hits you.
+
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
 floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
-Scotty hits Higher.
-Chip hits Higher.
-
->You throw the double-lighter at Higher.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
 Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
-
->I pick up the double-lighter.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
 Scotty hits Higher, but it doesn't seem to do any damage.
 Chip hits Higher, but it doesn't seem to do any damage.
 
 >I've already got the lighter!
 
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-Lina hits Higher.
-Scotty hits Higher.
-Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-Chip hits Higher.
-Higher hits Chip.
-
-Chip begins coughing...hard. Chunks of blood and flesh come out of his mouth.
-
-"Not like this...please," he mutters.
-
-There is a flash and a loud boom, and then I see Chip's body. It crumples to
-the ground. His head is nowhere in sight.
-
->You throw the double-lighter at Higher.
-
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
+Lina hits Higher.
+Scotty hits Higher.
+Donna hits Higher.
+Chip hits Higher, but it doesn't seem to do any damage.
+
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
+Lina hits Higher.
+Scotty hits Higher.
+Chip hits Higher.
+
+>I've already got the lighter!
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Scotty hits Higher.
+Tippant hits Higher.
+
+I no longer detect the Higher's presence.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
 before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
-Scotty hits Higher, but it doesn't seem to do any damage.
-
->I pick up the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Donna hits Higher.
 
 >I've already got the lighter!
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-Scotty hits Higher.
-
->You throw the double-lighter at Higher.
-
-I no longer detect the Higher's presence.
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
->I pick up the double-lighter.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
->I've already got the lighter!
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
+
+>I've already got the lighter!
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
 
 >I don't understand what you mean.
 
@@ -2648,8 +2656,16 @@ The sound of knives scraping against glass reverberate across the landscape.
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
+>I've already got the lighter!
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+>I've already got the lighter!
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -2657,48 +2673,8 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I've already got the lighter!
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
-
->I don't understand what you mean.
-
->I've already got the double-lighter!
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I've already got the double-lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
->I've already got the lighter!
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-
->I don't understand what you mean.
-
->I've already got the double-lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-
-Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
-the ground long enough for it to calm to a breeze.
-
->I've already got the lighter!
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
 
 >
 The Death
@@ -2710,12 +2686,8 @@ same...but everything is so different. It is not clear where I can go.
 
 Lina, Scotty, Tippant, Donna and Chip are here.
 
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
 
 >I move northeast.
 The Death
@@ -2725,101 +2697,70 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 An ozgat is here.  A higher is here.  A riven is here.
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-Lina hits Riven.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Tippant hits Riven.
-Donna hits Riven, but it doesn't seem to do any damage.
-Ozgat hits you.
-Higher hits Scotty.
-Donna manages to avoid Riven's attack.
-
->You throw the double-lighter at Ozgat.
-Scotty hits Ozgat.
-Ozgat hits you.
-
->I pick up the double-lighter.
-
-Thick fog envelopes me and my surroundings. My vision is obscured for a short
-time...and then the smoke vanishes, and everything before me is clearer than
-before...with a plastic gloss.
-
-It thunders in the distance. Streaks of green lightning are in the sky.
 Lina hits Higher.
 Scotty hits Ozgat.
-Riven manages to avoid Donna's attack.
-Scotty manages to avoid Ozgat's attack.
-Riven hits Lina.
+Donna hits Higher, but it doesn't seem to do any damage.
+Ozgat hits Scotty.
+Scotty manages to avoid Riven's attack.
 
->I've already got the lighter!
+>What do you want to attack Ozgat with?
+
+>I've already got the double-lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
-
-I do not feel the ground underneath me. I look down and see that I am
-floating. I am lifted almost two meters off of the ground before I stop
-floating and go crashing to the ground.
-
-My skin gets unusually warm for a second. It feels like it's burning.
 Lina hits Ozgat.
-Scotty hits Riven.
-Ozgat hits Lina.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Chip hits Riven.
+Ozgat hits Donna.
 
->You throw the double-lighter at Higher.
+>I've already got the lighter!
 
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-Scotty hits Riven.
-Riven manages to avoid Tippant's attack.
-Donna hits Higher, but it doesn't seem to do any damage.
-Ozgat hits Tippant.
-Higher hits Donna.
-Tippant manages to avoid Riven's attack.
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Scotty hits Higher.
+Tippant hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher.
+Ozgat hits Chip.
+Donna manages to avoid Higher's attack.
+You manage to avoid Riven's attack.
 
->I pick up the double-lighter.
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-Lina hits Riven.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Ozgat hits Lina.
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
+Lina hits Ozgat.
+Scotty hits Ozgat, but it doesn't seem to do any damage.
+Chip hits Ozgat.
+Ozgat hits Chip.
 
 >I've already got the lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-Lina hits Ozgat.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Donna hits Ozgat, but it doesn't seem to do any damage.
-Ozgat hits Tippant.
-Riven hits Lina.
-
->You throw the double-lighter at Riven.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
+Lina hits Ozgat.
+Scotty hits Ozgat, but it doesn't seem to do any damage.
+Donna hits Riven.
+Scotty manages to avoid Ozgat's attack.
+You manage to avoid Riven's attack.
 
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
-Lina hits Higher.
-Scotty hits Riven.
-Ozgat hits Lina.
+>What do you want to attack Riven with?
 
->I pick up the double-lighter.
-Lina hits Higher.
-Scotty hits Riven.
-Tippant hits Higher.
-Donna hits Riven, but it doesn't seem to do any damage.
-Ozgat hits Scotty.
-You manage to avoid Higher's attack.
-Lina manages to avoid Riven's attack.
+>I've already got the double-lighter!
+Lina hits Riven.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Riven manages to avoid Chip's attack.
+Ozgat hits Tippant.
 
 >I've already got the lighter!
 
@@ -2827,38 +2768,52 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 Lina hits Ozgat.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Ozgat hits Tippant.
-
->You throw the double-lighter at Ozgat.
-Scotty hits Ozgat.
-
-The ozgat explodes, flinging sharp metal fragments at my party. Everyone
-suffers damage.
+Scotty hits Riven, but it doesn't seem to do any damage.
+Tippant hits Higher.
 Donna hits Higher, but it doesn't seem to do any damage.
-Riven hits Donna.
+Chip hits Higher, but it doesn't seem to do any damage.
+Ozgat hits Tippant.
+Higher hits Lina.
+Riven hits Lina.
 
->I pick up the double-lighter.
+>What do you want to attack Ozgat with?
+
+>I've already got the double-lighter!
+Lina hits Higher.
+Scotty hits Ozgat.
+Chip hits Higher, but it doesn't seem to do any damage.
+Ozgat hits Lina.
+
+>I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
+
+Thick fog envelopes me and my surroundings. My vision is obscured for a short
+time...and then the smoke vanishes, and everything before me is clearer than
+before...with a plastic gloss.
+
+It thunders in the distance. Streaks of green lightning are in the sky.
 Lina hits Riven.
-Scotty hits Riven, but it doesn't seem to do any damage.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher.
+Ozgat hits you.
+Riven hits Donna.
+
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
+Lina hits Ozgat.
+
+The ozgat explodes, flinging sharp metal fragments at my party. Everyone
+suffers damage.
+Scotty hits Riven.
+Chip hits Higher, but it doesn't seem to do any damage.
 
 >I've already got the lighter!
-
-Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
-the ground long enough for it to calm to a breeze.
-Scotty hits Riven.
-Tippant hits Riven.
-Riven manages to avoid Donna's attack.
-Higher hits Scotty.
-Riven hits Scotty.
-
->You throw the double-lighter at Higher.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2871,78 +2826,190 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 Lina hits Riven.
-Scotty hits Riven.
-
->I pick up the double-lighter.
-Lina hits Riven.
 Scotty hits Riven, but it doesn't seem to do any damage.
-Donna hits Riven, but it doesn't seem to do any damage.
+Tippant hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher.
+Chip hits Higher, but it doesn't seem to do any damage.
+Higher hits Chip.
+
+Chip begins coughing...hard. Chunks of blood and flesh come out of his mouth.
+
+"Not like this...please," he mutters.
+
+There is a flash and a loud boom, and then I see Chip's body. It crumples to
+the ground. His head is nowhere in sight.
 Donna manages to avoid Riven's attack.
+
+>What do you want to attack Riven with?
+
+>I've already got the double-lighter!
+Scotty hits Riven.
 
 >I've already got the lighter!
 
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Lina hits Higher.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher, but it doesn't seem to do any damage.
+Riven hits Scotty.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
+Scotty hits Higher.
+
+>I've already got the lighter!
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
+Lina hits Riven.
+Scotty hits Riven, but it doesn't seem to do any damage.
+Riven manages to avoid Tippant's attack.
+Donna hits Riven.
+Scotty manages to avoid Higher's attack.
+Riven hits Tippant.
+
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
+Lina hits Higher.
+Scotty hits Higher, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Scotty hits Riven.
+Riven manages to avoid Donna's attack.
+Donna manages to avoid Riven's attack.
+
+>What do you want to attack Riven with?
+
+>I've already got the double-lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+Lina hits Higher.
+Scotty hits Riven, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+Lina hits Riven.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Tippant hits Higher.
+Donna hits Higher.
+Higher hits Scotty.
+Donna manages to avoid Riven's attack.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
+
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
+Scotty hits Riven.
+
+>I've already got the lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
+Lina hits Riven.
+Scotty hits Riven.
+Donna hits Higher, but it doesn't seem to do any damage.
+Riven hits Lina.
+
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+Scotty hits Riven, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+Lina hits Higher.
+Scotty hits Riven.
+Riven manages to avoid Tippant's attack.
+Donna hits Riven.
+Higher hits Donna.
+
+As Donna is fighting, an ozgat appears from nowhere and swoops down upon
+here, splitting her body into pieces, her blood spraying everywhere, bits of
+bones and teeth flying in all directions.
+
+No one blinks.
+Lina manages to avoid Riven's attack.
+
+>What do you want to attack Riven with?
+
+>I've already got the double-lighter!
+Scotty hits Higher, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+
+Thick fog envelopes me and my surroundings. My vision is obscured for a short
+time...and then the smoke vanishes, and everything before me is clearer than
+before...with a plastic gloss.
+
+It thunders in the distance. Streaks of green lightning are in the sky.
+Lina hits Riven.
+Scotty hits Riven.
+You manage to avoid Riven's attack.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
 Lina hits Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->I don't understand what you mean.
+>I've already got the lighter!
 
->I've already got the double-lighter!
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-Donna manages to avoid Higher's attack.
-
->I've already got the lighter!
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
-Thick fog envelopes me and my surroundings. My vision is obscured for a short
-time...and then the smoke vanishes, and everything before me is clearer than
-before...with a plastic gloss.
-
-It thunders in the distance. Streaks of green lightning are in the sky.
-Lina hits Higher.
-Scotty hits Higher.
-
->I don't understand what you mean.
-
->I've already got the double-lighter!
-Lina hits Higher.
-Scotty hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-Scotty hits Higher.
-
->You throw the double-lighter at Higher.
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-Lina hits Higher.
-Scotty hits Higher.
-Tippant hits Higher.
-Donna hits Higher.
 Higher hits Lina.
 
->I pick up the double-lighter.
+>What do you want to attack Higher with?
+
+>I've already got the double-lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
+Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
 >I've already got the lighter!
@@ -2950,11 +3017,11 @@ Scotty hits Higher, but it doesn't seem to do any damage.
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
 Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher.
+Scotty hits Higher.
 
 >I don't understand what you mean.
 
@@ -2962,64 +3029,22 @@ Donna hits Higher.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
-Lina hits Higher.
 Scotty hits Higher.
 
 >I've already got the lighter!
-
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
-Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-Higher hits Lina.
-
->I don't understand what you mean.
-
->I've already got the double-lighter!
-
-I do not feel the ground underneath me. I look down and see that I am
-floating. I am lifted almost two meters off of the ground before I stop
-floating and go crashing to the ground.
-
-My skin gets unusually warm for a second. It feels like it's burning.
-Scotty hits Higher, but it doesn't seem to do any damage.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-Lina hits Higher.
-Scotty hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-
->You throw the double-lighter at Higher.
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-Scotty hits Higher.
-
->I pick up the double-lighter.
-
-The sound of knives scraping against glass reverberate across the landscape.
-Lina hits Higher.
-Scotty hits Higher.
 Tippant hits Higher.
 
 I no longer detect the Higher's presence.
 
+>I don't understand what you mean.
+
 >(Your score has increased by 15)
-I've already got the lighter!
+I've already got the double-lighter!
 
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
-Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
-the ground long enough for it to calm to a breeze.
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
 
 "All obstacles have been cleared. You have done well."
 
@@ -3054,34 +3079,6 @@ Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
-
->I don't understand what you mean.
-
->Take what?
-
->Take what?
-
->I don't understand what you mean.
-
->Take what?
-
->Take what?
-
->I don't understand what you mean.
-
->Take what?
-
->Take what?
-
->I don't understand what you mean.
-
->Take what?
-
->Take what?
-
->I don't understand what you mean.
-
->Take what?
 
 >Take what?
 

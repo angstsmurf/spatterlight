@@ -53,8 +53,6 @@ Also here is a pile of rubbish.
 Kiris is here.
 
 There are exits north, east, south and west.
-
-Ormulus walks in from the south.
 You see a man running through the crowd.
 
 >
@@ -163,7 +161,7 @@ You can only move north.
 the sword. "Happy huntin!" He says, assuming that's why you're buying the
 sword. You have $296 and 50 cents.
 
->You are now wielding the hunting sword.
+>You wield the hunting sword.
 
 >You move north.
 At Poel's Plaza

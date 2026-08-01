@@ -170,11 +170,21 @@ Highest value first:
       re-taking does NOT re-wield) with no best-carried fallback; `unwield`
       removed; `wield` says "You wield the sword." / "You are already
       wielding the sword."; status always prints the wielding line
-      ("nothing" when unarmed) and folds only the actual wield.  All 77
-      corpus goldens passed unchanged.  Still diverging (cosmetic): status
-      layout (no Max column, no "(bonus)" parens); "You are not holding X."
-      vs the Runner's "Player aren't carrying the sword!" [sic] on wielding
-      a non-held object.
+      ("nothing" when unarmed) and folds only the actual wield.
+      **Erratum:** the port's original "all 77 goldens passed unchanged"
+      validation ran against a STALE harness binary (run_v4_walkthroughs.sh
+      only rebuilt `scare` when missing -- now fixed to rebuild on newer
+      sources).  Real fallout, found and repaired later the same day: three
+      goldens had wield-wording lines, and the Shadowpeak routes broke
+      exactly as this row predicted -- they drop the sword in the chapel
+      (clearing the wield), re-take it (no re-wield), and their next bare
+      `attack` with two carried weapons ASKED instead of silently picking.
+      Repaired with a zero-turn-cost edit: the first post-retake attack is
+      now explicit (`attack cat with sword`), which persists the wield for
+      every later bare attack.  Still diverging (cosmetic): status layout
+      (no Max column, no "(bonus)" parens); "You are not holding X." vs the
+      Runner's "Player aren't carrying the sword!" [sic] on wielding a
+      non-held object.
 - [x] **RNG — re-opened and closed again: the won't-fix stands.** *(2026-08-01.)*
       run400 has **9 `Randomize` call sites**: `Form1.Form_Load` seeds from
       `Timer` at startup; `Form1.dencode` and `Sub_22_30` use the deterministic
@@ -344,7 +354,12 @@ What was actually established, each verified live:
 Residual small divergences, noted not fixed: run390 appends task text to
 `i`/inventory output where Scarier lets the wildcard replace it; the Runner
 substitutes the player's name with second-person verb forms ("Player drop the
-cloak."); and the ALR-over-joined-paragraph difference above.
+cloak."); and the ALR-over-joined-paragraph difference above.  From the walk
+probes (2026-08-01, unprobed further): run390 prints no ExitText on a walker's
+leave turns (wkE_390 shows only the ENTER lines; run400 prints both, as
+Scarier does); and Scarier re-fires a walk's CharTask on every co-located tick
+of a multi-turn stay (Times > 1, or a follow-player walk) where run400 fires
+only on the exact boundary turn -- invisible with the corpus's Times=1 walks.
 
 - [x] **Walk CharTask/ObjectTask dispatch is wildcard-interceptable in the
       3.9 Runner, and a direct run in the 4.0 Runner — settled live
@@ -365,11 +380,36 @@ cloak."); and the ALR-over-joined-paragraph difference above.
       pre-4.0 shares the event dispatch (`run_task_command_dispatch()`),
       4.0 runs directly via `task_run_task` (loud FailMessage).  Whole
       corpus unchanged (110 PASS) — no corpus game has a stealable walk.
-      Also observed, noted not chased: a 1-stop non-looping walk never runs
-      at all in either live Runner, while Scarier ticks it once during
-      startup (the probe's CharTask fired before the first prompt); and
-      run390 matches `*` tasks against an *empty* input line where Scarier
-      does not.
+      The two "noted not chased" tails of this item were chased 2026-08-01,
+      and each was half wrong:
+      * **The 1-stop non-looping walk is a version split, not a shared
+        no-op.**  run390 truly never runs it (wkC_390 screenshot: Bob never
+        arrives, "You cannot see Bob from here.") -- but run400, probed live
+        with a fresh 4.0 variant-C file (wk4C_400), runs it fine: the NPC
+        arrives on turn 1, the CharTask fires exactly once, and nothing
+        happens on the expiry turn.  The old "either live Runner" claim had
+        no run400 evidence behind it.  Mechanics (P-code): the Runner's walk
+        handler `Sub_20_2` lives in `Sub_20_62`, which is called ONLY from
+        `Form1.evaluate` -- walks never tick at startup; the walk counter is
+        seeded ΣTimes+1 (`Sub_20_12`), arrivals fire on exact suffix-sum
+        boundary matches, and a non-looping walk's final decrement to 0
+        marks it finished (0xFF) with no arrival processing.  **All fixed in
+        Scarier 2026-08-01**: the startup `npc_tick_npcs` call is gone
+        (Scarier used to move walkers and fire their CharTask before the
+        first prompt, then AGAIN on the expiry tick -- a double divergence),
+        a non-looping walk now expires silently, and a pre-4.0 one-stop
+        non-looping *game-start* walk never starts (narrow gate: only the
+        StartTask=0 case was probed live, and "deaths" (3.9) needs its
+        task-triggered one-stop walk to keep running -- the demon at the
+        end walks in on one).  Corpus fallout: 21 rows re-blessed (NPC
+        arrivals shift one turn later), sun_empire's route gained a `z`
+        (Jeriah arrives a turn later than its wait loop allowed).
+      * **The empty-input `*` claim was simply wrong**: Scarier DOES match
+        wildcard tasks against an empty input line, and did when the note
+        was written (verified with the same probe at that commit and at
+        HEAD).  Both live Runners agree -- in the wkE_390/wk4E_400 sessions
+        the settle-Return itself fired the wildcard and ticked a turn.  No
+        divergence exists here in any direction.
 
 ## 3. 3.9 → 4.0 conversion
 
@@ -485,7 +525,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Integer division rounding | see `ADRIFT4_vs_ADRIFT5.md` | — | v4-vs-v5 difference already recorded; confirm the v4 half against run400. |
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
 | Battle messages | second person ("you"/"your") | run400 uses player's name with 2nd-person verb forms ("Player manage to avoid…"); run390 uses second person | Presentational only; "you" kept (matches run390). Method-verb weapon narration **ported 2026-08-01**, verified live in BOTH Runners; noted §1 surface facts. |
-| Wield model | ~~per-attack default~~ **PORTED 2026-08-01**: persistent wield ref, matching the Runner | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`) and **ported the same day** — all 77 corpus goldens unchanged. Remaining cosmetic gaps: status layout (Max column, "(bonus)" parens), "not holding" wording. |
+| Wield model | ~~per-attack default~~ **PORTED 2026-08-01**: persistent wield ref, matching the Runner | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`) and **ported the same day**. Corpus fallout (found late — stale-binary erratum, see §1): 3 wording goldens + the Shadowpeak routes' post-chapel bare attacks, all repaired/re-blessed. Remaining cosmetic gaps: status layout (Max column, "(bonus)" parens), "not holding" wording. |
 | Thrown (method 5) weapon | drop + version-split damage ported | moves to the room on a player throw in BOTH Runners; damage = Str-only in run400 (HitValue ignored), Str+HitValue in run390 | **Confirmed live in both Runners and PORTED 2026-08-01** (probes `pTD`/`p39td`; see §1 surface facts). `light_up` route re-derived. |
 | Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
 | Event TaskAffected execution | version-gated: 3.9 = matcher dispatch (wildcard steal, silent restricted skip), 4.0 = direct run (loud FailMessage) | run390 and run400 genuinely differ — same converted probe, opposite behavior | **Fixed 2026-08-01** (§2); both halves verified live. |

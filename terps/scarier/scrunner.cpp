@@ -1963,8 +1963,14 @@ run_main_loop (scr_gameref_t game)
       /* Roll initial battle stamina if the Battle System is enabled. */
       battle_start (game);
 
-      /* Nudge NPCs then events (Runner: Sub_20_2 before Sub_20_32). */
-      npc_tick_npcs (game);
+      /*
+       * Nudge events, but NOT NPC walks: the Runner's walk handler (Sub_20_2)
+       * is reachable only from the typed-command evaluator (Sub_20_62, called
+       * solely by Form1.evaluate), so walks never tick before the first
+       * command -- settled live 2026-08-01 in BOTH Runners (walk probe C: no
+       * CharTask fires before the first prompt; Scarier used to move walking
+       * NPCs, and fire their CharTask, during startup).
+       */
       evt_tick_events (game);
 
       /*

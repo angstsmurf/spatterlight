@@ -544,7 +544,10 @@ w
 destroy painting #6
 n
 n
-attack cat
+# WIELD-MODEL RE-TUNE: the chapel drop cleared the wield and re-taking does
+# not re-wield, so the first post-chapel attack must name the weapon (a bare
+# attack with two carried weapons now asks, faithfully to run400).
+attack cat with sword
 n
 take scroll
 s
@@ -832,8 +835,10 @@ press stone button
 # else BFS-step toward him; then walk east to the bronze button (151).
 # Re-derive with chase.py (SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35) if
 # upstream turns change.
-s
-n
+e
+e
+e
+attack damastus
 attack damastus
 e
 attack damastus
@@ -841,10 +846,6 @@ w
 attack damastus
 e
 attack damastus
-e
-attack damastus
-e
-e
 e
 e
 press bronze button

@@ -63,6 +63,22 @@ npc_walk_meetobject_needs_fixup (scr_gameref_t game)
 
 
 /*
+ * npc_version()
+ *
+ * Return the game's TAF version constant.
+ */
+static scr_int
+npc_version (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key;
+
+  vt_key.string = "Version";
+  return prop_get_integer (bundle, "I<-s", &vt_key);
+}
+
+
+/*
  * npc_in_room()
  *
  * Return TRUE if a given NPC is currently in a given room.
@@ -130,6 +146,41 @@ npc_start_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
 
 
 /*
+ * npc_start_walk_is_390_noop()
+ *
+ * The 3.9 Runner never runs a one-stop, non-looping, game-start walk at all:
+ * the NPC stays put and the walk's CharTask never fires (walk probe C, live
+ * 2026-08-01 -- Bob never arrives, "You cannot see Bob from here.").  The
+ * 4.0 Runner runs the same walk: it arrives on turn one and fires its
+ * CharTask once -- a genuine version split, like the walk-task dispatch.
+ * Only the game-start (StartTask 0) case was probed live, and the corpus
+ * wants the narrow rule: "deaths" (3.9) ends with a demon walked in by a
+ * task-triggered one-stop walk, so those keep running.
+ */
+static scr_bool
+npc_start_walk_is_390_noop (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int stops;
+  scr_bool is_loop;
+
+  if (npc_version (game) >= TAF_VERSION_400)
+    return FALSE;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Walks";
+  vt_key[3].integer = walk;
+  vt_key[4].string = "Times";
+  stops = prop_get_child_count (bundle, "I<-sisis", vt_key);
+  vt_key[4].string = "Loop";
+  is_loop = prop_get_boolean (bundle, "B<-sisis", vt_key);
+  return stops == 1 && !is_loop;
+}
+
+
+/*
  * npc_turn_update()
  * npc_setup_initial()
  *
@@ -171,11 +222,13 @@ npc_setup_initial (scr_gameref_t game)
         {
           scr_int starttask;
 
-          /* If StartTask is zero, start walk at game start. */
+          /* If StartTask is zero, start walk at game start -- except for the
+           * 3.9 one-stop non-looping walks the real Runner never runs. */
           vt_key[3].integer = walk;
           vt_key[4].string = "StartTask";
           starttask = prop_get_integer (bundle, "I<-sisis", vt_key);
-          if (starttask == 0)
+          if (starttask == 0
+              && !npc_start_walk_is_390_noop (game, index_, walk))
             npc_start_npc_walk (game, index_, walk);
         }
     }
@@ -572,7 +625,19 @@ npc_tick_npc (scr_gameref_t game, scr_int npc)
                                                        "I<-sisisi", vt_key));
               }
             else
-              gs_set_npc_walkstep (game, npc, walk, -1);
+              {
+                /*
+                 * A non-looping walk finishes silently: the Runner's counter
+                 * tick marks the walk done (0xFF) before any arrival
+                 * processing keys off it, so the expiry turn neither moves
+                 * the NPC nor re-runs the CharTask -- the final stop's
+                 * arrival already happened on an earlier turn (run400 walk
+                 * probe C, live 2026-08-01: exactly one CHARTASK, on turn 1,
+                 * nothing on turn 2; Scarier used to fire it again).
+                 */
+                gs_set_npc_walkstep (game, npc, walk, -1);
+                continue;
+              }
           }
 
       /*

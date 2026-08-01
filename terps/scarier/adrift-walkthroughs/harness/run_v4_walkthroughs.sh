@@ -76,7 +76,7 @@ adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
 cruel_solution.txt|CAH.taf|destroyed our reality
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 shred_em_solution.txt|shreddem.taf|Due to lack of evidence
-shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
+shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1 SCR_SEED=5
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
@@ -172,9 +172,13 @@ transcript() {  # $1=game path $2=solution path
     | tr -d '\r' | sed 's/[[:space:]]*$//' | cat -s
 }
 
-# Build the harness if it's missing (or stale isn't tracked -- rebuild is cheap
-# enough only when absent; run build.sh by hand to force a rebuild).
-if [ ! -x "$SCARE_BIN" ]; then
+# Build the harness if it's missing OR older than any engine source.  The
+# missing-only check once let a whole corpus run "pass" against a stale binary
+# (the wield-model port, 2026-08-01) -- never again.
+SRC_DIR="${SCARE_DIR:-$(cd "$HERE/../.." && pwd)}"
+if [ ! -x "$SCARE_BIN" ] \
+   || [ -n "$(find "$SRC_DIR" -maxdepth 1 \( -name 'sc*.cpp' -o -name '*.h' \) \
+              -newer "$SCARE_BIN" 2>/dev/null | head -1)" ]; then
   echo "building headless scare harness (build.sh)..." >&2
   SCARE_DIR="${SCARE_DIR:-}" sh "$HERE/build.sh" >&2 || {
     echo "run_v4_walkthroughs: build failed" >&2; exit 2; }

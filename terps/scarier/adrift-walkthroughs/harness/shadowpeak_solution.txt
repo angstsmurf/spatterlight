@@ -1,4 +1,9 @@
-# Shadowpeak ADRIFT 4.0 walkthrough IN PROGRESS, banked 230/790 (session 7: full village cluster).
+# Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 680/790 under
+# SCR_LEGACY_RANDMAP=1 SCR_SEED=5 (was 710 at seed 1: the 2026-08-01
+# walk-timing fix re-threaded every walker, seed 5 is the only winning seed in
+# 1-800 for this route shape, and its thread misses the Jarris/Boris/Arthur
+# zombie kills, -30. Those kills still land in shadowpeak_killwraith (735) and
+# the fourth-gargoyle variant (715), so coverage is kept there.)
 # Full prose notes: terps/scare/adrift-walkthroughs/Shadowpeak_walkthrough.md
 # Lines whose first non-blank character is '#' are COMMENTS: the harness skips
 # them (os_ansi.c, gated by -DSCARE_DUMP_TOOLS), so inline notes no longer leak
@@ -511,7 +516,10 @@ w
 destroy painting #6
 n
 n
-attack cat
+# WIELD-MODEL RE-TUNE: the chapel drop cleared the wield and re-taking does
+# not re-wield, so the first post-chapel attack must name the weapon (a bare
+# attack with two carried weapons now asks, faithfully to run400).
+attack cat with sword
 n
 take scroll
 s

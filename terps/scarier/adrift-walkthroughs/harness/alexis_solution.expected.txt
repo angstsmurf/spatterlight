@@ -65,7 +65,6 @@ of here but there is no path running there. You can here the sound of rushing
 water in the distance.
 
 You can also see the Tonerith stone.
-There is a grey wolf circling you.
 
 >You hit Wolf with the magic cube.
 Wolf hits you.

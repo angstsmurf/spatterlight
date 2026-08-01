@@ -133,8 +133,6 @@ circus!"
 
 He hands you a free ticket.
 
-Wemmie walks in from the west.
-
 >You move west.
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
@@ -149,7 +147,9 @@ whif.  You hear calliope music coming from the direction of the funhouse.
 
 "Simple game of skill!" the carny shouts to the crowd. "Win a Coke for your
 ladyfriend!"
-A carny is here, working the ring toss game.
+Wemmie is here, tossing a ring.  A carny is here, working the ring toss game.
+
+Wemmie exits to the east.
 You feel someone bump into you in the crowd.  Suddenly you realize your
 camera case is gone, and your videocamera with it!  Oh no!  How will you tape
 the animals for PETA now?  Maybe if you can find it...
@@ -172,12 +172,12 @@ Your score has been lowered by 10 points to 0, but you now have $1.
 
 >You don't see the peanut vendor.
 
-the vendor arrives from the north-west.
+>You don't see the peanut vendor.
+
+the vendor slinks in from the north-west.
 
 >(Your score has increased by 3)
 The vendor sells you a bag of peanuts for $1.
-
->I don't think that is for sale.
 
 >I don't think that is for sale.
 
@@ -190,6 +190,9 @@ to the west is the center ring.
 People are milling about, playing games.  A little girl is playing with a
 stuffed animal won on the midway.  The odor of freshly popped popcorn hangs
 in the air.
+Lance the ringmaster is here, announcing acts and working the crowd.
+
+Lance leaves to the north-west.
 
 >(Your score has increased by 5)
 You look under the east bleachers and think you can detect movement, a small
@@ -362,8 +365,6 @@ hot dogs drifts over to you.
 ladyfriend!"
 A carny is here, working the ring toss game.
 
-the vendor comes in from the south.
-
 >You move north.
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
@@ -387,7 +388,8 @@ aerial performers launch from, which is accessed by climbing a ladder.
 Patrons are talking amongst themselves.  A little girl is playing with a
 stuffed animal won on the midway.  The odor of freshly popped popcorn hangs
 in the air.
-Lance the ringmaster is here, announcing acts and working the crowd.
+
+Lance walks in from the north.
 
 >You move north.
 Back door
@@ -434,8 +436,6 @@ prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
 
-Barb walks toward you from the north.
-
 >You move north.
 Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
@@ -443,7 +443,9 @@ here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
 cage.  There is also a stable here.  The rear entrance to the big top is to
 your south, as are the dressing rooms.
 
->Use the format "ask [character] about [subject]".
+Barb is here.
+
+Barb exits to the south.
 
 >Use the format "ask [character] about [subject]".
 
@@ -457,7 +459,11 @@ your south, as are the dressing rooms.
 
 >Use the format "ask [character] about [subject]".
 
-Barb walks in from the south.
+>Use the format "ask [character] about [subject]".
+
+>Use the format "ask [character] about [subject]".
+
+Barb slinks in from the south.
 
 >(Your score has increased by 10)
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
@@ -471,9 +477,7 @@ She hands you the video tape.
 
 >Barb does not respond to your question.
 
-Barb retreats to the south.
-
->Use the format "ask [character] about [subject]".
+Barb walks out to the south.
 
 >You move south.
 Backyard
@@ -484,8 +488,6 @@ cages, to the east and west are trailers used as dressing rooms.
 
 Barb is here.
 
-Barb departs to the west.
-
 >You move south.
 Back door
 The back door is where the performers and animals enter the big top.  To the
@@ -494,8 +496,6 @@ southeast and southwest you see bleachers, to the south is the center ring.
 Patrons are talking amongst themselves.  Children are laughing with their
 parents.  The stench of a nearby trash receptacle drifts your way.
 Lance the ringmaster is here, announcing acts and working the crowd.
-
-Lance departs to the south-west.
 
 >You move south.
 Center Ring
@@ -534,8 +534,6 @@ Patrons are talking amongst themselves.  Kids are running up and down the
 bleachers, giggling.  You smell freshly popped popcorn in the air.
 Lance the ringmaster is here, announcing acts and working the crowd.
 
-Lance exits to the east.
-
 >You move north.
 Back door
 The back door is where the performers and animals enter the big top.  To the
@@ -561,14 +559,14 @@ your south, as are the dressing rooms.
 
 Barb is here.
 
-Barb retreats to the south.
-
 >(Your score has increased by 10)
 You film the animals with the video camera.  Wow, it seems your mission is a
 success!  Congratulations!
 
 At this point you can either relax and enjoy the show, or you can go home at
 any time.
+
+Barb walks away to the south.
 
 >(Your score has increased by 20)
 Having successfully filmed the lions, tigers and bears (Oh my!) you mosey on
