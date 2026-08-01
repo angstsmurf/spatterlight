@@ -774,7 +774,7 @@ Tunnel 2
 The tunnel continues to the north.
 
 You can move north and south.
-Trace hits Big rat.
+Trace hits Big rat with the Whip.
 You kill the rat. You get 7 gold coins.
 
 >You move north.
@@ -782,7 +782,7 @@ Tunnel 3
 The path splits to the east and west.
 
 You can move east, south and west.
-Trace hits Big rat.
+Trace hits Big rat with the Whip.
 
 >You move east.
 Tunnel 4
@@ -1078,8 +1078,8 @@ Grassland
 Big scorpion is here.
 
 You can move north and south.
-Trace hits Big scorpion.
-Enevez hits Big scorpion.
+Trace hits Big scorpion with the Whip.
+Enevez hits Big scorpion with the Staff.
 You kill the scorpion and collect your bounty. 75 gold coins.
 
 >(Your score has increased by 10)
@@ -1090,8 +1090,8 @@ The path continues north.
 Thief is here.
 
 You can move north and south.
-Trace hits Thief.
-Enevez hits Thief.
+Trace hits Thief with the Whip.
+Enevez hits Thief with the Staff.
 You kill the thief and take 30 gold coins.
 
 >You move north.
@@ -1114,7 +1114,7 @@ Just a little further to the east is a ship. The path also leads west.
 Bandit is here.
 
 You can move east and west.
-Trace hits Bandit.
+Trace hits Bandit with the Whip.
 You thrust your sword through the bandit's body and then draw it out. You get
 25 gold coins and a key.
 
@@ -1215,8 +1215,8 @@ Just a little bit further and you'll be at the gates.
 Soldier 2 is here.
 
 You can move east and west.
-Trace hits Soldier 2.
-Enevez hits Soldier 2.
+Trace hits Soldier 2 with the Whip.
+Enevez hits Soldier 2 with the Staff.
 Soldier 2 hits Enevez.
 
 >You move west.
@@ -1278,21 +1278,21 @@ inside the mayor´s bedroom but a large cave. And where Koir stood now stands
 a humanoid beast.    "Xozim." says Trace in fear.       "Yes. It is I, Xozim.
 I used the body of Koir. I´ve returned from the fiery pits that I was cast
 into." says Xozim.
-Trace hits Xozim.
-Enevez hits Xozim.
-Enevez hits Xozim.
+Trace hits Xozim with the Whip.
+Enevez hits Xozim with the Staff.
+Enevez hits Xozim with the Staff.
 
 >Time passes...
-Trace hits Xozim.
-Enevez hits Xozim.
-Enevez hits Xozim.
+Trace hits Xozim with the Whip.
+Enevez hits Xozim with the Staff.
+Enevez hits Xozim with the Staff.
 Xozim hits you.
-Trace hits Xozim.
-Enevez hits Xozim.
-Enevez hits Xozim.
+Trace hits Xozim with the Whip.
+Enevez hits Xozim with the Staff.
+Enevez hits Xozim with the Staff.
 Xozim hits Enevez.
 (Your score has increased by 50)
-Trace hits Xozim.
+Trace hits Xozim with the Whip.
 You thrust your sword into the demon´s chest one final time. The demon
 screams in pain as he turns to dust.                  "You have killed Xozim.
 He was the ruler of Beyond. And since you killed him you can CLAIM THE

@@ -33,7 +33,7 @@ You can leave the house by going south.
 
 Salm aims his revolver at your head.
 
->You hit Salm.
+>You stab Salm with long blade.
 The final stab makes Salm fall backwards unto the floors. You stab him in his
 head one last time. You then remember that he is invincible until you get the
 artifact. You take it out of his pocket and suddenly Salm twitches and dies.

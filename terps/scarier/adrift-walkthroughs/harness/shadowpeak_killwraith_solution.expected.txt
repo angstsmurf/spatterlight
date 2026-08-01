@@ -275,7 +275,8 @@ Fang is here.
 You can move north, east and west.
 Seeker hums!
 Seeker hums!
-Fang hits you, but it doesn't seem to do any damage.
+Fang cuts you with the fine set of teeth in its muzzle, but it doesn't seem
+to do any damage.
 
 >You move east.
 Shadow Forest.
@@ -566,11 +567,11 @@ Fetlar the overly fetid flies off.
 Seeker hums!
 Alam Nadeer hits you, but it doesn't seem to do any damage.
 
->You hit Alam Nadeer.
+>You stab Alam Nadeer with the sword.
 Seeker hums!
 
 >(Your score has increased by 20)
-You hit Alam Nadeer.
+You stab Alam Nadeer with the sword.
 With a sigh of relief, you finally put Alam Nadeer to rest. His body
 dissipates into the air. The wraith is no more.
  Glowing writing appears on the floor of the room. It reads, "When all is
@@ -1046,7 +1047,7 @@ Boris drags himself off to the east.
 Arthur pulls himself in from the east.
 Seeker hums!
 
->You hit Holga.
+>You stab Holga with the sword.
 
 Holga stumbles off to below.
 
@@ -1076,7 +1077,7 @@ Seeker Hums!
 Jarris hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 10)
-You hit Holga.
+You stab Holga with the sword.
 Holga keels over and is at last put to rest. Her undead hand is loosely
 holding a garlic bud.
 
@@ -1276,7 +1277,7 @@ Arthur pulls himself in from the east.
 Seeker hums!
 Seeker Hums!
 
->You hit Jarris.
+>You stab Jarris with the sword.
 
 Jarris lumbers off to below.
 
@@ -1292,7 +1293,7 @@ Seeker hums!
 Arthur pulls himself in from below.
 Seeker hums!
 
->You hit Jarris.
+>You stab Jarris with the sword.
 
 Holga stumbles in from the east.
 Seeker hums!
@@ -1343,7 +1344,7 @@ Arthur pulls himself in from the east.
 Seeker hums!
 
 >(Your score has increased by 10)
-You hit Jarris.
+You stab Jarris with the sword.
 Jarris slumps to the floor and dies with his toothy grin still imprinted on
 his face.
 
@@ -1580,7 +1581,7 @@ Arthur pulls himself away to the east.
 Lazaraz rides over from the west.
 Seeker Hums!
 
->You hit Boris.
+>You stab Boris with the sword.
 
 Holga stumbles off to below.
 
@@ -1602,7 +1603,7 @@ Lazaraz rides away to the north.
 Boris hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 10)
-You hit Boris.
+You stab Boris with the sword.
 Boris falls down, quite dead.
 
 Holga stumbles off to the east.
@@ -2082,7 +2083,7 @@ Arthur pulls himself in from the west.
 Seeker hums!
 
 >(Your score has increased by 10)
-You hit Arthur.
+You stab Arthur with the sword.
 Arthur falls face down as he his finally put out of his misery.
 
 >Time passes...
@@ -2099,7 +2100,7 @@ Boris drags himself off to the west.
 Arthur pulls himself in from the west.
 Seeker hums!
 
->You hit Arthur.
+>You stab Arthur with the sword.
 
 >Time passes...
 
@@ -2138,7 +2139,7 @@ Boris drags himself off to the west.
 Arthur pulls himself in from the west.
 Seeker hums!
 
->You hit Arthur.
+>You stab Arthur with the sword.
 
 >Time passes...
 
@@ -2340,7 +2341,7 @@ Seeker hums!
 You manage to avoid Bambi's attack.
 
 >(Your score has increased by 10)
-You hit Bambi.
+You stab Bambi with the sword.
 The poor child keels over and finally dies.
 
 Bambi shuffles in.
@@ -2622,42 +2623,42 @@ Haraxis skitters in.
 Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
->You hit Haraxis.
+>You stab Haraxis with the sword.
 Seeker hums!
 
 >Time passes...
 Seeker hums!
 Haraxis hits you.
 
->You hit Haraxis.
+>You stab Haraxis with the sword.
 Seeker hums!
 
 >Time passes...
 Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
->You hit Haraxis.
+>You stab Haraxis with the sword.
 Seeker hums!
 
 >Time passes...
 Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
->You hit Haraxis.
+>You stab Haraxis with the sword.
 Seeker hums!
 
 >Time passes...
 Seeker hums!
 Haraxis hits you.
 
->You hit Haraxis.
+>You stab Haraxis with the sword.
 Seeker hums!
 
 >Time passes...
 Seeker hums!
 Haraxis hits you.
 
->You hit Haraxis.
+>You stab Haraxis with the sword.
 The salt slips through your fingers.
 
 Haraxis skitters off to below.
@@ -2675,7 +2676,7 @@ You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
 >(Your score has increased by 30)
-You hit Haraxis.
+You stab Haraxis with the sword.
 The giant spider slumps to the ground with a loud squelch. The horrible
 creature is dead.
 
@@ -2938,19 +2939,20 @@ his long snout. Then he seems to regain his composure, and looks at you with
 disgust in his small beady eyes.
 Woody moans and wines about something totally irrelevant, then turns round
 and casually spits on you.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
-Gargoyle #2 hits you, but it doesn't seem to do any damage.
-Gargoyle #4 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
+Gargoyle #4 cuts you with the glaive, but it doesn't seem to do any damage.
 
->You hit Gargoyle #2.
+>You stab Gargoyle #2 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
 You see a pair of cat’s eyes looking at you from the shadows. As soon as you
 notice them, they are gone.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
->You hit Gargoyle #3.
+>You stab Gargoyle #3 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 
@@ -2958,11 +2960,11 @@ Woody scampers away to the west.
 Seeker hums!
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
->You hit Gargoyle #4.
+>You stab Gargoyle #4 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You move south.
 The fountain room.
@@ -2975,13 +2977,14 @@ You can only move north.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You drop the sword.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You drop the Shield.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You plunge into the fountain.
 In the fountain’s depths.
@@ -3010,10 +3013,10 @@ water.
 Also here is a altar to Horamis.
 Gargoyle #1 is here.
 
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You take the staff from the altar to Horamis.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You dive back into the fountain’s depths, and, after a strenuous swim, you
 arrive back in the fountain room.
@@ -3024,18 +3027,20 @@ fountain that resides in its centre. To the north lies the main hall.
 Also here is a sword, a Shield and gold coin.
 
 Gargoyle #1 flies in.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You pick up the sword.
 Seeker hums!
 
 >You pick up the Shield.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You pick up gold coin.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The main hall.
@@ -3060,7 +3065,7 @@ You can move east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You take the venison from the table.
 Seeker hums!
@@ -3077,7 +3082,7 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You move west.
 Pentagram room.
@@ -3116,7 +3121,8 @@ Seeker hums!
 "Hello there. Melvin’s the name, and riddles are my game. Up, up to the very
 top; up, up, you must not stop; up, up to the very top; once you’re there, no
 need to knock," says Melvin, looking rather pleased with himself.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 The overlook.
@@ -3134,14 +3140,14 @@ Gargoyle #1 flies in from the north.
 Melvin waddles in from the north.
 Seeker hums!
 A black cat suddenly darts in front of you and off into the shadows.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You pick up the lantern.
 Seeker hums!
 
 >You do so.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The study.
@@ -3158,7 +3164,7 @@ Gargoyle #1 flies in from the south.
 
 Melvin waddles in from the south.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 Pentagram room.
@@ -3190,7 +3196,7 @@ Gargoyle #1 flies in from the west.
 Seeker hums!
 You hear the sound of a cat’s "meow".
 You hear the shuffling of feet elsewhere in the castle.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 The dining room.
@@ -3202,7 +3208,7 @@ You can move east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 The kitchen.
@@ -3215,7 +3221,7 @@ You can move south, west and down.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move down.
 The cellar stairs.
@@ -3241,7 +3247,7 @@ You can move north, east and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 The cellar.
@@ -3255,7 +3261,7 @@ Gargoyle #1 flies in from the west.
 Seeker hums!
 Hundreds of rats are here. They gnaw at your feet, but the thick leather
 boots you wear protect you sufficiently enough.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 A small box room.
@@ -3271,7 +3277,7 @@ Seeker hums!
 
 >You take the chisel from the pile of rubble.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The cellar.
@@ -3286,7 +3292,7 @@ Seeker hums!
 Hundreds of rats are here. They gnaw at your feet, but the thick leather
 boots you wear protect you sufficiently enough.
 You hear Melvin singing. He must be somewhere nearby.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
 The cellar entrance.
@@ -3300,7 +3306,7 @@ You can move north, east and up.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move up.
 The cellar stairs.
@@ -3310,7 +3316,8 @@ You can move up and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move up.
 The kitchen.
@@ -3336,7 +3343,8 @@ You can move east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 The main hall.
@@ -3362,7 +3370,8 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 The crypts.
@@ -3383,7 +3392,7 @@ A faint mist starts collecting in the room.
 Maldus.
 Seeker hums!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You take the brooch from the coffin #7.
 Seeker hums!
@@ -3399,7 +3408,7 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move up.
 The main hall.
@@ -3433,7 +3442,7 @@ Gargoyle #1 flies in from the east.
 Seeker hums!
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
 The gallery.
@@ -3455,7 +3464,7 @@ Seeker hums!
 >(Your score has increased by 5)
 The painting is ripped open, revealing a secret passage leading northward.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The passage behind the painting.
@@ -3466,7 +3475,8 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 The witch’s cave.
@@ -3482,14 +3492,14 @@ Shadow meeeows...
 Gargoyle #1 flies in from the south.
 Seeker hums!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 10)
-You hit Shadow.
+You stab Shadow with the sword.
 As you kill the cat, the witch drops to the floor in a heap, screaming in
 agony. Slowly she decays away to nothing.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The hidden shrine.
@@ -3509,7 +3519,7 @@ unconscious for, but you feel much better now.
 
 >You take the scroll from the shrine.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 The witch’s cave.
@@ -3523,7 +3533,8 @@ You can move north and south.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 The passage behind the painting.
@@ -3551,7 +3562,8 @@ You can move north, east and south.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move east.
 Pentagram room.
@@ -3578,14 +3590,15 @@ Seeker hums!
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
 Melvin starts humming a little tune.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 10)
 Zandos shouts, "Free, free at last!" He heaves his great body out into the
 main hall and up the stairs. You hear a loud bang and the crackling of
 energy.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 The main hall.
@@ -3600,7 +3613,8 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move up.
 The main hall stairs.
@@ -3612,7 +3626,7 @@ You can move up and down.
 Gargoyle #1 flies in from below.
 Seeker hums!
 You feel the hairs on the back your neck stand up.
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You move up.
 Top of the stairs.
@@ -3626,14 +3640,14 @@ You can only move down.
 Gargoyle #1 flies in from below.
 Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You unlock steel door with the brooch.
 Seeker hums!
 
 >You open steel door.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The tower.
@@ -3665,34 +3679,35 @@ Gargoyle #1 flies in from the south.
 Seeker hums!
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
->You hit Colos.
+>You stab Colos with the sword.
 Seeker hums!
 Seeker hums!
 
->You hit Colos.
+>You stab Colos with the sword.
 Seeker hums!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
->You hit Colos.
+>You stab Colos with the sword.
 Seeker hums!
 "What is the password?" booms the golem again.
 Seeker hums!
 
->You hit Colos.
+>You stab Colos with the sword.
 Seeker hums!
 The golem looks like it’s getting impatient.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
->You hit Colos.
+>You stab Colos with the sword.
 Seeker hums!
 Colos seems to have gotten sick of waiting. Deciding you don't know the
 password after all, the golem attempts to squash you with its huge fists.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 5)
 BOOM! The golem explodes in a shower of dust.
@@ -3702,7 +3717,7 @@ Seeker hums!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 The tower.
@@ -3715,7 +3730,8 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 Top of the stairs.
@@ -3728,7 +3744,8 @@ You can move north and down.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move down.
 The main hall stairs.
@@ -3738,7 +3755,7 @@ You can move up and down.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move down.
 The main hall.
@@ -3763,7 +3780,7 @@ You can move east and west.
 Gargoyle #1 flies in from the west.
 Strange, some more venison has just appeared on the table!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You take the venison from the table.
 Seeker hums!
@@ -3773,7 +3790,8 @@ Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
 Strange, some more venison has just appeared on the table!
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You take the venison from the table.
 Seeker hums!
@@ -3790,7 +3808,7 @@ You can move south, west and down.
 Gargoyle #1 flies in from the west.
 Seeker hums!
 Dong! You hear a bell toll elsewhere in the castle.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 Storage room.
@@ -3803,7 +3821,8 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 Servants’ quarters.
@@ -3817,7 +3836,7 @@ Gargoyle #1 flies in from the east.
 
 Melvin waddles in from the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You pick up the stake.
 Seeker hums!
@@ -3827,7 +3846,7 @@ rephrasing your command.
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3842,7 +3861,7 @@ rephrasing your command.
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3859,7 +3878,7 @@ Melvin waddles in from the east.
 Seeker hums!
 Melvin pulls his underwear out of his bottom. "Mmm, they will keep doing
 that," he says.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3873,7 +3892,7 @@ rephrasing your command.
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3882,7 +3901,7 @@ rephrasing your command.
 
 Melvin waddles out to the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3895,7 +3914,7 @@ rephrasing your command.
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3904,21 +3923,21 @@ rephrasing your command.
 
 Melvin waddles in from the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3933,14 +3952,14 @@ rephrasing your command.
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3953,7 +3972,7 @@ rephrasing your command.
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -3968,7 +3987,7 @@ rephrasing your command.
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Storage room.
@@ -3995,7 +4014,7 @@ Gargoyle #1 flies in from the south.
 
 Woody scampers away to below.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
 The dining room.
@@ -4007,7 +4026,8 @@ You can move east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 The main hall.
@@ -4031,7 +4051,7 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 The prison.
@@ -4048,17 +4068,19 @@ Please set me free," she cries.
 Gargoyle #1 flies in from the north.
 Seeker hums!
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You pick up silver key.
 Seeker hums!
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You unlock the cell door with silver key.
 Seeker hums!
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You open the cell door.
 Seeker hums!
@@ -4070,14 +4092,15 @@ transformed before you. Margo, the village maid, is a werewolf.
 Seeker hums!
 
 >(Your score has increased by 5)
-You hit Margo.
+You stab Margo with the sword.
 Margo falls backward, and her eyes roll up into her head. Phew, she is dead.
 
 Margo enters.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
->You hit Margo.
+>You stab Margo with the sword.
 
 Margo enters.
 Seeker hums!
@@ -4092,7 +4115,7 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The crypts.
@@ -4113,7 +4136,7 @@ Seeker hums!
 Grazilda lies in her coffin.
 Grazilda’s eyes flick open.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >As you plunge the stake into Grazilda’s heart, she screams and wines with the
 pain. Her whole body convulses, then at last she is silent. Her body
@@ -4121,7 +4144,7 @@ evaporates into the air, along with the stake that brought about her end.
 Seeker hums!
 Seeker hums!
 Dong! You hear a bell toll elsewhere in the castle.
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You take the sceptre from the coffin #2.
 Seeker hums!
@@ -4132,7 +4155,7 @@ Seeker hums!
 Seeker hums!
 The coffin is empty. You can only wonder where the occupant is now.
 You hear Melvin singing. He must be somewhere nearby.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 Bottom of the main hall stairs.
@@ -4157,7 +4180,8 @@ You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move up.
 The main hall stairs.
@@ -4179,7 +4203,7 @@ You can move north and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The tower.
@@ -4205,7 +4229,8 @@ You can only move west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 10)
 By kissing her, you appear to have a broken some sort of spell. Her eyes
@@ -4219,14 +4244,15 @@ golden key. "Good luck, brave sir knight," she says, "I will join my true
 love at last. Thank you, so very much." And with this, she vanishes.
 Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You unlock iron chest with golden key.
 Seeker hums!
 
 >You open iron chest.  Inside iron chest is a ballista bolt.
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You take the ballista bolt from iron chest.
 Seeker hums!
@@ -4242,7 +4268,7 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You move north.
 The bottom of the iron steps.
@@ -4265,15 +4291,16 @@ Gargoyle #1 flies in from below.
 Seeker hums!
 You suddenly feel slightly lightheaded, with the horrible feeling of
 butterflies in your stomach. You realise that Morac must be very close by.
-Gargoyle #1 hits you.
+Gargoyle #1 stabs you with the military fork.
 
 >You put on the Shield.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You open wooden door.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 5)
 You move north.
@@ -4299,7 +4326,7 @@ You do so, thwarting Morac’s attack yet again.
 Seeker hums!
 Morac’s face turns red with rage. He suddenly holds one hand up, palm open,
 as you feel a tugging sensation from your chest.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 10)
 You catch Morac on the side of his head with the sceptre. There is a flash of
@@ -4319,7 +4346,8 @@ You can move south and down.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move down.
 The battlements.
@@ -4332,7 +4360,8 @@ You can move north and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Top of the northwest tower.
@@ -4348,7 +4377,8 @@ You can move south and down.
 Gargoyle #1 flies in from the south.
 Seeker hums!
 The ballista is ready to fire.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 20)
 You fire the ballista. The ballista bolt shoots forth and punctures the black
@@ -4356,7 +4386,8 @@ dragon’s neck. The dragon tumbles down outside the castle walls and into the
 ocean. Morac seems to have vanished. Then you catch a glimpse of a bat flying
 northward to the stone henge.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move down.
 Northwest tower.
@@ -4368,7 +4399,7 @@ You can move up and southeast.
 Gargoyle #1 flies in from above.
 Seeker hums!
 You hear Melvin singing. He must be somewhere nearby.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move southeast.
 The castle courtyard.
@@ -4382,7 +4413,8 @@ You can move north, south, northeast and northwest.
 
 Gargoyle #1 flies in from the north-west.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 The long hall.
@@ -4393,7 +4425,7 @@ You can move east, south and west.
 
 Gargoyle #1 flies in.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 The main hall.
@@ -4419,7 +4451,7 @@ You can move north, south and up.
 
 Gargoyle #1 flies in from above.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The crypts.
@@ -4449,7 +4481,7 @@ Seeker hums!
 As you open the coffin, you seem to have set off some type of spell. A
 magical portal as opened up on the north wall.
 You feel almost safe in here.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 5)
 You do so, and arrive back at the stone henge. Through the portal you can now
@@ -4468,7 +4500,8 @@ Fetlar the overly fetid is here.  Morac is here.
 Gargoyle #1 flies in.
 Fetlar smiles and sniffs the air, as a foul smell erupts from him.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 50)
 You cleave Morac’s skull with the sceptre. A white flash of light, followed
@@ -4484,7 +4517,7 @@ You can move north, east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Grassy plains.
@@ -4496,7 +4529,7 @@ You can move north, east, west and northeast.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move northeast.
 Grassy plains.
@@ -4519,7 +4552,7 @@ You can move east, south, west and southwest.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 The giant cave entrance.
@@ -4544,7 +4577,7 @@ You can move east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Passage through mountainside.
@@ -4567,20 +4600,20 @@ Seeker hums!
 Andro looks rather surprised, and speaks again, "#2: What do you break by
 saying just one word?"
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 10)
 Andro looks at you with a rather disdainful look in its eyes, and says, "Well
 done, and now for the final riddle! #3: What is too much for one, enough for
 two, but nothing at all for three?"
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 15)
 The sphinx’s eyes widen, and it says, "Very well done; you shall pass, wise
 one." With this, Andro steps to one side.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Eastern side of the mountain.
@@ -4601,7 +4634,7 @@ You can move east and west.
 Gargoyle #1 flies in from the west.
 Seeker hums!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 50)
 Upon moving the tree trunk, the boulders creak into motion and bounce down
@@ -4620,7 +4653,7 @@ The sky is filled with arrows and crossbow bolts. Men and undead alike fall
 like flies below on the battlefield, while dark shapes like dragons fly above
 in the sky, taking care not to be hit by the missiles.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 
@@ -4635,7 +4668,7 @@ If our enemies get their hands on it, who knows what might happen." Quentis
 quickly turns his steed and heads off back down to the rest of the knights.
 Seeker hums!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You pick up the  horn of the angels.
 Seeker hums!
@@ -4652,7 +4685,8 @@ You can move east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 Grumski’s abode.
@@ -4667,7 +4701,7 @@ You can move east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
 The giant cave entrance.
@@ -4678,7 +4712,8 @@ You can move east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 Grassy plains.
@@ -4690,7 +4725,8 @@ You can move east, south, west and southwest.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 Grassy plains.
@@ -4704,7 +4740,8 @@ Gargoyle #1 flies in from the north.
 Seeker hums!
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move southwest.
 Grassy plains.
@@ -4725,7 +4762,7 @@ You can move north, east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
 Stonehenge
@@ -4743,7 +4780,8 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 Shadow Forest.
@@ -4759,34 +4797,38 @@ Seeker hums!
 Rossi creeps in.
 Seeker hums!
 Rossi looks nervously about with its large goggle eyes. It looks frightened.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 
 Rossi stalks off to the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >Time passes...
 Seeker hums!
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >Time passes...
 Seeker hums!
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >Time passes...
 Seeker hums!
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >Time passes...
 You hear the flutter of batlike wings.
@@ -4795,7 +4837,7 @@ Seeker hums!
 >Time passes...
 You catch a faint whiff of Fetlar. He must be somewhere nearby.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 Seeker hums!
@@ -4805,7 +4847,7 @@ Seeker hums!
 Rossi creeps in from the east.
 Seeker hums!
 Rossi looks nervously about with its large goggle eyes. It looks frightened.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 
@@ -4814,7 +4856,7 @@ Seeker hums!
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
@@ -4822,32 +4864,33 @@ Seeker hums!
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 Seeker hums!
 
 >Time passes...
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >Time passes...
 Seeker hums!
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 Seeker hums!
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 Seeker hums!
@@ -4858,16 +4901,17 @@ Fang darts into the area from the north.
 Seeker hums!
 You catch a faint whiff of Fetlar. He must be somewhere nearby.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 5)
-You hit Fang.
+You stab Fang with the sword.
 The wolf drops to the ground with a thud. Phew! It’s dead.
 
 Fang darts into the area.
 Seeker hums!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move northwest.
 Great Swamp.
@@ -4879,7 +4923,7 @@ northwest.
 
 Gargoyle #1 flies in from the south-east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 Doors in the mountains.
@@ -4895,14 +4939,15 @@ You can move east, south, west, southeast and southwest.
 Gargoyle #1 flies in from the south.
 You hear the flutter of batlike wings.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You unlock the double doors with the triangular piece of metal.
 Seeker hums!
 
 >You open the double doors.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 A long corridor.
@@ -4920,12 +4965,13 @@ crush you against the northern wall, if given time to do so.
 
 >You open golden chest.  Inside golden chest is a lever.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >As you do so, you hear a clunking sound, and a small panel opens up in the
 bottom of the east wall, just big enough to crawl through.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 10)
 You manage to nip in and crawl eastward just before the boulder blocks off
@@ -4946,7 +4992,7 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 Edna turns towards you and moans, "Thou shalt not pass. Only one way is true,
@@ -4955,32 +5001,33 @@ Seeker hums!
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 You manage to avoid Edna's attack.
 
 >You do so, and wake up feeling rather refreshed.
 Seeker hums!
 
->You hit Edna.
+>You stab Edna with the sword.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 You manage to avoid Edna's attack.
 
->You hit Edna.
+>You stab Edna with the sword.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
->You hit Edna.
+>You stab Edna with the sword.
 Seeker hums!
 You manage to avoid Edna's attack.
 
 >(Your score has increased by 20)
-You hit Edna.
+You stab Edna with the sword.
 Edna keels over and collapses to the floor. The magical energy that held its
 body together pours out, leaving only a fleshy mound of rotten flesh.
 The northern passage suddenly glows momentarily.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
@@ -5010,7 +5057,8 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 20)
 As you do so, the copper plates crackle, and a bolt of electricity bursts
@@ -5018,7 +5066,7 @@ from them. The fleshy mound is instantly fried, leaving just the charred
 remains.
 The copper plates stop buzzing.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 The long passage, midway.
@@ -5038,7 +5086,8 @@ Seeker hums!
 >(Your score has increased by 20)
 You do so, and strangely feel a bit relieved.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 The northern end of the long passage.
@@ -5050,7 +5099,7 @@ You can only move south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 5)
 The lamp shudders slightly, then a cloud of smoke whooshes out of it. When
@@ -5066,7 +5115,7 @@ Wish c: Out of this dungeon ye shall be free, back to the henge, the stones
 you see.
 Make your choice: a, b, or c."
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 5)
 Olmo says, "So be it!"
@@ -5076,7 +5125,8 @@ You notice that an opening has appeared in the ceiling.
 The voice of Olmo lingers on momentarily; you hear the words, "Try and catch
 the wind."
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move up.
 Room above the pedestal.
@@ -5087,7 +5137,8 @@ You can move north and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Multicoloured room.
@@ -5105,34 +5156,38 @@ You can only move south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You step onto a red tile. Which colour next?
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You step onto a yellow tile. Which colour next?
 Seeker hums!
 
 >You step onto a pink tile. Which colour next?
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You step onto a green tile. Which colour next?
 Seeker hums!
 
 >You step onto a purple tile. Which colour next?
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You step onto a orange tile. Which colour next?
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >(Your score has increased by 20)
 You step onto a blue tile, and the wall of fire disappears.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Behind the wall of fire.
@@ -5160,13 +5215,14 @@ is no longer visible.
 A spear suddenly hurtles toward you, and hits you squarely in the chest.
 Something or someone must have thrown it at you, and by the force it hit you
 with, they must be rather strong indeed.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Maze.
@@ -5176,7 +5232,7 @@ You can move north, east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Maze.
@@ -5186,7 +5242,7 @@ You can move east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Maze.
@@ -5201,7 +5257,8 @@ Seeker hums!
 
 >Click! You do so.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 Maze.
@@ -5220,7 +5277,7 @@ You can move north, east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
 Maze
@@ -5241,7 +5298,8 @@ You can move north, east and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 Maze.
@@ -5251,7 +5309,8 @@ You can move east, south and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move west.
 Maze.
@@ -5263,7 +5322,8 @@ You can move north and east.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >Click! You do so.
 Seeker hums!
@@ -5276,7 +5336,8 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Maze.
@@ -5286,7 +5347,8 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Maze.
@@ -5296,7 +5358,7 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 Maze.
@@ -5320,7 +5382,8 @@ You can move north and south.
 Gargoyle #1 flies in from the south.
 Seeker hums!
 Seeker Hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Maze.
@@ -5335,7 +5398,7 @@ Seeker hums!
 
 >Click! You do so.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 Maze.
@@ -5350,16 +5413,17 @@ Seeker hums!
 Seeker Hums!
 You manage to avoid Damastus's attack.
 
->You hit Damastus.
+>You stab Damastus with the sword.
 Seeker hums!
 Seeker Hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
->You hit Damastus.
+>You stab Damastus with the sword.
 
 Damastus lumbers off to the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 Maze.
@@ -5372,11 +5436,12 @@ Gargoyle #1 flies in from the north.
 Seeker hums!
 Seeker Hums!
 
->You hit Damastus.
+>You stab Damastus with the sword.
 
 Damastus lumbers off to the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 Maze.
@@ -5388,13 +5453,15 @@ You can move north, east, south and west.
 Gargoyle #1 flies in from the north.
 Seeker hums!
 Seeker Hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
->You hit Damastus.
+>You stab Damastus with the sword.
 
 Damastus lumbers off to the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 Maze.
@@ -5406,10 +5473,10 @@ You can move north and south.
 Gargoyle #1 flies in from the north.
 Seeker hums!
 Seeker Hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 25)
-You hit Damastus.
+You stab Damastus with the sword.
 Damastus screams in pain, and, with that, falls to the ground with a loud
 thud!
 Seeker hums!
@@ -5422,7 +5489,8 @@ You can move north, east, south and west.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Maze.
@@ -5432,7 +5500,8 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 Maze.
@@ -5442,7 +5511,7 @@ You can move north and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 Maze.
@@ -5454,7 +5523,7 @@ You can move east and south.
 
 Gargoyle #1 flies in from the south.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
 Maze
@@ -5474,7 +5543,8 @@ You can move east, south and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move east.
 Maze.
@@ -5493,7 +5563,8 @@ You can move east and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move east.
 Maze.
@@ -5514,7 +5585,7 @@ You can move south and west.
 
 Gargoyle #1 flies in from the west.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 10)
 Click! You do so.
@@ -5528,7 +5599,7 @@ You can move east, south and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
 Maze.
@@ -5549,7 +5620,8 @@ You can move east, south and west.
 
 Gargoyle #1 flies in from the east.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move south.
 Minotaur’s lair.
@@ -5564,7 +5636,7 @@ Seeker hums!
 
 >You pick up the arm and leg greaves.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You put on the arm and leg greaves.
 Seeker hums!
@@ -5577,7 +5649,7 @@ You can move up and down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move up.
 Atop a mountain.
@@ -5597,7 +5669,7 @@ cloud. The cloud gently floats you back down to ground level.
 
 Gargoyle #1 flies in.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 Great Swamp.
@@ -5609,7 +5681,8 @@ northwest.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move southeast.
 Shadow Forest.
@@ -5626,7 +5699,8 @@ Fang darts off to the north.
 Gargoyle #1 flies in from the north-west.
 You catch a faint whiff of Fetlar. He must be somewhere nearby.
 Seeker hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move east.
 Stonehenge
@@ -5651,7 +5725,7 @@ Seeker hums!
 The staff that you are holding glows a brilliant white. You have a feeling
 that it’s waiting for you to do something.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >(Your score has increased by 50)
 As you break the staff, you see the stone henge fade from view, and a new
@@ -5672,7 +5746,7 @@ domain. I’m sure we will meet very soon. In fact, I’m rather looking forward
 to it, HAHAHAHAHAHA."
 The laughter trails off to nothing. You have no idea where the voice could
 have come from, and you feel very alone.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
 The River Styx.
@@ -5684,7 +5758,7 @@ You can only move north.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You whistle a little tune.
 Seeker hums!
@@ -5692,7 +5766,7 @@ You see something sailing across the River Styx!
 
 >Time passes...
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
 Seeker hums!
@@ -5701,7 +5775,8 @@ Seeker hums!
 Seeker hums!
 It seems the ferryman must be on his way toward you. He moves his ferry along
 with a large wooden pole.
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >Time passes...
 Seeker hums!
@@ -5713,7 +5788,7 @@ Seeker hums!
 Charon, the ferryman, arrives at the shore. He holds out a bony skeletal
 hand, apparently waiting for payment.
 You see something sailing across the River Styx!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Charon takes the gold coin in his bony hand, and pushes you on board with his
 pole. Slowly but surely, he heaves the ferry into motion. After a while you
@@ -5735,11 +5810,11 @@ You can only move down.
 
 Gargoyle #1 flies in from below.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You pick up black key.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move down.
 Garden of Lost Souls.
@@ -5773,15 +5848,15 @@ You can only move south.
 
 Gargoyle #1 flies in.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You unlock the iron gate with black key.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You open the iron gate.
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 Tunnel of the underdark.
@@ -5799,36 +5874,37 @@ Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Cerberus hits you, but it doesn't seem to do any damage.
 
->You hit Cerberus.
+>You stab Cerberus with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 You manage to avoid Cerberus's attack.
 
->You hit Cerberus.
+>You stab Cerberus with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
 You manage to avoid Cerberus's attack.
 
->You hit Cerberus.
+>You stab Cerberus with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
 Cerberus' serpent tail lashes round and bites your arm with its poisonous
 fangs, but your arm greaves deflect the blow.
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 You manage to avoid Cerberus's attack.
 
 >(Your score has increased by 20)
-You hit Cerberus.
+You stab Cerberus with the sword.
 Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
 fades away.
 Seeker hums!
@@ -5858,7 +5934,8 @@ You can move north and south.
 Gargoyle #1 flies in from the south.
 Seeker hums!
 Seeker Hums!
-Gargoyle #1 hits you, but it doesn't seem to do any damage.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 >You move north.
 North of the demon pit.
@@ -5875,7 +5952,7 @@ Seeker hums!
 >As you do so, your hear the doors unlock. Then they swing open. All is dark
 beyond!
 Seeker hums!
-You manage to avoid Gargoyle #1's attack.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
 Throne room of Asmodeus.

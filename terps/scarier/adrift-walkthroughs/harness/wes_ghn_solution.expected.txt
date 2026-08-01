@@ -407,18 +407,18 @@ has delivered to your belly.
 rest...well I'm afraid I'm gonna have to tan your hide," Hope states with a
 grim look in her pretty eyes...
 
->You hit Hope.
+>You cut Hope with the Soul Scythe.
 Hope hits you.
 
->You hit Hope.
+>You cut Hope with the Soul Scythe.
 
->You hit Hope.
+>You cut Hope with the Soul Scythe.
 Hope hits you.
 
->You hit Hope.
+>You cut Hope with the Soul Scythe.
 
 >(Your score has increased by 10)
-You hit Hope.
+You cut Hope with the Soul Scythe.
 
 "I...I'll never return to that box!!!" Hope says trembling as she takes a
 step back. A bright white light flashes and she is gone.

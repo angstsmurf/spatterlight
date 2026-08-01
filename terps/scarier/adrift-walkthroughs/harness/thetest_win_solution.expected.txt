@@ -791,7 +791,7 @@ You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
 is another door to the east.  It's locked.
 A Robot Guard is here.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You: Who's there?
 The other end: The international number password company.
@@ -799,7 +799,7 @@ Do you have the number for (you look at the serial number on the door) 50718?
 Them: Yes its 9303235.
 You: Thank you.
 Them: Bye.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >(Your score has increased by 5)
 You enter 9303235 into the door panel, a click, and the door slides upwards
@@ -818,7 +818,7 @@ Scattered on the ground is a portable teleporter.
 A Robot Guard is here.
 
 You can only move west.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >(Your score has increased by 5)
 You shout one and the robot scurries off.
@@ -840,11 +840,11 @@ You shout one and the robot scurries off.
 >Why shout numbers now?
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 1 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 1 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
@@ -858,12 +858,12 @@ Robot Guard stamps out to the west.
 >Why shout numbers now?
 
 Robot Guard storms in from the west.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout three and the robot scurries off.
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 3 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
@@ -887,12 +887,12 @@ Robot Guard stamps out.
 >Why shout numbers now?
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout six and the robot scurries off.
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 6 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
@@ -906,11 +906,11 @@ Robot Guard stamps out to the west.
 >Why shout numbers now?
 
 Robot Guard storms in from the west.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 6 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 6 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
@@ -934,12 +934,12 @@ Robot Guard stamps out.
 >Why shout numbers now?
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout ten and the robot scurries off.
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 10 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
@@ -953,11 +953,11 @@ Robot Guard stamps out to the west.
 >Why shout numbers now?
 
 Robot Guard storms in from the west.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 10 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 10 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
@@ -981,12 +981,12 @@ Robot Guard stamps out.
 >Why shout numbers now?
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout fifteen and the robot scurries off.
 
 Robot Guard storms in.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 15 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
@@ -1000,11 +1000,11 @@ Robot Guard stamps out to the west.
 >Why shout numbers now?
 
 Robot Guard storms in from the west.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 15 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
-Robot Guard hits you.
+Robot Guard hits you with the robot's chain.
 
 >You shout 21 and the robot scurries off.
 

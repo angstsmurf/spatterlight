@@ -201,19 +201,19 @@ l'homme!” il se précipite vers vous et vous frappe avec un grand club !
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
->Vous frappez  ogre.
+>Vous tranchez un ogre avec une épée longue.
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
->Vous frappez  ogre.
+>Vous tranchez un ogre avec une épée longue.
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
->Vous frappez  ogre.
+>Vous tranchez un ogre avec une épée longue.
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
->Vous frappez  ogre.
+>Vous tranchez un ogre avec une épée longue.
 Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
 
 >Vous vous déplacez vers l'ouest.
@@ -252,11 +252,11 @@ se lève et vous bloque dans un coin...
 
 Vous arrivez à éviter l'attaque de la goule.
 
->Vous frappez  goule.
+>Vous tranchez une goule avec une épée longue.
 
 Vous arrivez à éviter l'attaque de la goule.
 
->Vous frappez  goule.
+>Vous tranchez une goule avec une épée longue.
 Vous frappez la goule violemment en plein coeur !
 elle retombe lourdement sur le sol, morte...
 Vous sentez que la chance est de votre coté...
@@ -289,23 +289,23 @@ Vous pouvez seulement vous déplacer vers le Sud.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
->Vous frappez  demon.
+>Vous tranchez un démon avec une épée longue.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
->Vous frappez  demon.
+>Vous tranchez un démon avec une épée longue.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
->Vous frappez  demon.
+>Vous tranchez un démon avec une épée longue.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
->Vous frappez  demon.
+>Vous tranchez un démon avec une épée longue.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
->Vous frappez  demon.
+>Vous tranchez un démon avec une épée longue.
 Le démon d'éffroi s'éffondre sur le sol et disparaît dans
 un nuage de fumée rouge. Ce qui reste du Démon est sur le sol, sur les murs,
 et sur vous. La chance vous sourit...
@@ -407,28 +407,28 @@ Vous arrivez à éviter l'attaque du voyou.
 
 Vous arrivez à éviter l'attaque du voleur.
 
->Vous frappez  voyou.
+>Vous tranchez un voyou avec une épée longue.
 
 Vous arrivez à éviter l'attaque du voyou.
 
 Vous arrivez à éviter l'attaque du voleur.
 
->Vous frappez  voyou.
+>Vous tranchez un voyou avec une épée longue.
 Le voyou du chaos s'écroule par terre dans une marre de sang.
 
 Vous arrivez à éviter l'attaque du voleur.
 
 >Je ne comprends pas votre commande !
 
->Vous frappez  voleur.
+>Vous tranchez un voleur avec une épée longue.
 
 Vous arrivez à éviter l'attaque du voleur.
 
->Vous frappez  voleur.
+>Vous tranchez un voleur avec une épée longue.
 
 Vous arrivez à éviter l'attaque du voleur.
 
->Vous frappez  voleur.
+>Vous tranchez un voleur avec une épée longue.
 Le voleur du chaos tombe raide mort sur le sol.
 
 >Je ne comprends pas votre commande !

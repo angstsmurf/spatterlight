@@ -138,9 +138,9 @@ The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A fierce wind blows.
 
 Moyru is here.
-Lamanluie hits Moyru.
+Lamanluie cuts Moyru with the old rusty broken blood-stained scimitar.
 
->You hit Moyru.
+>You stab Moyru with the Spirit Dagger.
 Moyru cackles one last time before her body melts into a puddle of water.
 
 >You walk south.
@@ -173,9 +173,9 @@ Fergo is here.
 You can only move down.
 
 >(Your score has increased by 10)
-You hit Fergo.
-Fergo hits Lamanluie.
-Lamanluie hits Fergo.
+You stab Fergo with the Spirit Dagger.
+Fergo stabs Lamanluie with Fletched Spear.
+Lamanluie cuts Fergo with the old rusty broken blood-stained scimitar.
 Fergo collapses. The wind elemental leaves his body and transforms itself
 into an object.
 The Fletched Spear floats magically into your hands.
@@ -200,7 +200,7 @@ Morana is here.
 
 You can only move south.
 
->You hit Morana.
+>You stab Morana with the Spirit Dagger.
 Morana screeches before she disappears in a puff of smoke.
 
 >You are not making sense...
@@ -267,10 +267,10 @@ A thin tunnel under the water.
 Serpanern is here.
 
 You can only move north.
-Lamanluie hits Serpanern.
+Lamanluie cuts Serpanern with the old rusty broken blood-stained scimitar.
 Serpanern hits you, but it doesn't seem to do any damage.
 
->You hit Serpanern.
+>You stab Serpanern with the Spirit Dagger.
 It's body shrivels and is instantly consumed by fishes.
 
 >You are not making sense...
@@ -306,10 +306,10 @@ wondrous colour hang from the ceiling. Bleeched coral is growing in the far
 corner.
 
 Crynasalda is here.
-Lamanluie hits Crynasalda.
+Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
 
 >(Your score has increased by 10)
-You hit Crynasalda.
+You stab Crynasalda with the Spirit Dagger.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
@@ -424,7 +424,7 @@ Kelorano is here.
 
 You can only move west.
 You feel cold.
-Kelorano hits Lamanluie.
+Kelorano hits Lamanluie with Ever-burning torch.
 
 >(Your score has increased by 10)
 Lava engulfs Kelorano's body. He screams and you only hope that he is
@@ -439,11 +439,11 @@ Also here are The Amber of Flames.
 
 Lamanluie and Kelorano are here.
 You feels as though you should leave quickly.
-Lamanluie hits Kelorano.
+Lamanluie cuts Kelorano with the old scimitar.
 Kelorano hits Lamanluie.
 
 >You pick up the Amber of Flames.
-Lamanluie hits Kelorano.
+Lamanluie cuts Kelorano with the old scimitar.
 Kelorano hits Lamanluie.
 
 >You walk west.
@@ -480,7 +480,7 @@ Slikerma is here.
 You can only move west.
 Slikerma hits Lamanluie, but it doesn't seem to do any damage.
 
->You hit Slikerma.
+>You stab Slikerma with the Spirit Dagger.
 Bright red blood oozes from Slikerma's fatal wound.
 
 >You are not making sense...

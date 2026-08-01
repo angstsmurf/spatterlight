@@ -236,11 +236,11 @@ is supposed to be a bed. You think you see a rat scurry out from under the
 hay and hide in a dark corner. Very cosy, you think darkly.
 
 A Rapist is here.
-A Rapist hits you.
+A Rapist hits you with the rock.
 
 >(Your score has increased by 10)
 You get the purple flower.
-A Rapist hits you.
+A Rapist hits you with the rock.
 
 >You move west.
 Dark Hall

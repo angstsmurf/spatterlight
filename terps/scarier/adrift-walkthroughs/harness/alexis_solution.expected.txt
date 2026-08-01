@@ -67,10 +67,10 @@ water in the distance.
 You can also see the Tonerith stone.
 There is a grey wolf circling you.
 
->You hit Wolf.
+>You hit Wolf with the magic cube.
 Wolf hits you.
 
->You hit Wolf.
+>You hit Wolf with the magic cube.
 The wolf limps away, badly hurt. It won't be likely to bother you again.
 
 >Command not understood
@@ -93,10 +93,10 @@ junction.  There is a large dwarven bridgekeeper blocking your way across the
 bridge.
 The Bridgekeeper is here.
 
->You hit Bridgekeeper.
-Bridgekeeper hits you.
+>You hit Bridgekeeper with the magic cube.
+Bridgekeeper chops you with the iron axe.
 
->You hit Bridgekeeper.
+>You hit Bridgekeeper with the magic cube.
 The dwarf, with his last ounce of strength lifts himself to the side of the
 bridge. He removes his shirt and axe and then he slumps over the wall and
 falls into the river with a huge splash.
@@ -235,8 +235,8 @@ Narfild is here.
 
 Serond follows you from the south-east.
 
->You hit Narfild.
-Serond hits Narfild.
+>You hit Narfild with the magic cube.
+Serond shoots Narfild with the oak staff.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 >Command not understood
@@ -390,7 +390,7 @@ direction.
 The Longmore marsh king is here.
 
 Serond follows you from the north-west.
-Serond hits Longmore king.
+Serond shoots Longmore king with the oak staff.
 
 >You move southeast.
 Longmore pass
@@ -579,8 +579,8 @@ There is a Forester Goblin hanging from a tree here.
 
 Serond follows you from the north-west.
 
->You hit Forester Goblin.
-Serond hits Forester Goblin.
+>You hit Forester Goblin with the magic cube.
+Serond shoots Forester Goblin with the oak staff.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
@@ -634,12 +634,12 @@ direction.
 The Longmore marsh king is here.
 
 Serond follows you from the south-east.
-Serond hits Longmore king.
-Longmore king hits you.
+Serond shoots Longmore king with the oak staff.
+Longmore king stabs you with the pointy stick.
 
->You hit Longmore king.
+>You hit Longmore king with the magic cube.
 
->You hit Longmore king.
+>You hit Longmore king with the magic cube.
 The swamp monster slowly melts into the marsh. It then dissapears.
 
 >Command not understood
@@ -699,7 +699,7 @@ There is an eagle above you circling around your head.
 
 Serond follows you from the west.
 
->You hit Eagle.
+>You hit Eagle with the magic cube.
 The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
 
@@ -826,7 +826,7 @@ take you up the mountain.
 There is a large Narn here.
 
 Serond follows you from the south-west.
-Serond hits Karurn.
+Serond shoots Karurn with the oak staff.
 Karurn hits Serond.
 
 >You move northwest.
@@ -875,11 +875,11 @@ A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."
 Haron hands you a phial.
-Serond hits Larnt.
-Haron hits Larnt.
-Larnt hits you.
+Serond shoots Larnt with the oak staff.
+Haron cuts Larnt with the elven sword.
+Larnt cuts you with the blade from Uron.
 
->You hit Larnt.
+>You hit Larnt with the magic cube.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1021,17 +1021,17 @@ the South. He then smiles, and says:
 Serond follows you.
 
 Haron follows you.
-Serond hits Urgorn.
-Haron hits Urgorn.
+Serond shoots Urgorn with the oak staff.
+Haron cuts Urgorn with the elven sword.
 
->You hit Urgorn.
-Serond hits Urgorn.
+>You hit Urgorn with the magic cube.
+Serond shoots Urgorn with the oak staff.
 
->You hit Urgorn.
-Haron hits Urgorn.
-Urgorn hits you.
+>You hit Urgorn with the magic cube.
+Haron cuts Urgorn with the elven sword.
+Urgorn shoots you with the ball of fire.
 
->You hit Urgorn.
+>You hit Urgorn with the magic cube.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

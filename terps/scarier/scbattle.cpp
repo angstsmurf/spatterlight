@@ -901,17 +901,34 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
     }
 }
 
+/* Attack verbs by weapon method code, base (player) form; NPCs append "s". */
+static const scr_char *const BATTLE_METHOD_VERBS[6]
+    = {"chop", "cut", "hit", "shoot", "stab", "throw"};
+
 /*
  * battle_resolve()
  *
  * Resolve a single attack from attacker against target with the given wielded
- * weapon (-1 for none).  Combat messages are printed only when visible.
+ * weapon (-1 for none).  Combat messages are printed only when visible, and
+ * follow the Runner's narration (Battles.bas Proc_11_1/Proc_11_2): an armed
+ * attack names the weapon with its method verb ("You shoot Robot with the
+ * blaster.", "You throw the knife at Robot."), an armed miss is "<npc> manages
+ * to avoid your attack with <weapon>." / "<npc> attacks you with <weapon>,
+ * but you manage to avoid it.", and bare hands keep the plain "hit"/"avoid
+ * <x>'s attack" forms.  The Runner also drops a thrown (method 5) weapon into
+ * the room; that mechanical effect is deliberately not ported (see
+ * RUNNER_TESTS_TODO.md).
  */
 static void
 battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
                 scr_int weapon, scr_bool visible)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  scr_int method;
+
+  method = (weapon >= 0) ? battle_object_battle (game, weapon, "Method") : -1;
+  if (method < 0 || method > 5)
+    method = -1;
 
   if (battle_unconfigured
       || battle_legacy
@@ -924,8 +941,30 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
       if (visible)
         {
           battle_print_combatant (game, attacker, 0);
-          pf_buffer_string (filter, (attacker < 0) ? " hit " : " hits ");
-          battle_print_combatant (game, target, 1);
+          if (method == 5)
+            {
+              pf_buffer_string (filter, (attacker < 0) ? " throw "
+                                                       : " throws ");
+              lib_print_object_np (game, weapon);
+              pf_buffer_string (filter, " at ");
+              battle_print_combatant (game, target, 1);
+            }
+          else if (method >= 0)
+            {
+              pf_buffer_character (filter, ' ');
+              pf_buffer_string (filter, BATTLE_METHOD_VERBS[method]);
+              if (attacker >= 0)
+                pf_buffer_character (filter, 's');
+              pf_buffer_character (filter, ' ');
+              battle_print_combatant (game, target, 1);
+              pf_buffer_string (filter, " with ");
+              lib_print_object_np (game, weapon);
+            }
+          else
+            {
+              pf_buffer_string (filter, (attacker < 0) ? " hit " : " hits ");
+              battle_print_combatant (game, target, 1);
+            }
         }
       if (damage > 0)
         {
@@ -939,11 +978,33 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
     }
   else if (visible)
     {
-      battle_print_combatant (game, target, 0);
-      pf_buffer_string (filter, (target < 0) ? " manage to avoid "
-                                             : " manages to avoid ");
-      battle_print_combatant (game, attacker, 2);
-      pf_buffer_string (filter, " attack.\n");
+      if (method < 0)
+        {
+          battle_print_combatant (game, target, 0);
+          pf_buffer_string (filter, (target < 0) ? " manage to avoid "
+                                                 : " manages to avoid ");
+          battle_print_combatant (game, attacker, 2);
+          pf_buffer_string (filter, " attack.\n");
+        }
+      else if (attacker < 0)
+        {
+          battle_print_combatant (game, target, 0);
+          pf_buffer_string (filter, " manages to avoid your attack with ");
+          lib_print_object_np (game, weapon);
+          pf_buffer_string (filter, ".\n");
+        }
+      else
+        {
+          battle_print_combatant (game, attacker, 0);
+          pf_buffer_string (filter, " attacks ");
+          battle_print_combatant (game, target, 1);
+          pf_buffer_string (filter, " with ");
+          lib_print_object_np (game, weapon);
+          pf_buffer_string (filter, ", but ");
+          battle_print_combatant (game, target, 1);
+          pf_buffer_string (filter, (target < 0) ? " manage to avoid it.\n"
+                                                 : " manages to avoid it.\n");
+        }
     }
 }
 

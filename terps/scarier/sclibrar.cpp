@@ -415,7 +415,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * prefix -- any "a"/"an"/"some" is replaced by "the" -- and with the full
  * prefix.
  */
-static void
+void
 lib_print_object_np (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);

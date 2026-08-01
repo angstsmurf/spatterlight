@@ -171,13 +171,13 @@ You can move north and south.
 Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 2)
-You hit Jackass Trying to Kill You.
+You cut Jackass Trying to Kill You with Kinda Sharp Sword.
 You killed the Bastard Trying to Kill You.  It wasn't hard, but it was sure
 fun.  Now that he is dead, you can search his body or somthing, right?
 
->You hit Jackass Trying to Kill You (dead).
+>You cut Jackass Trying to Kill You (dead) with Kinda Sharp Sword.
 
->You hit Jackass Trying to Kill You (dead).
+>You cut Jackass Trying to Kill You (dead) with Kinda Sharp Sword.
 
 >(Your score has increased by 10)
 You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it

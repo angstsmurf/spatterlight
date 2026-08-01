@@ -114,32 +114,38 @@ bridge.
 The Bridgekeeper is here.
 
 >You hit Bridgekeeper.
-Bridgekeeper hits you, but it doesn't seem to do any damage.
+Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+damage.
 
 >You hit Bridgekeeper.
 
 >You hit Bridgekeeper.
-Bridgekeeper hits you, but it doesn't seem to do any damage.
+Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+damage.
 
 >You hit Bridgekeeper.
 
 >You hit Bridgekeeper.
-Bridgekeeper hits you, but it doesn't seem to do any damage.
+Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+damage.
 
 >You hit Bridgekeeper.
 
 >You hit Bridgekeeper.
-Bridgekeeper hits you, but it doesn't seem to do any damage.
+Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+damage.
 
 >You hit Bridgekeeper.
 
 >You hit Bridgekeeper.
-Bridgekeeper hits you, but it doesn't seem to do any damage.
+Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+damage.
 
 >You hit Bridgekeeper.
 
 >You hit Bridgekeeper.
-Bridgekeeper hits you, but it doesn't seem to do any damage.
+Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+damage.
 
 >You hit Bridgekeeper.
 
@@ -247,15 +253,15 @@ blocked by a large troll.
 
 Narfild is here.
 
->You hit Narfild.
-Narfild hits you, but it doesn't seem to do any damage.
+>You cut Narfild with the small sword.
+Narfild hits you with the large club, but it doesn't seem to do any damage.
 
->You hit Narfild.
+>You cut Narfild with the small sword.
 
->You hit Narfild.
-Narfild hits you, but it doesn't seem to do any damage.
+>You cut Narfild with the small sword.
+Narfild hits you with the large club, but it doesn't seem to do any damage.
 
->You hit Narfild.
+>You cut Narfild with the small sword.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 >Command not understood
@@ -353,7 +359,8 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
-Longmore king hits you, but it doesn't seem to do any damage.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
 >You move southeast.
 Longmore pass
@@ -512,52 +519,56 @@ northwest.
 
 You can also see the Kedarn stone.
 There is a Forester Goblin hanging from a tree here.
-Forester Goblin hits you, but it doesn't seem to do any damage.
+Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
+any damage.
 
->You hit Forester Goblin.
-Forester Goblin hits you, but it doesn't seem to do any damage.
+>You cut Forester Goblin with the small sword.
+Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
+any damage.
 
->You hit Forester Goblin.
-Forester Goblin hits you, but it doesn't seem to do any damage.
+>You cut Forester Goblin with the small sword.
+Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
+any damage.
 
->You hit Forester Goblin.
-Forester Goblin hits you, but it doesn't seem to do any damage.
+>You cut Forester Goblin with the small sword.
+Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
+any damage.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 
->You hit Forester Goblin.
+>You cut Forester Goblin with the small sword.
 
 Forester Goblin jumps through the trees to you.
 The birds high above your head hoot and cheep to each other.
@@ -596,22 +607,26 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
-Longmore king hits you, but it doesn't seem to do any damage.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
->You hit Longmore king.
-Longmore king hits you, but it doesn't seem to do any damage.
+>You cut Longmore king with the small sword.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
->You hit Longmore king.
-Longmore king hits you, but it doesn't seem to do any damage.
+>You cut Longmore king with the small sword.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
->You hit Longmore king.
+>You cut Longmore king with the small sword.
 
->You hit Longmore king.
-Longmore king hits you, but it doesn't seem to do any damage.
+>You cut Longmore king with the small sword.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
->You hit Longmore king.
+>You cut Longmore king with the small sword.
 
->You hit Longmore king.
+>You cut Longmore king with the small sword.
 The swamp monster slowly melts into the marsh. It then dissapears.
 
 >Command not understood
@@ -670,12 +685,12 @@ will take you along a path.
 There is an eagle above you circling around your head.
 Eagle hits you, but it doesn't seem to do any damage.
 
->You hit Eagle.
+>You cut Eagle with the small sword.
 Eagle hits you, but it doesn't seem to do any damage.
 
->You hit Eagle.
+>You cut Eagle with the small sword.
 
->You hit Eagle.
+>You cut Eagle with the small sword.
 The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
 
@@ -833,16 +848,18 @@ corridor. East will take you into a smaller room.
 Larnt is here.
 
 Haron follows you from the south.
-Haron hits Larnt.
+Haron cuts Larnt with the elven sword.
 
->You hit Larnt.
-Larnt hits you, but it doesn't seem to do any damage.
+>You cut Larnt with the small sword.
+Larnt cuts you with the blade from Uron, but it doesn't seem to do any
+damage.
 
->You hit Larnt.
-Haron hits Larnt.
-Larnt hits you, but it doesn't seem to do any damage.
+>You cut Larnt with the small sword.
+Haron cuts Larnt with the elven sword.
+Larnt cuts you with the blade from Uron, but it doesn't seem to do any
+damage.
 
->You hit Larnt.
+>You cut Larnt with the small sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -981,26 +998,26 @@ the South. He then smiles, and says:
  Just us now, no escape.
 
 Haron follows you.
-Haron hits Urgorn.
-Urgorn hits Haron.
+Haron cuts Urgorn with the elven sword.
+Urgorn shoots Haron with the ball of fire.
 
->You hit Urgorn.
+>You cut Urgorn with the small sword.
 
->You hit Urgorn.
-Haron hits Urgorn.
+>You cut Urgorn with the small sword.
+Haron cuts Urgorn with the elven sword.
 
->You hit Urgorn.
+>You cut Urgorn with the small sword.
 
->You hit Urgorn.
-Haron hits Urgorn.
-Urgorn hits Haron.
+>You cut Urgorn with the small sword.
+Haron cuts Urgorn with the elven sword.
+Urgorn shoots Haron with the ball of fire.
 
->You hit Urgorn.
+>You cut Urgorn with the small sword.
 
->You hit Urgorn.
-Haron hits Urgorn.
+>You cut Urgorn with the small sword.
+Haron cuts Urgorn with the elven sword.
 
->You hit Urgorn.
+>You cut Urgorn with the small sword.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

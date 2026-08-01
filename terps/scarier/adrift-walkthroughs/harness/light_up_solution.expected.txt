@@ -1543,13 +1543,13 @@ Chip hits you, but it doesn't seem to do any damage.
 
 >I take the lighter from the green box.
 
->You hit Chip.
+>You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
 >I've already got the lighter!
 
 >(Your score has increased by 5)
-You hit Chip.
+You throw the lighter at Chip.
 "Good job."
 
 I look up, trying to spot the source of the voice.
@@ -1642,7 +1642,7 @@ Tippant hits Ozgat, but it doesn't seem to do any damage.
 Donna hits Ozgat.
 Ozgat manages to avoid Chip's attack.
 
->You hit Ozgat.
+>You throw the lighter at Ozgat.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -1668,7 +1668,7 @@ Scotty hits Ozgat.
 Ozgat manages to avoid Donna's attack.
 Ozgat manages to avoid Chip's attack.
 
->You hit Ozgat.
+>You throw the lighter at Ozgat.
 
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
 suffers damage.
@@ -1854,7 +1854,7 @@ Riven manages to avoid Chip's attack.
 
 >I don't understand what you mean.
 
->You hit Riven.
+>You throw the lighter at Riven.
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
@@ -1875,7 +1875,7 @@ Scotty hits Riven.
 
 >I don't understand what you mean.
 
->You hit Riven.
+>You throw the lighter at Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
@@ -2066,12 +2066,12 @@ Chip hits Riven.
 Ozgat hits Donna.
 Riven hits Chip.
 
->You hit Ozgat.
+>You throw the lighter at Ozgat.
 Lina hits Riven.
 Scotty hits Ozgat.
 Scotty manages to avoid Ozgat's attack.
 
->You hit Riven.
+>You throw the lighter at Riven.
 
 The sound of knives scraping against glass reverberate across the landscape.
 Scotty hits Riven.
@@ -2100,7 +2100,7 @@ Lina hits Ozgat.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Ozgat hits Chip.
 
->You hit Ozgat.
+>You throw the lighter at Ozgat.
 
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
 suffers damage.
@@ -2771,7 +2771,7 @@ Scotty hits Higher, but it doesn't seem to do any damage.
 
 >I don't understand what you mean.
 
->You hit Higher.
+>You throw the double-lighter at Higher.
 
 The sound of knives scraping against glass reverberate across the landscape.
 Lina hits Higher.
@@ -2792,7 +2792,7 @@ Scotty hits Higher.
 
 >I don't understand what you mean.
 
->You hit Higher.
+>You throw the double-lighter at Higher.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 Donna hits Higher, but it doesn't seem to do any damage.
@@ -2814,7 +2814,7 @@ Chip hits Higher.
 
 >I don't understand what you mean.
 
->You hit Higher.
+>You throw the double-lighter at Higher.
 
 I no longer detect the Higher's presence.
 
@@ -2988,7 +2988,7 @@ Scotty hits Riven.
 Chip hits Riven, but it doesn't seem to do any damage.
 Ozgat hits Tippant.
 
->You hit Ozgat.
+>You throw the double-lighter at Ozgat.
 Lina hits Higher.
 Scotty hits Ozgat.
 Riven manages to avoid Donna's attack.
@@ -2996,7 +2996,7 @@ Ozgat manages to avoid Chip's attack.
 Ozgat hits you.
 Riven hits Tippant.
 
->You hit Riven.
+>You throw the double-lighter at Riven.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
@@ -3005,7 +3005,7 @@ Scotty hits Riven, but it doesn't seem to do any damage.
 Chip hits Ozgat.
 Ozgat hits you.
 
->You hit Higher.
+>You throw the double-lighter at Higher.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
 Ozgat manages to avoid Tippant's attack.
 Riven manages to avoid Donna's attack.
@@ -3031,7 +3031,7 @@ Scotty hits Higher, but it doesn't seem to do any damage.
 Ozgat manages to avoid Chip's attack.
 Ozgat hits Donna.
 
->You hit Ozgat.
+>You throw the double-lighter at Ozgat.
 
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
 suffers damage.
@@ -3040,7 +3040,7 @@ Scotty hits Higher, but it doesn't seem to do any damage.
 Donna hits Higher, but it doesn't seem to do any damage.
 Lina manages to avoid Riven's attack.
 
->You hit Riven.
+>You throw the double-lighter at Riven.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -3054,7 +3054,7 @@ Lina hits Higher.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Chip's attack.
 
->You hit Higher.
+>You throw the double-lighter at Higher.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -3075,7 +3075,7 @@ Scotty hits Riven.
 
 >I don't understand what you mean.
 
->You hit Riven.
+>You throw the double-lighter at Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
@@ -3087,7 +3087,7 @@ Scotty hits Higher, but it doesn't seem to do any damage.
 Donna hits Higher, but it doesn't seem to do any damage.
 Chip hits Higher.
 
->You hit Higher.
+>You throw the double-lighter at Higher.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -3112,7 +3112,7 @@ Higher hits Tippant.
 
 >I don't understand what you mean.
 
->You hit Higher.
+>You throw the double-lighter at Higher.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.

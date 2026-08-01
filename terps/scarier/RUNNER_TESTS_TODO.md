@@ -186,11 +186,29 @@ Surface facts learned on the way (all consistent between engines unless noted):
 - The Runner does **not** auto-wield at battle start (`status`: "Player is
   wielding nothing"), but a generic `attack X` **auto-selects a held weapon**
   and narrates with the weapon's Method verb ("Player shoot Robot with the
-  blaster."). SCARE instead auto-wields at battle start (its `status` shows
-  the weapon) and its success message is generic ("You hit Robot.") without
-  naming the weapon. Same outcomes on every probe; presentational divergence
-  only — but it means an authored equality probe must strip weapon flags or
-  the accuracy bonus contaminates the test.
+  blaster."). Scarier's mechanics already matched (per-attack default weapon,
+  no state change), and **the Method-verb narration is now ported too
+  (2026-08-01)**, from the DotFix `Battles.bas` decompile
+  (`~/adrift-battle/decompiled/`, Proc_11_1/Proc_11_2): armed hit =
+  "You shoot Robot with the blaster." (+"s" for NPC attackers), method 5 =
+  "You throw the knife at Robot.", armed player miss = "<npc> manages to
+  avoid your attack with <weapon>.", armed NPC miss = "<npc> attacks you
+  with <weapon>, but you manage to avoid it.". Bare hands keep the plain
+  forms.  **Verified live in run390 too** (p39 probe: "You shoot Robot with
+  the blaster." — identical wording, second person), so no version gate.
+  Corroboration from the corpus: les_feux's French ALR table was authored
+  against these full sentences — the old generic wording only half-matched
+  ("Vous frappez  demon."), the ported wording translates cleanly ("Vous
+  tranchez un démon avec une épée longue.").  20 goldens re-blessed (battle
+  flavour only; all win markers intact).  NOT ported: the Runner also moves
+  a player-thrown (method 5) weapon into the room (Battles.bas
+  `loc_45E468`) and appears to adjust an accuracy counter around it —
+  mechanical, decompile partially garbled there; probe before adopting.
+  The `status` "wielding" line still diverges: Scarier names the would-be
+  default weapon where the Runner shows "wielding nothing" until an attack;
+  matching it needs the open wield/unwield surface probes below (does the
+  Runner's auto-select persist? does its pre-attack status roll exclude the
+  weapon accuracy bonus?).
 - Runner battle messages use the player's *name* where SCARE substitutes
   "you"/"your", with second-person verb agreement kept ("Player manage to
   avoid Robot's attack." — sic). Miss messages otherwise identical.
@@ -411,8 +429,9 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Restriction evaluation order | evaluates all, no short-circuit | `Sub_20_65` replaces `#` with T/F in a bool-expr string, so it can't short-circuit either | Believed matched. **Verify** a restriction with a side effect actually runs. |
 | Integer division rounding | see `ADRIFT4_vs_ADRIFT5.md` | — | v4-vs-v5 difference already recorded; confirm the v4 half against run400. |
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
-| Battle messages | second person ("you"/"your") | player's name with 2nd-person verb forms ("Player manage to avoid…") | Presentational only; noted §1 surface facts. |
-| Battle-start wield | auto-wields best weapon | wields nothing; auto-selects held weapon per `attack` | Same outcomes on all probes; surface divergence only. |
+| Battle messages | second person ("you"/"your") | run400 uses player's name with 2nd-person verb forms ("Player manage to avoid…"); run390 uses second person | Presentational only; "you" kept (matches run390). Method-verb weapon narration **ported 2026-08-01**, verified live in BOTH Runners; noted §1 surface facts. |
+| Battle-start wield | no auto-wield; per-attack default weapon (Runner model) | wields nothing; auto-selects held weapon per `attack` | Mechanics match; only the `status` "wielding" line still diverges (see §1 surface facts). |
+| Thrown (method 5) weapon | stays in inventory | moves to the room on a player throw (`Battles.bas loc_45E468`) | **Unported mechanical divergence**; decompile partially garbled around it — probe before adopting. |
 | Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
 | Event TaskAffected execution | version-gated: 3.9 = matcher dispatch (wildcard steal, silent restricted skip), 4.0 = direct run (loud FailMessage) | run390 and run400 genuinely differ — same converted probe, opposite behavior | **Fixed 2026-08-01** (§2); both halves verified live. |
 | Named `drop` of a worn item | implicitly removes then drops (named only; `drop all` skips worn) | same, in BOTH Runners | **Fixed 2026-08-01** (`lib_drop_named_filter`). |

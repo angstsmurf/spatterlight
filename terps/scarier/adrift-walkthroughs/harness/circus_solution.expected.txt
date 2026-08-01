@@ -412,18 +412,18 @@ clown costumes and a trunk of props, a lit makeup mirror and table.  The exit
 is to the west.
 Zippo the cowboy clown is here, applying makeup.  Pringles the monkey is
 here.
-Zippo hits you, but it doesn't seem to do any damage.
+Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 
 >You turn the lock to the number 13.
 
 >You turn the lock to the number 9.
-Zippo hits you, but it doesn't seem to do any damage.
+Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 
 >You turn the lock to the number 5.  There is a click as the lock opens.
 
 >(Your score has increased by 10)
 You open the trunk.
-Zippo hits you, but it doesn't seem to do any damage.
+Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 
 >You take the videocamera from the trunk.
 

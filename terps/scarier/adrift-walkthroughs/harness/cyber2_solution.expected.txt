@@ -90,7 +90,7 @@ The place where the food is prepaired.
 Ninja Chef is prepared for battle!
 
 You can move east and out.
-You manage to avoid Ninja Chef's attack.
+Ninja Chef attacks you with Chinese Death Stars, but you manage to avoid it.
 
 >(Your score has increased by 50)
 You shoot the ninja chef.

@@ -462,6 +462,7 @@ extern scr_bool lib_can_go (scr_gameref_t game, scr_int room,
 extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
+extern void lib_print_object_np (scr_gameref_t game, scr_int object);
 extern scr_bool lib_cmd_go_north (scr_gameref_t game);
 extern scr_bool lib_cmd_go_east (scr_gameref_t game);
 extern scr_bool lib_cmd_go_south (scr_gameref_t game);

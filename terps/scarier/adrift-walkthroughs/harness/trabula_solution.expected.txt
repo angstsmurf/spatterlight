@@ -54,11 +54,11 @@ A soldier is here.
 
 >The old warrior looks like he's seen one too many battles.  Soldier is
 carrying a silver key and a rapier.
-You manage to avoid Soldier's attack.
+Soldier attacks you with the rapier, but you manage to avoid it.
 
->You hit Soldier.
+>You stab Soldier with the sword.
 
->You hit Soldier.
+>You stab Soldier with the sword.
 
 Soldier falls down, dead.
 
@@ -119,13 +119,13 @@ Directly under the bridge is cold and muddy.  Your feet sink at least a
 couple of inches with each step, leading you to believe it's not so dry of a
 creek after all.  You can cross the creek to the east or west.
 A big fat ugly troll is here.
-You manage to avoid Troll's attack.
+Troll attacks you with the bar, but you manage to avoid it.
 
 >The Troll is uglier than most, and seems very nasty.  Troll is carrying a
 rusty key and a bar.
-You manage to avoid Troll's attack.
+Troll attacks you with the bar, but you manage to avoid it.
 
->You hit Troll.
+>You stab Troll with the sword.
 
 Troll falls down, dead.
 
