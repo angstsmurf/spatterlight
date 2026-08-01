@@ -237,10 +237,9 @@ Serond follows you from the south-east.
 
 >You hit Narfild.
 Serond hits Narfild.
-Narfild hits Serond.
-
->You hit Narfild.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
+
+>Command not understood
 
 >Command not understood
 
@@ -394,7 +393,6 @@ The Longmore marsh king is here.
 
 Serond follows you from the north-west.
 Serond hits Longmore king.
-Longmore king hits Serond.
 
 >You move southeast.
 Longmore pass
@@ -582,8 +580,6 @@ You can also see the Kedarn stone.
 There is a Forester Goblin hanging from a tree here.
 
 Serond follows you from the north-west.
-Serond hits Forester Goblin.
-Forester Goblin hits Serond.
 
 >You hit Forester Goblin.
 Serond hits Forester Goblin.
@@ -644,7 +640,6 @@ Serond hits Longmore king.
 Longmore king hits you.
 
 >You hit Longmore king.
-Longmore king hits Serond.
 
 >You hit Longmore king.
 The swamp monster slowly melts into the marsh. It then dissapears.
@@ -705,7 +700,6 @@ will take you along a path.
 There is an eagle above you circling around your head.
 
 Serond follows you from the west.
-Eagle hits you, but it doesn't seem to do any damage.
 
 >You hit Eagle.
 The eagle makes a last flap of it's enormous wings and falls deep into the
@@ -755,7 +749,7 @@ This long path threads through the mountains east or to a junction southwest.
 There is a Narn here.
 
 Serond follows you from the south-west.
-Kerfald hits you, but it doesn't seem to do any damage.
+Kerfald hits Serond.
 
 >You move east.
 Thin mountain path
@@ -824,6 +818,7 @@ the path. West will take you towards the bridge. Northeast will take you
 further up the mountain.
 
 Serond follows you from the west.
+You get up and start walking again.
 
 >You move northeast.
 Uron Dark Path
@@ -833,8 +828,8 @@ take you up the mountain.
 There is a large Narn here.
 
 Serond follows you from the south-west.
-You get up and start walking again.
 Serond hits Karurn.
+Karurn hits Serond.
 
 >You move northwest.
 Uron Dark Path
@@ -883,10 +878,10 @@ A knight catches up to you and smiles. Clearing his throat he says:
 have brought a gift from Natalya."
 Haron hands you a phial.
 Serond hits Larnt.
+Haron hits Larnt.
+Larnt hits you.
 
 >You hit Larnt.
-Serond hits Larnt.
-Haron hits Larnt.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1029,19 +1024,16 @@ Serond follows you.
 
 Haron follows you.
 Serond hits Urgorn.
+Haron hits Urgorn.
+
+>You hit Urgorn.
+Serond hits Urgorn.
 
 >You hit Urgorn.
 Haron hits Urgorn.
-Urgorn hits Serond.
-Serond drops to the floor and as he looks you in the eye, he whispers: "Good
-Luck" His body then magically dissapears.
+Urgorn hits you.
 
 >You hit Urgorn.
-
-Serond follows you.
-
->You hit Urgorn.
-Haron hits Urgorn.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the
