@@ -88,6 +88,13 @@ CONFIGS = {
     npcs=[("Aly",0,1,250,3,3,50,50,0,0,0,0,0,0),
           ("Foe",0,2,250,5,5,50,50,0,0,0,0,0,0),
           ("Bystander",0,0,250,7,7,50,50,0,0,0,0,0,0)]),
+ # Throw-drop probe (settled live 2026-08-01): a method-5 throw moves the
+ # weapon to the room and deals base-Strength-only damage (HitValue ignored).
+ 'TD': dict(name="Probe TD",
+    player=(200,10,10,60,60,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","spear",1,1,0,5,5,0,0)],
+    npcs=[("Robot",0,2,250,0,1,0,0,0,0,0,0,0,0)]),
  'RC': dict(name="Probe RC",
     player=(200,10,10,60,60,0,0,0,0,3),
     rooms=[("Test Arena","A bare arena.",{1:1}),

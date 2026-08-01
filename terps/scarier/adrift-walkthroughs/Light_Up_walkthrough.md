@@ -93,9 +93,13 @@ appears, then wait for the trial to resolve. Getting a trial wrong = death.
   `green in yellow` → `yellow in orange` → `orange in red`, then `shout`
   (**+3**). Wrong order = death.
 - **Cell 6 – Chip.** A **green box** holds a real lighter (the weapon).
-  `open green box`, `take lighter`, then `attack chip` twice (**+5**). The
-  lighter is *thrown*, so `take lighter` between swings (here Chip dies in two
-  hits because the lighter boosts your Strength/Accuracy).
+  `open green box`, `take lighter`, then alternate `attack chip` / `take
+  lighter` — the lighter is *thrown* and lands on the floor each time, and
+  (per the real Runner, ported 2026-08-01) a thrown weapon's HitValue does
+  **not** add to damage, so every attack deals base Strength only and Chip
+  takes **six** attacks (**+5** when he falls). The lighter still matters:
+  its Accuracy bonus makes the throws actually land. Don't worry about
+  losing it to the chapter transition — the game hands it back in Chapter 4.
 
 ## Chapter 4 — The Death (combat gauntlet)
 
@@ -108,12 +112,19 @@ fight among themselves**, so the counter climbs even from kills you didn't land.
 
 Route (counting enemies in brackets): 24 →`north`→ 25 *(Ozgat)* →`east`→ 26
 *(Riven)* →`north`→ 28 *(Ozgat, Riven)*; detour `east` to 27 to
-`take double-lighter` (a stronger weapon) then `west` back; →`west`→ 29 *(two
-Rivens)* →`north`→ 30 →`north`→ 31 *(Higher)* →`northeast`→ 32 *(Ozgat, Higher,
-Riven)*. In each room hammer `attack ozgat` / `attack riven` / `attack higher`,
-`take lighter` between swings, and `rest` when stamina dips. The fight is
-RNG‑driven but deterministic under the harness seed; the banked solution clears
-the ten and pops **+15** → **Chapter Five**.
+`take double-lighter` (better Accuracy — damage is base Strength regardless,
+since throws ignore HitValue) then `west` back; →`west`→ 29 *(two Rivens)*
+→`north`→ 30 →`north`→ 31 *(Higher)* →`northeast`→ 32 *(Ozgat, Higher,
+Riven)*. In each room hammer `attack <enemy>` with `take lighter` /
+`take double-lighter` between swings to recover the thrown weapon — attacks
+on a dead or absent enemy are free no-turn parse errors, so the banked route
+uses generous fixed blocks. (`rest` is NOT actually understood by the game —
+"I don't understand what you mean." — it was dead weight in the old route;
+survival comes from Defence 30-35 and the crew soaking attacks.) The fight is
+RNG‑driven but deterministic under the harness seed; the banked solution
+(re-derived 2026-08-01 for the ported throw-drop mechanics, 582 commands,
+one look-pad before room 32 to dodge a fatal target-pick streak) clears the
+ten and pops **+15** → **Chapter Five**.
 
 **Tip / difficulty:** type **`hard`** once in this chapter for **+15** to your
 score (it trims your max stamina but you still survive, because the enemies

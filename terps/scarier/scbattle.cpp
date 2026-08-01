@@ -915,9 +915,8 @@ static const scr_char *const BATTLE_METHOD_VERBS[6]
  * blaster.", "You throw the knife at Robot."), an armed miss is "<npc> manages
  * to avoid your attack with <weapon>." / "<npc> attacks you with <weapon>,
  * but you manage to avoid it.", and bare hands keep the plain "hit"/"avoid
- * <x>'s attack" forms.  The Runner also drops a thrown (method 5) weapon into
- * the room; that mechanical effect is deliberately not ported (see
- * RUNNER_TESTS_TODO.md).
+ * <x>'s attack" forms.  A landed player throw also drops the weapon in the
+ * room (see the comment in the hit branch below).
  */
 static void
 battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
@@ -935,7 +934,23 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
       || battle_eff_accuracy (game, attacker, weapon)
          > battle_eff_agility (game, target))
     {
-      scr_int damage = battle_eff_strength (game, attacker, weapon)
+      /*
+       * A landed player throw (method 5) leaves the weapon behind, in BOTH
+       * Runners (settled live 2026-08-01, probes pTD/p39td): it lands in the
+       * player's room and the wielded ref is cleared.  run400 clears the ref
+       * *before* the damage roll (Battles.bas loc_45E457), so a 4.0 throw
+       * deals base strength only -- the weapon's HitValue never contributes.
+       * run390 one-shots the same probe: 3.9 adds HitValue regardless of
+       * method (its usual rule), so only the 4.0 half excludes the weapon
+       * from the strength roll.  The weapon's Accuracy still applies to the
+       * hit test above, and a *missed* throw keeps the weapon (decompile:
+       * the move is inside the hit branch only).  NPC throws neither drop
+       * nor lose HitValue (Proc_11_2 has no equivalent of either).
+       */
+      const scr_bool player_throw = (method == 5 && attacker < 0);
+      scr_int damage = battle_eff_strength (game, attacker,
+                                            (player_throw && !battle_legacy)
+                                                ? -1 : weapon)
                       - battle_eff_defence (game, target);
 
       if (visible)
@@ -965,6 +980,11 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
               pf_buffer_string (filter, (attacker < 0) ? " hit " : " hits ");
               battle_print_combatant (game, target, 1);
             }
+        }
+      if (player_throw)
+        {
+          gs_object_to_room (game, weapon, gs_playerroom (game));
+          gs_set_playerwield (game, -1);
         }
       if (damage > 0)
         {

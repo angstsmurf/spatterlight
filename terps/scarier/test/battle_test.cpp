@@ -12,12 +12,13 @@
  *   player : Strength 10, Accuracy 60, Defense 5, Agility 5, Stamina 100
  *   Robot  : enemy, Strength 8, Accuracy 10, Defense 3, Agility 4, Stamina 100
  *   blaster: shoot weapon (Method 3, replaces strength), HitValue 30, Acc 20
- *   rock   : throw weapon (Method 5, adds HitValue),     HitValue 12, Acc 10
+ *   rock   : throw weapon (Method 5, drops + Str-only),  HitValue 12, Acc 10
  *   vest   : worn armour, ProtectionValue 5 (not a weapon)
  *
  * Checks:
  *   1. shoot replaces strength : eff_str = 30  -> 30-3 = 27 damage/hit
- *   2. throw adds HitValue      : eff_str = 10+12 = 22 -> 22-3 = 19 damage/hit
+ *   2. throw ignores HitValue and lands in the room (run400, settled live
+ *      2026-08-01): eff_str = 10 -> 10-3 = 7 damage, rock leaves inventory
  *   3. worn armour adds to defence: Robot's 8-str blow vs Def 5 + vest 5 = 10
  *      is fully absorbed (0 damage); removing the vest lets 8-5 = 3 through.
  *
@@ -112,12 +113,15 @@ main (int argc, char **argv)
   after = gs_npc_stamina (game, robot);
   check ("shoot blaster damage (replace)", before - after, 27);
 
-  /* 2. throw weapon adds HitValue: 10 + 12 - Def(3) = 19 damage. */
+  /* 2. A landed throw deals base strength only (HitValue never contributes
+   *    in 4.0: 10 - Def(3) = 7) and the weapon lands in the player's room. */
   gs_set_npc_stamina (game, robot, 100);
   before = gs_npc_stamina (game, robot);
   battle_player_attack (game, robot, rock);
   after = gs_npc_stamina (game, robot);
-  check ("throw rock damage (add)", before - after, 19);
+  check ("throw rock damage (Str only)", before - after, 7);
+  check ("thrown rock lands in the room",
+         gs_object_position (game, rock), gs_playerroom (game) + 1);
 
   /* 3a. With the vest worn, the Robot's blow (Str 8) vs Def 5 + armour 5 = 10
    *     is fully absorbed.  Robot has Speed 0 so it strikes every tick. */

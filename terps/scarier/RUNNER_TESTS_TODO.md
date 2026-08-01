@@ -200,10 +200,25 @@ Surface facts learned on the way (all consistent between engines unless noted):
   against these full sentences — the old generic wording only half-matched
   ("Vous frappez  demon."), the ported wording translates cleanly ("Vous
   tranchez un démon avec une épée longue.").  20 goldens re-blessed (battle
-  flavour only; all win markers intact).  NOT ported: the Runner also moves
-  a player-thrown (method 5) weapon into the room (Battles.bas
-  `loc_45E468`) and appears to adjust an accuracy counter around it —
-  mechanical, decompile partially garbled there; probe before adopting.
+  flavour only; all win markers intact).  **Throw (method 5) mechanics,
+  settled live AND ported 2026-08-01** (probes `pTD` in run400, `p39td` in
+  run390 — both via `make_arena_probe.py`/`make_39_probe.py` variants): a
+  landed player throw **moves the weapon to the current room in BOTH
+  Runners** ("Player is carrying nothing." / look: "Also here is a spear.";
+  `get` → throw again works), and its damage is version-split: **run400
+  deals base Strength only — HitValue never contributes** (10 observed, not
+  15; Battles.bas clears the wielded ref `global_78 = &HFF` at
+  `loc_45E457` *before* the damage roll), while **run390 adds HitValue as
+  usual** (one-shots a 35-stamina robot with Str 10 + HitValue 30 — its
+  regardless-of-method rule).  No persistent accuracy penalty (status
+  Accuracy 60→60 after throwing); a weaponless `attack` does NOT pick a
+  floor weapon back up; a *missed* throw keeps the weapon (decompile: the
+  move is inside the hit branch only, unprobed live); NPC throws neither
+  drop nor lose HitValue (Proc_11_2 has no equivalent).  Ported into
+  `battle_resolve` (drop un-gated, Str-only gated on `!battle_legacy`);
+  `light_up` was the one corpus casualty — its Chip fight and Death
+  gauntlet were re-derived (582-command route, still 73 pts + THE END) and
+  its golden re-blessed.
   The `status` "wielding" line still diverges: Scarier names the would-be
   default weapon where the Runner shows "wielding nothing" until an attack;
   matching it needs the open wield/unwield surface probes below (does the
@@ -431,7 +446,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
 | Battle messages | second person ("you"/"your") | run400 uses player's name with 2nd-person verb forms ("Player manage to avoid…"); run390 uses second person | Presentational only; "you" kept (matches run390). Method-verb weapon narration **ported 2026-08-01**, verified live in BOTH Runners; noted §1 surface facts. |
 | Battle-start wield | no auto-wield; per-attack default weapon (Runner model) | wields nothing; auto-selects held weapon per `attack` | Mechanics match; only the `status` "wielding" line still diverges (see §1 surface facts). |
-| Thrown (method 5) weapon | stays in inventory | moves to the room on a player throw (`Battles.bas loc_45E468`) | **Unported mechanical divergence**; decompile partially garbled around it — probe before adopting. |
+| Thrown (method 5) weapon | drop + version-split damage ported | moves to the room on a player throw in BOTH Runners; damage = Str-only in run400 (HitValue ignored), Str+HitValue in run390 | **Confirmed live in both Runners and PORTED 2026-08-01** (probes `pTD`/`p39td`; see §1 surface facts). `light_up` route re-derived. |
 | Enemy target selection | was pinned to one target per session (LCG low-bit + `% range`) | uniform per-turn pick among ally/player | **Fixed 2026-08-01** (`scr_randomint` multiply-shift); corpus re-blessed. |
 | Event TaskAffected execution | version-gated: 3.9 = matcher dispatch (wildcard steal, silent restricted skip), 4.0 = direct run (loud FailMessage) | run390 and run400 genuinely differ — same converted probe, opposite behavior | **Fixed 2026-08-01** (§2); both halves verified live. |
 | Named `drop` of a worn item | implicitly removes then drops (named only; `drop all` skips worn) | same, in BOTH Runners | **Fixed 2026-08-01** (`lib_drop_named_filter`). |

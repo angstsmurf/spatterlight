@@ -1546,7 +1546,28 @@ Chip hits you, but it doesn't seem to do any damage.
 >You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
->I've already got the lighter!
+>I pick up the lighter.
+
+>You throw the lighter at Chip.
+Chip hits you.
+
+>I pick up the lighter.
+
+>You throw the lighter at Chip.
+Chip hits you, but it doesn't seem to do any damage.
+
+>I pick up the lighter.
+
+>You throw the lighter at Chip.
+Chip hits you.
+
+>I pick up the lighter.
+Chip hits you, but it doesn't seem to do any damage.
+
+>You throw the lighter at Chip.
+
+>I pick up the lighter.
+Chip hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 5)
 You throw the lighter at Chip.
@@ -1606,27 +1627,15 @@ same...but everything is so different. It is not clear where I can go.
 
 Lina, Scotty, Tippant and Donna are here.
 
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
 My skin gets unusually warm for a second. It feels like it's burning.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->
->
->
->
->
->
->
->
->
 >(Your score has increased by 15)
 Hard difficulty level selected.
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
 
 >I move north.
 The Death
@@ -1636,78 +1645,57 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 An ozgat is here.
-Ozgat hits Tippant.
-Scotty hits Ozgat.
-Tippant hits Ozgat, but it doesn't seem to do any damage.
-Donna hits Ozgat.
-Ozgat manages to avoid Chip's attack.
-
->You throw the lighter at Ozgat.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-Ozgat hits Scotty.
-Lina hits Ozgat.
-Scotty hits Ozgat, but it doesn't seem to do any damage.
-Ozgat manages to avoid Chip's attack.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-Scotty manages to avoid Ozgat's attack.
-Lina hits Ozgat.
-Scotty hits Ozgat.
-Ozgat manages to avoid Donna's attack.
-Ozgat manages to avoid Chip's attack.
-
->You throw the lighter at Ozgat.
-
-The ozgat explodes, flinging sharp metal fragments at my party. Everyone
-suffers damage.
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+Ozgat hits Donna.
+Lina hits Ozgat.
+Scotty hits Ozgat, but it doesn't seem to do any damage.
+Tippant hits Ozgat.
+Donna hits Ozgat.
+
+>You throw the lighter at Ozgat.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Ozgat hits you.
+Scotty hits Ozgat, but it doesn't seem to do any damage.
+Chip hits Ozgat.
+
+>I pick up the lighter.
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+Ozgat hits Donna.
+Lina hits Ozgat.
+Scotty hits Ozgat, but it doesn't seem to do any damage.
+Donna hits Ozgat.
+
+>You throw the lighter at Ozgat.
+Ozgat hits Donna.
+Lina hits Ozgat.
+Scotty hits Ozgat, but it doesn't seem to do any damage.
+Ozgat manages to avoid Chip's attack.
+
+>I pick up the lighter.
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
+Ozgat hits Chip.
+Scotty hits Ozgat.
+
+The ozgat explodes, flinging sharp metal fragments at my party. Everyone
+suffers damage.
+
+>I don't understand what you mean.
+
+>I've already got the lighter!
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
@@ -1715,17 +1703,16 @@ desperation and I stand up.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the lighter!
 
->I don't understand what you mean.
+The sound of knives scraping against glass reverberate across the landscape.
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
 
 >I don't understand what you mean.
 
 >I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
 
 >I don't understand what you mean.
 
@@ -1736,25 +1723,10 @@ toothpicks are trying to make their way into my body.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
 >I've already got the lighter!
 
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -1764,74 +1736,6 @@ My skin gets unusually warm for a second. It feels like it's burning.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
-Thick fog envelopes me and my surroundings. My vision is obscured for a short
-time...and then the smoke vanishes, and everything before me is clearer than
-before...with a plastic gloss.
-
-It thunders in the distance. Streaks of green lightning are in the sky.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
 
 >I don't understand what you mean.
 
@@ -1848,57 +1752,77 @@ A riven is here.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
 Lina hits Riven.
 Scotty hits Riven.
 Riven manages to avoid Chip's attack.
 
->I don't understand what you mean.
-
 >You throw the lighter at Riven.
+Scotty hits Riven, but it doesn't seem to do any damage.
+Tippant hits Riven.
+Riven manages to avoid Donna's attack.
+Chip hits Riven.
+Chip manages to avoid Riven's attack.
 
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-Scotty hits Riven.
-Donna hits Riven.
-Riven manages to avoid Chip's attack.
-Lina manages to avoid Riven's attack.
-
->I don't understand what you mean.
-
->I've already got the lighter!
+>I pick up the lighter.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 Lina hits Riven.
 Scotty hits Riven.
-
->I don't understand what you mean.
+Chip hits Riven, but it doesn't seem to do any damage.
 
 >You throw the lighter at Riven.
 
-The riven falls to the ground, defeated. The surface of the earth absorbs its
-body, and soon there is no trace of it.
+Thick fog envelopes me and my surroundings. My vision is obscured for a short
+time...and then the smoke vanishes, and everything before me is clearer than
+before...with a plastic gloss.
 
->I don't understand what you mean.
+It thunders in the distance. Streaks of green lightning are in the sky.
+Scotty hits Riven.
+Donna hits Riven, but it doesn't seem to do any damage.
+Riven hits Tippant.
 
->I've already got the lighter!
+>I pick up the lighter.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
->I don't understand what you mean.
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Lina hits Riven.
+Scotty hits Riven.
+Riven manages to avoid Chip's attack.
 
->I don't understand what you mean.
+>You throw the lighter at Riven.
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+Scotty hits Riven.
+
+The riven falls to the ground, defeated. The surface of the earth absorbs its
+body, and soon there is no trace of it.
+
+>I pick up the lighter.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
 
 >I don't understand what you mean.
 
 >I've already got the lighter!
 
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
+>I don't understand what you mean.
+
+>I've already got the lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -1906,45 +1830,6 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
 >I don't understand what you mean.
 
 >I've already got the lighter!
@@ -1952,95 +1837,21 @@ sand-like nature. I barely avoid it.
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
 >I don't understand what you mean.
 
 >I've already got the lighter!
 
-Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
-the ground long enough for it to calm to a breeze.
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
 
 >I don't understand what you mean.
 
 >I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Thick fog envelopes me and my surroundings. My vision is obscured for a short
-time...and then the smoke vanishes, and everything before me is clearer than
-before...with a plastic gloss.
-
-It thunders in the distance. Streaks of green lightning are in the sky.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
 
 >I move north.
 The Death
@@ -2051,180 +1862,128 @@ sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 An ozgat is here.  A riven is here.
 
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
-I do not feel the ground underneath me. I look down and see that I am
-floating. I am lifted almost two meters off of the ground before I stop
-floating and go crashing to the ground.
-
-My skin gets unusually warm for a second. It feels like it's burning.
-Lina hits Ozgat.
-Scotty hits Ozgat.
-Donna hits Ozgat, but it doesn't seem to do any damage.
-Chip hits Riven.
-Ozgat hits Donna.
-Riven hits Chip.
-
->You throw the lighter at Ozgat.
-Lina hits Riven.
-Scotty hits Ozgat.
-Scotty manages to avoid Ozgat's attack.
-
->You throw the lighter at Riven.
-
-The sound of knives scraping against glass reverberate across the landscape.
-Scotty hits Riven.
-Tippant hits Riven.
-Donna hits Riven, but it doesn't seem to do any damage.
-Chip hits Riven, but it doesn't seem to do any damage.
-Ozgat hits Tippant.
-Riven hits Tippant.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
-Lina hits Ozgat.
-Scotty hits Riven, but it doesn't seem to do any damage.
+Lina hits Riven.
+Scotty hits Ozgat.
 Ozgat hits Chip.
 
 >You throw the lighter at Ozgat.
 
-The ozgat explodes, flinging sharp metal fragments at my party. Everyone
-suffers damage.
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
 Lina hits Riven.
+Scotty hits Ozgat.
+Ozgat manages to avoid Tippant's attack.
+Riven manages to avoid Donna's attack.
+Ozgat manages to avoid Chip's attack.
+Scotty manages to avoid Ozgat's attack.
+Scotty manages to avoid Riven's attack.
 
-The riven falls to the ground, defeated. The surface of the earth absorbs its
-body, and soon there is no trace of it.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
+>I pick up the lighter.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
->I don't understand what you mean.
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Lina hits Ozgat.
+Scotty hits Ozgat.
+Chip hits Riven, but it doesn't seem to do any damage.
+Ozgat hits Lina.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
+>You throw the lighter at Riven.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
+Scotty hits Ozgat.
+Ozgat manages to avoid Donna's attack.
+Ozgat manages to avoid Chip's attack.
+Ozgat hits Tippant.
+Riven hits Lina.
 
->I don't understand what you mean.
+>I pick up the lighter.
+Lina hits Riven.
+Scotty hits Ozgat.
+Chip hits Riven.
+Ozgat hits Tippant.
 
->I don't understand what you mean.
+>You throw the lighter at Ozgat.
 
->I don't understand what you mean.
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+Lina hits Ozgat.
+Scotty hits Ozgat.
+Tippant hits Riven.
+Riven manages to avoid Donna's attack.
+Riven manages to avoid Chip's attack.
+Ozgat hits Chip.
+Riven hits Tippant.
 
->I've already got the lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
+>I pick up the lighter.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
 floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
+Scotty hits Riven.
+Ozgat manages to avoid Chip's attack.
+Ozgat hits Lina.
 
->I don't understand what you mean.
+>You throw the lighter at Riven.
 
->I don't understand what you mean.
+The sound of knives scraping against glass reverberate across the landscape.
 
->I don't understand what you mean.
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+Lina hits Ozgat.
 
->I don't understand what you mean.
+The ozgat explodes, flinging sharp metal fragments at my party. Everyone
+suffers damage.
+Scotty hits Riven, but it doesn't seem to do any damage.
+Riven manages to avoid Donna's attack.
+Riven manages to avoid Chip's attack.
+Riven hits Donna.
 
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
+>I pick up the lighter.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
 before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
+Scotty hits Riven, but it doesn't seem to do any damage.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the lighter!
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Lina hits Riven.
+Scotty hits Riven.
+Riven manages to avoid Tippant's attack.
+Riven manages to avoid Donna's attack.
+Chip hits Riven, but it doesn't seem to do any damage.
+Riven hits Donna.
+
+>You throw the lighter at Riven.
+
+The riven falls to the ground, defeated. The surface of the earth absorbs its
+body, and soon there is no trace of it.
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+>I pick up the lighter.
 
 >I don't understand what you mean.
 
@@ -2235,7 +1994,14 @@ sand-like nature. I barely avoid it.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the lighter!
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
 
 >I don't understand what you mean.
 
@@ -2244,28 +2010,59 @@ sand-like nature. I barely avoid it.
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
 >I don't understand what you mean.
 
 >I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
 
 >I don't understand what you mean.
 
 >I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+>I don't understand what you mean.
+
+>I've already got the lighter!
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
+
+>I don't understand what you mean.
+
+>I've already got the lighter!
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
+
+>I don't understand what you mean.
+
+>I've already got the lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+>I don't understand what you mean.
+
+>I've already got the lighter!
+
+>I don't understand what you mean.
+
+>I've already got the lighter!
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
 
 >I move east.
 The Death
@@ -2277,25 +2074,19 @@ same...but everything is so different. It is not clear where I can go.
 
 Also here is a double-lighter.
 
+>I pick up the double-lighter.
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
+Thick fog envelopes me and my surroundings. My vision is obscured for a short
+time...and then the smoke vanishes, and everything before me is clearer than
+before...with a plastic gloss.
 
->I pick up the double-lighter.
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-
->I am now wielding the double-lighter.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
+It thunders in the distance. Streaks of green lightning are in the sky.
 
 >I move west.
 The Death
@@ -2307,25 +2098,182 @@ same...but everything is so different. It is not clear where I can go.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
 
->I don't understand what you mean.
+The sound of knives scraping against glass reverberate across the landscape.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
 
 >I've already got the lighter!
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+>I've already got the lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
 
 >I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
+
+>I've already got the lighter!
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+
+>I've already got the lighter!
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
+
+>I've already got the lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+>I've already got the lighter!
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
 
 >I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Thick fog envelopes me and my surroundings. My vision is obscured for a short
+time...and then the smoke vanishes, and everything before me is clearer than
+before...with a plastic gloss.
+
+It thunders in the distance. Streaks of green lightning are in the sky.
+
+>I've already got the lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+>I've already got the lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+>I've already got the lighter!
+
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
+
+>I've already got the lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+>I've already got the lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+>I've already got the lighter!
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -2338,56 +2286,31 @@ the ground long enough for it to calm to a breeze.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
+>I've already got the double-lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
->I don't understand what you mean.
+>I've already got the lighter!
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
 
 >I've already got the lighter!
 
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
 
->I don't understand what you mean.
-
->I've already got the lighter!
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -2395,95 +2318,7 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
 >I've already got the lighter!
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-I do not feel the ground underneath me. I look down and see that I am
-floating. I am lifted almost two meters off of the ground before I stop
-floating and go crashing to the ground.
-
-My skin gets unusually warm for a second. It feels like it's burning.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
 
 >I move west.
 The Death
@@ -2495,95 +2330,131 @@ same...but everything is so different. It is not clear where I can go.
 
 Red Riven and Blue Riven are here.
 
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
+The sound of knives scraping against glass reverberate across the landscape.
 
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-Scotty hits Blue Riven.
-Blue Riven manages to avoid Donna's attack.
-Blue Riven manages to avoid Chip's attack.
-Chip manages to avoid Red Riven's attack.
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Scotty hits Red Riven.
+Tippant hits Blue Riven.
+Donna hits Red Riven, but it doesn't seem to do any damage.
+Lina manages to avoid Red Riven's attack.
 Lina manages to avoid Blue Riven's attack.
-
->I don't understand what you mean.
 
 >Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
 Lina hits Blue Riven.
 Scotty hits Red Riven.
-Red Riven manages to avoid Chip's attack.
+Chip hits Blue Riven.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+Scotty hits Blue Riven.
+Blue Riven manages to avoid Donna's attack.
+Red Riven hits Tippant.
+Blue Riven hits Donna.
+
+>I've already got the lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+Lina hits Blue Riven.
+Scotty hits Blue Riven.
+Chip hits Red Riven, but it doesn't seem to do any damage.
+
+>Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
+Scotty hits Blue Riven.
+Blue Riven manages to avoid Tippant's attack.
+Donna hits Blue Riven.
+
+The riven falls to the ground, defeated. The surface of the earth absorbs its
+body, and soon there is no trace of it.
+Chip manages to avoid Red Riven's attack.
+
+>I've already got the double-lighter!
+Lina hits Red Riven.
+Scotty hits Red Riven, but it doesn't seem to do any damage.
+Red Riven manages to avoid Chip's attack.
 
 >I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
-Lina hits Blue Riven.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Lina hits Red Riven.
+Scotty hits Red Riven.
+Red Riven manages to avoid Donna's attack.
+Chip hits Red Riven.
+Donna manages to avoid Red Riven's attack.
+
+>You throw the double-lighter at Red Riven, but it doesn't seem to do any
+damage.
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
 Scotty hits Red Riven, but it doesn't seem to do any damage.
-Tippant hits Blue Riven, but it doesn't seem to do any damage.
-Donna hits Blue Riven.
-Blue Riven manages to avoid Chip's attack.
-Scotty manages to avoid Red Riven's attack.
-Blue Riven hits Chip.
+Red Riven manages to avoid Chip's attack.
 
->I don't understand what you mean.
+>I pick up the double-lighter.
 
->Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-Scotty hits Blue Riven, but it doesn't seem to do any damage.
-Chip hits Blue Riven, but it doesn't seem to do any damage.
-
->I don't understand what you mean.
+The sound of knives scraping against glass reverberate across the landscape.
+Lina hits Red Riven.
+Scotty hits Red Riven.
+Tippant hits Red Riven.
+Donna hits Red Riven.
+Red Riven hits Chip.
 
 >I've already got the lighter!
 
-The sound of knives scraping against glass reverberate across the landscape.
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
+Lina hits Red Riven.
+Scotty hits Red Riven.
+Red Riven manages to avoid Chip's attack.
+
+>You throw the double-lighter at Red Riven.
+
+The riven falls to the ground, defeated. The surface of the earth absorbs its
+body, and soon there is no trace of it.
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
-Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
-the ground long enough for it to calm to a breeze.
-Lina hits Red Riven.
-Scotty hits Red Riven, but it doesn't seem to do any damage.
-Donna hits Blue Riven, but it doesn't seem to do any damage.
-Chip hits Blue Riven.
-Scotty manages to avoid Red Riven's attack.
-Donna manages to avoid Blue Riven's attack.
-
->I don't understand what you mean.
-
->Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
-Lina hits Blue Riven.
-Scotty hits Blue Riven.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-Scotty hits Red Riven, but it doesn't seem to do any damage.
-Tippant hits Red Riven.
-Donna hits Blue Riven.
-Red Riven manages to avoid Chip's attack.
-Red Riven hits Chip.
-Blue Riven hits Donna.
-
->I don't understand what you mean.
-
->Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
+>I pick up the double-lighter.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
-Lina hits Blue Riven.
-Scotty hits Red Riven, but it doesn't seem to do any damage.
+>I've already got the lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
 
 >I don't understand what you mean.
+
+>I've already got the double-lighter!
 
 >I've already got the lighter!
 
@@ -2592,150 +2463,53 @@ floating. I am lifted almost two meters off of the ground before I stop
 floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
-Lina hits Red Riven.
-Scotty hits Blue Riven.
-Donna hits Red Riven.
-Red Riven manages to avoid Chip's attack.
-Lina manages to avoid Red Riven's attack.
-Blue Riven hits Tippant.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
 before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
-Lina hits Red Riven.
-Scotty hits Blue Riven.
-
-The riven falls to the ground, defeated. The surface of the earth absorbs its
-body, and soon there is no trace of it.
-Red Riven manages to avoid Chip's attack.
 
 >I don't understand what you mean.
 
->I've already got the lighter!
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-Lina hits Red Riven.
-
-The riven falls to the ground, defeated. The surface of the earth absorbs its
-body, and soon there is no trace of it.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
+>I've already got the double-lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
 >I've already got the lighter!
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-The sound of knives scraping against glass reverberate across the landscape.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
-
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
 
->I don't understand what you mean.
+The sound of knives scraping against glass reverberate across the landscape.
 
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
 
 >I've already got the lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
-I do not feel the ground underneath me. I look down and see that I am
-floating. I am lifted almost two meters off of the ground before I stop
-floating and go crashing to the ground.
-
-My skin gets unusually warm for a second. It feels like it's burning.
-
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
 
->I don't understand what you mean.
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
 
 >I've already got the lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
 
 >I move north.
 The Death
@@ -2745,8 +2519,9 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
 
 >I move north.
 The Death
@@ -2756,97 +2531,30 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 I feel a presence. A higher is here.
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
-Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
-the ground long enough for it to calm to a breeze.
-Scotty hits Higher, but it doesn't seem to do any damage.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->You throw the double-lighter at Higher.
-
-The sound of knives scraping against glass reverberate across the landscape.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-Chip hits Higher, but it doesn't seem to do any damage.
-Scotty manages to avoid Higher's attack.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
 Lina hits Higher.
 Scotty hits Higher.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->You throw the double-lighter at Higher.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher.
 Chip hits Higher.
 
->I've already got the lighter!
+>You throw the double-lighter at Higher.
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+Scotty hits Higher, but it doesn't seem to do any damage.
+
+>I pick up the double-lighter.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
 Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
+Scotty hits Higher.
+Tippant hits Higher.
+Donna hits Higher.
 Chip hits Higher.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->You throw the double-lighter at Higher.
-
-I no longer detect the Higher's presence.
-
-Thick fog envelopes me and my surroundings. My vision is obscured for a short
-time...and then the smoke vanishes, and everything before me is clearer than
-before...with a plastic gloss.
-
-It thunders in the distance. Streaks of green lightning are in the sky.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
+Higher hits Chip.
 
 >I've already got the lighter!
 
@@ -2857,58 +2565,121 @@ floating. I am lifted almost two meters off of the ground before I stop
 floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
+Scotty hits Higher.
+Chip hits Higher.
+
+>You throw the double-lighter at Higher.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+Lina hits Higher.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher, but it doesn't seem to do any damage.
+
+>I pick up the double-lighter.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Chip hits Higher, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+Lina hits Higher.
+Scotty hits Higher.
+Tippant hits Higher.
+Donna hits Higher, but it doesn't seem to do any damage.
+Chip hits Higher.
+Higher hits Chip.
+
+Chip begins coughing...hard. Chunks of blood and flesh come out of his mouth.
+
+"Not like this...please," he mutters.
+
+There is a flash and a loud boom, and then I see Chip's body. It crumples to
+the ground. His head is nowhere in sight.
+
+>You throw the double-lighter at Higher.
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+Thick fog envelopes me and my surroundings. My vision is obscured for a short
+time...and then the smoke vanishes, and everything before me is clearer than
+before...with a plastic gloss.
+
+It thunders in the distance. Streaks of green lightning are in the sky.
+Scotty hits Higher, but it doesn't seem to do any damage.
+
+>I pick up the double-lighter.
+Lina hits Higher.
+Scotty hits Higher.
+Donna hits Higher.
+
+>I've already got the lighter!
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Scotty hits Higher.
+
+>You throw the double-lighter at Higher.
+
+I no longer detect the Higher's presence.
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+
+>I pick up the double-lighter.
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+
+>I've already got the lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
 
->I don't understand what you mean.
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
 
 >I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
+>I've already got the double-lighter!
+
+>I've already got the lighter!
 
 >I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
 
 >I've already got the lighter!
 
@@ -2917,52 +2688,34 @@ is spreading all over my body.
 
 >I don't understand what you mean.
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I've already got the lighter!
+>I've already got the double-lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
+
+>I've already got the lighter!
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+>
+The Death
+Blue rays or light illuminate the landscape from underneath me. Above, a
+couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
+bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
+sand-like consistency, but is hardened at places. Everywhere looks the
+same...but everything is so different. It is not clear where I can go.
+
+Lina, Scotty, Tippant, Donna and Chip are here.
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
 
 >I move northeast.
 The Death
@@ -2975,51 +2728,19 @@ An ozgat is here.  A higher is here.  A riven is here.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
-
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-
-I do not feel the ground underneath me. I look down and see that I am
-floating. I am lifted almost two meters off of the ground before I stop
-floating and go crashing to the ground.
-
-My skin gets unusually warm for a second. It feels like it's burning.
-Scotty hits Riven.
-Chip hits Riven, but it doesn't seem to do any damage.
-Ozgat hits Tippant.
+Lina hits Riven.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Tippant hits Riven.
+Donna hits Riven, but it doesn't seem to do any damage.
+Ozgat hits you.
+Higher hits Scotty.
+Donna manages to avoid Riven's attack.
 
 >You throw the double-lighter at Ozgat.
-Lina hits Higher.
 Scotty hits Ozgat.
-Riven manages to avoid Donna's attack.
-Ozgat manages to avoid Chip's attack.
-Ozgat hits you.
-Riven hits Tippant.
-
->You throw the double-lighter at Riven.
-
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
-Lina hits Ozgat.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Chip hits Ozgat.
 Ozgat hits you.
 
->You throw the double-lighter at Higher.
-Scotty hits Ozgat, but it doesn't seem to do any damage.
-Ozgat manages to avoid Tippant's attack.
-Riven manages to avoid Donna's attack.
-Ozgat hits Donna.
-Scotty manages to avoid Higher's attack.
-Riven hits Tippant.
-
->I've already got the lighter!
-
-Everything goes silent for a moment. Then it all the noise comes rushing
-back, louder than ever.
-
-Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
-is spreading all over my body.
+>I pick up the double-lighter.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -3027,76 +2748,243 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Ozgat manages to avoid Chip's attack.
-Ozgat hits Donna.
-
->You throw the double-lighter at Ozgat.
-
-The ozgat explodes, flinging sharp metal fragments at my party. Everyone
-suffers damage.
-Lina hits Riven.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
-Lina manages to avoid Riven's attack.
-
->You throw the double-lighter at Riven.
-
-The sound of knives scraping against glass reverberate across the landscape.
-
-Bits of ice barrage me from the side. It feels like a thousand tiny
-toothpicks are trying to make their way into my body.
-
-I hear a popping noise, and suddenly all the air is sucked from my lungs. I
-drop to the ground, clutching at my neck. The air returns after seconds of
-desperation and I stand up.
-Lina hits Higher.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Riven manages to avoid Chip's attack.
-
->You throw the double-lighter at Higher.
-
-Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
-engine is right next to me.
-Lina hits Riven.
-Scotty hits Higher.
-Riven manages to avoid Tippant's attack.
-Donna hits Riven, but it doesn't seem to do any damage.
-Chip hits Riven.
-You manage to avoid Higher's attack.
-Lina manages to avoid Riven's attack.
+Scotty hits Ozgat.
+Riven manages to avoid Donna's attack.
+Scotty manages to avoid Ozgat's attack.
+Riven hits Lina.
 
 >I've already got the lighter!
 
-The ground in front of me drops out, creating a swirling vortex of a
-sand-like nature. I barely avoid it.
-Lina hits Riven.
-Scotty hits Riven.
-
->I don't understand what you mean.
-
->You throw the double-lighter at Riven.
-
-The riven falls to the ground, defeated. The surface of the earth absorbs its
-body, and soon there is no trace of it.
-
-Rain comes down in large, thick globs. It also come up from the ground;
-smaller pellets escape through holes in the ground.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
-Chip hits Higher.
-
->You throw the double-lighter at Higher.
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
 floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
+Lina hits Ozgat.
+Scotty hits Riven.
+Ozgat hits Lina.
+
+>You throw the double-lighter at Higher.
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+Scotty hits Riven.
+Riven manages to avoid Tippant's attack.
+Donna hits Higher, but it doesn't seem to do any damage.
+Ozgat hits Tippant.
+Higher hits Donna.
+Tippant manages to avoid Riven's attack.
+
+>I pick up the double-lighter.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+Lina hits Riven.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Ozgat hits Lina.
+
+>I've already got the lighter!
+
+The sound of knives scraping against glass reverberate across the landscape.
+Lina hits Ozgat.
+Scotty hits Riven, but it doesn't seem to do any damage.
+Donna hits Ozgat, but it doesn't seem to do any damage.
+Ozgat hits Tippant.
+Riven hits Lina.
+
+>You throw the double-lighter at Riven.
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
+Lina hits Higher.
+Scotty hits Riven.
+Ozgat hits Lina.
+
+>I pick up the double-lighter.
+Lina hits Higher.
+Scotty hits Riven.
+Tippant hits Higher.
+Donna hits Riven, but it doesn't seem to do any damage.
+Ozgat hits Scotty.
+You manage to avoid Higher's attack.
+Lina manages to avoid Riven's attack.
+
+>I've already got the lighter!
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Lina hits Ozgat.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Ozgat hits Tippant.
+
+>You throw the double-lighter at Ozgat.
+Scotty hits Ozgat.
+
+The ozgat explodes, flinging sharp metal fragments at my party. Everyone
+suffers damage.
+Donna hits Higher, but it doesn't seem to do any damage.
+Riven hits Donna.
+
+>I pick up the double-lighter.
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+Lina hits Riven.
+Scotty hits Riven, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
+Scotty hits Riven.
+Tippant hits Riven.
+Riven manages to avoid Donna's attack.
+Higher hits Scotty.
+Riven hits Scotty.
+
+>You throw the double-lighter at Higher.
+
+The sound of knives scraping against glass reverberate across the landscape.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
+Lina hits Riven.
+Scotty hits Riven.
+
+>I pick up the double-lighter.
+Lina hits Riven.
+Scotty hits Riven, but it doesn't seem to do any damage.
+Donna hits Riven, but it doesn't seem to do any damage.
+Donna manages to avoid Riven's attack.
+
+>I've already got the lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+Lina hits Riven.
+
+The riven falls to the ground, defeated. The surface of the earth absorbs its
+body, and soon there is no trace of it.
+Scotty hits Higher, but it doesn't seem to do any damage.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Tippant hits Higher.
+Donna hits Higher, but it doesn't seem to do any damage.
+Donna manages to avoid Higher's attack.
+
+>I've already got the lighter!
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+
+Thick fog envelopes me and my surroundings. My vision is obscured for a short
+time...and then the smoke vanishes, and everything before me is clearer than
+before...with a plastic gloss.
+
+It thunders in the distance. Streaks of green lightning are in the sky.
 Lina hits Higher.
 Scotty hits Higher.
-Chip hits Higher, but it doesn't seem to do any damage.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+Lina hits Higher.
+Scotty hits Higher.
+Donna hits Higher, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+
+Everything goes silent for a moment. Then it all the noise comes rushing
+back, louder than ever.
+Scotty hits Higher.
+
+>You throw the double-lighter at Higher.
+
+Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
+is spreading all over my body.
+Lina hits Higher.
+Scotty hits Higher.
+Tippant hits Higher.
+Donna hits Higher.
+Higher hits Lina.
+
+>I pick up the double-lighter.
+
+The sound of knives scraping against glass reverberate across the landscape.
+
+I hear a popping noise, and suddenly all the air is sucked from my lungs. I
+drop to the ground, clutching at my neck. The air returns after seconds of
+desperation and I stand up.
+Scotty hits Higher, but it doesn't seem to do any damage.
+
+>I've already got the lighter!
+
+Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
+engine is right next to me.
+
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+Lina hits Higher.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Donna hits Higher.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+The ground in front of me drops out, creating a swirling vortex of a
+sand-like nature. I barely avoid it.
+Lina hits Higher.
+Scotty hits Higher.
+
+>I've already got the lighter!
+
+Rain comes down in large, thick globs. It also come up from the ground;
+smaller pellets escape through holes in the ground.
+Lina hits Higher.
+Scotty hits Higher, but it doesn't seem to do any damage.
+Tippant hits Higher.
+Donna hits Higher, but it doesn't seem to do any damage.
+Higher hits Lina.
+
+>I don't understand what you mean.
+
+>I've already got the double-lighter!
+
+I do not feel the ground underneath me. I look down and see that I am
+floating. I am lifted almost two meters off of the ground before I stop
+floating and go crashing to the ground.
+
+My skin gets unusually warm for a second. It feels like it's burning.
+Scotty hits Higher, but it doesn't seem to do any damage.
 
 >I've already got the lighter!
 
@@ -3104,29 +2992,34 @@ Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 Lina hits Higher.
 Scotty hits Higher.
-Tippant hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher.
-Higher hits Tippant.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
+Donna hits Higher, but it doesn't seem to do any damage.
 
 >You throw the double-lighter at Higher.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
+Scotty hits Higher.
 
-I lapse into a coughing fit, unable to control myself. I cough up a thick
-purple substance. I wipe my mouth.
+>I pick up the double-lighter.
+
+The sound of knives scraping against glass reverberate across the landscape.
 Lina hits Higher.
+Scotty hits Higher.
+Tippant hits Higher.
 
 I no longer detect the Higher's presence.
 
 >(Your score has increased by 15)
 I've already got the lighter!
 
-The sound of knives scraping against glass reverberate across the landscape.
+Bits of ice barrage me from the side. It feels like a thousand tiny
+toothpicks are trying to make their way into my body.
+
+I lapse into a coughing fit, unable to control myself. I cough up a thick
+purple substance. I wipe my mouth.
+
+Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
+the ground long enough for it to calm to a breeze.
 
 "All obstacles have been cleared. You have done well."
 
@@ -3166,133 +3059,565 @@ I can go north.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
->I don't understand what you mean.
-
->I don't understand what you mean.
+>Take what?
 
 >I don't understand what you mean.
 
 >Take what?
 
+>Take what?
+
 >I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>I don't understand what you mean.
+
+>Take what?
+
+>Take what?
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
+
+>
+Waste Land
+Waste is the only thing here, for as far as I can see. There are big, long
+islands of black-brown masses which stink like hell.
+
+I can go north.
 
 >I move north.
 Waste Land

@@ -207,471 +207,365 @@ take lighter
 attack chip
 take lighter
 attack chip
-
-
-
-
-
-
-
-
-
+take lighter
+attack chip
+take lighter
+attack chip
+take lighter
+attack chip
+take lighter
+attack chip
 
 
 
 hard
 north
 attack ozgat
-attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
 take lighter
 east
-attack ozgat
 attack riven
-attack higher
 take lighter
-attack ozgat
 attack riven
-attack higher
 take lighter
-attack ozgat
 attack riven
-attack higher
 take lighter
-attack ozgat
 attack riven
-attack higher
 take lighter
-rest
-attack ozgat
 attack riven
-attack higher
 take lighter
-attack ozgat
 attack riven
-attack higher
 take lighter
-attack ozgat
 attack riven
-attack higher
 take lighter
-attack ozgat
 attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
 take lighter
 north
 attack ozgat
+take lighter
 attack riven
-attack higher
 take lighter
 attack ozgat
+take lighter
 attack riven
-attack higher
 take lighter
 attack ozgat
+take lighter
 attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
 take lighter
-rest
-attack ozgat
 attack riven
-attack higher
 take lighter
 attack ozgat
+take lighter
 attack riven
-attack higher
 take lighter
 attack ozgat
+take lighter
 attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
 take lighter
-rest
-attack ozgat
 attack riven
-attack higher
 take lighter
 attack ozgat
-attack riven
-attack higher
 take lighter
-attack ozgat
 attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
 take lighter
 east
 take double-lighter
-wield double-lighter
 west
 attack ozgat
+take double-lighter
+take lighter
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
+take double-lighter
+take lighter
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
+take double-lighter
+take lighter
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
+take double-lighter
+take lighter
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
+take double-lighter
+take lighter
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
 west
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
 north
 north
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
-rest
-attack ozgat
-attack riven
-attack higher
-take lighter
-attack ozgat
-attack riven
-attack higher
-take lighter
+look
 northeast
 attack ozgat
-attack riven
+take double-lighter
+take lighter
 attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
 take lighter
 attack ozgat
-attack riven
+take double-lighter
+take lighter
 attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
 take lighter
 attack ozgat
-attack riven
+take double-lighter
+take lighter
 attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
-attack riven
+take double-lighter
+take lighter
 attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
-attack riven
+take double-lighter
+take lighter
 attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
-attack riven
+take double-lighter
+take lighter
 attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-rest
-attack ozgat
-attack riven
 attack higher
+take double-lighter
 take lighter
-attack ozgat
 attack riven
-attack higher
+take double-lighter
 take lighter
 attack ozgat
-attack riven
+take double-lighter
+take lighter
 attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
 take lighter
 attack ozgat
-attack riven
-attack higher
+take double-lighter
 take lighter
-rest
+attack higher
+take double-lighter
+take lighter
+attack riven
+take double-lighter
+take lighter
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
 north
 east
+look
+look
+look
+look
+look
+look
 look
 look
 look
