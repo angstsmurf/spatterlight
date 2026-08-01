@@ -36,33 +36,51 @@ staged.
 
 ---
 
-## 1. Battle System — never tested against a running Runner
+## 1. Battle System — now partially verified against the running Runner
 
 The whole port was reverse-engineered from `Battles.bas` (DotFix decompile) plus
 the v4 manual, and validated against a *synthetic* game
 (`test/battle_test.taf`) built so every attribute has `Lo == Hi` and the rolls
-collapse. Nothing in it has ever been diffed against run400/run390 executing the
-same fight. Every formula below is now directly stageable with an authored
-arena game.
+collapse. **2026-08-01: the core formulas have now been diffed live against
+run400** with authored arena probes (recipe below) — hit test, roll bounds,
+damage floor, worn armour and the upgraded-3.9 stalemate all match the port.
+The cadence/recovery/death items below are still untested.
 
 Highest value first:
 
-- [ ] **Upgraded-3.9 games really do stalemate in run400.** `Town of Azra` and
-      `To Hell and Beyond` carry a 4.0 signature but are 3.9 games imported by
-      the 4.0 editor: every range degenerate, acc/agi/recovery all zero. The
-      claim on record is that the real 4.0 Runner also converts → `acc > agi` →
-      permanent stalemate, which is the entire justification for keeping
-      `SCR_ASSUME_COMBAT` **opt-in** rather than automatic. Never verified live.
-      Settling it decides whether two golden rows can drop their assist flag.
-- [ ] **Hit test is strictly `effAcc > effAgi`.** Stage `acc == agi` and confirm
-      a miss.
-- [ ] **Attribute roll has an exclusive Hi**: `lo + Int(Rnd*(hi-lo))`. Stage
-      `lo=0, hi=1` (must always yield 0) and `lo == hi`.
-- [ ] **Damage floor.** `dmg = effStr − effDef` applied only when `> 0`, else
-      "…doesn't seem to do any damage."
-- [ ] **Worn-armour defence path.** `ProtectionValue` summed over worn pieces —
-      *unexercised by the entire corpus*, so the only evidence is the synthetic
-      test. Highest risk of a silent wrong answer.
+- [x] **Upgraded-3.9 games really do stalemate in run400.** *(2026-08-01, live.)*
+      SCARE `.tas` written at Northern Trail (sword bought + wielded, no
+      assist), transplanted and restored in run400, `n`, `attack bandit` ×11:
+      every turn "a bandit manages to avoid your attack with the hunting
+      sword." / "You manage to avoid a bandit's attack." Direct proof from the
+      Runner's own `status`: after its conversion the player shows
+      **Accuracy 0-0 / 0 / 0 and Agility 0-0 / 0 / 0** (Hit strength 1-1,
+      current 6 (5) from the sword). `0 > 0` can never pass. Keeping
+      `SCR_ASSUME_COMBAT` opt-in is faithful; the two golden rows keep their
+      assist flags.
+- [x] **Hit test is strictly `effAcc > effAgi`.** *(2026-08-01, live.)* Probe
+      `pEQ2` (acc 5-5 vs agi 5-5 both ways, all weapon flags stripped): four
+      clean `attack robot` turns, both directions "manages to avoid" every
+      time. SCARE on the same file: identical. Beware the contaminated first
+      attempt: with a held weapon in the room the Runner **auto-selects it for
+      a generic `attack`** (see surface notes below), and its +Accuracy turned
+      the equality case into 25 > 5.
+- [x] **Attribute roll has an exclusive Hi**: `lo + Int(Rnd*(hi-lo))`.
+      *(2026-08-01, live.)* Probe `pXH` (enemy Str 5-6, guaranteed hits, player
+      Def 0): 8 hits, stamina 200→160 — every roll 5 (p ≈ 0.4% if Hi were
+      inclusive; damage does re-roll per attack — a 4-hit run with Str 5-15
+      summed 35, not divisible by 4). Probe `pZ1` (Str 0-1): always rolls 0.
+      SCARE identical on both (160 / 200).
+- [x] **Damage floor.** *(2026-08-01, live.)* Probe `pZ1` (Str 0-1 → roll 0 vs
+      Def 0): every turn "Robot hits Player, but it doesn't seem to do any
+      damage.", stamina untouched. SCARE: same message (with "you"), same
+      stamina.
+- [x] **Worn-armour defence path.** *(2026-08-01, live.)* Probe `pAR` (enemy
+      Str 10-10 guaranteed hits, player Def 0-0, vest ProtectionValue 5 worn at
+      start): 9 hits (an `i` turn also ticks combat — in both engines),
+      stamina 200→155 = exactly 5/hit; the Runner's `status` shows Defense
+      "0-0 0 **5 (5)**". SCARE identical (155). The highest-risk formula is
+      confirmed.
 - [ ] **shoot (Method 3) zeroes base strength.** A known unfixed divergence:
       that's the 4.0 rule and Scarier applies it to 3.9 too, where 3.9 adds
       `HitValue` regardless of method. No corpus game ships a shoot weapon, so
@@ -79,15 +97,58 @@ Highest value first:
       else "…falls down, dead.", sets location `0xFB`, and clears other NPCs
       targeting the dead one.
 - [ ] **Player-facing surface**: `wield`/`unwield`, best weapon = highest
-      `HitValue`, "You can't `<verb>` with X!", the `status` layout
-      (`Lo-Hi   <current incl. equipment>` + "is wielding"), and "can't get
-      status of a character you've not seen yet!".
-- [ ] **RNG — re-open the won't-fix.** It was written off as unmatchable, but VB6
-      `Rnd` is a deterministic LCG and is only randomised by an explicit
-      `Randomize`. If run400 never calls it, its sequence is fixed from a known
-      seed and **byte-exact combat regression becomes possible**. Worth half an
-      hour on `grep -a Randomize ~/Desktop/run400.txt` before anything else in
-      this section.
+      `HitValue`, "You can't `<verb>` with X!", and "can't get status of a
+      character you've not seen yet!". Partially probed 2026-08-01 — the
+      `status` layout is now known (columns
+      `Range / Max / Current value (inc weapons/armour)`, then
+      "Player is wielding …"), and see the surface notes below for
+      auto-select-on-attack.
+- [x] **RNG — re-opened and closed again: the won't-fix stands.** *(2026-08-01.)*
+      run400 has **9 `Randomize` call sites**: `Form1.Form_Load` seeds from
+      `Timer` at startup; `Form1.dencode` and `Sub_22_30` use the deterministic
+      `Rnd(-1)` / `Randomize 1976` codec idiom; `Sub_20_6` (the load/restore
+      machinery) mixes `1976` codec seeds with **`Randomize Timer` re-seeds**.
+      Live proof of nondeterminism: probe `probeRNG` (enemy Acc 0-10 vs Agi
+      0-10, Str 5-15), three fresh sessions, identical input (8 × `wait`), three
+      different hit/miss sequences (H A H A H H A A / A A H H A H A H /
+      H A H A A A A A) and staminas (165 / 168 / 187). Per-turn combat cannot
+      be regressed byte-exact. **But**: the *load-time* attribute "current"
+      roll is drawn from the deterministic 1976 stream *before* the Timer
+      re-seed — the same file gives the same value every launch (Agility 0-10
+      rolled 7 in all three sessions; a variant file with three extra text
+      bytes rolled 9), so any load-time-rolled value is reproducible per file.
+      `taftool.py` carries the exact VB6 LCG
+      (`s' = (s*0x43fd43fd + 0xc39ec3) & 0xffffff`, post-1976 state
+      `0x00a09e86`) if that ever becomes useful.
+
+### Arena-probe recipe (2026-08-01) and surface observations
+
+The probes above were authored from `test/make_battle_taf.py`: copy it, edit
+the player/NPC battle stat lines (they are plain `s(lo); s(hi)` pairs), have it
+also dump the uncompressed CRLF body, then
+`taftool.py pack <body> <any real 4.0 taf> <out.taf>` — run400 accepts the
+result. One probe = one ~2-minute Wine session. Degenerate (`Lo == Hi`) stats
+make a probe immune to the per-session RNG, so single sessions are conclusive
+for formula questions. Remember the settle-Return first, and count event lines
+in the transcript instead of trusting the intended turn count.
+
+Surface facts learned on the way (all consistent between engines unless noted):
+
+- The Runner does **not** auto-wield at battle start (`status`: "Player is
+  wielding nothing"), but a generic `attack X` **auto-selects a held weapon**
+  and narrates with the weapon's Method verb ("Player shoot Robot with the
+  blaster."). SCARE instead auto-wields at battle start (its `status` shows
+  the weapon) and its success message is generic ("You hit Robot.") without
+  naming the weapon. Same outcomes on every probe; presentational divergence
+  only — but it means an authored equality probe must strip weapon flags or
+  the accuracy bonus contaminates the test.
+- Runner battle messages use the player's *name* where SCARE substitutes
+  "you"/"your", with second-person verb agreement kept ("Player manage to
+  avoid Robot's attack." — sic). Miss messages otherwise identical.
+- `i` (inventory) consumes a battle turn in both engines.
+- `save` during an active battle is refused ("That is not an option or
+  command." in SCARE); write probe saves in a room *before* the enemy.
+- An unrecognised NPC name in `attack <x>` gets "Who do you want to attack?".
 
 ## 2. Wildcard / any-turn task turn-ordering divergence
 
@@ -192,17 +253,24 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Body-part statics in a `Var1 = 2` restriction | positioned at `OBJ_PART_NPC` | statics have no location field, so they read hidden | **Untested.** Probe with a body-part static; the only surviving gap from the `Var1 = 2` fix. |
 | Object scope when matching a task command | `uip_match_entity()` has no scope filter at all — matches anything | won't match an object that isn't present ("I don't understand what you mean!") | **Confirmed divergence, unfixed.** Measure corpus impact before touching it; it changes which task fires whenever a command names a distant object. |
 | 3.9 shoot-Method strength | zeroes base Str (4.0 rule) | 3.9 adds `HitValue` regardless of method | **Known-wrong, unreachable.** Folded into §1. |
-| Upgraded-3.9 combat | `SCR_ASSUME_COMBAT` opt-in; matches author intent | believed to stalemate | Folded into §1 — the one that actually pays off. |
+| Upgraded-3.9 combat | `SCR_ASSUME_COMBAT` opt-in; matches author intent | **stalemates, confirmed live 2026-08-01** (Azra: converted acc/agi all 0-0) | Settled — opt-in stays. |
 | Restriction evaluation order | evaluates all, no short-circuit | `Sub_20_65` replaces `#` with T/F in a bool-expr string, so it can't short-circuit either | Believed matched. **Verify** a restriction with a side effect actually runs. |
 | Integer division rounding | see `ADRIFT4_vs_ADRIFT5.md` | — | v4-vs-v5 difference already recorded; confirm the v4 half against run400. |
-| Combat RNG | own generator | VB6 `Rnd` | Was won't-fix; see the §1 re-open. |
+| Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
+| Battle messages | second person ("you"/"your") | player's name with 2nd-person verb forms ("Player manage to avoid…") | Presentational only; noted §1 surface facts. |
+| Battle-start wield | auto-wields best weapon | wields nothing; auto-selects held weapon per `attack` | Same outcomes on all probes; surface divergence only. |
 
 ---
 
 ## Suggested order
 
-1. §1 upgraded-3.9 stalemate + the `Randomize` grep — cheapest, and both unlock
-   further Battle work.
+*(2026-08-01: the old item 1 is done — stalemate, hit test, exclusive Hi,
+damage floor, worn armour and the RNG question are all settled live; see §1.)*
+
+1. §1 remainder — speed/cadence, recovery counter, target select,
+   StaminaTask/death, and the 3.9 shoot-Method divergence (needs a 3.9-schema
+   probe for run390). The arena-probe recipe makes each of these a ~2-minute
+   session.
 2. §3(a) whole-corpus 3.9 differential — one scripted sweep, broad coverage, and
    it exercises fixups nothing else touches.
 3. §2 wildcard ordering — needs a purpose-built probe game, and the fix churns
