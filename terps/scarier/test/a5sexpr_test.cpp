@@ -83,6 +83,36 @@ main (void)
   expect ("-(3+4)", -7);
   expect ("2 * -3", -6);
 
+  /* Unary minus, verified against the REAL clsVariable live (2026-08-01, a
+     44-row battery through FrankenDrift's SetToExpression -- see
+     RUNNER_TESTS_TODO.md).  clsVariable tokenises a leading '-' as an operator
+     and reduces the dangling `op expr` pair on run 2 -- AFTER '/' has rounded
+     on run 1 -- where a5sexpr folds the '-' into the literal before dividing.
+     The two models agree everywhere BECAUSE v5's away-from-zero rounding is
+     symmetric (round(-q) == -round(q)); in ADRIFT 4's epsilon-biased rounding
+     the same two parses genuinely diverge (-5/2: scexpr -2, run400 -3). */
+  expect ("-7/2", -4);           /* fold -3.5 -> -4 == -(3.5 -> 4)     */
+  expect ("-1/2", -1);
+  expect ("5/-2", -3);           /* unary on the divisor               */
+  expect ("-5/-2", 3);
+  expect ("--5", 5);             /* op-op-expr: both minuses reduce    */
+  expect ("5--2", 7);
+  expect ("10--5/2", 13);        /* 10 - (-5/2 -> -3)                  */
+  expect ("-2^2", 4);            /* leading '-' reduces before ^ (run 2,
+                                    left-to-right): (-2)^2, not -(2^2) */
+  expect ("-7 mod 2", -1);       /* VB Mod: sign of dividend           */
+  expect ("7 mod -2", 1);
+  expect ("-max(5,3)/2", -3);
+  expect ("-0/5", 0);
+  /* 2^-2 = 0.25: read back as 0 either way.  (-2^-1 = -0.5 is the one
+     divergent row of the battery: the runner reads SafeInt(Val("-0.5")),
+     VB Int() flooring to -1 under an English locale -- and 0 under a
+     comma-decimal locale, where Val stops at ','.  strtol's leading-integer
+     0 is kept: locale-dependent even in the real runner, zero corpus
+     exposure, and only reachable via ^ with a fractional result.) */
+  expect ("2^-2", 0);
+  expect ("-2^-1", 0);
+
   /* Division / modulo by zero: the runner reads SafeInt(Val(...)) of the
      result.  a5sexpr guards mod-by-zero to 0 directly; division by zero
      evaluates to "\xe2\x88\x9e" (Infinity), whose Val() is 0 -- so both read
