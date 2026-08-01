@@ -8,6 +8,10 @@
   `The two of you set out into the forest.`). The v4 suite is 23/23 PASS.
 - **Walkthrough source:** *Key & Compass* (native-ADRIFT — it wins on the real
   ADRIFT Runner, and now on SCARE too).
+- **Which build:** the 4th 1-Hour Comp release, md5
+  `7d4beb159bf3876f761bbac911395d05`, 4839 bytes. Three releases circulate under
+  this filename and **the other two are unwinnable game files** — see the
+  2026-08-01 section below before reporting any Topaz divergence.
 
 ## It was a SCARE bug, not an unwinnable game (resolved 2026-07-13)
 
@@ -99,90 +103,114 @@ tools are env-var-gated, so the binary is behaviourally identical with the vars
 unset (all 17 goldens still pass) but `SCR_DUMP_TASKS` / `SCR_TRACE_TASKS` /
 `SCR_DUMP_OBJLOC` now work for route debugging.
 
-## The real-Runner menu divergence — closed (2026-07-31)
+## SOLVED: the "Choose an option to speak" lock-up is a different release (2026-08-01)
 
-An open question from the Plover TODO: on a real ADRIFT 4 Runner session the
-game reportedly got stuck after the two numbered menu answers — every later
-command replied "Choose an option to speak" — while SCARE exits the menu after
-exactly two answers. The suspicion was an off-by-one in the Runner's
-move-player destination. A run400.exe P-code audit refutes that:
+Long-running open question: on a real ADRIFT 4 Runner session the game got stuck
+in the skeleton room — `x skeleton`, and every command after it, answered
+"Choose an option to speak." SCARE walked straight past. Months of P-code
+auditing, a live Wine run of the genuine `run400.exe`, and a Swedish-locale
+re-run all failed to reproduce it, because **we were running a different build
+of Topaz than Petter was.**
 
-- The task **action executor** is `mdlSpreadTheLoad.Sub_20_11` (`Sub_20_33` is
-  the event engine; the turn loop is inline in `Form1.Text1_KeyPress`). Its
-  move-player "to room" case (action type 1, Var2=0, @ `0008CA07`) stores
-  `Var3 + 1` into the Runner's **1-based** room slot — semantically identical
-  to SCARE's 0-based `gs_move_player_to_room (game, var3)`.
-- Type-2 (task) restrictions (`Sub_20_3` @ `000810DE`) evaluate
-  `Tasks(Var1-1).completed == 1 - Var2`: 1-based task refs, "must (not) be
-  done" — identical to SCARE's decode of task 5's gate on task 16.
-- Event starter task refs are 1-based, set-task actions (type 5) are 0-based —
-  both matching SCARE.
-- "Choose an option to speak" occurs exactly **once** in the (inflated) taf, in
-  task 10's take-sword CompleteText. The menu rooms 4/5 have empty
-  descriptions and no alternates, so no data path lets the Runner repeat that
-  line.
+A `.tas` save taken at the stuck state settled it in one line. SCARE refused to
+restore it, and the reason was the header count check:
 
-So by its own disassembly the real Runner walks the same menu path SCARE does
-(`1` → task 14 → room 5; `1`/`2` → task 16 → room 3; `n` → task 5, gated on
-task 16 done → skeleton). The stuck session remains unexplained but is not the
-Runner's canonical behavior — the Key & Compass solution is native-ADRIFT and
-documents the whole game past the menu. No SCARE change needed.
+```
+save:  rooms=8  objects=11  tasks=26  events=4  npcs=0
+game:  rooms=8  objects=9   tasks=23  events=4  npcs=0
+```
 
-## Confirmed empirically on the real Runner (2026-08-01)
+Two extra objects and three extra tasks. There are two Topaz releases in
+circulation. **Three, in fact** — a second stuck save Petter supplied matched
+neither of the first two (8 rooms / 9 objects / **24** tasks) and turned up a
+third build. All are called `topaz.taf` and all carry GameName `Topaz<cls>`:
 
-The static argument above is now backed by an actual run. Petter's refined
-report was that the break is at **`x skeleton`** — that command and every one
-after it answering "Choose an option to speak" — i.e. *after* both menu answers
-and the room move had already worked.
+| # | release | size | md5 | rooms/objs/tasks | winnable |
+|---|---|---|---|---|---|
+| 1 | 4th 1-Hour Comp (**our corpus copy**) | 4839 | `7d4beb159bf3876f761bbac911395d05` | 8 / 9 / 23 | **yes** |
+| 2 | revision (`ifarchive_v4_new/topaz__2.taf`) | 4866 | `5f91c9cd4391b6e44c2c052698d01118` | 8 / 9 / 24 | no |
+| 3 | IF Archive (`ifarchive_v4_new/topaz.taf`) | 5980 | `78c4966d7380e6fed8ece1e6b73db4a1` | 8 / 11 / 26 | no |
 
-**It does not reproduce.** run400.exe was run under Wine on this M1 (see
-`~/adrift-battle/runner/wine/README.md` for the harness) with the authentic
-ADRIFT 4.0 runtime from ifarchive's `ADRIFT40.zip`, whose `run400.exe` is
-byte-identical to our copy (MD5 `f7077dddb00b2d1623857ab9b4d1fbc8`) — so this is
-the canonical build, not a variant. The full 23-command route was typed in and
-the game **won**:
+(The `__2` suffix is a download-time dedup artifact, not part of the name.)
 
-- `take sword` → menu opens; `1` → Topaz's introduction + level-2 menu;
-  `1` → "Hmmm. How odd. You will explore now, mortal." — menu exits cleanly
-  after exactly two answers, matching SCARE.
-- `n` → skeleton room.
-- **`x skeleton` → "The skeleton is stretched out upon the ground, his bones
-  corroded by age, and smothered with dust. You notice a silver ring on one
-  skeletal finger."** No "Choose an option to speak".
-- `x silver ring` / `talk to topaz` / `take silver ring` ×2 / `wear ring` →
-  "Forest Clearing", "The two of you set out into the forest.",
-  "[Press any key to end]", status bar **"Congratulations!"**.
+Build 2 is build 1 plus exactly one task — the guard described below. Build 3
+adds two more objects and two more tasks on top (an extra examine task for the
+bird carving, and `about`), and keeps the guard unchanged. So the author
+introduced the bug in the first revision and never caught it.
 
-### What has been ruled out
+Restoring each save against its own build reproduces Petter's sessions
+**exactly**, and so does replaying `topaz_solution.txt` against either: the
+route works normally up to `n` into the skeleton room, and from there
+`x skeleton` and every subsequent command reply "Choose an option to speak."
 
-- **Auto complete.** It is on by default and does demonstrably corrupt input (in
-  one session it turned `take sword` into `take swordrd`, "Take what?"), but
-  Petter reproduces the break on Windows 10 with Auto complete *off*, so this is
-  not the cause.
-- **A different Runner build.** MD5 as above; banner reads "Version 4.00 / ©
-  Campbell Wild 1998-2012 / Last build: 6th September 2012 (Release 52)".
-- **Swedish system locale.** Re-run in a `sv_SE.UTF-8` Wine prefix, with the
-  locale verified live (the Runner's message boxes came up **"Ja" / "Nej"**).
-  The route still won. This matches static analysis of the P32Dasm listing:
-  run400 contains no `Like`, `CInt` or `CDbl`, and parses numbers with `Val`,
-  which is locale-independent by definition.
+### The bug is in the game, not in either interpreter
 
-### Still open: the **MORE** pagination prompt
+Both post-comp builds add the same conversation-menu guard (index 17 in build
+2, 18 in build 3):
 
-The one input-eating mechanism that *did* reproduce here. At the small default
-window size the Runner paginates constantly, and the response to `n` (into the
-skeleton room) ends on a MORE bar — so the first keystroke of the next command
-is consumed dismissing it and `x skeleton` arrives as ` skeleton` → "I don't
-understand what you want me to do with the skeleton." This happened on both
-replays, at exactly the command Petter named. It is environment-dependent
-(window size, font size, Verbose setting), which would explain why it shows on
-one machine and not another. It has *not* been confirmed as Petter's mechanism —
-his symptom is a repeated "Choose an option to speak", not a parser error.
+```
+TASK 18 where=2 room=-1 restr=0 rep=1 score=0 cmd=[*]
+    WHERE_ROOMS=[5 6 ]
+    CompleteText: <i><c>Choose an option to speak.</c></i>
+```
 
-The data argument still stands regardless: "Choose an option to speak" occurs
-exactly once in the inflated taf (task 10's CompleteText), task 10 is
-non-repeatable and in room 3, and menu rooms 4/5 have empty descriptions. No
-legitimate data path re-emits it, so SCARE is faithful here.
+A wildcard `*` command, no restrictions, repeatable — it swallows any input in
+the rooms it covers. It is meant to cover the two fake "menu" rooms, which are
+rooms **4 and 5**. It covers **5 and 6** instead. Room 6 is the skeleton room,
+so the guard is scoped one room too far.
+
+ADRIFT runs tasks in index order and the first runnable match wins, so the
+guard precedes every task that matters in room 6 (build 3 numbering):
+
+```
+TASK 18  cmd=[*]                      rooms 5,6   <- always matches
+TASK 19  take the silver ring         room 6
+TASK 20  take the silver ring         room 6
+TASK 21  talk to the sword/topaz      room 6
+TASK 24  wear the silver ring         room 6      <- the win task
+```
+
+So **both post-comp releases of Topaz are unwinnable**: once you go north into
+the skeleton room there is no way back out and no way forward. Only tasks with
+a lower index can still fire there — in practice just task 6, the catch-all
+movement task, which answers "You stumble around in the darkness." Verified by
+trying `1`, `2`, `3`, `talk to topaz`, `take silver ring`, `wear ring`, `n`,
+`s`, `ask topaz about ring`, `about`, `x ring` and a blank line from the
+restored save: every one is eaten. Replaying the 23-command winning route
+against build 2 yields nine "Choose an option to speak." and never reaches the
+win marker.
+
+The comp build has no `*` task at all — "Choose an option to speak" occurs once
+in its inflated taf (task 10's CompleteText) versus twice in the post-comp
+builds. That is why the Key & Compass solution documents the whole game:
+Welbourn played the comp build, which is the one in our corpus and the one the
+golden is recorded against.
+
+### What this retires
+
+- **SCARE is faithful on all three builds.** It wins the comp build and
+  reproduces both post-comp builds' lock-up at exactly the command Petter
+  named, from a save each time. No engine change is warranted.
+- The earlier run400.exe P-code audit was correct in every particular (1-based
+  room storage in the move-player action, 1-based task restrictions, 1-based
+  event starter tasks) — it just answered a question about the wrong file.
+- Everything previously suspected and ruled out stays ruled out and is now
+  moot: Auto complete (Petter reproduces with it off), a different Runner build
+  (md5 `f7077dddb00b2d1623857ab9b4d1fbc8`, Release 52), Swedish system locale
+  (re-run in an `sv_SE.UTF-8` prefix with "Ja"/"Nej" message boxes; run400 has
+  no `Like`/`CInt`/`CDbl` and parses with locale-independent `Val`), and the
+  MORE pagination prompt eating the first keystroke of the next command (a real
+  scripting footgun, but it yields a parser error, not this).
+
+### Reproducing
+
+```sh
+printf 'restore\ny\n/path/to/topaz.tas\nx skeleton\nquit\ny\n' \
+  | harness/scare '/path/to/ifarchive/topaz.taf'
+```
+
+A count mismatch on restore is the cheapest possible "wrong game file"
+detector — worth reaching for first the next time a save won't load.
 
 ## Fixed: the Webdings dove on the title screen (2026-08-01)
 
