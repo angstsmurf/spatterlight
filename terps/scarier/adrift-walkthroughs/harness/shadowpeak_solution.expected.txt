@@ -5486,17 +5486,23 @@ listening. While doing so, a jet of flame streams from one of its heads and
 sears you with its blistering heat.
 
 Gargoyle #1 flies in from the south.
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous
+fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
 You manage to avoid Cerberus's attack.
 
 >You hit Cerberus.
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous
+fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
 You manage to avoid Gargoyle #1's attack.
 Cerberus hits you, but it doesn't seem to do any damage.
 
 >You hit Cerberus.
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous
+fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
 Cerberus hits you, but it doesn't seem to do any damage.

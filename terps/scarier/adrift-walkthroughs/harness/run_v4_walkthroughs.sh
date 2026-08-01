@@ -135,6 +135,13 @@ srsintro_solution.txt|SRSintro.taf|
 the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
 the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 27
 thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.
+# thetest IS winnable (2026-08-01, verified live in run390 to "Well done!  You
+# won!" at 20/25): the colour-door needs addything==3, i.e. two consecutive
+# key/door colour matches on `unlock door` (the old "circular lock /
+# unwinnable" verdict misindexed task 15's variable restriction -- var1-2 is
+# addything, not robot2).  The route's unlock/shout spam is RNG-timing under
+# the fixed seed; see thetest_walkthrough.md for the mechanism.
+thetest_win_solution.txt|thetest.taf|Well done!  You won!
 through_time_solution.txt|Through time.taf|This is as far as this adventure will take you at this point.
 to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town of Oran.
 # The assisted To-Hell row needs BOTH aids: the game's combat data is all-zero

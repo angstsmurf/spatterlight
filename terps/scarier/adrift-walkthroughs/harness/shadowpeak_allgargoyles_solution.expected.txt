@@ -5290,14 +5290,20 @@ You can only move south.
 Cerberus belches forth an ear-splitting howl, sounding an alarm to anyone
 listening. While doing so, a jet of flame streams from one of its heads and
 sears you with its blistering heat.
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous
+fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
 Cerberus hits you, but it doesn't seem to do any damage.
 
 >You hit Cerberus.
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous
+fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
 Cerberus hits you, but it doesn't seem to do any damage.
 
 >You hit Cerberus.
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous
+fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
 Cerberus hits you, but it doesn't seem to do any damage.
 
