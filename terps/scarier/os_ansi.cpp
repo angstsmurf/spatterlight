@@ -142,6 +142,18 @@ os_print_tag (scr_int tag, const scr_char *argument)
          * solution file maps one line to one game command regardless of how
          * many <waitkey> tags the game's text embeds.
          */
+        /*
+         * Derivation aid: SCR_MARK_WAITKEY=1 notes each pause on stderr (after
+         * the flush above, so with 2>&1 the marker lands in transcript order).
+         * Combined with SCR_SKIP_WAITKEY=1 -- which keeps the command list in
+         * sync -- that turns "how many blank lines does this solution need, and
+         * where?" into a read rather than a bisection.
+         */
+        if (getenv ("SCR_MARK_WAITKEY"))
+          {
+            fflush (stdout);
+            fprintf (stderr, "[WAITKEY]\n");
+          }
         if (getenv ("SCR_SKIP_WAITKEY"))
           break;
         if (!feof (stdin))

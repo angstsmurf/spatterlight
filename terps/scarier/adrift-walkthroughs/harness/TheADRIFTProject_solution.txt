@@ -1,0 +1,113 @@
+# The ADRIFT Project (Mystery / Dana Crane, InsideADRIFT Summer Comp 2004).
+# Route: the author's own transcript from the comp package
+# (competition/wthroughs/"The ADRIFT Project Walkthrough.txt"), with three
+# repairs.  Score: 90/100, which is the game's ceiling -- the author's own run
+# ends "You finished 10 points short" and the missing ten really are
+# unreachable, see below.
+# The first two lines are NOT commands: the game asks for a player name and
+# then a gender before the first turn.  "Drifter" and "male" are ours; the
+# author played as "Mystery", which is why his transcript's endgame chant
+# reads differently.
+# Repair 1: "take slime" is moved BEFORE "put pill in cup".  In the author's
+# order the pill goes in first, and here that turn is eaten by TASK 41
+# "#Put Pill IN Slime" failing its restrictions (it wants the slime already in
+# the cup) instead of falling through to the library put -- so the +10 and the
+# radioactive slime never happen.  Doing it the other way round satisfies the
+# restrictions at match time and the task fires.  The real Runner takes the
+# author's order without complaint, so this is a divergence, not an author
+# bug; it is logged in RUNNER_TESTS_TODO.md.
+# Repair 2: one extra "z" before the endgame dash.  The bomb fuse is
+# random -- TASK 38 rerolls "bigboom = random(1,500863)" every single turn --
+# so the blast lands on a different turn under our pinned seed than it did in
+# the author's live run, and the escape route has to start one turn later.
+# Repair 3: a "score" before the winning "push button", so the golden records
+# the tally (80, +10 for the button = 90).
+# The four blank lines answer four <waitkey> pauses, measured with
+# SCR_MARK_WAITKEY=1.
+
+
+Drifter
+male
+take suit
+
+
+wear it
+open door
+s
+s
+stand on phone
+put battery in charger
+n
+sw
+x table
+take cup
+x sofa
+take string and tin
+ne
+se
+open wardrobe
+take gum and orb
+chew gum
+put gum on string
+put gum in drain
+nw
+sw
+open box
+unlock box
+open it
+take remote
+put batter in remote
+put battery in remote
+ne
+d
+s
+s
+take pill
+open tin
+take pill
+take slime
+put pill in cup
+n
+n
+up
+s
+s
+pour slime in box
+put green orb in tube
+x tray
+take orb
+activate orb
+twist green orb
+where is sweeper
+n
+n
+d
+n
+up
+where is sweeper
+n
+s
+push button
+where is darwin
+z
+z
+z
+z
+z
+z
+where is darwin
+z
+zz
+z
+where is darwin
+z
+z
+n
+s
+d
+s
+x vent
+up
+x screen
+score
+push button

@@ -1,0 +1,1023 @@
+Loading game...
+
+Press Enter to Begin
+
+"Willingsdale was to bring new hope to my family who moved here just weeks
+ago from a tiny village seven days travel south of here.  My parents, Emilita
+and Wilhelm, spent their life savings on  ‘Ye Old Pub in Willingsdale, in
+hopes they could earn enough money to send my brother and I to fine schools
+and learn a respectable trade.  At the ripe old age of twelve, I have a
+couple of years until my turn comes.  Hanson, being eight years, has a few
+more years to enjoy his youth."
+
+"My home is quite small, and located above the pub, with the only entry being
+a narrow ladder tucked back in a dark corner, near one of the dusty old
+tables.  The upper floor is just a single room over the pub, divided with a
+sheet of linen strung over a length of rope."
+
+"Shadrick, who are you talking to?"
+
+"My mother dips her rag into a bucket full of dirty water and continues
+scrubbing the floor to prepare for the grand opening  a couple days from
+now."
+
+"Speaking of Hanson, I think he may have wondered down to the cellar again.
+Run upstairs and fetch me the lantern and I‘ll fill it with oil for you.
+Don‘t know why he keeps going down there in the dark.  That is the third time
+today."
+
+>
+>
+
+In 'Ye Old Pub
+
+Near the front door, and only door  to the pub, sits and old wooden table
+that is nearly identical to the four other tables that  surround the bar
+along the east, south, and west walls.  The bar, which hasn't been stocked
+yet, is along the north wall near a door that leads to the storeroom.  Tucked
+into the dark corner, furthest away from the pub door and partially hidden
+behind a few keg barrels, is the ladder that leads to the tiny place we call
+home.
+
+My Mum is scrubbing the floor, right over there.
+
+>I slowly climb up the narrow ladder and emerge in our humble home.
+
+Sleeping Quarters
+
+This is it.  Home sweet home.  A small bed for me Mum and Dad, and an even
+smaller bunk for my brother and I.  Mum put a sheet up over a length of rope
+in the middle to divide where our bed and their bed is.  She says it is so’s
+maybe the sound of father’s snoring is a little muffled so we can get enough
+sleep.  I don’t think that is the real reason though.
+
+Also here is an old lantern.
+
+>I pick up the old lantern.
+
+>I slowly climb down the narrow ladder and emerge in dark corner of 'Ye Old
+Pub.
+
+In 'Ye Old Pub
+
+Near the front door, and only door  to the pub, sits and old wooden table
+that is nearly identical to the four other tables that  surround the bar
+along the east, south, and west walls.  The bar, which hasn't been stocked
+yet, is along the north wall near a door that leads to the storeroom.  Tucked
+into the dark corner, furthest away from the pub door and partially hidden
+behind a few keg barrels, is the ladder that leads to the tiny place we call
+home.
+
+My Mum is scrubbing the floor, right over there.
+
+>(Your score has increased by 2)
+I give the lantern to my Mum.  She stops scrubbing the floor long enough to
+pull a flask of oil from her apron, and fills the lantern.
+
+"Now go fetch your brother, please."
+
+A moment later, she replaces the flask back into her apron and strikes a
+match to light the lantern.  She is looking at me strangely and coming
+towards me, forcing me into the storeroom.
+
+"Get yer brother, now, or you'll not be gettin' any supper."
+
+She returns to scrubbing the floor, while I move from her sight.  When she
+threatens no supper, she means it.  That isn't a good thing.  Indeed, it is
+very, very bad.
+
+>
+
+The Storeroom
+
+The storeroom is small, or maybe it just seems that way because it is packed
+full of supplies for the grand opening.  Father is supposed to be moving more
+stuff down to the cellar and put in a stove so ‘Ye Old Pub can serve food.
+Mum is a right good cook, and father thinks it will draw in a lot of money.
+A trapdoor in the floor leads down to the cellar.
+
+>I open the trap door.
+
+>(Your score has increased by 2)
+“Ahhh!”
+
+Right, that was a smart move.  I was steadying myself with an old crate when
+my foot slipped through the hole.  The trapdoor slammed shut, and from the
+noise right after, I’d have to say that the crate fell on top of it.  With
+any hope, Mum will have heard it and come open it up.
+
+“Shadrick? Is that you?”
+
+“I hear you, Hanson, but I don’t see you.  Where are you?”
+
+“I’m in here!”
+
+“I’m in here too, but I don’t see you.”
+
+“Not in there, in here.  In here!”
+
+A bustle of movement and a slight flicker of light turns my attentions to a
+large hole in the wall where the bricks have been removed. A loud crash
+through the hole tells me Hanson has just broken another one of Mum’s
+lanterns.
+
+“Ooops.  Mom is going to get me with the switch, isn’t she, Shadrick?”
+
+More
+
+“I’ll say.  Just wait until she sees what you’ve done to the cellar wall.
+Think you might lose your supper too.  What are you doing there? I’ll try to
+help you out.  Maybe if we put the bricks back in, Mum won’t notice.”
+
+“I’m goin’ to find treasure!  I heard a couple of out of town folk talking
+about secret tunnels under ‘Ye Old Pub.  They say there is treasure hidden
+somewhere down here.  They’re waiting for the grand opening so’s they can
+sneak down here and find it themselves, unless they can find another way in.
+I figured if I found it first, then mom and dad wouldn’t have to worry about
+money and we could move to the big city.  I hear they have lots of stuff for
+kids to do there.  Figured it beats the heck out of climbing trees and
+playing in the mud.”
+
+“Don’t be ridiculous, Hanson.  Come out of there now.”
+
+“Ahhh, SHADRICK HELP!  THERE IS SOMETHING IN HERE! AAAAAHHHHhhhhhhhhhhh!”
+
+“HANSON! HANSON? MUM, SOMETHING’S HAPPENED TO HANSON!”
+
+Drats.  She can’t hear me.  It looks like it is up to me to find out what is
+going on.  By the sounds of his scream, he has been hauled off by something.
+You could tell by the way his ‘AAAAAHHHHhhhhhhhhhhh’ faded.  Right, then.  I
+better do something.  If anything happens to Hanson, Mum will blame me.
+
+Cellar
+
+It’s pretty dark down here, even with a lantern.  There are a few crates
+stacked up in the corners near several more keg barrels.  The western wall is
+completely lined with shelves and holds several bags of herbs  and spices,
+along with some jars.  The other wall has a large hole in it, leading in,
+with a pile of bricks slightly off to the side.  Mum isn’t going to be happy
+about this at all. The trapdoor leads up to the storeroom.
+
+>The entire wall is filled with shelves that are loaded up with bags of herbs
+and spices.  A few of the shelves house jars of pickled eggs some black jars.
+ I'm not sure what is in all of them.
+
+>They're about yeah high, and this big around.  If you want better than that,
+you'll have to be more specific.  There are jars of pickled eggs and some
+black ones. I can't tell what is in them.
+
+>I open the pickled egg jar.  Inside the pickled egg jar is a pickled egg.
+
+>I pull and egg from the jar, and boy, does it smell ripe.
+
+>I open the black jar.  Inside the black jar is a pickled pig's foot.
+
+>I pull a pickled pig's foot from the jar.  It drips a little, but doesn't
+make too big of a mess.
+
+>It's kind of dark down here, but I am guessing there must be at least twenty
+bricks or so.  A brick is on the pile of bricks.
+
+>One is all I need.
+
+>(Your score has increased by 2)
+I stick the lantern through the hole first, checking for spiders and rats.
+I'm not very fond of 'nightly creatures', as mum calls them.  I look around
+for Hanson, but don't see him anywhere.
+
+"Hanson?  Hanson?  Where are you?  You're going to end up going to bed
+without supper, just like you did on the way from Thorton.  I think Mum said
+she was going to fetch a switch.  You better come out now!"
+
+Curse him for making me come into this place.
+
+A Dark Tunnel
+
+It looks an underground tunnel.  The walls are narrow and puddles saturate
+the floor.  It looks like it continues to the north and a hole in the wall
+leads back into the cellar, which I can go through.  How odd, though.  There
+is no sign of the lantern that I am sure I heard Hanson break.
+
+>I move north.
+
+A Dark Tunnel
+
+Oh no.  I don’t want to be here.  I don’t like spiders.   The walls, the
+floors, everything is crawling with spiders.  I can see the tunnel turns east
+from here, but there is a very large, hairy spider blocking my way.  The
+tunnel also leads south.
+
+>(Your score has increased by 4)
+Realizing I have a heavy brick, I begin to smash as many of the little
+spiders as I can.  That very large spider, blocking my way, doesn't seem to
+be too happy about that and comes at me very quickly.
+
+"AHHHHH!"
+
+  I close my eyes and smash it as hard as I can, leaving the brick over the
+smashed body and crumpled legs of the irritating spider.  I want to get out
+of here, NOW!
+
+>I carefully enter the tunnel to the east.
+
+A Dark Tunnel
+
+The damp tunnel is blocked with a large iron grate, with a single door.  I
+can make out a lever near the grate.  It is too dark to see what lies to the
+east on the other side of the grate, and I dread to think of returning to the
+west, where all of those spiders are.
+
+>The grate seems to be locked.
+
+>I pull as hard as I can and the lever moves half way down, but nothing
+happens.
+
+>(Your score has increased by 2)
+I again pull as hard as I can and the lever moves into the down position and
+the grate slowly swings open.
+
+>I move east.
+
+A Dark Tunnel
+
+The damp tunnel is blocked with a large iron grate, with a single door.  It
+is too dark to see what lies to the west, on the other side of the grate.
+This side has large puddles of water that fill the center of the tunnel, and
+it appears to lead to the north from here.
+
+>I move north.
+
+A Dark Tunnel
+
+Great!  I hate rats!  Water runs down the center of the tunnel and is filled
+with hundreds of rats that scurry about.  The tunnel runs south from here and
+west.  Man, there are a lot of rats!
+
+>(Your score has increased by 3)
+I throw the egg down the tunnel a little ways, and the rats scurry on over,
+climbing over each other to get a piece.
+
+There are still too many rats to pass.  They look very hungry.
+
+>(Your score has increased by 9)
+I throw the pickled pigs foot down the tunnel a little ways, and the rats
+race over to it as quickly as they can.
+
+The rats are huddled together further on down the tunnel.  They are
+screeching and climbing all over each other, trying to get at the food.
+There is now a little a clear path to the west.
+
+>I move west.
+
+A Dark Tunnel
+
+A single streak of light beams down from a boarded up hole from above.  There
+is enough light to see that a ladder leads up to the hole.  I wonder if
+Hanson went that way?  Hanson!  HANSON!?  It looks like the tunnel goes west
+from here, and back east to where the rats are.  There dust is unsettled
+here, which leads me to believe that someone was recently here.
+
+The old ladder doesn't quite reach all the way down to the floor, but it
+doesn't exactly reach all the way to the hole either.  If it were not
+attached to the wall, it would be far below the hole.
+
+Also here is an old ladder.
+
+>(Your score has increased by 3)
+I'm steadying myself at the bottom and begin to climb upward, towards the
+direction of the light.  I'm almost there.
+
+"Ahhhh!  Steady!  Steady!  Ahhhhhh!"
+
+'THUMP'
+
+Nice going.  I fell.  And it seems I took the ladder with me.  There is no
+way it will reach the hole now.  I guess Hanson couldn't have gone that way.
+
+>I've got it.  Whoah.  Almost dropped it.  But I have it now.  Nothing to
+worry about.
+
+>I move west.
+
+A Dark Tunnel
+
+Hmmm. There is a rickety bridge that spans across a very dark pit  It looks
+like the pit is around six foot wide.  I can’t really tell which way the
+tunnel goes on the other side, but it does lead back to the east from here.
+
+>I steady myself carefully on the rope bridge, trying not to fall.  A couple
+steps in, the rope begins to untwine and I am barely able to jump back to
+safety before it snaps, disappearing somewhere into the pit.
+
+>(Your score has increased by 3)
+Steadying the ladder at the edge of the pit, I slowly lower it, making
+contact with the other side.  It seems to have worked.  I might be able to
+get to the other side now.
+
+>I slowly make my way across the ladder!
+
+"WHOAH!"
+
+'Crack!'
+
+Dangit!  I knocked the ladder into the pit.  Now I guess I'll have to find
+another way out of here.  I had better find Hanson first.  I go through the
+tunnel to the north.
+
+A Dark Tunnel
+
+The tunnel divides into four different directions here.  It goes south, while
+three other tunnels lead north, northeast, and northwest.  A strong odor of
+ammonia fills the air.  It is likely coming from the bat guano that covers
+the ground.
+
+>I move northwest.
+
+A Dark Tunnel
+
+The tunnel is dark and smells heavily of ammonia, likely from the guano that
+covers the floor.  There are no signs of water that I came across in some of
+the tunnels early on.  It almost seems like this tunnel is a little more
+narrow than the others I’ve been in.  It looks like the tunnel goes southeast
+and north.
+
+>I move north.
+
+A Dark tunnel
+
+This narrow tunnel leads west and south, and is intoxicating to be in.  The
+floor is piled high with bat droppings, and the stench is quite nauseating.
+
+Also here is a small boulder.
+
+>I pick up the small boulder.
+
+>I move west.
+
+A Dark tunnel
+
+It appears that the tunnel ends here and the room opens up into a large cave,
+of sorts.  Three stone plinths rise up from the guano covered floor, each one
+differing in height.  I can see a tall plinth, a medium plinth, and a short
+plinth. Wow, it really smells bad in here.
+
+>(Your score has increased by 8)
+"Mmmmgggphh."
+
+ Ok, that wasn't so bad.  It weighs about as much as a sack of grain.  It's
+on the tall plinth.
+
+"Hey!  What was that noise?  HANSON?  IS THAT YOU?"
+
+  I swear I heard something.  It was like grinding stone or something like
+that.  It was somewhere off in one of the other tunnels.
+
+>I move east.
+
+A Dark tunnel
+
+This narrow tunnel leads west and south, and is intoxicating to be in.  The
+floor is piled high with bat droppings, and the stench is quite nauseating.
+
+>I move south.
+
+A Dark Tunnel
+
+The tunnel is dark and smells heavily of ammonia, likely from the guano that
+covers the floor.  There are no signs of water that I came across in some of
+the tunnels early on.  It almost seems like this tunnel is a little more
+narrow than the others I’ve been in.  It looks like the tunnel goes southeast
+and north.
+
+>I move southeast.
+
+A Dark Tunnel
+
+The tunnel divides into four different directions here.  It goes south, while
+three other tunnels lead north, northeast, and northwest.  A strong odor of
+ammonia fills the air.  It is likely coming from the bat guano that covers
+the ground.
+
+>I move northeast.
+
+A Dark Tunnel
+
+This tunnel is overrun with bat droppings so thick that the stench is enough
+to make me want to pass out.  The stinky tunnel leads to the north and to the
+southwest.
+Bat's are are flying about everywhere.
+
+A flock of bats flutter away to the north.
+
+>I move north.
+
+A Dark Tunnel
+
+There is an opening in the east wall that wasn't there before.  The guano
+filled tunnel stretches east and south.
+Bat's are are flying about everywhere.
+
+>I move east.
+
+A Dark Tunnel
+
+It looks like another dead end.  The walls are real crumbly and the floor of
+the tunnel is littered with dirt from above.  The door that once existed to
+the west is gone.  It doesn't appear the bats have taken over this part of
+the tunnel just yet, thought the smell of guano lingers heavily in the air.
+
+Also here is a medium boulder.
+
+>I pick up the medium boulder.
+
+>I move west.
+
+A Dark Tunnel
+
+There is an opening in the east wall that wasn't there before.  The guano
+filled tunnel stretches east and south.
+
+A flock of bats swoop in from the south.
+
+>I move south.
+
+A Dark Tunnel
+
+This tunnel is overrun with bat droppings so thick that the stench is enough
+to make me want to pass out.  The stinky tunnel leads to the north and to the
+southwest.
+
+>I move southwest.
+
+A Dark Tunnel
+
+The tunnel divides into four different directions here.  It goes south, while
+three other tunnels lead north, northeast, and northwest.  A strong odor of
+ammonia fills the air.  It is likely coming from the bat guano that covers
+the ground.
+
+>I move northwest.
+
+A Dark Tunnel
+
+The tunnel is dark and smells heavily of ammonia, likely from the guano that
+covers the floor.  There are no signs of water that I came across in some of
+the tunnels early on.  It almost seems like this tunnel is a little more
+narrow than the others I’ve been in.  It looks like the tunnel goes southeast
+and north.
+
+>I move north.
+
+A Dark tunnel
+
+This narrow tunnel leads west and south, and is intoxicating to be in.  The
+floor is piled high with bat droppings, and the stench is quite nauseating.
+
+>I move west.
+
+A Dark tunnel
+
+It appears that the tunnel ends here and the room opens up into a large cave,
+of sorts.  Three stone plinths rise up from the guano covered floor, each one
+differing in height.  I can see a tall plinth, a medium plinth, and a short
+plinth. Wow, it really smells bad in here.
+
+>(Your score has increased by 11)
+"Mmmmgggphh. Oooh.  Oh.  Whoa! Almost dropped it.  A little more.  Come on.
+There!"
+
+"Hanson?  Is that you?"
+
+I heard something that sounded like grinding stone.  I don't think it was my
+imagination, though my father always says I have rocks in my head.
+
+>I move east.
+
+A Dark tunnel
+
+This narrow tunnel leads west and south, and is intoxicating to be in.  The
+floor is piled high with bat droppings, and the stench is quite nauseating.
+
+>I move south.
+
+A Dark Tunnel
+
+The tunnel is dark and smells heavily of ammonia, likely from the guano that
+covers the floor.  There are no signs of water that I came across in some of
+the tunnels early on.  It almost seems like this tunnel is a little more
+narrow than the others I’ve been in.  It looks like the tunnel goes southeast
+and north.
+
+>I move southeast.
+
+A Dark Tunnel
+
+The tunnel divides into four different directions here.  It goes south, while
+three other tunnels lead north, northeast, and northwest.  A strong odor of
+ammonia fills the air.  It is likely coming from the bat guano that covers
+the ground.
+Bat's are are flying about everywhere.
+
+>I move north.
+
+A Dark Tunnel
+
+The tunnel narrows a little here, but I can see that it runs north and south
+from here.  The stench from the bat droppings that cover the tunnel floor is
+quite overwhelming.
+
+A flock of bats swoop in from the south.
+
+>I move north.
+
+A Dark Tunnel
+
+The lantern flickers slightly with an invisible breeze that moves through the
+tunnel, only making the stench of the bat droppings that much more
+nauseating.  I can see that the tunnel branches off to the northeast and
+northwest, as well as to the south.
+
+>I move northeast.
+
+A Dark Tunnel
+
+The tunnel is scattered with chunks of dirt and smells heavily of nasty bat
+droppings that cover the ground.  There is an opening, where the stone wall
+used to be, leading to the northwest, while the tunnel leads back to the
+southwest.
+
+>I move northwest.
+
+A Dark Tunnel
+
+It looks like the dark tunnel goes southeast and southwest from here.  A tall
+stone door rises up to the south, but it doesn't look like there is a way to
+open it.  The smell of guano fills the air, though there doesn't seem to be
+any droppings here.
+
+Also here is a large boulder.
+
+>"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+
+I pushed the boulder to the southwest.
+
+A Dark Tunnel
+
+The light from the lantern seems more calm now, but the stench from the guano
+covering the floor, hangs heavy in the air.  The stone wall that blocked the
+tunnel to the northeast is completely gone, without a trace.  The tunnel also
+goes off to the southeast.
+
+Also here is a large boulder.
+
+A flock of bats swoop in from the south-east.
+
+>"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+
+I pushed the boulder to the southeast.
+
+A Dark Tunnel
+
+The lantern flickers slightly with an invisible breeze that moves through the
+tunnel, only making the stench of the bat droppings that much more
+nauseating.  I can see that the tunnel branches off to the northeast and
+northwest, as well as to the south.
+
+Also here is a large boulder.
+
+>"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+
+I pushed the boulder to the south.
+
+A Dark Tunnel
+
+The tunnel narrows a little here, but I can see that it runs north and south
+from here.  The stench from the bat droppings that cover the tunnel floor is
+quite overwhelming.
+
+Also here is a large boulder.
+
+>"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+
+I pushed the boulder to the south.
+
+A Dark Tunnel
+
+The tunnel divides into four different directions here.  It goes south, while
+three other tunnels lead north, northeast, and northwest.  A strong odor of
+ammonia fills the air.  It is likely coming from the bat guano that covers
+the ground.
+
+Also here is a large boulder.
+
+>"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+
+I pushed the boulder to the northwest.
+
+A Dark Tunnel
+
+The tunnel is dark and smells heavily of ammonia, likely from the guano that
+covers the floor.  There are no signs of water that I came across in some of
+the tunnels early on.  It almost seems like this tunnel is a little more
+narrow than the others I’ve been in.  It looks like the tunnel goes southeast
+and north.
+
+Also here is a large boulder.
+
+>"Grrrr. Hhhrrrmmmmmmmmmppphhhh."  I pushed the boulder to the north.
+
+A Dark tunnel
+
+This narrow tunnel leads west and south, and is intoxicating to be in.  The
+floor is piled high with bat droppings, and the stench is quite nauseating.
+
+Also here is a large boulder.
+
+>(Your score has increased by 10)
+"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+
+I pushed the boulder to the west.
+
+A Dark tunnel
+
+It appears that the tunnel ends here and the room opens up into a large cave,
+of sorts.  Three stone plinths rise up from the guano covered floor, each one
+differing in height.  I can see a tall plinth, a medium plinth, and a short
+plinth. Wow, it really smells bad in here.
+
+Also here is a large boulder.
+
+>(Your score has increased by 13)
+"Mmmmgggphh. Uuuuugghhh.  Whoy boy.  Easy does it.  Oh!  Ahh!  Grrruuummmph.
+Ok."
+
+It's on there.  But I think mum is going to need to call the doctor because I
+think I tore my....my....one of those important muscle things.
+
+"I'm getting pretty good at this."
+
+  I heard another grinding of stone somewhere.  That must mean another door
+is opened somewhere.  I guess I had better go check it out.
+
+>I move east.
+
+A Dark tunnel
+
+This narrow tunnel leads west and south, and is intoxicating to be in.  The
+floor is piled high with bat droppings, and the stench is quite nauseating.
+
+>I move south.
+
+A Dark Tunnel
+
+The tunnel is dark and smells heavily of ammonia, likely from the guano that
+covers the floor.  There are no signs of water that I came across in some of
+the tunnels early on.  It almost seems like this tunnel is a little more
+narrow than the others I’ve been in.  It looks like the tunnel goes southeast
+and north.
+
+>I move southeast.
+
+A Dark Tunnel
+
+The tunnel divides into four different directions here.  It goes south, while
+three other tunnels lead north, northeast, and northwest.  A strong odor of
+ammonia fills the air.  It is likely coming from the bat guano that covers
+the ground.
+
+>I move north.
+
+A Dark Tunnel
+
+The tunnel narrows a little here, but I can see that it runs north and south
+from here.  The stench from the bat droppings that cover the tunnel floor is
+quite overwhelming.
+
+>I can't go in that direction, but I can move north and south.
+
+>I move north.
+
+A Dark Tunnel
+
+The lantern flickers slightly with an invisible breeze that moves through the
+tunnel, only making the stench of the bat droppings that much more
+nauseating.  I can see that the tunnel branches off to the northeast and
+northwest, as well as to the south.
+
+>I move northwest.
+
+A Dark Tunnel
+
+The light from the lantern seems more calm now, but the stench from the guano
+covering the floor, hangs heavy in the air.  The stone wall that blocked the
+tunnel to the northeast is completely gone, without a trace.  The tunnel also
+goes off to the southeast.
+Bat's are are flying about everywhere.
+
+A flock of bats flutter away to the south-east.
+
+>I move northeast.
+
+A Dark Tunnel
+
+The tunnel curves around to the southeast and southwest from here.  Directly
+south is an open doorway, leading into darkness.  Thankfully there isn't any
+guano present, though the smell still lingers.
+
+>I cautiously move south.
+
+"HANSON!”
+
+“SHHHH!  You have to be quite, you dolt. “
+
+“What?  Mum is going to give you a lickin’ for sure.”
+
+“Not this time, Shadrick.  When I went through the hole in the cellar one of
+those guys grabbed me.  You know, the ones I was telling you about.  He drags
+me through spiders and rats and we get to this pit.  I thought he was going
+to make me cross that old rope dangling over it, but he pushed me in!  I
+thought I was dead!”
+
+“How are you here if he pushed you in that bottomless pit?”
+
+“It wasn’t a bottomless pit, Shadrick.  It dropped me in here.  He came
+tumbling in right after.  Not too long after that, a ladder comes barreling
+through the hole in the wall and caves it in.  The guy takes the ladder and
+goes up into that hole.  You know what’s up there, Shadrick?”
+
+More
+
+“A bakery with lots of chocolate and candies?”
+
+“No.”
+
+“A flower shop with pretty flowers and girly perfumes and stuff?”
+
+“EEEWW! NO!”
+
+“How about lots of treasures like money and gold and jewelry and junk?”
+
+“Well, sort of.  It’s the bank vault!  These guys are robbing the bank!  If
+we can get back and tell mum, they will be caught.  You know what that
+means?”
+
+“She'll give us double helpings at supper”
+
+"Oooh, maybe."
+
+"She'll let us skip chores for the rest of the week."
+
+"I wish."
+
+"But those guys are going to be right sore at us.  They aren't going to take
+kindly to use getting them thrown in jail."
+
+More
+
+“Sure they will sore, but who cares.  We could get a reward!  Probably one
+big enough to pay for our schooling and some new clothes.  Maybe even we
+could get some new toys.  If it’s really big, we could get a nice house for
+mum and maybe even get our own rooms!”
+
+“Nice!  Except I kind of broke the rope bridge and we can’t get across the
+pit.”
+
+“How did you get across the first time, Shadrick?”
+
+“I used a ladder.”
+
+“What ladder?”
+
+“That one.”
+
+“Shadrick, you're about as bright as a ray of sunshine on a rainy day.  We
+can use it to get back across.  We had better hurry.  I think that guy is
+going to be back real soon. He said another was coming to help soon and then
+he was going to throw me in that pit; now that the hole to here is caved in,
+and I’d never get out.  I don’t think he’d mind throwing you in too.”
+
+>"I got it! Let's go."
+
+>"Northward!"
+
+"Shhh!"
+
+"I quickly leave this desolate hole and move north."
+
+"Shuddup, Shadrick.  If they catch us cause you're talking to yourself I'm
+going to ask they throw you in the pit first."
+
+A Dark Tunnel
+
+The tunnel curves around to the southeast and southwest from here.  Directly
+south is an open doorway, leading into darkness.  Thankfully there isn't any
+guano present, though the smell still lingers.
+"Hanson is here, looking at me for direction."
+
+>I move southwest.
+
+A Dark Tunnel
+
+The light from the lantern seems more calm now, but the stench from the guano
+covering the floor, hangs heavy in the air.  The stone wall that blocked the
+tunnel to the northeast is completely gone, without a trace.  The tunnel also
+goes off to the southeast.
+
+Hanson follows me in from the north-east.
+
+>I move southeast.
+
+A Dark Tunnel
+
+The lantern flickers slightly with an invisible breeze that moves through the
+tunnel, only making the stench of the bat droppings that much more
+nauseating.  I can see that the tunnel branches off to the northeast and
+northwest, as well as to the south.
+
+Hanson follows me in from the north-west.
+
+>I move south.
+
+A Dark Tunnel
+
+The tunnel narrows a little here, but I can see that it runs north and south
+from here.  The stench from the bat droppings that cover the tunnel floor is
+quite overwhelming.
+
+Hanson follows me in from the north.
+
+>I move south.
+
+A Dark Tunnel
+
+The tunnel divides into four different directions here.  It goes south, while
+three other tunnels lead north, northeast, and northwest.  A strong odor of
+ammonia fills the air.  It is likely coming from the bat guano that covers
+the ground.
+
+Hanson follows me in from the north.
+
+>South, back to the pit.
+
+A Dark Tunnel
+
+A large pit, nearly six foot wide lies before me.  The bridge that was here
+has disappeared somewhere into the pit.  The tunnel leads east.
+"Hanson is here, looking at me for direction."
+
+>(Your score has increased by 3)
+Steadying the ladder at the edge of the pit, I slowly lower it, making
+contact with the other side.  It seems to have worked.  I might be able to
+get to the other side now.
+
+>(Your score has increased by 10)
+"I easily make it across, looking like an expert in the eyes of my younger
+brother."
+
+"Oh, geeze.  You almost fell twice!"
+
+"Just hurry up!"
+
+'Crack!'
+
+"Dangit, Hanson!  You knocked the ladder back into the pit."
+
+"Don't worry.  The robbers can't get it.  The hole caved in the last time it
+fell in."
+
+"Let's get out of here.  I'm moving on."
+
+A Dark Tunnel
+
+A single streak of light beams down from a boarded up hole from above.  There
+is no way to reach it now, the ladder has come free from the wall.  It looks
+like the tunnel goes west from here, and back east to where the rats are.
+"Hanson is here, looking at me for direction."
+
+>I move east.
+
+A Dark Tunnel
+
+Great!  I hate rats!  Water runs down the center of the tunnel and is filled
+with hundreds of rats that scurry about.  The tunnel runs south from here and
+west.  Man, there are a lot of rats!
+
+Hanson follows me in from the west.
+
+>I move south.
+
+A Dark Tunnel
+
+The damp tunnel is blocked with a large iron grate, with a single door.  It
+is too dark to see what lies to the west, on the other side of the grate.
+This side has large puddles of water that fill the center of the tunnel, and
+it appears to lead to the north from here.
+
+Hanson follows me in from the north.
+
+>I can't go in that direction, but I can move north and west.
+
+>I move west.
+
+A Dark Tunnel
+
+The damp tunnel is blocked with a large iron grate, with a single door.  I
+can make out a lever near the grate.  It is too dark to see what lies to the
+east on the other side of the grate, and I dread to think of returning to the
+west, where all of those spiders are.
+
+Hanson follows me in from the east.
+
+>I move west.
+
+A Dark Tunnel
+
+Did I mention how much I hate spiders!?   The walls,  the dry spots on the
+floor, everything is crawling with spiders.  I can see the tunnel turns east
+from here, a very large, but quite smashed, spider lies squished on the
+floor.  I can now go east or south.
+
+Also here is a brick.
+
+Hanson follows me in.
+
+>I move south.
+
+A Dark Tunnel
+
+It looks an underground tunnel.  The walls are narrow and puddles saturate
+the floor.  It looks like it continues to the north and a hole in the wall
+leads back into the cellar, which I can go through.  How odd, though.  There
+is no sign of the lantern that I am sure I heard Hanson break.
+
+Hanson follows me in from the north.
+
+>I stick the lantern through the hole first, making sure something isn't in
+there.
+
+Through the hole I go, into the cellar.
+
+Cellar
+
+It’s pretty dark down here, even with a lantern.  There are a few crates
+stacked up in the corners near several more keg barrels.  The western wall is
+completely lined with shelves and holds several bags of herbs  and spices,
+along with some jars.  The other wall has a large hole in it, leading in,
+with a pile of bricks slightly off to the side.  Mum isn’t going to be happy
+about this at all. The trapdoor leads up to the storeroom.
+
+Hanson follows me in.
+
+>My score is 85 out of a maximum of 0.  (0%)
+
+>(Your score has increased by 15)
+"The trapdoor is stuck! We still can't get out, Hanson."
+
+"Don't be such a crybaby, Shadrick.  MOM! MOM! SHADRICK IS BEATING ON ME!"
+
+"I AM NOT!  I hear mum coming.  Nice work, Hanson."
+
+ Mum's face is beat red as she pulls Hanson from out of the cellar and yanks
+me by the ear.
+
+More
+Before mum was able to twist my ear completely off, Hanson and I explained
+what had happened.  Father wasn't too keen on believing our story, but mum
+can tell when we're lying...well except for when Hanson says I'm beating on
+him.  She always believes that for some reason.
+
+"Finish your supper, Shadrick?"
+
+"I'm almost done, mum."
+
+ Anyway, the robbers were caught red handed in the vault.  We got a small
+reward from the bank, but it was Mr. Willingsdale's grandson that was most
+grateful.  The town was named after his grandfather, and it was his money
+that was being robbed from the vault.  Needless to say he was very grateful
+and gave us a huge reward.  I guess back in the day the tunnels were used to
+move large amounts of gold and stuff secretly.  Mr. Willingsdale wants to
+have them filled in.
+
+ Mum was so happy about the reward that she might be sending me off to
+boarding school sooner than expected.  With all this excitement, I could use
+a little vacation.
+
+"Mom, Shadrick is hitting me again!"
+
+"Am not!."
+
+The End
+
+Shadrick'sUnderground Adventures
+Written by Mystery
+April - July 2004
+
+Special thanks to the following beta-testers.
+
+Woodfish
+The Madmonk
+Tech
+Timmon
+Chuck Smith
+
+Copyright © Dana Crane 2004

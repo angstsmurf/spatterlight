@@ -1,0 +1,166 @@
+# Shards of Memory (Stewart J. McAbney, InsideADRIFT Spring Comp 2004).
+# Route: the author's own transcript from springcomp04.zip
+# (walkthru/walkthru/wt-shards.txt), replayed verbatim -- no command needed
+# rephrasing and nothing in the run is a parser failure.
+# There is NO scoring system: 803 tasks in the dump and not one ACT type=4,
+# which is why this row has no "score" turn and the golden has no score line.
+# The bare digits are menu answers, not commands.  The first "1" picks Male at
+# the "am I male or female?" prompt; the later ones pick conversation topics
+# inside "talk to <someone>" menus, and the "3" after the Reaper conversation
+# leaves that menu.
+# The 45 blank lines answer the game's 45 "...press a key..." pauses; their
+# positions were measured with SCR_MARK_WAITKEY=1 rather than guessed, and the
+# two leading blanks are the title card and the "remember" hint.
+
+
+1
+
+e
+
+
+
+x floor
+wait
+wait
+wait
+wait
+wait
+smash east wall with flint
+
+
+
+n
+n
+
+w
+sw
+in
+talk to marhon
+2
+talk to marhon
+2
+out
+ne
+e
+in
+pray
+
+sw
+w
+sw
+in
+talk to marhon
+3
+
+out
+ne
+e
+e
+n
+
+
+
+
+
+
+
+e
+
+s
+
+
+
+s
+s
+
+
+in
+x tapestry
+
+throw lightstone at demon
+
+e
+e
+2
+
+
+
+e
+
+2
+in
+out
+out
+1
+kneel
+kiss hand
+
+
+
+
+
+se
+
+1
+1
+1
+1
+1
+talk to youth
+4
+1
+4
+1
+1
+nw
+out
+6
+x guard
+1
+out
+4
+in
+n
+x desk
+talk to cedrik
+4
+1
+s
+out
+out
+5
+in
+touch wheel with key
+touch key to wheel
+
+touch cell with key
+d
+d
+d
+x door
+touch depression with key
+touch key to depression
+i
+use key
+
+talk to reaper
+2
+1
+1
+2
+2
+2
+
+
+
+out
+3
+n
+n
+n
+n
+call reaper
+
+kill fallen with giver of sleep
+
+

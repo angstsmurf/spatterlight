@@ -8,6 +8,64 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-08-02 (later) — Key & Compass ADRIFT index swept: +17 games, +5 walkthrough pages
+
+Source: `https://www.plover.net/~davidw/sol/idx_adrift.html` (720 ADRIFT works
+indexed; **48 of them have a Key & Compass walkthrough/map**, spread over 21
+pages). K&C **hosts no game files** — only walkthroughs — so the games had to be
+sourced separately. 16 of the 21 pages were already on the Desktop as
+`.webarchive`; the 5 that were not are now saved as plain HTML (plus `sol1.css`)
+in `~/Desktop/Plover adrift walkthroughs/`:
+
+`adr3quests.html` · `adrspr04.html` · `adrsum04.html` · `adrwcc06.html` ·
+`cleft.html`
+
+**Games added to `games/` (17 new symlinks, all boot clean under
+`harness/scare`).** Staging dir: `~/Downloads/plover-adrift-2026-08/`.
+
+| game | file | source |
+| --- | --- | --- |
+| The Curse of DragonShrine | `DragonShrineR43.taf` | IF Archive `mini-comps/adrift/springcomp04.zip` |
+| Sommeril | `sommeril.taf` | ditto |
+| Wax Worx | `wax_worx.taf` | ditto |
+| Shards of Memory *(no K&C walkthrough)* | `shardsofmemory.taf` | ditto |
+| The ADRIFT Project: Classified | `TheADRIFTProject.taf` | IF Archive `mini-comps/adrift/summercomp04.zip` |
+| Shadrick's Underground Adventures | `ShadricksUnderground.taf` | ditto |
+| Tears of a Tough Man | `Tear.taf` | ditto |
+| Choose Your Own... | `chooseyourown.taf` | ditto |
+| The Mystery of the Darkhaven Caves | `mysteryofcaves.taf` | ditto (K&C has a map for it, though the index doesn't link it) |
+| Ticket to No Where *(no K&C walkthrough)* | `ticket.taf` | ditto |
+| Glum Fiddle | `Glum Fiddle.taf` | IF Archive `mini-comps/adrift/writing-challenges-comp-2006.zip` |
+| Jonathan Grimshaw: Space Tourist | `JGrim1.0.taf` | ditto |
+| The Cleft in the Rock | `cleft.taf` | adrift.co `/game/681` → `/files/games/cleft.taf` |
+| ADRIFTMAS Party | `ADRIFTMAS_Party.taf` | Wayback `shadowvault.net/games/adriftmasparty.taf` (3 MB) |
+| The Quest *(Chris Moody)* | `tq3.taf` | Wayback `shadowvault.net/games/tq3.taf` |
+| The quest *(BoyBiz)* | `yeh.taf` | Wayback `shadowvault.net/games/yeh.taf` |
+| The Quest *(Chlestron, AIF)* | `fantasyworld.taf` | Wayback `delron.org.uk/games/thequest.zip` |
+
+`tq3.taf` / `yeh.taf` are byte-exact against ScummVM `detection_tables.h`
+(5000-byte MD5 + filesize). The three same-titled *Quest*s are disambiguated by
+that table: `tq3` = Chris Moody, `yeh` = BoyBiz, `fantasyworld` = Chlestron.
+
+**Not missing after all:** *The Murder of Jack Morely* is an a.k.a. of
+**Confession**, already in the corpus as `Confession(1).taf` — and it is *absent*
+from `3hourcompnov04.zip` despite that zip's blurb listing it. *Quest for the
+Magic Healing Plant* is `mhpquest.taf`; *Color of Milk Coffee* is ADRIFT **5**
+(`test/adrift5-games/coloromc.taf`).
+
+**Author walkthroughs that came free with the comp zips** (bonus over K&C):
+`springcomp04/walkthru/wt-{dragonshrine,sommeril,shards,waxwurx}.txt`,
+`summercomp04/competition/wthroughs/{Shadrickwalkthrough,The ADRIFT Project
+Walkthrough,ticketwalkthru}.txt`, `thequest/The Quest/walkthru.txt`.
+
+Dead ends worth not re-walking: delron.org.uk's `/games/*.zip` are all 404 in the
+Wayback Machine (only the review pages survive); adrift.co's 619-game listing has
+none of ADRIFTMAS Party or the three *Quest*s; IF Archive has no ADRIFT End of
+Year Comp 2002 package.
+
+None of the 17 is wired into `run_v4_walkthroughs.sh` yet — that is the next
+derivation batch.
+
 ## 2026-08-02 — the eleven unwired `.taf` in `games/` — ALL WIRED — 87/87 PASS
 
 The coverage audit against ScummVM's `engines/glk/adrift/detection_tables.h`

@@ -1,0 +1,352 @@
+# Ticket to No Where (Richard Otter, InsideADRIFT Summer Comp 2004).  You have
+# missed the train and have until 4.00pm to reach a meeting at Grantby; the
+# game is a 6.5-game-hour clock that ticks one minute per turn, so the route is
+# turn-sensitive from end to end.
+# Route: the author's own transcript from the comp package
+# (competition/wthroughs/ticketwalkthru.txt), replayed verbatim.  That file
+# marks its commands with nothing at all -- no prompt, no prefix -- so the
+# commands were recovered by heuristic and four had to be put back by hand:
+# the stray "2." the author typed (and the "n" the transcript merged onto the
+# same line), the over-long "say donningby bahnhof umsteigen grantby to young
+# girl", and one empty line the author entered by accident.  All four cost a
+# turn and the clock notices, so all four are kept.
+# 110/110 -- a genuine full score, and the same total the author reports.
+# Reaching it needs two engine fixes made while deriving this route, both
+# verified live against run400.exe under Wine:
+#   * "drop <thing> in <container>" is Adrift's put-in handler wearing another
+#     verb.  Five bits of litter go in the rubbish bin this way and are worth
+#     2 points each; before the fix the priority "drop %text%" pattern swallowed
+#     the "in bin" tail and answered "Drop what?".
+#   * "all" does not range over what the player already carries.  With the open
+#     bag of shopping in hand, "get all" takes the pamphlet only; SCARE used to
+#     empty the bag as well, which then made the banana skin too heavy to pick
+#     up and cost the fifth litter point.
+# The single blank line at the top answers the intro's "Press ENTER to
+# continue"; the blank line further down is the author's stray empty command,
+# not a waitkey (this game has exactly one pause, measured with
+# SCR_MARK_WAITKEY=1).
+
+x bin
+get wire
+north
+ask ticket seller about grantby
+x counter
+x leaflet
+read leaflet
+inventory
+read scrap of paper
+read card
+ask ticket seller about leaflet
+west
+x counter
+open tea urn
+get pipe
+open till
+get iou
+open display unit
+get stale donut
+x table
+look under table
+get rattle
+x notice
+east
+ask ticket seller about pipe
+north
+ask porter about pipe
+ask porter about iou
+ask porter about grantby
+east
+say hello to me
+say hello to mrs peters
+ask mrs peters about grantby
+ask mrs peters about sister
+ask mrs peters about husband
+ask mrs peters about bill peters
+x mrs peters
+ask mrs peters about baby
+ask mrs peters about rattle
+give rattle to mrs peters
+x vending machine
+x slot
+poke pound with wire
+insert pound in slot
+get chocolate
+look under vending
+look behind vending
+get all
+ask mrs peters about gazette
+read gazette
+ask mrs peters about horse racing
+ask mrs peters about gamble
+ask mrs peters about money
+west
+nw
+x trainspotter
+ask trainspotter about grantby
+ne
+east
+ask station master about beard
+ask station master about wallet
+ask station master about theft
+ask station master about business people
+x desk
+get notepad
+ask station master about pipe
+ask station master about iou
+ask station master about grantby
+give pipe to station master
+get notepad
+get note
+get pen
+open desk
+read book
+ask station master about book
+get flowers
+drop vase of flowers
+get flowers
+west
+x payphone
+read sticker
+call 768555
+call 768555
+call 767123
+call 798654
+call 858585
+east
+ask station master about passing through
+west
+sw
+ask trainspotter about passing through
+ask trainspotter about stopping train
+ask trainspotter about note
+ask trainspotter about notepad
+ask trainspotter about pen
+read note
+ask trainspotter about beard
+se
+x mess
+clean mess
+south
+south
+get crumbled newspaper
+read crumbled newspaper
+ask bearded chap about wallet
+ask bearded chap about meeting
+ask bearded chap about bill peters
+ask bearded chap about stationary
+ask bearded chap about catalog
+give catalog to bearded chap
+ask bearded chap about catalog
+give card to bearded chap
+ask bearded chap about newspaper
+2.
+n
+west
+get bag of shopping
+x bag of shopping
+east
+north
+x bench
+look under bench
+get all
+read pamphlet
+ask porter about pamphlet
+south
+south
+drop crumbled newspaper in bin
+time
+north
+get banana skin
+south
+put banana skin in bin
+north
+north
+ask porter about young girl
+ask porter about german
+ask young girl about grantby
+nw
+give notepad to trainspotter
+ask trainspotter about tights
+get tights
+give tights to trainspotter
+ask trainspotter about gloves
+get gloves
+give gloves to trainspotter
+ask trainspotter about young girl
+ask trainspotter about german
+where is young girl
+se
+ask young girl about flowers
+give flowers to young girl
+ask young girl about flowers
+say donningby bahnhof umsteigen grantby to young girl
+nw
+ne
+north
+get manual
+south
+throw donut at pigeon
+x train
+east
+ask station master about note
+west
+sw
+se
+get apple core
+south
+south
+drop apple core in bin
+north
+north
+nw
+give manual to trainspotter
+ne
+east
+give iou to station master
+west
+wait
+wait
+east
+ask station master about iou
+west
+sw
+se
+ask porter about iou
+time
+ask porter about bill peters
+ask porter about horse racing
+ask porter about gambling
+bored
+nw
+ask trainspotter about bill peters
+ask trainspotter about john tailer
+ne
+north
+get suitcase
+south
+sw
+se
+ask porter about suitcase
+time
+west
+sw
+se
+x drunk
+time
+east
+ask business man about cats
+ask business man about john tailer
+ask business man about beard
+ask business man about theft
+x business man
+x left pocket
+x right pocket
+ask business man about pocket
+ask business man about 768555
+open pet food
+x betting slip
+get bell
+put food in pocket
+get all
+x credit card
+read credit card
+west
+nw
+ne
+north
+get parcel
+x parcel
+open parcel
+read delivery receipt
+get pencil
+x pencil
+snap pencil
+drop pencil (broken) in parcel
+close parcel
+south
+east
+ask station master about parcel
+give parcel to station master
+ask station master about parcel
+ask station master about pencil
+time
+inventory
+west
+sw
+se
+wait
+wait
+wait
+wait
+ask business woman about breakfast
+ask business woman about cafe
+south
+west
+get sandwich
+east
+north
+give sandwich to business woman
+ask business woman about chocolate
+give chocolate to business woman
+x coat
+cover drunk with coat
+get all
+x bottle
+use bottle on note
+write colesworth on note
+nw
+ne
+east
+give note to station master
+ask station master about note
+give pen to station master
+west
+get wrapper
+sw
+ask trainspotter about wrapper
+se
+south
+south
+drop wrapper in bin
+inventory
+north
+north
+ask business woman about coat
+bored
+nw
+ne
+north
+south
+sw
+
+se
+south
+ask ticket seller about leaflet
+north
+get sock
+south
+south
+drop sock in bin
+north
+north
+nw
+wait
+ne
+time
+wait
+wait
+wait
+say hello to john tailer
+drop credit card
+sw
+get carton
+se
+south
+south
+drop carton in bin
+north
+north
+nw
+ne
+get credit card
+give credit card to john tailer

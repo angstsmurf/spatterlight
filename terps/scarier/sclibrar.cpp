@@ -5113,6 +5113,26 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
 
 
 /*
+ * lib_take_all_filter()
+ *
+ * The universe that "all" ranges over, which is narrower than the set of
+ * objects a named take can reach: the Runner's "all" leaves alone anything
+ * already in the player's possession, including the contents of an open
+ * container being carried.  In Ticket to No Where, holding the open bag of
+ * shopping and typing "get all" answers "You take the pamphlet." and leaves
+ * the tights, pet food, deodorant and gloves in the bag, while "get paper"
+ * still lifts the scrap of paper out of the carried wallet.  Both verified
+ * live against run400.exe, 2026-08-02.
+ */
+static scr_bool
+lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
+{
+  return lib_take_filter (game, object, unused)
+         && !obj_indirectly_held_by_player (game, object);
+}
+
+
+/*
  * lib_cmd_take_all()
  *
  * Attempt to take all objects currently visible to the player.
@@ -5126,7 +5146,7 @@ lib_cmd_take_all (scr_gameref_t game)
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game,
-                              lib_take_filter, -1, FALSE, NULL);
+                              lib_take_all_filter, -1, FALSE, NULL);
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_take_backend (game);
@@ -5148,11 +5168,19 @@ static scr_bool
 lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
   scr_int objects, references;
+
+  /*
+   * "take all except ..." works over the "all" universe, which excludes
+   * whatever the player already carries; a named take reaches further, into
+   * a carried open container (see lib_take_all_filter).
+   */
+  resolver = is_except ? lib_take_all_filter : lib_take_filter;
 
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
-                                   lib_take_filter, -1,
+                                   resolver, -1,
                                    &references))
     return FALSE;
   else if (references == 0)
@@ -5160,7 +5188,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Filter objects into references, then handle with the backend. */
   objects = lib_apply_filter (game,
-                              lib_take_filter, -1, is_except,
+                              resolver, -1, is_except,
                               &references);
   if (objects > 0 || references > 0)
     lib_take_backend (game);

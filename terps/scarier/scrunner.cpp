@@ -225,6 +225,29 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    lib_cmd_take_except_multiple},
   {"[get/take/pick up] %text%", lib_cmd_take_multiple},
   {"pick %text% up", lib_cmd_take_multiple},
+  /*
+   * "drop X in Y" and "drop X on Y" are Adrift's put handlers wearing a
+   * different verb: `drop wallet in bin` answers "You put your wallet inside
+   * the rubbish bin.", and `drop wallet on bin` gives the put-on refusal
+   * "You can't put anything onto the rubbish bin!".  "put down" and "all"
+   * behave the same way.  Verified live against run400.exe with Ticket to No
+   * Where, whose walkthrough disposes of five bits of litter with
+   * "drop <litter> in bin".  These have to precede the plain drop patterns
+   * below, whose %text% would otherwise swallow the "in <container>" tail and
+   * leave the player with "Drop what?".
+   */
+  {"[drop/put down] [all/everything] [in/into/inside {of}] %object%",
+   lib_cmd_put_all_in},
+  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
+   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
+  {"[drop/put down] %text% [in/into/inside {of}] %object%",
+   lib_cmd_put_in_multiple},
+  {"[drop/put down] [all/everything] [on/onto/on top of] %object%",
+   lib_cmd_put_all_on},
+  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
+   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
+  {"[drop/put down] %text% [on/onto/on top of] %object%",
+   lib_cmd_put_on_multiple},
   {"[[drop/put down] [all/everything]/put [all/everything] down]",
    lib_cmd_drop_all},
   {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%",

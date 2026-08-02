@@ -1,0 +1,112 @@
+# Sommeril -- H. Lee Parten, InsideADRIFT Spring Comp 2004 (ADRIFT 4.0).
+# 85 out of a maximum of 100 -- and 85 IS the ceiling; see the wet-page note.
+# The author's own walkthru (springcomp04.zip, walkthru/wt-sommeril.txt) is
+# only the six-step spine (dust -> ring -> bride -> key -> unlock -> mask) and
+# scores 20; the rest of the route is derived from SCR_DUMP_TASKS.  You fell
+# out of the sky clutching a book and the pages blew away, so the optional
+# content is collecting and reading them: crumpled (Nemo Blvd Junction), muddy
+# (Romarico Ave Junction), placemat (Cafe), wet (surfaces in the fountain once
+# the gutter fish is put back in the water), bloody (sealed inside the glass
+# framed page, which the shopkeeper only parts with after the gargoyle has been
+# freed), rat-chewed (tacked over a hole in the horse stall, released when the
+# blacksmith gets his trolley wheel back).
+# Three authoring bugs shape this route, all reproduced faithfully by SCARE:
+#   * "take wet page" (TASK 6, the single biggest award at 10 points) restricts
+#     on "WET PAGE held by NPC 0 (the FISH)", but the task that spawns the page
+#     drops it INSIDE the fountain, and handing it to the fish just gets it
+#     handed back ("FISH examines the WET PAGE with little interest").  The
+#     restriction can never hold, so those 10 points are unreachable and the
+#     real maximum is 85, not 100.  Reading the page still scores its 5.
+#   * "take ring" (TASK 11) restricts on the ring being loose in the room, but
+#     the ring starts INSIDE the pile of dust, so the first take is the plain
+#     library one and scores nothing.  Hence the drop/re-take below: once the
+#     ring is on the floor of the Citadel stairs the task fires and pays its 5.
+#   * "take silver key" (TASK 5) is scoped to the Citadel stairs, not to the
+#     Town Crier where the key actually turns up -- so it hands you a key, and
+#     5 points, before you have ever met the bride.  It prints a stray "Take
+#     what?" afterwards because the engine still runs the library take.  Worse,
+#     the bride task later MOVES that same key object to the Town Crier, so the
+#     key has to be picked up again there or the doors stay locked.
+# The game ends the instant the mask comes off -- the endgame fires from the
+# take, so nothing after it reaches the parser (verified with probe tokens) and
+# there is no "out" to Your Fate, no quit prompt.  Win marker = the closing
+# website line, the last text the game ever prints.
+# Four blank lines below satisfy the four intro <waitkey> pauses.
+
+
+
+
+get book cover
+n
+n
+take fish
+w
+x placemat
+get placemat
+e
+n
+n
+take silver orb
+put fish in fountain
+take wet page
+read wet page
+n
+sw
+give silver orb to gargoyle
+s
+s
+s
+get crumpled page
+read crumpled page
+se
+ne
+get muddy page
+read muddy page
+n
+n
+x gutter
+get wheel
+n
+in
+ask about glass framed page
+take glass framed page
+open glass framed page
+get bloody page
+read bloody page
+out
+nw
+n
+x pile of dust
+take ring
+drop ring
+take ring
+take silver key
+s
+se
+s
+s
+in
+give ring to bride
+take silver key
+out
+n
+n
+nw
+s
+s
+in
+give wheel to blacksmith
+n
+take rat-chewed page
+read rat-chewed page
+s
+out
+n
+n
+n
+unlock door
+in
+w
+in
+score
+take mask

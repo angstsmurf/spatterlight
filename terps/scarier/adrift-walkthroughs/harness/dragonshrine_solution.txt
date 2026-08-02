@@ -1,0 +1,137 @@
+# The Curse of DragonShrine (Mystery, InsideADRIFT Spring Comp 2004).
+# Route: the author's own transcript from springcomp04.zip
+# (walkthru/walkthru/wt-dragonshrine.txt), replayed verbatim apart from two
+# repairs: his "drop lined, drop spoon" typo is spelled "drop spoon", and a
+# "score" is inserted before the winning "open door" so the golden records the
+# tally (83, +12 for the escape = 95).
+#
+# 95/100 is the ceiling on the winning path.  The dump has thirteen positive
+# awards summing to 100, but two of them are the two halves of the same scene:
+# TASK 38 "#Stir Potion" (5) fires when the cauldron holds the three potions
+# WITHOUT the flower, TASK 39 "#Stir Potion Correct" (25) when the flower is in
+# too.  Neither repeats and either one empties the cauldron, so exactly one can
+# ever fire -- and only the 25-point one brews the purple potion that Jenny
+# needs, so only it leads to a win.  The two negative awards (-5, -1) are traps
+# this route never springs.
+#
+# The blank first line answers the intro <waitkey>; the blank line after
+# "read incantation" answers the one in the resurrection scene.  There are no
+# others (measured with SCR_MARK_WAITKEY=1).
+
+n
+n
+in
+feel wall
+pull lever
+z
+z
+x table
+take candle
+light candle
+s
+x table
+take potion
+s
+s
+w
+n
+take bottle
+move tile
+i
+w
+n
+e
+take wood
+w
+s
+se
+e
+up
+read floor
+n
+e
+x straw
+take potion
+w
+n
+w
+take linen
+e
+n
+e
+wipe painting
+w
+w
+x table
+take bowl
+open wardrobe
+take cloak
+wear cloak
+x desk
+look under desk
+x vase
+take flower
+e
+s
+s
+s
+d
+e
+ne
+n
+w
+x shelf
+take potion
+pull book
+in
+d
+e
+take body
+w
+up
+out
+e
+n
+nw
+w
+s
+put blue potion in pot
+put green potion in pot
+put red potion in pot
+put flower in pot
+put wood in pit
+x cauldron
+light fire
+x sink
+take spoon
+stir potion
+i
+drop spoon
+drop linen
+s
+s
+s
+x spear
+pull spear
+n
+n
+d
+n
+up
+up
+n
+x dragon
+take scroll
+put body on slab
+give potion to woman
+read incantation
+
+s
+d
+d
+s
+up
+s
+s
+score
+open door

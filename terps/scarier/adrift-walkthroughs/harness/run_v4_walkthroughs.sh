@@ -169,6 +169,15 @@ goblinhunt_solution.txt|goblinhunt.taf|Congratulations!
 agent4f_solution.txt|agent_4F[1].A.taf|Congratulations!
 invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
 adriftorama_solution.txt|adriftorama.taf|*****You Win!*****
+# The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
+# see WALKTHROUGH_TODO.md "2026-08-02 (later)" for where each .taf came from.
+wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
+sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
+dragonshrine_solution.txt|DragonShrineR43.taf|ended the Curse of Dragon Shrine
+shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in victory besides
+TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you
+ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault
+ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110
 EOF
 }
 

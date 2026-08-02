@@ -1,0 +1,49 @@
+# Wax Worx -- Eric Mayer, InsideADRIFT Spring Comp 2004 (ADRIFT 4.0).
+# Route = the author's own walkthru (springcomp04.zip, walkthru/wt-waxwurx.txt),
+# replayed verbatim; it runs clean, no divergence.  The game has NO score at all
+# (every task dumps score=0), and its single ending is the Old Sparky cut-scene:
+# you ARE the murderer, and "winning" is being told so and executed.  The final
+# "[PRESS ANY KEY TO DIE]" is the last text the game ever prints -- the keypress
+# fires the EndGame, so nothing after it reaches the parser (verified with probe
+# tokens).  That line is therefore the row's win marker.
+stand
+open wooden door with credit card
+w
+look under shelf
+move boxes
+crawl
+ask marie about wily
+get marie
+crawl
+e
+get axe
+e
+e
+x bushes
+n
+ask charlie about house
+e
+put nose on clown
+n
+x floorboards
+hit floorboards with axe
+d
+creepy crawl
+u
+give marie to dog
+g
+g
+s
+e
+x sideboard
+get wallet
+open wallet
+x license
+z
+z
+kill
+z
+z
+z
+z
+z

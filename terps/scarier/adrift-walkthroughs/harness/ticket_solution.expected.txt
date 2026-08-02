@@ -1,0 +1,2627 @@
+Loading game...
+
+Ticket to No Where
+
+by Richard Otter, version 1.00
+(type details for more info)
+
+In the race of life you never seem to even get on the starting blocks.
+
+Once again you have slept through your alarm clock, missed your shower,
+didn't have time for breakfast, couldn't get the car to start, missed the
+only bus and failed to get a taxi.
+
+You have probably the most important meeting of your life today with John
+Tailer of Broke Brothers. John is considering buying his pencils and other
+stationary from Super Stationary rather than your company. Broke Brothers are
+your last big customer so you desperately need to get to his office at
+Grantby by 4.00pm.
+
+You now only have one option left and that is to use the train, so you run to
+the railway station.
+
+You now find yourself (out of breath and sweating badly) at Coltby Railway
+Station.  Coltby has just been voted the winner in the all time worst top 100
+railway stations poll. It has actually won this award three years running.
+
+Guess what?  you have missed the train to Grantby.
+
+The objective ?  you must meet with John Tailer today by 4.00pm.
+
+Press ENTER to continue
+
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.
+
+Against one wall you can see one of those wire frame rubbish bins.
+
+There is an exit north.
+
+>
+>You can see a wire rubbish (trash) basket and unusually for Coltby it is not
+overflowing with rubbish. Some of the wires are sticking out.  Inside the
+rubbish bin is a colesworth timetable.
+
+(for your information you now have 6.5 game hours to finish this adventure.
+The time is now 9:31.)
+
+>You pull a piece of wire from the rubbish bin.
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.  You can see a young girl
+wandering around looking very lost.
+
+You appear to be able to move north, south and west.
+The young girl says "where platform 1."
+The young girl says "where platform 1."
+
+>"ticket to Grantby, that is £30.  The next train is at 4.00pm."
+
+You look at your watch, "Well that is no use" you think.  You have to be at
+the meeting at that time so you will have to find another train to catch.
+
+The young girl says "donningby?"
+
+>You look carefully at the battered old counter.  From the look of it the
+counter has been in the building some years.  A leaflet is on the counter.
+
+A young girl wanders out to the west.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>It is an advertising leaflet for Super Stationary.  You could read it.
+
+>The leaflet goes into a lot of detail on how great Super Stationary is and
+how bad the opposition is. Someone has written a phone number on the back of
+the leaflet - 768555
+
+>You are wearing your suit and a wristwatch, and you are carrying your wallet,
+a stationary catalogue and a piece of wire.  Inside your wallet is a scrap of
+paper and your business card.
+
+>The scrap of paper reads
+
+"John Tailer of Broke Brothers, Tel: 767123"
+"Meeting today at Grantby, 4.00pm"
+
+A cat strolls in from the north.
+
+A young girl wanders in from the west.
+The young girl says "donningby platform?"
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>Your business card reads -
+
+Colin Thompson,
+Rapid Stationary Ltd,
+Coltby
+Tel: 798654
+
+The young girl says "donningby train?"
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>"a passenger must have left it.  I'll throw it away later."
+
+A cat strolls out to the north.
+The young girl says "need donningby train."
+
+>You move west.
+Cafe
+It is probably the first time you have been in this cafe (and it will be the
+last).  You have the feeling that a visit from the local heath inspector is
+long overdue.  A counter is before you on which you can see an old tea urn, a
+display unit and the till.  The other extensive facilities consist of one
+table and one chair. On one wall you can see a small notice board.
+
+The door out of the cafe is east.
+
+>The small counter is in keeping with this room, shabby, neglected and dirty.
+
+>You open the tea urn.  Inside the tea urn is a pipe.
+
+>You take the pipe from the tea urn.
+
+>You open the till.  Inside the till is an iou.
+
+>You take the iou from the till.
+
+>You open the display unit.  Inside the display unit is a stale donut.
+
+>You take the stale donut from the display unit.
+
+>It's a very old rickety table.  It has no table cloth and you can see years
+of dirty stains on it.  A cup, an old sandwich and a paperback are on the
+table.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>You look under the table and find something.
+
+>You pick up the baby's rattle.
+
+>It only has one notice.  "Missing. One smoker's pipe.  If found contact the
+Station Master."
+
+>You move east.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>"the Station Master has lost his.  I think he blames the Porter."
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You move north.
+Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+>"HeHe.  I bet he will not find it."
+
+>"I needed a cup of tea and I didn't have any money.  Still the Station Master
+never goes into the cafe."
+
+>"the next train is at 4.00pm."
+
+"4.00pm! that is far too late" you think.  You will need to find another way
+to meet John Tailer.
+
+A young girl wanders in from the east.
+The young girl says "how get donningby?"
+
+>You move east.
+Waiting Room
+Hoping for something different to the rest of the station you are
+disappointed.  You now find yourself in the Waiting Room which is drab, dirty
+and a very depressing room.  Just the place to wait for trains at Coltby.
+
+You can also see a magazine and a vending machine.
+Mrs Peters is waiting for a train.
+
+The door out of the room is west.
+
+(Not wanting to add any pressure at this stage in the game but you have 6
+hours remaining. The time is now 10:00.)
+The very smart lady says "Hello my name is Mrs Peters."
+
+>Uh huh, yes, very interesting.
+
+The station sound system bursts into life and you hear some crackling and
+whistling.  You then hear Bayswater followed by something like "running
+approximately 10 minutes late."
+
+>You say hello to Mrs Peters, who replies "Hello."
+
+>"no, I'm going to see my sister over at Bakeswell. You missed the train to
+Grantby though. The next one's not until about 4.00pm I think."
+
+A young girl wanders in from the west.
+The young girl says "donningby?"
+
+>"I'm going to see my sister. Do you know I once lost my coat at Bakewell
+Station. My husband still goes on about it."
+The young girl says "wo ist train to donningby."
+
+>"My husband Bill is a salesman at Super Stationary."
+
+"Oh! No! not Bill Peters!" you think.
+The young girl says "next train going to donningby?"
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>"Bill Peters is my husband. He works for Super Stationary and is probably the
+best salesman they have.  He will be back here at 1.30pm."
+
+"Super Stationary!" you think and you had started to like this woman as well.
+The young girl says "donningby?"
+
+>You can see Mrs Peters who is a smartly dressed woman.  Mrs Peters has a
+small baby in her arms.
+
+A young girl wanders out to the west.
+
+>"she looks just like her father, my Bill. "
+
+"poor child." you think
+
+>"I only brought one rattle with me, but I can't see it at the moment."
+
+>(Your score has increased by 5)
+You hand the rattle over to Mrs Peters.  "Oh my! I didn't realise that I'd
+dropped it."
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+A train arrives at Platform 2.  You just manage to catch the name Bayswater
+on the announcement.
+
+It sounds like a train is at platform 2.
+
+>It's a vending machine selling chocolate.  The label on the machine states
+that it is supplied and operated by "Mega Vending".  You can see a slot which
+has £1 next to it.  The vending machine is supported by four legs and stands
+slightly away from the wall.  Inside the vending machine is a bar of
+chocolate.
+
+A young girl wanders in from the west.
+The young girl says "donningby train?"
+
+It sounds like a train is at platform 2.
+
+>You can see a pound coin stuck in the slot.  You will need to get it out
+before you can use the vending machine.  Something to poke it out would help.
+The young girl says "where platform 1."
+
+It sounds like a train is at platform 2.
+
+>You poke at the pound coin in the slot and it comes loose.  You pocket the
+coin.
+The young girl says "next train going to donningby?"
+
+It sounds like a train is at platform 2.
+
+>You insert a pound in the vending machine and a bar of chocolate drops out.
+The young girl says "next train going to donningby?"
+
+It sounds like a train is at platform 2.
+
+>You pick up the bar of chocolate.
+
+A young girl wanders out to the west.
+
+It sounds like a train is at platform 2.
+
+>You look under the vending machine and find something.
+
+It sounds like a train is at platform 2.
+
+>You look behind the vending machine and find something.
+
+It sounds like a train is at platform 2.
+
+>You pick up the magazine, the gazette and the chewing gum.
+
+It sounds like a train is at platform 2.
+
+>"my husband always has a Gazette.  I wish he would just throw it away."
+
+It sounds like a train is at platform 2.
+
+>Trotters Horse Racing Gazette.
+You hear someone blowing a whistle and the train on platform 2 pulls out of
+the station.
+
+>"my husband likes a gamble.  He never knows when to stop though."
+
+>"my husband will keep gambling.  He just never knows when to stop though."
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>"we do owe a little money that is true, but my husband will sort it all out."
+
+>You move west.
+Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A cat is silently wandering around.  A Trainspotter dressed in wet weather
+gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+A cat strolls out to the north-east.
+The Trainspotters says "If you would like to look at my notes I will be happy
+to show you."
+
+>The trainspotter is wearing a big hooded coat (Anorak) and rainproof
+trousers.  Trainspotter is carrying a thermos flask, a plastic box, a
+membership card and a notebook.
+
+>"Yes, Grantby is the last stop on the line.  You missed the train though.
+You could catch the Bayswater train and change at Draycot.  That would get
+you into Grantby at 4.25pm."
+
+"Well that is no good at all" you think "I will miss my meeting.  I'll have
+to think of another idea."
+
+A cat strolls in from the north-east.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes something in a notebook.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You move northeast.
+Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+A large pigeon is watching you from the canopy over the platform.
+
+You appear to be able to move north, east and southwest.
+
+>You move east.
+Private
+The warm and cosy Station Master's office is a pleasant surprise from the
+rest of the station.  It even has wallpaper and a carpet. The room has a
+fireplace but it is a long time since it held a fire.   The fireplace
+contains a nice vase of flowers.
+
+You can also see a desk and a telephone.
+The Station Master is standing to one side.  A bearded chap is pacing up and
+down.  You can see a young girl wandering around looking very lost.
+
+The door out of the room is west.
+The young girl says "wo ist train to donningby."
+The young girl says "wo ist train to donningby."
+
+As you enter the room someone is making a complaint to the Station Master.
+
+"I had my wallet when I entered the Station and now its gone." says a bushy
+bearded man.
+The Station Master replies "perhaps you have dropped it somewhere?  I'll get
+the staff to look if you like."
+
+The bearded man looking rather cross says "No I haven't dropped it.  It was
+in my buttoned up pocket.  Someone has stolen it!"
+The Station Master trying to calm the man says "I'm sure it will turn up."
+
+Beardy turns and leaves, just as he goes out the door he says sharply "this
+is a waste of time, I'll call the police myself."
+
+>"The man with the beard seemed to think that someone has stolen his wallet
+here.  I tried to explain that we have only had business people here today.
+It couldn't possibility be one of them."
+The young girl says "donningby?"
+
+>"a gentleman seems to think he lost one at the station. We have only had
+business people here today and I cannot believe one of them would need to
+steal."
+
+A young girl wanders out to the west.
+
+>"some poor chap has lost his wallet.  He thinks it has been stolen.  We have
+only had business people here today and I cannot believe one of them would
+need to steal."
+
+>"The man with the beard seemed to think that someone has stolen his wallet
+here.  I tried to explain that we have only had business people here today.
+It couldn't possibility be one of them."
+
+>An old battered desk.  It is that type of furniture which probably looked old
+and battered when it was new.  The desk is closed.  A notepad, a pen and a
+note are on the desk.
+
+>The Station Master stops you.  I suggest you try to get rid of him.
+
+>"I can't find my pipe anywhere.  It is a bent apple with round shank and
+tapered stem."
+
+>"iou? sorry I do not know anything about an iou."
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>"next train 4.00pm."
+
+>(Your score has increased by 5)
+You hand the pipe to the Station Master explaining how you found it.  He says
+"thanks, I bet I know who hid it!"  He leaves the room. He could return at
+any moment so you want anything you had better be quick.
+
+>You take the notepad.
+
+>You take the note.
+
+>You take the pen.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You open the desk.  Inside the desk is a book.
+
+>You flick through the book but nothing catches your eye.
+
+The Station Master enters the room.
+
+It has started to rain very heavily.  You realise that this place looks a lot
+worse in the wet.
+It is still raining very hard.
+
+>"I' m thinking of taking up jogging you know."
+
+>You pickup the vase of flowers.
+
+>You drop the vase of flowers.  The plastic vase shatters into lots of pieces.
+
+The Station Master says "Why did you do that? I liked that vase."
+
+>You pickup the flowers.
+
+>You move west.
+Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  It is still raining very hard.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+A large pigeon is watching you from the canopy over the platform.
+
+You appear to be able to move north, east and southwest.
+
+>It is a yellow payphone.  You lift the receiver and it actually seems to be
+working.  On the phone is a small yellow sticker.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>The sticker reads Need to know when the next train is? then call Train
+Timeline on 858585
+
+>You pick up the handset, insert a pound and dial the number.
+
+"Hello is that you Bill? thanks for the wallet today.  Now if you can get any
+more credit cards I can get a good price for them."
+
+"Wallet, Credit Cards? Bill? would that be the Super Stationary salesman" you
+think.  What has Bill Peters been up to?
+
+The pigeon on the canopy of platform 2 flaps its wings and does its business.
+You end up with bird mess on your suit.
+
+>You pick up the handset, insert a pound and dial the number.
+
+"Look who are you and how did you get this number?  If you ring again things
+could get very messy for you."
+
+The person at the other end hangs up.
+
+>You pick up the handset, insert a pound and dial the number.  "Hello, this is
+Mr Tailer's PA.  I'm sorry but he is out of the office until 4.00pm today at
+a meeting in Colesworth." The PA hangs up. So John Tailer is not at Grantby.
+Now should you go to him or will he pass through this station?
+
+"I could ask someone about trains 'passing through'" you think.
+
+>You pick up the handset, insert a pound and dial the number. "Hello this is
+Rapid Stationary.  Everyone is busy just now but if you leave your name and
+number someone will get back to you as soon as possible."
+
+You hang up before the beep.
+
+A young girl wanders in from the south-west.
+The young girl says "donningby?"
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You pick up the handset, insert a pound and dial the number.
+"Hello this is Train Timeline.  You are held in a queue at the moment.  Your
+call is very important to us and someone will be with you shortly."
+You then get some hold music, after a couple of minutes you hear -
+"We are very busy at the moment and you may experience a small delay before
+we answer your call."
+You then get some more hold music.
+You hang up.
+The young girl says "donningby platform?"
+
+>You move east.
+Private
+The warm and cosy Station Master's office is a pleasant surprise from the
+rest of the station.  It even has wallpaper and a carpet. The room has a
+fireplace but it is a long time since it held a fire.   It is still raining
+very hard.
+
+You can also see a desk and a telephone.
+The Station Master is standing to one side.
+
+The door out of the room is west.
+
+>"railway station, lots of trains pass through."
+
+He is going to be no help.  Better find someone else.
+
+>You move west.
+Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  It is still raining very hard.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+A large pigeon is watching you from the canopy over the platform.  You can
+see a young girl wandering around looking very lost.
+
+You appear to be able to move north, east and southwest.
+The young girl says "donningby train?"
+
+A young girl wanders out to the east.
+
+The pigeon on the canopy of platform 2 flaps its wings and does its business.
+You end up with bird mess on your suit.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.  It is still raining very hard.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+The Trainspotter turns to face you and asks "what's that mess on your
+shoulder?"
+
+(You now have 5 hours left to finish the game. The time is now 11:00.)
+The rain is blowing in through the metal grill of the bridge.  You are
+feeling wet and miserable.
+
+>"Yes, lots of trains pass through.  For example the train from Colesworth
+passes through here at around 3.30pm, but it doesn't stop."
+
+You think to yourself  "so a train from Colesworth passes through here does
+it.  John Tailer must be on that one for our meeting at 4.00pm.  How do I
+stop the train? I wondered if the trainspotter knows about stopping trains?"
+
+The station sound system bursts into life and you hear some crackling and
+whistling.  You then hear Draycot followed by something like "running
+approximately 15 minutes late."
+
+You are starting to feel very cold from all the rain.
+The rain is blowing in through the metal grill of the bridge.  You are
+feeling wet and miserable.
+
+>"once you get a note with the right station on it, give it to the Station
+Master."
+The Trainspotters says "I could invite you to the next meeting of the local
+Trainspotter's club."
+The rain is blowing in through the metal grill of the bridge.  You are
+feeling wet and miserable.
+
+>"Yes, sometimes they need to get a train to make an unscheduled stop.  The
+note is the order to the Signalman to do this.  The Station Master will keep
+the notes in his office I guess."
+
+A cat strolls in from the south-east.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+The rain is blowing in through the metal grill of the bridge.  You are
+feeling wet and miserable.
+
+>"Yes, that would be handy for taking notes.  I like the type with a spring on
+the top."
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+It is still raining very hard. You really wish the rain would stop.
+The rain is blowing in through the metal grill of the bridge.  You are
+feeling wet and miserable.
+
+>"Yes, The Station Masters pen is a Jade pen by Rover. It is made from
+sterling silver and the finished is a beautiful castle pattern. The nib will
+be 18kt solid gold.  Most have been converted to take an international
+cartridge rather than the original."
+
+You are just thinking that he does not get out enough. You have changed your
+mind he should stay in, out the way of everyone else.
+
+A cat strolls out to the north-east.
+The rain is blowing in through the metal grill of the bridge.  You are
+feeling wet and miserable.
+
+>It is an Unscheduled Stop note to the Signal Man reminding him of a change.
+It reads "Unscheduled Stop. Draycot train is stopping here today. 3.30pm"
+The rain finally seems to be stopping.
+
+>"Yes, I saw him storm out of the station.  He was complaining about someone
+stealing his wallet.  Seems to be a lot of that happening a long this line.
+My brother was telling me that this happened at his station."
+
+A cat strolls in from the north-east.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+Your right foot feels a little damp. You guess that your shoe must be
+leaking.
+The porter is looking at you shoulder. "I can see the pigeons aim is getting
+better."
+
+>The pigeon has done its business on your suit 2 times!
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>You try to wipe the mess from your suit, but it just looks worse then ever.
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move south.
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.  You can see several
+large puddles from all the rain.
+
+Against one wall you can see one of those wire frame rubbish bins.
+
+You can also see a crumbled newspaper.
+A bearded chap is pacing up and down.
+
+To the north you can see the station entrance.
+
+>You pick up the crumbled newspaper.
+
+>It just has old news in it. One article entitled "Business Snatcher Strikes
+Again!" catches your eye.  It is a story about a wallet and credit card thief
+that is targeting Business men and women along this line."like the bearded
+man?"you say aloud.  He lost his wallet here at this station today.  So if he
+was a victim of this thief, then the thief was here or might even still is
+here.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>"I had it in the Ticket Hall because I bought a ticket.  I was in the Waiting
+Room talking Bill before our meeting.  I wanted something from the vending
+machine and my money had gone!  I am looking at a new stationary company and
+have a meeting later today with Bill, I do not know how I am going to get
+their now."
+
+Oh! No! not Bill Peters again.  Why does everyone know Bill Peters!
+A train arrives at Platform 2.  You just manage to catch the name Draycot on
+the announcement.
+
+It sounds like a train is at platform 2.
+
+>"I am looking for a new stationary company. I do not know how I am going to
+get to my meeting now."
+
+It sounds like a train is at platform 2.
+
+>"I was talking to him earlier today, about the time I found my wallet gone.
+Nice chap,  he works for Super Stationary you know."
+
+You get a sinking feeling in the base of your stomach. Does everyone know
+Bill damn Peters!
+
+It sounds like a train is at platform 2.
+
+>"I'm looking for a new stationary company to do business with.  I've been
+talking to Bill Peters from Super."
+
+It sounds like a train is at platform 2.
+
+>"I am looking for a new company for our office supplies."
+
+It sounds like a train is at platform 2.
+
+>You hand your companies catalogue to the Bearded Man.  "Thanks, this could be
+useful."
+
+It sounds like a train is at platform 2.
+
+>"The catalogue you gave me is great.  Do you have any business cards?."
+
+It sounds like a train is at platform 2.
+
+>(Your score has increased by 5)
+You hand your business card to the Bearded Man. "Thanks, I'll be in touch."
+For the first time today you feel a little happier.
+
+It sounds like a train is at platform 2.
+
+>"I was only saying to Bill this morning about how terrible all this theft is
+and now it has happen to me!"
+
+It sounds like a train is at platform 2.
+
+>I have no idea what you mean!
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a banana skin and a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+You hear someone blowing a whistle and the train on platform 2 pulls out of
+the station.
+
+>You move west.
+Cafe
+It is probably the first time you have been in this cafe (and it will be the
+last).  You have the feeling that a visit from the local heath inspector is
+long overdue.  A counter is before you on which you can see an old tea urn, a
+display unit and the till.  The other extensive facilities consist of one
+table and one chair. On one wall you can see a small notice board.
+
+You can also see a bag of shopping.
+
+The door out of the cafe is east.
+
+>You pick up the bag of shopping.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>It is one of those plastic bags given out by Supermarkets.  Inside the bag of
+shopping is a pair of tights, a tin of pet food, a can of deodorant and a
+pair of gloves.
+
+>You move east.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a banana skin and a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+>You can see a green railway bench which looks hard, uncomfortably and dirty.
+At the moment it has a drunk sleeping on it.
+
+>You look under the bench and find something.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You pick up the pamphlet.
+
+>The small blue pamphlet is entitled "Keep Your Station Tidy" and goes on
+about basically not dropping litter.  It finishes by asking for volunteer
+litter wardens.
+
+>"have a word with the Station Master."
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a banana skin and a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move south.
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.  You can see several
+large puddles from all the rain.
+
+Against one wall you can see one of those wire frame rubbish bins.
+A bearded chap is pacing up and down.
+
+To the north you can see the station entrance.
+
+>You put the crumbled newspaper inside the rubbish bin.
+
+>You look at your wristwatch and see that the time is 11:38.
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a banana skin and a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You pick up the banana skin.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>You move south.
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.  You can see several
+large puddles from all the rain.
+
+Against one wall you can see one of those wire frame rubbish bins.
+A bearded chap is pacing up and down.
+
+To the north you can see the station entrance.
+
+>You put the banana skin inside the rubbish bin.
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  You can see a young girl wandering around looking very
+lost.
+
+You appear to be able to move east, south and northwest.
+The young girl says "need help."
+The young girl says "need help."
+
+>"tell her to go to Grantby."
+
+They are just so helpful here at Coltby. "How do I tell her to go to Grantby,
+I can't speak German or whatever language she speaks", you think to yourself.
+
+A cat strolls in from the east.
+The young girl says "donningby?"
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>"just talk loudly and slowly, works for me."
+The young girl says "donningby train?"
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>The young girl says "need donningby train."
+
+A cat strolls out to the east.
+
+A young girl wanders out to the east.
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+>(Your score has increased by 5)
+You hand the notepad to the trainspotter.  His little eyes really light up.
+
+>"Yes, those tights look good.  I bet they are great at keeping you warm."
+
+>You take the pair of tights from the bag of shopping.
+The Trainspotters says "People do not realise how much fun trainspotting is."
+
+>(Your score has increased by 5)
+You hand the tights to the Trainspotter.  His little eyes light up.
+
+>"Yes, I would like a nice pair of leather driving gloves."
+
+>You take the pair of gloves from the bag of shopping.
+
+>You hand the gloves to the Trainspotter.  He tries them on and then says
+"that's a pity they don't fit me."  He hands that back to you.
+
+>"Yes, I've seen her.  I think she is German. Pity my brother is not here as
+he speaks perfect German. I think she said she is going to Donningby which is
+a change at Grantby."
+
+>"Yes, I think the lost girl is German, I'm pretty sure.  Pity my brother is
+not here as he speaks perfect German. If she is going to Donningby she needs
+to change at Grantby.  I think the German for station is Bahnhof and
+umsteigen means to change. "
+
+"Ah! so I need to say something like Donningby bahnhof umsteigen Grantby" you
+think.
+
+>Young Girl -- Waiting Room.
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A cat is silently wandering around.
+
+You appear to be able to move east, south and northwest.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You cannot see the Lost Looking Girl anywhere?
+
+A cat strolls out to the south.
+
+A young girl wanders in from the east.
+The young girl says "to donningby?"
+
+>(Your score has increased by 5)
+You hand the flowers to the young girl.  Even though they are only plastic
+she seems quite pleased.
+The young girl says "need help."
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+(Not wanting remind you but you have 4 hours remaining. The time is now
+12:00.)
+
+>The young girl says "need train."
+
+A cat strolls in from the south.
+The young girl says "need train."
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+The station sound system bursts into life and you hear some crackling and
+whistling.  You then hear Colesworth followed by something like "running
+approximately 5 minutes late."
+
+>(Your score has increased by 10)
+The girl replies "vielen dank!"  The girl heads for Platform 2.
+Hurrah! you actually spoke to the girl and she understood you.  What a day
+this is turning out to be.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+A large pigeon is watching you from the canopy over the platform.
+
+You appear to be able to move north, east and southwest.
+
+>You move north.
+Left Luggage
+Although the whole station has seen better days, this room certainly can't
+have seen any worse.  The paint is peeling from the brick walls, the ceiling
+looks like it leaks and floorboards look rotten.  Still a good place to store
+left luggage.
+
+You can see a green box on one wall with the words First Aid on it.  Near the
+first aid box you can see a light switch.
+
+You can also see a suitcase, a sweeping brush, a bucket and a manual.
+
+The door out of the left luggage room is south.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+A train arrives at Platform 1.  You just manage to catch the name Colesworth
+on the announcement.
+
+It sounds like a train is at platform 1.
+
+>You pick up the manual.
+
+It sounds like a train is at platform 1.
+
+>You move south.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+A large pigeon is watching you from the canopy over the platform.
+
+You appear to be able to move north, east and southwest.
+
+You can see that the Colesworth train is at platform 1.
+
+>(Your score has increased by 5)
+
+You throw the stale donut at the pigeon.  The donut flies through the air and
+connects with the pigeon on the back of its head.  The pigeon is obviously
+shocked by this turn of events and just flies off.
+
+You can see that the Colesworth train is at platform 1.
+
+You can hear a beeping sound.  The automatic doors on the train must be
+closing.
+
+>It is a diesel powered small, one carriage commuter train.  Dirty and over
+crowded.  The windows of the train are very dirty and you cannot see inside.
+The train has a number painted on the front which is 28773.  The automatic
+doors of the train have closed.
+
+You can see that the Colesworth train is at platform 1.
+
+>You move east.
+Private
+The warm and cosy Station Master's office is a pleasant surprise from the
+rest of the station.  It even has wallpaper and a carpet. The room has a
+fireplace but it is a long time since it held a fire.
+
+You can also see a desk and a telephone.
+The Station Master is standing to one side.
+
+The door out of the room is west.
+The Station Master says "I'm not sure this station can take two
+trainspotters." He is looking at your Trainspotting Manual.
+
+It sounds like a train is at platform 1.
+
+>"it was on my desk, but now I can't find it."
+You hear someone blowing a whistle and the train on platform 1 pulls out of
+the station.
+
+>You move west.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A cat is silently wandering around.  A Trainspotter dressed in wet weather
+gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+A cat strolls out to the north-east.
+The Trainspotter has spotted the manual you are carrying and gets all
+excited.  He shouts "YOU'RE A TRAINSPOTTER! Great! Lets swap train details!"
+
+Lets not you think to yourself.
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see an apple core and a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+The porter looks at you and then looks at the Trainspotting Manual.  He says
+"OH NO! not another damn Trainspotter!"
+
+>You pick up the apple core.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+The Ticket Sellers looks and says "seen any good trains today." He then
+starts laughing.
+
+>You move south.
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.  You can see several
+large puddles from all the rain.
+
+Against one wall you can see one of those wire frame rubbish bins.
+A bearded chap is pacing up and down.
+
+To the north you can see the station entrance.
+
+>You put the apple core inside the rubbish bin.
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+The trainspotter writes something in a notebook.
+
+>You hand the manual to the Trainspotter. He looks at it and then you before
+say "no, I've already got two copies.  This one is yours."
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+A cat is silently wandering around.
+
+You appear to be able to move north, east and southwest.
+
+A cat strolls out to the north.
+
+>You move east.
+Private
+The warm and cosy Station Master's office is a pleasant surprise from the
+rest of the station.  It even has wallpaper and a carpet. The room has a
+fireplace but it is a long time since it held a fire.
+
+You can also see a desk and a telephone.
+The Station Master is standing to one side.
+
+The door out of the room is west.
+
+>(Your score has increased by 5)
+You hand the IOU to the Station Master explaining how you found it.  He says
+"thanks, I will have a word with the Porter about this."  He leaves the room.
+He could return at any moment so you want anything you had better be quick.
+
+>You move west.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+A cat is silently wandering around.
+
+You appear to be able to move north, east and southwest.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+You can see the station master on platform 1 talking to the porter. It looks
+like the porter is getting a telling off about the iou.
+
+>Time passes...
+
+A cat strolls out to the south-west.
+
+You can see the station master on platform 1 talking to the porter. It looks
+like the porter is getting a telling off about the iou.
+
+You can see the station master on platform 1 talking to the porter. It looks
+like the porter is getting a telling off about the iou.
+
+You can see the station master on platform 1 talking to the porter. It looks
+like the porter is getting a telling off about the iou.
+
+>Time passes...
+
+You can see the station master on platform 1 talking to the porter. It looks
+like the porter is getting a telling off about the .
+
+The Station Master enters from the southwest and heads east.
+
+>You move east.
+Private
+The warm and cosy Station Master's office is a pleasant surprise from the
+rest of the station.  It even has wallpaper and a carpet. The room has a
+fireplace but it is a long time since it held a fire.
+
+You can also see a desk and a telephone.
+The Station Master is standing to one side.
+
+The door out of the room is west.
+
+>"I let that Porter know what I thought of him."
+
+>You move west.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A cat is silently wandering around.  A Trainspotter dressed in wet weather
+gear is watching you.
+
+You appear to be able to move northeast and southeast.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+A cat strolls in from the north-west.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>"what did you have to go and give the iou to the Station Master for! You got
+me into trouble."  The Porter looks a little cross.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You look at your wristwatch and see that the time is 12:39.
+
+A cat strolls out to the south.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>"Bill Peters, great man is Bill. He sometimes gives me horse racing tips."
+
+>"I was only talking to that Business Man, Bill Peters this very morning.  He
+does like a bet does Bill.  He sometimes put hundreds on a single race."
+
+"So Bill Peters gambles does he?" you think.
+
+>"I was only talking to that Business Man, Bill Peters this very morning.  He
+does like a bet does Bill.  He sometimes put hundreds on a single race."
+
+"So Bill Peters gambles does he?" you think.
+
+>Time seems to fly.......
+
+You look at your wristwatch and see that the time is 13:01.
+
+(pity you can't do this in real life - if you use the railways you know what
+I mean.)
+
+(Not wanting to add any pressure at this stage in the game but you have 3
+hours remaining. The time is now 13:01.)
+
+The station sound system bursts into life and you hear some crackling and
+whistling.  You then hear Bakeswell followed by something like "running
+approximately 15 minutes late."
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes something in a notebook.
+
+>"Yes, not heard of him.  Is he an explorer?"
+
+>"Yes, Tailer? was he the Governor of Massachusetts in 1711?"
+
+"What planet is this man from" you think.
+The Trainspotters says "I prefer cheese in my sandwiches."
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move north.
+Left Luggage
+Although the whole station has seen better days, this room certainly can't
+have seen any worse.  The paint is peeling from the brick walls, the ceiling
+looks like it leaks and floorboards look rotten.  Still a good place to store
+left luggage.
+
+You can see a green box on one wall with the words First Aid on it.  Near the
+first aid box you can see a light switch.
+
+You can also see a suitcase, a sweeping brush and a bucket.
+
+The door out of the left luggage room is south.
+
+>The suitcase is too heavy for you to carry at the moment.
+
+>You move south.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+A cat strolls in from the south-east.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+>"look it ain't yours so leave it alone."
+
+A cat strolls in from the north-west.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>You look at your wristwatch and see that the time is 13:12.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+>You can't go in that direction, but you can move east, south and northwest.
+
+A cat strolls out to the north-west.
+
+>You can't go in that direction, but you can move east, south and northwest.
+
+>You can't go in that direction, but you can move east, south and northwest.
+A train arrives at Platform 2.  You just manage to catch the name Bakeswell
+on the announcement.
+You are nearly knocked over by the crowd that gets off a train.
+
+>The drunk looks very untidy and you guess that he must have slept in his
+clothes.  He is shivering with cold.
+
+You can see that the Bakeswell train is at platform 2.
+The Porters is shouting across the station to the Station Master.
+"Bill Peters is back.  He is in the Waiting Room if you want him."  The
+Station Master waves an acknowledge and goes back into his office.
+The Porter mutters something under his breath.
+
+>You look at your wristwatch and see that the time is 13:17.
+
+You can see that the Bakeswell train is at platform 2.
+
+>You move east.
+Waiting Room
+Hoping for something different to the rest of the station you are
+disappointed.  You now find yourself in the Waiting Room which is drab, dirty
+and a very depressing room.  Just the place to wait for trains at Coltby.
+
+You can also see a vending machine.
+A rather stout Business Man is here.
+
+The door out of the room is west.
+The business man says "Hello, I thought I saw a cat behind you.  Please tell
+me it wasn't a cat. It's not that I don't like cats you understand.  But
+please tell me it wasn't a cat."
+
+"He must have a thing about cats." you think
+
+It sounds like a train is at platform 2.
+
+>"CATS WHERE!"
+The Business man looks quickly from side to side.
+"If you see one let me know straight away.  I cannot abide cats. They are
+horrible!  I mustn't have a cat near me!"
+
+I guess he doesn't like cats then.
+
+It sounds like a train is at platform 2.
+
+>"I met him this morning.  I think he is coming back on the 3.00pm train, but
+it doesn't stop here."
+
+It sounds like a train is at platform 2.
+
+>"haven't seen anyone with a beard today."
+
+"wait a minute" you think, "that's not what the bearded chap said?"
+
+It sounds like a train is at platform 2.
+
+>"well I haven't seen anything.  No-one I know has had anything taken."
+
+Wait a minute, you think, what about the bearded chap?
+
+It sounds like a train is at platform 2.
+
+>The business man is wearing a very fine suit and looks every inch the
+successful salesman.  Oh no! it is Bill Peters the salesman from Super
+Stationary.  Luckily he has not met you before, you saw him at the Salesman
+of the Century awards.  He was receiving First prize.  The Bill Peters has
+his hand in his right hand pocket, and looks like he is holding something.
+Business Man is carrying a betting slip.
+You hear someone blowing a whistle and the train on platform 2 pulls out of
+the station.
+
+>You can see the left pocket.  It appears to be empty. No, it is definitely
+empty.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You can see the right pocket.  The Business Man is holding something in the
+pocket.
+
+>"what? pockets? nothing to do with you.  Mind you own business"  That is a
+strange answer you think.
+
+>He starts shouting "DO YOU NORMALLY RING JUST ANY OLD NUMBER!" then pausing
+to regain control "sorry, just don't call that number again."
+
+>You open the tin of cat food.  You are greeted with a terrible smell of old
+tuna and rotting socks.
+The cat seems to be following you.
+The Business man hears the cat and turns sharply and starts shouting at it.
+"GO AWAY! CLEAR OFF!  GET LOST! MOVE!"
+
+>It is a betting slip for the race today at 4.30pm.  Looks like Bill Peters
+has put £1000 on a horse called "Rumbling Mount" at 10/1.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+The cat seems to be following you.
+The Business man hears the cat and turns sharply and starts shouting at it.
+"GO AWAY! CLEAR OFF!  GET LOST! MOVE!"
+
+>You take the bell from the cat.
+The cat seems to be following you.
+
+>(Your score has increased by 10)
+You carefully put the cat food in the Business Man's pocket.  The cat jumps
+up at the pocket and the man nearly jumps out of his skin.
+
+He starts shouting "HELP! GET THIS CAT OFF ME! HELP!"
+As he is leaping about something falls out of his other pocket.
+
+He shouts at you "you damn fool! you are just like that bearded idiot I took
+the wallet from this morning, stupid!"
+
+You have just noticed that the Station Master has quietly entered.  He has
+seen and heard the whole thing.
+
+The Station Master says "Mr Peters I think we better go to my office to
+discuss this."
+He leaves with Mr Peters and the cat follows.
+
+>You pick up the credit card.
+
+>It the credit card of John Tailer.  It has writing on it.
+
+>Its from the Dobie and Moyles Bank.
+
+>You move west.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+The porter says "if you see the Station Master before I do can you tell him a
+parcel has been delivered.  I put it in Left Luggage."
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+The Trainspotters says "Its a strange fact that I love trainspotting but get
+travel sick on trains."
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move north.
+Left Luggage
+Although the whole station has seen better days, this room certainly can't
+have seen any worse.  The paint is peeling from the brick walls, the ceiling
+looks like it leaks and floorboards look rotten.  Still a good place to store
+left luggage.
+
+You can see a green box on one wall with the words First Aid on it.  Near the
+first aid box you can see a light switch.
+
+You can also see a suitcase, a sweeping brush, a bucket and a parcel.
+
+The door out of the left luggage room is south.
+
+>You pick up the parcel.
+
+>It is a parcel loosely wrapped in brown paper.  The parcel has a label.  The
+parcel is closed.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You open the parcel.  Inside the parcel is a pencil and a delivery receipt.
+
+>It is delivery receipt from Super Stationary.  It reads "Part Delivery - 1
+delivered, 99 to follow."
+
+>You take the pencil from the parcel.
+
+>It is a round No.2 or HB grade pencil.
+
+>You look around to make sure no one is looking and then break the pencil in
+half.  A little childish but you feel a lot better.  "Anyway" you think "it
+should be harder to snap pencils."
+
+>You put the pencil (broken) inside the parcel.
+
+>You close the parcel.
+
+>You move south.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move east.
+Private
+The warm and cosy Station Master's office is a pleasant surprise from the
+rest of the station.  It even has wallpaper and a carpet. The room has a
+fireplace but it is a long time since it held a fire.
+
+You can also see a desk and a telephone.
+The Station Master is standing to one side.
+
+The door out of the room is west.
+
+>"I'm waiting for a delivery today actually.  If you see it lying about
+somewhere could you bring it to me."
+
+>You hand the parcel to the Station Master who says "thanks, I've been waiting
+for this."  He opens the box and looks at the delivery note.  He doesn't look
+pleased.  He then sees the pencil.  His face goes a lovely red colour.
+
+>"I've just taken delivery from Super Stationary and it's broken.  Would you
+believe it.  It was only a part delivery as well! What am I going to do I
+need a pencil. I think I'll go back to Rapid." You look down at your feet and
+try to hide a smile.
+
+>"I've just taken delivery from Super Stationary and it's broken.  Would you
+believe it.  It was only a part delivery as well! What am I going to do I
+need a pencil. I think I'll go back to Rapid." You look down at your feet and
+try to hide a smile.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>You look at your wristwatch and see that the time is 13:54.
+
+>You are wearing your suit and a wristwatch, and you are carrying your wallet,
+a bell, a bag of shopping, a pen, a note, a magazine, a credit card, a bar of
+chocolate, a piece of wire, a manual, the gazette, some chewing gum, a pair
+of gloves and a pamphlet.  A scrap of paper is inside your wallet.  A can of
+deodorant is inside the bag of shopping.
+
+>You move west.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.
+
+You appear to be able to move east, south and northwest.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>Time passes...
+
+(Well you now have just 2 hours remaining. The time is now 14:00.)
+
+The station sound system bursts into life and you hear some crackling and
+whistling.  You then hear Coldon followed by something like "running
+approximately 10 minutes late."
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+A train arrives at Platform 2.  You just manage to catch the name Coldon on
+the announcement.
+a handful of people get off the train and leave.
+The Business Woman asks "The cafe seems to be shut.  Do you know of anywhere
+to eat I missed breakfast?"
+
+>"I missed it today."
+
+You can see that the Coldon train is at platform 2.
+
+>"I missed breakfast this morning.  I'm starving."
+
+You can see that the Coldon train is at platform 2.
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+It sounds like a train is at platform 2.
+
+>You move west.
+Cafe
+It is probably the first time you have been in this cafe (and it will be the
+last).  You have the feeling that a visit from the local heath inspector is
+long overdue.  A counter is before you on which you can see an old tea urn, a
+display unit and the till.  The other extensive facilities consist of one
+table and one chair. On one wall you can see a small notice board.
+
+The door out of the cafe is east.
+
+It sounds like a train is at platform 2.
+
+>You take the old sandwich from the table.
+
+It sounds like a train is at platform 2.
+
+>You move east.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+It sounds like a train is at platform 2.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+A drunk is sleeping off a heavy night on a bench.  A tall business woman is
+looking at you.
+
+You appear to be able to move east, south and northwest.
+
+You can see that the Coldon train is at platform 2.
+
+>You hand the sandwich to the business woman.  She takes one look and throws
+it straight back at you (it hits you in the eye).  She shouts "Food! you
+fool!"
+
+You can see that the Coldon train is at platform 2.
+You hear someone blowing a whistle and the train on platform 2 pulls out of
+the station.
+The porter says "that's a great black eye you have got."
+
+>"I love chocolate!"
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>(Your score has increased by 5)
+You hand the bar of chocolate to the Tall Woman.  She appears to go all weak
+at the knees. Throwing her coat to you she grabs the chocolate bar. I guess
+she was hungry.
+
+>It is a black fake fur, leopard pattern coat. It looks nice and warm.
+
+>(Your score has increased by 5)
+You cover the drunk with the coat.  The drunk drops something onto the
+platform.
+
+>You pick up the bottle.
+
+>It's a bottle of 'Wonder White'.  The excellent correcting fluid. To correct
+your mistakes just "use the bottle on whatever".
+
+>(Your score has increased by 5)
+
+You use Wonder White on the note and careful cover the word Draycot.  It is
+now ready to 'write something on the note'.
+
+>(Your score has increased by 5)
+You write the name 'Colesworth' on the note.
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+The Trainspotter looks at your eye and says "nasty black eye you have."
+The Trainspotter has seen the note you are carrying and says "You should
+really hand that note back to the Station Master."
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone and a chocolate wrapper.
+
+You appear to be able to move north, east and southwest.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>You move east.
+Private
+The warm and cosy Station Master's office is a pleasant surprise from the
+rest of the station.  It even has wallpaper and a carpet. The room has a
+fireplace but it is a long time since it held a fire.
+
+You can also see a desk, a telephone and a parcel.
+The Station Master is standing to one side.
+
+The door out of the room is west.
+
+>(Your score has increased by 5)
+You hand the note to the Station Master.  "thanks, I thought I'd lost that.
+I must get it to the Signal Man now."
+
+>"I've handed it to the Signalman."
+
+>(Your score has increased by 5)
+You hand the pen to the Station Master.  "I thought I'd lost this.  My wife
+gave it me you know."
+
+>You move west.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone and a chocolate wrapper.
+
+You appear to be able to move north, east and southwest.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You pick up the chocolate wrapper.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+>"Yes, it was Joseph Fry & Son in 1847 who discovered a way to make the first
+modern chocolate bar."
+The Trainspotters says "I notice you do not have a flask.  You will need one
+if you are going to be a trainspotter."
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A tall business woman is looking at you.
+
+You appear to be able to move east, south and northwest.
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move south.
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.  You can see several
+large puddles from all the rain.
+
+Against one wall you can see one of those wire frame rubbish bins.
+A bearded chap is pacing up and down.
+
+To the north you can see the station entrance.
+
+>You put the chocolate wrapper inside the rubbish bin.
+
+>You are wearing your suit and a wristwatch, and you are carrying your wallet,
+a bell, a bag of shopping, a magazine, a bottle, a credit card, an old
+sandwich, a piece of wire, a manual, the gazette, some chewing gum, a pair of
+gloves and a pamphlet.  A scrap of paper is inside your wallet.  A can of
+deodorant is inside the bag of shopping.
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A tall business woman is looking at you.
+
+You appear to be able to move east, south and northwest.
+
+>"SOMEONE HAS PUT MY COAT ON THAT DRUNK! Well I do not want it back now!"
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>Time seems to fly.......
+
+You look at your wristwatch and see that the time is 15:01.
+
+(pity you can't do this in real life - if you use the railways you know what
+I mean.)
+
+(You only have 1 hour left to finish. The time is now 15:01.)
+
+The station sound system bursts into life and you hear some crackling and
+whistling.  You then hear Thrumpton followed by something like "running
+approximately 5 minutes late."
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+The Trainspotters says "I think I forgot to mention that my brother is a
+trainspotter as well."
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You move north.
+Left Luggage
+Although the whole station has seen better days, this room certainly can't
+have seen any worse.  The paint is peeling from the brick walls, the ceiling
+looks like it leaks and floorboards look rotten.  Still a good place to store
+left luggage.
+
+You can see a green box on one wall with the words First Aid on it.  Near the
+first aid box you can see a light switch.
+
+You can also see a suitcase, a sweeping brush and a bucket.
+
+The door out of the left luggage room is south.
+
+>You move south.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+A train arrives at Platform 1.  You just manage to catch the name Thrumpton
+on the announcement.
+two people depart from the train and leave.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+You can see that the Thrumpton train is at platform 2.
+
+>
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a single sock and a set of double doors with glass panels.
+A drunk is sleeping off a heavy night on a bench.  A tall business woman is
+looking at you.
+
+You appear to be able to move east, south and northwest.
+
+You can see that the Thrumpton train is at platform 2.
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+It sounds like a train is at platform 2.
+
+>"I've thrown it away."
+
+It sounds like a train is at platform 2.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a single sock and a set of double doors with glass panels.
+A drunk is sleeping off a heavy night on a bench.  A tall business woman is
+looking at you.
+
+You appear to be able to move east, south and northwest.
+
+You can see that the Thrumpton train is at platform 2.
+You hear someone blowing a whistle and the train on platform 2 pulls out of
+the station.
+
+>You pick up the single sock.
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move south.
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.  You can see several
+large puddles from all the rain.
+
+Against one wall you can see one of those wire frame rubbish bins.
+
+To the north you can see the station entrance.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>You put the single sock inside the rubbish bin.
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+Somewhere in the distance you hear the siren of a police car or perhaps a
+fire engine.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A tall business woman is looking at you.
+
+You appear to be able to move east, south and northwest.
+The porter looks at you and whispers "the Police are here.  They say they
+will arrest anyone with stolen property."
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+The Trainspotter sees you and says "I've just seen a Policeman at the
+Station.  They say he is looking for anyone with stolen goods!"
+
+>Time passes...
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes something in a notebook.
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone.
+
+You appear to be able to move north, east and southwest.
+
+>You look at your wristwatch and see that the time is 15:22.
+
+>Time passes...
+
+>Time passes...
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
+>Time passes...
+
+A train arrives at Platform 2.  You just manage to catch something about
+"unscheduled stop" and  "Grantby" on the announcement.
+Someone you recognise gets off the train.
+John Tailer looks over at you and says "Hello Colin!"
+
+(It is now 3.30pm which means you have 30 minutes left.)
+
+You can see that the Thrumpton train is at platform 2.
+
+>Gosh, that was very impressive.
+
+You can see that the Thrumpton train is at platform 2.
+
+>You drop the credit card.
+
+You can see that the Thrumpton train is at platform 2.
+
+You can hear a beeping sound.  The automatic doors on the train must be
+closing.
+
+>You move southwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+
+You can also see a hamburger carton.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+
+You can see that the Thrumpton train is at platform 2.
+
+>You pick up the hamburger carton.
+
+You can see that the Thrumpton train is at platform 2.
+You hear someone blowing a whistle and the train on platform 2 pulls out of
+the station.
+The trainspotter writes something in a notebook.
+
+>You move southeast.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A tall business woman is looking at you.
+
+You appear to be able to move east, south and northwest.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
+>You move south.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move south.
+Front of Station
+You are at the front of Coltby Railway Station.  All the stations that
+belonged to this company where built of local stone in a sort of mock
+Georgian style.  Now many years later and after decades of neglect and
+vandalism it looks a very sad place.  You can see many spaces for waiting
+taxi's (all empty) and the main entrance to the station.  You can see several
+large puddles from all the rain.
+
+Against one wall you can see one of those wire frame rubbish bins.
+A Policeman is watching you very carefully.
+
+To the north you can see the station entrance.
+
+>You put the hamburger carton inside the rubbish bin.
+
+>You move north.
+Ticket Hall
+You are in the grimy ticket hall.  The floor is stained with decades of
+footprints and the walls look like they haven't seen a coat of paint for a
+long time.  You can see a counter behind which is a man (selling tickets
+probably).  The floor is wet in here; the rain must have been blown in.
+
+You can also see a set of double doors with glass panels.
+The Ticket Seller is looking at you expectantly.
+
+You appear to be able to move north, south and west.
+
+>You move north.
+Wet Platform 1
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind.  Attached to the wall
+you can see a large clock and next to it is a poster.    The platform is now
+very slippery from all the rain.
+
+You can see a green railway bench.
+
+You can also see a set of double doors with glass panels.
+The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A tall business woman is looking at you.
+
+You appear to be able to move east, south and northwest.
+
+>You move northwest.
+Bridge
+You are on the covered footbridge over the train lines.  At either end of the
+bridge is metal staircase which is open to the elements. The bridge itself
+has a metal floor and sides which reaches to nearly shoulder height.  A metal
+grill then fills the gap up to the roof.  From here you can see both
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.
+
+You appear to be able to move northeast and southeast.
+The Trainspotters says "You will need a better coat if you are going to be a
+trainspotter."
+
+>You move northeast.
+Wet Platform 2
+You are on the wind swept platform.  The platform is covered by a canopy
+which seems to neither protect from the rain or wind. To the west you can see
+the door to the toilets.  The platform is now very slippery from all the
+rain.
+
+You can see a large poster with a picture of a policeman on it.
+
+You can also see a payphone and a credit card.
+You can see John Tailer!.
+
+You appear to be able to move north, east and southwest.
+
+>You pick up the credit card.
+
+>(Your score has increased by 20)
+You hand the credit card to John Tailer and explain how you found it.
+
+I have a feeling that Super Stationary will not be getting the business now!
+
+You appear to have been very tidy during the game and so get a little extra
+credit.
+
+The Trainspotter is very pleased with his new notepad.
+The Trainspotter loves his nice new tights and thinks they will keep him
+warm.
+You helped the lost German girl.
+You put the Station Master off using Super Stationary.
+You got rid of that damn pigeon.
+The baby has its rattle back.
+You found a possible new customer (the beardy bloke).
+
+Not that bad a day after all.
+
+You won and managed to score 110 out of a possible 110 and ended the game
+with £45.
+
+Great score!
+
+Ticket to No Where was written by Richard Otter during 2004
+e-mail: trouble@rotter.freeserve.co.uk
