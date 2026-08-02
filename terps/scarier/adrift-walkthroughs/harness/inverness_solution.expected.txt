@@ -164,11 +164,12 @@ Remove me to gather their wisdom to you.
 [hint, format the solution as "answer foo" or "say foo", where foo is your
 answer]
 
->Wow!  That achieved a lot.
+>(Your score has increased by 10)
+The box slowly opens.
 
->Take what?
+>You take the old key from the wooden box.
 
->Take what?
+>You take the scroll from the wooden box.
 
 >You move north.
 Road to Forres
@@ -296,5 +297,7 @@ up to the kitchen.  It's cold down here.
 >Time passes...
 
 >Time passes...
+
+>Your score is 75 out of a maximum of 205.  (36%)
 
 >Do you really want to quit? [Y/N]

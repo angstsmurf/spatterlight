@@ -122,13 +122,13 @@ think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
 toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICALLY EARTH
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
-inverness_solution.txt|inverness.taf|A murderer thou shalt be
+inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
 mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|Congratulations! I hope you liked our game.
 phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
-questi_solution.txt|QuestI.taf|Your score is 5 out of a maximum of 10.
+questi_solution.txt|QuestI.taf|Your score is 10 out of a maximum of 10.
 shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the statue was you from a past life.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 srsintro_solution.txt|SRSintro.taf|

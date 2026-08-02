@@ -567,9 +567,13 @@ across back-to-back full runs). What it took:
   (`Votre score est…`), villains 31/37 (was 13/37 + an assisted 30/37 row until
   the 2026-08-02 V390 re-derivation retired the assist), questi 5/10,
   cybercow-tour 6/10, matts_house 5/5, lifesimulation 0/0). Win rows use the
-  game's own victory text. inverness (75/205) is marker-guarded by the
-  caught-scene prose instead — the knockout cut-scene swallows an input line,
-  so a trailing `score` never executes (verified 75 by scoring pre-capture).
+  game's own victory text. inverness (75/205) joined them on 2026-08-02: with
+  the route's current two `z` pad turns after the knockout the cut-scene no
+  longer swallows the trailing `score`, so the row is now marker-guarded by
+  `Your score is 75 out of a maximum of 205.` like the rest. It previously used
+  the caught-scene prose, and that is exactly how it hid a desync — the
+  `scr_randomint` low-bit fix re-rolled the witches' riddle, `answer step`
+  stopped matching, and the row kept passing at 65/205.
 - **Main Course was silently BROKEN and is re-derived** (win restored,
   wired): the banked solution had lost its two leading waitkey blanks, and the
   NPCs-before-events tick-order fix re-timed the wandering cat + combat RNG.
@@ -1869,8 +1873,20 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       Dressing Room). NB front door re-locks on exit → re-enter via back door
       (Road→W→Behind Inverness→S→Kitchen). The final +20 REQUIRES getting caught,
       which dead-ends you tied up in the cellar (escape task `drop belt`=T54 is an
-      empty stub; cellar exit gated on a flag nothing sets). Faithful to the 3.90
-      Runner. (Battle System present but not used for any reachable point.)
+      empty stub; cellar exit gated on a flag nothing sets — `$getcaught` sets
+      vars 11/12 to 1 and T50 blocks every direction while var 12 is 1, and
+      nothing ever writes them again). Faithful to the 3.90 Runner. (Battle
+      System present but not used for any reachable point.)
+      **Re-audited 2026-08-02** — verdict unchanged, route repaired: the
+      `scr_randomint` low-bit fix re-rolled `$initriddle`, so the posed riddle
+      is now the *bookmark* one and the banked `answer step` scored nothing
+      (65/205 while still passing its prose marker). Solution now answers
+      `bookmark`, ends with `score`, golden re-blessed, marker = the 75/205
+      score line. Method note for future "is it really unwinnable?" audits:
+      dump the action histogram (`SCR_DUMP_TASKS=1`) and check it against a
+      known-winnable file of the SAME version as a positive control — 3.9
+      `circus.taf` shows 24 type-6 EndGame actions, inverness shows none, and
+      on-disk 3.9 EndGame is raw type 5 (`V390_TASK_ACTION:Type>4?#Type++`).
 - [x] **SecretOfLostWorld** (49 KB) — **WON, full 3300/3300**, deterministic.
       Walkthrough `SecretOfLostWorld_walkthrough.md`; solution
       `harness/secret_of_lost_world_solution.txt` (1st line = gender answer

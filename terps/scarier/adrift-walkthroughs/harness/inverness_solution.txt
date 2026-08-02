@@ -22,7 +22,7 @@ s
 ne
 s
 ask witches about box
-answer step
+answer bookmark
 take key
 take scroll
 n
@@ -39,3 +39,4 @@ z
 look
 z
 z
+score
