@@ -8,6 +8,38 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-08-02 — WesGHN verdict OVERTURNED: **WON 100/100** (the gold ring was never orphaned)
+
+The 2026-06-24 "UNWINNABLE, max 30/100" verdict below is wrong. Its structural
+claim — "no task, event, or NPC character-walk ever un-hides the severed hand"
+— misread the event table: the `SCR_DUMP_TASKS` **EVENT lines print raw
+1-based `.taf` fields**. Event 1, named **[Davidshand]**, has `o2=4->5,
+startTask=6`, which decodes (raw−1; `evt_move_object` dest semantics: −1
+hidden / 0 held / 1 player's room / else room = dest−2) to *severed hand
+(object 3) → Waiting Room (room 2), started by task 5 `ring bell`, one turn
+long*. Read 0-based it looks like the Journal — hence the false "orphan".
+In play: `ring bell` ("nothing appears to happen"), wait one turn, the
+receptionist's window opens and the hand thuds down with the **gold ring** on
+it. The old route rang the bell and left without looking back.
+
+Full win banked: **100/100, all 12 scoring tasks**, `wes_ghn_solution.txt`
+re-derived + re-blessed, harness row marker now `You've Won the Game!`
+(was the 30/100 tour line). Highlights: Hope dies **twice** (#Hopedies with
+task 15 undone, then task 15 respawns her with the Stripper Sword and
+#Hopedies2 fires — Charity fights alongside); `slash dr micheals portrait`
+must omit the period (`.` splits input); the scalpel drops in Radiology, the
+La Virgencita key materialises back in the Medicine Cabinet; the Magna Mater
+door wants the key + scalpel + scythe **unsummoned** and its vision eats ~8
+keypresses; then Prudence (Waiting Room) → `give sigh prudence to hope` →
+`take spirit` → `put hope's spirit into box` = win. `open altar` is a
+stamina-90 boss trap and is skipped. Details in `WesGHN_walkthrough.md`.
+
+**Lesson (now also in memory):** before declaring an object orphaned, decode
+every event's o2/o3 with the raw−1 rule — especially when an event is named
+after the object. Spirit's Flight was re-audited under the correct decoding
+the same day: its event 5 moves objects 36 and 7 (Dagger), NOT the Ice Totem
+(which would be raw 2), so its 50/95 unwinnable verdict **stands**.
+
 ## 2026-08-02 (after the One-Hour batch) — suite repaired for the load-time immediate-event start — 127/127 PASS
 
 An uncommitted engine change turned the suite red: `StarterType=1` ("immediate")
@@ -410,8 +442,8 @@ across back-to-back full runs). What it took:
   count is odd — one apostrophe in a new win marker broke the whole script.
 - **Tour rows lock their documented maxima**: solutions that didn't already end
   with `score` got one appended, and the row's win-marker is the exact final
-  `Your score is N out of a maximum of M.` line (mr_smith 25/100, wes_ghn
-  30/100, spirits_flight 50/95, thetest 5/25, del_sol 24/46, les_feux 25/115
+  `Your score is N out of a maximum of M.` line (mr_smith 25/100, wes_ghn 30/100
+  — a win row since the 2026-08-02 100/100 re-derivation, spirits_flight 50/95, thetest 5/25, del_sol 24/46, les_feux 25/115
   (`Votre score est…`), villains 13/37 + assisted 30/37, questi 5/10,
   cybercow-tour 6/10, matts_house 5/5, lifesimulation 0/0). Win rows use the
   game's own victory text. inverness (75/205) is marker-guarded by the
@@ -947,7 +979,8 @@ Progress this session (12 new walkthroughs):
   DONE** — see the 2026-06-26 entries above.
   Bomb Threat (win, 0-score), lair-of-the-cybercow (win 10/10), and **deaths
   (WON 100/100)** are now **DONE** — see the entries below.
-- **Banked since:** `WesGHN_walkthrough.md` (**UNWINNABLE, max 30/100**) and
+- **Banked since:** `WesGHN_walkthrough.md` (**UNWINNABLE, max 30/100** — since
+  overturned, **WON 100/100**, see the 2026-08-02 entry at the top) and
   `Melbourne_Beach_walkthrough.md` (**WON, max 38/41**) — see the 2026-06-24
   (later) entries below.
 
@@ -1147,6 +1180,12 @@ container table + event table, with object/task names resolved). The Spatterligh
 build never compiles it.
 
 ## 2026-06-24 (later): WesGHN (Wes Garden's Halting Nightmare) — **UNWINNABLE, max 30/100**
+
+> **SUPERSEDED (2026-08-02): WRONG — the game is WINNABLE, 100/100.** The
+> "orphaned gold ring" below rests on a misread of the raw event dump: event 1
+> [Davidshand] (started by `ring bell`) drops the severed hand + ring into the
+> Waiting Room. See the 2026-08-02 entry at the top of this file; the
+> walkthrough and the solution/golden pair are re-derived and re-blessed.
 
 `WesGHN_walkthrough.md`; solution `harness/wes_ghn_solution.txt`. *Wes Garden's
 Halting Nightmare* by Jubell (ADRIFT Spring Thing 2010) — a 3.5 MB graphics file

@@ -152,7 +152,12 @@ to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town
 to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1
 villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 13 out of a maximum of 37.
 villains_and_kings_assisted_solution.txt|Villains_And_Kings.taf|Your score is 30 out of a maximum of 37.|SCR_ASSUME_COMBAT=1
-wes_ghn_solution.txt|WesGHN.taf|Your score is 30 out of a maximum of 100.
+# WesGHN's old "UNWINNABLE 30/100, orphaned gold ring" verdict was wrong
+# (2026-08-02): event 1 [Davidshand] -- started by `ring bell`, misread in the
+# original dump because EVENT o2/o3 print RAW 1-based refs -- drops the severed
+# hand (ring attached) into the Waiting Room one turn later.  Full win, all 12
+# scoring tasks, Hope killed twice (#Hopedies + #Hopedies2).
+wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!
 # The eleven .taf files that were sitting in games/ unwired (2026-08-02).  Nine
 # are winnable and use the game's own victory text as the marker; Invasion of
 # the Second-Hand Shirts has no EndGame action anywhere in its task table, so

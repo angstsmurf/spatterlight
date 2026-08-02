@@ -9,7 +9,6 @@
 
 
 
-
 talk to charity
 
 
@@ -25,11 +24,12 @@ closely examine figure
 n
 ring bell
 
+z
+take ring
 n
 summon scythe
 w
 drink water
-
 
 
 
@@ -59,6 +59,7 @@ talk to hope
 
 
 take candle
+
 attack hope
 attack hope
 attack hope
@@ -67,5 +68,79 @@ attack hope
 attack hope
 attack hope
 attack hope
+w
+w
+give ring and candle to fountain
+
+take vial
+n
+talk to micheals
+
+
+
+
+
+s
+e
+slash dr micheals portrait
+
+
+unlock door with eyeball
+open door
+n
+talk to charity
+
+
+
+
+
+
+
 attack hope
-score
+attack hope
+attack hope
+attack hope
+attack hope
+attack hope
+
+
+unlock door with vial
+open door
+n
+knock on door
+
+
+s
+take key
+s
+w
+n
+take scalpel
+s
+e
+n
+n
+unsummon scythe
+unlock door with key
+open door
+walk through magna mater door
+
+
+
+
+
+
+
+
+s
+s
+s
+take prudence
+n
+e
+give sigh prudence to hope
+
+
+
+take spirit
+put hope's spirit into box

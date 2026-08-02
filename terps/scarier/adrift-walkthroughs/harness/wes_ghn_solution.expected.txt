@@ -76,7 +76,6 @@ your bearings and look around you.
 >
 >
 >
->
 >(Your score has increased by 10)
 You stride down the long length of the foyer avoiding the injured as you go.
 Charity purses her lips as you approach.
@@ -195,6 +194,13 @@ You can move north and south.
 From somewhere far off you can hear the sound of inhuman laughter...
 
 >
+>Time passes...
+The receptionist's window quickly opens and you hear a fleshy thud as
+something hits the floor. The window closes before you can turn around to see
+if anyone was ever there.
+
+>You take the gold ring from the severed hand.
+
 >You move north.
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -294,7 +300,6 @@ strand of white hair tangled around your arm. You drop it and watch it
 disintegrate. Pushing it from your mind you start to contemplate your next
 move.
 
->
 >
 >
 >
@@ -417,18 +422,682 @@ Hope hits you.
 
 >You cut Hope with the Soul Scythe.
 
+>You cut Hope with the Soul Scythe.
+Hope hits you.
+
+>You cut Hope with the Soul Scythe.
+
+>You cut Hope with the Soul Scythe.
+Hope hits you.
+
 >(Your score has increased by 10)
 You cut Hope with the Soul Scythe.
 
 "I...I'll never return to that box!!!" Hope says trembling as she takes a
 step back. A bright white light flashes and she is gone.
 
->Your words... they're so unclear
+>You move west.
+Grand Corridor
+You step into a long hallway decorated with portraits on either side and lit
+by wall sconces high above you. The walls are painted a beautiful variation
+of the red color in the foyer. Were the rooms once connected? The only
+exception is on a section of the left wall where the splendor of the decor
+seems be peeling away and exposing the wood paneling. The ceiling is at least
+fifty feet above you and covered by an elongated triangular glass structure.
+At one end of the hall there is surprisingly modern looking door with a
+strange contraption next to it.
 
->Your words... they're so unclear
+You can move east, south and west.
 
->Your words... they're so unclear
+>You move west.
+The Core of Beauty
+A large room of flat gray colors and stone. Littered about the floor are the
+cracked remnants and unsettling ruins of destroyed statues and idols that
+stare about the room with jubilant expressions conveying the joys of romance,
+youth, and vigor. In the center of the room is a peculiar fountain that
+sprays an iridescent sweet smelling fluid.
 
->Your score is 30 out of a maximum of 100.  (30%)
+You can only move east.
 
->Do you really want to quit? [Y/N]
+>(Your score has increased by 20)
+The room trembles hard and white dust from the stones streaks into the air.
+You start to cough and shield your face from the spray. You can hear the
+sound of stone grinding against stone and when the noise stops you open your
+eyes to find the fountain has changed.
+
+>
+>You pick up the vial.
+
+>You move north.
+Radiology Chamber
+The stark whiteness of the room is unsettling. The walls are flat and
+scattered along them you see view screens of skeletons and bodies accompanied
+by enormous speakers. In the middle of the room there is a single chair.
+There is a sign high up above you that reads "Transmitting", but you're not
+sure what that pertains to.
+Dr. Micheals is here and looking pensive.
+
+You can only move south.
+
+>    Dr. Micheals nods in your direction and begins pacing back and forth as
+he runs a hand through his almost non-existent hair, "Well, looks like you
+made it here okay despite Hope and Charity running around the place. That was
+a pretty spectacular kick Hope gave you, I didn't think that girl had it in
+her."
+     "You saw that?'
+     "Yeah, yeah, I saw it. You did a pretty good job defending yourself.
+Looks like your time training has paid off. You got this far dealing with
+mutants and gods in this horrible place. I oughta salute you." Dr. Micheals
+takes a seat in the room's only chair. He leans back and crosses one leg over
+the other.
+     "Charity told me you've got answers," you state never taking your eyes
+off of him, "she said you could tell me what's going on. I want to know why
+I'm here, how I got here from Morrow Falls, why I...can't remember some
+things. I feel different..."
+
+press any key to continue
+
+     "That's cause you are different, Wes," Dr. Micheals looks confounded, "I
+thought by now you could see that. You're more aggressive...heck, you'd be
+downright truculent if you got the chance. That's how the hospital got this
+way."
+     "What?"
+     "The hospital, Wes, this is all in your head, at least most of it
+anyway," Dr. Micheals looks away disgusted, "Your Uncle has you do some
+meditation after you've gone through the trauma of having another family
+member taken away from you. Hell, that'd send me into a state of shock," he
+gestures around him with his arms spread wide, "and here we are."
+     "You expect me to believe...," you start but the Doctor cuts you short.
+     "You're in a hospital, Wes. You're Grandfather, who I might mention died
+recently, took his last breath in a hospital.  Charity mentions patients, but
+have you seen any patients in here, Wes? Those mutants in the E.R. don't
+count. In fact have you seen ANYONE else in this whole hospital besides me,
+yourself, and two other people? Come on, use your head."
+
+press any key to continue
+
+      You stand stock still, your breathing comes through deep and hard.
+Could he be right? Are you going through some Alice in Wonderland episode
+brought on by grief and shock? Suddenly you realize...
+      "You were the figure on the balcony...with the weapon. You destroyed
+the bridge to the emergency room," you narrow your eyes, "if this is all a
+dream or something why did you yell 'Halt, Justice!'?"
+     Dr. Micheals shifts uncomfortably, "I did go a bit too far on that one,
+sigh." He runs a hand through his hair and looks up at you, "you may notice
+long white hairs? Those belong to Justice."
+     "Hope mentioned a woman named Justice...how does she fit into this," you
+ask. Now you're getting somewhere...
+     "Sigh, you got questions I got answers buddy. Ask away, especially if
+you want to get passed that optical scanner."
+
+>
+>
+>You move south.
+The Core of Beauty
+A large room of flat gray colors and stone. Littered about the floor are the
+cracked remnants and unsettling ruins of destroyed statues and idols that
+stare about the room with jubilant expressions conveying the joys of romance,
+youth, and vigor. In the center of the room is a peculiar fountain that
+sprays an iridescent sweet smelling fluid.
+
+You can move north and east.
+
+>You move east.
+Grand Corridor
+You step into a long hallway decorated with portraits on either side and lit
+by wall sconces high above you. The walls are painted a beautiful variation
+of the red color in the foyer. Were the rooms once connected? The only
+exception is on a section of the left wall where the splendor of the decor
+seems be peeling away and exposing the wood paneling. The ceiling is at least
+fifty feet above you and covered by an elongated triangular glass structure.
+At one end of the hall there is surprisingly modern looking door with a
+strange contraption next to it.
+
+You can move east, south and west.
+
+>(Your score has increased by 5)
+You lift your scythe and then swing hard at the portrait. It cracks in two
+and a small space is revealed behind the frame. You reach inside and pull out
+a small bundle. It seems that is all there is inside of the hole.
+
+>
+>
+>You unlock the grand corridor door with the eyeball.
+
+>You open the grand corridor door.
+
+>You move north.
+The Medicine Cabinet
+This enormous room's floor is completely obscured by knee-deep water. Out of
+the water juts monolithic capsules with medical symbols or names on them. The
+capsules are more reminiscent of coffins than anything else. The entire
+northern face of the chamber is decorated by what appears to be a large
+monument of a woman's head and hands, the hands continuously pour water into
+the room while the head emits a moderate light. There is a door at the base
+of the figure.
+Charity Bell is here and eyeing you with a smile.
+
+You can only move south.
+
+>(Your score has increased by 10)
+     "Greetings, Wes," Charity nods her head in recognition, "your talk with
+Dr. Micheals was...satisfactory?"
+     You feel dizzy just looking at her. Here's a woman standing before you,
+asking you questions as if she cares, and she doesn't exist. You contemplate
+just ignoring her but instead you blurt out, "He told me you're not real.
+That all of this is in my head...that I'm in a state of shock and
+angry...and...this isn't real."
+     "Wes," Charity says taking a step towards you.
+     "Don't," you hold out a hand to stop her. Your breathing is hard and hot
+in your chest, "I don't see how all of this is in my head."
+     "Of course you don't," Charity continues walking towards you, her
+movements making ripples in the water, "You and I both know that all of this
+is real."
+     "He was," your eyes widen with anxiety, "He was lying to me?"
+     "In a way."
+     "Then why did you SEND ME TO HIM!?" your body tenses, seized with anger,
+and you look Charity in the eyes. She, for her part, slumps her shoulders and
+looks...sorry?
+
+press any key to continue
+
+     "Wes," she starts, "I had to send you to him so you could understand..."
+     "Understand what," you hiss, "that I can't trust what anybody says in
+this place? You lie to me, Hope lies to me, and now that Doctor..."
+     "I never lied to you."
+      You grit your teeth and stare into the water.
+      "Wes, in order to be in this world and make it out alive you have to
+understand that there is no singular truth you can package and give someone.
+The truth is made up of different perspectives and sources. When you first
+came here you wanted hard logical answers you could understand. Solutions
+that fit the way you've been taught to think. No world, not this one or the
+one you're trying so hard to remember, works that way."
+      "What am I supposed to believe, then?" you ask, looking up at her
+again.
+      "That's up to you to decide, Wes," she tells you, "No matter what it
+will always be up to you. But, I can tell you that there is some truth in
+what Dr. Micheals said. You started out here, in Mercy, because your
+Grandfather died at Mercy. Hell, your entire childhood involved hospitals."
+       "What?"
+       "Do you remember when I said you wanted to be like one of us? I meant
+that in more ways than one, Wes. And I think you should know..."
+
+press any key to continue
+
+      Suddenly you both hear the sound of one of the medicine coffins being
+knocked over with a loud splash and simultaneously seek out the source.
+Before you stands none other than...
+
+press any key to continue
+
+Hope Endlessly.
+
+     "I hope I ain't interruptin' ya'lls little talk of revelations," she
+straightens her back and brushes a strand of hair into place, "but it
+wouldn't be very southern of me ta jus' leave off without sayin' goodbye."
+She smiles at you in a queer way and both you and Charity give each other a
+look that let's you know you're both thinking the same thing. Hope is not the
+neat girl you met before, she seems more savage and unwound, and what is
+that...
+     "She has a sword..." you whisper.
+     "Wes, that's the Stripper Sword," Charity informs you while taking a
+step back, "the blade of change."
+
+press any key to continue
+
+     "What does that mean!?" you hiss as you mirror her movement. The new
+Hope is walking towards the both of you with slow and deliberate steps,
+sizing you up as you size her up.
+     "A spirit spark. It's a manifestation of Hope's soul the same way your
+Soul Scythe is of yours. She's more powerful now than ever."
+     "So Hope is like...me? That means she's...'
+     "Not from here, hell, Hope isn't even from your century, Wes!"
+     "Ah, do declare Miss Bell," Hope stops and stands perfectly still, "do
+mah ears deceive me or did I just hear ya'll talking 'bout mah age?" Hope
+lifts up her blade and assumes a warrior's posture, "now ya'll should know
+that that is just plain rude. I'm gonna have to show ya'll what the light of
+Hope kin do..."
+
+She smiles from ear to ear as she lunges at the both of you...
+Hope manages to avoid Charity Bell's attack.
+
+>
+>
+>
+>You cut Hope with the Soul Scythe.
+Hope attacks Charity Bell with the Stripper Sword, but Charity Bell manages
+to avoid it.
+
+>You cut Hope with the Soul Scythe.
+Hope manages to avoid Charity Bell's attack.
+
+>You cut Hope with the Soul Scythe.
+Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
+
+>You cut Hope with the Soul Scythe.
+Hope manages to avoid Charity Bell's attack.
+
+>You cut Hope with the Soul Scythe.
+Hope manages to avoid Charity Bell's attack.
+Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
+
+>(Your score has increased by 10)
+You cut Hope with the Soul Scythe.
+
+     "Y...ya'll think ya'll 're so smart don't you?!" Hope exclaims as she
+backs away, "I'll burn brighter next time...that box'll never dim me
+again..."
+
+A bright light flashes and Hope is gone.
+
+press any key to continue
+
+     "You know, Wes," Charity beams, "you're pretty badass in a fight."
+     "Yeah," you grin, "We made a pretty good team."
+     "Haha!" Charity unsuccessfully tries to cover her laughing with a hand,
+"Did Wes Garden just crack a smile!? It looks like you really are starting to
+reclaim your old self."
+     "Whoever that used to be."
+     "You're not gonna demand I give you a straight answer?" Charity
+inquires.
+     "Nah," you grin again, "I figure, it'll all come to me when I'm ready
+for it. For now I just want out of this place, I can't understand what's
+going on without going forward, I understand that much at least."
+
+press any key to continue
+
+       "I'm proud of you, Wes. But don't think it's gonna be easier from here
+on out," Charity gives you a friendly slap on the back, " You've got to get
+into the Magna Mater room, and what you find inside...well, you have to be
+brave Wes. You should ask Dr. Micheals about it."
+      "I can't believe anything that guy says," you tell her.
+      "I know," she agrees," but you have to understand that he's like you
+and Hope. The only person he was lying to, really, was himself. Just keep
+that in mind."
+
+And with a jaunty flip of her hair Charity walks out of the room and leaves
+you alone to contemplate the challenges ahead of you.
+
+>You unlock the medicine cabinet door with the vial.
+
+>You open the medicine cabinet door.
+
+>You move north.
+Maternaless Ward
+The most conventionally hospital-esque place you've seen thus far. The
+Maternaless Ward is a long hallway. The floors are checkered a clean black
+and white while the duo colored walls are an austere white and gray. A strong
+medicinal smell clings to every surface that you find oddly comforting.
+However, the normality of the hall is deeply undermined by what you hear
+coming from behind its closed doors. The sound of children pleading, crying,
+and pounding on their doors to be let out.
+
+A letter is on the floor.  All of the doors in the hall have no knobs except
+for one at the end of the hall.
+
+You can only move south.
+
+>(Your score has increased by 5)
+You knock on the door and hear cacophonous splashing echoing down the hall
+from the medicine cabinet.
+
+>
+>
+>You move south.
+The Medicine Cabinet
+This enormous room's floor is completely obscured by knee-deep water. Out of
+the water juts monolithic capsules with medical symbols or names on them. The
+capsules are more reminiscent of coffins than anything else. The entire
+northern face of the chamber is decorated by what appears to be a large
+monument of a woman's head and hands, the hands continuously pour water into
+the room while the head emits a moderate light. There is a door at the base
+of the figure.
+
+Also here is La Virgencita key.
+
+You can move north and south.
+
+>You pick up La Virgencita key.
+
+>You move south.
+Grand Corridor
+You step into a long hallway decorated with portraits on either side and lit
+by wall sconces high above you. The walls are painted a beautiful variation
+of the red color in the foyer. Were the rooms once connected? The only
+exception is on a section of the left wall where the splendor of the decor
+seems be peeling away and exposing the wood paneling. The ceiling is at least
+fifty feet above you and covered by an elongated triangular glass structure.
+At one end of the hall there is surprisingly modern looking door with a
+strange contraption next to it.
+
+You can move north, east, south and west.
+
+>You move west.
+The Core of Beauty
+A large room of flat gray colors and stone. Littered about the floor are the
+cracked remnants and unsettling ruins of destroyed statues and idols that
+stare about the room with jubilant expressions conveying the joys of romance,
+youth, and vigor. In the center of the room is a peculiar fountain that
+sprays an iridescent sweet smelling fluid.
+
+You can move north and east.
+
+>You move north.
+Radiology Chamber
+The stark whiteness of the room is unsettling. The walls are flat and
+scattered along them you see view screens of skeletons and bodies accompanied
+by enormous speakers. In the middle of the room there is a single chair.
+There is a sign high up above you that reads "Transmitting", but you're not
+sure what that pertains to.
+
+Also here is the Woebegotten scalpel.
+Dr. Micheals is here and looking pensive.
+
+You can only move south.
+
+>You pick up the Woebegotten scalpel.
+
+>You move south.
+The Core of Beauty
+A large room of flat gray colors and stone. Littered about the floor are the
+cracked remnants and unsettling ruins of destroyed statues and idols that
+stare about the room with jubilant expressions conveying the joys of romance,
+youth, and vigor. In the center of the room is a peculiar fountain that
+sprays an iridescent sweet smelling fluid.
+
+You can move north and east.
+
+>You move east.
+Grand Corridor
+You step into a long hallway decorated with portraits on either side and lit
+by wall sconces high above you. The walls are painted a beautiful variation
+of the red color in the foyer. Were the rooms once connected? The only
+exception is on a section of the left wall where the splendor of the decor
+seems be peeling away and exposing the wood paneling. The ceiling is at least
+fifty feet above you and covered by an elongated triangular glass structure.
+At one end of the hall there is surprisingly modern looking door with a
+strange contraption next to it.
+
+You can move north, east, south and west.
+
+>You move north.
+The Medicine Cabinet
+This enormous room's floor is completely obscured by knee-deep water. Out of
+the water juts monolithic capsules with medical symbols or names on them. The
+capsules are more reminiscent of coffins than anything else. The entire
+northern face of the chamber is decorated by what appears to be a large
+monument of a woman's head and hands, the hands continuously pour water into
+the room while the head emits a moderate light. There is a door at the base
+of the figure.
+
+You can move north and south.
+
+>You move north.
+Maternaless Ward
+The most conventionally hospital-esque place you've seen thus far. The
+Maternaless Ward is a long hallway. The floors are checkered a clean black
+and white while the duo colored walls are an austere white and gray. A strong
+medicinal smell clings to every surface that you find oddly comforting.
+However, the normality of the hall is deeply undermined by what you hear
+coming from behind its closed doors. The sound of children pleading, crying,
+and pounding on their doors to be let out.
+
+A letter is on the floor.  All of the doors in the hall have no knobs except
+for one at the end of the hall.
+
+You can only move south.
+
+>The Soul Scythe explodes in a flash of indigo light. Small particles of black
+dust float down from where the blade once was.
+
+>You unlock the Magna Mater door with La Virgencita key.
+
+>You open the Magna Mater door.
+
+>(Your score has increased by 5)
+
+    When you opened the Magna Mater room you expected to find another place
+in the hospital or at least a room. However, where something should have been
+you find...nothing. Simple darkness that doesn't go beyond the limits of the
+entryway.
+
+Then you hear the rapid laughter of a baby through the darkness and you can
+feel little droplets of sweat gather on your skin. What's through the
+darkness?
+
+Steeling yourself, you walk forward.
+
+    You suddenly feel a beautiful warmth rush out and envelope you. Can
+warmth be beautiful? You close your eyes and feel and hear the sounds of
+waves lapping somewhere in the distance. The pulsing in your heart draws you
+further in...the Soul Scythe wants you to go forward and it wants you to
+see...
+
+    A light erupts into your line of sight and you find yourself in a place
+full of beeping, whirling, singing machines that are connected to a woman,
+her naked belly heavy with child, in the middle of this place. She lays on a
+metal table in stirrups. Her sweat-drenched hair covers her face like ivy and
+she breathes deeply through her pursed lips. You can count her breathing like
+the second hand of a clock - one, two, three, un, deux, trois...
+
+She looks up at you, or you think she does, with her chest heaving behind the
+mound of her belly. Was your mother like this?  You want to reach out and
+talk to her and tell her she shouldn't be in a place like this...she
+should...The woman lets out a groan as her burgeoning stomach seems
+to...ripple? You can see tiny hands press against the lining of her stomach,
+too many hands, and crying fills the room. You take a step back but quickly
+return to your original posture. What is this place?
+
+A scalpel descends from above  her and traces a soft line across her belly as
+her breathing becomes like whistling, a quick and careless tune that urges
+the scalpel onward. Is that...isn't that Dr. Micheals' scalpel?
+Woebegotten...
+
+It slices into her and you cringe, trying not to look but unable to close
+your eyes. Bloods runs down her skin steadily and she throws her head back
+and cries. The scalpel continues to cut...and cut...a large X...then a large
+hole...but her stomach retains its mountainous contours. In the blink of an
+eye her stomach is a gaping mound with a hole in it, and suddenly it's you
+that's screaming.
+
+     "Wes, my Wes Garden, why do you look so distressed?" a voice asks you,
+it's a voice tinged with a smile. You know this voice.
+      Slowly, you open your eyes and discover yourself looking into the hole
+the scalpel carved into her stomach, like a cave in a mountainside. The hole
+is full of swirling lights. Purples and blues that shimmer the more you look
+at them. Your throat feels dry and you can't speak.
+     "I'm so glad to see you came," says the voice, a woman's voice. You know
+this voice.
+     "You're my mother," you state, your voice cracking on the word 'mother'.
+     "I am everyone's mother," the swirling lights glitter softly, "I love it
+when my children see me. I am so often forgotten."
+     "A-are you a god," you rasp out, you fidget with your pockets, "like
+Psyche and Cupid?"
+     "Hmmm," the voice has a grand lyrical quality, "some people think I am,
+but I don't know. I'm a mother, which always means so much and so very little
+I suppose. I just miss things."
+
+     "Miss things?"
+     "Like you, Wes. Your father and I didn't mean to disappear in the woods
+but we couldn't win. I'm glad you haven't been alone."
+     "You're my real mother," you whisper, "you're not dead."
+     The lights roll into a soft gold color and silvery laughter spins
+through the air, "Your parents are not dead, Wes. They were like you, and
+Hope, and Dr. Micheals. They sent your grandparents, your uncle, even
+Charity, to keep you out of harm's way, but that failed and now Morrow Falls
+and the entire world may pay the price. All my children lost to chaos as I
+almost lost you."
+     You cannot help the salty tear drops that glide down your face. Alive!
+"W-what's happening? Where can I find you? Why am I here?"
+     "That," the voice whispers, the lights flicker, "is something every
+child asks his mother if not in voice than in spirit. I am every mother, and
+yet I cannot answer you. You must go towards the ones who can stand with you
+and guide you as you will guide them."
+     "I-I...don't"
+
+     "You cannot give up hope, although I know it's hard to understand now,
+Wes Garden. Your first step must be to leave this place of healing, because
+in a way you are already healed. You must redeem the girl, Hope, and open the
+black shrine in the chapel. Then you will be free."
+     "Redeem, Hope?
+     "Oh, a tragedy," the voice wails and the lights dim, "I failed her so
+long ago. To carry the punishment of mankind and to have to work so hard to
+bring joy to others...but for you to leave she must go back and face her
+fears. Back into the darkness. I believe a friend has left you something in
+the waiting room, a gift to give her, that will aid you in that."
+     "Back into the darkness?"
+     "One day, in the future, she will return reborn, but in the present you
+will go forth renewed. This is all I can do. I am not a powerful archetype
+you know. Otherwise, the world would have no tears."
+     The lights have been dimming more and more, you know that this...Being
+does not have much time.
+
+     "You have to go back now, Wes. Reach into me and take what is needed. It
+is essential if you are to open the black shrine."
+     You hesitate as the lights grow smaller and weaker, then you feel
+yourself walking forward until you come face to face with the hole.
+     "You will do fine, Wes. I cherish you greatly."
+     You turn your head away and swiftly plunge your arm into the swirling
+lights. All you feel is more warmth, a greater, richer, form of devotion and
+compassion than you've ever known in your life. And then you feel something
+and lift it out...
+
+You are back in the Maternaless Ward.
+
+>You move south.
+The Medicine Cabinet
+This enormous room's floor is completely obscured by knee-deep water. Out of
+the water juts monolithic capsules with medical symbols or names on them. The
+capsules are more reminiscent of coffins than anything else. The entire
+northern face of the chamber is decorated by what appears to be a large
+monument of a woman's head and hands, the hands continuously pour water into
+the room while the head emits a moderate light. There is a door at the base
+of the figure.
+
+You can move north and south.
+
+>You move south.
+Grand Corridor
+You step into a long hallway decorated with portraits on either side and lit
+by wall sconces high above you. The walls are painted a beautiful variation
+of the red color in the foyer. Were the rooms once connected? The only
+exception is on a section of the left wall where the splendor of the decor
+seems be peeling away and exposing the wood paneling. The ceiling is at least
+fifty feet above you and covered by an elongated triangular glass structure.
+At one end of the hall there is surprisingly modern looking door with a
+strange contraption next to it.
+
+You can move north, east, south and west.
+
+>You move south.
+Waiting Room
+You are in a small room lit by a flickering fluorescent light. The floor is
+green and white checkered linoleum, caked with deep set dirt and grime. Along
+the walls are a few old and uncomfortable looking red chairs that give off a
+moldy smell. All of the walls are decorated with wallpaper that must have
+been peeling and cracking off for some time now. You also see the
+receptionist's opaque glass window, closed, with a filth covered sign next to
+it that reads "Ring the bell for Help". You also can't help but notice a
+young woman, blanketed in flowers of all kinds, sprawled out on a few of the
+chairs. Next to her is a table with magazines and a decorative journal on
+top.
+
+A vase of Sighing Prudence sits on the magazine table with an attached note.
+
+You can move north and south.
+
+>You pick up the Sighing Prudence.
+
+>You move north.
+Grand Corridor
+You step into a long hallway decorated with portraits on either side and lit
+by wall sconces high above you. The walls are painted a beautiful variation
+of the red color in the foyer. Were the rooms once connected? The only
+exception is on a section of the left wall where the splendor of the decor
+seems be peeling away and exposing the wood paneling. The ceiling is at least
+fifty feet above you and covered by an elongated triangular glass structure.
+At one end of the hall there is surprisingly modern looking door with a
+strange contraption next to it.
+
+You can move north, east, south and west.
+
+>You move east.
+The Halting Chapel
+Cobwebs and thick dust coat every surface of the room and indicate that it
+has not seen much use. Statues of saints sit back in alcoves long forgotten
+and you can smell an unpleasantly dank odor rising from the pews. There is a
+moderate-sized wooden altar off to one side of the room.
+
+A black shrine sits opposite the wooden altar.
+
+You can only move west.
+
+>(Your score has increased by 5)
+     "Wha," Hope exclaims as she clutches her chest, "what is this?"
+     "I believe it's for you. To help you get home," you tell her gently.
+     Hope drops her sword, slowly takes the flowers into her hands, and her
+eyes become as wide and child-like as when you first met her. She cradles the
+vase against her chest and wipes at the corners of her eyes. "I...I can't go
+back in there."
+     "You kept mentioning a box...what box..."
+      "Pandora's box," she whispers, "it's so dark in there. The
+otha's...didn't want to spread joy or light."
+       "The others like..."
+       "No, differ'nt from yours," Hope wipes her eyes and sniffles, "mah
+brothas and sistahs. Sorrow, Envy, Hatred, Despair...we all lived in that
+box. Ah've been fighting against 'em ever since Pandora let us out, and when
+Miss Justice told me they were her enemies too..."
+       "Who is Justice?"
+       "She's a great and powerful lady, Mr. Wes. She's...one of the ones who
+helped change your place into this place. Maybe you'll meet her one day and
+she'll forgive you for challengin' her," Hope tells you as she grins into the
+flower petals.
+        "She's responsible for all of this? Did she have something to do
+with..."
+        "Yeah, she knows where your parents are, Mr. Wes. But, it won't be
+easy. Getting what you want is nevah' easy."
+        "Hope," you say taking a step towards her, "How can I..."
+        "It's so dark in that box," she continues as if she can't hear you,
+"but I can be stronger than any of em this time. I know it." She silently
+cries into the Sighing Prudence and bit by bit she fades away into what look
+like tiny white stars. She gives you a final beaming smile and mouths a 'Good
+Luck'.
+         Within seconds she is gone and all that's left of her lies on the
+floor...the final answer to Mercy.
+
+>
+>
+>
+>You pick up Hope's Spirit.
+
+>(Your score has increased by 10)
+     The room begins to spin around you and nausea rises out of the pit of
+your stomach as you struggle to hold yourself together.
+
+And then, when you open your eyes, you find that you're no longer in any part
+of Mercy Hospital. Encompassing your view is a wasteland full of barren
+fields and craggy rocks that twist skyward.
+     "Where is this?" you ask yourself.
+
+     "This," you hear Charity and whirl around to see her coming towards you,
+"is the nightmare outside of Mercy Hospital. The place you've been working so
+hard to get to."
+     You scan the horizon, "Where is the Hospital?"
+      "A million miles away," she tells you, "You're ready now for what comes
+next. You're ready to understand exactly what's at stake."
+      "But, I thought I'd...where is Morrow Falls?" you question her. She
+looks away from you.
+      "Wes, you know this is Morrow Falls. It turned into this when things
+broke down. Right after your Grandfather died. Why do you think your
+Grandmother was in tears every night? She didn't just lose her soulmate after
+losing her daughter and son-in-law. She was also mourning what was destined
+to happen to your hometown, and eventually the world. That's why she
+encouraged your Uncle to train you in the ways of your parents. He didn't
+know you'd be lost..."
+      "My parents did this too?"
+      "You have a destiny to follow," Charity tells you," and it will not be
+easy but if you stand strong its a possibility that you can save everyone."
+
+The end.
+You've Won the Game!
+Congratulations!
