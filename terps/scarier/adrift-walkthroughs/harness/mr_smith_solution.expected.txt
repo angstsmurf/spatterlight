@@ -58,6 +58,8 @@ Also here is a fireplace poker and Colt .45 pistol.
 
 >You pick up the fireplace poker.
 
+>You pick up Colt .45 pistol.
+
 >You move west.
 The Lobby
 After waking the length of the hall you come to the lobby.
@@ -94,8 +96,6 @@ Study
 Here is the study. Many papers lay about it, and a fire burns in the
 fireplace.  It appears that someone in a hurry has been here recently.
 
-Also here is Colt .45 pistol.
-
 >(Your score has increased by 5)
 The torch sparks into flame
 
@@ -104,6 +104,29 @@ The Lobby
 After waking the length of the hall you come to the lobby.
 
 >You move up.
+Upper Lobby
+After climbing the stairs from the lobby,  you emerge into the second floor
+lobby.
+
+>You move west.
+Attic
+You enter a room full of cobwebs and boxes stacked to the ceiling. There may
+be some items of some use around.
+
+>You open wooden box.  Inside wooden box is a flak jacket.
+
+>You take the flak jacket from wooden box.
+
+>You put on the flak jacket.
+
+>You open cardboard box.  Inside cardboard box are brown potatoes.
+
+>You take brown potatoes from cardboard box.
+
+>(Your score has increased by 5)
+You ate the potatoes. Not bad, but they could do  with a pinch of salt.
+
+>You move east.
 Upper Lobby
 After climbing the stairs from the lobby,  you emerge into the second floor
 lobby.
@@ -151,6 +174,330 @@ your surroundings.
 You drink some of the water from the fountain, and almost immediatly you feel
 stronger.
 
->Your score is 25 out of a maximum of 100.  (25%)
+>You move north.
+Observatory
+You enter the observatory. It is a dimly lit room with few candles and an
+open drawer.
+Watch out! A mobster is here, in this room!!!
 
->Do you really want to quit? [Y/N]
+>You shoot Fernelli with Colt .45 pistol.
+Fernelli shoots you with the Remington 410 shotgun.
+
+>You shoot Fernelli with Colt .45 pistol.
+
+>You shoot Fernelli with Colt .45 pistol.
+Fernelli shoots you with the Remington 410 shotgun.
+
+>You shoot Fernelli with Colt .45 pistol.
+Fernelli shoots you with the Remington 410 shotgun.
+
+>You shoot Fernelli with Colt .45 pistol.
+
+>You shoot Fernelli with Colt .45 pistol.
+Fernelli shoots you with the Remington 410 shotgun.
+
+>You shoot Fernelli with Colt .45 pistol.
+
+>You shoot Fernelli with Colt .45 pistol.
+Fernelli shoots you with the Remington 410 shotgun.
+
+>You shoot Fernelli with Colt .45 pistol.
+Fernelli shoots you with the Remington 410 shotgun.
+
+>You shoot Fernelli with Colt .45 pistol.
+Fernelli shoots you with the Remington 410 shotgun.
+
+>You shoot Fernelli with Colt .45 pistol.
+
+>You shoot Fernelli with Colt .45 pistol.
+
+>You pick up gold key.
+
+>You move south.
+Courtyard
+An erie courtyard sits at the middle of the mansion. You stare up at the sky
+and take a deep breath. It is the middle of the night. Now you take notice of
+your surroundings.
+
+>You drink some of the water from the fountain, and almost immediatly you feel
+stronger.
+
+>You move down.
+Dungeon
+Accesed through the secret passage, the dungeon is several layers below
+ground. You can hardly see anything. You may not want to go any further
+unless you acquire a source of light.   Now that the torch is lit, you can
+see about the room.
+
+>You move south.
+Second dungeon
+Another dungeon. Nothing remarkable, only some old skeletons in the area.
+An old butler is here, chained against the wall.
+
+>(Your score has increased by 5)
+You have unchained the Butler. He falls to the floor in a slump. Perhaps he
+has been malnourished and has fainted. You check his pulse...no reading...
+the butler is dead.
+
+>You move north.
+Dungeon
+Accesed through the secret passage, the dungeon is several layers below
+ground. You can hardly see anything. You may not want to go any further
+unless you acquire a source of light.   Now that the torch is lit, you can
+see about the room.
+
+>You move up.
+Library
+This is the Library. Many bookcases cover its walls.  A bookcase has fallen
+to the floor revelaing a secret passage.
+
+>You move east.
+The Lobby
+After waking the length of the hall you come to the lobby.
+
+>You move up.
+Upper Lobby
+After climbing the stairs from the lobby,  you emerge into the second floor
+lobby.
+
+>You move north.
+Bedroom
+The beautiful bedroom lined with blue wallpaper and containing a solid oak
+bed. It appears to you that a fight of some sort took place. There are
+strange noises coming from under the bed...
+
+>(Your score has increased by 5)
+Following the strange sounds, you lie down on the bed to listen to what's
+coming from under it. As you are lying there, listening to what seems like
+muffled voices, the bed slowly begins to tilt up. A hole opens in the floor
+at the foot of the bed, and you slide down into the secret passage!! You hit
+the floor hard and are knocked unconscious.
+
+                  You awake some minutes or hours (you don't know how long
+you have slept) later in a darkened room. There is absolutly nothing there,
+except a light bulb in the middle of the room and a few empty shelves lining
+the walls. There is a door at the north end of the room. Then you come to
+your senses.
+                                                  Many thoughts race through
+your head. Where am I? Where are the people that were talking before? After
+all, I must be hot on the trail after finding that girl tied up. I wonder
+where that door leads to.
+
+          You are answered soon enough. As you sit on the dusty floor trying
+to work up enough strength to leave the room, a bullet wizzes above your
+head. You see that it came from the next room, because there is a hole in the
+door. Now is your chance to investigate what's going on. You look through the
+hole.
+                                                                      "There.
+Now you know I'm not afraid to shoot you. This is your last chance, Smith.
+I'm tired of playing games. Tell me when the president will be vulnerable or
+else."
+                             Mr. Jones!!! That double-crossing no good...
+ There is your boss, the person sending you on this mission, with a gun
+pointed at the side of the head of the "missing" person, Mr. Smith.
+
+     "No!!!, screamed Mr. Smith. I will never tell you. I will be loyal to
+the President until I go to the grave."  "Really, said Jones, what an
+enticing offer." Mr. Jones lifed the gun, and shot Mr. Smith in the side of
+the head. "Make it look like a suicide,"  Mr. Jones chuckled as he cut the
+cords and place the gun on the floor by the lifeless body. At that moment,
+due to the dust, you sneeze. Mr. Jones heard the sneeze and lunged for the
+door. Before closing it, he screams "Well, I see you are not as stupid as you
+look, Hero. After all, you did get past that goon of mine. Try and stop me!!"
+
+                                                             "What is going
+on here?" you ask yourself. "Mr. Smith was a secret service agent? My former
+boss is a maffia hitman and was involved in a plot to kill the president?
+Time to get some answers, and stop that madman."
+
+Sub-basement
+The dimly lit sub-basement is the room through the secret passage. There is a
+light bulb held by a string in the ceiling, and some wodden selves that are
+mostly empty. You won't be able to get back to bedroom this way. The only
+exit is to the north.
+
+>You move north.
+Wine Cellar
+Mr. Smith must have had quite a bit of money, because he has some expensive
+wines in this chilly room. Racks and racks of them line the wall, and most
+are full.
+
+Also here is a wine bottle and an ID card.
+
+>You move west.
+Catacombs
+The scent of rotting flesh is all around you. So are some skeletons. This
+labyrnith of tunnels that appears to have been here long before the mansion
+was built is called the catacombs.
+
+>You move north.
+Catacombs
+The scent of rotting flesh is all around you. So are some skeletons. This
+labyrnith of tunnels that appears to have been here long before the mansion
+was built is called the catacombs.
+
+Also here is an old bone.
+
+>You pick up the old bone.
+
+>You move south.
+Catacombs
+The scent of rotting flesh is all around you. So are some skeletons. This
+labyrnith of tunnels that appears to have been here long before the mansion
+was built is called the catacombs.
+
+>You move east.
+Wine Cellar
+Mr. Smith must have had quite a bit of money, because he has some expensive
+wines in this chilly room. Racks and racks of them line the wall, and most
+are full.
+
+Also here is a wine bottle and an ID card.
+
+>You pick up the wine bottle.
+
+>(Your score has increased by 5)
+You shatter the wine bottle on the floor. The wine goes everywhere, and the
+front door key also comes out.
+
+>You pick up the front door key.
+
+>You move north.
+Recreation Room
+Mr. Smith wanted to have something to do in the winter time when it's too
+cold or snowy to go outside. The rec room contains anything and everything
+that he could have wanted. Fooseball, Ping-Pong, and video games are just
+some of the activities here.
+
+>You move east.
+Kitchen
+The average modern kitchen. It has a microwave, refrigerator, oven, toster,
+and all of the other usual items you would expect to find here. A window is
+above the sink overlooking the valley, and many white cabinets line the
+walls.
+
+>You open the refrigerator.  Inside the refrigerator is a gourmet sandwich .
+
+>You take the gourmet sandwich  from the refrigerator.
+
+>(Your score has increased by 5)
+You eat the sandwich. You have never EVER tasted anything so good.
+
+>You move west.
+Recreation Room
+Mr. Smith wanted to have something to do in the winter time when it's too
+cold or snowy to go outside. The rec room contains anything and everything
+that he could have wanted. Fooseball, Ping-Pong, and video games are just
+some of the activities here.
+
+>You move west.
+Billiard Room
+A cozy room where you can have a few beers and play pool with some good
+friends. There is a pool table in the center and a sofa that wraps around the
+entire room, except where the entrance is and where the fireplace is.
+
+>(Your score has increased by 5)
+You kick the gun cabinet. Your foot goes right through the door leaving a
+hole. You wonder if it really is made of solid oak. You kick it a second time
+towards the middle and it finally opens.
+
+>(Your score has increased by 5)
+The gun cabinet is locked, you cannot open it.
+
+>You open the gun cabinet.  Inside the gun cabinet is an AUG assault rifle.
+
+>You take the AUG assault rifle from the gun cabinet.
+
+>You move east.
+Recreation Room
+Mr. Smith wanted to have something to do in the winter time when it's too
+cold or snowy to go outside. The rec room contains anything and everything
+that he could have wanted. Fooseball, Ping-Pong, and video games are just
+some of the activities here.
+
+>You move north.
+Front Hall
+You enter the front hall. It is coated in a tasteful color of white paint,
+with a door at one end. There are some hooks used for holding coats.
+
+>(Your score has increased by 5)
+The door opens and sunlight floods the room.
+
+>You move north.
+Front Yard
+You emerge from the house (finally), only to find Mr. Jones gone, and some
+old, dry footprints leading out into the road. It is midafternoon, and
+mountains loom in the distance.
+A vicious guard dog is in the yard.
+Dog hits you, but it doesn't seem to do any damage.
+
+>(Your score has increased by 10)
+The dog now calms down and begins to chew on the bone.
+
+>You move north.
+Road
+This is the road in the front of the house. There is an automobile and a taxi
+parked on it, but nothing else worth mentioning. There is a path that leads
+off the side of the road, marked by a sign that reads "Mountain Path". There
+is one pair of muddy footprints leading up it.
+
+>You open the automobile.  Inside the automobile is some dynamite.
+
+>You take the dynamite from the automobile.
+
+>You open the taxi cab.  Inside the taxi cab is a pack of matches.
+
+>You take the pack of matches from the taxi cab.
+
+>You move north.
+Mountain Path
+This is the path that leads from the road all the way up to the summit. You
+are surrounded by trees and can only move forward. There are footprints
+leading up the slope.
+A gigantic grizzley bear is here too, watch out!
+Bear hits you.
+
+>You move north.
+Low Hills
+There are footprints still leading north here, but they are wet. You also
+think that you hear a chopping noise ahead. You can't move north yet, because
+your path is blocked by a boulder.
+
+Also here is a boulder.
+
+>(Your score has increased by 5)
+After laying the dynamite you take cover behind a tree. You count to your
+self  "3.....2.....1......." BOOOOMMMMMMM!!!!!! The boulder explodes folowed
+by a shower of rocks. Now you move up the path. All of the sudden a
+helicopter appears in the air ahead of you.  "You just can't take a hint, can
+you Hero?", laughs Mr. Jones from inside the helicopter.  You thought that
+you could stop me? Ha! In a few moments I'll be off to Washington, and you'll
+be dead!" "You'll never get away with this!!" you scream, as you charge the
+helicopter with guns drawn. You soon realize that this wasn't a bright idea,
+since the helicopter has two chain guns on it. As you duck out of the line of
+fire and seek shelter behind a rock, the helicopter takes off. "Hahahahah,"
+chuckles Mr. Jones over a loudspeaker, "I'll deal with you later. Perhaps you
+can join the Butler in the dungeon?" "Why did you kill the Butler, you
+madman?" "He knew too much, like you. After all, the sole reason I sent you
+here was to get you out of the way. I can't belive you actually bought that
+Smith might have fallen down." With that the helicopter gained much altitude
+and took off into the clear sky. You know you have to act quickly to stop
+him! If only you could snipe a vulnerable part of the helicopter from a high
+elevation...
+Hurry and stop Mr. Jones before he escapes!
+
+>Your score is 80 out of a maximum of 100.  (80%)
+
+>You move north.
+Summit
+After a day's long hike you finally reach the top of the mountain. You look
+out over the edge and see a breathtaking view of the whole city.
+Unfortunately, there is no time. You must stop Mr. Jones before he gets away.
+
+>(Your score has increased by 10)
+After taking careful aim you pull the trigger of the rifle. After almost no
+delay, the helicopter explodes and falls from the sky. An awesome sight. What
+you've done to save the world won't sink in until later, and for right now
+you're going home to catch up on some lost sleep.
+Congratulations! I hope you liked our game. If you didn't get 100%, you
+should go back and try for it!

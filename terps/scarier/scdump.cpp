@@ -40,8 +40,9 @@
  *                   (gs_object_position code: >=1 room+1, 0 held, -1 hidden,
  *                   -10/-20 in/on object, -100/-200/-300 worn-player/held-NPC/
  *                   worn-NPC), the room it is directly in (or -1), and its
- *                   Battle weapon/armour properties (HitValue, ProtectionValue,
- *                   Method).  Deliberately skips the heavy task/exit/walk
+ *                   Battle weapon/armour properties (HitValue, Accuracy,
+ *                   ProtectionValue, Method).  Deliberately skips the heavy
+ *                   task/exit/walk
  *                   sections, so it is safe on games whose full SCR_DUMP_TASKS
  *                   output is pathologically large.  Built for combat-
  *                   survivability route planning (which armour/weapon is where).
@@ -134,13 +135,17 @@ scr_dump_structure_once (scr_gameref_t game)
       for (i = 0; i < gs_object_count (game); i++)
         {
           scr_vartype_t ok[4], bv;
-          scr_int pos, r, room = -1, hit = 0, prot = 0, method = 0;
+          scr_int pos, r, room = -1, hit = 0, acc = 0, prot = 0, method = 0;
           const scr_char *s = scdump_object_name (game, i);
           pos = gs_object_position (game, i);
           for (r = 0; r < gs_room_count (game); r++)
             if (obj_directly_in_room (game, i, r)) { room = r; break; }
           ok[0].string = "Objects"; ok[1].integer = i; ok[2].string = "Battle";
           ok[3].string = "HitValue";        if (prop_get (bundle, "I<-siss", &bv, ok)) hit = bv.integer;
+          /* A weapon's Accuracy bonus is added straight onto the wielder's
+           * rolled accuracy in battle_eff_accuracy(), so it decides whether a
+           * fight is winnable at all -- print it beside HitValue. */
+          ok[3].string = "Accuracy";        if (prop_get (bundle, "I<-siss", &bv, ok)) acc = bv.integer;
           ok[3].string = "ProtectionValue"; if (prop_get (bundle, "I<-siss", &bv, ok)) prot = bv.integer;
           ok[3].string = "Method";          if (prop_get (bundle, "I<-siss", &bv, ok)) method = bv.integer;
           {
@@ -162,11 +167,12 @@ scr_dump_structure_once (scr_gameref_t game)
               eff = gs_npc_location (game, par) - 1;
             fprintf (stderr,
                      "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
-                     " static=%ld unmoved=%ld hit=%ld prot=%ld method=%ld [%s]\n",
+                     " static=%ld unmoved=%ld hit=%ld acc=%ld prot=%ld"
+                     " method=%ld [%s]\n",
                      i, pos, room, par, eff,
                      (scr_int) obj_is_static (game, i),
                      (scr_int) gs_object_static_unmoved (game, i),
-                     hit, prot, method, s ? s : "");
+                     hit, acc, prot, method, s ? s : "");
           }
         }
       return;

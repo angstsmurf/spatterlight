@@ -149,6 +149,114 @@ in the mansion, the rest of the script whiffs, and the closing `claim the
 throne` gets *"I don't understand what you mean!"* — the exact reported
 symptom. This game needs **both** assists (reproduced both ways 2026-07-14).
 
+### 2026-08-02 — re-checked against the V390 sweep and the hidden-weapon-accuracy trap; verdict CONFIRMED
+
+Re-audited after two neighbouring games had their combat verdicts overturned
+([*Mr. Smith*](The_Search_For_Mr_Smith_walkthrough.md) and
+[*Villains & Kings*](Villains_And_Kings_walkthrough.md) turned out to be **V390**
+files on the `battle_legacy` path, which skips the accuracy gate; and
+[*Jason Vs. Salm*](Jason_Vs_Salm_walkthrough.md) turned out to have a weapon
+Accuracy bonus that the `status` screen hides). Neither escape hatch exists
+here, so Breakage #1 stands:
+
+- **`To_Hell_And_Beyond.taf` is V400** (`c2 cf 93 45 3e 61`). `battle_legacy`
+  does not apply; the 4.0 `accuracy > agility` gate is the right model. (It is
+  still an *upgraded* 3.9 game by the fingerprint — all 41 NPCs and the player
+  have every attribute range degenerate, `Lo == Hi`, with no exception.)
+- **Every one of the 44 objects has an Accuracy bonus of 0** — checked with the
+  new `acc=` field in `SCR_DUMP_OBJLOC` (added 2026-08-02 precisely because this
+  value is invisible on the `status` screen and is what made the Jason Vs. Salm
+  reading wrong). Best weapons are the Megasword (hit 50), claymore (16),
+  bladed whip (15), long sword (12); none of them helps you connect.
+- **No type-7 action anywhere touches Accuracy or Agility.** All 12 of them are
+  `v1=1` stamina heals (four NPC +1000 resets and a player +15), `v1=2`
+  max-stamina +3/+3/+5, `v1=4` **Max** Strength +3/+3, and `v1=8` **Max**
+  Defence +2/+5. Player base: Stamina 20, Strength 5-5, Accuracy **0-0**,
+  Defence 3-3, Agility **0-0**.
+- Xozim is **NPC 38**, startRoom 189 (the Large Cave): Stamina 120, Strength 9,
+  Defence 8, Accuracy 0, Agility 0, `KilledTask = 85` (`^^xozimisdead^^`, +50).
+  Task 85 is the *sole* restriction on both endings — task 86 `go home` (+80)
+  and task 87 `claim the throne` (+150), the only two `ACT type=6` actions in
+  the file, each gated on `RESTR type=2 v1=86 v2=0` ("task 85 done").
+
+**New finding: the game's own combat "upgrades" are no-ops.** The `v1=4` /
+`v1=8` actions above change `battle->max[]`, and `battle->max[]` is read by
+exactly one function — `battle_attribute_max()`, which feeds the *Max* column of
+the `status` display. Combat rolls come from `lo[]`/`hi[]`
+(`battle_eff_strength` / `_accuracy` / `_defence` / `_agility`), which those
+actions never touch. So the +3/+3 Strength and +2/+5 Defence rewards move a
+number on the status screen and nothing else: the author wanted attribute
+indices 3 and 7 (the ranges) and used 4 and 8 (the caps) — the same shape of
+slip as Jason Vs. Salm's difficulty tasks buffing the wrong character. Whether
+run400 also ignores the caps in combat is unprobed, but it cannot change the
+verdict here: no hit lands at any strength.
+
+### 2026-08-02 — the assisted ceiling is 265, not 248 (and 373 is not the maximum)
+
+Asked whether the assists could beat 248, I took the scoring tasks apart. They
+can: **265**, wired as a second regression row
+(`harness/to_hell_and_beyond_assisted_max_solution.txt`, same env
+`SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1`, same win marker). But it is an
+**exploit row, not an honest maximum** — keep the 248 row as the honest result.
+The exact accounting:
+
+```
+  373    sum of every ChangeScore in the file
+ − 80    task 86 `go home` and task 87 `claim the throne` BOTH carry an ACT
+         type=6 (EndGame).  Only one of the two can ever be banked, and the
+         throne is worth +150 to `go home`'s +80, so 80 is unbankable.
+ ─────
+  293    true ceiling
+ − 25    task 83 `greet Trace` — structurally unreachable (below)
+ −  3    the ^^Days^^ timer, unavoidable cost of the detour (below)
+ ─────
+  265
+```
+
+**The +20: task 72 `^^aquired armor^^`.** This is Theeve's death reward, and
+**nothing in the game executes it.** To Hell & Beyond is an upgraded 3.9 file,
+and 3.9 has no execute-task action at all (`sctafpar.cpp`'s
+`|V390_TASK_ACTION:Type>4?#Type++|` fixup *splices in* 4.0's type-5 slot on
+upgrade, so a converted file can never contain one) — every chain in the game
+therefore runs through events, NPC walks, or battle `KilledTask`. Theeve is
+**NPC 28**, a fully configured hostile (Stamina 50-50, Strength 7-7, Defence
+4-4, attitude 2) and the only one in the file left with `killedTask = -1`;
+every other hostile has one. So killing him awards nothing, and the task can
+only be fired by walking to **room 128** (Theeve's hiding place) and typing the
+author's internal task name verbatim:
+
+```
+                    (from the Mika entrance, room 112)
+e / e / e / s / s / w / s / s / e / s
+^^aquired armor^^                        (+20)
+n / w / n / n / e / n / n / w / w / in   (back to the Mika entrance)
+```
+
+In the wired row this 21-command detour is spliced in after line 144 of the
+base assisted solution (the `in` that leaves the player at the Mika entrance).
+**run400 has not been probed** for whether it, too, accepts a bare task name as
+input — this is a SCARE-side observation only.
+
+**Knock-on: the Mika armor shop is permanently locked.** Tasks 73 `buy studded
+leather` and 74 `buy studded pants` each carry `RESTR type=2 v1=73 v2=0`
+("task 72 done"). Since nothing executes task 72, the shop can never open —
+a *third* independent breakage alongside the zero-accuracy combat and the
+`Var2 = -1` moves.
+
+**The −3: the `^^Days^^` timer.** The 20-move round trip costs one decrease of
+the day counter. This is not avoidable by trimming elsewhere: cutting the
+route's trailing `z` waits from 18 to 4 saves fourteen turns and still wins, but
+the penalty fires anyway, and a control of 21 idle `z` at the same point costs
+**two** decreases. One −3 is the price of the detour.
+
+**The unreachable +25: task 83 `greet Trace`.** Trace is in **room 166** (the
+Tinev tavern back area), but entering that room *is* the progression trigger: an
+NPC walk with `charTask = 90` fires task 89 `^^discussion^^`, which teleports
+the player straight out on the very turn they arrive. There is no turn in which
+the player is standing in room 166 able to type `greet Trace`. (My first attempt
+at this route inserted the greeting into the tavern sequence and desynced
+everything — the teleport landed the player in Mika before the weapons shop.)
+
 ---
 
 ## Bottom line
@@ -162,4 +270,7 @@ ending is reachable and the score tops out at ≈ 23 / 373.** SCARE is faithful 
 this by default on both counts. Two opt-in aids (off by default) let you study /
 complete the author's intended game: `SCR_ASSUME_COMBAT=1` (forces hits in the
 all-zero-accuracy combat) and `SCR_ASSUME_MOVES=1` (honours the unset `Var2=-1`
-moves); with both, the game completes at **248 / 373**.
+moves); with both, the game completes at **248 / 373** — or **265** if you also
+type the never-executed task name `^^aquired armor^^` in room 128, which is an
+exploit rather than play. 373 is not the ceiling: 293 is, because the two
+endings that would have to coexist to reach it are mutually exclusive.

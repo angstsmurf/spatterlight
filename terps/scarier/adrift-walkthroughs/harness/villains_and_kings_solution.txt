@@ -3,11 +3,28 @@ male
 
 take note
 n
+open window
 n
 give note to king
+s
+s
+s
+e
+take sword
+wield sword
+w
+n
+n
+n
 w
 push tile
 e
+s
+attack guy
+search guy
+take golden soap
+n
+give the golden soap to king
 s
 take soap on a rope
 x window

@@ -40,6 +40,125 @@ after the object. Spirit's Flight was re-audited under the correct decoding
 the same day: its event 5 moves objects 36 and 7 (Dagger), NOT the Ice Totem
 (which would be raw 2), so its 50/95 unwinnable verdict **stands**.
 
+## 2026-08-02 — To Hell & Beyond: the assisted ceiling is **265**, and 373 is not the maximum
+
+Second assisted row wired: `to_hell_and_beyond_assisted_max_solution.txt`
+(same env, same win marker) banks **265/373**, up from the 248 row. Accounting:
+`373 − 80 − 25 − 3 = 265`.
+
+- **−80, and this is the real headline: 373 is not the ceiling — 293 is.**
+  Tasks 86 `go home` (+80) and 87 `claim the throne` (+150) *both* carry an
+  `ACT type=6` (EndGame), so exactly one of them can ever be banked. The
+  advertised maximum counts both.
+- **+20 = task 72 `^^aquired armor^^`**, Theeve's death reward, which **nothing
+  in the game executes**. THB is an upgraded 3.9 file and 3.9 has no
+  execute-task action at all (the `|V390_TASK_ACTION:Type>4?#Type++|` fixup
+  splices in 4.0's type-5 slot on upgrade), so every chain runs through events /
+  NPC walks / battle `KilledTask` — and Theeve (NPC 28, a fully configured
+  hostile, 50/7/4, attitude 2) is the one hostile left with `killedTask = -1`.
+  The only way to fire it is to walk to room 128 and type the author's internal
+  task name. **That makes the new row an EXPLOIT row, not an honest maximum** —
+  the 248 row stays as the honest assisted result. run400 unprobed for whether
+  it also accepts a bare task name.
+- Knock-on: tasks 73/74 (`buy studded leather` / `buy studded pants`) are gated
+  on `RESTR type=2 v1=73 v2=0`, so the **Mika armor shop is permanently
+  locked** — a third independent breakage after the combat and the `Var2=-1`
+  moves.
+- **−3** is the `^^Days^^` timer, unavoidable: trimming the trailing waits
+  18→4 still wins but does not dodge it, and 21 idle `z` at the same point cost
+  *two* decreases.
+- **−25 = task 83 `greet Trace`**, structurally unreachable: entering room 166
+  *is* the trigger — an NPC walk's `charTask` fires task 89 `^^discussion^^`,
+  which teleports the player out on the entry turn.
+
+v4 suite now **127 rows**. Details in `To_Hell_And_Beyond_walkthrough.md`.
+
+## 2026-08-02 — Azra re-checked, verdict CONFIRMED; the "unconfigured-combat" sweep is now complete
+
+**V400** (`c2 cf 93 45 3e 61`), so no `battle_legacy`. **All 38 objects dump
+`acc=0`** (best weapons are gold armor / heavy sword / Azranian Soldier's Sword
+at hit 8, hunting sword 5 — every one of them +0 accuracy). Player is
+Stamina 100 / Str 1-1 / Acc **0-0** / Def 0-0 / Agi **0-0**; only 3 of 12 NPCs
+are configured at all (bandit 30/5/3 `KilledTask=19`, Ormulus 30/3/2 speed 3,
+deer 20/0/0 `KilledTask=37`). `0 > 0` is false forever. **No score (0/0), no
+win** — and there is **no `ACT type=6` anywhere in the file**, so no ending
+exists to reach even with the assist. Verdict unchanged.
+
+*Correction to the old note below:* it claimed the game has **no** type-7
+ChangeBattle action. It has **22** — but their `Var1` is only 0 (Attitude),
+1 (Stamina) or 2 (MaxStamina); the range indices 3/5/7/9 and the cap indices
+4/6/8/0xA never appear. Right conclusion, wrong evidence. Also fixed the
+walkthrough's `SC_ASSUME_COMBAT` typo (the variable is `SCR_ASSUME_COMBAT`).
+
+Incidental: tasks 19/37 give the killed bandit/deer `+30`/`+20` stamina back —
+the author designed them as a **renewable income farm**, which is how $7,500 for
+the house was supposed to be payable.
+
+**Sweep complete.** All four games once filed as "unconfigured-combat
+casualties" are now settled: Mr Smith **WIN 90/100** and Villains & Kings
+**31/37** (both V390, `battle_legacy`, both old verdicts wrong); Jason Vs. Salm
+**WIN, honest 0/1000** and To Hell & Beyond **unwinnable ≈23/373** and Azra
+**0/0 sandbox** (all V400, verdicts stand). Only To Hell & Beyond still
+justifies a `SCR_ASSUME_COMBAT` corpus row.
+
+## 2026-08-02 — To Hell & Beyond re-checked, verdict CONFIRMED (and its "upgrades" are no-ops)
+
+Last of the four "unconfigured-combat" games to be re-audited. **V400**
+(`c2 cf 93 45 3e 61`), so no `battle_legacy`; and unlike Jason Vs. Salm there is
+no hidden weapon accuracy — **all 44 objects dump `acc=0`**, and **no type-7
+action anywhere touches Accuracy or Agility**. Player is Stamina 20 / Str 5-5 /
+Acc **0-0** / Def 3-3 / Agi **0-0**; all 41 NPCs likewise 0/0, every range
+degenerate (the upgraded-3.9 fingerprint). Xozim = NPC 38, Stamina 120, Str 9,
+Def 8, `KilledTask = 85` (`^^xozimisdead^^`), which is the only restriction on
+tasks 86 `go home` (+80) and 87 `claim the throne` (+150) — the file's only two
+`ACT type=6`. **UNWINNABLE, faithful max ≈ 23/373 stands**, and it remains the
+one legitimate `SCR_ASSUME_COMBAT` row (with `SCR_ASSUME_MOVES`, 248/373).
+
+**New finding worth remembering:** the twelve type-7 actions this game *does*
+have are stamina heals plus `v1=4` **Max** Strength +3/+3 and `v1=8` **Max**
+Defence +2/+5 — and those are **no-ops in combat**. `battle->max[]` is read only
+by `battle_attribute_max()`, i.e. the *Max* column of `status`; every roll comes
+from `lo[]`/`hi[]`. The author wanted indices 3 and 7 (the ranges) and used 4
+and 8 (the caps). Same shape of slip as Jason Vs. Salm buffing the wrong
+character. Cannot change the verdict — no hit lands at any strength.
+
+## 2026-08-02 — Jason Vs. Salm combat re-derived (verdict unchanged, reasoning was wrong)
+
+Checked after the V390 sweep. **`Jason Vs. Salm.taf` is V400**
+(`c2 cf 93 45 3e 61`), so `battle_legacy` does *not* apply and the 4.0
+`accuracy > agility` gate is the correct model — the row and its **WIN, honest
+max 0/1000** verdict stand unchanged, and the suite stays green. But the
+walkthrough's mechanics were wrong in three ways, now fixed:
+
+- Attributes are **`[lo,hi)` ranges re-rolled every turn** (`battle_roll`,
+  high bound *exclusive*), not the fixed numbers the old text quoted. The
+  player is 0–50 across the board, so a roll is 0–49.
+- The player is carrying a **long blade: HitValue 10, Accuracy +5, Method 4**,
+  handed over with the rest of NPC 0's kit when you pick "[1] Jason".
+  `status` hides it — it says "wielding nothing" and shows `(0)` bonuses —
+  which is exactly why the old analysis concluded no hit could ever land.
+  **`SCR_DUMP_OBJLOC` now prints `acc=` beside `hit=`** so this can't recur.
+- "Zero hits connect on all three raised difficulties" is false for **hard**.
+  The difficulty tasks (10/11/12, `where=ONE_ROOM room=1`, so they must be
+  typed *at the character-select screen*) add +20/+40/+60 to Salm's degenerate
+  32–32 agility ⇒ **52 / 72 / 92** against a maximum effective accuracy of
+  49+5 = **54**. Hard therefore lands on rolls 48–49 = **4 %** (measured 10
+  hits in 298 swings over 60 seeds); extra hard and fucking crazy are
+  **arithmetically impossible** (0 hits in the same sweep).
+
+Hard is still not winnable in practice — Salm's defence rises to 36 so only
+~46 % of those 4 % hits damage him (~275 attack turns per kill), while his
+accuracy 20–54 and strength 50 kill the player's unbuffed 25 stamina in one or
+two blows; 0 wins in 30 seeds. **The authoring bug:** every type-7 action in
+the difficulty tasks targets NPC 0 ("Jason Evans") or NPC 1 (Salm), never
+`Var2 = 0` (the player) — the author took NPC 0 for the player character, so
+on a Jason run half the buffs go to someone who isn't in the fight.
+
+Also corrected: the player is **not** invulnerable on Normal (Salm's revolver
+is Method 3, so under 4.0 it *replaces* his strength: `25 − roll(0..49)` vs 25
+stamina and no healing), and the win is **seed-dependent** — 60 Normal seeds
+give 42 wins / 4 deaths / 14 Salm-wanders-off, hence the row's `SCR_SEED=11`.
+
 ## 2026-08-02 (after the One-Hour batch) — suite repaired for the load-time immediate-event start — 127/127 PASS
 
 An uncommitted engine change turned the suite red: `StarterType=1` ("immediate")
@@ -442,9 +561,11 @@ across back-to-back full runs). What it took:
   count is odd — one apostrophe in a new win marker broke the whole script.
 - **Tour rows lock their documented maxima**: solutions that didn't already end
   with `score` got one appended, and the row's win-marker is the exact final
-  `Your score is N out of a maximum of M.` line (mr_smith 25/100, wes_ghn 30/100
-  — a win row since the 2026-08-02 100/100 re-derivation, spirits_flight 50/95, thetest 5/25, del_sol 24/46, les_feux 25/115
-  (`Votre score est…`), villains 13/37 + assisted 30/37, questi 5/10,
+  `Your score is N out of a maximum of M.` line (wes_ghn 30/100 — a win row
+  since the 2026-08-02 100/100 re-derivation, spirits_flight 50/95, thetest
+  5/25, del_sol 24/46, les_feux 25/115
+  (`Votre score est…`), villains 31/37 (was 13/37 + an assisted 30/37 row until
+  the 2026-08-02 V390 re-derivation retired the assist), questi 5/10,
   cybercow-tour 6/10, matts_house 5/5, lifesimulation 0/0). Win rows use the
   game's own victory text. inverness (75/205) is marker-guarded by the
   caught-scene prose instead — the knockout cut-scene swallows an input line,
@@ -957,7 +1078,8 @@ Progress this session (12 new walkthroughs):
 - **Wins, verified deterministic:** `Cyber_walkthrough.md` (150/150),
   `cyber2_walkthrough.md` (355/355), `TheCatintheTree_walkthrough.md` (50/50),
   `Colony_walkthrough.md` (200/200), `Jason_Vs_Salm_walkthrough.md` (WIN, honest
-  max 0/1000 — scored difficulties are an unwinnable combat-balance bug),
+  max 0/1000 — scored difficulties are an unwinnable combat-balance bug;
+  mechanics re-derived 2026-08-02, see below),
   `donuts_intro_walkthrough.md` (0/0 win intro).
 - **Documented unwinnable / sandbox / no-ending:** `Del_Sol_walkthrough.md`
   (orphaned win — Moreland's KilledTask gated behind a stamina-0 NPC; 24/46),
@@ -1592,12 +1714,24 @@ disables combat the author intended — see the per-game walkthroughs. SCARE now
 has an opt-in `sc_set_combat_assist` (harness: `SC_ASSUME_COMBAT=1`, committed
 `61e04e0f`) that auto-lands hits *only* in such fully-unconfigured games, so
 combat plays out on strength-vs-defence as intended (faithful default is off;
-configured games like Sun Empire are unaffected). Assisted maxima derived so
-far: **Villains & Kings 13→30/37** (`harness/villains_and_kings_assisted_solution.txt`);
-**Azra** combat goals 1/2/6 become reachable; **To Hell & Beyond** becomes
-winnable in principle (full route not yet banked); **Mr. Smith stays stuck**
-(Fernelli's defence 25 > best accessible weapon 20 — a strength imbalance, not
-just accuracy).
+configured games like Sun Empire are unaffected). It applies to **4.0 files
+only**: **Azra** combat goals 1/2/6 become reachable, and **To Hell & Beyond**
+becomes winnable in principle (full route not yet banked).
+
+**Two games were wrongly filed here and have been removed (2026-08-02).**
+`xxd -l 24` says both are **V390** (`c2 cf 94 45 37 61`), which puts them on
+the `battle_legacy` path — no accuracy gate at all — so the assist was never
+relevant and both were understated:
+
+- **Mr. Smith** is a plain **WIN 90/100**. The note that once stood here
+  ("Fernelli's defence 25 > best accessible weapon 20") mis-read the Colt .45's
+  effective strength as 20 rather than 10+20=30.
+- **Villains & Kings** is **31/37 unassisted** (was "13/37 faithful, 30/37
+  assisted"). One sword stroke kills the assassin. The assisted corpus row and
+  `harness/villains_and_kings_assisted_solution{,.expected}.txt` are retired;
+  `SCR_ASSUME_COMBAT=1` now appears on the To-Hell-And-Beyond row only.
+
+**Always check the TAF signature before diagnosing a combat deadlock.**
 
 ## Remaining work (what's left to do)
 
@@ -1909,16 +2043,29 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       generator: 1 room, 1 object (lever), 1 task (`*pull*`), **max score 0/0**,
       no win state. Walkthrough `The_Nonsense_Machine_6000_walkthrough.md`;
       solution `harness/the_nonsense_machine_6000_solution.txt`.
-- [x] **The_Search_For_Mr_Smith** — **UNWINNABLE** (max reachable 25/100).
+- [x] **The_Search_For_Mr_Smith** — **WIN 90/100** (re-derived 2026-08-02;
+      the earlier "UNWINNABLE, max 25/100" verdict was WRONG).
       Walkthrough `The_Search_For_Mr_Smith_walkthrough.md`; solution
-      `harness/mr_smith_solution.txt`. Win = scripted `snipe fuel tank with rifle`
-      (type-6 win), but the rifle is behind: bed-descent (task4) ← needs unchain
-      butler (task2) ← needs the GOLD KEY held ← held by mobster Fernelli, only
-      lootable by killing him ← impossible (acc/agi all 0, verified 25 shots
-      leave him 60/60). No task gives the key (the one that moves it consumes it).
-      Reachable: open bookcase +5, light torch +5, open curtain +5, untie girl
-      +5, drink water +5 = 25. Same zero-accuracy combat as the others; intro's
-      "attack force vs defense" = the damage step only (acc>agi gate comes first).
+      `harness/mr_smith_solution.txt`; marker = the victory line
+      `Congratulations! I hope you liked our game.`
+      **The file is V390**, so `battle_legacy` skips the `acc>agi` gate
+      entirely — every attack lands and the old zero-accuracy analysis simply
+      does not apply to it. Colt .45 kills Fernelli in 12 shots (10+20−25=5 ×12
+      vs 60 stamina) and he drops the GOLD KEY; the Attic **flak jacket**
+      (protection 30) cuts his shotgun from 35 to 5 a turn, and the Courtyard
+      fountain is a repeatable +50 heal. That unlocks unchain butler → bed
+      descent → the whole lower map → `snipe fuel tank with rifle` (type-6 win).
+      Traps: `lie on bed` is a **one-way** drop (rooms 12–29 have no way back to
+      0–11, so the fountain is gone after it); `open cabinet` must be typed
+      **twice** (the task scores while the object stays shut); `take boulder` is
+      a scoring-less red herring; `destroy boulder` starts a **30-turn** timer to
+      task 21 `lost game` (−20).
+      The last 10 points (`###bear dead`, the bear's KilledTask) are
+      **unreachable — an authoring oversight**: shotgun damage 10+40−40=10 ⇒ 7
+      shots for the bear's 70 stamina, bear damage 60−50=10 every turn (Speed 0,
+      no RNG), plus a free hit on the turn you walk in ⇒ 80 damage against a
+      60 (potatoes-boosted max) + 20 (sandwich) budget, and death is at
+      `stamina <= 0`. Short by exactly one hit, bear left on 10.
 - [x] The_Spirits_Flight — DONE (unwinnable; max 50/95; see its entry above). Wired 2026-07-14.
 - [x] **The_Town_Of_Azra** — unfinished RPG sandbox; **no score (0/0), no win**.
       Walkthrough `The_Town_Of_Azra_walkthrough.md`; solution
@@ -1927,7 +2074,10 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       bandit) & 2 (kill deer→sell)** are impossible because EVERY character has
       Accuracy 0 / Agility 0 and every weapon's Accuracy bonus is 0, so the
       Battle System's `acc>agi` hit test is always false (no hit ever lands) —
-      and no task has a type-7 ChangeBattle action to raise it. Goals **6
+      and no type-7 ChangeBattle action touches Accuracy or Agility. (Re-audited
+      2026-08-02, verdict CONFIRMED — see the dated section at the top of this
+      file. The game *does* have 22 type-7 actions, contrary to an earlier note
+      here; they are all Attitude/Stamina/MaxStamina.) Goals **6
       (Stealth, needs $800) & 5 (house, needs $7500)** are then unreachable
       because the only income (bandit money / deer carcass) is combat-gated and
       you start with $500. All game-data limitations, faithful to the Runner —
@@ -1958,18 +2108,33 @@ faithful-unwinnable + test with `SC_ASSUME_COMBAT=1`.
       full 190-room turn-by-turn list NOT banked — needs multi-session play-
       discovery of the conversation/plot teleports. Roadmap is RE'd from data.
 - [x] Toxically_Earth — DONE (WIN, 0/0 multi-ending; see its entry above). Wired 2026-07-14.
-- [x] **Villains_And_Kings** — 13/37, no win ending (max reachable; verified
-      deterministic). Walkthrough `Villains_And_Kings_walkthrough.md`; solution
-      `harness/villains_and_kings_solution.txt`. The other 24 pts are unreachable
-      in any faithful interp: **17** behind an unkillable assassin (Battle System
-      acc/agi all 0, like Azra — `jackassdies` +2, `search guy` +10, and the
-      golden soap it yields → `give golden soap` +5); **5** from mutually-
-      exclusive duplicate soap-give tasks (`give soap`=task2 vs `yes`=task17, one
-      soap); **2** window tasks that can't meet their state (`open window` needs
-      CLOSED(6) but window only goes broken→open→locked; `take soap` task loses
-      to the library "take"). **Found+fixed a real SCARE crash**: `close window`
-      with no referenced object passed -1 to prop_get_integer (abort);
-      guarded in screstrs.c restr_pass_task_object_state (object<0 ⇒ FALSE).
+- [x] **Villains_And_Kings** — **31/37**, no win ending (re-derived 2026-08-02;
+      the earlier "13/37 faithful, 30/37 with combat-assist" verdict was WRONG).
+      Walkthrough `Villains_And_Kings_walkthrough.md`; solution
+      `harness/villains_and_kings_solution.txt`. **Cause of the old error: this
+      is a V390 file** (`c2 cf 94 45 37 61`), so `battle_is_legacy_version()`
+      routes it through `battle_legacy`, which **skips the `accuracy > agility`
+      gate entirely** — every blow lands and the acc/agi-all-0 "unkillable
+      assassin" reading (borrowed from the 4.0 game Azra) simply doesn't apply.
+      The assassin has 3 stamina / defence 1; the Armory sword (hit 2) gives
+      2+2−1 = **3 damage, a one-stroke kill**; the Armory grenade (hit 10,
+      Method 5) one-shots it thrown; bare hands do 1 and take three turns. It
+      hits back for 1−1 = 0. So `jackassdies` +2, `search guy` +10 and the
+      golden soap → `give golden soap to king` +5 are all reachable with **no
+      assist**, and the assisted row plus
+      `harness/villains_and_kings_assisted_solution{,.expected}.txt` are retired.
+      `open window` (+1) is reachable too — it needs the window in CLOSED(6),
+      which is its *starting* state, so type it **before `push tile`** (the tile
+      moves it to OPEN and `close window` to LOCKED; it never returns).
+      Genuinely dead, 6 pts: **`take soap` task 5 (+1) has `Where =
+      ROOMLIST_NO_ROOMS`** so it can never run in any room (not the verb race
+      the old note claimed), and **`yes` (task 17, +5)** duplicates
+      `give soap to king` (task 2) over the one `soap on a rope` — verified
+      live, after giving it `yes` only prints nag text. No `ACT type=6` exists
+      anywhere in the file, so there is still no ending.
+      **Found+fixed a real SCARE crash**: `close window` with no referenced
+      object passed -1 to prop_get_integer (abort); guarded in
+      `screstrs.cpp` `restr_pass_task_object_state` (object<0 ⇒ FALSE).
       Battle verbs confirmed working (attack/hit/stab via NPC alias "guy");
       user independently confirmed noun resolution parity in the real Runner.
 - [x] gateway — DONE (WON 30/30; see its entry above). Wired 2026-07-14.

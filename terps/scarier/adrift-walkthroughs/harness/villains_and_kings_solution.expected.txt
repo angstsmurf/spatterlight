@@ -30,6 +30,11 @@ draft.  Yup, its still the first day.
 
 You can move north and south.
 
+>(Your score has increased by 1)
+The window is broken and you can't seam to open the window in its present
+state.
+You can see a shadow of somthing behind the window.
+
 >You move north.
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
@@ -45,6 +50,91 @@ You can move south and west.
 You give the note to the king.  "Gee thanks," he mumbles.  He reads it, then
 looks at you.  "hmm you aint no midget... but Whatever."  Stupid harry gives
 you 100 gold pieces.
+
+>You move south.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the
+leads to the waiting room for the king.  There are some great stained glass
+windows on all sides of you, bringing the room to look like a shining pillar
+of light.  There is a long red rug in the hall.  You also feal a slight
+draft.  Yup, its still the first day.
+
+You can move north and south.
+
+>You move south.
+Waiting room
+This is the waiting room, for people to stand in line to see the king about
+important things, and you just happen to be at the end of that line.  You
+cant even tell if the line ends.  The throne room is at the end of the hall.
+You notice all the people here are very tall except one little man three
+people ahead of you.  This is the room where you found the note for the
+stupid king.  Yup, its still the first day.
+
+You can move north and south.
+
+>You move south.
+Courtyard
+You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
+both sides of the stone road that leads to the gigantic door. To the east is
+a building with smoke pouring out of a chimmmany, To the west is a big ol
+fountain.  A locked gate is to the south.
+The Dumb old guy stares at you.  Yup, its still the first day.
+
+You can move north, east and west.
+
+>You move east.
+Armory
+Woo hoo, now you've entered the armory.  Shields and Weapons and crap
+decorate the walls.  A fiery forge is in the corner.  There is a weapon rack
+over there in the corner too.  Yup, its still the first day.
+
+You can move west and in.
+
+>You take Kinda Sharp Sword from Weapon Rack.
+
+>You wield Kinda Sharp Sword.
+
+>You move west.
+Courtyard
+You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
+both sides of the stone road that leads to the gigantic door. To the east is
+a building with smoke pouring out of a chimmmany, To the west is a big ol
+fountain.  A locked gate is to the south.
+The Dumb old guy stares at you.  Yup, its still the first day.
+
+You can move north, east and west.
+
+>You move north.
+Waiting room
+This is the waiting room, for people to stand in line to see the king about
+important things, and you just happen to be at the end of that line.  You
+cant even tell if the line ends.  The throne room is at the end of the hall.
+You notice all the people here are very tall except one little man three
+people ahead of you.  This is the room where you found the note for the
+stupid king.  Yup, its still the first day.
+
+You can move north and south.
+
+>You move north.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the
+leads to the waiting room for the king.  There are some great stained glass
+windows on all sides of you, bringing the room to look like a shining pillar
+of light.  There is a long red rug in the hall.  You also feal a slight
+draft.  Yup, its still the first day.
+
+You can move north and south.
+
+>You move north.
+Kings throne room.
+This is the Kings throne room.  About 20 feet away is the kings chair.  There
+is a door to the south, and a door to the west.  There is a fishy smell about
+this room.  Some maids and guards are standing about.  You see a plate of
+doughnuts on a table to your right.
+Harry the King sits in his throne.  Guido is here guarding the room to the
+west.  Yup, its still the first day.
+
+You can move south and west.
 
 >You move west.
 Royal Shower Room
@@ -84,11 +174,51 @@ Jackass Trying to Kill You is here.  Yup, its still the first day.
 You can move north and south.
 Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
+>(Your score has increased by 2)
+You cut Jackass Trying to Kill You with Kinda Sharp Sword.
+You killed the Bastard Trying to Kill You.  It wasn't hard, but it was sure
+fun.  Now that he is dead, you can search his body or somthing, right?
+
+>(Your score has increased by 10)
+You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it
+to the king.
+
+>You've already got Golden soap!
+
+>You move north.
+Kings throne room.
+This is the Kings throne room.  About 20 feet away is the kings chair.  There
+is a door to the south, and a door to the west.  There is a fishy smell about
+this room.  Some maids and guards are standing about.  You see a plate of
+doughnuts on a table to your right.
+Harry the King sits in his throne.  Guido is here guarding the room to the
+west.  Yup, its still the first day.
+
+You can move south and west.
+
+>(Your score has increased by 5)
+You give the golden soap to the king and he yells loudly "I HAVE THE GOLDEN
+SOAP, I HAVE THE GOLDEN SOAP!"  and you slowly back away.  He also sais, "By
+they way, did you get the non-golden soap on a rope?" (if you did say "yes"
+if you didn't say "no")
+
+>You move south.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the
+leads to the waiting room for the king.  There are some great stained glass
+windows on all sides of you, bringing the room to look like a shining pillar
+of light.  There is a long red rug in the hall.  You also feal a slight
+draft.
+
+Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
+
+You can move north and south.
+The day is half over.
+
 >You take the Soap on a rope from Cracked Broken Window.
 
 >Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
 Cracked Broken Window is open.
-Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 1)
 You can close the thing very easily, and as you do, it locks back into place
@@ -120,10 +250,9 @@ windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.
 
-Jackass Trying to Kill You is here.  Yup, its still the first day.
+Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
 
 You can move north and south.
-Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 >You move south.
 Waiting room
@@ -132,7 +261,8 @@ important things, and you just happen to be at the end of that line.  You
 cant even tell if the line ends.  The throne room is at the end of the hall.
 You notice all the people here are very tall except one little man three
 people ahead of you.  This is the room where you found the note for the
-stupid king.  Yup, its still the first day.
+stupid king.
+The Dumb old guy stares at you.  Yup, its still the first day.
 
 You can move north and south.
 
@@ -141,8 +271,7 @@ Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
 a building with smoke pouring out of a chimmmany, To the west is a big ol
-fountain.  A locked gate is to the south.
-The Dumb old guy stares at you.  Yup, its still the first day.
+fountain.  A locked gate is to the south.  Yup, its still the first day.
 
 You can move north, east and west.
 
@@ -171,14 +300,13 @@ room( that makes for  four(4) for you idiots).  There are some  lamps and
 torches hanging around.  A big table in the middle has a radio blaring disco
 music.  Wow!
 
-Jackass Trying to Kill You (dead) and Sculpto are here.  Yup, its still the
-first day.
+Sculpto is here.  Yup, its still the first day.
 
 You can only move east.
 
 >(Your score has increased by 1)
 Whoa, you get some kind of stupid african music.  Wow!
 
->Your score is 13 out of a maximum of 37.  (35%)
+>Your score is 31 out of a maximum of 37.  (83%)
 
 >Do you really want to quit? [Y/N]

@@ -1,16 +1,35 @@
 # Villains and Kings — Walkthrough
 
-A short ADRIFT game with the Battle System enabled. Derived under SCARE
+A short ADRIFT **3.9** game with the Battle System enabled. Derived under SCARE
 (deterministic seed) and cross-checked against the game's internal task, event,
 exit and Battle-System data, and against the original ADRIFT Runner
 (`run400.exe` / `jasea-0.2t.jar`, source in `decompiled/Battles.bas`).
 
-**Result: 13 / 37 points.** There is no winning ending. The other **24 points
-are unreachable in any faithful interpreter** — they are gated behind a combat
-kill the game's own data makes impossible, a pair of mutually-exclusive scoring
-tasks, and two window tasks that can never satisfy their state requirements.
-Full analysis at the end. None of this is a SCARE divergence from the Runner
-(one genuine SCARE crash *was* found and fixed; see the last section).
+**Result: 31 / 37 points, and there is no winning ending.** No task anywhere in
+the file carries an `ACT type=6` (EndGame), so the game simply stops when you
+stop typing; 31/37 is the terminal state. The remaining 6 points are dead in
+the file itself: one scoring task can never run in any room, and one is a
+duplicate of a task that consumes the same object. Full analysis at the end.
+Recorded as `harness/villains_and_kings_solution.txt`.
+
+> **Correction (2026-08-02).** This file previously claimed **13 / 37** as the
+> faithful maximum, on the grounds that every character's Accuracy and Agility
+> are 0 so the `accuracy > agility` hit gate can never pass, and offered a
+> **30 / 37** figure reachable only with the non-faithful `SCR_ASSUME_COMBAT`
+> assist. That analysis applied the **4.0** combat rules to a **3.9** file.
+> `Villains_And_Kings.taf` carries the V390 signature
+> (`… c2 cf 94 45 37 61 …`), so `battle_is_legacy_version()` puts it on the
+> `battle_legacy` path, which **skips the accuracy test entirely** — every blow
+> lands, and the assassin dies to a single sword stroke with no aid at all.
+> The old verdict predates the 3.9 battle-legacy port. The assisted corpus row
+> and its two files have been retired; the same mistake had been made for
+> [*The Search for Mr. Smith*](The_Search_For_Mr_Smith_walkthrough.md), also
+> V390. `SCR_ASSUME_COMBAT` still has a legitimate row in the suite for
+> *To Hell and Beyond*, which really is a 4.0 zero-accuracy game.
+>
+> Two further claims in the old text were wrong for reasons unrelated to
+> combat: `open window` **is** scoreable (just not after `push tile`), and the
+> scored `take soap` fails because of its `Where` field, not a verb race.
 
 You are "Assface the Third", a not-really-a-detective summoned by King Harry.
 
@@ -32,18 +51,57 @@ You are "Assface the Third", a not-really-a-detective summoned by King Harry.
 
 ---
 
-## Full command list (13 points)
+## Combat data (all shipped values)
+
+| | Stamina | Strength | Defence | Accuracy | Agility | Speed |
+|---|---:|---:|---:|---:|---:|---|
+| **Player** | 5 (max 5) | 2 | 1 | 0 | 0 | — |
+| **Jackass Trying to Kill You** (NPC 5) | 3 | 1 | 1 | 0 | 0 | 1 (most turns) |
+
+Weapons / armour: Kinda Sharp **Sword** hit 2, Method 1 (`cut`); Highly
+Explosive **Grenade** hit 10, Method 5 (`throw`); **Shield** protection 1;
+Guido's **Apple** hit 2, Method 5 (held by an NPC, never yours). Sword,
+grenade and shield all sit on the Weapon Rack in the Armory (room 5).
+
+Under `battle_legacy` there is no hit roll: **damage = strength + weapon
+HitValue − target defence**, every turn, on both sides.
+
+* Bare hands: `2 − 1 = 1` ⇒ three blows to drain the assassin's 3 stamina.
+* Sword: `2 + 2 − 1 = 3` ⇒ **one blow kills**.
+* Grenade: `2 + 10 − 1 = 11` ⇒ also one blow, thrown
+  (`throw grenade at guy`), and the grenade lands on the floor afterwards.
+* The assassin back: `1 − 1 = 0` ⇒ "hits you, but it doesn't seem to do any
+  damage." The fight is unloseable as well as unlosable-to.
+
+The route below takes the sword. Bare hands work too, at two extra turns.
+
+---
+
+## The full route (31 / 37)
+
+Answer the two setup prompts (name, `male`), press return past the intro, then:
 
 ```
-                           (the game starts straight in the Waiting room)
 take note                  (sneak the note from the Small man's back pocket)
 n                          (-> Hall)
+open window                (+1; must be done BEFORE `push tile` -- see traps)
 n                          (-> Kings throne room)
-give note to king          (+1)
+give note to king          (+1; he tosses you 100 Gold)
+s  s  s                    (Hall -> Waiting room -> Courtyard)
+e                          (-> Armory)
+take sword
+wield sword
+w                          (-> Courtyard)
+n  n  n                    (-> Waiting room -> Hall -> throne room)
 w                          (-> Royal Shower Room)
 push tile                  (+2; a loose tile - "click" opens the Hall window AND
-                            makes the assassin appear in the Hall)
-e                          (-> throne room)
+                            makes the assassin appear in the Hall as an Enemy)
+e  s                       (-> throne room -> Hall)
+attack guy                 (+2, `jackassdies`; one sword stroke is enough)
+search guy                 (+10; yields the GOLDEN SOAP from the corpse)
+take golden soap
+n                          (-> throne room)
+give the golden soap to king   (+5; "I HAVE THE GOLDEN SOAP!")
 s                          (-> Hall)
 take soap on a rope        (from the now-open broken window)
 x window                   (bind the parser's "referenced object" to the broken
@@ -51,123 +109,65 @@ x window                   (bind the parser's "referenced object" to the broken
                             decorative stained-glass "windows")
 close window               (+1)
 n                          (-> throne room)
-give soap on a rope to king (+5; the king joyfully runs off to shower, tossing
-                            you a key)
-take doughnut              (+3; you can only snatch it WHILE the king is in the
-                            shower - if you try earlier, "the king is watching")
-s
-s
-s                          (Hall -> Waiting room -> Courtyard)
+give soap on a rope to king   (+5; the king runs off to shower)
+take doughnut              (+3; only possible WHILE the king is in the shower)
+s  s  s                    (Hall -> Waiting room -> Courtyard)
 w                          (-> Giant fountain)
 n                          (-> Outside a BIG house)
 w                          (-> Sculpto's House)
 use radio                  (+1)
 ```
 
-That is every reachable point: note **+1**, soap **+5**, close window **+1**,
-doughnut **+3**, push tile **+2**, radio **+1** = **13 / 37**.
+Score map: note **+1**, open window **+1**, push tile **+2**, `jackassdies`
+**+2**, search guy **+10**, golden soap **+5**, close window **+1**, rope soap
+**+5**, doughnut **+3**, radio **+1** = **31 / 37**.
+
+### Traps on this route
+
+* **`open window` must come before `push tile`.** The task requires the broken
+  window in state CLOSED(6), which is its starting state. `push tile` moves it
+  to OPEN(5), and `close window` moves it to LOCKED(7) — it never returns to
+  CLOSED, so once the tile is pushed the +1 is gone forever. (The old writeup
+  concluded the task was unreachable because it only ever tried it late.)
+* **`x window` before `close window`.** "window" is ambiguous between the
+  broken window and the decorative stained-glass "windows"; examining it first
+  points the parser at the right one. Typing `close window` with *no* object
+  ever referenced used to crash SCARE — see the last section.
+* **Golden soap before rope soap.** While you are holding the rope soap,
+  `give … golden soap …` matches the *ordinary*-soap task first. Hand over the
+  golden soap while it is the only soap you carry.
+* **The doughnut is a one-moment window.** `take doughnut` scores +3 only while
+  the king is showering; before that, "the king is watching you hover around
+  his doughnuts".
+* **`attack jackass` does not work.** "jackass" is not one of the NPC's
+  handles — they are the full name and the alias "guy". `attack guy` or
+  `attack jackass trying to kill you`. This matches the Runner.
 
 ---
 
-## Walkthrough notes
+## The 6 points that are genuinely unreachable
 
-- **The note** is in the Small man's back pocket in the Waiting room; `take note`
-  sneaks it out. Give it to the king for **+1**.
-- **The window puzzle.** The Hall's broken window can't be opened normally. In
-  the Royal Shower Room (west of the throne), `push tile` (**+2**) triggers a
-  "click" that opens the window — and also makes the assassin appear in the
-  Hall. Grab the `soap on a rope` from the window. To score `close window`
-  (**+1**) you must first `x window`: "window" is ambiguous between the broken
-  window and the decorative stained-glass "windows", and examining it first
-  points the parser at the right one.
-- **The soap.** Give the `soap on a rope` to the king for **+5**. He runs to the
-  shower, which is the only moment the doughnuts are unguarded.
-- **The doughnut.** `take doughnut` scores **+3**, but *only while the king
-  showers* — otherwise "the king is watching you hover around his doughnuts".
-- **The radio** is in Sculpto's House (far southwest). `use radio` for **+1**.
+### `take soap` (+1) — `Where = NO_ROOMS`
 
----
+Task 5 is a scored `take soap`, and its room list is `ROOMLIST_NO_ROOMS` (0):
+the task is enabled in **zero** rooms, so `task_can_run_task_directional` can
+never let it fire, whatever you type and wherever you stand. You still get the
+soap — the library verb handles it — just never the point. (The old writeup
+guessed a verb race; the cause is structural.)
 
-## The 24 unreachable points (all game-data, not SCARE)
+### `yes` (+5) — a mutually-exclusive duplicate
 
-### Combat is unwinnable — blocks 17 points
-
-Pushing the tile makes "Jackass Trying to Kill You" (the assassin) appear in the
-Hall and turn hostile (a type-7 *Change Battle Attribute* action sets its
-attitude to Enemy). The Battle System then has it attack you each turn. But it
-can never be killed, and it can never hurt you, because of the shipped stats:
-
-| Character | Strength | **Accuracy** | Defense | **Agility** | Stamina |
-|-----------|----------|--------------|---------|-------------|---------|
-| Player | 2 | **0** | 1 | **0** | 5 |
-| Jackass | 1 | **0** | 1 | **0** | 3 |
-| *(all other NPCs)* | … | **0** | … | **0** | … |
-| *(all weapons, incl. grenade)* | Hit +2…+10 | **Acc +0** | | | |
-
-ADRIFT resolves a hit with **`accuracy > agility`** (strict — confirmed in the
-Runner source, `decompiled/Battles.bas`). With every accuracy and agility at 0,
-the test is forever `0 > 0` = false, so **no blow ever lands** (you see only
-"manages to avoid"). The assassin has 3 stamina but cannot be drained.
-
-Because the assassin can't die, its death task **`jackassdies` (+2)** never
-fires; the corpse needed for **`search guy` (+10)** never appears; and that
-search is the *only* source of the **golden soap**, so **`give golden soap to
-king` (+5)** is impossible too. That is 17 points gated behind one impossible
-kill. The original Runner behaves identically — it's the author's incomplete
-combat data, the same pattern as *The Town of Azra*.
-
-> The battle verbs themselves work fine in SCARE (verified): `attack guy` /
-> `attack jackass trying to kill you` produce real strikes; only `attack jackass`
-> fails, because "jackass" is not one of the NPC's handles (its handles are the
-> full name and the alias "guy") — exactly as the Runner behaves. The fight is
-> just unwinnable by data.
-
-### A mutually-exclusive duplicate — 5 points
-
-There are two **+5** tasks for handing over the soap: `give soap to king`
-(task 2) and `yes` (task 17, the king's "is this for me?" prompt). Both transfer
-the single `soap on a rope`, so once you've done one you no longer hold the soap
-and the other can't fire. Only **+5** of the nominal **+10** is ever obtainable.
-
-### Two window tasks that can't meet their state — 2 points
-
-- **`open window` (+1)** requires the window in state CLOSED(6). The broken
-  window only ever goes broken → OPEN(5) (via the tile) → LOCKED(7) (via
-  `close window`), never passing through CLOSED, so the task can't fire.
-- **`take soap` (+1)** (the scored take, task 5) never triggers: the library
-  "take" verb resolves and removes the `soap on a rope` before the scoring task
-  matches, for every phrasing tried. (You still get the soap — just without the
-  point.)
+There are two **+5** tasks for handing over the rope soap: `give soap to king`
+(task 2) and `yes` (task 17, answering the king's "is this for me?" prompt).
+Both transfer the single `soap on a rope`, so once one has fired you no longer
+hold the soap and the other cannot. Verified live: after giving the soap,
+`yes` only prints nag text. Only **+5** of the nominal **+10** is obtainable.
 
 ### Tally
 
-13 reachable + 17 (combat chain) + 5 (duplicate soap) + 2 (window) = **37**.
+31 reachable + 1 (`take soap`, dead by `Where`) + 5 (duplicate soap) = **37**.
 
 ---
-
-## With combat-assist enabled: 30 / 37
-
-SCARE now has an opt-in **combat-assist** mode (`sc_set_combat_assist`; the
-headless harness enables it via `SC_ASSUME_COMBAT=1`) that gives an automatic
-hit roll in games whose author left all Accuracy/Agility at 0 — making this
-game's intended strength-vs-defence combat actually work. With it on, the
-assassin is killable and the combat-gated content opens up, raising the maximum
-from 13 to **30 / 37**. Solution: `harness/villains_and_kings_assisted_solution.txt`.
-
-The extra steps (after pushing the tile spawns the assassin in the Hall): grab
-the **sword** from the Armory first, then in the Hall `attack guy` ~3× to kill
-the assassin (`jackassdies`, **+2**), `search guy` (**+10**) which yields the
-**golden soap**, `take golden soap`, and — *before* picking up the ordinary soap
-on a rope — go to the throne and `give the golden soap to king` (**+5**; the king
-proclaims "I HAVE THE GOLDEN SOAP!"). Then collect the rope soap and give it too
-(**+5**). (Order matters: while holding the rope soap, "give … golden soap …"
-matches the *ordinary*-soap task first, so hand over the golden soap while it's
-the only soap you carry.)
-
-The remaining 7 points are still out: the duplicate rope-soap task (`yes` vs
-`give soap`, mutually exclusive, −5) and the two finicky window tasks (`open
-window` −1, scored `take soap` −1). The assist is **non-faithful** (the real
-Runner also can't hit here); the faithful maximum remains 13/37.
 
 ## A genuine SCARE bug found and fixed: `close window` crash
 
@@ -179,8 +179,8 @@ is its initial **-1**), and that -1 was passed straight to `prop_get_integer`,
 which fatals on a negative key.
 
 The original Runner does **not** crash here, so this was a SCARE robustness
-defect. Fixed in `terps/scare/screstrs.c` (`restr_pass_task_object_state`) by
-returning FALSE when the referenced object is < 0 — the restriction simply can't
-be satisfied — matching the `referenced_object == -1` guards already used
+defect. Fixed in `terps/scarier/screstrs.cpp` (`restr_pass_task_object_state`,
+the `if (object < 0) return FALSE;` guard) — the restriction simply can't be
+satisfied — matching the `referenced_object == -1` guards already used
 elsewhere in the codebase. After the fix, `close window` gives a graceful
 response, and the intended `x window` → `close window` path scores its +1.

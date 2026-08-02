@@ -90,7 +90,7 @@ Gralle's Inn (**Goal 4**), deterministically, leaving you at **$246.50**.
 
 ## With SCARE's combat-assist: the combat goals open up
 
-SCARE has an opt-in combat-assist (`SC_ASSUME_COMBAT=1`) that auto-lands hits in
+SCARE has an opt-in combat-assist (`SCR_ASSUME_COMBAT=1`) that auto-lands hits in
 games whose author left Accuracy/Agility at 0. With it on, Azra's intended
 strength-vs-defence combat works: buy the **hunting sword** ($80) from Calado,
 `wield the hunting sword`, go to Bandit Trail and `attack bandit` (~10×) — *"You
@@ -128,8 +128,9 @@ endlessly "manage to avoid" each other. The bandit never dies, so `search for
 money` (Goal 1) has no body to search; the deer never dies, so there is no
 carcass to sell to Drako (Goal 2).
 
-Crucially, **no task in the game contains a "Change Battle Attribute" action**,
-so the player's Accuracy can never be raised above 0 by any means. This is a
+Crucially, **no "Change Battle Attribute" action anywhere in the game touches
+Accuracy or Agility**, so the player's Accuracy can never be raised above 0 by
+any means. This is a
 property of the author's incomplete data: load the same `.taf` in the original
 ADRIFT Runner and combat stalemates identically. SCARE reproduces it faithfully
 (the "doesn't seem to do any damage" / "manages to avoid" branches in
@@ -148,6 +149,59 @@ are killing bandits (`search for money`) and selling deer carcasses to Drako —
 both of which require combat that can never succeed (above). So your wealth is
 capped at $500, well short of either threshold. Both goals are therefore
 unreachable, again by the shipped data rather than by SCARE.
+
+### 2026-08-02 — re-checked against the V390 sweep and the hidden-weapon-accuracy trap; verdict CONFIRMED
+
+Azra was the fourth of the games once filed together as "unconfigured-combat
+casualties". Three of those were rewritten in 2026-08-02's sweep, so this one
+was re-audited with the same two checks. Both come back negative — the verdict
+above stands unchanged.
+
+- **`The_Town_Of_Azra.taf` is V400** (`c2 cf 93 45 3e 61` at offset 6), so
+  `battle_is_legacy_version()` is false and the 4.0 `accuracy > agility` gate
+  really does apply. The V390 → `battle_legacy` correction that overturned
+  *The Search for Mr Smith* and *Villains & Kings* — where the hit test is
+  **skipped entirely** — does not reach this file.
+- **All 38 objects dump `acc=0`.** This is the trap that had made the
+  *Jason Vs. Salm* analysis wrong: a weapon's Accuracy bonus is added straight
+  onto the wielder's roll in `battle_eff_accuracy()`, but `status` never shows
+  it. `SCR_DUMP_OBJLOC=1` now prints `acc=` beside `hit=`, and every armed
+  object here is +0. The eight objects with any battle value are gold armor
+  (hit 8 / prot 8), heavy sword 8, Azranian Soldier's Sword 8, broad sword 6,
+  hunting sword 5, Calado Special Edition Knife 5, hunting dagger 4, steel
+  switchblade 3 — all `acc=0`. The original claim that no weapon carries an
+  Accuracy bonus was correct; it is now positively verified rather than assumed.
+- **The game does contain 22 type-7 "Change Battle Attribute" actions** (an
+  earlier draft of this file said there were none — that was wrong), but their
+  `Var1` values are only **0 (Attitude, set)**, **1 (Stamina, delta)** and
+  **2 (MaxStamina, delta)**. The range indices that matter — 3/5/7/9 for
+  Str/Acc/Def/Agi, and even the display-only caps 4/6/8/0xA — never appear.
+  Nothing in the file can move Accuracy off 0. The conclusion is unchanged; only
+  its stated evidence needed correcting.
+- Player, dumped live: **Stamina 100, Hit strength 1-1, Accuracy 0-0,
+  Defense 0-0, Agility 0-0**, wielding nothing. Every range is degenerate
+  (`Lo == Hi`) across all 12 NPCs too — the "upgraded-3.9 fingerprint" — but
+  here the 4.0 signature means the engine still enforces the hit test.
+- Only three NPCs are configured at all: **bandit** (npc 2, Stamina 30, Str 5,
+  Def 3, `KilledTask = 19`), **Ormulus** (npc 6, Stamina 30, Str 3, Def 2,
+  speed 3, no KilledTask) and the **deer** (npc 5, Stamina 20, everything else
+  0, `KilledTask = 37`). The other nine are all-zero.
+- **There is no `ACT type=6` anywhere in the file** — no win, no lose, no death
+  ending exists to reach. That is the structural reason `score` reports 0/0, and
+  it is independent of the combat stalemate: even with the assist, "finishing"
+  Azra means ticking off the author's prose goals, not reaching an ending.
+
+Two incidental findings from the dump, both harmless:
+
+- **The bandit and the deer were meant to respawn.** Task 19 `#banditkristdies`
+  moves in the *dead body of the bandit*, teleports the NPC away, and then hands
+  it `type=7 v1=1 v2=4 v3=30` — a full +30 stamina restore. Task 37 `#deerdies`
+  does the same with +20. So the author's income design was a renewable
+  bandit/deer farm, which is why $7,500 for the house looked achievable to them.
+- Damage arithmetic, for the assisted run: bare-handed the player deals
+  `1 − 3 = 0` against the bandit, so the hunting sword is not optional even with
+  the assist — `1 + 5 − 3 = 3` per blow against 30 stamina, i.e. the ~10 swings
+  the section above reports.
 
 ### Summary
 

@@ -126,7 +126,7 @@ inverness_solution.txt|inverness.taf|A murderer thou shalt be
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
-mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|Your score is 25 out of a maximum of 100.
+mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|Congratulations! I hope you liked our game.
 phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
 questi_solution.txt|QuestI.taf|Your score is 5 out of a maximum of 10.
 shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the statue was you from a past life.
@@ -150,8 +150,31 @@ to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town
 # and the closing "claim the throne" is not understood (the 2026-07-14 "desync"
 # was exactly that -- a replay missing SCR_ASSUME_MOVES).
 to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1
-villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 13 out of a maximum of 37.
-villains_and_kings_assisted_solution.txt|Villains_And_Kings.taf|Your score is 30 out of a maximum of 37.|SCR_ASSUME_COMBAT=1
+# ...and the *max* assisted row, 265/373 (the row above banks 265-17=248).  The
+# extra 20 comes from task 72 `^^aquired armor^^` (Theeve's death reward), which
+# NOTHING in the game executes -- To Hell & Beyond is an upgraded 3.9 file and
+# 3.9 has no execute-task action at all, so every chain runs through events /
+# NPC walks / battle KilledTask, and Theeve (NPC 28, a fully configured hostile)
+# was left with killedTask=-1.  The only way to fire it is to walk to room 128
+# and type the author's internal task name, so this row is an EXPLOIT row, not
+# an honest maximum -- keep the 248 row above as the honest assisted result.
+# The 20-move round trip costs one -3 from the ^^Days^^ timer (unavoidable:
+# trimming the trailing waits 18->4 still wins but does not dodge it), hence
+# +17 net.  The remaining gap to the 293 ceiling is task 83 `greet Trace` (+25),
+# which is unreachable: an NPC walk's charTask fires task 89 `^^discussion^^` in
+# room 166 and teleports the player out on the very turn they enter.  373 itself
+# is NOT the ceiling -- tasks 86 `go home` (+80) and 87 `claim the throne`
+# (+150) both carry an ACT type=6, so only one of the two can ever be banked.
+to_hell_and_beyond_assisted_max_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1
+# Villains_And_Kings is a V390 file, so battle_legacy skips the acc>agi gate and
+# the assassin is killable with no aid at all -- the old 13/37 "faithful" row and
+# its SCR_ASSUME_COMBAT=1 companion (30/37) both rested on 4.0 combat rules being
+# applied to a 3.9 game, and the assisted row is retired.  31/37 is the true
+# maximum: task 5 (`take soap`, +1) has Where=NO_ROOMS so it can never run, and
+# tasks 2/17 (`give soap`/`yes`, +5 each) are duplicates that consume the one
+# soap.  SCR_ASSUME_COMBAT still has a row above (to_hell_and_beyond, a real 4.0
+# zero-accuracy game).
+villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 31 out of a maximum of 37.
 # WesGHN's old "UNWINNABLE 30/100, orphaned gold ring" verdict was wrong
 # (2026-08-02): event 1 [Davidshand] -- started by `ring bell`, misread in the
 # original dump because EVENT o2/o3 print RAW 1-based refs -- drops the severed

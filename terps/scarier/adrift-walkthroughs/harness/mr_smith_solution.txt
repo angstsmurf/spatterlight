@@ -4,6 +4,7 @@ male
 n
 e
 take poker
+take pistol
 w
 w
 open bookcase with poker
@@ -15,6 +16,14 @@ e
 light torch in fireplace
 w
 u
+w
+open wooden box
+take flak jacket
+wear flak jacket
+open cardboard box
+take potatoes
+eat potatoes
+e
 e
 open curtain
 untie girl
@@ -24,4 +33,64 @@ w
 d
 n
 drink water
+n
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+shoot fernelli with pistol
+take gold key
+s
+drink water
+d
+s
+unchain butler
+n
+u
+e
+u
+n
+lie on bed
+n
+w
+n
+take bone
+s
+e
+take bottle
+break bottle
+take front door key
+n
+e
+open refrigerator
+take sandwich
+eat sandwich
+w
+w
+kick cabinet
+open cabinet
+open cabinet
+take rifle
+e
+n
+open door
+n
+give bone to dog
+n
+open automobile
+take dynamite
+open cab
+take matches
+n
+n
+destroy boulder
 score
+n
+snipe fuel tank with rifle
