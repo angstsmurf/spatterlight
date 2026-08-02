@@ -1,13 +1,39 @@
 # Shadowpeak — walkthrough (★ COMPLETE — WON @ 700/790, 0 deaths)
 
 Current blessed state (all three routes 0 deaths, marker `completed the
-adventure Shadowpeak`, all with `SCR_LEGACY_RANDMAP=1`):
+adventure Shadowpeak`, all under the FIXED `scr_randomint` mapping — the
+`SCR_LEGACY_RANDMAP` hook is gone):
 
 | solution | seed | score |
 | --- | --- | --- |
-| `shadowpeak_solution.txt` | 102 | **700**/790 |
-| `shadowpeak_allgargoyles_solution.txt` | 230 | **715**/790 |
-| `shadowpeak_killwraith_solution.txt` | 201 | **735**/790 |
+| `shadowpeak_solution.txt` | 13 | **700**/790 |
+| `shadowpeak_allgargoyles_solution.txt` | 87 | **715**/790 |
+| `shadowpeak_killwraith_solution.txt` | 657 | **735**/790 |
+
+## ✅ SESSION 25 (2026-08-02): re-derived under the fixed randint mapping — SCR_LEGACY_RANDMAP retired (700/715/735)
+
+The multiply-shift `scr_randomint` fix (Target-select row, RUNNER_TESTS_TODO
+§1) re-sequenced every seeded transcript, and no seed in 1–10000 ran the old
+routes end-to-end — but the failure was always ONLY the Damastus chase (and
+once Cerberus).  The repair recipe from session 24 worked unchanged:
+
+1. **Sweep for a clean upstream**: replay the prefix through `press stone
+   button` + `score` across seeds, requiring the reference score (560/575/595
+   per route), player in room 157, and Damastus alive in the maze
+   (`SCR_TRACE_PLAYER`/`SCR_TRACE_JUDY npc=35`).  The upstream is seed-robust
+   under the new mapping: ~1 in 26 seeds is clean for the base route
+   (13, 41, 98, ...), 87 for allgargoyles, 657 for killwraith (its extra
+   Fang/wraith battles thread tighter — first clean seed past 600).
+2. **Re-derive the chase** with `harness/shadowpeak_chase.py <solution>
+   <seed>` (the script no longer forces the legacy mapping) and splice the
+   block between the buttons.
+3. The base route also needed its Cerberus block padded 4 → 12 `attack
+   cerberus` (no risk: shield + greaves make him harmless, no timer in
+   Hell; surplus attacks after his death are non-turns).
+
+Pre-`blow horn` scores verified equal to the legacy-blessed routes
+(700/715/735) before re-blessing.  With no consumer left, the
+`SCR_LEGACY_RANDMAP` hook was deleted from `scutils.cpp`/`seed.cpp`.
 
 ## ✅ SESSION 24 (2026-08-02): re-derived for the load-time immediate-event start (700/715/735)
 

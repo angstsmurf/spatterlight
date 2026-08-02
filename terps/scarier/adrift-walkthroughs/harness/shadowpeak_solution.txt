@@ -778,31 +778,27 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED for the load-time immediate-event start (2026-08-02:
-# StarterType=1 events now start during load, which re-threads every walker's
-# RNG). Greedy BFS from the stone button (room 157): attack when co-located,
-# else BFS-step toward him. He now dies at room 154 (was 160), and
-# n,n,n,e,e,e,e,e,e walks 154 -> 151 for the bronze button. Re-derive with
-# harness/shadowpeak_chase.py (seeded scare + SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35)
-# if upstream turns change again.
-s
-s
-attack damastus
-attack damastus
-s
-attack damastus
-n
-attack damastus
-s
-attack damastus
-n
-n
-n
+# DAMASTUS chase RE-DERIVED under the FIXED scr_randomint mapping (2026-08-02:
+# the route now runs WITHOUT SCR_LEGACY_RANDMAP, at SCR_SEED=13 -- the upstream
+# through `press stone button` is seed-robust, ~1 in 26 seeds run it clean).
+# Greedy BFS from the stone button (room 157): attack when co-located, else
+# BFS-step toward him. He dies at room 162, stamina 29, and one step e walks
+# 162 -> 151 for the bronze button. Re-derive with
+# harness/shadowpeak_chase.py if upstream turns change again.
 e
 e
 e
 e
 e
+e
+attack damastus
+attack damastus
+w
+attack damastus
+e
+attack damastus
+w
+attack damastus
 e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
@@ -859,6 +855,14 @@ n
 # Room 167: CERBERUS, three-headed hound of Hades (Stamina 99). His tail-sting
 # is INSTANT DEATH unless we wear BOTH the arm-and-leg greaves and the Shield
 # (T509/T510) - both are worn. Cut him down with the sword (T490 +20, ~2 hits).
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
+attack cerberus
 attack cerberus
 attack cerberus
 attack cerberus

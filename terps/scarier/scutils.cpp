@@ -347,15 +347,6 @@ scr_congruential_rand (scr_uint new_seed)
 /* Function pointer for the actual random number generator in use. */
 static scr_int (*scr_rand_function) (scr_uint) = scr_platform_rand;
 
-/* See the compatibility note in scr_randomint(). */
-static scr_bool scr_legacy_randmap = FALSE;
-
-void
-scr_set_legacy_randmap (scr_bool flag)
-{
-  scr_legacy_randmap = flag;
-}
-
 /*
  * scr_set_congruential_random()
  * scr_set_platform_random()
@@ -412,16 +403,6 @@ scr_randomint (scr_int low, scr_int high)
    */
   if (high < low)
     return low;
-
-  /*
-   * Compatibility aid, not fidelity: a few committed walkthrough goldens
-   * (the Shadowpeak routes) were derived under the old "% range" mapping
-   * and thread battle lengths too tightly to survive a different random
-   * sequence.  Their harness rows set SCR_LEGACY_RANDMAP to pin that
-   * mapping; nothing else should.
-   */
-  if (scr_legacy_randmap)
-    return low + scr_rand () % (high - low + 1);
 
   /*
    * Map into the range with a multiply-shift on the full 31-bit value rather

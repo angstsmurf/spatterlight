@@ -131,7 +131,6 @@ typedef std::unique_ptr<scr_char, scr_free_deleter> scr_owned_string;
 #endif
 
 extern void scr_set_congruential_random (void);
-extern void scr_set_legacy_randmap (scr_bool flag);
 extern void scr_set_platform_random (void);
 extern scr_bool scr_is_congruential_random (void);
 extern void scr_seed_random (scr_uint new_seed);

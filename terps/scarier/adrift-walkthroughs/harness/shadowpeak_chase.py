@@ -76,7 +76,7 @@ def bfs(graph, src, dst, first_only):
 
 def play(seed, cmds):
     """Play `cmds`; return (player room, Damastus room, stamina) at the end."""
-    env = dict(os.environ, SCR_LEGACY_RANDMAP="1", SCR_SEED=str(seed),
+    env = dict(os.environ, SCR_SEED=str(seed),
                LC_ALL="C", SCR_TRACE_PLAYER="1", SCR_TRACE_JUDY="1")
     proc = subprocess.run(
         [SCARE, GAME],

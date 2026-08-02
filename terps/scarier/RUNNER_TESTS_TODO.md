@@ -119,8 +119,12 @@ Highest value first:
       below), four rows re-seeded (snakes 2, jason 11, light_up 2, circus
       2→17, les_feux 138), and the three Shadowpeak routes — battle lengths
       threaded too tightly to survive any new sequence (no seed in 1–800
-      works) — pin the old mapping via `SCR_LEGACY_RANDMAP=1`, a documented
-      harness-only compatibility hook.
+      works) — initially pinned the old mapping via `SCR_LEGACY_RANDMAP=1`.
+      ~~a documented harness-only compatibility hook~~ **Hook RETIRED
+      2026-08-02**: the routes were re-derived under the fixed mapping
+      (seeds 13/87/657 — clean-upstream sweep + `shadowpeak_chase.py`, same
+      scores 700/715/735; see Shadowpeak_walkthrough.md session 25) and the
+      hook deleted from `scutils.cpp`/`seed.cpp`.
 - [x] **Death path (no KilledTask).** *(2026-08-01, live, via `pM3`.)*
       "Robot falls down, dead." (byte-same in SCARE), corpse leaves scope:
       run400 answers "Robot isn't here!" / "Player cannot see Robot from
@@ -266,10 +270,13 @@ no-password form).
 Target select above) changed every seeded transcript. All v4 goldens were
 re-blessed after triage: 26 rows differed only in random flavor (event timing,
 battle-roll variance) with win/score markers intact; five rows needed a new
-per-row `SCR_SEED` to re-thread; the three Shadowpeak rows run under
-`SCR_LEGACY_RANDMAP=1`. Re-deriving Shadowpeak under the fixed mapping is
-open follow-up work — the routes fight several battles whose exact lengths
-and a ~50-turn timer must all line up.
+per-row `SCR_SEED` to re-thread; the three Shadowpeak rows initially ran under
+`SCR_LEGACY_RANDMAP=1`. ~~Re-deriving Shadowpeak under the fixed mapping is
+open follow-up work~~ **DONE 2026-08-02** — only the Damastus chase (and one
+Cerberus block) was actually fragile; the upstream through `press stone
+button` is seed-robust (~1 in 26 seeds clean). New seeds 13/87/657, same
+scores 700/715/735, and the legacy-randmap hook is deleted (see the Target
+select item and Shadowpeak_walkthrough.md session 25).
 
 Surface facts learned on the way (all consistent between engines unless noted):
 
@@ -671,8 +678,9 @@ damage floor, worn armour and the RNG question are all settled live; see §1.)*
 **2026-08-01: every numbered item in this file is now settled, measured, or
 deliberately kept.** What remains open is recorded inline: the scope filter
 and the unary-minus tokeniser (both zero-corpus-impact, documented in §4's
-table), and re-deriving Shadowpeak under the fixed RNG mapping (§1 corpus
-note).  The a5sexpr `-5/2` tangent was probed the same day: NO divergence on
+table), and ~~re-deriving Shadowpeak under the fixed RNG mapping (§1 corpus
+note)~~ *(done 2026-08-02 — seeds 13/87/657, legacy hook retired)*.  The
+a5sexpr `-5/2` tangent was probed the same day: NO divergence on
 the ADRIFT 5 side (§4 table row) — away-from-zero rounding is symmetric, so
 clsVariable's operator-tokenised unary minus and a5sexpr's folded one agree.
 

@@ -26,8 +26,6 @@ __attribute__((constructor)) static void seed_det(void) {
     scr_set_combat_assist(1);
   if (getenv("SCR_ASSUME_MOVES"))
     scr_set_move_assist(1);
-  if (getenv("SCR_LEGACY_RANDMAP"))
-    scr_set_legacy_randmap(1);
   if (getenv("SCR_TRACE_TASKS")) {
     task_debug_trace(1);
     restr_debug_trace(1);
