@@ -96,16 +96,35 @@ def build(cfg):
         s(t.get('mask', "A".join(["#"] * len(restrs))))
     events = cfg.get('events', [])          # (short, taskAffected_1based
                                             #  [, time1, time2, restart])
+                                            # ...or a dict, which additionally
+                                            # takes starter=1|2|3, start/end
+                                            # (starter 2 delay range) and
+                                            # tasknum (starter 3 trigger).
     s(len(events))
     for e in events:
-        (short, aff) = e[:2]
-        t1 = e[2] if len(e) > 2 else 0
-        t2 = e[3] if len(e) > 3 else 0
-        restart = e[4] if len(e) > 4 else 1
-        s(short); s(1)                      # Short StarterType=immediate
+        if isinstance(e, dict):
+            short, aff = e['short'], e['affected']
+            t1, t2 = e.get('time1', 0), e.get('time2', 0)
+            restart = e.get('restart', 1)
+            starter = e.get('starter', 1)
+        else:
+            (short, aff) = e[:2]
+            t1 = e[2] if len(e) > 2 else 0
+            t2 = e[3] if len(e) > 3 else 0
+            restart = e[4] if len(e) > 4 else 1
+            starter = 1
+        s(short); s(starter)                # Short StarterType
+        if starter == 2:                    # random delay before starting
+            s(e.get('start', 0)); s(e.get('end', 0))
+        elif starter == 3:                  # after a task completes
+            s(e.get('tasknum', 0))
         s(restart); s(0)                    # RestartType TaskFinished
         s(t1); s(t2)                        # Time1 Time2
-        s(""); s(""); s("")                 # Start/Look/FinishText
+        if isinstance(e, dict):
+            s(e.get('starttext', "")); s(e.get('looktext', ""))
+            s(e.get('finishtext', ""))
+        else:
+            s(""); s(""); s("")             # Start/Look/FinishText
         s(3)                                # Where: all rooms
         s(0); s(0)                          # PauseTask PauserCompleted
         s(0); s("")                         # PrefTime1 PrefText1
@@ -494,6 +513,142 @@ CONFIGS = {
     tasks=[dict(commands=["zzpillcheck"], complete="PILLCHECK FIRED.",
                 restrs=[(3,4,1,"")])],
     events=[("Pill Check", 1)]),
+ # EV follow-up: the zero-length shapes the 2026-08-02 one-shot gate does NOT
+ # cover.  EV settled RestartType=1 (restart immediately) -- fires once at
+ # game start, never again.  Here every event has Time1=Time2=0 and
+ # RestartType=2 ("restart after delay"), which re-arms via a DIFFERENT path
+ # per StarterType:
+ #   E1  starter=1 (immediate)      -> the gated path, unprobed until now
+ #   E2  starter=2, delay 2..2      -> ungated: re-arms with a fresh 2-turn
+ #                                    wait, so a re-arming Runner prints on
+ #                                    turns 2, 4, 6, 8
+ #   E3  starter=3, after task 4    -> ungated: goes back to AWAITING, so a
+ #                                    re-arming Runner prints again every
+ #                                    time `zztrigger` is repeated
+ # Session: z z z z z z z z, then zztrigger, zztrigger.  Count the prints.
+ 'EV2': dict(name="Probe EV2",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["zze1"], complete="E1 FIRED."),
+           dict(commands=["zze2"], complete="E2 FIRED."),
+           dict(commands=["zze3"], complete="E3 FIRED."),
+           dict(commands=["zztrigger"], complete="TRIGGER DONE.")],
+    events=[dict(short="Imm Restart", affected=1, starter=1, restart=2),
+            dict(short="Delay Restart", affected=2, starter=2, restart=2,
+                 start=2, end=2),
+            dict(short="Task Restart", affected=3, starter=3, restart=2,
+                 tasknum=4)]),
+ # EV2 follow-up.  In run400 the EV2 delayed-start zero-length event (starter=2,
+ # StartTime=EndTime=2) never fired AT ALL in eight turns, which could equally
+ # mean "delayed zero-length never finishes" or "this generator writes
+ # StartTime/EndTime wrong".  EV3 separates the two: F2 is the same delayed
+ # start with a NON-zero length, so if it fires the field layout is right and
+ # F1/F3's silence is real semantics.
+ #   F1  starter=2 delay 2..2, len 0, restart=2  -> the EV2 cell, repeated
+ #   F2  starter=2 delay 2..2, len 1..1, restart=0 -> the authoring control
+ #   F3  starter=2 delay 3..3, len 0, restart=0  -> zero-length, no restart
+ 'EV3': dict(name="Probe EV3",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["zzf1"], complete="F1 FIRED."),
+           dict(commands=["zzf2"], complete="F2 FIRED."),
+           dict(commands=["zzf3"], complete="F3 FIRED.")],
+    events=[dict(short="Zero Delay Restart", affected=1, starter=2, restart=2,
+                 start=2, end=2),
+            dict(short="Len1 Delay", affected=2, starter=2, restart=0,
+                 start=2, end=2, time1=1, time2=1),
+            dict(short="Zero Delay Once", affected=3, starter=2, restart=0,
+                 start=3, end=3)]),
+ # EV3 follow-up, and the one that decides the corpus question.  EV3's
+ # zero-length delayed-start events never ran their TaskAffected in run400 --
+ # but a real corpus event of that shape (Del Sol's "physics distraction 3":
+ # starter=2, StartTime=EndTime=25, RestartType=0, Time1=Time2=0) carries no
+ # task at all, only a StartText and a FinishText.  So: does the Runner START
+ # such an event (printing StartText) and merely never finish it, or does it
+ # never start either?  G1 is Del Sol's shape with a short delay and all three
+ # texts; G2 is the same with a non-zero length, as the ordering control.
+ 'EV4': dict(name="Probe EV4",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["zzg1"], complete="G1 TASK.")],
+    events=[dict(short="Zero Delay Texts", affected=1, starter=2, restart=0,
+                 start=2, end=2, starttext="G1 START.", looktext="G1 LOOK.",
+                 finishtext="G1 FINISH."),
+            dict(short="Len2 Delay Texts", affected=0, starter=2, restart=0,
+                 start=2, end=2, time1=2, time2=2, starttext="G2 START.",
+                 looktext="G2 LOOK.", finishtext="G2 FINISH.")]),
+ # EV4 follow-up, and the one that decides how to MODEL the run400 results
+ # rather than just tabulate them.  EV4 showed a zero-length event started off
+ # a countdown parking in RUNNING for ever (StartText printed, LookText still
+ # in the room description, FinishText never).  If that is the general rule,
+ # then a zero-length event that RESTARTS should restart into the same parked
+ # state -- printing its StartText a second time and then showing its LookText
+ # for ever -- rather than going quietly dormant the way Scarier's one-shot
+ # gate assumes.  All three events here are zero-length and carry all three
+ # texts plus an affected task, so both halves are directly visible:
+ #   H1  starter=1, restart=1 (immediately)   -> TheADRIFTProject's "#Pill
+ #                                               Check" shape, with texts
+ #   H2  starter=1, restart=2 (after delay)   -> EV2's E1, with texts
+ #   H3  starter=3 on task 4, restart=2       -> EV2's E3, with texts
+ # Park model predicts "H1 START. H1 FINISH. H1 TASK. H1 START." at turn 0 and
+ # "H1 LOOK." in every later room description; the dormant model predicts the
+ # first three and silence after.
+ 'EV5': dict(name="Probe EV5",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["zzh1"], complete="H1 TASK."),
+           dict(commands=["zzh2"], complete="H2 TASK."),
+           dict(commands=["zzh3"], complete="H3 TASK."),
+           dict(commands=["zztrigger"], complete="TRIGGER DONE.")],
+    events=[dict(short="Zero Imm Restart", affected=1, starter=1, restart=1,
+                 starttext="H1 START.", looktext="H1 LOOK.",
+                 finishtext="H1 FINISH."),
+            dict(short="Zero Imm Delayed", affected=2, starter=1, restart=2,
+                 starttext="H2 START.", looktext="H2 LOOK.",
+                 finishtext="H2 FINISH."),
+            dict(short="Zero Task Restart", affected=3, starter=3, restart=2,
+                 tasknum=4, starttext="H3 START.", looktext="H3 LOOK.",
+                 finishtext="H3 FINISH.")]),
+ # Group-trailing reference probe (the open tangent on RUNNER_TESTS_TODO
+ # section 4's last-element-in-group row): uip_match_text() and
+ # uip_match_wildcard() share the remainder-list shape that killed
+ # %object%/%character% before the 2026-08-02 fix, so a %text% that closes a
+ # [...] group -- and a `*` that closes one with input left over -- can never
+ # match in Scarier.  T0 is the working top-level control; the CompleteTexts
+ # echo %text% so the Runner reveals its capture extent directly; T3 pins
+ # whether a group-trailing %text% is minimal-munch against material AFTER
+ # the group.
+ 'TX': dict(name="Probe TX",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["mimic %text%"], complete="T0=[%text%]."),
+           dict(commands=["[echo %text%]"], complete="T1=[%text%]."),
+           dict(commands=["[eat *]"], complete="EATSTAR FIRED."),
+           dict(commands=["[mark %text%] now"], complete="T3=[%text%]."),
+           dict(commands=["[nib/nab *]"], complete="NIBSTAR FIRED.")]),
+ # TX follow-up controls.  TX showed run400 matching NONE of `[echo %text%]`,
+ # `[eat *]`, `[nib/nab *]`, `[mark %text%] now` -- but ADRIFTMAS proved it
+ # DOES match `[kiss {the} %character%]`, so the failure cannot be "groups
+ # don't work".  These separate the candidate causes in one file: literal-only
+ # groups (C1/C2) vs a group-trailing %character% (C3, the known-good shape)
+ # vs %text% (C4) vs `*` (C5) vs a reference followed by a literal INSIDE the
+ # group (C6/C7, testing whether it is trailing-ness or the reference itself).
+ 'TX2': dict(name="Probe TX2",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[("Robot",0,0,250,0,0,0,0,0,0,0,0,0,0)],
+    tasks=[dict(commands=["[wham]"], complete="C1 LITGROUP FIRED."),
+           dict(commands=["[zap/zop] thing"], complete="C2 ALTGROUP FIRED."),
+           dict(commands=["[poke {the} %character%]"], complete="C3 CHARGROUP FIRED."),
+           dict(commands=["[jot %text%]"], complete="C4=[%text%]."),
+           dict(commands=["[snag *]"], complete="C5 STARGROUP FIRED."),
+           dict(commands=["[prod %character% hard]"], complete="C6 CHARMID FIRED."),
+           dict(commands=["[quip %text% hard]"], complete="C7=[%text%].")]),
  'RC': dict(name="Probe RC",
     player=(200,10,10,60,60,0,0,0,0,3),
     rooms=[("Test Arena","A bare arena.",{1:1}),

@@ -292,6 +292,20 @@ os_read_line (scr_char *buffer, scr_int length)
         }
     }
 
+  /*
+   * Derivation aid: with SCR_ECHO_INPUT set, echo the command back after the
+   * '>' prompt.  Piped input is not a terminal, so nothing else puts the
+   * command into the transcript, and pairing a response with the command that
+   * produced it otherwise means counting prompts by hand.
+   */
+  if (getenv ("SCR_ECHO_INPUT"))
+    {
+      fputs (buffer, stdout);
+      if (buffer[0] != '\0' && buffer[strlen (buffer) - 1] != '\n')
+        putchar ('\n');
+      fflush (stdout);
+    }
+
   return TRUE;
 }
 

@@ -1575,6 +1575,21 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
   scr_int start_posn;
   scr_bool matched;
 
+  /*
+   * If the reference is the last element of its list there is nothing left to
+   * match, and the remainder is vacuously satisfied.  This happens whenever a
+   * %character% or %object% closes a choice or optional group, as in the very
+   * common idioms "[kiss {the} %character%]" and
+   * "[smack/hit/punch/kick]{the}[%character%]".  Without this the temporary
+   * list below is empty, uip_match_list() fails it by design, and the
+   * reference can never match -- a divergence from the real Runner, which
+   * matches both of those (verified against run400.exe on ADRIFTMAS Party).
+   * At the top level the case does not arise: uip_parse_list() appends a
+   * NODE_EOS there, so end-of-string is still enforced after the group.
+   */
+  if (!node->right_sibling)
+    return TRUE;
+
   /* Note the start position, then advance to the given extent. */
   start_posn = uip_posn;
   uip_posn = extent;

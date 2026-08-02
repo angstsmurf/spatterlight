@@ -457,6 +457,26 @@ evt_get_starter_type (scr_gameref_t game, scr_int event)
 
 
 /*
+ * evt_is_zero_length()
+ *
+ * TRUE for an event authored with no duration at all, Time1 == Time2 == 0.
+ * Such an event behaves quite unlike a one-turn event in the real Runners --
+ * see the "parks" comment in evt_tick_event() -- so it is worth a name.
+ *
+ * The test is on the AUTHORED length, not on the rolled one: a length rolled
+ * from a range that happens to include zero was never probed, and the 3.9/3.8
+ * immediate-restart fixup deliberately runs an event with one turn already
+ * spent, which would otherwise be mistaken for a parked event.
+ */
+static scr_bool
+evt_is_zero_length (scr_gameref_t game, scr_int event)
+{
+  return evt_cached_integer (game, event, EVT_TIME1, "Time1") == 0
+         && evt_cached_integer (game, event, EVT_TIME2, "Time2") == 0;
+}
+
+
+/*
  * evt_finish_event()
  *
  * Move an event to FINISHED, or restart it.
@@ -577,22 +597,25 @@ evt_finish_event (scr_gameref_t game, scr_int event)
                                     "RestartType");
 
   /*
-   * A ZERO-length restarting event fires exactly once, at game start, in
-   * BOTH real Runners -- probed live 2026-08-02 (make_39_fwprobe.py variant
-   * b in run390, probe EV in run400): the checker task's text is appended
-   * to the opening room description and never printed again, however often
-   * its restriction holds afterwards.  Re-arming it here instead made the
-   * checker fire every turn (and twice during startup), which is how
-   * TheADRIFTProject's "#Pill Check" ran a turn early.  So a Time1=Time2=0
-   * event that would restart goes dormant instead.  Only the
-   * restart-IMMEDIATELY paths are gated: a zero-length event whose restart
-   * waits on a random delay or a task re-arms with real time on the clock,
-   * and that shape was not probed.
+   * A ZERO-length event that restarts "after a delay" does not come back at
+   * all when its start is immediate or a task -- probed live 2026-08-02 in
+   * run400 (probe EV5 events H2 and H3, make_arena_probe.py) and in run390
+   * (make_39_fwprobe.py variant b): the affected task fires once and then
+   * nothing, no matter how often the starter task is re-run afterwards, and
+   * no LookText appears in the room description in between, so the event is
+   * not sitting in a running state either.  Re-arming it here instead made
+   * the affected task fire EVERY turn, which is how TheADRIFTProject's
+   * "#Pill Check" ran a turn early.
+   *
+   * Restart-immediately is deliberately NOT gated: run400 really does start
+   * such an event again -- EV5's H1 printed its StartText a second time and
+   * showed its LookText in every later room description -- it just never
+   * finishes again, which evt_tick_event() handles by parking it.
    */
-  if ((restarttype == 1
-       || (restarttype == 2 && evt_get_starter_type (game, event) == 1))
-      && evt_cached_integer (game, event, EVT_TIME1, "Time1") == 0
-      && evt_cached_integer (game, event, EVT_TIME2, "Time2") == 0)
+  if (restarttype == 2
+      && (evt_get_starter_type (game, event) == 1
+          || evt_get_starter_type (game, event) == 3)
+      && evt_is_zero_length (game, event))
     {
       if (evt_trace)
         scr_trace ("Event: zero-length event %ld will not restart\n", event);
@@ -872,8 +895,20 @@ evt_tick_event (scr_gameref_t game, scr_int event)
           {
             evt_start_event (game, event);
 
-            /* If the event time was set to zero, finish immediately. */
-            if (gs_event_time (game, event) <= 0)
+            /*
+             * If the event time was set to zero, finish immediately -- unless
+             * the event has no length at all, in which case it PARKS: started
+             * but never finishing.  A zero-length event reached off a running
+             * clock behaves quite differently from one reached at game start
+             * or off a starter task, both of which finish on the spot.  Probed
+             * live in run400 2026-08-02 (probe EV4): the event printed its
+             * StartText on the turn the delay expired, then showed its LookText
+             * in every later room description and never printed its FinishText
+             * or ran its affected task.  Del Sol's "physics distraction 3" is
+             * exactly this shape.
+             */
+            if (gs_event_time (game, event) <= 0
+                && !evt_is_zero_length (game, event))
               evt_finish_event (game, event);
           }
       }
@@ -909,6 +944,21 @@ evt_tick_event (scr_gameref_t game, scr_int event)
               scr_trace ("Event: pause complete\n");
 
             gs_set_event_state (game, event, ES_PAUSED);
+            break;
+          }
+
+        /*
+         * A zero-length event that got here is parked: it was started off a
+         * clock or by an immediate restart, and in the real Runner it stays
+         * running for the rest of the game -- its LookText keeps appearing in
+         * the room description, and its end never arrives.  Leave the clock
+         * alone, or the decrement below would take it negative and "finish"
+         * an event the Runner never finishes.
+         */
+        if (evt_is_zero_length (game, event))
+          {
+            if (evt_trace)
+              scr_trace ("Event: zero-length event %ld is parked\n", event);
             break;
           }
 

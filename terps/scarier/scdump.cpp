@@ -73,14 +73,14 @@ static const scr_char *
 scdump_object_name (scr_gameref_t game, scr_int obj)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t k[3];
+  scr_vartype_t k[3], v;
 
   if (obj < 0 || obj >= gs_object_count (game))
     return NULL;
   k[0].string = "Objects";
   k[1].integer = obj;
   k[2].string = "Short";
-  return prop_get_string (bundle, "S<-sis", k);
+  return prop_get (bundle, "S<-sis", &v, k) ? v.string : NULL;
 }
 
 /*
@@ -311,7 +311,11 @@ scr_dump_structure_once (scr_gameref_t game)
       k[1].integer = t;
       k[2].string = "Command";
       k[3].integer = 0;
-      cmd = prop_get_string (bundle, "S<-sisi", k);
+      /*
+       * A task can carry an empty Command list -- The Cleft in the Rock has
+       * one, and prop_get_string is fatal on the miss -- so ask with prop_get.
+       */
+      cmd = prop_get (bundle, "S<-sisi", &vt, k) ? vt.string : NULL;
       ccount = prop_get_child_count (bundle, "I<-sis", k);
 
       k[2].string = "Where";
@@ -466,10 +470,17 @@ scr_dump_structure_once (scr_gameref_t game)
                    atype, v1, v2, v3, nm);
           if (atype == 3)
             {
-              const scr_char *expr;
+              const scr_char *expr = NULL;
 
+              /*
+               * Not every type-3 action carries an Expr: a plain "set/add a
+               * literal" action stores only Var1..Var3, and 3.9-era games never
+               * author one at all.  prop_get_string is fatal on a missing
+               * property (The Cleft in the Rock died here), so ask with
+               * prop_get and accept the miss.
+               */
               k[4].string = "Expr";
-              expr = prop_get_string (bundle, "S<-sisis", k);
+              if (prop_get (bundle, "S<-sisis", &vt, k)) expr = vt.string;
               if (expr && expr[0] != '\0')
                 fprintf (stderr, " expr=[%s]", expr);
             }
@@ -487,10 +498,12 @@ scr_dump_structure_once (scr_gameref_t game)
     for (e = 0; e < ecount; e++)
       {
         scr_int st, tn, ta, tf, o2, o2d, o3, o3d, t1, t2, pf;
+        scr_int rt, sta, end;
         scr_vartype_t evt;
         const scr_char *en;
 
         st = tn = ta = tf = o2 = o2d = o3 = o3d = t1 = t2 = pf = 0;
+        rt = sta = end = 0;
         en = NULL;
         ek[1].integer = e;
         /* Use tolerant prop_get -- not every game defines every field. */
@@ -499,6 +512,9 @@ scr_dump_structure_once (scr_gameref_t game)
         ek[2].string = "TaskNum";      if (prop_get (bundle, "I<-sis", &evt, ek)) tn = evt.integer;
         ek[2].string = "TaskAffected"; if (prop_get (bundle, "I<-sis", &evt, ek)) ta = evt.integer;
         ek[2].string = "TaskFinished"; if (prop_get (bundle, "I<-sis", &evt, ek)) tf = evt.integer;
+        ek[2].string = "RestartType";  if (prop_get (bundle, "I<-sis", &evt, ek)) rt = evt.integer;
+        ek[2].string = "StartTime";    if (prop_get (bundle, "I<-sis", &evt, ek)) sta = evt.integer;
+        ek[2].string = "EndTime";      if (prop_get (bundle, "I<-sis", &evt, ek)) end = evt.integer;
         ek[2].string = "Time1";        if (prop_get (bundle, "I<-sis", &evt, ek)) t1 = evt.integer;
         ek[2].string = "Time2";        if (prop_get (bundle, "I<-sis", &evt, ek)) t2 = evt.integer;
         ek[2].string = "PauseTask";    if (prop_get (bundle, "I<-sis", &evt, ek)) pf = evt.integer;
@@ -508,8 +524,10 @@ scr_dump_structure_once (scr_gameref_t game)
         ek[2].string = "Obj3Dest";     if (prop_get (bundle, "I<-sis", &evt, ek)) o3d = evt.integer;
         fprintf (stderr,
                  "EVENT %ld [%s] starter=%ld startTask=%ld affTask=%ld(fin=%ld)"
-                 " time1=%ld time2=%ld pauseTask=%ld o2=%ld->%ld o3=%ld->%ld\n",
-                 e, en ? en : "", st, tn, ta, tf, t1, t2, pf, o2, o2d, o3, o3d);
+                 " restart=%ld start=%ld..%ld time1=%ld time2=%ld pauseTask=%ld"
+                 " o2=%ld->%ld o3=%ld->%ld\n",
+                 e, en ? en : "", st, tn, ta, tf, rt, sta, end, t1, t2, pf,
+                 o2, o2d, o3, o3d);
       }
   }
 
@@ -638,8 +656,34 @@ scr_dump_structure_once (scr_gameref_t game)
             rk[4].string = "Var2"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v2 = rv.integer;
             rk[4].string = "Var3"; if (prop_get (bundle, "I<-sisis", &rv, rk)) v3 = rv.integer;
             if (dest > 0)
-              fprintf (stderr, "EXIT room=%ld %s -> dest=%ld gateTask=%ld expectDone=%ld v3=%ld\n",
-                       r, dirs[d], dest - 1, v1 - 1, v2, v3);
+              {
+                /*
+                 * An exit's gate is NOT always a task.  lib_can_go() reads Var3
+                 * as the restriction *type* -- 0 = task state, 1 = object state
+                 * -- and only then is Var1-1 a task index; for type 1 it is a
+                 * stateful-object index and Var2 the wanted openness/state.
+                 * Printing it as "gateTask" unconditionally sent the Tear
+                 * derivation looking for a task that opens the cottage door
+                 * when the door just needed opening.
+                 */
+                fprintf (stderr, "EXIT room=%ld %s -> dest=%ld",
+                         r, dirs[d], dest - 1);
+                if (v1 - 1 < 0)
+                  fprintf (stderr, " (no gate)\n");
+                else if (v3 == 0)
+                  /* lib_can_go restricts when done == (Var2 != 0), so the exit
+                     opens on the OPPOSITE of Var2 -- Var2 == 0 means "the task
+                     must have been done". */
+                  fprintf (stderr, " gateTask=%ld wantDone=%ld\n",
+                           v1 - 1, (scr_int) (v2 == 0));
+                else
+                  {
+                    scr_int obj = obj_stateful_object (game, v1 - 1);
+                    const scr_char *s = scdump_object_name (game, obj);
+                    fprintf (stderr, " gateObj=%ld [%s] wantState=%ld\n",
+                             obj, s ? s : "", v2);
+                  }
+              }
           }
       }
 

@@ -71,7 +71,12 @@ def obj(prefix, short, desc, wearable, position, container, parent=0):
 # Variant "b": the pill STARTS inside the cup, so the checker's restriction
 # is true from turn one -- proves the event machinery runs at all, and the
 # `take pill` falling edge gives the tick-order cell.
+# Variant "p": tasks 1-3 have NO restrictions, so they PASS -- does a passing
+# take/wear/put task claim the command in run390, or does the library still
+# run?  (The 2026-08-02 failing-task probe showed run390 running the library
+# take; this pins whether that was restriction-fallback or a full bypass.)
 VARIANT_B = len(sys.argv) > 2 and sys.argv[2] == "b"
+VARIANT_P = len(sys.argv) > 2 and sys.argv[2] == "p"
 
 s(4)
 obj("a", "rock", "A grey rock.", 0, 4, 0)     # file Var1=3
@@ -97,11 +102,13 @@ def task(cmds, complete, restrs):
     s(0)                 # Actions
 
 s(4)
-task(["take * rock"], "TAKEPASS.", [(6, 1, 0, "TFAIL.")])
-task(["wear * rock"], "WEARPASS.", [(6, 1, 0, "WFAIL.")])
+task(["take * rock"], "TAKEPASS.",
+     [] if VARIANT_P else [(6, 1, 0, "TFAIL.")])
+task(["wear * rock"], "WEARPASS.",
+     [] if VARIANT_P else [(6, 1, 0, "WFAIL.")])
 task(["put * pill in cup",
       "[put/drop/mix]{the}[pill]{in/to/with}{the/a/an}[slime/goo]"],
-     "PUTPASS.", [(6, 1, 0, "XFAIL.")])
+     "PUTPASS.", [] if VARIANT_P else [(6, 1, 0, "XFAIL.")])
 task(["zzpillcheck"], "PILLCHECK FIRED.", [(4, 4, 1, "")])
 
 # EVENTS -- the zero-length always-restarting checker.
