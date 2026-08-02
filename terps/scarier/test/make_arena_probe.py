@@ -208,6 +208,27 @@ CONFIGS = {
     rooms=[("Test Arena","A bare arena.",{})],
     objects=[("a","spear",1,1,0,5,5,0,0)],
     npcs=[("Robot",0,2,250,0,1,0,0,0,0,0,0,0,0)]),
+ # Missed-throw variant of TD: does a throw that never lands still move the
+ # weapon to the room?  The decompile puts the move inside the hit branch, so
+ # the port keeps the weapon -- this is the live check.  The hit test is
+ # `effAccuracy(attacker) > effAgility(target)` strictly, so player Accuracy
+ # 0-0 with a zero-accuracy spear against Agility 5-5 can never land; the
+ # player's own Agility 50 keeps the Robot's replies from cluttering the
+ # transcript (its Accuracy is 0 too, so nobody ever connects).
+ 'TDM': dict(name="Probe TDM",
+    player=(200,10,10,0,0,0,0,50,50,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","spear",1,1,0,5,5,0,0)],
+    npcs=[("Robot",0,2,250,0,1,0,0,0,0,5,5,0,0)]),
+ # The third throw case: the throw lands (Accuracy 60 > Agility 0) but the
+ # Robot's Defence 50 swallows it, so no damage is dealt.  The drop sits in
+ # the hit branch, ahead of the damage roll, so the spear should still land on
+ # the floor.
+ 'TDZ': dict(name="Probe TDZ",
+    player=(200,10,10,60,60,0,0,50,50,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","spear",1,1,0,5,5,0,0)],
+    npcs=[("Robot",0,2,250,0,1,0,0,50,50,0,0,0,0)]),
  # Body-part-static probe (§4 RUNNER_TESTS_TODO): `head` is a static Where-
  # type-4 part of Robot (NPC 1), `arm` a part of the player.  probe1/2/3 put
  # the referenced object through a Var1=2 object-location restriction --

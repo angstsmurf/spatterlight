@@ -302,8 +302,18 @@ Surface facts learned on the way (all consistent between engines unless noted):
   usual** (one-shots a 35-stamina robot with Str 10 + HitValue 30 — its
   regardless-of-method rule).  No persistent accuracy penalty (status
   Accuracy 60→60 after throwing); a weaponless `attack` does NOT pick a
-  floor weapon back up; a *missed* throw keeps the weapon (decompile: the
-  move is inside the hit branch only, unprobed live); NPC throws neither
+  floor weapon back up; **a *missed* throw keeps the weapon — probed live
+  in run400 2026-08-02** (`make_arena_probe.py` variant TDM: player
+  Accuracy 0-0 with a zero-accuracy spear against Agility 5-5 can never
+  clear the strict `accuracy > agility` test, and after two missed throws
+  the Runner still answers "Player is carrying a spear." with a bare floor),
+  and **a throw that lands but does no damage still drops it** (variant TDZ,
+  Defence 50 swallows Strength 10: "Player throw the spear at Robot, but it
+  doesn't seem to do any damage." then "Player is carrying nothing." and
+  "Also here is a spear.") — the drop sits ahead of the damage roll, as the
+  decompile has it, and Scarier matches both transcripts.  The 3.9 half of
+  the miss question does not exist: the legacy model has no accuracy/agility
+  step, so every 3.9 attack connects.  NPC throws neither
   drop nor lose HitValue (Proc_11_2 has no equivalent).  Ported into
   `battle_resolve` (drop un-gated, Str-only gated on `!battle_legacy`);
   `light_up` was the one corpus casualty — its Chip fight and Death
