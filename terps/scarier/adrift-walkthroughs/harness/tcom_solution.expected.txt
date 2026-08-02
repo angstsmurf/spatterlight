@@ -138,10 +138,6 @@ two nameless redbrick buildings. This narrow walkway is a well-known location
 for hazings, molestations and sordid rendezvous' on campus after dark. No
 time to be nervous now, though - the Grim Reaper is hot on my trail!
 
-Death drifts along the asphalt towards me, silent and precise in his
-relentless pursuit from the south.
-Death hits you.
-
 >I move north.
 Further Down an Increasingly Dank and Unpleasant Alleyway
 The light seems awfully dim here, given that it's supposed to be early
@@ -153,7 +149,7 @@ Ugh - I just stepped on something soft and unpleasant. I look downward.
 Also here is a soft and unpleasant thing.
 
 Death drifts along the asphalt towards me, silent and precise in his
-relentless pursuit from the south.
+relentless pursuit.
 
 >I move north.
 Before the Great Wooden Door
@@ -161,10 +157,6 @@ This is it - my classroom. If I can just get through this door before the
 9:00 AM bell sounds, I may be able to cheat Death - along with misfortune,
 humiliation, and the sort of flu you get from walking around the campus nude
 in a thick early-morning fog.
-
-Death drifts along the asphalt towards me, silent and precise in his
-relentless pursuit from the south.
-Death hits you.
 
 >I pull hard on the cold iron handle of the door and step forward into...
 

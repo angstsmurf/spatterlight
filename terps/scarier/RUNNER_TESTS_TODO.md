@@ -421,14 +421,42 @@ cloak."); and the ALR-over-joined-paragraph difference above.
       probe fires on turns 1 and 6 of a five-turn cycle, and the 3.9 probe
       shows Bob examinable on turns 2-4, gone on turn 5, back with the task on
       turn 6.  Scarier used to fire on every co-located tick.  Fixed in
-      `npc_tick_npc_walk` with an `is_arrival` gate that is deliberately
-      narrow: it covers **fixed-room stops only**.  A roomgroup stop does not
-      behave this way -- "Ticket to No Where"'s lost girl wanders a roomgroup
-      on a single Times=4 stop and live run400 has her speak on consecutive
-      turns, i.e. the whole step re-runs every tick -- so roomgroup and
-      follow-player (unprobed) stops keep the every-tick behaviour.  Corpus
-      fallout: four rows re-blessed (shadowpeak ×3 lose repeated "Seeker
-      hums!" lines, melbourne_beach shifts RNG).
+      `npc_tick_npc_walk` with an `is_arrival` gate that covers fixed-room
+      stops; **follow-player stops joined it 2026-08-02** (next row).  A
+      roomgroup stop does not behave this way -- "Ticket to No Where"'s lost
+      girl wanders a roomgroup on a single Times=4 stop and live run400 has
+      her speak on consecutive turns, i.e. the whole step re-runs every tick
+      -- so roomgroup stops keep the every-tick behaviour.  Corpus fallout:
+      four rows re-blessed (shadowpeak ×3 lose repeated "Seeker hums!"
+      lines, melbourne_beach shifts RNG).
+- [x] **Follow-player stops warp on arrival ticks only, and the player
+      walking in on a mid-stay walker is a 4.0-only CharTask trigger —
+      settled live 2026-08-02** (probe K = follow stop Times 3/2 with the
+      rooms joined north/south, L = the fixed-stop twin, M = the ObjectTask
+      twin; all in both generators, run in both Runners).  Findings:
+      (1) BOTH Runners move a follow-stop walker to the player's room only
+      on the walk-counter refresh tick -- on the stay turns Bob stands
+      still even when the player walks away, and no catch-up ever comes
+      (K turns 7-8).  Classic every-turn trailing is just a Times=1 follow
+      stop, where every tick is an arrival tick.  (2) BOTH Runners fire the
+      CharTask on an arrival tick even when the walker never moved -- K
+      turn 11 prints no enter line but fires the task.  (3) run400 ALSO
+      fires the CharTask when the PLAYER moves into the walker's room --
+      at any stop, fixed, follow or the away stop, on every re-entry (L
+      turns 3/8/10, K session 1 turn 8) -- while run390 prints only "Bob
+      is standing here" on the identical moves.  SCARE already had exactly
+      this check (the undo-gamestate block in `npc_tick_npcs`), so the fix
+      was to version-gate it >= 4.0, not to add it.  (4) The player-side
+      re-check is CharTask-only: probe M's rock (walk MeetObject/ObjectTask)
+      does not fire when the player walks in on it, carries it in, or drops
+      it beside the mid-stay walker -- object meets happen on the walk's
+      own arrival ticks alone, which is what Scarier already did.
+      `look` never fires anything (K session 2 turn 2).  Corpus fallout:
+      six rows re-blessed (funhouse/donuts_intro/xfiles lose every-turn
+      chaser trailing, tcom/inverness/melbourne_beach lose 3.9 player-move
+      fires), and the three Shadowpeak routes re-threaded per the usual
+      recipe (upstream seed sweep + `harness/shadowpeak_chase.py`; new
+      seeds 1/20/155, scores unchanged 700/715/735).
 - [x] **run390 drops a walker's leave announcement when it cannot name a
       direction — settled live 2026-08-02** (3.9 walk probes H and J).  The
       earlier note "run390 prints no ExitText at all" was wrong: with the two

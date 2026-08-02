@@ -224,6 +224,9 @@ This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
 use this room to change their clothes and other things.
 You search through the clothing and linens and don't find anything
 remarkable.
+Suddenly, you hear someone in the bedroom.  If you listen, you might just
+hear what they are saying.  Then again if you are caught, you risk the ire of
+the Thane of Glamis and Cawdor.
 You listen to the voices. . . .
 
 You hear Lady Macbeth and Macbeth arguing in the next room as Macbeth changes
@@ -267,11 +270,13 @@ terrible feat. Away, and mock the time with fairest show: False face must
 hide what the false heart doth know."
 
 You hear Macbeth and his wife leave the room.
-Suddenly, you hear someone in the bedroom.  If you listen, you might just
-hear what they are saying.  Then again if you are caught, you risk the ire of
-the Thane of Glamis and Cawdor.
 
 >Time passes...
+
+>
+Dressing Room
+This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
+use this room to change their clothes and other things.
 Suddenly, Macbeth bursts into the room.  You've been caught.  He takes his
 dagger and strikes your head with the hilt, knocking you unconscious.
 
@@ -284,11 +289,6 @@ Blackness
 It's dark.  You can't see anything.
 You feel really groggy, and your head hurts.
 After a moment of grogginess, you realize you are in the cellar.
-Cellar
-The dark and dingy cellar is used to store food and wine.  A staircase leads
-up to the kitchen.  It's cold down here.
-
->
 Cellar
 The dark and dingy cellar is used to store food and wine.  A staircase leads
 up to the kitchen.  It's cold down here.

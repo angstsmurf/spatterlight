@@ -482,14 +482,23 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
    * turn only, and again five turns later when the loop brings Bob back).
    * Scarier used to fire on every co-located tick.
    *
-   * The gate is deliberately narrow: only a fixed-room stop is probed, and
-   * only that shape behaves this way.  A roomgroup stop does NOT -- in
-   * "Ticket to No Where" the lost girl wanders a roomgroup on a single
-   * Times=4 stop, and live run400 has her speak on two consecutive turns per
-   * cycle and move on consecutive turns, i.e. it re-runs the whole walk step
-   * every tick rather than once per stay.  Firing every tick is what Scarier
-   * already does there, so leave roomgroup (and follow-player, unprobed)
-   * stops alone.
+   * The gate covers fixed-room AND follow-player stops.  A roomgroup stop
+   * does NOT behave this way -- in "Ticket to No Where" the lost girl
+   * wanders a roomgroup on a single Times=4 stop, and live run400 has her
+   * speak on two consecutive turns per cycle and move on consecutive turns,
+   * i.e. it re-runs the whole walk step every tick rather than once per
+   * stay.  Firing every tick is what Scarier already does there, so leave
+   * roomgroup stops alone.
+   *
+   * Follow-player stops (walk probe K, live in BOTH Runners 2026-08-02,
+   * Times = 3 following / 2 away): the walker warps to the player's room
+   * only on the arrival tick, and stands still on the stay turns even when
+   * the player then walks away -- there is no per-turn trailing.  (Classic
+   * "follows you around" behaviour is a Times=1 follow stop, where every
+   * tick is an arrival tick.)  The arrival tick fires the CharTask even
+   * when the walker was already in the player's room and so never moved --
+   * probe K turn 11 prints no enter line but fires the task -- which the
+   * plain is_arrival computation below already gets right.
    */
   vt_key[5].integer = walkstep;
   is_arrival = gs_npc_walkstep (game, npc, walk)
@@ -509,8 +518,10 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
     }
   else if (destnum == 1)     /* Follow player. */
     {
-      dest = gs_playerroom (game);
-      is_arrival = TRUE;
+      /* Warp to the player only on the arrival tick; between arrivals the
+         walker stands still even if the player moves away (probe K). */
+      if (is_arrival)
+        dest = gs_playerroom (game);
     }
   else if (destnum < gs_room_count (game) + 2)
     dest = destnum - 2;      /* To room. */
@@ -723,6 +734,17 @@ npc_tick_npcs (scr_gameref_t game)
    * Compare the player location to last turn, to see if the player has moved
    * this turn.  If moved, look for meetings with NPCs.
    *
+   * This player-side meet is a 4.0-only rule.  Probed live 2026-08-02
+   * (make_400_walkprobe.py L turns 3/8/10, K session 1 turn 8): run400 runs
+   * a walk's CharTask whenever the PLAYER moves into the walker's room --
+   * at any stop of the walk, fixed, follow-player or the away stop, again
+   * on every re-entry -- while run390 prints only "Bob is standing here"
+   * on the identical moves (pWKL39, pWKK39) and fires meets solely from
+   * the walk's own arrival ticks.  The re-check is also CharTask-only:
+   * probe M shows the ObjectTask does not fire when the player walks in on
+   * (or drops) the MeetObject beside a mid-stay walker, so this block
+   * rightly never looks at ObjectTask.
+   *
    * TODO Is this the right place to do this.  After ticking each NPC, rather
    * than before, seems more appropriate.  But the messages come out in the
    * right order by putting it here.
@@ -731,7 +753,8 @@ npc_tick_npcs (scr_gameref_t game)
    * rather than properly recording the prior location of the player, and
    * perhaps also NPCs, in the live gamestate.
    */
-  if (undo && !gs_player_in_room (undo, gs_playerroom (game)))
+  if (npc_version (game) >= TAF_VERSION_400
+      && undo && !gs_player_in_room (undo, gs_playerroom (game)))
     {
       for (npc = 0; npc < gs_npc_count (game); npc++)
         {

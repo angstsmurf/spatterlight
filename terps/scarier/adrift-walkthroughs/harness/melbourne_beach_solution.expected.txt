@@ -83,7 +83,7 @@ Judy's bedroom is to the west. The hallway continues to the south.
 
 David is here.
 
-David exits to the north.
+David retreats to the north.
 
 >You move south.
 Outside den
@@ -185,7 +185,7 @@ and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
 
-David saunters in from the north-east.
+David comes in from the north-east.
 
 >You move northeast.
 Entrance hall
@@ -342,7 +342,7 @@ proceeds north and south.
 Kitty is here. You're not allergic, are you?  Judy is here, whistling
 happily.
 
-Kitty leaves to the east.
+Kitty walks out to the east.
 
 >You move south.
 Entrance hall
@@ -446,11 +446,12 @@ Also here is a chess table.
 David strolls into the room.  You two sit down and play chess. You won the
 game.  Congratulations!
 
-Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
-
->You and David play a game of chess. You won the game.  Congratulations!
-
 Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
+
+>You and David play a game of chess. You lost the game.  Too bad.  Better luck
+next time!
+
+Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
 
 >You and David play a game of chess. You won the game.  Congratulations!
 
@@ -473,6 +474,7 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
+You smell fresh coffee.
 
 >You move east.
 Laundry

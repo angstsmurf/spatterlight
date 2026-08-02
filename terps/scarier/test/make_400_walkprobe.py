@@ -15,6 +15,26 @@ matching its direct event-task execution.
                   check sits outside the `start != dest` guard in
                   npc_tick_npc_walk); if run400 fires it only on the arrival
                   turn, that guard is missing.
+    K             FOLLOW-PLAYER stop: like H (Times = 3 / 2) but stop 0 is
+                  "follow player" (Rooms value 1) and the two rooms are
+                  joined north/south so the player can move mid-stay.
+                  Distinguishes three models for the stay turns: CharTask
+                  every co-located tick (Scarier today), on counter-arrival
+                  only (the fixed-room rule), or on genuine movement (a
+                  follow catch-up also fires).  Session: z z z z z z n s z --
+                  the n/s moves land on stay turns 7/8 of the second cycle,
+                  when Bob must follow.
+    L             like H (fixed stops, Times = 3 / 2) but the rooms are
+                  joined north/south: does the PLAYER moving into the room
+                  of a mid-stay walker fire the CharTask, as it does for a
+                  follow-player stop (K session 1, turn 8)?  Session:
+                  z n s z z z n s z -- the n/s pairs land on stay turns.
+    M             ObjectTask twin of L: a dynamic rock in the Probe Room,
+                  walk ObjectTask = "#metobj", no CharTask.  Does the
+                  player-arrival re-check of probe L also re-run the
+                  ObjectTask, and does dropping the MeetObject beside the
+                  mid-stay walker fire it?  Session:
+                  z n s z get rock z drop rock z.
 
 Output is the PLAIN body only; produce a Runner-valid .taf with:
 
@@ -77,21 +97,61 @@ s(0)                     # iUnk1
 s(0)                     # iUnk2
 s(0)                     # Embedded
 
-# ROOMS -- two rooms, no exits.
-def room(short):
+# ROOMS -- two rooms.  Normally no exits; K joins them north/south so the
+# player can move while Bob's follow-player stop is active.
+def room(short, exits=()):
     s(short)             # Short
     s("LONG.")           # Long
-    for _ in range(8): s(0)  # exits
+    # Exits: 8 slots (N E S W up down in out); a slot is a single 0 for "no
+    # exit", else Dest (1-based room) Var1 Var2 Var3.
+    for slot in range(8):
+        dest = dict(exits).get(slot)
+        if dest is None:
+            s(0)
+        else:
+            s(dest); s(0); s(0); s(0)
     # RESOURCE Res: nothing
     s(0)                 # Alts count
     s(0)                 # HideOnMap
 
 s(2)
-room("Probe Room")
-room("Far Room")
+if variant in ("K", "L", "M"):
+    room("Probe Room", {0: 2})   # north -> Far Room
+    room("Far Room", {2: 1})     # south -> Probe Room
+else:
+    room("Probe Room")
+    room("Far Room")
 
-# OBJECTS -- none.
-s(0)
+# OBJECTS -- none, except variant M's dynamic rock (in the Probe Room).
+if variant == "M":
+    s(1)
+    s("a")               # Prefix
+    s("rock")            # Short
+    s(0)                 # V$Alias count
+    s(0)                 # Static
+    s("A probe rock.")   # Description
+    s(4)                 # InitialPosition: 4 + room -> room 0
+    s(0)                 # Task
+    s(0)                 # TaskNotDone
+    s("")                # AltDesc
+    s(0)                 # Container
+    s(0)                 # Surface
+    s(0)                 # Capacity
+    s(0)                 # Wearable
+    s(0)                 # SizeWeight
+    s(0)                 # Parent
+    s(0)                 # Openable
+    s(0)                 # SitLie
+    s(0)                 # Edible
+    s(0)                 # Readable
+    s(0)                 # Weapon
+    s(0)                 # CurrentState
+    s(0)                 # ListFlag
+    # Res1, Res2: nothing (sound+graphics off)
+    s("")                # InRoomDesc
+    s(0)                 # OnlyWhenNotMoved
+else:
+    s(0)
 
 # TASKS
 def task(cmd, text, restr=None):
@@ -134,17 +194,24 @@ elif variant == "G":             # G: restricted #met -- silent skip or loud?
     task("#met", "CHARTASK FIRED.", restr=(2, "METFAIL."))
     task("xyzzygate", "GATE DONE.")
     chartask = 1
-else:                            # C/D/H: no wildcard -- walk wiring only
+elif variant == "M":             # M: ObjectTask, no CharTask
+    s(1)
+    task("#metobj", "OBJTASK FIRED.")
+    chartask = 0
+else:                            # C/D/H/K/L: no wildcard -- walk wiring only
     s(1)
     task("#met", "CHARTASK FIRED.")
     chartask = 1
 
-# D/E/F/G/H: visible looping walk (a 1-stop walk never runs in the Runners).
-looped = variant in ("D", "E", "F", "G", "H")
+# D/E/F/G/H/K: visible looping walk (a 1-stop walk never runs in the Runners).
+looped = variant in ("D", "E", "F", "G", "H", "K", "L", "M")
 
-# How many turns the walker stays at each stop.  Only H uses a stay longer
-# than one turn -- that is the whole point of H.
-times = (3, 2) if variant == "H" else (1, 1)
+# How many turns the walker stays at each stop.  Only H/K use a stay longer
+# than one turn -- that is the whole point of them.
+times = (3, 2) if variant in ("H", "K", "L", "M") else (1, 1)
+
+# K: stop 0 is "follow player" (walk Rooms value 1) instead of a fixed room.
+first_stop = 1 if variant == "K" else 2
 
 # EVENTS
 s(0)
@@ -164,12 +231,12 @@ s(2 if looped else 1)    # NumStops
 s(1 if looped else 0)    # Loop
 s(0)                     # StartTask (0 = start at game start)
 s(chartask)              # CharTask (1-based task index of #met)
-s(0)                     # MeetObject
-s(0)                     # ObjectTask
+s(1 if variant == "M" else 0)  # MeetObject (1-based dynamic-object index)
+s(1 if variant == "M" else 0)  # ObjectTask
 s(0)                     # StoppingTask
 s(0)                     # MeetChar (0 = the player)
 s("")                    # ChangedDesc
-s(2)                     # Rooms[0]: 0=hidden 1=follow n+2=room n -> room 0
+s(first_stop)            # Rooms[0]: 0=hidden 1=follow n+2=room n -> room 0
 s(times[0])              # Times[0]
 if looped:
     s(3)                 # Rooms[1]: room 1 (Far Room)

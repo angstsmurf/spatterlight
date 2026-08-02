@@ -778,27 +778,33 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED under the FIXED scr_randomint mapping (2026-08-02:
-# the route now runs WITHOUT SCR_LEGACY_RANDMAP, at SCR_SEED=13 -- the upstream
-# through `press stone button` is seed-robust, ~1 in 26 seeds run it clean).
+# DAMASTUS chase RE-DERIVED after the follow-player walk-stop fix (2026-08-02:
+# followers warp to the player only on walk arrival ticks, per live run400/
+# run390 probes K/L -- the every-tick trailing is gone, which re-threaded the
+# walkers' RNG engine-wide).  Now at SCR_SEED=1.  Upstream clean at seed 1 (room 157, score 560, Damastus alive).
 # Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him. He dies at room 162, stamina 29, and one step e walks
-# 162 -> 151 for the bronze button. Re-derive with
-# harness/shadowpeak_chase.py if upstream turns change again.
-e
-e
-e
-e
-e
-e
+# BFS-step toward him.  Damastus dies in room 157, stamina 50.
+# Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
+s
+s
+s
+s
+s
+n
 attack damastus
+n
 attack damastus
-w
+n
+attack damastus
+n
+attack damastus
+n
 attack damastus
 e
-attack damastus
-w
-attack damastus
+e
+e
+e
+e
 e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg

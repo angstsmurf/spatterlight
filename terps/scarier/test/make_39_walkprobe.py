@@ -42,6 +42,18 @@ task, meeting the player on arrival.
                      H) showed run400 running the CharTask on the arrival turn
                      only; this asks the same of run390, whose walk dispatch
                      is otherwise a different code path.
+    pWKL             like H (fixed stops, Times = 3 / 2) but the rooms are
+                     joined north/south (as in J): does the PLAYER moving
+                     into the room of a mid-stay walker fire the CharTask?
+                     run400 fires it (probe L, live 2026-08-02), at every
+                     stop of the walk.  Session: z n s z z z n s z.
+    pWKK             FOLLOW-PLAYER stop: like H (Times = 3 / 2) but stop 0 is
+                     "follow player" (Rooms value 1) and the rooms are joined
+                     north/south (as in J) so the player can move mid-stay.
+                     Distinguishes: CharTask every co-located tick (Scarier
+                     today), counter-arrival only (the fixed-room rule), or
+                     on genuine movement (a follow catch-up also fires).
+                     Session: z z z z z z n s z.
 
 Session for both: z / z / z (the wildcard eats each typed command; the walk
 arrives on its own schedule).
@@ -117,7 +129,7 @@ def room(short, exits=()):
     s(0)                 # HideOnMap
 
 s(2)
-if variant == "J":
+if variant in ("J", "K", "L"):
     room("Probe Room", {0: 2})   # north -> Far Room
     room("Far Room", {2: 1})     # south -> Probe Room
 else:
@@ -166,7 +178,7 @@ elif variant == "G":             # G: restricted #met -- silent skip or loud?
     task("#met", "CHARTASK FIRED.", restr=(2, "METFAIL."))
     task("xyzzygate", "GATE DONE.")   # never typed, never completed
     chartask = 1
-else:                            # C/D/H/I/J: no wildcard -- walk wiring only
+else:                            # C/D/H/I/J/K/L: no wildcard -- walk wiring only
     s(1)
     task("#met", "CHARTASK FIRED.")
     chartask = 1
@@ -174,13 +186,16 @@ else:                            # C/D/H/I/J: no wildcard -- walk wiring only
 # D/E/F: the walk is visible (enter/exit + in-room texts) and loops between
 # the two rooms.  A 1-stop non-looping walk (A/B/C) never runs in the real
 # 3.9 Runner, so the dispatch variants use the looped shape.
-looped = variant in ("D", "E", "F", "G", "H", "I", "J")
+looped = variant in ("D", "E", "F", "G", "H", "I", "J", "K", "L")
 
 # I: the walk is looping and visible, but ShowEnterExit is off.
 show_enterexit = variant != "I"
 
-# How many turns the walker stays at each stop -- only H stays longer than one.
-times = (3, 2) if variant == "H" else (1, 1)
+# How many turns the walker stays at each stop -- only H/K stay longer than one.
+times = (3, 2) if variant in ("H", "K", "L") else (1, 1)
+
+# K: stop 0 is "follow player" (walk Rooms value 1) instead of a fixed room.
+first_stop = 1 if variant == "K" else 2
 
 # EVENTS
 s(0)
@@ -204,7 +219,7 @@ s(0)                     # MeetObject
 s(0)                     # ObjectTask
 s(0)                     # StoppingTask
 s("")                    # ChangedDesc
-s(2)                     # Rooms[0]: 0=hidden 1=follow n+2=room n -> room 0
+s(first_stop)            # Rooms[0]: 0=hidden 1=follow n+2=room n -> room 0
 s(times[0])              # Times[0]
 if looped:
     s(3)                 # Rooms[1]: room 1 (Far Room)

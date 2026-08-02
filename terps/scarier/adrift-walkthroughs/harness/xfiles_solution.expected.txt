@@ -590,6 +590,9 @@ to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 Also here is VW Van.
+Langly is here.
+
+Byers, Frohike and Skinner are here.
 
 You can move south, in and southwest.
 
@@ -615,7 +618,7 @@ to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 Also here is VW Van.
-Langly is here.   You notice a man sitting alone in a dark car.
+Langly is here.
 
 Byers, Frohike and Skinner are here.
 
