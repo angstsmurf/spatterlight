@@ -23,6 +23,18 @@ air.
 Next to the brick building stands a green dumpster.  A large pile of plastic
 trash bags and newspapers sits across from the dumpster.
 
+>You open the large green metal dumpster.  Inside the large green metal
+dumpster is a scrawny black cat and the dumpster trash.
+
+Your stomach growls with hunger.
+
+>(Your score has increased by 5)
+Without remorse, you snatch the cat out of the dumpster and begin to dine.
+You barely notice its complaints.  Your hunger subsides ever so much.  When
+you are done, you feel the hunger return...
+
+Your stomach growls with hunger.
+
 >(Your score has increased by 5)
 Sifting through the trash, a thin man scrambles to escape your search.
 However, you catch him by the shoulder and throw him down.  Before you know
@@ -31,10 +43,47 @@ significantly.  When you are done, you feel your hunger returning...
 
 Your stomach growls with hunger.
 
->Eat what cat?
+>Your score is 10 out of a maximum of 10.  (100%)
+
+>Time passes...
 
 A sharp pain in your stomach indicates your hunger.
 
->Your score is 5 out of a maximum of 10.  (50%)
+>Time passes...
 
->Do you really want to quit? [Y/N]
+A sharp pain in your stomach indicates your hunger.
+
+>Time passes...
+
+Moaning in pain, you cannot consider anything other than finding food.
+
+>Time passes...
+
+Moaning in pain, you cannot consider anything other than finding food.
+
+>Time passes...
+
+You beg for release from the unrelenting hunger.
+
+>Time passes...
+
+The hunger burns for the sensation of fresh flesh.
+
+>Time passes...
+
+The hunger burns for the sensation of fresh flesh.
+
+>Time passes...
+
+The pain of hunger is so great you consider eating your arms.
+
+>Time passes...
+
+The pain of hunger is so great you consider eating your arms.
+
+>Time passes...
+
+With great ainguish, the hunger brings you to your knees.  Desperately you
+attempt to get up but without the strength.  Your hunger pains eat you from
+the inside out...  You didn't find the flesh you desperately sought.
+I'm afraid you are dead!
