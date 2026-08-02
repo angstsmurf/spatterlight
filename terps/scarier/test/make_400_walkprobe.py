@@ -10,6 +10,11 @@ matching its direct event-task execution.
 
     A (default)   task 1 = `*`, task 2 = `#met`, CharTask=2 (steal test)
     B (control)   task order swapped, CharTask=1
+    H             multi-turn stay: Times = 3 in the player's room, 2 away.
+                  Scarier runs the CharTask on every co-located tick (the
+                  check sits outside the `start != dest` guard in
+                  npc_tick_npc_walk); if run400 fires it only on the arrival
+                  turn, that guard is missing.
 
 Output is the PLAIN body only; produce a Runner-valid .taf with:
 
@@ -129,13 +134,17 @@ elif variant == "G":             # G: restricted #met -- silent skip or loud?
     task("#met", "CHARTASK FIRED.", restr=(2, "METFAIL."))
     task("xyzzygate", "GATE DONE.")
     chartask = 1
-else:                            # C/D: no wildcard -- walk wiring only
+else:                            # C/D/H: no wildcard -- walk wiring only
     s(1)
     task("#met", "CHARTASK FIRED.")
     chartask = 1
 
-# D/E/F/G: visible looping walk (a 1-stop walk never runs in the Runners).
-looped = variant in ("D", "E", "F", "G")
+# D/E/F/G/H: visible looping walk (a 1-stop walk never runs in the Runners).
+looped = variant in ("D", "E", "F", "G", "H")
+
+# How many turns the walker stays at each stop.  Only H uses a stay longer
+# than one turn -- that is the whole point of H.
+times = (3, 2) if variant == "H" else (1, 1)
 
 # EVENTS
 s(0)
@@ -161,10 +170,10 @@ s(0)                     # StoppingTask
 s(0)                     # MeetChar (0 = the player)
 s("")                    # ChangedDesc
 s(2)                     # Rooms[0]: 0=hidden 1=follow n+2=room n -> room 0
-s(1)                     # Times[0]
+s(times[0])              # Times[0]
 if looped:
     s(3)                 # Rooms[1]: room 1 (Far Room)
-    s(1)                 # Times[1]
+    s(times[1])          # Times[1]
 if looped:
     s(1)                 # ShowEnterExit
     s("BOB ENTERS.")     # EnterText

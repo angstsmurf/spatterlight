@@ -341,8 +341,6 @@ Vluurinik flits around.
 
 You can only move in.
 
-Vluurinik flies off.
-
 >You drop the bowl.
 
 >You pause a moment...

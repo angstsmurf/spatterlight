@@ -53,7 +53,7 @@ This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
 
-Kitty saunters in from the east.
+Kitty slinks in from the east.
 
 >You move west.
 Judy's bedroom
@@ -83,7 +83,7 @@ Judy's bedroom is to the west. The hallway continues to the south.
 
 David is here.
 
-David leaves to the north.
+David exits to the north.
 
 >You move south.
 Outside den
@@ -123,8 +123,6 @@ Judy is here, whistling happily.
 >You open the leather purse.  A set of car keys is inside the leather purse.
 
 >You take the set of car keys from the leather purse.
-
-Judy moves on.
 
 >You move north.
 Kitchen
@@ -187,7 +185,7 @@ and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
 
-David sashays in from the north-east.
+David comes in from the north-east.
 
 >You move northeast.
 Entrance hall
@@ -243,8 +241,6 @@ Putting the horn to her lips she plays a little ditty.
 >You don't have the Monette trumpet!
 
 >You don't have the Monette trumpet!
-
-Judy leaves.
 
 >Give what?
 
@@ -447,18 +443,16 @@ hall is to the south-east.
 Also here is a chess table.
 
 >(Your score has increased by 1)
-David strolls into the room.  You two sit down and play chess. You lost the
-game.  Too bad.  Better luck next time!
+David strolls into the room.  You two sit down and play chess. You won the
+game.  Congratulations!
 
 Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
 
->You and David play a game of chess. You lost the game.  Too bad.  Better luck
-next time!
+>You and David play a game of chess. You won the game.  Congratulations!
 
 Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
 
->You and David play a game of chess. You lost the game.  Too bad.  Better luck
-next time!
+>You and David play a game of chess. You won the game.  Congratulations!
 
 Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
 

@@ -2521,35 +2521,26 @@ Seeker hums!
 Seeker hums!
 
 >You stab Haraxis with the sword.
-Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >Time passes...
-Seeker hums!
 
 >You stab Haraxis with the sword.
-Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >Time passes...
-Seeker hums!
 
 >You stab Haraxis with the sword.
-Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >Time passes...
-Seeker hums!
 
 >You stab Haraxis with the sword.
-Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >Time passes...
-Seeker hums!
 
 >You stab Haraxis with the sword.
-Seeker hums!
 Haraxis hits you.
 
 >Time passes...
@@ -2575,7 +2566,6 @@ Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >Time passes...
-Seeker hums!
 
 >(Your score has increased by 30)
 You stab Haraxis with the sword.
@@ -4082,7 +4072,6 @@ Berto, the bald raven, is here.
 You can move north, east, south, west, up and down.
 
 Gargoyle #1 flies in from below.
-Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
 Melvin pulls his underwear out of his bottom. "Mmm, they will keep doing
 that," he says.
@@ -4735,7 +4724,6 @@ to do any damage.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >Time passes...
-Seeker hums!
 Seeker hums!
 Fang attacks you with the fine set of teeth in its muzzle, but you manage to
 avoid it.

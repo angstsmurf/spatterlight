@@ -23,6 +23,25 @@ task, meeting the player on arrival.
     pWKB (control)   same but task order swapped (CharTask=1): #met is first
                      in list order, so it fires under either model -- proves
                      the walk itself is wired correctly.
+    pWKI             like D (Times=1 looping two-stop walk) but with
+                     ShowEnterExit OFF, so the Runner uses its own random
+                     arrival/departure messages instead of authored ones.
+                     run390 prints no authored ExitText on a leave turn (seen
+                     in wkE_390 and again in pWKH39); this asks whether it
+                     announces departures AT ALL, or only skips the authored
+                     form -- 3.9 corpus games like "Melbourne Beach" do show
+                     "David leaves to the north.", which is the default form.
+    pWKJ             like D, but the two rooms are joined north/south.  The
+                     leave announcement names a direction only when a room
+                     exit leads to where the NPC went, and in the exit-less
+                     probes run390 printed no leave line at all -- so this
+                     separates "run390 never prints authored ExitText" from
+                     "run390 skips a leave it cannot give a direction for".
+    pWKH             multi-turn stay: Times = 3 in the player's room, 2 away,
+                     no wildcard.  The 4.0 twin of this (make_400_walkprobe.py
+                     H) showed run400 running the CharTask on the arrival turn
+                     only; this asks the same of run390, whose walk dispatch
+                     is otherwise a different code path.
 
 Session for both: z / z / z (the wildcard eats each typed command; the walk
 arrives on its own schedule).
@@ -72,12 +91,22 @@ s(0)                     # Graphics
 s(0)                     # iUnk1
 s(0)                     # iUnk2
 
-# ROOMS -- two rooms, no exits (the NPC walk teleports by stop list).
-def room(short):
+# ROOMS -- two rooms.  Normally with no exits (the NPC walk teleports by stop
+# list); variant J wires north/south between them, because npc_announce names a
+# direction only when a room exit leads to where the NPC came from / went to.
+def room(short, exits=()):
     s(short)             # Short
     s("LONG.")           # Long
     s("")                # LastDesc
-    for _ in range(8): s(0)  # exits (4-point compass -> 8 slots)
+    # Exits (4-point compass -> 8 slots: N E S W up down in out).  A slot is a
+    # single 0 for "no exit", else Dest (1-based room) Var1 Var2 -- ZVar3 is
+    # not stored in 3.9 files.
+    for slot in range(8):
+        dest = dict(exits).get(slot)
+        if dest is None:
+            s(0)
+        else:
+            s(dest); s(0); s(0)
     s("")                # AddDesc1
     s(0)                 # Task1
     s("")                # AddDesc2
@@ -88,8 +117,12 @@ def room(short):
     s(0)                 # HideOnMap
 
 s(2)
-room("Probe Room")
-room("Far Room")
+if variant == "J":
+    room("Probe Room", {0: 2})   # north -> Far Room
+    room("Far Room", {2: 1})     # south -> Probe Room
+else:
+    room("Probe Room")
+    room("Far Room")
 
 # OBJECTS -- none.
 s(0)
@@ -133,7 +166,7 @@ elif variant == "G":             # G: restricted #met -- silent skip or loud?
     task("#met", "CHARTASK FIRED.", restr=(2, "METFAIL."))
     task("xyzzygate", "GATE DONE.")   # never typed, never completed
     chartask = 1
-else:                            # C/D: no wildcard at all -- walk wiring only
+else:                            # C/D/H/I/J: no wildcard -- walk wiring only
     s(1)
     task("#met", "CHARTASK FIRED.")
     chartask = 1
@@ -141,7 +174,13 @@ else:                            # C/D: no wildcard at all -- walk wiring only
 # D/E/F: the walk is visible (enter/exit + in-room texts) and loops between
 # the two rooms.  A 1-stop non-looping walk (A/B/C) never runs in the real
 # 3.9 Runner, so the dispatch variants use the looped shape.
-looped = variant in ("D", "E", "F", "G")
+looped = variant in ("D", "E", "F", "G", "H", "I", "J")
+
+# I: the walk is looping and visible, but ShowEnterExit is off.
+show_enterexit = variant != "I"
+
+# How many turns the walker stays at each stop -- only H stays longer than one.
+times = (3, 2) if variant == "H" else (1, 1)
 
 # EVENTS
 s(0)
@@ -166,11 +205,11 @@ s(0)                     # ObjectTask
 s(0)                     # StoppingTask
 s("")                    # ChangedDesc
 s(2)                     # Rooms[0]: 0=hidden 1=follow n+2=room n -> room 0
-s(1)                     # Times[0]
+s(times[0])              # Times[0]
 if looped:
     s(3)                 # Rooms[1]: room 1 (Far Room)
-    s(1)                 # Times[1]
-if looped:
+    s(times[1])          # Times[1]
+if looped and show_enterexit:
     s(1)                 # ShowEnterExit
     s("BOB ENTERS.")     # EnterText
     s("BOB LEAVES.")     # ExitText

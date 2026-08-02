@@ -2530,28 +2530,21 @@ Haraxis, the giant spider, is here.
 
 You can only move down.
 Seeker hums!
-Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >You stab Haraxis with the sword.
-Seeker hums!
 
 >Time passes...
-Seeker hums!
 Haraxis hits you.
 
 >You stab Haraxis with the sword.
-Seeker hums!
 
 >Time passes...
-Seeker hums!
 Haraxis hits you.
 
 >You stab Haraxis with the sword.
-Seeker hums!
 
 >Time passes...
-Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 >You stab Haraxis with the sword.
@@ -2573,15 +2566,12 @@ Seeker hums!
 Haraxis hits you.
 
 >Time passes...
-Seeker hums!
 
 >You stab Haraxis with the sword.
 The salt slips through your fingers.
-Seeker hums!
 Haraxis hits you.
 
 >Time passes...
-Seeker hums!
 
 >(Your score has increased by 30)
 You stab Haraxis with the sword.
@@ -3606,7 +3596,6 @@ You can move north, east, south, west, up and down.
 Gargoyle #1 flies in from the west.
 
 Melvin waddles in from the west.
-Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
@@ -4609,7 +4598,6 @@ You stand amidst the Shadow Forest.
 Fang is here.
 
 You can move north, east, south, west, southwest and northwest.
-Seeker hums!
 Seeker hums!
 Fang attacks you with the fine set of teeth in its muzzle, but you manage to
 avoid it.

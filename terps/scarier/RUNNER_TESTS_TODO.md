@@ -394,13 +394,39 @@ What was actually established, each verified live:
 Residual small divergences, noted not fixed: run390 appends task text to
 `i`/inventory output where Scarier lets the wildcard replace it; the Runner
 substitutes the player's name with second-person verb forms ("Player drop the
-cloak."); and the ALR-over-joined-paragraph difference above.  From the walk
-probes (2026-08-01, unprobed further): run390 prints no ExitText on a walker's
-leave turns (wkE_390 shows only the ENTER lines; run400 prints both, as
-Scarier does); and Scarier re-fires a walk's CharTask on every co-located tick
-of a multi-turn stay (Times > 1, or a follow-player walk) where run400 fires
-only on the exact boundary turn -- invisible with the corpus's Times=1 walks.
+cloak."); and the ALR-over-joined-paragraph difference above.
 
+- [x] **A multi-turn stop runs its walk's CharTask/ObjectTask on the arrival
+      turn only — settled live 2026-08-02** (walk probe variant H in both
+      generators: Times = 3 in the player's room, 2 away, no wildcard).  Both
+      run400 and run390 fire `CHARTASK FIRED.` on the turn the walk counter
+      hits that step's suffix-sum and never again during the stay: the 4.0
+      probe fires on turns 1 and 6 of a five-turn cycle, and the 3.9 probe
+      shows Bob examinable on turns 2-4, gone on turn 5, back with the task on
+      turn 6.  Scarier used to fire on every co-located tick.  Fixed in
+      `npc_tick_npc_walk` with an `is_arrival` gate that is deliberately
+      narrow: it covers **fixed-room stops only**.  A roomgroup stop does not
+      behave this way -- "Ticket to No Where"'s lost girl wanders a roomgroup
+      on a single Times=4 stop and live run400 has her speak on consecutive
+      turns, i.e. the whole step re-runs every tick -- so roomgroup and
+      follow-player (unprobed) stops keep the every-tick behaviour.  Corpus
+      fallout: four rows re-blessed (shadowpeak ×3 lose repeated "Seeker
+      hums!" lines, melbourne_beach shifts RNG).
+- [x] **run390 drops a walker's leave announcement when it cannot name a
+      direction — settled live 2026-08-02** (3.9 walk probes H and J).  The
+      earlier note "run390 prints no ExitText at all" was wrong: with the two
+      probe rooms unconnected run390 prints `Bob BOB ENTERS..` on arrival and
+      *nothing* on departure, but with the same walk over rooms joined
+      north/south it prints both `BOB ENTERS. from the north.` and
+      `BOB LEAVES. to the north.`.  Since a walk's stops are room indexes
+      rather than exits, a walker can step between rooms that share no exit,
+      and the pre-4.0 Runner suppresses the leave line for exactly that case
+      (arrivals still print, directionless).  run400 prints the directionless
+      leave line, so this is version-gated in `npc_announce`.  Corpus
+      exposure, all re-blessed: "Melbourne Beach" (Judy, twice), "Lair of the
+      CyberCow" (Vluurinik) and "thetest" (the Robot Guard, six times).
+      Melbourne's enter/exit texts are `%jwalksin%`-style variables resolved
+      through ALRs, which is why the live Runner's departure verbs vary.
 - [x] **Walk CharTask/ObjectTask dispatch is wildcard-interceptable in the
       3.9 Runner, and a direct run in the 4.0 Runner — settled live
       2026-08-01** (`test/make_39_walkprobe.py` / `test/make_400_walkprobe.py`,

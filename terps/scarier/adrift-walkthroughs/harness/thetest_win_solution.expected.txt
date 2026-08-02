@@ -829,8 +829,6 @@ Robot Guard hits you with the robot's chain.
 >You shout 1 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
 
-Robot Guard stamps out.
-
 >Why shout numbers now?
 
 >Why shout numbers now?
@@ -875,8 +873,6 @@ Robot Guard hits you with the robot's chain.
 
 >You shout 3 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
-
-Robot Guard stamps out.
 
 >Why shout numbers now?
 
@@ -923,8 +919,6 @@ Robot Guard hits you with the robot's chain.
 >You shout 6 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
 
-Robot Guard stamps out.
-
 >Why shout numbers now?
 
 >Why shout numbers now?
@@ -969,8 +963,6 @@ Robot Guard hits you with the robot's chain.
 
 >You shout 10 at the robot but it ignores you.  However, when you starting
 shouting it looked slightly afraid.
-
-Robot Guard stamps out.
 
 >Why shout numbers now?
 
@@ -1018,8 +1010,6 @@ Robot Guard hits you with the robot's chain.
 >Hey!  The secret calculator task is calculate triangle (number).  And also
 the robot guard just dropped his key.  Just thought you ought to know.
 
-Robot Guard stamps out.
-
 >You pick up yet another key.
 
 >You pick up the portable teleporter.
@@ -1060,8 +1050,6 @@ Robot Guard hits you with the robot's chain.
 >As I said, its broken.  The entire destination circuit has been broken off.
 But as I told you it might still work, here it goes.  Colours swirl around
 you.  Then you arrive.
-
-Robot Guard stamps out.
 
 >
 Morse Room

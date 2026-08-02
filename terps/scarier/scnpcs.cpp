@@ -388,6 +388,25 @@ npc_announce (scr_gameref_t game, scr_int npc,
         }
     }
 
+  /*
+   * A walk's stops are room indexes, not exits, so a walker can step between
+   * rooms that share no exit -- and then there is no direction to name.  The
+   * pre-4.0 Runner reacts to that by dropping the *leave* announcement
+   * altogether, while still printing the arrival one without a direction
+   * (run390 walk probes H and J, live 2026-08-02: with the two probe rooms
+   * unconnected only "Bob BOB ENTERS.." appears, but once they are joined
+   * north/south both "BOB ENTERS. from the north." and "BOB LEAVES. to the
+   * north." do).  run400 prints the directionless leave line (walk probe H
+   * against run400, same day), so this is a pre-4.0 suppression; 3.8 games run
+   * under the same 3.9 Runner and are assumed to share it.
+   *
+   * Corpus exposure is three games: "Melbourne Beach" (Judy), "Lair of the
+   * CyberCow" (Vluurinik) and "thetest" (the Robot Guard) all walk between
+   * rooms that share no exit while the player watches.
+   */
+  if (is_exit && !found && npc_version (game) < TAF_VERSION_400)
+    return;
+
   /* Print NPC exit/entry details. */
   pf_buffer_character (filter, '\n');
   pf_new_sentence (filter);
@@ -422,6 +441,7 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   scr_vartype_t vt_key[6];
   scr_int roomgroups, movetimes, walkstep, start, dest, destnum;
   scr_int chartask, objecttask;
+  scr_bool is_arrival;
 
   if (npc_trace)
     {
@@ -452,6 +472,29 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
         break;
     }
 
+  /*
+   * A stop lasting several turns is only *arrived at* on the turn the
+   * counter hits that step's suffix-sum exactly; the turns after it are the
+   * NPC standing around.  The Runner runs the walk's CharTask/ObjectTask
+   * from its arrival handler, so a multi-turn stay at a fixed room fires
+   * them once, not once per turn (run400 walk probe H, live 2026-08-02:
+   * Times = 3 in the player's room, 2 away, `CHARTASK FIRED.` on the arrival
+   * turn only, and again five turns later when the loop brings Bob back).
+   * Scarier used to fire on every co-located tick.
+   *
+   * The gate is deliberately narrow: only a fixed-room stop is probed, and
+   * only that shape behaves this way.  A roomgroup stop does NOT -- in
+   * "Ticket to No Where" the lost girl wanders a roomgroup on a single
+   * Times=4 stop, and live run400 has her speak on two consecutive turns per
+   * cycle and move on consecutive turns, i.e. it re-runs the whole walk step
+   * every tick rather than once per stay.  Firing every tick is what Scarier
+   * already does there, so leave roomgroup (and follow-player, unprobed)
+   * stops alone.
+   */
+  vt_key[5].integer = walkstep;
+  is_arrival = gs_npc_walkstep (game, npc, walk)
+               == prop_get_integer (bundle, "I<-sisisi", vt_key);
+
   /* Sort out a destination. */
   dest = start = gs_npc_location (game, npc) - 1;
 
@@ -460,14 +503,22 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   destnum = prop_get_integer (bundle, "I<-sisisi", vt_key);
 
   if (destnum == 0)          /* Hidden. */
-    dest = -1;
+    {
+      dest = -1;
+      is_arrival = TRUE;
+    }
   else if (destnum == 1)     /* Follow player. */
-    dest = gs_playerroom (game);
+    {
+      dest = gs_playerroom (game);
+      is_arrival = TRUE;
+    }
   else if (destnum < gs_room_count (game) + 2)
     dest = destnum - 2;      /* To room. */
   else if (destnum < gs_room_count (game) + 2 + roomgroups)
     {
       scr_int initial;
+
+      is_arrival = TRUE;
 
       /* For roomgroup walks, move only if walksteps has just refreshed. */
       vt_key[4].string = "MoveTimes";
@@ -502,7 +553,10 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
         npc_announce (game, npc, dest, FALSE, start);
     }
 
-  /* Handle meeting characters and objects. */
+  /* Handle meeting characters and objects -- arrival turns only. */
+  if (!is_arrival)
+    return;
+
   vt_key[4].string = "CharTask";
   chartask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
   if (chartask >= 0)
