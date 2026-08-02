@@ -1,0 +1,23 @@
+# SE: Wreckage (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 50/50, full marks.
+# Five +10 ChangeScore tasks, in the only order the restrictions allow:
+#   open the hatch while WEARING the suit  (task 10; without it, task 9 kills you)
+#   attach the cable to the suit           (task 11; also cancels event 1, the
+#                                           "drifted too far from the pod" death)
+#   turn the repairbot on                  (task 13; needs it held AND state 1 --
+#                                           "reset the repairbot" alone does not
+#                                           parse, the pattern requires "on")
+#   tell the repairbot to cut the tong     (task 6; needs the bot in state 0)
+#   use the computer                       (task 14; needs task 6 done, then
+#                                           execs task 3 "#WINNING TEXT")
+# The pod is falling into the star on a turn counter (variable 2, checked every
+# turn by tasks 1/2), so the route stays short.
+open compartment
+take suit
+wear suit
+open hatch
+attach cable to suit
+take repairbot
+turn on the repairbot
+tell repairbot to cut the tong
+in
+use the computer

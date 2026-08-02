@@ -1,0 +1,14 @@
+# Vagabond (Scott Meridian, 2004) -- ADRIFT 4.0, 1-Hour Game Comp.
+# WIN 1/1.  Route is the game's own built-in `walkthru` command, verified live.
+# The leading blank line answers the "[Press any key to begin]" title pause.
+
+west
+north
+west
+give credits to bum
+open toolbox
+get torch
+east
+east
+remove grate
+enter vent

@@ -1,0 +1,18 @@
+# Agent 4-F from Mars (1-Hour Game Comp) -- ADRIFT 4.0.  WIN, 0/0.
+# Almost a cutscene: the intro execs task 3 "# introscreen 4 #", which starts
+# event 2 "## lude 1 ##" (2 turns) -> task 9, which starts event 3 (3 turns) ->
+# task 10, which starts event 4 (3 turns) -> task 11 "## interlude 3 ##", and
+# task 11 is the one that moves you to room 1 "back on mars".  There, task 14
+# has the catch-all pattern [*] and is the EndGame(win): the very next command,
+# whatever it is, prints "Congratulations!".
+# So the whole game is four turns of nothing followed by one more.
+# The one thing you must NOT do is `push the red button` (task 4): it arms
+# event 1 "# AUTO DESTRUCT #", and task 6 "## chekkTNT ##" then EndGame(stop)s
+# you two turns later, before the interlude chain can finish.  `tighten the
+# restraint` is the game's other red herring -- the text later tells you the
+# fibroid restraint was useless anyway -- and it does not affect the timing.
+tighten restraint
+z
+z
+z
+z

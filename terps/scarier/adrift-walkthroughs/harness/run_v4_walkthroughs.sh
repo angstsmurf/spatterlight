@@ -153,6 +153,22 @@ to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now rule
 villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 13 out of a maximum of 37.
 villains_and_kings_assisted_solution.txt|Villains_And_Kings.taf|Your score is 30 out of a maximum of 37.|SCR_ASSUME_COMBAT=1
 wes_ghn_solution.txt|WesGHN.taf|Your score is 30 out of a maximum of 100.
+# The eleven .taf files that were sitting in games/ unwired (2026-08-02).  Nine
+# are winnable and use the game's own victory text as the marker; Invasion of
+# the Second-Hand Shirts has no EndGame action anywhere in its task table, so
+# its row is a tour to the last room.  (Woof prints "My score", not "Your
+# score" -- the corpus's usual tour marker would not have matched.)
+argh_solution.txt|ARGH_sGreatEscape.taf|Congratulations!
+spam_solution.txt|SPAM.taf|Spam King
+wreckage_solution.txt|Wreckage.taf|you've rescued yourself
+vagabond_solution.txt|Vagabond.taf|The End
+woof_solution.txt|Woof.taf|I'm back.
+undefined_solution.txt|Undefined1.taf|An end is defined.
+ecod3_solution.txt|ECOD3.taf|Congratulations!
+goblinhunt_solution.txt|goblinhunt.taf|Congratulations!
+agent4f_solution.txt|agent_4F[1].A.taf|Congratulations!
+invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
+adriftorama_solution.txt|adriftorama.taf|*****You Win!*****
 EOF
 }
 

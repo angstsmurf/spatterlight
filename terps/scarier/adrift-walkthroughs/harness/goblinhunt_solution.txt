@@ -1,0 +1,55 @@
+# Goblin Hunt -- ADRIFT 4.0.  WIN, 0/0 (the game keeps no score).
+# Task 25 `kill blood` at the Graveyard Gates, holding the shield, is the
+# EndGame(win) (ACT type=6 v1=0); it prints "Congratulations!".
+# The blank lines are NOT padding -- each one answers a "...press a key..."
+# pause: three for the intro, three for the knock-on-the-hut sequence, one
+# after Bert hands over the shield, and one for Blood's first ambush.
+# Route:
+#   n                 (task 0: enter Graveyard - South; Blood runs off north)
+#   x gravestone      (task 1: yields the whistle)
+#   nw, ne            (to Graveyard - North the long way round -- `n` from the
+#                      south graveyard is task 16, which walks you straight into
+#                      the Centre and the armour check before you have any)
+#   knock door        (task 6: Bert drags you into the hut)
+#   talk bert x9      (tasks 7-15; only the ninth hands over the shield)
+#   se, e             (to the Cow Field)
+#   blow whistle      (task 2: scatters the cows)
+#   x corpse          (task 4: yields the armour)
+#   wear armour       (task 21's restriction is `worn`, not `held` -- carrying it
+#                      is not enough, and task 22 then EndGame(kill)s you)
+#   w, w              (task 18 -> Graveyard - Centre, which execs task 20
+#                      "- reach centre" and Blood's ambush)
+#   s, s              (task 23 needs task 21 done; it drops you at the Gates)
+#   kill blood        (task 25)
+
+
+
+n
+x gravestone
+nw
+ne
+knock door
+
+
+
+talk bert
+talk bert
+talk bert
+talk bert
+talk bert
+talk bert
+talk bert
+talk bert
+talk bert
+
+se
+e
+blow whistle
+x corpse
+wear armour
+w
+w
+
+s
+s
+kill blood

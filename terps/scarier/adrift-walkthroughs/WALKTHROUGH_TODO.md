@@ -8,6 +8,63 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-08-02 — the eleven unwired `.taf` in `games/` — ALL WIRED — 87/87 PASS
+
+The coverage audit against ScummVM's `engines/glk/adrift/detection_tables.h`
+(md5 over the first 5000 bytes, `engines/glk/detection.cpp:250`) turned up
+twelve `.taf` sitting in `games/` with no regression row. One (`BeThere.taf`)
+is ADRIFT 5 and already covered by `test/run_a5_walkthroughs.sh`; the other
+eleven are now derived, wired and blessed. **Ten are wins**, one is a tour:
+
+| row | file | result |
+|---|---|---|
+| `argh_solution.txt` | ARGH_sGreatEscape.taf | ★ WON |
+| `spam_solution.txt` | SPAM.taf | ★ WON |
+| `wreckage_solution.txt` | Wreckage.taf | ★ WON |
+| `vagabond_solution.txt` | Vagabond.taf | ★ WON |
+| `woof_solution.txt` | Woof.taf | ★ WON, **30/30 MAX** |
+| `undefined_solution.txt` | Undefined1.taf | ★ WON, **3/3 MAX** |
+| `ecod3_solution.txt` | ECOD3.taf (**3.9**) | ★ WON |
+| `goblinhunt_solution.txt` | goblinhunt.taf | ★ WON |
+| `agent4f_solution.txt` | agent_4F[1].A.taf | ★ WON |
+| `adriftorama_solution.txt` | adriftorama.taf | ★ WON |
+| `invasion_shirts_solution.txt` | Invasion of the Second-Hand Shirts.taf | tour row (no `EndGame` in the data at all) |
+
+Things worth keeping:
+
+- **`adriftorama_walkthrough.md` was wrong** and is rewritten. The game *is*
+  completable; the win is **not** an `EndGame` — task 26 `#Campbell's Hole`
+  just moves you to room 19 `THE END`, whose description is `*****You Win!*****`.
+  The only `ACT type=6` in the file is task 48 `#Kill Campbell`, a **lose**.
+  Grepping for `type=6 v1=0` alone will mis-triage this class of game.
+  Its mechanic is also non-obvious: **`put ball on marker` before every
+  `hit ball`** (the marker is a SURFACE, obj 11) — with the ball in hand the
+  swing falls through to a per-room "<name> CLUB" joke task. Event 0 re-rolls
+  ~95 variables every turn, so each putt is a dice roll; 30 cycles clear holes
+  1–17 under the fixed seed (bisected: 29 fails), `guess the verb` clears Guess
+  the Verb Mountain, one more cycle sinks Campbell's.
+- **`SCR_TAG_WAITKEY` does not skip comments.** `os_read_line` skips `#` lines
+  unconditionally (`os_ansi.cpp:274`), but the waitkey path is a raw `fgets`
+  (`os_ansi.cpp:133`), so a press-a-key pause happily eats a comment line. The
+  corpus convention of explicit blank lines is what makes goblinhunt (3+3+1+1
+  pauses) and invasion (2 `[More]` pauses) reproducible; miscount and the next
+  command is silently swallowed.
+- **Wildcard tasks earlier in the table steal commands.** `define you` in
+  *Undefined* scores nothing because task 1's `[* you *]` sits above task 4;
+  `define voice` is the way in.
+- **Worn ≠ held.** Goblin Hunt's task 21 restricts on the armour's *worn*
+  state; carrying it drops you into task 22, an `EndGame(kill)`.
+- **`the` is not a free optional word.** Invasion's task 8 is
+  `{go/goto/move} {cross} {fallen} [e/east/tree/bridge/log]`, so
+  `cross the fallen tree` is not understood but `cross fallen tree` is.
+- Re-confirmed: SPAM.taf and Vagabond.taf transcripts contain a raw `0xAE`,
+  so `export LC_ALL=C` and `grep -a` (BSD `grep -c` prints *nothing*, not `0`,
+  on a file it decides is binary).
+
+Two already-wired games — `Les Feux de l'enfer.taf` and
+`Space Boy's First Adventure.taf` — have **no** `detection_tables.h` row and are
+upstream-submission candidates.
+
 ## 2026-07-14 (later) — To_Hell_And_Beyond assisted route — ★ CLOSED (248/373, wired) — 75/75 PASS
 
 **Section A is empty: the last open derivation item is done.** The 224-cmd

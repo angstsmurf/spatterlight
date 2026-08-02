@@ -1,0 +1,111 @@
+Loading game...
+
+Vagabond
+
+The trip to Starlight City was a fairly uneventful one. Most of the time was
+spent either sleeping or thinking about the events of the past few days and
+wondering just why you were told to come here to the planet's capitol. As the
+shuttlecar arrives at its destination, you pay the driver and exit the
+vehicle. You make your way to the designated cafe, take a seat, and order a
+Tiriffian sandwich and a fizzleglug just as you were told to do. Eventually
+your meal arrives and you slowly begin to eat, waiting for somebody to show
+up and explain what in the world is going on. But nobody ever shows and as
+you finish your food, a droid arrives and clears away your plate leaving your
+bill on the table. You grudgingly grab the piece of paper and quickly realize
+that it is not a bill, but actually a short note. You read it.
+
+Get off the planet as soon as possible. It doesn't matter how or where you
+go. I'll contact you again when it is safe.
+
+[Press any key to begin]
+
+Vagabond
+A Short Interactive Sci-Fi Adventure
+Copyright © 2004 by Scott Meridian
+
+If you have trouble or get stuck type 'walkthru' for the solution.
+
+Starport Cafe
+The starport cafe isn't very fancy, but the aroma of food coming from the
+kitchen smells delicious. Plants and flowers placed around the room and
+hanging from the ceiling almost give the cafe the feel of a tranquil garden.
+There are several tables and chairs scattered about the room, some of which
+are occupied by patrons eating very strange and interesting things. The exit
+back to the spaceport is West.
+
+>
+>(Getting off the chair first)
+You move west.
+Starport Lobby
+Beings of all description bustle about this busy lobby creating a din that is
+almost deafening. In the center of the lobby is rooted a monstrous service
+desk, manned by a droid looking eager to sell you a ticket on the
+Intergalactic Express. The lobby opens up into the massive starport concourse
+to the North while flashing displays beckon you to the Starport Cafe to the
+East. The exit into Starlight City is South.
+
+>You move north.
+Starport Concourse
+This vast concourse is filled with a variety of beings dragging around all
+manner of luggage in every possible direction. To the North, a ramp leads to
+the Primary Landing Platform while the concourse becomes a lobby to the
+South. Corriders branching off to the East and West lead to the Intergalactic
+Express Platform and to the Docking Bays respectively.
+
+>You move west.
+Corridor to the Docking Bays
+This corridor connects the Docking Bays to the West and the Concourse to the
+East. A toolbox is here.
+
+George is here.
+
+>You give all of your money to the bum and he says, "Alright here's the plan.
+See that toolbox over there by the tech? It has a laser torch in it which
+you'll need. I'll distract him while you get it. Then meet me over by the
+Intergalactic Express Platform."
+
+You nod and the bum gives a toothless grin. He wobbles over to the tech,
+punches him in the kidney and then sprints off toward the concourse. It takes
+a moment for the tech to recover and then he takes off yelling and cursing
+after the bum.
+
+>You open the toolbox.  Inside the toolbox is a laser torch.
+
+>You take the laser torch from the toolbox.
+
+>You move east.
+Starport Concourse
+This vast concourse is filled with a variety of beings dragging around all
+manner of luggage in every possible direction. To the North, a ramp leads to
+the Primary Landing Platform while the concourse becomes a lobby to the
+South. Corriders branching off to the East and West lead to the Intergalactic
+Express Platform and to the Docking Bays respectively.
+
+>You move east.
+Intergalactic Express Platform
+Benches and chairs line the walls here. Most are arranged in rows or around
+small islands of plants. An entertainment vid is being shown on the display
+screens around the room occupying the attention of the many people and beings
+waiting for the Intergalactic Express to arrive. The corrider blooms into the
+starport concourse to the West.
+
+Out of nowhere, the bum grabs you and pulls you into a dark corner. "Okay
+listen." he pants, out of breath. "I think I lost him in the crowd." he
+points to a ventilation shaft in the wall. "This vent leads to a docking bay
+which is occupied by a cargo freighter. The crew is off in the city right
+now, so it shouldn't be too difficult to sneak aboard and hide in the cargo
+hold." Just then, the technician bursts into the room and the bum says, "Uh
+oh. Gotta go." and takes off running once again with the tech following close
+behind.
+
+>You cut away the ventilation shaft's protective grating with the laser torch.
+
+>(Your score has increased by 1)
+
+You crawl into the ventilation shaft and work your way along until you come
+to the docking bay occupied by the cargo freighter. You carefully pull
+yourself out of the vent and without being noticed, quickly sneak aboard the
+ship. As you lie hidden in the cargo hold, you wonder to yourself where this
+ship could be going and what adventures await you there...
+
+The End

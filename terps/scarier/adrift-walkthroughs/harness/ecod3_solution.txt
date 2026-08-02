@@ -1,0 +1,26 @@
+# An Evening with the Evil Chicken of Doom (ECOD3) -- ADRIFT 3.9.  WIN, 0/0.
+# The game keeps no score; task 14 (`open trapdoor` while holding the crowbar)
+# is the EndGame(win), ACT type=6 v1=0, and prints "Congratulations!".
+# Route:
+#   get gum            (task 4 -- the gum is what repairs the flashlight later)
+#   light man on fire  (task 3, using the book of matches you start with; this
+#                       clears the large man and opens the east exit, task 7)
+#   e -> Aisle, take crowbar (task 5)
+#   n -> Bottom of Stage
+#   the two `z`s wait for The Usher's patrol to come back north: task 6
+#   ("swipe the flashlight from the Usher") has a character restriction that
+#   requires him to be in the room.
+#   fix flashlight     (task 11, consumes the gum)
+#   n                  (task 12: needs the flashlight held AND task 11 done)
+#   open trapdoor      (task 14: needs the crowbar held)
+get gum
+light man on fire
+e
+take crowbar
+n
+z
+z
+take flashlight
+fix flashlight
+n
+open trapdoor

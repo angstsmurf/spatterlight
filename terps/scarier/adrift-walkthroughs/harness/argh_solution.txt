@@ -1,0 +1,20 @@
+# ARGH's Great Escape (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 98/125.
+# 98 is the reachable maximum, not 125: the game has five +25 ChangeScore
+# actions but two of them (tasks 9 and 10) are alternative `south/escape`
+# endings, so at most four can ever fire -- and starting the beaver event
+# costs a mandatory -2 (task 0 "#Hit bars" is the event's startTask).
+#   +25 feed the drumstick to the beaver   (task 3)
+#   +25 wear the beaver                    (task 8)
+#   +25 feed the medicine to the beaver    (task 6)
+#   +25 escape south                       (task 10)
+#    -2 hit the bars                       (task 0)
+take drumstick
+hit bars with drumstick
+feed beaver the drumstick
+take beaver
+get medicine
+wear beaver
+get dress
+wear dress
+feed the beaver the medicine
+south

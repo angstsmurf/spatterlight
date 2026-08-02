@@ -1,0 +1,17 @@
+# Undefined (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 3/3, full marks.
+# A one-room conversation piece: the whole game is `define <thing>`.
+# The first line answers "Please enter your name:".
+# Three +1 ChangeScore tasks (2, 3, 4) and one EndGame(win) task (9):
+#   define the room  (task 2)
+#   define me        (task 3)
+#   define voice     (task 4 -- NOT `define you`: task 1's catch-all pattern
+#                     [* you *] is earlier in the table and steals it, printing
+#                     the "when you say you I assume..." speech and scoring 0)
+#   define the end   (task 9, ACT type=6 v1=0)
+# The game also overrides `quit` (task 6) so it cannot be quit before the end;
+# the harness's trailing `quit` lands on the post-game prompt instead.
+Undef
+define the room
+define me
+define voice
+define the end

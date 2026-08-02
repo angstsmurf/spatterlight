@@ -1,0 +1,72 @@
+Loading game...
+
+SE: Wreckage
+Classified in the green zone, the Andion starsystem is free from the dangers
+of the wartorn red belt separating the Sun Empire and the Orgaan Enclaves.
+What was to be a routine cargo shuttle to one of the inhabited planets was
+broken by the appearance of Orgaan raiders far from home.  Without escort,
+the raiders quickly tore through the ship, disabled the engines and overcame
+what little resistance was given.
+
+Dodging random patrols aboard ship, you made it to an escape pod at the same
+time the Orgaans decided to rid themselves of their stripped prize.  Massize
+explosions sent shockwaves through the ship as you pulled the escape pod
+hatch closed.  Pressing the launch button, the pod was thrown away from the
+ship.  Red warning messages appeared across the tiny pods computer.  The
+rocking and tumbling of the pod did not stop.
+
+Looking out the hatch portal, you see the remains of your ship strewn about
+in a huge debris field around the pod.  Finally, the pod rights itself but
+the warning messages do not clear from its screen.
+
+Not responding to your commands, it would appear the the pod, along with the
+entire debris field is falling towards the system's star.
+
+You must find a way to complete your escape before your final plunge into the
+star.
+
+>You open the small storage compartment.  Inside the small storage compartment
+is the environmental suit, the PLS-1 and the rations.
+
+>You take the environmental suit from the small storage compartment.
+
+>You put on the environmental suit.
+
+>(Your score has increased by 10)
+The events leading up to this moment must have confused your thoughts.  You
+realize your mistake as the small amount of atmosphere in the pod explodes
+the hatch outwards and you are flung hundreds of meters directly into deep
+space.  Fortunately, the environmental suit protects from the affects of such
+a manuever.  You find yourself floating among the debris field.
+
+>(Your score has increased by 10)
+Taking grasp of the drifting steel cable, you hook it through the suits
+safety harness and tie it securely to you.  Your drifting away from the
+escape pod ends.
+
+>You pick up the repairbot.
+
+>(Your score has increased by 10)
+More lights activate on the repairbot and it begins to hum.
+
+>(Your score has increased by 10)
+Moving towards the launch tube debris, the repairbot springs to life.
+Several of its arms extend, one with a torch that quickly slices through the
+embedded tong.  The launch tube debris floats free from the escape pod.
+
+>Entering the pod, you detach the cable from your environmental suit.
+
+>(Your score has increased by 10)
+Finally, you get the pod to react to your commands.  Thrusters roar to life
+and the pod begins to turn away from its plunge into the star.  Gravity
+threatens to overwhelm you as pod attempts to gain enough inertia to pull
+away.  The pressure eases off and you are one again travelling through deep
+space.
+
+Taking your astronomical readings, the computer determines a slightly
+populated planet with a starport is within reach of the pod.  Laying in a
+course, you finally breath easier knowing that you've rescued yourself.
+
+Congratulations!
+
+Congratulations!

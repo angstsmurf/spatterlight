@@ -1,0 +1,221 @@
+Loading game...
+
+...
+
+The annual goblin hunt is a bimonthly ritual that takes places twice a year
+in your home town of Groyn. It's considered by some people (mainly goblins)
+to be cruel, vicious and downright evil, but by others (mainly anyone who
+isn't a goblin) to be a right old hoot. The general idea is to get your
+biggest axe and go out there and kill a goblin.
+...press a key...
+
+This year hasn't been a good one for you. Your neighbour, Dunghill Pete, got
+the goblin you'd had your eye on and then, to top it all, a stray arrow from
+your brother, Bog Steve, killed another of the blighters. Which pretty much
+left you without a goblin kill to your name.
+...press a key...
+
+Until, that was, Agnes Spit informed you that she'd seen a right vicious
+looking goblin with a hammer dripping wet with the blood of murdered goblin
+hunters and more than a match for any would-be goblin hunter, sneaking into
+the graveyard (the one where they bury the corpses of all the hunters killed
+in the goblin hunt).
+   You didn't need telling twice...
+...press a key...
+
+Graveyard Gates
+The gates of the graveyard loom before you, nasty looking structures carved
+from great big ogre bones and thrust into the earth. What was wrong with wood
+you don't know.
+
+There is an exit north.
+
+>
+>
+>
+>You move north.
+
+The gravestones of several dozen dead goblin hunters are arrayed about you, a
+chilling reminder of just what fate awaits you if you fail today.  You can
+move north, south, northeast and northwest.
+
+By one of the gravestones you catch sight of Blood, the goblin who you've
+been chasing. He gives a snarl and runs off to the north.
+
+>Nosing around the gravestone of the great goblin hunter "Thugg the Evil Git",
+you come across a whistle that must have been dropped by Blood.
+
+>You move northwest.
+Graveyard - West
+Here at the western edge of the graveyard, someone has lumped a few goblin
+corpses together. From the smell, the goblins have either not had a wash in a
+long time (quite likely) or someone has tried to torch them (also quite
+likely).
+
+You can move east, northeast and southeast.
+
+>You move northeast.
+Graveyard - North
+The only thing of interest in the northern part of the graveyard is the
+gravedigger's hut. And this is a lot less interesting than you might think on
+account of it being locked up tighter than your wife's purse when you're on
+the scrounge.
+
+You can move south, southeast and southwest.
+
+>You rat-a-tat-tat on the door.
+...press a key...
+
+Nothing happens.
+...press a key...
+
+Until the door suddenly comes flying open and a spindly hand reaches out and
+pulls you inside...
+...press a key...
+
+Gravedigger's Hut
+There must be something about being a gravedigger that makes someone want to
+live in a place as cheap and sleazy as this. Take away the lavis wall
+hangings, piles of tapestries in the corner and wall-to-wall carpeting and
+this is just one downright tawdry place.
+Bert the gravedigger is here.
+
+"You must be one of them dere goblin hunters," says Bert. "Filthy scum."
+   "All goblins are," you say.
+   "I wasn't talkin' about the goblins."
+
+>"No, I ain't helpin' you," he says. "You oughta leave them there poor lil
+goblins alone. They never hurt no one."
+   "They burnt down the town of Bottum and killed fifty people," you say.
+   "Bah. That's just statistics."
+
+>"Harmless fellows goblins are," says Bert.
+   "They eat humans," you say.
+   "Can't hold a fellow's dietary habits against him."
+
+>"They love music and dance, do goblins," says Bert.
+   "They kill musicians and hang dancers from the rafters of their castle,"
+you say.
+   "And I suppose you think that makes 'em bad?"
+
+>"They'd offer their left arm to help out some poor unfortunate, would
+goblins," says Bert.
+   "They threw Old Missus Crudgather down the stairs of her house," you say.
+   "Probably just a lil misunderstanding."
+
+>Bert sighs. "I ain't helpin' you and that's final."
+
+>"No, I said!"
+
+>"Damnitall! How many times I have gotta tell you?"
+
+>"Take a hint! You ain't gettin' my help and that's final!"
+
+>"Oh, hell with it!" Bert snatches up a shield and thrusts it into your hands
+before shoving you out of the door. "Go and kill the evil, murderin',
+arsonist git if you want. I ain't gonna speak up fer a lousy stinkin'
+goblin!"
+...press a key...
+
+Graveyard - North
+The only thing of interest in the northern part of the graveyard is the
+gravedigger's hut. And this is a lot less interesting than you might think on
+account of it being locked up tighter than your wife's purse when you're on
+the scrounge.
+
+>You move southeast.
+Graveyard - East
+The wall surrounding the graveyard has tumbled down here, allowing access to
+a field to the east in which several cows are currently holding a discussion
+on the vagaries of isometric shapes in a diagonal universe. Riveting stuff.
+
+You can move east, west, southwest and northwest.
+
+>You move east.
+Cow Field
+There's a field here but on account of the cows who keep brushing past you
+and disrupting things, it's kind of difficult to make head or head of what's
+going on.
+
+You can only move west.
+
+>The moment you toot! toot! on the whistle, the cows back away in bovinical
+fear. A few further blasts on your nifty new whistle get them running off as
+fast as the eye can see.
+   Allowing you the opportunity to get a good look at the field for the first
+time.
+
+>You quickly search the corpse and find a lot of dead skin, some dried blood,
+a bit of brain matter... and some armour! You're so pleased by this final
+find that you leave the other stuff where it is.
+
+>You put on the armour.
+
+>You move west.
+Graveyard - East
+The wall surrounding the graveyard has tumbled down here, allowing access to
+a field to the east that is now remarkably cow-free.
+
+You can move east, west, southwest and northwest.
+
+>You move west.
+
+Here is a relatively empty spot in the graveyard, no doubt waiting for
+another would-be goblin hunter to get himself murdered so it can be filled.
+Hmmm, over by that bramble bush strikes you as a good place.
+
+"Death to the hooman scum!" yells Blood and throws himself at you so fast you
+have no time to react.
+   His hammer comes slamming down on you with enough force to completely
+shatter your body and leave you a pile of broken bones and pulped flesh on
+the ground...
+...press a key...
+
+But fortunately you're wearing some armour and so the blow just bounces off.
+Whew! Lucky save there!
+
+Blood gives a curse of disappointment at this unfortunate (for him) turn of
+events and runs off to the south.
+
+>You move south.
+Graveyard - South
+The gravestones of several dozen dead goblin hunters are arrayed about you, a
+chilling reminder of just what fate awaits you if you fail today.
+
+You can move north, south, northeast and northwest.
+
+>You move south.
+
+Graveyard Gates
+The gates of the graveyard loom before you, nasty looking structures carved
+from great big ogre bones and thrust into the earth. What was wrong with wood
+you don't know.
+Blood, the most vicious goblin you've seen for at least fifteen minutes, is
+here, bloodstained hammer in hand.
+
+"Come ter die then, hooman?" grunts Blood.
+   "Nope," you say cheerfully. "I've come to lop your head off and hang it
+over my mantelpiece so my friends can see it and be really impressed. I might
+even hollow it out and use it as a mug for drinking beer out of."
+   Blood spits. "Bah! Civilisation makes me sick! C'mon then, let's get this
+over with!"
+
+>Hefting your trusty axe, you lunge at Blood and stab him in the gut with it.
+At the same time, the evil goblin lashes out, his hammer coming crashing down
+on you with stunning force; only the shield you're carrying manages to divert
+the force of the blow. You shove Blood away then attack again.
+   Your axe slices his legs clean off.
+   "Ah, crap!" he mutters, floundering around on the ground. "Say, hooman,
+you wouldn't happen to have a good sewing kit on you by any chance? Only me
+legs-"
+   "And your head," you finish, and then finish him.
+...press a key...
+
+People watch in awe as you wander through the streets with the dead goblin's
+head held high. A couple of little girls observing this have a screaming fit
+but you're on a roll here and don't let a minor thing like that bother you.
+
+Today you're a hero with the entire town of Groyn in envy of you. But
+tomorrow...
+   Tomorrow is the next goblin hunt.
+Congratulations!

@@ -1,0 +1,39 @@
+# Invasion of the Second-Hand Shirts -- ADRIFT 4.0.  TOUR, 0/0, no ending.
+# The game has no ChangeScore action and no EndGame action AT ALL (there is not
+# one `ACT type=6` in the whole task table), so it cannot be won: it is an
+# unfinished 1-Hour-Comp entry that simply stops.  This row is therefore a tour
+# that walks the full room chain 0->1->2->3->4->5->6 to the last room, and its
+# marker is that last room's description line.
+# Route notes:
+#   push the button   (task 0: opens the tree's lift shaft)
+#   down, down        (tasks 2 then 3 -- the first refuses, the second leaps)
+#   e                 (Grassy Field -> Brook)
+#   x brook           (task 7: reveals the woman)
+#   x woman           (task 6: Aphrodite comes ashore -- a prerequisite of the
+#                      east crossing, task 8)
+#   cross fallen tree (task 8; NOT "cross the fallen tree": the pattern is
+#                      {go/goto/move} {cross} {fallen} [e/east/tree/bridge/log]
+#                      and "the" is not one of the optional words)
+#   the two blank lines answer the waterfall's two [More] pauses
+#   s                 (Lake Shore -> Small Cabin)
+#   turn crank        (task 14: the music box pops open and looses the silver
+#                      sphere, which then follows you)
+#   x fireplace, climb chimney, climb chimney
+#                     (task 17 refuses, task 16 then does it -> Cabin Roof)
+#   take the balloon  (task 18: floats you up to the Helium Balloon)
+push the button
+down
+down
+e
+x brook
+x woman
+cross fallen tree
+
+
+s
+turn crank
+x the fireplace
+climb chimney
+climb chimney
+take the balloon
+look

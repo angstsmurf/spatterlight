@@ -1,0 +1,40 @@
+# Woof (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 30/30, full marks.
+# The first line answers the game's "Please enter your name:" prompt; the dog is
+# called Rex here, and the ending line quotes the name back ("Rex I love you!"),
+# so the win marker below is the name-independent `I'm back.`.
+# Six +5 ChangeScore tasks:
+#   piss on the tree        (task 4, at the old oak)
+#   get the doll            (task 5, from the oak)
+#   eat the bone            (task 6)
+#   chase Bizet the cat     (task 2, on the patio -- this is what lets the thief in)
+#   put the mouse in basket (task 3)
+#   drop the ball at window (task 7 -- the thief slips on it)
+# Task 8 `@--The owner gets back` is the EndGame(win); it is fired by event 5,
+# which starts once the thief has been dealt with and runs out eight turns later,
+# hence the eight `z`s.  The map: 0 near my basket (N->4 E->1 W->2), 1 old oak
+# (N->3 W->0), 2 neighbour fence (N->5 E->0), 3 patio (S->1 W->4), 4 main door
+# (E->3 S->0 W->5), 5 near the window (E->4 S->2).
+Rex
+take ball
+e
+piss on the tree
+take doll
+take bone
+eat the bone
+n
+chase cat
+take mouse
+s
+w
+put mouse in basket
+w
+n
+drop ball
+z
+z
+z
+z
+z
+z
+z
+z

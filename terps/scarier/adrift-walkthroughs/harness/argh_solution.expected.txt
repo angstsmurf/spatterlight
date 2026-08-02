@@ -1,0 +1,82 @@
+Loading game...
+
+ARGH'S Great Escape
+ARGH's Great Escape
+
+        You are ARGH.  Proud caveman, aspiring inventor.  You were recently
+jailed in Boulder Rock prison for your attempt to invent a circular device
+intended on making the moving of objects easier.  While you had supporters,
+all kept quite out of fear of being placed in Boulder Rock; where no man ever
+leaves.
+
+        You know if you can escape this place and show everyone what your
+invention can do, that it would change the world and ease the work of every
+other caveman on earth.
+
+Cell  III, Boulder Rock Prison
+
+        This is your cell, where you are doomed to spend the rest of your
+days because of your wild ideas.  There isn't much for comfort here, and you
+didn't expect there would be.  Bamboo rods keep you imprisoned in the small
+cave. A small hole, the size of a large dinosaur egg is located at the top of
+the cave.  Unfortunately is much too high for you to reach, and too small for
+you to fit through.
+
+Also here is a drumstick.
+
+>You pick up the drumstick.
+
+>(Your score has decreased by 2)
+A guard comes in from out of nowhere and hits you over the head with a club.
+
+"ARGH! No leave! No Noise!"
+
+With your head spinning, you watch as the three guards (at least that is what
+you see) leave the cave, leaving you alone once again."
+
+>(Your score has increased by 25)
+
+You hold the drumstick up to the beaver and barely able to pull your arm away
+in time.  He eats the drumstick in one bite, then looks to you for more.  He
+leaps out toward you, but drops in midair.  He looks to be very sick.  He
+reminds you of the nurse you saw on your way in.  Well, her hair, anyway.
+
+>You pick up the sick beaver.  You suddenly get an idea.  You throw yourself
+on the ground and start screaming.  The guard quickly rushes in and notices
+that the drumstick is gone.  He rushes you to the infirmary where you wait
+for the nurse to come back on duty.
+
+Boulder Rock Infirmary
+
+This is the infirmary.  Sure, no man ever leaves, but they have to give keep
+try to keep you alive.  There is a cell door, much like the one to your cell,
+except this one leads to freedom.  There is a slab, which the patient is to
+lie on, and a rock table nearby.  A cubby hole in the wall, looks to be some
+sort of storage space.
+
+>You take the medicine from the rock table.
+
+>(Your score has increased by 25)
+You plop the the sick beaver on your head.  It looks like you have created
+the first caveman mullet!
+
+>You take the nurse dress from the cubby hole.
+
+>You put on the nurse dress.
+
+>(Your score has increased by 25)
+
+You feed the beaver and bring him back to health.  He still isn't feeling so
+hot, but manages to chew through the bamboo bars, making his escape.
+
+>(Your score has increased by 25)
+
+        Making sure the coast is clear, you are able to escape the Boulder
+Rock Prison and are finally able to reveal your invention, which you named
+the Wheel.  You not only become the most famous person in the world, you are
+also the only caveman to ever escape Boulder Rock Prison.  Unfortunately you
+had a run in with that very same beaver a few years later which ended the
+life of ARGH.  The beaver didn't have it so well either.  He became very sick
+and also died.  His fangs were mounted on the outside of Boulder Rock Prison
+in your honor.
+Congratulations!

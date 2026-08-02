@@ -1,0 +1,95 @@
+# ADRIFT-O-RAMA (Mystery, Spring Thing / adrift mini-comp) -- ADRIFT 4.0.
+# WIN, 0/0 ("There is no scoring involved because Mystery doesn't know squat
+# about golf").  Eighteen holes of mini-golf; the last putt prints
+# "*****You Win!*****".
+#
+# The two blank lines answer the title's two "...Continue..." pauses.
+# `buy ball` feeds the gold token into the machine (task 1); `north` opens the
+# door and slides you to the first hole (task 8).
+#
+# Every hole is the same two-command cycle:
+#   put ball on marker   -- the hole tasks require the ball to be ON the marker
+#                           (a SURFACE, obj 11), not carried; with the ball in
+#                           hand `hit ball` falls through to the per-room
+#                           "<name> CLUB" joke task instead and nothing happens
+#   hit ball             -- task 9..26, whichever belongs to this room
+# Each hole task also has a variable restriction, and event 0 "Variable Change"
+# re-rolls all ~95 variables EVERY turn (task 5), so sinking a putt is a dice
+# roll: you just keep swinging until it drops.  Under the harness's fixed seed
+# thirty cycles clear the first seventeen holes, in this order:
+#   Bob the Newbie -> The Mad Monk -> Mel S. -> Cowboy -> Matt (Dark Baron) ->
+#   Hanadorobou -> KF -> David W. -> Cannibal -> DuoDave -> The Amazing Poodle
+#   Boy -> DS490 -> Mut -> MileOut -> Woodfish -> Mystery -> Guess the Verb
+#   Mountain
+# Guess the Verb Mountain is the one hole with no putt: task 25 wants the
+# literal `guess the verb`.  That drops you at Campbell's Hole, the eighteenth,
+# which goes in first try here.
+#
+# Do NOT `hit Campbell`: task 48 is an EndGame(lose).
+
+
+buy ball
+north
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+put ball on marker
+hit ball
+guess the verb
+put ball on marker
+hit ball

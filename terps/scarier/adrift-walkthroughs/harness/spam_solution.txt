@@ -1,0 +1,22 @@
+# SPAM (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 20/20, rank "Spam King".
+# The two leading blank lines answer the title's "...Continue..." key pauses.
+# Both +10s: getting in the car with the keys, and saying "ingredients" to the
+# receptionist.  The keys only appear (on the kitchen counter) after a first,
+# failed `enter car` -- task 1 moves them there.
+# The three `z`s let event 0 (guard escorts you out of the cell) and event 1
+# (the CEO walks in) fire; event 2 would kill you ten turns later.
+
+take spam
+north
+enter car
+south
+take keys
+north
+enter car
+start car
+north
+ask about ingredients
+z
+z
+z
+ask ceo about spam
