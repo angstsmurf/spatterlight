@@ -8,14 +8,14 @@
 # then a gender before the first turn.  "Drifter" and "male" are ours; the
 # author played as "Mystery", which is why his transcript's endgame chant
 # reads differently.
-# Repair 1: "take slime" is moved BEFORE "put pill in cup".  In the author's
-# order the pill goes in first, and here that turn is eaten by TASK 41
-# "#Put Pill IN Slime" failing its restrictions (it wants the slime already in
-# the cup) instead of falling through to the library put -- so the +10 and the
-# radioactive slime never happen.  Doing it the other way round satisfies the
-# restrictions at match time and the task fires.  The real Runner takes the
-# author's order without complaint, so this is a divergence, not an author
-# bug; it is logged in RUNNER_TESTS_TODO.md.
+# (A former Repair 1 reordered "take slime" before "put pill in cup", because
+# TASK 41 "#Put Pill IN Slime" used to eat the put turn with its fail message
+# "Not yet." instead of falling through to the library put.  Settled live
+# against run400 on 2026-08-02 -- the real Runner's put-in runs when it can
+# complete, and the engine now matches -- so the author's original order is
+# restored: the pill goes into the cup via the library, and "take slime"
+# (TASK 40) chains the radioactive mix and its +10.  Details in
+# RUNNER_TESTS_TODO.md.)
 # Repair 2: one extra "z" before the endgame dash.  The bomb fuse is
 # random -- TASK 38 rerolls "bigboom = random(1,500863)" every single turn --
 # so the blast lands on a different turn under our pinned seed than it did in
@@ -65,8 +65,8 @@ s
 take pill
 open tin
 take pill
-take slime
 put pill in cup
+take slime
 n
 n
 up

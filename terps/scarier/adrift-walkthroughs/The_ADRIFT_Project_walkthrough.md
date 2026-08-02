@@ -40,19 +40,20 @@ count matters — see *Repair 2*.
 The route is the author's, from `competition/wthroughs/The ADRIFT Project
 Walkthrough.txt`, with three changes.
 
-1. **`take slime` moved before `put pill in cup`.** In the author's order the
-   pill goes into the cup first. Under Scarier that turn is consumed by
-   TASK 41 `#Put Pill IN Slime` matching the command and then *failing* its
-   restrictions — it wants the slime in the cup already — so the engine prints
-   the task's fail message ("Not yet.") instead of falling through to the
-   library put. The pill never reaches the cup, the +10 never happens, and the
-   slime is never radioactive, which costs another +5 (`pour slime in box`) and
-   +5 (`put green orb in tube`). Taking the slime first satisfies restrictions
-   0–2 at match time, so the task fires and the whole chain works.
-   **The real ADRIFT Runner accepts the author's order** — his transcript shows
-   the plain library reply "You put the small pill inside the coffee cup." —
-   **so this is an engine divergence, not an author mistake.** Logged in
-   `RUNNER_TESTS_TODO.md`.
+1. **(RESOLVED 2026-08-02 — the author's order is back.)** A former repair
+   moved `take slime` before `put pill in cup`, because TASK 41
+   `#Put Pill IN Slime` used to match the put command, fail its restrictions,
+   and eat the turn with "Not yet." instead of falling through to the library
+   put. Probed live against run400 (`.tas` transplant + probes `FM4`–`FM7`,
+   see `RUNNER_TESTS_TODO.md` §4): the real Runner's put-in family runs ahead
+   of a matched-but-failing task whenever the put can complete, and the engine
+   now does the same, so the author's original order works: the pill goes
+   into the cup via the library, and `take slime` (TASK 40) chains the
+   radioactive mix. One residual cosmetic difference is blessed into the
+   golden: the game's `#Pill Check` zero-length event sees the pill in the
+   cup at the end of the put turn itself, so Scarier prints the
+   radioactive-mix text (and its +10) one turn earlier than the author's
+   transcript — same score, same ending.
 2. **One extra `z` before the endgame dash.** The bomb's fuse is genuinely
    random: TASK 38 rerolls `bigboom = random(1,500863)` *every turn*, and the
    blast is what teleports you to the Bridge. Under our pinned seed it lands

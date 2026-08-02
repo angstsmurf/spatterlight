@@ -248,6 +248,21 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
   {"[drop/put down] %text% [on/onto/on top of] %object%",
    lib_cmd_put_on_multiple},
+  /*
+   * The plain "put" spellings of the same handlers.  Priority placement is
+   * live-verified (run400, 2026-08-02, probe FM7 / TheADRIFTProject): a
+   * completable put beats a matched-but-failing task, so these must run
+   * before the loud-fail task pass; the refusal cases defer from here (see
+   * run_priority_commands) and print from the STANDARD_COMMANDS duplicates.
+   */
+  {"put [all/everything] [in/into/inside {of}] %object%", lib_cmd_put_all_in},
+  {"put [all/everything] [[except/but] {for}/apart from] %text%"
+   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
+  {"put %text% [in/into/inside {of}] %object%", lib_cmd_put_in_multiple},
+  {"put [all/everything] [on/onto/on top of] %object%", lib_cmd_put_all_on},
+  {"put [all/everything] [[except/but] {for}/apart from] %text%"
+   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
+  {"put %text% [on/onto/on top of] %object%", lib_cmd_put_on_multiple},
   {"[[drop/put down] [all/everything]/put [all/everything] down]",
    lib_cmd_drop_all},
   {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%",
@@ -296,7 +311,13 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[get/take/pick up] %character%", lib_cmd_take_npc},
   {"pick %character% up", lib_cmd_take_npc},
 
-  /* Manipulating selected objects. */
+  /*
+   * Manipulating selected objects.  The put-family rows repeat their
+   * PRIORITY_COMMANDS twins (drop spellings included): the priority pass
+   * defers the refusal cases so a matched task's fail message can claim the
+   * input first, and this second appearance prints the refusal when no task
+   * did.
+   */
   {"put [all/everything] [in/into/inside {of}] %object%", lib_cmd_put_all_in},
   {"put [all/everything] [[except/but] {for}/apart from] %text%"
    " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
@@ -305,6 +326,18 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"put [all/everything] [[except/but] {for}/apart from] %text%"
    " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
   {"put %text% [on/onto/on top of] %object%", lib_cmd_put_on_multiple},
+  {"[drop/put down] [all/everything] [in/into/inside {of}] %object%",
+   lib_cmd_put_all_in},
+  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
+   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
+  {"[drop/put down] %text% [in/into/inside {of}] %object%",
+   lib_cmd_put_in_multiple},
+  {"[drop/put down] [all/everything] [on/onto/on top of] %object%",
+   lib_cmd_put_all_on},
+  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
+   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
+  {"[drop/put down] %text% [on/onto/on top of] %object%",
+   lib_cmd_put_on_multiple},
   {"open %object%", lib_cmd_open_object},
   {"close %object%", lib_cmd_close_object},
   {"unlock %object% with %text%", lib_cmd_unlock_object_with},
@@ -580,20 +613,57 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  *
  * For now, I can't find any better way to try to handle it than to make
  * object acquisition take precedence over game commands.
+ *
+ * The put-in/put-on family runs here TENTATIVELY: probed live against
+ * run400 (2026-08-02, probe FM7 + a TheADRIFTProject .tas transplant), the
+ * real Runner lets a put that can actually complete beat a matched task
+ * whose restrictions fail ("put pill in cup" answers the library's "You put
+ * the small pill inside the coffee cup." while the task's fail message is
+ * suppressed), but when the put would be REFUSED (target not a container/
+ * surface) the failing task's message wins ("drop pill in slime" prints the
+ * fail message, not the refusal).  So in this pass the validity check
+ * defers instead of refusing -- run_priority_defer() -- and the scan stops
+ * so the plain-drop %text% rows cannot swallow the input; the loud-fail
+ * task pass then gets its chance, and the duplicate rows in
+ * STANDARD_COMMANDS print the refusal when no task claims it.
  */
+static scr_bool run_priority_pass_active = FALSE;
+static scr_bool run_priority_deferred = FALSE;
+
+scr_bool
+run_in_priority_pass (void)
+{
+  return run_priority_pass_active;
+}
+
+void
+run_priority_defer (void)
+{
+  assert (run_priority_pass_active);
+  run_priority_deferred = TRUE;
+}
+
 static scr_bool
 run_priority_commands (scr_gameref_t game, const scr_char *string)
 {
   scr_commandsref_t command;
 
+  run_priority_pass_active = TRUE;
+  run_priority_deferred = FALSE;
   for (command = PRIORITY_COMMANDS; command->command; command++)
     {
       if (uip_match (command->command, string, game))
         {
           if (command->handler (game))
-            return TRUE;
+            {
+              run_priority_pass_active = FALSE;
+              return TRUE;
+            }
+          if (run_priority_deferred)
+            break;
         }
     }
+  run_priority_pass_active = FALSE;
 
   /* Nothing matched match the string.  Or if it did, its handler failed. */
   return FALSE;

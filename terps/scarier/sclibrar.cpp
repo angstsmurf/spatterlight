@@ -3964,30 +3964,20 @@ lib_try_game_command_common (scr_gameref_t game,
                 ? (decltype(+buffer)) scr_malloc (required) : buffer;
 
       /*
-       * Try the command with and without prefixes on both the target object
-       * and the associate.
+       * Try the command with prefixes on both the target object and the
+       * associate.  This used to also try the prefix-dropped combinations,
+       * but the real Runner does not: probed live 2026-08-02 (FM7 + a
+       * TheADRIFTProject .tas transplant in run400), "put pill in cup"
+       * completes the library put untouched by a matched-but-failing
+       * "put * pill in cup" task -- the prefix-less retry is exactly the
+       * form that task would steal.  (The single-object retry below keeps
+       * its prefixed form too, which is what lets Wax Worx's "get * head"
+       * claim "get marie" via "get Marie Antoinette's head" -- the wildcard
+       * absorbs the prefix there, matching the Runner.)
        */
       sprintf (command, "%s %s %s %s %s %s", verb,
                prefix, name, preposition, associate_prefix, associate_name);
       status = run_game_task_commands (game, command);
-      if (!status)
-        {
-          sprintf (command, "%s %s %s %s %s",
-                   verb, prefix, name, preposition, associate_name);
-          status = run_game_task_commands (game, command);
-        }
-      if (!status)
-        {
-          sprintf (command, "%s %s %s %s %s",
-                   verb, name, preposition, associate_prefix, associate_name);
-          status = run_game_task_commands (game, command);
-        }
-      if (!status)
-        {
-          sprintf (command, "%s %s %s %s",
-                   verb, name, preposition, associate_name);
-          status = run_game_task_commands (game, command);
-        }
     }
   else
     {
@@ -7562,6 +7552,16 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
   /* Verify that the container object is a container. */
   if (!obj_is_container (game, container))
     {
+      /*
+       * In the tentative priority pass the refusal is deferred, so a matched
+       * task's fail message can claim the input first; the STANDARD_COMMANDS
+       * duplicate prints it when no task does (run400-verified, 2026-08-02).
+       */
+      if (run_in_priority_pass ())
+        {
+          run_priority_defer ();
+          return FALSE;
+        }
       lib_print_response_object (game,
                                  "You can't put anything inside ",
                                  "I can't put anything inside ",
@@ -7573,6 +7573,11 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
   /* If the container is closed, reject now. */
   if (gs_object_openness (game, container) > OBJ_OPEN)
     {
+      if (run_in_priority_pass ())
+        {
+          run_priority_defer ();
+          return FALSE;
+        }
       pf_new_sentence (filter);
       lib_print_object_np (game, container);
       pf_buffer_string (filter,
@@ -7606,9 +7611,9 @@ lib_cmd_put_all_in (scr_gameref_t game)
   if (container == -1)
     return is_ambiguous;
 
-  /* Validate the container object to take from. */
+  /* Validate the container object to take from (deferred -> unhandled). */
   if (!lib_put_in_is_valid (game, container))
-    return TRUE;
+    return !run_in_priority_pass ();
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
@@ -7664,9 +7669,9 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   else if (references == 0)
     return TRUE;
 
-  /* Validate the container object to put into. */
+  /* Validate the container object to put into (deferred -> unhandled). */
   if (!lib_put_in_is_valid (game, container))
-    return TRUE;
+    return !run_in_priority_pass ();
 
   /* As a special case, complain about requests to retain the container. */
   if (is_except
@@ -7844,6 +7849,12 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
   /* Verify that the supporter object is a supporter. */
   if (!obj_is_surface (game, supporter))
     {
+      /* Deferred in the tentative priority pass; see lib_put_in_is_valid. */
+      if (run_in_priority_pass ())
+        {
+          run_priority_defer ();
+          return FALSE;
+        }
       lib_print_response_object (game,
                                  "You can't put anything on ",
                                  "I can't put anything on ",
@@ -7876,7 +7887,7 @@ lib_cmd_put_all_on (scr_gameref_t game)
 
   /* Validate the supporter object to take from. */
   if (!lib_put_on_is_valid (game, supporter))
-    return TRUE;
+    return !run_in_priority_pass ();
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
@@ -7933,7 +7944,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Validate the supporter object to put into. */
   if (!lib_put_on_is_valid (game, supporter))
-    return TRUE;
+    return !run_in_priority_pass ();
 
   /* As a special case, complain about requests to retain the supporter. */
   if (is_except
