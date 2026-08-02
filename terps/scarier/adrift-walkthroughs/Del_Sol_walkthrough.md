@@ -2,9 +2,10 @@
 
 - **Engine:** ADRIFT 4 (Battle System used in the surreal "dream" sequences).
 - **Result:** **UNWINNABLE — no reachable ending. Max score reached by a robust
-  deterministic tour: 26/46.** The structural maximum is 46, but the win and the
-  final +10 are both orphaned (see below), and the timed class windows / mutually
-  exclusive dialogue choices put the remainder out of reach in a single play.
+  deterministic tour: 26/46.** The structural maximum is 46, but the win task
+  can only fire in a room its trigger can never fire from, the final +10 is
+  orphaned (see below), and the timed class windows / mutually exclusive
+  dialogue choices put the remainder out of reach in a single play.
 - Solution file: `harness/del_sol_solution.txt` — a 112-line cycling tour (one
   command per turn, repeated across the timed classes so each scoring task fires
   when its room is active). Reaches 26/46 deterministically.
@@ -18,22 +19,49 @@ on a turn timer and is punctuated by a surreal **dream** interlude (the
 in-class antics: `work`, `help`, `take notes`, `pay attention`, `practice`,
 `write note to hina`, declining the gamblers (`no`, +10), etc.
 
-## Why it is unwinnable (the broken win chain)
+## Why it is unwinnable (the broken win chain) — re-verified live 2026-08-02
 
-The only win is task 26, **`# super win`**, in the Chemistry-dream room. A full
-structural dump shows **task 26 has no trigger whatsoever** — no event
-`TaskAffected`, no NPC `KilledTask`, and no other task's exec (type-5) action
-points at it. The only thing that even gestures at it is task 27,
-**`# bring Hina`** (+10), which is the `KilledTask` of the NPC **Moreland**…
+The only win is task 26, **`# super win`** (`ACT type=6 v1=0` = ENDGAME win),
+whose `Where` list is **room 6 only** (the `CHeMisTrY <dream>` room). It *does*
+have a trigger — an earlier version of this file claimed it had none, an
+off-by-one misread from before the dumper's index offsets were nailed down:
+**task 26 is the `KilledTask` of NPC 9, Ms. Moreland** (the teacher, room 3 =
+Chemistry, all-zero battle stats including Stamina 0). Task 27 `# bring hina`
+(+10) is referenced by nothing at all and stays orphaned.
 
-…but **Moreland is dead on arrival.** His battle record is *all zeros, including
-Stamina 0*, so SCARE (like the Runner) skips him in combat and he can never be
-killed — his `KilledTask` never fires, so the +10 is unreachable and nothing
-ever leads toward the win. (The monster actually present in the dream,
-`MoReLaND`, is a *different* NPC with `KilledTask = 0` and joke-impossible stats —
-Agility 100, Defense 85 — so killing *it* would do nothing anyway.) The dream's
-acid/base bottles accept no useful verb. This is an unfinished win, faithful to
-the data — not a SCARE bug.
+And Moreland **can be killed** — the "the Runner skips stamina-0 NPCs in
+combat" rule only governs *NPC target selection*; a player-initiated attack has
+no such guard. `attack moreland` on arrival in Chemistry lands (her Agility is
+0), any positive damage drops her 0 Stamina to death, and her `KilledTask`
+dispatches. Verified live in run400 (Scarier `.tas` transplanted at the
+Chemistry arrival turn): "You hit Moreland with the backpack." — and she is
+silently removed from the room.
+
+**But the win still never fires, because the Runner gates task dispatch on the
+task's room list.** Task 26 is only runnable in room 6; Moreland can only ever
+be killed in room 3 (she never moves, and nothing else can damage her), so the
+dispatch is silently discarded — no death line (a set KilledTask replaces it),
+no win, Score 0. Probed live in run400: after the kill the chem dream still
+arrives, still says "Ms moreland just accidentally knocked over the lab
+stuff…", and loops forever. The dream's `MoReLaND` (NPC 10) has
+`KilledTask = 0`, so killing *it* does nothing; the acid/base bottles accept no
+useful verb.
+
+Nor can the player just type the command: run400's input handler strips leading
+`#` characters (`Text1_KeyPress`: `While Left(input,1)="#" : input=Right(…)`),
+so `# super win` arrives as ` super win` → "I don't understand" (probed live in
+the dream room; Scarier's parser equivalently excludes `SPECIAL_PATTERN` tasks
+from player matching, scrunner.cpp). So the win is authored, wired, and
+unreachable: **unwinnable, faithful to the Runner.**
+
+**Scarier divergence found by this probe — FIXED 2026-08-02:** Scarier used to
+run a KilledTask unconditionally (`battle_kill` → `task_run_task`), so
+`attack moreland` in Chemistry *won the game* under Scarier. Both battle-task
+channels (KilledTask, StaminaTask) now gate on
+`task_can_run_task_directional`, the same gate as the type-5 exec channel —
+both halves Runner-verified live (room list: Del Sol; done-state: arena probe
+KT2, see `RUNNER_TESTS_TODO.md`). Scarier now prints exactly what run400
+prints on this kill: "You hit Moreland with the backpack." and nothing else.
 
 So the reachable game is a **0-ending, score-only sandbox**: you accrue points
 through the day and then the Chemistry nightmare simply loops (the monsters can't

@@ -855,10 +855,24 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    * FIRED.", no "falls down, dead."), and the 3.9 Runner dispatches it the
    * same way (probe p39kt).  The default corpse line is 4.0-only: run390
    * prints NOTHING when a task-less NPC dies (probed live, and the string
-   * " falls down, dead." does not exist anywhere in its binary). */
+   * " falls down, dead." does not exist anywhere in its binary).
+   *
+   * The dispatch goes through the Runner's general run-task routine
+   * (Battles.bas Sub_12_4 -> mdlSpreadTheLoad.Sub_20_22), which refuses a
+   * task the player is not currently eligible to run -- silently, with no
+   * corpse line either, since the KilledTask is still set.  Verified live in
+   * run400 2026-08-02 with Del Sol: killing the stamina-0 teacher Moreland in
+   * Chemistry prints only the hit line, and her chem-dream-only KilledTask
+   * (the game's win) never fires.  Same gate as the type-5 exec action. */
   task = battle_npc_battle_task (game, npc, "KilledTask");
   if (task >= 0)
-    task_run_task (game, task, TRUE);
+    {
+      /* A dispatch the player is not eligible for is dropped in silence --
+       * no task text and no corpse line either (probe KT2: a done
+       * non-repeatable KilledTask re-killed prints only the hit line). */
+      if (task_can_run_task_directional (game, task, TRUE))
+        task_run_task (game, task, TRUE);
+    }
   else if (visible && !battle_legacy)
     {
       pf_buffer_character (filter, '\n');
@@ -911,8 +925,11 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
   maximum = battle_attribute_max (game, npc, "Stamina");
   if (maximum > 0 && stamina * 10 < maximum)
     {
+      /* StaminaTask goes through the same gated run-task routine as
+       * KilledTask (Battles.bas Sub_12_1 -> Sub_20_22, no gating at the call
+       * site) -- see the room-eligibility note in battle_kill. */
       task = battle_npc_battle_task (game, npc, "StaminaTask");
-      if (task >= 0)
+      if (task >= 0 && task_can_run_task_directional (game, task, TRUE))
         task_run_task (game, task, TRUE);
     }
 }

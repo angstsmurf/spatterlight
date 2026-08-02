@@ -149,6 +149,25 @@ Highest value first:
       " falls down, dead." does not exist in its binary).
       Corpus: secret_of_lost_world (3.9, Ghost death) re-blessed; all
       76 rows PASS.
+- [x] **Battle-task dispatch is GATED on player task-eligibility — settled
+      live 2026-08-02** (Del Sol + probe `KT2` in `make_arena_probe.py`).
+      run400 routes KilledTask/StaminaTask through its general run-task
+      routine (Battles.bas Sub_12_4/Sub_12_1 -> mdlSpreadTheLoad.Sub_20_22),
+      which silently drops a dispatch the player is not eligible for — BOTH
+      halves proven: (a) *room list* — Del Sol's teacher Moreland (stamina 0,
+      killable by one player blow; the stamina<=0 skip is NPC target-selection
+      only) dies in Chemistry but her chem-dream-only KilledTask `# super win`
+      never fires, making the game faithfully UNWINNABLE; (b) *done state* —
+      KT2: a done non-repeatable KilledTask re-killed prints ONLY the hit
+      line, no re-fire and no corpse line either.  Ported: `battle_kill` /
+      `battle_apply_damage` now gate on `task_can_run_task_directional`
+      (same gate as the type-5 exec channel).  Corpus: the two Shadowpeak
+      combat goldens re-blessed (each loses one out-of-room StaminaTask line,
+      Haraxis's StaminaTask = the room-45-only `get salt` task); 127/127
+      PASS.  Related: run400 strips ALL leading `#` from typed input
+      (Form1.Text1_KeyPress `While Left(input,1)="#"`), so `#` tasks are
+      untypeable — SCARE's SPECIAL_PATTERN exclusion is the faithful
+      equivalent.
 - [x] **Player-facing surface — settled live 2026-08-01** (probe `pWS` in
       `make_arena_probe.py`: sword Method 1 / HitValue 10 / Acc 15 + axe
       Method 0 / HitValue 20 / Acc 5, both held; unseen Ghost NPC in a second

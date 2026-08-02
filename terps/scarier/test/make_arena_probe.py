@@ -275,6 +275,17 @@ CONFIGS = {
           ("Droid",0,2,100,0,0,0,0,0,0,0,0,0,0,0,2)],
     tasks=[dict(commands=["zzkilled"], complete="KILLEDTASK FIRED."),
            dict(commands=["zzstamina"], complete="STAMINATASK FIRED.")]),
+ # Battle-task done-state probe (2026-08-02, KilledTask room-gate follow-up):
+ # the KilledTask is NON-repeatable and typeable; type `zzkilled` first (runs
+ # it, marks it done), then `attack robot` -- does run400's Sub_20_22 refuse
+ # the re-dispatch of a done non-repeatable task (no text, and no corpse line
+ # either since the KilledTask is set), or run it again?
+ 'KT2': dict(name="Probe KT2",
+    player=(200,4,4,60,60,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[("Robot",0,2,4,0,0,0,0,0,0,0,0,0,0,1,0)],
+    tasks=[dict(commands=["zzkilled"], complete="KILLEDTASK FIRED.",
+                repeatable=0)]),
  # Expression-division rounding probe (§4): each `/` reduction rounds
  # immediately -- run400 computes Round((a/b) + 0.000001), VB6 banker's
  # rounding with an epsilon that biases halves toward +infinity.
