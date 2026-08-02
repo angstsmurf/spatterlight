@@ -3,9 +3,10 @@
 
 Measuring *corpus exposure* is what turns a parser divergence into a decision:
 a shape no game authors is documented, a shape ten games author gets fixed.
-`SCR_DUMP_TASKS` would be the principled route, but the committed harness
-`scare` binary is built without `-DSCARIER_DUMP_TOOLS`, so this reaches the
-same data the cheap way -- de-obfuscate the file and regex the plain text.
+`SCR_DUMP_TASKS` (which harness/build.sh does compile in) dumps one loaded
+game's structure; measuring a *pattern* across a whole corpus wants the task
+command text of every game at once, so this reaches the same data the cheap
+way -- de-obfuscate the file and regex the plain text.
 
   * v4.0  = 14-byte signature + 8 ASCII digits + zlib stream (+ 15-byte
             trailer, see ~/adrift-battle/runner/wine/taftool.py).
