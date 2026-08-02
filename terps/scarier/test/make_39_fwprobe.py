@@ -75,8 +75,16 @@ def obj(prefix, short, desc, wearable, position, container, parent=0):
 # take/wear/put task claim the command in run390, or does the library still
 # run?  (The 2026-08-02 failing-task probe showed run390 running the library
 # take; this pins whether that was restriction-fallback or a full bypass.)
+# Variant "e": the 3.9 half of the turn-0 ORDERING probe (4.0 half = config
+# EV6 in make_arena_probe.py).  The single event becomes a plain LENGTH-3
+# immediate one carrying all three texts, so where its StartText and LookText
+# land relative to the opening room description says whether run390, like
+# run400, starts immediate events during LOAD -- i.e. before the description
+# is printed, with the StartText lost to the pre-intro screen and the LookText
+# part of the first description.
 VARIANT_B = len(sys.argv) > 2 and sys.argv[2] == "b"
 VARIANT_P = len(sys.argv) > 2 and sys.argv[2] == "p"
+VARIANT_E = len(sys.argv) > 2 and sys.argv[2] == "e"
 
 s(4)
 obj("a", "rock", "A grey rock.", 0, 4, 0)     # file Var1=3
@@ -115,10 +123,14 @@ task(["zzpillcheck"], "PILLCHECK FIRED.", [(4, 4, 1, "")])
 s(1)
 s("Pill Check")          # Short
 s(1)                     # StarterType 1 = immediate
-s(1)                     # RestartType 1 = restart when finished
+s(0 if VARIANT_E else 1) # RestartType (1 = restart when finished)
 s(0)                     # TaskFinished
-s(0); s(0)               # Time1 Time2
-s(""); s(""); s("")      # StartText LookText FinishText
+if VARIANT_E:
+    s(3); s(3)           # Time1 Time2 -- a plain three-turn length
+    s("K1 START."); s("K1 LOOK."); s("K1 FINISH.")
+else:
+    s(0); s(0)           # Time1 Time2
+    s(""); s(""); s("")  # StartText LookText FinishText
 s(3)                     # Where: all rooms
 s(0); s(0)               # PauseTask PauserCompleted
 s(0); s("")              # PrefTime1 PrefText1

@@ -634,6 +634,64 @@ CONFIGS = {
             dict(short="Zero Task Restart", affected=3, starter=3, restart=2,
                  tasknum=4, starttext="H3 START.", looktext="H3 LOOK.",
                  finishtext="H3 FINISH.")]),
+ # The turn-0 ORDERING probe (RUNNER_TESTS_TODO section 4's last open row).
+ # EV5 showed run400's turn 0 as "A bare arena.  H1 LOOK.  H2 LOOK.  H1
+ # FINISH. ..." -- the LookTexts INSIDE the opening room description and the
+ # StartTexts nowhere -- which reads as "immediate events are started during
+ # load, before the description is printed".  But every EV5 event is
+ # zero-length, so that reading is entangled with the parking model.  EV6
+ # takes the zero-length question out: K1 is a plain LENGTH-3 immediate event
+ # with all three texts, so
+ #   load-start model  -> opening description carries "K1 LOOK.", "K1 START."
+ #                        never appears, "K1 FINISH." + "K1 TASK." land on the
+ #                        third turn after load
+ #   tick-start model  -> "K1 START." prints under the opening description and
+ #                        "K1 LOOK." only shows up from the next `look` on
+ # K2 is the mid-game control (starts off a 2-turn delay) that shows where a
+ # StartText lands when nobody disputes the ordering.
+ # Session: look, z, z, look, z, z, z, look.
+ 'EV6': dict(name="Probe EV6",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["zzk1"], complete="K1 TASK."),
+           dict(commands=["zzk2"], complete="K2 TASK.")],
+    events=[dict(short="Len3 Immediate", affected=1, starter=1, restart=0,
+                 time1=3, time2=3, starttext="K1 START.",
+                 looktext="K1 LOOK.", finishtext="K1 FINISH."),
+            dict(short="Len2 Delay2", affected=2, starter=2, restart=0,
+                 start=2, end=2, time1=2, time2=2, starttext="K2 START.",
+                 looktext="K2 LOOK.", finishtext="K2 FINISH.")]),
+ # EV6 with something on the floor.  run390's opening description of the EV6
+ # 3.9 twin reads "LONG.  Also here is a rock and a slime.  K1 LOOK." -- the
+ # event's LookText AFTER the room contents, where SCARIER puts it before
+ # them.  EV6 itself has an empty room, so it cannot tell whether run400
+ # agrees; this adds a floor object and nothing else.
+ 'EV7': dict(name="Probe EV7",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","rock",4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["zzk1"], complete="K1 TASK.")],
+    events=[dict(short="Len3 Immediate", affected=1, starter=1, restart=0,
+                 time1=3, time2=3, starttext="K1 START.",
+                 looktext="K1 LOOK.", finishtext="K1 FINISH.")]),
+ # EV7 plus an NPC.  run400 on EV7 answered "yes, LookText goes after the
+ # object list" -- but SCARIER's room block is description, then objects, then
+ # the character lines, so a probe with only an object cannot say whether the
+ # Runner's LookText is merely after the objects or genuinely LAST.  Robot has
+ # no InRoomText, so it takes the default "Robot is here" line: if the opening
+ # description ends "...  Also here is a rock.  Robot is here, looking
+ # dangerous.  K1 LOOK.", the LookText closes the whole block.
+ 'EV8': dict(name="Probe EV8",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","rock",4,0,0,0,0,0,0)],
+    npcs=[("Robot",0,0,250,0,0,0,0,0,0,0,0,0,0)],
+    tasks=[dict(commands=["zzk1"], complete="K1 TASK.")],
+    events=[dict(short="Len3 Immediate", affected=1, starter=1, restart=0,
+                 time1=3, time2=3, starttext="K1 START.",
+                 looktext="K1 LOOK.", finishtext="K1 FINISH.")]),
  # Group-trailing reference probe (the open tangent on RUNNER_TESTS_TODO
  # section 4's last-element-in-group row): uip_match_text() and
  # uip_match_wildcard() share the remainder-list shape that killed

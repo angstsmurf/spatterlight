@@ -2076,6 +2076,15 @@ run_main_loop (scr_gameref_t game)
       run_prompt_player_name (game);
       run_prompt_player_gender (game);
 
+      /*
+       * Start the events that start immediately, before anything is
+       * described: both Runners do this during load, so an immediate event's
+       * LookText belongs to the OPENING room description and its StartText is
+       * never seen (probes EV6 / make_39_fwprobe variant "e", live
+       * 2026-08-02 -- see evt_start_load_events()).
+       */
+      evt_start_load_events (game);
+
       /* If flagged, describe the initial room. */
       vt_key[0].string = "Globals";
       vt_key[1].string = "DispFirstRoom";
@@ -2102,7 +2111,12 @@ run_main_loop (scr_gameref_t game)
        * command -- settled live 2026-08-01 in BOTH Runners (walk probe C: no
        * CharTask fires before the first prompt; Scarier used to move walking
        * NPCs, and fire their CharTask, during startup).
+       *
+       * The zero-length half of the load start finishes here rather than
+       * above: its FinishText, TaskAffected and any restart land BELOW the
+       * opening description in the real Runner.
        */
+      evt_finish_load_events (game);
       evt_tick_events (game);
 
       /*

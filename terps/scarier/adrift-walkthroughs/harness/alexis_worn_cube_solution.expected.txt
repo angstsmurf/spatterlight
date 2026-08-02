@@ -68,9 +68,9 @@ water in the distance.
 
 You can also see the Tonerith stone.
 There is a grey wolf circling you.
+Wolf hits you, but it doesn't seem to do any damage.
 
 >You hit Wolf.
-Wolf hits you, but it doesn't seem to do any damage.
 
 >You hit Wolf.
 Wolf hits you, but it doesn't seem to do any damage.
@@ -520,12 +520,13 @@ northwest.
 
 You can also see the Kedarn stone.
 There is a Forester Goblin hanging from a tree here.
+
+>You cut Forester Goblin with the small sword.
 Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
 any damage.
 
 >You cut Forester Goblin with the small sword.
-
->You cut Forester Goblin with the small sword.
+The birds high above your head hoot and cheep to each other.
 Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
 any damage.
 
@@ -538,7 +539,6 @@ The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
 Forester Goblin jumps through the trees to you.
-The birds high above your head hoot and cheep to each other.
 
 >You cut Forester Goblin with the small sword.
 
@@ -734,8 +734,6 @@ This path threads over the bottoms of many mountains. On each side are
 extremely steep mountains. It is impossible to attempt to climb up any.
 Southwest will take you towards Glaven. Northeast takes you further along the
 pass. East takes you along a valley ridge.
-You spin around, trying to see anything behind you, nothing of importance can
-be seen.
 
 >You move northeast.
 Nelone mountain pass
@@ -797,7 +795,6 @@ This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
 further up the mountain.
-You get up and start walking again.
 
 >You move northeast.
 Uron Dark Path
@@ -805,6 +802,8 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.
 There is a large Narn here.
+You drop to the floor feeling very ill.
+Karurn hits you, but it doesn't seem to do any damage.
 
 >You move northwest.
 Uron Dark Path
@@ -846,7 +845,6 @@ corridor. East will take you into a smaller room.
 Larnt is here.
 
 Haron follows you from the south.
-Larnt cuts Haron with the blade from Uron.
 
 >You cut Larnt with the small sword.
 Haron cuts Larnt with the elven sword.
@@ -854,6 +852,7 @@ Larnt cuts you with the blade from Uron, but it doesn't seem to do any
 damage.
 
 >You cut Larnt with the small sword.
+Larnt cuts Haron with the blade from Uron.
 
 >You cut Larnt with the small sword.
 Haron cuts Larnt with the elven sword.
@@ -1003,8 +1002,7 @@ Haron cuts Urgorn with the elven sword.
 
 >You cut Urgorn with the small sword.
 Haron cuts Urgorn with the elven sword.
-Urgorn shoots you with the ball of fire, but it doesn't seem to do any
-damage.
+Urgorn shoots Haron with the ball of fire.
 
 >You cut Urgorn with the small sword.
 

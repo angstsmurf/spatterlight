@@ -83,9 +83,10 @@ fortune teller's tent, and to the west is the funhouse, which also costs 1
 token.  You can also go north to the entrance of the circus tent or southeast
 to the outdoor stage.  The midway continues to the east and south.
 
-People attending the circus are laughing, talking, eating cotton candy.  Kids
-are running around, giggling.  The odor of freshly popped popcorn hangs in
-the air.  You hear calliope music coming from the direction of the funhouse.
+Locals are eating and drinking circus treats, lining up to play midway games.
+ You see a young boy riding on his father's shoulders.  The odor of freshly
+popped popcorn hangs in the air.  You hear calliope music coming from the
+direction of the funhouse.
 
 "Play ring toss!" calls the carny. "Three for a token!"
 A carny is here, working the ring toss game.
@@ -97,12 +98,11 @@ games.  You see the duck pond here.  To the south is an outdoor stage, and
 east is the fortune teller's tent.  You can also go west or southwest to the
 midway.
 
-People attending the circus are laughing, talking, eating cotton candy.  A
-little girl is playing with a stuffed animal won on the midway.  The familiar
-odor of hot nachos wafts over to you.  You hear calliope music coming from
-the direction of the funhouse.
+People are milling about, playing games.  You see a young boy riding on his
+father's shoulders.  The familiar odor of hot nachos wafts over to you.  You
+hear calliope music coming from the direction of the funhouse.
 
-"Win the prize!" the carny says. "Just one token, play duck pond!"
+"Be a winner!" calls the carny loudly. "One play, one token!"
 A carny is here, working the duck pond game.
 
 >"Everyone's a winner at duck pond!" the carny shouts. "Just one token."

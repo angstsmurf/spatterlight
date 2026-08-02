@@ -784,6 +784,8 @@ extern const scr_char *run_get_unsubtle_hint (scr_gameref_t game,
 /* Event functions. */
 extern scr_bool evt_can_see_event (scr_gameref_t game, scr_int event);
 extern void evt_tick_events (scr_gameref_t game);
+extern void evt_start_load_events (scr_gameref_t game);
+extern void evt_finish_load_events (scr_gameref_t game);
 extern void evt_debug_trace (scr_bool flag);
 
 /* Task functions. */

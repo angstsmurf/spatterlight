@@ -1,8 +1,10 @@
 # Shadowpeak ADRIFT 4.0 - ALTERNATIVE walkthrough: KILL THE WRAITH FIRST.
-# Deterministic 0-death WIN, 735/790 (was 740: the Fang +5 is lost since the
-# 2026-08-01 walk-timing fix -- he wanders in a turn later and re-tuning his
-# ambush desyncs the crypt fuse; accepted). Run:
-#   SC_SEED=1 sh harness/play.sh games/Shadowpeak.taf shadowpeak_killwraith_solution.txt
+# Deterministic 0-death WIN, 735/790 under SCR_LEGACY_RANDMAP=1 SCR_SEED=201
+# (2026-08-02: the load-time immediate-event start -- StarterType=1 events now
+# begin during game load -- re-threaded every walker, so both the seed and the
+# Damastus chase are re-derived below; 735 is unchanged from the old seed-1
+# route. The Fang +5 remains lost, as it has been since the 2026-08-01
+# walk-timing fix.)
 #
 # Variant of the canonical 710/790 win that ALSO:
 #   * kills the wraith Alam Nadeer at the sarcophagus (room 119) the moment he
@@ -718,23 +720,26 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED for the tick-order fix + fang/wraith/garlic
-# re-tunes: greedy BFS from the stone button (157); attack when co-located,
-# else BFS-step toward him; then walk to the bronze button (151). Re-derive
-# with chase.py (SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35) if upstream turns change.
+# DAMASTUS chase RE-DERIVED for the 2026-08-02 load-time immediate-event start
+# (StarterType=1 events now begin during game LOAD, before the opening room
+# description, which re-threads every walker's RNG -- no seed in 1-1500 wins
+# the old chase). Greedy BFS from the stone button (room 157): attack when
+# co-located, else BFS-step toward him, then walk to the bronze button (151).
+# Re-derive with harness/shadowpeak_chase.py (seeded scare + SCR_TRACE_PLAYER +
+# SCR_TRACE_JUDY npc=35) if upstream turns change again.
+e
+e
+w
+attack damastus
+w
+attack damastus
 s
+attack damastus
 s
+attack damastus
 s
-n
 attack damastus
 n
-attack damastus
-s
-attack damastus
-s
-attack damastus
-n
-attack damastus
 n
 n
 e

@@ -393,10 +393,12 @@ evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 /*
  * evt_start_event()
  *
- * Change an event from WAITING to RUNNING.
+ * Change an event from WAITING to RUNNING.  With `silent`, everything happens
+ * except the StartText: that is the game-load start, where the real Runners
+ * print into a screen the intro then clears (see evt_start_load_events()).
  */
 static void
-evt_start_event (scr_gameref_t game, scr_int event)
+evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -416,7 +418,7 @@ evt_start_event (scr_gameref_t game, scr_int event)
       vt_key[1].integer = event;
       vt_key[2].string = "StartText";
       starttext = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (starttext))
+      if (!scr_strempty (starttext) && !silent)
         {
           pf_buffer_paragraph_line (filter, starttext);
         }
@@ -651,7 +653,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
       if (evt_fixup_v390_v380_immediate_restart (game, event))
         break;
       else
-        evt_start_event (game, event);
+        evt_start_event (game, event, FALSE);
       break;
 
     case 2:                    /* Restart after delay. */
@@ -662,7 +664,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
           if (evt_fixup_v390_v380_immediate_restart (game, event))
             break;
           else
-            evt_start_event (game, event);
+            evt_start_event (game, event, FALSE);
           break;
 
         case 2:                /* Random delay. */
@@ -875,7 +877,7 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          */
         if (gs_event_time (game, event) == 0)
           {
-            evt_start_event (game, event);
+            evt_start_event (game, event, FALSE);
 
             /* If the event time was set to zero, finish immediately. */
             if (gs_event_time (game, event) <= 0)
@@ -893,7 +895,7 @@ evt_tick_event (scr_gameref_t game, scr_int event)
 
         if (gs_event_time (game, event) <= 0)
           {
-            evt_start_event (game, event);
+            evt_start_event (game, event, FALSE);
 
             /*
              * If the event time was set to zero, finish immediately -- unless
@@ -988,7 +990,7 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          */
         if (evt_starter_task_is_complete (game, event))
           {
-            evt_start_event (game, event);
+            evt_start_event (game, event, FALSE);
 
             /* If the event time was set to zero, finish immediately. */
             if (gs_event_time (game, event) <= 0)
@@ -1105,6 +1107,81 @@ evt_tick_events (scr_gameref_t game)
       if (state == ES_RUNNING
           && (prior_state == ES_PAUSED || prior_state == ES_WAITING))
         evt_tick_event (game, event);
+    }
+}
+
+
+/*
+ * evt_start_load_events()
+ * evt_finish_load_events()
+ *
+ * The two halves of an immediate event's game-load start, called either side
+ * of the opening room description (scrunner.cpp).
+ *
+ * Both Runners start a StarterType=1 event while the game is still loading,
+ * BEFORE the first room description is printed -- probed live 2026-08-02 in
+ * run400 (probe EV6 in test/make_arena_probe.py) and run390
+ * (make_39_fwprobe.py variant "e"), a plain length-3 immediate event carrying
+ * all three texts.  Two things follow, and both are visible:
+ *
+ *   - its LookText is part of the OPENING room description, because the event
+ *     is already running when that description is composed;
+ *   - its StartText is never seen at all, having been printed into the screen
+ *     the intro then clears.
+ *
+ * Everything else about the event is unchanged, including when it ends: the
+ * probe's length-3 event finished on the third command turn in both Runners
+ * and in SCARIER.  So this is purely a matter of moving the start earlier and
+ * dropping its text -- hence the `silent` start here, and the +1 that leaves
+ * the following startup tick's decrement landing on the rolled length.
+ *
+ * The finish half stays BELOW the description: a zero-length immediate event
+ * prints its FinishText, runs its TaskAffected and (RestartType=1) restarts
+ * with a visible StartText, all after the room text -- run400 probe EV5's
+ * turn 0 reads "A bare arena.  H1 LOOK.  H2 LOOK.  H1 FINISH.  H1 TASK.  H1
+ * START. ...".  Which is why this is two calls and not one.
+ */
+void
+evt_start_load_events (scr_gameref_t game)
+{
+  scr_int event;
+
+  for (event = 0; event < gs_event_count (game); event++)
+    {
+      if (gs_event_state (game, event) != ES_WAITING
+          || gs_event_time (game, event) != 0)
+        continue;
+
+      evt_start_event (game, event, TRUE);
+
+      /*
+       * The same compensation the tick's immediate-start branch applies (see
+       * evt_tick_event()): the startup tick that follows decrements a running
+       * event once, so a length-N event has to leave the load carrying N+1.
+       * A zero-length event keeps its zero and is finished below.
+       */
+      if (gs_event_time (game, event) > 0)
+        gs_set_event_time (game, event, gs_event_time (game, event) + 1);
+    }
+}
+
+void
+evt_finish_load_events (scr_gameref_t game)
+{
+  scr_int event;
+
+  /*
+   * The only events that can be RUNNING with no time left at this point are
+   * the zero-length ones evt_start_load_events() just started -- nothing else
+   * has ticked yet.  (A restart puts one back into RUNNING at zero, but at an
+   * index this loop has already passed, so it parks as the Runner's does
+   * rather than finishing twice.)
+   */
+  for (event = 0; event < gs_event_count (game); event++)
+    {
+      if (gs_event_state (game, event) == ES_RUNNING
+          && gs_event_time (game, event) <= 0)
+        evt_finish_event (game, event);
     }
 }
 

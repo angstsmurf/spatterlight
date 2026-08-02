@@ -13,10 +13,9 @@ This is the waiting room, for people to stand in line to see the king about
 important things, and you just happen to be at the end of that line.  You
 cant even tell if the line ends.  The throne room is at the end of the hall.
 You notice all the people here are very tall except one little man three
-people ahead of you.
+people ahead of you.  Yup, its still the first day.
 
 There are exits north and south.
-THIS is the FIRST day.
 
 >
 >You sneek the note out of the midgets back pocket.
@@ -168,7 +167,6 @@ draft.  Yup, its still the first day.
 Jackass Trying to Kill You is here.
 
 You can move north and south.
-Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 >(Your score has increased by 2)
 You cut Jackass Trying to Kill You with Kinda Sharp Sword.

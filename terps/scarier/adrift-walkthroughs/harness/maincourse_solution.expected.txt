@@ -63,10 +63,6 @@ SoMorph not impressed.
 
 There is an exit north.
 
-SoMorph not happy. SoMorph wake up in strange place. Strange human place.
-
-SoMorph not like humans. Filthy animals.
-
 >(Standing up first)
 SoMorph moves north.
 Corridor Alpha
@@ -116,9 +112,9 @@ Or maybe SoMorph got drunk?
 Somorph cannot remember much. Just in case, SoMorph will have words with
 Brian when Somorph get home.
 
->You hit Cat.
+You manage to avoid Cat's attack.
 
-Cat sheepishly enters.
+>You hit Cat.
 With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead!
 
 Somorph not stop thumping cat with tentacle till cat much flatter. Easier to
@@ -141,11 +137,9 @@ To east is bathroom, but door is closed.
 
 Also here is a dead cat.
 
-Cat is here.
-
 SoMorph can move north, south and west.
 
-Cat quietly exits to the south.
+Cat sheepishly enters from the north.
 
 Somorph think he not on planet Omorphos any more.
 
@@ -153,9 +147,7 @@ Somorph on some ship. Must change course to go home.
 
 And have words with Brian.
 
->I don't understand what you want me to do with the dead cat.
-
-Cat sheepishly enters from the south.
+>You hit Cat.
 
 >
 It takes a long while, but SeMorph eat cat.
@@ -164,17 +156,17 @@ It takes a long while, but SeMorph eat cat.
 
 SeMorph think Cat make fun appetiser...
 
-Cat quietly exits to the east.
+Cat sheepishly enters from the east.
 Somorph think he need loo now...
 
 >SoMorph picks up the cat fur.
 
-Cat sheepishly enters from the east.
+Cat quietly exits to the south.
 SoMorph really need to go toilet...
 
 >SoMorph opens the bathroom door.
 
-Cat quietly exits to the north.
+Cat sheepishly enters from the south.
 SoMorph need loo badly!
 
 >SoMorph moves east.
@@ -199,13 +191,13 @@ SoMorph try hold it in...
 
 >SoMorph closes the bathroom door.
 
-Cat sheepishly enters from the west.
-
 >SoMorph opens the toilet.
 
-Cat quietly exits to the west.
+Cat sheepishly enters from the west.
 
 >SoMorph decide SoMorph *really* need to go the loo.
+
+Cat quietly exits to the west.
 SoMorph squeeze his four sphincters and holds onto bathroom walls with
 tentacles for support.
 
@@ -252,11 +244,11 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-Cat and Human are here.
+Human is here.
 
 SoMorph can move north, east, south and west.
 
-Cat quietly exits to the south.
+Cat sheepishly enters from the south.
 
 Human runs screaming to the west.
 
@@ -277,46 +269,58 @@ Human is here.
 
 SoMorph can only move east.
 
->Human manages to avoid your attack.
-
-Human runs screaming to the east.
-
->
-Cryo Stasis Room
-
-SoMorph think this cryo stasis room.
-
-Room is cold, so must be cryo stasis room. SoMorph not like cold.
-
-Room is empty. Only Cryo Tube here. So must be cryo stasis room.
-
-SoMorph think at least room is clean. Wish room was warmer.
-
-SoMorph see exit to East.
-
-SoMorph can only move east.
-
->
-Cryo Stasis Room
-
-SoMorph think this cryo stasis room.
-
-Room is cold, so must be cryo stasis room. SoMorph not like cold.
-
-Room is empty. Only Cryo Tube here. So must be cryo stasis room.
-
-SoMorph think at least room is clean. Wish room was warmer.
-
-SoMorph see exit to East.
-
-SoMorph can only move east.
-
-Human runs screaming from the east.
+Cat sheepishly enters from the east.
 
 >You hit Human.
+
+Cat quietly exits to the east.
+
+Human runs screaming.
 With mighty swipe of tentacle, SoMorph kill Alan Davies till he dead!
 
 Then SoMorph poke Alan Davies with tentacle for few minutes. To be sure...
+
+>
+Cryo Stasis Room
+
+SoMorph think this cryo stasis room.
+
+Room is cold, so must be cryo stasis room. SoMorph not like cold.
+
+Room is empty. Only Cryo Tube here. So must be cryo stasis room.
+
+SoMorph think at least room is clean. Wish room was warmer.
+
+SoMorph see exit to East.
+
+Also here is a dead human.
+
+Human is here.
+
+SoMorph can only move east.
+
+>
+Cryo Stasis Room
+
+SoMorph think this cryo stasis room.
+
+Room is cold, so must be cryo stasis room. SoMorph not like cold.
+
+Room is empty. Only Cryo Tube here. So must be cryo stasis room.
+
+SoMorph think at least room is clean. Wish room was warmer.
+
+SoMorph see exit to East.
+
+Also here is a dead human.
+
+Human is here.
+
+SoMorph can only move east.
+
+Human runs screaming to the east.
+
+>I don't understand what you want me to do with the dead human.
 
 >I don't understand what you are trying to eat.
 SoMorph prepare for main course.
@@ -355,11 +359,9 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-Cat is here.
-
 SoMorph can move north, east, south and west.
 
-Cat quietly exits to the east.
+Cat sheepishly enters from the east.
 
 Human runs screaming from the east.
 
@@ -384,6 +386,8 @@ Also here is some catnip.
 Frank is here.
 
 SoMorph can only move south.
+
+Cat sheepishly enters from the south.
 
 >
 SeMorph hear screeching sound of brakes applied too suddenly, and whole ship

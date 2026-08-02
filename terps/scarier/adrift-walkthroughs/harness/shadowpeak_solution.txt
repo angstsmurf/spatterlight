@@ -1,9 +1,11 @@
-# Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 680/790 under
-# SCR_LEGACY_RANDMAP=1 SCR_SEED=5 (was 710 at seed 1: the 2026-08-01
-# walk-timing fix re-threaded every walker, seed 5 is the only winning seed in
-# 1-800 for this route shape, and its thread misses the Jarris/Boris/Arthur
-# zombie kills, -30. Those kills still land in shadowpeak_killwraith (735) and
-# the fourth-gargoyle variant (715), so coverage is kept there.)
+# Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 700/790 under
+# SCR_LEGACY_RANDMAP=1 SCR_SEED=102 (2026-08-02: the load-time immediate-event
+# start -- StarterType=1 events now begin during game load -- re-threaded every
+# walker again, exactly as the 2026-08-01 walk-timing fix did. No seed in
+# 1-5000 wins the old route shape; the break is the Damastus maze chase, which
+# is re-derived below. Seed 102 survives the trailing gargoyle and lands the
+# Jarris/Boris/Arthur zombie kills the old seed-5 thread missed, so this route
+# is +20 on the 680 it used to score.)
 # Full prose notes: terps/scare/adrift-walkthroughs/Shadowpeak_walkthrough.md
 # Lines whose first non-blank character is '#' are COMMENTS: the harness skips
 # them (os_ansi.c, gated by -DSCARE_DUMP_TOOLS), so inline notes no longer leak
@@ -776,33 +778,32 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED for the tick-order fix (NPCs walk before events) +
-# the garlic-z / venison-hoist re-tunes upstream. Greedy BFS from the stone
-# button (room 157): attack when co-located, else BFS-step toward him. He dies
-# at room 160; e,e,e -> 151 for the bronze button. Re-derive with chase.py
-# (seeded scare + SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35) if upstream turns
-# change.
-e
-e
-e
-e
-e
-e
-w
+# DAMASTUS chase RE-DERIVED for the load-time immediate-event start (2026-08-02:
+# StarterType=1 events now start during load, which re-threads every walker's
+# RNG). Greedy BFS from the stone button (room 157): attack when co-located,
+# else BFS-step toward him. He now dies at room 154 (was 160), and
+# n,n,n,e,e,e,e,e,e walks 154 -> 151 for the bronze button. Re-derive with
+# harness/shadowpeak_chase.py (seeded scare + SCR_TRACE_PLAYER + SCR_TRACE_JUDY npc=35)
+# if upstream turns change again.
+s
+s
 attack damastus
-w
 attack damastus
-w
+s
 attack damastus
-w
+n
 attack damastus
-e
+s
 attack damastus
+n
+n
+n
 e
 e
 e
-# Bronze button (room 151), the 4th. All four buttons pressed AND Damastus dead
-# fires the 'all buttons' task (+10), unsealing 160<->163.
+e
+e
+e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

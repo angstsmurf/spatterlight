@@ -46,14 +46,14 @@ Please enter your name:
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.
+a crowd fills the street.  The street is busy with people walking,
+purchasing, and talking.
 
 Also here is a pile of rubbish.
 
 Kiris is here.
 
 There are exits north, east, south and west.
-You see a man running through the crowd.
 
 >
 >
@@ -82,14 +82,17 @@ been charged ($1.50). You have $498 and 50 cents.
 percent of the coffee left.
 
 >You take a small sip from the mug of coffee.
+Harthro booms, "Where's all the dirty dishes? C'mon! They gotta get cleaned!"
 
 >You yell out to Harthro that you'd like to order his best steak for 8
 dollars. He slides down your plate, a few minutes later, and you pay the
 money. You have $490 and 50 cents.
+A few people leave the tavern together.
+Some drunken fool falls down, almost knocking over a table. A roar of
+laughter rises through the taver
 
 >You take a decent bite out of the steak. It tastes delicious. Another
 masterpiece from Harthro's grill.
-Harthro hollers, "Don't forget to put yet dirty dishes on the rack!"
 
 >You move west.
 In a busy street

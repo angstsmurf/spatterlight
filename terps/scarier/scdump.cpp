@@ -522,12 +522,27 @@ scr_dump_structure_once (scr_gameref_t game)
         ek[2].string = "Obj2Dest";     if (prop_get (bundle, "I<-sis", &evt, ek)) o2d = evt.integer;
         ek[2].string = "Obj3";         if (prop_get (bundle, "I<-sis", &evt, ek)) o3 = evt.integer;
         ek[2].string = "Obj3Dest";     if (prop_get (bundle, "I<-sis", &evt, ek)) o3d = evt.integer;
-        fprintf (stderr,
-                 "EVENT %ld [%s] starter=%ld startTask=%ld affTask=%ld(fin=%ld)"
-                 " restart=%ld start=%ld..%ld time1=%ld time2=%ld pauseTask=%ld"
-                 " o2=%ld->%ld o3=%ld->%ld\n",
-                 e, en ? en : "", st, tn, ta, tf, rt, sta, end, t1, t2, pf,
-                 o2, o2d, o3, o3d);
+        /* Which of the three texts the event actually carries.  This is what
+         * decides exposure to the turn-0 ordering divergence (RUNNER_TESTS_TODO
+         * section 4): the real Runner starts an immediate event during load, so
+         * a StarterType=1 event's StartText is printed into the cleared
+         * pre-intro screen and its LookText joins the opening room
+         * description. */
+        {
+          const scr_char *stx = NULL, *ltx = NULL, *ftx = NULL;
+          ek[2].string = "StartText";  if (prop_get (bundle, "S<-sis", &evt, ek)) stx = evt.string;
+          ek[2].string = "LookText";   if (prop_get (bundle, "S<-sis", &evt, ek)) ltx = evt.string;
+          ek[2].string = "FinishText"; if (prop_get (bundle, "S<-sis", &evt, ek)) ftx = evt.string;
+          fprintf (stderr,
+                   "EVENT %ld [%s] starter=%ld startTask=%ld affTask=%ld(fin=%ld)"
+                   " restart=%ld start=%ld..%ld time1=%ld time2=%ld pauseTask=%ld"
+                   " o2=%ld->%ld o3=%ld->%ld texts=%c%c%c\n",
+                   e, en ? en : "", st, tn, ta, tf, rt, sta, end, t1, t2, pf,
+                   o2, o2d, o3, o3d,
+                   stx && stx[0] ? 'S' : '-',
+                   ltx && ltx[0] ? 'L' : '-',
+                   ftx && ftx[0] ? 'F' : '-');
+        }
       }
   }
 

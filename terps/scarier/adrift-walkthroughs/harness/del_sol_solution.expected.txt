@@ -22,7 +22,6 @@ anyway because it IS high school.
 Whatever you end up making Noslen do, each class is only XX turns long and
 then its off to the next class.  If Noslen could just get through the day
 without dying…it would be a good thing.
-Wood shop is awesome!
 Hey dude, want to smoke some weed?  asks, harry, the class stoner.
 "Hey Noslen, You are such a stud.  Come make out with me behind the band
 saw."  says  Jarvin, the class looser.  Your'e not sure.  If the girl you
@@ -148,7 +147,6 @@ and her powertools are here, ready to cut you to pieces.  Vivian and her
 screwdriver are here.  She wants to skewer Noslen.
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
-You manage to avoid ViViAN's attack.
 
 >I don't understand what you mean!
 
@@ -190,24 +188,20 @@ print both SCARIER's and the game's version number.
 >That's interesting, but it doesn't mean much.
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
-You manage to avoid ViViAN's attack.
 
 >I don't understand what you want to do with JaRvIn.
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
-You manage to avoid ViViAN's attack.
 
 >Take what?
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
-You manage to avoid ViViAN's attack.
 
 >I don't understand what you mean!
 
 >That's interesting, but it doesn't mean much.
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
-You manage to avoid ViViAN's attack.
 
 >I don't understand what you mean!
 

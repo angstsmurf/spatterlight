@@ -1,4 +1,40 @@
-# Shadowpeak — walkthrough (★ COMPLETE — WON @ 710/790, 0 deaths)
+# Shadowpeak — walkthrough (★ COMPLETE — WON @ 700/790, 0 deaths)
+
+Current blessed state (all three routes 0 deaths, marker `completed the
+adventure Shadowpeak`, all with `SCR_LEGACY_RANDMAP=1`):
+
+| solution | seed | score |
+| --- | --- | --- |
+| `shadowpeak_solution.txt` | 102 | **700**/790 |
+| `shadowpeak_allgargoyles_solution.txt` | 230 | **715**/790 |
+| `shadowpeak_killwraith_solution.txt` | 201 | **735**/790 |
+
+## ✅ SESSION 24 (2026-08-02): re-derived for the load-time immediate-event start (700/715/735)
+
+The engine now starts `StarterType=1` ("immediate") events during **game load**,
+before the opening room description — validated against the Runner probes — so
+their LookText joins the opening description and their StartText is never seen.
+The side effect that matters here: every downstream RNG draw is re-threaded, and
+Shadowpeak's walkers move with it. All three routes broke at the **Damastus maze
+chase**, and **no seed in 1–2000 wins the old base-route chase shape**, so both
+the seeds and the chases were re-derived rather than re-blessed.
+
+- Seeds moved **5 → 102** (main), **unseeded → 230** (allgargoyles), **unseeded
+  → 201** (killwraith). Seeds were screened first on *upstream* cleanliness (the
+  first new command failure must occur at or after the chase), then the chase
+  was re-derived under the winner.
+- The chase blocks were regenerated with `harness/shadowpeak_chase.py
+  <solution-basename> <seed>` — greedy BFS over the dumped EXIT graph, attack
+  when co-located, walk to room 151 once Damastus hides (`room=-1` == dead).
+  That script had rotted to dead scratch paths and is now parameterised and
+  self-contained, so the next re-thread is a one-command repair.
+- Scores: main **700** (up from 680 — seed 102 survives the trailing gargoyle
+  and lands the Jarris/Boris/Arthur zombie kills the old thread missed),
+  allgargoyles **715** and killwraith **735**, both unchanged.
+
+Note the headline numbers below (710/715/740) predate this: the 2026-08-01
+walk-timing fix had already taken them to 680/715/735, and the Fang +5 in the
+killwraith route has been lost since then.
 
 ## ✅ SESSION 22 (2026-07-02): re-derived for the NPC/event tick-order fix — parity restored (710/715/740)
 
