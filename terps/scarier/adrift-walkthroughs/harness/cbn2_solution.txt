@@ -1,0 +1,56 @@
+# The Revenge Of Clueless Bob Newbie 2 (cbn2.taf) -- 3rd One-Hour Game
+# Competition, 2003.  32 tasks, 7 rooms, two NPCs (Lisa, Snarf).
+#
+# Six tasks carry ACT type=4 v1=5 -- TASKs 5, 7, 10, 15, 21 and 23 -- so the
+# maximum is 30 and this route takes all six.  TASK 23 [light *match*] in the
+# Archives is the only ACT type=6 v1=0.
+#
+# FOOTGUNS -- the blank lines are load-bearing:
+#   * the intro has THREE "...press a key...<waitkey>" pauses, and a fourth
+#     line is needed as the throwaway command that TASK 0 turns into the move
+#     out of room 0 [The Story So Far...]: hence four leading blanks.
+#   * `x desk` in Bogg's Office has a <waitkey> in the middle of its message
+#     ("completely empty.<waitkey> Aside, that is, from an empty cup"), which
+#     eats the next line -- hence the blank after it.
+#
+# `give coffee` must NOT name Lisa.  TASK 4 [*lisa*] sits ahead of TASK 10
+# [give *coffee*] in task order and matches any command containing her name,
+# so "give coffee to lisa" only ever gets "Back off, buster!" and the passcard
+# never arrives.  Same trap in reverse: `x girl` (TASK 2) is what brings Lisa
+# on stage at all -- she starts at startRoom=-1 and is only scenery in the
+# room description until then.
+#
+# The chain:
+#   x desk (Bogg's)   TASK 5 -> the empty cup.
+#   fill cup (toilets) TASK 7 -> "coffee".  Yes, from the toilet.
+#   give coffee       TASK 10 -> the passcard, which is the sole restriction
+#                     on TASK 12 [ne] into the Archives.
+#   talk to snarf     TASK 15 -- in Reception, not upstairs; he stomps off to
+#                     his office and mentions the mistress.
+#   tell journalists about the wife   TASK 21 in the Open Area (needs TASK 15
+#                     done) -- Snarf panics, goes out the window, and leaves
+#                     both his office unlocked (the task sets the flag TASK 8
+#                     [n] tests) and his lit cigar's match behind.
+#   take match / ne / light match   TASK 23, +5 and the ending.
+
+
+
+x girl
+u
+nw
+x desk
+
+se
+s
+fill cup
+n
+d
+give coffee
+talk to snarf
+u
+tell journalists about the wife
+n
+take match
+s
+ne
+light match

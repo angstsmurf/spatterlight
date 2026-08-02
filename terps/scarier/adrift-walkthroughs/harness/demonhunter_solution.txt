@@ -1,0 +1,37 @@
+# Demonhunter (demonhunter.taf) -- 3rd One-Hour Game Competition, 2003.
+# 5 tasks, 7 rooms, two demon NPCs.  Three scoring actions exist in the whole
+# game -- ACT type=4 v1=2 (TASK 0), v1=1 (TASK 2) and v1=3 (TASK 4) -- so the
+# maximum is 6/6, which this 15-command route reaches.  TASK 4 also ends the
+# game (ACT type=6 v1=0).
+#
+# The three objects you need are all hidden inside scenery and are never
+# listed in a room description:
+#   ceramic plate  -- on the table in A House          (s from Near Some Houses)
+#   flask of water -- inside the stone foundation      (n from Near Some Houses)
+#   black orb      -- inside the ruined pulpit         (n from the village centre)
+# `x table` / `x foundation` / `x pulpit` are what reveal them.
+#
+# TASK 0 [put*orb*water] wants all three held at once and is where=2 with
+# WHERE_ROOMS=[0 1 3 4 5 6] -- every room EXCEPT the corn field.  It summons
+# the demon; walking into the field then fires TASK 2 [#player encounters
+# demon], which teleports you into the church and starts EVENT 1
+# [demonattacktwo]: 7 turns later that runs TASK 3 [#playerdeath] (ACT type=6
+# v1=2).  So the finish is on a 7-turn clock -- kill it immediately.
+#
+# TASK 4 [hit*demon*plate*] needs only the plate held.  Do NOT put the plate
+# down anywhere along the way.
+n
+e
+s
+take plate
+n
+n
+take water
+s
+w
+n
+take orb
+put orb in water
+s
+w
+hit demon with plate

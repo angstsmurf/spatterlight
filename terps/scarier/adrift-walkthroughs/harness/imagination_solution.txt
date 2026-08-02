@@ -1,0 +1,35 @@
+# Just My Imagination - Musings of a child (Imagination.taf) -- 3rd One-Hour
+# Game Competition, 2003.  6 tasks, 3 rooms, one NPC (Jenny, who follows you).
+# Five of the six tasks award ACT type=4 v1=20, so the maximum is 100/100 and
+# TASK 5 [give * ring * girl *] also ends the game (ACT type=6 v1=0).
+# This route scores 100/100 and wins in 12 commands.
+#
+# FOOTGUN: the game asks "Please enter your name:" before the first room
+# description.  The harness strips `#` comment lines before feeding the file,
+# so the first *real* line is what answers that prompt -- hence the explicit
+# `Jenny` below.  Without it the name prompt swallows `take stick` and the run
+# dies at "You don't have anything suitable for digging."
+#
+# FOOTGUN: "tie floss to rock" does NOT match.  TASK 1's four command patterns
+# are [tie * string * rock *], [tie * string * floss *], [tie * rock * string *]
+# and [tie * rock * floss *] -- floss-before-rock only parses if you call the
+# floss "string".  "tie the string to the rock" is the phrasing that works.
+#
+# Route (each step is one of the six tasks, in the only order the gates allow):
+#   dig dirt      TASK 0, needs the stick held; opens the room 0 -> 1 exit
+#   tie/throw/    TASKs 1-3 in the water pipe; TASK 3 opens the 1 -> 2 exit
+#   stand         and TASK 4 [s] floats you and Jenny down to your chamber
+#   give ring     TASK 5, needs the ring from inside the nut shell
+Jenny
+take stick
+dig dirt
+s
+take floss
+take rock
+tie the string to the rock
+throw rock at spoon
+stand on spoon
+s
+open shell
+take ring
+give ring to girl

@@ -1,0 +1,46 @@
+# The Farthest Shore (shore.taf) -- Stewart J. McAbney, 3rd One-Hour Game
+# Competition, 2003.  10 tasks, 6 rooms, one NPC (a cow).
+#
+# There is NO scoring system: not one task carries an ACT type=4, so the status
+# line stays at 0 and "maximum score" is meaningless here.  The single ending
+# is TASK 7 [# Beach - South] = ACT type=6 v1=0, i.e. ADRIFT counts it as a
+# *win* even though the text is a drowning.  This route reaches it after
+# touring every room and firing every other task in the game.
+#
+# FOOTGUN: you cannot leave the dinghy at will.  TASK 2 (any direction) and
+# TASK 3 [@ Dinghy - Land the boat] both carry RESTR type=4 v1=2 v2=2 v3=0
+# (variable 2 == 0), and TASK 3 is fired by EVENT 0 [@ Dinghy - Restriction]
+# five turns into the game.  Until then every `e` answers "you decide against
+# stepping out of the dinghy" -- you have to burn the five turns.  `listen`,
+# `smell` and two waits do that while showing the dinghy's three set pieces.
+#
+# The basket and the turnips are deliberate refusals (TASK 8 / TASK 4 answer
+# "you couldn't hope to lift the basket" and "it is so rotten that it almost
+# fades in your hand").  The leek is the only takeable object in the game, and
+# feeding it to the cow (TASK 6) sets variable 1, which is what puts the line
+# "A light, dim in the fog, shines in from the south." into the beach
+# description -- the cue for the closing move.
+listen
+smell
+e
+z
+z
+e
+x tree
+u
+x signpost
+w
+x cabin
+in
+x table
+take basket
+take turnip
+take leek
+eat leek
+out
+e
+s
+give leek to cow
+n
+d
+s

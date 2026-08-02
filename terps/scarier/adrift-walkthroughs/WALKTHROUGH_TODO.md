@@ -8,6 +8,132 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-08-02 (after the One-Hour batch) — suite repaired for the load-time immediate-event start — 127/127 PASS
+
+An uncommitted engine change turned the suite red: `StarterType=1` ("immediate")
+events now start during **game load**, before the opening room description
+(`evt_start_load_events()` / `evt_finish_load_events()` either side of the
+description in `run_main_loop()`, with a `+1` compensation so the finish turn is
+unchanged). Validated against the Runner probes — so the goldens and routes are
+what move, not the engine. Visible effects: an immediate event's LookText joins
+the opening description, its StartText is never seen (it prints into the screen
+the intro clears), and a zero-length one finishes *below* the description.
+
+The change also re-threads every downstream RNG draw, which is what actually
+broke things: battle outcomes, weather, NPC wander phase and ambience-variant
+selection all shift. **14 rows** were affected.
+
+- **9 pure ambience/RNG-variant shifts** — marker and score intact, so just
+  re-blessed: `alexis`, `alexis_worn_cube`, `circus`, `colony`,
+  `melbourne_beach`, `del_sol`, `the_town_of_azra`, `villains_and_kings`,
+  `villains_and_kings_assisted`, `ticktick`.
+- **2 re-seeded** — `maincourse` → `SCR_SEED=17`, `light_up` → `SCR_SEED=45`.
+  (Padding `maincourse` with extra attack turns instead of re-seeding *backfires*
+  at every seed: the surplus swings leave the cat alive and Frank rejects the
+  final `main course`.)
+- **3 re-derived** — all three Shadowpeak routes broke at the Damastus maze
+  chase, and no seed in 1–2000 wins the old base-route chase shape. New seeds
+  102 / 230 / 201, chases regenerated: **700** (up from 680) / **715** / **735**,
+  0 deaths each. See `Shadowpeak_walkthrough.md` § Session 24.
+
+Carry-forward:
+
+- **`run_v4_walkthroughs.sh` auto-rebuilds `scare`** when any `terps/scarier/sc*.cpp`
+  or `*.h` is newer than the binary. That is what silently changed the engine
+  under already-blessed goldens — a red suite after an unrelated edit is
+  usually this, not a broken route.
+- **`harness/shadowpeak_chase.py <solution-basename> <seed>`** is now
+  parameterised and self-contained (it regenerates the EXIT graph itself; no
+  scratch state). It had rotted to hardcoded dead paths. The repair recipe for
+  the next re-thread is fixed: screen seeds on *upstream* cleanliness (first new
+  command failure at or after the chase; add a prompt-count floor so dead-early
+  runs don't screen as clean), then re-derive the chase under the winner.
+- **zsh footgun that cost real time:** `r=$(… | grep -c "pat")` can yield an
+  *empty* string, so `[ "$r" != "0" ]` is true for every iteration — a seed
+  sweep reported 40 consecutive false wins. Write the run to a file and use
+  `grep -q`. And goldens are extended-ASCII with NEL terminators: always
+  `export LC_ALL=C` and `grep -a`.
+
+## 2026-08-03 — One-Hour Game Comps 1/2/3: all 21 derived and wired — 127/127 PASS
+
+The complete entry lists of the **1st (2002), 2nd (2003) and 3rd (2003) ADRIFT
+One-Hour Game Competitions**, unpacked into
+`~/Downloads/onehour-adrift-2026-08/{1hourgamecomp,ohc2,ohc3}/` and symlinked
+into `games/`. Every one now has a solution file, a golden, a
+`<Name>_walkthrough.md` and a row in `run_v4_walkthroughs.sh`. Suite is **127
+rows, all PASS**.
+
+Sixteen wins (six of them a verified score maximum), one best-reachable CYOA
+rank, one deliberate death ending, and three "wins" whose text is anything but.
+
+| game | title | result | cmds | note |
+| --- | --- | --- | --- | --- |
+| `frog` | The Green Princess | WON | 10 | no score; the first `e` doesn't move you (see below) |
+| `chicken` | The Evil Chicken of Doom! | WON | 22 | no score; the "win" is life imprisonment for poultrycide |
+| `endgame` | The Game To End All Games | WON | 13 | no score; "wins" three times before the real ending |
+| `hauntedhouse` | The Haunted House of Hideous Horror | WON | 42 | no score; 4 of the 5 endings are deaths |
+| `microbe_willie` | Microbe Willie vs. The Rat | ★ 7/7 **MAX** | 18 | timed kidney trap |
+| `amonkeytoomany` | A monkey too many | ★ 25/25 **MAX** | 12 | 5-command win exists; route takes the long way for the text |
+| `DFU` | Dance Fever USA | ★ 999999999 **MAX** | 21 | one `ChangeScore(+999999999)`, and that really is the maximum |
+| `Percy` | The Saga of Percy the Viking | best rank ("prince") | 7 | CYOA; **no `EndGame` at all**; "king" is arithmetically unreachable |
+| `forum` | Forum | WON | 20 | no score; two timed fights |
+| `CBN` | The Revenge Of Clueless Bob Newbie! | ★ 45/45 **MAX** | 35 | the game's own "best possible ending" |
+| `cbn2` | …Part 2: This Time It's Personal | ★ 30/30 **MAX** | 19 | |
+| `CRM` | That Crazy Radioactive Monkey! | ★ 25/25 **MAX** | 22 | |
+| `ECOD2` | …Evil Chicken of Doom…Returns! | WON | 24 | no score; the in-game book *is* the walkthrough |
+| `Imagination` | Just My Imagination | ★ 100/100 **MAX** | 12 | name prompt eats line 1 |
+| `asdfa` | A.S.D.F.A. | ★ 35/35 **MAX** | 24 | one wrong `x shelf` makes it silently unwinnable |
+| `demonhunter` | Apprentice of the Demonhunter | ★ 6/6 **MAX** | 15 | 7-turn kill clock |
+| `forum2` | Forum 2 | WON | 22 | no score; its own `walkthru` command is wrong |
+| `pyramid` | The Pyramid of Hamaratum | ★ 100/100 **MAX** | 10 | one-turn beheading fuse |
+| `saffire` | Saffire | WON (Heaven) | 16 | four equally-`win` endings; Wingdings bug |
+| `shore` | The Farthest Shore | WON | 24 | no score; the "win" text is a drowning |
+| `ticktick` | Doom Cat!! | **death (only ending)** | 12 | no `EndGame(win)` in the file at all |
+
+Things worth carrying forward:
+
+- **A `<waitkey>` can sit in the MIDDLE of a message, not just at the end**, and
+  each one silently eats one line of input. `CBN` lost 10 of its 45 points to
+  this: `x desk` prints *"…finds…`<waitkey>` nothing!"*, so the second `x desk`
+  vanished and the pen was never found — with no error message anywhere. `CRM`,
+  `cbn2` and `forum2` all have the same shape (`forum2`'s two are inside the
+  **winning** message, so the harness's own `quit`/`y` get eaten unless two
+  trailing blanks are banked). **New standard pre-check:** decode the `.taf` and
+  grep the extracted strings for `waitkey` *before* probing, then budget one
+  blank line per pause.
+- **`SCR_DUMP_TASKS` prints nothing until a turn actually runs.** Games with a
+  keypress intro produce an empty dump if you feed `/dev/null`; feed a file of
+  blank lines instead.
+- **Task-order shadowing steals commands.** `cbn2`'s task 4 is `[*lisa*]` and
+  sits ahead of task 10 (`give *coffee*`), so `give coffee to lisa` only ever
+  gets *"Back off, buster!"*. Drop the name.
+- **Noun-token traps.** `forum`'s pattern is `[ds/monster/man/figure]{490}` —
+  `smack ds490` is one token and never matches, so it falls through to a library
+  refusal that reads like a puzzle hint. And an optional group written **without
+  spaces** can be unmatchable outright: `forum2`'s
+  `[third{review}scroll/scroll three/…]` can only ever match `thirdscroll`, which
+  is why the game's own built-in `walkthru` fails on its first move.
+- **A task can be a trap that leaves no trace.** `asdfa`'s Pantry invites you to
+  `x shelf`; doing so sets a flag that permanently swaps the sword-granting task
+  for a silent no-op, and the game becomes unwinnable with no diagnostic. The
+  author left `cheat` responses keyed to that same flag, which is how it was
+  confirmed.
+- **Movement can be a lie.** `frog`'s first `e` matches a task with *no action
+  at all* while an alternate room description renames the room — the transcript
+  is indistinguishable from a successful move. `SCR_TRACE_FLAGS=16` prints
+  `Library: moving player from X to Y` for genuine moves; `SCR_TRACE_PLAYER`
+  prints the room at the *end* of the turn, which reads as an off-by-one.
+- **Deliberately unwinnable / non-victory endings are common in this batch.**
+  `ticktick` has no `EndGame(win)` at all; `Percy` has no `EndGame` of any kind;
+  `shore` and `chicken` are engine-wins whose text is a drowning and a life
+  sentence. Regression rows for these use the game's own final line as the
+  marker, not a victory string.
+- **Wingdings joins Webdings as an unmapped symbol font.** `saffire`'s Heaven
+  ending is `<font face="Wingdings">V</font>`; `0x56` is the glyph `crossshadow`
+  (U+271E, a shadowed Latin cross) in the shipped `wingding.ttf`, but
+  `os_glk.cpp` only carries a Webdings table, so a bare `V` prints. Same shape of
+  fix as the Topaz dove.
+
 ## 2026-08-02 (last) — Key & Compass batch: all 17 derived and wired — 106/106 PASS
 
 Every game from the sweep below now has a solution file, a golden, a

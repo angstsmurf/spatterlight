@@ -1,0 +1,153 @@
+Loading game...
+
+The Farthest Shore
+An Interactive Reverie by Stewart J. McAbney
+
+   Hungry, confused, desperate, you curl up in the dinghy looking out into
+the bleak emptiness. Too tired for questions, your mind drifts through
+imagination after torrid imagination as you seek a warm thought to steady
+your mind, a reason for optimism.
+
+In a dinghy
+   Water splashes in as the wind encourages the sea to spill over the
+fluorescent flaps of the rapidly deflating vessel. Fog, wrapped around the
+sky, conceals the seascape. Nothing is here, nothing but the shadows of
+unseen entities, and they soon dart from sight as you turn on them.
+
+>   The cymballine crash of the sea played by the percussionist wind mixes
+disturbingly with whispers of unknown origin.
+
+>   The metallic tang of the sea fused with the stench of salt and dying
+greenery tease you.
+
+>   Although your mind is numbed of sense, you decide against stepping out of
+the dinghy and into the sea.
+
+>Time passes...
+
+   Unexpected by even yourself after days of drifting, the dinghy lands
+roughly upon a reef of stones - land leads east into the unknown.
+
+>Time passes...
+
+>You move east.
+On a grey beach
+   A lone tree weeps at the edge of the beach, its roots firmly planted in
+the grey sand. The wind toys with its fronds, a vicious unseen harpy, as the
+sea washes upon the sand, the sting of icy spray hanging in the air.
+
+   A hill leads up into the fog and your dinghy sits on the rocks to the
+west.
+
+>   The tree hangs its fronds in shame, its black trunk holding it steadily to
+the ground against the torment of the wind.
+
+>You move up.
+Atop a hill
+   With its summit firmly lost in the mesh of grey cloud and dirty fog, the
+hill offers only a distressed signpost pointing south and west.
+
+   Paths, or ragged lines of stones, lead off in said directions; another
+path leads down to the beach.
+
+>   A wooden signpost firmly planted in the empty ground, rotten and plagued
+by a dark moss.
+
+>You move west.
+By a ruined cabin
+   Built from rough stones and rotten driftwood, a small cabin takes a
+beating from the wind. A ragged curtain, tugged by an unseen force, slaps
+itself aganst the shack's stone face then floats effortlessly before cracking
+itself against the cabin again.
+
+   A barely discernible path leads east into the fog.
+
+>   A gruesome blend of harsh stone blocks stacked within a frame of gnarled
+driftwood, the cabin is a small outpost, the home of unseen entities.
+
+>You move in.
+Inside the cabin
+   Empty but for a small table, the cabin appears long forgotten - rotten
+beams struggle to hold it together and a basket of withered wicker cowers in
+the corner.
+
+   A doorway leads out to the filthy unknown.
+
+>   A block of rough stone - crudely chiselled - topped with a collection of
+wooden sticks, moss covered and rotten.
+
+>   You are wearied by starvation and the onslaught of the elements - you
+couldn't hope to lift the basket.
+
+>   You try to take one of the turnips but it is so rotten that it almost
+fades in your hand, the soggy flesh crumbling into the basket.
+
+>You take the leek from the basket.
+
+>   You nibble the root of the leek, its foul taste matching its foul stench.
+
+>You move out.
+By a ruined cabin
+   Built from rough stones and rotten driftwood, a small cabin takes a
+beating from the wind. A ragged curtain, tugged by an unseen force, slaps
+itself aganst the shack's stone face then floats effortlessly before cracking
+itself against the cabin again.
+
+   A barely discernible path leads east into the fog.
+
+>You move east.
+Atop a hill
+   With its summit firmly lost in the mesh of grey cloud and dirty fog, the
+hill offers only a distressed signpost pointing south and west.
+
+   Paths, or ragged lines of stones, lead off in said directions; another
+path leads down to the beach.
+
+>You move south.
+A barren field
+   Guarded by fenceposts without any beams, you can only guess as to how vast
+the field is - the fog blocks your vision beyond the first few metres. Grass,
+a dirty grey variety, grows in ragged patches around the field.
+
+   A barely discernible path leads north into the fog.
+   Tugging at the barren ground, a cow wanders aimlessly through the gloom.
+
+>   The cow's bones audibly creak as it turns to sniff the leek. Tentatively
+it nibbles on the root before collecting the full vegetable from your hand.
+Finished chewing, it turns to you in expectation of another leek but ignores
+you when it realises no more offerings are forthcoming.
+
+>You move north.
+Atop a hill
+   With its summit firmly lost in the mesh of grey cloud and dirty fog, the
+hill offers only a distressed signpost pointing south and west.
+
+   Paths, or ragged lines of stones, lead off in said directions; another
+path leads down to the beach.
+
+>You move down.
+On a grey beach
+   A lone tree weeps at the edge of the beach, its roots firmly planted in
+the grey sand. The wind toys with its fronds, a vicious unseen harpy, as the
+sea washes upon the sand, the sting of icy spray hanging in the air.
+
+   A hill leads up into the fog and your dinghy sits on the rocks to the
+west.
+   A light, dim in the fog, shines in from the south.
+
+>
+   Hungry, confused, desperate, you stagger out towards the light. Could it
+be a boat? Are they looking for you? Questions, questions, questions - all of
+them racing through your mind.
+   And into the water, slipping on the rocks as you go, your eyes locked upon
+the light, your mind fixed upon dreams of rescue. You don't feel the icy
+chill soak through your clothes, feel the sting of the wind fighting your
+advance.
+   And under the water you go as you head out beyond the shallow depths, the
+light shimmering somewhere above the surface - still, however, distant. It
+feels nice, now. The wind doesn't reach you here; the sea can't snap out at
+you with its watery talons.
+   You close your eyes and the light, like yours, is gone.
+
+   Somewhere, adrift on the farthest shore, a dinghy arrives on the rocks of
+an island shrouded in a steel fog.

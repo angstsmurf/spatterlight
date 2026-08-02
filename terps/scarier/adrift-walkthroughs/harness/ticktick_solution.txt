@@ -1,0 +1,32 @@
+# Doom Cat!! (ticktick.taf) -- 3rd One-Hour Game Competition, 2003.
+# 10 tasks, 4 rooms, no NPC objects beyond the cat.
+#
+# UNWINNABLE BY DESIGN.  The game has no scoring system (no ACT type=4
+# anywhere) and exactly one ending: TASK 7 [read note] = ACT type=6 v1=2, a
+# *death*.  There is no ACT type=6 v1=0 in the file, so "getting the cat out of
+# the flat" is not a win -- the joke is that the bomb was never the cat.  This
+# 12-command route is therefore the complete game: it fires all six of the
+# plot tasks and reaches the only ending.
+#
+# The tin of cat food is inside the OVEN (not the fridge and not the
+# cupboards, both of which open onto nothing).  TASK 1 [feed cat] needs it
+# held; TASK 2 [get cat] is gated on TASK 1 being done -- the cat can only be
+# picked up once it has been "bloated and slowed by the tuna bison cat food".
+# TASK 3 [throw * cat * window] is gated on TASK 4 [break window], so smash the
+# window BEFORE throwing, and TASK 6 [look in mattress] is gated on TASK 3.
+#
+# The nagging one-liners between turns ("TICK tick TICK...") come from EVENT 0
+# [tickcat], which is restart=1 with time2=8, so its message choice varies with
+# the turn count; the seeded harness makes that reproducible.
+s
+e
+open oven
+take tin
+feed cat
+get cat
+w
+break window
+throw cat out window
+n
+look in mattress
+read note

@@ -1,0 +1,80 @@
+# The Revenge Of Clueless Bob Newbie! (CBN.taf) -- 3rd One-Hour Game
+# Competition, 2003.  39 tasks, 12 rooms, one NPC (Rudolph the guard).
+#
+# Nine tasks carry ACT type=4 v1=5 -- TASKs 2, 4, 8, 13, 15, 16, 17, 18 and 19
+# -- and nothing else scores, so the maximum is 45 and this route takes all
+# nine.  Four tasks end the game (22-25, all ACT type=6 v1=0); which one fires
+# is decided by two flags when you finally walk west out of the car park, and
+# TASK 22 -- rules changed AND 101 Classics smashed -- is the one the game
+# itself calls "the best possible ending in the game".
+#
+# FOOTGUNS -- blank lines in this file are load-bearing in TWO different ways:
+#   * the intro ends in "...press a key...<waitkey>"; the five leading blanks
+#     ride that out, and the sixth is the throwaway command that TASK 38 turns
+#     into the move from room 0 [The Story So Far...] into room 1.
+#   * `x desk` in Chap's Office has a <waitkey> in the MIDDLE of its message
+#     ("...finds...<waitkey> nothing!"), and so does the second look
+#     ("Again you look and... <waitkey>this time you find a pen!").  Each eats
+#     the following line of input, so the two desk searches need a blank line
+#     apiece or the pen is never found -- and without the pen `change rules`
+#     answers "You've nothing to change them with!" and you silently lose two
+#     of the nine awards.
+#
+# The chain:
+#   open door        TASK 2 -- +5 for opening a door, and the joke is the point.
+#   give cd rudolph  TASK 4 -- the CD is not an object (you are "carrying
+#                    nothing"; TASK 1 [drop *cd*] is a refusal), yet giving it
+#                    works and Rudolph explodes.  He otherwise blocks NE out of
+#                    the corridor (TASK 6, RESTR type=3 v3=2 = NPC 0 present).
+#   x desk x2        TASK 12 then TASK 13 -> the pen.
+#   x notepads       TASK 16 -- the password is "um".
+#   um               TASK 17 -- typing it anywhere conjures the crowbar.
+#   change rules     TASK 15 -- needs the pen held; sets the rules flag.
+#   type eject       TASK 8 in the Testing Room -> 101 Classics.
+#   smash 101 classics  TASK 19 -- sets the vandalism flag.
+#   prise container  TASK 18 -- needs the crowbar; this is the actual mission.
+#   w                TASK 21 -- only fires once the container is open, and it
+#                    executes TASKs 22-25 in turn; the first whose two flag
+#                    restrictions hold prints the ending.
+
+
+
+
+
+open door
+e
+ne
+give cd to rudolph
+ne
+se
+x desk
+
+x desk
+
+nw
+sw
+sw
+e
+x notepads
+um
+s
+e
+x reams
+change rules
+w
+sw
+read messages
+type eject
+smash 101 classics
+ne
+n
+w
+ne
+ne
+e
+prise container
+w
+sw
+sw
+w
+w

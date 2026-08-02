@@ -1,0 +1,45 @@
+# The Chicken (chicken.taf) -- 1st One-Hour Game Competition, 2002.
+# 19 tasks, 5 rooms, two NPCs (the two-nosed chicken and Steve).
+#
+# No scoring system: not a single ACT type=4 in the file, so the status score
+# stays 0/0.  The one ending is TASK 18 [shoot chicken] = ACT type=6 v1=0 --
+# an ADRIFT "win" whose text has you arrested for poultrycide.  This route
+# fires every plot task plus the game's joke responses, in 22 commands.
+#
+# Tool chain (each task's ACT type=0 v2=4 hands you the next tool):
+#   take the spade   TASK 3, Chicken Coop
+#   take key         TASK 0, Yard (hidden in the weeds, not in the room text)
+#   n                TASK 1, needs the key held; this is NOT the exit table --
+#                    the task itself teleports you to the Ruins (ACT type=1)
+#   take hammer      TASK 2, Ruins
+#   dig in dirt      TASK 9, Garden, needs the spade -> chainsaw
+#   use chainsaw     TASK 13, Yard; only this opens the Yard <-> Shed exits
+#                    (EXIT room=1 W gateTask=13 wantDone=1)
+#   hit lock w/hammer TASK 16, Shed -> gun
+#
+# TASK 15 [hit lock] and TASK 14 [take * toolbox] are deliberate refusals kept
+# in the route because they are where the shed's jokes live, and TASK 10
+# [hit chicken with hammer] is the "you need a better weapon" nudge that the
+# game wants you to hit before the finish.
+take the spade
+scratch back
+n
+take key
+n
+take hammer
+s
+e
+dig in dirt
+w
+use chainsaw on shed
+w
+take toolbox
+hit lock
+hit lock with hammer
+take gun
+e
+s
+listen
+smell
+hit chicken with hammer
+shoot chicken

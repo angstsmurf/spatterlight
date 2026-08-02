@@ -1,0 +1,361 @@
+Loading game...
+
+The Haunted House of Hideous Horror
+   "This is what I want," said Desther. " I want to be able to have a bath
+without a ghost trying to pull the plug. I want to be able to eat my
+breakfast without a dead body floating around my head. Such things are so
+distracting. I want my house back. I want the horrors that have manis-
+manfes- moved in booted out. Do you understand?"
+   You listen to this in bemusement then reply, "dunno, mate. I'm only the
+pizzy delivery boy."
+  Desther nods. "Yes, yes, I'm aware of that but if you want that tip you're
+going to have to rid my house of the ghost. Understand?"
+   You consider the possibilities. "What kind of tip are we talking about
+here? I mean, you're expecting me to risk my life and I'm not doing that for
+small change."
+   "As much money than you earn in a year."
+   £15? "You got yourself a deal," you say.
+   "Good," says Desther. He leads you into his house. "Now, best of luck. And
+if you die, I get the pizze free of charge, okay?"
+   "I don't remember agreeing-" you start to say but Desther has scurried
+outside. The swine!
+   Well, you agreed to clear the house of ghosts. Better get a move on...
+
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of
+the owner in one corner and a series of doors leading off to the rest of the
+house.
+
+There are exits south, up and southwest.
+
+>You move southwest.
+Kitchen
+The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
+like he's cleaned up in here in a long, long time. Lying on the floor, lying
+very still, is what appears to be a dead body. Aside from that there's the
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
+
+There are exits south, west and northeast.
+
+>You take the knife from the sink.
+
+>You open the oven.  Inside the oven is a severed head.
+
+>You take the severed head from the oven.
+
+>You move northeast.
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of
+the owner in one corner and a series of doors leading off to the rest of the
+house.
+
+You can move south, up and southwest.
+
+>As you make your way up the stairs, you see a hideous apparition appear out
+of nowhere.
+
+"Get down those damn stairs, pizza face!" it yells at you.
+
+"Pizza boy not pizza face!" you yell back at it.
+
+The ghost takes a swing for your head with a meat cleaver it's carrying.
+"Same thing if you ask me, spot. Either way, I ain't letting you up these
+stairs until you're dead."
+
+>The ghost takes one look at the head of the ugly fellow you found in the
+oven, gives a high pitched howl - and flees! Right through the nearest wall.
+Its meat cleaver hits the wall with a clang and drops onto the floor a bit
+further up the stairs.
+
+>You move up.
+Upstairs hallway
+This hallway winds around the entire second floor of Desther's floor.
+Overhead hangs a chandelier which has been set on fire. While you're not sure
+if this is a good idea or not, it does add some much needed light to a
+seriously gloomy location.
+
+Also here is a meat cleaver.
+
+You can move west, down, southeast and northwest.
+
+>You pick up the meat cleaver.
+
+>You move down.
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of
+the owner in one corner and a series of doors leading off to the rest of the
+house.
+
+You can move south, up and southwest.
+
+>You move southwest.
+Kitchen
+The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
+like he's cleaned up in here in a long, long time. Lying on the floor, lying
+very still, is what appears to be a dead body. Aside from that there's the
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
+
+You can move south, west and northeast.
+
+>You move west.
+Back yard
+You find yourself on the back yard. It is enclosed by tall fences which look
+pretty much unclimbable. The yard extends to a small wood not far from here.
+
+You can move east and west.
+
+>You move west.
+Small wood
+You're wandering around in a very dark location indeed. The ground is pretty
+much hidden from view and all you can see for a long, long way are trees.
+
+You can move east, southeast and southwest.
+
+>You move southwest.
+Small wood
+You're wandering around in a very dark location indeed. The ground is pretty
+much hidden from view and all you can see for a long, long way are trees.
+
+You can move south and northeast.
+
+>You move south.
+Small wood
+You're wandering around in a very dark location indeed. The ground is pretty
+much hidden from view and all you can see for a long, long way are trees.
+
+Walter is here.
+
+You can move north and east.
+
+>"Ah, I'll soon deal with the swines with this!" Walter cries and takes a
+swing at a nearby tree. "There! See him cringe!"
+
+"Very impressive," you say. "I think you've got 'em on the run there."
+
+Walter gives you a hard stare. "No need to be patronising, pizza face. I
+might be old and senile but there's no need to treat me like I'm some sort of
+idiot. Anyway, here's your reward."
+
+He hands you a golf ball.
+
+"Not a golf ball," says Walter who can clearly read minds. "But a ghostly
+bomb. Just throw it at the first ghost you see and it'll scare the life out
+of him."
+
+"I thought ghosts were already dead," you point out.
+
+Walter frowns. "Good point. In which case, it'll almost certainly kill you
+outright. But not to worry, I'm sure you'll be fine. Right, who's next then?
+Ah, you!"
+
+Walter ignores you completely and gives another tree a few hearty thwacks.
+
+>You move north.
+Small wood
+You're wandering around in a very dark location indeed. The ground is pretty
+much hidden from view and all you can see for a long, long way are trees.
+
+You can move south and northeast.
+
+>You move northeast.
+Small wood
+You're wandering around in a very dark location indeed. The ground is pretty
+much hidden from view and all you can see for a long, long way are trees.
+
+You can move east, southeast and southwest.
+
+>You move east.
+Back yard
+You find yourself on the back yard. It is enclosed by tall fences which look
+pretty much unclimbable. The yard extends to a small wood not far from here.
+
+You can move east and west.
+
+>You move east.
+Kitchen
+The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
+like he's cleaned up in here in a long, long time. Lying on the floor, lying
+very still, is what appears to be a dead body. Aside from that there's the
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
+
+You can move south, west and northeast.
+
+>You move northeast.
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of
+the owner in one corner and a series of doors leading off to the rest of the
+house.
+
+You can move south, up and southwest.
+
+>You move up.
+Upstairs hallway
+This hallway winds around the entire second floor of Desther's floor.
+Overhead hangs a chandelier which has been set on fire. While you're not sure
+if this is a good idea or not, it does add some much needed light to a
+seriously gloomy location.
+
+You can move west, down, southeast and northwest.
+
+>You move northwest.
+Desther's bedroom
+To say that Desther spends his nights here, his bedroom is surprisingly
+sparse. In fact, aside from the bed and a window overlooking the street there
+is nothing much here at all.
+
+Cedrick is here.
+
+You can only move southeast.
+
+>The moment Cedrick sees the bomb he cries, "oh sh-" before being blown up.
+Very messily blown up as well. Bits of his ghostly essence litter the room
+afterwwards.
+
+>You pick up the key.
+
+>You move southeast.
+Upstairs hallway
+This hallway winds around the entire second floor of Desther's floor.
+Overhead hangs a chandelier which has been set on fire. While you're not sure
+if this is a good idea or not, it does add some much needed light to a
+seriously gloomy location.
+
+You can move west, down, southeast and northwest.
+
+>You move down.
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of
+the owner in one corner and a series of doors leading off to the rest of the
+house.
+
+You can move south, up and southwest.
+
+>You move southwest.
+Kitchen
+The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
+like he's cleaned up in here in a long, long time. Lying on the floor, lying
+very still, is what appears to be a dead body. Aside from that there's the
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
+
+You can move south, west and northeast.
+
+>You move south.
+Top of cellar steps
+You're standing at the top of a flight of steps which lead down into the
+darkness. At the side of you is a light switch.
+
+You can move north and down.
+
+>You move down.
+Cellar
+The cellar of Desther's house is pretty much empty. Nothing in here at all.
+Not a thing.
+
+Oh, aside from the coffin standing on top of a marble pedestal in the middle
+of the room.
+
+You can only move up.
+
+>Resting atop the pedestal, you fully expect to find a vampire inside. Alas,
+as the coffin is currently locked you don't see a whole lot inside.
+
+>Using the key, you do just that. No members of the undead leap out and try to
+fang you which you find quite a disappointment.
+
+>Inside the coffin you find a comb which you decide to take with you.
+
+>You move up.
+Top of cellar steps
+You're standing at the top of a flight of steps which lead down into the
+darkness. At the side of you is a light switch.
+
+You can move north and down.
+
+>You move north.
+Kitchen
+The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
+like he's cleaned up in here in a long, long time. Lying on the floor, lying
+very still, is what appears to be a dead body. Aside from that there's the
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
+
+You can move south, west and northeast.
+
+>You move northeast.
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of
+the owner in one corner and a series of doors leading off to the rest of the
+house.
+
+You can move south, up and southwest.
+
+>You move up.
+Upstairs hallway
+This hallway winds around the entire second floor of Desther's floor.
+Overhead hangs a chandelier which has been set on fire. While you're not sure
+if this is a good idea or not, it does add some much needed light to a
+seriously gloomy location.
+
+You can move west, down, southeast and northwest.
+
+>You move west.
+Bathroom
+Ugh! This place looks like it hasn't been cleaned in years! It also looks
+(don't read the next bit if you're at all squeamish) that Desther doesn't
+bother using the toilet - instead he just finds a nice dry spot and does his
+business there. As such, the smell is just too unbearable.
+
+Claudia is here.
+
+You can only move east.
+
+>"Ah, that's better," says Claudia. She runs the comb through her ghostly hair
+a few times and sighs in delight. "I guess I can go now."
+
+She blows you a ghostly kiss and leaves via the closest wall.
+
+>You move east.
+Upstairs hallway
+This hallway winds around the entire second floor of Desther's floor.
+Overhead hangs a chandelier which has been set on fire. While you're not sure
+if this is a good idea or not, it does add some much needed light to a
+seriously gloomy location.
+
+You can move west, down, southeast and northwest.
+
+>You move down.
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of
+the owner in one corner and a series of doors leading off to the rest of the
+house.
+
+You can move south, up and southwest.
+
+>Congratulations!
+Front porch
+The front porch of Desther's house is quite impressive. If you didn't know
+what a dump the inside was, you might well think someone with taste lived
+here.
+
+Desther is here.
+"Ah, well done," says Desther. "I see the ghosts have departed."
+
+"What about the severed head in the oven?" you ask.
+
+Desther waves that away. "Oh, just some neighbour of mine. Frightfully boring
+fellow. Now, what do I owe you for the pizza?"
+
+"What, you just expect me to turn a blind eye to your brutal murder of an
+innocent neighbour?"
+
+Desther pulls out a wad of bills. "Would £1,000 do the trick?"
+
+Your conscience and your greed go to war. Briefly.
+
+Very briefly.
+
+"Call it £1,005 and never call me pizza face again and you've got a deal,"
+you say.
+
+Desther peels off the notes. "It's a deal, pi- my dear friend."
+
+On the way home that night, you congraulate yourself on a job well done.

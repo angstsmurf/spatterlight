@@ -1,0 +1,302 @@
+Loading game...
+
+The Revenge Of
+ Clueless Bob Newbie!
+
+The Story So Far...
+Clueless Bob Newbie - who might have been known as Clueless Bob, or maybe
+just Bob to friends (if he had friends which he didn't) - wasn't a happy man.
+Now, he spent a lot of his life in a state of high annoyance due to the
+world's inability to appreciate the sheer genius that his games were but he
+never let their comments - that games should have puzzles, and story, and
+characters, and no spelling mistakes, and a point - bother him before. But
+today the ultimate insult had come about.
+
+...press a key...
+
+A container holding the greatest 100 text adventures of all time was to be
+lowered into the ground in an earthquake-free zone and sealed. There it would
+remain for countless thousands of year as a reminder of just what quality
+games the people of today could produce. When the container was opened - in
+the misty, far distant future - the names of the people who wrote those games
+would go down in history. They would be regarded as heroes, people to be
+respected. Gods even...
+
+...press a key...
+
+And Clueless Bob wouldn't be among them!
+
+...press a key...
+
+Crazy as it sounded, none of the 734 games he had written over the past year
+had been selected. He couldn't understand the reasoning behind it - if
+reasoning there was because he was baffled by the narrow-mindedness of it.
+Clearly, something had to be done.
+
+...press a key...
+
+Which was why, several hours later, here he was: crouched outside the
+building known as Adventure Corps, a copy of his "Masterpieces of CBN" CD
+clutched in one hand and an inspired plan in his mind: he would break into
+the container and deposit his games there, thus ensuring that the name
+Clueless Bob Newbie went down in the history books as the one that everyone
+remembered...
+
+...press a key...
+
+>Outside The Building
+You're crouching outside the building known simply as Adventure Corps. It's a
+big building with lots of interesting features to examine but you're too
+agitated to waste time on such things now.
+   Exits lie: east (inside the building) and west (to your home).
+
+>
+>
+>
+>
+>(Your score has increased by 5)
+Utilising your years of adventure game writing, you reach out your hand
+and... open the door.
+   "Wow!" you say. "It's every bit as easy in real life as it is in the games
+I write!"
+
+>You move east.
+Entrance
+The entrance of Adventure Corps is a slick, futuristic reception area
+complete with large, plastic displays of all the best adventure games around.
+Funnily enough, none of your own are included. Surely an oversight.
+   Exits lie: west (outside the building), northeast (to a corridor) and east
+(to a meeting room).
+
+>You move northeast.
+Corridor
+This shabby little corridor links the entrance to the rest of the building.
+   Exits lie: southwest (to the entrance) and northeast (to an open area).
+Rudolph the guard is here.
+   "Where'd you think you're going, Bob?" asks Rudolph.
+   "Where I belong," you say.
+   But Rudolph shakes his head. "Not in this life you're not. Get out and
+don't come back. We don't need your sort around here."
+   "You'll never keep quality adventures down, you hypocrite!"
+   Rudolph shrugs. "We're not trying to."
+
+>(Your score has increased by 5)
+Rudolph takes one look at your offering and explodes.
+   While you've written about this strange occurrence in several of your
+games - most notably The Explodin Peeple! - you never knew it happened in
+real life as well. Fancy that!
+
+>You move northeast.
+Open Area
+This large room contains a veritable horde of adventure games all stacked
+neatly in piles and labeled according to their contents. A couple of doorways
+in the white walls lead deeper into the building.
+   Exits lie: southwest (to a corridor) and east and southeast (deeper into
+the building).
+
+>You move southeast.
+Chap's Office
+The office of Mr Chap, the owner of Adventure Corps and the guy responsible
+for missing your games out of the container, is a lavish affair with
+paintings hanging from the walls and a desk large enough to dwarf some cars
+in the middle of the floor. The view through the window isn't terribly
+inspiring - a waterfall roaring down a sun-drenched cliff - but you guess
+that even power can't buy you everything.
+   Exits lie: northwest (to the open area).
+
+>Your eagle eye sweeps over the desk and finds... nothing!
+   Darn! You were sure there'd be something there!
+
+>(Your score has increased by 5)
+Again you look and... this time you find a pen!
+   It seems you weren't paying attention enough the first time.
+
+>You move northwest.
+Open Area
+This large room contains a veritable horde of adventure games all stacked
+neatly in piles and labeled according to their contents. A couple of doorways
+in the white walls lead deeper into the building.
+   Exits lie: southwest (to a corridor) and east and southeast (deeper into
+the building).
+
+>You move southwest.
+Corridor
+This shabby little corridor links the entrance to the rest of the building.
+   Exits lie: southwest (to the entrance) and northeast (to an open area).
+
+>You move southwest.
+Entrance
+The entrance of Adventure Corps is a slick, futuristic reception area
+complete with large, plastic displays of all the best adventure games around.
+Funnily enough, none of your own are included. Surely an oversight.
+   Exits lie: west (outside the building), northeast (to a corridor) and east
+(to a meeting room).
+
+>You move east.
+Meeting Room
+This large room with a circular table in the centre looks to be where the
+people in charge of Adventure Corps sat around and decided which games were
+to be interred in the container and which weren't. Several notepads full of
+detailed scribblings are visible scattered about the surface.
+   Exits lie: west (to the entrance) and south (through an open door).
+
+>(Your score has increased by 5)
+From a few scribbled notes that catch your eye, you discover the password
+seems to be "um". It doesn't say where this password needs to be typed just
+that it does need to be typed. How strange.
+
+>(Your score has increased by 5)
+You utter the word.
+   And then, as if by magic (or maybe just poor programming), a crowbar
+appears in your hand!
+   "Wicked!" you cry. "And I thought that sort of thing only happened in my
+games!"
+
+>You move south.
+Winding Corridor
+This looks like one seriously strange corridor. It winds back and forth more
+than the plot of most of your games.
+   Exits lie: north (to the meeting room) and southwest, south and east
+(along the corridor).
+
+>You move east.
+Rules Room
+Though only small, this is the room where all the rules governing which games
+get put in the container and which games don't are made up. Reams of paper
+are strewn across the floor and over every surface, leading you to suspect
+that the rule makers don't excel when it comes to being tidy.
+   Exits lie: west (to the corridor).
+
+>They look to be a detailed list of all the rules. Hmm... If you had a pen you
+could 'change' a few of the rules to make your games eligible (as it is they
+discriminate against any games widely regarded as crap).
+
+>(Your score has increased by 5)
+You quickly amend the rules to the effect that it will now be impossible for
+anyone to ban you.
+
+>You move west.
+Winding Corridor
+This looks like one seriously strange corridor. It winds back and forth more
+than the plot of most of your games.
+   Exits lie: north (to the meeting room) and southwest, south and east
+(along the corridor).
+
+>You move southwest.
+Testing Room
+A dozen state of the art computers are crammed into this tiny room which is
+where all the testing takes place. Various games look to be scattered around
+but you don't see any of yours anywhere. Must be an oversight.
+   Exits lie: northeast (to the corridor).
+
+>You glance over a few of the messages: "...rules drawn up..." and "...no sign
+of Clueless-..." and "...type eject..." and "...coming soon: the brother of
+Otto and Toto in his very own adventure game..." and "...puzzles, must have
+puzzles..." and "...password looks to be non-existent..."
+   Meaningless rambling by the look of things.
+
+>(Your score has increased by 5)
+The moment your fingers touch the keyboard, a game shoots out of one of the
+computers and flies into your hand. It looks to be a tawdry collection of
+non-CBN games.
+
+>(Your score has increased by 5)
+You unleash your rage on it - which results in 101 Classics being reduced to
+little more than a pile of fragments.
+   Afterwards, you feel so much better for doing that.
+
+>You move northeast.
+Winding Corridor
+This looks like one seriously strange corridor. It winds back and forth more
+than the plot of most of your games.
+   Exits lie: north (to the meeting room) and southwest, south and east
+(along the corridor).
+
+>You move north.
+Meeting Room
+This large room with a circular table in the centre looks to be where the
+people in charge of Adventure Corps sat around and decided which games were
+to be interred in the container and which weren't. Several notepads full of
+detailed scribblings are visible scattered about the surface.
+   Exits lie: west (to the entrance) and south (through an open door).
+
+>You move west.
+Entrance
+The entrance of Adventure Corps is a slick, futuristic reception area
+complete with large, plastic displays of all the best adventure games around.
+Funnily enough, none of your own are included. Surely an oversight.
+   Exits lie: west (outside the building), northeast (to a corridor) and east
+(to a meeting room).
+
+>You move northeast.
+Corridor
+This shabby little corridor links the entrance to the rest of the building.
+   Exits lie: southwest (to the entrance) and northeast (to an open area).
+
+>You move northeast.
+Open Area
+This large room contains a veritable horde of adventure games all stacked
+neatly in piles and labeled according to their contents. A couple of doorways
+in the white walls lead deeper into the building.
+   Exits lie: southwest (to a corridor) and east and southeast (deeper into
+the building).
+
+>You move east.
+Container Storage Room
+In the middle of this room rests the container: six feet of stainless steel
+with reinforced sides and a titanium seal on top which will, sometime
+tomorrow, be sunk into the ground and gain its rightful place in history. It
+looks pretty sturdy and you're not quite sure how you're going to be able to
+prise it open and get your games inside.
+   Exits lie: west (to the open area).
+
+>(Your score has increased by 5)
+Usinf the crowbar, you manage to force open one end of the container for long
+enough to deposit your life's work inside. Then, wiping a tear away from your
+eye, you close the container in such a way that no one will ever know what
+you have done.
+
+>You move west.
+Open Area
+This large room contains a veritable horde of adventure games all stacked
+neatly in piles and labeled according to their contents. A couple of doorways
+in the white walls lead deeper into the building.
+   Exits lie: southwest (to a corridor) and east and southeast (deeper into
+the building).
+
+>You move southwest.
+Corridor
+This shabby little corridor links the entrance to the rest of the building.
+   Exits lie: southwest (to the entrance) and northeast (to an open area).
+
+>You move southwest.
+Entrance
+The entrance of Adventure Corps is a slick, futuristic reception area
+complete with large, plastic displays of all the best adventure games around.
+Funnily enough, none of your own are included. Surely an oversight.
+   Exits lie: west (outside the building), northeast (to a corridor) and east
+(to a meeting room).
+
+>You move west.
+Outside The Building
+You're crouching outside the building known simply as Adventure Corps. It's a
+big building with lots of interesting features to examine but you're too
+agitated to waste time on such things now.
+   Exits lie: east (inside the building) and west (to your home).
+
+>Cackling insanely, you rush away from the building, your mission complete.
+
+The next morning, you read the news in the local paper how the container has
+been lowered into the ground and there it will remain for countless
+centuries. There your games will remain for countless centuries! Oh yes, Bob,
+you did good.
+
+But just how good did you do?
+
+You did amazing! Not only did you deposit your own games in the container,
+but you also changed the rules so Adventure Corps won't be able to bar you
+from future competitions AND you smashed that hopeless non-CBN collection 101
+Classics.
+   All in all, you excelled yourself and reached the best possible ending in
+the game! Well done!
+Congratulations!

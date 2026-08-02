@@ -1,0 +1,62 @@
+# The Forum (forum.taf) -- 2nd One-Hour Game Competition, 2003.
+# 37 tasks, 10 rooms, two NPCs (The Mad Monk, Ds490).  An in-joke about the
+# ADRIFT forum: you are Bob the newbie and the Dark Lord is Woodfish.
+#
+# No scoring system (no ACT type=4 anywhere).  TASK 36 [# Player wins] is the
+# only ACT type=6 v1=0; it is never typed, it is executed (ACT type=5 v2=36) by
+# TASK 33 or TASK 34, i.e. by whichever option you pick in the last of the four
+# Final Challenge rooms.  Three tasks kill you: TASK 11 (the monk, EVENT 1),
+# TASK 17 (Ds490, EVENT 2) and TASK 22 (Mystery, third wrong riddle answer).
+#
+# FOOTGUN: line 1 is deliberately BLANK.  The intro ends in "... press any key
+# ..." which swallows one line of input.
+#
+# The two timed fights are the whole game:
+#   n                  TASK 0 teleports you to the Temple; EVENT 0 [Monk walks
+#                      in] then fires TASK 7 after 2-6 turns and EVENT 1 [Monk
+#                      kills] fires TASK 11 at turn 8.
+#   x altar            reveals the glass bowl of holy water.
+#   take bowl / z / z  the monk's arrival text prints at the END of the second
+#                      `z`.  Throwing earlier is "The Mad Monk is not here."
+#   throw water at monk  TASK 9 -- he is cured, thanks you and leaves the
+#                      wooden clogs.  TASK 9 is also the gate on the Temple's
+#                      north exit (EXIT room=1 N gateTask=9 wantDone=1).
+#   wear clogs / n / e TASK 12 needs the clogs WORN (RESTR type=0 v2=2) to
+#                      cross the coals into the Circular Chamber.
+#
+# Ds490's fight is two smacks, and both phrasings are fussy:
+#   * the noun alternatives are [ds/monster/man/figure] with {490} optional, so
+#     "smack ds490" does NOT match -- it falls through to the library's
+#     "I don't think ... would be a very effective weapon."
+#   * TASK 15 (the clogs blow) requires the clogs HELD, so you must take them
+#     off again first; while worn it answers "I don't understand what you want
+#     me to do with the pair of wooden clogs."
+#   Each blow is ACT type=3 (bump the counter); at 2 the engine runs TASK 16
+#   [# Ds defeated].  EVENT 3 would run TASK 18 nine turns in, so there is no
+#   time to dawdle.
+#
+# Mystery's riddle -- "I have a head and a tail, yet no body" -- is answered
+# with `a coin` (TASK 19), which also puts the coin in your hand.  `pay a coin`
+# (TASK 23 ALTCMD) buys admission to the Evil Lair.  The four Final Challenge
+# rooms accept only `1` or `2` and any answer advances, so four `1`s finish it.
+
+x hand
+n
+x altar
+take bowl
+z
+z
+throw water at monk
+wear clogs
+n
+e
+smack ds with the giant yellow rubber hand
+remove clogs
+smack ds with the wooden clogs
+n
+a coin
+pay a coin
+1
+1
+1
+1

@@ -76,9 +76,9 @@ adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
 cruel_solution.txt|CAH.taf|destroyed our reality
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 shred_em_solution.txt|shreddem.taf|Due to lack of evidence
-shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1 SCR_SEED=5
-shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
-shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1
+shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1 SCR_SEED=102
+shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1 SCR_SEED=230
+shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_LEGACY_RANDMAP=1 SCR_SEED=201
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.
@@ -109,8 +109,8 @@ funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this importa
 gateway_solution.txt|gateway.taf|THE END
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=11
-light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=2
-maincourse_solution.txt|Main Course.taf|You're on your way home with just a little indigestion!
+light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=45
+maincourse_solution.txt|Main Course.taf|You're on your way home with just a little indigestion!|SCR_SEED=17
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
@@ -190,6 +190,35 @@ chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms w
 fantasyworld_solution.txt|fantasyworld.taf|Congratulations!
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
+# The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
+# Competitions (2003), swept in on 2026-08-03 -- see WALKTHROUGH_TODO.md
+# "2026-08-03" for where each .taf came from and for the per-game notes.
+# Several of these are deliberately unwinnable or end in the player's death;
+# the marker is the game's own final line in each case, not a victory string.
+# 1st One-Hour Game Competition
+frog_solution.txt|frog.taf|So you hop away with your fairy princess, to live hoppily ever after.
+chicken_solution.txt|chicken.taf|That was the last time either of you threw a brick at something.
+endgame_solution.txt|endgame.taf|Really really.
+hauntedhouse_solution.txt|hauntedhouse.taf|you congraulate yourself on a job well done.
+microbe_willie_solution.txt|microbe_willie.taf|pestilence (basically, more of your kind) throughout the world.
+amonkeytoomany_solution.txt|amonkeytoomany.taf|Hooray! You've made it through the game!
+# 2nd One-Hour Game Competition
+dfu_solution.txt|DFU.taf|Thank you, and good night.
+percy_solution.txt|Percy.taf|prince among vikings
+forum_solution.txt|forum.taf|You Won!
+# 3rd One-Hour Game Competition
+cbn_solution.txt|CBN.taf|you excelled yourself
+cbn2_solution.txt|cbn2.taf|the archives room goes up in flames
+crm_solution.txt|CRM.taf|You take a long bow as the curtains close for the show, and the dead body
+ecod2_solution.txt|ECOD2.taf|has been captured
+imagination_solution.txt|Imagination.taf|Was this all just in your imagination?
+asdfa_solution.txt|asdfa.taf|bottle of Nightmare Inducer fluid back in his pocket
+demonhunter_solution.txt|demonhunter.taf|journey to the beginning of your new life. You're a demonhunter.
+forum2_solution.txt|forum2.taf|***You have won!***
+pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a hasty retreat.
+saffire_solution.txt|saffire.taf|you reach heaven
+shore_solution.txt|shore.taf|an island shrouded in a steel fog.
+ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
 EOF
 }
 

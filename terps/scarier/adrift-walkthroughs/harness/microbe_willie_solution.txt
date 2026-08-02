@@ -1,0 +1,40 @@
+# Microbe Willie (microbe_willie.taf) -- 1st One-Hour Game Competition, 2002.
+# 18 tasks, 8 rooms, two NPCs (Cynthia and the White Blood Cell).
+#
+# Seven tasks carry ACT type=4 v1=1 -- TASKs 1, 2, 3, 5, 7, 9 and 10 -- and no
+# other task scores, so the maximum is 7/7 and this 18-command route takes all
+# seven.  TASK 10 [put cheese in nerve] is also the only ACT type=6 v1=0.
+#
+# The Kidneys are a timed trap and the reason the alveoli exists:
+#   * `e` in the Intestines is TASK 13, which teleports you into room 5 and
+#     the way back shuts behind you (EXIT room=5 W gateObj=8 wantState=0 --
+#     the exit is literally gated on the sac of air being open).
+#   * TASK 5 [open alveoli] needs the sac held with air still inside it, so
+#     you must pick it up in the Lungs FIRST.  Opening it re-opens the exit,
+#     scores, and consumes the sac.
+#   * EVENT 0 [OPEN KIDNEY] then runs TASK 8 seven turns later and shuts the
+#     opening again, and EVENT 1 [LOCK KIDNEY] runs TASK 14
+#     [DIE FROM INSIDE KIDNEY] = ACT type=6 v1=2.  Do the two kidney moves
+#     (open sac, talk to Cynthia) and leave.
+#
+# In the Brain, TASK 10 carries RESTR type=3 (character presence) as well as
+# needing the cheese, so the White Blood Cell has to be got rid of first --
+# that is what TASK 9 [give virus to white blood cell] is for: it sends the
+# cell chasing the virus out of the room.
+get cheese
+s
+get worm
+e
+get alveoli
+w
+s
+e
+open alveoli
+talk to cynthia
+w
+n
+e
+n
+n
+give virus to white blood cell
+put cheese in nerve

@@ -1,0 +1,72 @@
+# Haunted House (hauntedhouse.taf) -- 1st One-Hour Game Competition, 2002.
+# 19 tasks, 15 rooms, four ghost NPCs (Walter, Cedrick, Claudia, Desther).
+#
+# No scoring system (no ACT type=4 anywhere).  Five tasks end the game: TASKs
+# 2, 5, 6 and 7 are all ACT type=6 v1=2 deaths (climbing the stairs twice,
+# attacking the stair ghost, attacking Claudia, attacking Cedrick), and only
+# TASK 11 [s] at the Entrance is ACT type=6 v1=0.  It is gated on TASK 10
+# [give *comb*], so the comb is the last link in the chain.  42 commands.
+#
+# The severed head is in the OVEN, not the fridge (TASK 0 [open *fridge*] is a
+# pure refusal) and not the dead body on the kitchen floor, which is scenery
+# you cannot even examine.
+#
+# Character restrictions in the dump are RESTR type=3 with v3 = NPC index + 2,
+# so v3=2 is Walter, 3 is Cedrick, 4 is Claudia.  That is what pins the chain:
+#   show head        TASK 3, at the Entrance, after one blocked `u` (TASK 1).
+#                    The stair ghost flees and drops the meat cleaver upstairs.
+#   give cleaver     TASK 4 -- to WALTER, the senile ghost in the deep woods
+#                    (v3=2), NOT to Cedrick or Claudia, who both answer
+#                    "doesn't seem interested in the meat cleaver".
+#                    He pays you with the ghostly bomb.
+#   throw bomb       TASK 8 -- in Desther's bedroom, at Cedrick (v3=3).  Doing
+#                    it in the bathroom instead is TASK 9, which throws the
+#                    bomb away for nothing.  Cedrick's remains leave the key.
+#   x coffin         TASK 13 in the cellar, once TASK 14 [open *coffin*] has
+#                    unlocked it with the key -> the comb.  The light switch is
+#                    already stuck "on"; `flip switch` does nothing.
+#   give comb        TASK 10 -- to Claudia in the bathroom; she leaves.
+#   s                TASK 11 at the Entrance: out to the front porch and the
+#                    payoff.
+sw
+take knife
+open oven
+take severed head
+ne
+u
+show head
+u
+take cleaver
+d
+sw
+w
+w
+sw
+s
+give cleaver to walter
+n
+ne
+e
+e
+ne
+u
+nw
+throw bomb
+take key
+se
+d
+sw
+s
+d
+x coffin
+open coffin
+x coffin
+u
+n
+ne
+u
+w
+give comb to claudia
+e
+d
+s

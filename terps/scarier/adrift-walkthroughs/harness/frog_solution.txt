@@ -1,0 +1,27 @@
+# The Green Princess (frog.taf) -- Rich Pizor, 1st One-Hour Game Competition
+# 2002.  7 tasks, 5 rooms, 3 NPCs, no scoring system (zero ACT type=4); the
+# win is TASK 6 [* flick * tongue *] in the throne room (ACT type=6 v1=0).
+# Route derived from SCR_DUMP_TASKS.  Result: WON in 10 commands.
+#
+# You are the frog Reggie's mate; the princess kissed him into a prince and
+# you want him back.  "Flick tongue" is the whole game's verb.
+#
+# FOOTGUN (cost half an hour): the FIRST `e` on the lily pad does NOT move
+# you.  TASK 1 [* e *] matches it, prints "You hop off to confront the
+# princess." and has no action at all -- and room 0's alternate description
+# (fired by TASK 0) renames the lily pad to "Pond", so the transcript looks
+# exactly like a successful move.  You are still in room 0 and need a second
+# `e` to reach the real Pond, and a third to reach the Shore.  Confirm room
+# changes with SCR_TRACE_FLAGS=16 ("Library: moving player from X to Y") --
+# SCR_TRACE_PLAYER prints the room at the END of the turn, which reads as an
+# off-by-one turn if you assume otherwise.
+flick tongue
+e
+e
+e
+x mud
+take hat
+wear hat
+s
+s
+flick tongue

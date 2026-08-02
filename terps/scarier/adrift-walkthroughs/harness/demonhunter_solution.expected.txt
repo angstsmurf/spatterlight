@@ -1,0 +1,128 @@
+Loading game...
+
+Apprentice of the Demonhunter
+Demons have been around for ages; as long as angels. And, naturally, they are
+the polar opposite of angels, and they enjoy nothing better than bringing
+hell to the Earth and to mankind.
+
+Demonhunters have been around for almost as long. They enjoy nothing better
+than taking that hell and whipping it right back into some demon's face. This
+is almost your job. You are an apprentice demonhunter, almost ready to break
+free from your mentor and start busting hellspawn to all four corners of the
+world. Trouble is, you have to prove that you can, first.
+
+Recently, you've heard of a small trade-route village--demons love these--in
+the plains that has been terrorized repeatedly by a "great filthy foul vulgar
+vile beast with sulphur for breath", as one smoking villager put it. Your
+mentor has decided that this will be your final test, the one that
+establishes you as a proper demonhunter. He has sent you off to this village
+to kick some scaly tail. Put on a good show!
+
+Outside the Village Wall
+Destruction runs rampant here; a gigantic fissure splits the once-strong wall
+into two, and the gate is missing entirely. The pitiful remnants of the
+village lie north, through the wall.
+
+>You move north.
+The Center of the Village
+This is the center of the village, which apparently served as a trading post
+of sorts to cater to the caravans that passed through. Burnt shells of houses
+lie to the east, and a field of old, dried cornstalks to the west. To the
+north is a church; a church that gives off such an aura that, were you to
+assume that it was not the source of this trouble, your mentor would belt you
+one up the head.
+
+>You move east.
+Near Some Houses
+Nearby are two houses. There is one to the north, which really isn't so much
+a house anymore as it is a foundation, and one to the south, which is at
+least intact, if not habitable. The center of the village lies back west.
+
+>You move south.
+A House
+This house, while burnt and broken, is still standing. The stench of rotten
+flesh hangs in the air, however, and the reason is obvious; a corpse lies
+under the lone piece of furniture--a table. It is probably weeks old. Even
+the flies won't come here, though. The evil is too strong. You can exit to
+the north.
+
+>You take the ceramic plate from the table.
+
+>You move north.
+Near Some Houses
+Nearby are two houses. There is one to the north, which really isn't so much
+a house anymore as it is a foundation, and one to the south, which is at
+least intact, if not habitable. The center of the village lies back west.
+
+>You move north.
+A Foundation
+This house is long gone. The only thing left is the stone foundation that the
+house was built on. You can pick your way back out to the south.
+
+>You take the small flask of water from the stone foundation.
+
+>You move south.
+Near Some Houses
+Nearby are two houses. There is one to the north, which really isn't so much
+a house anymore as it is a foundation, and one to the south, which is at
+least intact, if not habitable. The center of the village lies back west.
+
+>You move west.
+The Center of the Village
+This is the center of the village, which apparently served as a trading post
+of sorts to cater to the caravans that passed through. Burnt shells of houses
+lie to the east, and a field of old, dried cornstalks to the west. To the
+north is a church; a church that gives off such an aura that, were you to
+assume that it was not the source of this trouble, your mentor would belt you
+one up the head.
+
+>You move north.
+Inside the Church
+This church is dead; you felt it as soon as you stepped in. What appears to
+be a pile of the pews lies against the wall, blackened and charred. The
+pulpit is gone, leaving a gaping hole in the floor. The altar seems to be the
+only thing left untouched; in fact, it still radiates a warm aura.
+
+>You take the mysterious black orb from the pulpit.
+
+>(Your score has increased by 2)
+You dribble the water onto the orb, which promptly explodes in a maelstrom of
+swirling black light and smoke. An evil aura spreads out from here, and you
+hear a demonic cackle from the far western part of the village.
+
+>You move south.
+The Center of the Village
+This is the center of the village, which apparently served as a trading post
+of sorts to cater to the caravans that passed through. Burnt shells of houses
+lie to the east, and a field of old, dried cornstalks to the west. To the
+north is a church; a church that gives off such an aura that, were you to
+assume that it was not the source of this trouble, your mentor would belt you
+one up the head.
+
+>(Your score has increased by 1)
+You move west.
+A Field of Corn
+You are surrounded by several acres of corn field. Many years of harvest,
+drought, and erosion show here; the soil is crumbly and dry, and shreds of
+plant fiber lie around. A nasty aura fills the air here. The remains of the
+village are back east.
+A serpent-like demon lies coiled here, panting furiously as though out of
+breath, gigantic claws poised at the ready, fangs dripping with suphurous
+venom prepared to shred somebody.
+The demon suddenly spots you. You brace yourself for its swooping attack, and
+roll to the side as its claw gouges the earth where you were a moment before.
+Springing to your feet, you dash off to the village. Not knowing why, you
+find yourself entering the church. The demon is obviously not impressed, and
+it enters after you, blocking the exit. Looks like it's do or die.
+
+>(Your score has increased by 3)
+Dancing around the room, you avoid several furious blows from the demon.
+Somehow, you manage to get him between you and the altar, and you know the
+time is right. Slipping the ceramic plate into your hand, you wind up and
+cast it straight into the demon's head. The demon topples backward onto the
+altar.
+There is a flash of light, and a puff of sulphur and brimstone, and just like
+that, the demon has ceased to exist. Righteous. You spend the night in the
+church, napping on the stack of pews, and in the morning, you start out on
+your journey back to your mentor. Not only your journey back, but your
+journey to the beginning of your new life. You're a demonhunter.

@@ -1,0 +1,34 @@
+# A Monkey Too Many (amonkeytoomany.taf) -- 1st One-Hour Game Competition,
+# 2002.  10 tasks, 2 rooms, one NPC (the monkey warder).
+#
+# Only two tasks score: TASK 8 [shoot * monkey *] = ACT type=4 v1=10 and
+# TASK 9 [unlock * door * with * key] = ACT type=4 v1=15, which also ends the
+# game (ACT type=6 v1=0).  Maximum 25/25, reached here in 13 commands.
+#
+# The Dark place has no exits at all in the exit table -- TASK 0 is what moves
+# you, and it matches every direction word ([go * north] plus n/s/e/w and their
+# long forms).  The same task hands you the magnet (ACT type=0 v1=4 v2=4), so
+# you arrive in the cell already equipped; `i` in the dark (TASK 5) is pure
+# flavour and is included for completeness.
+#
+# TASKs 1-4 are four *separate* one-shot [talk * to * monkey] tasks that fire
+# in file order, so the four conversations are a fixed sequence -- the third
+# ("Ah, who cares if the monkey gets angry!") is the funny one and the fourth
+# closes the thread.  None of them gate anything.
+#
+# The two [use * magnet * on * X] tasks pull the pistol and the key off the
+# monkey's desk and into the cell.  Nothing is gated on the talking, so the
+# shortest possible win is n / use magnet on pistol / use magnet on key /
+# shoot monkey / unlock door with key -- but that skips half the game's text.
+look
+i
+n
+talk to monkey
+talk to monkey
+talk to monkey
+talk to monkey
+i
+use magnet on pistol
+use magnet on key
+shoot monkey
+unlock door with key

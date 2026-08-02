@@ -1,0 +1,145 @@
+Loading game...
+
+The Saga of Percy the Viking
+
+Mead Hall
+The mead hall you have made your home is a large, sprawling affair complete
+with rushes on the floor, tapestries on the walls and an atmosphere so smoky
+it's hard to see your hand in front of your face. A door... somewhere...
+leads outside but as it's nice and warm in here and not so nice and very cold
+outside you don't see any great need to leave right now.
+
+>Time passes...
+
+>Time passes...
+
+Somewhere a door opens and in strides Throgbert, your second-in-command.
+   "Sire!" he cries. "I have been speaking to the men and we feel the time
+has come for your clan to conquer the world. I have drawn up a series of
+battle plans." He takes these out of his pocket. They look crumpled, worn
+and, worst of all, covered in vinegar stains. "As things stand, we have 30
+mens and 50 copper coins for recruiting and buying provisions. I give you
+four options, sire, on how we should start our plans for conquest."
+   He proceeds to read off a list of options for you to choose from.
+
+   1: "Sack the town of Erinbor. Heavily fortified but with rich pickings."
+
+   2: "Sack the town of Narbor. Not so heavily fortified but less in the way
+of rewards."
+   3: "Attack the military fortress of Gerringham. Very heavily fortified and
+not much in the way of reward but it'll show the locals what we're made of."
+
+   4: "Find some peasants and beat the living daylights out of them. No
+rewards as such but on the plus side it'll give the men a much needed boost
+of confidence knowing there's someone they can push around without getting a
+kicking."
+
+>"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+and report back later."
+   Throgbert departs.
+
+Throgbert returns.
+   "Good news, sire," he proclaims. "We lost five men in the assault on
+Erinbor but got a bounty of 20 copper coins."
+   "That seems a bit harsh," you say.
+   "Men are cheaper than coins these days, sire, so it was a fair trade off.
+
+   "Now, for our next venture I think it vital we strike somewhere more
+important: the trade route. There are a number of merchant caravans which
+head along this route and I think we should..."
+
+   1: "Attack every one you find and get me as much wealth as possible."
+   2: "Instruct the men to be cautious but get a fair bounty."
+   3: "Instruct the men to take no risks and only get what they can."
+   4: "Instruct the men to sit out this one."
+
+>"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+and report back later."
+   Throgbert departs.
+
+Throgbert returns.
+   "Good and bad news, sire," he proclaims. "I had the men attack every
+merchant caravan they came across and the result was that we got an extra 30
+copper coins but lost 10 men in the process."
+   You wince. "That's bad."
+   Throgbert nods. "Yes, sire. Even with the exchange rate being 1 man for 5
+copper coins, we did bad today. Still, there's less of us to spread the
+wealth around so more for the survivors.
+   "Anyway, for our next venture. The Lady Yasmina is said to be travelling
+through the Ramskill Mountains with an escort for a feast at her betrothed's
+castle. Yasmina's family are well known to be rich. I suggest we kidnap her
+and see what we can get in the way of ransom."
+
+   1: "A good plan. Set it in motion."
+   2: "We're warriors, not kidnappers. Let this one pass."
+
+>"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+and report back later."
+   Throgbert departs.
+
+Throgbert returns.
+   "I have another plan, sire," he says, "to bring our clan to greatness."
+   "Another one?"
+   "Indeed, sire. This time it involves a daring raid on the pirates of Hell
+Cove. They have been harrassing merchants ships up and down the coast for
+years and until now their base has been a mystery. But I believe that, with
+the right backing, I can organise a raid to find their base and seize their
+wealth. It would be a resounding victory if we succeed, sire."
+
+   1: "Too good an opportunity to miss, Throgbert. Go for it."
+   2: "Proceed with utmost caution."
+   3: "Sounds too risky. Let's leave it."
+
+>"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+and report back later."
+   Throgbert departs.
+
+Throgbert returns.
+   "Excellent news, sire!" he proclaims. "The raid was a resounding victory!
+We smashed the pirate horde and stole a sizeable portion of their wealth."
+   "How sizeable a portion?" you ask.
+   "30 copper coins, sire!"
+   You frown. "That doesn't sound like much of a sizeable portion."
+   "They were greedy folk, sire, and they drank away the remaining 23,587
+copper coins before we could stop them.
+   "But enough of that, sire. I have dreadful news. Your son, Ogwald, has
+been arrested in Citithorn for theft."
+   You surge to your feet. "Get my armies, Throgbert!" you cry. "We must ride
+to rescue him at once! Not a moment must pass! We must- why are you just
+standing there?"
+   "Sire," says Throgbert, "the army of Citithorn numbers 20,000 highly
+trained warriors. We currently have 15 men left. However, I am close friends
+with one of the magistrates of the city and for a sizeable bribe he will fix
+the trial so that Ogwald goes free."
+   "How much?"
+   Ogwald tells you.
+
+   1: "Pay him 125 copper coins!"
+   2: "Pay him 75 copper coins!"
+   3: "Pay him 50 copper coins!"
+   4: "On second thoughts, leave Ogwald to rot. It'll serve him right for
+getting caught in the first place. Besides, the missus always did say I
+mollycoddled the lad and I reckon a twenty year stretch in prison ought to
+toughen him up a bit."
+
+>"I have give the orders at once," says Throgbert.
+   Throgbert departs.
+
+Throgbert returns.
+   "A wonderful time, sire!" he proclaims. "Ogwald is saved and has brought
+with him a group of fellow prisoners to be your bodyguards!"
+
+"I think it's time to assess how well you did, sire," says Throgbert. "Well,
+your major victory is that your son Ogwald is with you. Alas, you lost more
+than a fair portion of your army and that in itself is going to make
+conquering any other nations a difficulty for the foreseeable future."
+   "What next, Throgbert?" you ask.
+   "World domination, sire," he says. "One day anyway. For now, I think you
+should try again and see if you can fare better the next time."
+
+Well done! You're a prince among vikings!
+
+>A moment later and you're scratching your head in confusion, having no idea
+how to do that.
+
+>

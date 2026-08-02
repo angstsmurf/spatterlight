@@ -1,0 +1,32 @@
+# The End Game (endgame.taf) -- 1st One-Hour Game Competition, 2002.
+# 11 tasks, 8 rooms, one NPC (the Search Monster).
+#
+# A joke game about games that will not end: it "wins" three times before the
+# real finish.  Only TASK 7 (cmd=[*] in room 7) carries ACT type=6 v1=0, and
+# there is no ACT type=4 anywhere, so the engine score stays 0 -- the
+# "You scored a total of 4 points in that game!" lines are printed text, not
+# the status line.  This 13-line route reaches the true ending.
+#
+# FOOTGUN: three of the lines below are deliberately BLANK.  The game pauses on
+# "Please press any key to begin..." / "Press any key..." after each fake
+# ending, and each pause eats one line of input.  Drop the blanks and every
+# later command lands one step early.  (Comment lines do not help here: the
+# harness strips `#` lines before feeding the file.)
+#
+# Rooms 0-2 are the fake "dragun" game.  TASK 0 (`s` on the Path, restricted to
+# holding the crystal) is what teleports you into room 3 (ADRIFT Main Site);
+# TASKs 1/2/3/5 chain the remaining teleports, and TASK 6 (cmd=[*] in room 6)
+# re-executes TASK 5 so the PC switches itself back on no matter what you type.
+n
+n
+take crystal
+s
+s
+
+n
+e
+search for unmasking the bold
+
+turn on pc
+
+z

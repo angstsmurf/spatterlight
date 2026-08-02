@@ -1,0 +1,41 @@
+# The Saga of Percy the Viking (Percy.taf) -- 2nd One-Hour Game Competition,
+# 2003.  50 tasks, 2 rooms ([Mead Hall] and [End]), one NPC (Throgbert).
+#
+# Not a parser game at all: a five-stage choose-a-number CYOA driven entirely
+# by variables.  There is no scoring system (no ACT type=4) and no EndGame
+# action anywhere (no ACT type=6) -- the eight "- final ..." tasks 40-47 just
+# teleport you to room 1 [End] after printing one of eight ranks, and the
+# session then sits there until you quit.  This route takes the best rank that
+# the arithmetic actually allows: "You're a prince among vikings!"
+#
+# Turn 1-2: Throgbert has to walk in before anything parses.  EVENT 0 puts him
+# in the hall at the end of turn 2 if you simply wait -- typing at him earlier
+# only earns "no idea how to do that", and the random unrecognised-command
+# messages perturb the RNG stream enough to delay his entrance, so the two `z`s
+# are load-bearing.  After that every stage's options print in the same turn
+# you answer the previous one, so the five digits run back to back.
+#
+# Stage effects (ACT type=3; note the dump's RESTR variable index is the ACT
+# index + 2, so ACT v1=0 is "men" = RESTR v1=2 and ACT v1=1 is "coins"):
+#   1 Erinbor         TASK 2  -5 men, +20 coins   (2/3/4: -1/+10, -10/+1, 0/0)
+#   1 attack everyone TASK 10 -10 men, +30 coins  (2/3/4: -5/+15, 0/+10, 0/0)
+#   2 let her pass    TASK 19 no change           (1 kidnap Yasmina: -5 men)
+#   1 raid Hell Cove  TASK 22 -5 men, +30 coins, needs men > 14
+#   1 pay 125         TASK 29 needs coins > 124; sets ogwald=1, and TASK 36
+#                     then grants the bodyguards flag and +5 men.
+# Starting purse is 30 men and 50 coins, so this ends on 5 coins and 15 men.
+#
+# UNREACHABLE BY ARITHMETIC -- "king among vikings" (TASK 40) wants the
+# bodyguards flag AND men > 19.  The flag exists only on the 125-coin bribe,
+# and 125 coins is only affordable by taking the maximum haul at all three
+# paying stages (50+20+30+30 = 130; any downgrade lands on 120 or less).
+# Those three hauls cost 5+10+5 = 20 men, leaving 10, and the bodyguards add
+# 5 for 15 -- five short, on the only route that can pay.  Every other ending
+# either loses Ogwald or buys him a worse rescue, so "prince" is the ceiling.
+z
+z
+1
+1
+2
+1
+1

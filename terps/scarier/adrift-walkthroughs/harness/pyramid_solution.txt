@@ -1,0 +1,34 @@
+# The Pyramid of Hamaratum (pyramid.taf) -- KF, 3rd One-Hour Game Competition
+# 2003.  3 tasks, 4 rooms, no NPCs.  The only scoring action in the whole game
+# is TASK 2 (ACT type=4 v1=100) which also ends it (ACT type=6 v1=0), so the
+# maximum is 100/100 and this route reaches it in 11 commands.
+#
+# FOOTGUN 1: the game opens with a "[Press return to continue]" title screen,
+# so the FIRST line of the solution must be blank or its command is eaten.
+#
+# FOOTGUN 2: the southern wall is a closed openable (OPENABLE obj=0
+# openable=6) and it gates the room 0 -> room 1 exit (EXIT room=0 S gateObj=0
+# wantState=0).  Until you `open southern wall` every `s` answers "You walk
+# into the Southern Wall." -- which reads like a broken exit.  "open wall"
+# alone does not parse; use the full noun.
+#
+# FOOTGUN 3: EVENT 0 [beheaded] is started by TASK 0 (the move south) and one
+# turn later runs TASK 1 [$$ blade swings out] = ACT type=6 v1=3, an EndGame.
+# TASK 1 is where=1 room=1, so it only kills you if you are still in the Short
+# passage.  Keep moving: `s` then `s` again on the very next turn.  The event
+# is restart=0, so the return trip north is safe.
+#
+# The win is TASK 2 (where=3, every room, driven by EVENT 1 [Run each turn]):
+# RESTR type=0 v1=5 v2=4 v3=2 -- the golden beetle must be inside the
+# depression back in the Entrance Chamber.  Score +100 and Congratulations!
+
+open southern wall
+s
+s
+e
+open sarcophagos
+take beetle
+w
+n
+n
+put beetle in depression

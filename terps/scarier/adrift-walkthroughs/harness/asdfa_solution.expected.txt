@@ -1,0 +1,246 @@
+Loading game...
+
+A.S.D.F.A.
+A Short Damn Fantasy Adventure
+
+The Story So Far...
+You're sure it must be a dream. After all, the last thing you remember was
+going to sleep... and then you found yourself here!
+   While you're not entirely sure where here is - haunted mansions not being
+your strong point - you're nevertheless sure you are, indeed, dreaming.
+   Of course, what you need to figure out now is what you're going to do
+about it. How you're going to wake up.
+   And how you're going to try and prevent yourself from getting killed...
+
+...press a key...
+
+>Entrance
+The mansion entrance is large and dark. There might be a source of light here
+somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
+the mansion and look quite ominous.
+   Exits lie: northwest, north and east (through shadowy doorways) and south
+(out of the mansion).
+Rancid the butler is here.
+
+>
+>You move north.
+Dining Room
+From the massive dining table taking up the middle of this room, you're
+guessing you've found the dining room. Alas, one without much in the way of
+food to be seen. In fact, aside from the table itself this room is
+surprisingly barren.
+   Exits lie: south (to the entrance) and northeast (to the kitchen).
+
+>You move northeast.
+Kitchen
+The kitchen looks just like your kitchen back home: food strewn across the
+floor and a drunken chef sitting in the corner cursing merrily to himself. A
+large cauldron (a typical occurrence in kitchens that you have seen) rests in
+the middle of the room while off to one side is the pantry.
+   Exits lie: southwest (to the dining room) and northeast (to the pantry).
+
+>(Your score has increased by 5)
+You look into it - and find a key floating amidst all the poisonous stuff the
+chef was preparing!
+   "That musta come from Barble," mutters the chef drunkenly. "Poor sod. I
+didna see him standin' there and jus' shovelled in all the veggies."
+   "Why would Barble have a key in his pocket?" you ask.
+   "He didn't. He'd swallowed the thing. Poor sod."
+
+>(Your score has increased by 5)
+Using the key, you do just that.
+
+>You move northeast.
+Pantry
+The pantry is empty. Aside, that is, from a single shelf that is just crying
+out for someone to come along and examine it.
+   Exits lie: southwest (to the kitchen).
+
+>(Your score has increased by 5)
+You move southwest.
+Kitchen
+The kitchen looks just like your kitchen back home: food strewn across the
+floor and a drunken chef sitting in the corner cursing merrily to himself. A
+large cauldron (a typical occurrence in kitchens that you have seen) rests in
+the middle of the room while off to one side is the pantry.
+   Exits lie: southwest (to the dining room) and northeast (to the pantry).
+
+   As you emerge from the cellar you hear a voice say: "well done! You
+resisted the urge to do the blindingly obvious. Here, have a reward."
+   A sword appears in your hand as if by magic, which it undoubtedly is.
+
+>You move southwest.
+Dining Room
+From the massive dining table taking up the middle of this room, you're
+guessing you've found the dining room. Alas, one without much in the way of
+food to be seen. In fact, aside from the table itself this room is
+surprisingly barren.
+   Exits lie: south (to the entrance) and northeast (to the kitchen).
+
+>You move south.
+Entrance
+The mansion entrance is large and dark. There might be a source of light here
+somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
+the mansion and look quite ominous.
+   Exits lie: northwest, north and east (through shadowy doorways) and south
+(out of the mansion).
+Rancid the butler is here.
+
+>You move northwest.
+Sitting Room
+This is all very quaint and if not for the fact that you're currently trapped
+in a dream you might find the roaring fire and cosy armchair to be quite
+welcoming. As it is, you find yourself looking around for creepy things and
+getting more than a little creeped out when you don't find them.
+   Exits lie: southeast (to the entrance).
+
+>(Your score has increased by 5)
+The moment you sit in the armchair, a ghostly visage appears out of nowhere
+and wraps its arms around you - and then shies away as you take several
+experimental chops at it with your sword!
+   "Damn!" it hisses. "Damn and damn and double damn!"
+   Still cursing, it floats away through one of the walls.
+
+>You move southeast.
+Entrance
+The mansion entrance is large and dark. There might be a source of light here
+somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
+the mansion and look quite ominous.
+   Exits lie: northwest, north and east (through shadowy doorways) and south
+(out of the mansion).
+Rancid the butler is here.
+
+>You move east.
+Top Of Steps
+You're at the top of a flight of steps which lead down to the sort of place
+you just expect to find all manner of undead inhabiting.
+   Exits lie: west (to the entrance) and down (to the vampire's lai- er, the
+cellar).
+
+>You move down.
+Cellar
+Aside from the coffin, there's nothing much here. Yep, the coffin. You're not
+quite sure why there's a coffin in the cellar but it doesn't take a genius to
+guess what's inside.
+   Exits lie: up (to the top of the steps).
+
+Toto is here.
+
+   "Toto!" you cry. "What are you doing here?"
+   "Damned if I know," grunts the dwarf. "But it's probably your damn fault!
+You always were a trouble-causer, kid. Knew it the first time I set me beady
+eyes on you!"
+
+>(Your score has increased by 5)
+Throwing common sense to the wind, you launch yourself at Toto - who
+mysteriously grows several feet in the space of a second!
+   "Hahaahhahh!" he cries, grabbing you and wrestling you to the floor. "I
+got it back, kid! Hahaha!"
+   "Got... what... back?" you gasp, trying desperately to prevent him
+strangling you.
+   "Er? Oh, sorry." Toto lets go of you and lets you up. "Sorry about it. Got
+it back, kid!"
+   "What?"
+   "Me courage. I lost it around here somewhere. Good plan that was,
+attacking me to help me find it again. Here, take this axe which I just so
+happen to have with me."
+   He hands you the axe and then promptly disappears.
+   You rub your eyes. This place gets weirder all the time!
+
+>You move up.
+Top Of Steps
+You're at the top of a flight of steps which lead down to the sort of place
+you just expect to find all manner of undead inhabiting.
+   Exits lie: west (to the entrance) and down (to the vampire's lai- er, the
+cellar).
+
+>You move west.
+Entrance
+The mansion entrance is large and dark. There might be a source of light here
+somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
+the mansion and look quite ominous.
+   Exits lie: northwest, north and east (through shadowy doorways) and south
+(out of the mansion).
+Rancid the butler is here.
+
+>You move northwest.
+Sitting Room
+This is all very quaint and if not for the fact that you're currently trapped
+in a dream you might find the roaring fire and cosy armchair to be quite
+welcoming. As it is, you find yourself looking around for creepy things and
+getting more than a little creeped out when you don't find them.
+   Exits lie: southeast (to the entrance).
+
+Otto is here.
+
+   "Otto!" you say. "Thank god I've got a friend in all of this!"
+   "...friend..." says Otto. "...all this..."
+   This certainly doesn't sound like the Otto you remember.
+
+>(Your score has increased by 5)
+You offer the axe - and Otto snatches it off you!
+   "Me axe!" he snarls. "By 'eck, kid, it's good to have this back!"
+   "You seem... different, Otto," you say.
+   "Sure am, kid. Some thievin' git stole me damn axe! Bah! Right, I'm off
+ter bash some heads an' no damn mistake!"
+   He goes charging off out of the room.
+
+>You move southeast.
+Entrance
+The mansion entrance is large and dark. There might be a source of light here
+somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
+the mansion and look quite ominous.
+   Exits lie: northwest, north and east (through shadowy doorways) and south
+(out of the mansion).
+Rancid the butler is here.
+
+>You move east.
+Top Of Steps
+You're at the top of a flight of steps which lead down to the sort of place
+you just expect to find all manner of undead inhabiting.
+   Exits lie: west (to the entrance) and down (to the vampire's lai- er, the
+cellar).
+
+>You move down.
+Cellar
+Aside from the coffin, there's nothing much here. Yep, the coffin. You're not
+quite sure why there's a coffin in the cellar but it doesn't take a genius to
+guess what's inside.
+   Exits lie: up (to the top of the steps).
+
+>(Your score has increased by 5)
+You lift the lid - and the vampire lying inside gives a groan.
+   "Not fair," it mumbles, trying to put its poorly head back together. "All
+I did was try to drain his blood and this is what he did to me! Ah, the
+injustice of it just chills my (lack of) blood."
+   The vampire complains some more but doesn't prevent you reaching into the
+coffin and taking out a deed that you see lying by its feet.
+
+>You move up.
+Top Of Steps
+You're at the top of a flight of steps which lead down to the sort of place
+you just expect to find all manner of undead inhabiting.
+   Exits lie: west (to the entrance) and down (to the vampire's lai- er, the
+cellar).
+
+>You move west.
+Entrance
+The mansion entrance is large and dark. There might be a source of light here
+somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
+the mansion and look quite ominous.
+   Exits lie: northwest, north and east (through shadowy doorways) and south
+(out of the mansion).
+Rancid the butler is here.
+
+>You move south out of the mansion...
+
+And awake in your bed.
+   "What happened?" you ask Rancid who is standing by your side.
+   "You're alive?" he says, and you're a little annoyed by how disappointed
+he sounds. "Oh, well. You had a nightmare, sir, in which you believed you
+were trapped inside a freakish mansion and couldn't escape. Unf- er,
+fortunately you did escape. And here you are."
+   "But what caused it?" you ask. "I've never had a dream like that before."
+   "Maybe we'll never know," says Rancid with a wry grin, and tucks away the
+bottle of Nightmare Inducer fluid back in his pocket...
+Congratulations!

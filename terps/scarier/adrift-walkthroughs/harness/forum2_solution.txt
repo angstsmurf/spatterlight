@@ -1,0 +1,86 @@
+# Forum 2 (forum2.taf) -- by Woodfish, 3rd One-Hour Game Competition, 2003.
+# Sequel to Forum (forum.taf, 2nd competition).  56 tasks, 12 rooms, one NPC
+# (the guard).
+#
+# No scoring system (no ACT type=4 anywhere) -- the closing "You scored full
+# points" is flavour text.  The win is reaching ROOM 10 [You have won!] via
+# TASK 38 [say shoehorn] in the Cell Corridor; the only ACT type=6 in the game
+# is TASK 49 [exist] in ROOM 11, which is the epilogue, not the ending (see
+# the easter egg below).
+#
+# FOOTGUNS -- every blank line here is load-bearing:
+#   * one leading blank for the intro's "... press any key ...<waitkey><cls>";
+#   * TWO trailing blanks, because the win message has two <waitkey>s buried
+#     in the MIDDLE of it (after "you make it back to the forum" and after
+#     Woodfish's "It's just one big text adventure!").  Without them the
+#     harness's own "quit" and "y" are eaten by the pauses instead.
+#
+# FOOTGUN -- the game's own built-in walkthrough (type `walkthru`) opens with
+# "x third scroll", and that does not work.  TASK 3's command pattern is
+#   [examine/move/x/l/look at/touch]{the}[third{review}scroll/scroll three/...]
+# and the first alternative genuinely has no spaces around the optional group,
+# so it can only ever match "thirdscroll"/"thirdreviewscroll".  Use one of the
+# spelled-out synonyms instead -- `x scroll three` is the one below; "third
+# review", "scroll 3", "review three" and "scroll number three" also work.
+# Everything else in the built-in walkthrough is accurate.
+#
+# The chain:
+#   e / x scroll three   TASK 2 then TASK 3.  The rip in the review of Forum
+#                        is the glitch Campbell phoned about; touching it
+#                        throws you into the Shaded Alley.
+#   attack guard x2      TASKs 6 and 7 -- one blow rocks him, the second tips
+#                        him over and he shatters (he was a statue all along).
+#                        TASK 11 [n] carries RESTR type=2 on TASK 7, so the
+#                        alley stays shut until the second blow lands.
+#   n / u                Fountain Hall, then the Landing.
+#   open blue door / e   TASK 20 sets obj13 open; TASK 24 [e] is gated on that
+#                        object state and is rep=0 -- it is what puts the red
+#                        vial in your hands, so the Study visit is mandatory.
+#   open desk/take paper The p/w SHOEHORN note.  Pure clue: TASK 38 has no
+#                        restrictions at all and would take the password even
+#                        if you never found it.
+#   w / d                Back to the fountain.
+#   pour potion in fountain   TASK 29 -- swaps the full vial obj22 for the
+#                        empty obj23 and turns the whole fountain red.
+#   drink fountain water TASK 30, the strength potion.  It is the gate on
+#                        TASK 35 (the pillar); TASK 32 [hit green door] is the
+#                        "you're too weak" refusal that tests the same flag
+#                        inverted.  The green door itself is scenery -- the
+#                        Landing has no west exit at all.
+#   u / smash window     TASK 33; the Landing's OUT exit is gateTask=33.
+#   out / w              Window Ledge, then Further Along Ledge.
+#   punch pillar         TASK 35; room 7's west exit is gateTask=35.
+#   w / in               Outside Window, then the Cell Corridor.
+#   say shoehorn         TASK 38.  Campbell is Woodfish in a mask, and you
+#                        argue him out of existence.
+#
+# EASTER EGG (not taken here, so the golden stays on the canonical ending):
+# the win screen says "Type Restore, Restart, Quit, or Cease To Exist."  TASK
+# 44 [cease to exist] moves you to ROOM 11 [You have ceased to exist!], and
+# TASK 49 [exist] there is the game's one and only ACT type=6 -- v1=3, i.e.
+# "stop", not a win.
+
+e
+x scroll three
+attack guard
+attack guard
+n
+u
+open blue door
+e
+open desk
+take paper
+w
+d
+pour potion in fountain
+drink fountain water
+u
+smash window
+out
+w
+punch pillar
+w
+in
+say shoehorn
+
+

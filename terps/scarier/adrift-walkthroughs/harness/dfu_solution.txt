@@ -1,0 +1,44 @@
+# Dance Fever! (DFU.taf) -- 2nd One-Hour Game Competition, 2003.
+# 24 tasks, 4 rooms, one NPC (Bruno the bouncer).
+#
+# Two tasks end the game, both ACT type=6 v1=0: TASK 21 [use wrench on machine]
+# (a joke ending in the alley, no score) and TASK 19 [hit battery * wrench],
+# which is the real finish and carries ACT type=4 v1=999999999.  That single
+# absurd award is the only scoring action in the file, so the maximum really is
+# 999999999 and this 22-command route takes it.
+#
+# The gate chain, all of it non-obvious:
+#   pee on the ground  TASK 7 -- the graffiti in the alley tells you to.
+#   push red button    TASK 2 -- RESTR type=2 v1=8 v2=0: TASK 7 must be DONE.
+#                      The shock through the puddle gives you the afro.
+#   n (Outside)        TASK 1 -- RESTR: TASK 2 done.  Bruno only lets a
+#                      smouldering afro into the club; this task teleports you
+#                      (ACT type=1 v3=2), the exit table has no north exit.
+#   pet cat            TASK 5 -- the cat coughs up the WRENCH.  `hit cat` is
+#                      TASK 4 = ACT type=6 v1=2, an instant death.
+#   dance              TASK 11 -- on the cardboard, produces the tissue.
+#   use tissue on acid TASK 13 -- makes the acid soaked tissue.
+#   use acid on door   TASK 17 -- opens the way north (TASK 14).
+#   hit battery w/wrench TASK 19 in the back room.  `hit pack` alone (TASK 18)
+#                      just tells you that you need something stronger.
+take card
+smell
+e
+x graffiti
+pet cat
+pee on the ground
+x pee
+push red button
+w
+n
+smell
+listen
+dance
+take acid
+use tissue on acid
+kick door
+use wrench on door
+use acid on door
+n
+hit pack
+hit battery with wrench

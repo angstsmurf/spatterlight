@@ -1,0 +1,79 @@
+Loading game...
+
+Doom Cat!!
+
+You wake up.  The cat is ticking!
+
+Bare Bedroom
+This is your bare bedroom.  There's room for a bed, barely. The living room
+is to the south.
+
+The cat is here, ticking.
+HURRY!  HURRY.  The Cat's Ticking.  It's about to EXPLODE!!! Get that cat out
+of here.
+
+>You move south.
+Living Room
+This sparsely furnished room is where you and your cat live, more or less.
+The bedroom is north, the kitchen east. More importantly the door out is to
+the south. There's a window in one wall.
+TICK tick TICK tick TICK tick tick TICK TICK!!!!!!!!!!!
+The scruffy ticking cat follows you.
+
+>You move east.
+Kitchen
+Your cramped kitchen boasts all the usual ammenities and appliances, fridge,
+stove, oven, cupboards.The living room is to the west.
+The scruffy ticking cat follows you.
+
+>You open the oven.  Inside the oven is a tin.
+There's NO TIME.  THERE'S NO TIME!!! FASTER!  FASTER! DITCH! THE CAT!!!!
+The scruffy ticking cat follows you.
+
+>You take the tin from the oven.
+The scruffy ticking cat follows you.
+
+>You give the food to the cat which promptly sucks it up.
+Hurry.  Hurry.  The cat's about to go OFF!!!!!
+HURRY!  HURRY.  The Cat's Ticking.  It's about to EXPLODE!!! Get that cat out
+of here.
+The scruffy ticking cat follows you.
+
+>You manage to get hold of the cat which has been bloated and slowed by the
+tuna bison cat food.
+
+>You move west.
+Living Room
+This sparsely furnished room is where you and your cat live, more or less.
+The bedroom is north, the kitchen east. More importantly the door out is to
+the south. There's a window in one wall.
+
+>You smash the window with your fist.
+
+>Your hurl the ticking mewling fur bomb out the window!  Hurray.  You are
+saved!! No.  Wait?
+There's still something ticking.  The sound's coming from the bedroom.
+It wasn't the cat.
+
+>You move north.
+Bare Bedroom
+This is your bare bedroom.  There's room for a bed, barely. The living room
+is to the south.  The ticking is coming from inside the mattress.  Quick,
+quick, look in the mattress.
+
+>There it is.  Wires, dynamite, a ticking clock.  A bomb. There's a note
+attached.
+
+>The note on the bomb says:
+Hapy bUrthDay
+Yr Freind
+The CAT
+THroW Me ouT wil Yu, Basterd??!!!
+
+The crude cat bomb goes off
+
+BOOM
+
+(Well, how exciting is a bomb made by a cat anyway?
+
+I'm afraid you are dead!

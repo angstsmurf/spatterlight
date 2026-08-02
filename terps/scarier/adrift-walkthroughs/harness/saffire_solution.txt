@@ -1,0 +1,58 @@
+# Saffire (saffire.taf) -- 3rd One-Hour Game Competition, 2003, by Woodfish.
+# 40 tasks, 10 rooms, no NPCs.  You are Harry, and the game opens with a gunman
+# walking towards you; there is nothing to be done about that.
+#
+# No scoring system (no ACT type=4).  FOUR tasks end the game and all four are
+# ACT type=6 v1=0, i.e. all four count as a win: TASK 36 Heaven, 37 Hell,
+# 38 Reincarnation, 39 Zombification.  They differ only in the closing text, so
+# "maximum" here means the intended good one -- Heaven.
+#
+# The prologue is on rails.  EVENT 0 [man shoots] starts at turn 2 and fires
+# after 5-6 more, running TASK 9 [#Shot]: -BANG-, and the corpse-eye view
+# teleports you to room 1 [Darkness].  Nothing you type in room 0 matters --
+# TASKs 0/5/6/7/8 are all polite refusals (hit him, grab the pistol, throw a
+# bin, shout, talk) and there is no exit.  The five `z`s just let the clock run.
+#
+# FOOTGUN: the BLANK line after the five `z`s is load-bearing -- the death
+# scene ends in ".. press any key .." which swallows one line of input.
+#
+# The afterlife proper:
+#   turn on torch   TASK 13, only defined in room 1 -- trying it while still
+#                   alive answers "You can't turn that."  Room 2 [Halo of
+#                   Light].
+#   n               any direction out of room 2 walks you to room 3 [Wall]
+#                   (TASK 1).
+#   e               TASK 20, east or west from the Wall, to room 5 [Beside
+#                   Shelf], where the glass of water stands.
+#   take glass /    TASK 23 turns the glass of water into the empty glass, and
+#   drink water     it is the sole restriction on TASK 26 (RESTR type=2 v1=24
+#                   v2=0 -- you must have drunk before you may climb).
+#   u               TASK 26, the staircase, to room 7; `u` again to room 8
+#                   [Clouds]; `s` follows the cloud arrow to room 9.
+#   rub the sapphire  TASK 34 -- the sapphire only shows its menu once stroked;
+#                   TASKs 35-39 all carry RESTR type=2 v1=35 (that same task).
+#   press 1         TASK 36, Heaven.
+#
+# COSMETIC BUG worth recording: the Heaven ending closes with
+# `<font face="Wingdings" size=140>V</font>`.  Wingdings is a symbol font, so
+# that byte is a pictogram, not a letter -- 0x56 maps to the glyph named
+# `crossshadow` in the shipped wingding.ttf, i.e. a shadowed Latin cross
+# (U+271E).  Scarier's os_glk.cpp only carries a Webdings translation table, so
+# it prints a bare "V" instead.  Same shape of fix as the Topaz dove.
+z
+z
+z
+z
+z
+
+turn on torch
+n
+e
+take glass
+drink water
+u
+u
+s
+rub the sapphire
+x sapphire
+press 1

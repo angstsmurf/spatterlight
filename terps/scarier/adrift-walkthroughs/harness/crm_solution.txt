@@ -1,0 +1,46 @@
+# That Crazy Radioactive Monkey (CRM.taf) -- 3rd One-Hour Game Competition,
+# 2003.  29 tasks, 4 rooms; Jojo is scenery, not an NPC (three separate `jojo`
+# static objects, one per set he appears on).
+#
+# Three tasks score: TASK 5 [hit jojo] = +5, TASK 14 [put pie on spring] = +10
+# and TASK 25 [put banana in pipe] = +10, which also ends the game
+# (ACT type=6 v1=0).  Maximum 25/25, reached here.
+#
+# The prank chain is a strict order, each link gated on the previous one:
+#   put spring on glue   TASK 13 -- rigs the fridge door
+#   put pie on spring    TASK 14 -- needs TASK 13; pie to the face, Jojo runs
+#                        to the bathroom sink (RESTR type=2 v1=14 v2=0)
+#   light toilet on fire TASK 22 -- needs the matches held AND TASK 14 done;
+#                        Jojo slips in his own puddle and flees to the garage
+#   w (living room)      TASK 23 -- needs TASK 22 done; only then does the
+#                        Garage exist (it teleports you, ACT type=1 v3=3)
+#   put banana in pipe   TASK 25 -- the banana comes from TASK 16
+#                        [dial 555-5555], the number printed on the cereal box
+#
+# FOOTGUN: the two BLANK lines after `put pie on spring` are load-bearing.  The
+# pie-in-the-face cutscene contains two keypress pauses, and each swallows one
+# line of input; without the blanks the following `s` and `e` are eaten and you
+# try to light the toilet from the kitchen ("You can't light that").
+take spring
+use phone
+dial 555-5555
+take matches
+talk to jojo
+use spring on jojo
+push sofa
+hit jojo
+n
+open oven
+take glue
+read box
+put spring on glue
+put pie on spring
+
+
+s
+e
+light toilet on fire
+w
+w
+hit car
+put banana in pipe

@@ -1,0 +1,57 @@
+# The Evil Chicken Of Doom 2 (ECOD2.taf) -- 3rd One-Hour Game Competition,
+# 2003.  28 tasks, 6 rooms; Donny and Jojo are static objects, not NPCs.
+#
+# No scoring system (no ACT type=4 anywhere).  Exactly one task ends the game:
+# TASK 1 [push button], which is ACT type=6 v1=0 and carries the single
+# restriction that TASK 27 [use CAG on smell-o-matic] be done.  Pushing it
+# before that just phones the Smell Division.
+#
+# FOOTGUN: the three leading BLANK lines ride out the intro's three
+# "<waitkey><cls>" pauses ("...make sure when you kill a chicken...",
+# "You finish the job...").  Without them the first three commands vanish.
+#
+# The book in the bookshelf is the walkthrough, and it is worth reading in
+# full: a C.A.G. is "an antenna (which can be made out of any long metal
+# piece) and a melted battery", which names all three of the puzzles below.
+#   break ice        TASK 7 -- releases the ghost and starts the plot.  Nothing
+#                    else in the game is possible while it is still frozen.
+#   open wallet      TASK 22 -- you start holding the wallet; this is the only
+#                    way to the credit card.
+#   talk to donny/2/4  TASK 19 then TASK 21 -- option 4 is the purchase and its
+#                    only restriction is the credit card (RESTR type=0 v1=6
+#                    v2=1), so the $12,000 saw costs you nothing.
+#   use saw on remote  TASK 24 -- the remote is in Big Al's Bathroom Diner,
+#                    two floors down through a toilet stall.  Gives battery
+#                    obj21.
+#   put battery in microwave  TASK 25 -- swaps obj21 for the melted obj22.
+#   use saw on statue  TASK 23 -- the top half of Abe Vigoda's spear is the
+#                    antenna.
+#   combine battery and spear  TASK 26 -> the C.A.G.
+#   use CAG on smell-o-matic / push button  TASKs 27 and 1.
+
+
+
+take book
+read book
+break ice
+open wallet
+e
+e
+talk to donny
+2
+4
+w
+n
+n
+d
+take remote
+use saw on remote
+put battery in microwave
+u
+s
+s
+w
+use saw on statue
+combine battery and spear
+use CAG on smell-o-matic
+push button
