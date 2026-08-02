@@ -8,6 +8,77 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-08-02 (later 3) — Sophie's Adventure, comp build — ★ WON 183 — 96/96 PASS
+
+The IF Archive IFComp 2003 release `sophie.taf` is now wired alongside `sa.taf`,
+once the parser bug below was fixed. Row:
+`sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1`
+(255 commands, 183 points, ending 3 of 5). Both builds now pass.
+
+The archived `walkthru.txt` was written against **this** build, so it fits it
+better than it fits `sa.taf` — but it still needs seven line edits plus a
+rewritten endgame. Details in `Sophies_Adventure_walkthrough.md`; the parts
+worth carrying forward:
+
+- **The endgame is a different quest from `sa.taf`'s.** No orb on the study
+  desk. You raise **Kridlor's ghost** with `cast fire blast` on the bowl of
+  ashes in the Small Study, and he asks for bell + comb + compass — all three of
+  which you already have (bell from the Chamber of Battle armour, task 4469;
+  compass from killing Benthem, task 4438).
+- **The hand-in is a movement, not a `give`.** Every `give <item> to kridlor` is
+  refused. Task 4470 is `w` in the **Crumbling Passage** (room 118) holding all
+  three; it strips them, grants `obj800=[orb]` and moves you into the Small
+  Study — so you step `e` out and `w` back in. Kridlor's menu option `1` only
+  narrates the quest; the hand-in fires without it.
+- **`w` in the Shadowy Hall is a decoy.** It advertises a "dark alcove" and just
+  leads to the Wine Cellar. Fortress room numbers (`SCR_TRACE_PLAYER=1`):
+  Shadowy Hall 92, Art Room 94, Portraits Room 95, Empty Hall 96, Crumbling
+  Passage 118, Small Study 119. `SCR_TRACE_PLAYER=1` is the fastest way to pin a
+  dumped task's `room=` to a real room.
+- **`sleep` is the only recharge**, and the Corridor northwest of the Gallery is
+  the only place with a spare turn to use it — once the Chamber of Battle's
+  grills drop you cannot leave and cannot cast without energy.
+
+## 2026-08-02 (later 2) — Sophie's Adventure — ★ WON 193, wired — 88/88 PASS
+
+David Whyld, IFComp 2003, ScummVM gameid `if03_sophie`. See
+`Sophies_Adventure_walkthrough.md`. Row:
+`sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1` (255 commands).
+
+Two things worth carrying forward:
+
+- **SCARE refused the IF Archive comp build `sophie.taf` (531015 bytes) — real
+  parser bug, now FIXED in `sctafpar.cpp`.** Symptom was
+  `parse_get_taf_integer: invalid integer at line 225749`, stack
+  `Tasks/4489/Actions/1/Type`. Two earlier notes here were wrong: the file is
+  **not** truncated (full 3,186,839 plain bytes / 254,549 lines, intact trailer),
+  and while its data *is* damaged, that damage is survivable — real `run400.exe`
+  under Wine loads that exact file (md5 `b2ebc41262384db587533ed547a6220f`) and
+  plays it normally.
+  - The bad record is a **task restriction**, not an action: the
+    `cast *summon*` task has one restriction with `Type=12` and Vars
+    `7667826 / 7209070 / 7471205`. Those are the LE dwords of the UTF-16 string
+    **`"runner"`**, and 12 is its byte length — a stray string blob written over
+    the restriction.
+  - v4.0 `TASK_RESTR` enumerated only types 0–4, and the schema `?` test supports
+    **`=` only** (`parse_test_expression`), so there was no `Case Else`: Type 12
+    consumed zero Vars, the parse slid three lines, and it died on `''`.
+  - Fix: `|V400_TASK_RESTR:Type>4?#Var1,#Var2,#Var3|` + a new
+    `parse_fixup_v400()` (the v4.0 arm of `parse_fixup()` was
+    `scr_fatal("unexpected call")`). Three-Var count **inferred from one sample**
+    — instrumented, it fires once on the comp build and never across all 99
+    `games/*.taf`. Suite **94/94 PASS**, no golden changed.
+  - The two builds are *not* the same game: the archived one-line walkthrough
+    (`walkthru.txt`) was written against the comp build and diverges from
+    `sa.taf` in the crypt layout, in item names, and in several steps it simply
+    never performs. Both are wired now — see the entry above.
+- **`SCR_DEBUGGER_ENABLED=1` is useless for mid-run inspection in the headless
+  build.** `debug_game_started()` opens the debug dialog *before turn 1* and the
+  ANSI front end has no `#debug` command, so a piped
+  `{ head -N sol; echo '#debug'; echo 'variables *'; }` reports **initial**
+  values and eats the walkthrough as debugger commands (`e` → `Event`). Use
+  `SCR_TRACE_TASKS=1` and read `Task: variable N (name) += x`.
+
 ## 2026-08-02 (later) — Key & Compass ADRIFT index swept: +17 games, +5 walkthrough pages
 
 Source: `https://www.plover.net/~davidw/sol/idx_adrift.html` (720 ADRIFT works

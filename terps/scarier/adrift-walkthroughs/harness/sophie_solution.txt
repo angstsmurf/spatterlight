@@ -1,0 +1,255 @@
+1
+e
+d
+open door
+talk to randle
+1
+5
+ne
+e
+nw
+ne
+n
+n
+ne
+ne
+n
+s
+ne
+talk to bast
+6
+sw
+se
+se
+ne
+talk to shamuel
+5
+4
+1
+sw
+s
+talk to lurch
+nw
+nw
+ne
+kill scab
+se
+se
+ne
+talk to shamuel
+nw
+nw
+sw
+sw
+s
+w
+n
+nw
+se
+nw
+nw
+se
+get crucifix
+get holy handgrenade
+s
+e
+n
+ne
+ne
+n
+s
+se
+se
+se
+e
+e
+e
+e
+se
+e
+e
+e
+e
+throw holy handgrenade at evil skeleton
+get torazin crystal
+e
+e
+se
+e
+ne
+ne
+ne
+x body
+get thimble
+get belt
+get raw meat
+get whistle
+get spike trap
+se
+sw
+n
+throw meat
+throw spike trap
+s
+nw
+sw
+se
+talk to snark
+talk to smiggles
+6
+e
+w
+s
+talk to jodee
+4
+n
+talk to smiggles
+u
+get torrow crystal
+d
+nw
+sw
+w
+nw
+n
+n
+e
+use torrow crystal
+use belazar crystal
+use torazin crystal
+e
+d
+s
+get chisel
+n
+open panel
+get dark crystal
+x walls
+x writing
+s
+open door 6
+x ground
+touch ground
+talk to birds
+talk to birds
+talk to birds
+6
+out
+put crystal in throat
+open door 4
+smash skeletons
+x throne
+out
+put crystal in throat
+open door 2
+x planet
+x wall
+x word
+x spaceship
+put helmet on body
+out
+put crystal in mouth
+open door 1
+get snowball
+wash hands
+climb web
+out
+put crystal in mouth
+open door 3
+talk to figure
+give snowball to figure
+gamble
+get sword
+out
+put crystal in mouth
+open door 5
+talk to devil
+4
+1
+3
+give sword to devil
+put crystal in mouth
+begone
+get crucifix
+get thimble
+get belt
+get whistle
+n
+n
+nw
+n
+x melissa
+x melissa
+x melissa
+x melissa
+sweep dust
+x trapdoor
+pick lock
+d
+move sofa
+d
+n
+x wall
+read writing
+the wordeth
+e
+w
+talk to ickle
+3
+1
+1
+3
+get wine
+e
+x throne
+touch motif
+x seat
+x arms
+touch mark
+touch groove
+touch groove
+touch groove
+touch groove
+sit on throne
+x skeleton
+1
+5
+s
+n
+s
+cast implosion
+n
+nw
+se
+kill benthem
+cast implosion
+nw
+sleep
+se
+n
+n
+cast implosion
+s
+s
+e
+e
+u
+w
+w
+read scroll
+cast fire blast
+e
+w
+e
+e
+d
+w
+w
+give orb
+e
+e
+u
+nw
+meteor strike
+cast implosion
+raise crucifix

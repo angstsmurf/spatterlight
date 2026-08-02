@@ -133,7 +133,8 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    " V<TASK_ACTION>Actions $RestrMask <RESOURCE>Res"},
   {"TASK_RESTR",
    "#Type ?#Type=0:#Var1,#Var2,#Var3 ?#Type=1:#Var1,#Var2 ?#Type=2:#Var1,#Var2"
-   " ?#Type=3:#Var1,#Var2,#Var3 ?#Type=4:#Var1,#Var2,#Var3,$Var4 $FailMessage"},
+   " ?#Type=3:#Var1,#Var2,#Var3 ?#Type=4:#Var1,#Var2,#Var3,$Var4"
+   " |V400_TASK_RESTR:Type>4?#Var1,#Var2,#Var3| $FailMessage"},
   {"TASK_ACTION",
    "#Type ?#Type=0:#Var1,#Var2,#Var3 ?#Type=1:#Var1,#Var2,#Var3"
    " ?#Type=2:#Var1,#Var2 ?#Type=3:#Var1,#Var2,#Var3,$Expr,#Var5"
@@ -2714,6 +2715,48 @@ parse_fixup_v380 (const scr_char *fixup)
 
 
 /*
+ * parse_fixup_v400()
+ *
+ * Handler for fixup special items in native version 4.0 files.
+ */
+static void
+parse_fixup_v400 (const scr_char *fixup)
+{
+  if (parse_trace)
+    scr_trace ("Parse: entering version 4.0 fixup %s\n", fixup);
+
+  /*
+   * Read three Var fields for a task restriction whose Type is outside the
+   * documented 0-4 range.
+   *
+   * Sophie's Adventure (IFComp 2003 release, sophie.taf) contains one such
+   * record: a restriction with Type 12 and Vars 7667826/7209070/7471205.  Those
+   * three integers are the four-byte little-endian halves of the UTF-16 string
+   * "runner", and 12 is its byte length -- a stray string blob that some tool
+   * wrote over the restriction.  The real run400.exe loads and plays the game
+   * regardless, so it consumes three Vars here and ignores the unknown type;
+   * without this, the parse slides three lines and dies shortly after on
+   * Tasks/4489/Actions/1/Type.  Field count inferred from that one sample, which
+   * is the only occurrence anywhere in the walkthrough corpus.
+   */
+  if (strcmp (fixup, "|V400_TASK_RESTR:Type>4?#Var1,#Var2,#Var3|") == 0)
+    {
+      if (parse_get_keyed_integer ("Type") > 4)
+        parse_descriptor ("#Var1 #Var2 #Var3");
+    }
+
+  /* Error if no fixup special handler available. */
+  else
+    {
+      scr_fatal ("parse_fixup_v400: no handler for \"%s\"\n", fixup);
+    }
+
+  if (parse_trace)
+    scr_trace ("Parse: leaving version 4.0 fixup %s\n", fixup);
+}
+
+
+/*
  * parse_fixup()
  *
  * Handler for fixup special items to help with conversions from TAF version
@@ -2729,7 +2772,7 @@ parse_fixup (const scr_char *fixup)
   switch (taf_get_version (parse_taf))
     {
     case TAF_VERSION_400:
-      scr_fatal ("parse_fixup: unexpected call\n");
+      parse_fixup_v400 (fixup);
       break;
     case TAF_VERSION_390:
       parse_fixup_v390 (fixup);

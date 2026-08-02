@@ -178,6 +178,8 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110
+sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
+sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 EOF
 }
 
