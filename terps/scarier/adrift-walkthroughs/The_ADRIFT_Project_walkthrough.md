@@ -49,11 +49,12 @@ Walkthrough.txt`, with three changes.
    of a matched-but-failing task whenever the put can complete, and the engine
    now does the same, so the author's original order works: the pill goes
    into the cup via the library, and `take slime` (TASK 40) chains the
-   radioactive mix. One residual cosmetic difference is blessed into the
-   golden: the game's `#Pill Check` zero-length event sees the pill in the
-   cup at the end of the put turn itself, so Scarier prints the
-   radioactive-mix text (and its +10) one turn earlier than the author's
-   transcript — same score, same ending.
+   radioactive mix — byte-matching the author's transcript. (An earlier
+   blessing had the mix a turn early via the game's `#Pill Check` event;
+   probed live the same day, a zero-length always-restarting event fires
+   only once at game start in BOTH real Runners, and `scevents.cpp` now
+   matches, so the event never re-fires and the mix rides TASK 40's own
+   action chain exactly as the author saw it.)
 2. **One extra `z` before the endgame dash.** The bomb's fuse is genuinely
    random: TASK 38 rerolls `bigboom = random(1,500863)` *every turn*, and the
    blast is what teleports you to the Bridge. Under our pinned seed it lands

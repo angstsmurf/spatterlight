@@ -209,8 +209,8 @@ piece of gum.
 
 >(Your score has increased by 5)
 
-You chew the gum and are shocked that it tastes just like leather!  Fond
-memories.
+You chew the gum and are shocked that it tastes just like octopus!  At least
+you think this is what it would taste like!
 
 As much as you are enjoying the experience, you take the gum out of your
 mouth.
@@ -335,16 +335,16 @@ DARWIN exits to the north.
 
 >You take the small pill from the Drift-O-Jump tin.
 
+>You put the small pill inside the coffee cup.
+
 >(Your score has increased by 10)
-You put the small pill inside the coffee cup.
+Trying not to touch it, you manage to scoop the bulk of the slime into the
+cup.
 The second the slime and the pill come in contact with each other, the slime
 begins to brighten, emitting a foul smelling, greenish smoke into the air.
 Coughing and gasping for air, you wave your arms to clear some of the smoke.
 Once it settles, the slime in the cup is a bright green and bubbling
 fantastically.
-
->Trying not to touch it, you manage to scoop the bulk of the slime into the
-cup.
 
 >You move north.
 

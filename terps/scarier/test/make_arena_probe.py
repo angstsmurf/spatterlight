@@ -45,9 +45,10 @@ def build(cfg):
     for o in objs:
         (pre, short, pos, wpn, prot, hv, meth, acc, wear) = o[:9]
         cont = o[9] if len(o) > 9 else 0
+        parent = o[10] if len(o) > 10 else 0    # pos 2 = inside container `parent`
         s(pre); s(short); s(0); s(0)
         s("A probe object."); s(pos); s(0); s(0); s("")
-        s(cont); s(0); s(100 if cont else 0); s(wear); s(2); s(0)
+        s(cont); s(0); s(100 if cont else 0); s(wear); s(2); s(parent)
         s(0); s(0); s(0); s(0)
         s(wpn); s(0); s(0)
         s(prot); s(hv); s(meth); s(acc)
@@ -93,7 +94,25 @@ def build(cfg):
         # RestrMask: "#", "#A#", ... -- or an explicit mixed-connector mask
         # like "#A#A#O#" via the optional 'mask' key.
         s(t.get('mask', "A".join(["#"] * len(restrs))))
-    s(0)                                    # events
+    events = cfg.get('events', [])          # (short, taskAffected_1based
+                                            #  [, time1, time2, restart])
+    s(len(events))
+    for e in events:
+        (short, aff) = e[:2]
+        t1 = e[2] if len(e) > 2 else 0
+        t2 = e[3] if len(e) > 3 else 0
+        restart = e[4] if len(e) > 4 else 1
+        s(short); s(1)                      # Short StarterType=immediate
+        s(restart); s(0)                    # RestartType TaskFinished
+        s(t1); s(t2)                        # Time1 Time2
+        s(""); s(""); s("")                 # Start/Look/FinishText
+        s(3)                                # Where: all rooms
+        s(0); s(0)                          # PauseTask PauserCompleted
+        s(0); s("")                         # PrefTime1 PrefText1
+        s(0); s(0)                          # ResumeTask ResumerCompleted
+        s(0); s("")                         # PrefTime2 PrefText2
+        s(0); s(0); s(0); s(0); s(0); s(0)  # Obj2/Dest Obj3/Dest Obj1/Dest
+        s(aff)                              # TaskAffected
 
     npcs = cfg['npcs']                      # (name, room0based, att, stam, strLo,strHi, accLo,accHi, defLo,defHi, agiLo,agiHi, speed, recovery [, killedtask, staminatask])
     s(len(npcs))
@@ -460,6 +479,21 @@ CONFIGS = {
                           "mix * pill * slime *",
                           "mix * slime * pill *"],
                 complete="XPASS.", restrs=[(1,0,0,"XFAIL.")])]),
+ # Zero-length always-restarting checker event, 4.0 half (the 3.9 half is
+ # make_39_fwprobe.py variant b): pill starts inside the cup, the checker
+ # task's restriction is true from turn one.  Does the event fire at start
+ # only (run390's answer), every turn, or per-turn relative to the command?
+ # `take pill` gives the falling edge.
+ 'EV': dict(name="Probe EV",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","pill",2,0,0,0,0,0,0,0,0),
+             ("a","cup",1,0,0,0,0,0,0,1),
+             ("a","slime",4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["zzpillcheck"], complete="PILLCHECK FIRED.",
+                restrs=[(3,4,1,"")])],
+    events=[("Pill Check", 1)]),
  'RC': dict(name="Probe RC",
     player=(200,10,10,60,60,0,0,0,0,3),
     rooms=[("Test Arena","A bare arena.",{1:1}),

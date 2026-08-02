@@ -575,8 +575,38 @@ evt_finish_event (scr_gameref_t game, scr_int event)
   /* Handle possible restart. */
   restarttype = evt_cached_integer (game, event, EVT_RESTART_TYPE,
                                     "RestartType");
+
+  /*
+   * A ZERO-length restarting event fires exactly once, at game start, in
+   * BOTH real Runners -- probed live 2026-08-02 (make_39_fwprobe.py variant
+   * b in run390, probe EV in run400): the checker task's text is appended
+   * to the opening room description and never printed again, however often
+   * its restriction holds afterwards.  Re-arming it here instead made the
+   * checker fire every turn (and twice during startup), which is how
+   * TheADRIFTProject's "#Pill Check" ran a turn early.  So a Time1=Time2=0
+   * event that would restart goes dormant instead.  Only the
+   * restart-IMMEDIATELY paths are gated: a zero-length event whose restart
+   * waits on a random delay or a task re-arms with real time on the clock,
+   * and that shape was not probed.
+   */
+  if ((restarttype == 1
+       || (restarttype == 2 && evt_get_starter_type (game, event) == 1))
+      && evt_cached_integer (game, event, EVT_TIME1, "Time1") == 0
+      && evt_cached_integer (game, event, EVT_TIME2, "Time2") == 0)
+    {
+      if (evt_trace)
+        scr_trace ("Event: zero-length event %ld will not restart\n", event);
+
+      gs_set_event_state (game, event, ES_FINISHED);
+      gs_set_event_time (game, event, 0);
+      restarttype = -1;
+    }
+
   switch (restarttype)
     {
+    case -1:                   /* Zero-length one-shot, handled above. */
+      break;
+
     case 0:                    /* Don't restart. */
       startertype = evt_get_starter_type (game, event);
       switch (startertype)
