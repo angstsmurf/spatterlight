@@ -1,0 +1,115 @@
+# The Cleft in the Rock (Axemark, 2001).  A short tourist-trap crawl through a
+# show cave; no author walkthrough exists, so this route was derived from
+# SCR_DUMP_TASKS.
+# 100/100 -- a genuine full score: the dump's eight awards (5+10+10+5+3+12+15
+# +40) sum to exactly 100 and this route collects every one.
+# Two things force the ordering:
+#   * The rusty pedestal compass weighs 81 of the player's 90 weight units, so
+#     it can only be carried on an otherwise empty inventory.  It is fetched on
+#     its own trip, before the crate is opened, and re-taken only after
+#     "drop all" clears the ledger.
+#   * ADRIFT's carried-weight ledger double-counts objects taken out of a
+#     container (take the rope, hat and lamp with "get all" and the ledger reads
+#     72 for 45 units of goods, and stays at 27 after "drop all").  So the rope
+#     and lamp are taken one at a time and the knife is dropped once used.
+# The control-room combination is red + blue and NOT green/puce -- task 9's
+# restrictions want "press green"/"Press puce" *undone*.  Pulling the lever
+# summons a packing case to the Loading bay 15 turns later; the nine "z"s are
+# that wait, timed from the walk down the ramp.
+# "eat compass" is worth 3 points and destroys the compass, so it has to come
+# after "tie rope to compass" has already opened the shaft.
+# No <waitkey> pauses -- verified with SCR_MARK_WAITKEY=1, so there are no
+# blank lines in this file.
+# The "score" before the last command records the tally (60) before the
+# closing +40.
+
+n
+e
+e
+d
+d
+wake attendant
+u
+u
+w
+w
+w
+w
+w
+get ticket
+e
+e
+e
+n
+give ticket to merthyr
+n
+e
+get compass
+w
+s
+s
+nw
+w
+drop compass
+e
+se
+ne
+n
+out
+get knife
+in
+n
+sw
+e
+e
+cut tape
+drop knife
+open loose box
+get rope
+get lamp
+w
+w
+nw
+w
+tie rope to compass
+drop all
+get compass
+eat compass
+get lamp
+d
+get battery
+put battery in lamp
+u
+e
+se
+e
+n
+n
+n
+ne
+press red
+press blue
+pull lever
+sw
+s
+s
+s
+d
+d
+z
+z
+z
+z
+z
+z
+z
+z
+z
+open case
+get coin
+u
+u
+w
+sw
+score
+put coin in slot

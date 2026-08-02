@@ -1,0 +1,156 @@
+# Jonathan Grimshaw: Space Tourist -- Ren, ADRIFT 4 (Writing Challenges Comp
+# 2006).  WON.  The game has no score at all (every task is worth 0), so the
+# only end-of-game marker is the final "WHOOOOOSH".
+# No author walkthrough exists and the game has no hint system; the route was
+# derived from SCR_DUMP_TASKS (124 tasks, 10 rooms, one EndGame action -- TASK
+# 68, "enter dustbin" on the alien bridge).
+# The two blank lines at the top are the title-screen <waitkey>s.
+# Act 1, the cabin.  Break the porthole and feed the W.O.R.C.S. turbine
+# through it: the spanner sets the ship on fire, then the cardboard bed makes
+# the smoke that brings the fire door down.  "move chair to door" first, or
+# TASK 21 never runs and the door seals you in.
+# Act 2, the lift.  EVENT 1 needs three turns after you arrive before TASK 3
+# ("#second tannoy") puts the dark-suited man and the elderly gentleman in the
+# room -- that is what "x map" / "x sign" / "wait" buy.  Steal the old man's
+# sock and his sweets, combine them into a cosh, and club the CIA type: he
+# drops the suitcase (prawn sandwich + sellotape), the sunglasses and a
+# pistol.  "peel wall" gets the sheet of foil, and only after TASK 24 will
+# TASK 6 let you push the ceiling panel out.
+# Act 3, the ventilation shaft.  Boots, the margarine off the silver tray, and
+# the toolbox behind the metal shard (space tool, blowtorch, cigarettes).
+# "unfasten blowtorch" splits it into the flint lighter and the oxygen
+# cylinder.  Take the mud -- it is the vacuum-cleaner sabotage.  Rubbing on
+# the margarine (TASK 33) is the only way through the narrowing tunnel.
+# Act 4, the dining area and gift shop.  Take the steel dustbin, empty the
+# fishtank for the goldfish bowl (do NOT "sing" first -- TASK 41 locks TASK 40
+# out).  In the shop, drop the mud: the maid's vacuum chokes on it and she
+# puts the hose aside (EVENT 8, 1-3 turns), and EVENT 5 drops a Cittian dollar
+# four turns after you walk in.  Hold the hose and TASK 87 makes her give up.
+# Act 5, the escape bay.  The vending machine wants "type <letter> <number>"
+# as two words -- "type a1" is not parsed.  One dollar buys all four Space
+# Bars (TASKs 52/53/54/56 chain off each other), and TASK 55 wants all four in
+# hand at once before the large-bodied woman peels off her gloves.
+# TASKs 59-62, which were meant to take the bars away again, test "Space Bar
+# is in - No room -" and so can never fire; the bars stay in your inventory
+# and TASK 67 refuses to launch you while you hold any.  "drop all" is the way
+# out: it drops the carried items but not the worn ones, so the space-suit,
+# bowl, boots, gloves and sunglasses -- all five of TASK 67's worn
+# requirements -- stay on, and only the sandwich, the oxygen tank and the
+# foil-wrapped dustbin need picking back up.
+# Act 6, the alien planet.  "in" is the cottage and "e" the cave; in the
+# hangar "up" matches TASK 94 (back to the valley) before TASK 97, so the way
+# aboard has to be spelled "enter space-ship".
+# Act 7, the bridge.  Sit, then press the three buttons -- the third blows up
+# Jupiter and turns the alien murderous (EVENT 11, one turn).  The mirrored
+# chute bounces his own laser bolt back at him; his head unscrews into a
+# second helmet, and the microwave prints the Space Bar that TASK 68 wants in
+# your hand.  EVENT 12 launches the escape pods three turns after you step to
+# the mirror, and TASK 64 will not let you re-load the chute until it has.
+
+
+x me
+press switch
+take spanner
+break window with spanner
+throw spanner through window
+get box
+move chair to door
+throw box in hole
+wait
+wait
+e
+x map
+x sign
+wait
+take sock
+take sweets
+put sweets in sock
+hit man with sock
+peel wall
+take suitcase
+open suitcase
+take sandwich
+take sellotape
+take sunglasses
+wear sunglasses
+take pistol
+i
+remove panel
+up
+take boots
+wear boots
+take margarine
+take toolbox
+open toolbox
+take blowtorch
+take tool
+take cigarettes
+unfasten blowtorch
+take mud
+i
+wear margarine
+s
+take dustbin
+get goldfish bowl
+w
+drop mud
+wait
+wait
+wait
+take hose
+take dollar
+e
+u
+take space-suit
+put dollar in slot
+type a 1
+type a 2
+type a 3
+type a 4
+take all from drawer
+i
+d
+give space bar to woman
+take gloves
+wear gloves
+u
+wear space-suit
+wear bowl
+wrap dustbin with foil
+attach cylinder to hose
+drop all
+take sandwich
+take oxygen tank
+take dustbin
+i
+put dustbin in chute
+enter dustbin
+
+
+in
+x hand
+take disc
+out
+e
+i
+open door with disc
+enter space-ship
+press switch
+look
+sit on chair
+press red button
+press green button
+press blue button
+wait
+stand beside mirror
+take head
+use microwave
+look in microwave
+take space bar
+take dustbin
+i
+put dustbin in chute
+enter dustbin
+
+
+

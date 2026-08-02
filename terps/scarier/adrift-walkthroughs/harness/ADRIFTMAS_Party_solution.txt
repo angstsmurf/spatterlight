@@ -1,0 +1,110 @@
+# ADRIFTMAS Party (ADRIFTMAS_Party.taf) -- 78 tasks, 27 rooms, 26 NPCs named
+# after ADRIFT forum members.  No author walkthrough exists (plover.net lists
+# the game without one); this route was derived from SCR_DUMP_TASKS.
+# Result: WON, 100/100 -- the sixteen positive awards total exactly 100 and
+# this route fires all sixteen:
+#   13 make snowball +5     14 make snowman +5      17 pee in snow +10
+#   20 kiss mystery +5      23 look under table +5  24 chew gum +5
+#   27 sweep floor +5       25 put gum on broom +10 22 eat nutmeg +5
+#   33 ask samantha about shower +10                26 take key +5
+#   35 put nutmeg in absinthe +5                    36 ask mileout about pool +5
+#   37 give money to dave +5                        41 jump on suitcase +5
+#   49 go down chimney +10 -> executes TASK 50 [credits] -> EndGame(win)
+# The `score` on the second-to-last line reads 90; the chimney supplies the
+# last 10 and ends the game in the same turn, so 100 is never printed.
+# Ordering notes:
+#  * You start on The Roof, where TASK 12 [*] (room 25, non-repeatable) claims
+#    the FIRST command whatever it is and drops you to the Front Steps.  The
+#    opening `look` is that throwaway turn.
+#  * `kiss mystery` needs the parser fix of 2026-08-02: TASK 20's command is
+#    [kiss {the} %character%], and a %character% that closes a [...] group used
+#    to be unmatchable in Scarier (see RUNNER_TESTS_TODO.md section 4).
+#  * Three tasks award NEGATIVE points (34 -5, 45 -25, 46 -10, 47 -10) for
+#    groping the NPCs.  None is on this route.
+#  * `look under table` is the phrasing that works -- `look under small table`
+#    and `x table` are both refused.
+#  * `knock on door` is refused ("You're SANTA!  You don't need to knock!");
+#    the way in is `open door` then `n`.
+#  * Chain of gates in the middle: gum (Foyer, under the table) -> chew it ->
+#    broom (Kitchen Hall Closet) -> sweep -> gum on broom -> that stick is what
+#    reaches the shiny key on top of the ADRIFTmas tree (TASK 26 wants the
+#    broom held AND task 25 done, and consumes the broom).
+#  * The shiny key unlocks BOTH the right drawer of the dining-room sideboard
+#    (springs) and the suitcase in the Second Master Closet wardrobe.  TASK 41
+#    wants the springs inside the suitcase and the suitcase closed, so the
+#    unlock/open/put/close order matters, as does dropping it on the Front
+#    Steps before jumping.
+#  * `ask samantha about shower` teleports the player to the Master Bath
+#    Closet, hence the n/nw/sw walk back to the Hall afterwards.
+#  * TASK 35 wants the cue ball still ON the billiards table (RESTR type=0
+#    v2=5), so never pick it up; TASK 36 wants task 35 done first.
+#  * Two <waitkey> pauses beyond the opening one: after `look` (the fall from
+#    the roof) and after `eat nutmeg` (the nutmeg trip).  They are the blank
+#    lines below -- do not reflow them.
+
+look
+
+
+kiss mystery
+make snowball
+make snowman
+n
+pee in snow
+open door
+n
+look under table
+chew gum
+n
+w
+s
+open closet door
+s
+get broom
+sweep floor
+put gum on broom
+n
+n
+open cabinet
+get nutmeg
+eat nutmeg
+
+n
+ask samantha about shower
+n
+nw
+sw
+n
+take key
+w
+put nutmeg in absinthe
+ask mileout about pool
+e
+s
+se
+give money to dave
+nw
+sw
+unlock right drawer with key
+open right drawer
+get springs
+ne
+ne
+se
+s
+open wardrobe
+get suitcase
+unlock suitcase with key
+open suitcase
+put springs in suitcase
+close suitcase
+n
+nw
+sw
+s
+s
+s
+drop suitcase
+jump on suitcase
+get presents
+score
+go down chimney

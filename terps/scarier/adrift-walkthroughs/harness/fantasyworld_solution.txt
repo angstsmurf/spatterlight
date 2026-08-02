@@ -1,0 +1,398 @@
+# The Quest -- an untitled-by-its-author ADRIFT 4 RPG (adult), 250 tasks / 59
+# rooms.  The first line below is *not* a command: the game opens with a
+# "Please enter your name:" prompt, and "Corin" is the answer.  There are no
+# <waitkey> pauses anywhere in this game, so this file has no blank lines at
+# all -- every non-comment line is a turn.
+#
+# NOSEX (the game's own switch, advertised in the disclaimer) is the first
+# command.  It disables the sex scenes; the route below is the "Dark Gem"
+# branch, which needs none of the adult sub-quests.
+#
+# The engine of the game is an experience-point economy.  Six skills are
+# bought from trainers at fixed thresholds, and the only one that actually
+# gates the ending is CLIMB 3 (1250 exp), because "climb rock" at the Cleft is
+# the sole way up to the temple.  "turn greater ghoul" in the northern
+# Mountain Pass is repeatable at +50 exp a go and is the farm -- hence the
+# twenty-one identical lines below.
+#
+# Endgame ordering is strict and is *not* what the author's own walkthrough
+# says.  "ask <ally> about demon" is gated on a variable that only SUGGEST
+# sets, so the King has to be given his sacrifice *before* the allies can be
+# recruited, not after.  The five "kill demon" scenes then have to run in the
+# order Jedimah -> Merna -> dragon -> Caroline -> Gelry, each gated on the
+# demon-health variable left by the previous one.
+#
+# See fantasyworld_walkthrough.md for the full map and task analysis.
+Corin
+# --- The hamlet: take the quest, wake the wand in the Elder's box, and drive
+# the dragon off the trail (the scale is the proof).  Aline and Mat join.
+nosex
+invite aline
+get flower
+n
+ask elder about quest
+put hand on box
+get wand
+s
+s
+point wand at dragon
+get scale
+invite mat
+# --- The bridge and the river: Gelry gets the flower, the guard gets the lock
+# of hair, and the trail east opens.
+s
+d
+give flower to gelry
+u
+give lock to guard
+# --- East to the Mage's Cabin: the rose and the mirror (the mirror is the whole
+# Dark Gem branch), Gail joins, and Edwin teaches turn undead 1.
+s
+e
+get rose
+e
+get mirror
+invite gail
+train turn undead
+# --- The graveyard: turn the zombie for the rope, then Caroline in the crypt.
+w
+w
+w
+s
+x grave
+turn zombie
+get rope
+in
+ask caroline about elder
+out
+# --- Tie the rope to the big tree -- that is the only way down into the hole.
+e
+e
+tie rope to tree
+# --- Ghoul in the Mountain pass, then back to Edwin for turn undead 2.
+w
+s
+s
+turn ghoul
+turn ghoul
+turn ghoul
+n
+n
+n
+e
+e
+train turn undead
+# --- The experience farm.  The Greater Ghoul at the top of the pass is
+# repeatable at +50 exp; twenty-one turnings pay for climb 3 later on.
+w
+w
+s
+s
+s
+w
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+turn greater ghoul
+# --- Turn undead 3.
+e
+n
+n
+n
+e
+e
+train turn undead
+# --- The Mountain Cave: resurrect the dead mage.  He leaves human blood and the
+# King's stolen book, and sends the Bandit Lord down the pass.
+w
+w
+s
+s
+s
+w
+w
+n
+resurrect dead mage
+get human blood
+get dusty old book
+# --- Turn the skeleton warrior to open the peak, then over the pass and south.
+s
+e
+s
+turn skeleton warrior
+s
+s
+s
+# --- Meggle's Farm: search it for the gold nugget (it drops on the ground).
+w
+search farm
+get nugget
+e
+# --- The University: the sphere resurrects the Elder, Mary teaches magic
+# missile, and Melvin takes two hits -- missile, then thrown dagger.
+s
+s
+w
+give sphere to melvin
+train magic missile
+ask elder about caroline
+kill melvin
+w
+cast magic missile at melvin
+throw dagger at melvin
+get amulet
+# --- The Throne Room: the amulet buys 200 gold and the King's second errand.
+e
+s
+w
+give amulet to king harmon
+# --- Down into the Thieves Guild: Marissa trains climb to 3 (1250 exp).
+e
+n
+n
+w
+d
+train climb
+train climb
+train climb
+# --- The Inn: a chunk of meat, 1 gold.
+u
+e
+e
+buy meat
+# --- North again.  The Highwayman wants 100 gold for the pass; the Bandit Lord,
+# now camped at the summit, hands over the poison for nothing.
+w
+n
+n
+give gold to highwayman
+n
+n
+n
+buy poison
+poison meat
+# --- The hole: the Goblin Chief's chant has to be broken with a magic missile
+# before Mat can finish him.  His blood is Caroline's price.
+e
+n
+n
+e
+d
+cast magic missile at goblin chief
+kill goblin chief
+get goblin blood
+# --- The crypt: goblin blood buys the shrink potion, human blood buys her
+# promise that undeath will not claim you.
+u
+w
+w
+in
+give goblin blood to caroline
+give human blood to caroline
+# --- Up the chimney to the Stone Fortress.  Kill the guard, then TURN what is
+# left of him; north and east to the Keep, and the mirror on the statue
+# shatters the Altar of Silence.  Jedimah wakes; the Dark Gem is loose.
+out
+e
+s
+e
+climb rock
+e
+kill ghost
+turn ghost
+n
+e
+put mirror on statue
+get dark gem
+# --- All the way back down and south to Hobbles Farm.  Poisoned meat for the
+# dogs, the nugget to send Jed out to Hal's fence, then break the trunk.
+w
+s
+w
+d
+w
+s
+w
+s
+s
+s
+s
+e
+give meat to dogs
+e
+show gold to jed
+open trunk
+get circlet
+# --- Merna in the Dryad Grove: the leaf circlet buys the Dryad's Kiss.
+w
+w
+n
+w
+s
+give circlet to merna
+# --- Hand the book to King Harmon.  He has you clubbed and jailed.
+n
+e
+s
+s
+s
+s
+w
+give book to king harmon
+# --- The escape.  Shrink under the cell door, cross the catacombs, reach into
+# the hole in the guard room to spawn the Skull Collector, and lead it to
+# the Shade in the dark room -- the Shade is the only thing that can hurt
+# it.  Its heart buys the jail key.  (The Shade offers to ride out inside
+# you; that starts a ten-turn death clock, so the offer is refused.)
+drink shrink potion
+d
+s
+s
+s
+reach into hole
+n
+n
+w
+w
+ask shade about light
+wait
+wait
+wait
+get heart
+e
+e
+n
+u
+give heart to jailer
+open door
+# --- Base of Mountain.  Asking about the book makes the King demand a virgin;
+# SUGGEST KING is the one answer that costs no one you have met.  He finds
+# his own child to bleed, the gate opens, and the demon takes him.
+w
+n
+n
+n
+n
+ask harmon about book
+suggest king
+# --- Now -- and only now -- the allies can be recruited: Merna, Jedimah,
+# Caroline, and the dragon, who hands over the Ruby Box on the second
+# asking.  The Dryad's Kiss and the Dark Gem go inside it.
+w
+s
+ask merna about demon
+n
+e
+n
+n
+n
+e
+n
+e
+u
+e
+n
+e
+ask jedimah about demon
+w
+s
+w
+d
+w
+n
+w
+in
+ask caroline about demon
+out
+e
+n
+n
+n
+ask dragon about demon
+ask dragon about demon
+put dryad's kiss in box
+put dark gem in box
+# --- Back to the gate.  The box seals it and cuts the demon loose; from here it
+# follows you everywhere and neither of you can touch the other.
+s
+s
+s
+s
+s
+w
+s
+s
+s
+throw ruby box into gate
+# --- The five wounds, in the only order the game accepts: Jedimah at the
+# Fortress Keep, Merna in the grove, the dragon on the village trail,
+# Caroline in her crypt, and Gelry in the river.  Then ask the dragon
+# about the quest one last time.
+n
+n
+n
+e
+n
+e
+u
+e
+n
+e
+kill demon
+w
+s
+w
+d
+w
+s
+w
+s
+s
+s
+w
+s
+kill demon
+n
+e
+n
+n
+n
+e
+n
+n
+n
+n
+n
+kill demon
+s
+s
+s
+w
+in
+kill demon
+out
+e
+n
+n
+d
+kill demon
+u
+n
+ask dragon about quest

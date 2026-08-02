@@ -1,0 +1,44 @@
+# The quest / "yeh" (yeh.taf) -- 18 tasks, 40 rooms, 25 NPCs, no author name
+# in the .taf.  No author walkthrough exists (plover.net lists the game without
+# one); this route was derived from SCR_DUMP_TASKS.
+# Result: TOUR at the documented max, 3100 -- NOT a win.  The game has no
+# EndGame action anywhere in its 18 tasks, so it cannot be completed; it is a
+# half-built RPG sandbox.  The status line claims a maximum of 3400, but the
+# dump has exactly four point-awarding tasks and they total 3100:
+#   TASK 1  [Point up]            +100
+#   TASK 17 [Drink dragon potion] +1000
+#   TASK 0  [Trikletarts]         +1000
+#   TASK 2  [Destroy Tree Master] +1000
+# This route fires all four, so 3100 is the ceiling and the marker locks it.
+# Ordering notes:
+#  * `Drink dragon potion` is where=3 (anywhere) with restr=0 -- no
+#    restrictions at all -- so it scores from the bedroom.  That is an author
+#    oversight, not an engine divergence: ADRIFT 4 task commands are literal
+#    text patterns, not object references.  The potion it "drinks" is obj22,
+#    carried by the 2nd Small Dragon in room 39 and never needed.
+#  * `Trikletarts` needs the Bow of Icy Arrows to be lying IN the Room of
+#    portals (RESTR type=0 v2=0 v3=17), not carried -- hence the `drop`.  The
+#    bow starts on Tower Floor 3, one floor below.
+#  * The parser wants the object's full name: `get bow` answers "Take what?".
+#  * `Destroy Tree Master` teleports the player back out of the tower.
+#  * Leon (the companion NPC) trades blows with the Animated Vine in passing;
+#    the transcript is deterministic under the fixed seed.
+# No <waitkey> pauses (checked with SCR_MARK_WAITKEY=1), so no blank lines.
+point up
+drink dragon potion
+s
+w
+s
+e
+e
+u
+u
+get bow of icy arrows
+u
+s
+drop bow of icy arrows
+trikletarts
+s
+u
+destroy tree master
+score

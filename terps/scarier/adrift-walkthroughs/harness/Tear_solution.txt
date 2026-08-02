@@ -1,0 +1,60 @@
+# Tears of a Tough Man (Tear.taf) -- Manuel Angel Munoz Rodriguez,
+# InsideADRIFT Summer Comp 2004.  36 tasks, 10 rooms.
+# No author walkthrough exists (plover.net lists the game without one);
+# this route was derived from SCR_DUMP_TASKS.
+# Result: WON, 6 out of 6 -- a genuine full score.  The dump has exactly six
+# one-point awards and this route collects all six: examine stains (TASK 3),
+# extinguish fire (18), work wood (22), #memory in cave (26), #memory in
+# river (27) and destroy totem (33).  The `score` on the second-to-last line
+# reads 5/6, so the last command is worth the sixth point.
+# The endgame is TASK 34 [#endgame], fired every turn by EVENT 2 [Daemon]
+# once variable 1 (the memory tally) reaches 5.
+# Ordering notes:
+#  * `break poster` is mandatory -- it uncovers the wooden plank that unlocks
+#    the cottage door.  There is no non-destructive alternative: `look behind
+#    poster`, `move poster` and `take poster` are all refused.
+#  * The east exit out of Room is gated on an OBJECT state, not a task:
+#    EXIT room=1 E gateObj=15 [cottage door] wantState=0, i.e. plain
+#    `open door`.  (Fixing the EXIT line in scdump.cpp to print gateObj for
+#    Var3==1 is what made this discoverable -- it used to claim gateTask=2.)
+#  * The cave entrance is gated on the flashlight's state, so the battery has
+#    to go in before heading north into the forest.
+#  * Descending into the Cave Pit needs TASK 11 (`tie rope to hook`), which
+#    itself needs the iron bent into a hook first.
+#  * `search armchair` and `search trash` are not understood -- `get
+#    flashlight`, `get iron` and `get battery` reach into them directly.
+# No <waitkey> pauses (checked with SCR_MARK_WAITKEY=1), so no blank lines.
+x stains
+break poster
+e
+open door
+get flashlight
+e
+get iron
+get battery
+put battery in flashlight
+n
+get axe
+get rope
+bend iron
+tie rope to hook
+s
+s
+cut tree
+get log
+n
+n
+work wood
+s
+s
+w
+d
+get extinguisher
+u
+e
+n
+e
+extinguish fire
+s
+score
+destroy totem

@@ -1,0 +1,76 @@
+# The Quest (tq3.taf) -- Chris Moody, "Beta 2 Build 3", 27 Aug 2000.
+# 15 tasks, 40 rooms.  No author walkthrough exists (plover.net lists the game
+# without one); this route was derived from SCR_DUMP_TASKS.
+# Result: WON, 60 points -- every point the game can award.
+# The status line claims "a maximum of 2400", but that is an author typo: the
+# dump has exactly five point-awarding tasks and this route fires all five --
+# open door +15 (TASK 0), shicknaw +5 (3), tie rope to rock +5 (6),
+# push river button +20 (10), give water to unicorn +15 (13, EndGame win).
+# The `score` on the second-to-last line reads 45, so the finale is worth 15.
+# Ordering notes:
+#  * The golden necklace in the oak dresser is the "special key" the front
+#    door wants (RESTR type=0 v1=3 -- held by the player).
+#  * The special herb grows on the red vine at the Tree Top, four rooms south
+#    and up from the Hidden Trail; the wizard in the Lab trades it for the
+#    blue crystal, which is what makes `shicknaw` work.
+#  * `shicknaw` is the only way into the cave half of the map -- no exit
+#    leads from the Cliff to the Mouth of cave -- so the healing water has to
+#    be collected at the Cliff BEFORE saying the word.  (`wankish` is the
+#    return trip, restricted to rooms 26-39.)
+#  * Three deaths are one keystroke away and all are avoided here: `eat herb`
+#    (TASK 1), `drink water` (12) and `give water to dragon` (14) each run an
+#    EndGame(lose).  The unicorn is the correct half of the Lava room.
+#  * `tie rope to rock` opens the descent from the Cave Entrance, and
+#    `push river button` drains the river bed to open the way south.
+# No <waitkey> pauses (checked with SCR_MARK_WAITKEY=1), so no blank lines.
+open dresser
+get necklace
+get scroll
+e
+d
+s
+e
+s
+s
+s
+e
+e
+get rope
+e
+s
+s
+s
+u
+get herb
+d
+n
+n
+n
+w
+n
+open door
+n
+e
+give herb to wizard
+w
+s
+s
+w
+s
+get water
+shicknaw
+s
+open box
+get latern
+light lantern
+tie rope to rock
+d
+s
+push river button
+s
+w
+w
+n
+w
+score
+give water to unicorn

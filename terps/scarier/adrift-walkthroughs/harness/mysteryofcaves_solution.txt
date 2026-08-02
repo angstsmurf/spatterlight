@@ -1,0 +1,141 @@
+# The Mystery Of The Darkhaven Caves -- David Whyld, ADRIFT 4
+# (Summer Comp 2004).  125/125, "Godlike Adventurer" -- the game's own maximum.
+# The route is the game's built-in "short" walkthrough (type "walkthrough" then
+# "short" at any prompt; "clues" gives a staged hint list), with one command
+# removed: the author's list gives "give necklace to cyana" twice, and the
+# second copy only answers "Give what?".
+# The two blank lines at the top are the title/instructions <waitkey>s; there
+# are no others in the game.
+# Scoring: 21 tasks award +5 each, and leaving with the diamond, ruby, pearl,
+# jewelled rod and jade sceptre in hand adds another +5 apiece (TASKs 138-142,
+# run by TASK 137 on the second "s" at the Entrance).  TASK 143 then picks a
+# rank band; 125 hits TASK 144, the top one.
+# The three jewels are bought from the gnome, so the run has to end with at
+# least 120 gold: 55 from the treasure trove, 25 from the freed prisoners, 15
+# from the young woman in the cage, 15 dropped by the dwarf when he sees the
+# helm, and 5 each for the cello and the guitar given to the mad harpist.
+# Two of the wandering hazards are disarmed by rings rather than solved: the
+# Blocker's Ring (hidden grotto, behind the boulder-door -- "knock on door")
+# stops the trap that makes the Painted passageway unreachable, and the
+# Scammin's Ring (in the chest on the island) stops the random teleports fired
+# by TASKs 9-12.  Wear both as soon as you have them.
+# The dwarf of EVENT 0 steals the sword every time you enter the Painted
+# passageway and dumps it somewhere else on the map; wearing Cyana's helm
+# (its "exbsg sfqfmmfs" is a Caesar shift of "dwarf repeller") makes him drop
+# it again along with 15 gold, which is why the helm has to come before the
+# first trip east to Sir Pargus.
+
+
+n
+w
+sw
+x boulder
+knock on door
+sw
+get all
+wear all
+ne
+ne
+e
+n
+n
+n
+e
+x moss
+nw
+x corpse
+drink vial
+ne
+talk to mad tom
+give book to mad tom
+talk to mad tom
+sw
+w
+w
+sw
+se
+w
+get meat
+throw meat
+talk to troll
+give toothpick
+get thighbone
+e
+get meat
+nw
+nw
+x lake
+throw meat
+swim
+smash chest
+x chest
+get seaweed
+get scammin's ring
+wear scammin's ring
+swim
+se
+se
+se
+se
+e
+w
+n
+dig
+x graves
+s
+nw
+talk to cyana
+talk to cyana
+give necklace to cyana
+wear helm
+se
+n
+n
+n
+e
+nw
+ne
+give seaweed to mad tom
+sw
+w
+n
+give thighbone to goblins
+s
+s
+open cells
+n
+e
+se
+se
+get sword
+e
+kill sir pargus
+e
+get treasure
+get all
+w
+w
+nw
+w
+open cage
+e
+e
+n
+ne
+talk to mad harpist
+give cello to mad harpist
+give guitar to mad harpist
+out
+s
+talk to merchant
+buy diamond
+buy pearl
+buy ruby
+w
+se
+sw
+s
+w
+s
+s
+s

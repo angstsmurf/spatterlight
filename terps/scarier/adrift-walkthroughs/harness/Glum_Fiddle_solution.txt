@@ -1,0 +1,116 @@
+# Glum Fiddle -- C. Henshaw, ADRIFT 4 (Writing Challenges Comp 2006).
+# WON, 100/100 -- all ten of the game's ten-point tasks fire.
+# No author walkthrough exists; Key & Compass publishes a map only.  Route
+# derived from SCR_DUMP_TASKS.
+# The opening is a menu: "game" starts play (the other options are the
+# introduction, the credits and RESTORE).
+# The dog asks three riddles.  "say cow" / "say sandwich" / "say ache" answer
+# them, and TASK 10 opens the iron gate -- but that is NOT enough to go east.
+# TASK 13 ([e/east] in the Tiny Gatehouse) also requires TASK 18, the Courier
+# encounter, and the courier is only summoned by TASK 11 [say %text%], the
+# *wrong-answer* task.  So "say hello" (any wrong answer, after the three
+# right ones) is mandatory, and the courier turns up three turns later.
+# At the Pile of boulders Glum stands over his belongings; TASK 19 refuses to
+# hand anything over while he is in the room and TASK 20 makes him snatch it
+# all back if he catches you holding it.  He walks off to the swamp on the
+# fifth turn after you arrive, which is what the four "wait"s buy.
+# The hessian sack is the counter-measure: TASKs 21/23/25/27/29/33 all carry a
+# "NOT inside container 0 (the sack)" restriction, so anything stowed in the
+# sack is safe from him for the rest of the game.  The plank has no such
+# restriction (TASK 31), which is why it is dropped across the crevasse at
+# once.  Objects are pulled back out of the sack one at a time, immediately
+# before they are used.
+# "take branch" has to reach TASK 44, not TASK 19, or the branch is picked up
+# unlit and the lamp can never be lit; taking it on the turn you arrive (while
+# Glum is still present) is what makes TASK 19 miss.
+# The five chase counter-measures, in the order the pursuit needs them:
+# doily -> unravel -> tie to the stalagmites at the Cave entrance (else TASK
+# 70 #Trip kill); swamp slime in the teapot -> poured on the Sloping tunnel
+# floor (else TASK 71 #Slime kill); china cups dropped on the Mountain Ridge
+# (else TASK 74 #mountain kill); silver tray dropped at the Cliff (else TASK
+# 76 #cliff kill); cushion thrown off the Cliff (else TASK 90 kills you on the
+# way down).  Each is on a 3-4 turn timer once Glum trips, so the endgame runs
+# without a spare move.
+# "open gate" in the Pigsty is the tenth scoring task and easy to miss -- it
+# lets the pigs out, which is the lie you tell the Ogre at the stalagmites.
+# The eight "wait"s in the barrel cover EVENT 13's 5-8 turn random delay
+# before Glum steps on the cracked plank and falls into the chasm.
+# Blank lines are <waitkey> presses: one before the menu, two after
+# "say sandwich" (the dog encounter re-prints itself), one on the third
+# "wait" (the courier), two after "jump" (the diary and the score).
+
+game
+say cow
+say sandwich
+
+
+say ache
+say hello
+wait
+wait
+wait
+
+wait
+e
+e
+take branch
+wait
+wait
+wait
+wait
+take cushion
+take doily
+take lamp
+take tray
+take teapot
+take cups
+take plank
+light lamp with branch
+put cushion in sack
+put doily in sack
+put lamp in sack
+put tray in sack
+put teapot in sack
+put cups in sack
+n
+open gate
+drop plank
+s
+s
+take slime in teapot
+n
+w
+take doily from sack
+unravel doily
+tie doily to stalagmites
+e
+n
+e
+cut the ropes with the dagger
+w
+get in barrel
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+get out of barrel
+s
+w
+n
+take teapot from sack
+pour slime on the ground
+n
+take cups from sack
+drop cups
+d
+take tray from sack
+drop tray
+take cushion from sack
+throw cushion
+jump
+
+

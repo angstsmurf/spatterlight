@@ -1,0 +1,290 @@
+Loading game...
+
+The Quest
+You remember digging in the dirt, and coming across an orb. As you wiped the
+dirt off the orb, it started emitting a very bright light. Soon the light is
+so bright, you can not see anything around you but light. A few mintues later
+it goes black.... When you wake up........
+
+This is Beta 2 Build 3  of Chris Moody's "The Quest". It was released on:
+8/27/00
+
+Your now laying down in a huge bed, you crawl out of bed, and notice there is
+a full length mirror here, and a dresser. To the east you notice a door.
+
+>You open the oak dresser.  Inside the oak dresser is the golden necklace and
+the scroll.
+
+>You take the golden necklace from the oak dresser.
+
+>You take the scroll from the oak dresser.
+
+>You move east.
+Hallway
+You are in a hallway, there is a stair case here that goes down to the lobby.
+To the north, you see the hall continuing. To the west is your room.
+
+>You move down.
+Stairs
+You are on the stairs, if you go down, you'll get ot the lobby. If you go up,
+you'll get to the first floor.
+
+>You move south.
+Hotel Lobby
+You are now in the lobby of the hotel. You see the check in desk here. To the
+west you see what appears to be a waiting room. To the east, you can see the
+street. By going up, you can go to the floor that your room is on.
+
+Inn keeper is here.
+
+>You move east.
+Street
+You are on the begining of a long street. To the west you see your hotel. The
+street continues toward the south.  On either side of the street, you can see
+indentations on the ground, indicating where buildings should be. But you
+don't see any buildings!
+
+>You move south.
+Street
+You are still on the same street, from here you can go north or south. On
+either side of the street, you can see indentations on the ground, indicating
+where buildings should be. But you don't see any buildings
+
+>You move south.
+Street
+Your still on the same street, you can go north or south from here  On either
+side of the street, you can see indentations on the ground, indicating where
+buildings should be. But you don't see any buildings
+
+>You move south.
+Street
+You are on a street that goes north. You can also barely make out a trail to
+the east. You think you can make out a house on the trail.
+
+>You move east.
+Hidden Trail
+You are on a smal barely visiblel trail that continues east of here. To the
+west you see the street. To the south, you see what looks like a cliff.  You
+see the dry grass moving in the wind.
+
+>You move east.
+Hidden Trail
+You are on a trail that goes east and west. To the north you see a battered
+gate, and your not sure but you think you can almost make out a building in
+the background.  You see the dry grass moving in the wind.
+
+Also here is a sturdy rope.
+
+>You pick up the sturdy rope.
+
+>You move east.
+Hidden Trail
+You are on a barely noticable trail, you can just make out that it goes west
+and south of here.
+
+>You move south.
+Wooded Trail
+You are now on a well defined trail that appears to be going south from here.
+You are surrounded by trees.  You can't see the birds, but you can certainly
+hear them.
+
+>You move south.
+Wooded Trail
+You are now on a well defined trail that appears to be going south from here.
+You are surrounded by trees.  You can't see the birds, but you can certainly
+hear them.
+
+>You move south.
+Wooded Trail
+You are now on a well defined trail that appears to be going south from here.
+You are surrounded by trees. One of the trees, looks like it has branches low
+enough to climb.  You can't see the birds, but you can certainly hear them.
+
+>You move up.
+Tree Top
+You are now high above the ground. From up here you can see all the way to
+the building you passed on the hidden trail. You see a red vine growing here.
+
+>You take the special herb from long red vine.
+
+>You move down.
+Wooded Trail
+You are now on a well defined trail that appears to be going south from here.
+You are surrounded by trees. One of the trees, looks like it has branches low
+enough to climb.  You can't see the birds, but you can certainly hear them.
+
+>You move north.
+Wooded Trail
+You are now on a well defined trail that appears to be going south from here.
+You are surrounded by trees.  You can't see the birds, but you can certainly
+hear them.
+
+>You move north.
+Wooded Trail
+You are now on a well defined trail that appears to be going south from here.
+You are surrounded by trees.  You can't see the birds, but you can certainly
+hear them.
+
+>You move north.
+Hidden Trail
+You are on a barely noticable trail, you can just make out that it goes west
+and south of here.
+
+>You move west.
+Hidden Trail
+You are on a trail that goes east and west. To the north you see a battered
+gate, and your not sure but you think you can almost make out a building in
+the background.  You see the dry grass moving in the wind.
+
+>You move north.
+Front of house
+You are in front of a house, it looks kind of funny, as if it's run down, but
+yet something is different, it doesn't appear to be totally ran down.
+
+>(Your score has increased by 15)
+The heavy door opens when you just touch the door knob.
+
+>You move north.
+House Lobby
+You are in the lobby of the house, as opposed to the outside. In here the
+house looks very sturdy. To the east you see what appears to be a lab. To the
+North, you think you can make out a stove and sink, so you assume it's a
+kitchen. To the west, you see a lot of books on shelves.
+
+>You move east.
+Lab
+You are standing in a very messy room, which for lack of a better word would
+have to be considered a lab. There are beakers and papers everywhere. Oddly
+enough, all of the chemicals that are not in beakers do appear to be neatly
+stacked in cabinet.
+
+Wizard is here.
+
+>The Wizard looks up at you, sees the herb in your hand, and quickly takes it
+from you. He then tosses you a crystal, and says "This crystal, will
+transport you to mouth of the cave, where your adventure continues. All you
+have to do is say the word shicknaw." He then goes back to his book.
+
+>You move west.
+House Lobby
+You are in the lobby of the house, as opposed to the outside. In here the
+house looks very sturdy. To the east you see what appears to be a lab. To the
+North, you think you can make out a stove and sink, so you assume it's a
+kitchen. To the west, you see a lot of books on shelves.
+
+>You move south.
+Front of house
+You are in front of a house, it looks kind of funny, as if it's run down, but
+yet something is different, it doesn't appear to be totally ran down.
+
+>You move south.
+Hidden Trail
+You are on a trail that goes east and west. To the north you see a battered
+gate, and your not sure but you think you can almost make out a building in
+the background.  You see the dry grass moving in the wind.
+
+>You move west.
+Hidden Trail
+You are on a smal barely visiblel trail that continues east of here. To the
+west you see the street. To the south, you see what looks like a cliff.  You
+see the dry grass moving in the wind.
+
+>You move south.
+Cliff
+You are standing at a cliff now. There are two posts here, that make you
+think there used to be a bridge here, but it's not here now. To the north of
+you is a barely visible trail. There is a sign here.
+
+Also here is healing water.
+
+>You pick up healing water.
+
+>(Your score has increased by 5)
+The crystal glows brightly, you are soon surrounded in blue light. Before you
+know it, the light is gone, and you are at the mouth of the cave.
+Mouth of cave
+You are now standing at the mouth of the cave. You can see to the north of
+you, two poles that look like they used to hold up a bridge. There is a small
+sign here. To the south of you, is a huge cave. Due to the position of the
+sun, you can't make out much inside the cave from here though.
+
+>You move south.
+Cave Entrance
+You are just beyond the mouth of the cave. From what you can make out this
+level of floor disapears just beyond the rock formation from the ground. You
+notice a wooden box here.
+
+>You open wooden box.  Inside wooden box is unlit latern.
+
+>You take unlit latern from wooden box.
+
+>You turn on the latern, and it starts to emit light.
+
+>(Your score has increased by 5)
+You tie the rope to the rock, and throw the rope down. You should be able to
+go down now.
+
+>You move down.
+Circular Room
+You are now standing in a circular room. It looks like there used to be a lot
+of exits, in every direction from here. Most of the exits have now caved in.
+You can see an exit to the North, East, West and South. For some reason this
+room looks familiar to you, but you can't recall from where.
+
+>You move south.
+Control room
+You are now in a room with a lot of buttons and levers. There are 3 buttons
+here that gets your attention, they are labeled river, sun and moon. You see
+a door to the south and an exit to  the north. To the south you hear water
+rushing by very quickly.
+
+>(Your score has increased by 20)
+You push the river button. To the south of you, you can not hear the sound of
+water any more. After a few seconds, the door to the south opens.
+
+>You move south.
+Damp river bed
+Hear you see a damp bed, it's obvious that there was water here not to long
+ago, but it's not here now. To the west there is a path you can easily go on.
+To the east, the river bed goes directly into solid rock. The control room is
+to the north.
+
+>You move west.
+Soggy river bed
+This part of the river bed, has a lot of mud. The sole's of your shoes are in
+mud. From here you can go east or west.
+
+>You move west.
+Sludge bed
+You are now in a bed of very thick mud. On the east wall of the cave about 20
+feet above your head, you see a large hole where the water obviously must
+have came down. To the north you see an entrance to another room.
+
+>You move north.
+Lava room
+You are now in a room, that splits from here, east of you is a dragon, west
+of you is an unicorn. Both appear to be either severely hurt or dead. Between
+the split is lava.
+
+>You move west.
+Lava Room (Unicorn Side)
+Here lies an unicorn, it appears to have 2nd and 3rd degree burns over at
+least 95% of it's body. It's taking very very shallow breaths. It's mouth is
+just barely open.
+
+>Your score is 45 out of a maximum of 2400.  (1%)
+
+>(Your score has increased by 15)
+You pour the water into the unicorn's mouth, and you see it's burns quickly
+disappears. After a few minutes, it starts taking deeper breaths, and then
+stands up. You hear in your head: "Thank you Adventurer, you have saved me
+and the town of Trixnar"
+Congradulations, you have sucessfully completed my first IF game. If I get
+enough positive comments, or at least constructive recommendations on how I
+could have made this game better, then I will make part 2 of this game.
+
+Please forward your comments to chris@jons.org.
+
+Thank you,
+
+Chris

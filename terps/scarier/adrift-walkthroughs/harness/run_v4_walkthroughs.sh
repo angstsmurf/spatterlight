@@ -178,6 +178,16 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110
+cleft_solution.txt|cleft.taf|You have successfully completed the Cleft in the Rock
+Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
+tq3_solution.txt|tq3.taf|you have sucessfully completed my first IF game
+yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
+ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And to all a good night!"
+Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.
+JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH
+mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.
+chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.
+fantasyworld_solution.txt|fantasyworld.taf|Congratulations!
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 EOF

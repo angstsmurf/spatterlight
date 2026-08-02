@@ -8,6 +8,63 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-08-02 (last) — Key & Compass batch: all 17 derived and wired — 106/106 PASS
+
+Every game from the sweep below now has a solution file, a golden, a
+`<Name>_walkthrough.md` and a row in `run_v4_walkthroughs.sh`. **Fifteen wins,
+one deliberate death ending, one tour.** Suite is 106 rows, all PASS.
+
+| game | result | cmds | note |
+| --- | --- | --- | --- |
+| `wax_worx` | WON (single ending) | 41 | no scoring system at all; the ending *is* `[PRESS ANY KEY TO DIE]` |
+| `sommeril` | ★ 85/100 **MAX** | 74 | last 10 behind a restriction that can never hold |
+| `DragonShrineR43` | ★ 95/100 **MAX** | 116 | last 5 unbankable on any winning path |
+| `shardsofmemory` | WON | 108 | no score; 803 tasks, not one `ACT type=4` |
+| `TheADRIFTProject` | ★ 90/100 **MAX** | 83 | author's own run also ends 10 short |
+| `ShadricksUnderground` | ★ 100/100 | 95 | all seventeen awards |
+| `ticket` | ★ 110/110 | 323 | all twenty-two awards; matches the author's total |
+| `cleft` | ★ 100/100 | 90 | 5+10+10+5+3+12+15+40 |
+| `Tear` | ★ 6/6 | 34 | six one-point awards |
+| `tq3` | ★ 60 (max) | 51 | Chris Moody's *The Quest* |
+| `yeh` | **TOUR** 3100/3400 | 18 | **no EndGame action anywhere** — cannot be won |
+| `ADRIFTMAS_Party` | ★ 100/100 | 63 | |
+| `Glum_Fiddle` | ★ 100/100 | 70 | ten ten-point tasks |
+| `JGrim` | ★ WON | 101 | no score; marker is the last word, `WHOOOOOSH` |
+| `mysteryofcaves` | ★ 125/125 "Godlike Adventurer" | 113 | game confirms it is the maximum |
+| `chooseyourown` | THE END (deepest ending) | 52 | gamebook; **no EndGame action** either — marker is ending prose |
+| `fantasyworld` | WON, 8535 exp | 322 | `Congratulations!`; adult game, run with its own `NOSEX` switch |
+
+Things worth carrying forward:
+
+- **Two of the seventeen have no `ACT type=6` at all** (`yeh`, `chooseyourown`).
+  For those the regression row's win marker has to be a line of prose, and
+  `--bless` still refuses without one — pick a line that occurs exactly once.
+- **`RESTR type=2` var2 polarity, corrected:** `screstrs.cpp`
+  `restr_pass_task_task_state()` reads **var2 = 0 → the task must be DONE**,
+  **var2 = 1 → must NOT be done**. An earlier note here had it backwards and
+  cost an afternoon on `fantasyworld`'s endgame.
+- **Dump index offsets, re-confirmed:** `RESTR type=3` character index and
+  `RESTR type=4` variable index are both `v1 - 2`; `ACT type=3`'s variable index
+  is plain `v1`, i.e. two less than the restriction's. `ACT type=1 v1=0` moves
+  the **player** and its destination is `v3` *verbatim*; `v1>=2` moves NPC
+  `v1-2` to room `v3-1` (`v3=0` = hidden). See `sctasks.cpp:559-690`.
+- **`RESTR type=4` comparison codes** (`screstrs.cpp:657-665`): 1 `<=`,
+  2 `==`, 3 `>=`, 4 `>`, 5 `!=`.
+- **A `#` comment line is skipped even at a mid-game prompt.** `fantasyworld`
+  opens with a bare `Please enter your name:` before turn 1; the header comment
+  block passes straight through it and the name is answered on the first
+  non-comment line. Blank lines are *not* skipped — they are waitkey padding or
+  wasted turns, so a game with zero waitkeys (like `fantasyworld`) must have a
+  solution file with zero blank lines or the RNG shifts.
+- **`search` does not imply `get`.** `ACT type=0 v2=6` puts the object in the
+  player's *room*, not their hands (`fantasyworld`'s gold nugget); `v2=4` is the
+  one that means "to the player".
+- **Author walkthroughs are worth reading and worth distrusting.** Four of the
+  seven that shipped with these games have at least one step that cannot work as
+  written; `fantasyworld`'s reverses a hard ordering constraint outright
+  (*"don't suggest anybody yet"* — the SUGGEST is what unlocks every subsequent
+  `ask … about demon`).
+
 ## 2026-08-02 (later 3) — Sophie's Adventure, comp build — ★ WON 183 — 96/96 PASS
 
 The IF Archive IFComp 2003 release `sophie.taf` is now wired alongside `sa.taf`,
@@ -134,8 +191,8 @@ Wayback Machine (only the review pages survive); adrift.co's 619-game listing ha
 none of ADRIFTMAS Party or the three *Quest*s; IF Archive has no ADRIFT End of
 Year Comp 2002 package.
 
-None of the 17 is wired into `run_v4_walkthroughs.sh` yet — that is the next
-derivation batch.
+All 17 are now wired — see the *"Key & Compass batch: all 17 derived"* entry at
+the top of this file.
 
 ## 2026-08-02 — the eleven unwired `.taf` in `games/` — ALL WIRED — 87/87 PASS
 
