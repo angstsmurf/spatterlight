@@ -1013,7 +1013,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
-  scr_bool showobjects, is_described, is_suppressed;
+  scr_bool showobjects, is_described, is_suppressed, looked;
   scr_int alt_count, alt, start, event;
 
   /* Get count of room alternates. */
@@ -1126,31 +1126,6 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
         }
     }
 
-  /* Print out any relevant event look text. */
-  for (event = 0; event < gs_event_count (game); event++)
-    {
-      if (gs_event_state (game, event) == ES_RUNNING
-          && evt_can_see_event (game, event))
-        {
-          const scr_char *looktext;
-
-          vt_key[0].string = "Events";
-          vt_key[1].integer = event;
-          vt_key[2].string = "LookText";
-          looktext = prop_get_string (bundle, "S<-sis", vt_key);
-          if (!scr_strempty (looktext))
-            {
-              if (is_described)
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter, looktext);
-              is_described = TRUE;
-            }
-
-          vt_key[2].string = "Res";
-          vt_key[3].integer = 1;
-          res_handle_resource (game, "sisi", vt_key);
-        }
-    }
   /*
    * Terminate the description block with a single line break.  Many ADRIFT
    * room descriptions already end with a trailing "<br>" of their own; if we
@@ -1168,9 +1143,59 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
         pf_buffer_character (filter, '\n');
     }
 
-  /* Finally, print room contents. */
+  /* Print room contents. */
   if (showobjects)
-    lib_print_room_contents (game, room);
+    {
+      const scr_char *buffered = pf_get_buffer (filter);
+      size_t noted = buffered ? strlen (buffered) : 0;
+
+      lib_print_room_contents (game, room);
+
+      buffered = pf_get_buffer (filter);
+      if (buffered && strlen (buffered) > noted)
+        is_described = TRUE;
+    }
+
+  /*
+   * Finally, print any relevant event look text.  The runner appends it dead
+   * last in the room block, after the object list and the character lines,
+   * run on with its two-space separator (probed live in both runners,
+   * 2026-08-02).  Join onto the description block only if this call printed
+   * one, so an event's text can't migrate up onto the room name line.
+   */
+  looked = FALSE;
+  for (event = 0; event < gs_event_count (game); event++)
+    {
+      if (gs_event_state (game, event) == ES_RUNNING
+          && evt_can_see_event (game, event))
+        {
+          const scr_char *looktext;
+
+          vt_key[0].string = "Events";
+          vt_key[1].integer = event;
+          vt_key[2].string = "LookText";
+          looktext = prop_get_string (bundle, "S<-sis", vt_key);
+          if (!scr_strempty (looktext))
+            {
+              if (is_described || looked)
+                pf_buffer_join (filter, looktext);
+              else
+                pf_buffer_string (filter, looktext);
+              looked = TRUE;
+            }
+
+          vt_key[2].string = "Res";
+          vt_key[3].integer = 1;
+          res_handle_resource (game, "sisi", vt_key);
+        }
+    }
+  if (looked)
+    {
+      const scr_char *buffered = pf_get_buffer (filter);
+
+      if (!(buffered && pf_text_ends_with_break (buffered)))
+        pf_buffer_character (filter, '\n');
+    }
 }
 
 

@@ -71,9 +71,9 @@ see the dry grass moving in the wind.
 Hidden Trail
 You are on a trail that goes east and west. To the north you see a battered
 gate, and your not sure but you think you can almost make out a building in
-the background.  You see the dry grass moving in the wind.
+the background.
 
-Also here is a sturdy rope.
+Also here is a sturdy rope.  You see the dry grass moving in the wind.
 
 >You pick up the sturdy rope.
 

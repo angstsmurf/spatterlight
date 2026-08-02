@@ -161,9 +161,9 @@ It starts to rain...
 You see the surrounding area. Forest stretches off into all directions, apart
 from the south, which leads to a large chasm, beyond which a small village
 can be seen. To the southwest, a vast swamp swallows up much of the land.
-  It is raining...
 
 You see a pair of leather gloves hung over a branch of the tree.
+It is raining...
 
 Fetlar the overly fetid flutters down from below.
 Fetlar scratches himself.
@@ -177,7 +177,7 @@ Trees
 Trees seem to block your path here.
 Their long branches blocking out what little light there is, the trees seem
 to be whispering something to you.
-  It is raining...
+It is raining...
 
 You can move south and up.
 
@@ -191,9 +191,8 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-  It is raining...
 
-Also here is a body and a staff.
+Also here is a body and a staff.  It is raining...
 
 You can move north, east, south and west.
 
@@ -295,10 +294,10 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-  It is raining...
 
 Also here is a body and a staff.
-Rossi, the muck dweller, is here.  Reevling the Warrior is here.
+Rossi, the muck dweller, is here.  Reevling the Warrior is here.  It is
+raining...
 
 You can move north, east, south and west.
 Upon seeing you, Rossi gets a little excited and grunts the word "easy "
@@ -327,10 +326,9 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-  It is raining...
 
 Also here is a fallen oak tree.
-Fetlar the overly fetid is here.
+Fetlar the overly fetid is here.  It is raining...
 
 You can move north, south, west, southeast and southwest.
 
@@ -340,7 +338,7 @@ The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
 spanning some 100 feet across to the opposite side, where the other cliff
 face can be seen stretching upwards.
-  It is raining...
+It is raining...
 
 You can move north, east, west, northeast and northwest.
 You catch a faint whiff of Fetlar. He must be somewhere nearby.
@@ -348,9 +346,8 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 >You move west.
 Great Swamp.
 You see a chasm to the south.
-  It is raining...
 
-Also here is a sword.
+Also here is a sword.  It is raining...
 
 You can move north, east, west, northeast and northwest.
 Lightning lances the clouds above. The rumble of thunder can be heard over
@@ -371,9 +368,7 @@ Fetlar the overly fetid flutters down.
 >You move northwest.
 Great Swamp.
 
-  It is raining...
-
-Also here is a statue of a fair maiden and a sign.
+Also here is a statue of a fair maiden and a sign.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -421,9 +416,7 @@ Seeker hums!
 >You move east.
 Great Swamp.
 
-  It is raining...
-
-Also here is a statue of a fair maiden and a sign.
+Also here is a statue of a fair maiden and a sign.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -432,8 +425,8 @@ Fetlar the overly fetid flutters down from the west.
 
 >You move southeast.
 Great Swamp.
-You stand in the Great Swamp.  It is raining...
-Rossi, the muck dweller, is here.
+You stand in the Great Swamp.
+Rossi, the muck dweller, is here.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -446,7 +439,7 @@ The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
 spanning some 100 feet across to the opposite side, where the other cliff
 face can be seen stretching upwards.
-  It is raining...
+It is raining...
 
 You can move north, east, west, northeast and northwest.
 
@@ -725,9 +718,8 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-  It is raining...
 
-Also here is a body and a staff.
+Also here is a body and a staff.  It is raining...
 
 You can move north, east, south and west.
 
@@ -739,9 +731,8 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-  It is raining...
 
-Also here is a fallen oak tree.
+Also here is a fallen oak tree.  It is raining...
 
 You can move north, south, west, southeast and southwest.
 
@@ -753,7 +744,7 @@ The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
 spanning some 100 feet across to the opposite side, where the other cliff
 face can be seen stretching upwards.
-  It is raining...
+It is raining...
 
 You can move north, east, west, northeast and northwest.
 
@@ -772,9 +763,7 @@ A chill wind blows southerly.
 >You move northwest.
 Great Swamp.
 
-  It is raining...
-
-Also here is a statue of a fair maiden and a sign.
+Also here is a statue of a fair maiden and a sign.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -3119,8 +3108,8 @@ Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
 while, to the west and south, exits lead out of this room.
-  Zandos paces back and forth inside the pentagram.
 Zandos, the demon, is here.
+Zandos paces back and forth inside the pentagram.
 
 You can move east, south and west.
 
@@ -3191,9 +3180,9 @@ Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
 while, to the west and south, exits lead out of this room.
-  Zandos paces back and forth inside the pentagram.
 Zandos, the demon, is here.
-Woody, the wererat, is here.
+Woody, the wererat, is here.  Zandos paces back and forth inside the
+pentagram.
 
 You can move east, south and west.
 
@@ -3433,9 +3422,8 @@ The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
-obscured by the majestic pipe organ that rests in the centre of this room.  A
-faint mist swirls around you.
-Berto, the bald raven, is here.
+obscured by the majestic pipe organ that rests in the centre of this room.
+Berto, the bald raven, is here.  A faint mist swirls around you.
 
 You can move north, east, south, west, up and down.
 
@@ -3447,9 +3435,9 @@ Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
 while, to the west and south, exits lead out of this room.
-  Zandos paces back and forth inside the pentagram.  A faint mist swirls
-around you.
 Zandos, the demon, is here.
+Zandos paces back and forth inside the pentagram.  A faint mist swirls around
+you.
 
 You can move east, south and west.
 
@@ -3466,10 +3454,10 @@ walls, each one some twelve feet tall and about as wide. The frames of these
 paintings are large, thick golden frames, each with the crest of Shadowpeak
 embossed onto it. To the east lies the pentagram room, and another exit leads
 south.
-  A faint mist swirls around you.
 
 Also here is a painting #1, a painting #2, a painting #3, a painting #4, a
-painting #5, a painting #6 and a painting #7.
+painting #5, a painting #6 and a painting #7.  A faint mist swirls around
+you.
 
 You can move east and south.
 
@@ -3485,7 +3473,7 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 >You move north.
 The passage behind the painting.
 This dark passage slopes downwards from south to north.
-  A faint mist swirls around you.
+A faint mist swirls around you.
 
 You can move north and south.
 
@@ -3497,9 +3485,9 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 The witch’s cave.
 You stand in a glistening cave. The passage south will take you back behind
 the painting; another passage leads northward, further into the caverns.
-  A faint mist swirls around you.
 Shadow, the black cat, is here.
 Rucktebar the Witch is here.
+A faint mist swirls around you.
 
 You can move north and south.
 Shadow meeeows...
@@ -3519,9 +3507,8 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 The hidden shrine.
 This cave is dank and dark. There is a lot of unholy religious paraphernalia
 here.
-  A faint mist swirls around you.
 
-Also here is a shrine.
+Also here is a shrine.  A faint mist swirls around you.
 
 You can only move south.
 
@@ -3539,9 +3526,8 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 The witch’s cave.
 You stand in a glistening cave. The passage south will take you back behind
 the painting; another passage leads northward, further into the caverns.
-  A faint mist swirls around you.
 
-Also here is a Shadow, the dead black cat.
+Also here is a Shadow, the dead black cat.  A faint mist swirls around you.
 
 You can move north and south.
 
@@ -3552,7 +3538,7 @@ Gargoyle #1 stabs you with the military fork.
 >You move south.
 The passage behind the painting.
 This dark passage slopes downwards from south to north.
-  A faint mist swirls around you.
+A faint mist swirls around you.
 
 You can move north and south.
 
@@ -3566,10 +3552,10 @@ walls, each one some twelve feet tall and about as wide. The frames of these
 paintings are large, thick golden frames, each with the crest of Shadowpeak
 embossed onto it. To the east lies the pentagram room, and another exit leads
 south.
-  A faint mist swirls around you.
 
 Also here is a painting #1, a painting #2, a painting #3, a painting #4, a
-painting #5, a painting #6 and a painting #7.
+painting #5, a painting #6 and a painting #7.  A faint mist swirls around
+you.
 
 You can move north, east and south.
 
@@ -3582,10 +3568,9 @@ Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
 while, to the west and south, exits lead out of this room.
-  Zandos paces back and forth inside the pentagram.  A faint mist swirls
-around you.
 Zandos, the demon, is here.
-Woody, the wererat, is here.
+Woody, the wererat, is here.  Zandos paces back and forth inside the
+pentagram.  A faint mist swirls around you.
 
 You can move east, south and west.
 
@@ -3617,9 +3602,9 @@ The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
-obscured by the majestic pipe organ that rests in the centre of this room.  A
-faint mist swirls around you.
-Woody, the wererat, is here.  Berto, the bald raven, is here.
+obscured by the majestic pipe organ that rests in the centre of this room.
+Woody, the wererat, is here.  Berto, the bald raven, is here.  A faint mist
+swirls around you.
 
 You can move north, east, south, west, up and down.
 
@@ -3644,9 +3629,9 @@ You feel the hairs on the back your neck stand up.
 >You move up.
 Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
-flickers from under it.  A faint mist swirls around you.
+flickers from under it.
 
-Also here is steel door.
+Also here is steel door.  A faint mist swirls around you.
 
 You can only move down.
 
@@ -4210,7 +4195,7 @@ damage.
 On the window ledge.
 You hang on the window ledge. Down below, you see the castle’s western
 battlements. Vines grow from below to the height of the window ledge.
-  Morac flies around the castle on his black dragon.
+Morac flies around the castle on his black dragon.
 
 You can move south and down.
 
@@ -4236,9 +4221,9 @@ Top of the northwest tower.
 Battlements man the top of this tower. From here you can see the ocean
 lapping up against the rocks, as well as the not-so-sleepy Village of
 Windthrush.
-  Morac flies around the castle on his black dragon.
 
-Also here is a huge ballista.
+Also here is a huge ballista.  Morac flies around the castle on his black
+dragon.
 
 You can move south and down.
 
@@ -4407,11 +4392,10 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-  It is raining...  There is a portal here.
 
 Also here is a body.
 Fetlar the overly fetid is here.  Morac is here.
-
+It is raining...  There is a portal here.
 Fetlar grabs one of the flies that circle around his rear, pops it in his
 mouth, and swallows it.
 
@@ -4611,10 +4595,9 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-  It is raining...  There is a portal here.
 
 Also here is a body.
-Fetlar the overly fetid is here.
+Fetlar the overly fetid is here.  It is raining...  There is a portal here.
 
 You can move north, east, south and west.
 
@@ -5131,7 +5114,7 @@ cloud. The cloud gently floats you back down to ground level.
 >You move south.
 Great Swamp.
 You stand in the Great Swamp.
-  It is raining...
+It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -5150,10 +5133,9 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-  It is raining...  There is a portal here.
 
 Also here is a body.
-Fetlar the overly fetid is here.
+Fetlar the overly fetid is here.  It is raining...  There is a portal here.
 
 You can move north, east, south and west.
 

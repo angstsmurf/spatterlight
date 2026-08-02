@@ -70,9 +70,9 @@ the chapel yard, and beyond that your humble childhood home.  At the top of
 the hill, southeast of you, you can see the chapel with its steeple, and at
 the foot of the hill, northeast of you, you can just make out the sign of the
 bus stop.
-It is daytime.
 
 Also here is a snail.
+It is daytime.
 
 You can only move east.
 
@@ -186,9 +186,9 @@ You are at the well.  You have fond childhood memories of this well, although
 none of them are occurring to you right now.  Your humble abode is to the
 east.  Fields are to the west.  The chapel is on top of the hill to the
 south.  Down the hill to the north there is the bus stop.
-It is daytime.
 
 Also here are the heavy cross.
+It is daytime.
 
 You can move north, east, south and west.
 
@@ -198,9 +198,9 @@ You are at the well.   One end of the rope is tied to the well quite
 securely; the rest lies on the ground.  Your humble abode is to the east.
 Fields are to the west.  The chapel is on top of the hill to the south.  Down
 the hill to the north there is the bus stop.
-It is daytime.
 
 Also here are the heavy cross.
+It is daytime.
 
 >You throw the rope down the well.
 
@@ -398,10 +398,10 @@ the chapel yard, and beyond that your humble childhood home.  At the top of
 the hill, southeast of you, you can see the chapel with its steeple, and at
 the foot of the hill, northeast of you, you can just make out the sign of the
 bus stop.
-It is daytime.
 
 Also here is the fairy and the bowl.
 Vluurinik darts in circles.
+It is daytime.
 
 You can only move east.
 
@@ -412,10 +412,10 @@ the chapel yard, and beyond that your humble childhood home.  At the top of
 the hill, southeast of you, you can see the chapel with its steeple, and at
 the foot of the hill, northeast of you, you can just make out the sign of the
 bus stop.
-It is daytime.
 
 Also here is the fairy and the bowl.
 Vluurinik flits around.
+It is daytime.
 
 You can only move east.
 
@@ -478,11 +478,10 @@ The Robot releases you with a mean little shove.
 Cellar
 The work space around the well-lit table in the center of the room remains
 clear, although cobwebs and dirt have claimed the periphery of the room.  A
-ladder in one corner leads to the trapdoor.  The Robot seems to be enjoying
-this experience.
+ladder in one corner leads to the trapdoor.
 
 Also here are the plans.
-The Robot is here.
+The Robot is here.  The Robot seems to be enjoying this experience.
 -YOU. WILL. TAKE. ME. TO. THE. CYBERCOW. - NOW. -
 
 >You pause a moment...
@@ -673,11 +672,10 @@ You are careful to keep your weight opposite the crack, so the leaky surface
 of the bell stays out of the water.  The iron bell wouldn't have to take on
 much water to sink like a rock--
 
+A fairy is here.
 It is night-time.  The moon, three days from full, casts your shadow on the
 water and the inward curve of the bell.
 You're cold.
-
-A fairy is here.
 
 >A sleepy adventurer.
 The sudden, familiar sound of fairy wings--

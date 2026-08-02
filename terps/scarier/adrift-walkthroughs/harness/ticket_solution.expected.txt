@@ -500,12 +500,13 @@ The Station Master says "Why did you do that? I liked that vase."
 Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
-the door to the toilets.  It is still raining very hard.
+the door to the toilets.
 
 You can see a large poster with a picture of a policeman on it.
 
 You can also see a payphone.
-A large pigeon is watching you from the canopy over the platform.
+A large pigeon is watching you from the canopy over the platform.  It is
+still raining very hard.
 
 You appear to be able to move north, east and southwest.
 
@@ -569,11 +570,10 @@ The young girl says "donningby platform?"
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
-fireplace but it is a long time since it held a fire.   It is still raining
-very hard.
+fireplace but it is a long time since it held a fire.
 
 You can also see a desk and a telephone.
-The Station Master is standing to one side.
+The Station Master is standing to one side.  It is still raining very hard.
 
 The door out of the room is west.
 
@@ -585,13 +585,14 @@ He is going to be no help.  Better find someone else.
 Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
-the door to the toilets.  It is still raining very hard.
+the door to the toilets.
 
 You can see a large poster with a picture of a policeman on it.
 
 You can also see a payphone.
 A large pigeon is watching you from the canopy over the platform.  You can
-see a young girl wandering around looking very lost.
+see a young girl wandering around looking very lost.  It is still raining
+very hard.
 
 You appear to be able to move north, east and southwest.
 The young girl says "donningby train?"
@@ -607,8 +608,9 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.  It is still raining very hard.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.
+A Trainspotter dressed in wet weather gear is watching you.  It is still
+raining very hard.
 
 You appear to be able to move northeast and southeast.
 The Trainspotter turns to face you and asks "what's that mess on your

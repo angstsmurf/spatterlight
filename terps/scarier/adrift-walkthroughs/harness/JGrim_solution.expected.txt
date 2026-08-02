@@ -707,11 +707,10 @@ technology. An impressive-looking chair sits in the centre of the room,
 facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the inside of the hangar. The rest of the ship lies
 behind you, to the west, and there is some kind of shuttle off to the south.
- The hideous alien gestures towards the large Captain's chair.
 
 Also here is a transparent alien dustbin.
 The hideous alien waits patiently by a bank of computers. He watches you
-expectantly.
+expectantly.  The hideous alien gestures towards the large Captain's chair.
 
 >You settle down in the Captain's chair. The hideous alien gives you a curt
 nod and turns his back on you. Immediately the ship starts to move, rocking
@@ -729,12 +728,11 @@ rubbish chute, and what looks like a microwave break up the complex
 technology. An impressive-looking chair sits in the centre of the room,
 facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the planet Jupiter. The rest of the ship lies behind
-you, to the west, and there is some kind of shuttle off to the south.   The
-hideous alien gestures towards the large Captain's chair.
+you, to the west, and there is some kind of shuttle off to the south.
 
 Also here is a transparent alien dustbin.
 The hideous alien waits patiently by a bank of computers. He watches you
-expectantly.
+expectantly.  The hideous alien gestures towards the large Captain's chair.
 
 The ship floats in space, Jupiter just a planet beneath you.
 
@@ -1053,10 +1051,10 @@ from which you can see the remains of the planet Jupiter. The rest of the
 ship lies behind you, to the west, and there are locked doors where the
 escape pod used to be.
 
+A hideous and headless alien corpse is here.
+
 The ship is disintegrating around you, the aliens obviously decided that they
 were going to take you, and it, with them.
-
-A hideous and headless alien corpse is here.
 
 'I didn't want to get flushed out of the garbage chute anyway,' you mutter
 darkly.'

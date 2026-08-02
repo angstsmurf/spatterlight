@@ -35,9 +35,9 @@ Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
 is a door to the south, and a door to the west.  There is a fishy smell about
 this room.  Some maids and guards are standing about.  You see a plate of
-doughnuts on a table to your right.  Yup, its still the first day.
+doughnuts on a table to your right.
 Harry the King sits in his throne.  Guido is here guarding the room to the
-west.
+west.  Yup, its still the first day.
 
 You can move south and west.
 
@@ -65,9 +65,9 @@ Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
 is a door to the south, and a door to the west.  There is a fishy smell about
 this room.  Some maids and guards are standing about.  You see a plate of
-doughnuts on a table to your right.  Yup, its still the first day.
+doughnuts on a table to your right.
 Harry the King sits in his throne.  Guido is here guarding the room to the
-west.
+west.  Yup, its still the first day.
 
 You can move south and west.
 
@@ -77,9 +77,9 @@ The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
-draft.  Yup, its still the first day.
+draft.
 
-Jackass Trying to Kill You is here.
+Jackass Trying to Kill You is here.  Yup, its still the first day.
 
 You can move north and south.
 Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
@@ -97,10 +97,9 @@ You hear a click from a different room.
 
 >You move north.
 Kings throne room.
-The king sees your soap on a rope and says, "give me that you bastard."  Yup,
-its still the first day.
+The king sees your soap on a rope and says, "give me that you bastard."
 Harry the King sits in his throne.  Guido is here guarding the room to the
-west.
+west.  Yup, its still the first day.
 
 You can move south and west.
 
@@ -119,9 +118,9 @@ The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
-draft.  Yup, its still the first day.
+draft.
 
-Jackass Trying to Kill You is here.
+Jackass Trying to Kill You is here.  Yup, its still the first day.
 
 You can move north and south.
 Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
@@ -142,8 +141,8 @@ Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
 a building with smoke pouring out of a chimmmany, To the west is a big ol
-fountain.  A locked gate is to the south.  Yup, its still the first day.
-The Dumb old guy stares at you.
+fountain.  A locked gate is to the south.
+The Dumb old guy stares at you.  Yup, its still the first day.
 
 You can move north, east and west.
 
@@ -170,9 +169,10 @@ This is Sculpto's house, complete with sculpts, scultures, and sculpys.  This
 man is Cccrrrrraaaazy.  The room has 2 big sculptures on both sides of the
 room( that makes for  four(4) for you idiots).  There are some  lamps and
 torches hanging around.  A big table in the middle has a radio blaring disco
-music.  Wow!  Yup, its still the first day.
+music.  Wow!
 
-Jackass Trying to Kill You (dead) and Sculpto are here.
+Jackass Trying to Kill You (dead) and Sculpto are here.  Yup, its still the
+first day.
 
 You can only move east.
 

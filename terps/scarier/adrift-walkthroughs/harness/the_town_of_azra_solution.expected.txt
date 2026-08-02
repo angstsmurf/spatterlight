@@ -46,12 +46,12 @@ Please enter your name:
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.  The street is busy with people walking,
-purchasing, and talking.
+a crowd fills the street.
 
 Also here is a pile of rubbish.
 
-Kiris is here.
+Kiris is here.  The street is busy with people walking, purchasing, and
+talking.
 
 There are exits north, east, south and west.
 
@@ -62,10 +62,10 @@ Inside Hartho's Golden Tavern
 This is a brightly lit tavern. People are jammed in here, and Harthro is
 managing all of their orders. The smell of meat, work, and pure human
 entertainment fill your nostrils. If you're hungry or thirsty, ask Harthro
-about the menu. Also here is the dirty dish rack.  Hartho's Golden Tavern is
-alive with laughter, joy, and an overall sense of loud peace.
+about the menu. Also here is the dirty dish rack.
 
-Harthro is here.
+Harthro is here.  Hartho's Golden Tavern is alive with laughter, joy, and an
+overall sense of loud peace.
 
 There is an exit west.
 
@@ -98,13 +98,13 @@ masterpiece from Harthro's grill.
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.  The street is busy with people walking,
-purchasing, and talking.
+a crowd fills the street.
 
 Also here is a pile of rubbish.
 Ormulus is here.
 
-Kiris is here.
+Kiris is here.  The street is busy with people walking, purchasing, and
+talking.
 
 You can move north, east, south and west.
 
@@ -131,13 +131,13 @@ cents.
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.  The street is busy with people walking,
-purchasing, and talking.
+a crowd fills the street.
 
 Also here is a pile of rubbish.
 Ormulus is here.
 
-Kiris is here.
+Kiris is here.  The street is busy with people walking, purchasing, and
+talking.
 
 You can move north, east, south and west.
 
@@ -207,10 +207,9 @@ You move out.
 In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
-campaigns. You may ask Gralle about staying here.  You currently have room
-rented at Gralle's Inn.
+campaigns. You may ask Gralle about staying here.
 
-Gralle is here.
+Gralle is here.  You currently have room rented at Gralle's Inn.
 
 You can move in and northwest.
 

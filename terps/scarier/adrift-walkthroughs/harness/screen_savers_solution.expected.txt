@@ -333,12 +333,11 @@ barely hear his continued snoring.
 Hotel lobby
 This is the lobby of the Planet X Luxury Hotel.  West takes you back outside,
 while to the north you can see some kind of game room.  Through the open
-doors to the west you can see the bulldozer continuing its approach.  The
-Asteroids game is here.
+doors to the west you can see the bulldozer continuing its approach.
 
 Also here are the game tokens, a bazooka and broken glass.
 
-Joshua is here.
+Joshua is here.  The Asteroids game is here.
 
 >You pick up the bazooka.
 

@@ -1118,6 +1118,37 @@ pf_buffer_paragraph_line (scr_filterref_t filter, const scr_char *string)
 
 
 /*
+ * pf_buffer_join()
+ *
+ * Append a string as a continuation of the current output line, with the
+ * Adrift runner's two-space sentence separator.  The runner builds a turn's
+ * output as one paragraph joined with two spaces; our section printers
+ * instead terminate each section with a newline of their own.  To join text
+ * onto the previous section the way the runner does -- event look text runs
+ * on after the room's character lines -- remove a single terminating newline
+ * first, then separate with two spaces unless the text before it ends with
+ * an author's own break.
+ */
+void
+pf_buffer_join (scr_filterref_t filter, const scr_char *string)
+{
+  assert (pf_is_valid (filter));
+  assert (string);
+
+  if (!filter->is_muted && !filter->buffer.empty ())
+    {
+      if (filter->buffer.back () == '\n')
+        filter->buffer.pop_back ();
+
+      if (!filter->buffer.empty ()
+          && !pf_text_ends_with_break (filter->buffer.c_str ()))
+        pf_append_string (filter, "  ");
+    }
+  pf_buffer_string (filter, string);
+}
+
+
+/*
  * pf_prepend_string()
  *
  * Add a string to the front of the printfilter buffer, rather than to the

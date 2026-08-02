@@ -51,12 +51,12 @@ You can move north, south and west.
 >You move south.
 Compartment B
 This is another train car full of compartments. Doors line the corridor. The
-compartments are numbered B1-B20.  Maybe you should talk to the woman.  The
-walls appear as if they are being shook by a small earthquake.
+compartments are numbered B1-B20.  Maybe you should talk to the woman.
 
 Also here is a bag and a note.
 
-Ivanna Stiffdrink is here.
+Ivanna Stiffdrink is here.  The walls appear as if they are being shook by a
+small earthquake.
 
 You can only move north.
 
@@ -79,9 +79,10 @@ You can move north, east, south, west and up.
 >You move south.
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
-corridor.  The walls appear as if they are being shook by a small earthquake.
+corridor.
 
-Also here is a sign.
+Also here is a sign.  The walls appear as if they are being shook by a small
+earthquake.
 
 You can move north, east, south and west.
 
@@ -127,9 +128,10 @@ You can move west and in.
 >You move west.
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
-corridor.  The walls appear as if they are being shook by a small earthquake.
+corridor.
 
-Also here is a sign.
+Also here is a sign.  The walls appear as if they are being shook by a small
+earthquake.
 
 You can move north, east, south and west.
 
@@ -209,10 +211,10 @@ Dining Car
 This train car provides a relaxing place to enjoy a meal.  Small tables and a
 few booths take up the space in this room.  This car also has a kitchen built
 on top of it. The passengers do not have access to the kitchen. There is a
-booth with a large table.  You take a quick look out the window and see the
-station getting larger as you approach.
+booth with a large table.
 
-Gimme Atip is here.
+Gimme Atip is here.  You take a quick look out the window and see the station
+getting larger as you approach.
 
 You can move north and south.
 
@@ -221,12 +223,12 @@ Ivanna Stiffdrink walks towards you from the south.
 >You move north.
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
-corridor.  You take a quick look out the window and see the station getting
-larger as you approach.
+corridor.
 
 Also here is a sign.
 
-Oddly Istink is here.
+Oddly Istink is here.  You take a quick look out the window and see the
+station getting larger as you approach.
 
 You can move north, east, south and west.
 
