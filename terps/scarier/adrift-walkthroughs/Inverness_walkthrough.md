@@ -162,8 +162,11 @@ turns after the eavesdrop; the game then sits idle in the cellar.)
   inside the (held, unopened) riddle box — so `unlock desk`/`open desk` score
   their +10 even on a run that flubs the riddle. That is why the pre-2026-08-02
   desynced route still looked plausible: it reached the ending with only the
-  riddle's +10 missing. (Nested-container holding is unverified against the
-  real 3.9 Runner; it does not affect the verdict either way.)
+  riddle's +10 missing. **Verified against the real 3.9 Runner 2026-08-02**
+  (probe `test/make_39_heldprobe.py`, run in `run390.exe` under Wine): a key
+  inside a *closed* box the player carries answers "held by the player", and
+  only stops doing so when the box is put down. So this is the original
+  engine's behaviour, not a SCARE liberty.
 
 ## Provenance
 
@@ -186,4 +189,9 @@ desynced run still printed. Fixed here: `answer step` → `answer bookmark`, a
 trailing `score` turn added to the solution, golden re-blessed, and the marker
 in `run_v4_walkthroughs.sh` tightened to
 `Your score is 75 out of a maximum of 205.` so the same class of desync fails
-loudly next time. Full v4 corpus after the change: 128 rows, all PASS.
+loudly next time. Full v4 corpus after the change: 127 rows, all PASS.
+
+The one behaviour the re-check leaned on that had never been probed — "held by
+the player" reaching into a **closed** carried container — was then checked
+directly against `run390.exe` (2026-08-02). It holds; see *Notes on the route*
+and `RUNNER_TESTS_TODO.md`.

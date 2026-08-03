@@ -117,6 +117,16 @@ restr_object_in_place (scr_gameref_t game,
        * the player carries or wears -- one level of nesting, not a recursive
        * search.  See the notes above restr_pass_task_object_location below.
        *
+       * The container's openness is NOT consulted, and that half was checked
+       * separately: probe `p39held` (test/make_39_heldprobe.py) run in the
+       * real run390.exe answers KEY IS HELD for a key inside a *closed* box
+       * the player carries, and only turns to NOT HELD when the box is
+       * dropped -- picking the closed box back up restores it.  All five
+       * states (loose, carried, open-carried-container, closed-carried-
+       * container, closed-container-on-floor) match Scarier exactly.
+       * Verified 2026-08-02; this is what lets inverness's desk be unlocked
+       * with the old key still sealed inside its riddle box.
+       *
        * Note that none of this applies to the NPC forms, nor to "worn by":
        * those really are the single exact position test they look like.
        */

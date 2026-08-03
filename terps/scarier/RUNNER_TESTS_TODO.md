@@ -791,3 +791,43 @@ paragraph.  **That one is now FIXED too (2026-08-02, its own pass)** — the
 loop moved past `lib_print_room_contents()` with a two-space
 `pf_buffer_join()`, 14 goldens re-blessed as pure relocation, 127/127 PASS
 (see the §4 table row).
+
+**2026-08-02 — "held by the player" reaches into a CLOSED carried container,
+in run390 too.**  The one remaining unprobed half of the held-by rule (commit
+`584f7402` had confirmed carried and worn containers, but every probe used an
+*open* one) came up while re-auditing `inverness`: its desk unlocks with the
+old key still sealed inside the riddle box, and the whole "the route doesn't
+actually need the box opened" note rested on that.  `test/make_39_heldprobe.py`
+authors a two-object V390 game — an openable box held by the player with a key
+starting inside it — whose only task is `probe`, restriction Type 0 / Var1 4
+(dynamic object 1) / Var2 1 / Var3 0, reporting HELD or NOT HELD.  run390.exe
+under Wine answers, in order:
+
+| state | run390 | Scarier |
+|---|---|---|
+| key inside the **open** carried box | HELD | HELD |
+| key inside the **closed** carried box | **HELD** | HELD |
+| closed box dropped on the floor | NOT HELD | NOT HELD |
+| the same closed box picked up again | HELD | HELD |
+| box reopened while carried | HELD | HELD |
+
+So openness is genuinely not consulted, exactly as `restr_object_in_place()`
+case 1/7 has it — no change needed, and the comment there now cites this probe.
+A second fact fell out for free: a 3.9 object with `InitialPosition = 2` takes
+a **0-based** container-sublist index in `Parent`, in the Runner as well as in
+`gs_create()` — writing 0 for the first container puts the key in the box in
+both engines.
+
+*New open row (documented, not chased):* the Runner's **carry/container size
+arithmetic is stricter than ours**.  With the box at Capacity 52 / SizeWeight 21
+(inverness's own numbers) and a SizeWeight 0 key, `put key in box` answers
+"The key is too big to fit inside the box." in run390 while Scarier performs it;
+a five-item variant (`p39size`, SizeWeight 0/1/10/11/20, player MaxSize/MaxWt
+95) had run390 refuse every `take` as "That is too heavy for you to carry." /
+"Your hands are full." where Scarier carried and stowed all five.  Whatever
+run390 decodes the packed tens/units of `SizeWeight`, `Capacity`, `MaxSize` and
+`MaxWt` into, it is not Scarier's reading (`obj_get_size` = `3^tens`,
+`obj_get_weight` = `3^units`, player limit = `tens × 3^units`).  It did not matter for the held-by question (the key
+was placed by `InitialPosition`, not by `put`) and no corpus row depends on it,
+but a `put X in Y` route in some game plausibly could — a size/capacity matrix
+probe is the way to settle it.
