@@ -113,7 +113,18 @@ A5SEXPR_BIN     := test/a5sexpr_test
 A5SAVE_HARNESS  := test/a5_save_test.cpp
 A5SAVE_BIN      := test/a5_save_test
 
-.PHONY: test sanitize taf clean scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs
+# Container size/capacity regression.  Unlike the harnesses above this one wants
+# a whole interpreter session rather than an API poke, so it links the plain
+# ANSI port and replays a script, exactly as the walkthrough harness does -- and
+# unlike the walkthrough corpus, its two games are synthetic and generated here,
+# so it runs everywhere.  Both are v3.9, which needs no donor .taf for the
+# password trailer.  The goldens encode the Runner's answers: capacities are
+# volumes the contents spend, and both refusal strings are load-bearing (see
+# RUNNER_TESTS_TODO.md, 2026-08-03).
+CAP_BIN    := test/capacity_test_hl
+CAP_TAF    := test/capacity_matrix.taf test/capacity_nest.taf
+
+.PHONY: test sanitize taf clean capacitytest capacitybless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -138,6 +149,7 @@ test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BI
 	./$(A5WALK_BIN)
 	./$(A5OBJ_BIN)
 	./$(A5SAVE_BIN)
+	@$(MAKE) -f Makefile.headless capacitytest
 	@$(MAKE) -f Makefile.headless a5runtest
 	@$(MAKE) -f Makefile.headless v4walkthroughs
 
@@ -200,6 +212,13 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
 	$(SAN_ENV) ./$(CORRUPT_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(QUIT_HARNESS) $(LDLIBS) -o $(QUIT_BIN)_san
 	$(SAN_ENV) ./$(QUIT_BIN)_san $(PREC_TAF)
+	$(MAKE) -f Makefile.headless $(CAP_TAF)
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) os_ansi.cpp \
+	    adrift-walkthroughs/harness/seed.cpp $(LDLIBS) -o $(CAP_BIN)_san
+	$(SAN_ENV) ./$(CAP_BIN)_san test/capacity_matrix.taf \
+	    < test/capacity_matrix_script.txt > /dev/null
+	$(SAN_ENV) ./$(CAP_BIN)_san test/capacity_nest.taf \
+	    < test/capacity_nest_script.txt > /dev/null
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS) -o $(A5PARSE_BIN)_san
 	$(SAN_ENV) ./$(A5PARSE_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5rand.cpp $(A5SEXPR_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SEXPR_BIN)_san
@@ -332,6 +351,38 @@ $(A5SAVE_BIN): $(A5_RUN_SRC) $(A5SAVE_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
 	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5SAVE_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # The TAFs are checked in; these targets only refresh them from the generators.
+# Container size/capacity goldens.  Regenerate with:
+#   make -f Makefile.headless capacitybless
+capacitytest: $(CAP_BIN) $(CAP_TAF)
+	@fail=0; \
+	for probe in matrix nest; do \
+	  ./$(CAP_BIN) test/capacity_$$probe.taf < test/capacity_$${probe}_script.txt \
+	      2>/dev/null | tr -s '\n' > /tmp/capacity_$$probe.got; \
+	  if diff -u test/capacity_$${probe}_expected.txt /tmp/capacity_$$probe.got \
+	      > /tmp/capacity_$$probe.diff 2>&1; then \
+	    echo "capacity $$probe: PASS"; \
+	  else \
+	    echo "capacity $$probe: FAIL"; cat /tmp/capacity_$$probe.diff; fail=1; \
+	  fi; \
+	done; \
+	exit $$fail
+
+capacitybless: $(CAP_BIN) $(CAP_TAF)
+	@for probe in matrix nest; do \
+	  ./$(CAP_BIN) test/capacity_$$probe.taf < test/capacity_$${probe}_script.txt \
+	      2>/dev/null | tr -s '\n' > test/capacity_$${probe}_expected.txt; \
+	  echo "blessed test/capacity_$${probe}_expected.txt"; \
+	done
+
+$(CAP_BIN): $(SRC) os_ansi.cpp adrift-walkthroughs/harness/seed.cpp
+	$(CXX) $(CXXFLAGS) $(SRC) os_ansi.cpp \
+	    adrift-walkthroughs/harness/seed.cpp $(LDLIBS) -o $@
+
+test/capacity_matrix.taf: test/make_sizeprobe.py
+	python3 test/make_sizeprobe.py 390 $@ 994 994 cap2
+test/capacity_nest.taf: test/make_sizeprobe.py
+	python3 test/make_sizeprobe.py 390 $@ 994 994 cap3
+
 taf: $(TAF) $(PREC_TAF) $(BADP_TAF)
 $(TAF): test/make_battle_taf.py
 	python3 test/make_battle_taf.py $(TAF)
@@ -341,5 +392,5 @@ $(BADP_TAF): test/make_badparent_taf.py
 	python3 test/make_badparent_taf.py $(BADP_TAF)
 
 clean:
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ)
-	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(SAN_RAND_OBJ)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ) $(CAP_BIN)
+	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(CAP_BIN)_san $(SAN_RAND_OBJ)

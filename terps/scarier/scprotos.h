@@ -876,8 +876,9 @@ extern scr_int obj_get_size (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_weight (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_player_size_limit (scr_gameref_t game);
 extern scr_int obj_get_player_weight_limit (scr_gameref_t game);
-extern scr_int obj_get_container_maxsize (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_container_capacity (scr_gameref_t game, scr_int object);
+extern scr_int obj_get_container_free_space (scr_gameref_t game,
+                                             scr_int object);
 extern scr_int obj_lieable_object (scr_gameref_t game, scr_int n);
 extern scr_bool obj_appears_plural (scr_gameref_t game, scr_int object);
 extern void obj_setup_initial (scr_gameref_t game);

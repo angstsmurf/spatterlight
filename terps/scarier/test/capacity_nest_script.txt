@@ -1,0 +1,36 @@
+take z1
+take y1
+take y2
+take y3
+take w1
+take w2
+take w3
+take w4
+take w5
+take w6
+take w7
+take w8
+take w9
+take m12
+take v1
+put z1 in z02
+put y1 in z20
+put y2 in z20
+put y3 in z20
+put w1 in m12
+put w2 in m12
+put w3 in m12
+put w4 in m12
+put w5 in m12
+put w6 in m12
+put w7 in m12
+put w8 in m12
+put w9 in m12
+put m12 in n22
+put v1 in n22
+take w1
+put w1 in n22
+x n22
+x m12
+quit
+y

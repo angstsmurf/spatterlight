@@ -293,15 +293,74 @@ obj_wearable_object (scr_gameref_t game, scr_int n)
 
 /*
  * Size is held in the ten's digit of SizeWeight, and weight in the units.
- * Size and weight are multipliers -- the relative size and weight of objects
- * rises by a factor of three for each incremental multiplier.  These factors
- * are also used for the maximum size of object that can fit in a container,
- * and the number of these that fit.
+ * Size and weight are indices into a geometric scale -- the relative size and
+ * weight of objects rises by a constant factor for each incremental index.
+ * The same scale gives a container's capacity, which is a volume rather than
+ * an object count: 'tens' of Capacity multiplied by the scale factor raised to
+ * the 'units'.
+ *
+ * The two scale factors are per-game, stored in the pair of globals that this
+ * parser used to discard as iUnk1/iUnk2.  The ADRIFT editor always writes 3
+ * for both, which is why a hardwired 3 went unnoticed for so long, but the
+ * Runner really does read them: a game built with a size base of 2 and a
+ * weight base of 5 and MaxSize = MaxWt = 102 reports its player limits as
+ * 40 and 250 in the Runner's own debugger, not 90 and 90.  Files too old to
+ * carry the fields (v3.8 and earlier) get the editor's 3.
  */
 enum
 { OBJ_DIMENSION_DIVISOR = 10,
   OBJ_DIMENSION_MULTIPLE = 3
 };
+
+/*
+ * obj_get_size_multiple()
+ * obj_get_weight_multiple()
+ *
+ * Return the game's size and weight scale factors.
+ */
+static scr_int
+obj_get_dimension_multiple (scr_gameref_t game, const scr_char *name)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2], vt_rvalue;
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = name;
+  if (!prop_get (bundle, "I<-ss", &vt_rvalue, vt_key))
+    return OBJ_DIMENSION_MULTIPLE;
+
+  return vt_rvalue.integer;
+}
+
+static scr_int
+obj_get_size_multiple (scr_gameref_t game)
+{
+  return obj_get_dimension_multiple (game, "SizeMultiple");
+}
+
+static scr_int
+obj_get_weight_multiple (scr_gameref_t game)
+{
+  return obj_get_dimension_multiple (game, "WeightMultiple");
+}
+
+/*
+ * obj_scale()
+ *
+ * Return multiple raised to the power index_.  A zero multiple gives 1 for
+ * index zero and 0 for everything above it; that is not a special case worth
+ * defending against, since it is precisely what the Runner computes.
+ */
+static scr_int
+obj_scale (scr_int multiple, scr_int index_)
+{
+  scr_int retval = 1;
+
+  for (; index_ > 0; index_--)
+    retval *= multiple;
+
+  return retval;
+}
 
 /*
  * obj_get_size()
@@ -336,9 +395,7 @@ obj_get_size (scr_gameref_t game, scr_int object)
    * its weight increases by the sum of objects carried, but its size remains
    * constant.
    */
-  size = 1;
-  for (; count > 0; count--)
-    size *= OBJ_DIMENSION_MULTIPLE;
+  size = obj_scale (obj_get_size_multiple (game), count);
 
   if (obj_trace)
     scr_trace ("Object: object %ld is size %ld\n", object, size);
@@ -365,9 +422,7 @@ obj_get_weight (scr_gameref_t game, scr_int object)
   count = prop_get_integer (bundle, "I<-sis", vt_key) % OBJ_DIMENSION_DIVISOR;
 
   /* Calculate base object weight. */
-  weight = 1;
-  for (; count > 0; count--)
-    weight *= OBJ_DIMENSION_MULTIPLE;
+  weight = obj_scale (obj_get_weight_multiple (game), count);
 
   /* If this is a container or a surface, add weights of parented objects. */
   if (obj_is_container (game, object) || obj_is_surface (game, object))
@@ -403,16 +458,11 @@ obj_get_weight (scr_gameref_t game, scr_int object)
  * really object-related except that they deal with sizing multiples.
  */
 static scr_int
-obj_convert_player_limit (scr_int value)
+obj_convert_player_limit (scr_int value, scr_int multiple)
 {
-  scr_int retval, index_;
-
-  /* 'Tens' of value multiplied by 3 to the power 'units' of value. */
-  retval = value / OBJ_DIMENSION_DIVISOR;
-  for (index_ = 0; index_ < value % OBJ_DIMENSION_DIVISOR; index_++)
-    retval *= OBJ_DIMENSION_MULTIPLE;
-
-  return retval;
+  /* 'Tens' of value multiplied by the scale factor to the power 'units'. */
+  return (value / OBJ_DIMENSION_DIVISOR)
+         * obj_scale (multiple, value % OBJ_DIMENSION_DIVISOR);
 }
 
 scr_int
@@ -426,7 +476,7 @@ obj_get_player_size_limit (scr_gameref_t game)
   vt_key[1].string = "MaxSize";
   max_size = prop_get_integer (bundle, "I<-ss", vt_key);
 
-  return obj_convert_player_limit (max_size);
+  return obj_convert_player_limit (max_size, obj_get_size_multiple (game));
 }
 
 scr_int
@@ -440,59 +490,73 @@ obj_get_player_weight_limit (scr_gameref_t game)
   vt_key[1].string = "MaxWt";
   max_weight = prop_get_integer (bundle, "I<-ss", vt_key);
 
-  return obj_convert_player_limit (max_weight);
+  return obj_convert_player_limit (max_weight, obj_get_weight_multiple (game));
 }
 
 
 /*
- * obj_get_container_maxsize()
  * obj_get_container_capacity()
+ * obj_get_container_free_space()
  *
- * Return the maximum size of an object that can be placed in a container,
- * and the number that will fit.
+ * Return the total space inside a container, and the space still unused.
+ *
+ * Capacity packs an object count in its 'tens' and a size index in its
+ * 'units', but the Runner multiplies the two out into a single volume and
+ * then spends that volume on whatever is put in, however many objects that
+ * turns out to be.  Probed against run400 with a Capacity of 12 (1 x 3^2 = 9)
+ * and twelve size-1 objects: nine go in and the tenth is refused, where an
+ * object count of 1 would have refused the second.  A Capacity of 52
+ * (5 x 3^2 = 45) swallows all twelve, then a size-9 object on top, and only
+ * then refuses a size-27 one -- so the 'units' digit is no per-object ceiling
+ * either.  The one hard per-object rule is that nothing larger than the whole
+ * container ever fits, which is the difference between the Runner's two
+ * refusals: "is too big to fit inside" against the total, "can't fit inside
+ * at the moment" against what is left.
+ *
+ * Free space counts the direct contents only.  A container inside a container
+ * spends its own size and not a bit more, whatever it happens to be holding --
+ * unlike weight, which the Runner sums recursively.
  */
-scr_int
-obj_get_container_maxsize (scr_gameref_t game, scr_int object)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_int maxsize, count;
-
-  /* Maxsize is found from the 'units' component of Capacity. */
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Capacity";
-  count = prop_get_integer (bundle, "I<-sis", vt_key) % OBJ_DIMENSION_DIVISOR;
-
-  /* Calculate and return maximum size. */
-  maxsize = 1;
-  for (; count > 0; count--)
-    maxsize *= OBJ_DIMENSION_MULTIPLE;
-
-  if (obj_trace)
-    scr_trace ("Object: object %ld has max size %ld\n", object, maxsize);
-
-  return maxsize;
-}
-
 scr_int
 obj_get_container_capacity (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
-  scr_int capacity;
+  scr_int capacity, packed;
 
-  /* The count of objects is in the 'tens' component of Capacity. */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "Capacity";
-  capacity = prop_get_integer (bundle, "I<-sis", vt_key)
-             / OBJ_DIMENSION_DIVISOR;
+  packed = prop_get_integer (bundle, "I<-sis", vt_key);
+
+  capacity = (packed / OBJ_DIMENSION_DIVISOR)
+             * obj_scale (obj_get_size_multiple (game),
+                          packed % OBJ_DIMENSION_DIVISOR);
 
   if (obj_trace)
     scr_trace ("Object: object %ld has capacity %ld\n", object, capacity);
 
   return capacity;
+}
+
+scr_int
+obj_get_container_free_space (scr_gameref_t game, scr_int object)
+{
+  scr_int free_space, other;
+
+  free_space = obj_get_container_capacity (game, object);
+
+  for (other = 0; other < gs_object_count (game); other++)
+    {
+      if (gs_object_position (game, other) == OBJ_IN_OBJECT
+          && gs_object_parent (game, other) == object)
+        free_space -= obj_get_size (game, other);
+    }
+
+  if (obj_trace)
+    scr_trace ("Object: object %ld has %ld free\n", object, free_space);
+
+  return free_space;
 }
 
 

@@ -831,3 +831,93 @@ run390 decodes the packed tens/units of `SizeWeight`, `Capacity`, `MaxSize` and
 was placed by `InitialPosition`, not by `put`) and no corpus row depends on it,
 but a `put X in Y` route in some game plausibly could — a size/capacity matrix
 probe is the way to settle it.
+
+**2026-08-03 — the size/capacity matrix probe: two globals we were throwing
+away, and a container capacity that is a volume, not a count.**  The row above
+is settled, and both halves of it were wrong in an instructive way.
+
+*First, the probes themselves were broken.*  The two GLOBAL fields the parser
+listed as `iUnk1` and `iUnk2` are the **size and weight scale bases**.  Every
+decoded dimension is `base ** index` and every player limit is
+`tens(value) × base ** units(value)`; `make_sizeprobe.py` was writing 0 for
+both, so index-0 objects decoded to `0 ** 0 = 1` and everything else to 0.
+That is the whole of the anomaly recorded above: a Capacity of 52 becomes
+`5 × 0² = 0`, which makes a size-1 key "too big to fit inside the box", and a
+MaxSize/MaxWt of 95 becomes `9 × 0⁵ = 0`, which makes every `take` fail with
+full hands and a too-heavy load.  **run390 was never stricter than Scarier —
+it was reading fields Scarier ignored, out of files that set them to zero.**
+Proved from the other direction with `iUnk1 = 2`, `iUnk2 = 5`,
+`MaxSize = MaxWt = 102`: run400's own debugger (`Help → Debugger…`, Player tab,
+which prints Size and Weight Current/Max as decoded integers) shows Max
+**40** / **250** — `10 × 2²` and `10 × 5²`, not `10 × 3²` twice — and carrying
+one SizeWeight-22 object plus one SizeWeight-12 object shows Current
+**6** / **50**.  The ADRIFT editor always writes 3 for both, which is why a
+hardwired 3 survived this long; all 121 games in the walkthrough corpus write
+3/3, so nothing in the corpus moves.  `sctafpar.cpp` now parses them as
+`#SizeMultiple` / `#WeightMultiple` (V400 and V390 alike), and `scobjcts.cpp`
+reads them, falling back to 3 for the v3.8 schema that has no such fields.
+
+*Second, container Capacity is a volume the contents spend, not a number of
+objects.*  `test/make_sizeprobe.py cap2` and `cap3` build matrices where the
+two readings disagree, and run400 and run390 answer identically:
+
+| container | Capacity | pool | old count model | volume model | Runners |
+|---|---|---|---|---|---|
+| c12t | 12 → 1×3² = 9 | 12 × size 1 | 1 fits | 9 fit | **9** |
+| c52t | 52 → 5×3² = 45 | 12 × size 1 | 5 fit | all 12 | **all 12**, then a size-9 object on top, then a size-27 one |
+| c13t | 13 → 1×3³ = 27 | 12 × size 1 | 1 fits | all 12 | **all 12** |
+| c22x | 22 → 2×3² = 18 | 12 × size 3 | 2 fit | 6 fit | **6** |
+| c12m | 12 → 9 | 12 × size 9 | 1 fits | 1 fits | **1** (the tie, a control) |
+| c12b | 12 → 9 | 12 × size 27 | refused | refused | refused |
+| z20 | 20 → 2×3⁰ = 2 | 3 × size 1 | 2 fit | 2 fit | **2** (units-digit-0 control) |
+| z02 | 2 → 0×3² = 0 | 3 × size 1 | none | none | **none** |
+
+The two refusal strings are what separate the gates, and they are not the
+gates we had.  "*X is too big to fit inside Y*" is `size > the container's
+TOTAL volume` — c12b's 9 against a size of 27, and z02's 0 against a size of 1.
+"*X can't fit inside Y at the moment*" is `size > what is left`.  The
+units digit is **no per-object ceiling at all**: a size-27 object went into
+c52t, whose units digit is 2, because 27 ≤ 45.  Fifteen containers in the
+corpus have a tens digit of 0, and they change verdict outright — a volume of
+0 calls everything too big where an object count of 0 called it a momentary
+shortage.
+
+*Third, the volume counts direct contents only.*  `cap3` fills m12 (size 9,
+volume 9) with nine size-1 objects and puts it inside n22 (volume 18); a
+size-9 object then still goes in, and only the one after that is refused.  So
+a nested container spends its own size and not a byte more, unlike weight,
+which the Runner does sum recursively (`Sub_22_63` @00047600).
+
+`obj_get_container_maxsize()` is therefore gone, replaced by
+`obj_get_container_free_space()`, and `lib_put_in_backend()` spends the budget
+as it goes.  Scarier now reproduces every row above, message for message,
+under both the 3.9 and the 4.0 probe, and `make -f Makefile.headless
+capacitytest` (in `test`, and in `sanitize`) replays both probes against
+committed goldens.
+
+How much moved: of the 468 containers in the 121-game corpus, 414 became
+roomier (any container whose units digit is non-zero holds more than one
+object now), 15 became strictly refusing, and 42 are unchanged.  Not one
+walkthrough changed — all 127 still pass — because no derived route ever
+pushes a container to its limit.  That is worth stating plainly rather than
+reading as reassurance: the corpus proves the fix broke nothing, not that the
+old reading was harmless.
+
+*Two divergences noticed in passing, neither chased (not size-related):*
+run390 renders a Perspective-2 game in the **second** person ("You pick up the
+a1.", "You put the b1 inside the c52t.") where run400 renders the very same
+value in the **third** ("Player put the d2 inside the c52t.") and Scarier
+follows run400 for both.  And run400 writes "%player% **put**" where Scarier
+writes "%player% **puts**" — one word, but it will be one word in every
+third-person clause, not just this one.
+
+*Runner mechanics worth keeping:* the debugger form is reached at
+`Help → Debugger…`, and `Form1.debugger_Click` @0004B284 opens it without a
+prompt when the game password is `"    Wild    "` or empty (otherwise it wants
+`"doorWildback"`).  `Form6.updatedebugger` runs from the turn loop, so the
+Player tab refreshes every turn.  **Auto complete defaults to ON** and rewrites
+input before the echo — turn it off from the Options menu with the `a`
+accelerator, and read the echo, never the keystrokes you sent.  `Edit Mode`
+kills run400 with `Run-time error '70': Permission denied`.  `Start Transcript`
+wrote a 0-byte file even after turns were played, so screenshots remain the
+only trustworthy read-out.

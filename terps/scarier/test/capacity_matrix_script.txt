@@ -1,0 +1,155 @@
+take a1
+take a2
+take a3
+take a4
+take a5
+take a6
+take a7
+take a8
+take a9
+take a10
+take a11
+take a12
+take b1
+take b2
+take b3
+take b4
+take b5
+take b6
+take b7
+take b8
+take b9
+take b10
+take b11
+take b12
+take c1
+take c2
+take c3
+take c4
+take c5
+take c6
+take c7
+take c8
+take c9
+take c10
+take c11
+take c12
+take f1
+take f2
+take f3
+take f4
+take f5
+take f6
+take f7
+take f8
+take f9
+take f10
+take f11
+take f12
+take d1
+take d2
+take d3
+take d4
+take d5
+take d6
+take d7
+take d8
+take d9
+take d10
+take d11
+take d12
+take e1
+take e2
+take e3
+take e4
+take e5
+take e6
+take e7
+take e8
+take e9
+take e10
+take e11
+take e12
+put a1 in c12t
+put a2 in c12t
+put a3 in c12t
+put a4 in c12t
+put a5 in c12t
+put a6 in c12t
+put a7 in c12t
+put a8 in c12t
+put a9 in c12t
+put a10 in c12t
+put a11 in c12t
+put a12 in c12t
+put b1 in c52t
+put b2 in c52t
+put b3 in c52t
+put b4 in c52t
+put b5 in c52t
+put b6 in c52t
+put b7 in c52t
+put b8 in c52t
+put b9 in c52t
+put b10 in c52t
+put b11 in c52t
+put b12 in c52t
+put c1 in c13t
+put c2 in c13t
+put c3 in c13t
+put c4 in c13t
+put c5 in c13t
+put c6 in c13t
+put c7 in c13t
+put c8 in c13t
+put c9 in c13t
+put c10 in c13t
+put c11 in c13t
+put c12 in c13t
+put f1 in c22x
+put f2 in c22x
+put f3 in c22x
+put f4 in c22x
+put f5 in c22x
+put f6 in c22x
+put f7 in c22x
+put f8 in c22x
+put f9 in c22x
+put f10 in c22x
+put f11 in c22x
+put f12 in c22x
+put d1 in c12m
+put d2 in c12m
+put d3 in c12m
+put d4 in c12m
+put d5 in c12m
+put d6 in c12m
+put d7 in c12m
+put d8 in c12m
+put d9 in c12m
+put d10 in c12m
+put d11 in c12m
+put d12 in c12m
+put e1 in c12b
+put e2 in c12b
+put e3 in c12b
+put e4 in c12b
+put e5 in c12b
+put e6 in c12b
+put e7 in c12b
+put e8 in c12b
+put e9 in c12b
+put e10 in c12b
+put e11 in c12b
+put e12 in c12b
+put d2 in c52t
+put e1 in c52t
+put e2 in c13t
+x c12t
+x c52t
+x c13t
+x c22x
+x c12m
+x c12b
+quit
+y

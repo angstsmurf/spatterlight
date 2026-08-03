@@ -7309,7 +7309,7 @@ static void
 lib_put_in_backend (scr_gameref_t game, scr_int container)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object_count, object, count, trail, capacity, maxsize;
+  scr_int object_count, object, count, trail, capacity, free_space;
   scr_bool has_printed;
 
   /*
@@ -7340,35 +7340,29 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
         }
     }
 
-  /* Retrieve the container's limits. */
-  maxsize = obj_get_container_maxsize (game, container);
+  /*
+   * Retrieve the container's total volume, and the volume it has left.  The
+   * free space is tracked across the loop below rather than recomputed, since
+   * each object put in spends some of it.
+   */
   capacity = obj_get_container_capacity (game, container);
+  free_space = obj_get_container_free_space (game, container);
 
   /* Put in every object that remains referenced. */
   count = 0;
   trail = -1;
   for (object = 0; object < object_count; object++)
     {
+      scr_int size;
+
       if (!game->object_references[object])
         continue;
 
-      /* If too big, or exceeds container limits, ignore for now. */
-      if (obj_get_size (game, object) > maxsize)
+      /* If too big, or no longer room for it, ignore for now. */
+      size = obj_get_size (game, object);
+      if (size > capacity || size > free_space)
         continue;
-      else
-        {
-          scr_int other, contains;
-
-          contains = 0;
-          for (other = 0; other < gs_object_count (game); other++)
-            {
-              if (gs_object_position (game, other) == OBJ_IN_OBJECT
-                  && gs_object_parent (game, other) == container)
-                contains++;
-            }
-          if (contains >= capacity)
-            continue;
-        }
+      free_space -= size;
 
       if (count > 0)
         {
@@ -7418,7 +7412,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
       if (!game->object_references[object])
         continue;
 
-      if (!(obj_get_size (game, object) > maxsize))
+      if (!(obj_get_size (game, object) > capacity))
         continue;
 
       if (count > 0)

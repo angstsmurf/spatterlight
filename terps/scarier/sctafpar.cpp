@@ -97,7 +97,7 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    " #MaxSize #MaxWt ?GBattleSystem:<BATTLE>Battle BEightPointCompass bNoDebug"
    " BNoScoreNotify BNoMap bNoAutoComplete bNoControlPanel bNoMouse BSound"
    " BGraphics <RESOURCE>IntroRes <RESOURCE>WinRes BStatusBox $StatusBoxText"
-   " iUnk1 iUnk2 BEmbedded"},
+   " #SizeMultiple #WeightMultiple BEmbedded"},
   {"BATTLE",
    "#StaminaLo #StaminaHi #StrengthLo #StrengthHi #AccuracyLo #AccuracyHi"
    " #DefenseLo #DefenseHi #AgilityLo #AgilityHi #Recovery"},
@@ -189,7 +189,7 @@ static const scr_parse_schema_t V390_PARSE_SCHEMA[] = {
    " #MaxSize #MaxWt ?GBattleSystem:<BATTLE>Battle BEightPointCompass bNoDebug"
    " BNoScoreNotify BNoMap bNoAutoComplete bNoControlPanel bNoMouse"
    " BSound BGraphics <RESOURCE>IntroRes <RESOURCE>WinRes FStatusBox"
-   " EStatusBoxText iUnk1 iUnk2 FEmbedded"},
+   " EStatusBoxText #SizeMultiple #WeightMultiple FEmbedded"},
   {"BATTLE",
    "#Stamina #Strength #Defense"},
   {"ROOM",

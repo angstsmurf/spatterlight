@@ -16,6 +16,12 @@ a5_walk_test
 a5_objects_test
 a5_save_test
 a5_randomness.o
+capacity_test_hl
+
+# make_sizeprobe.py writes the unobfuscated body beside every .taf it emits,
+# for eyeballing the field stream when a probe misbehaves.
+*.taf.plain
+__pycache__/
 
 # Sanitizer build artifacts from `make -f Makefile.headless sanitize`.
 *_san
