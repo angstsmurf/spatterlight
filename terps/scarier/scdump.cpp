@@ -167,14 +167,28 @@ scr_dump_structure_once (scr_gameref_t game)
               eff = gs_npc_location (game, par) - 1;
             fprintf (stderr,
                      "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
-                     " static=%ld unmoved=%ld hit=%ld acc=%ld prot=%ld"
-                     " method=%ld [%s]\n",
+                     " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"
+                     " acc=%ld prot=%ld method=%ld [%s]\n",
                      i, pos, room, par, eff,
                      (scr_int) obj_is_static (game, i),
                      (scr_int) gs_object_static_unmoved (game, i),
+                     gs_object_openness (game, i),
+                     gs_object_state (game, i),
                      hit, acc, prot, method, s ? s : "");
           }
         }
+
+      /* The save-stream shape depends on two things no reader can recover from
+       * the stream itself: whether the Battle System interleaves a battle block
+       * into the player and NPC records, and how many walk steps each NPC has
+       * (written with no count in front of them).  Print both, so a .tas
+       * rewriter -- tas40to39.py -- can walk a save it did not write. */
+      fprintf (stderr, "SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
+               (scr_int) battle_is_enabled (game), gs_room_count (game),
+               gs_object_count (game), gs_npc_count (game));
+      for (i = 0; i < gs_npc_count (game); i++)
+        fprintf (stderr, "NPCINFO npc=%ld walksteps=%ld\n",
+                 i, gs_npc_walkstep_count (game, i));
       return;
     }
 
