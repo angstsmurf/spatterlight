@@ -1,0 +1,1371 @@
+Loading game...
+
+Enquête à hauts risques
+Bienvenue!
+
+Dans ce jeu, vous allez incarner Lucas Label, un homme âgé de 35 ans.
+Lucas travaille en tant qu'inspecteur à la brigade criminelle de Paris depuis
+l'âge de 25 ans.
+Le jeune policier est marié à une femme âgée de 39 ans: Erica.
+Tous deux ont deux filles: Stéphanie, 16 ans, et Morgane, 14 ans.
+
+Avec l'aide de son meilleur ami et collègue Yannick Vilon, Lucas est parfois
+amené à tenter d'élucider des affaires plutôt délicates...
+
+Sur votre lit
+Le jeu débute au matin du 4 Juillet 2005. Comme la date l'indique, les
+vacances d'été sont proches: le dernier jour de l'année scolaire est arrivé!
+Vous êtes allongé sur votre lit, profondément endormi. Soudain, la sonnerie
+de votre téléphone portable vous sort brusquement de ce sommeil profond. Vous
+attrapez votre téléphone se trouvant sur votre table de nuit puis vous
+décrochez: "Qu'est-ce que c'est?" demandez-vous d'une voix endormie. "Salut
+Lucas! Où es-tu?" Vous reconnaissez la voix de Yannick Vilon: "Salut Yannick.
+Je suis chez moi, confortablement installé!" répondez-vous. "Quoi? As-tu une
+idée de l'heure qu'il est?" questionne votre interlocuteur. Vous levez la
+tête afin de regarder l'heure. "Il est déjà neuf heures et demi!"
+constatez-vous à haute voix. "Eh oui mon pote! Pour ton information
+personnelle, ça fait une heure que je t'attends au commissariat." affirme
+votre ami. "Quelle galère! Moi qui pensais voir mes filles avant leur départ
+pour l'école..." "Ben c'est raté mon gars! Dépêches-toi de te préparer et
+rejoins-moi au commissariat." vous conseille Yannick. "On se rejoint où?"
+demandez-vous. "Rejoins-moi dans mon bureau. J'ai réouvert un important
+dossier et j'ai besoin de ton aide." déclare votre ami. "Ok Yannick. Je serai
+là dans une demi heure." dites-vous avant de raccrocher.  Vous êtes donc
+allongé sur votre lit. "Lèves-toi Lucas!" pensez-vous.
+
+>(Your score has increased by 1)
+Vous descendez de votre lit.
+Dans votre chambre
+Vous vous trouvez dans votre chambre (une petite pièce dont le sol est
+recouvert de moquette et dont les murs sont recouverts d'une tapisserie
+jaune), debout à proximité de votre lit. A l'Ouest, vous pouvez voir votre
+armoire; la table de nuit est située à l'Est. La sortie se trouve au Nord.
+
+>Vous ouvrez les deux portes de votre armoire. Un jean, un pull et un sac à
+dos sont mis en évidence, sur l'une des étagères de l'armoire.
+
+>(Your score has increased by 1)
+Vous vous saisissez du jean, vous l'enfilez, puis vous insérez votre
+téléphone portable dans l'une des poches.
+
+>(Your score has increased by 1)
+Vous vous saisissez du pull puis vous l'enfilez.
+
+>(Your score has increased by 1)
+Vous vous saisissez du sac à dos puis vous l'enfilez à votre dos.
+
+>Vous ouvrez le sac à dos.
+
+>Vous vous déplacez vers le Nord.
+Votre domicile
+A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
+recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout
+comme dans votre chambre). La salle de séjour se trouve au Nord; les
+escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
+chambre se situe au Sud; la sortie se trouve à l'Est.
+
+>(Your score has increased by 1)
+Vous enfilez vos chaussures puis vous sortez de chez vous. Vous prenez alors
+votre voiture afin de vous rendre au commissariat.
+Devant le commissariat
+Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
+
+>Vous vous déplacez vers le Nord.
+L'accueil
+Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
+relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
+assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
+Nord; la sortie est située au Sud.
+
+>Vous vous déplacez vers le Nord.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>Vous vous déplacez vers l'Ouest.
+Le bureau de Yannick
+Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
+votre bureau, à ceci près que la disposition du mobilier est quelque peu
+différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
+placard est situé à l'Ouest; la sortie se trouve à l'Est.
+Yannick Vilon est ici.
+
+>(Your score has increased by 1)
+"Salut Yannick!" dites-vous en regardant votre ami. "Ah te voilà enfin!"
+réplique Yannick en souriant. "Epargnes-moi tes réflexions à deux balles! Tu
+m'as déjà offert un réveil brutal..." rétorquez-vous. "Un réveil brutal à
+neuf heures et demi? Décidément, j'aurai tout vu avec toi. Enfin bref... J'ai
+réouvert un dossier et j'aurais besoin de toi." affirme Yannick. "Tu bosses
+sur quel dossier?" interrogez-vous. "Je me suis replongé dans l'affaire
+Roberto Amato." répond votre collègue. Roberto Amato est l'un des piliers de
+la mafia italienne. Cela fait maintenant cinq ans que ce mafieux semme la
+terreur dans les rues de la capitale. Roberto Amato exerce toutes sortes
+d'activités illégales (trafic de drogue, meurtre, braquage...). Durant ces
+cinq dernières années, vous avez tenté de le mettre hors d'état de nuire à
+multiples reprises mais vous n'y êtes, jusqu'à présent, jamais arrivé.
+"Pourquoi as-tu réouvert ce dossier? Y a-t-il du nouveau?" questionnez-vous.
+"C'est le cas de le dire!" assure Yannick. "Qu'est-ce qui te fais dire ça?"
+"Tu te souviens de Diana Marca?" demande votre ami. "Oui je m'en souviens. Il
+s'agit de cette jeune femme de 25 ans que nous avons retrouvé morte dans le
+parc des tuileries il y a environ 6 mois." dites-vous. "Oui c'est elle.
+Souviens-toi, nous étions parvenus à établir un lien entre Diana et Roberto
+Amato, mais cela n'était pas suffisant pour le tribunal." "Oui je m'en
+souviens." affirmez-vous. "Tu te souviens de la posture dans laquelle nous
+l'avions retrouvé?" interroge Yannick. "Nous l'avions retrouvé à moitié nue,
+dans les buissons." répondez-vous. "C'est exact. Ce matin, nous avons reçu le
+rapport de la police scientifique." déclare votre ami. "Ont-ils trouvé
+quelque chose d'intéressant?" demandez-vous. "Ils ont trouvé de petits
+fragments de peau sous les ongles de la victime ainsi que sur différentes
+parties de son corps. Après avoir analysé ces fragments, ils ont découvert
+que ces cellules épithéliales appartenaient à Roberto Amato. Cette fois, je
+pense qu'on en a assez pour le coffrer." assure Yannick. "Tu es sûr que ces
+résultats sont fiables?" questionnez-vous. "Bien sûr que je le suis. Pourquoi
+cette question?" "C'est seulement que tout ça me paraît bizarre.
+Habituellement, Amato engage ses hommes de main pour faire le sale boulot,
+mais cette fois, on dirait qu'il s'est débrouillé tout seul comme un grand!"
+dites-vous. "C'est ce que les preuves disent. Prends ce rapport et vas le
+montrer au chef." conseille votre collègue en vous tendant le rapport.
+
+>(Your score has increased by 1)
+Vous prenez le rapport: "Voici venir le moment que j'attends depuis cinq
+longues années. Ce malfrat va finir ses jours là où il doit être,
+c'est-à-dire derrière les barreaux." dites-vous. "Vas-y Lucas. On se reverra
+tout à l'heure." "Ok Yannick. A tout à l'heure." répondez-vous.
+Le bureau de Yannick
+Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
+votre bureau, à ceci près que la disposition du mobilier est quelque peu
+différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
+placard est situé à l'Ouest; la sortie se trouve à l'Est.
+Yannick Vilon est ici.
+
+>Vous vous déplacez vers l'Est.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>Vous vous déplacez vers le Nord.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord. Vous entrez en hâte dans le bureau du
+commissaire: "Qui a-t-il Lucas?" demande votre chef. Vous lui tendez le
+rapport. Après en avoir examiné le contenu, le commissaire vous parle en ces
+termes: "Cette fois, nous devrions posséder assez d'éléments pour arrêter
+Roberto Amato." Votre chef décroche son téléphone et compose le numéro du
+juge d'instructions. Après quelques instants de conversation, il raccroche et
+vous regarde en souriant: "Le juge nous accorde un mandat d'arrêt contre
+Roberto Amato ainsi qu'un mandat de perquisition pour son domicile. Je vous
+charge de cette affaire Lucas. Embarquez deux hommes et foncez chez ce
+mafieux." ordonne le chef. "Vous pouvez compter sur moi chef! Je vais me
+faire un plaisir d'envoyer ce gars derrière les barreaux." répondez-vous.
+Le bureau du commissaire Guersant
+Vous êtes dans le bureau du commissaire Guersant. Cette pièce ressemble
+étrangement à votre bureau. A l'Ouest, vous pouvez voir un placard; le bureau
+du commissaire est placé au Nord; un fauteuil est situé à l'Est; la sortie se
+trouve au Sud.
+Guersant est ici.
+
+>Vous vous déplacez vers le Sud.
+Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>Vous vous déplacez vers l'Ouest.
+Le bureau du personnel
+Vous vous trouvez dans le bureau du personnel. Il s'agit d'une vaste pièce
+dans laquelle sont installés une dizaine de postes (bureaux et ordinateurs).
+La sortie se trouve à l'Est.
+Patrick Gini est ici.  Martin Viguier est ici.
+
+>(Your score has increased by 1)
+Vous vous approchez de Patrick: "J'aurais besoin de toi Patrick."
+annoncez-vous. "Que puis-je faire pour toi?" demande votre collègue. "Nous
+sommes en possession de nouveaux éléments concernant l'affaire Roberto Amato.
+Le chef a obtenu un mandat d'arrêt contre ce mafieux ainsi qu'un mandat de
+perquisition pour son domicile. Guersant m'a chargé de me rendre sur les
+lieux en compagnie de deux hommes. Pourrais-tu m'accompagner?"
+questionnez-vous. "Pas de problème Lucas!" répond Patrick. "Merci Patrick.
+Rejoins-moi dans le bureau de Yannick dès que possible." dites-vous. La
+sortie se trouve à l'Est.
+
+>Vous vous déplacez vers l'Est.
+Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Vous regagnez le rez-de-chaussée.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>Vous vous déplacez vers l'Ouest.  Vous entrez dans le bureau de Yannick.
+Celui-ci est présent, ainsi que votre collègue Patrick. Vous prenez la
+parole: "Vous êtes prêts les gars?" demandez-vous. "Oui Lucas." répond
+Yannick. "Je vais chercher mon arme de service dans mon bureau et je vous
+rejoins." dites-vous avant de ressortir de la pièce.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>Vous vous déplacez vers l'Est.
+Votre bureau
+Vous pénétrez dans votre bureau. Il s'agit d'une pièce relativement étroite.
+Au Nord, vous pouvez voir un placard; le bureau se trouve à l'Est; un
+fauteuil est situé au Sud; le couloir se situe à l'Ouest.
+
+>Vous ouvrez le placard.  Votre arme de service est  dans le placard.
+
+>Vous prenez votre arme de service.
+
+>Vous enlevez votre arme de service.
+
+>Vous vous déplacez vers l'Ouest.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>(Your score has increased by 1)
+Vous entrez une nouvelle fois dans le bureau de votre ami Yannick: "C'est bon
+les gars,  on peut y aller." dites-vous. "Ok Lucas. Allons coffrer ce gars!"
+répond Yannick. Vous sortez du bureau puis vous quittez le commissariat,
+accompagné par vos deux collègues.  Vous vous dirigez alors vers le domicile
+de Roberto Amato.
+Devant le domicile de Roberto Amato
+Vous arrivez sur place après un long quart d'heure de trajet.  Vous vous
+trouvez dans une petite cour. La porte d'entrée de la maison se trouve au
+Nord.
+Yannick Vilon est ici.  Patrick Gini est ici.
+
+>(Your score has increased by 1)
+Vous frappez à la porte. Un grand homme barbu vient vous ouvrir: "Qu'est-ce
+que c'est?" demande le barbu. "Vous êtes Roberto Amato?" interroge Patrick.
+"Ouais c'est moi. Qui me demande?" "Inspecteurs Lucas Label, Yannick Vilon et
+Patrick Gini de la brigade criminelle. Roberto Amato, vous êtes en état
+d'arrestation pour le meurtre de Diana Marca. Vous avez le droit de garder le
+silence. Tout ce que vous direz pourra être retenu contre vous lors de votre
+procès. Vous avez le droit de faire appel à un avocat. Si vous n'êtes pas en
+mesure de vous en procurer un, nous vous en commettrons un d'office."
+énoncez-vous en sortant vos menottes. "Dans vos rêves les gars." réplique le
+mafieux en dégainant un pistolet. Au moment où vous alliez tenter de lui
+passer les menottes, le truand vous assomme d'un coup de crosse. Vous vous
+écroulez à terre. Yannick se précipite vers vous: "Oh mon dieu Lucas!
+Parles-moi Lucas! S'il te plaît, parles-moi!" implore votre ami. "Ne
+t'inquiète pas Yannick, ça va aller." répondez-vous timidement. "Ce salopard
+prend la fuite!" s'écrie Patrick. "Patrick et toi, vous devez rattraper ce
+salop..." dites-vous. "Non Lucas! Je refuse de te laisser seul dans cet
+état!" rétorque Yannick. "Je te dis d'y aller! Ne t'inquiète pas pour moi, ce
+n'est pas un coup de crosse qui va me tuer!" affirmez-vous. "Dépêches-toi
+Yannick! On va coincer ce mec! Quant à toi Lucas, essaies de fouiller la
+maison. On te contactera dès qu'on l'aura arrêté!" intervient Patrick. Vos
+deux collègues se lancent alors à la poursuite de Roberto Amato. Quant à
+vous, vous parvenez à vous relever, malgré un important mal de tête. L'entrée
+de la maison du mafieux se trouve au Nord.
+
+>Vous vous déplacez vers le Nord.
+Le domicile de Roberto Amato
+A présent, vous vous trouvez dans l'entrée du domicile de Roberto Amato. Il
+s'agit d'un petit couloir. Le sol est carrelé; les murs sont recouverts d'une
+tapisserie blanche. Le salon se trouve au Nord; la sortie est située au Sud.
+
+>Vous vous déplacez vers le Nord.
+Le salon
+Vous arrivez dans le salon du mafieux. Ici, vous retrouvez les mêmes
+carrelages et la même tapisserie que dans l'entrée. A l'Est, contre le mur,
+vous pouvez voir un canapé; un meuble supportant une télévision est placé à
+l'Ouest, contre le mur. La cuisine se trouve au Nord; l'entrée est située au
+Sud.
+
+>Ce canapé est plus ou moins usé.  Le magazine pornographique est sur le
+canapé.
+
+>(Your score has increased by 1)
+Vous prenez le magazine pornographique.
+
+>"Ce magazine prouve que notre homme est un amateur de pornographie. Certaines
+pages de ce magazine sont déchirées. Cela pourrait servir à prouver que
+Roberto Amato nit faire face à des pulsions." pensez-vous
+
+>Vous vous déplacez vers le Nord.
+La cuisine
+Vous pénétrez dans la cuisine. Différents meubles sont installés dans cette
+pièce relativement spacieuse: une table en verre trône au centre de la pièce;
+un réfrigérateur, un four et un meuble supportant un four à micro-ondes sont
+alignés à l'Ouest, contre le mur (du Nord-Ouest au Sud-Ouest). Les escaliers
+permettant de se rendre à l'étage se trouvent au Nord; le salon est situé au
+Sud.
+
+>Il s'agit d'une longue table en verre.  Un passeport falsifié est sur la
+table.
+
+>(Your score has increased by 1)
+Vous prenez le passeport falsifié.
+
+>Il s'agit d'un passeport au nom de Bob Mato. "Amato ne s'est pas cassé la
+tête pour trouver ce faux nom!" pensez-vous.
+
+>Vous ouvrez le réfrigérateur.  Une bouteille est  dans le réfrigérateur.
+
+>Il s'agit d'une bouteille de vin rouge.
+
+>(Your score has increased by 1)
+Vous prenez la bouteille. "Avec un peu de chance, nous trouverons l'ADN de ce
+cher Roberto sur cette bouteille vide. Cet élément pourrait alors
+complémenter les trouvailles faites par les experts de la police
+scientifique." pensez-vous.
+
+>Vous montez les escaliers.
+A l'étage
+Vous arrivez à l'étage. Vous vous trouvez sur un palier. La chambre du
+mafieux se trouve au Nord; la salle de bain est située à l'Ouest; les
+escaliers permettant de regagner la cuisine se situent au Sud.
+
+>(Your score has increased by 1)
+Au moment où vous alliez franchir la porte de la chambre, votre téléphone
+portable se met à sonner. Vous décrochez: "Allo." dites-vous. "Lucas? C'est
+Yannick." "Salut Yannick. As-tu arrêté Amato?" demandez-vous. "Oui je l'ai
+arrêté avec l'aide de Patrick." répond votre ami. "Bien joué mon pote.
+Concernant la perquisition, il ne me reste plus que la chambre à fouiller
+avant de retourner au commissariat. Attends-moi à l'étage des
+interrogatoires." conseillez-vous. "Tu pourras me trouver en salle 2."
+affirme Yannick. "Ok Yannick. A tout à l'heure." dites-vous avant de
+raccrocher.
+La chambre de Roberto Amato
+Vous pénétrez dans la chambre de Roberto Amato. Il s'agit d'une pièce
+relativement vaste. Le sol est recouvert de parquet flottant; une tapisserie
+blanche orne les murs. Le lit du malfrat est placé à l'Est, le long du mur;
+une table de nuit se trouve au Nord; une armoire est située à l'Ouest. La
+sortie se trouve au Sud.
+
+>Vous ouvrez la table de nuit.  Un sachet de drogue est  dans la table de
+nuit.
+
+>(Your score has increased by 1)
+Vous prenez le sachet de drogue.
+
+>Vous ouvrez l' armoire.  Une batte de baseball est  dans l' armoire.
+
+>(Your score has increased by 1)
+Vous prenez la batte de baseball.
+
+>Vous vous déplacez vers le Sud.
+A l'étage
+Vous arrivez à l'étage. Vous vous trouvez sur un palier. La chambre du
+mafieux se trouve au Nord; la salle de bain est située à l'Ouest; les
+escaliers permettant de regagner la cuisine se situent au Sud.
+
+>Vous descendez les escaliers.
+La cuisine
+Vous pénétrez dans la cuisine. Différents meubles sont installés dans cette
+pièce relativement spacieuse: une table en verre trône au centre de la pièce;
+un réfrigérateur, un four et un meuble supportant un four à micro-ondes sont
+alignés à l'Ouest, contre le mur (du Nord-Ouest au Sud-Ouest). Les escaliers
+permettant de se rendre à l'étage se trouvent au Nord; le salon est situé au
+Sud.
+
+>Vous vous déplacez vers le Sud.
+Le salon
+Vous arrivez dans le salon du mafieux. Ici, vous retrouvez les mêmes
+carrelages et la même tapisserie que dans l'entrée. A l'Est, contre le mur,
+vous pouvez voir un canapé; un meuble supportant une télévision est placé à
+l'Ouest, contre le mur. La cuisine se trouve au Nord; l'entrée est située au
+Sud.
+
+>Vous vous déplacez vers le Sud.
+Le domicile de Roberto Amato
+A présent, vous vous trouvez dans l'entrée du domicile de Roberto Amato. Il
+s'agit d'un petit couloir. Le sol est carrelé; les murs sont recouverts d'une
+tapisserie blanche. Le salon se trouve au Nord; la sortie est située au Sud.
+
+>(Your score has increased by 1)
+"Cette fois, je te tiens Amato. Je vais t'envoyer moisir en prison pour le
+reste de ta misérable vie." affirmez-vous en sortant du domicile du criminel.
+Vous reprenez la route, en direction du commissariat.
+Devant le commissariat
+Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
+
+>Vous vous déplacez vers le Nord.
+L'accueil
+Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
+relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
+assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
+Nord; la sortie est située au Sud.
+
+>Vous vous déplacez vers le Nord.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>Vous vous déplacez vers le Nord.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Le deuxième étage
+Vous arrivez au deuxième étage, un étage réservé aux interrogatoires. Vous
+pouvez voir trois portes: à l'Ouest, la porte menant à la salle 1; au Nord,
+la porte menant à la salle 2; à l'Est, celle menant à la salle 3. L'ascenseur
+se trouve au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous entrez dans la salle 2. Patrick,
+Yannick et Roberto Amato sont présents. Vous prenez la parole: "Tu es foutus
+Roberto! J'ai perquisitionné ton domicile. J'y ai trouvé un certain nombre
+d'éléments qui nous permettront d'argumenter devant un juge." affirmez-vous.
+"Tu mens comme tu respires mon pauvre gars!" rétorque le mafieux. "Rien qu'à
+cause de ces paroles, nous pouvons te poursuivre pour outrage à un officier
+de police." intervient Yannick en regardant Roberto. "Là, vous marquez un
+point mais en ce qui concerne les preuves que ce cher Label aurait collecté
+contre moi, je ne vous crois pas, bande de sales flics!" réplique Amato.
+"Suivez-moi, on va dans le bureau du commissaire Guersant. Cela permettra à
+Lucas de nous exposer les preuves recueillies." propose Yannick. "Bonne
+idée." répondez-vous. "Quant à toi, je te conseille de te tenir à carreaux!"
+dit Yannick en regardant Roberto. Votre ami quitte alors la pièce suivi par
+Patrick et Roberto. La sortie se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+Le deuxième étage
+Vous arrivez au deuxième étage, un étage réservé aux interrogatoires. Vous
+pouvez voir trois portes: à l'Ouest, la porte menant à la salle 1; au Nord,
+la porte menant à la salle 2; à l'Est, celle menant à la salle 3. L'ascenseur
+se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous entrez dans le bureau du commissaire
+Guersant. Tout le monde est présent: Yannick, Patrick, Roberto et le
+commissaire. "Ah! Vous voilà enfin Lucas! Montrez-nous les éléments que vous
+avez rapporté de chez ce cher Roberto Amato!" vous ordonne le chef. Pour
+montrer un objet, tapez "utiliser" puis le nom de l'objet que vous souhaitez
+montrer.
+
+>(Your score has increased by 1)
+Vous montrez le sachet de drogue: "Où vous êtes-vous procuré cette drogue?"
+demandez-vous en regardant le malfrat. "Tu voudrais bien le savoir, salopard
+de flic!" répond Amato en riant. "Laisses-moi deviner. Tu es impliqué dans un
+trafic de drogue." supposez-vous. "Il faudra le prouver Label et crois-moi,
+ça ne sera pas une maigre tâche!" rétorque le mafieux. "Ne vous inquiétez
+pas, nous trouverons des preuves." assure le commissaire en prenant le sachet
+de drogue.
+
+>(Your score has increased by 1)
+Vous montrez la batte de baseball: "Voici ce que j'ai trouvé dans l'armoire
+de notre homme. Cette batte ne serait-elle pas l'arme qui a été utilisée pour
+tuer Diana Marca?" interrogez-vous. "Tu n'es vraiment qu'un sale flic Label!
+Tu es allé jusqu'à fouiller mon armoire!" constate Roberto. "Sachez que, lors
+d'une perquisition, tout officier de police a pour ordre de fouiller les
+lieux de fond en comble." déclare le commissaire Guersant. "Et vous, sachez
+que je n'irai jamais en prison!" réplique le malfrat. "Nous verrons cela."
+dit le commissaire en prenant la batte.
+
+>(Your score has increased by 1)
+Vous montrez la bouteille: "Les experts de la police scientifique pourront
+effectuer des analyses ADN sur cette bouteille. Ils seront alors en mesure de
+comparer les résultats obtenus avec les échantillons prélevés sur le corps de
+Diana Marca." dites-vous. "Vous avez raison Lucas." répond le commissaire en
+prenant la bouteille.
+
+>(Your score has increased by 1)
+Vous montrez le magazine pornographique quelque peu déchiré: "Alors comme ça,
+on passe ses nerfs sur les magazines?" dites-vous en regardant le mafieux.
+"Fermes-la Label!" rétorque Roberto. "Il me semble t'avoir déjà conseillé de
+te tenir tranquille Amato." intervient Yannick. "Lâches-moi sale flic!"
+réplique Roberto. "On dirait que monsieur Amato ne parvient pas à contrôler
+ses pulsions." constate Patrick. "Ce magazine ne constituera pas un réel
+élément à charge devant un juge. En revanche, nous pourrons ajouter outrage à
+officier de police à la liste des chefs d'accusations." affirme Guersant en
+se saisissant du magazine.
+
+>(Your score has increased by 1)
+Vous montrez le passeport falsifié: "On dirait que notre homme avait projeté
+de quitter le pays." dites-vous. "Pourquoi voulez-vous nous fuir? Avez-vous
+quelque chose à vous reprocher?" demande Patrick en fixant Roberto du regard.
+"Je ne parlerai qu'en présence de mon avocat." assure le criminel. "Ce n'est
+pas grave. Cela n'enlève rien aux charges qui pèsent contre vous." affirme le
+commissaire en se saisissant du passeport.
+Le commissaire Guersant prend la parole: "C'est du bon boulot Lucas! Les
+différents éléments recueillis lors de cette perquisition deviendront
+probablement des preuves à charge contre Roberto Amato. Je pense notamment à
+la batte de baseball et au passeport falsifié. Je vais faire transmettre
+cette batte aux experts afin qu'ils pratiquent des analyses. Cependant, nous
+ne pourrons nous présenter devant le juge qu'à partir du moment où nous
+obtiendrons les résultats de ces analyses." "Que va-t-on faire de lui en
+attendant les résultats?" demandez-vous. "Conduisez-le en cellule. Je vous
+donne la clé." répond le commissaire. Votre chef vous tend une clé.
+
+>(Your score has increased by 1)
+Vous prenez la clé. Le commissaire prend alors la parole: "Enfermez-le dans
+la cellule 3." dit-il en vous regardant. "D'accord chef!" répondez-vous. Au
+moment où vous alliez attraper Roberto par le bras, celui-ci s'écrie: "Ne me
+touche pas sale flic!" "Taisez-vous Amato! L'inspecteur Label va vous
+conduire en cellule. Je vous place en garde à vue jusqu'à l'arrivée des
+résultats des analyses." réplique le commissaire. "Pour votre gouverne, je
+connais mes droits. Si je le désire, je peux passer un coup de fil avant que
+ce cher Label entreprenne de m'enfermer. Je vais donc appeler mon avocat.
+Quoi que vous ayez l'intension de faire, vous n'avez pas le droit de me
+refuser ce coup de téléphone!" assure Amato. "Je vous l'accorde." déclare
+timidement le commissaire. Le malfrat s'approche du bureau du chef puis
+décroche le téléphone. Après avoir composé un numéro, Roberto prononce ces
+mots: "Agissez maître! Je suis avec l'inspecteur Label." Le truand repose le
+combiné puis fixe le commissaire du regard: "Enfermez-moi si cela peut vous
+faire plaisir. Mon avocat s'occupe de tout." dit-il. "Emmenez-le!" vous
+ordonne le commissaire Guersant. "D'accord chef." répondez-vous. "Attends
+Lucas! Pourrais-tu m'accorder ce privilège?" demande Yannick. "Il n'y a rien
+d'exceptionnel à conduire un malfrat au troisième étage. Mais si tu y tiens,
+je te laisse le soin de boucler ce type!" répondez-vous. "Merci mon pote!"
+s'exclame votre ami. "Quant à moi, je vais retourner bosser si vous n'avez
+plus besoin de moi." intervient Patrick. "Vous pouvez y aller Patrick. Merci
+de nous avoir aidé." déclare le chef. "C'est tout naturel." répond Patrick en
+quittant le bureau. Yannick sort ses menottes puis les passe aux poignets de
+Roberto: "Je monte au troisième. Rejoins-moi là-haut." dit-il en vous
+regardant. "Ok Yannick." répondez-vous. Votre ami quitte le bureau du
+commissaire, suivi de près par Amato. "Allez-y Lucas. N'oubliez pas de me
+rapporter la clé dès que vous aurez enfermé ce mafieux." vous rappelle le
+chef. "Ce sera fait chef." répondez-vous. La sortie se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Le troisième étage
+Vous arrivez au troisième étage, un étage appelé "étage des cellules". Vous
+vous trouvez sur un palier. La porte menant aux cellules se trouve à l'Ouest;
+l'ascenseur est situé au Sud.
+Yannick Vilon est ici.  Roberto Amato est ici.
+
+>Vous ouvrez la porte puis vous vous retournez vers Yannick: "Le grand moment
+est enfin arrivé!" dites-vous en souriant. "Je te conseille de savourer ce
+moment de bonheur Label car tout se paie dans la vie." assure le malfrat.
+"Serait-ce une menace?" interrogez-vous. "C'est une affirmation. Crois-moi,
+ta vie sera très prochainement réduite à néant!" réplique Amato. Vous fixez
+Yannick du regard: "Emmènes-le Yannick!" "Ok Lucas; j'y vais. Attends-moi
+ici." répond votre ami. Votre collègue saisit Roberto par le bras puis tous
+deux entrent dans le couloir menant aux cellules. Après quelques instants,
+Yannick est déjà de retour auprès de vous: "C'est fait!" dit-il. "Oui, on est
+enfin parvenu à enfermer ce mafieux! Seulement, j'ai un mauvais
+présentiment." avouez-vous. "Quel genre de présentiment?" demande votre ami.
+"J'ai l'impression que cette affaire est loin d'être terminée."
+répondez-vous. "En effet, elle ne l'est pas car il reste le procès.
+Cependant, il ne faut pas que tu t'inquiètes. Crois-moi, l'affaire Roberto
+Amato fera bientôt partie des dossiers résolus." affirme Yannick. "Tu as
+raison." "J'ai toujours raison!" répond votre ami en riant. "Je vais
+redescendre au bureau du chef pour lui rendre la clé. Tu m'accompagnes?"
+demandez-vous. "Non. Je vais plutôt regagner mon bureau afin de faire un peu
+de rangement." répond Yannick. "D'accord. On se recontacte plus tard."
+dites-vous. Yannick vous serre la main: "Pas de problème mon pote!"
+s'exclame-t-il avant de s'éloigner. L'ascenseur se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous entrez dans le bureau du commissaire.
+Le chef est là, un sourire au bout des lèvres: "Toutes mes félicitations
+Lucas! Nous en aurons bientôt fini avec Roberto Amato!" dit-il. "C'est ce que
+nous devons espérer." répondez-vous en tendant la clé au commissaire. Votre
+chef récupère la clé: "A présent, je vous propose de rentrer chez vous. Vous
+avez assez travaillé pour aujourd'hui. De plus, cela vous permettra de voir
+vos filles dès leur retour de l'école." propose le chef. "Vous êtes bien
+aimable chef mais je tiens à être là lorsque les experts se manifesteront."
+répondez-vous. "Si c'est ce qui vous retient, je vous tiendrai au courant de
+l'avancement de cette affaire. Rentrez chez vous Lucas." vous conseille le
+commissaire Guersant. "Entendu chef. Surtout, prévenez-moi si vous avez du
+nouveau." 'Je n'y manquerai pas Lucas." assure le chef. "Merci chef. Bonne
+soirée." souhaitez-vous. "Vous de même." répond le commissaire. La sortie se
+trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Vous regagnez le rez-de-chaussée.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>Vous vous déplacez vers le Sud.
+L'accueil
+Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
+relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
+assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
+Nord; la sortie est située au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Sud.  Vous quittez le commissariat puis vous vous
+dirigez vers votre domicile. Après un quart d'heure de trajet, vous arrivez à
+bon port.  "Stéphanie? Morgane?" appelez-vous en entrant dans votre demeure.
+A votre grande surprise, personne ne vous répond. "Pourquoi ne
+répondent-elles pas? Où sont-elles?" vous demandez-vous.
+Votre domicile
+A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
+recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout
+comme dans votre chambre). La salle de séjour se trouve au Nord; les
+escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
+chambre se situe au Sud; la sortie se trouve à l'Est.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Sud.  Vous sursautez en entrant dans votre
+chambre: vous apercevez Stéphanie, inanimée sur le sol. Votre premier réflexe
+est de vous précipiter vers elle: "Stéphanie? Oh mon dieu! Parles-moi ma
+chérie! Je t'en supplie! Parles-moi!" suppliez-vous. N'obtenant aucune
+réponse, vous vous saisissez de votre téléphone portable afin d'appeler du
+secours. Au moment où vous alliez composer le numéro, votre téléphone
+cellulaire se met à sonner. Vous décrochez: "Ici Label." dites-vous d'une
+voix tremblante. Une voix trafiquée se fait entendre: "Content de cette
+sombre découverte Label?" "Qui êtes-vous?" demandez-vous. "Quelqu'un qui veut
+jouer avec toi." répond la voix. "Je ne suis pas intéressé! Laissez-moi
+tranquille!" ordonnez-vous. "Si tu raccroches, Erica et Morgane seront
+froidement exécutées d'une balle dans la tête!" Vous êtes pétrifié à l'écoute
+de ces paroles. Après quelques instants de silence, la voix reprend: "Tu es
+prêts à jouer?" "Que voulez-vous?" questionnez-vous. "Rends-toi à L'aéroport
+d'Orly et prends le vol 711. Emmènes ton portable avec toi; et surtout, ne
+préviens pas tes collèques. Si tu essaies de me doubler, je n'hésiterai pas à
+abattre ta femme et ta fille. A ce propos, je te propose d'examiner les
+blessures de Stéphanie. Tu pourras alors te rendre compte de ce dont je suis
+capable. Je te rappellerai à vingt heures, c'est-à-dire au décollage de
+l'avion. Il est actuellement dix-sept heures. Cela signifie qu'il ne te reste
+que trois heures à vivre à Paris." dit cette voix trafiquée avant de
+raccrocher. Vous vous penchez sur le corps de Stéphanie. Vous découvrez de
+multiples plaies étendues sur tout le corps de votre fille: "Je coincerai
+celui qui t'a fait ça! Je te le promets ma chérie!" promettez-vous. La sortie
+se trouve au Nord.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Au moment où vous sortez de votre chambre,
+votre téléphone se met à sonner. Vous décrochez, tremblant comme une feuille:
+"Ici Label." dites-vous timidement. "Salut Lucas! C'est Yannick! Il y a du
+nouveau dans l'affaire Amato!" s'exclame Yannick au bout du fil. "Je n'ai pas
+le temps Yannick!" rétorquez-vous avant de raccrocher.
+Votre domicile
+A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
+recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout
+comme dans votre chambre). La salle de séjour se trouve au Nord; les
+escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
+chambre se situe au Sud; la sortie se trouve à l'Est.
+
+>(Your score has increased by 1)
+"Qui est le meurtrier de Stéphanie? Pourquoi ma fille est-elle morte? Où sont
+Erica et Morgane? Pourquoi ce salopard m'a-t-il demandé de me rendre à Orly?
+Je trouverai les réponses à toutes ces questions. Cependant, je vais être
+obligé d'obéir à ce criminel; mais cela ne m'empêchera en aucun cas de venger
+ma fille. Si ce malfrat pense qu'il peut anéantir ma famille rien qu'en
+claquant des doigts, il se trompe sur toute la ligne!" dites-vous en quittant
+votre domicile. Vous prenez immédiatement la route, en direction de
+l'aéroport d'Orly. Après un long trajet d'une heure (dû aux embouteillages),
+vous arrivez enfin à destination.
+Devant l'aéroport d'Orly
+Vous arrivez devant l'aéroport. L'entrée se trouve au Nord.
+
+>Vous vous déplacez vers le Nord.
+Le hall d'entrée
+Vous pénétrez dans le hall d'entrée de l'aéroport. Quelques personnes vont et
+viennent dans ce hall. Le nombre peu élevé d'individus renforce l'aspect
+vaste de l'endroit. Les guichets permettant d'enregistrer les bagages sont
+situés au Nord; la sortie se trouve au Sud.
+
+>Vous vous déplacez vers le Nord.
+Les guichets
+Vous arrivez dans une vaste pièce dans laquelle sont installés les différents
+guichets permettant d'enregistrer les bagages. Les guichets sont disposés de
+telle sorte que chaque guichet enregistre les bagages des vols dont le numéro
+commence par le chiffre représentant le guichet: le guichet 1 concerne les
+vols dont le numéro commence par le chiffre 1; le guichet 2 concerne les vols
+dont le numéro commence par le chiffre 2... Les guichets sont numérotés de 1
+à 9. Pour vous présenter devant un guichet, tapez "guichet" puis le numéro du
+guichet auquel vous souhaitez accéder.
+
+>Vous vous présentez devant le guichet 7. Une jeune femme blonde se tient
+derrière le guichet: "Bonjour monsieur. Désirez-vous enregistrer des
+bagages?" vous demande la femme. "Non mademoiselle. Je n'ai aucun bagage."
+répondez-vous. "Avez-vous une réservation sur l'un de nos vols?" questionne
+la jeune femme. Tapez "oui" ou "non" pour répondre à la question.
+
+>(Your score has increased by 1)
+"Oui." dites-vous timidement. "Sur quel vol?" interroge l'agent d'accueil.
+Tapez le numéro du vol auquel vous souhaitez accéder.
+
+>"Vol 711." répondez-vous. "A quel nom?" interroge la jeune femme. Tapez
+"Lucas Label" pour donner votre nom; tapez "je refuse" pour refuser de vous
+identifier.
+
+>(Your score has increased by 1)
+"Je suis Lucas Label." dites-vous. "Lucas Label? Un homme est passé il y a
+quelques minutes. Il a payé une réservation au nom de Lucas Label pour le vol
+711." affirme la jeune femme. "Quoi? A quoi ressemblait-il?" demandez-vous.
+"Il était plutôt grand, blond, assez maigre. Mais pourquoi toutes ces
+questions?" "Je suis inspecteur de police. Actuellement, je suis sur une
+affaire d'enlèvement. Il est probable que le ravisseur tente de s'enfuir en
+prenant le vol 711." déclarez-vous. "L'homme qui est venu réserver s'est
+présenté comme étant l'avocat Lucas Label. Qu'est-ce que c'est que cette
+histoire?" interroge l'agent d'accueil. "Je ne sais pas qui est ce type mais
+je constate qu'il est capable de tout. Laissez-moi passer mademoiselle! C'est
+une question de vie ou de mort." implorez-vous. "Comprenez que je n'ai pas le
+droit de laisser passer toute personne suspecte. Bien que j'aimerais vous
+laisser passer, je n'en ai pas le droit." déclare la femme. "Oubliez vos
+droits durant un instant et laissez-moi passer!" suppliez-vous.
+"Pardonnez-moi monsieur Label mais je ne peux pas." "Ce truand a déjà
+assassiné l'une de mes deux filles. A présent, il détient ma femme et ma
+seconde fille. Si je ne l'arrête pas, ce salopard massacrera ma famille sans
+hésiter!" assurez-vous. "Pardonnez-moi monsieur Label. Je vais faire une
+exception pour vous. Toutefois, ne tentez rien de dangereux car je pourrais
+perdre mon travail." déclare la jeune femme. "Ne vous inquiétez pas
+mademoiselle. Je procéderai seulement à l'arrestation de ce malfrat."
+dites-vous dans le but de rassurer l'agent d'accueil. "Entendu monsieur
+Label. L'embarquement pour le vol 711 se fera porte G. Le décollage est prévu
+pour vingt heures." annonce la femme. "Où cet avion doit-il atterrir?"
+demandez-vous. "Il s'agit d'un vol charter à destination de Rome." répond la
+jeune femme. "Merci mademoiselle." La jeune femme blonde se retourne vers
+l'agent de sécurité chargé des fouilles: "Laissez passer ce policier."
+ordonne-t-elle. L'agent de sécurité se circule afin de vous libérer le
+passage. Les escaliers permettant d'accéder aux salles d'embarquement se
+trouvent au Nord.
+
+>(Your score has increased by 1)
+Vous montez les escaliers.  Vous arrivez dans un long couloir permettant
+d'accéder aux différentes portes d'embarquement disposées de part et d'autre
+de ce couloir. Vous marchez lentement vers le Nord, en direction de la porte
+G. "Je n'y comprends rien. Tout d'abord, ce type assassine froidement l'une
+de mes filles; ensuite, il me demande de me rendre à Orly; puis, à présent,
+je m'apprête à prendre l'avion à destination de Rome. Je suis complètement
+perdu. Pourtant, il devrait y avoir une certaine logique dans tout ça."
+pensez-vous avant de vous arrêter. La porte G se trouve au Nord.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous entrez dans la salle G. Tous les
+fauteuils mis à la disposition des voyageurs sont occupés: "Il n'y a même pas
+de place pour s'assoir! Je vais être obligé d'attendre l'heure d'embarquement
+debout!" constatez-vous.
+
+>Le temps passe...
+
+>Le temps passe...
+
+>Le temps passe...
+
+>Le temps passe...
+Une voix féminine se fait entendre dans les hauts-parleurs installés dans la
+salle: "A tous les passagers du vol 711; embarquement immédiat porte G." Un
+long frisson parcourt votre corps tandis que les passagers se déplacent vers
+le Nord. "Tu dois suivre ces gens Lucas." pensez-vous.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous suivez les passagers. Vous montez des
+escaliers puis vous traversez une passerelle. L'entrée de l'avion se trouve
+au Nord.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous entrez dans l'avion. Vous êtes
+accueillis par une jeune hôtesse (une grande brune plutôt jolie): "Bonjour
+monsieur. Bienvenue à bord de ce Boeing 747. Puis-je connaître votre nom?"
+vous demande l'hôtesse. "Je suis l'inspecteur Lucas Label." répondez-vous
+timidement. "J'ai bel et bien une réservation à votre nom monsieur Label. Si
+vous voulez bien me suivre." L'hôtesse vous mène à un siège: "Voici votre
+place monsieur Label." annonce la jeune femme. "Puis-je vous poser une
+question?" interrogez-vous. "Allez-y." "Comment avez'vous eu cette
+réservation à mon nom?" demandez-vous. "Un homme m'a apporté cette
+réservation il y a quelques minutes. J'ai d'ailleurs trouvé cela louche car
+les réservations ne nous sont jamais communiquées de cette façon. D'après
+moi, cet homme voulait absolument que vous soyez placé à cet endroit."
+déclare l'hôtesse. "A quoi ressemblait cet homme?" questionnez-vous. "Cet
+homme était plutôt grand et maigre; il était blond et je crois qu'il avait
+une barbe relativement longue." répond la jeune hôtesse. "Merci mademoiselle.
+Ce sera tout." affirmez-vous. "Je vous en prie monsieur Label." dit l'hôtesse
+en s'éloignant. Vous vous asseyez sur votre siège. "Il ne te reste plus qu'à
+attendre le décollage." pensez-vous.
+
+>Le temps passe...
+
+>Le temps passe...
+
+>Le temps passe...
+
+>Le temps passe...
+(Your score has increased by 1)
+"Mesdames et messieurs, soyez les bienvenus à bord de ce Boeing 747. Dans
+quelques instants, nous allons procéder au décollage. Veuillez regagner vos
+sièges et attacher vos ceintures. Notre durée de vol sera d'environ une heure
+et trente minutes. Nous vous souhaitons un agréable vol."  Quelques instants
+après cette annonce, l'avion se met à rouler en direction de la piste. "Que
+va-t-il se passer à bord de cet avion? Où ce malfrat veut-il en venir?" vous
+demandez-vous. L'appareil se met alors à accélérer puis procède au décollage.
+ Quelques minutes plus tard, votre téléphone portable se met à sonner. Vous
+décrochez: "Ici Label." La voix du malfrat se fait entendre à travers le
+téléphone: "Jusqu'à présent, je suis assez content de toi Label. Il est temps
+de passer aux choses sérieuses." "Où voulez-vous en venir?" demandez-vous
+d'une voix tremblante. "Regardes sous ton siège!" vous ordonne le malfaiteur.
+(Your score has increased by 1)
+
+>Une caisse en bois se trouve sous votre siège: "Je vois une caisse en bois."
+déclarez-vous. "Ouvres cette caisse!" ordonne votre interlocuteur.
+
+>(Your score has increased by 1)
+Vous ouvrez la caisse en bois. Une bombe se trouve à l'intérieur: "Oh mon
+dieu! C'est une bombe!" chuchottez-vous pour ne pas éveiller les soupçons des
+autres passagers. "Belle observation Label! Cette bombe explosera dans quinze
+minutes. Cela te laisse très peu de temps pour désamorcer cet engin.
+Crois-moi, c'est perdu d'avance! Tu sais ce qui me plaît le plus dans tout
+ça?" demande le malfrat en riant. "Non." répondez-vous à travers le
+téléphone. "Au moment où tu passeras l'arme à gauche en compagnie des autres
+passagers de ce vol, je serai en train de prendre du plaisir avec ta femme et
+ta fille." ricane le malfaiteur avant de raccrocher.  Quelques instants plus
+tard, la sonnerie de votre téléphone retentit une nouvelle fois. Vous
+décrochez: "Qu'est-ce qu'il y a encore?" demandez-vous timidement. "C'est
+Yannick! Je suis au courant pour Stéphanie. Où es-tu Lucas?" questionne votre
+interlocuteur. "Je suis dans de sales draps Yannick. Je suis à bord d'un
+avion, face à une bombe. Il ne me reste que quelques minutes pour éviter une
+catastrophe!" affirmez-vous à voix basse. "Oh merde! J'appelle le service de
+déminage. De ton côté, essaies de trouver une pince ou quelque chose dans ce
+genre-là. Tu devras probablement couper des câbles." conseille votre ami
+avant de raccrocher.  Vous vous levez de votre siège. Vous vous trouvez dans
+l'allée dans laquelle sont installés les passagers. Le cocpit se trouve au
+Nord.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Après être passé devant les hôtesses, vous
+entrez dans le cocpit. Le pilote et le co-pilote sont présents. Vous prenez
+la parole: "Auriez-vous une pince ou quelque chose de ressemblant?"
+demandez-vous. "Qui êtes-vous?" interroge le co-pilote. "Je n'irai pas par
+quatre chemins. Je suis inspecteur de police. Cet appareil transporte une
+bombe qui risque d'exploser d'une minute à l'autre." répliquez-vous. Le
+co-pilote quitte le cocpit puis revient quelques secondes plus tard, une
+pince coupante à la main: "Prenez cette pince monsieur l'inspecteur."
+propose-t-il.
+
+>(Your score has increased by 1)
+Vous prenez la pince: "Merci." dites-vous en regardant le co-pilote. "D'où
+sors-tu cette pince?" demande le pilote à son co-équipier. "Je suis un homme
+organisé!"  La sortie se trouve au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Sud.  Vous quittez le cocpit puis vous regagnez
+votre siège. Au moment où vous arrivez à votre place, votre téléphone se met
+à sonner. Vous décrochez: "Ici Label." "C'est Yannick! Les démineurs ne
+pourront nous venir en aide que dans une dizaine de minutes." affirme votre
+interlocuteur. "Dix minutes? Dans dix minutes, cette bombe aura explosé!"
+répliquez-vous à voix basse. "Je sais Lucas. C'est pourquoi j'ai demandé à
+Martin Viguier de nous aider. Il s'y connaît en explosifs." "Martin Viguier?
+Ce type a accepté de nous aider?" demandez-vous. "Oui Lucas. Je te le passe."
+dit Yannick. "D'accord Yannick. C'est vrai qu'il n'y a pas de temps à
+perdre." constatez-vous. La voix de Martin Viguier se fait entendre à travers
+le téléphone: "Décris-moi ce que tu vois Lucas." Vous regardez la bombe puis
+vous décrivez: "Je vois un détonateur qui est relié à une minuterie par deux
+câbles ainsi qu'à la charge explosive par deux autres câbles." "Quelles sont
+les couleurs de ces câbles?" demande Martin. "Un câble vert et un câble noir
+relient le détonateur à la minuterie; un câble rouge et un câble bleu relient
+ce même détonateur à la charge explosive." expliquez-vous. "Il faut commencer
+par couper les câbles reliant le détonateur à la minuterie, à savoir le vert
+et le noir." affirme Martin.
+
+>(Your score has increased by 1)
+Vous coupez le câble vert.
+
+>(Your score has increased by 1)
+Vous coupez le câble noir.
+"C'est fait! Que dois-je faire maintenant?"" demandez-vous en collant le
+téléphone à votre oreille. "Pour être franc, je n'en sais rien." avoue
+Martin. "Comment ça?" questionnez-vous. "Bien que nous ayons affaire à un
+montage relativement simple, un énorme problème se pose." "Lequel?"
+interrogez-vous. "Je vais être bref. Il faut couper l'un des deux câbles
+restants." "Mais lequel?" insistez-vous. "L'un des deux câbles permet
+seulement d'établir un lien entre le détonateur et la charge explosive. En
+revanche, l'autre câble sert au déclenchement de l'explosion. La section de
+ce second câble peut être fatale. En bref, il faut couper le câble ne
+permettant que la liaison entre le détonateur et..." "Oui j'ai compris."
+interrompez-vous. "Il faut couper le bon câble. Bonne chance Lucas." vous
+souhaite Martin.
+
+>(Your score has increased by 1)
+Vous coupez le câble rouge. Aucune explosion ne se produit! "J'ai réussi!"
+criez-vous. La voix de Yannick se fait entendre au bout du fil: "Bien joué
+mon pote! On se retrouvera sur la terre ferme!" "Sans problème mon gars! Je
+vais prévenir les pilotes!" dites-vous avant de raccrocher. Ces expressions
+de joie éveillent la curiosité des passagers. Certains d'entre eux vous
+fixent du regard. Le cocpit se trouve au Nord.
+"Mesdames et messieurs, soyez les bienvenus à bord de ce Boeing 747. Dans
+quelques instants, nous allons procéder au décollage. Veuillez regagner vos
+sièges et attacher vos ceintures. Notre durée de vol sera d'environ une heure
+et trente minutes. Nous vous souhaitons un agréable vol."  Quelques instants
+après cette annonce, l'avion se met à rouler en direction de la piste. "Que
+va-t-il se passer à bord de cet avion? Où ce malfrat veut-il en venir?" vous
+demandez-vous. L'appareil se met alors à accélérer puis procède au décollage.
+ Quelques minutes plus tard, votre téléphone portable se met à sonner. Vous
+décrochez: "Ici Label." La voix du malfrat se fait entendre à travers le
+téléphone: "Jusqu'à présent, je suis assez content de toi Label. Il est temps
+de passer aux choses sérieuses." "Où voulez-vous en venir?" demandez-vous
+d'une voix tremblante. "Regardes sous ton siège!" vous ordonne le malfaiteur.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous entrez dans le cocpit. Le pilote et le
+co-pilote sont présents. Vous prenez la parole: "Il n'y a plus d'inquiétude à
+avoir. La bombe est désamorcée!" vous exclamez-vous. "Félicitations
+inspecteur! Comment avez-vous fais?" demande le co-pilote. "Je suis un homme
+organisé dont le sixième sens fonctionne parfaitement!" répondez-vous en
+riant. "C'est possible!" acquiesce le pilote. "De notre côté, nous avons
+décidé de changer de cap. Nous retournons vers Orly. Nous préférons ne pas
+prendre de risques. En effet, si un détraqué est capable de poser une bombe
+dans notre appareil, qui sait ce que nous pourrions trouver à l'aéroport de
+Rome?..." annonce le co-pilote. "Vous avez pris la bonne décision. De plus,
+j'ai beaucoup à faire à Paris, à commencer par arrêter ce fou furieux."
+dites-vous. "Nous vous souhaitons bonne chance pour la suite monsieur Label."
+"Merci messieurs." répondez-vous. La sortie se trouve au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Sud.  Vous quittez le cocpit puis vous regagnez
+votre siège. "Tu pourrais faire carrière dans le déminage Lucas!" pensez-vous
+en vous asseyant.  Quelques minutes plus tard, vous êtes soudainement pris
+d'une crise de chagrin: "Stéphanie était si jeune! Elle ne méritait ça en
+aucune façon. Elle aurait pu mener une vie de rêve car tout lui souriait. Non
+seulement elle était très bonne élève mais elle était très appréciée par tout
+son entourage. Oh mon dieu! Comment vais-je faire pour vivre sans ma fille?
+Comment Morgane va-t-elle réagir? Si je ne parviens pas à libérer Erica et
+Morgane, ma vie n'aura plus aucun sens." pensez-vous.
+
+>Le temps passe...
+
+>Le temps passe...
+
+>Le temps passe...
+"Mesdames et messieurs, soyez les bienvenus à bord de ce Boeing 747. Dans
+quelques instants, nous allons procéder au décollage. Veuillez regagner vos
+sièges et attacher vos ceintures. Notre durée de vol sera d'environ une heure
+et trente minutes. Nous vous souhaitons un agréable vol."  Quelques instants
+après cette annonce, l'avion se met à rouler en direction de la piste. "Que
+va-t-il se passer à bord de cet avion? Où ce malfrat veut-il en venir?" vous
+demandez-vous. L'appareil se met alors à accélérer puis procède au décollage.
+ Quelques minutes plus tard, votre téléphone portable se met à sonner. Vous
+décrochez: "Ici Label." La voix du malfrat se fait entendre à travers le
+téléphone: "Jusqu'à présent, je suis assez content de toi Label. Il est temps
+de passer aux choses sérieuses." "Où voulez-vous en venir?" demandez-vous
+d'une voix tremblante. "Regardes sous ton siège!" vous ordonne le malfaiteur.
+
+>Le temps passe...
+(Your score has increased by 1)
+La voix du co-pilote se fait entendre: "Mesdames et messieurs, nous allons
+atterrir. Veuillez regagner vos places et attacher vos ceintures. Toutefois,
+nous n'atterrirons pas à Rome." Cette annonce provoque la surprise, voire la
+panique de certains passagers. Le co-pilote poursuit son discours: "N'ayez
+crainte, il ne se passe rien de grave. A la suite d'un problème technique
+survenu à bord de l'appareil, nous avons pris la décision de regagner
+l'aéroport d'Orly. Sachez que cette décision a été prise afin de veiller à la
+sécurité de l'ensemble des passagers. D'autre part, nous nous engageons à
+faire le nécessaire pour que vos billets vous soient remboursés. Merci de
+votre compréhension." L'avion entreprend sa descente. Au bout de quelques
+minutes, l'appareil finit par toucher le sol. Le Boeing réduit alors sa
+vitesse puis s'arrête après avoir roulé environ cinq cents mètres.  Les
+passagers quittent leurs sièges puis avancent lentement vers la porte de
+sortie. Vous en faites de même.  Vous sortez de l'appareil en suivant les
+autres passagers. Vous vous déplacez à l'intérieur de l'aéroport jusqu'à en
+trouver la sortie.  Une fois à l'extérieur, vous reprenez votre voiture afin
+de vous rendre au commissariat, malgré l'heure tardive: "Bien qu'il soit 21
+heures, je pourrai peut-être trouver Yannick au commissariat." pensez-vous.
+Devant le commissariat
+Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
+(Your score has increased by 1)
+
+>Le temps passe...
+
+>Vous vous déplacez vers le Nord.
+L'accueil
+Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
+relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
+assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
+Nord; la sortie est située au Sud.
+
+>Vous vous déplacez vers le Nord.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers l'Ouest.  Vous entrez dans le bureau de Yannick, à la
+grande surprise de celui-ci: "Lucas? Mais... Que fais-tu ici?" balbutie votre
+ami. "Après l'épisode de la bombe, les pilotes ont préféré revenir à Paris.
+Selon eux, tout ceci serait l'oeuvre d'un détraqué nous attendant à Rome;
+mais moi, je n'y crois pas." affirmez-vous en tendant la main à votre ami.
+"Que veux-tu dire?" interroge l'inspecteur Vilon. "C'est à moi que ce malade
+en veut. Ce criminel veut ma peau!" répondez-vous. "Il faut retrouver ce
+type." "Je me fiche pas mal de ce salopard! Tout ce que je veux, c'est
+retrouver Erica et Morgane!" rétorquez-vous. "On va les retrouver Lucas. Je
+t'en fais la promesse." vous promet votre collègue en vous serrant dans ses
+bras. Vous vous mettez à pleurer à chaudes larmes, consolé par votre meilleur
+ami.  Quelques minutes plus tard, Yannick reprend la parole: "Aurais-tu une
+idée de qui ce malade pourrait être?" "Je n'en ai aucune idée."
+répondez-vous. "Récapitulons: tout d'abord, ce malfrat assassine froidement
+ta fille aînée; ensuite, il prend ta femme et ta seconde fille en otage;
+enfin, il t'ordonne de monter à bord d'un avion à destination de Rome dans
+lequel il a caché une bombe..." "C'est impossible! Ca ne peut pas être une
+simple coïncidence." interrompez-vous. "De quoi parles-tu?" questionne votre
+ami. "Je repense à ce que m'a dit Amato peu de temps avant que tu ne
+l'enferme en cellule. Il m'a certifié que mon bonheur ne durerait pas très
+longtemps. Peu de temps après que ce mafieux ait proféré ces menaces, ce
+cauchemar a commencé. De plus, l'assassin de Stéphanie m'a guidé dans un
+avion à destination de l'Italie. Or, Roberto Amato fait partie de la mafia
+italienne." annoncez-vous. "Tu as raison Lucas. Tout ceci est probablement
+lié à Amato." "Lorsque je suis arrivé à l'aéroport et que je me suis présenté
+au guichet, l'agent d'accueil a déclaré qu'un homme avait déjà réservé au nom
+de Lucas Label et que cet homme s'était présenté comme étant l'avocat Label.
+Crois-tu que cette pourriture aurait osé prendre le risque d'annoncer sa
+véritable profession?" demandez-vous. "C'est possille. Tu sais, il se disait
+sûrement que tout était gagné d'avance pour lui." suppose Yannick. "Mais oui!
+C'est peut-être ça! Qui est l'avocat d'Amato?" demandez-vous. "Maître
+Jean-Michel Laguiard." répond votre collègue. "As-tu son adresse?"
+demandez-vous. "Il possède un cabinet non loin du commissariat. Pourquoi?"
+interroge Yannick. "Je sais que cette piste est plutôt vague mais nous ne
+devons négliger aucune possibilité. Je vais rendre une petite visite à cet
+avocat." assurez-vous. "Ok Lucas mais je refuse que tu y ailles seul. Je
+t'accompagne." "Ok Yannick. On y va."
+Le bureau de Yannick
+Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
+votre bureau, à ceci près que la disposition du mobilier est quelque peu
+différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
+placard est situé à l'Ouest; la sortie se trouve à l'Est.
+Yannick Vilon est ici.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers l'Est.  Vous sortez du bureau de Yannick puis vous
+quittez le commissariat en compagnie de votre ami. Ce dernier vous conduit
+jusqu'au cabinet de cet avocat: "Quoi qu'il arrive, ne fais pas de connerie."
+vous conseille Yannick. "Ne t'inquiète pas, je saurai me retenir."
+certifiez-vous.
+Devant le cabinet de Maître Laguiard
+Vous arrivez devant le cabinet de l'avocat. L'entrée se trouve au Nord.
+Yannick Vilon est ici.
+
+>(Your score has increased by 1)
+Au moment où vous vous apprétiez à entrer dans le cabinet de l'avocat, un
+homme (grand et musclé) en sort et vous bloque le passage: "Qui êtes-vous?"
+demande l'individu. "Inspecteurs Lucas Label et Yannick Vilon de la brigade
+criminelle. Nous souhaiterions voir maître Laguiard. Est-il encore là à cette
+heure-ci?" interroge Yannick. "Maître Laguiard ne reçoit personne à cette
+heure!" réplique sèchement l'homme. "C'est ce qu'on va voir!"
+intervenez-vous. Vous vous précipitez vers l'entrée mais l'individu vous
+retient: "Si tu essaies d'entrer, je t'explose la tête!" assure l'homme
+musclé. "Si je comprends bien, je vais devoir t'écorcher pour entrer!"
+dites-vous en riant. "Je vais t'éclater espèce d'ordure!" s'écrie l'individu.
+Tapez "combattre" pour débuter le combat.
+
+>Vous vous trouvez à l'extérieur du cabinet de l'avocat, face à "l'homme
+musclé". Tapez "coup de poing" pour frapper cet homme d'un coup de poing;
+tapez "coup de pied" pour le frapper d'un coup de pied.
+
+>Vous frappez votre ennemi au visage d'un violent coup de pied. Celui-ci tente
+de riposter mais en vain.
+
+>Vous frappez votre ennemi d'un coup de poing dans les parties génitales.
+Celui-ci tente de vous blesser mais en vain.
+
+>Vous terrassez votre ennemi d'un ultime coup de pied. "Ouf! Il s'en est fallu
+de peu!" dites-vous. Vous vous retournez vers Yannick: "Merci pour le coup de
+main!" dites-vous en souriant. "Je voulais voir comment tu te battais! Je
+serais venu à ton secours en cas d'extrême urgence! N'aies aucune
+inquiétude!" répond votre ami. "Les amis sont là pour ça!" affirmez-vous.
+L'entrée du cabinet se trouve au Nord.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord. A présent, vous vous trouvez dans l'entrée
+du cabinet de l'avocat. Il s'agit d'un couloir long et étroit.  Vous avancez
+vers le Nord jusqu'à une porte entrouverte. Vous vous arrêtez puis vous vous
+retournez vers Yannick: "On entre?" demandez-vous. "Je pense que..." Le cri
+d'une femme interrompt Yannick: "Non! Arrêtez! Je vous en supplie! Ne me
+faites pas de mal!" supplie cette femme. Vous reconnaissez la voix de votre
+femme: "Oh mon dieu! C'est Erica!" dites-vous à voix basse, en regardant
+Yannick. "Ne bouge pas Lucas! Si on entre, ce type n'hésitera pas à nous
+abattre." assure votre collègue. "Je ne vais tout de même pas rester les bras
+croisés en attendant que cet avocat tue ma femme!" répliquez-vous. "Je te
+conseille d'attendre Lucas. C'est sans doute notre seule chance." conseille
+Yannick.
+
+>Le temps passe...
+
+>Le temps passe...
+
+>Le temps passe...
+
+>Le temps passe...
+La voix de l'avocat se fait entendre de l'autre côté de la porte: "Maître
+Jean-Michel revient dans un instant ma chérie. Tu vas avoir droit à la
+torture du siècle!" dit-il avant de se diriger vers la porte.  Au moment où
+le truand ouvre la porte, Yannick se rue lui afin de le "débarrasser" de son
+arme à feu: "Surprise maître!" dites-vous. "Label? Mais... Je te croyais..."
+balbutie le ravisseur. "Mort? Eh bien non! Je suis bel et bien vivant!"
+répliquez-vous. "Mais la bombe..." "J'ai désamorcé cette saleté!"
+interrompez-vous. "C'est impossible!" s'écrie Laguiard. "J'en suis la preuve
+vivante!" rétorquez-vous. "Et mon greffier, où est-il?" questionne le
+malfrat. "Il a rejoint Stéphanie! A présent, c'est à ton tour!" criez-vous en
+vous jetant sur l'avocat. Vous passez vos mains autour du cou du malfaiteur
+puis vous serrez progressivement: "Où est Morgane?" demandez-vous. "Je ne
+vois pas de quoi tu parles." répond Laguiard, le souffle coupé par la
+pression de vos mains. "Où est ma fille?" insistez-vous en serrant de plus
+belle. "Si tu me tue, tu ne retrouveras jamais ta fille." affirme l'avocat
+avec le peu de souffle qu'il lui reste. "Tu vas me dire où est ma fille avant
+que je me fâche véritablement!" hurlez-vous. "Ne fais pas ça Lucas! Il n'en
+vaut pas la peine!" intervient Yannick. La voix de votre femme se fait
+entendre: "Ne fais pas ça mon chéri! Lâches-le! Je t'en supplie! Ce type n'en
+vaut pas la peine! Fais-le pour moi! Fais-le pour Morgane! Relâches-le!"
+implore-t-elle. A l'écoute de ces paroles, vous retirez vos mains du cou de
+Jean-Michel Laguiard puis vous vous retournez vers Yannick: "Mets-lui les
+pinces avant que je change d'avis. Je vais voir Erica." dites-vous. La salle
+dans laquelle est retenue votre femme se trouve au Nord.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous pénétrez dans une grande salle, dont
+le mobilier est on ne peut plus inhabituel: seul un lit sur lequel est
+ligotée votre femme trône au centre de la pièce.  Vous vous approchez du lit
+puis vous embrassez votre femme: "Dieu merci, tu es vivante!" "Tu es arrivé
+juste à temps mon amour!" répond Erica. "Que veux-tu dire?" demandez-vous.
+"Ce salopard allait me violer." déclare votre femme. "Ce type est
+complètement singlé! Rien qu'à voir cette pièce, on se rend compte de
+l'ampleur de sa folie!" "Il m'a dit qu'il avait aménagé cette pièce
+spécialement pour moi." "Quel idiot! Je lui aménagerai personnellement sa
+cellule afin qu'il se rende compte de ce qu'est la souffrance!" dites-vous en
+souriant. "Laguiard m'a également raconté qu'il avait fait exploser un Boeing
+avec toi à son bord. Visiblement, il se faisait des films!" "Non Erica! Il
+avait bel et bien prévu de faire sauter cet avion mais il n'a pas envisagé la
+possibilité que je puisse être en mesure de désamorcer sa bombe!" "Mon mari
+est un véritable héros!" s'exclame Erica. "Tu pourras me considérer comme tel
+lorsque j'aurai retrouvé Morgane. Laguiard a-t-il dit quelque chose au sujet
+de notre fille?" demandez-vous. "Non, il n'a rien dit. J'ai peur pour elle
+Lucas. Tu ne peux pas savoir à quel point j'aime Morgane. J'ai déjà perdu une
+fille; je ne supporterai pas de perdre la seconde." "Moi aussi je l'aime plus
+que tout. Ne t'inquiète pas ma chérie, nous allons la retrouver."
+assurez-vous. "Détaches-moi Lucas. Je ne supporte plus d'être ici." "D'accord
+mon coeur. Je vais te détacher." répondez-vous.
+
+>(Your score has increased by 1)
+Vous dénouez les sangles attachées aux poignets et aux chevilles de votre
+femme: "C'est fini ma chérie." dites-vous en prenant Erica dans vos bras.
+"Sortons d'ici." propose votre épouse. "D'accord. Suis-moi."
+La grande salle
+Vous êtes dans une grande salle, dont le mobilier est on ne peut plus
+inhabituel: seul un lit trône au centre de la pièce. La sortie se trouve au
+Sud.
+Erica est ici.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Sud.  Vous sortez de la grande salle en compagnie
+de votre femme. Vous êtes de retour dans l'entrée. "Erica est sauvée!"
+dites-vous en regardant Yannick. "C'est magnifique!" s'exclame votre ami.
+"Sortons d'ici." suggère Erica. "Bonne idée. Il serait bon de retourner au
+commissariat afin de confier ce cher avocat au chef." affirme Yannick. "Ok
+Yannick. On y va!" enchérissez-vous.  Vous quittez le cabinet en compagnie de
+votre femme, suivi de près par Yannick, tenant Laguiard par les épaules. A la
+vue du cadavre du greffier, Erica a un moment d'arrêt: "Il ne l'a pas volé
+celui-là!" dit-elle. Vous reprenez alors la route en direction du
+commissariat.  Lorsque vous arrivez devant l'entrée du poste de police, Erica
+tombe dans vos bras, prise de chagrin: "Tu dois retrouver Morgane. Je ne
+supporterai pas de la perdre. Ramènes notre fille à la maison Lucas. Je t'en
+supplie!" implore votre épouse. "Nous allons la retrouver. Je t'en fais la
+promesse. Morgane sera bientôt de retour parmi nous." dites-vous dans le but
+de rassurer Erica. En vous retournant vers Yannick, vous apercevez Laguiard,
+le sourire au bout des lèvres: "T'as intérêt de parler!" dites-vous à
+l'avocat véreux. "Je vais conduire ce salop dans le bureau de Guersant.
+Rejoins-moi là-haut." dit Yannick avant d'entrer à l'intérieur du
+commissariat avec Laguiard.  Vous embrassez votre femme: "Rentres à la maison
+ma chérie. Je t'appellerai dès que nous aurons du nouveau concernant
+Morgane." proposez-vous. "D'accord. Fais attention à toi." "C'est promis."
+assurez-vous. Erica vous embrasse une dernière fois, avant de repartir pour
+le domicile conjugal.
+Devant le commissariat
+Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
+
+>Vous vous déplacez vers le Nord.
+L'accueil
+Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
+relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
+assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
+Nord; la sortie est située au Sud.
+
+>Vous vous déplacez vers le Nord.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>Vous vous déplacez vers le Nord.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Nord.  Vous entrez dans le bureau du commissaire.
+Yannick, Laguiard, Amato et Guersant sont présents. Votre patron prend la
+parole: "Je vous félicite Lucas. Vous avez pris d'importants risques afin de
+mener à bien cette dernière arrestation. Qui aurais cru que le coupable
+serait un avocat?" "Si Laguiard avait été plus prudent, nous ne l'aurions
+probablement jamais démasqué." dites-vous. "Que voulez-vous dire?" questionne
+Guersant. "Lorsque je me suis présenté au guichet de l'aéroport d'Orly,
+l'agent d'accueil a déclaré qu'un homme avait déjà réservé sur le vol 711 au
+nom de Lucas Label. Cette jeune guichetière m'a également affirmé que cet
+homme s'était présenté comme étant l'avocat Lucas Label." racontez-vous. "Si
+je comprends bien, ce malfrat a été assez bête pour divulguer sa véritable
+profession." constate le commissaire. "C'est exactement ça." répondez-vous.
+Roberto Amato fixe Laguiard du regard: "Tu n'es qu'un débutant! A cause de
+toi, tout notre plan est tombé à l'eau!" s'écrie le mafieux. "On dirait que
+tout est fini Amato!" réplique Yannick en souriant. "C'est faux Yannick! Tout
+n'est pas fini! Ce crétin d'avocat détient toujours ma fille!"
+rétorquez-vous. "Ne vous inquiétez pas Lucas. Nous allons retrouver votre
+fille." assure votre chef. Ce dernier se retourne vers Laguiard: "Décidément,
+on aura tout vu! Un avocat qui travaille pour la mafia! Soyez sûr que je vais
+m'arranger pour que vous finissiez votre misérable vie derrière les barreaux!
+Vous avez ma parole!" promet le commissaire. "On dirait que vous oubliez un
+petit détail." intervient Roberto. "Lequel?" interroge le commissaire. "Rien
+n'est encore prouvé contre moi." affirme le malfrat. "Détrompez-vous. Je vous
+rappelle que nous avons perquisitionné votre domicile. Les éléments rapportés
+par l'inspecteur Label vont nous permettre d'obtenir un alourdissement de
+peine." affirme votre chef. Amato vous fixe du regard: "Tu as peut-être gagné
+cette bataille Label, mais tu ne gagneras jamais la guerre! Le cauchemar ne
+fait que commencer." dit-il. "C'est une menace?" questionnez-vous. "C'est une
+promesse." rétorque le malfaiteur. Le commissaire s'approche de vous: "Je
+vous propose de rentrer chez vous Lucas. Allez rejoindre votre femme. Je vous
+contacterai s'il y a du nouveau concernant votre fille. A présent, rentrez
+chez vous. J'estime que vous avez vécu assez d'émotions fortes pour
+aujourd'hui." "Le chef a raison Lucas. Rentres chez toi. De mon côté, je vais
+en faire autant. De toute façon, nous ne pourrons rien faire avant demain."
+ajoute Yannick. "Vous avez raison. Toutefois, n'oubliez pas de me tenir au
+courant de l'avancement de l'enquête, que ce soit ce soir où dans les jours
+prochains." dites-vous. "Je n'y manquerai pas. A présent, je vais conduire
+ces deux truands en cellule. Je m'occuperai des démarches administratives dès
+demain matin." affirme le commissaire en saisissant les bras d'Amato et de
+Laguiard. Les trois hommes quittent alors la pièce. Yannick vous tend la
+main: "Passes une bonne soirée et surtout, tiens le coup. Nous allons
+retrouver Morgane. Fais-moi confiance." promet votre ami tandis que vous lui
+serrez la main. "Merci Yannick. On se voit demain." Votre collègue quitte, à
+son tour, le bureau du chef. La sortie se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+Le premier étage
+Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
+celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
+du commissaire Guersant est situé au Nord; la salle de repos se situe à
+l'Est; l'ascenseur se trouve au Sud.
+
+>Vous vous déplacez vers le Sud.
+L'ascenseur
+Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
+premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
+"troisième étage" pour vous rendre au troisième étage; tapez
+"rez-de-chaussée" pour regagner le rez-de-chaussée.
+
+>Vous regagnez le rez-de-chaussée.
+Le couloir
+Vous êtes à présent dans un petit couloir (ni très long, ni très large).
+Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
+l'accueil se situe au Sud.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Sud.  Vous passez à l'accueil puis vous quittez le
+commissariat. Vous reprenez alors la route en direction de votre domicile.
+Après une durée de trajet vous semblant être une éternité, vous arrivez à bon
+port.  Vous sortez de votre voiture puis vous vous précipitez à l'intérieur
+de votre demeure.
+Votre domicile
+A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
+recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout
+comme dans votre chambre). La salle de séjour se trouve au Nord; les
+escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
+chambre se situe au Sud; la sortie se trouve à l'Est.
+
+>(Your score has increased by 1)
+Vous vous déplacez vers le Sud.  Vous entrez dans votre chambre. Erica est
+allongée sur le lit. Vous vous approchez lentement: "Lucas? C'est toi mon
+chéri?" demande votre femme d'une voix endormie. "Oui c'est moi."
+répondez-vous. "Tu viens te coucher?" interroge Erica. "Oui ma chérie.
+J'arrive." répondez-vous.
+
+>(Your score has increased by 1)
+Vous vous allongez sur votre lit, auprès de votre femme. Celle-ci vous serre
+dans ses bras: "Que va-t-on devenir mon chéri?" questionne-t-elle. "Hélas, je
+n'en sais rien. Pour le moment, nous devons nous concentrer sur Morgane.
+Lorsque nous l'aurons retrouvé, nous pourrons envisager de prendre un nouveau
+départ." répondez-vous. "Et si nous la retrouvons trop tard?" "Nous la
+retrouverons à temps! Je te le promets ma chérie." dites-vous en embrassant
+votre femme.  Durant une semaine entière, vous tentez de recueillir des
+indices afin de retrouver votre fille, mais en vain. Chacune des pistes que
+vous explorez se révèle comme étant un échec.  Tout bascule au terme de cette
+semaine fastidieuse, lorsque votre téléphone se met à sonner, le samedi soir
+à une heure tardive. Vous décrochez: "Ici Label." "Ici Guersant. Il y a du
+nouveau concernant votre fille. Vous allez enfin pouvoir la retrouver!
+Rejoignez-moi au commissariat dès que possible." dit votre interlocuteur
+avant de raccrocher. Vous laissez échapper un cri de joie: "Oui!! Tiens bon
+Morgane! Papa va te sortir de là..."
+Congratulations!

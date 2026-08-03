@@ -1,0 +1,90 @@
+south
+south
+south
+south
+south
+west
+west
+west
+west
+get cookie
+break cookie
+east
+east
+east
+east
+south
+south
+west
+west
+read diary
+east
+north
+open dresser
+get penny
+get golf ball
+south
+east
+north
+north
+north
+north
+north
+north
+north
+x casino
+use penny on machine
+get cash
+get cash
+south
+east
+north
+buy shoes
+wear golf shoes
+remove shoes
+wear golf shoes
+south
+west
+south
+south
+south
+south
+south
+south
+west
+south
+south
+east
+read book
+get saucepan
+get carrots
+put carrots in saucepan
+get onions
+put onions in saucepan
+get potatoes
+put potatoes in saucepan
+get meat
+put meat in saucepan
+switch on cooker
+wait
+switch off cooker
+drop cash
+north
+give food to mr fenwick
+drop golf ball
+get saucepan
+give stew to mr fenwick
+get golf ball
+west
+south
+south
+putt golf ball
+drop putter
+drop golf ball
+down
+open door
+north
+get chair
+move chair under ceiling
+score
+stand on chair

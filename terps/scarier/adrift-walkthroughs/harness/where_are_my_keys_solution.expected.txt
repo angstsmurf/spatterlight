@@ -1,0 +1,494 @@
+Loading game...
+
+Where are my keys?
+
+Where are my keys?
+
+by Richard Otter
+Version 1.07, 2005
+
+1. Play the game
+
+2. Read the introduction
+
+3. Useful information
+
+4. Credits
+
+>
+
+The Lounge
+You are in Marks lovely lounge, well no it's actually horrible.  It seems to
+be the morning but you can only just tell that through the dirty windows. A
+pair of limp unhappy looking curtains sit either side of the window.   In the
+middle of the room stands a lopsided coffee table.  To the west you can see
+what looks like the hall.  The room has the usual things a bachelors place
+has namely an uncomfortable settee, a battered old armchair, narrow screen
+television and what looks like a dvd player.
+John is currently slumped in the armchair.
+
+"I'd better go and find Mark, to ask him about my keys," you think to
+yourself.
+
+>You move west.
+Hall
+You are in Marks small hall.  The front hall in a house is usually a warm and
+inviting place.  It is usually the first room visitors see and makes a good
+impression.  Well Mark's hall is nothing like that as it is cold, uninviting
+and dirty.  The front door is north and next to it is a small table.  You can
+see the lovely Lounge to the east and from the smell of it the kitchen is to
+the west.  Some stairs lead, well up.
+
+You can see a pair of boxer shorts.
+
+>You move west.
+The Kitchen
+You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
+starting in the Lounge is being continued here as the Kitchen is horrible as
+well.  You look around and can see a single lonely kitchen unit next to the
+cooker.  An old fridge seems to be leaning against one wall with a washing
+machine next to it.  The window over the kitchen sink is just as clear as the
+rest of the windows in this house.  A table is positioned in the centre of
+the room and on the floor near the back door is a small dog basket.  The hall
+is to the east, the door to the back garden south and what looks like a
+cupboard under the stairs is southeast.
+
+>It is a small dog basket.  It is some sort of wicker affair with an ill
+fitting cover.  A small plastic mouse is inside the dog basket.
+
+>You take the small plastic mouse from the dog basket.
+
+>You open the kitchen unit.  A large knife and a jar of coffee are inside the
+kitchen unit.
+
+>It is plugged into the wall and in any case it is not a good idea.
+I do not think that is a good idea.
+
+You take the large knife and the jar of coffee from the kitchen unit.
+
+>You move southeast.
+Under the Stairs
+You are in the tiny cupboard under the stairs.  Although it is tiny, very
+cramped and dark it seems to be the nicest place you have been in so far.
+Some of the floorboards seem to be loose and you can see a hole.  On the wall
+you can see a fuse box with a single switch in the On position.   You can
+only really go northwest back to the kitchen.
+
+>Using the large knife you force one of the loose floorboards up.  Once you
+have moved one it makes it easier to lift the other loose ones.  You can now
+get under the floor.
+
+>You climb down through the hole.
+Under the Floorboards
+You are in a small space under the floor about 4ft in height.  It feels very
+cold and damp down here, not the sort of place to linger. The floor under
+here is just bare earth.  Above your head you can see the small cupboard
+under the stairs.
+
+You can also see a pair of gloves.
+
+>You pick up the pair of gloves.
+
+>You move up.
+Under the Stairs
+You are in the tiny cupboard under the stairs.  Although it is tiny, very
+cramped and dark it seems to be the nicest place you have been in so far.
+Some of the floorboards seem to be loose and you can see a hole.  On the wall
+you can see a fuse box with a single switch in the On position.   You can see
+a very large hole in the floor, big enough to get through.  You can down the
+hole or northwest back to the kitchen.
+
+>You switch off the fuse box.
+
+>You move northwest.
+The Dark Kitchen
+You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
+starting in the Lounge is being continued here as the Kitchen is horrible as
+well.  You look around and can see a single lonely kitchen unit next to the
+cooker.  An old fridge seems to be leaning against one wall with a washing
+machine next to it.  The window over the kitchen sink is just as clear as the
+rest of the windows in this house.  A table is positioned in the centre of
+the room and on the floor near the back door is a small dog basket.  The hall
+is to the east, the door to the back garden south and what looks like a
+cupboard under the stairs is southeast.  The lights have gone out in the
+house and it seems a lot darker in here.
+
+>You put on the pair of gloves.
+
+>It is an electric cooker.  At the moment the cooker appears to be switched
+Off.  A saucepan and a frying pan are on the cooker.
+
+>It is a well used (and little cleaned) metal saucepan.  A bone is inside the
+saucepan.
+
+>You get the bone.
+
+>You open the fridge and the light comes on.  Well that's something. A tub of
+butter, a butter knife and a bottle of milk are inside the fridge.
+
+>You put the bone into the fridge.
+
+>You move southeast.
+Under the Stairs
+An emergency light is on, otherwise it would be very dark in here.  You can
+see a very large hole in the floor, big enough to get through.  You can down
+the hole or northwest back to the kitchen.
+
+>You switch on the fuse box.
+
+>You move northwest.
+The Kitchen
+You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
+starting in the Lounge is being continued here as the Kitchen is horrible as
+well.  You look around and can see a single lonely kitchen unit next to the
+cooker.  An old fridge seems to be leaning against one wall with a washing
+machine next to it.  The window over the kitchen sink is just as clear as the
+rest of the windows in this house.  A table is positioned in the centre of
+the room and on the floor near the back door is a small dog basket.  The hall
+is to the east, the door to the back garden south and what looks like a
+cupboard under the stairs is southeast.
+
+>You move east.
+Hall
+You are in Marks small hall.  The front hall in a house is usually a warm and
+inviting place.  It is usually the first room visitors see and makes a good
+impression.  Well Mark's hall is nothing like that as it is cold, uninviting
+and dirty.  The front door is north and next to it is a small table.  You can
+see the lovely Lounge to the east and from the smell of it the kitchen is to
+the west.  Some stairs lead, well up.
+
+You can see a pair of boxer shorts.
+
+>You move up.
+On the Stairs
+You are on Marks stairs.  You can go up the stairs to the Landing and down to
+the Hall.  The carpet looks worn and the stairs move as you stand on them.
+On the wall is a gold framed picture.
+
+You can see a pair of old trousers.
+
+>You move up.
+Landing
+You are on Marks landing.  This area has no window so it is quite dark here,
+the light is on but doesn't seem to help.  Even in the bad light you can see
+more terrible wallpaper and a very threadbare carpet. The main bedroom is to
+the north and the back bedroom is opposite.  You can just make out the
+bathroom to the east and you can go down to the hall.
+The small brown terrier is wandering around.
+
+The small brown terrier wandering around is growling at you.
+
+>You move east.
+Bathroom
+You are in Marks small bathroom.  Along one side of the room is the bath
+which at the moment has someone sleeping in it.  At the end of the room is
+the toilet and just next to it the sink.  A medicine cabinet is fixed to the
+wall over the sink.  The room is tiled in a sort of green mottled colour. The
+window in here has frosted glass (or maybe it is just very dirty). You can
+only go west from here back to the landing.
+
+You can also see a linen basket.
+Tom is currently sleeping in the bath.
+
+>You open the medicine cabinet.  A headache packet is inside the medicine
+cabinet.
+
+>You take the headache packet from the medicine cabinet.
+
+>You move west.
+Landing
+You are on Marks landing.  This area has no window so it is quite dark here,
+the light is on but doesn't seem to help.  Even in the bad light you can see
+more terrible wallpaper and a very threadbare carpet. The main bedroom is to
+the north and the back bedroom is opposite.  You can just make out the
+bathroom to the east and you can go down to the hall.
+
+>You move south.
+Back Bedroom
+You are in Marks fairly small back bedroom.  The room has a small looking
+single bed with a cheap looking bedside cabinet next to it.  You expect the
+window to the south will look out onto the garden. Just inside the door is a
+three shelf bookcase. You can only go north from here back to the landing.
+
+You can see a dirty handkerchief.
+The small brown terrier is wandering around.
+
+The small dog wanders out to the north.
+
+>The bookcase is one of those cheap DIY jobs.  In this case though even a cut
+price DIY shop would consider the quality too low.  Also it was obviously put
+together by someone who had never seen a bookcase before.  A coffee mug and a
+paperback book are on the bookcase.
+
+>You take the coffee mug from the bookcase.
+
+>You move north.
+Landing
+You are on Marks landing.  This area has no window so it is quite dark here,
+the light is on but doesn't seem to help.  Even in the bad light you can see
+more terrible wallpaper and a very threadbare carpet. The main bedroom is to
+the north and the back bedroom is opposite.  You can just make out the
+bathroom to the east and you can go down to the hall.
+The small brown terrier is wandering around.
+
+The small dog wanders out to below.
+
+>You move down.
+On the Stairs
+You are on Marks stairs.  You can go up the stairs to the Landing and down to
+the Hall.  The carpet looks worn and the stairs move as you stand on them.
+On the wall is a gold framed picture.
+
+You can see a pair of old trousers.
+The small brown terrier is wandering around.
+
+The small brown terrier wandering around is whimpering at you.
+
+>You move down.
+Hall
+You are in Marks small hall.  The front hall in a house is usually a warm and
+inviting place.  It is usually the first room visitors see and makes a good
+impression.  Well Mark's hall is nothing like that as it is cold, uninviting
+and dirty.  The front door is north and next to it is a small table.  You can
+see the lovely Lounge to the east and from the smell of it the kitchen is to
+the west.  Some stairs lead, well up.
+
+You can see a pair of boxer shorts.
+
+>You move west.
+The Kitchen
+You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
+starting in the Lounge is being continued here as the Kitchen is horrible as
+well.  You look around and can see a single lonely kitchen unit next to the
+cooker.  An old fridge seems to be leaning against one wall with a washing
+machine next to it.  The window over the kitchen sink is just as clear as the
+rest of the windows in this house.  A table is positioned in the centre of
+the room and on the floor near the back door is a small dog basket.  The hall
+is to the east, the door to the back garden south and what looks like a
+cupboard under the stairs is southeast.
+
+>You get the bone.
+
+>You move east.
+Hall
+You are in Marks small hall.  The front hall in a house is usually a warm and
+inviting place.  It is usually the first room visitors see and makes a good
+impression.  Well Mark's hall is nothing like that as it is cold, uninviting
+and dirty.  The front door is north and next to it is a small table.  You can
+see the lovely Lounge to the east and from the smell of it the kitchen is to
+the west.  Some stairs lead, well up.
+
+You can see a pair of boxer shorts.
+
+>You move up.
+On the Stairs
+You are on Marks stairs.  You can go up the stairs to the Landing and down to
+the Hall.  The carpet looks worn and the stairs move as you stand on them.
+On the wall is a gold framed picture.
+
+You can see a pair of old trousers.
+
+>You move up.
+Landing
+You are on Marks landing.  This area has no window so it is quite dark here,
+the light is on but doesn't seem to help.  Even in the bad light you can see
+more terrible wallpaper and a very threadbare carpet. The main bedroom is to
+the north and the back bedroom is opposite.  You can just make out the
+bathroom to the east and you can go down to the hall.
+
+>You move south.
+Back Bedroom
+You are in Marks fairly small back bedroom.  The room has a small looking
+single bed with a cheap looking bedside cabinet next to it.  You expect the
+window to the south will look out onto the garden. Just inside the door is a
+three shelf bookcase. You can only go north from here back to the landing.
+
+You can see a dirty handkerchief.
+The small brown terrier is wandering around.
+
+The small brown terrier wandering around is snarling at you.
+
+>
+You carefully (so as not to get bitten) hand the dog the bone.  The dog heads
+off towards the kitchen.
+
+>You move north.
+Landing
+You are on Marks landing.  This area has no window so it is quite dark here,
+the light is on but doesn't seem to help.  Even in the bad light you can see
+more terrible wallpaper and a very threadbare carpet. The main bedroom is to
+the north and the back bedroom is opposite.  You can just make out the
+bathroom to the east and you can go down to the hall.
+
+>You move down.
+On the Stairs
+You are on Marks stairs.  You can go up the stairs to the Landing and down to
+the Hall.  The carpet looks worn and the stairs move as you stand on them.
+On the wall is a gold framed picture.
+
+You can see a pair of old trousers.
+
+>You move down.
+Hall
+You are in Marks small hall.  The front hall in a house is usually a warm and
+inviting place.  It is usually the first room visitors see and makes a good
+impression.  Well Mark's hall is nothing like that as it is cold, uninviting
+and dirty.  The front door is north and next to it is a small table.  You can
+see the lovely Lounge to the east and from the smell of it the kitchen is to
+the west.  Some stairs lead, well up.
+
+You can see a pair of boxer shorts.
+
+>You move west.
+The Kitchen
+You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
+starting in the Lounge is being continued here as the Kitchen is horrible as
+well.  You look around and can see a single lonely kitchen unit next to the
+cooker.  An old fridge seems to be leaning against one wall with a washing
+machine next to it.  The window over the kitchen sink is just as clear as the
+rest of the windows in this house.  A table is positioned in the centre of
+the room and on the floor near the back door is a small dog basket.  The hall
+is to the east, the door to the back garden south and what looks like a
+cupboard under the stairs is southeast.
+The small brown terrier is wandering around.
+
+The small brown terrier wandering around is snarling at you.
+The dog is standing near the back door waiting to go out.
+
+>You open the back door.
+The dog goes out of the Kitchen into the garden with its bone.
+
+>You move south.
+Back Garden
+You are in Marks back garden.  The back door to the kitchen is north and to
+the west seems to be some sort of vegetable patch.  The garden is surrounded
+by a very tall garden fence.  Just to one side of the back door is an old
+black plastic rubbish bin.
+
+>You move west.
+Vegetable Patch
+You are in Marks vegetable patch, minus any vegetables.  It does look like
+someone has been digging here as the patch is full of small holes and little
+mounds.  The garden is surrounded by a very tall garden fence. A path leads
+south to the garden shed and you can see that the door to the shed is closed.
+The back garden is east.
+
+You can also see a bone.
+The small brown terrier is wandering around.
+
+The small brown terrier wandering around is whimpering at you.
+You hear a door slamming shut.
+The dog has been digging a hole for its bone and has unearthed something - a
+single slipper and  your car keys!  The dog must have buried them.
+
+>You open the shed door.
+
+The small brown terrier wandering around is snarling at you.
+
+>You throw the toy mouse which goes into the shed.  The dog chases after the
+toy into the shed.
+
+>You close the shed door.
+
+>You take you car keys!
+
+>You move east.
+Back Garden
+You are in Marks back garden.  The back door to the kitchen is north and to
+the west seems to be some sort of vegetable patch.  The garden is surrounded
+by a very tall garden fence.  Just to one side of the back door is an old
+black plastic rubbish bin.
+
+>You open the back door.
+
+>You move north.
+The Kitchen
+You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
+starting in the Lounge is being continued here as the Kitchen is horrible as
+well.  You look around and can see a single lonely kitchen unit next to the
+cooker.  An old fridge seems to be leaning against one wall with a washing
+machine next to it.  The window over the kitchen sink is just as clear as the
+rest of the windows in this house.  A table is positioned in the centre of
+the room and on the floor near the back door is a small dog basket.  The hall
+is to the east, the door to the back garden south and what looks like a
+cupboard under the stairs is southeast.
+You can hear a dog howling.
+
+>You turn on the kettle which starts to boil.
+
+>You open the packet of headache tablets. You look inside the packet for
+tablets and can see six.
+You can hear a dog howling.
+
+>You take a tablet from the packet.
+
+>You take one of the headache tablets and swallow it.
+
+>The kitchen sink is filled to the top with dirty dishes of every size and
+type.
+You can hear a dog howling.
+
+>You try to lift the dirty dishes from the sink but you can't.  As you are
+messing about with the dishes a teaspoon falls to the floor.
+
+>It is plugged into the wall and in any case it is not a good idea.
+I do not think that is a good idea.
+
+You pick up the teaspoon.  You take the tub of butter, the butter knife and
+the bottle of milk from the fridge.  You take the pizza box and the breadbin
+from the kitchen table.  You take the saucepan and the frying pan from the
+cooker.
+
+>You put a spoonful of coffee in the mug. You pour hot water into the mug.
+The mug now contains hot black coffee.
+
+>You drink the mug of coffee. You feel a little better.
+You can hear a dog howling.
+
+>You put a spoonful of coffee in the mug. You pour hot water into the mug.
+The mug now contains hot black coffee.
+
+>You drink the mug of coffee. You feel a little better.
+
+>You move east.
+Hall
+You are in Marks small hall.  The front hall in a house is usually a warm and
+inviting place.  It is usually the first room visitors see and makes a good
+impression.  Well Mark's hall is nothing like that as it is cold, uninviting
+and dirty.  The front door is north and next to it is a small table.  You can
+see the lovely Lounge to the east and from the smell of it the kitchen is to
+the west.  Some stairs lead, well up.
+
+You can see a pair of boxer shorts.
+
+>You open the front door.
+You can hear a dog howling.
+
+>You move north.
+Front Garden
+You are in Marks front garden.  It is quite obvious that Mark is not a very
+keen gardener, and has adopted a very hands off approach.  The front door to
+the house is south, to the east is the front lawn and you can see the front
+gate to the north.  Near the front door is a mat with the word 'Welcome' on
+it.  The front garden is surrounded by a very tall hedge.  Looking over the
+front gate you can see the traffic going by in Carter Street.  The front gate
+is closed.
+
+>
+You open the front gate.
+
+>
+You leave through the front gate, walk over to your car, take out the keys,
+unlock the door and climb in.
+
+You start the car and head home.
+
+A prediction of the future.
+
+You will get home in one piece,
+You will get to decorate the back bedroom,
+Your mother-in-law will come to
+stay..........................................
+
+THE END
+Congratulations!

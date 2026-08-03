@@ -1,0 +1,38 @@
+i
+read note
+s
+se
+se
+e
+ne
+ne
+x log
+get ribbon
+sw
+sw
+se
+x sapling
+break sapling
+nw
+w
+s
+sw
+w
+nw
+get flag
+n
+nw
+z
+z
+z
+z
+z
+follow ghost
+z
+follow ghost
+x ghost
+talk to ghost
+talk to ghost
+talk to ghost
+talk to ghost
+up

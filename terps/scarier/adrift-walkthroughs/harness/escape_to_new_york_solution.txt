@@ -1,0 +1,223 @@
+1
+open furniture
+get suitcase
+open door
+north
+east
+east
+look under chair
+open suitcase
+put tie pin in suitcase
+close suitcase
+east
+east
+east
+north
+open laundry basket
+get uniform
+south
+east
+talk to barber
+west
+west
+west
+down
+south
+west
+west
+down
+south
+wear uniform
+east
+down
+up
+open suitcase
+get receipt
+close suitcase
+give receipt to clerk
+exam clerk
+get coin
+open suitcase
+put coin in suitcase
+close suitcase
+down
+open cupboard
+put parcel in cupboard
+get key
+close cupboard
+up
+west
+remove uniform
+drop uniform
+north
+up
+east
+east
+north
+up
+west
+talk to barber
+open suitcase
+get note
+close suitcase
+give note to barber
+southeast
+exam stand
+exam overcoat
+northwest
+east
+up
+east
+open desk
+get bottle
+ask doctor about bottle
+give bottle to doctor
+open suitcase
+put flask in suitcase
+close suitcase
+west
+open door
+west
+exam piano
+get cap
+exam table
+get silver coffee pot
+open suitcase
+put pot in suitcase
+close suitcase
+east
+up
+west
+exam settee
+get purse
+open purse
+get ring
+drop purse
+open suitcase
+put ring in suitcase
+get wires
+close suitcase
+pick lock
+west
+exam lounger
+get brooch
+look under table
+open suitcase
+put pen in suitcase
+put brooch in suitcase
+close suitcase
+east
+east
+up
+west
+south
+exam man
+exam woman
+get pocket watch
+get necklace
+open suitcase
+put necklace in suitcase
+put watch in suitcase
+close suitcase
+north
+open door
+west
+exam table
+get overcoat
+get match
+east
+east
+wear overcoat
+wear cap
+down
+down
+down
+down
+south
+west
+west
+down
+south
+remove overcoat
+drop overcoat
+remove cap
+drop cap
+get uniform
+wear uniform
+east
+down
+open cupboard
+get parcel
+up
+west
+remove uniform
+drop uniform
+open box
+get axe
+smash gate
+north
+up
+east
+east
+north
+up
+get key
+west
+west
+south
+get pendant
+open furniture
+get cufflinks
+open suitcase
+put pendant in suitcase
+put cufflinks in suitcase
+close suitcase
+north
+east
+east
+east
+unlock door
+south
+exam desk
+open bag
+get cigar case
+open suitcase
+put case in suitcase
+close suitcase
+north
+west
+up
+give key to purser
+up
+up
+up
+up
+west
+talk to goodson
+talk to goodson
+east
+down
+down
+down
+west
+south
+look under chair
+open wallet
+get letter
+north
+east
+up
+up
+up
+west
+give letter to goodson
+open suitcase
+put ruby in suitcase
+close suitcase
+open door
+north
+open locker
+get rocket
+drop rocket
+light rocket
+north

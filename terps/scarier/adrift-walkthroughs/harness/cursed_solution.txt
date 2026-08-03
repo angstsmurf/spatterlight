@@ -1,0 +1,318 @@
+# Cursed (Nick Rogers, 2012) -- ADRIFT 4.0.
+# Verified win: 93/101, "The End" on the Battlements.
+# Run with SCR_SKIP_WAITKEY=1 (the game has many "[ Press any key ]" pauses).
+#
+# Derived from the ClubFloyd transcript of 31 Jan / 7 & 14 Feb 2013
+# (AllThingsJacq.com), which also finishes on 93/101.
+# --- Prologue: the cottage (eleven years ago) ---
+take axe
+chop wood
+take axe
+chop wood
+chop wood
+chop wood
+chop wood
+# --- Prologue: your chambers (two years ago) ---
+drink liquid
+read scroll
+read scroll
+read scroll
+take note
+open note
+read note
+# --- Prologue: the castle (two months ago) ---
+up
+s
+w
+w
+e
+e
+n
+n
+open door
+n
+1
+1
+1
+1
+stand
+x dagger
+x prince
+take dagger
+# --- Part One: Mistake in Identity ---
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+fox
+n
+n
+push pedestal
+pull curtain
+put curtain in fire
+hide behind curtain
+z
+out
+n
+score
+e
+roll barrel
+pull rope
+w
+z
+z
+z
+z
+z
+z
+hide under cart
+follow cart
+z
+n
+score
+# --- Part One: the city of Ryla ---
+nw
+n
+open latch
+nw
+drag rake se
+drag rake se
+drag rake se
+drag rake se
+drag rake se
+nw
+rip open sack
+rip open sack
+rip open sack
+rip open sack
+rip open sack
+rip open sack
+se
+open gate
+score
+nw
+w
+dig under scaffolding
+z
+z
+e
+e
+n
+score
+# --- Interlude: Conversations with the King ---
+topics
+yes
+yes
+yes
+yes
+yes
+yes
+no
+no
+no
+no
+no
+no
+no
+no
+no
+no
+no
+no
+z
+z
+# --- Part Two: Lost in Transformation ---
+think
+feel
+feel feet
+feel ground
+feel grass
+smell
+listen
+l
+score
+n
+n
+swim
+e
+e
+creep over stones
+shake
+wag tail
+nw
+score
+# --- Part Two: Tallum village, the barn ---
+n
+e
+s
+chew rope
+n
+dig under door
+in
+chew bale
+pull rope
+pull plank to hay
+pull pick to plank
+score
+out
+bark
+bark
+w
+bark
+bark
+se
+open gate
+n
+in
+up
+z
+bark
+push barrel
+score
+# --- Part Two: the mill ---
+z
+d
+out
+n
+w
+push wheelbarrow
+sw
+bark
+ne
+x stream
+open gate
+in
+pull lever
+climb wheel
+jump on tray
+jump on tray
+jump on tray
+bark
+chew rope
+# --- Part Two: the mountain ---
+out
+sw
+n
+n
+w
+w
+w
+w
+x rocks
+x bushes
+listen
+search bushes
+smell
+x ground
+search rocks
+n
+lie down
+ask limos about curse
+ask limos about rixomas
+ask limos about rithusar
+ask limos about himself
+ask limos about rithusar's father
+ask limos about prince alsanter
+ask limos about vetan
+ask limos about lord sulanar
+ask limos about princess tevona
+ask limos about ralyon warriors
+ask limos about potion
+drink potion
+think invisible
+think visible
+search garbage
+x floor
+open trapdoor
+down
+e
+drop all
+s
+x desk
+read papers
+take papers
+take seal
+x window
+# --- Part Three: into the castle ---
+e
+w
+x rubbish
+x material
+dig material
+drag sack east
+drag sack east
+push spade
+push spade onto sack
+drag sack w
+pry door with spade
+n
+w
+push broom
+blow spices into fireplace
+invisible
+w
+# --- Part Three: recruiting Lord Vonisor ---
+w
+u
+s
+w
+w
+w
+w
+w
+open door
+e
+e
+e
+e
+e
+n
+n
+open door
+n
+smell
+x cup
+x stain
+out
+w
+w
+open door
+in
+smell
+x buttress
+x indentation
+push indentation
+# --- Part Three: the confrontation in Princess Tevona's rooms ---
+wink at vonisor
+z
+z
+z
+listen
+invisible
+attack vetan
+z
+s
+e
+e
+s
+s
+# --- Epilogue: the Battlements ---
+up
+himself
+tholin
+god
+journey
+tevona
+curse
+rixomas
+limos
+vetan
+z
+z
+hug torrin

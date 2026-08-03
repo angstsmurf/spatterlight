@@ -1,0 +1,491 @@
+Loading game...
+
+Beanstalk the and Jack
+by David Welbourn for The Comp With No Name
+Version 1.0 (Competition release, 31-May-2008)
+E-mail comments to davidwelbourn@hotmail.com.
+Thanks to Cowboy for running this comp, to inky for giving me the idea, and
+to Taleslinger for testing and comments.
+
+* * *
+You're dreaming. Everything seems fuzzy, cloudy, distorted. You're carrying
+the axe from the woodpile and a golden harp you've never seen before.  Why
+are you carrying these things? It all seems so unreal.
+
+"But it could be real, Jack," says a sweet voice. "A glorious future awaits
+you, if only you can figure out the steps you took to get here..."
+
+Outside your home
+You're outside the cottage you've lived in with your mother your entire life.
+There's a woodpile outside the door to the west and a small garden. The long
+road to the village market starts off to the east.
+
+A huge green stump is in the garden.
+Your mother is here.
+
+>Quickly, you chopped down the beanstalk as fast as you could. Chop chop, and
+the beanstalk was cut in two and began to topple over. And then it fell! Your
+mother screamed!
+
+Down came the Ogre with a terrible thud, hitting the east road, where he died
+instantly, breaking his neck, the beanstalk crashing after him. You breathed
+a sigh of relief.
+
+>You grab the axe from woodpile. Quick! The ogre is climbing down the
+beanstalk fast!
+
+>You climbed down from the beanstalk.
+On the beanstalk
+You're climbing a very tall beanstalk that goes up as high as you can see. It
+passes just past your window to the west, and the base of plant is in the
+garden below.
+
+Oh no! The ogre's climbing down after you! The entire beanstalk is shaking
+with his vast weight!
+
+>You climbed down and climbed down and climbed down and climbed down until you
+were just outside your window.
+Top of the beanstalk
+Somehow, you're arrived at a heavily forested area in a far far away country.
+The top of the beanstalk pokes through a large hole in the ground here. More
+importantly, a tall castle with a huge door stands to the north.
+
+As you stole out of the castle, your heart skipped a beat when the harp
+suddenly called out "MASTER! MASTER!" From the castle, you heard the last
+thing you wanted to hear:
+
+"MY HARP! MY HARP! THIEF! THIEF!", roared the ogre.
+
+>You went south.
+Inside the castle
+Despite the hugeness of the castle, it looks cold and unfriendly to your
+eyes. There seems to be few furnishings or luxuries of any kind, excepting a
+huge stone chair and a black oven so large you could enter it without
+difficulty. The exit is to this cheerless place is to the south.
+A giant ogre is sleeping in his huge stone chair.
+
+>You take the golden harp. If you can get this home, you'll be set for life.
+The person who owns a magic harp will be welcome anywhere.
+
+>You went out.
+Inside the oven
+It's dark and scary inside the oven, and it smells of ashes and old meat. But
+at least there's plenty of room for you to sit in here, and as long as you
+stay quiet, perhaps the ogre won't find you here. The oven door is open a
+crack, letting you hear what's happening out there.
+
+>You wait and listen. Soon enough, you hear the thump! thump! thump! of the
+giant ogre’s footsteps as he enters.
+
+"Fee-fi-fo-fum,
+I smell the blood of an Englishman,
+Be he alive, or be he dead,
+I’ll have his bones to grind my bread."
+
+And the woman said: "Nonsense, my husband. It is only a whole roasted bull
+that I thought you might enjoy. Sit down and eat." She then served him a huge
+platter of steaming meat which he soon devoured like it was nothing.
+
+Then he said: "Wife, bring me my golden harp." So she brought it, and the
+ogre said: "Play," and it sang such a beautiful lullaby that you almost fell
+asleep yourself. The next thing you hear is the ogre snoring.
+
+>You went in.
+Inside the castle
+Despite the hugeness of the castle, it looks cold and unfriendly to your
+eyes. There seems to be few furnishings or luxuries of any kind, excepting a
+huge stone chair and a black oven so large you could enter it without
+difficulty. The exit is to this cheerless place is to the south.
+
+>You went into the castle, where the giantess serves you some breakfast.
+Top of the beanstalk
+Somehow, you're arrived at a heavily forested area in a far far away country.
+The top of the beanstalk pokes through a large hole in the ground here. More
+importantly, a tall castle with a huge door stands to the north.
+A giantess is standing in the doorway.
+
+>You knock on the door. Moments later, you hear heavy footsteps approaching.
+The door opens and you're face-to-face with a giantess. "Yes, child? What do
+you want?" the woman asks.
+
+Your stomach grumbles. "Good morning, ma'am," you say politely. "Could you be
+so kind as to give me some breakfast?"
+
+"What, another hungry boy at my door? Don't you know that this is the castle
+of the giant ogre? He'll eat you, my boy! And such a temper he has since our
+best hen was stolen!"
+
+You sympathize with the giantess, letting her tell you all her troubles, and
+you are so charming, and look so innocent, she never connects you with the
+previous robberies and is only too eager to let you in and give you a meal.
+
+>You climbed up and climbed up and climbed up and climbed up ...
+On the beanstalk
+You're climbing a very tall beanstalk that goes up as high as you can see. It
+passes just past your window to the west, and the base of plant is in the
+garden below.
+
+>You climbed up the beanstalk a few feet.
+
+As you reverse-climb off the beanstalk, the world fades and reforms. It looks
+like it's two years earlier. Mother and I have changed. And what am I
+carrying now?
+Outside your home
+You're outside the cottage you've lived in with your mother your entire life.
+There's a woodpile outside the door to the west and a small garden. The long
+road to the village market starts off to the east.
+
+A tall beanstalk dominates the garden.
+Your mother is here.
+
+>You are carrying a brown hen.
+
+>You climbed down from the beanstalk.
+On the beanstalk
+You're climbing a very tall beanstalk that goes up as high as you can see. It
+passes just past your window to the west, and the base of plant is in the
+garden below.
+
+>You climbed down and climbed down and climbed down and climbed down until you
+were just outside your window.
+Top of the beanstalk
+Somehow, you're arrived at a heavily forested area in a far far away country.
+The top of the beanstalk pokes through a large hole in the ground here. More
+importantly, a tall castle with a huge door stands to the north.
+
+>You went south.
+Inside the castle
+Despite the hugeness of the castle, it looks cold and unfriendly to your
+eyes. There seems to be few furnishings or luxuries of any kind, excepting a
+huge stone chair and a black oven so large you could enter it without
+difficulty. The exit is to this cheerless place is to the south.
+A giant ogre is sleeping in his huge stone chair.
+
+>You take the brown hen. If you can get back home with it, you and your mother
+will no longer need to work.
+
+>You went out.
+Inside the oven
+It's dark and scary inside the oven, and it smells of ashes and old meat. But
+at least there's plenty of room for you to sit in here, and as long as you
+stay quiet, perhaps the ogre won't find you here. The oven door is open a
+crack, letting you hear what's happening out there.
+
+>You wait and listen. Soon enough, you hear the thump! thump! thump! of the
+giant ogre’s footsteps as he enters.
+
+"Fee-fi-fo-fum,
+I smell the blood of an Englishman,
+Be he alive, or be he dead,
+I’ll have his bones to grind my bread."
+
+And the woman said: "Nonsense, my husband. It is only a nice fresh pair of
+wolves, that I have cooked for you, which you smell. There, sit down and
+eat." You then hear the ogre eating and crunching his meal, smacking his huge
+lips with pleasure.
+
+Then he said: "Wife, bring me the hen that lays the golden eggs." So she
+brought it, and the ogre said: "Lay," and it laid an egg all of gold. The
+next thing you hear is the ogre snoring.
+
+>You went in.
+Inside the castle
+Despite the hugeness of the castle, it looks cold and unfriendly to your
+eyes. There seems to be few furnishings or luxuries of any kind, excepting a
+huge stone chair and a black oven so large you could enter it without
+difficulty. The exit is to this cheerless place is to the south.
+
+>You went into the castle, where the giantess serves you some breakfast.
+Top of the beanstalk
+Somehow, you're arrived at a heavily forested area in a far far away country.
+The top of the beanstalk pokes through a large hole in the ground here. More
+importantly, a tall castle with a huge door stands to the north.
+A giantess is standing in the doorway.
+
+>You knock on the door. Moments later, you hear heavy footsteps approaching.
+The door opens and you're face-to-face with a giantess. "Yes, child? What do
+you want?" the woman asks.
+
+Your stomach grumbles. "Good morning, ma'am," you say politely. "Could you be
+so kind as to give me some breakfast?"
+
+"Oh, go away, boy, or my husband, the ogre, will eat you for breakfast. You
+know, you look like another lad that came here and that same day we lost a
+bag of gold. Was that you?"
+
+"Oh, no, ma'am. But I might know something about that if I had something to
+eat. I can't think when I'm so hungry."
+
+And the giantess was so intrigued, she invited you inside.
+
+>You climbed up and climbed up and climbed up and climbed up ...
+On the beanstalk
+You're climbing a very tall beanstalk that goes up as high as you can see. It
+passes just past your window to the west, and the base of plant is in the
+garden below.
+
+>You climbed up the beanstalk a few feet.
+
+As you reverse-climb off the beanstalk, the world fades and reforms. It looks
+like it's two years earlier. Mother and I have changed. And what am I
+carrying now?
+Outside your home
+You're outside the cottage you've lived in with your mother your entire life.
+There's a woodpile outside the door to the west and a small garden. The long
+road to the village market starts off to the east.
+
+A tall beanstalk dominates the garden.
+Your mother is here.
+
+>You are carrying a bag of gold.
+
+>You climbed down from the beanstalk.
+On the beanstalk
+You're climbing a very tall beanstalk that goes up as high as you can see. It
+passes just past your window to the west, and the base of plant is in the
+garden below.
+
+>You climbed down and climbed down and climbed down and climbed down until you
+were just outside your window.
+Top of the beanstalk
+Somehow, you're arrived at a heavily forested area in a far far away country.
+The top of the beanstalk pokes through a large hole in the ground here. More
+importantly, a tall castle with a huge door stands to the north.
+
+>You went south.
+Inside the castle
+Despite the hugeness of the castle, it looks cold and unfriendly to your
+eyes. There seems to be few furnishings or luxuries of any kind, excepting a
+huge stone chair and a black oven so large you could enter it without
+difficulty. The exit is to this cheerless place is to the south.
+A giant ogre is sleeping in his huge stone chair.
+
+>You take the bag of gold. If you can sneak out with it, you and your mother
+will no longer be starving.
+
+>You went out.
+Inside the oven
+It's dark and scary inside the oven, and it smells of ashes and old meat. But
+at least there's plenty of room for you to sit in here, and as long as you
+stay quiet, perhaps the ogre won't find you here. The oven door is open a
+crack, letting you hear what's happening out there.
+
+>You wait and listen. Soon enough, you hear the thump! thump! thump! of the
+giant ogre’s footsteps as he enters.
+
+"Fee-fi-fo-fum,
+I smell the blood of an Englishman,
+Be he alive, or be he dead,
+I’ll have his bones to grind my bread."
+
+And the woman said: "Nonsense, my husband. It is only a sheep you smell. Let
+me cook it for you." But he declared he was too hungry to wait, and so she
+was obliged to serve the poor lamb raw and bloody, which he consumed in
+indecent haste.
+
+Then he said: "Wife, bring me a bag of coins." So she went and unlocked a
+huge chest and brought him a bag, and the ogre began to count the coins:
+"One. Two. Three..." The next thing you hear is the ogre snoring.
+
+>You went in.
+Inside the castle
+Despite the hugeness of the castle, it looks cold and unfriendly to your
+eyes. There seems to be few furnishings or luxuries of any kind, excepting a
+huge stone chair and a black oven so large you could enter it without
+difficulty. The exit is to this cheerless place is to the south.
+
+>You went into the castle, where the giantess serves you some breakfast.
+Top of the beanstalk
+Somehow, you're arrived at a heavily forested area in a far far away country.
+The top of the beanstalk pokes through a large hole in the ground here. More
+importantly, a tall castle with a huge door stands to the north.
+A giantess is standing in the doorway.
+
+>You knock on the door. Moments later, you hear heavy footsteps approaching.
+The door opens and you're face-to-face with a giantess. "Yes, child? What do
+you want?" the woman asks.
+
+Your stomach grumbles. "Good morning, ma'am," you say politely. "Could you be
+so kind as to give me some breakfast?"
+
+"It’s breakfast you want, is it?" says the great big tall woman. "You'll be
+breakfast if my husband finds you here. He's an ogre and there’s nothing he
+likes better than boys broiled on toast."
+
+"Oh! But please, ma'am, I’ve had nothing to eat since yesterday morning,
+honest!" you say. "If I don't eat soon, I might die anyway!"
+
+"Oh, very well. Come in and be quick about it."
+
+>You climbed up and climbed up and climbed up and climbed up ...
+On the beanstalk
+You're climbing a very tall beanstalk that goes up as high as you can see. It
+passes just past your window to the west, and the base of plant is in the
+garden below.
+
+>You climbed up the beanstalk a few feet.
+
+Somewhere, a rooster crows.
+
+"You've done very well, Jack," says the mysterious voice, "but now it's the
+break of day. You should get some rest," the voice says hintingly.
+Outside your home
+You're outside the cottage you've lived in with your mother your entire life.
+There's a woodpile outside the door to the west and a small garden. The long
+road to the village market starts off to the east.
+
+A tall beanstalk dominates the garden.
+Your mother is here.
+
+>You went east.
+Cottage interior
+Your humble home is more humble than most. The food pot hanging over the
+fireplace is easily its most interesting feature. The front door is east, and
+on the north wall, there's a ladder up to your room in the attic.
+
+>You went down.
+Your bedroom
+The attic of your mother's cottage serves as your small bedroom. Your bed and
+things are tucked under the south side of the sloping roof, and the ladder
+down is under the north side. It's not much to brag about. At least you can
+stand under the peak of the roof without banging your head. And a window in
+the east wall lets in some light.
+
+>The next morning, you wake up hungry. You don't know what you'll do for food
+now. Perhaps some kind villager will give you your breakfast. And you look
+up... and that's when you see it. Outside the window is a giant beanstalk!
+
+* * *
+
+Ashamed of your foolishness, you followed your mother's orders and went to
+bed.
+
+>You went up.
+Cottage interior
+Your humble home is more humble than most. The food pot hanging over the
+fireplace is easily its most interesting feature. The front door is east, and
+on the north wall, there's a ladder up to your room in the attic.
+
+>You went west.
+Outside your home
+You're outside the cottage you've lived in with your mother your entire life.
+There's a woodpile outside the door to the west and a small garden. The long
+road to the village market starts off to the east.
+
+The magic beans lie scattered in the garden where your mother threw them.
+Your mother is here.
+
+>"I sold Milky, Mother. And I got a really good price for her too," you say.
+
+"Already? How ever did you get to the market and back so quick? Oh, never
+mind. How much did you get, my darling Jack? Five rounds? Ten? Oh, it
+couldn't be twenty, could it?"
+
+"Even better! I got some magic beans!" you say, displaying them proudly.
+
+"WHAT!?" your mother shrieks. "We need money, Jack! We need money so we won't
+starve! Do you think money just comes down out of the sky?"
+
+"But they're magic--"
+
+"MAGIC? You've been tricked into giving away our only cow for-- for--" She
+seems at a loss for words. Then: "Give me those!" and she grabs the beans out
+of your hand and throws them into the garden.
+
+She turns away from you. "You foolish, foolish boy. Be off with you. Go to
+bed. There'll be no supper tonight. I have none to give you." And then she
+starts crying, and says no more.
+
+>You went west.
+On the road
+The road to the market is a long one. The market lies further east, and your
+home is back west.
+A stranger with a familiar-looking cow is standing by the road.
+
+>"Well, Mother said to get a good price for Milky, and magic beans sound like
+a good price to me. Why, we've never ever owned anything magical before. I
+can hardly wait to show them to her! Won't she be surprised?"
+
+"I dare say she will be very surprised. So... we have a deal?" asked the
+stranger.
+
+"Oh, yes!" you say, handing over Milky. She moos, reproachfully.
+
+"And here are your magic beans, good sir," he says, giving them to you. "May
+they bring you wealth, health, and happiness." He then tips his hat to you in
+parting, and leads Milky away.
+
+>The stranger is a strange little man with a large nose and a friendly smile.
+He's dressed all in brown, even to his hat.  Stranger is carrying some magic
+beans.
+
+"Hello, young man," says the stranger. "That's a fine looking cow you have
+there. I wish I had a cow like that. I don't suppose you'd be willing to sell
+her?"
+
+"Why, I am just taking her to market to do that very thing. Sell her, I
+mean."
+
+"Oh, you needn't go all that way. Sell her to me."
+
+"Perhaps I will. How many rounds will you pay me?" you ask.
+
+"Oh, not money, young man. No, no, no. I can offer you something much much
+better than that. I can offer you magic, boy. What would you say about some
+magic beans? Beans that were enchanted when the Earth was young! Look at
+them, my lad!" he says, holding them in front of your eyes. "Are they not
+fine? Have you ever seen any beans so wondrous? Are they not worth the price
+of a cow? Sell your cow to me. Sell her! And these fabulous beans shall be
+yours!"
+
+>You went east.
+Outside your home
+You're outside the cottage you've lived in with your mother your entire life.
+There's a woodpile outside the door to the west and a small garden. The long
+road to the village market starts off to the east.
+Your mother is here.
+
+>Later, outside the cottage, your mother and Milky are waiting for you. You
+take Milky by her lead. "Make sure you get a good price for her, Jack," your
+mother says.
+
+* * *
+"Jack! Jack! Are you going to sleep the entire day away?" You wake to see
+your mother shaking you awake. "Get downstairs right away. I need you to take
+our old cow to market."
+
+"Oh, mother, no! Not Milky!"
+
+"It can't be helped. The crops were bad this year, and we'll have to eat
+those ourselves. We've got nothing better to sell but old Milky, if we want
+to buy the things we need. Oil. Salt. And you'll be needing new boots soon.
+It's sad to lose her, but it's got to be done. I'll see you downstairs."
+Your bedroom
+The attic of your mother's cottage serves as your small bedroom. Your bed and
+things are tucked under the south side of the sloping roof, and the ladder
+down is under the north side. It's not much to brag about. At least you can
+stand under the peak of the roof without banging your head. And a window in
+the east wall lets in some light.
+
+>You go to sleep and dream... and everything goes foggy...
+
+"Congratulations, Jack! I knew you could do it!" says the sweet voice. You
+turn and finally see its owner, a beautiful woman in a shimmering sapphire
+gown. "Yes, I am your fairy godmother, Jack. I know how unhappy you and your
+mother are being poor, but as you can see, you can change things for the
+better. I couldn't just tell you directly, nor give you riches from nowhere.
+There are rules about these things. That's the way magic is."
+
+"I'm not sure I understand everything, though. Why did --", you say.
+
+"Sorry, Jack, but it's time for you to wake up now. Just remember what you
+did and you'll do fine! And we'll meet again. I promise."
+
+* * *
+"Jack! Jack! Are you going to sleep the entire day away?" You wake to see
+your mother shaking you awake. "Get downstairs right away. I need you to take
+our old cow to market."
+
+*** You have won ***
+
+Thank you for playing "Beanstalk the and Jack".

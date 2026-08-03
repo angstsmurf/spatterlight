@@ -1,0 +1,22 @@
+x road
+take rock
+e
+x wood
+take wood
+w
+w
+x bedding
+take rope
+e
+tie rope to wood
+i
+ne
+climb tree
+climb oak tree
+up
+tire swing to tree
+tie swing to tree
+d
+l
+throw rock at hive
+swing on swing

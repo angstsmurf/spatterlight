@@ -1,0 +1,1096 @@
+Loading game...
+
+Vague
+
+Vague
+
+by Richard Otter
+
+Version 1.00
+
+1. Play the game
+
+2. Read the introduction
+
+3. Useful information
+
+4. Credits
+
+>
+
+Nothingness, then you are here.
+
+With amnesia it is quite possible to have a complete or partial loss of
+memory, but this isn't like that.  It is not that you can't remember who you
+are or anything about your life, you have no thoughts what-so-ever. Your mind
+is totally blank, as if it has been completely wiped clean. You have no
+personality, no memories, no feelings; nothing.  It is almost as if you do
+not actually exist and are just an empty shell.
+
+You are also not wearing any clothes, but far from being worried by your own
+nakedness you have no thoughts about it at all.  It is just part of the
+nothingness.
+
+How did you arrive? You do not know.  Where did you travel from? You do not
+know. What do you need to achieve? You have no idea, no idea at all.
+
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
+
+A small black and white cat strolls in from the east.
+
+>You can see a wire rubbish (trash) basket with some of the wires are sticking
+out.  An old magazine and a pencil are inside the rubbish bin.
+
+>You take the old magazine from the rubbish bin.
+
+A small black and white cat strolls out to the east.
+
+You hear a voice coming from somewhere behind you, "Are you still wasting
+your time? Your dinner is nearly ready!"
+
+A different voice replies, "Okay, okay, I'll see how I get on".
+
+>You start weakly with, "Hello, I need some help".
+
+Without looking directly at you the porter replies, "Well, I've got all the
+time in the world to spend chatting to you".
+
+You try again with, "I, I do not know anything about myself".
+
+The porter looks at you, "Nothing to know, doesn't look like you are anyone
+to me".
+
+"But," you continue with, "I have no idea who I am or what I should to do".
+
+Muttering something under his breath like, "Not another one!" he turns
+towards you and states, "Identify the game that this location comes from".
+The drunk makes a whimpering sound.
+
+>Looking around you answer with "The location? It is a railway station".
+
+The porter mutters something which you do not catch this time. Waiting a few
+seconds he continues with, "The reason you know nothing is because you are
+nothing". It must be obvious to him that you do not understand so he adds,
+"You are just a player character, your life just a game. So, what game is
+this?".
+
+Half to yourself, "My life is just a game?".
+
+Now looking away down the platform the porter says half heartedly, "Yep, just
+a game. Still, you should try being a non-player character".
+
+"But," you continue with, "I have no idea who I am or what I should to do".
+
+He turns towards you and states, "Identify the game this location comes from
+and then find it written on something".
+
+The whole station shakes as a freight train rumbles through.  The shaking
+feels like it is never going to stop.
+The trainspotter writes in his book.
+The trainspotter looks from one side of the station to the other.
+
+>The Trainspotter says "Hello my name is Norman. I have had a busy day filling
+in my book".
+
+You pretend to show some interest but he moves the book away, as if trying to
+hide it.  For some reason you are aware that it has no relevance.
+
+>You open the set of double doors with glass panels.
+
+>You move south, pushing through thick fog.
+Cabin E86, E Deck
+The two-berth second class cabin is a large, bright, airy place of which you
+are the only occupant. The feeling of space is probably due to the light
+coloured furniture and floor tiles. The sofa-bed looks to be extremely
+comfortable and standing next to it is some sort of cabinet. With ducted warm
+air heating it is a lovely warm place. The cabin door to the north leads to a
+corridor and a porthole is to the south.
+
+Puzzled and confused you look around in disbelief, you are no longer at the
+railway station.
+
+A quick glance around confirms that you are in the cabin of a boat or ship.
+A cabin door is behind you and closed, which is odd as you definitely did not
+close it moments ago.
+
+>You open the cabinet.  Inside the cabinet is a wallet, a luggage slip, a
+fountain pen and a brooch.
+
+>You take the wallet from the cabinet.
+
+>It is basically a sofa that can be converted into a bed.  Somehow you know
+that it is very comfortable, although you are not sure why.  A coat is on the
+sofa-bed.
+
+>You take the coat from the sofa-bed.
+
+>You open the cabin door.
+
+>Opening the cabin door, you move north.
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
+
+You hear a door close.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes in his book.
+
+>You cover the drunk with the coat, he drops a booklet onto the platform.
+
+>
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+
+You can also see a booklet.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
+
+>You pick up the booklet.
+
+>You move west, pushing through thick fog.
+The Jetty
+The lighthouse jetty is made of stone with a metal handrail running around
+it.  You notice immediately that the handrail is damaged.  Down a wooden
+ladder you can see your boat and to the east is a path leading to the
+lighthouse.  In the water just below the jetty, you can see an object
+floating. It appears to be a woollen hat.
+
+Puzzled and confused you look around in disbelief, you are no longer at the
+railway station.
+
+You turn and stare in the direction you just came from, only seconds ago.
+All you can just see is a path leading to what looks like a lighthouse.
+
+>The handrail around the jetty is broken; it looks like some bad weather has
+damaged it. Sticking into the handrail is a knife.
+
+>You pull the knife out of the handrail.
+
+As you hold the knife it triggers a memory. You can see yourself on the roof
+of the futuristic Bakewell Insurance Building and you appear to be stabbing
+the knife into someone.
+
+So are you a murderer?
+
+>You climb down the ladder, into the boat.
+Row Boat
+The small row boat is a type known as a dory and is about 4.5m long and 1.2m
+wide. The narrow bottom and wide flaring sides makes for easy rowing. They
+are used the world over in all weather conditions, although you hope to be
+home long before you put that to the test. In the bottom of the boat is an
+odd looking shape. You can see a wooden ladder which leads up to the jetty.
+The boat is currently tied to the ladder.
+A ghostly figure is floating in the bottom of the boat.
+
+>In almost a whisper, "All is quiet, all is in darkness. Identify the location
+and so the game. Give to me in written form".
+
+>It is a type known as a Dory and is about 4.5m long and 1.2m wide.  Her
+narrow bottom makes for rowing easy, while the wide flaring sides make the
+boat dry.  Fishermen the world over have used dories in all weather
+conditions, although you hope to be home long before you put that to the
+test.
+
+In the bottom of the boat you find your old rucksack.
+
+>You pick up the rucksack.
+
+>You open the rucksack.  A leaflet is inside the rucksack.
+
+>You take the leaflet from the rucksack.
+
+>You drop the rucksack.
+
+>You hand the booklet to the ghostly figure who, after studying it, replies,
+"Correct, this location is from Darkness".
+
+>Climbing the ladder, onto the jetty.
+The Jetty
+The lighthouse jetty is made of stone with a metal handrail running around
+it.  You notice immediately that the handrail is damaged.  Down a wooden
+ladder you can see your boat and to the east is a path leading to the
+lighthouse.  In the water just below the jetty, you can see an object
+floating. It appears to be a woollen hat.
+
+>You move east.
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes in his book.
+
+>You move east, pushing through thick fog.
+The Flying Horse
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
+ Emma Taylor is standing behind the bar.
+
+A small black and white cat strolls in from the east.
+
+Looking at your manhood and smiling Emma remarks, "Hello love, you will catch
+a cold dressed like that!".
+
+Puzzled and confused you look around in disbelief, you are in a public house.
+ Looking briefly out of the pub windows you can see ordinary looking streets.
+
+>The narrow bar (the pub's counter) is surprisingly clean and tidy.  Some
+paper and an ashtray are on the narrow bar.
+
+Looking at your manhood and smiling Emma remarks, "Still not worried about
+catching a cold then!".
+
+>You take the paper from the narrow bar.
+
+A small black and white cat strolls out to the south.
+Colin and Fred are staring at each other.
+
+>Emma pours you a pint and smiling says, "That will be a pound, love". You
+hand over a pound and she passes you the beer.
+
+>You hand the pint over to Fred who is smiling from ear to ear. Colin is
+standing just to your right trying to look thirsty. Fred puts the pad down on
+the bar and drinks the beer in a couple of goes.  Whilst he is busy you pick
+up the pad he has been carrying.
+
+A small black and white cat strolls in from the south.
+Colin and Fred are arguing about some football match.
+
+>You move east, pushing through thick fog.
+Cage
+The centre of this circular chamber is a cage, sunk into the floor, in which
+the remains of some beast lie decomposing. Claw marks on the bars of the cage
+indicate the beast fought ferociously to escape its imprisonment, yet failed.
+And died.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east you can make out a statue.
+
+>The remains must be of the great Tarc beast which was kept in the cage here.
+Little is now left of the creature, but you can see a rib hidden in the
+remains. The beast looks like it has been dead for years, although it was
+alive yesterday. Although, you have no idea what happen yesterday.
+
+Although the beast is quite obviously dead, it appears to be watching you.
+In fact you are pretty sure it is alive.
+
+A small black and white cat strolls in from the west.
+
+>Bizarrely the remains stir into life and even start to talk, "I am the Tarc".
+It pauses for a moment as if gaining strength, "And my kind has always lived
+here. The Great David rid my kind from the land long ago and one of us has
+been kept here, in the temple, ever since. Yesterday I was alive, now I am
+dead".
+
+The beast looks like it has been dead for years, even though it claims to
+have been a living snarling beast yesterday.
+
+>You pull the rib from the remains of the beast. As you pull the rib out the
+remains make a groaning noise.
+
+A small black and white cat strolls out to the west.
+
+>You move east.
+Ruined Statue
+Above you towers a broken statue, ravaged by the passage of time. A crown of
+stone rests upon its brow, a glittering jewel its centrepiece. About you lurk
+malevolent shadows, seeming to move with a life of their own, though these
+are glimpses seen from the corner of your eye that vanish the moment you look
+closely at them.
+
+Passages in the ruined walls of this place lie to the east and west.
+
+You can also see a pair of overalls.
+
+>Using the rib, you prise the jewel from its resting place.  Now you have the
+jewel it appears to be no more than a pebble.
+
+>You move east.
+Storeroom
+The long, low room smells of oil and something else which you can't quite
+place.  Nearly all the available space is filled with pipes, cables and
+junction boxes.  Pushed against one wall is a large wooden crate. To the west
+are some stairs.
+
+You can also see a brick.
+A worried looking lab assistant is trying to hide.
+
+>Looking around he says, "I think I'm infected with the Pestilence. I need the
+cure!".
+
+>You hand the pad to the lab assistant who, after studying it, replies,
+"Correct, this location is from 'Pestilence'".
+
+>You open the large wooden crate.  A pamphlet and an axe are inside the large
+wooden crate.
+
+>You take the axe.
+
+As you hold the axe suddenly all comes back to you. It is two months ago and
+you are late home from work. You remember opening your front door and walking
+in, calling 'Jane' as you always did. Closing the door, you take a few steps
+into the house and there before you is her crumpled body lying on the floor.
+For a few moments you feel dizzy but slowly it passes.
+
+Was that real?
+
+>You move west.
+Ruined Statue
+Above you towers a broken statue, ravaged by the passage of time. A crown of
+stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
+malevolent shadows, seeming to move with a life of their own, though these
+are glimpses seen from the corner of your eye that vanish the moment you look
+closely at them.
+
+Passages in the ruined walls of this place lie to the east and west.
+
+You can also see a pair of overalls.
+
+>You move west.
+Cage
+The centre of this circular chamber is a cage, sunk into the floor, in which
+the remains of the Tarc appears to be watching you. Claw marks on the bars of
+the cage indicate the beast fought ferociously to escape its imprisonment,
+yet failed. And died.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east you can make out a statue.
+
+>You move west.
+The Flying Horse
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+A cat is silently wandering around.  Colin Turner is standing at the bar.
+Fred Sutton is staring vacantly around.  Emma Taylor is standing behind the
+bar.
+
+A small black and white cat strolls out to the east.
+
+>You move south.
+The Yard
+The yard is just behind the pub and is probably used for storage. About 10m
+square it has a high wall all the way around and the floor is concrete. The
+exits are through a metal gate to the south and back into the pub north.
+
+You can also see a photograph.
+Jed Peters is watching you carefully.
+
+As you stand in the yard you realise how quiet a place it is, which must be
+something to do with the high walls surrounding it. Quietly to yourself, "If
+I killed someone here they would be sure to hear it all in the pub". You have
+no idea why that idea came into your head. Could it be a memory?
+
+Jed Peters looks over at you and with a wide grin says, "You'll get yourself
+arrested wandering around like that!". He mutters something which sounds
+like, "Just what we need, another drunken idiot."
+
+>You open the metal gate.
+
+>You move south.
+The Lounge
+You are in a lovely lounge, well no it's actually horrible.  The weak morning
+light is struggling to get through the dirty windows. A pair of limp unhappy
+looking curtains sit either side of the window.   In the middle of the room
+stands a lopsided coffee table.  The room has the usual things a bachelor's
+place has namely an uncomfortable settee, a battered old armchair, narrow
+screen television and what looks like a dvd player. To the east you can see
+what looks like the hall and from the smell of it the kitchen is west.
+John is currently slumped in the armchair.
+
+John looks up, "Boy, that was a heavy night". He yawns very noisily and
+noticing you, "Lost your clothes then?". He does not wait for an answer.
+
+>Stuffed down the side of the settee you find a handbill.
+
+>You move east.
+The Throat
+You are in a smooth, slippery tube with a shiny pink lining.  From here the
+mouth is west and the stomach east. On both sides of the throat are ball-like
+clumbs of tissue.
+Millions of your relatives are here.
+
+>They are now Infected!
+
+You can hear the germs cheering.
+
+>You hand the leaflet to the germs who, after studying it, reply, "Correct,
+this location is from "We are coming to get you!".
+
+Your relatives suddenly head east.
+
+>You move east.
+Domicile of Epsilon-Beta
+The dull metal room, which is exactly 2m square and 2.5m in height, is
+appropriate to your level of achievement. Attached to the wall behind you is
+the all important recharger with the teleporter on the floor opposite. To
+your left is the communicator with your own personal storage shelf above it.
+With the lighting fixed on the lowest setting the place is in murkiness, just
+how you prefer it.
+
+>The metal shelf is for personal items appropriate to the level of
+achievement.  A square id badge and a document are on the shelf.
+
+>You take the square id badge from the shelf.
+
+You are Epsilon-Beta, a Delta-Tyr Series 5.  Your function is that of a
+senior examiner at the Centre of Examination for the city Upsilon in what is
+basically a totalitarian state. On a world where nearly all forms of crime
+are punishable by termination, the function of examiner is normally little
+more than that of an executioner. Created a series 4 you now have an
+achievement of series 5. Part way through a scheduled down cycle, a message
+arrives on your communicator.  This message requires you to attend the Centre
+of Examination immediately.
+
+So you are Epsilon-Beta, some sort of policeman? But what is a Delta-Tyr
+Series 5?
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is 10m across and nearly 5m in height. With the
+standard hidden lighting set to a low level, most of the room is in gloom. A
+security monitor is on one side of the room, to your right the interrogator
+and virtually opposite is the teleporter.
+Zeta-Theta is standing against the wall.
+
+>You begin with, "Hail Zeta-Theta. A communication to attend has been
+received". You have absolutely no idea why you said that.
+
+Zeta-Theta turns to face and replies, "Hail Epsilon-Beta. Apologies if you
+have been recharging, but an urgent assignment has arrived. We have an
+unauthorised termination. It requires your immediate attention".
+
+>Showing Zeta-Theta the pebble, "The understanding is that this pebble is from
+the planet surface".
+
+Zeta-Theta looks at it, "That belief would appear to correct." Zeta-Theta
+pauses for a few decsecs and then asks, "Would you be willing to exchange the
+item for something else?".
+
+In your best negotiating manner, "Unsure, as it is from the planet surface" .
+
+Obviously interested Zeta-Theta shows you the crystal and barters, "This
+crystal is not from the surface but has value".
+
+It is a good exchange so you reply, "Yes, it is a deal".
+
+You hand the pebble to Zeta-Theta who hands you the crystal. Once in your
+hand you realise the crystal is in fact a note.
+
+>The room slowly fades and is replaced with your destination.
+Roof of Building
+You are on the roof of the futuristic Bakewell Insurance Building, which has
+19 floors and was built around 10 years ago. A strong wind is blowing from
+the east and it looks like it could easily rain soon. A large antenna is
+whipping in the wind to your right and the air conditioning equipment in
+front of you is making a very loud noise. A large sign is fastened to the
+roof here. Just at your feet is the closed door leading down to the roof
+exit. You can go north, northeast, east, southeast, south, southwest, west,
+northwest and down.
+A dirty, smelly old tramp is lying on the floor.
+
+>You are about to talk to the Tramp when he starts to speak, "Hello! Any
+chance of some money?".
+
+You reply, "No".
+
+"Well that is not very friendly. How about a couple of quid for a cup of
+coffee?".
+
+You reply, "No".
+
+He then asks, "What are you doing up here? Are you lost?".
+
+You reply, "Mind your own business old man". It is a strange question from a
+tramp.
+A very loud motorbike can be heard to the south.
+
+>You hand the note to the tramp who, after studying it, replies, "Correct,
+this location is from Target".
+
+>Looking around quickly to make sure no-one else is around you take out your
+knife and stab the poor old tramp. He lets out a scream and then is silent.
+Something has fallen from his clothes.
+
+>It is the body of a dead, smelly old tramp.  The dead tramp is wearing a
+filthy camel brown jacket, a pair of trainers and a pair of old corduroy
+trousers, and is carrying some artemis and a police radio.
+
+>As you pickup the Artemis it triggers a memory.  You hand the jar filled with
+Artemis to the Lab Assistant. He shouts, "Artemis!" before gulping the
+mixture down.
+
+What are these memories?
+
+>You get the radio.
+
+>You open the door.
+
+>You move down.
+Cage
+The centre of this circular chamber is a cage, sunk into the floor, in which
+the remains of the Tarc appears to be watching you. Claw marks on the bars of
+the cage indicate the beast fought ferociously to escape its imprisonment,
+yet failed. And died.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east you can make out a statue.
+
+>You hand the handbill to the Tarc who, after studying it, replies, "Correct,
+this location is from 'Pathway to Destruction'".
+
+The beast makes a final groaning sound and is then silent.
+
+>You move east.
+Ruined Statue (Pathway to Destruction)
+Above you towers a broken statue, ravaged by the passage of time. A crown of
+stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
+shadows, seeming to be standing watching you, though these are glimpses seen
+from the corner of your eye that vanish the moment you look closely at them.
+
+Passages in the ruined walls of this place lie to the east and west.
+
+You can also see a pair of overalls.
+
+>You move east.
+Storeroom
+The long, low room smells of oil and something else which you can't quite
+place.  Nearly all the available space is filled with pipes, cables and
+junction boxes.  Pushed against one wall is a large wooden crate. To the west
+are some stairs.
+
+You can also see a brick.
+A worried looking lab assistant is trying to hide.
+
+>You hand the jar filled with Artemis to the Lab Assistant. He shouts,
+"Artemis!", before gulping the mixture down. He hands you back the jar and
+the playbill he has been carrying.
+
+Shouting, "I'm cured! I'm cured!" the lab assistant runs towards the stairs".
+
+>You move west.
+Ruined Statue (Pathway to Destruction)
+Above you towers a broken statue, ravaged by the passage of time. A crown of
+stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
+shadows, seeming to be standing watching you, though these are glimpses seen
+from the corner of your eye that vanish the moment you look closely at them.
+
+Passages in the ruined walls of this place lie to the east and west.
+
+You can also see a pair of overalls.
+
+>You move west.
+Cage (Pathway to Destruction)
+The centre of this circular chamber is a cage, sunk into the floor, in which
+the remains of some beast lie decomposing. Claw marks on the bars of the cage
+indicate the beast fought ferociously to escape its imprisonment, yet failed.
+And died.
+
+To the west there is a large chamber and to the east you can make out a
+statue.
+
+>You move west.
+The Flying Horse
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
+ Emma Taylor is standing behind the bar.
+Colin and Fred are staring at each other.
+
+>You move west.
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A cat is silently wandering around.  A trainspotter
+dressed in wet weather gear is watching you.
+
+A small black and white cat strolls out to the east.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes in his book.
+The drunk makes a coughing sound.
+
+Looking surprised the porter exclaims, "Solved four locations I hear". He
+looks you up and down before continuing, "Unbelievable!".
+
+>You open the set of double doors with glass panels.
+
+>You move south.
+Cabin E86, E Deck
+The two-berth second class cabin is a large, bright, airy place of which you
+are the only occupant. The feeling of space is probably due to the light
+coloured furniture and floor tiles. The sofa-bed looks to be extremely
+comfortable and standing next to it is some sort of cabinet. With ducted warm
+air heating it is a lovely warm place. The cabin door to the north leads to a
+corridor and a porthole is to the south.
+
+>You open the porthole.
+
+>You move south.
+Post Office, G Deck
+The ship's post office houses a range of bags, bins and pigeonholes for
+sorting the mail. To your east is a corridor and some steps lead down.
+
+You can also see a sweeping brush.
+A postal clerk is busy sorting the mail.
+
+You hear a door close.
+
+Stopping work for a moment, the postal clerk looks over at you and remarks,
+"I'm sorry sir but passengers are not permitted in the post office".
+Obviously noticing your nakedness he looks puzzled for a moment, but returns
+to his work.
+
+>Examining the pigeonholes you find a handout hidden amongst the mail.
+
+>You hand the playbill to the Postal Clerk who, after studying it, replies,
+"Correct, this location is from 'Escape to New York'".
+
+The postal clerk picks up a postbag and goes down the steps.
+
+>You move down, pushing through thick fog.
+The Yard
+The yard is just behind the pub and is probably used for storage. About 10m
+square it has a high wall all the way around and the floor is concrete. The
+exits are through a metal gate to the south and back into the pub north.
+
+You can also see a photograph.
+Jed Peters is watching you carefully.
+
+>You hand the handout to Jed Peters who, after studying it, replies, "Yeh,
+this location is from Fire in the Blood.  Now get lost!".
+
+>You move north.
+The Flying Horse
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+A cat is silently wandering around.  Colin Turner is standing at the bar.
+Fred Sutton is staring vacantly around.  Emma Taylor is standing behind the
+bar.
+
+>You put some money into the jukebox and just starts playing.
+
+A small black and white cat strolls out to the east.
+The jukebox is loudly playing country music.
+
+>You move south.
+The Yard
+The yard is just behind the pub and is probably used for storage. About 10m
+square it has a high wall all the way around and the floor is concrete. The
+exits are through a metal gate to the south and back into the pub north.
+
+You can also see a photograph.
+Jed Peters is watching you carefully.
+The jukebox inside the pub is loudly playing country music.
+You can even hear the music playing in the pub out here; it will definitely
+drown out any noise in the yard.
+
+>Using all your strength you chop the axe into Jed Peters. He lets out a
+terrible scream and collapses onto the ground. As he falls you chop him
+repeated with the axe. Something he was holding falls onto the ground.
+
+You wait for a moment to see if anyone heard the noise, but no-one comes. You
+head back to the railway station.
+
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes in his book.
+
+Looking surprised the porter exclaims, "Solved six locations I hear". He
+looks you up and down before continuing, "Amazing!".
+
+>You move east.
+The Flying Horse (Fire in the Blood)
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
+ Emma Taylor is standing behind the bar.
+
+As you enter Emma says, "Haven't you heard? Someone has killed Jed Peters
+with an axe, in our yard. The police are investigating". She looks around and
+then whispers, "We think it was him, the evil author".
+
+You notice that the pub is strangely quiet.
+
+>You move south.
+The Yard (Fire in the Blood)
+The yard is just behind the pub and is probably used for storage. About 10m
+square it has a high wall all the way around and the floor is concrete. The
+exits are through a metal gate to the south and back into the pub north. On
+the ground is a large red stain, it is Jed Peter's blood!
+
+You can also see a boat hook and a photograph.
+
+>You take the boat hook.
+
+You are Ross Walham and have been the harbour master at Tolleth for over 10
+years and have never seen anything like this; the light did not shine out
+through the night.  From the harbour wall, you kept watch from early evening
+until very late into the night, but the lighthouse remained dark.
+
+When the morning finally came you tried calling the lighthouse on the radio,
+but received no answer. As the weather looked good and the water relatively
+calm you took the decision to go over to see what was wrong.  Care was needed
+as it is nearly five miles to Croxton Rock, with the fishing fleet away you
+only had your little rowing boat with the broken engine.
+
+The lighthouse is manned by three keepers at any one time and John Collins,
+Albert Taylor and Tosh Graham are the current keepers.  You saw them only
+last week when you took over mail and supplies. Now, after a very long row
+you have just tied up at the lighthouse jetty.
+
+So you are Ross Walham, a harbour master?
+
+>You move north.
+The Flying Horse (Fire in the Blood)
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
+ Emma Taylor is standing behind the bar.
+
+>You move west.
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
+
+The whole station shakes as a freight train rumbles through.  The shaking
+feels like it is never going to stop.
+The trainspotter writes in his book.
+The drunk makes a coughing sound.
+
+>You move west.
+The Jetty
+The lighthouse jetty is made of stone with a metal handrail running around
+it.  You notice immediately that the handrail is damaged.  Down a wooden
+ladder you can see your boat and to the east is a path leading to the
+lighthouse.  In the water just below the jetty, you can see an object
+floating. It appears to be a woollen hat.
+
+As you walk onto the jetty you can see three men in wet weather gear working
+on the jetty handrail! You rub your eyes but you can still see the men,
+trying to shout your voice is carried away on the wind. Suddenly a wave
+crashes over the jetty washing the men into the sea.
+
+>With the boat hook you fish the hat from the water. As you take the hat you
+drop the boat hook in the sea and it floats away.
+
+Something falls out of the hat onto the jetty.
+
+>
+The Jetty
+The lighthouse jetty is made of stone with a metal handrail running around
+it.  You notice immediately that the handrail is damaged.  Down a wooden
+ladder you can see your boat and to the east is a path leading to the
+lighthouse.
+
+You can also see some card.
+
+>You pick up the card.
+
+>You climb down the ladder, into the boat.
+Row Boat
+The small row boat is a type known as a dory and is about 4.5m long and 1.2m
+wide. The narrow bottom and wide flaring sides makes for easy rowing. They
+are used the world over in all weather conditions, although you hope to be
+home long before you put that to the test. You can see a wooden ladder which
+leads up to the jetty. The boat is currently tied to the ladder.
+
+You can also see a rucksack.
+A ghostly figure is floating in the bottom of the boat.
+
+>You hand the hat to the ghost who stares at it for several seconds.  The
+ghost then hands you a letter.
+
+Slowly the ghostly figure fades away.
+
+>Climbing the ladder, onto the jetty.
+The Jetty (Darkness)
+The lighthouse jetty is made of stone with a metal handrail running around
+it.  You notice immediately that the handrail is damaged.  Down a wooden
+ladder you can see your boat and to the east is a path leading to the
+lighthouse.
+
+>You move east.
+Railway Platform
+The wind swept railway station has that look of neglect and decay, making it
+feel a very sad place.  The platform is covered by a canopy which neither
+protects from the rain or wind.  Attached to the wall is a large clock with a
+poster stuck right next to it.  To the west is a bridge leading over the
+tracks to platform two and east is the waiting room. To the south is a set of
+double doors with glass panels.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A porter is here leaning against the wall.  A drunk is sleeping off a heavy
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes in his book.
+
+Looking surprised the porter exclaims, "Solved seven locations I hear". He
+looks you up and down before continuing, "Amazing!".
+
+>You hand the paper to the Porter who, after studying it, replies, "Correct,
+this location is from 'Ticket to No Where'".
+
+The porter heads south.
+The drunk makes a coughing sound.
+The trainspotter looks down at his shoes.
+
+>You move east.
+The Flying Horse (Fire in the Blood)
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+
+>You move south.
+The Yard (Fire in the Blood)
+The yard is just behind the pub and is probably used for storage. About 10m
+square it has a high wall all the way around and the floor is concrete. The
+exits are through a metal gate to the south and back into the pub north. On
+the ground is a large red stain, it is Jed Peter's blood!
+
+You can also see a photograph.
+
+>You open the metal gate.
+
+>You move south.
+The Lounge
+You are in a lovely lounge, well no it's actually horrible.  The weak morning
+light is struggling to get through the dirty windows. A pair of limp unhappy
+looking curtains sit either side of the window.   In the middle of the room
+stands a lopsided coffee table.  The room has the usual things a bachelor's
+place has namely an uncomfortable settee, a battered old armchair, narrow
+screen television and what looks like a dvd player. To the east you can see
+what looks like the hall and from the smell of it the kitchen is west.
+John is currently slumped in the armchair.
+
+>You hand the letter to John who, after studying it, replies, "Correct, this
+location is from Where are my Keys?".
+
+Very slowly John gets onto his feet and ambles out into the hall.
+
+>You move east.
+The Throat (We are coming to get you!)
+You are in a smooth, slippery tube with a shiny pink lining.  From here the
+mouth is west and the stomach east. The tonsils are red and swollen,
+tonsillitis!
+
+>You move east.
+Domicile of Epsilon-Beta
+The dull metal room, which is exactly 2m square and 2.5m in height, is
+appropriate to your level of achievement. Attached to the wall behind you is
+the all important recharger with the teleporter on the floor opposite. To
+your left is the communicator with your own personal storage shelf above it.
+With the lighting fixed on the lowest setting the place is in gloom, just how
+you prefer it.
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is 10m across and nearly 5m in height. With the
+standard hidden lighting set to a low level, most of the room is in dullness.
+A security monitor is on one side of the room, to your right the interrogator
+and virtually opposite is the teleporter.
+Zeta-Theta is standing next to the teleporter.
+
+>You hand the card to Zeta-Theta who, after studying it, replies, "Correct,
+your assignment is complete. This location is from Unauthorized Termination".
+
+Zeta-Theta moves over to the teleporter, steps onto the pad and disappears.
+
+>The room slowly fades and is replaced with your destination.
+Roof of Building (Target)
+You are on the roof of the futuristic Bakewell Insurance Building, which has
+19 floors and was built around 10 years ago. A strong wind is blowing from
+the east and it looks like it could easily rain sometime today. A large
+antenna is whipping in the wind to your right and the air conditioning
+equipment in front of you is making a very loud noise. A large sign is
+fastened to the roof here. Just at your feet is the closed door leading down
+to the roof exit. You can go north, northeast, east, southeast, south,
+southwest, west, northwest and down.
+
+You can also see a badge.
+The body of a dead tramp is lying here.
+
+>You open the door.
+
+>You move down.
+Cage (Pathway to Destruction)
+The centre of this circular chamber is a cage, sunk into the floor, in which
+the remains of some beast lie decomposing. Claw marks on the bars of the cage
+indicate the beast fought ferociously to escape its imprisonment, yet failed.
+And died.
+
+To the west there is a large chamber and to the east you can make out a
+statue.
+
+You can also see a bell.
+The body of a dead cat is lying here.
+
+>You move west.
+The Flying Horse (Fire in the Blood)
+The Flying Horse has the typical pub smell of stale beer and cigarettes, not
+exactly a stomach churning experience but not that pleasant either.  The
+pub's narrow bar is in front of you and just inside the door is a dart board
+and a wall mounted jukebox. To the west is Albert Street, east is Draycot
+Road and the yard behind the pub is to the south.
+
+>You move west.
+Platform One (Ticket to No Where)
+You are on a wind swept railway platform.  The platform is covered by a
+canopy which neither protects from the rain or wind.  Attached to the wall is
+a large clock with a poster stuck right next to it.  To the west is a bridge
+leading over the tracks to platform two and east is the waiting room. To the
+south is a set of double doors with glass panels.  To the north a train is
+waiting in the station.
+
+Against the wall you can see one of those wire frame rubbish bins.
+A trainspotter dressed in wet weather gear is watching you.  The station
+master is standing near the wall.
+Someone dressed like a Station Master wanders out of the waiting room.
+
+A train arrives on Platform One.  You just manage to catch the name
+'Colesworth' on the announcement.
+
+The Station Master hands you something saying, "This is for you lad".
+
+>You move north onto the train. The trainspotter half raises his hand as if he
+is about to wave. He obviously changes his mind and lowers his arm quickly.
+Train (doors open)
+You are on a Great Eastern Railways train.  The train has double hard looking
+seats either side of a very narrow gangway.  The train is already packed and
+you have no where to sit so I guess that means you will have to stand all the
+way.
+The guard is checking tickets.
+You hear someone blowing a whistle, the doors close and the train on platform
+one pulls out of the station.
+
+>The Guard is a short man wearing a loose fitting uniform.
+
+>A standard ticket to Colesworth only valid for travel today.
+
+Without warning everything starts to blur and fleeting memories arrive.  You
+have been a harbour master, a hitman, a late salesman, a germ, a robot
+investigator, a man seeking revenge for his murdered wife, a technician
+working on a new teleporter, a drunk looking for his keys and an escaping
+thief.
+
+The memories then empty from your mind, just as if a plug has been pulled in
+a sink.
+
+You hear a voice coming from somewhere behind you, "Are you still playing
+that game? You've been playing it for hours!"
+
+A different voice replies, "Yes I know, but look I've just won!"
+
+The first voice continues with more than a hint of sarcasm, "Well, I'm just
+so pleased for you. Anyway your dinner is ready."
+
+The second voice deflatedly replies, "Okay, okay, I'll just shut the computer
+down.................................".
+
+Nothingness returns.
+You have won!
+
+THE END
+
+You now have the option to either restart the game, undo your last move,
+restore a previous saved game position or quit.
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.org.uk
+
+For other games by the same author visit http://www.delron.org.uk
+
+>Do you really want to quit? [Y/N]

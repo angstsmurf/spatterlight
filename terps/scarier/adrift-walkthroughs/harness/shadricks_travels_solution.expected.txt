@@ -1,0 +1,143 @@
+Loading game...
+
+Shadrick's Travels
+Shadrick's Travels
+Written by Mystery
+
+“I’m Shadrick.  Soon to be Shadrick of Willingsdale.  We have three more days
+travel to the north until we reach our new home.  Me mum, Emiliata, is
+preparing camp for the night, and me father, Wilhelm, is chopping some wood
+nearby so Mum can cook some stew for supper.  As usual, Hanson has run off
+and me parents have called on me, once again, to fetch my younger brother.
+Father is to the east, chopping wood, mother is west, preparing camp.  The
+road leads south, several days travel to Thorton, from whence we came, and
+north, several days travel to Willingsdale, our new home.  There is a grove
+of  trees to the northeast, the direction mum last seen Hanson.”
+
+>"The dirt road is littered with pebbles of various sizes."  A medium sized
+rock is on the road.
+
+>You take the medium sized rock from the road.
+
+>You move east.
+
+Near Father, east of the road
+
+"I’m east of the road, which is dotted with a few trees and there is a grove
+of thick trees to the north.  There is a stump here, that father is using to
+split larger pieces of wood into smaller ones.  He has already chopped a
+small pile that lay on the ground near the stump."
+"Father is chopping wood, and starting to work up a good sweat.  Might want
+ot make sure I'm not down wind from him the rest of the trip."
+
+>Please be more clear, what do you want to examine?  The pile of wood or the
+piece of wood?
+
+>You take the piece of wood from the pile of wood.
+
+>You move west.
+
+In the middle of the road
+
+"I’m standing in the middle of the road.  There is still plenty of daylight
+left.  Mum and Dad were both tired and Hanson was getting on everyone’s
+nerves, so they thought it’d be a good idea to make camp here and left Hanson
+go run about for a little while. The road leads north, several days travel to
+Willingsdale, and south, several days travel back to Thorton.  Father is
+chopping wood to the east and mum is setting up camp to the west.  A grove of
+trees lies northeast."
+
+>You move west.
+
+Near Mum, who is setting up camp
+
+"The wagon is stopped nearby, and the horses tied to a tree further off.  Mum
+has taken a few things out of the wagon to prepare camp.  Our bedding lies
+scattered off to one side, while mum has already prepared a pit to build the
+fire for cooking."
+"Mum is getting a few things out of the wagon to prepare supper."
+
+>"It is all piled together and hasn't been sorted out yet.  I'm sure mum will
+get to it after supper."  A rope is on the bedding.
+
+>You take the rope from the bedding.
+
+>You move east.
+
+In the middle of the road
+
+"I’m standing in the middle of the road.  There is still plenty of daylight
+left.  Mum and Dad were both tired and Hanson was getting on everyone’s
+nerves, so they thought it’d be a good idea to make camp here and left Hanson
+go run about for a little while. The road leads north, several days travel to
+Willingsdale, and south, several days travel back to Thorton.  Father is
+chopping wood to the east and mum is setting up camp to the west.  A grove of
+trees lies northeast."
+
+>(Your score has increased by 20)
+"I string the rope around the piece of wood a couple of times and make it
+secure.  It is now a sturdy swing."
+
+>You are carrying a medium sized rock and a swing.
+
+>You move northeast.
+
+Grove of trees, near the road
+
+"The trees are tall and make it seem like night has already fallen.  I'm
+standing next to an old Oak tree that leads up.  I see Hanson standing on a
+large rock thirty or forty feet away.  He looks quite panicked by the large
+bear that is standing between him and I.  I imagine the beehive in the pine
+tree above the bear is what the bear was interested in.  But why have a
+little honey when you can have Hanson instead.  I guess I had better do
+something before Hanson gets eaten.  I definitely wouldn’t be getting any
+supper if I let that happen."
+Hanson standing as far back as he can on a large rock, trying to keep his
+distance from the bear.
+
+>Please be more clear, what do you want to climb?  The old oak tree or the
+pine tree?
+
+>You can't climb the old oak tree.
+
+>"I carefully climb the tree, and finally reach a sturdy branch."
+
+>I don't understand what you want me to do with the swing.
+
+>(Your score has increased by 20)
+"I tie the other end of the rop to the branch and slowly let the swing dangle
+down."
+
+>"I carefully climb down the tree, and finally reach the bottom."
+
+>
+
+Grove of trees, near the road
+
+"The trees are tall and make it seem like night has already fallen.  I'm
+standing next to an old Oak tree that leads up.  I see Hanson standing on a
+large rock thirty or forty feet away.  He looks quite panicked by the large
+bear that is standing between him and I.  I imagine the beehive in the pine
+tree above the bear is what the bear was interested in.  But why have a
+little honey when you can have Hanson instead.  I guess I had better do
+something before Hanson gets eaten.  I definitely wouldn’t be getting any
+supper if I let that happen."
+Hanson standing as far back as he can on a large rock, trying to keep his
+distance from the bear.
+
+>(Your score has increased by 10)
+"I throw the rock at the beehive and it falls to the ground.  Bees are
+swarming everwhere, but the bear doesn't seem to mind it and tries to get the
+honey inside.  Now is my chance to help Hanson, while the bear is
+distracted."
+
+>(Your score has increased by 50)
+"With the bear distracted, I jump on the swing and grab hold of my brother.
+We barely miss getting swiped by the massive claws of the black bear as we
+leap off of the swing and run out of the grove."
+
+"After explaining what happend to father, he chased the bear off.  Mum was so
+angry at Hanson for running off, that he's not had supper and is supposed to
+be sleeping.  I know that he isn't though.  I can see him making faces at me
+while I eat my stew.  Father thinks I'm a hero."
+Congratulations!

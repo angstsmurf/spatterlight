@@ -1,0 +1,110 @@
+1
+exam shelf
+get badge
+wear badge
+a
+2
+talk to zeta-theta
+3
+b
+exam gamma-sigma
+2
+talk to zeta-theta
+4
+talk to mu-nu
+2
+talk to zeta-theta
+8
+exam shelf
+get pebble
+2
+talk to zeta-theta
+give pebble to zeta-theta
+exam interrogator
+get tracer
+4
+talk to mu-nu
+talk to mu-nu
+give crystal to mu-nu
+5
+talk to mu-rho
+north
+west
+exam table
+get report
+read report
+exam gamma-sigma
+turn on lance
+use lance
+turn off lance
+east
+south
+4
+give module to mu-nu
+6
+talk to mu-lambda
+north
+west
+east
+south
+turn on tracer
+tracer psi-tau
+4
+give chip to mu-nu
+7
+talk to mu-kappa
+north
+west
+push table
+west
+9
+recharge
+east
+east
+east
+exam psi-tau
+turn on lance
+use lance
+turn off lance
+west
+west
+south
+get meteor
+north
+west
+11
+east
+east
+south
+4
+give module to mu-nu
+talk to mu-nu
+2
+talk to zeta-theta
+1
+get meteor
+exam communicator
+b
+turn on tracer
+trace psi-tau
+2
+7
+north
+west
+west
+turn on tracer
+trace psi-tau
+10
+talk to omicron-xi
+ask omicron-xi about psi-tau
+ask omicron-xi about chi-omega
+ask omicron-xi about secret mission
+get meteor
+throw meteor
+talk to zeta-theta
+talk to zeta-theta
+talk to zeta-theta
+no
+no
+no
+no

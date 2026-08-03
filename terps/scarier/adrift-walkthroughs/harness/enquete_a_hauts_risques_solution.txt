@@ -1,0 +1,145 @@
+se lever
+ouvrir armoire
+prendre jean
+prendre pull
+prendre sac à dos
+ouvrir sac à dos
+n
+e
+n
+n
+w
+parler à yannick
+prendre rapport
+e
+n
+premier étage
+n
+s
+w
+parler à patrick
+e
+s
+rez-de-chaussée
+w
+e
+ouvrir placard
+prendre arme
+take off arme de service
+w
+w
+n
+n
+n
+x canapé
+prendre magazine pornographique
+x magazine pornographique
+n
+x table
+prendre passeport falsifié
+x passeport falsifié
+ouvrir réfrigérateur
+x bouteille
+prendre bouteille
+n
+n
+ouvrir table de nuit
+prendre sachet de drogue
+ouvrir armoire
+prendre batte de baseball
+s
+s
+s
+s
+s
+n
+n
+n
+deuxième étage
+n
+s
+s
+premier étage
+n
+utiliser sachet de drogue
+utiliser batte de baseball
+utiliser bouteille
+utiliser magazine pornographique
+utiliser passeport falsifié
+prendre clé
+s
+s
+troisième étage
+déverrouiller porte
+s
+premier étage
+n
+s
+s
+rez-de-chaussée
+s
+s
+s
+n
+e
+n
+n
+guichet 7
+oui
+711
+Lucas Label
+n
+n
+z
+z
+z
+z
+n
+n
+z
+z
+z
+z
+regarder sous siège
+ouvrir caisse
+n
+prendre pince
+s
+couper câble vert
+couper câble noir
+couper câble rouge
+n
+s
+z
+z
+z
+z
+z
+n
+n
+w
+e
+n
+combattre
+coup de pied
+coup de poing
+coup de pied
+n
+z
+z
+z
+z
+n
+détacher erica
+s
+n
+n
+n
+premier étage
+n
+s
+s
+rez-de-chaussée
+s
+s
+se coucher

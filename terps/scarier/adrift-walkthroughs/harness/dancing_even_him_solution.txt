@@ -1,0 +1,17 @@
+exam round objects
+exam coins
+look
+get band
+make lasso
+up
+exam machinery
+climb bars
+pull lever
+climb wall
+exam cans
+look
+get paperclip
+open can
+get paperclip
+open flap with paperclip
+out

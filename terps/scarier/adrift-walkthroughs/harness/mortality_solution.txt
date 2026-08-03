@@ -1,0 +1,78 @@
+1
+e
+2
+wait
+1
+1
+se
+3
+out
+ne
+2
+hit boxer
+open door
+s
+x trapdoor
+pull chain
+u
+l
+get boxes
+1
+2
+2
+2
+1
+1
+3
+wait
+wait
+wait
+wait
+open chest
+get diary
+2
+e
+n
+3
+2
+1
+1
+1
+2
+talk to stephanie
+1
+1
+1
+1
+2
+stand
+wait
+wait
+wait
+kill seamus
+wait
+wait
+wait
+wait
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+2

@@ -1,0 +1,209 @@
+
+e
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+answer videocom
+wait
+wait
+wait
+get key
+s
+e
+n
+open cargo hold
+get suitcase
+s
+w
+w
+s
+n
+e
+x taxi post
+push button
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+in
+wait
+wait
+wait
+wait
+e
+e
+n
+talk to usher
+talk to sally
+wait
+wait
+wait
+enter
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+
+x door
+kick door
+w
+s
+w
+up
+hit man
+x sofa
+get key
+w
+move tarpaulin
+ride bike
+wait
+wait
+wait
+e
+s
+s
+s
+e
+e
+e
+in
+kill man
+look
+get telephone
+x monitors
+x control panel
+flip switch
+out
+n
+n
+x desk
+get directory
+n
+n
+w
+w
+s
+e
+open drawer
+get key
+w
+n
+e
+e
+in
+s
+w
+n
+dial 788
+kill man
+drop telephone
+in
+s
+e
+n
+x mirror
+x monitor
+type in 50
+hide behind screen
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+kill guard
+s
+w
+s
+e
+x project
+get mirror
+w
+n
+e
+e
+s
+x lab coat
+get key
+n
+n
+e
+kill guard
+w
+in
+s
+w
+w
+s
+s
+reflect laser beams at cable
+e
+open box
+get disk
+w
+n
+n
+e
+e
+n
+in
+s
+w
+w
+n
+in
+s
+e
+n
+in
+e
+e
+insert disk in computer
+type in 3
+w
+w
+in
+s
+w
+n
+in
+s
+e
+e
+n
+in
+s
+w
+n
+up
+s
+s
+kill griffon
+z
+z
+3
+2
+1
+2
+
+

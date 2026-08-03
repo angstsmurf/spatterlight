@@ -1,0 +1,146 @@
+south
+south
+in
+show medallion to landlord
+buy ticket
+buy beer
+buy wine
+buy whiskey
+get ticket
+get beer
+get wine
+get whiskey
+drink beer
+drink wine
+drink whiskey
+out
+give ticket to jack
+get in coach
+north
+ne
+north
+in
+show medallion to herb
+buy backward burp berries
+get berries
+out
+south
+sw
+in
+drop tankard
+drop green bottle
+drop brown bottle
+show barman medallion
+rent room
+up
+north
+x shelf
+get basin
+south
+w
+unlock door
+west
+x desk
+get drawer
+open drawer
+get candle
+drop drawer
+east
+down
+sit at table
+order lunch
+wait
+wait
+wait
+wait
+wait
+wait
+get lunch
+eat lunch
+drop plate
+take breadcrumbs
+buy water
+get water
+drink water
+drop cup
+light candle on fire
+out
+ne
+east
+down
+kick bars
+get bar
+south
+x bucket
+get poker
+north
+x wall
+put poker in hole
+pull poker
+north
+x skeleton
+get helmet
+drop poker
+get sword blade
+south
+up
+west
+se
+south
+in
+give helmet to weevil
+out
+north
+nw
+sw
+south
+x tree
+cut noose with sword blade
+get noose
+drop key
+north
+in
+pour firewater into Sid's cup
+wait
+wait
+wait
+wait
+wait
+wait
+bet Sid with captain
+out
+nw
+in
+x boat
+get net
+get in boat
+put breadcrumbs in basin
+put firewater in basin
+put breadcrumbs in basin
+tie sword to bar with noose
+put soaked breadcrumbs in lake
+put soaked breadcrumbs in lake
+z
+z
+z
+z
+spear captain
+get captain
+north
+in
+give captain to Sid
+out
+se
+in
+pay barman
+out
+south
+get in coach
+in
+pay landlord
+out
+north
+north
+give chief backward burp berries
+score
+tickle frog

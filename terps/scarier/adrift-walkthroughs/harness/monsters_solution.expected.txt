@@ -1,0 +1,284 @@
+Loading game...
+
+Monsters (Release 2)
+
+Copyright © 2003-2004 Daniel Hiebert (Tech) <eipub@eipublishing.com>
+Version 2.0 / ADRIFT 4.00 Release 43 / Butcher Basic Pro 1.01b
+
+Type 'Hint' if you need help getting past a certain point in this IF.
+Type 'Credits' for a listing of thanks and dedications.
+
+Bedroom
+Opposite each other, my day bed is along the east wall while Sissy's four
+poster bed is along the west wall under the window.  Its two sliding doors
+long removed by Mom and Dad, the open closet doorway is along the south wall
+between our beds.  Next to the bedroom door is a light switch.  Boxes block
+off the space beneath Sissy's bed; however, I can also crawl into the space
+underneath my bed.  There is a wet slide of goo across the wood floor.
+
+A cozy coupe ride on awaits to take you to destinations unknown.
+Pooky stands nearby carefully watching for your next move.  Sissy is sleeping
+here on her bed.
+
+>(Your score has increased by 5)
+Holding my breath, I bounce on the bed and leap over the several feet gap to
+Sissy's bed.  Too late, long green tentacles shoot out from under the bed
+attempting to grab me midair.  They miss.  HA!  Sissy barely moves as I land
+and shake her bed violently.  Too bad.
+
+>Sissy's four poster bed is made of white pine.  Being much higher off of the
+ground, Mom jammed cardboard boxes under the bed to keep us out.  A four inch
+pink plastic kitchen knife is on Sissy's four poster bed.
+
+>I take the four inch pink plastic kitchen knife from Sissy's four poster bed.
+
+>(Your score has increased by 5)
+Pulling on the shade, it opens with a quick flap around the top.  Light pours
+in from the neighbor's backyard light.
+
+Hearing the sudden rush of movement, the monster under my bed exposes itself
+expectantly.  Unfortunately, the beam of light from the neighbor's yard rips
+into it mercilessly.  The monster howls in anguish as it disappears in a
+cloud of greasy black smoke.
+Pulling on the shade, it opens with a quick flap around the top.  Light pours
+in from the neighbor's backyard light.
+
+>(Your score has increased by 5)
+Shaking Sissy awake, she sits up sleepily on the bed.
+
+"What is it, Chloe-bear?"
+A hoarse whisper calls from the closet, "Chloe, come here.  Come into the
+closet...  Chloe, I've got something for you..."
+
+>(Getting off Sissy's four poster bed first)
+I move in.
+Under My Bed
+Enclosed by the day bed white, metal frame, the mattress is barely a foot and
+a half above the floor.  Under my bed, I can see everyone's feet as they walk
+around the room.  I can crawl out from here to the middle of the bedroom.
+
+A graham cracker lays against the wall in the corner.
+
+>I pick up the graham cracker.
+
+>I move out.
+Bedroom
+Opposite each other, my day bed is along the east wall while Sissy's four
+poster bed is along the west wall under the window.  Its two sliding doors
+long removed by Mom and Dad, the open closet doorway is along the south wall
+between our beds.  Next to the bedroom door is a light switch.  Boxes block
+off the space beneath Sissy's bed; however, I can also crawl into the space
+underneath my bed.  There is a wet slide of goo across the wood floor.
+
+A cozy coupe ride on awaits to take you to destinations unknown.
+A hoarse whisper calls from the closet, "Chloe, come here.  Come into the
+closet...  Chloe, I've got something for you..."
+
+>(Your score has increased by 5)
+Taking the knife in his paw and wielding it over his head like a sword, Pooky
+shouts, "I go to do battle!"
+
+"Come on, let's go get that monster!"
+
+>(Your score has increased by 5)
+Throwing the cracker down near the entrance to the closet; I hear the monster
+begin to sniff the air cautiously.
+
+Little by little, the giant lima bean monster comes out of the closet to eat
+the graham cracker.
+
+Pooky's little body tenses, waiting for the right moment.  He pulls down his
+mask across his beady black eyes.  The monster sniffs out the cracker and
+sits down to eat.
+
+Sensing the time is right, Pooky leaps onto the monster plunging his little
+plastic knife into its horrible vegetable hide.  His little cape flies in the
+air.
+
+"Take that you horrible monster," Pooky yells, "I've got more of that!"
+
+Pooky's swordsmanship is no match for the clumsy monster.  With a shrill cry,
+the lima bean monster shrivels and disappears in a greasy puff of black
+smoke.
+
+"I did it all for you my lady," states Pooky resting down on the floor.
+
+>I move south.
+Bedroom Closet
+Though Mom and Dad removed the closet sliding doors, the monsters like to
+hide in the corners where I can't see them until its too late.
+
+A small pink, plastic chair sits shoved up against the back of the closet.  A
+wooden chest of drawers sits in the back of the closet.
+
+>I pick up the pink plastic chair.
+
+>A wooden dresser with a top, middle and bottom drawer.
+
+>The bottom drawer is made of wood.  The bottom drawer is closed.
+
+>I open the bottom drawer.  The flashlight is inside the bottom drawer.
+
+>I take the flashlight from the bottom drawer.
+
+>A small green household flashlight borrowed from  Daddy's tools.  The
+flashlight is Off.
+
+>I turn the flashlight on.
+
+>A small green household flashlight borrowed from  Daddy's tools.  The
+flashlight is On.
+
+>I move north.
+Bedroom
+Opposite each other, my day bed is along the east wall while Sissy's four
+poster bed is along the west wall under the window.  Its two sliding doors
+long removed by Mom and Dad, the open closet doorway is along the south wall
+between our beds.  Next to the bedroom door is a light switch.  Boxes block
+off the space beneath Sissy's bed; however, I can also crawl into the space
+underneath my bed.  There is a wet slide of goo across the wood floor.
+
+A cozy coupe ride on awaits to take you to destinations unknown.
+
+>I drop the pink plastic chair.
+
+>I stand on the pink plastic chair.
+
+>(Your score has increased by 5)
+Standing on the chair, I'm able to reach, unlock and open the bedroom door.
+
+>(Getting off the pink plastic chair first)
+I move northeast.
+South End of Hallway
+My bedroom is at the end of a long dark hallway.  To the north is the front
+of the house while to the south west is back into my bedroom.  Mommy's
+bedroom door to the south is closed and locked.
+
+>
+South End of Hallway
+My bedroom is at the end of a long dark hallway.  To the north is the front
+of the house while to the south west is back into my bedroom.  Mommy's
+bedroom door to the south is closed and locked.
+Pooky stands nearby carefully watching for your next move.  Sissy is standing
+here with sleep in her eyes.
+
+>I move southwest.
+Bedroom
+Opposite each other, my day bed is along the east wall while Sissy's four
+poster bed is along the west wall under the window.  Its two sliding doors
+long removed by Mom and Dad, the open closet doorway is along the south wall
+between our beds.  Next to the bedroom door is a light switch.  Boxes block
+off the space beneath Sissy's bed; however, I can also crawl into the space
+underneath my bed.  There is a wet slide of goo across the wood floor.
+
+A cozy coupe ride on awaits to take you to destinations unknown.
+
+You can also see a pink plastic chair.
+
+>I move northeast.
+South End of Hallway
+My bedroom is at the end of a long dark hallway.  To the north is the front
+of the house while to the south west is back into my bedroom.  Mommy's
+bedroom door to the south is closed and locked.
+
+>Mommy's bedroom door is closed.
+
+>I open mommys bedroom door.
+
+>I move south.
+Parent's Room
+My parents room is rather sparse with sky blue walls and a single cherry
+sleigh bed in the center of the room.  Mommy is sleeping in her bed.
+
+>Mommy looks just like me.  Except older.  A horrible looking brain with eyes
+sits perched on her hair.
+
+>(Your score has increased by 5)
+The brainsucker shrinks from the beam of light.  It tries to scuttle back
+against the wall.
+
+But I have it pinned down and bring the full power of the flashlight to bear.
+
+Exposed to the light of truth, the brainsucker disappears in a greasy black
+puff of smoke.
+
+Mommy appears to ease into a peaceful slumber.
+
+>
+Parent's Room
+My parents room is rather sparse with sky blue walls and a single cherry
+sleigh bed in the center of the room.  Mommy is sleeping in her bed.
+Pooky stands nearby carefully watching for your next move.  Sissy is standing
+here with sleep in her eyes.
+
+>Mommy looks just like me.  Except older.  She is now sleeping peacefully.
+
+>I move north.
+South End of Hallway
+My bedroom is at the end of a long dark hallway.  To the north is the front
+of the house while to the south west is back into my bedroom.  Mommy's
+bedroom door to the south is closed and locked.
+
+>I move southwest.
+Bedroom
+Opposite each other, my day bed is along the east wall while Sissy's four
+poster bed is along the west wall under the window.  Its two sliding doors
+long removed by Mom and Dad, the open closet doorway is along the south wall
+between our beds.  Next to the bedroom door is a light switch.  Boxes block
+off the space beneath Sissy's bed; however, I can also crawl into the space
+underneath my bed.  There is a wet slide of goo across the wood floor.
+
+A cozy coupe ride on awaits to take you to destinations unknown.
+
+You can also see a pink plastic chair.
+
+>(Your score has increased by 5)
+Sissy pedals down the hallway while I steer.  Swooping down on leathery black
+wings, the flying monsters screetch futively as their claws scratch the top
+of the coupe.
+
+Sissy pedals faster and I take the first hard right into the kitchen.  Coming
+to a screetching halt, Sissy smiles and says, "We're hooomme!"  We both get
+out of the cozy coupe.
+
+Light spilling over from the playroom wards off the flying monsters who go
+dejected back to their perch atop the brass hallway light.
+
+>The clicking at the computer stops and a chair rolls back across the tile
+floor of the playroom.  Heavy feet pad towards the kitchen.  As the light
+comes on, a confused Daddy stands in the doorway.
+
+"What are you two doing up?" he asks.
+
+"Daddy, the monsters tried to eat me!"
+
+With a smile he says, "Chloe, you know there aren't any monsters."
+
+"Are too," Sissy states.
+
+"No, Let's get you back into bed and take care of those monsters..."
+
+Picking me up and leading Sissy by the hand, Daddy returns us to our bedroom
+turning on all the lights along the way.  There aren't any flying bats in the
+hallway.  There is no lima bean monster in the closet or green tentacle slime
+monster under the bed.
+
+After tucking us in, Daddy checks everywhere and finds no monsters.
+
+Sitting on the edge of the bed, he says, "You see?  There are no monsters."
+
+Drifting off to sleep I say, "Good night, Daddy".
+
+Getting up and turning off the light, Daddy remembers to plug-in a night
+light before leaving.
+
+The bed is warm and I can feel myself drifting into those pleasant dreams.
+My eyelids droop as the excitement wears off and tiredness kicks in.
+
+"Good night, " Daddy says gently closing the door, "Don't let the bed bugs
+bite..."
+
+What does he mean, "bed bugs"?
+
+I sit bolt upright and scream...
+Congratulations!

@@ -1,0 +1,980 @@
+Loading game...
+
+Three Monkeys, One Cage
+
+    You awaken to a harmony of hooting, grunting, and wheezing, played
+against a background of muffled laughter and chitter-chatter in a language
+sounding closest to, as far as you can tell, Latin.  These not being the
+sounds your ears are normally greeted with in the morning, you let your
+eyelids peel open with resignation...to discover that this ceiling is not
+your ceiling, this room not your room.  The bed, however, is your bed.
+Yawning, you sit up on it and gather in your surroundings.  Then you begin to
+wish you could ungather them and go about the whole business a different way.
+
+    It's dark all around, but not dark enough.  Encompassing all sides of you
+a vast assembly of alien faces is looking in your direction.  Literal alien
+faces, mind you.  Green heads, horns on head, goggly red eyes in triplets,
+and every other cliche that goes with the breed.  They are talking,
+snickering, shouting, eating live vermin, slapping each other on the back
+with slimy tentacles, and generally having themselves a grand time.  It's a
+gigantic ampitheatre from another world seating an inumerable host of
+grotesque lifeforms originating from a galaxy you're sure no earthly
+telescope has ever aspired to pick up!  And all agglomerated together to
+watch...you?
+
+    No, not just you.  And then you become aware of your immediate
+surroundings, and of why it smells rather like a safari in here.  Your bed is
+on one corner of a square dirt surface that marks the floor of a large
+enclosure.  Without walls.  No, there must be walls and you just can't see
+them.  Because you just hit the back of your arm against one en route to
+feeling for your pillow (which is actually an old smelly jersey you stopped
+wearing many years ago).  In a situation like this, one can really use a
+pillow to bury the face in.
+
+    But wait, I'm not done!  You need to know the reason why you cannot
+afford to go back to sleep, no matter how sweet the slumber would be.  I'll
+get to the point.  Two others share this space with you, a small monkey and a
+big monkey.  The small one does not look like he especially wants to clobber
+your face in to the point where an onlooker from behind can start to make out
+clear impressions of your eyes, nose, cheeks, and so forth on the back of
+your skull.  The big one *does*.  Also, several structures and contraptions
+fill the periphery, begging your attention and scrutiny.  The whole affair
+reeks of a puzzle.
+
+Three Monkeys One Cage  Tenth Beta Release
+by Robert Goodwin
+copyright © 2003
+*Important note* This game requires ADRIFT v4.042 or higher in order to play
+correctly!
+For instructions type HELP.
+
+>[The commentator will shut up now]
+
+>You ooze out of bed.  It was intended to be a roll, but an ooze is how it all
+panned out, and about sums up the way you're feeling right now, in fact the
+way you usually feel at this time of the day.  If "day" is the correct term
+for the position of the sun in respect to this planet presently.  Anyhow, you
+manage to find your feet.
+
+>You palm the hook, which comes free with a simple twist and tug.
+
+    The chimpanzee bounds towards you (from your northeast).
+
+>You pick up the flint stone.
+
+>You take your blanket from your bed.
+
+    The mandrill lumbers over to your northeast (from your north).
+
+>You take your jersey from your bed.
+
+>You scurry over to the northeast.
+Northeast Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  A coconut tree is standing, perhaps
+even growing, in this corner of the cage.  A short distance from the tree is
+a trough suspended in the air, stretching southward.
+    You see to the south a gate set in the wall, to the southwest your bed,
+and to the west a high platform.  The chimpanzee is southwest.
+
+    Lying on the ground here is a barbecue fork.
+    The mandrill is here.
+
+    The mandrill closes in towards you, ready to pounce.  (What do you mean
+you've never seen a mandrill "pounce" before?)
+
+    The chimpanzee shoots a frowning gaze at the mandrill.  He seems to be
+shaking his head like a disapproving parent.
+
+>You pick up the barbecue fork.
+
+    The chimpanzee inspects your bed for bananas but comes away with none.
+
+>You scurry over to the southwest.
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner facing east.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The mandrill is northeast.
+
+    The chimpanzee is here.
+
+>You'll start a fire, that's what you'll do!  You've heard that a fire can be
+started with simple flint and steel.  The stone you found on the ground will
+do for flint.  What about steel?
+The tines of that barbecue fork might be what you need.  You begin rubbing
+the flint stone against one of the tines as rapidly as a beaver.  (I think
+that a beaver might do this sort of thing)
+After some persistence, a spark finally flies.
+It catches on your old jersey, causing a flame to ignite.
+In no time a full-fledged fire is roaring.  Fortunately, the fire does not
+spread any further, but seems content to burn in place.
+
+    The chimpanzee escapes from the smoke over to your northeast (away from
+you).
+
+    The mandrill lumbers over to your north (from your northeast).
+
+>You turn on the fan.  Wind begins to blow in your face at high power, the
+only built-in setting.
+The air from the fan seems to be helping the fire some.
+Furthermore, it is blowing the smoke towards the east.
+
+    The mandrill's feelings towards you haven't changed, but he is avoiding
+the fire.
+
+>You heave your blanket onto the fire.  The fire displays its appreciation,
+nearly taking off half your face.  Whew, it's getting hot in this cage!
+
+>You turn the fan so it is facing north.
+The smoke follows suit.
+
+    The mandrill escapes from the smoke over to your east (from your north).
+
+>You scurry over to the north.
+Northwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  High up on the north wall and
+attached to it is a small square platform.  Higher still is what looks to be
+a hornet's nest.
+    You see to the east a coconut tree, to the southeast a gate, and to the
+south your bed.  The chimpanzee is east.  The mandrill is southeast.  Also to
+the south is the fire that you started.
+
+    Smoke blown in from the south makes it slightly uncomfortable to breathe
+in this corner of the cage.
+
+    Lying on the ground here is a banana.
+
+>You pick up the banana.  Meanwhile the chimpanzee pretends not to care.
+
+>You lob the banana so that it lands up there on the ledge where not even you
+can reach it.
+The coordinates marking the new location of the banana are immediately picked
+up by the chimpanzee, whom Nature has bestowed with an internal banana radar.
+ He edges out along a leaf of the tree, or at least it sort of looks that
+way.  Whatever the case, this ape's gonna jump.
+
+>You scurry over to the south.
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner blowing wind north.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The chimpanzee is northeast in the
+tree.  The mandrill is east.
+
+    The fire you started is burning here, smoke being blown towards the
+north.
+
+    The mandrill's feelings towards you haven't changed, but he is avoiding
+the fire.
+
+    The chimp leaps from the coconut tree northeast to the platform north.
+In the process he carelessly knocks over the bucket that was sitting up
+there.  It topples over the ledge, hits the dirt ground, and rolls for a
+spell before finally stopping to rest here near the bed.
+
+    The fire is raging strongly.
+
+>Time passes...
+
+>You pick up the bucket.
+
+    The chimpanzee spies the banana and picks it up.
+Getting ahead of the game, he goes right to peeling it, dropping the peel
+afterwards.
+
+>You turn the fan so it is facing east.
+The smoke follows suit.
+
+    The mandrill escapes from the smoke over to your northeast (from your
+east).
+
+    The chimpanzee drops the banana down his throat, to use slight hyperbole.
+ That is to say, he consumes it rapidly.
+
+>You scurry over to the east.
+Southeast Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
+gate is positioned midway up the east wall.  Protruding outward perpendicular
+from a point high up on the south wall is a long cylindrical bar.
+    You see to the west your bed, to the northwest a platform, and to the
+north a coconut tree.  The chimpanzee is northwest on the platform.  The
+mandrill is north.  Also to the west is the fire that you started.
+
+    Smoke blown in from the west makes it slightly uncomfortable to breathe
+in this corner of the cage.
+
+    The chimpanzee leaps back over to the tree.  It's nicer and less
+artificial than the hard cold platform, I guess.  A nice place to visit to
+pick up a banana or whatnot, but he wouldn't build a monkey nest there.
+
+>(first picking up the cord)
+You tie the end of the cord to the tiny hook in a granny's knot that you
+actually learned from your granny.
+
+    The mandrill shambles over to your northwest (from your north).
+
+    After first checking that the coast is clear, the chimpanzee climbs down
+from the tree.
+
+>You take the end of the cord that is tied to the hook and toss it over the
+side of the bar protruding from the wall.  It takes you a few tries to get it
+up there, but you succeed.  The end of the cord with the hook is now dangling
+from the bar, very close to the south end of the trough.
+
+>Using the barbecue fork, you lift the bucket so that it hangs from one of the
+tines.
+
+    The chimp grunts, hoots, cries, howls, screams, barks, whoops, yammers.
+Life, the chimp might say, is a party.
+
+>You raise the barbecue fork with the bucket hanging from one of the tines up
+to the cord that is dangling over the side of the pole.  You attempt to slip
+the bucket onto the hook using the fork...and succeed.  The cord goes taut,
+but if the gate door went up at all, you sure didn't notice it, and neither
+did I.
+
+    The fire is thriving, if the word "thriving" can be used in this context.
+
+>Time passes...
+
+    The chimpanzee climbs up the coconut tree like a chimp that hasn't had a
+coconut fix in weeks.
+
+>Time passes...
+
+>You remember reading about a lady that lived among wild chimpanzees, or was
+raised by them, or something like that.  She discovered that apes in the wild
+often communicate complex algebraic expressions to one another using simple
+hand gestures.  Or something; you might have gotten a few of the facts
+muddled.  The point is--you too can communicate with this chimp!  Well, maybe
+not this chimp.  This chimp looks like he probably flunked out of banana
+theory.
+    Anyhow, it's worth a shot.  You get the ape's attention and begin
+gesticulating wildly at him.  You try everything you can think of to get your
+message across, using arms, legs, soul.
+
+That's an easy one for the ape.  He's doubtless been given enough
+coconut-picking assignments in his time to glean the meaning.  The chimp
+reaches among the leaves and pulls forth a plump coconut, which he proceeds
+to turn over in his expert, appraising hands.
+
+    The mandrill steps gingerly over the banana peel.  You think it highly
+out of character for the brute.
+
+>(first stepping over to the here)
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner blowing wind northeast.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The chimpanzee is northeast in the
+tree.  The mandrill is north.
+
+    The fire you started is burning here, smoke being blown towards the
+northeast.
+
+You turn the fan so it is facing northeast.
+The smoke follows suit.
+
+>You scurry over to the northeast.
+Northeast Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  A coconut tree is standing, perhaps
+even growing, in this corner of the cage.  A short distance from the tree is
+a trough suspended in the air, stretching southward.
+    You see to the south a gate set in the wall, to the southwest your bed,
+and to the west a high platform in the tree.  The mandrill is west.  Also to
+the southwest is the fire that you started.
+
+    Smoke blown in from the southwest makes it slightly uncomfortable to
+breathe in this corner of the cage.
+    The chimpanzee is up in the coconut tree.
+
+    The chimpanzee tosses the barbecue fork out of the cage, clearly aiming
+for that one flabby alien with the oversized tentacles.  But of course the
+coconut doesn't actually leave the cage, but instead bounces off the nearest
+transparent wall.
+
+>You pick up the coconut.
+
+    The mandrill scratches his hairy armpit.
+
+>If they can do it on Survivor so can you!  You begin banging the stone
+against the coconut's husk like Neanderthal man discovering a great new Rock
+beat.
+Soon enough a crack is forced open large enough for you to pry a couple
+digits in and peel off the remaining husk, which falls to your feet.  You are
+left holding a hard coconut shell.
+
+>You pick up the coconut husk.
+
+    The fire is burning quite hotly.  You could roast quite the marshmallow.
+
+>Time passes...
+
+    The mandrill's feelings towards you haven't changed, but he is avoiding
+the fire.
+
+    After first checking that the coast is clear, the chimpanzee climbs down
+from the tree.
+
+>You give the chimpanzee the coconut.  He walks off with it, clasping it to
+his chest like some great treasure.
+
+>Time passes...
+
+    The chimpanzee grooms your back free of charge.
+
+>Time passes...
+
+    The chimpanzee climbs up the coconut tree like a chimp that hasn't had a
+coconut fix in weeks.
+
+>Time passes...
+
+>You grab the chimpanzee's attention a second time.  He stares at you dumb,
+but you do the wild gesturing thing.
+
+The chimp seems to have understood!  He imitates your sideways motion and
+lobs the coconut the short distance to the mid-air trough.  It's so close
+that no monkey could miss.
+The coconut shell lands on the trough and comes to rest in its middle.  Is
+that not a great ape?
+    Now, you may or may not have been harboring a hope that the shell would
+go on rolling down the trough primly, but this cannot be.  The reason is that
+the trough is not inclined, but perfectly level.  "The game's still up", as
+they say.  (They do say that, don't they?)
+
+    The mandrill's feelings towards you haven't changed, but he is avoiding
+the fire.
+
+>You push up one end of the trough from the bottom by raising the barbecue
+fork.
+(And I'm going to go out on a limb here and assume you meant to raise the
+north end of the trough)  The coconut begins to roll down the slightly
+inclined trough, not unlike a bowling ball going down a gutter (usually when
+you've only got one pin left to fell).
+When it reaches the end of the trough, it falls to land precisely in the
+bucket you had cleverly placed.  The new weight of the bucket causes the cord
+to do the "pulley-thing", the upshot of which is that the gate door rises a
+few inches more, probably enough for you to get your hands underneath it and
+push it up the rest of the way!
+
+    The mandrill snarls at the chimpanzee.
+
+>You scurry over to the south.
+Southeast Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
+gate is positioned midway up the east wall.  Protruding outward perpendicular
+from a point high up on the south wall is a long cylindrical bar, with a
+nylon cord slung over the top, tied to a small hook, from which hangs a
+bucket.
+    You see to the west your bed, to the northwest a platform, and to the
+north a coconut tree.  The chimpanzee is north in the tree.  The mandrill is
+northwest.  Also to the west is the fire that you started.
+
+    After first checking that the coast is clear, the chimpanzee climbs down
+from the tree.
+
+    The fire is burning brightly.
+
+>You put your fingers under the gate in the precious space created by the
+whole pulley-affair, and heave upwards.  The gate slides up, enough for you
+to climb in there and crawl on out through it!  Freedom beckons like the
+prison door creaking open on parole day.  But before you can take the "final
+plunge" in two senses of the word, you are forced to halt.
+    My what a handsome drop!  A transferal of self from the opening of this
+cage to the ground below would, if taken in the hasty manner that first comes
+to mind, most probably result in the fracturing of most of your bones,
+including quite possibly some vital ones.  Desperate souls have been known to
+leap from burning skyscrapers at heights greater than this and survive with
+barely a bruise, but your chances here look...yes, "brittle" is the right
+word.
+
+    The chimpanzee climbs up the coconut tree like a chimp that hasn't had a
+coconut fix in weeks.
+
+>You scurry over to the west.
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner blowing wind northeast.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The chimpanzee is northeast in the
+tree.  The mandrill is north.
+
+    The fire you started is burning here, smoke being blown towards the
+northeast.
+
+>You chuck the coconut husk into the fire.  The fire receives it graciously.
+
+>You get the coconut husk onto the barbecue fork.
+You now have something resembling a torch.
+
+>You turn the fan so it is facing east.
+The smoke follows suit.
+
+>You scurry over to the east.
+Southeast Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
+gate is positioned midway up the east wall.  Protruding outward perpendicular
+from a point high up on the south wall is a long cylindrical bar, with a
+nylon cord slung over the top, tied to a small hook, from which hangs a
+bucket.
+    You see to the west your bed, to the northwest a platform, and to the
+north a coconut tree.  The chimpanzee is north in the tree.  The mandrill is
+northwest.  Also to the west is the fire that you started.
+
+    Smoke blown in from the west makes it slightly uncomfortable to breathe
+in this corner of the cage.
+
+    The mandrill lumbers over to your north (from your northwest).
+
+>You lift the barbecue fork to the cord, touching the flame to the point
+directly above the knot where the hook is tied.  The cord begins to burn in
+that place.
+
+>You rub the barbecue fork into the dirt, putting out the flame.
+
+    The fire is burning quite hotly.  You could roast quite the marshmallow.
+
+    The burning cord is becoming thin.
+
+>You wedge the barbecue fork up into the gate opening so as to hold it open.
+It's precarious, but it looks like it will work!
+
+    The mandrill snarls at you.
+
+    The burning cord will snap very soon.
+
+>Time passes...
+
+    The mandrill flashes his teeth at you.
+
+    The end of the cord dangling from the bar has been burnt completely
+through.
+The bucket drops to the ground with a loud clang, accompanied by the hook it
+had been hanging from.
+Thanks to a strategically placed barbecue fork, the gate stayed open!
+The coconut rolls out of the bucket.
+
+>You yank the cord from its position dangling over the side of the bar.  You
+are now holding the end of the cord.
+
+    The mandrill stares intently at you while scratching self, plainly
+considering the best way to go about pummeling you into mud.
+
+>You tie the cord around your waist as tightly as you can.
+
+    The mandrill stares intently at you while scratching self, plainly
+considering the best way to go about pummeling you into mud.
+
+>(first untying the cord from your waist)
+You step over to the west.
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner blowing wind east.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The chimpanzee is northeast in the
+tree.  The mandrill is northeast.
+
+    The fire you started is burning here, smoke being blown towards the east.
+
+    The mandrill studies the chimpanzee, who is nervously crouching behind a
+cluster of coconuts.  He briefly considers knocking the tree down to get to
+the chimp, but in the end decides it wouldn't be worth his time.
+
+>You take your sheet from your bed.
+
+>You put the sheet over yourself.  You might look like a ghost, but it beats
+being one.
+
+>You scurry over to the north.
+Northwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  High up on the north wall and
+attached to it is a small square platform.  Higher still is what looks to be
+a hornet's nest.
+    You see to the east a coconut tree, to the southeast a gate, and to the
+south your bed.  The chimpanzee is east in the tree.  The mandrill is east.
+Also to the south is the fire that you started.
+
+    Lying on the ground here is a banana peel.
+
+    The chimpanzee leaps over to the horizontal bar suddenly and swings back
+and forth on it like the monkey that he is.  After a minute or two of this,
+he drops to the ground with newfound levity of heart.
+
+    The fire is burning brightly.
+
+>You bob the rock in your hand confidently, wind up, and hurl it at the nest
+of hornets.  Your aim is true, and the desired effect (if it really was your
+desired effect!) takes place.  The hornets emerge from the nest in an immense
+swarm and sally forth like cavalry storming down a hill.  "Alll rigghhht,
+whooo threww thatt rockkk?!", they seem to want to know.
+
+>You scurry over to the south.
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner blowing wind east.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The chimpanzee is east.  The
+mandrill is northeast.
+
+    The fire you started is burning here, smoke being blown towards the east.
+
+    A thick swarm of hornets fills the air.
+
+    The hornets have begun to harass all occupants of the cage, brandishing
+their stingers with disregard.  No corner of the cage is safe.
+The chimp and the mandrill, forgetting old differences, have taken to running
+around like rabid animals and futilely attempting to cover their naked bodies
+from the assault of the swarm.
+
+>You take up your mattress from the bed.
+
+    The chimpanzee runs madly over to your northeast (from your east).
+
+    The hornets swarm has completely filled the cage.  Everywhere are little
+black and yellow bodies.  Fortunately, the sheet you covered yourself with
+protects you from their vindictive stings, and you can still see well enough
+to do what you have to do.
+
+>You scurry over to the east.
+Southeast Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
+gate is positioned midway up the east wall.  Protruding outward perpendicular
+from a point high up on the south wall is a long cylindrical bar.
+    You see to the west your bed, to the northwest a platform, and to the
+north a coconut tree.  The chimpanzee is north.  The mandrill is north.  Also
+to the west is the fire that you started.
+
+    Smoke blown in from the west makes it slightly uncomfortable to breathe
+in this corner of the cage.
+    A thick swarm of hornets fills the air.
+
+    Lying on the ground here is a small hook, a coconut and a bucket.
+
+    The mandrill runs madly towards you (from your north).
+
+>You lift the gate up enough to get a mattress under its bottom.  By heaving
+the mattress upwards, you are able to push the gate open with it, allowing
+the mattress to fit through the opening.  It doesn't go all the way in at
+first, but a little shoving here, some shoulder there, and a bit of elbow
+action over there proves effective.  The mattress drops outside the cage, and
+within seconds you can hear the "floop" sound of its arrival with the ground
+below.
+
+>Time passes...
+
+>Time passes...
+
+    The mandrill runs madly over to your west (away from you).
+He kicks the coconut along with him, whether deliberately or inadvertently
+you can't tell.  Not that this matters to the coconut.
+
+    The chimpanzee runs madly over to your northwest (from your north).
+
+>Time passes...
+
+    The mandrill runs madly over to your north (from your west).
+
+    The fire is still going strong.
+
+>Time passes...
+
+    The chimpanzee runs madly towards you (from your northwest).
+
+>Time passes...
+
+    The chimpanzee runs madly over to your north (away from you).
+
+>Time passes...
+
+    The mandrill runs madly over to your northwest (from your north).
+
+>Time passes...
+
+    The mandrill runs madly towards you (from your northwest).
+
+    The chimpanzee runs madly towards you (from your north).
+
+>Time passes...
+
+    The mandrill runs madly over to your west (away from you).
+
+>Time passes...
+
+>Time passes...
+
+    The chimpanzee runs madly over to your north (away from you).
+
+>Time passes...
+
+    The mandrill runs madly towards you (from your west).
+He kicks the coconut along with him, whether deliberately or inadvertently
+you can't tell.  Not that this matters to the coconut.
+
+    The fire is doing well.  It continues to eat away at your offering.
+
+>Time passes...
+
+    The mandrill runs madly over to your northwest (away from you).
+He kicks the coconut along with him, whether deliberately or inadvertently
+you can't tell.  Not that this matters to the coconut.
+
+    The chimpanzee runs madly towards you (from your north).
+
+>Time passes...
+
+    The mandrill runs madly over to your west (from your northwest).
+He kicks the coconut along with him, whether deliberately or inadvertently
+you can't tell.  Not that this matters to the coconut.
+
+    The chimpanzee runs madly over to your northwest (away from you).
+
+>Time passes...
+
+    The mandrill runs madly over to your north (from your west).
+He kicks the coconut along with him, whether deliberately or inadvertently
+you can't tell.  Not that this matters to the coconut.
+
+>Time passes...
+
+    The mandrill runs madly towards you (from your north).
+He kicks the coconut along with him, whether deliberately or inadvertently
+you can't tell.  Not that this matters to the coconut.
+
+    The chimpanzee runs madly towards you (from your northwest).
+
+>Time passes...
+
+    The mandrill runs madly over to your north (away from you).
+
+    The chimpanzee runs madly over to your northwest (away from you).
+
+>Time passes...
+
+    The chimpanzee runs madly towards you (from your northwest).
+
+>Time passes...
+
+    The mandrill runs madly over to your northwest (from your north).
+
+>Time passes...
+
+    The mandrill runs madly over to your north (from your northwest).
+
+    The fire is not too strong.
+
+>Time passes...
+
+    The mandrill runs madly over to your west (from your north).
+
+>Time passes...
+
+    The mandrill runs madly towards you (from your west).
+
+    The chimpanzee runs madly over to your north (away from you).
+
+>Time passes...
+
+>Time passes...
+
+    The mandrill runs madly over to your north (away from you).
+
+    The chimpanzee runs madly towards you (from your north).
+
+>Time passes...
+
+    The mandrill runs madly over to your west (from your north).
+
+    The chimpanzee runs madly over to your west (away from you).
+
+>Time passes...
+
+>Time passes...
+
+    The mandrill runs madly over to your north (from your west).
+
+>Time passes...
+
+    The fire is yet hot, but gradually beginning to diminish.
+
+>Time passes...
+
+    The chimpanzee runs madly towards you (from your west).
+
+>Time passes...
+
+>Time passes...
+
+    The mandrill runs madly towards you (from your north).
+
+    The chimpanzee runs madly over to your northwest (away from you).
+
+>Time passes...
+
+    The mandrill runs madly over to your northwest (away from you).
+
+    The chimpanzee runs madly towards you (from your northwest).
+
+>Time passes...
+
+    The mandrill runs madly towards you (from your northwest).
+
+>Time passes...
+
+    The chimpanzee runs madly over to your west (away from you).
+
+>Time passes...
+
+    The chimpanzee runs madly over to your north (from your west).
+
+>Time passes...
+
+    The mandrill runs madly over to your north (away from you).
+He kicks the coconut along with him, whether deliberately or inadvertently
+you can't tell.  Not that this matters to the coconut.
+
+    The chimpanzee runs madly towards you (from your north).
+
+    The fire is becoming weak.  Time to make another offering if you have
+one.
+
+>Time passes...
+
+    The mandrill runs madly over to your northwest (from your north).
+
+    The chimpanzee runs madly over to your west (away from you).
+
+>Time passes...
+
+>Time passes...
+
+>You scurry over to the west.
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner blowing wind east.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The mandrill is north.
+
+    The fire you started is burning here, smoke being blown towards the east.
+
+    A thick swarm of hornets fills the air.
+    The chimpanzee, harassed by the hornets, is running to and fro like a
+madman.
+
+    The mandrill runs madly over to your east (from your north).
+
+    The chimpanzee runs madly over to your north (away from you).
+
+>You crawl underneath your bed.  The space down here, while restrictive in
+terms of the body's mobility, has always served as a reliable refuge from
+aunts, uncles, landlords, and other unwelcome guests.  You see no reason why
+it cannot serve just as well in a similar capacity.
+
+    The chimpanzee runs madly over to your east (from your north).
+
+    By reason of its head being so weenie, a hornet's brain cannot possibly
+be much larger than a cookie sprinkle.  That was about how your thinking
+went, wasn't it?  Well you were correct, because not a single hornet thinks
+to peek under the bed for sting-bait, sparing you from the vengeance they are
+inflicting on the cage at large.  The only problem...there isn't a lot to do
+down here!
+
+    One of the panels on the ceiling high above turns out to be important
+after all.  It slides open to emit an anvil that falls like a brick--no, like
+an anvil--and hits the dirt with force enough that a small crater is visible
+when the dust clears.  Had you been standing two feet to your right it would
+have brained you.
+
+>Time passes...
+
+    The mandrill runs madly over to your north (from your east).
+
+    Another panel on the ceiling somewhere else opens and a second anvil
+falls to dent the ground near the vicinity of the chimpanzee.  (the
+chimpanzee, unable to place the fallen object as any fruit he's ever seen
+before, isn't as alarmed as he you feel he should be)  Then another panel
+opens, and another.  "Whoaaaa Nelly", you scream.
+
+>Time passes...
+
+    The chimpanzee runs madly over to your north (from your east).
+
+    One after another anvils are dropping all over the cage, barely missing
+monkey vitals and appendages.
+
+>Time passes...
+
+    The chimpanzee runs madly towards you (from your north).
+
+    The fire is dying, and there is no longer any smoke.
+
+    Anvils keep on falling.  You've been lucky so far...
+
+>Time passes...
+
+    The mandrill runs madly towards you (from your north).
+
+    The chimpanzee runs madly over to your east (away from you).
+
+    You hear a clamor from the audience.  Many of them are pointing to the
+mandrill who is now lying motionless in a hairy clump with his face buried
+underneath an anvil.
+
+>Time passes...
+
+    Several assertive thuds are heard and felt from above the bed you are
+cowering under.  You owe the old bunk a big one for this.  You vow to make it
+up to it when you finally get out of this scratch.  Like buy new covers or
+something.
+
+>Time passes...
+
+    The chimpanzee runs madly over to your northeast (from your east).
+
+    Slowly the ceiling panels all close and anvils cease to drop.  But slowly
+they open again to reveal a new threat.
+
+>You slither out from underneath your bed and onto your own feet again.
+
+    A small canister drops to the ground, whereupon it explodes like a
+firecracker.
+
+>You scurry over to the east.
+Southeast Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
+gate is positioned midway up the east wall.  Protruding outward perpendicular
+from a point high up on the south wall is a long cylindrical bar.
+    You see to the west your bed, to the northwest a platform, and to the
+north a coconut tree.  The chimpanzee is north.  The mandrill is west.  Also
+to the west is the fire that you started.
+
+    A thick swarm of hornets fills the air.
+
+    Lying on the ground here is a small hook and a bucket.
+
+    The chimpanzee runs madly over to your northwest (from your north).
+
+    Another ceiling panel slides open and a second canister drops, strikes
+the ground, and blows up in the exact same way as the first.  The cause is
+joined by others like them.
+
+>(first picking up the cord)
+You tie the cord around your waist as tightly as you can.
+
+    The chimpanzee runs madly over to your north (from your northwest).
+
+    One after another bombs drop from the ceiling and explode on impact.  The
+explosions created are small, but not small enough!
+
+>The time has come to fly this cage.
+With your friend mattress that you have known to be trustworthy lying on the
+ground directly below, your confidence in surviving this last plummet has
+taken a gainful rise.  Looking down at the ground from the opening of the
+cage, the mattress looks the size of a credit card, but surely it cannot be
+difficult to plan your descent so that your major appendages do not miss it.
+Yes, you've made your bed.  Now it's time to sleep in it.
+
+Gripping the cord in one hand you make the fateful leap...and immediately
+discover that the cord is far too short to cover the length of the drop!  The
+wind goes out of you as you reach the end of it, the cord biting into your
+chest like a boa constrictor doing the constricting thing, and you discover
+yourself fluttering there in the air midway between dear ground and cursed
+cage.  The distance you've covered so far is a mere third of the distance to
+the ground.  But with your trusty mattress waiting for you below your
+confidence and faith is boosted.  You untie the cord from your waste and fall
+the rest of the way to where your mattress waits with arms outstretched.
+And to the surprise of the entire alien congregation (which you are only able
+to discern because of the single unified gasp that meets your ears) you land
+right on it!  It breaks the fall completely.  Your bones are merely shaken,
+but none broken.  Your breath is gone from you, but you are alive, alive,
+alive!  And FREE!
+
+    It has grown awfully quiet all of a sudden.  And what the hey, where'd
+all the aliens go?  And the stands that were seating them, for that matter?
+All those waving tentacles just flickered to be replaced by tedious blank
+walls, as if the end of a cheesy home video had been reached.  You aren't in
+an ampitheatre anymore, just an enormous circular room.  I repeat, what the
+hey?
+    As you are collecting yourself from the mattress you hear something
+weighty bounce off it behind you.  It's the chimpanzee!  The drop didn't
+injure him in the slightest because his kind learns how to take falls early
+on (Juvenile chimps have been observed pushing their friends out of trees
+just for the joke of it.  Kids can be so cruel).  The chimp seems to be
+chittering and pointing to a small glass door set in the wall that you didn't
+notice until now.  You walk across to it and pull it open slowly...to see two
+old boys you recognize standing there in white coats.
+    "...I didn't think he would make it.  I guess I owe you $10, Dr. Glee.
+Oh dear, speak of the devil."  Dr. Wickett clears his throat.  "Er, aherm,
+yes, good morning to you.  Did you have, er, a pleasant rise?"
+    "Coffee couldn't have done a better job, could it have?", asks Dr. Glee
+with a forced smirk.
+    There's an awkward pause before you put the question forth.  "Wh-where'd
+all the tentacles...?"  The words just dribbled out of you.  It was the only
+thing you could think of to say.
+    "Er...well, they weren't real, exactly.  We had to simulate them, you
+see, for the sake of the experiment."
+    Dr. Wickett chuckles a bit uncomfortably.  Nevertheless, there was no
+mistake.  It was the same laugh you heard last night while your bed was being
+whisked away with you still sitting upright in it, just before that block of
+ceiling took a swipe at your head.  You are beginning to
+feel...something...build up in you......a hot feeling...a nasty feeling...the
+kind of feeling that trumpets a "Mr. Hyde" spell...the kind of feeling people
+who find themselves labeled as "axe-murderers" sometimes get...the kind of
+feeling felt by the man who considers it's about time his wife needs a
+beating with that boot lying by the couch over there...
+    "Creating the video was labor-intensive.  But employing all those
+engineers...", offers Dr. Wickett.
+    "You wouldn't believe how much it cost to import the mandrill", says Dr.
+Glee, still forcing that nervous smile.
+    You can't answer.  You can't speak a word.  "Flabbergasted" just isn't
+strong enough.
+    "Er, did you...like the Latin?"
+    "Dr. Glee voiced it himself", adds Dr. Wickett.
+    A glare is beginning to set itself on your face.  Your jaw is hardening.
+Your hands are twitching but you hardly notice it.  The two men are slowly
+backing away.  (I'm keeping some distance, myself)
+    "Y-you've proved an important hypothesis, you know.  We'll have to repeat
+the experiment a few more times just to make sure, but..."  Dr. Wickett
+swallows.
+     "Think of what you've done for science", ventures Dr. Glee.
+    That is it.  No more.
+
+> GIVE FINGER TO DR. WICKETT
+
+    Dr. Wickett backs off slowly.  "N-now, hold on.  Aren't you proud to have
+been the first?  Most of us didin't think you could pull it off.  Dr. Glee
+tried to get me to put up more than $10 but, you know, I'm not much of a
+gambling man..."
+
+> GIVE FINGER TO DR. GLEE
+
+    Shaking visibly, Dr. Wickett stammers, "Y-you mustn't lose sight of what
+is required of man in the name of science.  Now see here.  Y-you have got--"
+    But Dr. Glee is pulling his arm to run for it, and he quickly agrees that
+is a sound plan.  It's good for him that he does because it means his neck
+isn't there for your fingers to wring when they reach that spot in the air.
+The chimpanzee points in the direction that the two have fled as you pursue
+them out the room, into the hall, out of the building, across Madison Lane,
+through the city park, through a residential area, through an apple orchard,
+over the prairie, through a plot of corn fields, over the Atlantic, across
+the Sahara, and, well, you get the idea.  We're projecting ahead in to the
+future some, but I think that about sizes up your intentions, doesn't it?
+The chimp chitters agreement.
+
+*** Congratulations, you did it!  (What took you so long?) ***

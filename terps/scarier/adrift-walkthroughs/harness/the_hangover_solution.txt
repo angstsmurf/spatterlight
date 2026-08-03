@@ -1,0 +1,55 @@
+take two dollar bill
+e
+x sink
+take toothbrush
+w
+take bathrobe
+wear bathrobe
+put toothbrush in bathrobe
+put two dollar bill in bathrobe
+w
+n
+take mail
+n
+n
+give deby two dollar bill
+s
+w
+kick bum
+n
+wait
+n
+n
+ask secretary about mail
+give secretary mail
+e
+ask walter about debit card
+w
+give the approval note to secretary
+w
+ask platypus about approval note
+n
+x cabinet
+open the filing cabinet
+take approval form
+n
+n
+n
+wait
+w
+ask doctor about approval form
+give the doctor some french fries
+s
+s
+take toothbrush
+read toothbrush
+type 119-228-337-446
+drop toothbrush
+take off bathrobe
+e
+wear bathrobe
+e
+n
+e
+give approval notes to platypus
+score

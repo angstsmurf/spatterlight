@@ -1,0 +1,1165 @@
+Loading game...
+
+Unauthorized Termination
+
+Unauthorized Termination
+
+by Richard Otter
+Version 1.00, 2006
+
+1. Play the game
+
+2. Read the introduction
+
+3. Useful information
+
+4. Morbian Facts
+
+5. Credits
+
+>
+
+The following message is claimed to be the final communication of the 'First
+One', fabled founder of the Morbian state.
+
+Command Error......violation.......terminate
+
+This has become the basis of all Morbian law.
+
+[Press ENTER to continue]
+
+Domicile of Epsilon-Beta
+The dull metal room, which is exactly 2m square and 2.5m in height, is
+appropriate to your level of achievement. Attached to the wall behind you is
+the all important recharger with the teleporter on the floor opposite. To
+your left is the communicator with your own personal storage shelf above it.
+With the lighting fixed on the lowest setting the place is in gloom, just how
+you prefer it.
+
+You have been disturbed from your recharging by the arrival of a message on
+your communicator.
+
+>The metal shelf is for personal items appropriate to the level of
+achievement.  Your square id badge is on the shelf.
+
+>You take your square id badge from the shelf.
+
+>You put on your square id badge.
+
+>Messages
+It is displaying: Attend Centre for Examination - Urgent.
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is 10m across and nearly 5m in height. With the
+standard hidden lighting set to a low level, most of the room is in
+murkiness. A security monitor is on one side of the room, to your right the
+interrogator and virtually opposite is the teleporter.
+Zeta-Theta is standing against the wall.
+
+>You begin with, "Hail Zeta-Theta. A communication to attend has been
+received."
+
+Zeta-Theta turns to face and replies, "Hail Epsilon-Beta. Apologies if you
+have been recharging, but an urgent assignment has arrived. We have an
+unauthorised termination. It requires your immediate attention."
+
+Asking the most obvious question, "The victim?"
+
+Turning towards the teleporter Zeta-Theta answers, "An individual called
+Gamma-Sigma, a Beta-Tyr Series 3. The location has been programmed into the
+teleporter." Zeta-Theta hands a card to you, which you take.
+
+An unauthorised termination is not unusual but is fairly rare; it is most
+likely some form of accident.
+
+>The room slowly fades and is replaced with your destination.
+Domicile of Gamma-Sigma
+The domicile is appropriate to the victim's level of achievement and the
+metal room is 1.5m square and only 2m in height. On one side of the room is
+the recharger and opposite the communicator. On the wall in between is the
+teleporter. A typical domicile for a Series 3.
+The still form Gamma-Sigma is here.
+
+>Logs
+The log has details of teleporter activity up to the point of termination.
+The log contains thousands of entries but the following draw your attention.
+
+4-33-37, Gamma-Sigma leaves domicile
+4-80-45, Gamma-Sigma arrives domicile
+5-33-25, Gamma-Sigma leaves domicile
+5-50-12, Psi-Tau, maintenance operative arrives domicile
+5-51-15, Psi-Tau, maintenance operative leaves domicile
+5-85-25, Gamma-Sigma arrives domicile
+
+The entry relating to Psi-Tau and the maintenance during the last cycle is
+particularly interesting.
+
+>Gamma-Sigma, the Beta-Tyr Series 3, is lying on the floor and from the
+position of the remains it looks as if the individual has fallen from the
+recharger unit. Gamma-Sigma seems to have burn marks, almost as if the
+individual has been subject to an electrical shock. The memory module
+retrieval will hopefully give some clues to what happen.
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is nearly 5m in height and 10m across. A security
+monitor is on one side of the room, to your right the interrogator and
+virtually opposite is the teleporter. With the standard hidden lighting set
+to a low level, most of the room is in dullness.
+Zeta-Theta is standing against the wall.
+
+>You begin with, "Hail Zeta-Theta, Gamma-Sigma has been examined and it
+appears that some form of electrical shock was the cause of termination."
+
+"Is an accident the likely cause?" but Zeta-Theta does not turn to look at
+you.
+
+"Yes, it appears some maintenance was carried out to the recharger by an
+individual known as Psi-Tau.  This took place the cycle before the
+termination."
+
+Still without looking at you Zeta-Theta replies, "The suggestion is that the
+examination continues at the Centre of Maintenance. The order for an
+immediate deconstruct of the remains of Gamma-Sigma will be given."
+
+>The room slowly fades and is replaced with your destination.
+Centre for Maintenance
+The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
+standard hidden lighting seems to be set to a higher level than normal, it is
+certainly brighter than you prefer. A control panel is on one side of the
+room and right opposite is the teleporter.
+Mu-Nu is hovering in the centre of the room.
+
+>Mu-Nu states, "Hail Epsilon-Beta, your appearance is unexpected but
+agreeable."
+
+Looking around the centre you reply,  "Hail Mu-Nu. It is agreeable to have
+dealings with you also." Over the rotations at the Centre for Examination,
+you have had many dealings with Mu-Nu and is considered a close acquaintance.
+"An examination of one of your operatives is required." Pausing for a few
+decsecs you then continue, "Psi-Tau carried out an assignment at the domicile
+of Gamma-Sigma."
+
+Mu-Nu spends a few moments looking at the control panel and then replies,
+"Yes, Psi-Tau is a Beta-Tie Series 3 and carried out repairs to the
+recharger."
+
+In a formal tone you ask, "The examination needs to take place immediately,
+what assignment is Psi-Tau on?"
+
+Mu-Nu again checks the control panel and after an unusually long delay
+replies, "Apparently Psi-Tau has been called to the Centre of Examination."
+
+That is very unusual, especially with your examination still taking place.
+You decide to return to the centre.
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is nearly 5m in height and 10m across. A security
+monitor is on one side of the room, to your right the interrogator and
+virtually opposite is the teleporter. With the standard hidden lighting set
+to a low level, most of the room is in darkness.
+Zeta-Theta is standing against the wall.
+
+>Zeta-Theta replies with, "Hail Epsilon-Beta."
+
+"The maintenance operative who carried out an assignment at the victims
+domicile was Psi-Tau," you report.
+
+Zeta-Theta takes a few moments to reply and then says, "Yes, Psi-Tau has been
+examined and found guilty. Psi-Tau has been terminated."
+
+Taken slightly aback by this you ask, "But, the examination is still in
+process?"
+
+"Yes, understood," Zeta-Theta replies, "but it is a clear example of not
+carrying assignments diligently leading to an unauthorized termination. A
+direct contravention of law 9845."
+
+This is very unusual, so unusual in fact that you are not sure how to
+respond. Thinking for a few moments you continue with, "To further this
+investigate this unit requests permission to examine the domicile of
+Psi-Tau."
+
+[Press ENTER to continue]
+
+For the first time Zeta-Theta turns to face you, "Little point, Psi-Tau was
+guilty and has been punished; the law has been up held."
+
+You quickly respond with, "It is important to be sure that Psi-Tau did not
+carry out poor assignments at other domiciles."
+
+Zeta-Theta starts to reply with "Well, it is unlikely...."
+
+Before Zeta-Theta gets the chance to continue you interrupt with, "The
+assignment cannot be considered completed until all is correct. It could be
+considered a breach of law 9845 otherwise."
+
+For nearly 3 decmins Zeta-Theta remains silent.  Zeta-Theta thinks for a few
+decsecs and then comes to a decision and says, "Yes, all right. Access to the
+domicile of Psi-Tau will be granted."
+
+Something is not correct here, but you still fail to identify what.
+
+>The room slowly fades and is replaced with your destination.
+Domicile of Psi-Tau
+The metal room is 2m square and 2.5m in height. On one side of the room is a
+recharger and opposite the communicator. On the other wall is the teleporter
+and opposite is a personal storage shelf. The lighting is on the lowest
+setting, just how you prefer it.
+
+The first thing that occurs to you is that this domicile seems slightly too
+large for a Series 3. This is a direct violation of law 3981.
+
+>The metal shelf is for personal items appropriate to the level of
+achievement.  A pebble is on the shelf.
+
+>You take the pebble from the shelf.
+
+Looking at the pebble you do not understand how a Series 3 would have
+obtained such a thing (violation of law 3981), never mind actually owning it
+(violation of law 4361).
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is nearly 5m in height and 10m across. A security
+monitor is on one side of the room, to your right the interrogator and
+virtually opposite is the teleporter. With the standard hidden lighting set
+to a low level, most of the room is in darkness.
+Zeta-Theta is standing against the wall.
+Zeta-Theta appears to be looking at the pebble you are carrying.
+
+>"Hail Zeta-Theta."
+
+"Hail Epsilon-Beta, did you discover further evidence at the domicile of
+Psi-Tau?" asks Zeta-Theta.
+
+"Psi-Tau has a slightly larger domicile than the achievement," you report.
+
+Zeta-Theta interrupts with, "It is the understanding that it was approved by
+Omicron-Xi so no issue exists."
+
+It is odd that Zeta-Theta would know this and not consider a breach of law
+3981 a concern.
+
+"So, this assignment can now be considered concluded," Zeta-Theta replies in
+a final sort of tone.
+
+You avoid mentioning that Psi-Tau seems to have illegal property (the
+pebble).
+
+Now is not the time to discuss anything with Zeta-Theta. You are required to
+conclude this assignment but you have concerns regarding law 9845. More
+evidence is required, you need to examine the remains of both individuals.
+Maybe the Head of Maintenance would know more about this?
+
+>Showing Zeta-Theta the pebble, "The understanding is that this pebble is from
+the planet surface."
+
+Zeta-Theta looks at it, "That belief would seem correct." Zeta-Theta pauses
+for a few decsecs and then asks, "Would you be willing to exchange the item
+for something else?"
+
+In your best negotiating manner, "Unsure as it is from the planet surface."
+Obviously interested Zeta-Theta barters, "This synthetic crystal is not from
+the surface but has value."
+
+It seems a good exchange so you reply, "Yes, it is a deal."
+
+You hand the pebble to Zeta-Theta who hands you the crystal.
+
+>Built into the wall, the square shaped interrogator identifies truth or
+falsehood. The interrogator appears to be off.  A tracer is on the
+interrogator.
+
+>You take the tracer from the interrogator.
+
+>The room slowly fades and is replaced with your destination.
+Centre for Maintenance
+The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
+standard hidden lighting seems to be set to a higher level than normal, it is
+certainly brighter than you prefer. A control panel is on one side of the
+room and right opposite is the teleporter.
+Mu-Nu is hovering in the centre of the room.
+Mu-Nu appears to be looking closely at the crystal you are carrying.
+
+As you appear Mu-Nu looks at the crystal you are carrying and exclaims, "That
+is a most fine item you have."
+
+>Mu-Nu says, "Hail Epsilon-Beta."
+
+You reply with, "Hail Mu-Nu. assistance is required."
+
+"Assistance is offered," Mu-Nu states in a very lively tone.
+
+You decide to ask about the domicile first, "The domicile of Psi-Tau has been
+examined and it has been identified that it exceeds the proper size for the
+series."
+
+"It was a shortage of suitable domiciles," Mu-Nu replies. As you do not
+respond Mu-Nu continues with, "It was cleared with Omicron-Xi."
+
+Omicron-Xi is the Sector Head Examiner for the whole city of Upsilon.  It is
+most interesting that Omicron-Xi would become involved in such a matter. Now
+to find out about the remains of Psi-Tau and Gamma-Sigma, Mu-Nu should have
+more information.
+
+>You start by asking, "An examination of the remains of Gamma-Sigma needs to
+take place, are they here?"
+
+"No, the remains have been sent to the Tyr Creation Centre."
+
+You now ask the question that you have no authority to ask, "To Tyr? Can you
+grant access to the Centre?"
+
+Sounding slightly puzzled, "Well, yes." Mu-Nu turns to the control panel and
+then states, "You now have access."
+
+"The remains of Psi-Tau will be located at the same place?"
+
+"No," Mu-Nu replies, "Psi-Tau will have been returned to the original place
+of creation centre."
+
+Psi-Tau was created at the Tie centre so will have been sent there. You
+decide to try and push your luck a little further and ask, "Will it be
+possible to grant access to Tie?"
+
+"Sorry," sounding a little puzzled Mu-Nu replies, "this unit does not have
+the appropriate authority, even for an acquaintance."
+
+Maybe you will be able to get to Tie from the Tyr Creation Centre.
+
+>Mu-Nu asks, "Would you be willing to swap the crystal for something else?"
+
+In your best negotiating manner, "Unsure, it does have great value."
+
+Obviously interested Mu-Nu barters, "This thermal lance is useful and this
+unit would be willing to exchange."
+
+It seems a good trade so you reply, "Yes, it is a deal."
+
+You hand the synthetic crystal to Mu-Nu, who takes it and without saying
+another word hands you the thermal lance.
+
+>The room slowly fades and is replaced with your destination.
+Tyr Centre of Creation
+The centre must be the largest and brightest places you have ever visited.
+The place can only be described as monumental and you are extremely
+uncomfortable. To the north is the main assembly plant of the centre.
+Mu-Rho is hovering in the centre of the room.
+
+As you enter the centre something strange happens, it is almost like a power
+overload and all your circuits seem to be overheating. The control over your
+arms and legs has lessened and you seem to be pressed against the wall.  It
+must be something about the room that has unsettled you, could it be that you
+are frightened?
+
+Mu-Rho hovers over to you and says, "Hail," and pausing to look at your badge
+adds, "Epsilon-Beta".
+
+You reply in a very unconfident manner, "Hail."
+
+Mu-Rho continues, "You seem uncomfortable, it will be the dimensions of the
+centre and the light settings. You will become accustomed."
+
+Mu-Rho hovers away.
+
+>The room size and lighting levels are having an unusual effect on you. Trying
+to focus on your task so you can keep the rising panic subdued, "I am here to
+examine the remains of Gamma-Sigma, before they are reprocessed."
+
+"Acknowledged," Mu-Rho replies, "we do not often see examiners here." It
+seems to be more of a statement than a question. Mu-Rho points north and
+continues, "The remains are in the stores."
+
+>You move north.
+Tyr Assembly Plant
+The vast assembly plant of the Tyr creation centre towers about you. Spread
+out before you are machines of every shape, size, complexity and function.
+All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
+individuals. To the west are the stores and the control room is south.
+
+If the centre worried you the assembly plant is even worse; you have never
+been in such a large room. You flatten yourself against the wall until the
+power surge (panic maybe?) passes.
+
+>You move west.
+Tyr Stores
+The stores is a place much more suited to your tastes, it is 10m square with
+lower lighting levels. Against the wall, just inside the entrance, is a metal
+table. To the east is the assembly plant.
+The still form Gamma-Sigma is here.
+
+>The metal three legged table seems fairly aged.  A termination report is on
+the table.
+
+>You take the termination report from the table.
+
+>Victim: Gamma-Sigma
+Individual: Beta Series 3
+Function: Operative, Tet Centre of Creation
+Termination: Unauthorized
+Possible time: 5-90-30
+Identified Facts:
+Termination caused by damaged recharging system, resulting in massive
+electrical overload. Memory chip of subject destroyed in accident.
+Conclusion:
+Case closed. Gamma-Sigma to be reprocessed.
+
+The report was produced by Zeta-Theta
+
+>The still form of Gamma-Sigma is lying discarded on the floor. During an
+unauthorized termination examination normally the remains of the victim is
+thoroughly investigated, basically they are torn apart looking for evidence.
+The remains of Gamma-Sigma appear much as they did when you first discovered
+them.
+
+It would appear that the memory module has not been retrieved which is most
+odd, if you could find a thermal lance you could retrieve it yourself.
+
+>You turn on the lance.
+The thermal lance is making a very loud buzzing sound.
+
+>Using the thermal lance you cut open Gamma-Sigma and remove the memory
+module.
+The thermal lance is making a very loud buzzing sound.
+
+>You turn off the lance.
+
+>You move east.
+Tyr Assembly Plant
+The vast assembly plant of the Tyr creation centre towers about you. Spread
+out before you are machines of every shape, size, complexity and function.
+All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
+individuals. To the west are the stores and the control room is south.
+
+Now you are calm it is interesting to think that this is your place of
+creation.
+
+>You move south.
+Tyr Centre of Creation
+The centre must be the largest and brightest places you have ever visited.
+The place can only be described as monumental and you are extremely
+uncomfortable. To the north is the main assembly plant of the centre.
+Mu-Rho is hovering in the centre of the room.
+
+>The room slowly fades and is replaced with your destination.
+Centre for Maintenance
+The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
+standard hidden lighting seems to be set to a higher level than normal, it is
+certainly brighter than you prefer. A control panel is on one side of the
+room and right opposite is the teleporter.
+Mu-Nu is hovering in the centre of the room.
+
+>You hand the memory module to Mu-Nu who hovers over to the control panel.
+Mu-Nu inserts the module into it and after a few decsecs the display starts
+to show what is stored on it.
+
+Much of what you see is very routine activities. Gamma-Sigma finished the
+recharging and left for the Tet Centre of Creation. Most of the cycle was
+spent functioning in the assembly plant carrying out various duties. Sometime
+near the end of the cycle Gamma-Sigma was sent to the stores to collect
+components. Whilst passing a table, it was knocked and a panel opened in the
+opposite wall.
+
+The chamber beyond the panel was in darkness but you could just make out a
+shape moving. Suddenly a bolt of electricity comes from the moving shape,
+hitting Gamma-Sigma square in the chest.  The power is of such a magnitude
+that it overloads the systems and terminates Gamma-Sigma almost immediately.
+
+This is startling evidence, Gamma-Sigma was not terminated by a faulty
+recharging unit but by something or an individual at the Tet Creation Centre.
+More importantly Gamma-Sigma was terminated by a weapon! This is a direct
+violation of laws 1276 and 2871.
+
+>The room slowly fades and is replaced with your destination.
+Tie Centre of Creation
+The centre must be the largest and brightest places you have ever visited.
+The place can only be described as enormous and you are extremely
+uncomfortable. To the north is the main assembly plant of the centre.
+Mu-Lambda is hovering in the centre of the room.
+
+>You begin with, "Hail Mu-Lambda."
+
+"Hail Epsilon-Beta; a visit from an examiner is most unexpected," Mu-Lambda
+replies.
+
+Not being completely truthful you say, "Official business." Pausing for a
+moment you continue with, "The remains of Psi-Tau need to be examined." You
+try not to dwell on law 7516.
+
+Sounding puzzled Mu-Lambda answers with, "You have been misinformed. That
+individual is not here."
+
+"The remains should be returned to the place of creation?" you enquire.
+
+Pausing for a couple of decsecs Mu-Rho replies, "Normally yes, but this time
+that has not happen."
+
+So, where are the remains of Psi-Tau?
+
+>You move north.
+Tie Assembly Plant
+The vast assembly plant of the Tie creation centre towers about you. Spread
+out before you are machines of every shape, size, complexity and function.
+All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
+individuals. To the west are the stores and the control room is south.
+
+As you look around an individual breaks from a task and wheels over.
+
+Before you can speak the unknown individual says, "Gamma-Sigma was a comrade
+of mine, here." The individual hands you a recording chip and a hexagonal id
+badge then continues, "Gamma-Sigma found out about the Echo Series 9." The
+individual then disappears back into the mass of functioners.
+
+>You move west.
+Tie Stores
+The stores is a place much more suited to your tastes, it is 10m square with
+lower lighting levels. Against the wall, just inside the entrance, is a metal
+table. To the east is the assembly plant.
+
+Looking around the stores it is just as Mu-Lambda stated, the remains of
+Psi-Tau are not located here.
+
+>You move east.
+Tie Assembly Plant
+The vast assembly plant of the Tie creation centre towers about you. Spread
+out before you are machines of every shape, size, complexity and function.
+All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
+individuals. To the west are the stores and the control room is south.
+In the distance a Phi is hovering.
+
+>You move south.
+Tie Centre of Creation
+The centre must be the largest and brightest places you have ever visited.
+The place can only be described as enormous and you are extremely
+uncomfortable. To the north is the main assembly plant of the centre.
+Mu-Lambda is hovering in the centre of the room.
+
+>You turn on the tracer.
+
+>The display on the tracer reads "Psi-Tau, Outside".
+
+Outside? What can that mean? Such a thing is not possible?
+
+>The room slowly fades and is replaced with your destination.
+Centre for Maintenance
+The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
+standard hidden lighting seems to be set to a higher level than normal, it is
+certainly brighter than you prefer. A control panel is on one side of the
+room and right opposite is the teleporter.
+Mu-Nu is hovering in the centre of the room.
+
+>You hand the recording chip to Mu-Nu who hovers over to the control panel.
+Mu-Nu inserts the chip into it and after a few sections the display starts to
+show what is stored on it.
+
+The chip seems to have come from a security device at the Tet Creation
+Centre.  You can see Mu-Kappa, Head of the Tet Creation Centre and
+Omicron-Xi, Sector Head Examiner standing together talking about the new Echo
+series 9.
+
+A strange looking third individual with a cylindrical body and two legs is
+standing at the other side of the room.  This individual raises an arm and
+points at a diagram on the wall opposite.  Suddenly a stream of lightening
+erupts from the arm and burns into the diagram. It is a weapon!
+
+Omicron-Xi turns to Mu-Kappa and says, "The Echo should make an excellent
+examiner and terminator."  Mu-Kappa replies, "As I promised, this model will
+be unbeatable." Omicron-Xi looking at the strange individual answers, "Yes,
+when the rest are completed no individual will stand in our way. We will be
+able to finally put an end to all the krybo."
+
+The recording ends.
+
+Omicron-Xi and Mu-Kappa are intending to contravene law 2872 which is
+inciting others to violence.  More importantly they are intending to
+contravene law 8675 which prohibits rebellion, insurrection or plotting
+against authority. Also, what is the meaning of krybo?
+
+>The room slowly fades and is replaced with your destination.
+Tet Centre of Creation
+The centre must be the largest and brightest places you have ever visited.
+The place can only be described as immense and you are extremely
+uncomfortable. To the north is the main assembly plant of the centre.
+Mu-Kappa is hovering in the centre of the room.
+
+>You begin with, "Hail Mu-Kappa."
+
+You notice that Mu-Kappa does not reply in the standard manner but instead
+starts with, "Are you on official business?"
+
+It occurs to you that this is a strange question to ask an examiner so lying
+you reply, "Yes," and continue with, "it is an examination of an unauthorized
+termination."
+
+"Well, we are undertaking important functions here. Be brief and do not
+interfere," Mu-Kappa replies sharply.
+
+>You move north.
+Tet Assembly Plant
+The vast assembly plant of the Tet creation centre towers about you. Spread
+out before you are machines of every shape, size, complexity and function.
+All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
+individuals. To the west are the stores and the control room is south.
+
+>You move west.
+Tet Stores
+The stores is a place much more suited to your tastes, it is 10m square with
+lower lighting levels. Against the wall, just inside the entrance, is a metal
+table. To the east is the assembly plant.
+
+>Moving the table causes a panel to open in the opposite wall.
+
+>You move west.
+Secret Chamber
+The chamber is dark and reasonably large at 10m square. It is laid out in an
+almost domicile manner with a recharger, teleporter and communicator. On one
+wall is a life-size diagram of a Beta type individual. To the east is the Tet
+Stores.
+
+>The room slowly fades and is replaced with your destination.
+Domicile of No-one
+The metal room is 2m square and 2.5m in height. On one side of the room is a
+recharger and opposite the communicator. On the other wall is the teleporter.
+The eastern wall of the domicile is completely missing, through which you can
+see the planet surface.
+
+You are struggling to take in what you are seeing, the entire east wall is
+missing! You stagger backwards onto to the western wall and stand frozen to
+the spot. Beyond is the planet surface!
+
+The tracer you are carrying is indicating east.
+
+>Plugging into the recharger you re-energize your power cells. A small voice
+says, "Charge level is now 399 units."
+
+The tracer you are carrying is indicating east.
+
+>You move east.
+On the surface of the planet
+The silvery planet surface is a barren featureless place which stretches off
+in all directions. Behind you, to the west, is the safety of the city.
+
+In your entire existence you have never experienced anything even approaching
+this. No walls, no ceiling, just openness. Hanging in the northern sky is a
+large orange ball, a giant sun casting its faint light over the barren
+surface.
+
+The tracer you are carrying is indicating east.
+
+>You move east.
+ On the surface of the planet
+The silvery planet surface is a barren featureless place which stretches off
+in all directions.
+
+The tracer you are carrying is indicating east.
+
+>You move east.
+Small Crater
+The small crater, which is an oval shape, is just deep enough to be hidden
+from the surface of the planet.  At one end of the crater is a wrecked
+machine. The only visible exit is to the west.
+The still form of Psi-Tau is here.
+
+The tracer beeps and turns off.
+
+>The terminated form of the maintenance operative, Psi-Tau Beta-Tie Series 3,
+the lying on the ground. The Beta are 1.5m in height, square in shape and
+have four wheels and two arms.
+
+During an examination normally the remains of the guilty are thoroughly
+investigated, basically they are torn apart looking for evidence.
+
+It would appear that the memory module has not been retrieved which is most
+odd, if you could find a thermal lance you could retrieve it yourself. His id
+badge is also missing.
+
+>You turn on the lance.
+The thermal lance vibrates but makes no audible sound.
+
+>Using the thermal lance you cut open Psi-Tau and remove the memory module.
+The module seems to have suffered quite a bit of damage.
+The thermal lance vibrates but makes no audible sound.
+
+>You turn off the lance.
+
+>You move west.
+ On the surface of the planet
+The silvery planet surface is a barren featureless place which stretches off
+in all directions.
+
+>You move west.
+On the surface of the planet
+The silvery planet surface is a barren featureless place which stretches off
+in all directions. Behind you, to the west, is the safety of the city.
+
+For a moment something away to the south glints in the weak sunlight.
+
+>You move south.
+ On the surface of the planet
+The silvery planet surface is a barren featureless place which stretches off
+in all directions. Lying half buried in the surface of the planet is a
+meteor.
+
+>You take the meteor.
+
+>You move north.
+On the surface of the planet
+The silvery planet surface is a barren featureless place which stretches off
+in all directions. Behind you, to the west, is the safety of the city.
+
+>You move west.
+Domicile of No-one
+The metal room is 2m square and 2.5m in height. On one side of the room is a
+recharger and opposite the communicator. On the other wall is the teleporter.
+The eastern wall of the domicile is completely missing, through which you can
+see the planet surface.
+
+>The room slowly fades and is replaced with your destination.
+Secret Chamber
+The chamber is dark and reasonably large at 10m square. It is laid out in an
+almost domicile manner with a recharger, teleporter and communicator. On one
+wall is a life-size diagram of a Beta type individual. To the east is the Tet
+Stores.
+
+>You move east.
+Tet Stores
+The stores is a place much more suited to your tastes, it is 10m square with
+lower lighting levels. Against the wall, just inside the entrance, is a metal
+table. To the west is a secret chamber and east is the assembly plant.
+
+>You move east.
+Tet Assembly Plant
+The vast assembly plant of the Tet creation centre towers about you. Spread
+out before you are machines of every shape, size, complexity and function.
+All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
+individuals. To the west are the stores and the control room is south.
+
+>You move south.
+Tet Centre of Creation
+The centre must be the largest and brightest places you have ever visited.
+The place can only be described as immense and you are extremely
+uncomfortable. To the north is the main assembly plant of the centre.
+Mu-Kappa is hovering in the centre of the room.
+
+>The room slowly fades and is replaced with your destination.
+Centre for Maintenance
+The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
+standard hidden lighting seems to be set to a higher level than normal, it is
+certainly brighter than you prefer. A control panel is on one side of the
+room and right opposite is the teleporter.
+Mu-Nu is hovering in the centre of the room.
+
+>You hand the damaged memory module to Mu-Nu who hovers over to the control
+panel. Mu-Nu inserts the module into it and after a few sections the display
+starts to show what is stored on it.
+
+Much of what you see is Psi-Tau performing a range of maintenance tasks at
+the Centre of Maintenance and various domiciles. Much of the record has been
+lost due to the damage but luckily the last few moments of Psi-Tau's
+existence have survived. Psi-Tau did not see the attacker and was hit from
+behind by an electrical discharge. The most interesting fact, though, is not
+the method of termination but the timeframe. Psi-Tau was terminated over 30
+cycles ago.
+
+One thing now is very clear, Psi-Tau could not have carried out repairs to
+the recharging unit in the domicile of Gamma-Sigma. By that time Psi-Tau had
+already been terminated 30 cycles. An unknown individual must be
+impersonating Psi-Tau.
+
+Mu-Nu makes a comment to no one in particular, "So my operative was not
+responsible for the termination of Gamma-Sigma. Psi-Tau is innocent, it has
+been false examination."
+
+A false examination, on Morbian. You are concerned by this.
+
+The evidence from the memory modules of Gamma-Sigma and Psi-Tau and the
+recording chip are damning evidence.  You should return to the Centre of
+Examination and report your findings.
+
+>Mu-Nu says, "The memory module of Gamma-Sigma and the memory module and
+recording chip of Psi-Tau are secure. The suggestion is that you take
+precautions for your safety."
+
+You reply, "Your caution is noted."
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is nearly 5m in height and 10m across. A security
+monitor is on one side of the room, to your right the interrogator and
+virtually opposite is the teleporter. With the standard hidden lighting set
+to a low level, most of the room is in murkiness.
+Zeta-Theta is standing against the wall.
+
+As you enter Zeta-Theta moves towards you and in a raised voice, "Why have
+you been continuing this investigation? This unit does not expect this type
+of activity from an examiner." As you do not reply Zeta-Theta continues with,
+"This investigation is closed. Go to your domicile and await further orders."
+Zeta-Theta moves back to the other side of the examination centre.
+
+>Not turning to face you Zeta-Theta replies, "Return to your domicile and take
+time to recharge."
+
+You decide to report in, "Zeta-Theta, during the Gamma-Sigma investigation
+evidence of addition crimes have been discovered."
+
+Zeta-Theta remains silent so you continue with, "It appears that the
+termination of Gamma-Sigma was not an accident caused by Psi-Tau. An unknown
+individual terminated Gamma-Sigma, who now appears to be impersonating
+Psi-Tau and so is contravening law 2654. The Echo series carries weapons
+contravening law 1276 and is prepare to use them contravening law 2871. Most
+importantly Omicron-Xi and Mu-Kappa are intending to contravene laws 8675 and
+2872."
+
+Zeta-Theta remains silent for a decmin and then replies, "These are serious
+matters.  Return to your domicile to recharge and I will make all the
+necessary arrangements."
+
+>The room slowly fades and is replaced with your destination.
+Domicile of Epsilon-Beta
+The dull metal room, which is exactly 2m square and 2.5m in height, is
+appropriate to your level of achievement. Attached to the wall behind you is
+the all important recharger with the teleporter on the floor opposite. To
+your left is the communicator with your own personal storage shelf above it.
+With the lighting fixed on the lowest setting the place is in murkiness, just
+how you prefer it.
+Someone is standing to one side of the room.
+
+As you enter your domicile something at the edge of your vision moves.
+
+Before you can move a powerful electrical charge heads your way and would
+have hit you, if not for the meteor. The glassy mirror-like surface reflects
+the beam back at your attacker who is blasted against the wall. For a moment
+the meteor glows white hot, causing you to drop it.
+
+Only stunned your attacker leaps upright and pushing past you disappears in
+the teleporter.
+
+Before the individual disappeared you managed to get a quick look at your
+attacker. 1.5m in height with a cylindrical body, it was the legs which
+seemed most shocking. Your attacker only had two legs!
+
+>You pick up the meteor.
+
+>Actually part of the wall, the communicator is a narrow oblong shape about
+eye-level in height. At the top is a small square touch screen. In the top
+corner it is displaying "Rotation 6-51-16"
+
+Below the time several options are listed -
+
+A. Read messages (message waiting)
+B. Teleport logs
+C. Information
+D. News
+V. Travel
+
+>Logs
+The log has details of recent teleporter activity. The log contains thousands
+of entries but the following draw your attention.
+
+6-51-14, Psi-Tau leaves domicile
+
+Well one thing is for sure, who ever just left your domicile it was not
+Psi-Tau.
+
+>You turn on the tracer.
+
+>The display on the tracer reads "Psi-Tau, Secret Chamber".
+
+>The room slowly fades and is replaced with your destination.
+Centre for Examination
+The hexagonal metal room is nearly 5m in height and 10m across. A security
+monitor is on one side of the room, to your right the interrogator and
+virtually opposite is the teleporter. With the standard hidden lighting set
+to a low level, most of the room is in gloom.
+Zeta-Theta is standing against the wall.
+
+As you enter Zeta-Theta looks surprised to see you and moves towards you.
+Pausing for several decsecs in a raised voice, "Why have you returned from
+your domicile?" Zeta-Theta does not what for an answer, "The investigation is
+closed. Return to your domicile and await further orders."
+
+>The room slowly fades and is replaced with your destination.
+Tet Centre of Creation
+The centre must be the largest and brightest places you have ever visited.
+The place can only be described as immense and you are extremely
+uncomfortable. To the north is the main assembly plant of the centre.
+Mu-Kappa is hovering in the centre of the room.
+
+The tracer you are carrying is indicating north.
+
+As you appear Mu-Kappa looks at you and exclaims, "But this is not possible!"
+
+>You move north.
+Tet Assembly Plant
+The vast assembly plant of the Tet creation centre towers about you. Spread
+out before you are machines of every shape, size, complexity and function.
+All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
+individuals. To the west are the stores and the control room is south.
+In the distance a Phi is hovering.
+
+The tracer you are carrying is indicating west.
+
+>You move west.
+Tet Stores
+The stores is a place much more suited to your tastes, it is 10m square with
+lower lighting levels. Against the wall, just inside the entrance, is a metal
+table. To the west is a secret chamber and east is the assembly plant.
+
+The tracer you are carrying is indicating west.
+
+As you enter the stores you remember what happen to Gamma-Sigma in the
+location. How Gamma-Sigma knocked the table which opened the panel in the
+opposite wall.  The chamber beyond the panel is still in darkness but you
+cannot see anything moving.
+
+>You move west.
+Secret Chamber
+The chamber is dark and reasonably large at 10m square. It is laid out in an
+almost domicile manner with a recharger, teleporter and communicator. On one
+wall is a life-size diagram of a Beta type individual. To the east is the Tet
+Stores.
+
+The tracer beeps and turns off.
+
+Looking around the secret chamber it is clear that the false Psi-Tau is not
+located here. For the tracer to bring you to this location the false Psi-Tau
+must have been here in the last few decmins.
+
+>You turn on the tracer.
+
+>The display on the tracer reads "Psi-Tau, Head of Sector".
+
+Omicron-Xi, Head of Sector is the head examiner for this whole city sector.
+Omicron-Xi is the superior of Zeta-Theta and so your superior.
+
+>The room slowly fades and is replaced with your destination.
+Head of Sector
+The hexagonal metal room is 20m across and nearly 6m in height. With the
+standard hidden lighting set to a low level, most of the room is in shadow.
+On one side of the room is a large desk and right opposite the teleporter.
+Omicron-Xi is standing in the centre of the room.  Psi-Tau is standing to one
+side of the room.
+
+Psi-Tau is speaking to Omicron-Xi, although it is very unlikely to be Psi-Tau
+whose remains are lying in a crater on the planet surface.
+
+Psi-Tau says something which you do not quite hear, but you just managed to
+catch the reply, "..and Epsilon-Beta survived?"
+
+"Yes, a distraction took place," the fake Psi-Tau responds.
+
+"Distraction? What do you mean distraction, you are an Echo series 9!"
+
+Pausing for a moment Psi-Tau answers with, "The individual carried some form
+of weapon..."
+
+Your presence is noticed and both turn to face you. Psi-Tau moves to one side
+of the room.
+
+The tracer beeps and turns off.
+
+>In formal tone you state, "Hail Omicron-Xi"
+
+Not replying in the correct manner Omicron-Xi says, "You presence is
+unexpected and unwarranted."
+
+You begin with, "An investigating of an unauthorised....."
+
+Interrupting, "Yes, that fact is known. The understanding is that the
+assignment has been completed."
+
+"Additional information has been identified." Omicron-Xi remains silent so
+you continue with, "It appears it was not an accident. Evidence exists
+regarding the breaking of laws 1276 and 2871."
+
+After looking over at Psi-Tau replies, "Present your evidence."
+
+>Omicron-Xi replies, "Psi-Tau was responsible for a failure to carry out an
+assignment diligently. Leading to an unauthorized termination of
+Gamma-Sigma."
+
+You consider this to be a very interesting answer so you reply, "The only
+problem is that Psi-Tau had already been terminated. This makes it very
+unlikely that Psi-Tau could have been responsible."
+
+Omicron-Xi, looking over at Psi-Tau, replies, "Psi-Tau terminated?"
+
+Ignoring the question you add, "This is a strange situation when Psi-Tau
+seems to be here."
+
+"Well", starts Omicron-Xi, "this individual is obviously not Psi-Tau."
+
+When you do not answer Omicron-Xi continues with, "This is Chi-Omega, one of
+the new Echo models."
+
+So, the fake Psi-Tau is called Chi-Omega.
+
+>"Why does Chi-Omega appears to be wearing the badge of Psi-Tau?"
+
+Chi-Omega moves slightly towards you.
+
+"Chi-Omega is on a secret mission for me," replies Omicron-Xi.
+
+>You ask about the secret mission that Chi-Omega is on.
+
+After quite a long pause Omicron-Xi shouts, "Chi-Omega, terminate
+Epsilon-Beta!"
+
+Chi-Omega raises the right arm, the weapon must be incorporated into this
+limb.
+
+Before you can move a powerful electrical charge heads your way and would
+have hit you, if not for the meteor. The glassy mirror like surface reflects
+the beam back at your attacker who is blasted against the wall. For a moment
+the meteor glows white hot, causing you to drop it.
+
+Only stunned, your attacker leaps to upright and is probably going to attack
+again.
+
+Omicron-Xi shouts, "Chi-Omega terminate Epsilon-Beta now!"
+
+>You pick up the meteor.
+
+Omicron-Xi shouts, "Chi-Omega you are ordered to terminate Epsilon-Beta!"
+
+>You throw the meteor at the fake Psi-Tau, which strikes on the chest.
+Exploding in a shower of small crystals, the meteor causes a massive
+electrical fault and Chi-Omega collapses in a heap.
+
+Omicron-Xi in a surprised tone exclaims, "What have you done. Chi-Omega was a
+Series 9!"
+
+Without warning Zeta-Theta appears on the teleporter and moves over to your
+side. Looking first at the smoking heap that was Chi-Omega and then at
+Omicron-Xi asks, "Epsilon-Beta, what is happening here?" You notice that
+Zeta-Theta keeps looking straight at Omicron-Xi.
+
+"The remains are of Chi-Omega who violated laws 1276, 2654 and 2871. This
+individual is suspected of violating 3981, 4361 and 5987. This individual
+carried out unauthorized terminations of Gamma-Sigma and Psi-Tau, and then
+impersonated Psi-Tau. Omicron-Xi has violated 2872 and 8675"
+
+Omicron-Xi interrupts with, "8675! What do you know about that!"
+
+Zeta-Theta is still looking at Omicron-Xi so without waiting you continue
+with, "The Echo Series 9 has built in weaponry and appears to have the will
+to violate our laws."
+
+Zeta-Theta remains silent.
+
+>Looking at you for the first time Zeta-Theta asks, "What do you intend to do
+next?"
+
+Pausing for a few decmins you answer, "Arrest Omicron-Xi".
+
+"What!" exclaims Omicron-Xi, "Are you mad! I'm the Head of..."
+
+Zeta-Theta interrupts with, "Just a decmin Head of Sector. We can deal with
+this situation."
+
+You wonder exactly what Zeta-Theta means by that statement but before you can
+ask a question Zeta-Theta continues with, "We need to think carefully about
+this Epsilon-Beta. It is important to make the correct decision."
+
+"Correct decision?" you ask.
+
+"Yes," Zeta-Theta continues, "I'm sure advancement is possible for a Delta
+who can make the correct decision." Is it possible Zeta-Theta is trying to
+bribe you?
+
+>Zeta-Theta asks, "Are you willing to make the correct decision?"
+
+Worried you ask, "Are you asking this unit to ignore the law? To fail to
+carry out an assignment diligently and violate law 9845 and also 8765?"
+
+Zeta-Theta simply replies, "Not violate the law, but rather make an informed
+decision."
+
+Omicron-Xi also repeats, "Yes, an informed decision."
+
+It certainly looks like they are trying to bribe you and violate law 8765.
+
+>"So," Zeta-Theta states, "all you need to do is answer yes for advancement or
+no for stubbornness."
+
+Basically answer yes to accept the bribe or no to uphold the law.
+
+>Omicron-Xi says, "Before you give your final answer just consider what could
+be achieved. Maybe you could be a Series 6 Head Examiner. Anything is
+possible."
+
+Zeta-Theta moves over to the teleporter.
+
+>Omicron-Xi says, "As Series 6 Head Examiner you could have a new suitable
+domicile."
+
+Zeta-Theta tries to leave by stepping on the teleporter, which refuses to
+operate. The fight with Chi-Omega must have shorted out its circuits.
+
+>Omicron-Xi says, "You must reconsider! Have you no idea how many resources
+have been put into this project? You must reconsider!"
+
+In a quiet voice Zeta-Theta says, "Yes or no?"
+
+>Omicron-Xi moves to the desk and pressing a hidden button states, "Message to
+Mu-Kappa. Estimate delivery of next Echo series. Report immediately to....".
+Before Omicron-Xi gets the chance to finish the statement Zeta-Theta moves
+quickly and grabs the arm. Trying to break free, Omicron-Xi asks,
+"Zeta-Theta, what are you doing?"
+
+Still holding tight to the arm Zeta-Theta turns to face you and says,
+"Epsilon-Beta, do you not have something to say?"
+
+Pausing for several decmins you reply, "Yes, yes. Omicron-Xi and Zeta-Theta.
+You have been examined and found guilty of contravening laws 2872, 7515,
+7516, 8675 and 9846. The punishment for these crime is authorized
+termination."
+
+Zeta-Theta looks at Omicron-Xi and repeats, "Authorized termination."
+
+Omicron-Xi shouts, "Release my arm you imbecile. If we terminate this fool we
+can still continue with our mission."
+
+Zeta-Theta looks at you and pressing the hidden button says, "Sigma-Theta,
+two security units to the Head of Sector. Subjects to be detained are
+Omicron-Xi and Zeta-Theta." Releasing the button, but still holding the arm
+of Omicron-Xi, finishes with, "Epsilon-Beta, I am extremely pleased with your
+performance in this investigation."
+
+Omicron-Xi looks at Zeta-Theta and says only one word, "Imbecile!"
+
+Zeta-Theta remains quiet for nearly a decmin and then looking at Omicron-Xi
+says, "Yes, we both are. Epsilon-Beta should have been our example."
+
+[Press ENTER to continue]
+
+ASSIGNMENT REPORT
+
+Subject: Omicron-Xi, Sector Head Examiner
+Subject: Zeta-Theta, Head Examiner
+Subject: Mu-Kappa, Head of the Tet Creation Centre
+Termination: Authorized
+Possible time: 6-51-39
+Identified Facts:
+Breaking of the following law -
+8675 - Rebellion, insurrection or plotting against authority.
+Conclusion:
+Authorized termination of Omicron-Xi, Zeta-Theta and Mu-Kappa.  To be
+reprocessed. Case concluded.
+
+Assignment Status: You have been successful.
+During the game you did not need to ask for hints and discovered 28 facts
+about the crime.
+
+THE END
+
+You now have the option to either restart the game, undo your last move,
+restore a previous saved game position or quit.
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.org.uk
+
+>Do you really want to quit? [Y/N]

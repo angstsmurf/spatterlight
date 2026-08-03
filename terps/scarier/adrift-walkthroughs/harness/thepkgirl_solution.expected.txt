@@ -1,0 +1,3584 @@
+Loading game...
+
+The PK Girl
+
+THE PK GIRL
+
+Copyright © 2002
+by Robert Goodwin
+graphics by Nanami Nekono
+music by Helen Trevillion, and OYA-G
+4th release (Aug 2006) / ADRIFT Version 4.0
+
+It is recommended that you adjust your layout to display graphics alongside
+map (instead of inline with text or in separate window).  It is also
+recommended that you disable auto complete.
+
+Important note--Scoring in this game works differently than in other ADRIFT
+games.  Type "help" for an explanation, and for other information about
+playing the game that you will eventually want to know.  Type "about" for a
+full list of credits and release information.
+Press Enter to begin the game
+
+>
+
+CHAPTER 1
+
+An Evening of Incident
+
+>
+
+    The tires of your motorcycle roll to a halt on pavement.   As you switch
+off the engine, the hum decreases to a terminal choke that is replaced
+without interval by the sound of conversation and carefree laughter.  Around
+you people are moving to and from an open double doorway up a ways to the
+north; the inviting entrance to Majesty Mall.
+
+    It is relatively early in the evening; the air is cool but not cold, and
+the night is not yet dark.  This is that time when friends are want to meet
+together and pursue wholesome recreation in and around the grounds of the
+mall.  Having an atmosphere conducive to pleasant joviality, Majesty Mall has
+always been a popular hangout, especially among the youth of Rittersburg
+City.  However, your particular reason for stopping in tonight is to sample
+again the ice cream served by the best ice cream parlor in town.
+Front of Mall
+    Although four-wheeled vehicles do pass through, this autonomous spot of
+pavement is too narrow a place for them to stall.  It is just right for
+bicycles and motorbikes such as yours.  Beyond the capillaries and side
+streets that run off in three directions, the more major roads that make up
+the city can be seen, buildings of all shapes mingled among them.  It's the
+heart of the metropolis that you've come to, or the equivalent for a city of
+this size.  The object of your interest, Majesty Mall, lies north.  Your
+motorcycle is properly parked on the pavement.
+
+>(Getting off your motorcycle first)
+You move north.
+
+    Rittersburg may not be your hometown, but its nearness to your home has
+made it possible for you to take this detour on your way back this evening.
+If what you have seen of the city so far is representative of it, quality ice
+cream parlors are only one element of an altogether agreeable place to live.
+Mall Entrance
+    You stand at the mall's canopied entrance.  There are retaining walls on
+either side leading up to an open double doorway just northward.  These doors
+are always open.  Perhaps because there are no other malls in this city, this
+one is always open late.  A steady bi-directional stream of shoppers bustles
+about the entrance, while now and then a vehicle pulls up momentarily to pick
+up passenger or party.
+
+>    As you attempt to enter the mall, somebody bumps into you quite
+intentionally.
+    "Well, don't I know you?", asks a snide dry voice.
+    It's Jerrick, the rich boy whose acquaintence you are only able to boast
+having from when you last came to this mall, and had the privilege of meeting
+up with his company.  Once more his same two buddies, Vin and Gill, are with
+him.  What terrible luck to be running into them all again.
+   "Now don't tell me, your name was...well wouldn't you know, it hasn't
+kept."
+
+Enter your name.  (you are male)
+
+>"Petter, was it?  No wonder I forgot.  Well, Petter, is it life in the loser
+lane as usual?"  And without giving you space to retort, he continues, "No,
+don't answer.  I can tell just from looking at you.   Well, I didn't come
+here to dawdle with his kind.  Let's go, fellows."
+    With that he pushes his way past you and departs with his two friends.
+You step into the mall.
+
+Press enter to continue
+
+>
+
+Majesty Mall South End
+    The interior of the mall is spacious, with several yards separating the
+shops on the west from the shops on the east.  The ceiling, too, reaches to a
+good height.  The lighting is dim, but not excessively so.  There is a
+bookstore to the west, a software shop to the east, and more mall extending
+to the north.  The mall's exit is south.
+
+    A happy-looking couple walks by, the girl leaning on the guy's shoulder.
+
+>You move north.
+Majesty Mall Center
+    This, the center of the mall, is occupied and graced by a beautiful
+fountain around which is a bench that patrons may sit on to rest or to wait
+for acquaintances.  It is the focal point of the building.  An ice cream
+parlor is to the west, a women's clothing store is to the east, and the mall
+continues on north and south.
+    A girl is sitting on the bench with her hands in the lap of her dress.
+
+>You move west.
+Ice Cream Parlor
+    The ice cream served in this shop is excellent;  it more than justifies a
+trip to this mall, even if the route is slightly out of the way.  Ordering a
+cone is easy but deciding on a flavor sometimes proves time-consuming.  There
+are wooden stools by the counter for patrons to sit on while they eat and
+order, and a couple tables a little farther back.  The exit to the ice cream
+parlor is east.
+    The shopkeeper is behind the counter, tending to duties.
+
+    "Welcome!" says the shopkeeper in a highly friendly tone of voice.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    Three girls enter the ice cream parlor and take a table a little ways
+off.  One of them is the girl you saw sitting by the fountain earlier.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    You can hear the girls talking, although you can't tell exactly what they
+are saying.
+
+>Time passes...
+
+>Time passes...
+
+    The three girls are chatting and giggling away.
+
+    The shopkeeper is wiping the counter.
+
+>Time passes...
+
+>Time passes...
+
+    The girls are still giggling but they seem to have quieted a bit.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    In the corner of your vision you glimpse one of the girls eyeing you, but
+her head is turned by the time you take a look.
+
+>Time passes...
+
+    You're mostly sure you just caught another girl looking at you, but now
+they are talking amongst themselves quietly, smiles on their faces.
+
+>Time passes...
+
+   You feel the eyes of all three girls on you from across the room.
+
+>Time passes...
+
+    The shopkeeper is pacing back and forth behind the counter, performing
+various tasks.
+
+    Suddenly there is a flurry of noise.  Two men dressed in dark raincoats
+burst into the parlor and rush towards the table where the girls are sitting.
+ In an instant they have the younger girl by her arms and are hauling her
+away.  So unexpected is this occurrence that no one, not even yourself, is
+there to check the malefactors as they move for the exit.
+    Female screams ring out in the parlor as the young girl and her
+kidnappers disappear out into the mall.  "Cassie!!!", they cry.
+
+Press enter to continue
+
+>
+The golden-haired girl comes running up to you and grabs hold of your arm.
+"Help!!", she pleads.
+
+1) "I'll do my best."
+2) "I'm sorry.  There's nothing I can do for you."
+3) "No time to chat, we've got to go after those men!"
+
+>"Thank you", she replies emphatically.  "We must hurry."  She is ready to
+follow you.
+
+    "Be careful, Laurie!", her friend says from behind.
+
+>
+>You rush out into the mall...
+Majesty Mall Center
+    This, the center of the mall, is occupied and graced by a beautiful
+fountain around which is a bench that patrons may sit on to rest or to wait
+for acquaintances.  It is the focal point of the building.  An ice cream
+parlor is to the west, a women's clothing store is to the east, and the mall
+continues on north and south.
+
+    South in the distance, amidst surprised onlookers, you can make out the
+flurry of kidnappers exiting the mall.
+
+    Laurie follows you from the west.
+
+>You run in the direction that the kidnappers have fled...
+Majesty Mall South End
+    The interior of the mall is spacious, with several yards separating the
+shops on the west from the shops on the east.  The ceiling, too, reaches to a
+good height.  The lighting is dim, but not excessively so.  There is a
+bookstore to the west, a software shop to the east, and more mall extending
+to the north.  The mall's exit is south.
+
+    Laurie follows you from the north.
+
+>You move south.
+    As you leave the mall you can see a helicopter lifting off ahead.
+Mall Entrance
+    You stand at the mall's canopied entrance.  There are retaining walls on
+either side leading up to an open double doorway just northward.  These doors
+are always open.  Perhaps because there are no other malls in this city, this
+one is always open late.  A steady bi-directional stream of shoppers bustles
+about the entrance, while now and then a vehicle pulls up momentarily to pick
+up passenger or party.
+
+    Laurie follows you from the north.
+
+>You move south.
+    The helicopter elevates and turns to face west in the direction of the
+city.  Perhaps you could follow it on your...?!   Someone has sabotaged your
+motorcycle!
+Front of Mall
+    Although four-wheeled vehicles do pass through, this autonomous spot of
+pavement is too narrow a place for them to stall.  It is just right for
+bicycles and motorbikes such as yours.  Beyond the capillaries and side
+streets that run off in three directions, the more major roads that make up
+the city can be seen, buildings of all shapes mingled among them.  It's the
+heart of the metropolis that you've come to, or the equivalent for a city of
+this size.  The object of your interest, Majesty Mall, lies north.  Your
+motorcycle is properly parked on the pavement.
+
+    Laurie follows you from the north.
+
+>Time passes...
+
+>Time passes...
+
+    The helicopter shrinks as it continues westward.  Will the criminals get
+away so conveniently?
+
+>Time passes...
+
+    "Try starting the motorcycle anyway", says Laurie.
+
+1) "That would be pointless!"
+2) "I suppose I could try it again."
+
+>(Sitting on the motorcycle first)
+Laurie gets on behind you.
+Putting your faith in Laurie's improbable hope that the motorcycle will
+somehow work despite its current condition, you try starting up the
+engine....and it works!  Laurie seems not to be surprised at all by such a
+miracle.   As you zip through the city streets in pursuit of the helicopter
+that you can see far ahead in the night sky, she mutters only, "My
+sister...they finally got you..."
+
+Press enter to continue
+
+>
+
+    After you have raced through much of the city, you see the helicopter
+begin to descend beyond a hill by a bridge up ahead.  You pass over the
+bridge and bring your bike to a halt.  By the time your engine dies, only the
+sound of sparse traffic passing over the bridge can be heard.  The helicopter
+is nowhere to be seen.
+
+Roadside
+    This is the north side of a road that runs east to west on the outskirts
+of the city.  Traffic on this road is moderate, with every now and then a
+vehicle zooming past and leaving the sound of its passage reverberating in
+the air.  Langston Bridge, which you recently passed over, is to the east.
+Your motorcycle is parked here.
+    Laurie is right beside you.
+
+>(Getting off your motorcycle first)
+You move east.
+Bridge Landing
+    The bridge that supports the road that you traveled by to reach these
+parts of the city begins here and continues on to the east.  It is possible
+to climb over the north railing and onto a hill beyond which you can just
+barely see the lights of the city.
+
+    Laurie follows you from the west.
+
+    Laurie has climbed down from your motorcycle.
+
+>Laurie climbs over the railing with you...
+Top of the Hill
+    You are at the top of a grassy hill that overlooks the city to the north
+and west, and the river to the east.  The view might be considered romantic
+under different circumstances.  To the south is Langston Bridge.  Not far off
+below the hill, in the immediate parts of the city, some buildings are
+visible, one of which is larger than the rest.
+    Laurie is right beside you.
+
+    Laurie steps forward and looks out over the darkened city below where her
+sister must surely be, shivering a little because the night has grown
+noticeably colder.
+    "I had almost managed to convince myself that they wouldn't come again,
+that we could finally live in safety."  Her voice is faint.  She seems to be
+talking to herself as much as to you.
+    "It isn't the first time that they tried to kidnap her.  It's just the
+first time that they succeeded.  They finally succeeded.  And now with our
+parents away.... " Her voice trails off.
+
+1) "You owe me an explanation."
+2) "Who are they?"
+3) "We'll get her back.  I promise."
+
+>You move west.
+Bottom of the Hill
+    Down here where the slope lessens, very little can be seen of the city,
+the river, or anything.  Some largish stones are embedded into the ground at
+the foot of the hill, which looms above like a tolerant titan.  A vacant lot
+can be reached by travelling to the west.
+
+    Laurie follows you from the east.
+
+>You move west.
+Vacant Lot
+    This is a small parking lot, or something of that nature.  It is not
+clear exactly what the space is used for, if anything, as there are no
+vehicles or buildings directly near it.  However, a large building can be
+seen farther west.  A darkened back street to the north frightens away lone
+travellers and old ladies.
+
+    Laurie follows you from the east.
+
+>You move north.
+Deserted Street
+    This back street runs through a mostly deserted part of town.  The
+neighborhood is not a nice one and probably not a friendly one either.  The
+general condition of buildings and the street itself is poor.  If there were
+people sitting about it, which there aren't, it would be difficult to picture
+them smiling.  North is a run-down gas station and south is an empty lot.  To
+the east the river is almost visible.  The street continues on west.
+    Laurie is right beside you.
+
+    Laurie follows you from the south.   "I do not like this street.  It is
+too quiet", she whispers.
+
+>You move west.
+Street in Front of Bar
+    The street continues on east and west.   The area north is occupied by a
+dingy bar.  To the south is an alley.  A solitary lamppost stands at a
+corner, partially lighting this darkened street.  It could do with some
+company.
+
+    Laurie follows you from the east.
+
+>Lights and sounds from within prove that the bar is still open.  You step up
+to open the door but Laurie grabs your sleeve.
+    "Please do not go in there."  She says.  Hoping that you will do the
+'right thing', she releases her grip.
+
+>"I'll just wait out here", says a resigned Laurie.  You enter the bar, but
+she does not enter with you.
+
+Bar
+    The interior of this simple bar is dimly lit by two lights hanging from
+the ceiling.  Shelves full of drinks line the wall behind the serving
+counter.  There are three stools in front of it.  There is some kind of
+ornament on one of the walls.  Another room is to the west and the exit to
+the bar is south.
+    The bartender is behind the counter.
+    A scraggly man is sitting on a bar stool.
+    A stout man is sitting on an adjacent bar stool.
+    A young man is leaning against a wall apart from the others, with arms
+folded.
+
+    Some of the denizens acknowledges your entering the bar with a curt
+lifting of their chins.  The scraggly man, who has been talking to the
+bartender seems to be in the middle of an anecdote.   "And of course, you
+know I wasn't going to take that.  Not from her", he says.
+    "Yeah, so then what?", asks the bartender in a voice dry with boredom.
+
+>He looks up at you as your approach.  "What's on your mind, chief?" he asks.
+
+1) "I'm looking for the bathroom actually."
+2) "Nothing much."
+3) [Tell him about the kidnapping]
+
+    "So I slapped her one more time for good measure--she deserved
+worse!--and then I took the money.  Yeah, all of it.  I said to her, 'Woman,
+I'm gone.  I'll call back when you ain't here.'  I mean, I can do better than
+her and save a dime in the process!  Geez."
+    The bartender shakes his head, but not out of disbelief.
+    "Hey, you listening, Samson?", the scraggly man asks the stout man,
+turning to him peevishly.  The stout man says nothing in reply.  There isn't
+a need, really, to acknowledge that one can hear another from a foot away.
+
+>"Well that's downright serendipitous, your stumbling into me.  Yes, I can
+help you.  And more than that, you're gonna help me."
+
+1) "Huh?  I've hardly told you anything yet."
+2) "I doubt it."
+3) "Who are you?"
+
+    "Samson got the same threshold for how mucha your stories he can take in
+a day that I got.  And the both of us is at our limits."
+    Samson chuckles a little underneath some grunting.  The scraggly man
+shrugs and says, "Don't know what you mean.  I haven't but said the same
+thing I always say.  You get nothing new out of me."
+   The bartender nods knowingly.
+
+>"You don't have to.  The girl had PK, right?  You don't have to answer that
+either."  He observes your shock.  "Stupefaction, Chief?  Look, we'll meet
+again.  But not tonight.  The name's 'Dustin'."   He says this while slapping
+your shoulder.  And then he is sweeping towards the door.
+
+    Dustin exits the bar.
+
+    "That's the whole problem, Gene", says the bartender.
+    Samson shrugs again and continues, "I'm at a different brand of
+threshold.  Lemme tell you, this one got me there faster than Sam can spend
+his money."
+    "I doubt Samson spends his money on anything that ain't alcoholic, 'cept
+maybe during Christmas."
+    "Notin' else worth spendin' money on", grunts Samson explanatorily.
+
+>You move south.
+Street in Front of Bar
+    The street continues on east and west.   The area north is occupied by a
+dingy bar.  To the south is an alley.  A solitary lamppost stands at a
+corner, partially lighting this darkened street.  It could do with some
+company.
+Laurie is waiting for you under the lamppost.
+
+   Gradually Laurie tilts her head sideways and asks, "Are you done in there
+yet?  My sister is being held somewhere and there is no time for carousing."
+She fails to keep indignation completely out of her tone.
+
+1) "Hey, valuable information can sometimes be gleaned from hanging out in
+bars."
+2) "After just one more drink.  Hang on... Just kidding!"
+3) "Yes, I'm sorry about that."
+
+>You move south.
+Alley East of Building
+    This is the east side of the large grey building.  It is especially dark
+here in the shadows provided by the building's wall.  The alley continues
+into an urban wilderness to the south, but is not worthy of exploration
+beyond this point.  There is a large dumpster here, enclosed on three sides
+by a brick wall.
+
+    Laurie follows you from the north.
+
+>Using hands and feet you clamber up onto the dumpster lid.  From there it is
+a simple matter to step over to the brick wall.  The small window is in
+reach.
+Laurie comes up after you.
+
+>You press against the window and to your surprise it opens with the most
+minimal effort.  You crawl through it as quickly and nimbly as you can, then
+drop to the floor inside the foyer.  Laurie lands next to you a moment later.
+ The security officer whirls around in a flash.
+    "You weasels, how did you get in here!"
+    And then several things happen in quick succession.  The officer begins
+rushing in your direction.   A banging sound from behind causes the officer
+to turn his neck.  Was that the front door slamming shut?  Right at that
+moment the officer trips over his own chair and stumbles to the ground.
+    While you are registering all this Laurie grabs your arm and pulls you
+towards the hallway.  "Hurry!" she cries.  As you dash towards the hall a
+loud alarm goes off, ringing throughout the whole building.  Gunshots soon
+accompany it.  The two of you run for your lives . . .
+
+Press enter to continue
+
+    Laurie becomes aware of your presence and lifts her head from her hands.
+They are soaked with tears.
+
+1) "Thank goodness I found you."
+2) "I'm really sorry.  Let's go now."
+3) "There's no need to cry.  We'll find her."
+
+>
+
+CHAPTER 2
+
+The Rescue of Cassandra
+
+>
+
+Long Hall North
+    You are in the hallway of an office building running north to south and
+you don't have a lot of time to look around!  Rather than entering one of the
+rooms that are to the west or east, you would be best off continuing south
+until you get to a place where you can throw your pursuers off.
+Laurie is waiting for you under the lamppost.
+
+    A loud alarm is ringing.
+
+>You move south.
+Long Hall South
+   You are in the hallway of an office building running north to south and
+you don't have a lot of time to look around!  Rather than entering one of the
+rooms that are to the west or east, you would be best off continuing south
+until you get to place where you can throw your pursuers off... like that
+junction up ahead.
+
+    Laurie follows you from the north.
+
+    A loud alarm is ringing.
+
+>You move south.
+Hallway Junction
+    This is where the north-south hallway ends.  Running perpendicular to it
+is a similar-looking hallway which extends east and west for an
+indeterminable distance.
+Laurie is waiting for you under the lamppost.
+
+    Laurie follows you from the south.
+
+    An officer far down the hallway to the west notices you and immediately
+runs in your direction.
+
+    A loud alarm is ringing.
+
+    You can hear the sound of more than one set of feet chasing you from
+behind.
+
+>You move east.
+Long Hall East
+    The hallway continues east and west, with the entrance to some darkened
+room to the south.
+Laurie is waiting for you under the lamppost.
+
+    Laurie follows you from the west.
+
+    You hear what sounds like a window being opened abruptly.
+
+    "In there!", says Laurie, indicating the room to the south, "We can hide
+in there!"
+
+    A loud alarm is ringing.
+
+>You move south.
+Supply Room
+    Light from the hallway north of you allows you to quickly observe the
+following features in this closet-type room.  There is a filing cabinet in
+one corner.  Against one wall is a wide shelf containing office supplies.  A
+window with curtains stands to the south.
+
+    Laurie follows you from the north.
+
+    An alarm can be heard in the halls outside.
+
+>You push aside the curtains and step through the window.
+Standing Outside the East Window
+    You are standing on a windowsill that continues to the west.  North
+through the window is the room from which you stepped out of.  South of you
+is the exterior wall of some other part of the building.  It must have been
+built on a hill of some sort.  Though you entered this building at ground
+level, the drop from the windowsill to the ground beneath is not
+insignificant.
+
+    Laurie follows you from the north.
+
+    Laurie looks like she is on the verge of screaming.
+
+>You move west along the windowsill.  As you do so, you hear the curtains
+close in the room you came from.
+On the Windowsill
+    You are standing on a windowsill, hugging the north wall to keep from
+falling.  South of you is the exterior wall of some other part of the
+building.  The windowsill continues east and west.
+Laurie is waiting for you under the lamppost.
+
+    Laurie edges her way along the windowsill slowly.  There is terror in her
+eyes.
+
+    You hear the sound of shuffling feet and voices in the room you just
+left.
+    "They can't be in here.  There's nowhere to hide and the curtains are
+closed."
+    "Funny, I thought they turned in this way."
+    "Look somewhere else--hurry!"
+    The voices fade out.
+
+>You move west.
+Standing Outside the West Window
+    You are standing on a windowsill that continues to the east.  North
+through the window is a darkened room.  Opposite you to the south is the wall
+of some other part of the building.
+
+    Laurie follows you from the east.
+
+>You step through the window.
+
+    Laurie follows you through the window and then stops.
+Copy Room
+    There are no furnishings here other than a copy machine in one corner and
+stacks of papers all around.  To the north is the main hallway.  There are
+also rooms to the east and west.  To the south is a window.
+Laurie is waiting for you under the lamppost.
+
+    An alarm can be heard in the halls outside.
+
+>Time passes...
+
+    An alarm can be heard in the halls outside.
+
+    Laurie looks like her legs are about to give, and tears are beginning to
+well up in her eyes.  Finally, she falls to her knees.
+
+>Time passes...
+
+    An alarm can be heard in the halls outside.
+
+    "I can't go on!", she cries softly.
+
+1) "Yes you can!"
+2) "What happened back there?"
+3) "But if we stay here they'll find us!"
+
+>"You don't understand!", she bursts out.  But somehow, gradually, she manages
+to gather herself.
+
+    An alarm can be heard in the halls outside.
+
+>You move west.
+An Office
+    This is a one-person office with a nice carpet and a desk.  There is a
+swivel chair beside the desk.  Underneath the desk is a large cardboard box.
+
+A swivel chair is by the desk.
+
+    Laurie follows you from the east.
+
+>Moving the cardboard box reveals an open hatchway smack in the middle of the
+carpet.  An underground vein of some sort can be seen below.
+
+    Laurie eyes light up and she glances at you in astonishment.
+
+>You hop down the hatch and help Laurie down afterwards...
+
+Press enter to continue
+
+>
+
+Cellar Passageway
+    You stand in a short cellar passageway full of shadows cast by light from
+around a corner up ahead.  Except for the hatchway from which you dropped,
+the ceiling is practically concealed by the criss-crossing of a myriad of
+pipes.  This area appears to be a dead end from which the only way one can go
+is north.
+Laurie is waiting for you under the lamppost.
+
+>As you move forward you can hear the cries of a girl from up ahead.  You and
+Laurie crouch behind some furniture that is at hand and survey the scene.
+Behind the Furniture
+    This is where the cellar passageway from the south opens into a spacious
+room to the west.   Pipes hang from the ceiling.  Some miscellaneous
+furniture provides cover.
+    Over to the west you see that Laurie's sister is being held down in a
+chair in the center of the room.
+    Three kidnappers are standing near her.
+Laurie is waiting for you under the lamppost.
+
+    "Cassie!", gasps Laurie.
+
+>You stand up and run to the west.
+
+    Cassie sees you and gasps aloud.  The kidnappers notice you immediately.
+All three move to confront you, one after the other.  The last one has a
+blackjack in his hand.  Is this not an opportunity to be a hero?
+
+>Time passes...
+
+    The kidnappers quickly surround you.  You realize that you are about to
+be gang-beaten mercilessly.
+
+    At that moment, Laurie stands up and shouts "NO!!!"  Enraged, she glares
+at the men.
+    "Laurie", shrieks Cassie in delight, "I knew you'd come!"
+    Laurie steps forward with mad determination.
+    The Kidnappers, now aware of everyone's presence, ignore both you and
+Cassie and focus all of their attention on Cassie's older sister.  As one
+Kidnapper nears her, he is struck on the side of the head by a pail that
+comes flying seemingly out of nowhere.  Its origin is not difficult to
+account for; it must have been lying behind some furniture nearby.  But as
+for being airborne--?!  Cassie yells for you to duck and you do.
+    The pail continues to circles through the air in a random pattern and at
+a tremendous speed.   It crashes repeatedly into the heads of each of the
+Kidnappers.  A groan accompanies each collision, but the pail goes on soaring
+back and forth like a vindictive harpy.
+    Eventually it falls to the floor, rolls for awhile, then is still.  By
+that time, there is not a single of the men groaning.  They have all been
+rendered unconscious.
+    Laurie sinks to her knees in relief while Cassie lets out a squeal of
+joy.
+
+>Time passes...
+
+    Cassie runs into her sister's arms.  "Laurie!", she cries.   "Are you all
+right?", asks Laurie.  "I'm fine!", Cassie responds.  "I'm so glad that you
+came.  But I knew that you would!"
+    And then she runs into your arms.  "Thank you!", she cries with much
+feeling.  And then, "Um.. sister, who is he?  Wait", she says, turning to
+look at you again, "Weren't you the one in the ice cream parlor?"
+    Laurie nods her head in enthusiastic affirmation.
+
+>Time passes...
+
+    Laurie thinks for a moment, then asks you, "I never learned your name,
+did I?"
+    "Nice to meet you, Petter!", Cassie says cheerfully upon learning your
+name.
+    "Petter", begins Laurie, "Without you... I... I don't know if I ever
+could have... I..."
+    Cassie, who has been looking at the fallen Kidnappers,  interrupts
+Laurie's train of speech and speaks up.  "D'jou think it's safe?"
+    "I...", begins Laurie again,"...I hit them pretty hard, I think."
+    "Yeah, you were incredible, sis!  The way you kept that object in the air
+all that time--I've never been able to do anything like that!"  Laurie shrugs
+modestly.
+
+1) "Laurie, you didn't tell me that you also had PK!"
+2) "It's okay.  I basically had it figured out already."
+3) "How come you didn't use your power sooner?"
+
+>    "I'm...sorry", she apologizes.  "I didn't know how you would take it.
+How could I know if you would have helped me then?  Although, thinking about
+it now, I think that you would have.  I'm sort of surprised that you didn't
+figure things out anyways.  I thought...I gave it away on many occasions.
+Like when I distracted the security officer and made his chair trip his legs,
+or when I opened and closed windows and curtains upstairs.  And your
+motorcycle--I had to fix that, didn't I?"
+
+1) "Laurie, you really are impressive."
+2) "Cassie, you did some amazing things tonight, too."
+3) "So which of you is stronger?"
+
+>    Laurie just blushes and Cassie says, "That's my sister for you.  You're
+going to keep teaching me how to do all the things that you can do, right,
+Laurie?  Like levitate things and bend metal.  I don't know if I'll ever be
+able to do all that."
+    "I'll try, I guess", smiles Laurie.
+
+1) "There's one thing I don't get--How come you needed me at all?"
+2) "C'mon, let's get you girls to safety."
+
+>You move north.
+Cellar Annex
+    Light cast from the large room to the south permits some visibility in
+this dark cellar passageway that leads north.  Pipes hang from the ceiling.
+There is a door set in the east wall.
+
+Also here is the chest freezer.
+
+    Laurie follows you from the south.
+
+    Cassie follows you from the south.
+
+>You move north.
+Passageway End
+    The passageway ends here at a ladder ascending to a circular hatch on the
+ceiling.  In fact, it is the underside of a manhole.  Not shocking since the
+passage has had the feel of being in a damp, forgotten sewer all along.
+
+    Laurie follows you from the south.
+
+    Cassie follows you from the south.
+
+    "We can go up that way", remarks Laurie, pointing to the ladder.
+
+>As you come near the hatch, the manhole cover slides off seemingly by itself.
+The three of you climb up the ladder one after another, yourself in the lead.
+
+    Laurie replaces the manhole cover.  "It isn't safe for us to be here
+either", she whispers.  Holding her shoulders in the cold night air, she
+looks around.
+    "Can we return to our own house?", asks Cassie.
+    Laurie shakes her head.  "I think that is too dangerous.  They know where
+that is.  They must have known that our parents were out of town and that's
+why they waited until tonight to...take you away."
+    Cassie giggles.  "It didn't help that I made those ice cream spoons dance
+on the table, huh?"
+    "Oh, that's how they were able to pinpoint your exact location!", She
+groans girlishly.  "Cassie, I told you not to do that!  You know that they
+can hear us do those kind of things by wearing those things in their ears!"
+    "Oops", says Cassie sheepishly.
+    "Oh", cries Laurie, "what will we do?  If we keep running...they'll only
+find us again.  We can't go on like that.  In order to ever feel safe
+again...oh, what can we do?"
+
+    Laurie looks at you with the same pleading expression that you saw in the
+ice cream parlor.
+
+1) "Gee...I dunno..."
+2) "For now let's get out of here."
+3) "I don't intend to leave you."
+
+>Cassie looks sort of disappointed.  Laurie simply looks forlorn.
+
+    Laurie gazes at the sky, pondering.  By and by she turns to speak to you
+again.
+    "We can go to my friend's house.  She'll let us stay there, I know she
+will.  Until...until it is safe to go home again.  Petter, will you take us
+there?  I can show you the way to her house once we get to your motorcycle."
+    "Let's hurry", agrees Cassie, "I've had enough of this place."
+
+>The three of you make your way back to your motorcycle without further
+incident.  Smaller than her sister, Cassie is able to squeeze into the seat
+with Laurie and hold onto her back while Laurie holds onto yours.  You start
+the engine and take off into the night, leaving Langston Bridge and its dark
+alleys behind...
+
+Press enter to continue
+
+>
+
+CHAPTER 3
+
+Friends and Clues
+
+>
+
+You and your passengers arrive at the front of a house that Laurie indicates
+is the place where her friend lives.  You park your motorcycle and the girls
+dismount.
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other
+than in the domestic atmosphere that permeates it, made possible by
+cleanliness and simple feminine decor.  A mat lies at the foot of the front
+door, which is east.  A mailbox is attached to the wall beside the door.
+Your motorcycle is parked close by.
+Laurie is waiting for you under the lamppost.
+    Cassie is also beside you.
+
+>Time passes...
+
+    Laurie goes up to the front door, followed by her sister.
+    "Will she be home?", asks Cassie.
+    "I'm sure she will be", replies Laurie.  "It's been several hours since
+we were in the ice cream place.  She wouldn't have stayed there and she
+wouldn't have gone to the police either, I don't think."
+
+>Time passes...
+
+    Laurie knocks on the front door.
+
+>Time passes...
+
+>Time passes...
+
+    Cassie looks at her sister.  Laurie knocks on the door a little louder.
+
+>Time passes...
+
+    You hear the door being opened from the other side.  A moment later, a
+girl is standing there looking very surprised.  In fact, it is the same girl
+that was in the ice cream parlor with Laurie and Cassie.
+    "Laurie!", she cries.  "And Cassie!  You're both okay!  I can't believe
+it!"
+    "Monika", Laurie responds.  An exchange of hugging ensues.
+
+>Time passes...
+
+    "Come in!", insists Monika.  Noticing you with a cordial smile she adds,
+"You too of course."  The girls enter the house.
+
+>You enter the house.
+
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+Laurie is waiting for you under the lamppost.
+    Monika is standing here.
+    Cassie is also standing here.
+
+    "Are you all right, Cassie?", asks Monika.  "I was so worried.  What
+happened?   Where did they take you?  And how did you get her back?"  The
+last question is addressed to Laurie.
+    Laurie answers, "Well, to begin with, we never would have done it without
+Petter."
+    "You remember him from the ice cream shop, don't you Monika?  The one you
+were saying was--"
+    Blushing, Monika interrupts her, "Right!  Hello, Petter.  I'm Monika,
+Laurie's friend."
+
+1) "I do remember you."
+2) "Nice to meet you, Monika."
+3) "What were you saying about me?"
+
+>Monika seems genuinely happy to hear this.  "Really?", she asks.
+
+    "So anyway", continues Laurie, "We found Cassie in the cellar of a
+suspicious-looking office building in a mostly deserted area of the city.  It
+was them of course..."
+    Laurie proceeds to give her friend an account of the events that
+transpired since Cassie was kidnapped up until the present hour.  Laurie and
+Monika sit down on the couch and Cassie sits down on the floor.
+
+>Time passes...
+
+    While relating the story, Laurie downplays her own heroic contributions
+to the rescue effort, resting the credit primarily on you.  It is not for
+fear that her friend might find out about her powers, though, as she does
+mention the use of PK.  Presumably Monika has already been privy to her
+friend's secret.  She listens in amazement.
+    "So is that building their secret hideout then?"
+    "I don't think so", replies Laurie.  If it was, I think it must be a
+temporary one."
+    Cassie says, "They were going to take me somewhere else.  I heard them
+talking about it in the cellar."
+    "Thank goodness we found you before then."  Unconcealed relief shows in
+Laurie's voice.
+
+>Time passes...
+
+    "What will you do now?", asks Monika.
+    "Monika,", Laurie addresses her best friend sincerely, "would you mind if
+we stayed here for awhile?  Until it is safe to go back home?  I fear what
+they will try next."
+    "Laurie!  Of course you can!  And you too, Cassie.  And Petter, too!  You
+can stay here as long as you like."
+    Laurie faces you.  "Petter, I think that would be a great idea...I
+mean...um...well, if you don't mind it, I'd like to...have you nearby.  For
+safety, you know.  And also, there's something you could help me with
+tomorrow....If you don't mind, that is..."
+    "Yeah, are you going to stay with us, Petter?", asks Cassie excitedly.
+
+1) "For you, Laurie, anything."
+2) "You bet."
+3) "Oh, sure."
+
+>    "Thank you so much", says Laurie.
+
+>Time passes...
+    "You're going to stay then?  Right on!", says Cassie.
+    "Is it really okay?", asks Laurie.
+    "Of course it's no problem, Laur!  You and Cassie can stay in that extra
+bedroom next to the stairway.  There's a fold-up mattress in the closet
+upstairs that one of you can sleep on.  And the other can sleep on the bed.
+Petter, will you come move the mattress?  I'll show you where it is."
+    The girls all stand up.
+
+>Time passes...
+
+    Monika walks away to the east.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    Laurie walks away to the east.
+
+    Cassie walks away to the east.
+
+>You lie down on the couch and try to fall asleep.  Although you are tired
+from the activities of the night, you remain awake for some time, tossing and
+turning.  It could be that part of your inability to sleep is due to the
+couch and the unfamiliar setting.  Likely, it has more to do with your mind's
+insistence in reviewing the unexpected course of events that the day brought
+you, and the people that they involved.  Tenaciously, like a grindstone
+turning, the events replay over and over until you manage to drift off...
+
+Press enter to continue
+
+    You rested well, quite well.  Your body feels thoroughly refreshed.
+Whatever it is that you dreamt of fades from your memory quickly, and your
+mind is clear and untroubled when your eyelids finally slide open and the
+morning breaks...
+
+Press enter to continue
+
+>
+
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+
+    You become aware of the sounds and smells of....yes, breakfast.
+
+>(Getting off the couch first)
+You move south.
+Dining Room
+    A dining table stands before a broad window with curtains, which serves
+to make mealtimes pleasant when the weather is nice, and comfortable when it
+is not.  To the north is the living room and to the east is the kitchen.
+Some chairs are pushed in around the table.  A fruit bowl serves as a
+centerpiece.
+
+    You smell good food nearby.
+
+>You move east.
+Kitchen
+    Monika's kitchen sports the usual accommodations, including a counter, a
+sink, and a stovetop.  A toaster sits at one end of the counter like a book
+end.  There is a drawer beneath the counter, and several cupboards above it.
+There is also a cabinet underneath the sink.  A refrigerator that includes a
+freezer stands against the opposite wall.  The dining room is west and the
+stairway north.
+Laurie is waiting for you under the lamppost.
+
+    "Good morning", says Laurie cheerfully.  "I hope I didn't awaken you.  I
+was thinking you might like some hashbrowns.  They should be done soon."
+The toaster is now on.
+
+>Time passes...
+
+    "Monika left early.  She said that she had to run some errands but that
+she would be back later today."
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    You hear the toaster pop.
+
+>Time passes...
+
+    Laurie takes the bread from the toaster.
+
+>Time passes...
+
+>Time passes...
+
+    Cassie walks in from the north.
+
+    Cassie sniffs the air, moving closer and closer to the vicinity of the
+stovetop.
+    "Hang on Cassie, it's almost done", Laurie says to her.
+
+>Time passes...
+
+    "I may never become a great cook but at least there are some things I can
+sort of make with confidence", says Laurie.
+
+>Time passes...
+
+    Cassie walks away to the west.
+
+    Laurie turns off the grill.  "I think it's done", she says.
+
+>Time passes...
+
+    Laurie puts the hashbrowns and toast onto a plate with an egg omelette.
+
+>Time passes...
+
+    Laurie walks away to the west.
+
+>You move west.
+Dining Room
+    A dining table stands before a broad window with curtains, which serves
+to make mealtimes pleasant when the weather is nice, and comfortable when it
+is not.  To the north is the living room and to the east is the kitchen.
+Some chairs are pushed in around the table.  A fruit bowl serves as a
+centerpiece.  A plate is on the dining table.
+Laurie is waiting for you under the lamppost.
+    Cassie is sitting at the table.
+
+    Laurie puts the plate of hashbrowns and egg omelette down in front of
+you.  She brings some food for herself and Cassie as well.  Then she sits
+down at the table.
+
+>Time passes...
+
+    "There's more bread in the cupboards if you want more toast after this",
+says Laurie.
+    After finishing a few bites of hashbrowns Cassie says, "It's not ice
+cream but I'm eating it."
+    "Um, thanks, Cassie, I think."
+    "No, Laur, it's not bad.  I'm just saying that it isn't quite the same as
+ice cream.  Nothing is.  Except ice cream."
+
+1) "It's delicious, Laurie."
+2) "Cassie is a sweet tooth, huh."
+3) "So what do you need me for today?"
+
+>    "Thank you", she replies appreciatively.
+    Cassie laughs.  "Well then, you can make breakfast for him anytime, right
+Laurie?"
+    Laurie changes the subject.
+
+    "I've been thinking.   The only way that Cassie and I are ever going to
+get them off our back for good is if they lose whatever information they have
+on us.  They don't really know us.  I think that may be our advantage."  She
+tilts her head in thought.
+
+  "If we could somehow delete the records that they have of us..."
+
+1) "...then they can't come after you anymore!"
+2) "Do you know where to find such records?"
+
+>"Good idea, eh?", chimes Cassie, "Sis, you're brilliant."
+
+    Then Laurie says, "I have a friend that lives nearby whose name is Ethan.
+ He can do anything with computers, or so he tells me.  Perhaps he can find a
+way to delete these records.  Petter, will you go over to his place and see
+if he can't help us?"
+
+1) "Why don't you come along yourself?"
+2) "Is it all right if I just show up like that?"
+3) "Does he know that you have PK?"
+
+>    At this Laurie laughs a little.  It is the first time that you have seen
+her do so.
+    "Oh, Ethan?  He knows everything there is to know about me, I think.
+Even the things I would never tell him in a million years."
+    Cassie shakes her head but ends up laughing herself.  You've not seen the
+sisters quite like this before.  But it is a good sign that the both of them
+are able to laugh at all after last night's events.
+
+>You move north.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+
+>You leave the house, closing the door behind you.
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other
+than in the domestic atmosphere that permeates it, made possible by
+cleanliness and simple feminine decor.  A mat lies at the foot of the front
+door, which is east.  A mailbox is attached to the wall beside the door.
+Your motorcycle is parked close by.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+
+>You start up your motorcycle and depart for Ethan's...
+
+Press enter to continue
+
+>
+
+You arrive and park in front of Ethan's...
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>You open the door and enter the apartment.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  from which
+you hear the sounds of typing at a keyboard.  The exit to the apartment is
+north.
+
+>You move down.
+Ethan's Den
+    The downstairs of Ethan's apartment is only slightly less cluttered than
+above.  Since the room is smaller, it actually feels even more crammed down
+here.  Trash indiscriminately covers the floor.  Standing among the trash you
+see an open fish tank.  There is computer hardware lying all about.  There is
+a table on which sits a computer monitor.
+    Ethan is seated at a chair in front of the computer.
+
+    Gradually, Ethan turns in his seat to look at you dully, clearly
+wondering what kind of sale you have come to push today.
+
+>    "You're a friend of Laurie's?  How is she?  You haveta tell me."
+    Ethan listens to your story with the highest interest.  Every time you
+mention Laurie's name he closes his eyes as if trying to visualize how she
+would have looked like at that particular time.
+    "Isn't she something?", he says with a smile.  "There's no girl quite
+like her, even with PK powers aside.  I've told her that myself,
+but....anyway, so why didn't she come in person?"
+
+1) "She has claustrophobia."
+2) "She feels safer not going out."
+3) "She had to work today."
+
+>"Yeah, that makes sense.  Laurie cares a lot about her sister.  She wouldn't
+want to leave her alone after that sort of an experience."
+
+1) "So can you help us?"
+2) "How do you know so much about Laurie?"
+3) "What are Laurie's three sizes?"
+
+>    "Yes, of course.  I'm concerned about her."
+    Ethan turns to his computer for a second and hits a few keys and then
+turns right back to you.
+    "What do you know about these guys, this organization that is after
+Laurie?  I need some kind of information, something I can use to track them
+down.  Even just a single name might be enough.  If you can provide me with
+that, I'll tell you everything you want to know about this organization from
+what their taxes were last year to where they go to do their laundry."
+
+>You move up.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  from which
+you hear the sounds of typing at a keyboard.  The exit to the apartment is
+north.
+
+>You leave the apartment, closing the door behind you.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+
+>You start up your motorcycle and depart for Monika's...
+
+Press enter to continue
+
+>
+
+You arrive back at Monika's without incident...
+
+The route back to Monika's was not minutely engraved in your mind and you
+nearly took a wrong turn at several places.  But at the sight of the quaint
+little blue house all dubiety is dissolved.  Laurie will be waiting for you
+inside.
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other
+than in the domestic atmosphere that permeates it, made possible by
+cleanliness and simple feminine decor.  A mat lies at the foot of the front
+door, which is east.  A mailbox is attached to the wall beside the door.
+Your motorcycle is parked close by.
+
+>You enter the house.
+
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+
+>You move east.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the
+living room, to the south is the kitchen, and a door stands before a bedroom
+to the east.
+
+An air freshener is on the wall here.
+
+>You move south.
+Kitchen
+    Monika's kitchen sports the usual accommodations, including a counter, a
+sink, and a stovetop.  A toaster sits at one end of the counter like a book
+end.  There is a drawer beneath the counter, and several cupboards above it.
+There is also a cabinet underneath the sink.  A refrigerator that includes a
+freezer stands against the opposite wall.  The dining room is west and the
+stairway north.  A granola bar is on the kitchen counter.
+Laurie is waiting for you under the lamppost.
+    Cassie is sitting on the counter.
+
+    "Petter!  Laurie, he's back."
+    "Petter, were you able to meet Ethan?"
+    After hearing your report, Laurie puts her elbows on the counter and
+ponders the situation.  "There must be something else we can do... "
+
+>Time passes...
+
+    "Cassie, when you were being held by those men, did they say anything
+important?"
+
+>Time passes...
+
+    Cassie screws her face and tries to think.
+
+>Time passes...
+
+    "Y'know Laur, I do remember hearing them talk about some 'silo'.  I don't
+know what that could possibly be.  I figured maybe it was where they would be
+taking me next."
+    "A silo?  Hmm, what could that have meant I wonder?  Did they not say
+more about it?"
+    "Nope, I only heard them mention it once."
+
+>Time passes...
+
+>Time passes...
+
+    "Petter, do you think you could find out about this 'silo'?  That might
+tell us something we need to know."
+    "But who would know about that, Laur?"
+    "I cannot say..."  Laurie looks bewildered.
+
+>Time passes...
+
+    She looks up.  "The plaza--that's the busiest part of the city.  There
+must be  somebody there who knows something that can help us."
+    "Yeah, somebody, eh.  Would Petter just go around asking everyone he
+sees?  Well, hmm, I guess he could do that."
+
+1) "It's no problem, I'll go."
+2) "Well, don't expect a breakthrough but..."
+3) "Who should I ask?"
+
+>"That is sweet of you, Petter.  Thank you again for helping us."  And she
+couldn't be more sincere about it.
+
+>You move north.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the
+living room, to the south is the kitchen, and a door stands before a bedroom
+to the east.
+
+An air freshener is on the wall here.
+
+>You move west.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+
+>You leave the house, closing the door behind you.
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other
+than in the domestic atmosphere that permeates it, made possible by
+cleanliness and simple feminine decor.  A mat lies at the foot of the front
+door, which is east.  A mailbox is attached to the wall beside the door.
+Your motorcycle is parked close by.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+
+>You start up your motorcycle and depart for the Plaza...
+
+Press enter to continue
+
+>
+
+You arrive at the Plaza...
+
+The traffic kept increasing all the way up here to the point where being on
+one's feet was wholly preferable to the stop and go of travel by motor
+vehicle.  At last you were able to find a spot beside the road with no
+competition for parking space.  You bring your bike to a rest.
+Avenue
+    Small shops line the side of the walk through this, the trendier part of
+the city of Rittersburg.  The avenue runs east-west, with people passing by
+on both sides of you.  To the north there is a busy pedestrian intersection.
+It seems to be the fountain from which much of the traffic flows to or from.
+Your motorcycle is parked along the street.
+
+>(Getting off your motorcycle first)
+You move north.
+Intersection
+    You stand in the midst of a spacious four-way crossing for pedestrians
+only.  Numerous people walk past you in every which direction, their
+destinations not deducible from reading only their faces.  The patter of feet
+on pavement is heard continually.
+
+>Time passes...
+
+    In the thick of people going to and fro about their own business it is
+hardly possible to detect who it is that brushes against your shoulder.  You
+are handed a card, a two by three and a half inch business card.  The back of
+the card reads "Meet me in the cafe".  The handwriting is sloppy, on purpose
+perhaps.
+    Scanning the multitude, you are unable to locate any particular person
+that shows an indication that he or she might have been the one that handed
+you the card.  And then, through chance rather than design, a gap opens up in
+the crowd and you see someone watching you...
+
+Press enter to continue
+
+>
+
+Standing from afar you see a woman.  She wears a black leather jacket beneath
+which is a stylish white dress that contrasts it well.  She stands and
+observes you confidently, as if it is her appointed place to do so.  Surely
+she must realize that you are looking back, but she does not retract her
+gaze.  Her crystal eyes bore into your soul while revealing nothing of her
+own.  No sooner have you caught this brief glimpse than the gap closes and
+you can no longer see this woman through the thick of the crowd.
+
+Press enter to continue
+
+>
+
+CHAPTER 4
+
+A Suspicious Encounter
+
+>
+
+Intersection
+    You stand in the midst of a spacious four-way crossing for pedestrians
+only.  Numerous people walk past you in every which direction, their
+destinations not deducible from reading only their faces.  The patter of feet
+on pavement is heard continually.
+
+>You move south.
+Avenue
+    Small shops line the side of the walk through this, the trendier part of
+the city of Rittersburg.  The avenue runs east-west, with people passing by
+on both sides of you.  To the north there is a busy pedestrian intersection.
+It seems to be the fountain from which much of the traffic flows to or from.
+Your motorcycle is parked along the street.
+
+>You move east.
+By the Cafe
+    The avenue from the west ends here beside a fashionable cafe with a row
+of rose bushes in front.  A couple tables with chairs have been set up for
+the occasional outdoor diner, and there is a folded sign on the ground
+displaying the cafe's name.  The city continues to the north.
+
+>You enter the cafe.
+
+    "Have a seat", says the woman at the table.  She has not looked up but it
+is clear she is speaking to you.
+Cafe
+    The interior of this cafe is lit primarily by a tiny window on the east
+wall; the place really doesn't seem to require any more lighting than that.
+The room is not large, yet contains a number of closely packed square tables
+and chairs.  A menu is displayed atop a counter.  The exit to the cafe is
+west.
+    A mysterious woman is seated at a table facing the window.
+
+>You sit down at the table.
+
+    "Don't worry", says the woman, "I told my man to leave."  She appraises
+you like a jeweler.  With a captivating smile she remarks, "Well now, you're
+not a bad-looking young man."
+
+1) "Who are you?"
+2) "Thanks, but what is the meaning of this?"
+3) "Neither are you."
+
+>    "I knew you'd say so", she replies.
+"My name is Katryn.  And you are Petter.  I've been looking forward to
+meeting you ever since last night when I heard of your escapade.  That was
+quite the rescue, wasn't it?  No, you are not being patronized!  I'm rightly
+impressed with what you were able to accomplish in the face of opposition
+that was...not insubstantial.  Not to take away from your heroics, but we
+would not hire the same men a second time."
+
+1) "Those were your men?"
+2) "How do you know about that?"
+3) "All right, kidnapper, state your game!"
+
+>    "Those were my superior's men.  I would never hire their type.  How can
+you trust them to the job?  Well, clearly, they didn't complete theirs.  And
+I'm rather glad of it.  In fact, now that I've met you in person", she says
+while baring you in the eyes, "I wouldn't have had it any other way."
+
+    She leans forward.   Her hand touches yours underneath the table.
+    "Come meet me.  Tonight.  I have arranged a place where we can talk in
+private.  We can have, in fact, all the privacy that we desire."
+
+1) "Okay, sure."
+2) "How can I trust you?"
+3) "Tell me why."
+
+>"Enter by the front gate of Gammex Industrial.  I will meet you inside.  I'm
+looking forward to it."
+
+    She squeezes your hand in both of hers, stands up, and exits the cafe,
+turning back only once to make sure you are watching her leave.
+
+>Time passes...
+
+    "I shouldn't have to tell you that she can't be trusted, Chief."  You
+turn around to see the back of Dustin, sitting at another table not far away.
+ "No woman ever could."
+
+1) "Now that's not true."
+2) "Do you know her?"
+3) "What are you doing here?"
+
+>"Reckon I do.  That was Katryn Bellacue you were speaking to, second in
+command to the big cheese himself, Octal, leader of the organization known as
+R.O.S.A.  If you need me to explain any of that further, we're in big
+trouble."
+
+>Before you can utter anything he spins around and says, "I got a job for you.
+ You're going to get me some magnets.  I'm not talking about your dinky
+grade-school pin-collecting magnet that you attach to your refrigerator.  I'm
+talking about the kind of magnet that makes your refrigerator attach to it!
+I need two of them, Chief.  Can you get them for me?  Thanx, knew I could
+count on you."
+
+>You leave the cafe.
+
+    You do not see Katryn anywhere.
+By the Cafe
+    The avenue from the west ends here beside a fashionable cafe with a row
+of rose bushes in front.  A couple tables with chairs have been set up for
+the occasional outdoor diner, and there is a folded sign on the ground
+displaying the cafe's name.  The city continues to the north.
+
+>You move west.
+Avenue
+    Small shops line the side of the walk through this, the trendier part of
+the city of Rittersburg.  The avenue runs east-west, with people passing by
+on both sides of you.  To the north there is a busy pedestrian intersection.
+It seems to be the fountain from which much of the traffic flows to or from.
+Your motorcycle is parked along the street.
+    Monika is standing here.
+
+>Time passes...
+
+    Monika walks away to the east.
+
+>Time passes...
+
+    A nice breeze touches your face.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+f) Gammex Industrial
+
+>You start up your motorcycle and depart for Ethan's...
+
+Press enter to continue
+
+>
+
+You arrive and park in front of Ethan's...
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>You open the door and enter the apartment.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  from which
+you hear the sounds of typing at a keyboard.  The exit to the apartment is
+north.
+
+>You move down.
+Ethan's Den
+    The downstairs of Ethan's apartment is only slightly less cluttered than
+above.  Since the room is smaller, it actually feels even more crammed down
+here.  Trash indiscriminately covers the floor.  Standing among the trash you
+see an open fish tank.  There is computer hardware lying all about.  There is
+a table on which sits a computer monitor.
+    Ethan is seated at a chair in front of the computer.
+
+>"Do you have information about this organization?  Like a name or something?"
+
+1) "Yes"
+2) "No"
+
+>"You do?  What is it?"
+
+What do you tell him?
+
+>    "'Rosa', huh?  Okay, I'll see what I can dig up.  Don't go anywhere, this
+won't take long..."
+    Ethan spins back to his computer, brings up some new windows, and starts
+pounding keys.
+
+>Time passes...
+
+>Time passes...
+
+    Ethan leans down and picks up a piece of tissue, blows his nose on it,
+and chucks it back among the trash that constitutes the floor of his room.
+
+>Time passes...
+
+>Time passes...
+
+    "Okay!", announces Ethan, "I got something.  'ROSA central port'--that's
+probably what we're after.  If it's their main server like I think it is,
+it'll have all the data we're after.  There's some security of course,
+password protection, nothing I can't handle.  It may take me some time.
+Cracking a password is like cracking an old walnut.  You never know if it
+will take ten seconds or a whole day.  That wasn't the greatest analogy, was
+it now.    Anyways, you may want to come back later."
+
+>As you turn to go, Ethan says, "Bring Laurie with you next time.  I'd sure
+like to see her."
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  from which
+you hear the sounds of typing at a keyboard.  The exit to the apartment is
+north.
+
+>You leave the apartment, closing the door behind you.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+f) Gammex Industrial
+
+>You start up your motorcycle and depart for Monika's...
+
+Press enter to continue
+
+>
+
+You arrive back at Monika's without incident...
+
+It's good to be getting back, and this not only for anticipation of delicious
+homemade cooking.
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other
+than in the domestic atmosphere that permeates it, made possible by
+cleanliness and simple feminine decor.  A mat lies at the foot of the front
+door, which is east.  A mailbox is attached to the wall beside the door.
+Your motorcycle is parked close by.
+
+>You enter the house.
+
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+    Cassie is sitting on the couch listening to music on earphones.
+
+    "Petter, you're back!  How was the plaza?  Did you find any fun there?
+Sheesh, I've been so bored here."
+
+>You move east.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the
+living room, to the south is the kitchen, and a door stands before a bedroom
+to the east.
+
+An air freshener is on the wall here.
+
+>You move south.
+Kitchen
+    Monika's kitchen sports the usual accommodations, including a counter, a
+sink, and a stovetop.  A toaster sits at one end of the counter like a book
+end.  There is a drawer beneath the counter, and several cupboards above it.
+There is also a cabinet underneath the sink.  A refrigerator that includes a
+freezer stands against the opposite wall.  The dining room is west and the
+stairway north.  A granola bar is on the kitchen counter.
+    Monika is standing here.
+
+>Time passes...
+
+    Monika puts down the grocery sack.
+
+>Time passes...
+
+    "Stick around for dinner, Petter.  I think you will like it.  Or that's
+what I'm hoping", she smiles.
+
+    Monika begins taking vegetables out of the sack and placing them on the
+kitchen counter.
+
+>Time passes...
+
+    Monika gets out a cutting board and puts it on the counter.
+
+>Time passes...
+
+    Monika opens a drawer and takes out a knife.
+
+>Time passes...
+
+    Monika takes an onion and sets it on the cutting board.
+
+>Time passes...
+
+    Monika begins slicing the onion.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    Monika takes a pepper and sets it on the cutting board.
+
+>Time passes...
+
+    Monika begins slicing the green pepper.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    Monika takes a tomato and sets it on the board.
+
+>Time passes...
+
+    Monika begins slicing the tomato.
+
+>Time passes...
+
+>Time passes...
+
+    Monika puts the knife down.  She opens the refrigerator and retrieves a
+package of tortillas and some chicken strips.
+
+>Time passes...
+
+    Monika puts the skillet on the grill and turns on the grill.  She halts
+abruptly.  "Shoot, I forgot to buy fajita seasoning!  How could I forget such
+a thing?  I guess I just have to improvise somehow."
+
+>Time passes...
+
+    Monika begins frying tortillas lightly.
+
+>Time passes...
+
+>Time passes...
+
+    Monika puts the tortillas aside.  She begins frying the chicken strips.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    Monika grabs the cutting board and adds the onion and pepper slices to
+the mix.  She also takes the knife and puts it away.
+
+>Time passes...
+
+>Time passes...
+
+    Monika adds the tomato slices to the mix.  She puts the cutting board
+back onto the counter.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    Monika turns off the grill.  She begins adding the fajita mix to the
+tortillas and folding the tortillas.
+
+>Time passes...
+
+    "Cassie?  Will you help set the table?"
+    "Sure", is heard Cassie's reply, muffled and delayed.
+
+>Time passes...
+
+    Cassie walks in from the west.
+
+    Monika stacks the finished fajitas onto a plate.
+
+>Time passes...
+
+    Cassie takes plates and things wherewith to set the table.
+
+>Time passes...
+
+    Cassie walks away to the west.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+    "Let's eat already.  I'm getting thinner by the minute", hollers Cassie.
+
+>Time passes...
+
+    Monika walks away to the west.
+
+>You move north.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the
+living room, to the south is the kitchen, and a door stands before a bedroom
+to the east.
+
+An air freshener is on the wall here.
+
+>You move east.
+Bedroom
+    This small room contains only a bed and a nightstand with a mirror.  All
+has been kept clean.  Either Monika gets guests often or she simply doesn't
+need the spare room for herself.  The door is west.
+
+Also here is a foldable mattress.
+Laurie is waiting for you under the lamppost.
+
+    Laurie has recently risen and is stretching her arms.  "I needed that
+nap", she confesses.
+
+>You move west.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the
+living room, to the south is the kitchen, and a door stands before a bedroom
+to the east.
+
+An air freshener is on the wall here.
+
+    Laurie walks in from the east.
+
+>You move west.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+
+>You move south.
+Dining Room
+    A dining table stands before a broad window with curtains, which serves
+to make mealtimes pleasant when the weather is nice, and comfortable when it
+is not.  To the north is the living room and to the east is the kitchen.
+Some chairs are pushed in around the table.  A fruit bowl serves as a
+centerpiece.  A plate is on the dining table.
+    Monika is standing here.
+    Cassie is standing here.
+
+>Time passes...
+
+    Laurie walks in from the north.
+
+    "I'm afraid this might taste a little funny", warns Monika.
+    "In what way?", asks Cassie
+    Laurie shakes her head.  "Oh, Monika, we all know that you are the best
+cook among us."
+    "Yeah, but this time I did something a mite experimental with the sauce."
+    "I am sure it will taste no less delicious than always."  The girls sit
+down around the table.
+
+>Time passes...
+
+    Cassie reaches for a fajita but Laurie stays her hand while Monika says a
+silent prayer.  Then, raising her head, she speaks, "Chow down everyone."
+    Cassie, who has been shifting in her seat, reaches for the plate.
+    "Petter, have at them", Monika says invitingly.   "Laurie, I know you
+don't eat much but I hate to see you hold back."
+    "These are delicious, Monika", says Laurie, taking her first bite.
+Cassie is on her next several.
+
+    "Thanks.  I love cooking.  It's one of those things that you have to do
+whether you enjoy it or not, but you can enjoy it all the same.  You know?"
+
+>Time passes...
+
+    "I can't decide which I like better, Chinese food or Mexican.  After ice
+cream, of course."  Cassie scarfs down the rest of her first fajita.
+    "Even after all the trouble ice cream got you into yesterday?", asks
+Laurie.
+    Monika laughs.  "Ice cream will be the end of you yet, girl."
+
+>You sit down on one of the chairs.
+
+    "So, Petter, how did it go at the plaza?", asks Laurie.
+
+1) (tell about your meeting with Katryn)
+2) (don't tell)
+
+>    The girls can scarcely believe what you say.
+    Cassie: "You met...the kidnappers' boss?"
+    Monika: "Do you trust this woman?"
+    Laurie: "Are you going to go meet her tonight just like that?"
+
+1) "Not the boss, but someone affiliated with."
+2) "Of course I don't trust her."
+3) "Well, maybe I'll go.
+
+>   "What, are you trying to open up negotiations with this lady?", asks
+Cassie incredulously.
+    "How do you even know that she is what she says she is?", asks Monika.
+    Then Laurie speaks up.  "We need more information to know what to do to
+get clear of this whole mess.  But I'm not sure if this is a great way to get
+the information we need.  How can we know what this woman is really after?  I
+fear what her true motive might be.  What to do...I do not know."
+
+>Time passes...
+
+    There is near silence in the room for some time.  Then Cassie asks her
+sister, "Will we ever really be safe?"
+    "Cassie.... ", mutters Laurie introspectively.
+
+>Time passes...
+
+    Cassie takes another bite of her food and says, "As long as Petter stays
+with us nobody will put their hands on me agai--"
+    She is interrupted by a knock at the door that startles everyone.
+    "Petter, do you--", begins Monika.
+    "Monika, that could be them!", cautions Laurie.
+    The knock is heard again and nobody says a word.
+
+Press enter to continue
+
+>
+
+CHAPTER 5
+
+The Enemy Revealed
+
+>
+
+    The knock comes again, slower, and more pronounced.  The girls, frozen in
+apprehension, look blankly at one another and at you.  Even Cassie ceases to
+shift in her seat.
+
+>Time passes...
+
+    You hear another knock at the front door.
+
+>Time passes...
+
+    Someone is knocking at the door.
+
+>Time passes...
+
+    The knocking continues.
+
+>Time passes...
+
+    You hear one final knock.
+
+>Time passes...
+
+    The girls relax.  Laurie exhales as if she had been holding her breath a
+long while.
+    "Do you get many visitors, Monika?", inquires Cassie.
+    "Sometimes, but I certainly wasn't expecting anyone today."
+    "I hope they have really gone away", wonders Laurie.
+    "Sis, we don't even know who it was!  I bet it was only Jehovah's
+Witnesses."  Laurie tries to smile.
+
+>Time passes...
+
+    "Excuse me", says Monika, arising from her chair and grabbing things from
+the table.  "Petter, go ahead and eat as much as you like."
+    Laurie says, "We'll be over there to help you clean up in just a few
+minutes, Monika."
+    Cassie is considering another fajita like a roulette player considers
+another toss.
+
+>(Getting off the chairs first)
+You move north.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any
+home sweet home must include, such as a couch, a coffee table, a rug, and
+wall decorations adorning the walls.  All that is lacking is the hearth.  The
+space opens up to a dining area to the south, and an area with a stairway
+east.  The front door is west.
+
+>You leave the house, closing the door behind you.
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other
+than in the domestic atmosphere that permeates it, made possible by
+cleanliness and simple feminine decor.  A mat lies at the foot of the front
+door, which is east.  A mailbox is attached to the wall beside the door.
+Your motorcycle is parked close by.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+f) Gammex Industrial
+
+>You start up your motorcycle and depart for Ethan's...
+
+Press enter to continue
+
+>
+
+You arrive and park in front of Ethan's...
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>You open the door and enter the apartment.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  from which
+you hear the sounds of typing at a keyboard.  The exit to the apartment is
+north.
+
+>You move down.
+Ethan's Den
+    The downstairs of Ethan's apartment is only slightly less cluttered than
+above.  Since the room is smaller, it actually feels even more crammed down
+here.  Trash indiscriminately covers the floor.  Standing among the trash you
+see an open fish tank.  There is computer hardware lying all about.  There is
+a table on which sits a computer monitor.
+    Ethan is seated at a chair in front of the computer.
+
+    Ethan turns around as soon as you enter.  His face spells frustration.
+"This is lame!  Why is it taking so long?  What kind of word are they using
+for a password, 12-digit-long Navajo slang?!"
+
+>Time passes...
+
+    "I'll tell you what the problem is.  I don't like to admit it but the
+software I'm using is outdated.  Yeah, probably just by a few hours.  No, I'm
+being sarcastic about the few hours but you know how it is in high-tech.  You
+gotta go in and out of time warps just to keep current.  The fact is, this
+password could take a deathly long time to crack with some of the dinosaur
+programs I'm using.  Unless you've got something that could help speed up the
+process?  You probably wouldn't, huh."
+
+>You move up.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  from which
+you hear the sounds of typing at a keyboard.  The exit to the apartment is
+north.
+
+>You leave the apartment, closing the door behind you.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+f) Gammex Industrial
+
+>You start up your motorcycle and depart for the Industrial District...
+
+Press enter to continue
+
+>
+
+You arrive at the Industrial District...
+
+It has grown quite dark by the time you pull up by the back door of the site.
+ The door is open.  The time designated for your clandestine meeting with
+Katryn is at hand.
+Outside the Site
+    This is the back entrance to an industrial site situated to the west,
+most of which cannot be seen past a high stone wall, save for a distant
+chimney-like structure or two.  There is a wide door set into this wall that
+does not open by the use of knob or handle, as these conventions are not
+present.  Your motorcycle is parked here.
+
+>You enter the site.
+Industrial Square
+    This large open area is punctuated here and there by oil drums, scattered
+steel beams, and miscellaneous machinery.  The sweat and the sounds of labor
+that doubtless exist during the daytime are absent here now.  Set in a wall
+to the east is the doorway that marks the back entrance to this site.  To the
+immediate west lies a windowless brown building.  Its door has been swung
+open wide.
+
+    Upon your entering the door slides shut with force behind you.
+
+>You enter the warehouse.
+Warehouse
+    This room is quite large.  The greater part of it is filled with tightly
+packed rows of crates stacked tall and neatly.  An empty aisle exists between
+these crates down the center of the room, and along its perimeter.  Spanning
+the far end of the warehouse is a ledge about a man's height off the ground,
+and you can see an exit up at the southern end of it.  The only exit at
+ground level is the door to the east from which you entered.
+It's rather dark in here.
+
+    The door shuts behind you by itself.
+
+>Time passes...
+
+>Time passes...
+
+    Your eyes are beginning to adjust to the dim lighting.
+    "And there you are.  Like a rat come to collect the cheese.  Yet you will
+find no cheese here."  This strong male voice is heard from the far end of
+the warehouse.
+
+>Time passes...
+
+    "Rats, they say, can learn from their mistakes.  Yes, even rats can learn
+to avoid the more imminent danger, to go where the threat of pain is not, be
+there cheese or no cheese.  Let us hope this will likewise become a learning
+experience, my friend rat."
+
+1) "Who are you?"
+2) "What are you going to do?"
+
+>    "I am Octalus Percy Defoe, head of the organization known as R.O.S.A, an
+organization dedicated to gaining knowledge of the marvelous supernormal,
+paranormal powers that lie dormant in our species.  The frontiers of our
+understanding of these singular phenomena broaden with every project of
+research undertaken, every experiment conducted, every analysis of those
+results.  The glimmer of a future in which supernormal human abilities are
+understood perfectly brightens day by day thanks to the efforts of this
+group.  It is an organization which I know to be good.  I have particular
+interest in this phenomenon we call PK, of which I trust you have had some
+opportunity to witness for yourself.  Am I right?  Yes, just last night, if I
+am not mistaken."
+
+1) "What do you want with the girls?"
+2) "How do you know that?"
+
+>    "Since R.O.S.A. was founded there has been one person whose gift in the
+use of PK has been far stronger than anyone else who has the ability at all,
+and that's me.  Yet six weeks ago I first heard of another whose ability
+rivals my own.  This person knows little of the tremendous talent she
+possesses.  It is largely innate, yet someday she may even surpass me.  I
+went to her and offered her the chance to perfect her gift, and to share the
+knowledge that can be gleaned through its study with all of humanity.  She
+declined.  I mean to give her a second chance.  And a third, and a fourth.
+Her sister, too!  And all others with any trace of the talent--they all will
+accept the opportunity I offer them."
+
+1) "You kidnap them!"
+2) "Why can't you take 'no' for an answer?"
+
+>    "I do what is best for humanity", he rejoins.  "And for themselves.  They
+are blind not to see it.  But their blindness is temporary."
+    "Octal, do end this", says a woman that has stepped out on the ledge.  It
+appears to be Katryn.  What does she really think of this guy and what he is
+doing?  It is impossible to read her from this distance.
+    "So I shall, my dear, so I shall..."
+    Octal jerks his head to a side and you start to hear a low running noise,
+the sound of something mechanical moving.
+
+>Time passes...
+
+    From the far end of the warehouse a vehicle turns and enters the corridor
+heading towards you--a steam roller!
+    "Oh, I almost forgot one small thing", adds Octal.  "I was going to offer
+you the chance to expiate for your meddlesomeness, and to save your own hide.
+ Tell me where the girls are now and I'll...'drop the charges'."
+
+1) "Okay, sure."
+2) "Forget it!"
+
+>    "I expected as much.  Well I do not mind having to dispose of you.  I
+have a promising lead anyways.  Less than an hour ago somebody tried to
+access our computer network, somebody who knows a lot about Laurie Hemmings,
+if the data and images that we found on his system are any indication.  He is
+going to tell us everything!  Adieu, little rat!  I do not think we will meet
+again."
+    Octal walks casually over to the exit on the west end of the ledge and
+retreats through it.  Katryn continues to watch you for another minute before
+turning and following him through the same exit.  There is no variance in her
+steps.  If she feels any sorrow over your impending predicament she does not
+show it.
+
+    You become aware of two more vehicles at your left and right; a bulldozer
+and a rock drill respectively.  They are also headed towards you.  A
+three-way collision is imminent!  The aisles are completely filled by these
+three monster vehicles, and you have nowhere to go to escape.
+
+>You reach toward the nearest stack of crates and manage to dislodge one of
+them.  It topples into the path of the steam roller and is pushed forward
+along with it.
+
+    The vehicles are approaching, from your left a bulldozer, from your front
+a steam roller, from your right a rock drill!
+
+>The crate you already knocked over is sufficient to facilitate your escape!
+
+    The grating noise of their movement towards you becomes increasingly
+louder.
+
+>By using the fallen crate as a step you are able to get atop the oncoming
+steam roller and propel yourself to the aisle behind it, out of danger's way.
+
+Shortly thereafter the three vehicles collide with a great tumultuous crash.
+There is thankfully no explosion.  However, several stacks of crates tumble
+to the ground around the area of the wreckage creating no small sound.  It is
+a little while before the engines of the wrecked vehicles fail and there is
+finally silence in the room.  You are unhurt in any way.
+
+>You climb onto the ledge.
+
+>You walk south along the ledge, through a doorway into the adjoining room.
+Back Room
+    The room adjoining the main warehouse is much smaller, but just as poorly
+lit.  The ledge continues along the north and east walls.  From an opening in
+the east wall cool air pours in from the outside.  Down at ground level a
+line of lockers covers the south wall, and some stacks of discarded sheet
+metal reflect back what little light manages to reach them.  You can move up
+or down by means of a length of chain.
+
+>You step out onto several large mounds of scrap metal.  Your position is
+precarious so you skip your way down to the ground...
+Scrapyard
+    Tall mounds of scrap metal encompass this ground.  Standing in the midst
+of them you experience the effect of falling endlessly down a pit with walls
+of glistening metal.  Beyond these mounds rise long buildings.  One of them
+closely borders some of the scrap piles.  An open area is north.
+
+>You move north.
+Industrial Square
+    This large open area is punctuated here and there by oil drums, scattered
+steel beams, and miscellaneous machinery.  The sweat and the sounds of labor
+that doubtless exist during the daytime are absent here now.  Set in a wall
+to the east is the doorway that marks the back entrance to this site.  To the
+immediate west lies a windowless brown building.
+
+>You move east.
+Outside the Site
+    This is the back entrance to an industrial site situated to the west,
+most of which cannot be seen past a high stone wall, save for a distant
+chimney-like structure or two.  There is a wide door set into this wall that
+does not open by the use of knob or handle, as these conventions are not
+present.
+
+>Having had no luck finding your motorcycle you start on the long trek back to
+Monika's house by foot.  Maybe you'll get lucky and strike upon a bus stop
+along the way, but even if you did it's doubtful that any buses are running
+at this hour of night.  The new dawn will probably beat you to Monika's, but
+there's no sense hanging around this desolate place any longer.  The night is
+still as you walk on, and it just seems to get stiller...
+
+Press enter to continue
+
+>
+
+After a mile or so neither the road nor the bland scenery surrounding it has
+changed in appearance.  It is going to be a long and tiresome journey home if
+you are not able to locate some means of transportation.  Moreover, the night
+has grown very chilly.  You continue on in the same fashion, not witnessing
+any indication that progress is being made other than the increasing
+weariness of your legs.  And then you come upon an unexpected sight...
+
+Press enter to continue
+
+>
+
+A motorcycle has pulled up in the middle of the road, crossing both
+lanes--your motorcycle.  The engine is still going.   A woman that you
+recognize sits in the vehicle.  She speaks.
+    "Good evening, handsome.  How 'bout a ride?"
+Road at Night
+    You've come this far by foot on a lonesome road that runs straight for a
+great distance.   A thick forest of dark and unsightly trees borders it on
+both sides.  There are no man-made structures to be seen other than the road
+itself.  There are no vehicles passing at this lifeless hour of night.  But
+your motorcycle is parked here.
+    Katryn is seated on your motorcycle.
+
+1) "Not with a traitor."
+2) "Get off my bike this instant."
+3) "Why not?"
+
+>Katryn slides her hips forward to make room for you on the motorcycle.  "You
+continue to impress me, my darling.  Of course I knew you would get out of
+that ridiculous trap.  Octal must have known also.  He does not underestimate
+you.  No, he does not.  Do you know that?"
+
+1) "Yeah, what makes you think so?"
+2) "Where are we going?"
+3) "How about yourself?"
+
+>"Have you not hitherto manifested your courage and capability?  I will
+recount your heroics up to this point in time.  So doing, my sentiments
+toward you will make more sense?  There is the whole night chase that
+followed the kidnapping of the previous evening.  It was not expected that
+anyone would keep up with the helicopter through those busy streets and over
+the bridge hill.  It was not expected that anyone would even try.  The
+ordinary citizen does not rise to the occasion.  But you did.  And you
+continued on undaunted, somehow locating the exact building where the
+kidnappers were.  You slipped past security and found a hidden entrance to
+the cellar.  The men were there.  You successfully dealt with all three of
+them without even receiving a scratch."  She examines your face approvingly
+as she speaks thus.  "And afterwards, you guided those girls away to a place
+that Octal still cannot find.  Tonight in the warehouse Octal set up an
+elaborate trap that you escaped from like a fox that disrespectfully kicks
+aside the snare.  You are not made of small stuff, my darling."
+
+    Katryn has turned off the engine.
+
+>You kiss Katryn on the lips.  She draws up to you and pulls your head in
+closer, pouring and mixing vitality, emotion, pleasure into the kiss like
+milk added to a batter.  She is no mean kisser.
+    Ending the transaction suddenly she says, "That is only the beginning, my
+love."
+
+    Katryn turns to face you on the motorcycle.  "I have a job for you.  But
+I want you not to think of it as a job.  Because it is really more like an
+enterprise.  You must come to the R.O.S.A. research complex.  Do you know
+where that is?"  She laughs with amusement.  "Of course not.  You will find
+out, though."
+    "And now, I have a token for you."  She kisses you fully on the lips.  It
+is a lengthy, amorous kiss, full of vitality.  It lasts longer than you may
+have anticipated, but perhaps not as long as you may have liked.  After it is
+over she looks appraisingly up at you for a few moments longer, and her
+peculiar smile returns.  "I must go", she says suddenly, "But we will meet at
+the complex.  Don't be too long getting there, my darling."
+    Katryn dismounts and walks away from the motorcycle.  She heads down the
+darkened road, her pace calm and stately.  Soon she is out of sight
+completely, and there is just the silhouettes of your motorcycle and yourself
+to stand against the blackness of night.
+
+>(Sitting on the motorcycle first)
+You start up the motorcycle and head for Monika's...
+
+Press enter to continue
+
+>
+
+It's early morning by the time you arrive back at Monika's house.  The sun is
+just barely beginning to emerge above the horizon..
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other
+than in the domestic atmosphere that permeates it, made possible by
+cleanliness and simple feminine decor.  A mat lies at the foot of the front
+door, which is east.  A mailbox is attached to the wall beside the door.
+Your motorcycle is parked close by.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+f) Gammex Industrial
+
+>You start up your motorcycle and depart for Ethan's...
+
+Press enter to continue
+
+>
+
+You arrive and park in front of Ethan's...
+
+Already things look bad.  The front door of Ethan's apartment has been flung
+open, but there is nobody in sight.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>You open the door and enter the apartment.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  partially
+concealed by the rummage.  The exit to the apartment is north.
+
+>Yes, things are not right.  Coming down the stairs, you see the chair by the
+monitor vacant and know immediately that something has happened...
+
+Press enter to continue
+
+>
+
+CHAPTER 6
+
+Missing
+
+>
+
+Ethan's Den
+    This place has changed.  It is just as cluttered as previously, but the
+position of objects in the room seems to be different.  There are dents in
+the walls that weren't present before.  The fish tank lies broken on the
+floor, the fish beside it.  The computer monitor now has a large unsightly
+crack down the center of it.
+    Ethan is lying unconscious near some computer hardware.
+
+>Gradually Ethan comes to.   "They'll pay.....", he mutters queasily,
+"They'll...pay!....."  He leans forward and clutches your shoulders.  "He
+took her.  Took Laurie!  Didn't take her without a fight, though", he
+chuckles deliriously and squints at the damage done to the room.  The way in
+which he says this attests to the likelihood that most or perhaps even all of
+the damage can be credited to Laurie.  From looking around the room it is
+amazing to think that anyone was able to lay a hand on her at all.
+
+>You move up.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
+appliances, furniture, and miscellaneous objects have been heaped up or left
+lying around slovenly.   Dirty laundry spreads over everything.  Smells in
+the air combine to produce new odors like a chemist's compound.  The room
+continues to the south, but access is completely blocked by the piles of
+junk.  As it is, you can barely make your way down the stairway  partially
+concealed by the rummage.  The exit to the apartment is north.
+
+>You leave the apartment, closing the door behind you.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south
+of you is where, according to Laurie's directions, Ethan lives.  There are
+also apartments to the west and east, spaced at a less than neighborly
+distance apart.  Your motorcycle is parked here.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+f) Gammex Industrial
+
+>You start up your motorcycle and depart for the Plaza...
+
+Press enter to continue
+
+>
+
+You arrive at the Plaza...
+
+The gaiety of the Plaza does not penetrate your heart on this morning when
+Laurie is not to be found.  Though the sun is shining brightly, all is bleak.
+Avenue
+    Small shops line the side of the walk through this, the trendier part of
+the city of Rittersburg.  The avenue runs east-west, with people passing by
+on both sides of you.  To the north there is a busy pedestrian intersection.
+It seems to be the fountain from which much of the traffic flows to or from.
+Your motorcycle is parked along the street.
+
+>(Getting off your motorcycle first)
+You move north.
+Intersection
+    You stand in the midst of a spacious four-way crossing for pedestrians
+only.  Numerous people walk past you in every which direction, their
+destinations not deducible from reading only their faces.  The patter of feet
+on pavement is heard continually.
+
+>You move north.
+West Plaza
+    This is the west end of a friendly cobblestone thoroughfare several yards
+wide that continues on to the east.  Pedestrians walk along leisurely.  Thick
+bushes and trees walled off to the north provide natural beauty and shade.
+A blanket is spread out on the floor, with many trinkets laid out neatly upon
+it.
+    A girl in a green dress is sitting on the blanket with her legs
+stretched, watching people pass by dreamily.
+
+>You move east.
+Center Plaza
+    Colored cobblestones have been arranged on the ground so as to create a
+stylish image of a handsome tree, or at least that's how it appears from
+where you are.  The plaza continues east and west, and there is a tomato
+stand to the south.
+
+A statue in the likeness of a man stands here.
+    An umbrella peddler is here.
+    A pervert is standing here.
+
+>A dollar passes between you and the old peddler.  He pockets the money and
+beckons for you to lean in closer to ask your question, a thing more
+necessary for you than for him; it's difficult to make sense of that hoarse
+voice.
+
+>    The peddler beckons you even closer, waiting until you are close enough
+almost to rub noses before he tells all.  His bad breath his hard to ignore.
+    "Ah, the R.O.S.A. research complex, the very place where all those poor
+young lasses are getting taken to.  Deep in a secluded valley, that's where
+it is.  It being so out of the way, they usually hold them in a temporary
+location right after they snatch them.  Then they haul the unfortunate lasses
+out to this place for their own wicked purposes.  The complex itself has some
+security, but it is all internal, and it is minimal.  No barbed-wire fences,
+guard dogs, or anything like that.  After all, nobody has the slightest idea
+where this place is.  But I have.  Or I used to anyhow..."  He glances
+sidelong again.
+
+>    The peddler beckons you even closer, waiting until you are close enough
+almost to rub noses before he tells all.  His bad breath his hard to ignore.
+    "You want to know where the valley is?  I can tell you..."
+    He gives you directions on how to reach this valley where the research
+complex is located.  It's two or so hours to get there by motorcycle.  You
+are told to look for a pass between the mountains that cannot easily be seen
+from the road.
+
+>You move west.
+West Plaza
+    This is the west end of a friendly cobblestone thoroughfare several yards
+wide that continues on to the east.  Pedestrians walk along leisurely.  Thick
+bushes and trees walled off to the north provide natural beauty and shade.
+A blanket is spread out on the floor, with many trinkets laid out neatly upon
+it.
+    A girl in a green dress is sitting on the blanket with her legs
+stretched, watching people pass by dreamily.
+
+>You move south.
+Intersection
+    You stand in the midst of a spacious four-way crossing for pedestrians
+only.  Numerous people walk past you in every which direction, their
+destinations not deducible from reading only their faces.  The patter of feet
+on pavement is heard continually.
+
+    A group of idle teens cross your path.
+
+>You move south.
+Avenue
+    Small shops line the side of the walk through this, the trendier part of
+the city of Rittersburg.  The avenue runs east-west, with people passing by
+on both sides of you.  To the north there is a busy pedestrian intersection.
+It seems to be the fountain from which much of the traffic flows to or from.
+Your motorcycle is parked along the street.
+
+>(Sitting on the motorcycle first)
+
+Where will you go?
+a) Majesty Mall
+b) Langston Bridge
+c) Monika's House
+d) Ethan's Apartment
+e) The Plaza
+f) Gammex Industrial
+j) Wautomec Valley
+
+>You start up your motorcycle and depart for Wautomec Valley, the valley where
+the R.O.S.A. research complex is rumored to be, the place where you hope to
+find Laurie.  It is midday when you set out, the sun shining brightly...
+
+Press enter to continue
+
+>
+
+The sun is just beginning its descent when you finally reach this valley.
+You are sore from the long ride.  It must have been nearly three hours since
+you began it.  The last two hours of it you saw little more than empty
+wilderness, with hardly even a tree to dot the land.  Now at last the
+mountains have been reached.  She is here...somewhere...
+Road Through the Valley
+    Encircled by mountains, this twisty road runs north-south.  Despite it
+being a bright and sunny day, the road lies in shadow.  The mountains can be
+thanked for this; though not large, they loom over the road.  Your motorcycle
+is parked here.
+
+>Sure enough, there is a pass behind where the rock juts out!  It was not
+difficult to locate, yet it would have been missed by anyone not expecting to
+find it.  The pass leads east through the mountains.
+
+>You navigate through the canyon-esque pass, emerging after some time in a
+spacious clearing...
+
+    Some people wearing white are moving away from that building, spilling
+out like candy from a paper sack.
+Clearing
+    Few would expect to find so wide an expanse of flat open space among
+mountains such as these.  The shrub becomes sparser as you move eastward, out
+from under the cover of the mountains into this vast clearing.  At the far
+end of the clearing you can see a building, beige in color, square in shape.
+
+>You head east towards the building.  By the time that you reach it, those
+people are all out of sight.
+The Silo
+    The sun beats down against you now that you are out of the shade that the
+west mountains provided.  The building you saw from afar seems out of place
+in these desolate environs.  Now that you are this close, you can see that it
+is shaped more like a silo, resting here at the far end of the clearing,
+enclosed partially by mountain cliffs.  An open doorway marks the entrance to
+the east.  Faint sounds of commotion can be heard from within.
+
+>You enter the facility.  As you do so you begin to hear a voice on the
+intercom.
+"...until further notice.  Again, there is an intruder on the premises.
+Evacuate immediately.  This is the final relay." (click)  You've heard that
+voice before.  It belongs to Katryn!
+Facility Entrance
+    This is a compact room with a rectangular booth filling much of the
+space.  The booth is a security booth; it has a plexiglass window and can be
+entered by going around through the front.  However, there is no personnel on
+duty.  Mounted at one of the corners where the walls and ceiling meet is a
+small camera.  A narrow doorway empties into a corridor to the east.
+
+>You enter the security booth.  There are six video monitors attached to the
+wall here.
+
+>Five of the six monitors display footage of hallways and other places within
+the building.  One of them shows the room you are in from a height and at an
+angle.  You can even see yourself moving behind the plexiglass in the
+picture.  One of the monitors displays no picture at all, static only.
+
+>Time passes...
+
+    The face of Katryn suddenly appears on the monitor that had previously
+displayed only static.  She speaks.
+    "Ah, my darling.  You finally made it.  And as you can see, there is
+nobody left in the building to deal with, one person only who might possibly
+give you any problems.  But he, too, you will defeat.  The girl is here as
+well.  The R.O.S.A. research complex was not designed to be infiltrated so
+simply!  You see how easy I make it for you?"
+    You notice a speaker below the monitor.
+
+1) "Should I believe all that?"
+2) "Where do I find the girl?"
+3) "Does he have any supernormal powers?"
+
+>"Oh, do not worry about the girl.  You will find her soon enough.  So, you
+cannot wait to see her?"
+
+1) "Well yeah."
+2) "It's my duty to bring her back."
+3) "She'll do until the two of us can meet."
+
+>"And we shall, my darling."
+
+    Katryn blows you a kiss, and then her face is replaced again by the
+static.
+
+>You see no such thing, or else it is unimportant.
+
+>You step out of the security booth.
+
+>You move east.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall at chin-height.  The corridor
+continues north and south, and there is a room to the west.
+
+>You move north.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  A row of red dome-shaped lights lines the outer wall.
+Mounted where the wall and ceiling meet is a small camera.  The corridor
+continues east and south.
+    Dustin is standing here.
+
+    "Well, Chief, here we are.  The lair of the enemy.  But no need to get
+pusillanimous.  Most of the 'enemy' already ran.  Which leaves you free to go
+and find those magnets.  Yep, they're here.  Time for you to fetch me them."
+
+>You move east.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the south.  The
+corridor continues east and west, and branches to the north.
+
+>You move east.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the south.  The
+corridor continues west and east.  However, a sliding wall blocks off further
+access to the east.
+
+>You open the door and enter.
+Research Lab C
+    There is a great deal of scientific equipment here, devices, instruments,
+and machines both small and large.  There are tables and desks, including one
+table with shackles attached to its sides.  The walls are covered with
+cabinets full of vials and containers, as well as strange gear that you would
+never recognize.  The exit is north.
+
+Also here is a striped lab-book.
+
+>You find two heavy magnets on the ground behind one of the machines!
+
+>You pick up two heavy magnets.
+
+>You move back into the corridor.  The door closes behind you.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the south.  The
+corridor continues west and east.  However, a sliding wall blocks off further
+access to the east.
+
+>You move west.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the south.  The
+corridor continues east and west, and branches to the north.
+
+>You move west.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  A row of red dome-shaped lights lines the outer wall.
+Mounted where the wall and ceiling meet is a small camera.  The corridor
+continues east and south.
+    Dustin is standing here.
+
+>"Found them, eh?  Now was that so hard?"  He takes the magnets and studies
+them approvingly.  "See here, you can leave the rest to me.  Just stay out of
+my way and the story will end nice and happy."
+
+>You move south.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall at chin-height.  The corridor
+continues north and south, and there is a room to the west.
+
+    Dustin walks in from the north.
+
+>You move south.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the west.  The
+corridor continues north and south.
+
+    Dustin walks in from the north.
+
+>You move south.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  A row of red dome-shaped lights lines the outer wall.
+Mounted where the wall and ceiling meet is a small camera.  There is also a
+portion of the ceiling that opens and extends upwards some ways to where
+there is a hatch of some kind.  A ladder-like apparatus is attached near it.
+The corridor continues north and east.
+
+>You move east.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the north.  The
+corridor continues east and west.
+
+>You move east.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the north.  The
+corridor continues east and west, and branches to the south.  However, a
+sliding wall blocks off further access to the east.
+
+>You move south.
+Prep Corner
+    This short hall originating from the north comes to an end beside a door
+to the west.  There is a long wooden shelf high on the opposite wall that
+carries some boxes.  There are several hooks on the wall beneath it, on which
+are hanging ropes and cords of varying sizes.
+
+>You open the door and enter.
+Detainment
+    This room of average dimensions is entirely bare.  The exit is east.
+Laurie is waiting for you under the lamppost.
+
+    Laurie awakens immediately.  Seeing you her eyes fill with incredulous
+joy.  She gets to her feet and runs towards you, arms flung open.  You stand
+ready to receive her...
+
+>
+
+    "That would be a mistake", warns a voice from behind.
+
+Press enter to continue
+
+>
+
+CHAPTER 7
+
+Psychokinetic Showdown
+
+>
+
+    Laurie stops abruptly and staggers backwards.  You can see it now, too.
+A faint shimmering detectable here and there along an invisible plane that
+splits the room in half.   It is a barrier, a forcefield of some kind.  And
+Laurie is on the side that you aren't.
+    "For all his insolence and smugness, Octal does not take chances when he
+can help it."
+    Katryn steps into the room from behind, still speaking.
+    "It's why he put that band on your head."  She points at a strap Laurie
+is wearing on her forehead.  "It's why he uses this barrier.  It even
+explains why this room is so bare."  She waves her arms around.  "He can't
+have you PK'ing things around that you shouldn't be."
+
+>You move east.
+Prep Corner
+    This short hall originating from the north comes to an end beside a door
+to the west.  There is a long wooden shelf high on the opposite wall that
+carries some boxes.  There are several hooks on the wall beneath it, on which
+are hanging ropes and cords of varying sizes.
+
+>You move north.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the north.  The
+corridor continues east and west, and branches to the south.
+
+>You open the door and enter.
+Research Lab E
+    There is a great deal of scientific equipment here, devices, instruments,
+and machines both small and large.  There are tables and desks, including one
+table with shackles attached to its sides.  The walls are covered with
+cabinets full of vials and containers, as well as strange gear that you would
+never recognize.  The exit is south.
+
+>You open one of the cabinets to reveal more unfathomable instruments and
+machinery, but hardly anything worth investigating.  A microwave transmitter
+is inside the cabinet.
+
+>You take the microwave transmitter from the cabinet.
+
+>You move back into the corridor.  The door closes behind you.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the north.  The
+corridor continues east and west, and branches to the south.
+
+>You move east.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  A row of red dome-shaped lights lines the outer wall.
+Mounted up where the wall and ceiling meet is a small camera.  The corridor
+continues north and west.
+
+>You move north.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the east.  The
+corridor continues north and south.
+
+>You move north.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the east.  The
+corridor continues north and south.
+
+>You move north.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  A row of red dome-shaped lights lines the outer wall.
+Mounted where the wall and ceiling meet is a small camera.  The corridor
+continues west and south.
+
+A fire extinguisher is on one of the walls.
+
+>You pick up the fire extinguisher.
+
+>You move south.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the east.  The
+corridor continues north and south.
+
+>You open the door and see a tiny room with a switchboard occupying much of
+one of the walls.  Lights from the switchboard bathe the dark room in a mix
+of colors.  A man is seated at a chair.
+
+    Reacting so quickly to your entering that it may almost have been
+planned, the man rises from his chair and stands to face you with resolution.
+  He carries no weapon and he makes no movement.  He only stares.  Within
+seconds you begin to feel an acute pain in your head.  It feels like your
+brain is being squeezed like a sponge!  It is intense; it is unlike any
+headache you have ever experienced.  You stumble backwards...
+    The man flips a switch on the control board, then follows you into the
+corridor.  A metallic scraping noise is audible from somewhere else in the
+corridor, but you are hardly conscious of it.  The pain is unbearable!
+
+>You point the fire extinguisher at the man and start to spray.  He screams
+and turns away, hands covering face.  All of the pain you have been
+experiencing flickers out at that instant.
+
+>You turn on the transmitter.  You begin to hear a steady humming sound.
+
+    Suddenly the pain vanishes altogether!  The man wears a confused
+expression at first, but as he stares at the device in your hands,
+realization of what has happened dawns on him.  He puts his hands up in a
+defensive manner and begins to step away.
+    "Don't hurt me", he pleads.
+
+>You step up to the man, grab him by the collar, and strike him several times
+in succession.  He takes blow after blow without dealing any himself.
+Finally, he collapses to the floor and ceases to move.
+
+    Katryn walks in from around the corner.  She gives the prostrate admin a
+scornful look.
+
+    A steady humming sound fills the air.
+
+>You find nothing of interest on the man.
+
+    A steady humming sound fills the air.
+
+    Katryn turn her attention to you.  "Bravo, my darling, bravo.  Chadwick
+thinks he is bigger than he is.  It is that power of his that got him a
+position which he does not deserve.  Octal never was one to award leadership
+based on ability, unless it is psychic ability.   I am glad you dealt with
+him as you did, and I expected no less."
+
+>You open the door and enter.
+Control Room
+    This is a tiny room with a switchboard occupying much of one of the
+walls, and a chair beside it.  Lights from the switchboard bathe the dark
+room in a mix of colors.  The exit is west.
+
+    A steady humming sound fills the air.
+
+>You flip down the switch beside the symbol of a door.  You hear the sound of
+metal scraping metal out in the corridor somewhere.  It lasts only a moment.
+
+    A steady humming sound fills the air.
+
+>You flip down the switch beside the symbol of a zigzag.
+
+    A steady humming sound fills the air.
+
+>You flip down the switch beside the symbol of a ladder.  A noise is heard
+from far away.
+
+    A steady humming sound fills the air.
+
+>You move back into the corridor.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the east.  The
+corridor continues north and south.
+    Katryn is standing here.
+    Chadwick is lying on the floor here.
+
+    A steady humming sound fills the air.
+
+>You move south.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the east.  The
+corridor continues north and south.
+
+    A steady humming sound fills the air.
+
+>You move south.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  A row of red dome-shaped lights lines the outer wall.
+Mounted up where the wall and ceiling meet is a small camera.  The corridor
+continues north and west.
+
+    A steady humming sound fills the air.
+
+>You move west.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the north.  The
+corridor continues east and west, and branches to the south.
+    Dustin is standing here.
+
+    Dustin walks away to the west.
+
+    A steady humming sound fills the air.
+
+>You move south.
+Prep Corner
+    This short hall originating from the north comes to an end beside a door
+to the west.  There is a long wooden shelf high on the opposite wall that
+carries some boxes.  There are several hooks on the wall beneath it, on which
+are hanging ropes and cords of varying sizes.
+
+    A steady humming sound fills the air.
+
+>You open the door and enter.
+Detainment
+    This room of average dimensions is entirely bare.  The exit is east.
+Laurie is waiting for you under the lamppost.
+
+    "It's gone, Petter, the forcefield!  It's gone!"  Without waiting for a
+reply, Laurie runs directly into your arms.  "I waited for you to come back.
+ I knew that you would!  I knew that you would figure a way to get me out of
+here.  Oh, I want to get out!  I don't handle being kidnapped as well as
+Cassie does.  Take me out...please."
+
+    A steady humming sound fills the air.
+
+>Time passes...
+
+    A steady humming sound fills the air.
+
+    "What is that unnerving sound?", asks Laurie.  She wouldn't understand
+even if you told her.
+
+    "Oh, Petter, it will be so good to leave this awful place behind us.  Let
+us hurry and get out."
+
+>Time passes...
+
+    A steady humming sound fills the air.
+
+>You remove the inhibitor band from Laurie's forehead.
+    "Thank you, Petter.  I'm not sure why, but with that thing around my head
+I wasn't able to use my power on anything.  What a dreadful device."
+
+    A steady humming sound fills the air.
+
+    "I wonder where that woman went?  And do you think she can really be
+trusted.  I'm not sure."
+
+>You move east.
+Prep Corner
+    This short hall originating from the north comes to an end beside a door
+to the west.  There is a long wooden shelf high on the opposite wall that
+carries some boxes.  There are several hooks on the wall beneath it, on which
+are hanging ropes and cords of varying sizes.
+
+    Laurie follows you from the west.
+
+    A steady humming sound fills the air.
+
+>You move north.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the north.  The
+corridor continues east and west, and branches to the south.
+
+    Laurie follows you from the south.
+
+    A steady humming sound fills the air.
+
+>You move west.
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  There are scarcely any features to them; only a row of red
+dome-shaped lights that lines the outer wall.  A door is to the north.  The
+corridor continues east and west.
+Laurie is waiting for you under the lamppost.
+    Katryn is standing here.
+
+    Laurie follows you from the west.
+
+    Katryn walks in from the east.
+
+    "You've brought the girl, I see.  Very well.  Now only one preparation
+need be made."  She hands you a peculiar device in the shape of a pyramid.
+
+1) "What's this for?"
+2) "Preparation for what?"
+3) "No thanks." [give it back]
+
+    A steady humming sound fills the air.
+
+>You move west
+Circular Corridor
+    Three person widths across, this corridor runs a circuit around the
+complex.  The wall, floor, and ceiling are of stained steel, and all look
+much the same.  A row of red dome-shaped lights lines the outer wall.
+Mounted where the wall and ceiling meet is a small camera.  There is also a
+portion of the ceiling that opens and extends upwards some ways to where
+there is a hatch of some kind.  A ladder-like apparatus is attached near it.
+The corridor continues north and east.  The ladder is unfolded and reaches
+all the way down to the floor.
+    Katryn is standing here.
+
+    Katryn follows from the east.
+
+    "To the hatch now.  You are ready.  You will triumph as you always do."
+However, something about her tone suggests that her confidence is not at its
+usual high level.
+
+    Laurie follows you from the east.
+
+    A steady humming sound fills the air.
+
+    The sound of a helicopter can be heard from above.
+
+>You climb up the ladder, Laurie at your heels, moving towards the hatch and
+the loud beating of helicopter blades . . .
+
+Press enter to continue
+
+>
+
+You crawl out from the hatchway, followed closely by Laurie.
+
+    "Make your move, then, if you dare", challenges Dustin.
+    "Why should I deny you your own reputation?  You always were the one to
+start a fight.  And the one to lose it as well", Octal replies calmly.
+    Angered, Dustin pulls out a revolver, a .357, and thrusts the barrel in
+Octal's direction.
+    "Would you shoot me?  Guns are a cowardly way to contend."
+    In response, Dustin attempts to cock the weapon, but cannot do it.  The
+gun simply fails to click.  Octal laughs.
+Top of the Silo
+    A panoramic view of the mountains is once again to be had outside the
+silo.  The sun is low on the horizon.   You can see the barren valley that
+you traveled through earlier lying in a shade of crimson.  It seems as if the
+sky and the surrounding landscape, oblivious to all else, complacently
+reflect the mood of the setting sun.  The entire complex rests below the
+surface that you stand on.  It is like the top of a drum, flat, circular,
+stretching for yards and yards without aberration, except for a lone
+satellite dish.  Far in the distance a helicopter also rests atop the
+building, its back facing you.  As they cut the air, the spinning blades
+create a noise so loud it can be heard all across the surface of the silo.
+Laurie is waiting for you under the lamppost.
+    Octal stands opposite and facing Dustin.
+
+>Time passes...
+
+    "PK is what I call cowardly", grunts Dustin, flinging the useless weapon
+aside.  But before it can hit the ground, the gun sails back up into the air,
+floating gaily a foot or so from where Dustin is standing.  It turns in
+midair until it is directly pointed at Dustin's forehead, then cocks of its
+own accord.  Dustin stares down the barrel resentfully.  Octal laughs again.
+    "You wouldn't", says Dustin under his breath.  Laurie turns her head
+away.
+    But the .357 moves horizontally away until it is beyond the silo's edge,
+then freely drops out of sight.  "Guns are cowardly", repeats Octal, "I
+prefer to work with knives, as you know."  Several knives emerge from the
+underside of his garment and move into formation in the air in front of him.
+
+>Time passes...
+
+    "You don't scare me, Skippy", says Dustin, who now begins to march
+forward.  Several of the knives fly speedily in his direction, but he brushes
+them aside with his arms.  The magnets have pulled them from their course
+enough for to Dustin to disregard them with a simple motion of his arm.  More
+knives follow.  Dustin deals with them in like fashion.  He gradually spans
+the gap between the two men.  Octal seems not to be alarmed by the inefficacy
+of his attack.
+    Katryn has come up the ladder now and stands not far away.  "Fool", she
+mutters under her breath.
+
+>Time passes...
+
+    Finally, all the knives have been spent and the two men stand within two
+feet of each other.  "I was kinda hoping it would come to this", admits
+Dustin.  "I've wanted for years to pay you back for the time by that lake."
+He puts up his fists.
+    Octal does likewise.  "If you think you are going to beat me in a
+fistfight, you are as mistaken as you were then."  He throws the first punch.
+ And from there on it gets ugly.  At first, most of their blows miss
+eachother.  But after a few minutes the reverse is true.
+    Katryn comes to stand beside you and Laurie.  She watches the brawl
+intently.
+
+>Time passes...
+
+    The fight ensues until Octal gains the upper hand.  Then it becomes a
+one-sided beating.  He slugs Dustin again and again, in the belly, in the
+head, everywhere.  Dustin gets to where all he can do is roll around on the
+ground to lessen the impact of blows he cannot entirely avoid.
+    "I expected it to end so", mutters Katryn silently.
+    After awhile of this, Dustin stops moving altogether.  Octal kicks him in
+the head one more time for good measure, then straightens himself.  He looks
+at the defeated man once, and turns his head away.  After all, Dustin is not
+a pretty sight to see.
+
+>Time passes...
+
+>Time passes...
+
+    In due time Octal gives his full attention to the three of you standing
+in the distance.  "I am not surprised to see you hear, Katryn.  Are these
+friends of yours, then?  I knew you had a thing for the ratboy.  But why do
+you allow my young beauty out of her cell?  I was giving her time to consider
+my offer.  Judging by things it looks like she needs another good month in
+there."  Laurie is red with indignation.  But it is Katryn that speaks next.
+    "I may be your assistant director but I can no longer condone the manner
+in which you run this organization."
+    "What is it, my love?  Is it the kidnappings?  You never had a problem
+there before."
+    "Don't speak to me like that!  It is one of the things I despise about
+you.  No, It isn't the kidnappings.  It is your flawed method of operating.
+It is the way in which you award power and position to those that do not
+merit it.  Simply stated, it is your tyranny!"
+    "You say so?  Even when I gave you a position that many others were
+qualified for?  Your power is the weakest of us all.  Come now, Katryn, I
+know that your respect is for the strong."
+    "My respect is for the capable!"
+
+>Time passes...
+
+    Octal rebukes his assistant director with a reproving glare accompanied
+by words.  "You of all people least fit your own ideology.  I wonder that I
+gave you the position at all.   Why, If I didn't love you as I do, I wou--"
+    "You do not love me, nor do I want your love!", she retorts.
+    "Why Katryn, what has come over you?  I know that you love me."
+    "No!", she insists.
+    "You always did.  Do you mean to deny it now?"
+    "I never did!"
+    "Oh yes, you did.  You love me even now."
+    "NO!!  I love HIM!!", she screams.  Katryn runs towards you and clutches
+you.  This surprises Laurie as much as Octal.
+
+>Time passes...
+
+    "I love him not only because he is strong, but because he is brave,
+clever, resourceful, undaunted.  He is a better man than you ever were or
+ever will be!  No task is too big for him.  No tangle exists that he cannot
+get out of.  There is nothing the two of us will not be able to accomplish
+together.  He will make a far more competent director!"
+    "So you mean to replace me with him then?", Octal says with intense and
+growing enmity.  "What if he doesn't live to fulfill your expectation?"
+Several more knives emerge from underneath his garment and take a place in
+the air, hovering silently.  Octal's face is frightful; a twisted blend of
+hatred and of injury received in his recent brawl.
+
+>Time passes...
+
+    The knives shift position in the air but none have yet come flying your
+way.  "The cat will play with the rat", says Octal,  "But not for long."  He
+waves his arm and a few of the knives shoot forward.
+    Laurie looks in the direction of the satellite dish.
+
+>Time passes...
+
+    "There!", says Laurie, grabbing your arm and running towards the
+satellite dish.  You take cover behind it.
+Katryn gets behind it, also.
+
+    Octal's knives strike the satellite dish and bounce off around the
+vicinity.  Octal responds to this by causing the satellite dish to rotate
+around and around.  He presses the attack.  Knife after knife flies in your
+direction.  Each one hits the rotating dish, and bounces off harmlessly.  It
+becomes apparent that Laurie is interfering with Octal's aim.  The R.O.S.A.
+leader curses and quits rotating the satellite dish.  He calls all of his
+knives to him.  Slowly he begins walking forward, knives bobbing in the air
+around his head.
+
+    Laurie says desperately, "He's coming!  What can we do?  I could fight
+back with my power if I only had objects to throw."
+
+>Time passes...
+
+    Octal is nearly upon the two of you.  "Go away!", screams Laurie,
+stepping out in front of him.  Objects begin to fly at the man, objects that
+you and Laurie had been holding.  Katryn gives a startled gasp as objects of
+hers join the aerial assault.   Even your spare change comes flying out of
+your pocket.  Big objects and small objects, heavy objects and light objects
+alike shoot towards the man.   It is all too much for Octal; he cannot
+possibly dodge them all.  He topples to the ground, more disoriented than he
+is hurt.
+    But he is not down for the count.  Rising slowly, and with unmistakable
+fury in his eyes, he waves his arm aside and most of the objects Laurie had
+been using on him go sailing over the edge of the building and drop out of
+sight.
+
+    Octal advances on Laurie, his eyes broiling with wrath.
+    "Help me!", she calls.
+
+>You lunge at Octal with the clear intention of pummeling him into submission.
+ Your first blow misses him wildly, while his connects with a portion of your
+jaw.  Regaining your footing you come at him again, more carefully this time.
+ You land a blow beneath his right ear, but receive one in your belly.  The
+man can fight.  If he had not been weakened already it would not even be as
+close as it is.
+    You circle each other again.  You are barely conscious of the concerned
+faces of Laurie and Katryn at the perimeter of the struggle.  When next you
+join, Octal goes for your body.  You make him pay for that, but at the cost
+of getting knocked backwards and finding yourself pinned against the ground
+face up.  Octal's bruised, but ever spiteful face leers over you.  His arms
+restrain your own, his knee presses above your groin.  This could be bad.
+
+>You thrust your head upwards, smashing his face.  He reels backwards and
+releases his grip on you.  And that becomes the turning point of the
+struggle.  For the next few minutes you give more than you receive.  It gets
+to where Octal is so weakened that he can't connect with you at all.
+Realizing that he is beaten, he flees towards the helicopter.
+
+>You pick up the inhibitor band.
+
+    Octal runs around to the side of the helicopter and climbs into the
+cockpit.
+
+>I'm not sure she would appreciate that!
+
+    The helicopter begins to lift off from the ground.
+The helicopter then begins to turn in air until the cockpit is facing you.
+The pitch of the main rotor changes.  Octal begins to bring the helicopter in
+a course for where you and the others are standing.  He means to ram you!
+    But Laurie stands her ground, still gripping the PK battery that she
+recently acquired.   Then, to the consternation of Octal, the tail rotor
+quits rotating completely!  The chopper begins to spin uncontrollably around
+and around.  Octal continues to grip the controls, but his effort is in vain.
+ Laurie now has control of the helicopter!  It flies erratically in the air
+above everyone's heads, like a punctured balloon.  It moves dangerously close
+to the side of a mountain to the east.
+    "If he doesn't jump now...", whispers Katryn.  Then seemingly as if he
+heard her, the R.O.S.A leader leaps out of the vehicle and lands precariously
+on the building's edge.  He crawls all the way up and then collapses
+completely.  At the same moment, the helicopter strikes the side of the
+mountain and explodes.  What's left of it tumbles down the side of the
+mountain, creating an upheaval of dust, and is soon out of sight.
+    Nobody moves for a short while.  Finally,
+
+    Katryn walks over to Octal's body and cursorily assesses his condition.
+"He'll live", she declares.
+    Gradually, everyone else goes to join her standing around the defeated
+man.
+    "And so your reign ends", Katyrn says to Octal with finality.  Octal, of
+course, is unconscious and cannot respond as might have liked.  His face,
+however, is still stricken with shock and with rage.
+
+    "He is a terrible man but he ought not to die."  This from Laurie, who
+seems regretful of the events she just participated in.  "What will we do
+with him?   We cannot leave him like this and we cannot allow him to escape
+either.  Petter, what will we do?"
+
+>You embrace Katryn.  She wraps your arms around her body compactly, as if
+that is the natural place for them to be.
+
+    Laurie tries to look the other way.
+
+>You strap the inhibitor band onto Octal's head.  He eyes open as you do so,
+and he glares upwards at you with the indignation of defeat.  But you know
+that he will not be harming anyone while the band is on him.  His PK power is
+in check.
+    "That is the perfect solution", Katryn agrees.
+
+    With the helicopter gone and the conflict over, the roof of the silo that
+was the R.O.S.A. research complex is silent as an autumn night.  The last
+traces of red in the sky have all but dispersed.
+Laurie comes over to be held by you.  She poignantly watches the close of the
+first of many sunsets in a new world of hope for her and her sister.
+
+Press enter to continue
+
+>
+
+EPILOGUE
+
+One week later . . .
+
+>
+    "You could have come sooner, Laurie.  I had the hardware replaced
+yesterday.  Everything was set up and ready for you."  Ethan can't seem to
+keep his eyes off of the girl.  The bandages on his head and shoulder make
+his appearance worse than it needs be.  One half expects him at any moment to
+rip them off and throw them to the floor, the same as an ant that is
+discovered to be crawling on the person.
+    "No, Ethan, I wanted to be sure it was safe for Cassie and I to come out
+again", answers Laurie, who has been in much brighter spirits the past few
+days than you had ever observed before.
+"Now, with that man in the hospital, and R.O.S.A. in disarray.... Well,
+Petter and I were there ourselves when it all happened, of course", adds
+Laurie as she flashes you a smile.
+    Ethan, who doesn't notice it, or tries not to, finishes her sentence,
+"But one can't be too careful.  I understand."  He looks uncomfortable.
+    "Cassie wanted to be here for this, too", says Laurie,  "but as soon as I
+said it was probably all right to leave the house, she off and went to the
+mall to get ice cream.  I simply cannot believe that girl.  Monika had to be
+bribed to take her there."  Laurie shakes her head in the way that she often
+does when relating Cassie's antics.
+    "Your sister doesn't have a 'worry bone' in her body, from what I've
+heard", remarks Ethan.  He's trying harder than usual to be charming.
+    "Yes, that is Cassie", laughs Laurie.  Changing the subject, she turns to
+you and asks seriously, "Do you think she would have done this for us?
+Delete these records?  I mean Katryn."
+
+    It's a difficult question to answer.  On the one hand, Katryn seemed not
+to possess the cruel streak that Octal had.  On the other, she never openly
+condemned his moral decisions as R.O.S.A. leader.  Who could predict how a
+new R.O.S.A. would turn out?
+    "I hope she does differently with R.O.S.A. than Octal did.  I hope she
+does not let the same things go on..."  As Laurie speaks, a window pops up on
+Ethan's monitor showing his entrance into the R.O.S.A. network.  Data scrolls
+rapidly up the screen.
+    "Here we are", announces Ethan.  Thirty seconds later and the very
+records of concern are displayed; names and numbers of individuals:
+"...Laurie Hemmings, ID 107...Cassie Hemmings, ID 113..." and many others.
+
+"Please, be done with them", says Laurie, pursing her lips.  Ethan hesitates
+for a second, then hits the delete key.  Then again.  And again and again.
+A tear wells up in Laurie's eye as Ethan continues.  Only when every record
+is gone does he jack out of the system, shutting his computer down completely
+for the sake of finality.  Laurie, her sister, and the names of many others
+have at long last been liberated.
+    "I've never felt this free", says Laurie with a sniffle.  A tissue box
+that was lying on the floor somewhere rises into the air and floats across
+gently into her lap.  Ethan is simultaneously touched by Laurie's
+sentimentality and amused by her powers.  For all one can guess, it may have
+been the first time he has witnessed them.
+    You, however, are not alarmed at all.  You reach over and put your arms
+around Laurie.  She rests her head against your chest and seeps away tears of
+happiness.
+    In time Laurie raises her head and looks past you quizzically.  "Ethan",
+she says, "Where is your fish?"
+    "Oh, my piranha?  She died that day.  I have to replace her."
+    "She was female?  What was her name?"
+    "Ah, well, that was...um, well that doesn't matter now.  But I'm thinking
+of naming the next one after you.  Would that be okay?", he asks
+apologetically.
+    Laurie laughs.  "You can name your first daughter after me if you like.
+Just be sure to call me over to see her."
+    Sheepishly, Ethan grins.
+
+Press enter to continue
+
+>
+
+Two months later . . .
+
+>
+
+    Katryn pushes open the door to the office room and steps aside to let you
+enter.  "There you are, darling, your new HQ.  Take a look around.  What do
+you think?"
+    It is certainly large for an office room.  Five people could probably
+work here comfortably.  But this room is to be exclusively yours.  Besides
+the desk, shelves, cabinets, and other items you would expect to find
+present, there is also a large video display on the wall opposite the desk,
+and a speaker set into the desk.  There is more hardware that you do not
+recognize.  No need to ask questions now.  There will be plenty of time to
+get familiar with everything.
+    "It's not the same room that Octal had, of course.  I'm going to use that
+as a temporary disposal room."
+    You step into the center of the room.  Katryn follows you closely.  She
+directs your attention to an open door connecting this office with another
+and smiles enticingly.  "Yes, my office, darling.  It is right next to yours,
+so as to accommdate your needs.  You can come in any time and consult with
+me, ask me for advice, or for favors.  With exactness will I carry out
+every...executive decision of yours."  She moves closer to you and speaks
+into your ear.  "There is a very lush sofa in my office.  You shall have to
+come in often and help me make use of it."
+    She might have kissed you right then, but instead your new vice backs off
+and waves a hand to your desk.  "Go ahead, try it  You're the big man on
+campus now."
+    Seated at the desk, you stare blankly ahead.  Things have certainly moved
+fast.  It is meaningless to look back and try to reflect on the little things
+that have gotten you to where you are now, all the choices that one by one
+brought this new enterprise into focus, or how you came to get mixed up with
+this unique woman.  Beautiful, extravagant, expecting, contriving, and
+dangerous.  Like two yarns that run together, she has become inextricably
+woven into your future.  As if she could read your thoughts, Katryn comes
+over then and sits on your desk beside you.  She begins running her fingers
+through your hair.
+    "I know what you are thinking, darling.  You wonder how you will handle
+it all, and where you will go with this new job.  You wonder if you are equal
+to it.  Do not let petty thoughts like these disturb you.  Remember that I
+did not pick you randomly.  You are the man R.O.S.A. needs.  You are the one
+who will turn things completely around."
+    Seeing your expression, Katryn's face softens further.  She scoots
+forward, nearly into your arms.  Her voice is both confident and soothing.
+"And I will be with you.  I will furnish you with advice, and encouragement,
+and love.  My darling, you do not realize what glorious future is in store
+for the two of us."
+She leans forward then and presses her lips against yours.  To what extent
+her words will ring true can only be waited to be seen.  The future will come
+as it will.  Perhaps the only thing one can be certain of is that one will be
+there to receive it.  That, in itself, is nothing to shrink from.
+THE END
+
+>
+
+YOUR SCORES THIS GAME
+                  Laurie                          11
+                 Cassie                          0
+            -------NA-------                 --NA--
+                 Monika                          0
+            -------NA-------                 --NA--
+                  Katryn                          55
+             unknown girl                      0
+            -------NA-------                 --NA--
+
+Congratulations!  You got Katryn's ending.
+
+Your Secret Letter is: E
+
+>
+
+Congratulations!

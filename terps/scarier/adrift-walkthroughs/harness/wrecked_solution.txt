@@ -1,0 +1,247 @@
+look
+x shelter
+x graffiti
+read it
+west
+south
+in
+in
+x bench
+get jacket
+x it
+get key
+x lockers
+x red locker
+close it
+x it
+get coin
+out
+out
+west
+go in
+buy a pint
+get pint
+out
+inventory
+give pint to boff
+west
+north
+in
+x rack
+get form
+x it
+fill it out
+out
+post it
+east
+east
+east
+write on bus shelter
+drop pen
+west
+south
+west
+west
+west
+wait
+wait
+in
+in
+wait
+wait
+wait
+out
+wait
+east
+push button
+north
+north
+in
+x counter
+x tray
+get envelope
+open it
+drop it
+out
+north
+pick flowers
+east
+east
+in
+give card to harold
+ask him about pens
+out
+west
+south
+x plaque
+push it
+get chop
+east
+drop it
+get hook
+west
+north
+open drain with it
+drop hook
+south
+south
+east
+in
+in
+in
+wear scuba outfit
+in
+swim
+pull plug
+out
+out
+out
+out
+west
+remove outfit
+go in
+buy another drink
+get pint
+x tables
+get ticket
+out
+drink lager
+west
+south
+x cars
+put glass under car
+north
+in
+give card to helga
+up
+x window
+open door
+drop room key
+in
+in
+x toilet
+flush it
+out
+go in wardrobe
+x Mr Tumnus
+give him the jacket
+give him the flowers
+get wand
+ask aslan about it
+out
+out
+down
+ask helga about phone
+phone 4388
+out
+east
+north
+wave wand
+west
+wait
+wait
+wait
+wave wand
+wave wand
+drop it
+stand on statue
+go up
+get cat
+down
+in
+give it to madge
+out
+east
+north
+drop card
+down
+get anchor
+up
+north
+in
+x engine
+put petrol in it
+put key in ignition
+drop glass
+turn key
+push lever
+tie anchor to rope
+throw anchor overboard
+wear scuba outfit
+out
+down
+in
+x cabinet
+put amulet in indentation
+x cabinet
+get all from it
+out
+up
+in
+get anchor
+push lever
+read log book
+out
+south
+south
+south
+west
+west
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+in
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+out
+east
+knock three times
+in
+x computer
+ask Suzie about ADRIFT
+ask her about good time
+give her the flute
+out
+west
+in
+wait
+wait
+wait
+wait
+wait
+out
+east
+east
+north
+east
+in
+get stick
+out
+west
+north
+down
+x tiles
+x hole
+put key in keyhole
+south
+wear goggles
+look
+south
+x slot
+put stick in it
+pull lever
+south
+x chest
+open it

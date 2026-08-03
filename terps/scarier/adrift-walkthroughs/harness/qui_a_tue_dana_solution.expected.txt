@@ -1,0 +1,703 @@
+Loading game...
+
+Qui a tué DANA?
+ATTENTION !
+
+            Ce texte comporte des mots et des descriptions qui pourraient
+choquer les personnes sensibles !
+
+QUI A TUE DANA ?
+
+            John fut réveillé par son portable.
+
+Il se tourna vers son réveil pour constater qu'il était 3 heures du matin.
+
+" ici Mulder, c'est pourquoi ?
+
+patron ! c'est malkowitch, on a reçu un appel urgent sur la ligne directe !
+
+[appuyez sur une touche pour continuer]
+
+- C'était qui ?
+
+- un correspondant anonyme qui prétend avoir trouvé le corps d'une femme
+morte dans le fleuve !
+
+- Il t'a donné des indications sur le lieu ?
+
+- Oui patron, j'ai déjà envoyé une équipe sur place.
+
+- Ok, passe me prendre.
+
+[Appuyez sur une touche pour continuer]
+
+            John raccrocha.
+
+            Depuis 15 ans qu'il était flic à New-York, John recevait souvent
+ce genre d'appel.
+
+Il était responsable de la section de la police des moeurs.
+
+Les enquêtes traitaient très souvent de crimes sexuels ou autres délits du
+même style.
+
+A VOUS DE JOUER!
+
+[Appuyez sur une touche pour continuer]
+
+Etendu sur votre lit, vous vous étirez et ouvrez les yeux.
+Vous essayez d'évacuer le brouillard de vos idées pour prendre conscience de
+ce que Malcowitch vient de vous dire.
+[Appuyer sur une touche pour continuer]
+
+La Chambre de John
+C'est une chambre des plus démunie.
+Un lit, des habits jetés à la va-vite sur le sol, un gros cendrier rempli de
+mégots sur le sol à la tête du lit.
+
+Aussi voici Un jean et Un pull.
+
+>Vous vous levez.
+
+>(Your score has increased by 2)
+Vous ramassez votre jean.
+
+>(Your score has increased by 1)
+Vous enfilez votre jean.
+
+>(Your score has increased by 2)
+Vous ramassez votre pull.
+
+>(Your score has increased by 1)
+Vous enfilez votre pull.
+La Chambre de John
+C'est une chambre des plus démunie.
+Un lit, des habits jetés à la va-vite sur le sol, un gros cendrier rempli de
+mégots sur le sol à la tête du lit.
+Habillé, ça le fait mieux quand même!
+
+>La pièce principale
+
+Vous entrez dans ce qui est votre salle de séjour.
+C'est une petite pièce, sans meubles.
+Face à vous, un comptoir de bar se dresse vous tendant sa large surface pour
+poser vos objets superflus ou trouver ce que 'lon cherche. Derrière le bar,
+vous voyez de la vaisselle qui tient enpile par le doux hasard du
+Saint-Esprit.
+A votre gauche, au milieu d'un mur de tapisserie jaunie, une porte,
+certainement la sortie de chez vous.
+
+Un bar se dresse devant vous.
+
+>Vous êtes maintenant en possession d'une cigarete.
+
+>Vous vous saisisez du briquet.
+
+>(Your score has increased by 5)
+Vous appuyez sur le bouton pour un expresso.
+Attention, c'est chaud!
+Un expresso est maintenant posé sur le bar.
+Il n'attend plus que votre gosier affamé et sec du matin.
+
+>Vous prenez Un expresso de Un bar.
+
+>(Your score has increased by 2)
+Ah! Quel délice! Votre machine restera toujours votre fierté! ça fait du bien
+par où ça passe
+
+>(Your score has increased by 7)
+Accompagnant le café, il n'y a rien de tel!
+Bon, par contre, maintenant faudrait vous bouger!
+Vous entendez un vrombissement qui vient en direction de votre porte.
+
+>Vous ouvrez votre porte.
+
+>Vous sortez, puis refermez votre porte.
+la voiture de votre adjoint est là.
+Vous montez.
+En voiture
+Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
+Vous filez à vive allure dans les rues de New York.
+MALKOWITCH sait toujours où vous devez aller.
+C'est une voiture de police traditionnelle américaine.
+MALKOWITCH est assis là.
+
+>
+
+Vous écoutez votre adjoint :
+-J'ai eu les premières infos par l'équipe de constatation.
+C'est une jeune fille qui a été retrouvée nue, dans le fleuve.
+-Pourquoi les moeurs pour une fille dans le lac ? demanda John
+-on l'a trouvé avec une particularité, apparemment, elle a été violée, et
+vu la taille du vagin post mortem, son agresseur n'est pas un individu
+commun.
+-que veux-tu dire ?
+" apparemment, d'après les premières constatations du légiste, elle a été
+violée de façon très brutale, par un individu qui a, vraisemblablement, un
+sexe hors norme, la taille du vagin de la victime est démesurément anormale
+après le viole.
+De plus, les prélèvements effectuées sur la victime nous ont donné un total
+de 2,5 litres de sperme.
+[Appuyer sur une touche pour continuer]
+-2,5 litres de sperme ! Putain, le mec avait de grosses réserves ! déclara
+John en souriant.
+-d'après la police scientifique qui est déjà sur place, reprit Malkowitch,
+ils n'ont jamais vu un viole semblable.
+-Ouai, ben, elle a peut-être été violée par l'abominable homme des neiges!
+-patron, vous êtes d'un sinisme effrayant.
+-lorsque tu aura mon expérience, Malkowitch, tu réagiras comme moi!"
+[Appuyer sur une touche pour continuer]
+
+En voiture
+Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
+Vous filez à vive allure dans les rues de New York.
+MALKOWITCH sait toujours où vous devez aller.
+C'est une voiture de police traditionnelle américaine.
+MALKOWITCH est assis là.
+
+>Vous vous déplacez vers le Bas.
+Scène du crime
+
+Vous êtes sur un sentier de terre battu.
+Vous entendez un bruit d'eau puis, vous réalisez que vous vous trouvez sur
+les berges du fleuve.
+Vous reconnaissez là le lieu idéal d'une femme pour s'offrir un moment
+romantique avec son amant.
+Vous remarquez qu'il y a déjà bien du monde ici.
+Toutes ces personnes ont très certainement quelque chose à vous aprendre.
+Le Responsable de l'Enquête est ici.
+La Médecin légiste est ici.
+La Chef scientifique est là.
+
+>(Your score has increased by 2)
+-Bonjour, Mulder, des moeurs, que pouvez-vous me dire?
+-La victime s'appelle Dana Mulder, elle a 19 ans
+-comment dites-vous qu'elle s'appelle ?
+-Dana Mulder
+-merde, c'est ma nièce, la fille de mon frère.
+-c'est une plaisanterie ?
+-eh, t'as vraiment l'impression que j'ai la gueule d'un mec qui plaisante ?
+L'autre flic, apparemment gêné ne répondit pas.
+
+>(Your score has increased by 5)
+Vous soulevez un drap et...
+Vous pouvez voir un corps inerte sous le drap!
+
+>C'est...le corps d'une femme, jeune et jolie. Vous reconnaissez bien là le
+visage de votre nièce.
+C'est la première fois que vous êtes écoeuré à la vue d'un corps.
+
+>(Your score has increased by 6)
+-Salut doc., alors, ça dit quoi ?
+-Salut John, la victime a été étranglée d'une façon très violente. Le larynx
+est broyé.
+Le gars qui a fait ça doit avoir une force herculéenne.
+-et au sujet du viole, reprit Mulder
+-le viole, je n'ai jamais vu ça. Vu l'état des organes et la taille du vagin
+de la victime, le gars est anormalement constitué.
+La pénétration s'est faite sur une longueur de 42 centimètres, en détruisant
+tout sur son passage.
+-doc., dis-moi, a-t'elle souffert ?
+-très vraisemblablement, le viole a eu lieu avant la mort, et étant donné
+qu'elle n'a même plus d'utérus, on peut dire que la victime a énormément
+souffert.
+[Appuyer sur une touche pour continuer]
+-fumier, reprit John,  bon, ok, doc, j'attend ton rapport
+-tu l'aura dans la journée.
+-Merci, au fait, ou es la victime
+-là-bas, sous le drap.
+-doc, la mort remonte à combien de temps ?
+-je dirai 5 ou 6 heures, mais du fait que le corps ait séjourné dans l'eau,
+je ne pourrais te dire cela qu'après l'autopsie.
+-ok, merci doc..
+[Appuyer sur une touche pour continuer]
+Scène du crime
+
+Vous êtes sur un sentier de terre battu.
+Vous entendez un bruit d'eau puis, vous réalisez que vous vous trouvez sur
+les berges du fleuve.
+Vous reconnaissez là le lieu idéal d'une femme pour s'offrir un moment
+romantique avec son amant.
+Vous remarquez qu'il y a déjà bien du monde ici.
+Toutes ces personnes ont très certainement quelque chose à vous aprendre.
+
+Aussi voici Un drap et Le corps inerte.
+Le Responsable de l'Enquête est ici.
+La Médecin légiste est ici.
+La Chef scientifique est là.
+
+Un drap est ici.
+
+>(Your score has increased by 2)
+-Salut,  vous avez des prélèvements ?
+-oui, on a toutes les traces du viole, par contre, aucune trace de pas, rien
+sur l'agresseur
+-allez-vous pouvoir déterminer l'a d n de l'agresseur
+-sans problème, d'autant qu'il a laissé une quantité anormale de sperme
+-n'aurait-il pas pu stocker ce sperme dans une bouteille pour faire croire à
+un crime peu ordinaire, demanda John ?
+-non monsieur, le sperme était encore chaud quand on l'a prélevé sur la
+victime, ce qui veut dire que sa température doit largement dépasser la
+température humaine.
+[Appuyez sur une touche pour continuer]
+-avez-vous déjà vu ce genre de cas ? reprit John
+-absolument pas Monsieur, c'est un cas inédit, je dois dire que je n'y
+comprend rien.
+-eh bien, ça tombe bien, moi non plus..
+Scène du crime
+
+Vous êtes sur un sentier de terre battu.
+Vous entendez un bruit d'eau puis, vous réalisez que vous vous trouvez sur
+les berges du fleuve.
+Vous reconnaissez là le lieu idéal d'une femme pour s'offrir un moment
+romantique avec son amant.
+Vous remarquez qu'il y a déjà bien du monde ici.
+Toutes ces personnes ont très certainement quelque chose à vous aprendre.
+
+Aussi voici Un drap et Le corps inerte.
+Le Responsable de l'Enquête est ici.
+La Médecin légiste est ici.
+La Chef scientifique est là.
+
+Vous pouvez vous déplacer maintenant vers le haut.
+votre adjoint semble avoir rallumé la voiture.
+
+>
+
+John s'éloigna de toute cette population de flics et repartit vers la voiture
+de son adjoint.
+            Il s'assit sur le siège passager et se mit à réfléchir.
+            Le fait que ce soit sa nièce qui était la victime ne changeait
+rien à sa façon de travailler.
+Il était juste écoeuré.
+Il se posait tout un tas de questions  dont la principale était qui pouvait
+être cette individu bizarre.
+Si c'était une mise en scène, elle avait été bien organisée, et sinon, il se
+demandait vraiment qui pouvait être l'assassin de sa nièce.
+Il avait l'impression que  le meurtrier  de sa nièce ne serait jamais
+retrouvé.
+[Appuyer sur une touche pour continuer]Les indices étaient trop peu courants, ce meurtre n'était vraiment pas
+ordinaire.
+Malkowitch monta dans la voiture
+-ça va patron ?
+-ça va, merci
+-j'ai entendu dire que c'est votre nièce
+-t'as bien entendu, allez on rentre au poste, je dois prévenir mon frère et
+je veux voir le rapport du légiste.
+Les deux hommes ne se dirent plus rien pendant la durée  de la route.
+[Appuyer sur une touche pour continuer]
+En voiture
+Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
+Vous filez à vive allure dans les rues de New York.
+MALKOWITCH sait toujours où vous devez aller.
+C'est une voiture de police traditionnelle américaine.
+MALKOWITCH est assis là.
+
+Vous êtes maintenant arrivé au commissariat, entrez donc!
+
+>Vous entrez.
+Couloir du Commissariat
+
+Vous vous trouvez dans un couloir plutôt banal.
+Les murs sont tapissés.
+Des portes se suivent et se ressemblent.
+Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
+portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
+mèneront à d'autres couloirs.
+
+Une machine à café est là dans un coin du couloir.
+
+Sorties évidentes: nord, Est, Ouest et out.
+
+>Vous vous déplacez vers l'Est.
+Bureau de MALKOWITCH
+C'est un petit bureau.
+Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
+plus grand que le maître quand même!
+Il y laisse toujours des papiers ou documents qui peuvent être très utiles
+pour vous.
+Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
+Beaucoup de gens le demandent!
+
+Un bureau se situe ici.
+
+Vous pouvez seulement vous déplacer vers l'Ouest.
+
+>C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
+vous concerne, est toujours bien mis en évidence.
+  Un memo est on Le bureau.
+
+>Un petit papier plastifié où vous pouvez voir des inscriptions.
+
+>Mémoire de votre téléphone :
+1=F.B.I Enquêtes Mystérieuses
+2=Légiste
+3=Famille
+4=Brigade des stups
+5=Police judiciaire
+6=Inspection générale Supérieure
+7=Procureur
+8=juge d'instruction
+9=Police scientifique
+0=Responsable d'Enquête
+
+>Vous prenez Un memo de Le bureau.
+
+>Vous vous déplacez vers l'Ouest.
+Couloir du Commissariat
+
+Vous vous trouvez dans un couloir plutôt banal.
+Les murs sont tapissés.
+Des portes se suivent et se ressemblent.
+Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
+portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
+mèneront à d'autres couloirs.
+
+Une machine à café est là dans un coin du couloir.
+
+Sorties évidentes: nord, Est, Ouest et out.
+
+>Vous vous déplacez vers l'Ouest.
+Votre bureau
+
+Vous êtes ici dans vote bureau, bien à vous.
+Un grand bureau trône au centre.
+Un confortable fauteuil se situe devant le bureau.
+Et, de l'autre côté, des chaises sont empilées.
+Vous distinguez à droite la sortie de votre bureau sur un couloir.
+
+Un beau bureau trône ici.
+  Un fauteuil est devant votre bureau.
+
+Vous pouvez seulement vous déplacer vers l'Est.
+
+>Vous vous saisissez du dossier.
+
+>Vous prenez Un téléphone de Un beau bureau.
+
+>C'est un téléphone à touches.
+Vous remarquez différents boutons sur sa surface.
+  Le 1, Le 2, Le 3, Le 4, Le 5, Le 6, Le 7, Le 8, Le 9 et Le 0 est sur Un
+téléphone.
+
+>(Your score has increased by 3)
+
+Vous enfoncez la mémoire 3 de votre téléphone.
+Une tonalité se fait entendre, puis le numéro se compose automatiquement.
+ça sonne...!
+Le père de la victime décrocha.
+Vous l'informez de la terrible nouvelle.
+La famille fut bouleversée.
+Vous promettez de mettre tout en oeuvre pour retrouver le coupable de cette
+atrocité.
+Vous raccrochez.
+Allez, faut se remettre de nouveaux éléments ont dû arrivés depuis!
+
+>Vous vous déplacez vers l'Est.
+Couloir du Commissariat
+
+Vous vous trouvez dans un couloir plutôt banal.
+Les murs sont tapissés.
+Des portes se suivent et se ressemblent.
+Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
+portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
+mèneront à d'autres couloirs.
+
+Une machine à café est là dans un coin du couloir.
+
+Sorties évidentes: nord, Est, Ouest et out.
+
+>Vous vous déplacez vers l'Est.
+Bureau de MALKOWITCH
+C'est un petit bureau.
+Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
+plus grand que le maître quand même!
+Il y laisse toujours des papiers ou documents qui peuvent être très utiles
+pour vous.
+Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
+Beaucoup de gens le demandent!
+
+Un bureau se situe ici.
+
+Vous pouvez seulement vous déplacer vers l'Ouest.
+
+>C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
+vous concerne, est toujours bien mis en évidence.
+  Les photos est sur Le bureau.
+
+>On y voyait la victime, nue, allongée sur le dos.
+            Il vit bien que le gros plan fait sur la partie pubienne de la
+jeune fille présentait un tableau pour le moins surprenant.
+La jeune fille semblait avoir été déchirée par le sexe de son violeur.
+Vous êtes horrifié.
+Vous pensez "la pauvre gamine, sur quel genre d'abruti est-elle tombée ?"
+Vous jetez un coup d'oeil à votre montre.
+5 heures indiquait-elle.
+Les rapports sont pas prêts d'arriver!
+
+>(Your score has increased by 2)
+Vous prenez des photos.
+
+>Vous vous déplacez vers l'Ouest.
+Couloir du Commissariat
+
+Vous vous trouvez dans un couloir plutôt banal.
+Les murs sont tapissés.
+Des portes se suivent et se ressemblent.
+Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
+portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
+mèneront à d'autres couloirs.
+
+Une machine à café est là dans un coin du couloir.
+
+Sorties évidentes: nord, Est, Ouest et out.
+
+>Vous vous déplacez vers le Nord.
+Salle de repos
+Ici, tous les policiers y viennent se détendre, fumer ou tuer le temps en
+attendant les rapports qui tardent à arriver. Il y a des fauteuils alignés au
+fond, des tables au milieu etsur le pan de mur gauche, des pathères.
+
+Une table est là.  Un fauteuil douillet est ici.
+
+Vous pouvez seulement vous déplacer vers le Sud.
+
+>C'est une table simple. Des flics peuvent y jouer aux cartes, boire du
+café...  Une cigarette est on Une table.
+
+>Vous prenez Une cigarette de Une table.
+
+>(Your score has increased by 7)
+Vous fumez une cigarette.
+Vous vous reposez mais ne vous endormez pas.
+Vous tournez dans tous les sens les éléments de l'enquête mais, rien à faire,
+pas l'ombre d'une solution en vue.
+
+>Vous vous déplacez vers le Sud.
+Couloir du Commissariat
+
+Vous vous trouvez dans un couloir plutôt banal.
+Les murs sont tapissés.
+Des portes se suivent et se ressemblent.
+Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
+portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
+mèneront à d'autres couloirs.
+
+Une machine à café est là dans un coin du couloir.
+
+Sorties évidentes: nord, Est, Ouest et out.
+
+>Vous vous déplacez vers l'Est.
+Bureau de MALKOWITCH
+C'est un petit bureau.
+Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
+plus grand que le maître quand même!
+Il y laisse toujours des papiers ou documents qui peuvent être très utiles
+pour vous.
+Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
+Beaucoup de gens le demandent!
+
+Un bureau se situe ici.
+
+Vous pouvez seulement vous déplacer vers l'Ouest.
+
+>C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
+vous concerne, est toujours bien mis en évidence.
+  Le rapport est on Le bureau.
+
+>(Your score has increased by 1)
+Vous récupérez le rapport du légiste.
+
+>Une longue panacée de feuilles pleins de détails médicaux dont vous comprenez
+à peine le sens!
+Vous avez toujours préféré aler à l'essentiel et à la source de l'information
+alors, ne changez rien!
+
+>Rapport de l'IML Legiste chef Julie LUKISS
+
+>Vous vous déplacez vers l'Ouest.
+Couloir du Commissariat
+
+Vous vous trouvez dans un couloir plutôt banal.
+Les murs sont tapissés.
+Des portes se suivent et se ressemblent.
+Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
+portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
+mèneront à d'autres couloirs.
+
+Une machine à café est là dans un coin du couloir.
+
+Sorties évidentes: nord, Est, Ouest et out.
+
+>Vous vous déplacez vers l'Ouest.
+Votre bureau
+
+Vous êtes ici dans vote bureau, bien à vous.
+Un grand bureau trône au centre.
+Un confortable fauteuil se situe devant le bureau.
+Et, de l'autre côté, des chaises sont empilées.
+Vous distinguez à droite la sortie de votre bureau sur un couloir.
+
+Un beau bureau trône ici.
+  Un fauteuil est devant votre bureau.
+
+Vous pouvez seulement vous déplacer vers l'Est.
+
+>(Your score has increased by 5)
+
+Vous décrochez.Vous enfoncez la seconde mémoire de votre téléphone et,
+aussitôt une voix vous répond:
+-allô doc, c'est Mulder
+-allô John, je t'ai envoyé le rapport
+-oui, j'ai vu, mais je préfère que tu me dises tes conclusions
+-ok, alors,comme je te l'avais dit, la victime est morte depuis 8 heures au
+maximum au moment de l'autopsie, et son corps n'a séjourné dans le fleuve que
+pendant quelques dizaines de minutes.
+-et au sujet des causes de la mort ? reprit John
+-c'est donc bien une mort par étranglement, mais le gars lui a littéralement
+broyé le coup, c'est impossible pour un être humain de broyer un coup de
+cette façon, à moins que le gars soit un géant.
+-oui, je n'y comprend rien doc, tout à l'air bizarre dans cette enquête
+[Appuyer sur une touche pour continuer]
+-attend, c'est pas le plus étonnant, la victime a bien été pénétré par le
+pénis du violeur, et seulement par cela, et vu les dégâts qu'il a provoqué,
+il doit avoir un sexe d'au moins 45 centimètres de longueur et d'un diamètre
+impressionnant.
+-ok doc, c'est tout ?
+-en gros oui, les détails sont dans le rapport écrit, mais je t'ai donné les
+grands points de mes conclusions.
+-merci doc, à bientôt.
+Vous raccrochez.
+
+>(Your score has increased by 1)
+
+Vous décrochez, enfoncez la mémoire 9 de votre téléphone.
+Une voix se fit entendre, vous répondez alors de suite:
+-bonjour, ici Mulder
+-bonjour monsieur Mulder, et tout d'abord, toutes mes condoléances
+-merci mon vieux, venez-en aux  faits
+-bien, nous n'avons pas trouvé de trace de l'assassin, pas de trace de pas,
+aucune traces de fibres rien de ce style.
+-et au sujet du viole reprit Mulder
+-alors là, c'est très surprenant, nous avons fait les analyse a d n, et vous
+allez être surpris
+-je vous écoute
+[Appuyer sur une touche pour continuer]
+-eh bien, ce n'est pas de l'a d n humain, ni de l'a d n animal, de plus,
+cette forme de composition génétique n'existe pas sur terre
+que voulez-vous dire ? reprit John
+-je veux dire que c'est vraisemblablement un extra-terrestre qui a violé et
+tué votre nièce
+-vous vous foutez de moi ?
+-malheureusement pas du tout Monsieur
+-vous pouvez me dire comment je vais retrouver un extra-terrestre ?
+[Appuyer sur une touche pour continuer]
+-nous avons établi un modèle ,: votre suspect mesure environ 2 mètres 45,
+pdoit eser 175 kilos et il est vraisemblablement de forme humaine. Par
+contre, il doit être imberbe, nous n'avons pas trouvé de poils pubiens sur la
+victime.
+-bien, merci. Déclara John dépité.
+Le combiné tomba sur le téléphone.
+
+>(Your score has increased by 4)
+Vous pressez la mémoire1 du téléphone.
+Le responsable du FBI décroche en disant:
+-Allô j'écoute, que vous arrive-t-il MULDER?
+-j'ai un cas difficile sur les bras et aucun moyen de résoudre cette énigme
+seul!
+-Faites-nous parvenir le dossier complet, nous ferons notre possible avec
+votre collaboration si vous le souhaitez!
+-Okay, mon adjoint va vous transmettre le dossier. Merci à bientôt j'espère!
+-Okay, à bientôt j'y compte bien, on n'a pas l'habitude de classer les
+dossiers chez nous! Au revoir MULDER!
+la conversation se coupa aussi sec.
+Vous raccrochez.
+[Appuyer sur une touche pour continuer]            Il se cala dans son fauteuil.
+            Il venait d'apprendre que sa nièce s'était faite violer par un
+extra-terrestre.
+Il avait déjà vu pas mal de trucs bizarres dans ses enquêtes, mais jamais de
+viole par des extra-terrestres.
+            Il avait un esprit méthodique et ne croyait pas à ce genre de
+stupidité, mais là, les preuves scientifiques étaient là, et il ne pouvait
+pas les contourner.
+
+>Vous vous déplacez vers l'Est.
+Couloir du Commissariat
+
+Vous vous trouvez dans un couloir plutôt banal.
+Les murs sont tapissés.
+Des portes se suivent et se ressemblent.
+Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
+portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
+mèneront à d'autres couloirs.
+
+Une machine à café est là dans un coin du couloir.
+
+Sorties évidentes: nord, Est, Ouest et out.
+
+>Vous vous déplacez vers l'Est.
+Bureau de MALKOWITCH
+C'est un petit bureau.
+Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
+plus grand que le maître quand même!
+Il y laisse toujours des papiers ou documents qui peuvent être très utiles
+pour vous.
+Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
+Beaucoup de gens le demandent!
+
+Un bureau se situe ici.
+
+MALKOWITCH est assis là.
+
+Vous pouvez seulement vous déplacer vers l'Ouest.
+
+>Vous ouvrez Le dossier.
+
+>Vous mettez Les photos  dans Le dossier.
+
+>Vous mettez Le rapport  dans Le dossier.
+
+>
+Bureau de MALKOWITCH
+C'est un petit bureau.
+Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
+plus grand que le maître quand même!
+Il y laisse toujours des papiers ou documents qui peuvent être très utiles
+pour vous.
+Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
+Beaucoup de gens le demandent!
+
+Un bureau se situe ici.
+
+MALKOWITCH est assis là.
+
+Vous pouvez seulement vous déplacer vers l'Ouest.
+
+>Vous fermez Le dossier.
+
+>(Your score has increased by 42)
+Vous donnez le dossier Dana MULDER à votre adjoint MALKOWITCH
+Vous lui déclarez:
+" tiens, porte ce dossier à la section " enquêtes mystérieuses " du FBI,
+pour nous, l'affaire est classée!"
+Bravo!! Vous avez gagné!
+
+Vous êtes arrivé au bout de vos peines...Le jeu est fini!
+
+Jeu réalisé par Volcy BUCHERIE
+
+Scenario réalisé par Christophe MONTEL
+
+Message du programmeur:
+
+MERCI A TOI CHRISTOPHE SANS QUI CE JEU N'AURAIT JAMAIS VU LE JOUR!
+
+MERCI A CEUX QI M'ONT FAIT DECOUVRIR CE LOGICIEL DE CREATION!!![Appuyer sur
+une touche pour continuer]
+
+[Appuyer sur une touche pour continue]            John retourna dans son bureau, il s'ASSIT sur son fauteuil, et
+resta comme cela, comme groguis.
+            Il ne retrouvera jamais l'agresseur de Dana, pas plus que la
+section " enquêtes mystérieuses " du F BI.
+
+[Appuyer sur une touche pour continuer]

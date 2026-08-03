@@ -1,0 +1,56 @@
+chop beanstalk
+take axe
+d
+d
+s
+take harp
+out
+wait
+in
+n
+knock on door
+u
+u
+i
+d
+d
+s
+take hen
+out
+wait
+in
+n
+knock on door
+u
+u
+i
+d
+d
+s
+take gold
+out
+wait
+in
+n
+knock on door
+u
+u
+e
+d
+sleep
+u
+w
+give beans to mother
+w
+sell cow
+x stranger
+e
+take cow
+sleep
+Any donation would be much appreciated
+to help keep the site online and growing.
+To help make your donation quicker and
+easier just click the "Donate" button and you will be taken to the
+secure Paypal donation page.
+Home  |
+About Me

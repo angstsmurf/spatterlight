@@ -1,0 +1,1750 @@
+Loading game...
+
+The Sisters
+You slowly drift into consciousness.  Where are you?  What happened?  What's
+that...that copper taste in your mouth?
+
+Blood!
+
+This brings you round with a start.  Your head hurts.  Your vision comes back
+into focus...and then you remember.
+
+You had been driving - it was raining hard.  You were lost.  You don't know
+Sussex well, and you had no idea how you had got here.  You were just about
+to turn around and go back when...when...you can't remember...
+
+Wait!  The girl!  She can't have been more than ten years old!  She was
+wearing a flowery dress and had long blonde hair.  She ran out into the road
+in front of you and you swerved...
+
+You must have crashed the car.  You gingerly feel your forehead.  You are
+bleeding, but otherwise you seem to be fine.  But what about the girl?  Did
+you hit her?  You're not sure.  You need to get out of the car and check...
+
+Sitting in the driving seat of your car.
+
+You are sitting in the driving seat of your car.  Looking through the windows
+you see that you are surrounded by a thick clump of trees and it is getting
+dark.  How long were you out?  The seatbelt probably saved your life, but now
+it is stretched painfully across your chest.  The front window is smashed but
+the dashboard and glovebox seem intact - although they are smeared with your
+blood...
+
+>You open the glovebox.  Inside the glovebox is your penknife, your mobile
+phone and your mobile phone charger.
+
+>You take your penknife, your mobile phone and your mobile phone charger from
+the glovebox.
+
+>(Your score has increased by 2)
+
+You see your car keys, dangling from the ignition.
+
+>You pick up the car keys.
+
+>You open your penknife.
+
+>(Your score has increased by 5)
+
+You saw through the seatbelt in a frenzy.  As you cut the last strand it
+snaps apart and coils back inside the mechanism...
+
+>(Your score has increased by 5)
+
+You force the door open and stagger out of the car.
+
+Blood is pouring from a wound on your head.
+
+>You move north.
+
+Standing by the roadside.
+
+You are standing on a muddy grass bank by the side of the road.  Although it
+has stopped raining the ground and road are still covered in puddles of
+water.  You can see the tracks made by your car as it careered off the road
+into the woods.  The woods frame the road on both sides.  There's no sign of
+anyone about.
+
+The road stretches east to west.
+
+>You move west.
+
+On the road.
+
+You are standing on the road, with thick gatherings of trees all around you.
+This was the direction that you were driving.  You see no sign of the little
+girl who ran out in front of you but you can see some footprints in the
+grassy verge leading into the woods
+
+The road continues west.
+
+>
+You bend down to examine the footprints in the mud.  They are small and
+perfectly formed, like that of a child running barefoot.  They must belong to
+the girl that ran out into the road, and lead down the bank into the woods.
+You are relieved that she seems to be all right - but what was she doing out
+here, barefoot in the middle of a downpour?
+
+>(Your score has increased by 5)
+
+You decide to follow the footprints.  It'll give you peace of mind to check
+that the girl is OK, and she might be able to help you.
+
+You follow the prints into the wood.  The tall trees hang over you ominously
+and threaten to block out what little sunlight remains.  The tracks take you
+deeper into the wood, twisting and turning as they go.
+
+You have been walking for a couple of minutes when the footprints suddenly
+stop.  After puzzling this for a few moments you turn around...only to find
+that the footprints you followed have vanished.  Your heart leaps into your
+throat.  You must have wandered from the footprints in the dark.  And now you
+are lost in the woods...
+
+Lost in the woods.
+
+You are lost in the woods.  Tall trees surround you on every side, seeming to
+close in on you.  The sun has nearly set and the darkness threatens to
+swallow you up.  The muddy ground sucks at your feet.  Some ancient, primeval
+urge at the back of your mind screams at you, telling you that spending the
+night here would be a very bad idea indeed...
+
+Also here is a first aid box.
+
+>You pick up the first aid box.
+
+>You open the first aid box.  Some old bandages are inside the first aid box.
+
+>You take the old bandages from the first aid box.
+
+>(Your score has increased by 5)
+
+You wind the bandages around your bleeding head.  Your first aid skills are
+poor, but you do enough to stem the bleeding.  You immediately feel a bit
+more comfortable.
+
+>You move south.
+
+A clearing in the woods.
+
+To your eternal relief you notice that in this particular area the trees thin
+out a little and you can, despite the darkness, make out a clear path leading
+south.  The ground is also a little firmer.
+
+>You move south.
+
+Path out of woods.
+
+You are standing on a dirt path that leads north into the woods.  There are
+still trees either side, but they are noticeably thinner than in the woods.
+Somewhere, an owl hoots.  There is a mound of dirt by the side of the path on
+your left.  It looks as though it has been freshly dug.
+
+The path continues down a slight incline to the south.
+
+>
+As you approach the mound you see that it looks like something large has been
+buried here recently.  A chill runs down your neck as you notice that it
+looks about the same size and shape as a human being...
+
+>You move south.
+
+Steep path.
+
+You are on a path that is moving down a hill.  The path leads north, back
+towards the wood.  It continues south where it looks like it ends in a steep
+drop.  There is rough grassland either side of you.
+
+A few hundred metres ahead of you, on the other side of the steep drop, you
+can see a large, Victorian style house.  It looks dark and empty.  There's
+something about it that unsettles you, but you seem to have no choice but to
+try and reach it...
+
+>You move south.
+
+By a steep decline.
+
+You are standing at the end of a worn dirt path.  Behind you the path climbs
+back up a hill.  To your left and right is scrubland that stretches back
+towards the sinister wood you have just come from.  In front of you is a
+steep, rocky decline that takes you on to a tarmac road about twenty feet
+below.  The road seems to lead straight to a foreboding looking mansion.
+
+The last rays of sunlight colour the sky.  Although it is quite a severe
+slope, you think that you can make it down - even in your weakened state.  As
+you think about this, something at the back of your mind suggests that you
+should check that your inventory is not going to cause a problem before you
+do this...
+
+>You close your penknife.
+
+>
+You begin by slowly edging down the steep bank.  Under normal circumstances
+this would be an easy task for you.  But these are not normal circumstances.
+You are tired, hungry and weak from blood loss.  It doesn't take much for
+'slowly edging' to become 'falling'.  Your foot brushes a rock and you
+stumble.  You crash down the slope, rolling and tumbling as you go and you
+crumple into a heap on the road below, unconscious.
+
+When you wake it is dark.  You lie there for a few minutes, breathing heavily
+and checking that you haven't broken anything.  Then, with an act of supreme
+willpower, you raise yourself to your feet.  Your legs are unsteady but you
+think that you can make it to the house.  It's been a very bad day so far.
+
+>You move west.
+
+In front of a house.
+
+You stand on a gravel drive in front of a large, run-down Victorian mansion.
+Tiles hang loosely on the roof, window frames are rotted and it's clear that
+the outside is in need of major repairs.  The garden consists of a stretch of
+lawn either side of you.  There are flower beds, but no flowers.  The grass
+clearly hasn't been cut in many years.  You would even wonder whether this
+house was even lived in if it wasn't for the fact that, as you walked up the
+path, a light went on in one of the ground floor windows.
+
+The drive continues west to the front door. You rock slowly on your heels,
+summoning up the courage to proceed.  You feel a little sick.
+
+>You move west.
+
+By the front door.
+
+You climb the steps to the front door.  It's a tall, imposing black slab of
+wood.  There is a button on the frame, which is obviously a door bell.  On
+the door itself is a large brass knocker in the shape of a lion's head.  The
+porch itself is as worn and damaged as the rest of the house.  You wait for a
+second to see if anything happens, but it doesn't.
+
+>(Your score has increased by 5)
+
+You lift the brass door knocker and let it fall against the door.  It strikes
+with a satisfying THUD.  The sound echoes through your head and seems to
+tremble your bones.
+
+You reach out a hand to lean on the porch and steady yourself.  You vision
+begins to blur as your head pounds.  You hear the creak of the door slowly
+opening and look up.
+
+Standing in the doorway you see a man, kind-looking with an expression of
+concern on his face.
+
+Then the darkness embraces you and you collapse...
+
+You slowly wake, somewhat reluctantly.  The darkness was so sweet and you
+have a nagging feeling that waking will only complicate things.
+
+You seem to be lying in a large bed, and it is with some trepidation that you
+slowly pull back the covers and step out onto the hard wooden floor.
+
+Your shoes have been removed, as have your socks.  Other than that you are
+dressed as you were when you arrived at the house, complete with a fresh
+bandage on your head wound.
+
+On the bedside table is a tray, on which is a plate.  The crumbs present
+suggest that there was once something edible on it.  Perhaps you ate it?  You
+don't remember anything other than the darkness.
+
+Cautiously, you stand.  You feel a moment of dizziness but other than that
+you seem to be one hundred percent better than when you arrived.  You feel up
+to investigating your surroundings and thanking your host.  That's when you
+notice that your pockets are empty and everything that you were carrying when
+you arrived seems to have been taken...
+
+>You move west.
+
+Guest Bathroom.
+
+You are standing in an old bathroom.   It's dark in here, because there are
+no windows and therefore no natural light.  The uncovered floorboards creak
+underneath you.  It's fairly dusty and there are cobwebs in every corner.
+Tiles have dropped off the wall and cracked on the floor.  You get the
+distinct impression that this room doesn't see much use.  There is a sink on
+the west wall, with a mirror above it.  An old metal bath sits against the
+north wall.  Thick dust has settled over it.  A broken toilet rests next to
+the bath.
+
+The door in the east wall takes you back to the bedroom.
+
+>(Your score has increased by 1)
+
+As you peer into the dusty sink you notice an old, frayed flannel sitting in
+it.
+
+>You pick up the old flannel.
+
+>(Your score has increased by 2)
+
+You stare into the mirror.  You look a little dark around the eyes and bit
+paler than normal but apart from that you look, all things considered, quite
+well.  You touch the bandage on your head and the wound underneath stings
+sharply, making your eyes water.
+
+You drag your hand across your eyes and as you do so you notice, reflected in
+the mirror, a little girl standing behind you in the doorway to the bedroom.
+The blood drains from your face as you stare at her.  Blonde hair.  Flowery
+dress.  Bare, muddy feet.  It's the girl you saw on the road.  She smiles at
+you, revealing that one of her front teeth is missing.
+
+You whirl around to face her but when you turn she is gone.  The doorway is
+empty.  You look back in the mirror but all you can is your own haunted and
+terrified look.  What is going on here?
+
+>You move east.
+
+Guest Room.
+
+You are standing, on a wooden floor, in a guest room of some sort.  Paintings
+of various countryside scenes adorn the walls, along with several lamps and
+rather tasteless purple wallpaper.  The whole effect is supposed to be grand
+but ends up being rather garish, as though a colour-blind noble had been
+asked to decorate.
+
+The room is comfortably outfitted, with a large, soft double-bed in the
+centre.  There is a bedside table, upon which sits a tray and an empty plate.
+ Against one wall is a large desk - above it is a wide bay window, through
+which daylight streams into the room.  A sturdy chair stands at the desk.
+There is a wardrobe against another wall.  Like everything else it is
+oversized, as though this room were specially prepared for a giant.
+
+In the west wall you can see an open door, leading into what looks like an en
+suite bathroom.  The room's exit is on the south wall.
+
+>(Your score has increased by 2)
+
+A chunky bedside table with one draw.  On it rests a tray.
+
+>You open the bedside drawer.  A heavy book is inside the bedside drawer.
+
+>You take the heavy book from the bedside drawer.
+
+>(Your score has increased by 2)
+
+A writing desk with many drawers.  A quick rummage reveals them all to be
+empty.  There is nothing on the desk apart from a local newspaper - The
+Mid-Sussex Times.
+
+>(Your score has increased by 5)
+
+It's a recent paper, only dated a few days ago.  You don't get past the front
+page.  The headline "SEARCH CONTINUES FOR MISSING LOCAL GIRL" screams at you.
+ Beneath the headline there is a picture of a smiling woman, pretty in an
+unorthodox kind of way.  She has long blonde hair and striking blue eyes that
+seem to bore into your soul.
+
+You skim the content of the article for salient points.  Concerns for the
+safety of 27 year old Trisha Seabourne are growing after she failed to return
+home from a planned South Downs hike the article reads.
+Police are appealing for anyone who has seen her to come forward.  The rest
+of the article is superfluous.  She vanished about a week ago and the police
+seem to have no leads.  There are quotes from friends who claim that her
+disappearing without telling anyone is out of character and so on.
+
+As you ruffle the paper to get a better look at the photo a small key drops
+out from inside the paper and rests on the floor.  You pick up the key and
+examine it.  It's a tiny, rusty key that looks like it should fit a desk or
+wardrobe lock.  You slip it into your pocket.
+
+You don't want to read the paper any further.  The story about Trisha has
+unsettled you a little.  An inner voice tells you that there is something
+strange going on in this house, and you want to get to the bottom of it.
+
+>You unlock the wardrobe with the small key.
+
+>You open the wardrobe.  A broken wire coathanger is inside the wardrobe.
+
+>You take the broken wire coathanger from the wardrobe.
+
+>(Your score has increased by 2)
+
+An idea strikes you.  Grabbing the broken coathanger you bend it so that it
+no longer resembles a coathanger.  Now it is just a long, thin piece of metal
+wire.
+
+>(Your score has increased by 1)
+
+You carefully slide a couple of sheets of newspaper under the door.
+
+>(Your score has increased by 2)
+
+When you were younger you played a lot of adventure games on your computer.
+You know how this is supposed to go.  You slowly and carefully slot the wire
+through the keyhole until it meets resistance.  Then with a firm (but not too
+firm) push you force the key out of the lock.  You are rewarded with the
+sound of a metal key falling onto a sheet of newspaper...
+
+>(Your score has increased by 2)
+
+A single bead of sweat drops down your forehead as you carefully pull the
+sheets of newspaper back through to your side of the door.  After what seems
+like an hour (but can only be minutes), you catch a glint of metal coming
+through.  Taking a deep breath you slowly finish pulling the sheets.  With a
+sigh of relief you see a metal key sitting squarely on the paper.  You scoop
+it up and kick the newspaper aside.
+
+>You unlock the door with the doorkey.
+
+>You open the door.
+
+>You move south.
+
+Second Floor Landing.
+
+You are standing on a landing running north to south.  Along the east side
+runs a bannister and a set of stairs.  Peering over the side you can see
+right down to the entrance hall, telling you that you are currently on the
+second floor.  A wall runs along the west side.  It shares the same horrible
+wallpaper as the guest bedroom.  A few windows and paintings scatter the
+wall.  Thick, plush carpet runs along the floor.
+
+The door to the north leads to the guest bedroom.  The landing continues to
+the south where you can see another door.  There is also a door in the west
+wall, with a plaque marked Library displayed.  There are also stairs leading
+down.
+
+>You move west.
+
+Library.
+
+You are standing in a large room.  The sun shines in though a large window on
+the west wall and reflects off the polished wooden floor.  The rest of the
+walls are packed with bookcases, which in turn are crammed full of books.
+Thick layers of dust lay despondantly on the books, many of which look old
+and worn themselves.  They haven't been read for some time.
+
+The only exit appears to be the way that you came, east back on to the
+landing.
+
+>(Your score has increased by 2)
+
+You put the book back on the shelf in its intended place.  You step back and
+then hear an ominous creaking.  Suddenly the shelf that you have just put the
+book on buckles under the weight and snaps.  Books are scattered all over the
+ground and lumps of wood crash to the floor.  Whoops.
+
+>You pick up the long piece of wood.
+
+>You move east.
+
+Second Floor Landing.
+
+You are standing on a landing running north to south.  Along the east side
+runs a bannister and a set of stairs.  Peering over the side you can see
+right down to the entrance hall, telling you that you are currently on the
+second floor.  A wall runs along the west side.  It shares the same horrible
+wallpaper as the guest bedroom.  A few windows and paintings scatter the
+wall.  Thick, plush carpet runs along the floor.
+
+The door to the north leads to the guest bedroom.  The landing continues to
+the south where you can see another door.  There is also a door in the west
+wall, with a plaque marked Library displayed.  There are also stairs leading
+down.
+
+>You move south.
+
+Attic.
+
+This must be an attic or some other kind of storage space, as the dusty floor
+is covered with old boxes and packing cases.  There must be hundreds of
+memories stored here.  The question is, of course, whose memories are they?
+
+The way out is to the north.
+
+>
+You open the first packing case you come to.  It looks fairly new.  Inside is
+a pile of photos spanning the past hundred years.  You flick through them at
+random but they don't seem to be in any order.  Two photos stand out to you.
+
+The first is an old photo from 1942.  It's clearly a photo taken from the
+front of this house, and it's labelled Chatfield Manor.
+
+The second is a photo of two men standing on a hill in the pouring rain.  A
+hand-written note at the bottom says Me and Keith, caught short again! -
+South Downs Feb 1980.  The unnerving thing is that the figure on the right is
+the spitting image of the man who opened the door to you last night...
+
+>
+You sift through a few boxes at random.  There are documents, books, school
+reports, trophies, photos and all sorts of things here.  Some of it dates
+back hundreds of years.  The one uniting factor is the surname 'Chatfield'.
+You make an educated guess that this house belongs to the Chatfield family.
+But who is the current occupant?
+
+>You move north.
+
+Second Floor Landing.
+
+You are standing on a landing running north to south.  Along the east side
+runs a bannister and a set of stairs.  Peering over the side you can see
+right down to the entrance hall, telling you that you are currently on the
+second floor.  A wall runs along the west side.  It shares the same horrible
+wallpaper as the guest bedroom.  A few windows and paintings scatter the
+wall.  Thick, plush carpet runs along the floor.
+
+The door to the north leads to the guest bedroom.  The landing continues to
+the south where you can see another door.  There is also a door in the west
+wall, with a plaque marked Library displayed.  There are also stairs leading
+down.
+
+>You move down.
+
+First Floor Landing.
+
+You are on the first floor landing.  Like the second floor you are able to
+see over the bannister to the ground floor.  The difference is that the
+bannister doesn't run along the entire eastern side.  There are several doors
+on both sides of the landing.  The wallpaper on this floor is patterned with
+flowers and there are yet more paintings.
+
+There are stairs leading both up and down here, and the landing runs north
+and south.
+
+>You move north.
+
+First Floor Landing.
+
+You are at the north end of the first floor landing.
+
+There are doors in the east and west walls, and a closet door in the north
+wall.  The landing leads back south.
+
+>(Your score has increased by 2)
+
+You tug the worn handle, half-expecting it to fall off.  It doesn't and the
+door swings open.  Hanging in the closet are two small dresses, one with a
+flowery pattern and one a dark red.  They are soaked, with water dripping
+from both, making small puddles on the floor.
+
+Something about the scene chills you to the core and you quickly slam the
+closet shut again.
+
+>You move west.
+
+Bathroom.
+
+You are standing in a bright, welcoming bathroom on the first floor.  It's a
+huge room with a large, oval bath against the west wall just below a wide
+window.  From here you have a great view of the South Downs.  There is a sink
+against the east wall, right behind the door.  That's poor room planning.
+Above the sink is a mirrored bathroom cabinet which hangs slightly ajar as
+though the catch were broken.  There is a toilet on the south wall, right
+next to a bidet.  The toilet and bidet look in surprisingly good condition.
+
+The only exit is back the way you came through the door on the east wall.
+
+>(Your score has increased by 1)
+
+You examine yourself in the mirror for a while.  You're holding up pretty
+well.  You swing the door of the cabinet open.  It's broken so it won't shut
+properly.  There's nothing inside.
+
+You close the cabinet and find yourself eye-to-eye with a reflection once
+again.  But this time it's not your reflection.  It's that of a smiling,
+middle-aged man.  The man who answered the door when you knocked what seems
+like days ago.  With a scream you jump back and the face vanishes as quickly
+as it appeared.  Then it's just you again, staring at yourself reflected in
+the limply hanging mirrored door of the cabinet.
+
+>(Your score has increased by 5)
+
+The tap gurgles for a while, but soon dirty water begins to flow.  You wash
+the flannel under the tap and get it soaking wet.  After squeezing the excess
+water out of it you turn the tap off.  A flannel was made to be wet.
+
+>You move east.
+
+First Floor Landing.
+
+You are at the north end of the first floor landing.
+
+There are doors in the east and west walls, and a closet door in the north
+wall.  The landing leads back south.
+
+>You move south.
+
+First Floor Landing.
+
+You are on the first floor landing.  Like the second floor you are able to
+see over the bannister to the ground floor.  The difference is that the
+bannister doesn't run along the entire eastern side.  There are several doors
+on both sides of the landing.  The wallpaper on this floor is patterned with
+flowers and there are yet more paintings.
+
+There are stairs leading both up and down here, and the landing runs north
+and south.
+
+>You move south.
+
+First Floor Landing.
+
+You are standing a bit further down the landing.  There are doors in the east
+and west wall.  The door in the west wall has a plaque on it, which reads
+Display Room.  North takes you back to the stairs, while south takes you to
+the end of the landing.
+
+>You move east.
+
+Bedroom.
+
+Another bedroom.  This one hasn't even got a completed bed, just a frame.
+There is chest pushed against the east wall.  A tiny window looks out onto
+the front of the house, letting in a small amount of sunlight.  It's a good
+thing it's not dark yet or you wouldn't be able to see your hand in front of
+your face in a room like this.  There's not much else in this room.
+
+The door in the west wall is open, leading back to the landing.
+
+>You open the wooden chest.  A diary is inside the wooden chest.
+
+>You take the diary from the wooden chest.
+
+>(Your score has increased by 2)
+
+You open the diary.  It belongs to a girl named Tabitha Seabourne, who has
+helpfully filled in her personal details.  Eye Colour: Brown, Hair Colour:
+Blonde and so on.  She must have kept this diary for a while, as under Age
+you see that the number 11 have been written in and subsequently crossed out.
+ The number 12 remains unmarked.
+
+You flick through the pages, taking in snippets of Tabitha's story.  It's
+full of the stuff you might expect a girl on the cusp of adolescence to write
+about.  Feeling a little awkward you flick to the last entry.  It's dated
+25th July 1986.
+
+I'm sooooo bored!!!  There's nothing to do around here and Mercy is being
+such a BABY!!!  All she does is run around the house singing along to that
+STUPID music box that she got for her birthday.  Trish has chickenpox so
+she's not allowed out of her bedroom.  Mercy and I have had it already so we
+can see her, but she's being a big baby too.  Mercy wants me to take her to
+the lake later today.  I don't want to but I bet mum and dad will make me go.
+ I'll only go if she leaves that annoying music box at home.  When I'm older
+and have children of my own I shall never make them do anything that they
+don't want to!!!
+
+That's the final entry.  You flick through the rest of the pages just to
+check.  It's all blank, except for one entry about four pages from the end of
+the diary.  In Tabitha's neat red handwriting there is a single sentence in
+bold capitals.
+
+IT'S TOO LATE AFTER DEATH TO MAKE UP FOR WHAT YOU DID IN YOUR LIFE.
+
+What a morbid thought for a twelve year old to record in her diary.  You
+close the book.
+
+>You move west.
+
+First Floor Landing.
+
+You are standing a bit further down the landing.  There are doors in the east
+and west wall.  The door in the west wall has a plaque on it, which reads
+Display Room.  North takes you back to the stairs, while south takes you to
+the end of the landing.
+
+>You move west.
+
+Display Room.
+
+You are standing in a large, room filled with dusty display cabinets.
+Slightly overwhelmed by the sight, you spend a moment taking it all in.  The
+cabinets are full of trophies, ornaments and photographs chronicling various
+victories in different activities.  A large window looks out over the lake at
+the back of the house.  On the north wall, sandwiched between cabinets, is a
+large Victorian fireplace over which hangs a wooden plaque detailing a list
+of names.  In the centre of the room is a tall pedestal, on which sits an
+elaborate, beautiful urn.
+
+The exit is to the east.
+
+Also here is a beautiful urn.
+
+>
+You spend a few minutes moving from cabinet to cabinet.  There are articles
+in this room that must be hundreds of years old.  There are sporting
+trophies, photos of great moments and many things like that.  Many of the
+cabinets are embossed with names.  Obviously the contents of these cabinets
+are the personal victories of the named individuals.
+
+You spend a little while looking through the glass at photos in a cabinet
+belonging to a Henry Wilson Chatfield.  Many of the photos depict scenes of
+friends posing together whilst dressed in army uniforms.  You feel a sense of
+poignance about the room, as though all these memories gathered together in
+one place were reminiscing about better times.
+
+The saddest find, however, is a small cabinet tucked away in the corner of
+the room.  It bears the name 'Gerald Chatfield' and contains nothing more
+than two school trophies for cross-country running.
+
+>
+The plaque, by its own admission, lists the owners of Chatfield Manor.  The
+names stretch back hundreds of years.  The last name on the list says Gerald
+Chatfield:  1978 - .  The current head of Chatfield Manor, this Gerald
+Chatfield, must still be alive.
+
+>You pick up the beautiful urn.
+
+>You move east.
+
+First Floor Landing.
+
+You are standing a bit further down the landing.  There are doors in the east
+and west wall.  The door in the west wall has a plaque on it, which reads
+Display Room.  North takes you back to the stairs, while south takes you to
+the end of the landing.
+
+>You move south.
+
+First Floor Landing.
+
+You are at the end of the landing in front of a blank wall.  There is a door
+to the east with a plaque reading Study on it.  The door on the west wall has
+no markings.  The landing leads back north.
+
+>You move east.
+
+Study.
+
+You are standing in a small, untidy study.  There is a desk pushed against
+the east wall right by the window.  You can imagine someone sitting in here,
+staring out through that window in an effort to avoid doing any work.  The
+south wall is totally devoted to bookshelves, and a varied selection occupies
+them.  Papers are scattered all over the room.  If a messy room is a sign of
+a tidy mind then the person who used this study had the tidiest mind ever.
+You then notice your subconscious choice of words - '...used this study...had
+the tidiest mind...' - for you get the unmistakable feeling that, like the
+rest of this house, this room has been abandoned for some time.
+
+The exit is to the west.
+
+Also here is an old trophy.
+
+>
+You spend a moment sifting through the papers in this study.  It's a strange
+assortment of details.  You find some bank statements, shopping lists, the
+first draft of a novel called The Planet of Destiny, half-written letters,
+unfinished crosswords and all kinds of other things.
+
+A lot of the papers identify the owner of the house as Gerald Chatfield.
+According to the bank statements it seems that the Chatfield estate had
+fallen on hard times back in the early 80s.  The most chilling thing that you
+find, however, is a single piece of letter paper with the words I'm sorry dad
+scrawled all over it.  It is signed Gerald Chatfield. You push the papers
+aside and get back to the matter in hand.
+
+>You pick up the old trophy.
+
+>(Your score has increased by 3)
+
+You begin to work on the trophy with the damp flannel.  After a few minutes
+hard work you've cleaned the trophy enough to read the inscription.  The
+Annual Mid-Sussex Fishing Derby -- 1969 it reads.  Then it says Lowest
+Qualifying Weight and a name Henry Wilson Chatfield.
+
+Suddenly something drops from it onto the floor.  You bend down to have a
+look.  It appears that you've been a bit rough in your cleaning and part of
+the trophy has broken off.  You pick it up and examine it to find that it's a
+metal fishing hook, no doubt part of the trophy's decoration.  You put it
+into your pocket.
+
+>You move west.
+
+First Floor Landing.
+
+You are at the end of the landing in front of a blank wall.  There is a door
+to the east with a plaque reading Study on it.  The door on the west wall has
+no markings.  The landing leads back north.
+
+>You move west.
+
+Bedroom.
+
+You are standing in what, you assume, is the master bedroom.  The room has
+wall-to-wall oak panelling and a luxurious four-poster bed in the centre of
+the room.  There are no sheets on the bed, just a matress.  The duvet is
+strewn in the corner in an untidy pile.  There is a tall wardrobe on the west
+wall, just by a huge window.  There is a dressing table in the corner, with a
+full length mirror beside it.  A bedside table completes the furniture.
+There is a slight smell of damp, and the wallpaper by the wall is blackened
+with mould.  Several landscape paintings are scattered around for effect.
+
+The exit is to the east.
+
+>
+It's a fairly plain wooden bedside table.  It looks like a piece of
+flatpacked furniture, cheap and made of chipboard.  It looks very out of
+place in this room.  There is a draw in the table, which is closed.
+
+>You open the bedside drawer.  A can of pickled herrings is inside the bedside
+drawer.
+
+>You take the can of pickled herrings from the bedside drawer.
+
+>You open the tall wardrobe.  Some socks and some shoes are inside the tall
+wardrobe.
+
+>You take the socks from the tall wardrobe.
+
+>You take the shoes from the tall wardrobe.
+
+>You move east.
+
+First Floor Landing.
+
+You are at the end of the landing in front of a blank wall.  There is a door
+to the east with a plaque reading Study on it.  The door on the west wall has
+no markings.  The landing leads back north.
+
+You pause, a chill running down your spine.  Did you just hear a child
+giggling or was it your imagination?
+
+>You move north.
+
+First Floor Landing.
+
+You are standing a bit further down the landing.  There are doors in the east
+and west wall.  The door in the west wall has a plaque on it, which reads
+Display Room.  North takes you back to the stairs, while south takes you to
+the end of the landing.
+
+>You move west.
+
+Display Room.
+
+You are standing in a large, room filled with dusty display cabinets.
+Slightly overwhelmed by the sight, you spend a moment taking it all in.  The
+cabinets are full of trophies, ornaments and photographs chronicling various
+victories in different activities.  A large window looks out over the lake at
+the back of the house.  On the north wall, sandwiched between cabinets, is a
+large Victorian fireplace over which hangs a wooden plaque detailing a list
+of names.  In the centre of the room is a tall pedestal.
+
+The exit is to the east.
+
+>(Your score has increased by 2)
+
+You locate the cabinet belonging to Henry Wilson Chatfield and open the door.
+ It creaks and the cabinet shakes, and for a moment you fear that the whole
+thing is going to collapse.  It doesn't, however, and you carefully place the
+trophy into the cabinet and shut it again.  That just seemed like the right
+thing to do.
+
+>You move east.
+
+First Floor Landing.
+
+You are standing a bit further down the landing.  There are doors in the east
+and west wall.  The door in the west wall has a plaque on it, which reads
+Display Room.  North takes you back to the stairs, while south takes you to
+the end of the landing.
+
+>You move north.
+
+First Floor Landing.
+
+You are on the first floor landing.  Like the second floor you are able to
+see over the bannister to the ground floor.  The difference is that the
+bannister doesn't run along the entire eastern side.  There are several doors
+on both sides of the landing.  The wallpaper on this floor is patterned with
+flowers and there are yet more paintings.
+
+There are stairs leading both up and down here, and the landing runs north
+and south.
+
+>(Your score has increased by 5)
+
+A thought comes to you.  A vandal's thought.  With all your strength you hurl
+the urn over the bannister and lean over to watch it fall.  Sure enough it
+tumbles all the way to the ground floor and shatters into several pieces on
+the hard wooden floor in the entrance hall.
+
+You notice something white amongst the debris.
+
+>You move down.
+
+Entrance Hall.
+
+You are standing in the entrance hall of the house.  It's a large, spacious
+room with doors leading in all directions and a set of stairs climbing right
+up to the top of the house.  Looking right to the roof gives you vertigo.
+There is a tall, elegant grandfather clock in one corner of the room and next
+to it a table with an empty vase on it.  A huge landscape painting
+practically fills one of the walls  Before you is the large, black front door
+of the house.  A blue rug runs from the door to the stairs, and above the
+door you can see an inscription, carved straight into the wall.  There is a
+small pile of broken pottery on the floor - the remains of the urn that you
+heaved down the stairs.  The floor creaks under your feet as you wonder
+around, pondering your next move.
+
+The front door of the house is to the east.  As well as the stairs leading
+up, you can also go north, west and south.
+
+Also here is a tied-up piece of parchment.
+
+>(Your score has increased by 2)
+
+You bend down and pick up the paper.  It's been rolled up into a tube and
+tied in place with a long length of thin twine.  You snap the twine and
+unravel it.  There are several metres worth here.  You decide that it might
+come in handy for something so you roll it into a small ball and place it in
+your pocket.  Then you unroll the letter and begin to read.
+
+Dear Tabitha and Mercy
+
+The counsellor said that I should write to you.  Write to you to say how I'm
+feeling about everything.  I don't know what to write.  You both died ten
+years ago so you'll never read this.
+
+I know that you thought that I was a bit of a brat but when mum and dad told
+me that you'd both drowned in that lake I felt like going there and throwing
+myself in to be with you.  I loved you with all my heart.  I still do.  You
+were my older sisters.  I looked up to you and worshipped you.
+
+I'm sorry.  I'm sorry for everything.  I'm sorry that I was ill and couldn't
+go with you to the lake that day.  I wonder if I might have been able to
+help.  I'm sorry you died and I didn't.  I'm sorry that you never had the
+chance to grow up and do the things you wanted to do.  Mercy, I'm sorry that
+you never got to buy a pony.  Tabi, I'm sorry that you never had the chance
+to be a nurse like you wanted.  I'm sorry for everything.
+
+I don't think mum and dad ever got over it.  They treated me different after
+that.  Wrapped me in cotton wool.  Last year, on my sixteenth birthday, I had
+a huge row with them.  They wouldn't let me go out to celebrate.  I said some
+things I shouldn't have said.  I blamed them for you dying.  I'm sorry about
+that too.  Things haven't been right between us since that day.  I've made a
+mess of everything.
+
+One day I'll come over to that lake and try and understand how it happened.
+I'll talk to Mr. Chatfield and try and get to the bottom of it all.  Then
+maybe I'll be able to sleep again.
+
+I'm sorry.  I'll love you both to the day that I die.
+
+Your younger sister
+
+Trish
+
+You fold the letter up and put it into your pocket.
+
+>(Your score has increased by 1)
+
+You try the handle of the door.  It doesn't surprise you at all to find it
+locked.  You give way to your frustration, grab the handle with both hands
+and yank it as hard as you can.  It doesn't move an inch.  Then something
+inside you snaps.  You cry out and pound the door with your fists.  You
+assault the door for a minute before you calm down and stop.  Exhausted, you
+lean your back against it and bury your head in your hands.  To your
+amazement you realise that you are crying.
+
+You close your eyes, take a deep breath and wipe the saltwater from your
+face.  You can do this! you tell yourself.
+
+You open your eyes to see a little girl wearing a dark red summer dress
+standing in the alcove leading west.  Although she has long blonde hair, she
+is not the girl who ran out in front of your car.  She looks a little taller,
+a little older.  She stares at you, her blank features giving no clue as to
+what she is thinking.
+
+Without a single word she glances at the inscription above the door, turns
+and walks away.  You are left, trembling, alone again.
+
+>(Your score has increased by 1)
+
+You pull on the socks.  They are not your style, but beggars can't be
+choosers.
+
+>(Your score has increased by 2)
+
+You put on the shoes and tie the laces.  That's better.
+
+>You move west.
+
+Corridor.
+
+You are standing in a corridor that leads from the front hall into the
+kitchen.  The west wall is filled with windows, looking out onto the lake at
+the back of the house.  The windows, however, have all been smashed by
+something.  The corridor floor is covered with razor sharp shards of glass.
+Thankfully, you are wearing shoes so traversing the corridor should be no
+problem.
+
+You can go east to the front hall and south into the kitchen.
+
+Your breath catches in your throat as you turn suddenly.  You swear that, out
+of the corner of your eye, you saw a man standing beside you.
+
+>You move south.
+
+Kitchen.
+
+This is the kitchen.  It's an impressive, large stone room.  A huge aga sits
+against one wall.  There is a door in another wall, which you guess to be the
+pantry.  You can also see a sink.  The tap is dripping, each droplet of water
+rattling in the metal bowl with regularity.  The are some cupboards on the
+wall, some of which hang open.  A fridge is sitting against a wall,
+off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
+
+An alcove takes you north back into the corridor.  There is a solid, metal
+door to the south and to the west you can see a back door leading outside.
+
+Also here is a tin opener and a packet of bread.
+
+>You pick up the tin opener.
+
+>You open the pantry.  Some cheese is inside the pantry.
+
+>You take the cheese from the pantry.
+
+>You move north.
+
+Corridor.
+
+You are standing in a corridor that leads from the front hall into the
+kitchen.  The west wall is filled with windows, looking out onto the lake at
+the back of the house.  The windows, however, have all been smashed by
+something.  The corridor floor is covered with razor sharp shards of glass.
+Thankfully, you are wearing shoes so traversing the corridor should be no
+problem.
+
+You can go east to the front hall and south into the kitchen.
+
+>You move east.
+
+Entrance Hall.
+
+You are standing in the entrance hall of the house.  It's a large, spacious
+room with doors leading in all directions and a set of stairs climbing right
+up to the top of the house.  Looking right to the roof gives you vertigo.
+There is a tall, elegant grandfather clock in one corner of the room and next
+to it a table with an empty vase on it.  A huge landscape painting
+practically fills one of the walls  Before you is the large, black front door
+of the house.  A blue rug runs from the door to the stairs, and above the
+door you can see an inscription, carved straight into the wall.  There is a
+small pile of broken pottery on the floor - the remains of the urn that you
+heaved down the stairs.  The floor creaks under your feet as you wonder
+around, pondering your next move.
+
+The front door of the house is to the east.  As well as the stairs leading
+up, you can also go north, west and south.
+
+>You move south.
+
+Living Room.
+
+This must have been the living room.  The carpet crunches under your feet as
+you walk through.  There is a sofa against the south wall, facing the old TV
+just behind the door.  A window in the east wall allows plenty of light into
+the room, even through the moth-eaten curtains that are pulled shut.  A
+broken table sits in the centre of the room.  The carpet is covered in mouse
+droppings and the room smells quite foul.  You notice a mousehole in the
+skirting board along the north wall.
+
+The exit is to the north.
+
+Also here is a rusty mousetrap.
+
+>You pick up the rusty mousetrap.
+
+>(Your score has increased by 2)
+
+You place the tin opener on the lid and begin to twist the handle.  You must
+have only done about three full revolutions before there is a snapping noise
+and the handle comes off.  Great.  The tin opener is broken, and now you've
+got fish juice leaking out over your hand.
+
+>(Your score has increased by 2)
+
+You carefully drip some of the herring oil on to the mousetrap.  After a
+little lubrication the trap works perfectly.
+
+>(Your score has increased by 1)
+
+You carefully set the trap.
+
+>(Your score has increased by 1)
+
+Trying not to breath, you carefully place the cheese on the trap.  You now
+hold in your hand a fully functioning mousetrap - instant death for vermin.
+
+>(Your score has increased by 3)
+
+You are ready to declare war on mousekind.  Carefully placing the trap by the
+mousehole you retreat to just outside the room.
+
+You only have to wait for a few minutes until you are rewarded with a sharp
+SNAP and a pitiful squeak.  You rub your hands together in glee and chuckle
+to yourself.  You head back into the room.
+
+>(Your score has increased by 2)
+
+You carefully reach into the hole, expecting  any second to feel your hand
+being attacked by the mouse's vengeful kin.  Your fingers clutch at something
+that crunches in your hand and you pull it out.
+
+In your hand you have the front page of a faded newspaper.  It's dated the
+30th July 1986.  You take a sharp intake of breath as you look at it.  It's
+not the headline (LOCAL FAMILY RIPPED APART BY TRAGEDY) that shocks you.
+It's the photo.
+
+The front page photo shows two young blonde girls, arm-in-arm, grinning at
+the camera.  You stare at the younger girl, for she is wearing a flowery
+dress that you instantly recognise.  The girl who ran out into the road when
+you were driving.  The girl who caused the crash.  The girl who you saw
+yesterday, looking just as she did back in 1986.  You read the article,
+pulling the important bits out.
+
+A family mourns following the tragic deaths of Tabitha (12) and Mercy (10)
+Seabourne...The girls drowned while playing at Chatfield lake...current
+owner, Gerald Chatfield (42), was distraught as he explained how he looked
+out of a window and saw the girls struggling in the lake...by the time he
+reached them it was too late...the girls leave behind a younger sister,
+Trisha (7)...an enquiry will follow, but police are describing this event as
+a terrible accident...
+
+That's not possible!  How can this be?  Your rub your pounding head.  In a
+fit of rage you throw the paper aside.  As you do so you notice something
+else on the floor, something that must have been resting on the newspaper
+when you pulled it out of the mousehole.  A small padlock key.  You reach
+down and pick it up, all the while wondering what is going on in this house
+and - more importantly - what your role is in this Danse Macabre.
+
+>You move north.
+
+Entrance Hall.
+
+You are standing in the entrance hall of the house.  It's a large, spacious
+room with doors leading in all directions and a set of stairs climbing right
+up to the top of the house.  Looking right to the roof gives you vertigo.
+There is a tall, elegant grandfather clock in one corner of the room and next
+to it a table with an empty vase on it.  A huge landscape painting
+practically fills one of the walls  Before you is the large, black front door
+of the house.  A blue rug runs from the door to the stairs, and above the
+door you can see an inscription, carved straight into the wall.  There is a
+small pile of broken pottery on the floor - the remains of the urn that you
+heaved down the stairs.  The floor creaks under your feet as you wonder
+around, pondering your next move.
+
+The front door of the house is to the east.  As well as the stairs leading
+up, you can also go north, west and south.
+
+>You move west.
+
+Corridor.
+
+You are standing in a corridor that leads from the front hall into the
+kitchen.  The west wall is filled with windows, looking out onto the lake at
+the back of the house.  The windows, however, have all been smashed by
+something.  The corridor floor is covered with razor sharp shards of glass.
+Thankfully, you are wearing shoes so traversing the corridor should be no
+problem.
+
+You can go east to the front hall and south into the kitchen.
+
+>You move south.
+
+Kitchen.
+
+This is the kitchen.  It's an impressive, large stone room.  A huge aga sits
+against one wall.  There is a door in another wall, which you guess to be the
+pantry.  You can also see a sink.  The tap is dripping, each droplet of water
+rattling in the metal bowl with regularity.  The are some cupboards on the
+wall, some of which hang open.  A fridge is sitting against a wall,
+off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
+
+An alcove takes you north back into the corridor.  There is a solid, metal
+door to the south and to the west you can see a back door leading outside.
+
+Also here is a packet of bread.
+
+>You move west.
+
+Garden Path.
+
+You are standing on a long, gravelled path leading from the kitchen door.  It
+winds through the back garden - which is merely a small, overgrown lawn
+surround by a high brick wall - to a lake.
+
+The path continues west to a jetty by the lake.
+
+>You move west.
+
+Jetty.
+
+You are standing on a short wooden jetty, which edges out onto the lake.  The
+rotted planks wobble underfoot, making you more than a little nervous.  As
+you look out over the lake you see a disturbing sight.  Two girls stand on
+the water, in the centre of the lake.  They are staring at you, as though
+waiting to see what you will do next.  Bobbing gently in the water beside the
+jetty is a small rowing boat.
+
+The path leads back east.
+
+>(Your score has increased by 3)
+
+You try the key and it fits.  There is a click and the padlock opens.  The
+chain unravels from the jetty and boat and falls into the water with a
+resounding SPLASH, taking the padlock and key with it.
+
+>(Your score has increased by 1)
+
+You climb into the boat, which rocks gently beneath you.  Having made
+yourself comfortable and taken a few deep breaths, you grasp the oars and
+begin to row out into the lake.
+
+The Lake.
+
+You are at the east side of the lake.  Your eyes are fixed on the girls,
+standing to your west.
+
+The jetty is to the east, and you can also go west, north and south.
+
+>
+You tie the twine to the fishing hook with a tight knot.
+
+>
+You tie the twine to the long piece of wood and before you know it you have
+your very own fishing rod.  Not a good one, mind.
+
+>You move west.
+
+The Lake.
+
+You are trembling as you do so, but you row carefully towards the girls.  As
+you approach them you confirm what you had already suspected, that they are
+Tabitha and Mercy - the girls who drowned in this very lake twenty years ago.
+ As you draw near they slowly vanish into thin air.  Soon it is just you,
+sitting in a boat in the centre of the lake, wondering what to do next.
+There's something about this place that feels different...
+You can row north, south, east or west.
+
+>(Your score has increased by 5)
+
+Driven by some unknown urge, you slowly lower the twine into the water.  You
+peer around, wondering if you are going to get a bite from a fish.  The lake
+seems to be as dead as the house.  You continue to let the twine descend into
+the depths.
+
+You sit there for five minutes, doing nothing but waiting with your fishing
+rod.  This is absurd!  What are you waiting for exactly?  You begin to pull
+the twine in, only to find that it's resisting.  It must be caught on
+something.  Yanking hard you find that the twine is slow coming up.  It's not
+that it's caught on something, it's that something is caught on it.
+
+After a minute or so of pulling you are holding in your hand an old music
+box.  It must have been at the bottom of the lake for years, as it's rusty
+and filthy.  You gaze around the lake to see if Mercy and Tabitha are
+anywhere to be seen, but you're alone.
+
+>You move west.
+
+The Lake.
+
+You are sitting in a boat on the west side of the lake.  To your west you can
+see a piece of scrubland that serves as a shore, just beyond which you can
+see a road.  You think that it must be the road where you crashed your car.
+
+You can row west, east, north and south.
+
+>
+A thrill surges through your body.  If you can just make it to the shore then
+you can get back on to the road and away from this house.  You begin to row
+with renewed strength, the taste of freedom tingles on your tongue.
+
+You look up just as you are approaching the shore and your blood runs cold.
+Standing there, almost as if she were waiting for you, is a woman.  The
+blonde hair common to all of the Seabourne girls whips around her
+expressionless face and you know instantly who she is.  Some inner sixth
+sense screams at you to get away from her.
+
+You grip the oars with your sweaty hands and begin to row back, all the while
+watching her as you go.
+
+>You move east.
+
+The Lake.
+
+You are sitting in a boat in the middle of the lake.
+
+You can row north, south, east or west.
+
+>You move east.
+
+The Lake.
+
+You are at the east side of the lake.
+
+The jetty is to the east, and you can also go west, north and south.
+
+>
+You row back to the jetty and climb out of the boat, glad to be back on soild
+ground again - well, as solid as the rotting planks of the jetty can be.
+
+>You move east.
+
+Garden Path.
+
+You are standing on a long, gravelled path leading from the kitchen door.  It
+winds through the back garden - which is merely a small, overgrown lawn
+surround by a high brick wall - to a lake.
+
+The path continues west to a jetty by the lake.
+
+>You move east.
+
+Kitchen.
+
+This is the kitchen.  It's an impressive, large stone room.  A huge aga sits
+against one wall.  There is a door in another wall, which you guess to be the
+pantry.  You can also see a sink.  The tap is dripping, each droplet of water
+rattling in the metal bowl with regularity.  The are some cupboards on the
+wall, some of which hang open.  A fridge is sitting against a wall,
+off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
+
+An alcove takes you north back into the corridor.  There is a solid, metal
+door to the south and to the west you can see a back door leading outside.
+
+Also here is a packet of bread.
+
+>You move north.
+
+Corridor.
+
+You are standing in a corridor that leads from the front hall into the
+kitchen.  The west wall is filled with windows, looking out onto the lake at
+the back of the house.  The windows, however, have all been smashed by
+something.  The corridor floor is covered with razor sharp shards of glass.
+Thankfully, you are wearing shoes so traversing the corridor should be no
+problem.
+
+You can go east to the front hall and south into the kitchen.
+
+>You move east.
+
+Entrance Hall.
+
+You are standing in the entrance hall of the house.  It's a large, spacious
+room with doors leading in all directions and a set of stairs climbing right
+up to the top of the house.  Looking right to the roof gives you vertigo.
+There is a tall, elegant grandfather clock in one corner of the room and next
+to it a table with an empty vase on it.  A huge landscape painting
+practically fills one of the walls  Before you is the large, black front door
+of the house.  A blue rug runs from the door to the stairs, and above the
+door you can see an inscription, carved straight into the wall.  There is a
+small pile of broken pottery on the floor - the remains of the urn that you
+heaved down the stairs.  The floor creaks under your feet as you wonder
+around, pondering your next move.
+
+The front door of the house is to the east.  As well as the stairs leading
+up, you can also go north, west and south.
+
+>You move north.
+
+Dining Room.
+
+In this room is a majestic oak dining table, the kind that you imagine might
+not look out of place in a medieval castle.  There are eight equally
+impressive chairs placed around the table.  Hanging on the north wall are a
+selection of portraits - you immediately notice them because of the contrast
+with the relentless assault of landscapes that you have hithertoo endured.
+
+There are doors in the east, west and south walls.
+
+>
+You examine the portraits.  They are a succession of men, obviously detailing
+the heads of the Chatfield family through the ages.  The portrait labelled
+Gerald Chatfield is that of a young man.  Gazing into the image you see the
+same kind eyes that greeted you on the doorstep.  This is the same man, but
+at an earlier time in his life.
+
+>You move east.
+
+Music Room.
+
+You are standing in a room that contains an old grand piano and a selection
+of other stringed instruments.  There instruments are in appalling condition,
+obviously having been neglected for many years.  The overall impression of
+the room is that of an orchestral graveyard.  You are horrified to see that
+the hideous purple wallpaper from the second floor has made an unwelcome
+return, though a nagging voice at the back of your head tells you that you
+have more important things to worry about right now.  A window looks out onto
+the garden at the front of the house.
+
+A door leads west.
+
+>
+You look around at the dead musical instruments.  What better place to open a
+dead music box?  You know that, logically, there is no way on earth that this
+box should work after having sat at the bottom of a lake for probably twenty
+years.  You also know that logic doesn't seem to mean anything in this house.
+ You slowly prise the lid open...
+
+You are actually surprised when nothing happens.  No music, nothing.  You
+peer into the box, but all you see is mud and slime.  Then you feel a
+presence behind you.  You turn to see Mercy and Tabitha standing behind you.
+This is the closest you have ever been to them, and standing in their
+presence seems to chill your bones.
+
+"That's my diary.  You've got my diary." says Tabitha.
+
+It takes you a moment to realise that Tabitha is referring to the pink diary
+that you found in the chest upstairs, and not the music box.  You take the
+diary in your free hand and offer it to her.  She takes it from you.
+
+"Did you read it?" she snaps, accusingly.
+
+Before you can answer, Mercy gives a delighted squeal.
+
+"Oh look, Tabi!  It's my music box!  D'you remember?  The one you threw in
+the lake because you got angry with me?  That's my favourite toy!  I haven't
+been able to play with it since that day."
+
+Tabitha glares at you.  You hold out the music box.  Mercy gives a wide smile
+and takes it from you.
+
+"Thank you!  Thank you!  Hey...Tabi, it's not working!  Why isn't it
+working?"
+
+Mercy's bottom lip trembles, and she looks like she's about to burst into
+tears.  Tabitha reaches across and puts her hand into the music box.  She
+pulls out a large metal key and casually discards it on to the floor.
+
+"There you go, Mer." Tabitha says.
+
+As she says this a haunting melody begins to play from the box.  Mercy
+smiles.
+
+"Thanks for finding this for me," she says to you "That's something else that
+you've brought for me.  I'm glad you're staying."
+
+With that Mercy skips out of the room, singing as she goes.  Tabitha looks at
+you again.  Then she turns to leave.  She gets halfway to the door before
+turning back to face you.
+
+"I hope you did read my diary." she says, matter of factly, "I left a message
+in there for you."
+
+Tabitha departs and you are left alone.  Your brain is desperately trying to
+process all of the information that you have just heard, but it gets stuck on
+one comment, one thing that you just can't get past.  What did Mercy mean
+when she said "I'm glad you're staying"?
+
+It's then that you notice the large iron key is still on the floor where
+Tabitha discarded it.
+
+>You pick up the large iron key.
+
+>You move west.
+
+Dining Room.
+
+In this room is a majestic oak dining table, the kind that you imagine might
+not look out of place in a medieval castle.  There are eight equally
+impressive chairs placed around the table.  Hanging on the north wall are a
+selection of portraits - you immediately notice them because of the contrast
+with the relentless assault of landscapes that you have hithertoo endured.
+
+There are doors in the east, west and south walls.
+
+>You move south.
+
+Entrance Hall.
+
+You are standing in the entrance hall of the house.  It's a large, spacious
+room with doors leading in all directions and a set of stairs climbing right
+up to the top of the house.  Looking right to the roof gives you vertigo.
+There is a tall, elegant grandfather clock in one corner of the room and next
+to it a table with an empty vase on it.  A huge landscape painting
+practically fills one of the walls  Before you is the large, black front door
+of the house.  A blue rug runs from the door to the stairs, and above the
+door you can see an inscription, carved straight into the wall.  There is a
+small pile of broken pottery on the floor - the remains of the urn that you
+heaved down the stairs.  The floor creaks under your feet as you wonder
+around, pondering your next move.
+
+The front door of the house is to the east.  As well as the stairs leading
+up, you can also go north, west and south.
+
+>You move west.
+
+Corridor.
+
+You are standing in a corridor that leads from the front hall into the
+kitchen.  The west wall is filled with windows, looking out onto the lake at
+the back of the house.  The windows, however, have all been smashed by
+something.  The corridor floor is covered with razor sharp shards of glass.
+Thankfully, you are wearing shoes so traversing the corridor should be no
+problem.
+
+You can go east to the front hall and south into the kitchen.
+
+>You move south.
+
+Kitchen.
+
+This is the kitchen.  It's an impressive, large stone room.  A huge aga sits
+against one wall.  There is a door in another wall, which you guess to be the
+pantry.  You can also see a sink.  The tap is dripping, each droplet of water
+rattling in the metal bowl with regularity.  The are some cupboards on the
+wall, some of which hang open.  A fridge is sitting against a wall,
+off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
+
+An alcove takes you north back into the corridor.  There is a solid, metal
+door to the south and to the west you can see a back door leading outside.
+
+Also here is a packet of bread.
+
+>You unlock the metal door with the large iron key.
+
+>You open the metal door.
+
+>You move south.
+
+Cellar Stairway.
+
+You are standing at the top of a dark, dingy brick staircase.  It leads down
+underneath the house.
+
+You feel something brush against your shoulder.  You spin round in shock.
+There's nothing there.
+
+>You move down.
+
+Cellar.
+
+You find yourself in a damp cellar underneath the house.  It's dark in here
+and you can't learn much about your surroundings.  A couple of times you
+clatter awkwardly into boxes, so you deduce that there are a few things
+stored down here.  You feel along the wall for a light switch, but find
+nothing.  You notice that in the north corner of the cellar there is a little
+alcove through which you can see a shaft of light shining down from the
+ceiling, providing a little illumination and revealing that there is
+something on the floor over there.
+
+The stairs lead back up, whilst you can head also north towards the light.
+
+>You move north.
+
+Cellar.
+
+There is an object in front of you.  A pile of rags and...something else.
+The pieces of this morbid puzzle are fitting together in your head,
+everything finally falling into place.  There is just one thing left to do.
+One thing that you need to do to be absolutely sure...
+
+>(Your score has increased by 5)
+
+You bend down to look, the bleached white amongst the rags confirming what
+you already knew.  It's a skeleton.  It must have lain undiscovered for some
+time.  There are fragments of thin cloth by the head.
+
+You look up through the hole in the ceiling to see the rafters of the room
+above, from which swings a piece of frayed sheet.  It's easy to figure out
+what happened.  This person hanged himself.  At some point the sheet snapped
+and sent the body crashing through the floor into the cellar here.  Why has
+no-one found this before?
+
+You believe that you know who this skeleton is, but you need some
+confirmation, some proof, before you can be sure about what is going on in
+this house.  You bend down again, searching the bones for a clue.  You find
+it grasped in the finger bones.  A note.
+
+You stand and open the folded piece of paper.  It crunches in your grasp,
+begging you to take care of it's fragile message.  You hold it up to the
+twilight shining through the floor and begin to read.
+
+I couldn't live with the guilt any more.  I am sorry for the terrible thing I
+did to those girls.  I am sorry for the pain I caused their family.  I am
+sorry for shaming the Chatfield name.  I murdered Tabitha and Mercy
+Seabourne.  They knocked on my door because they had lost their music box in
+the lake.  I took them out there and drowned them.  To this day I don't know
+why I did it.  I don't know what made me a killer.  I have never done
+anything like this before.  I am sorry.  I didn't have the courage to face up
+to my crimes.  I cannot even look at myself in the mirror any more.  I am
+sorry.  I have to end it all.
+
+The note is signed, an extravagant signature denoting class and breeding.
+Gerald Chatfield.  You fold it up and put it in your pocket, shaking your
+head and your mind working overtime to piece it all together.
+
+Gerald Chatfield murdered the Seabourne sisters twenty years ago.  He
+couldn't live with the guilt and took his own life.  This house is, for want
+of a better word, haunted.  Tainted by the memories of deeds long past.  But
+there's something more recent to consider.  Something very important.  Mercy
+and Tabitha had a younger sister who didn't go to the lake that day.  She
+survived, grew older and lived a normal life.  Until...until a few days ago.
+
+The picture is complete.  You have to get out of this house as soon as you
+can!
+
+>Time passes...
+
+Your heart is pounding.  The walls seem to be closing in.  You have to get
+out of here!
+
+Willing your tired legs to run, you storm out of the cellar and through the
+kitchen.  You pause by the back door...but then you remember that the only
+way to escape through there would be to cross the lake.  Your mind made up
+you sprint through the corridor, the glass crunching under your feet.  Your
+body caked with cold sweat, you pass under the alcove and skid to a halt on
+the dull wooden floor of the entrance hall.  You stride purposefully towards
+the front door, pleading with a God you don't believe in for an exit.  But
+he's already standing there, between you and the door, waiting.
+
+"I knew as soon as I saw you.  As soon as I opened the door to you.  I knew
+that you belonged here with me." says the smiling figure of Gerald Chatfield.
+ He holds out his arms to you.
+
+"I've been alone for such a long time.  Of course, the girls have been here
+too but they don't talk to me.  They've never forgiven me for what I did.
+But you...I know that you understand.  You and I are the same."
+
+The scream dies in your throat.  There has to be another way out!  You mind,
+driven into overdrive by the most basic survival urge, screams at you.  The
+living room!  There's a window!  You turn instantly, but it's not quick
+enough.  Standing in the doorway of the living room is Mercy Seabourne,
+dripping with water.
+
+"Trisha will be here soon." says Mercy, cheerfully, as she stands in a puddle
+of stagnent lake water.  Those words fill you with a terrible dread.
+
+You turn again, desperate to retreat into the corridor, but you already know
+that it will be futile.  Sure enough, Tabitha stands behind you, also soaking
+wet as though she has just crawled from the bottom of the lake.  She stares
+at you with those emotionless eyes once more.  No.  This time you detect
+emotion.  Is it pity?  Is it hatred?  You don't know.
+
+"I tried to tell you." she says, in a matter of fact tone.  "It's too late
+after death to make up for what you did in your life."
+
+Your spirit is crushed.  You fall to your knees, sobbing bitterly.  There is
+no way out.  No way out.  But then something snaps inside you.  You can't
+give up now!  You can do this!  You've been in worse situations than this!
+Get up!  GET UP!  Fuelled by some innner strength you suddenly leap to your
+feet, catching your tormentors off guard - if such a thing were possible -
+and sprint for your only escape route.  The stairs.
+
+The rythmic pounding of your feet on wood drives you upwards and onwards.
+You hear a wail from behind you - the unmistakeable sound of Gerald Chatfield
+seeing his only company for years trying to flee.  In seconds you are at the
+first floor.  Do you stop here?  Here or the second floor?  Your feet make
+the decision for you.  You climb the steps further to the second floor.
+
+As you stop your mind, once again desperate to save you, thinks about the
+past few hours.  Your hand finds the doorkey in your pocket and a decision is
+made.  Behind you comes the sound of hurried, panicked footsteps on the
+stairs.
+
+"You mustn't go!  You mustn't go!" screams Chatfield.
+
+Sorry Gerald, you think, I've got no intention of ending up like you.  Before
+you know it you are in the guestroom where you woke earlier today.  Your
+fingers fumble with the lock but manage to use the key successfully, then
+with a strength borne of terror you send the wardrobe crashing to the floor
+in front of the door.  That'll buy you some time.  Time?  Against what?
+Ghosts? shouts a small part of your brain, but the part that wants to survive
+is currently in charge.  You look around the room in desperation as you hear
+a figure throw itself against the door.  THUD!  THUD!
+
+"You and I are the same!  We're the SAME!" shouts Gerald Chatfield.
+
+>Time passes...
+
+"There's no way out!" screams Gerald Chatfield.  THUD!  THUD!
+
+THUD!  The door shakes.  THUD!
+
+>Your score is 99 out of a maximum of 109.  (90%)
+
+>(Your score has increased by 10)
+
+THUD THUD THUD on the door behind you.  In a panic you grab the chair at the
+desk and heave it through the window.  The window shatters, showering you
+with glass fragments.  THUD THUD THUD.
+
+"You know that you belong here!" yells Gerald Chatfield, through the door.
+
+Still in a frenzy you scramble on to the desk and through to the window
+ledge.
+
+There is a thick tree branch a leap away, but driven by sheer terror you make
+it easily.  You feet skid underneath you and you drop to your knees, clinging
+on to the branch for dear life.  The door still pounds behind you.  On your
+hands and knees, you scramble along the branch towards the trunk, all the
+time looking for a way down.  There is no obvious solution.
+
+You reach the trunk and grab it like a long-lost relative, bringing yourself
+to your feet.  You're so close.  All that stands between you and freedom is a
+three-storey drop.  Scanning furiously, you look for another branch within
+reach that will hold your weight.  It's then that you notice that the
+pounding has stopped.
+
+You slowly gaze over your shoulder and let out a shriek of terror.  Standing
+on the branch just behind you is a young woman in her mid-twenties, with lank
+blonde hair, pale features and piercing blue eyes.  Her eyes bore
+impassionately into you.  You instantly recognise her from the local paper.
+It's Trisha Seabourne.  The youngest sister.
+
+You turn and back up against the trunk, your arms wrapped around it behind
+you.  Over Trisha's shoulder you can see into the guest room.  Standing there
+are Gerald, Mercy and Tabitha.
+
+"Thank you for bringing her to us," smiles Mercy.  Tabitha glares at you.
+
+"You and I are alike.  You know that you have to stay here with me,"
+Chatfield is smiling too, "I have been so lonely for so long."
+
+You stare with pleading eyes at Trisha.
+
+"Please..." you whisper, "I'm sorry...I'm sorry."
+
+Trisha's featureless expression twists into one of pure malevolent rage.  She
+snarls at you, teeth bared and mouth warped with hated.  Stepping forward she
+shoves you hard in the chest with both hands.  Your feet buckle underneath
+you and you scrabble at the tree hoping to find a handhold in the smooth
+bark, but to no avail.  You topple slowly, plummeting to the ground and
+screaming all the way down.  There is a sickening crunch as you hit.
+
+Then there is darkness.  But is doesn't stay dark for long.  Though you wish
+with all your heart that it had...
+
+EPILOGUE
+
+Sergeant Williams and Detective Inspector Howard surveyed the scene of the
+accident, as forensic officers swarmed the car like bees on a flower.
+
+"What d'you reckon, sir?" asked Williams.  Howard shrugged.
+
+"I guess he missed the 'Road Closed' signs.  It was raining and he was
+probably speeding.  It wouldn't have taken much to cause him to crash.
+You've seen the state of the road up there."
+
+"There's a lot of blood." Williams had a habit of stating the obvious.
+
+"Head wound maybe." said Howard, "They can bleed something chronic.  Whatever
+it was, it wasn't enough to stop him getting out of the car."
+
+"One of the lads I was speaking to down there says that the seatbelt
+mechanism was jammed and he had to cut himself free.  Do you think we'll find
+him, sir?"
+
+"He can't have got far if he's injured.  If he's in these woods we'll find
+him." Howard exclaimed, confidently.  Williams wasn't so sure.
+
+"Sir, he's had a couple of days head start..."
+
+"We'll find him, sergeant." Howard repeated, firmly.
+
+"So you're sure this is the guy then?" Williams changed the topic.
+
+"Has to be." Howard nodded. "This car exactly matches the description of the
+one we're looking for.  It can't be coincidence."
+
+"Well, I hope..." Williams started, but he was cut short.  One of the
+forensic team had opened the boot of the car and let out a startled gasp.
+
+Howard and Williams immediately charged down the slope, towards the scene,
+skidding to a halt in the mud by the shocked woman at the rear end of the
+car.  Howard peered into the boot and then grimaced.
+
+"This is all the proof we need." he said, lifting the boot so that Williams
+could get a good look inside.
+
+Inside, with hands and feet bound and eyes staring vacantly upwards, lay the
+lifeless body of Trisha Seabourne.

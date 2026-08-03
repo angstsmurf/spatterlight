@@ -218,6 +218,9 @@ chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms w
 fantasyworld_solution.txt|fantasyworld.taf|Congratulations!
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
+cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
+easter_solution.txt|easter.taf|***You have won***|
+yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see WALKTHROUGH_TODO.md
 # "2026-08-03" for where each .taf came from and for the per-game notes.
@@ -247,6 +250,589 @@ pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a ha
 saffire_solution.txt|saffire.taf|you reach heaven
 shore_solution.txt|shore.taf|an island shrouded in a steel fog.
 ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
+# The `downloaded/` sweep (2026-08-03): games whose upstream walkthrough was
+# harvested off IFDB into adrift-walkthroughs/downloaded/ and whose .taf was
+# already on this machine.  See downloaded/INDEX.md for the provenance of each
+# walkthrough and WALKTHROUGH_TODO.md for the per-game notes.
+ptbad_solution.txt|ptbad.taf|You Win! Yay!
+# The four Richard Otter games replay command-for-command off delron.org.uk's
+# own walkthrus; each needs a leading "1" for the game's title menu (the
+# published lists start at the first in-game command) and SCR_SKIP_WAITKEY for
+# the "[Press ENTER to continue]" splash.
+vague_solution.txt|vague.taf|You have won!|SCR_SKIP_WAITKEY=1
+escape_to_new_york_solution.txt|EscapeToNewYork.taf|You managed to score 100 out of 100 and completed all of your objectives.|SCR_SKIP_WAITKEY=1
+unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You have been successful.|SCR_SKIP_WAITKEY=1
+# Where Are My Keys? needed one derivation step the shipped walkthru omits: it
+# says "(now you need to find the dog)" and leaves it at that.  The dog (NPC 2)
+# starts in the Back Bedroom and wanders, so the bone is handed over there, not
+# in the kitchen -- then it trots to the back door on its own and `open door`
+# (task 294 -> 293) lets it out to bury the bone in the Vegetable Patch, which
+# is what unearths the car keys (task 292).
+where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head home.|SCR_SKIP_WAITKEY=1
+# To Hell in a Hamper: the IF-Archive walkthrough desyncs badly on this release.
+# It has to be re-derived around a carry-weight limit ("too heavy for me to carry
+# at the moment"), so the trombone/mallet/scissors/smudge stick all go overboard
+# BEFORE `get hatchet`; `cut anchor rope` alone is rejected, it must be
+# `cut anchor rope with hatchet`.  Throwing the mummy triggers THE CURSE OF THE
+# BLUE IBIS -- which is also what makes Hubert produce Aunt Gertie from his
+# overcoat (she does not exist before that) -- and the ibis kills you ~3 turns
+# later unless the smudge stick (an eagle returns it after you throw it) is
+# relit with the lighter from the inside pocket.  Finally `push gertie` grants
+# exactly ONE turn, and it must be `pull gas valve rope`; the boomerang is a
+# trap that returns and knocks you out.
+to_hell_in_a_hamper_solution.txt|Hamper.taf|reached the incredible altitude of 37,000 feet|SCR_SKIP_WAITKEY=1
+# Lost has no score and two mutually exclusive endings, so both are wired.  The
+# shipped walkthru's endgame ("z / g / g / g / follow ghost / g / talk to ghost
+# / g / g / g / down or up") is off by a turn: the phantom event (EVENT 5,
+# every 5 turns) has to have fired at least once before `follow ghost` does
+# anything but "There is no phantom here", and `talk to ghost` only parses in
+# the Rocky outcropping (task 28, where=room 17) -- so it is five waits, two
+# follows, then `x ghost` and exactly four talks before the ghost dissolves.
+lost_solution.txt|LOST.TAF|place your foot on the path leading up the crumbling cliff
+lost_down_solution.txt|LOST.TAF|has shown you a doorway back to that brighter world.
+# Marika the Offering is a one-room siege: the walkthru is prose ("there are
+# five ways for The Count to get into the room") and names no commands, so the
+# route is derived from the task table -- window shut+locked with the hairpin,
+# fire lit in the fireplace, blanket under the door, rag in the keyhole and the
+# flagstone put back -- then 33 turns of `z` to survive the night.  Losing the
+# crucifix down the fissure when you reach into the hole is scripted, not a
+# desync.
+marika_solution.txt|marika.taf|I plan to enjoy every second of it.|SCR_SKIP_WAITKEY=1
+# Vendetta's walkthru stops at "(Final Scene : How you win is up to you.)", and
+# it silently assumes you burn a command on each of the game's two in-text
+# "*Press Enter*" prompts (SCR_SKIP_WAITKEY doesn't cover those -- they are
+# ordinary command turns), so the script carries a blank line at the start and
+# another before `x door`.  Its second `enter` in the hotel-lounge cutscene is
+# also a no-op; one more `wait` there gets you to the Press Enter.  The final
+# scene is an eight-round numbered-choice duel with the griffon: the winning
+# line without any of the optional weapons is `kill griffon` then 3 / 2 / 1 / 2
+# (round 1 dodge-and-counter is exactly the lesson from the opening dream).
+vendetta_solution.txt|Vendetta.taf|The End|SCR_SKIP_WAITKEY=1
+# Unraveling God is puzzleless and ends on a two-way choice ("Pressing either 1
+# or 2 will be the end of the story, but the results are very different"), so
+# both endings are wired.  The author's own walkthru interleaves bracketed
+# commentary with the commands and never spells out the house sequence: `skip
+# delay` has to come BEFORE `answer the door` (it is what rings the bell), and
+# the "call 911" line is a parenthetical list of synonyms, not four commands.
+unraveling_god_solution.txt|unravel.taf|smile as the river burns through your flesh.|SCR_SKIP_WAITKEY=1
+unraveling_god_lou_solution.txt|unravel.taf|smile fades and you feel the beginnings of fear.|SCR_SKIP_WAITKEY=1
+# My Mind's Mishmash replays its shipped walkthru command-for-command bar one
+# turn: the Episode 3 note "Wait for the laser gun to point at you" collapses an
+# unknown number of waits into a single `z`, and on this release the alien
+# ship's laser only swings round on the SECOND wait -- so it is `rc`, `z`, `z`,
+# `wc` (put the cap back on and the laser blows the mine door instead of you).
+mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived again!|SCR_SKIP_WAITKEY=1
+# The Hangover is UNWINNABLE as shipped, and the two dead ends are the author's,
+# not ours.  Both of the tasks the walkthrough's endgame turns on carry
+# Where/Type = 0 (ROOMLIST_NO_ROOMS), so they can never run in ANY room:
+#
+#   TASK 10 where=0 [give the doctor some french fries]   -- 2nd approval form
+#   TASK 14 where=0 [give approval notes to platypus]     -- the winning ending
+#
+# Every other room-scoped task in the game is where=1.  Confirmed against the
+# real run390.exe, which answers "You can't do that here!" to both -- so 5 out
+# of 7 is the ceiling (bill->fries, kick bum, mail->secretary, open the filing
+# cabinet, type the toothbrush code).  Losing the doctor costs only the point:
+# the Psycho Hospital's south exit is not gated on his keys, so the route runs
+# to the end, and the Form Process Office even prints "You give approval notes
+# to platypus" as scenery while the task itself sits unreachable.
+#
+# Two incidental notes: the room descriptions are unreliable (Fedrick Avenue
+# says the bus stop is east; it is west), and `give the doctor some french
+# fries` lands on the library's "Give what?" here where run390 prints its
+# wrong-room message -- SCARE has no "You can't do that here!" at all.  See
+# WALKTHROUGH_TODO.md for that divergence.
+the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
+# Troll! is WINNABLE and this route reaches the ending with zero parser errors,
+# but its ceiling is 185/190, not 190.  The game has 38 scoring tasks worth 5
+# each; TASK 82 can never be one of them:
+#
+#   TASK 80 [* pay * barman *]    needs obj67 "fourtune", turns it into obj68
+#   TASK 82 [* pay * landlord *]  needs obj67 "fourtune", turns it into obj68
+#   TASK 81 [* pay * landlord *]  needs obj68 "fortune",  turns it into obj69
+#
+# 80 and 82 consume the same object, so only one of them can ever fire, and 80
+# is compulsory -- it is the task that summons the coach home (it moves obj21
+# "coach" and obj78 "horse" and walks the player to room 3).  So the pair we
+# take, 80 + 81, is the best available and 82's 5 points are dead.  The
+# walkthrough never pays the landlord at all; the `in`/`pay landlord`/`out`
+# detour at Outside Inn on the way home is ours.
+#
+# Three more points the walkthrough leaves on the floor, all recovered here:
+#   * `take breadcrumbs` in the tavern -- TASK 85; the walkthrough says "get
+#     crumbs", which the library happily resolves without firing the task.
+#   * `w` in the upstairs corridor BEFORE unlocking the door -- TASK 86 is
+#     gated on TASK 64 [* unlock * door *] NOT being done, so the order
+#     matters: you score for walking into the locked door, then unlock it.
+#   * `put breadcrumbs in basin` a SECOND time, after the firewater -- TASK 51
+#     wants obj48, and obj48 only reaches the player's hands as an action of
+#     TASK 52 (the firewater step).  The first put is the library's.
+#
+# Two command patterns are order-sensitive and the walkthrough has them the
+# wrong way round: TASK 61 is [* show * barman * medallion *] with no reversed
+# ALTCMD (so `show medallion to barman` does nothing) and TASK 83 is [* give *
+# chief * backward burp berries *].  Finally, the walkthrough's opening
+# `get all` overflows the carry-weight limit on a pink flyer, a green notice
+# and a blue advert, so it is dropped and five explicit drops are added; the
+# tavern drops must happen on ENTRY, not after `drink whiskey`, because a
+# timed event throws the player outside three turns after the last drink.
+#
+# The win marker is the closing line rather than a score line: the game ends
+# inside `tickle frog` and never prints a final score, so the `score` just
+# before it reads 180 and the last task's 5 points land in the ending text.
+troll_solution.txt|Troll.taf|clean by dinner time, I'll bust your head in!|SCR_SKIP_WAITKEY=1
+# A Spot Of Bother wins at the author's own maximum, 100/100, and the upstream
+# transcript needed exactly ONE repair in 270 commands: a second `push door` in
+# the gymnasium.  The first push is a task that only reveals the trap wire
+# ("A wire, previously hidden, slips into view"); it does not open the door, so
+# after `break wire` the east exit still answers "You need to open the door
+# first." and `open door` answers "You can't open the door!".  Pushing again
+# opens it and the rest of the transcript replays verbatim.  The upstream file
+# is a full session log including the title menu, so the first two commands are
+# the menu picks `2` (read the introduction) and `1` (play).
+spot_of_bother_solution.txt|A_Spot_of_Bother.taf|a grand total of 100 out of 100|SCR_SKIP_WAITKEY=1
+# Beanstalk the and Jack (David Welbourn, 2008) replays the delron command list
+# verbatim -- 56 commands, no repair at all, straight to "*** You have won ***".
+# It is a reverse-chronology retelling, so the list reads backwards (it opens on
+# `chop beanstalk` and ends with Jack waking up); that is the game, not a
+# scrambled walkthrough.  No waitkeys: the transcript is byte-identical with and
+# without SCR_SKIP_WAITKEY, so the row carries no env.
+beanstalk_solution.txt|Beanstalk.taf|*** You have won ***
+# Three more delron command lists that replay verbatim -- no repairs at all:
+#   Black Sheep's Gold (Kent Tessman-style tall tale, 2004) -- 99 commands.  It
+#     needs SCR_SKIP_WAITKEY: the epilogue stops on "(press any key to
+#     continue)" and without it the pause eats the `quit`, so the ending never
+#     prints.
+#   Doomed Xycanthus (2006) -- 89 commands, ends on "Congratulations!".
+#   Dancing Even Him? (Richard Otter, 2006) -- 17 commands; the title is an
+#     anagram of "Vending Machine", which the ending text spells out, so that
+#     line is the win marker.
+black_sheeps_gold_solution.txt|BlackSheepsGold.taf|You've beaten Black Sheep's Gold!|SCR_SKIP_WAITKEY=1
+doomed_xycanthus_solution.txt|xycanthus.taf|Then the gem flickers like a guttering candle and goes
+dancing_even_him_solution.txt|dancingevenhim.taf|it is an anagram of Vending Machine
+# The Demon Hunter (2003) -- WIN, 200/200, after two repairs to the delron list.
+#   1. `south` -> `s`.  TASK 1 (where=1 room=6, the Armory) has cmd=[s] with
+#      ALTCMDs [go s] [go south] [walk south] [wlk s] [walk s] -- the author
+#      never listed the bare word `south`, so the walkthrough's `south` moved
+#      the player normally without firing the task.  That task is the starter
+#      task of EVENT 0 [monk's death] (StarterType=3, zero length, o2=3->10 =
+#      move global object 2, the monk's prayer book, into room 7 The Chapel).
+#      The book starts at pos=-1 (nowhere), so with `south` the event sat in
+#      ES_AWAITING forever, the book never existed, and `get book` answered
+#      "Take what?".  With `s` the task completes, the event starts and
+#      finishes on the spot, and the book is in the Chapel to be taken.
+#   2. `read book` added after `get book`.  TASK 2 (cmd=[read {it/the/a}
+#      {monk's} {prayer} {book}], restricted to holding it) is worth 15 points
+#      and the walkthrough never reads the book it just picked up.  Without it
+#      the route tops out at 185/200.
+# Hajar must be attacked EIGHT times, not the six the walkthrough lists: with 6
+# or 7 kills the fight is unresolved, the score stops at 127 and the endgame
+# never opens.  The 8th `kill hajar` scores 43 and the two `northeast` moves
+# score 30 and end the game.  Needs SCR_SKIP_WAITKEY (the ending paginates).
+# The closing line wraps, so the marker is only the part that stays on one
+# line: "...calling to you<93>"Well done, my good and faithful" / "servant.""
+the_demon_hunter_solution.txt|TheDemonHunter.taf|"Well done, my good and faithful|SCR_SKIP_WAITKEY=1
+# Qui a tue Dana? (Volcy Bucherie / Christophe Montel) -- WIN, 100/100, the sum
+# of every ACT type=4 in the game.  A French 4.0 game, so the solution file is
+# stored in CP1252, NOT UTF-8: `prendre telephone` only parses when the accented
+# e arrives as a single 0xE9 byte, and a UTF-8 file silently loses two objects.
+# Four repairs to Hugo Labrande's upstream solution:
+#   * A third bare `parler` at the crime scene.  There are three NPCs there and
+#     three talk tasks; TASK 16 (chef scientifique) additionally needs TASK 18
+#     (`soulever drap`) done first, so it can only fire after the sheet is
+#     lifted -- which is why the upstream order leaves it unfired.  EXIT room=3
+#     U is gated on TASK 16, so without it you are locked at the riverbank and
+#     every remaining command fails.
+#   * `u` -> `up`.  Two different things move you out of the crime scene: the
+#     gated U exit, and TASK 19 cmd=[[up]].  `u` uses the exit only; the task
+#     needs the literal word (the game's own synonyms are `haut` and `h`).
+#     EXIT room=2 IN is gated on TASK 19, so after `u` the police station is
+#     unreachable.
+#   * `w` `w` inserted before the phone-memory presses and `e` `e` after.  TASK
+#     24/25/26 (`appuyer 2` / `9` / `1`) are all where=1 room=4 -- your own
+#     office -- and the upstream list presses them while standing in
+#     MALKOWITCH's office, where they answer "Vous poussez Le 2, mais rien ne se
+#     passe."  The upstream file even hedges here ("parfois ca ne marche pas");
+#     the real reason is the room, not flakiness.
+#   * `donner dossier` -> `donner malkowitch dossier`.  The winning task is
+#     cmd=[[give] {malkowitch/...} {dossier}] and wants both words.
+# Needs SCR_SKIP_WAITKEY (the epilogue paginates on "[Appuyer sur une touche
+# pour continuer]").  Marker is the programmer's sign-off, the only pure-ASCII
+# single line in the ending.
+qui_a_tue_dana_solution.txt|QuiATueDana.taf|MERCI A TOI CHRISTOPHE SANS QUI CE JEU N'AURAIT JAMAIS VU LE JOUR!|SCR_SKIP_WAITKEY=1
+# Enquete a hauts risques -- WIN, 59/59 ("Votre score est 58 sur un maximum de
+# 59" one command before the end, and `se coucher` is the 59th point).  Another
+# French 4.0 game, another CP1252 solution file.  A big one: 42 rooms, 165
+# tasks, and the tasks are whole literal sentences with enormous ALTCMD lists
+# (TASK 23 `prendre l'arme de service` carries 17 of them), so the upstream
+# abbreviations mostly do parse.  Four repairs to Hugo Labrande's solution, all
+# of them movement or timing:
+#   * An extra `n` after arriving at the commissariat.  `e` from home parks you
+#     at Devant le commissariat (room 10); the list then has one `n` where two
+#     are needed (10 -> 11 L'accueil -> 12 Le couloir) before `w` reaches
+#     Yannick's office.  Without it the next four commands all miss.
+#   * The `s` after `rez-de-chaussee` deleted.  The lift already puts you in Le
+#     couloir, and the stray `s` drops you to L'accueil, which has only N/S --
+#     so the gun-cupboard detour (`e` to Votre bureau) fell off the map.
+#   * Departure lounge: three `z` become four.  The boarding call is on a timed
+#     event and lands on the fourth wait; the upstream `n` immediately after
+#     three waits answers "Je dois attendre l'heure d'embarquement!".
+#   * On board: two `z` become four.  EVENT 6 [Decollage] fires TASK 71 [d747]
+#     -- the take-off -- and TASK 72 `regarder sous le siege` is restricted on
+#     it, so looking under the seat before take-off finds nothing and the whole
+#     bomb sequence (crate, wire cutters, three cables) never opens.
+# No waitkeys: the transcript is byte-identical with and without
+# SCR_SKIP_WAITKEY, so the row carries no env.
+enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Congratulations!
+# Shadrick's Travels (Mystery) -- WIN, 100/100, and the whole game has exactly
+# four scoring actions (20 + 20 + 10 + 50), all of which this route fires.  The
+# upstream file is a session transcript with a CP1252 0xD8 as its prompt glyph,
+# so the commands are the lines starting with that byte; 22 of them, replayed
+# verbatim including the author's three duds (`x wood` and `climb tree` both
+# hit the disambiguator, and `tire swing to tree` is a typo for `tie`).  They
+# are kept because ADRIFT's "Please be more clear" does NOT consume the next
+# line, so they cost nothing and the transcript stays faithful to the source.
+shadricks_travels_solution.txt|ShadricksTravels.taf|Congratulations!
+# Monsters (Release 2), Daniel Hiebert -- WIN, 40/40, which the SCR_DUMP_TASKS
+# ACT type=4 total (40 over 8 tasks) confirms is the maximum; all 8 fire here.
+# The upstream file is another real-Runner session transcript, command-then-
+# response with no prompt glyph at all, so the 38 commands were lifted by hand.
+# ONE repair: the author's `open the bedroom door` is answered "Open what?" --
+# "bedroom door" collides with the *other* door object (obj13, the bedroom's
+# own door, back in room 2), so it has to be the bare `open door` to reach
+# obj48.  Everything else replays as published.
+#
+# This game paid for two genuine SCARE parser fixes, both with the author's own
+# transcript as ground truth:
+#   * uip_match_optional() did not rewind uip_posn when its look-ahead failed
+#     *after consuming text*.  In "shine {the} [flashlight/light] {on} {the}
+#     {brainsucker} {brain} {monster}" the look-ahead let {brain} eat the first
+#     five letters of "brainsucker" (uip_match_word() is a prefix compare),
+#     failed on "sucker", and the alternatives were then tried from there --
+#     so `shine flashlight on the brainsucker` died and the game lost 5 points.
+#   * %object% only ever matched "Prefix Short" or the bare Short, so
+#     `examine the four poster bed` (Prefix "Sissy's four poster", Short "bed")
+#     was "I see no such thing".  uip_build_candidate() now also answers to the
+#     prefix with its leading words dropped.  Independently confirmed by
+#     Shadrick's Travels, whose transcript shows `climb oak tree` answered
+#     "You can't climb the old oak tree." -- SCARE used to say "that".
+# Neither change moved any other golden in this suite.
+monsters_solution.txt|Monsters_r2.taf|Congratulations!
+# The Amulet (3-hour comp), Daniel Hiebert -- WIN, and a **verbatim** replay of
+# the author's transcript: all 12 commands, no repairs, including the two pure
+# flavour ones (`notes`, `spells`).  The game has NO scoring at all (`score`
+# says "0 out of a maximum of 0", and SCR_DUMP_TASKS finds zero ACT type=4), so
+# reaching the ending is the only measure there is.
+#
+# One deliberate difference from the published transcript: we print
+# "Congratulations!" TWICE.  The winning task (TASK 3, #South - Win Game) ends
+# its own CompleteText with that word, and the game's Header WinText is empty,
+# so the engine adds its hard-coded default on top.  The Runner does the same
+# -- Shadrick's Travels also has an empty WINTEXT and its winning task text
+# does *not* contain the word, and its published transcript still shows one
+# "Congratulations!", which is only possible if the Runner prints the default
+# too.  So the author trimmed the duplicate when writing the walkthrough up;
+# our transcript is the faithful one.  (`SCR_DUMP_TASKS` now prints a WINTEXT
+# line, which is what settled this.)
+the_amulet_solution.txt|TheAmulet.taf|Congratulations!
+# Locked Door with Water Trap (KF Mini-Comp 2001).  Verbatim replay of the
+# author's own session transcript, 21 commands, 1000/1000.  SCR_SKIP_WAITKEY=1
+# is mandatory: the intro is three "Press any key to continue." screens, which
+# would otherwise eat the first three commands.
+locked_door_solution.txt|Locked_door_with_water_trap.taf|See if I ever dive with you two again|SCR_SKIP_WAITKEY=1
+# Marooned is a TAF version 3.80 game, and the first one in this corpus that
+# exercises the 3.8 size/weight conversion (see |V380_OBJECT:_SizeWeight_| in
+# sctafpar.cpp) -- without it the dead seal and the tires are both "too heavy
+# to carry" and the game cannot be finished at all.  80 of 140 is the ceiling:
+# task 24 duplicates task 14's own "get trash" command and can never be the
+# one that runs, task 27 needs the berries eaten but they are the monkey's
+# price for the flint, task 35 wants the *unloaded* flare gun that loading it
+# destroys (and firing the loaded one is fatal), and only the dented gas can's
+# lighting task starts the Rescue event, so the scratched can's pour/light
+# pair is mutually exclusive with winning.
+marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
+# Wrecked (Campbell Wild, 2000), TAF 3.80.  WIN at the full 250/250, following
+# the author's own published walkthrough -- but that walkthrough leaves four
+# things to the reader that the harness has to spell out.  (1) Its bracketed
+# "[wait for train...]" notes are real turns: the Ambersville train needs 2
+# waits to pull in the first time and 10 the second, 7 more to reach Redstown
+# and 5 to come back.  (2) Porkie the pig wanders after the first wave of the
+# wand, so the second wave has to be repeated until he is actually in the room
+# outside the Post Office.  (3) Two blocker tasks whose FailMessage the author
+# left as the placeholder "x" swallow the plain commands "in" (the pub, once
+# the scuba outfit is worn) and "up" (the Post Office roof, once you have
+# climbed the statue); "go in" and "go up" miss those tasks' command lists and
+# fall through to the room exit.  The pub one was checked live: run390 on a
+# gen390 conversion of this file prints "x" and refuses entry exactly as we do,
+# and "go in" works there too.  The roof one has the same shape and gen390
+# re-encodes its restriction byte-identically to our parse.
+# (4) "turn it" after "put key in ignition" binds to the ignition and hits the
+# not-yet-started blocker; "turn key" is what scores.
+wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.
+# Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
+# transcript shipped inside the game's doc file: all 78 commands, no repairs,
+# word-for-word identical responses, ending on one of the two good endings.
+# The game is scoreless (no ACT type=4 anywhere) and has no EndGame action at
+# all (no ACT type=6), so reaching the ending text is the only measure -- the
+# player is still standing afterwards, which is why the appended "quit" prompt
+# shows up in the golden.  Needs SCR_SKIP_WAITKEY=1: the game is a
+# menu-and-cutscene piece that paginates on "...press a key..." constantly.
+# Crash it flushed out: task 314 [? the return] has a MoveObject action with
+# Var1 = 2 ("the referenced object") but is only ever reached by redirection,
+# so var_get_ref_object() hands back -1 and SCARE aborted on the range
+# assertion in gs_object_make_hidden().  task_move_object() now ignores
+# negative object indexes the way evt_move_object() already did.
+mortality_solution.txt|mortality.taf|one of the two good endings|SCR_SKIP_WAITKEY=1
+# Largo Winch (Jerome Marchand, 2005) -- WIN, 97/97.  A third French 3.90 game,
+# so the solution file is CP1252 again.  323 commands, expanded from the
+# author's own published list, which uses two conventions the interpreter can
+# not take literally: "commande (N)" means repeat N times, and "combattre
+# (terrasser l'ennemi)" means a whole fight has to be spelled out blow by blow.
+# The four fights are the bulk of the repairs; each enemy answers to exactly one
+# of "coup de poing"/"coup de pied" and the wrong one is usually instant death:
+#   * Jack Place's flat: four bare `coup de poing`.
+#   * Jack Place's courtyard: `coup de pied boris` x3 (kicking Boris is the only
+#     line that lands every blow and takes no damage).  Only ONE of Boris and
+#     Andre can be downed -- the other always flees -- so the list's "terrasser
+#     les deux ennemis" overstates what the scene allows.
+#   * Warehouse roof: kicks throughout, 2 + 2 at enemies 1 and 2 and a single
+#     kick at enemy 3, which cues Simon to chain him.
+#   * Hotel room 108: kick 1 x2, punch 2 x3, kick 3 x3.  The one-shot fire
+#     extinguisher (a free double attack) is not needed and is left on the wall.
+#   * Sharon's flat, Helena Dekovar: `coup de pied` x2.
+# Four more repairs, all of them the published list being wrong or stale:
+#   * `ouest` -> `nord` leaving the ground-floor corridor (its only exit is N).
+#   * `est` -> `nord` into Sharon's salon (east is the kitchen).
+#   * The Omega basement: giving Olga the devis already walks Largo downstairs,
+#     so the extra `nord` is a blocked no-op, and the way back up is not `sud`
+#     from where the bearded man sat -- the stairs are in a different room, "En
+#     bas des escaliers", reached by stepping north into the corridor and back
+#     south.  The coffee machine is then usable from the hall itself.
+#   * `insérer la bague métallique dans l'armoire électrique` needs the word
+#     `plate`: hammering the ring renames the object.
+#   * `ouvrir la porte avec le badge` -> `utiliser le badge`, twice.  The game
+#     defines an input synonym `ouvrir` -> `open` (SCR_TRACE_FLAGS=512 shows the
+#     line rewritten to "open la porte avec le badge" BEFORE task matching), and
+#     the hotel-door tasks 213/214/216 carry only "ouvrir ..." alt-commands with
+#     no "open ..." twin -- unlike the window task 15, which has both.  So the
+#     author's own phrasing can never fire; "utiliser le badge" is the same
+#     task's primary command and the synonym leaves it alone.
+# No waitkeys: the transcript is byte-identical with and without
+# SCR_SKIP_WAITKEY, so the row carries no env.  The score reads 96/97 one
+# command before the end and the last `salle du bigboard` is the 97th point.
+largo_winch_solution.txt|largo-winch.taf|Congratulations!
+# Three Monkeys, One Cage (Robert Goodwin, 2003) -- WIN, 98/100, and 98 is the
+# ceiling: every one of the game's 23 scoring actions is banked.  The author
+# wrote a `# jump out` chain whose +2 sits AFTER the two Execute-Task actions
+# that end the game, and task_run_task_actions() stops at the first action that
+# ends the game, so those last 2 points can never be displayed.  (Worth a
+# run400 check some day -- see RUNNER_TESTS_TODO.md.)
+# The route is built on the author's own prose solution in
+# downloaded/ThreeMonkeysOneCage_solution.txt, but a lot of it had to be
+# re-derived; the cage is a 2x2 room grid with two live monkeys walking it and
+# a real-time fire, so ordering matters far more than the prose suggests:
+#   * `quiet` first.  The author's running commentary is chatty and randomised;
+#     turning it off is what makes the transcript stable.
+#   * Do NOT pick the sheet up early.  `make fire` burns whatever tinder you
+#     carry, and the sheet is worth only 3 fuel against the jersey's 5 -- and
+#     the sheet is needed later, unburnt, as hornet armour.
+#   * The mandrill kills on contact and you get exactly one action after it
+#     shares your corner.  Two things fence it off: the fire permanently blocks
+#     SW, and smoke blocks whichever corner the fan is aimed at (north -> NW,
+#     east -> SE, northeast -> NE), which is why the fan is re-aimed four times.
+#   * `cover myself with the sheet` fires task 637 (cover the *chimp*), which
+#     shares that alt-command and wins on index.  Task 638's primary form,
+#     `put the sheet over my head`, is the one that works.
+#   * SW -> SE is `e`, not `se`: in a 2x2 grid the diagonal is a wall bump.
+#   * Leaving SE silently unties the waist cord, so `tie cord to me` has to be
+#     the last move before `jump out`.  The +4 is banked by the first tie.
+#   * The 38 `z` in the middle are the game's design, not padding: the ceiling
+#     panels open on turn 100.  Then `hide under bed` is mandatory -- the anvils
+#     kill in five turns otherwise (they award +3 while you cower) -- and once
+#     the anvils give way to bombs there are only nine turns to get out.
+# The winnable oracle (task 21, 55 restrictions -- the corpus maximum) is the
+# game that exposed the $RestrMask left-association bug fixed the same day; it
+# now answers "The game is still winnable." from turn 1 to the jump.
+3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!
+# Humbug (Graham Cluley 1990/1997, converted to ADRIFT 4.00 by Campbell Wild)
+# -- WIN with the FULL 2000/2000, "a winner.. or a cheat", in 1048 commands.
+# The route is pjg's step-by-step solution for the ORIGINAL v5.0 game
+# (downloaded/Humbug_walkthrough.sol), and the conversion turns out to track it
+# so closely that all 125 of its annotated awards fire in order, with the same
+# deltas and the same running totals, zero mismatches.  What the
+# prose does NOT give you is turn counts, four hidden numbers, and one plural:
+#   * The .sol writes "(keep looking until X shows up)" / "(wait about 35
+#     moves)" -- every one of those had to become real turns.  The three that
+#     matter are all-or-nothing: the bouncer waves me into the Golden Gulp only
+#     while Grandad is beside me in the tunnel -- `S` after 9 `Look`s refused,
+#     after 10 or 11 admitted, after 12 refused (the route uses 11);
+#     the raffle package is handed over one turn AFTER the third-prize
+#     announcement; and Horace gets his snuff tin out on a 10-turn cycle, so
+#     the paper aeroplane has to be thrown on exactly that turn.
+#   * `Get sheet` -> `Get sheets`.  Miss it and the tie-up of Dennis the
+#     fireman silently fails; he wakes two rooms later and kills me.
+#   * `Drop troch` is a typo for `Drop torch`.
+#   * The combination door's buttons are a 7-segment display and the segments
+#     do NOT reset when a digit is confirmed, so each digit is entered by
+#     toggling the symmetric difference against the previous one; `Read
+#     display` after each `push button 7` (the .sol's own advice) also keeps
+#     Schrodinger the cat on the clock the mouse puzzle needs.
+#   * Four placeholders, all read out of the game: the slate's MMMCDXLVI = the
+#     dials 3-4-4-6; the aardvark scrawls HEL3761 for the keypad; the filofax's
+#     green-ink "Viking Contact Society: 010473736401" and Olaf's National
+#     Insurance number 60318897 (recited only once the balloon has cured his
+#     hiccups) get the computer to display his aunty's 010473470651; and the
+#     runes spell the magic word "Jisanajen".  Together they are worth 70 of
+#     the 2000 -- without them the game still ends in a win, at 1930.
+# Needs SCR_SKIP_WAITKEY=1: the "[Press any key]" title screen swallows the
+# first two commands otherwise.
+humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
+# Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
+# WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol
+# is a 29-line prose sketch by "sasi" that describes an EARLIER build: it wants
+# you to read a computer in an "IBM" room for the stew recipe (there is none --
+# the recipe is the cookery book in the kitchen), to dig a coin out of the
+# ground with the shovel (the penny is in the spare-bedroom dresser) and to
+# pick the underground door's lock with the hairpin (the door just opens).  The
+# shovel, hairpin, fortune cookie, hat, picture, diary, painting, mirror and
+# advertisement are all unused; the gypsy and the arcade-machine/street deaths
+# are pure flavour.  What the route really needs, none of it in the .sol:
+#   * TWO scored tasks are shadowed by unscored duplicates that sort first, so
+#     each has to be issued TWICE.  `wear *shoes*` (task 14, 0 pts) shadows
+#     `wear *golf* shoes` (task 15, 10 pts) -- so: wear, REMOVE, wear again.
+#     `give *food* to mr fenwick` (task 12, 10 pts, alt `give *stew*...`)
+#     shadows `give *stew* to mr fenwick` (task 17, 10 pts), and task 12's own
+#     action drops the saucepan on the dining-room floor -- so: give, pick the
+#     saucepan back up, give again.  Both pairs are needed for 95; a player who
+#     types each command once tops out at 75.
+#   * `get cash` in the arcade (task 19, 5 pts) prints "You grab the GBP30.00
+#     from the machine" and does NOT move the object.  A second `get cash`
+#     actually takes it -- and the cash is what task 15/16 check for.
+#   * This is a 3.8 game, so the pooled burden model applies: limit 5, putter
+#     costs 3, everything else 1.  Putter + ball + worn shoes is exactly 5, so
+#     the cash has to be dropped in the kitchen and the ball has to be dropped
+#     before the saucepan can be picked up for the second `give`.  Get this
+#     wrong and the game answers "Your hands are full."
+#   * 3.8 also only fills a dynamic container the player is HOLDING, so the
+#     stew is loaded with the saucepan in hand (`get saucepan` first, and the
+#     later one after `switch off cooker` is then redundant).  Cooking it does
+#     not need the saucepan on the floor.  Measured in run380 on this very
+#     game 2026-08-03: `put carrots in saucepan` with the saucepan where the
+#     author left it answers "You are not holding a saucepan."
+# No score is printed at the ending, so the route runs `score` (75/95) on the
+# turn before the winning `stand on chair`, which banks the last 20.
+crime_adventure_solution.txt|Crime_Adventure.taf|Mrs Fenwick was in no danger at all, it was a friend
+# The Sisters (Andy Joel / "Mad Monk") -- ADRIFT 4.00, 50 rooms, 123 tasks,
+# 9 events.  WIN with the FULL 109/109 in 151 commands.  All 109 points live in
+# 38 `ACT type=4` add-score actions (every task's own score= field is 0), and
+# the route fires all 38.  downloaded/TheSisters_walkthrough.txt is a good,
+# honest 10-section prose guide that explicitly aims for 100%, so unusually
+# little had to be re-derived -- but it does leave these gaps:
+#   * `get tin` is "Take what?" -- the pickled herrings answer to `can`.
+#   * `get key` in the music room is "You need to be more specific"; the object
+#     is `iron key` (the guide's "large metal key" is the prose name only).
+#   * On the lake, `row west` does not parse.  Plain compass movement works,
+#     and `row east` is a task that only exists on the east lake square (39) to
+#     climb back out onto the jetty.  `go fishing` scores only on square 43.
+#   * The penknife MUST be closed before `climb down` at the steep decline:
+#     tasks 12 and 13 have identical commands, and 13 -- taken when the knife is
+#     open -- is `ACT type=6 v1=2`, instant death.
+#   * A 30-turn bleeding clock (EVENT 0, started by `leave car`) runs until
+#     `bandage self`; the route reaches the first-aid box with room to spare.
+# The ending prints no score, so the route runs `score` (99/109) on the turn
+# before the winning `smash window`, which banks the last 10.
+# Needs SCR_SKIP_WAITKEY=1: the collapse at the front door ends in a "[Press
+# any key]", which otherwise eats the first command in the guest room and
+# desyncs the whole rest of the run.
+thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SKIP_WAITKEY=1
+# The PK Girl (Robert Street, 2003) -- ADRIFT 4.00, 118 rooms, 2260 tasks,
+# 29 NPCs, 187 variables: by a wide margin the largest game in this corpus.
+# WIN in 407 commands with **Katryn 55 out of a possible 60**, ending on
+# "Congratulations!  You got Katryn's ending.  Your Secret Letter is: E".
+#
+# There is no single score.  The game keeps eight independent relationship
+# variables (VAR 158..165: laurie, cassie, saffy, monika, aileen, katryn,
+# bengte, josie), each "out of a possible 60", and no task anywhere carries an
+# `ACT type=4`.  A scoring task instead sets `change_score` (VAR 168) and then
+# redirects to one of eight per-girl adder tasks, 2141 josie .. 2148 laurie.
+# The ending is picked by TASKs 2211-2218, tested in the order Laurie, Cassie,
+# Monika, Saffy, Aileen, Katryn, Bengte, Josie; the first girl with score >= 40
+# AND `know_<girl>` set wins, and `name_of_girl` is then latched so no later
+# test can fire.  Because Laurie is tested FIRST, courting two girls at once is
+# actively harmful -- the route deliberately leaves Laurie at 11.
+# Each ending prints one letter of the author password; the eight spell
+# ICECREAM, which is also the .taf's own author password (Katryn's is E).
+#
+# downloaded/ThePKGirl_walkthrough.txt is a chapter-by-chapter command list
+# that promises only "a basic ending" and courts nobody; it is the spine here,
+# but every timed stretch in it is bracketed prose ("wait (for 37 turns, while
+# Monika makes dinner)", "[walk around ... until you find the umbrella
+# peddler]").  Nothing ships inside the game -- `hint` says hints are not
+# available.  downloaded/ThePKGirl_hints.htm quotes a 45-point ending threshold
+# where the tasks say 40; the tasks win.  Everything below came from the task
+# table:
+#   * Ch. 1 detour north to the bar and `talk to dustin` / `3` / `1` sets
+#     `know_dustin`.  Skipping it costs 10 Katryn points at the very end, but
+#     it also inserts an extra Dustin beat into the Ch. 4 cafe scene, so the
+#     canned menu answers there have to absorb one extra turn (`wait` / `2` /
+#     `talk to dustin`) or every later numbered answer lands one turn early.
+#   * The peddler (NPC 26) WALKS a ~9-turn circuit around the plaza.  Every
+#     turn added or removed anywhere earlier in the route changes his phase and
+#     `give money to peddler` becomes "who do you want to give to?".  He is in
+#     Center Plaza at the turn this route reaches it.
+#   * In Research Lab C, `x machinery` is stolen by a generic scenery task;
+#     `x equipment` is TASK 1847 and drops the two heavy magnets.
+#   * `punch octal` on the silo needs task2009 "# Laurie fights back" -- six
+#     turns after climbing out of the hatch.  Any earlier is "You are not close
+#     enough".  Then `head butt octal` (+5) and `knee octal` (+5) both redirect
+#     to 2025 "# Octal runs" and each requires it NOT done, so only ONE lands.
+#   * The endgame window is exactly four turns wide: `get band`, then
+#     `put band on octal` no later than the fourth, because TASK 2039
+#     "# Katryn has a solution" fires on the fifth and takes the +5 away.  The
+#     route spends the two turns in between on `kiss katryn` and `hug katryn`;
+#     the kiss is refused (TASK 2135 is rep=0 and was already spent on the
+#     warehouse kiss) but the hug is TASK 2134, +2.
+#   * The +3 at the security-booth monitor is easy to miss: answering `2` then
+#     `3` walks Katryn's talk state to 9 (state' = state*3 + n), which is the
+#     one (situation 8, state 9) pair TASK 1234 pays for.
+# Unreachable on this route: TASK 1684 "# Katryn advances" (situation 7) is an
+# alternative to the warehouse kiss that pays +3 where the kiss pays +5, and
+# the situation-10 +3 needs `katryn_done_talking` back at 0, which nothing
+# resets once a conversation has closed.  55/60 is the practical ceiling.
+# Needs SCR_SKIP_WAITKEY=1 -- the game is full of "Press enter to continue".
+thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
+# ---------------------------------------------------------------------------
+# 2026-08-03 -- THE COMPLETE TAF 3.80 CORPUS.  A byte-level survey of both
+# hosts that still carry ADRIFT games (every .taf on ifarchive.org
+# /if-archive/games/adrift/ including the ones inside zips, and every pre-2005
+# download in the adrift.co adventure DB) found that exactly **11** ADRIFT 3.80
+# games exist online, all released Jun 1999 - Dec 2000.  Neither IFDB nor
+# IFWiki can be used for this -- their oldest ADRIFT format/category is 3.9, so
+# 3.8 games are filed as 3.9 everywhere; the only reliable test is the 14-byte
+# header, which is "Version X.YZ\r\n" XOR the fixed VB6 keystream and therefore
+# a constant per version (3.80 = 3c423fc96a87c2cf94453661 39fa, see the
+# V380_SIGNATURE table in sctaffil.cpp).  A `Range: bytes=0-13` request
+# classifies a remote .taf without downloading it.
+#
+# marooned / wrecked / Crime_Adventure (above) were the first three.  The
+# remaining eight are now in games/ as well, so the 3.8 burden and container
+# model settled against run380.exe can be exercised across the whole corpus
+# rather than the three games it was derived on.  Provenance:
+#   akron cave haunt twilight   ifarchive.org/if-archive/games/adrift/<f>.taf
+#   haunted great secret tra    www.adrift.co/files/games/<f>.taf
+# (the four adrift.co-only ones are on no other public host).  All eight load
+# and run in `scare`; each row below SKIPs nothing and reports NOSCRIPT until
+# its route is derived -- see WALKTHROUGH_TODO.md for the queue.  Win markers
+# are left empty deliberately: filling one in before the route exists would
+# bless a marker nobody has seen the game print.
+akron_solution.txt|akron.taf
+cave_solution.txt|cave.taf
+haunt_solution.txt|haunt.taf
+twilight_solution.txt|twilight.taf
+haunted_house_solution.txt|haunted.taf
+great_escape_solution.txt|great.taf
+tom_ceader_solution.txt|secret.taf
+timmy_reid_solution.txt|tra.taf
 EOF
 }
 

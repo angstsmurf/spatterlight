@@ -1,0 +1,151 @@
+open glovebox
+get all from glovebox
+x dashboard
+get keys
+open penknife
+cut seatbelt
+open door
+north
+west
+x footprints
+follow footprints
+get box
+open box
+get bandages
+bandage self
+south
+south
+x mound
+south
+south
+close penknife
+climb down
+west
+west
+use knocker
+west
+x sink
+get flannel
+x mirror
+east
+x bedside table
+open drawer
+get book
+x desk
+read paper
+unlock wardrobe with small key
+open wardrobe
+get coathanger
+bend coathanger
+put paper under door
+insert wire
+pull paper
+unlock door with doorkey
+open door
+south
+west
+put book on bookshelves
+get wood
+east
+south
+x cases
+x boxes
+north
+down
+north
+open closet
+west
+x cabinet
+wet flannel
+east
+south
+south
+east
+open chest
+get diary
+read diary
+west
+west
+x cabinets
+x plaque
+get urn
+east
+south
+east
+x papers
+get trophy
+clean trophy with flannel
+west
+west
+x bedside table
+open drawer
+get can
+open wardrobe
+get socks
+get shoes
+east
+north
+west
+put trophy in cabinet
+east
+north
+throw urn over bannister
+down
+take parchment
+open door
+wear socks
+wear shoes
+west
+south
+get tin opener
+open pantry
+get cheese
+north
+east
+south
+get mousetrap
+open can with tin opener
+pour oil on mousetrap
+set trap
+put cheese in trap
+put trap on floor
+put hand in hole
+north
+west
+south
+west
+west
+unlock padlock
+go boat
+tie twine to hook
+tie twine to wood
+west
+go fishing
+west
+west
+east
+east
+east
+east
+east
+north
+east
+north
+x portraits
+east
+open music box
+get iron key
+west
+south
+west
+south
+unlock metal door
+open metal door
+south
+down
+north
+x body
+z
+z
+score
+smash window

@@ -1,0 +1,132 @@
+Loading game...
+
+The Amulet
+(C) Copyright 2004 - Daniel Hiebert - All Rights Reserved
+
+It has taken you many years of research alone to track down the ancient crypt
+of the legendary Lord An.  With luck, you have made it this far to the
+anteroom of the crypt itself.  Buried with Lord An is the amulet of An.  The
+amulet itself is a blood red ruby the size of a man's fist.  Valuable beyond
+imagination, the amulet was also used as a focus of power for the Lord An.
+To you, as a war mage, some of its lesser properties will provide you with a
+great boost.
+
+But first, you must obtain the amulet without being killed.  Your research
+has already indicated that going into the chamber is automatic death.  You
+will have to find another way to bring it out.
+
+[Type 'spells' or 'x me' to list the spells you still know.]
+[Type 'notes' for the author's notes.]
+
+>This game was intended to be either a 1 hour or clever 1 room game.  However,
+at the end of 1 hour, it was discovered that I was being too ambitious to get
+everything coded in an hour.  The 1 room game qualification also relied a
+little too heavily on specific interpretations of a 1 room game.  I.e. there
+are 2 rooms here; however you as a player must remain in the first.
+
+Then along comes a great forum idea; the three hour competition.   Taking
+into consideration that I've already spent an hour on this taf, I've just
+been given two more!  Well, here I sit on my last hour & I still don't think
+that I'll stuff everything that I wanted to.  But the taf is completeable.
+
+There is two tech demo items in this taf for myself.  The first is the spell
+system that tracks spells "in memory".  The player can 'cast spell on object'
+and the spell no longer shows up as known.  The player can relearn the spells
+by reading through his spell book.  The second tech demo is the ability to
+examine objects in another room from the 1st room.  This involves some
+detailed work with dynamic objects in the rooms that the object does not
+exist.  Hopefully, the smoke and mirrors approach keeps the all-important
+mimesis.
+
+I've no intentions of taking this small game any further.  I've excited about
+the opportunity of taking it off of my "almost completed" list and actually
+be able to submit it to a competition.
+
+Thank you,
+Daniel Hiebert (Tech)
+www.eipublishing.com
+eipub@eipublishing.com
+
+>The following spells are still in your memory:
+Levitate
+Turn Undead
+
+>Looking into the crypt you see...
+Crypt of Lord An
+Inside of an open stone sarcophagus, the ancient remains of Lord An stand.
+Clothed in tattered rags, Lord An's remains do not look as old as they are.
+
+Around his neck, the Lord An's blood red ruby amulet sparkles in the
+firelight.  Perched atop the stone sarcophagus is a mummified bat.  A thin
+unsheathed silver blade lies next to the remains.
+
+>
+Crypt Anteroom
+Fifteen feet on a side, this is the anteroom to the crypt of the Lord An,
+legendary war mage.  The crypt can be seen to the north through an archway
+ten feet across.  Runic markings are engraved into the stones around the
+archway.  Light is provided by roaring flames held by iron stands to each
+side of the archway.  To the south is a stone stairway leading up to the
+crypt exit.  Runic markings are engraved around the doorway.
+
+A human skeleton lies half buried in the floor in the corner of the room.
+Perched atop the stone sarcophagus is a mummified bat.
+
+>Poking through the remains of the skeleton, you find some iron fittings and a
+long piece of wood.  Both probably belonged to some weapon this adventurer
+carried.
+
+>You find nothing more in the skeleton.
+
+>You are carrying the spell book, a four foot piece wood and the iron
+fittings.
+
+>Casting the levitate spell onto the amulet, you see the amulet rise from
+around the Lord An's neck.  Momentarily hung up, the gold chain jostles the
+skeleton until the amulet floats free.
+Disturbing the amulet wakens the mummified bat from its perch atop the
+sarcophagus.  With a piercing shriek, it flies straight towards you with
+outstretched claws.
+
+>
+Crypt Anteroom
+Fifteen feet on a side, this is the anteroom to the crypt of the Lord An,
+legendary war mage.  The crypt can be seen to the north through an archway
+ten feet across.  Runic markings are engraved into the stones around the
+archway.  Light is provided by roaring flames held by iron stands to each
+side of the archway.  To the south is a stone stairway leading up to the
+crypt exit.  Runic markings are engraved around the doorway.
+
+A human skeleton lies half buried in the floor in the corner of the room.
+Swooping back and forth in an agitated manner, an ancient mummified bat
+attempts to rake out your eyes and throat with each pass.
+On the last pass, the mummified bat barely misses digging its claws into your
+eye socket.
+
+>A warm orange aura blazes from your outstreched hand towards the flying bat.
+Engulfing the bat, it shrieks in pain as the magic causes the bat to
+disintegrate mid-air.  Its ashes float down gently across the floor of the
+room.
+
+>Using the four foot piece of wood, you're able to hook the amulet and bring
+it over to you from the crypt.  Gleefully, you snatch the amulet from mid-air
+and quickly hang it around your neck.
+
+>Bounding up the stone stairway two steps at a time, you feel the hair on your
+head and neck stand up straight.  Lightning arcs out from the runic markings
+along the wall and are warped to the around your body to where the ruby
+amulet hangs from your neck.  With a sharp crack and sizzle, the lightning is
+absorbed barely touching your chest.
+
+Soon you reach the surface and break out into the light of day.  You look
+down in glee at the glistening blood red treasure hanging around your neck.
+Filled with pride and importance, you walk back towards town with it
+displayed prominently outside your robes.  After a while, doubts seep into
+your head as you think about how many others will attempt to rob you of your
+power.
+
+Slipping your amulet underneath your robes, you head back into town
+apprehensive, yet triumphant!
+
+Congratulations!
+Congratulations!

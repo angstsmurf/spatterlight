@@ -1,0 +1,199 @@
+1
+n
+use hooks
+use disruptor
+use guns
+z
+x node ripper
+get in crate
+remove cap
+open door
+wc
+n
+n
+w
+w
+n
+e
+n
+rc
+open cupboard
+get prototype
+wc
+s
+w
+rc
+open door
+n
+get laptop
+combine laptop with prototype
+wc
+s
+s
+z
+z
+z
+z
+z
+e
+rc
+turn on stereo
+wc
+w
+rc
+get passcard
+wc
+e
+e
+n
+z
+z
+rc
+swipe card
+wc
+ne
+ne
+rip node
+x node ripper
+sw
+rc
+swipe card
+x door
+wc
+ne
+rip node
+rc
+swipe card
+wc
+ne
+e
+e
+s
+rc
+open box
+wc
+n
+n
+e
+w
+n
+w
+w
+n
+rc
+open cupboard
+wc
+s
+s
+s
+rc
+unscrew lock
+put explosive in lock
+swipe card
+wc
+sw
+rip node
+rc
+use detonator
+wc
+ne
+e
+s
+n
+e
+n
+e
+rc
+move banner
+open vent
+u
+w
+z
+z
+s
+open vent
+drop pill in coffee
+n
+w
+rc
+open door
+sw
+sw
+swipe card
+wc
+sw
+w
+w
+s
+rc
+open cupboard
+wc
+s
+s
+sw
+climb suit
+rip node
+x node ripper
+u
+talk to memoryblam
+z
+e
+get in suit
+rc
+put barrier on cart
+wc
+out
+rc
+pull lever
+wc
+w
+s
+stand in front of door
+rc
+z
+z
+wc
+in
+x node ripper
+s
+s
+e
+w
+w
+rc
+search crate
+wc
+e
+e
+rc
+use hook with lever
+pull hook
+w
+n
+d
+d
+use rope with ladder
+turn on flashlight
+sw
+rc
+get rod
+ne
+se
+move boulder with rod
+push cap with rod
+s
+rc
+open trapdoor
+z
+rip node
+sw
+climb cliff
+ne
+z
+z
+z
+w
+hide
+hit memoryblam with rod
+s
+climb cliff

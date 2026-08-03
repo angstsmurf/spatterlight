@@ -1,0 +1,85 @@
+# It's Easter, Peeps! (Sara Brookside, 2006) -- ADRIFT 4.0.
+# One Room Game Competition 2006.  No score; the win is "***You have won***".
+#
+# This is the author's own EasterWalk.txt, command for command, minus its two
+# non-commands ("about" and "verbose" -- the latter is a Runner menu item, not
+# something you type).  Keeping the examines makes the golden a much better
+# oracle: the walkthrough ships the real ADRIFT 4 Runner's replies for every
+# one of them.  A 26-command minimal route also wins -- see the walkthrough
+# doc.
+# --- the storefront window: find the pinata ---
+x me
+i
+x window
+x goose
+look under goose
+x newspaper rack
+take lollipop
+put lollipop in basket
+take newspaper
+x newspaper
+read newspaper
+x window
+x rabbit
+x plate
+read plate
+look up
+hit pinata
+look
+# --- the umbrella stand: get a tool and burst the pinata ---
+x stand
+take umbrella
+x umbrella
+hit pinata with umbrella
+g
+g
+take candy dots
+take egg
+take eggs
+take chicks
+take beans
+look
+i
+put dots in basket
+put egg in basket
+put eggs in basket
+put chicks in basket
+put beans in basket
+i
+# --- Max's list, and the macaroon from the display case ---
+show basket to shopkeeper
+i
+x list
+x candy
+x macaroons
+ask shopkeeper about macaroon
+i
+put macaroon in basket
+i
+x list
+# --- the pay phone: the candy coin (and the two optional ciphers) ---
+look
+x phone
+take candy coin
+take note
+put candy coin in basket
+x note
+read note
+x counter
+x serving tray
+read serving tray
+x candy
+x pixie dust
+read pixie dust
+i
+# --- the goose's token, and the gumball it buys ---
+ask shopkeeper about goose
+feed candy dots to goose
+i
+x gumball machine
+insert token in gumball machine
+i
+put gumball in basket
+i
+x list
+show basket to shopkeeper

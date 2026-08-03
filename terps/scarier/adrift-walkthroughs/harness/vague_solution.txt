@@ -1,0 +1,122 @@
+1
+exam bin
+get magazine
+talk to porter
+talk to porter
+talk to trainspotter
+open door
+south
+open cabinet
+get wallet
+exam sofa
+get coat
+open door
+north
+give coat to drunk
+look
+get booklet
+west
+exam handrail
+get knife
+down
+talk to ghost
+exam boat
+get rucksack
+open rucksack
+get leaflet
+drop rucksack
+give booklet to ghost
+up
+east
+east
+exam bar
+get paper
+buy pint
+give pint to fred
+east
+exam remains
+talk to tarc
+get rib
+east
+get jewel
+east
+talk to assistant
+give pad to assistant
+open crate
+get axe
+west
+west
+west
+south
+open gate
+south
+look down side of settee
+east
+infect tonsils
+give leaflet to germs
+east
+exam shelf
+get badge
+2
+talk to zeta-theta
+give pebble to zeta-theta
+3
+talk to tramp
+give note to tramp
+kill tramp with knife
+exam tramp
+get artemis
+get radio
+open door
+down
+give handbill to tarc
+east
+east
+give artemis to assistant
+west
+west
+west
+west
+open doors
+south
+open porthole
+south
+exam pigeonhole
+give playbill to postal clerk
+down
+give handout to jed peters
+north
+put money in jukebox
+south
+kill jed with axe
+east
+south
+get boat hook
+north
+west
+west
+get hat with boat hook
+look
+get card
+down
+give hat to ghost
+up
+east
+give paper to porter
+east
+south
+open gate
+south
+give letter to john
+east
+east
+2
+give card to zeta-theta
+3
+open door
+down
+west
+west
+north
+exam guard
+exam ticket

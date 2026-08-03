@@ -1,0 +1,99 @@
+s
+get all
+n
+open drawers
+get apron
+wear apron
+w
+d
+e
+open drawer
+get bulb
+open cabinet
+get tylenol
+w
+u
+u
+replace bulb
+clean attic
+open chest
+d
+d
+s
+e
+s
+s
+w
+talk to mystery
+give tylenol to mystery
+e
+e
+talk to campbell
+e
+x toilet
+open toilet
+get salamander
+w
+give salamander to campbell
+w
+n
+n
+e
+s
+in
+get all
+out
+n
+w
+n
+e
+e
+e
+n
+n
+d
+in
+use pickaxe on wall
+in
+s
+s
+e
+burn vines
+e
+get rope
+w
+w
+n
+n
+n
+get watch
+s
+e
+s
+get cross
+n
+n
+get plate
+s
+e
+unleash the mongoose
+e
+tie the rope to the stalagmite
+d
+open chest
+get compass
+e
+feed the honey to the bear
+e
+w
+w
+n
+w
+give watch to barlow
+give plate to barlow
+give cross to barlow
+give compass to barlow
+e
+e
+talk to sheriff marcus
+shout

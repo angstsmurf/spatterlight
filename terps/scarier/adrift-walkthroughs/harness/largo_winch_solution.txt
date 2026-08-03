@@ -1,0 +1,323 @@
+regarder sous le canapé
+prendre la clé
+ouvrir la porte
+est
+parler à sullivan
+ouest
+ouest
+prendre le badge
+regarder sur la table basse
+prendre la flûte à champagne
+prendre la bouteille de champagne
+est
+donner la clé à Samantha
+est
+nord
+parler à Jenny
+sud
+parler à Simon
+nord
+prendre le plantoir
+enjamber rambarde
+ouest
+utiliser le badge
+regarder sous le gros tableau jaune
+utiliser plantoir
+parler à Samantha
+nord
+nord
+parler à Jenny
+sud
+est
+parler à Sharon
+remplir la flûte à champagne
+donner la flûte à champagne à Sharon
+combattre
+coup de poing
+coup de poing
+coup de poing
+coup de poing
+entrer
+nord
+regarder sous le coussin
+prendre le cd
+insérer le cd dans l'ordinateur
+parler au vigile
+nord
+parler à la secrétaire
+regarder sur la table
+prendre le magazine
+donner le magazine à la secrétaire
+nord
+parler à Jenny
+est
+prendre le brise-glace
+briser la vitre avec le brise-glace
+prendre l'extincteur
+dégoupiller l'extincteur sur les serpents
+sud
+parler au directeur
+parler à la secrétaire
+nord
+est
+haut
+nord
+haut
+parler à la scientifique
+prendre le mélangeur
+sud
+bas
+ouest
+bas
+ouest
+haut
+parler au blond
+parler au brun
+donner le mélangeur au blond
+est
+bas
+est
+haut
+nord
+haut
+parler à salma paz
+ouvrir la porte
+nord
+nord
+regarder derrière le fauteuil
+prendre la feuille
+regarder dans la corbeille à papier
+prendre la cassette audio
+sud
+insérer la cassette audio dans le répondeur
+nord
+nord
+ouvrir le réfrigérateur
+prendre le tube à essai
+combiner la feuille et le tube à essai
+sud
+taper agylap
+combattre
+coup de pied boris
+coup de pied boris
+coup de pied boris
+nord
+salle du bigboard
+parler à Sharon
+parler à John
+vendre
+parler à John
+sud
+central informatique
+parler à Joy
+prendre cd
+insérer le cd dans le lecteur
+frapper à la porte
+kgb
+nord
+est
+est
+est
+ouvrir la porte
+ouest
+ouest
+ouest
+nord
+est
+est
+est
+ouvrir la porte
+entrer
+ouest
+ouvrir l'armoire
+prendre le drap propre
+regarder sur le lit
+prendre le drap sale
+combiner le drap propre et le drap sale
+est
+est
+utiliser la corde
+ouest
+sud
+ouest
+ouest
+ouest
+sud
+sud
+regarder le disjoncteur
+retirer le fusible 3A
+nord
+est
+est
+est
+entrer
+nord
+prendre la petite clé
+regarder sur la table
+prendre la pochette d'allumettes
+prendre la cassette audio
+insérer la cassette audio dans le répondeur
+sud
+sud
+ouest
+ouest
+ouest
+sud
+ouvrir la boîte à lettres 3A avec la petite clé
+prendre l'enveloppe
+nord
+est
+est
+est
+entrer
+donner la pochette d'allumettes à Simon
+nord
+nord
+donner le devis à la femme
+parler à l'homme
+prendre le jeton en cuivre
+nord
+sud
+sud
+insérer le jeton en cuivre dans la machine à café
+nord
+nord
+regarder dans la caisse à outils
+prendre le tournevis
+est
+ouvrir le tiroir du bureau avec le tournevis
+insérer le cd de Kerensky dans l'ordinateur
+nord
+parler à la femme blonde
+parler au poivrot
+parler au barman
+ulla ulla
+nord
+regarder dans le placard pharmaceutique
+prendre le tube de somnifères
+sud
+sud
+est
+monter
+ouest
+nord
+regarder le téléphone
+composer "9002472832"
+frère
+tousser
+da
+vider le tube de somnifères dans le verre de vodka
+sud
+est
+monter
+prendre le briquet
+prendre le pistolet
+nord
+prendre la bouteille de vodka
+vider la bouteille sur la liasse de billets
+allumer le briquet
+donner le pistolet à Simon
+prendre la pelle
+renverser le tonneau avec la pelle
+prendre la bouteille d'alcool
+prendre le chiffon
+combiner la bouteille d'alcool et le chiffon
+jeter le cocktail molotov sur Vladimir
+combattre
+coup de pied ennemi 1
+coup de pied ennemi 1
+coup de pied ennemi 2
+coup de pied ennemi 2
+coup de pied ennemi 3
+continuer
+nord
+salle du bigboard
+parler à John
+investir
+sud
+accueil
+est
+regarder le tableau
+ouvrir la caisse à outils
+prendre le marteau
+prendre la flèche métallique
+prendre la bague métallique
+forcer l'armoire électrique avec la flèche métallique
+combiner le marteau et la bague métallique
+insérer la bague métallique plate dans l'armoire électrique
+nord
+nord
+nord
+nord
+dalle inscription
+est
+ouest
+nord
+salle du bigboard
+parler à John
+sud
+nord
+parler à la secrétaire
+est
+deuxième étage
+est
+est
+est
+est
+est
+est
+est
+est
+est
+utiliser le badge
+sud
+premier étage
+est
+est
+est
+est
+est
+est
+est
+est
+est
+utiliser le badge
+combattre
+coup de pied ennemi 1
+coup de pied ennemi 1
+coup de poing ennemi 2
+coup de poing ennemi 2
+coup de poing ennemi 2
+coup de pied ennemi 3
+coup de pied ennemi 3
+coup de pied ennemi 3
+continuer
+ouest
+ouest
+ouest
+ouest
+ouest
+ouest
+ouest
+ouest
+ouest
+sud
+accueil
+sud
+est
+nord
+salle du bigboard
+sud
+accueil
+nord
+combattre
+coup de pied
+coup de pied
+sud
+nord
+salle du bigboard
+parler à john
+sud
+central informatique
+sud
+salle du bigboard

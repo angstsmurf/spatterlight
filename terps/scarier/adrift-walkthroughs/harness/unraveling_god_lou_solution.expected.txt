@@ -1,0 +1,1071 @@
+Loading game...
+
+Unraveling God
+
+Unraveling God
+An interactive fiction short story
+by Todd Watson
+Copyright September 2002
+Version 1.0
+
+Press:
+
+1. For instructions on playing Interactive Fiction games;
+
+2. For commands unique to this game; or
+
+3. To begin a new game.
+
+Or click on Adventure/Open Game in the menu above to open a saved game.
+
+Introduction
+
+>
+
+All around you is desolation, torture, and...
+
+(press any key)
+
+Pain.
+
+A series of cliffs and plateaus form nine rings, six above you, two below. A
+boiling river of blood runs through the seventh ring, and you are standing in
+it up to your knees. You start to raise one leg out of the viscous current,
+but a centaur guarding the shore swings his bow towards you, drawing back the
+arrow on the string, and you quickly sink your leg back down. Again, the
+blood boils through to the bone, the flesh growing back in spurts.
+
+Something begins to pull at you, wanting to lift you up into the air. You
+resist, but the pull is becoming insistent, an end to the pain it whispers in
+your head, it would be so good... But no, you cannot, you must not. You
+remember why you must endure... endure this agony for eternity? It's only
+been four days and yes you are sorry for what you've done but you can't
+believe you deserve this.
+
+Then you realize you cannot resist, it has not been given to you to stop
+this, and your body is ripped into the air, faster than the centaurs can
+react. As you fly rapidly out of the inferno of the pit and past the enormous
+gates and the field of wandering souls, you pray your first prayer, calling
+out to God to keep you from returning to Earth, to life, to your corporeal
+body, begging Him to put you back in the river.
+
+And you reflect on what you have done.
+
+(press any key)
+
+Two months before...
+
+You are sitting at your desk.
+
+Lab office
+
+Lab office
+You are in a large corner office at the Superconducting Diamagnetic Field
+Study Laboratory on the campus of  the University of Illinois. It's the
+largest, and by far the nicest, office in the building, of course. A large,
+ornate oak desk occupies the center of the office. On one wall is an
+assortment of plaques, on another a book shelf crammed with a variety of
+texts. To the north is the door out of your office.
+
+>An elegant, large, and heavy oak desk, stained a dark mahogany, dominates the
+office. A computer fills the front left corner of the desk, and a phone sits
+on the right.  A Palm and manilla folder are on the desk.
+
+>A Palm z575, the latest model with a 600x600 pixel high-resolution color
+screen, 64 MB memory, and stamp-sized expansion cards that can add another
+512 MB of memory.  The Palm is Off.
+
+>You take the Palm from the desk.
+
+>Your Palm turns on, revealing today's schedule. It shows "Herb's Big Day!" at
+9 am. That was about five minutes ago.
+
+It also shows that 1 pm is your deadline to e-mail the article you've been
+working on for Time Magazine to the editors. You make a mental note to take
+the folder with you so you can mark it up with final changes for your
+secretary to make.
+
+>A typed label on the manilla folder reads, "Time Magazine draft article."
+Manilla folder is closed.
+
+>You take manilla folder from the desk.
+
+>You open manilla folder.
+
+>Time magazine has asked you to write an article in layman's terms explaining
+the science behind the work you're doing, work that when successful will
+change the world. If you make the deadline, the article should run next week,
+probably in the back of the issue somewhere. You figure that within two
+years, after receiving the Nobel Prize for Physics, of course, you'll be on
+the cover as Time Person of the Year, under the heading: "The Man Who Gave Us
+the Stars." You skim the draft once again:
+
+Magnets, Molecules, and Flying Monkeys
+
+By Professor Gabriel G. Markson
+
+Here at the University of Illinois' Superconducting Diamagnetic Field Study
+Laboratory (we just call it the MagLab to make it easier on ourselves), our
+pet monkey Herb is more famous than any of us. His picture has been seen in
+practically every newspaper, magazine, and television on the planet. All the
+interest in our Rhesus monkey isn't because he's so cute, but because for
+almost six months now, he has been flying.
+        What's more, and more importantly, in all that time, he hasn't moved.
+Not scratched an itch, not blinked, not twitched, not anything. His heart
+hasn't beat, the blood hasn't flowed, the neurons in his brain haven't fired.
+The very cells in his body have ceased to function, no cellular division, no
+mitosis, nothing. But it goes even deeper still. The very molecules in his
+body, even the atoms, are all being held perfectly still.
+        Each atom in the universe contains electrons that circle around a
+nucleus. If an atom (or the billions of atoms making up a piece of metal, a
+cup of water, a monkey, or a live person) is immersed in a magnetic field,
+the electrons create their own magnetic field to oppose this external
+influence. As a result, the atoms behave as little magnets.
+        As anyone who has ever played with magnets has noticed, magnets push
+each other away if you try to push the two north or two south poles together.
+Similarly, the north pole of the external field will try to push away the
+“north poles” of magnetized atoms.
+        Our MagLab magnet creates a very large magnetic field about a million
+times stronger than the Earth's magnetic field. In this field, all the atoms
+inside Herb or anything else we put in the field act as very small magnets.
+Essentially, Herb is now built up of these tiny magnets, all of which are
+repelled by MabLab's large magnet. The force, which is directed upwards, is
+strong enough to compensate the force of gravity that also acts on all of
+Herb's atoms. So, Herb floats. This phenomenon was first developed at the
+Nijmegen High Field Magnet Laboratory in The Netherlands, where I was lucky
+enough to study for my master's degree. While continuing my studies and
+working on my Ph.D. at the University of Illinois, I noticed that at
+particular field strengths, any live animal I happened to be floating stopped
+moving. The first time it happened, I was afraid we had killed our pet. A few
+experiments later, though, and we realized the magnetic fields were actually
+holding the atoms in  a nonmoving, steady state and that we were on the verge
+of developing true suspended animation. It doesn't require freezing and
+thawing: just turn off the field and Herb “wakes up,” apparently completely
+unharmed. The six month test currently underway is the last step before
+testing the suspended animation magnetic field on a human being.
+        Just think of the possibilities. The two most obvious are space
+travel and incurable medical conditions. For years, people have been using
+cryogenics to freeze themselves in the hopes that one day scientists would
+have the know-how to unfreeze them and fix whatever ailed  them. Now we'll be
+able to do that without the rather difficult problem of unfreezing them. But
+space, that's where this technology will make its mark. Getting to another
+planet is now a real possibility, even if it takes 100 years for the ship to
+get there, or 1000 years, or 10,000 years.
+-- end --
+
+And by then, everyone will have forgotten that stupid monkey, and Gabriel
+Markson will be the name the entire world remembers. Justin Smith, they will
+have never heard of. And maybe he'll be a distant memory for you one day,
+too.
+
+The phone rings.
+
+>You put the receiver to your ear and answer with your usual warmth:  "Markson
+here."
+      "Gabe, this is Mike. It's Herb's big day, what are you doing still in
+your office? Three years of preparation for this day, and you're late?"
+     "Need I remind you who works for who?" you growl at your subordinate.
+"I'll be there shortly. The little sucker hasn't so much as farted in six
+months; a few more minutes isn't going to kill him."
+     You hang up the phone. Maybe Mike is right, though. It probably is about
+time to get down to the lab and see how Herb is doing.
+
+>You open lab office door.
+
+>(Getting off the chair first)
+You move north.
+Lab hallway
+
+Lab hallway
+The long hallway runs east-west. To the west are the doors into the lab
+proper, and to the east are the MagLab's one classroom and the exit out of
+the building. The door to your office is to the south.
+
+>As you walk down the hallway towards the MagLab, you thoughts wander away
+from Herb, to Claudia....
+
+(press any key)
+
+Pleasure.
+
+Six weeks later....
+
+You like that it's just dark enough to cast shadows around the room. You can
+barely make out the shape of Claudia's leg, which makes it that much more
+tantalizing as she raises one knee a bit off of the sheet. You reach over and
+gently stroke the thigh of her other leg, enjoying the calm after the energy,
+motion, and release of the last hour. You've learned that much from Claudia,
+at least, to savor these peaceful moments. It would be even better if you
+could relax further and drift off to sleep, but Claudia always likes to talk
+for awhile, her own way of luxuriating in the afterglow. She rolls up onto
+one elbow and looks at you, something clearly on her mind.
+
+>
+In Claudia's bedroom
+
+In Claudia's bedroom
+Various science journals and textbooks on magnetics lay scattered on the
+floor with the latest Wally Lamb novel, all laying on top of jog bras and
+sweatpants. A print of "Flaming June" decorates one wall, but Claudia has
+tucked tomorrow's to do list into the corner of the frame ("I always look at
+this painting when I get up, and this way I won't forget my list," she once
+told you.) The hall out into the apartment is to the east, and the master
+bathroom is to the south.
+
+Claudia is here.
+
+>Running your hand further up her leg and over her stomach, you ask her what's
+the matter.
+     "Oh, it's not that anything is the matter. I'm just worried about
+tomorrow's test. I still wish we knew what was causing the disorientation
+we've all experienced."
+     She's talking about the side effect of the diamagnetic field on humans.
+Herb and every other animal you've tested the field on has seemed unaffected
+as any test can determine.
+     The end of Herb's six month stint of suspended animation a
+month-and-a-half ago had been a huge success. Bowing to the huge pressure
+from the press and the University administration to prove the field worked on
+people, you had stepped onto the larger magnet two days later, and Claudia
+had turned on the field.
+     For the next three minutes, you had floated a foot above the magnet,
+rigid and motionless all the way down to your very molecules. When Claudia
+turned off the field, you were fine, other than experiencing momentary
+dizziness. Longer times in the field produce a more noticeable dizzy spell
+and disorientation. So far, you haven't been able to determine what's causing
+it, but you, Claudia, Mike, and a few other assistants have been testing the
+field on yourselves in increasingly longer durations.
+     You decide to tell Claudia:
+     1) Not to worry so much;
+     2) You're worried, too;
+     3) It's either push on or give up; or
+     4) Not to say anything at all.
+
+>     "You worry too much sometimes, I think," you tell her. "I'm still
+convinced it's simple disorientation from people or objects in the lab having
+moved while you're under. To you, it looks like they've moved
+instantaneously. Magical teleportation -- your brain just has a hard time
+grasping it."
+     "Well, it's as good of an explanation as any," Claudia admits. "Of
+course, it's also a wild-ass guess. I'd rather have something a little more
+scientific to go on before you go under for such a long time."
+     The longest anyone has been under so far has been five hours, which was
+you, of course. The disorientation as you came out of the field was
+nauseating, but bearable. You're not too concerned.
+     Claudia seems like she has more to say, unsurprisingly.
+
+>     "I know this may seem strange this far into things, but do you ever
+wonder if we're pushing things too far?" she asks. You give her your patented
+"what on earth are you talking about?" look.
+     "I mean," she says, "I guess what's really making me nervous is I can't
+help thinking we're crossing the boundaries of the universe's natural laws.
+We're creating an artificial environment where atoms hold still -- that
+doesn't happen anywhere else in all existence. We are forcing something to
+happen that wasn't meant to be."
+     Suddenly she rolls over and looks at you, an earnest pleading in her
+eyes. She puts her hand on your chest. "Gabriel," she asks. "Do you even
+believe in God?"
+     In all the nights you've spent in this apartment, the subject of
+religion has never come up. You ponder telling her:
+     1. Of course you believe in God;
+     2. You want to believe, but you have your doubts;
+     3. No, God clearly doesn't exist; or
+     4. Say nothing at all.
+
+>     "Of course I believe in God," you tell her. "How could I not? I look
+around me and I see His works everywhere, and I'm constantly amazed by them."
+     You see immediately that this is indeed what she wanted to hear. You
+decide not to add that you sincerely hope the traditional view of God isn't
+accurate. You sure as hell don't want to be judged for some of your actions
+after you die. Claudia smiles, which proves the omission wise.
+     "I can't tell you how glad I am you say that, Gabriel," She says.
+"Because I believe, too, very much. I became a scientist to study and learn
+first hand how God's great creations work, but I'm concerned now because
+we're taking the operating system and tweaking it just a bit. We don't really
+know what the ramifications might be, what might happen. And when I lie here
+at night thinking about it, it scares me sometimes, how we're breaking the
+rules, like we're unraveling God himself."
+     You had no idea Claudia had such strong religious feelings. It's pretty
+obvious she wants to keep talking about this.
+
+>     "Unraveling God?" you chuckle. "That sounds awfully ominous."
+     "I'm serious, Gabe. Despite having become a scientist, I can't help but
+wonder if the medieval and renaissance theologians didn't have the right
+idea. Before then, priests and monks were expected to be well educated and
+studied the physical sciences.
+     "Then guys like Galileo came along with obscene notions, like the earth
+revolving around the sun. Suddenly it started to look like science might
+disprove accepted religious fact, and science and God parted ways.
+     "I study the world, though, and I wonder if those afraid of science were
+afraid for a good reason, even if they didn't know it. Every day researchers
+around the world push the boundaries of what's physically possible. Maybe
+it's part of our free will to take science too far. What if the consequence
+of breaking the rules God established for running the universe is that the
+rules stay broken? What if we're the one's to make that break?"
+     You consider telling Claudia:
+     1. That's an interesting idea;
+     2. Maybe she should become a nun;
+     3. That makes no sense at all; or
+     4. Say nothing at all.
+
+>     "Well, that's an interesting thought," you tell her. "You're saying that
+altering physical laws might not be temporary? So, say someone figures out a
+way to create anti-gravity, suddenly there'd be no gravity?"
+     She grins at the obvious absurdity of the idea.
+     "I know it's silly," she admits. "But that's the general idea, yes."
+     "Well, we're safe, then," you say, starting to enjoy the late-night
+pseudo debate. "We're not really breaking any of the laws of physics, we're
+just applying them in creative and unique ways."
+     She laughs, her odd introspective mood broken.
+     "Seriously, though," she says, "I still can't shake the feeling
+something isn't right. No, I don't think magnetism will suddenly cease
+working, but I do worry that we're failing to anticipate something out of
+ignorance of the field's effects. We should understand what's causing the
+disorientation."
+     "All right, all right," you say. "I give up. I hereby authorize ten more
+days of testing, but then I'm going under for at least four days, whether we
+know the answer or not."
+     Claudia smiles with relief. Not that there was any doubt, but you're
+glad she will continue to support you and the project. After all, that's why
+you decided to get Claudia to fall in love with you in the first place.
+
+(press any key)
+
+Triumph.
+
+Ten days later....
+
+You are in the MagLab.
+
+>
+MagLab
+
+MagLab
+The premier diamagnetic field research lab in the world is surprisingly
+small. The room is maybe 75 feet long and only about 25 feet wide. An
+assortment of shelves, tools, and computer and electrical equipment line the
+walls all the way around the lab, except for one corner of the room where a
+cage for Herb sits when he's here and not being suspended in the
+superconducting diamagnetic field. The two field generators, one larger than
+the other, take up the center of the room. Cables run from each across the
+floor to a row of computers sitting on a table. The hallway out of the MagLab
+is to the east.
+Mike's loud voice makes it hard not to notice he's in the room.
+
+Claudia is here.
+
+>You climb the rungs up the side of the large field generator and stand on the
+platform. Even though you've done this several times before, you can feel a
+little adrenaline quickening your blood. This will be the first test of more
+than a few hours; at 110 hours, you'll be under for just over four and a half
+days. You glance over at Claudia and Mike, standing in front of the computers
+and looking at you expectantly. All that remains is to give one of them the
+word and they'll turn on the machine. In four days, they'll wake you up and
+your place in history will be secured.
+
+>     You wish briefly that the extra ten days of testing had paid off. The
+disorientation you and the others experience when the field is shut off is
+still inexplicable. You conclude for the thousandth time that it must simply
+be caused by people or equipment in the room having moved at least a little
+bit while you're suspended in the field. Your doubt fades; this is no time to
+be anything other than confident. You're about to finalize what you know will
+be the greatest technological advance of the 21st century. You're about to
+give man the ability to reach the stars. Elation fills your chest and you
+tremble in eager anticipation. Four days for them, and an instant for you,
+and then everything you've worked for, every sacrifice you've made, every
+sacrifice you've made others make, every decision made in the name of
+ambition, will all be vindicated.
+     "Do it, Claudia. Turn on the machine."
+     She looks at you calmly, her professional demeanor impeccable. She knows
+the video cameras are taping every moment.
+     "Ok, Gabe," she says. "Here we go. See you in just a second!" With that,
+she reaches out and taps a key on the computer.
+
+(press any key)
+
+Judgement.
+
+Two years before...
+
+You are in a classroom.
+
+Wearily, you open your eyes wider. Giving tests has to be one of the most
+boring aspects of teaching. The students struggle with the exam while you sit
+at your desk, struggling to stay awake. You'd been almost dreaming, oddly
+imaging yourself wandering, walking listlessly across an endless plain of
+short brown grass toward a towering jagged cliff. Then Gary Hendricks, an
+up-until-now promising student, snickered, jarring you alert. The snot must
+have noticed you starting to drift off. That mistake just might be reflected
+in his grade, you decide.
+     A noise at the open classroom door catches your attention, and you see
+Justin Smith practically jumping up and down in the hall, obviously very
+eager to tell you something.
+     As class and the exam ends, the students file out, leaving their tests
+on your desk as they go. Justin can stand it no longer and pushes his way
+through them to your desk.
+     "Professor Markson, I've been working on something for days, it's ready,
+you've got to come down to the lab and see this, you're not going to believe
+it!" He's so excited, he's practically exuding excess energy. Before he can
+run off, though, you stop him by handing him the stack of exams.
+     "I'll be there in minute, Justin. In the meantime, don't forget you need
+to grade these for me by tomorrow morning."
+     He just grins and runs off.
+
+>You move south.
+End of hallway
+
+End of hallway
+The doors out of the laboratory building are to the east, and the lab's
+single classroom is to the north. Your office and the main MagLab are to the
+west.
+
+>You move west.
+Lab hallway
+
+Lab hallway
+The long hallway runs east-west. To the west are the doors into the lab
+proper, and to the east are the MagLab's one classroom and the exit out of
+the building. The door to your office is to the south.
+
+>You move west.
+MagLab
+
+MagLab
+U of I's underfunded diamagnetic field research lab is unsurprisingly small.
+The room is maybe 75 feet long and only about 25 feet wide. An assortment of
+shelves, tools, and computer and electrical equipment line the walls all the
+way around the lab, except for one corner of the room where a cage for Herb,
+Justin's pet Rhesus monkey, sits when he's here and not floating in the
+superconducting diamagnetic field. A small field generator takes up the
+center of the room. Cables run from it across the floor to a computer sitting
+on a table. The hallway out of the MagLab is to the east.
+
+Justin is here.
+
+>     "All right, Justin, what's all the excitement about?" You smile
+indulgently, returning Justin's goofy grin. Justin is one of those people who
+is just too happy and quick to smile to be able to work up a good dislike of
+him, even if you wanted to. His enthusiasm for science in general and
+magnetics in particular is contagious. You have to admit, since beginning his
+study with you last year, he's somewhat singlehandedly revitalized your
+interest in your chosen research field.
+     What had at first seemed so promising when you were earning your Ph.D.
+had rather fizzled into an interesting but obscure branch of physics without
+a whole lot of practical application. Then Justin arrived in your department,
+enamored with the idea of floating living objects simply because it was "so
+damn cool," and he persuaded you to let him experiment with levitating every
+animal he's been able to sneak into the lab, starting with frogs and
+chipmunks and working his way up to puppies.
+     You finally drew the line when he tried to bring in a live porcupine
+he'd caught, and arranged for a genuine research animal for him. Of course,
+Justin adopted the monkey the day he arrived, named him Herb, and has since
+been teaching the thing to do all sorts of acrobatics while floating in the
+diamagnetic field, usually while sticking a finger up its nose or some other
+unfortunate place. You're expecting that Justin has called you in because
+Herb has finally mastered the quadruple twisting back flip.
+
+>     "Look, Professor Markson, check out Herb! Look at that! Have you ever
+seen anything like it?"
+     As you figured, Herb has a new trick.
+     "So, Justin, you've taught the little ankle biter to hold still. I must
+admit that's an improvement to letting him run all over the damn lab."
+     "No, professor, take a better look. Seriously, look at him."
+     You do. As moments go by and Herb doesn't move, you take a closer look.
+Herb is more than holding still. He isn't blinking, his eyes aren't moving,
+he isn't even breathing. More than a little surprised, you exclaim:
+     1. What in the hell have you done to him, Justin?
+     2. Christ, Justin, you've killed the little geek!
+     3. I am not having the University buy you another monkey.
+     4. Well, I guess it's back to floating squirrels.
+
+>     Herb is clearly dead, and you know Justin is going to be upset, but you
+can't help yourself.
+     "What in the hell have you done to him, Justin? Did you do something
+that killed him, or do you think he's had a heart attack?"
+     Justin just laughs.
+     "No, professor. Check this out." Justin taps on the keyboard of the
+control computer. Suddenly Herb becomes very animated and begins chittering
+like crazy and spinning over and over in a series of midair somersaults. You
+couldn't have been more stunned if your father's corpse had just walked
+through the MagLab doors and struck up a conversation.
+     "I say again, what in the hell..." you finally manage.
+     "Isn't it cool?" Justin asks. "I noticed a couple of days ago that Herb
+was totally motionless for a couple of seconds. I've been adjusting the
+specific field strength, intensity, and amplitude, until I could hold him
+steady indefinitely. At first I thought it was killing him, too. But when I
+alter the field in the slightest, he wakes up and acts like everything is
+fine. It's like some sort of suspended animation."
+     Yeah, exactly like, you think.
+
+>     "Well, Professor Markson, what do you think?" Justin asks. He taps on
+the keyboard, adjusting the field, and Herb suddenly freezes in
+mid-somersault.
+     You've not felt your brain whirling around this fast since you were
+trying to complete your thesis with two days left to your deadline and about
+a week's worth of work to go. If this is what you suspect it is, it's going
+to make you more famous than you had ever dreamed might be possible. You and
+Justin. You glance over at him, and realize that for all your fondness of
+him, the big geek is not exactly the type of person you'd want sharing an
+awards podium with you.
+     "Justin, we need to take this slow." His smile becomes a little tenuous.
+"Don't get me wrong, but I think we should keep this to ourselves until we've
+had time to study it in detail, until we know exactly what's happening here.
+The last thing we want is newspapers writing that we've discovered suspended
+animation and then two days later Herb really does die from whatever we're
+doing to him. That would be the end of our careers."
+     Justin holds up his hands and says, "Way ahead of you, professor. I
+haven't told a soul, not even Claudia." Claudia is the other uptight prude of
+a graduate assistant working in the lab. You could shove a lump of coal up
+her butt and a week later she'd crap a diamond.
+     "Besides," Justin continues. "I'm pretty sure I've got the theory mostly
+worked out. I've written it all down, although it's obviously a limited-scope
+draft."
+     He hands you a paper, about 30 pages long.
+     "Look, professor, I've got to go meet my girlfriend for supper. Why
+don't I swing by your house in a couple of hours? That will give you time to
+read my paper over and we can figure out what to do next, okay?"
+     Numbly, you nod your head. Justin smiles again, takes Herb out of the
+field, and walks out of the lab, Herb sitting on his shoulder and holding
+onto his hair.
+
+>You move east.
+Lab hallway
+
+Lab hallway
+The long hallway runs east-west. To the west are the doors into the lab
+proper, and to the east are the MagLab's one classroom and the exit out of
+the building. The door to your office is to the south.
+
+>You move east.
+End of hallway
+
+End of hallway
+The doors out of the laboratory building are to the east, and the lab's
+single classroom is to the north. Your office and the main MagLab are to the
+west.
+
+Justin's whirlwind demonstration not only has left you flabbergasted, but you
+realize that you feel a twinge of jealousy at his discovery. You really wish
+it had been you, and you alone, who had noticed this unexpected and
+potentially monumental side effect of the diamagnetic field. Still, if his
+discovery holds up to the extensive testing you're already formulating in
+your head, you and he together will be extremely famous. Right this moment,
+though, there's not much else to be done other than drive your car home, look
+over his paper, and wait for Justin. It's not unusual for you to have your
+grad students over for a brainstorming session, or just to have a few drinks,
+but this time you wish you were meeting back at the lab, even if it will be
+late at night. One thing is for sure, though: you'll be cancelling all of
+your classes for the rest of the week, and you and Justin will be locking
+yourselves in the MagLab starting tomorrow morning.
+
+>You move east.
+Outside the MagLab
+
+Outside the MagLab
+You've stepped outside of the Superconducting Diamagnetic Field Study
+Laboratory, and can see much of the campus of  the University of Illinois
+from here. The lot where you always park is to the south.  As nice of a day
+as it is, though, this isn't a good time for enjoying the sunshine. Nor is it
+a good time to let your nerves get the better of you. It is time, right now,
+to get down to the lab proper and get on with the long-duration suspension.
+
+>You move south.
+Parking lot
+
+Parking lot
+One of U of I's many parking lots, this one is relatively small and is
+reserved for the university faculty, which you qualify as, even if most of
+the other engineering professors have never heard of you. The MagLab is to
+the north.
+
+Your Ford Mustang is sitting here, looking damn good, as always.
+
+>You climb inside the car and sit down on the fine leather of the driver's
+seat. Once again you are ready to drive the car.
+
+>You pull out of the parking lot, and wind your way through town. You pass
+college bar after college bar, endless pizza joints and cheap pasta places,
+and the occasional eatery worth entering. Students litter the streets. Most
+of them seem to be dressed in the current 90s retro fashion you can't stand
+-- baggy trousers with knee high crotches, underwear abounding. You pass
+through the center of town and move onto the suburbs. Eventually, you turn
+down your street, the blissfully quiet Oak Point Drive, and pull into your
+driveway.
+
+>You climb out of the car.
+Driveway
+
+Driveway
+You are in the short concrete driveway in front of your house. It's one in a
+row of two-story brick houses. You think it looks exactly the way a
+professor's home should look: a little old, a little run down, a little
+quaint. A sidewalk leads north from the driveway to the four concrete steps
+up to the front porch.
+
+Your Ford Mustang is sitting here, looking damn good, as always.
+
+You are thinking about the potential medical applications of magnetically
+"freezing" atoms in place, when, with an impact that literally makes you
+gasp, the thought occurs to you that with true suspended animation, space
+travel at sub-lightspeed is perfectly feasible. It wouldn't matter, to the
+passengers at least, how long it took the ship to reach its destination. With
+a shudder of awesome near disbelief, you realize that you could be the man
+who gives the stars to the human race. Or rather, you and Justin.
+
+>You move north.
+Front porch
+
+Front porch
+You are standing on the front porch of your home. On nice nights, you like to
+bring a chair out here and relax with a little scotch and soda. The door into
+your house, which you keep locked religiously, is to the north.
+
+>You unlock the front door with your house keys (on the ring with your car
+keys).
+
+>You open front door.
+
+>You move north.
+Hallway
+
+Hallway
+The foyer of your house is really just a hallway. The lighting is dim enough
+to disguise the age of the hardwood floors and hide some of the faded spots
+on the walls. A rather striking stairway to the right leads upstairs, to the
+west is the living room, the kitchen is down the hallway to the north, and
+the door out of the house is to the south.
+
+Justin better not take too long getting here, you think.
+
+The more you think about it, the more depressed you become. You've been
+studying high-intensity superconducting diamagnetic fields for nearly ten
+years, and Justin in less than 12 months discovers an application for it
+beyond all imagination. It just isn't right, or fair, even if he has no
+choice but to share the glory with his professor. Not that you're overly
+excited about sharing the coming limelight.
+
+>No time to look around, eh?
+The doorbell rings.
+
+>You open the front door; Justin's goofy grin is staring you in the face when
+you do.  His eyes seem a tad less bright than normal, and you catch a whiff
+of Jack Daniels as he says,"Hey, professor!" and steps into the hallway,
+swinging your front door shut behind him.
+     "Well, did you read my paper?" he asks.
+
+>     "Of course I've read it, " you respond. "And I'm very excited about the
+possibilities..."
+     Justin is trying with difficulty to remove his denim jacket, but the
+task seems to be beyond him.
+     "How much have you had to drink, anyway?" you ask.
+     "Oh, just a few celebratory drinks with my girlfriend," he replies, but
+now you detect a slight slur in his voice. "Don't worry about it, prof, I'm
+sober enough. What do you think, are we going to be rich and famous?"
+     "Rich? I don't know, maybe. Famous? Yes, Justin, I really think we are
+going to be exceedingly famous. But let's not get ahead of ourselves; first
+we've got a lot of testing to do, starting tomorrow..."
+     "Hey, professor, sorry, but I really got to take a leak," Justin
+interrupts, and bounds up the stairs. As he nears the top, he spins around.
+     "By the way, I called Claudia and told her to meet us here. She ought to
+be here soon."
+     Just great you think, but then all thoughts of your annoying female grad
+student evaporate from your mind as Justin stumbles when he turns to continue
+up the steps. You see his eyes widen in surprise as he grabs for the railing
+and misses, as one foot lunges forward for a support that isn't there, as his
+weight shifts too far forward, as he falls.
+     God, does he fall. The first thing to hit the steps is his face, with a
+crunch that brings the taste of bile into the back of your throat. His head
+snaps back with the impact, but his body keeps pitching forward, and you hear
+his neck crack like you'd snapped a thick stick over your knee as he rolls
+down the steps, landing on his back at your feet.
+
+He looks up at you, gasping for breath, mouth moving like he's trying to say
+something.
+
+In fact, you find yourself thinking, you probably would have eventually made
+this discovery yourself. After all, you were still trying to run at least one
+new experiment a month yourself. Sure, it might have been another year or
+two, but it was really only a matter of time. Damn, damn, damn.
+
+>     Blood is already trickling out of his mouth, as he gasps in air and
+tries to talk.
+     "Oh god, professor, I can't feel my arms, I can't move my feet!" He
+begins to hyperventilate with panic, but his breath is a wet rasping sound in
+his chest. The blood is flowing faster from between his lips.
+     "Jesus, Justin, oh Jesus," you cry, kneeling down beside him. "Stop
+trying to move."
+     Your hands are shaking, your own blood pounding in your ears, you don't
+know what to do, help, you've got to get help, call for help, phone in the
+kitchen....
+
+>His long body is broken, his neck canted at a severe angle. Two splintered
+ribs are sticking out of his left side, a stain of blood growing on his
+shirt. His right leg is twisted up behind him. His nose is broken, and
+probably his jaw, although that seems trivial compared to the rest of his
+injuries.
+
+>You move north.
+
+As you run down the hallway toward the kitchen, Justin's fall replays itself
+in your mind. It happened so fast, was so unexpected, so violent and
+horrible, and you can't grasp that it really did happen, that he really is
+laying on your floor, bleeding to death from internal injuries. You were just
+resenting him, how petty that seems now, you never wanted anything like this,
+and then, unbidden, the thought occurs... it was almost like this was fated
+to happen.
+Kitchen
+
+Kitchen
+A glance at this well-organized kitchen should tell anyone that not only do
+you like to cook, but you are probably very good at it. The kitchen has been
+recently remodelled, and you designed ample counter space for so small of a
+room. There's a stainless-steel-sided refrigerator, a modern stove and oven
+that looks like it was made in 1950, a sink and faucet, and a microwave
+hidden behind a cabinet door. A rack of pots and pans hangs over the island
+in the middle of the kitchen. A small table with four chairs sits in the
+corner of the room, and a phone is attached to the wall next to the fridge.
+The hallway is to the south.
+
+>You shakily grab the phone, and dial  911....
+
+You can't change the past, Gabriel, and that is not what happened, is it? No,
+what happened was this:
+
+You hesitate, thoughts of fated accidents clouding your mind, thoughts of a
+discovery that should have been yours pressing down on you, thoughts of fame
+and a legacy unshared pushing your hand back down, and then you hang up the
+phone without dialing. Dazed, unsure of yourself, you stand in the kitchen
+not moving for several minutes. Then, slowly, you open a cabinet, take out a
+short glass, put ice from the freezer in it, and with trembling hands pour
+yourself a double shot of scotch. Then you walk into the living room, past
+Justin, trying not to look at him, trying not to hear the gurgle of his
+breathing, and sit down in your leather chair. And sip your scotch. And read
+Justin's paper one more time.
+
+You are sitting in your living room.
+
+Living room
+
+Living room
+The cozy living room now seems unreal, with Justin lying just feet away in
+the hallway. A bookshelf covers the north wall, a fireplace sits in the
+middle of the west wall, and the south wall has a picture window looking out
+on your front yard. You keep the room dark and moody, with lamps behind the
+brown leather chair and large couch for ease of reading. A small table rests
+beside the chair. The hallway is to the east.
+The doorbell rings.
+
+>(Getting off leather chair first)
+You move east.
+Hallway
+
+Hallway
+The foyer of your house is really just a hallway. The lighting is dim enough
+to disguise the age of the hardwood floors and hide some of the faded spots
+on the walls. A rather striking stairway to the right leads upstairs, to the
+west is the living room, the kitchen is down the hallway to the north, and
+the door out of the house is to the south.
+
+Justin is here.
+
+>You open the front door. Claudia is standing there.
+     "Hello, professor," she starts. "Justin said he had something really
+important to tell me and to meet him over here, and..."
+     She pauses, finally looking at your ashen face. You step back and she
+sees Justin's twisted form laying at the bottom the stairs.
+     "Oh god! Justin!" she whispers, and rushes to his side. She looks over
+her shoulder at you. "He's barely breathing! What happened?"
+     "He fell. Just now. I was about to call 911," but you're talking to no
+one, as she has already rushed to the kitchen. You hear her on the phone, and
+she comes back after only a minute, sitting down next to Justin and taking
+his hand.
+     "It's okay, honey," she tells him. "Help is on the way." He doesn't
+respond, and she glares up at you.
+
+>At first, you're not sure what to say. It's clear she thinks you've failed in
+some way, that help wasn't already on the way. You kneel down beside her. You
+finally decide to say:
+     1. He just fell;
+     2. It wasn't my fault;
+     3. He'd been drinking; or
+     4. I'm sure he's going to be all right.
+
+>    "Claudia, listen to me. He just fell, seconds before you got here. I was
+still in shock, hell I still am, I was about to call for help when you rang
+the doorbell."
+     She looks at you, and her harsh eyes soften just a little.
+     "I know, professor. Of course." She looks down at him. "I think he's
+dying."
+     "No, of course he isn't," you reassure her, hoping you sound sincere.
+You hear the sound of sirens growing closer. "I'll be right back."
+     You run into the kitchen, and shove Justin's paper behind the garbage
+disposal underneath the sink. You look down the hallway at Claudia, and try
+to think. The sirens are loud, now. They're almost here. How much had Justin
+told her? Nothing, everything? You can see her convulsing with sobs, hear her
+crying out to Justin to wake up, to keep breathing, and you decide to use her
+shock and grief at this tragic accident to your advantage. You'll seduce her.
+You bet that in the next few days you'll manage to take her to bed, and
+within a month she'll fall in love with you, her brilliant and dashing
+professor, who is on the verge of changing the world. And if she loves you,
+she'll believe that you made the discovery yourself, that Justin had called
+her over tonight because you had shown him the most amazing thing, and she
+needed to be brought into the loop. You step back into the hallway just as
+Claudia opens the door for the police and paramedics....
+
+(press any key)
+
+Death.
+
+Day of the test....
+
+You are standing on an endless plain of short, burnt grass.
+
+>
+A field
+
+A field
+As far as you can see, the plain stretches before you. The light is flat, as
+if at dusk on a cloudy day. The grass beneath your bare feet is brown and
+dried, burnt out from the oppressive heat of this place. You see other
+people, as naked as you are, walking aimlessly, as far as you can tell. A
+wall of cliffs line the distant horizon, but you're not sure what direction
+they are from here.
+
+>As you walk along, the cliffs get a little closer.
+
+>As you walk along, the cliffs begin to loom a little higher.
+
+>As you walk along, you realize that the cliffs you are approaching must be
+immensely high.
+
+>As you walk along, the cliffs are now towering over you. In front of you
+seems to be an enormous gate carved into the rock.
+
+>As you walk along, you get to where you have to arch your neck back to see
+the tops of the cliffs, and the closed gates in front of you are as high as a
+ten story building.
+
+>At least 80 feet high, the stone gates set into the rock of the cliff itself
+are the only distinguishing feature for as far as you can see. In letters 10
+feet high are the words, "Abandon all hope, ye who enter." Somehow, this does
+not surprise you.  Stone gate is closed.
+
+>Time passes...
+With a rumbling groan of mammoth rock grinding against the massive cliff
+walls, felt in the rattle of your bones more than heard, the gates swing open
+wide.
+
+>
+A field
+
+A field
+As far as you can see, the plain stretches before you. The light is flat, as
+if at dusk on a cloudy day. The grass beneath your bare feet is brown and
+dried, burnt out from the oppressive heat of this place. You see other
+people, as naked as you are, walking aimlessly, as far as you can tell. The
+cliffs are close, now, and they are at least a mile high, if not two. Carved
+into the solid rock is an immense stone gate. You are close enough now to
+easily make out the writing chisled into the granite of the gate. Through the
+open gates, you can see an immense hall lit by torches, stretching off into
+distant darkness.
+
+>Calm for no good reason at all, you walk between the towering gates, and into
+the hall behind them. The gates grind shut behind you.
+
+Entrance Hall
+
+Entrance Hall
+Carved into the interior of the cliff, large stone columns are spaced along
+the granite walls, which stretch up into darkness. The walls must curve into
+a ceiling at some point, but if they do you can't see where. Torches are set
+into the gray walls, providing meager, intermittent lighting, but it  is
+enough for you to see down the length of the hall to it's far northern end,
+where a large object you can't quite make out sits on the floor.
+
+>You move north.
+The Throne
+
+The Throne
+At the end of the hall sits a large stone throne, runes you do not recognize
+carved into its surfaces. A man sits on the throne.
+
+>Long black hair slicked back into a ponytail, eyes like obsidian, slim but
+muscular, he is wearing an elegant black wool suit and black cowboy boots.
+
+>     "Where am I?" you ask the man.
+     He shakes his head, and says, "I think you know the answer to that,
+Gabriel." His voice is deep and resonant. "You are a learned man. I would
+have thought a Dante-style setting would be apropos for you."
+
+>     "Who are you?" you ask this strange man.
+     "I think you know the answer to that one, too, Gabriel," he tells you,
+the calm timbre of his voice allaying your apprehension somewhat. "My list of
+names is long, but I have more recently been known as Satan, the Devil, and
+Lucifer. You can call me 'Lou' for short, if it will make you feel better."
+
+>     "But I'm not dead. What am I doing here?" you ask him.
+     "Ah, now that is an interesting question," he says, his lips curling
+into a smile, white canines showing. "Let's see: your body is not breathing,
+your heart is not beating, your brain is not functioning. How do you define
+dead? I assure you, you can't get much more dead than you are at this
+moment."
+     Shocked almost beyond words, you would think this man insane if not for
+the fact that you are standing here, in a cave with no ceiling, and have no
+recollection of how you came to be here.
+     "But that can't be. I'm just in a state of suspended animation, not
+dead. In a few days the field will be shut off, and I'll wake up." Wake up?
+You get it now; this must be some strange dream you're having while being
+suspended.
+     Lou just laughs, and it occurs to you that dreaming is impossible with
+all brain activity halted down to the atomic level.
+     "Now we're getting to the crux of all this," he tells you. "For you most
+certainly are as dead as a doornail, and your soul has fled your body. Four
+days from now, though, you are going to wake up, fine and dandy, as good as
+ever. That's something that hasn't happened in over two-thousand years, and I
+must say, I'm quite looking forward to it."
+
+>      "Don't you see?" Lou asks you. "In your shorter tests, your soul was
+just hovering near you, like all souls do during a near-death experience,
+waiting to see if their body has truly died. The disorientation you always
+felt was from your soul returning to your body. This time, though, you stayed
+in the field too long, and you ended up here.
+     "And when the field is turned off, you'll leave here, breaking the
+agreement I've had for the last two millennia with a certain deity to
+restrain myself and all my minions to the confines of this place.
+     "You see, Gabriel, people really do have free will, and that means they
+are free to push the boundaries of the universe, whatever the result. You are
+freeing me, Gabriel, freeing me and mine to walk the world once more. Sure,
+the entire Host may stand against me, but my army is not insignificant, and
+another war will be far more entertaining than even one more minute down
+here."
+
+>     "So what happens to me, now?" you ask him.
+     "Contrary to popular belief, Gabriel," he replies. "I am not an
+ungracious person. And I offer you a grateful choice: join me willingly, and
+in life wealth, fame, glory, and power beyond imagining will be yours. And
+when you die the next time, decades from now, you can stand by my side, a
+prince of hell. Or resist me, and an eternity of pain and suffering will be
+your destiny."
+     If this is all for real, you're going to wake up in four days, alive and
+whole with a second chance no other man has ever had. Justin is a black mark
+on your record that would be hard to overcome, but you just may have a
+newfound devoutness. Loosing Satan on the world probably won't improve your
+case the next time you are judged, but it wasn't an intentional consequence
+of your actions.
+     "Don't worry, Gabriel," Lou says, before you can decide what to say.
+"There's no decision to be made just now, because we've one slight
+complication to deal with first. You are dead, have been judged and found
+wanting, and must serve your sentence, at least for a few days. On the bright
+side, that should be more than sufficient to convince you where not to spend
+eternity."
+     He smiles a last time, gracefully waves his hand, and your body is
+lifted from the ground at terrific speed and flung up towards the ceiling.
+You fly up out of the cavern and into a clear, sunny sky. Then you are
+falling, down towards an immense pit of nine rings dug into the ground, and
+you fall past the first, past the second, down to the seventh, towards a red
+river. As you drop, the thought occurs to you that as long as you stay here,
+Satan will not be set free....
+
+(press any key)
+
+Choose.
+
+Today, now...
+
+...your body is ripped into the air, faster than the centaurs can react. As
+you fly rapidly out of the inferno of the pit and past the enormous gates and
+the field of wandering souls, you pray your first prayer, calling out to God
+to keep you from returning to Earth, to life, to your corporeal body, begging
+Him to put you back in the river.
+     And abruptly your flight from Hell halts. You are floating, somewhere
+between Earth and Hell, between life and death. You can see nothing, feel
+nothing, but there is a presence here, a feeling growing stronger by the
+second in your chest, a feeling of awe and dread, a light in the fog around
+you. A voice, loud and terrible and calm, speaks.
+     "That prayer can be answered if you are sincere, Gabriel," the voice
+tells you. "I will not break the agreement I have made. Everyone gets true
+free will, even you. There is nothing special about you, Gabriel. You are
+just a person, like any other. The decisions you have made have brought you
+here, that is all, and I have done nothing to prevent it. Now you must make a
+final, immutable decision. If you wish it, to the river you will return. My
+law will be unbroken, and my first creation will remain where he is. Or, make
+a different decision, he will be free, and all he promised you will be yours.
+Choose. Now."
+     You were praying for this, for four days in Hell had thought you wanted
+it, but you never truly believed you would be given such a choice. Faced with
+the reality of sacrificing yourself to an eternity of agony or being rewarded
+now and forever, you are uncertain. Hesitatingly, you tell the voice you want
+to go back to:
+
+1. The river of blood;
+2. The MagLab.
+
+>
+
+"I'm sorry, but I just can't go back in that river. Send me back to the
+MagLab."
+
+The sound of your sentences has not yet died out before your vision clears,
+and you are hurling back down into the MagLab, ecstatic that you'll not be
+bathing in the river of blood again. You see that Claudia and Mike are there,
+and the video cameras are rolling. Your body is floating above the large
+generator, motionless in the field.
+   "Ready, Professor Baker?" Mike asks Claudia. You notice he is actually
+wearing pants and a dress shirt, but you suppose a tie would have been too
+much to expect. You float closer to your body, which Claudia is standing
+close to. She is gazing up at your suspended form, her eager eyes glowing,
+radiant with anticipation.
+     "Yes, Mike. Do it. Turn off the field." Mike stabs a button on one of
+the computers, the field is shut off, and your soul slams back into its body.
+
+(press any key)
+
+Life.
+
+You open your eyes.
+
+You are standing on the large field generator, back in the MagLab.
+Unbelievably, the pain is gone, but the disorientation of being back in your
+body is overwhelming, and you drop to your knees, vomiting. You pitch
+forward, rolling off of the field generator and crashing to the floor, but
+you barely notice. The room is sliding in and out of focus, sounds are coming
+and going, and voices are blurring as you try to regain your senses and some
+control over you mind and body, both of which are trying to shut down.
+Convulsions quake through you. You think maybe Claudia has rushed to your
+side; it sounds like she said "again" or maybe "not again."
+     Slowly, finally, the swirling of the room slows, and you realize Claudia
+is holding you, cradling your head in her lap. You've been trying to say
+something, but at first you don't know if any words have come out. Claudia
+has heard you through your retching, though.
+     "Never go back? You are back," she says, holding you tighter with arms
+that are meant to be comforting. "Honey, you are back."
+     You sit up, wiping the vomit from your mouth with the back of your hand,
+and chuckle. You shake her arm off of you, and stand and stretch, exulting in
+the feel of your body, your living body.
+     "Why, yes, yes I am." The chuckle becomes a laugh.
+     "Gabe, what... are you all right?" Claudia asks.
+     You only laugh more at her question and her confusion. Not bothering to
+answer, though you feel stronger than you ever have in your life, you stride
+from the MagLab, leaving a bewildered Claudia and Mike behind you. Calmly but
+quickly, you walk out to your car. You expect Lou will be at your home when
+you get there, waiting to to talk to you, waiting to reward you.
+
+As you drive home, you can't help but wonder for the first time, if God would
+allow you to make such a choice, setting Lou free on the world, could He have
+been very worried about dealing with the consequences of your choice? Your
+smile fades and you feel the beginnings of fear.
+
+-- end --
+
+(press any key)
+
+You have completed "Unraveling God" by Todd Watson.
+
+Thanks to my wife, Jill Watson, for serving as my editor and a playtester,
+and for being patient with me during the development of this story. Also,
+thanks to the friends I pressed into testing the game for me, Darin Barton,
+Bob Finger, and Keri Libbe.
+
+To start a new game, restore a saved game, or quit, click on the Adventure
+menu option above.
+
+>Do you really want to quit? [Y/N]

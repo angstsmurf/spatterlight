@@ -1,0 +1,1537 @@
+Loading game...
+
+Black Sheep's Gold
+
+© 2003 Driftingon
+_______________
+
+(press any key to continue)
+
+Today's Saturday, my favorite day of the week...
+
+That is, when mom doesn't decide to make my weekend plans for me.
+
+Today, it's the attic.  I hate cleaning the attic; it's stuffy and full of
+spiders.  The dust makes me sneeze, and for some reason I start to itch all
+over when I stay up there for too long.  Nonetheless, before I can do
+anything else, I've got to clean it up.
+
+And it's such a beautiful day outside...
+
+(press any key to continue)
+
+Home
+
+My Bedroom
+
+Like any kid's bedroom, it's awful messy.  I've got toys piled up in the
+floor, scraps of paper lying all about, and no intention of cleaning it up.
+My bed is here, unmade and not without its own compliment of toys and stuffed
+animals.  There are shelves above the bed, and a chest of drawers beside it.
+A small window is set into the wall, between the shelves and above the bed,
+and its curtains are waving in the cool breeze.  My closet is to the south,
+and I can reach the second-floor hall by going west.
+
+Before me lies an interactive fiction magazine.
+
+There are exits south and west.
+
+>I move south.
+
+Home
+
+My Closet
+
+I have a walk-in-closet with lots of room for all my shoes, clothes, and
+whatnots.  Oddly enough, I never really keep my clothes in here.  Instead, I
+always put them in the chest of drawers in my room.  The closet serves other
+purposes, as it has many a use in my make-believes.
+
+Before me lies a broom and a dustpan.
+
+There is an exit north.
+
+>I pick up the broom and the dustpan.
+
+>I move north.
+
+Home
+
+My Bedroom
+
+Like any kid's bedroom, it's awful messy.  I've got toys piled up in the
+floor, scraps of paper lying all about, and no intention of cleaning it up.
+My bed is here, unmade and not without its own compliment of toys and stuffed
+animals.  There are shelves above the bed, and a chest of drawers beside it.
+A small window is set into the wall, between the shelves and above the bed,
+and its curtains are waving in the cool breeze.  My closet is to the south,
+and I can reach the second-floor hall by going west.
+
+Before me lies an interactive fiction magazine.
+
+I can move south and west.
+
+>I open the chest of drawers.  My apron is inside the chest of drawers.
+
+>I take my apron from the chest of drawers.
+
+>I put on my apron.
+
+>I move west.
+
+Home
+
+Second-Floor Hall
+
+There are two rooms on the second floor, mine and my older brother's.  Stairs
+lead down from here, and another set leads up into the attic.  My brother's
+door is closed and locked, and a sign is taped to it.  He's always got his
+door closed.  Sometimes I wonder if he's making a bomb in there or something,
+because he's so secretive about things.
+
+I can move east, up and down.
+
+>I move down.
+
+Home
+
+Living Room
+
+The living room is almost always tidy, except on Monday football nights,
+Super Bowl Sundays and any night that my dad is parked in front of the
+television with his beer-drinking buddies.  There is a television here, as
+well as a couch and a coffee table.  Stairs lead up from here to the upstairs
+hall.  The kitchen lies to the north of here, my parents' bedroom to the west
+(off-limits to me), and the bathroom is to the east.  A door leading to the
+outside is to the south, but I can't go that way yet.
+Dad is here, lounging on the couch and smoking a cigarette.
+
+I can move north, east and up.
+
+>I move east.
+
+Home
+
+Bathroom
+
+The bathroom is rather simple.  It consists of a sink, a toilet, and a
+bathtub.  A medicine cabinet is built into the wall above the sink, and a
+drawer is built in underneath it.  A towel rack is tacked up next to the
+bathtub.
+
+I can only move west.
+
+>I open the sink drawer.  A light bulb is inside the sink drawer.
+
+>I take the light bulb from the sink drawer.
+
+>I open the medicine cabinet.  A bottle of Tylenol is inside the medicine
+cabinet.
+
+>I take the bottle of Tylenol from the medicine cabinet.
+
+>I move west.
+
+Home
+
+Living Room
+
+The living room is almost always tidy, except on Monday football nights,
+Super Bowl Sundays and any night that my dad is parked in front of the
+television with his beer-drinking buddies.  There is a television here, as
+well as a couch and a coffee table.  Stairs lead up from here to the upstairs
+hall.  The kitchen lies to the north of here, my parents' bedroom to the west
+(off-limits to me), and the bathroom is to the east.  A door leading to the
+outside is to the south, but I can't go that way yet.
+Dad is here, lounging on the couch and smoking a cigarette.
+
+I can move north, east and up.
+
+>I move up.
+
+Home
+
+Second-Floor Hall
+
+There are two rooms on the second floor, mine and my older brother's.  Stairs
+lead down from here, and another set leads up into the attic.  My brother's
+door is closed and locked, and a sign is taped to it.  He's always got his
+door closed.  Sometimes I wonder if he's making a bomb in there or something,
+because he's so secretive about things.
+
+I can move east, up and down.
+
+>I move up.
+
+Home
+
+The Attic
+
+I can't see anything up here... perhaps because the overhead light fixture
+has no bulb in it.  I find that it might be necessary to replace the bulb
+before I can do anything up here besides stumble around in the dark.
+
+I can only move down.
+
+>(Your score has increased by 10)
+Ahh... that's much better.  I can see now.
+
+(press any key to continue)
+
+Home
+
+The Attic
+
+The attic is pretty big, its ceiling high enough that I could easily walk
+upright from end to end, even in the more narrow corners.  It is also very
+dusty, and a thick layer of dirt covers the floor.  Cobwebs hang from the
+ceiling, many with their own little spider smack-dab in the middle.  A heavy
+chest sits in the eastern corner, and Christmas decorations are piled up
+against the western wall.
+
+>(Your score has increased by 10)
+
+This sucks...
+
+I begin cleaning, starting in one corner of the room and working my way
+around it.  During my activities, I uncover an old beer bottle, an empty .38
+shell, a dozen dead spiders, and a small key.  I sweep everything but the
+small key into the dustpan, and empty it into the trash can my mother has
+brought up here for me.
+
+When I finish, three hours have passed, and the attic looks much better.
+
+Curious about the key I found earlier, I decide that before I head out today,
+I might want to try to find out what it goes to.  Not much point in rushing
+anyway, most of my morning has already been ruined.  Thanks a lot, Mom...
+
+(press any key to continue)
+
+Home
+
+The Attic
+
+The attic is pretty big, its ceiling high enough that I could easily walk
+upright from end to end, even in the more narrow corners.  It looks very nice
+and cozy up here, with the possible reason being that it just received a good
+cleaning.  A heavy chest sits in the eastern corner, and Christmas
+decorations are piled up against the western wall.
+
+>(Your score has increased by 10)
+I'll have to say this right now...  This is probably the single most
+important thing I will do in my entire life.  Everything that happens to me
+from here on out will be a result of my unlocking this chest.
+
+(press any key to continue)
+
+With quite a bit of nervous wonder, I proceed to unlock the chest.  At first,
+it seems that the key won't work, but after jiggling it around a bit, I
+finally get it to turn.  The latch pops free, and I unsnap the two on either
+side.  Hoping to find something interesting inside, I peer into the...
+
+Empty chest...  Well, that's such a letdown.
+
+(press any key to continue)
+
+But wait!  Something is inside the chest.  Reaching down, I pull out a folded
+piece of ancient looking paper.  After blowing off the dust, I gingerly open
+it, and am rewarded with a scribbled note and a map.  The map part is pretty
+badly faded, and not of much use, but the writing is fairly clear.
+
+I hid the gold in the caves behind the waterfall (the one northeast of the
+town of Splintered Rock.)  I piled up stones at the entrance, and cemented
+them in, so you'll probably need a pickaxe to break through.  Once inside,
+beware, for the caves can be quite dangerous, and you'll still have to solve
+many a puzzle before you can get to my gold.
+
+-- Rupert
+
+(press any key to continue)
+
+Gold?  Rupert?  Could this be a map made by my great-grandfather?  I've got
+some newspaper clippings about a heist he pulled off over sixty years ago,
+where he made off with quite a bit of gold.  If I remember correctly, the
+photo album in which I keep the clippings is in the shelves above my bed.
+
+If this is his map, then I could use it to find the gold!  Visions of wealth
+and glamorous living are racing through my little head right now...
+
+Too bad the map is faded.  That doesn't matter though; at least I know where
+to start looking.  Oooh, this is so exciting!
+
+And I thought this day was ruined!
+
+(press any key to continue)
+
+Home
+
+The Attic
+
+The attic is pretty big, its ceiling high enough that I could easily walk
+upright from end to end, even in the more narrow corners.  It looks very nice
+and cozy up here, with the possible reason being that it just received a good
+cleaning.  A heavy chest sits in the eastern corner, and Christmas
+decorations are piled up against the western wall.
+
+>I move down.
+
+Home
+
+Second-Floor Hall
+
+There are two rooms on the second floor, mine and my older brother's.  Stairs
+lead down from here, and another set leads up into the attic.  My brother's
+door is closed and locked, and a sign is taped to it.  He's always got his
+door closed.  Sometimes I wonder if he's making a bomb in there or something,
+because he's so secretive about things.
+
+I can move east, up and down.
+
+>I move down.
+
+Home
+
+Living Room
+
+The living room is almost always tidy, except on Monday football nights,
+Super Bowl Sundays and any night that my dad is parked in front of the
+television with his beer-drinking buddies.  There is a television here, as
+well as a couch and coffee table.  Stairs lead up from here to the upstairs
+hall.  The kitchen lies to the north of here, my parents' bedroom to the west
+(off-limits to me), and the bathroom is to the east.  A door leading to the
+outside is to the south.
+Dad is here, lounging on the couch and smoking a cigarette.
+
+I can move north, east, south and up.
+
+>I move south.
+
+Home
+
+Outside the Front Door
+
+Oddly enough, the front door of my house doesn't face the street.  Instead,
+it faces a privacy fence that was put up to keep nosy neighbors from spying
+on us.  The concrete walk leads eastward out to the street, and runs adjacent
+to the driveway, which on its southern end terminates at the fence.  My
+father's car is parked in the drive, as it is every weekend that he's off
+from work.  It is late summer... those lazy days before school starts back
+up, and I can hear the laughter of my neighborhood friends playing some game
+or the other off in the distance.
+
+I can move north and east.
+
+>I move east.
+
+Poplar Street
+
+200 Block
+
+Splintered Rock is a small town... so small, in fact, that there is only one
+paved road, and that also serves as a state highway.  We call it Poplar
+Street, but out-of-towners call it "that wide spot in the road."  I live at
+216 N. Poplar, on the northernmost of the numbered blocks.  If I were to
+travel further to the north, I would be able to get to County Road 549, which
+would lead me into Splintered Rock state park (a place where one can often
+find me).  After a short walk in a southerly direction, I can get to the town
+proper, where I would find Mystery's General Store and Adrift's Aquatic Pets.
+ My house is to the west, and my friend Devon's house is to the east.  I can
+hear laughter coming from the south.
+
+I can move north, east, south and west.
+
+>I move south.
+
+Poplar Street
+
+100 Block
+
+This area of Splintered Rock is like a big playground for the kids in town.
+There are no houses on either side of the street, and there's plenty of room
+to play street hockey, football, and baseball.  The traffic isn't bad at all,
+so it's not very often that a game has to be interrupted to clear the road.
+Sally is here, playing catch.  Tony is here, a ball in his hand, ready to
+pitch to Sally.  Alice is here, drawing on the street with chalk.
+
+I can move north and south.
+
+>I move south.
+
+Poplar Street
+
+Town Proper
+
+This is the town proper, where we've got the only two shops in town; Adrift's
+Aquatic Pets to the east, and Mystery's General Store to the west.  We don't
+have an arcade, we don't have a pool hall, and we don't have any clubs to go
+to (not that I'm old enough to go to clubs anyway.)  As you can see, this is
+a very boring little town.  To the south are more residences, but mom would
+skin me alive if I went further than this.
+
+I can move north, east and west.
+
+>I move west.
+
+Mystery's General Store
+
+This is where most people in town do their shopping.  You can get almost
+anything here, except for medicinal items, which one has to go all the way to
+Torncloth to buy.  There are several rows here stacked floor to ceiling with
+items.  While it's not exactly a Wal-mart, it is a pretty handy place to go
+when one needs something.
+Mystery is here, standing behind the counter.
+
+I can only move east.
+
+>"Oooh!  I've got such a splitting headache!"  Mystery says.  "I wish I hadn't
+left my Tylenol at the house."
+
+>(Your score has increased by 10)
+"Oh, thank you," Mystery says.  "Maria, you're a lifesaver!  I've got to do
+something to reward you for such kindness.  Wait a second, I've got an idea."
+
+Mystery pulls a large jar of honey out from behind the counter.
+
+"Sweets for a sweetheart," she says, and gives me the honey.
+
+>I move east.
+
+Poplar Street
+
+Town Proper
+
+This is the town proper, where we've got the only two shops in town; Adrift's
+Aquatic Pets to the east, and Mystery's General Store to the west.  We don't
+have an arcade, we don't have a pool hall, and we don't have any clubs to go
+to (not that I'm old enough to go to clubs anyway.)  As you can see, this is
+a very boring little town.  To the south are more residences, but mom would
+skin me alive if I went further than this.
+
+I can move north, east and west.
+
+>I move east.
+
+Adrift's Aquatic Pets
+
+This is the only pet store within the county.  It's run by Campbell Wild, and
+is very well stocked.  Last year, my mom bought me a fish tank and some fish
+from here, as a test to see if I was ready for taking care of a pet.  I
+failed that test miserably, and my poor little goldfish are probably swimming
+in the sewers right now... belly up.  I like the owner, though.  He lets me
+browse through the merchandise all the time.
+Campbell is here, standing behind the counter.
+
+I can move east and west.
+
+>"Ahh, my child,"  Campbell says in his strange accent.  "I see that you are
+about to embark on a great quest.  Perhaps, to get you started, I can have
+you perform a task for me.  You see, I've lost my pet salamander, and I don't
+know where he went.  If you could find him for me, I'd be sure to reward
+you."
+
+>I move east.
+
+Adrift's Aquatic Pets
+
+Employee Bathroom
+
+This is the most ridiculously small bathroom I've ever seen.  There's no sink
+in here, just a toilet, and I dare say it looks rather... skuzzy.  I wonder
+if Campbell ever cleans up in here.  What am I doing in here, anyway?  I
+don't need to use the bathroom.  I hope Campbell doesn't get mad about me
+wandering in here without his permission.
+
+I can only move west.
+
+>It's a really nasty looking toilet.  I'd be afraid to sit down on it, as my
+bottom might rot off.  I think that Campbell needs to get in here and take a
+scrub brush to the thing.  Campbell's toilet is closed.
+
+>I open Campbell's toilet.  A tiny salamander is inside Campbell's toilet.
+
+>I take the tiny salamander from Campbell's toilet.
+
+>I move west.
+
+Adrift's Aquatic Pets
+
+This is the only pet store within the county.  It's run by Campbell Wild, and
+is very well stocked.  Last year, my mom bought me a fish tank and some fish
+from here, as a test to see if I was ready for taking care of a pet.  I
+failed that test miserably, and my poor little goldfish are probably swimming
+in the sewers right now... belly up.  I like the owner, though.  He lets me
+browse through the merchandise all the time.
+Campbell is here, standing behind the counter.
+
+I can move east and west.
+
+>(Your score has increased by 10)
+"Wonderful!" Campbell says.  "Where'd you find it?" ... "There?!!  What in
+heaven's name was it doing in the bloody loo?  Come here, my little baby..."
+
+Campbell takes the salamander from my possession, and pulls something from
+behind the counter.
+
+"See this little creature here?" he asks.  "It's a mongoose, sent to me by
+mistake from the Pet Warehouse in New York.  Bunch of bloody morons if you
+ask me.  As you can see, I only deal with aquatic life here, so you can have
+the mongoose if you want it.  Say hello to your new owner, Mr. Mongoose."
+
+Campbell gives me the cute little mongoose.
+
+>I move west.
+
+Poplar Street
+
+Town Proper
+
+This is the town proper, where we've got the only two shops in town; Adrift's
+Aquatic Pets to the east, and Mystery's General Store to the west.  We don't
+have an arcade, we don't have a pool hall, and we don't have any clubs to go
+to (not that I'm old enough to go to clubs anyway.)  As you can see, this is
+a very boring little town.  To the south are more residences, but mom would
+skin me alive if I went further than this.
+
+I can move north, east and west.
+
+>I move north.
+
+Poplar Street
+
+100 Block
+
+This area of Splintered Rock is like a big playground for the kids in town.
+There are no houses on either side of the street, and there's plenty of room
+to play street hockey, football, and baseball.  The traffic isn't bad at all,
+so it's not very often that a game has to be interrupted to clear the road.
+Sally is here, playing catch.  Tony is here, a ball in his hand, ready to
+pitch to Sally.  Alice is here, drawing on the street with chalk.
+
+I can move north and south.
+
+>I move north.
+
+Poplar Street
+
+200 Block
+
+Splintered Rock is a small town... so small, in fact, that there is only one
+paved road, and that also serves as a state highway.  We call it Poplar
+Street, but out-of-towners call it "that wide spot in the road."  I live at
+216 N. Poplar, on the northernmost of the numbered blocks.  If I were to
+travel further to the north, I would be able to get to County Road 549, which
+would lead me into Splintered Rock state park (a place where one can often
+find me).  After a short walk in a southerly direction, I can get to the town
+proper, where I would find Mystery's General Store and Adrift's Aquatic Pets.
+ My house is to the west, and my friend Devon's house is to the east.  I can
+hear laughter coming from the south.
+
+I can move north, east, south and west.
+
+>I move east.
+
+Devon's House
+
+Front Porch
+
+This is one of my favorite places to be at night.  Devon and I spend quite a
+few late evenings here, watching the sun go down, waiting for dark to fall
+and the mosquitoes to come out.  Then, protected by mosquito repellent, we
+rock back and forth on the porch swing and watch the mosquitoes get fried by
+the industrial sized bug zapper.  It's loads of fun when there is not much
+else to do, especially when one of the larger bugs makes it through the wire
+mesh of the zapper.
+Devon is here, sitting on the swing.
+
+I can move south and west.
+
+>I move south.
+
+Devon's House
+
+Side Lawn
+
+Devon's father hires a lawn maintenance worker (an old half-deaf man who mows
+the lawn) to provide his services every week, and because of this the lawn
+always looks nice.  Smack dab in the middle of the beautiful greenery is an
+ugly tool shed, where he keeps all his plumbing tools and supplies.  Because
+this is such a small town, there's not much of a chance that someone is going
+to steal his tools, so he usually keeps the shed unlocked and the door wide
+open.
+
+I can move north and in.
+
+>I move in.
+
+Devon's House
+
+Tool Shed
+
+Despite its outward appearance, things are rather well organized inside the
+toolshed.  Every tool has its own place, and every nail, screw, staple, and
+washer has its own jar.  What's more, several of the tools look brand new...
+not because they are, but because Devon's father is so adamant about cleaning
+and polishing them after each use.
+
+Before me lies a one-handed pickaxe and a zippo lighter.
+
+I can only move out.
+
+>I pick up the one-handed pickaxe and the zippo lighter.
+
+>I move out.
+
+Devon's House
+
+Side Lawn
+
+Devon's father hires a lawn maintenance worker (an old half-deaf man who mows
+the lawn) to provide his services every week, and because of this the lawn
+always looks nice.  Smack dab in the middle of the beautiful greenery is an
+ugly tool shed, where he keeps all his plumbing tools and supplies.  Because
+this is such a small town, there's not much of a chance that someone is going
+to steal his tools, so he usually keeps the shed unlocked and the door wide
+open.
+
+I can move north and in.
+
+>I move north.
+
+Devon's House
+
+Front Porch
+
+This is one of my favorite places to be at night.  Devon and I spend quite a
+few late evenings here, watching the sun go down, waiting for dark to fall
+and the mosquitoes to come out.  Then, protected by mosquito repellent, we
+rock back and forth on the porch swing and watch the mosquitoes get fried by
+the industrial sized bug zapper.  It's loads of fun when there is not much
+else to do, especially when one of the larger bugs makes it through the wire
+mesh of the zapper.
+Devon is here, sitting on the swing.
+
+I can move south and west.
+
+>I move west.
+
+Poplar Street
+
+200 Block
+
+Splintered Rock is a small town... so small, in fact, that there is only one
+paved road, and that also serves as a state highway.  We call it Poplar
+Street, but out-of-towners call it "that wide spot in the road."  I live at
+216 N. Poplar, on the northernmost of the numbered blocks.  If I were to
+travel further to the north, I would be able to get to County Road 549, which
+would lead me into Splintered Rock state park (a place where one can often
+find me).  After a short walk in a southerly direction, I can get to the town
+proper, where I would find Mystery's General Store and Adrift's Aquatic Pets.
+ My house is to the west, and my friend Devon's house is to the east.  I can
+hear laughter coming from the south.
+
+I can move north, east, south and west.
+
+>I move north.
+
+State Highway
+
+County Road 549 Junction
+
+I'm at the city limits, which is how far my parents will allow me to walk
+alone.  That's excluding the State Park, which I can reach by walking east
+along the county road.  They (my mom and dad) think that it's good for
+someone my age to take an interest in the great outdoors, so naturally they
+support my wilderness activities.
+
+I can move east and south.
+
+>I move east.
+
+County Road 549
+
+0.4 miles West of Splintered Rock State Park
+
+It's a decent little trek to the entrance to the park, but once there it is
+not too far at all until I reach the nature trail.  The nature trail itself
+will lead right up to the Great Falls, the only waterfall this side of the
+county line.  Supposedly, that's where I'll find the cave entrance that the
+treasure map mentioned.
+
+I can move east and west.
+
+>I move east.
+
+County Road 549
+
+0.2 miles West of Splintered Rock State Park
+
+I'm almost to the park.  I can see the entrance not too far ahead of me, and
+in the distance I can hear park visitors talking amongst themselves as they
+enjoy the wildlife.  The road here is no longer paved, and the walk is a
+little more tiresome on the loose gravel, but I don't have that much longer
+to go.
+
+I can move east and west.
+
+>I move east.
+
+Splintered Rock State Park
+
+Entrance
+
+The park trail leads north into the woods from here, and the county road ends
+in a gravel parking lot, where a few bicycles and a car are parked.  At the
+entrance to the park trail a wooden arch has been erected, and around the lot
+rotting railroad ties define the boundary.
+
+I can move north and west.
+
+>I move north.
+
+Splintered Rock State Park
+
+Park Trail
+
+I'm on the park trail.  I'm afraid that I'm not the only person that has been
+through here today, as some of the trash lying around looks like it's still
+fresh.  People around here seem to have no respect for the environment.  To
+the south is the entrance to the trail.
+
+I can move north and south.
+
+>I move north.
+
+Splintered Rock State Park
+
+Park Trail
+
+This part of the trail has always been a favorite to picnic-goers.  There's a
+wooden picnic table here, where people can sit and have their lunch, and
+there's a lovely view of the rest of the forest.  The land is slightly
+elevated here, and one can look down at all the trees below.  What's most
+remarkable about this spot, though, is that one can hear the roar of the
+nearby waterfall, which is just a hop, skip, and a jump away.  The path from
+here leads directly down to the falls.
+
+I can move south and down.
+
+>I move down.
+
+Splintered Rock State Park
+
+The Falls
+
+The water from the Snake River comes in from the east, and takes a nose dive
+down the rocky cliffs here.  The falls are beautiful, and I've been known to
+sit and watch them all day.  Just to the north, the path leads on deeper into
+the forest.  To the east, the Snake river heads to the north along the path.
+What I'm interested in, however, is the little rocky ledge that I can walk
+along to get behind the waterfall.
+
+I can move up and in.
+
+>I move in.
+
+Splintered Rock State Park
+
+Behind the Falls
+
+Wow!  If I ever thought the falls were beautiful from the outside, I never
+could have imagined what they look like from the inside.  One would have to
+see it to believe it, and I cannot describe in words what it's like to be
+behind a waterfall.  Of course, I can't stand around here enjoying the
+scenery all day, now can I?  Before me lies a pile of rocks that seem to be
+cemented into the cliff's wall.
+
+I can only move out.
+
+>(Your score has increased by 10)
+
+I can see now why people say that mining is a tough job.  I'm not used to
+this kind of physical labor, but there's gold in those caves.  I'm just sure
+of it!  With quite a bit of effort, I finally manage to break a decent sized
+hole in the rocks, revealing a darkened cave behind it.
+
+(press any key to continue)
+
+Splintered Rock State Park
+
+Behind the Falls
+
+Wow!  If I ever thought the falls were beautiful from the outside, I never
+could have imagined what they look like from the inside.  One would have to
+see it to believe it, and I cannot describe in words what it's like to be
+behind a waterfall.  Of course, I can't stand around here enjoying the
+scenery all day, now can I?  Before me lies a pile of rubble and a nice
+little hole in the cliff wall.
+
+>I move in.
+
+The Caves
+
+Entrance
+
+I should have thought about it before, but it seems as if the problem I might
+have had with lighting is in no need of being taken care of.  A strange glow
+comes from some of the mushrooms that are scattered around the cave floor,
+giving me plenty of light to see by.  I'm curious as to what type of
+mushrooms these are, as I've never seen anything quite like them.
+
+I can move north, east, south and out.
+
+>I move south.
+
+The Caves
+
+The Theater
+
+This cavern is huge!  It looks a lot like a theater, with the way the
+boulders are arranged.  A large, level rock formation on the eastern end of
+the room looks just like a stage.  I bet that if anyone so desired, they
+could rent this place out for plays and musicals.  Perhaps once I find the
+gold I'll tell my music teacher about it.
+
+I can move north and south.
+
+>I move south.
+
+The Caves
+
+The Hall of Vines
+
+Vines in a cave?  I'm assuming their really the roots of the trees above, but
+they hang down all around this hallway just like vines.  Some of them are
+really long, some are really short, and some of them wrap all the way around
+the hall multiple times.
+
+I can move north and east.
+
+>I move east.
+
+The Caves
+
+Small Room
+
+This room branches off from the Hall of Vines, and it looks fairly
+unremarkable compared to some of the rooms I've seen so far.  There is a
+small wooden chair here, perhaps used by my great-grandfather himself those
+many years ago.  On the eastern wall there are more vines, but unlike the
+others they are brown and dried up.
+
+I can only move west.
+
+>(Your score has increased by 10)
+Striking up the lighter, I set the flame to the vines.
+
+With a big whoosh they go up in flames, and are soon reduced to a pile of ash
+on the floor.  I nearly singe my face in the sudden inferno, but luckily jump
+away just in time.  That was close!
+
+I'm glad that I burned them though, because there seems to be another room
+behind them.
+
+(press any key to continue)
+
+The Caves
+
+Small Room
+
+This room branches off from the Hall of Vines, and it looks fairly
+unremarkable compared to some of the rooms I've seen so far.  There is a
+small wooden chair here, perhaps used by my great-grandfather himself those
+many years ago.
+
+Before me lies a pile of ash.
+
+>I move east.
+
+The Caves
+
+The Cave of Endless Noise
+
+I can hear the river in here, and it sounds like a freight train going
+through.  The walls of this cave amplify the sound in a way that is not found
+in any other part of these caverns.  The Snake River must be just above my
+head.  When I think about all that running water, it gives me the chills.
+
+Before me lies a sturdy rope.
+
+I can only move west.
+
+>I pick up the sturdy rope.
+
+>I move west.
+
+The Caves
+
+Small Room
+
+This room branches off from the Hall of Vines, and it looks fairly
+unremarkable compared to some of the rooms I've seen so far.  There is a
+small wooden chair here, perhaps used by my great-grandfather himself those
+many years ago.
+
+Before me lies a pile of ash.
+
+I can move east and west.
+
+>I move west.
+
+The Caves
+
+The Hall of Vines
+
+Vines in a cave?  I'm assuming their really the roots of the trees above, but
+they hang down all around this hallway just like vines.  Some of them are
+really long, some are really short, and some of them wrap all the way around
+the hall multiple times.
+
+I can move north and east.
+
+>I move north.
+
+The Caves
+
+The Theater
+
+This cavern is huge!  It looks a lot like a theater, with the way the
+boulders are arranged.  A large, level rock formation on the eastern end of
+the room looks just like a stage.  I bet that if anyone so desired, they
+could rent this place out for plays and musicals.  Perhaps once I find the
+gold I'll tell my music teacher about it.
+
+I can move north and south.
+
+>I move north.
+
+The Caves
+
+Entrance
+
+I should have thought about it before, but it seems as if the problem I might
+have had with lighting is in no need of being taken care of.  A strange glow
+comes from some of the mushrooms that are scattered around the cave floor,
+giving me plenty of light to see by.  I'm curious as to what type of
+mushrooms these are, as I've never seen anything quite like them.
+
+I can move north, east, south and out.
+
+>I move north.
+
+The Caves
+
+Tiny Room
+
+Ugh!  I can't believe that I squeezed myself into this place.  I've never
+been in a place so cramped.  I guess that's why you've got to have nerves of
+steel to be a cave explorer.  I could have never imagined!  Oh, but there's
+more of those weird mushrooms in here, and I can see quite well.
+
+Before me lies an antique gold watch.
+
+I can only move south.
+
+>I pick up the antique gold watch.
+
+>I move south.
+
+The Caves
+
+Entrance
+
+I should have thought about it before, but it seems as if the problem I might
+have had with lighting is in no need of being taken care of.  A strange glow
+comes from some of the mushrooms that are scattered around the cave floor,
+giving me plenty of light to see by.  I'm curious as to what type of
+mushrooms these are, as I've never seen anything quite like them.
+
+I can move north, east, south and out.
+
+>I move east.
+
+The Caves
+
+Maria's Hall
+
+This hall is so long and magnificent!  I shall name it Maria's Hall, after
+its discoverer.  It stretches for almost a football field's length east and
+west, and with indeed it is worthy of my name.  It seems this hall slopes
+downward as it travels east.
+
+I can move north, east, south and west.
+
+>I move south.
+
+The Caves
+
+The Cave of Evil
+
+This room gives me the creeps.  I feel as if there is some evil presence
+lurking in this room, but it could just be my mind playing tricks on me.
+Every time I turn my head, I catch a glimpse of something out of the corner
+of my eye.  I shall call this the "Cave of Evil," because that's a fitting
+name for it.  I really don't like the idea of staying here very long.
+
+Before me lies an antique cross.
+
+I can only move north.
+
+>I pick up the antique cross.
+
+>I move north.
+
+The Caves
+
+Maria's Hall
+
+This hall is so long and magnificent!  I shall name it Maria's Hall, after
+its discoverer.  It stretches for almost a football field's length east and
+west, and with indeed it is worthy of my name.  It seems this hall slopes
+downward as it travels east.
+
+I can move north, east, south and west.
+
+>I move north.
+
+The Caves
+
+Stalactite Room
+
+The difference between a stalactite and a stalagmite is such; stalactites
+hang from the ceiling, and stalagmites reach up from the floor.  I was taught
+in school to think of it this way.  A stalactite is hanging on "tite" for
+dear life.  A stalagmite is hoping that it "mite" reach all the way to the
+ceiling some day.  This room is filled with stalactites.
+
+Before me lies an antique china plate.
+
+I can only move south.
+
+>I pick up the antique china plate.
+
+>I move south.
+
+The Caves
+
+Maria's Hall
+
+This hall is so long and magnificent!  I shall name it Maria's Hall, after
+its discoverer.  It stretches for almost a football field's length east and
+west, and with indeed it is worthy of my name.  It seems this hall slopes
+downward as it travels east.
+
+I can move north, east, south and west.
+
+>I move east.
+
+The Caves
+
+Rattlesnake Cave
+
+Holy cripes!  A big frickin' rattlesnake sits in the corner of this room!
+I'm too scared to go anywhere but the way I entered from.  I've got to get
+rid of it somehow!
+
+...
+
+Before me lies the snake.
+
+I can only move west.
+
+>(Your score has increased by 10)
+My precious little baby...  Campbell must have known I would need you, and I
+surely do!  Thank God for you!
+
+I release the mongoose.  At first, it seems as if it isn't going to do
+anything but sit there on its haunches, but then it has a glimpse of the
+rattlesnake.  With a shot, it takes off after it, scratching and biting the
+thing until it retreats into a mouse-sized hole in the wall.  The mongoose
+follows after it, and for a while I can hear the two going at it with each
+other.  I do hope the mongoose won.
+
+Whew!  That was a close call!
+
+(press any key to continue)
+
+The Caves
+
+Riki Tiki Cavern
+
+I now dub this room the Riki Tiki Cavern, in honor of the glorious battle
+that my mongoose fought.  I'm so proud of that little thing!  The rattlesnake
+is gone, and now I can explore further through the caves.
+
+>I move east.
+
+The Caves
+
+The Pit
+
+I shall call this room the pit, and I'll explain why.  In the center of the
+room there is a large pit, which looks like it goes down quite a ways.  Off
+to its side, there is a stalagmite, reaching up towards the ceiling.  There
+are no other rooms save the one I entered from.  I'm supposing that I need to
+descend into the pit to get any further, and to do that, I need some rope.  I
+could tie the rope to the stalagmite and throw it down into the pit.
+
+I can only move west.
+
+>(Your score has increased by 10)
+
+Good thing I found this rope.
+
+I tie the rope around the stalagmite, giving it several granny knots to keep
+it from coming undone.  When finished, I slowly lower the other end down into
+the pit.  It seems to hit bottom long before it runs out, so I feel that it
+will be relatively safe to descend.
+
+(press any key to continue)
+
+The Caves
+
+The Pit
+
+I shall call this room the pit, and I'll explain why.  In the center of the
+room there is a large pit, which looks like it goes down quite a ways.  Off
+to its side, there is a stalagmite, reaching up towards the ceiling.  My rope
+is tied to the stalagmite, and it is also hanging down into the pit, so now I
+can descend downward if I wish.
+
+>I move down.
+
+The Caves
+
+Great Gramp's Hideout
+
+This has to have been my great-grandfather Rupert's hideout.  There's a chair
+here, and the petrified remains of a campfire.  There's also a treasure chest
+off to the side of the room, but it appears too small for the housing of
+three million dollars worth of gold.
+
+I can move east and up.
+
+>I open the treasure chest.  An antique compass is inside the treasure chest.
+
+>I take the antique compass from the treasure chest.
+
+>I move east.
+
+The Caves
+
+The Bear's Lair
+
+First the rattlesnake, now this!  There's a huge cave bear here, and it looks
+exceedingly hungry!  It hasn't attacked me yet, but it might if I give it
+enough of a chance.  I can still escape, or I could always try to feed it
+something (besides myself).  Now what, besides little girls, do bears like to
+eat?
+
+...
+
+Before me lies the hungry cave bear.
+
+I can only move west.
+
+>(Your score has increased by 10)
+
+I toss the jar of honey to the bear, which sniffs at it and then begins to
+devour it.  It's cute to watch, and I almost forget for a minute that I'm in
+grave peril.  The bear seems to enjoy its dish.
+
+After it is finished eating, the bear snorts at me, and then moves off into
+another area of the caves.
+
+(press any key to continue)
+
+The Caves
+
+The Bear's Lair
+
+In this room I narrowly escaped with my life, but I am now free to explore
+the rest of the cave.  The gold is near, I can feel it in my bones.  I'm just
+a little way away from becoming the richest kid in Splintered Rock!  I can't
+wait to find it!
+
+>I move east.
+
+The Caves
+
+Ambush!
+
+As I walk into the room, something hits me in the back from behind, causing
+me to fall to the ground.  In my fall, my head hits the rock floor with a
+smack, and for a moment I nearly pass out.  Dizzy and disoriented, I look
+around as the room spins about me.
+
+Three men stand around me, laughing and jeering.  The Trask boys!  Well,
+really, they're grown men, but everyone calls them the Trask boys.  They're
+troublemakers, and they come from a long line of troublemakers.  What are
+they doing down here?  I need not ask them that question though, as the
+eldest one soon speaks up and answers it.
+
+(press any key to continue)
+
+"Ahh, looks like we caught her off guard," the eldest boy, whose name is
+Mike, says, chortling in a manner that I don't really find pleasing.  The
+other boys laugh along with him.  "We've been following you ever since you
+started hacking away at that wall outside there."
+
+"Hey, missy," the youngest one, whose name is John, chuckles, "Whatcha doin
+down here?"
+
+"Nothing..." I say.
+
+"Nothing eh?" Bill, the other brother, says.  "Doesn't look like you're doing
+nothing."
+
+"I'm... I'm just exploring," I say, quivering with fear.
+
+"Exploring?" Mike asks.  "What's that old map you've got there?"
+
+I try to hide the map, but Mike stomps down on my wrist with his huge
+steel-toed boot, causing me to cry out in pain.  He grabs the map from my
+hand and glances it over.
+
+(press any key to continue)
+
+"Well boys," he says, "looks like we've got a genuine treasure map here.  Not
+that we didn't guess it, eh?"
+
+"You see, missy," John says, "We know who your great-grandpappy was.  Our
+grand-pappy used to run with him all the time.  We figured if you were doing
+some digging around here, that you must have some idea where he stashed all
+that gold."
+
+I'm speechless, and in a lot of pain.  I don't think they've broken my wrist,
+but it sure hurts like the dickens.
+
+"See, what we're going to do, is take care of finding the gold for you," Bill
+says.  "Of course, we'll have to keep the reward, but at least you will have
+gotten the chance to lead us right to it."
+
+"Yep," John says.  "Since you've got us past that snake, and that big old
+bear, we'll show our thanks by letting you live out the rest of your life...
+of course, it'll be spent locked up in our closet, but, hey, at least you'll
+live.  We'll even feed you.  Do you like Alpo?"
+
+The others get quite a chuckle out of this.  I find it less than amusing.
+
+(press any key to continue)
+
+In a flash, they have me up, and are already starting to tie my wrists and
+ankles together.  I try to get in a few good kicks, but any attempt at
+struggle causes them to throw a few elbows and fists in my general direction.
+ They even go as far as to put a dirty washcloth in my mouth and duct-tape
+over my face (which goes to show that they do this kind of thing often,
+because why else would they be carrying duct-tape with them everywhere they
+go?) When they are finished, they toss me back to the ground.
+
+"We'll be back for you," Bill says.  "Now you just stay put."
+
+The dynamic trio pass off into the next area of the cave.  I can hear their
+footsteps receding, and finally fading away to nothing.
+
+(press any key to continue)
+
+A while later (how long, I don't know) the Trask boys return and pick me back
+up.
+
+"Oh yeah, we found your gold alright," Mike says.  "All of it."
+
+"We'll need to get a wagon and our pickup truck," John says.  "We can't even
+begin to carry it out like this.  It's too heavy.  You're not, though."  With
+that last word, he picks me up and tosses me over his shoulder... a very
+uncomfortable position for someone who likes to breathe.
+
+We slowly make our way out of the caves in this fashion.  When we hit the
+outside, I notice that night has fallen.  With a bit of caution, always
+watchful for other people, the Trask boys take turns carrying me to the
+parking lot, where their car is sitting.  Bill goes around behind the car and
+unlocks the trunk.  I get tossed inside without a bit of gentleness.
+
+"I hope you like bumpy rides," Bill laughs, and slams the trunk lid.
+
+(press any key to continue)
+
+The ride is bumpy indeed.  The Trask boys live in Torncloth, which is a 30
+minute drive from Splintered Rock, and it seems that they take every gravel
+road along the way.  When I finally hear the car come to a complete stop, and
+the engine shutting off, I let out a sigh of semi-relief.
+
+Shortly thereafter, Bill opens the trunk lid.  Picking me up and tossing me
+over his shoulder again, he carries me through the garage and into the house.
+ The boys laugh as he throws me into the closet and closes the door on me.
+
+"Now, see here," he says through the closet door.  "We're leaving you bound
+until we can get a lock on this thing.  So, you just stay put while we go out
+after that gold, and we might untie you later on."
+
+I hear the outside door slam and a truck starting up.  It seems like I'm in
+for a long night.
+
+(press any key to continue)
+
+I've got to get out of here!  During my ride in the trunk of the car, I've
+loosened up my bindings enough that I'm able to get free.  I quickly pull the
+rest of my bonds off, and then remove the duct-tape with a painful yank.
+
+Spitting the washcloth out of my mouth disgustedly, I take in a deep gasp of
+air.  In a fit of rage, I slam into the closet door, causing it to tear off
+its hinges.
+
+I've got to get out of this house and contact the police!
+
+(press any key to continue)
+
+The Trask House
+
+Closet
+
+The Trask boys live in a nasty house, and this is a nasty closet.  I can't
+believe that they actually expected me to stay in here the rest of my life!
+Well, I'm not about to give them that pleasure.  I'm getting out of here!
+
+>I move west.
+
+The Trask House
+
+Living Room
+
+These guys don't exactly live high on the hog.  They must camp out on the
+floor here, because besides the garage and the closet, this is the only room
+in the house, and there's no furniture!  I guess it makes a decent hideout,
+though.  I don't particularly care for it.  As a matter of fact, I like it
+just as much as I like my would-be captors, which is not at all.  I've made
+it this far, though, and I'm not planning on sticking around long enough for
+them to get back.
+
+I can move east and west.
+
+>I move west.
+
+Torncloth
+
+Main Street
+
+I'm in luck!  I can see the Police Station to the north of here.  The hated
+Trask house is to the east, and I'm in the clear.  Perhaps I should be
+getting to the police now.  I'm sure they'd love to hear my story.
+
+I can move north and east.
+
+>I move north.
+
+Torncloth
+
+Main Street
+
+The police station is to the east of me, and it looks like all the lights are
+blazing inside.  To my west, there's an antique shop, and it looks like it
+might be open as well.  I have no idea what time it is, but it's probably not
+after 10:00, as that's when most places close down in these smaller towns.
+As I stand here, in the street, I take deep breaths of free air.
+
+I can move east, south and west.
+
+>I move west.
+
+The Old Antique Shop
+
+I don't know why I'm in here, what with me needing to make haste to the
+police station, but the Antique Shop has a very inviting aura about it.  Tons
+of interesting items are scattered about the place, and the shopkeeper is a
+wise looking old man that doesn't seem as if he'll do me any harm.  Despite
+my situation, I probably wouldn't mind sticking around here for a little bit.
+Barlow is here, wishing someone might give him some antique items for trade.
+
+I can only move east.
+
+>(Your score has increased by 5)
+"Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
+give you credit and you can get the money later, how does that sound?"
+
+>(Your score has increased by 5)
+"Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
+give you credit and you can get the money later, how does that sound?"
+
+>(Your score has increased by 5)
+"Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
+give you credit and you can get the money later, how does that sound?"
+
+>(Your score has increased by 5)
+"Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
+give you credit and you can get the money later, how does that sound?"
+
+>I move east.
+
+Torncloth
+
+Main Street
+
+The police station is to the east of me, and it looks like all the lights are
+blazing inside.  To my west, there's an antique shop, and it looks like it
+might be open as well.  I have no idea what time it is, but it's probably not
+after 10:00, as that's when most places close down in these smaller towns.
+As I stand here, in the street, I take deep breaths of free air.
+
+I can move east, south and west.
+
+>I move east.
+
+The Police Station
+
+This is just the place I need to be.  The police can help me now, I've just
+got to tell them what happened.
+Sheriff Marcus is here.
+
+>
+
+"What seems to be the problem, little lady?" the Sheriff asks.
+
+"The... the... the Trask boys!" I say, stuttering.  "They..."
+
+"What about them?" the Sheriff says.  "Slow down and take a few deep
+breaths."
+
+(press any key to continue)
+
+I tell the Sheriff my story, starting with the treasure map, and ending with
+my escape from the Trask house.  He then counters my story with one of his
+own.  It seems that my parents have been looking for me for a couple of days,
+and they've got the police all around searching for me.
+
+"A couple of days?" I ask.  How long could I have been in those caves?  It
+seemed like an eternity, but I would have never guessed that I was there that
+long.  Perhaps I lost all sense of time when the Trask boys went off in
+search of the gold.
+
+"Yes," the Sheriff says, "and that's why I believe you.  Well, I don't really
+believe you about the gold, but I don't doubt those boys kidnapped you.  I
+can see the rope burns on your wrists and ankles.  And if you don't mind me
+saying, it seems as if you've got a really nasty red mark where that duct
+tape was on your face."
+
+"Please help me, sir," I say.  "I don't want them to hurt me."
+
+"Calm down, little miss," he replies.  "I'm going to radio out to my boys on
+the road, and then you, young lady, are going to the hospital.  If you ask
+me, it seems like you're just a wee bit dehydrated.  And of course, they'll
+need to do some examinations.  I'll also call your mom and dad, as they're
+probably sick with worry about you."
+
+For a while, I sit on the bench as the Sheriff makes his calls.  In a while I
+am stood up, half-asleep, and put in the Sheriff's car.  He drives me to the
+hospital, and I am escorted into the emergency room.
+
+(press any key to continue)
+
+I won't describe in detail what I went through in the emergency room, but I
+will say that I was checked thouroughly for bruises and stuff.  I was so
+embarassed, but now it's over, and I'm resting on a gurney, an IV sticking
+out of my arm.
+
+The Sheriff comes in and tells me that they had just pulled over a late model
+pickup truck, with three very drunk Trask boys in it.  "And guess what we
+found in the back?" he asks me.
+
+"What?"
+
+"Your gold," he says, with a twinkle in his eye.  "At first, I didn't believe
+you, but knowing this, it seems I have no choice but to believe.  It looks
+like you're going to be a really rich little girl.  I don't think they'd give
+the reward to those loonies.  There is something that is troubling me,
+though, and I don't really know if I should tell you."
+
+"Tell me," I say, "I can handle it."
+
+"Well, one of the boys escaped," the Sheriff says, his smile turning to a
+frown.
+
+(press any key to continue)
+
+A chill spreads down my spine.
+
+"Oh no," is all I can say.
+
+"Look," the Sheriff says, "I don't think he'll try to come after you, but
+just in case, I'll stick one of my deputies outside your door.  You're going
+to be staying here tonight, and you'll be perfectly safe."
+
+With this, he turns and walks out the door.  The nurses then come to push me
+off to my room.  I hear them talking excitedly to me about the gold, but I'm
+too tired to listen.  They help me into my hospital bed, and as soon as my
+head hits the pillow, I'm sound asleep.
+
+(press any key to continue)
+
+I wake up some hours later, alone and frightened.  I can feel a draft coming
+from the window on the far side of the room, but it's too dark to see
+anything.  Why is the window open?  My mind starts racing.
+
+When I came to the hospital, how many floors did it have?  Just one...
+
+I'm on the ground floor.  My window is just a couple of feet off the ground,
+and it's open.
+
+I hear what sounds like stealthy footsteps approaching me.
+
+(press any key to continue)
+
+Torncloth Hospital
+
+In Bed
+
+I am frozen with fear.  I can't move, and even if I were to get up, they've
+got me on two IV's right now, and they'd just drag me down.  Someone is
+approaching my bed, and I can hear his ragged breathing and can smell the
+scent of alcohol on his breath.  I can't do anything.  Where's that deputy?
+I need him.  I can't find my call button.  What to do?
+
+>
+
+Well, I haven't lost the use of my voice, that's for sure.  My loud scream
+startles the intruder, and he makes a gallop towards the window.  He doesn't
+make it, for just as I start screaming, the Deputy tears through the door,
+and attacks the intruder.
+
+The lights come on, and I see the deputy slapping handcuffs on Bill Trask.
+My parents rush into my room, and both fall to my side, holding and
+comforting me.  Shortly after, the deputy pulls Bill to his feet and escorts
+him out the door.
+
+"It's all right, sweetie," my mom says, as I slowly start to lose
+conciousness.  "Everything's going to be alright, now."
+
+(press any key to continue)
+
+I won't bore you with the details of what came after, what with all the
+paperwork and investigations and all, but I can tell you this; in the end, I
+did get my gold.  Well, in truth, I didn't get the gold, but I got the reward
+for finding it.
+
+All $1.5 million of it.
+
+Of course, one could say that's not a lot of money.  In fact, all of that is
+gone now.  It's been only two years, and I've dried it all up.  That's no big
+problem though.  My best-selling book about the ordeal (my father and mother
+helped me write it, by the way) earned me over $30 million.  I've also been
+on several talk shows, and they have netted me quite a bit of cash.  Some of
+the money I can't touch until I graduate high school, but I'm not living
+uncomfortably.
+
+I get everything I want now.  My life has become an endless whirlwind of
+celebrity and wealth.  I'm now working on my second book, Exploring the Caves
+of Splintered Rock, which I'm not expecting to sell as well.  It might fetch
+a good price, though, just for the fact that people will buy a book just for
+the author's name.
+
+Now you know my story.  My life's just beginning, though.  There are many
+more adventures, and many more tales to tell.  This was just one of them.
+Perhaps, in a few more years, I might tell you another.  It's been a long
+telling, though, and I am weary.  Good night!  I'm off to bed.
+
+(press any key to continue)
+
+The End
+
+Congratulations.  You've beaten Black Sheep's Gold!

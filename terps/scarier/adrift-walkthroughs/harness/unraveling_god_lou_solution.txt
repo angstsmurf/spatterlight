@@ -1,0 +1,70 @@
+3
+x desk
+x palm
+take palm
+turn on palm
+x folder
+take folder
+open folder
+x folder
+answer the phone
+open door
+n
+w
+look
+talk to claudia
+1
+talk to claudia
+1
+talk to claudia
+1
+look
+climb on machine
+talk to claudia
+s
+w
+w
+talk to justin
+talk to Justin
+1
+talk to justin
+e
+e
+e
+s
+get in car
+drive
+get out of car
+n
+unlock door
+open door
+n
+skip delay
+answer the door
+talk to Justin
+talk to Justin
+x Justin
+n
+call 911
+e
+answer the door
+talk to Claudia
+1
+look
+n
+n
+n
+n
+n
+x gate
+z
+look
+n
+n
+x man
+talk to man
+talk to man
+talk to lou
+talk to lou
+talk to lou
+2

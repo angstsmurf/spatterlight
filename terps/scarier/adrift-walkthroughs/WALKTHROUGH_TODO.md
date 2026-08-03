@@ -8,6 +8,1085 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
+## 2026-08-03 (latest) — The PK Girl: the biggest game in the corpus, and it has no score
+
+`the_pk_girl.taf` — *The PK Girl* (Robert Goodwin, 2002, 4th release Aug 2006),
+ADRIFT 4.00, **116 rooms / 2260 tasks / 332 events / 29 NPCs / 187 variables /
+1.6 MB**. **WIN in 407 commands with Katryn 55 out of a possible 60**, ending on
+*"Congratulations! You got Katryn's ending. Your Secret Letter is: E"*. Row
+`thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1`,
+write-up `ThePKGirl_walkthrough.md`. **166/166 PASS.**
+
+The game warns you in its own banner that "scoring in this game works
+differently", and it means it. **No task carries a `score=` value and there is
+no `ACT type=4` anywhere in 2260 tasks.** Instead there are eight relationship
+variables (VAR 158–165, one per girl, each "out of a possible 60"); a scoring
+task sets `change_score` (VAR 168) and redirects to one of eight per-girl adder
+tasks, 2141 josie … 2148 laurie. The ending is picked by TASKs 2211–2218 tested
+in the fixed order Laurie, Cassie, Monika, Saffy, Aileen, Katryn, Bengte,
+Josie — first girl with score ≥ 40 *and* `know_<girl>` set takes it, and
+`name_of_girl` then latches so nothing later can fire. **So courting two girls
+at once is actively harmful**: Laurie is tested first and would steal the
+ending. The route holds her at 11 and everyone else at 0. Each ending prints
+one letter of a password; the eight spell **ICECREAM**, which is also the .taf's
+own author password (recovered separately from the "Wild" trailer, see
+[[adrift4-taf-wild-trailer]] — a nice confluence).
+
+`downloaded/ThePKGirl_walkthrough.txt` exists and is the route's spine, but it
+promises only "a basic ending", courts nobody, and leaves every timed stretch as
+bracketed prose (`wait (for 37 turns, while Monika makes dinner)`,
+`[walk around the general vicinity until you find the umbrella peddler]`).
+`downloaded/ThePKGirl_hints.htm` quotes a **45**-point ending threshold where
+the tasks say **40**; trust the tasks. Nothing ships inside the game — `hint`
+says hints are unavailable and the decompressed source has no "walkthrough" or
+"spoiler" string.
+
+Seven things had to be re-derived. Three are worth repeating here:
+
+* **The Chapter 1 bar detour is worth 10 points in Chapter 7.** `talk to dustin`
+  / `3` / `1` sets `know_dustin`, which is what puts Dustin in the R.O.S.A.
+  complex (TASK 1817) → magnets → 1917 → 1982 → EVENTs 271/272/273 → 1998
+  "# Dustin down" → EVENT 279 → **TASK 1999 "# Katryn clutches you", +10**, the
+  single largest award in the game. But `know_dustin` *also* inserts an extra
+  Dustin beat into the Chapter 4 cafe scene, which is a long run of numbered
+  menu answers — so one turn has to be spent deliberately (`wait` / `2` /
+  `talk to dustin`) or every later answer lands one turn early and the
+  conversation silently collapses (Katryn finished on 3 instead of 30 in an
+  early attempt, with nothing wrong-looking in the transcript).
+* **The umbrella peddler walks a ~9-turn circuit and is therefore the route's
+  clock.** `give money to peddler` becomes "Please be more clear, who do you
+  want to give to?" whenever he has drifted, and *every* turn added or removed
+  anywhere earlier changes his phase. This row broke twice while the earlier
+  chapters were still being tuned.
+* **The silo endgame window is exactly four turns wide.** `get band`, then
+  `put band on octal` by the fourth turn — TASK 2039 "# Katryn has a solution"
+  fires on the fifth and takes the +5 away. Putting the band on *early* is
+  worse: it ends the scene and the `hug katryn` +2 can no longer be had (probed
+  at 47 vs 55). `head butt octal` and `knee octal` both redirect to 2025
+  "# Octal runs" and each requires it not done, so only one of the two +5s can
+  ever land.
+
+**A conversation-state idiom worth carrying to other Robert Goodwin games:**
+answering option *n* sets `<npc>_talk_state = <npc>_talk_state * 3 + n`, so the
+state variable encodes the entire path through the menu tree, and awards are
+written as tests on exact (situation, state) pairs — e.g. TASK 1234 pays +3 only
+at `katryn_talk_situation=8 & katryn_talk_state=9`, which is `2` then `3` at the
+security-booth monitor. Easy to walk straight past.
+
+Why 55 and not 60: TASK 1684 "# Katryn advances" (situation 7, +3) is the
+*alternative* to the Chapter 5 kiss, which pays +5; and the situation-10 +3
+needs `katryn_done_talking` (VAR 115) back at 0, which every conversation task
+sets to 1 on the way out and nothing ever resets. **55/60 is the practical
+ceiling**, and it buys exactly the ending 40 would have bought.
+
+## 2026-08-03 — the complete TAF 3.80 corpus is in `games/` — 165/165 PASS, 8 NOSCRIPT
+
+**There are exactly 11 ADRIFT 3.80 games online, and we now have all of them.**
+Surveyed by reading the 14-byte header of every candidate on the only two hosts
+that still carry ADRIFT games: all 240 files under
+`ifarchive.org/if-archive/games/adrift/` (`/`, `competitions/`, `italian/`,
+`old/`, `spanish/`, opening every zip and blorb) and every pre-2005 download in
+the adrift.co adventure DB (634 entries; `POST /cgi/adrift.cgi` with
+`page=adventures&offset=N&compid=-1&compilation=0&sort=1&asc=0&category=0&perpage=50`,
+which also tags each row with its own version icon `/img/380.gif` — that tagging
+agreed with the bytes on all 9 of its 3.80 rows). The Archive holds 7, adrift.co
+9, overlapping in 5. For scale, the same sweep counted ~49 v3.90 and ~349 v4.00
+taf instances on the Archive alone: **3.80 is ~1.5% of the ADRIFT corpus.**
+
+Catalogues cannot answer this question. IFDB's oldest ADRIFT format is
+`adrift39` (id 44) and IFWiki's oldest category is "ADRIFT 3.9 works", so every
+3.8 game is filed as 3.9 in both. The only reliable test is the header: a 3.x/4.x
+TAF opens with `"Version X.YZ\r\n"` XOR the fixed VB6 keystream, so the first 14
+bytes are a constant per version (`V380_SIGNATURE` &c., `sctaffil.cpp:53`), and a
+`Range: bytes=0-13` request classifies a remote file without downloading it.
+`3c423fc96a87c2cf94453661 39fa` is 3.80; 5.00 files share the first 8 bytes and
+decode to `"Version 5.00"`.
+
+| file | title | source |
+|---|---|---|
+| `marooned.taf` | Marooned | IF Archive **(had, WIN 80/140)** |
+| `wrecked.taf` | Wrecked | both **(had, WIN 250/250)** |
+| `Crime_Adventure.taf` | Crime Adventure | IF Archive **(had, WIN 95/95)** |
+| `akron.taf` | Akron | IF Archive |
+| `cave.taf` | Cave of Wonders | both |
+| `haunt.taf` | House of the Damned | both |
+| `twilight.taf` | The Twilight | both |
+| `haunted.taf` | The Haunted House (Campbell, Jun 1999 — the oldest) | adrift.co only |
+| `great.taf` | The Great Escape | adrift.co only |
+| `secret.taf` | Tom Ceader: Escape from the south | adrift.co only |
+| `tra.taf` | The Timmy Reid Adventure | adrift.co only |
+
+The eight new ones are in `games/` and have MAP rows in
+`run_v4_walkthroughs.sh`, so they report **NOSCRIPT** until routes are derived
+(suite unchanged at 165 PASS, exit 0). Their win markers are deliberately blank
+— filling one in before the route exists would bless a marker nobody has seen
+the game print. All eight were smoke-run in `scare` (`look` / `score` / `quit`):
+every one loads, prints its title and intro, and takes commands.
+
+**Why this matters beyond completeness:** the 3.80 burden and container model
+settled against the genuine `run380.exe` (pooled burden, class costs
+`0→1 1→3 2→7 3→3 4→7`, capacity `= #MaxCarried`; contents free, `Capacity` a plain
+object count, dynamic containers must be *held*) was derived on three games and
+can now be exercised on eleven.
+
+**One lead fell straight out of the smoke run.** `tra.taf` prints
+`gs_create: object held by nonexistent NPC, -2` three times at load — i.e.
+`initialparent == -1` on the `InitialPosition == 1` ("held by") path in
+`scgamest.cpp:977`, so those objects are silently **hidden** instead of starting
+in someone's inventory. `-1` is 3.80's generic "no parent" filler (48 of
+`tra.taf`'s 248 objects carry it), which is the tell: 4.00's convention is
+`Parent 0 == held by the player`, and 3.80 looks like it uses `-1` there
+instead. Worse, the same file has objects with `InitialPosition 1` and `Parent`
+21 / 2 / 28 (`garage key`, `baseball glove`, `baseball`, `guitar`), which the
+4.00 rule reads as NPC `parent-1` — if 3.80's index is 0-based those are all off
+by one, and being off by one is *silent*. Nothing in `sctafpar.cpp`'s
+`|V380_OBJECT:_InitialPositions_|` fixup touches `Parent`; it only handles
+positions `2` and `> 2`. Settle it the way the size/weight model was settled —
+a `make38probe.py` file with one object held by the player and one held by NPC 0,
+run under `run380.exe` in the adrift-battle Wine prefix. No other 3.80 game in
+the corpus trips the warning, so `tra.taf` is the test case.
+
+## 2026-08-03 — The Sisters — **WIN, 109/109 = full score** — 165/165 PASS
+
+*The Sisters* (James Webb, 04 Dec 2006, TAF **4.00**, 50 rooms, 123 tasks, 9
+events) is **151 commands** ending on the epilogue's last line, *"Inside, with
+hands and feet bound and eyes staring vacantly upwards, lay the lifeless body
+of Trisha Seabourne."* Row:
+`thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SKIP_WAITKEY=1`.
+Details in `TheSisters_walkthrough.md`.
+
+Every one of the 109 points lives in an `ACT type=4` add-score action — all 123
+tasks have `score=0` — and there are **exactly 38** such actions, summing to
+109. The route fires all 38, which the golden records as 38 *"(Your score has
+increased by N)"* lines, so the transcript is its own proof of completeness.
+
+`downloaded/TheSisters_walkthrough.txt` is the rare thing in this corpus: an
+honest, accurate 10-section prose guide that explicitly sets out to reach 100%,
+and it does. Only five things had to come out of the engine:
+
+* `get tin` is *"Take what?"* — the pickled herrings answer to **`can`**.
+* `get key` in the music room is *"You need to be more specific about which key
+  you mean"*, which is task 34, a catch-all `exam key` task with `get key` /
+  `take key` / `drop key` among its 10 alt-commands, sitting in front of the
+  three keys the game hands you. The object wanted is **`iron key`** (the prose
+  calls it "a large metal key").
+* On the lake **`row west` does not parse**. Movement is plain compass; `row
+  east` is task 70, which exists only on the east lake square (39) to climb
+  back out onto the jetty. `go fishing` only scores on square **43**, the
+  middle-west square where the sisters are standing.
+* The penknife **must be closed** before `climb down` at the steep decline.
+  Tasks 12 and 13 have identical command lists and differ only in the
+  penknife's open flag (`RESTR type=1 v1=3 v2=1/0`); task 13 is
+  `ACT type=6 v1=2` — instant death.
+* `SCR_SKIP_WAITKEY=1` is load-bearing: the collapse at the front door ends in
+  a `[Press any key]` that otherwise eats the first command in the guest room
+  and desyncs everything after it.
+
+One authoring curiosity: `open music box` is written **twice** (tasks 74 and
+75) with identical commands, differing only in the diary restriction — 74 for
+the diary in some other state, 75 for the diary held. Unlike Crime Adventure's
+shadowed pairs, both do the same thing and both are unscored, so it costs
+nothing.
+
+## 2026-08-03 — Crime Adventure — **WIN, 95/95 = full score** — 164/164 PASS
+
+*Crime Adventure* (M. Whitmore, TAF **3.80**, 36 rooms, 23 tasks) is **90
+commands** ending on *"Mrs Fenwick was in no danger at all, it was a friend who
+picked her up at the booth (she was in a rush)."* Row:
+`crime_adventure_solution.txt|Crime_Adventure.taf|Mrs Fenwick was in no danger at all, it was a friend`
+(no env). Details in `Crime_Adventure_walkthrough.md`.
+
+`downloaded/CrimeAdventure_walkthrough.sol` (29 lines, by "sasi") turns out to
+describe an **earlier build**: it wants a computer in an "IBM" room for the stew
+recipe (no such room — it is the cookery book in the kitchen), the penny dug out
+of the ground with the shovel (it is in the spare-bedroom dresser), and the
+underground door's lock picked with the hairpin (the door just opens). Its four
+"extras" — paying the gypsy, being thrown out over the painting, being thrown
+out of the arcade — are all gone too; only the street death survives. Shovel,
+hairpin, hat, picture, painting, mirror, kettle and both NPCs' conversation are
+unused, and the whole west half of the map is scenery.
+
+**Two scored tasks are shadowed by unscored duplicates, so each has to be done
+twice.** Task 14 `wear *shoes*` (0 pts) sorts before task 15 `wear *golf* shoes`
+(10 pts), and `*` matches anything, so the scored copy never fires — until task
+14 is spent, hence `wear` / `remove` / `wear`. Task 12 `give *food* to mr
+fenwick` (10, alt `give *stew*…`) likewise shadows task 17 `give *stew* to mr
+fenwick` (10), and task 12's own action drops the saucepan on the floor, so the
+second give needs `get saucepan` first. **Play each command once and the game
+ends at 75/95** with no indication of what the missing 20 were.
+
+Also: the scoring `get cash` (task 19, +5) prints *"You grab the £30.00 from the
+machine"* and has **no action that moves the object** — a second `get cash`
+falls through to the library and really takes it. The cash is the held-object
+restriction on both `buy shoes` and `wear golf shoes`, so missing this stalls
+the route entirely.
+
+**This row is sensitive to the in-flight 3.8 burden model.** The dump reports
+`burdenmodel=1 maxburden=5`; the putter costs 3 and everything else 1, so
+putter + ball + worn shoes is exactly the limit, and the route has to drop the
+cash before carrying the saucepan and drop putter+ball before taking the chair.
+Two `Your hands are full at the moment.` dead ends were hit deriving it. If
+`V380_BURDEN_COST[]` or the limit changes, this golden moves with the
+`marooned` / `wrecked` pair.
+
+**A datapoint for the burden work.** MaxCarried is **5**, and the stew needs
+exactly five things — carrots, onions, potatoes, meat, saucepan, all class 0
+(cost 1). `get kettle` (class 2, cost 7) answers *"Your hands are full."* and
+the cookery book would be the sixth. So under the normalised model the .sol's
+own line *"Get all the stuff in Fenwick kitchen. Make stew."* is exactly
+satisfiable — five items in, kettle and book left behind — which is the same
+kind of author-walkthrough corroboration the `marooned` tires give.
+
+**Suite: 164/164 PASS.** The `marooned` / `wrecked` pair, which had been
+failing against the in-flight burden model earlier in the day, was re-blessed by
+the burden work itself while this game was being derived; Crime Adventure joins
+them as the third V380 row and the first one that reaches full score.
+
+## 2026-08-03 — Humbug — **WIN, 2000/2000 = full score** — 163 rows
+
+*Humbug* (Graham Cluley, 1990–1997; **converted to ADRIFT 4.00 by Campbell
+Wild** from "Version 5.0 (r2)") is a large, proper old-school adventure — six
+gemstones, a manor, a wumpus, an evil dentist. **1048 commands**, ending on
+`You scored 2000 out of a possible 2000 and managed to complete 100% of this
+adventure.  Grandad would probably describe you as a winner.. or a cheat.`
+Row: `humbug_solution.txt|humbug.taf|Grandad would probably describe you as a
+winner.. or a cheat.|SCR_SKIP_WAITKEY=1`. Details in `Humbug_walkthrough.md`.
+
+**The headline is a negative result: the conversion is exact.**
+`downloaded/Humbug_walkthrough.sol` is a 1152-line solution by **pjg** written
+for the *original* v5.0 game, years before the port, describing a different
+engine's parser — and **all 125 of its annotated `(N/total)` awards fire in the
+same order with the same deltas and the same running totals, zero mismatches**.
+Nothing about the port's task/score model had to be worked around. That is a
+useful datapoint for the engine: this is by some way the largest score ledger
+in the corpus, and it lines up award-for-award with a third party's independent
+transcript of the game it was converted from.
+
+What a text file cannot carry, and so had to be re-derived from the engine:
+
+* **Turn counts.** pjg writes *"keep looking until Grandad shows up"*, *"wait
+  about 35 moves or so"*, *"you may have to wait 25 moves or so"*. Each is a
+  real, narrow window. The Golden Gulp bouncer admits you on exactly **two**
+  turns (probe: `S` after 9 `Look`s refused, after 10 or 11 admitted, after 12
+  refused); Horace's snuff tin surfaces on an exact **10-turn** cycle and the
+  paper aeroplane must be thrown on the turn it is out.
+* **`Get sheet` → `Get sheets`.** The bed linen only answers to its plural
+  noun, so the .sol's singular silently takes nothing; `Tie Dennis with sheets`
+  then fails five rooms later and Dennis wakes up and kills you three rooms
+  after *that*. The kind of failure that looks like an engine bug and is not.
+* **A seven-segment door.** The eight buttons in the neon tunnel (`4 3 5 2 7 1
+  6 0`) are segments, not digits, with `7` as the commit key — and **the
+  segments are not cleared when a digit is committed**, so each digit is the
+  symmetric difference against what is already lit.
+* **Four values that only exist inside the game** (the filofax number, Olaf's
+  National Insurance number, the aunty's phone number off the computer, the
+  magic word `Jisanajen` read through Grandad's monocle). The .sol leaves them
+  as `<placeholders>`; they are worth **exactly 70 points**, so skipping them
+  still *wins* — at 1930/2000.
+
+**`SCR_SKIP_WAITKEY=1` is load-bearing.** The ASCII-art title screen ends in
+`[Press any key]`, which swallows the first two commands, desyncs the route —
+and the run still finishes, at 1930. The win marker therefore quotes the
+full-score rank line, so it guards the score and not just the ending.
+
+**Suite state: 161 PASS + 2 FAIL, and the two failures are not this work.**
+`marooned_solution.txt` and `wrecked_solution.txt` (both **V380**) now miss
+their win markers with *"Your hands are full at the moment"*, against a working
+tree that carries an in-flight, uncommitted **3.8 pooled-burden carrying
+model** (`obj_uses_burden_model()` / `V380_BURDEN_COST[]` across ~12 engine
+files). Humbug is V400 and untouched by it. Those two rows were **deliberately
+left un-blessed** — they belong to whoever finishes the burden work.
+
+## 2026-08-03 — Three Monkeys, One Cage — **WIN, 98/100 = the ceiling** — 162/162 PASS
+
+*Three Monkeys, One Cage* (Robert Goodwin, 2003, TAF **4.00**, 801 tasks) is
+**112 commands** ending on `*** Congratulations, you did it!  (What took you so
+long?) ***`. Details in `Three_Monkeys_One_Cage_walkthrough.md`; row:
+`3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!` (no env).
+
+**98/100 is the maximum, and the missing 2 are an authoring bug.** 22 tasks add
+to `player_score` (variable 56) for a total of 97, and the anvil event adds 3 —
+100 advertised. This route fires 21 of the 22 plus the anvils. The 22nd is task
+603 `jump * out*`, whose action list is `exec 604` / `exec 608` / `moves--` /
+`score += 2`; 604 (no mattress → death) and 608 (mattress → win) are mutually
+exclusive on task 614 and **both end the game**, and
+`task_run_task_actions()` returns at the first action that ends the game. So the
+`+2` is unreachable in *either* branch, and no score line is ever printed after
+the ending anyway. Logged as an open run400 probe in `RUNNER_TESTS_TODO.md` §4.
+
+**This is the game that exposed the `$RestrMask` left-association bug** (fixed
+the same day, `screstrs.cpp`): its author-written `winnable` oracle — task 21,
+55 restrictions, the corpus maximum — said "no longer winnable" on turn 1 of a
+pristine game. With the fix it says "still winnable" at every point on this
+route, which is how the route was steered.
+
+The author's own prose solution (`downloaded/ThreeMonkeysOneCage_solution.txt`,
+190 lines) is a plan, not a command list. What had to be re-derived:
+
+* **The cage is a 2×2 grid with two walking monkeys and a real-time fire**, so
+  ordering dominates. The mandrill kills on contact and grants exactly **one**
+  action once it shares your corner. Two fences: the fire permanently blocks SW,
+  and smoke blocks whichever corner the fan is aimed at (`north`→NW,
+  `east`→SE, `northeast`→NE, and smoke needs `fire >= 3`). The fan is re-aimed
+  four times purely as a safety interlock. Three deaths during derivation.
+* **Do not pick the sheet up early.** `make fire` burns whatever tinder you are
+  carrying — the sheet is 3 fuel against the jersey's 5, and the sheet is needed
+  intact later as hornet armour. (Fuel: jersey 5, blanket 7, sheet 3, peel 2,
+  husk 2; −1 per fire cycle; over 13 in SW the bed catches, task 415.)
+* **`cover myself with the sheet` hits the wrong task.** Tasks 637 (cover the
+  *chimp*) and 638 (cover *yourself*) share that alt-command and 637 wins on
+  index; 638's primary form `put the sheet over my head` is the one that works.
+* **`se` is a wall bump** in a 2×2 grid — SW→SE is `e`.
+* **Leaving SE silently unties the waist cord**, so `tie cord to me` must be the
+  last action before `jump out`.
+* **`chimp, …` orders need the chimp up a tree** (`chimp_elevated == 1`), and
+  the long "gesticulating wildly" paragraph is only a preamble — the actual
+  outcome is the last sentence of the reply.
+* **The 38 `z` in the middle are the design.** Ceiling panels open on turn 100;
+  the first anvil wave is +3 wherever you stand, but after that only `hide under
+  bed` survives, and once the bombs replace the anvils there are nine turns left.
+
+## 2026-08-03 — Largo Winch — **WIN, 97/97, maximum** — 161/161 PASS
+
+*Largo Winch* (Jérôme Marchand, French, TAF **3.90**) is the longest route in
+the corpus so far: **323 commands**, ending on `Congratulations!` with **97 out
+of 97**. The maximum is proved from the file — `SCR_DUMP_TASKS` finds **96 `ACT
+type=4` actions summing to exactly 97** (the first fight's finishing punch
+awards 2), and the route fires all 96. Details in `Largo_Winch_walkthrough.md`;
+row: `largo_winch_solution.txt|largo-winch.taf|Congratulations!` (no env — the
+transcript is byte-identical with and without `SCR_SKIP_WAITKEY`).
+
+The source is the author's own published list (`downloaded/LargoWinch_solution.txt`,
+251 lines), which uses two shorthands the interpreter cannot take literally:
+`commande (N)` means *repeat N times*, and `commande (prose)` is a stage
+direction — and **every one of those is a fight**. `combattre` only *opens* a
+fight; each blow is its own turn, and the list never says which blows.
+
+* **Five fights, and each enemy answers to exactly one of `coup de poing` /
+  `coup de pied`.** The wrong blow is usually not a miss but an `ACT type=6` —
+  instant death (22 of them in the file). Fight 3's clubman is fatal to punch
+  but needs only *one* kick, because that cues Simon to chain him.
+* **Fight 2 cannot be won as described.** "Terrasser les deux ennemis" is
+  impossible: whichever of Boris and André you fell, the other always flees.
+  Three kicks at Boris is the only line that lands every blow and takes no
+  damage in return; the score is identical either way.
+* **`ouvrir la porte avec le badge` can never work — and it's a *game* bug.**
+  It answers SCARE's English "Open what?" because the game defines its own
+  input synonym **`ouvrir` → `open`**, applied *before* task matching
+  (`SCR_TRACE_FLAGS=512`: `Printfilter: synonym "open la porte avec le badge"`).
+  Tasks 213/214/216 carry only the `ouvrir …` alt-commands, with no `open …`
+  twin — unlike window task 15 and the wardrobe task, which carry **both**
+  spellings, which is why `ouvrir l'armoire` does work. `utiliser le badge` is
+  the same task's primary command and is untouched by the synonym.
+* Four route repairs besides the fights: `ouest`→`nord` out of the corridor,
+  `est`→`nord` into Sharon's salon, three separate geography errors in five
+  lines of the Omega basement (giving Olga the devis already descends the
+  stairs; the way back up is a *different* room), and the electrical cabinet
+  accepts only `la bague métallique **plate**` — hammering renames the ring.
+* CP1252 again, and this one *is* piped in, so it matters: `prendre la clé`
+  only parses when `é` arrives as a single 0xE9 byte.
+
+## 2026-08-03 — Mortality — **good ending, verbatim** — and a crash — 160/160 PASS
+
+*Mortality* (David Whyld, 2003–2005) is a **verbatim** replay: all 78 commands
+from the session transcript inside the game's own doc file, no repairs, and the
+responses are word-for-word identical (word-level diff 0.9952 — every
+difference is an echoed command line, which the headless build does not echo).
+Zero parser errors in 78 commands. Details in `Mortality_walkthrough.md`; row:
+`mortality_solution.txt|mortality.taf|one of the two good endings|SCR_SKIP_WAITKEY=1`.
+
+It is a menu-driven noir novella (55 of the 78 commands are dialogue digits),
+with **no scoring at all** — `score` answers "No one is keeping score." and all
+476 tasks contain **zero `ACT type=4`** — and, more unusually, **no `ACT
+type=6` (EndGame) either**. Both good endings *and* the death ending are plain
+text; the game prints its closing card and leaves the player standing at a
+prompt, which is why the golden ends on the harness's appended `quit`. The two
+"good endings" the closing card refers to are just the two options of the final
+menu: re-running with the last `2` flipped to `1` gives the walking-out
+epilogue and the identical card.
+
+**The crash it flushed out (fixed).** `kill seamus` (task 310) redirects to
+task 313 `[* after kill someone]` → task 314 `[? the return]`, whose second
+action is `ACT type=0 v1=2 v2=0 v3=0`. `Var1 = 2` is **"the referenced
+object"**, but 314 is only ever reached by redirection, so
+`var_get_ref_object()` returns `-1` and SCARE aborted on the range assertion in
+`gs_object_make_hidden()`. `task_move_object()` now ignores negative object
+indexes, exactly as `evt_move_object()` already did — same family as the
+known unset-combo rule (an ADRIFT selector the author left blank, or a
+reference that was never bound, is a silent no-op in the Runner's `Select
+Case`, never a fatal). The guard sits at the top of `task_move_object()` rather
+than in one branch, because every destination (hidden / room / roomgroup /
+held / worn / NPC's room) asserts the same way. No golden moved.
+
+Two smaller things worth keeping:
+
+* The doc file's transcript **prints its ending twice**, so the command list is
+  truncated to the first 78 `>` lines.
+* Choosing `4` (Walkthrough) at the title menu prints a stray `br>` on its own
+  line. Faithful: the text is `…<info1>br><br>…` where `<info1>` is one of the
+  game's own ALRs (it expands to the title menu) and the author typed
+  `<info1>br>` for `<info1><br>`.
+* The file is **CP1252**. It is only read, never piped in, so nothing breaks —
+  but `grep` treats the resulting transcript as binary and silently reports no
+  matches. Scan for parser errors with Python, not `grep`.
+
+## 2026-08-03 — Wrecked — **WIN, 250/250, maximum** — 159/159 PASS
+
+Campbell Wild's own 2000 game, TAF **3.80**, replayed from Campbell Wild's own
+published walkthrough (`downloaded/Wrecked_walkthrough.txt`, 12/09/00). Every
+`[+ N points]` in it is reproduced; the full 250 is reachable. Details and the
+route are in `Wrecked_walkthrough.md`. Four things the published file leaves to
+the reader had to be turned into commands:
+
+* **The `[wait for train...]` notes are turns.** Under the fixed seed: 2 waits
+  for the first train to pull in, 3 in the toilet until it moves off, 10 for
+  the second train, 7 to reach Redstown, 5 to come back. The first ride is
+  ticketless on purpose — Boris throws you off onto the wasteland, which is the
+  only way to reach the scrapyard's gate button (+5).
+* **Porkie wanders.** After `wave wand` (+10) the pig walks a random circuit,
+  so the second wave outside the Post Office (+5) has to land on a turn when he
+  is in the room. 3 `wait`s then **two** `wave wand`s: the first misses, and
+  his arrival is announced on that same turn. Substituting a fourth `wait` for
+  the wasted wave changes the RNG draw and he passes straight through.
+* **Two blocker tasks whose FailMessage the author left as the placeholder
+  `x`.** Task 96 swallows `in` at the pub once you take the scuba outfit off;
+  task 84 swallows `up` (and `u`, `climb roof`, `go roof`) at the Post Office
+  once you have climbed the statue — its restriction is task 83 **not** done,
+  so climbing the statue is what breaks it. Both faithful: run390 on a gen390
+  conversion prints `x` too (checked live for the pub), and gen390 re-encodes
+  task 84's restriction byte-identically to our parse. Workaround is a parser
+  fact, not a fix: **`go in` / `go up` are absent from both command lists**, so
+  no task matches and the movement falls through to the room exit.
+* **`turn it` binds to the wrong noun.** After `put key in ignition`, `it` is
+  the ignition, and `turn ignition` hits task 37's blocker ("I can't turn the
+  ignition"). **`turn key`** is what reaches the scoring task 55 (+5). Likewise
+  `throw anchor overboard` only works after `push lever` has taken the boat out
+  to the wreck.
+
+## PARKED 2026-08-03 — the `downloaded/` wiring run stops here, at 161/161 PASS
+
+Clean stopping point: suite green (no FAIL / SKIP / NEEDGOLD / NOSCRIPT /
+REGRESSIONS), every golden blessed against the current binary, **nothing
+committed**. The two `scparser.cpp` fixes, the `sctasks.cpp` negative-object
+guard, the `scdump.cpp` additions below and the `sctafpar.cpp` 3.8 size/weight
+fixup are in the working tree only.
+
+To resume, the remaining `downloaded/` candidates that already have a staged
+`.taf` are, roughly easiest first:
+
+* transcripts (the format that has replayed near-verbatim seven times running)
+  — ~~`LockedDoorWithWaterTrap_transcript.txt`~~ (wired),
+  ~~`Marooned_walkthrough.txt`~~ (wired, 80/140 — see below),
+  ~~`Wrecked_walkthrough.txt`~~ (wired, **250/250** — see below),
+  ~~`Mortality_walkthrough.txt`~~ (wired, verbatim — see above)
+* command lists / sectioned prose — ~~`ThreeMonkeysOneCage_solution.txt`~~ →
+  `3monkeys.taf` (wired, **98/100 = ceiling** — see above),
+  ~~`LargoWinch_solution.txt`~~ (wired, **97/97** — see
+  above), ~~`Humbug_walkthrough.sol`~~ → `humbug.taf` (wired,
+  **2000/2000 = full score** — see above),
+  ~~`CrimeAdventure_walkthrough.sol`~~ → `Crime_Adventure.taf` (wired,
+  **95/95 = full score** — see above)
+* prose only, needs real derivation — ~~`TheSisters_walkthrough.txt`~~ →
+  `TheSisters.taf` (wired, **109/109 = full score** — see above),
+  ~~`ThePKGirl_walkthrough.txt`~~ → `the_pk_girl.taf` (wired, **Katryn 55/60,
+  Katryn's ending** — see above)
+* not plain text — `SecondChance_walkthrough.pdf` → `second chance.taf`,
+  `PrivateEye_guide.pdf` → `Private Eye.taf`,
+  `ThePlagueRedux_walkthrough.doc`
+
+Still parked from earlier: Ba'Roo! (needs real derivation), Lair of the Vampire
+(desyncs badly), The Fugitive (prose only). `TheDeadMan_walkthrough.html` has no
+`.taf`. Five games are still undownloaded: Chosen, Crimson Detritus,
+Imagidroids, Panic, The Cellar.
+
+Two habits from this batch worth keeping: check `OBJNAME ... prefix=[...]`
+before believing "I see no such thing", and treat a published *session
+transcript* (as opposed to a hand-written command list) as Runner ground truth
+— two of them caught real engine bugs today.
+
+## 2026-08-03 — Marooned — **WIN, 80/140** — and the TAF 3.8 size/weight bug behind it — 158/158 PASS
+
+`marooned.taf` is the first **TAF version 3.80** game in the corpus (`xxd -p -l
+12 f.taf | cut -c17-22` → `944536`; `934536` = 4.0, `944537` = 3.9), and it did
+not merely desync — it was *unfinishable*, because two objects the game hands
+you could not be picked up:
+
+```
+>get tires
+Your hands are full.
+>get seal
+The dead seal is too heavy for you to carry.
+```
+
+**The cause is a parser bug, not the game.** Version 3.8 stores a single
+"Size/weight" **class index**, 0..4, per object. Every 3.8 grammar in
+`sctafpar.cpp` read `#SizeWeight` raw and handed it to the 4.0 model, which
+packs *size* in the tens digit and *weight* in the units and scales each as
+`base^digit`. So class 4 ("very large") arrived as weight `3^4 = 81` against
+Marooned's limit of `8 * 3^2 = 72`, and class 2 as `3^2`… wrong axis, wrong
+magnitude, silently. New fixup `|V380_OBJECT:_SizeWeight_|` normalises every
+3.8 object to 4.0 "normal" (22).
+
+**Why normalise instead of converting the class.** ADRIFT Generator 3.90 does
+convert it, and we know its exact table, because gen390 is available under Wine
+and its conversion of `marooned.taf` diffs cleanly against our parse (new `sw=`
+field on `SCR_DUMP_OBJLOC`, plus a new `PLAYERLIMITS` line):
+
+```
+3.8 class  ->  3.9/4.0 SizeWeight
+0 normal   ->  22        3 large      -> 32
+1 heavy    ->  23        4 very large -> 42
+2 very heavy-> 24
+```
+
+That table is what ADRIFT itself does, and it is **wrong for playing the 3.8
+file**: it breaks the games. On gen390's own conversion, the genuine
+`run390.exe` refuses the tires with the same "Your hands are full." we used to
+print. Crime Adventure (`Crime_Adventure.taf`, also 3.80, limit 45) goes the
+same way — its kettle is class 2 → weight 81 — yet its published solution says
+"Get all the stuff in Fenwick kitchen". Two independent 3.8 games, both
+unwinnable for their own authors. The 3.8 header carries only **MaxCarried**, a
+plain object count, and the two neighbouring 3.8 fixups already assume counts
+(`Capacity*10+2`, `MaxCarried*10+2`) — those only mean "N objects" if every
+object is normal-sized. Normalising makes the model self-consistent and
+reproduces the author's own walkthrough line for line ("You pick up the couple
+of tires."). Recorded as an ADRIFT-conversion bug, not ours.
+
+Not provable to the last inch: **run380.exe cannot be obtained.** adrift.co
+serves `/files/run380.zip` and `/files/gen380.zip` with HTTP 200, but both
+archives contain the **3.90** binaries; IF Archive and its mirrors, the Wayback
+Machine (ftp.gmd.de, ftp.tardis.ed.ac.uk, the egroups files areas) and
+archive.org have no copy. run390 refuses 3.80 files outright ("You will need to
+convert it with ADRIFT Generator 3.90"), so gen390 conversion is the only
+ground-truth path available for 3.8 games — and it is the path the Runner
+itself prescribes.
+
+**The route: 80/140, and 80 is the ceiling.** The published walkthrough is for a
+*different build* (its boat description differs from ours; our title bar says
+"Marooned v1"), so this one is freshly derived from the task dump + the
+`EXIT`/`ROOM` map. The remaining 60 points are structurally unreachable:
+
+* **task 24 (get trash, 10)** — its two commands, `get *trash` / `take *trash`,
+  are both already ALTCMDs of the repeatable task 14 in the only room the trash
+  exists in, so 14 always wins the match.
+* **task 27 (swallow pill, 10)** — requires the berries eaten, but the berries
+  are the monkey's price for the flint, and the flint is mandatory to light the
+  fire.
+* **task 35 (shoot flare gun at shark, 10)** — requires holding object 20, the
+  *unloaded* gun; loading it (task 19) destroys object 20 and creates object 37,
+  and firing object 37 runs task 18, which kills you. Unreachable by
+  construction.
+* **tasks 9 + 28 (scratched can pour/light, 20)** — only the *dented* can's
+  lighting task (10) starts event 5 "Rescue" (`startTask=11 affTask=30` → the
+  `#win` task 29). Pour the scratched can too and task 9 wins the `light tires`
+  match, the tires burn up, and the ship never comes. So the scratched can goes
+  to the shark (task 33) instead — same 10 points, and the win survives.
+
+One flourish worth keeping: at the lagoon, `throw <anything>` is stolen by the
+non-repeatable, score-0 task 15 (`throw %object% *`). Burn it on the map you
+picked up off the bridge, and the next throw reaches task 33 for its 10 points.
+
+## 2026-08-03 (earlier) — The Amulet — **WIN**, verbatim, and the double-"Congratulations!" settled — 156/156 PASS
+
+*The Amulet* (3-hour comp, Daniel Hiebert again) is a **verbatim** replay: all
+12 commands from the author's transcript, no repairs, flavour lines (`notes`,
+`spells`) included. The game has **no scoring whatsoever** — `score` answers
+"0 out of a maximum of 0" and `SCR_DUMP_TASKS` finds zero `ACT type=4` — so
+reaching the ending is the only measure of the route.
+
+The one difference from the published transcript is that we print
+**"Congratulations!" twice**, and it is worth writing down how that was
+settled, because "our transcript has an extra line" normally means a bug.
+`SCR_DUMP_TASKS` now prints a `WINTEXT [...]` line; all three of the games
+wired today have an **empty** `WinText`, which is exactly the case where
+`task_run_end_game_action()` falls back to its hard-coded "Congratulations!".
+Shadrick's Travels also has an empty `WINTEXT`, its winning task text does not
+contain the word, and its published transcript still shows one
+"Congratulations!" — which is only possible if the real Runner prints the
+default too. So in The Amulet the *first* one belongs to the winning task's own
+CompleteText and the second is the engine's; the Runner would show both, and
+the author trimmed the duplicate when writing the walkthrough up. Our
+transcript is the faithful one.
+
+## 2026-08-03 (earlier) — Monsters (Release 2) — **WIN, 40/40**, and two real parser bugs — 155/155 PASS
+
+*Monsters (Release 2)* by Daniel Hiebert wins at **40/40**, which is the whole
+game: `SCR_DUMP_TASKS` counts eight `ACT type=4` actions worth 5 each, and this
+route fires all eight. The upstream file is a real-Runner session transcript
+with no prompt glyph at all — commands and responses simply alternate — so the
+38 commands were lifted by hand.
+
+Exactly **one repair**: `open the bedroom door` → `open door`. The game has two
+door objects, obj13 (the bedroom's own door, room 2) and obj48 (Mommy's, rooms
+3 and 9); "bedroom door" collides and the parser answers "Open what?", leaving
+`s` blocked on `RESTR type=1 v1=7 obj48`. The bare noun reaches the right one.
+
+**The interesting part: this game's transcript is ground truth, and it caught
+two genuine SCARE parser bugs.** Both are fixed, and neither moved any other
+golden in the 154-row suite.
+
+1. **`uip_match_optional()` did not rewind on a failed look-ahead.** It rewinds
+   when the look-ahead *succeeds* and consumed text, but when the look-ahead
+   fails it fell straight into `uip_match_alternatives()` at whatever position
+   the failed attempt had already advanced to — and `uip_match_list()` has no
+   backtracking of its own. Task 2's pattern is
+
+   ```
+   [defeat/shine/turn/put] {the} [flashlight/light] {on} {the} {brainsucker} {brain}  {monster}
+   ```
+
+   Against `shine flashlight on the brainsucker`, the look-ahead from
+   `{brainsucker}` let `{brain}` eat the first five letters of "brainsucker"
+   (`uip_match_word()` is a prefix compare with no word-boundary check), then
+   died on the trailing "sucker"; the alternatives were then tried from
+   "sucker", `{brainsucker}` matched nothing, and the pattern failed. Net
+   effect: the command the author's transcript shows working was rejected and
+   the game lost 5 points. `shine flashlight` (no object words) worked fine,
+   which is what makes this kind of bug so easy to miss.
+
+2. **`%object%` never answered to a partial prefix.** `uip_build_candidate()`
+   composed exactly two strings, `"Prefix Short"` and the bare `Short`, so
+   `examine the four poster bed` — Prefix `Sissy's four poster`, Short `bed` —
+   was "I see no such thing", while the author's transcript prints the object's
+   description. The candidate now also carries the prefix with its leading
+   words dropped one at a time (`four poster bed`, `poster bed`, `bed`); the
+   *name* is never cut down, so a two-word Short still has to be given whole.
+
+   This one has **independent confirmation**: re-running the suite changed
+   exactly one line in one other golden, Shadrick's Travels, where
+   `climb oak tree` went from "You can't climb that." to "You can't climb the
+   old oak tree." — and line 80 of *that* game's upstream transcript reads
+   "You can't climb the old oak tree." Two unrelated real-Runner transcripts,
+   same verdict.
+
+`SCR_DUMP_TASKS`'s `OBJNAME` line now also prints `prefix=[...]` and every
+`alias=[...]`, which is what turned "why doesn't this noun match?" from a
+guess into a lookup. Use it first whenever a walkthrough line comes back "I see
+no such thing".
+
+## 2026-08-03 (earlier) — Shadrick's Travels — **WIN, 100/100**, verbatim — 154/154 PASS
+
+A fifth verbatim replay, and the cheapest one yet: *Shadrick's Travels* by
+Mystery replays **exactly as published**, 22 commands, no repairs, ending on
+`Congratulations!` with the full 100 points.
+
+The only trick is extraction. The upstream file is a session transcript whose
+prompt glyph is a **CP1252 `Ø` (0xD8)**, not `>`; the commands are the lines
+that start with that byte:
+
+```python
+d = open('downloaded/ShadricksTravels_walkthrough.txt','rb').read().decode('cp1252').replace('\r','')
+cmds = [l[1:].strip() for l in d.split('\n') if l.startswith('Ø')]
+```
+
+`SCR_DUMP_TASKS` reports `TOTAL 100 4` — the game contains exactly four
+`ACT type=4` scoring actions (`tie rope to wood` +20, `tie swing to tree` +20,
+`throw rock at hive` +10, `swing on swing` +50) and this route fires all four,
+so 100 is provably the maximum, not just a high score.
+
+Three of the 22 commands are the author's own duds and are **kept on purpose**:
+`x wood` and `climb tree` both land on the disambiguator, and `tire swing to
+tree` is a typo for `tie`. ADRIFT's "Please be more clear…" does not consume
+the following line, so a dud costs nothing but keeping it means the golden is a
+faithful record of the published transcript. No env is needed — the game never
+paginates, and the transcript is byte-identical with and without
+`SCR_SKIP_WAITKEY=1`.
+
+## 2026-08-03 (earlier) — the two French games — **both full marks**, wired — 153/153 PASS
+
+*Qui a tué Dana ?* (**100/100**) and *Enquête à hauts risques* (**59/59**), both
+by Volcy Bucherie with solutions by Hugo Labrande. Both now reach the maximum.
+
+**Encoding first.** These solution files are stored in **CP1252, not UTF-8**.
+The harness `cat`s the solution straight into the interpreter, so a UTF-8 file
+delivers `é` as two bytes and the game's noun matcher never sees it: in *Dana*
+that silently loses `prendre téléphone` and `x téléphone` (and with them the
+whole phone-memory subplot), with no error message that looks like an encoding
+problem — just "Prendre quoi?". Worth remembering for any other non-English
+ADRIFT game we wire up.
+
+**Qui a tué Dana ? — four repairs.**
+
+| # | Repair | Why |
+|---|---|---|
+| 1 | third bare `parler` at the crime scene | three NPCs, three talk tasks; TASK 16 (chef scientifique) is restricted on TASK 18 `soulever drap`, so it can only fire *after* the sheet is lifted — the upstream order never gets to it, and `EXIT room=3 U` is gated on TASK 16 |
+| 2 | `u` → `up` | the U exit and TASK 19 `cmd=[[up]]` are two different things; `u` uses the exit only, and `EXIT room=2 IN` is gated on TASK 19, so the police station stays shut |
+| 3 | `w` `w` … `e` `e` around the phone presses | TASK 24/25/26 are `where=1 room=4` — *your* office — and the upstream list presses the memory keys in MALKOWITCH's office |
+| 4 | `donner dossier` → `donner malkowitch dossier` | the winning task is `cmd=[[give] {malkowitch/…} {dossier}]` and wants both words |
+
+Repair 3 is the interesting one: the upstream file hedges at exactly that point
+("*parfois ça ne marche pas, prendre 2 puis appuyer 2 marche peut-être*"). It
+isn't flaky — it's the wrong room.
+
+**Enquête à hauts risques — four repairs.** 42 rooms, 165 tasks, and a task
+style that is the opposite of most 4.0 games: whole literal sentences with huge
+ALTCMD lists (TASK 23 `prendre l'arme de service` carries 17 alternates), so
+the upstream abbreviations mostly *do* parse. Everything that went wrong was
+movement or timing:
+
+* an extra `n` on arrival at the commissariat (`e` from home parks you at
+  Devant le commissariat, and the list has one `n` where two are needed);
+* the stray `s` after `rez-de-chaussée` deleted (the lift already returns you
+  to Le couloir, and the `s` dropped you to L'accueil, which has only N/S, so
+  the gun-cupboard detour fell off the map);
+* departure lounge: three `z` → four (the boarding call is on a timed event and
+  lands on the fourth wait);
+* on board: two `z` → four. `EVENT 6 [Décollage]` fires `TASK 71 [d747]`, and
+  `TASK 72 regarder sous le siège` is restricted on it — look under the seat
+  before take-off and the crate, the wire cutters and all three cables stay
+  unreachable.
+
+Verifying the ceiling here needed a trick worth reusing: `SCR_TRACE_TASKS=1`
+gives `Task: running task N forwards`, so intersecting that set against every
+task carrying an `ACT type=4` proves *no scoring task was skipped* — much
+faster than reading a 145-command transcript for missing points.
+
+## 2026-08-03 (later, 9) — The Demon Hunter — **WIN, 200/200**, wired — 151/151 PASS
+
+*The Demon Hunter* (2003) reaches the full 200, but only after two repairs to
+the delron command list — and the first one is a nice illustration of how
+literal ADRIFT 4 task matching is.
+
+**Repair 1: `south` → `s`.** The walkthrough leaves the Armory southwards with
+`south`, which just moves you. The Chapel arrival is supposed to *also* fire a
+task:
+
+```
+TASK 1 where=1 room=6 restr=0 rep=1 cmd=[s]
+    ALTCMD[1]=[go s]  [2]=[go south]  [3]=[walk south]  [4]=[wlk s]  [5]=[walk s]
+    ACT type=1 v1=0 v2=0 v3=7      (move player to room 7, The Chapel)
+```
+
+The author enumerated five alternate phrasings and never listed the bare word
+`south`, so the walkthrough's `south` misses the task entirely. That matters
+because task 1 is the *starter task* of
+
+```
+EVENT 0 [monk's death] starter=3 startTask=2 time1=0 time2=0 o2=3->10
+```
+
+— StarterType 3 (after task), zero length, and `o2=3->10` decodes (raw−1) to
+"move global object 2, the monk's prayer book, to room 7". The book starts at
+`pos=-1`, i.e. nowhere. With `south` the event sits in `ES_AWAITING` forever
+(`SCR_TRACE_EVENTS=1` prints `ticking awaiting event 0` every turn and nothing
+else), the book is never created, and `get book` answers "Take what?". With
+`s` the task completes, `evt_starter_task_is_complete()` finally returns TRUE,
+the zero-length event starts and `evt_finish_event()`s on the spot, and the
+book is lying in the Chapel. Engine behaviour here is correct — the walkthrough
+was simply written with a synonym the game does not accept.
+
+**Repair 2: `read book` added.** Having picked the book up, the walkthrough
+never reads it, and reading it is worth 15:
+
+```
+TASK 2 where=3 rep=1 cmd=[read {it/the/a} {monk's} {prayer} {book}]
+    RESTR type=0 v1=5 v2=1 v3=0 obj2=[monk's prayer book]   (must be holding it)
+    ACT type=4 v1=15
+```
+
+Without it the route tops out at 185/200.
+
+**Eight kills, not six.** The walkthrough lists `kill hajar` six times. Six
+*and* seven both leave the fight unresolved: the score stops at 127 and the
+northeast exit never opens. The eighth attack is the one that scores 43 and
+destroys him, after which the two `northeast` moves score 30 and end the game
+on "Well done, my good and faithful servant."
+
+Row needs `SCR_SKIP_WAITKEY=1` (the ending paginates). The win marker is
+`"Well done, my good and faithful` — the closing line wraps, so `servant.`
+lands on the next line and a longer marker would never match.
+
+## 2026-08-03 (later, 8) — four verbatim delron replays, wired — 150/150 PASS
+
+Four games whose delron command lists replay **without a single repair**, which
+is worth recording because it is the exception, not the rule:
+
+| Game | Cmds | Ending | Row env |
+|---|---|---|---|
+| Beanstalk the and Jack (David Welbourn, 2008) | 56 | `*** You have won ***` | none |
+| Black Sheep's Gold (2004) | 99 | "You've beaten Black Sheep's Gold!" | `SCR_SKIP_WAITKEY=1` |
+| Doomed Xycanthus (2006) | 89 | "Congratulations!" | none |
+| Dancing Even Him? (Richard Otter, 2006) | 17 | anagram reveal | none |
+
+Notes:
+
+* *Beanstalk the and Jack* is a reverse-chronology retelling, so the command
+  list reads backwards — it opens on `chop beanstalk` and ends with Jack waking
+  up. That is the game, not a scrambled walkthrough.
+* *Black Sheep's Gold* is the only one of the four that needs
+  `SCR_SKIP_WAITKEY=1`: its epilogue stops on "(press any key to continue)" and
+  without the skip the pause eats the trailing `quit`, so the ending never
+  prints and the win marker looks absent.
+* *Dancing Even Him?* — the title is an anagram of "Vending Machine", which the
+  ending text spells out, so that line is the win marker.
+
+The only work here was trimming the delron page footers ("Any donation would be
+much appreciated", "Home | About Me") off the extracted text.
+
+## 2026-08-03 (later, 7) — A Spot Of Bother — **WIN, 100/100**, wired — 146/146 PASS
+
+*A Spot Of Bother* (David Whyld, 2005) reaches the author's own stated maximum,
+and the upstream transcript needed exactly **one** repair in 270 commands: a
+second `push door` in the gymnasium. The first push is a task that only reveals
+the trap wire ("A wire, previously hidden, slips into view") — it does not open
+the door, so after `break wire` the east exit still answers "You need to open
+the door first." and `open door` answers "You can't open the door!". Pushing
+again opens it and the remaining 197 commands replay verbatim.
+
+The upstream file is a full session log including the title menu, so the first
+two commands of the solution are the menu picks `2` (read the introduction) and
+`1` (play). The row needs `SCR_SKIP_WAITKEY=1`: the game paginates heavily with
+`[MORE]`, and without it every pause eats a command.
+
+Everything else — including the `enter password elephant` crossword answer, the
+three consecutive `3`s at the computer menu, and the long combination-lock
+sequence on the safe — matched the upstream text response-for-response on the
+first try, which is a good sign for the engine on a 2005-era 4.0 game with this
+much task machinery.
+
+## 2026-08-03 (later, 6) — Troll! — **WIN, 185/190**, wired — 145/145 PASS
+
+*Troll!* (Peter Frøhlich-style pastiche, 2003 ADRIFT) is winnable, and the
+route now reaches the ending with **zero** parser errors in 145 commands. Its
+real ceiling is **185 of 190**, not 190: the game has 38 scoring tasks worth 5
+points each, and one of them is structurally unreachable.
+
+```
+TASK 80 [* pay * barman *]    needs obj67 "fourtune", turns it into obj68
+TASK 82 [* pay * landlord *]  needs obj67 "fourtune", turns it into obj68
+TASK 81 [* pay * landlord *]  needs obj68 "fortune",  turns it into obj69
+```
+
+80 and 82 consume the same object, so at most one can fire — and 80 is
+compulsory, because it is the task that summons the coach home (it moves
+`obj21 coach` and `obj78 horse` and walks the player to room 3). 80 + 81 is
+therefore the best pair available and **82's 5 points are dead**.
+
+The published walkthrough scores 160/190. Everything else was recoverable:
+
+| Recovered | Why the walkthrough missed it |
+|---|---|
+| `pay landlord` (TASK 81, +5) | it never pays the landlord at all — the `in` / `pay landlord` / `out` detour at Outside Inn on the way home is ours |
+| `take breadcrumbs` (TASK 85, +5) | it says `get crumbs`, which the standard library resolves happily without firing the task |
+| `w` upstairs **before** `unlock door` (TASK 86, +5) | TASK 86 is gated on TASK 64 `[* unlock * door *]` **not** being done, so the order matters: you score for walking into the locked door, *then* unlock it |
+| `put breadcrumbs in basin` a **second** time (TASK 51, +5) | TASK 51 wants `obj48`, and `obj48` only reaches the player's hands as an *action* of TASK 52 (the firewater step). The first put is the library's |
+
+Two of the walkthrough's commands are simply the wrong way round for the
+task patterns, neither of which carries a reversed `ALTCMD`:
+
+* TASK 61 is `[* show * barman * medallion *]` → `show barman medallion`
+* TASK 83 is `[* give * chief * backward burp berries *]` → `give chief backward burp berries`
+
+And two inventory hazards: the opening `get all` overflows the carry-weight
+limit on a pink flyer, a green notice and a blue advert (dropped; five
+explicit drops added instead), and the tavern drops must happen **on entry**,
+not after `drink whiskey` — a timed event throws the player outside three
+turns after the last drink, and the walkthrough's following `out` then fails.
+
+The game ends inside `tickle frog` and never prints a final score, so the
+golden's win marker is the closing line and the `score` just before it reads
+180; the last task's 5 points land in the ending text.
+
+## 2026-08-03 (later, 5) — The Hangover — **UNWINNABLE, max 5/7**, wired — 144/144 PASS
+
+*The Hangover* (Red Conine, IFComp 2009 ADRIFT) is unwinnable as shipped, and
+both dead ends are the author's. The two tasks the published walkthrough's
+endgame turns on carry `Where/Type = 0` (`ROOMLIST_NO_ROOMS`), so they can
+never run in **any** room:
+
+```
+TASK 10 where=0 room=-1 restr=1 cmd=[give the doctor some french fries]
+TASK 14 where=0 room=-1 restr=3 cmd=[give approval notes to platypus]
+```
+
+Every other room-scoped task in the game is `where=1`. Confirmed against the
+real run390.exe, which answers "You can't do that here!" to both. So the
+ceiling is **5 of 7**: bill→fries (Deby), kick bum, mail→secretary, open the
+filing cabinet, `type 119-228-337-446`. The two lost points are the doctor's
+approval form and the ending itself.
+
+Losing the doctor costs only the point — the Psycho Hospital's south exit is
+*not* gated on his keys, so the route runs all the way through the jet, the
+bathrobe parachute and back to the Form Process Office. The office even prints
+"Except this time, the platypus is here. He seems happy. You give approval
+notes to platypus." as room description while the task that would do it sits
+permanently unreachable, which is a good demonstration that the author never
+tested the ending.
+
+Row (`the_hangover_solution.txt`, 53 commands, no `SCR_SKIP_WAITKEY` needed):
+`the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.`
+
+Two derivation notes:
+
+- **The room descriptions lie about exits.** Fedrick Avenue says "To your east
+  is a bus stop"; the bus stop is **west**. The Approval Form Office says the
+  first form is "through the door behind me to the north" and that one is
+  right, but the walkthrough says south. The Psycho Hospital Room's exit is
+  west, not east. Trust `You can't go in that direction, but you can move …`.
+- The first command of the transcript is a dead `Take what?` — the walkthrough
+  opens with "Get Up", which this build does not implement (`get` with no
+  noun). It is left out of the solution file; the player starts standing.
+
+### Follow-up: SCARE has no "You can't do that here!"
+
+Both run390.exe and run400.exe carry the string ` can't do that here!` (VB6
+UTF-16; grep the .exe decoded as `utf-16-le`, plain `strings` misses it), and
+run390 prints it for these two tasks. SCARE has no such message anywhere:
+`task_can_run_task` simply returns FALSE for a room-gated task, and the command
+falls through to the standard library — here to "Give what?".
+
+So a command that matches a task's pattern but is typed in the wrong room gets
+a parser-ish fallback from us and a specific refusal from the Runner. Unproven
+how narrow the Runner's condition is (task matched in *some* room? restrictions
+already passed?), so this is **not** implemented — it needs a live run400 probe
+on a corpus game before anything changes, because every golden that contains an
+out-of-room task command would move. Filed here rather than fixed.
+
+## 2026-08-03 (later, 4) — Yon Astounding Castle! of some sort — ★ **WON**, wired — 130/130 PASS
+
+*Yon Astounding Castle! of some sort* (Tiberius Thingamus / Duncan Bowsman)
+wired at 187 commands. Row:
+`yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SKIP_WAITKEY=1`
+(the title crawl ends in a waitkey that would eat the first command).
+Write-up: `YonAstoundingCastle_walkthrough.md`. Ends on `Incredible victory!`
+/ `FINAL SCORE: YE OLDE INNKEEPER`, 5 treasures kept, and the transcript
+contains no parser errors or failure messages anywhere.
+
+**The shipped `YAC_walkthrough.doc` does not match the shipped `.taf`.** The
+doc is dated 29 Sept 2009 (IFComp release); the game file is "Ye Second
+Version", 31 Jan 2010. Both of the doc's routes stall. Differences confirmed
+against `SCR_DUMP_TASKS`:
+
+- the riddling gnome moved from the drawerbridge to the **Skull Gate** (room
+  42, `TASK 509`–`TASK 534`) and got new riddles — v2 answers are `language`
+  / `footsteps` / `yorick`; the v1 answers `mamy` and `envelope` have **zero**
+  occurrences in the v2 task table. The gnome also now opens with
+  *"Shall ye attempteth yon riddles? (Y/N)"*, so a bare `y` is needed first.
+- `klarthaphmo` is spent transforming the **giant slug** into the shiny orb;
+  the frozen speechery (obj 110) is referenced by no v2 task, so the doc's
+  ice-platform `get speechery` step is dead.
+- **Goblin Bob** now robs the treasure sack. Stolen goods land in the takery
+  trunkle (obj 60, room 22) and can be picked back up.
+- the shining orb needs the **magical oven mitt** worn, otherwise it
+  "slippeth from ye grip".
+- `unlock door` on the golden door no longer opens it — `open door` is a
+  separate turn.
+
+**Goblin Bob is a turn-timer hazard, not a puzzle.** `TASK 588 #gob_steals!`
+is gated on `TASK 578` (`*sleep*goblin*`) not being complete, but the ambush
+fires on the same turn he appears, so you never get the sleep command in
+first. The committed route dodges him by parity instead: a single deliberate
+`x hamish` delay turn on the way out of the Quakery. Without it he is standing
+in the Makery on the next move and steals the just-reclaimed intercontinental
+title back out of the sack, which then makes it un-nameable at the toll booth
+and derails the three-treasure bribe (`TASK 984`,
+`RESTR type=4 v1=4 v2=3 v3=3` = variable 4 ≥ 3). Fixed-seed harness, so this
+is reproducible — but the route is turn-count sensitive.
+
+Two treasures the shipped Speedy Route skips are collected: the **golden
+cowbell** (`TASK 826` / `TASK 828 #IN_HOPPER`, grasses from the Lakery into
+the hopper in Ye Cow Feedery) and the **chalice** in the undocumented secret
+room reached by plain `in` from Ye Pointless Parlour. Together they lift the
+ending from `YON SCROLL SORTER` (3 treasures) to `YE OLDE INNKEEPER` (5).
+
+**Left on the table, deliberately:** the **antique stamp collection**
+(`TASK 926`/`927`, room 40). The dungeon door's nominal key (obj 95) is named
+`nonexistente`; the real opener (`TASK 916`) wants Fred held *and* shaped as a
+tungsten key, and Fred can only be re-shaped while standing in Ye Makery,
+which is across the lake. That is ~25 extra moves — all of which would re-arm
+Goblin Bob's timer — for one treasure, in a room that also holds Thrug the
+ogre. Matches the author's own warning that "ye walkthroughs shan't getteth ye
+yon best possible ending".
+
+No engine changes were needed; the game is a good v4 breadth stress case (62
+rooms, boat travel between disconnected map halves, `Y/N` prompts, an
+interactive named-object prompt loop, and an inventory-mutating wandering NPC).
+
+## 2026-08-03 (later still) — It's Easter, Peeps! — ★ **WON**, wired — 129/129 PASS
+
+*It's Easter, Peeps!* (Sara Brookside, One Room Game Competition 2006) wired
+from the author's shipped `EasterWalk.txt`, which replays through scarier
+command for command with no derivation work at all. Row:
+`easter_solution.txt|easter.taf|***You have won***|` — no env vars, the game's
+only `[Press any key to end]` comes after the win text. Write-up:
+`Easter_walkthrough.md`. Scoreless one-room collection puzzle: fill Max's
+basket with the eight items on his list.
+
+**The walkthrough is a real `run400.exe` transcript, so it is an oracle, not
+just a route.** The author kept every examine and every reply, which is why the
+committed solution keeps all 71 commands rather than the 26-command minimal
+win — diffing the golden against the shipped transcript audits scarier's
+wording line by line. Three findings, one fixed:
+
+**Fixed: the container-listing style selector, previously commented in
+`lib_list_in_object()` as "frankly, a mystery".** run400 picks purely on the
+*number* of contained objects — the helper at `0006A418` counts objects at
+position 246 whose parent is this container into `var_98`, then `== 1` and
+`== 2` take the postfixed form ("*A and B are inside C.*") and everything else
+the prefixed one ("*Inside C is …*"). **No test on static-vs-dynamic anywhere
+in that chain**, which is what scarier had been keying on. The transcript
+exercises all of it: a static 1 (umbrella stand), a static 2 (pay phone), a
+dynamic 2 (the wallet, in every `i`) and a dynamic 6 (the basket). 37 corpus
+goldens re-blessed plus `test/capacity_nest_expected.txt`; two of the rewrites
+are corroboration rather than churn, because in `yak_shaving` the *author's own
+ALRs* only match the postfixed phrasing and had never fired before.
+
+**Not fixed, documented:** `take <floor object>` answers "You take the creme
+egg." in run400 where scarier says "You pick up the creme egg." (both agree on
+the "from the newspaper rack" case), and `g` echoes the whole repeated command
+`(hit pinata with umbrella)` where scarier prints only `(with umbrella)`. See
+`RUNNER_TESTS_TODO.md`, 2026-08-03. The ambient shopkeeper events land on
+different turns in the two transcripts; that is the seeded PRNG and is not a
+divergence.
+
+## 2026-08-03 (later) — Cursed — ★ **WON 93/101**, wired — 128/128 PASS
+
+*Cursed* (Nick Rogers, IFComp 2011; post-comp build 2.1.10) derived from the
+ClubFloyd transcript of 31 Jan / 7 & 14 Feb 2013. 298 commands, fox path,
+finishes on **93/101** — the same score the ClubFloyd session reached. Row:
+`cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1`.
+Write-up: `Cursed_walkthrough.md`.
+
+**One real engine fix fell out of it.** The second interlude gates the magical
+veil on *"No object is held by the player"* while the PC wears un-removable
+street clothes, so scarier — which counted worn as held — made the game
+unwinnable. `run400.exe` distinguishes them: the **quantified** (Any/No object)
+loop at `00080871` in `mdlSpreadTheLoad.Sub_20_3` tests only `location == 0`
+(held), plus a container arm on `246` whose *parent* may be held (`0`) or worn
+(`156`); there is no `location == 156` test on the object itself, where the
+**single-object** path at `00080C9B` plainly has one.
+`restr_object_in_place()` now takes a `quantified` flag and matches worn-by-
+player on the single-object path only. Whole v4 suite re-run: **128/128 PASS**.
+
+**Derivation footgun worth remembering: `Globals.WaitTurns` is per game, and in
+Cursed it is 3.** A single `z` runs *three* turns of events, so any cut-scene
+that has to be stepped beat-by-beat desyncs if you count `z`s as turns. Measure
+it before counting:
+
+```
+printf 'z\nquit\ny\n'      | SCR_TRACE_EVENTS=1 ./scare GAME 2>&1 >/dev/null | grep -ac '^Event: ticking event 0:'
+printf 'listen\nquit\ny\n' | SCR_TRACE_EVENTS=1 ./scare GAME 2>&1 >/dev/null | grep -ac '^Event: ticking event 0:'
+```
+
+(3 vs 1 here.) Use a one-turn no-op such as `listen` for the fine stepping. Two
+scenes need it: the Vetan confrontation (`invisible` must land on turn 11 after
+`push indentation`, `attack vetan` on 12, and `wink at vonisor` must have been
+used at least once or Vonisor's thrust misses) and the Epilogue hug (six turns
+after the last topic, exactly one turn of window).
+
+**Known-divergent output kept in the golden:** unresolved ALR-style tokens
+(`[playermove=Rithusar]`, `[ridingpaddlewheeldescription=0]`, `[listen-Dead]`,
+`[listen-Complete]`). The 2013 SCARE 1.03.10 transcript prints the identical
+tokens in the identical places, so they are pre-existing SCARE behaviour, not a
+scarier regression — but this golden will need re-blessing when the
+substitution model is fixed.
+
+**The last 8 points are unattributed.** `full score` lists 24 items summing to
+93 of 101. ClubFloyd played three evenings, tried the other animals, and also
+finished on 93. Best guess is the King interlude ("4 points for your responses
+to the king's questions" reads partial), unconfirmed by the transcript or the
+shipped `cursed_hints.taf`.
+
 ## 2026-08-02 — WesGHN verdict OVERTURNED: **WON 100/100** (the gold ring was never orphaned)
 
 The 2026-06-24 "UNWINNABLE, max 30/100" verdict below is wrong. Its structural

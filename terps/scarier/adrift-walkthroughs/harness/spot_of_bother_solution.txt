@@ -1,0 +1,271 @@
+2
+1
+smash gnome
+x fence
+get wood
+x window
+x light
+throw spike at window
+get spike
+throw spike at window
+get spike
+throw spike at window
+get spike
+x door
+look through letterbox
+poke spike through letterbox
+open door
+get metal bar
+n
+get basket
+x basket
+x portraits
+x first portrait
+x marks
+x third portrait
+push button
+flick switch
+pull lever
+push button
+w
+look through window
+x smoke
+x words
+x bookcase
+get book
+x bookcase
+wipe dust
+x dust
+look under cabinet
+read book
+turn page
+turn page
+throw book at wardrobe
+l
+get shield
+e
+e
+x chandelier
+lift chandelier with metal bar
+e
+x steps
+put bomb in basket
+x wall
+x sign
+climb steps
+use trampoline
+climb steps
+climb steps
+climb wall
+lift weights
+climb steps
+use exercise machine
+attach basket to weights
+w
+w
+x cavity
+e
+e
+x door
+open door
+push door
+break wire
+push door
+e
+get ore
+x desk
+read newspaper
+x crossword
+x computer
+enter password elephant
+3
+3
+3
+x blueprint
+w
+n
+x fridge
+duck
+open fridge
+x stove
+x counter
+get spoon
+look behind fridge
+move fridge
+look behind fridge
+x list
+push 1
+push 2
+push 3
+push start
+push 2
+push 3
+push 4
+push start
+push 3
+push 5
+push 6
+push start
+push 4
+push 4
+push 6
+push start
+push 5
+push 5
+push 6
+push start
+push 6
+push 1
+push 4
+push start
+push 6
+push 6
+push 6
+push start
+get all
+s
+w
+w
+x passage
+jade
+w
+x scrolls
+invoke ritual
+move cauldron
+x cauldron
+x sign
+x grunge
+touch grunge
+sprinkle eye of toad into cauldron
+sprinkle ear of bat into cauldron
+stir cauldron
+sprinkle toe of rat into cauldron
+sprinkle nose of shrew into cauldron
+stir cauldron
+sprinkle ear of bat into cauldron
+sprinkle toe of rat into cauldron
+sprinkle beard of ferret into cauldron
+stir cauldron
+sprinkle knee of horse into cauldron
+sprinkle ankle of dog into cauldron
+sprinkle paw of cat into cauldron
+stir cauldron
+sprinkle beard of ferret into cauldron
+sprinkle ear of bat into cauldron
+stir cauldron
+e
+e
+z
+d
+move barrels
+wear gloves
+u
+e
+n
+u
+x railing
+get dart
+smash bulb
+get dart
+n
+x bed
+jump
+jump
+jump
+l
+get wand
+wave wand at cabinet
+l
+get bell
+x pool
+unplug cable
+get coins
+s
+w
+s
+move camera
+x crack
+x crack
+x crack
+lie on bed
+n
+get lens
+x glasses
+put lens in glasses
+wear glasses
+x portrait
+x eyes
+tap left side of portrait three times
+tap right side of portrait four times
+n
+x sink
+turn hot tap
+turn hot tap
+turn hot tap
+turn hot tap
+turn cold tap
+turn cold tap
+turn cold tap
+turn cold tap
+x medicine cabinet
+put coins in slot
+open laundry basket
+s
+e
+d
+s
+e
+enter noroc
+enter pagon
+enter iggen
+w
+w
+d
+open coffin
+talk to henry
+4
+1
+1
+2
+talk to henry
+give mirror to henry
+give devil statue to henry
+give garlic to henry
+give suntan lotion to henry
+talk to henry
+give suntan lotion to henry
+give blanket to henry
+x barrels
+push lever
+drink beer
+x panel
+smash panel with spike
+smash panel with spike
+smash panel with spike
+e
+n
+u
+w
+open panel
+put orb in panel
+s
+n
+s
+x bed
+wear helm
+n
+w
+w
+w
+shout
+ring bell
+use smelling salts
+give dough to mrs moog
+give pastry to mrs moog
+give bread to mrs moog
+give jelly to mrs moog
+give bracelet to mrs moog
+give glasses to mrs moog
+give cob to mrs moog
+give garlic to mrs moog
+talk to mrs moog

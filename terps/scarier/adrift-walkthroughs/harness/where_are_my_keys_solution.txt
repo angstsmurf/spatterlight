@@ -1,0 +1,73 @@
+1
+west
+west
+x basket
+get mouse
+open unit
+get all from unit
+se
+pull floorboards
+down
+get gloves
+up
+turn off fuse
+nw
+wear gloves
+x cooker
+x saucepan
+get bone
+open fridge
+put bone in fridge
+se
+turn on fuse box
+nw
+east
+up
+up
+east
+open medicine cabinet
+get headache packet
+west
+south
+x bookcase
+get mug
+north
+down
+down
+west
+get bone
+east
+up
+up
+south
+give bone to dog
+north
+down
+down
+west
+open door
+south
+west
+open shed door
+throw mouse
+close shed door
+get keys
+east
+open door
+north
+turn on kettle
+open headache packet
+get tablet
+eat tablet
+x sink
+get dirty dishes
+get all
+make coffee
+drink coffee
+make coffee
+drink coffee
+east
+open door
+north
+open gate
+north

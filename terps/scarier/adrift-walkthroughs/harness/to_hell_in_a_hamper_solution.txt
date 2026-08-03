@@ -1,0 +1,60 @@
+x hubert
+x overcoat
+x side pocket
+get box
+get mallet
+open box
+get scissors
+cut off buttons
+get painting
+throw painting
+get donkey
+throw donkey
+empty box
+throw box
+x overcoat
+x bulge
+cut lining with scissors
+get vase
+shake vase
+hit vase with mallet
+get key
+x bag
+unlock bag
+get underpants
+throw underpants
+get trombone
+x trombone
+hit trombone with mallet
+get ball
+get ear-trumpet
+put ear-trumpet in dog's ear
+play trombone
+x hat
+throw ball at hat
+get clock
+throw clock
+get ball
+throw ball
+get bundle
+x overcoat
+x inside pocket
+get lighter
+throw trombone
+throw mallet
+throw scissors
+throw smudge stick
+get hatchet
+cut anchor rope with hatchet
+throw hatchet
+x breast pocket
+get handkerchief
+make parachute
+get mummy
+throw mummy
+get smudge stick
+light smudge stick
+throw smudge stick
+tie parachute to apron
+push gertie
+pull gas valve rope

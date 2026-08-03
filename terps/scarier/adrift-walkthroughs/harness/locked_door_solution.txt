@@ -1,0 +1,21 @@
+east
+east
+get bucket
+get rock from bucket, put rock in gold chain for letter G
+get rock from bucket, put rock in gold chain for letter O
+get rock from bucket, put rock in gold chain for letter L
+get rock from bucket, put rock in gold chain for letter D
+get rock from bucket, put rock in silver chain for leter S
+get rock from bucket, put rock in silver chain for letter I
+get rock from bucket, put rock in silver chain for letter L
+get rock from bucket, put rock in silver chain for letter V
+get rock from bucket, put rock in silver chain for letter E
+get rock from bucket, put rock in silver chain for letter R
+get rock from bucket, put rock in copper chain
+get rock from bucket, put rock in copper chain
+get rock from bucket, put rock in copper chain
+get rock from bucket, put rock in copper chain
+get rock from bucket, put rock in copper chain
+get rock from bucket, put rock in copper chain
+north
+up

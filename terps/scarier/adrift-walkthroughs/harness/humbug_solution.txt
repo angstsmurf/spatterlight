@@ -1,0 +1,1048 @@
+Who
+I
+X satchel
+Open satchel
+W
+In
+X Horace
+Hug Horace
+Get shovel
+Look in dustbin
+Get banana
+X can
+Drink petrol
+Ask Horace about petrol
+Get plane
+Drop it
+Out
+E
+N
+Push button
+X letterbox
+Get envelope
+Read it
+Open door
+N
+N
+Pull cord
+D
+X crate
+Get torch
+Hit chimp
+X chute
+Give banana to chimp
+U
+S
+U
+U
+W
+Get coin
+X hair
+Open wardrobe
+Get scarf
+Get gloves
+Wear gloves
+E
+D
+D
+Drop all but torch
+Get shovel
+S
+S
+E
+Dig
+Open trapdoor
+N
+X well
+Wish
+Turn on torch
+D
+Dig
+Get carrot
+Hit wall
+E
+Turn off torch
+Get crowbar
+S
+X statue
+Push button
+N
+W
+U
+S
+W
+N
+N
+N
+D
+Open crate with crowbar
+Drop crowbar
+U
+S
+Remove gloves
+Drop all
+N
+D
+Sit in chair
+E
+E
+X miner
+Kick miner
+Get lamp
+Get ladder
+X arch
+Read sign
+E
+E
+E
+N
+Lean ladder on wall
+X table
+Get amphora
+X racquet
+Wear racquet
+X slate
+S
+X table
+Put amphora on table
+E
+X table
+Get watch
+Get goggles
+Get musket
+Get doll
+W
+Put watch on table
+Put goggles on table
+S
+X door
+X table
+Get claw
+Get cap
+Get key
+N
+Put claw on table
+Put cap on table
+N
+U
+E
+S
+Read sign
+X cart
+In
+Give doll to barman
+Give beer to digger
+Give musket to barman
+Give beer to digger
+Out
+Open coffin
+Put key in coffin
+Close coffin
+In
+Wake digger
+Out
+N
+W
+D
+S
+W
+W
+W
+W
+W
+Drop lamp
+Sit in chair
+U
+S
+E
+N
+X desk
+Get nailfile
+Open door with nailfile
+Drop nailfile
+E
+D
+X dial
+Turn dial to 3
+E
+E
+X dial
+Turn dial to 4
+W
+S
+X dial
+Turn dial to 4
+Get mattress
+N
+N
+X dial
+Turn dial to 6
+Drop mattress
+S
+X case
+Push button
+X case
+Get all from case
+Wear cap
+Wear goggles
+W
+U
+W
+Get monocle
+S
+W
+Drop all but amphora
+Get torch
+Get monocle
+Get watch
+N
+D
+Turn on torch
+E
+Get sweet
+E
+E
+X chute
+W
+S
+Wear monocle
+Read runes
+Drop monocle
+E
+Y
+Turn off torch
+Read sign
+X octopus
+Drop amphora
+Put sweet on plinth
+Drop watch
+Wait
+Get 1 sweet
+Get 3 sweets
+Get 3 sweets
+Get 3 sweets
+Read sign
+Say moccasin beehive
+Drop dweezil
+Drop goggles
+Turn on torch
+W
+S
+E
+S
+Turn off torch
+X door
+Read sign
+E
+X chute
+E
+X pedestal
+Get hammer
+X computer
+Type 1 on computer
+Read display
+Hit computer
+Ask hacker about computer
+Get humbug
+Ask hacker about humbug
+Play humbug on computer
+Drop humbug
+Turn on torch
+N
+Get parchment
+Sit on stool
+W
+W
+Drop hammer
+N
+N
+W
+W
+Turn off torch
+U
+S
+Drop all
+Get parchment
+Get shovel
+Get carrot
+S
+S
+W
+W
+Read sign
+Read parchment
+Drop parchment
+W
+S
+E
+W
+W
+N
+E
+S
+N
+W
+N
+S
+E
+X statue
+Read sign
+Dig
+Get emerald
+W
+E
+E
+E
+N
+X tree
+Get termites
+D
+Give carrot to rabbit
+N
+Kneel
+Eat orange flower
+N
+Get ruby
+S
+Eat blue flower
+Get all
+Wear trousers
+Wear shirt
+Wear cap
+U
+S
+E
+E
+N
+N
+Drop all
+E
+E
+X Grandad
+Get Document
+Read it
+Drop it
+Get hat
+X hat
+Get feather
+W
+W
+Drop hat
+Get torch
+Get termites
+N
+D
+Turn on torch
+E
+E
+S
+S
+E
+Wake aardvark
+Give termites to aardvark
+Give feather to aardvark
+Read wall
+S
+Turn off torch
+X buttons
+Read display
+push button 0
+push button 2
+push button 4
+push button 5
+push button 6
+push button 7
+Read display
+push button 0
+push button 2
+push button 7
+Read display
+push button 0
+push button 1
+push button 2
+push button 3
+push button 5
+push button 7
+Read display
+push button 0
+push button 1
+push button 2
+push button 3
+push button 4
+push button 5
+push button 7
+Read display
+Turn on torch
+W
+X chute
+X machine
+X buttons
+Push button 3
+Get leg
+E
+N
+W
+N
+N
+W
+W
+Turn off torch
+U
+S
+W
+X table
+Get mousse
+N
+Open door
+E
+X barrel
+X wine
+Put leg in barrel
+X wine
+Get casket
+Get fish
+Get bone
+Open casket
+W
+X kennel
+X dog
+Give bone to dog
+X table
+Get pot
+Get kettle
+S
+E
+Drop all
+Get jigsaw
+Get fish
+Get coin
+S
+S
+E
+S
+S
+X hair
+X mug
+X tea
+Get lump
+X table
+Get bag
+X viking
+Give jigsaw to viking
+Get filofax
+S
+D
+X sealion
+Give fish to sealion
+Get tuck
+Open Tuck
+Get sandwich
+z
+X sandwich
+Drop tuck
+X dispenser
+Put coin in slot
+X buttons
+Push button 5
+Hit machine
+Get ticket
+N
+N
+W
+N
+N
+Remove cap
+Drop all
+Get sandwich
+W
+N
+W
+Look
+Look
+Look
+Get mouse
+Stroke cat
+Get caddy
+E
+S
+E
+Drop sandwich
+Get kettle
+Get gloves
+Wear gloves
+U
+U
+U
+W
+Get hedgehog
+X boiler
+X kettle
+Plug in kettle
+Wait
+E
+E
+Give mouse to owl
+Open skylight
+U
+E
+Get balloon
+Jump
+W
+D
+W
+W
+Drop kettle
+Plug in kettle
+Wait
+Wait
+X kettle
+Get salt
+E
+D
+D
+D
+E
+S
+Throw salt at slug
+Open chest
+Get clippers
+Get zircon
+N
+W
+Remove gloves
+Drop all
+Get clippers
+Get shovel
+S
+S
+E
+N
+Cut fence with clippers
+Drop clippers
+N
+In
+X door
+Open door
+N
+X door
+N
+X line
+Get peg
+Get chain
+X bath
+S
+Drop chain
+Dig
+S
+Say boo
+Look
+Get battery
+Out
+S
+S
+W
+N
+N
+U
+E
+Get trombone
+X bed
+Get sheets
+Wear peg
+Get longjohns
+Drop peg
+Get pass
+X chute
+W
+N
+Open cabinet
+Get plaster
+X basin
+X trombone
+S
+D
+Drop all
+Get envelope
+Read it
+Open it
+Get card
+Read it
+Drop envelope
+Get scarf
+Get claw
+Get trombone
+Get pass
+Get torch
+Get shovel
+Get lump
+Get ticket
+Get hat
+Wear hat
+E
+E
+Blow trombone
+Give card to Grandad
+Give scarf to Grandad
+Ask Grandad about Jasper
+Ask Grandad about Horace
+Get trombone
+W
+W
+Drop trombone
+N
+D
+Turn on torch
+E
+E
+S
+S
+E
+S
+Turn off torch
+Read sign
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+S
+X table
+Get token
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Open package
+Look
+Look
+N
+N
+W
+S
+Y
+S
+X robot
+Push button
+X coach
+Enter coach
+X tombstone
+Dig
+Dig
+Dig
+Open coffin
+Give claw to zombie
+Get key
+Give lump to horse
+Ride horse
+Look
+N
+N
+In
+N
+Get chain
+D
+S
+S
+Open door with key
+Drop key
+S
+Drop chain
+E
+X tube
+X wumpus
+Push button
+W
+W
+U
+S
+W
+N
+N
+Remove hat
+Drop all
+U
+N
+Turn on tap
+Wash hands
+Wash hair
+Turn off tap
+S
+D
+Get gloves
+Wear it
+Get hedgehog
+Comb hair with hedgehog
+X hair
+Remove gloves
+Drop all
+W
+N
+W
+Say please
+Get caddy
+Open caddy
+Get toffee
+Drop caddy
+E
+S
+E
+Get mousse
+S
+S
+E
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Give mousse to wumpus
+Get wumpus
+D
+Drop wumpus
+U
+Close trapdoor
+Wait
+Wait
+Wait
+X Jasper
+X teeth
+Give toffee to Jasper
+Ask Jasper about wumpus
+Wait
+Wait
+Wait
+Get tooth
+Wait
+Wait
+Wait
+Look
+Get polaroid
+Open trapdoor
+D
+Get wumpus
+U
+W
+N
+N
+Drop all
+Get balloon
+Get package
+Get filofax
+Get plaster
+Get tooth
+Get wumpus
+Get bag
+Get torch
+N
+D
+Turn on torch
+E
+E
+S
+S
+S
+Turn off torch
+X Olaf
+Ask Olaf about story
+Pop balloon
+Ask Olaf about story
+N
+E
+S
+E
+E
+X hacker
+Give package to hacker
+X computer
+Read filofax
+Type 010473736401 on computer
+X computer
+Type 60318897 on computer
+X computer
+Drop filofax
+Type Log Off on computer
+W
+W
+N
+W
+S
+Say 010473470651
+Open rucksack
+Get powder
+Put powder in chute
+X chute
+Pull lever
+N
+E
+S
+E
+E
+Sit on pedestal
+Push button
+Get powder
+X fairy
+X wand
+Ask fairy about wand
+Give plaster to fairy
+Sit on pedestal
+Push button
+Get raspberry
+Blow raspberry at fairy
+Drop raspberry
+Kiss fairy
+Give tooth to fairy
+Turn on torch
+N
+Put bag on stool
+E
+Get amethyst
+W
+W
+X machine
+Open door
+Put powder in machine
+Put wumpus in machine
+Close door
+Push button
+Open door
+W
+N
+N
+W
+W
+Turn off torch
+U
+S
+Drop all
+Get torch
+Get mug
+Get sheets
+N
+D
+Turn on torch
+E
+E
+S
+S
+Get hammer
+X alarm
+Break glass with hammer
+Drop hammer
+E
+S
+E
+Turn off torch
+Wait
+X Dennis
+Give mug to Dennis
+Hit Dennis
+Get helmet
+Get uniform
+Tie Dennis with sheets
+X Dennis
+X underwear
+Smell underwear
+Sign form
+Wear uniform
+Wear helmet
+Drop all
+X uniform
+S
+Turn off wheel
+X chute
+N
+Get torch
+Turn on torch
+W
+N
+W
+N
+N
+W
+W
+Turn off torch
+U
+S
+Get battery
+X torch
+Open torch
+Put battery in torch
+Close torch
+Get zircon
+Get ruby
+Get emerald
+Get sapphire
+Get amethyst
+Get diamond
+Get gloves
+Wear it
+Get hedgehog
+U
+E
+X chute
+Put amethyst in chute
+Pull lever
+W
+D
+N
+D
+Turn on torch
+E
+E
+E
+X chute
+Put sapphire in chute
+Pull lever
+W
+S
+S
+S
+X chute
+Put diamond in chute
+Pull lever
+N
+E
+S
+W
+X chute
+Put emerald in chute
+Pull lever
+E
+E
+X chute
+Put ruby in chute
+Pull lever
+S
+X chute
+Put zircon in chute
+Pull lever
+N
+W
+N
+W
+N
+Get monocle
+Wear it
+Read runes
+Drop monocle
+N
+W
+W
+Turn off torch
+Drop gloves
+Say Jisanajen
+Get map
+X map
+U
+S
+Drop torch
+Get casket
+X casket
+Get pepper
+Drop casket
+Get trombone
+Get pot
+Get polaroid
+E
+N
+S
+W
+S
+S
+W
+W
+N
+X trombone
+X pot
+Open pot
+Pour honey in trombone
+Drop trombone
+Get trombone
+Get sock
+X sock
+Wear sock
+S
+W
+Drop pot
+Drop sock
+Look
+Get plane
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Look
+Throw plane
+Get tin
+Open it
+Put pepper in tin
+Close tin
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Wait
+Get can
+Out
+E
+E
+N
+D
+E
+Blow trombone
+Drop trombone
+Get chain
+Tie chain to bars
+W
+U
+N
+In
+N
+N
+X bath
+X can
+Pour petrol in funnel
+Drop can
+Push button

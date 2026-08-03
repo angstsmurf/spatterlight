@@ -1,0 +1,908 @@
+Loading game...
+
+Marooned v1
+After finishing with some afternoon fishing, you notice some rather dark and
+menacing clouds have snuck up on you.  While preparing to head back to port,
+the wind picks up and jagged streaks of lightning stab the sky. A heavy rain
+begins to pelt you.  The waves grow stronger and threaten to dump you in the
+raging ocean.
+
+Dark clouds drift overhead and the ocean swirls angrily around the boat. You
+can barely make out anything in front of you.
+
+Despite your attempts to keep the boat upright, a huge wave hits you and
+dumps you into the raging ocean. You plunge deep into the water and
+everything is confusion. You can't tell up from down as you struggle to make
+your way to the surface.  You see what appears to be an island and use all
+your strength to swim towards it. After struggling with the surf, you pull
+yourself onto a beach.  Tired and with muscles aching, you black out and
+sleep for what seems like hours.............
+
+And when you wake up, you don't know where you are. Some kind of island, but
+you can't see or hear anything to indicate it's inhabited. One thing is clear
+though. You must somehow get off this speck in the middle of the ocean.
+
+>
+
+That won't work here. You've been playing too many Scott Adams adventures.
+
+>You move north.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+A monkey is here.
+
+>You move west.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Also here is a bunch of red berries.
+
+>You pick up the bunch of red berries.
+
+>You move north.
+In a gully
+
+This is a shallow gully with lots of tiny and large rocks strewn about. It
+looks like this was once a river bed, but it is now long dry.
+
+>You move north.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move west.
+Along the river
+
+You find the beginning of a river, which starts out as a small creek that
+grows larger and larger and is fed by an underground spring. The water is
+cool and crystal clear and quickly flows to the east.
+
+>
+You lay the berries down and slowly back away. At first, he looks at them
+cautiously, then picks them up and begins to eat them. After a minute or two,
+he falls over and appears to pass out. Something rolls out of his hand.
+
+>You pick up the small piece of flint.
+
+Your stomach is growling. You'd better get something to eat.
+
+>You move west.
+On western beach
+
+This is a short beach surrounded by thick jungle growth to the north and
+south. Coral reefs circle the island just a few yards offshore.
+
+Offshore about five yards to the west is a large fishing boat, the kind that
+people charter to take them out to deep sea fish.
+
+>You move west.
+In the ocean
+
+You are swimming in the ocean.
+
+>You move west.
+On the wrecked fishing boat - Bow
+
+This boat is roughly thirty feet long and ten feet wide and is resting on a
+reef just offshore at a 45 degree angle. From this point of view, you can't
+see what happened to the boat, but the stern is under water.  The slant of
+the deck makes it difficult, but not hard to make your way around. However,
+every time you move, you can feel the boat move also. Maybe it's not a good
+idea to stay aboard the boat for long.
+
+Also here is a couple of tires.
+
+>You pick up the couple of tires.
+
+>You move east.
+In the ocean
+
+You are swimming in the ocean.
+
+>You move east.
+On western beach
+
+This is a short beach surrounded by thick jungle growth to the north and
+south. Coral reefs circle the island just a few yards offshore.
+
+Offshore about five yards to the west is a large fishing boat, the kind that
+people charter to take them out to deep sea fish.
+
+>You move east.
+Along the river
+
+You find the beginning of a river, which starts out as a small creek that
+grows larger and larger and is fed by an underground spring. The water is
+cool and crystal clear and quickly flows to the east.
+A monkey is here.
+
+You hear the calls of exotic birds and the movements of unseen animals.
+
+>You move east.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move east.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move south.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move south.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+You hear the calls of exotic birds and the movements of unseen animals.
+
+>You move south.
+On a cliff
+
+This is a rocky cliff which rises from the beach below, where waves crash
+into the bottom. At its highest point, it's about 50 feet up, and slopes down
+to the east and west. This looks like  the highest point on the island. The
+screeching of seagulls reaches your ears faintly.
+
+>You drop the couple of tires.
+
+>You drop the small piece of flint.
+
+>You move north.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move north.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move north.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+You hear the calls of exotic birds and the movements of unseen animals.
+
+>You move west.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move west.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move west.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move west.
+Along the river
+
+You find the beginning of a river, which starts out as a small creek that
+grows larger and larger and is fed by an underground spring. The water is
+cool and crystal clear and quickly flows to the east.
+
+>You move west.
+On western beach
+
+This is a short beach surrounded by thick jungle growth to the north and
+south. Coral reefs circle the island just a few yards offshore.
+
+Offshore about five yards to the west is a large fishing boat, the kind that
+people charter to take them out to deep sea fish.
+
+>You move west.
+In the ocean
+
+You are swimming in the ocean.
+
+>You move west.
+On the wrecked fishing boat - Bow
+
+This boat is roughly thirty feet long and ten feet wide and is resting on a
+reef just offshore at a 45 degree angle. From this point of view, you can't
+see what happened to the boat, but the stern is under water.  The slant of
+the deck makes it difficult, but not hard to make your way around. However,
+every time you move, you can feel the boat move also. Maybe it's not a good
+idea to stay aboard the boat for long.
+
+>You move west.
+On bridge of wrecked boat
+
+You make your way carefully to the bridge,  which is where all the navigation
+equipment and controls are, including the wheel, radar, ship to shore radio
+and compass. Maps and papers are scattered all over the place,  along with
+empty food packages. In the corner is a sort of makeshift hammock. It looks
+like someone slept here for a little bit. A short set of stairs leads
+downwards from here.
+
+Also here is a flare gun, a flare cartridge and a map.
+
+>You pick up the map.
+
+>You move down.
+In the engine room
+
+You descend the steps and make your way to the engine room, which is flooded
+up to your waist with seawater. Flotsam and jetsam floats past you in the
+water. There is a strong smell of gasoline here.
+
+Also here is a first aid kit, a life preserver and a dented gas can.
+
+>You pick up the dented gas can.
+
+>You move up.
+On bridge of wrecked boat
+
+You make your way carefully to the bridge,  which is where all the navigation
+equipment and controls are, including the wheel, radar, ship to shore radio
+and compass. Maps and papers are scattered all over the place,  along with
+empty food packages. In the corner is a sort of makeshift hammock. It looks
+like someone slept here for a little bit. A short set of stairs leads
+downwards from here.
+
+Also here is a flare gun and a flare cartridge.
+
+>You move east.
+On the wrecked fishing boat - Bow
+
+This boat is roughly thirty feet long and ten feet wide and is resting on a
+reef just offshore at a 45 degree angle. From this point of view, you can't
+see what happened to the boat, but the stern is under water.  The slant of
+the deck makes it difficult, but not hard to make your way around. However,
+every time you move, you can feel the boat move also. Maybe it's not a good
+idea to stay aboard the boat for long.
+
+>You move east.
+In the ocean
+
+You are swimming in the ocean.
+
+>You move east.
+On western beach
+
+This is a short beach surrounded by thick jungle growth to the north and
+south. Coral reefs circle the island just a few yards offshore.
+
+Offshore about five yards to the west is a large fishing boat, the kind that
+people charter to take them out to deep sea fish.
+
+>You move east.
+Along the river
+
+You find the beginning of a river, which starts out as a small creek that
+grows larger and larger and is fed by an underground spring. The water is
+cool and crystal clear and quickly flows to the east.
+
+As you venture, the glow of the sun gently settles below the horizon, dabbing
+the sky with a breathtaking selection of reds, golds and oranges. It's
+starting to get dark now, and the stars are coming out.
+
+Night has fallen.
+
+>You move east.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move south.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move south.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+You hear the calls of exotic birds and the movements of unseen animals.
+
+>You move south.
+On a cliff
+
+This is a rocky cliff which rises from the beach below, where waves crash
+into the bottom. At its highest point, it's about 50 feet up, and slopes down
+to the east and west. This looks like  the highest point on the island. The
+screeching of seagulls reaches your ears faintly.
+
+Also here is a small piece of flint and a couple of tires.
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You drop the dented gas can.
+
+>You move east.
+On the lagoon shore
+
+This is a shallow, peaceful lagoon which comes in from the shore about ten
+yards from the sea. The sea breeze is strong here, and you can smell the
+sweet scent of tropical flowers. About fifteen yards out to the south you see
+a large outcropping of rock with a tall palm tree on it. There also seems to
+be a small cave on the outcropping.
+
+A shark is here in the water.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>
+You toss it into the water and the shark darts for it. He circles it a few
+times, then comes up under it and swallows it whole. He disappears into the
+ocean.
+
+>You move north.
+On steep hill
+
+This is a steep hill which leads to the east. Boulders are strewn here and
+there, and  you see a path through the underbrush as if someone came this way
+a lot.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move north.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move north.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+You hear the calls of exotic birds and the movements of unseen animals.
+
+>You move west.
+Along the river
+
+You find the beginning of a river, which starts out as a small creek that
+grows larger and larger and is fed by an underground spring. The water is
+cool and crystal clear and quickly flows to the east.
+A monkey is here.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+On western beach
+
+This is a short beach surrounded by thick jungle growth to the north and
+south. Coral reefs circle the island just a few yards offshore.
+
+Offshore about five yards to the west is a large fishing boat, the kind that
+people charter to take them out to deep sea fish.
+A horseshoe crab is here.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+In the ocean
+
+You are swimming in the ocean.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+On the wrecked fishing boat - Bow
+
+This boat is roughly thirty feet long and ten feet wide and is resting on a
+reef just offshore at a 45 degree angle. From this point of view, you can't
+see what happened to the boat, but the stern is under water.  The slant of
+the deck makes it difficult, but not hard to make your way around. However,
+every time you move, you can feel the boat move also. Maybe it's not a good
+idea to stay aboard the boat for long.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move west.
+On bridge of wrecked boat
+
+You make your way carefully to the bridge,  which is where all the navigation
+equipment and controls are, including the wheel, radar, ship to shore radio
+and compass. Maps and papers are scattered all over the place,  along with
+empty food packages. In the corner is a sort of makeshift hammock. It looks
+like someone slept here for a little bit. A short set of stairs leads
+downwards from here.
+
+Also here is a flare gun and a flare cartridge.
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move down.
+In the engine room
+
+You descend the steps and make your way to the engine room, which is flooded
+up to your waist with seawater. Flotsam and jetsam floats past you in the
+water. There is a strong smell of gasoline here.
+
+Also here is a first aid kit and a life preserver.
+
+>
+
+You duck under the water.
+Underwater in engine room
+
+You are swimming underwater in the engine room. Your eyes sting because of
+oil and gas in the water and you find it hard to stay under. Before you is
+the ship's engine.
+
+Also here is a scratched gas can.
+
+>You pick up the scratched gas can.
+
+>You move up.
+In the engine room
+
+You descend the steps and make your way to the engine room, which is flooded
+up to your waist with seawater. Flotsam and jetsam floats past you in the
+water. There is a strong smell of gasoline here.
+
+Also here is a first aid kit and a life preserver.
+
+>You move up.
+On bridge of wrecked boat
+
+You make your way carefully to the bridge,  which is where all the navigation
+equipment and controls are, including the wheel, radar, ship to shore radio
+and compass. Maps and papers are scattered all over the place,  along with
+empty food packages. In the corner is a sort of makeshift hammock. It looks
+like someone slept here for a little bit. A short set of stairs leads
+downwards from here.
+
+Also here is a flare gun and a flare cartridge.
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+On the wrecked fishing boat - Bow
+
+This boat is roughly thirty feet long and ten feet wide and is resting on a
+reef just offshore at a 45 degree angle. From this point of view, you can't
+see what happened to the boat, but the stern is under water.  The slant of
+the deck makes it difficult, but not hard to make your way around. However,
+every time you move, you can feel the boat move also. Maybe it's not a good
+idea to stay aboard the boat for long.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+In the ocean
+
+You are swimming in the ocean.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+On western beach
+
+This is a short beach surrounded by thick jungle growth to the north and
+south. Coral reefs circle the island just a few yards offshore.
+
+Offshore about five yards to the west is a large fishing boat, the kind that
+people charter to take them out to deep sea fish.
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+Along the river
+
+You find the beginning of a river, which starts out as a small creek that
+grows larger and larger and is fed by an underground spring. The water is
+cool and crystal clear and quickly flows to the east.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+In the darkness you can hear the stirrings of nocturnal creatures.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+You hear the calls of exotic birds and the movements of unseen animals.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move south.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move south.
+On steep hill
+
+This is a steep hill which leads to the east. Boulders are strewn here and
+there, and  you see a path through the underbrush as if someone came this way
+a lot.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+You begin to see the sky lighten with the approach of the sun.
+
+>You move south.
+On the lagoon shore
+
+This is a shallow, peaceful lagoon which comes in from the shore about ten
+yards from the sea. The sea breeze is strong here, and you can smell the
+sweet scent of tropical flowers. About fifteen yards out to the south you see
+a large outcropping of rock with a tall palm tree on it. There also seems to
+be a small cave on the outcropping.
+
+A shark is here in the water.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>
+You toss the gas can into the water and the shark darts for it. He circles it
+a few times, then comes up under it and swallows it whole.
+
+>You move north.
+On steep hill
+
+This is a steep hill which leads to the east. Boulders are strewn here and
+there, and  you see a path through the underbrush as if someone came this way
+a lot.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move north.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+>You move north.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+The sun is coming up now, and slowly the air warms with the rays of the new
+sun.
+
+It is now morning.
+
+>You move west.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move north.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move west.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+You hear the calls of exotic birds and the movements of unseen animals.
+
+>You move north.
+On eastern end of northern beach
+
+This part of the beach has a lot of seaweed and debris washed up on it,
+creating a huge ugly eyesore. But at least this suggests that the island is
+not far from the shipping lanes.
+
+As you enter the area, a sickly sweet stench enters your nostrils.
+
+Also here is a pile of  trash.
+
+>
+You move the trash around and realize that there is a dead seal under all of
+it.
+
+>You pick up the dead seal.
+
+>You move south.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move south.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move east.
+In the jungle
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+>You move south.
+Along the river
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+>You move south.
+On steep hill
+
+This is a steep hill which leads to the east. Boulders are strewn here and
+there, and  you see a path through the underbrush as if someone came this way
+a lot.
+A monkey is here.
+
+>You move south.
+On the lagoon shore
+
+This is a shallow, peaceful lagoon which comes in from the shore about ten
+yards from the sea. The sea breeze is strong here, and you can smell the
+sweet scent of tropical flowers. About fifteen yards out to the south you see
+a large outcropping of rock with a tall palm tree on it. There also seems to
+be a small cave on the outcropping.
+
+A shark is here in the water.
+
+>
+
+You throw the seal carcass into the water far from you. You see the shark
+make a bee line for it and the last you see of the seal is the shark
+swallowing it whole.
+
+With the shark occupied, you can now make your way south.
+
+>You move south.
+In the ocean
+
+You are swimming in the ocean.
+
+>You move south.
+On the rocky outcropping
+
+This is nothing more than a mass of rough rocks at the mouth of the lagoon.
+There isn't really much to it, and you can only go so far. The only shade
+here is provided by a a tall swaying palm tree. There seems to be an  opening
+to a small cave here.
+
+>You move in.
+In a small cave
+
+You are now in a small cave about ten feet long and five feet wide.  There's
+not much room here, but it could make a passable shelter if one was needed.
+
+Also here is a skeleton.
+
+>
+There seems to be something under the skeleton, half buried in the sand.
+
+>You pick up the knife.
+
+>You move out.
+On the rocky outcropping
+
+This is nothing more than a mass of rough rocks at the mouth of the lagoon.
+There isn't really much to it, and you can only go so far. The only shade
+here is provided by a a tall swaying palm tree. There seems to be an  opening
+to a small cave here.
+
+>You move north.
+In the ocean
+
+You are swimming in the ocean.
+
+>You move north.
+On the lagoon shore
+
+This is a shallow, peaceful lagoon which comes in from the shore about ten
+yards from the sea. The sea breeze is strong here, and you can smell the
+sweet scent of tropical flowers. About fifteen yards out to the south you see
+a large outcropping of rock with a tall palm tree on it. There also seems to
+be a small cave on the outcropping.
+
+>You move west.
+On a cliff
+
+This is a rocky cliff which rises from the beach below, where waves crash
+into the bottom. At its highest point, it's about 50 feet up, and slopes down
+to the east and west. This looks like  the highest point on the island. The
+screeching of seagulls reaches your ears faintly.
+
+Also here is a small piece of flint, a couple of tires and a dented gas can.
+
+>You open the dented gas can.
+
+>
+
+You pour what's left of the gas on the tires.
+
+>
+
+You strike the blade of the knife against the piece of flint, and an ever so
+small spark jumps out. You try again and more sparks fly, and you succeed in
+starting a fire. Because of the gas on the tires, the flames spread quickly
+and soon the tires are a flaming mass giving off a large cloud of thick black
+smoke.
+
+You scan the horizon and see a ship sailing past the island. Apparently, it
+has seen the smoke and is coming towards you.
+
+>Time passes...
+
+>Time passes...
+
+The ship is coming closer and closer.
+
+>Time passes...
+
+It looks like it's headed for the southern beach.
+
+>Your score is 80 out of a maximum of 140.  (57%)
+
+>You move west.
+On eastern end of southern beach
+
+This is a wide sandy beach which sweeps  to the west. Fiddler crabs scurry
+back and forth in the surf and gentle waves lap at the shore, giving no clue
+to the savage storm which landed you here.
+
+>Time passes...
+
+As you venture, the glow of the sun gently settles below the horizon, dabbing
+the sky with a breathtaking selection of reds, golds and oranges. It's
+starting to get dark now, and the stars are coming out.
+
+Night has fallen.
+
+The ship comes in closer to shore and sends out a couple of crew members in a
+lifeboat. You eagerly race into the surf and meet them. You collapse in their
+arms and they load you into their boat and head back to the ship. You make
+your way home and recover, and the local news channels interview you for a
+couple of days. You spend you free time telling friends, strangers and anyone
+who will listen about your harrowing experience.
+Congratulations!
+Congratulations, you are no longer Marooned!

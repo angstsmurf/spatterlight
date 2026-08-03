@@ -1,0 +1,119 @@
+say yoho
+north
+west
+get berries
+north
+north
+west
+give berries to monkey
+get flint
+west
+west
+west
+get tires
+east
+east
+east
+east
+east
+east
+east
+south
+south
+south
+drop tires
+drop flint
+north
+north
+north
+west
+west
+west
+west
+west
+west
+west
+west
+get map
+down
+get dented gas can
+up
+east
+east
+east
+east
+east
+east
+east
+east
+south
+south
+south
+drop dented gas can
+east
+throw map
+north
+north
+north
+west
+west
+west
+west
+west
+west
+west
+west
+west
+down
+dive
+get scratched gas can
+up
+up
+east
+east
+east
+east
+east
+east
+east
+east
+east
+south
+south
+south
+throw gas can
+north
+north
+north
+west
+north
+west
+north
+move trash
+get seal
+south
+east
+south
+east
+south
+south
+south
+throw seal
+south
+south
+in
+move skeleton
+get knife
+out
+north
+north
+west
+open dented gas can
+pour dented gas on tires
+light tires
+wait
+wait
+wait
+score
+west
+wait

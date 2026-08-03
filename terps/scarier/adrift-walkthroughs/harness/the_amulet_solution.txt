@@ -1,0 +1,12 @@
+notes
+spells
+look north
+l
+examine human skeleton
+search human skeleton
+i
+cast levitate on ruby
+l
+cast turn undead on bat
+take ruby amulet
+u

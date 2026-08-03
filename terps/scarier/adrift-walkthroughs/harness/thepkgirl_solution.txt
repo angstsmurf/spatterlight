@@ -1,0 +1,407 @@
+
+n
+n
+n
+Petter
+
+n
+w
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+1
+
+east
+south
+south
+south
+wait
+wait
+wait
+ride the motorcycle
+
+east
+north
+west
+west
+north
+west
+north
+north
+talk to dustin
+3
+1
+south
+south
+get on dumpster
+open window
+
+
+south
+south
+east
+south
+south
+west
+west
+north
+wait
+wait
+1
+west
+move box
+down
+
+north
+west
+wait
+wait
+wait
+1
+1
+north
+north
+up
+1
+north
+
+
+wait
+wait
+wait
+wait
+wait
+wait
+east
+1
+wait
+wait
+2
+wait
+wait
+wait
+wait
+wait
+sleep
+
+south
+east
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+west
+wait
+1
+1
+3
+north
+west
+ride the motorcycle
+d
+
+south
+down
+talk to ethan
+2
+1
+up
+north
+ride the motorcycle
+c
+
+east
+east
+south
+wait
+wait
+wait
+wait
+wait
+wait
+1
+north
+west
+west
+ride the motorcycle
+e
+
+north
+wait
+
+
+
+south
+east
+east
+sit
+3
+1
+1
+wait
+2
+talk to dustin
+west
+west
+wait
+wait
+wait
+wait
+wait
+wait
+ride the motorcycle
+d
+
+south
+down
+talk to ethan
+1
+rosa
+wait
+wait
+wait
+wait
+up
+north
+ride the motorcycle
+c
+
+east
+east
+south
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+north
+east
+west
+west
+south
+wait
+wait
+wait
+sit
+1
+1
+wait
+wait
+
+
+wait
+wait
+wait
+wait
+wait
+wait
+north
+west
+ride the motorcycle
+d
+
+south
+down
+wait
+up
+north
+ride the motorcycle
+f
+
+west
+west
+wait
+wait
+wait
+1
+1
+1
+wait
+2
+push crates
+push crates
+climb over steam roller
+up
+south
+east
+north
+east
+start walking
+
+
+3
+1
+kiss katryn
+ride the motorcycle
+
+ride the motorcycle
+d
+
+south
+down
+
+
+revive ethan
+up
+north
+ride the motorcycle
+e
+
+north
+north
+east
+give money to peddler
+ask peddler about silo
+ask peddler about valley
+west
+south
+south
+ride the motorcycle
+j
+
+search mountains
+east
+east
+east
+enter booth
+x monitors
+wait
+2
+3
+x katryn
+exit booth
+east
+north
+east
+east
+south
+x equipment
+get magnets
+north
+west
+west
+give magnets to dustin
+south
+south
+south
+east
+east
+south
+west
+
+
+
+east
+north
+north
+open cabinets
+get transmitter
+south
+east
+north
+north
+north
+get extinguisher
+south
+east
+spray chadwick
+turn on transmitter
+attack chadwick
+search chadwick
+east
+flip door switch
+flip zigzag switch
+flip ladder switch
+west
+south
+south
+west
+south
+west
+wait
+wait
+get band
+east
+north
+west
+west
+up
+up
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+punch octal
+head butt octal
+get band
+kiss katryn
+hug katryn
+put band on octal
+wait
+wait
+wait
+wait
+wait

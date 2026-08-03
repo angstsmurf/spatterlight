@@ -1,0 +1,227 @@
+# Yon Astounding Castle! of some sort (Tiberius Thingamus / Duncan Bowsman),
+# "Ye Second Version", 31 January 2010 -- ADRIFT 4.0.
+#
+# NOT the shipped YAC_walkthrough.doc route.  That document is dated 29 Sept
+# 2009 and describes the IFComp 2009 release; the .taf here is the 2010 "Ye
+# Second Version", in which the riddling gnome moved from the drawerbridge to
+# the Skull Gate (with new riddles), KLARTHAPHMO is spent on the giant slug,
+# and Goblin Bob robs the treasure sack.  This is the doc's "Ye Olde Speedy
+# Route" re-derived against the v2 data, plus the golden cowbell and the secret
+# treasure room -- see YonAstoundingCastle_walkthrough.md.
+#
+# Ends on "Incredible victory!", FINAL SCORE: YE OLDE INNKEEPER, 5 treasures
+# kept.  The author warns his own walkthroughs "shan't getteth ye yon best
+# possible ending", and this route does not either: the antique stamp
+# collection is left in the dungeon (see the .md).
+#
+# Needs SCR_SKIP_WAITKEY=1: the title screen ends in a "[presseth of yon return
+# key to continue]" that would otherwise eat the first command.
+
+# --- lower the drawbridge, and the nut-tree squirrel's gem ---
+u
+e
+n
+open contraption
+s
+w
+get nut
+d
+get nut
+e
+give nut to squirrel
+x greenery
+# --- hovel: sooty string -> grimy key -> resizing wheel cronkle ---
+s
+u
+get string
+d
+unlock table
+open it
+get wheel
+# --- beltery: repair the resizer, take the title, shrink and wear the belt ---
+n
+n
+put wheel on device
+x rack
+get belt
+get title
+put belt on device
+pull lever
+pull lever
+pull lever
+get belt
+wear it
+# --- the drawerbridge, and KLARTHAPHMO on the giant slug ---
+s
+e
+e
+open wall
+e
+klarthaphmo
+get orb
+d
+x fount
+get boat
+# --- bakery: the oven mitt makes the orb (and the muffin) holdable ---
+w
+get mitt
+wear mitt
+e
+get orb
+w
+open oven
+get muffin
+# --- flakery: a silver key in the pile o' flakes ---
+n
+e
+s
+x pile
+n
+w
+s
+e
+e
+unlock door
+# --- ye intricate object: bottle opener, magic boat, fruit for Brog ---
+d
+x object
+x appendage
+x doodad
+x novelty
+get opener
+open bottle
+get fruit
+w
+w
+give fruit to monster
+# --- passageway o' paintings: a silver key behind a placard ---
+w
+w
+s
+s
+e
+x placard
+# --- alchemical storage: the magic crystal ---
+e
+n
+unlock desk
+x it
+get crystal
+s
+# --- the secret treasure room ("in" from the Pointless Parlour): the chalice ---
+in
+get chalice
+out
+# --- back to ye intricate object, then the lava boss and the sleeping powder ---
+w
+w
+n
+n
+e
+e
+e
+move movable
+e
+e
+get bag
+y
+magic crystal
+look
+get bag
+# --- ye makery: grab the grasses, make Fred the melting wand ---
+w
+w
+u
+w
+w
+n
+e
+s
+w
+get grasses
+n
+make item
+melting wand
+get fred
+# --- ye takery: sleep the snakes, reclaim what Goblin Bob stole ---
+e
+s
+w
+sleep snakes
+n
+x trunk
+get title
+get gem
+# --- the long march back to the toll boothe.  The x hamish is a deliberate
+# --- delay turn: without it Goblin Bob is waiting in ye makery on the next
+# --- move and robs the just-reclaimed title straight back out of the sack.
+s
+e
+n
+x hamish
+w
+s
+e
+n
+w
+s
+e
+e
+# --- ye cow feedery: feed the bovine and take its golden cowbell ---
+put grasses in hopper
+get bell
+d
+w
+w
+sleep monster
+w
+w
+s
+s
+e
+e
+s
+e
+# --- bribe the Dwarfish Yeoman with three treasures ---
+give treasure to dwarf
+title
+muffin
+shiny orb
+score
+# --- the Skull Gate: the v2 gnomish gnaming riddles ---
+e
+s
+y
+language
+footsteps
+yorick
+get gold
+# --- ye olde labyrinth: the weird fungus kills the Guardian Ogre ---
+w
+s
+w
+get fungus
+w
+n
+w
+drop fungus
+sleep ogre
+s
+n
+get key
+unlock door
+open door
+w
+# --- Malwegor's lair ---
+d
+y
+y
+n
+n
+y
+y
+melt wizard
+melting wand
+look
+get scepter
+y

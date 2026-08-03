@@ -1,0 +1,63 @@
+se lever
+prendre jean
+enfiler jean
+prendre pull
+enfiler pull
+n
+prendre cigarette
+prendre briquet
+pousser bouton
+prendre expresso
+boire expresso
+smoke cigarette
+ouvrir porte
+out
+parler
+d
+parler
+soulever drap
+x corps inerte
+parler
+parler
+up
+in
+e
+x bureau
+x memo
+lire memo
+prendre memo
+w
+w
+prendre dossier
+prendre téléphone
+x téléphone
+appuyer 3
+e
+e
+x bureau
+x photos
+prendre photos
+w
+n
+x table
+prendre cigarette
+light cigarette
+s
+e
+x bureau
+prendre rapport
+x rapport
+lire rapport
+w
+w
+appuyer 2
+appuyer 9
+appuyer 1
+e
+e
+ouvrir dossier
+mettre photos dans dossier
+mettre rapport dans dossier
+l
+fermer dossier
+donner malkowitch dossier

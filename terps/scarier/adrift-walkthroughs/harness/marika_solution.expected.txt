@@ -1,0 +1,501 @@
+Loading game...
+
+Marika the Offering
+
+Marika the Offering
+
+An ADRIFT text adventure by revgiblet (revgiblet@gmail.com).  This is v1.1
+(2007)
+
+Type story at any time for the backstory.
+
+Type thanks for a list of credits.
+
+(Press a key to begin)
+
+The Room in the Tower
+
+I am standing in a room that has been meticulously constructed from cold,
+grey stones in a very simple manner.  My eyes are hypnotically drawn to the
+main feature in the west wall, a large double window that swings open in the
+evening breeze.  A wide single bed sits in the centre of the room.  I know
+from experience that the bed is incredibly comfortable and it is currently
+taking all of my willpower to resist the temptation to lie down and drift
+into oblivion.  The bed is made up with a soft looking pillow and has a
+blanket wrapped round it.
+
+It appears to me that this room once served a less sinister purpose, for
+there is a fireplace built into the north wall.  The fireplace is as empty as
+my heart.  A thick wooden shelf is fixed to the wall above, on which rests a
+burning candle that gives the room an eerie glow.  The low stone ceiling
+separates me from the heavens and God above.  In the south wall is a thick
+metal door; the only way out of the tower alive.
+
+A full-length portrait mirror is afixed to the east wall, opposite the
+window.  It reflects the horizon scene, creating the illusion that the room
+is larger than it is.  A rickety wooden chair has been placed beside the
+mirror.  The air is musty and offends my nostrils.  My remaining life can be
+measured in heartbeats.  I must act!
+
+>
+Driven by some unknown prompting I begin to run my hand through my hair.  As
+my finger touches something sharp I withdraw it hastily.  A second, more
+cautious check reveals a hairpin that shouldn't be there.  Unbidden, the
+memory comes to me of my final meeting with my mother.  As we parted she
+touched my hair.  At the time I thought it nothing more than a tender gesture
+but it seems that she had ulterior motives.  Thanking God for her ingenuity I
+place the hairpin carefully on the shelf above the fireplace and ponder on a
+use for it.
+
+>
+It seems like the most obvious thing to do.  I walk over to the window, reach
+out and shut it.
+
+>
+I reach out and take the hairpin from the shelf.  The hairpin is too small to
+use on the door so I make my way across the room to the window and, having
+pulled the window so it is as shut as I can make it, I begin to work on the
+lock.
+
+My hand is shaking through exhaustion and I do not rightly know what I am
+doing but God is with me.  After a few moments of fumbling and twisting there
+is a tiny click.  I remove the hairpin from the tiny keyhole to see that my
+labour has bent and warped it.  I then hesitantly push the window.  It
+remains firm.  Again I try, this time with as much force as I can muster in
+my weakened state.  The window does not move.  I have successfully secured it
+against The Count.  Hopefully the thick glass will be sufficient to thwart
+his entry.
+
+I respectfully place the hairpin back on the shelf and ponder my next move.
+
+>
+Wary, for it is almost as if the bed whispers a siren song as I look at it, I
+begin to examine the cot.  The blanket is tucked in tightly but yields to a
+sharp tug from me.  I find nothing unusual under it.  The mattress is thick
+and tightly packed with soft and springy innards.  It would be easy to sink
+into it and forget all of my troubles.  As I lift the pillow a small piece of
+paper wafts out from underneath it and floats gently to the ground.  I
+replace the pillow and turn my attention back to the room.
+
+>
+I reach down and take the piece of paper in my hands.  I force my gaze to
+focus on the neat handwriting that has been marked on the paper.  The message
+reads...
+
+Marika.  I am unable to say goodbye to you as I would wish to.  I want you to
+gaze into your own beautiful eyes and breathe yourself a goodbye from me.
+
+The paper drops from my limp grasp and settles again on the hard floor.  This
+message was clearly meant for me to find, but who left it?  And why?  My head
+aches but I have the feeling that within the message is a hidden meaning that
+I must endeavour to find.
+
+>
+Driven by a sudden flash of inspiration I move over to the mirror and, as the
+message on the paper predicted, find myself gazing into my own eyes.
+
+Prompted by the rest of the message I breathe in deeply and exhale over the
+mirror.  I repeat the gesture.  As the mirror mists over I notice marks;
+marks where the mirror is not fogging up.  My heart skips a beat as I
+continue to breathe out over the rest of the mirror, revealing more and more
+of what seems to be a hidden message.
+
+By the time that I have finished I am feeling light-headed and unsteady on my
+feet, but I appear to have uncovered a message.
+
+LOOK UNDER MATTRESS
+
+I commit it to memory as the mirror slowly clears.
+
+>
+I prod the mattress.  It is thick and packed tightly with something soft but
+dense.  This makes it deceptively heavy.  I manage, with some difficulty, to
+get my hands into a position to facilitate the lifting of the mattress and
+begin to strain.
+
+The exertion shortly begins to make me feel light-headed and under normal
+circumstances I would cease this activity.  These, however, are not normal
+circumstances.  The words on the mirror drive me to this action, and I will
+not let it be in vain.
+
+Driven by a desire to solve the mystery of the message I call on reserves of
+hidden strength and manage to lift the mattress enough to see, tucked out of
+sight between it and the frame, a thin metal rod.  With reflexes born of
+desperation I reach down and roll the rod onto the floor as the mattress
+drops back onto the bedframe with a thud.  Panting heavily I lean against the
+wall to regain some strength before considering the role that the metal rod
+will play in my survival.
+
+>
+The tightly-packed, perfectly square flagstones are cold and hard under my
+bare feet.  I kneel and run my fingers across the stones, searching for
+something unusual.  My breath catches in my throat as my fingers stumble
+carelessly across a flagstone that seems to be slightly raised in comparison
+to its neighbours.  I check again.  This flagstone is the twin of the others
+except for the fact that it is definitely loose.  However, it's too heavy and
+my fingers are too thick to prise it up.  There must be something in here
+that can help me!
+
+>
+I decide to try and move the loose flagstone and it occurs to me that the
+iron rod might be perfectly suited to this task.  I grip it tightly and
+slowly work the flat end into the thin gap between the flagstones.
+
+When I believe that I have inserted the rod as far as I can I take a deep
+breath and begin to apply pressure.  Lifting the stone is much easier than I
+thought it would be and within a few seconds I have managed to tip it enough
+to prise it out of the floor.
+
+I cast the rod aside and begin to wonder what, if anything, might be
+contained within the dark cavity that I have uncovered...
+
+>
+I lie beside the hole in the floor and, with due prudence, put my hand into
+the darkness.
+
+I have to rely purely on my sense of touch to discern if there is anything of
+interest in the hole.  For a few seconds all I am able to feel is the cold,
+wet density of damp stone and a soft breeze, but after a moment of
+maneouvering I brush against something rough and soft.  Nervously I grab the
+object and begin to pull it towards me.
+
+As I do so I hear a tinkling noise.  I pause as the sound moves away from me,
+but it is too late.  I listen as something metallic slithers away, sounding
+like it's falling through a fissure below me.  There is a further moment of
+silence before something clatters to the ground on the level below me.  My
+imagination ponders the events that these sounds proclaim but I am not quite
+sure what to make of them.  After this second of contemplation I continue my
+action and pull the object that I have grasped into the light.
+
+I climb onto my knees with my prize, which appears to be a grubby old rag.
+As I unfold it a roll of parchment falls to the floor in front of me; the
+sole inhabitant of the cloth.  I toss the rag to one aside, as it appears to
+have had no other purpose than to serve as a container for the parchment.  I
+wipe my hand across my tired eyes and consider my next decision.
+
+>
+I pick up the parchment from the floor and begin to read...
+
+My Dearest Marika,
+
+Forgive me for the complicated path that you must have walked to obtain this
+letter.  I had no other choice and knew that your resourcefulness would be
+equal to the task.  The elders of the village know well your mother's views
+on the subject of The Count and feared that she might attempt to intervene in
+events.  As a result they declared it a capital offence for anyone to try and
+aid you in your plight.  I desired greatly to help you but was afraid that
+Bogdan would hold me to account and that I would be forced to pay the
+ultimate price for aiding you.  Bogdan is a good man, but he fears the elders
+and he fears The Count even more.  I left a message for you on the mirror and
+a clue under your pillow.  I had to phrase the clue as though it were a
+simple farewell message that wouldn't incriminate me - just in case it were
+seen by someone other than you.  Again, forgive me but I knew that you would
+be able to solve the puzzle.  You are a remarkable girl.  I will try and
+speak with you before I must leave and hope that Bogdan allows it.
+
+I pray that your mother is right; that The Count can be beaten but I do not
+know how.  I have heard many amazing things about him.  I have heard that he
+has the ability to turn into a bat as well as the capability to scale
+vertical surfaces.
+
+I am sorry that I did not have the chance to say farewell properly.  To this
+end I wrote this letter and wrapped it in a rag with my silver crucifix.  As
+you know, I hid the package under the loose flagstone and I hope that the
+crucifix will be of some comfort, if nothing else.  I will be praying for
+you.  Do not let my fear dampen your remarkable spirit.
+
+Enric.
+
+My head swims with the information.  Enric!  Of course!  Only a guard would
+have the freedom to leave items for me in the tower.  The message on the
+mirror was his doing, leading me to find the metal rod so that I could
+discover this letter under the flagstone.  But Enric didn't only intend for
+me to find a letter.  He made reference to his silver crucifix.  It would be
+a helpful weapon in a fight against a vampyre, but it was not present with
+the parchment.  I recall my actions as I discovered the letter and my
+imagination replays the sounds that I heard as I pulled the rag free from its
+prison.  The metallic tinkling sound.  The sound of something slithering away
+from me.  My heart sinks as I piece everything together.  Enric's silver
+crucifix must have fallen free of the rag as I moved it and dropped down a
+fissure in the stones to the stairwell below this room.  It will do me little
+good down there.  My one chance to turn the tables and I have lost it before
+I even knew what it was that I was losing!  I scream in frustration and throw
+the letter to the ground.  What hope do I have now?
+
+>
+I decide that the chair would be more of use to me if it were broken down to
+its component parts.  With this in mind I grab the iron rod and swing
+violently at the wooden seat.
+
+There is a splintering noise as the chair collapses under my assault.  In
+three strikes it has been reduced to a pile of rough looking wood.  I throw
+the rod to one side and survey my handiwork.
+
+>
+I pile up an armful of wood and carry it across the room to deposit it in the
+fireplace.  I repeat the process two more times to complete the task.
+
+The fireplace now contains a pile of wood ready to be burnt.  I look at the
+candle and the pile of wood and my experience tells me that, as it stands,
+the flame is not furious enough to catch the wood.  If I want to start a fire
+I will need to find something that will burn well and provide a more
+substantial conflagration.
+
+>
+It suddenly occurs to me that the parchment could be very useful, just not in
+the way that was originally intended.  I scoop the parchment from the floor
+and hold it over the candle on the shelf for a second.  It catches and
+produces a reasonable flame.  I then bend down and cast the burning parchment
+amongst the pyre that I have constructed in the fireplace.
+
+I pray for it to produce flames amongst the wood and, after what feels like
+an eternity, I am heartened to see that the wood is indeed burning.  I linger
+for another anxious minute to ensure that the blaze will continue and before
+long I am coughing on a plume of smoke.
+
+I throw the candle onto the fire for the sake of it and rub my weeping eyes.
+I am feeling warmer already, and my body is driven even closer to the
+dangerous state of slumber.
+
+>
+A flash of inspiration strikes me and with a great sense of urgency I yank
+the thick blanket from the bed and pull it over to the door.  The gap under
+the door is nowhere big enought for a human to crawl under but until I have a
+better understanding of what The Count is capable of I will err on the side
+of caution.
+
+The blanket is thick and heavy, and with some effort I manage to force it
+under the door making a barrier of sorts.  As it stands nothing will be able
+to come through the breach and I pray that The Count will lack the necessary
+strength to remove it swiftly.
+
+>
+I remember a rumour that The Count possesses the ability to change his shape.
+ The keyhole in the door is sizeable, possibly big enough to allow him entry
+through it.
+
+With this in mind I scoop up the rag that I retrieved from under the floor
+and move purposely over to the door.  Using all my strength I cram the rag
+into the keyhole until I am sure that it will no easy task to remove it.  I
+can only pray that The Count will not be resourceful enough or strong enough
+to excavate it.
+
+>
+Grabbing the corners of the stone and heaving mightily I manage to return it
+to the hole in the floor.  It crashes back to its original place with a
+satisfying crack.  For some reason performing this action settles an unease
+that I had in my spirit.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+I yawn.  I am finding it difficult to fight off sleep.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+My body aches with weariness.  I don't think that I can resist sleep for much
+longer!
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+>
+I wait for my death.
+
+I am feeling dizzy and weak.  My body is giving in to the demand for rest.  I
+have just enough time and strength to drag myself over to the bed and
+collapse on it before the darkness overcomes me...
+
+(Press a key)
+
+My dreams are vivid and terrifying.  I picture myself slipping into a void,
+surrounded by infinite darkness.  A hundred horrific images spin at me from
+the emptiness surrounding me.
+
+I see thin, cruel hands clawing at a window.  The hands become more and more
+frantic until they become balled fists slamming themselves against the glass
+in futility...then the image vanishes.
+
+I hear a rustling sound, a squeaking noise and something that sounds like a
+thousand terrible wings flapping mere metres away from me.  I smell damp fur
+and then...I smell smoke and see a flash.  I hear a pained squeal which
+mutates into a hideous cry...then the image vanishes.
+
+I feel something moving under the stones.  Something pushing against the
+floor in desperation.  I see the darkness pressing against the loose
+flagstone in the floor, but it is repelled.  I hear the flapping of
+wings...then the image vanishes.
+
+The door rattles.  It shakes on its hinges but does not move.  In my dream
+the rag and blanket shake and writhe like they're alive but remain in place.
+The door shakes with increased vigour and a rhythmic pounding that chokes the
+breath in my throat.  There is a haunting scream...then the image vanishes.
+
+For what seems like many hours the visions of my dream repeat.  The door and
+windows rattle over and over.  I hear the sound of some winged creature
+exploring every nook of the room around me.  I can feel the presence of some
+horrific evil merely a few feet away from me.  I watch myself toss and turn,
+shaking, in my sleep but such is my exhaustion that I do not wake.
+
+Then, from nowhere, a burst of light seems to creep into the room and my mind
+is nearly driven insane by a sinister, prolonged, tortured wail from
+somewhere.  Just as my heart feels like it is about to burst there is
+silence.
+
+Then all is still and peace descends upon me...
+
+(Press a key)
+
+My eyes open and drink in the sunlight but my ears are deafened by the sound
+of hammering fists and yelling voices outside the door.  I lie paralysed by
+fear, expecting The Count to burst through the doorway at any second...but
+then I listen to the words.
+
+"Marika!  Marika!  Are you all right?" screams a voice that I recognise.
+
+I sit up and watch the door for a second.  Someone has tried to remove the
+rag and the blanket and failed.  My sluggish brain slowly pieces together the
+facts.  I am alive, it is morning and someone is trying to get into the room
+but unable because I have secured it.  As this last piece of information
+sinks in I jump off the bed with a gasp and rush over to the door.
+
+With a sense of elation I pull the rag from the keyhole and bang on the door.
+
+"It's me!  Marika!"
+
+"Marika!" a voice I recognise almost screams, and then I hear the scraping of
+a key being fumbled in the lock.  The door swings open.  Enric stands there,
+tears streaming down his cheeks, with Bogdan behind him looking astonished.
+
+Unable to contain my delight I throw myself into Enric's shocked arms and he
+holds me tightly, neither of us speaking.  The silence is broken by Bogdan
+grabbing my shoulder roughly.
+
+"What have you done girl!  You've doomed us all!" he yells, his face
+contorted with rage.  Enric breaks the embrace to shove Bogdan away.
+
+"She has shown more courage than anyone else in this village!" Enric shouts,
+fists clenched tightly.
+
+"We'll need more than courage to disuade The Count from his terrible
+revenge!" Bogdan shrieks back.
+
+Ignoring the confrontation I rush past them both and down the stairs,
+thrilling at the feel of wood under my feet.
+
+(Press a key)
+
+I push the door open and burst out into the daylight with Bogdan and Enric
+hot on my heels.  I stumble around the base of the tower as though
+intoxicated, searching desperately for something to confirm the suspicions of
+my dream.  I find it on the opposite side of the tower, on the grassy ground
+below the room's window.
+
+Enric and Bogdan catch up shortly afterwards and stutter to a halt behind me,
+staring at same sight as me.
+
+"What...what is that?" Bogdan whispers.
+
+We are looking at a corpse, a twisted mess of bones and thick fluid.
+Decaying flesh hangs from the skeleton and two sharp teeth protrude obscenely
+from the skull.  In my head I imagine a warped creature of the night striving
+to enter the room, struggling and failing but so absorbed in the task that he
+fails to see the sun rising over the horizon until it is too late...
+
+"I think," I begin, a huge smile creeping across my face, "that it is
+over..."
+
+I feel Enric's gentle hand on my shoulder and hear Bogdan begin to weep
+behind me.  I look up into the sky.  It seems to me the bluest and purest
+horizon that I have seen for a long while.
+
+I plan to enjoy every second of it.
+Congratulations!

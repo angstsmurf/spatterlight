@@ -1,0 +1,1566 @@
+Loading game...
+
+Yon Astounding Castle! of some sort
+
+Forsooth!
+
+Prepareth yeself, adventurer,
+for ye hath enter'd...
+
+YON
+ASTOUNDING
+CASTLE!
+of some sort
+
+-----   -----   -----
+Hear ye!  Hear ye!
+'Twas writ using ye olde
+ADRIFT 4,
+for which all rights of copy & such
+ doth hereforeto belongeth to
+Campbell Wild
+for ye years ranging from 1998
+until their expiry or whate'er.
+
+'Twas writ by ye olde scribbling scribe,
+Tiberius Thingamus,
+as a well-bedraggled tome
+ of yon fantasy gamestoryness or as
+ some gamestory-type thing.
+
+Ye Second Version
+released upon ye
+Thirty-First
+Morrow of January in ye
+Tenth Year of ye
+Third Millenium
+Anno Domini.
+-----   -----   -----
+
+[presseth of yon return key to continue]
+
+Outside Yon Castle
+Ye standeth at ye edge of ye forest outside yon castle, which is surrounded
+by yon moat.  Yon drawbridge in ye east is up, preventing ye entry into yon
+castle.  Nearby there groweth yon nut tree.
+
+To learneth how to playeth yon game, typeth tutorial or tut and presseth
+return.  Typeth not of ye word help, for yon message knoweth not what it
+talketh about.
+
+Always presseth ye return key after ye typeth ye commands.
+
+>
+>Ye moveth up.
+
+In Ye Nut Tree
+Ye standeth within yon nut tree and clingeth to't quite precariously.  Yon
+nuts decorate ye nut tree nutfully.  Ye noticeth yon long branch of ye nut
+tree extendeth o'er ye castle wall to ye east.
+
+>
+
+Atop Ye Castle Wall
+Ye standeth atop ye castle wall, o'erlooking yon castle courtyard to ye east.
+ Yon towers loometh north and south, and yon long branch of ye nut tree
+extendeth from ye west.  A jolly breeze bloweth ye hair about (or tickleth ye
+scalp if ye be bald).
+
+>Ye moveth north.
+
+Inside Ye North Tower
+Ye standeth inside ye north tower, where existeth ye and yon drawbridge
+operating contraption.
+
+>Ye openeth yon drawbridge operating contraption.
+
+Ye heareth yon loud, creaking kaboom as ye drawbridge falleth open suddenly.
+
+>Ye moveth south.
+
+Atop Ye Castle Wall
+Ye standeth atop ye castle wall, o'erlooking yon castle courtyard to ye east.
+ Yon towers loometh north and south, and yon long branch of ye nut tree
+extendeth from ye west.  A jolly breeze bloweth ye hair about (or tickleth ye
+scalp if ye be bald).
+
+>Ye moveth west.
+
+In Ye Nut Tree
+Ye standeth within yon nut tree and clingeth to't quite precariously.  Yon
+nuts decorate ye nut tree nutfully.  Ye noticeth yon long branch of ye nut
+tree extendeth o'er ye castle wall to ye east.
+
+>Ye maketh ye attempt to taketh one of yon nuts.  Yon nut falleth from ye tree
+and onto or upon yon ground below.
+
+>Ye moveth down.
+
+Outside Yon Castle
+Ye standeth at ye edge of ye forest outside yon castle, which is surrounded
+by yon moat.  Yon drawbridge in ye east is down, allowing ye entry into yon
+castle.  Nearby there groweth yon nut tree.
+
+Behold, ye nut layeth upon yon ground in some degree of spectacle.
+
+>Ye picketh up ye nut.
+
+>
+
+Inside Ye Castle Courtyard
+Ye standeth in ye castle courtyard.  Bountiful greenery & greenery-like
+things bloometh all o'er ye place.  Yon curious buildings stand at all sides
+of ye, except for ye west which is occupied by ye castle walls and yon
+drawbridge.  Also, here there occupieth ye grounds yon weird squirrel.
+
+This seemeth like ye right time to mentioneth yon mandatory warning that ye
+should examineth ev'rything which ye doth see in ye room description.  Or
+else 'tis quite possibly too late, but ye should hath figured as much.
+
+>Ye outstretcheth of ye hand to offereth ye nut to yon weird squirrel.  Yon
+squirrel approacheth playfully at first, then snatcheth ye nut before ye can
+blinketh, and disperseth with equal rapidity.  When ye looketh, ye see yon
+squirrel hath left yon gem of some sort in ye hand.
+
+Ye tucketh yon gem away in ye trusty treasure sack.
+
+HUZZAH!  Ye hath gained 1 treasure!
+
+[presseth of yon return key to continue]
+
+Inside Ye Castle Courtyard
+Ye standeth in ye castle courtyard.  Bountiful greenery & greenery-like
+things bloometh all o'er ye place.  Yon curious buildings stand at all sides
+of ye, except for ye west which is occupied by ye castle walls and yon
+drawbridge.
+
+>Ye pondereth for what reason 'tis not blue, and then recalleth of yon biology
+classes and ye olde chlorophyll, which maketh ye feeleth pleased with yeself
+for some reason.
+
+WHAT, HO!  Inside ye findeth one of ye silver keys!  (See Footnote 1)
+
+>Ye moveth south.
+
+Inside Ye Hovel
+Ye standeth in ye curious building to ye south of yon courtyard.  Ye be
+pretty sure ye building is yon hovel of some kind, for 'tis filled with all
+manner of hovelry.  Verily, a dirty table standeth in one corner of ye room
+and there boileth another corner yon stewpot.  Yon crickety chimminy
+provideth some ventinary assistance for yon stew steam.  Also in yon other
+corner hangeth ye magic cupboard.  Ye hath nary a clue why so many o' yon
+furnishings hath been stuffed into ye corners.
+
+Ye can returneth to yon courtyard to ye north.
+
+>Ye moveth up.
+
+In Ye Hovel Chimminy
+Ye standeth rather contortedly in ye hovel chimminy.  'Tis quite
+uncomfortable, especially with ye steam from yon stewpot blowing up at ye
+bum.  Ye chimminy groweth too tight to continueth ye way up, but ye thinketh
+ye could climb ye way back down without much of yon fussing and/or
+consternation.
+
+Ye doth see yon sooty string hanging up here.
+
+>Ye picketh up yon sooty string.
+Unfortunarily, yon string turneth out to be terribly slippery and it droppeth
+from ye hands-- ye believeth it disappeareth into yon stewpot.  Howe'er, ye
+manageth to catch of ye grimy key which appeareth to have been tied to ye
+other end of yon string.
+
+Ye may confirmeth ye hath yon grimy key by typing i to checketh ye inventory.
+
+>Ye moveth down.
+
+Inside Ye Hovel
+Ye standeth in ye curious building to ye south of yon courtyard.  Ye be
+pretty sure ye building is yon hovel of some kind, for 'tis filled with all
+manner of hovelry.  Verily, a dirty table standeth in one corner of ye room
+and there boileth another corner yon stewpot.  Yon crickety chimminy
+provideth some ventinary assistance for yon stew steam.  Also in yon other
+corner hangeth ye magic cupboard.  Ye hath nary a clue why so many o' yon
+furnishings hath been stuffed into ye corners.
+
+Ye can returneth to yon courtyard to ye north.
+
+>Ye unlocketh ye dirty table with ye grimy key.
+
+Sensing ye no longer requireth ye grimy key, ye discardeth of it in yon
+stewpot.  Man... ye betteth yon stew shall tasteth inexorably funky by now.
+
+>[open ye dirty table]
+Ye openeth ye dirty table.  Ye resizing wheel cronkle is inside ye dirty
+table.
+
+>Ye taketh ye resizing wheel cronkle from ye dirty table.
+
+>Ye moveth north.
+
+Inside Ye Castle Courtyard
+Ye standeth in ye castle courtyard.  Bountiful greenery & greenery-like
+things bloometh all o'er ye place.  Yon curious buildings stand at all sides
+of ye, except for ye west which is occupied by ye castle walls and yon
+drawbridge.
+
+>Ye moveth north.
+
+Inside Ye Place With A Rack In It
+Ye standeth in ye curious building to ye north of yon courtyard, ye origin
+and/or purpose of which ye doth not know.  Ye suspecteth it may fore'er be
+shrouded in mystery.  Lo, there stretcheth across ye wall yon rack of some
+kind.  In ye corner there standeth yon belt resizing device.  Ye can
+returneth to yon courtyard to ye south.
+
+>Ye putteth ye resizing wheel cronkle onto yon belt resizing device.
+
+Ye believeth ye hath fixed yon belt resizing device!
+
+>'Tis ye rack for belt-holding.    Ye magic belt, ye intercontinental title
+and yon other belts are on ye belt rack.
+
+>Ye taketh ye magic belt from ye belt rack.
+
+>Ye taketh of yon intercontinental title from ye belt rack and-- resisting ye
+olde urge to rant about ye magical rocketships of warre & such-- stuffeth it
+into ye treasure sack with much style and/or profile.
+
+HUZZAH!  Ye hath gained 1 treasure!
+
+[presseth yon return key to continue]
+
+Inside Ye Beltery
+Ye standeth in ye curious building to ye north of yon courtyard, which ye be
+pretty sure is ye beltery, for 'tis hung quite copiously with yon belts upon
+ye belt rack.  In ye corner of ye beltery doth stand yon belt resizing
+device.  Ye can returneth to yon courtyard to ye south.
+
+>Ye putteth ye magic belt onto yon belt resizing device.
+
+>Ye pulleth upon ye lever and yon belt resizer doth yon thing which is its--
+that is, it doth practition or thereby executeth yon method which thereby
+reduceth ye magic belt by one size.  (See Puzzle Footnote 1)
+
+>Yea, it resizeth again.  Ye magic belt still appeareth quite slackish,
+howe'er.
+
+>Ye magic belt looketh more like ye size, now.
+
+>Ye taketh ye magic belt from yon belt resizing device.
+
+>[wear ye magic belt]
+Ye putteth on ye magic belt.
+
+Ye feeleth much stronger!
+
+>Ye moveth south.
+
+Inside Ye Castle Courtyard
+Ye standeth in ye castle courtyard.  Bountiful greenery & greenery-like
+things bloometh all o'er ye place.  Yon curious buildings stand at all sides
+of ye, except for ye west which is occupied by ye castle walls and yon
+drawbridge.
+
+>Ye moveth east.
+
+Inside Ye Hall of Some Kind
+Ye standeth inside ye curious building to ye east of yon castle courtyard,
+which appeareth to be some kind of hall (for, lo, ye sense of hallness is
+strong in this one).  Yon flight of stairs leadeth upward, and ye hall
+continueth to ye east, where farther along yon floor droppeth away into some
+sort of abyss (tho' ye may approacheth it safely).  Also upon one wall, ye
+doth espieth yon articles.  Ye may traipse o'er to ye castle courtyard if ye
+travel westerly.
+
+>Ye moveth east.
+
+Ye Yawning Chasm
+Ye standeth at ye edge of ye yawning chasm which stoppeth ye eastward
+progress.  Ye northern wall hath upon it ye odd knobs, as though 'twere one
+of ye drawers for ye storage of ye underthings.  Ye hall of some sort is to
+ye west.
+
+>Ye pulleth upon ye knobs and slideth open ye wall drawer, which hangeth o'er
+ye chasm and appeareth to taketh on ye rather bridge-like qualities.
+Therefore ye suspecteth ye may now crosseth of yon chasm to ye easterly
+facing direction.
+
+[presseth of yon return key to continue]
+
+West O' Ye Drawerbridge
+Ye standeth at ye edge of ye chasm which hath been bridged by ye drawerbridge
+to ye east.  Yon chasm still looketh pretty deep & dark beneath it, howe'er
+'tis quite inconsequential now.  Ye hall of some sort is to ye west.
+
+>Ye crosseth ye drawerbridge and entereth...
+
+[presseth yon return key to continue]
+
+Ye Domain of Ye Giant Slug
+Ye standeth before ye entrance to ye staircase which yon giant slug blocketh
+with its considerable, oozing corpulence.
+
+Also here is ye mucus.  'Tis all o'er ye floor.
+
+>As soon as ye uttereth ye magical word:
+
+"KLARTHAPHMO!"
+
+...yon magical vapours appeareth from ye thin aire and transformeth yon giant
+slug into ye shining orb, clearing ye way to ye stairs!  (See Puzzle Footnote
+2)
+
+Ye mucus, as well, doth transform-- into ye garden of decorative-type plants!
+
+[presseth of yon return key to continue]
+
+Ye Garden at Ye Top of Yon Staircase
+Ye standeth where once yon giant slug did terrorise ye travellers &
+traveller-type people and/or objects with ye trundulous corpulence.  Yon
+garden now thriveth in ye room without ye nuisance of ye mucus.  Ye staircase
+leadeth down from here.  To ye west is ye drawerbridge.
+
+There layeth here in yon shimmering glory ye shining orb.
+
+Ye Big Mouth'd Flower doth sprouteth up from ye garden with yon mystical
+ploopf!  It sayeth, "Thanketh ye, bud-o!"
+
+>Ye taketh of ye shining orb, but it slippeth from ye grip and falleth down ye
+staircase.
+
+>Ye moveth down.
+
+In Ye Fountain Room
+Ye standeth in ye wide-open room of stone, in ye centre or centre-type area
+of which ye beholdeth of yon fountain.  Ye smelleth yon savoury odours of
+what ye believeth to be yon bakery-type area to ye west; howe'er, another
+corridor would leadeth ye east.  Ye may also taketh some stairs up to yon
+indoor garden of some kind.
+
+There layeth here in yon shimmering glory ye shining orb.
+
+Yon mysterious voice echoeth from somewhence.  "Beware of ye goblin!"
+
+>Yon fountain doth bubble forth with ye waters of some effervescence.  Ye
+bottled boat is inside yon fountain.
+
+Goblin Bob boundeth in from ye east.
+
+Ere ye can reacteth, ye goblin stunneth ye with yon flick-in-ye-nose, and
+stealeth ye intercontinental title from ye treasure sack!
+
+It retreateth thereafter to some mysterious location, giggling uproariously
+to yonself.
+
+>Ye taketh ye bottled boat from yon fountain.
+
+>Ye moveth west.
+
+Ye Bakery
+Ye standeth in ye bakery, from whence ye goods of ye Bread Kingdom doth grace
+ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
+automated machine types), and be it known that ye sweat and joy of yon bakers
+infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
+fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+
+Also, whereas & whereupon ye ground ye discovereth of ye magical oven mitt.
+
+>Ye picketh up ye magical oven mitt.
+
+>Ye putteth on ye magical oven mitt.
+
+>Ye moveth east.
+
+In Ye Fountain Room
+Ye standeth in ye wide-open room of stone, in ye centre or centre-type area
+of which ye beholdeth of yon fountain.  Ye smelleth yon savoury odours of
+what ye believeth to be yon bakery-type area to ye west; howe'er, another
+corridor would leadeth ye east.  Ye may also taketh some stairs up to yon
+indoor garden of some kind.
+
+There layeth here in yon shimmering glory ye shining orb.
+
+>Verily, ye graspeth ye shining orb in ye magic mitt and plucketh ye orb up
+with ease.
+
+HUZZAH!  Ye hath gained 1 treasure!
+
+[presseth yon return key to continue]
+
+In Ye Fountain Room
+Ye standeth in ye wide-open room of stone, in ye centre or centre-type area
+of which ye beholdeth of yon fountain.  Ye smelleth yon savoury odours of
+what ye believeth to be yon bakery-type area to ye west; howe'er, another
+corridor would leadeth ye east.  Ye may also taketh some stairs up to yon
+indoor garden of some kind.
+
+>Ye moveth west.
+
+Ye Bakery
+Ye standeth in ye bakery, from whence ye goods of ye Bread Kingdom doth grace
+ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
+automated machine types), and be it known that ye sweat and joy of yon bakers
+infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
+fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+
+>Ye openeth ye baker's oven.  Ye Fabergé muffin is inside ye baker's oven.
+
+>Ye taketh ye Fabergé muffin from ye baker's oven.
+
+Ye muffin cooleth off in ye mitt as ye holdeth it up to ye aire in awe.  Then
+ye stuffeth it into ye treasure sack.
+
+HUZZAH!  Ye hath gained 1 treasure.
+
+[presseth of yon return key to continue]
+
+Ye Bakery
+Ye standeth in ye bakery, from whence ye goods of ye Bread Kingdom doth grace
+ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
+automated machine types), and be it known that ye sweat and joy of yon bakers
+infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
+fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+
+>Ye moveth north.
+
+Ye Cakery
+Ye standeth in ye cakery, which packeth ye cakeful delights in abundance.
+Yon stack o' cakes doth tempt ye, verily, and yet ye believeth 'tis too much
+cake to e'er possibly consumeth of it all.  To ye south of ye cakery lieth ye
+more mundane bakery and to ye east is ye dakery.
+
+There is an enormous cake here.
+
+>Ye moveth east.
+
+Ye Dakery
+Ye standeth in ye dakery.  Though ye may not be certain what a dakery is, ye
+remaineth quite sure it must involveth some degree of fakery.  To ye west is
+yon delectable cakery and to ye south standeth ye flakery.
+
+>Ye moveth south.
+
+Ye Flakery
+Ye standeth in ye repository of all things flake-like.  Ye building looketh
+pretty dull, except for yon pile o' flakes which spreadeth across ye walls
+and covereth ye surfaces.  To ye north is ye dakery and to ye west ye heareth
+ye rushing sounds of water from ye lakery.
+
+Also here are ye oat flakes.
+
+>'Tis a pile o' assorted flakes o' all kinds, sorts, and abbreviations
+thereo'.
+
+WHAT, HO!  Inside, ye findeth one of ye silver keys!
+
+>Ye moveth north.
+
+Ye Dakery
+Ye standeth in ye dakery.  Though ye may not be certain what a dakery is, ye
+remaineth quite sure it must involveth some degree of fakery.  To ye west is
+yon delectable cakery and to ye south standeth ye flakery.
+
+>Ye moveth west.
+
+Ye Cakery
+Ye standeth in ye cakery, which packeth ye cakeful delights in abundance.
+Yon stack o' cakes doth tempt ye, verily, and yet ye believeth 'tis too much
+cake to e'er possibly consumeth of it all.  To ye south of ye cakery lieth ye
+more mundane bakery and to ye east is ye dakery.
+
+There is an enormous cake here.
+
+>Ye moveth south.
+
+Ye Bakery
+Ye standeth in ye bakery, from whence ye goods of ye Bread Kingdom doth grace
+ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
+automated machine types), and be it known that ye sweat and joy of yon bakers
+infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
+fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+
+>Ye moveth east.
+
+In Ye Fountain Room
+Ye standeth in ye wide-open room of stone, in ye centre or centre-type area
+of which ye beholdeth of yon fountain.  Ye smelleth yon savoury odours of
+what ye believeth to be yon bakery-type area to ye west; howe'er, another
+corridor would leadeth ye east.  Ye may also taketh some stairs up to yon
+indoor garden of some kind.
+
+>Ye moveth east.
+
+In Ye Cow Feedery
+Ye standeth in ye room which stinketh of ye bovine odours-- fitting, for in
+ye room standeth ye bovine.  Ye bovine stareth rather blankly and cheweth.
+Nearby ye bovine there riseth from ye floor yon automatic trough and ye
+hopper.  Ye trapdoor leadeth down from here (and yea, ye could also returneth
+to ye fountain room to ye west).
+
+>Ye placeth ye silver keys in ye locked trapdoor, with ye deft twist, are
+rewarded with yon resounding click!
+(See Footnote 3)
+
+Ye hath unlocked ye trapdoor!  It swingeth merrily open, allowing ye passage
+downwards.
+
+Goblin Bob boundeth in from ye west.
+
+Ye goblin tryeth to burp out ye ABC's.  It doth not getteth very far before
+it noticeth ye are not paying attention.
+
+>Ye moveth down.
+
+Ye Room of Yon Intricate Object
+Ye standeth in ye quite self-explanatory room.  Lo, yon intricate object
+more-or-less standeth in ye room with ye.  Two passages leadeth east and west
+toward yon source of intense heat and yon long tunnel, respectively.  Also,
+yon pungent bovinous odours wafteth from out ye trapdoor above, t'whence ye
+may moveth upward.
+
+>It consisteth of several & various appendages blanketed with zounds of
+intricacies.
+
+Goblin Bob boundeth in from above.
+
+>They looketh astoundingly army.  There dangleth from ye appendages yon
+doodads.  Lo, one of ye appendages seemeth not to be any olde appendage, but
+a movable.  Another doth appear to groweth yon fruit of some kind.
+
+Ye goblin picketh its nose, but findeth nothing interesting.
+
+>Ineffable little buggers.  When ye squinteth, ye noticeth they doth sporteth
+yon novelties and ye glongenfrilschafible.
+
+Goblin Bob hoppeth weirdly o'er to above.
+
+>Undoubtedly from ye olde castle gifte shoppe, which ye cannot wait to
+discovereth.  Ye bottle opener is on ye novelties.
+
+>Ye taketh ye bottle opener from ye novelties.
+
+Goblin Bob boundeth in from above.
+
+Ye goblin laugheth at ye for no apparent reason.
+
+>Ye openeth yon bottle with ye proper utensil, and out poppeth ye magic boat.
+Since ye no longer needeth ye bottle (or so ye thinketh), ye tosseth it o'er
+ye shoulder & it disappeareth.
+
+Verily, ye hath practiced that trick for some amount of time!  (See Puzzle
+Footnote 4)
+
+Ye goblin doth leapeth out at ye & snatcheth yon gem of some sort from ye
+treasure sack!
+
+It retreateth thereafter to some mysterious location, giggling uproariously
+to yonself.
+
+>Ye plucketh yon fruit from ye object.  Curious!  Another immediately groweth
+in its place.
+
+>Ye moveth west.
+
+In Ye East/West Tunnel
+Ye standeth in ye narrow tunnel with darkly stoned walls and ye low ceiling.
+It runneth from ye east to ye west.
+
+>Ye blundereth westward... and bumpeth into ye olde monster of some kind!  Ye
+dungeon denizen standeth so tall its hunchback doth rub against ye low
+ceiling.  It hath some big, ol' chompers and a crazed look in its eye.  From
+ye look of it, ye thinketh it might be named something like "Brog" or
+"Ralph," but ye cannot be sure.
+
+"Feed me!" it shouteth.
+
+[presseth yon return key to continue]
+
+In Ye East/West Tunnel
+Ye standeth in ye narrow tunnel with darkly stoned walls and ye low ceiling.
+It runneth from ye east to ye west.  Yon hungry monster standeth o'er ye in
+this place, quite expectorantly.
+
+>Ye handeth ye fruit of some kind o'er to ye hungry monster.  Ye monster doth
+sucketh it into its massive ingestionary cavity with nary a second thought,
+and it puckereth its face up all funny.  Then doth it belch quite loudly.
+
+Ye monster roareth "S'cuse me!" and lumbereth away.
+
+>Ye moveth west.
+
+Ye Tunnel Middle
+Ye standeth in what looketh like any other east-west tunnel.
+
+>Ye moveth west.
+
+Ye Turn in Yon Tunnel
+Ye standeth at ye fateful turn in yon castle tunnel.  Ye tunnel turneth
+east-to-south (or south-to-east, depending upon how ye looketh at it).
+
+>Ye moveth south.
+
+In Ye North/South Tunnel
+Ye standeth in ye north/south tunnel.  Ye thinketh ye may begin to hateth yon
+tunnels.
+
+Yon wooden sign hangeth upon ye tunnel wall here.
+
+Also here is ye napkin.
+
+>Ye moveth south.
+
+Outside Yon Dungeon Cellery
+Ye standeth on ye outerside of yon heavily grilled door, which ye assumeth
+doth lead into yon dungeon cell of some sort.  From inside ye door wafteth
+some foul, greasy odour.  Also, ye heareth some brutish grumbling.  Ye
+north/south tunnel leadeth north from here (if ye somehow forgotteth), and to
+ye east appeareth to be some grand room for ye showcasing of yon paintings
+and other possibly treasureable framables!
+
+>Ye moveth east.
+
+In Ye Passageway o' Paintings
+Ye perambulations pauseth in ye olde palace path which hath been purposed for
+ye purveyance & perlustration of portraiture.  Yon plenteous paintings,
+plated in porcelain, packeth ye pillaresque plaster partition upon which
+they're plugged.  Partway up (past ye perimeter of ye personal partakage
+and/or pilfering) protudeth yon parapet, upon which poiseth yon priceless
+picture o' ye pucesque perch (or, perhaps, yon pisces of ye puce-ish or
+puce-like persuasion).  Plus, ye picayune placards posteth ye olde
+presentations on yon painters.  Paces east passeth yon pointless parlour, or
+ye could possibly ploddeth off west.
+
+Also here is yon narcoleptic weasel.
+
+>Yon placards proclaimeth ye personas of yon painters past, pallywaddling on
+as per ye olde patterns & practices of Peale, Picasso, and Pollock.
+
+WHAT, HO!  Ye purloineth one of ye silver keys previously peeking partially
+past ye placard's periphery!
+
+>Ye moveth east.
+
+In Ye Pointless Parlour
+Ye standeth in ye pointless place, which ye thinketh might hath been one of
+yon parlours or something back in ye good olde days.  Now 'tis mostly bare,
+and likely to maketh ye excogitate broodingly if ye be up for such a thing.
+Ye eastern wall hath in it yon semi-circular hole where it meeteth yon floor.
+ Curiously electrical, pungent odours wafteth from ye room to ye north, while
+nothing special wafteth from ye room to ye south.  Westward, yon plethora o'
+P words putteth yon pucker upon ye lips.
+
+>Ye moveth north.
+
+Ye Olde Alchemical Storage Area
+Ye standeth in yon storage of arcanish chymical what-nots.  Ye aire feeleth
+charged with potential magic, and smelleth pretty noxious.  Ye whole place
+seemeth to be in some disarray... many papers hath been scattered about, and
+yon floor hath been pepper'd with broken glass!  Amidst yon destruction, ye
+alchymist's desk leaneth upon its last legs.  Also in yon corner hangeth ye
+magic cupboard.
+
+>Ye sticketh ye silver key into yon desk & unlocketh it forthwith!  It openeth
+for ye quite politely.
+
+>[x ye alchymist's desk]
+Ye rickety, olde desk hath taken harsh treatement from ye mixing of various
+chymicals & reagent-type things.  Otherwise, 'twould not looketh so ugly.  Ye
+alchymist's desk is open.  Ye magic crystal is inside ye alchymist's desk.
+Ye olde desk clutter is on ye alchymist's desk.
+
+>Ye taketh ye magic crystal from ye alchymist's desk.
+
+>Ye moveth south.
+
+In Ye Pointless Parlour
+Ye standeth in ye pointless place, which ye thinketh might hath been one of
+yon parlours or something back in ye good olde days.  Now 'tis mostly bare,
+and likely to maketh ye excogitate broodingly if ye be up for such a thing.
+Ye eastern wall hath in it yon semi-circular hole where it meeteth yon floor.
+ Curiously electrical, pungent odours wafteth from ye room to ye north, while
+nothing special wafteth from ye room to ye south.  Westward, yon plethora o'
+P words putteth yon pucker upon ye lips.
+
+>Ye moveth in.
+
+***!!~~~YON SECRET ROOM~~~!!***
+
+Ye standeth in ye olde secret treasure room!  Congratulations!  'Tis one of
+yon cavernous-type areas lit by yon pair o' torches at yon middlish parts, ye
+only exit to which is to ye outwards.
+
+Betwixt yon torches there hovereth quite magically yon chalice or goblet-like
+cup.
+
+>Ye taketh yon chalice or goblet-like cup, and pauseth to aweth at ye
+resplendence.
+
+HUZZAH!  Ye hath gained 1 treasure!
+
+[presseth of yon return key to continue]
+
+***!!~~~YON SECRET ROOM~~~!!***
+
+Ye standeth in ye olde secret treasure room!  Congratulations!  'Tis one of
+yon cavernous-type areas lit by yon pair o' torches at yon middlish parts, ye
+only exit to which is to ye outwards.
+
+>Ye moveth out.
+
+In Ye Pointless Parlour
+Ye standeth in ye pointless place, which ye thinketh might hath been one of
+yon parlours or something back in ye good olde days.  Now 'tis mostly bare,
+and likely to maketh ye excogitate broodingly if ye be up for such a thing.
+Ye eastern wall hath in it yon semi-circular hole where it meeteth yon floor.
+ Curiously electrical, pungent odours wafteth from ye room to ye north, while
+nothing special wafteth from ye room to ye south.  Westward, yon plethora o'
+P words putteth yon pucker upon ye lips.
+
+>Ye moveth west.
+
+In Ye Passageway o' Paintings
+Ye perambulations pauseth in ye olde palace path which hath been purposed for
+ye purveyance & perlustration of portraiture.  Yon plenteous paintings,
+plated in porcelain, packeth ye pillaresque plaster partition upon which
+they're plugged.  Partway up (past ye perimeter of ye personal partakage
+and/or pilfering) protudeth yon parapet, upon which poiseth yon priceless
+picture o' ye pucesque perch (or, perhaps, yon pisces of ye puce-ish or
+puce-like persuasion).  Plus, ye picayune placards posteth ye olde
+presentations on yon painters.  Paces east passeth yon pointless parlour, or
+ye could possibly ploddeth off west.
+
+Also here is yon narcoleptic weasel.
+
+>Ye moveth west.
+
+Outside Yon Dungeon Cellery
+Ye standeth on ye outerside of yon heavily grilled door, which ye assumeth
+doth lead into yon dungeon cell of some sort.  From inside ye door wafteth
+some foul, greasy odour.  Also, ye heareth some brutish grumbling.  Ye
+north/south tunnel leadeth north from here (if ye somehow forgotteth), and to
+ye east appeareth to be some grand room for ye showcasing of yon paintings
+and other possibly treasureable framables!
+
+>Ye moveth north.
+
+In Ye North/South Tunnel
+Ye standeth in ye north/south tunnel.  Ye thinketh ye may begin to hateth yon
+tunnels.
+
+Yon wooden sign hangeth upon ye tunnel wall here.
+
+Also here is ye napkin.
+
+>Ye moveth north.
+
+Ye Turn in Yon Tunnel
+Ye standeth at ye fateful turn in yon castle tunnel.  Ye tunnel turneth
+east-to-south (or south-to-east, depending upon how ye looketh at it).
+
+>Ye moveth east.
+
+Ye Tunnel Middle
+Ye standeth in what looketh like any other east-west tunnel.
+
+>Ye moveth east.
+
+In Ye East/West Tunnel
+Ye standeth in ye narrow tunnel with darkly stoned walls and ye low ceiling.
+It runneth from ye east to ye west.
+
+>Ye moveth east.
+
+Ye Room of Yon Intricate Object
+Ye standeth in ye quite self-explanatory room.  Lo, yon intricate object
+more-or-less standeth in ye room with ye.  Two passages leadeth east and west
+toward yon source of intense heat and yon long tunnel, respectively.  Also,
+yon pungent bovinous odours wafteth from out ye trapdoor above, t'whence ye
+may moveth upward.
+
+>Ye moveth ye movable.  From somewhence there doth echoeth ye loud, stony
+grating noises.
+
+>Ye moveth east.
+
+Outside Yon Ring of Lava
+Ye standeth on ye outside of yon ring of entirely deadly lava, which maketh
+ye sweat profusely.  Yon island-type platform protrudeth from ye centre of
+yon ring in ye east, but quite out of ye reach.  Ye suspecteth something
+fancy doth hide there.
+
+>Ye moveth east.
+
+Yon Lava-Surrounded Platform
+Ye standeth upon yon platform in ye centre of yon ring of lava.  Little bits
+of yon platform here-and-there appeareth scorched & melted from ye churning
+lava slaps.  'Tis quite hot here-- ye thinketh ye may not be able to stay for
+too long.  Yon plinth riseth from ye middle of ye platform, upon which may be
+something good (or not).
+
+Some bag or something doth seem to lie atop ye plinth.
+
+>As ye approacheth ye plinth yon creepily unsettling feeling doth trurcle into
+ye pit of ye stomach, and tiny sweat beadles or sweaty, beadle-like
+formations fermenteth upon ye forehead (and steameth off from ye heat).  Yon
+senses of dread & awe pester ye mightily as ye reacheth out for ye mysterious
+bag...
+
+Doth ye picketh it up?  (Y/N)
+
+>As soon as ye fingers grazeth of yon bag, yon lava doth erupt and out
+bursteth yon terrifying...
+
+LAVA BOSS!
+
+Ye jumpeth like a bazillion feet in ye aire and landeth on ye butt.  Ye hath
+only one chance... ye only reaction is...
+
+Quick, throweth something!
+
+>With yon appropriate flourish, ye hurleth ye magic crystal at yon Lava Boss!
+Ye Lava Boss recoileth back under ye lava to avoideth ye freezin' thing, but
+to no use.  With yon great hiss o' steam, all of yon lava in ye room doth
+freeze into solid, spurkling ice.
+
+Ye hath defeated ye Lava Boss!
+
+>
+
+Yon Ice-Surrounded Platform
+Ye standeth upon yon platform in ye centre of yon ring of frozen lava.
+Little bits of yon platform here-and-there appeareth malformed ye churning
+lava slaps of ages past.  'Tis quite cold here-- ye breath doth freeze in ye
+aire in hearty chunks, which ye wipeth away from ye face lest ye choketh ye
+own frozen exhalings.  Yon plinth riseth from ye middle of ye platform, upon
+which may be something good (or not).
+
+Some bag or something doth seem to lie atop ye plinth.
+
+>Ye picketh up ye bag o' sleeping powder.
+
+>Ye moveth west.
+
+Outside Yon Ring of Ice
+Ye standeth on ye outside of yon ring of frostily chilly & slippery ice,
+which maketh ye shiver a little.  Yon island-type platform protrudeth from ye
+centre of yon ring in ye east, which ye figureth ye may reach by crossing
+o'er yon ice.  Ye suspecteth ye aire may be e'en colder upon yon platform.
+
+>Ye moveth west.
+
+Ye Room of Yon Intricate Object
+Ye standeth in ye quite self-explanatory room.  Lo, yon intricate object
+more-or-less standeth in ye room with ye.  Two passages leadeth east and west
+toward yon source of intense heat and yon long tunnel, respectively.  Also,
+yon pungent bovinous odours wafteth from out ye trapdoor above, t'whence ye
+may moveth upward.
+
+>Ye moveth up.
+
+In Ye Cow Feedery
+Ye standeth in ye room which stinketh of ye bovine odours-- fitting, for in
+ye room standeth ye bovine.  Ye bovine stareth rather blankly and cheweth.
+Nearby ye bovine there riseth from ye floor yon automatic trough and ye
+hopper.  Ye trapdoor leadeth down from here (and yea, ye could also returneth
+to ye fountain room to ye west).
+
+>Ye moveth west.
+
+In Ye Fountain Room
+Ye standeth in ye wide-open room of stone, in ye centre or centre-type area
+of which ye beholdeth of yon fountain.  Ye smelleth yon savoury odours of
+what ye believeth to be yon bakery-type area to ye west; howe'er, another
+corridor would leadeth ye east.  Ye may also taketh some stairs up to yon
+indoor garden of some kind.
+
+>Ye moveth west.
+
+Ye Bakery
+Ye standeth in ye bakery, from whence ye goods of ye Bread Kingdom doth grace
+ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
+automated machine types), and be it known that ye sweat and joy of yon bakers
+infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
+fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+
+>Ye moveth north.
+
+Ye Cakery
+Ye standeth in ye cakery, which packeth ye cakeful delights in abundance.
+Yon stack o' cakes doth tempt ye, verily, and yet ye believeth 'tis too much
+cake to e'er possibly consumeth of it all.  To ye south of ye cakery lieth ye
+more mundane bakery and to ye east is ye dakery.
+
+There is an enormous cake here.
+
+>Ye moveth east.
+
+Ye Dakery
+Ye standeth in ye dakery.  Though ye may not be certain what a dakery is, ye
+remaineth quite sure it must involveth some degree of fakery.  To ye west is
+yon delectable cakery and to ye south standeth ye flakery.
+
+>Ye moveth south.
+
+Ye Flakery
+Ye standeth in ye repository of all things flake-like.  Ye building looketh
+pretty dull, except for yon pile o' flakes which spreadeth across ye walls
+and covereth ye surfaces.  To ye north is ye dakery and to ye west ye heareth
+ye rushing sounds of water from ye lakery.
+
+Also here are ye oat flakes.
+
+>Ye moveth west.
+
+Ye Lakery
+Ye standeth in ye room which maketh ye bodies of water.  Ye room hath no
+walls nor ceiling, but yon floor is grassful.  Ye waterfall feedeth ye stream
+which in turn trickleth into ye lake.  Ye entrance to ye flakery is back to
+ye east and ye makery is across ye lake to ye north.
+
+Also here are yon grasses.
+
+>Ye picketh up yon grasses.
+
+>Ye set sail across ye lake in ye magic boat.
+
+[presseth any key to continue]
+
+Ye Makery
+Ye standeth in ye makery, upon ye scenic northern shore of ye lakery.  'Twas
+here, yon myriad o' ages ago, that ye ancient makers & make-a-teers did
+maketh of many magical objecteries and other relique-type thingamabobs.  Ye
+supposeth ye could do ye same if ye typeth make item and presseth return.  Ye
+senseth some seismic disturbances to ye east, and surmiseth that direction
+must leadeth to ye quakery.
+
+>Ye shall maketh ye...?
+
+Typeth ye name of ye object or object-like thing which ye desireth.
+
+>Behold!  Ye melting wand appeareth from ye thin aire.  Ye melting wand
+looketh one-of-a-kind.  Ye melting wand sayeth, "Call me Fred!"
+
+Ye realizeth ye had best refer to ye melting wand as Fred, or else ye melting
+wand shall to refuseth listen.
+
+[presseth yon return key to continue]
+
+Ye Fred doth loungeth here, awaiting ye.
+
+Ye can always re-maketh ye Fred in another image if ye again typeth "make
+item" whilst in ye makery.
+
+>Ye taketh yon melting wand.
+
+"We'll show the wooooorld what we're made of!" sayeth Fred.
+
+>Ye moveth east.
+
+Ye Quakery
+Ye more or less standeth in ye olde quarry-like area with unquiet grounds.
+Lo, ye ages-old makery standeth to ye west & ye can also passeth to ye south
+toward a shed of some sort.
+Ye olde man Hamish standeth here quite tremblingishly.
+
+>Ye moveth south.
+
+Ye Rakery
+Ye standeth in ye olde garden shed or some such thing.  Ye place appeareth to
+be abandoned-- behold, ye only item of its original holdings that remaineth
+is ye olde rake.  Ye quakery is to ye north, and ye heareth ye most unsavoury
+hissing noises from ye westerly snakery.
+
+>Ye moveth west.
+
+Ye Snakery
+Ye standeth about yea high in writhing, legless reptilian types which hisseth
+all dangerously at ye.  Ye entrance to ye rakery is to ye east, whilst
+another corridor leadeth ye north toward yon room which stinketh of ye goblin
+things.  Ye thinketh ye'll not be able to maketh yon northway until ye doth
+something to riddeth ye room of yon snake problem.
+Also, ye goblin doth pranceth about in yon area.
+
+Goblin Bob hoppeth weirdly o'er to ye east.
+
+>Ye sprinkleth yon sleeping powders onto ye possibly poisonous serpents all
+around ye... therefore & thereas yon snakes retreateth away to catcheth some
+Z's (except for yon obese snake, which just falleth asleep where it layeth).
+
+>Ye moveth north.
+
+Ye Takery
+Ye standeth in ye pungently cavernous takery, whence ye goblin hoardeth all
+o' ye goods.  Yon takery trunkle in ye corner appeareth to be ye depository
+for all manner of things takenary (or takenyonry, as such items might be
+known).  From ye south cometh ye hissing of yon snakery and from ye east
+cometh ye faint, incessant ticking and ringing from beyond yon ironish door.
+
+>Yon trunkle appeareth to be of goblin construction (for, verily, it looketh
+pretty goblin-y).  'Tis open.  Ye intercontinental title and yon gem of some
+sort are inside yon takery trunkle.
+
+>Ye taketh ye intercontinental title from yon takery trunkle.
+Ye feeleth compleat again as ye returneth it to ye treasure sack.
+
+HUZZAH!  Ye hath reclaimed some treasure.
+
+>Ye taketh yon gem of some sort from yon takery trunkle.
+With some delight ye discovereth that it still fitteth in its olde place in
+ye treasure sack.
+
+HUZZAH!  Ye hath reclaimed some treasure.
+
+>Ye moveth south.
+
+Ye Snoozing Snakery
+Ye standeth in ye room which once houseth'd yon zounds o' snakes (which hath
+all left to taketh yon naps or something).  Ye entrance to ye rakery is to ye
+east, whilst another corridor leadeth ye north toward yon room which stinketh
+of ye goblin things.
+
+Coiled ropily upon itself in yon area there layeth yon obese snake.
+
+>Ye moveth east.
+
+Ye Rakery
+Ye standeth in ye olde garden shed or some such thing.  Ye place appeareth to
+be abandoned-- behold, ye only item of its original holdings that remaineth
+is ye olde rake.  Ye quakery is to ye north, and ye heareth ye most unsavoury
+hissing noises from ye westerly snakery.
+
+>Ye moveth north.
+
+Ye Quakery
+Ye more or less standeth in ye olde quarry-like area with unquiet grounds.
+Lo, ye ages-old makery standeth to ye west & ye can also passeth to ye south
+toward a shed of some sort.
+Also, ye goblin doth pranceth about in yon area.  Ye olde man Hamish standeth
+here quite tremblingishly.
+
+Goblin Bob hoppeth weirdly o'er to ye west.
+
+>Ye olde man looketh a bit shaky.  Hamish is wearing ye magical spectacles.
+
+>Ye moveth west.
+
+Ye Makery
+Ye standeth in ye makery, upon ye scenic northern shore of ye lakery.  'Twas
+here, yon myriad o' ages ago, that ye ancient makers & make-a-teers did
+maketh of many magical objecteries and other relique-type thingamabobs.  Ye
+supposeth ye could do ye same if ye typeth make item and presseth return.  Ye
+senseth some seismic disturbances to ye east, and surmiseth that direction
+must leadeth to ye quakery.
+Also, ye goblin doth pranceth about in yon area.
+
+Goblin Bob hoppeth weirdly o'er to ye east.
+
+>Ye set sail across ye lake in ye magic boat.
+
+[presseth any key to continue]
+
+Ye Lakery
+Ye standeth in ye room which maketh ye bodies of water.  Ye room hath no
+walls nor ceiling & yon floor is not-so-grassful.  Ye waterfall feedeth ye
+stream which in turn trickleth into ye lake.  Ye entrance to ye flakery is
+back to ye east and ye makery is across ye lake to ye north.
+
+>Ye moveth east.
+
+Ye Flakery
+Ye standeth in ye repository of all things flake-like.  Ye building looketh
+pretty dull, except for yon pile o' flakes which spreadeth across ye walls
+and covereth ye surfaces.  To ye north is ye dakery and to ye west ye heareth
+ye rushing sounds of water from ye lakery.
+
+Also here are ye oat flakes.
+
+>Ye moveth north.
+
+Ye Dakery
+Ye standeth in ye dakery.  Though ye may not be certain what a dakery is, ye
+remaineth quite sure it must involveth some degree of fakery.  To ye west is
+yon delectable cakery and to ye south standeth ye flakery.
+
+>Ye moveth west.
+
+Ye Cakery
+Ye standeth in ye cakery, which packeth ye cakeful delights in abundance.
+Yon stack o' cakes doth tempt ye, verily, and yet ye believeth 'tis too much
+cake to e'er possibly consumeth of it all.  To ye south of ye cakery lieth ye
+more mundane bakery and to ye east is ye dakery.
+
+There is an enormous cake here.
+
+>Ye moveth south.
+
+Ye Bakery
+Ye standeth in ye bakery, from whence ye goods of ye Bread Kingdom doth grace
+ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
+automated machine types), and be it known that ye sweat and joy of yon bakers
+infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
+fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+
+>Ye moveth east.
+
+In Ye Fountain Room
+Ye standeth in ye wide-open room of stone, in ye centre or centre-type area
+of which ye beholdeth of yon fountain.  Ye smelleth yon savoury odours of
+what ye believeth to be yon bakery-type area to ye west; howe'er, another
+corridor would leadeth ye east.  Ye may also taketh some stairs up to yon
+indoor garden of some kind.
+
+>Ye moveth east.
+
+In Ye Cow Feedery
+Ye standeth in ye room which stinketh of ye bovine odours-- fitting, for in
+ye room standeth ye bovine.  Ye bovine stareth rather blankly and cheweth.
+Nearby ye bovine there riseth from ye floor yon automatic trough and ye
+hopper.  Ye trapdoor leadeth down from here (and yea, ye could also returneth
+to ye fountain room to ye west).
+
+>Ye putteth yon grasses inside ye hopper.
+
+Yon hopper spurteth & emitteth yon sturnutative racket, sending yon grasses
+into ye trough!  Ye automatic trough openeth, automatonically, and yon bovine
+doth diggeth into ye fine, green grub.
+
+A moment later, yon bovine doth falleth asleep.
+
+>Moving quietly, ye stealeth ye golden bell from around ye neck of yon bovine.
+
+HUZZAH!  Ye hath gained 1 treasure!
+
+[presseth yon return key to continue]
+
+In Ye Cow Feedery
+Ye standeth in ye room which stinketh of ye bovine odours-- fitting, for in
+ye room standeth ye bovine.  Ye bovine stareth rather blankly and cheweth.
+Nearby ye bovine there riseth from ye floor yon automatic trough and ye
+hopper.  Ye trapdoor leadeth down from here (and yea, ye could also returneth
+to ye fountain room to ye west).
+
+>Ye moveth down.
+
+Ye Room of Yon Intricate Object
+Ye standeth in ye quite self-explanatory room.  Lo, yon intricate object
+more-or-less standeth in ye room with ye.  Two passages leadeth east and west
+toward yon source of intense heat and yon long tunnel, respectively.  Also,
+yon pungent bovinous odours wafteth from out ye trapdoor above, t'whence ye
+may moveth upward.
+
+>Ye moveth west.
+
+In Ye East/West Tunnel
+Ye standeth in ye narrow tunnel with darkly stoned walls and ye low ceiling.
+It runneth from ye east to ye west.
+
+>Ye blundereth westward... and bumpeth into ye olde friend Brog again.
+
+"Still hungry!" it shouteth.
+
+[presseth yon return key to continue]
+
+In Ye East/West Tunnel
+Ye standeth in ye narrow tunnel with darkly stoned walls and ye low ceiling.
+It runneth from ye east to ye west.  Yon hungry monster standeth o'er ye in
+this place, quite expectorantly.
+
+>Ye sprinkleth ye magical sleeping powders upon ye hungry monster.  Its
+eyelids droopeth and it sloucheth e'er so slowly until it falleth asleep on
+yon floor.
+
+>Ye moveth west.
+
+Ye Tunnel Middle
+Ye standeth in what looketh like any other east-west tunnel.
+
+>Ye moveth west.
+
+Ye Turn in Yon Tunnel
+Ye standeth at ye fateful turn in yon castle tunnel.  Ye tunnel turneth
+east-to-south (or south-to-east, depending upon how ye looketh at it).
+
+>Ye moveth south.
+
+In Ye North/South Tunnel
+Ye standeth in ye north/south tunnel.  Ye thinketh ye may begin to hateth yon
+tunnels.
+
+Yon wooden sign hangeth upon ye tunnel wall here.
+
+Also here is ye napkin.
+
+>Ye moveth south.
+
+Outside Yon Dungeon Cellery
+Ye standeth on ye outerside of yon heavily grilled door, which ye assumeth
+doth lead into yon dungeon cell of some sort.  From inside ye door wafteth
+some foul, greasy odour.  Also, ye heareth some brutish grumbling.  Ye
+north/south tunnel leadeth north from here (if ye somehow forgotteth), and to
+ye east appeareth to be some grand room for ye showcasing of yon paintings
+and other possibly treasureable framables!
+
+>Ye moveth east.
+
+In Ye Passageway o' Paintings
+Ye perambulations pauseth in ye olde palace path which hath been purposed for
+ye purveyance & perlustration of portraiture.  Yon plenteous paintings,
+plated in porcelain, packeth ye pillaresque plaster partition upon which
+they're plugged.  Partway up (past ye perimeter of ye personal partakage
+and/or pilfering) protudeth yon parapet, upon which poiseth yon priceless
+picture o' ye pucesque perch (or, perhaps, yon pisces of ye puce-ish or
+puce-like persuasion).  Plus, ye picayune placards posteth ye olde
+presentations on yon painters.  Paces east passeth yon pointless parlour, or
+ye could possibly ploddeth off west.
+
+Also here is yon narcoleptic weasel.
+
+>Ye moveth east.
+
+In Ye Pointless Parlour
+Ye standeth in ye pointless place, which ye thinketh might hath been one of
+yon parlours or something back in ye good olde days.  Now 'tis mostly bare,
+and likely to maketh ye excogitate broodingly if ye be up for such a thing.
+Ye eastern wall hath in it yon semi-circular hole where it meeteth yon floor.
+ Curiously electrical, pungent odours wafteth from ye room to ye north, while
+nothing special wafteth from ye room to ye south.  Westward, yon plethora o'
+P words putteth yon pucker upon ye lips.
+
+>Ye moveth south.
+
+Ye Archerarium
+Ye standeth in ye room for ye testing of archery skills by archers and
+archer-type people.  If ye, too, saweth fit to practiceth ye skills at
+bowmanship, ye might shoot yon targets with whate'er ye hath that'll shoot
+(if anything).  Or, if ye felt like one of ye real hotshots, ye could tryeth
+ye luck at hitting ye wooden nickel that hangeth far o'erhead.  Yon pointless
+parlour layeth to ye north, and another corridor leadeth ye east.
+
+Lo, ye magic arrow gleameth at ye splendiferously from upon yon floor or
+ground.
+
+>Ye moveth east.
+
+At Ye Toll Boothe
+Ye standeth in yon narrow stone corridor, which leadeth west to ye
+archerarium.  Yon toll boothe blocketh ye waye east, howe'er; its sign
+readeth, "Wooden nickels ONLY!"
+Ye Dwarfish Yeoman sitteth at ye toll boothe with yon jar.
+
+>Reluctantly & with yon veritable waterfall o' grumbling, ye offereth ye
+dwarfish yeoman yon bribe... some o' ye treasure!
+
+"O, will ye?" asketh ye dwarf.  "Okay... nameth 3 o' ye treasure-like
+thing(s) ye hath with ye, and yea, I shalt considereth."
+
+Ye first treasure-like object ye thinketh of is...
+(Enter score to vieweth ye treasure items.  Enter nay at any time to
+reconsidereth & retracteth ye bribe!)
+
+>"Ah, ye olde intercontinental title, 'ey?"  Ye dwarf puffeth up
+boastingishly.  "Certainly, 'tis acceptable ye should forfeiteth ye title to
+myself!  What else shall  ye giveth me?"
+
+>"Strange," museth ye dwarf. "I thougheth he only madeth eggs.  Very well,
+I'll taketh it.  What else shall  ye giveth me?"
+
+>"Yon shiny orb, huh?"  Ye dwarf giveth it some serious thought.  "And ye
+sayeth 'twas one of ye giant slugs?"
+
+Ye noddeth.
+
+"Magically transformatted?"
+
+Ye noddeth again.
+
+Ye dwarf shruggeth.  "So long as't shan't reverteth to yon slug form, 'twill
+do.  Ye may passeth."
+
+>Ye currently carry 3 unit(s) of treasure or treasure-like things in ye
+treasure sack, including:
+     * Yon gem of some sort!
+
+     * Ye golden cowbell (verily, ye sack needed more cowbell)!
+     * Yon chalice or goblet-like cup!
+
+Therefore ye currently ranketh as: YON SCROLL SORTER.
+
+>Ye moveth east.
+
+Ye Quaint Corner
+Ye standeth upon ye corner hall.  'Tis similar to ye previous acquaintance,
+Ye Turn in Ye Tunnel, but goeth from west-to-south rather than east-to-south.
+ Ye wondereth if they may be cousins or something.
+
+>Ye moveth south.
+
+Skull Gate
+Ye standeth before ye sinister Skull Gate!  Yon narrow, perfidious path
+leadeth ye toward yon terribly gruesome, Cyclopean skull bone.  From out yon
+only eye socket protrudeth yon precarious, cliffesque spike.  Yon puddle of
+magma nearly surroundeth ye entire bony gate.  If ye dare, ye may sally
+forth, ho!, westward through ye nostril socket-- or giveth in to ye fears &
+retreateth to ye north!
+
+Ye riddling gnome doth guard ye gate from within ye skull's eye socket
+astride yon giant slug.
+
+"Aha!" shouteth ye gnome.  "A trespasser doth seek to passeth ye Skull Gate?
+Well, I hopeth ye hath ye wits about ye... for ye shall gnot pass unless ye
+can answereth ye olde gnomish gnaming riddles!"
+
+Shall ye attempteth yon riddles, adventurer?  (Y/N)
+
+>
+
+"Fumbledy, dumbledy, and bumbledy are three words in ye gnomish tongue that
+endeth in -ledy.  There are only four words in ye olde gnomish language.  Can
+ye gnameth ye fourth word?"
+
+If ye sayeth ye magical answer-word, then ye get ye next riddle.
+
+>"Gack!"  Ye gnome nearly choketh in annoyance.  "How could ye getteth that
+one?  'Twas impossible!  But mayhaps not so impossible as ye gnext gnaming
+riddle..."
+
+[presseth of yon return key to continue]
+
+"The more ye taketh, ye more ye leaveth behind.  Can ye gnameth ye things?"
+
+If ye sayeth ye magical answer-word, then ye get ye next riddle.
+
+>Ye gnome fumeth o'er ye answer.  "What are ye, some kinda riddlin' hotshot?
+Well, just tryeth solving ye last gnomish gnaming riddle..."
+
+[presseth of yon return key to continue]
+
+"Can ye gnameth ye first e'er monkey to surviveth of ye olde rocket flighte?"
+
+If ye sayeth ye magical answer-word, then ye shalt probably win.
+
+>"B-b-but... gnoooooooooooooo...!"
+
+Ye scream of ye gnome echoeth about ye room as ye gnome-- defeated by ye wit
+and/or knowledge of trivia-- turneth into ye brick o' gold and hovereth down
+to ye feet!  Yon giant slug, with naught to do, slithereth away, leaving ye
+passage through yon skull nostril free.  (See Puzzle Footnote 7)
+
+[presseth of yon return key to continue]
+
+Skull Gate
+Ye standeth before ye sinister Skull Gate!  Yon narrow, perfidious path
+leadeth ye toward yon terribly gruesome, Cyclopean skull bone.  From out yon
+only eye socket protrudeth yon precarious, cliffesque spike.  Yon puddle of
+magma nearly surroundeth ye entire bony gate.  If ye dare, ye may sally
+forth, ho!, westward through ye nostril socket-- or giveth in to ye fears &
+retreateth to ye north!  Also here is ye brick o' gold.
+
+>Ye picketh up ye brick o' gold.
+
+Ye hath gained 1 treasure!
+
+[presseth yon return key to continue]
+
+Skull Gate
+Ye standeth before ye sinister Skull Gate!  Yon narrow, perfidious path
+leadeth ye toward yon terribly gruesome, Cyclopean skull bone.  From out yon
+only eye socket protrudeth yon precarious, cliffesque spike.  Yon puddle of
+magma nearly surroundeth ye entire bony gate.  If ye dare, ye may sally
+forth, ho!, westward through ye nostril socket-- or giveth in to ye fears &
+retreateth to ye north!
+
+>
+
+Ye Olde Labyrinth
+Ye standeth at yon tunnel crossways of smooth, dwarfish walls.  Straight
+tunnels leadeth in all cardinal directions.  To ye east ye recognizeth ye
+olde Skull Gate.
+
+Oh, no!  Ye hath enter'd one of ye olde improbable mazes!
+
+Ye adventurer's intuition may serveth ye well, here.  Ye can typeth intuit
+maze to causeth ye maze to unfold its secrets to ye.
+
+>Ye moveth south.
+
+Ye Olde Labyrinth
+Ye standeth at some corner in ye dwarfish labyrinth.  A twisty corridor
+stretcheth off to ye west and yon straighter corridor goeth northward.
+
+>Ye moveth west.
+
+Ye Olde Labyrinth
+Ye standeth at some corner in ye dwarfish labyrinth.  Ye corridor to ye west
+hath been built straightly, but ye northerly corridor looketh twisty.
+
+Within some cracks in ye floor groweth yon weird fungus.
+
+>Ye picketh up yon weird fungus.
+
+>Ye moveth west.
+
+Ye Olde Labyrinth
+Ye standeth at some corner in ye dwarfish labyrinth.  A straight tunnel doth
+meander east and yon twisty one unwindeth to ye north.
+
+>Ye moveth north.
+
+Ye Olde Labyrinth
+Ye standeth at some corner in ye dwarfish labyrinth.  Ye corridor to ye north
+hath been built straightly, but ye westerly corridor looketh twisty.
+
+>Ye moveth west.
+
+Ye Olde Labyrinth
+Ye standeth at yon tunnel crossways of smooth, dwarfish walls.  Ye straight
+tunnels leadeth north and south.  In ye western wall yon golden door standeth
+gleamingly in its jamb!
+Ye Guardian Ogre guardeth this area.
+
+Ye Guardian Ogre roareth and closeth in upon ye from ye other end o' yon
+room, swinging his club recklessly!
+
+>Ye droppeth yon weird fungus.
+
+Veritable looming danger!  With yon rumbling step, ye Guardian Ogre steppeth
+e'er closer to ye...
+
+>Ye sprinkleth ye sleeping powders upon Guardian Ogre... and ye ogre falleth
+asleep standing up!
+
+>Ye moveth south.
+
+Ye Olde Labyrinth
+Ye standeth at some corner in ye dwarfish labyrinth.  Yon twisty passage
+leadeth west whilst a straight one would leadeth ye north.
+
+From somewhence ye doth heareth ye death call of an ogre!  Verily, 'tis not
+ye prettiest thing ye hath e'er heard, but...
+
+HUZZAH!  Ye hath slain ye Guardian Ogre with yon weird fungus!
+
+>Ye moveth north.
+
+Ye Olde Labyrinth
+Ye standeth at yon tunnel crossways of smooth, dwarfish walls.  Ye straight
+tunnels leadeth north and south.  In ye western wall yon golden door standeth
+gleamingly in its jamb!
+
+Also here is ye golden key.
+
+>Ye picketh up ye golden key.
+
+>Ye unlocketh yon golden door with ye golden key.
+
+Thereafter ye discardeth ye golden key with nary a second thought.
+
+>Ye openeth yon golden door.
+
+Yon blast of cold aire doth sweepeth up from ye open door, chilling ye bones
+(tho' most especially ye fearful spinal column)!
+
+>Ye moveth west.
+
+Ye Dreaded Ice Cavern
+Ye standeth in ye dreaded ice cavern.  'Tis as tho' ye standeth on ye inside
+of yon gigantic ice cube... ev'rything sparkleth with sheer, malignant
+frozenity.  Ye floor here descendeth e'er so slightly downward into ye
+unknown, and ye golden door to ye east leadeth out.  Upon ye wall is writ ye
+ancient word, "WINDOTHREED!"
+
+>"Foolish adventurer!" boometh yon magical voice.  "Doth ye dare to descendeth
+into Malwegor's Lair?"  (Y/N)
+
+>"Prepare to meeteth ye doom!"
+
+Lair of Ye Ice Wizard
+Ye standeth in ye cavern of ye evil wizard.  Tall & jagged, frozen spires
+loometh o'er ye on all sides and ye teeth chattereth from ye cold aire &
+fear!  Slain ice dwarfs littereth ye floor, killed in some catastrophically
+cataclysmic struggle ages ago.
+
+"At last we cometh face-to-face, adventurer.  Telleth me, doth ye really
+thinketh ye can defeateth me, ye Blizzard King, and ruler o' all
+Fundrigglin?"  (Y/N)
+
+>"Laughably impudent dunderhead!  Will ye not cowereth before ye might of
+he-who-ruleth iron fistedly, ye ice cold heart with yon firesome temper or
+something!"  (Y/N)
+
+>"Cursed weakling, I hath no time for ye buffoonery... or... buffoonery-like
+things!  Yea, verily, 'tis so!  Shall I showeth ye my power then, ye
+insufferable nincompoop?"  (Y/N)
+
+>"Just as I thought, ye yellow-bellied... thing with yon yellow belly!  Ha ha!
+ Surely & with ye utmost of Utmostest certainty ye must be no match for my
+power!"  (Y/N)
+
+>"Ha ha ha!  Of course, ye are no match for me.  Ye might hath bested my
+gnome, but I am smarter and/or more intelligence'd.  Ye may hath beaten my
+slugs, but ye cannot dispelleth me with KLARTHAPHMO.  And indeed, ye may hath
+beaten ye lava beast, but ye cannot freezeth ye Blizzard King.  Also, ye must
+hath clearly cheated in bribing ye waye past my dwarf and beating ye ogre &
+goblin.
+
+Therefore, I feeleth somewhat generous and/or sinister towards ye oblivious
+dunderheadedry.  Shall I therewhence giveth ye yon headstart?"  (Y/N)
+
+>"Have at ye!"
+
+>With what doth ye wish to performeth ye melting action?
+
+>Ye taketh aim with ye melting wand and let loose with yon blast before before
+ye evil wizard hath a chance to freezeth ye.  With his last breath, ye evil
+wizard sweareth revenge... and then resolveth into yon puddle at ye feet.
+Ew.
+
+Congratulations!  Ye hath melted ye evil wizard.
+
+>
+
+Lair of Ye Ice Wizard
+Ye standeth in ye cavern of ye evil wizard.  Tall & jagged, frozen spires
+loometh o'er ye on all sides and ye teeth chattereth from ye cold aire &
+fear!  Slain ice dwarfs littereth ye floor, killed in some catastrophically
+cataclysmic struggle ages ago.
+
+At ye feet lieth ye royal scepter of Fundrigglin, dropped by ye mortal foe.
+
+Also here is yon puddle.
+
+>Ye picketh up ye royal scepter.
+
+No sooner doth ye holdeth ye royal scepter than ye realizeth its power to
+endeth ye curse of ye evil wizard... will ye useth its power, and endeth ye
+adventure once & for all?  (Y/N)
+
+>Ye taketh ye royal scepter in ye hands, and light poureth out in yon blinding
+flash...!  All is well in Fundrigglin!
+
+Incredible victory!  Congratulations, adventurer!  Ye hath beaten YON
+ASTOUNDING CASTLE! of some sort.
+
+May ye tale be told for all time to those who thirst for adventure...
+
+[presseth ye return key to continue]
+
+FINAL SCORE: YE OLDE INNKEEPER
+
+O'er ye course of yon adventure, ye collected 5 units of treasure or
+treasure-like things.
+
+Ye returneth from yon castle with ye prizes & ye friends throweth yon small
+party in ye honour.  O'er many drinks o' generic non-offensive beverage, ye
+decideth ye could useth ye treasures to openeth ye own establishment and
+serveth yeself & ye friends anytime ye liketh.
+
+Therefore ye doth so, only ye endeth up serving mostly strangers.  Still,
+'tis ye splendid change from yon postal work & ye patrons maketh for ye olde
+captive audience whom ye might regale with stories of ye conquests (howe'er
+exaggerated).  Ne'er once hath any o' ye patrons left or fallen asleep during
+ye tales, as far as ye know.  Ye getteth along quite well o'erall, with some
+amount of acknowledgement & appreciation, and yet occasionally ye stareth out
+yon window in ye olde yearning for adventure...
+
+Congratulations!

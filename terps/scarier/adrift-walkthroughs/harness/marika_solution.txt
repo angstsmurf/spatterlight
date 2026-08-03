@@ -1,0 +1,50 @@
+x hair
+close window
+lock window
+x bed
+read note
+breathe on mirror
+look under mattress
+x floor
+lift flagstone with rod
+x hole
+read letter
+break chair
+put wood in fireplace
+burn letter
+put blanket under door
+put rag in keyhole
+move flagstone back
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z

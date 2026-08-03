@@ -1,0 +1,112 @@
+quiet
+stand up
+get hook
+get stone
+get blanket
+get jersey
+ne
+get fork
+sw
+make fire
+turn on fan
+put blanket in fire
+turn fan north
+n
+get banana
+throw banana on platform
+s
+z
+get bucket
+turn fan east
+e
+tie cord to hook
+throw cord over bar
+lift bucket with fork
+put bucket on hook
+z
+z
+chimp, get coconut
+turn fan northeast
+ne
+get coconut
+hit coconut with stone
+get husk
+z
+give coconut to chimp
+z
+z
+z
+chimp, put coconut on trough
+lift trough with fork
+s
+push up gate
+w
+put husk in fire
+lift husk with fork
+turn fan east
+e
+burn cord with torch
+put out torch
+put fork in gate
+z
+get cord
+tie cord to me
+w
+get sheet
+put the sheet over my head
+n
+throw stone at nest
+s
+get mattress
+e
+throw mattress through gate
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+w
+hide under bed
+z
+z
+z
+z
+z
+z
+get out
+e
+tie cord to me
+jump out

@@ -1,0 +1,35 @@
+push statue
+get cross
+west
+get bowl
+west
+move pile
+down
+get spear
+s
+get book
+read book
+north
+up
+northwest
+x ceiling
+fill bowl
+put left hand over bowl
+bless water
+anoint spear
+southeast
+east
+east
+north
+put cross on floor
+pray prayer of freedom
+kill hajar
+kill hajar
+kill hajar
+kill hajar
+kill hajar
+kill hajar
+kill hajar
+kill hajar
+northeast
+northeast

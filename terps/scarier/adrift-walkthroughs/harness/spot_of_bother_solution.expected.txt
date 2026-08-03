@@ -1,0 +1,2117 @@
+Loading game...
+
+A Spot Of Bother
+
+A Spot Of Bother
+
+by David Whyld
+
+(version 4)
+
+Written with ADRIFT version 4, release 46
+between November & December 2005
+
+[1]        Play the game
+
+[2]        Read the introduction
+
+[3]        On playing A Spot Of Bother
+
+[4]        About the game
+
+[5]        Special commands
+
+[6]        Game information (and changes to the game)
+
+[7]        Known issues with the game
+
+>
+
+Introduction...
+
+You are Stavros 'The Bulldog' McGrogan, the hardest man the SAS ever
+produced. While it's perhaps untrue to say that bullets bounce from your
+skull, daggers bend when stabbed into your ribs and bombs just plain run away
+from you, it is true to say that you once disarmed a terrorist by tearing his
+arm off with your teeth  and then cracking his head (through his shock
+resistant armour) with your nose. You're mean, nasty, vicious and downright
+tough. They call you in when someone needs dealing with quickly and
+painfully. When terrorists threaten the safety of the world, they send out a
+message for The Bulldog. And may God forgive any terrorist who doesn't get
+out of your way…
+
+[MORE]
+
+So it's perhaps understandable that when you get the call to visit a small
+cottage in the charming part of the English countryside known as Pleasant
+Woods, you're a little surprised. When you see it's an actual cottage,
+surrounded on all sides by other cottages, and not a disguised terrorist
+base, you're even more surprised. But that doesn't prepare you for your
+briefing with Sergeant Twiddles…
+
+”Yes,” says the Sergeant, fiddling with his moustache as he strokes his small
+black and white cat. “We're in a spot of bother and no mistake.”
+
+[MORE]
+
+You grunt. (You are a man of few words after all.)
+
+”It's old Mrs Moog, you see,” Twiddles goes on. His cat emits a purr of
+satisfaction. “She's only gone and fainted due to the sudden heat wave we're
+experiencing. Frightful business.”
+
+You grunt. (The grunt says: “and you called me here to tell me some old dear
+has passed out?”)
+
+”Mrs Moog,” Twiddles goes on, “is head of our Nuclear Research Facility.”
+
+You nod. You remember the name now. 112 years old, can barely walk, half
+blind, three quarters deaf, likes coffee creams and cats, mad as a bat… and
+yet a dab hand at constructing nuclear devices capable of tearing the world
+apart a dozen times over.
+
+[MORE]
+
+”She was working on a crucial design for a new bomb,” Sergeant Twiddles says.
+He frowns. “And then when she didn't show up at work today, we decided to go
+ahead without her. Only that's when we hit a slight problem.”
+
+You frown. (This is your other mode of expression. It works as well as a
+grunt but is more visual than verbal.)
+
+”You see, nuclear bombs are complicated things,” explains Twiddles. “Mrs Moog
+is great at them. Her staff… well, they're not quite so great. Or 'useless'
+might be a better term to apply to them.”
+
+Grunt.
+
+[MORE]
+
+”Yes. I agree. Anyway… her staff went on without her and started a… what's
+the word?” Twiddles fumbles in his pocket and pulls out a piece of paper. “Ah
+yes. A 'nuclear meltdown'. Apparently if the nuclear reactor isn't shut down
+in the next six hours, it'll explode and blow the world to pieces. Or split
+it in half. Or turn it into one great big lump of burning rock floating
+through space. Whatever. It'll be a trifle unpleasant around here.”
+
+Frown.
+
+”Yes, you've got it in one,” says Twiddles. “We need you to get into Mrs
+Moog's house and get her out of there in one piece. Only there's a slight
+problem with that.”
+
+You figured there might be. After all, they don't call The Bulldog in unless
+there's a problem.
+
+[MORE]
+
+”Mrs Moog is paranoid about security,” says Twiddles, “and has rigged her
+house up with the most fiendish collection of anti-burglary and anti-theft
+devices known to man. I've sent in four men already and…” He nods to a bucket
+off to one side of him, in which can be seen what looks suspiciously like an
+arm. “Well, it wasn't very nice. So we need you, Mr Bulldog, to head in there
+and- ugh!”
+
+You lean forward and say, “it's The Bulldog. Not Mr Bulldog.” Then you smile
+coldly and release his throat.
+
+Time, you decide, you got to work.
+
+[MORE]
+
+[1]        Play the game
+
+[2]        Read the introduction
+
+[3]        On playing A Spot Of Bother
+
+[4]        About the game
+
+[5]        Special commands
+
+[6]        Game information (and changes to the game)
+
+[7]        Known issues with the game
+
+>
+
+Outside Mrs Moog's Cottage
+A gnome standing by the side of the quaint path which leads to the front door
+(currently closed) of Mrs Moog's cottage is giving you the evil eye. The
+cottage itself - small in appearance, but probably larger inside than you'd
+otherwise guess - looks cosy in the kind of way only a cottage in the heart
+of the English countryside can look. There are two floors, but only a single
+window is visible. From the bars across it, you doubt getting in there is
+going to be possible. A fence encircles the property.
+
+A metal bar lies on the ground.
+
+>You smash the gnome to pieces, scattering it into a thousand and one pieces
+across the ground… and revealing something that was previously hidden inside
+it. Brushing aside shards of shattered gnome, you pick up… a bug.
+   Not the kind of bug you're likely to find in the English countryside but
+some kind of high-tech surveillance device.
+
+>The fence is made from carved pieces of wood, each of them about two feet
+long and sharpened to a fine point. One of them looks a little out of place.
+
+>You tug out a piece of the fence and now have a mighty fine spike.
+
+>The window is small and pokey. Even if you climbed up the side of the
+cottage, you doubt you'd have much chance of getting in there. Not to mention
+the fact that there are bars across it and-
+   Hang on. What's that blinking red light you see behind the window?
+
+>You're guessing it's some kind of camera but it's difficult to tell for
+certain.
+
+>You take aim and throw. The spike hits the bars and bounces back, falling
+onto the ground at your feet.
+
+>You pick up the spike.
+
+>You throw the spike again. This time, it actually clatters against the camera
+but as the blinking red light continues to blink at you, you're guessing you
+haven't caused it any actual damage.
+   The spike drops at your feet.
+
+>You pick up the spike.
+
+>You throw the spike-
+   And there comes the sound of something shattering in the room beyond the
+window.
+   The spike lands at your feet a moment later.
+
+>You pick up the spike.
+
+>The door stands closed before you. Very closed. If doors could be said to be
+things that had various degrees of closedness, then this door would be
+crowned king of closedness stuff.
+   It's otherwise perfectly unremarkable aside from a letterbox halfway down.
+
+>You peer through the letterbox and see-
+   A bomb.
+   Or, more precisely, a wire leading to a bomb that Mrs Moog has rigged up
+just inside the front door in order to surprise unwary burglars.
+
+>You jab the spike through the letterbox and nudge the wire.
+   Something beyond the door makes a high-pitched whining sound, then a
+thunderous explosion is triggered inside the cottage.
+   But you? Aside from a slight burn on your fingers, you're otherwise okay.
+
+>You open the door, revealing an unremarkable hallway beyond it.
+
+>You pick up the metal bar.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east while from the
+ceiling above you hangs an ornate and elaborate chandelier. At your back (to
+the south) is the front door via which you entered the cottage.
+
+There is a basket here.
+
+>You pick up the basket.
+
+>The basket… something about it strikes you as wrong. It's made of metal for a
+start. A metal picnic basket? And since when does Mrs Moog go on picnics? She
+designs bombs and often…
+   And suddenly you remember an article you read about her a while back: she
+often brings her work home. And when you work with bombs all day, you need
+something suitably bomb-proof to transport them home on the bus, taxi or back
+of your pushbike.
+   You check the basket and notice, sure enough, the blast marks that scar
+its inside. There's even a clasp on the side for the basket to be attached to
+something, no doubt to keep it steady while it's being transported somewhere.
+
+>There are four portraits, which you like to think of as the first portrait,
+second portrait, third portrait and fourth portrait. Helps to distinguish
+them that way.
+
+>A charming shot of Mrs Moog stroking a cat as she attaches a guided missile
+to its back. The cat doesn't look unduly bothered by it; probably been
+promised a bowl of milk afterwards if it behaves.
+   There are a series of strange marks on the ground beside the cat.
+
+>The marks look like letters: B/S/L/B. Hmm… you wonder what they mean.
+
+>This isn't a portrait as such, but instead a lever, a button and a switch.
+The lever appears to be Mrs Moog's nose, the button one of her eyes (you
+guess she ran out of buttons or just fancied a portrait of her minus an eye)
+and the switch her chin. You can't help but feel that another switch for her
+mouth would be a good idea.
+
+>You push the button.
+   Somewhere deep in the ground there is a creaking sound.
+
+>You flick the switch.
+   You hear another creaking sound from down below.
+
+>You pull the lever.
+   A third consecutive creaking sound is heard.
+
+>You push the button.
+   Nothing happens. Until you hear a creaking sound from somewhere down below you and another
+creaking sound from the room off to the west.
+
+>
+Mrs Moog's Study
+A desk of vast proportions occupies just about the entirety of this otherwise
+smallish room, its edges actually bending the wall in places and the floor
+fairly groaning beneath it. A small window in one wall, barred, displays a
+desert scene beyond the cottage. Lurking in one corner is a single bookcase,
+alongside a cabinet and a wardrobe (a wardrobe in a study?) A panel in the
+far wall has opened, revealing a small cavity.
+   A doorway, minus a door, leads back to the hallway to the east.
+
+>It reveals a winter scene and…
+   A winter scene? Yet wasn't it sunny when you were outside just a few
+minutes before?
+   You look again. A winter scene alright, complete with a snowman,
+snowflakes falling and even some heroic figure skiing down a slope, wiggling
+from side to side as he makes his way down…
+   And that's another strange thing, you realise. You can actually see the
+figure moving, and the snow falling, and the snowman is, of all things,
+smoking a pipe. Little trails of smoke float away from the pipe.
+
+>The way they curl through the air strikes you as strange, almost as if
+they're being directed and…
+   And it almost looks like there might be words written there in the smoke.
+
+>The words in the smoke twists this way and back but they look like: "noroc".
+   You wonder what they mean.
+
+>It's a strange bookcase in that while it could hold perhaps a couple hundred
+books, or maybe even half a thousand really thin books, it only holds a
+single, slim volume.
+
+>You take the book from the bookcase.
+
+>Now you've removed the only book that was on the bookcase, all that remains
+is… well, a small pile of dust. You guess Mrs Moog doesn't have the cleaners
+in often enough, and her own house keeping skills leave a lot to be desired.
+
+>You wipe at it, but the dust seems pretty ingrained into the surface of the
+bookcase and you just succeed in smearing it into… a very peculiar shape.
+
+>The dust seems to have been smeared into a word. Or, rather, there was a word
+engraved into the surface of the bookshelf and your wiping the dust around
+has revealed this to be: "iggen". What the word means you don't know. Maybe
+something Mrs Moog is working on in her nuclear research role?
+
+>A-ha! There's a magnifying glass lying on the floor beneath the cabinet. You
+guess Mrs Moog must have dropped it there and never remembered to pick it
+back up again.
+   You ferret it out and wipe the dust off it. A bit smudged but still ought
+to magnify okay.
+
+>You peer through the magnifying glass and make out the words from the first
+page:"Well done, you're a burglar with a brain. Congratulations! I do so
+enjoy a good challenge!
+   Bet you're wondering how to get into the room opposite this one, eh?
+Without the chandelier dropping on your head and killing you outright?
+Well..."
+   That's all that's written on the page.
+
+>You turn to the next page in the book and read: "Try using the wardrobe door
+as a shield."
+
+>You turn the page and read: "But try to disarm the bomb first. Throwing
+something bookish against the wardrobe door ought to do the trick."
+
+>You lob the book at the wardrobe and there is a tremendous explosion as the
+wardrobe explodes!
+   (Well, strictly speaking it's the bomb inside the wardrobe that explodes
+but as the wardrobe itself is blown up by the explosion, it's still
+technically correct.)
+   You wave your hands to dismiss the smoke, and finally get to see the
+inside of the wardrobe. Which isn't really worth seeing as it's empty. An
+empty wardrobe in a study? Mrs Moog gets stranger all the time.
+
+>
+Mrs Moog's Study
+A desk of vast proportions occupies just about the entirety of this otherwise
+smallish room, its edges actually bending the wall in places and the floor
+fairly groaning beneath it. A small window in one wall, barred, displays a
+desert scene beyond the cottage. Lurking in one corner is a single bookcase,
+alongside a cabinet and a wardrobe (a wardrobe in a study?) A panel in the
+far wall has opened, revealing a small cavity.
+   A doorway, minus a door, leads back to the hallway to the east.
+
+Lying on the floor is a shield.
+
+>You pick up the shield.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east while from the
+ceiling above you hangs an ornate and elaborate chandelier. At your back (to
+the south) is the front door via which you entered the cottage.
+
+>You walk towards the room to the east, and then hear a tremendous creak!!!
+from above and look up to see the chandelier, all of a tonne in weight, come
+crashing down. You've only time for one last curse before the full weight
+smashes down on you-
+   And bounces off the shield you made for yourself out of the wardrobe door.
+   The noise of the chandelier striking the shield, and then the two of them
+being simultaneously destroyed, is enough to deafen an ordinary man. But you,
+being The Bulldog and thus having ears far stronger than an ordinary man,
+just wince a little.
+   The smoke seems to take a while to clear but when it does it reveals the
+chandelier lying on the floor, smashed to pieces. Of your shield there is no
+sign.
+
+>It lies in shattered fragments at your feet, broken like so many of the
+things that come against you in your line of-
+   Hang on! What's that poking out from under the chandelier? Looks like
+there might be a note tangled up in the wreckage.
+
+>You force one end of the bar under the edge of the chandelier and heave!
+   There's a groan and the chandelier tips ever-so-slightly to one side. As
+if by coincidence, a sudden breeze blows and lifts free the note, blowing it
+out of the cottage via the still open front door.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds, and a series of weights, most of which appear
+to be floating. A gap torn in the ceiling provides illumination but the gym
+is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+>You approach the steps and-
+   Stop.
+   There's a bomb floating over the steps, held aloft by some kind of
+internal floatation device. It doesn't look like a particularly big bomb, but
+it certainly packs enough explosive power to tear a few dozen holes in you.
+
+>You edge the basket under the bomb - carefully, steadily, trying not to
+picture yourself in two hundred different pieces - and then lift the basket-
+
+[MORE]
+
+And when you're still alive a second later breathe a huge sigh of relief.
+   The only problem now is that you can't leave this room with the bomb still
+in the basket and you daren't drop the basket in case the bomb explodes…
+   Suddenly you're wondering if you breathed that sigh of relief too soon.
+
+>One of the walls is meant for climbing in order to tone body muscle; the
+others are just the normal, plain unadorned walls that you have seen in every
+other room in the cottage. Although one of them has a sign hanging from it.
+
+>In bizarre looking font, you read the following:
+
+Exercise shall be performed the Esmeralda Moog way:
+1. The steps.
+2. The Trampoline.
+3. The steps once more.
+4. The steps a further time.
+5. The wall.
+6. The weights.
+7. The steps for a final time.
+8. Finish with the exercise machine.
+
+>You climb the steps to the top and bottom without them falling over or even
+swaying alarmingly from side to side. Despite appearances, they seem
+surprisingly sturdy.
+   As you reach the bottom of them, you hear the sound of a bell ringing.
+
+>Jumping on a trampoline with a huge hole in the middle would be a dangerous
+escapade for anyone else, but you, as The Bulldog, just flex your muscles and
+bounce off the hole. (A neat trick you discovered once for impressing
+ladies.)
+   As you dismount from the trampoline after a healthy bouncing up and down
+session, you hear a bell ringing.
+
+>You climb the steps once more, fairly working up a sweat as you reach the top
+and then the bottom again.
+   You hear another bell ringing as you reach the floor.
+
+>You climb the steps once more, fairly working up a sweat as you reach the top
+and then the bottom again.
+   You hear another bell ringing as you reach the floor.
+
+>No one else would be able to climb this completely steep wall but you manage
+it with ease. You just grab hold of it and force your way up it by sheer
+force of will. The wall protests at this unfair treatment of it but you don't
+tend to pay attention to such things.
+   As you slide back down at the end of it, you hear a bell ring.
+
+>Lifting the weights is simplicity in itself as they are already floating. You
+push them up a little then let them drop. They bob about a little. You push
+them up, let them drop.
+   Easy as anything.
+   As you finish with the weights, you hear a bell ring out somewhere in the
+cottage.
+
+>Once more, you climb the steps. You practically jog up them this time and
+even consider doing a little dance at the top, but then reason that you're
+The Bulldog and The Bulldog has a reputation to remain which doesn't include
+dancing at the top of exercise steps. So you just flex your muscles before
+coming back down.
+   As expected, a bell rings once you touch the floor.
+
+>You climb onto the strange exercise machine… and find the next five minutes a
+surprisingly refreshing experience. The machine pulls you this way and that,
+tugs your muscles into better shape than they have ever been before, tones
+your body to the peak of perfection…
+   The bell ringing as you step off is just the icing on the cake. But this
+time it's followed by the sound of another bell ringing somewhere else in the
+cottage and then, upstairs, a door opening.
+
+>You use the clasp on the side of the basket to attach it to the weights. They
+bob a little but otherwise remain where they were before.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east. A thread hanging
+from the ceiling is all that remains of the chandelier, now lying in
+shattered fragments at your feet. At your back (to the south) is the front
+door via which you entered the cottage.
+
+>
+Mrs Moog's Study
+A desk of vast proportions occupies just about the entirety of this otherwise
+smallish room, its edges actually bending the wall in places and the floor
+fairly groaning beneath it. A small window in one wall, barred, displays a
+desert scene beyond the cottage. Lurking in one corner is a single bookcase,
+alongside a cabinet and a wardrobe (a wardrobe in a study?) A panel in the
+far wall has opened, revealing a small cavity.
+   A doorway, minus a door, leads back to the hallway to the east.
+
+>The cavity is just large enough to contain a single item: a hand, formed from
+a block of gold.
+   You reach into the cavity and pull it out. It's surprisingly heavy,
+several times what you would expect a hand of this size to weigh, but then
+gold is a very heavy substance.
+   If this were anyone else's house, you'd wonder just why the owner has a
+gold hand in a cavity in the wall of her study, but in the house of Mrs Moog
+it seems that pretty much anything goes.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east. A thread hanging
+from the ceiling is all that remains of the chandelier, now lying in
+shattered fragments at your feet. At your back (to the south) is the front
+door via which you entered the cottage.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds, and a series of weights, most of which appear
+to be floating. A gap torn in the ceiling provides illumination but the gym
+is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+>The door carries a sign reading, in big bold print: "tech room". Currently
+the door is closed.
+
+>You reach out for the door - and hesitate. This strikes you as a perfectly
+good place to rig up a bomb. Open the door and BOOM! Exit one Bulldog.
+   Maybe caution should be exercised…
+
+The sound of escaping gas from the weights draw your attention.
+   The weights are rising up in the air!
+   And taking the basket with the bomb inside with them!
+   You watch as the weights, basket and bomb are all carried away through the
+hole in the ceiling and then, perhaps five seconds later, there is a
+thunderous explosion as the bomb explodes. Bits of exploded basket, bomb and
+weights drop down onto the roof of the cottage, and a few pieces of charred
+material even filter back down through the hole and land on the floor of the
+gym by your feet.
+
+>You push the door open ever so slightly. A wire, previously hidden, slips
+into view. It's attached to the wall to one side of the door.
+
+>You snap the wire in two. It flares into sudden fire, burning fiercely for a
+second, before dying out just as suddenly. One very small piece is still
+attached to the door, and another to the wall, but any connection between the
+two is now severed.
+
+>You push the door open all the way, revealing the tech room beyond.
+
+>
+Tech Room
+From the brand new top of the range computer nestling on a gleaming desk in
+the centre in the room, to the row of servers lining the walls, it seems
+you've found Mrs Moog's tech room. The nuclear devices she creates are built
+elsewhere but this is where they start to take shape. Three of the walls are
+occupied by the servers; the fourth contains the door (leading west) to the
+gymnasium. Light is provided by a glowing lump of ore nailed to one of the
+servers. A steady stream of radioactive gore oozes out of it.
+
+>Extending the golden hand, you manage to scrape some of the ore from the
+wall. It sizzles a little upon coming into contact with the hand but the hand
+itself remains largely intact.
+
+>It's one of the new fangled stainless steel desks that looks like one gust of
+wind would knock it over. It even seems to sway ever so slightly from side to
+side as the weight of your gaze falls across it-
+   But your gaze is then drawn to a newspaper poking out from under the edge
+of the desk. You fish it out, noting that the date on it is August 15th,
+1973. Mrs Moog clearly doesn't get out much.
+
+>The headlines are interesting, albeit in a thirty-two-years-out-of-date kind
+of way. But a crossword puzzle on page two hundred and seventy-five (they
+made big papers back then apparently) draws your attention.
+
+>You peruse it with your eagle eye. Mrs Moog appears to be a dab hand at
+crossword puzzles and has answered all but one of the eight hundred and
+ninety nine questions that comprise the crossword. The answer to the final
+one looks to be a difficult one and no mistake: "big animal with a trunk,
+grey, not likely to forget things (8 letters)".
+
+>You run your eyes over the machine. You're not a computer man yourself
+(although you did once brain someone with a computer box unit so they're
+definitely handy in certain situations) but this looks like the sort of
+computer that could well find a place in your own home alongside the
+anti-tank rifle and the mortars and rocket launchers. The keyboard and
+monitor are both built into the computer itself, and the words "enter
+password: --------" are displayed on the screen.
+
+>Remembering the unsolved puzzle from the crossword, you quickly solve said
+puzzle and type in the word "elephant". PASSWORD ACCEPTED is displayed on the
+screen, then a series of options reveal themselves:
+
+(1)  The Nuclear Design Project.
+(2)  Traps & Trials.
+(3)  Would-be burglars: please read this!
+(4)  A Day in the Life of Mrs Esmeralda Moog.
+(5)  Self destruct sequence.
+
+>The screen swirls for a while then you see: 'The life of a burglar is often
+one fraught with danger and despair. As such, I have decided to make my
+cottage particularly life threatening to those scoundrels who seek to rob me
+of my worldly possessions. By accessing this command, you have caused a
+blueprint to be displayed on the wall to one side of where you are currently
+standing with your lying, cheating, thieving body. Be sure to have a good,
+long look at the blueprint: it will reveal to you all the horrible and
+disfiguring ways in which you can die if you don't leave right away.'
+
+Sure enough, one wall has now become opaque and you can see a blueprint
+displayed there.
+
+[MORE]
+
+After a moment, the screen refreshes and displays the original menu again.
+
+(1)  The Nuclear Design Project.
+(2)  Traps & Trials.
+(3)  Would-be burglars: please read this!
+(4)  A Day in the Life of Mrs Esmeralda Moog.
+(5)  Self destruct sequence.
+
+>The screen swirls for a while then you see: 'Probably a risk putting this
+information here but I'm tired of leaving myself notes and then losing them.
+The worst thing about that is that I might write something highly
+confidential on a note and then lose it and have some would-be burglar find
+it. So I'll put the note here instead. That way, no one will ever see it
+because there's no reason for anyone to type '3' more than once.'
+
+Unfortunately she doesn't actually say what the information she has cunningly
+'hidden' in this way is.
+
+[MORE]
+
+After a moment, the screen refreshes and displays the original menu again.
+
+(1)  The Nuclear Design Project.
+(2)  Traps & Trials.
+(3)  Would-be burglars: please read this!
+(4)  A Day in the Life of Mrs Esmeralda Moog.
+(5)  Self destruct sequence.
+
+>The screen swirls for a while then you see: 'Oh, darn! Forgot to write down
+the information in question. The password to the secret passage is… Oh. I
+forget. But it's precious, very precious. Some kind of stone? A girl's name?
+Damned if I can remember right now. A jewel of some kind? Darn this memory!
+It's just no fun being old sometimes. Oh well, back to the nuclear bomb I'm
+designing…'
+
+[MORE]
+
+After a moment, the screen refreshes and displays the original menu again.
+
+(1)  The Nuclear Design Project.
+(2)  Traps & Trials.
+(3)  Would-be burglars: please read this!
+(4)  A Day in the Life of Mrs Esmeralda Moog.
+(5)  Self destruct sequence.
+
+>You study the blueprint. It's not actually on the wall itself, but instead
+embedded in the wall and has now become visible due to the surface of the
+wall turning opaque. Quite a bit of impressive technology actually.
+   Unfortunately, if you were expecting some kind of revelation here you're
+in for disappointment. The blueprint doesn't actually seem to display any of
+the traps dotted around the cottage, but instead just the cottage itself. And
+only the ground floor at that. All of the rooms you have seen so far are
+present correct and…
+   Hang on. Is that a secret passage in the study?
+   You peer closely at the blueprint. It is a secret passage. But the words
+'password required' dash your hopes that it's going to be a simple case of
+just heading to the study and opening the secret passage.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds. A gap torn in the ceiling provides illumination
+but the gym is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+You see some charred material.
+
+>
+Kitchen
+Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
+ancient. There's a brand new pressure cooker here, the type of thing that can
+cook a rhino in five seconds flat (it's big enough to fit a rhino in, too),
+alongside an old wooden stove. There's a sink which is just a big hole in the
+kitchen counter, yet beside it is a fridge that wouldn't look out of place in
+Star Wars. The only thing the kitchen lacks is any windows, meaning the only
+light comes from the glowing fridge.
+   A doorway to the south leads back to the gymnasium and a flight of stairs
+lead up to the cottage's second floor.
+
+There is some garlic here.
+
+>The fridge is tall, gleaming and somewhat out of place in the kitchen. In
+fact, it's somewhat out of place in the cottage as a whole. There are a
+number of glowing lights set into the front of the fridge, as well as a good
+number of strange lumps that baffle description. A sign attached to the front
+of the fridge is also quite strange.
+
+>You crouch down.
+
+>You open the fridge. And see, about a foot above your head since you're
+currently crouching down, a shotgun. There's a wire leading from the trigger
+to the fridge door you've just pulled open, and the click! sound you hear a
+fraction of a second later is a terrible, terrible sound.
+   Of course, it's not as bad as the thunderous BANG!!! you hear next…
+
+[MORE]
+
+You blink. You're still alive. And (a quick check) still in one piece as
+well. The top of your head feels a little warm, and your hair now has a new
+parting (quite a stylish one as it happens), but the bullet which should have
+hit you dead in the face just skimmed over you. If you hadn't ducked…
+   Breathing a quick sigh of relief, you have a rummage through the fridge.
+Unfortunately all you find for your troubles is a flask containing some foul
+looking substance. You consider taking the shotgun but as it's already empty,
+and your enemy is a little old lady currently suffering a stroke due to the
+heat, you probably won't be needing a lethal weapon.
+   You take the flask and close the fridge door.
+
+>The stove itself is fairly plain and ordinary, although it looks to have
+received a good knock recently judging by the sizeable dent in one side.
+
+>The counter is almost spotless; it fairly gleams. Aside from a single wooden
+spoon, of rather large proportions, it's also empty.
+
+>You take the wooden spoon from the kitchen counter.
+
+>The fridge has been pushed up against the wall. There's not so much as a
+finger's width behind it.
+
+>You move the fridge a few inches so it's no longer pressed up against the
+wall.
+
+>Now you've moved the fridge slightly away from the wall, you can see a list
+pinned to the back of it.
+
+>It's awkward reading a list that's stuck to the back of the fridge, but you
+manage to turn your head at such an angle as to read what is written there:
+
+"Recipes:
+
+1, 2, 3, start - some dough
+2, 3, 4, start - some pastry
+3, 5, 6, start - some bread
+4, 4, 6, start - some jelly
+5, 5, 6, start - bracelet
+6, 1, 4, start - a cob"
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound, the pressure cooker
+shakes, and then some dough slides out of the side.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound, the pressure cooker
+shakes, and then some pastry slides out of the side.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound, the pressure cooker
+shakes, and then some bread slides out of the side.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound, the pressure cooker
+shakes, and then some jelly slides out of the side.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound, the pressure cooker
+shakes, and then - of all things! - a bracelet slides out of the side.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound, the pressure cooker
+shakes, and then a cob slides out of the side.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound.
+
+>You push the button. It makes a slight tinkling sound, the pressure cooker
+shakes, and then... How strange. A devil statue has popped out of the side of
+the cooker.
+
+>You pick up the dough, the pastry, the bread, the jelly, the bracelet, the
+cob, the devil statue and the garlic.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds. A gap torn in the ceiling provides illumination
+but the gym is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+You see some charred material.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east. A thread hanging
+from the ceiling is all that remains of the chandelier, now lying in
+shattered fragments at your feet. At your back (to the south) is the front
+door via which you entered the cottage.
+
+>Mrs Moog's StudyA desk of vast proportions occupies just about the entirety
+of this otherwise smallish room, its edges actually bending the wall in
+places and the floor fairly groaning beneath it. A small window in one wall,
+barred, displays a desert scene beyond the cottage. Lurking in one corner is
+a single bookcase, alongside a cabinet and a wardrobe (a wardrobe in a
+study?) A panel in the far wall has opened, revealing a small cavity.
+   A doorway, minus a door, leads back to the hallway to the east.
+
+The first thing you do upon entering the study is check out the space against
+the west wall where you spied the secret passage on the blueprint. Sure
+enough, there is a slight indentation on the surface which, when pressed,
+reveals a hidden passage. Unfortunately it's a locked hidden passage.
+
+>The secret passage is just a vague indentation in the wall. There looks to be
+some kind of hole at the top which at first you assume is a slot for things
+to be pushed into, but upon closer inspection it actually looks like it might
+be some kind of voice relay system. You've seen this sort of thing before.
+You speak into this end - a password or something - and whatever you speak
+unlocks the passage.
+   The question, of course, is just what is the password?
+
+>You say "jade". The voice relay system says "hey! You actually got it right!"
+   There is a grinding sound and the secret passage opens up, revealing a
+tunnel behind it.
+   You give yourself a little pat on the back, quite content that The Bulldog
+is a man of brains as well as brawn.
+
+>Laboratory
+Of all the places you expected to see in Mrs Moog's cottage, this wasn't one
+of them: a laboratory. And one that looks to have stepped straight from the
+Dark Ages. You see a cauldron on a stone plinth, a long table with a vial, a
+beaker and a cup on top, a wall festooned with all manner of strange scrolls
+and parchments and, perhaps strangest of all, a globe of the world with the
+words "MINE!" written on it in biro. Light is provided by smoky torches which
+hang in sconces from the walls.
+   A small passage leads away to the east back to the study.
+
+>The scrolls have a macabre look to them that chills even your cold and
+usually emotion free heart.
+
+>Of course, you have no real idea how to go about invoking a ritual, but it
+seems that merely thinking the words "invoke" and "ritual" in the same
+sentence are enough.
+   Swirls of coloured smoke rush past you in the air, and you hear a voice
+crying out:
+
+"Eye of toad and ear of bat - stir!
+Toe of rat and nose of shrew - stir!
+Ear of bat and toe of rat and beard of ferret - stir!
+Knee of horse and ankle of dog and paw of cat - stir!
+Beard of ferret and ear of bat - stir!"
+
+The voice fades away, followed a moment later by the swirls of smoke
+vanishing.
+
+>You shift it slightly so as not to send it crashing from the stone plinth and
+shatter on the floor, thus spilling its unspeakable contents over everything,
+and see, wedged beneath, a container. Curious, you pick the container up and
+then shift the cauldron back into place.
+
+>The cauldron is the kind of large, ancient thing you fancy they had in
+castles back in the middle ages. It rests atop a stone plinth, no doubt to
+keep its heat (which you can feel from this distance) from spreading to the
+rest of the room. A sign is affixed to the side of the cauldron, while an
+unspeakable grunge floats around inside it.
+
+>The sign reads:
+
+Thank you for buying the new Mark 5 Witch's Cauldron, designed to give you
+many hours of carefree cursing and witchcraft, all in the comfort of your own
+dungeon!
+
+Use of the Mark 5 is simplicity itself: simply sprinkle the ingredients
+within (generally two or three ingredients), then stir with wooden spoon.
+
+[Apologies for the wooden spoon requirement, but flaws in the design (minor
+flaws that is!) prevent the use of any other kind of spoon being used.]
+
+Again, many thanks for buying the new Mark 5 Witch's Cauldron and we here at
+Cauldrons R Us hope you have many satisfied hours of cursing and witchcraft
+with it!
+
+>The unspeakable grunge, is quite simply, unspeakable. The smell alone is
+enough to drive you away from it, and as for the taste…
+   Well, let's just say that even The Bulldog, with an iron constitution that
+has allowed him to eat his way out of the side of a bison before (long story,
+don't ask) isn't up to this kind of punishment.
+
+>You reach out and touch the grunge.
+   It groans and a small piece of it breaks away in your hand. Although you
+notice as you jerk your hand back in dismay (mercifully it's still pretty
+much intact), that you're now clutching a small phial which was wedged inside
+the grunge. You guess Mrs Moog must have dropped it there while cooking one
+day.
+
+>You sprinkle some of the eye of toad into the cauldron. The cauldron burbles.
+
+>You sprinkle some of the ear of bat into the cauldron. The cauldron burbles.
+
+>You stir the unspeakable grunge with the wooden spoon.
+   The cauldron shudders and a puff of green smoke is emitted from one side.
+
+>You sprinkle some of the toe of rat into the cauldron. The cauldron burbles.
+
+>You sprinkle some of the nose of shrew into the cauldron. The cauldron emits
+a gurgling sound.
+
+>You stir the unspeakable grunge with the wooden spoon.
+   The cauldron shudders and a puff of orange smoke is emitted from one side.
+
+>You sprinkle some of the ear of bat into the cauldron. The cauldron shakes
+violently.
+
+>You sprinkle some of the toe of rat into the cauldron. The cauldron emits a
+gurgling sound.
+
+>You sprinkle some of the beard of ferret into the cauldron. The cauldron
+shudders.
+
+>You stir the unspeakable grunge with the wooden spoon.
+   The cauldron shudders and a puff of blue smoke is emitted from one side.
+
+>You sprinkle some of the knee of horse into the cauldron. The cauldron shakes
+violently.
+
+>You sprinkle some of the ankle of dog into the cauldron. The cauldron bubbles
+fiercely.
+
+>You sprinkle some of the paw of cat into the cauldron. The cauldron burbles.
+
+>You stir the unspeakable grunge with the wooden spoon.
+   The cauldron shudders and a puff of cyan smoke is emitted from one side.
+
+>You sprinkle some of the beard of ferret into the cauldron. The cauldron
+vibrates from side to side.
+
+>You sprinkle some of the ear of bat into the cauldron. The cauldron shudders.
+
+>You stir the unspeakable grunge with the wooden spoon.
+   The cauldron shudders and a puff of black smoke is emitted from one side.
+ At the same time, you become aware of something floating in the cauldron.
+Scooping it out (ignoring for a second that the grunge in the cauldron would
+likely burn off the flesh of a normal man), you see that you now have, of all
+things, some smelling salts.
+   You guess they must have been dropped in there by Mrs Moog one day while
+she was... doing whatever it is she does with this cauldron.
+
+>Mrs Moog's Study
+A desk of vast proportions occupies just about the entirety of this otherwise
+smallish room, its edges actually bending the wall in places and the floor
+fairly groaning beneath it. A small window in one wall, barred, displays a
+desert scene beyond the cottage. Lurking in one corner is a single bookcase,
+alongside a cabinet and a wardrobe (a wardrobe in a study?) A panel in the
+far wall has opened, revealing a small cavity.
+   A doorway, minus a door, leads back to the hallway to the east, as well as
+a previously hidden passage to the west.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east. A thread hanging
+from the ceiling is all that remains of the chandelier, now lying in
+shattered fragments at your feet. At your back (to the south) is the front
+door via which you entered the cottage.
+
+>Time passes...
+
+The radioactive ooze dripping from the ore you are carrying hisses suddenly
+as it burns into the floor. You take a hurried step back, a moment before a
+section of the floor opens up, revealing a flight of stone steps leading down
+into the bowels of the cottage. A series of bolts had been driven into the
+carpet and were securing this previously hidden trapdoor, but the ore has
+eaten through them.
+
+>Cellar
+It's a cliché, a terrible cliché, but the cellar of Mrs Moog's cottage has a
+pedestal in the centre, on the top of which is a coffin. You can’t actually
+see what's in the coffin from where you're standing, but you'd bet your
+bottom dollar that it’s a pale fellow with long teeth, wearing a cape and who
+has a penchant for biting people in the neck. Several barrels occupy the
+space against the east wall while light, pretty dismal but light all the
+same, is emitted from a glowing panel on the other wall. Cobwebs cover almost
+every surface.
+   A flight of stone steps lead upwards to the hallway.
+
+>You shift the nearest barrel to one side and see, lying there in the dust,
+some gloves.
+   Frowning, you pick them up. They're probably Mrs Moog's. They look about
+the right size.
+
+>You put on the gloves.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east. A thread hanging
+from the ceiling is all that remains of the chandelier, now lying in
+shattered fragments at your feet. At your back (to the south) is the front
+door via which you entered the cottage. There is a gaping hole in the floor,
+leading down to the cottage's cellar.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds. A gap torn in the ceiling provides illumination
+but the gym is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+You see some charred material.
+
+>
+Kitchen
+Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
+ancient. There's a brand new pressure cooker here, the type of thing that can
+cook a rhino in five seconds flat (it's big enough to fit a rhino in, too),
+alongside an old wooden stove. There's a sink which is just a big hole in the
+kitchen counter, yet beside it is a fridge that wouldn't look out of place in
+Star Wars. The only thing the kitchen lacks is any windows, meaning the only
+light comes from the glowing fridge.
+   A doorway to the south leads back to the gymnasium and a flight of stairs
+lead up to the cottage's second floor.
+
+>
+Upstairs Landing
+After everything else you have seen in Mrs Moog's cottage, you might have
+expected the upstairs landing to be a strange and unusual one, but instead it
+looks… ordinary. Very ordinary. So ordinary, in fact, that you're just sure
+there must be something suspicious about it. But the railing looks normal,
+the walls and floor look normal, even the naked light bulb hanging from the
+ceiling to one side of you looks normal.
+   Steps lead down to the kitchen, there's a door to the north marked
+"bedroom" (which is currently open) and a corridor stretches away to the
+west.
+
+>You carefully study the railing, sure you won't find anything unusual about
+it at all... and then you see a dart. It's been carefully attached to the
+underside of the railing, hidden at a casual glance, but looks to be pointed
+to the west.
+
+>You reach for the dart - and the light bulb above suddenly shakes, as if
+blown by a harsh wind. It throws shadows all over the place and almost causes
+you to jab yourself on the tip of the dart.
+   You cast a harsh glance at the bulb but it just hangs there innocently.
+
+>You reach for the light bulb with your gloved hands, take hold of it - and
+then suppress a grunt (actually a scream but as The Bulldog you never scream
+out loud) as it explodes!
+   Fortunately the gloves protect your hands from injury and though there's
+nothing protecting your face, your ruggedness countenance is so hard that it
+doesn't really need protecting.
+
+>You reach for the dart and pluck it away from the railing. It's such a
+fragile thing (the dart that is, not the railing) and you quickly crush it to
+dust, disposing of it.
+
+>
+Bedroom
+Mrs Moog's bedroom appears every bit as eccentric as most of the rooms in her
+cottage. The bed, for instance, is actually on the ceiling and looks to have
+a series of straps across it to fasten in the sleeper. There's a bedside
+cabinet floating around, seemingly oblivious to the laws of gravity. There's
+even a small pool in one corner of the room. One wall is given over to Mrs
+Moog's collection of diplomas, of which she seems to have more than just a
+few.
+   Southwards lies the upstairs landing.
+
+>A four poster bed, normal in every way aside from the slight fact that it's
+on the ceiling. The legs look to be bolted in place, and from the way the
+sheets stick to the mattress you're guessing they're either glued or nailed
+in place. The single pillow is certainly nailed in place: there's a large
+nail right through the middle of it (making it pretty uncomfortable to lie
+on, you guess). A series of straps crisscross the bed, no doubt to keep the
+sleeper in place against the laws of gravity.
+
+>Your legs are built more for kicking down the doors of enemy strongholds than
+they are for jumping up to beds, but you nevertheless make a valiant effort
+to jump up to the bed.
+   And fail miserably.
+
+But you got quite close there. Maybe another go...
+
+>Ah! Nearly!
+
+You just missed the edge of the bed by a fraction of an inch!
+
+>You manage to grab hold of a corner of the bed for a brief second before
+losing your grip. However, in that brief second, you tug back some of the
+sheets and cause something to drop to the floor.
+
+>
+Bedroom
+Mrs Moog's bedroom appears every bit as eccentric as most of the rooms in her
+cottage. The bed, for instance, is actually on the ceiling and looks to have
+a series of straps across it to fasten in the sleeper. There's a bedside
+cabinet floating around, seemingly oblivious to the laws of gravity. There's
+even a small pool in one corner of the room. One wall is given over to Mrs
+Moog's collection of diplomas, of which she seems to have more than just a
+few.
+   Southwards lies the upstairs landing.
+
+Also here is a wand.
+
+>You pick up the wand.
+
+>You wave the wand in the general direction of the floating cabinet and, as if
+by magic (which it might well be), the cabinet stops floating for a second.
+This allows you to grab hold of it, open it and then something spills out
+onto the floor. Before you can do anything else, the cabinet shuts itself and
+scoots out of reach.
+
+>
+Bedroom
+Mrs Moog's bedroom appears every bit as eccentric as most of the rooms in her
+cottage. The bed, for instance, is actually on the ceiling and looks to have
+a series of straps across it to fasten in the sleeper. There's a bedside
+cabinet floating around, seemingly oblivious to the laws of gravity. There's
+even a small pool in one corner of the room. One wall is given over to Mrs
+Moog's collection of diplomas, of which she seems to have more than just a
+few.
+   Southwards lies the upstairs landing.
+
+Also here is a bell.
+
+>You pick up the bell.
+
+>The pool bubbles warmly. There look to be a number of coins lying on the
+bottom of it, similar to pools you have seen in amusement parks*. A cable is
+curled in the bottom of the pool, the other end plugged into the wall nearby.
+
+* You don't actually go to amusement parks for amusement, of course, but even
+terrorists have a day out sometimes and when they're stuck on top of the big
+wheel is often a good time to take a shot or two at them without them being
+able to escape.
+
+>You grab hold of the cable and tug it out of the socket in the wall. It
+crackles in your hand, spitting electricity, but the glove you're wearing
+keeps you safe from harm.
+
+>You reach into the pool and take some of the coins. You aren't sure what type
+of coins they are as you don't recognise the denominations, but you've never
+been the sort of fellow who likes to see good money just lying around in
+electrified pools.
+
+>
+Upstairs Landing
+After everything else you have seen in Mrs Moog's cottage, you might have
+expected the upstairs landing to be a strange and unusual one, but instead it
+looks… ordinary. Very ordinary. So ordinary, in fact, that you're just sure
+there must be something suspicious about it. But the railing looks normal,
+the walls and floor look normal.
+   Steps lead down to the kitchen, there's a door to the north marked
+"bedroom" (which is currently open) and a corridor stretches away to the
+west.
+
+>
+Corridor
+The angles of this corridor are strange and bewildering, making it appear
+that the area at the top of the stairs is several hundred metres away to the
+east while another room, which you're sure is just a short step to the south,
+is actually miles distant. The bathroom is off to the north. A feeble light
+is provided by a crackling panel set into the wall to your left while to your
+right is a portrait of none other than Mrs Moog herself. Her eyes seem to
+follow you around the corridor although you're sure this is just a flaw in
+the picture.
+
+>
+Guest Room
+This room, generally reserved for any guests Mrs Moog has staying with her,
+is long and narrow with a window at the far southern end overlooking the
+garden out front of her cottage. A bed, likewise long and narrow, rests
+against one wall. The wall itself seems on the verge of collapse and sports
+gaping cracks along the length and breadth of it. Lying on its side by the
+window is a camera, the lens shattered by you earlier on.
+   To the north lies the strange corridor.
+
+>You try to take the camera but it's in such a battered condition that it'll
+probably crumble away to dust if you actually go ahead and pick it up. The
+lens tumbles out as you touch it, rolling across the floor and then out into
+the corridor.
+
+>The first crack you peer into is empty.
+
+>The second crack you peer into is empty.
+
+>The third crack you peer into is... not empty.
+   Frowning, you reach into the crack and pull out a some glasses. By the
+size of them, and the EM insignia, you're guessing these belong to none other
+than Esmeralda Moog herself. Quite why she's got some glasses hidden in the
+wall you don't know, but then she is eccentric so there's no reason to expect
+it to make sense.
+
+>It's probably a bad idea, what with the world facing imminent destruction
+from nuclear meltdown, but the urge to lie down and close your eyes for a few
+moments is just too tempting to resist.
+   So you lie down, close your eyes, and...
+
+dream
+   at least youre assuming its a dream only its kind of difficult to tell for
+certain because everything is dark and you cant see a thing but at the same
+time you can see things and you can hear them as well and you look ahead of
+you and see a sign and on that sign is the word pagon and as you reach for
+the sign it suddenly disappears and you turn to look around and find yourself
+
+Lying on the floor at the side of the bed, blinking your eyes in confusion
+and wondering just what happened.
+   Pagon.
+   Does the word mean anything? Or is it just one of those bizarre things
+that happen in dreams that don't actually mean a thing?
+
+>
+Corridor
+The angles of this corridor are strange and bewildering, making it appear
+that the area at the top of the stairs is several hundred metres away to the
+east while another room, which you're sure is just a short step to the south,
+is actually miles distant. The bathroom is off to the north. A feeble light
+is provided by a crackling panel set into the wall to your left while to your
+right is a portrait of none other than Mrs Moog herself. Her eyes seem to
+follow you around the corridor although you're sure this is just a flaw in
+the picture.
+
+Also here is a lens.
+
+>You pick up the lens.
+
+>Mrs Moog's very own glasses. It's probably too much to expect a mad old woman
+who designs nuclear bombs for a living to have much taste with regards to her
+glasses, but you'd never have guessed her for the sort to wear glasses with
+flower patterns and kittens around the frames.
+   One of the lens has a massive crack across it, meaning that you won't be
+able to see a thing through it.
+
+>You remove the cracked lens from the glasses and replace it with the lens
+from the camera.
+   There! All fixed!
+
+>You put the glasses on.
+
+>Peering through Mrs Moog's glasses, you study the portrait. It's a strange
+one and no mistake.
+   It features Mrs Moog and a tap. And there seems to be something unusual
+about her eyes.
+
+>Her eyes are moving. As you watch, halfway between amazement and disbelief,
+the eyes look three times to the left side of the portrait, four times to the
+right side, then at the tap. The process is repeated a few seconds later.
+
+>You tap the left side of the portrait three times.
+   It might be your imagination, but you could swear Mrs Moog smiles at you
+briefly.
+
+>You tap the right side of the portrait four times.
+   Mrs Moog gives you a quick nod and then the entire wall, along with the
+portrait, slides to one side. A previously concealed passage is revealed
+beyond.
+
+>
+Bathroom
+You might have expected Mrs Moog's bathroom to display the same kind of
+bizarre eccentricity as the rest of her cottage, but instead it seems
+perfectly normal: toilet, sink, medicine cabinet, bath, laundry basket.
+Nothing bizarre or eccentric at all as far as you can see. Even the door,
+open to the south, is apparently ordinary.
+
+>The sink looks so normal that you're just convinced there has to be something
+wrong with it. There are two taps - labelled Hot and Cold - and a plughole,
+but even the absence of a plug doesn't give any indication of just what is
+unusual about the sink.
+
+>You turn the hot tap on. Surprisingly, no water. Not even a drop. Aha! You
+knew there was something weird about this sink. It doesn't work.
+   But even as you think that, you wonder if there's more to it. If, maybe,
+something has changed as a result of you turning this tap.
+
+>You turn the tap a second time. Still nothing seems to happen, but again
+you're convinced that something has changed.
+   You just don't know what.
+
+>You turn the tap a third time. Nothing seems to happen but, overhead, perhaps
+in the attic, you hear a hissing sound.
+
+>You turn the tap a fourth time.
+   Above, the hissing sound grows more pronounced. Then the bathroom ceiling
+begins to exhibit a wet patch.
+
+>You turn the cold tap on but no water comes out. However, the tap seems to
+vibrate under your hand and the vibration travels into the sink, through the
+wall, and upwards.
+   Nothing else seems to happen.
+
+>You turn the cold tap again. The same thing happens as before, but this time
+you hear a hissing sound from above, such as might be heard by, say, flames
+being doused with cold eater.
+   The hissing lasts for a second or two then fades away.
+
+>You turn the cold tap a third time. The hissing you heard from above is more
+extreme now and you fancy you can faintly smell smoke.
+   A wet patch begins to form on the bathroom ceiling.
+
+>You turn the cold tap for a fourth time. The hissing from above reaches a
+crescendo, then dies abruptly away.
+   The wet patch grows a little larger.
+
+>Sturdy. That's the best way to describe the medicine cabinet. It radiates a
+definite aura of sturdiness and looks to be the kind of medicine cabinet that
+could be hit with a battering ram and not even dent. It lacks any kind of
+mirror like most medicine cabinets you have seen; instead, it has a slot in
+the side.
+
+>Acting on a hunch, you try to fit the coins into the slot. As it happens,
+they're a perfect match. You happily slide them all into the slot, then stand
+there with a fierce grin plastered across your battle-hardened face while you
+wait for something to happen.
+   Nothing happens.
+   But just when you think nothing is going to happen at all, the front of
+the cabinet opens and out drops some suntan lotion and a small mirror. Both
+drop to the floor and as you scramble to pick them up, the cabinet seals
+itself once more.
+
+>You open the laundry basket and peer inside. You see many frightening and
+distressing sights. Should a woman of Mrs Moog's advanced years be wearing
+that? With tassels on? And is it-
+   But no. You force yourself to look away. You might be The Bulldog, capable
+of tearing out the spleen of an enemy agent and using said spleen to batter
+him bloody, but when it comes to the smalls of an elderly lady, you just
+haven't got the stomach for the job.
+   You start to close the basket up when you catch sight of a blanket,
+peeking out from behind some [unmentionables]. You hesitate for a second then
+quickly snatch it out before quickly closing the basket once more.
+
+>
+Corridor
+The previous strange appearance of the corridor seems to have been fixed by
+you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
+away to the east and the bathroom to the north and guest room to the south
+look normal as well. A feeble light is provided by a crackling panel set into
+the wall to your left while to the west is a passage, previously concealed
+behind a portrait of Mrs Moog.
+
+>
+Upstairs Landing
+After everything else you have seen in Mrs Moog's cottage, you might have
+expected the upstairs landing to be a strange and unusual one, but instead it
+looks… ordinary. Very ordinary. So ordinary, in fact, that you're just sure
+there must be something suspicious about it. But the railing looks normal,
+the walls and floor look normal.
+   Steps lead down to the kitchen, there's a door to the north marked
+"bedroom" (which is currently open) and a corridor stretches away to the
+west.
+
+>
+Kitchen
+Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
+ancient. There's a brand new pressure cooker here, the type of thing that can
+cook a rhino in five seconds flat (it's big enough to fit a rhino in, too),
+alongside an old wooden stove. There's a sink which is just a big hole in the
+kitchen counter, yet beside it is a fridge that wouldn't look out of place in
+Star Wars. The only thing the kitchen lacks is any windows, meaning the only
+light comes from the glowing fridge.
+   A doorway to the south leads back to the gymnasium and a flight of stairs
+lead up to the cottage's second floor.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds. A gap torn in the ceiling provides illumination
+but the gym is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+You see some charred material.
+
+>
+Tech Room
+From the brand new top of the range computer nestling on a gleaming desk in
+the centre in the room, to the row of servers lining the walls, it seems
+you've found Mrs Moog's tech room. The nuclear devices she creates are built
+elsewhere but this is where they start to take shape. Three of the walls are
+occupied by the servers; the fourth contains the door (leading west) to the
+gymnasium. One wall, however, displays the blueprint you saw after typing the
+password into the computer. Light is provided by a glowing lump of ore nailed
+to one of the servers. A steady stream of radioactive gore oozes out of it.
+
+>You type the word "noroc" on the computer.
+
+Nothing much seems to happen.
+
+>You type the word "pagon" on the computer.
+
+Nothing much seems to happen.
+
+>You type the word "iggen" on the computer.
+
+Nothing much seems to happen.
+
+The computer suddenly makes a whirring sound and the incredibly handsome*
+face of the game's writer appears on screen.
+
+*  Well, he's writing this so it doesn't have to be realistic, does it?
+
+"Well done there, fellow or fellowess!" he cries. "You've only gone and
+figured out one of the game's Easter Eggs! Woo-hoo! Here: have a few score
+points for your trouble!"
+
+"Gee thanks," you say.
+
+"Oh, don't mention it," says the game writer. "You wanna know what the
+password to the game is so you can open it up in the Generator?"
+
+You nod.
+
+"You and everyone else, pal!" he laughs and then his face disappears from the
+computer screen.
+
+The computer suddenly makes a whirring sound and the incredibly handsome face
+of the game's writer appears on screen.
+
+"What - again?" he cries. "Fat chance!"
+
+He fades away.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds. A gap torn in the ceiling provides illumination
+but the gym is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+You see some charred material.
+
+>
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east. A thread hanging
+from the ceiling is all that remains of the chandelier, now lying in
+shattered fragments at your feet. At your back (to the south) is the front
+door via which you entered the cottage. There is a gaping hole in the floor,
+leading down to the cottage's cellar.
+
+>Cellar
+It's a cliché, a terrible cliché, but the cellar of Mrs Moog's cottage has a
+pedestal in the centre, on the top of which is a coffin. You can’t actually
+see what's in the coffin from where you're standing, but you'd bet your
+bottom dollar that it’s a pale fellow with long teeth, wearing a cape and who
+has a penchant for biting people in the neck. Several barrels occupy the
+space against the east wall while light, pretty dismal but light all the
+same, is emitted from a glowing panel on the other wall. Cobwebs cover almost
+every surface.
+   A flight of stone steps lead upwards to the hallway.
+
+>You approach the coffin, your hackles raises. You're The Bulldog, scared of
+no man or beast, but the living dead have creeped you out ever since your
+father let you stay up as a toddler and watch Night Of The Living
+Bloodstained Gore From Hell Planet Five, which featured zombies, ghouls,
+vampires and all manner of things that go bump in the middle of the night.
+   Still, the odds of there actually being a vampire in this coffin are so
+minute that you could probably open it a thousand times and never find one-
+   You open the coffin and see the vampire.
+   "Greetings," he says, smiling at you with a mouth full of teeth that a
+little longer than normal. And sharper. "The name's Moog, Henry Moog. Pleased
+to make your acquaintance."
+   You back away quickly from the coffin but Henry Moog, vampire, makes no
+effect to follow you.
+
+>Henry sighs. "Oh, bother. Very well, ask me your questions."
+
+[1]   Grunt: ("Are you really a vampire?")
+[2]   Grunt: ("I'm looking for your wife, Henry. She's collapsed due to the
+heat wave and she's needed at work.")
+[3]   Grunt: ("You don't look very comfortable in that coffin. Why not lie in
+one of the beds upstairs?")
+[4]   Grunt: ("Tell me some things about yourself.")
+[5]   Grunt: ("I need your help, Mr Moog, on a matter of national security.")
+[6]   Grunt: ("What's it like being a vampire?")
+
+>"Well, I've been a vampire for quite some time now," says Henry with a sigh.
+"It happened while I was out jogging one fine summery afternoon and this chap
+dressed all in black came up to me and said he needed to bite me on the neck
+and drain a litre or two of my blood. Strange request."
+
+[1]   Grunt: ("And you told him to go away, right?")
+
+>"Heavens no! Poor fellow was positively anaemic. It was the least I could do,
+letting him have a smidgeon of my blood. Really perked him up a bit
+afterwards and he soon left."
+
+[1]   Grunt: ("By transforming into a bat and flying away?")
+
+>"No. He said he would have transformed into a bat but he wasn't in the mood
+then, so instead he just hopped onto his scooter and headed off." Henry
+sighs. "And I've been a vampire ever since."
+
+[1]   Grunt: ("And you don't find his story a bit… implausible?")
+[2]   Grunt: ("How come a vampire was out in the sunlight?")
+[3]   Grunt: ("You're mad!")
+
+>"He…" Henry pauses and then frowns. "You know," he says slowly, "that's an
+interesting point. One I'll have to give some serious thought to."
+   Grun-
+   "Shush!" says Henry. "I'm giving it serious thought."
+
+>"I suspect I might have been lied to," says Henry with a thoughtful
+expression. "Yes, the more I think about it, the more I'm sure. The fellow in
+the park wasn't a vampire at all."
+   Grunt.
+   "Does that mean I'm not a vampire?" Henry frowns. "No, I don't believe it
+does. You see, I often get a terrible sun burn when I go out on a hot day, I
+don't like garlic and if you stab me in the heart with a stake I'll almost
+certainly die. And this cape I get to wear is so stylish I just couldn't bear
+to part with it."
+   Grunt.
+   "Yes. Spending eternity in this miserable coffin in the cellar of the
+cottage is a bit of a downer, but at least I get to wear the cape all day."
+
+>"What's this?" he says as you hand the mirror over. "Oh, a mirror. And that's
+a frightfully handsome chap I see-" He frowns and looked more closely at the
+mirror. "Now, there's a funny thing. I'm a vampire yet I show up in a mirror.
+Must be another of the old legends that was wrong. Pfhhh! Ignorant peasants."
+   He hands you the mirror back.
+
+>"The Devil," says Henry. "A good friend of mine."
+   He takes the statue and conceals it about his person.
+
+>"Garlic?" Henry gasps. "Good grief, man! Are you trying to kill me!"
+   But while he shies away from the garlic, you notice that it doesn't seem
+to be doing him any real harm.
+
+>"Suntan lotion? What possible use could I have for that? I'm a vampire, man,
+so getting a tan is hardly a concern of mine."
+
+>Grunt.
+   "Yes," says Henry. "What?"
+   You explain the situation to him. This is kind of awkward what with your
+usual manner of speech being a series of grunts, groans and shakes of the
+head, but you eventually manage to get through to him.
+   "But I can't help you," says Henry. "Not like this. I'll die if I leave
+the cellar with all that horrible sunlight up there."
+   Grunt!
+   "Yes, I might not technically be a vampire, but I still suffer something
+rotten from sunburn and-"
+   Grunt?
+   "Suntan lotion?" Henry considers. "Yes, that might just do the trick.
+Fetch me some and I'll see what I can do."
+
+>"Ah," says Henry, "this ought to do the trick. Slap a bit of it on me-" And
+he does. And more than a bit of it. So much of it, in fact, that you could
+probably set him alight and he wouldn't even notice. "Now I'm ready. So
+let's…" He frowns. "No, this isn't right."
+   Grunt?
+   "I need more protection than this."
+   Grunt?
+   "Yes, more. Suntan lotion's one thing but what if the sun's especially
+bright today? I might be turned to dust in an instant. You'll have to find me
+something else."
+
+>Henry takes the blanket and drapes it around himself.
+   "I think I'm ready," he says.
+   You don't have the heart to tell him what he looks like. You really don't.
+   "I shall depart now," says Henry. "Don't follow me straight away or I
+might forget myself and fang you anyway. Now…"
+   You expect him to make some kind of dramatic exit, like turning into a bat
+or disappearing in a flash of light or a puff of smoke, but instead he just
+scurries up the steps out of the cellar.
+
+>They look like old beer barrels, probably decades old that have been down
+here for longer than you have been alive. The cobwebs covering them and the
+dust would certainly indicate it has been a while since anyone last went
+anywhere near them.
+   There is a lever on the side of one of them.
+
+>You push the lever.
+   A spray of beer shoots out.
+
+>You push the lever and angle your mouth to catch some of the beer.
+   And then spend a while gurgling in disgust and feeling like being
+violently ill. You've tasted some foul beer in your time, the type of stuff
+that could strip paint off the walls. You've even tasted beer that assassins
+have been known to use in their poisons.
+   But never have you tasted anything as bad as this…
+   After you've finished heaving, retching, choking and gasping, you
+straighten up and give a long and satisfying belch. It might have tasted foul
+and has probably taken a year or two off your life, but at the end of the day
+it was still beer.
+
+>The panel is just a transparent lump of plastic, slotted into the wall with
+remarkable precision so as to appear to be just another brick. If not for the
+fact that it's glowing, of course. There looks to be some kind of orb behind
+it which gives off the light.
+   There is a noticeable crack running along the length of the panel.
+
+>You pound on the panel with the spike you took from the front garden and
+cause a visible crack, but the panel remains largely intact.
+
+>You hit the panel again. The crack you made before grows more pronounced, but
+the panel doesn't break altogether.
+
+>You hit the panel and-
+   It shatters!
+   You have a moment to congratulate yourself on a well executed piece of
+mindless violence before the orb behind the panel that was emitting the light
+suddenly goes dark and plunges the cellar into the darkest darkness you have
+ever come across.
+   You fumble for the orb, snatch it up, and then quickly retreat from the
+cellar.
+
+[MORE]
+
+Hallway
+A short hallway lies before you, the walls decorated with portraits of the
+lady of the house. The carpet underfoot has an unpleasant feel to it, as
+though it conceals something… unnatural. At the northern end, the corridor
+splits into two branches, one heading west, the other east. A thread hanging
+from the ceiling is all that remains of the chandelier, now lying in
+shattered fragments at your feet. At your back (to the south) is the front
+door via which you entered the cottage. There is a gaping hole in the floor,
+leading down to the cottage's cellar.
+
+>
+Gymnasium
+You've never heard of a cottage with a gymnasium before but apparently Mrs
+Moog likes to be different. And she's certainly gone for a 'different' look
+with her gymnasium. There is an exercise machine made of sticks glued
+together, a trampoline with a huge hole in the middle, a set of steps that
+look like they'll fall over if anyone was to try and climb them, a wall for
+climbing minus any handholds. A gap torn in the ceiling provides illumination
+but the gym is otherwise fairly dark.
+   An empty doorway to the west leads back to the hallway while another to
+the north leads to the kitchen and there is a doorway with an actual door to
+the east marked "tech room".
+
+You see some charred material.
+
+>
+Kitchen
+Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
+ancient. There's a brand new pressure cooker here, the type of thing that can
+cook a rhino in five seconds flat (it's big enough to fit a rhino in, too),
+alongside an old wooden stove. There's a sink which is just a big hole in the
+kitchen counter, yet beside it is a fridge that wouldn't look out of place in
+Star Wars. The only thing the kitchen lacks is any windows, meaning the only
+light comes from the glowing fridge.
+   A doorway to the south leads back to the gymnasium and a flight of stairs
+lead up to the cottage's second floor.
+
+>
+Upstairs Landing
+After everything else you have seen in Mrs Moog's cottage, you might have
+expected the upstairs landing to be a strange and unusual one, but instead it
+looks… ordinary. Very ordinary. So ordinary, in fact, that you're just sure
+there must be something suspicious about it. But the railing looks normal,
+the walls and floor look normal.
+   Steps lead down to the kitchen, there's a door to the north marked
+"bedroom" (which is currently open) and a corridor stretches away to the
+west.
+
+>
+Corridor
+The previous strange appearance of the corridor seems to have been fixed by
+you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
+away to the east and the bathroom to the north and guest room to the south
+look normal as well. A feeble light is provided by a crackling panel set into
+the wall to your left while to the west is a passage, previously concealed
+behind a portrait of Mrs Moog.
+
+>You tug open the panel with the handle - and immediately there is a blinding
+flash!
+   (Fortunately that's only "blinding" in the literary sense and not the
+literal sense so after a few seconds of ferocious blinking you are able to
+see again.)
+   The panel is now dark. Whatever was powering it looks to have been
+destroyed when you opened it.
+
+>You open the panel, slide the orb into place, and then close the panel up
+again. A second or two passes and then a brilliant light shines from the
+panel, lighting up the corridor brighter than the midday sun.
+
+>
+Guest Room
+This room, generally reserved for any guests Mrs Moog has staying with her,
+is long and narrow with a window at the far southern end overlooking the
+garden out front of her cottage. A bed, likewise long and narrow, rests
+against one wall. The wall itself seems on the verge of collapse and sports
+gaping cracks along the length and breadth of it. Lying on its side by the
+window is a camera, the lens shattered by you earlier on.
+   To the north lies the strange corridor.
+
+>Corridor
+The previous strange appearance of the corridor seems to have been fixed by
+you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
+away to the east and the bathroom to the north and guest room to the south
+look normal as well. Light is provided by a panel set into the wall to your
+left while to the west is a passage, previously concealed behind a portrait
+of Mrs Moog.
+
+As you step out into the corridor, you hear a voice say: "you didn't find
+it."
+   You frown. Henry?
+   "Yes, Henry," says a voice from somewhere you can't quite see. Either he's
+good at reading minds, or you've just got a really open book face. "I put
+something in the room for you. Something you need. But you didn't find it."
+The voice pauses. "Actually you didn't find it because I only put it in there
+as you were leavin but that's neither here nor there."
+   Grunt?
+   "When you find it, you'll know what it is."
+   Grunt?
+   "And when you bedgin to look for it, you'll know where it is."
+   Grunt?
+   But Henry doesn't answer you this time. You look around for him but fail
+to see him anywhere.
+
+>
+Guest Room
+This room, generally reserved for any guests Mrs Moog has staying with her,
+is long and narrow with a window at the far southern end overlooking the
+garden out front of her cottage. A bed, likewise long and narrow, rests
+against one wall. The wall itself seems on the verge of collapse and sports
+gaping cracks along the length and breadth of it. Lying on its side by the
+window is a camera, the lens shattered by you earlier on.
+   To the north lies the strange corridor.
+
+>Curious about Henry's use of the word 'bedgin', you closely study the bed.
+Actually, it doesn't take any real detective work to find the helm he left
+for you on the pillow. You scoop it up, sure that you'll find a use for it
+somewhere.
+
+>You put on the helm.
+
+>
+Corridor
+The previous strange appearance of the corridor seems to have been fixed by
+you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
+away to the east and the bathroom to the north and guest room to the south
+look normal as well. Light is provided by a panel set into the wall to your
+left while to the west is a passage, previously concealed behind a portrait
+of Mrs Moog.
+
+>You start westwards, into the previously hidden passageway. You move
+cautiously, alert for traps and expecting them at every footfall. You're
+convinced that nothing will be able to surprise you now-
+   So when you hear the thunderous roar and the cannon ball flies out of the
+shadows and smashes into you, it comes as a shock to say the least.
+   Fortunately the helmet saves you from certain death and instead the cannon
+ball just sends you careening back out into the corridor with your head
+ringing and your helm dented.
+
+>Warily, expecting another cannon ball to come flying out of nowhere and deal
+you another crushing blow, you creep into the passage. But no more cannon
+balls.
+   You come to some stairs, climb quickly up them, and emerge into the attic
+of the cottage.
+
+Attic
+It seems you're almost there. Lying on the floor at the far end of the attic
+is none other than Mrs Moog, dressed in a nightie and wearing a cap that
+makes her look like an ageing football hooligan having a kip. But between you
+and her, effectively blocking the attic, are a series of icy bars. Some kind
+of anti-burglary device? Or just another experiment of Mrs Moog’s gone
+horribly wrong? The majority of the bars have now melted away, leaving a gap
+that even someone of your bulk shouldn’t have too much trouble fitting
+through. Beyond the bars of ice, a roaring fire has been lit. From the look
+of it, some kind of piping system is keeping it going and containing it in
+place so it doesn’t run riot and burn the whole cottage down. Water from a
+vent in the ceiling looks to have doused almost all of the flames. You ought
+to be able to run past the remaining ones to reach Mrs Moog. The area of the
+attic where Mrs Moog is lying unconscious is over to the west while the
+concealed passage leads downwards.
+
+>
+Western End Of Attic
+Mrs Moog lies on the floor here, more unconscious than you’ve ever seen
+anyone before. In fact, she looks more unconscious than some dead people
+you’ve encountered. A mass of paperwork is scattered around her, no doubt
+dropped when she collapsed. The only piece of furniture is a bed.
+
+>You let rip with the loudest scream you can manage, the kind of scream that
+would deafen a dinosaur at fifty paces and shatter stone at a hundred.
+   But it doesn't wake Mrs Moog up. Although her sleep doesn't seem quite as
+deep as before.
+
+>You ring the bell.
+
+Ding-a-ling-a-ling!
+
+And wince at the sheer volume of it.
+   Unfortunately, loud as it was, it hasn't awoken Mrs Moog. Although her
+sleep seems a little lighter than it was before.
+
+>You hold the smelling salts near Mrs Moog's nose and wait for their pungent
+aroma to bring her round.
+   Unfortunately it doesn't seem to work - the woman must have the
+constitution of an ox! However, her breathing seems a little lighter than
+before so maybe she's starting to come round.
+
+[MORE]
+
+Mrs Moog awakens!
+   It happens suddenly, as if the effects of the smelling salts, bell and
+your shouting have finally filtered through to her consciousness. She blinks
+first one eye, then the other, then opens both wide.
+   And stares up at you.
+   "Grunt," you say. It's meant in a friendly enough way, like "hello, Mrs
+Moog. I've been sent to fetch you because there's a nuclear reactor on the
+verge of meltdown and you're the only one who can stop it and save the
+world."
+   But clearly Mrs Moog, while a dab hand at constructing world-exploding
+nuclear warheads, isn't good at interpreting your grunts.
+   She gives a cry of "aiigigghghgh! A burglar!" and goes for a knife she
+keeps in her pocket, clearly with the intention of stabbing you in the chest
+with it!
+
+[MORE]
+
+"Wait!" cries a voice and Henry Moog rushes across the attic and snatches the
+knife out of his wife's hand.
+   "Henry!" cries Mrs Moog. "What are you doing out of your coffin? You know
+how badly the sun burns your vampire skin!"
+   "Oh, pish, Esmeralda dear," says Henry. "This good fellow here-" he
+indicates you "-talked to me and made me realise that I'm not really a
+vampire and I don't have to spend all of my time in the cellar in a coffin.
+You see-"
+   "Henry," says Mrs Moog.
+   "Yes, dear?"
+   "Your shoulder is on fire."
+   Henry looks at his shoulder. And frowns.
+   "You're right," he says slowly. "It is on fire. It must be the sunlight.
+Oh, bother. It looks like I am a vampire after all."
+   "Yes, dear. Now, off to your coffin with you before the rest of you
+catches alight."
+   Henry frowns some more but wanders away, patting absent mindedly at his
+burning shoulder.
+
+[MORE]
+
+You frown at Mrs Moog.
+   "Yes," she says, "I set his shoulder on fire but you don't know Henry like
+I do. He's really not up to dealing with the world and tends to get in an
+awful state when he's let out of his coffin. It's for the best. Really.
+Anyway, sorry for trying to stab you, young man, but I got such a terrible
+shock when I woke up and saw your great ugly mug looming over me- oh, sorry
+about that. Slip of the tongue and all that. What are you doing here?"
+   You grunt.
+   Mrs Moog gasps. "What - the nuclear reactor is about to meltdown and
+destroy the entire world due to those incompetent buffoons going ahead
+without me?"
+   Sometimes you can convey a lot with a simple nod.
+   "Well, help me up then," says Mrs Moog. "We've a world to save and little
+time to spare."
+
+[MORE]
+
+You start to lift her up but she gives a sudden gasp and slaps your hands
+away.
+   "No, not yet," she says, breathing deeply. "I'm weak. I haven't eaten
+anything for positively hours. Oh, be a dear and fetch me something to eat,
+will you?"
+   You frown at her.
+   "Yes, I know the world is about to explode, young man," she says sternly.
+"I was saving the world when you were still running around in your smalls.
+Now, off and fetch me something to eat and don't look at me like that or it's
+straight to bed afterwards for you."
+
+>It doesn't look very appetising to you, but Mrs Moog tucks into the dough and
+even gives a satisfied belch afterwards!
+
+>Mrs Moog takes the pastry and swallows it in one go.
+   Amazing mouth that old woman.
+
+>"Ah, bread," says Mrs Moog. "It's been a while since I had some of this."
+
+>Mrs Moog frowns. "Normally I don't go for jelly, but under the
+circumstances..."
+   She eats it.
+
+>"Oh, my bracelet," says Mrs Moog. "I was sure I'd lost that. Thanks. I'll be
+sure to include you on my Christmas card list."
+
+>"My glasses!" she cries. "Damnation! Did I put them in the wall again?"
+   You nod.
+   "I have to remember to stop doing that, but force of habit..."
+
+>Mrs Moog takes the cob, stares at it carefully in case it might contain
+something lethal, then eats it slowly.
+
+>"I hope you didn't go showing this to my husband," says Mrs Moog warningly as
+you hand the garlic over.
+
+>"Very well," says Mrs Moog. "I think I'm able to walk. Hold your arm out."
+   You do. Mrs Moog uses it to lever herself to her feet.
+   "Oh my, this heat stroke," she says. "It'll be the death of me. Why, it
+reminds me of the time..."
+   You grunt.
+   Mrs Moog sighs. "Very well. Let's get to the nuclear reactor then."
+
+[MORE]
+
+The rest of the day is spent doing little more than watching.
+   You and Mrs Moog, along with Sergeant Twiddles and his cat (and several
+dozen soldiers), drive at frantic speed through the streets until you arrive
+at the nuclear power station. Twice you are forced to stop while kittens
+cross the road ("no, we shall not run them over, you beastly man!" Mrs Moog
+says at one point. "I know we're in a hurry but if we're going to start
+running down poor harmless animals because we're in a hurry, then the world
+deserves to be blown up!)
+   But you arrive at the nuclear power station eventually. Mrs Moog is helped
+out of the car and then into the building. She takes one look at the mess her
+assistants have made and emits the deepest sigh you have ever heard.
+
+[MORE]
+
+"Young man," she says to you, "be a dear and fetch me that broom will you?"
+   You fetch it her.
+   "Winston," she says to one of her assistants. "Come here."
+   Winston, nervously, takes a step towards her.
+   "Closer, Winston," says Mrs Moog. "I'm an old woman and my voice isn't as
+strong as it used to be."
+   Winston takes another step closer.
+   "Oh, do hurry up, Winston!" Mrs Moog snaps. "We don't have all day."
+   Winston takes another step-
+   And Mrs Moog snatches the broom off you and whacks him over the head with
+it!
+   Several times!
+   "And the next time, Winston," says Mrs Moog, pausing for breath between
+whacking the now unconscious Winston, "you go messing around with my nuclear
+bomb project after I've expressly told you not to, you shall be a very sorry
+young man and no mistake."
+
+[MORE]
+
+Sergeant Twiddles clear his throat. "While I'm all for disciplining the men,
+Mrs Moog," he says, gesturing to the clock on the wall. "I do think you might
+need to hurry-"
+   You look over at the clock. It reads:
+
+00.10 until detonation
+
+"Oh, fiddlesticks," says Mrs Moog. "Ten seconds?"
+
+00.09 until detonation
+
+"That's nine seconds now, Mrs Moog," says Twiddles. "Perhaps you could-"
+
+00.08 until detonation
+
+"-hurry things up just a-"
+
+[MORE]
+
+00.07 until detonation
+
+"-bitifyou'dbesokind."
+
+00.06 until detonation
+
+Mrs Moog sighs again and then begins to hobble over to a table in the corner
+of the room.
+
+00.05 until detonation
+
+You consider rushing over and helping her along but realise she'd probably
+take it as an improper advance and you don't have time to grunt your way to
+an explanation right now.
+
+00.04 until detonation
+
+Mrs Moog reaches the table.
+
+00.03 until detonation
+
+"Oh, Winston," she says, "you really have left things in such an untidy
+mess."
+
+00.02 until detonation
+
+"Mrs Moog!" cries Twiddles. "Please - do something!"
+
+[MORE]
+
+00.01 until detonation
+
+Mrs Moog leans over the table and pulls the plug out.
+
+detonation cancelled
+
+Everyone in the room, aside from Mrs Moog of course, lets out a long and deep
+breath. Sergeant Twiddles actually collapses on his knees and starts kissing
+the floor.
+   "Now," says Mrs Moog, "high time I did some shopping. The pantry is
+absolutely barren."
+   You start to grunt something but realise that, this time, words will
+probably serve you better.
+   "You unplugged it and that stopped the meltdown?"
+   Mrs Moog nods. "Oh yes. That was a failsafe I put in just in case Winston
+here got any ideas about trying to pay back his Russian college friends for
+the time they dunked him in the fountain."
+   "But..." Words fail you often but this time you have good reason. "But why
+didn't you just tell me that back at the cottage? Why come all the way here
+to pull the plug out? We stopped for kittens and-"
+
+[MORE]
+
+"Because I needed to do some shopping," says Mrs Moog. "And my dear husband
+Henry... well, since his vampire problem became more pronounced he doesn't
+get out much so I needed someone to drive me. And..." She looks you up and
+down. "Yes, you'll do."
+   You grunt.
+   "To the local supermarket at the double, young man. There's a shopping
+trolley with your name on it."
+
+[MORE]
+
+You achieved a grand total of 100 out of 100, the best possible score in the
+game. You also finish off with the rank of The Bulldog. Truly, you've
+excelled yourself in terms of sheer excellence as far as this game is
+concerned.
+
+Did you do it all on your own without checking out the hints or asking anyone
+for help? If so, well done. If not... well, well done anyway. Getting 100 out
+of 100 is a remarkable achievement in its own right.
+
+And, best of all, you get to discover that the password to the game is
+bulldog so you can open it up in the Generator and have a look at how it was
+all put together.
+
+[MORE]
+
+You're at home. This is a fairly unremarkable room in that there's actually
+nothing here aside from you.
+
+You seem to have reached the end of the game and a number of options now
+present themselves to you.
+
+LOAD or RESTORE: to play the game again from a previously saved game position
+(assuming you have one).
+
+RESTART: to play the game again from the start. A Spot Of Bother is a pretty
+big game and if your finishing score was less than 100, you've probably
+missed out a good portion of it. And if you get 100, you'll know the password
+to the game so you can take a little look and see how it was all put
+together.
+
+>Do you really want to quit? [Y/N]

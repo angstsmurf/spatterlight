@@ -1,0 +1,89 @@
+get rock
+kill beast with rock
+x creature
+get ring
+x left hand
+x gem
+x note
+search clearing
+north
+east
+south
+east
+down
+x skeleton
+get sword
+up
+north
+north
+west
+x weeds
+get pouch
+west
+north
+east
+x deadfall
+down
+kill snake with sword
+open pouch
+get snake
+put snake in pouch
+south
+x debris
+get cloth
+x cloth
+north
+up
+west
+south
+east
+east
+north
+x pillar
+east
+east
+x door
+x panel
+press y
+press a
+press h
+east
+give ring to watcher
+north
+north
+get paperweight
+east
+x woman
+kiss aphrodite
+get key
+xyzzy
+south
+x temple
+unlock door
+east
+throw pouch in pool
+east
+down
+east
+south
+x dome
+up
+drop all but sword
+east
+north
+west
+north
+cut membrane with sword
+south
+east
+south
+west
+get paperweight
+jump
+Any donation would be much appreciated
+to help keep the site online and growing.
+To help make your donation quicker and
+easier just click the "Donate" button and you will be taken to the
+secure Paypal donation page.
+Home  |
+About Me
