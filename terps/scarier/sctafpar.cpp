@@ -287,7 +287,8 @@ static const scr_parse_schema_t V380_PARSE_SCHEMA[] = {
    " BTaskNotDone $AltDesc ?BStatic:<ROOM_LIST1>Where #SurfaceContainer"
    " FSurface ?#SurfaceContainer=2:TSurface FContainer"
    " ?#SurfaceContainer=1:TContainer #Capacity |V380_OBJECT:#Capacity*10+2|"
-   " ?!BStatic:BWearable,#SizeWeight,#Parent ?BStatic:{OBJECT:#Parent}"
+   " ?!BStatic:BWearable,#SizeWeight,|V380_OBJECT:_SizeWeight_|,#Parent"
+   " ?BStatic:{OBJECT:#Parent}"
    " #Openable |V380_OBJECT:_Openable_,Key| #SitLie ?!BStatic:BEdible BReadable"
    " ?BReadable:$ReadText ?!BStatic:BWeapon ZCurrentState FListFlag"
    " EInRoomDesc ZOnlyWhenNotMoved"},
@@ -330,6 +331,105 @@ static const scr_parse_schema_t V380_PARSE_SCHEMA[] = {
   {NULL, NULL}
 };
 
+/*
+ * Version 3.7 TAF file properties descriptor table.
+ *
+ * A version 3.7 file is a version 3.8 file in all but four places, all of them
+ * settled by parsing the only two version 3.7 games known to survive (arlo.taf
+ * and castle.taf; see adrift-walkthroughs/ADRIFT_370.md).  Both parse to
+ * exactly end-of-file under this schema.
+ *
+ *   o The header carries one extra integer after the win text, the index of
+ *     the task that wins the game (0-based).  Version 3.8 replaced it with a
+ *     per-task BWinGame flag, which is why the flag is missing from the task
+ *     record below -- see |V370_TASK:_WinTask_|.
+ *
+ *   o A task movement is a pair, not a triple: version 3.7 has a single flat
+ *     destination list where 3.8 has separate "where" and "how" fields, so
+ *     there is no Var3 -- see parse_fixup_v370_movement().
+ *
+ *   o Where version 3.8 has a general synonyms table, version 3.7 has a fixed
+ *     block of seventeen strings, the (renameable) words for its built-in
+ *     commands -- see |V370_GLOBAL:_Synonyms_|.
+ *
+ *   o Room exit, object and NPC records are byte-for-byte the version 3.8
+ *     ones, so they share its fixups, and with them its pooled burden model
+ *     (see obj_get_burden()).  The one semantic difference is that an object
+ *     cannot start out on an NPC, so its #Parent is ignored when it starts
+ *     held or worn -- see |V370_OBJECT:_InitialPositions_|.
+ *
+ * All four, and the burden model, were then confirmed against the genuine
+ * 3.70 Runner (run370.exe under Wine); see RUNNER_TESTS_TODO.md.
+ */
+static const scr_parse_schema_t V370_PARSE_SCHEMA[] = {
+  {"_GAME_",
+   "<HEADER>Header <GLOBAL>Globals V<ROOM>Rooms V<OBJECT>Objects V<TASK>Tasks"
+   " V<EVENT>Events V<NPC>NPCs V<ROOM_GROUP>RoomGroups"
+   " [17]<COMMAND>Commands FCustomFont $CompileDate sPassword"
+   " |V380_GLOBAL:_MaxScore_| |V370_OBJECT:_InitialPositions_|"
+   " |V370_GLOBAL:_Synonyms_| |V370_TASK:_WinTask_|"},
+  {"HEADER",
+   "MStartupText #StartRoom MWinText #WinTask"},
+  {"GLOBAL",
+   "$GameName $GameAuthor #MaxCarried |V380_MaxSize_MaxWt_| $DontUnderstand"
+   " #Perspective BShowExits #WaitTurns FDispFirstRoom FBattleSystem"
+   " EPlayerName FPromptName EPlayerDesc ZTask ZPosition ZParentObject"
+   " ZPlayerGender FEightPointCompass TNoScoreNotify FSound FGraphics"
+   " FStatusBox EStatusBoxText FEmbedded"},
+  {"ROOM",
+   "$Short $Long $LastDesc [8]<ROOM_EXIT>Exits $AddDesc1 #Task1 $AddDesc2"
+   " #Task2 #Obj $AltDesc #TypeHideObjects |V380_ROOM:_Alts_|"},
+  {"ROOM_EXIT",
+   "{V390_V380_ROOM_EXIT:#Dest_#Var1_#Var2_ZVar3}"},
+  {"OBJECT",
+   "$Prefix $Short [1]$Alias BStatic $Description #InitialPosition #Task"
+   " BTaskNotDone $AltDesc ?BStatic:<ROOM_LIST1>Where #SurfaceContainer"
+   " FSurface ?#SurfaceContainer=2:TSurface FContainer"
+   " ?#SurfaceContainer=1:TContainer #Capacity |V380_OBJECT:#Capacity*10+2|"
+   " ?!BStatic:BWearable,#SizeWeight,|V380_OBJECT:_SizeWeight_|,#Parent"
+   " ?BStatic:{OBJECT:#Parent}"
+   " #Openable |V380_OBJECT:_Openable_,Key| #SitLie ?!BStatic:BEdible BReadable"
+   " ?BReadable:$ReadText ?!BStatic:BWeapon ZCurrentState FListFlag"
+   " EInRoomDesc ZOnlyWhenNotMoved"},
+  {"ROOM_LIST1",
+   "#Type {ROOM_LIST1}"},
+  {"TASK",
+   "W$Command $CompleteText $ReverseMessage $RepeatText $AdditionalMessage"
+   " #ShowRoomDesc BRepeatable #Score BSingleScore [6]<TASK_MOVE>Movements"
+   " BReversible W$ReverseCommand #WearObj1 #WearObj2 #HoldObj1 #HoldObj2"
+   " #HoldObj3 #Obj1 #Task BTaskNotDone $TaskMsg $HoldMsg $WearMsg $CompanyMsg"
+   " BNotInSameRoom #NPC $Obj1Msg #Obj1Room <ROOM_LIST0>Where BKillsPlayer"
+   " BHoldingSameRoom $Question ?$Question:$Hint1,$Hint2 #Obj2"
+   " ?!#Obj2=0:#Obj2Var1,#Obj2Var2,$Obj2Msg |V370_TASK:_Actions_|"
+   " |V380_TASK:_Restrictions_|"},
+  {"TASK_MOVE",
+   "#Var1 #Var2"},
+  {"ROOM_LIST0",
+   "#Type {ROOM_LIST0}"},
+  {"EVENT",
+   "$Short #StarterType ?#StarterType=2:#StartTime,#EndTime"
+   " ?#StarterType=3:#TaskNum #RestartType BTaskFinished #Time1 #Time2"
+   " $StartText $LookText $FinishText <ROOM_LIST0>Where #PauseTask"
+   " BPauserCompleted #PrefTime1 $PrefText1 #ResumeTask BResumerCompleted"
+   " #PrefTime2 $PrefText2 #Obj2 #Obj2Dest #Obj3 #Obj3Dest #Obj1 #Obj1Dest"
+   " #TaskAffected"},
+  {"NPC",
+   "$Name $Prefix [1]$Alias $Descr #StartRoom $AltText #Task V<TOPIC>Topics"
+   " V<WALK>Walks BShowEnterExit ?BShowEnterExit:$EnterText,$ExitText"
+   " $InRoomText ZGender"},
+  {"TOPIC",
+   "$Subject $Reply #Task $AltReply"},
+  {"WALK",
+   "#NumStops BLoop #StartTask #CharTask #MeetObject"
+   " ?!#MeetObject=0:|V380_WALK:_MeetObject_| #ObjectTask ZMeetChar"
+   " {WALK:#Rooms_#Times} ZStoppingTask EChangedDesc"},
+  {"ROOM_GROUP",
+   "$Name {ROOM_GROUP:[]BList}"},
+  {"COMMAND",
+   "$Word"},
+  {NULL, NULL}
+};
+
 
 /*
  * parse_select_schema()
@@ -348,6 +448,8 @@ parse_select_schema (scr_tafref_t taf)
       return V390_PARSE_SCHEMA;
     case TAF_VERSION_380:
       return V380_PARSE_SCHEMA;
+    case TAF_VERSION_370:
+      return V370_PARSE_SCHEMA;
     default:
       scr_fatal ("parse_select_schema: invalid TAF file version\n");
       return NULL;
@@ -462,7 +564,8 @@ parse_stack_backtrace (void)
   scr_error ("parse_stack_backtrace: version %s schema parsed to depth %ld\n",
             (parse_schema == V400_PARSE_SCHEMA) ? "4.00" :
             (parse_schema == V390_PARSE_SCHEMA) ? "3.90" :
-            (parse_schema == V380_PARSE_SCHEMA) ? "3.80" : "[Invalid]",
+            (parse_schema == V380_PARSE_SCHEMA) ? "3.80" :
+            (parse_schema == V370_PARSE_SCHEMA) ? "3.70" : "[Invalid]",
             depth);
 
   scr_error ("parse_stack_backtrace: parse stack backtrace follows...\n");
@@ -1166,6 +1269,7 @@ parse_read_multiline (void)
       separator = V390_SEPARATOR;
       break;
     case TAF_VERSION_380:
+    case TAF_VERSION_370:
       separator = V380_SEPARATOR;
       break;
     default:
@@ -2019,6 +2123,40 @@ enum { V380_OBJ_CAPACITY_MULT = 10, V380_OBJ_DEFAULT_SIZE = 2 };
 enum { V380_TASK_MOVEMENTS = 6 };
 
 /*
+ * Version 3.8 stores a single "Size/weight" class index, 0..4, per object;
+ * it is not the version 4.0 packing of size in the tens digit and weight in
+ * the units.  Read raw, class 2 becomes weight 3^2*... and class 4 weight
+ * 3^4 = 81, which silently exceeds most games' carrying limits, so it cannot
+ * be handed to the version 4.0 model as it stands.
+ *
+ * ADRIFT Generator 3.90 converts the class -- diffing our parse of
+ * marooned.taf against a gen390 conversion of the same file gives its exact
+ * table:
+ *
+ *   0 normal     -> 22    3 large       -> 32
+ *   1 heavy      -> 23    4 very large  -> 42
+ *   2 very heavy -> 24
+ *
+ * That table is directionally right and wrong by one step, and the genuine
+ * run380.exe says why (measured 2026-08-03 with patched probe files, in the
+ * adrift-battle Wine prefix).  Version 3.8 has no size axis and no weight
+ * axis: it has ONE pooled burden, whose per-class costs are 1/3/7/3/7, and
+ * the player's capacity is exactly #MaxCarried.  A 4.0 packed base^digit
+ * value cannot express a cost of 7, so gen390 rounds the top class up to
+ * 3^2 = 9, which is what makes converted 3.8 games stop being finishable.
+ *
+ * So the class is kept, verbatim, in its own SizeWeightClass key, and the
+ * burden model that reads it lives in scobjcts.cpp with the rest of the
+ * carrying arithmetic -- see obj_get_burden().  What goes into SizeWeight
+ * itself is the 4.0 "normal" 22, which is not a claim about the object: it
+ * keeps a 3.8 game's *container* volumes the plain object counts the
+ * neighbouring Capacity*10+2 fixup makes them (the pooled burden is a strictly
+ * tighter limit on the player, so it subsumes the size axis it leaves behind).
+ * How 3.8 containers really charge for their contents has not been measured.
+ */
+enum { V380_OBJ_NORMAL_SIZEWEIGHT = 22 };
+
+/*
  * parse_fixup_v380_entry()
  * parse_fixup_v380_action()
  *
@@ -2429,6 +2567,18 @@ parse_fixup_v380 (const scr_char *fixup)
     }
 
   /*
+   * Keep the 3.8 size/weight class in its own key for the burden model, and
+   * hand the version 4.0 fields a "normal" object (see the note on
+   * V380_OBJ_NORMAL_SIZEWEIGHT above).
+   */
+  else if (strcmp (fixup, "|V380_OBJECT:_SizeWeight_|") == 0)
+    {
+      parse_put_keyed_integer ("SizeWeightClass",
+                               parse_get_keyed_integer ("SizeWeight"));
+      parse_put_keyed_integer ("SizeWeight", V380_OBJ_NORMAL_SIZEWEIGHT);
+    }
+
+  /*
    * Exchange openable values 5 and 6, watch for a possible 1 from a 3.8 game
    * (interpret as 0), and write -1 key for openable objects.
    */
@@ -2533,15 +2683,31 @@ parse_fixup_v380 (const scr_char *fixup)
   /*
    * Adjust dynamic object initial positions and parents (where contained
    * or on surfaces) into version 4.0 range.
+   *
+   * Version 3.7 shares this code.  Its position list is the same one --
+   * hidden, held by the player, inside or on the parent object, the rooms,
+   * then worn -- but it stops there, with no way to start an object on an
+   * NPC, so its Parent is meaningless for the held and worn entries and is
+   * forced to the player below.  Measured in the real Runners: run370 gives
+   * castle.taf's sweatshirt to the player whatever Parent says, and run380
+   * gives tra.taf's red sox hat (Parent 0) and loose change (Parent -1) both
+   * to the player, so version 3.8's holder is one-based with zero -- or the
+   * unset -1 that fills most files -- meaning the player.
    */
-  else if (strcmp (fixup, "|V380_OBJECT:_InitialPositions_|") == 0)
+  else if (strcmp (fixup, "|V380_OBJECT:_InitialPositions_|") == 0
+           || strcmp (fixup, "|V370_OBJECT:_InitialPositions_|") == 0)
     {
+      const scr_bool is_v370 =
+          (strcmp (fixup, "|V370_OBJECT:_InitialPositions_|") == 0);
       scr_vartype_t vt_key[3];
-      scr_int object_count, object;
+      scr_int object_count, object, room_count;
 
-      /* Get a count of objects. */
+      /* Get a count of objects, and of rooms for the "worn" entry. */
       vt_key[0].string = "Objects";
       object_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+      vt_key[0].string = "Rooms";
+      room_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+      vt_key[0].string = "Objects";
 
       /*
        * Build an array of object container/surface types.  A std::vector
@@ -2578,6 +2744,23 @@ parse_fixup_v380 (const scr_char *fixup)
             {
               vt_value.integer = initialposition + 1;
               prop_put (parse_bundle, "I->sis", vt_value, vt_key);
+            }
+
+          /*
+           * If held or worn, put the holder into version 4.0 range: zero is
+           * the player there too, but an unset -1 is not, and version 3.7
+           * has no holder at all.
+           */
+          if (initialposition == 1 || initialposition == 3 + room_count)
+            {
+              vt_key[2].string = "Parent";
+              if (is_v370 || prop_get_integer (parse_bundle,
+                                               "I<-sis", vt_key) < 0)
+                {
+                  vt_value.integer = 0;
+                  prop_put (parse_bundle, "I->sis", vt_value, vt_key);
+                }
+              vt_key[2].string = "InitialPosition";
             }
 
           /*
@@ -2628,7 +2811,13 @@ parse_fixup_v380 (const scr_char *fixup)
         }
     }
 
-  /* Convert carry limit into version 4.0-like size and weight limits. */
+  /*
+   * Turn on the 3.8 pooled burden model, and convert the carry limit into
+   * version 4.0-like size and weight limits as well.  The burden limit is
+   * #MaxCarried itself; the 4.0-shaped pair is what the save serialiser and
+   * the container arithmetic still read (and, being an object count against
+   * normalised objects, it can never bind before the burden does).
+   */
   else if (strcmp (fixup, "|V380_MaxSize_MaxWt_|") == 0)
     {
       scr_int limit;
@@ -2638,6 +2827,7 @@ parse_fixup_v380 (const scr_char *fixup)
 
       parse_put_keyed_integer ("MaxSize", limit);
       parse_put_keyed_integer ("MaxWt", limit);
+      parse_put_keyed_integer ("BurdenModel", TRUE);
     }
 
   /* Add up positive scoring tasks to arrive at max score. */
@@ -2694,7 +2884,15 @@ parse_fixup_v380 (const scr_char *fixup)
         }
       object--;
 
-      parse_put_keyed_integer ("MeetObject", object);
+      /*
+       * Store the global index one-based: the runtime reads MeetObject and
+       * subtracts one from it (the version 3.9 and 4.0 schemas hold a
+       * one-based dynamic index), so writing a zero-based value here would
+       * leave the walk's ObjectTask watching the preceding object.  In
+       * "House of the Damned" that made the game unwinnable -- the zombie
+       * meeting the whisky bottle in the laboratory is what wins it.
+       */
+      parse_put_keyed_integer ("MeetObject", object + 1);
     }
 
   /* Convert version 3.8 room data into a version 4.0 alts array. */
@@ -2711,6 +2909,231 @@ parse_fixup_v380 (const scr_char *fixup)
 
   if (parse_trace)
     scr_trace ("Parse: leaving version 3.8 fixup %s\n", fixup);
+}
+
+
+/*
+ * The seventeen built-in commands that a version 3.7 game stores, in file
+ * order, with the words ADRIFT 3.7 itself uses for them.  The block is the
+ * whole of version 3.7's synonym support -- "basic synonyms ... for common
+ * commands", added in Adventure Generator 3.31 -- and an author may rewrite
+ * any entry: arlo.taf has "look at" where castle.taf has the standard
+ * "examine".  A rewritten entry becomes a version 4.0 synonym that maps the
+ * author's word back onto the standard one, which is what the library
+ * commands answer to.
+ */
+static const scr_char *const V370_COMMANDS[] = {
+  "north", "east", "south", "west", "up", "down", "in", "out",
+  "look", "inventory", "examine", "pick up", "put down", "wear",
+  "remove", "goto", "help"
+};
+enum { V370_COMMANDS_SIZE = sizeof (V370_COMMANDS) / sizeof (V370_COMMANDS[0]) };
+
+
+/*
+ * parse_fixup_v370_movement()
+ *
+ * Helper for parse_fixup_v370(), converts a version 3.7 task movement into a
+ * version 3.8 one, then hands it to the version 3.8 conversion.
+ *
+ * Version 3.8 splits a movement destination into "where" (Var2) and "how"
+ * (Var3, one of to room / to inside / to onto / to held by / to worn by).
+ * Version 3.7 has neither: it has one flat destination list per movement,
+ * whose first three entries are hidden, held by the player, and the player's
+ * room, and whose remaining entries are the rooms.  That is exactly the
+ * version 3.8 list with "held by the player" spliced in at index 1, so
+ * everything from index 2 up converts by subtracting one, and the two games
+ * agree -- castle.taf teleports the player to Var2 22 with twenty rooms
+ * (22 - 3 = 19, its treasure room), and arlo.taf tips its garbage into Var2 13
+ * with thirty-seven (13 - 3 = 10, its fifteen foot cliff).
+ *
+ * The list was then measured directly, by handing the genuine 3.70 Runner a
+ * castle.taf whose task moves two objects from a distant room to each Var2 in
+ * turn: 0 removed them from play, 1 put them into the player's inventory, 2
+ * dropped them where the player stood, and 3+n placed them in room n.  Nothing
+ * in the list moves an object onto an NPC or into a container, which is why
+ * only version 3.8's "to room" and "held by" conversions are needed here.
+ */
+static void
+parse_fixup_v370_movement (scr_int mvar1, scr_int mvar2)
+{
+  /* If nothing was selected to move, ignore the call. */
+  if (mvar1 == 0)
+    return;
+
+  /*
+   * Moving the player is the one case where the low destinations mean nothing
+   * (the player cannot be held or hidden); the version 3.8 conversion ignores
+   * them for us, since they all convert to below its own first room.
+   */
+  if (mvar1 == 1)
+    {
+      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0);
+      return;
+    }
+
+  switch (mvar2)
+    {
+    case 0:                    /* Hidden */
+      parse_fixup_v380_movement (mvar1, 0, 0);
+      break;
+
+    case 1:                    /* Held by the player */
+      /* Version 3.8's "held by" passes Var2 straight through as the holder,
+         and there zero is the player (one is the referenced character).  */
+      parse_fixup_v380_movement (mvar1, 0, 3);
+      break;
+
+    default:                   /* Player's room, or a room */
+      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0);
+      break;
+    }
+}
+
+
+/*
+ * parse_fixup_v370()
+ *
+ * Handler for fixup special items in version 3.7 files.  Version 3.7 is
+ * version 3.8 in all but the few places listed at V370_PARSE_SCHEMA, so
+ * anything not handled here is a version 3.8 fixup.
+ */
+static void
+parse_fixup_v370 (const scr_char *fixup)
+{
+  if (parse_trace)
+    scr_trace ("Parse: entering version 3.7 fixup %s\n", fixup);
+
+  /*
+   * Create version 4.0 task actions from a version 3.7 task.  As version 3.8,
+   * except that movements are pairs, and that a task cannot win the game on
+   * its own account -- the winning task is named once, in the header.
+   */
+  if (strcmp (fixup, "|V370_TASK:_Actions_|") == 0)
+    {
+      scr_vartype_t vt_key;
+      scr_int score, movement;
+
+      /* Create any appropriate score change action. */
+      score = parse_get_keyed_integer ("Score");
+      if (score != 0)
+        parse_fixup_v380_action (4, 1, score, 0, 0);
+
+      /* Create any appropriate game ending action. */
+      if (parse_get_keyed_boolean ("KillsPlayer"))
+        parse_fixup_v380_action (6, 1, 2, 0, 0);
+
+      /* Handle each defined movement for the task. */
+      for (movement = 0; movement < V380_TASK_MOVEMENTS; movement++)
+        {
+          scr_int mvar1, mvar2;
+
+          vt_key.integer = movement;
+          parse_push_key (vt_key, PROP_KEY_INTEGER);
+          vt_key.string = "Movements";
+          parse_push_key (vt_key, PROP_KEY_STRING);
+
+          /* Retrieve the movement parameters. */
+          mvar1 = parse_get_keyed_integer ("Var1");
+          mvar2 = parse_get_keyed_integer ("Var2");
+
+          parse_pop_key ();
+          parse_pop_key ();
+
+          /* Create the corresponding task action. */
+          parse_fixup_v370_movement (mvar1, mvar2);
+        }
+    }
+
+  /*
+   * Turn any renamed built-in command into a version 4.0 synonym.  Commands
+   * left at their standard word need none.
+   */
+  else if (strcmp (fixup, "|V370_GLOBAL:_Synonyms_|") == 0)
+    {
+      scr_vartype_t vt_key[3], vt_value;
+      scr_int command_count, command, synonyms;
+
+      /* Get a count of stored commands. */
+      vt_key[0].string = "Commands";
+      command_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+
+      synonyms = 0;
+      for (command = 0;
+           command < command_count && command < V370_COMMANDS_SIZE; command++)
+        {
+          const scr_char *word;
+
+          vt_key[0].string = "Commands";
+          vt_key[1].integer = command;
+          vt_key[2].string = "Word";
+          word = prop_get_string (parse_bundle, "S<-sis", vt_key);
+
+          /* Ignore an unset or unchanged command word. */
+          if (!word || word[0] == NUL
+              || strcmp (word, V370_COMMANDS[command]) == 0)
+            continue;
+
+          /* Rewrite the author's word back into the standard one. */
+          vt_key[0].string = "Synonyms";
+          vt_key[1].integer = synonyms;
+          vt_key[2].string = "Original";
+          vt_value.string = word;
+          prop_put (parse_bundle, "S->sis", vt_value, vt_key);
+          vt_key[2].string = "Replacement";
+          vt_value.string = V370_COMMANDS[command];
+          prop_put (parse_bundle, "S->sis", vt_value, vt_key);
+
+          synonyms++;
+        }
+
+      if (parse_trace)
+        scr_trace ("Parse: 3.7 renamed commands, %ld\n", synonyms);
+    }
+
+  /*
+   * Give the game's winning task the "end game, win" action that version 3.8
+   * would have carried in the task itself.  The header holds a plain 0-based
+   * task index; anything outside the tasks is taken as "no winning task".
+   */
+  else if (strcmp (fixup, "|V370_TASK:_WinTask_|") == 0)
+    {
+      scr_vartype_t vt_key[2], vt_push;
+      scr_int wintask, task_count;
+
+      vt_key[0].string = "Header";
+      vt_key[1].string = "WinTask";
+      wintask = prop_get_integer (parse_bundle, "I<-ss", vt_key);
+
+      vt_key[0].string = "Tasks";
+      task_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+
+      if (wintask >= 0 && wintask < task_count)
+        {
+          /* Key the task, reversed as parse actions leave the stack. */
+          vt_push.integer = wintask;
+          parse_push_key (vt_push, PROP_KEY_INTEGER);
+          vt_push.string = "Tasks";
+          parse_push_key (vt_push, PROP_KEY_STRING);
+
+          parse_fixup_v380_action (6, 1, 0, 0, 0);
+
+          parse_pop_key ();
+          parse_pop_key ();
+
+          if (parse_trace)
+            scr_trace ("Parse: 3.7 winning task is %ld\n", wintask);
+        }
+      else if (parse_trace)
+        scr_trace ("Parse: 3.7 game has no winning task\n");
+    }
+
+  /* Anything else is a version 3.8 fixup. */
+  else
+    parse_fixup_v380 (fixup);
+
+  if (parse_trace)
+    scr_trace ("Parse: leaving version 3.7 fixup %s\n", fixup);
 }
 
 
@@ -2779,6 +3202,9 @@ parse_fixup (const scr_char *fixup)
       break;
     case TAF_VERSION_380:
       parse_fixup_v380 (fixup);
+      break;
+    case TAF_VERSION_370:
+      parse_fixup_v370 (fixup);
       break;
     default:
       scr_fatal ("parse_fixup: invalid TAF file version\n");
@@ -3151,6 +3577,9 @@ parse_add_version (scr_prop_setref_t bundle, scr_tafref_t taf)
       break;
     case TAF_VERSION_380:
       vt_value.string = "3.80";
+      break;
+    case TAF_VERSION_370:
+      vt_value.string = "3.70";
       break;
     default:
       scr_error ("parse_add_version_string: invalid TAF file version\n");

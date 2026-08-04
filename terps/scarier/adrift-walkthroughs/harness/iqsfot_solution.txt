@@ -1,0 +1,179 @@
+play
+no
+no
+x shelf
+deploy
+x glasses
+take it
+take it
+deploy
+out
+port
+forward
+no
+x flight panel
+get flight sheet
+read flight sheet
+press green
+press blue
+open cover
+flick switch
+give flight sheet to captain
+aft
+starboard
+starboard
+open compartment
+get papyr
+read papyr
+press 3142
+x locker
+get pack
+wear pack
+port
+port
+port
+aft
+port
+get coat
+put coat in pack
+close pack
+starboard
+forward
+down
+e
+s
+x brook
+get fish from brook
+n
+e
+s
+get traglenip
+n
+challenge grastor
+y
+drop traglenip
+retreat
+s
+w
+w
+s
+s
+s
+e
+s
+s
+push crate n
+push crate n
+push crate w
+climb crate
+deploy
+get pack
+get it
+deploy
+get coat
+e
+give coat to drash
+e
+e
+in
+yes
+punch dummy
+kick dummy
+sweep him
+throw him
+w
+w
+w
+n
+n
+punch grastor
+kick grastor
+throw grastor
+claw
+breathe
+s
+s
+w
+u
+s
+d
+s
+give flower to smitty
+forward
+get hairball
+port
+up
+port
+down
+e
+n
+n
+w
+x keypad
+press 98843
+in
+punch sentinel
+n
+punch sentry
+n
+sweep guard
+sweep patrol
+throw patrol
+e
+punch soldier
+s
+s
+punch sentry
+s
+e
+x crates
+deploy
+get key
+get key
+deploy
+kick guard
+throw patrol
+throw soldier
+punch sentry
+throw patrol
+w
+n
+n
+n
+n
+sweep patrol
+sweep patrol
+punch sentry
+throw soldier
+kick guard
+kick guard
+w
+n
+w
+unlock door
+claw elite
+punch sentry
+sweep patrol
+sweep patrol
+kick guard
+throw soldier
+w
+teach fan karate
+give jacket to fan
+ask for help
+w
+x fat cat
+x top hat
+x end table
+x mirror
+deploy
+get mirror
+look
+get mirror
+n
+x reservoir
+get drowsy fish
+get tranquil fish
+s
+e
+o

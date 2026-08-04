@@ -1127,13 +1127,29 @@ uip_match_optional (scr_ptnoderef_t node)
 
   /*
    * If the temporary matched and consumed text, rewind position to match
-   * nothing.  If it didn't, match alternatives to consume anything that may
-   * match our options.
+   * nothing.  If it didn't, rewind anyway -- a failed look-ahead may still
+   * have advanced the position, since uip_match_list() has no backtracking of
+   * its own -- and then match alternatives to consume anything that may match
+   * our options.
+   *
+   * The rewind before uip_match_alternatives() matters whenever an option is
+   * a prefix of the word actually in the input.  Monsters (Release 2) has
+   * "shine {the} [flashlight/light] {on} {the} {brainsucker} {brain}
+   * {monster}": against "shine flashlight on the brainsucker" the look-ahead
+   * from {brainsucker} lets {brain} eat the first five letters of
+   * "brainsucker" (uip_match_word() is a prefix compare with no word-boundary
+   * check), then fails on the trailing "sucker".  Without the rewind the
+   * alternatives are tried at "sucker", {brainsucker} matches nothing, and
+   * the whole pattern dies -- which lost the game its brainsucker task even
+   * though the author's own published transcript shows the command working.
    */
   if (matched && uip_posn > start_posn)
     uip_posn = start_posn;
   else
-    uip_match_alternatives (node);
+    {
+      uip_posn = start_posn;
+      uip_match_alternatives (node);
+    }
 
   /* Return TRUE no matter what. */
   return TRUE;
@@ -1408,10 +1424,9 @@ uip_compare_reference (const scr_char *words)
  */
 typedef struct
 {
-  std::string prefixed;    /* "prefix name", exactly as composed before */
+  std::vector<std::string> forms;  /* every string this candidate answers to */
   const scr_char *plain;   /* interned name string from the bundle */
-  scr_char lead_prefixed;  /* uip_lead_char() of the strings above... */
-  scr_char lead_plain;     /* ... valid under the game's locale */
+  std::string leads;       /* uip_lead_char() of each form, in form order */
 } scr_uip_candidate_t;
 
 typedef struct
@@ -1440,19 +1455,53 @@ uip_lead_char (const scr_char *string)
  * uip_build_candidate()
  *
  * Fill in one match candidate from a prefix and a name.
+ *
+ * The forms are "prefix name", then that same string with the prefix's
+ * leading words dropped one at a time, and finally the bare name.  Dropping
+ * prefix words is what lets the real Runner answer to a partial prefix:
+ * Monsters (Release 2) has Prefix "Sissy's four poster" on Short "bed", and
+ * the author's own published transcript shows "examine the four poster bed"
+ * returning the object's description.  Matching only the whole prefix or the
+ * bare noun -- as this did before -- turned any such line into "I see no such
+ * thing".  Only prefix words are droppable; the name itself is never cut
+ * down, so a two-word Short still has to be given in full.
  */
 static void
 uip_build_candidate (scr_uip_candidate_t *candidate,
                      const scr_char *prefix, const scr_char *name)
 {
+  std::string composed;
+  size_t word;
+
   /* Compose "prefix name" as the old per-call sprintf ("%s %s") did. */
-  candidate->prefixed.assign (prefix);
-  candidate->prefixed.append (1, ' ');
-  candidate->prefixed.append (name);
+  composed.assign (prefix);
+  composed.append (1, ' ');
+  composed.append (name);
+
+  candidate->forms.clear ();
+  candidate->forms.push_back (composed);
+
+  /*
+   * Add one form per remaining prefix word boundary.  Walk only as far as the
+   * prefix extends -- past that we would be eating into the name.
+   */
+  for (word = 0; word < strlen (prefix); word++)
+    {
+      if (!scr_isspace (composed[word]) || scr_isspace (composed[word + 1]))
+        continue;
+
+      candidate->forms.push_back (composed.substr (word + 1));
+    }
+
+  /* The bare name, unless a wholly empty prefix already made it form 0. */
+  if (candidate->forms.back () != name)
+    candidate->forms.push_back (name);
 
   candidate->plain = name;
-  candidate->lead_prefixed = uip_lead_char (candidate->prefixed.c_str ());
-  candidate->lead_plain = uip_lead_char (name);
+
+  candidate->leads.clear ();
+  for (word = 0; word < candidate->forms.size (); word++)
+    candidate->leads.append (1, uip_lead_char (candidate->forms[word].c_str ()));
 }
 
 /*
@@ -1544,20 +1593,26 @@ uip_forget_game (const void *game)
 /*
  * uip_compare_candidate()
  *
- * Attempt a reference match against a candidate's prefixed name, and if
- * that fails, its plain name (the same order the matchers always used).
- * Returns the extent of the match, or zero if no match.
+ * Attempt a reference match against each of a candidate's forms, longest
+ * first (the fully prefixed name down to the bare one, which is the order
+ * uip_build_candidate() stores them in, and which keeps the longest match
+ * winning as the matchers always assumed).  Returns the extent of the match,
+ * or zero if no match.
  */
 static scr_int
 uip_compare_candidate (const scr_uip_candidate_t &candidate)
 {
-  scr_int extent;
+  size_t form;
 
-  extent = uip_compare_reference (candidate.prefixed.c_str ());
-  if (extent == 0)
-    extent = uip_compare_reference (candidate.plain);
+  for (form = 0; form < candidate.forms.size (); form++)
+    {
+      scr_int extent = uip_compare_reference (candidate.forms[form].c_str ());
 
-  return extent;
+      if (extent > 0)
+        return extent;
+    }
+
+  return 0;
 }
 
 
@@ -1677,8 +1732,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
             scr_trace ("UIParser: trying %s%s\n",
                        alias < 0 ? "" : "alias ", candidate.plain);
 
-          if (input_lead != candidate.lead_prefixed
-              && input_lead != candidate.lead_plain)
+          if (candidate.leads.find (input_lead) == std::string::npos)
             continue;
 
           extent = uip_compare_candidate (candidate);
@@ -2198,11 +2252,13 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
               /*
                * Version 3.8 games lack NPC gender information, so for this
                * case set "him"/"her" on each match, and never set "it"; this
-               * matches the version 3.8 runner.
+               * matches the version 3.8 runner.  Version 3.7 has no gender
+               * field either (its NPC record is version 3.8's), so it takes
+               * the same treatment.
                */
               vt_key[0].string = "Version";
               version = prop_get_integer (bundle, "I<-s", vt_key);
-              if (version == TAF_VERSION_380)
+              if (version <= TAF_VERSION_380)
                 {
                   game->him_npc = npc;
                   game->her_npc = npc;

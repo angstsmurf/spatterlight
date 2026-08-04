@@ -495,6 +495,103 @@ obj_get_player_weight_limit (scr_gameref_t game)
 
 
 /*
+ * The version 3.8 carrying model, which is not the version 4.0 one at all.
+ *
+ * A 3.8 object has a single "Size/weight" class, 0..4, and the player has a
+ * single "MaxCarried".  Measured in the genuine run380.exe (2026-08-03, with
+ * probe files patched through the plaintext of a 3.80 .taf -- see
+ * ~/adrift-battle/runner/wine/README.md), those are one *pooled burden*: each
+ * class costs 1, 3, 7, 3 or 7, the costs of everything held are summed, and
+ * the sum may not exceed MaxCarried.  Pinned at MaxCarried 1, 2, 3, 6, 7 and
+ * 8: at 2 a class-1 or class-3 object is refused and a class-0 accepted, at 3
+ * both go; at 6 Marooned's tires (class 4) are refused, at 7 they are accepted
+ * alone, at 8 tires + map fit and tires + flint + map do not.  Tires (7) and a
+ * class-2 gas can (7) never coexist at any limit, which is what rules out a
+ * separate size axis and weight axis: two axes would have let the two heavy
+ * objects sit one on each.
+ *
+ * The refusal is 3.8's only one -- there is no "too heavy" message.  Crime
+ * Adventure's kettle (class 2 = 7 against MaxCarried 5) is refused with "Your
+ * hands are full." by the real Runner with empty hands, so the pooled check is
+ * the one that speaks and lib_object_too_heavy() stands down (see sclibrar.c).
+ *
+ * Objects that never carried a class -- static objects, and objects a 4.0 or
+ * 3.9 game supplies -- weigh nothing here; obj_uses_burden_model() keeps the
+ * whole model off for anything but a 3.8 game.
+ */
+static const scr_int V380_BURDEN_COST[] = { 1, 3, 7, 3, 7 };
+
+scr_bool
+obj_uses_burden_model (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2], vt_rvalue;
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "BurdenModel";
+  if (!prop_get (bundle, "I<-ss", &vt_rvalue, vt_key))
+    return FALSE;
+
+  return vt_rvalue.integer != 0;
+}
+
+/*
+ * obj_get_burden()
+ *
+ * Return what the given object costs against the player's 3.8 carry limit.
+ * Unlike weight, a container is not charged for what it holds, measured in
+ * run380 2026-08-03: against a MaxCarried of 1, a class-0 box (cost 1) holding
+ * a class-4 object (cost 7) is picked up without complaint, and only the next
+ * cost-1 object is refused.  Charging the contents would have made the box
+ * alone cost 8 and refused everything after it.
+ */
+scr_int
+obj_get_burden (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3], vt_rvalue;
+  scr_int class_, burden;
+
+  if (obj_is_static (game, object))
+    return 0;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "SizeWeightClass";
+  if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key))
+    return 0;
+
+  class_ = vt_rvalue.integer;
+  burden = (class_ >= 0 && class_ < (scr_int) (sizeof (V380_BURDEN_COST)
+                                               / sizeof (V380_BURDEN_COST[0])))
+           ? V380_BURDEN_COST[class_] : V380_BURDEN_COST[0];
+
+  if (obj_trace)
+    scr_trace ("Object: object %ld is class %ld, burden %ld\n",
+               object, class_, burden);
+
+  return burden;
+}
+
+/*
+ * obj_get_player_burden_limit()
+ *
+ * Return the total burden the player can carry: version 3.8's MaxCarried,
+ * used raw.
+ */
+scr_int
+obj_get_player_burden_limit (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "MaxCarried";
+  return prop_get_integer (bundle, "I<-ss", vt_key);
+}
+
+
+/*
  * obj_get_container_capacity()
  * obj_get_container_free_space()
  *
@@ -516,6 +613,15 @@ obj_get_player_weight_limit (scr_gameref_t game)
  * Free space counts the direct contents only.  A container inside a container
  * spends its own size and not a bit more, whatever it happens to be holding --
  * unlike weight, which the Runner sums recursively.
+ *
+ * Version 3.8's Capacity is a plain object count instead, which is why the
+ * V380 fixups normalise every object to a "size" of 22 and store Capacity as
+ * count*10+2: one object then costs exactly one count.  Measured in run380
+ * 2026-08-03 with a Capacity of 2, which swallows a class-4 object and then a
+ * class-1 one, and is filled by two class-0 ones -- so the Size/weight class
+ * is not charged against the container any more than against its carrier.  A
+ * Capacity of 0 is full from the start rather than unlimited.  3.8 has only
+ * the one refusal for all of this, "The box is full." (see sclibrar.c).
  */
 scr_int
 obj_get_container_capacity (scr_gameref_t game, scr_int object)

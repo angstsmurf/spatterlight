@@ -342,7 +342,7 @@ CANS litter the GUTTER.
 
 You can move north and south.
 
->Inside the GUTTER is a TIN CAN and a WHEEL.
+>A TIN CAN and a WHEEL are inside the GUTTER.
 
 >You take the WHEEL from the GUTTER.
 

@@ -542,7 +542,7 @@ You can hear the wail of a distant emergency siren.
 Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
 Skynd hits you, but it doesn't seem to do any damage.
 
->You open the drawer.  Inside the drawer is a data chip.
+>You open the drawer.  A data chip is inside the drawer.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
 Skynd manages to avoid Mark Eridian's attack.

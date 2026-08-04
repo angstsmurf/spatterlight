@@ -37,7 +37,7 @@ y1, a y2, a y3, a w1, a w2, a w3, a w4, a w5, a w6, a w7, a w8 and a w9.
 >Player puts the v1 inside the n22.
 >Player takes the w1 from the m12.
 >The w1 can't fit inside the n22 at the moment.
->A probe n22.  Inside the n22 is a m12 and a v1.
+>A probe n22.  A m12 and a v1 are inside the n22.
 >A probe m12.  Inside the m12 is a w2, a w3, a w4, a w5, a w6, a w7, a w8 and
 a w9.
 >Do you really want to quit? [Y/N] 

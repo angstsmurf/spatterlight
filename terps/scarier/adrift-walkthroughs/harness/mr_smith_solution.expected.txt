@@ -113,13 +113,13 @@ Attic
 You enter a room full of cobwebs and boxes stacked to the ceiling. There may
 be some items of some use around.
 
->You open wooden box.  Inside wooden box is a flak jacket.
+>You open wooden box.  A flak jacket is inside wooden box.
 
 >You take the flak jacket from wooden box.
 
 >You put on the flak jacket.
 
->You open cardboard box.  Inside cardboard box are brown potatoes.
+>You open cardboard box.  Brown potatoes are inside cardboard box.
 
 >You take brown potatoes from cardboard box.
 
@@ -376,7 +376,7 @@ and all of the other usual items you would expect to find here. A window is
 above the sink overlooking the valley, and many white cabinets line the
 walls.
 
->You open the refrigerator.  Inside the refrigerator is a gourmet sandwich .
+>You open the refrigerator.  A gourmet sandwich  is inside the refrigerator.
 
 >You take the gourmet sandwich  from the refrigerator.
 
@@ -404,7 +404,7 @@ towards the middle and it finally opens.
 >(Your score has increased by 5)
 The gun cabinet is locked, you cannot open it.
 
->You open the gun cabinet.  Inside the gun cabinet is an AUG assault rifle.
+>You open the gun cabinet.  An AUG assault rifle is inside the gun cabinet.
 
 >You take the AUG assault rifle from the gun cabinet.
 
@@ -441,11 +441,11 @@ parked on it, but nothing else worth mentioning. There is a path that leads
 off the side of the road, marked by a sign that reads "Mountain Path". There
 is one pair of muddy footprints leading up it.
 
->You open the automobile.  Inside the automobile is some dynamite.
+>You open the automobile.  Some dynamite is inside the automobile.
 
 >You take the dynamite from the automobile.
 
->You open the taxi cab.  Inside the taxi cab is a pack of matches.
+>You open the taxi cab.  A pack of matches is inside the taxi cab.
 
 >You take the pack of matches from the taxi cab.
 

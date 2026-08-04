@@ -202,7 +202,7 @@ snow.
 
 >A perfect, pristine pile of pure, pearly-white snow. You try to forget about
 the poor little dude buried underneath it. Ah, what the heck. He had it
-coming.  Inside the pile of snow is a pair of chopsticks.
+coming.  Sticking out of the pile of snow are a pair of chopsticks.
 
 >You take the pair of chopsticks from the pile of snow.
 
@@ -431,7 +431,8 @@ beard.
 seating is upholstered in foam rubber with a nylon cover of blue and orange
 mandalas. Trippy.  The seat is closed.
 
->You open the seat.  Inside the seat is a hairdryer.
+>You lift the seat to reveal a concealed storage area. The only thing it
+contains, apart from a few dust-bunnies, is an electric hairdryer.
 
 >You take the hairdryer from the seat.
 

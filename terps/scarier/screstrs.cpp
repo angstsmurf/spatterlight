@@ -80,7 +80,8 @@ restr_integer_variable (scr_gameref_t game, scr_int n)
  */
 static scr_bool
 restr_object_in_place (scr_gameref_t game,
-                       scr_int object, scr_int var2, scr_int var3)
+                       scr_int object, scr_int var2, scr_int var3,
+                       scr_bool quantified)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int npc, holder;
@@ -129,14 +130,33 @@ restr_object_in_place (scr_gameref_t game,
        *
        * Note that none of this applies to the NPC forms, nor to "worn by":
        * those really are the single exact position test they look like.
+       *
+       * ...and it does not apply to the "any object" / "no object" quantified
+       * form either, which the Runner evaluates in a SEPARATE, hand-duplicated
+       * per-object switch (`quantified` here).  That copy dropped the worn
+       * case: at 00080871 in mdlSpreadTheLoad.Sub_20_3 the Var3 = 0 arm tests
+       * only `location == 0` (held) and the container arm `location == 246`
+       * with the parent held (0) or worn (156) -- there is no `location == 156`
+       * test on the object itself, where the single-object path at 00080C9B
+       * plainly has one.  So a worn object counts as held when a restriction
+       * names it, but NOT when the restriction quantifies over all objects.
+       *
+       * Almost certainly a Runner slip rather than a design, but it is what
+       * shipped, and games depend on it: Cursed's second interlude gates the
+       * magical entrance on "no object is held by the player" while the player
+       * wears street clothes that the game refuses to let you remove.  Count
+       * the clothes and the veil can never be entered and the game is
+       * unwinnable from that point on.
        */
       if (var3 == 0)            /* Player */
         {
           scr_int position, parent, parent_position;
 
           position = gs_object_position (game, object);
-          if (position == OBJ_HELD_PLAYER || position == OBJ_WORN_PLAYER)
+          if (position == OBJ_HELD_PLAYER)
             return TRUE;
+          if (position == OBJ_WORN_PLAYER)
+            return !quantified;
 
           if (position != OBJ_IN_OBJECT)
             return FALSE;
@@ -394,12 +414,12 @@ restr_pass_task_object_location (scr_gameref_t game,
           if (obj_is_static (game, target))
             continue;
 
-          if (restr_object_in_place (game, target, var2, var3))
+          if (restr_object_in_place (game, target, var2, var3, TRUE))
             return should_be;
         }
       return !should_be;
     }
-  return should_be == restr_object_in_place (game, object, var2, var3);
+  return should_be == restr_object_in_place (game, object, var2, var3, FALSE);
 }
 
 
@@ -1167,33 +1187,64 @@ restr_match (scr_char c)
 static void restr_bexpr (void);
 
 /*
- * restr_andexpr()
- * restr_orexpr()
+ * restr_expr()
  * restr_bexpr()
  *
  * Expression parsers.  Here we go again...
+ *
+ * "A" and "O" have EQUAL precedence and associate to the LEFT, so "#O#A#"
+ * is "(1 OR 2) AND 3" and never "1 OR (2 AND 3)".  SCARE used to parse the
+ * mask with C precedence -- an or-expression over and-expressions -- which
+ * agrees whenever every A precedes every O, and differs the moment an O
+ * comes before an A at the same bracket level.
+ *
+ * Ground truth is run400.exe's own P-code, mdlSpreadTheLoad.Sub_20_57
+ * ("evaluaterestrictions", 00055CAC..00055EB9), which recurses from the RIGHT:
+ *
+ *   If s = "T" Then True : If s = "F" Then False
+ *   If Right(s, 1) = ")" Then          ' Sub_20_56 finds the matching "("
+ *     grp = trailing bracket group : tail = evaluaterestrictions(inside grp)
+ *     s = Left(s, Len(s) - Len(grp))
+ *   Else
+ *     tail = evaluaterestrictions(Right(s, 1)) : s = Left(s, Len(s) - 1)
+ *   If s = "" Then tail
+ *   ElseIf Right(s, 1) = "A" Then tail And evaluaterestrictions(Left(s, -1))
+ *   ElseIf Right(s, 1) = "O" Then tail Or  evaluaterestrictions(Left(s, -1))
+ *   Else MsgBox "Oops - bad bracket string (evaluaterestrictions): "
+ *
+ * -- one operator per level, the whole head re-parsed underneath it.  Peeling
+ * the LAST operand off and recursing on the head is left association: for
+ * "a A b O c" the outermost call folds `c Or evaluaterestrictions("aAb")`,
+ * i.e. "(a And b) Or c".  There is no second precedence level anywhere in the
+ * routine -- "A" and "O" are two arms of the same If.  Its
+ * caller Sub_20_65 first walks the restrictions in index order substituting
+ * "T"/"F" for each "#" (so every restriction is evaluated, no short circuit,
+ * as SCARE also does), then hands the resulting string to Sub_20_57.
+ *
+ * 20 of the v4 corpus games author a mask that mixes A and O at one bracket
+ * level; the ones this changes are the ones where an O comes first.  The
+ * case that found it is 3monkeys T21, the author's own `winnable` self-check,
+ * whose group "#O(#A#)A#" is "(bucket on the hook OR the coconut is set up)
+ * AND the gate is still shut".  Under C precedence the trailing AND binds
+ * only to the second disjunct, the group is true from turn 1, and the game
+ * declares itself unwinnable before the player has moved.
+ *
+ * The parse walks the mask left to right, so restrictions are evaluated in
+ * index order -- matching Sub_20_65's loop, and keeping restr_lowest_fail
+ * (the FailMessage pick) on the lowest-indexed failure.
  */
 static void
-restr_andexpr (void)
+restr_expr (void)
 {
   restr_bexpr ();
-  while (restr_lookahead == TOK_AND)
-    {
-      restr_match (TOK_AND);
-      restr_bexpr ();
-      restr_eval_action (TOK_AND);
-    }
-}
 
-static void
-restr_orexpr (void)
-{
-  restr_andexpr ();
-  while (restr_lookahead == TOK_OR)
+  while (restr_lookahead == TOK_AND || restr_lookahead == TOK_OR)
     {
-      restr_match (TOK_OR);
-      restr_andexpr ();
-      restr_eval_action (TOK_OR);
+      scr_char operator_ = restr_lookahead;
+
+      restr_match (operator_);
+      restr_bexpr ();
+      restr_eval_action (operator_);
     }
 }
 
@@ -1209,7 +1260,7 @@ restr_bexpr (void)
 
     case TOK_LPAREN:
       restr_match (TOK_LPAREN);
-      restr_orexpr ();
+      restr_expr ();
       restr_match (TOK_RPAREN);
       break;
 
@@ -1315,7 +1366,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
     {
       /* Parse the pattern, and ensure it ends at string end. */
       restr_lookahead = restr_next_token ();
-      restr_orexpr ();
+      restr_expr ();
       restr_match (TOK_EOS);
     }
   else

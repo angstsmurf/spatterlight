@@ -416,8 +416,8 @@ Did you get in okay?"  "Yeah, how'd your meeting go?"  You relate the events
 to her in full detail.  "I'm not sure what to tell you to do."  "I'll keep in
 touch.  And hey, have a nice Christmas." "You too, Mulder."  She hangs up.
 
->You open Neatly Wrapped Gift.  Inside Neatly Wrapped Gift is Your Gun and
-Alien Keychain.
+>You open Neatly Wrapped Gift.  Your Gun and Alien Keychain are inside Neatly
+Wrapped Gift.
 
 >You take Your Gun from Neatly Wrapped Gift.
 

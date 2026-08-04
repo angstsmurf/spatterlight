@@ -26,7 +26,7 @@ bookcase, a dresser to the north, and a bedside table.  The carpeting is a
 hideous lavender shag that has seen better days.  The only exit is to the
 west.
 
->You open the dresser.  Inside the dresser is a pair of jeans.
+>You open the dresser.  A pair of jeans is inside the dresser.
 
 >You take the pair of jeans from the dresser.
 
@@ -36,7 +36,7 @@ now.  The pair of jeans has four pockets you can put small items in.
 
 Kitty saunters in.
 
->You open the closet.  Inside the closet is a shirt.
+>You open the closet.  A shirt is inside the closet.
 
 >You take the shirt from the closet.
 

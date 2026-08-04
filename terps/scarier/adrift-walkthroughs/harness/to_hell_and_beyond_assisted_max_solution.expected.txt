@@ -565,7 +565,7 @@ You can only move north.
 >You jump down to the ground. It hurt a little in the fall but you´ll be all
 right.
 
->You open the drawer.  Inside the drawer is a pair of suction arms.
+>You open the drawer.  A pair of suction arms is inside the drawer.
 
 >You take the pair of suction arms from the drawer.
 

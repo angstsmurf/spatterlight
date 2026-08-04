@@ -12,8 +12,8 @@ This is Beta 2 Build 3  of Chris Moody's "The Quest". It was released on:
 Your now laying down in a huge bed, you crawl out of bed, and notice there is
 a full length mirror here, and a dresser. To the east you notice a door.
 
->You open the oak dresser.  Inside the oak dresser is the golden necklace and
-the scroll.
+>You open the oak dresser.  The golden necklace and the scroll are inside the
+oak dresser.
 
 >You take the golden necklace from the oak dresser.
 
@@ -214,7 +214,7 @@ You are just beyond the mouth of the cave. From what you can make out this
 level of floor disapears just beyond the rock formation from the ground. You
 notice a wooden box here.
 
->You open wooden box.  Inside wooden box is unlit latern.
+>You open wooden box.  Unlit latern is inside wooden box.
 
 >You take unlit latern from wooden box.
 

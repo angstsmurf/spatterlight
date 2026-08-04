@@ -417,8 +417,8 @@ East wooden hut
 The hut floor is covered with straw and in the corner there is a bed. Their
 is a desk against the wall and a stool in front of it.
 
->You open the wooden desk.  Inside the wooden desk is a small jacket and a
-pile of gold coins.
+>You open the wooden desk.  A small jacket and a pile of gold coins are inside
+the wooden desk.
 
 >You take the small jacket from the wooden desk.
 

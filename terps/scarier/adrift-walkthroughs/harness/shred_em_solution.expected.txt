@@ -23,7 +23,7 @@ there!"
 >This is a big metal filing cabinet with all kinds of important papers inside.
  The filing cabinet is closed.
 
->You open the filing cabinet.  Inside the filing cabinet are some files.
+>You open the filing cabinet.  Some files are inside the filing cabinet.
 
 >These are some important papers.  You wouldn't want the wrong hands to get
 ahold of them!

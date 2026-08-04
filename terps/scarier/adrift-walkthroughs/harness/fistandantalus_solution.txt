@@ -1,0 +1,18 @@
+north
+push button
+west
+west
+north
+take gold
+read old note
+north
+east
+ask old man about the book of fistandantalus
+east
+east
+north
+read old note
+open chest
+west
+take book
+read book

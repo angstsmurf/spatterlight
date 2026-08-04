@@ -69,7 +69,7 @@ punches him in the kidney and then sprints off toward the concourse. It takes
 a moment for the tech to recover and then he takes off yelling and cursing
 after the bum.
 
->You open the toolbox.  Inside the toolbox is a laser torch.
+>You open the toolbox.  A laser torch is inside the toolbox.
 
 >You take the laser torch from the toolbox.
 

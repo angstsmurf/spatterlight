@@ -1,0 +1,1755 @@
+Loading game...
+
+A Fine Day For Reaping
+
+1 : Read Me First
+
+2 : Credits and Thanks
+
+3 : Begin Reaping
+
+Please Choose an Option.
+
+Ver 1.0 2007.
+Written in ADRIFT by James Webb (aka revgiblet)
+Please feel free to send any feedback to revgiblet@gmail.com
+Any similarities to anything you have witnessed, written or anyone you know
+is purely coincidental.  Frankly I'd find it incredible if you've ever
+witnessed any of the situations in this game.
+
+>
+
+The Living Room of Death
+
+You are standing in your living room.  It's quite small and cosy, with panel
+flooring and painted walls (black, of course).  A bookcase stands against one
+wall.  On another is a shelf, on which rests your CD player and collection of
+CDs.  A comfy, well-worn leather armchair lies right bang in the centre of
+the room facing the only window.  You often like to sit on the chair staring
+out into the empty, black void of time and space that your home backs on to.
+It's not a great view, but it's something to look at.
+
+Exits: East
+
+>You move east.
+
+The Hallway of Death
+
+The hallway has thick, plush red carpet which always tickles your toes a
+little bit.  It goes quite well with the black, pannelled walls.  At the
+south end is your imposing front door.  There are a series of hooks by the
+door on which you could hang your coat, if you wore a coat that is.  A small
+bin sits by the door.  There is also a full-length mirror on one wall.  As
+you're the last sight some people see, it's quite right that you check that
+you look presentable.
+
+Exits: East, South and West
+
+You can see some mail.
+
+>
+You bend down and scoop up your mail.  It's one of life's great mysteries.
+If you have any work that day your Supervisors mail it to you in the morning.
+ In all your time you have never once met the postman.  Sometimes you wonder
+if you should get a dog just to see what would happen.  Something big and
+evil.  A hellhound or a pitbull.  Something like that.
+
+You have two letters today.  The first is a white envelope addressed to a
+"Mr. G. Raper" and bearing the stamp of "Blackbury Banking Services".
+Puzzled, you tear it open and read.
+
+Dear Mr GRaper.
+Have we got an offer for you!!??  You, and others in your specially selected
+postcode region, have been chosen to take part in our amazing, introductory
+offer!  We're offering you a free - that's right FREE - credit card with
+£10,000 limit*!  ARE WE CRAZY??
+
+At this point you throw the letter in the bin.  You live in the darkest,
+emptiest void of time and space in this reality; you are the only living
+(using the term loosely) soul in this dimension and yet you still get junk
+mail.  It's enough to make you livid!  You turn to the other letter, which
+comes in the unmarked, large brown envelope that your Supervisors use when
+they want to contact you.  It looks like you've got some work to do today.
+You open it and begin to read.
+
+You have five clients today.  Four standard cases and one administrative
+error...
+
+You roll your eyes.  Administrative errors are the worst.  It means that the
+paperwork has got screwed up somewhere along the line and some poor idiot is
+not where they should be when they're fated to die.  As usual, it's up to you
+to clear up somebody else's mess. You carry on reading, though you know the
+words off by heart now.
+
+Please find attached the details of the clients.  These clients will die, as
+fated, but for some reason will refuse or be unable to progress to their
+destination.  Reap their souls to complete the cycle.  You must complete this
+task by the end of the day.  Thank you.
+
+You discard the letter and read the attached list.
+
+Lord Nigel McWorthington - Himilayas, Nepal
+
+Ernest Busset - Manchester, England
+
+Jimiyu Wangai - Wajir, Kenya
+
+Agathe Laurent - Paris, France
+
+Splong5b - Nevada, USA
+
+You pocket the list.  Let's go to work.
+
+>You move south.
+
+The Garden Path of Death
+
+You are standing on a garden path.  You don't have a garden so technically it
+should just be called 'a path'.  The path leads through the void of emptiness
+from your house to the stable where Horse lives.
+
+Exits: North and South
+
+>You move south.
+
+The Stable of Death
+
+You are in your stable.  Despite your best efforts, the small, rough wooden
+structure seems more homely than your own house.  Horse doesn't eat (or go to
+the toilet) but in accordance with universal laws the floor is covered in hay
+and the place smells of horse poo.  In one corner is a large whetstone.
+Fixed to the north wall are the brackets where you rest your scythe when
+you're not using it.
+
+Exits: North
+
+You can see The Grim Reaper's Scythe.
+Horse waits here, looking quite majestic.
+
+>You pick up the Grim Reaper's Scythe.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+Village (Near Wajir, Kenya)
+
+You are standing in the middle of a cluster of buildings denoting this to be
+a settlement of some kind.  The ground under your feet is dry and dusty.
+Children run through the streets, shouting and laughing.  Men go about their
+business.  Women stand and gossip, occasionally breaking into laughter.
+No-one pays you much attention.  They're all having too much fun to pay any
+mind to death at the moment.  A path winds east out of the village.  You can
+see Jimiyu's hut to the north, and to the west the open doorway of another
+hut invites you in.
+
+Exits: North, East and West
+
+Horse waits here, looking quite majestic.
+
+Jimiyu Wangai sat at the table, a thoughtful look on his face.  He was dead.
+He wasn't surprised by this - in fact he'd been fairly certain it was going
+to happen anytime soon.  He enjoyed being proved right.  Well, he'd lived a
+long and full life but had no intention of giving it up quite yet.  His
+youngest granddaughter was getting married in two weeks and he had been
+looking forward to that for ages.  So he'd decided that he wasn't going to
+go, and had made arrangements accordingly.  It had been surprisingly easy to
+work out.  He'd found the answer in a book in a library in Nairobi.  He'd
+spent the past few weeks at this table, waiting.  Now he was nearly there.
+He looked at the entrance to his hut...
+
+...and as if right on cue, you stride in.
+
+"Jimiyu Wangai?" you ask
+
+Jimiyu laughs.  "Do you really need to ask?  Has anyone ever said, 'No.
+That's someone else?'"
+
+You nod.  "They do.  It never workth."
+
+"I suppose not." Jimiyu laughs again.  You're torn between two emotions -
+gratitude that he has yet to point out that you have a lisp, and confusion.
+Most people aren't really that happy to see you.  You sigh.  Time to see what
+he's got up his sleeve.
+
+"Your time ith up, Jimiyu."
+
+"What's the rush?  Haven't we time for a quick game first..." Jimiyu's grin
+is really beginning to get on your nerves.  He gestures at the table in front
+of him.  You notice, for the first time, that he is sitting in front of a
+chess set.
+
+"Oh...bother," you mutter.
+
+It's the rules.  If they challenge you, you have to play.  If they win then
+you've got to leave them alone.  If you win they have to come quietly.  It's
+the rules.  The universe likes rules.  The problem is that you're not
+actually much good at chess.  It's never really been a problem before.  Most
+people don't even think of it, let alone being foresighted enough to make
+sure that they die sitting at a chess set.  You possess a little more
+foresight however, and have a contingency plan.  You committed to memory a
+failsafe way of winning a chess match, an unbeatable strategy, a foolproof
+way to victory.  With just one potential flaw...
+
+"Bagthy being white then," you offer, trying not to sound too nervous.
+
+"Ha!  I'm sitting at the white pieces.  I'm going first.  You can play as the
+black pieces."
+
+"Oh...bother." you mutter again.  Your strategy all hinged on going first.
+You knew that you should have asked Samuel Reshevsky more questions when you
+met him.
+
+"Come on.  I haven't got all day...oh wait.  I have." Jimiyu laughs again "I
+have two weeks actually!  My granddaughter is due to get married and I'm not
+missing it for anything - not even death."
+
+You don't have two weeks.  You have until the end of the day.  If you lose,
+or if you don't play then it's all over.  You'll have failed.  And you can't
+have that.
+
+Hut (Near Wajir, Kenya)
+
+It's a fairly bare hut, lived in by someone who has learnt the hard lesson
+that true happiness is not found in possessions.  The bare, dusty floor is
+going to leave its mark under your toenails for days.  Jimiyu Wangai sits on
+a rickety wicker chair, facing a squat, uncomfortable-looking stool.  Between
+the two seats is a frail table, on which sits a chess board.
+
+Exits: South
+
+Jimiyu Wangai is grinning at you from his chair.
+
+>You move south.
+
+Village (Near Wajir, Kenya)
+
+You are standing in the middle of a cluster of buildings denoting this to be
+a settlement of some kind.  The ground under your feet is dry and dusty.
+Children run through the streets, shouting and laughing.  Men go about their
+business.  Women stand and gossip, occasionally breaking into laughter.
+No-one pays you much attention.  They're all having too much fun to pay any
+mind to death at the moment.  A path winds east out of the village.  You can
+see Jimiyu's hut to the north, and to the west the open doorway of another
+hut invites you in.
+
+Exits: North, East and West
+
+Horse waits here, looking quite majestic.
+
+>You move east.
+
+By a Lake (Near Wajir, Kenya)
+
+You are standing in a grassy clearing at the end of a winding path that has
+climbed slowly out of the village.  Right in front of you is a large lake of
+dirty water.
+
+Exits: West
+
+You can see a sturdy branch.
+
+>You pick up the sturdy branch.
+
+>You move west.
+
+Village (Near Wajir, Kenya)
+
+You are standing in the middle of a cluster of buildings denoting this to be
+a settlement of some kind.  The ground under your feet is dry and dusty.
+Children run through the streets, shouting and laughing.  Men go about their
+business.  Women stand and gossip, occasionally breaking into laughter.
+No-one pays you much attention.  They're all having too much fun to pay any
+mind to death at the moment.  A path winds east out of the village.  You can
+see Jimiyu's hut to the north, and to the west the open doorway of another
+hut invites you in.
+
+Exits: North, East and West
+
+Horse waits here, looking quite majestic.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+Storage Cupboard (Area 51, Nevada)
+
+You are crammed, almost bent double, into a small storage cupboard.  With
+your prefect night vision you can make out several shelves, crammed full of
+pots and bottles of various fluids.  There seems to be a definite cleaning
+theme to this cupboard.  Your foot clatters againt more tins and boxes.
+Horse shuffles and kicks you in the knee.  You think you might have found a
+new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
+
+Exits:  East
+
+You can see a shovel blade.
+Horse waits here, looking quite majestic.
+
+Private Kline yawned.  Guard duty was so unbelievably boring.  He knew that
+he wouldn't have normally pulled this duty for six days in a row but recent
+events with the General's daughter had resulted in this sorry state of
+affairs.  He didn't regret a thing, but...this was really boring.  Nothing
+ever happened.  He was guarding a single door in the most heavily protected
+military faculty in the United States.
+
+He moved his rifle to the other shoulder and shrugged.  Maybe he should play
+The Game again.  His time on guard duty had been spent developing the rules
+to The Game.  It helped pass the time.  The Game involved him seeing how many
+times he could spin his rifle above his head in a minute.  It couldn't be any
+old spin, however, as the rules made quite clear.  The gun had to be held a
+certain distance above his head, at a certain angle.  The spin had to be at a
+certain velocity.  It was pretty complicated, which probably explained why -
+after five days - his personal best was only two.  The rules were being
+reviewed yet again.  Maybe version 1.6 of The Game would see some major
+changes.  He didn't want a repeat of version 1.3, where he was very lucky not
+to have shot himself in the face.
+
+CRASH!
+
+Private Kline stopped in mid-thought.  What was that?
+
+CRUNCH!
+
+It sounded like it was coming from the storage cupboard just down the
+corridor.
+
+"I jutht trod in paint or thomething!" a muffled (but raised) voice sounded.
+It was definitely coming from the storage cupboard.  "Honethtly!  You could
+land anywhere in the whole building and you chooth to land in a cupboard!
+Thtupid animal!"
+
+"Who's in there!" shouted Kline, his rifle raised.  The door opened and out
+stepped an incredibly tall and gaunt figure...
+
+..You turn and see the young soldier with his gun raised.
+
+"Excuth me, but thouldn't you be pointing the other end at me?" you offer,
+helpfully.  You have no need to be afraid of firearms.
+
+Private Kline hurridly turns his rifle the right way round and looks at you,
+almost apologetically.
+
+"Identify yourself!" he barks.
+
+"Me?  I'm the Grim Reaper," you explain, checking The List, "And you wouldn't
+happen to be Thplong5b would you?"
+
+"Huh?  What?" Private Kline tried to compose himself.  He'd wanted some
+excitement, but this was a lot more confusing than he'd thought it would be.
+
+"No.  I gueth not.  You don't look like a Thplong5b.  I think I need to go
+through that door behind you." you look up from The List, certain that your
+Client is in the room that this soldier is guarding.
+
+"The door behind me?" Kline's resolve hardens, "No.  No I think not.  I've
+got one job in this place - guard this door.  I don't care who you are.  You
+are not getting through."
+
+You sigh, but then look into Kline's face and realise that you've never come
+across a man with such single-minded determination before.  Neither have you
+ever met someone with such total confidence that whatever he happens to face
+he can solve it with his gun.  Your own conviction wavers.  Most people, when
+faced with the Grim Reaper, simply give up.  This is new territory for you.
+
+As a creature formed and given shape by belief you begin to wonder if Kline's
+faith in his gun is so great that it might actually cause you a problem were
+you to try and force your way past him.  You're not certain, but neither are
+you prepared to take the risk.  You didn't get this far by taking risks.
+This really is very annoying, but you're going to have to find a way past
+Private Kline.
+
+Corridor (Area 51, Nevada)
+
+A very plain military corridor, lacking any redeeming features.  It seems
+that after having spent the budget on laser guns and mind control devices
+there's only enough money left for "Hospital White" paint.  There is a door
+to the west labelled Storage, and the corridor continues to the north.  At
+the south end is a set of unmarked double doors.
+
+Exits: North, South and West
+
+Private Kline stands in front of the double doors, blocking your way.  He
+looks determined to keep you out.
+
+>You move west.
+
+Storage Cupboard (Area 51, Nevada)
+
+You are crammed, almost bent double, into a small storage cupboard.  With
+your prefect night vision you can make out several shelves, crammed full of
+pots and bottles of various fluids.  There seems to be a definite cleaning
+theme to this cupboard.  Your foot clatters againt more tins and boxes.
+Horse shuffles and kicks you in the knee.  You think you might have found a
+new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
+
+Exits:  East
+
+You can see a shovel blade.
+Horse waits here, looking quite majestic.
+
+>You pick up the shovel blade.
+
+>You move east.
+
+Corridor (Area 51, Nevada)
+
+A very plain military corridor, lacking any redeeming features.  It seems
+that after having spent the budget on laser guns and mind control devices
+there's only enough money left for "Hospital White" paint.  There is a door
+to the west labelled Storage, and the corridor continues to the north.  At
+the south end is a set of unmarked double doors.
+
+Exits: North, South and West
+
+Private Kline stands in front of the double doors, blocking your way.  He
+looks determined to keep you out.
+
+>You move north.
+
+Corridor (Area 51, Nevada)
+
+Another featureless military corridor.  This time you really do see nothing
+special.  The corridor stretches back south, the way that you came from.
+There are doors in the other walls.  The north door has a sign that reads
+Security, the east door reads Barracks and the west door says Laboratory.
+Nice of them to label the doors for you.
+
+Exits: North, South, East and West
+
+>You move north.
+
+Security Room (Area 51, Nevada)
+
+You are standing in a darkened room with one wall totally given over to
+monitors, computers and various dials, switches and buttons.  This seems to
+be some kind of surveillance room.  There is also a noticeboard on another
+wall with pieces of paper stuck to it, a variety of obviously important
+comments circled and underlined in red pen.  To the east of the room is a
+heavy door marked Armory.
+
+Exits: South and East
+
+You can see the cigarette lighter.
+
+>
+You begin to fiddle with the various controls on the panel.  Nothing
+particularly interesting happens until you press one button and a message
+flickers on one of the computer screens briefly - LABORATORY DOOR UNLOCKED
+
+>You pick up the cigarette lighter.
+
+>You move south.
+
+Corridor (Area 51, Nevada)
+
+Another featureless military corridor.  This time you really do see nothing
+special.  The corridor stretches back south, the way that you came from.
+There are doors in the other walls.  The north door has a sign that reads
+Security, the east door reads Barracks and the west door says Laboratory.
+Nice of them to label the doors for you.
+
+Exits: North, South, East and West
+
+>You move south.
+
+Corridor (Area 51, Nevada)
+
+A very plain military corridor, lacking any redeeming features.  It seems
+that after having spent the budget on laser guns and mind control devices
+there's only enough money left for "Hospital White" paint.  There is a door
+to the west labelled Storage, and the corridor continues to the north.  At
+the south end is a set of unmarked double doors.
+
+Exits: North, South and West
+
+Private Kline stands in front of the double doors, blocking your way.  He
+looks determined to keep you out.
+
+>You move west.
+
+Storage Cupboard (Area 51, Nevada)
+
+You are crammed, almost bent double, into a small storage cupboard.  With
+your prefect night vision you can make out several shelves, crammed full of
+pots and bottles of various fluids.  There seems to be a definite cleaning
+theme to this cupboard.  Your foot clatters againt more tins and boxes.
+Horse shuffles and kicks you in the knee.  You think you might have found a
+new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
+
+Exits:  East
+
+Horse waits here, looking quite majestic.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+Cellar (Manchester)
+
+This is a dark and dank cellar underneath a house in Manchester.  The tough,
+red brick did a good job of containing the blast from the exploded time
+machine.  The remains of said time machine sit in the centre of the cellar,
+nothing more than a twisted pile of metal and wires.  In one corner of the
+room is a stairwell, in the other a workbench and varied selection of tools
+and objects that look suspiciously mechanical.
+
+Exits: Up
+
+You can see Ernest Busset's shoe.
+Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
+around the cellar thoughtfully.
+
+"If this works we'll be famous!" chattered Ernest Busset, excitedly.
+
+"That's understating it slightly, Ernest." said Thomas Brewer, sardonically.
+
+"Just think of it, man!  Time travel!  We'll be...famous!" Ernest Busset
+could barely contain his excitement.
+
+"Are you sure this will work?  I'm not confident myself.  I know we've run
+through the figures a million times but...well, I've just got a bad feeling
+about this.  What if it doesn't work?" Thomas sounded very, very worried.
+
+"Nonsense!  This must work!  As you said yourself, we've gone through the
+figures a million times.  Now.  Stand back."
+
+Ernest sat himself into the contraption.  It looked like the cockpit of a
+glider, surrounded by a mass of wires and bits and pieces of metal.  Ernest
+fiddled with the controls in front of him.  They looked like they had been
+cobbled together from bits and pieces of old games consoles.  A digital
+readout flashed excitedly in front of his eyes.
+
+"Yes, yes.  See, that's what I'm talking about.  If you're so confident it
+will work then why are you telling me to 'stand back'?" Thomas did, however,
+take several large steps backwards as he said this.
+
+"Just in case!  Who knows what will happen?  Who knows if the field will be
+purely contained to the machine?  I wouldn't want you getting sucked back
+through time with me!  You need to stay here and document our success from
+this end!" Ernest was idly flipping a switch back and forth.
+
+"See, you're doing it again.  'Who knows what will happen?'  Is that supposed
+to inspire confidence?"
+
+"Just relax, old boy.  Think about what you're going to do when we are no
+longer constrained by time!  What will you do with this power?"
+
+"I'm going to go back in time and kill Hitler's parents." Thomas looked grim,
+his lips set in a firm line.  Ernest looked puzzled.
+
+"I wouldn't do that, old boy.  That sort of thing would just make Hitler
+really angry, wouldn't it?  I wouldn't have thought he was the sort of fellow
+you'd want to get on the bad side of."
+
+"No.  You've misunderstood." 'Again' Thomas added mentally, "I would kill
+them before he was born."
+
+"That doesn't make sense, man!  I mean, how can they be Hitler's parents
+until they have had a baby called Hitler?  Stands to reason!" said Ernest,
+cheerfully.
+
+"Never mind," Thomas muttered, "Look.  Be careful" he added, surprised at how
+much he meant it.
+
+"No problem!  Just watch this!" Ernest cheered, as he reached out and pushed
+a button.
+
+There was a whirring noise, which increased in intensity until it ended
+abruptly in a rather large explosion.  Thomas Brewer was thrown back against
+the far wall, and crumpled to a heap on the floor. He looked up from his
+prone position to see a tattered, charred shoe fall in front of him.
+"Oh dear." he said, with rather considerable constraint.
+
+He then climbed to his feet and turned to find you watching him from the
+other end of the room.
+"Oh dear oh dear." he trembles, "Look.  Just tell me.  Am I dead?"
+You gaze at the List.
+
+"Ith your name Ernetht Buthet?" you intone.
+
+Thomas Brewer looks at you blankly.  It's hard enough for a man to be on the
+verge of humanity's greatest scientific breakthrough and then to suddenly be
+confronted with the possibility that he might be dead, let alone to find that
+the Gatekeeper of the Afterlife has a speech impediment.
+
+"I'm sorry, did you say 'Erneth Buffet'?  Ummm...Do you mean Ernest Busset?"
+Thomas brushed himself down.  You nod irritably.  You've had a lisp for as
+long as you can remember and it's not your fault.  It certainly doesn't make
+your job any easier.  "No.  No.  I'm Thomas Brewer.  Ernest Busset is...oh.
+Oh no!  Oh no!  Ernest is dead?" Thomas exclaims, shocked.  You nod again.
+
+"Where ith he then?" you ask, looking round the room in annoyance.  Thomas
+grins and points at the charred heap of metal in the centre of the room.
+
+"I think the question really should be 'when is he?'  We built a time
+machine, he and I did.  And as there's no sign of a corpse I'm guessing that
+it worked!  It worked!  Do you realise what this means?" Thomas was jubilant,
+forgetting the situation for a moment.
+
+You shrug.  You personally suspect that it means that they won't be selling
+anything other than one-way tickets but you say nothing.
+
+"Ha!  He might have survived!  You can't know for certain!"
+
+You sigh.  You've had to recover your clients from some very strange places
+in the past, but never a different time.  There has to be a way to solve this
+one.
+
+Cellar (Manchester)
+
+This is a dark and dank cellar underneath a house in Manchester.  The tough,
+red brick did a good job of containing the blast from the exploded time
+machine.  The remains of said time machine sit in the centre of the cellar,
+nothing more than a twisted pile of metal and wires.  In one corner of the
+room is a stairwell, in the other a workbench and varied selection of tools
+and objects that look suspiciously mechanical.
+
+Exits: Up
+
+You can see Ernest Busset's shoe.
+Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
+around the cellar thoughtfully.
+
+>You pick up Ernest Busset's shoe.
+
+>
+You've never been one for DIY (other than in the scythe department) so you
+don't have a clue what most of the tools here are even called, let alone what
+they do.  The only things you have any confidence about are a large roll of
+masking tape and a small magnet.  You decide that the magnet might come in
+useful and slip it into your robe.  As you'll still exist when this building
+has rotted to ruins, all things - in a metaphorical way - belong to you.  At
+least that's what you tell yourself whenever your rampant kleptomania
+overtakes you.
+
+>
+You have a crazy idea.  They're often the best kind.  Reaching into your robe
+you pull out the shovel blade and the sturdy branch.  Placing the items on
+the workbench you grab the masking tape and begin work.
+
+In a few minutes you have firmly attached the shovel blade to the branch with
+masking tape.  You examine your work and grunt in approval.  Not a bad job if
+you do say so yourself.  Of course, it looks like an ancient torture device
+but at least it should work.
+
+>You move up.
+
+Hallway (Manchester)
+
+You've been in some impressive hallways in your time, but this isn't one of
+them.  It's positively dull, and from someone who has done the same job day
+after day for millenia that's saying something.  It's walls are coated with
+pink paint, which is in serious need of attention.  The flooring is bare
+wooden boards.  There is a telephone table next to the front door, on which
+is a - shock! - telephone.
+
+Exits: North, South, West and Down
+
+>You move south.
+
+Living Room (Manchester)
+
+The living room is as grotty as the rest of the house.  The wallpaper and
+carpets are clearly refugees from the era when flares were fashionable the
+first time round.  The floor is covered in scientific papers and engineering
+sketches.  Two sleeping bags lie, rolled out, in the far corner of the room.
+A window, with one pane boarded up, gazes out onto a Manchester high street.
+This is the kind of living room where you could imagine someone sitting and
+saying "You call this living?".
+
+Exits: North
+
+>
+You shuffle through the pages.  Some of the papers and drawings make perfect
+sense to you (such as the angry red bill from the telephone company
+threatening to cut off service, or the sketched picture of a man with an
+arrow through his head) but most of them are gibberish.  There are equations
+and diagrams that you can't even begin to understand.  It takes you a few
+minutes but you eventually sort some of the more important looking ones to
+one side.  They form a small pile of paperwork that seem to detail some of
+the most significant facts concerning time travel.  You include with them
+several detailed drawings of the machine that Ernest and Thomas built.
+Having done this you file your collection of paperwork into one of the
+pockets in your robe.  This stuff might help you get your scythe on Ernest's
+soul.
+
+>You move north.
+
+Hallway (Manchester)
+
+You've been in some impressive hallways in your time, but this isn't one of
+them.  It's positively dull, and from someone who has done the same job day
+after day for millenia that's saying something.  It's walls are coated with
+pink paint, which is in serious need of attention.  The flooring is bare
+wooden boards.  There is a telephone table next to the front door, on which
+is a - shock! - telephone.
+
+Exits: North, South, West and Down
+
+>You move down.
+
+Cellar (Manchester)
+
+This is a dark and dank cellar underneath a house in Manchester.  The tough,
+red brick did a good job of containing the blast from the exploded time
+machine.  The remains of said time machine sit in the centre of the cellar,
+nothing more than a twisted pile of metal and wires.  In one corner of the
+room is a stairwell, in the other a workbench and varied selection of tools
+and objects that look suspiciously mechanical.
+
+Exits: Up
+
+Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
+around the cellar thoughtfully.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+High Street (San Francisco)
+
+In front of you is a busy high street, swarming with citizens on a shopping
+spree.  Shops line the street on both sides, and were you much of a consumer
+then you would be in paradise.  You are, however, not much of a consumer, so
+the only shop that really attracts your attention is on the south side of the
+street and named Drop and Give Me Fifty Dress Ups.  Perhaps it's the Grim
+Reaper costume in the window.
+
+Exits: East and South
+
+Horse waits here, looking quite majestic.
+
+Horse touches down on a grubby San Francisco sidewalk, crowded with people.
+That would be the sort of thing that usually draws attention to itself but
+seeing as no-one particularly wants to be the first person to say "Did you
+just see a flying horse?" it seems to pass by unnoticed.
+
+As you clamber down from Horse you look from side to side, wary of all the
+people milling about.  No-one seems to be paying any attention to you and
+once again you wonder how it's possible for humanity to be so blatant about
+ignoring the issues of cosmic significance right on their doorstep.  Still,
+this is a commercial centre and that tends to have a lot to do with it.
+
+You look at the various shops around you.  There must be some here that can
+help you with your task...
+
+High Street (San Francisco)
+
+In front of you is a busy high street, swarming with citizens on a shopping
+spree.  Shops line the street on both sides, and were you much of a consumer
+then you would be in paradise.  You are, however, not much of a consumer, so
+the only shop that really attracts your attention is on the south side of the
+street and named Drop and Give Me Fifty Dress Ups.  Perhaps it's the Grim
+Reaper costume in the window.
+
+Exits: East and South
+
+Horse waits here, looking quite majestic.
+
+>You move east.
+
+High Street (San Francisco)
+
+The street continues along, leading the weak-willed mortals to even more ways
+to lose their money.  Again, there is little here that captures your
+interest.  People swarm around you, the same oblivious looks on their faces.
+To the north, almost swallowed up between huge department stores, is a tiny
+hardware store called I Came, I Sawed, I Conquered.  The street veers sharply
+to the east and jutting out onto the pavement is a book shop called Reader's
+Digestion.  You are also well aware of Happy Go Lucky Dry Clean to the south,
+as you've recently started using their services.
+
+Exits: East, West, South and North
+
+>You move north.
+
+Hardware Store (San Francisco)
+
+You enter the hardware shop, your feet thudding against the cold tiled floor.
+ The store is divided into different sections, each section containing a
+display of appropriate tools.  You feel lost.  In the middle of the store is
+a large drum which appears to be full of thousands of the tiny polystyrene
+chips that breed in appliance boxes.  Written on the drum in large red
+letters is "Lucky Dip.  Ask a staff member for details".  At the far end of
+the store is a counter.
+
+Exits: South
+
+Standing behind the counter is a fat bearded man wearing overalls.
+
+>
+The counter, like all counters everywhere, is home to a till.  As well as the
+till you can see a sign which says "CASH ONLY.  NO CREDIT CARDS OR OTHER
+FORMS OF ELECTRONIC PAYMENTS ACCEPTED".  Resting on the counter is also a
+small coil of wire.
+
+>
+For some reason you feel a strong urge to take the coil of wire, as though
+some sixth sense is warning you that you might need it later on.  A cunning
+plan formulates in your mind.
+
+"What'th that?  Over there?" You point to a random space behind the counter,
+relying on the fact that everyone is always telling you that the old ones are
+the best,
+
+"What?" says the store owner, turning round and proving once again that
+people can be really stupid.
+
+Whilst the store owner is turned you scoop up the coil of wire and put it in
+your robe.
+
+"I don't see anything." says the man, turning back.  He doesn't even notice
+that the wire is gone.
+
+"Never mind.  It wath nothing." You feel very pleased with yourself.  You
+shouldn't.  That whole thing was lame.
+
+>You move south.
+
+High Street (San Francisco)
+
+The street continues along, leading the weak-willed mortals to even more ways
+to lose their money.  Again, there is little here that captures your
+interest.  People swarm around you, the same oblivious looks on their faces.
+To the north, almost swallowed up between huge department stores, is a tiny
+hardware store called I Came, I Sawed, I Conquered.  The street veers sharply
+to the east and jutting out onto the pavement is a book shop called Reader's
+Digestion.  You are also well aware of Happy Go Lucky Dry Clean to the south,
+as you've recently started using their services.
+
+Exits: East, West, South and North
+
+>You move east.
+
+Book Shop (San Francisco)
+
+You can tell from the books gathered around you that the book shop obviously
+specialises in second-hand goods.  It follows the basic laws of second-hand
+bookshops in that shelves and shelves of books tower over you, hemming you in
+and creating the impression that you are actually standing at the entrance to
+a maze.  You peer around but see no sign of anything or anyone except dark
+corners and bookcases.  You dare not try and navigate this shop for fear of
+getting lost forever.  You'll have to be content with examining the books
+that you can see.
+
+Exits: West
+
+>
+You pick up the chess guide and flick through the pages.  It only takes about
+five minutes to read the entire pamphlet but after having done so you feel
+that you've got a much better grasp of the game of chess.  You feel confident
+about your ability to play the game and win, even as black...
+
+>You move west.
+
+High Street (San Francisco)
+
+The street continues along, leading the weak-willed mortals to even more ways
+to lose their money.  Again, there is little here that captures your
+interest.  People swarm around you, the same oblivious looks on their faces.
+To the north, almost swallowed up between huge department stores, is a tiny
+hardware store called I Came, I Sawed, I Conquered.  The street veers sharply
+to the east and jutting out onto the pavement is a book shop called Reader's
+Digestion.  You are also well aware of Happy Go Lucky Dry Clean to the south,
+as you've recently started using their services.
+
+Exits: East, West, South and North
+
+>You move west.
+
+High Street (San Francisco)
+
+In front of you is a busy high street, swarming with citizens on a shopping
+spree.  Shops line the street on both sides, and were you much of a consumer
+then you would be in paradise.  You are, however, not much of a consumer, so
+the only shop that really attracts your attention is on the south side of the
+street and named Drop and Give Me Fifty Dress Ups.  Perhaps it's the Grim
+Reaper costume in the window.
+
+Exits: East and South
+
+Horse waits here, looking quite majestic.
+
+>You move south.
+
+Costume Shop (San Francisco)
+
+You are standing in a costume shop, knee deep in discarded masks, costumes
+and various disguise related items.  The walls are mostly bare, except for a
+few items still hanging up on hooks and racks that scatter the store.  This
+shop is clearly undergoing some kind of stock take, either that or the owner
+has strangely decided that the floor is the best place to showcase his wares.
+
+Exits: North
+
+The owner of the shop is here, rummaging through various piles of clothing
+and checking them against a list.
+
+>
+Without saying a word you pull out the shoe that you found in Manchester and
+offer it to the shop owner.  He looks up from his list and pauses.  Slowly he
+reaches out and takes the shoe from you.
+
+"Why," he peers at the shoe over the top of his glasses "this shoe is
+remarkable! "
+
+You smile and nod.  Your smile freezes awkwardly as you watch the owner smell
+the shoe.
+
+"This is incredible," a huge grin bursts on to his features "this even smells
+like I'd expect a mad professor's shoe to smell!  How did you do it?"
+
+Before you can answer (which is good because you weren't sure how to answer
+anyway) the shop owner wades through piles of costume items and places the
+shoe very carefully by the brown suit hanging on the wall.
+
+"Yes, yes.  This completes the costume once again!" he exclaims, happily,
+"How can I repay you?  I have a couple of surplus items that I would be very
+happy to give you in exchange for the shoe."
+
+"Itemth?" you ask, interested despite yourself.
+
+"Why yes.  I could let you have either...hmmm...here, this alien mask
+or...or...aha...here we are.  Yes, this lovely white wedding gown.  Would you
+like the mask or the gown?" the man asks.
+
+>
+The costume shop owner smiles and hands you a gruesome looking rubber mask.
+
+>You move north.
+
+High Street (San Francisco)
+
+In front of you is a busy high street, swarming with citizens on a shopping
+spree.  Shops line the street on both sides, and were you much of a consumer
+then you would be in paradise.  You are, however, not much of a consumer, so
+the only shop that really attracts your attention is on the south side of the
+street and named Drop and Give Me Fifty Dress Ups.  Perhaps it's the Grim
+Reaper costume in the window.
+
+Exits: East and South
+
+Horse waits here, looking quite majestic.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+Storage Cupboard (Area 51, Nevada)
+
+You are crammed, almost bent double, into a small storage cupboard.  With
+your prefect night vision you can make out several shelves, crammed full of
+pots and bottles of various fluids.  There seems to be a definite cleaning
+theme to this cupboard.  Your foot clatters againt more tins and boxes.
+Horse shuffles and kicks you in the knee.  You think you might have found a
+new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
+
+Exits:  East
+
+Horse waits here, looking quite majestic.
+
+>
+An idea occurs to you.  You try the mask on.  It fits quite snugly.  A little
+too snugly, in fact.  If you had to wear this for a long time then you'd
+probably suffocate...if that were possible for you.
+
+Bearing this in mind you stride out to the corridor outside the autopsy room
+and wave at Private Kline.  He does a double-take and his mouth falls open.
+
+"Hey!  How did you get out here?  Halt!" he shouts, weakly.  You ignore him,
+turn tail and run.  You can almost hear the workings of Private Kline's brain
+as he decides what to do next.  The sound of boots clattering on the floor
+suggest that he is, as you'd hoped, giving chase.  You skid to a halt outside
+the storage cupboard and scramble in, slamming the door behind you.
+
+Private Kline comes up against the door and whips it open gun raised.
+
+"Come out with your..."  he begins, but he doesn't get to finish his demand.
+He goes silent as he find himself staring into Horse's eyes.  There is a
+sudden clonk as Horse applies a headbutt to his face.  Private Kline's eyes
+roll up inside his head and he slumps to the floor unconscious.  You remove
+the alien mask, throw it down onto Kline's comatose body and pat Horse on the
+back of the neck.
+
+"Good boy...or girl." you smile.
+
+>You move east.
+
+Corridor (Area 51, Nevada)
+
+A very plain military corridor, lacking any redeeming features.  It seems
+that after having spent the budget on laser guns and mind control devices
+there's only enough money left for "Hospital White" paint.  There is a door
+to the west labelled Storage, and the corridor continues to the north.  At
+the south end is a set of unmarked double doors.
+
+Exits: North, South and West
+
+>
+Autopsy Room (Area 51, Nevada)
+
+You are in a gleaming metallic room.  Various computers and pieces of
+equipment beep loudly at you, as if they were offended by your presence.
+Low, subdued light flows from a single, large fitting in the middle of the
+ceiling.  In the middle of the room is a single low metal table, beside which
+is a trolley on which lie a selection of medical instruments.  High in the
+ceiling you can see the opening of an air duct.
+
+Exits: North
+
+Splong5b lies on the table in a pool of yellow blood, totally still.
+
+>
+You bring your Scythe round in a sweep and slice through Splong5b's corpse.
+There is the usual tinkling sound that you associate with the task, and then
+silence.
+
+Turning round you see the shade of Splong5b standing behind you.  You give
+him a friendly nod.  He waves back.
+
+"Cheers mate," he says, before vanishing into the ether.
+
+Another name to be crossed off the list.
+
+>You move north.
+
+Corridor (Area 51, Nevada)
+
+A very plain military corridor, lacking any redeeming features.  It seems
+that after having spent the budget on laser guns and mind control devices
+there's only enough money left for "Hospital White" paint.  There is a door
+to the west labelled Storage, and the corridor continues to the north.  At
+the south end is a set of unmarked double doors.
+
+Exits: North, South and West
+
+>You move north.
+
+Corridor (Area 51, Nevada)
+
+Another featureless military corridor.  This time you really do see nothing
+special.  The corridor stretches back south, the way that you came from.
+There are doors in the other walls.  The north door has a sign that reads
+Security, the east door reads Barracks and the west door says Laboratory.
+Nice of them to label the doors for you.
+
+Exits: North, South, East and West
+
+>
+Laboratory (Area 51, Nevada)
+
+You are standing in a large spotless room.  The first thing you notice is a
+huge, strange, complex machine in the middle of the room.  You've never seen
+anything like it before.  It's surrounded by a work surface, on which are
+scattered various papers and notes.  One wall is lined with computer
+terminals.  There are also shelves, loaded with bottles and tools and around
+the room seem to be one or two unfinished experiments.
+
+Exits: East
+
+>
+You awkwardly clamber inside the time machine.
+
+Inside Time Machine (Area 51, Nevada)
+
+The time machine is clearly meant for someone a lot shorter than you.  You
+feel like a pen in a matchbox.  From the outside the machine looked
+complicated, but from the inside the task of understanding what's going on is
+positively herculean.  You can see a large number of lights and dials, none
+of which you can understand.  It doesn't help that any instructions written
+in the machine are in some kind of alien dialect.  The things that you think
+might be significant are a digital readout which says '2007', the buttons
+next to this readout, an open panel revealing a mix of wires and a pile of
+paper which is chained to the inside of the machine, clearly to avoid theft.
+
+Exits: Exit
+
+>
+After checking the time machine plans you manage to fit the small coil of
+wire where you believe it should go.  As if to confirm your action, there is
+a humming noise and a few extra lights go on.  It looks as if you have
+managed to repair the time machine...
+
+>
+You press the red button.  The light next to AD flickers and goes off, while
+the light next to BC glows.
+
+>
+The lights inside the machine dim, the door slides closed and something
+inside the machine begins to hum.  There is a flash of light, a momentary
+sensation of movement and then silence.  The door slides open and you step
+out of the time machine into the past...
+
+10,097 BC (A jungle or something somewhere)
+
+In the distance you hear the roar of some angry beast.  Flies buzz around
+you.  Thick jungle threatens to  crush you from every side.  Still, it could
+be worse.  The time machine sits in a pile of crushed vegetation beside you,
+and a man appears to be examining some of the native plant life just in front
+of you.
+
+Exits: No Exits
+
+Ernest Busset is standing, marvelling at the sights and sounds around him.
+He doesn't seem at all worried.
+
+You clamber from the time machine, feeling like a stick insect escaping from
+a tennis ball.  Only when you've stretched and composed yourself do you look
+at where the machine has sent you.  You appear to be in the middle of a
+sweltering jungle somewhere.  You're no expert on time travel but you think
+that this probably is about 10,097 BC.
+
+10,097 BC (A jungle or something somewhere)
+
+In the distance you hear the roar of some angry beast.  Flies buzz around
+you.  Thick jungle threatens to  crush you from every side.  Still, it could
+be worse.  The time machine sits in a pile of crushed vegetation beside you,
+and a man appears to be examining some of the native plant life just in front
+of you.
+
+Exits: No Exits
+
+Ernest Busset is standing, marvelling at the sights and sounds around him.
+He doesn't seem at all worried.
+
+>
+You swing the scythe in a circular motion, slicing right through Ernest
+Busset.  He looks down at himself and then crumples to the ground in a heap.
+The shade of Ernest Busset remains behind, looking first down at his body and
+then at you.
+
+"At least I saw my time machine work before I died," he reasons, "Not many
+men get to see the result of their life's work."
+
+"On the contrary," you state.  "Everyone theeth the rethulth of their life
+before they die."
+
+"Good point," says the ghost of Ernest, thoughtfully, as he vanishes before
+your eyes.
+
+Another soul reaped.  Another soul closer to finishing work.
+
+>
+You climb back into the time machine, and just as you sit down the machine
+begins to vibrate.  In a few seconds you find yourself back in 2007.  You get
+out of the machine, back into the laboratory.
+
+Laboratory (Area 51, Nevada)
+
+You are standing in a large spotless room.  The first thing you notice is a
+huge, strange, complex machine in the middle of the room.  You've never seen
+anything like it before.  It's surrounded by a work surface, on which are
+scattered various papers and notes.  One wall is lined with computer
+terminals.  There are also shelves, loaded with bottles and tools and around
+the room seem to be one or two unfinished experiments.
+
+Exits: East
+
+>You move east.
+
+Corridor (Area 51, Nevada)
+
+Another featureless military corridor.  This time you really do see nothing
+special.  The corridor stretches back south, the way that you came from.
+There are doors in the other walls.  The north door has a sign that reads
+Security, the east door reads Barracks and the west door says Laboratory.
+Nice of them to label the doors for you.
+
+Exits: North, South, East and West
+
+>You move south.
+
+Corridor (Area 51, Nevada)
+
+A very plain military corridor, lacking any redeeming features.  It seems
+that after having spent the budget on laser guns and mind control devices
+there's only enough money left for "Hospital White" paint.  There is a door
+to the west labelled Storage, and the corridor continues to the north.  At
+the south end is a set of unmarked double doors.
+
+Exits: North, South and West
+
+>You move west.
+
+Storage Cupboard (Area 51, Nevada)
+
+You are crammed, almost bent double, into a small storage cupboard.  With
+your prefect night vision you can make out several shelves, crammed full of
+pots and bottles of various fluids.  There seems to be a definite cleaning
+theme to this cupboard.  Your foot clatters againt more tins and boxes.
+Horse shuffles and kicks you in the knee.  You think you might have found a
+new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
+
+Exits:  East
+
+Horse waits here, looking quite majestic.  Private Kline is here, slumped in
+a heap on the floor.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+Mountain Pass (Himilayas)
+
+You are standing on a thin path that is winding through the snowy, Himilayan
+mountain range.  The view is lovely, but it isn't half chilly here.  Your
+feet are getting cold and the wind is whipping right up your robe.  Right in
+front of you is a huge snowdrift, under which is buried the body of one of
+your clients - Lord Nigel McWorthington.
+
+Exits: No Exits
+
+Horse waits here, looking quite majestic.
+
+Lord Nigel McWorthington gazed out over the crisp, snowy scene and smiled.
+He was glad that he'd decided to do this; that he'd decided to celebrate his
+sixtieth birthday by trekking through the Himilayas.  His family had insisted
+on a surprise party, despite the fact that his doctor had warned them against
+giving him any sudden shocks.  Then again, his doctor had warned him against
+mountain climbing too.  But he wouldn't trade this for anything.  The view
+was splendid and stretched for miles, and it almost made him shake off the
+nagging feeling that he really should have been at that surprise party.
+Sure, the family would be disappointed when he didn't show up, but they
+should have made a better effort to make sure that he wouldn't find out.  He
+wasn't stupid.  Leaving the guest list out where he could find it wasn't too
+clever for a start.  But that didn't really explain the feeling.  It wasn't
+guilt but rather something else.  Something he couldn't quite put his finger
+on.
+
+He pushed the feeling back again and looked into the sunshine, lifting his
+hands above his head.  He felt so alive!  He almost let out a cry of triumph,
+but stopped just in time.  There's no telling what might cause an avalanche
+in this part of the world.  Just then he heard a rush of wind behind him, he
+turned and...
+
+...found himself staring at a skeletal horse, ridden by a tall, ghastly
+apparition of horror, who seemed to be reading a list...
+
+Lord Nigel McWorthington screamed at the top of his voice and gripped his
+chest.  The scream rebounded off the mountain walls and was suddenly silenced
+by an ominous rumbling sound from above.  He looked up at the avalanche
+descending rapidly, turned once again to the horrifying apparition and
+managed the words "You complete and utter..." before he was buried under a
+crushing weight of snow.
+
+You shrug and climb off Horse.  This was clearly Nigel McWorthington, and you
+suspect that he is (you mean was) the administrative error.  Seems that death
+caught up with him after all.  You smile at the double entendre and turn your
+attention to the scene.  To reap his soul you have to get to the body, which
+is currently under thirty foot of snow.  You scratch your head in puzzlement.
+ Why are these things never easy?
+
+Mountain Pass (Himilayas)
+
+You are standing on a thin path that is winding through the snowy, Himilayan
+mountain range.  The view is lovely, but it isn't half chilly here.  Your
+feet are getting cold and the wind is whipping right up your robe.  Right in
+front of you is a huge snowdrift, under which is buried the body of one of
+your clients - Lord Nigel McWorthington.
+
+Exits: No Exits
+
+Horse waits here, looking quite majestic.
+
+>
+You roll up your sleeves and grab your shovel.
+
+"Don't thay anything," you speak sternly to Horse, who you suspect is
+laughing at you.
+
+After half an hour of hard work you've managed to pile away most of the snow
+and revealed the body of Lord Nigel McWorthington.  As an administration
+error, Nigel is dead but needs to be reaped to ensure that the passage of his
+soul continues.
+
+Mountain Pass (Himilayas)
+
+You are standing on a thin path that is winding through the snowy, Himilayan
+mountain range.  The view is lovely, but it isn't half chilly here.  Your
+feet are getting cold and the wind is whipping right up your robe.  In front
+of you is a snowdrift, most of which has been dug away to reveal a body.
+
+Exits: No Exits
+
+Horse waits here, looking quite majestic.  Lord Nigel McWorthington is here,
+lying on the rocky ground.
+
+>
+You swing your scythe in a downward arc, slicing through Lord Nigel
+McWorthington.  There is a tinkling noise in the background and the departed
+soul of Lord McWorthington rises from his body.  He stands and looks down at
+his feet.
+
+"Oh.  So you killed me then?" he asks.
+
+"Actually, the thnow killed you," you object, but the shade of Nigel
+vanishes.  It really annoys you when people blame you for their death.  Maybe
+in this case Lord McWorthington had a point, but still.  You're just doing
+your job.  And now you're one soul closer to finishing for the day.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+Village (Near Wajir, Kenya)
+
+You are standing in the middle of a cluster of buildings denoting this to be
+a settlement of some kind.  The ground under your feet is dry and dusty.
+Children run through the streets, shouting and laughing.  Men go about their
+business.  Women stand and gossip, occasionally breaking into laughter.
+No-one pays you much attention.  They're all having too much fun to pay any
+mind to death at the moment.  A path winds east out of the village.  You can
+see Jimiyu's hut to the north, and to the west the open doorway of another
+hut invites you in.
+
+Exits: North, East and West
+
+Horse waits here, looking quite majestic.
+
+>You move north.
+
+Hut (Near Wajir, Kenya)
+
+It's a fairly bare hut, lived in by someone who has learnt the hard lesson
+that true happiness is not found in possessions.  The bare, dusty floor is
+going to leave its mark under your toenails for days.  Jimiyu Wangai sits on
+a rickety wicker chair, facing a squat, uncomfortable-looking stool.  Between
+the two seats is a frail table, on which sits a chess board.
+
+Exits: South
+
+Jimiyu Wangai is grinning at you from his chair.
+
+>
+
+"I'm ready.  Let'th play," you take your seat behind the black pieces.
+
+Jimiyu makes his first move.  You mentally cycle through the pages of the
+chess guide in your head and the respond.  Jimiyu nods and makes his second
+move.  Once again you recall what you have read and make a move.  A frown
+crosses Jimiyu's face as he makes a third move.  You respond appropriately.
+This is going well...
+
+Half an hour later the game moves to its completion.  As Jimiyu knocks his
+king over he looks up at you.  Then in a split second his frown transforms
+into a huge grin.
+
+"I really thought that would work," he laughs.
+
+"If it'th any contholation, you're the betht opponent that I've ever had,"
+you say graciously, hoping that he doesn't ask you how many opponents you've
+ever had.
+
+"I've been ready for you for a while," he sighs, "It was just a shame that I
+couldn't see my granddaughter finally wed."
+
+You nod in sympathy but say nothing.  You've never really understood human
+affection for these rites of passage, but you like to make people feel like
+you care.
+
+"I'm ready then.  Let us do this." Jimiyu smiles again.
+
+>
+You swing the scythe and it cleaves through Jimiyu Wangai.  He is still
+smiling as his body crumples to the floor, leaving behind the shade of his
+soul.
+
+"Is that it?" he asks.
+
+You nod.
+
+He begins to fade out of sight, gives one last laugh and waves at you.  You
+wave back.  Another soul reaped.
+
+>You move south.
+
+Village (Near Wajir, Kenya)
+
+You are standing in the middle of a cluster of buildings denoting this to be
+a settlement of some kind.  The ground under your feet is dry and dusty.
+Children run through the streets, shouting and laughing.  Men go about their
+business.  Women stand and gossip, occasionally breaking into laughter.
+No-one pays you much attention.  They're all having too much fun to pay any
+mind to death at the moment.  A path winds east out of the village.  You can
+see Jimiyu's hut to the north, and to the west the open doorway of another
+hut invites you in.
+
+Exits: North, East and West
+
+Horse waits here, looking quite majestic.
+
+>
+You climb on to Horse's back.  He/She climbs into the air and you travel, at
+an incredible speed, to your destination.
+
+Second Floor Corridor (Paris)
+
+You are standing outside room 247 in a well-lit corridor on the second floor
+of a high-class Parisian hotel.  Light fittings line the ceiling.  Splendid
+looking doors are scattered along both sides of the wall to the north and to
+the south.  The fluffy beige carpet tickles your feet.  There is a button on
+the east wall, next to which is a opening where the lift arrives.  Imposing,
+closed metallic doors inform you that the lift is at a different floor.
+
+Exits: West
+
+Horse waits here, looking quite majestic.
+
+Agathe Laurent lay on the bed, smiling to herself.  Death hadn't been as
+unpleasant as she'd feared, but she would still rather cling on to life.  She
+knew where she was with life.  If there was one thing that Agathe had always
+been afraid of it was the unknown.  Well, perhaps afraid was too strong a
+word.  Agathe was loathe to admit that anything frightened her, but she was
+sufficiently troubled to be moved to action.
+
+It had cost her a lot to get to this stage, but she thought it would all be
+worth it if it worked.  She'd have done something that - as far as she knew -
+no-one had ever done before.  She'd have cheated death.
+
+Standing in the doorway was an impossibly tall and lanky figure, wreathed in
+black and as pale as boiled rice.
+
+"Come in," said Agathe...
+
+..you enter the hotel room, bending to get through the door as you go.  You
+give Agathe a nod out of professional courtesy and stride forward towards
+her.  She is still smiling.  You wish that people wouldn't do that.  It
+really unnerves you.  You are a few feet from the bed when THUD!  You stagger
+back, rubbing your nose.
+
+"Ouch!" you exclaim.  That hurt!  Gingerly, you reach out and find your hand
+pressing against some kind of invisible barrier.
+
+"It works!  Ha!" Agathe gives a delighted little squeal and claps her hands
+together.  You gaze down to the floor and see, etched on the wooden floor in
+a circle around the bed, a white chalk line.  It seems to mark the location
+of the transparent wall.
+
+"What the Dickenth ith thith?" you demand, gesturing at the floor.
+
+"Pardon?  I'm sorry?  What did you say?" Agathe screams, staring at you with
+wide mouth.  You stay silent, your face burning with embarrassment (or at
+least it would be if your body had the circulation and blood to perform such
+a function).
+
+"I demand to know what thi...what i...what you have done."
+
+"You have a lisp?" Agathe cackles, "Oh this is just wonderful!  It gets
+better and better!  Death has a lisp!  The Grim Reaper has a speech
+impediment!  How perfect!"
+
+"I haven't got all day, you know."
+
+"Is that your horse?" Agathe is leaning off the bed, peering through the
+doorway into the corridor outside, where Horse stands to attention.  You stay
+silent.  She'll explain eventually.  They always do.  When people think
+they've actually got one over you they can't help but crow about it.
+
+"You've got a proper skeletal horse.  That's amazing.  A skeletal steed.  Can
+you say that?  Skeletal steed.  Let me hear you say that." There is a glint
+in her eye.
+
+This is not going well.  In fact, you think that this is one of the the worst
+things that's ever happened to you, and you've got a long memory.
+
+"Well, I may as well tell you.  It took me long enough to find out about it,
+after all." Agathe shrugs "I've spent most of my time and not inconsiderable
+fortune trying to find out how to cheat you.  I built up a library of old,
+forgotten and - in at least two cases - forbidden books, pooling the
+knowledge of the centuries.  I pieced together in several tomes the answer.
+Have you ever met Andre Theras, the man who wrote How to Avoid Death?"
+
+"That joker?" You roll your eyes "Jutht the onth.  He got it wrong it
+seemth." You don't take much pleasure in your work but you'd quite enjoyed
+that day.
+
+"Well, it turns out that he was partly right.  And so was Dr. Ulan Buntil.
+And so was Madame Elizabeth Fairy.  They all had bits and pieces of it right.
+ I put it together and voila!  I have created a barrier around myself that
+you cannot pass!  And it works!  So you can just sit on your skeletal steed
+and scram, sir!" Agathe is enjoying herself immensely.
+
+"Are you planning to thi...thpen...wait here on your bed for eternity?"
+
+"I can think of worse places to be." Agathe twinkles, winking at you.
+
+So.  What now?  You can't reap her soul until you can get past the invisible
+barrier - or convince her to leave it.  This is definitely one of your worst
+days ever.
+
+Room 247 (Paris)
+
+You are in a hotel room in a luxurious Parisian hotel.  The decor is of the
+usual standard expected by those who have plenty of money but no class.  Gold
+trim and regal, red wallpaper with extravagant, crystal light fittings and a
+white smoke alarm that looks out of place.  The floor is polished oak, or
+some other kind of luxury wood.  There is a four-poster double bed against
+the far wall, which is circumferenced by a thick, chalk line.
+
+Exits: East
+
+Agathe Laurent lounges on the bed, pouting playfully at you.
+
+>
+You casually move over to the smoke alarm while Agathe watches you like a
+hawk.
+
+"What are you doing?" she asks, but you don't answer.
+
+You reach out for a wad of tissues from a desk and then use the lighter to
+set them on fire.  Within seconds smoke is billowing into the alarm, which a
+few moments later is beeping like R2-D2 trapped in a washing machine spin
+cycle.
+
+"What?  WHAT?" Agathe screams as the sprinkler system in the room kicks into
+life.  Water gushes from the ceiling in thick streams and splatters all over
+the room - including the chalk circle around the bed.
+
+Agathe realises with horror that her work is being washed away and she
+screams in frustration as you discard the lighter.
+
+It doesn't take long for the chalk circle to be totally erased, and as the
+sprinkler suddenly ceases its job Agathe looks terrified.  You are grinning.
+
+>
+You swing your scythe through the screaming Agathe Laurent.  Her lifeless
+body falls back onto the bed and leaves her departed soul standing behind.
+She looks at you in terror as she vanishes.
+
+Another soul reaped and one step closer to the end of the job.
+
+Sir Allan Jones looked at the document again and coughed nervously.
+
+"Um, yes, Lady McWorthington I have the final report on your husband's death
+right here.  It's been compiled from all of the evidence we found at the
+scene and...ummm...it makes for interesting reading.  I'm not sure if it
+would help for you to know what it says."
+
+"Please.  I have to know," says Lady McWorthington.
+
+"Well.  OK." Sir Allan Jones coughed again, wishing he could be anything
+other than the British diplomat to Nepal right now.  "We've constructed the
+last moments of your husband and it seems that...that...that he was climbing
+the mountain and had reached the pass.  And he died there."
+
+"I know this," Lady McWorthington is annoyed, "Tell me what happened!"
+
+"From what we can tell, he...he...appeared to have taken off his boots and
+socks and wondered around in bare, size fifteen feet.  Then...then a horse
+came along and stood for a while near him.  Then it appears that he put his
+socks and boots back on and there was an avalanche.  Which killed your
+husband..."
+
+"Oh." Lady McWorthington gasps, "Wait.  What was that about his size fifteen
+feet?"
+
+"Ummm.  It doesn't quite finish there.  It appears that after
+that...he...he...he dug himself out of the snowdrift and then lay down again.
+ Errrrr.  So.  That's what happened."
+
+There is silence.  A clock ticks in the background.  Sir Allan coughs again
+and waits.  Suddenly Lady McWorthington breaks the silence.
+
+"Size fifteen feet?"
+
+Thomas Brewer sat in the office of the university, his palms sweating
+nervously.  Professor Johnson peered at him over the rim of his glasses.
+
+"You must understand that while we are all very sorry to hear about the
+death..."
+
+"He's simply missing at this point." Thomas stressed.
+
+"...death of Doctor Busset," stressed Johnson "I must insist that you return
+to the university and resume teaching.  This whole notion of a time machine
+must be put behind you."
+
+"It works!  I was there!  And so was..." Brewer stood and gestured wildly.
+
+"And so was who?" Professor Johnson sounded curious.
+
+"Ummm..." Thomas sat down again, remembering the tall stranger who had
+appeared at the cellar "Nobody.  No.  It was just me."
+
+"Hmmmm..." said Johnson, unconvinced "Still.  I must insist..."
+
+At that moment they were interrupted by a student barging into the office.
+
+"Professor Johnson!  Professor Johnson!  Quick!  Turn on the television!" the
+young man shouted, breathless.
+
+"What is the meaning of this?" Professor Johnson intoned.
+
+"Oh...let me!" the student stumbled across the room and flicked on the
+television sitting on a shelf.  The 'BBC' news logo flashed across the bottom
+of the screen along with the scrolling words BREAKING NEWS.
+
+The reported was speaking animatedly, his microphone shaking with barely
+contained excitement.
+
+"...the most amazing thing is, despite these human bones being over ten
+thousand years old, the fact that this man had glass ionomer cement fillings
+in his teeth!  Scientists are baffled by modern composite being found in
+ancient teeth and have refused to make any further comment at the moment -
+other than to confirm that the skeleton has been christened 'Ernest'..."
+
+Professor Johnson turned and simply stared at Thomas Brewer, who was grinning
+from ear to ear...
+
+"So how's it going?" the girl asked.
+
+"Pretty good.  Pretty good." the man replied, looking up from his laptop
+computer.
+
+"So what are you writing now?" the girl responded after a pause which
+suggested that she was going to have do all the work in this conversation.
+
+"I'm writing a guide to Battleships." the man didn't even look up from the
+screen.
+
+"What, like warships you mean?"
+
+"No, the game 'Battleships'.  Oh no!  You sunk my battleship.  That kind of
+thing."
+
+"Is there strategy for that game?  I thought it was just random guessing
+until you got lucky." the girl didn't really seem that interested.
+
+"Luck?" the man looked up from his computer for the first time in the
+conversation "Luck doesn't come into it.  It's all about the strategy.  Do I
+pick this coordinate, do I pick that coordinate?  It's the ultimate game of
+cat and mouse."
+
+"That's what you said about chess when you were writing your chess guide,"
+the girl objected, examining her fingernails.
+
+"So.  What's your point?"
+
+"Are you going to pretend that it's sponsored by the President again?" the
+girl looked out of the window.
+
+"What?  I never said it was sponsored by the President," the man seemed
+offended by the suggestion.
+
+"It's kind of misleading though.  You definitely imply that the President is
+behind your guides," the girl sounded disapproving.
+
+"It's all totally above board.  I'm not breaking any laws," said the man, who
+happened to be called George W. Bush.
+
+"Still, I suppose this one's different anyway," the girl looked at him.
+
+"Why?" the man had gone back to typing away.
+
+"At least you actually know the rules of 'Battleship'."
+
+"As long as people keep buying my guides, I'm happy baby," the man concluded,
+as he switched his laptop off.
+
+"One of your systems went off and contacted us." the fire officer explained
+again to the manager of the hotel.
+
+"A malfunction.  Nothing more." the manager assured the fireman, escorting
+him to the door.  This was not going so well.  It was only the sprinkler
+going off that had alerted him to the fact that one of his guests had died in
+the room.  It was going to take ages to clean up the mess and deal with this
+unfortunate incident.  And he had absolutely no clue why the corridor outside
+room 247 smelt of horses.
+
+"Can we at least check?" the fireman objected as he was pushed through the
+revolving door.
+
+"No need, I assure you." the manager grinned and waved at the firemen
+gathered outside the hotel.  One of them gave him a two-fingered wave back.
+Passers-by were stopping to look at the fire engine.  The manager clicked his
+fingers and one of the staff came running.
+
+"I need you to clear up room 247." he barked.
+
+"...yes sir." said the staff member without much enthusiasm.  He had seen
+what had happened in room 247.
+
+"I'm going to call the police.  Ms. Laurent was a valued customer." he
+sounded almost sad, which he was - especially because the bit of Ms. Laurent
+that he valued most was her seemingly limitless credit card.
+
+"Yes sir." sighed the staff member, shuffling off to undertake the thankless
+task.  To think that he'd given up a promising career at McDonald's for
+this...
+
+The manager turned his attention back to the situation outside the hotel.
+
+"At least the sprinklers work." he mused, waving again to the firemen - who
+seemed to be arguing amongst themselves.  Honestly.  Who'd be a hotel
+manager?
+
+"So, Private, I am led to believe by your report that you were not asleep at
+your post but rather..." Captain Salmon looked at the paper in front of her
+"...rather you had witnessed a live ET on the base and in the process of
+giving chase you were...let me get this right...you were knocked unconscious
+by a horse."
+
+Captain Salmon peered up from her chair at Private Kline, who was standing
+rigidly to attention.
+
+"Yes ma'am!" Private Kline clicked his heels.  Captain Salmon studied his
+face carefully, looking for any sign that suggested that he was playing her
+for a fool.  She found none, so returned to the report.
+
+"It says here that the horse was...there's only one 'L' in 'skeleton',
+Private."
+
+"Sorry ma'am!" Kline barked.
+
+"It was a horse skeleton.  Made of bones, that is." she put the paper down
+and studied his face again, willing him to give something away.
+
+"Yes ma'am!"
+
+"Now let me be clear - let's put aside the fact that if someone were going to
+store a horse skeleton on site they probably wouldn't put it in the storage
+cupboard..." Captain Salmon regretted saying that as soon as the words came
+out of her mouth.  It occured to her that a good case could be made for the
+storage cupboard being the exact place someone would put something that they
+wanted to be stored.  She hoped Kline hadn't had the same thought and
+continued regardless.
+
+"...you claim that horse headbutted you.  Not that you ran into it, but that
+this horse skeleton moved in such a way to knock you out with its head?"
+
+"Yes ma'am!" Kline nodded furiously.
+
+"You must think that I'm an idiot." Salmon snapped at him "A further six
+months guard duty!  And you can use your evenings to clean the latrines!"
+
+Kline's face fell.
+
+"That is all Private.  You may leave." Salmon returned to her paperwork, not
+even looking at Kline.
+
+Private Kline opened his mouth to say something but thought better of it.  He
+turned and left, thinking as he went.  He had expected that really, but was
+disappointed for getting into trouble because he had told the truth.  Still,
+he cheered up as he went, by the end of the six months he should have the
+rules of The Game down to a fine art...
+
+You stare at the void outside, relaxing in your favourite armchair.  In the
+background The Eagles are instructing you to Take it to the Limit One More
+Time.  You sigh.  Today has been an interesting day, no doubt about that, but
+not one that you'd wish to repeat.
+
+You slowly stand up and wander over to the bookcase, where you pull out your
+current diary and think about how to record today's events.  You smile as you
+recall some of the situations that today brought you face-to-face with.  You
+suppose that it wasn't the worst day that you've ever had - not by a long
+shot - and it's only going to make tomorrow's jobs seem that bit easier.  The
+more you think about it, the more pride you feel in a job well done and the
+less and less terrible today seems to be.  You sit back down in the armchair
+and turn to a blank page.
+
+Life is good for Death.  Today has, all things considered, been a fine day
+for reaping.
+
+Thank you for playing.
+Congratulations!

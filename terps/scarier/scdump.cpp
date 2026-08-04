@@ -36,6 +36,11 @@
  *   SCR_TRACE_JUDY   per-turn one-line dump of every NPC's current room, for
  *                   pinning down a wandering NPC's deterministic walk.
  *
+ *   SCR_TRACE_VARS   per-turn dump of the game's own named integer variables,
+ *                   either all of them ("1"/"all") or a comma-separated
+ *                   subset.  For games whose timers, NPC moods and progress
+ *                   flags all live in variables (Three Monkeys One Cage).
+ *
  *   SCR_DUMP_OBJLOC  one-shot, isolated per-object dump: starting position
  *                   (gs_object_position code: >=1 room+1, 0 held, -1 hidden,
  *                   -10/-20 in/on object, -100/-200/-300 worn-player/held-NPC/
@@ -165,16 +170,36 @@ scr_dump_structure_once (scr_gameref_t game)
               }
             if (eff < 0 && (pos == -200 || pos == -300) && par >= 0)
               eff = gs_npc_location (game, par) - 1;
-            fprintf (stderr,
-                     "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
-                     " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"
-                     " acc=%ld prot=%ld method=%ld [%s]\n",
-                     i, pos, room, par, eff,
-                     (scr_int) obj_is_static (game, i),
-                     (scr_int) gs_object_static_unmoved (game, i),
-                     gs_object_openness (game, i),
-                     gs_object_state (game, i),
-                     hit, acc, prot, method, s ? s : "");
+            /* Raw SizeWeight (tens = size, units = weight) alongside the
+             * scaled values, because "too heavy to carry" verdicts hinge on
+             * the per-game scale bases and those are invisible otherwise. */
+            {
+              scr_int sw = 0, swclass = -1;
+              scr_vartype_t swk[3];
+              swk[0].string = "Objects"; swk[1].integer = i;
+              swk[2].string = "SizeWeight";
+              if (prop_get (bundle, "I<-sis", &bv, swk)) sw = bv.integer;
+              /* A 3.8 game's real datum: the 0..4 class and what it costs
+               * against MaxCarried.  Absent (-1/0) for 3.9 and 4.0 games. */
+              swk[2].string = "SizeWeightClass";
+              if (prop_get (bundle, "I<-sis", &bv, swk)) swclass = bv.integer;
+              fprintf (stderr,
+                       "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
+                       " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"
+                       " acc=%ld prot=%ld method=%ld sw=%ld size=%ld wt=%ld"
+                       " class=%ld burden=%ld [%s]\n",
+                       i, pos, room, par, eff,
+                       (scr_int) obj_is_static (game, i),
+                       (scr_int) gs_object_static_unmoved (game, i),
+                       gs_object_openness (game, i),
+                       gs_object_state (game, i),
+                       hit, acc, prot, method,
+                       sw, obj_get_size (game, i), obj_get_weight (game, i),
+                       swclass,
+                       obj_uses_burden_model (game)
+                         ? obj_get_burden (game, i) : 0,
+                       s ? s : "");
+            }
           }
         }
 
@@ -183,6 +208,32 @@ scr_dump_structure_once (scr_gameref_t game)
        * into the player and NPC records, and how many walk steps each NPC has
        * (written with no count in front of them).  Print both, so a .tas
        * rewriter -- tas40to39.py -- can walk a save it did not write. */
+      /* The player's carry limits, plus the two per-game geometric scale bases
+       * they are expressed in.  MaxSize/MaxWt are raw "tens*base^units". */
+      {
+        scr_vartype_t gk[2], gv;
+        scr_int max_size = 0, max_wt = 0, sbase = 3, wbase = 3;
+        gk[0].string = "Globals";
+        gk[1].string = "MaxSize";
+        if (prop_get (bundle, "I<-ss", &gv, gk)) max_size = gv.integer;
+        gk[1].string = "MaxWt";
+        if (prop_get (bundle, "I<-ss", &gv, gk)) max_wt = gv.integer;
+        gk[1].string = "SizeMultiple";
+        if (prop_get (bundle, "I<-ss", &gv, gk)) sbase = gv.integer;
+        gk[1].string = "WeightMultiple";
+        if (prop_get (bundle, "I<-ss", &gv, gk)) wbase = gv.integer;
+        fprintf (stderr,
+                 "PLAYERLIMITS rawmaxsize=%ld rawmaxwt=%ld size=%ld wt=%ld"
+                 " sizebase=%ld wtbase=%ld burdenmodel=%ld maxburden=%ld\n",
+                 max_size, max_wt,
+                 obj_get_player_size_limit (game),
+                 obj_get_player_weight_limit (game),
+                 sbase, wbase,
+                 (scr_int) obj_uses_burden_model (game),
+                 obj_uses_burden_model (game)
+                   ? obj_get_player_burden_limit (game) : 0);
+      }
+
       fprintf (stderr, "SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
                (scr_int) battle_is_enabled (game), gs_room_count (game),
                gs_object_count (game), gs_npc_count (game));
@@ -195,6 +246,27 @@ scr_dump_structure_once (scr_gameref_t game)
   if (!dump_tasks || dumped)
     return;
   dumped = TRUE;
+
+  /* Variable table.  ACT type=3 names a variable by this index directly;
+   * RESTR type=4 names it by index + 2 (0 and 1 are the two "referenced
+   * number" pseudo-variables). */
+  {
+    scr_vartype_t vk[3], vv;
+    scr_int nvars, v;
+    vk[0].string = "Variables";
+    nvars = prop_get_child_count (bundle, "I<-s", vk);
+    for (v = 0; v < nvars; v++)
+      {
+        const scr_char *name = NULL;
+        scr_int type = 0;
+        vk[1].integer = v;
+        vk[2].string = "Name";
+        if (prop_get (bundle, "S<-sis", &vv, vk)) name = vv.string;
+        vk[2].string = "Type";
+        if (prop_get (bundle, "I<-sis", &vv, vk)) type = vv.integer;
+        fprintf (stderr, "VAR %ld type=%ld [%s]\n", v, type, name ? name : "");
+      }
+  }
 
   /* Container-index table (1-based "inside" Var3 maps through this). */
   for (i = 0; i < 64; i++)
@@ -230,11 +302,34 @@ scr_dump_structure_once (scr_gameref_t game)
     }
 
   /* Every object's Short name (for spotting ambiguous shared names that the
-   * library bare-noun get/drop retry guard cares about). */
+   * library bare-noun get/drop retry guard cares about), together with the
+   * Prefix and Alias list, which is what %object% actually matches against --
+   * uip_build_candidate() composes "Prefix Short" and "Prefix Alias", so a
+   * walkthrough line that fails with "I see no such thing" is usually naming
+   * a partial prefix that is not one of these strings. */
   for (i = 0; i < gs_object_count (game); i++)
     {
       const scr_char *s = scdump_object_name (game, i);
-      fprintf (stderr, "OBJNAME obj=%ld [%s]\n", i, s ? s : "");
+      scr_vartype_t nk[4], nv;
+      scr_int alias_count, a;
+
+      nk[0].string = "Objects";
+      nk[1].integer = i;
+      nk[2].string = "Prefix";
+      fprintf (stderr, "OBJNAME obj=%ld [%s] prefix=[%s]", i, s ? s : "",
+               prop_get (bundle, "S<-sis", &nv, nk) && nv.string
+               ? nv.string : "");
+
+      nk[2].string = "Alias";
+      alias_count = prop_get_child_count (bundle, "I<-sis", nk);
+      for (a = 0; a < alias_count; a++)
+        {
+          nk[3].integer = a;
+          if (prop_get (bundle, "S<-sisi", &nv, nk) && nv.string
+              && nv.string[0] != '\0')
+            fprintf (stderr, " alias=[%s]", nv.string);
+        }
+      fprintf (stderr, "\n");
     }
 
   /* Lockable objects: the "Key" property is the *dynamic-object index* of the
@@ -357,11 +452,16 @@ scr_dump_structure_once (scr_gameref_t game)
 
       {
         scr_int score = 0;
+        const scr_char *mask = NULL;
         k[2].string = "Score";
         if (prop_get (bundle, "I<-sis", &vt, k)) score = vt.integer;
+        k[2].string = "RestrMask";
+        if (prop_get (bundle, "S<-sis", &vt, k)) mask = vt.string;
         fprintf (stderr,
-                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld score=%ld cmd=[%s]\n",
-                 t, wtype, wroom, rcount, rep, score, cmd ? cmd : "");
+                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld score=%ld"
+                 " mask=[%s] cmd=[%s]\n",
+                 t, wtype, wroom, rcount, rep, score,
+                 mask ? mask : "", cmd ? cmd : "");
       }
 
       /* For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
@@ -666,6 +766,21 @@ scr_dump_structure_once (scr_gameref_t game)
     static const char *dirs[] =
       { "N","E","S","W","U","D","IN","OUT","NE","SE","SW","NW" };
 
+    /* The game's own win/lose text.  Empty WinText is what makes the engine
+     * fall back to its hard-coded "Congratulations!", so seeing this is the
+     * quick way to tell an engine-supplied ending line from an authored one
+     * when a published transcript and our own disagree about how many there
+     * should be. */
+    {
+      scr_vartype_t hk[2], hv;
+
+      hk[0].string = "Header";
+      hk[1].string = "WinText";
+      fprintf (stderr, "WINTEXT [%s]\n",
+               prop_get (bundle, "S<-ss", &hv, hk) && hv.string
+               ? hv.string : "");
+    }
+
     rk[0].string = "Rooms";
     rcount = prop_get_child_count (bundle, "I<-s", rk);
     for (r = 0; r < rcount; r++)
@@ -769,7 +884,7 @@ scr_dump_npc_trace (scr_gameref_t game)
 {
   static scr_bool checked_env = FALSE;
   static scr_bool trace_player, trace_judy;
-  static const scr_char *trace_obj;
+  static const scr_char *trace_obj, *trace_vars;
   scr_int npc;
 
   /* Called once per turn; poll the environment once only. */
@@ -779,6 +894,7 @@ scr_dump_npc_trace (scr_gameref_t game)
       trace_player = getenv ("SCR_TRACE_PLAYER") != NULL;
       trace_obj = getenv ("SCR_TRACE_OBJ");
       trace_judy = getenv ("SCR_TRACE_JUDY") != NULL;
+      trace_vars = getenv ("SCR_TRACE_VARS");
     }
 
   /* SCR_TRACE_PLAYER: just the player's room each turn (maze-mapping aid). */
@@ -795,6 +911,61 @@ scr_dump_npc_trace (scr_gameref_t game)
                      gs_object_position (game, oi), gs_object_state (game, oi));
           }
       }
+      fprintf (stderr, "\n");
+      fflush (stderr);
+    }
+
+  /*
+   * SCR_TRACE_VARS: per-turn dump of the game's own named variables.  Games
+   * that run their whole state machine out of variables (timers, NPC moods,
+   * "have I done X yet" flags) are otherwise opaque; this makes the machine
+   * visible one turn at a time.  Set to "1"/"all" for every integer variable,
+   * or to a comma-separated name list to follow just a few.
+   */
+  if (trace_vars)
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      const scr_var_setref_t vars = gs_get_vars (game);
+      scr_bool all = (strcmp (trace_vars, "1") == 0
+                      || strcmp (trace_vars, "all") == 0);
+      scr_vartype_t vt_key[3], vt_rvalue;
+      scr_int count, index;
+
+      vt_key[0].string = "Variables";
+      count = prop_get_child_count (bundle, "I<-s", vt_key);
+
+      fprintf (stderr, "VARTRACE");
+      for (index = 0; index < count; index++)
+        {
+          const scr_char *name;
+          scr_int var_type;
+
+          vt_key[1].integer = index;
+          vt_key[2].string = "Name";
+          name = prop_get_string (bundle, "S<-sis", vt_key);
+          if (!name)
+            continue;
+
+          /* Filter: a bare name has to appear in the comma-separated list. */
+          if (!all)
+            {
+              const scr_char *hit = strstr (trace_vars, name);
+              size_t len = strlen (name);
+
+              if (!hit
+                  || (hit != trace_vars && hit[-1] != ',')
+                  || (hit[len] != '\0' && hit[len] != ','))
+                continue;
+            }
+
+          if (!var_get (vars, name, &var_type, &vt_rvalue)
+              || var_type != VAR_INTEGER)
+            continue;
+          if (all)
+            fprintf (stderr, " %ld:%s=%ld", index, name, vt_rvalue.integer);
+          else
+            fprintf (stderr, " %s=%ld", name, vt_rvalue.integer);
+        }
       fprintf (stderr, "\n");
       fflush (stderr);
     }

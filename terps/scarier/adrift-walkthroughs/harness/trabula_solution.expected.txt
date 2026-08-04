@@ -208,11 +208,11 @@ little rotten.  The wooden chest is locked.
 
 >The rusty key crumbles to dust.
 
->You open the steel chest.  Inside the steel chest is a diamond ring.
+>You open the steel chest.  A diamond ring is inside the steel chest.
 
->You open the iron chest.  Inside the iron chest is a lead weight.
+>You open the iron chest.  A lead weight is inside the iron chest.
 
->You open the wooden chest.  Inside the wooden chest is a bag of gold.
+>You open the wooden chest.  A bag of gold is inside the wooden chest.
 
 >You take the diamond ring from the steel chest.
 

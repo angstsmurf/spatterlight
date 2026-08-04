@@ -122,7 +122,7 @@ I can also see a pair of secateurs and a ratty old paintbrush.
 I can only move out.
 
 >Plant pots of all different sizes are scattered about the floor of the shed.
-Inside one of the plant pots is a trowel and a pair of gardening gloves.
+A trowel and a pair of gardening gloves are inside one of the plant pots.
 
 >I open the trunk. It contains some sticks of dynamite. If this is what Papa
 Bear thinks of as fishing tackle I dread to think what he uses for hunting -
@@ -323,7 +323,7 @@ enormous brick fireplace that seems to fill half the room.
 
 >I take the spoon from the dining table.
 
->I open the kitchen dresser.  Inside the kitchen dresser is a gigantic bowl.
+>I open the kitchen dresser.  A gigantic bowl is inside the kitchen dresser.
 
 >I take the gigantic bowl from the kitchen dresser.
 
@@ -361,7 +361,7 @@ Over in the corner of the pantry, underneath the shelves is a mousetrap.
 
 I can only move south.
 
->I open the freezer.  Inside the freezer is a packet of frozen pork chops.
+>I open the freezer.  A packet of frozen pork chops is inside the freezer.
 
 >I take the packet of frozen pork chops from the freezer.
 
@@ -687,7 +687,7 @@ I can only move up.
 
 >I unlock the wardrobe with the old brass key.
 
->I open the wardrobe.  Inside the wardrobe is a set of dumbells.
+>I open the wardrobe.  A set of dumbells is inside the wardrobe.
 
 >I drop the old brass key.
 
@@ -852,7 +852,7 @@ I can also see a TV remote control.
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
 
->I open the refridgerator.  Inside the refridgerator is a can of beer.
+>I open the refridgerator.  A can of beer is inside the refridgerator.
 
 >I take the can of beer from the refridgerator.
 
@@ -911,7 +911,8 @@ I can also see a package.
 
 I can move south and in.
 
->I open the package.  Inside the package is an electric toaster and a leaflet.
+>I open the package.  An electric toaster and a leaflet are inside the
+package.
 
 >I take the electric toaster from the package.
 

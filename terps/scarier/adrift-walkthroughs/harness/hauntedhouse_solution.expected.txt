@@ -39,7 +39,7 @@ There are exits south, west and northeast.
 
 >You take the knife from the sink.
 
->You open the oven.  Inside the oven is a severed head.
+>You open the oven.  A severed head is inside the oven.
 
 >You take the severed head from the oven.
 

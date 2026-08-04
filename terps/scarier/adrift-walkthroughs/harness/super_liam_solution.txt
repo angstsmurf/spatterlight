@@ -1,0 +1,86 @@
+north
+pull chain
+east
+in
+down
+down
+north
+in
+take necklace
+out
+south
+give necklace to mermaid
+up
+up
+out
+west
+west
+open door
+in
+north
+push piano
+down
+north
+east
+in
+take necko wafers
+eat necko wafers
+take sash
+out
+west
+north
+in
+give sash to pavlov
+take gold key
+out
+south
+west
+unlock door
+in
+shoot julian
+press button
+south
+take large wire
+north
+east
+give wire to ben
+west
+west
+down
+east
+ride bike
+take brass key
+west
+south
+unlock locker
+north
+up
+east
+give minny disc to mr shaphren
+west
+west
+down
+south
+down
+west
+west
+shoot worm
+press red button
+north
+east
+take virus
+west
+south
+south
+west
+in
+give virus to blurp
+out
+east
+north
+north
+east
+press button
+up
+shoot x1
+east

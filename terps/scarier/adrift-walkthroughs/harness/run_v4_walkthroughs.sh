@@ -1076,7 +1076,7 @@ twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
 haunted_house_solution.txt|haunted.taf|You went in, you got the treasure, and now you
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
-timmy_reid_solution.txt|tra.taf
+timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!
 duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
 fistandantalus_solution.txt|first.taf|Congradulations you have won the game
 james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL

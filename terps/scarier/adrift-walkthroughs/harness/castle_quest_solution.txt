@@ -1,0 +1,17 @@
+north
+west
+north
+press green button
+south
+east
+north
+north
+east
+pull blue lever
+east
+south
+stand on red floorplate
+north
+east
+eight
+take treasure chest

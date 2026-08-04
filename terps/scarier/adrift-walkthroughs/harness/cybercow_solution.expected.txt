@@ -36,7 +36,7 @@ cookies.  There is a couch here.
 
 You can only move west.
 
->You open the cupboard.  Inside the cupboard is the bowl and the flashlight.
+>You open the cupboard.  The bowl and the flashlight are inside the cupboard.
 
 >You take the bowl from the cupboard.
 

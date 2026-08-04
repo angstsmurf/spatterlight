@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Convert a SCARE-written ADRIFT 4.0 .tas save into ADRIFT 3.9 layout.
 
-SCARE always writes saves in 4.0 format (sctaffil.cpp: "Saved games are always
-considered to be version 4.0"), so run390.exe rejects them with "This adventure
-file is not for this adventure".  This script rewrites the stream into the
-layout the real 3.9 Runner writes, which lets you take any SCARE state -- a
-walkthrough replayed headlessly, an undo memo, a bisect probe -- straight into
-run390.exe and use the genuine Runner as an oracle from there.
+SCARE now writes and reads this layout natively -- saving a 3.8/3.9 game
+produces a file run390.exe accepts, and restoring auto-detects either format
+(scserial.cpp, ser_save_game()).  So this script is no longer part of any
+workflow.  It is kept as the independent oracle that proves the native writer:
+diff a native save against this script's conversion of the same state and they
+must be byte-identical (they are, on The Hangover, Melbourne Beach, thetest
+and circus).  It also still converts a 4.0-format save SCARE wrote earlier.
 
 Format notes (reverse-engineered 2026-08-03 by diffing run390.exe's own saves of
 The Hangover and Melbourne Beach against SCARE's).  Both converted saves restore

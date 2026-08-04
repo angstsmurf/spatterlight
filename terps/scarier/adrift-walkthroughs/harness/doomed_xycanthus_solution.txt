@@ -80,10 +80,3 @@ south
 west
 get paperweight
 jump
-Any donation would be much appreciated
-to help keep the site online and growing.
-To help make your donation quicker and
-easier just click the "Donate" button and you will be taken to the
-secure Paypal donation page.
-Home  |
-About Me

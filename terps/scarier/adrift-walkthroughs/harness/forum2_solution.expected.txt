@@ -116,7 +116,7 @@ n...nearly all of it. I wish you luck, Bob.'
 And with that, he falls back on the floorboards, his fluffy arms falling limp
 at his sides.
 
->You open the white desk.  Inside the white desk is a piece of paper.
+>You open the white desk.  A piece of paper is inside the white desk.
 
 >You take the piece of paper from the white desk.
 

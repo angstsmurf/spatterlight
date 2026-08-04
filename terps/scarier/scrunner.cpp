@@ -669,6 +669,45 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
   return FALSE;
 }
 
+/*
+ * run_movement_succeeds()
+ *
+ * Return TRUE if the input is a movement command that would really move the
+ * player out of the room.  Prints nothing and changes nothing -- the movement
+ * handlers run under lib_set_movement_probe().  Used only by the version 3.8
+ * ordering in run_all_commands().
+ */
+static scr_bool
+run_movement_succeeds (scr_gameref_t game, const scr_char *string)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
+  scr_bool eightpointcompass, is_movement = FALSE;
+  scr_commandsref_t command;
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "EightPointCompass";
+  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
+  command = eightpointcompass ? MOVE_COMMANDS_8 : MOVE_COMMANDS_4;
+
+  lib_set_movement_probe (TRUE);
+  for (; command->command; command++)
+    {
+      if (uip_match (command->command, string, game))
+        {
+          if (command->handler (game))
+            {
+              is_movement = TRUE;
+              break;
+            }
+        }
+    }
+  lib_set_movement_probe (FALSE);
+
+  return is_movement;
+}
+
+
 static scr_bool
 run_standard_commands (scr_gameref_t game, const scr_char *string)
 {
@@ -1487,6 +1526,45 @@ run_event_task (scr_gameref_t game, scr_int eventtask)
 
 
 /*
+ * run_defer_loud_tasks_to_movement()
+ *
+ * In version 3.8 (and so also 3.7) a task whose command matches but whose
+ * restrictions fail does NOT get to swallow a direction the player can
+ * actually walk in: the movement happens, and the task's fail message is
+ * never printed.  Verified live in run380 with "The Twilight" (2026-08-04):
+ * its task 6 is "w" at the Cliff Top, restricted to Gale being present, and
+ * before she joins you the Runner answers a bare "w" with "You move west."
+ * and no message at all.  Under the version 4.0 ordering the message wins
+ * instead, which strands the player on the very first move of that game --
+ * and again later, since it also blocks the attic with "d"/"u" tasks
+ * restricted to the Sentinel and the apparition being present.
+ *
+ * This is specific to movement.  Other standard commands still lose to the
+ * message: in the same session "ask gale about mansion" printed task 4's
+ * "You can't do that in your present company." even though the Runner has a
+ * perfectly good answer of its own for asking an absent character (it says
+ * "You can't talk to that." when no task matches at all).  So all this does
+ * is let a *successful* move jump the queue.  A move that would be refused
+ * changes nothing: the loud task still gets its say, and the refusal is
+ * printed afterwards by run_standard_commands() if no task claims the input.
+ */
+static scr_bool
+run_defer_loud_tasks_to_movement (scr_gameref_t game, const scr_char *string)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key;
+  scr_int version;
+
+  vt_key.string = "Version";
+  version = prop_get_integer (bundle, "I<-s", &vt_key);
+  if (version > TAF_VERSION_380)
+    return FALSE;
+
+  return run_movement_succeeds (game, string);
+}
+
+
+/*
  * run_all_commands()
  * run_game_task_commands()
  *
@@ -1538,7 +1616,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   status = run_game_commands_in_parser_context (game, string, FALSE);
   if (!status)
     status = run_priority_commands (game, string);
-  if (!status)
+  if (!status && !run_defer_loud_tasks_to_movement (game, string))
     status = run_game_commands_in_parser_context (game, string, TRUE);
   if (!status)
     status = run_standard_commands (game, string);
@@ -2623,9 +2701,15 @@ run_restart (scr_gameref_t game)
 
 /*
  * run_save()
+ * run_save_to_file()
  * run_save_prompted()
  *
  * Saves either a running or a stopped game.
+ *
+ * run_save_to_file() is for a save the player keeps, and writes a pre-4.0
+ * game's own save format so the original Runner can read it back; run_save()
+ * always writes the full 4.0 layout, for snapshots that have to survive a
+ * round trip losslessly (the Spatterlight autosave).  See ser_save_game().
  */
 void
 run_save (scr_gameref_t game, scr_write_callbackref_t callback, void *opaque)
@@ -2634,6 +2718,16 @@ run_save (scr_gameref_t game, scr_write_callbackref_t callback, void *opaque)
   assert (callback);
 
   ser_save_game (game, callback, opaque);
+}
+
+void
+run_save_to_file (scr_gameref_t game,
+                  scr_write_callbackref_t callback, void *opaque)
+{
+  assert (gs_is_game_valid (game));
+  assert (callback);
+
+  ser_save_game_to_file (game, callback, opaque);
 }
 
 scr_bool

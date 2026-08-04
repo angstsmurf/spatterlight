@@ -1,0 +1,9 @@
+take clothes
+wear clothes
+take glass
+bang on door
+chop door
+hold up glass
+take gun
+south
+shoot man

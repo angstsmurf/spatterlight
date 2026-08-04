@@ -26,7 +26,7 @@ Your cramped kitchen boasts all the usual ammenities and appliances, fridge,
 stove, oven, cupboards.The living room is to the west.
 The scruffy ticking cat follows you.
 
->You open the oven.  Inside the oven is a tin.
+>You open the oven.  A tin is inside the oven.
 There's NO TIME.  THERE'S NO TIME!!! FASTER!  FASTER! DITCH! THE CAT!!!!
 The scruffy ticking cat follows you.
 

@@ -148,7 +148,8 @@ enum
 { TAF_VERSION_NONE = 0,
   TAF_VERSION_400 = 400,
   TAF_VERSION_390 = 390,
-  TAF_VERSION_380 = 380
+  TAF_VERSION_380 = 380,
+  TAF_VERSION_370 = 370
 };
 
 typedef struct scr_taf_s *scr_tafref_t;
@@ -161,6 +162,8 @@ extern const scr_char *taf_next_line (scr_tafref_t taf);
 extern scr_bool taf_more_lines (scr_tafref_t taf);
 extern scr_int taf_get_game_data_length (scr_tafref_t taf);
 extern scr_int taf_get_version (scr_tafref_t taf);
+extern void taf_obfuscate_reset (void);
+extern void taf_obfuscate_buffer (scr_byte *buffer, scr_int length);
 extern scr_bool taf_debug_is_taf_string (scr_tafref_t taf, const void *addr);
 extern void taf_debug_dump (scr_tafref_t taf);
 
@@ -459,6 +462,8 @@ extern scr_int lib_random_roomgroup_member (scr_gameref_t game, scr_int roomgrou
 extern const scr_char *lib_get_room_name (scr_gameref_t game, scr_int room);
 extern scr_bool lib_can_go (scr_gameref_t game, scr_int room,
                             scr_int direction);
+/* Silence movement handlers, so they only report whether a move is possible. */
+extern void lib_set_movement_probe (scr_bool probe);
 /* The word the parser expects for a direction, for the map's click-to-walk. */
 extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
@@ -750,6 +755,8 @@ extern void run_destroy (scr_gameref_t game);
 extern void run_restart (scr_gameref_t game);
 extern void run_save (scr_gameref_t game,
                       scr_write_callbackref_t callback, void *opaque);
+extern void run_save_to_file (scr_gameref_t game,
+                              scr_write_callbackref_t callback, void *opaque);
 extern scr_bool run_save_prompted (scr_gameref_t game);
 extern scr_bool run_restore (scr_gameref_t game,
                             scr_read_callbackref_t callback, void *opaque);
@@ -876,6 +883,9 @@ extern scr_int obj_get_size (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_weight (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_player_size_limit (scr_gameref_t game);
 extern scr_int obj_get_player_weight_limit (scr_gameref_t game);
+extern scr_bool obj_uses_burden_model (scr_gameref_t game);
+extern scr_int obj_get_burden (scr_gameref_t game, scr_int object);
+extern scr_int obj_get_player_burden_limit (scr_gameref_t game);
 extern scr_int obj_get_container_capacity (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_container_free_space (scr_gameref_t game,
                                              scr_int object);
@@ -894,6 +904,9 @@ extern void obj_debug_trace (scr_bool flag);
 extern void ser_set_fast_compression (scr_bool fast);
 extern void ser_save_game (scr_gameref_t game,
                            scr_write_callbackref_t callback, void *opaque);
+extern void ser_save_game_to_file (scr_gameref_t game,
+                                   scr_write_callbackref_t callback,
+                                   void *opaque);
 extern scr_bool ser_save_game_prompted (scr_gameref_t game);
 extern scr_bool ser_load_game (scr_gameref_t game,
                               scr_read_callbackref_t callback, void *opaque);

@@ -1,0 +1,85 @@
+open mailbox
+take envelope
+open envelope
+read letter
+north
+knock on church door
+sit
+eat turkey
+take bone
+give dog bone
+south
+east
+take implement of destruction
+north
+play guitar
+south
+stop playing
+north
+open cabinet
+take shovel
+south
+west
+get in bus
+drive north
+get out of bus
+take sign
+get in bus
+drive east
+get out of bus
+put sign on window
+open restaurant door
+in
+take brownie
+out
+get in bus
+drive west
+drive south
+get out of bus
+north
+north
+eat brownie
+west
+eat half brownie
+take rake
+call for help
+ring bell
+down
+east
+put shovel under garbage
+put rake on garbage
+take garbage
+break garbage with implement of destruction
+get in bus
+drive north
+drive northeast
+get out of bus
+take garbage out of bus
+east
+dump garbage
+put envelope under garbage
+west
+get in bus
+drive southwest
+drive south
+get out of bus
+north
+north
+wait
+call Alice
+leave station
+guilty
+north
+north
+north
+east
+east
+east
+east
+south
+open door
+kill
+wait
+littering
+and creating a nuissance
+ask Sargeant about paper

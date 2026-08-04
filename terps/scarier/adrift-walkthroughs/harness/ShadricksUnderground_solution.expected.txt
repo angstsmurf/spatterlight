@@ -166,11 +166,11 @@ and spices.  A few of the shelves house jars of pickled eggs some black jars.
 you'll have to be more specific.  There are jars of pickled eggs and some
 black ones. I can't tell what is in them.
 
->I open the pickled egg jar.  Inside the pickled egg jar is a pickled egg.
+>I open the pickled egg jar.  A pickled egg is inside the pickled egg jar.
 
 >I pull and egg from the jar, and boy, does it smell ripe.
 
->I open the black jar.  Inside the black jar is a pickled pig's foot.
+>I open the black jar.  A pickled pig's foot is inside the black jar.
 
 >I pull a pickled pig's foot from the jar.  It drips a little, but doesn't
 make too big of a mess.

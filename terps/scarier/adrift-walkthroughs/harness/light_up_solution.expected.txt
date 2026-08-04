@@ -63,7 +63,7 @@ anything particularly frightening about it.
 
 My lucky car is here, in all its 80s American glory.
 
->I open the trunk.  Inside the trunk is a flashlight.
+>I open the trunk.  A flashlight is inside the trunk.
 
 >I take the flashlight from the trunk.
 
@@ -115,7 +115,7 @@ modern Bistro table and a few chairs.
 
 You could always go back to the (equally horrible) den (southwest).
 
->I open the refrigerator.  Inside the refrigerator is a blue vial.
+>I open the refrigerator.  A blue vial is inside the refrigerator.
 
 >I take the blue vial from the refrigerator.
 

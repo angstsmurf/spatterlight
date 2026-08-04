@@ -1,0 +1,130 @@
+e
+take wallet
+get wallet
+open wallet
+get mobile-phone
+read letter
+wave
+shout
+up
+get crowbar
+e
+take stun-gun
+get stun-gun
+watch tv
+take t-shirt
+get trousers
+e
+use shower
+use toilet
+wash hands
+open medicine cabinet
+get toothbrush
+get tube of toothpaste
+brush teeth
+get bottle of mouthwash
+eat mouthwash
+w
+w
+down
+e
+wash trousers
+w
+converse with thugs
+shoot thugs
+w
+n
+e
+give chocolate to mrs walters
+call ambulance
+z
+z
+take picasso
+s
+phone julie
+z
+z
+invite julie in
+up
+e
+search coat
+w
+down
+converse with julie
+give picasso to julie
+w
+n
+n
+n
+n
+n
+buy lucky dip
+eat box of chocolates
+s
+s
+up
+w
+get bottle of pills
+e
+give pills to betty
+converse with betty
+converse with customer
+squeeze spot
+e
+take dictionary
+learn norwegian
+w
+w
+w
+converse with mr broomfield
+give novel to mr broomfield
+n
+n
+w
+converse with diners
+w
+converse with giovanni
+converse with malcolm
+down
+open cabinet
+get vintage
+eat vintage
+up
+e
+e
+s
+s
+call mr fairbanks
+w
+n
+converse with norge george
+use computer
+s
+w
+converse with mr fairbanks
+give vintage to mr fairbanks
+e
+e
+use cash machine
+s
+converse with matthews
+shoot matthews
+s
+get car key
+n
+enter car
+exit car
+n
+n
+break into car
+drive
+turn left
+turn on radio
+listen to radio
+exit car
+w
+shoot shephard
+n
+climb fence
+score
+hide

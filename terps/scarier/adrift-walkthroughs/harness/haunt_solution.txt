@@ -1,0 +1,86 @@
+x portraits
+up
+x portraits
+kiss marie
+kiss marie
+w
+use emerald with crest
+take paper
+e
+e
+s
+open drawers
+take weedkiller
+n
+w
+down
+e
+n
+n
+put weedkiller in tank
+n
+take rusty key
+s
+open toolshed
+e
+take hammer
+take ladder
+w
+s
+s
+w
+look in umbrella stand
+take ticket
+s
+lean ladder against window
+up
+pull chain
+take key from toilet
+drink from toilet
+open door
+e
+n
+w
+down
+e
+unlock cabinet
+take whisky
+drink whisky
+take whisky
+n
+w
+open cupboard
+take vial
+hit tile with hammer
+take cog
+kiss eggbert
+up
+e
+s
+w
+up
+w
+pour liquid into fish tank
+take fish
+put fish in whisky
+e
+e
+put cog in clock
+w
+down
+e
+n
+w
+down
+pour potion into mixture
+up
+e
+n
+w
+pour sludge on gravestone
+show paper to horace
+e
+s
+w
+score
+down

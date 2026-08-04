@@ -1,0 +1,29 @@
+out
+take case
+open case
+take money
+take gun
+hot wire truck
+drive truck to town
+east
+in
+order beer
+take beer
+drink beer
+hit gorge with gun
+out
+east
+east
+in
+ask keymaker about a key
+pay keymaker
+wait
+out
+west
+north
+enter plane
+start plane
+push lever
+pull stick
+west
+up

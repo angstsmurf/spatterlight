@@ -186,7 +186,7 @@ eating than talking to you.
 closed.
 
 >[open wardrobe]
-You open the wardrobe.  Inside the wardrobe is a bar of chocolate.
+You open the wardrobe.  A bar of chocolate is inside the wardrobe.
 
 >A small bar of chocolate., that smells yummy!
 
@@ -341,8 +341,8 @@ calendar on the wall. You can only move south.
 
 >The drawers are made of a dark, red wood, and look expensive. You consider
 scratching the surface of the drawers as you don't like the first mate very
-much, but decide against it.  The set of drawers are open.  Inside the set of
-drawers is a deflated rubber boat and a pair of fluffy pink handcuffs.
+much, but decide against it.  The set of drawers are open.  A deflated rubber
+boat and a pair of fluffy pink handcuffs are inside the set of drawers.
 
 >You take the deflated rubber boat and the pair of fluffy pink handcuffs from
 the set of drawers.
@@ -382,7 +382,7 @@ Bob is standing on deck staring blankly and picking his nose.
 is closed.
 
 >[open a container]
-You open the container.  Inside the container is a note.
+You open the container.  A note is inside the container.
 
 >The untidy writing is scrawled across the page in red marker pen. It reads
 "IOU one life raft"
@@ -454,7 +454,7 @@ down.
 >A small metal toolbox.  The toolbox is closed.
 
 >[open toolbox]
-You open the toolbox.  Inside the toolbox is a crowbar.
+You open the toolbox.  A crowbar is inside the toolbox.
 
 >A silver crowbar, useful for jemmying!!!
 

@@ -50,8 +50,8 @@ is a raised platform on which stands a huge stone sarcophagos.
 
 You can only move west.
 
->You open the magnificent sarcophagos.  Inside the magnificent sarcophagos is
-the golden coffin and a golden beetle.
+>You open the magnificent sarcophagos.  The golden coffin and a golden beetle
+are inside the magnificent sarcophagos.
 
 >You take the golden beetle from the magnificent sarcophagos.
 

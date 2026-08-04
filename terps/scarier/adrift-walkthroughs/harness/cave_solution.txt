@@ -1,0 +1,216 @@
+drop book
+drop map
+get poppy
+wear poppy
+w
+kick door
+clean window
+open door
+in
+pull spring
+open chest
+take axe
+out
+e
+e
+push button
+n
+n
+move rock
+take worm
+turn wheel
+s
+w
+pick bark
+climb tree
+put wire in hole
+climb tree
+feed bird
+z
+z
+take dragon
+climb down
+climb down
+take coin
+chop tree
+drop axe
+take wood
+w
+s
+in
+open hatch
+down
+pull lever
+up
+out
+e
+s
+untie rope
+make raft
+drop wire
+drop dragon
+e
+put raft in water
+take seed
+go in raft
+destroy raft
+drop rope
+drop wood
+e
+give coin to bob
+n
+give bark to dog
+plant seed
+z
+z
+z
+z
+z
+take rod
+drop rod
+s
+s
+e
+in
+take nails
+take oil
+out
+w
+n
+w
+take wood
+e
+n
+take batteries
+n
+fix bridge
+drop hammer
+s
+take rod
+n
+w
+w
+w
+s
+w
+oil pump
+use pump
+take robot
+put batteries in robot
+drop oil
+e
+s
+take dragon
+take wire
+e
+catch fish
+cook fish
+eat fish
+drop rod
+w
+n
+w
+n
+in
+drop robot
+take parchment
+out
+s
+in
+take sellotape
+down
+take box
+unlock box
+drop box
+drop key
+up
+out
+drop parchment
+drop amulet
+drop dragon
+drop sellotape
+s
+swim
+down
+take bottle
+pull plug
+down
+fix wiring
+push green button
+push red button
+take alien
+up
+n
+drink water
+n
+take parchment
+take sellotape
+n
+in
+put bottle under slime
+out
+s
+take amulet
+e
+s
+drop amulet
+n
+n
+e
+e
+e
+s
+s
+s
+e
+in
+put slime in car
+drop bottle
+turn key
+s
+take spade
+n
+out
+n
+in
+dig hole
+bury alien
+fill in hole
+take gauntlet
+wear gauntlet
+drop spade
+out
+w
+s
+knock on door
+take restorer
+give poppy to meg
+out
+n
+n
+n
+n
+n
+hit wall
+e
+e
+move rock
+take paper
+stick parchments together
+pour restorer on parchment
+w
+w
+s
+s
+w
+w
+w
+s
+s
+take amulet
+up
+e
+put amulet on table
+down
+score
+read parchment

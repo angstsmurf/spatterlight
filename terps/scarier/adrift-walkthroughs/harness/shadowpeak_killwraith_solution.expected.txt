@@ -78,8 +78,8 @@ Also here is a bird’s nest.
 You can only move down.
 
 >It is a typical magpie’s nest, which could hold a few eggs, or something
-shiny, which magpies often collect.  Inside the bird’s nest is a chain
-attached to a medallion and an egg.
+shiny, which magpies often collect.  A chain attached to a medallion and an
+egg are inside the bird’s nest.
 
 >You take the egg from the bird’s nest.
 
@@ -495,7 +495,7 @@ There is an iron handle sticking out of the ceiling.
 Also here is a sarcophagus.
 A stone wall drops down behind you, blocking your exit from this building!
 
->You open the sarcophagus.  Inside the sarcophagus is a vial.
+>You open the sarcophagus.  A vial is inside the sarcophagus.
 As you open the sarcophagus, a faint wisp of smoke permeates the air. It
 gradually takes shape into a frightening sight: a transparent form of a man
 with red gleaming eyes, dressed in old robes and wielding a smoky sword now
@@ -1596,7 +1596,7 @@ Arthur falls face down as he his finally put out of his misery.
 
 >Time passes...
 
->You open the cupboard.  Inside the cupboard is a tinderbox.
+>You open the cupboard.  A tinderbox is inside the cupboard.
 
 >You take the tinderbox from the cupboard.
 
@@ -1735,7 +1735,7 @@ Also here is a large wooden box.
 
 You can only move east.
 
->You open the large wooden box.  Inside the large wooden box is a leg of lamb.
+>You open the large wooden box.  A leg of lamb is inside the large wooden box.
 Seeker hums!
 Bambi hits you, but it doesn't seem to do any damage.
 
@@ -2697,8 +2697,8 @@ Seeker hums!
 A faint mist starts collecting in the room.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
->You open the coffin #7.  Inside the coffin #7 is a brooch and The remains of
-Maldus.
+>You open the coffin #7.  A brooch and The remains of Maldus are inside the
+coffin #7.
 Seeker hums!
 Seeker hums!
 
@@ -3334,7 +3334,7 @@ You can move north and south.
 Seeker hums!
 Seeker hums!
 
->You open the coffin #2.  Inside the coffin #2 is a sceptre.
+>You open the coffin #2.  A sceptre is inside the coffin #2.
 Seeker hums!
 Grazilda lies in her coffin.
 Grazilda’s eyes flick open.
@@ -3441,7 +3441,7 @@ Seeker hums!
 >You unlock iron chest with golden key.
 Seeker hums!
 
->You open iron chest.  Inside iron chest is a ballista bolt.
+>You open iron chest.  A ballista bolt is inside iron chest.
 
 Gargoyle #1 flies in.
 Seeker hums!
@@ -4054,7 +4054,7 @@ has words carved into it.
 The huge stone block starts sliding slowly northward. It looks like it would
 crush you against the northern wall, if given time to do so.
 
->You open golden chest.  Inside golden chest is a lever.
+>You open golden chest.  A lever is inside golden chest.
 Seeker hums!
 
 >As you do so, you hear a clunking sound, and a small panel opens up in the

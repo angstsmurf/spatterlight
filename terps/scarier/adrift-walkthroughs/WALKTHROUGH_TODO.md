@@ -8,7 +8,68 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
-## 2026-08-04 (latest) — The Plague – Redux — **VERDICT REVERSED: ★ WON** — suite all-PASS
+## 2026-08-04 (latest) — The Timmy Reid Adventure — ★ **WON 360/372** — the corpus is now **188 PASS / 0 NOSCRIPT**
+
+*The Timmy Reid Adventure (The Jonny Reid Adventure — Part II)* (Jonathan R.
+Reid, Reidville Adventures, 2000, TAF **3.80**) was the **last NOSCRIPT row in
+the MAP**. 102 rooms, 248 objects, 147 tasks, 9 events; **182 commands**,
+**360 of 372**, marker `Thanks for getting us back home!`. Full route and
+mechanics in `The_Timmy_Reid_Adventure_walkthrough.md`.
+
+The endgame is a sort, and it is hinted nowhere in play: twenty souvenirs →
+seven coloured bags (tasks 101–107, fixed membership) → three boxes (108–110)
+→ `put the boxes into the garbage container` (111, +50) → `up` in the start
+room (112, +100). Every one of those tasks is `where=ALL` and checks only that
+the **items** are held — the bags and boxes themselves never have to be
+carried, or even looked at, which is the whole reason the route is derivable
+without ever opening the kitchen garbage container.
+
+Three things worth keeping:
+
+* **The stepladder is a toggle, and the win depends on it.** `open the ladder`
+  (task 52) *drops* the ladder into the room; `climb up the ladder` (51) needs
+  52 done. While 51 is done, tasks 53–56/59 intercept `n`/`s`/`e`/`w`/`out` and
+  you cannot move — `climb down the ladder` reverses **51 only** (52 stays done
+  for good, so typing `open the ladder` a second time would *reverse* it). The
+  ladder is needed twice, once for the ABA basketball on the Gym rafter and once
+  for the winning `up`, and must be carried across town in between.
+* **The twelve missing points are structural.** The skeleton key is mandatory
+  (red bag) and sits on Captain Miller's belt; the only route into the OOB
+  Police Station is `pull my pants down` (task 19, **−2**) then `piss` (17,
+  **−10**, teleports you in). 372 − 12 = **360 is the ceiling**, not a shortfall.
+  Task 17 is also a free one-way teleport to the top of Old Orchard St., so the
+  route spends it on the outbound leg rather than paying for it twice.
+* **Task 85 (+5, the paper and donuts) is fired by an NPC walk, not typed.**
+  It is a `$`-prefixed system task on Hovey's walk `CharTask`; carrying the
+  *Portland Herald* and a bought box of plain donuts back to the cottage is the
+  whole trigger. Its sibling task 93 is the same walk hook firing the *request*
+  while the donuts are still on the shelf.
+
+Two dumper bugs surfaced and are worth recording, because they cost most of the
+derivation time:
+
+* `dumpv3.py` prints object parents as `in/on ?N` and never resolves them,
+  because it reads `o['Container'][1]`/`o['Surface'][1]` — **fields that do not
+  exist in the 3.80 OBJECT schema.** The real field is `#SurfaceContainer`
+  (1 = container, 2 = surface); rebuilding the candidate list as
+  `[i+1 for i,o in enumerate(g.objects) if o['SurfaceContainer'][1] in (1,2)]`
+  and indexing it 0-based resolves them correctly (verified against seven known
+  placements). For task `move` records the index is `v2-1` into the
+  **SC==1-only** list for `inside`, and appears off-by-one for `onto`.
+* NPC restrictions are printed with the **raw** value, which is the NPC index
+  **plus one** — `npc6 here` is Jon (NPC 5) and `npc23 here` is Sting (NPC 22).
+
+Parser footguns that ate real turns: `take towel` on the deck is swallowed by
+task 34, which prints a one-shot failure and moves nothing (use `get towel from
+clothesline`); `take donuts` does not parse at all (the object is *a box of
+plain donuts*); and there are **two** baseball gloves, so `crappy` / `usable`
+are always required.
+
+Suite after wiring: **188 PASS, 0 FAIL, 0 SKIP, 0 NEEDGOLD, 0 NOSCRIPT** —
+every `.taf` in `games/` now has a derived, blessed, winning (or
+documented-unwinnable) route.
+
+## 2026-08-04 — The Plague – Redux — **VERDICT REVERSED: ★ WON** — suite all-PASS
 
 The "UNFINISHABLE AS SHIPPED" entry below (2026-08-04, three-documents
 section) is **wrong in its conclusion** — the game was played to its only

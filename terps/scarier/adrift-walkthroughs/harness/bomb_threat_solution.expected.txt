@@ -202,7 +202,7 @@ You are underground in a dark sewer. There is a package here.
 
 You can only move up.
 
->You open the package.  Inside the package is a bomb.
+>You open the package.  A bomb is inside the package.
 
 >Time passes...
 

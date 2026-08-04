@@ -44,7 +44,7 @@ closed.
 
 >It's just an ordinary cupboard.  The cupboard is closed.
 
->You open the cupboard.  Inside the cupboard is the bowl and the flashlight.
+>You open the cupboard.  The bowl and the flashlight are inside the cupboard.
 
 >You take the bowl and the flashlight from the cupboard.
 

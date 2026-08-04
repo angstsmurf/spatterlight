@@ -1,0 +1,116 @@
+w
+s
+listen
+ask gale about mansion
+ask gale about flower
+n
+e
+w
+down
+s
+look pools
+take knife
+down
+act like monkey
+take key
+give key to gale
+e
+e
+look under bridge
+w
+w
+s
+down
+take pole
+up
+n
+e
+cast at island
+w
+w
+throw wood at elemental
+w
+take watch
+e
+e
+n
+open door
+n
+n
+take poker
+n
+e
+look on refrigerator
+take spatula
+open refrigerator
+take cheese
+open stove
+put cheese in stove
+cook cheese
+take cheese
+n
+down
+dig
+take balloon
+up
+s
+fill balloon
+w
+s
+s
+up
+n
+w
+open closet
+take doll
+pull doll head
+e
+e
+look under tub
+take ball
+w
+n
+e
+open wardrobe
+take suit
+open dresser
+take photo
+w
+s
+s
+down
+n
+ask ghost about suit
+show photo to ghost
+e
+put ball in pocket
+take bell
+w
+s
+up
+n
+n
+w
+use bell on clock
+look in compartment
+take hilt
+make dagger
+e
+up
+w
+pry piano with poker
+take amulet
+e
+e
+use dagger on lamp
+w
+s
+use amulet
+up
+use dagger
+put knife in box
+s
+give flower to gale
+score
+s
+e

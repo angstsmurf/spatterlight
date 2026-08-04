@@ -367,6 +367,21 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
 {
   const scr_var_setref_t vars = gs_get_vars (game);
 
+  /*
+   * Ignore negative object indexes, as evt_move_object() does.  Var1 = 2 is
+   * "the referenced object", and a task reached by redirection (or matched by
+   * a pattern with no %object%) has none, so var_get_ref_object() hands back
+   * -1.  The Runner's Select Case simply moves nothing; SCARE used to walk
+   * into gs_object_*() and abort on its range assertion.  Mortality's task
+   * 314 [? the return] does exactly this.
+   */
+  if (object < 0)
+    {
+      if (task_trace)
+        scr_trace ("Task: ignoring move of unset object %ld\n", object);
+      return;
+    }
+
   /* Select action depending on var2. */
   switch (var2)
     {
@@ -1030,10 +1045,10 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
           if (task_trace)
             scr_trace ("Task: already scored task %ld\n", var1);
 
-          /* Version 3.8 games permit tasks to rescore. */
+          /* Version 3.8 and 3.7 games permit tasks to rescore. */
           vt_key[0].string = "Version";
           version = prop_get_integer (bundle, "I<-s", vt_key);
-          if (version == TAF_VERSION_380)
+          if (version <= TAF_VERSION_380)
             {
               vt_key[0].string = "Tasks";
               vt_key[1].integer = task;

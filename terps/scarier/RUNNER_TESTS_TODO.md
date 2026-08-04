@@ -21,6 +21,15 @@ staged.
 - `gen400.exe` sits beside run400. Its UTF-16 UI strings spell out the Generator
   dropdown enums *in order* — the fastest way to decode any `Var` mapping — and
   it can also **perform** a 3.9 → 4.0 conversion (see §3).
+- `run380.exe` = 3.8 and `run370.exe` = 3.7, both from delron.org.uk's
+  `adrift38.zip` / `adrift37.zip` via the Wayback Machine, both installed in the
+  same prefix with their Generators beside them. `run370` additionally needs
+  `COMCTL32.OCX` in `syswow64` (extract just that member from the cached
+  `VB60SP6-KB2708437-x86-ENU.msi` and `regsvr32` it; winetricks' `comctl32ocx`
+  hangs on a 7z overwrite prompt). Their `.taf` files are plain CRLF text XOR'd
+  with the VB6 PRNG from seed `0x00a09e86` — no signature, no length header, no
+  trailer — so a probe is just "decode, rewrite a line, re-encode", and the
+  plaintext may change length freely. See §6.
 - P-code: `~/Desktop/run400.txt`, `~/Desktop/run390.txt` (`grep -a`; both contain
   stray binary).
 - Probe games: hand-author a one-restriction / one-task variant, repack with
@@ -660,6 +669,8 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Dynamic-object index past the end (`Var1 ≥ 3 + ndynamics`) | clamps to the last object | raises "Subscript out of range" and dies | **Deliberate.** Unreachable in any shipped game. Keep. |
 | Body-part statics in a `Var1 = 2` restriction | positioned at `OBJ_PART_NPC` | ~~statics have no location field, so they read hidden~~ **theory refuted live** — the Runner answers exactly like Scarier | **Settled 2026-08-01, NO divergence** (probes `pBP`/`pBP2` in `make_arena_probe.py`): with the parent NPC present, is-hidden FAILS, visible-to PASSES, not-hidden PASSES — for an NPC part and a player part alike, byte-identical to Scarier; visible-to tracks the parent NPC's room. With the parent absent, the Runner's `%object%` scope filter refuses the part ("I don't understand.") — that is the separate scope-filter row below, not a body-part issue. |
 | Object scope when matching a task command | `uip_match_entity()` has no scope filter at all — matches anything | won't match an object that isn't present ("I don't understand what you mean!") | **Confirmed divergence, unfixed — corpus impact measured 2026-08-01: ZERO.** `SCR_TRACE_SCOPE=1` (scrunner.cpp, needs `SCARIER_DUMP_TOOLS`) logs any golden turn where a matched `%object%` task binds an absent object (SCOPE-MISS = Runner would refuse the command; SCOPE-BIND = Runner would bind a different, present object): all 76 rows replayed clean, zero hits. Static exposure is small too — only 5 games author `%object%` task commands at all (adriftorama 67, goldilocks 20, Screen Savers 19, SRSintro 2, X-Files 2). So the divergence is reachable only by off-route input. A faithful fix means porting `Sub_20_74`'s scope rules (the Runner's command-reference filter — presence for objects, and per the `pWS` probe *seen-ness* for `%character%`), plus a disambiguation rule for present-vs-absent name clashes; not worth it until some game demands it. |
+| Optional `{word}` whose look-ahead fails after consuming text | ~~`uip_match_optional()` fell into `uip_match_alternatives()` at the position the *failed* look-ahead had already advanced to~~ **FIXED 2026-08-03**: rewind to `start_posn` on the failure path too | matches | **Was a real divergence, now fixed.** Ground truth is the author's own published transcript of *Monsters (Release 2)*, which shows `shine flashlight on the brainsucker` working. Task 2's pattern is `[defeat/shine/turn/put] {the} [flashlight/light] {on} {the} {brainsucker} {brain}  {monster}`; the look-ahead from `{brainsucker}` let `{brain}` eat the first five letters of "brainsucker" (`uip_match_word()` is a prefix compare with no word-boundary check), failed on the trailing "sucker", and — because `uip_match_list()` has no backtracking of its own — the alternatives were then tried from "sucker". Cost the game 5 of its 40 points. `uip_match_wildcard()` always restored position on failure; only the optional matcher didn't. Zero golden churn across the 154-row v4 suite. |
+| `%object%` given a *partial* prefix | ~~only `"Prefix Short"` and the bare `Short` were matchable~~ **FIXED 2026-08-03**: `uip_build_candidate()` also stores the prefix with its leading words dropped one at a time | matches a partial prefix | **Was a real divergence, now fixed, with two independent transcripts as ground truth.** *Monsters (Release 2)*: Prefix `Sissy's four poster` + Short `bed`, and the transcript prints the description for `examine the four poster bed` where Scarier said "I see no such thing". Re-running the suite then changed exactly one line in one other golden — *Shadrick's Travels*, `climb oak tree`, "You can't climb that." → "You can't climb the old oak tree." — which is verbatim what line 80 of *that* game's upstream transcript says. The Short itself is never cut down, so a multi-word Short must still be given whole. `SCR_DUMP_TASKS`'s `OBJNAME` line now prints `prefix=[...]` and each `alias=[...]` so this class of failure is a lookup rather than a guess. |
 | 3.9 shoot-Method strength | version-gated: 3.9 adds `HitValue` to base Str, 4.0 replaces | both confirmed live (run390 one-shot / run400 two hits) | **Fixed 2026-08-01** (`7a4cb7c2`). |
 | Upgraded-3.9 combat | `SCR_ASSUME_COMBAT` opt-in; matches author intent | **stalemates, confirmed live 2026-08-01** (Azra: converted acc/agi all 0-0) | Settled — opt-in stays. |
 | Restriction evaluation order | evaluates all, no short-circuit | `Sub_20_65` replaces `#` with T/F in a bool-expr string, so it can't short-circuit either | Believed matched (ADRIFT 4 restrictions cannot have side effects — no restriction type mutates state — so "verify a side effect runs" is unprobeable and moot; the P-code reading stands on its own). |
@@ -687,8 +698,120 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | When immediate events start relative to the opening room description | ~~they start during the first tick, i.e. **after** the opening description: their StartText prints below it, and their LookText is missing from it~~ **FIXED 2026-08-02** | both Runners start them during load, **before** the description: the opening room text carries their LookText, their StartText is nowhere to be seen (printed into the pre-intro screen and cleared), and only the finish half lands under the description.  Probe `EV5` turn 0, run400: `A bare arena.  H1 LOOK.  H2 LOOK.  H1 FINISH.  H1 TASK.  H1 START.  …` against the old Scarier's `A bare arena.` / `H1 START.` / `H1 FINISH.` / `H1 TASK.` / … | **Probed live in BOTH Runners and FIXED 2026-08-02.**  The probe the old note asked for is `EV6` in `make_arena_probe.py` — a plain **length-3** immediate event carrying all three texts, so the zero-length parking model can't be confused with the start model.  run400 puts `K1 LOOK.` in the opening description, never prints `K1 START.`, and still finishes on the third command turn; `make_39_fwprobe.py` variant `e` gets the same answer from run390, so this is **not** a version split.  Ported in `scevents.cpp` as `evt_start_load_events()` / `evt_finish_load_events()`, called either side of the `DispFirstRoom` block in `scrunner.cpp`: the start half runs before the description (silent — `evt_start_event()` gained a `silent` flag — and +1 on the clock so the startup tick's decrement still lands on the rolled length), the finish half runs just before that tick, because a zero-length immediate event's FinishText/TaskAffected/RestartType=1 restart all land *below* the room text in `EV5`.  **Corpus exposure, measured** (`scdump.cpp`'s EVENT line now ends `texts=SLF`): 590 events in 75 of 121 games, 280 of them immediate-start across 49 games; **7 immediate events carry a LookText** (Shadowpeak, `The Town Of Azra` ×2 file copies, tq3) and **16 carry a StartText** (tq3, Azra ×2, adriftorama, Shadowpeak, Colony, yak_shaving, Main Course, Del Sol); 65 events in 19 games have a LookText at all.  Corpus 128/128 PASS after re-blessing: the direct fallout is Colony/Del Sol/Main Course (turn-0 StartText gone), Azra and villains_and_kings (LookText now inside the opening description), and the rest is RNG drift — rolling immediate-event lengths at load moves them *ahead of* `battle_start()`'s stamina rolls, which churns light_up, circus, melbourne_beach, alexis and Main Course's NPC walks.  That reordering is unverifiable by construction (the Runners seed from `Timer`, so their combat differs run to run — §1), and it is the order the load-start model implies; accepted deliberately. |
 | Where an event's LookText sits **inside** the room block | ~~inside the description paragraph, before the object list and the character lines: `A bare arena.  K1 LOOK.` / `Also here is a rock.` / `Robot is here…`~~ **FIXED 2026-08-02** | **dead last, after everything**: `A bare arena.  Also here is a rock.  Robot is here, looking dangerous.  K1 LOOK.` | **Probed live 2026-08-02 (probes `EV7`/`EV8` in run400, run390 agreeing on the 3.9 twin) and FIXED the same day.**  The LookText loop in `lib_print_room_description()` (`sclibrar.cpp`) now runs *after* `lib_print_room_contents()`, joined on with a new `pf_buffer_join()` (`scprintf.cpp`): it removes the single terminating newline our section printers add, then separates with the Runner's two spaces unless the preceding text ends with an author's own break — so `Fetlar the overly fetid is here.  It is raining...` joins on one line, while a `<br>`-led LookText (CyberCow's night-time lines) still starts its own.  A buffer-length guard keeps the join from migrating LookText up onto the room name line when the room has no description or contents.  It also retired a small old wart: a LookText after a `<br>`-terminated description used to print with a stray leading two-space indent (Shadowpeak's `  It is raining...`).  Corpus fallout, all verified to be pure relocation before re-blessing: 14 rows across 10 games (Shadowpeak ×3, CyberCow ×2, villains_and_kings ×2, Azra, orient_express, screen_savers, secret_of_lost_world, ticket, tq3, JGrim); 127/127 PASS, a5 suite untouched, sanitizers clean. |
 | Put-family precedence, 3.9 half | same port, ungated | **run390 agrees with run400**: `put pill in cup` with a matched-but-failing task runs the library put ("You put the pill inside the cup.", fail message suppressed) | **Verified live 2026-08-02** (`make_39_fwprobe.py`): the ungated port is faithful on both sides. |
+| Which of the two container-listing styles a container gets | ~~postfixed ("*An umbrella is inside the umbrella stand.*") only for a **dynamic** container holding exactly one object, or one that is part of an NPC; everything else prefixed ("*Inside X is …*") — recorded in `lib_list_in_object()` as "frankly, a mystery"~~ **FIXED 2026-08-03** | purely a **count**: 1 or 2 contained objects → postfixed, 3+ → prefixed, with **no static-vs-dynamic test anywhere in the chain** | **Derived from run400.txt and confirmed against a real Runner transcript 2026-08-03**, while wiring *It's Easter, Peeps!* — see the dated note below. |
+| `take <object lying loose in the room>` | "You pick up the creme egg." | run400 (transcript): "You **take** the creme egg." — both agree on the container case, "You take the lollipop from the newspaper rack." | **Documented, not fixed 2026-08-03.** Probably the same version split as the "Single-object library success vs failing explicit-verb task" row above, where run390 was probed live and answered "You pick up the rock." run400 carries both templates in separate handlers (`0007B652` builds `pick up` + "There is nothing to pick up here."; `00073402` builds `take … from …` + "Take what?" / "There is nothing worth taking here."), so which one a bare `take`/`get` reaches needs a live run400 pair before anything moves — 37 goldens carry 128 "You pick up …" lines. |
+| What `g` / `again` echoes | only the implicit-tool line, `(with umbrella)` | the whole expanded command, `(hit pinata with umbrella)` | **Cosmetic divergence, seen in a run400 transcript 2026-08-03, unfixed.** Semantics are identical (`g` really is *again*; see the `scare-g-means-get` note — the Runner's Auto complete once faked a `g` divergence that wasn't there). Only the echo text differs. |
+| End-of-game score summary | nothing — the transcript simply stops after the game's own ending text | prints a summary of its own after it: `You scored` N ` out of the maximum` M, a `That is` P `% of the game!` line, and `Well done - you scored maximum points!` at 100%; there is also a `You finished ` … ` points short.` pair | **Documented, not fixed 2026-08-03.** All five fragments are UTF-16 literals in **both** binaries (run390 `0xfd38`/`0xfd64`/`0xfda4`/`0x146ec`/`0x14a18`, run400 `0x14830`/`0x1484c`/`0x14884`/`0x146ec`/`0x148a8`), so this is not a version split; the in-game `score` command's separate ` out of a maximum of ` template is present too and Scarier already matches that one. Observed live: run390 playing `thetest` to the end printed "Well done!  You won!  …" *and then* "You scored 20 out of the maximum 25!", where our `thetest_win_solution` golden ends at the game's own text (see `adrift-walkthroughs/thetest_walkthrough.md`). **Not implemented deliberately** — it would append two or three lines to every winning golden in the corpus (60+ rows) for no behavioural gain, and the exact assembly of the percentage line (rounding, whether it is always printed, what triggers the "points short" pair) has never been captured live; pin those first if this is ever ported. |
+| TAF 3.8 object "Size/weight" class | **now modelled**: the class is kept verbatim in `SizeWeightClass` and enforced as a pooled burden (`obj_get_burden` / `obj_get_player_burden_limit`, `scobjcts.cpp`), while `SizeWeight` stays normalised to 4.0 "normal" (`22`) so a container's `Capacity*10+2` remains the plain **object count** 3.8 meant it to be (`\|V380_OBJECT:_SizeWeight_\|` in `sctafpar.cpp`) | **SETTLED against the genuine `run380.exe` 2026-08-03: a single pooled burden with per-class costs `0→1 1→3 2→7 3→3 4→7`, and a capacity of exactly `MaxCarried`.** Neither Scarier's normalisation (every class costs 1) nor gen390's `0→22 1→23 2→24 3→32 4→42` matches it. | **Divergence CONFIRMED, measured, and FIXED 2026-08-03.** `run380.exe` is *not* lost: David Whyld's dead delron.org.uk still serves `adrift38.zip` through the Wayback Machine, and it is installed in the adrift-battle Wine prefix (`~/adrift-battle/runner/wine/README.md`). Probe method: a 3.80 `.taf` is plaintext CRLF fields XOR'd with the VB6 PRNG from seed `0x00a09e86` — no length header, no zlib, no "Wild" trailer — so it round-trips losslessly through `scratchpad/dec38.py`, and `mkprobe2.py` patches `#MaxCarried` (line after `$GameAuthor`), `#StartRoom` (line after the first `**`, a **direct 0-based room index**, unlike objects' `+3`) and any object's `#SizeWeight` (its short-name line **+11**). Pinned at MaxCarried 1/2/3/6/7/8 in the real Runner: at 2 a class-1 or class-3 object is refused and a class-0 accepted, at 3 both go; at 6 Marooned's tires (class 4) are refused, at 7 they are accepted **alone**, at 8 tires+map fit and tires+flint+map do not, and tires + a class-2 gas can never do — which also disproves the two-axis reading, since a separate size and weight axis would have let the two heavies coexist. Cross-checked on the corpus's other 3.8 game: `Crime_Adventure.taf` (MaxCarried 5) refuses `get kettle` (class 2 = 7) **with empty hands** while its five class-0 kitchen items all fit, so that game's "Get all the stuff in Fenwick kitchen" hint is an author fault, not a conversion fault. gen390's table is therefore *directionally* right and wrong by one step — the 4.0 packed `base^digit` model cannot express 7, so the top class rounds to `3^2 = 9` against a limit of 8, which is exactly why converted 3.8 games stop being finishable. **The fix:** the object fixup now also writes `SizeWeightClass`, the globals fixup raises `Globals.BurdenModel`, and `scobjcts.cpp` gains the 1/3/7 cost table plus a `MaxCarried` limit. `sclibrar.cpp` routes every take through the pooled sum: `lib_object_too_large()` performs the check (3.8's only refusal is "Your hands are full.") and `lib_object_too_heavy()` stands down entirely, since 3.8 has no "too heavy" message. The 4.0 `MaxSize`/`MaxWt` pair is still written — the save serialiser reads it, and because every class costs ≥ 1 the pooled burden can never be looser than the object-count limit the size axis enforces, so those checks are subsumed and can never fire first. **3.8 containers measured 2026-08-03, closing the one gap this row left open.** Three answers, all from `run380` with probes patched through a real schema parser (`~/adrift-battle/runner/wine/taf38schema.py`, which walks `V380_PARSE_SCHEMA` and records each field's line index, so probes patch by *name*): (1) **a carried container's contents are free** — against `MaxCarried` 1, a class-0 box (cost 1) holding a class-4 object (cost 7) is picked up and only the *next* cost-1 object is refused, where charging the contents would have made the box alone cost 8; (2) **`Capacity` is a plain object count** and the Size/weight class is charged against it no more than against the carrier — a Capacity of 2 swallows a class-4 then a class-1, and two class-0 objects fill it; (3) a **`Capacity` of 0 is full from the start**, not unlimited. So Scarier's arithmetic on both axes was already right, and the normalisation to `22` is vindicated. What was wrong was the wording and one rule: 3.8 says a flat **"Your hands are full."** with no " at the moment" (`lib_object_too_large` now reports 3.8 objects as unportable to suppress the suffix), it answers **"The box is full."** to *every* container refusal rather than 4.0's "too big to fit inside"/"can't fit inside … at the moment" pair (`lib_put_in_backend` consumes the leftovers under the burden model and prints it once), and it **only fills a dynamic container the player is holding** — "You are not holding a saucepan.", with the object's own prefix rather than the usual "the" (`lib_put_in_is_valid`). Static containers are exempt, which matters: `Wrecked`'s static red locker takes a coin where it stands, and nothing could ever pick one up. That last rule cost `Crime_Adventure` its route — its stew was loaded into a saucepan on the kitchen floor, which `run380` refuses **in that very game** (verified directly, not just in a synthetic probe) — so the route now takes the saucepan first and the later redundant `get saucepan` is gone; same 75/95 win, re-blessed. Corpus impact: the two 3.80 games with routes both needed new ones — `marooned`'s single-trip route broke at `get map` and is now a four-trip ferrying route, and `wrecked` needed two drops (`drop card`, `drop glass`) against its limit of 10; both re-blessed and PASSing, full corpus back to 163 PASS / exit 0. See `adrift-walkthroughs/Marooned_walkthrough.md`. |
+| A matched task whose restrictions FAIL swallows the command (no fall-through to movement) | prints the task's FailMessage and ends the turn, even when the FailMessage is a one-character placeholder and the room has an exit in that direction | **identical** | **Settled 2026-08-03, NO divergence** (`wrecked.taf`, TAF 3.80, via a gen390 conversion under Wine). Task 96 (`in pub with scuba` / `in`) is Campbell Wild's "you can't come in looking like that" blocker, and its FailMessage is the literal placeholder `x`; once the outfit is off, `run390.exe` prints just `x` and refuses entry, exactly as Scarier does. Task 84 at the Post Office roof (`climb *roof*`, alts `up` / `u` / `get *roof*` / `go *roof`, restricted on task 83 `climb *statue*` **not** done) has the same shape, and gen390 re-encodes its restriction byte-identically to our parse (`RESTR type=2 v1=84 v2=1`). Both are escapable only because `go in` and `go up` are absent from the tasks' command lists, so nothing matches and the movement runs — also confirmed live for `go in`. Nothing to fix; recorded so the next `x`-shaped mystery is not re-investigated. |
 
+| ADRIFT 4 `$RestrMask` operator precedence | ~~C precedence: an OR-expression over AND-expressions, both left-associative~~ **now equal precedence, left-associative** | `A` and `O` have **equal** precedence and associate to the **LEFT**: `#O#A#` is `(1 OR 2) AND 3`, never `1 OR (2 AND 3)` | **Divergence found and FIXED 2026-08-03** (`screstrs.cpp`, `restr_expr()`). Ground truth is run400's own `mdlSpreadTheLoad.Sub_20_57` ("evaluaterestrictions", `00055CAC..00055EB9`): it scans the mask for the last top-level `A`/`O`, evaluates the tail operand, and recurses on the **head** — peeling from the right and recursing left is *left* association, and `A`/`O` are two arms of a single `If`, so there is no second precedence level anywhere in the routine. `Sub_20_58` ("evaluate2") has the same shape for its annotated T/F display string, and the driver `Sub_20_65` substitutes T/F for every restriction in index order with **no short circuit**. The old parse agrees whenever every `A` precedes every `O` at a bracket level and differs the moment an `O` comes first. **20 corpus games author a mixed level** (`scratchpad/maskscan.py`): unauthorized (30 tasks), iqsfot (11), unravel (7), humbug (5), cursed (4), the_pk_girl / Vendetta / yonastoundingcastle / 3monkeys (3 each), EscapeToNewYork / The Plague - Redux (2), and one each in ARGH_sGreatEscape, DragonShrineR43, Glum Fiddle, Main Course, TheSisters, Trabula, mishmash, ticket. Found through *Three Monkeys One Cage*, whose author-written `winnable` self-check (T21, 55 restrictions — the corpus maximum) reported "no longer winnable" from turn 1: its group `#O(#A#)A#` is "(the bucket is on the hook OR the coconut is set up) AND the gate is still shut", which the C parse read as "bucket OR (coconut AND gate)" and so answered TRUE with the gate already open. Whole v4 suite re-run after the fix: **161/161 PASS, no golden moved.** A live run400 confirmation is still possible (`3monkeys.taf` is staged in the Wine prefix) but the P-code is unambiguous. |
+
+| Do a task's remaining actions run after an action that ends the game? | `task_run_task_actions()`: "if any action ends the game, return immediately" — everything queued behind an `ACT type=6`, or behind an Execute-Task action whose callee ends the game, is silently dropped | **untested** | **Open probe, found 2026-08-03.** *Three Monkeys One Cage* task 603 (`jump * out*`) is `exec 604` / `exec 608` / `player_moves--` / `player_score += 2`, and 604 (no mattress → death) and 608 (mattress → win) are mutually exclusive and both end the game — so the author's final **+2 can never be awarded in either branch**, and the game's advertised 100% tops out at 98%. That is what SCARE does today and it is at least self-consistent; whether run400 does the same is unknown, because *neither branch prints a score line*, so the only way to tell them apart is a Runner build that can be asked for the score after the ending, or reading the P-code of the action loop. Low stakes (no corpus transcript depends on it) but it decides whether "98/100 is the ceiling" is a fact about the game or about our engine. |
 ---
+
+## 5. `Where` = "No rooms" on a player-typed task — SETTLED 2026-08-04, NO divergence
+
+**Question.** ADRIFT 4's per-task `Where` field is a room list whose Type is
+one of `ROOMLIST_NO_ROOMS = 0`, `ONE_ROOM = 1`, `SOME_ROOMS = 2`,
+`ALL_ROOMS = 3` (`scprotos.h:215`). Scarier's
+`task_can_run_task_directional()` (`sctasks.cpp`) returns FALSE for Type 0, so
+such a task can never be matched against player input in any room. Does the
+real Runner agree, or does it read 0 as "unrestricted"?
+
+**Why it came up.** *The Plague - Redux* authors its entire `[F] Fight /
+[E] Escape` combat system — seven blocks, one per zombie encounter — with
+**every** task at Type 0 (243 of the game's 696 tasks are there), and nothing
+`ExecTask`s the `[f]`/`[e]` pair. On Scarier's reading the fights cannot be
+entered at all and the author's own walkthrough dead-ends at the first
+mandatory fight. The same game also contains an obviously dead duplicate
+movement task (`TASK 331 where=0 [* n *]`, no restrictions, moves the player to
+room 6) parked between two live `where=1` movement tasks — which would hijack
+every `n` in the game if Type 0 were runnable. Both cannot be true.
+
+**Probe.** `test/make_400_whereprobe.py` (new) writes a minimal 4.0 plain body
+with two rooms and three tasks:
+
+| task | Where | expected if Type 0 is "no rooms" |
+|---|---|---|
+| `alpha` | Type 0 (No rooms) | refused |
+| `beta`  | Type 3 (All rooms) | fires — proves the probe is wired |
+| `gamma` | Type 1, room 2 only | refused — proves room scoping works |
+
+```
+python3 make_400_whereprobe.py p4WHERE.plain
+python3 ~/adrift-battle/runner/wine/taftool.py pack p4WHERE.plain <donor>.taf p4WHERE.taf
+```
+
+(The donor supplies the 15-byte "Wild" password trailer run400 validates.)
+
+**Result — `run400.exe` behaves identically to Scarier.** Typed in room 1:
+`alpha` → the game's own "I don't understand.", `beta` → `BETA FIRED.`,
+`gamma` → "I don't understand." **Type 0 really does mean "runnable nowhere".**
+
+**Second, game-level confirmation.** A copy of *The Plague - Redux* with
+`#StartRoom` patched `0` → `15` (Women's Toilets; line 80 of the unpacked plain
+body, immediately after the `bd d0` separator at line 79) and repacked with
+`taftool.py`, loaded in `run400.exe`, reaches the byte-identical cubicle scene
+and answers `f` with "That didn't make any sense!" — same refusal as Scarier.
+
+**Verdict.** No divergence; no code change. `Where`/Type 0 is the ADRIFT
+authoring idiom for "disable this task", and two shipped games in the corpus
+have been killed by using it by accident:
+
+* **The Hangover** — `give the doctor some french fries` and `give approval
+  notes to platypus` are both Type 0, confirmed against `run390.exe`; ceiling
+  5/7.
+* **The Plague - Redux** — the whole combat system; **unfinishable as shipped**.
+
+Diagnostic worth keeping: when a walkthrough asks for a command the game flatly
+does not understand, dump the task table and read `where=` before suspecting the
+parser.
+
+
+## 6. ADRIFT 3.70 — every inferred semantic measured, SETTLED 2026-08-04
+
+**Question.** Scarier's new `V370_PARSE_SCHEMA` (`sctafpar.cpp`) was written by
+diffing the two surviving 3.70 games against the 3.80 schema. Four layout
+differences and one behaviour were *inferred* from those two files. Does the
+genuine `run370.exe` agree?
+
+**Probe method.** A 3.70 `.taf` is the same container as 3.80 — CRLF plaintext
+XOR'd with the VB6 PRNG from seed `0x00a09e86`, indexed from offset 0, no
+signature and no trailer — so it round-trips losslessly and the plaintext may
+change length. `taf37schema.py` (`~/adrift-battle/runner/wine/`) is
+`taf38schema.py` with the 3.70 TASK record and the trailing 17-word block,
+and records each field's **line index**, so a probe is "parse, `L[idx] = value`,
+re-encode". Six probes in `probes37/`, all patching `castle.taf`, all writing
+into `pfx/drive_c/adrift/`. Turn Options → **Auto complete** off first or the
+Runner rewrites the input box before the echo.
+
+| probe | question | result |
+|---|---|---|
+| `mkprobe37f.py` | is the extra header integer the winning task? | **yes, 0-based.** Setting it to 0 makes task 0 (retyped as `test`) end the game with the victory text. |
+| `mkprobe37.py` | what is the flat movement destination list? | **`0` hidden, `1` held by the player, `2` the player's room, `3+n` room n.** Moves two objects out of a distant room, so the answer cannot be confused with "already there". |
+| `mkprobe37c.py` | what is the object initial-position list, and how far does it go? | **`0` hidden, `1` held by the player, `2` inside/on `#Parent`, `3..3+R-1` room n, `3+R` worn by the player.** Values past that leave the object out of play. |
+| `mkprobe37b.py` | does `#Parent` pick the holder when an object starts held or worn? | **No — it is ignored.** Two objects set to worn with `#Parent` 0 and 1 both end up worn by the *player*. 3.7 cannot start an object on an NPC. |
+| `mkprobe37d.py` | is the burden model 3.80's? | **Yes, identical**: pooled burden, class costs `0→1 1→3 2→7 3→3 4→7`, capacity exactly `#MaxCarried`, refusal `"Your hands are full."` |
+| `mkprobe37e.py` | are the 17 renameable built-in command words replacements or additions? | **Additive.** Renaming slot 10 to `inspect` leaves `examine` working; slot 8 to `gaze` leaves `look` working. So the 4.0 synonym `{Original: author's word, Replacement: standard word}` is the right shape. |
+
+**Two real bugs fell out of this**, both now fixed in `sctafpar.cpp`:
+
+* `parse_fixup_v370_movement()` mapped "held by the player" to 4.0 `var3 = 1`,
+  which `sctasks.cpp`'s `case 4` reads as the *referenced character*, not the
+  player. Now 0.
+* The shared 3.8/3.7 initial-positions fixup left `#Parent = -1` alone on a held
+  or worn object, and `gs_create()` then computed `npc = -2`, raised
+  `"object worn by nonexistent NPC, -2"` and hid the object. It now normalises
+  an unset parent to the player. This also closes the long-standing `tra.taf`
+  open lead from the 3.80 corpus smoke run: `i` there now answers
+  "You are wearing an old red sox hat, and you are carrying some loose change.",
+  byte-identical to `run380`.
+
+**Verdict.** The schema is confirmed on every point that was guessed, and both
+games load and play. `castle.taf`'s opening inventory now matches `run370`
+exactly.
+
 
 ## Suggested order
 
@@ -921,3 +1044,58 @@ accelerator, and read the echo, never the keystrokes you sent.  `Edit Mode`
 kills run400 with `Run-time error '70': Permission denied`.  `Start Transcript`
 wrote a 0-byte file even after turns were played, so screenshots remain the
 only trustworthy read-out.
+
+**2026-08-03 — the container-listing style selector was never a mystery: it is
+a count of two.**  `lib_list_in_object()` carried a comment saying the Runner's
+choice between "*Inside the box is a rock and a key.*" and "*A rock and a key
+are inside the box.*" "is, frankly, a mystery", and guessed at it with a
+static-vs-dynamic test plus a one-object special case.  The listing helper at
+`0006A418` in `~/Desktop/run400.txt` settles it: it counts the objects whose
+position is 246 (in object) and whose parent is this container into `var_98`,
+and then
+
+```
+0006A49E   var_98 == 1 && var_9E == 0  ->  "<obj> is inside <cont>."
+0006A607   var_98 == 2 && var_9E == 0  ->  "<a> and <b> are inside <cont>."
+0006A786   otherwise                   ->  "Inside <cont> is <list>."
+```
+
+One or two objects take the postfixed form, three or more the prefixed one, and
+**nothing in that chain looks at whether the container is static or dynamic**.
+(`var_9E == 1` is the nested arm, printing ", and inside is <list>"; Scarier
+does not model it and no corpus game has exercised it.)
+
+Confirmed against a **real Runner transcript** rather than only the listing:
+the shipped `EasterWalk.txt` for *It's Easter, Peeps!* (One Room Game Comp
+2006) is a run400 session that hits all four cells — a static container with 1
+("An umbrella is inside the umbrella stand."), a static with 2 ("A crumpled
+note and a candy coin are inside the pay phone."), a dynamic with 2 ("A few
+bills and a couple of photographs are inside your wallet.", in every `i`) and a
+dynamic with 6 ("Inside the Easter basket is a strip of candy dots, …").  Under
+the old rule three of those four printed the wrong way round.
+
+`lib_list_in_object()` now counts and selects on `count == 1 || count == 2`.
+The part-of-NPC test is kept as an extra alternative — it is not in run400's
+chain, but keeping it means containers worn by or attached to an NPC hold the
+format they had before this rule was derived, and it can now only matter at
+three or more contained objects.
+
+Corpus fallout: **37 walkthrough goldens** plus `test/capacity_nest_expected.txt`
+(its `n22` holds two objects), all re-blessed after reading the diff line by
+line — every change is the same rephrase.  Two of them are corroboration rather
+than churn, because they are places where the *author's own ALR* only matches
+the postfixed wording and so had never fired:
+
+```
+yak_shaving:  Inside the pile of snow is a pair of chopsticks.
+           -> Sticking out of the pile of snow are a pair of chopsticks.
+
+              You open the seat.  Inside the seat is a hairdryer.
+           -> You lift the seat to reveal a concealed storage area. The only
+              thing it contains, apart from a few dust-bunnies, is an electric
+              hairdryer.
+```
+
+An author writing an ALR against the Runner's output is a second, independent
+witness to what that output was.  Full `make -f Makefile.headless test` green
+afterwards: v4 129/129, capacity both probes, a5 suite untouched.

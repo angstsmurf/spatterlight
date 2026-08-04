@@ -2472,6 +2472,23 @@ enum
 
 
 /*
+ * lib_set_movement_probe()
+ *
+ * Put lib_go() into probe mode, in which it prints nothing, moves nobody,
+ * and returns TRUE only if the movement it was handed would really have
+ * taken the player out of the room.  Used by the version 3.8 movement
+ * pre-pass in run_all_commands(); see the commentary there.
+ */
+static scr_bool lib_movement_probe = FALSE;
+
+void
+lib_set_movement_probe (scr_bool probe)
+{
+  lib_movement_probe = probe;
+}
+
+
+/*
  * lib_go()
  *
  * Central movement command, called by all movement handlers.
@@ -2511,6 +2528,9 @@ lib_go (scr_gameref_t game, scr_int direction)
     }
   if (is_trapped)
     {
+      if (lib_movement_probe)
+        return FALSE;
+
       pf_buffer_string (filter,
                         lib_select_response (game,
                                       "You can't go in any direction!\n",
@@ -2533,6 +2553,9 @@ lib_go (scr_gameref_t game, scr_int direction)
   else
     {
       scr_int count, trail;
+
+      if (lib_movement_probe)
+        return FALSE;
 
       pf_buffer_string (filter,
                         lib_select_response (game,
@@ -2570,6 +2593,9 @@ lib_go (scr_gameref_t game, scr_int direction)
   /* Check for any movement restrictions. */
   if (!lib_can_go (game, gs_playerroom (game), direction))
     {
+      if (lib_movement_probe)
+        return FALSE;
+
       pf_buffer_string (filter,
                         lib_select_response (game,
                         "You can't go in that direction (at present).\n",
@@ -2577,6 +2603,10 @@ lib_go (scr_gameref_t game, scr_int direction)
                         "%player% can't go in that direction (at present).\n"));
       return TRUE;
     }
+
+  /* The move would go through; that is all a probe wants to know. */
+  if (lib_movement_probe)
+    return TRUE;
 
   if (lib_trace)
     {
@@ -3549,47 +3579,55 @@ lib_list_in_object_alternate (scr_gameref_t game,
  *
  * List the objects in a given container object.
  *
- * TODO The Adrift Runner has two distinct styles it uses for listing objects
- * within a container, but which it picks at any one point is, frankly, a
- * mystery.  The selection below seems to work with the few games checked for
- * this, and in particular works with the ALR magic in "To Hell in a Hamper",
- * but it's almost certainly wrong.  Or, at minimum, incomplete.
+ * The Runner has two distinct styles for listing a container's contents, and
+ * which one it picks used to be recorded here as "frankly, a mystery".  It
+ * isn't: run400.exe selects purely on the *number* of contained objects.  The
+ * listing helper at 0006A418 in run400.txt counts the objects whose position
+ * is 246 (in object) and whose parent is this container into var_98, then
+ *
+ *   0006A49E   if (var_98 == 1 && var_9E == 0)  ->  "<obj> is inside <cont>."
+ *   0006A607   if (var_98 == 2 && var_9E == 0)  ->  "<a> and <b> are inside <cont>."
+ *   0006A786   otherwise                        ->  "Inside <cont> is <list>."
+ *
+ * -- i.e. one or two objects get the alternate (postfixed) format and three or
+ * more get the normal (prefixed) one, with no test on the container being
+ * static or dynamic anywhere in the chain.  (var_9E == 1 is the nested case,
+ * which prints ", and inside is <list>"; scarier does not model it.)
+ *
+ * Confirmed against the real Runner in the "It's Easter, Peeps!" walkthrough
+ * transcript, which exercises all three: "An umbrella is inside the umbrella
+ * stand." (static, 1), "A crumpled note and a candy coin are inside the pay
+ * phone." (static, 2), "A few bills and a couple of photographs are inside
+ * your wallet." (dynamic, 2) and "Inside the Easter basket is a strip of
+ * candy dots, ... and a lollipop." (dynamic, 6).
+ *
+ * The part-of-NPC test below is not in run400's chain, but it is kept as an
+ * extra alternative so that containers worn by or attached to an NPC keep the
+ * format they had before this rule was derived; it can only matter for three
+ * or more contained objects.
  */
 static scr_bool
 lib_list_in_object (scr_gameref_t game, scr_int container, scr_bool is_described)
 {
   scr_bool use_alternate_format = FALSE;
+  scr_int object, count;
 
-  /*
-   * Switch if the object is static and part of an NPC or the player, or if
-   * the count of contained objects in a dynamic container is exactly one.
-   */
-  if (obj_is_static (game, container))
+  /* Count the objects this container holds. */
+  count = 0;
+  for (object = 0; object < gs_object_count (game); object++)
     {
-      scr_int object_position;
-
-      object_position = gs_object_position (game, container);
-
-      if (object_position == OBJ_PART_NPC)
-        use_alternate_format = TRUE;
+      if (gs_object_position (game, object) == OBJ_IN_OBJECT
+          && gs_object_parent (game, object) == container)
+        count++;
+      if (count > 2)
+        break;
     }
-  else
-    {
-      scr_int object, count;
 
-      count = 0;
-      for (object = 0; object < gs_object_count (game); object++)
-        {
-          if (gs_object_position (game, object) == OBJ_IN_OBJECT
-              && gs_object_parent (game, object) == container)
-            count++;
-          if (count > 1)
-            break;
-        }
-
-      if (count == 1)
-        use_alternate_format = TRUE;
-    }
+  if (count == 1 || count == 2)
+    use_alternate_format = TRUE;
+  else if (obj_is_static (game, container)
+           && gs_object_position (game, container) == OBJ_PART_NPC)
+    use_alternate_format = TRUE;
 
   /* List contained objects using the selected handler. */
   return use_alternate_format
@@ -4324,6 +4362,30 @@ lib_apply_filter (scr_gameref_t game,
 
 
 /*
+ * lib_carried_burden()
+ *
+ * Return the total burden of everything the player currently holds or wears,
+ * under the version 3.8 pooled model (see obj_get_burden()).  Always computed
+ * afresh: unlike weight, a burden is never charged twice, since a container is
+ * not charged for its contents, so there is no running total to drift from.
+ */
+static scr_int
+lib_carried_burden (scr_gameref_t game)
+{
+  scr_int index_, burden = 0;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
+          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
+        burden += obj_get_burden (game, index_);
+    }
+
+  return burden;
+}
+
+
+/*
  * lib_cmd_count()
  *
  * Display player weight and size limits and amounts currently carried.
@@ -4334,6 +4396,25 @@ lib_cmd_count (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int size, weight;
   scr_char buffer[32];
+
+  /*
+   * A version 3.8 game has neither of these axes -- report the one pooled
+   * burden its capacity check really uses instead of two laundered numbers.
+   */
+  if (obj_uses_burden_model (game))
+    {
+      pf_buffer_string (filter, "Burden:  You have ");
+      snprintf (buffer, sizeof(buffer), "%ld", lib_carried_burden (game));
+      pf_buffer_string (filter, buffer);
+      pf_buffer_string (filter, ".  The most you can hold is ");
+      snprintf (buffer, sizeof(buffer), "%ld",
+                obj_get_player_burden_limit (game));
+      pf_buffer_string (filter, buffer);
+      pf_buffer_string (filter, ".\n");
+
+      game->is_admin = TRUE;
+      return TRUE;
+    }
 
   /*
    * Report the same carried totals the capacity checks use: the running totals
@@ -4392,6 +4473,18 @@ lib_object_too_heavy (scr_gameref_t game, scr_int object, scr_bool *is_portable)
 {
   scr_int player_limit, weight, object_weight;
 
+  /*
+   * Version 3.8 has no weight axis, and no "too heavy" refusal to go with one
+   * -- its single pooled burden is checked in lib_object_too_large() below,
+   * and answers "Your hands are full." to everything it refuses.
+   */
+  if (obj_uses_burden_model (game))
+    {
+      if (is_portable)
+        *is_portable = TRUE;
+      return FALSE;
+    }
+
   /* Get the player limit and the given object weight. */
   player_limit = obj_get_player_weight_limit (game);
   object_weight = obj_get_weight (game, object);
@@ -4434,6 +4527,30 @@ static scr_bool
 lib_object_too_large (scr_gameref_t game, scr_int object, scr_bool *is_portable)
 {
   scr_int player_limit, size, object_size;
+
+  /*
+   * Version 3.8's pooled burden against its plain MaxCarried limit, which
+   * replaces both 4.0 axes outright: every class costs at least 1, so the
+   * burden is never looser than the object count the size axis would have
+   * enforced against normalised 3.8 objects.
+   */
+  if (obj_uses_burden_model (game))
+    {
+      scr_int object_burden = obj_get_burden (game, object);
+
+      player_limit = obj_get_player_burden_limit (game);
+
+      /*
+       * 3.8 never qualifies the refusal.  run380 answers a flat "Your hands
+       * are full." whether or not empty hands would have taken the object
+       * (measured 2026-08-03), so report the object as unportable and keep
+       * the 4.0 " at the moment" suffix off.
+       */
+      if (is_portable)
+        *is_portable = FALSE;
+
+      return lib_carried_burden (game) + object_burden > player_limit;
+    }
 
   /* Get the player limit and the given object size. */
   player_limit = obj_get_player_size_limit (game);
@@ -7400,6 +7517,39 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
   has_printed |= count > 0;
 
   /*
+   * Version 3.8 has one container refusal and one only.  run380 answers "The
+   * box is full." to everything it will not take in -- whether the container
+   * has no room left, or (with a Capacity of 0) never had any, and whatever
+   * the object's Size/weight class, which it does not charge against the
+   * container at all (measured 2026-08-03; see obj_get_container_capacity).
+   * Consume the leftovers here, so that neither 4.0 report below finds
+   * anything to say about them.
+   */
+  if (obj_uses_burden_model (game))
+    {
+      count = 0;
+      for (object = 0; object < object_count; object++)
+        {
+          if (!game->object_references[object])
+            continue;
+
+          game->object_references[object] = FALSE;
+          count++;
+        }
+
+      if (count > 0)
+        {
+          lib_new_clause (game, has_printed);
+          lib_print_object_np (game, container);
+          pf_buffer_string (filter,
+                            lib_select_plurality (game, container,
+                                                  " is", " are"));
+          pf_buffer_string (filter, " full.");
+          has_printed = TRUE;
+        }
+    }
+
+  /*
    * Report objects not put in because of their size.  These objects remain in
    * standard references, as do objects rejected because of capacity limits.
    * By removing too large objects in this loop, we're left later on with just
@@ -7586,6 +7736,33 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
                                  "I can't put anything inside ",
                                  "%player% can't put anything inside ",
                                  container, "!\n");
+      return FALSE;
+    }
+
+  /*
+   * Version 3.8 will only fill a dynamic container the player is holding: an
+   * open box sitting on the floor answers "You are not holding a box." (note
+   * the object's own prefix, not the "the" of most refusals).  Static
+   * containers are exempt -- run380 puts a coin into Wrecked's static red
+   * locker where it stands, which is just as well, since nothing could ever
+   * pick one up.  Both measured 2026-08-03.
+   */
+  if (obj_uses_burden_model (game)
+      && !obj_is_static (game, container)
+      && gs_object_position (game, container) != OBJ_HELD_PLAYER)
+    {
+      if (run_in_priority_pass ())
+        {
+          run_priority_defer ();
+          return FALSE;
+        }
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not holding ",
+                                             "I am not holding ",
+                                             "%player% is not holding "));
+      lib_print_object (game, container);
+      pf_buffer_string (filter, ".\n");
       return FALSE;
     }
 

@@ -23,8 +23,8 @@ air.
 Next to the brick building stands a green dumpster.  A large pile of plastic
 trash bags and newspapers sits across from the dumpster.
 
->You open the large green metal dumpster.  Inside the large green metal
-dumpster is a scrawny black cat and the dumpster trash.
+>You open the large green metal dumpster.  A scrawny black cat and the
+dumpster trash are inside the large green metal dumpster.
 
 Your stomach growls with hunger.
 

@@ -1,0 +1,878 @@
+Loading game...
+
+The Great Escape
+Introduction
+Hi. This introduction is for those who haven't played that many text
+adventures before. This game is set purposefully on Earth, not in space, or
+on Mars, or under the sea or something stupid like that. The game is set in
+England in the small (and completely fictional village) of Piddlington. This
+game is unlike others in that it is possible to have a proper conversation
+with the characters. To do this you can use the 'converse with' command (the
+'talk to' command will not work) and this will usually let you conduct a
+conversation with the said character. These conversations will usually give
+you a few hints although you can probably only do this once. The characters
+can also be asked about things although their responses to this action are
+pretty limited. This game is not completely realistic or serious but very
+cynical. Try things that sound completely ridiculous. Most objects have uses
+although some are just used for show. I also have to say that it is
+(probably) impossible to achieve the total score although it would be
+interesting to see what the highest percentage is. Finally if you can't work
+out how to complete the game there is a built in walkthrough in the game
+although you will have to discover this for yourself.
+If you have any questions, comments, ideas, suggestions, conspiracy theories
+etc. please send them to me at kevkov@hotmail.com. Thankyou.
+
+Story
+The story so far...
+The last few weeks have been hell. It started off with your sacking as a
+pizza delivery boy. It continued when you couldn't pay your rent to Mr
+Malloney, your landlord and local hard-man. You have been having nightmares
+and Malloney has threatened to send men round to 'sort you out.' You dream of
+getting away from it all, escaping. One night you are having an even more
+vivid nightmare. You are running away, being pursued by Malloney's henchmen,
+suddenly you trip and fall into a giant puddle, it's sucking you in, you try
+to shout but to no avail, you're sinking further and further...
+You wake up face down in a puddle on the high street. You've been
+sleep-walking, again. You remember the times when, as a child, you used to
+get into all sorts of trouble doing it. You look around, you are lying in the
+gutter, arse-naked. Bugger. You swear a few oaths and get to your feet. A
+feeling swells up inside you, you need to get out of this place, you need to
+escape. In that moment you decide that today is the day that you are going to
+leave. There, you've said it, but first of course you could do with some
+clothes...
+
+>You move east.
+Your living room
+Your house is (let's face it) pretty rubbish. In your living room is a cheap
+sofa and a small mahogany table.  From here you can go either east or up.
+East to the kitchen (and the horrors that lie within) or up to your upstairs
+landing. You feel that it would be innappropriate to venture out of the house
+at this point without at least a pair of well-washed trousers.
+
+Also here is the wallet, the letter and the mobile-phone.
+
+>You have your wallet
+
+>You pick up the wallet.
+
+>You open the wallet revealing a crisp tenner, your Piddlington bank credit
+card and a list of phone numbers which you pocket.
+
+>You pick up the mobile-phone.
+
+>The bank statement says that you have currently in your account £50. This
+amazes you as it means you actually have money.
+
+>You are a friendly person.
+
+>You shout and scream, this alarms everyone nearby but you don't care, you're
+a rebel!
+
+>You move up.
+Your upstairs landing
+The landing is a narrow corridor which leads to your bedroom. A small table
+lies at the end upon which stands a small vase.  This narrow corridor can
+only be exited by going down the stairs to your living room or going east to
+your bedroom.
+
+>You take the crowbar from the vase.
+
+>You move east.
+Your bedroom
+Your bedroom has a small bed in it and an ageing, rickety chair in the corner
+of the room. There are piles of clothes on the floor. The windows look out
+over another dreary day.   From here you can go either east to the lands of
+fresh minty flavour (aka your bathroom) or west to your upstairs landing.
+
+Also here are the pair of trousers and the t-shirt.
+
+>You pick up the Sparkshot 500, it feels cool to the touch.
+
+>You take the stun-gun from the pair of trousers.
+
+>You switch on the TV. There isn't much on, a chat show, a gardening program.
+But one channel does catch your eye. It is a documentary on paintings. The
+presenter is talking about a famous picasso. As you look at the painting on
+the screen you realise that you have seen that painting before. You try to
+think where you saw that painting before, then suddenly it hits you. You have
+seen that very painting in your neighbour's flat!
+
+>You pick up the t-shirt and put it on. It is surprisingly fresh and smells of
+springtime (whatever that smells like.)
+
+>You pick up the pair of trousers.
+
+>You move east.
+Your bathroom
+Your bathroom is an unpleasent off-white colour and contains a shower, sink
+and toilet. A medicine cabinet hangs on the wall. There is a large bottle of
+'T-rex' sized economy bleach in the corner.  The only way out of your
+bathroom is to drink the bleach (which will take you to an altogether better
+place) or to use the more conventional westerly walk to your bedroom.
+
+>You shower yourself and end up feeling lovely and clean.
+
+>You relieve yourself. You now feel much better.
+
+>Your hands feel much cleaner.
+
+>You open the medicine cabinet.  Inside the medicine cabinet is the tube of
+toothpaste, the toothbrush and the bottle of mouthwash.
+
+>You take the toothbrush from the medicine cabinet.
+
+>You take the tube of toothpaste from the medicine cabinet.
+
+>Always a good idea. You use your up 'n' down technique to brush most of the
+day's residual plaque off of your yellowing teeth.
+
+>You take the bottle of mouthwash from the medicine cabinet.
+
+>Not a good idea, considering that this is a liquid and you cannot, repeat
+CANNOT EAT A LIQUID. Have yourself 5 points for being an arsehole.
+
+>You move west.
+Your bedroom
+Your bedroom has a small bed in it and an ageing, rickety chair in the corner
+of the room. There are piles of clothes on the floor. The windows look out
+over another dreary day.   From here you can go either east to the lands of
+fresh minty flavour (aka your bathroom) or west to your upstairs landing.
+
+>You move west.
+Your upstairs landing
+The landing is a narrow corridor which leads to your bedroom. A small table
+lies at the end upon which stands a small vase.  This narrow corridor can
+only be exited by going down the stairs to your living room or going east to
+your bedroom.
+
+>You move down.
+Your living room
+Your house is (let's face it) pretty rubbish. In your living room is a cheap
+sofa and a small mahogany table.  From here you can go either east or up.
+East to the kitchen (and the horrors that lie within) or up to your upstairs
+landing. You feel that it would be innappropriate to venture out of the house
+at this point without at least a pair of well-washed trousers.
+
+Also here is the letter.
+
+>You move east.
+Your Kitchen
+Your kitchen has the usual fridge/freezer, oven etc. There is a washing
+machine as well but apart from that It is pretty plain.  From here, you can
+only go west to your living room.
+
+Also here is the cheque-book.
+
+>You wash the trousers. They come out of the washing-machine with a new lease
+of life and smelling like a spring morning. You now feel socially acceptable.
+You hear a crash from the living room. It sounds as if the door has been
+broken down.
+
+>You move west.
+Your living room
+Your house is (let's face it) pretty rubbish. In your living room is a cheap
+sofa and a small mahogany table.  From here you can go either east or up.
+East to the kitchen (and the horrors that lie within) or up to your upstairs
+landing. You feel that it would be innappropriate to venture out of the house
+at this point without at least a pair of well-washed trousers.
+
+Also here is the letter.
+
+First Thug and Second Thug are here.  Two enormous men crash through your
+door. They both look quite dangerous
+
+>You try to strike up a conversation between yourselves and the thugs but
+unfortunately they only seem interested in getting their hands on your money.
+The men catch you and grab you. The first one shouts at you "You owe Mr
+Malloney some friggin' money!" You try to splutter a reply but they smash
+your head against the wall before you can react. Lying on the floor you
+manage to say "I'll get the money straight away." The second thug says "You'd
+better, otherwise we're gonna bury you!" You quickly scramble to your feet.
+
+>You shoot at the thugs with your Sparkomatic 500. They fall over unconscious
+on the floor.  You search them for anything which could be of use. One of
+them has a chocolate bar in his pocket which you take. You leave them where
+they are.
+
+>You move west.
+Street (south end)
+You are in the south end of a long street. This end of the street is pretty
+plain except for a small cash machine mounted on the wall outside the bank.
+You are now, thankfully, clothed. From here, you can either go east to your
+living room, west to the Piddlington bank, south to the Piddlington car
+showroom or north to travel up the street.
+
+>You move north.
+Street (middle)
+You are in the middle of a long street. A car sits unobtrusively on one side
+of the road. Birds circle overhead and grey clouds roll slowly across the
+sky.  From here, the sky's the limit. You can go north up the street, you
+could also choose to go south which would lead you down the street or you can
+go east to Mrs Walters' (your elderly couch potato neighbour with a peanut
+allergy) house.
+
+>You move east.
+Mrs Walters' Living Room
+The living room is a testament to Mrs Walters complete lack of colour
+co-ordination. The widescreen TV seems to always be tuned into the soap opera
+channel. On the floor are the remnents of TV and microwave dinners that have
+been long since forgotten.  Mounted on the wall is a huge painting. From here
+you can move west to the street or east to Mrs Walters' kitchen.
+
+Also here is the burger-phone.
+
+Mrs Walters is here.
+
+>You give the bar to Mrs Walters. She takes it and eats it quickly, completely
+failing to see that the bar contains nuts, which she is allergic to.  After
+only a biteful of the chocolate she begins to gag. She has a fit and falls
+onto the floor. Finally she stops moving. Well done, you have killed a
+perfectly innocent woman (albeit a smelly and annoying one), I hope you're
+feeling pleased with yourself. Anyway, looking on the bright side, at least
+you can take the painting now.
+
+>You dial 999 in a frenzy of guilt and panic. The telephonist on the other end
+seems a bit bored. "Yes?" she says wearily. "Um," you begin "My next door
+neighbour has collapsed into a fit brought on by eating a chocolate bar which
+contained nuts which she is allergic to and now I'm afraid, very, very
+afraid." you stutter out as fast as you can. "Well, how about you tell me
+where you are and your name." You give her your name and Mrs Walters'
+address. "Okay." she says, "An ambulance will be over shortly, so stay where
+you are and try and keep the patient comfortable." You look down at the still
+form of Mrs Walter's and decide that she's pretty comfortable. You sit down
+on the food-encrusted sofa and watch the TV. About half an hour later...
+
+Mrs Walters totters into the room.
+Loud sirens awake you from your soap-apera induced slumber. The doorbell
+rings.
+
+>Time passes...
+The ambulance man charges through the door knocking you over. You pick
+yourself up and see that the ambulance man is crouched over the dead body of
+Mrs Walters. He sighs a deep sigh and says "Dammit, I'm afraid she's dead
+sir." "Uh, yeah, I kinda noticed that." you reply. "What happens next?" you
+ask him. "Well, " he says, getting up onto his feet again "I now have to call
+for the undertaker." He makes the call on his mobile phone. Thankfully the 24
+hour undertaker service is much quicker than the ambulance service and within
+a few minutes the body of Mrs Walters is whisked away. The ambulance-man also
+leaves quickly leaving you feeling very depressed and alone.
+
+>Time passes...
+
+Mrs Walters totters out of the room to the east.
+
+>You quickly take the picasso and run out of the door.
+
+>You move south.
+Street (south end)
+You are in the south end of a long street. This end of the street is pretty
+plain except for a small cash machine mounted on the wall outside the bank.
+You are now, thankfully, clothed. From here, you can either go east to your
+living room, west to the Piddlington bank, south to the Piddlington car
+showroom or north to travel up the street.
+
+>You phone up Julie. She seems surprised to hear from you at first but then
+she warms to you. She agrees to come over to your house and hangs up on you.
+There is a ring at the doorbell.
+
+>Time passes...
+
+>Time passes...
+The doorbell is pressed again.
+
+>You welcome Julie into your home. She appears very pleased to see you and
+eager to talk.
+
+>You move up.
+Your upstairs landing
+The landing is a narrow corridor which leads to your bedroom. A small table
+lies at the end upon which stands a small vase.  This narrow corridor can
+only be exited by going down the stairs to your living room or going east to
+your bedroom.
+
+>You move east.
+Your bedroom
+Your bedroom has a small bed in it and an ageing, rickety chair in the corner
+of the room. There are piles of clothes on the floor. The windows look out
+over another dreary day.   From here you can go either east to the lands of
+fresh minty flavour (aka your bathroom) or west to your upstairs landing.
+
+>You don't have the right equipment.
+
+>You move west.
+Your upstairs landing
+The landing is a narrow corridor which leads to your bedroom. A small table
+lies at the end upon which stands a small vase.  This narrow corridor can
+only be exited by going down the stairs to your living room or going east to
+your bedroom.
+
+>You move down.
+Your living room
+Your house is (let's face it) pretty rubbish. In your living room is a cheap
+sofa and a small mahogany table.  From here you can go either east, up or
+west. East to the kitchen (and the horrors that lie within), up to your
+upstairs landing or west to the outside world and all it's myriad wonders
+(choke!)
+
+Also here is the letter.
+
+Unconscious First Thug, Unconscious Second Thug and Julie are here.
+
+>You talk to Julie. You tell her all about your current situation and she is
+very sympathetic. She offers to lend you some money but you decline, telling
+her that you'll manage. She tells you that her current project is the search
+for a missing Picasso. She says that the reward for anyone finding it is
+$1000. Then you remember Mrs Walters from next door is always on about how
+she owns a Picasso. You offer to go and check if it is the missing one. Julie
+thanks you.
+
+>You give Julie the Picasso and her face visibly brightens. Her mouth hangs
+open in amazement. She realises that she is staring and shuts her mouth. She
+manages to stutter out "H-how did you get this?" You tell her a tale that
+couldn't be further from the truth. She sits down on your sofa. Then she says
+"You know that $1000 that you need for that car?" You reply that yes, you
+know what she's talking about. "Well," she continues "How about I give you
+the money in exchange for this painting." You say that you would love to give
+her the painting in exchange for that much money. She quickly makes the
+exchange and departs. You sit there with the $1000 in your hand. Then you
+realise that you have a car to buy!
+
+>You move west.
+Street (south end)
+You are in the south end of a long street. This end of the street is pretty
+plain except for a small cash machine mounted on the wall outside the bank.
+You are now, thankfully, clothed. From here, you can either go east to your
+living room, west to the Piddlington bank, south to the Piddlington car
+showroom or north to travel up the street.
+
+>You move north.
+Street (middle)
+You are in the middle of a long street. A car sits unobtrusively on one side
+of the road. Birds circle overhead and grey clouds roll slowly across the
+sky.  From here, the sky's the limit. You can go north up the street, you
+could also choose to go south which would lead you down the street or you can
+go east to the now dead Mrs Walters'  house.
+
+>You move north.
+Street (North end)
+You are in the north end of a long street.  You can walk west to Giovanni's
+restaurant (the premier eatery in town) or north to the Cheapoland shopping
+centre.
+
+>You move north.
+Cheapoland Shopping centre
+Cheapoland shopping centre is surprisingly quiet today. The shopping centre
+extends upwards, downwards, sideways etc.  You can move north to the clothes
+department, south to the street or up to the bookstore.
+
+>You move north.
+Clothes department
+The cheapoland clothes department is a testament to man-made fibres, PVC in
+particular. The clothes on the shelves are not so much cheap as cheap and
+nasty. On all sides customers mill past you.   From here you can go either
+north to the bargain basement or take a southerly stroll to the entrance of
+the shopping centre.
+Hundreds of customers are here, milling all over the place.
+
+>You move north.
+Bargain basement
+Let's face it, if you can't afford whats in the bargain basement then you
+really are below the poverty line. One corner of this section in particular
+catches your eye, the lucky dip section. Basically you pay a tenner for a bag
+full of assorted objects which could have anything from (as the sign says) a
+paperclip to a diamond ring.  You can only proceed south from here and this
+leads to the clothes department.
+
+>You hand a tenner to the shop assistant and take your chosen lucky dip bag.
+You open it slowly to reveal a paperback novel by Charles Dickens, a chef's
+hat and a small box of milk chocolates. You decide to put the chef's hat on.
+
+>The chocolates taste absolutely fabulous.
+
+>You move south.
+Clothes department
+The cheapoland clothes department is a testament to man-made fibres, PVC in
+particular. The clothes on the shelves are not so much cheap as cheap and
+nasty. On all sides customers mill past you.   From here you can go either
+north to the bargain basement or take a southerly stroll to the entrance of
+the shopping centre.
+Hundreds of customers are here, milling all over the place.
+
+>You move south.
+Cheapoland Shopping centre
+Cheapoland shopping centre is surprisingly quiet today. The shopping centre
+extends upwards, downwards, sideways etc.  You can move north to the clothes
+department, south to the street or up to the bookstore.
+
+>You move up.
+Cheapoland bookstore
+The Cheapoland bookstore is the hub of literary brilliance and contains
+nearly every book known to man, except of course, the one you're looking for.
+An important-looking notice hangs on one of the walls.  From here you can
+move north, east, west or down. North leads to the 'useless book section',
+east leads to the 'foreign book section', west leads to the 'modern fiction'
+section and down leads back down to the shopping centre entrance.
+
+Betty is here.
+
+>You move west.
+The Modern Fiction Section
+The modern fiction section of the bookshop is a fairly ordinary room. Posters
+of different bestsellers adorn the walls.  From here you can either move west
+to the 'classic fiction' section or east to the main bookshop area.
+
+Also here are the bottle of pills.
+
+>You pick up the bottle of pills.
+
+>You move east.
+Cheapoland bookstore
+The Cheapoland bookstore is the hub of literary brilliance and contains
+nearly every book known to man, except of course, the one you're looking for.
+An important-looking notice hangs on one of the walls.  From here you can
+move north, east, west or down. North leads to the 'useless book section',
+east leads to the 'foreign book section', west leads to the 'modern fiction'
+section and down leads back down to the shopping centre entrance.
+
+Betty is here.
+
+>You give the bottle of pills to Betty and she snatches them off you greedily.
+She fumbles pathetically at the child proof bottle-top until you kindly open
+it for her. She downs half a dozen small pills and swallows noisily. After a
+few seconds she visibly relaxes and seems to be much better.
+
+>Betty, like most shop assistants, doesn't really offer you that much
+assistance. She points out the different departments (modern fiction, classic
+fiction, foreign language and useless) and she tells you that Mr Broomfield
+the shop valuer is in the classic fiction section. When you ask about Mr
+Broomfield she says "Oh he's just some old guy who knows a lot about antique
+books, apparently some of them can be really valuable." As she tells you this
+another customer comes to the desk and Betty has to deal with her.
+
+>You try to initiate a conversation with the customer but she seems rather
+irritable and shakes off every attempt of yours to talk with her.
+
+>Your spot-hating gets the better of you and you lean over the counter in
+front of the customer and (using skills honed by years of squeezing your own
+spots) squeeze the massive obelisk of grease that is the customer's spot. She
+is (quite reasonably) taken by surprise by your actions and screams in pain.
+However you have stopped, you relax and see that your work is done. The spot
+is gone and all that remains is a substantial puddle of pus on the bookshop
+floor and a huge hole in the customer's nose where the offending spot used to
+be. The customer stares at you in wide-eyed astonishment for a second and
+then withdraws an umbrella from her jacket and beats you to within an inch of
+your life. She then storms off, leaving you in a puddle of her pus and your
+blood.
+CONGRATULATIONS, YOU HAVE JUST COMPLETED THE UTTERLY POINTLESS BONUS TASK AND
+HAVE EARNED YOURSELF 500 POINTS!!!
+
+>You move east.
+Cheapoland Foreign book section
+The foreign book section contains lots of different books in lots of
+different languages. However, one book in particular catches your eye. It is
+a brightly coloured  Norweigan dictionary on the bookshelf to your left.  The
+only place to go from here is west.
+
+>Taking one last look around you quickly slip the dictionary into your trouser
+pocket without anyone noticing.
+
+>Thankfully you are a remarkably quick learner and in a matter of minutes have
+mastered the intricacies of the entire Norwegian language.
+
+>You move west.
+Cheapoland bookstore
+The Cheapoland bookstore is the hub of literary brilliance and contains
+nearly every book known to man, except of course, the one you're looking for.
+An important-looking notice hangs on one of the walls.  A large puddle of
+orangey liquid now occupies a large area of the floor in front of the desk.
+From here you can move north, east, west or down. North leads to the 'useless
+book section', east leads to the 'foreign book section', west leads to the
+'modern fiction' section and down leads back down to the shopping centre
+entrance.
+
+Betty is here.
+
+>You move west.
+The Modern Fiction Section
+The modern fiction section of the bookshop is a fairly ordinary room. Posters
+of different bestsellers adorn the walls.  From here you can either move west
+to the 'classic fiction' section or east to the main bookshop area.
+
+>You move west.
+The Classic Fiction Section
+The Classic fiction section of the bookstore is concerned with old classics.
+The 'classic fiction' section can only be exited via the eastern door which
+leads to the 'modern fiction' section.
+Mr Broomfield is in the corner of the room, reading a book.
+
+>You approach Mr Broomfield. You introduce yourself to him, he seems quite
+pleased to talk to you. You get the impression that he is quite lonely. He
+tells you about his job. He says that he is basically paid to sit in the
+store and read. He tells you that apart from the odd person bringing a book
+to be valued and the likes of yourself he is hardly ever disturbed. You ask
+him what types of books are valuable. He says that first editions of books by
+famous (and preferably dead) authors are the best. At that you bid him a good
+day and carry on.
+
+>You show the novel to Mr Broomfield and his eyes go wide with astonishment.
+He takes the book from you with an expression of awe on his face. "H-how,
+where did you get this?" He asks you. You tell him that you inherited it from
+a rich aunt. "Do you have any idea how much this is worth?" he asks. "£1000?"
+you reply hopefully. A shrewd look passes across the face of mr broomfield.
+"I tell you what," he says "I'll buy this off you for £1000, whaddya say?"
+"Thats fine." you stutter and you watch as Mr Broomfield pulls out £1000 from
+his pocket and shoves it into your hand. "Now go!" he says. You get up from
+the chair and stand there, unable to believe your luck. Mr Broofield leaves
+quickly, the book held in his hands.
+
+>You move north.
+Street (middle)
+You are in the middle of a long street. A car sits unobtrusively on one side
+of the road. Birds circle overhead and grey clouds roll slowly across the
+sky.  From here, the sky's the limit. You can go north up the street, you
+could also choose to go south which would lead you down the street or you can
+go east to the now dead Mrs Walters'  house.
+
+>You move north.
+Street (North end)
+You are in the north end of a long street.  You can walk west to Giovanni's
+restaurant (the premier eatery in town) or north to the Cheapoland shopping
+centre.
+
+>You move west.
+Restaurant
+Giovanni's is one of the village's premier restaurants. It is an exotic blend
+of Italian style and Greek architechture wrapped up in one big ball of
+Mediterranean loveliness. To make the experience truly authentic, Giovanni
+has installed reverse air conditioning and imported quite a lot of bloody
+annoying mosquitos. The tables, as always, are immaculately set and the whole
+place is wrapped in a greenish aura. This probably has something to do with
+the wallpaper and the tablecloths and the chairs. In fact all of Giovanni's
+appears to be clothed in green, oh well. In spite of this, however, today the
+restaurant seems to be very empty.  From here you move west to the fragrant
+delights of Giovanni's kitchen or east to the street.
+Some diners are here.
+
+>You try to approach the diners but they appear busy and become flustered at
+your interest in them. You get the feeling that they either don't like you or
+that they aren't actually part of the story, just a casual piece of scenery
+and an attempt to make the gaming environment more realistic. Or both.
+
+>You move west.
+Giovanni's Kitchen
+The room is filled with the latest state of the art kitchen equipment.  You
+have the choice of either moving east to the restaurant or down to the wine
+cellar.
+Giovanni paces the room, occasionally pausing to smack himself about the face
+with a wooden spoon.  Malcolm stands at the sink, washing the seemingly
+endless pile of dishes.
+
+>Tired of complaining to Malcolm, Giovanni starts complaining to you. He tells
+you that he is expecting a new chef today but he hasn't arrived yet. You can
+tell that he is getting very angry so you ask him about his wine celler. He
+seems to cheer up instantly and boasts to you that it is the best wine celler
+in town containing many good vintages. Feeling that you have heard enough you
+end the conversation.
+
+>Malcolm pauses his washing dishes routine to talk to you. He tells you that
+things have been pretty bad around the restaurant due to the lack of
+customers. He also tells you that they are expecting a new chef to be coming
+later on in the day before he turns back and carries on with the dishes.
+
+>You move down.
+Giovanni's Wine Cellar
+It is very cold down in the cellar. Long racks of wine bottles strech in all
+directions. All kinds of wines are in the cellar. Rouges, blancs and even a
+few vintages. There is a cabinet in the corner.  The stairs only lead up.
+
+>You open the cabinet.  The vintage is inside the cabinet.
+
+>You take the vintage from the cabinet.
+
+>Unsurprisingly, this is perhaps one of the stupidest things you can do in
+this adventure. It is a fact of life that you cannot 'eat' a liquid.
+Therefore the question remains, why are you doing it? Are you simply trying
+to push the limits of this game to see just how stupid you can be? Well,
+thats fine by me. You get yourself 5 points.
+
+>You move up.
+Giovanni's Kitchen
+The room is filled with the latest state of the art kitchen equipment.  You
+have the choice of either moving east to the restaurant or down to the wine
+cellar.
+Giovanni paces the room, occasionally pausing to smack himself about the face
+with a wooden spoon.  Malcolm stands at the sink, washing the seemingly
+endless pile of dishes.
+
+>You move east.
+Restaurant
+Giovanni's is one of the village's premier restaurants. It is an exotic blend
+of Italian style and Greek architechture wrapped up in one big ball of
+Mediterranean loveliness. To make the experience truly authentic, Giovanni
+has installed reverse air conditioning and imported quite a lot of bloody
+annoying mosquitos. The tables, as always, are immaculately set and the whole
+place is wrapped in a greenish aura. This probably has something to do with
+the wallpaper and the tablecloths and the chairs. In fact all of Giovanni's
+appears to be clothed in green, oh well. In spite of this, however, today the
+restaurant seems to be very empty.  From here you move west to the fragrant
+delights of Giovanni's kitchen or east to the street.
+Some diners are here.
+
+>You move east.
+Street (North end)
+You are in the north end of a long street.  You can walk west to Giovanni's
+restaurant (the premier eatery in town) or north to the Cheapoland shopping
+centre.
+
+>You move south.
+Street (middle)
+You are in the middle of a long street. A car sits unobtrusively on one side
+of the road. Birds circle overhead and grey clouds roll slowly across the
+sky.  From here, the sky's the limit. You can go north up the street, you
+could also choose to go south which would lead you down the street or you can
+go east to the now dead Mrs Walters'  house.
+
+>You move south.
+Street (south end)
+You are in the south end of a long street. This end of the street is pretty
+plain except for a small cash machine mounted on the wall outside the bank.
+You are now, thankfully, clothed. From here, you can either go east to your
+living room, west to the Piddlington bank, south to the Piddlington car
+showroom or north to travel up the street.
+
+>You call Mr Fairbanks and make an appoinment to see him. Luckily he is free
+today so your appoinment is soon.
+
+>You move west.
+Bank
+The Piddlington bank is quiet today, there is only the loans department open.
+A pot-plant sits quietly in the corner minding it's own business while a fly
+buzzes at the electric light. Also here is a cardboard leaflet holder
+advertising the bank's speciality deals.  From here, you can proceed east to
+the street outside or north to the loans 'department.' Mr Fairbanks' office
+now appears accessible.
+
+>You move north.
+Loans 'department'
+The loans 'department' of the Piddlington bank consists of an unbelievebly
+enthusiastic young bank worker behind a rather manky looking desk/computer
+combo. Unfortunately for you, the bank worker happens to be Norwegian, a
+country whose language you have never been able to master.  Armed with your
+knowledge of Norwegian, you feel certain that you will be able to have a
+decnt conversation with Mr George. You can only move south from here.
+
+Norge George is here.
+
+>As soon as George realises that you are speaking in his native tongue he
+whoops in joy and runs over to you and hugs you. Unfortunately, he is a big
+man, and in his happiness succedes in choking you (slightly) and imprinting
+much of the cheap orange dye from his suit onto your clothes and face. When
+George finally gets a hold of himself he puts you down and asks you if you
+would be interested in a holiday. You are surpised and ask him why he is
+selling holidays in a bank. Now it is his turn to be surprised and he tells
+you that he had believed this to be a travel agents which is why he was
+wearing the ludicrously bright orange suit. He sits back in his chair,
+dejected. He then asks you the usual questions, 'What have I done?' 'What am
+I going to do?' and 'Is there a pub near here.' It is only on the last of
+these that you are able to oblige and you point him in the direction of your
+local, 'The salty fish.' As he is leaving he gives you the password to his
+computer, which (he tells you) might come in handy.
+
+>Using the passwords kindly given to you by Norge George you hack into the
+computer's credit card database. Inside the database is a wealth of
+information on all of the account holders. You find the folder that relates
+to your bank account and add £1000 to the the £50 already in there. You
+switch off the computer, ready to go.
+
+>You move south.
+Bank
+The Piddlington bank is quiet today, there is only the loans department open.
+A pot-plant sits quietly in the corner minding it's own business while a fly
+buzzes at the electric light. Also here is a cardboard leaflet holder
+advertising the bank's speciality deals.  From here, you can proceed east to
+the street outside or north to the loans 'department.' Mr Fairbanks' office
+now appears accessible.
+
+>You move west.
+Mr Fairbanks office
+Mr Fairbank appears to be the manager of the bank. He is sitting at a desk.
+There are pictures on the wall behind him.  The only way out of the office is
+to go east to the main room of the bank.
+
+>You tell Mr Fairbanks about your money problems. He appears marginally
+sympathetic but refuses to lend you any money. To try and get him to see your
+point of view you ask him about the pictures on the wall. He says that he is
+a member of the local wine-tasting club and has been lucky enough in the past
+to taste some amazing vintages. You ask him how much a bottle of a vintage
+wine can fetch. He replies that it is all dependant on the year, the vinter
+and the condition that the wine is in. You once again turn the conversation
+in the direction of money but he flatly refuses to lend you money in your
+current credit situation. You bitterly end the conversation.
+
+>You watch Mr Fairbanks' face light up as you show him the vintage. He
+snatches it off you like an excited child. He asks you where you got it from.
+You don't tell him, but instead ask him how much he would buy it off you for.
+He looks at you shrewdly and asks you to name your price. You start high and
+the two of you start haggling in earnest. In the end you settle for a
+thousand which he hands over to you quickly. You stand there with the grand
+in your hand.
+
+>You move east.
+Bank
+The Piddlington bank is quiet today, there is only the loans department open.
+A pot-plant sits quietly in the corner minding it's own business while a fly
+buzzes at the electric light. Also here is a cardboard leaflet holder
+advertising the bank's speciality deals.  From here, you can proceed east to
+the street outside or north to the loans 'department.' Mr Fairbanks' office
+now appears accessible.
+
+>You move east.
+Street (south end)
+You are in the south end of a long street. This end of the street is pretty
+plain except for a small cash machine mounted on the wall outside the bank.
+You are now, thankfully, clothed. From here, you can either go east to your
+living room, west to the Piddlington bank, south to the Piddlington car
+showroom or north to travel up the street.
+
+>You shove your card into the machine and type in the appropriate PIN number.
+The machine squeals in recognition and presents you with a screen of options.
+You choose to withdraw £1000 and the machine produces a sound which you
+choose to interpret as an affirmation of your withdrawal. A slight whirring
+sound then precedes the action of the machine spitting out both your credit
+card and a wad of notes to the value of £1000. You gather up the notes and
+the card.
+
+>You move south.
+Car showroom
+The showroom is full of expensive sports cars and not so expensive second
+hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
+'cheapo car of the week' stand. From here, you can go north to the south end
+of the street or south to Matthews' office, although he usually keeps it
+locked.
+
+Matthews is here.
+
+>Johnny seems loathe to talk to you but then puts on his smarmy know-it-all
+face as he describes all of the top sports cars in the showroom, knowing full
+well you can't afford them. Then he lays his greasy hand on the cheapest car
+in the showroom, the Fullerton 'hog.' "I fear even this is out of your price
+range." he says, grinning at you sarcastically. At this point you coldy bid
+him goodbye.
+
+>You know? Thats probably the best thing you've done all year. You take out
+your stun-gun and shoot him in the stomach. His eyes go wide and he topples
+over unconscious. As he falls, he drops the key to his office, which you
+take.
+
+>You move south.
+Matthews' office
+Matthews' office is a small office with a few filing cabinets a desk and a
+rack of keys attached to the wall. There is also a gold name plate on the
+desk showing off Matthews' Phd (for research into toenail clippings.)  From
+here, you can only move northwards to the showroom.
+
+Also here is the car key.
+
+>You pick up the car key.
+
+>You move north.
+Car showroom
+The showroom is full of expensive sports cars and not so expensive second
+hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
+'cheapo car of the week' stand. From here, you can go north to the south end
+of the street or south to Matthews' office, newly accessable through the use
+of his key.
+
+Unconscious Matthews is here.
+
+>You climb through the back window of the car and into the driver's seat.
+
+>You climb back out of the window and into the showroom.
+
+>You move north.
+Street (south end)
+You are in the south end of a long street. This end of the street is pretty
+plain except for a small cash machine mounted on the wall outside the bank.
+You are now, thankfully, clothed. From here, you can either go east to your
+living room, west to the Piddlington bank, south to the Piddlington car
+showroom or north to travel up the street.
+
+>You move north.
+Street (middle)
+You are in the middle of a long street. A car sits unobtrusively on one side
+of the road. Birds circle overhead and grey clouds roll slowly across the
+sky.  From here, the sky's the limit. You can go north up the street, you
+could also choose to go south which would lead you down the street or you can
+go east to the now dead Mrs Walters'  house.
+
+>You smash the window of the car and slide through into the drivers seat. The
+sound of the crash, however, was louder than you had hoped for and alerts
+several people in the street outside. You may not have much time to make good
+your escape.
+A distant siren sounds...
+
+>You turn the key and start the car. You speed off, a sense of speed and
+exhilaration feels your entire body. You feel free. Then, suddenly, a police
+car swerves into view behind you. Your hope shatters, you've watched
+countless 'police, camera action!' shows (you sad bastard) and you know how
+these things generally turn out. You must think fast in order to avoid
+capture. There is a long winding road with two turnings, you have the choice
+of either turning left or right.
+From behind you hear the sirens of the advancing police cars.
+
+>You turn left onto a small, winding road. You look ahead and your heart
+sinks. Ahead is a large group of sheep, there is no way through. You brake
+sharply. The police car however is some way behind. You realise that there
+might be a way out of here. However time is ticking...
+The sirens that have dogged you over the last few miles are still audible in
+the distance.
+
+>You switch the radio onto Radio Piddlington. 'Accelerator' by Primal Scream
+bursts out at you which seems quite appropriate given the circumstances. You
+feel the blood rising in your veins along with the tempo of the song, you're
+in real car chase mood.
+
+>"Come on! Come on! Hit the Accelerator! Hit the Accelerator! Come on! Come
+on! Hit the Accelerator! Hit the Accelerator!"
+
+>You jump out of the car quickly and into the lane. Your heart is beating fast
+as you know that there isn't much time.
+
+>You move west.
+The country lane (a bit further on)
+This bit of country road is much like any other, surrounded by fields and
+badly signposted. But right now you've probably got more important things on
+your mind.  From here you can either move north, south or east.
+A flock of sheep is here. They appear to be taking as much time as possible
+to cross the road.  A shephard is here, he is nonchalantly chewing a piece of
+grass as he coaxes his sheep across.  You can't see the police car, but you
+can definitely hear it, and it's getting closer...
+The sirens seem to get closer...
+
+>You level the stun-gun at the innocent shephard and fire. He slumps to the
+floor unconscious. The sheep instictively begin going off in all directions,
+a few choosing to gnaw at the slumbering shephard's face.
+
+>You move north.
+The side of the road (2)
+This is the side of the road, A large brown fence with remarkably useful
+handholds dominates the nearby surroundings.  The options for movement here
+are to move south and east.  You can't see the police car, but you can
+definitely hear it, and it's getting closer...
+
+>Due to your pathetic upper body strength you struggle up the fence and fall
+onto the field at the other side. You land badly, spraining your ankle, and
+realise with horror that you can barely stand let alone run. For you the
+chase is over, but maybe you could still get away with it...
+
+>Your score is 1375 out of a maximum of 1860.  (73%)
+
+>As the sirens draw closer you hide yourself in the long grass of the field.
+From over the fence you hear the police car stop. Doors slam as two police
+officers get out. They search for you for about twenty minutes during which
+time you remain silent, scarcely wishing to breathe in case they here the
+sound of your breathing. Eventually, after what seems like an eternity, they
+give up and drive off. You wait for about five more minutes and then you get
+up, slowly. You check that there is no-one there. There isn't. You let out a
+cry of joy, you have made it, you have escaped!!
+Congratulations!

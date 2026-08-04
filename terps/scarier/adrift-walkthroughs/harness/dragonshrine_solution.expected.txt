@@ -405,7 +405,7 @@ lies in the center of the room with the remainder of a pile of straw that was
 left behind.  The door is to the west.
 
 >The straw that is piled within the bedframe is old, dried, and very brittle.
-Inside the pile of straw is a blue potion.
+A blue potion is inside the pile of straw.
 
 >You take the blue potion from the pile of straw.
 
@@ -490,7 +490,7 @@ on the bedside table.
 
 >You take the wash bowl from the bedside table.
 
->You open the wardrobe.  Inside the wardrobe is a black cloak.
+>You open the wardrobe.  A black cloak is inside the wardrobe.
 
 >You take the black cloak from the wardrobe.
 
@@ -730,8 +730,8 @@ the wood. Moments later, the fire beings to come to life, filling the room
 with light and warmth.
 
 >Two stone sinks take up a large area on the eastern wall of the kitchen.  It
-looks like they haven't been used in quite a long time.  Inside the stone
-sink is a long, wooden spoon.
+looks like they haven't been used in quite a long time.  A long, wooden spoon
+is inside the stone sink.
 
 >You take the long, wooden spoon from the stone sink.
 

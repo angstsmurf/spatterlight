@@ -1,0 +1,73 @@
+3
+e
+read mail
+s
+s
+take scythe
+say kenya to horse
+s
+e
+take branch
+w
+say nevada to horse
+w
+take blade
+e
+n
+n
+push button
+take lighter
+s
+s
+w
+say manchester to horse
+take shoe
+x workbench
+repair shovel
+u
+s
+x papers
+n
+d
+say san francisco to horse
+e
+n
+x counter
+take wire
+s
+e
+read chess guide
+w
+w
+s
+give shoe to man
+mask
+n
+say nevada to horse
+wear mask
+e
+s
+reap soul
+n
+n
+w
+enter machine
+repair machine
+push red button
+10097
+reap soul
+enter machine
+e
+s
+w
+say nepal to horse
+dig snowdrift
+reap soul
+say kenya to horse
+n
+play chess
+reap soul
+s
+say france to horse
+use lighter
+reap soul

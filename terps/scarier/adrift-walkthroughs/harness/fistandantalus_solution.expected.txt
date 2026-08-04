@@ -1,0 +1,133 @@
+Loading game...
+
+The book of Fistandantalus
+ You are Dalamar Nightson.  You have traveled far and wide to find the
+ultimate magical power.  You think you might of found it.  About 1000 years
+ago there lived a great mage.  His name was fistandantalus.  With his death
+there is rumored to be a book that has all his magic spells in it.  It if
+fabled to be in his old tower.  Thats where you are. May luck be with you.
+
+>You move north.
+Armory
+ This room is filled with all kinds of wepons long sience rusted. Swords,
+Axes, Sheilds, and Spears line the many racks.  This was so solders had ready
+accsess to wepons in case of attack.  It looks as if there is a button on the
+north wall that you just barely saw with your much keener elven eyes.  There
+are no exits
+
+>A door appears to the west.  No doubt this trap was made to keep visitors
+from where they wern't wanted.
+
+>You move west.
+Secret passage
+This passage smells of old protection spells and dried rose petals.  Normal
+for a former mages tower. There is another door to the west or you can go
+east back to the armory.
+
+>You move west.
+Quarters1
+This room was used to host guest when the tower was in service. The walls are
+plan grey stone bricks and strangly there are no windows in this guest room.
+The walls also have some mold on them. There is an empty chest and a bed in
+the corner. You can go north or you can go east back to the armory.
+
+>You move north.
+Quarters2
+ This looks much like the last room.This room was used to host guest when the
+tower was in service. The walls are plan grey stone bricks and strangly there
+are no windows in this guest room. The walls also have some mold on them.
+There in the corner is a bed  and a chest.  There seems to be some money on
+the chest and a note. There are exits to the south and the north.
+
+Also here is 500 gold and old note.
+
+>You pick up 500 gold.
+
+>I am wirting this so everybody knows that I got the book of fistandantalus.
+I am just going to go get some money from the library that I found in a back
+room and then I will go get the book. Well this will be my last moment as a
+lowly yong mage.  See ya in the marrow.  Signed Tanis half-elven
+
+>You move north.
+Quarters3
+This room looks much like the last two.  A bed and desk in the corner moldy
+walls ect... There is an exit to the east, north  or to the south back to the
+last Quarters room.
+
+>You move east.
+Hall Way
+This hallway connects the quarters with the rest of the tower.  The walls are
+grey moldy brick stone. There is a small window on either side of the
+hallway. As you look out those windows you can see the startling wonderful
+courtyard with fine green grass and flowers.  Funny you though no one lived
+in this tower.There is an exit to the east and back to the west.
+Just as your looking back into the hallway you notice an old man in the
+corner.
+
+> Hello my name is Rastlin Majiere. Yes the book well maybe I should start
+from the beginning.  I am a grandson of the great Fistandantalus.  Yes is it
+really that shocking to belive that he had kids.  Well I am his great great
+great great (well you get the idea) grandson.  I am the sole caretaker of
+this tower.  I do not long for the book of my ansestor.  But there have been
+others that have come here to find it but all of them failed never coming
+back. Let me warn you of one thing though.  Don't get greeding.  My ansetor
+fistandantalus hated greed more than anything.  If you are greedy in your
+journy to find the book I assure you it will be the death of you. Well now I
+must go tend the gardens good-day and may you have the best of luck.
+
+>You move east.
+Library
+This is a huge library.  There are 15ft tall shelves as far as the eye can
+see.  This is a truley marvalous collection of books.  The dust of ages has
+all but destroyed the book.  There are many butiful tapastrys lineing the
+walls.  Telling tales of great mage battles and not so great ones.  They
+depicted how magic has shaped the face of history. There are exits to the
+east and back west to the hallway.
+
+>You move east.
+Kitchen
+This was clearly a kitchen.  There are about 5 stoves and countless numbers
+of cookware.  There is still some freash bread and some turkey and the
+stoves.  Clearly Rastlin Majiere cooks for himslef. There is an exit to the
+morth and west back to the library.
+
+Also here is fresh bread and fresh  turkey.
+
+>You move north.
+Storage room
+This is a storage room for all the food.  It is mostly barren. The cobwebs
+have certainly taken over in this room and there seems to be a very thick
+layer of dust on the floor.  You see a few rats scurry into there holes as
+you walk in. There is a chest in the corner and a note at your feet. The only
+exit is back where you came from.
+
+Also here is old  note and old  chest.
+
+>When you open the chest  your real test to see if your worthy of my book will
+begin.  I am sure the caretaker whoever he might be gave you some sound
+advice.
+
+>you wake dizzy and comfused.  You are in a small room looks the same as the
+others.  There is an exit to the west and a chest.  I wonder what that note
+ment about "now your real test begins".  Also I wonder why the Caretaker said
+that being greedy would kill me but to get the book I shouldn't be greedy.
+
+>You move west.
+Tower
+This was once the labratory of the great Fistandantalus.  Now it is barran.
+All of  a sudden a gost appers!  " Do not be alarmed.  I am fistandantalus.
+You have proven your self worthy of this book.  Tell the caretaker that I
+appreciate his help.  Now that I have someone to restart my studies with this
+book I can rest in peace.  Thank you so very much." As he vanashied a book
+appears on a barran table.
+
+Also here is old book.
+
+>You pick up old book.
+
+>Congradulations you have won the game. I couldn't make some things work so
+this had to be the ending.  Please e-mail me at badreligion25@hotmail.com to
+tell me what you tought of the game pelase I would really appreciate it
+thanks.
+
+>Do you really want to quit? [Y/N]

@@ -202,8 +202,8 @@ it.
 
 You can only move northwest.
 
->You open the wardrobe.  Inside the wardrobe is a green Drift-O-Sphere and a
-piece of gum.
+>You open the wardrobe.  A green Drift-O-Sphere and a piece of gum are inside
+the wardrobe.
 
 >You take the green Drift-O-Sphere and the piece of gum from the wardrobe.
 
@@ -263,7 +263,7 @@ You can only move northeast.
 >You unlock the black box with the silver key.
 
 >[open the black box]
-You open the black box.  Inside the black box is the remote control.
+You open the black box.  The remote control is inside the black box.
 
 >You take the remote control from the black box.
 
@@ -432,8 +432,8 @@ residue behind.
 You put the green orb into the tube it sputters a few times and spews out a
 puff of green smoke.  When it clears, you discover something in the tray.
 
->The tray is long and silver, and firmly attached to the wall.  Inside the
-tray is a green Drift-O-Sphere.
+>The tray is long and silver, and firmly attached to the wall.  A green
+Drift-O-Sphere is inside the tray.
 
 >You take the green Drift-O-Sphere from the tray.
 

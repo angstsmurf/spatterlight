@@ -1,0 +1,13 @@
+open breifcase
+get gun
+look at documents
+look at bomb
+cut blue wire
+hide
+east
+north
+take parachute
+south
+open door
+kick door
+jump

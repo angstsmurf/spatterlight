@@ -43,8 +43,8 @@ There is an exit north.
 
 >
 >You can see a wire rubbish (trash) basket and unusually for Coltby it is not
-overflowing with rubbish. Some of the wires are sticking out.  Inside the
-rubbish bin is a colesworth timetable.
+overflowing with rubbish. Some of the wires are sticking out.  A colesworth
+timetable is inside the rubbish bin.
 
 (for your information you now have 6.5 game hours to finish this adventure.
 The time is now 9:31.)
@@ -88,8 +88,8 @@ how bad the opposition is. Someone has written a phone number on the back of
 the leaflet - 768555
 
 >You are wearing your suit and a wristwatch, and you are carrying your wallet,
-a stationary catalogue and a piece of wire.  Inside your wallet is a scrap of
-paper and your business card.
+a stationary catalogue and a piece of wire.  A scrap of paper and your
+business card are inside your wallet.
 
 >The scrap of paper reads
 
@@ -134,15 +134,15 @@ The door out of the cafe is east.
 
 >The small counter is in keeping with this room, shabby, neglected and dirty.
 
->You open the tea urn.  Inside the tea urn is a pipe.
+>You open the tea urn.  A pipe is inside the tea urn.
 
 >You take the pipe from the tea urn.
 
->You open the till.  Inside the till is an iou.
+>You open the till.  An iou is inside the till.
 
 >You take the iou from the till.
 
->You open the display unit.  Inside the display unit is a stale donut.
+>You open the display unit.  A stale donut is inside the display unit.
 
 >You take the stale donut from the display unit.
 
@@ -276,8 +276,8 @@ It sounds like a train is at platform 2.
 >It's a vending machine selling chocolate.  The label on the machine states
 that it is supplied and operated by "Mega Vending".  You can see a slot which
 has £1 next to it.  The vending machine is supported by four legs and stands
-slightly away from the wall.  Inside the vending machine is a bar of
-chocolate.
+slightly away from the wall.  A bar of chocolate is inside the vending
+machine.
 
 A young girl wanders in from the west.
 The young girl says "donningby train?"
@@ -476,7 +476,7 @@ any moment so you want anything you had better be quick.
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 
->You open the desk.  Inside the desk is a book.
+>You open the desk.  A book is inside the desk.
 
 >You flick through the book but nothing catches your eye.
 
@@ -1807,7 +1807,7 @@ parcel is closed.
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 
->You open the parcel.  Inside the parcel is a pencil and a delivery receipt.
+>You open the parcel.  A pencil and a delivery receipt are inside the parcel.
 
 >It is delivery receipt from Super Stationary.  It reads "Part Delivery - 1
 delivered, 99 to follow."

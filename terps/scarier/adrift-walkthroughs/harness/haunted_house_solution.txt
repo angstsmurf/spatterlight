@@ -1,0 +1,116 @@
+shake gutter
+take guttering
+drop fags
+open door
+in
+n
+e
+take pencil
+w
+s
+w
+take candle
+light candle
+drop matches
+unblock tap
+drop pencil
+take pan
+in
+take rice
+out
+e
+n
+down
+drop rice
+take key
+turn tap
+up
+s
+w
+fill pan
+heat water
+e
+out
+w
+melt statue
+drop pan
+take ball
+e
+in
+throw ball
+take crystal
+n
+up
+w
+use toilet
+e
+n
+take nail file
+sleep
+s
+down
+s
+out
+e
+file padlock
+unlock padlock
+drop nail file
+drop key
+in
+take teddy
+out
+w
+in
+n
+down
+take wine
+up
+s
+out
+e
+n
+climb tree
+go on branch
+jump onto roof
+drop wine down chimney
+down
+take stick
+put crystal in slot
+open trapdoor
+down
+s
+give teddy to ghost
+n
+down
+take boat
+sing
+s
+e
+put rod in hole
+in
+e
+dig
+put boat in water
+take candle holder
+w
+w
+n
+w
+n
+put candle holder on table
+e
+sit on chair
+ask ghost about object
+w
+s
+s
+out
+e
+n
+drill concrete
+take magnet
+magnetise object
+w
+e
+score
+open gate

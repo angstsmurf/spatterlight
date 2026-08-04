@@ -208,7 +208,7 @@ counter, with cabinets above the sink is located in the southwest portion.
 
 You can move north, east, south and west.
 
->You open the cabinet.  Inside the cabinet is the nutmeg and Campbell's soup.
+>You open the cabinet.  The nutmeg and Campbell's soup are inside the cabinet.
 
 KF walks in from the south.
 
@@ -436,7 +436,7 @@ You can move east and northeast.
 
 >You unlock the right drawer with the shiny key.
 
->You open the right drawer.  Inside the right drawer are the springs.
+>You open the right drawer.  The springs are inside the right drawer.
 
 >You take the springs from the right drawer.
 
@@ -482,8 +482,8 @@ long clothing rod, from which Campbell's clothing hangs.
 
 You can only move north.
 
->You open the wardrobe.  Inside the wardrobe is a leather jacket and an
-assortment of shoes.
+>You open the wardrobe.  A leather jacket and an assortment of shoes are
+inside the wardrobe.
 
 >You take the suitcase from the wardrobe.
 
