@@ -1,0 +1,260 @@
+n
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+n
+n
+n
+n
+n
+ne
+n
+n
+u
+z
+d
+d
+d
+s
+e
+get cap
+wear cap
+search till
+read note
+enter code
+open door
+ne
+look behind boxes
+sw
+w
+s
+search rides
+e
+search body
+get bible
+w
+s
+search counter
+play messages
+n
+sw
+search windows
+s
+s
+talk to nick
+talk to nick
+talk to nick
+talk to nick
+n
+search nick
+n
+n
+ne
+se
+search highchairs
+get handbag
+open handbag
+wear gloves
+nw
+n
+n
+u
+u
+u
+get pole
+d
+d
+d
+s
+s
+sw
+s
+s
+s
+e
+search bench
+e
+n
+search condom machine
+s
+e
+in
+out
+w
+w
+se
+search bin
+nw
+w
+w
+w
+n
+e
+search footwear
+remove shoes
+wear trainers
+w
+w
+search desk
+drop note
+drop bible
+get jacket
+wear jacket
+get bible
+e
+s
+e
+e
+n
+n
+n
+ne
+n
+n
+x coins
+insert coins
+press button
+s
+s
+sw
+s
+s
+s
+w
+w
+n
+n
+w
+talk to woman
+give water to woman
+w
+get poster
+e
+search drawers
+w
+open vent
+u
+n
+n
+e
+e
+s
+d
+search body
+break camera
+put batteries in torch
+s
+s
+s
+turn torch on
+d
+d
+w
+d
+talk to ray
+talk to ray
+talk to ray
+give cigarettes to ray
+s
+s
+e
+e
+n
+n
+n
+nw
+unlock door
+open door
+n
+n
+e
+search lockers
+wear jeans
+w
+s
+s
+se
+s
+s
+s
+turn torch on
+s
+s
+s
+e
+d
+e
+e
+ne
+e
+se
+drop screwdriver
+drop lighter
+get cutters
+nw
+w
+sw
+w
+w
+u
+w
+n
+n
+n
+n
+n
+nw
+n
+w
+watch tv
+turn off tv
+cut chain
+n
+w
+smash door
+talk to girl
+talk to girl
+n
+e
+s
+e
+n
+examine board
+examine photos
+s
+w
+n
+w
+s
+talk to girl
+give bible to girl
+n
+e
+s
+e
+s
+se
+s
+s
+s
+turn torch on
+s
+s
+throw cable
+u
+w
+w
+d
+d
+w
+e
+open door

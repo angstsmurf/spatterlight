@@ -1,0 +1,2679 @@
+Loading game...
+
+The Plague - Redux
+
+plague n.
+a widespread affliction
+a highly infectious epidemic disease.
+
+redux adj.
+brought back; returned.
+
+The Plague - Redux
+
+Written By
+Laurence Moore
+aka
+Cannibal
+
+Copyright (c) 2005
+Adrift v4.43
+Release 1.0
+
+The following text adventure contains scenes
+of graphic violence, gore and
+strong language
+
+First time players should
+type "HELP"
+
+Do you wish to read the introduction?
+(Y/N)
+
+>
+
+Thursday Evening
+
+Platform
+A cold wind blew from the tunnel and whipped around my bare legs. The lights
+above were bright and glaring and did nothing for my pounding head after a
+night of drink, food and dance. The underground platform was grubby and, for
+the moment, deserted, except for us girls. I could stroll north (walkway),
+east (platform) or west (platform).
+
+Andrea was standing talking with Catherine. They were both having a rather
+lengthy, good natured and animated conversation.
+
+Rachel was pacing back and forwards, looking tired and needing her bed.
+
+People began arriving, wandering onto the platform, finding a spot to stand,
+close to the edge. Some stood alone, wearing headphones or reading newspapers
+or paperbacks. Some stood in groups, talking loudly or engaging in muted
+discussions.
+
+There was no sign of the train.
+
+>Time drifted by.
+
+>Time drifted by.
+
+>Time drifted by.
+
+>Time drifted by.
+
+More people began to drift onto the platform, forming small groups, some
+glancing at wristwatches, hoping the train would be here soon.
+
+>Time drifted by.
+
+Another swell of people emerged onto the grimy platform. They were quite loud
+and energetic but not boisterous or rowdy.
+
+>Time drifted by.
+
+In the distance, the sound of the train raised a few eyes.
+
+>Time drifted by.
+
+Yet more people arrived on the platform, no doubt a crowd from one of the
+nearby theatres.
+
+>Time drifted by.
+
+The sound of the train was louder now as it hurtled through the dark winding
+tunnel, heading in our direction.
+
+>Time drifted by.
+
+A red-faced couple reached the platform, looking the worse for wear after a
+heavy evening of drinking.
+
+>Time drifted by.
+
+The red-faced couple began to argue. Shouting ugly words and jabbing fingers.
+People edged away from them.
+
+>Time drifted by.
+
+>Time drifted by.
+
+"At last," said Rachel, yawning, as the train rushed from the black tunnel.
+People all around us slowly began to edge forward.
+
+"That was a good night," grinned Andrea, shaking her head in a girly fashion
+and flicking her ponytail. "And I got a phone number as well."
+The train squealed to a halt, wheels grinding against track, iron against
+iron.
+"One of the best," nodded Catherine, rubbing the back of legs. "I'm aching. I
+need my bed."
+There were shouts coming from inside the carriages.
+"My feet are killing me as well," I agreed.
+Fists beat against the train doors in rapid succession.
+"I wish I didn't have to work tomorrow," sighed Rachel.
+The doors slid open and the passengers inside poured out onto the platform.
+"What the hell is going on?" shrieked Andrea.
+
+[MORE]
+
+We must have been rooted to the spot for several moments as the train
+passengers rushed from the carriages and nearly toppled us over. Confusion
+ensued as the people on the platform waiting to board the train were bundled
+and shoved roughly aside. Voices were raised. Heated arguments broke out.
+"Look," I said, pointing at the end carriages.
+"Oh, Jesus," groaned Catherine. "A fight."
+"That's more than a fight," yelled Rachel. "Look at the blood."
+And then the screaming began...
+
+[MORE]
+
+Platform
+The four of us were edging back from the train as passengers fled from it
+screaming. The platform was choked with panic stricken men and women as they
+took flight from the terrible fight that raged in the end carriages. Ragged
+bloody handprints were smeared down the doors and windows. There were nearly
+thirty people inside but it was impossible to discern who was fighting who or
+even why!
+
+"We need to get out of here," shouted Rachel, as people ran past us.
+"I told you we should have got a taxi," yelled Catherine.
+"Let's head back to the street," cried Andrea, pointing to the walkway that
+was now filled with passengers.
+
+We could run north (walkway), east (platform) or west (platform).
+
+>Stunned, the four of us ran from the platform back up the walkway.
+
+Walkway
+People choked the tiled floor, squashed against a central barrier, rubbed
+hard against posters...screaming, running...making for the way out. I could
+run north (walkway) or back south (platform).
+
+>We fled along the walkway, desperate, panic-stricken.
+
+Crossroads
+The walkway branched with new tunnels running off in different directions.
+There was aggressive pushing and screaming and the four of us were engulfed
+in it.
+
+And, behind us, there was another sound, too...
+
+It was, it was hard, almost impossible, to discern...a moaning, of sorts,
+puncturing the blood curdling screams of panic all around us.
+
+I could run north (walkway and way out), south (back to the platform), east
+(walkway) or west (walkway).
+
+>Screams rang out as we continued to run through the station.
+
+Walkway
+Shoes clattered and echoed as men and women fled the crazed and insane
+bloodbath they had witnessed on the train. Confusion blinded us all. Andrea
+cried out. Rachel was sobbing. Catherine looked desperate. I was pushed and
+jostled. The groaning behind us was louder. And closer. Much closer. It was a
+sickening sound. It filled my ears. I could run north (barriers) or back
+south (walkway).
+
+>Our aches and pains, our feelings of tiredness, our drunken hazes, had all
+now evaporated. We were stone cold sober as we fled with the pack to escape
+the monstrous groaning sound stalking us.
+
+"What is that soddin' noise?" yelled Andrea.
+
+Ticket Barriers
+Frightened men and women trampled over each other to clamber across the
+static barriers. Mob fear was beginning to overcome sanity. The groaning
+sound was edging closer and closer. It was truly dreadful. Dark and slow
+moving shapes were appearing behind the crowds of fleeing, panic-stricken
+people. There were screams. And shouts. And desperate, blood-curdling cries.
+We could flee north (ticket hall) or back south (tunnel).
+
+>"Here!" yelled Catherine, forcing a gap at the barriers.
+Andrea went over first, then Rachel, then me.
+Then we ran.
+
+Ticket Hall
+Uniformed London Underground staff were trying to calm the situation and take
+control but they had no idea what the hell was going on. Catherine pointed at
+a number of police officers that were appearing from all directions and
+trying to clear the barriers. All around were blurry visions of ticket
+machines and hanging wall maps and payphones. I couldn't see Rachel or Andrea
+anymore. People fell. Men fell. Women fell. The intense panic gripped like a
+choking hand, strangling every last breath. The noise. The noise behind us
+was awful. I could flee northeast (mall) or back south (barriers).
+
+>I started to run but I didn't want to leave my friends behind. Then I heard a
+crescendo of ugly sounds from the ticket barriers and my stomach knotted. I
+just had to keep running...
+
+Station Mall
+Men and women, obliviously making purchases in the kiosks and station
+mini-shops, now stood and stared, open mouthed and wide-eyed, as a wave of
+screaming and terror-stricken people ran for the stairs. Another crowd of
+people - I couldn't make them out - had reached the barriers but not pushed
+through them or climbed over. The groaning sound filled the station. I
+spotted the girls. They were heading for the stairs. I could run north
+(corridor) or southwest (ticket hall).
+
+>"I thought I'd lost you," I panted, face filmed with sweat, as I caught up
+with the girls.
+
+Corridor
+The space was much narrower here. People shoved each other out of the way. A
+strange crowd were now stumbling through the ticket barriers behind us. I saw
+fights erupting. I saw blood splashing. I saw things that I couldn't begin to
+understand. Andrea was running alongside me. Rachel was up ahead with
+Catherine. I could run north (steps) or south (mall).
+
+>I ran as fast as I could, keeping up with the girls.
+
+Steps
+The chaos became greater as we reached the steps; the sanctuary of the street
+was almost within touching distance. Men and women were toppled and shoved
+roughly aside. It was awful. It was so damn awful! I could run south
+(corridor) or up (steps).
+
+Behind us, the slow moving crowd of strange looking people were lurching
+across the ticket hall.
+
+>A swinging arm collided with my face and I was sent sprawling. I stumbled
+backwards, tasting blood, but the surging crowd pushed me forward. I felt
+hands grab me. I screamed before realising it was Andrea and Catherine. They
+dragged and pulled me to the top where Rachel was waiting at the doors.
+
+Finally, we burst out of the station...
+
+[MORE]
+
+London Street
+People were running, screaming...pursued by...Oh, God, what were those
+dreadful lumbering things?
+"We need to find a taxi," yelled Rachel, her body shaking uncontrollably.
+"What's happening?"
+I saw cars slamming into other cars, drivers hurled through windscreens.
+"Is this a terrorist attack?" blurted out Andrea.
+"Stacie," shouted Catherine. " What do we do?"
+I had no answers. No ideas, no suggestions, nothing. I was dumb struck, awe
+struck, even, as more of these foul, strange creatures emerged from the
+darkness and lunged at people trying to escape...pulling them down, holding
+them down then...ripping them open and eating them?
+"Rachel," screamed Andrea, suddenly.
+
+>
+The station doors slammed open and a mob of terrorfied people stampeded
+through. Andrea was the first to disappear into the screaming crowd hell bent
+on flight.
+"Andrea," I called. "Rachel? Catherine?"
+Sirens wailed, another car crashed, I glimpsed a limping man with half his
+face missing.
+"Stacie, where are you? Help, Stacie, help me!"
+"Catherine," I cried, jostled and shoved. "Over here!"
+Suddenly, my legs were kicked away, I was falling, tumbling down, I felt
+blows and feet. I gasped and tried to crawl. My vision was blurry. I kept
+crawling. I howled as a foot stamped on my trembling hand. Darkness washed
+over me...
+
+[MORE]
+
+Thursday Night
+
+I opened my groggy eyes. I was in the...
+
+Station Entrance
+The doors were blocked by several crashed cars and the tiled floor, slippery
+with wet blood, was sprayed with large splinters of broken glass.
+
+I lifted a shaking hand and touched the side of my aching head. It felt
+bruised and there was blood caked in my hair.
+
+Outside, on the streets of London, madness raged. Strange lumbering
+creatures, humanoid in shape, wandered in large groups. Fires belched black
+smoke into the dark night. Sirens wailed. Gunshots blasted. Helicopters
+circled. Women screamed. Men screamed. Children screamed. It was hopeless. It
+was nightmarish. It was surreal beyond the most horrific dreams.
+
+I then realised my stuff was missing. My phone and my purse. Damn! Someone
+had robbed me as well!
+
+Blood stained and dirt scuffed grubby steps led back down towards the ticket
+hall. I could head down (steps) or out (street).
+
+I could also see a twisted metal pole, lying loose on the ground.
+
+>What had happened tonight? How could an ordinary night out with the girls
+have ended like this?
+
+Steps
+Outside, society teetered on the brink of the abyss, but here, with the
+curved overhead roof and the flickering lights and the shoe scuffed steps,
+there was no one and nothing. Only blood. Spattered on the walls and the
+ground and smeared along rusted iron handrails. And the dank smell of death.
+I could head up (entrance) or down (steps).
+
+>What were those creatures? What had happened on the train? How had it spread
+so quickly onto the streets...?
+
+Steps
+Shadows danced across the darkly stained walls. Blood dripped with eerie
+plops. I could move up (steps) or down (corridor).
+
+>Why had the girls left me behind? What if they had been unable to help me?
+What if those...things...had attacked them?
+
+Corridor
+I was standing in a deserted and blood spattered corridor. A long set of
+steps led up towards the station entrance that was blocked with crashed cars.
+Against one wall was a vending machine selling bottles of chilled water for
+£1.20.
+
+I was dry. Parched with fear, more than anything, but I certainly could do
+with a cool refreshing drink right now. I vowed to keep my eyes open for any
+money whilst I was down here.
+
+I could walk south (corridor) or up (steps).
+
+>I had to be strong, I told myself. I had to be calm. I had to be resourceful.
+I had to find a way out of this station and back home away from this madness.
+I had to be strong. I had to be strong. I had to survive...
+
+Corridor
+The long tiled corridor extended past a small, wrecked kiosk. The walls were
+lined with posters and there was blood everywhere but no signs of any bodies.
+I could walk north (corridor), south (mall) or east (kiosk).
+
+>(moving east)
+
+Kiosk
+A blood spattered mess of postcards, guide books and magazines lay strewn
+across the floor of the small station kiosk. The carpet was soaked with blood
+and there was a raking trail of bloody handprints down a counter in one
+corner. A till, with an empty cash drawer lying open, was positioned atop it.
+Behind the counter was a door with a security panel. The door was closed and
+locked. I could head northeast (through the door) or west (corridor).
+
+I could also see a baseball cap.
+
+>I pick up the baseball cap.
+
+>I pulled the baseball cap on.
+
+>There was no money in the till, which didn't surprise, but what I did notice
+was a handwritten note tucked beneath it. I decided to pick it up.
+
+>I studied the note. It had been written in haste and detailed a sequence of
+four numbers.
+
+>I tapped in the four digit code I had found on the handwritten note. There
+was a buzz and the door unlocked.
+
+>Gingerly, I nudged the door open to reveal a cramped and gloomy room.
+
+>I walked through the doorway into the storeroom.
+
+Storeroom
+Low wattage bulbs hung from a dusty ceiling casting shadows across a bare
+concrete floor that was sprinkled with ground out cigarette ends and coffee
+stains. In one corner was a haphazard stack of dented and bashed in boxes.
+There was a door behind me that led back to the kiosk. The door was wide
+open. I could move southwest (kiosk).
+
+>I shifted a few boxes and spotted a plain wall thick with dust. Then I
+noticed a small torch on the floor. I reached down and picked it up. It was
+nothing special, only a penlight type of thing.
+
+>I walked through the open doorway back into the kiosk.
+
+Kiosk
+A blood spattered mess of postcards, guide books and magazines lay strewn
+across the floor of the small station kiosk. The carpet was soaked with blood
+and there was a raking trail of bloody handprints down a counter in one
+corner. A till, with an empty cash drawer lying open, was positioned atop it.
+Behind the counter was a door with a security panel. The door was wide open.
+I could head northeast (through the door) or west (corridor).
+
+>(moving west)
+
+Corridor
+The long tiled corridor extended past a small, wrecked kiosk. The walls were
+lined with posters and there was blood everywhere but no signs of any bodies.
+I could walk north (corridor), south (mall) or east (kiosk).
+
+>I followed the corridor into the mall, my shoes echoing an eerie melody...
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty.
+
+It shouldn't be deserted...it wasn't right...where had everyone gone, for
+God's sake?
+
+[MORE]
+
+Where was Rachel, Andrea, Catherine? Where was Stuart? How would I get back
+to our home in Holland Park? Christ, I hope you're sleeping through all this
+Stuart. I hope you're in bed safe. I won't complain about you falling asleep
+to the TV or snoring or the crumbs or...oh, God, Stuart, help me!
+
+Benches, child rides, payphones, rubbish bins...smashed, damaged, pushed
+over, ruined...spattered with dripping blood. The chaos and madness had
+ripped normality asunder, unforgiving, ruthless, malevolent. I had never felt
+so alone and damned.
+
+Okay, you're alone, Stacie, so get your ass in gear. Stay alive, survive, do
+whatever you can, whatever you have to, stay alive, survive. A phone! I
+needed a phone. I needed to find a phone. The payphones were all
+vandalised...I should be able to find a mobile somewhere.
+
+I could head north (corridor), east (WH Smith), southeast (McDonalds), south
+(gift shop) and southwest (ticket hall).
+
+>I knelt down next to a Postman Pat child ride, with crimson blood streaked
+across his paint peeling blue uniform. Jess, his adorable feline companion,
+was also speckled with drops of blood. A knot tightened in my throat and I
+felt the air punched from my lungs. I shook a spring of tears from my eyes.
+Why had this happened? Why had this madness consumed us? I straightened and
+was about to walk away when something shiny and glittering caught my eye. I
+bent down and picked up some loose coins that had fallen from the ride. I
+decided to take them with me.
+
+>(moving east)
+
+WH Smith
+Flies buzzed around the slowly decomposing body of a woman, who lay sprawled
+across a slew of torn paperbacks and glossy magazines, a bullet hole gouged
+into her forehead. The shop was gloomy and in disarray with blood splashed
+counters, ripped down shelving and smashed overhead lighting. I could move
+west (mall).
+
+>Covering my mouth, I leaned over and stared at the woman. She looked about my
+age, the single bullet in her skull robbing life from her. I then noticed
+ragged puncture wounds along her arms and legs - possibly bites of some kind
+- and her skin had a sickly looking colour to it. I began to edge away until
+I spotted a torn, blood stained bible clutched in her left hand.
+
+>I curled my fingers around the edge of the bible and tugged at it but it
+wouldn't budge. I pulled a second time, with some force, and the dead woman's
+body jolted slightly. I recoiled, gasping, breathing hard, heart thumping. I
+reached out again and wrestled the torn book from her resilient grip. I
+stepped away, half expecting her to lurch to her feet, but nothing like that
+happened.
+
+>(moving west)
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty. The chaos and madness had ripped normality
+asunder, unforgiving, ruthless, malevolent. Benches, child rides, payphones,
+rubbish bins ... smashed, damaged, pushed over, ruined ... spattered with
+dripping blood. I had never felt so alone and damned. I could head north
+(corridor), east (WH Smith), southeast (McDonalds), south (gift shop) and
+southwest (ticket hall).
+
+>I walked into the deserted shop, looking around.
+
+Gift Shop
+Abandoned and trashed. Broken ornaments, scattered postcards, tea towels,
+cracked plates, mugs, bowls, saucers and cups, playing cards, maps, toys,
+calendars...
+
+I didn't know the people who had owned the gift shop. It had been a place I
+simply walked past day after day. I felt sad not knowing their names. I felt
+even sadder not remembering their faces...
+
+There was just a tiring, never ending mess across the blood stained carpet
+where ordinary shop workers and everyday people had been set upon and
+violated in a terrible way. At the back of the shop I noticed a long, blood
+stained counter with an open till and a telephone.
+
+Shit, a phone!
+
+>I swallowed hard at the grisly sight of bloodied handprints smeared down the
+counter. I shook my head and looked away.
+
+I then spotted an answering machine on the floor, behind the counter. A red
+light was flashing indicating one or more messages.
+
+>I hit the rewind button and listened to the spools whirring. It seemed to be
+very loud. The tiny sound had shattered the deathly quiet of the underground
+station. I sat down, easing my back against the bloody and damaged counter.
+The tape clicked off. I pressed the play button...
+
+[MORE]
+
+"Hey, it's Doug...hate these poxy machines...I'm running late, traffic is all
+backed up, something going on but I'm not sure what. Bye!"
+
+[MORE]
+
+"Andy, it's Gillian, the post office left a card when I was out swimming with
+the girls. I've phoned them up and they're delivering it tomorrow. Hope
+that's okay. Love you!"
+
+[MORE]
+
+"Doug again...and I still hate these machines...Andy, I can't make the
+delivery. The roads are being closed off by the police. I haven't got a clue
+what's going on, mate. Bye!"
+
+[MORE]
+
+"Andy, Andy are you there? Andy, pick up the phone, darling...Andy?"
+
+[MORE]
+
+"Andy...will you...I wish you would...Andy, is there a chance you can call
+me. There's...there's a lot of things on the news about trouble and...call
+me, okay?"
+
+[MORE]
+
+"Andy, pick up the phone. Sarah's been attacked. ANDY! ANDY! For God's sake,
+pick up the phone. I'm going to take her to the hospital. Some pervert bit
+hurt. I knew we shouldn't..."
+
+I heard crying in the background, other noises, like crockery smashing, then
+the crying became a hysterical sob.
+
+"...Andy, you and that bloody shop. I need you home...Sarah, Sarah, honey are
+you okay? Sarah? SARAH? ANDY..."
+
+I heard another scream, then the phone slammed against something, like a hard
+surface. More screaming. And a tearing sound...the tape clicked off.
+
+I kept sitting there. Finally, the tears came, raking down my cheeks. I wiped
+them away and slowly got to my feet...
+
+>(moving north)
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty. The chaos and madness had ripped normality
+asunder, unforgiving, ruthless, malevolent. Benches, child rides, payphones,
+rubbish bins ... smashed, damaged, pushed over, ruined ... spattered with
+dripping blood. I had never felt so alone and damned. I could head north
+(corridor), east (WH Smith), southeast (McDonalds), south (gift shop) and
+southwest (ticket hall).
+
+>(moving southwest)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>It was like being in a ghost town with all those empty ticket windows. I felt
+eyes peering at me but there was certainly no one around. It was then that I
+spotted a small amount of loose coins that I decided to take.
+
+>(moving south)
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>I scrambled over the locked barriers.
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+
+"You don't look like one of those things," called a man's voice.
+I jumped, startled.
+"Say something," he continued. "Those things don't talk."
+I stared along the walkway, trying to see where he was.
+"Look, just say something, right?" he said. "I need to know that you're not
+gonna attack me."
+"Then take a gamble," I replied, with attitude.
+
+[MORE]
+
+He emerged from the shadows, tall and dark haired, unshaven, blood splashed
+against cream trousers and a rumpled denim shirt.
+"I'm Nick," he said, evenly, lighting a cigarette. "Who are you?"
+"Stacie," I said, sighing. "Stacie."
+"Rough night," he nodded.
+"Yeah," I replied. "Rough night all round."
+
+>"So what's your story?" I asked, unsure of him.
+"Pretty much the same as yours," he replied, numb. "Least I reckon it is."
+He blew out a stream of smoke that drifted around me.
+"I was on the train when...Jesus, it doesn't make sense."
+"We saw the fight," I said. "I was on the platform with my friends when..."
+"It was no fight," mumbled Nick, shaking his head. "Not like a regular
+fight."
+He ran a hand through his tangled hair.
+
+>"What happened on the train?" I asked.
+He let out a column of smoke.
+"They got on at the station before. Started working through the carriages
+attacking people."
+"Who?"
+"These...these things! I don't want to talk about it," he said, then I
+spotted him checking out my bare legs.
+"What things?" I frowned, pressuring him. "Who got on the train? Nick, what
+are you talking about?"
+"Where are your friends?" he asked, suddenly.
+
+>"I don't know where my friends are," I replied, sadly, glancing over my
+shoulder. "I hope they're okay. I got knocked out in the rush. We made it to
+the street but...it was crazy up there. It still is."
+"I don't think this is isolated to the train," said Nick, grimly, through a
+haze of smoke.
+"What are you talking about?" I frowned.
+"Those people that got on at the previous station. They were just regular
+people except..."
+"Except what?" I asked, spotting him flashing a look at my chest.
+"They looked dead," said Nick, then let out a nervous laugh. "I mean, like,
+people who had come back to life. Bits missing. Stuff like that."
+"What?"
+"And they were feeding," he continued, his eyes glazed. "They were eating the
+people on the train. You know, ripping them open and..."
+"You're talking shit!" I exclaimed.
+"Sure, I'm talking shit but I know what I saw. And the people they fed on,
+Stacie, they got up and joined them."
+He flicked away his cigarette.
+"Zombies..."
+
+>"Zombies don't exist," I said. "What you saw must have been..."
+"I know what I saw," said Nick, reaching for his cigarettes and looking at my
+legs. "Everything's fucked up big time."
+"All this crazy shit going on," I said, firmly. "And you still got time to
+keep checking me out."
+He lit a fresh cigarette and smiled.
+"Pretty girl!"
+"Yeah, sure, whatever..." I said, dismissively.
+"Wandering around on your own..."
+"I'm not on my own," I stated, defiantly. "My friends are around here
+somewhere."
+"I'm sure they are," grinned Nick, letting out smoke. "Only I ain't seen
+anyone around here for hours."
+He stared openly at my legs.
+"Except you, Stacie."
+Then at my chest.
+"And me!"
+He sucked down a lungful of smoke.
+"Wanna go someplace a little more private?"
+"I don't think so," I said, through gritted teeth. "I'm getting out of here."
+
+>"You're going already?" smiled Nick. "You don't like my company?"
+I stared at him.
+"I don't even know you."
+"Does that matter?" he grinned, dragging on his cigarette. "I don't know you
+either."
+"You're a creep," I whispered.
+He laughed.
+"Well, off you go then," he said, pointing at the ticket barriers. "I enjoyed
+watching you climb over them the first time. Great legs, Stacie. Real great
+legs."
+"You wanker!" I said.
+
+[MORE]
+
+Suddenly, he grabbed me, his thick fingers curled around my throat.
+"You're not going anywhere," he rasped. "You're staying he with me."
+I spluttered and gasped as he slammed me violently against the wall.
+"And we're gonna have some fun!"
+
+[MORE]
+
+I struggled but his grip became tighter around my throat.
+"Stop wriggling, you bitch," he snarled, pressing against me.
+I felt his hand on my leg. Now the bastard's hand was under my skirt. Then
+his fingers reached into my underwear.
+"This is gonna be so good," chuckled Nick.
+I rammed my knee into his groin. He yelled and staggered from me. I kicked
+him hard and watched him double over and hit the ground.
+"Bastard!" I shouted, and stamped on his head.
+My shoe gouged an eye, blood spurted onto my leg and he howled in pain. He
+raised a quivering hand and begged for mercy but I stamped on his throat. The
+heel punctured his skin and a fountain of blood sprayed into the air. He
+twitched for several moments as I backed away, recoiling with horror. Then
+his body lay still and his eyes stared vacantly at me.
+
+He was dead...
+
+[MORE]
+
+I crumpled in tears and sobbed long and hard, the sound echoing along the
+deserted tunnels and walkways, over the barriers and through the ticket hall,
+into the mall and the ransacked shops.
+Oh, dear God, it was so awful. I can't believe what is happening...
+I got to my feet. I was still here. I had survived. I was in one piece. I
+could do it. I could get through this night. I could get through this
+horrible experience.
+
+>Crouching, I rifled through his pockets and dug out a packet of cigarettes
+and a lighter.
+
+>I climbed across the ticket barriers.
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>(moving north)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving northeast)
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty. The chaos and madness had ripped normality
+asunder, unforgiving, ruthless, malevolent. Benches, child rides, payphones,
+rubbish bins ... smashed, damaged, pushed over, ruined ... spattered with
+dripping blood. I had never felt so alone and damned. I could head north
+(corridor), east (WH Smith), southeast (McDonalds), south (gift shop) and
+southwest (ticket hall).
+
+>There was a long smear of fresh blood in the doorway. I stepped around it and
+walked inside.
+
+McDonalds
+Rats scampered across the shiny floor and fed off tables, picking at half
+eaten burgers, discarded chicken nuggets, stone cold fries. I grimaced.
+Chairs had been knocked over as people must have fled once the surge of
+violence had erupted from the train. Then I spotted several baby highchairs,
+with rats crawling and sniffing around them. I swallowed hard.
+
+So many people, so much blood, so many lives, so much pain...
+
+I could walk northwest (mall).
+
+>From where I was standing I could see pretty much everything. I quickly
+noticed a forgotten burberry handbag next to one of the brightly coloured
+baby highchairs...but there were dozens of rats crawling around it...
+
+>After surviving that creep Nick, I suddenly felt a burst of strength and
+confidence. I still didn't relish the idea of walking across a room bristling
+with brown furred rats - but, fuck it, here I go - so I quickly went over to
+the highchairs and snatched up the handbag. The rats ignored me.
+
+>I unzipped the burberry handbag and dug out the contents. A sudden pang of
+guilt struck me. It just didn't seem right but then nothing had tonight. I
+found some prepacked food and a pair of gloves but then I quickly lost
+interest in the handbag as I stumbled across an assortment of personal
+effects. I discarded it.
+
+>I put on the leather gloves.
+
+>(moving northwest)
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty. The chaos and madness had ripped normality
+asunder, unforgiving, ruthless, malevolent. Benches, child rides, payphones,
+rubbish bins ... smashed, damaged, pushed over, ruined ... spattered with
+dripping blood. I had never felt so alone and damned. I could head north
+(corridor), east (WH Smith), southeast (McDonalds), south (gift shop) and
+southwest (ticket hall).
+
+>(moving north)
+
+Corridor
+The long tiled corridor extended past a small, wrecked kiosk. The walls were
+lined with posters and there was blood everywhere but no signs of any bodies.
+I could walk north (corridor), south (mall) or east (kiosk).
+
+>(moving north)
+
+Corridor
+I was standing in a deserted and blood spattered corridor. A long set of
+steps led up towards the station entrance that was blocked with crashed cars.
+Against one wall was a vending machine selling bottles of chilled water for
+£1.20. I could walk south (corridor) or up (steps).
+
+>(moving up)
+
+Steps
+Shadows danced across the darkly stained walls. Blood dripped with eerie
+plops. I could move up (steps) or down (corridor).
+
+>(moving up)
+
+Steps
+Outside, society teetered on the brink of the abyss, but here, with the
+curved overhead roof and the flickering lights and the shoe scuffed steps,
+there was no one and nothing. Only blood. Spattered on the walls and the
+ground and smeared along rusted iron handrails. And the dank smell of death.
+I could head up (entrance) or down (steps).
+
+>(moving up)
+
+Station Entrance
+The doors were blocked by several crashed cars and the tiled floor, slippery
+with wet blood, was sprayed with large splinters of broken glass.
+
+Outside, on the streets of London, fires soared into a black sky. Disfigured,
+flesh-eating zombies stumbled through the carnage looking to feed. The
+helicopters had gone. The people had gone. Sporadic gunfire was very far away
+now.
+
+Blood stained and dirt scuffed grubby steps led back down towards the ticket
+hall. I could head down (steps) or out (street).
+
+I could also see a twisted metal pole.
+
+>Carefully, I picked up the twisted metal bar, the gloves protecting my hand
+from its jagged edges.
+
+>I headed down the steps.
+
+Steps
+Outside, society teetered on the brink of the abyss, but here, with the
+curved overhead roof and the flickering lights and the shoe scuffed steps,
+there was no one and nothing. Only blood. Spattered on the walls and the
+ground and smeared along rusted iron handrails. And the dank smell of death.
+I could head up (entrance) or down (steps).
+
+>I walked down the steps.
+
+Steps
+Shadows danced across the darkly stained walls. Blood dripped with eerie
+plops. I could move up (steps) or down (corridor).
+
+>I went down the steps.
+
+Corridor
+I was standing in a deserted and blood spattered corridor. A long set of
+steps led up towards the station entrance that was blocked with crashed cars.
+Against one wall was a vending machine selling bottles of chilled water for
+£1.20. I could walk south (corridor) or up (steps).
+
+>I walked slowly along the corridor.
+
+Corridor
+The long tiled corridor extended past a small, wrecked kiosk. The walls were
+lined with posters and there was blood everywhere but no signs of any bodies.
+I could walk north (corridor), south (mall) or east (kiosk).
+
+>I followed the corridor back to the mall.
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty. The chaos and madness had ripped normality
+asunder, unforgiving, ruthless, malevolent. Benches, child rides, payphones,
+rubbish bins ... smashed, damaged, pushed over, ruined ... spattered with
+dripping blood. I had never felt so alone and damned. I could head north
+(corridor), east (WH Smith), southeast (McDonalds), south (gift shop) and
+southwest (ticket hall).
+
+>(moving southwest)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving south)
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>I scrambled over the locked barriers.
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+I could head north (barriers) or south (crossways).
+
+I could also see a dead body.
+
+>I followed the walkway south.
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. I could head north, south, east or
+west.
+
+>(moving east)
+
+Walkway
+The overhead lights were flickering and buzzing loudly. The walkway veered
+west-southeast, passing a line of posters, a wooden bench and a branching
+corridor that led to the station toilets. I had once snogged Stuart on that
+bench many moons ago. I could move east (corridor), southeast (walkway) or
+west (crossways).
+
+>There was nothing remarkable about the bench. It was scarred and grubby but
+then I spotted a few discarded coins so I decided to pick them up.
+
+>(moving east)
+
+Corridor
+The fresh aroma of citrus fruits assailed my nostrils but nothing could mask
+the trails of blood along the ground and splashes against the walls. I could
+head north (men's toilets), east (women's toilets) or west (walkway).
+
+>(moving north)
+
+Men's Toilet
+Water gurgled down stained urinals. The overhead lights blinked on and off
+and buzzed loudly. A solitary cubicle was missing a door and the toilet bowl
+has been recently vandalised. The sinks were brimming with crushed lager cans
+and dog ends. Fixed to the wall at the end of the room was a condom machine.
+I could move south (corridor).
+
+>The condom machine was out of order which suited me fine because I had no use
+for the damn things and it was the last idea in my head at this time. I did
+notice a few loose coins that had been left behind, though, so I scooped them
+off the machine into my hand.
+
+>(moving south)
+
+Corridor
+The fresh aroma of citrus fruits assailed my nostrils but nothing could mask
+the trails of blood along the ground and splashes against the walls. I could
+head north (men's toilets), east (women's toilets) or west (walkway).
+
+>(moving east)
+
+Women's Toilet
+Blood was splashed across the tiled floor, up over the walls, the sinks and
+the mirrors. There was a large single cubicle with a closed door. Discarded
+in the spread of blood was a grey toolbox. I could move west (corridor) or in
+(cubicle).
+
+I could hear the sound of groaning and feeding inside the single cubicle. A
+pool of blood spread from beneath the closed cubicle door.
+
+>I yanked open the cubicle door...
+
+Cubicle
+The floor was awash with blood, severed limbs and gnawed bones. The torso of
+a man was lying next to the bowl, one arm missing, the side of his neck
+chewed, his face half gone, no sign of his lower body half.
+
+Two people were crowded around the torso. Feeding on it. They rose from the
+blood soaked floor, groaning, bodies broken and oddly disjointed. That creep
+Nick had been right! The zombies lurched slowly torwards me...
+
+I rammed the pole through the head of the nearest one. A fresh spurt of blood
+erupted. I then brought the pole down across the head of the second zombie
+but it kept coming at me, arms flailing, groaning loudly. I swung the pole
+down again and split its skull wide open. Blood and brain tissue showered
+into the air as it dropped to the ground.
+
+[MORE]
+
+I stared for a very long time, eyes damp with tears, mind racing with a
+thousand disturbed thoughts. I knelt down, shaking my head, confused,
+consumed with sadness and revulsion.
+"Jesus Christ," I muttered. "Oh, Jesus Christ!"
+This didn't make any sense! This just didn't make any sense!
+I then spotted a few loose coins on the floor. Remembering the drinks
+machine, though feeling like a grave robber, I decided to pick them up.
+
+I could move out (toilets).
+
+>(moving out)
+
+Women's Toilet
+Blood was splashed across the tiled floor, up over the walls, the sinks and
+the mirrors. There was a large single cubicle with a closed door. Discarded
+in the spread of blood was a grey toolbox. I could move west (corridor) or in
+(cubicle).
+
+>(moving west)
+
+Corridor
+The fresh aroma of citrus fruits assailed my nostrils but nothing could mask
+the trails of blood along the ground and splashes against the walls. I could
+head north (men's toilets), east (women's toilets) or west (walkway).
+
+>(moving west)
+
+Walkway
+The overhead lights were flickering and buzzing loudly. The walkway veered
+west-southeast, passing a line of posters, a wooden bench and a branching
+corridor that led to the station toilets. I had once snogged Stuart on that
+bench many moons ago. I could move east (corridor), southeast (walkway) or
+west (crossways).
+
+>(moving southeast)
+
+Dead End
+The gloomy and dirty walkway ended at a securely locked, iron panel door with
+a NO EXIT warning issued and endorsed by London Underground. I had no way of
+breaking through this damn thing. There was a stinking and overflowing litter
+bin pushed against the wall beneath a row of posters. I could only move
+northwest (walkway).
+
+>Feeling like a down and out rummaging for her next meal or drink, I plunged
+my hands into the brimming litter bin and searched for anything that might
+come in handy. The only thing I came across was a discarded length of cable
+which I decided to take.
+
+>(moving northwest)
+
+Walkway
+The overhead lights were flickering and buzzing loudly. The walkway veered
+west-southeast, passing a line of posters, a wooden bench and a branching
+corridor that led to the station toilets. I had once snogged Stuart on that
+bench many moons ago. I could move east (corridor), southeast (walkway) or
+west (crossways).
+
+>(moving west)
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. I could head north, south, east or
+west.
+
+>(moving west)
+
+Walkway
+Litter strewn and dirt scuffed. Gloomy and eerie. Lights flickering overhead.
+Posters covering the tiles. I could head east (crossways) or west (walkway).
+
+>(moving west)
+
+Walkway
+The blood splashed, dirt scuffed tiled floor curved around a bend, passing a
+bank of switched off escalators. The long hallway down was shrouded in
+darkness. I could walk north (parade), east (walkway) or down (escalators).
+
+>(moving north)
+
+Parade South
+Investments had been made in this section of the station. A colourful mosaic
+of floor tiles spread towards an assortment of small shops. Have something to
+eat and drink, spend some money, then catch the train to your next
+destination. The lighting was much brighter and the area was scrubbed clean
+and fresh smelling...but there was no around. Just distant moans. Just
+distant crackles of gunfire. Just distant screams. It was like standing on a
+empty stage only then to notice that the audience had long gone home. I could
+head north (parade), east (JJB Sports), south (walkway), west (Thomas Cook).
+
+>(moving east)
+
+JJB Sports
+Shelves had been ripped from the brightly lit walls. Advertising boards of
+international sportsmen and sportswomen were splashed with crimson blood that
+oozed with steady drips into large drying puddles. The shop had only sold
+footwear but most of it was strewn across the blood soaked carpet. I could
+head west (parade).
+
+>I picked through the jumble of blood stained footwear and sorted out a pair
+of red and white trainers that would be far more sensible than the shoes I
+wearing.
+
+>Leaning, I raised each foot in turn and yanked off the shoes. Then I pulled
+the trainers over my bare feet. That felt a lot better!
+
+>I was already wearing the trainers.
+
+>(moving west)
+
+Parade South
+Investments had been made in this section of the station. A colourful mosaic
+of floor tiles spread towards an assortment of small shops. Have something to
+eat and drink, spend some money, then catch the train to your next
+destination. The lighting was much brighter and the area was scrubbed clean
+and fresh smelling...but there was no around. Just distant moans. Just
+distant crackles of gunfire. Just distant screams. It was like standing on a
+empty stage only then to notice that the audience had long gone home. I could
+head north (parade), east (JJB Sports), south (walkway), west (Thomas Cook).
+
+>(moving west)
+
+Thomas Cook
+It was little more than a point of information than a fully fledged travel
+agency. Still, it really didn't matter now. The single room outlet reeked of
+unflinching butchery. The carpet was soaked with a large pool of blood and a
+desk had been ripped in half. A smashed computer lay atop a slew of blood
+spattered brochures. I could move east (parade).
+
+I could also see a short jacket.
+
+>I studied the desk. It had taken a couple of severe blows to split it in
+half. Paperwork had scattered in every direction. I then spotted a few loose
+coins which I decided to take.
+
+>I discarded the handwritten note.
+
+>I discarded the torn bible.
+
+>I pick up the short jacket.
+
+>I slipped on the jacket. The zip was bust so I left it open. My arms felt
+warmer and it seemed a lot more practical with all the shit that was
+happening!
+
+>I pick up the torn bible.
+
+>(moving east)
+
+Parade South
+Investments had been made in this section of the station. A colourful mosaic
+of floor tiles spread towards an assortment of small shops. Have something to
+eat and drink, spend some money, then catch the train to your next
+destination. The lighting was much brighter and the area was scrubbed clean
+and fresh smelling...but there was no around. Just distant moans. Just
+distant crackles of gunfire. Just distant screams. It was like standing on a
+empty stage only then to notice that the audience had long gone home. I could
+head north (parade), east (JJB Sports), south (walkway), west (Thomas Cook).
+
+>(moving south)
+
+Walkway
+The blood splashed, dirt scuffed tiled floor curved around a bend, passing a
+bank of switched off escalators. The long hallway down was shrouded in
+darkness. I could walk north (parade), east (walkway) or down (escalators).
+
+>(moving east)
+
+Walkway
+Litter strewn and dirt scuffed. Gloomy and eerie. Lights flickering overhead.
+Posters covering the tiles. I could head east (crossways) or west (walkway).
+
+>(moving east)
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. I could head north, south, east or
+west.
+
+>(moving north)
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+I could head north (barriers) or south (crossways).
+
+I could also see a dead body.
+
+>I climbed across the ticket barriers.
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>(moving north)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving northeast)
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty. The chaos and madness had ripped normality
+asunder, unforgiving, ruthless, malevolent. Benches, child rides, payphones,
+rubbish bins ... smashed, damaged, pushed over, ruined ... spattered with
+dripping blood. I had never felt so alone and damned. I could head north
+(corridor), east (WH Smith), southeast (McDonalds), south (gift shop) and
+southwest (ticket hall).
+
+>(moving north)
+
+Corridor
+The long tiled corridor extended past a small, wrecked kiosk. The walls were
+lined with posters and there was blood everywhere but no signs of any bodies.
+I could walk north (corridor), south (mall) or east (kiosk).
+
+>(moving north)
+
+Corridor
+I was standing in a deserted and blood spattered corridor. A long set of
+steps led up towards the station entrance that was blocked with crashed cars.
+Against one wall was a vending machine selling bottles of chilled water for
+£1.20. I could walk south (corridor) or up (steps).
+
+>I counted £1.20 in silver coins.
+
+>I pushed the coins into the machine. The small display registered the credit.
+
+>I pressed the vend button and a bottle of chilled water slammed into the
+basket. I crouched down to pick it up. As my fingers curled around its ice
+cold plastic more groans and howls tore up from the darkened escalators.
+
+>I walked slowly along the corridor.
+
+Corridor
+The long tiled corridor extended past a small, wrecked kiosk. The walls were
+lined with posters and there was blood everywhere but no signs of any bodies.
+I could walk north (corridor), south (mall) or east (kiosk).
+
+>(moving south)
+
+Mall
+I had walked through Marble Arch station a thousand times over; going to
+work, coming home from work, coming home from a night out, whatever, and I
+had never seen the place empty. The chaos and madness had ripped normality
+asunder, unforgiving, ruthless, malevolent. Benches, child rides, payphones,
+rubbish bins ... smashed, damaged, pushed over, ruined ... spattered with
+dripping blood. I had never felt so alone and damned. I could head north
+(corridor), east (WH Smith), southeast (McDonalds), south (gift shop) and
+southwest (ticket hall).
+
+>(moving southwest)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving south)
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>I scrambled over the locked barriers.
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+I could head north (barriers) or south (crossways).
+
+I could also see a dead body.
+
+>I followed the walkway south.
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. I could head north, south, east or
+west.
+
+>(moving west)
+
+Walkway
+Litter strewn and dirt scuffed. Gloomy and eerie. Lights flickering overhead.
+Posters covering the tiles. I could head east (crossways) or west (walkway).
+
+>(moving west)
+
+Walkway
+The blood splashed, dirt scuffed tiled floor curved around a bend, passing a
+bank of switched off escalators. The long hallway down was shrouded in
+darkness. I could walk north (parade), east (walkway) or down (escalators).
+
+>(moving north)
+
+Parade South
+Investments had been made in this section of the station. A colourful mosaic
+of floor tiles spread towards an assortment of small shops. Have something to
+eat and drink, spend some money, then catch the train to your next
+destination. The lighting was much brighter and the area was scrubbed clean
+and fresh smelling...but there was no around. Just distant moans. Just
+distant crackles of gunfire. Just distant screams. It was like standing on a
+empty stage only then to notice that the audience had long gone home. I could
+head north (parade), east (JJB Sports), south (walkway), west (Thomas Cook).
+
+>(moving north)
+
+Parade North
+Blood and glass were sprayed across the colourful mosaic floor tiles. There
+was more. A smashed pram. A forlorn teddy bear. A child's lost shoe...
+
+A heavy iron shutter had been lowered across the front of a small cafe that I
+had been in a few times. There was enough space to get under and inside. The
+brightly lit parade, eerie and deserted, threaded its way south. A new
+walkway extended north. I could head north (walkway), south (parade) or west
+(cafe).
+
+>Lying flat, I crawled beneath the iron shutter and found myself in the...
+
+Cafe
+Tables and chairs had been kicked over as the zombie plague had ripped
+through this once thriving establishment. Blood streaked the walls where
+paintings hung at crooked angles. Broken glass, from the front windows, and
+shattered crockery were strewn across the wooden floor. A long serving
+counter with an assortment of drawers was at the rear of the cafe and was
+spattered with blood. A heavy iron shutter had been lowered across the cafe
+front but there was a crawlspace beneath it. I could head east (walkway) or
+west (door).
+
+A middle-aged woman was lying injured near the door, her eyes slowly opening
+and closing. Her wounds looked fairly serious with fragments of glass
+peppering her clothes, gouging flesh. It was easy to guess she was a London
+Underground employee by her uniform.
+
+A loud thudding sound, punctured by deep groans, was coming from the back of
+the cafe, where a crowd of zombies were trying to break open a door.
+
+>I knelt down beside the woman and felt her pulse. She was still alive but
+barely concious. Her eyes rolled in her head and her fingers tried to grip my
+arm. She looked in a bad way with a multitude of cuts and bruises sustained
+by flying glass. She was trying to speak but couldn't muster the words. The
+banging noise behind the closed door was becoming increasingly louder. The
+door was shaking in the frame.
+
+>I unscrewed the plastic bottle and tipped water into the woman's mouth. The
+door shook violently as the woman gulped down the refreshing fluid. The
+groaning was becoming louder. We had to get out of here damn fast.
+"Can you walk?" I shouted. "Can you stand? I'll help you."
+The woman shook her head, water dribbling over her lips and down her chin.
+"I'm Kate," she croaked. "Where's my son?"
+"Your son?" I started, then the door crashed open...
+
+[MORE]
+
+I got to my feet as a horde of slow moving, undead zombie flesh eaters poured
+through the doorway, lurching towards me, groaning loudly.
+"Oh, shit," I gasped.
+There was a sudden crash behind me. I whirled round to see that the shutter
+had come down, trapping us both!
+"Oh, shit," I gasped, again.
+The zombies began to shuffle towards us...
+"Fuck it," I yelled...
+
+[MORE]
+
+I blinked. Bodies were strewn at my feet. I was drenched in blood. None of it
+mine. Severed limbs and decapitated heads were infront of me. The killing had
+been swift and brutal. I blinked again. The black mist had gone. It was over.
+They couldn't hurt us...
+
+Quickly, I rushed to Kate's side. She was still breathing, but her skin was
+cold and she seemed almost in shock at the violence she had witnessed.
+"Look, you stay with me, miss, everything's going be fine, Alright? I promise
+you, everything's going to be fine!"
+I tried the iron shutter. Sweat broke across my forehead, ran from my
+armpits, trickled down my back...but the damn shutter refused to budge.
+"I'll find a way out," I assured her. "Then I'll get some help for you.
+Okay?"
+
+>I headed west.
+
+Office
+Awash with blood, gnawed limbs and dripping entrails, I almost threw up as I
+looked around the violent chaos that had consumed this spacious room. Whoever
+had been trapped in here with the zombies had no doubt become one of them
+(and was now dead). I had no wish to stay in here for very long so I quickly
+inspected my surroundings. A desk was forced into one corner next to a blood
+spattered filing cabinet. Above the desk was a glossy poster of various nude
+models in suggestive poses. Several chairs had been knocked over in the
+struggle. A plastic crate was laying half open. I could move east (cafe).
+
+I could also see a sharp edged machete.
+
+>I tore the poster from the wall and tossed it away. I was surprised, but
+pleased, to see that it had been covering an air vent. A pretty stupid thing
+to do but at least this was offering a way out. The only problem I could see
+was that the vent was sealed tight with screws and I didn't have anything
+with me to remove them.
+
+>(moving east)
+
+Cafe
+Tables and chairs had been kicked over as the zombie plague had ripped
+through this once thriving establishment. Blood streaked the walls where
+paintings hung at crooked angles. Broken glass, from the front windows, and
+shattered crockery were strewn across the wooden floor. A long serving
+counter with an assortment of drawers was at the rear of the cafe and was
+spattered with blood. The iron shutter had slammed down, blocking the exit
+back to the station walkway. I could head east (shutter) or west (office).
+
+Kate was propped against the wall, unable to move, her body peppered with
+broken glass. She needed medical attention. I had to get her out of here and
+into hopsital.
+
+>I rummaged through the drawers and counters, hunting through a pile of junk,
+looking for a screwdriver. I was about to give up in frustration when I
+spotted one buried at the back of a drawer.
+
+>I headed west.
+
+Office
+Awash with blood, gnawed limbs and dripping entrails, I almost threw up as I
+looked around the violent chaos that had consumed this spacious room. Whoever
+had been trapped in here with the zombies had no doubt become one of them
+(and was now dead). I had no wish to stay in here for very long so I quickly
+inspected my surroundings. A desk was forced into one corner next to a blood
+spattered filing cabinet. Above the desk was a closed air vent leading to a
+narrow shaft. Several chairs had been knocked over in the struggle. A plastic
+crate was laying half open. I could move east (cafe) or up (air vent shaft).
+
+I could also see a sharp edged machete.
+
+>Quickly, I loosened the vent using the screwdriver. The shaft looked very
+narrow and sent a tingle of fear along my spine.
+
+>I climbed into the vent.
+
+Air Vent
+The crawl space was claustrophobic. Sweat ran down my face as I edged forward
+on my elbows. In the distance was the sound of groaning. I could crawl north
+(vent) or down (office).
+
+>(moving north)
+
+Air Vent
+The space was tight and confined. I was hating every minute of this and the
+sound of groaning was very loud. I brushed cobwebs from my face. I could head
+north (corner) or south (vent).
+
+>(moving north)
+
+Corner
+Panting, choking on thick dust, I reached a long iron grill that faced down
+onto a station walkway. It was crowded with groaning zombies! They reached up
+with broken and blood caked hands but I was too far away from them. The
+dreadful moaning filled my ears. I could head east (across the grill) or
+south (vent).
+
+>I gripped the long metal grill and tested its strength. It seemed pretty
+secure. Swallowing hard, I began to crawl across it...
+
+[MORE]
+
+The zombies stretched and fought to try and reach me, driven crazy by the
+flesh, but the grill held firm and I made it safely into the next shaft.
+
+Air Vent
+Beads of cold sweat prickled my skin as I crawled slowly forward through the
+narrow shaft. I could head east (vent) or west (back across grill).
+
+>As I crawled further into the shaft it vibrated suddenly and, from behind me,
+there was a crash. I looked over my shoulder to see that the grill had come
+loose and dropped away. I gasped. If that had been a minute or so ago...I
+pushed the grisly thought from my head. I could hear the zombies groaning
+loudly as I imagined them fighting over the grill until they realised it
+wasn't food.
+
+Air Vent
+Panting, dripping with sweat, wiping dirt and dust from my face, I crawled on
+through the narrow space. I could head south (vent) or west (vent).
+
+>As I edged further along the vent I was shocked to see the body of a man
+lying face down. He didn't appear bitten and there was no sign of any obvious
+wounds on him. Nervously, I prodded his leg, then shook his foot, but the guy
+just lay there. I couldn't get past him so I slowly began to push his body
+forward. Ahead, the vent ended at a open grill so I shoved his body straight
+through it...
+
+[MORE]
+
+Open Grill
+A grill in the bottom of the vent was hanging open. I peered into a deserted
+part of the station with a colourful mosaic floor. It looked like the parade.
+There was a dead body on the ground below. I could head north (vent) or down
+(parade).
+
+>I scrambled through the opening and dropped down onto the ground. It was good
+to be out of the vent but I had to find someone to help bust that shutter
+open and get Kate out of there.
+
+Dead End
+The brightly lit station parade ended at a securely locked, iron panel door
+with a NO EXIT warning issued and endorsed by London Underground. I had no
+way of breaking through this damn thing. There was an open air vent in the
+ceiling that was out of reach. Sprawled on the ground was the body of the man
+I had pushed out of the vent. I could only move south (parade).
+
+>I crouched next to the dead body. The man looked as if he had been employed
+by the London Underground. I wondered if he had been working in the vents
+when the carnage had broken out. I studied him closer but could not ascertain
+how he had died. Maybe his heart had given up or something. Doesn't really
+matter - at least he won't have to face what is going on! Then I noticed a
+small digital camera concealed in his clothing. I decided to take it with me.
+
+>In frustration I hurled the camera against the wall. It cracked and hit the
+ground. I raised my foot and I stamped on it until it shattered. Then I
+crouched and lifted some batteries from the mess.
+
+>I popped the batteries into the torch.
+
+>(moving south)
+
+Parade North
+Blood and glass were sprayed across the colourful mosaic floor tiles. There
+was more. A smashed pram. A forlorn teddy bear. A child's lost shoe...
+
+A heavy iron shutter sealed off the small cafe where I had fought and killed
+a pack of zombies. The brightly lit parade, eerie and deserted, threaded its
+way south. A new walkway extended north. I could head north (walkway), south
+(parade) or west (cafe).
+
+>(moving south)
+
+Parade South
+Investments had been made in this section of the station. A colourful mosaic
+of floor tiles spread towards an assortment of small shops. Have something to
+eat and drink, spend some money, then catch the train to your next
+destination. The lighting was much brighter and the area was scrubbed clean
+and fresh smelling...but there was no around. Just distant moans. Just
+distant crackles of gunfire. Just distant screams. It was like standing on a
+empty stage only then to notice that the audience had long gone home. I could
+head north (parade), east (JJB Sports), south (walkway), west (Thomas Cook).
+
+>(moving south)
+
+Walkway
+The blood splashed, dirt scuffed tiled floor curved around a bend, passing a
+bank of switched off escalators. The long hallway down was shrouded in
+darkness. I could walk north (parade), east (walkway) or down (escalators).
+
+>A narrow beam of light shone from the torch as I switched it on.
+
+>Warily, I slowly descended the darkened escalators...
+
+Escalators
+Flashing the torch around me I cautiously made my way on the blood spattered
+escalators. The walls were lined with posters. Shadows danced and flickered.
+I could move up (walkway) or down (walkway).
+
+Out of the gloomy darkness, I could see a horde of undead zombies gathered at
+the bottom of the escalator. They were slow moving, some missing limbs, faces
+half eaten, stomachs ripped out. Groaning loudly, they turned to face me...
+
+>Slobbering, lurching from side to the side, the zombies slowly advanced
+towards me, groaning loudly.
+
+I clubbed the nearest one around the throat. It stumbled backwards but didn't
+go down. I struck another, splitting the skull, turning away as a shower of
+blood hit me. I lashed out violently as they began to get closer and closer.
+I spat, cursed, yelled and struck blows with a strength I never knew I had...
+
+Soon, it was over, bodies strewn on the ground, not moving, not twitching...
+
+>I could hear more Zombies ahead - the slumbering walk, the tortuous groaning.
+I rushed through the walkway and emerged on a...
+
+Platform
+The station looked abandoned with boarded up tunnels, no seating, no
+lighting, no maps or posters on the graffiti covered walls. A gloomy walkway
+led back towards the escalators. I could head east (walkway) or down
+(tracks).
+
+I flashed my torch towards where a large number of ragged looking zombies
+were on the tracks, lunging slowly at two police officers who were fighting
+them off with batons.
+
+>Taking a deep breath I clambered down from the platform onto the tracks. The
+pack turned, sniffing the air like rabid dogs and began shuffling towards me,
+half of them dripping blood or missing limbs.
+
+I waded in, swinging the metal pole, now having a taste for killing these
+foul creatures...
+
+[MORE]
+
+The last of the zombies was exterminated. I was sweating profusely as I
+turned around to face the two coppers. One of them was dead. She had been
+overpowered. The surviving one, a black haired guy, was standing over her
+body, his face numb, rivulets of blood running down his baton, dripping onto
+the tracks.
+"I've seen this happen," he whispered, not looking at me.
+I was breathing hard.
+"Watch!" he said, pointing with his baton.
+His dead collegue, stocky and sandy haired, was lying on the ground, blood
+oozing from a dozen bites over her arms, legs and face.
+"Seen what?" I panted, wiping my forehead.
+"There," said the copper, nodding.
+I opened my eyes wide as the dead copper on the ground began to groan and
+twitch.
+"Jesus!!" I exclaimed.
+She began to struggle to her feet, mouth slack, filled with blood, reaching
+out with grasping fingers, groaning loudly.
+"Freak," said the copper, raising his baton.
+I turned away as he split the zombie's head open and mashed her brains up the
+wall.
+
+[MORE]
+
+The copper sat down on the tracks and eased his sweat soaked back against the
+grubby tunnel wall.
+"Showed a lot of guts," he said, looking at me, finally.
+"Thanks," I said, shrugging. "You gonna sit there all night?"
+"Might as well," he replied, holding up a broken hand radio. "The area has
+been evacuated. Houses, shops, people. We're cut off. This is a no-go human
+zone now. This...this infection or whatever the hell it is...it's spreading
+pretty damn quick."
+"The only way out of here is through the tunnels," I said. "The entrance is
+jammed with crashed motors."
+"Name's Ray," he said. "Constable Raymond Gibbs. What's your name, miss?"
+"Didn't you just hear me?" I said, annoyed. "The only way out is through the
+tunnels."
+"That's no way out. There was six of us. I've lost five mates trying to make
+it back to Bond Street where our van is parked. The tunnels are crawling with
+those things..."
+
+>"There's an injured women that needs our help," I told him.
+I explained about Kate but he didn't seem concerned.
+"Are you just going to sit there, officer?" I asked. "Shouldn't you
+be...doing something more?"
+"I've lost all my mates," shrugged Ray. "What can I do on my own?"
+"Well, if we stick together we have a better chance of getting out of here."
+"Yeah, right!" snorted Ray.
+"Look," I said, angrily. "There is a woman that needs to get to a hospital.
+Will you...?"
+"You got balls, love," he interupted. "Seriously, you don't know the half of
+it..."
+
+>"Yeah," I flared. "Well fill me in, officer. What don't I know?"
+He let out a short laugh then licked his lips.
+"I'm gasping for a pint," he grinned. "Pint and a fag!"
+I blinked.
+"You got any ciggies?"
+
+>"Look, love, I just want to be left alone," said Ray, staring at the trail of
+dead bodies. "So, unless you can whistle up a pack of fags or a nice cold
+Stella then just do one and get out of here."
+
+>"Here," I said, tossing him the cigarettes.
+"Thanks very much," he said, reaching into his shirt pocket for a light.
+"So tell me what's going on then?" I asked.
+"What's there to tell?" shrugged Ray, glancing at the bodies. "London has
+gone crazy. People are eating eachother and coming back to life. Bit more
+than I'm used to on nights, know what I mean?"
+I allowed a small smile.
+"You look pretty roughed up," said Ray, seriously.
+"I've had a few scrapes tonight already," I shrugged. "I just want to get out
+of here. Me, you and Kate."
+"Look, what's your name?" he asked.
+"Stacie," I said. "Stacie Wright."
+Ray got to his feet and flicked the glowing cigarette away.
+"Let's go and help your friend, Stacie."
+
+[MORE]
+
+"We got called to a disturbance at Bond Street tonight, Stacie," he
+explained, as we made our way back to the cafe.
+"What kind of a disturbance?" I asked.
+"We had a series of 999 calls. Varied reports of a violent confrontation
+between a large number of train passengers. Turned out it was those things
+attacking people."
+I nodded as we reached the top of the escalators.
+"Okay, let's cut this down to the bone," continued Ray. "Our officers cannot
+contain this epidemic. It's spreading like a plague. CS gas, water cannons,
+plastic bullets...no effect, not unless you hit the bastards in the head. I
+know what they are and you know what they are. Sky news ain't gonna tell
+anyone what they are. BBC News 24 ain't gonna tell anyone what they are. The
+Sunday Sport might but by then the lights could have gone out on us all."
+We stopped in the parade, twenty feet from the cafe.
+
+[MORE]
+
+"Large parts of London are being evacuated, Stacie," said Ray, lighting a
+fresh cigarette. "Right as we speak. Now I got a van outside Bond Street
+station but we can't get back there because the tunnels are filled with those
+shitheads. You got to understand what's happening up there. It's end of the
+world stuff, love, and it ain't a pretty picture."
+Grimly, I shook my head.
+"Let's help Kate," I said.
+"Sure," he nodded.
+We walked the final distance to the cafe and approached the shutter. A zombie
+threw itself against it and we both lept back, startled.
+"Shit," I yelled. "Shit, shit. They must have got up into the vent somehow."
+
+[MORE]
+
+Ray cracked his bloodstained baton against the jammed shutter as more zombies
+began to appear, groaning loudly and trying to thrust grasping hands through
+the slats. I spotted Kate - one arm missing, left eye socket streaming with
+blood - stumbling against the shutter, trying to get to us. Silently, we
+began to walk away.
+"Look, I'm sorry," said Ray, flatly. "You need to get used to it, Stacie."
+"I know," I answered, weakly.
+"This is the way it is now," he continued. "Okay, here's the deal."
+I stared at him.
+"There's something I want to check out. When I'm done I'll meet you down at
+the main platform and we'll try and get through the tunnels back to Bond
+Street. Hopefully, the van will still be there and we can get out of London."
+"So what do I do now?"
+"Well," he grinned, holding up a bunch of keys. "You might want to find out
+what these open. I grabbed them off your dead friend back at the shutter.
+Let's get moving. No time to waste."
+Then he was gone.
+
+[MORE]
+
+Parade North
+Blood and glass were sprayed across the colourful mosaic floor tiles. There
+was more. A smashed pram. A forlorn teddy bear. A child's lost shoe...
+
+A heavy iron shutter sealed off the small cafe where I had fought and killed
+a pack of zombies. Now it was infested with zombies once more, pinned against
+the shutter, groaning, reaching, trying to escape and feed. I ignored them.
+The brightly lit parade, eerie and deserted, threaded its way south. A new
+walkway extended north. I could head north (walkway), south (parade) or west
+(cafe).
+
+>(moving south)
+
+Parade South
+Investments had been made in this section of the station. A colourful mosaic
+of floor tiles spread towards an assortment of small shops. Have something to
+eat and drink, spend some money, then catch the train to your next
+destination. The lighting was much brighter and the area was scrubbed clean
+and fresh smelling...but there was no around. Just distant moans. Just
+distant crackles of gunfire. Just distant screams. It was like standing on a
+empty stage only then to notice that the audience had long gone home. I could
+head north (parade), east (JJB Sports), south (walkway), west (Thomas Cook).
+
+>(moving south)
+
+Walkway
+The blood splashed, dirt scuffed tiled floor curved around a bend, passing a
+bank of switched off escalators. The long hallway down was shrouded in
+darkness. I could walk north (parade), east (walkway) or down (escalators).
+
+>(moving east)
+
+Walkway
+Litter strewn and dirt scuffed. Gloomy and eerie. Lights flickering overhead.
+Posters covering the tiles. I could head east (crossways) or west (walkway).
+
+>(moving east)
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. I could head north, south, east or
+west.
+
+>(moving north)
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+I could head north (barriers) or south (crossways).
+
+I could also see a dead body.
+
+>I climbed across the ticket barriers.
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>(moving north)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving northwest)
+
+Corridor
+I was standing at the end of a clean and disinfected corridor. There was a
+closed and locked door marked PRIVATE - STAFF ONLY in the north wall. I could
+move north (through the door) or southeast (ticket hall).
+
+>I stepped forward and tried one of the keys in the lock. It fitted and the
+mechanism clicked open.
+
+>I edged the door slowly open to reveal a deserted hallway.
+
+>I walked through the doorway into the hallway.
+
+Hallway
+A thin red carpet spread across the floor and framed paintings of trains
+lined the cream coloured walls. A single CCTV camera peered down at me. At
+the bottom end of the hallway an open door led back to the underground
+station. I could head north (canteen), west (lounge) or south (through the
+door).
+
+I could hear a TV nearby.
+
+>(moving north)
+
+Canteen
+Tables and chairs stood empty and strangely unsettling in a gloomy room that
+smelt of food. A notice board was hanging on a cream painted wall. A large
+map of the London Underground network was fixed to another. A framed plaque
+for Employee of the Month seemed absurd and almost tragic. I could move south
+(hallway) or east (locker room).
+
+>(moving east)
+
+Locker Room
+A long row of dull green lockers lined the walls. The lighting was gloomy.
+There was no one around. I could head west (canteen).
+
+>The lockers were unlocked so I quickly searched each one of them. I came
+across an assortment of personal effects, none of which proved useful, but I
+did find a pair of blue jeans, size 10, which would fit me snugly. I decided
+to take them with me.
+
+>Hurriedly, I slipped out of the micro skirt, discarded it, then pulled on the
+tight fitting jeans.
+
+>(moving west)
+
+Canteen
+Tables and chairs stood empty and strangely unsettling in a gloomy room that
+smelt of food. A notice board was hanging on a cream painted wall. A large
+map of the London Underground network was fixed to another. A framed plaque
+for Employee of the Month seemed absurd and almost tragic. I could move south
+(hallway) or east (locker room).
+
+>(moving south)
+
+Hallway
+A thin red carpet spread across the floor and framed paintings of trains
+lined the cream coloured walls. A single CCTV camera peered down at me. At
+the bottom end of the hallway an open door led back to the underground
+station. I could head north (canteen), west (lounge) or south (through the
+door).
+
+I could hear a TV nearby.
+
+>I walked through the doorway into the corridor.
+
+Corridor
+I was standing at the end of a clean and disinfected corridor. There was an
+open door marked PRIVATE - STAFF ONLY in the north wall. I could move north
+(through the door) or southeast (ticket hall).
+
+>(moving southeast)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving south)
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>I scrambled over the locked barriers.
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+I could head north (barriers) or south (crossways).
+
+I could also see a dead body.
+
+>I followed the walkway south.
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. I could head north, south, east or
+west.
+
+>A narrow beam of light shone from the torch as I switched it on.
+
+>There was a sudden, almost deafening buzzing sound. Then a rip of crackling
+electricity. The lights in the walkway flickered off, then back on, and then
+off again. I waited. The sound gradually subsided. I heard distant groaning.
+Then screaming. Then gunshots and more groaning...
+
+The walkway ahead had been consumed with darkness. No way was I heading in
+that direction without a torch. Thankfully, at least the rest of the station
+seemed to be illuminated.
+
+>Gingerly, I headed into the darkened walkway, fanning the torch about me.
+
+Walkway
+I edged through the semi-darkness, taking each step carefully, fanning the
+torch across the dirt scuffed ground, over the blood spattered walls lined
+with posters. I could head north (crossways) or south (platform).
+
+>I headed onto the platform.
+
+Platform
+A chill wind blew from the pitch black tunnels and whistled around the
+stalled train that had arrived earlier with its carriages of death and undead
+fiends. I let out a long sigh of utter dejection as I flashed the torch
+around me. The train was splashed with blood. The doors were jammed open and
+I could see blood and severed limbs inside. There was blood spattered across
+the platform and up the tiled walls.
+
+[MORE]
+
+It was unsettling to be standing here. All over again. Without Rachel.
+Without Catherine. Without Andrea. Without Stuart...
+
+I wanted to get out of this damn station. A hundred thousand million billion
+miles away from here. Out of London and into the countryside. Breathe in some
+fresh air. Take a walk with Stuart. Hold hands. Kiss. Make love. Forget about
+all this blood and death and abject misery...
+
+I swung the torch around further...and then I saw them!
+
+[MORE]
+
+They were feeding, slapping teeth against entrails and intestines. More than
+a dozen of them. Torn clothing. Disfigured bodies. Rank smell. They stumbled
+towards me, groaning, bloodied fingers outstretched...
+
+[MORE]
+
+I rammed the pole into the nearest one and twisted, almost severing the head.
+The zombie fell to its knees and I kicked it away, dragging free the weapon.
+Two more lunged at me and I fought like a savage, swirling the pole through
+the air, splitting the skulls clean open. Blood splashed my face. Blood
+splashed my clothes. I shrieked. I sobbed. I fought like a wild beast until
+ever last one of the horrors was sprawled on the ground...still!
+
+>(moving east)
+
+Platform
+The tunnel looked inky black from here. I could hear distant groans and howls
+carried on the chill wind. The waiting room was in darkness. I could head
+north (waiting room), west (platform) or down (rails).
+
+>I scrambled down the edge of the platfrom and dropped onto the train tracks.
+
+Train Track
+Water dripped from the dark roof overhead and splashed onto the iron rails.
+The heavy wooden sleepers were clogged with litter. The last train to have
+reached Marble Arch had stalled at the platform. It was quite frightening to
+be standing on the tracks with the front of an underground train looming high
+above. An inky black tunnel stretched away east towards Bond Street. Dreadful
+noises carried on the icy wind blasting from it. I could head east (tunnel)
+or up (platform).
+
+>Warily, I began to walk into the gloomy tunnel, heading for Bond Street
+station.
+
+Tunnel
+I edged along the pitch black tunnel, the narrow shaft of torchlight
+providing little illumination. The iron tracks beneath my shoes were strewn
+with dismembered body parts and splashed with dried blood. I could head east
+(tunnel) or west (towards Marble Arch station).
+
+>(moving east)
+
+Tunnel
+Consumed in darkness, I made my way further along the underground tunnel,
+walking across damp and sodden sleepers, stepping through litter and dried
+puddles of blood. I could head northeast (tunnel) or west (tunnel).
+
+>(moving northeast)
+
+Curve
+The underground tunnel curved slowly around a bend. Water dripped steadily
+from above and the iron rails glistened in the narrow torchlight. Distant
+sounds of moaning carried on the icy wind. I could head east (tunnel) or
+southwest (tunnel).
+
+>(moving east)
+
+Tunnel
+I flashed the torchlight about as I walked slowly along the tracks, the noise
+of the flesh eating zombies growing louder and more fearsome as I neared Bond
+Street station. I could head southeast (tunnel) or west (tunnel).
+
+>(moving southeast)
+
+Tunnel
+I had reached the halfway point between Marble Arch and Bond Street stations.
+Rats scurried in dark corners and flitted across the litter strewn train
+tracks. I stared miserably at the mass of zombies ahead. There were hundreds
+of them. Groaning loudly. Stinking. Stumbling around the dark tunnel. Some
+feeding. There was simply no way through them. I could only head back
+northwest (tunnel).
+
+I could also see some cutters.
+
+>I discarded the screwdriver.
+
+>I discarded the lighter.
+
+>I pick up the cutters.
+
+>(moving northwest)
+
+Tunnel
+I flashed the torchlight about as I walked slowly along the tracks, the noise
+of the flesh eating zombies growing louder and more fearsome as I neared Bond
+Street station. I could head southeast (tunnel) or west (tunnel).
+
+>(moving west)
+
+Curve
+The underground tunnel curved slowly around a bend. Water dripped steadily
+from above and the iron rails glistened in the narrow torchlight. Distant
+sounds of moaning carried on the icy wind. I could head east (tunnel) or
+southwest (tunnel).
+
+>(moving southwest)
+
+Tunnel
+Consumed in darkness, I made my way further along the underground tunnel,
+walking across damp and sodden sleepers, stepping through litter and dried
+puddles of blood. I could head northeast (tunnel) or west (tunnel).
+
+>(moving west)
+
+Tunnel
+I edged along the pitch black tunnel, the narrow shaft of torchlight
+providing little illumination. The iron tracks beneath my shoes were strewn
+with dismembered body parts and splashed with dried blood. I could head east
+(tunnel) or west (towards Marble Arch station).
+
+>(moving west)
+
+Train Track
+Water dripped from the dark roof overhead and splashed onto the iron rails.
+The heavy wooden sleepers were clogged with litter. The last train to have
+reached Marble Arch had stalled at the platform. It was quite frightening to
+be standing on the tracks with the front of an underground train looming high
+above. An inky black tunnel stretched away east towards Bond Street. Dreadful
+noises carried on the icy wind blasting from it. I could head east (tunnel)
+or up (platform).
+
+>I climbed back onto the deserted platform.
+
+Platform
+The tunnel looked inky black from here. I could hear distant groans and howls
+carried on the chill wind. The waiting room was in darkness. I could head
+north (waiting room), west (platform) or down (rails).
+
+>(moving west)
+
+Platform
+A chill wind blew from the pitch black tunnels and whistled around the
+stalled train that had arrived earlier with its carriages of death and undead
+fiends. I flashed the torch around me. The train was splashed with blood. The
+doors were jammed open and I could see blood and severed limbs inside. There
+was blood spattered across the platform and up the tiled walls. I could head
+north (walkway), south (carriage), east (platform), west (platform), or up
+(roof).
+
+>(moving north)
+
+Walkway
+I edged through the semi-darkness, taking each step carefully, fanning the
+torch across the dirt scuffed ground, over the blood spattered walls lined
+with posters. I could head north (crossways) or south (platform).
+
+>I came out of the dark shrouded walkway into a lighted area.
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. The walkway south, leading back to
+the platform, was shrouded in gloomy darkness. I could head north, south,
+east or west.
+
+>(moving north)
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+I could head north (barriers) or south (crossways).
+
+I could also see a dead body.
+
+>I climbed across the ticket barriers.
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>(moving north)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving northwest)
+
+Corridor
+I was standing at the end of a clean and disinfected corridor. There was an
+open door marked PRIVATE - STAFF ONLY in the north wall. I could move north
+(through the door) or southeast (ticket hall).
+
+>I walked through the doorway into the hallway.
+
+Hallway
+A thin red carpet spread across the floor and framed paintings of trains
+lined the cream coloured walls. A single CCTV camera peered down at me. At
+the bottom end of the hallway an open door led back to the underground
+station. I could head north (canteen), west (lounge) or south (through the
+door).
+
+I could hear a TV nearby.
+
+>(moving west)
+
+Lounge
+A row of armchairs and a long sofa was angled towards a large TV, providing a
+spot of relief and comfort from the often harrassed station staff. BBC News
+24 was running and the images and words filling the small room looked and
+sounded grim. A set of double doors in the north wall were locked with a
+heavy chain. I could head north (double doors), south (kitchen) or east
+(hallway).
+
+>Ashen-faced, I watched the reels showing violence and horror spreading across
+the country. The reporters and newsreaders were not attributing the outbreak
+to zombies. That word was not used. I kept watching...
+
+[MORE]
+
+"Andy Tighe, reporting live from Hammersmith. As you can see armed police are
+now responding to this shocking outbreak of mob violence..."
+
+"Prime Minister," probed Louise Minchin. "Is this eruption of violence across
+our towns and cities the result of a chemical or biological terrorist
+attack?"
+"Now, before I tackle that issue," smoothed PM Blair. "What I would like to
+do is to assure the people that..."
+
+"Over to our Russell Hayes, in Bristol," said Jon Sopel. "Russell, can you
+confirm or refute the early eye-witness reports of people being eaten?"
+"I can't believe I'm saying this," said Hayes. "Yes, we have seen people
+being devoured by these slow-moving mobs. And then witnessed them getting up,
+despite being seriously injured!"
+
+"It seems to be a virus of some kind. A modern day plague that is ruthless in
+its infection of ordinary..."
+
+"Regretably, we have now ordered the use of live ammunition..."
+
+"I would advise everyone to remain in their homes," assured PM Blair. "The
+full weight of our military and emergency services will have these incidents
+under control within 24 hours..."
+
+I looked away, wiping tears from my eyes. I had seen enough...
+
+>Static crackled as the flood of images and words disappeared.
+
+It was then I became aware of a low moaning sound. Maybe a sob? It was
+somewhere nearby, close, behind the double doors. And it sounded human...it
+might now be worth taking a risk and busting the doors open.
+
+>As I began to snap through the thick links with the bolt cutters I wondered,
+fleetingly, how someone had been locked in. I hoped to hell I wasn't about to
+unleash something terrible but then I had heard sobbing - human sobbing - so
+it was worth the risk. Maybe that bastard Nick had already attacked some poor
+girl and left her caged up in here? The chain fell away and the doors swung
+open, revealing a deserted corridor...and the sound of distant sobs.
+
+>I stepped through the open double doors.
+
+Corridor
+Overhead, I could faintly hear traffic and screaming. It was very distant.
+The corridor was deserted. There was no blood here. I could head south
+(lounge) or west (corridor).
+
+I could hear a girl crying. She was very close!
+
+>(moving west)
+
+Corridor
+The narrow corridor extended west back towards the lounge. The walls were
+plain. Strip lights lined the ceiling. I could head east (corridor).
+
+The crying was louder here. Coming from behind the door. Definitely a girl.
+
+>The sobbing filled my ears. I had to do something! Taking a deep breath, I
+threw my weight against the door. I was surprised to feel it shudder in the
+frame. It was flimsy - I could do this! I hurled myself against it a second
+time. Then a third. And the door crashed open...
+
+[MORE]
+
+Shower Room
+Condensation trickled down the tiled walls. A single cubicle with a grubby
+curtain was in one corner. Opposite was a sink and a wall mirror.
+
+She was curled against a radiator, eyes wide with fear, long blonde hair
+tangled and hanging around her face. She looked in her teens, maybe sixteen
+or seventeen.
+
+She stared silently at me, tears bubbling from her eyes.
+
+>I crouched down and spoke with a calm and gentle tone.
+"Are you okay?" I continued, knowing it sounded lame.
+The girl huddled against the radiator, trying to get away.
+"I'm not going to hurt you, honey, don't worry. No one is going to hurt you."
+She recoiled from my words. Refusing to speak.
+"Let me get you out of her," I said. "You'll be safe with me."
+Again, silence.
+I needed to get her out of her before the zombies found her. I wanted to help
+her more than I had helped Kate...
+
+>The girl stared blankly at me. She looked in shock.
+
+>(moving north)
+
+Corridor
+The narrow corridor extended west back towards the lounge. The walls were
+plain. Strip lights lined the ceiling. I could head east (corridor).
+
+>(moving east)
+
+Corridor
+Overhead, I could faintly hear traffic and screaming. It was very distant.
+The corridor was deserted. There was no blood here. I could head south
+(lounge) or west (corridor).
+
+>(moving south)
+
+Lounge
+A row of armchairs and a long sofa was angled towards a large TV, providing a
+spot of relief and comfort from the often harrassed station staff. The
+television was switched off. A set of double doors were wide open in the
+north wall, revealing a deserted corridor. I could head north (corridor),
+south (kitchen) or east (hallway).
+
+>(moving east)
+
+Hallway
+A thin red carpet spread across the floor and framed paintings of trains
+lined the cream coloured walls. A single CCTV camera peered down at me. At
+the bottom end of the hallway an open door led back to the underground
+station. I could head north (canteen), west (lounge) or south (through the
+door).
+
+>(moving north)
+
+Canteen
+Tables and chairs stood empty and strangely unsettling in a gloomy room that
+smelt of food. A notice board was hanging on a cream painted wall. A large
+map of the London Underground network was fixed to another. A framed plaque
+for Employee of the Month seemed absurd and almost tragic. I could move south
+(hallway) or east (locker room).
+
+>A collage of photographs, flyers, memo's, cuttings and reminders were pinned
+to the notice board.
+
+>I couldn't take anything in, couldn't focus. It just seemed a blur of words
+and pictures. I looked away. Then I looked back and frowned. I reached out
+and touched my fingertips against a newspaper cutting of a London Underground
+employee standing proudly with a teenage girl.
+Mike Chapel, receving his award for best canteen cook in London, with his
+daughter, Candice.
+It was the girl I had found in the shower room. Great, now I had a name...
+
+>(moving south)
+
+Hallway
+A thin red carpet spread across the floor and framed paintings of trains
+lined the cream coloured walls. A single CCTV camera peered down at me. At
+the bottom end of the hallway an open door led back to the underground
+station. I could head north (canteen), west (lounge) or south (through the
+door).
+
+>(moving west)
+
+Lounge
+A row of armchairs and a long sofa was angled towards a large TV, providing a
+spot of relief and comfort from the often harrassed station staff. The
+television was switched off. A set of double doors were wide open in the
+north wall, revealing a deserted corridor. I could head north (corridor),
+south (kitchen) or east (hallway).
+
+>I stepped through the open double doors.
+
+Corridor
+Overhead, I could faintly hear traffic and screaming. It was very distant.
+The corridor was deserted. There was no blood here. I could head south
+(lounge) or west (corridor).
+
+>(moving west)
+
+Corridor
+The narrow corridor extended west back towards the lounge. The walls were
+plain. Strip lights lined the ceiling. I could head east (corridor).
+
+>I stepped through the open doorway.
+
+Shower Room
+Condensation trickled down the tiled walls. A single cubicle with a grubby
+curtain was in one corner. Opposite was a sink and a wall radiator. I could
+head north (corridor).
+A young teenage girl was sat against the radiator, staring blankly, blonde
+hair trailing to her shoulders. She was wearing a bright orange jacket over a
+black mini skirt. There was no visible wounds or bites on her.
+
+>I sat down next to Candice Chapel and gently touched her arm. She flinched,
+as if I had punched her or struck her with something.
+"Candice?"
+Sharply, her gaze fell upon me.
+"You can trust me, Candice," I said, softly. "I'm not going to hurt."
+"How do you know my name?" she choked.
+"Listen to me," I said. "There's some crazy shit going on and we need to get
+out of her."
+"We?" she blurted out. "I'm not going anywhere with you. I don't even know
+you."
+"I'm Stacie. Stacie Wright. Will you let me get you out of here and back home
+with your Dad?"
+
+[MORE]
+
+She studied my face intently, but remained silent.
+"Candice?"
+Then she unzipped her jacket, flashing a large silver cross hanging between a
+full cleavage.
+"We need to get out of her, love. This place isn't safe."
+She took out a box of cigarettes and lit one. The smoke curled away.
+"I know what's going down, alright?" she said, finally. "Alright? Stacie? You
+can't tell me shit. My Dad looked me up in her to protect me. Guy's a fuckin'
+asshole!"
+I blinked.
+"So what the fuck do you want? Did you come to rescue me? Well, I don't
+need..."
+"Look, the station is crawling with fuckin' zombies that'll rip your guts
+open and eat you. Now, why don't you get out of here and stop sitting around
+giving me attitude."
+Candice was stunned, momentarily, then gripped her silver cross.
+"Hey, I got God on my side. So I'm gonna be just fine..."
+
+>"Then maybe you would like this as well," I suggested, offering her the
+bible.
+She took it from me, slowly, then shook her head and started to laugh.
+"You really are fuckin' stupid, right? You really are thick!"
+"Listen..." I began.
+"What do you think I am?" shouted Candice. "Some nutter or what?"
+She got to her feet, ripped the cross and threw it on the ground. She threw
+the bible down as well.
+"You're as fucked in the head as my old man. This is the end of things,
+right? End of the world, right? You think I'm hanging round here for divine
+protection or some shit? You're crazy, Stacie. You should start saving
+yourself rather than bothering with other people."
+And, with that, she shoved past me and left.
+
+>(moving north)
+
+Corridor
+The narrow corridor extended west back towards the lounge. The walls were
+plain. Strip lights lined the ceiling. I could head east (corridor).
+
+>(moving east)
+
+Corridor
+Overhead, I could faintly hear traffic and screaming. It was very distant.
+The corridor was deserted. There was no blood here. I could head south
+(lounge) or west (corridor).
+
+>(moving south)
+
+Lounge
+A row of armchairs and a long sofa was angled towards a large TV, providing a
+spot of relief and comfort from the often harrassed station staff. The
+television was switched off. A set of double doors were wide open in the
+north wall, revealing a deserted corridor. I could head north (corridor),
+south (kitchen) or east (hallway).
+
+>(moving east)
+
+Hallway
+A thin red carpet spread across the floor and framed paintings of trains
+lined the cream coloured walls. A single CCTV camera peered down at me. At
+the bottom end of the hallway an open door led back to the underground
+station. I could head north (canteen), west (lounge) or south (through the
+door).
+
+>I walked through the doorway into the corridor.
+
+Corridor
+I was standing at the end of a clean and disinfected corridor. There was an
+open door marked PRIVATE - STAFF ONLY in the north wall. I could move north
+(through the door) or southeast (ticket hall).
+
+>(moving southeast)
+
+Ticket Hall
+It was unsettling to see a long row of empty ticket windows, the glass
+cracked and sprayed with blood. There was no one around. No one. And no
+sounds. Nothing. Not a single voice or complaint or agitated grumble.
+Nothing. Nothing and no one. I could walk northeast (mall), northwest
+(corridor) or south (barriers).
+
+>(moving south)
+
+Barriers
+The long row of ticket barriers was deserted. There was blood everywhere. I
+had watched people trampled here trying to escape but there was no sign of
+any bodies. Overhead, the tube lighting was flickering, casting shadows along
+the wall. I could head north (ticket hall) or south (walkway).
+
+>I scrambled over the locked barriers.
+
+Walkway
+Dirt stained, litter strewn and blood spattered. I couldn't believe that such
+a short time ago I had fled through this area with my friends and hundreds of
+frightened and distressed passengers. It felt like early Sunday morning now.
+I could head north (barriers) or south (crossways).
+
+I could also see a dead body.
+
+>I followed the walkway south.
+
+Cross Walkways
+I could hear distant moaning. A strange primitive sound as I stood on dirt
+scuffed tiles pondering which way to head. The walkway south, leading back to
+the platform, was shrouded in gloomy darkness. I could head north, south,
+east or west.
+
+>The torch was already on!
+
+>Gingerly, I headed into the darkened walkway, fanning the torch about me.
+
+Walkway
+I edged through the semi-darkness, taking each step carefully, fanning the
+torch across the dirt scuffed ground, over the blood spattered walls lined
+with posters. I could head north (crossways) or south (platform).
+
+>I followed the torchlight onto the platform.
+
+Platform
+A chill wind blew from the pitch black tunnels and whistled around the
+stalled train that had arrived earlier with its carriages of death and undead
+fiends. I flashed the torch around me. The train was splashed with blood. The
+doors were jammed open and I could see blood and severed limbs inside. There
+was blood spattered across the platform and up the tiled walls. I could head
+north (walkway), south (carriage), east (platform), west (platform), or up
+(roof).
+
+>Slowly, I unwound the cable and threw one end up and over the pipe. It didn't
+come down far enough so I tried again. After a few more attempts I had the
+cable curled around the pipe and both ends in my hands. I gave the cable
+several hard pulls but the overhead pipes held firm. Now, I could reach the
+roof.
+
+>Using the smashed windows as a ledge, I gripped the thick cable and scrambled
+up the side of the train. I made it safely onto the roof.
+
+Roof
+The wind blasted dirt and grit into my face as I crawled along the carriage
+roof. The surface was slippery and I had nothing to hold onto. I could move
+west (roof) or down (platform).
+
+>(moving west)
+
+Roof
+The wind howled and bite hard as it blew through the underground tunnel. Cold
+and in darkness, with just a feeble strip of light illuminating the way, I
+couldn't wait to get off the roof. I could head east (roof) or west (roof).
+
+>(moving west)
+
+Roof
+Another train had collided into this one. The carriages had disrailed and
+were mangled in a horrible mess of twisted metal. I couldn't edge any further
+west along the roof but a hatch offered access into the carriage below. The
+hatch was closed. I could head east (roof) or down (carriage).
+
+>I lifted open the hatch to reveal a dark and deserted carriage below. I
+squeezed through the opening and dropped down.
+
+I landed firmly on both feet. The smell of decaying flesh immediately filled
+my nose. I heard groaning and saw shapes moving about. Shit! I flashed the
+torch and the narrow beam illuminated over a dozen zombies stumbling along
+the dark carriage towards me...
+
+[MORE]
+
+Spear like, I thrust the pole into the decaying face of the nearest zombie,
+gouging out an eye and driving into the brain. I yanked the bloodied pole
+free as the undead creature dropped to the carriage floor. Wildly, I swung
+the pole in an arc, the jagged edges ripping flesh, bone and brain tissue.
+
+I was getting a taste for the slaughter...
+
+Breathing hard, I look around at the spread of bodies, rotting corpses
+staring back at me. I leaned forward and spat on one of them. Then shook my
+head in disgust.
+
+Carriage
+Awash with blood and ripped up seats I wanted nothing more than to get the
+hell out of the dark carriage. An open hatch led back onto the roof and a
+door, jammed open, lead down to the tracks. I could move up (roof) or down
+(tracks).
+
+>I discarded theped down from the carriages onto the tracks.
+
+Tracks
+I found myself alongside the empty and wrecked train with very little room to
+manoeuvre. I couldn't reach Marble Arch station from here, unless I went back
+through the carriages and across the roof, because the carriage had disrailed
+and blocked the route. The tunnel west led to Lancaster Gate station. It was
+dark, cold and dank. I couldn't see or hear any zombies. Or anyone else. I
+could move west (tunnel) or up (carriage).
+
+>I walked for nearly twenty minutes, torch in one hand, blood stained weapon
+in the other. Soon, I became aware of loud groaning in the tunnel ahead...
+
+Tunnel
+Ahead, I could see that the tunnel was filled with zombies, milling around
+Lancaster Gate station. Hundreds of them. Disfigured and horrible. Seeking
+flesh. Seeking the living. And too many to fight through. I fanned the torch
+around and spotted a securely locked iron door in the north wall. No doubt it
+provided access for station and line maintenance crews. I could head north
+(door) or east (back towards Marble Arch).
+
+>I began the slow trudge back towards Marble Arch. I fanned the torch ahead,
+the narrow beam sweeping left to right across the dark and gloomy tunnel. I
+thought I heard something - or someone - but then I spotted a couples of rats
+picking at human bones and assumed that was what I had heard. I kept walking
+until...
+
+[MORE]
+
+"Jesus," I gasped, startled, as a figure appeared in the gloom. "Is that you
+Candice?"
+The girl must had followed me along the tunnel. Like a lost dog with very
+sharp teeth.
+"Candice?"
+She was silent, lurking in the shadows. My grip tightened around my weapon. I
+slowly raised my arm to strike. Candice took a few steps forward. I shone the
+torch into her eyes and she blinked and looked away, cursing.
+"What the fuck was that for?"
+"Just making sure," I said.
+Then I spotted the blood on her jacket and chest. In her left hand was a
+blood smeared iron pipe.
+"You okay?" I asked, approaching her.
+"Yeah," she nodded, sounding numb, the attitude all gone. "Mind if I stick
+around?"
+"Sure," I nodded. "Only I haven't got a clue how the hell to get out of
+here."
+I explained to her about the zombie filled tunnels and the locked door ahead.
+"Show me," she said, brightly.
+
+[MORE]
+
+We walked back to the locked iron door in relative silence. Candice mumbled a
+reluctant thank you for freeing her. I shook my head and told her it was the
+least I could have done. I asked her if she had seen her Dad but she went
+silent and moody so I left the conversation alone.
+
+"There," I said, lowering my voice. "Too many of those things to fight
+through."
+Candice stared at the door.
+"Why don't we go this way then?"
+"You know," I snapped. "I never thought of that. Shit, I'm so glad to have
+bumped into you again!"
+"My Dad used to take me down here when I was younger. Watch the trains
+getting fixed. The men working on the tunnels and stuff. These doors are for
+the blokes who fix the tunnels. They got special locks."
+She took the torch from my grasp and pointed the beam above the doorway.
+"In that box is a lever," she explained. "That's how you open the doors. My
+Dad thought they were very unsafe because you needed two blokes or a ladder
+to reach it."
+"Will one bloke do?" asked a voice, from the darkness.
+It was Ray!
+
+[MORE]
+
+He emerged from the darkness, cigarette in one hand, police baton in the
+other.
+"You tagging along as well?" smiled Candice.
+"Another pair of hands will help, right?"
+"Definitely," ginned Candice.
+Ray stared at her, mouth curled into a smile.
+"Tag along by all means," I said, thinly. "Could have done with your help a
+while back. Now, can we get back to figuring out how to get out..."
+"Look, I'm sorry, Stacie, I went back to that abandoned station. Crazy idea
+of finding our way out through the old tunnels but most of them are bricked
+up."
+"We got zombies both ways," I said. "Bond Street and Lancaster Gate."
+I looked at them both.
+"Let's get this fucking door open..."
+
+[MORE]
+
+Friday Morning
+
+Corridor
+A heavy iron door was securely locked behind us. The corridor was brightly
+lit so I turned off the torch. We waited and listened but the groaning came
+from the train tunnels behind us. I led the three of us along the corridor
+past deserted rooms and offices. There was no sign of anyone or any blood.
+Ray and Candice seemed to have a lot to say to eachother. I ignored them. I
+wanted to get home to Stuart.
+
+The corridor ended at another door. We could head west (door).
+
+>I looked at Ray. He nodded. I looked at Candice. She shrugged. Sucking down a
+lungful of oxygen, weapon at the ready, I nudged the door open and peered
+into a deserted ticket hall. Everything was wrecked. Machines, benches, child
+rides, payphones, cycles, kiosks. There was paper all over the place. And
+blood. Up the walls. On the floor.
+"Well?" urged Ray.
+"No one around," I whispered.
+Cautiously, the three of us stepped from the doorway. I pointed towards the
+exit. We walked fast, looking in every direction, waiting for a pack of flesh
+hungry zombies to surge upon us...but we made it out onto the street without
+any trouble.
+"Fuck," muttered Candice, looking around.
+"Jesus," I said. "Oh, Jesus Christ...!"
+
+[MORE]
+
+London Street
+A light breeze whistled through the deserted, early morning street, stirring
+a mess of litter. Cars were overturned, crashed or in flames. On the horizon,
+landmark buildings burned brightly against a dull grey sky.
+
+We saw blood...
+
+Splashed across the pavements. Spattered against walls. Smeared against
+jagged, broken windows. Shops, houses, flats, bus stops, newspaper stands,
+kiosks, nothing had escaped the maelstrom of violence that had ripped
+tornado-like through the city streets. It was almost impossible to believe;
+impossible to comprehend. London was a wasteland. A desolate blight. An urban
+holocaust. A feeding ground for the zombie plague. No one had been spared.
+
+The world had been turned on its head...
+
+[MORE]
+
+"What are we gonna do?" asked Candice.
+I looked at Ray.
+"Well," he shrugged, lighting a cigarette. "Got a police van outside Bond
+Street station."
+"If it's still there," I muttered, gesturing at the slew of vehicles crashed
+or burning or wrecked.
+"Yeah," he said, grimly. "I doubt it's in one piece now."
+"I want to go home," I said. "I've got a place in Holland Park with Stuart."
+"That your fella?" grinned Candice.
+"We can't do anything without wheels. Those bastards could be anywhere around
+here."
+I was out. I had survived...but it wasn't the end...just the beginning.
+"Then we need to find a car," I said. "Let's go!"
+As watery sun touched a new day we headed off into the city streets.
+It would only be a matter of time before we were spilling zombie blood once
+more...

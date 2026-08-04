@@ -392,7 +392,7 @@ troll_solution.txt|Troll.taf|clean by dinner time, I'll bust your head in!|SCR_S
 # the menu picks `2` (read the introduction) and `1` (play).
 spot_of_bother_solution.txt|A_Spot_of_Bother.taf|a grand total of 100 out of 100|SCR_SKIP_WAITKEY=1
 # Beanstalk the and Jack (David Welbourn, 2008) replays the delron command list
-# verbatim -- 56 commands, no repair at all, straight to "*** You have won ***".
+# verbatim -- 49 commands, no repair at all, straight to "*** You have won ***".
 # It is a reverse-chronology retelling, so the list reads backwards (it opens on
 # `chop beanstalk` and ends with Jack waking up); that is the game, not a
 # scrambled walkthrough.  No waitkeys: the transcript is byte-identical with and
@@ -403,7 +403,7 @@ beanstalk_solution.txt|Beanstalk.taf|*** You have won ***
 #     needs SCR_SKIP_WAITKEY: the epilogue stops on "(press any key to
 #     continue)" and without it the pause eats the `quit`, so the ending never
 #     prints.
-#   Doomed Xycanthus (2006) -- 89 commands, ends on "Congratulations!".
+#   Doomed Xycanthus (2006) -- 82 commands, ends on "Congratulations!".
 #   Dancing Even Him? (Richard Otter, 2006) -- 17 commands; the title is an
 #     anagram of "Vending Machine", which the ending text spells out, so that
 #     line is the win marker.
@@ -801,18 +801,242 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 # resets once a conversation has closed.  55/60 is the practical ceiling.
 # Needs SCR_SKIP_WAITKEY=1 -- the game is full of "Press enter to continue".
 thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
+# Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
+# VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
+# PDF is a full session log, so the command list falls out of it by taking
+# every `>`-prefixed line; the only thing that needs knowing is that the title
+# sequence embeds two <waitkey> pauses before the first prompt, so the row runs
+# with SCR_SKIP_WAITKEY=1 (without it the first two commands are eaten and the
+# whole run desyncs by two).
+#
+# The game keeps no score at all (`score` answers "No one's keeping score."),
+# and its several endings are not ranked by points but by whether the three
+# vignettes were played well: Dolores must call the police on the thugs
+# (`push button`), Jenny must be talked to rather than pushed at (`3` then `2`,
+# never "Ask her about sex"), Doug must be talked down three times, and
+# Antonia's room must actually be searched.  The payoff is in the closing
+# scene, where each person you saved turns up on the far side of the road --
+# so the marker is the last line of that scene rather than a score line.
+second_chance_solution.txt|second chance.taf|congratulating me on a job well done.|SCR_SKIP_WAITKEY=1
+# Private Eye (David Whyld, 2006) is a pure numbered-choice game -- there is no
+# parser verb in the whole route -- and the walkthrough section of its shipped
+# 116-page "Private Eye.pdf" replays VERBATIM at the author's best ending,
+# score 4 ("Better than Sherlock Holmes himself.").  73 choices, no repair.
+#
+# The one thing the PDF omits is the title menu: it opens at "The first thing I
+# did was read through the file she had left me", which is already inside the
+# game, so the script carries a leading `3` (Play Private Eye; 1 and 2 are the
+# introduction and the notes).  SCR_SKIP_WAITKEY=1 is mandatory -- the game
+# leans on <wait> constantly (the title sequence alone eats several), and
+# without it the run never gets past the menu.
+#
+# One 12-word sentence in the PDF, "No sooner have I put the phone down than
+# Jim ambles in.", has no counterpart in the run.  It is the author bridging
+# two scenes in the write-up, not output we drop: the game's own wording is
+# "...than Jim ambles in and plonks himself down in the other chair", it lives
+# on the ex-girlfriend phone-call tasks rather than on Layla's, and the exact
+# short form appears nowhere in the inflated .taf.  Word-diffed against the
+# PDF the transcript is 19293/19371 words identical, and that sentence is the
+# only difference.
+private_eye_solution.txt|Private Eye.taf|You achieved a score of 4.|SCR_SKIP_WAITKEY=1
+# The Plague - Redux is UNFINISHABLE as shipped, and -- like The Hangover
+# above -- the defect is the author's Where/Type = 0 (ROOMLIST_NO_ROOMS), not
+# ours.  The game's whole combat system is seven identical blocks of tasks,
+# one per zombie encounter, and EVERY task in every block sits at where=0:
+#
+#   TASK 37 where=0 [f]                            <- "[F] Fight"
+#   TASK 38 where=0 [e]                            <- "[E] Escape"
+#   TASK 39 where=0 [*]                            <- the catch-all re-prompt
+#   TASK 40 where=0 [#player wins attack round - fists 4]
+#   TASK 41 where=0 [#player wins attack round - weapon 4]
+#   ...
+#
+# 243 of the game's 696 tasks are parked at where=0.  Nothing ExecTasks the
+# [f]/[e] pair, so once "[F] Fight or [E] Escape?" is printed there is no
+# input that can answer it: `f` -> "That didn't make any sense!", `fight` ->
+# "That wasn't the answer.", and `e` is eaten by the library as *east* ("The
+# only exits were out.").  The first mandatory fight is the Women's Toilet
+# cubicle, and the coins it guards are the last 10p of the GBP 1.20 the water
+# vending machine wants -- so the route dead-ends there with GBP 1.10 and
+# every later stage (Kate, the office vent, the camera batteries for the
+# torch, Ray, the staff-area keys, the tunnels, Candice, the ending) is
+# unreachable.
+#
+# Proved against the real ADRIFT 4 Runner, twice:
+#   1. test/make_400_whereprobe.py builds a 3-task 4.0 game -- alpha at
+#      where=0, beta at where=3, gamma at where=1/other-room.  run400.exe
+#      fires beta, refuses gamma, and refuses alpha with the game's own "I
+#      don't understand." -- i.e. it agrees with SCARE exactly on where=0.
+#   2. A #StartRoom-patched copy of this very game (StartRoom 0 -> 15, the
+#      Women's Toilets, repacked with taftool.py) driven in run400.exe under
+#      Wine reaches the identical cubicle scene and answers `f` with "That
+#      didn't make any sense!".  Same engine the author shipped for, same
+#      refusal.
+#
+# So the row below is a maximal-reachable run, not a win: it replays the
+# shipped walkthrough as far as it goes, types `f`/`fight`/`kill zombies` at
+# the prompt to record the three refusals, collects all five reachable coin
+# caches (rides, ticket windows, bench, condom machine, Thomas Cook desk),
+# the cable, the trainers and the jacket, and ends at the vending machine.
+# Two incidental notes: the game's discovery verb is SEARCH, not EXAMINE (the
+# .doc says "Examine the till" but only `search till` works), and `x coins`
+# is what counts the money -- `count coins` is not a verb here.  There is no
+# score system at all (`score` prints the game's "notes" text), so the marker
+# is the dead end itself.
+plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_WAITKEY=1
+# ---------------------------------------------------------------------------
+# 2026-08-04 -- IRVINE QUIK & THE SEARCH FOR THE FISH OF TRAGLEA (Duncan
+# Bowsman, 2012, TAF "Version 3" i.e. 4.00).  179 commands, WIN, "THE END".
+# There is no score system at all -- `score` answers "0 out of a maximum of 0"
+# from the first turn to the last -- so reaching the epilogue is the only
+# result there is, and the marker is the epilogue's opening line.
+#
+# The route follows the author's own iqsfot_walkthrough.pdf (12 pages, six
+# chapters) and needs it: the game is a menu-driven six-chapter serial and
+# several steps are not discoverable from the text.  Six PDF steps do not
+# replay as written, all of them phrasing or a missing beat:
+#   * `open hirby's compartment` -> `open compartment`, and only then does
+#     `get papyr` parse ("Open what?" / "Take what?" otherwise).
+#   * `x card` / `x card key` in chapter 4 is cosmetic and has no object
+#     behind it ("Irvine sees no such thing"); dropped.
+#   * `get hairball` is listed straight after `give flower to smitty`, but
+#     giving the flower teleports Irvine to the INFIRMARY -- the hairball is
+#     in the LABORATORY, so the route inserts `forward` first.
+#   * the jungle exit `retreat, s, w, s, s` loses its first `w` to a
+#     stalagmite trip at the CAVE MOUTH; the working form is
+#     `retreat, s, w, w, s, s, s`.
+#   * chapter 5's "fighting your way past any enemies" is the whole chapter,
+#     and the PDF spells out none of it (see below).
+#
+# Chapter 5 is a real combat system and the reason this took a derivation
+# rather than a replay.  From SCR_DUMP_TASKS (tasks 1217-1300, NPCs 16-20):
+#   * Each of the four mooks blocks two attacks and folds to the other two --
+#     sentry punch/kick, guard kick/sweep, patrol sweep/throw, soldier
+#     throw/punch -- and the four counter-gated copies of each task (RESTR
+#     type=4 on the Punch#/Kick#/Sweep#/Throw# variables) only rotate the
+#     prose; every copy of a *correct* attack does the same KO.
+#   * There are only four mooks in the whole palace -- one NPC each -- and a
+#     KO is not the end of any of them.  EVENTs 15-18 [Sentry/Guard/Patrol/
+#     Soldier Respawn] restart each one on its own timer (7 / 9-14 / 6-10 /
+#     9-11 turns) into whatever room the player is standing in, which is what
+#     "A sentry charges in" and "Patrol charges after Irvine" are.  The
+#     palace therefore cannot be cleared, only outrun: the four timers are
+#     staggered, so a room is empty for a turn or two at a time and the route
+#     has to spend that turn moving.
+#   * Leaving is blocked while anything is in the room ("Irvine has to deal
+#     with his enemies before he can leave!"), so every doorway costs a full
+#     sweep of whoever has cycled back in.  That is what lines 134-138,
+#     144-149 and 155-159 are; the doubled `sweep patrol` / `kick guard` are
+#     the respawn landing on the very turn of the KO, not a missed swing.
+#   * `claw` (TASK 1217) is an area attack that hits every enemy present at
+#     once, and it is the ONLY thing that touches the elite -- TASK 1292
+#     `#elite_clawed_(POW!)` carries four "NPC not in room" restrictions, one
+#     per mook, which is the "elite must be alone" rule from the PDF.  It is
+#     gated on `claw_count >= 3` and resets the counter to 0, and every
+#     attack (hit or miss) bumps the counter by one, so it recharges over
+#     three swings.  The route saves its one charge for the elite and takes
+#     the throne-hall door on the very next turn.
+#   * Health is a damage counter, not a pool: VAR 41 [Irvine_Health] starts a
+#     fight at 0 and each `#<mook>_attack` adds 1 for every enemy standing in
+#     the room; VAR 63 [HP] is only the mirror (TASK 1342 ###IRVINE_HEALTH###
+#     dispatches TASK 1349-1361 #IrH0..#IrH12, each setting HP = 12 - damage).
+#     At damage 12 TASK 1343 #Irvine_LifeCheck fires, and inside the palace
+#     (rooms 42-53) TASK 1347 #imprisoned! throws Irvine in room 62.  TASK
+#     1348 #heal_over_time takes one damage back off and EVENT 45 [Heal Over
+#     Time] runs it every 3-6 turns.  The route arrives at the throne hall on
+#     HP 9 and finishes chapter 5 on 9.  `breathe` (one damage off a turn,
+#     refused unless Irvine is alone) is the only repair the player can aim,
+#     and it does work -- 9 back to a full 12 in three turns -- but the respawn
+#     lands on the fourth quiet turn wherever the player is, so topping up
+#     just hands the wave back at the wrong moment; going straight through
+#     turned out to be cheaper than healing first.
+# The two health-restoring objects the tasks talk about are unreachable: the
+# health pill (obj310) has no Where node at all and no action anywhere moves
+# it, so OBJLOC reports pos=-1 room=-1 for the whole game.
+#
+# The chapter 6 fan-servant scene (`teach fan karate`, `give jacket to fan`,
+# `ask for help`) is optional by the PDF's own admission; it is kept because
+# the epilogue calls back to it ("Where's your coat?" / "Gave it away.").
+iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SKIP_WAITKEY=1
+# ---------------------------------------------------------------------------
+# 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
+# dinosaur and the entire verb set is EAT.  87 commands, WIN, 63/74.
+#
+# The engine facts behind the route, from SCR_DUMP_TASKS:
+#   * win  = TASK 177 `eat platter`, which chains TASK 178..186; TASK 186 is
+#     the `ACT type=6 v1=0`.  The platter is put in the Hall of Humans by
+#     TASK 176, fired by EVENT 30 the moment TASK 147 (`down` off the mesa)
+#     completes.  TASK 187 `eat human` is a second, cheaper ending -- never
+#     type it, this route is well past its size>60 gate.
+#   * 63/74 is the ceiling, not a shortfall.  Two of the 74 points cannot be
+#     scored by anybody:
+#       - TASK 76 `eat NAMGUAGL` is worth 10 and its object (obj15) is never
+#         placed anywhere.  OBJLOC says pos=-1 room=-1 at load, the only
+#         action in the whole game that touches obj15 is TASK 76's own
+#         `ACT type=0 v1=7 v2=0 v3=0` (which *hides* it), and no event moves
+#         any object at all (every EVENT line is `o2=0->0 o3=0->0`).  The two
+#         warning tasks and DEATH BY NAMGUAGL are dead code for the same
+#         reason.
+#       - TASK 123 `eat mutilated carcass` carries two `ACT type=4` actions
+#         (+5 and +1) and this is a TAF 4.00 game, so
+#         `task_run_change_score_action` awards only the first.
+#   * Eight counter variables are declared and read but never written by any
+#     `ACT type=3`: eatenMoths, eatenBugs, eatenMoss, eatenHoppers,
+#     eatenBuzzBirds, eatenBushes, eatenRoots, hunterHasSpear.  Two of the
+#     eight ending "you taste..." paragraphs (TASK 179 moss, TASK 185 roots)
+#     are gated on two of them and can therefore never print.
+#   * The air sac is a one-shot fuse, and that is the whole reason for the
+#     five `eat air sac` in a row near the end.  `eat air sac` (TASK 86) sets
+#     carcassEdible=1, which does double duty: it suppresses the ocean drown
+#     timer (TASK 101 only runs when carcassEdible==0) and it is the gate on
+#     TASK 123.  EVENT 17 has restart=0, so the *first* sac you ever eat
+#     starts a 10-20 turn countdown that runs exactly once and ends by
+#     running TASK 88, which sets carcassEdible back to 0 (and drowns you if
+#     you are still in the ocean).  Eat one sac, dive, surface, then keep
+#     eating sacs until that one-shot has fired -- after it has, the next sac
+#     sticks for good and the carcass is edible on the mesa.
+#   * `burp on sap` (TASK 162) is not a door-opener, it is the ride: it moves
+#     the player straight to the Mesa Top.  It needs canBurp, which comes
+#     from eating the hut's lit torch.
+mangiasaur_solution.txt|Mangiasaur.taf|Thanks for playing Mangiasaur!|
+# ---------------------------------------------------------------------------
+# 2026-08-04 -- A FINE DAY FOR REAPING (James Webb / revgiblet, IFComp 2007).
+# You are Death, and five souls are due today.  Each soul has two or three
+# independent solutions -- the author's own walkthrough lists them all -- so
+# there is no canonical route; the one below picks the cheapest branch for
+# each and reaps all five in 73 moves.  There is no score system (`score`
+# prints 0/0), so the marker is the last line of the ending text.
+#
+# The engine facts behind the route, from SCR_DUMP_TASKS:
+#   * win  = TASK 6, fired by EVENT 2 when the variable `soulsreaped` hits 5.
+#   * loss = TASK 5, fired by EVENT 1 when `timea` reaches 47.  EVENT 0 bumps
+#     `timea` every 15 turns, i.e. the twelve in-game hours are a ~705-turn
+#     budget.  73 moves spends two of them -- the hourglass still says "ten
+#     hours" at the end -- so this is nowhere near the timer.
+#   * The horse only listens in the hub rooms: every `say <place> to horse`
+#     task carries WHERE_ROOMS=[5 6 7 13 17 25 34 39 40 41 42 46 51].  From
+#     anywhere else you get "No-one pays any attention to you", which is why
+#     the route walks back out to the Storage Cupboard before travelling.
+#   * The arrival auto-moves (e.g. TASK 70, Kenya -> the Hut) are rep=0, so
+#     they fire on the *first* visit only.  The second Kenya trip lands in
+#     the Village and needs an explicit `n`.
+#   * `take tape` is refused on purpose ("If you ever need it then you know
+#     where to find it") -- the masking tape is consumed implicitly by
+#     `repair shovel`, which itself requires `x workbench` first (TASK 182).
+afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-03 -- THE COMPLETE TAF 3.80 CORPUS.  A byte-level survey of both
 # hosts that still carry ADRIFT games (every .taf on ifarchive.org
-# /if-archive/games/adrift/ including the ones inside zips, and every pre-2005
-# download in the adrift.co adventure DB) found that exactly **11** ADRIFT 3.80
-# games exist online, all released Jun 1999 - Dec 2000.  Neither IFDB nor
-# IFWiki can be used for this -- their oldest ADRIFT format/category is 3.9, so
-# 3.8 games are filed as 3.9 everywhere; the only reliable test is the 14-byte
-# header, which is "Version X.YZ\r\n" XOR the fixed VB6 keystream and therefore
-# a constant per version (3.80 = 3c423fc96a87c2cf94453661 39fa, see the
-# V380_SIGNATURE table in sctaffil.cpp).  A `Range: bytes=0-13` request
-# classifies a remote .taf without downloading it.
+# /if-archive/games/adrift/ including the ones inside zips, and every download
+# in the adrift.co adventure DB) turned up eleven ADRIFT 3.80 games.  Neither
+# IFDB nor IFWiki can be used for this -- their oldest ADRIFT format/category
+# is 3.9, so 3.8 games are filed as 3.9 everywhere; the only reliable test is
+# the 14-byte header, which is "Version X.YZ\r\n" XOR the fixed VB6 keystream
+# and therefore a constant per version (3.80 = 3c423fc96a87c2cf94453661 39fa,
+# see the V380_SIGNATURE table in sctaffil.cpp).  A `Range: bytes=0-13`
+# request classifies a remote .taf without downloading it -- but adrift.co
+# sometimes answers a ranged GET with an empty body, so a short reply must be
+# retried unranged or the file gets misfiled as "unknown".
 #
 # marooned / wrecked / Crime_Adventure (above) were the first three.  The
 # remaining eight are now in games/ as well, so the 3.8 burden and container
@@ -825,14 +1049,42 @@ thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY
 # its route is derived -- see WALKTHROUGH_TODO.md for the queue.  Win markers
 # are left empty deliberately: filling one in before the route exists would
 # bless a marker nobody has seen the game print.
-akron_solution.txt|akron.taf
-cave_solution.txt|cave.taf
-haunt_solution.txt|haunt.taf
-twilight_solution.txt|twilight.taf
-haunted_house_solution.txt|haunted.taf
-great_escape_solution.txt|great.taf
-tom_ceader_solution.txt|secret.taf
+#
+# 2026-08-04 -- SIX MORE, and the reason eleven was too low: adrift.co serves
+# files that its adventure DB never lists, so enumerating the DB misses them.
+# The name list comes from the Wayback copies of Campbell Wild's own game
+# pages (tardis.ed.ac.uk/~jcw/{adventure,adrift}/adventure.html 2000-2001 and
+# jcwild.pwp.blueyonder.co.uk/adrift/adventure.html 2001-2002); probing those
+# 130 historic filenames against www.adrift.co/files/games/<f> found six more
+# 3.80 games, none of which is on the IF Archive or in the DB:
+#   duck (Duck McCloud), first (The book of Fistandantalus), jb2000 (James
+#   Bond - Happy Landings), microwaveman (Microwave Man!), mikes (The life of
+#   Mike), superliam (Super Liam 1).
+# All six load and run.  Seventeen 3.80 games are therefore known to survive.
+# The same sweep found the only two surviving pre-3.80 games -- arlo.taf
+# (Alice's Restaurant Anti-Massacree Adventure, Laura Lee, 18-03-2000) and
+# castle.taf (Castle Quest, Andrew Cornish, 10-06-2000), both **Version 3.70**
+# (header 3c423fc96a87c2cf94453961 39fa).  Nothing 3.60 or older survives.
+# Scarier gained a 3.70 schema on 2026-08-04 (V370_PARSE_SCHEMA in
+# sctafpar.cpp, every guessed field since measured against the real
+# run370.exe), so both now sit in games/ with the rest of the corpus and both
+# load and run -- see ../ADRIFT_370.md and RUNNER_TESTS_TODO.md section 6.
+akron_solution.txt|akron.taf|you brave adventurer, saved yourself
+cave_solution.txt|cave.taf|Suddenly, in front of you, the rock face slides open revealing an enormous
+haunt_solution.txt|haunt.taf|You drop down into the laboratory, Horace following you
+twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
+haunted_house_solution.txt|haunted.taf|You went in, you got the treasure, and now you
+great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
+tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 timmy_reid_solution.txt|tra.taf
+duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
+fistandantalus_solution.txt|first.taf|Congradulations you have won the game
+james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL
+microwave_man_solution.txt|microwaveman.taf|You have destroyed Coffee Man
+life_of_mike_solution.txt|mikes.taf|Ypu ask her out
+super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
+alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
+castle_quest_solution.txt|castle.taf|Thanks for playing!
 EOF
 }
 
