@@ -10,6 +10,7 @@
 - (IBAction)openIfdb:(id)sender;
 - (IBAction)download:(id)sender;
 - (IBAction)applyTheme:(id)sender;
+- (IBAction)showMap:(id)sender;
 - (void)journeyPartyAction:(id)sender;
 - (void)journeyMemberVerbAction:(id)sender;
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem;

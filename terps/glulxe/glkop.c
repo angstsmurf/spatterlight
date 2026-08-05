@@ -478,6 +478,7 @@ static void prepare_glk_args(char *proto, dispatch_splot_t *splot)
   if (splot->numvargs != numvargswanted)
     fatal_error("Wrong number of arguments to Glk function.");
 
+
   if (garglist && garglist_size < maxargs) {
     glulx_free(garglist);
     garglist = NULL;

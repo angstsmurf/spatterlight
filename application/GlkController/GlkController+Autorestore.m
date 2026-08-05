@@ -22,6 +22,7 @@
 #import "GlkStyle.h"
 #import "CoverImageHandler.h"
 #import "JourneyMenuHandler.h"
+#import "MapWindowController.h"
 #import "TableViewController.h"
 #import "ZMenu.h"
 #import "BureaucracyForm.h"
@@ -125,6 +126,8 @@
     self.firstResponderView = restoredControllerLate.firstResponderView;
     self.windowPreFullscreenFrame = [self frameWithSanitycheckedSize:restoredControllerLate.windowPreFullscreenFrame];
     self.autosaveTag = restoredController.autosaveTag;
+    self.userHidMap = restoredControllerLate.userHidMap;
+    self.storedMapWindowFrame = restoredControllerLate.storedMapWindowFrame;
 
     self.bufferStyleHints = restoredController.bufferStyleHints;
     self.gridStyleHints = restoredController.gridStyleHints;
@@ -624,6 +627,10 @@
 
         self.showingCoverImage = [decoder decodeBoolForKey:@"showingCoverImage"];
 
+        self.userHidMap = [decoder decodeBoolForKey:@"userHidMap"];
+
+        self.storedMapWindowFrame = [decoder decodeRectForKey:@"mapWindowFrame"];
+
         self.commandScriptRunning = [decoder decodeBoolForKey:@"commandScriptRunning"];
         if (self.commandScriptRunning)
             self.commandScriptHandler = [decoder decodeObjectOfClass:[CommandScriptHandler class] forKey:@"commandScriptHandler"];
@@ -699,6 +706,13 @@
     [encoder encodeObject:self.theme.name forKey:@"oldThemeName"];
 
     [encoder encodeBool:self.showingCoverImage forKey:@"showingCoverImage"];
+
+    [encoder encodeBool:self.userHidMap forKey:@"userHidMap"];
+
+    NSRect mapFrame = self.storedMapWindowFrame;
+    if (self.mapWindowController)
+        mapFrame = self.mapWindowController.window.frame;
+    [encoder encodeRect:mapFrame forKey:@"mapWindowFrame"];
 
     [encoder encodeBool:self.commandScriptRunning forKey:@"commandScriptRunning"];
     if (self.commandScriptRunning)

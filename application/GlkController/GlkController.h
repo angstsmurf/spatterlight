@@ -11,7 +11,7 @@
 
 #import <AppKit/AppKit.h>
 
-@class Game, Theme, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler, GlkController, InfocomV6MenuHandler;
+@class Game, Theme, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler, GlkController, InfocomV6MenuHandler, MapWindowController;
 
 #define MAXWIN 64
 
@@ -31,6 +31,13 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSMutableDictionary<NSNumber*,GlkWindow*> *gwindows;
 @property SoundHandler *soundHandler;
 @property ImageHandler *imageHandler;
+@property MapWindowController *mapWindowController;
+/* One-shot: terp called glk_request_map_event; cleared on deliver/cancel/close. */
+@property BOOL mapEventRequest;
+/* Player closed the map UI; bare present stays latent until glk_map_show_at_user_request. */
+@property BOOL userHidMap;
+/* Last map window frame; restored from autosave-GUI.plist. */
+@property NSRect storedMapWindowFrame;
 @property NSMutableArray *imagesToSpeak;
 
 @property NSMutableArray<GlkWindow *> *windowsToBeAdded;

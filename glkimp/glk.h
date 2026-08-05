@@ -81,6 +81,8 @@ typedef struct glk_schannel_struct *schanid_t;
 #define gestalt_GraphicsCharInput (23)
 #define gestalt_DrawImageScale (24)
 #define gestalt_GarglkText (0x1100)
+/* Private Glk mapping extension */
+#define gestalt_Map (0x1104)
 
 #define evtype_None (0)
 #define evtype_Timer (1)
@@ -92,6 +94,12 @@ typedef struct glk_schannel_struct *schanid_t;
 #define evtype_SoundNotify (7)
 #define evtype_Hyperlink (8)
 #define evtype_VolumeNotify (9)
+/* Private Glk mapping events (gestalt_Map). win == NULL;
+   val1 = mapevent_*, val2 = payload (link id, or 0). */
+#define evtype_Map (0x1105)
+
+#define mapevent_Hyperlink (1)  /* val2 = link id */
+#define mapevent_UserHide  (2)  /* val2 = 0; user dismissed chrome */
 
 typedef struct event_struct {
     glui32 type;
@@ -498,6 +506,65 @@ extern void garglk_set_zcolors(glui32 fg, glui32 bg);
 extern void garglk_set_zcolors_stream(strid_t str, glui32 fg, glui32 bg);
 extern void garglk_set_reversevideo(glui32 reverse);
 extern void garglk_set_reversevideo_stream(strid_t str, glui32 reverse);
+
+/* Glk mapping extension (gestalt_Map). SVG via glk_map_present_svg;
+   Blorb picts via glk_map_present_image. Optional hyperlinks are polygons
+   in document space (SVG viewBox / image pixel space). Invalid hyperlinks
+   are skipped. glk_map_set_hyperlinks replaces all hyperlinks on the current map
+   (pass nhyperlinks 0 to clear). Overlays (glk_map_overlay*) draw Blorb
+   picts above the map; higher zindex is on top. width/height 0 = natural
+   image size. glk_map_overlay_svg draws a UTF-8 SVG fragment the same way
+   (must contain an <svg> root; width/height 0 = natural SVG size).
+   glk_map_fill_rect draws a solid RGB color rect (same overlay
+   id space; cleared by present / clear_all). link_id nonzero makes the overlay's axis-aligned rect a
+   hotspot (same mapevent_Hyperlink as polygon hyperlinks); linklabel is UTF-8
+   for accessibility (NULL or "" = unlabeled). glk_request_map_event() arms
+   one-shot map input; events are evtype_Map with win == NULL, val1 =
+   mapevent_*, val2 = payload. bgcolor is 0x00RRGGBB, or mapcolor_Default
+   (0xFFFFFFFF) for library default (theme buffer background). */
+
+typedef glui32 overlayid_t;
+
+#define mapcolor_Default  0xFFFFFFFFu
+
+typedef struct glk_mappoint_struct {
+    glsi32 x, y;
+} glk_mappoint_t;
+
+typedef struct glk_maphyperlink_struct {
+    glui32 id;                      /* opaque; nonzero */
+    const char *label;              /* UTF-8; NULL or "" = unlabeled */
+    glui32 npoints;                 /* >= 3 */
+    const glk_mappoint_t *points;   /* document space; copied on present/update */
+} glk_maphyperlink_t;
+
+extern glui32 glk_map_present_svg(const unsigned char *data, glui32 len,
+    glui32 bgcolor,
+    glsi32 focusleft, glsi32 focustop, glui32 focuswidth, glui32 focusheight,
+    const glk_maphyperlink_t *hyperlinks, glui32 nhyperlinks);
+extern glui32 glk_map_present_image(glui32 image, glui32 bgcolor,
+    glsi32 focusleft, glsi32 focustop, glui32 focuswidth, glui32 focusheight,
+    const glk_maphyperlink_t *hyperlinks, glui32 nhyperlinks);
+extern void glk_map_set_hyperlinks(const glk_maphyperlink_t *hyperlinks,
+    glui32 nhyperlinks);
+extern overlayid_t glk_map_overlay(glui32 image, glsi32 left, glsi32 top,
+    glui32 width, glui32 height, glui32 zindex, glui32 link_id, const char *linklabel);
+extern overlayid_t glk_map_overlay_svg(const unsigned char *data, glui32 len,
+    glsi32 left, glsi32 top, glui32 width, glui32 height, glui32 zindex,
+    glui32 link_id, const char *linklabel);
+extern overlayid_t glk_map_fill_rect(glui32 color, glsi32 left, glsi32 top,
+    glui32 width, glui32 height, glui32 zindex);
+extern glui32 glk_map_overlay_move(overlayid_t overlay, glsi32 left, glsi32 top,
+    glui32 width, glui32 height, glui32 zindex);
+extern glui32 glk_map_overlay_clear(overlayid_t overlay);
+extern glui32 glk_map_overlay_clear_all(void);
+extern void glk_map_close(void);
+extern glui32 glk_map_get_visibility(void);
+extern void glk_map_show_at_user_request(void);
+extern void glk_map_set_focus(glsi32 focusleft, glsi32 focustop, glui32 focuswidth, glui32 focusheight);
+extern void glk_map_clear_focus(void);
+extern void glk_request_map_event(void);
+extern void glk_cancel_map_event(void);
 
 /* non standard keycodes */
 #define keycode_Erase               (0xffffef7f)

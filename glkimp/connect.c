@@ -735,6 +735,14 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
     return wmsg.a1;  /* TRUE or FALSE */
 }
 
+glui32 win_map_get_visibility(void)
+{
+    win_flush();
+    sendmsg(MAPGETVISIBILITY, 0, 0, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return (glui32)wmsg.a1;  /* 1 visible, 0 not */
+}
+
 void win_setbgnd(int name, glui32 color)
 {
 //    fprintf(stderr, "win_setbgnd in win %d:%06x\n", name, color);
@@ -1084,6 +1092,19 @@ again:
                 event->win->mouse_request = FALSE;
             event->val1 = wmsg.a2;
             event->val2 = wmsg.a3;
+            break;
+        case EVTMAP:
+#ifdef DEBUG
+            fprintf(stderr, "win_select: received map event subtype %d payload %d\n",
+                    wmsg.a2, wmsg.a3);
+#endif
+            event->type = evtype_Map;
+            event->win = NULL;
+            event->val1 = wmsg.a2;  /* mapevent_* */
+            event->val2 = wmsg.a3;  /* payload */
+            if (!gli_map_event_request)
+                goto again;
+            gli_map_event_request = FALSE;
             break;
         case EVTTIMER:
 #ifdef DEBUG

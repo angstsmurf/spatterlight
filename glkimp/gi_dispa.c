@@ -12,6 +12,8 @@
 #include "glk.h"
 #include "gi_dispa.h"
 
+#include <string.h>
+
 #ifndef NULL
 #define NULL 0
 #endif
@@ -39,6 +41,7 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "evtype_CharInput", (2) },
     { "evtype_Hyperlink", (8) },
     { "evtype_LineInput", (3) },
+    { "evtype_Map", (0x1105) },
     { "evtype_MouseInput", (4) },
     { "evtype_None", (0) },
     { "evtype_Redraw", (6) },
@@ -76,6 +79,7 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "gestalt_LineInputEcho", (17) },
     { "gestalt_LineTerminatorKey", (19) },
     { "gestalt_LineTerminators", (18) },
+    { "gestalt_Map", (0x1104) },
     { "gestalt_MouseInput", (4) },
     { "gestalt_ResourceStream", (22) },
     { "gestalt_Sound", (8) },
@@ -120,6 +124,9 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "keycode_Tab",      (0xfffffff7) },
     { "keycode_Unknown",  (0xffffffff) },
     { "keycode_Up",       (0xfffffffc) },
+
+    { "mapevent_Hyperlink", (1) },
+    { "mapevent_UserHide", (2) },
 
     { "seekmode_Current", (1) },
     { "seekmode_End", (2) },
@@ -327,6 +334,23 @@ static gidispatch_function_t function_table[] = {
     { 0x1102, garglk_set_reversevideo, "garglk_set_reversevideo" },
     { 0x1103, garglk_set_reversevideo_stream, "garglk_set_reversevideo_stream" },
 #endif /* GLK_MODULE_GARGLKTEXT */
+    /* Glk mapping extension (gestalt_Map) */
+    { 0x1203, glk_map_present_svg, "map_present_svg" },
+    { 0x1204, glk_map_close, "map_close" },
+    { 0x1205, glk_map_set_focus, "map_set_focus" },
+    { 0x1206, glk_map_clear_focus, "map_clear_focus" },
+    { 0x1207, glk_request_map_event, "request_map_event" },
+    { 0x1208, glk_cancel_map_event, "cancel_map_event" },
+    { 0x1209, glk_map_present_image, "map_present_image" },
+    { 0x120A, glk_map_set_hyperlinks, "map_set_hyperlinks" },
+    { 0x120B, glk_map_overlay, "map_overlay" },
+    { 0x120C, glk_map_overlay_move, "map_overlay_move" },
+    { 0x120D, glk_map_overlay_clear, "map_overlay_clear" },
+    { 0x120E, glk_map_overlay_clear_all, "map_overlay_clear_all" },
+    { 0x120F, glk_map_fill_rect, "map_fill_rect" },
+    { 0x1210, glk_map_overlay_svg, "map_overlay_svg" },
+    { 0x1211, glk_map_get_visibility, "map_get_visibility" },
+    { 0x1212, glk_map_show_at_user_request, "map_show_at_user_request" },
 };
 
 glui32 gidispatch_count_classes(void)
@@ -690,6 +714,50 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x1103: /* garglk_set_reversevideo_stream */
             return "2QbIu:";
 #endif /* GLK_MODULE_GARGLKTEXT */
+
+        case 0x1203: /* map_present_svg */
+            /* Hyperlink struct array is C-only; dispatch presents with none. */
+            /* Counts include the :return slot (Glk dispatch layer). */
+            return "7>+#CnIuIsIsIuIu:Iu";
+        case 0x1204: /* map_close */
+            return "0:";
+        case 0x1205: /* map_set_focus */
+            return "4IsIsIuIu:";
+        case 0x1206: /* map_clear_focus */
+            return "0:";
+        case 0x1207: /* request_map_event */
+            return "0:";
+        case 0x1208: /* cancel_map_event */
+            return "0:";
+        case 0x1209: /* map_present_image */
+            /* Hyperlink struct array is C-only; use map_set_hyperlinks after. */
+            return "7IuIuIsIsIuIu:Iu";
+        case 0x120A: /* map_set_hyperlinks */
+            /* Glulx flat word array per link:
+                 id, npoints, x,y * npoints, labellen, labelbyte * labellen
+               (label bytes are one Glulx word each, 0–255). C callers use
+               glk_map_set_hyperlinks(structs, n) directly. */
+            return "2>+#IuIu:";
+        case 0x120B: /* map_overlay */
+            /* image,left,top,width,height,zindex,link_id,linklabel(>+#Cn).
+               Glulx cannot pass Inform compressed strings as type S;
+               games pass a Latin-1/UTF-8 byte buffer + length (same as put_buffer). */
+            return "9IuIsIsIuIuIuIu>+#Cn:Iu";
+        case 0x120C: /* map_overlay_move */
+            return "7IuIsIsIuIuIu:Iu";
+        case 0x120D: /* map_overlay_clear */
+            return "2Iu:Iu";
+        case 0x120E: /* map_overlay_clear_all */
+            return "1:Iu";
+        case 0x120F: /* map_fill_rect */
+            return "7IuIsIsIuIuIu:Iu";
+        case 0x1210: /* map_overlay_svg */
+            /* svg(>+#Cn),left,top,width,height,zindex,link_id,linklabel(>+#Cn). */
+            return "9>+#CnIsIsIuIuIuIu>+#Cn:Iu";
+        case 0x1211: /* map_get_visibility */
+            return "1:Iu";
+        case 0x1212: /* map_show_at_user_request */
+            return "0:";
 
         default:
             return NULL;
@@ -1546,6 +1614,193 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             garglk_set_reversevideo_stream( arglist[0].opaqueref, arglist[1].uint );
             break;
 #endif /* GLK_MODULE_GARGLKTEXT */
+
+        case 0x1203: /* map_present_svg */
+            /* Hyperlink struct array is C-only; dispatch presents with none.
+               With svg: [0..2] array, [3..7] scalars, [8] ptrflag, [9] return.
+               Null svg: [0] ptrflag, [1..5] scalars, [6] ptrflag, [7] return. */
+            if (arglist[0].ptrflag)
+                arglist[9].uint = glk_map_present_svg(arglist[1].array,
+                    arglist[2].uint, arglist[3].uint,
+                    arglist[4].sint, arglist[5].sint,
+                    arglist[6].uint, arglist[7].uint, NULL, 0);
+            else
+                arglist[7].uint = glk_map_present_svg(NULL, 0,
+                    arglist[1].uint,
+                    arglist[2].sint, arglist[3].sint,
+                    arglist[4].uint, arglist[5].uint, NULL, 0);
+            break;
+        case 0x1204: /* map_close */
+            glk_map_close();
+            break;
+        case 0x1205: /* map_set_focus */
+            glk_map_set_focus(arglist[0].sint, arglist[1].sint,
+                arglist[2].uint, arglist[3].uint);
+            break;
+        case 0x1206: /* map_clear_focus */
+            glk_map_clear_focus();
+            break;
+        case 0x1207: /* request_map_event */
+            glk_request_map_event();
+            break;
+        case 0x1208: /* cancel_map_event */
+            glk_cancel_map_event();
+            break;
+        case 0x1209: /* map_present_image */
+            /* [0..5] scalars, [6] ptrflag, [7] return */
+            arglist[7].uint = glk_map_present_image(arglist[0].uint, arglist[1].uint,
+                arglist[2].sint, arglist[3].sint,
+                arglist[4].uint, arglist[5].uint, NULL, 0);
+            break;
+        case 0x120A: /* map_set_hyperlinks */
+            /* Flat Glulx word array → temporary glk_maphyperlink_t list.
+               Invalid links are skipped; unrecoverable layout aborts further
+               parsing but still applies links collected so far. */
+            if (!arglist[0].ptrflag) {
+                glk_map_set_hyperlinks(NULL, 0);
+            } else {
+                glui32 *words = (glui32 *)arglist[1].array;
+                glui32 nwords = arglist[2].uint;
+                glui32 nlinks = arglist[3].uint;
+                glk_maphyperlink_t links[64];
+                glk_mappoint_t pts[64 * 32];
+                char labelbuf[64][256];
+                glui32 wi = 0, li, out = 0, p, npoints, labellen, b, id;
+
+                if (nlinks > 64)
+                    nlinks = 64;
+                if (words == NULL)
+                    nlinks = 0;
+                for (li = 0; li < nlinks; li++) {
+                    if (wi + 2 > nwords)
+                        break;
+                    id = words[wi++];
+                    npoints = words[wi++];
+                    if (npoints < 3 || npoints > 32 || wi + npoints * 2 > nwords)
+                        break;
+                    for (p = 0; p < npoints; p++) {
+                        pts[out * 32 + p].x = (glsi32)words[wi++];
+                        pts[out * 32 + p].y = (glsi32)words[wi++];
+                    }
+                    if (wi >= nwords)
+                        break;
+                    labellen = words[wi++];
+                    if (labellen >= sizeof(labelbuf[0]) || wi + labellen > nwords)
+                        break;
+                    for (b = 0; b < labellen; b++) {
+                        glui32 ch = words[wi++];
+                        if (ch > 255)
+                            ch = '?';
+                        labelbuf[out][b] = (char)ch;
+                    }
+                    labelbuf[out][labellen] = '\0';
+                    if (id == 0)
+                        continue;
+                    links[out].id = id;
+                    links[out].npoints = npoints;
+                    links[out].points = &pts[out * 32];
+                    links[out].label = labellen ? labelbuf[out] : NULL;
+                    out++;
+                }
+                glk_map_set_hyperlinks(out ? links : NULL, out);
+            }
+            break;
+        case 0x120B: /* map_overlay */
+            /* [0..6] scalars, [7..9] label array, [10] ptrflag, [11] return */
+            {
+                char linklabelbuf[256];
+                const char *linklabel = NULL;
+                if (arglist[7].ptrflag) {
+                    glui32 linklabellen = arglist[9].uint;
+                    char *bytes = (char *)arglist[8].array;
+                    if (linklabellen > 0 && bytes) {
+                        if (linklabellen > sizeof(linklabelbuf) - 1)
+                            linklabellen = sizeof(linklabelbuf) - 1;
+                        memcpy(linklabelbuf, bytes, linklabellen);
+                        linklabelbuf[linklabellen] = '\0';
+                        linklabel = linklabelbuf;
+                    } else {
+                        linklabel = "";
+                    }
+                }
+                arglist[11].uint = glk_map_overlay(arglist[0].uint, arglist[1].sint,
+                    arglist[2].sint, arglist[3].uint, arglist[4].uint, arglist[5].uint,
+                    arglist[6].uint, linklabel);
+            }
+            break;
+        case 0x120C: /* map_overlay_move */
+            arglist[7].uint = glk_map_overlay_move(arglist[0].uint, arglist[1].sint,
+                arglist[2].sint, arglist[3].uint, arglist[4].uint, arglist[5].uint);
+            break;
+        case 0x120D: /* map_overlay_clear */
+            arglist[2].uint = glk_map_overlay_clear(arglist[0].uint);
+            break;
+        case 0x120E: /* map_overlay_clear_all */
+            arglist[1].uint = glk_map_overlay_clear_all();
+            break;
+        case 0x120F: /* map_fill_rect */
+            arglist[7].uint = glk_map_fill_rect(arglist[0].uint, arglist[1].sint,
+                arglist[2].sint, arglist[3].uint, arglist[4].uint, arglist[5].uint);
+            break;
+        case 0x1210: /* map_overlay_svg */
+            /* With svg: [0..2] svg, [3..8] scalars, [9..11] label,
+               [12] ptrflag, [13] return. Null svg shortens by 2. */
+            {
+                char linklabelbuf[256];
+                const char *linklabel = NULL;
+                const unsigned char *svg = NULL;
+                glui32 svglen = 0;
+                gluniversal_t *labarg;
+
+                if (arglist[0].ptrflag) {
+                    svg = (const unsigned char *)arglist[1].array;
+                    svglen = arglist[2].uint;
+                    labarg = &arglist[9];
+                    if (labarg[0].ptrflag) {
+                        glui32 linklabellen = labarg[2].uint;
+                        char *bytes = (char *)labarg[1].array;
+                        if (linklabellen > 0 && bytes) {
+                            if (linklabellen > sizeof(linklabelbuf) - 1)
+                                linklabellen = sizeof(linklabelbuf) - 1;
+                            memcpy(linklabelbuf, bytes, linklabellen);
+                            linklabelbuf[linklabellen] = '\0';
+                            linklabel = linklabelbuf;
+                        } else {
+                            linklabel = "";
+                        }
+                    }
+                    arglist[13].uint = glk_map_overlay_svg(svg, svglen,
+                        arglist[3].sint, arglist[4].sint, arglist[5].uint,
+                        arglist[6].uint, arglist[7].uint, arglist[8].uint,
+                        linklabel);
+                } else {
+                    labarg = &arglist[7];
+                    if (labarg[0].ptrflag) {
+                        glui32 linklabellen = labarg[2].uint;
+                        char *bytes = (char *)labarg[1].array;
+                        if (linklabellen > 0 && bytes) {
+                            if (linklabellen > sizeof(linklabelbuf) - 1)
+                                linklabellen = sizeof(linklabelbuf) - 1;
+                            memcpy(linklabelbuf, bytes, linklabellen);
+                            linklabelbuf[linklabellen] = '\0';
+                            linklabel = linklabelbuf;
+                        } else {
+                            linklabel = "";
+                        }
+                    }
+                    arglist[11].uint = glk_map_overlay_svg(NULL, 0,
+                        arglist[1].sint, arglist[2].sint, arglist[3].uint,
+                        arglist[4].uint, arglist[5].uint, arglist[6].uint,
+                        linklabel);
+                }
+            }
+            break;
+        case 0x1211: /* map_get_visibility */
+            arglist[1].uint = glk_map_get_visibility();
+            break;
+        case 0x1212: /* map_show_at_user_request */
+            glk_map_show_at_user_request();
+            break;
 
         default:
             /* do nothing */
