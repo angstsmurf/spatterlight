@@ -16,6 +16,7 @@
 #import "GlkTextBufferWindow.h"
 #import "GlkTextGridWindow.h"
 #import "ImageHandler.h"
+#import "MapWindowController.h"
 #import "Metadata.h"
 #import "Preferences.h"
 #import "SoundHandler.h"
@@ -1373,6 +1374,513 @@
             break;
         }
 
+#pragma mark Glk mapping extension
+
+        case MAPPRESENT: {
+            MapWindowController *map = [self ensureMapWindowController];
+            NSMutableArray<MapHyperlink *> *hyperlinks = [NSMutableArray new];
+            const unsigned char *bytes = (const unsigned char *)buf;
+            size_t blen = (size_t)req->len;
+            size_t off = 0;
+            BOOL ok = YES;
+            glui32 bgcolor = mapcolor_Default;
+
+            if (off + 4 > blen)
+                ok = NO;
+            else {
+                bgcolor = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+            }
+
+            glui32 dataLen = 0;
+            if (ok && off + 4 > blen)
+                ok = NO;
+            else if (ok) {
+                dataLen = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+            }
+            if (ok && off + dataLen > blen)
+                ok = NO;
+
+            NSString *svg = @"";
+            if (ok && dataLen > 0) {
+                svg = [[NSString alloc] initWithBytes:bytes + off
+                                               length:dataLen
+                                             encoding:NSUTF8StringEncoding];
+                if (!svg)
+                    svg = @"";
+                off += dataLen;
+            }
+
+            glui32 nlinks = 0;
+            if (ok) {
+                if (off + 4 > blen)
+                    ok = NO;
+                else {
+                    nlinks = (glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24);
+                    off += 4;
+                }
+            }
+
+            for (glui32 hi = 0; ok && hi < nlinks; hi++) {
+                glui32 hid = 0, npoints = 0, labellen = 0;
+                if (off + 8 > blen) {
+                    ok = NO;
+                    break;
+                }
+                hid = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                npoints = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                if (npoints < 3 || off + (size_t)npoints * 8 + 4 > blen) {
+                    ok = NO;
+                    break;
+                }
+                NSMutableArray<NSValue *> *pts = [NSMutableArray arrayWithCapacity:npoints];
+                for (glui32 pi = 0; pi < npoints; pi++) {
+                    int32_t x = (int32_t)((glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24));
+                    off += 4;
+                    int32_t y = (int32_t)((glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24));
+                    off += 4;
+                    [pts addObject:[NSValue valueWithPoint:NSMakePoint(x, y)]];
+                }
+                labellen = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                if (off + labellen > blen) {
+                    ok = NO;
+                    break;
+                }
+                NSString *label = nil;
+                if (labellen > 0) {
+                    label = [[NSString alloc] initWithBytes:bytes + off
+                                                     length:labellen
+                                                   encoding:NSUTF8StringEncoding];
+                }
+                off += labellen;
+
+                MapHyperlink *link = [MapHyperlink new];
+                link.linkId = hid;
+                link.label = label;
+                link.points = pts;
+                [hyperlinks addObject:link];
+            }
+
+            if (!ok) {
+                NSLog(@"glkctl: MAPPRESENT: corrupt map/hyperlink payload");
+                break;
+            }
+
+            MapFocusRect *focus = nil;
+            if ((req->a1 & mapflag_HasFocus) != 0) {
+                focus = [MapFocusRect new];
+                focus.left = req->a2;
+                focus.top = req->a3;
+                focus.width = (NSUInteger)MAX(req->a4, 0);
+                focus.height = (NSUInteger)MAX(req->a5, 0);
+            }
+
+            [map presentSVG:svg flags:(NSUInteger)req->a1 bgcolor:(NSUInteger)bgcolor
+                      focus:focus hyperlinks:hyperlinks];
+            break;
+        }
+
+        case MAPPRESENTIMAGE: {
+            MapWindowController *map = [self ensureMapWindowController];
+            NSMutableArray<MapHyperlink *> *hyperlinks = [NSMutableArray new];
+            const unsigned char *bytes = (const unsigned char *)buf;
+            size_t blen = (size_t)req->len;
+            size_t off = 0;
+            BOOL ok = YES;
+            glui32 bgcolor = mapcolor_Default;
+            glui32 imageId = 0;
+
+            if (off + 4 > blen)
+                ok = NO;
+            else {
+                bgcolor = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+            }
+
+            if (ok && off + 4 > blen)
+                ok = NO;
+            else if (ok) {
+                imageId = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+            }
+
+            glui32 nlinks = 0;
+            if (ok) {
+                if (off + 4 > blen)
+                    ok = NO;
+                else {
+                    nlinks = (glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24);
+                    off += 4;
+                }
+            }
+
+            for (glui32 hi = 0; ok && hi < nlinks; hi++) {
+                glui32 hid = 0, npoints = 0, labellen = 0;
+                if (off + 8 > blen) {
+                    ok = NO;
+                    break;
+                }
+                hid = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                npoints = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                if (npoints < 3 || off + (size_t)npoints * 8 + 4 > blen) {
+                    ok = NO;
+                    break;
+                }
+                NSMutableArray<NSValue *> *pts = [NSMutableArray arrayWithCapacity:npoints];
+                for (glui32 pi = 0; pi < npoints; pi++) {
+                    int32_t x = (int32_t)((glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24));
+                    off += 4;
+                    int32_t y = (int32_t)((glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24));
+                    off += 4;
+                    [pts addObject:[NSValue valueWithPoint:NSMakePoint(x, y)]];
+                }
+                labellen = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                if (off + labellen > blen) {
+                    ok = NO;
+                    break;
+                }
+                NSString *label = nil;
+                if (labellen > 0) {
+                    label = [[NSString alloc] initWithBytes:bytes + off
+                                                     length:labellen
+                                                   encoding:NSUTF8StringEncoding];
+                }
+                off += labellen;
+
+                MapHyperlink *link = [MapHyperlink new];
+                link.linkId = hid;
+                link.label = label;
+                link.points = pts;
+                [hyperlinks addObject:link];
+            }
+
+            if (!ok) {
+                NSLog(@"glkctl: MAPPRESENTIMAGE: corrupt map/hyperlink payload");
+                break;
+            }
+
+            if (![self.imageHandler handleFindImageNumber:(NSInteger)imageId]) {
+                NSLog(@"glkctl: MAPPRESENTIMAGE: image %u not loaded", imageId);
+                break;
+            }
+            NSImage *img = self.imageHandler.lastimage;
+            if (!img) {
+                NSLog(@"glkctl: MAPPRESENTIMAGE: no NSImage for %u", imageId);
+                break;
+            }
+
+            MapFocusRect *focus = nil;
+            if ((req->a1 & mapflag_HasFocus) != 0) {
+                focus = [MapFocusRect new];
+                focus.left = req->a2;
+                focus.top = req->a3;
+                focus.width = (NSUInteger)MAX(req->a4, 0);
+                focus.height = (NSUInteger)MAX(req->a5, 0);
+            }
+            [map presentImage:img flags:(NSUInteger)req->a1 bgcolor:(NSUInteger)bgcolor
+                        focus:focus hyperlinks:hyperlinks];
+            break;
+        }
+
+        case MAPOVERLAY: {
+            MapWindowController *map = [self ensureMapWindowController];
+            const unsigned char *bytes = (const unsigned char *)buf;
+            size_t blen = (size_t)req->len;
+            size_t off = 0;
+            glui32 height = 0, zindex = 0, linkId = 0, labellen = 0;
+            NSString *label = nil;
+            BOOL ok = blen >= 16;
+            if (ok) {
+                height = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                zindex = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                linkId = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                labellen = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                if (off + labellen > blen)
+                    ok = NO;
+                else if (labellen > 0) {
+                    label = [[NSString alloc] initWithBytes:bytes + off
+                                                     length:labellen
+                                                   encoding:NSUTF8StringEncoding];
+                }
+            }
+            if (!ok) {
+                NSLog(@"glkctl: MAPOVERLAY: corrupt overlay payload");
+                break;
+            }
+            NSInteger imageId = req->a2;
+            if (![self.imageHandler handleFindImageNumber:imageId]) {
+                NSLog(@"glkctl: MAPOVERLAY: image %ld not loaded", (long)imageId);
+                break;
+            }
+            NSImage *img = self.imageHandler.lastimage;
+            if (!img)
+                break;
+            MapOverlay *ov = [MapOverlay new];
+            ov.overlayId = (NSUInteger)req->a1;
+            ov.image = img;
+            ov.left = req->a3;
+            ov.top = req->a4;
+            ov.width = (NSUInteger)MAX(req->a5, 0);
+            ov.height = (NSUInteger)height;
+            ov.zindex = (NSUInteger)zindex;
+            ov.linkId = (NSUInteger)linkId;
+            ov.label = label;
+            [map setOverlay:ov];
+            break;
+        }
+
+        case MAPOVERLAYMOVE: {
+            MapWindowController *map = self.mapWindowController;
+            if (!map)
+                break;
+            const unsigned char *bytes = (const unsigned char *)buf;
+            size_t blen = (size_t)req->len;
+            glui32 zindex = 0;
+            if (blen >= 4) {
+                zindex = (glui32)bytes[0]
+                    | ((glui32)bytes[1] << 8)
+                    | ((glui32)bytes[2] << 16)
+                    | ((glui32)bytes[3] << 24);
+            }
+            [map moveOverlay:(NSUInteger)req->a1
+                        left:req->a2
+                         top:req->a3
+                       width:(NSUInteger)MAX(req->a4, 0)
+                      height:(NSUInteger)MAX(req->a5, 0)
+                      zindex:(NSUInteger)zindex];
+            break;
+        }
+
+        case MAPOVERLAYCLEAR:
+            [self.mapWindowController clearOverlay:(NSUInteger)req->a1];
+            break;
+
+        case MAPOVERLAYCLEARALL:
+            [self.mapWindowController clearAllOverlays];
+            break;
+
+        case MAPFILLRECT: {
+            MapWindowController *map = [self ensureMapWindowController];
+            const unsigned char *bytes = (const unsigned char *)buf;
+            size_t blen = (size_t)req->len;
+            glui32 height = 0, zindex = 0;
+            if (blen >= 8) {
+                height = (glui32)bytes[0]
+                    | ((glui32)bytes[1] << 8)
+                    | ((glui32)bytes[2] << 16)
+                    | ((glui32)bytes[3] << 24);
+                zindex = (glui32)bytes[4]
+                    | ((glui32)bytes[5] << 8)
+                    | ((glui32)bytes[6] << 16)
+                    | ((glui32)bytes[7] << 24);
+            }
+            glui32 rgb = (glui32)req->a2;
+            NSColor *color = [NSColor colorWithSRGBRed:((rgb >> 16) & 0xff) / 255.0
+                                                 green:((rgb >> 8) & 0xff) / 255.0
+                                                  blue:(rgb & 0xff) / 255.0
+                                                 alpha:1.0];
+            MapOverlay *ov = [MapOverlay new];
+            ov.overlayId = (NSUInteger)req->a1;
+            ov.fillColor = color;
+            ov.left = req->a3;
+            ov.top = req->a4;
+            ov.width = (NSUInteger)MAX(req->a5, 0);
+            ov.height = (NSUInteger)height;
+            ov.zindex = (NSUInteger)zindex;
+            [map setOverlay:ov];
+            break;
+        }
+
+        case MAPSETHYPERLINKS: {
+            MapWindowController *map = self.mapWindowController;
+            if (!map) {
+                map = [self ensureMapWindowController];
+            }
+            NSMutableArray<MapHyperlink *> *hyperlinks = [NSMutableArray new];
+            const unsigned char *bytes = (const unsigned char *)buf;
+            size_t blen = (size_t)req->len;
+            size_t off = 0;
+            BOOL ok = YES;
+            glui32 nlinks = 0;
+
+            if (off + 4 > blen)
+                ok = NO;
+            else {
+                nlinks = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+            }
+
+            for (glui32 hi = 0; ok && hi < nlinks; hi++) {
+                glui32 hid = 0, npoints = 0, labellen = 0;
+                if (off + 8 > blen) {
+                    ok = NO;
+                    break;
+                }
+                hid = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                npoints = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                if (npoints < 3 || off + (size_t)npoints * 8 + 4 > blen) {
+                    ok = NO;
+                    break;
+                }
+                NSMutableArray<NSValue *> *pts = [NSMutableArray arrayWithCapacity:npoints];
+                for (glui32 pi = 0; pi < npoints; pi++) {
+                    int32_t x = (int32_t)((glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24));
+                    off += 4;
+                    int32_t y = (int32_t)((glui32)bytes[off]
+                        | ((glui32)bytes[off + 1] << 8)
+                        | ((glui32)bytes[off + 2] << 16)
+                        | ((glui32)bytes[off + 3] << 24));
+                    off += 4;
+                    [pts addObject:[NSValue valueWithPoint:NSMakePoint(x, y)]];
+                }
+                labellen = (glui32)bytes[off]
+                    | ((glui32)bytes[off + 1] << 8)
+                    | ((glui32)bytes[off + 2] << 16)
+                    | ((glui32)bytes[off + 3] << 24);
+                off += 4;
+                if (off + labellen > blen) {
+                    ok = NO;
+                    break;
+                }
+                NSString *label = nil;
+                if (labellen > 0) {
+                    label = [[NSString alloc] initWithBytes:bytes + off
+                                                     length:labellen
+                                                   encoding:NSUTF8StringEncoding];
+                }
+                off += labellen;
+
+                MapHyperlink *link = [MapHyperlink new];
+                link.linkId = hid;
+                link.label = label;
+                link.points = pts;
+                [hyperlinks addObject:link];
+            }
+
+            if (!ok) {
+                NSLog(@"glkctl: MAPSETHYPERLINKS: corrupt hyperlink payload");
+                break;
+            }
+            [map setHyperlinks:hyperlinks];
+            break;
+        }
+
+        case MAPCLOSE:
+            [self.mapWindowController closeMap];
+            self.mapEventRequest = NO;
+            break;
+
+        case MAPFOCUS: {
+            MapWindowController *map = self.mapWindowController;
+            if (map) {
+                MapFocusRect *focus = [MapFocusRect new];
+                focus.left = req->a1;
+                focus.top = req->a2;
+                focus.width = (NSUInteger)MAX(req->a3, 0);
+                focus.height = (NSUInteger)MAX(req->a4, 0);
+                [map setFocus:focus];
+            }
+            break;
+        }
+
+        case MAPCLEARFOCUS:
+            [self.mapWindowController setFocus:nil];
+            break;
+
+        case INITMAPEVENT:
+            self.mapEventRequest = YES;
+            [self ensureMapWindowController];
+            break;
+
+        case CANCELMAPEVENT:
+            self.mapEventRequest = NO;
+            break;
+
         default:
             NSLog(@"glkctl: unhandled request (%d)", req->cmd);
             break;
@@ -1381,6 +1889,13 @@
     if (req->cmd != AUTOSAVE)
         lastRequest = req->cmd;
     return NO; /* keep reading */
+}
+
+- (MapWindowController *)ensureMapWindowController {
+    if (!self.mapWindowController) {
+        self.mapWindowController = [[MapWindowController alloc] initWithGlkController:self];
+    }
+    return self.mapWindowController;
 }
 
 @end

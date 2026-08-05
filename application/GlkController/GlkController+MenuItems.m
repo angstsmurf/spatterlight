@@ -18,12 +18,19 @@
 #import "GlkWindow.h"
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
+#import "MapWindowController.h"
 
 #ifndef DEBUG
 #define NSLog(...)
 #endif
 
 @implementation GlkController (MenuItems)
+
+- (IBAction)showMap:(id)sender {
+    if (!self.mapWindowController)
+        self.mapWindowController = [[MapWindowController alloc] initWithGlkController:self];
+    [self.mapWindowController showMap];
+}
 
 - (IBAction)showGameInfo:(id)sender {
     [libcontroller showInfoForGame:self.game toggle:NO];
@@ -110,7 +117,9 @@
 
     SEL action = menuItem.action;
 
-    if (action == @selector(speakMostRecent:) || action == @selector(speakPrevious:) || action == @selector(speakNext:) || action == @selector(speakStatus:)) {
+    if (action == @selector(showMap:)) {
+        return self.mapWindowController.hasDocument;
+    } else if (action == @selector(speakMostRecent:) || action == @selector(speakPrevious:) || action == @selector(speakNext:) || action == @selector(speakStatus:)) {
         return (self.voiceOverActive);
     } else if (action == @selector(saveAsRTF:)) {
         for (GlkWindow *win in self.gwindows.allValues) {

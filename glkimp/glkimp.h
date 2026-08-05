@@ -121,6 +121,9 @@ void win_set_terminators(int name, glui32 *keycodes, int count);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 
+/* Glk mapping input (gestalt_Map); see glk_request_map_event. */
+extern int gli_map_event_request;
+
 // This is both used for glk_window_set_background_color() and,
 //  against the Glk spec, to change the background on-the-fly
 // of buffer and grid windows.
@@ -155,6 +158,7 @@ void win_fillrect(int name, glui32 color, int left, int top, int width, int heig
 void win_flowbreak(int name);
 int  win_findimage(int resno);
 void win_loadimage(int resno, const char *filename, int offset, int reslen);
+int  gli_loadimage(int image);
 void win_sizeimage(glui32 *width, glui32 *height);
 void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height,
                    glui32 imagerule, glui32 maxwidth);

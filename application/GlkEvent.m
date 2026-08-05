@@ -213,6 +213,17 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
+- (instancetype)initMapEventSubtype:(NSUInteger)subtype payload:(NSUInteger)payload {
+    self = [super init];
+    if (self) {
+        _type = EVTMAP;
+        win = 0;
+        _val1 = (NSInteger)subtype;
+        _val2 = (NSInteger)payload;
+    }
+    return self;
+}
+
 - (void)writeEvent:(int)fd {
     struct message reply;
     char buf[4096];

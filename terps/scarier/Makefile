@@ -96,7 +96,7 @@ HEADERS	= scarier.h scprotos.h scgamest.h
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
 # the Glk port has somewhere to put a map, so these stay out of $(OBJECTS).
-MAPOBJECTS = mapdraw.o scmap.o
+MAPOBJECTS = mapdraw.o mapsvg.o scmap.o
 MAPHEADERS = mapdraw.h scmap.h
 
 # The shared, seedable cross-platform RNG (erkyrath xoshiro128**) the v5 engine

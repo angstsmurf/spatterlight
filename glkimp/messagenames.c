@@ -23,6 +23,12 @@ const char *msgnames[] = {
     "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
     "PURGEIMG",        "MENU",
 
+    "MAPPRESENT",      "MAPCLOSE",         "MAPFOCUS",    "MAPCLEARFOCUS",
+    "INITMAPEVENT",    "CANCELMAPEVENT",
+    "MAPPRESENTIMAGE", "MAPOVERLAY",       "MAPOVERLAYMOVE", "MAPOVERLAYCLEAR",
+    "MAPOVERLAYCLEARALL", "MAPSETHYPERLINKS", "MAPFILLRECT",
+
     "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
     "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",
-    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT" };
+    "EVTSOUND",        "EVTVOLUME",        "EVTPREFS",    "EVTQUIT",
+    "EVTTEST",         "EVTMAP" };
