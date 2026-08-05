@@ -74,7 +74,7 @@ sb_resolve_cls (sb_t *b, size_t floor)
      keeps the tail shape that sb_pspace and the finish_turn trim inspect. */
   if (a5text_interactive ())
     {
-      int center = 0, bold = 0, italic = 0, right = 0;
+      int center = 0, bold = 0, italic = 0, right = 0, color = 0;
       for (i = floor; i < b->len; i++)
         {
           char c = b->p[i];
@@ -86,8 +86,18 @@ sb_resolve_cls (sb_t *b, size_t floor)
           else if (c == A5_ENDITALIC_MARK) { if (italic > 0) italic--; }
           else if (c == A5_RIGHT_MARK) right++;
           else if (c == A5_ENDRIGHT_MARK) { if (right > 0) right--; }
+          else if (c == A5_COLOR_MARK)
+            {
+              /* Skip \033payload\033; the open increments colour depth. */
+              size_t j = i + 1;
+              while (j < b->len && b->p[j] != A5_COLOR_MARK)
+                j++;
+              color++;
+              i = (j < b->len) ? j : i;
+            }
+          else if (c == A5_ENDCOLOR_MARK) { if (color > 0) color--; }
         }
-      if (center > 0 || bold > 0 || italic > 0 || right > 0)
+      if (center > 0 || bold > 0 || italic > 0 || right > 0 || color > 0)
         {
           char mark[2] = { A5_COMMIT_MARK, '\0' };
           size_t at = b->len;

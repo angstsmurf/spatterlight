@@ -3215,11 +3215,11 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
       for (; *q; q++)
         {
           if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK || *q == A5_SOUND_MARK
-              || *q == A5_WAIT_MARK)
+              || *q == A5_WAIT_MARK || *q == A5_COLOR_MARK)
             {
               /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024
-                 / \026<seconds>\026 span (the window name is a routing tag,
-                 not visible ink), or a stray unpaired mark. */
+                 / \026<seconds>\026 / \033<color>\033 span (the window name is
+                 a routing tag, not visible ink), or a stray unpaired mark. */
               const char *e = strchr (q + 1, *q);
               if (e == NULL)
                 continue;
@@ -3231,6 +3231,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
                    && *q != A5_BOLD_MARK && *q != A5_ENDBOLD_MARK
                    && *q != A5_ITALIC_MARK && *q != A5_ENDITALIC_MARK
                    && *q != A5_RIGHT_MARK && *q != A5_ENDRIGHT_MARK
+                   && *q != A5_ENDCOLOR_MARK
                    && *q != A5_ENDWINDOW_MARK)
             { *pre_alr_ink = 1; break; }
         }
@@ -3365,6 +3366,98 @@ a5text_interactive (void)
   return a5_interactive_mode;
 }
 
+/* FrankenDrift ColourLookup (Global.vb) -- named colours for <font color>. */
+static int
+a5_named_colour (const char *name)
+{
+  static const struct { const char *n; int rgb; } table[] = {
+    { "black", 0x000000 }, { "blue", 0x0000ff },
+    { "cyan", 0x00ffff }, { "turquoise", 0x00ffff }, { "aqua", 0x00ffff },
+    { "gray", 0x808080 }, { "grey", 0x808080 },
+    { "green", 0x008000 }, { "lime", 0x00ff00 },
+    { "magenta", 0xff00ff }, { "fuchsia", 0xff00ff },
+    { "maroon", 0x800000 }, { "navy", 0x000080 }, { "olive", 0x808000 },
+    { "orange", 0xff8000 }, { "pink", 0xff8888 }, { "purple", 0x800080 },
+    { "red", 0xff0000 }, { "silver", 0xc0c0c0 }, { "teal", 0x008080 },
+    { "white", 0xffffff }, { "yellow", 0xffff00 },
+  };
+  size_t i;
+  if (name == NULL || name[0] == '\0')
+    return -1;
+  for (i = 0; i < sizeof table / sizeof table[0]; i++)
+    if (strcasecmp (name, table[i].n) == 0)
+      return table[i].rgb;
+  return -1;
+}
+
+/* Parse color="..." / color='#RRGGBB' / color=name from a <font ...> body
+   (text between < and >, already lowercased or not).  Returns 0x00RRGGBB or
+   -1 when the tag has no usable color attribute. */
+static int
+a5_parse_font_color_attr (const char *body, size_t len)
+{
+  size_t i;
+  char tok[32];
+  size_t n = 0;
+  int rgb;
+
+  for (i = 0; i + 5 < len; i++)
+    {
+      if ((body[i] == 'c' || body[i] == 'C')
+          && strncasecmp (body + i, "color", 5) == 0
+          && (i == 0 || body[i - 1] == ' ' || body[i - 1] == '\t'))
+        {
+          i += 5;
+          while (i < len && (body[i] == ' ' || body[i] == '\t'))
+            i++;
+          if (i >= len || body[i] != '=')
+            continue;
+          i++;
+          while (i < len && (body[i] == ' ' || body[i] == '\t'))
+            i++;
+          if (i < len && (body[i] == '"' || body[i] == '\''))
+            i++;
+          if (i < len && body[i] == '#')
+            i++;
+          n = 0;
+          while (i < len && n + 1 < sizeof tok
+                 && body[i] != '"' && body[i] != '\''
+                 && body[i] != ' ' && body[i] != '\t' && body[i] != '>')
+            tok[n++] = (char) tolower ((unsigned char) body[i++]);
+          tok[n] = '\0';
+          if (n == 6)
+            {
+              char *end = NULL;
+              unsigned long v = strtoul (tok, &end, 16);
+              if (end != NULL && *end == '\0')
+                return (int) (v & 0x00FFFFFFul);
+            }
+          rgb = a5_named_colour (tok);
+          if (rgb >= 0)
+            return rgb;
+          return -1;
+        }
+    }
+  return -1;
+}
+
+/* Emit \033<payload>\033 colour-open mark (payload "c" or 6 hex digits). */
+static void
+a5_emit_color_mark (sb_t *sb, const char *payload)
+{
+  sb_putc (sb, A5_COLOR_MARK);
+  sb_puts (sb, payload);
+  sb_putc (sb, A5_COLOR_MARK);
+}
+
+static void
+a5_emit_rgb_color_mark (sb_t *sb, int rgb)
+{
+  char hex[8];
+  snprintf (hex, sizeof hex, "%06x", rgb & 0x00FFFFFF);
+  a5_emit_color_mark (sb, hex);
+}
+
 /* ---------------------------------------------------- PopUpInput side channel */
 
 void
@@ -3453,6 +3546,11 @@ a5text_render_plain (const char *src)
 {
   sb_t sb;
   const char *p = src;
+  /* Interactive colour-push stack: 1 if the matching open emitted a colour
+     mark (so the close must emit A5_ENDCOLOR_MARK).  Face-only <font> pushes
+     0.  Depth is capped; overflow drops the mark like an unknown tag. */
+  unsigned char color_pushed[32];
+  int color_depth = 0;
   sb_init (&sb);
 
   while (*p != '\0')
@@ -3548,6 +3646,60 @@ a5text_render_plain (const char *src)
             sb_putc (&sb, A5_RIGHT_MARK);
           else if (a5_interactive_mode && strcmp (name, "/right") == 0)
             sb_putc (&sb, A5_ENDRIGHT_MARK);
+          else if (a5_interactive_mode && strcmp (name, "c") == 0)
+            {
+              /* Input-colour span: \033c\033.  Track the push so </c> pops. */
+              if (color_depth < (int) (sizeof color_pushed))
+                {
+                  a5_emit_color_mark (&sb, "c");
+                  color_pushed[color_depth++] = 1;
+                }
+              else
+                sb_putc (&sb, A5_ALR_MARK);
+            }
+          else if (a5_interactive_mode && strcmp (name, "/c") == 0)
+            {
+              if (color_depth > 0 && color_pushed[--color_depth])
+                sb_putc (&sb, A5_ENDCOLOR_MARK);
+              else
+                sb_putc (&sb, A5_ALR_MARK);
+            }
+          else if (a5_interactive_mode && strcmp (name, "font") == 0)
+            {
+              /* Colour from color= only (face/size later).  Parse the full tag
+                 body -- `tag[]` truncates long attribute lists. */
+              int rgb = a5_parse_font_color_attr (p + 1,
+                                                  (size_t) (tagend - (p + 1)));
+              if (color_depth < (int) (sizeof color_pushed))
+                {
+                  if (rgb >= 0)
+                    {
+                      a5_emit_rgb_color_mark (&sb, rgb);
+                      color_pushed[color_depth++] = 1;
+                    }
+                  else
+                    {
+                      /* Face/size-only <font>: no colour mark, but still stack
+                         a level so </font> does not pop an outer colour. */
+                      color_pushed[color_depth++] = 0;
+                      sb_putc (&sb, A5_ALR_MARK);
+                    }
+                }
+              else
+                sb_putc (&sb, A5_ALR_MARK);
+            }
+          else if (a5_interactive_mode && strcmp (name, "/font") == 0)
+            {
+              if (color_depth > 0)
+                {
+                  if (color_pushed[--color_depth])
+                    sb_putc (&sb, A5_ENDCOLOR_MARK);
+                  else
+                    sb_putc (&sb, A5_ALR_MARK);
+                }
+              else
+                sb_putc (&sb, A5_ALR_MARK);
+            }
           else if (a5_interactive_mode && strcmp (name, "window") == 0)
             {
               /* Secondary output window opens: leave the window name delimited
@@ -3594,7 +3746,7 @@ a5text_render_plain (const char *src)
                 sb_putc (&sb, A5_ALR_MARK);
             }
           else
-            /* every other tag (<>, <c>, </c>, <u>, <font...>, <left>...)
+            /* every other tag (<>, <u>, <left>, face/size-only debris...)
                drops -- but leave A5_ALR_MARK so the display-boundary ALR pass
                cannot match an OldText ACROSS the stripped tag (the runner's ALR sees the
                tag and is blocked; see a5text.h).  finish_turn strips the mark. */

@@ -323,6 +323,15 @@ typedef struct a5_adventure_s {
                                        bShowExits default True)                 */
   int wait_turns;                   /* <WaitTurns> (default 3): turns a single
                                        "wait"/"z" advances                      */
+  /* Developer default colours as ARGB 0xFFRRGGBB (FrankenDrift).  TAF OLE
+     BGR values are converted at load; absent fields keep DEFAULT_*COLOUR.
+     Glk stylehints / zcolors use the value masked with 0x00FFFFFF.  Keeping
+     the alpha byte matters: default black is 0xFF000000, which must stay
+     non-zero so the background stylehint is applied. */
+  int colour_background;            /* <BackgroundColour>                    */
+  int colour_input;                 /* <InputColour> -- also <c> tag colour  */
+  int colour_output;                /* <OutputColour> -- default text         */
+  int colour_link;                  /* <LinkColour>                          */
   int hp_passing;                   /* <TaskExecution> == HighestPriorityPassingTask:
                                        a failing-with-output task does NOT claim
                                        the turn; the scan keeps looking for a
@@ -437,6 +446,11 @@ extern const char *a5model_valuelist_value (const a5_propdef_t *pd,
    resource number via <FileMappings>, matching on the path's basename.  Returns
    -1 when there is no matching mapping. */
 extern int a5model_resource_for_file (const a5_adventure_t *a, const char *src);
+
+/* ADRIFT TAF colours are Windows OLE/COLORREF (0x00BBGGRR).  Convert to
+   ARGB (0xFFRRGGBB) for storage, matching FrankenDrift OleColourToArgb.
+   Glk stylehints / garglk_set_zcolors take the value masked with 0x00FFFFFF. */
+extern int a5_ole_colour_to_argb (int ole);
 
 /* ------------------------------------------------------------- exit lookups */
 

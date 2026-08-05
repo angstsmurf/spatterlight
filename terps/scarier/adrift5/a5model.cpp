@@ -30,6 +30,31 @@ a5xml_bool (const char *s)
       || strcmp (s, "-1") == 0       || strcasecmp (s, "Vrai") == 0;
 }
 
+/* FrankenDrift DEFAULT_*COLOUR (ARGB 0xFFRRGGBB). */
+#define A5_DEFAULT_BG_ARGB     (-16777216)   /* black */
+#define A5_DEFAULT_INPUT_ARGB  (-3005145)    /* #D22527 */
+#define A5_DEFAULT_OUTPUT_ARGB (-15096438)   /* #19A58A */
+#define A5_DEFAULT_LINK_ARGB   (-11806788)   /* #4BD7BC */
+
+int
+a5_ole_colour_to_argb (int ole)
+{
+  unsigned u = (unsigned) ole & 0x00FFFFFFu;
+  unsigned r = u & 0xFFu;
+  unsigned g = (u >> 8) & 0xFFu;
+  unsigned b = (u >> 16) & 0xFFu;
+  return (int) (0xFF000000u | (r << 16) | (g << 8) | b);
+}
+
+static int
+a5_load_ole_colour (const a5_xml_node_t *root, const char *name, int dflt_argb)
+{
+  const char *t = a5xml_child_text (root, name);
+  if (t == NULL || t[0] == '\0')
+    return dflt_argb;
+  return a5_ole_colour_to_argb ((int) strtol (t, NULL, 10));
+}
+
 /* Every collector and per-type loader below has the same scaffold: count the
    direct children named `tag`, allocate that many records, then walk the
    children again and fill one record per match.  This factors the scaffold
@@ -944,6 +969,16 @@ a5model_from_doc (a5_xml_doc_t *doc)
     a->wait_turns = (wt != NULL) ? (int) strtol (wt, NULL, 10) : 3;
     if (a->wait_turns < 0) a->wait_turns = 0;
   }
+  /* Adventure-level colours: TAF stores Windows OLE (BGR) decimals; convert
+     to 0x00RRGGBB.  Absent fields keep FrankenDrift's DEFAULT_*COLOUR. */
+  a->colour_background = a5_load_ole_colour (root, "BackgroundColour",
+                                             A5_DEFAULT_BG_ARGB);
+  a->colour_input = a5_load_ole_colour (root, "InputColour",
+                                        A5_DEFAULT_INPUT_ARGB);
+  a->colour_output = a5_load_ole_colour (root, "OutputColour",
+                                         A5_DEFAULT_OUTPUT_ARGB);
+  a->colour_link = a5_load_ole_colour (root, "LinkColour",
+                                       A5_DEFAULT_LINK_ARGB);
   /* <TaskExecution>: HighestPriorityTask vs HighestPriorityPassingTask.  Under
      the latter (the "v4 logic" mode) a task that matches the command but fails
      its restrictions with output does not claim the turn -- the scan keeps

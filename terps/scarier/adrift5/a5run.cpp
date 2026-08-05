@@ -55,6 +55,7 @@ is_pres_mark (char c)
       || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
       || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
       || c == A5_RIGHT_MARK || c == A5_ENDRIGHT_MARK
+      || c == A5_ENDCOLOR_MARK
       || c == A5_ENDWINDOW_MARK;
 }
 
@@ -84,10 +85,10 @@ msg_has_output (const char *m)
   for (; *m != '\0'; m++)
     {
       if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK || *m == A5_SOUND_MARK
-          || *m == A5_WAIT_MARK)
+          || *m == A5_WAIT_MARK || *m == A5_COLOR_MARK)
         {
           /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024 /
-             \026<seconds>\026 span (or a stray mark). */
+             \026<seconds>\026 / \033<color>\033 span (or a stray mark). */
           const char *e = strchr (m + 1, *m);
           if (e == NULL)
             continue;
@@ -115,12 +116,11 @@ msg_ends_with_cls (const char *m)
       char c = m[n - 1];
       if (c == A5_CLS_MARK)
         return 1;
-      if (c == A5_SOUND_MARK || c == A5_WAIT_MARK)
+      if (c == A5_SOUND_MARK || c == A5_WAIT_MARK || c == A5_COLOR_MARK)
         {
-          /* A trailing \024<index>\024 sound or \026<seconds>\026 wait span
-             is presentation, not output -- step back over the whole span (a
-             stray unpaired mark reads as text, like any other unrecognised
-             byte). */
+          /* A trailing \024/\026/\033 span is presentation, not output --
+             step back over the whole span (a stray unpaired mark reads as
+             text, like any other unrecognised byte). */
           size_t j = n - 1;
           while (j > 0 && m[j - 1] != c)
             j--;
@@ -1276,9 +1276,19 @@ a5run_intro (a5_run_t *run)
          text, so markup INSIDE Adventure.Title is stripped -- Trapped's title
          is "<centre><b>'Trapped'  by Driftwood</b></centre>". */
       {
+        if (a5text_interactive ())
+          {
+            /* clsUserSession wraps Adventure.Title in <c>...</c>, giving the
+               title the same colour as commands and input. */
+            sb_putc (&out, A5_COLOR_MARK);
+            sb_putc (&out, 'c');
+            sb_putc (&out, A5_COLOR_MARK);
+          }
         char *tp = a5text_render_plain (run->adv->title);
         sb_puts (&out, tp);
         free (tp);
+        if (a5text_interactive ())
+          sb_putc (&out, A5_ENDCOLOR_MARK);
       }
       sb_puts (&out, "\n");
     }

@@ -489,15 +489,17 @@ replacementString:(id)repl {
     }
 }
 
-// Make the text cursor visible by setting it to the foreground text color.
-// Uses the Z-machine color if set, and falls back to the text color at the
-// fence position if the primary color matches the background (which would
-// make the caret invisible).
+// Make the text cursor visible using the line-input foreground color, so the
+// caret matches the text the player types (including style_Input hints and
+// active Z-colors). Fall back to nearby text if that color matches the
+// background, which would make the caret invisible.
 - (void)showInsertionPoint {
     if (line_request) {
-        NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
-        if (currentZColor)
-            color = [NSColor colorFromInteger: currentZColor.fg];
+        NSColor *color = _inputAttributes[NSForegroundColorAttributeName];
+        if (!color)
+            color = styles[style_Input][NSForegroundColorAttributeName];
+        if (!color)
+            color = styles[style_Normal][NSForegroundColorAttributeName];
         if (textstorage.length && [color isEqualToColor:_textview.backgroundColor]) {
             if (fence <= textstorage.length && fence > 0)
                 color = [textstorage attribute:NSForegroundColorAttributeName atIndex:fence - 1 effectiveRange:nil];

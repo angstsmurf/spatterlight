@@ -20,8 +20,9 @@
 /*
  * Module notes:
  *
- * o The Glk interface makes no effort to set text colors, background colors,
- *   and so forth, and minimal effort to set fonts and other style effects.
+ * o The Glk interface sets adventure default text/background colours for
+ *   ADRIFT 5 (stylehints before window open, garglk_set_zcolors for inline
+ *   <font color>/<c>), and maps bold/italic/alignment onto Glk styles.
  */
 
 #include <assert.h>
@@ -426,6 +427,67 @@ gsc_hint_window_styles (void)
                      stylehint_Justification, stylehint_just_LeftFlush);
 
   glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+}
+
+/*
+ * gsc_a5_hint_colours()
+ *
+ * Apply the adventure's developer default colours as Glk stylehints before
+ * the main text-buffer window opens (FrankenDrift GlkSession.SetBackgroundColour
+ * / adrift-5-rs apply_developer_colors).  Colours on a5_adventure_t are ARGB
+ * (0xFFRRGGBB); stylehints take the RGB mask.  Default black stays non-zero
+ * as 0xFF000000 so the background is applied (masking to 0x000000).  The
+ * status grid gets the inverted pair.
+ */
+static void
+gsc_a5_hint_colours (void)
+{
+  int bg, out, input, style;
+  int bg_rgb = 0, out_rgb = 0, have_bg = 0, have_out = 0;
+
+  if (gsc_a5_adv == NULL)
+    return;
+
+  bg = gsc_a5_adv->colour_background;
+  out = gsc_a5_adv->colour_output;
+  input = gsc_a5_adv->colour_input;
+
+  if (bg != 0)
+    {
+      bg_rgb = bg & 0x00FFFFFF;
+      have_bg = 1;
+      for (style = 0; style < style_NUMSTYLES; style++)
+        glk_stylehint_set (wintype_TextBuffer, style,
+                           stylehint_BackColor, bg_rgb);
+    }
+
+  if (out != 0 && out != bg)
+    {
+      out_rgb = out & 0x00FFFFFF;
+      have_out = 1;
+      for (style = 0; style < style_NUMSTYLES; style++)
+        {
+          if (style == style_Input)
+            continue;
+          glk_stylehint_set (wintype_TextBuffer, style,
+                             stylehint_TextColor, out_rgb);
+        }
+    }
+
+  if (input != 0 && input != bg)
+    glk_stylehint_set (wintype_TextBuffer, style_Input,
+                       stylehint_TextColor, input & 0x00FFFFFF);
+
+  if (have_bg && have_out)
+    {
+      for (style = 0; style < style_NUMSTYLES; style++)
+        {
+          glk_stylehint_set (wintype_TextGrid, style,
+                             stylehint_BackColor, out_rgb);
+          glk_stylehint_set (wintype_TextGrid, style,
+                             stylehint_TextColor, bg_rgb);
+        }
+    }
 }
 
 static void
@@ -5418,7 +5480,7 @@ gsc_a5_sound_marks_only (const char *text)
     return TRUE;
   for (p = text; *p != '\0'; p++)
     {
-      if (*p == A5_SOUND_MARK || *p == A5_WAIT_MARK)
+      if (*p == A5_SOUND_MARK || *p == A5_WAIT_MARK || *p == A5_COLOR_MARK)
         {
           const char *e = strchr (p + 1, *p);
           if (e == NULL)
@@ -6464,6 +6526,20 @@ gsc_a5_open_side_window (void)
 }
 
 /*
+ * gsc_a5_set_zcolor()
+ *
+ * Apply a foreground z-color when the host supports garglk text colours.
+ * bg is always left at zcolor_Default (adventure background comes from
+ * stylehints).  fg == zcolor_Default restores the style's default text colour.
+ */
+static void
+gsc_a5_set_zcolor (glui32 fg)
+{
+  if (glk_gestalt (gestalt_GarglkText, 0))
+    garglk_set_zcolors (fg, zcolor_Default);
+}
+
+/*
  * gsc_a5_display()
  *
  * Present one turn's text.  The engine runs in interactive mode (see
@@ -6472,16 +6548,19 @@ gsc_a5_open_side_window (void)
  * mark and for a timed delay at each <wait N> mark, clear the story window
  * at each <cls> mark, show <center> spans in the centered style_User1
  * (hinted for centered justification before the window opened), <right>
- * spans in RightFlush style_Note, <b> spans in bold, and <i> spans in
- * italic.  This is the same presentation the official Runner's output pane
- * gives, e.g., Anno 1700's intro: credits and cover image, "Press any key",
- * then a cleared screen for the opening narrative.
+ * spans in RightFlush style_Note, <b>/<i> spans in bold/italic, and
+ * <c>/<font color> spans via garglk_set_zcolors.  This is the same
+ * presentation the official Runner's output pane gives, e.g., Anno 1700's
+ * intro: credits and cover image, "Press any key", then a cleared screen
+ * for the opening narrative.
  */
 static void
 gsc_a5_display (const char *text)
 {
   const char *p = text, *seg = text;
   int center_depth = 0, right_depth = 0, bold_depth = 0, italic_depth = 0;
+  glui32 color_stack[32];
+  int color_depth = 0;
   /* The window a run of text is currently going to: the main story window, or
      an author-defined side window between an A5_WINDOW_MARK span and its
      A5_ENDWINDOW_MARK.  A <cls> inside the span clears that side window. */
@@ -6499,7 +6578,8 @@ gsc_a5_display (const char *text)
           && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
           && *p != A5_ENDBOLD_MARK && *p != A5_ITALIC_MARK
           && *p != A5_ENDITALIC_MARK && *p != A5_RIGHT_MARK
-          && *p != A5_ENDRIGHT_MARK && *p != A5_WINDOW_MARK
+          && *p != A5_ENDRIGHT_MARK && *p != A5_COLOR_MARK
+          && *p != A5_ENDCOLOR_MARK && *p != A5_WINDOW_MARK
           && *p != A5_ENDWINDOW_MARK && *p != A5_SOUND_MARK
           && *p != A5_COMMIT_MARK && *p != A5_WAIT_MARK)
         {
@@ -6559,12 +6639,14 @@ gsc_a5_display (const char *text)
         {
           /* Display-commit boundary with a dangling span (a5text.h): each
              commit is its own Source2HTML parse in the Runner, so a <center>,
-             <right>, <b>, or <i> left open there ends now -- Death Shack's
-             Introduction never closes its <center>, and the first room
+             <right>, <b>, <i>, or colour left open there ends now -- Death
+             Shack's Introduction never closes its <center>, and the first room
              description (the next commit) must come out left-aligned, not
              centered. */
           center_depth = right_depth = bold_depth = italic_depth = 0;
+          color_depth = 0;
           glk_set_style (gsc_a5_span_style (0, 0, 0, 0));
+          gsc_a5_set_zcolor (zcolor_Default);
         }
       else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
                || *p == A5_RIGHT_MARK || *p == A5_ENDRIGHT_MARK
@@ -6595,6 +6677,47 @@ gsc_a5_display (const char *text)
             italic_depth--;
           glk_set_style (gsc_a5_span_style (center_depth, right_depth,
                                             bold_depth, italic_depth));
+        }
+      else if (*p == A5_COLOR_MARK)
+        {
+          /* Colour open: \033c\033 (input colour) or \033RRGGBB\033. */
+          const char *e = strchr (p + 1, A5_COLOR_MARK);
+          glui32 fg = zcolor_Default;
+
+          if (e != NULL)
+            {
+              size_t n = (size_t) (e - (p + 1));
+              if (n == 1 && p[1] == 'c')
+                {
+                  if (gsc_a5_adv != NULL)
+                    fg = (glui32) (gsc_a5_adv->colour_input & 0x00FFFFFF);
+                }
+              else if (n == 6)
+                {
+                  char hex[8];
+                  char *end = NULL;
+                  unsigned long v;
+
+                  memcpy (hex, p + 1, 6);
+                  hex[6] = '\0';
+                  v = strtoul (hex, &end, 16);
+                  if (end != NULL && *end == '\0')
+                    fg = (glui32) (v & 0x00FFFFFFul);
+                }
+              if (color_depth < (int) (sizeof color_stack / sizeof color_stack[0]))
+                color_stack[color_depth++] = fg;
+              gsc_a5_set_zcolor (fg);
+              p = e;
+            }
+        }
+      else if (*p == A5_ENDCOLOR_MARK)
+        {
+          if (color_depth > 0)
+            color_depth--;
+          if (color_depth > 0)
+            gsc_a5_set_zcolor (color_stack[color_depth - 1]);
+          else
+            gsc_a5_set_zcolor (zcolor_Default);
         }
       else if (*p == A5_WAIT_MARK)
         {
@@ -6629,7 +6752,7 @@ gsc_a5_display (const char *text)
               p = e;
             }
         }
-      else
+      else if (*p == A5_IMG_MARK)
         {
           /* Image slot: \006<Blorb resource number>\006. */
           const char *e = strchr (p + 1, A5_IMG_MARK);
@@ -6646,6 +6769,8 @@ gsc_a5_display (const char *text)
   if (center_depth > 0 || right_depth > 0
       || bold_depth > 0 || italic_depth > 0)
     glk_set_style (style_Normal);
+  if (color_depth > 0)
+    gsc_a5_set_zcolor (zcolor_Default);
   /* Likewise a dangling <window> span: prompts and input echo belong in the
      main story window. */
   if (cur_window != gsc_main_window)
@@ -7628,6 +7753,7 @@ gsc_a5_main (void)
 #endif
 
   gsc_hint_window_styles ();
+  gsc_a5_hint_colours ();
 
   /* An autorestore adopts the archived windows further down instead: opening
      any here would cost the player the host's restored ones (see
@@ -7790,7 +7916,10 @@ gsc_a5_main (void)
         gsc_autorestored = FALSE;
       else
         {
-          gsc_a5_put_string ("\n> ");
+          gsc_a5_put_string ("\n");
+          glk_set_style (style_Input);
+          gsc_a5_put_string ("> ");
+          glk_set_style (style_Normal);
           /* Autosave at every top-level prompt: after the prompt is printed
              (so the GUI snapshot ends with it) but before input is
              requested (so the archived windows carry no pending request and
@@ -7798,7 +7927,10 @@ gsc_a5_main (void)
           gsc_autosave ();
         }
 #else
-      gsc_a5_put_string ("\n> ");
+      gsc_a5_put_string ("\n");
+      glk_set_style (style_Input);
+      gsc_a5_put_string ("> ");
+      glk_set_style (style_Normal);
 #endif
       if (gsc_a5_read_line (input, sizeof input) == 0)
         continue;
