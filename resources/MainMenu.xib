@@ -405,6 +405,14 @@ CA
                                     <action selector="performZoom:" target="-1" id="240"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="mapSep1">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Show Map" keyEquivalent="M" id="mapShow1">
+                                <connections>
+                                    <action selector="showMap:" target="-1" id="mapShowAct1"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="92">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>

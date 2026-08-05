@@ -391,11 +391,15 @@ static int gsc_map_shown = FALSE;
    there is something to see (gsc_map_worth_opening), and the per-turn redraw
    opens it then.  FALSE until something decides. */
 static int gsc_map_want = FALSE;
+/* gestalt_Map: present SVG via glk_map_* instead of a graphics pane. */
+static int gsc_use_map_ext = FALSE;
+static int gsc_map_suggested = FALSE;
 /* Where the map pane sits: the standard 40% pane to the right of the story,
    or -- for games with wide maps -- a 30% band across the top of the whole
    screen, above the status line ("glk map top").  The choice is kept, so
    hiding and re-showing the map does not move it, and it is remembered with
-   the visibility (gsc_map_pref_write) so neither does restarting. */
+   the visibility (gsc_map_pref_write) so neither does restarting.  Ignored
+   when gsc_use_map_ext. */
 static int gsc_map_at_top = FALSE;
 /* How the two colours the map is drawn in are spent ("glk map colour"): flat,
    or mixed into room cards, a
@@ -412,11 +416,16 @@ static int gsc_map_taken = FALSE;
 static scr_int gsc_map_restarts = 0;
 static void gsc_map_redraw (void);
 static void gsc_map_set_colourful (int colourful);
+static void gsc_map_reset_suggest (void);
 
 /* The camera and pixel size of the last map redraw, so a mouse click can be
    hit-tested against exactly what is on screen. */
 static map_camera_t gsc_map_cam;
 static int gsc_map_px_w = 0, gsc_map_px_h = 0;
+/* Room keys for the last SVG present's hyperlink ids (1-based index). */
+#define GSC_MAP_HOT_MAX 512
+static char gsc_map_hot_keys[GSC_MAP_HOT_MAX][256];
+static int gsc_map_n_hot = 0;
 
 /* A manual zoom ("glk zoom in/out"), as pixels per map unit; 0 while the map
    is fitting itself to its window ("glk zoom auto", the default).  A manual
@@ -482,6 +491,11 @@ static void gsc_map_toggle (void);
 static void gsc_map_auto_reveal (void);
 static void gsc_map_notice_restart (void);
 static void gsc_map_show (void);
+static void gsc_map_print_user_hide_tip (void);
+static void gsc_map_user_hide_at_line (char *buf, glui32 bufmax,
+                                       glui32 *ubuf, glui32 ucap);
+static void gsc_a5_put_prompt (const char *before);
+static void gsc_a5_put_string (const char *string);
 static int gsc_map_available (void);
 static int gsc_map_pref_read (int *at_top, int *colourful);
 static int gsc_map_default_shown (void);
@@ -493,6 +507,161 @@ gsc_sc_walk_stop (void)
   gsc_sc_walk_to[0] = '\0';
   gsc_sc_walk_last[0] = '\0';
   gsc_sc_walk_steps = 0;
+}
+
+/* Re-arm one-shot map input after a miss or redraw. */
+static void
+gsc_map_request_input (void)
+{
+  if (gsc_use_map_ext)
+    glk_request_map_event ();
+  else if (gsc_map_window
+           && glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+    glk_request_mouse_event (gsc_map_window);
+}
+
+/*
+ * gsc_map_start_walk_to()
+ *
+ * Begin a click-to-walk to room key `hit` (must not be the current room).
+ */
+static void
+gsc_map_start_walk_to (const char *hit, const char *here)
+{
+  if (hit == NULL || (here != NULL && strcmp (hit, here) == 0))
+    return;
+  if (gsc_is_a5)
+    {
+      gsc_a5_walk_stop ();
+      snprintf (gsc_a5_walk_to, sizeof gsc_a5_walk_to, "%s", hit);
+      gsc_a5_walk_clicked = TRUE;
+    }
+  else
+    {
+      gsc_sc_walk_stop ();
+      snprintf (gsc_sc_walk_to, sizeof gsc_sc_walk_to, "%s", hit);
+    }
+}
+
+/*
+ * gsc_map_handle_event()
+ *
+ * Map-document input (evtype_Map).  Returns:
+ *   0 — ignore / continue waiting (request re-armed on miss)
+ *   1 — hyperlink walk started (caller cancels line input and leaves the wait)
+ *   2 — UserHide (caller interrupt-prints the reopen tip like a TimeBased tick,
+ *       then continues waiting)
+ */
+static int
+gsc_map_handle_event (const event_t *event)
+{
+  const char *hit = NULL;
+  const char *here = NULL;
+  char herebuf[16];
+  glui32 id;
+
+  if (event == NULL || event->type != evtype_Map || !gsc_use_map_ext)
+    return 0;
+
+  if (event->val1 == mapevent_UserHide)
+    {
+      gsc_map_shown = FALSE;
+      glk_request_map_event ();
+      return 2;
+    }
+
+  if (event->val1 != mapevent_Hyperlink)
+    {
+      gsc_map_request_input ();
+      return 0;
+    }
+
+  id = event->val2;
+  if (id == 0 || (int) id > gsc_map_n_hot)
+    {
+      gsc_map_request_input ();
+      return 0;
+    }
+  hit = gsc_map_hot_keys[id - 1];
+  if (hit[0] == '\0')
+    {
+      gsc_map_request_input ();
+      return 0;
+    }
+
+  if (gsc_is_a5)
+    {
+      if (gsc_a5_run == NULL)
+        return 0;
+      here = a5state_player_location (a5run_state (gsc_a5_run));
+    }
+  else
+    {
+      if (gsc_game == NULL)
+        return 0;
+      snprintf (herebuf, sizeof herebuf, "%ld",
+                (long) gs_playerroom ((scr_gameref_t) gsc_game));
+      here = herebuf;
+    }
+
+  if (here != NULL && strcmp (hit, here) == 0)
+    {
+      gsc_map_request_input ();
+      return 0;
+    }
+  gsc_map_start_walk_to (hit, here);
+  return 1;
+}
+
+/*
+ * gsc_map_handle_mouse()
+ *
+ * Graphics-pane map click (fallback when gestalt_Map is absent).
+ */
+static int
+gsc_map_handle_mouse (const event_t *event)
+{
+  map_view_t view;
+  const char *hit = NULL;
+  const char *here = NULL;
+  char herebuf[16];
+
+  if (event == NULL || event->type != evtype_MouseInput || gsc_map == NULL)
+    return FALSE;
+  if (gsc_use_map_ext || event->win != gsc_map_window)
+    return FALSE;
+
+  if (gsc_is_a5)
+    {
+      a5_state_t *st;
+
+      if (gsc_a5_run == NULL)
+        return FALSE;
+      st = a5run_state (gsc_a5_run);
+      gsc_a5_map_view (st, &view);
+      here = a5state_player_location (st);
+    }
+  else
+    {
+      if (gsc_game == NULL)
+        return FALSE;
+      scmap_view ((scr_gameref_t) gsc_game, &view);
+      snprintf (herebuf, sizeof herebuf, "%ld",
+                (long) gs_playerroom ((scr_gameref_t) gsc_game));
+      here = herebuf;
+    }
+
+  hit = map_hit (gsc_map, &view, &gsc_map_cam,
+                 gsc_map_px_w, gsc_map_px_h,
+                 (int) event->val1, (int) event->val2);
+  if (hit != NULL && (here == NULL || strcmp (hit, here) != 0))
+    {
+      gsc_map_start_walk_to (hit, here);
+      return TRUE;
+    }
+
+  gsc_map_request_input ();
+  return FALSE;
 }
 
 /* Special out-of-band os_confirm() options used locally with os_glk. */
@@ -1315,6 +1484,11 @@ static void gsc_colour_echo (scr_bool typing);
  * Read in a line and translate out of the given locale.  Returns the count
  * of characters placed in the buffer.
  */
+static char *gsc_line_event_buf = NULL;
+static glui32 gsc_line_event_max = 0;
+static glui32 *gsc_line_event_ubuf = NULL;
+static glui32 gsc_line_event_ucap = 0;
+
 static scr_int
 gsc_read_line_locale (scr_char *buffer,
                       scr_int length, const gsc_locale_t *locale)
@@ -1339,8 +1513,14 @@ gsc_read_line_locale (scr_char *buffer,
        */
       unicode = (decltype(unicode)) gsc_malloc (length * sizeof (*unicode));
       memset (unicode, 0, length * sizeof (*unicode));
+      gsc_line_event_ubuf = unicode;
+      gsc_line_event_ucap = (glui32) length;
+      gsc_line_event_buf = NULL;
+      gsc_line_event_max = 0;
       glk_request_line_event_uni (gsc_main_window, unicode, length, 0);
       gsc_event_wait (evtype_LineInput, &event);
+      gsc_line_event_ubuf = NULL;
+      gsc_line_event_ucap = 0;
 
       /* Convert the unicode buffer out, then free it. */
       gsc_unicode_buffer_to_locale (unicode, event.val1, buffer, locale);
@@ -1352,8 +1532,14 @@ gsc_read_line_locale (scr_char *buffer,
     }
 
   /* No success with unicode, so fall back to standard line input. */
+  gsc_line_event_buf = buffer;
+  gsc_line_event_max = (glui32) length;
+  gsc_line_event_ubuf = NULL;
+  gsc_line_event_ucap = 0;
   glk_request_line_event (gsc_main_window, buffer, length, 0);
   gsc_event_wait (evtype_LineInput, &event);
+  gsc_line_event_buf = NULL;
+  gsc_line_event_max = 0;
 
   /* Return the count of characters placed in the buffer. */
   gsc_colour_echo (FALSE);
@@ -3212,6 +3398,24 @@ static void
 gsc_header_string (const char *message)
 {
   gsc_styled_string (style_Header, message);
+}
+
+/*
+ * gsc_map_print_user_hide_tip()
+ *
+ * Reopen hint after mapevent_UserHide.  Call only when the main window has
+ * no live line request (cancel first, as TimeBased ticks do in
+ * gsc_a5_await_line).
+ */
+static void
+gsc_map_print_user_hide_tip (void)
+{
+  gsc_normal_string ("To reopen the map, type ");
+  if (gsc_map_taken)
+    gsc_standout_string ("glk map");
+  else
+    gsc_standout_string ("map");
+  gsc_normal_string (".\n");
 }
 
 
@@ -5939,34 +6143,36 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
           break;
 
         case evtype_MouseInput:
-          /* A click on a room walks the player there, one room per turn.  The
-             pending line request is cancelled so that os_read_line can issue
-             the first step in its place; whatever the player had half-typed is
-             discarded, as it is on the ADRIFT 5 side. */
-          if (event->win == gsc_map_window && gsc_map != NULL
-              && gsc_game != NULL)
+          /* Graphics-pane map click (no gestalt_Map). */
+          if (gsc_map_handle_mouse (event))
             {
-              map_view_t view;
-              char here[16];
-              const char *hit;
-
-              scmap_view ((scr_gameref_t) gsc_game, &view);
-              hit = map_hit (gsc_map, &view, &gsc_map_cam,
-                             gsc_map_px_w, gsc_map_px_h,
-                             (int) event->val1, (int) event->val2);
-              snprintf (here, sizeof here, "%ld",
-                        (long) gs_playerroom ((scr_gameref_t) gsc_game));
-              if (hit != NULL && strcmp (hit, here) != 0)
-                {
-                  gsc_sc_walk_stop ();
-                  snprintf (gsc_sc_walk_to, sizeof gsc_sc_walk_to, "%s", hit);
-                  glk_cancel_line_event (gsc_main_window, event);
-                  break;        /* now a LineInput event: the wait ends */
-                }
-              /* A click on empty map: re-arm and keep waiting. */
-              if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-                glk_request_mouse_event (gsc_map_window);
+              glk_cancel_line_event (gsc_main_window, event);
+              break;
             }
+          break;
+
+        case evtype_Map:
+          {
+            int map_evt = gsc_map_handle_event (event);
+            if (map_evt == 1)
+              {
+                glk_cancel_line_event (gsc_main_window, event);
+                break;
+              }
+            if (map_evt == 2)
+              {
+                /* Same cancel / print / re-request pattern as TimeBased ticks. */
+                if (wait_type_1 == evtype_LineInput
+                    || wait_type_2 == evtype_LineInput)
+                  gsc_map_user_hide_at_line (gsc_line_event_buf,
+                                             gsc_line_event_max,
+                                             gsc_line_event_ubuf,
+                                             gsc_line_event_ucap);
+                else
+                  gsc_map_print_user_hide_tip ();
+                break;
+              }
+          }
           break;
         }
     }
@@ -6568,6 +6774,8 @@ gsc_main (void)
   /* Does the game define a MAP verb of its own?  If so it keeps it, and the
      map pane is reached with "glk map" instead. */
   gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
+  if (gsc_use_map_ext && !autorestore && scmap_available ((scr_gameref_t) gsc_game))
+    gsc_map_redraw ();
 
   /* Mention any assists switched on automatically for this known game (see
      gsc_apply_known_game_assists), and how to get faithful behaviour back.
@@ -6688,6 +6896,7 @@ gsc_main (void)
         {
         case GAME_RESTART:
           gsc_short_delay ();
+          gsc_map_reset_suggest ();
           scr_restart_game (gsc_game);
           break;
 
@@ -6701,6 +6910,7 @@ gsc_main (void)
             {
               gsc_normal_string ("Sorry, no undo is available.\n");
               gsc_short_delay ();
+              gsc_map_reset_suggest ();
               scr_restart_game (gsc_game);
             }
           break;
@@ -6889,6 +7099,60 @@ gsc_unput_tail (const char *s)
 #endif /* GSC_HAVE_UNPUT */
 
 /*
+ * gsc_map_user_hide_at_line()
+ *
+ * mapevent_UserHide while a line request is live: cancel the request (Glk
+ * forbids printing into a window with one pending — TimeBased ticks in
+ * gsc_a5_await_line use the same pattern), print the reopen tip, reprint the
+ * prompt, and re-request with any partial input.  Exactly one of buf/ubuf is
+ * non-NULL when a line was pending; both NULL prints the tip alone.
+ */
+static void
+gsc_map_user_hide_at_line (char *buf, glui32 bufmax,
+                           glui32 *ubuf, glui32 ucap)
+{
+  event_t cancel;
+
+  cancel.val1 = 0;
+  if (buf != NULL || ubuf != NULL)
+    {
+      glk_cancel_line_event (gsc_main_window, &cancel);
+#ifdef GSC_HAVE_UNPUT
+      if (gsc_is_a5)
+        {
+          if (!gsc_unput_tail ("\n> "))
+            gsc_a5_put_string ("\n");
+        }
+      else
+        {
+          if (!gsc_unput_tail (">"))
+            gsc_put_literal ("\n");
+        }
+#else
+      if (gsc_is_a5)
+        gsc_a5_put_string ("\n");
+      else
+        gsc_put_literal ("\n");
+#endif
+    }
+
+  gsc_map_print_user_hide_tip ();
+
+  if (buf == NULL && ubuf == NULL)
+    return;
+
+  if (gsc_is_a5)
+    gsc_a5_put_prompt ("\n");
+  else
+    gsc_put_prompt (">");
+
+  if (ubuf != NULL)
+    glk_request_line_event_uni (gsc_main_window, ubuf, ucap, cancel.val1);
+  else if (buf != NULL && bufmax > 0)
+    glk_request_line_event (gsc_main_window, buf, bufmax, cancel.val1);
+}
+
+/*
  * gsc_a5_sound_marks_only()
  *
  * True when a turn text carries no visible output -- nothing but positional
@@ -6948,32 +7212,29 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
           break;
 
         case evtype_MouseInput:
-          /* A click on a room walks the player there (Map.vb imgMap_MouseDown:
-             Player.WalkTo = node; DoWalk()).  Cancel the pending line request
-             and let gsc_a5_read_line issue the first step instead. */
-          if (event->win == gsc_map_window && gsc_a5_run != NULL)
+          if (gsc_map_handle_mouse (event))
             {
-              map_view_t view;
-              a5_state_t *st = a5run_state (gsc_a5_run);
-              const char *hit, *here;
-
-              gsc_a5_map_view (st, &view);
-              hit = map_hit (gsc_map, &view, &gsc_map_cam,
-                               gsc_map_px_w, gsc_map_px_h,
-                               (int) event->val1, (int) event->val2);
-              here = a5state_player_location (st);
-              if (hit != NULL && (here == NULL || strcmp (hit, here) != 0))
-                {
-                  gsc_a5_walk_stop ();
-                  snprintf (gsc_a5_walk_to, sizeof gsc_a5_walk_to, "%s", hit);
-                  gsc_a5_walk_clicked = TRUE;
-                  glk_cancel_line_event (gsc_main_window, event);
-                  return FALSE;
-                }
-              /* A click on empty map: re-arm and keep waiting. */
-              if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-                glk_request_mouse_event (gsc_map_window);
+              glk_cancel_line_event (gsc_main_window, event);
+              return FALSE;
             }
+          break;
+
+        case evtype_Map:
+          {
+            int map_evt = gsc_map_handle_event (event);
+            if (map_evt == 1)
+              {
+                glk_cancel_line_event (gsc_main_window, event);
+                return FALSE;
+              }
+            if (map_evt == 2)
+              {
+                gsc_map_user_hide_at_line (buf, buf != NULL
+                                             ? (glui32) (bufsize - 1) : 0,
+                                           ubuf, ucap);
+                break;
+              }
+          }
           break;
 
         case evtype_Timer:
@@ -8789,9 +9050,22 @@ static int
 gsc_a5_map_seen (void *ctx, const char *lockey)
 {
   a5_state_t *st = (a5_state_t *) ctx;
-  int li = a5state_location_index (st, lockey);
+  const a5_location_t *loc;
+  int li;
+  const char *hide;
 
-  return li >= 0 && st->loc_seen != NULL && st->loc_seen[li];
+  li = a5state_location_index (st, lockey);
+  if (li < 0 || st->loc_seen == NULL || !st->loc_seen[li])
+    return 0;
+  /* <Hide>1</Hide>: omit from the map even when seen (ADRIFT-5-XML.md §6.15). */
+  loc = a5model_location (st->adv, lockey);
+  if (loc != NULL && loc->node != NULL)
+    {
+      hide = a5xml_child_text (loc->node, "Hide");
+      if (hide != NULL && strcmp (hide, "1") == 0)
+        return 0;
+    }
+  return 1;
 }
 
 /*
@@ -8900,6 +9174,11 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
       if (gsc_a5_run == NULL || gsc_map == NULL)
         return FALSE;
       st = a5run_state (gsc_a5_run);
+      /* Route memos are per-turn; clear before painting so a same-turn
+         SetVariable (e.g. REVEAL opening the door after probing East) is
+         visible.  Otherwise Cellar-East stays cached as blocked and the
+         reciprocal Door-West link draws solid. */
+      a5restr_route_cache_clear (st);
       gsc_a5_map_view (st, view);
       *player = a5state_player_location (st);
       return TRUE;
@@ -8957,17 +9236,159 @@ gsc_map_worth_opening (void)
 }
 
 /*
+ * gsc_map_reset_suggest()
+ *
+ * Allow the next successful present to use SuggestShow again (fresh run after
+ * RESTART).  Clears any latent document so the host also resets suggestedOnce.
+ */
+static void
+gsc_map_reset_suggest (void)
+{
+  gsc_map_suggested = FALSE;
+  if (gsc_use_map_ext)
+    {
+      glk_map_close ();
+      gsc_map_shown = FALSE;
+    }
+}
+
+/*
  * gsc_map_redraw()
  *
- * Rasterise the map and blit it into the graphics window.  Glk has no drawing
- * primitives beyond a filled rectangle, so -- as in the Comprehend port -- the
- * page is rendered into an RGB surface and flushed as run-length-encoded
- * horizontal spans, which is far cheaper than one fill_rect per pixel.
- *
- * Only the rows that differ from what is already on screen (gsc_map_screen) are
- * flushed, so a turn that leaves the map alone -- most of them -- sends nothing
- * at all.
+ * With gestalt_Map, emit an SVG document via glk_map_present.  Otherwise
+ * rasterise into a Glk graphics window as before.
  */
+static void
+gsc_map_present_svg (int user_requested)
+{
+  map_view_t view;
+  const char *ploc = NULL;
+  char keybuf[16];
+  map_svg_t *svg;
+  glui32 flags;
+
+  if (!gsc_use_map_ext)
+    return;
+
+  /* Same host text style the raster path uses (map_set_palette). */
+  {
+    glui32 bg, fg;
+
+    if (gsc_normal_measure (&fg, &bg))
+      map_set_palette (bg, fg);
+  }
+
+  if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
+    {
+      /* Nothing to show: drop the latent document.  SuggestShow may fire
+         again when a useful room appears (clear also resets host chrome). */
+      glk_map_close ();
+      gsc_map_shown = FALSE;
+      gsc_map_suggested = FALSE;
+      if (user_requested)
+        gsc_normal_string ("No map is available.\n");
+      return;
+    }
+
+  svg = map_render_svg (gsc_map, &view, ploc);
+  if (gsc_is_a5)
+    gsc_a5_map_names_clear ();
+  if (svg == NULL)
+    {
+      glk_map_close ();
+      gsc_map_shown = FALSE;
+      gsc_map_suggested = FALSE;
+      if (user_requested)
+        gsc_normal_string ("No map is available.\n");
+      return;
+    }
+
+  flags = mapflag_HasFocus;
+  if (user_requested)
+    flags |= mapflag_UserRequestedShow;
+  else if (!gsc_map_suggested)
+    flags |= mapflag_SuggestShow;
+
+  {
+    glk_maphyperlink_t *hots = NULL;
+    glk_mappoint_t *pts = NULL;
+    glui32 nhot = 0;
+    int hi, pi;
+
+    gsc_map_n_hot = 0;
+    if (svg->nhyperlinks > 0 && svg->hyperlinks != NULL)
+      {
+        nhot = (glui32) svg->nhyperlinks;
+        if (nhot > GSC_MAP_HOT_MAX)
+          nhot = GSC_MAP_HOT_MAX;
+        hots = (glk_maphyperlink_t *) calloc (nhot, sizeof (glk_maphyperlink_t));
+        pts = (glk_mappoint_t *) calloc (nhot * 4, sizeof (glk_mappoint_t));
+        if (hots == NULL || pts == NULL)
+          {
+            free (hots);
+            free (pts);
+            hots = NULL;
+            pts = NULL;
+            nhot = 0;
+          }
+        else
+          {
+            for (hi = 0; hi < (int) nhot; hi++)
+              {
+                map_svg_hyperlink_t *src = &svg->hyperlinks[hi];
+                glk_mappoint_t *p = pts + hi * 4;
+                int np = src->npoints;
+
+                if (np != 4 || src->xy == NULL)
+                  {
+                    /* Room boxes are always quads from map_render_svg. */
+                    nhot = (glui32) hi;
+                    break;
+                  }
+                for (pi = 0; pi < 4; pi++)
+                  {
+                    p[pi].x = src->xy[pi * 2];
+                    p[pi].y = src->xy[pi * 2 + 1];
+                  }
+                hots[hi].id = src->id;
+                hots[hi].label = src->label;
+                hots[hi].npoints = 4;
+                hots[hi].points = p;
+                if (src->key != NULL)
+                  {
+                    snprintf (gsc_map_hot_keys[hi], sizeof gsc_map_hot_keys[hi],
+                              "%s", src->key);
+                    gsc_map_n_hot = hi + 1;
+                  }
+              }
+          }
+      }
+
+    if (glk_map_present (mapimage_SVG,
+                         (const unsigned char *) svg->svg,
+                         (glui32) strlen (svg->svg),
+                         flags,
+                         mapcolor_Default,
+                         svg->focus_left, svg->focus_top,
+                         svg->focus_width, svg->focus_height,
+                         hots, nhot))
+      {
+        if (!user_requested && !gsc_map_suggested
+            && (flags & mapflag_SuggestShow))
+          gsc_map_suggested = TRUE;
+        gsc_map_shown = TRUE;
+        gsc_map_request_input ();
+      }
+    else if (user_requested)
+      gsc_normal_string ("Failed to display the map.\n");
+
+    free (hots);
+    free (pts);
+  }
+
+  map_svg_free (svg);
+}
+
 static void
 gsc_map_redraw (void)
 {
@@ -8983,6 +9404,12 @@ gsc_map_redraw (void)
      with gsc_map_shown set, so this runs once.) */
   if (gsc_map_want && !gsc_map_shown && gsc_map_worth_opening ())
     gsc_map_show ();
+
+  if (gsc_use_map_ext)
+    {
+      gsc_map_present_svg (FALSE);
+      return;
+    }
 
   if (!gsc_map_window)
     return;
@@ -9066,10 +9493,9 @@ gsc_map_redraw (void)
   gsc_map_screen = surf;
   gsc_map_full_flush = FALSE;
 
-  /* Arm the click that walks the player to a room.  Mouse requests are
+  /* Arm the click that walks the player to a room.  Input requests are
      one-shot, so this is re-armed after every redraw. */
-  if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-    glk_request_mouse_event (gsc_map_window);
+  gsc_map_request_input ();
 }
 
 /*
@@ -9362,6 +9788,14 @@ gsc_map_show (void)
       return;
     }
 
+  if (gsc_use_map_ext)
+    {
+      gsc_map_present_svg (TRUE);
+      if (!gsc_is_a5 && gsc_map == NULL && scmap_failed () != 0)
+        gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
+      return;
+    }
+
   if (!glk_gestalt (gestalt_Graphics, 0)
       || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
     {
@@ -9406,6 +9840,14 @@ gsc_map_show (void)
 static void
 gsc_map_hide (void)
 {
+  if (gsc_use_map_ext)
+    {
+      /* Hide is host chrome; clear only removes the latent document.  Prefer
+         leaving the document so Show Map / "map" can reopen it. */
+      gsc_map_shown = FALSE;
+      return;
+    }
+
   if (gsc_map_window)
     {
       glk_window_close (gsc_map_window, NULL);
@@ -9472,6 +9914,13 @@ gsc_map_set (int shown)
 static void
 gsc_map_toggle (void)
 {
+  if (gsc_use_map_ext)
+    {
+      /* Host owns hide/show chrome; a typed "map" is UserRequestedShow. */
+      gsc_map_show ();
+      return;
+    }
+
   gsc_map_set (!(gsc_map_shown || gsc_map_want));
 }
 
@@ -9506,8 +9955,9 @@ gsc_map_auto_reveal (void)
   gsc_map_want = FALSE;
   if (!gsc_map_available ())
     return;
-  if (!glk_gestalt (gestalt_Graphics, 0)
-      || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
+  if (!gsc_use_map_ext
+      && (!glk_gestalt (gestalt_Graphics, 0)
+          || !glk_gestalt (gestalt_DrawImage, wintype_Graphics)))
     return;
 
   pref = gsc_map_pref_read (&at_top, &colourful);
@@ -9593,6 +10043,12 @@ gsc_map_notice_restart (void)
 static void
 gsc_map_place (int at_top)
 {
+  if (gsc_use_map_ext)
+    {
+      gsc_normal_string ("The map opens in its own window; placement is controlled by the interpreter.\n");
+      return;
+    }
+
   if (gsc_map_shown && gsc_map_at_top == at_top)
     {
       gsc_normal_string (at_top
@@ -9788,6 +10244,11 @@ gsc_command_zoom (const char *argument)
   if (scr_strcasecmp (argument, "auto") == 0
       || scr_strcasecmp (argument, "default") == 0)
     {
+      if (gsc_use_map_ext)
+        {
+          gsc_normal_string ("Zoom is controlled in the map window.\n");
+          return;
+        }
       if (gsc_map_zoom == 0)
         gsc_normal_string ("The map is already zooming to fit its window.\n");
       else
@@ -9806,6 +10267,12 @@ gsc_command_zoom (const char *argument)
   else
     {
       gsc_command_usage ("zoom");
+      return;
+    }
+
+  if (gsc_use_map_ext)
+    {
+      gsc_normal_string ("Zoom is controlled in the map window.\n");
       return;
     }
 
@@ -9868,6 +10335,11 @@ gsc_a5_try_restore (a5_run_t *run)
   /* Don't let a later UNDO jump back across the restore boundary. */
   a5run_undo_forget (run);
   gsc_a5_put_string ("Game restored.\n");
+  /* Location (and what has been seen) may have changed; refresh the
+     status line and map immediately, as UNDO does -- otherwise both stay
+     stale until the next ordinary turn. */
+  gsc_a5_status (run);
+  gsc_map_redraw ();
   return TRUE;
 }
 
@@ -9925,6 +10397,9 @@ gsc_a5_restart_run (a5_run_t *&run)
 
   glk_window_clear (gsc_main_window);
   gsc_main_window_empty = TRUE;
+  /* Fresh session: allow SuggestShow again (adrift-5-rs resets with the
+     GlkSession).  Clear any latent document from the previous run first. */
+  gsc_map_reset_suggest ();
   gsc_a5_present_intro (run);
   gsc_map_auto_reveal ();
 }
@@ -10060,7 +10535,9 @@ gsc_a5_main (void)
     }
   gsc_a5_start_real_time (run);
 
-  /* The map is authored data on the adventure, so it outlives restarts. */
+  /* The map is authored data on the adventure, so it outlives restarts.
+     Do not present yet: a5run_intro marks rooms seen (and may teleport-
+     reveal, e.g. Grandpa's Ranch).  gsc_a5_present_intro redraws after. */
   if (gsc_map == NULL)
     {
       gsc_map = a5map_load (gsc_a5_adv);
@@ -10321,6 +10798,8 @@ glk_main (void)
 {
   assert (gsc_startup_called && !gsc_main_called);
   gsc_main_called = TRUE;
+
+  gsc_use_map_ext = glk_gestalt (gestalt_Map, 0) ? TRUE : FALSE;
 
   /* ADRIFT 5 games run the dedicated a5 turn loop; everything else (ADRIFT
    * <=4) uses the scare engine. */
