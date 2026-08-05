@@ -387,11 +387,11 @@ gsc_fatal (const char *string)
  * Style hints have to be set before the window they apply to is opened.
  * Centered text (<center>/<centre> sections) renders through two user styles
  * hinted for centered justification: User1 plain, User2 bold (Glk styles
- * don't combine, so <center><b> title lines need their own style).  The a5
- * renderer strips <b> and so uses only User1, but both paths hint the pair
- * identically.  Libraries that ignore justification hints show these as
- * ordinary left-flush text.  User1 on the grid is the reverse-video status
- * line.
+ * don't combine, so <center><b> title lines need their own style).  Right-
+ * aligned text (<right>) uses style_Note with RightFlush.  Italic uses
+ * Emphasized (or Alert when combined with bold).  Libraries that ignore
+ * justification hints show alignment styles as ordinary left-flush text.
+ * User1 on the grid is the reverse-video status line.
  *
  * Header and Subheader are hinted the other way, left-flush.  This port uses
  * them purely as stand-ins for a large <font size=...> and for <b> (see
@@ -416,6 +416,9 @@ gsc_hint_window_styles (void)
   glk_stylehint_set (wintype_TextBuffer, style_User2,
                      stylehint_Justification, stylehint_just_Centered);
   glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+
+  glk_stylehint_set (wintype_TextBuffer, style_Note,
+                     stylehint_Justification, stylehint_just_RightFlush);
 
   glk_stylehint_set (wintype_TextBuffer, style_Header,
                      stylehint_Justification, stylehint_just_LeftFlush);
@@ -6414,19 +6417,28 @@ gsc_a5_draw_image (winid_t win, glui32 number)
 /*
  * gsc_a5_span_style()
  *
- * Pick the Glk style for a text span given its centered and bold nesting
- * depths.  Glk styles don't combine, so the four states map onto four
- * styles: the two justification-hinted user styles for centered spans
- * (User2 also weight-hinted, for centered bold), style_Subheader for plain
- * inline bold (as the ADRIFT 4 path does, gsc_set_glk_style), and Normal
- * otherwise.
+ * Pick the Glk style for a text span given its alignment and weight/oblique
+ * nesting depths.  Glk styles don't combine, so alignment wins over italic,
+ * centered+bold keeps User2 (weight-hinted), and right-aligned text uses
+ * style_Note (RightFlush-hinted) regardless of bold/italic.  Unaligned
+ * bold+italic maps to Alert; italic alone to Emphasized; bold alone to
+ * Subheader (as the ADRIFT 4 path does in gsc_set_glk_style).
  */
 static glui32
-gsc_a5_span_style (int center_depth, int bold_depth)
+gsc_a5_span_style (int center_depth, int right_depth,
+                   int bold_depth, int italic_depth)
 {
+  if (right_depth > 0)
+    return style_Note;
   if (center_depth > 0)
     return bold_depth > 0 ? style_User2 : style_User1;
-  return bold_depth > 0 ? style_Subheader : style_Normal;
+  if (bold_depth > 0 && italic_depth > 0)
+    return style_Alert;
+  if (italic_depth > 0)
+    return style_Emphasized;
+  if (bold_depth > 0)
+    return style_Subheader;
+  return style_Normal;
 }
 
 /*
@@ -6459,16 +6471,17 @@ gsc_a5_open_side_window (void)
  * image at its marked position, pause for a keypress at each <waitkey>
  * mark and for a timed delay at each <wait N> mark, clear the story window
  * at each <cls> mark, show <center> spans in the centered style_User1
- * (hinted for centered justification before the window opened), and <b>
- * spans in bold.  This is the same presentation the official Runner's
- * output pane gives, e.g., Anno 1700's intro: credits and cover image,
- * "Press any key", then a cleared screen for the opening narrative.
+ * (hinted for centered justification before the window opened), <right>
+ * spans in RightFlush style_Note, <b> spans in bold, and <i> spans in
+ * italic.  This is the same presentation the official Runner's output pane
+ * gives, e.g., Anno 1700's intro: credits and cover image, "Press any key",
+ * then a cleared screen for the opening narrative.
  */
 static void
 gsc_a5_display (const char *text)
 {
   const char *p = text, *seg = text;
-  int center_depth = 0, bold_depth = 0;
+  int center_depth = 0, right_depth = 0, bold_depth = 0, italic_depth = 0;
   /* The window a run of text is currently going to: the main story window, or
      an author-defined side window between an A5_WINDOW_MARK span and its
      A5_ENDWINDOW_MARK.  A <cls> inside the span clears that side window. */
@@ -6484,7 +6497,9 @@ gsc_a5_display (const char *text)
       if (*p != '\0' && *p != A5_CLS_MARK && *p != A5_WAITKEY_MARK
           && *p != A5_IMG_MARK && *p != A5_CENTER_MARK
           && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
-          && *p != A5_ENDBOLD_MARK && *p != A5_WINDOW_MARK
+          && *p != A5_ENDBOLD_MARK && *p != A5_ITALIC_MARK
+          && *p != A5_ENDITALIC_MARK && *p != A5_RIGHT_MARK
+          && *p != A5_ENDRIGHT_MARK && *p != A5_WINDOW_MARK
           && *p != A5_ENDWINDOW_MARK && *p != A5_SOUND_MARK
           && *p != A5_COMMIT_MARK && *p != A5_WAIT_MARK)
         {
@@ -6543,29 +6558,43 @@ gsc_a5_display (const char *text)
       else if (*p == A5_COMMIT_MARK)
         {
           /* Display-commit boundary with a dangling span (a5text.h): each
-             commit is its own Source2HTML parse in the Runner, so a <center>
-             or <b> left open there ends now -- Death Shack's Introduction
-             never closes its <center>, and the first room description (the
-             next commit) must come out left-aligned, not centered. */
-          center_depth = bold_depth = 0;
-          glk_set_style (gsc_a5_span_style (0, 0));
+             commit is its own Source2HTML parse in the Runner, so a <center>,
+             <right>, <b>, or <i> left open there ends now -- Death Shack's
+             Introduction never closes its <center>, and the first room
+             description (the next commit) must come out left-aligned, not
+             centered. */
+          center_depth = right_depth = bold_depth = italic_depth = 0;
+          glk_set_style (gsc_a5_span_style (0, 0, 0, 0));
         }
       else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
-               || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK)
+               || *p == A5_RIGHT_MARK || *p == A5_ENDRIGHT_MARK
+               || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK
+               || *p == A5_ITALIC_MARK || *p == A5_ENDITALIC_MARK)
         {
-          /* Centered or bold span boundary: like the Runner, only the style
-             changes -- the game's own line breaks around a centered span
-             delimit the centered paragraph.  A <b> inside a <center> gets the
-             weight-hinted centered style (User2); elsewhere it gets Subheader. */
+          /* Alignment or character-style span boundary: like the Runner, only
+             the style changes -- the game's own line breaks around an aligned
+             span delimit the paragraph.  A <b> inside a <center> gets the
+             weight-hinted centered style (User2); elsewhere bold is Subheader
+             and italic is Emphasized (Alert when both).  Right alignment uses
+             style_Note and wins over character styles. */
           if (*p == A5_CENTER_MARK)
             center_depth++;
           else if (*p == A5_ENDCENTER_MARK && center_depth > 0)
             center_depth--;
+          else if (*p == A5_RIGHT_MARK)
+            right_depth++;
+          else if (*p == A5_ENDRIGHT_MARK && right_depth > 0)
+            right_depth--;
           else if (*p == A5_BOLD_MARK)
             bold_depth++;
           else if (*p == A5_ENDBOLD_MARK && bold_depth > 0)
             bold_depth--;
-          glk_set_style (gsc_a5_span_style (center_depth, bold_depth));
+          else if (*p == A5_ITALIC_MARK)
+            italic_depth++;
+          else if (*p == A5_ENDITALIC_MARK && italic_depth > 0)
+            italic_depth--;
+          glk_set_style (gsc_a5_span_style (center_depth, right_depth,
+                                            bold_depth, italic_depth));
         }
       else if (*p == A5_WAIT_MARK)
         {
@@ -6613,8 +6642,9 @@ gsc_a5_display (const char *text)
       seg = ++p;
     }
 
-  /* A dangling <center> or <b> must not bleed into prompts and later turns. */
-  if (center_depth > 0 || bold_depth > 0)
+  /* A dangling span must not bleed into prompts and later turns. */
+  if (center_depth > 0 || right_depth > 0
+      || bold_depth > 0 || italic_depth > 0)
     glk_set_style (style_Normal);
   /* Likewise a dangling <window> span: prompts and input echo belong in the
      main story window. */

@@ -90,6 +90,12 @@
      - <b> and </b> leave A5_BOLD_MARK and A5_ENDBOLD_MARK, so the host can
        show the span between them in bold (a Glk host through style_Subheader,
        or style_User2 when the span is also centered).
+     - <i> and </i> leave A5_ITALIC_MARK and A5_ENDITALIC_MARK, so the host
+       can show the span in italic (style_Emphasized, or style_Alert when
+       combined with bold).  Alignment styles win over italic when nested.
+     - <right> and </right> leave A5_RIGHT_MARK and A5_ENDRIGHT_MARK, so the
+       host can show the span right-aligned (a Glk host through a
+       RightFlush-hinted style_Note).
      - <window NAME> leaves A5_WINDOW_MARK<name>A5_WINDOW_MARK (the name span
        delimited like an image), and </window> leaves A5_ENDWINDOW_MARK, so the
        host can route the enclosed text to a named secondary window (a Glk host
@@ -101,14 +107,15 @@
        text -- BEFORE any later <waitkey> pause, the way the Runner's
        DisplayText acts on an audio tag the moment it reaches it (Pervert
        Action Crisis strikes its sting ahead of a keypress-paced cutscene).
-     - a <center> or <b> span still open when a Display commit ends dies with
-       that commit: the Runner renders each commit through its own Source2HTML
-       parse, so an unclosed tag never bleeds into the next commit's text.
-       The turn assembler (sb_resolve_cls, a5sb.cpp) leaves A5_COMMIT_MARK at
-       a boundary whose commit dangles a span, and the host resets its span
-       state there -- Death Shack's Introduction opens <center> and never
-       closes it, yet the Runner shows the first room description (the next
-       commit, clsUserSession.vb game-start) left-aligned.
+     - a <center>, <right>, <b>, or <i> span still open when a Display commit
+       ends dies with that commit: the Runner renders each commit through its
+       own Source2HTML parse, so an unclosed tag never bleeds into the next
+       commit's text.  The turn assembler (sb_resolve_cls, a5sb.cpp) leaves
+       A5_COMMIT_MARK at a boundary whose commit dangles a span, and the host
+       resets its span state there -- Death Shack's Introduction opens
+       <center> and never closes it, yet the Runner shows the first room
+       description (the next commit, clsUserSession.vb game-start)
+       left-aligned.
      - <wait N> leaves an A5_WAIT_MARK-delimited delay, \026<seconds>\026
        (the tag's argument verbatim; fractions allowed), so the host can run
        a timed pause where the tag sits, the way the Runner's rendering
@@ -119,8 +126,8 @@
    finish_turn keeps all of these in the returned turn text; a host that never
    enables interactive mode (the headless dump / ground-truth harness) sees no
    behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE),
-   \x11 (DC1), \x12 (DC2), \x13 (DC3), \x14 (DC4), \x15 (NAK) and \x16 (SYN)
-   never occur in game text. */
+   \x11 (DC1), \x12 (DC2), \x13 (DC3), \x14 (DC4), \x15 (NAK), \x16 (SYN),
+   \x17 (ETB), \x18 (CAN), \x19 (EM) and \x1a (SUB) never occur in game text. */
 #define A5_IMG_MARK '\006'
 #define A5_WAITKEY_MARK '\007'
 #define A5_CENTER_MARK '\016'
@@ -132,6 +139,10 @@
 #define A5_SOUND_MARK '\024'
 #define A5_COMMIT_MARK '\025'
 #define A5_WAIT_MARK '\026'
+#define A5_ITALIC_MARK '\027'
+#define A5_ENDITALIC_MARK '\030'
+#define A5_RIGHT_MARK '\031'
+#define A5_ENDRIGHT_MARK '\032'
 
 /* Interactive-presentation mode toggle (default off; see marks above). */
 extern void a5text_set_interactive (int on);
