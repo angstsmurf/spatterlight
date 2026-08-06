@@ -11,6 +11,7 @@
 
 #import "GlkSoundChannel.h"
 #import "MIDIChannel.h"
+#import "NowPlayingCoordinator.h"
 #import "GlkController.h"
 #import "GlkController+InterpreterGlue.h"
 #import "GlkEvent.h"
@@ -212,6 +213,7 @@
  * device ahead of the first real tone, held strongly while it plays. See
  * primeBeepAudio. */
 @property (strong, nullable) NSSound *beepPrimeSound;
+@property (strong, nullable) NowPlayingCoordinator *nowPlayingCoordinator;
 @end
 
 @implementation SoundHandler
@@ -224,6 +226,7 @@
         _glkchannels = [NSMutableDictionary new];
         _files = [NSMutableDictionary new];
         _lastsoundresno = -1;
+        _nowPlayingCoordinator = [[NowPlayingCoordinator alloc] initWithSoundHandler:self];
     }
     return self;
 }
@@ -245,6 +248,7 @@
             }
         _glkchannels = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [GlkSoundChannel class], nil] forKey:@"gchannels"];
         _lastsoundresno = [decoder decodeIntForKey:@"lastsoundresno"];
+        _nowPlayingCoordinator = [[NowPlayingCoordinator alloc] initWithSoundHandler:self];
     }
     return self;
 }
@@ -367,7 +371,9 @@
 
 - (void)handleDeleteChannel:(int)channel {
     if (_glkchannels[@(channel)]) {
+        [_glkchannels[@(channel)] stop];
         _glkchannels[@(channel)] = nil;
+        [self nowPlayingStateDidChange];
     }
 }
 
@@ -430,14 +436,46 @@
         chan.handler = self;
         [chan restartInternal];
     }
+    [self nowPlayingStateDidChange];
 }
 
 - (void)stopAllAndCleanUp {
-    if (!_glkchannels.count)
+    if (!_glkchannels.count) {
+        [_nowPlayingCoordinator clear];
         return;
+    }
     for (GlkSoundChannel* chan in _glkchannels.allValues) {
         [chan stop];
     }
+    [_nowPlayingCoordinator clear];
+}
+
+#pragma mark Now Playing
+
+- (void)nowPlayingStateDidChange {
+    [_nowPlayingCoordinator refresh];
+}
+
+- (void)pauseEligibleNowPlayingChannels {
+    for (GlkSoundChannel *chan in _glkchannels.allValues) {
+        if (chan.claimsNowPlaying && chan.status != GlkSoundChannelStatusIdle && !chan.isPaused)
+            [chan pause];
+    }
+}
+
+- (void)unpauseEligibleNowPlayingChannels {
+    for (GlkSoundChannel *chan in _glkchannels.allValues) {
+        if (chan.claimsNowPlaying && chan.status != GlkSoundChannelStatusIdle && chan.isPaused)
+            [chan unpause];
+    }
+}
+
+- (BOOL)hasPlayingEligibleNowPlayingChannel {
+    for (GlkSoundChannel *chan in _glkchannels.allValues) {
+        if (chan.claimsNowPlaying && chan.status != GlkSoundChannelStatusIdle && !chan.isPaused)
+            return YES;
+    }
+    return NO;
 }
 
 #pragma mark Called from GlkSoundChannel

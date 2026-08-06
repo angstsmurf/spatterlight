@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GlkSoundChannel, GlkController, SoundHandler;
+@class GlkSoundChannel, GlkController, SoundHandler, NowPlayingCoordinator;
 
 typedef uint32_t glui32;
 typedef int32_t glsi32;
@@ -72,6 +72,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)restartAll;
 - (void)stopAllAndCleanUp;
+
+- (void)nowPlayingStateDidChange;
+- (void)pauseEligibleNowPlayingChannels;
+- (void)unpauseEligibleNowPlayingChannels;
+- (BOOL)hasPlayingEligibleNowPlayingChannel;
 
 - (int)handleNewSoundChannel:(glui32)volume;
 - (void)handleDeleteChannel:(int)channel;

@@ -95,6 +95,9 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
 - (BOOL)playSound:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
     _status = GlkSoundChannelStatusSound;
+    _claimsNowPlaying = NO;
+    _nowPlayingDuration = 0;
+    _nowPlayingLooping = NO;
 
     GlkSoundBlorbFormatType type;
 
@@ -106,8 +109,10 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         _player->Stop();
     }
 
-    if (areps == 0 || snd == -1)
+    if (areps == 0 || snd == -1) {
+        [_handler nowPlayingStateDidChange];
         return NO;
+    }
 
     /* load sound resource into memory */
     type = [_handler loadSoundResourceFromSound:snd data:&buf];
@@ -120,6 +125,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
     if (!mimeString) {
         NSLog(@"schannel_play_ext: unknown resource type (%ld).", type);
+        [_handler nowPlayingStateDidChange];
         return NO;
     }
 
@@ -150,15 +156,24 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
     [self setVolume];
 
+    BOOL looping = (areps == -1);
+
     if (areps != -1) {
         glui32 blocknotify = notify;
         glsi32 blockresid = resid;
         GlkSoundChannel __weak *weakSelf = self;
         _player->SetRenderingFinishedBlock(^(const SFB::Audio::Decoder& /*decoder*/){
             dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.status = GlkSoundChannelStatusIdle;
+                GlkSoundChannel *strongSelf = weakSelf;
+                if (!strongSelf)
+                    return;
+                strongSelf.status = GlkSoundChannelStatusIdle;
+                strongSelf.claimsNowPlaying = NO;
+                strongSelf.nowPlayingDuration = 0;
+                strongSelf.nowPlayingLooping = NO;
+                [strongSelf.handler nowPlayingStateDidChange];
                 if (blocknotify)
-                    [weakSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
+                    [strongSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
             });
         });
     }
@@ -169,12 +184,24 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     if (!decoder->Open(&error))
         NSLog(@"GlkSoundChannel: Could not open decoder (format:%@) %@", mimeString, error);
     SInt64 frames = decoder->GetTotalFrames();
+    Float64 sampleRate = decoder->GetFormat().mSampleRate;
+    if (frames > 0 && sampleRate > 0)
+        _nowPlayingDuration = (NSTimeInterval)frames / sampleRate;
+    _nowPlayingLooping = looping;
+    _claimsNowPlaying = looping || _nowPlayingDuration > 5.0;
+
     auto loopableRegionDecoder = SFB::Audio::LoopableRegionDecoder::CreateForDecoderRegion((std::move(decoder)), 0, (UInt32)frames, (UInt32)areps - 1);
     if (paused)
         _player->Enqueue(loopableRegionDecoder);
     else
         _player->Play(loopableRegionDecoder);
+
+    [_handler nowPlayingStateDidChange];
     return YES;
+}
+
+- (BOOL)isPaused {
+    return paused != 0;
 }
 
 - (void)stop {
@@ -184,10 +211,14 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         _player->Stop();
     }
     [self cleanup];
+    [_handler nowPlayingStateDidChange];
 }
 
 - (void)pause {
     paused = YES;
+    // Publish paused state before stopping output so macOS does not treat
+    // the ensuing silence as a full stop / session teardown.
+    [_handler nowPlayingStateDidChange];
     if (_player)
         _player->Pause();
 }
@@ -195,10 +226,12 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 - (void)unpause {
     paused = NO;
     BOOL result;
-    if (!_player) {
+    if (!_player || _player->IsStopped()) {
+        // No live decoder (or player fully stopped) — restart the same sound.
         result = [self playSound:resid countOfRepeats:loop notification:notify];
     } else {
         result = _player->Play();
+        [_handler nowPlayingStateDidChange];
     }
     if (!result)
         NSLog(@"GlkSoundChannel: Failed to unpause sound %d", resid);
@@ -206,6 +239,9 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
 - (void)cleanup {
     _status = GlkSoundChannelStatusIdle;
+    _claimsNowPlaying = NO;
+    _nowPlayingDuration = 0;
+    _nowPlayingLooping = NO;
     if (timer)
         [timer invalidate];
     timer = nil;
