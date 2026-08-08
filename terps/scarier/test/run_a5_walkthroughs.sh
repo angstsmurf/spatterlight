@@ -1552,7 +1552,8 @@ ProbeLifecycleRestart|a5probes/lifecycle.taf|3|3
 ProbeLifecycle2ndPass|a5probes/lifecycle.taf|0|0
 ProbeLifecycleLoop|a5probes/lifecycle.taf|0|0
 ProbeLifecycleLenZero|a5probes/lifecycle.taf|0|0
-ProbePopups|a5probes/popups.taf|8|8
+ProbeMap|a5probes/map.taf|0|0
+ProbePopups|a5probes/popups.taf|4|4
 ProbeRandomness|a5probes/randomness.taf|0|0
 ProbeRefCapture|a5probes/reference_capture.taf|4|4
 ProbeRestrictions|a5probes/restrictions.taf|10|10

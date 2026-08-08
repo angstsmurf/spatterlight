@@ -1834,6 +1834,39 @@ object_host_location (a5_state_t *st, const char *objkey, const char *cur,
   return NULL;
 }
 
+/* Display(sText) straight to the runner's sOutputText (clsUserSession.vb:298):
+   an action's immediate output precedes the task's buffered response, so when
+   run_task published a splice point, insert there (with the pSpace join rules
+   on both seams); otherwise append -- an After message already follows the
+   action position.  Recorded offsets into the sink (the deferred-Look slot)
+   are shifted past the insertion. */
+static void
+imm_display (a5_run_t *run, const char *msg, sb_t *out)
+{
+  sb_t *sink = run->imm_sink;
+  size_t at;
+  if (sink == NULL || run->imm_pos < 0 || (size_t) run->imm_pos > sink->len)
+    {
+      sb_pspace (out);
+      sb_puts (out, msg);
+      return;
+    }
+  at = (size_t) run->imm_pos;
+  std::string ins;
+  if (at > 0 && sink->p[at - 1] != '\n' && sink->p[at - 1] != A5_CLS_MARK)
+    ins += "  ";
+  ins += msg;
+  if (at < sink->len && sink->p[at] != '\n' && sink->p[at] != ' ')
+    ins += "  ";
+  sb_splice (sink, at, 0, ins.c_str ());
+  run->imm_pos = (long) (at + ins.size ());
+  if (run->look_pending && run->look_pos >= at)
+    run->look_pos += ins.size ();
+  if (run->exec_scope != NULL && run->exec_scope->look_sink == sink
+      && run->exec_scope->look_off >= (long) at)
+    run->exec_scope->look_off += (long) ins.size ();
+}
+
 static void
 act_move_character (a5_run_t *run, const char * /*kind*/,
                     const std::vector<std::string> &tk, const char * /*body*/,
@@ -1911,10 +1944,23 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
         {
           const char *canon = a5parse_canonical_direction (k2);
           const char *here = st->char_loc[ci];
+          const a5_xml_node_t *blocked = NULL;
           const char *dest;
           if (canon == NULL) canon = k2;    /* already canonical */
-          dest = here ? a5restr_exit_in_direction (st, k1, here, canon, NULL)
+          dest = here ? a5restr_exit_in_direction (st, k1, here, canon,
+                                                   &blocked)
                       : NULL;
+          if (dest == NULL && blocked != NULL)
+            {
+              /* Route restriction failed: the runner Displays the blocking
+                 restriction's message and abandons the move (clsUserSession.vb:
+                 1748 Display(sRestrictionText)) -- immediate output, so it
+                 precedes the task's buffered completion message. */
+              char *fmsg = a5text_describe (st, blocked);
+              if (msg_has_output (fmsg))
+                imm_display (run, fmsg, out);
+              free (fmsg);
+            }
           if (dest != NULL)
             {
               /* destination may be a location group -> first member */
@@ -3588,6 +3634,12 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   int   flat_pre_ink = 0;
   int   flat_inter = 0;
   sb_t  flat_abuf; sb_init (&flat_abuf);
+  /* Immediate-Display splice point: where this task's output begins in `out`,
+     recorded BEFORE the Before message is emitted.  An action Display that the
+     runner sends straight to sOutputText (vb:1748) precedes the buffered
+     response, i.e. lands here.  (imm frame set around the action loop below,
+     flat paths only.) */
+  long imm0 = (long) out->len;
   if (before && comp != NULL)
     {
       if (run->resp != NULL)
@@ -3721,11 +3773,20 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
   if (act != NULL)
     {
       int saved_sti = run->cur_score_ti;
+      sb_t *prev_isink = run->imm_sink;
+      long  prev_ipos = run->imm_pos;
       run->cur_score_ti = self_ti;
+      /* Flat paths only: the resp path's flush order and the Look dance keep
+         their existing append behaviour.  defer_look is fine -- the splice
+         helper shifts look_pos when it inserts ahead of a recorded slot. */
+      if (run->resp == NULL)
+        { run->imm_sink = out; run->imm_pos = imm0; }
       const a5_xml_node_t *c;
       for (c = act->first_child; c != NULL; c = c->next)
         run_action (run, c->name, c->text, depth, flat_inter ? &flat_abuf : out);
       run->cur_score_ti = saved_sti;
+      run->imm_sink = prev_isink;
+      run->imm_pos = prev_ipos;
     }
 
   if (local_defer_look)

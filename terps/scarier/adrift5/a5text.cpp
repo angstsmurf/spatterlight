@@ -1631,45 +1631,20 @@ fn_sum (a5_state_t * /*st*/, const char * /*name*/, const char *args)
 }
 
 static char *
-fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/, const char *args)
+fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/,
+                const char * /*args*/)
 {
   /* %PopUpChoice[prompt, choice1, choice2]% (Global.vb:2278): a Yes/No dialog
-     where Yes picks choice1, No picks choice2; args split naively on commas
-     (the runner's own TODO-marked sArgs.Split(",")).  Headless, an installed
-     popup callback answers (the host feeds the next script line): a reply
-     matching choice2 case-insensitively picks it, anything else keeps
-     choice1 -- which is also the unattended MsgBox default (Yes). */
-  std::string a = args ? args : "";
-  std::vector<std::string> part;
-  size_t p = 0;
-  for (;;)
-    {
-      size_t e = a.find (',', p);
-      part.push_back (a.substr (p, e == std::string::npos
-                                       ? std::string::npos : e - p));
-      if (e == std::string::npos) break;
-      p = e + 1;
-    }
-  if (part.size () != 3)
-    return strdup ("");
-  auto unquote = [](std::string &s){
-    size_t b = s.find_first_not_of (" \t");
-    size_t e = s.find_last_not_of (" \t");
-    s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1);
-    if (s.size () >= 2 && s.front () == '"' && s.back () == '"')
-      s = s.substr (1, s.size () - 2); };
-  unquote (part[0]); unquote (part[1]); unquote (part[2]);
-  if (a5_popup != NULL)
-    {
-      char *ans = a5_popup (a5_popup_ctx, part[0].c_str (), part[1].c_str ());
-      if (ans != NULL)
-        {
-          int second = ci_eq (ans, part[2].c_str ());
-          free (ans);
-          return strdup (second ? part[2].c_str () : part[1].c_str ());
-        }
-    }
-  return strdup (part[1].c_str ());
+     where Yes picks choice1, No picks choice2.  Unlike PopUpInput, the runner
+     asks with MsgBox, NOT the scripted-input channel, and MsgBox throws
+     off-Windows, so FD lands in the ReplaceFunctions catch (Global.vb:2483)
+     and the token stays verbatim -- no output, no script line consumed, and a
+     SetVariable RHS keeps the literal %PopUpChoice[...]% text.  Beagle2's
+     startup Autorun depends on all three: its gender stays Male because
+     NewGender never equals "female".  Leave the token unhandled to match;
+     in particular never route it through the a5_popup script feed, which
+     would desync the transcript by a line. */
+  return NULL;
 }
 
 static char *
@@ -1798,7 +1773,11 @@ eval_function (a5_state_t *st, const char *name, const char *args)
 
   if (ci_eq (name, "player"))
     return fn_player (st, name, args);
-  if (ci_eq (name, "popupinput"))
+  /* Bare %PopUpInput% (no [args]) is not a function call in the runner --
+     the args-form regex doesn't match it, so it survives verbatim (ProbePopups
+     intro).  Evaluating it here would also eat a script line as the popup
+     answer, desyncing the transcript. */
+  if (args != NULL && ci_eq (name, "popupinput"))
     return fn_popupinput (st, name, args);
   if (ci_eq (name, "charactername"))
     return fn_charactername (st, name, args);

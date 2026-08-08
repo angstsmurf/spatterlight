@@ -195,6 +195,10 @@ main (int argc, char **argv)
   surf = map_surface_new (W, H);
   {
     const char *ploc = a5state_player_location (ctx.st);
+    /* Match the Glk layer (gsc_a5_map_view): the runner's map draws after
+       PrepareForNextTurn emptied the per-turn route memo, so stale in-turn
+       blocked results must not decide connector visibility. */
+    a5restr_route_cache_clear (ctx.st);
     map_frame (map, &view, ploc, surf, 0, &cam);
     map_render (map, &view, ploc, &cam, surf);
     fprintf (stderr, "player=%s page=%d scale=%d\n",

@@ -213,7 +213,10 @@ extern void a5text_set_media_sink (a5_media_cb cb, void *ctx);
  * no callback installed (the default) PopUpInput evaluates to its default,
  * matching the Adrift 5 runner's InputBox returning the default when unattended.  The
  * FrankenDrift.Headless frontend consumes exactly one script line per popup the
- * same way, so ground-truth transcripts stay byte-aligned.
+ * same way, so ground-truth transcripts stay byte-aligned.  PopUpInput ONLY:
+ * %PopUpChoice% goes through MsgBox in the runner, not the scripted-input
+ * channel, and stays unevaluated headless (see fn_popupchoice) -- feeding it
+ * from the script would desync the transcript by a line.
  */
 typedef char *(*a5_popup_cb) (void *ctx, const char *prompt, const char *dflt);
 extern void a5text_set_popup_cb (a5_popup_cb cb, void *ctx);

@@ -84,6 +84,9 @@ typedef struct map_node_s {
   int x, y, z;                /* top-left corner, in map units               */
   int w, h;                   /* size in map units                           */
   int page;
+  int hidden;                 /* Location <Hide>: the runner omits the box
+                                 but still draws connectors to a seen hidden
+                                 room (Map.vb:1156 DrawNode vs DrawLinks)    */
   map_link_t *links;
   int n_links;
 } map_node_t;

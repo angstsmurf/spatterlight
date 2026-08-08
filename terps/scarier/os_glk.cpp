@@ -6978,6 +6978,12 @@ gsc_a5_map_ever_blocked (void *ctx, const char *lockey, int dir)
 static void
 gsc_a5_map_view (a5_state_t *st, map_view_t *view)
 {
+  /* The runner draws its map only after PrepareForNextTurn has emptied the
+     per-turn route memo, so a route un-blocked late in the turn is re-checked
+     fresh by the draw; drop the memo here to match.  (The turn loop clears it
+     again at the next command, so entries seeded by drawing never leak into
+     game-visible restriction checks.) */
+  a5restr_route_cache_clear (st);
   view->seen = gsc_a5_map_seen;
   view->name = gsc_a5_map_name;
   view->exit_dest = gsc_a5_map_exit_dest;

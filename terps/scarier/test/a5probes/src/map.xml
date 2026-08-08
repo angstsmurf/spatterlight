@@ -1,0 +1,1379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-08-05 12:00:00</LastUpdated>
+<Title>Map Edge Cases</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Manual map stress test for ADRIFT-5-XML.md section 6.15. Type HELP. REVEAL marks Main-page rooms seen. After REVEAL: Cellar-East dotted (started blocked), Wide-South solid (started passable). OPEN/CLOSE DOOR and OPEN/CLOSE LATCH flip those links; OPEN/CLOSE GATE flips off-page stubs.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+
+<!-- ========== Main page ========== -->
+
+<Location>
+<Key>LocationHub</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hub</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map focus. After REVEAL expect:
+- solid duplex N to North (bent midpoints)
+- one-way arrow E to Skewed (East-&gt;North anchors, room drawn SE)
+- solid S and Down lines to Cellar (same dest)
+- solid W to No Link (Hub has West Movement but no Map Link; No Link's East Map Link still draws the connector)
+- Up line to dim Attic (Z=1)
+- green IN to Closet
+- pink OUT stub toward unseen Outside
+- SE one-way to Disagree (drawn NW)
+- NE/SW/NW stubs toward unseen Annex rooms (NW only while Gate=1; SW only while Gate=0)</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationNorth</Destination>
+</Movement>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationSkewed</Destination>
+</Movement>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationCellar</Destination>
+</Movement>
+<Movement>
+<Direction>Down</Direction>
+<Destination>LocationCellar</Destination>
+</Movement>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationNoLink</Destination>
+</Movement>
+<Movement>
+<Direction>Up</Direction>
+<Destination>LocationAttic</Destination>
+</Movement>
+<Movement>
+<Direction>In</Direction>
+<Destination>LocationCloset</Destination>
+</Movement>
+<Movement>
+<Direction>Out</Direction>
+<Destination>LocationOutside</Destination>
+</Movement>
+<Movement>
+<Direction>SouthEast</Direction>
+<Destination>LocationDisagree</Destination>
+</Movement>
+<Movement>
+<Direction>NorthEast</Direction>
+<Destination>LocationOffPageFree</Destination>
+</Movement>
+<Movement>
+<Direction>SouthWest</Direction>
+<Destination>LocationOffPageFail</Destination>
+<Restrictions>
+<Restriction>
+<Variable>VariableGate Must BeEqualTo 0</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The SW gate blocks this way while the gate is open. CLOSE GATE first.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+</Movement>
+<Movement>
+<Direction>NorthWest</Direction>
+<Destination>LocationOffPagePass</Destination>
+<Restrictions>
+<Restriction>
+<Variable>VariableGate Must BeEqualTo 1</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The NW gate is closed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationNorth</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>North</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: duplex line south to Hub (may be drawn from Hub with bent anchors). East: stub arrow to Offgrid (no map node, unseen). Orphan Map Link West has no Movement - no west stub. After visiting Offgrid, East still draws nothing useful (no node on page).</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationOffgrid</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationSkewed</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Skewed</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: room sits SE of Hub though exit is East; Hub connector uses SourceAnchor East and DestinationAnchor North (non-opposite). Expect a one-way arrow from Hub into this node's north face.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationCellar</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Cellar</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: duplex connectors N/Up to Hub (Hub also has South and Down to here). Down: stub to unseen Pit. East: restricted door to Door Room. After REVEAL expect a dotted line (reveal fails the closed door once, then opens it — Grandpa Ranch pattern).</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<Movement>
+<Direction>Up</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<Movement>
+<Direction>Down</Direction>
+<Destination>LocationPit</Destination>
+</Movement>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationDoor</Destination>
+<Restrictions>
+<Restriction>
+<Variable>VariableDoor Must BeEqualTo 1</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The door is closed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationAttic</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Attic</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: Z=1. From Hub (Z=0) this node is dimmed; ATTIC focuses here and dims Z=0 rooms. Down duplex to Hub. Up: stub to unseen Sky.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>Down</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<Movement>
+<Direction>Up</Direction>
+<Destination>LocationSky</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationCloset</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Closet</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: green IN / pink OUT discs (Out to seen Hub still shows OUT). Deeper In: In disc toward unseen Vault. East: one-way arrow to One Way (no return movement).</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>Out</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<Movement>
+<Direction>In</Direction>
+<Destination>LocationVault</Destination>
+</Movement>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationOneWay</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationOutside</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Outside</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unseen from start. Hub shows a pink OUT disc toward here. Once visited, Hub Out becomes a full In/Out treatment to a seen same-page room.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>In</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationNoLink</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>No Link</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: Hub has West Movement here but no Map Link on Hub. This room's East Map Link still draws the solid connector to Hub once both are seen. South: bent polyline (Anchor midpoints) to Wide Room.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationWide</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationSky</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Sky</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unseen Up target from Attic (stub from Attic until visited).</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>Down</Direction>
+<Destination>LocationAttic</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationPit</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Pit</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unseen Down target from Cellar (stub under Cellar until visited).</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>Up</Direction>
+<Destination>LocationCellar</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationVault</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Vault</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unseen In target from Closet.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>Out</Direction>
+<Destination>LocationCloset</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationHiddenSeen</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hidden Seen</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: Hide=1. REVEAL marks it seen but Runner still omits the node.</Text>
+</Description>
+</LongDescription>
+<Hide>1</Hide>
+</Location>
+
+<Location>
+<Key>LocationHiddenUnseen</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hidden Unseen</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: Hide=1 and never revealed - omitted.</Text>
+</Description>
+</LongDescription>
+<Hide>1</Hide>
+</Location>
+
+<Location>
+<Key>LocationDisagree</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Disagree</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map vs Location: Hub SE movement leads here, but this node is placed NW of Hub; Hub link DestinationAnchor is East. Expect a one-way connector from Hub into the east face of this NW box.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>NorthWest</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationOffgrid</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Offgrid</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>No Map Node. From North, East is a stub while this room is unseen; once seen there is still no box (and no same-page connector).</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationNorth</Destination>
+</Movement>
+</Location>
+
+<!-- Non-default Width/Height; bent link from No Link -->
+<Location>
+<Key>LocationWide</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Wide Room</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: node Width=10 Height=6 (larger than default 6x4). North bent link from No Link (Anchor midpoints). East: duplex to Loop. South: restricted latch to Latch Room - starts open; after REVEAL expect a solid line (never blocked). CLOSE LATCH omits it; OPEN LATCH after that shows dotted.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationNoLink</Destination>
+</Movement>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationLoop</Destination>
+</Movement>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationLatch</Destination>
+<Restrictions>
+<Restriction>
+<Variable>VariableLatch Must BeEqualTo 1</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The latch is closed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+</Movement>
+</Location>
+
+<!-- One-way from Closet; no return -->
+<Location>
+<Key>LocationOneWay</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>One Way</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: Closet East is one-way (no return Movement). Expect an arrow head on the connector into this room. No west exit.</Text>
+</Description>
+</LongDescription>
+</Location>
+
+<!-- Self-link -->
+<Location>
+<Key>LocationLoop</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Loop</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: North movement destination is this same room - drawn as an out-arrow stub from the north edge, not a loop line. West duplex to Wide Room.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationWide</Destination>
+</Movement>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationLoop</Destination>
+</Movement>
+</Location>
+
+<!-- Starts blocked (VariableDoor=0); REVEAL probes fail then opens → dotted -->
+<Location>
+<Key>LocationDoor</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Door Room</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: West back to Cellar with Door restriction that starts closed. REVEAL fails the exit once then opens it - expect dotted. CLOSE DOOR omits; OPEN DOOR restores dotted.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationCellar</Destination>
+<Restrictions>
+<Restriction>
+<Variable>VariableDoor Must BeEqualTo 1</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The door is closed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+</Movement>
+</Location>
+
+<!-- Starts passable (VariableLatch=1); REVEAL never fails it → solid -->
+<Location>
+<Key>LocationLatch</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Latch Room</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: North to Wide Room with Latch restriction that starts open. After REVEAL expect solid (restricted but never blocked). CLOSE LATCH omits; OPEN LATCH after a failed attempt shows dotted.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationWide</Destination>
+<Restrictions>
+<Restriction>
+<Variable>VariableLatch Must BeEqualTo 1</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The latch is closed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+</Movement>
+</Location>
+
+<!-- ========== Fog page (never revealed) ========== -->
+
+<Location>
+<Key>LocationFogA</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Fog A</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Fog page. Never revealed - Fog tab stays hidden.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationFogB</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationFogB</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Fog B</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Fog page. Never revealed.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationFogA</Destination>
+</Movement>
+</Location>
+
+<!-- ========== Annex page ========== -->
+
+<Location>
+<Key>LocationAnnex</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Annex</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Separate page (ANNEX). Pink OUT disc toward Hub on Main - In/Out icons still show for allowed routes even when the dest is seen on another page. Full line to Hub is not drawn (other page).</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>Out</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationOffPageFree</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Off Free</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Annex. From Hub NE: stub while this room is unseen; after visit/REVEAL ANNEX, Hub shows nothing for NE (seen + other page). Here, SW to Hub (seen, other page) also draws nothing - not a stub.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>SouthWest</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationOffPagePass</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Off Pass</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Annex. Hub NW stubs here only while unseen and Gate=1 (default open). Once seen, Hub NW draws nothing even if the gate passes.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>NorthEast</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+</Location>
+
+<Location>
+<Key>LocationOffPageFail</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Off Fail</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Annex. Hub SW stubs here only while unseen and Gate=0 (CLOSE GATE). Failing restrictions hide the stub.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>SouthEast</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+</Location>
+
+<Variable>
+<Key>VariableGate</Key>
+<Name>Gate</Name>
+<Type>Numeric</Type>
+<InitialValue>1</InitialValue>
+</Variable>
+<Variable>
+<Key>VariableDoor</Key>
+<Name>Door</Name>
+<Type>Numeric</Type>
+<InitialValue>0</InitialValue>
+</Variable>
+<Variable>
+<Key>VariableLatch</Key>
+<Name>Latch</Name>
+<Type>Numeric</Type>
+<InitialValue>1</InitialValue>
+</Variable>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationHub</Value>
+</Property>
+</Character>
+
+<Task>
+<Key>TaskReveal</Key>
+<Priority>60001</Priority>
+<Type>General</Type>
+<Command>reveal</Command>
+<Description>Reveal main map rooms</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Revealed Main-page demo rooms (returned to Hub). Expect Cellar-East dotted (started blocked) and Wide-South solid (started passable). Still unseen: Outside, Sky, Pit, Vault, Fog, Hidden Unseen, Offgrid, and Annex off-page rooms. Use REVEAL ANNEX for Annex.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character Player ToLocation LocationNorth</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationSkewed</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationCellar</MoveCharacter>
+<!-- Door starts closed: fail East once so bEverBeenBlocked is set → dotted after open. -->
+<MoveCharacter>Character Player InDirection East</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationDoor</MoveCharacter>
+<SetVariable>VariableDoor = "1"</SetVariable>
+<MoveCharacter>Character Player ToLocation LocationAttic</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationCloset</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationOneWay</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationNoLink</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationWide</MoveCharacter>
+<!-- Latch starts open: visit both ends without failing → solid after reveal. -->
+<MoveCharacter>Character Player ToLocation LocationLatch</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationLoop</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationDisagree</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationHiddenSeen</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationHub</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskRevealAnnex</Key>
+<Priority>60002</Priority>
+<Type>General</Type>
+<Command>reveal annex</Command>
+<Description>Reveal annex rooms</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Annex rooms marked seen (returned to Hub). Hub NE/SW/NW should now draw nothing (seen + other page), even when Gate allows the route.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character Player ToLocation LocationAnnex</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationOffPageFree</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationOffPagePass</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationOffPageFail</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationHub</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskAnnex</Key>
+<Priority>60003</Priority>
+<Type>General</Type>
+<Command>annex</Command>
+<Description>Visit annex page</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>On Annex page. Expect OUT disc toward Hub; no full line.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character Player ToLocation LocationAnnex</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskHub</Key>
+<Priority>60004</Priority>
+<Type>General</Type>
+<Command>hub</Command>
+<Description>Return to hub</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Returned to Hub.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character Player ToLocation LocationHub</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskAttic</Key>
+<Priority>60005</Priority>
+<Type>General</Type>
+<Command>attic</Command>
+<Description>Go to attic</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Attic focus (Z=1). Z=0 rooms should look dimmed.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character Player ToLocation LocationAttic</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskHelp</Key>
+<Priority>60006</Priority>
+<Type>General</Type>
+<Command>help</Command>
+<Description>Help</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>REVEAL / REVEAL ANNEX / ANNEX / HUB / ATTIC / OPEN GATE / CLOSE GATE / OPEN DOOR / CLOSE DOOR / OPEN LATCH / CLOSE LATCH. After REVEAL: Door (started blocked) dotted; Latch (started passable) solid.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskOpenGate</Key>
+<Priority>60007</Priority>
+<Type>General</Type>
+<Command>open gate</Command>
+<Description>Open gate</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Gate=1. If Annex rooms still unseen: Hub NW stub on, SW stub off.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>VariableGate = "1"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskCloseGate</Key>
+<Priority>60008</Priority>
+<Type>General</Type>
+<Command>close gate</Command>
+<Description>Close gate</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Gate=0. If Annex rooms still unseen: Hub NW stub off, SW stub on.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>VariableGate = "0"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskOpenDoor</Key>
+<Priority>60009</Priority>
+<Type>General</Type>
+<Command>open door</Command>
+<Description>Open door</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Door=1. Cellar-East should stay dotted after REVEAL.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>VariableDoor = "1"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskCloseDoor</Key>
+<Priority>60010</Priority>
+<Type>General</Type>
+<Command>close door</Command>
+<Description>Close door</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Door=0. Cellar-East omitted.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>VariableDoor = "0"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskOpenLatch</Key>
+<Priority>60011</Priority>
+<Type>General</Type>
+<Command>open latch</Command>
+<Description>Open latch</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Latch=1. Wide-South: solid if never blocked this session; dotted after CLOSE LATCH (and a failed walk) then OPEN LATCH.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>VariableLatch = "1"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskCloseLatch</Key>
+<Priority>60012</Priority>
+<Type>General</Type>
+<Command>close latch</Command>
+<Description>Close latch</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Latch=0. Wide-South omitted. Walk south from Wide to stamp blocked, then OPEN LATCH for dotted.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>VariableLatch = "0"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Map>
+<!--
+  Main layout (default 6x4 unless noted; origins spaced to avoid overlap):
+
+  HiddenSeen(-24,-12) Disagree(-16,-12) North(0,-12) AtticZ1(16,-12) SkyZ1(16,-20)
+  NoLink(-16,0) Hub(0,0) Closet(16,0) Outside(24,0) Vault(32,0) OneWay(40,0)
+  HiddenUnseen(-24,12) Cellar(0,12) Door(16,12) Skewed(16,20) Wide(-16,12)W10xH6 Loop(8,20)
+  Latch(-16,24) Pit(0,24)
+-->
+<Page>
+<Key>0</Key>
+<Selected>1</Selected>
+<Label>Main</Label>
+<Node>
+<Key>LocationHub</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+<!-- Bent midpoints on N (Link Anchor) -->
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+<Anchor>
+<X>2</X>
+<Y>-4</Y>
+<Z>0</Z>
+</Anchor>
+<Anchor>
+<X>-2</X>
+<Y>-8</Y>
+<Z>0</Z>
+</Anchor>
+</Link>
+<Link>
+<SourceAnchor>East</SourceAnchor>
+<DestinationAnchor>North</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>South</SourceAnchor>
+<DestinationAnchor>North</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>Down</SourceAnchor>
+<DestinationAnchor>Up</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>Up</SourceAnchor>
+<DestinationAnchor>Down</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>In</SourceAnchor>
+<DestinationAnchor>Out</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>Out</SourceAnchor>
+<DestinationAnchor>In</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>SouthEast</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>NorthEast</SourceAnchor>
+<DestinationAnchor>SouthWest</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>SouthWest</SourceAnchor>
+<DestinationAnchor>SouthEast</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>NorthWest</SourceAnchor>
+<DestinationAnchor>NorthEast</DestinationAnchor>
+</Link>
+<!-- no West Link -->
+</Node>
+<Node>
+<Key>LocationNorth</Key>
+<X>0</X>
+<Y>-12</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>South</SourceAnchor>
+<DestinationAnchor>North</DestinationAnchor>
+</Link>
+<!-- orphan West Link (no Movement) -->
+<Link>
+<SourceAnchor>West</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationSkewed</Key>
+<X>16</X>
+<Y>20</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>West</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationCellar</Key>
+<X>0</X>
+<Y>12</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>Up</SourceAnchor>
+<DestinationAnchor>Down</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>Down</SourceAnchor>
+<DestinationAnchor>Up</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>East</SourceAnchor>
+<DestinationAnchor>West</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationAttic</Key>
+<X>16</X>
+<Y>-12</Y>
+<Z>1</Z>
+<Link>
+<SourceAnchor>Down</SourceAnchor>
+<DestinationAnchor>Up</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>Up</SourceAnchor>
+<DestinationAnchor>Down</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationCloset</Key>
+<X>16</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>Out</SourceAnchor>
+<DestinationAnchor>In</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>In</SourceAnchor>
+<DestinationAnchor>Out</DestinationAnchor>
+</Link>
+<!-- one-way to OneWay -->
+<Link>
+<SourceAnchor>East</SourceAnchor>
+<DestinationAnchor>West</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationOutside</Key>
+<X>24</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>In</SourceAnchor>
+<DestinationAnchor>Out</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationNoLink</Key>
+<X>-16</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>East</SourceAnchor>
+<DestinationAnchor>West</DestinationAnchor>
+</Link>
+<!-- bent south to Wide -->
+<Link>
+<SourceAnchor>South</SourceAnchor>
+<DestinationAnchor>North</DestinationAnchor>
+<Anchor>
+<X>-14</X>
+<Y>4</Y>
+<Z>0</Z>
+</Anchor>
+<Anchor>
+<X>-18</X>
+<Y>8</Y>
+<Z>0</Z>
+</Anchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationSky</Key>
+<X>16</X>
+<Y>-20</Y>
+<Z>1</Z>
+<Link>
+<SourceAnchor>Down</SourceAnchor>
+<DestinationAnchor>Up</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationPit</Key>
+<X>0</X>
+<Y>24</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>Up</SourceAnchor>
+<DestinationAnchor>Down</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationVault</Key>
+<X>32</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>Out</SourceAnchor>
+<DestinationAnchor>In</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationHiddenSeen</Key>
+<X>-24</X>
+<Y>-12</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationHiddenUnseen</Key>
+<X>-24</X>
+<Y>12</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationDisagree</Key>
+<X>-16</X>
+<Y>-12</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>NorthWest</SourceAnchor>
+<DestinationAnchor>SouthEast</DestinationAnchor>
+</Link>
+</Node>
+<!-- Width/Height overrides -->
+<Node>
+<Key>LocationWide</Key>
+<X>-16</X>
+<Y>12</Y>
+<Z>0</Z>
+<Width>10</Width>
+<Height>6</Height>
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>East</SourceAnchor>
+<DestinationAnchor>West</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>South</SourceAnchor>
+<DestinationAnchor>North</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationOneWay</Key>
+<X>40</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationLoop</Key>
+<X>8</X>
+<Y>20</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>West</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+<!-- self-link -->
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationDoor</Key>
+<X>16</X>
+<Y>12</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>West</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationLatch</Key>
+<X>-16</X>
+<Y>24</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+</Node>
+<!-- Unknown key: skipped on load -->
+<Node>
+<Key>LocationDoesNotExist</Key>
+<X>100</X>
+<Y>100</Y>
+<Z>0</Z>
+</Node>
+</Page>
+
+<!-- No Label: Runner/Generator default to "Page 2" (Key+1) -->
+<Page>
+<Key>1</Key>
+</Page>
+
+<Page>
+<Key>2</Key>
+<Label>Fog</Label>
+<Node>
+<Key>LocationFogA</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>East</SourceAnchor>
+<DestinationAnchor>West</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationFogB</Key>
+<X>8</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>West</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+</Node>
+</Page>
+
+<Page>
+<Key>3</Key>
+<Label>Annex</Label>
+<Node>
+<Key>LocationAnnex</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>Out</SourceAnchor>
+<DestinationAnchor>In</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationOffPageFree</Key>
+<X>0</X>
+<Y>12</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>SouthWest</SourceAnchor>
+<DestinationAnchor>NorthEast</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationOffPagePass</Key>
+<X>16</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>NorthEast</SourceAnchor>
+<DestinationAnchor>SouthWest</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationOffPageFail</Key>
+<X>16</X>
+<Y>12</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>SouthEast</SourceAnchor>
+<DestinationAnchor>NorthWest</DestinationAnchor>
+</Link>
+</Node>
+</Page>
+</Map>
+</Adventure>

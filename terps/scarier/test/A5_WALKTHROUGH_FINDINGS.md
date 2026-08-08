@@ -577,7 +577,8 @@ probes run everywhere, including without FrankenDrift for the golden-backed ones
 
 adrift-5-rs's own expected outputs were used only as a third opinion — blessing
 went through the usual FrankenDrift differential.  Wiring surfaced **12
-divergence groups**; 8 probes MATCH 0|0 out of the box and every probe passes
+divergence groups** (ProbeMap's has since been FIXED, and ProbePopups shrank
+from 8 to 4 hunks — see the rows); 9 probes MATCH 0|0 and every probe passes
 the save/restore self-check.  ProbeRandomness is fully aligned under
 `FD_RNG=xoshiro` (its 3 vanilla hunks are pure System.Random stream noise), so
 it is golden-backed at 0|0.
@@ -588,7 +589,8 @@ it is golden-backed at 0|0.
 | ProbeEvents | 1\|1 | Event **LookText timing**: the look on the turn right after `start look` (a task-triggered event) already shows the LookText in Scarier; FD shows it only from the next turn.  adrift-5-rs agrees with *Scarier* here — a Runner-arbitration candidate, cf. the 3.9/4.0 immediate-event family. |
 | ProbeHiPriTask | 1\|1 | Priority selection: `stand` surfaces a failing task's `You are already standing!` where FD executes the passing `You stand up.` |
 | ProbeLifecycleRestart | 3\|3 | Walk **enter/exit announcements missing after a walk restart**: FD appends `Patrol enters from the east.` / `Patrol exits to the east.  Patrol beat 1.` to the restart/wait/where turns; Scarier resumes the walk silently. |
-| ProbePopups | 8\|8 | `%PopUpChoice[...]%` evaluation context: Scarier evaluates it eagerly (and answers it from the script, consuming `help`/`yes`/`no` lines as popup answers, shifting the whole turn stream); FD prints the function text **unevaluated** in these positions.  `%PopUpInput%` itself round-trips fine. |
+| ProbeMap | 0\|0 | **FIXED** (was 1\|1): a failed `MoveCharacter ... InDirection` now Displays the blocking restriction's message the way the runner does (clsUserSession.vb:1748 `Display(sRestrictionText)`) — *immediately*, so it lands **before** the task's buffered CompletionMessage in the output stream (`The door is closed.  Revealed...`).  Implemented as an immediate-Display splice point in run_task (a5run_action.cpp imm_display).  (The map raster itself is covered by `a5maptest`, below.) |
+| ProbePopups | 4\|4 | Was 8\|8.  Fixed: `%PopUpChoice[...]%` is now left **unevaluated** like FD (its MsgBox throws off-Windows, ReplaceFunctions catches, token survives verbatim — Global.vb:2278/2483; crucially it must never consume a script line, which desynced Beagle2's whole transcript), and a *bare* `%PopUpInput%` (no `[args]`) also stays verbatim instead of eating a line.  Remaining 4 hunks are one cosmetic artifact: FD's expression tokenizer re-serializes the unevaluated function without spaces after commas (`"Pick a colour","red","blue"`) where Scarier keeps the source text's `, ` spacing. |
 | ProbeRandomness | 0\|0 | Golden-backed MATCH.  Vanilla FD residue (3 hunks: walk RandomKey wing pick, `roll` RAND value) is pure RNG-stream noise — byte-aligned under xoshiro. |
 | ProbeRefCapture | 4\|4 | **Numbered reference functions** `%number1%`/`%location1%`/`%item1%` unsupported: intro renders them stripped, `%location1%` resolves empty, `%item1%` prints literally.  Also `%characters%`-referencing command Scarier accepts (`Character reference resolves to Bob.`) where FD refuses (`I don't understand...`). |
 | ProbeRestrictions | 10\|10 | Restriction-matrix gaps, all `Restriction failed.` where FD passes: ANYOBJECT-visible-to-player, no-object-visible-to-char, any-in-group, ANYCHARACTER-exist, any-holding, player-standing-on-object, any-wearing, has-any-route; plus an item-ref type check inverted (Scarier passes `item ref type object` where FD says `Not an object item.`) and a missing **too-heavy-to-carry** weight-limit refusal (Scarier picks up the huge boulder). |
@@ -621,3 +623,30 @@ Scarier and FD both parse it as a game command).  The suite's ninth Samples
 regtest (persistence.regtest, Cloak-based save/restore/undo) was NOT
 converted: the harness's own A5_SAVE_AT round-trip self-check covers that
 ground, and the transcript harness has no in-game save-dialog channel.
+
+## a5maptest — auto-map raster regression (map.taf)
+
+`test/run_a5_maptest.sh [-b]` renders six views of the hand-authored map
+stress game (`test/a5probes/src/map.xml` → `map.taf`, 15 rooms) with
+`test/a5map_dump` (build: `make -f Makefile.headless a5map`) and sha256s the
+PPMs against `test/a5probes/map_golden.sha256`.  These goldens are
+**self-blessed** (FrankenDrift has no map), verified by eyeball:
+`sips -s format png /tmp/a5maptest/<view>.ppm --out /tmp/<view>.png`.  The
+views cover: initial seen-rooms state, full-map reveal, a `Hide`den room, an
+attic level change, duplex/skewed/one-way/no-link/self-loop connectors, and a
+restriction reveal.
+
+Engine fixes the suite forced:
+
+- **`Hide=1` rooms** (`<Hide>` on a Location) are parsed (a5map.cpp) and
+  skipped by the box renderer (mapdraw.cpp) — the runner never draws them.
+- **Stale per-turn route memo at draw time**: the runner draws its map only
+  after PrepareForNextTurn has emptied dictHasRouteCache/dictRouteErrors
+  (clsUserSession.vb:5179), so an exit un-blocked *during* the turn (map.xml's
+  reveal task fails East while the door variable is 0, then sets it to 1) is
+  re-checked fresh by the draw.  Scarier clears the memo at next-command time
+  — transcript-equivalent, but stale for between-turn draws — so both map
+  entry points (`gsc_a5_map_view` in os_glk.cpp and a5map_dump) now call
+  `a5restr_route_cache_clear` before drawing.  The `reveal` view's
+  Cellar–Door Room connector accordingly draws as a live route (solid), not
+  the mid-turn blocked result.

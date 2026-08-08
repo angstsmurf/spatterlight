@@ -1180,6 +1180,8 @@ map_render (const map_t *map, const map_view_t *view,
 
       if (!view_seen (view, n->key))
         continue;
+      if (n->hidden)
+        continue;               /* Location <Hide>: no box (Map.vb:1156) */
 
       x0 = px_x (&p, n->x);
       y0 = px_y (&p, n->y);
