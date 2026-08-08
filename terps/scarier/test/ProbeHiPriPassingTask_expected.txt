@@ -1,0 +1,19 @@
+Highest Priority Task
+This game exercises HighestPriorityTask execution. Try "get on chair" and "get on rock".
+
+Room
+A plain room with a rock and a chair.  Also here is a rock.
+
+> get on chair
+You sit on the chair.
+
+> stand
+(on the chair)
+You can't stand on the chair!
+
+> get on rock
+You can't lie on the rock!
+
+> sit on rock
+You can't sit on the rock!
+

@@ -1,0 +1,8 @@
+# ProbeLifecycleRestart -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/lifecycle.xml, section `lifecycle_walk_restart`).
+# Exercises character walk restart lifecycle.
+start patrol
+wait
+restart patrol
+wait
+where patrol

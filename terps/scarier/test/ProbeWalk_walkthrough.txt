@@ -1,0 +1,28 @@
+# ProbeWalk -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/walk.xml, section `walks_walkthrough`).
+# Exercises character walks (follow, meet, pause/resume).
+wait
+where guard
+wait
+where guard
+wait
+east
+west
+start scout
+wait
+where scout
+pause scout
+wait
+where scout
+resume scout
+wait
+where scout
+stop scout
+wait
+where scout
+mark scout
+unmark scout
+wait
+where scout
+west
+walk to east wing

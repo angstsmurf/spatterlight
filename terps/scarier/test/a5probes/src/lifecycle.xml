@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-12 10:00:00</LastUpdated>
+<Title>Lifecycle Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Exercises walk/event lifecycle: Stop+Start Restart, just_started second pass, looping ComesAcross, and length-0 events.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+
+<Property>
+<Key>_ObjectArticle</Key>
+<Description>Object Article</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+</Property>
+<Property>
+<Key>_ObjectPrefix</Key>
+<Description>Object Prefix</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+</Property>
+<Property>
+<Key>_ObjectNoun</Key>
+<Description>Object Name</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+</Property>
+
+<Location>
+<Key>LocationHall</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hall</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A hall. An exit leads east to the annex.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationAnnex</Destination>
+</Movement>
+</Location>
+<Location>
+<Key>LocationAnnex</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Annex</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An annex. An exit leads west to the hall.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationHall</Destination>
+</Movement>
+</Location>
+
+<!-- A: Patrol walk — Stop then Start on same task should Restart. -->
+<Character>
+<Key>CharacterPatrol</Key>
+<Name>Patrol</Name>
+<Article />
+<Prefix />
+<Descriptor>patrol</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A patrol officer.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationHall</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>ShowEnterExit</Key>
+</Property>
+<Property>
+<Key>CharEnters</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>enters</Text>
+</Description>
+</Value>
+</Property>
+<Property>
+<Key>CharExits</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>exits</Text>
+</Description>
+</Value>
+</Property>
+<Walk>
+<Description>Patrol route</Description>
+<Loops>0</Loops>
+<StartActive>0</StartActive>
+<Step>LocationHall 1</Step>
+<Step>LocationAnnex 1</Step>
+<Step>LocationHall 1</Step>
+<!-- Stop before Start so FD upgrades Stop → Restart -->
+<Control>Stop Completion TaskRestartPatrol</Control>
+<Control>Start Completion TaskRestartPatrol</Control>
+<Control>Start Completion TaskStartPatrol</Control>
+<Activity>
+<When>1 FromStartOfWalk</When>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Patrol beat 1.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</Activity>
+</Walk>
+</Character>
+
+<!-- C: Looper — ComesAcross across loop restart. -->
+<Character>
+<Key>CharacterLooper</Key>
+<Name>Looper</Name>
+<Article />
+<Prefix />
+<Descriptor>looper</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A looping walker.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationHall</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<Walk>
+<Description>Looping ComesAcross walk</Description>
+<Loops>1</Loops>
+<StartActive>0</StartActive>
+<Step>LocationHall 1</Step>
+<Step>LocationAnnex 1</Step>
+<Step>LocationHall 1</Step>
+<Control>Start Completion TaskStartLooper</Control>
+<Activity>
+<When>ComesAcross %Player%</When>
+<Action>ExecuteTask TaskLooperMet</Action>
+</Activity>
+<Activity>
+<When>1 FromLastSubWalk</When>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Looper FromLastSubWalk.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</Activity>
+</Walk>
+</Character>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationHall</Value>
+</Property>
+</Character>
+
+<!-- B: EvtEarly must appear BEFORE EvtLate in document order. -->
+<Event>
+<Key>EvtEarly</Key>
+<Description>Early event started mid-pass</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>3</Length>
+<Control>Start Completion TaskFireEarly</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Early beat 1.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>LocationHall</OnlyApplyAt>
+</SubEvent>
+</Event>
+
+<Event>
+<Key>EvtLate</Key>
+<Description>Late event starts Early</Description>
+<Type>TurnBased</Type>
+<WhenStart>Immediately</WhenStart>
+<Length>4</Length>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>ExecuteTask</What>
+<Measure>Turns</Measure>
+<Action>ExecuteTask TaskFireEarly</Action>
+</SubEvent>
+</Event>
+
+<!-- D: Length-0 event. -->
+<Event>
+<Key>EvtZero</Key>
+<Description>Zero length event</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>0</Length>
+<Control>Start Completion TaskStartZero</Control>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Zero ran.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>LocationHall</OnlyApplyAt>
+</SubEvent>
+</Event>
+
+<Task>
+<Key>TaskFireEarly</Key>
+<Priority>50100</Priority>
+<Type>System</Type>
+<Description>Fired by EvtLate to start EvtEarly</Description>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskLooperMet</Key>
+<Priority>50101</Priority>
+<Type>System</Type>
+<Description>Looper ComesAcross</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Looper met player.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskStartPatrol</Key>
+<Priority>50110</Priority>
+<Type>General</Type>
+<Command>start patrol</Command>
+<Description>Start patrol walk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the patrol.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskRestartPatrol</Key>
+<Priority>50111</Priority>
+<Type>General</Type>
+<Command>restart patrol</Command>
+<Description>Stop then Start patrol (Restart)</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You restart the patrol.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskStartLooper</Key>
+<Priority>50112</Priority>
+<Type>General</Type>
+<Command>start looper</Command>
+<Description>Start looping walk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the looper.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskStartZero</Key>
+<Priority>50113</Priority>
+<Type>General</Type>
+<Command>start zero</Command>
+<Description>Start length-0 event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the zero event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskWherePatrol</Key>
+<Priority>50120</Priority>
+<Type>General</Type>
+<Command>where patrol</Command>
+<Description>Report Patrol location</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Patrol is in %LocationName[%LocationOf[CharacterPatrol]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+<Task>
+<Key>TaskWhereLooper</Key>
+<Priority>50121</Priority>
+<Type>General</Type>
+<Command>where looper</Command>
+<Description>Report Looper location</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Looper is in %LocationName[%LocationOf[CharacterLooper]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+</Task>
+
+</Adventure>

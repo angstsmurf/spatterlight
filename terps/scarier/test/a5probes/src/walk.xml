@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Title>Walks Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ADRIFT NPC walks (clsWalk): StartActive schedules, enter/exit messages, DisplayMessage and ExecuteTask activities, ComesAcross, Start/Suspend/Resume/Stop/UnCompletion controls, location-triggered system tasks, and player WalkTo pathfinding.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+<Property>
+<Key>_ObjectArticle</Key>
+<Description>Object Article</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectPrefix</Key>
+<Description>Object Prefix</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectNoun</Key>
+<Description>Object Name</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Property>
+
+<!-- Three rooms in a line: West, Center, East. Player starts in Center. -->
+<Location>
+<Key>LocationWest</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>West Wing</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The west wing of the walk test. An exit leads east to the atrium.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationCenter</Destination>
+</Movement>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Location>
+<Location>
+<Key>LocationCenter</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Atrium</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A central atrium. Exits lead west and east.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationWest</Destination>
+</Movement>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationEast</Destination>
+</Movement>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Location>
+<Location>
+<Key>LocationEast</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>East Wing</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The east wing of the walk test. An exit leads west to the atrium.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationCenter</Destination>
+</Movement>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Location>
+
+<!-- Guard: StartActive walk West, Center, East with messages and ExecuteTask. -->
+<Character>
+<Key>CharacterGuard</Key>
+<Name>Guard</Name>
+<Article />
+<Prefix />
+<Descriptor>guard</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A stern guard on patrol.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationWest</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>ShowEnterExit</Key>
+</Property>
+<Property>
+<Key>CharEnters</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>enters</Text>
+</Description>
+</Value>
+</Property>
+<Property>
+<Key>CharExits</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>exits</Text>
+</Description>
+</Value>
+</Property>
+<Walk>
+<Description>Guard StartActive patrol</Description>
+<Loops>0</Loops>
+<StartActive>1</StartActive>
+<!-- At time 0: stay West. After 1 turn: Center. After 2: East. -->
+<Step>LocationWest 1</Step>
+<Step>LocationCenter 1</Step>
+<Step>LocationEast 1</Step>
+<Activity>
+<When>1 FromStartOfWalk</When>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Walk activity: Guard is mid-patrol.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</Activity>
+<Activity>
+<When>2 FromStartOfWalk</When>
+<Action>ExecuteTask TaskFromWalk</Action>
+</Activity>
+<Activity>
+<When>0 BeforeEndOfWalk</When>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Walk activity: Guard patrol ending.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</Activity>
+</Walk>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Character>
+
+<!-- Scout: controllable walk, ComesAcross, and UnCompletion start. -->
+<Character>
+<Key>CharacterScout</Key>
+<Name>Scout</Name>
+<Article />
+<Prefix />
+<Descriptor>scout</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A restless scout.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationEast</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<Property>
+<Key>ShowEnterExit</Key>
+</Property>
+<Property>
+<Key>CharEnters</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>enters</Text>
+</Description>
+</Value>
+</Property>
+<Property>
+<Key>CharExits</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>exits</Text>
+</Description>
+</Value>
+</Property>
+<Walk>
+<Description>Scout controllable patrol</Description>
+<Loops>0</Loops>
+<StartActive>0</StartActive>
+<!-- time 0 East; then Center, West, Center, East -->
+<Step>LocationEast 1</Step>
+<Step>LocationCenter 1</Step>
+<Step>LocationWest 1</Step>
+<Step>LocationCenter 1</Step>
+<Step>LocationEast 1</Step>
+<Control>Start Completion TaskStartScout</Control>
+<Control>Suspend Completion TaskPauseScout</Control>
+<Control>Resume Completion TaskResumeScout</Control>
+<Control>Stop Completion TaskStopScout</Control>
+<Control>Start UnCompletion TaskScoutMarker</Control>
+<Activity>
+<When>ComesAcross %Player%</When>
+<Action>ExecuteTask TaskScoutMet</Action>
+</Activity>
+<Activity>
+<When>1 FromStartOfWalk</When>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Scout walk: beat after first step.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</Activity>
+</Walk>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Character>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationCenter</Value>
+</Property>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Character>
+
+<!-- Fired by Guard walk ExecuteTask activity. -->
+<Task>
+<Key>TaskFromWalk</Key>
+<Priority>50100</Priority>
+<Type>System</Type>
+<Description>Message from Guard walk ExecuteTask</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ExecuteTask from Guard walk ran.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+
+<!-- Fired by Scout ComesAcross. -->
+<Task>
+<Key>TaskScoutMet</Key>
+<Priority>50101</Priority>
+<Type>System</Type>
+<Description>Scout came across the player</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Scout ComesAcross fired.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+
+<!-- LocationTrigger: runs when the player enters the East Wing. -->
+<Task>
+<Key>TaskEnterEast</Key>
+<Priority>50102</Priority>
+<Type>System</Type>
+<LocationTrigger>LocationEast</LocationTrigger>
+<Description>Triggered on entering East Wing</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>LocationTrigger: you entered the East Wing.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskStartScout</Key>
+<Priority>50110</Priority>
+<Type>General</Type>
+<Command>start scout</Command>
+<Description>Start the Scout walk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the Scout walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+<Task>
+<Key>TaskPauseScout</Key>
+<Priority>50111</Priority>
+<Type>General</Type>
+<Command>pause scout</Command>
+<Description>Pause the Scout walk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You pause the Scout walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+<Task>
+<Key>TaskResumeScout</Key>
+<Priority>50112</Priority>
+<Type>General</Type>
+<Command>resume scout</Command>
+<Description>Resume the Scout walk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You resume the Scout walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStopScout</Key>
+<Priority>50113</Priority>
+<Type>General</Type>
+<Command>stop scout</Command>
+<Description>Stop the Scout walk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You stop the Scout walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+
+<!-- Marker for UnCompletion control: complete then unmark to start Scout walk. -->
+<Task>
+<Key>TaskScoutMarker</Key>
+<Priority>50120</Priority>
+<Type>General</Type>
+<Command>mark scout</Command>
+<Description>Mark scout marker complete</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Scout marker is now complete.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>0</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+<Task>
+<Key>TaskUnmarkScout</Key>
+<Priority>50121</Priority>
+<Type>General</Type>
+<Command>unmark scout</Command>
+<Description>Unset scout marker to start walk via UnCompletion</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You clear the scout marker.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<Actions>
+<SetTasks>Unset TaskScoutMarker</SetTasks>
+</Actions>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskWhereGuard</Key>
+<Priority>50130</Priority>
+<Type>General</Type>
+<Command>where guard</Command>
+<Description>Report Guard location</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Guard is in %LocationName[%LocationOf[CharacterGuard]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereScout</Key>
+<Priority>50131</Priority>
+<Type>General</Type>
+<Command>where scout</Command>
+<Description>Report Scout location</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Scout is in %LocationName[%LocationOf[CharacterScout]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 20:00:00</LastUpdated>
+<Created>2026-07-09 20:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskWalkTo</Key>
+<Priority>50140</Priority>
+<Type>General</Type>
+<Command>walk to %location%</Command>
+<Command>go to %location%</Command>
+<Description>Walk to a location via Dijkstra pathfinding</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You set off for %LocationName[%location1%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<Actions>
+<WalkTo>%Player% ReferencedLocation</WalkTo>
+</Actions>
+<LastUpdated>2026-07-09 22:00:00</LastUpdated>
+<Created>2026-07-09 22:00:00</Created>
+</Task>
+
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>LocationWest</Key>
+<X>-4</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationCenter</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>West</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationEast</Key>
+<X>4</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>West</SourceAnchor>
+<DestinationAnchor>East</DestinationAnchor>
+</Link>
+</Node>
+</Page>
+</Map>
+</Adventure>

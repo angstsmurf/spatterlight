@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Title>Reference Capture Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises command reference capture for %number%, %location%, %item%, and %characters%.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<Property>
+<Key>_ObjectArticle</Key>
+<Description>Object Article</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectPrefix</Key>
+<Description>Object Prefix</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectNoun</Key>
+<Description>Object Name</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Property>
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hall</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You are in a hall. Bob is here. There is a red ball on the floor. An exit leads south to the garden.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>South</Direction>
+<Destination>Location2</Destination>
+</Movement>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Location>
+<Location>
+<Key>Location2</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Garden</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A peaceful garden. An exit leads north back to the hall.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>Location1</Destination>
+</Movement>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Location>
+<Object>
+<Key>Object1</Key>
+<Article>a</Article>
+<Prefix>red</Prefix>
+<Name>ball</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The ball is bright red.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>Location1</Value>
+</Property>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Object>
+<Character>
+<Key>Character1</Key>
+<Name>Bob</Name>
+<Article />
+<Prefix />
+<Descriptor>man</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob is standing nearby, looking cheerful.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharInsideWhat</Key>
+<Value />
+</Property>
+<Property>
+<Key>CharOnWho</Key>
+<Value />
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>Location1</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Character>
+<Task>
+<Key>TaskWaitNumber</Key>
+<Priority>50100</Priority>
+<Type>General</Type>
+<Command>wait %number%</Command>
+<Description>Wait a number of minutes</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You wait %number% minutes.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Task>
+<Task>
+<Key>TaskDescribeLocation</Key>
+<Priority>50101</Priority>
+<Type>General</Type>
+<Command>namecheck %location%</Command>
+<Description>Name-check a location reference</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Location reference resolves to %LocationName[%location%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Task>
+<Task>
+<Key>TaskTouchItem</Key>
+<Priority>50102</Priority>
+<Type>General</Type>
+<Command>itemcheck %item%</Command>
+<Description>Check an item reference</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Item reference resolves to %TheObject[%item%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Task>
+<Task>
+<Key>TaskSummonCharacters</Key>
+<Priority>50103</Priority>
+<Type>General</Type>
+<Command>summon %characters%</Command>
+<Description>Summon characters</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Character reference resolves to %CharacterName[%characters%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 10:00:00</LastUpdated>
+<Created>2026-07-09 10:00:00</Created>
+</Task>
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>Location1</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>South</SourceAnchor>
+<DestinationAnchor>North</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>Location2</Key>
+<X>2</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+</Page>
+</Map>
+</Adventure>

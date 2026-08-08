@@ -1,0 +1,16 @@
+# SampleBlockingExits -- ADRIFT 5 sample adventure (ships with the ADRIFT 5 developer
+# distribution; drop Samples/BlockingExits.taf into test/adrift5-games/ as BlockingExits.taf).
+# Command script from the adrift-5-rs test suite (blocking_exits.regtest).
+# Exercises restricted/blocked exits.
+n
+s
+e
+one
+n
+look
+s
+two
+s
+look
+n
+e

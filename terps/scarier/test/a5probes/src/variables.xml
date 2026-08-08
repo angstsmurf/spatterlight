@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Title>Variables Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ADRIFT built-in text functions (inventory/character lists, location helpers, display/name helpers, and utilities). Type helpvars for a command list.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>LocationLab</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Variable Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A laboratory for testing built-in variables. An exit leads south to the garden.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationGarden</Destination>
+</Movement>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Location>
+<Location>
+<Key>LocationGarden</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Garden</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet garden. An exit leads north back to the lab.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationLab</Destination>
+</Movement>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Location>
+
+<!-- Static surface / container for ListCharactersOn/In/OnAndIn. -->
+<Object>
+<Key>ObjectTable</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>table</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A sturdy table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationGarden</Value>
+</Property>
+<Property>
+<Key>Surface</Key>
+</Property>
+<Property>
+<Key>Sittable</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectBox</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>box</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An open wooden box.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationGarden</Value>
+</Property>
+<Property>
+<Key>Container</Key>
+</Property>
+<Property>
+<Key>Openable</Key>
+</Property>
+<Property>
+<Key>OpenStatus</Key>
+<Value>Open</Value>
+</Property>
+<Property>
+<Key>CharactersCanGoInOb</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+
+<!-- Inventory: held + worn by player. -->
+<Object>
+<Key>ObjectCoin</Key>
+<Article>a</Article>
+<Prefix>gold</Prefix>
+<Name>coin</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A shiny gold coin.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Held By Character</Value>
+</Property>
+<Property>
+<Key>HeldByWho</Key>
+<Value>Player</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectHat</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>hat</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A wearable hat.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Worn By Character</Value>
+</Property>
+<Property>
+<Key>WornByWho</Key>
+<Value>Player</Value>
+</Property>
+<Property>
+<Key>Wearable</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+
+<!-- Loose object at location for ListObjectsAtLocation / ObjectName / LocationOf. -->
+<Object>
+<Key>ObjectLamp</Key>
+<Article>a</Article>
+<Prefix>brass</Prefix>
+<Name>lamp</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A brass lamp.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+
+<!-- Bob: alone-with-player companion + conversation target. -->
+<Character>
+<Key>CharacterBob</Key>
+<Name>Bob</Name>
+<Article />
+<Prefix />
+<Descriptor>man</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob looks ready to answer questions about variables.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Conversation>EnterWith CharacterBob</Conversation>
+<Topic>
+<Key>TopicHelloPassive</Key>
+<Summary>Passive Hello</Summary>
+<Keywords></Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob looks up as you greet him.</Text>
+</Description>
+</Description>
+<IsIntro>1</IsIntro>
+</Topic>
+<Topic>
+<Key>TopicHello</Key>
+<Summary>Hello</Summary>
+<Keywords>[hello/hi]</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"Hi," says Bob.</Text>
+</Description>
+</Description>
+<IsCommand>1</IsCommand>
+<IsIntro>1</IsIntro>
+</Topic>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+
+<!-- Dana on table; Eve in box — for ListCharactersOn/In/OnAndIn. -->
+<Character>
+<Key>CharacterDana</Key>
+<Name>Dana</Name>
+<Article />
+<Prefix />
+<Descriptor>person</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Dana is sitting on the table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Sitting</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>On Object</Value>
+</Property>
+<Property>
+<Key>CharOnWhat</Key>
+<Value>ObjectTable</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+<Character>
+<Key>CharacterEve</Key>
+<Name>Eve</Name>
+<Article />
+<Prefix />
+<Descriptor>woman</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Eve is inside the box.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>In Object</Value>
+</Property>
+<Property>
+<Key>CharInsideWhat</Key>
+<Value>ObjectBox</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+
+<!-- Carol alone in garden — for LocationOf / LocationName / AloneWithChar contrast. -->
+<Character>
+<Key>CharacterCarol</Key>
+<Name>Carol</Name>
+<Article />
+<Prefix />
+<Descriptor>woman</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Carol waits quietly in the garden.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationGarden</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+
+<!-- Marker task for TaskCompleted. -->
+<Task>
+<Key>TaskMarker</Key>
+<Priority>50000</Priority>
+<Type>General</Type>
+<Command>mark</Command>
+<Description>Complete the marker task</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marker task is now complete.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>0</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+
+<Task>
+<Key>TaskHelpVars</Key>
+<Priority>50100</Priority>
+<Type>General</Type>
+<Command>helpvars</Command>
+<Description>List variable test commands</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Commands: show held, show worn, show chars on, show chars in, show chars onandin, show exits, show objects here, show loc name, show loc of, show display loc, show display char, show proper, show object name, show alone, show conv, show taskdone, show number, show ucase, show version, show sum, show replace, show release, mark.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+
+<!-- Inventory / character lists -->
+<Task>
+<Key>TaskShowHeld</Key>
+<Priority>50101</Priority>
+<Type>General</Type>
+<Command>show held</Command>
+<Description>ListHeld and Held</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ListHeld=%ListHeld[%Player%]%. Held=%Held[%Player%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowWorn</Key>
+<Priority>50102</Priority>
+<Type>General</Type>
+<Command>show worn</Command>
+<Description>ListWorn and Worn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ListWorn=%ListWorn[%Player%]%. Worn=%Worn[%Player%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowCharsOn</Key>
+<Priority>50103</Priority>
+<Type>General</Type>
+<Command>show chars on</Command>
+<Description>ListCharactersOn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>On table: %ListCharactersOn[ObjectTable]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowCharsIn</Key>
+<Priority>50104</Priority>
+<Type>General</Type>
+<Command>show chars in</Command>
+<Description>ListCharactersIn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>In box: %ListCharactersIn[ObjectBox]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowCharsOnAndIn</Key>
+<Priority>50105</Priority>
+<Type>General</Type>
+<Command>show chars onandin</Command>
+<Description>ListCharactersOnAndIn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>OnAndIn table: %ListCharactersOnAndIn[ObjectTable]% OnAndIn box: %ListCharactersOnAndIn[ObjectBox]%</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+
+<!-- Location helpers -->
+<Task>
+<Key>TaskShowExits</Key>
+<Priority>50110</Priority>
+<Type>General</Type>
+<Command>show exits</Command>
+<Description>ListExits</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Exits from player: %ListExits[%Player%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowObjectsHere</Key>
+<Priority>50111</Priority>
+<Type>General</Type>
+<Command>show objects here</Command>
+<Description>ListObjectsAtLocation</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Objects here: %ListObjectsAtLocation[LocationLab]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowLocName</Key>
+<Priority>50112</Priority>
+<Type>General</Type>
+<Command>show loc name</Command>
+<Description>LocationName</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab name=%LocationName[LocationLab]%. Garden name=%LocationName[LocationGarden]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowLocOf</Key>
+<Priority>50113</Priority>
+<Type>General</Type>
+<Command>show loc of</Command>
+<Description>LocationOf</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob loc=%LocationOf[CharacterBob]%. Carol loc=%LocationOf[CharacterCarol]%. Lamp loc=%LocationOf[ObjectLamp]%. Player loc=%LocationOf[%Player%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowDisplayLoc</Key>
+<Priority>50114</Priority>
+<Type>General</Type>
+<Command>show display loc</Command>
+<Description>DisplayLocation</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>DISPLAYLOC-START %DisplayLocation[LocationGarden]% DISPLAYLOC-END</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+
+<!-- Display / name helpers -->
+<Task>
+<Key>TaskShowDisplayChar</Key>
+<Priority>50120</Priority>
+<Type>General</Type>
+<Command>show display char</Command>
+<Description>DisplayCharacter</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>DISPLAYCHAR-START %DisplayCharacter[CharacterBob]% DISPLAYCHAR-END</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowProper</Key>
+<Priority>50121</Priority>
+<Type>General</Type>
+<Command>show proper</Command>
+<Description>CharacterProper and ProperName</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>CharacterProper=%CharacterProper[CharacterBob]%. ProperName=%ProperName[CharacterCarol]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowObjectName</Key>
+<Priority>50122</Priority>
+<Type>General</Type>
+<Command>show object name</Command>
+<Description>ObjectName</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ObjectName=%ObjectName[ObjectLamp]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowAlone</Key>
+<Priority>50123</Priority>
+<Type>General</Type>
+<Command>show alone</Command>
+<Description>AloneWithChar</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>AloneWithChar=%AloneWithChar%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowConv</Key>
+<Priority>50124</Priority>
+<Type>General</Type>
+<Command>show conv</Command>
+<Description>ConvCharacter</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ConvCharacter=%ConvCharacter%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+
+<!-- Utilities -->
+<Task>
+<Key>TaskShowTaskDone</Key>
+<Priority>50130</Priority>
+<Type>General</Type>
+<Command>show taskdone</Command>
+<Description>TaskCompleted</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>TaskCompleted=%TaskCompleted[TaskMarker]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowNumber</Key>
+<Priority>50131</Priority>
+<Type>General</Type>
+<Command>show number</Command>
+<Description>NumberAsText</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>NumberAsText=%NumberAsText[42]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowUCase</Key>
+<Priority>50132</Priority>
+<Type>General</Type>
+<Command>show ucase</Command>
+<Description>UCase</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>UCase=%UCase[hello world]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowVersion</Key>
+<Priority>50133</Priority>
+<Type>General</Type>
+<Command>show version</Command>
+<Description>Version</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Version=%Version%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowSum</Key>
+<Priority>50134</Priority>
+<Type>General</Type>
+<Command>show sum</Command>
+<Description>Sum</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Sum=%Sum[3 apples and 4 oranges, plus 5]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowReplace</Key>
+<Priority>50135</Priority>
+<Type>General</Type>
+<Command>show replace</Command>
+<Description>Replace via expression (percent-function has no Case in FrankenDrift)</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ReplaceExpr=&lt;#replace("hello","ll","LL")#&gt;.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowRelease</Key>
+<Priority>50136</Priority>
+<Type>General</Type>
+<Command>show release</Command>
+<Description>Release</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Release=%Release%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>LocationLab</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationGarden</Key>
+<X>0</X>
+<Y>4</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+</Node>
+</Page>
+</Map>
+</Adventure>

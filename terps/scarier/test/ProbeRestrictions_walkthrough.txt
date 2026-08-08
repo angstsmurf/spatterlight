@@ -1,0 +1,133 @@
+# ProbeRestrictions -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/restrictions.xml, section `restrictions_walkthrough`).
+# Exercises the restriction-type matrix (char/obj/loc/var checks).
+check loc exist
+check loc belocation
+check loc group
+check loc playerlocation group
+check loc property
+check loc seen
+check obj exist
+check obj any exist
+check obj atloc
+check obj any atloc
+check obj held
+check obj any held
+check obj held anychar
+check obj worn
+check obj any worn
+check obj worn anychar
+check obj visible
+check obj any visible
+check obj no visible
+check obj inside
+check obj any inside
+check obj inside any
+check obj on
+check obj any on
+check obj on any
+check obj state
+check obj group
+check obj any group
+check obj seen
+check obj part char
+check obj part obj
+check obj part any
+check obj property
+check obj any property
+check obj beobject
+check obj hidden
+check obj no atloc closet
+check obj no held carol
+check obj no worn carol
+check obj no inside table
+check obj no on box
+checkexact ball
+check char exist
+check char any exist
+check char alone carol
+check char alone player
+check char not alonewith carol
+check char atloc
+check char any atloc
+check char becharacter
+check char holding
+check char any holding
+check char position
+check char dana sitting
+check char same loc char
+check char same loc any
+check char same loc obj
+check char inside
+check char inside any
+check char any inside box
+check char group
+check char gender
+check char on obj
+check char on any
+check char any on table
+check char on char
+check char on anychar
+check char sitting on
+check char sitting on any
+check char standing on floor
+checklying
+checklyingany
+checkstandingon
+check char wearing
+check char any wearing
+check char within group
+check char property
+check char route
+check char route any
+check char seen loc
+check char seen obj
+check char seen char
+check char visible
+check char visible any
+check char not lying
+check char not talking
+check task not complete
+markdone
+check task complete
+check var eq
+check var lt
+check var lte
+check var gt
+check var gte
+check var contain
+check prop open
+check prop maxweight gte
+check prop maxweight sum
+check prop maxbulk
+checkdir north
+checkdir south
+check expr
+check expr held count
+check item exist ball
+check item atloc
+check item becharacter
+check item belocation
+check item beobject
+check item betype obj
+check item betype char
+check item betype loc
+check item group
+check item same loc char
+check item same loc obj
+check item inside
+check item on char
+check item property
+checkitem ball
+checkitem bob
+check bracket and
+check bracket or
+seize all
+get rock
+get boulder
+say hello to bob
+check char talking
+ask bob about secret
+e
+checkalonewith
+checkalonewithany

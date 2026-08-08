@@ -64,6 +64,20 @@ FILTER="${1:-}"
 # script-basename | game file | baseline hunk budget (current known divergence;
 # 0 = must stay clean).  Raise/lower a budget when you re-bless after a fix.
 #
+# Game files resolve against test/adrift5-games/ (the untracked real-game
+# corpus), except a5probes/* which are the COMMITTED synthetic conformance
+# probes imported from the adrift-5-rs test suite -- built offline from
+# test/a5probes/src/*.xml by `make -f Makefile.headless a5probetafs`, so the
+# Probe* rows never SKIP.  Their nonzero budgets are real, catalogued Scarier
+# nonconformances (see "Synthetic probes" in A5_WALKTHROUGH_FINDINGS.md).
+#
+# The Sample* rows are the ADRIFT 5 developer distribution's Samples/*.taf
+# (Cloak of Darkness etc.), scripted by the same adrift-5-rs suite.  Like the
+# rest of the corpus they live (untracked) in test/adrift5-games/; recover
+# them by extracting the "ADRIFT Installer.msi" payload with msiextract
+# (msitools) -- no Wine install needed.  7 golden MATCHes; Conversation's 2|2
+# is a real article/pronoun divergence (see A5_WALKTHROUGH_FINDINGS.md).
+#
 # Re-blessed after the P1 event-scheduler fix (WhenStart=0 events left
 # NotYetStarted + LocationTrigger System tasks armed on Player move).  The five
 # premature-death/teleport games (Axe, Spectre, Starship, DieFeuerfaust,
@@ -1527,6 +1541,34 @@ APlace|project_actuallyfinal.taf|0|0
 BeginnersCave|BeginnersCave.taf|0|0
 BadlandsDemo|Badlands Demo v2.taf|0|0
 Dementophobia|Dementophobia Alpha Demo.blorb|0|0
+ProbeAmbiguity|a5probes/ambiguity.taf|3|3
+ProbeDel|a5probes/del.taf|0|0
+ProbeEvents|a5probes/events.taf|1|1
+ProbeExecOrderTask|a5probes/execute_ordering.taf|0|0
+ProbeExecOrderTopic|a5probes/execute_ordering.taf|0|0
+ProbeHiPriPassingTask|a5probes/highest_priority_passing_task.taf|0|0
+ProbeHiPriTask|a5probes/highest_priority_task.taf|1|1
+ProbeLifecycleRestart|a5probes/lifecycle.taf|3|3
+ProbeLifecycle2ndPass|a5probes/lifecycle.taf|0|0
+ProbeLifecycleLoop|a5probes/lifecycle.taf|0|0
+ProbeLifecycleLenZero|a5probes/lifecycle.taf|0|0
+ProbePopups|a5probes/popups.taf|8|8
+ProbeRandomness|a5probes/randomness.taf|0|0
+ProbeRefCapture|a5probes/reference_capture.taf|4|4
+ProbeRestrictions|a5probes/restrictions.taf|10|10
+ProbeTaskActions|a5probes/task_actions.taf|15|14
+ProbeUDF|a5probes/user_defined_functions.taf|4|4
+ProbeVariables|a5probes/variables.taf|5|5
+ProbeWaitkey|a5probes/waitkey.taf|0|0
+ProbeWalk|a5probes/walk.taf|1|1
+SampleCloak|Cloak.taf|0|0
+SampleConversation|Conversation.taf|2|2
+SampleDoors|Doors.taf|0|0
+SampleDarkRoom|DarkRoom.taf|0|0
+SampleJackAndBeanstalk|JackAndBeanstalk.taf|0|0
+SampleNotebook|Notebook.taf|0|0
+SampleTorchBattery|TorchBattery.taf|0|0
+SampleBlockingExits|BlockingExits.taf|0|0
 EOF
 )
 
@@ -1570,7 +1612,12 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     idx=$1 name=$2 game=$3 vbudget=$4 xbudget=$5
     row="$WORKDIR/$idx.row"
     script="$HERE/test/${name}_walkthrough.txt"
-    gf="$GAMES/$game"
+    # Committed synthetic probes (a5probes/*.taf) live under test/ itself;
+    # everything else is the untracked adrift5-games corpus.
+    case "$game" in
+        a5probes/*) gf="$HERE/test/$game" ;;
+        *)          gf="$GAMES/$game" ;;
+    esac
     [ -f "$script" ] || { printf "%-24s %-9s\n" "$name" "NOSCRIPT" > "$row"; return; }
     if [ ! -f "$gf" ]; then
         printf "%-24s %-9s (game file absent: %s)\n" "$name" "SKIP" "$game" > "$row"

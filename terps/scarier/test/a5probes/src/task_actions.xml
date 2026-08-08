@@ -1,0 +1,3217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Title>Task Actions Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ADRIFT task actions implemented in FrankenDrift: MoveObject/MoveCharacter (including bulk targets), groups, SetProperty, variables, SetTasks, Time, conversation, EndGame, and event/walk controls.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+
+<Property>
+<Key>LabMarked</Key>
+<Description>Lab is marked</Description>
+<PropertyOf>Locations</PropertyOf>
+<Type>SelectionOnly</Type>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Property>
+<Property>
+<Key>Tagged</Key>
+<Description>Object is tagged</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>SelectionOnly</Type>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Property>
+<Property>
+<Key>StaffFlag</Key>
+<Description>Character is staff-flagged</Description>
+<PropertyOf>Characters</PropertyOf>
+<Type>SelectionOnly</Type>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Property>
+
+<Location>
+<Key>LocationLab</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A laboratory for testing task actions. Exits lead east to the store and south to the yard.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationStore</Destination>
+</Movement>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationYard</Destination>
+</Movement>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Location>
+<Location>
+<Key>LocationStore</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Store</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A storage room. An exit leads west back to the lab.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationLab</Destination>
+</Movement>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Location>
+<Location>
+<Key>LocationYard</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Yard</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An open yard. An exit leads north back to the lab.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationLab</Destination>
+</Movement>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Location>
+<Object>
+<Key>ObjectCoin</Key>
+<Article>a</Article>
+<Prefix />
+<Name>coin</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A shiny coin.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<Property>
+<Key>Tagged</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectGem</Key>
+<Article>a</Article>
+<Prefix />
+<Name>gem</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A sparkling gem.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectToken</Key>
+<Article>a</Article>
+<Prefix />
+<Name>token</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A group token.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectHat</Key>
+<Article>a</Article>
+<Prefix />
+<Name>hat</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A wearable hat.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Held By Character</Value>
+</Property>
+<Property>
+<Key>HeldByWho</Key>
+<Value>CharacterBob</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Small</Value>
+</Property>
+<Property>
+<Key>Wearable</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectCloak</Key>
+<Article>a</Article>
+<Prefix />
+<Name>cloak</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A wearable cloak.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Worn By Character</Value>
+</Property>
+<Property>
+<Key>WornByWho</Key>
+<Value>CharacterCarol</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Medium</Value>
+</Property>
+<Property>
+<Key>Wearable</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectKey</Key>
+<Article>a</Article>
+<Prefix />
+<Name>key</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A small key inside the box.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Inside Object</Value>
+</Property>
+<Property>
+<Key>InsideWhat</Key>
+<Value>ObjectBox</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectLamp</Key>
+<Article>a</Article>
+<Prefix />
+<Name>lamp</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A lamp on the table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>On Object</Value>
+</Property>
+<Property>
+<Key>OnWhat</Key>
+<Value>ObjectTable</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Small</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectSpare</Key>
+<Article>a</Article>
+<Prefix />
+<Name>spare</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A spare item in the store.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationStore</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectBox</Key>
+<Article>a</Article>
+<Prefix />
+<Name>box</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An open box that can contain things.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Container</Key>
+</Property>
+<Property>
+<Key>Openable</Key>
+</Property>
+<Property>
+<Key>OpenStatus</Key>
+<Value>Open</Value>
+</Property>
+<Property>
+<Key>CharactersCanGoInOb</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectTable</Key>
+<Article>a</Article>
+<Prefix />
+<Name>table</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A sturdy table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Surface</Key>
+</Property>
+<Property>
+<Key>Sittable</Key>
+</Property>
+<Property>
+<Key>Standable</Key>
+</Property>
+<Property>
+<Key>Lieable</Key>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectSign</Key>
+<Article>a</Article>
+<Prefix />
+<Name>sign</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A static sign.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectBadge</Key>
+<Article>a</Article>
+<Prefix />
+<Name>badge</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A badge that can be part of a character.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationStore</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Object>
+<Key>ObjectHandle</Key>
+<Article>a</Article>
+<Prefix />
+<Name>handle</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A handle that can be part of an object.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationStore</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Object>
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+
+<Character>
+<Key>CharacterBob</Key>
+<Name>Bob</Name>
+<Article />
+<Prefix />
+<Descriptor>man</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>StaffFlag</Key>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Conversation>EnterWith CharacterBob</Conversation>
+<Topic>
+<Key>TopicHelloPassive</Key>
+<Summary>Passive Hello</Summary>
+<Keywords></Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob looks up as you greet him.</Text>
+</Description>
+</Description>
+<IsIntro>1</IsIntro>
+</Topic>
+<Topic>
+<Key>TopicHello</Key>
+<Summary>Hello</Summary>
+<Keywords>[hello/hi]</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"Hi," says Bob.</Text>
+</Description>
+</Description>
+<IsCommand>1</IsCommand>
+<IsIntro>1</IsIntro>
+</Topic>
+<Topic>
+<Key>TopicCoinAsk</Key>
+<Summary>Ask coin</Summary>
+<Keywords>coin</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"Nice coin," says Bob.</Text>
+</Description>
+</Description>
+<IsAsk>1</IsAsk>
+</Topic>
+<Topic>
+<Key>TopicCoinTell</Key>
+<Summary>Tell coin</Summary>
+<Keywords>coin</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"I know about coins," says Bob.</Text>
+</Description>
+</Description>
+<IsTell>1</IsTell>
+</Topic>
+<Topic>
+<Key>TopicFarewell</Key>
+<Summary>Farewell</Summary>
+<Keywords></Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob nods goodbye.</Text>
+</Description>
+</Description>
+<IsFarewell>1</IsFarewell>
+</Topic>
+<Walk>
+<Description>Bob controllable patrol</Description>
+<Loops>0</Loops>
+<StartActive>0</StartActive>
+<Step>LocationLab 1</Step>
+<Step>LocationStore 1</Step>
+<Step>LocationYard 1</Step>
+<Step>LocationLab 1</Step>
+<Control>Start Completion TaskStartWalk</Control>
+<Control>Suspend Completion TaskPauseWalk</Control>
+<Control>Resume Completion TaskResumeWalk</Control>
+<Control>Stop Completion TaskStopWalk</Control>
+<Control>Start UnCompletion TaskWalkMarker</Control>
+<Activity>
+<When>0 FromStartOfWalk</When>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob walk: beat at start.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</Activity>
+</Walk>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+<Character>
+<Key>CharacterCarol</Key>
+<Name>Carol</Name>
+<Article />
+<Prefix />
+<Descriptor>woman</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Carol is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationStore</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+<Character>
+<Key>CharacterDave</Key>
+<Name>Dave</Name>
+<Article />
+<Prefix />
+<Descriptor>fellow</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Dave is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationYard</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+<Character>
+<Key>CharacterEve</Key>
+<Name>Eve</Name>
+<Article />
+<Prefix />
+<Descriptor>sitter</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Eve is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Sitting</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>On Object</Value>
+</Property>
+<Property>
+<Key>CharOnWhat</Key>
+<Value>ObjectTable</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+<Character>
+<Key>CharacterFrank</Key>
+<Name>Frank</Name>
+<Article />
+<Prefix />
+<Descriptor>hider</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Frank is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>In Object</Value>
+</Property>
+<Property>
+<Key>CharInsideWhat</Key>
+<Value>ObjectBox</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+<Character>
+<Key>CharacterGina</Key>
+<Name>Gina</Name>
+<Article />
+<Prefix />
+<Descriptor>ally</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Gina is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationYard</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Character>
+<Group>
+<Key>GroupToys</Key>
+<Type>Objects</Type>
+<Name>Toys</Name>
+<Member>ObjectToken</Member>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Group>
+<Group>
+<Key>GroupStaff</Key>
+<Type>Characters</Type>
+<Name>Staff</Name>
+<Member>CharacterBob</Member>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Group>
+<Group>
+<Key>GroupRooms</Key>
+<Type>Locations</Type>
+<Name>Rooms</Name>
+<Member>LocationLab</Member>
+<Member>LocationStore</Member>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Group>
+<Group>
+<Key>GroupExtraObj</Key>
+<Type>Objects</Type>
+<Name>Extra Objects</Name>
+
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Group>
+<Group>
+<Key>GroupExtraChar</Key>
+<Type>Characters</Type>
+<Name>Extra Characters</Name>
+
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Group>
+<Group>
+<Key>GroupExtraLoc</Key>
+<Type>Locations</Type>
+<Name>Extra Locations</Name>
+
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Group>
+<Variable>
+<Key>Counter</Key>
+<Name>Counter</Name>
+<Type>Numeric</Type>
+<InitialValue>0</InitialValue>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Variable>
+<Variable>
+<Key>MessageText</Key>
+<Name>MessageText</Name>
+<Type>Text</Type>
+<InitialValue>blank</InitialValue>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Variable>
+<Event>
+<Key>EvtCtrl</Key>
+<Description>Controllable ticker</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>10</Length>
+<Control>Start Completion TaskStartEvt</Control>
+<Control>Suspend Completion TaskPauseEvt</Control>
+<Control>Resume Completion TaskResumeEvt</Control>
+<Control>Stop Completion TaskStopEvt</Control>
+<Control>Start UnCompletion TaskEvtMarker</Control>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Ctrl event: beat 0.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Ctrl event: beat 1.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Ctrl event: beat 2.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Event>
+
+<Task>
+<Key>TaskEvtMarker</Key>
+<Priority>60001</Priority>
+<Type>General</Type>
+<Command>mark evt</Command>
+<Description>TaskEvtMarker</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Event marker complete.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>0</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWalkMarker</Key>
+<Priority>60002</Priority>
+<Type>General</Type>
+<Command>mark walk</Command>
+<Description>TaskWalkMarker</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Walk marker complete.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>0</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMarker</Key>
+<Priority>60003</Priority>
+<Type>General</Type>
+<Command>mark</Command>
+<Description>TaskMarker</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marker task complete.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>0</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereCoin</Key>
+<Priority>60004</Priority>
+<Type>General</Type>
+<Command>where coin</Command>
+<Description>TaskWhereCoin</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Coin parent=%ParentOf[ObjectCoin]% loc=%LocationOf[ObjectCoin]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereGem</Key>
+<Priority>60005</Priority>
+<Type>General</Type>
+<Command>where gem</Command>
+<Description>TaskWhereGem</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Gem parent=%ParentOf[ObjectGem]% loc=%LocationOf[ObjectGem]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereKey</Key>
+<Priority>60006</Priority>
+<Type>General</Type>
+<Command>where key</Command>
+<Description>TaskWhereKey</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Key parent=%ParentOf[ObjectKey]% loc=%LocationOf[ObjectKey]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereLamp</Key>
+<Priority>60007</Priority>
+<Type>General</Type>
+<Command>where lamp</Command>
+<Description>TaskWhereLamp</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lamp parent=%ParentOf[ObjectLamp]% loc=%LocationOf[ObjectLamp]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereHat</Key>
+<Priority>60008</Priority>
+<Type>General</Type>
+<Command>where hat</Command>
+<Description>TaskWhereHat</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hat parent=%ParentOf[ObjectHat]% loc=%LocationOf[ObjectHat]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereCloak</Key>
+<Priority>60009</Priority>
+<Type>General</Type>
+<Command>where cloak</Command>
+<Description>TaskWhereCloak</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Cloak parent=%ParentOf[ObjectCloak]% loc=%LocationOf[ObjectCloak]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereSign</Key>
+<Priority>60010</Priority>
+<Type>General</Type>
+<Command>where sign</Command>
+<Description>TaskWhereSign</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Sign loc=%LocationOf[ObjectSign]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereBadge</Key>
+<Priority>60011</Priority>
+<Type>General</Type>
+<Command>where badge</Command>
+<Description>TaskWhereBadge</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Badge parent=%ParentOf[ObjectBadge]% loc=%LocationOf[ObjectBadge]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereHandle</Key>
+<Priority>60012</Priority>
+<Type>General</Type>
+<Command>where handle</Command>
+<Description>TaskWhereHandle</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Handle parent=%ParentOf[ObjectHandle]% loc=%LocationOf[ObjectHandle]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereToken</Key>
+<Priority>60013</Priority>
+<Type>General</Type>
+<Command>where token</Command>
+<Description>TaskWhereToken</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Token parent=%ParentOf[ObjectToken]% loc=%LocationOf[ObjectToken]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereSpare</Key>
+<Priority>60014</Priority>
+<Type>General</Type>
+<Command>where spare</Command>
+<Description>TaskWhereSpare</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Spare parent=%ParentOf[ObjectSpare]% loc=%LocationOf[ObjectSpare]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereBob</Key>
+<Priority>60015</Priority>
+<Type>General</Type>
+<Command>where bob</Command>
+<Description>TaskWhereBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob is in %LocationName[%LocationOf[CharacterBob]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereCarol</Key>
+<Priority>60016</Priority>
+<Type>General</Type>
+<Command>where carol</Command>
+<Description>TaskWhereCarol</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Carol is in %LocationName[%LocationOf[CharacterCarol]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereDave</Key>
+<Priority>60017</Priority>
+<Type>General</Type>
+<Command>where dave</Command>
+<Description>TaskWhereDave</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Dave is in %LocationName[%LocationOf[CharacterDave]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereEve</Key>
+<Priority>60018</Priority>
+<Type>General</Type>
+<Command>where eve</Command>
+<Description>TaskWhereEve</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Eve parent=%ParentOf[CharacterEve]% loc=%LocationOf[CharacterEve]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereFrank</Key>
+<Priority>60019</Priority>
+<Type>General</Type>
+<Command>where frank</Command>
+<Description>TaskWhereFrank</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Frank parent=%ParentOf[CharacterFrank]% loc=%LocationOf[CharacterFrank]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWhereGina</Key>
+<Priority>60020</Priority>
+<Type>General</Type>
+<Command>where gina</Command>
+<Description>TaskWhereGina</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Gina is in %LocationName[%LocationOf[CharacterGina]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWherePlayer</Key>
+<Priority>60021</Priority>
+<Type>General</Type>
+<Command>where player</Command>
+<Description>TaskWherePlayer</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Player is in %LocationName[%LocationOf[%Player%]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskShowVars</Key>
+<Priority>60022</Priority>
+<Type>General</Type>
+<Command>show vars</Command>
+<Description>TaskShowVars</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Counter=%Counter% MessageText=%MessageText%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckMarker</Key>
+<Priority>60023</Priority>
+<Type>General</Type>
+<Command>check marker</Command>
+<Description>TaskCheckMarker</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marker is complete.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Task>TaskMarker Must BeComplete</Task>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marker is not complete.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckGroupObj</Key>
+<Priority>60024</Priority>
+<Type>General</Type>
+<Command>check group obj</Command>
+<Description>TaskCheckGroupObj</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Coin is in Extra Objects group.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectCoin Must BeInGroup GroupExtraObj</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Coin is not in Extra Objects group.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckGroupChar</Key>
+<Priority>60025</Priority>
+<Type>General</Type>
+<Command>check group char</Command>
+<Description>TaskCheckGroupChar</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Carol is in Extra Characters group.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterCarol Must BeInGroup GroupExtraChar</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Carol is not in Extra Characters group.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckGroupLoc</Key>
+<Priority>60026</Priority>
+<Type>General</Type>
+<Command>check group loc</Command>
+<Description>TaskCheckGroupLoc</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Yard is in Extra Locations group.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationYard Must BeInGroup GroupExtraLoc</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Yard is not in Extra Locations group.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckGroupLocStore</Key>
+<Priority>600261</Priority>
+<Type>General</Type>
+<Command>check group store</Command>
+<Description>TaskCheckGroupLocStore</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Store is in Extra Locations group.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationStore Must BeInGroup GroupExtraLoc</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Store is not in Extra Locations group.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckGroupLocLab</Key>
+<Priority>600262</Priority>
+<Type>General</Type>
+<Command>check group lab</Command>
+<Description>TaskCheckGroupLocLab</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab is in Extra Locations group.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must BeInGroup GroupExtraLoc</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab is not in Extra Locations group.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckLabMarked</Key>
+<Priority>60027</Priority>
+<Type>General</Type>
+<Command>check lab marked</Command>
+<Description>TaskCheckLabMarked</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab is marked.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must HaveProperty LabMarked</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab is not marked.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckBoxOpen</Key>
+<Priority>60028</Priority>
+<Type>General</Type>
+<Command>check box open</Command>
+<Description>TaskCheckBoxOpen</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Box is open.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Property>OpenStatus ObjectBox Must EqualTo Open</Property>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Box is not open.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckBoxClosed</Key>
+<Priority>60029</Priority>
+<Type>General</Type>
+<Command>check box closed</Command>
+<Description>TaskCheckBoxClosed</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Box is closed.</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Property>OpenStatus ObjectBox Must EqualTo Closed</Property>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Box is not closed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveCoinStore</Key>
+<Priority>60030</Priority>
+<Type>General</Type>
+<Command>move coin store</Command>
+<Description>TaskMoveCoinStore</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved coin to store.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin ToLocation LocationStore</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskHideCoin</Key>
+<Priority>60031</Priority>
+<Type>General</Type>
+<Command>hide coin</Command>
+<Description>TaskHideCoin</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hid the coin.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin ToLocation Hidden</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskUnhideCoin</Key>
+<Priority>60032</Priority>
+<Type>General</Type>
+<Command>unhide coin</Command>
+<Description>TaskUnhideCoin</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unhid the coin to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin ToLocation LocationLab</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveCoinSameAsBob</Key>
+<Priority>60033</Priority>
+<Type>General</Type>
+<Command>move coin same bob</Command>
+<Description>TaskMoveCoinSameAsBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved coin to same location as Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin ToSameLocationAs CharacterBob</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveCoinInsideBox</Key>
+<Priority>60034</Priority>
+<Type>General</Type>
+<Command>move coin inside box</Command>
+<Description>TaskMoveCoinInsideBox</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved coin inside box.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin InsideObject ObjectBox</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveCoinOntoTable</Key>
+<Priority>60035</Priority>
+<Type>General</Type>
+<Command>move coin onto table</Command>
+<Description>TaskMoveCoinOntoTable</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved coin onto table.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin OntoObject ObjectTable</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveCoinHeld</Key>
+<Priority>60036</Priority>
+<Type>General</Type>
+<Command>move coin held</Command>
+<Description>TaskMoveCoinHeld</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved coin to held by player.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin ToCarriedBy Player</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveHatWorn</Key>
+<Priority>60037</Priority>
+<Type>General</Type>
+<Command>move hat worn</Command>
+<Description>TaskMoveHatWorn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved hat to worn by player.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectHat ToWornBy Player</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveCoinLocGroup</Key>
+<Priority>60038</Priority>
+<Type>General</Type>
+<Command>move coin locgroup</Command>
+<Description>TaskMoveCoinLocGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved coin to location group Rooms.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectCoin ToLocationGroup GroupRooms</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveSignStore</Key>
+<Priority>60039</Priority>
+<Type>General</Type>
+<Command>move sign store</Command>
+<Description>TaskMoveSignStore</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved sign to store.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectSign ToLocation LocationStore</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskHideSign</Key>
+<Priority>60040</Priority>
+<Type>General</Type>
+<Command>hide sign</Command>
+<Description>TaskHideSign</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hid the sign.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectSign ToLocation Hidden</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBadgePartBob</Key>
+<Priority>60041</Priority>
+<Type>General</Type>
+<Command>move badge part bob</Command>
+<Description>TaskMoveBadgePartBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved badge to part of Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectBadge ToPartOfCharacter CharacterBob</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveHandlePartBox</Key>
+<Priority>60042</Priority>
+<Type>General</Type>
+<Command>move handle part box</Command>
+<Description>TaskMoveHandlePartBox</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved handle to part of box.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectHandle ToPartOfObject ObjectBox</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveSignSameCarol</Key>
+<Priority>60043</Priority>
+<Type>General</Type>
+<Command>move sign same carol</Command>
+<Description>TaskMoveSignSameCarol</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved sign to same location as Carol.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectSign ToSameLocationAs CharacterCarol</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveSignLocGroup</Key>
+<Priority>60044</Priority>
+<Type>General</Type>
+<Command>move sign locgroup</Command>
+<Description>TaskMoveSignLocGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved sign to everywhere in Rooms.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>Object ObjectSign ToLocationGroup GroupRooms</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskBulkAtLoc</Key>
+<Priority>60045</Priority>
+<Type>General</Type>
+<Command>bulk at loc</Command>
+<Description>TaskBulkAtLoc</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everything at lab to store.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>EverythingAtLocation LocationLab ToLocation LocationStore</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskBulkHeld</Key>
+<Priority>60046</Priority>
+<Type>General</Type>
+<Command>bulk held</Command>
+<Description>TaskBulkHeld</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everything held by Bob to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>EverythingHeldBy CharacterBob ToLocation LocationLab</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskBulkWorn</Key>
+<Priority>60047</Priority>
+<Type>General</Type>
+<Command>bulk worn</Command>
+<Description>TaskBulkWorn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everything worn by Carol to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>EverythingWornBy CharacterCarol ToLocation LocationLab</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskBulkInside</Key>
+<Priority>60048</Priority>
+<Type>General</Type>
+<Command>bulk inside</Command>
+<Description>TaskBulkInside</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everything inside box to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>EverythingInside ObjectBox ToLocation LocationLab</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskBulkOn</Key>
+<Priority>60049</Priority>
+<Type>General</Type>
+<Command>bulk on</Command>
+<Description>TaskBulkOn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everything on table to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>EverythingOn ObjectTable ToLocation LocationLab</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskBulkGroup</Key>
+<Priority>60050</Priority>
+<Type>General</Type>
+<Command>bulk group</Command>
+<Description>TaskBulkGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everything in Toys group to store.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>EverythingInGroup GroupToys ToLocation LocationStore</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskBulkProp</Key>
+<Priority>60051</Priority>
+<Type>General</Type>
+<Command>bulk prop</Command>
+<Description>TaskBulkProp</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everything with Tagged to yard.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveObject>EverythingWithProperty Tagged ToLocation LocationYard</MoveObject>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAddObjGroup</Key>
+<Priority>60052</Priority>
+<Type>General</Type>
+<Command>add obj group</Command>
+<Description>TaskAddObjGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Added coin to Extra Objects.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<AddObjectToGroup>Object ObjectCoin ToGroup GroupExtraObj</AddObjectToGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskRemObjGroup</Key>
+<Priority>60053</Priority>
+<Type>General</Type>
+<Command>rem obj group</Command>
+<Description>TaskRemObjGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Removed coin from Extra Objects.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<RemoveObjectFromGroup>Object ObjectCoin FromGroup GroupExtraObj</RemoveObjectFromGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobStore</Key>
+<Priority>60054</Priority>
+<Type>General</Type>
+<Command>move bob store</Command>
+<Description>TaskMoveBobStore</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob to store.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToLocation LocationStore</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskHideBob</Key>
+<Priority>60055</Priority>
+<Type>General</Type>
+<Command>hide bob</Command>
+<Description>TaskHideBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hid Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToLocation Hidden</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskUnhideBob</Key>
+<Priority>60056</Priority>
+<Type>General</Type>
+<Command>unhide bob</Command>
+<Description>TaskUnhideBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unhid Bob to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToLocation LocationLab</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobSameCarol</Key>
+<Priority>60057</Priority>
+<Type>General</Type>
+<Command>move bob same carol</Command>
+<Description>TaskMoveBobSameCarol</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob to same location as Carol.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToSameLocationAs CharacterCarol</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobDir</Key>
+<Priority>60058</Priority>
+<Type>General</Type>
+<Command>move bob east</Command>
+<Description>TaskMoveBobDir</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob east.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob InDirection East</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobStandTable</Key>
+<Priority>60059</Priority>
+<Type>General</Type>
+<Command>move bob stand table</Command>
+<Description>TaskMoveBobStandTable</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob standing on table.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToStandingOn ObjectTable</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobSitTable</Key>
+<Priority>60060</Priority>
+<Type>General</Type>
+<Command>move bob sit table</Command>
+<Description>TaskMoveBobSitTable</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob sitting on table.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToSittingOn ObjectTable</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobLieTable</Key>
+<Priority>60061</Priority>
+<Type>General</Type>
+<Command>move bob lie table</Command>
+<Description>TaskMoveBobLieTable</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob lying on table.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToLyingOn ObjectTable</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobInsideBox</Key>
+<Priority>60062</Priority>
+<Type>General</Type>
+<Command>move bob inside box</Command>
+<Description>TaskMoveBobInsideBox</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob inside box.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob InsideObject ObjectBox</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobParent</Key>
+<Priority>60063</Priority>
+<Type>General</Type>
+<Command>move bob parent</Command>
+<Description>TaskMoveBobParent</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob to parent location.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToParentLocation </MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobOntoGina</Key>
+<Priority>60064</Priority>
+<Type>General</Type>
+<Command>move bob onto gina</Command>
+<Description>TaskMoveBobOntoGina</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob onto Gina.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob OntoCharacter CharacterGina</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobLocGroup</Key>
+<Priority>60065</Priority>
+<Type>General</Type>
+<Command>move bob locgroup</Command>
+<Description>TaskMoveBobLocGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob to location group Rooms.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToLocationGroup GroupRooms</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSwitchBobDave</Key>
+<Priority>60066</Priority>
+<Type>General</Type>
+<Command>switch bob dave</Command>
+<Description>TaskSwitchBobDave</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Switched Bob with Dave.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToSwitchWith CharacterDave</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskMoveBobStandFloor</Key>
+<Priority>60067</Priority>
+<Type>General</Type>
+<Command>move bob stand floor</Command>
+<Description>TaskMoveBobStandFloor</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved Bob standing on floor.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToStandingOn TheFloor</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskEveryoneAtLoc</Key>
+<Priority>60068</Priority>
+<Type>General</Type>
+<Command>everyone at loc</Command>
+<Description>TaskEveryoneAtLoc</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everyone at store to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>EveryoneAtLocation LocationStore ToLocation LocationLab</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskEveryoneGroup</Key>
+<Priority>60069</Priority>
+<Type>General</Type>
+<Command>everyone group</Command>
+<Description>TaskEveryoneGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everyone in Staff to yard.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>EveryoneInGroup GroupStaff ToLocation LocationYard</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskEveryoneInside</Key>
+<Priority>60070</Priority>
+<Type>General</Type>
+<Command>everyone inside</Command>
+<Description>TaskEveryoneInside</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everyone inside box to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>EveryoneInside ObjectBox ToLocation LocationLab</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskEveryoneOn</Key>
+<Priority>60071</Priority>
+<Type>General</Type>
+<Command>everyone on</Command>
+<Description>TaskEveryoneOn</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everyone on table to lab.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>EveryoneOn ObjectTable ToLocation LocationLab</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskEveryoneProp</Key>
+<Priority>60072</Priority>
+<Type>General</Type>
+<Command>everyone prop</Command>
+<Description>TaskEveryoneProp</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moved everyone with StaffFlag to store.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>EveryoneWithProperty StaffFlag ToLocation LocationStore</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAddCharGroup</Key>
+<Priority>60073</Priority>
+<Type>General</Type>
+<Command>add char group</Command>
+<Description>TaskAddCharGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Added Carol to Extra Characters.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<AddCharacterToGroup>Character CharacterCarol ToGroup GroupExtraChar</AddCharacterToGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskRemCharGroup</Key>
+<Priority>60074</Priority>
+<Type>General</Type>
+<Command>rem char group</Command>
+<Description>TaskRemCharGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Removed Carol from Extra Characters.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<RemoveCharacterFromGroup>Character CharacterCarol FromGroup GroupExtraChar</RemoveCharacterFromGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAddLocGroup</Key>
+<Priority>60075</Priority>
+<Type>General</Type>
+<Command>add loc group</Command>
+<Description>TaskAddLocGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Added yard to Extra Locations.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<AddLocationToGroup>Location LocationYard ToGroup GroupExtraLoc</AddLocationToGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskRemLocGroup</Key>
+<Priority>60076</Priority>
+<Type>General</Type>
+<Command>rem loc group</Command>
+<Description>TaskRemLocGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Removed yard from Extra Locations.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<RemoveLocationFromGroup>Location LocationYard FromGroup GroupExtraLoc</RemoveLocationFromGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskRemLabGroup</Key>
+<Priority>600763</Priority>
+<Type>General</Type>
+<Command>rem lab group</Command>
+<Description>TaskRemLabGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Removed lab from Extra Locations.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<RemoveLocationFromGroup>Location LocationLab FromGroup GroupExtraLoc</RemoveLocationFromGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskRemStoreGroup</Key>
+<Priority>600764</Priority>
+<Type>General</Type>
+<Command>rem store group</Command>
+<Description>TaskRemStoreGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Removed store from Extra Locations.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<RemoveLocationFromGroup>Location LocationStore FromGroup GroupExtraLoc</RemoveLocationFromGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAddLocOfBob</Key>
+<Priority>60077</Priority>
+<Type>General</Type>
+<Command>add loc of bob</Command>
+<Description>TaskAddLocOfBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Added location of Bob to Extra Locations.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<AddLocationToGroup>LocationOf CharacterBob ToGroup GroupExtraLoc</AddLocationToGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAddEverywhereGroup</Key>
+<Priority>60078</Priority>
+<Type>General</Type>
+<Command>add everywhere group</Command>
+<Description>TaskAddEverywhereGroup</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Added everywhere in Rooms to Extra Locations.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<AddLocationToGroup>EverywhereInGroup GroupRooms ToGroup GroupExtraLoc</AddLocationToGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAddEverywhereProp</Key>
+<Priority>60079</Priority>
+<Type>General</Type>
+<Command>add everywhere prop</Command>
+<Description>TaskAddEverywhereProp</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Added everywhere with LabMarked to Extra Locations.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<AddLocationToGroup>EverywhereWithProperty LabMarked ToGroup GroupExtraLoc</AddLocationToGroup>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSetBoxClosed</Key>
+<Priority>60080</Priority>
+<Type>General</Type>
+<Command>set box closed</Command>
+<Description>TaskSetBoxClosed</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Set box closed.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetProperty>ObjectBox OpenStatus Closed</SetProperty>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSetBoxOpen</Key>
+<Priority>60081</Priority>
+<Type>General</Type>
+<Command>set box open</Command>
+<Description>TaskSetBoxOpen</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Set box open.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetProperty>ObjectBox OpenStatus Open</SetProperty>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSetBobSitting</Key>
+<Priority>60082</Priority>
+<Type>General</Type>
+<Command>set bob sitting</Command>
+<Description>TaskSetBobSitting</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Set Bob sitting.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetProperty>CharacterBob CharacterPosition Sitting</SetProperty>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSetLabMarked</Key>
+<Priority>60083</Priority>
+<Type>General</Type>
+<Command>set lab marked</Command>
+<Description>TaskSetLabMarked</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Set lab marked.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetProperty>LocationLab LabMarked &lt;Selected&gt;</SetProperty>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskUnsetLabMarked</Key>
+<Priority>60084</Priority>
+<Type>General</Type>
+<Command>unset lab marked</Command>
+<Description>TaskUnsetLabMarked</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unset lab marked.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetProperty>LocationLab LabMarked &lt;Unselected&gt;</SetProperty>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSetCounter</Key>
+<Priority>60085</Priority>
+<Type>General</Type>
+<Command>set counter</Command>
+<Description>TaskSetCounter</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Set counter to 5.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>Counter = "5"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskIncCounter</Key>
+<Priority>60086</Priority>
+<Type>General</Type>
+<Command>inc counter</Command>
+<Description>TaskIncCounter</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Increased counter by 2.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<IncVariable>Counter = "2"</IncVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskDecCounter</Key>
+<Priority>60087</Priority>
+<Type>General</Type>
+<Command>dec counter</Command>
+<Description>TaskDecCounter</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Decreased counter by 1.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<DecVariable>Counter = "1"</DecVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSetNote</Key>
+<Priority>60088</Priority>
+<Type>General</Type>
+<Command>set note</Command>
+<Description>TaskSetNote</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Set note.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>MessageText = ""hello""</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskExecMarker</Key>
+<Priority>60089</Priority>
+<Type>General</Type>
+<Command>exec marker</Command>
+<Description>TaskExecMarker</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Executed marker task.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Execute TaskMarker</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskUnsetMarker</Key>
+<Priority>60090</Priority>
+<Type>General</Type>
+<Command>unset marker</Command>
+<Description>TaskUnsetMarker</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unset marker task.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Unset TaskMarker</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAdvanceTime</Key>
+<Priority>60091</Priority>
+<Type>General</Type>
+<Command>advance time</Command>
+<Description>TaskAdvanceTime</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Advanced time.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Time>Skip "2" turns</Time>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskEnterConv</Key>
+<Priority>60092</Priority>
+<Type>General</Type>
+<Command>enter conv</Command>
+<Description>TaskEnterConv</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Entered conversation with Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Conversation>EnterWith CharacterBob</Conversation>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskAskBob</Key>
+<Priority>60093</Priority>
+<Type>General</Type>
+<Command>do ask coin</Command>
+<Description>TaskAskBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Asked Bob about coin.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Conversation>Ask CharacterBob About 'coin'</Conversation>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskTellBob</Key>
+<Priority>60094</Priority>
+<Type>General</Type>
+<Command>do tell coin</Command>
+<Description>TaskTellBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Told Bob about coin.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Conversation>Tell CharacterBob About 'coin'</Conversation>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskSayBob</Key>
+<Priority>60095</Priority>
+<Type>General</Type>
+<Command>do say hello</Command>
+<Description>TaskSayBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Said hi to Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Conversation>Say 'hello' To CharacterBob</Conversation>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskGreetBob</Key>
+<Priority>60096</Priority>
+<Type>General</Type>
+<Command>do greet</Command>
+<Description>TaskGreetBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Greeted Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Conversation>Greet CharacterBob</Conversation>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskFarewellBob</Key>
+<Priority>60095</Priority>
+<Type>General</Type>
+<Command>do farewell</Command>
+<Description>TaskFarewellBob</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Farewelled Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Conversation>Farewell CharacterBob</Conversation>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskLeaveConv</Key>
+<Priority>60097</Priority>
+<Type>General</Type>
+<Command>leave conv</Command>
+<Description>TaskLeaveConv</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Left conversation with Bob.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<Conversation>LeaveWith CharacterBob</Conversation>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskStartEvt</Key>
+<Priority>60098</Priority>
+<Type>General</Type>
+<Command>start evt</Command>
+<Description>TaskStartEvt</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Started controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskPauseEvt</Key>
+<Priority>60099</Priority>
+<Type>General</Type>
+<Command>pause evt</Command>
+<Description>TaskPauseEvt</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Paused controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskResumeEvt</Key>
+<Priority>60100</Priority>
+<Type>General</Type>
+<Command>resume evt</Command>
+<Description>TaskResumeEvt</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Resumed controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskStopEvt</Key>
+<Priority>60101</Priority>
+<Type>General</Type>
+<Command>stop evt</Command>
+<Description>TaskStopEvt</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Stopped controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskUnmarkEvt</Key>
+<Priority>60102</Priority>
+<Type>General</Type>
+<Command>unmark evt</Command>
+<Description>TaskUnmarkEvt</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Cleared event marker.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Unset TaskEvtMarker</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskStartWalk</Key>
+<Priority>60103</Priority>
+<Type>General</Type>
+<Command>start walk</Command>
+<Description>TaskStartWalk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Started Bob walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskPauseWalk</Key>
+<Priority>60104</Priority>
+<Type>General</Type>
+<Command>pause walk</Command>
+<Description>TaskPauseWalk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Paused Bob walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskResumeWalk</Key>
+<Priority>60105</Priority>
+<Type>General</Type>
+<Command>resume walk</Command>
+<Description>TaskResumeWalk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Resumed Bob walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskStopWalk</Key>
+<Priority>60106</Priority>
+<Type>General</Type>
+<Command>stop walk</Command>
+<Description>TaskStopWalk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Stopped Bob walk.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskUnmarkWalk</Key>
+<Priority>60107</Priority>
+<Type>General</Type>
+<Command>unmark walk</Command>
+<Description>TaskUnmarkWalk</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Cleared walk marker.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Unset TaskWalkMarker</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskWin</Key>
+<Priority>60108</Priority>
+<Type>General</Type>
+<Command>win</Command>
+<Description>TaskWin</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You win.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<EndGame>Win</EndGame>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskLose</Key>
+<Priority>60109</Priority>
+<Type>General</Type>
+<Command>lose</Command>
+<Description>TaskLose</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You lose.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<EndGame>Lose</EndGame>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskEndNeutral</Key>
+<Priority>60110</Priority>
+<Type>General</Type>
+<Command>end game</Command>
+<Description>TaskEndNeutral</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Game over.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<EndGame>Neutral</EndGame>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Task>
+<Key>TaskHelp</Key>
+<Priority>60111</Priority>
+<Type>General</Type>
+<Command>helpactions</Command>
+<Description>TaskHelp</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Commands: move/hide/bulk/group/set/vars/conv/evt/walk/win. Use where * and show vars to inspect.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:30:00</LastUpdated>
+<Created>2026-07-09 21:30:00</Created>
+</Task>
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>LocationLab</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationStore</Key>
+<X>4</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationYard</Key>
+<X>0</X>
+<Y>4</Y>
+<Z>0</Z>
+</Node>
+</Page>
+</Map>
+</Adventure>

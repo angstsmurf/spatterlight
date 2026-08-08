@@ -1,0 +1,5 @@
+# ProbeExecOrderTask -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/execute_ordering.xml, section `execute_ordering_task_path`).
+# Exercises SetTasks-Execute action ordering, task path.
+jump
+where

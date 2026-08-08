@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Title>Popups Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ADRIFT interactive pop-up functions: %PopUpChoice% and %PopUpInput%. Type help for commands.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>LocationLab</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Popup Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet room for testing pop-up choice and input functions.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Location>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Character>
+
+<!-- Results of pop-up functions, set via task actions (ADRIFT's usual pattern). -->
+<Variable>
+<Key>ChoiceResult</Key>
+<Name>ChoiceResult</Name>
+<Type>Text</Type>
+<InitialValue>unset</InitialValue>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Variable>
+<Variable>
+<Key>InputResult</Key>
+<Name>InputResult</Name>
+<Type>Text</Type>
+<InitialValue>unset</InitialValue>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Variable>
+<Variable>
+<Key>InputNoDefault</Key>
+<Name>InputNoDefault</Name>
+<Type>Text</Type>
+<InitialValue>unset</InitialValue>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Variable>
+
+<Task>
+<Key>TaskHelp</Key>
+<Priority>50000</Priority>
+<Type>General</Type>
+<Command>help</Command>
+<Description>List popup test commands</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Commands: ask choice, ask name, ask blank, show results.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Task>
+
+<!-- SetVariable via PopUpChoice — same pattern ADRIFT uses for player gender prompts. -->
+<Task>
+<Key>TaskAskChoice</Key>
+<Priority>50001</Priority>
+<Type>General</Type>
+<Command>ask choice</Command>
+<Description>PopUpChoice into ChoiceResult</Description>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Choice stored. ChoiceResult=%ChoiceResult%.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>ChoiceResult = %PopUpChoice["Pick a colour", "red", "blue"]%</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Task>
+
+<!-- SetVariable via PopUpInput with default — same pattern as player name prompts. -->
+<Task>
+<Key>TaskAskName</Key>
+<Priority>50002</Priority>
+<Type>General</Type>
+<Command>ask name</Command>
+<Description>PopUpInput into InputResult</Description>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Name stored. InputResult=%InputResult%.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>InputResult = %PopUpInput["Please enter your name", "Anonymous"]%</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Task>
+
+<!-- PopUpInput with prompt only (no default). -->
+<Task>
+<Key>TaskAskBlank</Key>
+<Priority>50003</Priority>
+<Type>General</Type>
+<Command>ask blank</Command>
+<Description>PopUpInput with no default</Description>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Blank input stored. InputNoDefault=%InputNoDefault%.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>InputNoDefault = %PopUpInput["Type anything"]%</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskShowResults</Key>
+<Priority>50004</Priority>
+<Type>General</Type>
+<Command>show results</Command>
+<Description>Show stored popup results</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ChoiceResult=%ChoiceResult%. InputResult=%InputResult%. InputNoDefault=%InputNoDefault%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 22:40:00</LastUpdated>
+<Created>2026-07-09 22:40:00</Created>
+</Task>
+
+</Adventure>

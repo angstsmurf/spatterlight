@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Title>Events Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises turn-based ADRIFT events: immediate and delayed starts, after-task starts, DisplayMessage, ExecuteTask, SetLook, UnsetTask, and Start/Suspend/Resume/Stop/UnCompletion controls.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+<Property>
+<Key>_ObjectArticle</Key>
+<Description>Object Article</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectPrefix</Key>
+<Description>Object Prefix</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectNoun</Key>
+<Description>Object Name</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Property>
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Event Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A sparse laboratory for testing events. An exit leads south to the courtyard.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>South</Direction>
+<Destination>Location2</Destination>
+</Movement>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Location>
+<Location>
+<Key>Location2</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Courtyard</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An open courtyard. An exit leads north back to the lab.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>Location1</Destination>
+</Movement>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Location>
+
+<!-- Immediately: DisplayMessage from start, then from last sub-event, then before end. -->
+<Event>
+<Key>EvtImmediate</Key>
+<Description>Immediate ticker</Description>
+<Type>TurnBased</Type>
+<WhenStart>Immediately</WhenStart>
+<Length>3</Length>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Immediate event: message from start.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Immediate event: message from last sub-event.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>0 BeforeEndOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Immediate event: message before end.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Event>
+
+<!-- BetweenXandYTurns: countdown via StartDelay, then run. -->
+<Event>
+<Key>EvtDelayed</Key>
+<Description>Delayed starter</Description>
+<Type>TurnBased</Type>
+<WhenStart>BetweenXandYTurns</WhenStart>
+<StartDelay>2</StartDelay>
+<Length>2</Length>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Delayed event has started.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>0 BeforeEndOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Delayed event is ending.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Event>
+
+<!-- AfterATask + ExecuteTask. -->
+<Event>
+<Key>EvtAfterTask</Key>
+<Description>After-task runner</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>3</Length>
+<Control>Start Completion TaskStartAfter</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>ExecuteTask</What>
+<Measure>Turns</Measure>
+<Action>ExecuteTask TaskFromEvent</Action>
+</SubEvent>
+<SubEvent>
+<When>0 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>After-task event: displayed right after ExecuteTask.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>0 BeforeEndOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>After-task event finished.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Event>
+
+<!-- SetLook pushes onto the room description stack while the event runs. -->
+<Event>
+<Key>EvtSetLook</Key>
+<Description>SetLook mist</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>4</Length>
+<Control>Start Completion TaskStartLook</Control>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>SetLook</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The lab is filled with swirling mist.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>2 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The mist thickens for a moment.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Event>
+
+<!-- UnsetTask clears a previously completed task. -->
+<Event>
+<Key>EvtUnset</Key>
+<Description>Unset marker</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>2</Length>
+<Control>Start Completion TaskStartUnset</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>UnsetTask</What>
+<Measure>Turns</Measure>
+<Action>UnsetTask TaskMarker</Action>
+</SubEvent>
+<SubEvent>
+<When>0 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Unset event cleared the marker task.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Event>
+
+<!-- Starts when TaskMarker is unset via task action (UnCompletion control). -->
+<Event>
+<Key>EvtOnUncomplete</Key>
+<Description>React to marker unset</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>1</Length>
+<Control>Start UnCompletion TaskMarker</Control>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>UnCompletion control started this event.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Event>
+
+<!-- Start / Suspend / Resume / Stop via task completion controls. -->
+<Event>
+<Key>EvtControls</Key>
+<Description>Controllable pulse</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>8</Length>
+<Control>Start Completion TaskStartCtrl</Control>
+<Control>Suspend Completion TaskPauseCtrl</Control>
+<Control>Resume Completion TaskResumeCtrl</Control>
+<Control>Stop Completion TaskStopCtrl</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Control event: beat 1.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>2 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Control event: beat 2.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>3 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Control event: beat 3.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>4 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Control event: beat 4.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Event>
+
+<Task>
+<Key>TaskStartAfter</Key>
+<Priority>50100</Priority>
+<Type>General</Type>
+<Command>start after</Command>
+<Description>Start the after-task event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You trigger the after-task event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskFromEvent</Key>
+<Priority>50101</Priority>
+<Type>System</Type>
+<Description>Task executed by an event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ExecuteTask ran TaskFromEvent.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStartLook</Key>
+<Priority>50102</Priority>
+<Type>General</Type>
+<Command>start look</Command>
+<Description>Start the SetLook event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You trigger the SetLook event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskMarker</Key>
+<Priority>50103</Priority>
+<Type>General</Type>
+<Command>mark</Command>
+<Description>Mark a one-shot task complete</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marker task is now complete.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>0</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckMarker</Key>
+<Priority>50104</Priority>
+<Type>General</Type>
+<Command>check marker</Command>
+<Description>Report whether the marker task is complete</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marker task is complete.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<Restrictions>
+<Restriction>
+<Task>TaskMarker Must BeComplete</Task>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marker task is not complete.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStartUnset</Key>
+<Priority>50105</Priority>
+<Type>General</Type>
+<Command>start unset</Command>
+<Description>Start the UnsetTask event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You trigger the unset event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskUnmark</Key>
+<Priority>50110</Priority>
+<Type>General</Type>
+<Command>unmark</Command>
+<Description>Unset the marker task via action</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You clear the marker task.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<Actions>
+<SetTasks>Unset TaskMarker</SetTasks>
+</Actions>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStartCtrl</Key>
+<Priority>50106</Priority>
+<Type>General</Type>
+<Command>start ctrl</Command>
+<Description>Start the controllable event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskPauseCtrl</Key>
+<Priority>50107</Priority>
+<Type>General</Type>
+<Command>pause ctrl</Command>
+<Description>Pause the controllable event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You pause the controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskResumeCtrl</Key>
+<Priority>50108</Priority>
+<Type>General</Type>
+<Command>resume ctrl</Command>
+<Description>Resume the controllable event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You resume the controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStopCtrl</Key>
+<Priority>50109</Priority>
+<Type>General</Type>
+<Command>stop ctrl</Command>
+<Description>Stop the controllable event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You stop the controllable event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>Location1</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>Location2</Key>
+<X>0</X>
+<Y>4</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+</Node>
+</Page>
+</Map>
+</Adventure>

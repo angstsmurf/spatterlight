@@ -1,0 +1,68 @@
+Blocking exits demo
+This sample demonstrates the two ways of blocking the player's movement.
+
+The exit north will only show up on the map when the movement is allowed, whereas the exit south will show up all the time.
+
+It also demonstrates a "Fake" exit off to the east.
+
+Start
+This is the start location.  There is an exit north to "One", and an exit south to "Two".
+
+Both exits will initially be blocked.  To allow the player to move north, type "one".  To allow the player to move south, type "two".  Exits are east and south.
+
+> n
+You cannot move North until you type "one".
+
+> s
+You cannot move South until you type "two".
+
+> e
+Going East from Start is strictly forbidden.
+
+> one
+You may now move North.  (The exit should now also show on the map)
+
+> n
+You move north.
+
+One
+An exit leads south.
+
+> look
+
+One
+An exit leads south.
+
+> s
+You move south.
+
+Start
+This is the start location.  There is an exit north to "One", and an exit south to "Two".
+
+Both exits will initially be blocked.  To allow the player to move north, type "one".  To allow the player to move south, type "two".  Exits are north, east and south.
+
+> two
+You may now move South.
+
+> s
+You move south.
+
+Two
+An exit leads north.
+
+> look
+
+Two
+An exit leads north.
+
+> n
+You move north.
+
+Start
+This is the start location.  There is an exit north to "One", and an exit south to "Two".
+
+Both exits will initially be blocked.  To allow the player to move north, type "one".  To allow the player to move south, type "two".  Exits are north, east and south.
+
+> e
+Going East from Start is strictly forbidden.
+

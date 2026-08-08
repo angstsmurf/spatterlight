@@ -1,0 +1,5 @@
+# ProbeExecOrderTopic -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/execute_ordering.xml, section `execute_ordering_topic_path`).
+# Exercises SetTasks-Execute action ordering, conversation-topic path.
+topicjump
+where

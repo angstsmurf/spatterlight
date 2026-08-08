@@ -1,0 +1,31 @@
+Dark Room
+This demo shows how to create a dark room.
+
+Outside the cave
+There is a dark cave here.  Also here is a lantern.  An exit leads in.
+
+> look
+
+Outside the cave
+There is a dark cave here.  Also here is a lantern.  An exit leads in.
+
+> get lantern
+Ok, you pick up the lantern.
+
+> in
+You move in.
+
+Inside the cave
+The cave is quite spooky.  There is a button on the wall.  An exit leads out.
+
+> look
+
+Inside the cave
+The cave is quite spooky.  There is a button on the wall.  An exit leads out.
+
+> press button
+Congratulations, you win the game!
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+

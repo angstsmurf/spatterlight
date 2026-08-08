@@ -124,7 +124,7 @@ A5SAVE_BIN      := test/a5_save_test
 CAP_BIN    := test/capacity_test_hl
 CAP_TAF    := test/capacity_matrix.taf test/capacity_nest.taf
 
-.PHONY: test sanitize taf clean capacitytest capacitybless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs
+.PHONY: test sanitize taf clean capacitytest capacitybless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5probetafs a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -193,6 +193,21 @@ a5runtest: $(A5RUN_BIN)
 # past its baseline hunk budget.
 a5walkthroughs: $(A5RUN_BIN)
 	@test/run_a5_walkthroughs.sh
+
+# Synthetic ADRIFT 5 conformance probes (the Probe* rows of the walkthrough
+# suite), imported from the adrift-5-rs test suite.  The committed
+# test/a5probes/*.taf are built from the committed XML sources by embedding
+# the standard library with test/a5probes/tools/xml2taf.py.  Rebuilding is
+# only needed after editing a source XML -- note the .taf output is NOT
+# byte-stable (xml2taf stamps a fresh random IFID per build), so a no-change
+# rebuild still dirties the files and invalidates FrankenDrift's FD_CACHE
+# entries for those games.  Don't rebuild gratuitously.
+a5probetafs:
+	@cd test/a5probes && for x in src/*.xml; do \
+	    n=$$(basename "$$x" .xml); \
+	    python3 tools/xml2taf.py "$$x" -o "$$n.taf" || exit 1; \
+	    echo "built a5probes/$$n.taf"; \
+	done
 
 # ASan/UBSan sweep of every self-contained, no-external-data harness that `test`
 # runs (the a5runtest game-file replay is excluded: it needs uncommittable game

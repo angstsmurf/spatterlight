@@ -1,0 +1,41 @@
+Untitled
+
+Outside the cave
+There is a dark cave here.  An exit leads in.
+
+> in
+You move in.
+It is too dark to make anything out clearly.
+
+> out
+You move out.
+
+Outside the cave
+There is a dark cave here.  An exit leads in.
+
+> switch on torch
+You switch on the torch.  The torch lights up.
+
+> in
+You move in.
+
+Inside the cave
+The cave is quite spooky.  An exit leads out.
+
+> look
+
+Inside the cave
+The cave is quite spooky.  An exit leads out.
+
+> switch off torch
+You switch off the torch.  The torch light goes out.
+
+> look
+It is too dark to make anything out clearly.
+
+> out
+You move out.
+
+Outside the cave
+There is a dark cave here.  An exit leads in.
+

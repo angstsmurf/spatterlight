@@ -1,0 +1,4362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Title>Restrictions Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ADRIFT restriction kinds implemented in FrankenDrift (excluding exotic NoObject/AnyObject/AnyCharacter TODOs). Type helpchecks for a command list.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<Property>
+<Key>LabMarked</Key>
+<Description>Lab is marked</Description>
+<PropertyOf>Locations</PropertyOf>
+<Type>SelectionOnly</Type>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Property>
+<Location>
+<Key>LocationLab</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A testing laboratory. Exits lead south to the closet and east to the alcove.</Text>
+</Description>
+</LongDescription>
+<Property>
+<Key>LabMarked</Key>
+</Property>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationCloset</Destination>
+</Movement>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationAlcove</Destination>
+</Movement>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Location>
+<Location>
+<Key>LocationCloset</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Closet</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A small empty closet. An exit leads north back to the lab.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationLab</Destination>
+</Movement>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Location>
+<Location>
+<Key>LocationAlcove</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Alcove</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet alcove. Carol is here. An exit leads west back to the lab.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationLab</Destination>
+</Movement>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Location>
+<Object>
+<Key>ObjectBall</Key>
+<Article>a</Article>
+<Prefix>red</Prefix>
+<Name>ball</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A red ball.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Small</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectBox</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>box</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An open wooden box.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Container</Key>
+</Property>
+<Property>
+<Key>Openable</Key>
+</Property>
+<Property>
+<Key>OpenStatus</Key>
+<Value>Open</Value>
+</Property>
+<Property>
+<Key>CharactersCanGoInOb</Key>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectTable</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>table</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A sturdy table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Single Location</Value>
+</Property>
+<Property>
+<Key>AtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Surface</Key>
+</Property>
+<Property>
+<Key>Sittable</Key>
+</Property>
+<Property>
+<Key>Standable</Key>
+</Property>
+<Property>
+<Key>Lieable</Key>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectHat</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>hat</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A wearable hat.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Worn By Character</Value>
+</Property>
+<Property>
+<Key>WornByWho</Key>
+<Value>CharacterBob</Value>
+</Property>
+<Property>
+<Key>Wearable</Key>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectCoin</Key>
+<Article>a</Article>
+<Prefix>gold</Prefix>
+<Name>coin</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A gold coin on the table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>On Object</Value>
+</Property>
+<Property>
+<Key>OnWhat</Key>
+<Value>ObjectTable</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectGem</Key>
+<Article>a</Article>
+<Prefix>blue</Prefix>
+<Name>gem</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A blue gem inside the box.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Inside Object</Value>
+</Property>
+<Property>
+<Key>InsideWhat</Key>
+<Value>ObjectBox</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectNose</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>nose</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob's nose.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Part of Character</Value>
+</Property>
+<Property>
+<Key>PartOfWho</Key>
+<Value>CharacterBob</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectHandle</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>handle</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The box handle.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Static</Value>
+</Property>
+<Property>
+<Key>StaticLocation</Key>
+<Value>Part of Object</Value>
+</Property>
+<Property>
+<Key>PartOfWhat</Key>
+<Value>ObjectBox</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectRock</Key>
+<Article>a</Article>
+<Prefix>heavy</Prefix>
+<Name>rock</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A very heavy rock.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very heavy</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Large</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectBoulder</Key>
+<Article>a</Article>
+<Prefix>huge</Prefix>
+<Name>boulder</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A huge boulder, also very heavy.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very heavy</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Huge</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectHiddenKey</Key>
+<Article>a</Article>
+<Prefix>hidden</Prefix>
+<Name>key</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A hidden key.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Hidden</Value>
+</Property>
+
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectPebble</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>pebble</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A tiny pebble held by Bob.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Held By Character</Value>
+</Property>
+<Property>
+<Key>HeldByWho</Key>
+<Value>CharacterBob</Value>
+</Property>
+<Property>
+<Key>Weight</Key>
+<Value>Very light</Value>
+</Property>
+<Property>
+<Key>Size</Key>
+<Value>Tiny</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Object>
+<Character>
+<Key>CharacterBob</Key>
+<Name>Bob</Name>
+<Article />
+<Prefix />
+<Descriptor>man</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Conversation>EnterWith CharacterBob</Conversation>
+<Topic>
+<Key>TopicHello</Key>
+<Summary>Hello</Summary>
+<Keywords>[hello/hi]</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"Hi," says Bob.</Text>
+</Description>
+</Description>
+<IsCommand>1</IsCommand>
+<IsIntro>1</IsIntro>
+</Topic>
+<Topic>
+<Key>TopicAskSecret</Key>
+<Summary>Ask secret</Summary>
+<Keywords>secret</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"The password is swordfish," says Bob.</Text>
+</Description>
+</Description>
+<IsAsk>1</IsAsk>
+<Actions>
+<SetTasks>Execute TaskFromTopic</SetTasks>
+</Actions>
+</Topic>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Character>
+<Key>CharacterCarol</Key>
+<Name>Carol</Name>
+<Article />
+<Prefix />
+<Descriptor>woman</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Carol is here.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationAlcove</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Character>
+<Key>CharacterDana</Key>
+<Name>Dana</Name>
+<Article />
+<Prefix />
+<Descriptor>person</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Dana is sitting on the table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Sitting</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>On Object</Value>
+</Property>
+<Property>
+<Key>CharOnWhat</Key>
+<Value>ObjectTable</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Unknown</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Character>
+<Key>CharacterEve</Key>
+<Name>Eve</Name>
+<Article />
+<Prefix />
+<Descriptor>explorer</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Eve is inside the box.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>In Object</Value>
+</Property>
+<Property>
+<Key>CharInsideWhat</Key>
+<Value>ObjectBox</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Character>
+<Key>CharacterFrank</Key>
+<Name>Frank</Name>
+<Article />
+<Prefix />
+<Descriptor>climber</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Frank is perched on Bob.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>On Character</Value>
+</Property>
+<Property>
+<Key>CharOnWho</Key>
+<Value>CharacterBob</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Character>
+<Key>CharacterHarry</Key>
+<Name>Harry</Name>
+<Article />
+<Prefix />
+<Descriptor>stander</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Harry is standing on the table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>On Object</Value>
+</Property>
+<Property>
+<Key>CharOnWhat</Key>
+<Value>ObjectTable</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Character>
+<Key>CharacterGina</Key>
+<Name>Gina</Name>
+<Article />
+<Prefix />
+<Descriptor>resting person</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Gina is lying on the table.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Lying</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>On Object</Value>
+</Property>
+<Property>
+<Key>CharOnWhat</Key>
+<Value>ObjectTable</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Character>
+<Variable>
+<Key>VarCounter</Key>
+<Name>Counter</Name>
+<Type>Numeric</Type>
+<InitialValue>5</InitialValue>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Variable>
+<Variable>
+<Key>VarMotto</Key>
+<Name>Motto</Name>
+<Type>Text</Type>
+<InitialValue>hello world</InitialValue>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Variable>
+<Group>
+<Key>GroupLabs</Key>
+<Type>Locations</Type>
+<Name>Lab Area</Name>
+<Member>LocationLab</Member>
+<Member>LocationCloset</Member>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Group>
+<Group>
+<Key>GroupToys</Key>
+<Type>Objects</Type>
+<Name>Toys</Name>
+<Member>ObjectBall</Member>
+<Member>ObjectCoin</Member>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Group>
+<Group>
+<Key>GroupStaff</Key>
+<Type>Characters</Type>
+<Name>Staff</Name>
+<Member>CharacterBob</Member>
+<Member>CharacterCarol</Member>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Group>
+<Task>
+<Key>TaskCheckLocExist60001</Key>
+<Priority>60001</Priority>
+<Type>General</Type>
+<Command>check loc exist</Command>
+<Description>TaskCheckLocExist60001</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS location exist</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must Exist </Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckLocBelocation60002</Key>
+<Priority>60002</Priority>
+<Type>General</Type>
+<Command>check loc belocation</Command>
+<Description>TaskCheckLocBelocation60002</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS location belocation</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must BeLocation LocationLab</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckLocGroup60003</Key>
+<Priority>60003</Priority>
+<Type>General</Type>
+<Command>check loc group</Command>
+<Description>TaskCheckLocGroup60003</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS location group</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must BeInGroup GroupLabs</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckLocPlayerlocationGroup60004</Key>
+<Priority>60004</Priority>
+<Type>General</Type>
+<Command>check loc playerlocation group</Command>
+<Description>TaskCheckLocPlayerlocationGroup60004</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS playerlocation group</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>PlayerLocation Must BeInGroup GroupLabs</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckLocProperty60005</Key>
+<Priority>60005</Priority>
+<Type>General</Type>
+<Command>check loc property</Command>
+<Description>TaskCheckLocProperty60005</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS location property</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must HaveProperty LabMarked</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckLocSeen60006</Key>
+<Priority>60006</Priority>
+<Type>General</Type>
+<Command>check loc seen</Command>
+<Description>TaskCheckLocSeen60006</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS location seen</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must HaveBeenSeenByCharacter %Player%</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjExist60007</Key>
+<Priority>60007</Priority>
+<Type>General</Type>
+<Command>check obj exist</Command>
+<Description>TaskCheckObjExist60007</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS object exist</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectBall Must Exist </Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyExist60008</Key>
+<Priority>60008</Priority>
+<Type>General</Type>
+<Command>check obj any exist</Command>
+<Description>TaskCheckObjAnyExist60008</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any object exist</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must Exist </Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAtloc60009</Key>
+<Priority>60009</Priority>
+<Type>General</Type>
+<Command>check obj atloc</Command>
+<Description>TaskCheckObjAtloc60009</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS object at location</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectBall Must BeAtLocation LocationLab</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyAtloc60010</Key>
+<Priority>60010</Priority>
+<Type>General</Type>
+<Command>check obj any atloc</Command>
+<Description>TaskCheckObjAnyAtloc60010</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any object at location</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must BeAtLocation LocationLab</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjHeld60011</Key>
+<Priority>60011</Priority>
+<Type>General</Type>
+<Command>check obj held</Command>
+<Description>TaskCheckObjHeld60011</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS object held by bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectPebble Must BeHeldByCharacter CharacterBob</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyHeld60012</Key>
+<Priority>60012</Priority>
+<Type>General</Type>
+<Command>check obj any held</Command>
+<Description>TaskCheckObjAnyHeld60012</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any object held by bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must BeHeldByCharacter CharacterBob</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjHeldAnychar60013</Key>
+<Priority>60013</Priority>
+<Type>General</Type>
+<Command>check obj held anychar</Command>
+<Description>TaskCheckObjHeldAnychar60013</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS pebble held by any character</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectPebble Must BeHeldByCharacter AnyCharacter</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjWorn60014</Key>
+<Priority>60014</Priority>
+<Type>General</Type>
+<Command>check obj worn</Command>
+<Description>TaskCheckObjWorn60014</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS hat worn by bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectHat Must BeWornByCharacter CharacterBob</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyWorn60015</Key>
+<Priority>60015</Priority>
+<Type>General</Type>
+<Command>check obj any worn</Command>
+<Description>TaskCheckObjAnyWorn60015</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any worn by bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must BeWornByCharacter CharacterBob</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjWornAnychar60016</Key>
+<Priority>60016</Priority>
+<Type>General</Type>
+<Command>check obj worn anychar</Command>
+<Description>TaskCheckObjWornAnychar60016</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS hat worn by any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectHat Must BeWornByCharacter AnyCharacter</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjVisible60017</Key>
+<Priority>60017</Priority>
+<Type>General</Type>
+<Command>check obj visible</Command>
+<Description>TaskCheckObjVisible60017</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS ball visible to player</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectBall Must BeVisibleToCharacter %Player%</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyVisible60018</Key>
+<Priority>60018</Priority>
+<Type>General</Type>
+<Command>check obj any visible</Command>
+<Description>TaskCheckObjAnyVisible60018</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any visible to player</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must BeVisibleToCharacter %Player%</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjNoVisible60019</Key>
+<Priority>60019</Priority>
+<Type>General</Type>
+<Command>check obj no visible</Command>
+<Description>TaskCheckObjNoVisible60019</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS no object visible to carol</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>NoObject Must BeVisibleToCharacter CharacterCarol</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjInside60020</Key>
+<Priority>60020</Priority>
+<Type>General</Type>
+<Command>check obj inside</Command>
+<Description>TaskCheckObjInside60020</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS gem inside box</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectGem Must BeInsideObject ObjectBox</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyInside60021</Key>
+<Priority>60021</Priority>
+<Type>General</Type>
+<Command>check obj any inside</Command>
+<Description>TaskCheckObjAnyInside60021</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any inside box</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must BeInsideObject ObjectBox</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjInsideAny60022</Key>
+<Priority>60022</Priority>
+<Type>General</Type>
+<Command>check obj inside any</Command>
+<Description>TaskCheckObjInsideAny60022</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS gem inside any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectGem Must BeInsideObject AnyObject</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjOn60023</Key>
+<Priority>60023</Priority>
+<Type>General</Type>
+<Command>check obj on</Command>
+<Description>TaskCheckObjOn60023</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS coin on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectCoin Must BeOnObject ObjectTable</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyOn60024</Key>
+<Priority>60024</Priority>
+<Type>General</Type>
+<Command>check obj any on</Command>
+<Description>TaskCheckObjAnyOn60024</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must BeOnObject ObjectTable</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjOnAny60025</Key>
+<Priority>60025</Priority>
+<Type>General</Type>
+<Command>check obj on any</Command>
+<Description>TaskCheckObjOnAny60025</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS coin on any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectCoin Must BeOnObject AnyObject</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjState60026</Key>
+<Priority>60026</Priority>
+<Type>General</Type>
+<Command>check obj state</Command>
+<Description>TaskCheckObjState60026</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS box open state</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectBox Must BeInState Open</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjGroup60027</Key>
+<Priority>60027</Priority>
+<Type>General</Type>
+<Command>check obj group</Command>
+<Description>TaskCheckObjGroup60027</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS ball in toys</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectBall Must BeInGroup GroupToys</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyGroup60028</Key>
+<Priority>60028</Priority>
+<Type>General</Type>
+<Command>check obj any group</Command>
+<Description>TaskCheckObjAnyGroup60028</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any in toys</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must BeInGroup GroupToys</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjSeen60029</Key>
+<Priority>60029</Priority>
+<Type>General</Type>
+<Command>check obj seen</Command>
+<Description>TaskCheckObjSeen60029</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS ball seen by player</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectBall Must HaveBeenSeenByCharacter %Player%</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjPartChar60030</Key>
+<Priority>60030</Priority>
+<Type>General</Type>
+<Command>check obj part char</Command>
+<Description>TaskCheckObjPartChar60030</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS nose part of bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectNose Must BePartOfCharacter CharacterBob</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjPartObj60031</Key>
+<Priority>60031</Priority>
+<Type>General</Type>
+<Command>check obj part obj</Command>
+<Description>TaskCheckObjPartObj60031</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS handle part of box</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectHandle Must BePartOfObject ObjectBox</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjPartAny60032</Key>
+<Priority>60032</Priority>
+<Type>General</Type>
+<Command>check obj part any</Command>
+<Description>TaskCheckObjPartAny60032</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS handle part of any object</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectHandle Must BePartOfObject AnyObject</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjProperty60033</Key>
+<Priority>60033</Priority>
+<Type>General</Type>
+<Command>check obj property</Command>
+<Description>TaskCheckObjProperty60033</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS hat wearable</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectHat Must HaveProperty Wearable</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjAnyProperty60034</Key>
+<Priority>60034</Priority>
+<Type>General</Type>
+<Command>check obj any property</Command>
+<Description>TaskCheckObjAnyProperty60034</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any wearable</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>AnyObject Must HaveProperty Wearable</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjBeobject60035</Key>
+<Priority>60035</Priority>
+<Type>General</Type>
+<Command>check obj beobject</Command>
+<Description>TaskCheckObjBeobject60035</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS ball is ball</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectBall Must BeObject ObjectBall</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjHidden60036</Key>
+<Priority>60036</Priority>
+<Type>General</Type>
+<Command>check obj hidden</Command>
+<Description>TaskCheckObjHidden60036</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS hidden key is hidden</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ObjectHiddenKey Must BeHidden </Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjNoAtlocCloset60037</Key>
+<Priority>60037</Priority>
+<Type>General</Type>
+<Command>check obj no atloc closet</Command>
+<Description>TaskCheckObjNoAtlocCloset60037</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS no object in closet</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>NoObject Must BeAtLocation LocationCloset</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjNoHeldCarol60038</Key>
+<Priority>60038</Priority>
+<Type>General</Type>
+<Command>check obj no held carol</Command>
+<Description>TaskCheckObjNoHeldCarol60038</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS no object held by carol</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>NoObject Must BeHeldByCharacter CharacterCarol</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjNoWornCarol60039</Key>
+<Priority>60039</Priority>
+<Type>General</Type>
+<Command>check obj no worn carol</Command>
+<Description>TaskCheckObjNoWornCarol60039</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS no object worn by carol</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>NoObject Must BeWornByCharacter CharacterCarol</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjNoInsideTable60040</Key>
+<Priority>60040</Priority>
+<Type>General</Type>
+<Command>check obj no inside table</Command>
+<Description>TaskCheckObjNoInsideTable60040</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS no object inside table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>NoObject Must BeInsideObject ObjectTable</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckObjNoOnBox60041</Key>
+<Priority>60041</Priority>
+<Type>General</Type>
+<Command>check obj no on box</Command>
+<Description>TaskCheckObjNoOnBox60041</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS no object on box</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>NoObject Must BeOnObject ObjectBox</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckExactAll60042</Key>
+<Priority>60042</Priority>
+<Type>General</Type>
+<Command>checkexact %objects%</Command>
+<Description>TaskCheckExactAll60042</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS not exact all</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Object>ReferencedObjects MustNot BeExactText All</Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Saw exact all.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharExist60043</Key>
+<Priority>60043</Priority>
+<Type>General</Type>
+<Command>check char exist</Command>
+<Description>TaskCheckCharExist60043</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS character exist</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must Exist </Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAnyExist60044</Key>
+<Priority>60044</Priority>
+<Type>General</Type>
+<Command>check char any exist</Command>
+<Description>TaskCheckCharAnyExist60044</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any character exist</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>AnyCharacter Must Exist </Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAloneCarol60045</Key>
+<Priority>60045</Priority>
+<Type>General</Type>
+<Command>check char alone carol</Command>
+<Description>TaskCheckCharAloneCarol60045</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS carol alone</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterCarol Must BeAlone </Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAlonePlayer60046</Key>
+<Priority>60046</Priority>
+<Type>General</Type>
+<Command>check char alone player</Command>
+<Description>TaskCheckCharAlonePlayer60046</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player alone unexpected</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeAlone </Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Player is not alone.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharNotAlonewithCarol60047</Key>
+<Priority>60047</Priority>
+<Type>General</Type>
+<Command>check char not alonewith carol</Command>
+<Description>TaskCheckCharNotAlonewithCarol60047</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS carol not alonewith</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterCarol MustNot BeAloneWith AnyCharacter</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAtloc60048</Key>
+<Priority>60048</Priority>
+<Type>General</Type>
+<Command>check char atloc</Command>
+<Description>TaskCheckCharAtloc60048</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob at lab</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeAtLocation LocationLab</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAnyAtloc60049</Key>
+<Priority>60049</Priority>
+<Type>General</Type>
+<Command>check char any atloc</Command>
+<Description>TaskCheckCharAnyAtloc60049</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any at lab</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>AnyCharacter Must BeAtLocation LocationLab</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharBecharacter60050</Key>
+<Priority>60050</Priority>
+<Type>General</Type>
+<Command>check char becharacter</Command>
+<Description>TaskCheckCharBecharacter60050</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob is bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeCharacter CharacterBob</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharHolding60051</Key>
+<Priority>60051</Priority>
+<Type>General</Type>
+<Command>check char holding</Command>
+<Description>TaskCheckCharHolding60051</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob holding pebble</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeHoldingObject ObjectPebble</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAnyHolding60052</Key>
+<Priority>60052</Priority>
+<Type>General</Type>
+<Command>check char any holding</Command>
+<Description>TaskCheckCharAnyHolding60052</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any holding pebble</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>AnyCharacter Must BeHoldingObject ObjectPebble</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharPosition60053</Key>
+<Priority>60053</Priority>
+<Type>General</Type>
+<Command>check char position</Command>
+<Description>TaskCheckCharPosition60053</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player standing</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeInPosition Standing</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharDanaSitting60054</Key>
+<Priority>60054</Priority>
+<Type>General</Type>
+<Command>check char dana sitting</Command>
+<Description>TaskCheckCharDanaSitting60054</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS dana sitting</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterDana Must BeInPosition Sitting</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSameLocChar60055</Key>
+<Priority>60055</Priority>
+<Type>General</Type>
+<Command>check char same loc char</Command>
+<Description>TaskCheckCharSameLocChar60055</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player same loc as bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeInSameLocationAsCharacter CharacterBob</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSameLocAny60056</Key>
+<Priority>60056</Priority>
+<Type>General</Type>
+<Command>check char same loc any</Command>
+<Description>TaskCheckCharSameLocAny60056</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player same loc as any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeInSameLocationAsCharacter AnyCharacter</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSameLocObj60057</Key>
+<Priority>60057</Priority>
+<Type>General</Type>
+<Command>check char same loc obj</Command>
+<Description>TaskCheckCharSameLocObj60057</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player same loc as ball</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeInSameLocationAsObject ObjectBall</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharInside60058</Key>
+<Priority>60058</Priority>
+<Type>General</Type>
+<Command>check char inside</Command>
+<Description>TaskCheckCharInside60058</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS eve inside box</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterEve Must BeInsideObject ObjectBox</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharInsideAny60059</Key>
+<Priority>60059</Priority>
+<Type>General</Type>
+<Command>check char inside any</Command>
+<Description>TaskCheckCharInsideAny60059</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS eve inside any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterEve Must BeInsideObject AnyObject</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAnyInsideBox60060</Key>
+<Priority>60060</Priority>
+<Type>General</Type>
+<Command>check char any inside box</Command>
+<Description>TaskCheckCharAnyInsideBox60060</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any inside box</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>AnyCharacter Must BeInsideObject ObjectBox</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharGroup60061</Key>
+<Priority>60061</Priority>
+<Type>General</Type>
+<Command>check char group</Command>
+<Description>TaskCheckCharGroup60061</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob in staff</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeInGroup GroupStaff</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharGender60062</Key>
+<Priority>60062</Priority>
+<Type>General</Type>
+<Command>check char gender</Command>
+<Description>TaskCheckCharGender60062</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob male</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeOfGender Male</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharOnObj60063</Key>
+<Priority>60063</Priority>
+<Type>General</Type>
+<Command>check char on obj</Command>
+<Description>TaskCheckCharOnObj60063</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS dana on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterDana Must BeOnObject ObjectTable</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharOnAny60064</Key>
+<Priority>60064</Priority>
+<Type>General</Type>
+<Command>check char on any</Command>
+<Description>TaskCheckCharOnAny60064</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS dana on any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterDana Must BeOnObject AnyObject</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAnyOnTable60065</Key>
+<Priority>60065</Priority>
+<Type>General</Type>
+<Command>check char any on table</Command>
+<Description>TaskCheckCharAnyOnTable60065</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>AnyCharacter Must BeOnObject ObjectTable</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharOnChar60066</Key>
+<Priority>60066</Priority>
+<Type>General</Type>
+<Command>check char on char</Command>
+<Description>TaskCheckCharOnChar60066</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS frank on bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterFrank Must BeOnCharacter CharacterBob</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharOnAnychar60067</Key>
+<Priority>60067</Priority>
+<Type>General</Type>
+<Command>check char on anychar</Command>
+<Description>TaskCheckCharOnAnychar60067</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS frank on any character</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterFrank Must BeOnCharacter AnyCharacter</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSittingOn60068</Key>
+<Priority>60068</Priority>
+<Type>General</Type>
+<Command>check char sitting on</Command>
+<Description>TaskCheckCharSittingOn60068</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS dana sitting on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterDana Must BeSittingOnObject ObjectTable</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSittingOnAny60069</Key>
+<Priority>60069</Priority>
+<Type>General</Type>
+<Command>check char sitting on any</Command>
+<Description>TaskCheckCharSittingOnAny60069</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS dana sitting on any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterDana Must BeSittingOnObject AnyObject</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharStandingOnFloor60070</Key>
+<Priority>60070</Priority>
+<Type>General</Type>
+<Command>check char standing on floor</Command>
+<Description>TaskCheckCharStandingOnFloor60070</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player standing on floor</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeStandingOnObject TheFloor</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskChecklying60071</Key>
+<Priority>60071</Priority>
+<Type>General</Type>
+<Command>checklying</Command>
+<Description>TaskChecklying60071</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS gina lying on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterGina Must BeLyingOnObject ObjectTable</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskChecklyingany60072</Key>
+<Priority>60072</Priority>
+<Type>General</Type>
+<Command>checklyingany</Command>
+<Description>TaskChecklyingany60072</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS gina lying on any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterGina Must BeLyingOnObject AnyObject</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckstandingon60073</Key>
+<Priority>60073</Priority>
+<Type>General</Type>
+<Command>checkstandingon</Command>
+<Description>TaskCheckstandingon60073</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS harry standing on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterHarry Must BeStandingOnObject ObjectTable</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharWearing60074</Key>
+<Priority>60074</Priority>
+<Type>General</Type>
+<Command>check char wearing</Command>
+<Description>TaskCheckCharWearing60074</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob wearing hat</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeWearingObject ObjectHat</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharAnyWearing60075</Key>
+<Priority>60075</Priority>
+<Type>General</Type>
+<Command>check char any wearing</Command>
+<Description>TaskCheckCharAnyWearing60075</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS any wearing hat</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>AnyCharacter Must BeWearingObject ObjectHat</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharWithinGroup60076</Key>
+<Priority>60076</Priority>
+<Type>General</Type>
+<Command>check char within group</Command>
+<Description>TaskCheckCharWithinGroup60076</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player within lab area</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeWithinLocationGroup GroupLabs</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharProperty60077</Key>
+<Priority>60077</Priority>
+<Type>General</Type>
+<Command>check char property</Command>
+<Description>TaskCheckCharProperty60077</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player has maxweight</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must HaveProperty MaxWeight</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharRoute60078</Key>
+<Priority>60078</Priority>
+<Type>General</Type>
+<Command>check char route</Command>
+<Description>TaskCheckCharRoute60078</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player has route south</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must HaveRouteInDirection South</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharRouteAny60079</Key>
+<Priority>60079</Priority>
+<Type>General</Type>
+<Command>check char route any</Command>
+<Description>TaskCheckCharRouteAny60079</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player has any route</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must HaveRouteInDirection AnyDirection</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSeenLoc60080</Key>
+<Priority>60080</Priority>
+<Type>General</Type>
+<Command>check char seen loc</Command>
+<Description>TaskCheckCharSeenLoc60080</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player seen lab</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must HaveSeenLocation LocationLab</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSeenObj60081</Key>
+<Priority>60081</Priority>
+<Type>General</Type>
+<Command>check char seen obj</Command>
+<Description>TaskCheckCharSeenObj60081</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player seen ball</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must HaveSeenObject ObjectBall</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharSeenChar60082</Key>
+<Priority>60082</Priority>
+<Type>General</Type>
+<Command>check char seen char</Command>
+<Description>TaskCheckCharSeenChar60082</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player seen bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must HaveSeenCharacter CharacterBob</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharVisible60083</Key>
+<Priority>60083</Priority>
+<Type>General</Type>
+<Command>check char visible</Command>
+<Description>TaskCheckCharVisible60083</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob visible to player</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeVisibleToCharacter %Player%</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharVisibleAny60084</Key>
+<Priority>60084</Priority>
+<Type>General</Type>
+<Command>check char visible any</Command>
+<Description>TaskCheckCharVisibleAny60084</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bob visible to any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>CharacterBob Must BeVisibleToCharacter AnyCharacter</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharNotLying60085</Key>
+<Priority>60085</Priority>
+<Type>General</Type>
+<Command>check char not lying</Command>
+<Description>TaskCheckCharNotLying60085</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player not lying on table</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% MustNot BeLyingOnObject ObjectTable</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharNotTalking60086</Key>
+<Priority>60086</Priority>
+<Type>General</Type>
+<Command>check char not talking</Command>
+<Description>TaskCheckCharNotTalking60086</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player not in conversation</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% MustNot BeInConversationWith AnyCharacter</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckalonewith60087</Key>
+<Priority>60087</Priority>
+<Type>General</Type>
+<Command>checkalonewith</Command>
+<Description>TaskCheckalonewith60087</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player alone with carol</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeAloneWith CharacterCarol</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Not alone with Carol.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckalonewithany60088</Key>
+<Priority>60088</Priority>
+<Type>General</Type>
+<Command>checkalonewithany</Command>
+<Description>TaskCheckalonewithany60088</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player alone with any</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeAloneWith AnyCharacter</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Not alone with anyone.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckCharTalking60089</Key>
+<Priority>60089</Priority>
+<Type>General</Type>
+<Command>check char talking</Command>
+<Description>TaskCheckCharTalking60089</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS player talking to bob</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Character>%Player% Must BeInConversationWith CharacterBob</Character>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Not talking to Bob.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskFromTopic</Key>
+<Priority>60150</Priority>
+<Type>System</Type>
+<Description>Task executed by a conversation topic</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>ExecuteTask from topic ran.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskMarkDone</Key>
+<Priority>60090</Priority>
+<Type>General</Type>
+<Command>markdone</Command>
+<Description>TaskMarkDone</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Marked done.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>0</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckTaskComplete60091</Key>
+<Priority>60091</Priority>
+<Type>General</Type>
+<Command>check task complete</Command>
+<Description>TaskCheckTaskComplete60091</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS task complete</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Task>TaskMarkDone Must BeComplete</Task>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Task not complete yet.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckTaskNotComplete60092</Key>
+<Priority>60092</Priority>
+<Type>General</Type>
+<Command>check task not complete</Command>
+<Description>TaskCheckTaskNotComplete60092</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS task not complete</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Task>TaskMarkDone MustNot BeComplete</Task>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Task already complete.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckVarEq60093</Key>
+<Priority>60093</Priority>
+<Type>General</Type>
+<Command>check var eq</Command>
+<Description>TaskCheckVarEq60093</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS var equal</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Variable>VarCounter Must BeEqualTo 5</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckVarLt60094</Key>
+<Priority>60094</Priority>
+<Type>General</Type>
+<Command>check var lt</Command>
+<Description>TaskCheckVarLt60094</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS var less</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Variable>VarCounter Must BeLessThan 10</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckVarLte60095</Key>
+<Priority>60095</Priority>
+<Type>General</Type>
+<Command>check var lte</Command>
+<Description>TaskCheckVarLte60095</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS var lte</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Variable>VarCounter Must BeLessThanOrEqualTo 5</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckVarGt60096</Key>
+<Priority>60096</Priority>
+<Type>General</Type>
+<Command>check var gt</Command>
+<Description>TaskCheckVarGt60096</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS var greater</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Variable>VarCounter Must BeGreaterThan 1</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckVarGte60097</Key>
+<Priority>60097</Priority>
+<Type>General</Type>
+<Command>check var gte</Command>
+<Description>TaskCheckVarGte60097</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS var gte</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Variable>VarCounter Must BeGreaterThanOrEqualTo 5</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckVarContain60098</Key>
+<Priority>60098</Priority>
+<Type>General</Type>
+<Command>check var contain</Command>
+<Description>TaskCheckVarContain60098</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS var contain</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Variable>VarMotto Must BeContain '"hello"'</Variable>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckPropOpen60099</Key>
+<Priority>60099</Priority>
+<Type>General</Type>
+<Command>check prop open</Command>
+<Description>TaskCheckPropOpen60099</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS prop openstatus</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Property>OpenStatus ObjectBox Must EqualTo Open</Property>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckPropMaxweightGte60100</Key>
+<Priority>60100</Priority>
+<Type>General</Type>
+<Command>check prop maxweight gte</Command>
+<Description>TaskCheckPropMaxweightGte60100</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS prop maxweight vs rock</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Property>MaxWeight %Player% Must GreaterThanOrEqualTo ObjectRock.Weight</Property>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckPropMaxweightSum60101</Key>
+<Priority>60101</Priority>
+<Type>General</Type>
+<Command>check prop maxweight sum</Command>
+<Description>TaskCheckPropMaxweightSum60101</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS prop maxweight sum held</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Property>MaxWeight %Player% Must GreaterThanOrEqualTo %Player%.Held.Weight.Sum</Property>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckPropMaxbulk60102</Key>
+<Priority>60102</Priority>
+<Type>General</Type>
+<Command>check prop maxbulk</Command>
+<Description>TaskCheckPropMaxbulk60102</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS prop maxbulk</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Property>MaxBulk %Player% Must GreaterThanOrEqualTo ObjectBall.Size</Property>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckDir60103</Key>
+<Priority>60103</Priority>
+<Type>General</Type>
+<Command>checkdir %direction%</Command>
+<Description>TaskCheckDir60103</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS direction north</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Direction>Must BeNorth</Direction>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Not north.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckExpr60104</Key>
+<Priority>60104</Priority>
+<Type>General</Type>
+<Command>check expr</Command>
+<Description>TaskCheckExpr60104</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS expression</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Expression>1 = 1</Expression>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckExprHeldCount60105</Key>
+<Priority>60105</Priority>
+<Type>General</Type>
+<Command>check expr held count</Command>
+<Description>TaskCheckExprHeldCount60105</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS expression held count</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Expression>%Player%.Held.Count &gt;= 0</Expression>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemExistBall60106</Key>
+<Priority>60106</Priority>
+<Type>General</Type>
+<Command>check item exist ball</Command>
+<Description>TaskCheckItemExistBall60106</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item exist</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectBall Must Exist </Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemAtloc60107</Key>
+<Priority>60107</Priority>
+<Type>General</Type>
+<Command>check item atloc</Command>
+<Description>TaskCheckItemAtloc60107</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item atloc</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectBall Must BeAtLocation LocationLab</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemBecharacter60108</Key>
+<Priority>60108</Priority>
+<Type>General</Type>
+<Command>check item becharacter</Command>
+<Description>TaskCheckItemBecharacter60108</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item becharacter</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>CharacterBob Must BeCharacter CharacterBob</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemBelocation60109</Key>
+<Priority>60109</Priority>
+<Type>General</Type>
+<Command>check item belocation</Command>
+<Description>TaskCheckItemBelocation60109</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item belocation</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>LocationLab Must BeLocation LocationLab</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemBeobject60110</Key>
+<Priority>60110</Priority>
+<Type>General</Type>
+<Command>check item beobject</Command>
+<Description>TaskCheckItemBeobject60110</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item beobject</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectBall Must BeObject ObjectBall</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemBetypeObj60111</Key>
+<Priority>60111</Priority>
+<Type>General</Type>
+<Command>check item betype obj</Command>
+<Description>TaskCheckItemBetypeObj60111</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item betype object</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectBall Must BeType Object</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemBetypeChar60112</Key>
+<Priority>60112</Priority>
+<Type>General</Type>
+<Command>check item betype char</Command>
+<Description>TaskCheckItemBetypeChar60112</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item betype character</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>CharacterBob Must BeType Character</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemBetypeLoc60113</Key>
+<Priority>60113</Priority>
+<Type>General</Type>
+<Command>check item betype loc</Command>
+<Description>TaskCheckItemBetypeLoc60113</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item betype location</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>LocationLab Must BeType Location</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemGroup60114</Key>
+<Priority>60114</Priority>
+<Type>General</Type>
+<Command>check item group</Command>
+<Description>TaskCheckItemGroup60114</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item group</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectBall Must BeInGroup GroupToys</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemSameLocChar60115</Key>
+<Priority>60115</Priority>
+<Type>General</Type>
+<Command>check item same loc char</Command>
+<Description>TaskCheckItemSameLocChar60115</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item same loc char</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectBall Must BeInSameLocationAsCharacter %Player%</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemSameLocObj60116</Key>
+<Priority>60116</Priority>
+<Type>General</Type>
+<Command>check item same loc obj</Command>
+<Description>TaskCheckItemSameLocObj60116</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item same loc obj</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectCoin Must BeInSameLocationAsObject ObjectBall</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemInside60117</Key>
+<Priority>60117</Priority>
+<Type>General</Type>
+<Command>check item inside</Command>
+<Description>TaskCheckItemInside60117</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item inside</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectGem Must BeInsideObject ObjectBox</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemOnChar60118</Key>
+<Priority>60118</Priority>
+<Type>General</Type>
+<Command>check item on char</Command>
+<Description>TaskCheckItemOnChar60118</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item on char (nose)</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectNose Must BeOnCharacter CharacterBob</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemProperty60119</Key>
+<Priority>60119</Priority>
+<Type>General</Type>
+<Command>check item property</Command>
+<Description>TaskCheckItemProperty60119</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item property</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ObjectHat Must HaveProperty Wearable</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckItemRef60120</Key>
+<Priority>60120</Priority>
+<Type>General</Type>
+<Command>checkitem %item%</Command>
+<Description>TaskCheckItemRef60120</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS item ref type object</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Item>ReferencedItem Must BeType Object</Item>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Not an object item.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckBracketAnd60121</Key>
+<Priority>60121</Priority>
+<Type>General</Type>
+<Command>check bracket and</Command>
+<Description>TaskCheckBracketAnd60121</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bracket and</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationLab Must Exist </Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<Restriction>
+<Object>ObjectBall Must Exist </Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Restriction failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#A#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskCheckBracketOr60122</Key>
+<Priority>60122</Priority>
+<Type>General</Type>
+<Command>check bracket or</Command>
+<Description>TaskCheckBracketOr60122</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PASS bracket or</Text>
+</Description>
+</CompletionMessage>
+<Restrictions>
+<Restriction>
+<Location>LocationAlcove Must BeLocation LocationLab</Location>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Both sides failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<Restriction>
+<Object>ObjectBall Must Exist </Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Both sides failed.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#O#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskSeize60123</Key>
+<Priority>60123</Priority>
+<Type>General</Type>
+<Command>seize %objects%</Command>
+<Description>TaskSeize60123</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Ok, seized.</Text>
+</Description>
+</CompletionMessage>
+<FailOverride>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>There is nothing worth seizing here.</Text>
+</Description>
+</FailOverride>
+<Restrictions>
+<Restriction>
+<Object>ReferencedObjects Must BeHidden </Object>
+<Message>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>%TheObjects[%objects%]% [are/is] not hidden.</Text>
+</Description>
+</Message>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Task>
+<Key>TaskHelpChecks</Key>
+<Priority>60124</Priority>
+<Type>General</Type>
+<Command>helpchecks</Command>
+<Description>TaskHelpChecks</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Try check commands listed in the walkthrough.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 19:00:00</LastUpdated>
+<Created>2026-07-09 19:00:00</Created>
+</Task>
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>LocationLab</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>South</SourceAnchor>
+<DestinationAnchor>North</DestinationAnchor>
+</Link>
+<Link>
+<SourceAnchor>East</SourceAnchor>
+<DestinationAnchor>West</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationCloset</Key>
+<X>0</X>
+<Y>2</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationAlcove</Key>
+<X>2</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+</Page>
+</Map>
+</Adventure>

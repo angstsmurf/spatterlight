@@ -1,0 +1,25 @@
+ADRIFT Standard Library
+
+New Location
+Nothing special.
+
+> read notebook
+The notebook has nothing written in it yet.
+
+> write hello in notebook
+Ok, you write "hello" in the notebook.
+
+> read notebook
+The notebook has the following written in it:
+
+hello
+
+> write world in notebook
+Ok, you write "world" in the notebook.
+
+> read notebook
+The notebook has the following written in it:
+
+hello
+world
+

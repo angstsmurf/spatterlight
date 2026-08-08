@@ -1,0 +1,63 @@
+Untitled
+
+Bedroom
+An exit leads west.
+
+> w
+You move west.
+
+Hall
+There is a sturdy oak door and a laundry door here.  Exits are east, west and northwest.
+
+> unlock oak door
+(using the brass key)
+You unlock the sturdy oak door with the brass key.
+
+> open oak door
+You open the sturdy oak door.
+
+> w
+You move west.
+
+Kitchen
+Exits are east and south.
+
+> s
+You move south.
+
+Laundry
+There is a laundry door here.  An exit leads north.
+
+> open door
+You open the laundry door.
+
+> n
+You move north.
+
+Kitchen
+Exits are east and south.
+
+> e
+You move east.
+
+Hall
+There is a sturdy oak door and a laundry door here.  Exits are east, south, west, southwest and northwest.
+
+> nw
+You move northwest.
+
+Lounge
+An exit leads southeast.
+
+> se
+You move southeast.
+
+Hall
+There is a sturdy oak door and a laundry door here.  Exits are east, south, west, southwest and northwest.
+
+> e
+You move east.
+
+Bedroom
+An exit leads west.
+

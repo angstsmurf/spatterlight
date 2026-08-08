@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Title>Timed Events Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises FrankenDrift timed-event support.
+
+Sit still at the prompt. Without typing, you should see each of these on its own line:
+  ~1s  Immediate time event: tick 1.
+  ~2s  Immediate time event: tick 2.
+  ~3s  ExecuteTask ran TaskFromTimer.
+       Delayed time event has started.
+  ~4s  Immediate time event: ending.
+  ~5s  Delayed time event is ending.
+
+Then try:
+  start timed   — queues a TimeBased event; beats ~2s and ~3s after the command
+  start mist    — SetLook via TimeBased; type look while it runs (~5s)
+  start seconds — TurnBased + Seconds sub-event (~2s later, no further command needed for that beat); then wait for the turns beat
+  timed pause   — prints text, pauses 2s, more text, pauses 1.5s, then finishes
+  south         — leave the lab; DisplayMessage sub-events are OnlyApplyAt the lab</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Timer Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet laboratory with a wall clock. An exit leads south to the courtyard.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>South</Direction>
+<Destination>Location2</Destination>
+</Movement>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Location>
+<Location>
+<Key>Location2</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Courtyard</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An open courtyard. Timed DisplayMessage text should not appear here. An exit leads north back to the lab.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>Location1</Destination>
+</Movement>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Location>
+
+<!-- TimeBased, starts immediately: wall-clock ticks with no player input. -->
+<Event>
+<Key>EvtImmediateTime</Key>
+<Description>Immediate time ticker</Description>
+<Type>TimeBased</Type>
+<WhenStart>Immediately</WhenStart>
+<Length>4</Length>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Immediate time event: tick 1.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>2 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Immediate time event: tick 2.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>3 FromStartOfEvent</When>
+<What>ExecuteTask</What>
+<Measure>Seconds</Measure>
+<Action>ExecuteTask TaskFromTimer</Action>
+</SubEvent>
+<SubEvent>
+<When>0 BeforeEndOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Immediate time event: ending.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Event>
+
+<!-- TimeBased with StartDelay: countdown in seconds, then run. -->
+<Event>
+<Key>EvtDelayedTime</Key>
+<Description>Delayed time starter</Description>
+<Type>TimeBased</Type>
+<WhenStart>BetweenXandYTurns</WhenStart>
+<StartDelay>3</StartDelay>
+<Length>2</Length>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Delayed time event has started.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>0 BeforeEndOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Delayed time event is ending.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Event>
+
+<!-- TimeBased started by a task. -->
+<Event>
+<Key>EvtAfterTaskTime</Key>
+<Description>Task-started time runner</Description>
+<Type>TimeBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>3</Length>
+<Control>Start Completion TaskStartTimed</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Task-started time event: beat 1.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>2 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Task-started time event: beat 2.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Event>
+
+<!-- TimeBased SetLook: room description stack while the event runs. -->
+<Event>
+<Key>EvtTimedLook</Key>
+<Description>Timed mist</Description>
+<Type>TimeBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>5</Length>
+<Control>Start Completion TaskStartMist</Control>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>SetLook</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A soft ticking fills the air.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>2 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;The ticking grows louder.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Event>
+
+<!-- TurnBased event with a Seconds-measured sub-event (per-subevent timer). -->
+<Event>
+<Key>EvtTurnSeconds</Key>
+<Description>Turn-based with seconds sub-event</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>5</Length>
+<Control>Start Completion TaskStartSeconds</Control>
+<SubEvent>
+<When>2 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Seconds</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;Turn-based event: seconds sub-event fired.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Turn-based event: turns sub-event (after a command).</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Event>
+
+<Task>
+<Key>TaskFromTimer</Key>
+<Priority>50100</Priority>
+<Type>System</Type>
+<Description>Task executed by the immediate time event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;br&gt;ExecuteTask ran TaskFromTimer.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStartTimed</Key>
+<Priority>50101</Priority>
+<Type>General</Type>
+<Command>start timed</Command>
+<Description>Start the task-triggered TimeBased event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the task-triggered time event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStartMist</Key>
+<Priority>50102</Priority>
+<Type>General</Type>
+<Command>start mist</Command>
+<Description>Start the timed SetLook event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the timed mist event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Task>
+<Task>
+<Key>TaskStartSeconds</Key>
+<Priority>50103</Priority>
+<Type>General</Type>
+<Command>start seconds</Command>
+<Description>Start the turn-based event with a seconds sub-event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You start the turn-based/seconds hybrid event.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Task>
+<Task>
+<Key>TaskTimedPause</Key>
+<Priority>50104</Priority>
+<Type>General</Type>
+<Command>timed pause</Command>
+<Description>Demonstrate &lt;wait N&gt; timed pauses in output</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Before the pause.&lt;wait 2&gt;
+After two seconds.&lt;wait 1.5&gt;
+Done with timed pauses.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 13:00:00</LastUpdated>
+<Created>2026-07-10 13:00:00</Created>
+</Task>
+
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>Location1</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>Location2</Key>
+<X>0</X>
+<Y>4</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+</Node>
+</Page>
+</Map>
+</Adventure>

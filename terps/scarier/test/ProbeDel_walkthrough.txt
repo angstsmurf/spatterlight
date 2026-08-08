@@ -1,0 +1,7 @@
+# ProbeDel -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/del.xml, section `del_walkthrough`).
+# Exercises the del/hidden-object lifecycle.
+help
+unflushed
+flushed style
+flushed br

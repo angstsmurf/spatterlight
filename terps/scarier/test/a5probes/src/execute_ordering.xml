@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Title>Execute Ordering Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Tests SetTasks Execute ordering: nested Execute must run before later sibling actions clear groups. Commands: jump (task path), ask npc about jump (conversation topic path).</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>0</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>LocationPad</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Launch Pad</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You are on the launch pad. A technician stands nearby.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Location>
+<Location>
+<Key>LocationMoon</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Moon Base</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You are on the moon base. Jump ordering worked.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Location>
+<Location>
+<Key>LocationOrbit</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>High Orbit</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You are in high orbit. Conversation topic ordering worked.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Location>
+
+<Group>
+<Key>GroupDest</Key>
+<Name>Destinations</Name>
+<Type>Locations</Type>
+<Member>LocationMoon</Member>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Group>
+<Group>
+<Key>GroupOrbit</Key>
+<Name>Orbit Destinations</Name>
+<Type>Locations</Type>
+<Member>LocationOrbit</Member>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Group>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationPad</Value>
+</Property>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Character>
+<Character>
+<Key>CharacterTech</Key>
+<Name>technician</Name>
+<Article>a</Article>
+<Prefix />
+<Descriptor>technician</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A technician with launch clearance.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationPad</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Conversation>EnterWith CharacterTech</Conversation>
+<Topic>
+<Key>TopicHello</Key>
+<Summary>Hello</Summary>
+<Keywords>[hello/hi]</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"Ready for launch," says the technician.</Text>
+</Description>
+</Description>
+<IsCommand>1</IsCommand>
+<IsIntro>1</IsIntro>
+</Topic>
+<Topic>
+<Key>TopicAskJump</Key>
+<Summary>Ask jump</Summary>
+<Keywords>jump</Keywords>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>"Copy that — engaging topic jump."</Text>
+</Description>
+</Description>
+<IsAsk>1</IsAsk>
+<Actions>
+<SetTasks>Execute TaskDoOrbitJump</SetTasks>
+<RemoveLocationFromGroup>EverywhereInGroup GroupOrbit FromGroup GroupOrbit</RemoveLocationFromGroup>
+</Actions>
+</Topic>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Character>
+
+<Task>
+<Key>TaskDoJump</Key>
+<Priority>10</Priority>
+<Type>System</Type>
+<Description>DoJump</Description>
+<Repeatable>1</Repeatable>
+<Actions>
+<MoveCharacter>Character Player ToLocationGroup GroupDest</MoveCharacter>
+</Actions>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Task>
+<Task>
+<Key>TaskDoOrbitJump</Key>
+<Priority>11</Priority>
+<Type>System</Type>
+<Description>DoOrbitJump</Description>
+<Repeatable>1</Repeatable>
+<Actions>
+<MoveCharacter>Character Player ToLocationGroup GroupOrbit</MoveCharacter>
+</Actions>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Task>
+<Task>
+<Key>TaskJump</Key>
+<Priority>20</Priority>
+<Type>General</Type>
+<Command>jump</Command>
+<Description>Jump</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Engaging jump drive.
+%Player%.Location.Description</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<Actions>
+<SetTasks>Execute TaskDoJump</SetTasks>
+<RemoveLocationFromGroup>EverywhereInGroup GroupDest FromGroup GroupDest</RemoveLocationFromGroup>
+</Actions>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Task>
+<Task>
+<Key>TaskTopicJump</Key>
+<Priority>21</Priority>
+<Type>General</Type>
+<Command>topicjump</Command>
+<Description>TopicJump</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>%Player%.Location.Description</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<Actions>
+<Conversation>Ask CharacterTech About 'jump'</Conversation>
+</Actions>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Task>
+<Task>
+<Key>TaskWhere</Key>
+<Priority>30</Priority>
+<Type>General</Type>
+<Command>where</Command>
+<Description>Where</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Location=%Player%.Location</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-11 01:00:00</LastUpdated>
+<Created>2026-07-11 01:00:00</Created>
+</Task>
+
+</Adventure>

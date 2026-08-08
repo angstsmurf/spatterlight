@@ -1,0 +1,33 @@
+Randomness Test
+This game exercises seeded ADRIFT randomness: RAND expressions, location-group RandomKey, walk destinations into groups, and FromTo ranges on events and walk steps. Use roll, scatter, and wait.
+
+Hub
+A central hub. Exits lead east and west.  Scout, Bob and Player are here.  Exits are east and west.  Scout exits to the east.  Scout begins the wing patrol.
+
+> where scout
+Scout is in East Wing.  Delayed boom!
+
+> where bob
+Bob is in Hub.
+
+> roll
+You rolled 6.
+
+> scatter
+You scatter Bob into a random wing.
+
+> where bob
+Bob is in West Wing.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+

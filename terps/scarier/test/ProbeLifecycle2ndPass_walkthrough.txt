@@ -1,0 +1,6 @@
+# ProbeLifecycle2ndPass -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/lifecycle.xml, section `lifecycle_just_started_second_pass`).
+# Exercises event JustStarted state on the second pass.
+wait
+wait
+wait

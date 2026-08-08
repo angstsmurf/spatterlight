@@ -1,0 +1,12 @@
+# SampleTorchBattery -- ADRIFT 5 sample adventure (ships with the ADRIFT 5 developer
+# distribution; drop Samples/TorchBattery.taf into test/adrift5-games/ as TorchBattery.taf).
+# Command script from the adrift-5-rs test suite (torchbattery.regtest).
+# Exercises the torch + battery container/light sample.
+in
+out
+switch on torch
+in
+look
+switch off torch
+look
+out

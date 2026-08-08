@@ -1,0 +1,15 @@
+Execute Ordering Test
+Tests SetTasks Execute ordering: nested Execute must run before later sibling actions clear groups. Commands: jump (task path), ask npc about jump (conversation topic path).
+
+Launch Pad
+You are on the launch pad. A technician stands nearby.  Technician is here.
+
+> jump
+Engaging jump drive.
+
+Moon Base
+You are on the moon base. Jump ordering worked.
+
+> where
+Location=LocationMoon
+

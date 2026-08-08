@@ -1,0 +1,9 @@
+# SampleConversation -- ADRIFT 5 sample adventure (ships with the ADRIFT 5 developer
+# distribution; drop Samples/Conversation.taf into test/adrift5-games/ as Conversation.taf).
+# Command script from the adrift-5-rs test suite (conversation.regtest).
+# Exercises conversation topics (ask/tell).
+say hello to old lady
+ask old lady about flowers
+say goodbye to old lady
+s
+look

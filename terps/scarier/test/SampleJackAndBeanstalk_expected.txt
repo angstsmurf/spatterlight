@@ -1,0 +1,43 @@
+Untitled
+This is a tutorial game for ADRIFT, based upon Jack and the Beanstalk.
+
+In the Cottage
+You are inside a small cottage.  It is pretty sparse in here.  In fact, the only thing of any note is a small shelf at one side.  An exit leads out.
+
+> get pot
+(from the small shelf)
+Ok, you take the small cow pot from the small shelf.
+
+> open pot
+You open the small cow pot.  Inside the small cow pot is a magic bean.
+
+> out
+You move out.
+
+In the Garden
+You are in the cottage garden.  The grass looks like it could do with a cut!  An exit leads in.
+
+> plant bean
+You dig a small hole in the ground, carefully place the bean in the hole, then fill in the hole again, patting down the loose soil with your fingers.
+
+> wait
+Time passes...  A small beanstalk starts to grow out of the ground.
+
+> wait
+Time passes...  The beanstalk grows taller.  It is about head-height now.
+
+> wait
+Time passes...  The beanstalk grows taller still.  It is now higher than the cottage.  The beanstalk grows even taller.  The top is now out of sight, obscured by a fluffy cloud.
+
+> look
+
+In the Garden
+You are in the cottage garden.  The grass looks like it could do with a cut!  There is a massive beanstalk here, reaching up to the clouds.  An exit leads in.
+
+> climb beanstalk
+Gingerly, you put a foot onto the beanstalk.  It seems to support your weight just fine.  You take another step.  The beanstalk seems very sturdy.  Step by step, you climb higher and higher up the beanstalk.  You look down at the cottage.  It seems very far below.  Still, no time for that now, you have an adventure ahead of you.
+
+*** You have won ***
+Thank you for playing this sample game!
+Would you like to restart, restore a saved game, quit or undo the last command?
+

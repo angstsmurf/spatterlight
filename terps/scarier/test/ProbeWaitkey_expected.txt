@@ -1,0 +1,14 @@
+Waitkey Test
+Welcome to the Waitkey Test.
+
+Press any key to continue.
+You pressed a key. The adventure continues.
+
+Waiting Room
+A quiet room for testing waitkey pauses. Type look or quit.
+
+> look
+
+Waiting Room
+A quiet room for testing waitkey pauses. Type look or quit.
+

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-10 20:00:00</LastUpdated>
+<Title>Text SetVariable Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Enter your name, then your ship name. Exercises %text% SetVariable: literal numeric assignment must not be overwritten by the text capture, and UCASE(%text%) must evaluate.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>0</ShowFirstLocation>
+<ShowExits>0</ShowExits>
+<EnableMenu>0</EnableMenu>
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Void</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>An empty void.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-10 20:00:00</LastUpdated>
+<Created>2026-07-10 20:00:00</Created>
+</Location>
+<Variable>
+<Key>Playername</Key>
+<Name>Playername</Name>
+<Type>Text</Type>
+<InitialValue />
+<LastUpdated>2026-07-10 20:00:00</LastUpdated>
+<Created>2026-07-10 20:00:00</Created>
+</Variable>
+<Variable>
+<Key>Shipname</Key>
+<Name>Shipname</Name>
+<Type>Text</Type>
+<InitialValue />
+<LastUpdated>2026-07-10 20:00:00</LastUpdated>
+<Created>2026-07-10 20:00:00</Created>
+</Variable>
+<Variable>
+<Key>Named</Key>
+<Name>Named</Name>
+<Type>Numeric</Type>
+<InitialValue>0</InitialValue>
+<LastUpdated>2026-07-10 20:00:00</LastUpdated>
+<Created>2026-07-10 20:00:00</Created>
+</Variable>
+<!-- Mirrors Skybreak PressS / PressS1: two %text% tasks gated by a numeric flag.
+     The first task sets Named = "1" while a text reference is active; that literal
+     must not be replaced by the typed text (the bug that caused the naming loop). -->
+<Task>
+<Key>NamePlayer</Key>
+<Priority>1</Priority>
+<Type>General</Type>
+<Command>%text%</Command>
+<Description>name player</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PLEASE NAME YOUR SHIP</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<Restrictions>
+<Restriction>
+<Variable>Named Must BeEqualTo 0</Variable>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Actions>
+<SetVariable>Playername = "UCASE(%text%)"</SetVariable>
+<SetVariable>Named = "1"</SetVariable>
+</Actions>
+<LastUpdated>2026-07-10 20:00:00</LastUpdated>
+<Created>2026-07-10 20:00:00</Created>
+</Task>
+<Task>
+<Key>NameShip</Key>
+<Priority>2</Priority>
+<Type>General</Type>
+<Command>%text%</Command>
+<Description>name ship</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>COMMANDER IDENTIFIED AS %Playername%. SHIP IS %Shipname%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<Restrictions>
+<Restriction>
+<Variable>Named Must BeEqualTo 1</Variable>
+</Restriction>
+<BracketSequence>#</BracketSequence>
+</Restrictions>
+<Actions>
+<SetVariable>Shipname = "UCASE(%text%)"</SetVariable>
+<IncVariable>Named = "1"</IncVariable>
+</Actions>
+<LastUpdated>2026-07-10 20:00:00</LastUpdated>
+<Created>2026-07-10 20:00:00</Created>
+</Task>
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>Location1</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+</Page>
+</Map>
+</Adventure>

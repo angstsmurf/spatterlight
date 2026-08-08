@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Title>User Defined Functions Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ADRIFT user-defined functions: zero-argument, Text, Number, Object, Character, and Location parameters, plus expression arguments. Type helpudfs for a command list. %Greeting%</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>LocationLab</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A laboratory for testing user-defined functions. A red ball is here. Carol is here. An exit leads south to the garden. Room tag: %RoomTag[LocationLab]%</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>South</Direction>
+<Destination>LocationGarden</Destination>
+</Movement>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Location>
+<Location>
+<Key>LocationGarden</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Garden</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet garden. An exit leads north back to the lab. Room tag: %RoomTag[LocationGarden]%</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>North</Direction>
+<Destination>LocationLab</Destination>
+</Movement>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Location>
+
+<Object>
+<Key>ObjectBall</Key>
+<Article>a</Article>
+<Prefix>red</Prefix>
+<Name>ball</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The ball is bright red.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Object>
+
+<Character>
+<Key>CharacterCarol</Key>
+<Name>Carol</Name>
+<Article />
+<Prefix />
+<Descriptor>woman</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Carol is waiting patiently.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Character>
+
+<!-- Zero-argument UDF. -->
+<Function>
+<Key>FunGreeting</Key>
+<Name>Greeting</Name>
+<Output>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hello from Greeting UDF.</Text>
+</Description>
+</Output>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Function>
+
+<!-- Text argument: %Echo[hello]% -->
+<Function>
+<Key>FunEcho</Key>
+<Name>Echo</Name>
+<Output>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Echo says: %msg%</Text>
+</Description>
+</Output>
+<Argument>
+<Name>msg</Name>
+<Type>Text</Type>
+</Argument>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Function>
+
+<!-- Number argument, with arithmetic in the output. -->
+<Function>
+<Key>FunDouble</Key>
+<Name>Double</Name>
+<Output>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Double of %n% is &lt;# %n% * 2 #&gt;.</Text>
+</Description>
+</Output>
+<Argument>
+<Name>n</Name>
+<Type>Number</Type>
+</Argument>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Function>
+
+<!-- Object argument: %LabelObject[ObjectBall]% or %LabelObject[%objects%]% -->
+<Function>
+<Key>FunLabelObject</Key>
+<Name>LabelObject</Name>
+<Output>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Object label: %TheObject[%thing%]%.</Text>
+</Description>
+</Output>
+<Argument>
+<Name>thing</Name>
+<Type>Object</Type>
+</Argument>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Function>
+
+<!-- Character argument. -->
+<Function>
+<Key>FunGreetChar</Key>
+<Name>GreetChar</Name>
+<Output>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Greetings, %CharacterName[%who%]%!</Text>
+</Description>
+</Output>
+<Argument>
+<Name>who</Name>
+<Type>Character</Type>
+</Argument>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Function>
+
+<!-- Location argument. -->
+<Function>
+<Key>FunRoomTag</Key>
+<Name>RoomTag</Name>
+<Output>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>[%loc%]</Text>
+</Description>
+</Output>
+<Argument>
+<Name>loc</Name>
+<Type>Location</Type>
+</Argument>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Function>
+
+<Task>
+<Key>TaskHelpUdfs</Key>
+<Priority>50100</Priority>
+<Type>General</Type>
+<Command>helpudfs</Command>
+<Description>List UDF test commands</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Commands: show greeting, echo hello, double 21, doubleexpr, label ball, greet carol, checkroom.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskSayGreeting</Key>
+<Priority>50101</Priority>
+<Type>General</Type>
+<Command>show greeting</Command>
+<Description>Invoke zero-arg Greeting UDF</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Task says: %Greeting%</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskEchoHello</Key>
+<Priority>50102</Priority>
+<Type>General</Type>
+<Command>echo hello</Command>
+<Description>Invoke Echo UDF with a literal text argument</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>%Echo[hello]%</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskDouble21</Key>
+<Priority>50103</Priority>
+<Type>General</Type>
+<Command>double 21</Command>
+<Description>Invoke Double UDF with a literal number</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>%Double[21]%</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskDoubleExpr</Key>
+<Priority>50104</Priority>
+<Type>General</Type>
+<Command>doubleexpr</Command>
+<Description>Invoke Double UDF with an arithmetic expression argument</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>%Double[3 + 4]%</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskLabelBall</Key>
+<Priority>50105</Priority>
+<Type>General</Type>
+<Command>label %objects%</Command>
+<Description>Invoke LabelObject UDF with a referenced object</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>%LabelObject[%objects%]%</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskGreetCarol</Key>
+<Priority>50106</Priority>
+<Type>General</Type>
+<Command>greet %characters%</Command>
+<Description>Invoke GreetChar UDF with a referenced character</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>%GreetChar[%characters%]%</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskCheckRoom</Key>
+<Priority>50107</Priority>
+<Type>General</Type>
+<Command>checkroom</Command>
+<Description>Invoke RoomTag UDF with an explicit location key</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You are tagged %RoomTag[LocationLab]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-09 21:00:00</LastUpdated>
+<Created>2026-07-09 21:00:00</Created>
+</Task>
+
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>LocationLab</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+<Node>
+<Key>LocationGarden</Key>
+<X>0</X>
+<Y>4</Y>
+<Z>0</Z>
+<Link>
+<SourceAnchor>North</SourceAnchor>
+<DestinationAnchor>South</DestinationAnchor>
+</Link>
+</Node>
+</Page>
+</Map>
+</Adventure>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Title>Rich Text Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ADRIFT rich-text markup that FrankenDrift and the original Runner understand.
+
+Type demo to reprint the full sample, or help for commands.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Typography Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>--- Basic styles ---
+Normal text.
+&lt;b&gt;Bold text.&lt;/b&gt;
+&lt;i&gt;Italic text.&lt;/i&gt;
+&lt;u&gt;Underlined text.&lt;/u&gt;
+&lt;b&gt;&lt;i&gt;Bold italic.&lt;/i&gt;&lt;/b&gt;
+&lt;b&gt;&lt;u&gt;Bold underline.&lt;/u&gt;&lt;/b&gt;
+&lt;i&gt;&lt;u&gt;Italic underline.&lt;/u&gt;&lt;/i&gt;
+&lt;c&gt;Command / input colour (c).&lt;/c&gt;
+
+--- Alignment ---
+&lt;left&gt;Left-aligned paragraph.&lt;/left&gt;
+&lt;center&gt;Centered paragraph (center).&lt;/center&gt;
+&lt;centre&gt;Centred paragraph (centre).&lt;/centre&gt;
+&lt;right&gt;Right-aligned paragraph.&lt;/right&gt;
+
+--- Font faces ---
+&lt;font face="Arial"&gt;Arial face.&lt;/font&gt;
+&lt;font face="Times New Roman"&gt;Times New Roman face.&lt;/font&gt;
+&lt;font face="Courier New"&gt;Courier New face.&lt;/font&gt;
+&lt;font face="Comic Sans MS"&gt;Comic Sans MS face.&lt;/font&gt;
+
+--- Font sizes ---
+&lt;font size=10&gt;Absolute size 10.&lt;/font&gt;
+&lt;font size=14&gt;Absolute size 14.&lt;/font&gt;
+&lt;font size=18&gt;Absolute size 18.&lt;/font&gt;
+&lt;font size=+2&gt;Relative size +2.&lt;/font&gt;
+&lt;font size=-1&gt;Relative size -1.&lt;/font&gt;
+
+--- Named colours ---
+&lt;font color="red"&gt;red&lt;/font&gt; &lt;font color="blue"&gt;blue&lt;/font&gt; &lt;font color="green"&gt;green&lt;/font&gt; &lt;font color="purple"&gt;purple&lt;/font&gt; &lt;font color="orange"&gt;orange&lt;/font&gt; &lt;font color="teal"&gt;teal&lt;/font&gt;
+
+--- Hex colours ---
+&lt;font color="#ff0000"&gt;#ff0000&lt;/font&gt; &lt;font color="#00aa00"&gt;#00aa00&lt;/font&gt; &lt;font color="#0066cc"&gt;#0066cc&lt;/font&gt; &lt;font color="ff00ff"&gt;ff00ff (no hash)&lt;/font&gt;
+
+--- Combined ---
+&lt;font face="Comic Sans MS" size=+2 color="purple"&gt;Comic Sans, larger, purple.&lt;/font&gt;
+&lt;font face="Arial" color="yellow"&gt;&lt;b&gt;Arial bold yellow (bold inside font).&lt;/b&gt;&lt;/font&gt;
+&lt;b&gt;&lt;font face="Courier New" color="cyan"&gt;Courier New bold cyan (font inside bold).&lt;/font&gt;&lt;/b&gt;
+&lt;center&gt;&lt;font face="Times New Roman" size=16 color="maroon"&gt;&lt;i&gt;Centered Times italic maroon.&lt;/i&gt;&lt;/font&gt;&lt;/center&gt;
+
+--- Line break ---
+Before br.&lt;br&gt;After br (should be on the next line).
+
+Type demo to reprint this sample.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Location>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>Location1</Value>
+</Property>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Character>
+
+<Task>
+<Key>TaskHelp</Key>
+<Priority>50000</Priority>
+<Type>General</Type>
+<Command>help</Command>
+<Description>List rich-text test commands</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Commands: demo, faces, colors, sizes, styles, align, clear.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskDemo</Key>
+<Priority>50001</Priority>
+<Type>General</Type>
+<Command>demo</Command>
+<Description>Reprint the full rich-text sample</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>--- Basic styles ---
+Normal text.
+&lt;b&gt;Bold text.&lt;/b&gt;
+&lt;i&gt;Italic text.&lt;/i&gt;
+&lt;u&gt;Underlined text.&lt;/u&gt;
+&lt;b&gt;&lt;i&gt;Bold italic.&lt;/i&gt;&lt;/b&gt;
+&lt;b&gt;&lt;u&gt;Bold underline.&lt;/u&gt;&lt;/b&gt;
+&lt;i&gt;&lt;u&gt;Italic underline.&lt;/u&gt;&lt;/i&gt;
+&lt;c&gt;Command / input colour (c).&lt;/c&gt;
+
+--- Alignment ---
+&lt;left&gt;Left-aligned paragraph.&lt;/left&gt;
+&lt;center&gt;Centered paragraph (center).&lt;/center&gt;
+&lt;centre&gt;Centred paragraph (centre).&lt;/centre&gt;
+&lt;right&gt;Right-aligned paragraph.&lt;/right&gt;
+
+--- Font faces ---
+&lt;font face="Arial"&gt;Arial face.&lt;/font&gt;
+&lt;font face="Times New Roman"&gt;Times New Roman face.&lt;/font&gt;
+&lt;font face="Courier New"&gt;Courier New face.&lt;/font&gt;
+&lt;font face="Comic Sans MS"&gt;Comic Sans MS face.&lt;/font&gt;
+
+--- Font sizes ---
+&lt;font size=10&gt;Absolute size 10.&lt;/font&gt;
+&lt;font size=14&gt;Absolute size 14.&lt;/font&gt;
+&lt;font size=18&gt;Absolute size 18.&lt;/font&gt;
+&lt;font size=+2&gt;Relative size +2.&lt;/font&gt;
+&lt;font size=-1&gt;Relative size -1.&lt;/font&gt;
+
+--- Named colours ---
+&lt;font color="red"&gt;red&lt;/font&gt; &lt;font color="blue"&gt;blue&lt;/font&gt; &lt;font color="green"&gt;green&lt;/font&gt; &lt;font color="purple"&gt;purple&lt;/font&gt; &lt;font color="orange"&gt;orange&lt;/font&gt; &lt;font color="teal"&gt;teal&lt;/font&gt;
+
+--- Hex colours ---
+&lt;font color="#ff0000"&gt;#ff0000&lt;/font&gt; &lt;font color="#00aa00"&gt;#00aa00&lt;/font&gt; &lt;font color="#0066cc"&gt;#0066cc&lt;/font&gt; &lt;font color="ff00ff"&gt;ff00ff (no hash)&lt;/font&gt;
+
+--- Combined ---
+&lt;font face="Comic Sans MS" size=+2 color="purple"&gt;Comic Sans, larger, purple.&lt;/font&gt;
+&lt;font face="Arial" color="yellow"&gt;&lt;b&gt;Arial bold yellow (bold inside font).&lt;/b&gt;&lt;/font&gt;
+&lt;b&gt;&lt;font face="Courier New" color="cyan"&gt;Courier New bold cyan (font inside bold).&lt;/font&gt;&lt;/b&gt;
+&lt;center&gt;&lt;font face="Times New Roman" size=16 color="maroon"&gt;&lt;i&gt;Centered Times italic maroon.&lt;/i&gt;&lt;/font&gt;&lt;/center&gt;
+
+--- Line break ---
+Before br.&lt;br&gt;After br (should be on the next line).</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskFaces</Key>
+<Priority>50002</Priority>
+<Type>General</Type>
+<Command>faces</Command>
+<Description>Font face samples only</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;font face="Arial"&gt;Arial&lt;/font&gt;
+&lt;font face="Times New Roman"&gt;Times New Roman&lt;/font&gt;
+&lt;font face="Courier New"&gt;Courier New&lt;/font&gt;
+&lt;font face="Comic Sans MS"&gt;Comic Sans MS&lt;/font&gt;</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskColors</Key>
+<Priority>50003</Priority>
+<Type>General</Type>
+<Command>colors</Command>
+<Command>colours</Command>
+<Description>Colour samples only</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;font color="red"&gt;red&lt;/font&gt; &lt;font color="blue"&gt;blue&lt;/font&gt; &lt;font color="green"&gt;green&lt;/font&gt; &lt;font color="purple"&gt;purple&lt;/font&gt; &lt;font color="orange"&gt;orange&lt;/font&gt; &lt;font color="teal"&gt;teal&lt;/font&gt;
+&lt;font color="#ff0000"&gt;#ff0000&lt;/font&gt; &lt;font color="#00aa00"&gt;#00aa00&lt;/font&gt; &lt;font color="#0066cc"&gt;#0066cc&lt;/font&gt; &lt;font color="ff00ff"&gt;ff00ff&lt;/font&gt;
+&lt;c&gt;input colour via c&lt;/c&gt;</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskSizes</Key>
+<Priority>50004</Priority>
+<Type>General</Type>
+<Command>sizes</Command>
+<Description>Font size samples only</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;font size=10&gt;size 10&lt;/font&gt;
+&lt;font size=14&gt;size 14&lt;/font&gt;
+&lt;font size=18&gt;size 18&lt;/font&gt;
+&lt;font size=+2&gt;size +2&lt;/font&gt;
+&lt;font size=-1&gt;size -1&lt;/font&gt;</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskStyles</Key>
+<Priority>50005</Priority>
+<Type>General</Type>
+<Command>styles</Command>
+<Description>Basic style samples only</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;b&gt;bold&lt;/b&gt; &lt;i&gt;italic&lt;/i&gt; &lt;u&gt;underline&lt;/u&gt; &lt;b&gt;&lt;i&gt;&lt;u&gt;bold italic underline&lt;/u&gt;&lt;/i&gt;&lt;/b&gt;</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskAlign</Key>
+<Priority>50006</Priority>
+<Type>General</Type>
+<Command>align</Command>
+<Description>Alignment samples only</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;left&gt;left&lt;/left&gt;
+&lt;center&gt;center&lt;/center&gt;
+&lt;centre&gt;centre&lt;/centre&gt;
+&lt;right&gt;right&lt;/right&gt;</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskClear</Key>
+<Priority>50007</Priority>
+<Type>General</Type>
+<Command>clear</Command>
+<Description>Exercise cls then reprint a short line</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;cls&gt;Screen cleared. &lt;font color="green"&gt;This line should be alone at the top.&lt;/font&gt;</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 16:00:00</LastUpdated>
+<Created>2026-07-10 16:00:00</Created>
+</Task>
+
+</Adventure>

@@ -1,0 +1,52 @@
+Untitled
+Hurrying through the rainswept November night, you're glad to see the bright lights of the Opera House. It's surprising that there aren't more people about but, hey, what do you expect in a cheap demo game...?
+
+Foyer of the Opera House
+You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead.  The entrance from the street is to the north, and there are doorways south and west.  Exits are south and west.
+
+> south
+You move south.
+
+Darkness
+It is pitch dark, and you can't see a thing.  Exits are north, east, south, west, up, down, in, out, northeast, southeast, southwest and northwest.
+
+> north
+You move north.
+
+Foyer of the Opera House
+You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead.  The entrance from the street is to the north, and there are doorways south and west.  Exits are south and west.
+
+> west
+You move west.
+
+The Cloakroom
+The walls of this small room were clearly once lined with hooks, though now only one remains.  The exit is a door to the east.
+An exit leads east.
+
+> remove cloak
+Ok, you remove the velvet cloak.
+
+> put it on peg
+(the velvet cloak)
+Ok, you put the velvet cloak on top of the small brass hook.
+
+> east
+You move east.
+
+Foyer of the Opera House
+You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead.  The entrance from the street is to the north, and there are doorways south and west.  Exits are south and west.
+
+> south
+You move south.
+
+Foyer Bar
+The bar, much rougher than you'd have guessed after the opulence of the foyer to the north, is completely empty.  There seems to be some sort of message scrawled in the sawdust on the floor.  An exit leads north.
+
+> x message
+The message, neatly marked in the sawdust, reads...
+
+*** You have won ***
+In that game you scored 2 out of a possible 2, in 7 turns.
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+

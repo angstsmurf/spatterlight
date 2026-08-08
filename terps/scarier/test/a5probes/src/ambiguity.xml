@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-09 14:00:00</LastUpdated>
+<Title>Ambiguity Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises ambiguity disambiguation for multiple matching objects.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<Property>
+<Key>_ObjectArticle</Key>
+<Description>Object Article</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 14:00:00</LastUpdated>
+<Created>2026-07-09 14:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectPrefix</Key>
+<Description>Object Prefix</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 14:00:00</LastUpdated>
+<Created>2026-07-09 14:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectNoun</Key>
+<Description>Object Name</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-09 14:00:00</LastUpdated>
+<Created>2026-07-09 14:00:00</Created>
+</Property>
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Key Room</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A plain room with two keys on the floor.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-09 14:00:00</LastUpdated>
+<Created>2026-07-09 14:00:00</Created>
+</Location>
+<Object>
+<Key>Object1</Key>
+<Article>a</Article>
+<Prefix>blue</Prefix>
+<Name>key</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A small blue key.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>Location1</Value>
+</Property>
+<LastUpdated>2026-07-09 14:00:00</LastUpdated>
+<Created>2026-07-09 14:00:00</Created>
+</Object>
+<Object>
+<Key>Object2</Key>
+<Article>a</Article>
+<Prefix>red</Prefix>
+<Name>key</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A small red key.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>In Location</Value>
+</Property>
+<Property>
+<Key>InLocation</Key>
+<Value>Location1</Value>
+</Property>
+<LastUpdated>2026-07-09 14:00:00</LastUpdated>
+<Created>2026-07-09 14:00:00</Created>
+</Object>
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>Location1</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+</Page>
+</Map>
+</Adventure>

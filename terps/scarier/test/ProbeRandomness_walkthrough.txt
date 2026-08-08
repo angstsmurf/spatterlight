@@ -1,0 +1,12 @@
+# ProbeRandomness -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/a5probes/src/randomness.xml, section `randomness_seeded`).
+# Exercises seeded RAND expressions, group RandomKey walks, FromTo ranges.
+where scout
+where bob
+roll
+scatter
+where bob
+wait
+wait
+wait
+wait

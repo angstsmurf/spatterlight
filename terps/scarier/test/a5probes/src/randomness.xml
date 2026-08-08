@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Title>Randomness Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises seeded ADRIFT randomness: RAND expressions, location-group RandomKey, walk destinations into groups, and FromTo ranges on events and walk steps. Use roll, scatter, and wait.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+
+<Property>
+<Key>_ObjectArticle</Key>
+<Description>Object Article</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectPrefix</Key>
+<Description>Object Prefix</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Property>
+<Property>
+<Key>_ObjectNoun</Key>
+<Description>Object Name</Description>
+<PropertyOf>Objects</PropertyOf>
+<Type>Text</Type>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Property>
+
+<!-- Hub with East and West wings (both adjacent). -->
+<Location>
+<Key>LocationHub</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Hub</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A central hub. Exits lead east and west.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationEast</Destination>
+</Movement>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationWest</Destination>
+</Movement>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Location>
+<Location>
+<Key>LocationEast</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>East Wing</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The east wing. An exit leads west to the hub.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Location>
+<Location>
+<Key>LocationWest</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>West Wing</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>The west wing. An exit leads east to the hub.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationHub</Destination>
+</Movement>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Location>
+
+<Group>
+<Key>GroupWings</Key>
+<Type>Locations</Type>
+<Name>Wings</Name>
+<Member>LocationEast</Member>
+<Member>LocationWest</Member>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Group>
+
+<Object>
+<Key>ObjectToken</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>token</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A small token.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Held By Character</Value>
+</Property>
+<Property>
+<Key>HeldByWho</Key>
+<Value>CharacterPlayer</Value>
+</Property>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Object>
+
+<Character>
+<Key>CharacterPlayer</Key>
+<Name></Name>
+<Article></Article>
+<Prefix></Prefix>
+<Descriptor></Descriptor>
+<Type>Player</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text></Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationHub</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Character>
+
+<!-- Scout: StartActive walk into GroupWings with ranged step turns (FromTo + group dest). -->
+<Character>
+<Key>CharacterScout</Key>
+<Name>Scout</Name>
+<Article />
+<Prefix />
+<Descriptor>scout</Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A restless scout.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationHub</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Female</Value>
+</Property>
+<Property>
+<Key>ShowEnterExit</Key>
+</Property>
+<Property>
+<Key>CharEnters</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>enters</Text>
+</Description>
+</Value>
+</Property>
+<Property>
+<Key>CharExits</Key>
+<Value>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>exits</Text>
+</Description>
+</Value>
+</Property>
+<Walk>
+<Description>Scout wing patrol</Description>
+<Loops>0</Loops>
+<StartActive>1</StartActive>
+<!-- Group destination + FromTo step length -->
+<Step>GroupWings 1 to 2</Step>
+<Activity>
+<When>0 FromStartOfWalk</When>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Scout begins the wing patrol.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>AllLocations</OnlyApplyAt>
+</Activity>
+</Walk>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Character>
+
+<!-- Bob: scattered via MoveCharacter ToLocationGroup. -->
+<Character>
+<Key>CharacterBob</Key>
+<Name>Bob</Name>
+<Article />
+<Prefix />
+<Descriptor></Descriptor>
+<Type>NonPlayer</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob looks ready to be scattered.</Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationHub</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Character>
+
+<Variable>
+<Key>Roll</Key>
+<Name>Roll</Name>
+<Type>Numeric</Type>
+<InitialValue>0</InitialValue>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Variable>
+
+<!-- Event FromTo: ranged StartDelay, fixed Length. -->
+<Event>
+<Key>EvtDelayed</Key>
+<Description>Delayed boom</Description>
+<Type>TurnBased</Type>
+<WhenStart>BetweenXandYTurns</WhenStart>
+<StartDelay>1 to 2</StartDelay>
+<Length>1</Length>
+<SubEvent>
+<When>0 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Delayed boom!</Text>
+</Description>
+</Action>
+<OnlyApplyAt>LocationHub</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Event>
+
+<Task>
+<Key>TaskRoll</Key>
+<Priority>10</Priority>
+<Type>General</Type>
+<Command>roll</Command>
+<Description>Roll RAND(1,6)</Description>
+<MessageBeforeOrAfter>After</MessageBeforeOrAfter>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You rolled %Roll%.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetVariable>Roll = "RAND(1,6)"</SetVariable>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskScatter</Key>
+<Priority>20</Priority>
+<Type>General</Type>
+<Command>scatter</Command>
+<Description>Scatter Bob into GroupWings</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You scatter Bob into a random wing.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<MoveCharacter>Character CharacterBob ToLocationGroup GroupWings</MoveCharacter>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskWhereBob</Key>
+<Priority>30</Priority>
+<Type>General</Type>
+<Command>where bob</Command>
+<Description>Report Bob location</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Bob is in %LocationName[%LocationOf[CharacterBob]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskWhereScout</Key>
+<Priority>40</Priority>
+<Type>General</Type>
+<Command>where scout</Command>
+<Description>Report Scout location</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Scout is in %LocationName[%LocationOf[CharacterScout]%]%.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-10 22:00:00</LastUpdated>
+<Created>2026-07-10 22:00:00</Created>
+</Task>
+
+</Adventure>

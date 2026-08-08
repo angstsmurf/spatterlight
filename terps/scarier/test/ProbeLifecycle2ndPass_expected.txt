@@ -1,0 +1,15 @@
+Lifecycle Test
+Exercises walk/event lifecycle: Stop+Start Restart, just_started second pass, looping ComesAcross, and length-0 events.
+
+Hall
+A hall. An exit leads east to the annex.  Patrol and Looper are here.  An exit leads east.
+
+> wait
+Time passes...
+
+> wait
+Time passes...  Early beat 1.
+
+> wait
+Time passes...
+

@@ -560,3 +560,64 @@ Golden re-blessed, MAP re-wired `Symphonica64|symphonica.blorb|0|0`. Full suite
 after the three fixes: **116 MATCH / 11 DIVERGE, 0 FAIL** — no other game moved
 in either column, save/restore self-checks all OK, a5 unit tests and the v4
 corpus green.
+
+## Synthetic conformance probes (test/a5probes/, imported 2026-08-08)
+
+Twenty feature-targeted probe scripts (the `Probe*` MAP rows) built from the
+**adrift-5-rs test suite**: its synthetic game sources are committed under
+`test/a5probes/src/*.xml` and compiled offline into the committed
+`test/a5probes/*.taf` by `make -f Makefile.headless a5probetafs` (which embeds
+`test/a5probes/tools/libraries/StandardLibrary.amf` via
+`test/a5probes/tools/xml2taf.py` — decompression/obfuscation logic matching
+FrankenDrift's FileIO.vb).  Each `* section` of the original `.regtest` scripts
+became one `test/Probe*_walkthrough.txt` (bare `>` waitkey keypresses and
+`quit` dropped — both are no-ops/harness-level in the transcript harness).
+Unlike the real-game corpus these never SKIP: the tafs are in-tree, so the
+probes run everywhere, including without FrankenDrift for the golden-backed ones.
+
+adrift-5-rs's own expected outputs were used only as a third opinion — blessing
+went through the usual FrankenDrift differential.  Wiring surfaced **12
+divergence groups**; 8 probes MATCH 0|0 out of the box and every probe passes
+the save/restore self-check.  ProbeRandomness is fully aligned under
+`FD_RNG=xoshiro` (its 3 vanilla hunks are pure System.Random stream noise), so
+it is golden-backed at 0|0.
+
+| Probe | v|xo | diagnosis |
+|---|---|---|
+| ProbeAmbiguity | 3\|3 | A pending `Which key?` disambiguation question does not consume the next command as its answer: `blue` re-asks (`Which key?  The blue key.`) where FD resolves it (`Ok, you pick up the blue key.`) — FD's ambiguity follow-up path (clsUserSession sAmbTask + previous-command re-parse). |
+| ProbeEvents | 1\|1 | Event **LookText timing**: the look on the turn right after `start look` (a task-triggered event) already shows the LookText in Scarier; FD shows it only from the next turn.  adrift-5-rs agrees with *Scarier* here — a Runner-arbitration candidate, cf. the 3.9/4.0 immediate-event family. |
+| ProbeHiPriTask | 1\|1 | Priority selection: `stand` surfaces a failing task's `You are already standing!` where FD executes the passing `You stand up.` |
+| ProbeLifecycleRestart | 3\|3 | Walk **enter/exit announcements missing after a walk restart**: FD appends `Patrol enters from the east.` / `Patrol exits to the east.  Patrol beat 1.` to the restart/wait/where turns; Scarier resumes the walk silently. |
+| ProbePopups | 8\|8 | `%PopUpChoice[...]%` evaluation context: Scarier evaluates it eagerly (and answers it from the script, consuming `help`/`yes`/`no` lines as popup answers, shifting the whole turn stream); FD prints the function text **unevaluated** in these positions.  `%PopUpInput%` itself round-trips fine. |
+| ProbeRandomness | 0\|0 | Golden-backed MATCH.  Vanilla FD residue (3 hunks: walk RandomKey wing pick, `roll` RAND value) is pure RNG-stream noise — byte-aligned under xoshiro. |
+| ProbeRefCapture | 4\|4 | **Numbered reference functions** `%number1%`/`%location1%`/`%item1%` unsupported: intro renders them stripped, `%location1%` resolves empty, `%item1%` prints literally.  Also `%characters%`-referencing command Scarier accepts (`Character reference resolves to Bob.`) where FD refuses (`I don't understand...`). |
+| ProbeRestrictions | 10\|10 | Restriction-matrix gaps, all `Restriction failed.` where FD passes: ANYOBJECT-visible-to-player, no-object-visible-to-char, any-in-group, ANYCHARACTER-exist, any-holding, player-standing-on-object, any-wearing, has-any-route; plus an item-ref type check inverted (Scarier passes `item ref type object` where FD says `Not an object item.`) and a missing **too-heavy-to-carry** weight-limit refusal (Scarier picks up the huge boulder). |
+| ProbeTaskActions | 15\|14 | (a) object OO `.Location` not transitive through the parent chain — `loc=` empty for objects in containers / on surfaces / held / worn (FD: clsObject.Location recurses to the room); (b) `MoveCharacter` bulk/target variants leave Bob one move behind FD's location; (c) character group-membership add/remove not reflected (`Carol is in Extra Characters group.` vs FD `is not`); (d) one duplicated task output (`Bob looks up as you greet him.` printed twice). |
+| ProbeUDF | 4\|4 | UDFs: an integer-expression argument evaluates to 0 (`Double of 21 is 0.`, and `3 + 4` isn't folded in the echo); an `%object%` argument renders as its key (`ObjectBall`) instead of its full name; a char-arg call Scarier accepts where FD refuses the command. |
+| ProbeVariables | 5\|5 | `%CharactersOn/In[...]%` list rendering appends each char's here-desc (`Dana is on the table..` vs `Dana`); **NumberAsText** unimplemented (`42` vs `forty two`); `%Version%`/`%Release%` system values differ (`5036.6`/`0` vs FD's `080.0`/`1` — FD-specific values, arbitration candidate). |
+| ProbeWalk | 1\|1 | `You set off for .` — the walk set-off message's destination name renders empty (FD: `You set off for East Wing.`). |
+
+Not yet wired: the three regtest-less sources (`rich_text.xml`,
+`text_set_variable.xml`, `timed_events.xml` — no command scripts came with
+them).
+
+The eight `Samples/*.taf` regtests (Cloak, Conversation, Doors, DarkRoom,
+JackAndBeanstalk, Notebook, TorchBattery, BlockingExits) are wired as
+`Sample*` rows.  The game files ship with the ADRIFT 5 developer
+distribution, not with the suite; they were recovered by extracting the
+"ADRIFT Installer.msi" payload with msiextract (msitools) into
+test/adrift5-games/ — no Wine install needed (the same MSI also yields
+run500.exe/dev500.exe, the real 5.0 Runner/Developer, kept in mind for
+future Runner arbitration).  Result: **7 golden MATCHes** and one real
+divergence:
+
+| Probe | Budget | Diagnosis |
+| --- | --- | --- |
+| SampleConversation | 2\|2 | Conversation intro/farewell article+pronoun rendering: Scarier says `She looks up from her gardening.` where FD says `An old lady looks up...` (first-meeting indefinite article), and `in mid-conversation with an old lady` where FD uses `the old lady` (definite on later reference). |
+
+Conversion footnote: `> @ comment` lines in the regtests are adrift-5-rs
+harness-level comments, dropped like `quit` (feeding one through made
+Scarier and FD both parse it as a game command).  The suite's ninth Samples
+regtest (persistence.regtest, Cloak-based save/restore/undo) was NOT
+converted: the harness's own A5_SAVE_AT round-trip self-check covers that
+ground, and the transcript harness has no in-game save-dialog channel.
