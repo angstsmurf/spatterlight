@@ -430,6 +430,8 @@ extern const a5_character_t *a5model_character (const a5_adventure_t *a, const c
 extern const a5_task_t      *a5model_task      (const a5_adventure_t *a, const char *key);
 extern const a5_variable_t  *a5model_variable  (const a5_adventure_t *a, const char *key);
 extern const a5_propdef_t   *a5model_propdef   (const a5_adventure_t *a, const char *key);
+extern const char *a5model_valuelist_value (const a5_propdef_t *pd,
+                                            const char *label);
 
 /* Resolve an <img>/<audio> src reference (an original file path) to its Blorb
    resource number via <FileMappings>, matching on the path's basename.  Returns

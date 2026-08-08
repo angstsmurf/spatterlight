@@ -41,6 +41,8 @@ safe_bool (const char *s)
 #define ANYCHARACTER  "AnyCharacter"
 #define NOCHARACTER   "NoCharacter"
 #define PLAYERLOCATION "PlayerLocation"
+#define ANYDIRECTION  "AnyDirection"
+#define THEFLOOR      "TheFloor"
 
 /* ---------------------------------------------------------- one restriction */
 
@@ -427,7 +429,15 @@ pass_object (a5_state_t *st, a5_restr_t *r)
       return 0;
     }
   if (streq (r->op, "BeInGroup"))
-    return a5state_object_in_group (st, k2, k1);
+    {
+      /* clsUserSession.vb:4193: ANYOBJECT / NOOBJECT quantify over the group's
+         effective member count (static <Member>s plus runtime add/remove). */
+      if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
+        return any_no_object (st, k1, [&] (int i)
+                 { return a5state_object_in_group (st, k2,
+                                                   st->adv->objects[i].key); });
+      return a5state_object_in_group (st, k2, k1);
+    }
   if (streq (r->op, "BeExactText"))
     {
       /* True if the player's typed reference text equals k2 (e.g. "All"). */
@@ -446,9 +456,15 @@ pass_object (a5_state_t *st, a5_restr_t *r)
   if (streq (r->op, "BeVisibleToCharacter"))
     {
       /* The runner's CanSeeObject (clsCharacter.vb:772) compares BoundVisible keys, so
-         an object inside a closed opaque container is not visible. */
+         an object inside a closed opaque container is not visible.
+         clsUserSession.vb:4338: ANYOBJECT = the observer sees at least one
+         object, NOOBJECT = the observer sees none. */
       int ci = a5state_character_index (st, k2);
       const char *cloc = a5state_character_location_key (st, ci);
+      if (streq (k1, ANYOBJECT) || streq (k1, NOOBJECT))
+        return any_no_object (st, k1, [&] (int i)
+                 { return cloc != NULL
+                          && a5state_object_visible_at_location (st, i, cloc, 0); });
       return oi >= 0 && cloc != NULL
              && a5state_object_visible_at_location (st, oi, cloc, 0);
     }
@@ -798,6 +814,25 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          "If sObKey = ANYOBJECT Then Return HeldObjects.Count > 0"). */
       if (streq (k2, ANYOBJECT))
         return char_holds_any (st, k1, A5_OWHERE_HELD_BY);
+      /* ANYCHARACTER subject: htblObjects(k2).IsHeldByAnyone
+         (clsUserSession.vb:4674) -- held directly, or nested in a
+         container/surface whose own chain ends held (clsObject.vb:737
+         recurses into the parent).  A worn or located object is not "held
+         by anyone". */
+      if (streq (k1, ANYCHARACTER))
+        {
+          int oi = a5state_object_index (st, k2), hops;
+          for (hops = 0; oi >= 0 && hops < st->adv->n_objects; hops++)
+            {
+              if (st->obj[oi].where == A5_OWHERE_HELD_BY)
+                return 1;
+              if (st->obj[oi].where != A5_OWHERE_IN_OBJECT
+                  && st->obj[oi].where != A5_OWHERE_ON_OBJECT)
+                return 0;
+              oi = a5state_object_index (st, st->obj[oi].key);
+            }
+          return 0;
+        }
       /* A specific object counts as held if it is directly held OR nested in a
          container/supporter the character holds (clsCharacter.IsHoldingObject is
          recursive) -- e.g. Anno's gunpowder poured into the held skull still
@@ -809,6 +844,11 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       if (streq (k2, ANYOBJECT))     /* WornObjects.Count > 0 */
         return char_holds_any (st, k1, A5_OWHERE_WORN_BY);
       int oi = a5state_object_index (st, k2);
+      /* ANYCHARACTER subject: htblObjects(k2).IsWornByAnyone
+         (clsUserSession.vb:4868) -- a direct WornBy check only, NOT
+         recursive (clsObject.vb:756). */
+      if (streq (k1, ANYCHARACTER))
+        return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY;
       return oi >= 0 && st->obj[oi].where == A5_OWHERE_WORN_BY
              && streq (st->obj[oi].key, k1);
     }
@@ -972,7 +1012,12 @@ pass_character (a5_state_t *st, a5_restr_t *r)
       return ci >= 0 && a5state_entity_has_prop (st, k1, k2);
     }
   if (streq (r->op, "Exist"))
-    return ci >= 0;
+    {
+      /* clsUserSession.vb:4600: ANYCHARACTER -> any character defined at all. */
+      if (streq (k1, ANYCHARACTER))
+        return st->adv->n_characters > 0;
+      return ci >= 0;
+    }
   if (streq (r->op, "HaveRouteInDirection"))
     {
       const char *dir = a5parse_canonical_direction (k2);
@@ -986,6 +1031,29 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          exit exists but is restriction-gated) so the deciding fail message
          override below can prefer it over the generic "no route" text. */
       st->route_error = NULL;
+      if (streq (dir, ANYDIRECTION))
+        {
+          /* clsUserSession.vb:4608: AnyDirection loops every DirectionsEnum
+             value through HasRouteInDirection -- true when at least one
+             direction has an open route (enum order, matching the runner's
+             short-circuit). */
+          static const char *const kEnumDirs[12] = {
+            "North", "East", "South", "West", "Up", "Down",
+            "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest" };
+          if (cl == NULL)
+            return 0;
+          for (int d = 0; d < 12; d++)
+            {
+              const a5_xml_node_t *b = NULL;
+              if (a5restr_exit_in_direction (st, k1, cl, kEnumDirs[d], &b) != NULL)
+                return 1;
+              if (b != NULL)
+                blocked = b;    /* the runner keeps the LAST specific error */
+            }
+          if (blocked != NULL)
+            st->route_error = blocked;
+          return 0;
+        }
       exit = (cl != NULL) ? a5restr_exit_in_direction (st, k1, cl, dir, &blocked)
                           : NULL;
       if (exit == NULL && blocked != NULL)
@@ -1022,6 +1090,26 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         {
           if (streq (k2, ANYOBJECT))
             return 0;                     /* not a shipped combination */
+          if (streq (k2, THEFLOOR))
+            {
+              /* clsUserSession.vb:4834: TheFloor = the stance with ExistWhere
+                 AtLocation -- on the ground, not on/in any object. */
+              for (int i = 0; i < st->adv->n_characters; i++)
+                {
+                  if (want_in)
+                    continue;             /* can't be inside the floor */
+                  if (st->char_onobj != NULL && st->char_onobj[i] != NULL)
+                    continue;
+                  if (st->char_loc == NULL || st->char_loc[i] == NULL)
+                    continue;
+                  if (want_pos != NULL
+                      && !streq (st->char_position ? st->char_position[i] : NULL,
+                                 want_pos))
+                    continue;
+                  return 1;
+                }
+              return 0;
+            }
           for (int i = 0; i < st->adv->n_characters; i++)
             {
               if (st->char_onobj == NULL || st->char_onobj[i] == NULL
@@ -1043,7 +1131,17 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         return 0;
       if (streq (k2, ANYOBJECT))
         return onobj != NULL && (inside ? 1 : 0) == want_in;
-      /* THEFLOOR and any concrete object key fall here: must be on/in that key. */
+      if (streq (k2, THEFLOOR))
+        {
+          /* clsUserSession.vb:4834: TheFloor = the stance with ExistWhere
+             AtLocation -- on the ground, not on/in any object (the position
+             itself was already checked above).  The player's room comes from
+             a5state_player_location; char_loc is the NPC store. */
+          const char *atloc = streq (k1, a5state_player_key (st))
+                                ? a5state_player_location (st) : cloc;
+          return !want_in && onobj == NULL && atloc != NULL;
+        }
+      /* Any concrete object key: must be on/in that key. */
       return onobj != NULL && (inside ? 1 : 0) == want_in && streq (onobj, k2);
     }
   /* Conversation / acquaintance operators (clsUserSession character cases). */
@@ -1382,6 +1480,58 @@ pass_property (a5_state_t *st, a5_restr_t *r)
   return must_not ? !rr : rr;
 }
 
+/* ------------------------------------------------------- item sub-evaluator */
+
+/* The Item restriction type (clsUserSession.vb:4972): key1 -- typically the
+   ReferencedItem binding of an %item% command token -- is resolved against
+   objects, then characters, then locations; a key found in none of them fails
+   outright.  Only the operators the runner ties to that three-way lookup are
+   mirrored; anything else keeps the best-effort pass. */
+static int
+pass_item (a5_state_t *st, a5_restr_t *r)
+{
+  const char *k1 = resolve_key (st, r->key1);
+  const char *k2 = resolve_key (st, r->key2);
+  const a5_object_t *ob = a5model_object (st->adv, k1);
+  const a5_character_t *ch = (ob == NULL) ? a5model_character (st->adv, k1) : NULL;
+  const a5_location_t *loc = (ob == NULL && ch == NULL)
+                               ? a5model_location (st->adv, k1) : NULL;
+
+  if (ob == NULL && ch == NULL && loc == NULL)
+    return 0;                   /* vb:4978: unresolved key -> False */
+
+  if (streq (r->op, "BeType"))
+    /* vb:5047: the resolved item's table decides its type. */
+    return (streq (k2, "Object") && ob != NULL)
+           || (streq (k2, "Character") && ch != NULL)
+           || (streq (k2, "Location") && loc != NULL);
+  if (streq (r->op, "Exist"))
+    return 1;                   /* vb:5049: found in some table above */
+  if (streq (r->op, "HaveProperty"))
+    return a5state_entity_has_prop (st, k1, k2);
+  if (streq (r->op, "BeObject"))
+    return ob != NULL && streq (k1, k2);
+  if (streq (r->op, "BeCharacter"))
+    return ch != NULL && streq (k1, k2);
+  if (streq (r->op, "BeLocation"))
+    return loc != NULL && streq (k1, k2);
+  if (streq (r->op, "BeAtLocation"))
+    {
+      /* vb:4985: object -> IsVisibleAtLocation; character -> resolved
+         Location.LocationKey; location -> key identity. */
+      if (ob != NULL)
+        return a5state_object_visible_at_location (st,
+                 a5state_object_index (st, k1), k2, 0);
+      if (ch != NULL)
+        return streq (a5state_character_location_key (st,
+                        a5state_character_index (st, k1)), k2);
+      return streq (k1, k2);
+    }
+  if (streq (r->op, "BeInGroup"))
+    return a5state_object_in_group (st, k2, k1);
+  return 1;                     /* unknown operator: don't suppress text */
+}
+
 /* ---------------------------------------------------------- single + block */
 
 static int
@@ -1392,6 +1542,7 @@ pass_single (a5_state_t *st, a5_restr_t *r)
   else if (streq (r->type, "Location"))  result = pass_location (st, r);
   else if (streq (r->type, "Character")) result = pass_character (st, r);
   else if (streq (r->type, "Variable"))  result = pass_variable (st, r);
+  else if (streq (r->type, "Item"))      result = pass_item (st, r);
   else if (streq (r->type, "Property"))  return pass_property (st, r);
   else if (streq (r->type, "Task"))
     {

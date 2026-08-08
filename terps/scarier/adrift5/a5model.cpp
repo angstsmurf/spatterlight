@@ -601,6 +601,68 @@ a5_load_propdefs (a5_adventure_t *a)
                 });
 }
 
+/* The label -> integer mapping of a ValueList property definition: the
+   propdef's <ValueList><Label>/<Value> pairs (FD clsProperty.ValueList, an
+   OrdinalIgnoreCase dictionary).  Returns the <Value> text (a string in the
+   same document) or NULL when the label is unknown. */
+const char *
+a5model_valuelist_value (const a5_propdef_t *pd, const char *label)
+{
+  const a5_xml_node_t *c;
+  if (pd == NULL || pd->node == NULL || label == NULL)
+    return NULL;
+  for (c = pd->node->first_child; c != NULL; c = c->next)
+    if (strcmp (c->name, "ValueList") == 0)
+      {
+        const char *l = a5xml_child_text (c, "Label");
+        const char *v = a5xml_child_text (c, "Value");
+        if (l != NULL && v != NULL && strcasecmp (l, label) == 0)
+          return v;
+      }
+  return NULL;
+}
+
+/* FD's clsProperty stores a ValueList property's value as the label's mapped
+   INTEGER (the Value getter returns IntData.ToString, clsProperty.vb:152; the
+   setter maps a label through the ValueList dictionary, vb:180-186), so
+   %obj%.Weight reads "81" for a "Very heavy" boulder and the library's
+   MaxWeight/MaxBulk carry restrictions sum real numbers.  Scarier keeps prop
+   values as raw doc strings; repoint a label-valued ValueList prop at the
+   propdef's own <ValueList><Value> text (same document, stable lifetime).
+   An already-numeric value stays as-is (the label lookup misses, matching
+   FD's SafeInt passthrough). */
+static void
+a5_fix_valuelist_props (a5_adventure_t *a)
+{
+  auto fix = [&] (a5_prop_t *props, int n)
+  {
+    for (int i = 0; i < n; i++)
+      {
+        a5_prop_t *p = &props[i];
+        const a5_propdef_t *pd;
+        const char *v;
+        if (p->value == NULL)
+          continue;
+        pd = a5model_propdef (a, p->key);
+        if (pd == NULL || pd->type == NULL
+            || strcmp (pd->type, "ValueList") != 0)
+          continue;
+        v = a5model_valuelist_value (pd, p->value);
+        if (v != NULL)
+          p->value = v;
+      }
+  };
+  int i;
+  for (i = 0; i < a->n_objects; i++)
+    fix (a->objects[i].props, a->objects[i].n_props);
+  for (i = 0; i < a->n_characters; i++)
+    fix (a->characters[i].props, a->characters[i].n_props);
+  for (i = 0; i < a->n_locations; i++)
+    fix (a->locations[i].props, a->locations[i].n_props);
+  for (i = 0; i < a->n_groups; i++)
+    fix (a->groups[i].props, a->groups[i].n_props);
+}
+
 static void
 a5_load_alrs (a5_adventure_t *a)
 {
@@ -937,6 +999,7 @@ a5model_from_doc (a5_xml_doc_t *doc)
   a5_load_variables (a);
   a5_load_groups (a);
   a5_apply_group_properties (a);
+  a5_fix_valuelist_props (a);
   a5_load_alrs (a);
   a5_load_udfs (a);
   a5_load_hints (a);
