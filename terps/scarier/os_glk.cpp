@@ -325,6 +325,20 @@ static void gsc_short_delay (void);
 /*---------------------------------------------------------------------*/
 
 /*
+ * gsc_put_literal()
+ *
+ * Print a string literal to the current Glk stream.  glk_put_string() takes
+ * a non-const char * for historical reasons but never writes through it, so
+ * this wrapper holds the const_cast needed to pass literals from C++.
+ */
+static void
+gsc_put_literal (const char *string)
+{
+  glk_put_string (const_cast<char *> (string));
+}
+
+
+/*
  * gsc_fatal()
  *
  * Fatal error handler.  The function returns, expecting the caller to
@@ -354,12 +368,12 @@ gsc_fatal (const char *string)
   /* Print a message indicating the error, and exit. */
   glk_set_window (gsc_main_window);
   glk_set_style (style_Normal);
-  glk_put_string (const_cast<char *>("\n\nINTERNAL ERROR: "));
-  glk_put_string ((char *) string);
+  gsc_put_literal ("\n\nINTERNAL ERROR: ");
+  gsc_put_literal (string);
 
-  glk_put_string (const_cast<char *>("\n\nPlease record the details of this error, try to"
-                  " note down everything you did to cause it, and email"
-                  " this information to simon_baldwin@yahoo.com.\n\n"));
+  gsc_put_literal ("\n\nPlease record the details of this error, try to"
+                   " note down everything you did to cause it, and email"
+                   " this information to simon_baldwin@yahoo.com.\n\n");
 }
 
 
@@ -1422,7 +1436,7 @@ gsc_status_update (void)
            */
           glk_window_move_cursor (gsc_status_window, 1, 0);
           gsc_put_string (scr_get_game_name (gsc_game));
-          glk_put_string (const_cast<char *>(" | "));
+          gsc_put_literal (" | ");
           gsc_put_string (scr_get_game_author (gsc_game));
         }
       else
@@ -1502,9 +1516,9 @@ gsc_status_print (void)
       if (strcmp (buffer, current_status) != 0)
         {
           /* Bracket, and output the status line buffer. */
-          glk_put_string (const_cast<char *>("[ "));
+          gsc_put_literal ("[ ");
           gsc_put_string (buffer);
-          glk_put_string (const_cast<char *>(" ]\n"));
+          gsc_put_literal (" ]\n");
 
           /* Save the details of the printed status buffer. */
           snprintf(current_status, sizeof(current_status), "%s", buffer);
@@ -1670,8 +1684,8 @@ gsc_output_provide_help_hint (void)
   if (gsc_help_requested && !gsc_help_hints_silenced)
     {
       glk_set_style (style_Emphasized);
-      glk_put_string (const_cast<char *>("[Try 'glk help' for help on special interpreter"
-                      " commands]\n"));
+      gsc_put_literal ("[Try 'glk help' for help on special interpreter"
+                       " commands]\n");
 
       gsc_help_requested = FALSE;
       glk_set_style (style_Normal);
@@ -4222,7 +4236,7 @@ os_read_line (scr_char *buffer, scr_int length)
     gsc_autorestored = FALSE;
   else
     {
-      glk_put_string (const_cast<char *>(">"));
+      gsc_put_literal (">");
       /* Autosave at every top-level prompt: after the prompt is printed (so
          the GUI snapshot ends with it) but before input is requested (so
          the archived windows carry no pending request and a restore
@@ -4230,7 +4244,7 @@ os_read_line (scr_char *buffer, scr_int length)
       gsc_autosave ();
     }
 #else
-  glk_put_string (const_cast<char *>(">"));
+  gsc_put_literal (">");
 #endif
 
   /* A walk set going by a click on the map supplies the next direction itself,
@@ -4241,7 +4255,7 @@ os_read_line (scr_char *buffer, scr_int length)
       glk_set_style (style_Input);
       glk_put_string ((char *) buffer);
       glk_set_style (style_Normal);
-      glk_put_string (const_cast<char *>("\n"));
+      gsc_put_literal ("\n");
       return TRUE;
     }
 
@@ -4370,7 +4384,7 @@ os_read_line_debug (scr_char *buffer, scr_int length)
 
   gsc_output_silence_help_hints ();
   gsc_reset_glk_style ();
-  glk_put_string (const_cast<char *>("[SCARIER debug]"));
+  gsc_put_literal ("[SCARIER debug]");
 #ifdef SPATTERLIGHT
   /* A debugger prompt is mid-turn: not a state worth autosaving. */
   gsc_in_debug_read = TRUE;
@@ -4438,37 +4452,37 @@ os_confirm (scr_int type)
 
   /* Prompt for the confirmation, based on the type. */
   if (type == GSC_CONF_SUBTLE_HINT)
-    glk_put_string (const_cast<char *>("View the subtle hint for this topic"));
+    gsc_put_literal ("View the subtle hint for this topic");
   else if (type == GSC_CONF_UNSUBTLE_HINT)
-    glk_put_string (const_cast<char *>("View the unsubtle hint for this topic"));
+    gsc_put_literal ("View the unsubtle hint for this topic");
   else if (type == GSC_CONF_CONTINUE_HINTS)
-    glk_put_string (const_cast<char *>("Continue with hints"));
+    gsc_put_literal ("Continue with hints");
   else
     {
-      glk_put_string (const_cast<char *>("Do you really want to "));
+      gsc_put_literal ("Do you really want to ");
       switch (type)
         {
         case SCR_CONF_QUIT:
-          glk_put_string (const_cast<char *>("quit"));
+          gsc_put_literal ("quit");
           break;
         case SCR_CONF_RESTART:
-          glk_put_string (const_cast<char *>("restart"));
+          gsc_put_literal ("restart");
           break;
         case SCR_CONF_SAVE:
-          glk_put_string (const_cast<char *>("save"));
+          gsc_put_literal ("save");
           break;
         case SCR_CONF_RESTORE:
-          glk_put_string (const_cast<char *>("restore"));
+          gsc_put_literal ("restore");
           break;
         case SCR_CONF_VIEW_HINTS:
-          glk_put_string (const_cast<char *>("view hints"));
+          gsc_put_literal ("view hints");
           break;
         default:
-          glk_put_string (const_cast<char *>("do that"));
+          gsc_put_literal ("do that");
           break;
         }
     }
-  glk_put_string (const_cast<char *>("? "));
+  gsc_put_literal ("? ");
 
   /* Wait until 'yes' or 'no' entered. */
   response = gsc_get_choice_key ("YN");
@@ -4738,7 +4752,7 @@ gsc_get_ending_option (void)
   gsc_status_notify ();
 
   /* Prompt for restart, undo, or quit, and wait for one of the three. */
-  glk_put_string (const_cast<char *>("\nWould you like to RESTART, UNDO a turn, or QUIT? "));
+  gsc_put_literal ("\nWould you like to RESTART, UNDO a turn, or QUIT? ");
   switch (gsc_get_choice_key ("RUQ"))
     {
     case 'R':
@@ -4901,7 +4915,7 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
        * Display a brief loading game message; here we have to use a timeout
        * to ensure that the text is flushed to Glk.
        */
-      glk_put_string (const_cast<char *>("Loading game...\n"));
+      gsc_put_literal ("Loading game...\n");
       if (glk_gestalt (gestalt_Timer, 0))
         {
           event_t event;
