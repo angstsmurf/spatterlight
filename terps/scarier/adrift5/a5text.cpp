@@ -1396,9 +1396,32 @@ fn_list_characters (a5_state_t *st, const char *name, const char *args)
   std::vector<const a5_character_t *> on, in;
   if (k != NULL && !ci_eq (name, "listcharactersin")) on = chars_on_in (st, k, 1);
   if (k != NULL && !ci_eq (name, "listcharacterson")) in = chars_on_in (st, k, 0);
-  /* DisplayCharacterChildren lists inside-characters only when the object
-     is `Not Openable OrElse IsOpen` (clsObject.vb:383) -- same gate as the
-     object children above. */
+  auto names = [&](std::vector<const a5_character_t *> &cs) {
+    std::string s; int n = (int) cs.size ();
+    for (int i = 0; i < n; i++)
+      { char *nm = a5text_character_subjective (st, cs[i]);
+        if (i > 0) s += (i == n - 1) ? " and " : ", ";
+        s += nm; free (nm); }
+    return s; };
+  if (!ci_eq (name, "listcharactersonandin"))
+    {
+      /* ListCharactersOn/In (Global.vb:2159/2166) are the bare
+         CharacterHashTable.List("and") name join -- no "is on the table"
+         here-form, no open-container gate (ChildrenCharacters,
+         clsObject.vb:940, never looks at OpenStatus), and "noone" when the
+         set is empty (StronglyTypedCollections.vb:425).  An unknown object
+         key just DisplayErrors and renders blank. */
+      if (k == NULL)
+        return strdup ("");
+      std::vector<const a5_character_t *> &cs =
+          ci_eq (name, "listcharacterson") ? on : in;
+      if (cs.empty ())
+        return strdup ("noone");
+      return strdup (names (cs).c_str ());
+    }
+  /* OnAndIn -> DisplayCharacterChildren, which lists inside-characters only
+     when the object is `Not Openable OrElse IsOpen` (clsObject.vb:383) --
+     same gate as the object children above. */
   if (!in.empty () && o != NULL
       && a5_prop_find (o->props, o->n_props, "Openable") != NULL)
     {
@@ -1411,13 +1434,6 @@ fn_list_characters (a5_state_t *st, const char *name, const char *args)
   /* DisplayCharacterChildren: "X is on/inside the <object>." */
   std::string out;
   char *defn = o ? a5text_object_name (st, o, A5_ART_DEFINITE) : strdup (k ? k : "");
-  auto names = [&](std::vector<const a5_character_t *> &cs) {
-    std::string s; int n = (int) cs.size ();
-    for (int i = 0; i < n; i++)
-      { char *nm = a5text_character_subjective (st, cs[i]);
-        if (i > 0) s += (i == n - 1) ? " and " : ", ";
-        s += nm; free (nm); }
-    return s; };
   if (!on.empty ())
     { out += names (on); out += (on.size () == 1) ? " is on " : " are on ";
       out += defn; }
@@ -1526,14 +1542,121 @@ fn_list_objects_at_location (a5_state_t *st, const char * /*name*/, const char *
   return list_objects (st, v);
 }
 
+/* GroupToWords (Global.vb:2513): one three-digit group, "one hundred and
+   twenty three" style.  0 renders "". */
+static std::string
+number_group_to_words (int num)
+{
+  static const char *one_to_nineteen[] = { "zero", "one", "two", "three",
+    "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
+    "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+    "eighteen", "nineteen" };
+  static const char *multiples_of_ten[] = { "twenty", "thirty", "forty",
+    "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+  if (num == 0)
+    return "";
+  std::string result;
+  if (num > 99)
+    {
+      result = std::string (one_to_nineteen[num / 100]) + " hundred";
+      num %= 100;
+      if (num == 0)
+        return result;
+      result += " and";
+    }
+  if (num < 20)
+    result += std::string (" ") + one_to_nineteen[num];
+  else
+    {
+      result += std::string (" ") + multiples_of_ten[num / 10 - 2];
+      if (num % 10 > 0)
+        result += std::string (" ") + one_to_nineteen[num % 10];
+    }
+  while (!result.empty () && result.front () == ' ')
+    result.erase (0, 1);
+  return result;
+}
+
 static char *
 fn_number_as_text (a5_state_t * /*st*/, const char * /*name*/, const char *args)
 {
-  static const char *ones[] = { "zero","one","two","three","four","five",
-    "six","seven","eight","nine","ten","eleven","twelve" };
-  long n = strtol (args, NULL, 10);
-  if (n >= 0 && n <= 12) return strdup (ones[n]);
-  return strdup (args);
+  /* %NumberAsText[n]% (Global.vb:2249 -> NumberToString, vb:2563): spell the
+     number in words, groups-of-three with US group names ("one thousand,
+     two hundred and thirty four").  A non-numeric argument is evaluated as
+     an expression first.  Faithful quirks: the decimal branch drops the
+     digit BEFORE the point too (Substring(0, pos - 1): "12.9" -> "1" ->
+     "one"), and negatives render "zero" (the loop only emits for positive
+     group values). */
+  static const char *groups[] = { "", "thousand", "million", "billion",
+    "trillion", "quadrillion", "quintillion", "sextillion", "septillion",
+    "octillion", "nonillion", "decillion", "undecillion", "duodecillion",
+    "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion",
+    "septendecillion", "octodecillion", "novemdecillion", "vigintillion" };
+  const int n_groups_names = (int) (sizeof groups / sizeof groups[0]);
+
+  std::string num = args != NULL ? args : "";
+  /* IsNumeric gate: digits with optional sign/currency/comma/point dressing.
+     Anything else goes through the expression engine and its IntValue. */
+  int numeric = 0;
+  {
+    int digits = 0, other = 0;
+    for (char c : num)
+      {
+        if (c >= '0' && c <= '9') digits++;
+        else if (c != '$' && c != ',' && c != '.' && c != '+' && c != '-'
+                 && c != ' ')
+          other++;
+      }
+    numeric = digits > 0 && other == 0;
+  }
+  if (!numeric)
+    {
+      char *ev = a5_eval_sexpr (num.c_str ());
+      if (ev != NULL)
+        {
+          long iv = strtol (ev, NULL, 10);
+          char buf[32];
+          snprintf (buf, sizeof buf, "%ld", iv);
+          num = buf;
+          free (ev);
+        }
+    }
+
+  /* Clean: strip "$" and ",", leading zeros, then the decimal tail. */
+  std::string cleaned;
+  for (char c : num)
+    if (c != '$' && c != ',')
+      cleaned += c;
+  size_t nz = cleaned.find_first_not_of ('0');
+  cleaned = (nz == std::string::npos) ? "" : cleaned.substr (nz);
+  size_t pos = cleaned.find ('.');
+  if (pos == 0)
+    return strdup ("zero");
+  if (pos != std::string::npos)
+    cleaned = cleaned.substr (0, pos - 1);
+
+  std::string result;
+  int num_groups = (int) (cleaned.size () + 2) / 3;
+  cleaned.insert (0, (size_t) num_groups * 3 - cleaned.size (), ' ');
+  for (int group_num = num_groups - 1; group_num >= 0; group_num--)
+    {
+      int group_value = atoi (cleaned.substr (0, 3).c_str ());
+      cleaned = cleaned.substr (3);
+      if (group_value > 0)
+        result += number_group_to_words (group_value) + " "
+                  + (group_num >= n_groups_names ? "?" : groups[group_num])
+                  + ", ";
+    }
+  if (result.size () >= 2 && result.compare (result.size () - 2, 2, ", ") == 0)
+    result.erase (result.size () - 2);
+  while (!result.empty () && result.back () == ' ')
+    result.pop_back ();
+  while (!result.empty () && result.front () == ' ')
+    result.erase (0, 1);
+  if (result.empty ())
+    result = "zero";
+  return strdup (result.c_str ());
 }
 
 static char *
@@ -1856,8 +1979,10 @@ eval_function (a5_state_t *st, const char *name, const char *args)
     return strdup ("5036.6");
   if (args == NULL && ci_eq (name, "release"))
     /* %release% (Global.vb:1766): the <ifindex> block's <release><version>
-       (BabelTreatyInfo ... Release.Version; 0 when the file carries none). */
-    return strdup (st->adv->release != NULL ? st->adv->release : "0");
+       (BabelTreatyInfo ... Release.Version) -- which DEFAULTS to 1
+       (Babel.vb:354 iVersion As Integer = 1), so a file carrying no release
+       metadata still renders "1". */
+    return strdup (st->adv->release != NULL ? st->adv->release : "1");
 
   /* A bound reference produced by the parser this turn (%direction%, %text%). */
   if (args == NULL)

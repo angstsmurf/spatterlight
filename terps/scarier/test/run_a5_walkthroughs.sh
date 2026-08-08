@@ -1559,7 +1559,7 @@ ProbeRefCapture|a5probes/reference_capture.taf|4|4
 ProbeRestrictions|a5probes/restrictions.taf|10|10
 ProbeTaskActions|a5probes/task_actions.taf|15|14
 ProbeUDF|a5probes/user_defined_functions.taf|4|4
-ProbeVariables|a5probes/variables.taf|5|5
+ProbeVariables|a5probes/variables.taf|1|1
 ProbeWaitkey|a5probes/waitkey.taf|0|0
 ProbeWalk|a5probes/walk.taf|1|1
 SampleCloak|Cloak.taf|0|0
