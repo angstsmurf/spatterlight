@@ -121,11 +121,11 @@ Within the `<Adventure>` element you'll find "header" child elements and then "i
 
 A `.taf` file compresses Adventure XML and adds some extra metadata, like this:
 
-1. **12-byte header** — either ASCII `"Version 5.00"`-style text, or the v5 magic bytes  
-   `3C 42 3F C9 6A 87 C2 CF 92 45 3E 61`
-2. **Optional Babel / IFID section** — when bytes 12–15 decode as a hex length (`"0000"` or similar) and the following bytes look like `<ifindex` / `<?xml`, a Babel block of that length follows
+1. **12-byte header** — always obfuscated, never plaintext. For v5 files it is the magic bytes  
+   `3C 42 3F C9 6A 87 C2 CF 92 45 3E 61`. The loader (`FileIO.vb`) compares against the known v5/v4/v3.9 magic sequences; anything else is run through the de-obfuscator and must then read `"Version X.XX"`, so a file whose header is literal ASCII text is rejected.
+2. **Optional Babel / IFID section** (5.0.20+) — the loader reads bytes 12–15 as a 4-hex-digit length and bytes 16–23 as a marker; the Babel block is recognized when the length reads `"0000"` **or** the marker reads `<ifindex` (an OR test, `FileIO.vb`). When present, a Babel block of that length follows. Pre-5.0.20 files (and extracted `.taf`s) have no Babel section and their payload is *not* obfuscated.
 3. **zlib-compressed Adventure XML**, usually **XOR-obfuscated** with the fixed ADRIFT key
-4. Trailing bookkeeping bytes used by the loader (implementations reserve ~26 bytes after the compressed payload for length/checksum-style fields)
+4. **14-byte trailer** after the compressed payload — the loader seeks to `fileLength - 14` to read it. (The `26` sometimes seen in loader arithmetic is the 12-byte header plus this 14-byte trailer combined, not the trailer size.)
 
 ### 1.3 `.amf` library modules
 
@@ -147,7 +147,7 @@ ADRIFT-5 almost never uses XML attributes. Structure is **nested elements with t
 
 ### 2.2 Booleans
 
-Usually `"1"` / `"0"`. The `ADRIFT-5` writer normally **omits** default-false flags; readers treat absence as the default. Presence of `"1"` means true. Some loaders also accept `TRUE`/`FALSE`/`-1`. (`-1` means true.)
+Usually `"1"` / `"0"`. The `ADRIFT-5` writer normally **omits** default-false flags; readers treat absence as the default. Presence of `"1"` means true. The loader's boolean parse accepts `-1` / `1` / `TRUE` / `VRAI` as true (`VRAI` is a French-locale artifact of VB serialization); anything else is false.
 
 ### 2.3 Enumerations
 
@@ -170,8 +170,9 @@ It's formatted as a string like `5.0000366` in this format: `Major.MMMBBBR`
   - The latest build number as of July 2026 is `036`
 - Revision (R): The revision number
   - The latest revision number as of July 2026 is `6`
+  - The revision digit is only present in newer builds — older files use the 6-digit form (e.g. `5.000020`)
 
-Thus, the latest version string is `5.0000366`. 
+Thus, the latest version string is `5.0000366`. Readers compare version strings numerically (parsed as a double), so both forms order correctly.
 
 ### 2.6 Colours (`BackgroundColour`, `InputColour`, `OutputColour`, `LinkColour`)
 
@@ -183,7 +184,7 @@ For example, in OLE, pure Red would be `0x0000FF`, which would be `#FF0000` almo
 
 But then, for a double whammy, Adventure XML converts those three Blue, Green, Red and bytes into an integer, and stores it as a decimal string.
 
-For example, the default ADRIFT output text color is cyan, which is 100% Blue, 100% Green, 0% Red. `0xFFFF00` is 16,776,960, and so you'd see it written in Adventure XML as `<OutputColour>16776960</OutputColour>`.
+For example, cyan is 100% Blue, 100% Green, 0% Red: `0xFFFF00` in OLE order is 16,776,960, so you'd see it written in Adventure XML as `<OutputColour>16776960</OutputColour>`. (The actual Runner default output colour, for reference, is the teal RGB 25,165,138 — `DEFAULT_OUTPUTCOLOUR` — and colour elements are only written when they differ from the defaults.)
 
 ### 2.7 Omitted defaults
 
@@ -253,7 +254,7 @@ Task-triggered start/stop lines on events and walks:
 Start|Stop|Suspend|Resume  Completion|UnCompletion  TaskKey
 ```
 
-Example: `Start Completion TaskBeginStorm` — when `TaskBeginStorm` completes, start this event/walk. `UnCompletion` fires when that task is unset. See [§6.6 Event](#66-event) and [§6.7 Character](#67-character) (walks).
+Example: `Start Completion TaskBeginStorm` — when `TaskBeginStorm` completes, start this event/walk. `UnCompletion` fires when that (completed) task is unset by a `SetTasks Unset` **action**; an event's/walk's own `UnsetTask` sub-action only clears the completed flag and fires no controls. See [§6.6 Event](#66-event) and [§6.7 Character](#67-character) (walks).
 
 ### 2.13 Inline HTML-like tags
 
@@ -291,7 +292,7 @@ Example: `<font face="Courier New" size=14 color="#00FFFF">mono cyan</font>`
 | `<cls>` | Clear the main output window |
 | `<del>` | Delete the previous character of output (backspace one glyph) |
 | `<wait N>` | Pause **N** seconds (N may be fractional), then continue |
-| `<waitkey>` | Pause until the player presses a key (also cancels an in-progress player auto-walk) |
+| `<waitkey>` | Pause until the player presses a key |
 | `<img src="path">` | Show an image. `src` is a filename/path as in the adventure (resolved via [§6.16 FileMappings](#616-filemappings-blorb-export) inside a Blorb, else as an absolute path to a file on disk). Official Runner often paints the Graphics pane / pastes into the transcript |
 | `<audio play src="…" [channel=N] [loop=Y\|N]>` | Start sound on channel 1–8 (default 1) |
 | `<audio pause [channel=N]>` / `<audio stop [channel=N]>` | Pause or stop that channel |
@@ -307,6 +308,7 @@ Literal special characters in output text:
 |--------|-----------|
 | `&lt;` | `<` |
 | `&gt;` | `>` |
+| `&amp;` | `&` |
 | `&perc;` | `%` |
 | `&quot;` | `"` |
 
@@ -348,7 +350,7 @@ Item element names (singular):
 
 Shared nesting used across header fields and items (defined next in [§4](#4-shared-structures)):
 
-- Every item has a `<Key>` ([§4.1](#41-keys-ids)).
+- Almost every item has a `<Key>` ([§4.1](#41-keys-ids)); the structural exceptions are `Exclude`, `Map`, and `FileMappings`, which are not keyed items.
 - Many text fields are **description blocks** ([§4.2](#42-description-blocks)).
 - Text and logic can embed **expressions** ([§2.10](#210-expressions-overview), [§4.3](#43-expressions)), **percent-functions** ([§4.6](#46-percent-functions-and-special-tokens)), and [HTML-like tags](#213-inline-html-like-tags).
 - Tasks, topics, hints, and location movements carry **restrictions** ([§4.4](#44-restrictions)) and often **actions** ([§4.5](#45-actions)).
@@ -403,7 +405,7 @@ Commands use **percent-tokens**. Restrictions and actions usually use the **expa
 |------|---------------------------|-----------------------------------------|
 | Object | `%object%`, `%object1%`…`%object5%`, `%objects%` | `ReferencedObject`, `ReferencedObject1`…`ReferencedObject5`, `ReferencedObjects` |
 | Character | `%character%`, `%character1%`…`%character5%`, `%characters%` | `ReferencedCharacter`, `ReferencedCharacter1`…`ReferencedCharacter5`, `ReferencedCharacters` |
-| Location | `%location%`, `%location1%`…`%location5%` | `ReferencedLocation`, `ReferencedLocation1`…`ReferencedLocation5`, `ReferencedLocations` |
+| Location | `%location%`, `%location1%`…`%location5%` | `ReferencedLocation`, `ReferencedLocation1`…`ReferencedLocation5` |
 | Direction | `%direction%`, `%direction1%`…`%direction5%` | `ReferencedDirection`, `ReferencedDirection1`…`ReferencedDirection5` |
 | Number | `%number%`, `%number1%`…`%number5%` | `ReferencedNumber`, `ReferencedNumber1`…`ReferencedNumber5` |
 | Text | `%text%`, `%text1%`…`%text5%` | `ReferencedText`, `ReferencedText1`…`ReferencedText5` |
@@ -417,7 +419,7 @@ Mapping: `%object%` / `%object1%` → `ReferencedObject` / `ReferencedObject1`; 
 
 | Token | Meaning |
 |-------|---------|
-| `%Player%` | Current player character’s key (not a command capture). Valid wherever a character key is expected. |
+| `%Player%` | The current player character (not a command capture). Context-dependent: in restrictions/actions/paths it resolves to the player's **key**; in plain display text the `%Player%` percent-function prints the player's **name**. |
 
 #### 4.1.2 Key collision on library merge
 
@@ -491,9 +493,9 @@ Expressions use a small expression language evaluated at runtime. They are **not
 
 After [percent-functions](#46-percent-functions-and-special-tokens) / `%variables%` / reference tokens are expanded, the evaluator tokenizes and resolves:
 
-**Arithmetic:** `+` `-` `*` `/` `^` `mod`, parentheses
+**Arithmetic:** `+` `-` `*` `/` `^` `mod`, parentheses. Integer division **rounds to nearest, halves away from zero** (`Math.Round(a/b, MidpointRounding.AwayFromZero)`): `-5/2` = `-3`. Note this differs from ADRIFT 4, whose epsilon-biased rounding gives `-5/2` = `-2` — a portability trap when converting games.
 
-**Comparisons:** `EQ` `NE` `GT` `LT` `GE` `LE`
+**Comparisons:** symbolic only — `=` / `==`, `<>` / `!=`, `<`, `<=`, `>`, `>=`. The word forms (`EqualTo`, `GreaterThan`, …) belong to the *restriction* language, not expressions; a bare word like `EQ` inside an expression parses as a string literal, not an operator.
 
 **Logic:** `AND` `OR`
 
@@ -519,9 +521,9 @@ Examples:
 
 ```text
 <# %Score% + 1 #>
-<# IF(%Player%.Held.Count EQ 0, "empty-handed", "carrying something") #>
+<# IF(%Player%.Held.Count = 0, "empty-handed", "carrying something") #>
 VariableTurns Must BeEqualTo 'VariableScore * 2'
-SetVariable: VariableFlag = "IF(%object% EQ ObjectKey, 1, 0)"
+SetVariable: VariableFlag = IF(%object% = "ObjectKey", 1, 0)
 ```
 
 This is an outline, not a full grammar: edge cases (short-circuiting, type coercion, bad expressions) follow ADRIFT-5 `SetToExpression`.
@@ -553,19 +555,19 @@ Bare keys without `%…%` also work in text that goes through `ReplaceFunctions`
 | Any list | `Sum` | Sum of a prior integer/value-list property step |
 | Any list | `Description` | Joined long descriptions / location views |
 | Any list | `Parent` | Immediate parents (container / holder / room) |
-| Object | `Children(…)` | Contained items. Args: `all`/`onandin` (default), `in`, `on`, `objects`, `characters`, combinations |
-| Object / location | `Contents(…)` | Similar contents filters (`objects`, `characters`, …) |
+| Object | `Children(…)` | Contained items. Recognized args (space-stripped, lowercased): empty/`all`/`onandin`/`all,onandin` (everything), `in`, `objects`, `characters`, and `objects,in` / `objects,on` / `objects,onandin` / `characters,in` / `characters,on` / `characters,onandin`. **Bare `on` is not recognized** — an unrecognized arg combination yields the empty set (the runner's `Select Case` falls through) |
+| Object | `Contents(…)` | Contents **inside** the object only (never on it). Args: empty/`all`, `objects`, `characters`. Objects only — locations have no `Contents` |
 | Object | `Objects` | Objects related to this object (children context) |
 | Character | `Held` / `Worn` / `WornAndHeld` | Inventory subsets. `Held(true)` (default) vs `Held(false)` — include/exclude nested carried containers as FrankenDrift does |
 | Character | `Location` | Character’s **room** (walks through on/in to ultimate location) |
-| Character | `Exits` | Directions the **player** can currently take from that room (route checks) |
+| Character | `Exits` | Directions **that character** can currently take from its room (route restrictions are checked against that character, not the player) |
 | Character | `Descriptor` / `Description` / `Name(…)` / `Parent` | Naming and parent |
 | Location | `Name` | Short description |
 | Location | `Description` | View / long text |
-| Location | `Objects` / `Characters` / `Contents(…)` | Items in the room |
+| Location | `Objects` / `Characters` | Items in the room (no `Contents` on locations) |
 | Location | `Exits` | Directions with a destination set (not necessarily currently passable) |
 | Location | `LocationTo(South)` / `LocationTo(South\|East)` | Neighbouring location(s) by direction name(s) |
-| Event | `Length` | Event length (when rooted on an event) |
+| Event | `Length` / `Position` | Event length / current position within it (when rooted on an event) |
 
 If a path **stops on a list** with no further segment (for example `%Player%.Held` rather than `%Player%.Held.Count` or `%Player%.Held.List`), the result is the item keys joined with `|`, e.g. `ObjectLamp|ObjectKey`. That string can feed another path or comparison that expects keys.
 
@@ -579,7 +581,7 @@ Optional args in parentheses, comma-separated, may mix any of these:
 | Article (objects) | *(default)* / `indefinite` / `none` | `the lamp` vs `a lamp` vs `lamp` |
 | Article (characters) | *(default)* / `definite` | Characters default to **indefinite** (`a tall man`); `definite` → `the tall man` |
 | Pronouns (characters) | `force`, `objective`, `possessive`, `reflective`, `none` | Pronoun form when listing characters |
-| Nested contents | *(default for `List`)* / `false` / `0` | `List` may append what’s in/on each object (e.g. `the box.  On the box is a coin.`); `Name` never does; `false`/`0` disables nesting on `List` |
+| Nested contents | *(default for `List`)* / `false` / `0` | In the desktop Runner, `List` may append what’s in/on each object (e.g. `the box.  On the box is a coin.`); `Name` never does; `false`/`0` disables nesting on `List`. (Reimplementations render the flat list; treat the nested append as Runner-specific display behavior rather than a guaranteed value) |
 
 Examples: `%Player%.Held.List` → `the lamp and the key`; `%Player%.Held.List(Indefinite, False)` → `a lamp and a key` with no in/on append; `%objects%.Name(Indefinite)` → names only, indefinite articles.
 
@@ -636,7 +638,7 @@ The **first child element name** in the `<Restriction>` element is the restricti
 | `Item` | `key1 Must\|MustNot ItemOp key2` |
 | `Task` | `taskKey Must\|MustNot BeComplete` |
 | `Variable` | `varKey[index]? Must\|MustNot BeEqualTo\|… value` |
-| `Property` | `itemKey propKey Must\|MustNot [EqualTo…] value` |
+| `Property` | `propKey itemKey Must\|MustNot [EqualTo…] value` — note the **property key comes first**, then the item reference |
 | `Direction` | `Must\|MustNot BeNorth` (etc.; direction after `Be`) |
 | `Expression` | boolean [expression](#43-expressions) |
 
@@ -673,11 +675,13 @@ Each `#` consumes one restriction in document order (a cursor advances through t
 
 **Too few `#`s:** Restrictions with no matching `#` in the sequence are **never evaluated** — they do not affect the result. For example, with three restrictions and `<BracketSequence>#A#</BracketSequence>`, only R0 AND R1 matter; R2 is ignored. Short-circuiting is similar: if an early `A` fails (or an early `O` succeeds), remaining `#`s in the unread tail are skipped without evaluating those restrictions.
 
-**Too many `#`s:** The runner crashes (out-of-range index). Do not author sequences with more `#`s than restrictions.
+**Too many `#`s:** An out-of-range `#` throws internally, but the Runner catches the exception in `GetGeneralTask` and reports "I didn't understand that command" — the command fails soft; the app does not crash. Still, do not author sequences with more `#`s than restrictions.
 
 **Malformed sequences:** Things like consecutive hashes (`#A#A##`) or other junk between `#` slots fail the whole list (treated as false).
 
 Generator normally writes one `#` per restriction, joined with `A`/`O` and parentheses as needed. An empty `BracketSequence` with restrictions present is unusual; prefer an explicit sequence.
+
+**5.0.26 upgrade path (`CorrectBracketSequence`):** ADRIFT 5.0.26 changed how mixed sequences bind, and when loading a file older than 5.0.26 the loader offers to *rewrite* stored sequences: the longest run of the form `#A#O#O#…` becomes `#A(#O#O#…)`. A spec-compliant reader of pre-5.0.26 files should be aware the on-disk sequence may predate this correction (the desktop Runner asks the user via an "Adventure Upgrade" dialog before mutating).
 
 Examples (three restrictions R0, R1, R2):
 
@@ -712,13 +716,13 @@ The **tag name is the action type**; text is the payload.
 | `MoveCharacter` / `AddCharacterToGroup` / `RemoveCharacterFromGroup` | see [§4.5.2](#452-movecharacter-and-character-groups) |
 | `AddLocationToGroup` / `RemoveLocationFromGroup` | see [§4.5.3](#453-location-groups) |
 | `SetProperty` | `itemKey propKey value…` |
-| `SetTasks` | `Execute\|Unset taskKey (params)?` or FOR-loop form |
+| `SetTasks` | `Execute\|Unset\|Clear taskKey (params)?` or FOR-loop form (`Clear` is a synonym for `Unset`) |
 | `SetVariable` / `IncVariable` / `DecVariable` | `key[index]? = "expr"` or FOR-loop form ([§4.3](#43-expressions)) |
 | `Conversation` | `Greet\|Ask\|Tell\|Say\|Farewell\|EnterWith\|LeaveWith …` |
 | `Time` | `Skip "N" turns` |
 | `EndGame` | `Win` \| `Lose` \| `Neutral` |
-| `WalkTo` | autowalks the player to the destination (if reachable) |
-| `Score` | (legacy; may appear in older files) |
+
+(There are no `WalkTo` or `Score` action types — the Runner's action enum (`clsTask.vb ItemEnum`) contains only the tags above. `WalkTo` exists only as a runtime player field driving map-click auto-walk, never as an authored `<Actions>` child.)
 
 Keys in these payloads are adventure keys or runtime placeholders (`ReferencedObject`, `Player`, `%Player%`, …).
 
@@ -816,7 +820,7 @@ Arguments may themselves be expressions / nested functions; Runner evaluates the
 
 | Token | Expansion |
 |-------|-----------|
-| `%Turns%` | Current turn count |
+| `%Turns%` | Turn count **before** the current command (the Runner increments `Adventure.Turns` only after processing the input, so text printed during a turn sees the pre-command value) |
 | `%Version%` | Runner/engine version (compact digit string) |
 | `%Release%` | Babel / IFID release version from metadata when present |
 | `%AloneWithChar%` | Key of the single NPC alone with the player, or a no-character sentinel |
@@ -876,7 +880,7 @@ Children of `<Adventure>` (all optional except where noted by practice):
 | `Elapsed` | Developer time spent | |
 | `Cover` | Cover image filename | |
 | `EndGameText` | Win/end text | Description block |
-| `TaskExecution` | Matching strategy, an enum | Default `HighestPriorityTask`; alt `HighestPriorityPassingTask` |
+| `TaskExecution` | Matching strategy, an enum | **Version-gated default:** when the tag is absent, files with version ≥ 5.0.22 default to `HighestPriorityTask`, but older files (< 5.000022) must default to `HighestPriorityPassingTask` — the element and the new default were introduced together in 5.0.22. Getting this wrong makes some pre-5.0.22 games (e.g. *Return to Camelot*, v5.000020) unwinnable. |
 | `WaitTurns` | Number of turns for “wait” (default 3) | |
 | `KeyPrefix` | Prefix for new keys | |
 | `DirectionNorth` … `DirectionOut` | Direction command regexes | Slash-separated synonyms; only written if non-default |
@@ -966,7 +970,7 @@ Defines schema for instance properties on locations, objects, characters, or any
 | `ValueList` | Labelled ints; definition uses `<ValueList><Label/><Value/></ValueList>` |
 | `ObjectKey` / `CharacterKey` / `LocationKey` / `LocationGroupKey` | Key string in `<Value>` |
 
-Common Standard Library property keys (non-exhaustive): `StaticOrDynamic`, `DynamicLocation`, `InLocation`, `OnObject`, `InObject`, `HeldByWho`, `WornByWho`, `Wearable`, `Openable`, `Container`, `Surface`, `CharacterLocation`, `CharacterAtLocation`, `CharOnWhat`, `CharInsideWhat`, `CharOnWho`, `Gender`, `Known`, `Weight`, `Size`.
+Common Standard Library property keys (non-exhaustive): `StaticOrDynamic`, `DynamicLocation`, `InLocation`, `OnWhat`, `InsideWhat`, `HeldByWho`, `WornByWho`, `Wearable`, `Openable`, `Container`, `Surface`, `CharacterLocation`, `CharacterAtLocation`, `CharOnWhat`, `CharInsideWhat`, `CharOnWho`, `Gender`, `Known`, `Weight`, `Size`. (Note the surface/container keys are `OnWhat` / `InsideWhat` — `OnObject` / `InObject` are save-file *enum values*, not property keys.)
 
 ### 6.3 Location
 
@@ -1030,7 +1034,7 @@ Placement is **via properties**, not a dedicated location child. Typical dynamic
 | `DynamicLocation` | `Hidden`, `In Location`, `Inside Object`, `On Object`, `Held By Character`, `Worn By Character` |
 | `InLocation` / related | location or object/character key |
 
-Static placement uses `StaticLocation`-family properties (`No Rooms`, `Single Location`, `Location Group`, `All Rooms`, `Part Of Character`, `Part Of Object`).
+Static placement uses `StaticLocation`-family properties. The property **values** are adventure wording: `Nowhere` (or `Hidden`), `Single Location`, `Location Group`, `Everywhere`, `Part of Character`, `Part of Object` — these map to the `StaticExistsWhereEnum` names `NoRooms`, `SingleLocation`, `LocationGroup`, `AllRooms`, `PartOfCharacter`, `PartOfObject` (`clsObject.vb`). Don't confuse the enum names with the property values.
 
 ### 6.5 Task
 
@@ -1110,10 +1114,12 @@ A Specific task specializes a General parent for particular referenced values. I
   - `Multiple` — `1` if that slot may match multiple items (as with `%objects%`); else `0`
   - `Key` — required match for that slot; empty (`<Key />` or `<Key></Key>`) means any value of that type; may use placeholders such as `%Player%`
   - Multiple `<Key>` children are allowed when several concrete values should match the same slot
-- `SpecificOverrideType` — how this task’s text/actions combine with the parent’s:
-  - `Override` — run only this task (default)
-  - `BeforeTextAndActions` / `BeforeTextOnly` / `BeforeActionsOnly` — run this task before the parent
-  - `AfterTextAndActions` / `AfterTextOnly` / `AfterActionsOnly` — run this task after the parent
+- `SpecificOverrideType` — how this task’s text/actions combine with the parent’s. The specific task itself always runs fully; the `TextOnly` / `ActionsOnly` suffix selects **which halves of the parent still run**:
+  - `Override` — run only this task; the parent is suppressed (default)
+  - `BeforeTextAndActions` — this task first, then the parent's text *and* actions
+  - `BeforeTextOnly` — this task first, then only the parent's *text* (parent actions suppressed)
+  - `BeforeActionsOnly` — this task first, then only the parent's *actions* (parent text suppressed)
+  - `AfterTextAndActions` — the parent first, then this task. (`AfterTextOnly` / `AfterActionsOnly` are accepted but unimplemented in the Runner — an explicit TODO in the source — and behave like `AfterTextAndActions`)
 
 Example with two slots (`say %text% to %character%`):
 
@@ -1165,7 +1171,7 @@ Timed or turn-based scripting. An event starts, runs for a `Length`, optionally 
   <Description>Storm</Description>
   <Type>TurnBased</Type>
   <WhenStart>AfterATask</WhenStart>
-  <StartDelay>1 to 3</StartDelay> <!-- only for <WhenStart>BetweenXandYTurns</WhenStart> -->
+  <StartDelay>1 to 3</StartDelay> <!-- for <WhenStart>BetweenXandYTurns</WhenStart>; also re-drawn before each repeat when <RepeatCountdown>1 -->
   <Length>5 to 10</Length>
   <Repeating>1</Repeating>
   <RepeatCountdown>1</RepeatCountdown>
@@ -1199,9 +1205,7 @@ Timed or turn-based scripting. An event starts, runs for a `Length`, optionally 
 How the event begins:
 
 * `Immediately`: Start the event when play begins
-* `BetweenXandYTurns`: Wait a random delay from start. Requires a `<StartDelay>1 to 3</StartDelay>` to specify how long to delay.
-  * For top-level events, the delay starts when play begins
-  * `<SubEvent>`s start their delay based on the start of other events. See below
+* `BetweenXandYTurns`: Wait a random delay from start. Requires a `<StartDelay>1 to 3</StartDelay>` to specify how long to delay. The delay starts when play begins. (`StartDelay` never applies to `<SubEvent>`s — their timing is always relative to their **own** event via `FromStartOfEvent` / `FromLastSubEvent` / `BeforeEndOfEvent`; see below.)
 * `AfterATask` (or `0`): Starts when a `<Control>` starts the task. See below
 
 #### Control
@@ -1212,7 +1216,7 @@ Zero or more `<Control>` elements. Body format is [§2.12](#212-control):
 Start|Stop|Suspend|Resume  Completion|UnCompletion  TaskKey
 ```
 
-Example: `Start Completion TaskBeginStorm` — start this event when `TaskBeginStorm` completes. `UnCompletion` fires when that task is "unset" by an `<Action>` or another event. Controls also Stop / Suspend / Resume an event already in progress.
+Example: `Start Completion TaskBeginStorm` — start this event when `TaskBeginStorm` completes. `UnCompletion` fires when that task, having completed, is unset by a `SetTasks Unset` **action**. (An event's or walk's `UnsetTask` sub-action does *not* fire UnCompletion controls — it only clears the completed flag.) Controls also Stop / Suspend / Resume an event already in progress.
 
 #### SubEvent
 
@@ -1258,7 +1262,7 @@ Zero or more `<SubEvent>` children. Timing is checked each tick while the event 
     <Step>LocationWest 1 to 2</Step>
     <Control>Start Completion TaskStartPatrol</Control>
     <Activity>
-      <When>ComesAcross ObjectGem</When>
+      <When>ComesAcross %Player%</When>
       <Action>…</Action>
       <OnlyApplyAt>…</OnlyApplyAt>
     </Activity>
@@ -1287,7 +1291,7 @@ Zero or more `<SubEvent>` children. Timing is checked each tick while the event 
 
 **Type:** `Player` or `NonPlayer`.
 
-**`<Perspective>`:** omitted when `ThirdPerson`; otherwise e.g. `FirstPerson`, `SecondPerson`. Usually only set on the player character.
+**`<Perspective>`:** omitted when `ThirdPerson`; otherwise e.g. `FirstPerson`, `SecondPerson`. Usually only set on the player character. The default when omitted is version-gated: files ≥ 5.00002 default to `ThirdPerson`, but the loader forces `SecondPerson` for older files. (On a `MoveCharacter … SwitchWith` player swap, the new player character **inherits the previous player's perspective**, overwriting its own authored value.)
 
 #### Character location
 
@@ -1295,11 +1299,12 @@ Initial placement is stored as **instance properties** on the character (not as 
 
 | Property | Value |
 |----------|--------|
-| `CharacterLocation` | `At Location`, `Hidden`, `In Object`, `On Object`, or `On Character` |
+| `CharacterLocation` | `At Location`, `Hidden`, `In Object`, `On Object`, `On Character`, or `In Character` |
 | `CharacterAtLocation` | location key (when at a location) |
 | `CharInsideWhat` | object key (when inside an object) |
 | `CharOnWhat` | object key (when on an object) |
 | `CharOnWho` | character key (when on a character) |
+| `CharInsideWho` | character key (when in a character) |
 
 Example — Bob standing in a room:
 
@@ -1349,10 +1354,10 @@ NPC itineraries. Zero or more `<Walk>` children per character.
 - `Loops` — `1` to repeat the walk when it finishes; `0` otherwise
 - `StartActive` — `1` to start the walk when the adventure begins.
   - To start an inactive walk later, use a `<Control>` like this: `<Control>Start Completion TaskKey</Control>`. Then complete that task (for example `<SetTasks>Execute TaskKey</SetTasks>`) to start the walk.
-- `Step` — `Destination FromTo` (destination is usually a location key; duration is `"N"` or `"N to M"` turns). One or more steps define the route.
+- `Step` — `Destination FromTo` (duration is `"N"` or `"N to M"` turns). One or more steps define the route. The destination may be a location key, `Hidden`, a location-**group** key (a random member is drawn each time, re-rolling until one adjacent to the walker is found — the re-rolls consume RNG draws), or a character key / `%Player%` (step toward that character, taken only when adjacent).
 - `Control` — same compact form as events: `Start|Stop|Suspend|Resume Completion|UnCompletion TaskKey` (drives the walk when that task completes or is unset)
 - `Activity` (SubWalk) — optional side effects while walking:
-  - `When` — either `ComesAcross Key` (fire when the walker meets that object/character/`%Player%`), or `FromTo FromStartOfWalk|FromLastSubWalk|BeforeEndOfWalk`
+  - `When` — either `ComesAcross Key`, or `FromTo FromStartOfWalk|FromLastSubWalk|BeforeEndOfWalk`. In practice `ComesAcross` fires only on meeting the **player**: the desktop Runner ignores the key entirely and tests walker-location == player-location, so author it as `ComesAcross %Player%` (object keys never fire)
   - `Action` — description block (display message), or `ExecuteTask TaskKey` / `UnsetTask TaskKey`
   - `OnlyApplyAt` — location or location-group key restricting when a display message is shown (`AllLocations` for everywhere)
 
@@ -1389,8 +1394,8 @@ Conversation nodes for this character. Zero or more `<Topic>` children.
   - `IsTell` — telling them about something (`Tell …`)
   - `IsCommand` — free-form “say …” / command patterns toward them (Conversation `Say`)
   - `IsFarewell` — ending the conversation (`Farewell` / goodbye)
-  A topic may set more than one flag if it should respond in several of these situations.
-- `StayInNode` — after this topic runs, `1` leaves the current node set to **this** topic’s key (so children with `ParentKey` pointing here can match next). If omitted/false and the topic has no child topics, the current node is cleared.
+  A topic may set several of `IsAsk` / `IsTell` / `IsIntro` / `IsFarewell` to respond in more than one of those situations. `IsCommand` is different: matching compares the flag for **equality**, so setting `IsCommand` removes the topic from Ask/Tell/Greet/Farewell matching — it then matches only Say/command attempts.
+- `StayInNode` — controls the current-node key after this topic runs. If the topic **has child topics**, the node is set to this topic's key regardless of `StayInNode`. If it has no children: `1` keeps the node at its **previous** value (you stay in whatever node you were already in); omitted/false clears the node.
 - `Restrictions` / `Actions` — same shared forms as tasks ([§4.4](#44-restrictions), [§4.5](#45-actions))
 
 ### 6.8 Variable
