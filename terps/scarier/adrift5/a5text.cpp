@@ -380,6 +380,8 @@ a5text_object_name (const a5_state_t *st, const a5_object_t *o, a5_article_t art
 /* ---------------------------------------------------- function replacement */
 
 static char *replace_functions (a5_state_t *st, const char *src, int as_arg = 0);
+static std::string protect_exprs (const char *src, std::vector<std::string> &saved);
+static std::string restore_exprs (const char *src, const std::vector<std::string> &saved);
 
 /* %PopUpInput% host callback (a5text_set_popup_cb); NULL => use the default. */
 static a5_popup_cb a5_popup = NULL;
@@ -964,6 +966,23 @@ oo_firstkey (a5_state_t *st, const char *name)
   else if (ci_eq (name, "character3")) k = a5state_lookup_ref (st, "ReferencedCharacter3");
   else if (ci_eq (name, "character4")) k = a5state_lookup_ref (st, "ReferencedCharacter4");
   else if (ci_eq (name, "character5")) k = a5state_lookup_ref (st, "ReferencedCharacter5");
+  /* %locationN% / %itemN% command references resolve to their bound KEY the
+     same way (Global.vb:1770+ substitutes MatchingPossibilities(0) for
+     "locationN"/"itemN" ReferenceMatches) -- an %item% may hold an object OR
+     character OR location key.  ProbeWalk's completion message chains
+     %LocationName[%location1%]% off this. */
+  else if (ci_eq (name, "location") || ci_eq (name, "location1"))
+    k = a5state_lookup_ref (st, "ReferencedLocation");
+  else if (ci_eq (name, "location2")) k = a5state_lookup_ref (st, "ReferencedLocation2");
+  else if (ci_eq (name, "location3")) k = a5state_lookup_ref (st, "ReferencedLocation3");
+  else if (ci_eq (name, "location4")) k = a5state_lookup_ref (st, "ReferencedLocation4");
+  else if (ci_eq (name, "location5")) k = a5state_lookup_ref (st, "ReferencedLocation5");
+  else if (ci_eq (name, "item") || ci_eq (name, "item1"))
+    k = a5state_lookup_ref (st, "ReferencedItem");
+  else if (ci_eq (name, "item2")) k = a5state_lookup_ref (st, "ReferencedItem2");
+  else if (ci_eq (name, "item3")) k = a5state_lookup_ref (st, "ReferencedItem3");
+  else if (ci_eq (name, "item4")) k = a5state_lookup_ref (st, "ReferencedItem4");
+  else if (ci_eq (name, "item5")) k = a5state_lookup_ref (st, "ReferencedItem5");
   if (k == NULL && (ci_eq (name, "object") || ci_eq (name, "objects")))
     k = a5state_lookup_ref (st, "ReferencedObject");
   if (k != NULL)
@@ -1836,6 +1855,30 @@ fn_case (a5_state_t * /*st*/, const char *name, const char *args)
   return s;
 }
 
+/* EvaluateUDF's expression sniff (Global.vb:1706): the VB regex
+   `\d( )*[+-/*^]( )*\d`, whose `[+-/]` is the character RANGE '+'..'/' -- so
+   the operator set is  * + , - . / ^  with any number of spaces around it.  A
+   UDF argument matching this is folded through EvaluateExpression ("3 + 4" ->
+   "7"); a plain number ("21") is left alone. */
+static int
+udf_arg_is_expression (const char *s)
+{
+  for (const char *p = s; *p != '\0'; p++)
+    {
+      if (!isdigit ((unsigned char) *p))
+        continue;
+      const char *q = p + 1;
+      while (*q == ' ') q++;
+      if (*q == '\0' || strchr ("*+,-./^", *q) == NULL)
+        continue;
+      q++;
+      while (*q == ' ') q++;
+      if (isdigit ((unsigned char) *q))
+        return 1;
+    }
+  return 0;
+}
+
 /* Evaluate one %Name[args]% (args already function-expanded), or NULL. */
 static char *
 eval_function (a5_state_t *st, const char *name, const char *args)
@@ -1861,26 +1904,41 @@ eval_function (a5_state_t *st, const char *name, const char *args)
         const a5_xml_node_t *outp = a5xml_child (u->node, "Output");
         if (outp == NULL || udf_depth > 8)   /* The runner: recursive UDF = error */
           return strdup ("");
+        /* EvaluateUDF (Global.vb:1653) substitutes the arguments into the RAW
+           Output text -- BEFORE any function/expression evaluation -- then
+           re-runs ReplaceFunctions on the substituted body
+           (`sText = ReplaceFunctions(re.Replace(...))`) while the `<#...#>`
+           expressions stay GUID-stashed for the Display-time
+           ReplaceExpressions pass.  So `Double of %n% is <# %n% * 2 #>.` on
+           %Double[21]% must become "Double of 21 is <# 21 * 2 #>." here, with
+           the outer replace_expressions pass reducing it to 42 -- evaluating
+           the body first computed <# %n% * 2 #> with %n% unbound (= 0).
+           (Not mirrored: the restriction-key Parameter-<name> rewrite and the
+           refsUDF %objects% NewReferences swap during the render -- Scarier
+           gates the Output's restrictions against the live state instead.) */
         udf_depth++;
-        char *r = a5text_describe (st, outp);
-        udf_depth--;
-        if (r != NULL && args != NULL && args[0] != '\0')
+        char *raw = a5text_eval_description (st, outp);
+        std::string body = (raw != NULL) ? raw : "";
+        free (raw);
+        if (args != NULL && args[0] != '\0')
           {
-            /* Split the [.] block on top-level commas (the runner SplitArgs) and
-               replace each declared argument's %Name% token in the render. */
+            /* SplitArgs (Global.vb:1623): split on commas at bracket depth 0
+               ('('/'[' up, ')'/']' down); empty chunks are dropped, nothing
+               is trimmed. */
             std::vector<std::string> vals;
             {
               std::string cur;
-              int q = 0;
+              int level = 0;
               for (const char *p = args; *p != '\0'; p++)
                 {
-                  if (*p == '"') q = !q;
-                  if (*p == ',' && !q) { vals.push_back (cur); cur.clear (); }
+                  if (*p == '(' || *p == '[') level++;
+                  else if (*p == ')' || *p == ']') level--;
+                  if (*p == ',' && level == 0)
+                    { if (!cur.empty ()) vals.push_back (cur); cur.clear (); }
                   else cur += *p;
                 }
-              vals.push_back (cur);
+              if (!cur.empty ()) vals.push_back (cur);
             }
-            std::string out = r;
             size_t vi = 0;
             for (const a5_xml_node_t *an = u->node->first_child;
                  an != NULL; an = an->next)
@@ -1890,17 +1948,37 @@ eval_function (a5_state_t *st, const char *name, const char *args)
                 const char *anm = a5xml_child_text (an, "Name");
                 if (anm != NULL && vi < vals.size ())
                   {
+                    std::string v = vals[vi];
+                    /* "Our function argument could be an expression": fold a
+                       digit-op-digit argument through EvaluateExpression
+                       (%Double[3 + 4]% -> body sees 7); keep the original on
+                       a failed evaluation (EvaluateExpression = Nothing). */
+                    if (udf_arg_is_expression (v.c_str ()))
+                      {
+                        char *ev = a5text_eval_expression (st, v.c_str ());
+                        if (ev != NULL && ev[0] != '\0')
+                          v = ev;
+                        free (ev);
+                      }
                     std::string tok = std::string ("%") + anm + "%";
-                    size_t at;
-                    while ((at = out.find (tok)) != std::string::npos)
-                      out.replace (at, tok.size (), vals[vi]);
+                    size_t at = 0;
+                    while ((at = body.find (tok, at)) != std::string::npos)
+                      { body.replace (at, tok.size (), v); at += v.size (); }
                   }
                 vi++;
               }
-            free (r);
-            r = strdup (out.c_str ());
           }
-        return r;
+        /* The runner's trailing ReplaceFunctions recursion: expand any
+           functions the substituted body carries (%TheObject[ObjectBall]%),
+           keeping its <#...#> bodies untouched for the outer expression
+           pass. */
+        std::vector<std::string> saved;
+        std::string prot = protect_exprs (body.c_str (), saved);
+        char *funcs = replace_functions (st, prot.c_str ());
+        std::string rest = restore_exprs (funcs, saved);
+        free (funcs);
+        udf_depth--;
+        return strdup (rest.c_str ());
       }
   }
 
@@ -2064,6 +2142,27 @@ eval_function (a5_state_t *st, const char *name, const char *args)
           const a5_character_t *ch = key ? a5model_character (st->adv, key) : NULL;
           if (ch != NULL && ch->name != NULL)
             return strdup (ch->name);
+        }
+      else if (ci_eq (name, "location") || ci_eq (name, "location1")
+               || ci_eq (name, "location2") || ci_eq (name, "location3")
+               || ci_eq (name, "location4") || ci_eq (name, "location5")
+               || ci_eq (name, "item") || ci_eq (name, "item1")
+               || ci_eq (name, "item2") || ci_eq (name, "item3")
+               || ci_eq (name, "item4") || ci_eq (name, "item5"))
+        {
+          /* Like %objectN%: the runner's ReplaceFunctions substitutes the bound
+             entity KEY (nr.Items(0).MatchingPossibilities(0)) for a resolved
+             %locationN%/%itemN%; an unbound one stays verbatim (in its
+             numbered form -- see the singular rewrite below). */
+          char rbuf[24];
+          char last = name[strlen (name) - 1];
+          const char *stem = (tolower ((unsigned char) name[0]) == 'l')
+                             ? "Location" : "Item";
+          if (isdigit ((unsigned char) last) && last != '1')
+            snprintf (rbuf, sizeof rbuf, "Referenced%s%c", stem, last);
+          else
+            snprintf (rbuf, sizeof rbuf, "Referenced%s", stem);
+          bound = a5state_lookup_ref (st, rbuf);
         }
       if (bound != NULL)
         return strdup (bound);
@@ -2455,15 +2554,34 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                 }
               else
                 {
-                  /* leave the original token verbatim -- but the runner rewrites the
-                     bare %object% alias to %object1% BEFORE resolving
-                     (ReplaceIgnoreCase, Global.vb:1754), so an unresolved
-                     singular on a plural %objects% command surfaces as
-                     "%object1%..." (the Blender's "You put %object%.Name on
-                     the table." task text). */
-                  if ((size_t) (q - p) == 8 && strncmp (p, "%object%", 8) == 0)
-                    sb_puts (&sb, "%object1%");
-                  else
+                  /* leave the original token verbatim -- but the runner rewrites
+                     EVERY bare singular reference alias to its numbered form
+                     BEFORE resolving (ReplaceIgnoreCase, Global.vb:1754-1760:
+                     %object% %character% %location% %direction% %item% %text%
+                     %number% -> %...1%), so an unresolved singular surfaces
+                     numbered: the Blender's "You put %object%.Name on the
+                     table.", ProbeRefCapture's intro "...%number1%,
+                     %location1%, %item1%, and %characters%." (the plurals are
+                     NOT rewritten). */
+                  static const char *const singulars[] =
+                    { "object", "character", "location", "direction",
+                      "item", "text", "number", NULL };
+                  size_t tlen = (size_t) (q - p);
+                  int rewrote = 0;
+                  for (int si = 0; singulars[si] != NULL; si++)
+                    {
+                      size_t sl = strlen (singulars[si]);
+                      if (tlen == sl + 2 && p[0] == '%' && p[tlen - 1] == '%'
+                          && strncasecmp (p + 1, singulars[si], sl) == 0)
+                        {
+                          sb_putc (&sb, '%');
+                          sb_puts (&sb, singulars[si]);
+                          sb_puts (&sb, "1%");
+                          rewrote = 1;
+                          break;
+                        }
+                    }
+                  if (!rewrote)
                     sb_putn (&sb, p, (size_t) (q - p));
                 }
               p = q;

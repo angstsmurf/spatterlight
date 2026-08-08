@@ -1014,6 +1014,72 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
   return RR_OK;
 }
 
+/* clsLocation.sRegularExpressionString (clsLocation.vb:97): every word of the
+   location's short description becomes an OPTIONAL group -- "East Wing" ->
+   `^(east)?( )?(wing)?$`, IgnoreCase -- with a `( )?` separator emitted before
+   every subsequent Split token (so consecutive spaces in the name allow extra
+   spaces in the input).  Matched here without a regex engine: `el` holds the
+   word/separator elements in order, each skippable. */
+static bool
+opt_words_match (const char *in, const std::vector<std::string> &el, size_t ei)
+{
+  if (ei == el.size ())
+    return *in == '\0';
+  if (opt_words_match (in, el, ei + 1))         /* the group matched empty */
+    return true;
+  size_t n = el[ei].size ();
+  if (strncasecmp (in, el[ei].c_str (), n) == 0)
+    return opt_words_match (in + n, el, ei + 1);
+  return false;
+}
+
+static bool
+location_name_matches (const char *input, const char *shortdesc)
+{
+  std::vector<std::string> el;
+  bool started = false;
+  const char *p = shortdesc;
+  while (1)
+    {
+      const char *sp = strchr (p, ' ');
+      std::string tok = (sp != NULL) ? std::string (p, (size_t) (sp - p))
+                                     : std::string (p);
+      if (started)
+        el.push_back (" ");
+      if (!tok.empty ())
+        { el.push_back (tok); started = true; }
+      if (sp == NULL)
+        break;
+      p = sp + 1;
+    }
+  if (el.empty ())
+    return input[0] == '\0';
+  return opt_words_match (input, el, 0);
+}
+
+/* InputMatchesLocation (clsUserSession.vb:5459): the typed %location% text is
+   tried against EVERY location's word-optional short-description regex; each
+   hit appends the location KEY to the reference's MatchingPossibilities, and
+   GetReference later answers with the FIRST one, so the first hit in model
+   order wins here.  The names are rendered in the runner's testing mode
+   (ShortDescription.ToString(True)) -- no DisplayOnce retiring, no Introduced
+   dance -- hence the peek-render guard.  Returns "" when nothing matches
+   (InputMatchesLocation = False -> the regex variant does not match). */
+static std::string
+resolve_location_ref (a5_state_t *st, const char *text)
+{
+  a5_mark_guard mg (st, 0);
+  for (int i = 0; i < st->adv->n_locations; i++)
+    {
+      char *sd = a5text_location_short_plain (st, st->adv->locations[i].key);
+      bool hit = location_name_matches (text, sd);
+      free (sd);
+      if (hit)
+        return st->adv->locations[i].key;
+    }
+  return "";
+}
+
 int
 resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
                 const char *force_name, const char *force_key, amb_info *amb)
@@ -1136,7 +1202,29 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           if (d == NULL) return RR_NOMATCH;
           bind_reference (st, r.name.c_str (), d, r.text.c_str ());
           continue; }
-      else /* text, number, location */
+      else if (base == "location")
+        {
+          /* A %location% reference resolves the typed text to a location KEY
+             (InputMatchesLocation) and binds it -- the runner's ReplaceFunctions
+             then substitutes the key into %locationN% tokens, which is what
+             makes `%LocationName[%location1%]%` render the destination name
+             (ProbeWalk's "You set off for East Wing.") and BeLocation
+             restrictions compare key-to-key.  A miss falls back to the
+             second-chance Location Must-Exist pass like objects/characters
+             do (clsUserSession.vb:5482); without that the variant simply
+             does not match. */
+          std::string lk = resolve_location_ref (st, r.text.c_str ());
+          if (lk.empty ())
+            {
+              r.type = 'l';
+              if (!note_noref (r))
+                return RR_NOMATCH;
+              continue;
+            }
+          bind_reference (st, r.name.c_str (), lk.c_str (), r.text.c_str ());
+          continue;
+        }
+      else /* text, number */
         { bind_reference (st, r.name.c_str (), r.text.c_str (), r.text.c_str ());
           continue; }
 
@@ -1147,19 +1235,28 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           r.orig = (r.type == 'o')
             ? resolve_object_candidates (st, r.text)
             : resolve_character_candidates (st, r.text);
-          /* An %item% reference matches objects OR characters: the runner's
-             match loop tries InputMatchesObjects OrElse InputMatchesCharacter
-             (clsUserSession.vb:7253-7260, short-circuit -- objects win), and
+          /* An %item% reference matches objects OR characters OR locations:
+             the runner's match loop tries InputMatchesObjects OrElse
+             InputMatchesCharacter OrElse InputMatchesLocation
+             (clsUserSession.vb:5654, short-circuit -- objects win), and
              the refine/visibility passes probe htblObjects then htblCharacters
              per key (vb:7588-7596).  So when the typed text names no object,
-             retry the same text as a character reference before falling back.
-             (The runner's third OrElse arm, InputMatchesLocation, is not
-             mirrored -- location references are text-bound in this port.) */
+             retry the same text as a character, then as a location name. */
           if (r.orig.empty () && base == "item")
             {
               r.orig = resolve_character_candidates (st, r.text);
               if (!r.orig.empty ())
                 r.type = 'c';
+            }
+          if (r.orig.empty () && base == "item")
+            {
+              std::string lk = resolve_location_ref (st, r.text.c_str ());
+              if (!lk.empty ())
+                {
+                  bind_reference (st, r.name.c_str (), lk.c_str (),
+                                  r.text.c_str ());
+                  continue;
+                }
             }
           if (r.orig.empty ())
             {

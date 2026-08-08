@@ -1555,13 +1555,13 @@ ProbeLifecycleLenZero|a5probes/lifecycle.taf|0|0
 ProbeMap|a5probes/map.taf|0|0
 ProbePopups|a5probes/popups.taf|4|4
 ProbeRandomness|a5probes/randomness.taf|0|0
-ProbeRefCapture|a5probes/reference_capture.taf|4|4
+ProbeRefCapture|a5probes/reference_capture.taf|0|0
 ProbeRestrictions|a5probes/restrictions.taf|0|0
 ProbeTaskActions|a5probes/task_actions.taf|1|0
-ProbeUDF|a5probes/user_defined_functions.taf|4|4
+ProbeUDF|a5probes/user_defined_functions.taf|0|0
 ProbeVariables|a5probes/variables.taf|1|1
 ProbeWaitkey|a5probes/waitkey.taf|0|0
-ProbeWalk|a5probes/walk.taf|1|1
+ProbeWalk|a5probes/walk.taf|0|0
 SampleCloak|Cloak.taf|0|0
 SampleConversation|Conversation.taf|2|2
 SampleDoors|Doors.taf|0|0

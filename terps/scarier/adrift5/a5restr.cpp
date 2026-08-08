@@ -1968,7 +1968,8 @@ a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alia
 int
 a5restr_has_exist (const a5_xml_node_t *restrictions, char type)
 {
-  const char *want_type = (type == 'c') ? "Character" : "Object";
+  const char *want_type = (type == 'c') ? "Character"
+                        : (type == 'l') ? "Location" : "Object";
 
   return restr_find (restrictions, -1,
                      [want_type] (const a5_xml_node_t *tn, const a5_restr_t *r)

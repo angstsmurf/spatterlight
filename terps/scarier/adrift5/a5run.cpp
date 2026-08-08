@@ -663,6 +663,34 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                 break;
               if (mr == 0)
                 continue;
+              /* FAITHFUL BUG: a typed command matching a task with a plural
+                 %characters% reference kills the WHOLE scan.  %characters% is
+                 missing from Global.ReferenceNames() (Global.vb:473), so the
+                 task's References list never counts it and NewReferences is
+                 ReDim'd too short (clsUserSession.vb:275); InputMatchesCommand's
+                 "characters" group handler then assigns past the end
+                 (vb:5630) and the IndexOutOfRangeException unwinds into
+                 GetGeneralTask's Catch (vb:6118), which returns Nothing --
+                 discarding every candidate recorded so far AND skipping the
+                 second-chance pass.  The input falls through to NotUnderstood
+                 ("I don't understand what you want to do with Bob.").
+                 (SetTasks-Execute parameter binds bypass this: they never
+                 re-enter InputMatchesCommand.)  Simplification: the runner
+                 only throws once the groups BEFORE "characters" all resolved;
+                 a mixed command whose earlier %object% names nothing would
+                 DoesntMatch first -- not mirrored, the abort here fires on any
+                 regex match. */
+              for (int mi = 0; mi < m.n_refs; mi++)
+                if (strcmp (m.ref_name[mi], "characters") == 0)
+                  {
+                    *have_amb = 0; *have_fail = 0; *have_noref = 0;
+                    fail_text->clear ();
+                    /* On a ContinueAlways continuation the claiming task
+                       already ran; the aborted continuation still reports the
+                       turn handled (NotUnderstood is gated on
+                       iMinimumPriority=0, see the cont_active return below). */
+                    return cont_active ? 1 : 0;
+                  }
               /* clsUserSession.vb:2567: a command-matched candidate's %textN%
                  captures overwrite the turn-global sReferencedText slots as soon
                  as its references are processed -- BEFORE (and regardless of) its
