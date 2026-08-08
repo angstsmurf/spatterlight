@@ -578,18 +578,19 @@ probes run everywhere, including without FrankenDrift for the golden-backed ones
 adrift-5-rs's own expected outputs were used only as a third opinion — blessing
 went through the usual FrankenDrift differential.  Wiring surfaced **12
 divergence groups** (ProbeMap's, ProbeRestrictions', ProbeTaskActions',
-ProbeRefCapture's, ProbeUDF's and ProbeWalk's have since been FIXED —
+ProbeRefCapture's, ProbeUDF's, ProbeWalk's, ProbeAmbiguity's, ProbeEvents'
+and ProbeHiPriTask's have since been FIXED —
 ProbeTaskActions keeps 1 vanilla RNG-noise hunk —
-and ProbePopups shrank from 8 to 4 hunks — see the rows); 14 probes MATCH 0|0
+and ProbePopups shrank from 8 to 4 hunks — see the rows); 17 probes MATCH 0|0
 and every probe passes the save/restore self-check.  ProbeRandomness is fully aligned under
 `FD_RNG=xoshiro` (its 3 vanilla hunks are pure System.Random stream noise), so
 it is golden-backed at 0|0.
 
 | Probe | v|xo | diagnosis |
 |---|---|---|
-| ProbeAmbiguity | 3\|3 | A pending `Which key?` disambiguation question does not consume the next command as its answer: `blue` re-asks (`Which key?  The blue key.`) where FD resolves it (`Ok, you pick up the blue key.`) — FD's ambiguity follow-up path (clsUserSession sAmbTask + previous-command re-parse). |
-| ProbeEvents | 1\|1 | Event **LookText timing**: the look on the turn right after `start look` (a task-triggered event) already shows the LookText in Scarier; FD shows it only from the next turn.  adrift-5-rs agrees with *Scarier* here — a Runner-arbitration candidate, cf. the 3.9/4.0 immediate-event family. |
-| ProbeHiPriTask | 1\|1 | Priority selection: `stand` surfaces a failing task's `You are already standing!` where FD executes the passing `You stand up.` |
+| ProbeAmbiguity | 0\|0 | **FIXED** (was 3\|3): the `Which key?` clarifier (`blue`) never resolved because run_remembered's force_name/force_key pin only applied to singular `%object%`/`%item%`/`%character%` references — the library's `get/drop %objects%` commands take the plural-branch singular path in resolve_refine, which `continue`d before the pin.  The pin now applies there too (a5run_ref.cpp). |
+| ProbeEvents | 0\|0 | **FIXED** (was 1\|1; the old "LookText timing at start" diagnosis was wrong — the real divergence was at event END: Scarier kept showing the SetLook text after the event expired).  FD keeps a per-event `stackLookText` and `LookText()` returns entries only while `Status = Running` (clsEvent.vb:20/132-153); ViewLocation loops ALL events in model order appending each gate-passing LookText (clsLocation.vb:141-144).  Scarier's look stack entries now carry their owning event key, and view_location iterates events gated on a `st->ev_running` callback into the run layer; the key is persisted in the save `<Look>` block. |
+| ProbeHiPriTask | 0\|0 | **FIXED** (was 1\|1): FD's BeInPosition restriction (clsUserSession.vb:4902-4915) reads the raw `CharacterPosition` *property* gated on HasProperty — NOT the Position getter that defaults to Standing.  The library-injected default Player has no such property (FileIO only adds explicit `<Property>` nodes; SetProperty on an absent character property no-ops), so `MustNot BeInPosition Standing` passes and the passing `stand` task beats the failing one.  Scarier's BeInPosition now uses the property view (a5state_entity_prop) instead of the Standing-defaulted char_position cache (a5restr.cpp). |
 | ProbeLifecycleRestart | 3\|3 | Walk **enter/exit announcements missing after a walk restart**: FD appends `Patrol enters from the east.` / `Patrol exits to the east.  Patrol beat 1.` to the restart/wait/where turns; Scarier resumes the walk silently. |
 | ProbeMap | 0\|0 | **FIXED** (was 1\|1): a failed `MoveCharacter ... InDirection` now Displays the blocking restriction's message the way the runner does (clsUserSession.vb:1748 `Display(sRestrictionText)`) — *immediately*, so it lands **before** the task's buffered CompletionMessage in the output stream (`The door is closed.  Revealed...`).  Implemented as an immediate-Display splice point in run_task (a5run_action.cpp imm_display).  (The map raster itself is covered by `a5maptest`, below.) |
 | ProbePopups | 4\|4 | Was 8\|8.  Fixed: `%PopUpChoice[...]%` is now left **unevaluated** like FD (its MsgBox throws off-Windows, ReplaceFunctions catches, token survives verbatim — Global.vb:2278/2483; crucially it must never consume a script line, which desynced Beagle2's whole transcript), and a *bare* `%PopUpInput%` (no `[args]`) also stays verbatim instead of eating a line.  Remaining 4 hunks are one cosmetic artifact: FD's expression tokenizer re-serializes the unevaluated function without spaces after commas (`"Pick a colour","red","blue"`) where Scarier keeps the source text's `, ` spacing. |

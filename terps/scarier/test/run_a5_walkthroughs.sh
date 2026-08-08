@@ -1541,13 +1541,13 @@ APlace|project_actuallyfinal.taf|0|0
 BeginnersCave|BeginnersCave.taf|0|0
 BadlandsDemo|Badlands Demo v2.taf|0|0
 Dementophobia|Dementophobia Alpha Demo.blorb|0|0
-ProbeAmbiguity|a5probes/ambiguity.taf|3|3
+ProbeAmbiguity|a5probes/ambiguity.taf|0|0
 ProbeDel|a5probes/del.taf|0|0
-ProbeEvents|a5probes/events.taf|1|1
+ProbeEvents|a5probes/events.taf|0|0
 ProbeExecOrderTask|a5probes/execute_ordering.taf|0|0
 ProbeExecOrderTopic|a5probes/execute_ordering.taf|0|0
 ProbeHiPriPassingTask|a5probes/highest_priority_passing_task.taf|0|0
-ProbeHiPriTask|a5probes/highest_priority_task.taf|1|1
+ProbeHiPriTask|a5probes/highest_priority_task.taf|0|0
 ProbeLifecycleRestart|a5probes/lifecycle.taf|3|3
 ProbeLifecycle2ndPass|a5probes/lifecycle.taf|0|0
 ProbeLifecycleLoop|a5probes/lifecycle.taf|0|0

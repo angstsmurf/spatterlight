@@ -395,7 +395,8 @@ a5state_free (a5_state_t *st)
   free (st->task_scored);
   free (st->disp_once);
   for (i = 0; i < st->n_looks; i++)
-    { free (st->looks[i].loc_key); free (st->looks[i].text); }
+    { free (st->looks[i].loc_key); free (st->looks[i].text);
+      free (st->looks[i].event_key); }
   free (st->looks);
   a5restr_route_cache_free (st);
   a5restr_ever_blocked_free (st);
@@ -429,7 +430,8 @@ a5state_in_group_or_location (const a5_state_t *st, const char *charkey,
 /* -------------------------------------------------------- SetLook look stack */
 
 void
-a5state_push_look (a5_state_t *st, const char *loc_key, const char *text)
+a5state_push_look (a5_state_t *st, const char *loc_key, const char *text,
+                   const char *event_key)
 {
   if (st->n_looks == st->cap_looks)
     {
@@ -437,18 +439,22 @@ a5state_push_look (a5_state_t *st, const char *loc_key, const char *text)
       st->looks = (a5_looktext_t *)
         realloc (st->looks, (size_t) st->cap_looks * sizeof *st->looks);
     }
-  st->looks[st->n_looks].loc_key = strdup (loc_key ? loc_key : "");
-  st->looks[st->n_looks].text    = strdup (text ? text : "");
+  st->looks[st->n_looks].loc_key   = strdup (loc_key ? loc_key : "");
+  st->looks[st->n_looks].text      = strdup (text ? text : "");
+  st->looks[st->n_looks].event_key = strdup (event_key ? event_key : "");
   st->n_looks++;
 }
 
 const char *
-a5state_player_look (const a5_state_t *st)
+a5state_event_look (const a5_state_t *st, const char *event_key)
 {
   int i;
-  /* LIFO: the most recently pushed matching look text wins. */
+  /* clsEvent.LookText: the event's own stack, LIFO -- the most recently
+     pushed entry whose gate matches the player wins. */
   for (i = st->n_looks - 1; i >= 0; i--)
-    if (a5state_in_group_or_location (st, a5state_player_key (st), st->looks[i].loc_key))
+    if (streq (st->looks[i].event_key, event_key)
+        && a5state_in_group_or_location (st, a5state_player_key (st),
+                                         st->looks[i].loc_key))
       return st->looks[i].text;
   return NULL;
 }

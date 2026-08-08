@@ -354,6 +354,15 @@ a5run_new (const a5_adventure_t *adv)
       rt.when_start = adv->events[i].when_start;
       rt.se_ft.assign ((size_t) adv->events[i].n_subevents, 0);
     }
+  /* Let the location viewer ask "is event #i Running?" for the SetLook gate
+     (clsEvent.LookText's Status = Running check). */
+  run->st->ev_running = [] (void *ctx, int ei) -> int
+    {
+      a5_run_t *r = (a5_run_t *) ctx;
+      return ei >= 0 && ei < (int) r->events->size ()
+             && (*r->events)[ei].status == A5_EV_RUNNING;
+    };
+  run->st->ev_running_ctx = run;
   /* Flatten every character's walks into one runtime list (clsWalk instances).
      Sub-walk offsets resolve once here (clsWalk never resets them); step
      durations re-roll on each lStart. */
@@ -2738,6 +2747,7 @@ save_scarier_body (sb_t *b, a5_run_t *run)
       sb_puts (b, "<Look>\n");
       sb_elem (b, "LocKey", st->looks[i].loc_key);
       sb_elem (b, "Text", st->looks[i].text);
+      sb_elem (b, "Event", st->looks[i].event_key);
       sb_puts (b, "</Look>\n");
     }
 }
@@ -3421,7 +3431,8 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
       else if (streq (nm, "Look"))
         {
           a5state_push_look (st, a5xml_child_text (n, "LocKey"),
-                             a5xml_child_text (n, "Text"));
+                             a5xml_child_text (n, "Text"),
+                             a5xml_child_text (n, "Event"));
         }
     }
 

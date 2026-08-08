@@ -1078,8 +1078,30 @@ pass_character (a5_state_t *st, a5_restr_t *r)
     }
   if (streq (r->op, "BeInPosition"))
     {
-      const char *pos = (ci >= 0 && st->char_position) ? st->char_position[ci] : NULL;
-      return streq (pos, k2);
+      /* clsUserSession.vb:4902-4915 reads the raw CharacterPosition PROPERTY,
+         gated on HasProperty -- NOT the Position getter (which defaults to
+         Standing).  A character that never gained the property tests False
+         for every position: the library-injected default Player carries no
+         CharacterPosition <Property>, and the SetProperty action on an
+         absent character property is a no-op (vb:2056), so `stand` always
+         passes StandOnFloor's `MustNot BeInPosition Standing` for it.  Only
+         a character whose XML sets the property, or one moved via
+         ToStandingOn/ToSittingOn/ToLyingOn (the Position setter creates the
+         property, clsCharacter.vb:1853), ever tests True. */
+      if (streq (k1, ANYCHARACTER))
+        {
+          for (int s = 0; s < st->adv->n_characters; s++)
+            {
+              const char *pos = a5state_entity_prop
+                  (st, st->adv->characters[s].key, "CharacterPosition");
+              if (pos != NULL && streq (pos, k2))
+                return 1;
+            }
+          return 0;
+        }
+      const char *pos = (ci >= 0)
+          ? a5state_entity_prop (st, k1, "CharacterPosition") : NULL;
+      return pos != NULL && streq (pos, k2);
     }
   /* On/in object, optionally constrained by stance.  Mirrors clsUserSession's
      BeOnObject / BeInsideObject / Be{Standing,Sitting,Lying}OnObject cases:

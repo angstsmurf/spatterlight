@@ -142,7 +142,7 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
          stack; a5text_view_location consults it (LookText). */
       if (se->description != NULL)
         { char *m = a5text_describe (run->st, se->description);
-          a5state_push_look (run->st, se->key, m);
+          a5state_push_look (run->st, se->key, m, e->key);
           free (m); }
       break;
     }

@@ -1177,9 +1177,15 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
               continue;                                           /* multi/all */
             }
           r.type = 'o';
-          r.orig = (ok && items.size () == 1)
-            ? order_visible_first (st, items[0])
-            : resolve_object_candidates (st, r.text);
+          /* A remembered-task re-run pins the ambiguous reference to the
+             clarified pick here too: the library's `get/drop %objects%`
+             commands take this branch, not the singular %object% one below. */
+          if (force_name != NULL && r.name == force_name)
+            r.orig.assign (1, force_key);
+          else
+            r.orig = (ok && items.size () == 1)
+              ? order_visible_first (st, items[0])
+              : resolve_object_candidates (st, r.text);
           if (r.orig.empty ())
             {
               if (!note_noref (r))

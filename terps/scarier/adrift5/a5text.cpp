@@ -4172,22 +4172,28 @@ view_location_impl (a5_state_t *st, const char *lockey)
   (void) listed;
 
   /* Event SetLook text (clsLocation.ViewLocation: "For Each e ... e.LookText()"):
-     a SetLook sub-event pushed a location-gated look line onto the look stack;
-     append the most-recent entry matching the player's location. */
-  {
-    const char *lt = a5state_player_look (st);
-    if (lt != NULL && lt[0] != '\0')
-      {
-        /* pSpace(sView) (clsLocation.ViewLocation:144): always two spaces unless
-           the buffer ends in a newline -- NOT add_space's sentence-aware test, so
-           a description ending in a trailing space still gets the two (e.g.
-           SixSilverBullets' Hotel "...grim and gray. " + "  " before the
-           Purple Agent's "is here" line -> three spaces). */
-        if (sb.len > 0 && sb.p[sb.len - 1] != '\n')
-          sb_puts (&sb, "  ");
-        sb_puts (&sb, lt);
-      }
-  }
+     walk the model's events in order; each RUNNING event contributes its own
+     most-recent look entry matching the player's location (clsEvent.LookText
+     answers only while Status = Running, so a finished or paused event's
+     SetLook text disappears from the room view). */
+  for (int ei = 0; ei < st->adv->n_events; ei++)
+    {
+      if (st->ev_running == NULL
+          || !st->ev_running (st->ev_running_ctx, ei))
+        continue;
+      const char *lt = a5state_event_look (st, st->adv->events[ei].key);
+      if (lt != NULL && lt[0] != '\0')
+        {
+          /* pSpace(sView) (clsLocation.ViewLocation:144): always two spaces unless
+             the buffer ends in a newline -- NOT add_space's sentence-aware test, so
+             a description ending in a trailing space still gets the two (e.g.
+             SixSilverBullets' Hotel "...grim and gray. " + "  " before the
+             Purple Agent's "is here" line -> three spaces). */
+          if (sb.len > 0 && sb.p[sb.len - 1] != '\n')
+            sb_puts (&sb, "  ");
+          sb_puts (&sb, lt);
+        }
+    }
 
   /* Present NPCs (clsLocation.ViewLocation character loop): each visible
      character contributes its CharHereDesc (or "<Name> is here."); identical

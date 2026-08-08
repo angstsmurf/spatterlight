@@ -46,10 +46,13 @@ typedef struct a5_objloc_s {
 } a5_objloc_t;
 
 /* One SetLook stack entry (clsEvent.clsLookText): rendered look text gated on a
-   location/group key. */
+   location/group key.  The stack is per-event in the runner (clsEvent's own
+   stackLookText); entries carry the owning event's key so the viewer can
+   replay the runner's "For Each e In htblEvents ... e.LookText()" walk. */
 typedef struct a5_looktext_s {
   char *loc_key;          /* OnlyApplyAt gate (owned)                          */
   char *text;             /* rendered look text (owned)                        */
+  char *event_key;        /* owning event (owned; "" for legacy saves)         */
 } a5_looktext_t;
 
 /* A runtime property override (set by SetProperty actions in Phase 3). */
@@ -241,11 +244,21 @@ typedef struct a5_state_s {
   int   ref_objects_suppress_singular;
 
   /* SetLook event sub-event "look stack" (clsEvent.stackLookText): each SetLook
-     pushes a (location/group gate, rendered text) entry; a5text_view_location
-     appends the most-recent entry whose gate matches the player's location.
-     Unused by the shipped corpus, but ported for faithfulness.  Owned. */
+     pushes a (location/group gate, rendered text, owning event) entry;
+     a5text_view_location walks the model's events in order and appends each
+     RUNNING event's most-recent entry whose gate matches the player's location
+     (clsEvent.LookText only answers while Status = Running -- a finished or
+     paused event's look text vanishes).  Unused by the shipped corpus, but
+     ported for faithfulness.  Owned. */
   a5_looktext_t *looks;
   int n_looks, cap_looks;
+
+  /* Live event-status query for the SetLook gate above: event runtime lives in
+     the run layer, which installs this at init so state/text code can ask
+     "is event #i Running?".  NULL (e.g. a bare a5run_dump peek before the run
+     starts) answers no for every event. */
+  int (*ev_running) (void *ctx, int event_index);
+  void *ev_running_ctx;
 
   /* <DisplayOnce> description segments that have already been shown (keyed by
      the segment's DOM node).  `marking_display` is set while rendering real
@@ -410,11 +423,14 @@ extern const char *a5state_player_key (const a5_state_t *st);
 extern int a5state_in_group_or_location (const a5_state_t *st,
                                          const char *charkey, const char *key);
 
-/* SetLook look-text stack (clsEvent): push a rendered look entry; fetch the
-   most-recent one whose location/group gate matches the player (or NULL). */
+/* SetLook look-text stack (clsEvent): push a rendered look entry tagged with
+   its owning event; fetch event `evkey`'s most-recent entry whose location/
+   group gate matches the player (or NULL) -- the per-event half of
+   clsEvent.LookText (the caller applies the Status = Running gate). */
 extern void        a5state_push_look (a5_state_t *st, const char *loc_key,
-                                      const char *text);
-extern const char *a5state_player_look (const a5_state_t *st);
+                                      const char *text, const char *event_key);
+extern const char *a5state_event_look (const a5_state_t *st,
+                                       const char *event_key);
 
 /*
  * Does object `oi` exist at location `lockey`?  When `directly` is set, only a
