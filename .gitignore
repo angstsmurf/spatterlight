@@ -238,3 +238,11 @@ terps/scott/headless_obj/
 terps/scott/scott_hl
 terps/scott/scott_death_test
 terps/scott/scott_all_audit
+
+# Python bytecode caches (harness/probe scripts under terps/)
+__pycache__/
+*.pyc
+
+# Third-party ADRIFT walkthrough documents (reference material, not committed
+# -- same policy as the game .taf files themselves)
+terps/scarier/adrift-walkthroughs/downloaded/
