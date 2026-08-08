@@ -12,8 +12,10 @@
 
 @implementation MIDIChannel
 
-- (BOOL)playSound:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
+- (BOOL)playSoundInternal:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
     self.status = GlkSoundChannelStatusSound;
+    self.nowPlayingDuration = 0;
+    self.nowPlayingLooping = NO;
 
     NSData *dat = nil;
     GlkSoundBlorbFormatType type;
@@ -40,6 +42,9 @@
 
     [_player setVolume:volume];
 
+    self.nowPlayingDuration = _player.duration;
+    self.nowPlayingLooping = (areps == -1);
+
     if (areps != -1) {
         MIDIChannel __weak *weakSelf = self;
         SoundHandler *blockHandler = self.handler;
@@ -50,6 +55,7 @@
                 MIDIChannel *strongSelf = weakSelf;
                 if (strongSelf && --strongSelf->loop < 1) {
                     strongSelf.status = GlkSoundChannelStatusIdle;
+                    [blockHandler nowPlayingStateDidChange];
                     if (blocknotify)
                         [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
                 }
@@ -61,6 +67,7 @@
 
     if (!paused)
         [_player play];
+
     return YES;
 }
 
@@ -70,10 +77,12 @@
         [_player stop];
     }
     [self cleanup];
+    [self.handler nowPlayingStateDidChange];
 }
 
 - (void)pause {
     paused = YES;
+    [self.handler nowPlayingStateDidChange];
     if (_player)
         [_player pause];
 }
@@ -86,6 +95,7 @@
             NSLog(@"MIDIChannel: Failed to unpause sound %d", resid);
     } else {
         [_player play];
+        [self.handler nowPlayingStateDidChange];
     }
 }
 

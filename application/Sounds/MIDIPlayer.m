@@ -23,6 +23,8 @@
 
     MusicPlayer player;
     MusicSequence sequence;
+    MusicTimeStamp pausedTime;
+    BOOL hasPausedTime;
 }
 
 @end
@@ -31,6 +33,8 @@
 
 - (instancetype)initWithData:(NSData *)data {
     if (self = [super init]) {
+        hasPausedTime = NO;
+        pausedTime = 0;
         [self createGraph];
         [self startGraph];
         [self loadData:data];
@@ -114,6 +118,28 @@
     NewMusicPlayer(&player);
     MusicPlayerSetSequence(player, sequence);
     MusicPlayerPreroll(player);
+
+    _duration = 0;
+    UInt32 numberOfTracks = 0;
+    if (MusicSequenceGetTrackCount(sequence, &numberOfTracks) == noErr) {
+        MusicTimeStamp longest = 0;
+        for (UInt32 i = 0; i < numberOfTracks; i++) {
+            MusicTrack track = NULL;
+            MusicTimeStamp trackLen = 0;
+            UInt32 trackLenLen = sizeof(trackLen);
+            if (MusicSequenceGetIndTrack(sequence, i, &track) != noErr)
+                continue;
+            if (MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &trackLen, &trackLenLen) != noErr)
+                continue;
+            if (trackLen > longest)
+                longest = trackLen;
+        }
+        if (longest > 0) {
+            Float64 seconds = 0;
+            if (MusicSequenceGetSecondsForBeats(sequence, longest, &seconds) == noErr)
+                _duration = (NSTimeInterval)seconds;
+        }
+    }
 }
 
 - (void)loop:(NSInteger)repeats {
@@ -139,12 +165,18 @@
 
 - (void)play {
     [self startGraph];
+    if (hasPausedTime) {
+        MusicPlayerSetTime(player, pausedTime);
+        hasPausedTime = NO;
+    }
     MusicPlayerStart(player);
 }
 
 - (void)pause {
-    [self stopGraph];
+    pausedTime = 0;
+    hasPausedTime = (MusicPlayerGetTime(player, &pausedTime) == noErr);
     MusicPlayerStop(player);
+    [self stopGraph];
 }
 
 - (void)stop {

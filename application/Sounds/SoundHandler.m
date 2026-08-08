@@ -11,6 +11,7 @@
 
 #import "GlkSoundChannel.h"
 #import "MIDIChannel.h"
+#import "NowPlayingCoordinator.h"
 #import "GlkController.h"
 #import "GlkController+InterpreterGlue.h"
 #import "GlkEvent.h"
@@ -367,6 +368,7 @@
 
 - (void)handleDeleteChannel:(int)channel {
     if (_glkchannels[@(channel)]) {
+        [_glkchannels[@(channel)] stop];
         _glkchannels[@(channel)] = nil;
     }
 }
@@ -433,11 +435,38 @@
 }
 
 - (void)stopAllAndCleanUp {
-    if (!_glkchannels.count)
-        return;
     for (GlkSoundChannel* chan in _glkchannels.allValues) {
         [chan stop];
     }
+    [[NowPlayingCoordinator shared] clearForHandler:self];
+}
+
+#pragma mark Now Playing
+
+- (void)nowPlayingStateDidChange {
+    [[NowPlayingCoordinator shared] refreshForHandler:self];
+}
+
+- (void)pauseEligibleNowPlayingChannels {
+    for (GlkSoundChannel *chan in _glkchannels.allValues) {
+        if (chan.claimsNowPlaying && !chan.isPaused)
+            [chan pause];
+    }
+}
+
+- (void)unpauseEligibleNowPlayingChannels {
+    for (GlkSoundChannel *chan in _glkchannels.allValues) {
+        if (chan.claimsNowPlaying && chan.isPaused)
+            [chan unpause];
+    }
+}
+
+- (BOOL)hasPlayingEligibleNowPlayingChannel {
+    for (GlkSoundChannel *chan in _glkchannels.allValues) {
+        if (chan.claimsNowPlaying && !chan.isPaused)
+            return YES;
+    }
+    return NO;
 }
 
 #pragma mark Called from GlkSoundChannel

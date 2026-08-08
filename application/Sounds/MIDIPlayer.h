@@ -10,6 +10,8 @@
 @interface MIDIPlayer : NSObject
 
 @property (nonatomic) double progress;
+/// Sequence length in seconds (longest track), or 0 if unknown.
+@property (nonatomic, readonly) NSTimeInterval duration;
 
 - (instancetype)initWithData:(NSData *)data;
 
