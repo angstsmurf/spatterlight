@@ -956,10 +956,9 @@ a5model_from_doc (a5_xml_doc_t *doc)
  * will not contain the ASCII tag by chance.  Returns an owned copy or NULL.
  */
 static char *
-a5_scan_ifid (const uint8_t *buf, uint32_t len)
+a5_scan_tag (const uint8_t *buf, uint32_t len, const char *open)
 {
-  static const char open[] = "<ifid>";
-  const uint32_t open_len = 6;
+  const uint32_t open_len = (uint32_t) strlen (open);
   uint32_t i;
   if (buf == NULL || len < open_len)
     return NULL;
@@ -985,6 +984,23 @@ a5_scan_ifid (const uint8_t *buf, uint32_t len)
   return NULL;
 }
 
+static char *
+a5_scan_ifid (const uint8_t *buf, uint32_t len)
+{
+  return a5_scan_tag (buf, len, "<ifid>");
+}
+
+/* The same <ifindex> block's <releases><attached><release><version> -- what
+   %release% renders (BabelTreatyInfo.Stories(0).Releases.Attached.Release
+   .Version, Global.vb:1766).  The compound open-tag scan keys on the
+   <release> wrapper so the block's other <version>-bearing tags
+   (<compilerversion>) cannot match. */
+static char *
+a5_scan_release (const uint8_t *buf, uint32_t len)
+{
+  return a5_scan_tag (buf, len, "<release><version>");
+}
+
 a5_adventure_t *
 a5model_load (const char *path)
 {
@@ -994,6 +1010,7 @@ a5model_load (const char *path)
   uint32_t file_len, payload_len, header, region_len, xml_len;
   uint8_t *xml;
   char *ifid;
+  char *release;
   a5_blorb_chunk_t chunk;
   a5_xml_doc_t *doc;
   a5_adventure_t *adv;
@@ -1084,6 +1101,7 @@ a5model_load (const char *path)
      scrambles the payload region (the <ifindex> block lies outside it, but scan
      first to be safe across layouts). */
   ifid = a5_scan_ifid (file_buf, file_len);
+  release = a5_scan_release (file_buf, file_len);
 
   if (obfuscated)
     a5_deobfuscate (payload, header, region_len);
@@ -1092,6 +1110,7 @@ a5model_load (const char *path)
   if (xml == NULL)
     {
       free (ifid);
+      free (release);
       return NULL;
     }
 
@@ -1121,6 +1140,7 @@ a5model_load (const char *path)
     {
       free (xml);
       free (ifid);
+      free (release);
       return NULL;
     }
 
@@ -1129,9 +1149,13 @@ a5model_load (const char *path)
     {
       a5xml_free (doc);
       free (ifid);
+      free (release);
     }
   else
-    adv->ifid = ifid;   /* ownership transfers; a5model_free releases it */
+    {
+      adv->ifid = ifid;   /* ownership transfers; a5model_free releases them */
+      adv->release = release;
+    }
   return adv;
 }
 
@@ -1367,6 +1391,7 @@ a5model_free (a5_adventure_t *a)
     free (a->upgrade_owned[i]);  /* corrected BracketSequence copies */
   free (a->upgrade_owned);
   free ((void *) a->ifid);
+  free ((void *) a->release);
   a5xml_free (a->doc);
   free (a);
 }

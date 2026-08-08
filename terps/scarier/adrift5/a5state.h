@@ -92,6 +92,15 @@ typedef struct a5_state_s {
                               On/InCharacter, e.g. Edith riding the Player), else
                               NULL; effective location resolves through the carrier */
 
+  /* Turn-start snapshot backing the %Prev...% functions.  The runner stamps
+     every object's/character's PrevParent in PrepareForNextTurn
+     (clsUserSession.vb:5214-5218) and PreviousFunction peeks the recorded
+     previous game state (Global.vb:596); a placement snapshot taken at the
+     same point serves both.  Keys alias the model/DOM (stable), not owned. */
+  a5_objloc_t *obj_prev;      /* [adv->n_objects] placement at last turn start */
+  const char **char_prevpar;  /* [adv->n_characters] parent key (carrier object/
+                                 character, else location) at last turn start  */
+
   long  *var_num;         /* [adv->n_variables] numeric value                  */
   char **var_text;        /* [adv->n_variables] text value (owned), or NULL    */
   long **var_arr;         /* [adv->n_variables] numeric ARRAY elements (owned;
@@ -366,6 +375,10 @@ typedef struct a5_state_s {
 
 extern a5_state_t *a5state_new  (const a5_adventure_t *adv);
 extern void        a5state_free (a5_state_t *st);
+
+/* Refresh the %Prev...% turn-start snapshot (obj_prev / char_prevpar) from the
+   current placements -- the PrepareForNextTurn PrevParent stamp. */
+extern void a5state_stamp_prev (a5_state_t *st);
 
 /* Index helpers (linear; -1 if absent). */
 extern int a5state_object_index    (const a5_state_t *st, const char *key);

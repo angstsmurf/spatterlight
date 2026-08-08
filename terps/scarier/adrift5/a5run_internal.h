@@ -507,6 +507,7 @@ void drain_tasks_to_run (a5_run_t *run, sb_t *out);
 void a5run_flush_display_defers (a5_run_t *run, sb_t *out);
 void a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from);
 void ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out);
+void ev_on_task_uncompleted (a5_run_t *run, const char *task_key, sb_t *out);
 
 /* a5run_ref.cpp (reference resolution + multiple-object references) */
 void bind_reference (a5_state_t *st, const char *group, const char *value,

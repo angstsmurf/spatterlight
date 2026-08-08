@@ -1285,6 +1285,7 @@ a5run_intro (a5_run_t *run)
   ev_init (run, &out);
   sb_resolve_cls (&out, cf);                 /* commit: start-of-game events */
   update_seen (run->st);
+  a5state_stamp_prev (run->st);
   {
     char *turn = finish_turn (run, &out);
     if (had_prompt != 2)
@@ -1907,6 +1908,10 @@ a5run_input_inner (a5_run_t *run, const char *line)
      (clsUserSession.PrepareForNextTurn), so HaveSeenCharacter / "characters
      must be seen" gates reflect everyone visible by now. */
   update_seen (st);
+
+  /* PrepareForNextTurn also stamps every object's/character's PrevParent
+     (vb:5214-5218), the state the %Prev...% functions read this turn. */
+  a5state_stamp_prev (st);
 
   /* PrepareForNextTurn also empties every character's per-turn route memo
      (dictHasRouteCache/dictRouteErrors, vb:3792) -- see

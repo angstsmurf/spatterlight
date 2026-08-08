@@ -1537,6 +1537,184 @@ fn_number_as_text (a5_state_t * /*st*/, const char * /*name*/, const char *args)
 }
 
 static char *
+fn_held_worn_keys (a5_state_t *st, const char *name, const char *args)
+{
+  /* %Held[charkey]% / %Worn[charkey]% -> the "|"-joined keys of the objects
+     the character directly holds / wears (Global.vb:2146/2401; HeldObjects /
+     WornObjects default bRecursive:=False).  The runner takes the argument as
+     a literal character KEY (htblCharacters.ContainsKey); an unknown key just
+     DisplayErrors and renders "" (blank allowed, bAllowBlank). */
+  const a5_character_t *c = a5model_character (st->adv, args);
+  a5_owhere_t want = ci_eq (name, "held") ? A5_OWHERE_HELD_BY
+                                          : A5_OWHERE_WORN_BY;
+  std::string out;
+  if (c != NULL)
+    for (int i = 0; i < st->adv->n_objects; i++)
+      if (st->obj[i].where == want && streq (st->obj[i].key, c->key))
+        { if (!out.empty ()) out += '|'; out += st->adv->objects[i].key; }
+  return strdup (out.c_str ());
+}
+
+static char *
+fn_objectsin (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* %ObjectsIn[objkey]% -> "|"-joined keys of the objects directly inside
+     (Global.vb:2255, Children(InsideObject).Values), open or not. */
+  const a5_object_t *o = a5model_object (st->adv, args);
+  std::string out;
+  if (o != NULL)
+    for (int i = 0; i < st->adv->n_objects; i++)
+      if (st->obj[i].where == A5_OWHERE_IN_OBJECT
+          && streq (st->obj[i].key, o->key))
+        { if (!out.empty ()) out += '|'; out += st->adv->objects[i].key; }
+  return strdup (out.c_str ());
+}
+
+static char *
+fn_characterdescriptor (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* %CharacterDescriptor[charkey]% -> "article [prefix] first-descriptor"
+     (clsCharacter.Descriptor, clsCharacter.vb:572; dispatched Global.vb:2074).
+     No descriptors -> "". */
+  const a5_character_t *c = a5model_character (st->adv, args);
+  if (c == NULL || c->n_descriptors == 0)
+    return strdup ("");
+  std::string out;
+  if (c->article != NULL && c->article[0] != '\0')
+    { out += c->article; out += ' '; }
+  if (c->prefix != NULL && c->prefix[0] != '\0')
+    { out += c->prefix; out += ' '; }
+  out += c->descriptors[0];
+  return strdup (out.c_str ());
+}
+
+static char *
+fn_taskcompleted (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* %TaskCompleted[taskkey]% -> the flag as VB Boolean.ToString ("True"/
+     "False", Global.vb:2388). */
+  int ti = a5state_task_index (st, args);
+  if (ti < 0)
+    return strdup ("");
+  return strdup (st->task_done[ti] ? "True" : "False");
+}
+
+static char *
+fn_sum (a5_state_t * /*st*/, const char * /*name*/, const char *args)
+{
+  /* %Sum[text]% (Global.vb:2368): keep digit and '-' chars, blank everything
+     else, then total the space-split runs through SafeInt -- a run that is
+     not a clean integer ("3-4", "-") contributes 0. */
+  std::string t = args ? args : "";
+  for (char &ch : t)
+    if (!(ch >= '0' && ch <= '9') && ch != '-')
+      ch = ' ';
+  long total = 0;
+  size_t p = 0;
+  while (p < t.size ())
+    {
+      size_t e = t.find (' ', p);
+      if (e == std::string::npos) e = t.size ();
+      if (e > p)
+        {
+          std::string tok = t.substr (p, e - p);
+          char *end = NULL;
+          long v = strtol (tok.c_str (), &end, 10);
+          if (end != NULL && *end == '\0')
+            total += v;
+        }
+      p = e + 1;
+    }
+  char buf[32];
+  snprintf (buf, sizeof buf, "%ld", total);
+  return strdup (buf);
+}
+
+static char *
+fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/, const char *args)
+{
+  /* %PopUpChoice[prompt, choice1, choice2]% (Global.vb:2278): a Yes/No dialog
+     where Yes picks choice1, No picks choice2; args split naively on commas
+     (the runner's own TODO-marked sArgs.Split(",")).  Headless, an installed
+     popup callback answers (the host feeds the next script line): a reply
+     matching choice2 case-insensitively picks it, anything else keeps
+     choice1 -- which is also the unattended MsgBox default (Yes). */
+  std::string a = args ? args : "";
+  std::vector<std::string> part;
+  size_t p = 0;
+  for (;;)
+    {
+      size_t e = a.find (',', p);
+      part.push_back (a.substr (p, e == std::string::npos
+                                       ? std::string::npos : e - p));
+      if (e == std::string::npos) break;
+      p = e + 1;
+    }
+  if (part.size () != 3)
+    return strdup ("");
+  auto unquote = [](std::string &s){
+    size_t b = s.find_first_not_of (" \t");
+    size_t e = s.find_last_not_of (" \t");
+    s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1);
+    if (s.size () >= 2 && s.front () == '"' && s.back () == '"')
+      s = s.substr (1, s.size () - 2); };
+  unquote (part[0]); unquote (part[1]); unquote (part[2]);
+  if (a5_popup != NULL)
+    {
+      char *ans = a5_popup (a5_popup_ctx, part[0].c_str (), part[1].c_str ());
+      if (ans != NULL)
+        {
+          int second = ci_eq (ans, part[2].c_str ());
+          free (ans);
+          return strdup (second ? part[2].c_str () : part[1].c_str ());
+        }
+    }
+  return strdup (part[1].c_str ());
+}
+
+static char *
+fn_prevparentof (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* %PrevParentOf[key]% (Global.vb:2320): the item's PrevParent -- its parent
+     as of the last turn start (the PrepareForNextTurn stamp, vb:5214-5218).
+     Objects officially also re-stamp on each Move, so the turn-start snapshot
+     only diverges when one object moves twice within a single turn. */
+  int oi = a5state_object_index (st, args);
+  if (oi >= 0 && st->obj_prev != NULL)
+    {
+      a5_owhere_t w = st->obj_prev[oi].where;
+      if (w == A5_OWHERE_ON_OBJECT || w == A5_OWHERE_IN_OBJECT
+          || w == A5_OWHERE_HELD_BY || w == A5_OWHERE_WORN_BY
+          || w == A5_OWHERE_PART_OBJECT || w == A5_OWHERE_PART_CHAR
+          || w == A5_OWHERE_LOCATION || w == A5_OWHERE_LOCGROUP)
+        return strdup (st->obj_prev[oi].key);
+      return strdup ("");
+    }
+  int ci = a5state_character_index (st, args);
+  if (ci >= 0 && st->char_prevpar != NULL)
+    return strdup (st->char_prevpar[ci] != NULL ? st->char_prevpar[ci] : "");
+  return strdup ("");
+}
+
+static char *
+fn_prevlistobjectson (a5_state_t *st, const char * /*name*/, const char *args)
+{
+  /* %PrevListObjectsOn[objkey]% (Global.vb:2315): ListObjectsOn evaluated
+     against the previous game state (PreviousFunction restores States.Peek,
+     Global.vb:596) -- computed here from the turn-start placement snapshot. */
+  const char *k = resolve_object_arg (st, args);
+  std::vector<const char *> v;
+  if (k != NULL && st->obj_prev != NULL)
+    for (int i = 0; i < st->adv->n_objects; i++)
+      if (st->obj_prev[i].where == A5_OWHERE_ON_OBJECT
+          && streq (st->obj_prev[i].key, k))
+        v.push_back (st->adv->objects[i].key);
+  if (v.empty ())
+    return strdup ("nothing");
+  return list_objects (st, v);
+}
+
+static char *
 fn_case (a5_state_t * /*st*/, const char *name, const char *args)
 {
   int i;
@@ -1670,6 +1848,37 @@ eval_function (a5_state_t *st, const char *name, const char *args)
     return fn_number_as_text (st, name, args);
   if (ci_eq (name, "pcase") || ci_eq (name, "ucase") || ci_eq (name, "lcase"))
     return fn_case (st, name, args);
+  if (args != NULL && (ci_eq (name, "held") || ci_eq (name, "worn")))
+    return fn_held_worn_keys (st, name, args);
+  if (args != NULL && ci_eq (name, "objectsin"))
+    return fn_objectsin (st, name, args);
+  if (args != NULL && ci_eq (name, "characterdescriptor"))
+    return fn_characterdescriptor (st, name, args);
+  if (args != NULL && ci_eq (name, "taskcompleted"))
+    return fn_taskcompleted (st, name, args);
+  if (args != NULL && ci_eq (name, "sum"))
+    return fn_sum (st, name, args);
+  if (args != NULL && ci_eq (name, "popupchoice"))
+    return fn_popupchoice (st, name, args);
+  if (args != NULL && ci_eq (name, "prevparentof"))
+    return fn_prevparentof (st, name, args);
+  if (args != NULL && ci_eq (name, "prevlistobjectson"))
+    return fn_prevlistobjectson (st, name, args);
+  if (args != NULL && ci_eq (name, "replace"))
+    /* In TEXT context the runner's function Select has no Replace arm --
+       sResult stays "" ("Bad Function - Nothing output") and the token
+       renders empty; the usable replace(a,b,c) lives in expressions
+       (a5sexpr.cpp). */
+    return strdup ("");
+  if (args == NULL && ci_eq (name, "version"))
+    /* %version% (Global.vb:1765): the Runner's assembly version "5.0.36.6"
+       (AssemblyInfo.vb) with the first two dots elided by the substring
+       splice -> "5036.6". */
+    return strdup ("5036.6");
+  if (args == NULL && ci_eq (name, "release"))
+    /* %release% (Global.vb:1766): the <ifindex> block's <release><version>
+       (BabelTreatyInfo ... Release.Version; 0 when the file carries none). */
+    return strdup (st->adv->release != NULL ? st->adv->release : "0");
 
   /* A bound reference produced by the parser this turn (%direction%, %text%). */
   if (args == NULL)

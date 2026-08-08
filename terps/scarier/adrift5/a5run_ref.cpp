@@ -1147,9 +1147,28 @@ resolve_refine (a5_run_t *run, const a5_task_t *t, const a5_match_t *m,
           r.orig = (r.type == 'o')
             ? resolve_object_candidates (st, r.text)
             : resolve_character_candidates (st, r.text);
+          /* An %item% reference matches objects OR characters: the runner's
+             match loop tries InputMatchesObjects OrElse InputMatchesCharacter
+             (clsUserSession.vb:7253-7260, short-circuit -- objects win), and
+             the refine/visibility passes probe htblObjects then htblCharacters
+             per key (vb:7588-7596).  So when the typed text names no object,
+             retry the same text as a character reference before falling back.
+             (The runner's third OrElse arm, InputMatchesLocation, is not
+             mirrored -- location references are text-bound in this port.) */
+          if (r.orig.empty () && base == "item")
+            {
+              r.orig = resolve_character_candidates (st, r.text);
+              if (!r.orig.empty ())
+                r.type = 'c';
+            }
           if (r.orig.empty ())
             {
-              if (!note_noref (r))
+              /* For %item%, either type's Must-Exist restriction grants the
+                 second-chance no-reference match. */
+              bool ok = note_noref (r);
+              if (!ok && base == "item")
+                { r.type = 'c'; ok = note_noref (r); }
+              if (!ok)
                 return RR_NOMATCH;
               continue;
             }

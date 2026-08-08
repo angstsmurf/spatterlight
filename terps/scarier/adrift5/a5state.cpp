@@ -306,7 +306,34 @@ a5state_new (const a5_adventure_t *adv)
                                   adv->groups[i].members[m]);
     }
 
+  if (adv->n_objects > 0)
+    st->obj_prev = (a5_objloc_t *) calloc ((size_t) adv->n_objects,
+                                           sizeof *st->obj_prev);
+  if (adv->n_characters > 0)
+    st->char_prevpar = (const char **) calloc ((size_t) adv->n_characters,
+                                               sizeof *st->char_prevpar);
+  a5state_stamp_prev (st);   /* the runner's init-time PrepareForNextTurn */
+
   return st;
+}
+
+void
+a5state_stamp_prev (a5_state_t *st)
+{
+  int i;
+  if (st->obj_prev != NULL)
+    for (i = 0; i < st->adv->n_objects; i++)
+      st->obj_prev[i] = st->obj[i];
+  if (st->char_prevpar != NULL)
+    for (i = 0; i < st->adv->n_characters; i++)
+      {
+        /* clsCharacter.Parent == Location.Key: the carrier object or
+           character when on/in one, else the location. */
+        const char *p = st->char_onobj[i];
+        if (p == NULL) p = st->char_onchar[i];
+        if (p == NULL) p = st->char_loc[i];
+        st->char_prevpar[i] = p;
+      }
 }
 
 void
@@ -333,6 +360,8 @@ a5state_free (a5_state_t *st)
   free (st->gm);
   free (st->end_message);
   free (st->obj);
+  free (st->obj_prev);
+  free ((void *) st->char_prevpar);
   free ((void *) st->char_loc);
   free (st->char_position);
   free (st->char_seen);

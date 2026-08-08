@@ -31,6 +31,8 @@ static void attempt_event_task (a5_run_t *run, const char *key, int depth, sb_t 
 
 /* Walk drivers (defined after the events; called from the same hook points). */
 static void wk_on_task_completed (a5_run_t *run, const char *task_key);
+static void wk_control (a5_run_t *run, int wi, a5_ctrl_t ctrl,
+                        const char *task_key);
 static void wk_tick_all (a5_run_t *run, sb_t *out);
 static void wk_init     (a5_run_t *run, sb_t *out);
 
@@ -376,6 +378,80 @@ ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
           if (ctrl_retrigger_blocked (run->adv, rt.triggering_task, task_key))
             continue;
           ev_control (run, ei, ctrl_to_cmd (c->control), task_key, out);
+        }
+    }
+}
+
+/* clsUserSession's SetTasks-Unset case (vb:2938-2980): a SetTasks Unset action
+   on a *completed* task fires UnCompletion controls -- walks first, then
+   events.  Unlike the Completion loop, the status guard sits at the dispatch
+   site (Resume when Paused, Start when not Running, Stop/Suspend when Running)
+   and there is no retrigger/children guard on this path.  (The unused
+   clsUserSession.UncompleteTask sub has stricter guards; nothing calls it.) */
+void
+ev_on_task_uncompleted (a5_run_t *run, const char *task_key, sb_t *out)
+{
+  int ei;
+  size_t wi;
+  if (task_key == NULL)
+    return;
+  for (wi = 0; wi < run->walks->size (); wi++)
+    {
+      a5_walk_rt &rt = (*run->walks)[wi];
+      const a5_walk_t *wk = rt.walk;
+      int ci;
+      for (ci = 0; ci < wk->n_controls; ci++)
+        {
+          const a5_eventctrl_t *c = &wk->controls[ci];
+          if (c->on_completion || !streq (c->task_key, task_key))
+            continue;
+          switch (c->control)
+            {
+            case A5_CTRL_START:
+              if (rt.status != A5_EV_RUNNING)
+                wk_control (run, (int) wi, c->control, task_key);
+              break;
+            case A5_CTRL_STOP:
+            case A5_CTRL_SUSPEND:
+              if (rt.status == A5_EV_RUNNING)
+                wk_control (run, (int) wi, c->control, task_key);
+              break;
+            case A5_CTRL_RESUME:
+              if (rt.status == A5_EV_PAUSED)
+                wk_control (run, (int) wi, c->control, task_key);
+              break;
+            }
+        }
+    }
+  for (ei = 0; ei < run->adv->n_events; ei++)
+    {
+      const a5_event_t *e = &run->adv->events[ei];
+      a5_event_rt &rt = (*run->events)[ei];
+      int ci;
+      for (ci = 0; ci < e->n_controls; ci++)
+        {
+          const a5_eventctrl_t *c = &e->controls[ci];
+          if (c->on_completion || !streq (c->task_key, task_key))
+            continue;
+          switch (c->control)
+            {
+            case A5_CTRL_START:
+              if (rt.status != A5_EV_RUNNING)
+                ev_control (run, ei, A5_CMD_START, task_key, out);
+              break;
+            case A5_CTRL_STOP:
+              if (rt.status == A5_EV_RUNNING)
+                ev_control (run, ei, A5_CMD_STOP, task_key, out);
+              break;
+            case A5_CTRL_SUSPEND:
+              if (rt.status == A5_EV_RUNNING)
+                ev_control (run, ei, A5_CMD_PAUSE, task_key, out);
+              break;
+            case A5_CTRL_RESUME:
+              if (rt.status == A5_EV_PAUSED)
+                ev_control (run, ei, A5_CMD_RESUME, task_key, out);
+              break;
+            }
         }
     }
 }

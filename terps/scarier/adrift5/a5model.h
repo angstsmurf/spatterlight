@@ -311,6 +311,10 @@ typedef struct a5_adventure_s {
   const char *ifid;                 /* Babel IFID from the plaintext <ifid>
                                        tag in the <ifindex> metadata block
                                        (owned; NULL when the file embeds none) */
+  const char *release;              /* <release><version> from the same
+                                       <ifindex> block (%release%'s
+                                       BabelTreatyInfo ... Release.Version);
+                                       owned; NULL when absent               */
   int show_first_location;          /* <ShowFirstLocation> (default 1): show
                                        the start room after the intro          */
   int show_exits;                   /* <ShowExits> (default 1): append the

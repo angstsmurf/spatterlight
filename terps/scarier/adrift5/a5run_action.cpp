@@ -1492,6 +1492,42 @@ enqueue_loc_trigger_tasks (a5_run_t *run, const char *old_loc, const char *new_l
 
 /* ---- run_action per-kind handlers (extracted from run_action) ---- */
 
+/* The optional property-value operand of a Move/group action: FileIO parses
+   `<what> <key1> [value tokens...] <to> <key2>`, joining elements 2..len-3
+   (space-separated) into act.sPropertyValue whenever the payload has more than
+   4 tokens (FileIO.vb:498-517; the MoveCharacter and Add/RemoveLocationToGroup
+   branches repeat the identical loop). */
+static std::string
+withprop_value (const std::vector<std::string> &tk)
+{
+  std::string v;
+  if (tk.size () > 4)
+    for (size_t i = 2; i + 2 < tk.size (); i++)
+      { if (i > 2) v += ' '; v += tk[i]; }
+  return v;
+}
+
+/* The With-Property selector test shared by the MoveObject / MoveCharacter /
+   MoveLocation bulk sources (clsUserSession.vb:2058/2292/2542): HasProperty,
+   and -- unless the property is a SelectionOnly (valueless) marker, where
+   presence alone matches -- GetPropertyValue must string-equal the action's
+   sPropertyValue operand.  The merged (runtime + static) table is consulted so
+   a property added at runtime via SetProperty is seen here. */
+static int
+withprop_matches (const a5_state_t *st, const char *entkey,
+                  const char *propkey, const std::string &propval)
+{
+  const a5_propdef_t *pd;
+  const char *v;
+  if (!a5state_entity_has_prop (st, entkey, propkey))
+    return 0;
+  pd = a5model_propdef (st->adv, propkey);
+  if (pd != NULL && streq (pd->type, "SelectionOnly"))
+    return 1;
+  v = a5state_entity_prop (st, entkey, propkey);
+  return propval == (v != NULL ? v : "");
+}
+
 /* clsUserSession.vb:1479 MoveObjectWhat: the source of an object-set action is
    either a single Object or one of the "Everything*" sets (a group's members,
    everything held/worn by a character, inside/on an object, at a location, or
@@ -1501,6 +1537,7 @@ enqueue_loc_trigger_tasks (a5_run_t *run, const char *old_loc, const char *new_l
 static int
 collect_object_source (a5_state_t *st, const std::string &what,
                        const char *srckey, const char *rawkey,
+                       const std::string &propval,
                        std::vector<int> &targets)
 {
   if (what == "Object")
@@ -1551,11 +1588,8 @@ collect_object_source (a5_state_t *st, const std::string &what,
     }
   else if (what == "EverythingWithProperty")
     {
-      /* Merged (runtime + static) test, matching clsObject.HasProperty: a
-         property added at runtime via SetProperty must be seen here, exactly as
-         the character EveryoneWithProperty branch already does. */
       for (int i = 0; i < st->adv->n_objects; i++)
-        if (a5state_entity_has_prop (st, st->adv->objects[i].key, rawkey))
+        if (withprop_matches (st, st->adv->objects[i].key, rawkey, propval))
           targets.push_back (i);
     }
   else
@@ -1571,16 +1605,19 @@ act_move_object (a5_run_t *run, const char * /*kind*/,
   a5_state_t *st = run->st;
   if (tk.size () < 4)
     return;
-  /* tk[0] is the source selector, tk[1] the source entity; tk[2] is the
-     destination kind and tk[3] the destination key.  Collect the affected
-     object indices, then apply the same per-object move to each. */
+  /* tk[0] is the source selector, tk[1] the source entity; the destination
+     kind/key pair reads from the END of the payload, because a WithProperty
+     selector may carry a multi-token property value in between
+     (withprop_value).  Collect the affected object indices, then apply the
+     same per-object move to each. */
   const std::string &what = tk[0];
   const char *srckey = act_key (st, tk[1].c_str ());
-  const std::string &to = tk[2];
-  const char *k2 = act_key (st, tk[3].c_str ());
+  const std::string &to = tk[tk.size () - 2];
+  const char *k2 = act_key (st, tk[tk.size () - 1].c_str ());
   std::vector<int> targets;
 
-  if (!collect_object_source (st, what, srckey, tk[1].c_str (), targets))
+  if (!collect_object_source (st, what, srckey, tk[1].c_str (),
+                              withprop_value (tk), targets))
     return;
 
   for (int oi : targets)
@@ -1665,7 +1702,7 @@ act_object_group (a5_run_t *run, const char *kind,
   if (tk.size () < 4)
     return;
   int add = streq (kind, "AddObjectToGroup");
-  const char *grp = tk[3].c_str ();
+  const char *grp = tk[tk.size () - 1].c_str ();
   const char *srckey = act_key (st, tk[1].c_str ());
   std::vector<int> targets;
   /* The selector enum is MoveObject's (clsAction shares AddToGroupWhat with
@@ -1673,8 +1710,11 @@ act_object_group (a5_run_t *run, const char *kind,
      Quest Giver's setup task seeds its live deck with
      `AddObjectToGroup EverythingInGroup daz6QuestDeckM ToGroup daz6CurrentQue`,
      and with only the single-Object form implemented the deck stayed at its
-     three authored members, so the game dealt from 3 cards instead of 20. */
-  if (!collect_object_source (st, tk[0], srckey, tk[1].c_str (), targets))
+     three authored members, so the game dealt from 3 cards instead of 20.
+     The group key reads from the END: a WithProperty selector may put a
+     multi-token property value between key1 and "ToGroup". */
+  if (!collect_object_source (st, tk[0], srckey, tk[1].c_str (),
+                              withprop_value (tk), targets))
     return;
   for (int oi : targets)
     a5state_set_object_in_group (st, grp, st->adv->objects[oi].key, add);
@@ -1733,14 +1773,15 @@ act_character_group (a5_run_t *run, const char *kind,
     return;
   const std::string &who = tk[0];
   const char *whok = act_key (st, tk[1].c_str ());
-  const char *grp = tk[3].c_str ();
+  const char *grp = tk[tk.size () - 1].c_str ();
   int add = streq (kind, "AddCharacterToGroup");
   std::vector<int> cis;
   if (who == "EveryoneWithProperty")
     {
+      std::string propval = withprop_value (tk);
       for (int i = 0; i < st->adv->n_characters; i++)
-        if (a5state_entity_has_prop (st, st->adv->characters[i].key,
-                                     tk[1].c_str ()))
+        if (withprop_matches (st, st->adv->characters[i].key,
+                              tk[1].c_str (), propval))
           cis.push_back (i);
     }
   else if (!collect_character_who (st, who, whok, cis))
@@ -1811,10 +1852,10 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
   std::vector<int> cis;
   if (who == "EveryoneWithProperty")
     {
+      std::string propval = withprop_value (tk);
       for (int i = 0; i < st->adv->n_characters; i++)
-        if (a5_prop_find (st->adv->characters[i].props,
-                          st->adv->characters[i].n_props, whok) != NULL
-            || a5state_entity_prop (st, st->adv->characters[i].key, whok) != NULL)
+        if (withprop_matches (st, st->adv->characters[i].key,
+                              tk[1].c_str (), propval))
           cis.push_back (i);
     }
   else if (!collect_character_who (st, who, whok, cis))
@@ -1822,11 +1863,14 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
   if (cis.empty ())
     return;
 
-  const std::string &to = tk[2];
+  /* The destination pair reads from the END of the payload (a WithProperty
+     selector may carry a multi-token property value in between). */
+  const std::string &to = (tk.size () >= 4) ? tk[tk.size () - 2] : tk[2];
   /* Every MoveCharacterTo variant that takes a target (location, group,
      furniture, container, character, direction) reads it from the same token;
      act_key is a pure lookup, so resolve it once for the whole action. */
-  const char *k2 = (tk.size () >= 4) ? act_key (st, tk[3].c_str ()) : NULL;
+  const char *k2 = (tk.size () >= 4)
+    ? act_key (st, tk[tk.size () - 1].c_str ()) : NULL;
   /* ToLocationGroup: the runner computes dest.Key = group.RandomKey ONCE per action
      (clsUserSession.vb:1767), so the whole MoveCharacter draws a single
      RandomKey and sends every affected character to the SAME room -- e.g.
@@ -2917,7 +2961,17 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
   else if (tk[0] == "Unset" || tk[0] == "Clear")
     {
       if (tk.size () >= 2)
-        { int ti = a5state_task_index (st, tk[1].c_str ()); if (ti >= 0) st->task_done[ti] = 0; }
+        {
+          int ti = a5state_task_index (st, tk[1].c_str ());
+          if (ti >= 0 && st->task_done[ti])
+            {
+              /* Unsetting a *completed* task fires UnCompletion controls
+                 before the flag clears (clsUserSession's SetTasks-Unset case,
+                 vb:2938-2980); unsetting an already-unset task is a no-op. */
+              ev_on_task_uncompleted (run, st->adv->tasks[ti].key, out);
+              st->task_done[ti] = 0;
+            }
+        }
     }
 }
 
@@ -3004,7 +3058,10 @@ act_location_group (a5_run_t *run, const char *kind,
      `RemoveLocationFromGroup LocationOf %Player% FromGroup TimeTraps` removed
      nothing and The Hotel kept tolling the bell every turn. */
   const char *k1  = act_key (st, tk[1].c_str ());
-  const char *grp = tk[3].c_str ();
+  /* The group key reads from the END of the payload: an EverywhereWithProperty
+     selector may carry a multi-token property value in between (FileIO.vb's
+     Add/RemoveLocationToGroup parse repeats the same middle-join). */
+  const char *grp = tk[tk.size () - 1].c_str ();
   int add = streq (kind, "AddLocationToGroup");
   std::vector<std::string> locs;
   if (what == "Location")
@@ -3034,11 +3091,10 @@ act_location_group (a5_run_t *run, const char *kind,
     }
   else if (what == "EverywhereWithProperty")
     {
-      /* Merged (runtime + static, incl. group-inherited) test -- see the
-         MoveObject branch. */
+      std::string propval = withprop_value (tk);
       for (int i = 0; i < st->adv->n_locations; i++)
         { const a5_location_t *l = &st->adv->locations[i];
-          if (a5state_entity_has_prop (st, l->key, k1))
+          if (withprop_matches (st, l->key, tk[1].c_str (), propval))
             locs.push_back (l->key); }
     }
   else
