@@ -1147,14 +1147,24 @@ fn_locationof (a5_state_t *st, const char * /*name*/, const char *args)
   const char *key = args ? args : "";
   int ci = a5state_character_index (st, key);
   if (ci >= 0)
-    return strdup (st->char_loc[ci] ? st->char_loc[ci] : "");
+    {
+      /* clsCharacter.LocationKey (clsCharacter.vb:1790): the effective room,
+         resolved through on/in-object and on-character carriers; a Hidden
+         character reports the literal "Hidden" (Global.vb:25). */
+      const char *k = a5state_character_location_key (st, ci);
+      return strdup (k != NULL ? k : "Hidden");
+    }
   {
     int oi = a5state_object_index (st, key);
     if (oi >= 0)
       {
+        /* clsObject.LocationRoots (clsObject.vb:460) joined by '|': roots
+           resolve through container/part-of chains and through an At-Location
+           carrier, unlike the previous directly-placed-only test which
+           rendered held/contained/part-of objects as empty. */
         sb_t sb; sb_init (&sb);
         for (i = 0; i < st->adv->n_locations; i++)
-          if (a5state_object_at_location (st, oi, st->adv->locations[i].key, 1))
+          if (a5state_object_location_root (st, oi, st->adv->locations[i].key))
             { if (sb.len) sb_putc (&sb, '|');
               sb_puts (&sb, st->adv->locations[i].key); }
         return sb_finish (&sb);

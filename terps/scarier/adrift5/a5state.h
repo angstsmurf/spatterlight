@@ -427,6 +427,15 @@ extern int a5state_object_key_at_location (const a5_state_t *st, const char *obj
                                            const char *lockey, int directly);
 
 /*
+ * Is `lockey` one of object `oi`'s location roots (clsObject.LocationRoots,
+ * clsObject.vb:460)?  Unlike ExistsAtLocation, a held/worn/part-of-character
+ * object roots at the carrier's location only when the carrier is strictly
+ * At Location.  Backs %LocationOf[object]%.
+ */
+extern int a5state_object_location_root   (const a5_state_t *st, int oi,
+                                           const char *lockey);
+
+/*
  * Is object `oi` *visible* at location `lockey`?  Like a5state_object_at_location
  * but mirrors clsObject.BoundVisible / IsVisibleAtLocation: an object inside a
  * closed opaque openable container resolves to the container key (not the room),

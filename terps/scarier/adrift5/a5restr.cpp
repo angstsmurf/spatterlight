@@ -1018,6 +1018,22 @@ pass_character (a5_state_t *st, a5_restr_t *r)
         return st->adv->n_characters > 0;
       return ci >= 0;
     }
+  if (streq (r->op, "BeInGroup"))
+    {
+      /* clsUserSession.vb:4779: ANYCHARACTER -> any character among the
+         group's LIVE members (runtime Add/RemoveCharacterToGroup counts);
+         else membership of k1 itself.  Previously unhandled, so the check
+         fell through to the pass-everything default and a MustNot BeInGroup
+         restriction could never fail. */
+      if (streq (k1, ANYCHARACTER))
+        {
+          for (int s = 0; s < st->adv->n_characters; s++)
+            if (a5state_object_in_group (st, k2, st->adv->characters[s].key))
+              return 1;
+          return 0;
+        }
+      return a5state_object_in_group (st, k2, k1);
+    }
   if (streq (r->op, "HaveRouteInDirection"))
     {
       const char *dir = a5parse_canonical_direction (k2);

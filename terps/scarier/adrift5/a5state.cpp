@@ -1104,6 +1104,61 @@ a5state_object_at_location (const a5_state_t *st, int oi, const char *lockey,
   return exists_at (st, oi, lockey, directly, 0, 0);
 }
 
+/* Is `lockey` one of object `oi`'s location ROOTS (clsObject.LocationRoots,
+   clsObject.vb:460)?  Differs from ExistsAtLocation in the held/worn/part-of-
+   character branches: the runner only roots those at the carrier's location
+   when the character is strictly AtLocation -- a carrier seated On/In furniture
+   or riding another character contributes NO root, so %LocationOf[obj]% renders
+   empty for its cargo. */
+static int
+location_root_at (const a5_state_t *st, int oi, const char *lockey, int depth)
+{
+  const a5_objloc_t *loc;
+
+  if (oi < 0 || depth > 32)
+    return 0;
+  loc = &st->obj[oi];
+
+  switch (loc->where)
+    {
+    case A5_OWHERE_ALLROOMS:
+      return 1;
+    case A5_OWHERE_HIDDEN:
+    case A5_OWHERE_NONE:
+      return 0;
+    case A5_OWHERE_LOCATION:
+      return streq (loc->key, lockey);
+    case A5_OWHERE_LOCGROUP:
+      return a5state_object_in_group (st, loc->key, lockey);
+    case A5_OWHERE_IN_OBJECT:
+    case A5_OWHERE_ON_OBJECT:
+    case A5_OWHERE_PART_OBJECT:
+      return location_root_at (st, a5state_object_index (st, loc->key),
+                               lockey, depth + 1);
+    case A5_OWHERE_HELD_BY:
+    case A5_OWHERE_WORN_BY:
+    case A5_OWHERE_PART_CHAR:
+      {
+        int ci = a5state_character_index (st, loc->key);
+        if (ci < 0 || st->char_loc == NULL || st->char_loc[ci] == NULL)
+          return 0;
+        /* AtLocation only (clsObject.vb:472/509): no root through a seated
+           or riding carrier. */
+        if ((st->char_onobj != NULL && st->char_onobj[ci] != NULL)
+            || (st->char_onchar != NULL && st->char_onchar[ci] != NULL))
+          return 0;
+        return streq (st->char_loc[ci], lockey);
+      }
+    }
+  return 0;
+}
+
+int
+a5state_object_location_root (const a5_state_t *st, int oi, const char *lockey)
+{
+  return location_root_at (st, oi, lockey, 0);
+}
+
 int
 a5state_object_key_at_location (const a5_state_t *st, const char *objkey,
                                 const char *lockey, int directly)

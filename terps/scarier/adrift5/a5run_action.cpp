@@ -1581,8 +1581,12 @@ collect_object_source (a5_state_t *st, const std::string &what,
     }
   else if (what == "EverythingAtLocation")
     {
+      /* clsUserSession.vb:1484: `Not ob.IsStatic AndAlso DynamicExistWhere =
+         InLocation` -- the sweep takes DYNAMIC objects directly in the room
+         only; static furniture stays put. */
       for (int i = 0; i < st->adv->n_objects; i++)
-        if (st->obj[i].where == A5_OWHERE_LOCATION
+        if (!st->obj[i].is_static
+            && st->obj[i].where == A5_OWHERE_LOCATION
             && streq (st->obj[i].key, srckey))
           targets.push_back (i);
     }
@@ -1936,7 +1940,8 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
          character that was riding a carrier stops riding it the moment it is
          sent anywhere else -- Penrhyn drops Arkell to Location2/Hidden once he
          is broken, and he must no longer be "on Ralph's shoulder". */
-      if (to != "OntoCharacter" && st->char_onchar != NULL)
+      if (to != "OntoCharacter" && to != "ToSwitchWith"
+          && st->char_onchar != NULL)
         st->char_onchar[ci] = NULL;
       if (to == "ToLocationGroup")
         relocate_char (run, ci, group_dest, 1, out);
@@ -2120,16 +2125,16 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
             }
           else
             {
-              /* Neither is the player: exchange the two characters' places. */
-              const char *tloc = st->char_loc[bi];
-              const char *tonobj = st->char_onobj[bi];
-              char tin = st->char_in[bi];
-              st->char_loc[bi]   = st->char_loc[ci];
-              st->char_onobj[bi] = st->char_onobj[ci];
-              st->char_in[bi]    = st->char_in[ci];
-              st->char_loc[ci]   = tloc;
-              st->char_onobj[ci] = tonobj;
-              st->char_in[ci]    = tin;
+              /* Neither is the player.  The runner's swap (clsUserSession.vb:
+                 1837) exchanges the two clsCharacterLocation references -- but
+                 `dest` was pre-filled from ch's ORIGINAL location (vb:1727) and
+                 the shared epilogue `ch.Move(dest)` (vb:1902) then moves k1
+                 straight back.  Net observable effect, bug and all: k2 ends up
+                 at k1's original place; k1 stays exactly where it was. */
+              st->char_loc[bi]    = st->char_loc[ci];
+              st->char_onobj[bi]  = st->char_onobj[ci];
+              st->char_in[bi]     = st->char_in[ci];
+              st->char_onchar[bi] = st->char_onchar[ci];
             }
         }
       /* other MoveCharacterToEnum forms: best-effort no-op */
@@ -2565,6 +2570,14 @@ act_set_property (a5_run_t *run, const char * /*kind*/,
         if (rk != NULL && rk[0] != '\0') val = rk;
       }
   }
+  /* A ValueList property stores the label's mapped INTEGER (FD clsProperty
+     Value setter, clsProperty.vb:180-186; the model's static values get the
+     same mapping at load, a5_fix_valuelist_props). */
+  if (pt != NULL && streq (pt, "ValueList"))
+    {
+      const char *mv = a5model_valuelist_value (pd, val.c_str ());
+      if (mv != NULL) val = mv;
+    }
   a5state_set_prop (st, k1, tk[1].c_str (), val.c_str ());
   /* The runner derives an object's location live from its DynamicLocation property, so
      `SetProperty <obj> DynamicLocation Hidden` (Galen's Quest hides the meteor
