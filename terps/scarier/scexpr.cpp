@@ -1125,8 +1125,13 @@ expr_eval_action (scr_int token)
          * Resize text1 to be long enough for both, and concatenate, then
          * free text2, and push back the concatenation.
          */
-        text1 = (decltype(text1)) scr_realloc (text1, strlen (text1) + strlen (text2) + 1);
-        strncat (text1, text2, strlen (text2));
+        {
+          size_t used = strlen (text1);
+          size_t size = used + strlen (text2) + 1;
+
+          text1 = (decltype(text1)) scr_realloc (text1, size);
+          snprintf (text1 + used, size - used, "%s", text2);
+        }
         scr_free (text2);
         expr_eval_push_alloced_string (text1);
         break;

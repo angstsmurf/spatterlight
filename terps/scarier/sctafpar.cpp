@@ -1286,8 +1286,10 @@ parse_read_multiline (void)
   line = parse_get_taf_string ();
   while (memcmp (line, separator, SEPARATOR_SIZE) != 0)
     {
-      scr_char *grown = (scr_char *) scr_realloc (multiline.get (),
-                              strlen (multiline.get ()) + strlen (line) + 2);
+      /* Room for what is there, a newline, this line, and the terminator. */
+      size_t used = strlen (multiline.get ());
+      size_t size = used + strlen (line) + 2;
+      scr_char *grown = (scr_char *) scr_realloc (multiline.get (), size);
       /*
        * scr_realloc has freed the old block and returned the grown one; give
        * up ownership of the (now invalid) old pointer without freeing it, and
@@ -1296,8 +1298,7 @@ parse_read_multiline (void)
        */
       multiline.release ();
       multiline.reset (grown);
-      strncat (multiline.get (), "\n", 1);
-      strncat (multiline.get (), line, strlen (line));
+      snprintf (grown + used, size - used, "\n%s", line);
       line = parse_get_taf_string ();
     }
 
@@ -1955,10 +1956,18 @@ parse_write_restrmask (void)
       scr_int index_;
       size_t restrmask_size = parse_checked_multiply (restriction_count, 2);
 
+      /* "#" then "A#" per additional restriction: 2 * count bytes with the
+         terminator, which is exactly what was allocated above. */
+      size_t used = 1;
+
       restrmask = (decltype(restrmask)) scr_malloc (restrmask_size);
-      strncpy (restrmask, "#", restrmask_size);
+      restrmask[0] = '#';
+      restrmask[1] = '\0';
       for (index_ = 1; index_ < restriction_count; index_++)
-        strncat (restrmask, "A#", 2);
+        {
+          snprintf (restrmask + used, restrmask_size - used, "A#");
+          used += 2;
+        }
 
       parse_put_keyed_string ("RestrMask", restrmask);
       prop_adopt (parse_bundle, restrmask);
