@@ -579,7 +579,6 @@ There is a Forester Goblin hanging from a tree here.
 
 Serond follows you from the north-west.
 Serond shoots Forester Goblin with the oak staff.
-Forester Goblin shoots Serond with the bow and arrow.
 
 >You hit Forester Goblin with the magic cube.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
@@ -639,9 +638,10 @@ direction.
 The Longmore marsh king is here.
 
 Serond follows you from the south-east.
+Serond shoots Longmore king with the oak staff.
+Longmore king stabs Serond with the pointy stick.
 
 >You hit Longmore king with the magic cube.
-Serond shoots Longmore king with the oak staff.
 Longmore king stabs you with the pointy stick.
 
 >You hit Longmore king with the magic cube.
@@ -703,7 +703,6 @@ will take you along a path.
 There is an eagle above you circling around your head.
 
 Serond follows you from the west.
-Serond shoots Eagle with the oak staff.
 Eagle hits Serond.
 
 >You hit Eagle with the magic cube.
@@ -754,7 +753,8 @@ This long path threads through the mountains east or to a junction southwest.
 There is a Narn here.
 
 Serond follows you from the south-west.
-Kerfald hits Serond.
+Serond shoots Kerfald with the oak staff.
+Kerfald hits you, but it doesn't seem to do any damage.
 
 >You move east.
 Thin mountain path
@@ -832,7 +832,7 @@ take you up the mountain.
 There is a large Narn here.
 
 Serond follows you from the south-west.
-Serond shoots Karurn with the oak staff.
+You drop to the floor feeling very ill.
 Karurn hits Serond.
 
 >You move northwest.
@@ -842,7 +842,6 @@ are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.
 
 Serond follows you from the south-east.
-You drop to the floor feeling very ill.
 
 >You move northeast.
 Uron Dark Path
@@ -884,6 +883,7 @@ have brought a gift from Natalya."
 Haron hands you a phial.
 Serond shoots Larnt with the oak staff.
 Haron cuts Larnt with the elven sword.
+Larnt cuts you with the blade from Uron.
 
 >You hit Larnt with the magic cube.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
@@ -1027,14 +1027,14 @@ the South. He then smiles, and says:
 Serond follows you.
 
 Haron follows you.
-Serond shoots Urgorn with the oak staff.
 Haron cuts Urgorn with the elven sword.
-Urgorn shoots you with the ball of fire.
+Urgorn shoots Haron with the ball of fire.
 
 >You hit Urgorn with the magic cube.
 Serond shoots Urgorn with the oak staff.
 
 >You hit Urgorn with the magic cube.
+Serond shoots Urgorn with the oak staff.
 Haron cuts Urgorn with the elven sword.
 
 >You hit Urgorn with the magic cube.

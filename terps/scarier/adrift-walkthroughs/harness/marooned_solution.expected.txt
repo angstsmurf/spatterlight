@@ -159,8 +159,6 @@ In the jungle
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
 
-You hear the calls of exotic birds and the movements of unseen animals.
-
 >You move south.
 On a cliff
 
@@ -191,8 +189,6 @@ In the jungle
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
 
-You hear the calls of exotic birds and the movements of unseen animals.
-
 >You move west.
 In the jungle
 
@@ -204,6 +200,8 @@ Along the river
 
 This is a small river cutting through the heart of the jungle. You can easily
 ford it and it twists and turns all over the place.
+
+You hear the calls of exotic birds and the movements of unseen animals.
 
 >You move west.
 Along the river
@@ -332,6 +330,8 @@ ford it and it twists and turns all over the place.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
+You hear the calls of exotic birds and the movements of unseen animals.
+
 >You move east.
 In the jungle
 
@@ -363,8 +363,6 @@ You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
 
 Even though it is nighttime, you can dimly make out your surroundings.
-
-You hear the calls of exotic birds and the movements of unseen animals.
 
 >You move south.
 On a cliff
@@ -430,6 +428,8 @@ thick canopy of tropical plants and flowers.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
+You hear the calls of exotic birds and the movements of unseen animals.
+
 >You move west.
 In the jungle
 
@@ -453,8 +453,6 @@ This is a small river cutting through the heart of the jungle. You can easily
 ford it and it twists and turns all over the place.
 
 Even though it is nighttime, you can dimly make out your surroundings.
-
-You hear the calls of exotic birds and the movements of unseen animals.
 
 >You move west.
 Along the river
@@ -608,7 +606,7 @@ ford it and it twists and turns all over the place.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
-In the darkness you can hear the stirrings of nocturnal creatures.
+You hear the calls of exotic birds and the movements of unseen animals.
 
 >You move east.
 In the jungle
@@ -617,8 +615,6 @@ You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
 
 Even though it is nighttime, you can dimly make out your surroundings.
-
-You hear the calls of exotic birds and the movements of unseen animals.
 
 >You move east.
 In the jungle
@@ -653,8 +649,6 @@ a lot.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
-You begin to see the sky lighten with the approach of the sun.
-
 >You move south.
 On the lagoon shore
 
@@ -667,6 +661,8 @@ be a small cave on the outcropping.
 A shark is here in the water.
 
 Even though it is nighttime, you can dimly make out your surroundings.
+
+In the darkness you can hear the stirrings of nocturnal creatures.
 
 >
 You toss the gas can into the water and the shark darts for it. He circles it
@@ -697,16 +693,15 @@ thick canopy of tropical plants and flowers.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
-The sun is coming up now, and slowly the air warms with the rays of the new
-sun.
-
-It is now morning.
-
 >You move west.
 In the jungle
 
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+You begin to see the sky lighten with the approach of the sun.
 
 >You move north.
 In the jungle
@@ -714,13 +709,15 @@ In the jungle
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
 
+Even though it is nighttime, you can dimly make out your surroundings.
+
 >You move west.
 In the jungle
 
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
 
-You hear the calls of exotic birds and the movements of unseen animals.
+Even though it is nighttime, you can dimly make out your surroundings.
 
 >You move north.
 On eastern end of northern beach
@@ -732,12 +729,18 @@ not far from the shipping lanes.
 As you enter the area, a sickly sweet stench enters your nostrils.
 
 Also here is a pile of  trash.
+Even though it is nighttime, you can dimly make out your surroundings.
 
 >
 You move the trash around and realize that there is a dead seal under all of
 it.
 
 >You pick up the dead seal.
+
+The sun is coming up now, and slowly the air warms with the rays of the new
+sun.
+
+It is now morning.
 
 >You move south.
 In the jungle
@@ -756,6 +759,8 @@ In the jungle
 
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
+
+You hear the calls of exotic birds and the movements of unseen animals.
 
 >You move east.
 In the jungle
@@ -891,12 +896,6 @@ back and forth in the surf and gentle waves lap at the shore, giving no clue
 to the savage storm which landed you here.
 
 >Time passes...
-
-As you venture, the glow of the sun gently settles below the horizon, dabbing
-the sky with a breathtaking selection of reds, golds and oranges. It's
-starting to get dark now, and the stars are coming out.
-
-Night has fallen.
 
 The ship comes in closer to shore and sends out a couple of crew members in a
 lifeboat. You eagerly race into the surf and meet them. You collapse in their

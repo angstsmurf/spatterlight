@@ -123,6 +123,8 @@ you , huge clouds of flame light a pale orange ground , dispite the flaming
 clouds its very cold down here .
 
 You can move north, east and in.
+A streak of lightning flashes on the horizon and a whirl of flame spits from
+the sky where the lightning went down .
 
 >You move east.
 Near the cliff
@@ -140,8 +142,6 @@ have been cut but something . The only way to the main entrance is to climb
 up a cliff that would be suicide without equipment .
 
 You can only move south.
-A streak of lightning flashes on the horizon and a whirl of flame spits from
-the sky where the lightning went down .
 
 >(Your score has increased by 20)
 You climb the cliff but almost slip , you quickly recover with the pick in
@@ -166,6 +166,8 @@ are still illuminated for some reason .
 A small alien is here.
 
 You can move down and in.
+A streak of lightning flashes on the horizon and a whirl of flame spits from
+the sky where the lightning went down .
 A small alien hits you, but it doesn't seem to do any damage.
 
 >You move in.
@@ -266,6 +268,8 @@ to the main entrance of the building . west is the area that leads into a
 small tunnel .
 
 You can move north and west.
+A streak of lightning flashes on the horizon and a whirl of flame spits from
+the sky where the lightning went down .
 
 >You move north.
 On the catwalk
@@ -279,8 +283,6 @@ You can only move south.
 >You climb the cliff but almost slip , you quickly recover with the pick in
 the equipment . You make your way up and you are standing at the foot of the
 building .
-A streak of lightning flashes on the horizon and a whirl of flame spits from
-the sky where the lightning went down .
 
 >You move east.
 East of the main entrance

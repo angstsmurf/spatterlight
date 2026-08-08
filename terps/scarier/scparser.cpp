@@ -269,7 +269,7 @@ uip_current_token_value (void)
 typedef enum
 {
   NODE_UNUSED = 0,
-  NODE_CHOICE, NODE_OPTIONAL, NODE_WILDCARD, NODE_WHITESPACE,
+  NODE_CHOICE, NODE_OPTIONAL, NODE_WILDCARD, NODE_WHITESPACE, NODE_JOIN,
   NODE_CHARACTER_REFERENCE, NODE_OBJECT_REFERENCE, NODE_TEXT_REFERENCE,
   NODE_NUMBER_REFERENCE, NODE_WORD, NODE_VARIABLE, NODE_LIST, NODE_EOS
 } scr_pttype_t;
@@ -289,6 +289,14 @@ static scr_uip_tok_t uip_parse_lookahead = TOK_NONE;
 
 /* Parse error jump buffer. */
 static jmp_buf uip_parse_error;
+
+/*
+ * Nesting depth of [...] and {...} groups currently being parsed.  A "/" is
+ * an alternatives separator only inside a group; at depth zero run400 has no
+ * notion of it at all and treats it as an ordinary literal character (see
+ * uip_parse_list()).
+ */
+static scr_int uip_parse_group_depth = 0;
 
 /* Parse tree for cleanup, and forward declaration of pattern list parser. */
 static scr_ptnoderef_t uip_parse_tree = (scr_ptnoderef_t) NULL;
@@ -578,7 +586,9 @@ uip_parse_element (void)
       /* Parse a [...[/.../...]] choice. */
       uip_parse_match (TOK_CHOICE);
       node = uip_new_node (NODE_CHOICE);
+      uip_parse_group_depth++;
       uip_parse_alternatives (node);
+      uip_parse_group_depth--;
       uip_parse_match (TOK_CHOICE_END);
       break;
 
@@ -586,9 +596,27 @@ uip_parse_element (void)
       /* Parse a {...[/.../...]} optional element. */
       uip_parse_match (TOK_OPTIONAL);
       node = uip_new_node (NODE_OPTIONAL);
+      uip_parse_group_depth++;
       uip_parse_alternatives (node);
+      uip_parse_group_depth--;
       uip_parse_match (TOK_OPTIONAL_END);
       break;
+
+    case TOK_ALTERNATES_SEPARATOR:
+      {
+        /*
+         * A "/" outside any group.  Only reachable from uip_parse_list()
+         * at depth zero, where it is a literal character rather than a
+         * separator; make a word node for it.
+         */
+        scr_char *word;
+
+        word = uip_new_word ("/");
+        uip_parse_match (TOK_ALTERNATES_SEPARATOR);
+        node = uip_new_node (NODE_WORD);
+        node->word = word;
+        break;
+      }
 
     case TOK_WILDCARD:
     case TOK_CHARACTER_REFERENCE:
@@ -683,9 +711,22 @@ uip_parse_list (scr_ptnoderef_t list)
         {
         case TOK_CHOICE_END:
         case TOK_OPTIONAL_END:
-        case TOK_ALTERNATES_SEPARATOR:
           /* Terminate list building and return. */
           return;
+
+        case TOK_ALTERNATES_SEPARATOR:
+          /*
+           * Inside a group, this ends the current alternative.  Outside one
+           * it is not a separator at all -- run400's matcher only ever looks
+           * for "/" between [] or {} delimiters, so a bare "take/get/eat
+           * stew" is a single literal that matches only itself.  Fall into
+           * the default case, which makes a literal "/" word node.  (Before
+           * this, the list was terminated here *without* a NODE_EOS, so the
+           * pattern degenerated to "take" and prefix-matched anything.)
+           */
+          if (uip_parse_group_depth > 0)
+            return;
+          /* Fall through. */
 
         case TOK_EOS:
           /* Place EOS at the appropriate link and return. */
@@ -708,17 +749,31 @@ uip_parse_list (scr_ptnoderef_t list)
             {
               /*
                * Make a special case of a choice or option next to another
-               * choice or option.  In this case, add an (invented) whitespace
-               * node, to ensure a match with suitable input.
+               * choice or option.  In this case, add an (invented) join node,
+               * which matches a space if one is there but is happy without
+               * one, to ensure a match with suitable input.
+               *
+               * Both halves of that matter.  "[open/pull/push]{the}{wooden}
+               * [door]" has no spaces in it at all, yet has to match "open
+               * door" and "open the door" -- so a space between groups must be
+               * allowed.  But ADRIFT authors also build single words out of
+               * adjacent groups, with no separator intended: ImagiDroids has
+               * "{move/run/walk/go/climb} {to/towards} {the} [d/out/in]{own}"
+               * (d, down, out, in) and "[s]{outh}{ /-}[w]{est}", where the
+               * explicit "{ /-}" for the space in "south west" is the proof
+               * that adjacency alone does not imply one.  This node used to be
+               * a plain NODE_WHITESPACE, which insisted on a space or a word
+               * boundary, so "north" never matched "[n]{orth}" and the game's
+               * own published walkthrough could not leave the first room.
                */
               if ((child->type == NODE_OPTIONAL || child->type == NODE_CHOICE)
                   && (node->type == NODE_OPTIONAL || node->type == NODE_CHOICE))
                 {
-                  scr_ptnoderef_t whitespace;
+                  scr_ptnoderef_t join;
 
-                  /* Interpose invented whitespace. */
-                  whitespace = uip_new_node (NODE_WHITESPACE);
-                  child->right_sibling = whitespace;
+                  /* Interpose invented optional whitespace. */
+                  join = uip_new_node (NODE_JOIN);
+                  child->right_sibling = join;
                   child = child->right_sibling;
                 }
 
@@ -783,6 +838,9 @@ uip_debug_dump_node (scr_ptnoderef_t node, scr_int depth)
           break;
         case NODE_WHITESPACE:
           scr_trace (", whitespace");
+          break;
+        case NODE_JOIN:
+          scr_trace (", join");
           break;
         case NODE_CHARACTER_REFERENCE:
           scr_trace (", character");
@@ -1027,6 +1085,19 @@ uip_match_whitespace (void)
 
   /* No match.  Really. */
   return FALSE;
+}
+
+/*
+ * Optional whitespace, invented between two adjacent [] or {} groups.  Eat a
+ * space if one is present, but never fail -- see uip_parse_list().
+ */
+static scr_bool
+uip_match_join (void)
+{
+  while (uip_string[uip_posn] != NUL && scr_isspace (uip_string[uip_posn]))
+    uip_posn++;
+
+  return TRUE;
 }
 
 static scr_bool
@@ -1805,6 +1876,9 @@ uip_match_node (scr_ptnoderef_t node)
     case NODE_WHITESPACE:
       match = uip_match_whitespace ();
       break;
+    case NODE_JOIN:
+      match = uip_match_join ();
+      break;
     case NODE_LIST:
       match = uip_match_list (node);
       break;
@@ -1955,6 +2029,7 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
         {
           /* Parse the pattern into a match tree. */
           uip_parse_lookahead = uip_next_token ();
+          uip_parse_group_depth = 0;
           uip_parse_tree = uip_new_node (NODE_LIST);
           uip_parse_list (uip_parse_tree);
           uip_tokenize_end ();

@@ -1,0 +1,1191 @@
+Loading game...
+
+The Cellar
+
+The Cellar
+
+Written by David Whyld
+with ADRIFT Version 4, Release 46
+
+From the Lovecraft Commonplace Book:
+
+"Man's body dies - but
+corpse retains life. Stalks
+about - tries to conceal
+odour of decay - detained
+somewhere - hideous climax."
+
+"And you're never to go into the cellar, Nevare!"
+
+"Yes, father."
+
+"Never, you understand! If I ever find you've gone down there-"
+
+"Yes, father."
+
+"Good, Nevare. I knew I could trust you. You're a good boy."
+
+But now your father is away on business and you're all alone in the house.
+And you know where he keeps the key to the cellar.
+
+The Cellar
+
+This is my entry to the H. P. Lovecraft Commonplace Book & Exhibit. As 11th
+June 2007, this {version 1} is the latest version of the game. It and any
+future versions can be found at:
+
+http://www.shadowvault.net/thecellar.htm
+
+The Cellar was written with ADRIFT Version 4, Release 46. Earlier or later
+Releases of the ADRIFT Runner will probably play the game perfectly fine, but
+just to be on the safe side you're best using this Release. If you don't have
+it, you can find it at
+
+http://www.shadowvault.net/adriftfiles.htm
+
+(Double-clicking the links ought to take you to the relevant locations.)
+
+To check which version of the Runner you have, type version.
+
+General game information: size 24 Kb; rooms 5; objects 53; tasks 141
+
+If you like the game, feel free to contact me at dwhyld@gmail.com and let me
+know.
+
+David Whyld
+
+l l l Father's Room l l l
+
+A sturdy oak table has been placed in the dead centre of your father's room,
+its weight enough to make the floorboards creak and groan late at night.
+There are papers scattered across the table's surface, each covered with your
+father's tight, meticulous writing. A bed beneath the window is where he
+sleeps; it seems small, much too small for his large frame. A door to the
+east leads to the hallway at the top of the stairs. In an alcove in one wall
+are your father's collection of journals.
+
+In a box under the bed, that's where your father keeps the key. You should
+grab it and quickly. He won't return for many hours... but even so, it never
+pays to take chances.
+
+>You are Nevare. 11 years old. A quiet, solitary boy who lives with his father
+in a dusty old house in the middle of nowhere. You don't have many friends
+and have taken to exploring the house and grounds on days when you have
+little to do... which is often.
+
+>You are carrying nothing of any great importance.
+
+>On your hands and knees, you peer under the bed and see an old wooden box,
+dusty and crumpled.
+
+>There is not enough room to open the box while it is still under the bed.
+
+>You tug the box out from under the bed but it is in too poor a condition to
+be lifted without breaking apart.
+
+>The box would tear apart if you were to attempt to pick it up.
+
+>You move it slightly away from the wall but it is too heavy to move far.
+
+>Almost choking on the dust, you open the box. It is, frustratingly, empty.
+
+It seems your father has found a better hiding place for the key to the
+cellar.
+
+>You move it slightly away from the wall but it is too heavy to move far.
+
+>
+
+l l l Father's Room l l l
+
+A sturdy oak table has been placed in the dead centre of your father's room,
+its weight enough to make the floorboards creak and groan late at night.
+There are papers scattered across the table's surface, each covered with your
+father's tight, meticulous writing. A bed beneath the window is where he
+sleeps; it seems small, much too small for his large frame. There is a dusty
+box by the side of the bed. A door to the east leads to the hallway at the
+top of the stairs. In an alcove in one wall are your father's collection of
+journals.
+
+>You glance at the papers...
+
+"... lost Penwright today. Bad omen for the rest of the expedition. Expected
+he would outlast us all but it wasn't to be. But we are optimistic of our
+chances for success in our endeavour. Gavin believes we should press on with
+all speed, that the village cannot be far away. I am more hesitant. Penwright
+was a good man, he should be given a decent burial, yet is it possible to
+bury a man in this godforsaken marsh? Clarkson proposed bringing the body
+with us but that idea was quickly passed on when the thought of trekking
+around darkest Africa with a corpse in our possession was raised. And we
+cannot turn back now, not when we are so close...
+
+"In the end, we buried Penwright as best we could. Simonson said a few words.
+I laid Penwright's pipe on top of the stones we piled over his grave. Gavin
+said we would miss the gruff old fellow.
+
+"We continue. The village cannot be far..."
+
+>You glance at the papers...
+
+"... lost Penwright today. Bad omen for the rest of the expedition. Expected
+he would outlast us all but it wasn't to be. But we are optimistic of our
+chances for success in our endeavour. Gavin believes we should press on with
+all speed, that the village cannot be far away. I am more hesitant. Penwright
+was a good man, he should be given a decent burial, yet is it possible to
+bury a man in this godforsaken marsh? Clarkson proposed bringing the body
+with us but that idea was quickly passed on when the thought of trekking
+around darkest Africa with a corpse in our possession was raised. And we
+cannot turn back now, not when we are so close...
+
+"In the end, we buried Penwright as best we could. Simonson said a few words.
+I laid Penwright's pipe on top of the stones we piled over his grave. Gavin
+said we would miss the gruff old fellow.
+
+"We continue. The village cannot be far..."
+
+>Your father only lets you peruse his journals when he is present, and he has
+an uncanny knack of knowing when you have studied them in his absence.
+
+>You see nothing more interesting than the floor.
+
+>You see nothing special about the floor.
+
+>You cannot move the floorboards.
+
+>The floorboards are a little dusty but you see nothing of interest about
+them.
+
+>You cannot move the floorboards.
+
+>The walls aren't as ordinary as you'd expect them to be.
+
+>You examine the ceiling but see nothing special about it.
+
+>The bed seems shorter than you would expect considering your father's height,
+but if he has any complaints about the size of his bed he never voices them
+to you.
+
+>You see no such thing.
+
+>You see no such thing.
+
+>The window is nailed shut (making the room unbearably stuffy in summer), as
+is every other window in the house. You once asked your father what the
+reason for this was and he mumbled something vague about "security" and then
+would say no more.
+
+>The door is pretty much standard as far as doors go.
+
+>You don't need to concern yourself with opening or closing the door.
+
+>You see no such thing.
+
+>
+
+l l l Father's Room l l l
+
+A sturdy oak table has been placed in the dead centre of your father's room,
+its weight enough to make the floorboards creak and groan late at night.
+There are papers scattered across the table's surface, each covered with your
+father's tight, meticulous writing. A bed beneath the window is where he
+sleeps; it seems small, much too small for his large frame. There is a dusty
+box by the side of the bed. A door to the east leads to the hallway at the
+top of the stairs. In an alcove in one wall are your father's collection of
+journals.
+
+>Not so much an alcove as a slight depression in the wall, barely deep enough
+to step into.
+
+>There's no point in leaving before you've found the key.
+
+>The walls aren't as ordinary as you'd expect them to be.
+
+>You can't touch the floorboards.
+
+>You can't touch the walls.
+
+>The bed seems shorter than you would expect considering your father's height,
+but if he has any complaints about the size of his bed he never voices them
+to you.
+
+>You can't touch that.
+
+>You are carrying nothing of any great importance.
+
+>The box is open but there is nothing inside.
+
+>You see no such thing.
+
+>I don't understand what you want me to do with the box.
+
+>The box is open but there is nothing inside.
+
+>You close the dusty box up.
+
+>The box is closed, its contents hidden from you.
+
+>Almost choking on the dust, you open the box. It is, frustratingly, empty.
+
+It seems your father has found a better hiding place for the key to the
+cellar.
+
+>You see no such thing.
+
+>You close the dusty box up.
+
+>The bed cannot be taken.
+
+>Now is not the time. You need to find the key before your father returns.
+
+>Once lavishly-bound, now the years have begun to take their toll on these
+journals and they are a pale shadow of their former self. For the most part,
+they detail your father's exploration of Africa and his findings there,
+delivered in somewhat tight and unflattering prose. Your father was, after
+all, an historian and not a storyteller.
+
+>Once lavishly-bound, now the years have begun to take their toll on these
+journals and they are a pale shadow of their former self. For the most part,
+they detail your father's exploration of Africa and his findings there,
+delivered in somewhat tight and unflattering prose. Your father was, after
+all, an historian and not a storyteller.
+
+>You cannot move the journals.
+
+>Numerous papers, marked by your father's meticulous handwriting.
+
+>You cannot move the papers.
+
+>Numerous papers, marked by your father's meticulous handwriting.
+
+>Father would not be happy if he discovered you had taken his papers.
+
+>The table is too heavy for you to move.
+
+>You can't stand on the table.
+
+>You can't stand on the bed.
+
+>On your hands and knees, you peer under the bed and see a dusty space.
+
+>You see no such thing.
+
+>You see no such thing.
+
+>You see no such thing.
+
+>You can't open the table!
+
+>One of the table's legs seems slightly shorter than the others and has been
+propped up with some cloth wadded beneath it.
+
+>It looks to have been torn from some clothing and wadded under the table leg
+to make it the same length as the others.
+
+>You tug it out from under the table, and a key tumbles free.
+
+A-ha! The key to the cellar! Your father is certainly improving when it comes
+to concealing things from you.
+
+You scoop it up and slip it into your pocket.
+
+>An unmarked key, cold to the touch.
+
+>Clutching the key, you leave the room.
+
+[MORE]
+
+Down the stairs you go, into the kitchen, past the old stove which seldom
+works and emits foul clouds of smoke when it does, to the cellar door. You
+experience a momentary... anxiety? Fear? Dread? It's hard to say. You've been
+in the cellar before, many times in fact, but not since your father returned
+from his last trip to Africa, not since the untimely demise of your uncle,
+and not since your father insisted you not enter the cellar...
+
+You hesitate. You've always been a good boy. You've always done what your
+father commanded. And the cellar is creepy...
+
+But like all boys, you burn with curiosity. Deny you something, even
+something you're not bothered about, and attaining it becomes all important.
+Curiosity is not something you can ignore.
+
+So you insert the key in the lock, unlock the door, open the door, and head
+into the cellar before you can change your mind.
+
+[MORE]
+
+l l l Cellar l l l
+
+Dimly-lit, the cellar is a place of shadows and darkness. A single bulb hangs
+from the ceiling, swinging back and forth in a light breeze that is clearly
+present but which you cannot feel. Dust stirs beneath your feet with every
+tread.
+
+The cellar extends to the north along a dusty passageway which slopes
+downwards. There are old barrels, themselves little more than dust, in one
+corner. Steps lead upwards.
+
+>You see no such thing.
+
+>At one time these barrels contained beer, but they are now bone dry.
+
+>It it nothing more than dust.
+
+>The light is already on.
+
+>There is a light breeze blowing through the cellar but you are unable to tell
+where it is coming from.
+
+>To the north you walk, following the dusty passageway as it winds into the
+depths of the cellar. It seems to take a while, far longer than you remember
+it taking from the last time you were down here. The darkness encroaches on
+you at all times, and there are often moments when you feel certain that
+something, just out of the corner of your eye, is following you. Of course,
+there is nothing there but for a moment...
+
+You turn a bend in the passageway and find yourself in a larger room, one you
+do not remember from before. Is it new? One your father has had made without
+telling you about?
+
+The bed in the centre of the room, and the thing lying upon, are certainly
+new.
+
+[MORE]
+
+l l l Hidden Chamber l l l
+
+This room, unknown to you before today, is lit so poorly as to make seeing
+anything beyond the end of your nose a trying task. Nevertheless, you can
+discern the outline of a bed in the centre of the room, and perhaps a row of
+cabinets around it, but it is the... the thing lying on the bed that draws
+your attention. Seen barely in the dismal light, it is a grotesque mockery of
+a man, bloated and distorted, pale flesh spotted with tufts of coarse hair.
+
+The thing stirs. It's too dark to tell for certain, but you feel, or sense,
+it turning to look at you.
+
+"Ah... a visitor..." The voice is a croak. A harsh whisper. A pained grunt.
+"So rare these days. Step forward, boy. Let me see what you look like."
+
+You don't obey. Not consciously at least. You're too terrified. Yet something
+in the thing's voice compels you and you take a step forward all the same.
+
+"Well, well," it murmurs. "This is a pleasant surprise." The thing leans
+forward slightly and its face, barely recognisable as human, moves into the
+light. "Hello, nephew."
+
+You stare in dismay at your Uncle Gavin.
+
+>To say he has changed from when you last saw him would be a terrible
+understatement. He seems like a different man, though sickly and deformed. It
+is hard to picture the way he is now with the man you remember from your
+childhood.
+
+>It is hard to focus on the bed. Your attention is constantly drawn to the...
+the thing on top of it.
+
+>"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
+in them."
+
+>You say-
+
+"I've a story to tell you, Nevare," says your uncle, interrupting you. "A...
+horror story, if you will. But a true one all the same. Then again..." A soft
+laugh. "It features me so what else could be but a horror story? Do you want
+to hear what I have to say?"
+
+You don't. You are as curious as ever but right now, standing so close to
+this... this thing which used to be your uncle, the last thing you want to
+hear is a horror story.
+
+"I sense your... hesitation. Your reluctance. You consider yourself a brave
+little boy, don't you, Nevare? But seeing me like this, seeing what has
+become of me following my little... misadventure in Africa, you find yourself
+wanting to run away." There is disappointment in your uncle's tone.
+Disappointment... and anger. "Tell me, have you read of what befell
+Penwright?"
+
+You nod numbly. You remember what you read in the papers in your father's
+room, but weren't sure whether-
+
+"It is true, every word of it. I see the doubt in your eyes, Nevare. Good.
+You're a clever boy to not accept everything at face value. Only a fool
+blindly obeys. Only a fool…" The thing on the bed shakes its deformed head.
+"Only a fool would end up like I have done. Tell me, boy, do you believe in
+evil? Evil as an actual force? As a being who lives the same as you or I?"
+
+The question startles you. The sheer… absurdity of it. And no, you're eleven
+years old. You've never considered such things.
+
+"You should understand there are things in this world that defy
+comprehension, Nevare. There are things… things that I, even looking as I do
+now, even after having undergone the… the transformation that I have
+undergone… things that I fear. I came across one such being on the expedition
+with your father and Penwright and Clarkson and Simonson. I came face to face
+with evil in its purest form. What you see now, nephew,"  a mottled hand
+gestures to the rest of the thing lying on the bed, "is what happened to me
+because of it. I looked evil in the face and evil looked back at me."
+
+There are moments of silence following this, moments which build into
+minutes. The thing on the bed - your uncle, you remind yourself, but the
+image you have in your mind of Gavin Crayson is so different from what you
+see before you that you cannot reconcile the two - breathes in and out,
+painfully it seems. It exudes a stench which makes your nose curl and your
+stomach groan, yet you keep any outward expression from showing. Not through
+manners, though.
+
+Through fear.
+
+"I shall tell you what happened to me, Nevare," says the thing/your uncle.
+"It is right that you know. Your father… he wanted to launch a second
+expedition when the first one failed. Despite what had befallen his only
+brother, he wanted to go back out there. One day, when you're older, he'll
+probably invite you. Look at me, boy. LOOK AT ME! And when he invites you,
+tell him no! Tell him! Lest you end up like me."  Your uncle's face looms
+briefly into the light then recedes again. "But first… first I desire…
+sustenance… Go to the kitchen… Find me something to… something to eat,
+Nevare. Something... palatable..." The thing laughs harshly. "Something I
+would find palatable. Go..."
+
+The voice trails off, becoming weaker and quieter, until you suspect your
+uncle has fallen asleep.
+
+You creep from the chamber.
+
+[MORE]
+
+l l l Kitchen l l l
+
+The kitchen is simple and sparsely-furnished. There are the usual appliances
+here, many old and scratched though still workable: a stove, an ancient oven.
+You see a sink and a counter top where food is prepared. You see a fridge
+which chugs away to itself in the corner.
+
+And then you see the door leading down into the cellar.
+
+>The fridge is overly large and seems to loom over everything else in the
+kitchen. You're not sure that yourself and your father, neither of you big
+eaters, need a fridge this large and it's seldom fully stocked in any event.
+It is closed.
+
+>You open the fridge. There is a single egg inside. Your father clearly does
+not intend you to overfeed yourself in his absence.
+
+>The egg appears to have gone off. It was perhaps fresh and edible several
+weeks ago but now it is the sort of thing that you couldn't force down if you
+were starving.
+
+>You take the egg out of the fridge.
+
+>You close the fridge.
+
+>A little battered, a little rusty and in desperate need of a good clean. It's
+a little disheartening to think that all your meals are prepared here.  The
+ancient oven is closed.
+
+>You open the ancient oven. There is a cob inside, probably left there by your
+father sometime ago and then forgotten about. It looks barely edible.
+
+>Bits of mould have begun to turn the cob an unsightly greenish shade. The
+thought of eating it makes your stomach cringe.
+
+>You take the cob out of the oven.
+
+>You close the ancient oven.
+
+>It's seldom your father cooks food with the stove and the light smattering on
+dust on it indicates it. You suspect it is many months, if not years, since
+it was last switched on.  There is a sandwich on the stove, left for you
+there by your father.
+
+>An edible sandwich left for you by your father. You don't know what he puts
+in the sandwiches he makes, but they all carry an unpleasant smell.
+
+>[smell a sandwich]
+The sandwich smells normal.
+
+>You take the sandwich.
+
+>The sink is far from clean. You are a little horrified to realise just how
+dirty the place where your father prepares his (and your!) meals is.
+
+>You see no such thing.
+
+>Sorry. That is not understood.
+
+>Clutching the food in hand, you head down the cellar steps.
+
+[MORE]
+
+Your uncle raises an eyebrow as you show him what you have bought. You are
+worried that he will not like it, that he will shout at you, that-
+
+But he reaches out, takes what you have given him, and swallows it down
+without chewing. "Delicious," he murmurs, licking his lips. "Once I would
+have felt ill at the very prospect of eating such food but now… now I feel
+alive…" His eyes close for several seconds then he murmurs, "my story."
+
+He doesn't say anything else for long minutes, simply lies there, staring at
+the ceiling, and breathes in and out deeply. His breathing is harsh and
+ragged, the breathing of a sick man.
+
+But then he begins to speak, slowly at first, then gathering momentum as he
+tells of what befell him and the fateful expedition to Africa…
+
+[MORE]
+
+Uncle Gavin's Story
+{part 1}
+
+The four of us continued at a good pace. I led, your father brought up the
+rear, and Simonson and Clarkson walked between, talking quietly amongst
+themselves. They seemed ill-inclined to continue and many times I heard them
+mention the idea of simply turning back.
+
+That night we made camp in a dried river bed. We ate a meal of beef jerky and
+washed it down with water which tasted foul, even though we had drawn it
+fresh from a river that very morning. Simonson insisted this was because the
+land was cursed and that we, continuing as we did, were cursed also. Your
+father told him not to be a fool, that there was no such thing as curses and
+then Clarkson, who I had never known to argue with your father before, said
+that he had spoken to a coloured man in Jiman who had forecast our expedition
+would fail and that Penwright would be the first of us to die. None of us
+were really sure what to make of that and so your father ordered Clarkson to
+desist in his foolishness. Nothing more was said on the subject.
+
+We slept poorly that night. I perhaps managed an hour but every time I seemed
+about to slip off, something awoke me. A sound, a perceived movement, a
+feeling that something was wrong.
+
+I awoke in an ill temper the next day but my anger quickly turned to dread
+when only three of us crawled from our beddings. When your father nudged
+Clarkson to see if he was merely a heavier sleeper than we had assumed, we
+discovered he was dead.
+
+[MORE]
+
+You are breathless as your uncle's labouring voice falls silent. The only
+sounds remaining in the chamber are the sounds of him shifting uncomfortably
+on the bed.
+
+"Not a pleasant tale, is it, Nevare?" he murmurs once, then says nothing
+more.
+
+>You are carrying nothing of any great importance.
+
+>Interesting.
+
+>"Are you ready for the next part, nephew? Ready to hear what happened when we
+ventured further? Ready to know... know the truth?"
+
+A simple question. Requiring a simple answer.
+
+>"No? Ah, Nevare. You are assuming you have a choice in the matter..."
+
+[MORE]
+
+Uncle Gavin's Story
+{part 2}
+
+We buried Clarkson in the river bed as best we could, piling stones atop him.
+Simonson raised the issue again that we should turn back and I was all for
+agreeing with him, but your father was obstinate that we continue. He said
+that to turn back now would make the sacrifices of Penwright and Clarkson in
+vain and that it was in their good name that we go on. I wondered at the word
+'sacrifices' but didn't wish to cause friction between your father and
+Simonson so I held my peace. In the end, as I knew would happen, Simonson
+bowed to your father's determined stance and we pressed on.
+
+The weather turned cold. Frighteningly cold. We had ill prepared for it,
+assuming that Africa, in the height of summer, would be a hot place. We
+suffered for our poor planning. Again, Simonson raised the issue of us
+turning back and he and your father came close to shouting at each other on
+many occasions. I acted as a go between, though my feelings on the subject
+were that turning back would be a good idea indeed. I think the only thing
+that kept me from doing so was that I had always admired your father, Nevare,
+and had sought for a good part of my adult life to emulate him. To be him, if
+you will. Turning back - worse still, siding with Simonson against your
+father - would have been an admission that I wasn't cut from the same cloth
+as he was. So I acted as the go between to calm down tempers and in that way
+we pressed on further.
+
+We should have reached the village the following day. It was marked on our
+maps, unclearly but marked all the same, yet we reached the area where it was
+reputed to lie and found ourselves in a dusty valley. If a village had ever
+stood anywhere within that valley, we could find no trace of it.
+
+Yet the valley was not entirely deserted. There was one person waiting for us
+when we arrived at its far end and his presence placed a cold chill in my
+heart.
+
+It was Penwright.
+
+[MORE]
+
+"Penwright."
+
+You didn't realise your uncle had finished speaking at first. The final word
+- the name of the dead man who was still moving - echoes around the chamber
+and, finally, you blink and come back to yourself.
+
+"Was he dead or alive? It was hard to tell."
+
+You want to ask a question but your mouth is dry. You cannot speak.
+
+Your uncle groans. "I am weary, boy. All this talking, it... tires me so.
+Fetch me my satchel."
+
+You stand there, unmoving.
+
+"In your father's study. He keeps it there. He keeps it..." A sigh. "I forget
+where, but I know it is in there. Fetch it for me and return. Go."
+
+On shaking legs, you flee the chamber.
+
+[MORE]
+
+l l l Study l l l
+
+Your father's study is actually used as a reading room, hence the many thick
+tomes on shelves around the walls. He often retires here at night to read,
+though his choice of reading materials seems strange and bewildering to you.
+Needless to say, you are forbidden to read from any of the books in here and
+the door is kept locked for most of the time. A chair by the window is where
+your father sits to read, though the appalling creaking sound it makes at the
+lightest touch is enough to set your teeth on edge. There is a door to the
+east.
+
+>The chair is a horribly creaky affair, prone to emitting a sound not unlike a
+screech when someone seats themselves in it. Why your father does not replace
+it with a better one you cannot say.
+
+However, tucked under it you discover the satchel your uncle sent you for.
+You snatch it up quickly, disliking how clammy it feels to your touch.
+
+>The satchel is old and worn, though still whole. It was once white, yet the
+years have treated it unkindly, leaving it now a filthy brown colour.
+
+>[open a satchel]
+You fumble with the satchel but can find no way of opening it.
+
+>The chair is creaky and the sound it makes chills you. You have no desire to
+sit in it.
+
+>Ancient books, some of them first editions, all of them worth a fortune in
+the right hands. Your father has spent his lifetime collecting them, though
+seldom seems to read them. For him, owning them is enough.
+
+>The only exit is to the east.
+
+>Clutching the satchel, you return to the cellar.
+
+[MORE]
+
+Your uncle stirs as you step into the chamber. His eyes are dark holes in his
+face but they seem to lighten slightly as he sees what you have.
+
+"Ah, my satchel," he murmurs. "And unopened, too. Good. Curiosity is a
+terrible thing, Nevare. I was curious once and look what happened to me. Hand
+me the satchel, boy."
+
+You hesitantly reach out and hand your uncle the satchel. He says nothing of
+your reluctance to approach him but instead takes the satchel and puts it to
+one side of him. He does not open it.
+
+"Do you wish to hear the next part of my sad little tale?" he asks, and
+before you have chance to reply, he continues.
+
+[MORE]
+
+Uncle Gavin's Story
+{part 3}
+
+Yes, Penwright. But… changed.
+
+He had always been a large fellow, hefty and strong, yet now he seemed larger
+still. He must have been seven feet tall, and his shoulders bulged more
+massively than ever. But it was his complexion, his very skin, which chilled
+me. It was grey. And cold. His eyes were lifeless orbs.
+
+He spoke to us. I don't recall all the words. He told us that we were fools
+to come here, that the secrets we sought were not ours to know and that
+instead of life eternal we would be cursed with death if we did not turn
+back.
+
+Simonson dropped his pack and fled. I suspect I would have done the same yet
+the appearance of a man I knew full well to be dead froze me on the spot. I
+could not move.
+
+Your father, incredibly, took a step towards the living corpse. He said, "we
+are here and we demand what is rightfully ours." I remember the words well.
+They were the words which damned me.
+
+The thing that was Penwright but which was now something… different… took a
+step towards your father. It lifted an arm and pointed at him. It said, "go."
+
+Your father stood firm.
+
+The thing seemed to laugh at him. At least I gather that the hideous croaking
+sound was a laugh. It then said, "then you shall suffer the consequences."
+
+But when the thing pointed with its gnarled finger, it was not your father it
+pointed at.
+
+It was me.
+
+[MORE]
+
+"It was me..."
+
+You wait, expecting your uncle to continue. You're horrified by what he has
+told you, you're seeing a side to your father that you never imagined existed
+before today, you're hearing things that revolt you... and yet, at the same
+time, you find yourself clammering to hear what he might say next.
+
+But he falls silent and again the only sound in the chamber is his laboured
+breathing.
+
+>To say he has changed from when you last saw him would be a terrible
+understatement. He seems like a different man, though sickly and deformed. It
+is hard to picture the way he is now with the man you remember from your
+childhood.
+
+>Time passes...
+
+>Open what?
+
+>"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
+in them."
+
+>"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
+in them."
+
+>You start to ask a question - about what happened next to your father and
+your uncle during the expedition - but Uncle Gavin groans and turns painfully
+to one side.
+
+"It... hurts..." he says, and his voice, always a croak, now seems worse than
+ever. "Your father tells me I am wrong, that my nerves are as decayed as the
+rest of me and that they do not function well enough to convey pain. He says
+it is all in my mind. And yet... YET IT HURTS!" he hisses, the loudest you
+have heard him yet. "IT BURNS AT ME! IT EATS MY INSIDES! IT... IT... it..."
+His strength fades and for several seconds he is silent, gasping hoarsely for
+breath. Then he says, "it is my gift and my curse rolled into one, I am told.
+Though I find it hard to imagine what gift there can be in being like this."
+
+"I should go," you say, suddenly wishing you were anywhere but here.
+
+"You should." Your uncle sucks in a deep breath then expels it painfully.
+"But then you won't hear the end of my tale, will you?"
+
+>"No? Ah, Nevare. You are assuming you have a choice in the matter..."
+
+[MORE]
+
+Uncle Gavin's Story
+{part 2}
+
+We buried Clarkson in the river bed as best we could, piling stones atop him.
+Simonson raised the issue again that we should turn back and I was all for
+agreeing with him, but your father was obstinate that we continue. He said
+that to turn back now would make the sacrifices of Penwright and Clarkson in
+vain and that it was in their good name that we go on. I wondered at the word
+'sacrifices' but didn't wish to cause friction between your father and
+Simonson so I held my peace. In the end, as I knew would happen, Simonson
+bowed to your father's determined stance and we pressed on.
+
+The weather turned cold. Frighteningly cold. We had ill prepared for it,
+assuming that Africa, in the height of summer, would be a hot place. We
+suffered for our poor planning. Again, Simonson raised the issue of us
+turning back and he and your father came close to shouting at each other on
+many occasions. I acted as a go between, though my feelings on the subject
+were that turning back would be a good idea indeed. I think the only thing
+that kept me from doing so was that I had always admired your father, Nevare,
+and had sought for a good part of my adult life to emulate him. To be him, if
+you will. Turning back - worse still, siding with Simonson against your
+father - would have been an admission that I wasn't cut from the same cloth
+as he was. So I acted as the go between to calm down tempers and in that way
+we pressed on further.
+
+We should have reached the village the following day. It was marked on our
+maps, unclearly but marked all the same, yet we reached the area where it was
+reputed to lie and found ourselves in a dusty valley. If a village had ever
+stood anywhere within that valley, we could find no trace of it.
+
+Yet the valley was not entirely deserted. There was one person waiting for us
+when we arrived at its far end and his presence placed a cold chill in my
+heart.
+
+It was Penwright.
+
+[MORE]
+
+"Penwright."
+
+You didn't realise your uncle had finished speaking at first. The final word
+- the name of the dead man who was still moving - echoes around the chamber
+and, finally, you blink and come back to yourself.
+
+"Was he dead or alive? It was hard to tell."
+
+You want to ask a question but your mouth is dry. You cannot speak.
+
+Your uncle groans. "I am weary, boy. All this talking, it... tires me so.
+Fetch me my satchel."
+
+You stand there, unmoving.
+
+"In your father's study. He keeps it there. He keeps it..." A sigh. "I forget
+where, but I know it is in there. Fetch it for me and return. Go."
+
+On shaking legs, you flee the chamber.
+
+[MORE]
+
+l l l Study l l l
+
+Your father's study is actually used as a reading room, hence the many thick
+tomes on shelves around the walls. He often retires here at night to read,
+though his choice of reading materials seems strange and bewildering to you.
+Needless to say, you are forbidden to read from any of the books in here and
+the door is kept locked for most of the time. A chair by the window is where
+your father sits to read, though the appalling creaking sound it makes at the
+lightest touch is enough to set your teeth on edge. There is a door to the
+east.
+
+>The chair is a horribly creaky affair, prone to emitting a sound not unlike a
+screech when someone seats themselves in it. Why your father does not replace
+it with a better one you cannot say.
+
+>Take what?
+
+>You can't leave without your uncle's satchel.
+
+>
+[The previous turn has been undone.]
+
+>
+[The previous turn has been undone.]
+
+>
+[The previous turn has been undone.]
+
+>
+[The previous turn has been undone.]
+
+>
+
+l l l Hidden Chamber l l l
+
+This room, unknown to you before today, is lit so poorly as to make seeing
+anything beyond the end of your nose a trying task. Nevertheless, you can
+discern the outline of a bed in the centre of the room, and perhaps a row of
+cabinets around it, but it is the... the thing lying on the bed that draws
+your attention. Seen barely in the dismal light, it is a grotesque mockery of
+a man, bloated and distorted, pale flesh spotted with tufts of coarse hair.
+
+>"To the next part then..."
+
+[MORE]
+
+Uncle Gavin's Story
+{part 4}
+
+I don't remember much of what happened after that. Your father told me about
+it later, though I gather he himself didn't remember most of it and so what
+I'm telling you now is pretty much conjecture.
+
+I collapsed, he said, as Penwright pointed at me. Collapsed on the ground. At
+first he thought I was dead. But he grabbed me anyway and dragged me away. I
+don't know if Penwright tried to stop us - your father didn't say - but he
+dragged and half-carried me away from the valley, away from where the village
+was supposed to be, away from the thing that was Penwright. He carried me
+like that for miles and eventually, so he said, I began to recover enough so
+that I could walk on my own. That seemed like a good sign.
+
+It wasn't.
+
+My skin had turned a deathly pale colour. My breathing was ragged. I coughed
+and there was blood in what I coughed up. I couldn't keep food down - not
+normal food anyway. Not the food I'd been accustomed to eating. But bugs and
+lice, vermin of all kinds - they were food to me now. I was disgusted by it
+but couldn't help myself. I broke my teeth eating stones and tore my
+fingernails off trying to unearth rocks. But I couldn't help myself, Nevare.
+I just couldn't.
+
+We returned to England, your father and I. Simonson we never saw again. He
+never returned home. We contacted his family and they professed to have not
+heard from him. That hurt your father badly, the fact that he had taken
+Simonson under his wing and we never really knew what had happened to him.
+But of course he had other concerns of his own right then.
+
+He had me to worry about.
+
+[MORE]
+
+Again as your uncle finishes speaking, there is silence in the chamber.
+
+"We are nearing the end of my little tale now," says your uncle. He sounds
+weary, as if the very effort of speaking is too much for him.
+
+>"Is that why we live out here?" you ask.
+
+You've found your voice, found the will to ask a question. You remind
+yourself that the thing on the bed (and you feel wrong for calling it that)
+is still your uncle. He might be changed, hideously, but he is still the same
+man who bought you sweets as a child and carried you around the garden of
+your old home on his shoulders.
+
+"You miss your old home, Nevare?"
+
+You nod.
+
+"So do I. The cellars there were so much nicer..." A bark of bitter laughter.
+"But moving out here was... necessary. I have your father to thank for that
+at least, though for little else. He knew I could not be left alone, and
+knew, also, that if he abandoned me to fend for myself, that questions would
+be asked. They would wonder that how the same thing which had befallen me had
+not befallen him. They might, if they asked the right questions, even
+discover..." Your uncle hesitates for long moments.
+
+>"Discover what?" you ask softly, but your uncle, if he hears you, does not
+respond. You try a different question: "What is in the satchel?"
+
+There is movement from the bed. "It is... something I thought I had lost... a
+long time ago. Then I found it again. It is only a... small thing but it
+means much to me." Slowly, his stubby fingers struggling to undo its
+fastenings, your uncle opens the satchel. "It is all I have now to remind me
+of... her."
+
+You see a small portrait, almost tiny enough to fit in the palm of the hand,
+of a striking woman with long dark hair.
+
+"Annie. My... partner. Perhaps even my wife one day. We were very much in
+love. But then the expedition... and my accident... and when I returned
+home..."
+
+The portrait disappears inside the satchel and the satchel is hurled bitterly
+to one side.
+
+"I should not have asked you for it, Nevare. All it does is bring back
+memories better left forgotten. That is why your father took it from me. He
+says it is a reminder I can do without, that to Annie I am dead and it is
+best to forget her. That... but I miss her, Nevare. I miss her so badly..."
+
+You had never heard of anyone called Annie, though you remember your uncle
+had many lady friends that your father used to disapprove of. Annie must have
+been one of them.
+
+>"Let us finish it," says your uncle. "Let me tell you the final part of my
+little horor story."
+
+[MORE]
+
+Uncle Gavin's Story
+{part 5}
+
+I tried to continue with a normal life at first, but it was impossible. I
+smelled of the grave, Nevare. I washed frequently, I literally doused myself
+with all manner of herbs and fragrances to take away the smell, and yet the
+smell always returned. It was ever present and ever foul. I could not be rid
+of it.
+
+The... decay. Call it that for that is what it is. The decay was not as bad
+then as it is now. I could make my way in public without many glances if I
+was careful. If asked, I would merely explain that I was ill, that I had a
+sensitive skin condition. But over time, the decay got worse. My skin seemed
+to be literally rotting off my bones.
+
+I visited doctors. Many doctors. We are rich, as you know, and we could
+afford to pay for the best. But no matter how much education these doctors
+had, none of them could tell what was wrong with me. 'A medical miracle' was
+how one described me, but when you smell like death, eat bugs and lice and
+are afraid of your own appearance, it is hard to see what 'miracle' there can
+be in your current condition.
+
+I withdrew from public life after an incident in a restaurant when the staff,
+believing me to be contagious, refused to serve me. I withdrew to my house
+and stayed there. Your father was my only visitor. He talked about what had
+happened to me and wondered what had gone 'wrong'. I had been transformed,
+you see, just as was intended at the start of our expedition. But the
+transformation had not given us what we sought.
+
+The irony was not lost on me. I had sought to become immortal and yet in
+doing so had destroyed what years remained to me.
+
+[MORE]
+
+Again, there is silence in the chamber as your uncle finishes speaking, the
+only sound his harsh and ragged breathing. Then that, too, stops.
+
+A minute later, your uncle says, "breathing is a habit, Nevare. I don't need
+it anymore. I just… do it because it's what I always did before I… before I
+died…"
+
+"Died?"
+
+Your uncle beckons you to approach him. You remain where you are.
+
+"You are afraid of me, Nevare. That is good. If you weren't afraid of me, I
+would wonder that there was something wrong with you. You see, you have good
+reason to be afraid of me. I have done terrible things."
+
+>"What terrible things?" you ask.
+
+"I never meant to do them," says your uncle. "At least, I don't think I did.
+But it's hard to say sometimes. My memory… is not what it used to be. I have
+lucid moments when I remember the events of the expedition very clearly
+indeed and then I have days when I don't recall it at all and lie here
+wondering just what has befallen me."
+
+"The manacles…"
+
+Your uncle raises one bloated arm. The chains rattle.
+
+"A… precaution. Lest I stray from the bed and cause you harm."
+
+You aren't sure what to say to that so you say nothing.
+
+"I am a prisoner here, nephew. I have been here in this room for four years,
+ever since I withdrew from public life. Your father keeps me chained up in
+case I seek to wander around and kill you. As I killed Simonson."
+
+You blink. Did he just say…?
+
+>"You killed Simonson," you say, not so much a question as a statement of
+fact.
+
+"Did I?" Your uncle frowns. "I can't say for certain. My memory is… hazy."
+
+"But you said he ran off and you never saw him again."
+
+"Did I?" A slight smile creases your uncle's face. "Maybe that's true. Or
+maybe - maybe, Nevare! - I found him and ate his heart. It was nice. Tasty.
+And still warm. Hahahahah!"
+
+You back away, your former pity for your uncle being replaced with dread.
+
+"Or maybe he escaped, Nevare." Your uncle's voice is quiet again, restrained.
+"I don't remember. Maybe your father killed him and I just think it was me.
+Who can say…?"
+
+You can't take anymore of this. You turn and flee.
+
+[MORE]
+
+You emerge from the cellar and run straight into someone's arms. You
+struggle, trying to break free, but the arms hold you, and draw you closer.
+
+"Nevare."
+
+You struggle more fiercely. Your uncle.
+
+"Nevare."
+
+No. Not your uncle. Your father.
+
+You stop struggling as he holds you. His face is bitter with disappointment
+as he stares at the open cellar door.
+
+"The door was locked for a reason, Nevare," he says. He takes a key from his
+pocket and locks it, twice checking that it has locked. Then he hesitates.
+"Did you… see what is down there?"
+
+You nod, tearful.
+
+Your father holds out his hand. "Come. We have much to discuss."
+
+>"That doesn't concern you now, son," says your father. "Take my hand."
+
+>You take your father's hand.
+
+He leads you from the kitchen and up the stairs to his room. He sits you down
+on the bed then seats himself beside you. You become aware of an unpleasant
+smell - has something died in here?
+
+"How much did he tell you?" your father asks.
+
+>You tell your father what your uncle said.
+
+He sighs and shakes his head. "I feared as much. Your uncle is… not well,
+Nevare."
+
+You recall the thing on the bed in the cellar.
+
+"He's dead," you say.
+
+You expect your father to deny that, or to tell you off for being foolish,
+but he simply nods.
+
+"You shouldn't have gone down into the cellar, son," he says softly. "It was
+for your own protection."
+
+"But he's chained up. Like an animal." You can't help but keep the distaste
+from your tone. Despite what he has become, despite what you have heard about
+him, to keep a man chained to a bed in a cellar…
+
+"For a reason, Nevare, for a reason." Your father clenches and unclenches his
+right hand. You notice, suddenly, how pale his skin is. And how his nails are
+crusted with dirt. "He killed Simonson, I'm sure of that. Despite what he
+protests, I saw him return to our camp one night with blood around his mouth.
+Later, I discovered Simonson's pocket watch in his possessions. He denied he
+had killed Simonson and taken it but I don't believe him."
+
+>"Why didn't you go to the police?" you ask.
+
+"Because he is my brother," says your father harshly. He almost spits the
+last word out. "He is my brother," he adds more quietly, "and I swore I would
+help him. He only came on the expedition for my sake, because I nagged and
+cajoled him into coming, and then when I saw what had befallen him, how he
+had been unable to rise above it, I knew that it was my fault he was that
+way."
+
+"Rise above it…" You swallow. "But he's dead…"
+
+"He lacked self-control." Your father continues, speaking more to himself
+than to you. He stares into the distance. "He saw himself for a monster and
+despaired and locked himself away from the world. He gave up hope of a cure
+and his body began to decay as a result of his own inaction, and as his body
+decays so does his despair grow ever deeper. Of course, no cure exists. There
+is nothing to cure. He sought life eternal and he succeeded. The... the side
+effects are distasteful but they are just that. Side effects. Considering he
+will never age, never succumb to disease, never die... and he talks of a
+cure..."
+
+You remember your uncle, hideous and bloated, a corpse manacled to a bed in
+the cellar, and shudder.
+
+>"Why did Penwright let you go, father? How did you escape?"
+
+Your father does not answer at first. He still stares into the distance. Then
+he shakes his head slowly and sighs.
+
+Finally he looks at you. He smiles softly. "I didn't," he says and removes
+his glasses to show the hollow sockets which are all that remain of his eyes.
+"I got everything I wanted."
+
+[MORE]
+
+And so The Cellar has ended. Many thanks for playing.
+
+Did you expect the twist at the end of the tale - that the corpse referred to
+in the introduction was not, in fact, Uncle Gavin, but the player's father?
+
+The restart command will start the game again if you feel like taking another
+go, while walkthrough will list the shortest way from beginning to end. If
+you're wondering whether you missed anything, try it and see.
+
+Finally, feel free to send an email to dwhyld@gmail.com about the game. It's
+always nice to hear people are playing my games.
+
+This current version (version 1) of the game, and any subsequent ones, will
+be found on my website at:
+
+http://www.shadowvault.net/cellar.htm
+
+David Whyld
+
+>The game has ended.
+
+>The game has ended.
+
+>

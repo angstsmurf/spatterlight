@@ -8,7 +8,287 @@ These are obscure 2000–2005 ADRIFT comp games with no published walkthroughs
 (checked Key & Compass, IF Archive, CASA). We derive them by driving the game
 through a headless, deterministic SCARE build and reading its internals.
 
-## 2026-08-04 (latest) — The Timmy Reid Adventure — ★ **WON 360/372** — the corpus is now **188 PASS / 0 NOSCRIPT**
+## 2026-08-04 (latest) — the five missing tafs, wired — **203 PASS** — and an engine bug in every pre-4.0 game
+
+The last five `downloaded/` walkthroughs whose `.taf` was not in `games/`. The
+files arrived as `/Users/administrator/Downloads/missing` and are now
+`games/imagi.taf`, `games/CD.taf`, `games/Chosen.taf`, `games/TheCellar.taf`
+and `games/panic.taf`. All five are wired, blessed and green, and
+**`downloaded/` is now fully wired — every walkthrough in it has a game and a
+row.** Per-game docs: `ImagiDroids_walkthrough.md`,
+`CrimsonDetritus_walkthrough.md`, `Chosen_walkthrough.md`,
+`TheCellar_walkthrough.md`, `Panic_walkthrough.md`.
+
+* **ImagiDroids** (Woodfish, 4.00) — the single ending, 20 commands, one
+  authorial repair: `open it` after `x clean area` / `take brick` resolves the
+  pronoun to the clean area, so it has to be `open brick`. No score system.
+* **Crimson Detritus** (Mystery, 2003, 4.00) — ★ **WON 100/100**, all eight
+  `ACT type=4`, 16 commands. One repair: the upstream transcript pasted two
+  commands onto one line (`take uniform and wear it`), split into
+  `take uniform` / `wear uniform`.
+* **Chosen** (Ryan J. Bury, ADRIFT MiniComp 2001, 3.90) — ★ **WON 300/300**,
+  the game's own stated maximum, 51 commands. The upstream file is **prose
+  hints, not a command list**, so the route is derived from the dump. Three
+  traps: `pull lever` in room 8 must come before room 7 or unguarded TASK 9
+  kills you; every phrasing of `take block` in room 14 is TASK 14, a death; and
+  the six sockets have to be spelled **A-D-R-I-F-T** in order. Two repairs the
+  route needs: `take belt` first (it starts inside the trousers and TASK 0
+  wants it *held*), and full block names only — `take block` is "Take what?".
+* **The Cellar** (David Whyld, 2007, 4.00) — the ending, 132 commands replayed
+  **verbatim** from the ClubFloyd log of 12 June 2022, nothing repaired. No
+  score and no `ACT type=6`; it ends by setting `VAR 12 [game over]`. The game
+  also ships **its own 24-command walkthrough** on TASK 1 (`walkthrough`), which
+  replays verbatim too — so the path is confirmed from two independent sources.
+  The ClubFloyd route is the one wired because it reaches far more of the 141
+  tasks. Its two divergences from the log are both **ours to be proud of**:
+  ClubFloyd's Floyd plays through stock SCARE ("Welcome to the Cheap Glk
+  Implementation" is in the log), so the log is not an oracle, and both places
+  we differ are places scarier has since been made more faithful — the
+  in-container description and the run400 postfixed one-object format recorded
+  in `lib_list_in_object()`, and a real U+2026 that cheapglk folded to `...`.
+  Word-level agreement 98.3%.
+* **Panic!** (Stewart J. McAbney, 3.90) — the ending, "Your rating is Messiah.",
+  69 commands from the author's own full-session walkthrough, replayed
+  verbatim. It found a real bug — below.
+
+**The engine bug: the 3.9/3.8 immediate-restart fixup was eating StartText.**
+`evt_fixup_v390_v380_immediate_restart()` (`scevents.cpp`) restarted a pre-4.0
+`RestartType=1` event by hand — state to `ES_RUNNING`, clock to one less than a
+fresh roll — instead of calling `evt_start_event()`. The event *cycled*
+correctly, and its TaskAffected kept firing (which is the half §2 of
+`RUNNER_TESTS_TODO.md` probed live, and it was never wrong), but its start
+actions, StartText included, ran only on the very first start. So an
+always-restarting one-turn event printed its line once per game and was mute
+after that.
+
+Panic! is built out of these, and two of them carry a StartText and **no**
+LookText (`texts=S--`), so nothing else could be printing them. Against the
+author's transcript: the priest's cough 66 published / 1 before / **66** after,
+the stigmata 9 / 1 / **9**, the shaking 13 / 1 / **13**, the wraith 21 / 1 / 24.
+
+Fixed 2026-08-04: call `evt_start_event()`, then take the one silent turn off
+the clock. The length roll must come from `evt_start_event()` **alone** — the
+first attempt kept the fixup's own `scr_randomint()` as well, and the extra
+roll per restart churned the RNG stream enough to break three previously
+winning routes (circus, thetest_win, wrecked). Two rolls where the Runner has
+one is its own bug.
+
+**Corpus effect:** 13 of 203 rows gained text, every diff a *pure addition* of
+a line that had been silently swallowed. Mostly ambience — troll's "Sid sips
+from his mug.", haunt's grandfather clock, wrecked's seagulls, spirits_flight's
+wind, tq3's rattlesnakes, colony's lightning, twilight's apparition,
+timmy_reid's Billy on his bike, cybercow_win's robot — but four are **plot**:
+secret_of_lost_world's "It starts to rain." and "The volcano is erupting.",
+marooned's rescue ship coming over the horizon, and the entire paragraph in
+alices_restaurant where Obie takes your wallet and your belt at the station.
+No route broke, no win marker moved, and `thetest`, `gateway` and `inverness` —
+the games probed live in run390 for §2 — are byte-identical. Written up as
+`RUNNER_TESTS_TODO.md` **§8**, with two open probes: the wraith's visibility
+while you are up the rope (Panic!'s one residual divergence, turns 44–46), and
+whether a restarted period with `Time1=5` is 5 turns or 4.
+
+## 2026-08-04 — the six ClubFloyd/hints games — ★ **6 wins** — **198 PASS**
+
+The remainder of `downloaded/`: the six games whose upstream file is a
+**ClubFloyd group-play log or a hints file**, not a command list. All six were
+unrouted; all six now win. None of the six has a usable score system (five
+report 0/0; Cut the Red Wire has a one-point scale and reaches 1/1), so the
+ending is the measure in every case. Per-game docs:
+`MammothVacuumButtonOfDeath_walkthrough.md`,
+`TeenageHeadlessExperiment_walkthrough.md`, `CutTheRedWire_walkthrough.md`,
+`IAmTheLaw_walkthrough.md`, `InMemory_walkthrough.md`,
+`HappyValley_walkthrough.md`. All six are ADRIFT 4.00. No interpreter bug came
+out of this batch — every divergence is the game's own design or the upstream
+file's.
+
+* **Cut the Red Wire! No, the Blue Wire!** (David Whyld, InsideADRIFT #41,
+  2012). The solution file is one line: `undo`. Every wire and every wait
+  kills you on a one-turn fuse; the winning move is to undo the move that
+  brought you into the warehouse. It works because **game tasks beat the
+  standard library** — `run_game_commands_in_parser_context()` runs before
+  `run_standard_commands()` (`scrunner.cpp` ~1616), so the authored `[undo]`
+  task fires and `lib_cmd_undo` never does (`SCR_TRACE_MATCH`:
+  `MATCH task=0 pattern=[undo] input=[undo]`). Scores 1/1, the maximum. The
+  game has **no game-over action at all** — it prints the ending and loops back
+  to the warehouse — so the transcript keeps running past the win and the
+  appended `quit`/`y` are answered by the game. That tail is in the golden on
+  purpose; the marker is the score line ahead of it.
+* **`SCR_SKIP_WAITKEY=1` is a correctness flag, not a cosmetic one, for
+  I Was a Teenage Headless Experiment** (Duncan Bowsman, EctoComp 2010). The
+  game **opens with a fake death** — a joke "I'm afraid you are dead! / You
+  scored 0 out of the maximum 0!" screen with a `<waitkey>` on it — *before*
+  the first prompt. Without the flag that waitkey eats command #1, the whole
+  script shifts by one, and the route silently plays a different game without
+  ever erroring. Its one real puzzle is that `put head on body` (TASK 57/58)
+  restricts Formula X to `v2=1`, **held**, not merely present, so `get syringe`
+  has to sit between `kill gerchis` and `put head on body`.
+* **In Memory** (Jacqueline A. Lott, Indigo New Language Speed IF 2011) is a
+  counter, not a puzzle. One ending task, `TASK 178 EndGameScene`, gated on
+  `RESTR type=4 v1=2 v2=2 v3=7` — variable 0 == 7. Naming one of the seven
+  memory objects in Unconsciousness \<2\> drops you into that memory's room;
+  each room has 10–20 one-shot answer tasks with dozens of ALTCMDs apiece, and
+  whichever one matches sets a text variable, bumps the counter and walks you
+  back. The text variables are never read back mechanically, so **there is no
+  wrong answer** — 15 commands, and any other legal answer set wins too.
+* **I am the Law** (djchallis, Odd Comp 2010) hides its endgame in one
+  variable: `make verdict` → verdict=2, naming V → 4 (anyone else → 3),
+  `mission` wins on 4 and loses on anything ≥ 3. Three commands would do it
+  cold. The route does the real investigation instead, and the one thing it
+  actually has to find is the creativity password: TASK 5 needs var4 == 1 and
+  sets 2, TASK 6 (`grant`) needs 2 and sets 3, and **TASK 7's pattern is a bare
+  `*`** — any other input — which resets it to 1, so a wrong guess drops you
+  out of the prompt with no message. `grant` comes from `ask luke about
+  password`, after Calvin has established the engine exists.
+* **Happy Valley** (Jacqueline H. / "Lumin", 2008) is the only game in
+  `downloaded/` whose upstream file *is* a bare command list — and it does not
+  run; it reads as if written against a later revision. `x patch`/`x weeds`
+  are listed at Outside the Mine but objects 96/97 are in room 0; `n`/`s` are
+  listed where room 2 has only E and W; `enter 3436` cannot match TASK 56's
+  `enter 3436 *`; and the cup is watered before it is filled. Re-derived from
+  the dump. Three real constraints: `give cup to granny` (TASK 46) wants
+  `variable 0 == 5` **exactly**, and the pink spotted leaf is a decoy that
+  TASK 40 accepts without incrementing; the gardening gloves must be **worn**
+  (`v2=2`) for TASK 36, not carried; and `x tools` is the action that places
+  the crowbar in the smithy, on a visit you only get once because `n` out of
+  it (TASK 2) teleports you away.
+* **Mammoth Vacuum Button of Death** (Daniel Airey, New Year's Speed IF 2012)
+  is 11 commands and one joke: `strip` and `strip guard` are different tasks
+  and you need both, in that order — undressing yourself is what makes the
+  guard pass out, and only then can you take his uniform.
+
+## 2026-08-04 — The Fugitive — ★ **WON 656/666 — the reachable maximum** — **192 PASS**
+
+Fourth of the ten `downloaded/` routes with a staged `.taf`, and the first one
+**derived from scratch**: **The Fugitive** (Renata Burianova, 2001–2006, TAF
+3.90). The upstream file is the author's own page and it is prose only — no
+command list, five vehicles described as interchangeable, and from the city
+onward it is "go to the motel", "then you go to the factory". 156 rooms, 130
+tasks, 36 of them scorers. Details in `TheFugitive_walkthrough.md`. No
+interpreter bug this time — every surprise is the game's own design:
+
+* **656 is the ceiling, not a shortfall.** 34 tasks pay 10, one pays 16, one
+  pays 310 = 666 exactly. The unreachable one is
+  `TASK 73 cmd=[look * mirror] ACT type=4 v1=10`, the rear-view mirror in a
+  stolen car. The game *also* declares the input synonym `look` → `l`, and the
+  synonym filter runs before task matching, so the pattern's literal `look` is
+  never present when the matcher sees the input (`SCR_TRACE_FLAGS=512`:
+  `Printfilter: synonym "l in mirror"`). No alternative command, no other task
+  references it. run400 rewrites the same way. The route's second-to-last
+  command is a deliberate `score` so the golden pins 346 as well as the ending.
+* **The same collision, with an escape hatch.** The two fountains are the game's
+  seed money and the authored pattern is `[get * coin*]` — but `coins` → `money`
+  is also declared, so `get coins` arrives as `get money` and the money-report
+  library answers it. The ALTCMD `dive` reaches TASK 81/82 untouched.
+* **Take the taxi, not your car.** Both dump you in the same street maze, but
+  only the taxi lets you `fight` the driver (TASK 27, +10) and keep his pistol,
+  and only *with a pistol in hand* does the punker ambush resolve as TASK 35
+  instead of TASK 33 — 35 leaves a dead punker carrying the can of beer TASK 37
+  `[drink * beer]` wants (+10). The car's only exclusive scorer is the dead
+  mirror task, so the taxi wins 20–0.
+* **Three ordering traps.** `jump out` of the train is TASK 29 and its first
+  action drops everything held, so the beer has to be drunk in the maze. EVENT
+  26 arms six turns after `undress soldier` and the walk to the jeep is five, so
+  `get boots` goes first and the undress goes last. `unlock` at the church arms
+  EVENT 46, five turns from death in the cemetery, and shovel/dig/score/seal is
+  four — so the church interior (the +16) happens before the unlock.
+* **`play` is a `set`, not an `add`.** `ACT type=3` on the money variable: 2181
+  became 56. Still +10, so it stays, but it has to run after `buy bomb` (500).
+
+`sleep` (which needs `lie on bed`, not `lie down`) flips the clock to 23:00 and
+that is the switch for the whole night half of the city, so everything bought or
+sold has to be done before it. Needs `SCR_SKIP_WAITKEY=1`.
+
+## 2026-08-04 — Lair of the Vampire — ★ **WON 226/271 (83%)** — **191 PASS** — and a synonym divergence fixed
+
+Third of the ten `downloaded/` routes with a staged `.taf`: **Lair of the
+Vampire** (Chris Cole / delron, TAF 4.00), from delron's own 276-line command
+list. Details in `LairOfTheVampire_walkthrough.md`. Three things came out of it:
+
+* **A real run400 divergence in the input-synonym filter, now fixed.** The game
+  authors `[harris] -> [steve]` *and* `[steve] -> [harris]`, the usual trick for
+  letting two spellings reach one NPC. `pf_filter_input()` walked the input word
+  by word, took the **first** synonym that matched and skipped past it, so
+  `harris` became a `steve` the character has no alias for — `ask harris about
+  key`, the published list's fourth command and the only way to the picklock the
+  whole game hinges on, answered "Stop bugging me with pointless questions!"
+  run400 accepts it (verified live under Wine), so later synonyms do see an
+  earlier one's output. But only *as a whole*: **Yak Shaving for Kicks and
+  Giggles!** maps `flags`, `line` and `clothes` all onto `clothes line`, and
+  run400 still answers `x flags` with the laundry description — applying every
+  matching synonym instead loops forever, growing one `clothes line` per pass
+  until the harness's `ulimit -t 30` fires. The filter now fires the first match
+  at each position and lets later synonyms re-fire only when their original is
+  the *entire* replacement region. **Zero golden churn** across the (then)
+  190-row suite. Row added to `RUNNER_TESTS_TODO.md` §4.
+* **Route correction 1 — the stairs are a coin flip.** TASK 139 rerolls VAR 44
+  `stairs` every turn; TASK 140 carries you up only while it is < 3, TASK 141 is
+  the collapse. Going *down* lands you at the bottom on either roll, which is
+  why the author never noticed; going *up* on a bad roll leaves you put. One
+  extra `up`.
+* **Route correction 2 — two moves missing from the published list.** It jumps
+  from `east` straight to `ne`/`ne`, but those two `ne`s are Ancient Feasthall →
+  Corridor → The Statue; the Eastern passage has no NE exit at all. `east` and
+  `north` restore the walk to the Feasthall.
+
+226/271 is a winning, not a maximal, score, and the game says so on its own last
+screen ("There are a good number of tasks you can complete which add to your
+score but which are not required to complete the game"). Needs
+`SCR_SKIP_WAITKEY=1`.
+
+## 2026-08-04 — Ba'Roo! — ★ **WON 16/16 (full score)** — **190 PASS** — and a parser divergence fixed
+
+Second of the ten `downloaded/` routes with a staged `.taf`: **Ba'Roo!** (Eric
+Anderson / Hensman Int'l, 2010, TAF 4.00), from the delron command list.
+Details in `BaRoo_walkthrough.md`. Two things came out of it:
+
+* **A real run400 divergence in the pattern parser, now fixed.** TASK 62's
+  command is `take/get/eat stew` — a `/` outside any `[]`. `uip_parse_list()`
+  treated that as an alternatives separator at *every* depth, so the top-level
+  list returned at the first slash **without appending its `NODE_EOS`**: the
+  pattern collapsed to `take` and prefix-matched any `take X` in the room,
+  burying TASK 63 (`[take/pull/tear] [meat/animal/roast]`) and with it the
+  game's only food. run400's matcher (`Proc_9_4_45D940`, decompiled in
+  `~/adrift-battle/decompiled/NewParse.bas`) only ever looks for `/` between
+  `[]`/`{}` delimiters, so a bare one is a literal character and the task is
+  simply dead. `scparser.cpp` now tracks group depth and parses a depth-0 `/`
+  as a literal word node. Corpus exposure: 8 games, 36 patterns, nearly all
+  `#`-labels/dashes that had been silently prefix-matching. **Zero golden
+  churn** across the (then) 189-row suite; `make -f Makefile.headless test`
+  clean. Row added to `RUNNER_TESTS_TODO.md` §4.
+* **Route correction:** the published list's two `put backpack in capsule` both
+  fail — `wear suit` narrates taking the backpack off but TASK 300–302 put it
+  back *on*, and TASK 258/286 want it inside the capsule. `remove backpack`
+  before each. Without it the game reaches a losing ending (the bomb is armed
+  on the wrong side of the trip) rather than desyncing visibly.
+
+The route needs no env at all and scores **16/16**, which the game itself
+confirms (`Your score is 14 out of a maximum of 16`, one move before the last
+`+2`).
+
+## 2026-08-04 — resuming the `downloaded/` wiring run — The Dead Man — ★ **WON 41/43** — **189 PASS**
+
+Ten of the 61 files in `downloaded/` had a staged `.taf` but no route (five more
+had no game at all; those five arrived on 2026-08-04 and are queued below).
+First one back: **The Dead Man** (30otsix, 2003, TAF 4.00, one room), from the
+delron command list. Details in `TheDeadMan_walkthrough.md`; the three things
+that generalise:
+
+* **`SCR_SKIP_WAITKEY=1` is the right default for any game whose cutscenes are
+  `<waitkey>` pauses.** The intro alone carries ten of them
+  (`SCR_MARK_WAITKEY=1 | grep -c WAITKEY`), so the published list desyncs on its
+  very first command. Without the flag the route needs ~18 blank filler lines at
+  counts that have to be bisected per vision; with it, one line is one command.
+* **A blackout that lays the player down can also empty their hands.** Here
+  `!black-out` (EVENT 2/3/4/5 at turns 15/25/35/40) does exactly that, so
+  anything taken out of the first aid kit before turn 15 must also be *used*
+  before turn 15. That is the real reason the published route's `get axe` fails.
+* **A published route is not a scoring oracle.** This one stops at 32/43;
+  `SCR_DUMP_TASKS` lists twelve `ACT type=4` awards and it skips three of them
+  (`open panel with scissors` +5, `wear bandage on neck` +3, the security camera
+  +1). 41 is the ceiling for a *surviving* player — the last 2 points are
+  TASK 19 `shoot myself`, which pays 2 and then fires `ACT type=6` (game over).
+
+## 2026-08-04 — The Timmy Reid Adventure — ★ **WON 360/372** — the corpus is now **188 PASS / 0 NOSCRIPT**
 
 *The Timmy Reid Adventure (The Jonny Reid Adventure — Part II)* (Jonathan R.
 Reid, Reidville Adventures, 2000, TAF **3.80**) was the **last NOSCRIPT row in

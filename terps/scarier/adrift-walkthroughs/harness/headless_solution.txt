@@ -1,0 +1,10 @@
+get shovel
+s
+w
+break window
+kill gerchis
+get syringe
+put head on body
+e
+n
+n

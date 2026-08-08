@@ -1,0 +1,180 @@
+rest
+rest
+stand up
+x lights
+x buttons
+press blue button
+press green button
+press yellow button
+x niche
+press silver pad
+again
+again
+press gold pad
+take gun
+u
+shoot wizard with gun
+ask villagers about wizard
+w
+x firepits
+e
+x wizard
+e
+e
+ask wizard about politics
+wait
+wait
+e
+e
+e
+n
+l
+ask brogo about they
+ask brogo about warlocks
+ask brogo about temple
+ask brogo about ancient ones
+ask brogo about warlocks
+ask figure about warlocks
+w
+s
+s
+e
+e
+e
+ask m'greet about they
+w
+w
+w
+w
+w
+rise fly to village
+s
+w
+x roast
+take meat
+take meat
+take meat
+e
+x tents
+sw
+nw
+x glint
+n
+ne
+d
+take green gemstone
+e
+e
+take grey gemstone
+w
+w
+w
+d
+take clear gemstone
+e
+d
+take blue gemstone
+d
+take yellow gemstone
+d
+open backpack
+take piton
+hit piton with hammer
+take rope
+tie rope to piton
+d
+take brown gemstone
+d
+s
+x cloth
+search cloth
+take flashlight
+s
+s
+u
+u
+x desk
+press retrieve
+d
+d
+s
+sw
+nw
+ne
+x equipment
+read panel
+open machine
+put all gemstones in machine
+close machine
+wait
+open machine
+x machine
+take ybco object
+sw
+se
+ne
+s
+nw
+move canoe into water
+enter canoe
+n
+e
+s
+s
+e
+exit canoe
+e
+give ybco object to warlock
+u
+s
+s
+e
+e
+u
+n
+open room 21 door
+w
+take suit
+wear suit
+e
+s
+w
+n
+l
+put unit in backpack
+put power module in backpack
+remove backpack
+put backpack in capsule
+lie on capsule
+take backpack
+wear backpack
+e
+eat meat
+u
+take piton
+hit piton with hammer
+u
+take rope
+tie rope to piton
+take piton
+hit piton with hammer
+u
+in
+take piton
+hit piton with hammer
+u
+eat meat
+take rope
+tie rope to piton
+put power module into unit
+turn on assembled unit
+rappel d
+pull rope
+out
+tie rope to piton
+rappel down
+rappel down
+w
+remove backpack
+put backpack in capsule
+lie on capsule

@@ -703,6 +703,22 @@ CONFIGS = {
     events=[dict(short="Len3 Immediate", affected=1, starter=1, restart=0,
                  time1=3, time2=3, starttext="K1 START.",
                  looktext="K1 LOOK.", finishtext="K1 FINISH.")]),
+ # The 4.0 twin of make_39_evtimeprobe.py (RUNNER_TESTS_TODO section 8, second
+ # open row): a length-5 immediately-restarting event, which makes the "3.9/3.8
+ # move one step into the restarted event" claim four turns wide.  4.0 is the
+ # version the fixup does NOT apply to, so this is the control that says what
+ # an unshortened period looks like: with immediate events started at load, the
+ # first FINISH lands on turn 5 and the rest should follow every 5 turns
+ # (5, 10, 15) where the 3.9 probe is expected to show 5, 9, 13.
+ # Session: 15 x z.
+ 'EV9': dict(name="Probe EV9",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["ping"], complete="PING FIRED.")],
+    events=[dict(short="Period Five", affected=0, starter=1, restart=1,
+                 time1=5, time2=5, starttext="E START.",
+                 finishtext="E FINISH.")]),
  # Group-trailing reference probe (the open tangent on RUNNER_TESTS_TODO
  # section 4's last-element-in-group row): uip_match_text() and
  # uip_match_wildcard() share the remainder-list shape that killed

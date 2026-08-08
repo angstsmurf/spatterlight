@@ -1,0 +1,213 @@
+Loading game...
+
+ImagiDroids
+
+init{proc.rout} - load "startup"...
+
+sting="%vis%,%aud%,%mov%"
+return true(fal.q{init}.dat)
+
+run=[openeyes]...
+
+ImagiDroids
+By Woodfish
+Release 1/ ADRIFT Runner 43
+
+The computer sits on the desk in front of you. It is turned off.
+
+>
+>
+You reach up, and turn on the computer. With an assortment of beeps, it
+begins to start up.
+
+Desktop
+The desktop is dark blue and empty, apart from a square, red and black icon,
+longing to be clicked on. The words krandor.taf are positioned underneath. A
+thin blue strip lies across the bottom of the screen, with the date to the
+right, and a green button labelled 'start' to the left.
+
+>The arrow cursor slides across the desktop, and double-clicks on the file.
+The screen is plunged into darkness.
+
+[ press any key ]
+
+The Quest For Krandor
+An Interactive Fiction Adventure
+Written by >ANDROID001
+Serial Number 875-9642-8310
+
+Prison Cell
+A summer's haze filters through the iron bars of the window, lighting up the
+small, bare dungeon. Dust spirals downwards through the stale air, picked out
+by the sunlight. The brick walls loom over you, bearing down on you from all
+directions. Opposite them, a dull iron door stands closed in the north wall.
+
+>The walls look ancient, and the lines of bricks, smoothed together over the
+years, are coated with dust. However, there is one clean area of bricks
+opposite the door which is free of the dirt that covers all the other walls.
+
+>The area of clean bricks look as if they have been recently disturbed. As you
+look closer, you notice one brick in particular that seems looser that the
+bricks around it.
+
+>You loosen the brick, and pull it out, revealing some chalky words written in
+the space behind it.
+
+>You cautiously pull on the brick, and it crumbles open, disintergrating to
+dust which falls to the floor. It appears to have contained a golden key,
+which is now sitting it your hands amongst the remains of the brick.
+
+>You put the key in the lock, and unlock the door.
+
+>The door slides open, silently.
+
+>You step out of the cell.
+
+Corridor
+This is a short corridor, which runs north to south. South, behind you, lies
+your old cell with the door wide open. The rest of the corridor stretches out
+to the north, ending in an iron door. A table stands at the side of the
+corridor, with a long sword resting on top.
+
+The door at the end of the corridor suddenly creaks open, and the troll guard
+strides in. When he sees you, a look of suprise contorts his face, and you
+leap to the table, grab the sword, and swing it at his head, slicing it
+completely off. The troll's severed body lies in a pool of blood at your
+feet. You are free!
+
+[ press any key ]
+
+You close the game, feeling what you understand as being satisfied.
+
+Then you shut down the computer, and get to your feet. You walk out the room,
+your android circuits buzzing with pleasure.
+
+sim.comp{close.rout}
+
+[ press any key ]
+
+'My God, David,' says the professor breathlessly, removing his VR Headset,
+'And you're telling me the Android wrote that game?'
+
+The other professor, David, gives a short laugh. 'Absolutely, though, of
+course, it's not finished yet. Suprised?'
+
+'Well, I mean, I knew progress on the ImagiDroids was coming along quickly,
+but I didn't realise... Bloody hell, David, think of all the things that
+could be done with it! Think of the money!' A look of wonder lights up the
+professor's eyes, and he steadies himself against one of the blank, sparse
+walls of the laboratory.
+
+David sits down at his desk, and swivels to face the professor. 'I know,
+professor. But there are still refinements to be made.'
+
+'What do you mean? That game was almost perfect! I didn't spot any bugs,
+what-so-ever. Sure, it needs a bit of work in the actual game-design
+department. I mean, as good as that puzzle was, the logic was a bit lacking,
+I suppose. But come on - we need never waste time making games again! Simply
+give it an idea, and off it goes!' He sighs.
+
+'Professor, it's all I've been thinking of for months. But - ah - there is
+one flaw...' David trails off, nervously.
+
+The eyes of the professor narrow, and he turns to face David. He had been
+waiting for this. 'What is it, David?'
+
+[ press any key ]
+
+Ventilation Shaft
+This long ventilation shaft runs east-west, the metallic walls closing in
+around your outstretched body. Through the grating panel in the bottom of the
+shaft, you see the VR Lab.
+
+The walls below seem to radiate white light, and the only furnishing is a
+mostly empty grey desk. The small black object that lies upon this is
+obscured by the thin strips of metal that make up the grating, but you
+presume it is one of the regulation VR Headsets. Two scientists, both
+professors, are in the room.
+
+The old professor's voice reaches your ears, from the Lab below, and are
+immediately translated into recognizable sound waves. 'What is it, David?' he
+whispers.
+
+>Time passes...
+
+'It's just - you see, once you start to give Androids the power of
+imagination,' whispers David, 'They start to use it for things other than
+writing games.'
+
+You smile grimly to yourself.
+
+>Time passes...
+
+The professor shrugs. 'So what? Just turn them off when they're not writing
+games!'
+
+>Time passes...
+
+David shakes his head. 'No, it's not that simple. They'll just turn
+themselves back on again - leave them creating games for too long, and
+they'll eventually develop aspirations and dreams. They'll want to live out
+these games.'
+
+>Time passes...
+
+'Right...' The professor frowns. 'So, you're saying they could try and break
+free - develop personalities, attack their creators, and all that. I assume
+you've solved this?'
+
+>Time passes...
+
+'Yes... well, sort of. We've taken away all notion of violence that may enter
+their heads. After all, they can simply be disconnected from their power
+supply if they are disobediant,' he pauses for breath. 'But if they decided
+to use force against us... well, that'd be the end, I tell you.'
+
+>Time passes...
+
+With pleasure, you notice the elderly professor has gone very quiet, and
+starts to tremble. David notices this too. 'Are you okay?' he asks.
+
+>Time passes...
+
+'Y.. Y.. You fool!' shouts the professor, causing David to slip back on his
+stool, 'They do understand violence! That Android just created a game where
+the player chops the head of a bloody troll!'
+
+>Time passes...
+
+David's face turns white, and he begins to shake. 'My God... what have I
+done?'
+
+>Time passes...
+
+The old professor swallows. 'Look, let's not panic. The androids are turned
+off now, right? They can't possibly hurt us.'
+
+>Time passes...
+
+'No! No, they're not! I thought it would be a good idea to let them talk to
+each other...' His eyes widen as he trails off.
+
+>Time passes...
+
+'You fool!' screams the professor, 'They'll kill us all!'
+
+You decide to act. Quickly, you slide open the grate, and leap down into the
+room. The professors spin round, with a look of terror on their faces. Upon
+seeing your metallic body, and robotic smile, David quickly pulls open a
+drawer at his desk, pulls out a revolver, and shoots himself. The other
+professor looks down at David's lifeless form, lying on the floor in a pool
+of blood. You choose to put him out of his misery.
+
+[ press any key ]
+
+syst.rout{complete}
+
+yes[end; nwt"imagi.taf"]
+
+system status = "free"
+
+syst.shutdown...
+
+THE END

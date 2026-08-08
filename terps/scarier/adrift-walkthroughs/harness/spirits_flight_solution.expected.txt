@@ -138,7 +138,6 @@ The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A fierce wind blows.
 
 Moyru is here.
-Lamanluie cuts Moyru with the old rusty broken blood-stained scimitar.
 
 >You stab Moyru with the Spirit Dagger.
 Moyru cackles one last time before her body melts into a puddle of water.
@@ -171,10 +170,11 @@ must be the ridge of storms.
 Fergo is here.
 
 You can only move down.
+Fergo stabs you with Fletched Spear.
 
 >(Your score has increased by 10)
 You stab Fergo with the Spirit Dagger.
-Fergo stabs Lamanluie with Fletched Spear.
+Fergo stabs you with Fletched Spear.
 Lamanluie cuts Fergo with the old rusty broken blood-stained scimitar.
 Fergo collapses. The wind elemental leaves his body and transforms itself
 into an object.
@@ -268,7 +268,6 @@ Serpanern is here.
 
 You can only move north.
 Lamanluie cuts Serpanern with the old rusty broken blood-stained scimitar.
-Serpanern hits you, but it doesn't seem to do any damage.
 
 >You stab Serpanern with the Spirit Dagger.
 It's body shrivels and is instantly consumed by fishes.
@@ -306,10 +305,11 @@ wondrous colour hang from the ceiling. Bleeched coral is growing in the far
 corner.
 
 Crynasalda is here.
-Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
+Crynasalda hits you.
 
 >(Your score has increased by 10)
 You stab Crynasalda with the Spirit Dagger.
+Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
@@ -396,7 +396,6 @@ appears cold and silent.
 Afernoga is here.
 
 You can move north and east.
-You feel cold.
 
 >You walk north.
 Volcano Path
@@ -413,7 +412,6 @@ This path is carved right onto the edge of the volcano. Looking down, you see
 that the lava looks much more dangerous than you thought it would be.
 
 You can move east, in and southwest.
-You feel cold.
 
 >You walk east.
 Core of Volcano
@@ -423,8 +421,8 @@ from your body drips onto the ground and sizzles mightily.
 Kelorano is here.
 
 You can only move west.
-You feel cold.
-Kelorano hits Lamanluie with Ever-burning torch.
+Lamanluie cuts Kelorano with the old broken scimitar.
+Kelorano hits you with Ever-burning torch.
 
 >(Your score has increased by 10)
 Lava engulfs Kelorano's body. He screams and you only hope that he is
@@ -439,12 +437,11 @@ Also here are The Amber of Flames.
 
 Lamanluie and Kelorano are here.
 You feels as though you should leave quickly.
-Lamanluie cuts Kelorano with the old scimitar.
-Kelorano hits Lamanluie.
+Kelorano hits you, but it doesn't seem to do any damage.
 
 >You pick up the Amber of Flames.
 Lamanluie cuts Kelorano with the old scimitar.
-Kelorano hits Lamanluie.
+Kelorano hits you, but it doesn't seem to do any damage.
 
 >You walk west.
 Spiral Path
@@ -478,7 +475,7 @@ and dry.  A lizard is hissing at you, blocking your way.
 Slikerma is here.
 
 You can only move west.
-Slikerma hits Lamanluie, but it doesn't seem to do any damage.
+Lamanluie cuts Slikerma with the old scimitar.
 
 >You stab Slikerma with the Spirit Dagger.
 Bright red blood oozes from Slikerma's fatal wound.

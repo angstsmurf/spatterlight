@@ -1,0 +1,176 @@
+# The Cellar (TheCellar.taf) -- David Whyld, 2007, written for the H. P.
+# Lovecraft Commonplace Book & Exhibit.  ADRIFT 4.00, "Release 46".  5 rooms,
+# 53 objects, 141 tasks.  You are Nevare, 11 years old, and your father is away.
+#
+# There is no score and no `ACT type=6` anywhere -- the game ends by setting
+# VAR 12 [game over], so the row's marker is the ending line itself.
+#
+# The route is the ClubFloyd session of 12 June 2022
+# (downloaded/TheCellar_clubfloyd.html) replayed **verbatim**, all 132
+# commands, typos and dead ends and four `undo`s and all.  Nothing needed
+# repairing.  It is a play session rather than a walkthrough, so most of it is
+# scenery -- `x barreks`, `do dishes`, `touch me` -- which is exactly what makes
+# it worth keeping: it exercises far more of the game's 141 tasks than the
+# solution path does.
+#
+# The game also ships its own walkthrough, on TASK 1, `walkthrough`.  It is 24
+# commands and it too replays verbatim:
+#
+#   read papers / x table / get wad of cloth / e / n / talk / open fridge /
+#   get egg / d / talk / yes / x chair / e / talk x7 / take hand / talk x3
+#
+# so the puzzle content is confirmed twice over from two independent sources.
+# The ClubFloyd route is the one wired up because it is the downloaded file.
+#
+# Two divergences from the ClubFloyd transcript's own text, both of them
+# scarier being *more* faithful than the interpreter that produced the log --
+# note that ClubFloyd's Floyd bot plays ADRIFT games through SCARE itself
+# ("Welcome to the Cheap Glk Implementation" is in the log's first lines), so
+# the log is stock-SCARE output, not run400 output, and is not an oracle:
+#
+#   * `open fridge` / `open oven`.  The log has the generic "Inside the fridge
+#     is an egg."  scarier prints the objects' own in-container descriptions
+#     ("There is a single egg inside.  Your father clearly does not intend you
+#     to overfeed yourself in his absence.") and, for a single contained
+#     object, uses run400's postfixed format.  Both behaviours are recorded as
+#     run400-verified in lib_list_in_object() (sclibrar.cpp), arbitrated
+#     against the "It's Easter, Peeps!" transcript.
+#
+#   * the game text uses a real U+2026 ellipsis.  cheapglk folded it to "...";
+#     scarier passes the byte through.  Cosmetic.
+#
+# Word-level agreement between the log and this transcript is 98.3%; every
+# remaining difference is the MUD's 70-column wrap against our 80, the log's
+# stripped-out `[LINK]` anchors, and the two items above.
+x me
+i
+look under bed
+open box
+take box
+pull box
+move bed
+open box
+move bed
+l
+read papers
+read papers
+read journals
+look under table
+x floor
+move floorboard
+x floorboard
+push floorboard
+x walls
+x ceiling
+x bed
+x mattress
+look under papers
+x window
+x door
+close door
+x dresser
+l
+x alcove
+e
+search walls
+touch floorboards
+touch walls
+search bed
+touch me
+i
+x box
+x lid
+reach in box
+search box
+close box
+x box
+open box
+x dust
+close box
+get on bed
+lie on bed
+x journals
+search journals
+move journals
+x paper
+move paper
+search paper
+take paper
+move table
+stand on table
+stand on bed
+look under bed
+x dusty space
+x space
+x drawer
+open table
+x leg
+x cloth
+take cloth
+x key
+e
+x barreks
+x barrels
+x dust
+turn on light
+x breeze
+n
+x Gavin
+x bed
+x cabinets
+talk to uncle
+x fridge
+open fridge
+x egg
+take egg
+close fridge
+x oven
+open oven
+x cob
+take cob
+close oven
+x stove
+x sandwich
+smell it
+take sandwich
+x sink
+x drain
+do dishes
+d
+i
+no
+talk to uncle
+no
+x chair
+x satchel
+open it
+sit on chair
+x tomes
+d
+e
+x uncle
+wait
+open satchel
+x cabinets
+open cabinets
+talk to uncle
+no
+x chair
+take satchel
+e
+undo
+undo
+undo
+undo
+l
+talk to uncle
+talk to uncle
+talk to uncle
+talk to uncle
+talk to uncle
+talk to uncle
+cry
+take hand
+talk to dad
+talk to dad
+talk to dad

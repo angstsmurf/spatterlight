@@ -1,0 +1,141 @@
+Loading game...
+
+Crimson Detritus
+Crimson Detritus
+
+        It's been a long day and it isn't even noon yet.  You decide to take
+a little break from your workload and are very happy that you installed
+ADRIFT on your computer at work.  Let's see...Ah, here it is. To Hell in a
+Hamper, by Jason Guest.
+
+Just as you make it through the intro, the boss pops in unexpectedly behind
+you. "I TOLD YOU IF I CAUGHT YOU PLAYING GAMES AT WORK THAT I WAS GOING TO
+MAKE YOU PAY FOR IT!"
+
+Before you can even say anything or even close the game out, you are zapped
+by some strange looking remote control and blinded by a white light.  When
+you manage to open your eyes, you find yourself on a strange planet....
+
+Continue.....
+
+Strange Planet
+        You're on strange planet that appears to be covered with crimson dust
+as far as the eye can see.  A darkened sky twinkles with millions of stars,
+like diamonds on a sheet of black velvet.  A large building rises into the
+sky to the north with a high arched doorway that appears to be guarded by a
+strange creature.
+
+There is a tube lying on the ground nearby.
+There is a strange creature pacing back and forth in front of the arched
+doorway.
+
+>
+>You pick up the tube of vanishing cream.
+
+>(Your score has increased by 10)
+        You squeeze the tube and out gushes the last bit of cream.  You
+manage to rub the cream all over your body and instantly disappear.  You toss
+the empty tube aside and it sinks beneath the dust like a concrete block in
+deep waters.
+
+>(Your score has increased by 5)
+        You sneak past the strange creature, avoiding the roaming eyes that
+float about on the end of the tentacles.  As soon as you get past the
+creature, the vanishing cream starts to wear off.  You really start to wish
+you would have kept the empty tube to take back home with you.  You think you
+could have got just a little more cream out of the tube.  It would have been
+good for a couple of laughs.
+
+In a small corridor
+        You are in a small corridor with an open, arched dooryway to the
+south, and a door with a sign above it is to the north.  There are a few
+hooks on the wall.
+
+>        The hooks almost seem to be part of the wall itself.   A uniform is
+on the hook.
+
+>You take the uniform from the hook.
+
+>(Your score has increased by 10)
+        You flip the uniform around every which way, trying to figure out how
+to put the darn thing on.  Noticing a rather menacing-looking hole on the
+underbelly, you look a little closer and are taken by surprise when the
+toothy hole flies over your head, forcing you to the ground.  Next thing you
+know you are wearing the strange uniform....and can see out of every single
+eye at the same time!  "Cool!"
+
+>        You enter the room and the door closes behind you and disappears
+seamlessly into the wall.
+Assembly line
+Spanning from one side to the other, a large conveyor belt takes up a
+significant portion of the room.  On the eastern wall there is a control
+panel with a couple of lights and buttons, while on the western wall a
+narrow, metal stairway rises up to meet an open doorway.
+
+>        The control panel on the eastern wall has two buttons and two lights
+above them.
+
+>(Your score has increased by 10)
+        You press the red button and the red light comes on. With a loud
+screech, the conveyor belt comes to a full stop.
+
+>
+Assembly line
+Spanning from one side to the other, a large conveyor belt takes up a
+significant portion of the room.  On the eastern wall there is a control
+panel with a couple of lights and buttons, while on the western wall a
+narrow, metal stairway rises up to meet an open doorway.  There is a remote
+control here.
+
+>(Your score has increased by 10)
+        You grab the remote.
+
+>You move up.
+Slide
+        Just inside the doorway, a long slide leads into darkness.
+
+>You are wearing a uniform, and you are carrying a remote control.
+
+>(Your score has increased by 10)
+        You dive into the slide head first, and scream all the way down.  You
+go through twists and loops, banging yourself all around.  When it is finally
+done, you pick yourself up from the crimson dust and find yourself back
+outside the building.
+
+>(Your score has increased by 10)
+        You flip the switch into the ON position.
+
+>(Your score has increased by 35)
+        You press the white button and are thrown on your backside, sending a
+cloud of crimson dust into the air.  Lighting-like enery is forced out of the
+antenna and strikes the creature that was pacing back and forth in front of
+the dooryway.  With a blinding flash of light and horrid screams, the
+creature bursts into a cloud of smoke.
+
+When the smoke finally clears, you see a teenager waving his arms about,
+heading toward you.
+
+{}"Dude!  Like, thanks man!"  he says, rushing forward to help you up when he
+suddenly notices that you are one of the creatures.
+
+{} "Um, sorry man.  I got caught playing interactive fiction at work, man,
+and my boss freaked out.  Next thing you know I ended up here with one of
+those funky creatures," he continues, slowly backing away from you.
+
+{}"I, um, did the same thing you did man.  Snuck past that creature thingy,
+put on the uniform and couldn't get it off, found a remote, slide down the
+slide.  WHAMMO! Pressed the button and some old dude laughed and got zapped
+through a portal."
+
+Looking very angry now, you start out after the teen.
+
+"Dude, there's my portal now!  You'll have to keep the next guy from going in
+that place if you want to stop the cycle!  Don't let anyone else get
+trapped!"
+
+With that, the teen is zapped through a portal and you are left to guard the
+Crimson Detritus until the next victim comes along to take your place.
+
+Thank you for playing this short game.  And do remember to not get caught
+playing with ADRIFT while you're at work.  You don't want to be the next
+Grossnitch!

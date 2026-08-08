@@ -246,12 +246,8 @@ you...
 You can move east, south and up.
 A sudden crash of lightning makes you jump.
 
->The umbrella stand has no umbrellas in it.  Winning lottery ticket is inside
-the umbrella stand.
-Thunder rumbles ominously.
-
 >You take winning lottery ticket from the umbrella stand.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You move south.
 In the Front garden
@@ -260,13 +256,13 @@ wolves that drove you to this place. Above you, light is showing from the
 bathroom window.
 
 You can only move north.
-The wind howls and you shiver.
+The rain continues to batter down.
 You hear wolves again, and they seem to be coming closer. It may not a good
 idea to hang around...
 
 >You lean the ladder against the open bathroom window, enabling you to climb
 up and go inside.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 You see the glint of a wolf's eyes reflected in the light from the house! You
 must go back inside immediately!
 
@@ -278,21 +274,21 @@ flapping in the breeze. There is a door to the east, locked with a bolt on
 this side.
 
 You can only move down.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >You pull the chain and the toilet flushes noisily. What fun! Wait... the
 gurgling water clears away to reveal something. A shiny key!
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You take drinks cabinet key from porcelain toilet.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You have a long, cool drink from that great-tasting toilet water. Ah, that
 really hits the spot...
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >You slide back the bolt from the door and open it.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >You move east.
 In the Guest bedroom
@@ -301,7 +297,7 @@ drawers. A rung ladder leads up the east wall into a hole in the ceiling.
 The door to the bathroom is now open.
 
 You can move north, west and up.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You move north.
 In the Library
@@ -312,7 +308,7 @@ dominates most of the room, the books being on shelves on the walls.
 Also here is black book.
 
 You can move south and west.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You move west.
 On the Landing
@@ -322,7 +318,7 @@ holds more portraits of the previous owners. Doorways go in three directions
 and stairs behind you lead downstairs.
 
 You can move east, west and down.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >You move down.
 In the Hallway
@@ -332,7 +328,7 @@ decorate the walls. You have the odd feeling that the eyes are watching
 you...
 
 You can move east, south and up.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >You move east.
 In the Living Room
@@ -341,20 +337,20 @@ perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
 
 You can move north and west.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >The drinks cabinet swings open. You discard the key.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You pick up bottle of whisky.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >You tip the all the whisky down your neck and throw away the bottle. You feel
 very lightheaded and dizzy, then vomit profusely onto the floor. Never again!
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >You pick up bottle of whisky.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You move north.
 In the Conservatory
@@ -363,7 +359,7 @@ garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
 You can move north, south and west.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You move west.
 In the Kitchen
@@ -372,13 +368,13 @@ stove rests beside the window. You notice that one of the floortiles is
 loose.
 
 You can only move east.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >You open kitchen cupboard.  Vial of liquid is inside kitchen cupboard.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >You take vial of liquid from kitchen cupboard.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >The tile smashes away, and foolishly you were standing on it when you did so.
 You fall a short distance and find yourself in a room.
@@ -408,7 +404,7 @@ wall, and a stove rests beside the window. A hole in the ground leads down to
 the laboratory.
 
 You can move east and down.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You move east.
 In the Conservatory
@@ -417,7 +413,7 @@ garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
 You can move north, south and west.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You move south.
 In the Living Room
@@ -426,7 +422,7 @@ perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
 
 You can move north and west.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >You move west.
 In the Hallway
@@ -436,7 +432,7 @@ decorate the walls. You have the odd feeling that the eyes are watching
 you...
 
 You can move east, south and up.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >You move up.
 On the Landing
@@ -446,7 +442,7 @@ holds more portraits of the previous owners. Doorways go in three directions
 and stairs behind you lead downstairs.
 
 You can move east, west and down.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You move west.
 In the Master bedroom
@@ -455,20 +451,20 @@ crest is displayed on the south wall. Beside the bed is a table with a
 fishtank on it.
 
 You can only move east.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You pour the purple liquid into the fish tank... suddenly the piranha
 thrashes around madly, as if it is burning. Then it floats gently to the top
 of the water.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >-
 
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >The fish disolves in the whisky! As it fizzes, you see the whisky take on a
 blue colour and a sweet smell.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You move east.
 On the Landing
@@ -478,7 +474,7 @@ holds more portraits of the previous owners. Doorways go in three directions
 and stairs behind you lead downstairs.
 
 You can move east, west and down.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You move east.
 In the Library
@@ -489,14 +485,14 @@ dominates most of the room, the books being on shelves on the walls.
 Also here is black book.
 
 You can move south and west.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >The cog fits perfectly, and the hands of the clock switch to 12:00 midnight.
 It begins to chime, but does not stop at 12. It seems the clock will keep
 chiming for ever...  From downstairs, Eggbert shouts "What! I thought that
 clock was broken!" Then you hear a muffled footsteps approaching as he comes
 to investigate.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 You hear the chiming of the grandfather clock.
 
 >You move west.
@@ -507,7 +503,8 @@ holds more portraits of the previous owners. Doorways go in three directions
 and stairs behind you lead downstairs.
 
 You can move east, west and down.
-The rain continues to batter down.
+Thunder rumbles ominously.
+You hear the chiming of the grandfather clock.
 
 >You move down.
 In the Hallway
@@ -517,7 +514,7 @@ decorate the walls. You have the odd feeling that the eyes are watching
 you...
 
 You can move east, south and up.
-The wind howls and you shiver.
+The rain continues to batter down.
 You hear the chiming of the grandfather clock.
 
 >You move east.
@@ -531,7 +528,7 @@ Eggbert is here.
 You can move north and west.
 
 Eggbert runs off to the west.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 You hear the chiming of the grandfather clock.
 
 >You move north.
@@ -541,8 +538,7 @@ garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
 You can move north, south and west.
-Thunder rumbles ominously.
-You hear the chiming of the grandfather clock.
+A sudden crash of lightning makes you jump.
 
 >You move west.
 In the Kitchen
@@ -553,7 +549,7 @@ wall, and a stove rests beside the window. A hole in the ground leads down to
 the laboratory.
 
 You can move east and down.
-The rain continues to batter down.
+Thunder rumbles ominously.
 You hear the chiming of the grandfather clock.
 
 >You move down.
@@ -566,7 +562,6 @@ mixture bubbles merrily in a flask over a bunsen burner. It has been fixed to
 the spot by screws. Eggbert obviously wants it to stay put.
 
 You can only move up.
-You hear the chiming of the grandfather clock.
 
 >Stealthily, you pour the blue potion into the green mixture. Your heart beats
 as the mixture writhes, and for a second you could be sure it is screaming.
@@ -584,8 +579,7 @@ wall, and a stove rests beside the window. A hole in the ground leads down to
 the laboratory.
 
 You can move east and down.
-Thunder rumbles ominously.
-You hear the chiming of the grandfather clock.
+A sudden crash of lightning makes you jump.
 
 >You move east.
 In the Conservatory
@@ -596,7 +590,7 @@ windows you think you can see moving shapes - or is it your imagination?
 You can move north, south and west.
 
 Eggbert bumbles in from the south.
-The rain continues to batter down.
+Thunder rumbles ominously.
 You hear the chiming of the grandfather clock.
 
 >You move north.
@@ -607,7 +601,7 @@ to the west leads to the family graveyard. At one side of the garden is a
 vegetable patch with a water tank in the middle.
 
 You can move north, east, south and west.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You move west.
 In the Graveyard
@@ -616,7 +610,7 @@ cold. Rows of gravestones stand like broken teeth, glistening in the rain. A
 crow sits on the branch of a tree, fixing you with a beady eye.
 
 You can only move east.
-A sudden crash of lightning makes you jump.
+The wind howls and you shiver.
 
 >You pour the foul-smelling sludge onto Uncle Horace's grave. As it sinks in,
 the ground begins to churn and writhe... a bony, half-rotten hand bursts
@@ -625,11 +619,11 @@ pulls himself out of the earth and stands dumbly, unblinking, before you. But
 after all this effort - what are you going to do with him?
 
 Horace lurches in.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 
 >The zombie's head turns slowly towards the paper. Still holding it out, you
 back away. It works! For every step you take, Horace now follows you.
-The rain continues to batter down.
+Thunder rumbles ominously.
 
 >You move east.
 In the Back Garden
@@ -641,7 +635,7 @@ vegetable patch with a water tank in the middle.
 You can move north, east, south and west.
 
 Horace lurches in from the west.
-The wind howls and you shiver.
+The rain continues to batter down.
 
 >You move south.
 In the Conservatory
@@ -652,8 +646,7 @@ windows you think you can see moving shapes - or is it your imagination?
 You can move north, south and west.
 
 Horace lurches in from the north.
-A sudden crash of lightning makes you jump.
-You hear the chiming of the grandfather clock.
+The wind howls and you shiver.
 
 >You move west.
 In the Kitchen
@@ -666,7 +659,7 @@ the laboratory.
 You can move east and down.
 
 Horace lurches in from the east.
-Thunder rumbles ominously.
+A sudden crash of lightning makes you jump.
 You hear the chiming of the grandfather clock.
 
 >Your score is 84 out of a maximum of 84.  (100%)

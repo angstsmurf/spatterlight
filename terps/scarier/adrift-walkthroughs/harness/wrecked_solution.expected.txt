@@ -914,12 +914,11 @@ pavings, sticking out like a sore thumb.  The drain is open.
 Also here is a gold card and a large shark hook.
 
 I can move north, east, south, west and down.
-It starts to rain.
 
 >I move north.
 On the pier
 I am on a wooden pier, which stretches out into the water.  There is a small
-boat beside the pier.  It is raining.
+boat beside the pier.
 
 I can move south and in.
 
@@ -928,7 +927,7 @@ In the speedboat
 I am in the small white speedboat.  At the front of the boat is the
 dashboard, and there is a large engine at the back.  There is a throttle
 lever set to one side.  The boat is docked at the pier.  There is a line of
-rope attached to the back of the boat here.  It is raining.
+rope attached to the back of the boat here.
 
 I can only move out.
 
@@ -943,6 +942,7 @@ I pour the petrol from the glass into the engine.
 >I drop the empty glass.
 
 >I turn the ignition key.  The motor roars to life.
+It starts to rain.
 
 >I push the throttle lever to the full position.  The boat lurches forwards.
 I ride the speedboat out to where I envisage the wreck to be, then cut the
@@ -993,14 +993,14 @@ I can move up and in.
 
 >I swim back up to the surface, relieved to find the boat still there.
 In the sea
-I am swimming in the sea.  There is a speedboat here.
+I am swimming in the sea.  There is a speedboat here.  It is raining.
 
 >I move in.
 In the speedboat
 I am in the small white speedboat.  At the front of the boat is the
 dashboard, and there is a large engine at the back.  There is a throttle
 lever set to one side.  All I can see in all directions ouside the boat is
-the sea.
+the sea.  It is raining.
 
 I can only move out.
 
@@ -1008,6 +1008,7 @@ I can only move out.
 
 >I push the throttle lever to the full position again, and return the boat
 back to the pier.
+The rain eases slightly.
 
 >The last entry in the log reads; "Today we hid our treasure in the old sewer
 system in Ambersville, as I fear our journey today is extremely
@@ -1016,9 +1017,10 @@ treacherous..."  It goes on, but isn't very exciting.
 >I move out.
 On the pier
 I am on a wooden pier, which stretches out into the water.  There is a small
-boat beside the pier.
+boat beside the pier.  It is raining.
 
 I can move south and in.
+The rain stops.
 
 >I move south.
 By the drain
@@ -1069,20 +1071,20 @@ I can only move east.
 >Time passes...
 
 >Time passes...
+
+>Time passes...
 It starts to rain.
 
 >Time passes...
 
 >Time passes...
+
+>Time passes...
 The rain eases slightly.
-The rain stops.
-
->Time passes...
-
->Time passes...
 The train pulls in to a stop at Ambersville.
 
 >Time passes...
+The rain stops.
 
 >I move in.
 Inside the train
@@ -1180,8 +1182,6 @@ is a cubicle near the rear of the carriage.
 Boris is here.
 
 I can move in and out.
-
->Time passes...
 There is a loud tooting sound, and the train slowly moves away from the
 station.
 
@@ -1194,17 +1194,19 @@ station.
 >Time passes...
 The train pulls in to a stop at Ambersville.
 
+>Time passes...
+
 >I step out of the train.
 At Ambersville station
 I am at the Ambersville railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
-the station, its doors open.
+the station, its doors open.  It is raining.
 
 >I move east.
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.
+wire gate is open.  It is raining.
 
 I can move north, east, south, west and in.
 
@@ -1213,23 +1215,24 @@ Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
 
-Biff and Boff are here.
+Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
 >I move north.
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.
+pillar.  It is raining.
 
 I can move north, east, south and west.
 
 >I move east.
 By a large dog kennel
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
-There is a very large dog here, tied up by the kennel.
+There is a very large dog here, tied up by the kennel.  It is raining.
 
 I can move north, east, south, west and in.
+The rain eases slightly.
 
 >I move in.
 Inside the kennel

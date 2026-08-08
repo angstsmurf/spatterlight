@@ -952,18 +952,6 @@ mon pote! On se retrouvera sur la terre ferme!" "Sans problème mon gars! Je
 vais prévenir les pilotes!" dites-vous avant de raccrocher. Ces expressions
 de joie éveillent la curiosité des passagers. Certains d'entre eux vous
 fixent du regard. Le cocpit se trouve au Nord.
-"Mesdames et messieurs, soyez les bienvenus à bord de ce Boeing 747. Dans
-quelques instants, nous allons procéder au décollage. Veuillez regagner vos
-sièges et attacher vos ceintures. Notre durée de vol sera d'environ une heure
-et trente minutes. Nous vous souhaitons un agréable vol."  Quelques instants
-après cette annonce, l'avion se met à rouler en direction de la piste. "Que
-va-t-il se passer à bord de cet avion? Où ce malfrat veut-il en venir?" vous
-demandez-vous. L'appareil se met alors à accélérer puis procède au décollage.
- Quelques minutes plus tard, votre téléphone portable se met à sonner. Vous
-décrochez: "Ici Label." La voix du malfrat se fait entendre à travers le
-téléphone: "Jusqu'à présent, je suis assez content de toi Label. Il est temps
-de passer aux choses sérieuses." "Où voulez-vous en venir?" demandez-vous
-d'une voix tremblante. "Regardes sous ton siège!" vous ordonne le malfaiteur.
 
 >(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans le cocpit. Le pilote et le
@@ -996,18 +984,6 @@ Morgane, ma vie n'aura plus aucun sens." pensez-vous.
 >Le temps passe...
 
 >Le temps passe...
-"Mesdames et messieurs, soyez les bienvenus à bord de ce Boeing 747. Dans
-quelques instants, nous allons procéder au décollage. Veuillez regagner vos
-sièges et attacher vos ceintures. Notre durée de vol sera d'environ une heure
-et trente minutes. Nous vous souhaitons un agréable vol."  Quelques instants
-après cette annonce, l'avion se met à rouler en direction de la piste. "Que
-va-t-il se passer à bord de cet avion? Où ce malfrat veut-il en venir?" vous
-demandez-vous. L'appareil se met alors à accélérer puis procède au décollage.
- Quelques minutes plus tard, votre téléphone portable se met à sonner. Vous
-décrochez: "Ici Label." La voix du malfrat se fait entendre à travers le
-téléphone: "Jusqu'à présent, je suis assez content de toi Label. Il est temps
-de passer aux choses sérieuses." "Où voulez-vous en venir?" demandez-vous
-d'une voix tremblante. "Regardes sous ton siège!" vous ordonne le malfaiteur.
 
 >Le temps passe...
 (Your score has increased by 1)

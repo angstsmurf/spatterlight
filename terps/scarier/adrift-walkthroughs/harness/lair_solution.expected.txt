@@ -1,0 +1,3932 @@
+Loading game...
+
+Lair of the Vampire
+
+Intro
+
+1)  Start the game
+2)  Read the background and instructions
+3)  Hidden features in the game
+
+>Who are you?
+
+Before we begin...
+Just a simple question: are you male or female?
+
+>   Male you are.
+-----Press a key-----
+
+Cell
+
+The cell
+A dismal and dank room, the 'cell' you find yourself in is not large but
+appears to be so. Perhaps it is the lack of lighting, perhaps it is the way
+the walls seem somehow "insubstantial", perhaps it is simply your mind
+playing tricks on you.
+   There is a small, barred window through which streams moonlight set high
+up in the nearest wall. Opposite this, set into the stone like an immovable
+giant, is a door of cold, dark steel. Even in the dim light, mystic sigils
+are visible over the surface.
+   There are several others in the cell, clustered together in a group for
+warmth.
+
+Exits lie: nowhere (at present)
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGEs 1, 2 & 3
+
+>   You see: Vardo the priest, Steven Harris, Lara and Garrick.
+   You yawn suddenly, unable to help yourself. You wonder how long it has
+been since you last had a decent sleep.
+
+>   "I don't want to be here," says Lara without looking at you. She walks her
+doll across the floor then sighs. "Me and Phoebe wanna go home!"
+
+>   She looks at Harris for a moment then puts her head close to yours and
+whispers, "I saw him take something out of Garrick's pocket."
+   You feel that you cannot continue for much longer without sleep.
+
+>   "I think it was a key or something like that."
+   A great weariness assails you. The desire to sleep is quite overpowering.
+
+>   "What? But I haven't..." He breaks off angrily then looks around the cell
+as if worried that someone might overhear him. Then he says to you in a
+hushed whisper, "it's not a key, it's a picklock. I found it in Garrick's
+pocket. I've been twiddling with it for the past hour trying to figure out
+how you use it to open things. Damned if I can figure out a thing."
+
+>(Your score has increased by 3)
+   He sighs and hands the picklock over. "But be careful with it," he
+whispers. "We don't know if the Count's watching us somehow and I for one
+don't want to spend the rest of my life in this cell."
+   You yawn suddenly, unable to help yourself. You wonder how long it has
+been since you last had a decent sleep.
+
+>   You insert the picklock into the lock on the door and begin to work...
+
+   Several minutes pass by while you struggle with the complex locking
+mechanism on the door, sweat beading on your forehead. Eventually you are
+forced to admit defeat. Perhaps if you try again later you will be more
+successful...
+
+>(Your score has increased by 4)
+   You insert the picklock into the lock on the door and begin to work...
+
+   After several minutes careful work, you hear a click and the door slowly
+swings opens.
+   "You did it!" Harris says, surprise evident in his voice.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 2
+
+>   Sitting slumped against the cold stone wall, Vardo is not a well man. He
+coughs frequently into a bloodstained rag, a deep racking cough that tells
+you he does not have long to live. His eyes are wide and pain-rimmed. He is
+dressed in deep brown robes which are torn and bloodied in numerous places.
+Clutched in his left hand, the fingers curled around it so tight the knuckles
+are bony white, is a crucifix.
+
+>(Your score has increased by 4)
+   He glances towards the open door, looks at you, and hands you the
+crucifix. "Be careful with it," he says. "Without it, we are lost..."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 3
+
+>   "Looks a little dangerous out there," says Harris as you move towards the
+door. "I think I'll stay right here."
+   You stare at him in surprise. "You're not going to at least try and
+escape?"
+   He shakes his head. "Maybe later. You go, Marlon. Anyway, someone has to
+stay and look after the kid. Come back when you find some weapons and maybe
+I'll come with you then."
+   You give him a bewildered look and leave the cell.
+
+Press a key to continue
+
+Laboratory
+
+The Laboratory
+   Dusty and abandoned, the laboratory appears to have been wrecked at some
+time in the recent past: cabinets have been overturned, rows of strange
+metallic devices have been smashed, chairs and tables lie broken on the
+floor. Only one table is still intact, and on this table, lying perfectly
+still, unmoving, is the body of a tall man clad in green robes. He appears to
+be dead.
+   There is a boarded up window in one wall, drab rays of sunlight oozing
+through the cracks in the boards. Perhaps outside there might be some chance
+at escape...?
+   Light from a glowing panel set into the ceiling illuminates this room but
+there is little to see.
+   A rat scurries over your foot, half causing you to have a heart attack.
+
+Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
+
+>You move southeast.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place. A
+wave of dizziness suddenly sweeps over you and you grasp at the wall to
+steady yourself.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   A shiver goes down your spine.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+>You move southwest.
+Dark passageway
+
+Dark passageway
+Here the hallway turns sharply, one branch heading off southwards into a
+dimly-lit room, the other to the northeast. There is little to see at this
+juncture aside from a single portrait affixed to the wall. It depicts a dark
+shore somewhere that you do not recognise.
+   From far off in the castle you hear ghoulish laughter.
+
+Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
+
+>   It depicts a dark shoreway, the moon washing over silver sand. In the sea,
+though mainly hidden, is what appears to be some kind of behemoth. You do not
+recognise the location.
+
+>   As you lean forward to study the protrusion, you experience a sudden dizzy
+spell. Shaking your head in confusion appears to dispel this.
+
+   But when you look again you find you are not standing in the dark
+passageway any longer.
+Hidden room
+
+Hidden room
+This is just a small room, some eight feet by seven. At some time in the past
+it was used as a cell (perhaps similar in many ways to the one in which you
+escaped from just recently), and chained to the wall are the skeletal remains
+of its last prisoner. An eyeless skull grins at you from atop a body clad in
+dark red robes. The dust around the skeleton is disturbed by many footprints,
+hinting that this room is not as abandoned as it might at first glance
+appear.
+   Out of the corner of your eye, you catch sight of something sitting in the
+corners of the room yet when you look again there is nothing there.
+
+Exits lie: nowhere
+
+>   Noticing something strange about the dust, you brush it aside with your
+hands and come across a small book.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 11
+
+>   You flip open the log and read:
+
+A strange madness has overtaken the castle. Since the arrival of the stranger
+two weeks past, I have noticed a marked change in the residents. The guards
+are pale and appear not to be sleeping; the maids look as if they have seen
+unspeakable things (though when questioned they deny, quite poorly, that
+anything is wrong); even Gladrin seems ill at ease. Where usually he is
+soft-spoken and courteous to a fault, now he seems almost a different man. I
+shall have to investigate and discover what I can.
+
+>   You flip open the log and read:
+
+A meeting with the stranger himself! He introduced himself as Vaslock, a
+traveller from different lands. He seemed perfectly pleasant company during
+our little conversation though I was left afterwards with the unsettling
+feeling that it was all a charade for my benefit. I also noticed, though it
+did not seem so at the time, that while Vaslock asked a great deal of
+questions of me (the answers to most I fail to recall) he answered few of my
+own questions. And the ones that he did answer he did so in such a way that
+they were never really answered at all. A strange and most perplexing man. He
+shall require watching.
+
+>   You flip open the log and read:
+
+This morning I was called to see Lord Havelock. He was not well. He has never
+been a hale and hearty man (despite the rumours of his sexual prowess with
+the numerous ladies of the castle) but now he seems but a shadow of his
+former self. Of Variana there is no sign. A maid informed me, though she
+seemed reluctant to speak at the time, that Havelock had dismissed her on the
+urgings of the stranger, Vaslock, who has convinced Havelock that she was
+some kind of charlatan. It seems Vaslock himself is now caring for my Lord's
+health and safety. Something, I have to confess, I find disturbing in the
+extreme.
+
+>   You flip open the log and read:
+
+Havelock worsens. I saw him at dawn today and hardly recognised him for who
+he is. He has lost weight, and most of his hair, and walks with a pronounced
+limp. Vaslock never leaves his side.
+
+I have confided my fears in Gladrin who seems to agree with me that something
+needs to be done. He will arrange matters, he says, to 'take care of
+Vaslock'. I do not ask him what he means to do. I do not wish to know.
+
+>   You flip open the log and read:
+
+Gladrin is dead! His body was found this morning in the courtyard, pale and
+bloodless. His sword lay by his side, unblooded. Whoever killed him was
+either so fast or so skilled that he failed to land a blow. I would never
+have thought anyone capable of felling Gladrin with such ease. I mourn his
+loss greatly. I have lost my only ally. Strangely his body seems almost
+unmarked, save for two small puncture wounds on his neck.
+
+Later that day, as I saw to the burial of Gladrin's body, I was spoken to by
+Vaslock again. He did not attend the funeral on the field outside the castle
+but met me later, in a shadowy passageway within the castle (something I have
+only just realised. How dark the castle seems these days. The windows appear
+misted over and there are few places where sunlight strikes within the
+walls.) Vaslock asked me more questions and I found myself answering them
+without even being sure why I was doing so. His eyes were mesmerising and
+each time I tried to hold something back from him I found I was unable to do
+so. In the end he bid me go. I learnt nothing from him.
+
+>   You flip open the log and read:
+
+The changes I noted before occurring within the castle are more pronounced
+than ever. Tempers seem frayed and fights break out over the slightest thing.
+Two men were found dead in the courtyard earlier today, wounds on their
+bodies matching the ones I found on Gladrin just last week. I fear the worst.
+Something must be done and, as I now lack allies, it is to be I that does
+something.
+
+>   You flip open the log and read:
+
+An audience with Lord Havelock who appears to be a walking corpse. He sits on
+his throne - or slumps would be a more apt word - and is attended by Vaslock
+at all times. I had requested a personal audience yet the newcomer is here
+nonetheless. In his presence my former resolve withered away and I merely
+mumbled some empty platitudes that I hoped my Lord made a swift recovery from
+his illness before quickly departing.
+
+Later I chanced to see Vaslock in the eastern halls. I went at once to Lord
+Havelock's chambers and demanded entrance. There was quite a delay before I
+was finally admitted and my Lord's guards - whom I have known for many years
+and am good friends with - were reluctant in the extreme to allow me to enter
+without first summoning Vaslock. But in the end I persisted and entered. In
+vain alas. Havelock was incapable of coherent speech and ignored my pleas to
+banish Vaslock from the castle. In despair I turned to leave... and saw
+Vaslock standing there! Yet no door had been opened and I was sure he could
+not have reached these chambers before me. He did nothing but merely looked
+at me and, my resolve broken, I fled.
+
+>   You flip open the log and read:
+
+They came for me in the middle of the night. I was in the act of fleeing the
+castle. I had no clear plan in mind, just the certain knowledge that if I
+remained I would be slain as surely as Gladrin had been. I knew not how
+Vaslock had overcome such a mighty warrior with such ease but for sure if he
+could handle Gladrin so easily he would have no trouble with one such as I.
+So I had prepared to flee, knowing there was nothing that could be done
+here... alas I was too slow. There were four of them, masked men in robes
+that hid their bodies from me. I fought but not well. I have never been a
+strong man and they outnumbered me and were each stronger than I was. Quickly
+I was subdued.
+
+Earlier that day, before I was set upon my course to flee, I had chanced upon
+a room I had never encountered before. A secret room in which sat five
+bodies: one I knew was Gladrin (even though I had myself buried him out in
+the field), another was Valiz, a singer with whom my Lord was infatuated a
+while ago before her abrupt disappearance, a third was Golyon, Havelock's
+butler, thought long dead, the fourth was Toril, Havelock's priest who was
+supposedly banished from the castle shortly after Vaslock's arrival, the
+fifth I did not recognise. By chance - or fate, I know not - I uttered a
+word... and Gladrin's corpse turned to look at me!
+
+This was a most frightening experience and one which I wish had not occurred.
+But it seemed, incredible as it sounds, that none of the 'people' (I use the
+word lightly) were truly dead. They were not alive either, but held in a kind
+of state between the two. I was able to question Gladrin and discover that
+indeed he had been slain by Vaslock. His sword had dealt the stranger three
+solid blows, and yet Vaslock had acted as if he was unwounded. For sure,
+Gladrin's corpse informed me, mortal weapons were of no use against the likes
+of Vaslock.
+
+Later... before Vaslock himself I was brought. This came as little surprise.
+He was different than before. Whereas before he had always seemed courteous,
+if a little cold, I now saw him for what he truly was. He explained to me in
+great detail, apparently taking some perverse delight in tormenting me thus
+and knowing there was nothing I could do, what he had done to the castle. He
+seemed to care little that my Lord was in the room at the time although
+Havelock did nothing so Vaslock's arrogance was perhaps unsurprising. Only at
+one time did he seem to show unease. When he grabbed me by the tunic and
+lifted me to my feet - he did this easily and without the slightest strain -
+the cross that I wore around my neck brushed lightly across his hand. He
+cursed angrily and thrust me from him with enough force to send me flying
+across the chamber. "Get that human out of here!" I heard him roar as he
+nursed his hand which, to my wonder, had turned an angry red colour as if
+burnt. I was dragged from Vaslock's presence.
+
+>   You flip open the log and read:
+
+I have heard much screaming in the past few hours and the sounds of fighting.
+There was what sounded like an explosion earlier today and the very
+foundations of the castle seemed to shake. Afterwards I was aware of
+footsteps past my cell and the groans of injured people. My cries as to what
+was occurring went unaswered. I fear the worse.
+
+>   You flip open the log and read:
+
+My last journal entry, I fear. A strange development has occurred, one I
+never imagined in my worst nightmares. Vaslock came to visit me. He informed
+me that the castle was now his to do with as he pleased. Havelock had been
+since the start, a weak-willed fool who was susceptible to mind control and
+unable to resist what he was ordered to do. Vaslock told me that there were
+many more of he and his kind at large in the world but that he had little
+contact with them and cared for them even less than I cared for him. He went
+on to tell me that he wished to strike a bargain with me: access to my study
+(which for some reason he was not able to enter) in return for my life. I am
+proud to say I spat in his face.
+
+Perhaps my action was a foolish one but I had never for a second expected he
+would let me live even if I did what he asked (and in all truth I know not
+why he was unable to enter my study. Something in there, obviously, forbids
+him entrance though I am unsure as to what it could be.) My fate was dealt
+out a moment later.
+
+I expected he would kill me, strike me down as easily as he had done Gladrin.
+But instead he wrapped me in a tight embrace and bit my neck! The pain was
+excruciating and I believe I passed out for a while. When I came to Vaslock
+was stood over me, blood smeared across his face. He said 'now you will see
+life as I see it. But you will not enjoy it, Morlock, for when the blood rage
+comes over you you will have no means of beating it. Suffer you will, and
+think on the offer you turned down.' Then he left. I doubt I will see him
+again.
+
+I confess that most of what Vaslock said I did not understand but I
+understood quite well what he had done to me. He had made me as he was, only
+weaker. Whereas he possesses the strength to ward off blows from a sword, I
+am unable to free myself from this cell. And I can feel myself succumbing to
+what I can only assume is the "blood rage". Blood, the very thought of it,
+fills my every thought. Whereas once I would have been sickened at the very
+idea of drinking such stuff, now I find myself lusting for it. Whatever evil
+it is that Vaslock has inflicted on me, I can only hope my mortal frame
+perishes before it overwhelms me utterly. I would hate to end my days as he
+is...
+
+>   As you touch the robes, a collection of items held inside fall to the
+floor, disturbing the dust that lies there.
+
+>You pick up the smelling salts.
+
+>   Unable to discover a way to escape this room, you stand there and wait.....
+
+   A little time passes and then you hear a strange, grating sound and the
+floor at your feet spins around, moving you back to the dark passageway once
+more.
+Dark passageway
+
+Dark passageway
+Here the hallway turns sharply, one branch heading off southwards into a
+dimly-lit room, the other to the northeast. There is little to see at this
+juncture aside from a single portrait affixed to the wall. It depicts a dark
+shore somewhere that you do not recognise.
+   It must be tiredness, but you could swear that you just saw a face on one
+of the walls.
+
+Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
+
+>You move south.
+Dimly-lit room
+
+Dimly-lit room
+At some time in the past, this was no doubt a cosy dining room. It has long
+since fallen into disrepair. Cobwebs stretch across the length and breadth of
+the long table which runs down the centre of the room, a table that is
+covered with the remains of a long since deserted feast: rotted foostuffs
+give off a smell that makes your eyes water.
+   Lining one wall is an impressive marble fireplace shaped into a lion's
+face. The fire in the hearth has long since gone out.
+   Seated in armchairs around the table are five skeletons, dressed in finery
+such that you have never seen before. The sixth chair, the one that would sit
+at the head of the table, remains empty.
+   A rat scurries over your foot, half causing you to have a heart attack.
+
+Exits lie: north (to the dark passageway)
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 4
+
+>   Sifting through the ashes, you come across a pair of worn, leather gloves.
+They appear incredibly old and it is difficult to say just how long they have
+been lying here. All the same, you take them with you.
+
+>   A further sift through the ashes and you find a ring. Rubbing the ashes
+from it, you discover it is gold in colour.
+
+>   Dust is scattered liberally across the fireplace, indicating no one has
+been here in a long, long time. At either end of the mantle are steel
+candleholders though minus any candles. In the hearth itself are the ashes of
+the last fire to burn here.
+
+>(Your score has increased by 3)
+   You pull down on one of the candleholders which turns under your hand with
+a creak. Faintly, you could swear you heard machinery moving.
+
+>   The sixth chair sits at the head of the table and is the only chair in
+here that is empty. It is covered with a fine satin weave that has survived
+the ravages of time surprisingly well.
+
+>(Your score has increased by 3)
+   As you reach out to take the weave, a ghostly hand appears from nowhere
+and pushes your own hand aside.
+   "I would not do that," says a voice. "You know not what you mess with."
+   You jerk your hand back and look up to see that a figure now sits in the
+chair. A ghostly figure that is oddly translucent. The chair is visible
+through its form.
+   "In life I was Havelock, Lord of this castle. Now I am nothing but a
+spectre of what I once was. But I still have power, stranger, even in death."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 4
+
+>   "Ah, a poor shadow of my former self I am now," says the strange being. "I
+was a fool. I see that now. But at the time... Oh, I did not understand what
+it was I faced. I had no comprehension of what manner of creature Vaslock
+was. Even now, these many long years after my death, I struggle to understand
+the things he has done. He has a purpose, no doubt, but one that is dark and
+clouded. Perhaps he is not sure of it himself. Whatever..." The spectre peers
+at you. "Ask me questions if you would. Perhaps I can shed some light on your
+current predicament."
+
+>(Your score has increased by 2)
+   "A strange man, Morlock. He was my chief scribe and a far more intelligent
+man than I ever gave him credit for. He urged me to banish Vaslock from the
+castle and if I had done as he urged I might well have avoided the events
+that occurred. But I regret I was a fool. I did not listen.
+   'Stranger, if you would rid the castle of the evil that now manifests
+itself here, you should speak to Morlock himself."
+   "But Morlock is... dead," you say.
+   Havelock nods. "He is, yes. But his spirit remains here the same as does
+mine, and the others in this room. I sense him in his study. Go there now.
+You may not see him at first but there is a ritual... Ah, I forget the
+ritual."
+   "The ritual of the mirror," says the skeleton of Valiz.
+   "Ah yes, of course. Go to Morlock's study, stranger, look deep into the
+mirror, study your reflection. You may find that all is not the same
+afterwards. I can tell you nothing more."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 5
+
+>   Peering into the dark, empty space you make out what appears to be a large
+box.
+
+>You move north.
+Dark passageway
+
+Dark passageway
+Here the hallway turns sharply, one branch heading off southwards into a
+dimly-lit room, the other to the northeast. There is little to see at this
+juncture aside from a single portrait affixed to the wall. It depicts a dark
+shore somewhere that you do not recognise.
+   From somewhere you hear a door slam. It seems you are not alone.
+
+Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
+
+>You move northeast.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place. A
+wave of dizziness suddenly sweeps over you and you grasp at the wall to
+steady yourself.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   It must be tiredness, but you could swear that you just saw a face on one
+of the walls.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+>You move northwest.
+Laboratory
+
+The Laboratory
+   Dusty and abandoned, the laboratory appears to have been wrecked at some
+time in the recent past: cabinets have been overturned, rows of strange
+metallic devices have been smashed, chairs and tables lie broken on the
+floor. Only one table is still intact, and on this table, lying perfectly
+still, unmoving, is the body of a tall man clad in green robes. He appears to
+be dead.
+   There is a boarded up window in one wall, drab rays of sunlight oozing
+through the cracks in the boards. Perhaps outside there might be some chance
+at escape...?
+   Light from a glowing panel set into the ceiling illuminates this room but
+there is little to see.
+   Out of the corner of your eye, you catch sight of something sitting in the
+corners of the room yet when you look again there is nothing there.
+
+Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
+
+>(Your score has increased by 3)
+   You hold the smelling salts before the face of the unconscious man and
+wait for something to happen.
+
+   After a few seconds something does happen. The man's eyes suddenly flicker
+open and he grasps at your wrist with fingers of steel. Another hand claws
+for your throat...
+   And then, just as suddenly, lets go.
+   "My apologies, friend," says the man. "I thought you someone else."
+   You introduce yourself and the man, wearily finding his feet, says his
+name is "Lorgrim. Or that is the name I am known by in this castle. Whether
+that is my real name or not, I do not know. I remember little before my
+arrival."
+   "I remember little myself," you say.
+   Lorgrim nods. "I suspect Vaslock does something to your mind - perhaps
+using his vampire powers - to suppress your earlier memories. It
+disorientates you, makes you easier to handle, I guess. Suffice to say, I
+awoke in this dismal place a month past and have never yet set foot outside
+it." Lorgrim pauses and rubs wearily at his face which, you cannot help
+noticing, has a bizarre look to it. Lorgrim smiles grimly upon seeing your
+expression. "Vaslock and his little experiments are the cause of this, I
+fear. As I said, I recall next to nothing of my life before the castle but I
+doubt I looked anything like this. In part, my appearance is as a result of
+the vampirism Vaslock inflicted with me." Lorgrim notices you take a step
+back. "You have nothing to fear from me, my friend. After all, by awakening
+me you no doubt saved my life.
+   "As I said, Vaslock inflicted me with his vampire blood. He needed a
+guinea pig, you see, for his experiments and either his vassals were too
+precious for him to use or they lacked the necessary proprties for the
+experiments to be a success. So he chose me. He bit my neck-" Lorgrim touches
+his neck where two puncture wounds are visible "and after that I became
+similar to him. Aye, only similar. I lacked his strength else I would have
+killed him then, or died trying. I tried as it was but he simply struck me
+and the experiments began. I never noticed my appearance changing at first -
+there were no mirrors in the cell he kept me in - but I could tell the
+difference after a while. My captors looked at me differently and my eyesight
+seemed to be improving, particularly in the dark. And, also, I had begun to
+crave the taste of blood..."
+   Lorgrim trails off. He glances around the laboratory and shudders. "You
+would think this place has been abandoned for decades, but not so. Vaslock
+was here a matter of days ago. No doubt time passage in this part of the
+castle in an unnatural way."
+   He trails off again then looks at you. "I thank you for awaking me,
+stranger, but I cannot tarry here. If I am to escape, I must be gone soon. If
+you have any questions, ask them of me now."
+
+>   "Aye, what Vaslock subjected me to. He sought to overcome his aversion to
+sunlight by... experimenting on me. He would inject me with foul substances
+that left me vomiting blood for days afterwards; other times he would bleed
+me and study my blood in case there had been some minute change that was not
+outwardly visible. Always his experiments ended in failure. If not the pain
+they caused me, I would have rejoiced in this. But it seems his final
+experiment was too great. He killed me..."
+
+>   "Or thought he did, at any rate. Needless to say, he would not have left
+me unlocked had he known I was still alive. I suspect whatever he did to me
+the last times - the herbs he made me swallow - they affected my metabolism
+somewhat so that I had no heartbeat or pulse and yet I still lived."
+
+>(Your score has increased by 3)
+   "I have the key to the herbs box here," he says, and fetches a small iron
+key out of his pocket. "The herbs store itself is in a room in the castle
+that I have never visited but I know that Vaslock often kept some closeby
+when he was... experimenting upon me. Look around. You'll find the box
+somewhere.
+   "And now, my friend, it is time for me to depart. I doubt I will get far -
+my health has never been good and after Vaslock's cursed experiments it is
+worse than ever - but I can at least try. Perhaps we shall meet again.
+Farewell."
+   You shake hands with Lorgrim before he leaves the laboratory, staggering
+weakly to the southeast.
+
+>You move north.
+Study
+
+Study
+This room seems untouched by the passage of the years that have so affected
+the rest of the castle. There is not a speck of dust to be found but, also,
+you sense a great emptiness here as if no one has used this room in a long,
+long time.
+   A shiver goes down your spine.
+   An old wooden desk sits by an empty fireplace. Above the desk is a barred
+window showing a bleak, desolate moor. On one wall is a circular mirror of
+roughly three feet dimensions. Something about the mirror disturbs you but
+you cannot say just what it is.
+
+Exits lie: south (to the laboratory)
+
+>   Acting on Havelock's instructions, you look into the mirror. You see,
+unsurprisingly, your own reflection. There appears to be nothing different or
+remarkable about this.
+
+>(Your score has increased by 3)
+   You study yourself as Havelock instructed. And slowly, oh so slowly, you
+begin to detect slight differences - your reflection has slightly longer
+hair, your reflection is shorter than you, your reflection has green eyes
+whereas yours are blue...
+   In surprise you jerk yourself away from the mirror - and encounter a
+surprise even greater. The room appears different than it was a moment
+before.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 5
+
+>   As you seek to leave the study, a sudden urge to turn around comes around
+you. You do so.   And see, floating by the desk, the shade of a man long
+dead.   "Welcome," says Morlock. "You have found me at last."
+
+>   "You did well to find me," speaks the ghostly presence. "I had almost
+given up hope."
+   Its words echo around the small study in an unsettling manner. But you
+listen as intently as you are able. Something tells you that what the shade
+says will be all important to your hopes of escaping from here.
+   "My time is over. I am aware of this. I died a long time ago, Marlon, and
+I can never hope to have my life restored. But I can aid you and aid you I
+will, if for no other reason than to bring about the demise of Vaslock."
+   "You know my name?" you breathe.
+   "I know many things about you, Marlon. I know why you were brought here,
+and the others in your cell, the ones who lack the willpower to escape. Only
+you have the necessary bravery to see this thing through to conclusion. Only
+you, Marlon."
+   Morlock is silent for a moment, gathering his thoughts, then he says,
+"forgive me if my explanations seem a little rushed. My mind... is not what
+it was. I died over three hundred years past and keeping track of what occurs
+is one thing I have sought to do much over the years. Often I have failed.
+The mind in death is not nearly so efficient as the mind in life.   'But
+enough of that. Listen then, and I will tell you what I know..."
+   "What you know about your life before you awoke in that cell - what little
+you may have remembered - is a lie. A cleverly constructed lie, if the truth
+be told, but a lie all the same. You were born in this castle, Marlon, as
+were the others in your cell. They might remember differently but then their
+memories have been tampered with just as yours have been. Vardo is no priest
+despite what he might think, Harris has no fiancee, and so on. What they know
+is what Vaslock wants them to know. What it serves his purpose for them to
+know. It keeps them weak and disorientated. Easy to control.
+   'Vaslock, I will tell you this, is both more and less than he appears. He
+has the true power of the vampire that he is, and yet he also suffers from a
+most human failing: remorse. He inflicts great pain and suffering as a result
+of what he is and during the times of his blood rage he does not dwell upon
+this. He revels in it. He seeks out those he despises and he inflicts great
+anguish upon them for no other reason than he can. And then the blood rage
+will pass and he will be left broken, a shadow of what he once was. He will
+despair of the curse he finds himself under - the curse of vampirism. He has
+sought to rid himself of it for centuries now, since long before he arrived
+at this castle and enslaved and slew its occupants, but he has always failed.
+In a way this is because the path to ridding himself of the curse is a nigh
+on impossible one, but also because he does not truly have the willpower to
+rid himself of it. For what is his curse is also his gift. He has lived a
+long, long time because of what manner of creature he is. Rid himself of the
+curse and he would die in an instant, the age of countless centuries crushing
+his mortal self beneath them.
+   'Little of this will mean anything to you, Marlon. You know it all, in the
+dark recesses of your mind, but Vaslock has suppressed those memories because
+it serves his purpose to do so, and hence what you may remember is only what
+he causes you to remember. But what I have told you will mean everything
+eventually. It will give you the means necessary to rid the world of his
+evil."
+   "But how...?"
+   "Ah, a good question. As poor fortune would have it, Vaslock is now in the
+build up to one of his blood rages. He has full control of his senses during
+such times, but he lacks any of his human compassion or remorse that might
+make him possible to reason with. But in another way we are fortunate: he
+lacks cunning during such times and his control over his vassals is less than
+it normally is. You have a chance, albeit a slim one. Ask me questions if you
+would. I have amassed much knowledge over the years and anything I can tell
+you that will aid you, I will do so gladly."
+
+>(Your score has increased by 5)
+   "Ah, the one question I knew you would ask. How to escape. How indeed?
+Escape will not be easy, although that probably goes without saying. Vaslock
+is no fool and has not survived this long by making mistakes. He will be
+aware you have escaped from the cell soon and send his vassals to deal with
+you. But, for now, you have a chance if you move swiftly enough.
+   'Take this vial."
+   The shade holds out a small vial and, without thinking, you reach out and
+take hold of it. It is only as you grasp it that you wonder how a shade can
+only a real, physical item.
+   Morlock goes on before you can ask, "use the vial against Vaslock's
+guardian. You will encounter him on the next floor of the castle. Without
+that vial you will be unlikely to get the better of him. After that, I can
+help you little. There are others like you held captive elsewhere in the
+castle. If you could free them, you could have an army with which to fight
+against Vaslock and his vassals, or perhaps you would prefer taking him on
+yourself. Suffice to say, if you free the other captives and enlist their
+aid, most if not all of them will die. Consider your actions before you make
+your move.
+   'You will find the chamber of Toril, the castle's priest, somewhere in the
+castle - my memory fails me as to exactly where. Vaslock has been unable to
+enter due to the holy items contained therein. It seems Toril one day feared
+his master might turn upon him and so kept a sanctuary to where he could flee
+if the need arose. Alas for the traitorous priest, Vaslock was wise to this
+and slew him elsewhere. But his loss is your gain. The items in Toril's
+chamber will be of great help in combatting Vaslock and his minions for if
+they have been unable to enter the room after all these centuries then the
+items have lost none of their potent power.
+   'Go now. And may God go with you."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 5
+
+>You move south.
+Laboratory
+
+The Laboratory
+   Dusty and abandoned, the laboratory appears to have been wrecked at some
+time in the recent past: cabinets have been overturned, rows of strange
+metallic devices have been smashed, chairs and tables lie broken on the
+floor. Only one table is still intact. Its surface is bare.
+   There is a boarded up window in one wall, drab rays of sunlight oozing
+through the cracks in the boards. Perhaps outside there might be some chance
+at escape...?
+   Light from a glowing panel set into the ceiling illuminates this room but
+there is little to see.
+   A rat scurries over your foot, half causing you to have a heart attack.
+
+Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
+
+>You move southeast.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place.
+Something rushes by your feet. You jerk back, fearing rats. But nothing is
+there.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   The floor underfoot seems to shake visibly.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+>You move southwest.
+Dark passageway
+
+Dark passageway
+Here the hallway turns sharply, one branch heading off southwards into a
+dimly-lit room, the other to the northeast. There is little to see at this
+juncture aside from a single portrait affixed to the wall. It depicts a dark
+shore somewhere that you do not recognise.
+   A rat scurries over your foot, half causing you to have a heart attack.
+
+Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
+
+>You move south.
+Dimly-lit room
+
+Dimly-lit room
+At some time in the past, this was no doubt a cosy dining room. It has long
+since fallen into disrepair. Cobwebs stretch across the length and breadth of
+the long table which runs down the centre of the room, a table that is
+covered with the remains of a long since deserted feast: rotted foostuffs
+give off a smell that makes your eyes water.
+   Lining one wall is an impressive marble fireplace shaped into a lion's
+face. The fire in the hearth has long since gone out.
+   Seated in armchairs around the table are five skeletons, dressed in finery
+such that you have never seen before. The sixth chair, the one that would sit
+at the head of the table, now contains the transluctent form of Lord
+Havelock's spectre.
+   A shiver goes down your spine.
+
+Exits lie: north (to the dark passageway)
+
+   Sitting under the table is a large box.
+
+>(Your score has increased by 3)
+   You unlock the box with the key given to you by Lorgrim. Inside are a
+collection of herbs which you decide to take with you.
+
+>You move north.
+Dark passageway
+
+Dark passageway
+Here the hallway turns sharply, one branch heading off southwards into a
+dimly-lit room, the other to the northeast. There is little to see at this
+juncture aside from a single portrait affixed to the wall. It depicts a dark
+shore somewhere that you do not recognise.
+   From somewhere you hear a door slam. It seems you are not alone.
+
+Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
+
+>You move northeast.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place. A
+wave of dizziness suddenly sweeps over you and you grasp at the wall to
+steady yourself.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   A shiver goes down your spine.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+>You move northwest.
+Laboratory
+
+The Laboratory
+   Dusty and abandoned, the laboratory appears to have been wrecked at some
+time in the recent past: cabinets have been overturned, rows of strange
+metallic devices have been smashed, chairs and tables lie broken on the
+floor. Only one table is still intact. Its surface is bare.
+   There is a boarded up window in one wall, drab rays of sunlight oozing
+through the cracks in the boards. Perhaps outside there might be some chance
+at escape...?
+   Light from a glowing panel set into the ceiling illuminates this room but
+there is little to see.
+   Out of the corner of your eye, you catch sight of something sitting in the
+corners of the room yet when you look again there is nothing there.
+
+Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
+
+>You move west.
+Cell
+
+The cell
+A dismal and dank room, the 'cell' you find yourself in is not large but
+appears to be so. Perhaps it is the lack of lighting, perhaps it is the way
+the walls seem somehow "insubstantial", perhaps it is simply your mind
+playing tricks on you.
+   There is a small, barred window through which streams moonlight set high
+up in the nearest wall. Opposite this, set into the stone like an immovable
+giant, is a door of cold, dark steel. Even in the dim light, mystic sigils
+are visible over the surface.
+   There are several others in the cell, clustered together in a group for
+warmth.
+
+Exits lie: east (through the now open door)
+
+>(Your score has increased by 5)
+   You rub some of the herbs into the unconscious man's skin.
+   "Do you really think that's a good idea?" asks Harris.
+   "At the worst it'll kill him," you say. "And in this place that might be a
+blessing..."
+   Time passes.
+
+Press a key to continue
+
+   After what seems like an incredible wait, Garrick's eyelids flutter, and
+then open.
+   "Where am I?" he croaks in a voice that sounds at Death's Door. "What
+happened?"
+   You fill Garrick in what with little you know as he tries to come to terms
+with what has happened. He stares at you first with disbelief, then
+understanding.
+   "I remember... a few things. Although I'm not sure if what I remember
+really happened or I just... remember them. Strange. I get the feeling my
+memories have been messed with.
+   "I'm an investigator, or was. I remember..." He shakes his head. "I
+remember so little. A lady came to me at my office in Bekkel. She said her...
+husband, I think it was, her husband had gone missing. She asked me to find
+him. She paid me quite a fair sum of money up front and I accepted. I think
+business had been slow. After that..." He shakes his head again.
+   "The next thing I remember I was standing on a road looking up at this
+castle. I'd never noticed it before although I've lived in Bekkel my whole
+life. I decided it was as good a place as any to ask questions. And I hadn't
+had much luck anywhere else.
+   "So to the castle I went. I remember thinking the place was strange. There
+didn't seem to be anyone around yet I got the impression I was being watched.
+It was really unnerving. I knocked on the main door - there was no bell - and
+the door was answered and...
+   "And that's all I remember. I guess someone must have hit me or something
+because the next thing I knew was you rubbing those herbs into my face,
+friend. Thanks. Although, looking at the place we're in right now, I think I
+preferred being out of it." He grins ruefully. "But forgive my manners. At
+least I'm awake now, and I'll be a darn sight more useful awake than asleep.
+You want me to follow you, just say so."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 13
+
+>   "Thought you'd never ask."
+
+>You move east.
+Laboratory
+
+The Laboratory
+   Dusty and abandoned, the laboratory appears to have been wrecked at some
+time in the recent past: cabinets have been overturned, rows of strange
+metallic devices have been smashed, chairs and tables lie broken on the
+floor. Only one table is still intact. Its surface is bare.
+   There is a boarded up window in one wall, drab rays of sunlight oozing
+through the cracks in the boards. Perhaps outside there might be some chance
+at escape...?
+   Light from a glowing panel set into the ceiling illuminates this room but
+there is little to see.
+   From far off in the castle you hear ghoulish laughter.
+
+Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
+
+Garrick walks towards you from the west.
+
+>You move southeast.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place. A
+wave of dizziness suddenly sweeps over you and you grasp at the wall to
+steady yourself.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   You have a sinking feeling that someone, somewhere, is watching you.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+Garrick walks towards you from the north-west.
+
+>You move east.
+Eastern hallway
+
+Eastern hallway
+You stand at the far eastern end of the hallway by a statue of an old, old
+man dressed in robes that appear to be made (or maybe it is just the way the
+statue is constucted) from bones. It sends a shiver through you just looking
+at the thing.
+   The hallway here shows definite signs of ruin: the ceiling is lined with
+cracks, the walls appear to be crumbling, the floorboards are broken and
+shattered where chunks of stone have forced their way up through them.
+   Far away in the castle, you hear someone crying.
+   Set into the south wall is a steel door. It appears of modern design and
+no doubt was fitted only recently. You can guess at the purpose for this. It
+appears firmly locked.
+
+Exits lie: west (to the shadowy hallway)
+
+Garrick walks towards you from the west.
+
+>   Wrinkled and graying, the man carved in stone appears to be a wizard of
+some sort judging by the staff he is carrying and the pointed hat set upon
+his brow. But there is little whimsical about his expression: it is one of
+stark dread.
+   His left hand is held out as if grasping for something - or perhaps
+waiting for an offering...?
+
+>(Your score has increased by 5)
+   The moment the coin touches the palm of the statue, the hand closes. The
+coin is crushed to dust.
+   'The gift is received,' a voice in your mind whispers. 'The way is open.'
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 6
+
+>You move south.
+Ruined Stairs
+
+Ruined Stairs
+Here you find yourself at the base of a flight of ruined stairs which wind
+upwards into the very heart of the castle. Light leaks down from a doorway
+set perhaps fifty feet above you. The steps, which are of incredible age,
+have collapsed in parts, leaving gaping holes which will make passage awkward
+to say the least. Cobwebs are here in abundance, masking every surface.
+   The floor underfoot seems to shake visibly.
+
+Exits lie: north (through the steel door) and up (the stairs)
+
+Garrick walks towards you from the north.
+
+>   You move up.
+Top of the stairs
+
+Top of the Stairs
+A winding flight of ruined stairs lead downwards into the very depths of the
+castle. Looking at them gives you a bad attack of vertigo.
+   Several doors slam somewhere else in the castle.
+   Before you is a door set firmly into the wall. Beyond it you can hear the
+laughter and voices of several people.
+
+Exits lie: down (the stairs) and north (through the door)
+
+Garrick walks towards you from below.
+
+>You move north.
+Empty room
+
+Empty room
+You expected to find this room full of people - but instead it appears
+deserted. What happened to the voices and laughter you heard? Or did you hear
+them at all?
+   A sudden pain behind your eyes leaves you feeling weak and irritable.
+   Of the room itself, little can be said. It is small, perhaps the same size
+as the cell you awoke in earlier, and desolate aside from a small collection
+of boxes in one corner. Archways in three walls lead further into the castle.
+
+Exits lie: northwest (through an archway), east (through an archway),
+southeast (through an archway) and south (to the top of the stairs)
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 7
+
+Garrick walks towards you from the south.
+
+>You move southeast.
+Library
+
+Deserted Library
+There is a feeling of great age about this location, as if the library has
+stood here since time immemorial. Cobwebs cover all surfaces, lending an
+eerie look to the place.
+   A cold wind blows at you, chilling you to the bone.
+   Seven rows of books line one wall, three line the other. At the end of the
+second row are a ruin of old bookshelves and destroyed books. The destruction
+appears recent.
+   By the southern door is a desk and a chair, both remnants from when the
+library was an active place rather than the memory it is now.
+
+Exits lie: northwest (to the empty room) and south (to a passageway)
+
+Garrick walks towards you from the north-west.
+
+>   You begin a quick, but thorough, search of the bookshelves, beginning at
+one end of the room and finishing at the other. In this time, you come across
+several books that have survived the carnage but none that appear to be of
+any use to you. The only item of note you decide to keep is a scroll which
+you get a feeling is very important indeed.
+
+>   This scroll contains just a few lines of writing and, below, what looks to
+be a spell of some kind. The writing at the top informs you that reading the
+rest of the scroll will trigger the spell, but it fails to tell you just what
+it is the spell does. It also contains the cryptic line: "Touch the one you
+would summon to life and speak the words of might"
+
+>You move south.
+Passageway
+
+Passageway
+This short passageway extends from the library as far south as you can see.
+However, just ten feet from where you stand there is a gaping pit in the
+floor - it looks as if a mighty fist has smashed down and scooped out a
+sizeable chunk of the ground.
+   Several doors slam somewhere else in the castle.
+   Hanging above the pit, just out of reach, is a glowing globe. It seems to
+be emitting a low, humming sound.
+
+Exits lie: north (to the library) and south (along the passageway)
+
+Garrick walks towards you from the north.
+
+>   As you approach the pit, a sudden wave of dizziness sweeps over you. You
+raise a hand to your head, stagger forward a few paces, and then you are
+falling...
+
+   You fall and fall and fall, deep into the depths of the pit. Around you
+are a torrent of screaming faces, chortling demons, gasping hags, yelling
+monsters...
+
+   You fall further, down and down and down, until it seems that you will
+never stop falling...
+
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Vadris is here.
+
+   You stand yourself up in these strange new surroundings. Several things
+become apparent at once. All your items are gone. You are now clad in strange
+green robes which swirl about as you move, seeming to try to blend themselves
+in with their surroundings by subtle shifts of colour. You have never seen
+anything like them.
+
+Garrick walks towards you.
+
+>   "Ah, the wanderer arrives," says Vadris. "I always wondered when you would
+make your way here."
+   "What is this place?" you ask. Your words seem to be pulled away as if by
+a strange wind although you feel nothing.
+   "This place? This is nowhere. It does not exist. It is outside the normal
+plane of existence. Does that answer your question? No? This place cannot be
+explained, Marlon, so waste not your time searching for explanations.
+Instead, seek merely to escape."
+   You glance around, failing to see any way out. "Is there an exit?"
+   Vadris nods. "There is. Though not in the physical sense of things. Not
+the way you would define an exit. But there exists one nevertheless. All you
+have to do is find it. Here." He claps his hands and suddenly is carrying a
+spear which he promptly throws to you. "Take this. It will aid you well in
+this place."
+   "As a weapon?"
+   "As anything but. Go now. I can tell you nothing more."
+
+>You move south.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Iridil is here.
+
+Garrick walks towards you from the north.
+
+>You move west.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Sokan is here.
+
+Garrick walks towards you from the east.
+
+>   Sokan takes the spear and gives you a surprised look. "Impressive. You
+figured it out then, the purpose of this little game. Well done."
+   "What happens now?" you ask.
+   "Ah, but where would be the fun in telling you that?"
+
+>   "What do you want?" hisses Sokan as you approach. "You would do well to
+get out of here, friend. This is a strange and unsettling place. You would
+not want to be... caught here like the rest of us."
+   "Caught here?" you ask.
+   "Of course! You think we're here by choice? Pah! We're trapped here. We
+went against Vaslock and he imprisoned us here for our temerity! Me, I don't
+even remember what I did, but I know damn well he remembers. That's why I'm
+here. That's why I can't leave until he's dead." Sokan stares off into the
+distance for a while then shakes his head. "You want to help me, friend?
+Fine. Take this crown."
+   Sokan tosses the item in question to the ground before you and you stoop
+to pick it up.
+   "What do I do with this?" you ask.
+   "Whatever you want. It won't make any difference in the long run. No one
+will ever get the better of Vaslock."
+
+>You move east.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Iridil is here.
+
+Garrick walks towards you from the west.
+
+>   "Ah, my symbol of rulership is returned!" cries Iridil, snatching the
+crown from you and placing it upon his head. "Yes, this is much better! You
+may go now."
+   "Go?" you say. "But some reward..."
+   Iridil shrugs. "I don't recall any mention of a reward. Begone. I have no
+further use for you now."
+
+>   "Ah, Marlon, I wondered when you would make it here," remarks Iridil.
+   "You know me?"
+   "I know many things. I am, after all, the king of this place."
+   You glance around at the dank and dismal and - scarcely real - location.
+"Here?"
+   Iridil smiles. "Why not? It is as good a place as any to be ruler of, and
+I am undoubtedly ruler here. None of the others have gainsaid any of the laws
+I have passed, none of the others have sought to wrest my rulership away from
+me, none of the others... But I digress. Now is neither the time nor the
+place for idle chatter. Take this sword." Iridil hands to you a sword that he
+seems to magic out of thin air. "Give it to the one you believe is most
+deserving of it."
+   "And who might that be?" you ask.
+   "Ah. But where would be the fun in telling you? That is something you have
+to discover for yourself."
+
+>You move west.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Sokan is here.
+
+Garrick walks towards you from the east.
+
+>You move northwest.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Gabriel is here.
+
+Garrick walks towards you from the south-east.
+
+>   Gabriel takes the sword and a slow smile spreads across his craggy face.
+"With this I was unbeatable. I never faced an enemy who could stand against
+my skill and might. Hmmm. Until Vaslock, of course, but that was an unfair
+fight at best. Perhaps if we meet again..." He sheathes the sword. "Best you
+go now. I thank you for returning my blade to me but do not presume to gain
+some reward for your doing so. That is not my way."
+
+>   Gabriel turns to look at you as you approach, his head a full foot above
+your own. "You're not what I expected. Not by a long shot," he rumbles.
+"Bigger is what I expected. Bigger than me. Huh! Can't see you getting the
+better of Vaslock."
+   "What do you know about Vaslock?" you ask.
+   "Lots. But none of it any use. If I knew anything useful I'd have killed
+him when I had the chance and wouldn't be rotting in this hellhole. But maybe
+you'll be better though you don't look up to much. Here, have this cross."
+   Gabriel tosses the cross to you and you catch it in your hand.
+   "Don't even think about trying to take Vaslock on with that, though. It'll
+take a bit more than a little cross to get the better of him."
+   "Then what is the cross for?"
+   "Discover that and you might just be ready for Vaslock after all."
+
+>You move southeast.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Sokan is here.
+
+Garrick walks towards you from the north-west.
+
+>You move east.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Iridil is here.
+
+Garrick walks towards you from the west.
+
+>You move north.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Vadris is here.
+
+Garrick walks towards you from the south.
+
+>(Your score has increased by 3)
+   As you move towards the coffin, Vadris blocks your path - then shies back
+in alarm as you raise the cross!
+   "Very clever," he hisses as he backs away from you. "But best you keep
+that cross close to you in future. You wouldn't want me to catch you without
+it."
+   Ignoring him, you open the coffin. Inside, rather than the corpse you
+expected to find, you instead come across a single key of a cobalt hue.
+   "Take the key if you would," says Vadris. "It will do you little good in
+this place and you will never leave alive."
+   You take the key - which at once vanishes from your hand.
+   Vadris laughs.
+
+>You move south.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Iridil is here.
+
+Garrick walks towards you from the north.
+
+>You move west.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Sokan is here.
+
+Garrick walks towards you from the east.
+
+>You move northwest.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Gabriel is here.
+
+Garrick walks towards you from the south-east.
+
+>You move southwest.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Timon is here.
+
+Garrick walks towards you from the north-east.
+
+>   "My faith is restored," says Timon as you hand him the cross. He cradles
+it to his breast and whispers, "never will I be alone again!" He glances up
+at you and frowns. "Alas, I have nothing to offer you but my thanks. So thank
+you. Now begone. I have much catching up to do."
+
+>   As you approach, Timon bows his head in your direction. "Are you the one
+foretold then? The one who will deliver us from the darkness and into the
+light?"
+   You shake your head in confusion. "I'm not sure I understand what you-"
+   "But of course you don't! For the prophecy states that the one who would
+save us all would be unknowing of their destiny. Ah, the sweet irony of it!
+But anyway, if you are indeed the one foretold, you will need this." Timon
+hands to you a goblet filled to the brim with a strange liquid. "I would not
+propose drinking that, it would do frightful things to your digestive
+system."
+   "What do I do with it then?"
+   "Give it to the one whom needs it the most," replies Timon, and will say
+nothing more on the subject.
+
+>You move southeast.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Volroar is here.
+
+Garrick walks towards you from the north-west.
+
+>   "Hmmm, very nice," Volroar says upon sampling the content of the goblet.
+"But quite frightfully poisonous. Ah well, such is life." He peers up at you.
+"Yes? Is there any reason you're still here?"
+   "I found the goblet for you-"
+   "And now you expect a reward? Pah! Take your expectations and go! You'll
+get no reward from me!"
+
+>   Volroar glances up at you as you approach him then sneers. "Oh, you're
+here, are you? Can't say I'm happy to see you. Not at all. You'll be wanting
+this." He tosses a mirror to you which you deftly catch in your hand. "I
+don't have any use for it myself."
+   "What do I do with the mirror?" you ask.
+   Volroar shrugs his capacious shoulders. "I neither know nor care to know.
+Do with it as you want. Only leave me be."
+
+>You move east.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Selphaza is here.
+
+Garrick walks towards you from the west.
+
+>   "My mirror!" cries Selphaza and snatches it from your hand. She peers into
+it and breathes a sigh of relief. "Ah, my looks are unaffected. Thank heaven
+for that! What I would do without them I cannot imagine." She glances over to
+you. "Expect no reward from me, Marlon, just go before I lose my patience."
+
+>   Selphaza spares you barely a glance as you approach. She says, "another
+one of you, is there? Well, I saw the others off. I'm sure I can see off one
+more."
+   "I'm not sure I follow you," you say.
+   Selphaza sighs. "The other ones like you. The other adventurers for want
+of a better word. They come here, they bother me, I give them the stake they
+require, and they go. Sooner or later the stake returns to me and so I know
+they have died."
+   "The stake?"
+   "This stake." She throws it to you. "Now go, and do with it what you
+must."
+   "And what is that?"
+   "Ha! I did not tell the others. I am hardly going to tell you. Do not
+bother me anymore."
+
+>You move northeast.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Iridil is here.
+
+Garrick walks towards you from the south-west.
+
+>You move north.
+The Dream
+
+The Dream
+In a shadowy cellar you stand, the walls forever fading in and out of
+reality, the floor one moment there, the next gone, the ceiling the night sky
+and then the bright light of day...
+   Resting on a plinth near to where you stand is a coffin.
+
+Exits lie:  in many directions
+
+Vadris is here.
+
+Garrick walks towards you from the south.
+
+>   Vadris takes the stake with a smile. "And thus I am safe. There exists
+only one stake in this little hellhole and I now possess it. Hence, none can
+stand against me. Thank you, Marlon, for this gift. But expect no reward from
+me. Best you go now, before I forget myself and rid this world of one more
+interfering do-gooder."
+
+>No-one listens to your rabblings.
+
+>You cannot go in that direction. Try instead going northeast and south.
+
+>(Your score has increased by 20)
+   A sudden gust of wind blows through this strange place and you feel the
+ground beneath your feet crumbling away. You try to step back from the edge
+but find only empty space behind you. You fall...
+
+It seems a long time has passed before you awaken. You find yourself no more
+in the strange cellar that was the dream but instead lying on the ground by
+the side of the pit. Clutched in your left hand is a glowing orb which pulses
+with magical energy. Scattered around you are the possessions you were
+carrying before the dream began.
+   "You have done well..." whispers a voice from somewhere. "You have
+succeeded where many before you failed... Perhaps you have a chance... Take
+the Orb... Do with it what must be done..."
+   The voice fades leaving you alone in the passageway.
+
+Garrick walks towards you.
+
+>You pick up the picklock, the wallet, the silver marble, your journal, the
+worn, leather gloves, the crucifix, the gold ring, the smelling salts, the
+verdigris key, the vial of holy water, the herbs, the scroll and the cobalt
+key.
+
+>You move north.
+Library
+
+Deserted Library
+There is a feeling of great age about this location, as if the library has
+stood here since time immemorial. Cobwebs cover all surfaces, lending an
+eerie look to the place.
+   You hear a voice braying in laughter - and another shrieking in pain.
+   Seven rows of books line one wall, three line the other. At the end of the
+second row are a ruin of old bookshelves and destroyed books. The destruction
+appears recent.
+   By the southern door is a desk and a chair, both remnants from when the
+library was an active place rather than the memory it is now.
+
+Exits lie: northwest (to the empty room) and south (to a passageway)
+
+Garrick walks towards you from the south.
+
+>You move northwest.
+Empty room
+
+Empty room
+You expected to find this room full of people - but instead it appears
+deserted. What happened to the voices and laughter you heard? Or did you hear
+them at all?
+   Several doors slam somewhere else in the castle.
+   Of the room itself, little can be said. It is small, perhaps the same size
+as the cell you awoke in earlier, and desolate aside from a small collection
+of boxes in one corner. Archways in three walls lead further into the castle.
+
+Exits lie: northwest (through an archway), east (through an archway),
+southeast (through an archway) and south (to the top of the stairs)
+
+Garrick walks towards you from the south-east.
+
+>You move northwest.
+Passage
+
+Passage
+The passage widens somewhat here and to the west you can make out what
+appears to be a large open area with a pit in the centre. A fire burns in
+this pit. Seated around the pit, their eyes as larger as saucers, are a group
+of strange men in long, black robes. They appear to be chanting words under
+their breath.
+   Somewhere in the castle, a clock strikes the hour.
+   Set into the walls of this passage are a number of alcoves, each of which
+is filled by a statue of some fantastic beast you have never seen the like of
+before. Are they real? Or just the work of a fevered mind?
+
+Exits lie: west (to the pit) and southeast (to the empty room)
+
+Garrick walks towards you from the south-east.
+
+>   There are eight alcoves in total, each containing the statue of a beast
+from legend (or myth in some cases). The four alcoves on the southern side of
+the passage contain statues of a medusa, a dragon, an ogre and a goblin. The
+four alcoves to the north contain statues of a hydra, a basilisk, a horned
+devil and a zombie. What any of this signifies is beyond you.
+
+>   You close your eyes but determine to open them if needs be.
+
+>   You lay a hand on the basilisk's paw hand. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words you memorised from the scroll.
+
+   Under your hand, you feel a strange sensation - as if the statue were
+moving! You try to jerk your hand back but find yourself unable to. Something
+is gripping your wrist!
+
+   "The sixth word is 'end'," breathes a voice as cold as the grave and the
+pressure on your hand is released.
+
+   You open your eyes. The statue of the basilisk stands before you in the
+exact same position it was in before. Nothing seems to have changed. But you
+know deep down that something has changed. You mull over the word it told you
+- end - and wonder what it signifies.
+
+>   You close your eyes but determine to open them if needs be.
+
+>   You lay a hand on the medusa's hand. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words you memorised from the scroll.
+
+   Under your hand, you feel a strange sensation - as if the statue were
+moving! You try to jerk your hand back but find yourself unable to. Something
+is gripping your wrist!
+
+   "The word is 'life'," breathes a voice as cold as the grave and the
+pressure on your hand is released.
+
+   You open your eyes. The statue of the medusa stands before you in the
+exact same position it was in before. Nothing seems to have changed. But you
+know deep down that something has changed. You mull over the word it told you
+- life - and wonder what it signifies.
+
+>   You lay a hand on the horned devil's hand. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words from the scroll.
+
+   It seems at first that nothing has happened, but then you you feel a
+strange sensation under your hand, as if the horned devil statue were coming
+to life! You try to jerk your hand back but find yourself unable to. Fear
+paralyses you!
+
+   "Who seeks the second word? A human? Hmmm. Well, know then that the word
+is 'the'. Little good it will do you!" the horned devil grates. It pushes you
+away with a sneer.
+
+   You stagger back, shocked at what as happened (even thought you do not
+fully understand it). The horned devil statue seems as it was before.
+Unmoving. All that seems to have changed is the word in the back of your mind
+- 'the'.
+
+>   You lay a hand on the dragon's paw. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words from the scroll.
+
+   It seems at first that nothing has happened, but then you you feel a
+strange sensation under your hand, as if the dragon statue were coming to
+life! You try to jerk your hand back but find yourself unable to. Fear
+paralyses you!
+
+   "The word is 'at'," breathes a voice directly into your mouth and your
+hand is released.
+
+   You stagger back, shocked at what as happened (even thought you do not
+fully understand it). The dragon statue remains as it was before. All that
+seems to have changed is the word in the back of your mind - 'at'.
+
+>   You lay a hand on the ogre's hand. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words from the scroll.
+
+   It seems at first that nothing has happened, but then you you feel a
+strange sensation under your hand, as if the ogre statue were coming to life!
+You try to jerk your hand back but find yourself unable to. Fear paralyses
+you!
+
+   "The word you seek is 'only'," whispers the ogre and your hand is abruptly
+released.
+
+   You stagger back, shocked at what as happened (even thought you do not
+fully understand it). The ogre statue seems as it was before. Unmoving. All
+that seems to have changed is the word in the back of your mind - 'only'.
+
+>   You lay a hand on the goblin's hand. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words from the scroll.
+
+   It seems at first that nothing has happened, but then you you feel a
+strange sensation under your hand, as if the goblin statue were coming to
+life! You try to jerk your hand back but find yourself unable to. Fear
+paralyses you!
+
+   "The word you're after is 'of'," hisses the goblin in your face as it
+releases your hand.
+
+   You stagger back, shocked at what as happened (even thought you do not
+fully understand it). The goblin statue seems as it was before. Unmoving. All
+that seems to have changed is the word in the back of your mind - 'of'.
+
+>   You lay a hand on the zombie's hand. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words from the scroll.
+
+   It seems at first that nothing has happened, but then you you feel a
+strange sensation under your hand, as if the zombie statue were coming to
+life! You try to jerk your hand back but find yourself unable to. Fear
+paralyses you!
+
+   The zombie stares into your eyes and whispers, "ah, one of the living
+seeks answers of one of the dead. Very well, living. The word is 'death', the
+final word you need, the word you will become one day, just as I am now. Know
+this word, living. Know it well." The zombie releases your hand.
+
+   You stagger back, shocked at what as happened (even thought you do not
+fully understand it). The zombie statue seems as it was before. Unmoving. All
+that seems to have changed is the ominous word in the back of your mind -
+'death'.
+
+>   You lay a hand on the medusa's paw. Nothing seems to happen.
+
+>(Your score has increased by 1)
+   You speak the words from the scroll.
+
+   It seems at first that nothing has happened, but then you you feel a
+strange sensation under your hand, as if the hydra statue were coming to
+life! You try to jerk your hand back but find yourself unable to. Fear
+paralyses you!
+
+   "The word isssss 'liessssss'," the hydra hisses in your face and a moment
+later your hand is released.
+
+   You stagger back, shocked at what as happened (even thought you do not
+fully understand it). The hydra statue seems as it was before. Unmoving. All
+that seems to have changed is the word in the back of your mind - 'lies'.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 8
+
+>You move west.
+The Pit
+
+The Pit
+You find yourself standing at the very edge of a pit which has been dug into
+the floor of this chamber. Flames shoot up at regular intervals, searing the
+air with tremendous heat. What is causing this you do not know, but you sense
+that there is great power here. Best you keep well back...
+   Several doors slam somewhere else in the castle.
+   Seated around the pit are a group of strange people: clad in black robes,
+they have eyes the size of saucers and seem to be chanting something under
+their breaths. They appear wholly unaware of your presence.
+   In the northern wall of this room are a number of openings, each blocked
+with steel bars, beyond which you can see nothing but shadows.
+
+Exits lie:  east (to the passage)
+
+Garrick walks towards you from the east.
+
+>   One of the figures looks at you with its strange, saucer-like eyes and
+mutters, "say the eight in sequence and the way shall be opened."
+   The figure turns back to its chanting and nothing else you say seems to
+have any effect.
+
+>(Your score has increased by 5)
+   Acting on a hunch you speak the words "the eight in sequence."
+
+   The figures cease their chanting and in unison turn to look at you.
+   "Impressive," says one.
+   "Remarkable," comments another.
+   "A sound mind to combat the evil of the dark," says a third.
+   "The way is open," says a fourth.
+   The figures then return to their chanting, continuing as if you had never
+interrupted them at all.
+
+   You notice that the way to the north now appears accessible.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 9
+
+>You move north.
+Cells
+
+Cells
+You stand in a disheartening place: surrounding you in all directions save
+for the southern passage you used to enter this miserable place, are cells.
+Inside each are prisoners; some seem like you, others are hideously deformed,
+others appear at first unmarked but then gross monstrosities reveal
+themselves: you see a boy with no eyes, a girl with a head growing from her
+back, a man with neither arms nor legs but claws, and so on...
+   This bizarre set of prisoners, all of whom are confined to their cells,
+set up a cacophony of wails the moment you entered here, and nothing you do
+seems to quieten them down.
+
+Exits lie: south (to the pit)
+
+Garrick walks towards you from the south.
+
+>(Your score has increased by 10)
+   The moment you raise the orb, a strange thing happens. Each of the cell
+doors spring open!
+   At first, the prisoners sit there and stare at you in shock, unable to
+believe what has happened. Then, tentatively, one man reached out his hand -
+and gives a cry of delight when it passes the boundary of his cell without
+opposition.
+   "Free!" he cries. "We are free!"
+
+Press a key to continue
+
+   Some of the prisoners here are like you: failed experiments of Vaslock's
+in his attempts to rid himself of his vampire vulnerabilities, but there are
+a couple of others amongst the prisoners whose story catches your attention.
+One is Harald, a former slave of Vaslock's.
+   "I disagreed with what he did," Harald tells you readily enough. "So I
+waited till he slept - he always sleeps during the day because the very sun,
+even though he's inside and can't see it, saps his strength - and then I
+tried to drive a stake through his black heart. But I wasn't fast enough, or
+he was waiting for me, I know not. Either way, he seized my hand, broke it
+off at the elbow-" he shows you his left arm which ends in a stump just
+beneath the elbow "-and threw me in here. I've been plotting revenge every
+since but until you came along..."
+   The final prisoner, the last person you expected to see here, is none
+other than Steven Harris.
+
+Press a key to continue
+
+   "I suppose you've met the 'spy' then?" Harris asks.
+   "I'm not sure I know what the hell is going on here," you say. "Just who
+are you?"
+   "Steven Harris. The real Steven Harris at any rate. The one you woke up
+with in that grimy little cell, Marlon, he's a vampiric spy of Vaslock's.
+Vaslock can alter someone's appearance so they look like someone else, for a
+time at least, and the guy you spoke to before is none other than one of his
+vassals, an unpleasant fellow called Chad. Ever wonder why "Harris" was so
+damn unhelpful? Now you know."
+   "But he gave me the picklock that got me out of the cell in the first
+place. Why would he do that if he worked for Vaslock?"
+   "For the same reason as everything that happens in this hellhole - Vaslock
+wanted it. It's all part of his frigging experiments. He wants to see how
+well you think under pressure, how well you find your way around the castle,
+how far you get in your attempts to kill him."
+   You have a sudden thought. "Then Vaslock knows everything I've done
+today?"
+   Harris nods. "Undoubtedly. Like I said, all part of his experiments. He
+might not have the magical scrying powers he'd like to think he has but you
+can bet your lucky stars that he's been watching 90% of what you've done.
+He'll know you've freed us for sure. It's all just a case of how far he's
+willing to allow the experiment to run, whether he's prepared to take the
+risk that you might actually be able to kill him if he lets you go far
+enough. You're lucky in that respect - he's arrogant to the point of allowing
+you to reach him with a cross and a stake just because he's so convinced in
+his powers that he doesn't think you'll have a chance against him.
+   "But time is pressing, I fear. We have to get out of here. And the only
+way to do that is to take Vaslock on himself. You've got yourself some
+allies, Marlon, and if Vaslock thinks he's going to lock me up again he's got
+another thing coming. I might die here but I'm going to stake me a few
+vampires before I go."
+   Harris and Harald organise the other prisoners, some of whom are so weak
+they have trouble walking, and lead them in an orderly procession out of the
+cell area, leaving you to ponder over what you have been told - and what you
+have to do next.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 15
+
+>You move south.
+The Pit
+
+The Pit
+You find yourself standing at the very edge of a pit which has been dug into
+the floor of this chamber. Flames shoot up at regular intervals, searing the
+air with tremendous heat. What is causing this you do not know, but you sense
+that there is great power here. Best you keep well back...
+   A sudden pain behind your eyes leaves you feeling weak and irritable.
+   Seated around the pit are a group of strange people: clad in black robes,
+they have eyes the size of saucers and seem to be chanting something under
+their breaths. They appear wholly unaware of your presence.
+   In the northern wall of this room are a number of openings, each now
+accessible. The steel bars which previously blocked them have receded into
+the walls.
+
+Exits lie:  north (to the openings) and east (to the passage)
+
+Garrick walks towards you from the north.
+
+>You move east.
+Passage
+
+Passage
+The passage widens somewhat here and to the west you can make out what
+appears to be a large open area with a pit in the centre. A fire burns in
+this pit. Seated around the pit, their eyes as larger as saucers, are a group
+of strange men in long, black robes. They appear to be chanting words under
+their breath.
+   Several doors slam somewhere else in the castle.
+   Set into the walls of this passage are a number of alcoves, each of which
+is filled by a statue of some fantastic beast you have never seen the like of
+before. Are they real? Or just the work of a fevered mind?
+
+Exits lie: west (to the pit) and southeast (to the empty room)
+
+Garrick walks towards you from the west.
+
+>You move southeast.
+Empty room
+
+Empty room
+You expected to find this room full of people - but instead it appears
+deserted. What happened to the voices and laughter you heard? Or did you hear
+them at all?
+   Several doors slam somewhere else in the castle.
+   Of the room itself, little can be said. It is small, perhaps the same size
+as the cell you awoke in earlier, and desolate aside from a small collection
+of boxes in one corner. Archways in three walls lead further into the castle.
+
+Exits lie: northwest (through an archway), east (through an archway),
+southeast (through an archway) and south (to the top of the stairs)
+
+Garrick walks towards you from the north-west.
+
+>You move south.
+Top of the stairs
+
+Top of the Stairs
+A winding flight of ruined stairs lead downwards into the very depths of the
+castle. Looking at them gives you a bad attack of vertigo.
+   A cold wind blows at you, chilling you to the bone.
+   Before you is a door set firmly into the wall. Beyond it you can hear the
+laughter and voices of several people.
+
+Exits lie: down (the stairs) and north (through the door)
+
+Garrick walks towards you from the north.
+
+>   You move down, stepping as carefully as you can. Alas, it seems, not
+carefully enough. One of the steps gives way beneath your feet, sending you
+crashing to the bottom of the stairs.
+
+   You grimly pick yourself up. You are winded but do not seem badly hurt.
+Ruined Stairs
+
+Ruined Stairs
+Here you find yourself at the base of a flight of ruined stairs which wind
+upwards into the very heart of the castle. Light leaks down from a doorway
+set perhaps fifty feet above you. The steps, which are of incredible age,
+have collapsed in parts, leaving gaping holes which will make passage awkward
+to say the least. Cobwebs are here in abundance, masking every surface.
+   From somewhere you hear a door slam. It seems you are not alone.
+
+Exits lie: north (through the steel door) and up (the stairs)
+
+Garrick walks towards you from above.
+
+>You move north.
+Eastern hallway
+
+Eastern hallway
+You stand at the far eastern end of the hallway by a statue of an old, old
+man dressed in robes that appear to be made (or maybe it is just the way the
+statue is constucted) from bones. It sends a shiver through you just looking
+at the thing.
+   The hallway here shows definite signs of ruin: the ceiling is lined with
+cracks, the walls appear to be crumbling, the floorboards are broken and
+shattered where chunks of stone have forced their way up through them.
+   You have a sinking feeling that someone, somewhere, is watching you.
+   Set into the south wall is a steel door. It appears of modern design and
+no doubt was fitted only recently. You can guess at the purpose for this. It
+now stands open.
+
+Exits lie: west (to the shadowy hallway) and south (through the steel door)
+
+Garrick walks towards you from the south.
+
+>You move west.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place.
+From the corner of your eye one of the figures in a portrait appears to move
+but when you turn to look it is back in place again.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   From somewhere you hear a door slam. It seems you are not alone.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+Garrick walks towards you from the east.
+
+>You move northwest.
+Laboratory
+
+The Laboratory
+   Dusty and abandoned, the laboratory appears to have been wrecked at some
+time in the recent past: cabinets have been overturned, rows of strange
+metallic devices have been smashed, chairs and tables lie broken on the
+floor. Only one table is still intact. Its surface is bare.
+   There is a boarded up window in one wall, drab rays of sunlight oozing
+through the cracks in the boards. Perhaps outside there might be some chance
+at escape...?
+   Light from a glowing panel set into the ceiling illuminates this room but
+there is little to see.
+   A rat scurries over your foot, half causing you to have a heart attack.
+
+Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
+
+Garrick walks towards you from the south-east.
+
+>Cell
+
+The cell
+A dismal and dank room, the 'cell' you find yourself in is not large but
+appears to be so. Perhaps it is the lack of lighting, perhaps it is the way
+the walls seem somehow "insubstantial", perhaps it is simply your mind
+playing tricks on you.
+   There is a small, barred window through which streams moonlight set high
+up in the nearest wall. Opposite this, set into the stone like an immovable
+giant, is a door of cold, dark steel. Even in the dim light, mystic sigils
+are visible over the surface.
+   There are several others in the cell, clustered together in a group for
+warmth.
+
+Exits lie: east (through the now open door)
+
+   You can also see Lara's doll.
+
+   The moment you step into the cell, "Harris" looks up in alarm - he clearly
+knows what has happened and that you are aware of his identity.
+   "You'll do well to keep your distance!" he warns. "You don't want to mess
+with me, Marlon!"
+   "Why not, Harris? Or should I say Chad?" you ask.
+   Chad hesitates then snatches Lara into his arms. He places one hand around
+her throat. "This is why, damnit! I knew this was a bad idea! I knew I should
+have got out of here! Well, step away from the door, Marlon, or I'll snap her
+neck like a twig!"
+   You stay where you are. "And who'll stop me killing you then?"
+   Chad sneers. "Don't give me that! You won't let an innocent child die if
+you have a choice in the matter." He squeezes Lara's neck, making the little
+girl cry out. "Now, move! Before I forget myself and snap her neck for the
+hell of it!"
+   Knowing you have little choice in the matter, you step aside. Chad rushes
+past you, fleeing into the laboratory and then to the southeast. You start to
+give chase but know you will never catch him - he runs like the wind.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 15
+
+Garrick walks towards you from the east.
+
+>   You get the doll.
+
+>You move east.
+Laboratory
+
+The Laboratory
+   Dusty and abandoned, the laboratory appears to have been wrecked at some
+time in the recent past: cabinets have been overturned, rows of strange
+metallic devices have been smashed, chairs and tables lie broken on the
+floor. Only one table is still intact. Its surface is bare.
+   There is a boarded up window in one wall, drab rays of sunlight oozing
+through the cracks in the boards. Perhaps outside there might be some chance
+at escape...?
+   Light from a glowing panel set into the ceiling illuminates this room but
+there is little to see.
+   Out of the corner of your eye, you catch sight of something sitting in the
+corners of the room yet when you look again there is nothing there.
+
+Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
+
+Garrick walks towards you from the west.
+
+>You move southeast.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place. A
+wave of dizziness suddenly sweeps over you and you grasp at the wall to
+steady yourself.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   You have a sinking feeling that someone, somewhere, is watching you.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+Garrick walks towards you from the north-west.
+
+>You move east.
+Eastern hallway
+
+Eastern hallway
+You stand at the far eastern end of the hallway by a statue of an old, old
+man dressed in robes that appear to be made (or maybe it is just the way the
+statue is constucted) from bones. It sends a shiver through you just looking
+at the thing.
+   The hallway here shows definite signs of ruin: the ceiling is lined with
+cracks, the walls appear to be crumbling, the floorboards are broken and
+shattered where chunks of stone have forced their way up through them.
+   From somewhere you hear a door slam. It seems you are not alone.
+   Set into the south wall is a steel door. It appears of modern design and
+no doubt was fitted only recently. You can guess at the purpose for this. It
+now stands open.
+
+Exits lie: west (to the shadowy hallway) and south (through the steel door)
+
+Garrick walks towards you from the west.
+
+>You move south.
+Ruined Stairs
+
+Ruined Stairs
+Here you find yourself at the base of a flight of ruined stairs which wind
+upwards into the very heart of the castle. Light leaks down from a doorway
+set perhaps fifty feet above you. The steps, which are of incredible age,
+have collapsed in parts, leaving gaping holes which will make passage awkward
+to say the least. Cobwebs are here in abundance, masking every surface.
+   A rat scurries over your foot, half causing you to have a heart attack.
+
+Exits lie: north (through the steel door) and up (the stairs)
+
+Garrick walks towards you from the north.
+
+>   You move up, stepping as carefully as you can. Alas, it seems, not
+carefully enough. One of the steps gives way beneath your feet, sending you
+crashing to the bottom of the stairs.
+
+   You grimly pick yourself up. You are winded but do not seem badly hurt.
+
+>   You move up.
+Top of the stairs
+
+Top of the Stairs
+A winding flight of ruined stairs lead downwards into the very depths of the
+castle. Looking at them gives you a bad attack of vertigo.
+   In one corner of the room you fancy you see someone standing watching you,
+but a closer examination reveals there is nothing there.
+   Before you is a door set firmly into the wall. Beyond it you can hear the
+laughter and voices of several people.
+
+Exits lie: down (the stairs) and north (through the door)
+
+Garrick walks towards you from below.
+
+>You move north.
+Empty room
+
+Empty room
+You expected to find this room full of people - but instead it appears
+deserted. What happened to the voices and laughter you heard? Or did you hear
+them at all?
+   A cold wind blows at you, chilling you to the bone.
+   Of the room itself, little can be said. It is small, perhaps the same size
+as the cell you awoke in earlier, and desolate aside from a small collection
+of boxes in one corner. Archways in three walls lead further into the castle.
+
+Exits lie: northwest (through an archway), east (through an archway),
+southeast (through an archway) and south (to the top of the stairs)
+
+Garrick walks towards you from the south.
+
+>You move east.
+Eastern passage
+
+Eastern passage
+This passage runs in a rough east-west direction and appears to be almost
+completely unremarkable aside from a chalk drawing on the floor. The drawing
+is that of a demonic face, rendered well despite the roughness of the floor.
+   A row of torches line the walls though their light does not seem to spread
+for as far as it should do. At the far eastern end is a shadowy archway,
+beyond which nothing can be seen.
+
+Exits lie: west (to the empty room) and east (to the shadowy archway)
+
+Garrick walks towards you from the west.
+
+>   The moment you try to walk along the corridor, a bright light flares
+around the chalk figure drawn on the floor. You cover your eyes until it dies
+down and when you can finally see again, you find you are not alone.
+
+>(Your score has increased by 5)
+   Just as the demon lunges for you, you throw the vial of holy water at it,
+causing it to smash on the demon's gnarled face. At first nothing seems to
+happen-
+
+   And then the demon howls in pain!
+
+   It crashes into the wall to one side of you, clawing madly at its face,
+seeming to rip chunks of flesh out in its agony. You can only stand and watch
+in horror as the beast finally sinks to the floor, its death throes over.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 16
+
+>You move east.
+Sloping Corridor
+
+Sloping Corridor
+Here the corridor slopes abruptly upwards to the third level of the castle.
+The floor here appears of a more modern appearance than what you have seen
+thus far, and cleaner besides indicating that this section of the castle is
+used more than the areas you have previously travelled through. Torches line
+the walls giving off a sickly illumination.
+   You rub tiredly at your eyes, wondering if you will ever see the outside
+world again.
+   At the far end of the corridor is an archway beyond which nothing can be
+seen.
+
+Exits lie: west (to the passageway) and north (the sloping corridor)
+
+Garrick walks towards you from the west.
+
+>You move north.
+Ancient Feasthall
+
+Ancient Feasthall
+Perhaps several centuries past, this was the main feasthall of the castle. A
+row of tables surround a central pit dug into the floor. You suspect that in
+olden times a mighty fire would light and heat the room from this pit, which
+now contains little more than ashes.
+   A feeling of despair grips you and it takes a moment to shake it off.
+   At one end of the largest feast table is a throne of dark metal upon which
+sits a skeleton clad in black robes. A broadsword is resting on the
+skeleton's lap and a crown upon its fleshless brow.
+   Corridors lead off in many directions. From the western one you can hear
+the sound of voices.
+
+Exits lie: west, north and northeast (along the corridors), east (through an
+archway) and south (to the sloping corridor)
+
+Garrick walks towards you from the south.
+
+>You move north.
+Goblin Chamber
+
+Goblin Chamber
+Whether the occupant of this chamber is truly a goblin or just an incredibly
+filthy human you have no idea, but the smell in here is quite
+stomach-turning. It is all you can do to prevent yourself throwing up in
+disgust. Dust covers most of what is here although this is probably a sign of
+neglect than of no one living here.
+   The occupant's bed sags in one corner and appears to have a hunched up
+shape upon it, hidden beneath the filthy blankets.
+
+Exits lie: south (to the feasthall)
+
+Garrick walks towards you from the south.
+
+>(Your score has increased by 1)
+   You stamp on the fire until it goes out, leaving the room seeming quite a
+bit smaller afterwards.
+
+>You move south.
+Ancient Feasthall
+
+Ancient Feasthall
+Perhaps several centuries past, this was the main feasthall of the castle. A
+row of tables surround a central pit dug into the floor. You suspect that in
+olden times a mighty fire would light and heat the room from this pit, which
+now contains little more than ashes.
+   A feeling of despair grips you and it takes a moment to shake it off.
+   At one end of the largest feast table is a throne of dark metal upon which
+sits a skeleton clad in black robes. A broadsword is resting on the
+skeleton's lap and a crown upon its fleshless brow.
+   Corridors lead off in many directions. From the western one you can hear
+the sound of voices.
+
+Exits lie: west, north and northeast (along the corridors), east (through an
+archway) and south (to the sloping corridor)
+
+Garrick walks towards you from the north.
+
+>You move west.
+End of Corridor
+
+End of Corridor
+The corridor ends here with each of the three walls being taken up by a
+single door. Each door has a plaque attached to it, perhaps giving a hint as
+to what lies within.
+   Far away in the castle you hear the sound of someone howling in pain.
+   Hanging on a chain by the southern door is a bell and set into the wall by
+the western door a button. The southwestern door has no such item.
+   In the corner between the southwestern and southern doors is a small pile
+of skulls.
+
+Exits lie: west, southwest and south (through the doors) and east to the
+feasthall
+
+Garrick walks towards you from the east.
+
+>The Pool
+
+The Pool
+Light from a single glowing globe set into the ceiling of this room is
+reflected from the pool in the centre, allowing bizarre shapes to dance
+around the walls. The floor beneath your feet is moist due to the water from
+the pool, and you seem to sink into it ever so slightly as you move around.
+   The pool seems some five feet deep and empty aside from a small stone
+statue in the middle, carved elaborately into the shape of a woman with her
+mouth open in song. Water cascades from her open mouth.
+
+Exits lie: north (to the end of the corridor)
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
+
+Garrick walks towards you from the north.
+
+>   The statue is carved in the figure of a woman, naked from the waist up,
+her mouth open in song. Water pours her mouth into the pool. Is it your
+imagination or is there something wrong with her eyes?
+
+>   You lean forward to study the statue's eyes more closely - and are shocked
+when they turn to look at you!
+
+   FLEE THIS PLACE!!! a voice in your mind shrieks. FLEE NOW! BEFORE YOU
+BECOME CAUGHT THE WAY I WAS!!!
+
+   You start to say something but the statue's eyes suddenly lose their
+clarity and a moment later seem nothing more than stone once again.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
+
+>You move north.
+End of Corridor
+
+End of Corridor
+The corridor ends here with each of the three walls being taken up by a
+single door. Each door has a plaque attached to it, perhaps giving a hint as
+to what lies within.
+   The sudden slamming of a door makes your blood run cold.
+   Hanging on a chain by the southern door is a bell and set into the wall by
+the western door a button. The southwestern door has no such item.
+   In the corner between the southwestern and southern doors is a small pile
+of skulls.
+
+Exits lie: west, southwest and south (through the doors) and east to the
+feasthall
+
+Garrick walks towards you from the south.
+
+>You move east.
+Ancient Feasthall
+
+Ancient Feasthall
+Perhaps several centuries past, this was the main feasthall of the castle. A
+row of tables surround a central pit dug into the floor. You suspect that in
+olden times a mighty fire would light and heat the room from this pit, which
+now contains little more than ashes.
+   Far away in the castle you hear the sound of someone howling in pain.
+   At one end of the largest feast table is a throne of dark metal upon which
+sits a skeleton clad in black robes. A broadsword is resting on the
+skeleton's lap and a crown upon its fleshless brow.
+   Corridors lead off in many directions. From the western one you can hear
+the sound of voices.
+
+Exits lie: west, north and northeast (along the corridors), east (through an
+archway) and south (to the sloping corridor)
+
+Garrick walks towards you from the west.
+
+>   The skeleton is a grisly reminder of what you face in this castle. It
+appears long dead and you have the distinct impression that it has sat here
+since the fall of the castle in the oh so distant past.
+
+>   As you reach out your hand, the skeleton's head suddenly turns to look at
+you.
+   "I would not do that if I were you," it hisses in a voice as cold as the
+grave. "You might not like the consequences."
+
+>   "So you are the one who would bring Vaslock down, eh?" the skeleton says.
+"I was expecting someone a little... larger, I have to confess."
+   "I'm just trying to get out of here," you reply. "I've no interest in
+fighting Vaslock."
+   The skeleton shakes its head, causing the crown to clatter from side to
+side. "Oh, and you think Vaslock will just let you go, do you? That he will
+turn a blind eye, so to speak, and allow you to escape? You, who he has
+carried out his experiments on, you who are his greatest hope? You are a fool
+if you think the vampire will let you go. No, you will escape from this place
+in only one way: by killing the evil that rules it."
+
+>   "Ah, you have met Viralee," he says.
+   "Viralee?"
+   "The woman in the pool. Or statue, I should say for that is what she truly
+is now. She was a peasant girl from one of the surrounding villages whom
+Vaslock took a fancy to, as he is wont to do from time to time. He took her,
+brought her here, and attempted to corrupt her soul. But she was strong, was
+Viralee, and fought him every step of the way. In the end he tired of her, as
+he also is wont to do, and, to punish her for resisting him, turned her into
+the statue you have encountered. He placed her in the pool, unable to move
+but fully aware of what goes on around her. I believe she has been there for
+the best part of a hundred years now and doubtless will suffer for a while
+longer. Stone, after all, is a hardy substance."
+   "Is there nothing that can be done?"
+   Havelock nods. "But of course. Something can always be done. I have the
+means to free her from her torment but I lack the means to leave this hall.
+There are others in this part of the castle who could free her but who lack
+the nerve to do so for fear of what anger it might arouse in Vaslock. Here."
+Havelock leans forward and hands to you a vial containing a reddish powder.
+"Sprinkle that over her. It will free her."
+   You study the powder in the vial and determine to do just that.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
+
+>   "Ah, my traitorous priest. The fool who threw his lot in with Vaslock in
+the misguided hope that that would save him. Little good it did him. Vaslock
+used him and then, when his usefulness was at an end, had him killed. As I
+always knew he would. In fact, Toril seemed to be the only one unaware of
+what fate awaited him." The skeleton gestures to the west. "He has chambers
+that way, warded by magics and by holy relics. Vaslock is unable to enter due
+to the presence of so many relics and the wards..." The skeleton seems to
+consider something then nods its head. "I will lower the wards for a while to
+allow you to enter. There is doubtless something within the traitor's
+chambers that you can use to fight Vaslock. But do not tarry too long there.
+The longer the wards are down, the more chance there is of Vaslock detecting
+their absence and coming to investigate."
+
+>You move west.
+End of Corridor
+
+End of Corridor
+The corridor ends here with each of the three walls being taken up by a
+single door. Each door has a plaque attached to it, perhaps giving a hint as
+to what lies within.
+   One of the walls suddenly seems to bulge - but when you look again there
+is nothing there.
+   Hanging on a chain by the southern door is a bell and set into the wall by
+the western door a button. The southwestern door has no such item.
+   In the corner between the southwestern and southern doors is a small pile
+of skulls.
+
+Exits lie: west, southwest and south (through the doors) and east to the
+feasthall
+
+Garrick walks towards you from the east.
+
+>You move south.
+The Pool
+
+The Pool
+Light from a single glowing globe set into the ceiling of this room is
+reflected from the pool in the centre, allowing bizarre shapes to dance
+around the walls. The floor beneath your feet is moist due to the water from
+the pool, and you seem to sink into it ever so slightly as you move around.
+   The pool seems some five feet deep and empty aside from a small stone
+statue in the middle, carved elaborately into the shape of a woman with her
+mouth open in song. Water cascades from her open mouth.
+
+Exits lie: north (to the end of the corridor)
+
+Garrick walks towards you from the north.
+
+>(Your score has increased by 5)
+   Following the instructions you received from Havelock's skeletal remains,
+you sprinkle the vial of powder over the statue of the woman in the pool. At
+first it seems nothing will happen... and then her eyes open again and the
+water spouting from her mouth comes to an abrupt end. Her eyes lock onto
+yours, a voice speaks in your mind ...FREE... I AM... FREE..., and then she
+collapses forward, her head striking the edge of the pool with a dull thud.
+   You hesitate, then reach out a shaking hand and touch the woman. You are
+surprised to find her skin is no longer stone, it is human flesh once more.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
+
+>You move north.
+End of Corridor
+
+End of Corridor
+The corridor ends here with each of the three walls being taken up by a
+single door. Each door has a plaque attached to it, perhaps giving a hint as
+to what lies within.
+   The sudden slamming of a door makes your blood run cold.
+   Hanging on a chain by the southern door is a bell and set into the wall by
+the western door a button. The southwestern door has no such item.
+   In the corner between the southwestern and southern doors is a small pile
+of skulls.
+
+Exits lie: west, southwest and south (through the doors) and east to the
+feasthall
+
+Garrick walks towards you from the south.
+
+>You move west.
+Strange Room
+
+Strange Room
+You find yourself in a room of strange proportions: the ceiling appears to
+curve downwards in the centre, two of the walls are slanted at angles, there
+is a gaping hole in the middle of the floor...
+   One of the walls suddenly seems to bulge - but when you look again there
+is nothing there.
+   It is difficult to tell anything for certain about this room aside from a
+door in the northern wall.
+
+Exits lie: north and east (through doors)
+
+Garrick walks towards you from the east.
+
+>(Your score has increased by 3)
+   Climbing the slanting walls is not actually possible because the slant is
+only a few degrees and the walls are too smooth to allow you to gain any
+purchase on them, but you are able to scramble up a few feet before gravity
+takes its hold on you. In this time, you find what appears to be a small clay
+idol tucked into a crack in one wall.
+
+>You move north.
+Toril's Chambers
+
+Toril's Chambers
+Protected by priestly wards, this is the one chamber in the castle Count
+Vaslock has been unable to enter. As such, there is an air of neglect here
+that is not present anywhere else, a feeling that centuries have passed since
+anyone last set foot within these four walls.
+   A bed, the middle having collapsed sometime since it was last used, sits
+by a desk. Above the desk are three shelves filled with books and scrolls;
+the remains of a fourth shelf lie scattered across the top of the desk.
+Standing in the far corner is a suit of armour, its faceplate turned in your
+direction so that for a moment it seems that the suit is actually watching
+you. Light from the single window illuminates (although poorly) the room.
+
+Exits lie: south (to the strange room)
+
+Garrick walks towards you from the south.
+
+>   The bed is at least three centuries old and has suffered badly from the
+ravages of time. The middle has collapsed inwards and is now the home of a
+colony of woodlice.  A long, dark cloak is on the bed.
+
+>You take the long, dark cloak from the bed.
+
+>   No doubt this was worn by one of the defenders of the castle in olden
+times for it is unlikely that Toril himself ever wore it. It has a mighty
+broadsword clasped in one gauntletted fist.
+
+>   The faceplate is dull and dusty. It is impossible to see even your own
+reflection in it.
+
+>   You rub the faceplate with the cuff of your shirt until it is bright and
+shiny once more.
+
+>   The faceplate is now clear and offers you a view inside the suit itself.
+However, there appears to be nothing in there. The suit does not contain a
+body, nor a hoard of valuables.
+   But as you turn away you catch sight of something in the faceplate that
+you never noticed before - a hood hanging on the wall by the shelves. You
+look at the wall and, sure enough, the hood is there. You feel a chill go
+through you that you never saw it before.
+
+>You pick up the priest's hood.
+
+>You put on the priest's hood.
+
+>   The desk leans against the wall, one of its legs eaten through by
+woodlice. There is a single drawer in the desk which at the moment is closed.
+
+>(Your score has increased by 3)
+   You slide the drawer open with an eerie groaning sound. Inside you find,
+seemingly unmarked by age, a silver dagger which you quickly take.
+
+>Strange Room
+
+Strange Room
+You find yourself in a room of strange proportions: the ceiling appears to
+curve downwards in the centre, two of the walls are slanted at angles, there
+is a gaping hole in the middle of the floor...
+   Far away in the castle you hear the sound of someone howling in pain.
+   It is difficult to tell anything for certain about this room aside from a
+door in the northern wall.
+
+Exits lie: north and east (through doors)
+
+   As you exit Toril's chambers, you experience a strange sensation. Turning
+around, you can see nothing different than before but something tells you
+that the wards have reinstated themselves.
+
+Garrick walks towards you from the north.
+
+>You move east.
+End of Corridor
+
+End of Corridor
+The corridor ends here with each of the three walls being taken up by a
+single door. Each door has a plaque attached to it, perhaps giving a hint as
+to what lies within.
+   A shiver runs down your spine.
+   Hanging on a chain by the southern door is a bell and set into the wall by
+the western door a button. The southwestern door has no such item.
+   In the corner between the southwestern and southern doors is a small pile
+of skulls.
+
+Exits lie: west, southwest and south (through the doors) and east to the
+feasthall
+
+Garrick walks towards you from the west.
+
+>You move southwest.
+Kitchen
+
+Kitchen
+In the centre of this room is a large pot resting on a pile of logs, some of
+which are alight. Capering around this pot are a bizarre group of creatures:
+none stand more than four feet tall and seem to have features which are
+hideously twisted out of shape. You see huge noses, gaping mouths, eyes that
+appear almost to be hanging from the sockets.
+   One of the walls suddenly seems to bulge - but when you look again there
+is nothing there.
+   Hanging on one wall are a series of cupboards that look to have seen
+better years. You wonder how it is they manage to stay attached to the wall.
+   Upon your arrival, several of the figures (there are an even dozen in
+total) stopped to look at you, but now they have returned to their mad
+capering around the pot.
+   Aside from this strange sight, there is little of interest to be found
+here.
+
+Exits lie: northeast (to the end of the corridor)
+
+Greera the cook is here, leaning on her staff.
+
+Garrick walks towards you from the north-east.
+
+>(Your score has increased by 2)
+   Greera takes the gold ring and coos, "ah, it is back, it is back! My
+precious!"
+   She seems to forget you are even there.
+
+>   You pull open the nearest cupboard and step back as an assortment of items
+fall out, crashing to the floor in an unholy mess.
+
+>You pick up the jug.
+
+>You move northeast.
+End of Corridor
+
+End of Corridor
+The corridor ends here with each of the three walls being taken up by a
+single door. Each door has a plaque attached to it, perhaps giving a hint as
+to what lies within.
+   Far away in the castle you hear the sound of someone howling in pain.
+   Hanging on a chain by the southern door is a bell and set into the wall by
+the western door a button. The southwestern door has no such item.
+   In the corner between the southwestern and southern doors is a small pile
+of skulls.
+
+Exits lie: west, southwest and south (through the doors) and east to the
+feasthall
+
+Garrick walks towards you from the south-west.
+
+>Ancient Feasthall
+
+Ancient Feasthall
+Perhaps several centuries past, this was the main feasthall of the castle. A
+row of tables surround a central pit dug into the floor. You suspect that in
+olden times a mighty fire would light and heat the room from this pit, which
+now contains little more than ashes.
+   A feeling of despair grips you and it takes a moment to shake it off.
+   At one end of the largest feast table is a throne of dark metal upon which
+sits a skeleton clad in black robes. A broadsword is resting on the
+skeleton's lap and a crown upon its fleshless brow.
+   Corridors lead off in many directions. From the western one you can hear
+the sound of voices.
+
+Exits lie: west, north and northeast (along the corridors), east (through an
+archway) and south (to the sloping corridor)
+
+   "Ah, you have returned," says the skeletal form of Lord Havelock. "And the
+woman is dead."
+   "What happened there?" you ask. "That woman... You killed her."
+   Havelock shakes his head. "Not I. You! You killed her. But do not feel
+bad, Marlon, for she is in a better place now than she was before. You may
+have killed her but her suffering is at an end. Be thankful for that. Hers
+was not a pleasant existence." Havelock glances to the northeast suddenly, as
+if hearing something (although you hear nothing yourself). He looks back at
+you. "I would go if I were you, Marlon. Vaslock is aware of what you have
+done and will doubtless send someone to investigate very soon."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
+
+Garrick walks towards you from the west.
+
+>Room
+
+Room
+The walls of this small room are daubed with blood. The source is easy to
+spot: several corpses, their clothes torn and bloody, lying in an ungainly
+sprawl in one corner. About them are broken chairs and tables. Chalked into
+the floor is a symbol in the shape of a skull, the teeth elongated into those
+of the vampire.    In the corner is a large chest.
+
+Exits lie: west (to the ancient feasthall)
+
+Chad the vampire is here.
+
+Lara is here.
+
+   Chad looks up as you enter and presses a dagger hard against Lara's
+throat. "You've found me then? Now what are you going to do?"
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 15
+
+Garrick walks towards you from the west.
+
+>(Your score has increased by 7)
+   Acting on reflex, you throw the silver dagger at Chad. He has time for one
+brief howl of despair - and then the dagger strikes him solidly in the chest.
+Chad explodes. There is no other word for it. The magic of the dagger has
+destroyed him utterly.
+   "Is he dead?" asks Lara.
+   "He's dead, honey," you say, trying to calm her. "He's dead."
+
+>(Your score has increased by 3)
+   Lara takes it and begins playing with it once more.
+
+>You pick up the silver dagger.
+
+>   You unlock it with the cobalt key. Inside are a pile of ashes and a note.
+You pick the note up.
+
+>(Your score has increased by 5)
+   It reads:
+
+   'Stranger, how glad I am that you have freed me. Know you that I was a
+vampire? I disagreed with Vaslock. I fought him. And he imprisoned me here,
+in this chest. But now you have unlocked the chest and my end has come. I
+thank you for this.'
+
+   The strange note is not signed.
+
+>You move west.
+Ancient Feasthall
+
+Ancient Feasthall
+Perhaps several centuries past, this was the main feasthall of the castle. A
+row of tables surround a central pit dug into the floor. You suspect that in
+olden times a mighty fire would light and heat the room from this pit, which
+now contains little more than ashes.
+   The sudden slamming of a door makes your blood run cold.
+   At one end of the largest feast table is a throne of dark metal upon which
+sits a skeleton clad in black robes. A broadsword is resting on the
+skeleton's lap and a crown upon its fleshless brow.
+   Corridors lead off in many directions. From the western one you can hear
+the sound of voices.
+
+Exits lie: west, north and northeast (along the corridors), east (through an
+archway) and south (to the sloping corridor)
+
+Garrick walks towards you from the east.
+
+>You move south.
+Sloping Corridor
+
+Sloping Corridor
+Here the corridor slopes abruptly upwards to the third level of the castle.
+The floor here appears of a more modern appearance than what you have seen
+thus far, and cleaner besides indicating that this section of the castle is
+used more than the areas you have previously travelled through. Torches line
+the walls giving off a sickly illumination.
+   You rub tiredly at your eyes, wondering if you will ever see the outside
+world again.
+   At the far end of the corridor is an archway beyond which nothing can be
+seen.
+
+Exits lie: west (to the passageway) and north (the sloping corridor)
+
+Garrick walks towards you from the north.
+
+>You move west.
+Eastern passage
+
+Eastern passage
+This passage runs in a rough east-west direction and appears to be almost
+completely unremarkable aside from a chalk drawing on the floor. The drawing
+is that of a demonic face, rendered well despite the roughness of the floor.
+   A row of torches line the walls though their light does not seem to spread
+for as far as it should do. At the far eastern end is a shadowy archway,
+beyond which nothing can be seen.
+   The crumpled form of the demon you slew lies here.
+
+Exits lie: west (to the empty room) and east (to the shadowy archway)
+
+Garrick walks towards you from the east.
+
+>You move west.
+Empty room
+
+Empty room
+You expected to find this room full of people - but instead it appears
+deserted. What happened to the voices and laughter you heard? Or did you hear
+them at all?
+   Dust stirred by your footsteps obscures your vision for a moment, and
+causes you a worrying moment when you think you hear someone moving around
+behind you.
+   Of the room itself, little can be said. It is small, perhaps the same size
+as the cell you awoke in earlier, and desolate aside from a small collection
+of boxes in one corner. Archways in three walls lead further into the castle.
+
+Exits lie: northwest (through an archway), east (through an archway),
+southeast (through an archway) and south (to the top of the stairs)
+
+Garrick walks towards you from the east.
+
+>You move south.
+Top of the stairs
+
+Top of the Stairs
+A winding flight of ruined stairs lead downwards into the very depths of the
+castle. Looking at them gives you a bad attack of vertigo.
+   In one corner of the room you fancy you see someone standing watching you,
+but a closer examination reveals there is nothing there.
+   Before you is a door set firmly into the wall. Beyond it you can hear the
+laughter and voices of several people.
+
+Exits lie: down (the stairs) and north (through the door)
+
+Garrick walks towards you from the north.
+
+>   You move down, stepping as carefully as you can. Alas, it seems, not
+carefully enough. One of the steps gives way beneath your feet, sending you
+crashing to the bottom of the stairs.
+
+   You grimly pick yourself up. You are winded but do not seem badly hurt.
+Ruined Stairs
+
+Ruined Stairs
+Here you find yourself at the base of a flight of ruined stairs which wind
+upwards into the very heart of the castle. Light leaks down from a doorway
+set perhaps fifty feet above you. The steps, which are of incredible age,
+have collapsed in parts, leaving gaping holes which will make passage awkward
+to say the least. Cobwebs are here in abundance, masking every surface.
+   From far off in the castle you hear ghoulish laughter.
+
+Exits lie: north (through the steel door) and up (the stairs)
+
+Garrick walks towards you from above.
+
+>You move north.
+Eastern hallway
+
+Eastern hallway
+You stand at the far eastern end of the hallway by a statue of an old, old
+man dressed in robes that appear to be made (or maybe it is just the way the
+statue is constucted) from bones. It sends a shiver through you just looking
+at the thing.
+   The hallway here shows definite signs of ruin: the ceiling is lined with
+cracks, the walls appear to be crumbling, the floorboards are broken and
+shattered where chunks of stone have forced their way up through them.
+   From far off in the castle you hear ghoulish laughter.
+   Set into the south wall is a steel door. It appears of modern design and
+no doubt was fitted only recently. You can guess at the purpose for this. It
+now stands open.
+
+Exits lie: west (to the shadowy hallway) and south (through the steel door)
+
+Garrick walks towards you from the south.
+
+>You move west.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place.
+From the corner of your eye one of the figures in a portrait appears to move
+but when you turn to look it is back in place again.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   You have a sinking feeling that someone, somewhere, is watching you.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+Garrick walks towards you from the east.
+
+>You move southwest.
+Dark passageway
+
+Dark passageway
+Here the hallway turns sharply, one branch heading off southwards into a
+dimly-lit room, the other to the northeast. There is little to see at this
+juncture aside from a single portrait affixed to the wall. It depicts a dark
+shore somewhere that you do not recognise.
+   You have a sinking feeling that someone, somewhere, is watching you.
+
+Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
+
+Garrick walks towards you from the north-east.
+
+>You move south.
+Dimly-lit room
+
+Dimly-lit room
+At some time in the past, this was no doubt a cosy dining room. It has long
+since fallen into disrepair. Cobwebs stretch across the length and breadth of
+the long table which runs down the centre of the room, a table that is
+covered with the remains of a long since deserted feast: rotted foostuffs
+give off a smell that makes your eyes water.
+   Lining one wall is an impressive marble fireplace shaped into a lion's
+face. The fire in the hearth has long since gone out.
+   Seated in armchairs around the table are five skeletons, dressed in finery
+such that you have never seen before. The sixth chair, the one that would sit
+at the head of the table, now contains the transluctent form of Lord
+Havelock's spectre.
+   From far off in the castle you hear ghoulish laughter.
+
+Exits lie: north (to the dark passageway)
+
+   Sitting under the table is a large box.
+
+Garrick walks towards you from the north.
+
+>(Your score has increased by 5)
+   "Ah, so kind, so kind," murmurs Toril as you hand over his possession.
+"You are better than this place deserves, Marlon. You would destroy Vaslock
+would you not?"
+   You nod your head.
+   "You will need allies. You will need to free the prisoners he has kept on
+the next level of this infernal hellhole."
+   "How do I free them?"
+   "An orb must be found. An orb of magic nullifying. Vaslock has one himself
+but you would never take it from him. Another lies... somewhere in the
+castle. Find it. Raise it where the prisoners are kept. It will destroy the
+magic which holds their cells close and then allies galore you will have."
+   "Most will die in the forthcoming battle, Marlon," Havelock says. "But I
+imagine they would rather die free than live in torment the way they are
+now."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 10
+
+>(Your score has increased by 2)
+   "It lies within a dream, Marlon," Gladrin says.
+   "A dream?"
+   Gladrin nods. "Aye," he says, but will say no more.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 10
+
+>You move north.
+Dark passageway
+
+Dark passageway
+Here the hallway turns sharply, one branch heading off southwards into a
+dimly-lit room, the other to the northeast. There is little to see at this
+juncture aside from a single portrait affixed to the wall. It depicts a dark
+shore somewhere that you do not recognise.
+   A shiver goes down your spine.
+
+Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
+
+Garrick walks towards you from the south.
+
+>You move northeast.
+Shadowy hallway
+
+Shadowy Hallway
+The very atmosphere of this hallway seems wrong: the air a little too hard to
+breathe, the walls ever-so-slightly out of focus, the floorboards feeling
+more like stone beneath your feet. For certain this is not a natural place.
+From the corner of your eye one of the figures in a portrait appears to move
+but when you turn to look it is back in place again.
+   The hallway stretches for perhaps thirty feet east to west and is lined at
+regular intervals with portraits. The eyes of each person seem alive with
+malice and appear almost to follow you as you move about.
+   Lit from above by glowing panels, the hallway is nevertheless a dark and
+dismal place. Something tells you not to spend too much time here.
+   It must be tiredness, but you could swear that you just saw a face on one
+of the walls.
+
+Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
+and southwest (to a further branching of the hallway)
+
+Garrick walks towards you from the south-west.
+
+>You move east.
+Eastern hallway
+
+Eastern hallway
+You stand at the far eastern end of the hallway by a statue of an old, old
+man dressed in robes that appear to be made (or maybe it is just the way the
+statue is constucted) from bones. It sends a shiver through you just looking
+at the thing.
+   The hallway here shows definite signs of ruin: the ceiling is lined with
+cracks, the walls appear to be crumbling, the floorboards are broken and
+shattered where chunks of stone have forced their way up through them.
+   A rat scurries over your foot, half causing you to have a heart attack.
+   Set into the south wall is a steel door. It appears of modern design and
+no doubt was fitted only recently. You can guess at the purpose for this. It
+now stands open.
+
+Exits lie: west (to the shadowy hallway) and south (through the steel door)
+
+Garrick walks towards you from the west.
+
+>You move south.
+Ruined Stairs
+
+Ruined Stairs
+Here you find yourself at the base of a flight of ruined stairs which wind
+upwards into the very heart of the castle. Light leaks down from a doorway
+set perhaps fifty feet above you. The steps, which are of incredible age,
+have collapsed in parts, leaving gaping holes which will make passage awkward
+to say the least. Cobwebs are here in abundance, masking every surface.
+   From far off in the castle you hear ghoulish laughter.
+
+Exits lie: north (through the steel door) and up (the stairs)
+
+Garrick walks towards you from the north.
+
+>   You move up.
+Top of the stairs
+
+Top of the Stairs
+A winding flight of ruined stairs lead downwards into the very depths of the
+castle. Looking at them gives you a bad attack of vertigo.
+   A cold wind blows at you, chilling you to the bone.
+   Before you is a door set firmly into the wall. Beyond it you can hear the
+laughter and voices of several people.
+
+Exits lie: down (the stairs) and north (through the door)
+
+Garrick walks towards you from below.
+
+>You move north.
+Empty room
+
+Empty room
+You expected to find this room full of people - but instead it appears
+deserted. What happened to the voices and laughter you heard? Or did you hear
+them at all?
+   A cold wind blows at you, chilling you to the bone.
+   Of the room itself, little can be said. It is small, perhaps the same size
+as the cell you awoke in earlier, and desolate aside from a small collection
+of boxes in one corner. Archways in three walls lead further into the castle.
+
+Exits lie: northwest (through an archway), east (through an archway),
+southeast (through an archway) and south (to the top of the stairs)
+
+Garrick walks towards you from the south.
+
+>You move east.
+Eastern passage
+
+Eastern passage
+This passage runs in a rough east-west direction and appears to be almost
+completely unremarkable aside from a chalk drawing on the floor. The drawing
+is that of a demonic face, rendered well despite the roughness of the floor.
+   A row of torches line the walls though their light does not seem to spread
+for as far as it should do. At the far eastern end is a shadowy archway,
+beyond which nothing can be seen.
+   The crumpled form of the demon you slew lies here.
+
+Exits lie: west (to the empty room) and east (to the shadowy archway)
+
+Garrick walks towards you from the west.
+
+>You move east.
+Sloping Corridor
+
+Sloping Corridor
+Here the corridor slopes abruptly upwards to the third level of the castle.
+The floor here appears of a more modern appearance than what you have seen
+thus far, and cleaner besides indicating that this section of the castle is
+used more than the areas you have previously travelled through. Torches line
+the walls giving off a sickly illumination.
+   A cold wind blows at you, chilling you to the bone.
+   At the far end of the corridor is an archway beyond which nothing can be
+seen.
+
+Exits lie: west (to the passageway) and north (the sloping corridor)
+
+Garrick walks towards you from the west.
+
+>You move north.
+Ancient Feasthall
+
+Ancient Feasthall
+Perhaps several centuries past, this was the main feasthall of the castle. A
+row of tables surround a central pit dug into the floor. You suspect that in
+olden times a mighty fire would light and heat the room from this pit, which
+now contains little more than ashes.
+   A shiver runs down your spine.
+   At one end of the largest feast table is a throne of dark metal upon which
+sits a skeleton clad in black robes. A broadsword is resting on the
+skeleton's lap and a crown upon its fleshless brow.
+   Corridors lead off in many directions. From the western one you can hear
+the sound of voices.
+
+Exits lie: west, north and northeast (along the corridors), east (through an
+archway) and south (to the sloping corridor)
+
+Garrick walks towards you from the south.
+
+>You move northeast.
+Corridor
+
+Corridor
+Just northeast of the feasthall, the corridor widens dramatically until the
+sides are some thirty feet apart. The reason for the widening is apparent a
+little way further on - a large statue has been erected. Further details are
+a little unclear from where you stand.
+   One of the walls suddenly seems to bulge - but when you look again there
+is nothing there.
+   You note a strange smell in the air here, one you are unable to trace.
+Perhaps you had best proceed cautiously.
+
+Exits lie: southwest (to the feasthall) and northeast (to the statue)
+
+Garrick walks towards you from the south-west.
+   To the northeast you hear the sound of a door slamming and footsteps
+heading in this direction.
+
+>You move northeast.
+The Statue
+
+The Statue
+Rising majestically in the centre of this chamber is a statue that stands
+twenty feet tall. It is carved from a single block of reddish stone and is an
+impressive feat of workmanship. The carver, whoever he or she was, has caught
+every detail of the recipient, making it almost seem that the statue is a
+real person frozen into stone. A name plaque at the base informs who just who
+this is.
+   A shiver runs down your spine.
+   Set into the north wall of this chamber is a shadowy archway.
+
+Exits lie: southwest (to the corridor) and north (to the shadowy archway)
+
+Torodim is here.
+   Kneeling by the archway is a tall, powerfully-built figure clad in robes
+of darkest night. He appears to be studying something at the base of the
+statue but looks up at you enter.
+   His eyes widen.
+   "You!" he hisses. He rises swiftly to his feet and you are disheartened to
+see that he stands a good foot taller than you. "You escaped then. Vaslock
+said something had broken free, that the old wards were failing, that..." The
+figure shakes its head. "Ah, but what is the point of telling you anything?
+The experiment has failed." He clenches his hands into fists. "Time to
+dispose of the 'evidence', and Torodim is just the sort to get it dealt
+with."
+   He starts towards you.
+
+Garrick walks towards you from the south-west.
+
+>(Your score has increased by 7)
+   Torodim eyes go wide as you raise the silver dagger.
+   "Where did you get that?" he thunders.
+   "I found it," you say, and slash at him with it.
+   Torodim backs away in fear, unable to stand the holy presence of the
+dagger. He makes an attempt to bat it from your hands but Garrick throws
+himself on the vampire and the two of them go crashing into the floor.
+   You follow in quickly, using the dagger to strike Torodim about the face.
+The effect it has is quite shocking.
+   One side of Torodim's face explodes as the silver dagger touches his dead
+flesh, falling in burning fragments to the floor. Torodim gives a howl of
+anguish and staggers away from you. You follow, knowing you have to finish
+this quickly before his vampire-given strength overcomes the pain, and you
+strike him again. This time your dagger catches him on the neck and embeds
+itself there. The vampire - for that is surely what he is - tries to grasp it
+and pull it from his now-burning flesh, but is unable to close his hands
+around it no matter how hard he tries. In desperation he throws himself at
+the statue.
+   There is a flash of light, the smell of burnt flesh, and Torodim drops in
+burning fragments to the ground.
+   You turn from the scene and look for Garrick. You are concerned to note he
+is bent over, his left hand clutching his right wrist.
+   "Garrick, what-"
+   He backs away from you hastily. "Keep back! That... thing cut me. I
+feel... I feel strange. Like there's something living in my blood. Mordrel
+never told me this would happen..."
+   With a curse he runs towards the shadowy archway to the north, throws
+himself into it, and disappears.
+
+   Leaving you alone with just the ashy remains of the vampire for company.
+
+YOUR JOURNAL HAS BEEN UPDATED - PAGE 17
+
+>   You step through the archway...
+
+Press a key to continue
+
+Deathly Chamber
+
+Deathly Chamber
+You find yourself wading through blood which has flooded this room to a depth
+of around three feet. Around the stone walls are chained skeletons, one at
+each of the major compass points, their bones rattling as the swirling
+current of blood washes over them.
+   To the north a passage rises up out of the blood.
+
+Exits lie: north (along the passage) and south (through the dark archway)
+
+>   You fill the jug with blood.
+
+>You move north.
+Dark Passageway
+
+Dark Passageway
+You crouch at the southern end of a dark passageway which splits further to
+the north, branches leading off in a multitude of directions. Trooping from
+one of the branches is a line of slaves, their hands cuffed together, their
+feet in chains which are linked to each individual slave. Fierce looking men
+(vampires?) goad the slaves on, frequently lashing at them with whips.
+
+Exits lie: north (to the junction), south (to the deathly chamber) and east
+(to a small alcove)
+
+>You move east.
+Small Alcove
+
+Small Alcove
+You are crouched in an alcove barely half a dozen feet across. There is the
+remains here of a statue, shattered long past, its broken remnants scattered
+about the floor of the alcove. In one wall is an opening though you can see
+nothing beyond it - only lifeless shadows.
+
+Exits lie: west (to the dark passageway)
+
+Garrick is here, crouched amidst the remains of the statue.
+
+YOUR JOURNAL HAS BEEN UPDATED - PAGE 18
+
+>   "It was not my fault!" Garrick wails. He seems to try and retreat further
+from you but there is no room in the alcove. "I did what he asked, but he
+asked too much, too much... I was not ready... I knew it was a mistake, knew
+it, knew it..."
+
+>No-one listens to your rabblings.
+
+>(Your score has increased by 5)
+   At the mention of Mordrel, Garrick looks at you.
+   "Mordrel?" he murmurs.
+   "You mentioned the name," you say. "After Torodim wounded you..."
+   "Mordrel. Mordrel. He is... he is one of them."
+   "Them?"
+   "Vampires."
+
+Press a key to continue
+
+"Mordrel is different to the others," Garrick says.
+   He seems calmer now, more collected. Whatever happened to him he seems to
+have weathered the worst of it.
+   "He is a vampire and yet, yet he retains his humanity. Unlike the others.
+He and Vaslock, they were friends a long, long time ago. But whereas Vaslock
+used his powers to kill and maim, Mordrel used his to help people. When
+Vaslock came here, to this castle, Mordrel followed soon after. He sought to
+convince Vaslock of the error of his ways. And then, when Vaslock refused to
+listen, they fought. It was a long fight. Many died..." Garrick shudders. "In
+the end Vaslock won. He tore out Mordrel's heart and cast it into the flames
+of a nearby fire. Mordrel still lives, of course, as he and his kind are
+difficult to kill. Vaslock ordered him buried alive in a coffin marked with
+holy runes, to further his suffering and let him think on the error of
+opposing Vaslock. He is there to this day..."
+   "Where?"
+   "Here. In the castle. He is the reason why so much of this castle is a
+stranger even to Vaslock, for while Mordrel himself might be imprisoned, his
+soul roams free. He disrupts reality whenever he can, creates little pocket
+realms - or dreams as he calls them - in which he hides away weapons that
+might one day he used against Vaslock and his kind. He has no physical form
+which is why he must work through others. Like me. Like you."
+   "Me?"
+   Garrick nods. "Whether you're aware of it or not, Mordrel has been working
+through you. You're alive and you've so far gone undetected. Mordrel's doing.
+If not for him, alarms would sounded the moment you got the cell door open.
+You would have been caught long ago."
+   You shake your head in confusion. "None of this makes sense, Garrick.
+You've been working for Mordrel all this time, why didn't you just tell me?"
+   "Vaslock could have been watching. He would have known what was going on
+and slain you in an instant. But now, now..." He holds out his wrist. The
+flesh writhes as if worms were moving beneath the surface. "Now that Torodim
+has inflicted me with the vampire virus, I can sense things that I wasn't
+aware of before. I can sense when Vaslock is using his magics to listen in on
+us. Now he isn't. Later... who knows?
+   "But for the time being, we are safe. Or, rather, you are. I'm wounded,
+far too weak to be any help to you from now on. You'll have to go on alone."
+   "And do what? Kill Vaslock on my own?"
+   "Ah, but you're not alone. You have Mordrel watching out for you. Find
+him, Marlon, and you'll find an ally. Of course, first you'll have to restore
+him to health..."
+   "Restore him? How?"
+   Garrick opens his mouth to reply but a sudden convulsion wracks him. He
+grabs his wrist and gurgles in pain. "Damnit... vampire virus... affecting me
+too fast..."
+   He suddenly seizes up a piece of broken statue and smashes it into his
+head as hard as he can. You make to grab it off him but he is incredibly
+strong and easily throws you off. He strikes himself again, and again, and
+again...
+   And then you're standing over Garrick's bloodied corpse as the life slowly
+oozes out of him.
+
+YOUR JOURNAL HAS BEEN UPDATED - PAGE 18
+
+>You move west.
+Dark Passageway
+
+Dark Passageway
+You crouch at the southern end of a dark passageway which splits further to
+the north, branches leading off in a multitude of directions. Trooping from
+one of the branches is a line of slaves, their hands cuffed together, their
+feet in chains which are linked to each individual slave. Fierce looking men
+(vampires?) goad the slaves on, frequently lashing at them with whips.
+
+Exits lie: north (to the junction), south (to the deathly chamber) and east
+(to a small alcove)
+
+>Junction
+
+Junction
+Several passageways meet here, one from the north, one from the northeast,
+one from the south and the final from the east. There is another passage to
+the west - along which you hear the cries of many voices in torment - but
+this is blocked, barred by a steel gate to which is affixed a skull. A single
+globe overhead lights the way for you, although its light offers little
+comfort in this dank and miserable place.
+   A line of slaves troop from the northern passage and head off to the
+southeast. They are watched over by fierce overseers, all of whom seem
+unaware of your precence.
+
+Exits lie: north, northeast, south and east (along passageways)
+
+   The magical properies of the priest's hood you wear seem to prevent the
+vampires from seeing you. You are free to move about - provided you do not
+make too much noise.
+
+>You move northeast.
+Top of Steps
+
+Top of Steps
+Here, a flight of steps lead down into the inky darkness below. Cold fingers
+crawl along your spine as you peer into the depths and hear the cries and
+gasps and howls and screams of the things that live in the dark. Partway down
+the steps is a sign upon which is written several words.
+
+Exits lie: southwest (to the junction) and down (the steps)
+
+>   An unholy wind blows from the bottom of the steps, throwing you back.
+   "The words of wisdom! Speak the words of wisdom or go no further!"
+whispers a spectral voice.
+
+>(Your score has increased by 10)
+   You utter the words. Nothing seems to change but you have the feeling that
+you have passed some kind of test.
+
+>You move down.
+Crypt
+
+Crypt
+At the base of the steps, you find yourself in a large, vaulted chamber. The
+ceiling is lost in the shadows overhead and the walls have an indistinct look
+about them. Cobwebs cover the floor.
+   Atop a pedestal in the centre of this chamber is a coffin wrought from
+pure gold. Around it, embedded in the floor, are what appear to be a
+collection of crosses of varying sizes and designs.
+
+Exits lie: up (the steps)
+
+>   You struggle with the heavy lid for a while but eventually manage to get
+the heavy coffin open.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
+
+>   Lying in the coffin, his flesh deathly pale, is a tall, thin man clad in
+robes of darkest velvet. His head rests on a golden pillow and in his hands
+is clutched a globe of dark metal.
+
+>   The moment you reach out your hand, the man's eyes slowly open.
+   "Ah," he says. "I wondered when you would get here."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
+
+>   "Marlon," says the man. "You come. Aah, but I knew you would. I foresaw
+it, in a dream of mine. I foresaw your coming. You are the one foretold,
+Marlon, the one who will deliver us from the evil that is Vaslock."
+   "I just want to get out of here," you say. "Alive."
+   "Ah, but you shall, you shall. You merely have to kill Vaslock to achieve
+this."
+
+Press a key to continue
+
+   "Vaslock has ruled here for centuries, Marlon, as I am sure you are
+already aware. I have 'agents' in this castle who are not subject to his
+will, although he desroys them whenever he can, and they feed little pieces
+of information. They told me of Vaslock and his infernal experiments, his
+attempts to rid himself of his vulernabilities. He must not succeed, Marlon.
+I think you are only too aware of just what a nightmare the world would be if
+the likes of Vaslock and his kin were free to roam the daylight world as well
+as the twilight one."
+   "Vaslock and his 'kin'?" you say. "But you're a vampire yourself? Aren't
+you?"
+   The man smiles softly. "I am. But I, unlike the others, I retained my
+humanity. I have killed, true, but only those that deserved death: murderers,
+rapists, thieves... I have never slain an innocent human although the urge
+has come upon me quite often. When you are like me, a vampire, you yearn for
+the taste of blood whether or not you care to admit it. Sometimes the
+yearning becomes too great to fight, and in those times you do what you have
+to to survive. I am not proud of such times but neither am I ashamed of them.
+I was a victim to the disease that has me in its grasp. And the evils that I
+have perpetrated are, I hope, outweighed by the good I have done."
+   "Good?"
+   "I slay vampires. My 'kin'. I seek them out and I drive stakes through
+their unbeating hearts. I cannot wield silver weapons or crosses or holy
+water yet I often travel with those who can and they aid me in my quest.
+Alas, the last of my 'companions' died a long time ago. When I heard of
+Vaslock and what he was doing here in the former Lord Havelock's castle, I
+was alone. This should have stopped me. I should have recruited allies before
+I took him on but I had grown arrogant in my powers, as is common to my kind,
+and thought I could handle anyone I faced.
+   "I was wrong, as perhaps goes with saying considering my current
+predicament. I have been imprisoned here since the day Vaslock defeated me. I
+wish he had killed me but he has not. He wishes me to suffer and this is how
+he tortures me: the holy globe I carry and which cannot be removed, the
+crosses..." Mordrel looks up at you. "But I am not a prisoner in the way he
+would believe. My body may well be chained, but my mind is free - I have
+roamed this castle of his for centuries now. I have warped reality in such a
+way that even he is powerless to intervene. You may have encountered places
+in this castle that defy all logic - walls that do not appear to be there,
+voices from empty rooms, dream-like locations that cannot possibly exist;
+these are all my doing. I leech the very life out of this castle, and out of
+Vaslock and his minions, and where they grow weaker, I grow stronger."
+   Mordrel gives a bitter cough. "Or so I try to convince myself. In truth, I
+know not how much my little tricks affect Vaslock. If they caused him
+suffering, the way I suffer, he would have slain me before now. But I can
+convince myself that I inconvenience himself at the least, and that in itself
+is worth trying for.
+   "But I grow weary, Marlon. Ask me questions if you would and I will try to
+supply the answers. My mind... is not what is was but properly prompted with
+the correct questions, yes I could tell you many things.."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
+
+>(Your score has increased by 10)
+   "Ah, my poor 'servant'. I knew he might die if I used him but knew he
+might die otherwise anyway and so considered the risk acceptable. I take it
+he is, indeed, dead?"
+   You nod.
+   "Perhaps in this place that is a blessing in itself. Rising as one of the
+undead is a fate worse than death and I would not have wished for him to
+suffer so." Mordrel pauses as if lost in thought and then says, "did he
+mention, perchance, the task of restoring me?"
+   "He mentioned something along those lines," you recall. "But I'm not sure
+what he really meant."
+   "Blood is what he meant. Give me blood - pure, undiluted blood - and my
+mental powers will grow significantly. I will gain the means to open the
+gateway to Vaslock's realm and allow you a chance at slaying the master
+vampire himself."
+   "Blood?" you echo, uneasily.
+   Mordrel gives a bitter laugh. "Not yours, Marlon, do not worry yourself on
+that account! You are my last hope of bringing Vaslock down and bringing me
+an eternal sleep at last, I would not ask you to sacrifice yourself on my
+behalf. Instead, there must be blood somewhere in this castle. Bring it to
+me, and the way to Vaslock will be an open door to you. The rest, alas, you
+will have to deal with yourself."
+
+>(Your score has increased by 10)
+   You give the jug of blood to Mordrel. A smile creases his lips. "Ah," he
+murmurs. "I have waited a long, long time for this moment..."
+   The ancient vampire raises the jug to his lips and drinks the blood, in
+such a frenzy to do so that half of it splashes down his face and into the
+coffin. But, finally, he finishes, and casts the jug aside.
+   "My powers return!" he cries. "Or... to a degree they do." He raises a
+hand and clenches it into a fist. "Behold!"
+   A vortex opens into the air above the coffin and you see a location not
+far from where you stand now. It is the junction you passed through, with the
+overseers and the slaves and the impassable gateway to the west. As you
+watch, the gateway shudders and flies open, the gate itself dashed to the
+ground as if by a giant hand. Several overseers cry in terror at this
+remarkable turn of events, throw their whips down, and flee into the depths
+of the tunnels. Four remain. The slaves, finding a new resolve, surge at the
+overseers.
+   "The slaves will win," says Mordrel. "But it will be a bloody fight,
+Marlon. Even surprised and outnumbered, the overseers are powerful creatures.
+Vampires for the most part. Go now. Perhaps you can find one amongst the
+slaves brave enough to aid you. Go..." Mordrel adds, suddenly seeming weaker
+than he did a minute ago.
+   Mordrel's hand falls and the vortex closes. Exhausted, the vampire slumps
+back into his coffin. It seems that the opening of the gateway weakened him
+more than he anticipated.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
+
+>You move up.
+Top of Steps
+
+Top of Steps
+Here, a flight of steps lead down into the inky darkness below. Cold fingers
+crawl along your spine as you peer into the depths and hear the cries and
+gasps and howls and screams of the things that live in the dark. Partway down
+the steps is a sign upon which is written several words.
+
+Exits lie: southwest (to the junction) and down (the steps)
+
+>You move southwest.
+Junction
+
+Junction
+Several passageways meet here, one from the north, one from the northeast,
+one from the south and the final from the east. There is another passage to
+the west - along which you hear the cries of many voices in torment. It now
+stands open, rendered so by Mordrel's arcane might, the steel gate that
+blocked it lying broken on the ground. A single globe overhead lights the way
+for you, although its light offers little comfort in this dank and miserable
+place.
+   Several overseers lie dead on the ground, victims of the bloody revenge
+meted out by the slaves, a number of whom are still here, watching you with
+suspicion in their eyes.
+
+Exits lie: north, northeast, south and east (along passageways)
+
+>   The slaves appear to have gathered a little life after the defeat of their
+vampire overseers. Alas, the majority of them are in such poor condition that
+you doubt they would be any use to you.
+
+>   "What are you?" a slave hisses. "Are you one of them?"
+   "No," you say. "I'm here to help."
+   Though clearly the slaves do not believe you, it is also clear you are no
+vampire. One of them, a hulking fellow called Gragor, lumbers up close to
+you.
+   "Hmmm, you don't look like a vampire, but you don't look like a slave
+either. What are you, one of Vaslock's friggin' experiments?"
+   You give a curt nod, knowing that lying here would be a fatal mistake.
+   Gragor shrugs. "Then no doubt you want him dead. Me, too. Everyone else
+here," he nods at the others, "ain't got the nerve to try it. Me, I'm fair
+game. So what say you an' me see how far we can get before the swine brings
+us down, eh?"
+   You don't waste much time in accepting. Gragor is a large, powerfully man
+and will no doubt be a useful ally in this place.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 22
+
+Gragor follows you.
+
+>You move east.
+End of Passage
+
+End of Passage
+The short passage you have been following comes to an end here at a stout
+wooden door which unsurprisingly, you find locked. A skull has been mounted
+on a stone shelf above the door, the jaws propped open with a stick. Red
+gemstones shine in the skull's eyesockets.
+
+Exits lie: west (to the junction)
+
+Gragor follows you from the west.
+
+>(Your score has increased by 2)
+   Together, you and Gragor smash the door off its hinges. It reveals a small
+room beyond.
+   "The storeroom," Gragor says. "C'mon."
+
+>   You move southeast.
+Storeroom
+
+Storeroom
+In years long gone, this room would have served as the main storeroom for the
+castle where food, weapons and various other items were kept. It has long
+since fallen into ruin, however, and you guess Vaslock must use a different
+location for the stores nowadays. All that remains are broken tables, smashed
+shelves and several sacks lying unceremoniously in one corner. The only door
+is the one you entered the room by.
+
+Exits lie: northwest (to the end of the passage)
+
+Gragor follows you from the north-west.
+   "I hid something beyond sacks in the corner," Gragor says.
+
+>(Your score has increased by 1)
+   You open one of the sacks to see what is inside - and back away in horror
+as you come face to face with a dead body!
+   "That wasn't there before," Gragor hisses, sounding as shocked as you
+feel. "Damnit!" He scrabbles in the sack, curses, and pulls out a single
+wooden stake. "I left half a dozen of these in here, and a bottle of holy
+water. Still, at least I've got a weapon now..."
+
+>(Your score has increased by 1)
+   Searching amidst the broken shelves, you come across a small amulet.
+   "Ah!"says Gragor as he snatches it up. "It's here after all. I had a
+sinking feeling some swine might have found it by now, but no it's still
+here."
+   "What is it?" you ask.
+   "An amulet of protection from the undead." Gragor puts it around his neck.
+"Now I feel a bit better prepared."
+
+>You move northwest.
+End of Passage
+
+End of Passage
+The short passage you have been following comes to an end here at a stout
+wooden door which now stands open. A skull has been mounted on a stone shelf
+above the door, the jaws propped open with a stick. Red gemstones shine in
+the skull's eyesockets.
+
+Exits lie: west (to the junction) and southeast (to the storeroom)
+
+Gragor follows you from the south-east.
+
+>You move west.
+Junction
+
+Junction
+Several passageways meet here, one from the north, one from the northeast,
+one from the south and the final from the east. There is another passage to
+the west - along which you hear the cries of many voices in torment. It now
+stands open, rendered so by Mordrel's arcane might, the steel gate that
+blocked it lying broken on the ground. A single globe overhead lights the way
+for you, although its light offers little comfort in this dank and miserable
+place.
+   Several overseers lie dead on the ground, victims of the bloody revenge
+meted out by the slaves, a number of whom are still here, watching you with
+suspicion in their eyes.
+
+Exits lie: north, northeast, south and east (along passageways)
+
+Gragor follows you from the east.
+
+>Dark Tunnel [1]
+
+Dark Tunnel
+Just beyond the broken gateway, you find a tunnel, the walls of which are
+built from black stone which curves upwards, the far reaches being lost in
+dark shadows. A bright light is visible at the far end though it is difficult
+to tell just how far away that might be.
+   You are not alone in this dark and desolate place: a tall man with skin as
+pale as snow is standing here. His eyes are pits of emptiness, his hands are
+ridged claws.
+   grag0
+
+Exits lie: east (to the junction) and west (along the tunnel)
+
+   "So, you dare to venture here then?" says the vampire. "Yes, I can see
+you. Your little tricks do not work on me. I would not have thought you had
+the nerve to come here, despite what they tell me of you."
+   "Are you Vaslock?" you ask.
+   The vampire laughs. "Me? Oh no. My name does not matter now. After all,
+you won't be in a position to worry about such things for much longer." He
+takes a step towards you. "Ah, I see you flinch. As well you might, for today
+you die, Marlon."
+
+Gragor follows you from the east.
+
+>(Your score has increased by 5)
+   Shock is clearly written on the vampire's face as he sees you are carrying
+the orb.
+   "The orb!" he shrieks. "Where did you get that from?"
+   Gragor sneers. "None of your damn business, vampire."
+
+   He brandishes the amulet he took from the storeroom and the vampire curses
+and backs away, unable to stand the aura of that holy artifact. Gragor
+follows him, the amulet in one hand, his stake in the other. You move to
+block the vampire as he tries to flee and point the orb at the vampire. A
+howl pervades the corridor as the magic power of the orb burns the vampire to
+dust.
+   "One down," Gragor murmurs, staring at the corpse of your fallen foe.
+"Lots to go."
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 24
+
+>You move west.
+Dark Tunnel [2]
+
+Dark Tunnel
+The tunnel slopes upwards here and begins to spread out a little. The walls
+are now perhaps fifteen feet apart and decorated with ornate mosaics, some
+depicting scenes in the castle's history and others (you assume) scenes from
+the future.
+   There is a font in the centre of the tunnel, the sort you might find in a
+church containing holy water, though you doubt very much that holy water
+would be found here
+
+Exits lie: west and east (along tunnel)
+
+Gragor follows you from the east.
+
+>You move west.
+Dark Tunnel [3]
+
+Dark Tunnel
+You appear to have reached the end of the tunnel. Facing you is a solid block
+of stone. It is devoid of markings and, from the size of it, you would guess
+it is unmovable. There is nothing else here.
+
+Exits lie: east (along the tunnel)
+
+Gragor follows you from the east.
+
+>(Your score has increased by 5)
+   The moment you raise the orb, there is a grinding sound from the block of
+stone (as of ages old machinery suddenly coming to life) and then the block
+slides effortlessly to one side. A passage is revealed beyond.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 19
+
+>You move west.
+Passage
+
+Passage
+You stand in a passage. The floor is worn by the tread of many feet.
+Eastwards the passage ends at an opening, beyond which you can see a dark
+tunnel disappearing into the distance. Westwards the passage slopes upwards.
+
+Exits lie: east (to the dark tunnel) and west (to the sloping passage)
+
+Gragor follows you from the east.
+
+>You move west.
+Sloping Passage
+
+Sloping Passage
+The passage slopes upwards, ending finally at a simple wooden door with a
+plaque set into its surface.
+   About you lies carnage: dead bodies, broken weapons, puddles of blood,
+broken furniture. It seems the slaves you freed earlier made their way here
+and this is the result. They died, but the way to Vaslock's lair is open to
+you. If you dare only take it.
+
+Exits lie: east (to the passage) and west (to the lair of the vampire)
+
+Gragor follows you from the east.
+
+>(Your score has increased by 5)
+   "Let me," says Gragor, shouldering you aside. "I want first stab at the
+swine!"
+   He strides over to the door and grasps the handle - and howls in pain!
+   "Gragor!" you cry and rush over to him.
+   You grab at his arm and a shock surges from Gragor to you, throwing you
+back across the passage. Gragor remains at the door, unable to move, whatever
+magic that is warding the door having taken full hold of him. You start to go
+to him again in an attempt to knock him to one side - but then he gives one
+last gasp of pain and lets go of the door himself.
+   "...Gragor...?" you say hesitantly, for he has a strange look to him, as
+if he were not entirely sure where he was.
+   He shakes his head, staggers a couple of feet, then sinks to his knees. He
+looks up at you. "Get him for me, Marlon," he murmurs, and coughs up a gout
+of bright, red blood. "Get... him... for me..."
+   And then he slumps forward onto the ground, a pool of his own blood
+spreading out around him.
+   You scarcely notice that with his last action, Gragor pulled open the door
+to Vaslock's lair. All you have to do is go through it.
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 22
+
+>(Your score has increased by 2)
+   You come across the silver amulet Gragor was carrying, the one that he
+said would ward him against vampires. You take it, knowing he would wish you
+to have it.
+
+>(Your score has increased by 10)
+Lair of the Vampire
+
+Lair of the Vampire
+You stand in a massive chamber carved into the heart of the castle. Black
+drapes cover all the furniture and the windows, effectively blocking out all
+sunlight.
+   In the centre of this chamber is a throne, raised upon a pedestal, on
+which sits a man in a long, dark cape. He is watching you with a look of
+amusement on his cold features.
+
+  "So you made it this far then?" says the figure on the throne. "Impressive,
+I must say. I never expected you to reach this place. None of the others have
+done."
+   "Spare me your words, Vaslock," you say. "You know why I'm here."
+   Vaslock nods. "Indeed I do." He raises himself to his full height, a
+towering seven feet. Standing by his throne, he seems a giant of a man. Or
+vampire. "You came to kill me, to rid me from this world and make it 'a
+better place'. Amusing. If you ever had a chance of besting me, did you think
+I would have allowed you to escape in the first place?"
+   "Allowed...?"
+   "Of course. You think I let Harris have that picklock? You think I let you
+take it from him? You think I gave you the means - the foreign coin - to
+escape the first level of my castle? You think too much. Or you think too
+little of me. Morlock and Havelock and Mordrel are correct in that you are an
+experiment. They are also correct in that I seek to use you to rid me of my
+vulnerabilities. They are wrong if they believe I would have allowed you to
+come this far if you had a chance of slaying me.
+   "No, I allowed you to come this far to offer you a deal, my friend."
+   "What kind of deal?" you say, having no intention of taking any deal he
+might offer to you.
+   "Put simply: I offer you eternal life, the same as I enjoy now, for your
+willing co-operation in my experiments."
+   You sneer. "And why would I ever agree to something like that?"
+   "You are unique. Are you aware of that? Have the spectres I haunt this
+place with not given you enough clues to figure out the whole story for
+yourself? You are not human, any more than I am. Instead, you are what I
+always dreamed of being: a vampire who lacks a vampire's weaknesses. Sunlight
+does not harm you, crosses and other religious items do not harm you - you
+carry enough now to prove that little fact to me - silver does not affect
+you, nor garlic, nor a stake through the heart, nor anything that could kill
+me. You lack the vampire's true strength at the moment but that will come to
+pass shortly.
+   "I made you, but I made you too well. I gave you willpower and I gave you
+strength and ingenuity and cunning. I always knew that doing so would greatly
+increase the chances of my experiments coming to fruitition - and also the
+chances of my experiment turning upon me. As has now happened. You should be
+coming to me with welcoming arms but instead I see you armed to slay me."
+   "You deserve to die, Vaslock," you say, "a dozen times over for what
+you've done."
+   Vaslock shrugs, clearly uninterested in your reasoning. "Perhaps. Perhaps
+not. Either way, I will not be the one who dies here today. So, to my deal: I
+will teach you what you need to be a vampire master, to be like myself, and
+you, in turn, will allow me access to your memories, your mind, your soul."
+   "So you can walk in daylight and touch crosses without dying?"
+   "In essence. The secrets to your own immunities to vampire weaknesses are
+locked into your mind, I know this. They cannot be unlocked by force or by
+dissecting your corpse. They cannot be bribed or threatened or tortured out
+of you. They must be given willingly. So I allowed you to escape from your
+cell, I allowed you to see what you can really achieve given the chance. I
+gave you a true taste of your power. Now I want what I set you free for. I
+want your agreement."
+   "And once you have my secrets, you kill me?"
+   Vaslock shakes his head. "When I have your secrets, you will have become
+as strong as I. We will be allies, my friend, not enemies."
+   Your mind is in turmoil. You try to ignore what he is saying, but
+something tells you that Vaslock speaks the truth. Ally yourself with him and
+become a lord of the vampires, a creature of ultimate evil and power able to
+walk in the daylight and immune to crosses, holy water, garlic and anything
+else a vampire might fear. You could live forever.
+   Or defy him and see how long you can last against a creature who has
+walked the earth for close to two thousand years.
+   As ever, the choice is yours.
+
+   1)  Join with Vaslock
+
+   2)  Fight him
+
+>   Vaslock sighs. "I suspected as much. You fool. So be it then, you will die
+and I will return to my experiments and the next one I offer the choice to
+will take it."
+
+   Vaslock steps away from his throne and his eyes lock onto yours and a
+powerful voice thunders in your mind, commanding you to lay down your weapons
+and surrender. You tear your gaze away from him at the last moment but your
+will to resist him is not as strong as it was a minute before.
+
+   All this time, you are aware of Vaslock closing in on you and know you
+must defend yourself.
+
+>   You rush at the drapes and tug them open. Vaslock gives a cry of pain and
+lashes out at you, catching you a solid blow to the side which sends you
+flying across the chamber.
+   "Quick thinking, Marlon," he murmurs. "But it takes more than a little
+daylight to kill me!"
+
+>   The moment you raise the orb, Vaslock gives a cry of rage and pain and
+throws himself away from you.
+   "Damn you, Mordrel!" he thunders. "DAMN YOU!!!"
+   Vaslock shies away as you approach with the orb, then claps his hands
+together. The sound is loud, impossibly so, and you feel the magic of the orb
+dying. In despair, you can only watch as the vibrant colours swirling within
+the orb falter and die out. A few seconds pass and the orb itself crumbles to
+dust in your hand.
+   A glance at Vaslock shows you he appears shrunken by the attack and by the
+arcane magic he employed to destroy the orb, but you have lost your most
+powerful weapon.
+
+>   You brandish the crucifix at Vaslock and he gives a hiss of pain and rage
+and backs away.
+   "That won't keep me at bay forever, you fool," he hisses. "Sooner or
+later, you'll have to approach me if you want to do me any lasting harm."
+  Despite his words, you sense that your attack has weakened him badly.
+
+>   Once more you thrust the crucifix at Vaslock. This time he ignores the
+pain it causes him and seizes from your hand. Even as it burns his vampiric
+flesh, he crushes the crucifix to dust.
+   "There! Now what of your protection?" he sneers.
+
+>   You rush across the chamber and strike at Vaslock with the silver dagger.
+His impassive countenance gives way to a look of morbid fear for a second
+before he manages to get his features under control. He strikes out at you,
+sending you crashing back across the chamber, but not before you have landed
+a deep blow in his chest, the magic of the silver dagger scything through his
+vampire flesh.
+   You pick yourself up, wounded but not badly hurt, as Vaslock closes in on
+you again.
+
+>(Your score has increased by 20)
+   Again you attack Vaslock with the silver dagger. This time, however,. he
+is ready for your attack and ducks easily to one side. Your blow misses,
+unbalancing you badly, and Vaslock strikes out at you, a blow of stunning
+force which hurls you bodily across the room.
+   You come to a crashing halt against a wall and force yourself to regain
+your feet. Vaslock looms over you and lash out blindly, cutting him with the
+dagger and forcing him back.
+   "You cannot rely on your dagger every time, Marlon," the vampire hisses,
+pain and fury evident on his face. "It lacks the necessary power to kill one
+such as myself."
+
+   A look of despair washes over Vaslock's inhuman features. He staggers
+back, stumbles and falls to one knee.
+   "Damn you!" he curses. "Damn you... It wasn't supposed to end like
+this..."
+   "This was exactly the way it was supposed to end, Vaslock" you say and
+strike him a final blow with the silver dagger.
+   He seizes your wrist as you do and for a second you are not sure you have
+the strength to finish the blow. But then the holy power of the amulet you
+took from Gragor repels him, his grip loosens, and you plunge the dagger down
+into his chest. A hideous wail of despair rises from Vaslock. He grasps the
+dagger, tears it out of his chest - and then collapses before you, his head
+striking the stone floor with a dull thud.
+
+Press a key to continue
+
+   For a minute you are too stunned to move but then you creep over and seize
+the dagger from his hand, raise it once more, and plunge it down time and
+time again into his undead flesh...
+
+   When the deed is done, Vaslock is well and truly defeated. The holy power
+of the silver dagger has destroyed him.
+
+   To the north, not noticeable before, you see a doorway has opened.
+
+>   And so your adventure ends. Vaslock, the lord of the vampires, lies dead
+by your hand. His reign of terror is over.
+
+   What now for you, Marlon? A return to the civilian life you remember but
+know to be a lie? Will you make your way in the world of humans, trying to
+live as they do, always shunning the coming light of dawn, avoiding churches,
+on the run from those who would destroy you for what you are?
+
+   Or will you embrace your vampire self?
+
+   The future holds many paths for you, Marlon, all you have to do is choice
+which one is for you...
+
+THE END
+
+(...for now...)
+
+   press a key
+
+   Depending on the path you took through the game, your final score may well
+be less than 100%. There are a good number of tasks you can complete which
+add to your score but which are not required to complete the game. If you
+managed the full 100% then well done. If not, perhaps you'd care to try
+again: type "restart" and do just that.
+
+   Your final score was 226
+
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 26
+
+>Do you really want to quit? [Y/N]

@@ -311,7 +311,6 @@ mountains are a dangerous place and the creatures that inhabit it are the
 least of your worries as the ground seems to shift constantly.  The trail
 winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
-You gain a few hit points
 
 >You move south.
 Mountain pass
@@ -322,6 +321,7 @@ notice something high up to the east but don't see any obvious way to get
 there.
 
 Ghoul is here.
+You gain a few hit points
 
 >You mutter the holy words and the ghoul groans and then tumbles to the ground
 dead.  You hear a moan and another Ghoul shambles into the pass
@@ -434,15 +434,15 @@ pass.
 >You mutter the holy words and the Greater Ghoul groans and then tumbles to
 the ground dead.  You hear a moan and another Greater Ghoul shambles into the
 pass.
+
+>You mutter the holy words and the Greater Ghoul groans and then tumbles to
+the ground dead.  You hear a moan and another Greater Ghoul shambles into the
+pass.
+
+>You mutter the holy words and the Greater Ghoul groans and then tumbles to
+the ground dead.  You hear a moan and another Greater Ghoul shambles into the
+pass.
 You gain a few hit points
-
->You mutter the holy words and the Greater Ghoul groans and then tumbles to
-the ground dead.  You hear a moan and another Greater Ghoul shambles into the
-pass.
-
->You mutter the holy words and the Greater Ghoul groans and then tumbles to
-the ground dead.  You hear a moan and another Greater Ghoul shambles into the
-pass.
 
 >You mutter the holy words and the Greater Ghoul groans and then tumbles to
 the ground dead.  You hear a moan and another Greater Ghoul shambles into the
@@ -519,7 +519,6 @@ notice something high up to the east but don't see any obvious way to get
 there.
 
 Ghoul is here.
-You gain a few hit points
 
 >You move north.
 Mouth of the pass
@@ -540,6 +539,7 @@ The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
+You gain a few hit points
 
 >You move east.
 Wilderness
@@ -674,7 +674,6 @@ ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
 
 Bandit Lord and Greater Ghoul are here.
-You gain a few hit points
 
 >You move south.
 Mountain peak
@@ -705,6 +704,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.
 
 Highwayman is here.
+You gain a few hit points
 
 >You move south.
 Road
@@ -812,7 +812,6 @@ appears around him.
 >You throw your dagger at Melvin and it flys straight and true.  With a
 shriek, it imbeds itself in Melvin's chest and he falls to his knees and then
 his face, dead.
-You gain a few hit points
 
 >You pick up Melvin's Amulet.
 
@@ -852,6 +851,7 @@ ask one more task of you and you will be rewarded greatly for it."
 
  "It will be a simple matter, I assure you.  I require a book that was stolen
 from me by a group of bandits.  Return it and I shall reward you well."
+You gain a few hit points
 
 >You move east.
 Harmon's Keep
@@ -955,7 +955,6 @@ passes through the mountain forest which is a maze of trees and roots.  Those
 who enter that place rarely leave unscathed, if they escape at all. To the
 east and west are the first signs of civilization as two farms sprawl to
 either side of the road
-You gain a few hit points
 
 >You move north.
 Base of Mountain
@@ -995,6 +994,7 @@ buildup as if a landslide buried something forever.
 Bandit Lord and Greater Ghoul are here.
 
 >"Here, take it!" The Bandit Lord says as he rushes off.
+You gain a few hit points
 
 >You carefully unstopper the vial of virulent poison and pour it on the chunk
 of meat.  As you knead the poison into the meat, it burns into your fingers.
@@ -1093,7 +1093,6 @@ of a buxom woman and the words carved along the side read "Ever lasting
 love."
 
 Caroline is here.
-You gain a few hit points
 
 >"What is this," Caroline asks as you hand her the vial.  She takes it in a
 delicate hand and examines it.  Then, she smells the vial and smiles
@@ -1153,6 +1152,7 @@ climber could ascend to the peak.
 
 >You start to climb the rock chimney and though its a challenging climb, you
 make it easily.
+You gain a few hit points
 
 >You move east.
 Stone Fortress
@@ -1295,7 +1295,6 @@ mountains are a dangerous place and the creatures that inhabit it are the
 least of your worries as the ground seems to shift constantly.  The trail
 winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
-You gain a few hit points
 
 >You move south.
 Mountain pass
@@ -1360,6 +1359,7 @@ Selkie and Jed's dogs are here.
 devouring it quiickly.  You wait and after a moment, one of the dogs starts
 to whimper and lurches about the yard panting harshly as if it can't breathe.
  Then, it falls over dead.  The other dogs die just as quickly.
+You gain a few hit points
 
 >You move east.
 Hobbles House
@@ -1442,7 +1442,6 @@ Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
 some kind.
-You gain a few hit points
 
 >You move east.
 Base of Mountain
@@ -1526,6 +1525,7 @@ again.
 Catacombs
 This is a tunnel under the King's dungeon. It is dark, but there is enough
 light filtering in that you can see.
+You gain a few hit points
 
 >You move south.
 Center of Catacombs
@@ -1579,6 +1579,8 @@ This is a large room beneath the King's dungeon.  There is a pit in the
 center of the chamber that you don't want to get to close to as it seems to
 yawn darkly below you.  There are exits to the north, south, east, and west.
 
+The shrink potion starts to wear off and you feel a tingling sensation as
+suddenly you return to your normal size.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
@@ -1603,8 +1605,6 @@ darkness here.  You can hear something moving in the nothingness and then a
 smoothly soothing voice speaks to you.  "What do you want, human."
 
 Shade is here.
-The shrink potion starts to wear off and you feel a tingling sensation as
-suddenly you return to your normal size.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
@@ -1628,7 +1628,6 @@ Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
 
 >Time passes...
-You gain a few hit points
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
@@ -1656,7 +1655,7 @@ Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
-Skull Collector hits Aline.
+Skull Collector hits Gail, but it doesn't seem to do any damage.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
@@ -1695,6 +1694,7 @@ You feel more powerful
 Catacombs
 This tunnel winds down into the earth and there is a stench wafting up at you
 from below.  It leads forward into a dark room.
+You gain a few hit points
 
 >You move east.
 Center of Catacombs
@@ -1755,7 +1755,6 @@ passes through the mountain forest which is a maze of trees and roots.  Those
 who enter that place rarely leave unscathed, if they escape at all. To the
 east and west are the first signs of civilization as two farms sprawl to
 either side of the road
-You gain a few hit points
 
 >You move north.
 Base of Mountain
@@ -1880,6 +1879,7 @@ ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
 
 Greater Ghoul is here.
+You gain a few hit points
 
 >You move east.
 Mountain pass
@@ -1942,7 +1942,6 @@ Elizabeth and Jedimah are here.
 
 >"This Demon is an afront to me," the God says gravely.  "Lust cannot grow
 where death walks.  If you bring it before me, I will aide as I am able."
-You gain a few hit points
 
 >You move west.
 Temple of Jedimah
@@ -2034,6 +2033,7 @@ The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
+You gain a few hit points
 
 >You move north.
 The bridge
@@ -2076,7 +2076,6 @@ You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
 trail proper.  If you desire, you can climb down to the river itself but
 caution is recommended.
-You gain a few hit points
 
 >You move south.
 The trail
@@ -2195,6 +2194,7 @@ there.
 Ghoul is here.
 
 Demon  from the west.
+You gain a few hit points
 
 >You move north.
 Mouth of the pass
@@ -2256,7 +2256,6 @@ Also here is Altar of Silence.
 Elizabeth and Jedimah are here.
 
 Demon  from the west.
-You gain a few hit points
 
 >You turn to strike at the demon as it breaks through the stone walls of the
 fortress but the fiery wrath of the creature is too great.  Then, Jedimah
@@ -2410,6 +2409,7 @@ and catch her as she falls.
 
  "I have failed," she cries, her tears hot against your hand.  "I must rest,"
 she says softly and then seems to fade away in your arms.
+You gain a few hit points
 You feel more powerful.
 
 >You move north.
@@ -2461,7 +2461,6 @@ buildup as if a landslide buried something forever.
 Greater Ghoul is here.
 
 Demon  from the south.
-You gain a few hit points
 
 >You move east.
 Mountain pass
@@ -2619,6 +2618,7 @@ can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 Demon  from the west.
+You gain a few hit points
 
 >You move north.
 The trail
@@ -2670,7 +2670,6 @@ However, those wounds are for others to mend.   So long as the dragon is
 still about, your quest remains unfulfilled.
 
 Demon .
-You gain a few hit points
 
 >You move up.
 The bridge

@@ -356,13 +356,36 @@ evt_taf_version (scr_gameref_t game, scr_int event)
 }
 
 
+static void evt_start_event (scr_gameref_t game, scr_int event,
+                             scr_bool silent);
+
 /*
  * evt_fixup_v390_v380_immediate_restart()
  *
- * Versions 3.9 and 3.8 differ from version 4.0 on immediate restart; they
- * "miss" the event start actions and move one step into the event without
- * comment.  It's arguable if this is a feature or a bug; nevertheless, we
- * can do the same thing here, though it's ugly.
+ * Versions 3.9 and 3.8 differ from version 4.0 on immediate restart: run390
+ * re-arms the event WITHOUT printing its StartText, where run400 prints it
+ * every time round.  Both give the restarted event its full authored length.
+ *
+ * Arbitrated live 2026-08-04 (RUNNER_TESTS_TODO.md section 8), probe
+ * test/make_39_evtimeprobe.py against run390.exe and the EV9 twin against
+ * run400.exe:
+ *
+ *   run390, Time1=Time2=5, RestartType=1, StarterType 1: "E FINISH." on turns
+ *     5, 10, 15 -- period 5, and no StartText on either restart.
+ *   run390, Time1=Time2=1, StarterType 1, 2 and 3 (variants b, c, e): the
+ *     FinishText every turn, the StartText only on the very first start.
+ *   run390, variant f -- the exact "Priest Coughs" shape, StartText plus
+ *     LookText and no FinishText: one StartText at the trigger, then silence,
+ *     and the LookText only in an explicit `look`.
+ *   run400, the same event in a 4.0 taf: "E FINISH.  E START." every 5 turns.
+ *
+ * Only the immediate restart is silent.  Variant d (RestartType=2, restart
+ * after a delay) prints its StartText on every re-arm in run390 too, because
+ * that path goes back through ES_WAITING and the normal start.
+ *
+ * `silent` suppresses the StartText alone: Obj1 still moves and the start
+ * resource still plays.  Neither of those halves has been probed on a 3.9
+ * restart -- what is measured is the text.
  */
 static scr_bool
 evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
@@ -371,18 +394,17 @@ evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 
   if (version < TAF_VERSION_400)
     {
-      scr_int time1, time2;
-
       if (evt_trace)
         scr_trace ("Event: applying 3.9/3.8 restart fixup\n");
 
-      /* Set to running state. */
-      gs_set_event_state (game, event, ES_RUNNING);
-
-      /* Set up event time to be one less than a proper start. */
-      time1 = evt_cached_integer (game, event, EVT_TIME1, "Time1");
-      time2 = evt_cached_integer (game, event, EVT_TIME2, "Time2");
-      gs_set_event_time (game, event, scr_randomint (time1, time2) - 1);
+      /*
+       * Re-arm silently.  The length roll belongs to evt_start_event();
+       * rolling a second one here would churn the RNG stream on every restart,
+       * and taking a turn off the clock -- which SCARE did, and which the
+       * 2026-08-04 pass kept -- makes the period one short of what run390
+       * measures.
+       */
+      evt_start_event (game, event, TRUE);
     }
 
   /* Return TRUE if we applied the fixup. */

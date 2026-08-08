@@ -1,0 +1,60 @@
+# ImagiDroids (imagi.taf) -- Woodfish, "Release 1 / ADRIFT Runner 43".
+# 48 tasks, 7 rooms, 25 objects.  You are an android sitting at a computer;
+# the game you play on it, "The Quest For Krandor", is a game the android
+# wrote, and the frame story is what the professors downstairs make of that.
+#
+# No scoring system (no ACT type=4 anywhere) and only one ending: EVENT 5
+# fires TASK 42 [# Android 013 jumps down], whose ACT type=6 ends the game.
+# The whole route is the upstream command list from the Woodfish compendium
+# (downloaded/Imagidroids_walkthrough.txt) with ONE substitution -- see below.
+#
+# `open it` -> `open brick`.  The list's "take brick" (TASK 34) prises the
+# loose brick out of the wall, but the pronoun still refers to the clean area
+# examined the turn before, so `open it` becomes `open the clean area` and is
+# refused.  TASK 36 is [[open/pull]{a/the}{loose}[brick]]; it destroys the
+# brick and puts the golden key in your hand, and nothing else in the game
+# does.  Naming the brick is the only repair the list needs.
+#
+# The list's `north` was the second failure, and that one was OURS, not the
+# author's.  TASK 38 is
+#     {go/walk/move}[n/escape/out]{orth/out}
+# -- one word built out of two adjacent groups, so it should accept n, north,
+# escape and out.  Until 2026-08-04 SCARE interposed a *mandatory* whitespace
+# node between adjacent [] / {} groups, so only the bare "escape"/"out" forms
+# worked and the shipped walkthrough could not leave the prison cell.  This
+# game is also where the intended behaviour is provable: TASK 6 is
+#     [s]{outh}{ /-}[w]{est}
+# and an author who has to spell the space in "south west" as an explicit
+# "{ /-}" alternative is an author for whom adjacency does not imply one.
+# Fixed in scparser.cpp (NODE_JOIN, optional whitespace); it repaired The
+# Forum's "[clog]{s}" blow at the same time.  See RUNNER_TESTS_TODO.md.
+#
+# `z` x11 is the professors' conversation: EVENT 2/3/4 are three turns each
+# and EVENT 5 is two, chained 39 -> 40 -> 41 -> 42.  The upstream list says
+# twelve; eleven is exactly enough, and the twelfth would be typed after the
+# game is already over.
+#
+# SCR_SKIP_WAITKEY=1 is required: four "[ press any key ]" pauses (the game
+# booting, and three between the frame story's scenes) would otherwise eat
+# four commands.
+
+turn on computer
+click on icon
+x walls
+x clean area
+take brick
+open brick
+unlock door
+open door
+north
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z

@@ -1,0 +1,221 @@
+stand up
+get clothes
+wear clothes
+out
+enter stairway
+down
+down
+down
+west
+out
+in
+call 777-777
+call random
+call police
+call mother
+call lawyer
+out
+get taxi
+fight
+get pistol
+out
+south
+south
+east
+get beer
+open can
+drink beer
+west
+south
+west
+north
+west
+west
+south
+east
+south
+wait
+wait
+get in train
+jump out
+x ground
+get branch
+se
+x soldier
+get pistol
+get knife
+get rifle
+get boots
+undress soldier
+east
+east
+get in jeep
+wait
+out
+wear uniform
+wear boots
+north
+north
+east
+east
+east
+north
+nw
+dive
+ne
+in
+sell rifle
+sell knife
+sell pistol
+out
+north
+west
+west
+north
+west
+west
+in
+buy food
+talk to bruce
+out
+south
+south
+in
+buy map
+out
+east
+south
+south
+west
+west
+dive
+east
+south
+west
+west
+south
+in
+x dead body
+get ad
+read ad
+out
+north
+east
+east
+in
+call mother
+call lawyer
+out
+north
+east
+north
+north
+north
+north
+north
+north
+north
+east
+east
+east
+east
+east
+east
+east
+south
+in
+pay
+up
+unlock 13
+in
+watch tv
+lie on bed
+sleep
+answer
+out
+down
+out
+north
+west
+west
+west
+west
+west
+west
+west
+west
+west
+west
+north
+in
+talk to bruce
+accept
+out
+south
+east
+east
+north
+in
+out
+east
+south
+east
+east
+east
+east
+east
+north
+in
+show amulet
+talk to thel
+out
+south
+west
+south
+west
+in
+talk to thel
+north
+west
+x thel
+east
+south
+south
+south
+south
+west
+in
+show amulet
+buy bomb
+out
+north
+east
+north
+north
+north
+north
+west
+north
+in
+play
+out
+south
+east
+south
+south
+south
+east
+in
+west
+south
+south
+east
+in
+wait
+out
+unlock
+south
+get shovel
+dig grave
+score
+break seal

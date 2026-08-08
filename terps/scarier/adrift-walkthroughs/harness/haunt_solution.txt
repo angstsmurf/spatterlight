@@ -29,7 +29,9 @@ w
 s
 s
 w
-look in umbrella stand
+# `look in umbrella stand` used to sit here: it reveals nothing the
+# next `take ticket` does not, and after the 3.9 restart fix (section 8
+# of RUNNER_TESTS_TODO.md) the spare turn lets the wolf catch us.
 take ticket
 s
 lean ladder against window

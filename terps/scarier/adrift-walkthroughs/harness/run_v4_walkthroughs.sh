@@ -97,7 +97,7 @@ archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued
 # final "Your score is N out of a maximum of M." line as their marker so the
 # documented maxima stay locked; win rows use the game's own victory text.
 bomb_threat_solution.txt|Bomb Threat.taf|Congratulations!
-circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=17
+circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12
 colony_solution.txt|Colony.taf|Congratulations!
 cyber_solution.txt|cyber.taf|THE END,or is it?
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
@@ -1085,6 +1085,199 @@ life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
 castle_quest_solution.txt|castle.taf|Thanks for playing!
+# ---------------------------------------------------------------------------
+# 2026-08-04 -- the `downloaded/` wiring run resumes: the ten walkthroughs in
+# downloaded/ whose .taf was already staged but which had no route.
+#
+# The Dead Man (30otsix, 2003) is a one-room countdown piece whose every
+# blackout vision is a <waitkey> pause, so it is wired with SCR_SKIP_WAITKEY=1
+# (as afdfr is) -- without it the delron command list needs ~18 blank filler
+# lines scattered through it and every vision eats the command behind it.
+# Two further corrections to the published list: the blackouts make you *drop
+# everything*, so the panel and the bandage have to be done before the first
+# one (turn 15), and its 26 waits are 23 here.  The published route stops at
+# 32/43; this one takes the three scoring actions it skips -- `open panel with
+# scissors` (+5), `wear bandage on neck` (+3) and the security camera (+1) --
+# for **41/43**.  The last 2 points are TASK 19, `shoot myself`, which is a
+# death, so 41 is the winning ceiling.
+deadman_solution.txt|The Dead Man.taf|ABORT SUCSESFUL|SCR_SKIP_WAITKEY=1
+# Ba'Roo! -- delron's own command list, +2 lines: the capsule wants the
+# backpack *inside* it (TASK 258/286 restrict obj1 to "in capsule"), and the
+# suit puts the backpack back on you, so "remove backpack" has to precede both
+# "put backpack in capsule".  16/16, the game's own maximum.
+baroo_solution.txt|baroo.taf|Congratulations!
+# Lair of the Vampire -- the author's own 276-line command list plus 3 lines.
+# The ruined stairs (rooms 11/14) are a coin flip: TASK 140 carries you up only
+# while the `stairs` variable is < 3 and TASK 139 rerolls it every turn, so the
+# published single `up` has to become `up`/`up` (under the harness seed the
+# second try lands).  The other two are a gap in the published list: it jumps
+# from `east` straight to `ne`/`ne`, but the two `ne`s are Feasthall->Corridor
+# ->The Statue, so `east`/`north` are needed first to reach the Feasthall.
+# Wins at 226/271 (83%) -- the game itself says so on the last screen ("There
+# are a good number of tasks you can complete which add to your score but which
+# are not required to complete the game"), so this is a winning, not a maximal,
+# route.  Needs SCR_SKIP_WAITKEY=1: the intro, the Deathly Chamber archway and
+# the ending all paginate.
+lair_solution.txt|Lair of the Vampire.taf|the lord of the vampires, lies dead|SCR_SKIP_WAITKEY=1
+
+# The Fugitive -- derived from scratch (the downloaded walkthrough is prose-only
+# and stops at the city gate).  656/666, which is every point the game can
+# actually award: the only unreachable scorer is TASK 73 [look * mirror] in the
+# three drivable cars, and the game's OWN input synonym rewrites the word
+# "look" to "l" before task matching, so that pattern can never fire (verified
+# by SCR_TRACE_FLAGS=512: `look in mirror` reaches the matcher as
+# `l in mirror`).  Route notes that cost the most digging:
+#   * Take the TAXI, not "my car".  Both dump you in the same street maze, but
+#     only the taxi lets you `fight` the driver (TASK 27, +10) and keep his
+#     pistol, and only with a pistol in hand does the punker ambush in streets
+#     <12> resolve as TASK 35 instead of TASK 33 -- 35 leaves a dead punker
+#     carrying the can of beer that TASK 37 [drink * beer] wants (+10).
+#     The car's only exclusive scorer is the dead mirror task, so it loses 20-0.
+#   * Drink the beer BEFORE boarding the train: `jump out` of the moving train
+#     runs TASK 29's "drop everything" action and the can goes with it.
+#   * The train is on a 3-turn cycle; board on the turn AFTER "The train is
+#     coming to station".  Any change to the route length upstream re-phases it.
+#   * In the woods take the boots first and `undress soldier` LAST: EVENT 26
+#     arms "death in woods2" six turns after the undress, and the walk to the
+#     jeep plus the guard-kill wait is five.
+#   * `dive` for the fountain coins -- the authored pattern is [get * coin*],
+#     but the game also declares the synonym coins->money, so `get coins`
+#     arrives at the matcher as `get money` and is answered by the library.
+#   * The casino slot machine SETS your money to a random amount (2181 -> 56 on
+#     this seed), so `play` has to come after `buy bomb`, not before.
+#   * `sleep` needs you horizontal (`lie on bed`) and flips the clock to 23:00,
+#     which is what turns the night-only half of the city on (bar concert,
+#     nightclub, casino, Thel, the church shadow) and the day-only half off.
+#   * The Thel scene teleports you to Riverside Road <2>; walk back to Outside
+#     the library for `x thel` (+10) before moving on.
+#   * Do the church interior BEFORE `unlock`: unlocking arms EVENT 46, which
+#     kills you in the cemetery five turns later, and shovel/dig/seal is four.
+fugitive_solution.txt|Fugitive.taf|This is the proof of innocence|SCR_SKIP_WAITKEY=1
+
+# --- 2026-08-04: the six games whose downloaded/ source is a ClubFloyd log or
+# a hints file rather than a command list.  None of the six had a route; all
+# six are derived here against the task dumps (the ClubFloyd logs are group
+# play sessions -- they wander, die, undo and re-enter, and four of them never
+# reach the ending at all).
+#
+# Mammoth Vacuum Button of Death (Daniel Airey, New Year's Speed IF 2012) is eleven commands long
+# and the whole game is one joke: `strip` (yourself) and `strip guard` are two
+# different tasks and you need both, because the guard's uniform is the only
+# way past the foyer.  SCR_SKIP_WAITKEY=1 for the dream intro and the ending.
+mammoth_solution.txt|MammothVacuum.taf|After many testing trials|SCR_SKIP_WAITKEY=1
+# I Was a Teenage Headless Experiment (Duncan Bowsman, EctoComp 2010, 4th).  Ten commands.  The
+# waitkey flag is mandatory for a reason that is easy to misread: the game
+# OPENS with a fake death -- a joke "you are already dead" screen with a
+# <waitkey> on it -- so without the flag the very first command is eaten and
+# the route silently walks a different game.  The one real puzzle is that
+# `put head on body` (TASK 57/58) restricts Formula X to *held*, not merely
+# present, so `get syringe` has to follow `kill gerchis`; the ClubFloyd log
+# gets stuck here for pages.
+headless_solution.txt|headless.taf|as a teenage headless experiment|SCR_SKIP_WAITKEY=1
+# Cut the Red Wire! No, the Blue Wire! (David Whyld, InsideADRIFT #41,
+# 2012) -- a one-move joke
+# game whose winning move is `undo`.  That works because a game task beats the
+# standard library: run_game_commands_in_parser_context() is called before
+# run_standard_commands() (scrunner.cpp ~1616), so the authored [undo] task
+# fires instead of lib_cmd_undo.  Cutting either wire kills you; so does doing
+# anything else, on a one-turn fuse.  Scores 1/1, the maximum.
+# The game has NO game-over action at all -- it prints the ending, then loops
+# back to the warehouse -- so the transcript keeps going past the win and the
+# appended `quit`/`y` are answered by the game, not by the library.  That is
+# in the golden on purpose; the win marker is the score line.
+redwire_solution.txt|Cut_the_Red_Wire.taf|a maximum possible of 1. Well done.|SCR_SKIP_WAITKEY=1
+# I am the Law (djchallis, The Odd Competition 2010, 2nd).  No score, so the ending is the
+# only measure.  The endgame is a small variable machine: `make verdict` sets
+# verdict=2, then naming the culprit sets verdict=4 if it was V (the ship's
+# computer) and verdict=3 for anyone else, and `mission` wins on verdict==4
+# and loses on any verdict>=3.  So the mechanical win is three commands.  The
+# wired route does the actual investigation first (the body, Seth's diary and
+# the 4th November entry, Calvin on the creativity engine, Luke for its
+# password, `enter creativity password` + `grant`, then William on what is
+# behind the curtain) because that is what the ClubFloyd session is playing
+# and the transcript is worthless without it.  The password prompt is its own
+# little state machine: TASK 5 needs variable 4 == 1 and sets it to 2, TASK 6
+# (`grant`) needs 2 and sets 3, and TASK 7 -- pattern `*`, i.e. literally
+# anything else -- resets it to 1, so a wrong guess drops you out silently.
+law_solution.txt|I am the Law.taf|Congratulations!|SCR_SKIP_WAITKEY=1
+# In Memory (Jacqueline A. Lott, Indigo New Language Speed IF 2011).  Fifteen commands.  Not a puzzle game: you are
+# an unconscious dying person named Alex and the whole of it is TASK 178,
+# `EndGameScene`, gated on `RESTR type=4 v1=2 v2=2 v3=7` -- variable 0 == 7.
+# Each of the seven memory rooms (rabbit / desk / outfit / Sam / headphones /
+# book / vista) has a swarm of one-shot answer tasks; ANY answer that matches
+# one of them sets its text variable, bumps variable 0, and walks you back to
+# Unconsciousness <2>.  So the route is `let go` (room 0 -> room 1) and then
+# seven noun/answer pairs, and the answers chosen here are simply the first
+# option of each set (happy / english / casual / smile / rock / fantasy /
+# mountains) -- any other legal answer wins too, with different prose.
+inmemory_solution.txt|InMemory.taf|had ceased to beep.|SCR_SKIP_WAITKEY=1
+# Happy Valley (Jacqueline H. as "Lumin", 2008-07-02) -- downloaded/HappyValley_hints.txt IS a
+# command list, but it does not run: it is written against a later revision.
+# `x path`/`x patch`/`x weeds` are listed at Outside the Mine, but the patch
+# and the weeds are objects 96/97 in room 0 (Happy Valley); `n`/`s` are listed
+# where room 2 only has E and W; `enter 3436` cannot match TASK 56's pattern
+# `enter 3436 *`; and `turn on water`/`water plant` are listed before the cup
+# is filled.  This route is the same solution re-derived against the dump.
+# The one restriction that constrains it hard is TASK 46 (`give cup to
+# granny`): `RESTR type=4 v1=2 v2=2 v3=5` is variable 0 == **5** exactly, so
+# the five potion ingredients must all be given and the decoy pink spotted
+# leaf must not be (TASK 40 accepts it but does not increment).  Also: the
+# gloves must be WORN, not carried, for TASK 36 (the demonflower bites); and
+# `x tools` in the smithy is what places the crowbar there, so it has to
+# happen on the one visit, before `n` teleports you out with the sword.
+valley_solution.txt|valley.taf|and live happily ever after.|SCR_SKIP_WAITKEY=1
+# The five games whose .taf files arrived on 2026-08-04 (see WALKTHROUGH_TODO.md
+# "2026-08-04 (later)").
+#
+# ImagiDroids: the upstream Woodfish-compendium list replays verbatim but for
+# `open it` -> `open brick` (the pronoun still points at the clean area, so the
+# key never appears).  Its `north` used to fail too, and that one was the
+# interpreter's fault: TASK 38 is `{go/walk/move}[n/escape/out]{orth/out}`, a
+# word built out of two adjacent groups, and SCARE required a space between
+# adjacent [] / {} groups.  Fixed 2026-08-04 in scparser.cpp (NODE_JOIN);
+# TASK 6's `[s]{outh}{ /-}[w]{est}` is the proof of intent, since the space in
+# "south west" is spelled out as an explicit alternative.  No score system; the
+# single ending is EVENT 5 -> TASK 42 -> ACT type=6.
+imagidroids_solution.txt|imagi.taf|You choose to put him out of his misery.|SCR_SKIP_WAITKEY=1
+# Crimson Detritus: the shipped transcript replayed, 100/100 (all eight ACT
+# type=4 in the game), with `take uniform and wear it` split into two commands
+# -- the transcript prints two responses to that line, so it was two commands
+# in the original session, and SCARE reads the single line as
+# `take uniform and wear the hook`.  The endgame prints three literal "{}"
+# sequences that the author's transcript does not show; they really are in the
+# game text (see the solution header).
+crimsondetritus_solution.txt|CD.taf|until the next victim comes along to take your place.|SCR_SKIP_WAITKEY=1
+# Chosen (ADRIFT 3.90, MiniComp 2001): 300/300, the game's own stated maximum.
+# The upstream file is the author's prose hint sheet, not a command list, so the
+# route is derived from the game.  Three things it has to get right, each of
+# which is a death or a dead end: `pull lever` in room 8 before room 7 (TASK 7
+# is restricted on TASK 8; unrestricted TASK 9 is the same command in the same
+# room and feeds you to the tiger), never any form of `take block` in room 14
+# (TASK 14 = ACT type=6 v1=2 -- the block comes off the pillar via the string
+# and `up`), and the six blocks plugged in the order A, D, R, I, F, T, since
+# TASK 18-22 each restrict on the previous one.  The blocks answer only to
+# their full names ("take a-shaped metal block").
+chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket in the door.|SCR_SKIP_WAITKEY=1
+# The Cellar (David Whyld, 2007): the ClubFloyd session of 12 June 2022 replayed
+# verbatim, all 132 commands including the typos, the dead ends and four
+# `undo`s.  No repairs.  The game also ships its own 24-command walkthrough on
+# TASK 1 (`walkthrough`), which likewise replays verbatim, so the solution path
+# is confirmed twice from independent sources; the ClubFloyd route is the one
+# wired because it is the downloaded file and it reaches far more of the game's
+# 141 tasks.  No score and no ACT type=6 -- the game ends via VAR 12
+# [game over], so the marker is the ending line.
+cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for playing.|SCR_SKIP_WAITKEY=1
+# Panic! (Stewart J. McAbney, ADRIFT 3.90): the author's own walkthrough
+# transcript replayed verbatim, all 69 commands, no repairs.  The first command
+# is `1`, because the game opens on a menu rather than in a room.  40 of a
+# maximum 60 -- the author's shortest path is not a full-score path -- and the
+# ending is a task chain with no ACT type=6, so the marker is the rating line.
+# This is the game that found the 3.9/3.8 immediate-restart bug: its ambient
+# events are RestartType=1 with Time1=Time2=1 and StartText but no LookText,
+# and scarier printed each of them exactly once instead of every turn.  Fixed
+# 2026-08-04 in scevents.cpp; see the solution header and RUNNER_TESTS_TODO.md
+# section 8.
+panic_solution.txt|panic.taf|Your rating is Messiah.|SCR_SKIP_WAITKEY=1
 EOF
 }
 

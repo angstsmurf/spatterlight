@@ -216,7 +216,6 @@ Your guts rumble.
 You feel thirsty.
 
 >You take the backward burp berries.
-You feel hungry.
 
 >You move out.
 Outside the store
@@ -224,6 +223,7 @@ Under the canopy of the woods stands a short, stoney building, covered in
 grass. A green painted door in between two circular windows appears to be the
 only way in or out. A large flat stone leans up against the building with
 writing carved into it.
+You feel hungry.
 Your head is spinning.
 
 >You move south.
@@ -232,7 +232,6 @@ The muddy trail, covered with leaves of all different colours and shades,
 branches off three ways. North, east or south east. The trees of the wood
 strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
-Your stomach growls.
 
 >You move southwest.
 Outside the Tavern
@@ -241,6 +240,7 @@ a clearing facing the lake to the west. Smoke spirals upwards from a stone
 chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
+Your stomach growls.
 
 >You move in.
 Inside the Tavern
@@ -252,31 +252,30 @@ east wall, with logs burning brightly away. A wooden staircase on the
 northern wall leads upwards. Sounds can be heard from behind a hatch in the
 south wall, while a serving wrench flitters around, cleaning and tidying.
 Sitting at one of the tables is a elderly fellow, sipping from a cup.
-Your guts rumble.
-Your throat is sore.
 
 >You drop the tankard.
-You feel hungry.
-Sid sips from his mug.
-
->You drop the green bottle.
-You feel thirsty.
+Your guts rumble.
+Your throat is sore.
 Sid picks up his mug and drinks.
 
+>You drop the green bottle.
+
 >You drop the brown bottle.
-Your stomach growls.
+You feel hungry.
+You feel thirsty.
+Sid sips from his mug.
 
 >(Your score has increased by 5)
 You dangle the medallion in front of the barman. "Ah! you're from the
 mountains aren't you. Your chief comes here quite often y'know. I'll bill
 your expenses to him."
-Your head is spinning.
-Sid sips from his mug.
 
 >(Your score has increased by 5)
 The barman opens up a drawer and hands you a key. "It's up the stairs there,
 room 2." He tells you.
-Your guts rumble.
+Your stomach growls.
+Your head is spinning.
+Sid sips from his mug.
 
 >You move up.
 Hall
@@ -284,19 +283,18 @@ The hall is narrow with a high roof and squeaky floorboards. At the far end
 is a door with a wooden plaque on it, while running down both sides are other
 doors, none of which hold any interest to you, except one with the number 2
 carved into it, to the west.
-You feel hungry.
 
 >You move north.
 Water Closet
 It is no more than a wooden bench with a hole in it. An awful stench reeks
 from it. A shelf is on the east wall.
-Your throat is sore.
+Your guts rumble.
 
 >A simple wooden shelf.  A wash basin is on the shelf.
-Your stomach growls.
 
 >You take the wash basin from the shelf.
-You feel thirsty.
+You feel hungry.
+Your throat is sore.
 
 >You move south.
 Hall
@@ -304,12 +302,11 @@ The hall is narrow with a high roof and squeaky floorboards. At the far end
 is a door with a wooden plaque on it, while running down both sides are other
 doors, none of which hold any interest to you, except one with the number 2
 carved into it, to the west.
-Your guts rumble.
 
 >(Your score has increased by 5)
 The door is locked.
-You feel hungry.
-Your head is spinning.
+Your stomach growls.
+You feel thirsty.
 
 >(Your score has increased by 5)
 Using the key, you unlock the door.
@@ -319,23 +316,21 @@ Your Room
 A wooden bed with a mattress of straw and a woolen blanket fills most of the
 room. It is small, but sufficient. Beside the bed is a little desk, and in
 the western wall, looking out over the lake is a square window.
-Your stomach growls.
+Your guts rumble.
+Your head is spinning.
 
 >It is sturdy and simple in design.  A drawer is inside the desk.
-Your throat is sore.
 
 >You take the drawer from the desk.
-Your guts rumble.
+You feel hungry.
 
 >You open the drawer.  A candle is inside the drawer.
-You feel hungry.
-You feel thirsty.
 
 >You take the candle from the drawer.
+Your stomach growls.
+Your throat is sore.
 
 >You drop the drawer.
-Your stomach growls.
-Your head is spinning.
 
 >You move east.
 Hall
@@ -343,6 +338,8 @@ The hall is narrow with a high roof and squeaky floorboards. At the far end
 is a door with a wooden plaque on it, while running down both sides are other
 doors, none of which hold any interest to you, except one with the number 2
 carved into it, to the west.
+Your guts rumble.
+You feel thirsty.
 
 >You move down.
 Inside the Tavern
@@ -356,13 +353,12 @@ south wall, while a serving wrench flitters around, cleaning and tidying.
 Sitting at one of the tables is a elderly fellow, sipping from a cup.
 
 Also here is a tankard, a green bottle and a brown bottle.
-Your guts rumble.
 
 >(Your score has increased by 5)
 You pick a nice sturdy table with a nice solid chair and sit yourself down at
 it.
 You feel hungry.
-Your throat is sore.
+Your head is spinning.
 Sid sips from his mug.
 
 >(Your score has increased by 5)
@@ -370,63 +366,60 @@ You beckon over Mary with a finger, and tell her your order. "Yes Sir, right
 away." she says writing it on a piece of paper and scurrying off to the
 hatch. She slips the paper under it and returns to her duties.
 "ONE LUNCH COMING UP!" Shouts the cook.
-Sid picks up his mug and drinks.
 
 >Time passes...
 Your stomach growls.
-You feel thirsty.
+Sid sips from his mug.
 
 >Time passes...
 The cook shouts out many prothanities and curses the ovens.
-Sid sips from his mug.
 
 >Time passes...
 Your guts rumble.
-Your head is spinning.
-
->Time passes...
-You feel hungry.
-The sound of something being hit with a saucepan can be heard from behind the
-hatch.
-Sid sips from his mug.
-
->Time passes...
+Your throat is sore.
 Sid picks up his mug and drinks.
 
 >Time passes...
-Your stomach growls.
+The sound of something being hit with a saucepan can be heard from behind the
+hatch.
+
+>Time passes...
+You feel hungry.
+You feel thirsty.
+Sid sips from his mug.
+
+>Time passes...
 The hatch opens. The face of the greasy cook lurks from out it. "Mary, One
 lunch!" She cries. Mary collects it and brings the meal over to you. "Here
 you are Sir." She says while putting it on the table, then scurries she
 surries off.
-Your throat is sore.
 
 >You take the Hunters lunch from the tree table.
+Your stomach growls.
+Your head is spinning.
 Sid sips from his mug.
 
 >(Your score has increased by 5)
 You garb handfuls of food and shove it into your face, chewing noisily. Bread
 crumbs fly all over the table.
-You feel thirsty.
 
 >You drop the empty plate.
-Sid sips from his mug.
+Sid picks up his mug and drinks.
 
 >(Your score has increased by 5)
 You take the breadcrumbs.
-Your head is spinning.
-Sid picks up his mug and drinks.
 
 >The barman opens up a trap door in the floor. Inside is a pool of water. He
 scoops some into a cup and puts it on the counter.
+Your throat is sore.
+Sid sips from his mug.
 
 >You take the cup of mineral water from the bar.
-Sid sips from his mug.
 
 >You gulp down the water. Refreshing.
+Sid sips from his mug.
 
 >You drop the empty cup.
-Sid sips from his mug.
 
 >(Your score has increased by 5)
 You light the candle on the fire. surprisingly, the flame is a bright blue!
@@ -629,6 +622,7 @@ Sitting at one of the tables is a elderly fellow, sipping from a cup.
 
 Also here is a tankard, a green bottle, a brown bottle, an empty plate and an
 empty cup.
+Sid picks up his mug and drinks.
 
 >(Your score has increased by 5)
 You make an off the cuff comment about how much easier things where in the
@@ -827,7 +821,6 @@ decrepid tables and chairs. A cork board with notices pinned to it hangs on
 the wall to the right of the entrance.
 
 Also here is a cork and a pile of empty bottles and tankards.
-The landlord farts. (He seems quite happy about it.)
 
 >(Your score has increased by 5)
 Thinking it best to pay your drinks bill yourself, instead of charging it to
@@ -854,7 +847,7 @@ still caught underneath and your fellow trolls are still trying to move it.
 "Ah, you're back then." says the chief, upon spotting you. "Hand over the
 berries then and let's get this over with, Murky's been whining and
 complaining all day and night."
-Murky tries to wiggle his way to freedom. (It doesn't work.)
+"Get this bloody frog off me!" Yells Murky.
 
 >(Your score has increased by 5)
 You give them to the chief, he seems very chuffed with your success and hands

@@ -1,0 +1,122 @@
+# Chosen (Chosen.taf) -- Ryan J. Bury, "a 15-room adventure for the ADRIFT
+# MiniComp 2001".  ADRIFT 3.90.  You are Captain Johnson, taken from your bed
+# and dropped into an underground complex; the six metal blocks you have to
+# collect spell ADRIFT, and the people on the other side of the door are the
+# Drifters.
+#
+# WON 300/300 -- the game's own `score` reports "out of a maximum of 300", and
+# this route fires all sixteen ACT type=4:
+#   TASK  0  attach belt to cable    20
+#   TASK  7  pull lever (room 7)     30
+#   TASK 11  reload gun (bullets)    10
+#   TASK 10  shoot targets           10
+#   TASK 12  reload gun (harpoon)    10
+#   TASK 13  fire gun at target      10
+#   TASK 15  tie string to block     15
+#   TASK 16  up (with the string)    15
+#   TASK  1  unlock box              10
+#   TASK  5  plug battery into box   20
+#   TASK 17-21  plug A/D/R/I/F block 10 each
+#   TASK 22  plug T block           100   <- also ACT type=6 v1=0, the win
+#
+# The upstream file (downloaded/Chosen_walkthrough.txt) is the author's own
+# eight-line note, and it is prose hints, not a command list -- "explore all the
+# rooms", "you'll soon work out how they work", "I won't bother explaining the
+# obvious puzzles".  The route below is derived from the game and then run.
+#
+# The map, for the record.  15 rooms; the two glowing alcoves are teleporters:
+#   0 dark room -N-> 1 corridor; 1 -W-> 3 darkened room, 1 -E-> 5 ice room
+#   attach belt to cable (room 1) drops you into 2 alcove; 2 -D-> 4 the door
+#   room, whose six sockets are the endgame
+#   TASK 2 `west` in rooms {4,13} -> room 0;  TASK 3 `east` in room 4 -> room 6
+#   6 round room -N-> 7 cage, -W-> 8 lever, -E-> 9 corridor
+#   9 -N-> 11 supply room, -S-> 10 shooting gallery, -E-> 12 edge of the pit
+#   12 -E-> 13 alcove above the spikes (only once TASK 13 has been done)
+#   13 -D-> 14 the pillar room
+#
+# Four things this route has to get right, all of them lethal or dead-ended:
+#
+#   * `pull lever` in room 8 first.  TASK 7 (the cage, +30) carries
+#     RESTR type=2 task8 done; if it is not, TASK 9 -- same command, same room,
+#     no restrictions, ACT type=6 v1=2 -- runs instead and the tiger kills you.
+#     The lever in room 8 answers "nothing interesting seems to happen"; that is
+#     the correct response, it is electrocuting the tiger offstage.
+#
+#   * never type any form of "take block" in room 14.  TASK 14 is
+#     [take*block*pillar*] with ALTCMD [get*block*] and [take*block*], and its
+#     only action is ACT type=6 v1=2.  The pillar is covered by a gun.  The
+#     block comes off it via `tie string to block` and then `up`, which is
+#     TASK 16 -- that one hands you the R-shaped block AND moves you to room 13.
+#
+#   * the six blocks go in in the order A, D, R, I, F, T.  TASK 18 through
+#     TASK 22 each carry RESTR type=2 on the previous one, so the sockets open
+#     one at a time and the word has to be spelled.
+#
+#   * the blocks answer only to their full names.  `take block`, `get a block`
+#     and `take a-shaped block` all get "Take what?"; it has to be
+#     `take a-shaped metal block`.
+#
+# Two smaller notes.  `take belt` is needed before `attach belt to cable` --
+# the belt starts inside the trousers (parent object, pos=-20), and TASK 0's
+# RESTR type=0 v2=1 wants it held, so without it you get "You do not have your
+# belt."  And `break ice` (TASK 6) is a decoy: its restriction is that TASK 5
+# has NOT been done, and the author's note says the ice is meant to be melted
+# by plugging the battery into the box, which is what TASK 5 does.
+#
+# The two ways to die that are not on the route: TASK 9 above, and TASK 23,
+# [jump*off*] in rooms {1,2,12,13} -- every ledge in the game is real.
+#
+# SCR_SKIP_WAITKEY=1 is required for the row: the ending is a long scene that
+# pauses.
+
+n
+take belt
+attach belt to cable
+take key
+d
+e
+w
+pull lever
+e
+n
+pull lever
+take a-shaped metal block
+s
+take battery
+e
+n
+take bullets
+take harpoon
+s
+s
+reload gun
+shoot targets
+take f-shaped metal block
+n
+e
+reload gun
+fire gun at target
+e
+take i-shaped metal block
+take string
+d
+tie string to block
+up
+w
+n
+w
+unlock box
+take d-shaped metal block
+e
+e
+plug battery into box
+take t-shaped metal block
+w
+attach belt to cable
+d
+plug a block
+plug d block
+plug r block
+plug i block
+plug f block
+plug t block

@@ -1,0 +1,143 @@
+# Panic! (panic.taf) -- Stewart J. McAbney [MileOut/MileStyle].  ADRIFT 3.90.
+# St. Venerius: you are a stigmatic in an emptying cathedral, and the game is
+# an hour of dread told through a hymnbook whose text rewrites itself.
+#
+# The route is the author's own walkthrough
+# (downloaded/Panic_walkthrough.html, from www.mileout.org.uk via the Shadow
+# Vault site) replayed **verbatim**, all 69 commands.  Nothing needed
+# repairing.  It is a full session transcript, so the published output can be
+# diffed against ours line for line -- see below, because that diff found an
+# engine bug.
+#
+# The first command is `1`: the game opens on a five-item menu (Start /
+# Instructions / About / Show Intro / Credits) rather than in a room.
+#
+# Result: the ending, "Your rating is Messiah.", at 40 of a maximum 60 --
+# the author's shortest path is not a full-score path.  There is no
+# `ACT type=6`; the ending is a task chain, so the marker is the rating line.
+#
+# SCR_SKIP_WAITKEY=1 is required: the game is full of "Press any key to
+# continue" beats, starting with Father Wessels' entrance.
+#
+# ---------------------------------------------------------------------------
+# What this game found: the 3.9/3.8 immediate-restart fixup ate StartText
+# ---------------------------------------------------------------------------
+#
+# Panic! leans on always-restarting one-turn events for its atmosphere -- the
+# priest's cough, the stigmata opening, the wraith crossing the room.  All
+# three are `RestartType=1` (restart immediately) with `Time1=Time2=1`, and
+# two of the three carry a StartText and *no* LookText (`texts=S--` in
+# scdump.cpp's EVENT line), which is what makes them decisive.
+#
+# Against the author's transcript, scarier printed each of them exactly ONCE
+# and then fell silent for the rest of the game:
+#
+#     published   ours (before)   ours (after)
+#       66             1              66     "The old priest's sudden rattled
+#                                             cough is gathered by the heavy
+#                                             air..."
+#        9             1               9     "The palms of your hands begin
+#                                             to ache..."
+#       13             1              13     "Siezed by a sudden
+#                                             uncontrollable shaking..."
+#       21             1              24     "The translucent shimmer of a
+#                                             wraith filters into the room..."
+#
+# The cause was evt_fixup_v390_v380_immediate_restart() in scevents.cpp, which
+# for a pre-4.0 taf restarted such an event by hand -- state to RUNNING, clock
+# to one-less-than-a-fresh-roll -- instead of calling evt_start_event().  The
+# event therefore cycled correctly (SCR_TRACE_EVENTS shows a finish every
+# turn, and its TaskAffected did keep firing, which is why nobody noticed)
+# but its start actions, StartText included, ran only on the very first start.
+# Fixed 2026-08-04: the fixup now calls evt_start_event() and then takes the
+# one silent turn off the clock, rather than open-coding a silent start.  The
+# length roll has to come from evt_start_event() alone -- rolling a second one
+# in the fixup churns the RNG stream and breaks three combat walkthroughs.
+#
+# Corpus effect: 13 of the 202 rows gained text, every one of them a pure
+# addition of an ambient or plot line that had been silently swallowed --
+# troll's "Sid sips from his mug.", haunt's grandfather clock, wrecked's
+# seagulls, spirits_flight's wind, tq3's rattlesnakes, colony's lightning,
+# secret_of_lost_world's "It starts to rain." and "The volcano is erupting.",
+# marooned's rescue ship coming over the horizon, and the whole paragraph in
+# alices_restaurant where Obie takes your wallet and your belt at the station.
+# No route broke and no win marker moved.  thetest, gateway and inverness --
+# the games whose always-restarting one-turn events were probed live in
+# run390 for RUNNER_TESTS_TODO.md §2 -- are byte-identical, so this does not
+# disturb anything that was arbitrated against a real Runner.
+#
+# One residual divergence, left alone and recorded: the wraith fires 24 times
+# for us against the transcript's 21.  The three extra are turns 44-46 (`u`,
+# `x eyes`, `roll eyes`), which is the stretch spent up the rope on the
+# statue; the published run suppresses the event there and we do not.  That is
+# an event-visibility question (evt_can_see_event and where the player counts
+# as being while climbing), not a restart question, and it wants a live probe.
+1
+w
+x podium
+read hymnbook
+read hymnbook
+read hymnbook
+read hymnbook
+read hymnbook
+read hymnbook
+read hymnbook
+x organ
+play organ
+press key f
+play d#
+play a#
+play g
+play c
+get candleholder
+d
+get rope
+open cabinet
+x cabinet
+get tin of grease
+get tins
+u
+e
+n
+look under seat
+get knife
+open tin of grease with knife
+open cabinet
+x cabinet
+get key
+use grease on hook
+get key
+s
+w
+x coffin
+open coffin with key
+open coffin
+x coffin
+get hammer
+e
+throw rope at statue
+u
+x eyes
+roll eyes
+d
+l
+get eye
+w
+d
+wash eye under drip
+read eye
+x wall
+use hammer on wall
+n
+read sign
+x flagstones
+step on t
+x flagstones
+stand on r
+x flagstones
+stand on u
+x flagstones
+stand on t
+x flagstones
+stand on h
+step into pool

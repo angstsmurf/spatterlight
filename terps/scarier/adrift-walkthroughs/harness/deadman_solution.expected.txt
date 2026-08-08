@@ -1,0 +1,376 @@
+Loading game...
+
+The Dead Man
+
+A  one room adventure By 30otsix
+This game was made using unregistered V4 Adrift. Please excuse the
+limitations.
+
+This game is rated PG-13 for mature language and graphic violence
+
+Press any key to start.
+
+For a moment you can't remember where you are.  The cold hard floor, the
+bright overhead light, the strange warm wetness at the base of your neck.
+Shivering from the chill you begin to remember.   You are Sgt. Tom Perkins.
+Every six months you subject yourself to this hellhole of an assignment.  For
+six months out of every year you are a Dead Man.
+
+The Dead Man Project was started at the height of the cold war, under
+President Lyndon B. Johnson, with one underground facility, July 2, 1969.
+Exactly one year and a day after the signing of the Nuclear Nonproliferation
+Treaty.  Its sole purpose was to extract revenge on any conquering force.
+The idea was that if by some miraculous act, the United States was destroyed
+by a surprise nuclear attack there would be specific individuals stationed
+deep underground that would have their thumbs over the button that would
+launch every nuclear warhead to predetermined locations. The operation was
+simple, every twenty-four hours a radio transmission would come from above
+and deliver the abort codes.  If the transmission didn't arrive, four hours
+later the thumb went down.  A dead man's switch.
+
+By the mid-eighty's there were thirty such facilities and by the
+mid-nineties, when you joined the ranks, they were almost obsolete. However,
+the project was one the nations most guarded secrets.   You have long since
+assumed however, that this particular secret was a secret only to the
+American people and that it had been leaked to all threatening nations. After
+all, what good is a threat like the Dead Man Project, if no one were to know
+about it.  In 1996, when you joined the ranks of the Dead Men, it seemed like
+the perfect assignment. Six months deep underground, the cold war almost
+forgotten, you and five other men would be caretakers of this steel curtain
+relic.  For the other six months you lived the life of luxury; Dead Men were
+paid very well.
+
+Ten years of this duty had begun to wear thin however. Lisa, your wife of
+five years, finally left you for another man, claiming that it was your fault
+for abandoning her for six months out of every year.  But rather than get
+reassigned and escape this madness, you decided to crawl away into this hole
+for a double tour of duty.  One full year underground, one full year of
+danger pay, one full year without ever having to see that deceitful bitch.
+One full year as a Dead Man.
+
+How you came to lie on this cold hard floor you have no idea.  The last thing
+you remember was that the abort transmission hadn't come.  Per protocol, the
+countdown timer was reset to four hours and you went "full live".  The first
+time this had happened in your ten years of duty.  Your head spinning, and
+body shaking from the chill, you try to focus on the timer along the south
+wall. Slowly it comes into focus.
+
+[-01:04-]
+
+Your eyes loose focus as you try to hold onto consciousness.
+
+[-01:03-]
+
+The countdown!
+What the hell is going on?
+
+[-01:02-]
+
+You mind races.
+
+ This can't be happening? Where the hell is everybody? WHY HAVEN'T THEY
+CONTACTED US?
+
+ Why is it so cold?
+
+[-01:01-]
+
+You try to sit up and look around you, but a sharp pain grips the top of your
+spine and sends you reeling to the floor and darkness.  After a moment you
+awaken, open your eyes, and see a gun lying on the floor beside you.
+
+With your head still spinning you slowly stand up.
+
+>(Your score has increased by 1)
+As you turn the body over the face of Capt. Mattingly stares back at you,
+dead from a single shot to the head.
+
+>The Army greens worn by this man are made almost black by the blood that has
+seeped into them.  The body itself is slumped against the exit door, held up
+by a pair of handcuffs attached to the door handle.  The face of Capt.
+Mattingly stares into nothingness.  With the body turned over your search
+reveals some bullets.
+
+>(Your score has increased by 1)
+BANG BANG
+As your hands touch the gun a shock runs through your hand and you drop it as
+if it were a living evil thing, a venomous snake coiling in your touch.
+Visions of violence fill you head strobing through pictures so gruesome and
+bloody you close your eyes but the visions only become worse.  You head
+throbs as you kneel to the floor.  Looking violently around the room the only
+thing that calms you the ever present timer slowly counting down to
+Armageddon.
+[-00:58-]
+
+You take the code table and the ball point pen from the comunication console.
+ You take the bullets from the body.
+
+>You pick up the gun.
+
+>You put the bullets inside the gun.
+
+>(Your score has increased by 5)
+With a loud report the bullet grazes the lock causing it to swing.  Staring
+at it as it slows to a stop you take aim and fire again. This time it is a
+direct hit and the lock explodes from the impact.
+
+>(Your score has increased by 3)
+You open the locker.
+
+>You take the first aid kit from the locker.
+
+>You open the first aid kit.  Among the usual things you would find in a first
+aid kit you notice a large bandage roll, a pair of scissors and a syringe.
+
+>You take the pair of scissors from the first aid kit.
+
+>You take the large bandage roll from the first aid kit.
+
+>(Your score has increased by 5)
+Using the blunt tip of the scissors, a little luck and a lot of persistence,
+you manage to loosen the remaining screws, and open the panel.The guts of the
+radio appear torn out.Who have I been talking to?
+
+>(Your score has increased by 3)
+You wrap the bandage tightly around your skull. Hopefully this will control
+the bleeding.
+
+The pain in your head becomes over powering.  Gripping you neck with both
+hands, you lay on the floor in the fetal position until the pain becomes
+subsides.
+[-00:53-]
+
+>(Your score has increased by 1)
+You turn the dial to camera 1.  The screen flickers above you.
+
+There is nothing but static on the screen, apparently the camera at the
+facility entrance is offline.
+
+Suddenly your head begins to spin and the lights fades in and out, slowly at
+first, but soon working its way up to a frenzied strobe. Then darkness.
+Suddenly a pit gapes in front of you, some how darker than dark, oil on black
+velvet, and you feel yourself stepping headfirst into the abyss. Words fill
+your head.
+
+Hey Lefty, its going to be ok.  This is probably a drill or something.  No
+need to work yourself into a frenzy.
+The pressure from the hand on his cheek distorts his grin. What's so damn
+funny that he's grinning at all?
+It's just like Momma Shelly always told me, "You can't fix what ain't broke,
+and what you CAN'T fix...well you just can't fix", so why worry about it?  No
+need to go off half cocked about all this, everything is going to be just
+fine.
+The grin gets even wider, there's nothing to grin at down here but me.
+
+After a final flash of white. The darkness fades in.
+
+You awaken on the control room floor.
+
+>You take the syringe from the first aid kit.
+
+>(Your score has increased by 5)
+After tearing the package open with your teeth, you take the small syringe
+and place it gently against the vein.  A drop of sweat rolls down your
+forehead, but with the needle in your fist you are afraid to brush it off.
+Slowly you push the needle into the Cephalic vein, and giggle to yourself
+remembering the fun you had with that word in training.  Pulling back gently
+on the plunger, crimson mist swirls into the chamber.  Knowing that you've
+hit the vein you push the plunger, gradually releasing the drug into your
+bloodstream.
+
+Your heart begins to race and your chest tightens as if crushed by metal
+bands.  Closing your eyes against the pressure building up in your forehead,
+a flash of light enters your mind's eye and a euphoric rush comes over your
+entire body, strangely similar to an orgasm.  Suddenly, you've never felt
+better.
+
+>(Your score has increased by 2)
+Leaning closer to the radio you say:
+Blair Alpha this is Deadman Tango, come in over.
+Blair Alpha this is Deadman Tango, come in over.
+Blair Alpha this is Deadman Tango, do you read? We have a situation here.
+
+There seems to be something going on here, we have been breached, I repeat,
+Deadman Tango has been breached.
+
+Blair we have not received expected transmission within last 23 hours,
+repeat:
+NO TRANSMISSION RECIEVED.
+
+Deadman Protocol underway.
+
+Time remaining,
+You quickly look at the countdown,
+
+T Minus 45 minutes and counting, please respond.
+I repeat T Minus 45 minutes until Deadman Launch. Please respond.
+.  .  .
+
+You continue to wait but there is no response.
+God, you wish someone would answer.
+
+>Time passes...
+
+>Time passes...
+Your thoughts are interrupted by harsh static.
+A loud voice fills the room.
+
+Deadman Tango, this is Blair do you read.
+Deadman Tango, this is Blair do you read.
+Deadman, we understand you have a situation there, please respond.
+
+Acknowlege and prepare to receive standard abort code.
+
+Over.
+
+You stand in silence.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+A small rush fills you with pleasure.
+
+Suddenly your head begins to spin and the lights fades in and out, slowly at
+first, but soon working its way up to a frenzied strobe. Then darkness.
+Suddenly a gate stand in front of you, some how darker than dark, ink on
+black silk, and you feel yourself stepping feet first into the abyss. Words
+fill your head.
+
+ Hey, Mister Sinister!  What the hell was that sound?
+His stance shows that he had just jumped up from the table, his head cocked
+like a mongrel dog. He grins at me.
+Man, it sounded like a gunshot or something.  Man! First this no talky no
+walky thing and now we gots some asshole using the hallway for target
+practice?
+His grin fades as he looks down.
+
+After a final flash of white. The darkness fades in.
+
+You awaken on the control room floor.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+A small rush fills you with pleasure.
+
+>Time passes...
+
+>Time passes...
+
+Suddenly your head begins to spin and the lights fades in and out, slowly at
+first, but soon working its way up to a frenzied strobe. Then darkness.
+Suddenly a dark curtain drapes in front of you, some how darker than dark,
+tar on a bowling ball, and you feel yourself stepping feet first into the
+abyss. Words fill your head.
+
+I met her on a Sunday and my heart stood still, da do run run run, da do run
+run   Somebody told her that her name was Jill, da do run run run, da do run
+run ....
+The curtain opens quickly.
+WHAT THE HELL YOU DOIN MAN?!
+He didn’t have time to even crack a smile.
+
+After a final flash of white. The darkness fades in.
+
+You awaken on the control room floor.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+Suddenly your head begins to spin and the lights fades in and out, slowly at
+first, but soon working its way up to a frenzied strobe. Then darkness.
+Suddenly a steel door closes  in front of you, reflecting the blackness, a
+puddle in the asphalt, and you feel yourself running fist first into the
+abyss. Words fill your head.
+
+Come on John, now just come down, I can’t let you in until you calm down.
+What the hell is going on out there?
+The voice is muffled, I can’t see who’s speaking. I need to see the him.
+Lefty, what the hell do you think you are doing, the cameras in hall just
+went out.
+Captain, something crazy is going on out here they’re dead, they’re ALL dead.
+Ramirez, Shelly, and Baker all dead sir.  There’s blood everywhere.”
+Shuffling behind the door, a faint click.  The latch scratches across the
+surface, a flash as the axe hits the door.
+
+After a final flash of white. The darkness fades in.
+
+You awaken on the control room floor.
+
+>Time passes...
+
+>You stand up.
+
+A banging on the door startles you and you turn to stare at the cold steel.
+A muffled voice fills the quite room,
+Captain, let me in!, another pounding at the door.
+Captain, its Lefty, something crazy is going on out here. Pound
+they're dead
+Pound Pound
+they're ALL dead.
+Pound
+Ramirez, Shelly, and Baker.
+Pound
+all dead sir
+the pounding weakens
+There's blood everywhere
+silence.
+
+The door stands closed and latched.
+The pounding at the door returns.
+
+>(Your score has increased by 2)
+Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
+anyone, you open the door wider. Out of the corner of your eye something
+shines.
+An axe  has been embedded in the door.  Overtaken by fear you shove the door
+away from you, causing the axe to come loose and fall to the floor, with a
+dull metallic thud.
+In a panic you quickly slam the door shut and re-latch it, leaving the axe
+inside.
+
+>You pick up the axe.
+A small rush fills you with pleasure.
+
+>(Your score has increased by 3)
+With a wild swing the axe arcs down at the wrist of Capt. Mattingly.  You
+hear a dull thud as it strikes the bone.  Pulling the axe head free you chop
+down again and again…
+The bloody hand falls to the floor wetly.
+
+>You pick up the bloody hand.
+
+>You put the bloody hand onto the green plate.
+
+>(Your score has increased by 10)
+The green glass goes dark, them pulses with a soft pink light.  The words
+"ABORT SUCSESFUL" appear on the monitor in front of you.
+Hoping that you have made the right decision you face the door as if seeing
+it for the first time.  You remember what you did to your colleagues and you
+are ready to face the consequences.  Opening the door you walk down the hall
+to the exit, ready to face the world. Or what there is left of it.

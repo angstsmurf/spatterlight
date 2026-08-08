@@ -1,0 +1,112 @@
+Loading game...
+
+I Was a Teenage Headless Experiment
+by Duncan Bowsman
+*     *     *     *
+
+... but he has the element of surprise and a bonesaw, and you do not.
+
+I'm afraid you are dead!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+
+[Press any key to continue]
+
+ENTRYWAY
+The only way in and out of the doctor's secret lair.  The only way out, back
+into the freezing weather, is to the north, while a hallway leading farther
+in slopes gradually downward to the south.  The area has the sterile look of
+an unused hospital room, except for your headless body lying on the floor
+here.  Your metal snow shovel lies next to you.  Gerchis looms over you with
+a bonesaw and a blank expression.
+
+The doctor's ugly servant finishes separating your head from your body and
+tucks it under one of his lower arms.
+
+Gerchis moves south.
+HALLWAY JUNCTION
+A gradual slope here indicates the floor is rising to the north and
+descending further west.  Other than a trail of blood from your severed head,
+the area is completely white.  A door stands in the western wall.
+
+Gerchis opens the door and enters.
+LAB
+This is where the doctor plots his evil schemes!  The room is filled with
+experimental equipment.  On one far wall is a raised metal tray of some sort.
+ Equipment fills one other corner, but in another lies a syringe of glowing
+serum!  It smells strongly of alcohol in here.
+
+Gerchis shuts and locks the door behind him.  He places your head on a tray
+along the far wall.
+
+"Da doctor will be wit' ya soon as 'e returns from away, which should be any
+minit now," says Gerchis.  "Tings are about to get pretty... heady... for
+you!"  With a gadawful chortling, the doctor's servant disposes of the
+bonesaw and goes to work at some equipment at your far right.
+
+It is all you can do to even keep your eyes open ("look").
+
+*        *        *        *
+For credits, type about and press enter.  For hints, type hints and press
+enter.
+*        *        *        *
+
+>You fumble around until your hands close about the shaft of your metal snow
+shovel.  It has a cold heft in your hands, like the certainty of death.
+
+>Feeling your way around, you shamble south.
+
+>THUD!  Your body smacks up against the door to the lab.  You can barely see
+its outline through the frosted glass window.
+
+"It's hopeless," Gerchis scolds you.  "Da door is locked.  Now sit tight, da
+doctor will be wit' you shortly, ya?"
+
+>Your body smashes through the window with an elbow and throws the rest of the
+door open.  Gerchis spins to meet it, but freezes on the spot.  His eyes dart
+nervously toward the syringe of Formula X!
+LAB (upon a metal tray)
+This is where the doctor plots his evil schemes!  From your place on the
+metal tray, you can see that the room is filled with experimental equipment.
+Directly opposite of you is an old wooden door with a frosted glass window.
+It smells strongly of alcohol in here.
+
+Upon the floor here lies a glowing syringe of Formula X.
+
+Also here are some glass shards.
+Your headless body stands here.  Gerchis is here, shocked stiff by your
+still-standing body in the doorway.
+
+>Crack!  You pank Gerchis's skull with the shovel and he falls to the floor,
+strings cut, a dead puppet.
+
+>Your body takes the glowing syringe in hand...
+
+>You sit your head back upon your neck and seal it back together with a small
+injection of Formula X.  A searing pain follows that jolts the whole of you--
+you drop the syringe and it shatters on the floor.  You shiver in a painful
+wholeness for a moment, but pull yourself together.
+
+You will be okay.
+
+>You move east.
+HALLWAY JUNCTION
+A gradual slope here indicates the floor is rising to the north and
+descending further west.  Other than a trail of blood from your severed head,
+the area is completely white.  A door stands in the western wall.
+
+>You move north.
+ENTRYWAY
+The only way in and out of the doctor's secret lair.  The way out, back into
+the freezing weather, is to the north, while while a hallway leading farther
+in slopes gradually downward to the south.  The area has the sterile look of
+an unused hospital room, except for your blood pooling all over the floor.
+
+>You rush out of the door into the cold of Escanaba in a frantic search for
+the highway.  You manage to hail a car and get to the police station with
+your story.  At your prompting, they storm the doctor's lab and arrest him
+for his heinous operations.
+
+You may have saved the day, but still no-one will ever completely believe the
+horrifying extent of the time you spent as a teenage headless experiment!
+Congratulations!

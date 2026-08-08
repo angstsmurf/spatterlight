@@ -1,0 +1,279 @@
+1
+male
+x others
+talk to lara
+ask lara about harris
+ask lara about something
+ask harris about key
+ask harris about picklock
+open door
+open door
+x vardo
+ask vardo about crucifix
+east
+se
+sw
+x portrait
+x protrusion
+x dust
+read book
+read book
+read book
+read book
+read book
+read book
+read book
+read book
+read book
+read book
+x robes
+get salts
+wait
+south
+x ashes
+x ashes
+x mantle
+pull candleholders
+x sixth chair
+get weave
+talk to havelock's spectre
+ask havelock's spectre about morlock
+look under table
+north
+ne
+nw
+use salts
+ask lorgrim about experiments
+ask lorgrim about killed
+ask lorgrim about herbs
+north
+look into mirror
+x reflection
+south
+talk to morlock's shade
+ask morlock's shade about escape
+south
+se
+sw
+south
+open box
+north
+ne
+nw
+west
+use herbs
+ask garrick to follow you
+east
+se
+east
+x statue
+put coin in statue's hand
+south
+up
+north
+se
+x bookshelves
+x scroll
+south
+south
+talk to vadris
+south
+west
+give spear to sokan
+talk to sokan
+east
+give crown to iridil
+talk to iridil
+west
+nw
+give sword to gabriel
+talk to gabriel
+se
+east
+north
+open coffin
+south
+west
+nw
+sw
+give cross to timon
+talk to timon
+se
+give goblet to volroar
+talk to volroar
+east
+give mirror to selphaza
+talk to selphaza
+ne
+north
+give stake to vadris
+talk to vadris
+north
+ne
+get all
+north
+nw
+nw
+x statues
+close eyes
+touch basilisk
+read scroll
+close eyes
+touch medusa
+read scroll
+touch devil
+read scroll
+touch dragon
+read scroll
+touch ogre
+read scroll
+touch goblin
+read scroll
+touch zombie
+read scroll
+touch hydra
+read scroll
+west
+talk to figures
+say the eight in sequence
+north
+raise orb
+south
+east
+se
+south
+down
+north
+west
+nw
+west
+get doll
+east
+se
+east
+south
+up
+up
+north
+east
+east
+throw vial at demon
+east
+north
+north
+extinguish fire
+south
+west
+south
+x woman
+x eyes
+north
+east
+x skeleton
+get broadsword
+talk to havelock
+ask havelock about woman
+ask havelock about toril
+west
+south
+use powder
+north
+west
+climb walls
+north
+x bed
+get cloak
+x suit of armour
+x faceplate
+rub faceplate
+x faceplate
+get hood
+wear hood
+x desk
+open drawer
+south
+east
+sw
+give ring to greera
+open cupboards
+get jug
+ne
+east
+east
+throw dagger at chad
+give doll to lara
+get dagger
+open chest
+read note
+west
+south
+west
+west
+south
+down
+north
+west
+sw
+south
+give cloak to toril
+ask gladrin about orb
+north
+ne
+east
+south
+up
+north
+east
+east
+north
+ne
+ne
+kill torodim
+north
+fill jug
+north
+east
+talk to garrick
+talk to garrick
+ask garrick about mordrel
+west
+north
+ne
+down
+say at the end of life lies only death
+down
+open coffin
+x coffin
+get globe
+talk to man
+ask mordrel about garrick
+give jug to mordrel
+up
+sw
+x slaves
+talk to slaves
+east
+smash door
+se
+x sacks
+x shelves
+nw
+west
+west
+kill vampire
+west
+west
+raise orb
+west
+west
+open door
+x gragor
+west
+2
+open drapes
+raise orb
+kill vaslock
+kill vaslock
+kill vaslock
+kill vaslock
+north

@@ -1,0 +1,26 @@
+n
+w
+x seth
+x bookcase
+get diary
+read 4th november
+e
+s
+e
+ask calvin about creativity
+w
+w
+ask luke about password
+e
+n
+n
+enter creativity password
+grant
+s
+e
+ask william about behind the curtain
+w
+n
+make verdict
+V
+mission

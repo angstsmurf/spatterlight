@@ -526,9 +526,6 @@ Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
 any damage.
 
 >You cut Forester Goblin with the small sword.
-The birds high above your head hoot and cheep to each other.
-Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
-any damage.
 
 >You cut Forester Goblin with the small sword.
 Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
@@ -620,6 +617,8 @@ Longmore king stabs you with the pointy stick, but it doesn't seem to do any
 damage.
 
 >You cut Longmore king with the small sword.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
 >You cut Longmore king with the small sword.
 Longmore king stabs you with the pointy stick, but it doesn't seem to do any
@@ -685,6 +684,7 @@ There is an eagle above you circling around your head.
 Eagle hits you, but it doesn't seem to do any damage.
 
 >You cut Eagle with the small sword.
+Eagle hits you, but it doesn't seem to do any damage.
 
 >You cut Eagle with the small sword.
 Eagle hits you, but it doesn't seem to do any damage.
@@ -802,7 +802,6 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.
 There is a large Narn here.
-You drop to the floor feeling very ill.
 Karurn hits you, but it doesn't seem to do any damage.
 
 >You move northwest.
@@ -845,11 +844,12 @@ corridor. East will take you into a smaller room.
 Larnt is here.
 
 Haron follows you from the south.
+Larnt cuts you with the blade from Uron, but it doesn't seem to do any
+damage.
 
 >You cut Larnt with the small sword.
 Haron cuts Larnt with the elven sword.
-Larnt cuts you with the blade from Uron, but it doesn't seem to do any
-damage.
+Larnt cuts Haron with the blade from Uron.
 
 >You cut Larnt with the small sword.
 Larnt cuts Haron with the blade from Uron.

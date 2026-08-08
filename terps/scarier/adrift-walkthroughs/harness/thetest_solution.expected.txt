@@ -65,10 +65,10 @@ the opposite wall.
 
 >Time passes...
 
->You take the green key from the machine.
+>You take the blue key from the machine.
 
->You insert the green key into the lock but instead of unlocking the door
-turns red.
+>You insert the white key into the lock but instead of unlocking the door
+turns black.
 
 >You can't go in any direction!
 

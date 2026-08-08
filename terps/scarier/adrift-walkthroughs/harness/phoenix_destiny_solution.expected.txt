@@ -166,12 +166,12 @@ flowers line the side of the road and the thick forest trees cast a lovely
 shadow across the grass. The sun is shining in the sky.
 
 You can walk east.
-A man walks by carrying a sack of food he bought from the town.
 
 >You start walking down the road, which heads to the town of Azeroth. Along
 the way you admire the great pine forest which runs for miles down the main
 road. The occasional villager walks by carrying a sack of food he bought from
 town. About 20 minutes later you finally arrive near the town.
+A man walks by carrying a sack of food he bought from the town.
 
 >You move south.
 Idan Road - Northern End
@@ -211,7 +211,7 @@ Date: It is the 1st of January, 1236 A.D
 Energy Level: 283
 Food Level: 283
 Water Level: 213
-Stomach Capacity: 51 out of 200
+Stomach Capacity: 52 out of 200
 Alcohol Level: 0 out of 25
 
 >Wealth

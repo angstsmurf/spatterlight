@@ -1462,7 +1462,7 @@ scr_char *
 pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
 {
   scr_vartype_t vt_key[3];
-  scr_int synonym_count;
+  scr_int synonym_count, index_;
   std::string buffer;
   scr_bool modified;
   const scr_char *current;
@@ -1488,13 +1488,38 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
   offset = strspn (current, WHITESPACE);
   while (current[offset] != NUL)
     {
-      scr_int index_, extent;
+      scr_int span;
 
-      /* Search for a synonym match at this index into the buffer. */
-      extent = 0;
+      /*
+       * Look for a synonym match at this point.  The first one to match fires;
+       * every synonym after it in the list gets a look at the text that one
+       * just wrote, but only as a whole -- a later synonym fires again only if
+       * its original is the entire replacement.  'span' is the length of that
+       * replacement region, or zero while nothing has fired yet.
+       *
+       * Both halves of that rule are needed, and each is pinned by a game:
+       *
+       *  o Lair of the Vampire maps "harris" to "steve" *and* "steve" back to
+       *    "harris", so that both spellings reach one NPC.  run400 accepts
+       *    "ask harris about key" -- the game's own walkthrough opens with it
+       *    -- so the second synonym must fire on the first one's output.
+       *    Stopping at the first match, as we used to, left a "steve" the
+       *    character has no alias for and made the cellmate unaddressable.
+       *
+       *  o Yak Shaving maps "flags", then "line", then "clothes" all onto
+       *    "clothes line".  run400 answers "x flags" with the laundry
+       *    description, so the "line" and "clothes" synonyms must *not* fire
+       *    on the words inside the "clothes line" the first one wrote --
+       *    neither is the whole of it.  Letting them would spiral: "x flags"
+       *    grows a "clothes line" per pass without bound.
+       *
+       * Both behaviours were read off the real Runner under Wine.
+       */
+      span = 0;
       for (index_ = 0; index_ < synonym_count; index_++)
         {
-          const scr_char *original;
+          const scr_char *original, *replacement;
+          scr_int extent, length;
 
           /* Retrieve the synonym original string. */
           vt_key[0].string = "Synonyms";
@@ -1504,18 +1529,12 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
 
           /* Compare the original at this point. */
           extent = pf_compare_words (current + offset, original);
-          if (extent > 0)
-            break;
-        }
+          if (extent == 0)
+            continue;
 
-      /*
-       * If a synonym found was, index_ indicates it, and extent shows how
-       * much of the buffer to replace with it.
-       */
-      if (index_ < synonym_count && extent > 0)
-        {
-          const scr_char *replacement;
-          scr_int length;
+          /* Once something has fired, only an exact re-match counts. */
+          if (span > 0 && extent != span)
+            continue;
 
           /*
            * If not yet copied, copy the input string into the buffer now and
@@ -1538,12 +1557,16 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
           /* Splice the replacement in for the matched extent. */
           buffer.replace (offset, extent, replacement, length);
           current = buffer.c_str ();
-
-          /* Adjust offset to skip over the replacement. */
-          offset += length;
+          span = length;
 
           if (pf_trace)
             scr_trace ("Printfilter: synonym \"%s\"\n", buffer.c_str ());
+        }
+
+      if (span > 0)
+        {
+          /* Adjust offset to skip over the replacement region. */
+          offset += span;
         }
       else
         {

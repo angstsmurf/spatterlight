@@ -670,6 +670,8 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Body-part statics in a `Var1 = 2` restriction | positioned at `OBJ_PART_NPC` | ~~statics have no location field, so they read hidden~~ **theory refuted live** — the Runner answers exactly like Scarier | **Settled 2026-08-01, NO divergence** (probes `pBP`/`pBP2` in `make_arena_probe.py`): with the parent NPC present, is-hidden FAILS, visible-to PASSES, not-hidden PASSES — for an NPC part and a player part alike, byte-identical to Scarier; visible-to tracks the parent NPC's room. With the parent absent, the Runner's `%object%` scope filter refuses the part ("I don't understand.") — that is the separate scope-filter row below, not a body-part issue. |
 | Object scope when matching a task command | `uip_match_entity()` has no scope filter at all — matches anything | won't match an object that isn't present ("I don't understand what you mean!") | **Confirmed divergence, unfixed — corpus impact measured 2026-08-01: ZERO.** `SCR_TRACE_SCOPE=1` (scrunner.cpp, needs `SCARIER_DUMP_TOOLS`) logs any golden turn where a matched `%object%` task binds an absent object (SCOPE-MISS = Runner would refuse the command; SCOPE-BIND = Runner would bind a different, present object): all 76 rows replayed clean, zero hits. Static exposure is small too — only 5 games author `%object%` task commands at all (adriftorama 67, goldilocks 20, Screen Savers 19, SRSintro 2, X-Files 2). So the divergence is reachable only by off-route input. A faithful fix means porting `Sub_20_74`'s scope rules (the Runner's command-reference filter — presence for objects, and per the `pWS` probe *seen-ness* for `%character%`), plus a disambiguation rule for present-vs-absent name clashes; not worth it until some game demands it. |
 | Optional `{word}` whose look-ahead fails after consuming text | ~~`uip_match_optional()` fell into `uip_match_alternatives()` at the position the *failed* look-ahead had already advanced to~~ **FIXED 2026-08-03**: rewind to `start_posn` on the failure path too | matches | **Was a real divergence, now fixed.** Ground truth is the author's own published transcript of *Monsters (Release 2)*, which shows `shine flashlight on the brainsucker` working. Task 2's pattern is `[defeat/shine/turn/put] {the} [flashlight/light] {on} {the} {brainsucker} {brain}  {monster}`; the look-ahead from `{brainsucker}` let `{brain}` eat the first five letters of "brainsucker" (`uip_match_word()` is a prefix compare with no word-boundary check), failed on the trailing "sucker", and — because `uip_match_list()` has no backtracking of its own — the alternatives were then tried from "sucker". Cost the game 5 of its 40 points. `uip_match_wildcard()` always restored position on failure; only the optional matcher didn't. Zero golden churn across the 154-row v4 suite. |
+| A `/` outside any `[]`/`{}` group | ~~`uip_parse_list()` treated it as an alternatives separator *at every depth*, so the top-level list returned early — **without appending its `NODE_EOS`** — and the pattern degenerated to everything before the first slash, prefix-matching any input that started with it~~ **FIXED 2026-08-04**: a group-depth counter; at depth 0 the `/` parses as a literal word node instead | a bare `/` is an ordinary literal character — `Proc_9_4_45D940` (the whole of run400's command matcher, decompiled in `~/adrift-battle/decompiled/NewParse.bas`) only ever looks for `/` *between* `[]`/`{}` delimiters: it dispatches on `Left(pattern,1)` being `[` or `{`, and any other leading run is compared with a straight `Left(input,n) = Left(pattern,n)` up to the next `[`/`{` | **Was a real divergence, now fixed.** Found in *Ba'Roo!*: TASK 62's `take/get/eat stew` collapsed to `take`, so **every** `take X` in the Communal Dining Hall was answered "Unfortunately you don't have a way to eat it…" and TASK 63 (`[take/pull/tear] [meat/animal/roast]`) was unreachable — which blocks the walkthrough, since the meat is the game's only food and the endgame climb needs it. In run400 the pattern matches only the literal string `take/get/eat stew`, i.e. the task is dead, which is what the author's own transcript shows. Corpus exposure is small and now measured: 8 games author a bare top-level `/` in 36 task commands, and all but two are `#`-style labels or dashes (`-2/3/4`, `1 - kridlor66 who killed you/how died`) that were silently prefix-matching. Zero golden churn across the 190-row v4 suite. |
+| Input synonyms whose replacement is itself synonymed | ~~`pf_filter_input()` walked the input word by word, took the **first** synonym that matched, spliced it in and skipped past it — no later synonym ever saw the text it wrote~~ **FIXED 2026-08-04**: after one fires, the rest of the list still gets a look at the replacement, but only *as a whole* — a later synonym fires again only when its original is the entire replacement region (`extent == span`), and then replaces all of it | later synonyms do act on an earlier one's output, but only on the whole of it | **Was a real divergence, now fixed; both halves of the rule are pinned by a game, each read off run400 under Wine.** *Lair of the Vampire* maps `harris`→`steve` **and** `steve`→`harris`, the author's way of letting both spellings reach one NPC; run400 accepts `ask harris about key` (the game's own walkthrough opens with it) and `x harris`, whereas first-match-wins left a `steve` the character has no alias for and made the cellmate — who holds the picklock the whole game hinges on — unaddressable. The whole-region half comes from *Yak Shaving for Kicks and Giggles!*, which maps `flags`, then `line`, then `clothes` all onto `clothes line`: run400 answers `x flags` with the laundry description, so `line`/`clothes` must **not** fire on the words *inside* the `clothes line` the first synonym wrote. Letting them (the naive "apply all that match") is not merely wrong but non-terminating — `x flags` grows one `clothes line` per pass and the run dies on the harness's 30 s `ulimit -t`. An intermediate model, one whole-string pass per synonym in list order, terminates and fixes Lair but garbles Yak to `x clothes line clothes line line` → "Either that isn't here, or it's not important."; it was falsified against the Runner and abandoned. Zero golden churn across the 190-row v4 suite. |
 | `%object%` given a *partial* prefix | ~~only `"Prefix Short"` and the bare `Short` were matchable~~ **FIXED 2026-08-03**: `uip_build_candidate()` also stores the prefix with its leading words dropped one at a time | matches a partial prefix | **Was a real divergence, now fixed, with two independent transcripts as ground truth.** *Monsters (Release 2)*: Prefix `Sissy's four poster` + Short `bed`, and the transcript prints the description for `examine the four poster bed` where Scarier said "I see no such thing". Re-running the suite then changed exactly one line in one other golden — *Shadrick's Travels*, `climb oak tree`, "You can't climb that." → "You can't climb the old oak tree." — which is verbatim what line 80 of *that* game's upstream transcript says. The Short itself is never cut down, so a multi-word Short must still be given whole. `SCR_DUMP_TASKS`'s `OBJNAME` line now prints `prefix=[...]` and each `alias=[...]` so this class of failure is a lookup rather than a guess. |
 | 3.9 shoot-Method strength | version-gated: 3.9 adds `HitValue` to base Str, 4.0 replaces | both confirmed live (run390 one-shot / run400 two hits) | **Fixed 2026-08-01** (`7a4cb7c2`). |
 | Upgraded-3.9 combat | `SCR_ASSUME_COMBAT` opt-in; matches author intent | **stalemates, confirmed live 2026-08-01** (Azra: converted acc/agi all 0-0) | Settled — opt-in stays. |
@@ -812,6 +814,206 @@ Runner rewrites the input box before the echo.
 games load and play. `castle.taf`'s opening inventory now matches `run370`
 exactly.
 
+
+## 7. Whitespace between adjacent `[]` / `{}` groups — FIXED 2026-08-04 on
+##    internal evidence, ARBITRATED LIVE the same day: NO divergence
+
+**Question.** ADRIFT task command patterns routinely place two groups next to
+each other with no space in the pattern text. Does the Runner require a space
+in the *input* at that point, forbid one, or accept either?
+
+**What Scarier did.** `uip_parse_list()` (`scparser.cpp`) interposed an
+invented `NODE_WHITESPACE` between adjacent `NODE_CHOICE`/`NODE_OPTIONAL`
+nodes, and `uip_match_whitespace()` demands a space — or, via two escape
+hatches, a preceding space (a word boundary already crossed) or end-of-string.
+So `[open/pull/push]{the}{wooden}[door]` matched "open door" and "open the
+door" (each group boundary sits on a real space), but a pattern whose groups
+build up **one word** could never match it.
+
+**Why it came up.** *ImagiDroids* (`imagi.taf`, Woodfish) writes its exits as
+
+```
+TASK 38  {go/walk/move}[n/escape/out]{orth/out}       # n, north, escape, out
+TASK  4  {move/run/walk/go/climb} {to/towards} {the} [d/out/in]{own}
+TASK  6  [s]{outh}{ /-}[w]{est}
+```
+
+Only the bare `escape` / `out` forms worked, so the game's own shipped
+walkthrough (`downloaded/Imagidroids_walkthrough.txt`) could not get out of the
+first room. *The Forum* (`forum.taf`) has the same shape in TASK 15,
+`... {with}{the}{wooden}[clog]{s}` — "clogs" never matched, and the golden had
+been blessed with the resulting "I don't understand what you want me to do with
+the pair of wooden clogs." baked into it.
+
+**The evidence for "either".** Two patterns in one game settle it in opposite
+directions and only "optional" satisfies both:
+
+* `[open/pull/push]{the}{wooden}[door]` has no spaces at all yet must accept
+  "open door" — so a space between groups must be *allowed*.
+* `[s]{outh}{ /-}[w]{est}` spells the space in "south west" out as an explicit
+  `{ /-}` alternative — so adjacency alone must not *imply* one. An author who
+  had an implicit separator would not write that group.
+
+TASK 4's `[d/out/in]{own}` is the same argument in one line: the pattern carries
+explicit spaces between its first three groups and none before `{own}`.
+
+**Fix.** New `NODE_JOIN` node type, used only for the invented separator;
+`uip_match_join()` eats whitespace if it is there and never fails. Explicit
+whitespace written in the pattern still parses to `NODE_WHITESPACE` and keeps
+the old strict-ish behaviour.
+
+**Corpus effect.** Exactly one row of the 198 changed: `forum_solution.txt`,
+where the second blow now lands and Ds is defeated with the full cure text
+instead of a parser refusal — an independent game's published route repaired by
+the same change, which is the strongest confirmation available short of the
+Runner. Re-blessed; every other row is byte-identical.
+
+- [x] **Arbitrated live — run400 agrees with the fix on every cell, and the
+      NODE_WHITESPACE / NODE_JOIN distinction is real.** *(2026-08-04.)*
+      `test/make_400_wsprobe.py` authors a one-room 4.0 probe with four
+      repeatable all-rooms tasks — `[al]{pha}` → "JOIN FIRED.",
+      `[be] {ta}` → "SPACE FIRED.", `[ga][mma]` → "CHOICE FIRED." and a bare
+      `ping` control — packed with `taftool.py` and played in `run400.exe`
+      under Wine (Auto complete off; every echo read back off the screenshot):
+
+      | input | pattern | run400 | Scarier |
+      |---|---|---|---|
+      | `ping`   | `ping`      | PING FIRED.        | PING FIRED. |
+      | `alpha`  | `[al]{pha}` | JOIN FIRED.        | JOIN FIRED. |
+      | `al pha` | `[al]{pha}` | JOIN FIRED.        | JOIN FIRED. |
+      | `al`     | `[al]{pha}` | JOIN FIRED.        | JOIN FIRED. |
+      | `beta`   | `[be] {ta}` | **I don't understand.** | I don't understand. |
+      | `be ta`  | `[be] {ta}` | SPACE FIRED.       | SPACE FIRED. |
+      | `be`     | `[be] {ta}` | SPACE FIRED.       | SPACE FIRED. |
+      | `gamma`  | `[ga][mma]` | CHOICE FIRED.      | CHOICE FIRED. |
+      | `ga mma` | `[ga][mma]` | CHOICE FIRED.      | CHOICE FIRED. |
+
+      So the two node types answer to two different rules and the collapse the
+      item speculated about must **not** happen: adjacency accepts a space and
+      does not require one (`NODE_JOIN`), while whitespace an author actually
+      wrote is **required** in the input (`beta` fails) — the one exception
+      being that a pattern ending in `space + optional group` still matches an
+      input that stops before it (`be` fires), which is exactly
+      `uip_match_whitespace()`'s end-of-string escape hatch. Choice/choice
+      adjacency behaves like choice/optional adjacency. No code change; the
+      internal-evidence fix and the ImagiDroids/Forum reading it was built on
+      are confirmed by the Runner.
+
+## 8. The 3.9/3.8 immediate-restart fixup — ARBITRATED LIVE 2026-08-04:
+##    run390 re-arms **silently** and keeps the **full** period
+
+**Question.** When a pre-4.0 event with `RestartType=1` (restart immediately)
+finishes, does the Runner run its **start actions** again — StartText, Obj1
+move — or does it silently re-arm?  And does the restarted event get its full
+authored length, or one turn less?
+
+**What Scarier did.** `evt_fixup_v390_v380_immediate_restart()`
+(`scevents.cpp`) open-coded the restart for any taf below 4.0: state to
+`ES_RUNNING`, clock to one less than a fresh length roll, and nothing else.
+The comment inherited from SCARE said 3.9 and 3.8 "'miss' the event start
+actions and move one step into the event without comment. It's arguable if
+this is a feature or a bug."  Nobody had checked.
+
+**The false start.** Earlier the same day this was "fixed" from a published
+transcript: *Panic!* (`panic.taf`, Stewart J. McAbney, 3.90) builds its
+cathedral atmosphere out of `RestartType=1`, `Time1=Time2=1` events, and the
+author's walkthrough is a full session transcript in which the priest's cough
+appears 66 times where Scarier printed it once.  The fixup was changed to call
+`evt_start_event()` — printing StartText on every restart — keeping the
+one-turn-short clock.  **Both halves of that are wrong**, and the transcript
+was the wrong oracle.
+
+**What the Runner actually does.**  Probe `test/make_39_evtimeprobe.py`
+(self-packing V390: one room, one `ping` task, one event) against `run390.exe`
+under Wine, and its 4.0 twin — config `EV9` in `make_arena_probe.py` — against
+`run400.exe`:
+
+| probe | shape | run390 says |
+| --- | --- | --- |
+| base | starter 1, restart 1, `Time1=Time2=5` | "E FINISH." on turns **5, 10, 15**; no "E START." on either restart |
+| `b` | the same with `Time1=Time2=1` | FinishText every turn, StartText only on the very first start |
+| `c` | starter 2 (3-turn delay), restart 1, time 5 | as the base: silent restarts |
+| `e` | starter 3 (after `ping`), restart 1, time 1 | silent restarts |
+| `f` | starter 3, StartText **+ LookText**, no FinishText — the exact "Priest Coughs" shape | one StartText at the trigger, then silence; the LookText only in an explicit `look` |
+| `d` | starter 2, **restart 2** (after a delay), time 5 | StartText on **every** re-arm — that path goes back through `ES_WAITING` and the normal start |
+
+So the period is the **full** authored length (5, not 4), and the immediate
+restart is **silent** for all three starter types.  Only the delayed restart
+re-runs the start actions.
+
+`run400.exe` on the same event in a 4.0 taf prints "E FINISH.  E START."
+every 5 turns — the version gate on the text is real, the one on the timing is
+not.  (Also established: run400 refuses a 3.9 taf outright, "Incorrect
+version", so a 3.9 game cannot be checked against the 4.0 Runner at all.)
+
+**The published transcript disagrees with the Runner on its own file.**
+Playing `panic.taf` in `run390` reproduces the walkthrough's hymnbook prose
+line for line but prints the cough StartText **once**, not 66 times — and
+`run400` cannot load the file.  Whatever produced that transcript, it was not
+a Runner that ships this behaviour.  The dump also undercuts the argument that
+was built on it: EVENT 15 "Priest Coughs" is `texts=SL-`, not `texts=S--`, so
+its per-turn line could have been a LookText all along (variant `f` says it is
+not printed per turn either way).  Only EVENT 1 (Muttering Priest), EVENT 4
+(Stigmata) and EVENT 13 (Ghost Shimmers) are `texts=S--`.
+
+**Fix.** `evt_fixup_v390_v380_immediate_restart()` now calls
+`evt_start_event (game, event, TRUE)` — a silent re-arm, `silent` suppressing
+the StartText alone — and does **not** touch the clock.  The length roll comes
+from `evt_start_event()` alone; the fixup's own `scr_randomint()` was removed
+in the first pass and stays removed, because two rolls where the Runner has
+one churns the RNG stream.  Obj1's move and the start resource on a 3.9
+restart are *not* measured; what the probes pin down is the text.
+
+**Corpus effect.** 24 of 203 rows moved and were re-blessed; three winning
+routes needed re-deriving, all three because the cadence of the RNG changed,
+none because the route logic did:
+
+* **circus** — `SCR_SEED=17` → `SCR_SEED=12` (swept 1..30).
+* **haunt** — dropped the redundant `look in umbrella stand` turn; the next
+  `take ticket` reveals the ticket anyway, and the spare turn now lets the
+  wolf catch up.
+* **thetest_win** — re-derived by the new `harness/thetest_rederive.py`.  Its
+  three try-until-it-happens blocks (`unlock door` until the colour-changing
+  key matches twice, six `shout <triangle number>` blocks until the Robot
+  Guard is in the room, `teleport` until the Morse Room) are pure dice-rolling
+  pads, so the script replays the prefix and grows each block until its marker
+  appears: 333 commands → 175.  *(Note for that game specifically: `#` comment
+  lines are not free — thetest has keypress waits, and `os_ansi.cpp` only
+  skips comments at a line prompt, so a comment gets eaten as a keypress.)*
+
+Everything else is either a StartText line that no longer repeats (panic's
+cough and wraith, twilight's apparition, timmy_reid's Billy, tq3's
+rattlesnakes, alices_restaurant's whole station paragraph,
+secret_of_lost_world's rain and volcano, marooned's rescue ship, wrecked's
+"It is raining", enquete's hijack announcement) or a battle/NPC line that
+moved with the RNG stream (alexis, spirits_flight, fantasyworld, troll,
+inverness, melbourne_beach, phoenix_destiny, fugitive).  No win marker was
+lost.
+
+- [x] **Arbitrate the timing half** — done, above: the restarted period is the
+      full authored length, and the restart is silent.  Both halves of the
+      SCARE-era comment were wrong, in opposite directions.
+- [x] **The residual — event visibility while on or inside an object.**
+      Probed and refuted.  `test/make_39_evseeprobe.py` authors a V390 file
+      with one room, a `Where`-limited-to-that-room always-restarting one-turn
+      event carrying all three texts, and two statics with `SitLie = 3`: a
+      surface (`chair`) and a container (`crate`).  In run390 the FinishText
+      prints on **every** turn — sitting on the chair, sitting in the crate,
+      and standing on the floor alike — and the LookText still appears in a
+      `look` taken while parented.  So posture is not part of the Runner's
+      event visibility test, and `evt_can_see_event()`'s room-only check is
+      right as it stands.  Scarier's own output on the probe is identical.
+
+      The 24-vs-21 count that raised this does not survive either.  It came
+      from the transcript this section just showed disagrees with run390 on
+      this game, and with the restart behaviour corrected both the wraith and
+      the cough now print **once** in our run, so there is nothing left to
+      compare.  The premise was wrong twice over: in Scarier's run of the
+      route the rope throw *fails* ("you are unlucky in your endeavour") and
+      `u` answers "You can't go in that direction (at present)", so the player
+      is never up the statue on those three turns at all — they are turns
+      spent failing the climb, an RNG divergence from the published run, not
+      a visibility one.
 
 ## Suggested order
 
@@ -1099,3 +1301,18 @@ yak_shaving:  Inside the pile of snow is a pair of chopsticks.
 An author writing an ALR against the Runner's output is a second, independent
 witness to what that output was.  Full `make -f Makefile.headless test` green
 afterwards: v4 129/129, capacity both probes, a5 suite untouched.
+
+**2026-08-04 — §8 closed: the 3.9 immediate restart is silent, keeps its full
+period, and posture does not hide events.**  Full write-up in §8 above; the
+short version is that the SCARE-era comment was wrong in one direction, the
+morning's transcript-driven "fix" was wrong in the other, and `run390.exe`
+settles both: `evt_start_event (game, event, TRUE)` with the clock left alone.
+Six variants of `test/make_39_evtimeprobe.py` and the `EV9` twin in
+`make_arena_probe.py` cover starter types 1/2/3, restart types 1/2 and both
+Runners; `test/make_39_evseeprobe.py` closes the visibility residual (event
+text still prints while sitting on a surface or in a container).  Corpus: 24
+rows re-blessed, three winning routes re-derived — circus at `SCR_SEED=12`,
+haunt one turn shorter, and thetest_win via the new
+`harness/thetest_rederive.py`, which grows each of that game's
+try-until-it-happens blocks by prefix replay instead of by hand (333 commands
+→ 175).  Full `make -f Makefile.headless test` green afterwards.

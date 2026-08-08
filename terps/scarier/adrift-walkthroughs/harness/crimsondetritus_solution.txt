@@ -1,0 +1,53 @@
+# Crimson Detritus (CD.taf) -- `about` gives "Crimson Detritus", 22 Aug 2003,
+# Mystery.  21 tasks, 4 rooms.  You get caught playing To Hell in a Hamper at
+# work and your boss zaps you onto a strange planet.
+#
+# WON 100/100 -- every point the game can award:
+#   TASK  3  rub cream on            10
+#   TASK  4  in (past the creature)   5
+#   TASK  8  wear uniform            10
+#   TASK 10  press red button        10
+#   TASK 16  take remote             10
+#   TASK 19  slide                   10
+#   TASK 15  flip switch             10
+#   TASK 20  press white button      35   <- also ACT type=6 v1=0, the win
+# There are eight ACT type=4 in the game and this route fires all eight.
+#
+# The route is the shipped transcript (downloaded/CrimsonDetritus_walkthrough.txt,
+# from cd.zip) replayed, with one repair:
+#
+#   `take uniform and wear it` -> `take uniform` / `wear uniform`.  The
+#   transcript prints two responses to that one line, so it was two commands in
+#   the original session.  SCARE reads it as one and gets "[take uniform and
+#   wear the hook] / I only understood you as far as wanting to take the
+#   uniform."  Getting the uniform ON matters: the corridor's north door
+#   answers "Didn't you read the sign???" until you are wearing it.
+#
+# Two lose endings sit next to the route, both ACT type=6 v1=2: TASK 5 (walk
+# `in` past the creature without the vanishing cream) and TASK 18 (press the
+# white button while still inside, at the control panel, rather than outside
+# after flipping the antenna switch).
+#
+# Cosmetic divergence from the shipped transcript, left alone: the endgame text
+# stored in the game really does contain three literal "{}" sequences (after the
+# "<br><br>" before each of the teenager's three speeches), and SCARE prints
+# them.  The author's transcript does not show them.  Whether run400 strips
+# brace groups from output text or the author simply tidied the file has not
+# been arbitrated; no other game in the 199-row corpus emits "{}" at all.
+
+take tube
+rub cream on
+in
+x hook
+take uniform
+wear uniform
+in
+x control panel
+press red button
+l
+take remote
+up
+inventory
+slide
+flip switch
+press white button

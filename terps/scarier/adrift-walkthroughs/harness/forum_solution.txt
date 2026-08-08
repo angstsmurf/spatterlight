@@ -31,6 +31,12 @@
 #   * TASK 15 (the clogs blow) requires the clogs HELD, so you must take them
 #     off again first; while worn it answers "I don't understand what you want
 #     me to do with the pair of wooden clogs."
+#   * TASK 15's noun is written "[clog]{s}", one word built out of two adjacent
+#     groups.  Until 2026-08-04 SCARE interposed a *mandatory* whitespace node
+#     between adjacent [] / {} groups, so "clogs" could not match and the blow
+#     silently did nothing -- the old golden recorded the same "I don't
+#     understand ..." line even with the clogs correctly in hand.  Fixed in
+#     scparser.cpp (NODE_JOIN); see RUNNER_TESTS_TODO.md.
 #   Each blow is ACT type=3 (bump the counter); at 2 the engine runs TASK 16
 #   [# Ds defeated].  EVENT 3 would run TASK 18 nine turns in, so there is no
 #   time to dawdle.

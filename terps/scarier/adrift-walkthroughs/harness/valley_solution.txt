@@ -1,0 +1,72 @@
+w
+ask foreman about strike
+ask foreman about demands
+get gloves
+e
+get weeds
+n
+u
+x nest
+x scrap
+get pen
+get bark
+d
+s
+e
+get berry
+e
+open file cabinet
+get order forms
+x list
+get cup
+e
+turn on sink
+fill cup
+w
+water plant
+get flower
+fill out forms
+w
+mail form
+get crate
+w
+s
+wear gloves
+get wildflowers
+n
+w
+give crate to foreman
+ask granny about potion
+x scroll
+give purple leaf to granny
+give berry to granny
+give wildflower to granny
+give bark to granny
+give starflower to granny
+give cup to granny
+w
+s
+give potion to dragon
+s
+x tools
+get crowbar
+ask silverbeard about sword
+n
+get sword
+defeat dragon
+ask dragon about treasure
+n
+e
+e
+s
+ask elf about goblet
+enter 3436 on lock
+open box
+pry box open
+turn off cd player
+n
+w
+w
+s
+give goblet to dragon
+s
