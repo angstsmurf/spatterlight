@@ -16,102 +16,80 @@
 #import "Image.h"
 
 @interface NowPlayingCoordinator ()
-@property (weak) SoundHandler *handler;
-/// YES while this coordinator last published eligible Now Playing info.
-@property BOOL ownsNowPlayingSession;
+/// The SoundHandler that currently owns system Now Playing.
+@property (weak, nullable) SoundHandler *activeHandler;
 @end
 
 @implementation NowPlayingCoordinator
 
-/// The coordinator that currently owns system Now Playing (weak).
-static __weak NowPlayingCoordinator *sActiveCoordinator;
-
-- (instancetype)initWithSoundHandler:(SoundHandler *)handler {
-    if (self = [super init]) {
-        _handler = handler;
-        [NowPlayingCoordinator setupRemoteCommandsIfNeeded];
-    }
-    return self;
-}
-
-+ (void)setupRemoteCommandsIfNeeded {
++ (NowPlayingCoordinator *)shared {
+    static NowPlayingCoordinator *shared;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        MPRemoteCommandCenter *center = [MPRemoteCommandCenter sharedCommandCenter];
-
-        [center.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
-#pragma unused(event)
-            NowPlayingCoordinator *active = sActiveCoordinator;
-            [active.handler unpauseEligibleNowPlayingChannels];
-            [active refresh];
-            return MPRemoteCommandHandlerStatusSuccess;
-        }];
-
-        [center.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
-#pragma unused(event)
-            NowPlayingCoordinator *active = sActiveCoordinator;
-            [active.handler pauseEligibleNowPlayingChannels];
-            [active refresh];
-            return MPRemoteCommandHandlerStatusSuccess;
-        }];
-
-        [center.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
-#pragma unused(event)
-            NowPlayingCoordinator *active = sActiveCoordinator;
-            SoundHandler *handler = active.handler;
-            if ([handler hasPlayingEligibleNowPlayingChannel])
-                [handler pauseEligibleNowPlayingChannels];
-            else
-                [handler unpauseEligibleNowPlayingChannels];
-            [active refresh];
-            return MPRemoteCommandHandlerStatusSuccess;
-        }];
-
-        // Pause must not be treated as stop: keep position and session.
-        center.stopCommand.enabled = NO;
-        center.nextTrackCommand.enabled = NO;
-        center.previousTrackCommand.enabled = NO;
-        center.seekForwardCommand.enabled = NO;
-        center.seekBackwardCommand.enabled = NO;
-        center.changePlaybackPositionCommand.enabled = NO;
+        shared = [NowPlayingCoordinator new];
+        [shared setupRemoteCommands];
     });
+    return shared;
 }
 
-- (void)clearNowPlayingInfo {
+- (void)setupRemoteCommands {
+    MPRemoteCommandCenter *center = [MPRemoteCommandCenter sharedCommandCenter];
+    NowPlayingCoordinator __weak *weakSelf = self;
+
+    // The pause/unpause calls below notify the handler, which refreshes us,
+    // so no explicit refresh is needed here.
+    [center.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
+#pragma unused(event)
+        [weakSelf.activeHandler unpauseEligibleNowPlayingChannels];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    [center.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
+#pragma unused(event)
+        [weakSelf.activeHandler pauseEligibleNowPlayingChannels];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    [center.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
+#pragma unused(event)
+        SoundHandler *handler = weakSelf.activeHandler;
+        if ([handler hasPlayingEligibleNowPlayingChannel])
+            [handler pauseEligibleNowPlayingChannels];
+        else
+            [handler unpauseEligibleNowPlayingChannels];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    // Pause must not be treated as stop: keep position and session.
+    center.stopCommand.enabled = NO;
+    center.nextTrackCommand.enabled = NO;
+    center.previousTrackCommand.enabled = NO;
+    center.seekForwardCommand.enabled = NO;
+    center.seekBackwardCommand.enabled = NO;
+    center.changePlaybackPositionCommand.enabled = NO;
+}
+
+- (void)clearForHandler:(SoundHandler *)handler {
+    // Never let an idle handler wipe another game window's session. If the
+    // owning handler is gone (activeHandler nilled by ARC), allow the clear.
+    if (self.activeHandler != nil && self.activeHandler != handler)
+        return;
+
+    self.activeHandler = nil;
     MPNowPlayingInfoCenter *infoCenter = [MPNowPlayingInfoCenter defaultCenter];
     infoCenter.nowPlayingInfo = nil;
     infoCenter.playbackState = MPNowPlayingPlaybackStateStopped;
 }
 
-- (void)clear {
-    // Only clear the system UI if we own the session; otherwise another
-    // game window's idle SoundHandler would wipe a paused track.
-    if (!_ownsNowPlayingSession && sActiveCoordinator != self)
-        return;
-
-    _ownsNowPlayingSession = NO;
-    if (sActiveCoordinator == self)
-        sActiveCoordinator = nil;
-    [self clearNowPlayingInfo];
-}
-
-- (void)refresh {
-    SoundHandler *handler = _handler;
-    if (!handler) {
-        [self clear];
-        return;
-    }
-
-    BOOL anyEligible = NO;
+- (void)refreshForHandler:(SoundHandler *)handler {
     BOOL anyPlaying = NO;
     BOOL anyPaused = NO;
     NSTimeInterval duration = 0;
     BOOL looping = NO;
 
     for (GlkSoundChannel *chan in handler.glkchannels.allValues) {
-        if (!chan.claimsNowPlaying || chan.status == GlkSoundChannelStatusIdle)
+        if (!chan.claimsNowPlaying)
             continue;
-        anyEligible = YES;
         if (chan.isPaused)
             anyPaused = YES;
         else
@@ -122,16 +100,12 @@ static __weak NowPlayingCoordinator *sActiveCoordinator;
             duration = chan.nowPlayingDuration;
     }
 
-    if (!anyEligible) {
-        // Only tear down system Now Playing if *this* handler had claimed it.
-        // Other SoundHandlers (other game windows) must not wipe a paused session.
-        if (_ownsNowPlayingSession)
-            [self clear];
+    if (!anyPlaying && !anyPaused) {
+        [self clearForHandler:handler];
         return;
     }
 
-    _ownsNowPlayingSession = YES;
-    sActiveCoordinator = self;
+    self.activeHandler = handler;
 
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
 
@@ -168,12 +142,8 @@ static __weak NowPlayingCoordinator *sActiveCoordinator;
 
     MPNowPlayingInfoCenter *infoCenter = [MPNowPlayingInfoCenter defaultCenter];
     infoCenter.nowPlayingInfo = info;
-    if (anyPlaying)
-        infoCenter.playbackState = MPNowPlayingPlaybackStatePlaying;
-    else if (anyPaused)
-        infoCenter.playbackState = MPNowPlayingPlaybackStatePaused;
-    else
-        infoCenter.playbackState = MPNowPlayingPlaybackStateStopped;
+    infoCenter.playbackState = anyPlaying ? MPNowPlayingPlaybackStatePlaying
+                                          : MPNowPlayingPlaybackStatePaused;
 }
 
 @end

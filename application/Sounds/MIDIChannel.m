@@ -12,9 +12,8 @@
 
 @implementation MIDIChannel
 
-- (BOOL)playSound:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
+- (BOOL)playSoundInternal:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
     self.status = GlkSoundChannelStatusSound;
-    self.claimsNowPlaying = NO;
     self.nowPlayingDuration = 0;
     self.nowPlayingLooping = NO;
 
@@ -26,18 +25,14 @@
         [_player stop];
     }
 
-    if (areps == 0 || snd == -1) {
-        [self.handler nowPlayingStateDidChange];
+    if (areps == 0 || snd == -1)
         return NO;
-    }
 
     /* load sound resource into memory */
     type = [self.handler loadSoundResourceFromSound:snd data:&dat];
 
-    if (type != GlkSoundBlorbFormatMIDI) {
-        [self.handler nowPlayingStateDidChange];
+    if (type != GlkSoundBlorbFormatMIDI)
         return NO;
-    }
 
     notify = anot;
     resid = snd;
@@ -47,10 +42,8 @@
 
     [_player setVolume:volume];
 
-    BOOL looping = (areps == -1);
     self.nowPlayingDuration = _player.duration;
-    self.nowPlayingLooping = looping;
-    self.claimsNowPlaying = looping || self.nowPlayingDuration > 5.0;
+    self.nowPlayingLooping = (areps == -1);
 
     if (areps != -1) {
         MIDIChannel __weak *weakSelf = self;
@@ -62,9 +55,6 @@
                 MIDIChannel *strongSelf = weakSelf;
                 if (strongSelf && --strongSelf->loop < 1) {
                     strongSelf.status = GlkSoundChannelStatusIdle;
-                    strongSelf.claimsNowPlaying = NO;
-                    strongSelf.nowPlayingDuration = 0;
-                    strongSelf.nowPlayingLooping = NO;
                     [blockHandler nowPlayingStateDidChange];
                     if (blocknotify)
                         [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
@@ -78,7 +68,6 @@
     if (!paused)
         [_player play];
 
-    [self.handler nowPlayingStateDidChange];
     return YES;
 }
 

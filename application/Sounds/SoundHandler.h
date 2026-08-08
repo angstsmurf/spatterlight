@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GlkSoundChannel, GlkController, SoundHandler, NowPlayingCoordinator;
+@class GlkSoundChannel, GlkController, SoundHandler;
 
 typedef uint32_t glui32;
 typedef int32_t glsi32;

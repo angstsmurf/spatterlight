@@ -94,8 +94,13 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 }
 
 - (BOOL)playSound:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
+    BOOL result = [self playSoundInternal:snd countOfRepeats:areps notification:anot];
+    [_handler nowPlayingStateDidChange];
+    return result;
+}
+
+- (BOOL)playSoundInternal:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
     _status = GlkSoundChannelStatusSound;
-    _claimsNowPlaying = NO;
     _nowPlayingDuration = 0;
     _nowPlayingLooping = NO;
 
@@ -109,10 +114,8 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         _player->Stop();
     }
 
-    if (areps == 0 || snd == -1) {
-        [_handler nowPlayingStateDidChange];
+    if (areps == 0 || snd == -1)
         return NO;
-    }
 
     /* load sound resource into memory */
     type = [_handler loadSoundResourceFromSound:snd data:&buf];
@@ -125,7 +128,6 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
     if (!mimeString) {
         NSLog(@"schannel_play_ext: unknown resource type (%ld).", type);
-        [_handler nowPlayingStateDidChange];
         return NO;
     }
 
@@ -168,9 +170,6 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
                 if (!strongSelf)
                     return;
                 strongSelf.status = GlkSoundChannelStatusIdle;
-                strongSelf.claimsNowPlaying = NO;
-                strongSelf.nowPlayingDuration = 0;
-                strongSelf.nowPlayingLooping = NO;
                 [strongSelf.handler nowPlayingStateDidChange];
                 if (blocknotify)
                     [strongSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
@@ -188,7 +187,6 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     if (frames > 0 && sampleRate > 0)
         _nowPlayingDuration = (NSTimeInterval)frames / sampleRate;
     _nowPlayingLooping = looping;
-    _claimsNowPlaying = looping || _nowPlayingDuration > 5.0;
 
     auto loopableRegionDecoder = SFB::Audio::LoopableRegionDecoder::CreateForDecoderRegion((std::move(decoder)), 0, (UInt32)frames, (UInt32)areps - 1);
     if (paused)
@@ -196,8 +194,12 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     else
         _player->Play(loopableRegionDecoder);
 
-    [_handler nowPlayingStateDidChange];
     return YES;
+}
+
+- (BOOL)claimsNowPlaying {
+    return _status != GlkSoundChannelStatusIdle &&
+           (_nowPlayingLooping || _nowPlayingDuration > 5.0);
 }
 
 - (BOOL)isPaused {
@@ -239,9 +241,6 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
 - (void)cleanup {
     _status = GlkSoundChannelStatusIdle;
-    _claimsNowPlaying = NO;
-    _nowPlayingDuration = 0;
-    _nowPlayingLooping = NO;
     if (timer)
         [timer invalidate];
     timer = nil;
