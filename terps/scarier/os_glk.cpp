@@ -213,6 +213,11 @@ static void gsc_a5_undo_look (a5_run_t *run);
    gsc_a5_start_real_time. */
 static int gsc_a5_real_time = FALSE;
 
+/* Set while the opening is replayed only to reach a saved state (the
+   Spatterlight autorestore boot), so a %PopUpInput% naming prompt in it is
+   answered with its default instead of asking the player again. */
+static int gsc_a5_popup_silent = FALSE;
+
 /* Author-defined secondary output window (ADRIFT 5 <window NAME>), opened
    lazily as a right-hand text buffer the first time the game routes text to
    one, then kept open like the official Runner.  This build supports a single
@@ -5805,6 +5810,56 @@ gsc_a5_read_line (char *buf, int bufsize)
 }
 
 /*
+ * gsc_a5_popup_input()
+ *
+ * Answer the %PopUpInput[prompt, default]% text function -- ADRIFT's naming
+ * prompts, typically a System <RunImmediately> task that asks for the
+ * player's name before the title (The After School Special: SetProperty
+ * Player CharacterProperName %PopUpInput["Please enter your name",
+ * "Anonymous"]%).  The Runner pops a modal VB InputBox seeded with the
+ * author's default (Global.vb:2296); Glk has no dialog, so ask in the story
+ * window instead -- print the prompt, take one line -- and read an empty
+ * answer as the default, which is what OK on an unedited box returns.
+ * Returns a heap-allocated answer the engine takes ownership of, or NULL to
+ * fall back to the default (see a5text.h a5_popup_cb).
+ */
+static char *
+gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
+{
+  char input[1024];
+  int saved_real_time, n;
+
+  /* No window to ask in, or a silent boot (the autorestore below replays the
+     intro only to reach the saved state, whose name the player already
+     chose): take the default without troubling anyone. */
+  if (gsc_main_window == NULL || gsc_a5_popup_silent)
+    return NULL;
+
+  gsc_a5_put_string ("\n");
+  if (prompt != NULL && prompt[0] != '\0')
+    gsc_a5_put_string (prompt);
+  if (dflt != NULL && dflt[0] != '\0')
+    {
+      /* The InputBox arrives with the default already filled in; say what
+         answering with an empty line will give. */
+      gsc_a5_put_string (" [");
+      gsc_a5_put_string (dflt);
+      gsc_a5_put_string ("]");
+    }
+  gsc_a5_put_string ("\n> ");
+
+  /* This runs inside the engine (mid text-render), so a TimeBased tick must
+     not re-enter it: hold real-time mode off for the duration, which also
+     hands the echo of the typed answer back to the library. */
+  saved_real_time = gsc_a5_real_time;
+  gsc_a5_real_time = FALSE;
+  n = gsc_a5_read_line_raw (input, sizeof input);
+  gsc_a5_real_time = saved_real_time;
+
+  return n > 0 ? gsc_copy_string (input) : NULL;
+}
+
+/*
  * gsc_a5_match_command()
  *
  * Case-insensitively test whether the player input (after trimming surrounding
@@ -8022,6 +8077,10 @@ gsc_a5_main (void)
      like the official Runner -- title page, keypress, screen clear. */
   a5text_set_interactive (TRUE);
 
+  /* Ask the player %PopUpInput% naming prompts, the story window standing in
+     for the Runner's modal InputBox; unasked, they evaluate to their default. */
+  a5text_set_popup_cb (gsc_a5_popup_input, NULL);
+
   /* Register the game Blorb for image/sound resources. */
   gsc_a5_init_resources ();
 
@@ -8071,7 +8130,9 @@ gsc_a5_main (void)
       std::string data;
       bool restored;
 
+      gsc_a5_popup_silent = TRUE;
       text = a5run_intro (run);
+      gsc_a5_popup_silent = FALSE;
       free (text);
       restored = scarier_autosave_read_game (&data)
                  && gsc_a5_apply_all (data)
