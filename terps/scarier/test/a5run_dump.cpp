@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 #include "../adrift5/a5model.h"
 #include "../adrift5/a5restr.h"
