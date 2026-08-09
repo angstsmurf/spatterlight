@@ -2,7 +2,9 @@
 import sys, os, collections
 # BFS shortest-path over an a5dump map scrape ($A5WORK/map.tsv: key<TAB>name<TAB>
 # "Dir->dest; ...").  usage: A5WORK=<dir> route.py <fromLocId> <toLocId>
-# Blind-walkthrough derivation tooling -- see TODO_a5_walkthrough_wiring.md.
+# Blind-walkthrough derivation tooling.  Its write-up was pruned once done
+# (TODO_a5_walkthrough_wiring.md); see the pruned-docs note at the top of
+# ../notes/A5_WALKTHROUGH_FINDINGS.md for how to recover it.
 P=os.environ.get("A5WORK", ".").rstrip("/")+"/"
 G={}
 NAME={}

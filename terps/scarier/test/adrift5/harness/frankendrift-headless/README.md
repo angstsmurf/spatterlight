@@ -43,7 +43,9 @@ Then diff against Scarier:
   `save` / `restore` commands round-trip through a known `.tas` file:
   `QuerySavePath()` returns `$FD_SAVE_PATH`, `QueryRestorePath()` returns
   `$FD_RESTORE_PATH`. Used to cross-validate Scarier's FrankenDrift-compatible
-  save format (`TODO_a5_frankendrift_save_compat.md`):
+  save format (`ADRIFT4_vs_ADRIFT5.md` section 8; the field-by-field derivation
+  lives in git history as
+  `git show ab6bc4af^:terps/scarier/TODO_a5_frankendrift_save_compat.md`):
 
       # FD writes a .tas Scarier can read (FD -> Scarier)
       FD_SAVE_PATH=/tmp/fd.tas dotnet .../fd-headless.dll game.blorb prefix_then_save.txt

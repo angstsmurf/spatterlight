@@ -13,8 +13,13 @@ Mirrors `test/adrift5/` (same subfolder names, same policies):
 - `notes/` — `*_walkthrough.md`, one per game: the route, the score reached,
   and the reasoning behind any non-obvious step. These are the deliverable.
   Also `WALKTHROUGH_TODO.md` — the running derivation log and the queue of
-  games not yet done — and `TODO_user_assist_metacommands.md`, which covers
-  the `SCR_ASSUME_*` assists.
+  games not yet done — and `TODO_assist_spatterlight_preference.md`, which
+  covers the `SCR_ASSUME_*` assists and the one piece of their exposure that
+  is still open. Walkthroughs here also cite two `TODO_*.md` docs that were
+  pruned once finished — `TODO_plover_walkthroughs.md` (`8a0bbb66`) and
+  `TODO_decode_sub_20_74.md` (`aa30ba4f`); recover either with
+  `git show <sha>^:terps/scarier/adrift-walkthroughs/<name>` (both predate the
+  2026-08-09 test-tree reorg, so they sit under the old path).
 - `goldens/` — a `*_solution.txt` (the command script) and
   `*_solution.expected.txt` (its committed golden transcript) per route.
 - `games/` — the `.taf` corpus. **Untracked** (`.gitignore`): third-party game

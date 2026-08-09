@@ -7,10 +7,16 @@ anno1700 style: `#` headers + bare commands) and replayed through **both** the
 Scarier harness (`test/adrift5/harness/a5run_dump`) and the **FrankenDrift** reference engine
 via `test/adrift5/harness/a5_groundtruth.sh`. FrankenDrift is the ground truth.
 
-> References here and in code comments to `TODO_a5_walkthrough_bugs.md` point
-> to the conformance-bug ledger that lived next to the engine sources until
-> every entry was closed; it was pruned 2026-07-14 and its full write-ups
-> remain in git history (`git log --all -- terps/scarier/TODO_a5_walkthrough_bugs.md`).
+> **Pruned companion docs.** Several `TODO_*.md` design/diagnosis docs cited
+> here and in code comments were deleted once their last entry closed; the
+> write-ups remain in git history, recoverable with
+> `git log --all --diff-filter=D -- '*<name>.md'` and then `git show <sha>^:<path>`.
+> They are: `TODO_a5_walkthrough_bugs` (the conformance-bug ledger, pruned
+> 2026-07-14), `TODO_a5_aggregateoutput_suppression`, `TODO_a5_undo`,
+> `TODO_a5_walkthrough_wiring`, `TODO_a5_frankendrift_save_compat`,
+> `TODO_aliendiver_divergences` and `TODO_fba_walkthrough_progress` (all
+> 2026-07-11), and `TODO_following_you`, `TODO_questgiver_divergence` and
+> `TODO_symphonica_schtick_ordering` (2026-08-09).
 
 ## Running
 
@@ -570,7 +576,7 @@ wins. The FD-format save path (`save_fd_game`) still writes such followers as
 Spatterlight autosave use.
 
 **Symphonica64 residual FIXED (263 → 0): now MATCH 0|0.** The 263-hunk xoshiro
-residual (documented in the retired `TODO_symphonica_schtick_ordering.md`) came
+residual (diagnosed in the pruned `TODO_symphonica_schtick_ordering.md`) came
 apart into three distinct engine gaps, each fixed against the runner sources:
 
 1. **Event-fired tasks now defer AggregateOutput completion draws to the end of

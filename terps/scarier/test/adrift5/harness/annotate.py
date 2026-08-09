@@ -3,7 +3,9 @@ import sys,os,re
 # Annotate a replay ($A5WORK/out.txt) with the location each command ran in, by
 # matching room-name headers against an a5dump map scrape ($A5WORK/map.tsv).
 # usage: A5WORK=<dir> annotate.py [n_last_cmds]
-# Blind-walkthrough derivation tooling -- see TODO_a5_walkthrough_wiring.md.
+# Blind-walkthrough derivation tooling.  Its write-up was pruned once done
+# (TODO_a5_walkthrough_wiring.md); see the pruned-docs note at the top of
+# ../notes/A5_WALKTHROUGH_FINDINGS.md for how to recover it.
 P=os.environ.get("A5WORK", ".").rstrip("/")+"/"
 names={}
 for line in open(P+"map.tsv"):

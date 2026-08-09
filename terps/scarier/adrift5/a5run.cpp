@@ -2355,8 +2355,8 @@ a5run_time_tick (a5_run_t *run)
 /* Phase 5 save/restore (clsState / FileIO.SaveState|LoadState).
  *
  * The on-disk save is ADRIFT 5 Runner-compatible: a `<Game>` document keyed by
- * entity <Key> (FileIO.SaveState / LoadState schema, TODO_a5_frankendrift_save_
- * compat.md).  An ADRIFT 5 Runner save restores into
+ * entity <Key> (FileIO.SaveState / LoadState schema; see ADRIFT4_vs_ADRIFT5.md
+ * section 8).  An ADRIFT 5 Runner save restores into
  * Scarier, and a Scarier save loads in the Adrift 5 runner.
  *
  * To keep Scarier<->Scarier round-trips (undo snapshots, deterministic
@@ -2769,7 +2769,10 @@ save_scarier_body (sb_t *b, a5_run_t *run)
 /* ----------------------------------------------------- the Adrift 5 runner <Game> ---
    The interop schema.  Maps a5_state_t onto the Adrift 5 runner's clsGameState fields,
    keyed by entity <Key>, with the where-fields written as their .ToString enum
-   names.  See TODO_a5_frankendrift_save_compat.md for the full mapping. */
+   names.  The writers below are the mapping; the design doc that derived it,
+   TODO_a5_frankendrift_save_compat.md, was pruned in ab6bc4af.  For its
+   field-by-field derivation from the runner's source, run
+   `git show ab6bc4af^:terps/scarier/TODO_a5_frankendrift_save_compat.md`. */
 
 /* Split a5_objloc_t onto the runner's two where-enums + LocationKey (SaveState @83).
    *dyn / *stat are NULL when at their default (Hidden / NoRooms, so the runner omits
@@ -3461,7 +3464,8 @@ restore_scarier_body (a5_run_t *run, const a5_xml_node_t *container)
    Applied only to a foreign save (an ADRIFT 5 Runner file with no
    <ScarierExt>).  Keyed lookups, tolerant of missing/extra entities; the RNG
    re-seeds to 1234 (the runner saves carry none), so a game that draws randomness right
-   after such a restore diverges -- documented in the TODO. */
+   after such a restore diverges from the session that wrote the save.  Accepted:
+   only foreign saves are affected, and Scarier's own carry <ScarierExt>. */
 
 static a5_owhere_t
 fd_decode_object_where (const char *dyn, const char *stat, int *is_static)
