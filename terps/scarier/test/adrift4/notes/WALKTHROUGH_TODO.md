@@ -8,10 +8,17 @@ comp games with no published walkthroughs (checked Key & Compass, IF Archive,
 CASA); they were derived by driving each game through a headless, deterministic
 Scarier build and reading its internals.
 
-**Status 2026-08-04: done.** The suite is **203 rows, 203 PASS** — 0 FAIL,
-0 SKIP, 0 NEEDGOLD, 0 NOSCRIPT. Every game has a route or a documented verdict,
-and every walkthrough in `downloaded/` has a game and a row. Nothing here is
-open work; this file is now the method, the cautions, and an index.
+**Status 2026-08-04: done**, re-verified 2026-08-10. The suite is **203 rows,
+203 PASS** — 0 FAIL, 0 SKIP, 0 NEEDGOLD, 0 NOSCRIPT, exit 0. Every game has a
+route or a documented verdict, and every walkthrough in `downloaded/` has a game
+and a row. This file is now the method, the cautions, and an index.
+
+Nothing here is open work with one deliberate exception, kept at the foot: the
+Runner's **"You can't do that here!"** refusal for a task typed outside its
+`Where` rooms, which Scarier does not implement and which is filed rather than
+fixed (see the follow-up under *The Hangover*). Everything else that once read
+as open below has since closed — where a later finding overturned a dated entry
+it carries a superseding note in place; the entry itself is left as written.
 
 ```
 test/adrift4/harness/run_v4_walkthroughs.sh          # the whole suite
@@ -116,8 +123,9 @@ passing branch. Trust the trace and `score`, not the prose.
 
 ## Footguns / lessons learned
 
-- **Rebuild before trusting anything.** A stale committed `harness/scare` cost
-  real time on a seed sweep. `./build.sh` first.
+- **Rebuild before trusting anything.** A stale `harness/scare` cost real time
+  on a seed sweep. `./build.sh` first. (The built binaries in `harness/` are
+  untracked; only the sources and scripts beside them are committed.)
 - **Always `git checkout` temporary instrumentation** (`scbattle.cpp`,
   `sctasks.cpp`, …) — leave the tree clean.
 - **`Globals.WaitTurns` is per game**, and in Cursed it is **3**: one `z` runs
@@ -145,7 +153,8 @@ passing branch. Trust the trace and `score`, not the prose.
   but adrift.co sometimes answers a ranged GET with an empty body — retry a
   short reply unranged or the file is silently misfiled. Percent-encode
   filenames with spaces or curl fails outright. The corpus is pinned by sha256
-  in `test/GAMES.md` and fetched by `test/fetch_games.sh`.
+  in `test/adrift4/games.manifest.tsv`, fetched by `test/fetch_games.sh`, and
+  the whole arrangement is explained in `test/GAMES.md`.
 - Use the scratchpad for throwaway files; keep only the solution, the
   walkthrough and the harness here.
 
@@ -496,6 +505,20 @@ a `make38probe.py` file with one object held by the player and one held by NPC 0
 run under `run380.exe` in the adrift-battle Wine prefix. No other 3.80 game in
 the corpus trips the warning, so `tra.taf` is the test case.
 
+> **CLOSED 2026-08-04.** Measured exactly that way, and the guess above was
+> right: pre-4.0 has no way to start an object *on an NPC* at all, so `Parent`
+> is meaningless on the held and worn entries. `run380` gives `tra.taf`'s red
+> sox hat (`Parent 0`) and its loose change (`Parent -1`) both **to the
+> player**, and `run370` gives `castle.taf`'s sweatshirt to the player whatever
+> `Parent` says. The fixup — now shared by 3.8 and 3.7 as
+> `|V380_OBJECT:_InitialPositions_|` / `|V370_OBJECT:_InitialPositions_|`,
+> `sctafpar.cpp` — forces the holder to the player on both entries, so the
+> hidden objects come back. Separately, `gs_create()` now *validates* an
+> out-of-range parent instead of storing it and assert-crashing on the first
+> turn update (`scgamest.cpp`; regression `harness/badparent_test.cpp` +
+> `make_badparent_taf.py`, which is where The Timmy Reid Adventure and Blood
+> Relatives are pinned).
+
 ## PARKED 2026-08-03 — the `downloaded/` wiring run stops here, at 161/161 PASS
 
 > **Superseded 2026-08-04 — this park is over and every item below is struck.**
@@ -597,14 +620,31 @@ object is normal-sized. Normalising makes the model self-consistent and
 reproduces the author's own walkthrough line for line ("You pick up the couple
 of tires."). Recorded as an ADRIFT-conversion bug, not ours.
 
-Not provable to the last inch: **run380.exe cannot be obtained.** adrift.co
+~~Not provable to the last inch: **run380.exe cannot be obtained.**~~ adrift.co
 serves `/files/run380.zip` and `/files/gen380.zip` with HTTP 200, but both
 archives contain the **3.90** binaries; IF Archive and its mirrors, the Wayback
 Machine (ftp.gmd.de, ftp.tardis.ed.ac.uk, the egroups files areas) and
 archive.org have no copy. run390 refuses 3.80 files outright ("You will need to
-convert it with ADRIFT Generator 3.90"), so gen390 conversion is the only
-ground-truth path available for 3.8 games — and it is the path the Runner
-itself prescribes.
+convert it with ADRIFT Generator 3.90"), ~~so gen390 conversion is the only
+ground-truth path available for 3.8 games~~.
+
+> **Superseded the same day — `run380.exe` is not lost.** David Whyld's dead
+> `delron.org.uk` still serves `adrift38.zip` through the Wayback Machine (and
+> `adrift37.zip` beside it); both are installed in the adrift-battle Wine
+> prefix, so 3.8 and 3.7 now have direct ground truth like 3.9 and 4.0 and
+> nothing about them depends on a gen390 conversion any more. Measured against
+> it, the conclusion above survives but the mechanism grew: version 3.8 has
+> **one pooled burden**, per-class costs `1/3/7/3/7`, limit exactly
+> `#MaxCarried` — a cost of 7 that 4.0's packed `base^digit` cannot express,
+> which is precisely why gen390's conversion breaks the games. So the class is
+> no longer merely discarded: the fixup keeps it verbatim in `SizeWeightClass`
+> and `obj_get_burden()` (`scobjcts.cpp`) spends it, while `SizeWeight` stays
+> normalised to `22` so container capacities remain the plain object counts 3.8
+> means them to be. Marooned's route was re-derived under the real model — it
+> can carry only one heavy object at a time and now **ferries**, 119 commands,
+> same **80/140** win. Full record: the "TAF 3.8 object Size/weight class" row
+> of `../../../RUNNER_TESTS_TODO.md` §4; game-level write-up:
+> `Marooned_walkthrough.md`.
 
 **The route: 80/140, and 80 is the ceiling.** The published walkthrough is for a
 *different build* (its boat description differs from ours; our title bar says
