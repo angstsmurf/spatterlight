@@ -414,6 +414,20 @@ extern int a5model_upgrade_answer (a5_adventure_t *a, int yes);
    this game (hard-wired allow-list, keyed on the Babel IFID); default is NO. */
 extern int a5model_upgrade_forced_yes (const a5_adventure_t *a);
 
+/*
+ * Non-NULL when the adventure cannot be played at all, in which case the return
+ * is the runner's own error text for the host to show.  Today the only such
+ * case is an adventure with zero locations: clsUserSession.OpenAdventure
+ * vb:433 (FrankenDrift's clsUserSession.vb:278) ends the load with
+ * ErrMsg("This adventure has no locations.  Cannot continue.") / Return False.
+ *
+ * The check sits AFTER the title and Introduction Displays (vb:377-378), so a
+ * host must call this once the intro has been presented, not at load time --
+ * the real Runner does open its window and print the game title before putting
+ * up the "ADRIFT Error" dialog (verified against run500.exe 5.0.36).
+ */
+extern const char *a5model_load_error (const a5_adventure_t *a);
+
 extern void a5model_free (a5_adventure_t *adv);
 
 /* Property lookup within a record's property array. */

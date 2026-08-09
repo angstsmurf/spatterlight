@@ -8249,6 +8249,24 @@ gsc_a5_main (void)
     }
 #endif
 
+  /* An adventure the runner refuses outright -- today, one with no locations at
+     all -- stops here rather than dropping the player into a world with no
+     room to stand in.  The real Runner shows its window and the game title,
+     then an "ADRIFT Error" dialog carrying this same text, which is why the
+     check comes after the intro (a5model_load_error).  Scarier has no dialog,
+     so the story window stands in for it, as it does for the Adventure-Upgrade
+     question. */
+  {
+    const char *load_err = a5model_load_error (gsc_a5_adv);
+    if (load_err != NULL)
+      {
+        gsc_a5_put_string ("\n");
+        gsc_a5_put_string (load_err);
+        gsc_a5_put_string ("\n");
+        glk_exit ();
+      }
+  }
+
   for (;;)
     {
       if (a5run_is_over (run))

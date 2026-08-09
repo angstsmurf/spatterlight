@@ -1397,6 +1397,14 @@ a5model_upgrade_forced_yes (const a5_adventure_t *a)
   return 0;
 }
 
+const char *
+a5model_load_error (const a5_adventure_t *a)
+{
+  if (a == NULL || a->n_locations == 0)
+    return "This adventure has no locations.  Cannot continue.";
+  return NULL;
+}
+
 void
 a5model_free (a5_adventure_t *a)
 {
