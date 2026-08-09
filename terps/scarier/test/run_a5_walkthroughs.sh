@@ -1395,6 +1395,16 @@ FILTER="${1:-}"
 # from anywhere).  Ends on WalkHallwa1, the game's only EndGame, a Lose.  Clean
 # on the first pass.  See test/Dementophobia_walkthrough.txt.
 #
+# TASP budgets 0|0.  Adult game: its walkthrough and golden are gitignored
+# and stay local-only, so this row only runs where they exist.  Its prose is
+# assembled almost entirely from 1901 TextOverrides keyed on a digit string
+# built out of character properties (`[kristenstart=%rotato%%PropertyValue[
+# Character1,Property9]%...]`), which made it the game that exposed
+# fn_propertyvalue resolving its first argument as an OBJECT key only --
+# every character-keyed lookup rendered blank, so the raw lookup tokens
+# leaked into the transcript and the `%PropertyValue[...]%+2` progress
+# arithmetic stopped counting.  See test/TASP_walkthrough.txt (local-only).
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1570,6 +1580,7 @@ SampleJackAndBeanstalk|JackAndBeanstalk.taf|0|0
 SampleNotebook|Notebook.taf|0|0
 SampleTorchBattery|TorchBattery.taf|0|0
 SampleBlockingExits|BlockingExits.taf|0|0
+TASP|TASP.taf|0|0
 EOF
 )
 

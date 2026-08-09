@@ -1314,8 +1314,28 @@ fn_propertyvalue (a5_state_t *st, const char * /*name*/, const char *args)
   auto strip = [](std::string &s){
     s.erase (std::remove (s.begin (), s.end (), ' '), s.end ()); };
   strip (prop);
-  /* arg0 may be a key or a display name; map to a key. */
-  const char *ekey = resolve_object_arg (st, ent.c_str ());
+  /* arg0 is primarily a KEY: the Runner builds the singleton lookup table by
+     probing Adventure.htblObjects, htblCharacters *and* htblLocations with it
+     (Global.vb:2052-2070) before the PropertyValue arm walks those tables, so
+     character and location keys resolve exactly like object keys.  Only when
+     none of the three matches do we fall back to resolve_object_arg's object
+     display-name lookup (arg0 often arrives pre-expanded from %object1%).
+     Missing this made every `%PropertyValue[Character1,Prop]%` render blank --
+     TASP keys its whole TextOverride prose off character-state properties,
+     so the text collapsed to the raw `[kristenstart=0]` lookup tokens and
+     `SetProperty ... %PropertyValue%+2` arithmetic silently stopped
+     counting. */
+  const char *ekey = NULL;
+  {
+    const a5_object_t *eo = a5model_object (st->adv, ent.c_str ());
+    const a5_character_t *ec = eo ? NULL : a5model_character (st->adv, ent.c_str ());
+    const a5_location_t *el = (eo || ec) ? NULL
+                                         : a5model_location (st->adv, ent.c_str ());
+    if (eo != NULL)      ekey = eo->key;
+    else if (ec != NULL) ekey = ec->key;
+    else if (el != NULL) ekey = el->key;
+    else                 ekey = resolve_object_arg (st, ent.c_str ());
+  }
   /* A runtime SetProperty override wins over the static model value, just
      as a5state_entity_prop layers it (e.g. Amazon's CarriersFl1 runs
      `SetProperty Door1 LockKey Key3`, retargeting the lazy-unlock chain's

@@ -173,6 +173,36 @@ not counted as Scarier bugs).
     container with no characters, …). The old handler ignored the type half and
     always returned objects.
 
+16. **`%PropertyValue[…]%` resolved its first argument as an OBJECT key only.**
+    ✅ **FIXED** (2026-08-09, `a5text.cpp` `fn_propertyvalue`; TASP MATCH 0\|0,
+    full a5 + a5probes + a5maptest + V4 corpora clean). `fn_propertyvalue`
+    mapped arg0 through `resolve_object_arg`, which walks `htblObjects` only —
+    so `%PropertyValue[Character1,Property9]%` (and any location-keyed call)
+    returned the empty string even though the downstream property lookup was
+    already object/character/location-aware. The Runner instead probes
+    `Adventure.htblObjects`, `htblCharacters` **and** `htblLocations` with arg0
+    to build the singleton table the PropertyValue arm then walks
+    (`Global.vb:2052-2070`, arm at :2331), so all three key spaces are equal
+    citizens; only when none matches do we still fall back to
+    `resolve_object_arg`'s object display-name lookup (arg0 often arrives
+    pre-expanded from `%object1%`).
+
+    Surfaced by **TASP** (2012 Mini-Comp; adult game — its walkthrough and
+    golden are gitignored, local-only), whose prose is assembled almost
+    entirely out of 1901 `<TextOverride>` entries keyed on a digit string
+    built from character properties —
+    `[kristenstart=%rotato%%PropertyValue[Character1,Property9]%%PropertyValue[
+    Character1,Property11]%%PropertyValue[Character1,Property12]%]`
+    (rotato = rotating variable; Property9/11/12 = character-state values).
+    With the lookups blank the key degenerated to `[kristenstart=0]`, no
+    override matched, and the raw token leaked into the transcript. Worse, the
+    same function drives the bookkeeping — `SetProperty Character1 Property4
+    %PropertyValue[Character1,Property4]%+2` — so the game's central progress
+    counter never advanced and every later task fell to its `Task22 Must
+    BeComplete` / counter-threshold failure message. One root cause, ~30 diff
+    hunks. Regression row: `test/TASP_walkthrough.txt` (local-only), budget
+    0\|0.
+
     **What actually made Halloween match (the ref-snapshot theory in the old TODO
     was a partial misread).** Examining the hole (`dk_Hul2`, holding the hook
     `dk_Krog` *inside*): `dk_ListOnlyFi` (`.Contents`, Inside) fires legitimately,
