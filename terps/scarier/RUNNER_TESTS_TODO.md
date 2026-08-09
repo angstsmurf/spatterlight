@@ -637,8 +637,9 @@ do not patch) vs *Scarier divergence* (→ engine fix).
       `Sub_20_74` had a conditional True path for where-type 0. That theory was a
       misread: `Sub_20_74` is a command-reference / exit-scope filter, not the
       task room gate, and its "where-type 0" branch is really *reference*-type 0.
-      `WALKTHROUGH_TODO.md` line 1113: "**Verdict (2026-06-25, RESOLVED —
-      faithful, unplayable-by-design; do NOT patch).**" The game is an unfinished
+      The 2026-06-25 verdict was "**RESOLVED — faithful, unplayable-by-design;
+      do NOT patch**" (in the derivation log, since pruned; recover it with
+      `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md`). The game is an unfinished
       demo whose porch wall is the author's own in-game message
       (`test/adrift4/notes/Through_time_walkthrough.md`), and it has a passing
       golden row. The old decode plan lived in

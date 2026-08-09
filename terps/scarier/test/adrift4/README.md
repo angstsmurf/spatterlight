@@ -12,8 +12,9 @@ Mirrors `test/adrift5/` (same subfolder names, same policies):
 
 - `notes/` — `*_walkthrough.md`, one per game: the route, the score reached,
   and the reasoning behind any non-obvious step. These are the deliverable.
-  Also `WALKTHROUGH_TODO.md` — the running derivation log and the queue of
-  games not yet done — and `TODO_assist_spatterlight_preference.md`, which
+  Also `WALKTHROUGH_TODO.md` — the derivation method, the standing cautions
+  and an index; the corpus is complete, and the session-by-session log it used
+  to carry was pruned once it was (recover it from this file's git history) — and `TODO_assist_spatterlight_preference.md`, which
   covers the `SCR_ASSUME_*` assists and the one piece of their exposure that
   is still open. Walkthroughs here also cite two `TODO_*.md` docs that were
   pruned once finished — `TODO_plover_walkthroughs.md` (`8a0bbb66`) and

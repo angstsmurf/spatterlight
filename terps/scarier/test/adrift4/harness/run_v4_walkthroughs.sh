@@ -198,7 +198,7 @@ agent4f_solution.txt|agent_4F[1].A.taf|Congratulations!
 invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
 adriftorama_solution.txt|adriftorama.taf|*****You Win!*****
 # The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
-# see WALKTHROUGH_TODO.md "2026-08-02 (later)" for where each .taf came from.
+# see the per-game notes/*_walkthrough.md for where each .taf came from.
 wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
 dragonshrine_solution.txt|DragonShrineR43.taf|ended the Curse of Dragon Shrine
@@ -222,8 +222,8 @@ cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAIT
 easter_solution.txt|easter.taf|***You have won***|
 yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
-# Competitions (2003), swept in on 2026-08-03 -- see WALKTHROUGH_TODO.md
-# "2026-08-03" for where each .taf came from and for the per-game notes.
+# Competitions (2003), swept in on 2026-08-03 -- see the per-game
+# notes/*_walkthrough.md for where each .taf came from.
 # Several of these are deliberately unwinnable or end in the player's death;
 # the marker is the game's own final line in each case, not a victory string.
 # 1st One-Hour Game Competition
@@ -253,7 +253,7 @@ ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
 # The `downloaded/` sweep (2026-08-03): games whose upstream walkthrough was
 # harvested off IFDB into test/adrift4/downloaded/ and whose .taf was
 # already on this machine.  See downloaded/INDEX.md for the provenance of each
-# walkthrough and WALKTHROUGH_TODO.md for the per-game notes.
+# walkthrough and the per-game notes/*_walkthrough.md.
 ptbad_solution.txt|ptbad.taf|You Win! Yay!
 # The four Richard Otter games replay command-for-command off delron.org.uk's
 # own walkthrus; each needs a leading "1" for the game's title menu (the
@@ -341,7 +341,7 @@ mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived a
 # says the bus stop is east; it is west), and `give the doctor some french
 # fries` lands on the library's "Give what?" here where run390 prints its
 # wrong-room message -- SCARE has no "You can't do that here!" at all.  See
-# WALKTHROUGH_TODO.md for that divergence.
+# the Hangover entry in notes/WALKTHROUGH_TODO.md for that divergence.
 the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # Troll! is WINNABLE and this route reaches the ending with zero parser errors,
 # but its ceiling is 185/190, not 190.  The game has 38 scoring tasks worth 5
@@ -1049,7 +1049,7 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 #   haunted great secret tra    www.adrift.co/files/games/<f>.taf
 # (the four adrift.co-only ones are on no other public host).  All eight load
 # and run in `scare`; each row below SKIPs nothing and reports NOSCRIPT until
-# its route is derived -- see WALKTHROUGH_TODO.md for the queue.  Win markers
+# its route is derived (the corpus is now complete).  Win markers
 # are left empty deliberately: filling one in before the route exists would
 # bless a marker nobody has seen the game print.
 #
