@@ -9,8 +9,8 @@
   `*** Congratulations, you did it!  (What took you so long?) ***`, verified in
   seeded Scarier (`goldens/3monkeys_solution.txt`, PASSing golden, win marker
   `Congratulations, you did it!`, **no env**). 112 commands.
-- **Score: 98 out of 100, and 98 is the maximum obtainable.** See
-  [The two points nobody can score](#the-two-points-nobody-can-score).
+- **Score: 98 out of 100, and 98 is the maximum *displayable*.** See
+  [The two points nobody can see](#the-two-points-nobody-can-see).
 - **Source:** `downloaded/ThreeMonkeysOneCage_solution.txt`, the author's own
   190-line prose solution. It is a plan, not a command list — most of the
   ordering below had to be re-derived.
@@ -164,8 +164,9 @@ get out / e / tie cord to me / jump out
 
 `player_score` (variable 56) is a percentage. `SCR_DUMP_TASKS` finds **22 tasks
 that add to it, summing to 97**, plus the anvil event's **+3** — 100 in total.
-This route fires every one of them except the last 2, which cannot be fired at
-all.
+This route fires every one of them, including the last 2 — but those 2 land
+after the game has already ended, so no `score` command can ever read them
+back.
 
 | + | Task | What it is |
 | --- | --- | --- |
@@ -191,9 +192,9 @@ all.
 | 2 | 186 | picking up the mattress |
 | 6 | 614 | mattress thrown through the gate |
 | 3 | 697 | the first wave of anvils falls (turn 101) |
-| **2** | **603** | **`jump out` — unreachable, see below** |
+| **2** | **603** | **`jump out` — credited but never shown, see below** |
 
-## The two points nobody can score
+## The two points nobody can see
 
 Task 603 (`jump * out*`) is:
 
@@ -205,15 +206,25 @@ ACT type=3 v1=56 v2=1 v3=2      <-- the +2
 ```
 
 604 and 608 are mutually exclusive on whether task 614 (`throw * mat* gate`) is
-done, so **one of them always runs**, and both chains end the game. SCARE's
-`task_run_task_actions()` "runs every task action … if any action ends the game,
-return immediately", so the `+2` behind them is dead code in both the winning
-and the losing branch. The player never sees a score line after the ending
-either way. **98% is therefore the game's real ceiling**, and this route reaches
-it.
+done, so **one of them always runs**, and both chains end the game before the
+`+2` is reached.
 
-(Whether run400 also drops actions queued behind an EndGame is not proven; it is
-listed as an open probe in `RUNNER_TESTS_TODO.md`.)
+The `+2` is nevertheless *credited*. `task_run_task_actions()` does not stop at
+the action that ends the game — it runs the rest with output muted — and that
+was confirmed against the real Runner on 2026-08-09 with the `EG` arena probe
+(`RUNNER_TESTS_TODO.md` section 4): in run400 a task whose actions are "end
+game" then "+7 points" still finishes on 7 out of 7. An in-line `ACT type=3`
+like this one behaves the same way in both engines. What the probe *did* find
+is that run400 drops an **Execute Task** action queued behind the ending, which
+Scarier used to run; that has since been ported, and it changes nothing here
+(the only exec after the ending is 608 in the death branch, whose restrictions
+fail anyway).
+
+So the two points are banked in `player_score` at the instant the game ends —
+they are just never **displayable**, because the game is over and this game's
+score lives in an author variable that only the `score` command prints.
+**98 is the ceiling of what a player can ever see**, this route reaches it, and
+that ceiling is the author's bug rather than the engine's.
 
 ## Deaths collected on the way
 

@@ -1079,15 +1079,19 @@ left un-blessed** — they belong to whoever finishes the burden work.
 long?) ***`. Details in `Three_Monkeys_One_Cage_walkthrough.md`; row:
 `3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!` (no env).
 
-**98/100 is the maximum, and the missing 2 are an authoring bug.** 22 tasks add
-to `player_score` (variable 56) for a total of 97, and the anvil event adds 3 —
-100 advertised. This route fires 21 of the 22 plus the anvils. The 22nd is task
-603 `jump * out*`, whose action list is `exec 604` / `exec 608` / `moves--` /
-`score += 2`; 604 (no mattress → death) and 608 (mattress → win) are mutually
-exclusive on task 614 and **both end the game**, and
-`task_run_task_actions()` returns at the first action that ends the game. So the
-`+2` is unreachable in *either* branch, and no score line is ever printed after
-the ending anyway. Logged as an open run400 probe in `RUNNER_TESTS_TODO.md` §4.
+**98/100 is the maximum *displayable*, and the missing 2 are an authoring bug.**
+22 tasks add to `player_score` (variable 56) for a total of 97, and the anvil
+event adds 3 — 100 advertised. This route fires all 22 plus the anvils. The
+22nd is task 603 `jump * out*`, whose action list is `exec 604` / `exec 608` /
+`moves--` / `score += 2`; 604 (no mattress → death) and 608 (mattress → win) are
+mutually exclusive on task 614 and **both end the game** before the `+2` is
+reached. The `+2` still lands — `task_run_task_actions()` runs the actions
+behind the ending, only muting their output — so the variable does reach 100;
+there is simply nothing left that could print it. *(Settled against run400
+2026-08-09 with the `EG` arena probe, `RUNNER_TESTS_TODO.md` §4: the Runner also
+runs in-line actions queued behind an ending. It does drop a trailing
+**Execute Task** action, which Scarier used to run; ported the same day, and
+inert for this game.)*
 
 **This is the game that exposed the `$RestrMask` left-association bug** (fixed
 the same day, `screstrs.cpp`): its author-written `winnable` oracle — task 21,

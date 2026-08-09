@@ -1100,8 +1100,23 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
   /* Select based on var1. */
   if (var1 == 0)
     {
-      /* Redirect forwards. */
-      if (task_can_run_task_directional (game, var2, TRUE))
+      /*
+       * Redirect forwards.  Once the game has ended, the Runner drops these
+       * -- measured against run400 with the "EG" arena probe, whose
+       * "printlast" cell (end game, then execute a task that scores) finishes
+       * on 0 out of 7 while its "printfirst" control, the same two actions in
+       * the other order, finishes on 7.  Plain in-line actions are *not*
+       * dropped; see task_run_task_actions() below.
+       */
+      if (!game->is_running)
+        {
+          if (task_trace)
+            {
+              scr_trace ("Task: game over, not redirecting to task %ld\n",
+                        var2);
+            }
+        }
+      else if (task_can_run_task_directional (game, var2, TRUE))
         {
           if (task_trace)
             scr_trace ("Task: redirecting to task %ld\n", var2);
@@ -1347,9 +1362,9 @@ task_run_task_action (scr_gameref_t game, scr_int task, scr_int action)
 /*
  * task_run_task_actions()
  *
- * Run every task action associated with the task.  If any action ends the
- * game, return immediately.  Returns TRUE if any action ran and itself
- * returned TRUE.
+ * Run every task action associated with the task.  Actions after one that
+ * ends the game still run, with output muted; see the comment on the loop.
+ * Returns TRUE if any action ran and itself returned TRUE.
  */
 static scr_bool
 task_run_task_actions (scr_gameref_t game, scr_int task)
@@ -1376,13 +1391,17 @@ task_run_task_actions (scr_gameref_t game, scr_int task)
     }
 
   /*
-   * Run all task actions, capturing any TRUE status returned.  If any task
-   * ends the game, run the remaining tasks silently.
+   * Run all task actions, capturing any TRUE status returned.  If an action
+   * ends the game, run the remaining ones silently rather than exiting the
+   * loop early.
    *
-   * This seems a little counterintuitive; a more conventional thing would be
-   * to just exit the actions loop early.  However, Adrift appears to plough
-   * on, and there may be an action that changes the score in here somewhere,
-   * so we'll do the same.
+   * This seems counterintuitive, but it is what the Runner does, and it was
+   * confirmed against run400 with the "EG" arena probe (see
+   * test/adrift4/harness/make_arena_probe.py): a task whose actions are
+   * "end game" then "+7 points" finishes on 7 out of 7, exactly as when the
+   * two are the other way round.  Nothing the trailing actions print is
+   * shown, hence the muting.  The one kind the Runner *does* drop after the
+   * ending is an Execute Task action -- see task_run_set_task_action().
    */
   status = FALSE;
   muted = FALSE;

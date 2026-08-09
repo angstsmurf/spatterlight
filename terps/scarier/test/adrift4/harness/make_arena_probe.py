@@ -14,7 +14,8 @@ def build(cfg):
     s(0)                                    # StartRoom
     ml("You have won.")
     s(cfg['name']); s("SCARE probe"); s("I don't understand.")
-    s(2); s(1); s(0); s(1); s(1); s(0)      # Persp ShowExits WaitTurns DispFirstRoom BattleSystem MaxScore
+    s(2); s(1); s(0); s(1); s(1)            # Persp ShowExits WaitTurns DispFirstRoom BattleSystem
+    s(cfg.get('maxscore', 0))               # MaxScore (run400's end-of-game summary divides by it)
     s("Player"); s(0); s("A test fighter.")
     s(0); s(0); s(0); s(0); s(100); s(100)  # Task Position ParentObject Gender MaxSize MaxWt
     p = cfg['player']                       # (stam, strLo,strHi, accLo,accHi, defLo,defHi, agiLo,agiHi, recovery)
@@ -761,6 +762,59 @@ CONFIGS = {
            ("Safe Room","A quiet room.",{3:0})],
     objects=[],
     npcs=[("Robot",0,2,250,5,5,50,50,0,0,0,0,0,0)]),
+ # End-game action ordering (RUNNER_TESTS_TODO section 4, last row).  Does a
+ # task's REMAINING actions run after an action that ends the game?  Scarier
+ # runs them with the print filter muted (sctasks.cpp task_run_task_actions),
+ # so the state change lands but nothing is shown -- which is invisible in
+ # "Three Monkeys One Cage", the game that raised the question, because its
+ # score is an author variable rather than the engine score.
+ #
+ # SETTLED against run400 2026-08-09, and it is not one answer but two:
+ # in-line actions behind the ending DO run, an Execute Task action does NOT.
+ # Scarier ran both, and task_run_set_task_action() was gated to match.
+ #
+ # Engine score IS observable in run400: it prints its own end-of-game summary
+ # ("You scored N out of the maximum M", "Well done - you scored maximum
+ # points!" at 100%).  MaxScore=7 so a trailing +7 reads as 100% and a dropped
+ # one as 0%.  Tasks 0-3 and 6 are the probes; tasks 4 and 5 are exec targets,
+ # never typed directly.
+ #
+ # One end per session, so each command is its own Runner launch.  run400's
+ # reading is in [brackets]; Scarier now matches all five.
+ #   scorefirst -- control: +7 BEFORE the end action.  Proves the summary
+ #                 reports the engine score at all.  [7/7]
+ #   scorelast  -- the direct question: +7 AFTER a type-6 end action.  [7/7 --
+ #                 so the trailing action DOES run.]
+ #   execlast   -- Three Monkeys' actual shape: +7 after an Execute-Task
+ #                 action whose callee ends the game.  [7/7]
+ #   printfirst -- control for the one below: exec a task that prints and
+ #                 scores, THEN end.  [7/7, callee's text shown.]
+ #   printlast  -- the same exec, now queued behind the ending.  [0/7 and no
+ #                 text -- the Runner drops the dispatch outright.  The callee
+ #                 scores +7, which is what separates "ran but muted" (7/7)
+ #                 from "skipped" (0/7); printfirst rules out the callee.]
+ 'EG': dict(name="Probe EG", maxscore=7,
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["scorefirst"], complete="EG scorefirst.",
+                actions=[(4,7), (6,0,0,0)]),
+           dict(commands=["scorelast"], complete="EG scorelast.",
+                actions=[(6,0,0,0), (4,7)]),
+           dict(commands=["execlast"], complete="EG execlast.",
+                actions=[(5,0,4), (4,7)]),
+           dict(commands=["printlast"], complete="EG printlast.",
+                actions=[(6,0,0,0), (5,0,5)]),
+           # task 4: exec target that ends the game (never typed directly).
+           dict(commands=["egender"], complete="EG ender.",
+                actions=[(6,0,0,0)]),
+           # task 5: exec target that prints and scores (never typed directly).
+           dict(commands=["egtrailer"], complete="EG TRAILER RAN.",
+                actions=[(4,7)]),
+           # task 6: printlast's control -- same Execute-Task action, but
+           # BEFORE the ending rather than after it.
+           dict(commands=["printfirst"], complete="EG printfirst.",
+                actions=[(5,0,5), (6,0,0,0)])]),
 }
 
 if __name__ == '__main__':

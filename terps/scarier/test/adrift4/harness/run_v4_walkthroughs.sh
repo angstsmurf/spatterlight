@@ -624,9 +624,12 @@ largo_winch_solution.txt|largo-winch.taf|Congratulations!
 # Three Monkeys, One Cage (Robert Goodwin, 2003) -- WIN, 98/100, and 98 is the
 # ceiling: every one of the game's 23 scoring actions is banked.  The author
 # wrote a `# jump out` chain whose +2 sits AFTER the two Execute-Task actions
-# that end the game, and task_run_task_actions() stops at the first action that
-# ends the game, so those last 2 points can never be displayed.  (Worth a
-# run400 check some day -- see RUNNER_TESTS_TODO.md.)
+# that end the game.  That +2 IS credited -- both here and in run400, which was
+# probed for exactly this in 2026-08-09 (RUNNER_TESTS_TODO.md section 4, the
+# `EG` arena probe) -- but the game is over by then and this game's score is an
+# author variable that only `score` prints, so nothing can ever show it again.
+# 98 is the ceiling of what a player can SEE, and that is the game's own
+# authoring bug, not ours.
 # The route is built on the author's own prose solution in
 # downloaded/ThreeMonkeysOneCage_solution.txt, but a lot of it had to be
 # re-derived; the cage is a 2x2 room grid with two live monkeys walking it and
