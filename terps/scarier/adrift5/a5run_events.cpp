@@ -608,7 +608,11 @@ attempt_event_task_impl (a5_run_t *run, const char *key, int depth, sb_t *out)
          TimeTrapsT `Roller Must BeEqualTo 'RAND(1,16)'`), desyncing the RNG. */
       const a5_xml_node_t *fm = st->restriction_text;
       if (fm != NULL)
-        emit_owned (out, a5text_describe (st, fm));
+        {
+          /* Raw into AddResponse (vb:1247), so the Display loop expands it. */
+          a5_intro_guard ig (st, 1);
+          emit_owned (out, a5text_describe (st, fm));
+        }
       return;
     }
   {

@@ -798,7 +798,10 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
                   { resp_add_fail (run, fm); any_child_fail_output = 1; }
                 else
                   {
-                    char *fmsg = a5text_describe (st, fm);
+                    /* vb:1247 hands sRestrictionText to AddResponse raw, with no
+                       ReplaceFunctions on any path, so it expands inside Display. */
+                    char *fmsg;
+                    { a5_intro_guard ig (st, 1); fmsg = a5text_describe (st, fm); }
                     /* The runner buffers this restriction text in htblResponsesFail and
                        flushes it after the passes; a later sibling override that
                        PASSES with output for the same reference cancels it
@@ -1076,7 +1079,10 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
             a5restr_fail_message (st, child->restrictions);
           if (fm != NULL)
             {
-              char *fmsg = a5text_describe (st, fm);
+              /* vb:1247 hands sRestrictionText to AddResponse raw, with no
+                 ReplaceFunctions on any path, so it expands inside Display. */
+              char *fmsg;
+              { a5_intro_guard ig (st, 1); fmsg = a5text_describe (st, fm); }
               if (msg_has_output (fmsg))
                 {
                   sb_pspace (out);
@@ -1986,8 +1992,11 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
               /* Route restriction failed: the runner Displays the blocking
                  restriction's message and abandons the move (clsUserSession.vb:
                  1748 Display(sRestrictionText)) -- immediate output, so it
-                 precedes the task's buffered completion message. */
-              char *fmsg = a5text_describe (st, blocked);
+                 precedes the task's buffered completion message.  It is a
+                 literal Display() call, hence bDisplaying. */
+              char *fmsg;
+              { a5_intro_guard ig (st, 1);
+                fmsg = a5text_describe (st, blocked); }
               if (msg_has_output (fmsg))
                 imm_display (run, fmsg, out);
               free (fmsg);
@@ -2923,7 +2932,10 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
                   const a5_xml_node_t *fm = st->restriction_text;
                   if (fm != NULL)
                     {
-                      char *fmsg = a5text_describe (st, fm);
+                      /* vb:1247 hands sRestrictionText to AddResponse raw, with no
+                         ReplaceFunctions on any path, so it expands inside Display. */
+                      char *fmsg;
+                      { a5_intro_guard ig (st, 1); fmsg = a5text_describe (st, fm); }
                       if (msg_has_output (fmsg))
                         {
                           if (run->resp != NULL)

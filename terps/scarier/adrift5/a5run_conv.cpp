@@ -120,7 +120,8 @@ capture_restr_text (a5_state_t *st, const a5_xml_node_t *restrictions,
     return;
   const a5_xml_node_t *fm = a5restr_fail_message (st, restrictions);
   if (fm != NULL)
-    { char *t2 = a5text_describe (st, fm); *restr_text = t2; free (t2); }
+    { a5_intro_guard ig (st, 1);          /* fail text expands in Display (vb:1247) */
+      char *t2 = a5text_describe (st, fm); *restr_text = t2; free (t2); }
 }
 
 /*

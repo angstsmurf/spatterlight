@@ -889,7 +889,10 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
                 fm = st->restriction_text;
               if (fm != NULL)
                 {
-                  char *fmsg = a5text_describe (st, fm);
+                  /* Raw into AddResponse (vb:1247): expanded inside Display. */
+                  char *fmsg;
+                  { a5_intro_guard ig (st, 1);
+                    fmsg = a5text_describe (st, fm); }
                   /* Prefix a failing multi-match %objects% noun with the runner's
                      "Sorry, I'm not sure which object ..." ambiguity message
                      (set by resolve_plural).  Skip when the failure message is
@@ -1650,7 +1653,15 @@ run_noref (a5_run_t *run, int ti, int ci, const std::string &in, sb_t *out)
   const a5_xml_node_t *fm = a5restr_fail_message (st, t->restrictions);
   if (fm == NULL)
     return 0;
-  char *fmsg = a5text_describe (st, fm);
+  /* bDisplaying only when this render is the one the player sees.  With
+     out == NULL the caller is the HighestPriorityPassingTask predictor, which
+     in the runner is a bare `sRestrictionText <> ""` test on the RAW template
+     (vb:6076) -- no expansion happens there at all, so a discarded render must
+     not mark characters Introduced (cf. the CharHereDesc probe that used to
+     mark Anno 1700's Susan a turn early). */
+  char *fmsg;
+  { a5_intro_guard ig (st, out != NULL);
+    fmsg = a5text_describe (st, fm); }
   int has = fmsg[0] != '\0';
   if (has && out != NULL)
     sb_puts (out, fmsg);

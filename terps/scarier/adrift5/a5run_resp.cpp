@@ -341,7 +341,14 @@ resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
 
   /* First occurrence: render eagerly at the failing item's state (identical to
      the old path) and text-dedup against the existing fails, so two DIFFERENT
-     restrictions that render the same string still collapse. */
+     restrictions that render the same string still collapse.
+
+     bDisplaying: unlike a completion message, a restriction failure has no
+     "eager finalize" variant at all -- vb:1247 hands sRestrictionText to
+     AddResponse verbatim, with no ReplaceFunctions/ReplaceExpressions on any
+     path, so every fail message the runner shows is expanded inside Display.
+     (Same at the merged re-render in resp_flush.) */
+  a5_intro_guard ig (st, 1);
   char *f = a5text_describe (st, fm);
   if (!msg_has_output (f)) { free (f); return; }
   std::string r = f;
@@ -487,6 +494,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
                fail (obj_keys.size()==1) keeps its eager render below, byte-exact. */
             if (e.has_snap) ref_snap_restore (st, &e.snap);
             rebind_objects (st, e.obj_keys);
+            a5_intro_guard ig (st, 1);       /* fail text always expands in Display */
             char *m = a5text_describe (st, e.fail_comp);
             if (m != NULL) text = m;
             free (m);

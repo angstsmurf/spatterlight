@@ -943,6 +943,9 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
       const a5_xml_node_t *em = a5restr_exist_message (t->restrictions);
       if (em != NULL)
         {
+          /* No intro_guard: this render is speculative -- the prefix is
+             dropped when the failing restriction turns out to BE the Exist one
+             -- and a discarded render must not mark anything. */
           char *p = a5text_describe (st, em);
           run->plural_amb_prefix = (p != NULL) ? p : "";
           free (p);
