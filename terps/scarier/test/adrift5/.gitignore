@@ -1,0 +1,17 @@
+# ADRIFT 5 game files (copyrighted; not redistributable in the repo).
+# The a5run / groundtruth harnesses look here by default (A5_GAMES_DIR).
+/games/
+
+# Downloaded third-party walkthrough documents (source material for the
+# derived goldens/); not ours to commit.
+/downloaded/
+
+# Cached FrankenDrift ground-truth transcripts (a5_groundtruth.sh FD_CACHE).
+/harness/.fd_cache/
+
+# Symphonica 64 route-derivation scratch (see notes/TODO_symphonica_schtick_ordering.md).
+/harness/symph_work/
+
+# TASP: explicit text, deliberately not committed.
+/goldens/TASP_expected.txt
+/goldens/TASP_walkthrough.txt

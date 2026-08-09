@@ -1375,7 +1375,7 @@ run_game_functions (scr_gameref_t game, const scr_char *string)
  * too: the first task in list order that matches and passes where +
  * restrictions fires, an earlier runnable `*` wildcard steals the execution
  * outright, and a restricted match is skipped silently.  Verified live in
- * run390 (test/make_39_walkprobe.py variants E/F/G): with a wildcard first
+ * run390 (test/adrift4/harness/make_39_walkprobe.py variants E/F/G): with a wildcard first
  * the arrival turn prints the wildcard's text twice and the walk task's
  * never, with the walk task first it fires itself, and a restricted walk
  * task prints nothing.  The matcher dispatch is also what fans one walk
@@ -1386,7 +1386,7 @@ run_game_functions (scr_gameref_t game, const scr_char *string)
  * The 4.0 Runner instead runs the task directly by index -- its walk handler
  * calls the same direct task runner (Sub_20_22) as its events -- so there is
  * no interception, and a failing restriction prints its FailMessage (which
- * task_run_task does).  Verified live in run400 (test/make_400_walkprobe.py
+ * task_run_task does).  Verified live in run400 (test/adrift4/harness/make_400_walkprobe.py
  * variants E/G): the walk task fires with a wildcard listed before it, and
  * a restricted walk task prints its FailMessage on every arrival turn.
  */

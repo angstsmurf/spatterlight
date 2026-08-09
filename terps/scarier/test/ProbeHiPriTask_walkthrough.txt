@@ -1,7 +1,0 @@
-# ProbeHiPriTask -- synthetic conformance probe from the adrift-5-rs test suite
-# (test/a5probes/src/highest_priority_task.xml, section `highest_priority_task`).
-# Exercises task priority selection among matching tasks.
-get on chair
-stand
-get on rock
-sit on rock

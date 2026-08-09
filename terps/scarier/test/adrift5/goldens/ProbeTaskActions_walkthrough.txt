@@ -1,0 +1,165 @@
+# ProbeTaskActions -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/adrift5/probes/src/task_actions.xml, section `task_actions_walkthrough`).
+# Exercises the task-action matrix (move/set/execute/endgame).
+where coin
+move coin store
+where coin
+hide coin
+unhide coin
+where coin
+move coin same bob
+where coin
+move coin inside box
+where coin
+move coin onto table
+where coin
+move coin held
+where coin
+move hat worn
+where hat
+move coin locgroup
+where coin
+move sign store
+where sign
+hide sign
+move sign same carol
+where sign
+move badge part bob
+where badge
+move handle part box
+where handle
+move sign locgroup
+where sign
+unhide coin
+bulk at loc
+where gem
+bulk held
+where hat
+bulk worn
+where cloak
+bulk inside
+where key
+bulk on
+where lamp
+bulk group
+where token
+bulk prop
+where coin
+add obj group
+check group obj
+rem obj group
+check group obj
+unhide bob
+move bob store
+where bob
+hide bob
+unhide bob
+where bob
+move bob same carol
+where bob
+unhide bob
+move bob east
+where bob
+unhide bob
+move bob stand table
+where bob
+move bob sit table
+move bob lie table
+move bob inside box
+where bob
+move bob parent
+where bob
+move bob onto gina
+where bob
+unhide bob
+move bob locgroup
+where bob
+unhide bob
+where dave
+switch bob dave
+where bob
+where dave
+move bob stand floor
+everyone at loc
+where carol
+everyone group
+where bob
+everyone inside
+where frank
+everyone on
+where eve
+everyone prop
+where bob
+add char group
+check group char
+rem char group
+check group char
+add loc group
+check group loc
+rem loc group
+check group loc
+unhide bob
+add loc of bob
+check group lab
+rem lab group
+check group lab
+add everywhere group
+check group store
+check group lab
+rem store group
+rem lab group
+set lab marked
+check lab marked
+add everywhere prop
+check group lab
+unset lab marked
+check lab marked
+set box closed
+check box closed
+set box open
+check box open
+set bob sitting
+set counter
+inc counter
+dec counter
+set note
+show vars
+exec marker
+check marker
+unset marker
+check marker
+unhide bob
+do greet
+do ask coin
+do tell coin
+do say hello
+do farewell
+leave conv
+start evt
+wait
+pause evt
+wait
+resume evt
+wait
+advance time
+stop evt
+wait
+mark evt
+unmark evt
+wait
+unhide bob
+start walk
+wait
+where bob
+pause walk
+wait
+where bob
+resume walk
+wait
+where bob
+stop walk
+wait
+mark walk
+unmark walk
+wait
+win

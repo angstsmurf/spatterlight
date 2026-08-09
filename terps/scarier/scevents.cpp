@@ -367,7 +367,7 @@ static void evt_start_event (scr_gameref_t game, scr_int event,
  * every time round.  Both give the restarted event its full authored length.
  *
  * Arbitrated live 2026-08-04 (RUNNER_TESTS_TODO.md section 8), probe
- * test/make_39_evtimeprobe.py against run390.exe and the EV9 twin against
+ * test/adrift4/harness/make_39_evtimeprobe.py against run390.exe and the EV9 twin against
  * run400.exe:
  *
  *   run390, Time1=Time2=5, RestartType=1, StarterType 1: "E FINISH." on turns
@@ -1142,7 +1142,7 @@ evt_tick_events (scr_gameref_t game)
  *
  * Both Runners start a StarterType=1 event while the game is still loading,
  * BEFORE the first room description is printed -- probed live 2026-08-02 in
- * run400 (probe EV6 in test/make_arena_probe.py) and run390
+ * run400 (probe EV6 in test/adrift4/harness/make_arena_probe.py) and run390
  * (make_39_fwprobe.py variant "e"), a plain length-3 immediate event carrying
  * all three texts.  Two things follow, and both are visible:
  *

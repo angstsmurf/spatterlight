@@ -3,7 +3,7 @@
  * scdump.c -- reusable structural-dump / trace instrumentation for SCARIER.
  *
  * This is developer tooling used to reverse-engineer ADRIFT games when
- * deriving deterministic walkthroughs (see terps/scarier/adrift-walkthroughs/).
+ * deriving deterministic walkthroughs (see terps/scarier/test/adrift4/).
  * It is gated behind the SCARIER_DUMP_TOOLS build macro and is compiled ONLY
  * into the headless walkthrough harness (harness/build.sh passes
  * -DSCARIER_DUMP_TOOLS).  A normal Spatterlight build never sees this file or

@@ -8,7 +8,7 @@ normalised plain-text transcript.
 This is the reference oracle for the planned native Geas ASLX engine
 (`terps/geas/quest5/TODO-quest5.md`, milestone 6): once that engine exists, diff its
 transcript for a given command script against `qvh`'s, exactly as
-`test/a5_groundtruth.sh` diffs Scarier against FrankenDrift. Until then it also
+`test/adrift5/harness/a5_groundtruth.sh` diffs Scarier against FrankenDrift. Until then it also
 serves to capture golden transcripts and to answer "what does real Quest do
 here?" questions during the port.
 

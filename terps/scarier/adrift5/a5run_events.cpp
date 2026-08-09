@@ -1000,10 +1000,10 @@ wk_do_steps (a5_run_t *run, int wi, sb_t *out)
                      draw stream and regressed AlienDiver (Crafting Fragments
                      5/15 -> 3/15, then the walkthrough desynced).  Confirmed
                      against FrankenDrift's xoshiro-aligned stream
-                     (FD_RNG=xoshiro test/a5_groundtruth.sh AlienDiver): the
+                     (FD_RNG=xoshiro test/adrift5/harness/a5_groundtruth.sh AlienDiver): the
                      reference makes the same multi-draw sequence, so matching it
                      REQUIRES re-rolling here.  AlienDiver is the canary in
-                     test/run_a5_walkthroughs.sh.  The guard only bounds a
+                     test/adrift5/harness/run_a5_walkthroughs.sh.  The guard only bounds a
                      pathological group with no reachable adjacent member. */
                   int guard = 0;
                   while (dest == NULL && guard++ < 10000)

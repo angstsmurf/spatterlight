@@ -1,0 +1,426 @@
+# The Lost Children -- NATIVE built-in walkthrough (ADRIFT 5), full win.
+#
+# Source: the game's own WLKTHRGH command (task `Walkthroug` in the model) --
+# Larry Horsfield ships the complete solution in-game, like most of his games.
+# Extracted verbatim from the a5dump <Text>, comma-split (multi-object commands
+# like "put slates, hammer, rope, felt, tacks and potion in bag" kept whole),
+# start-menu handshake (o, b) prepended.  Zero route corrections needed.
+# Plays to the full rescue ending (children returned, gateway destroyed).
+#
+# This REPLACES the old CASA/Spectrum-128 differential script (Terri Sheehan's
+# solution for the original release), which derailed after the early game --
+# the ADRIFT 5 port's map and puzzle phrasings differ.
+#
+# Run with:
+#   test/adrift5/harness/a5_groundtruth.sh test/adrift5/games/TheLostChildren.blorb test/adrift5/goldens/LostChildren_walkthrough.txt
+o
+b
+n
+n
+w
+x plants
+pick plants
+e
+s
+s
+s
+s
+s
+say hello
+ask anne about children
+ask anne about town
+ask anne about tree
+ask anne about plants
+ask anne about megalith
+ask anne about trolls
+ask anne about hills
+ask anne about tree
+ask anne about mine
+ask anne about mountains
+ask anne about bob
+ask anne about box
+ask anne to make draught
+ask anne about seashells
+drop plants
+n
+n
+nw
+w
+look around
+n
+w
+give rations to boy
+get crowbar
+follow boy
+knock on door
+ask about tomas
+ask about mountains
+ask about bob
+ask about bag
+wear bag
+ask about cave
+e
+e
+search garden
+w
+w
+w
+w
+sw
+se
+s
+se
+e
+x altar
+x pews
+look under pews
+w
+nw
+e
+e
+e
+ne
+n
+e
+in
+x floor
+clear leaves
+lever floorboard
+look under floorboards
+look in pouch
+count coins
+get scarab
+out
+w
+s
+sw
+w
+n
+w
+w
+say hello
+get saw
+ask about fish
+ask for saw
+w
+s
+say hello
+read list
+buy lamp
+put lamp in bag
+buy tinderbox
+ask wally about pawnbroker
+buy kit
+buy rope
+put rope in bag
+n
+e
+ask tom about sail
+give kit to tom
+put saw in bag
+e
+s
+buy ale
+ask about pawnbroker
+buy ale
+se
+buy tinderbox
+say thank you
+put tinderbox in bag
+n
+n
+e
+n
+nw
+n
+buy sword
+s
+w
+drop all except spanner
+u
+climb in
+search ashes
+climb out
+put chisel in bag
+unbolt nuts
+unbolt nuts
+put spanner in bag
+get crowbar, pouch and key
+put crowbar, pouch and key in bag
+get ladder
+e
+ne
+e
+get key
+e
+e
+e
+prop ladder against wall
+w
+w
+w
+w
+sw
+se
+e
+buy shield
+get pouch
+buy shield
+buy helmet
+wear helmet
+w
+s
+e
+sw
+d
+follow boys
+se
+e
+sw
+d
+search rocks
+put net in bag
+s
+find stones
+skip stones
+n
+u
+put pouch and key in bag
+drop shield
+sit on shield
+push off
+x cave
+look up
+fill bag with shells
+get rope
+tie rope to shield
+tie rope around waist
+climb up funnel
+pull rope
+get shield
+ne
+u
+ne
+e
+sw
+get lamp and tinderbox
+light lamp
+s
+run s
+extinguish lamp
+put lamp and tinderbox in bag
+w
+n
+ne
+e
+se
+s
+s
+get seashells
+give seashells
+get plants
+give plants
+n
+e
+pick buttercups
+nw
+n
+n
+n
+e
+in
+feel between joists
+get cobwebs
+out
+w
+s
+sw
+w
+n
+w
+se
+e
+look under pews
+w
+nw
+e
+e
+e
+se
+s
+s
+give cobwebs
+give carnation
+give buttercups
+n
+ne
+se
+s
+e
+get tacks
+w
+demolish hut
+search wood
+get chisel
+search quarry
+chisel slate
+get slates
+put slates, hammer, rope, felt, tacks and potion in bag
+drop chisel
+n
+nw
+w
+w
+w
+n
+w
+n
+nw
+ne
+e
+get key
+e
+e
+e
+drop shield and key
+u
+get saw, hammer, slates, felt and tacks from bag
+mend roof
+put hammer in bag
+d
+e
+drop all
+climb into tree
+search branches
+draw sword
+get slingshot with sword
+sheath sword
+get crowbar
+throw crowbar at slingshot
+put slingshot in bag
+d
+get all
+w
+get shield and key
+w
+w
+w
+sw
+se
+s
+e
+e
+e
+e
+e
+e
+se
+get hammer
+throw hammer at rabbit
+get all
+se
+e
+throw rabbit to lion
+e
+s
+ask about knee
+show scarab to bob
+n
+w
+w
+nw
+nw
+w
+sw
+s
+s
+ask anne for medicine
+n
+ne
+e
+se
+se
+e
+e
+get lamp
+s
+e
+ne
+e
+e
+look se
+x ogre
+get slingshot
+find a stone
+sling stone at ogre
+drop all
+se
+hide ogre behind boulder
+se
+hide club behind boulder
+get shield
+z
+z
+z
+se
+n
+e
+get potion
+drug ale
+u
+u
+u
+look through aperture
+u
+look south
+x wizard
+x floor
+x floorboard
+x box
+x disc
+x mechanism
+x horn
+hop across floorboard
+e
+u
+u
+x device
+get device
+draw sword
+cut harness with sword
+d
+d
+w
+d
+d
+d
+w
+se
+s
+s
+get net
+throw net at troll
+stab troll with sword
+sw
+get key from troll
+s
+unlock door
+s
+s
+lie on bed
+sit on bed
+n
+n
+say follow me
+ne
+n
+n
+nw
+w
+nw
+w
+w
+get tinderbox
+light lamp
+w
+in

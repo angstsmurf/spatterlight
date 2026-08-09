@@ -1,0 +1,4 @@
+# ProbeWaitkey -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/adrift5/probes/src/waitkey.xml, section `waitkey_walkthrough`).
+# Exercises <waitkey> intro pauses (keypresses are no-ops headless).
+look

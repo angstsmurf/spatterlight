@@ -275,7 +275,7 @@ os_read_line (scr_char *buffer, scr_int length)
    * command, so nothing legitimate is lost.
    *
    * This is UNCONDITIONAL (not gated behind SCARIER_DUMP_TOOLS): the commented
-   * solution files in adrift-walkthroughs/ are the documented validation corpus,
+   * solution files in test/adrift4/ are the documented validation corpus,
    * and gating comment-skipping behind the dump build meant a plain build
    * silently mis-executed them -- the comment tokens desynced the route into a
    * spurious "death", which once led to a wrong "the walkthrough no longer wins,

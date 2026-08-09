@@ -1535,7 +1535,7 @@ stays unsupported, as in `quest4.c`.
 - [x] Ground truth: Quest Viva's `src/Engine` builds headless on macOS
       (.NET 10, `terps/geas/test/quest5-oracle/build.sh` clones + builds
       `~/questviva-oracle`). `qvh` driver emits normalised transcripts;
-      RNG wired to `erkyrath_random()`. Same recipe as `test/a5_groundtruth.sh`.
+      RNG wired to `erkyrath_random()`. Same recipe as `test/adrift5/harness/a5_groundtruth.sh`.
 - [x] Walkthrough regression scripts: `.quest` games' shipped walkthroughs
       (+ Welbourn corpus) extracted by `extract_walkthrough.py`, driven by
       `run_corpus.sh`; 17 wired (15 win). Frozen as `golden/<Game>.cmd`+`.out`.

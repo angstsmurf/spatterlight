@@ -119,7 +119,7 @@ restr_object_in_place (scr_gameref_t game,
        * search.  See the notes above restr_pass_task_object_location below.
        *
        * The container's openness is NOT consulted, and that half was checked
-       * separately: probe `p39held` (test/make_39_heldprobe.py) run in the
+       * separately: probe `p39held` (test/adrift4/harness/make_39_heldprobe.py) run in the
        * real run390.exe answers KEY IS HELD for a key inside a *closed* box
        * the player carries, and only turns to NOT HELD when the box is
        * dropped -- picking the closed box back up restores it.  All five

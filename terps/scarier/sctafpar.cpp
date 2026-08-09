@@ -336,7 +336,7 @@ static const scr_parse_schema_t V380_PARSE_SCHEMA[] = {
  *
  * A version 3.7 file is a version 3.8 file in all but four places, all of them
  * settled by parsing the only two version 3.7 games known to survive (arlo.taf
- * and castle.taf; see adrift-walkthroughs/ADRIFT_370.md).  Both parse to
+ * and castle.taf; see test/adrift4/notes/ADRIFT_370.md).  Both parse to
  * exactly end-of-file under this schema.
  *
  *   o The header carries one extra integer after the win text, the index of

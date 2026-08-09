@@ -1,0 +1,35 @@
+# ProbeEvents -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/adrift5/probes/src/events.xml, section `events_walkthrough`).
+# Exercises turn-based events (start/pause/resume/repeat, subevents).
+wait
+wait
+wait
+wait
+start after
+wait
+wait
+wait
+start look
+look
+wait
+wait
+wait
+look
+mark
+check marker
+start unset
+wait
+check marker
+mark
+unmark
+check marker
+start ctrl
+wait
+pause ctrl
+wait
+wait
+resume ctrl
+wait
+stop ctrl
+wait
+wait

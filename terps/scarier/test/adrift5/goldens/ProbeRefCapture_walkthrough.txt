@@ -1,0 +1,8 @@
+# ProbeRefCapture -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/adrift5/probes/src/reference_capture.xml, section `reference_capture_walkthrough`).
+# Exercises %object%/%text% reference capture across turns.
+wait 5
+namecheck garden
+itemcheck ball
+summon bob
+drink unicorn

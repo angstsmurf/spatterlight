@@ -1,0 +1,5 @@
+# ProbeLifecycleLenZero -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/adrift5/probes/src/lifecycle.xml, section `lifecycle_length_zero`).
+# Exercises zero-length event lifecycle.
+start zero
+wait

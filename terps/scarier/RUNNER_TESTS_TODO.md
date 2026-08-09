@@ -2,7 +2,7 @@
 
 What is left to arbitrate against the **real** ADRIFT Runners. Companion to
 `ADRIFT4_vs_ADRIFT5.md` (which records semantics already settled) and
-`adrift-walkthroughs/WALKTHROUGH_TODO.md` (which is about route derivation, not
+`test/adrift4/notes/WALKTHROUGH_TODO.md` (which is about route derivation, not
 engine fidelity).
 
 The premise changed in 2026-08: **both** Runners now execute on this machine, so
@@ -49,7 +49,7 @@ staged.
 
 The whole port was reverse-engineered from `Battles.bas` (DotFix decompile) plus
 the v4 manual, and validated against a *synthetic* game
-(`test/battle_test.taf`) built so every attribute has `Lo == Hi` and the rolls
+(`test/adrift4/harness/battle_test.taf`) built so every attribute has `Lo == Hi` and the rolls
 collapse. **2026-08-01: the core formulas have now been diffed live against
 run400** with authored arena probes (recipe below) — hit test, roll bounds,
 damage floor, worn armour and the upgraded-3.9 stalemate all match the port.
@@ -94,7 +94,7 @@ Highest value first:
       *(2026-08-01.)* Probe `pM3` (robot stamina 35, harmless; player Str 10 +
       blaster HitValue 30 Method 3): run400 kills on the **second** attack —
       30/hit, base Str replaced, exactly Scarier's rule; SCARE identical. The
-      **3.9 half settled live too**: `test/make_39_probe.py` authors and
+      **3.9 half settled live too**: `test/adrift4/harness/make_39_probe.py` authors and
       packs a real V390 file (obfuscation + the `sPassword` field's own
       `Mid(5,4)=="Wild"` check, which run390 validates — same rule as the 4.0
       trailer), and run390 **one-shots** the 35-stamina robot — damage 40 =
@@ -277,7 +277,7 @@ Highest value first:
 
 ### Arena-probe recipe (2026-08-01) and surface observations
 
-The probes above were authored from `test/make_battle_taf.py`: copy it, edit
+The probes above were authored from `test/adrift4/harness/make_battle_taf.py`: copy it, edit
 the player/NPC battle stat lines (they are plain `s(lo); s(hi)` pairs), have it
 also dump the uncompressed CRLF body, then
 `taftool.py pack <body> <any real 4.0 taf> <out.taf>` — run400 accepts the
@@ -286,9 +286,9 @@ make a probe immune to the per-session RNG, so single sessions are conclusive
 for formula questions. Remember the settle-Return first, and count event lines
 in the transcript instead of trusting the intended turn count.
 
-Now in-repo: **`test/make_arena_probe.py`** (parameterized 4.0 probes — rooms
+Now in-repo: **`test/adrift4/harness/make_arena_probe.py`** (parameterized 4.0 probes — rooms
 with exits, multiple NPCs with attitudes/speed/recovery, weapon/armour
-objects; the M3/SP*/TS/RC configs are inline) and **`test/make_39_probe.py`**
+objects; the M3/SP*/TS/RC configs are inline) and **`test/adrift4/harness/make_39_probe.py`**
 (a genuine V390 file run390 loads: VB-PRNG obfuscation from absolute offset
 14, and `sPassword` must be `pw[0:4]+"Wild"+pw[4:8]` — run390 checks
 `Mid(5,4)`, the analogue of the 4.0 trailer check; `"    Wild    "` is the
@@ -374,7 +374,7 @@ guessed.** Wildcard tasks are input-matched in both engines — there is no
 end-of-turn wildcard pass at all.  The same-turn firing in `thetest` comes
 from its always-restarting one-turn *events*, and the sole-response mystery
 was the author's own ALRs.  Six authored probes
-(`test/make_39_wildprobe.py` and inline variants), a neutralized-ALR rebuild
+(`test/adrift4/harness/make_39_wildprobe.py` and inline variants), a neutralized-ALR rebuild
 of thetest, and cross-checks of the same gen400-converted probe in **both**
 run390 and run400 settled everything.  Fixed in `scevents.cpp` /
 `scrunner.cpp` (`run_event_task`) / `sclibrar.cpp`; goldens re-blessed
@@ -502,7 +502,7 @@ cloak."); and the ALR-over-joined-paragraph difference above.
       through ALRs, which is why the live Runner's departure verbs vary.
 - [x] **Walk CharTask/ObjectTask dispatch is wildcard-interceptable in the
       3.9 Runner, and a direct run in the 4.0 Runner — settled live
-      2026-08-01** (`test/make_39_walkprobe.py` / `test/make_400_walkprobe.py`,
+      2026-08-01** (`test/adrift4/harness/make_39_walkprobe.py` / `test/adrift4/harness/make_400_walkprobe.py`,
       variants E/F/G: looping two-stop walk, NPC Bob meets the player every
       other turn, CharTask = an un-typeable `#met` task).  run390's arrival
       turns print `WILDCARD FIRED.  Bob BOB ENTERS..  WILDCARD FIRED.` with
@@ -570,7 +570,7 @@ reasoned guess: `V390_TASK_ACTION: Type>4?#Type++`,
       diff.** File → Open a 3.9 `.taf` in gen400, then Save As 4.0; play both
       files under Scarier with `SCR_DUMP_TASKS=1` and diff the structural dumps
       (`scdump.cpp` — the ALT and OPENABLE sections were added for exactly this).
-      All 28 3.9 games in `adrift-walkthroughs/games/` were converted. **Caveat
+      All 28 3.9 games in `test/adrift4/games/` were converted. **Caveat
       learned the hard way: gen400 is not ground truth, only a second opinion.**
       Both times the dumps disagreed, run390 sided with Scarier's guards or
       against the Generator's arithmetic — so treat a mismatch as a question,
@@ -592,7 +592,7 @@ Verdicts, fixup by fixup:
       and the most specific last. `parse_fixup_v390_v380_room_alts()` emitted
       them the other way round. Correct order is
       `[LastDesc catch-all (disp 2), Task1 alt, Task2 alt, object alt (disp 0)]`.
-      Three authored probes settled it live (`test/make_39_altprobe{,2,3}.py`):
+      Three authored probes settled it live (`test/adrift4/harness/make_39_altprobe{,2,3}.py`):
       (1) after the gating task completes the Runner prints the AddDesc
       **instead of** the LastDesc, and with both tasks done Task2 wins;
       (2) an alt whose Task1/Obj is **0** is ignored entirely — Scarier's
@@ -611,7 +611,7 @@ Verdicts, fixup by fixup:
       Phoenix_Destiny, SecretOfLostWorld, The_Spirits_Flight, deaths, gateway),
       three goldens re-blessed (all pure combat flavour — the player now
       correctly stops taking damage, and `deaths` even kills the demon).
-      Probe: `test/make_39_battleattr_probe.py` — Robot Strength 20 vs player
+      Probe: `test/adrift4/harness/make_39_battleattr_probe.py` — Robot Strength 20 vs player
       Defence 0, `zop` adds 40 to attribute 6, `zap` adds 40 to attribute 5.
       run390's `status` prints exactly three player lines,
       `Stamina / Hit strength / Defense value`, as `current (max)`; after `zop`
@@ -639,9 +639,9 @@ do not patch) vs *Scarier divergence* (→ engine fix).
       `WALKTHROUGH_TODO.md` line 1113: "**Verdict (2026-06-25, RESOLVED —
       faithful, unplayable-by-design; do NOT patch).**" The game is an unfinished
       demo whose porch wall is the author's own in-game message
-      (`adrift-walkthroughs/Through_time_walkthrough.md`), and it has a passing
+      (`test/adrift4/notes/Through_time_walkthrough.md`), and it has a passing
       golden row. The old decode plan lived in
-      `adrift-walkthroughs/TODO_decode_sub_20_74.md`, pruned in `aa30ba4f`; read
+      `test/adrift4/notes/TODO_decode_sub_20_74.md`, pruned in `aa30ba4f`; read
       it with
       `git show aa30ba4f^:terps/scarier/adrift-walkthroughs/TODO_decode_sub_20_74.md`.
 - [x] **`Les Feux de l'enfer` — CLOSED 2026-08-01: it was never a conversion
@@ -677,7 +677,7 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Upgraded-3.9 combat | `SCR_ASSUME_COMBAT` opt-in; matches author intent | **stalemates, confirmed live 2026-08-01** (Azra: converted acc/agi all 0-0) | Settled — opt-in stays. |
 | Restriction evaluation order | evaluates all, no short-circuit | `Sub_20_65` replaces `#` with T/F in a bool-expr string, so it can't short-circuit either | Believed matched (ADRIFT 4 restrictions cannot have side effects — no restriction type mutates state — so "verify a side effect runs" is unprobeable and moot; the P-code reading stands on its own). |
 | Integer division rounding | `Round((a/b) + 0.000001)` — banker's rounding with a +∞-biased epsilon (scexpr.cpp's asymmetric compare) | same | **Confirmed live 2026-08-01** (probes `pDIV`/`pDIV2` in `make_arena_probe.py`, which now authors variables and set-var actions): with *true* negative dividends (via `%v1%/2`), run400 answers −5/2 = −2, −7/2 = −3, −1/2 = 0, and 5/2 = 3, 7/2 = 4, 1/2 = 1, 22/7 = 3 — byte-identical to Scarier. Only 5 corpus games author expressions at all (47 exprs; `circus` has the only divisions, positive). |
-| Unary minus in expressions | folded into the literal: `-5/2` = (−5)/2 = **−2** | tokenised as an *operator* that reduces after `/`: `-5/2` = 0−(5/2) = 0−3 = **−3** | **NEW divergence, found 2026-08-01 by `pDIV` (its only diverging cell — the `pDIV2` variable forms all agree, which is what pins the cause to the tokeniser, not the rounding).** Zero corpus exposure: none of the 47 authored expressions uses a unary minus (`SCR_DUMP_TASKS` now prints `expr=[...]` on type-3 ACT lines). Documented, not fixed — reshaping scexpr's parser to give unary minus binary-minus precedence risks more than it buys. ~~Open tangent: ADRIFT 5 shares this token engine, so a5sexpr's literal `-5/2` deserves the same one-probe check.~~ **Probed 2026-08-01: NO divergence on the ADRIFT 5 side.** A 44-row battery through the REAL `clsVariable.SetToExpression` (scratch C# driver against the FrankenDrift.Adrift Release dll — no adventure loaded, bare `clsAdventure` + registered vars) matches a5sexpr row-for-row on both the raw string and the `SafeInt(Val())` readback. clsVariable *does* tokenise leading `-` as an operator (`GetToken` clsVariable.vb:134) and reduces the dangling `op expr` pair on run 2 (clsVariable.vb:959-972), after `/` rounded on run 1 — but v5's `Math.Round(AwayFromZero)` is symmetric (`round(-q) == -round(q)`), so the operator parse and a5sexpr's folded parse coincide everywhere, including the var-token vs textual-substitution split (`%v1%/2` with v1=−5). The v4 divergence exists only because run400's `+0.000001` epsilon rounding is asymmetric. Sole divergent row: `-2^-1` (= −0.5) reads back −1 in FD under an English locale (`SafeInt` = VB `Int()` floor) vs 0 from scarier's strtol — and even the real runner is locale-dependent there (comma-decimal `Val("-0,5")` → 0). Kept as-is: fractional results need `^` with a negative outcome, zero corpus exposure. Battery banked as unary-minus cases in `test/a5sexpr_test.cpp`. |
+| Unary minus in expressions | folded into the literal: `-5/2` = (−5)/2 = **−2** | tokenised as an *operator* that reduces after `/`: `-5/2` = 0−(5/2) = 0−3 = **−3** | **NEW divergence, found 2026-08-01 by `pDIV` (its only diverging cell — the `pDIV2` variable forms all agree, which is what pins the cause to the tokeniser, not the rounding).** Zero corpus exposure: none of the 47 authored expressions uses a unary minus (`SCR_DUMP_TASKS` now prints `expr=[...]` on type-3 ACT lines). Documented, not fixed — reshaping scexpr's parser to give unary minus binary-minus precedence risks more than it buys. ~~Open tangent: ADRIFT 5 shares this token engine, so a5sexpr's literal `-5/2` deserves the same one-probe check.~~ **Probed 2026-08-01: NO divergence on the ADRIFT 5 side.** A 44-row battery through the REAL `clsVariable.SetToExpression` (scratch C# driver against the FrankenDrift.Adrift Release dll — no adventure loaded, bare `clsAdventure` + registered vars) matches a5sexpr row-for-row on both the raw string and the `SafeInt(Val())` readback. clsVariable *does* tokenise leading `-` as an operator (`GetToken` clsVariable.vb:134) and reduces the dangling `op expr` pair on run 2 (clsVariable.vb:959-972), after `/` rounded on run 1 — but v5's `Math.Round(AwayFromZero)` is symmetric (`round(-q) == -round(q)`), so the operator parse and a5sexpr's folded parse coincide everywhere, including the var-token vs textual-substitution split (`%v1%/2` with v1=−5). The v4 divergence exists only because run400's `+0.000001` epsilon rounding is asymmetric. Sole divergent row: `-2^-1` (= −0.5) reads back −1 in FD under an English locale (`SafeInt` = VB `Int()` floor) vs 0 from scarier's strtol — and even the real runner is locale-dependent there (comma-decimal `Val("-0,5")` → 0). Kept as-is: fractional results need `^` with a negative outcome, zero corpus exposure. Battery banked as unary-minus cases in `test/adrift5/harness/a5sexpr_test.cpp`. |
 | Combat RNG | own generator | VB6 `Rnd`, `Randomize Timer` on the load path | Won't-fix confirmed live (§1): per-turn combat differs across identical fresh sessions. |
 | Battle messages | second person ("you"/"your") | run400 uses player's name with 2nd-person verb forms ("Player manage to avoid…"); run390 uses second person | Presentational only; "you" kept (matches run390). Method-verb weapon narration **ported 2026-08-01**, verified live in BOTH Runners; noted §1 surface facts. |
 | Wield model | ~~per-attack default~~ **PORTED 2026-08-01**: persistent wield ref, matching the Runner | persistent wield ref; single-held auto-select persists; ASKS with 2+ held ("What do you want to attack X with?"); NO `unwield` verb; drop clears to nothing; status folds only the actual wield | **Fully settled live 2026-08-01** (probe `pWS`) and **ported the same day**. Corpus fallout (found late — stale-binary erratum, see §1): 3 wording goldens + the Shadowpeak routes' post-chapel bare attacks, all repaired/re-blessed. ~~Remaining cosmetic gaps: status layout (Max column, "(bonus)" parens), "not holding" wording.~~ **Cosmetics ported 2026-08-01** (probe `pWS2`; see §1): four-column status table (Range/Max/Current + equipment share in parens, Stamina row = live/max/live, no "You have:" header, article-prefix wielding line), wield refusal "aren't carrying …!" vs attack-with "is not carrying …!". |
@@ -703,8 +703,8 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 | Which of the two container-listing styles a container gets | ~~postfixed ("*An umbrella is inside the umbrella stand.*") only for a **dynamic** container holding exactly one object, or one that is part of an NPC; everything else prefixed ("*Inside X is …*") — recorded in `lib_list_in_object()` as "frankly, a mystery"~~ **FIXED 2026-08-03** | purely a **count**: 1 or 2 contained objects → postfixed, 3+ → prefixed, with **no static-vs-dynamic test anywhere in the chain** | **Derived from run400.txt and confirmed against a real Runner transcript 2026-08-03**, while wiring *It's Easter, Peeps!* — see the dated note below. |
 | `take <object lying loose in the room>` | "You pick up the creme egg." | run400 (transcript): "You **take** the creme egg." — both agree on the container case, "You take the lollipop from the newspaper rack." | **Documented, not fixed 2026-08-03.** Probably the same version split as the "Single-object library success vs failing explicit-verb task" row above, where run390 was probed live and answered "You pick up the rock." run400 carries both templates in separate handlers (`0007B652` builds `pick up` + "There is nothing to pick up here."; `00073402` builds `take … from …` + "Take what?" / "There is nothing worth taking here."), so which one a bare `take`/`get` reaches needs a live run400 pair before anything moves — 37 goldens carry 128 "You pick up …" lines. |
 | What `g` / `again` echoes | only the implicit-tool line, `(with umbrella)` | the whole expanded command, `(hit pinata with umbrella)` | **Cosmetic divergence, seen in a run400 transcript 2026-08-03, unfixed.** Semantics are identical (`g` really is *again*; see the `scare-g-means-get` note — the Runner's Auto complete once faked a `g` divergence that wasn't there). Only the echo text differs. |
-| End-of-game score summary | nothing — the transcript simply stops after the game's own ending text | prints a summary of its own after it: `You scored` N ` out of the maximum` M, a `That is` P `% of the game!` line, and `Well done - you scored maximum points!` at 100%; there is also a `You finished ` … ` points short.` pair | **Documented, not fixed 2026-08-03.** All five fragments are UTF-16 literals in **both** binaries (run390 `0xfd38`/`0xfd64`/`0xfda4`/`0x146ec`/`0x14a18`, run400 `0x14830`/`0x1484c`/`0x14884`/`0x146ec`/`0x148a8`), so this is not a version split; the in-game `score` command's separate ` out of a maximum of ` template is present too and Scarier already matches that one. Observed live: run390 playing `thetest` to the end printed "Well done!  You won!  …" *and then* "You scored 20 out of the maximum 25!", where our `thetest_win_solution` golden ends at the game's own text (see `adrift-walkthroughs/thetest_walkthrough.md`). **Not implemented deliberately** — it would append two or three lines to every winning golden in the corpus (60+ rows) for no behavioural gain, and the exact assembly of the percentage line (rounding, whether it is always printed, what triggers the "points short" pair) has never been captured live; pin those first if this is ever ported. |
-| TAF 3.8 object "Size/weight" class | **now modelled**: the class is kept verbatim in `SizeWeightClass` and enforced as a pooled burden (`obj_get_burden` / `obj_get_player_burden_limit`, `scobjcts.cpp`), while `SizeWeight` stays normalised to 4.0 "normal" (`22`) so a container's `Capacity*10+2` remains the plain **object count** 3.8 meant it to be (`\|V380_OBJECT:_SizeWeight_\|` in `sctafpar.cpp`) | **SETTLED against the genuine `run380.exe` 2026-08-03: a single pooled burden with per-class costs `0→1 1→3 2→7 3→3 4→7`, and a capacity of exactly `MaxCarried`.** Neither Scarier's normalisation (every class costs 1) nor gen390's `0→22 1→23 2→24 3→32 4→42` matches it. | **Divergence CONFIRMED, measured, and FIXED 2026-08-03.** `run380.exe` is *not* lost: David Whyld's dead delron.org.uk still serves `adrift38.zip` through the Wayback Machine, and it is installed in the adrift-battle Wine prefix (`~/adrift-battle/runner/wine/README.md`). Probe method: a 3.80 `.taf` is plaintext CRLF fields XOR'd with the VB6 PRNG from seed `0x00a09e86` — no length header, no zlib, no "Wild" trailer — so it round-trips losslessly through `scratchpad/dec38.py`, and `mkprobe2.py` patches `#MaxCarried` (line after `$GameAuthor`), `#StartRoom` (line after the first `**`, a **direct 0-based room index**, unlike objects' `+3`) and any object's `#SizeWeight` (its short-name line **+11**). Pinned at MaxCarried 1/2/3/6/7/8 in the real Runner: at 2 a class-1 or class-3 object is refused and a class-0 accepted, at 3 both go; at 6 Marooned's tires (class 4) are refused, at 7 they are accepted **alone**, at 8 tires+map fit and tires+flint+map do not, and tires + a class-2 gas can never do — which also disproves the two-axis reading, since a separate size and weight axis would have let the two heavies coexist. Cross-checked on the corpus's other 3.8 game: `Crime_Adventure.taf` (MaxCarried 5) refuses `get kettle` (class 2 = 7) **with empty hands** while its five class-0 kitchen items all fit, so that game's "Get all the stuff in Fenwick kitchen" hint is an author fault, not a conversion fault. gen390's table is therefore *directionally* right and wrong by one step — the 4.0 packed `base^digit` model cannot express 7, so the top class rounds to `3^2 = 9` against a limit of 8, which is exactly why converted 3.8 games stop being finishable. **The fix:** the object fixup now also writes `SizeWeightClass`, the globals fixup raises `Globals.BurdenModel`, and `scobjcts.cpp` gains the 1/3/7 cost table plus a `MaxCarried` limit. `sclibrar.cpp` routes every take through the pooled sum: `lib_object_too_large()` performs the check (3.8's only refusal is "Your hands are full.") and `lib_object_too_heavy()` stands down entirely, since 3.8 has no "too heavy" message. The 4.0 `MaxSize`/`MaxWt` pair is still written — the save serialiser reads it, and because every class costs ≥ 1 the pooled burden can never be looser than the object-count limit the size axis enforces, so those checks are subsumed and can never fire first. **3.8 containers measured 2026-08-03, closing the one gap this row left open.** Three answers, all from `run380` with probes patched through a real schema parser (`~/adrift-battle/runner/wine/taf38schema.py`, which walks `V380_PARSE_SCHEMA` and records each field's line index, so probes patch by *name*): (1) **a carried container's contents are free** — against `MaxCarried` 1, a class-0 box (cost 1) holding a class-4 object (cost 7) is picked up and only the *next* cost-1 object is refused, where charging the contents would have made the box alone cost 8; (2) **`Capacity` is a plain object count** and the Size/weight class is charged against it no more than against the carrier — a Capacity of 2 swallows a class-4 then a class-1, and two class-0 objects fill it; (3) a **`Capacity` of 0 is full from the start**, not unlimited. So Scarier's arithmetic on both axes was already right, and the normalisation to `22` is vindicated. What was wrong was the wording and one rule: 3.8 says a flat **"Your hands are full."** with no " at the moment" (`lib_object_too_large` now reports 3.8 objects as unportable to suppress the suffix), it answers **"The box is full."** to *every* container refusal rather than 4.0's "too big to fit inside"/"can't fit inside … at the moment" pair (`lib_put_in_backend` consumes the leftovers under the burden model and prints it once), and it **only fills a dynamic container the player is holding** — "You are not holding a saucepan.", with the object's own prefix rather than the usual "the" (`lib_put_in_is_valid`). Static containers are exempt, which matters: `Wrecked`'s static red locker takes a coin where it stands, and nothing could ever pick one up. That last rule cost `Crime_Adventure` its route — its stew was loaded into a saucepan on the kitchen floor, which `run380` refuses **in that very game** (verified directly, not just in a synthetic probe) — so the route now takes the saucepan first and the later redundant `get saucepan` is gone; same 75/95 win, re-blessed. Corpus impact: the two 3.80 games with routes both needed new ones — `marooned`'s single-trip route broke at `get map` and is now a four-trip ferrying route, and `wrecked` needed two drops (`drop card`, `drop glass`) against its limit of 10; both re-blessed and PASSing, full corpus back to 163 PASS / exit 0. See `adrift-walkthroughs/Marooned_walkthrough.md`. |
+| End-of-game score summary | nothing — the transcript simply stops after the game's own ending text | prints a summary of its own after it: `You scored` N ` out of the maximum` M, a `That is` P `% of the game!` line, and `Well done - you scored maximum points!` at 100%; there is also a `You finished ` … ` points short.` pair | **Documented, not fixed 2026-08-03.** All five fragments are UTF-16 literals in **both** binaries (run390 `0xfd38`/`0xfd64`/`0xfda4`/`0x146ec`/`0x14a18`, run400 `0x14830`/`0x1484c`/`0x14884`/`0x146ec`/`0x148a8`), so this is not a version split; the in-game `score` command's separate ` out of a maximum of ` template is present too and Scarier already matches that one. Observed live: run390 playing `thetest` to the end printed "Well done!  You won!  …" *and then* "You scored 20 out of the maximum 25!", where our `thetest_win_solution` golden ends at the game's own text (see `test/adrift4/notes/thetest_walkthrough.md`). **Not implemented deliberately** — it would append two or three lines to every winning golden in the corpus (60+ rows) for no behavioural gain, and the exact assembly of the percentage line (rounding, whether it is always printed, what triggers the "points short" pair) has never been captured live; pin those first if this is ever ported. |
+| TAF 3.8 object "Size/weight" class | **now modelled**: the class is kept verbatim in `SizeWeightClass` and enforced as a pooled burden (`obj_get_burden` / `obj_get_player_burden_limit`, `scobjcts.cpp`), while `SizeWeight` stays normalised to 4.0 "normal" (`22`) so a container's `Capacity*10+2` remains the plain **object count** 3.8 meant it to be (`\|V380_OBJECT:_SizeWeight_\|` in `sctafpar.cpp`) | **SETTLED against the genuine `run380.exe` 2026-08-03: a single pooled burden with per-class costs `0→1 1→3 2→7 3→3 4→7`, and a capacity of exactly `MaxCarried`.** Neither Scarier's normalisation (every class costs 1) nor gen390's `0→22 1→23 2→24 3→32 4→42` matches it. | **Divergence CONFIRMED, measured, and FIXED 2026-08-03.** `run380.exe` is *not* lost: David Whyld's dead delron.org.uk still serves `adrift38.zip` through the Wayback Machine, and it is installed in the adrift-battle Wine prefix (`~/adrift-battle/runner/wine/README.md`). Probe method: a 3.80 `.taf` is plaintext CRLF fields XOR'd with the VB6 PRNG from seed `0x00a09e86` — no length header, no zlib, no "Wild" trailer — so it round-trips losslessly through `scratchpad/dec38.py`, and `mkprobe2.py` patches `#MaxCarried` (line after `$GameAuthor`), `#StartRoom` (line after the first `**`, a **direct 0-based room index**, unlike objects' `+3`) and any object's `#SizeWeight` (its short-name line **+11**). Pinned at MaxCarried 1/2/3/6/7/8 in the real Runner: at 2 a class-1 or class-3 object is refused and a class-0 accepted, at 3 both go; at 6 Marooned's tires (class 4) are refused, at 7 they are accepted **alone**, at 8 tires+map fit and tires+flint+map do not, and tires + a class-2 gas can never do — which also disproves the two-axis reading, since a separate size and weight axis would have let the two heavies coexist. Cross-checked on the corpus's other 3.8 game: `Crime_Adventure.taf` (MaxCarried 5) refuses `get kettle` (class 2 = 7) **with empty hands** while its five class-0 kitchen items all fit, so that game's "Get all the stuff in Fenwick kitchen" hint is an author fault, not a conversion fault. gen390's table is therefore *directionally* right and wrong by one step — the 4.0 packed `base^digit` model cannot express 7, so the top class rounds to `3^2 = 9` against a limit of 8, which is exactly why converted 3.8 games stop being finishable. **The fix:** the object fixup now also writes `SizeWeightClass`, the globals fixup raises `Globals.BurdenModel`, and `scobjcts.cpp` gains the 1/3/7 cost table plus a `MaxCarried` limit. `sclibrar.cpp` routes every take through the pooled sum: `lib_object_too_large()` performs the check (3.8's only refusal is "Your hands are full.") and `lib_object_too_heavy()` stands down entirely, since 3.8 has no "too heavy" message. The 4.0 `MaxSize`/`MaxWt` pair is still written — the save serialiser reads it, and because every class costs ≥ 1 the pooled burden can never be looser than the object-count limit the size axis enforces, so those checks are subsumed and can never fire first. **3.8 containers measured 2026-08-03, closing the one gap this row left open.** Three answers, all from `run380` with probes patched through a real schema parser (`~/adrift-battle/runner/wine/taf38schema.py`, which walks `V380_PARSE_SCHEMA` and records each field's line index, so probes patch by *name*): (1) **a carried container's contents are free** — against `MaxCarried` 1, a class-0 box (cost 1) holding a class-4 object (cost 7) is picked up and only the *next* cost-1 object is refused, where charging the contents would have made the box alone cost 8; (2) **`Capacity` is a plain object count** and the Size/weight class is charged against it no more than against the carrier — a Capacity of 2 swallows a class-4 then a class-1, and two class-0 objects fill it; (3) a **`Capacity` of 0 is full from the start**, not unlimited. So Scarier's arithmetic on both axes was already right, and the normalisation to `22` is vindicated. What was wrong was the wording and one rule: 3.8 says a flat **"Your hands are full."** with no " at the moment" (`lib_object_too_large` now reports 3.8 objects as unportable to suppress the suffix), it answers **"The box is full."** to *every* container refusal rather than 4.0's "too big to fit inside"/"can't fit inside … at the moment" pair (`lib_put_in_backend` consumes the leftovers under the burden model and prints it once), and it **only fills a dynamic container the player is holding** — "You are not holding a saucepan.", with the object's own prefix rather than the usual "the" (`lib_put_in_is_valid`). Static containers are exempt, which matters: `Wrecked`'s static red locker takes a coin where it stands, and nothing could ever pick one up. That last rule cost `Crime_Adventure` its route — its stew was loaded into a saucepan on the kitchen floor, which `run380` refuses **in that very game** (verified directly, not just in a synthetic probe) — so the route now takes the saucepan first and the later redundant `get saucepan` is gone; same 75/95 win, re-blessed. Corpus impact: the two 3.80 games with routes both needed new ones — `marooned`'s single-trip route broke at `get map` and is now a four-trip ferrying route, and `wrecked` needed two drops (`drop card`, `drop glass`) against its limit of 10; both re-blessed and PASSing, full corpus back to 163 PASS / exit 0. See `test/adrift4/notes/Marooned_walkthrough.md`. |
 | A matched task whose restrictions FAIL swallows the command (no fall-through to movement) | prints the task's FailMessage and ends the turn, even when the FailMessage is a one-character placeholder and the room has an exit in that direction | **identical** | **Settled 2026-08-03, NO divergence** (`wrecked.taf`, TAF 3.80, via a gen390 conversion under Wine). Task 96 (`in pub with scuba` / `in`) is Campbell Wild's "you can't come in looking like that" blocker, and its FailMessage is the literal placeholder `x`; once the outfit is off, `run390.exe` prints just `x` and refuses entry, exactly as Scarier does. Task 84 at the Post Office roof (`climb *roof*`, alts `up` / `u` / `get *roof*` / `go *roof`, restricted on task 83 `climb *statue*` **not** done) has the same shape, and gen390 re-encodes its restriction byte-identically to our parse (`RESTR type=2 v1=84 v2=1`). Both are escapable only because `go in` and `go up` are absent from the tasks' command lists, so nothing matches and the movement runs — also confirmed live for `go in`. Nothing to fix; recorded so the next `x`-shaped mystery is not re-investigated. |
 
 | ADRIFT 4 `$RestrMask` operator precedence | ~~C precedence: an OR-expression over AND-expressions, both left-associative~~ **now equal precedence, left-associative** | `A` and `O` have **equal** precedence and associate to the **LEFT**: `#O#A#` is `(1 OR 2) AND 3`, never `1 OR (2 AND 3)` | **Divergence found and FIXED 2026-08-03** (`screstrs.cpp`, `restr_expr()`). Ground truth is run400's own `mdlSpreadTheLoad.Sub_20_57` ("evaluaterestrictions", `00055CAC..00055EB9`): it scans the mask for the last top-level `A`/`O`, evaluates the tail operand, and recurses on the **head** — peeling from the right and recursing left is *left* association, and `A`/`O` are two arms of a single `If`, so there is no second precedence level anywhere in the routine. `Sub_20_58` ("evaluate2") has the same shape for its annotated T/F display string, and the driver `Sub_20_65` substitutes T/F for every restriction in index order with **no short circuit**. The old parse agrees whenever every `A` precedes every `O` at a bracket level and differs the moment an `O` comes first. **20 corpus games author a mixed level** (`scratchpad/maskscan.py`): unauthorized (30 tasks), iqsfot (11), unravel (7), humbug (5), cursed (4), the_pk_girl / Vendetta / yonastoundingcastle / 3monkeys (3 each), EscapeToNewYork / The Plague - Redux (2), and one each in ARGH_sGreatEscape, DragonShrineR43, Glum Fiddle, Main Course, TheSisters, Trabula, mishmash, ticket. Found through *Three Monkeys One Cage*, whose author-written `winnable` self-check (T21, 55 restrictions — the corpus maximum) reported "no longer winnable" from turn 1: its group `#O(#A#)A#` is "(the bucket is on the hook OR the coconut is set up) AND the gate is still shut", which the C parse read as "bucket OR (coconut AND gate)" and so answered TRUE with the gate already open. Whole v4 suite re-run after the fix: **161/161 PASS, no golden moved.** A live run400 confirmation is still possible (`3monkeys.taf` is staged in the Wine prefix) but the P-code is unambiguous. |
@@ -731,7 +731,7 @@ movement task (`TASK 331 where=0 [* n *]`, no restrictions, moves the player to
 room 6) parked between two live `where=1` movement tasks — which would hijack
 every `n` in the game if Type 0 were runnable. Both cannot be true.
 
-**Probe.** `test/make_400_whereprobe.py` (new) writes a minimal 4.0 plain body
+**Probe.** `test/adrift4/harness/make_400_whereprobe.py` (new) writes a minimal 4.0 plain body
 with two rooms and three tasks:
 
 | task | Where | expected if Type 0 is "no rooms" |
@@ -870,7 +870,7 @@ Runner. Re-blessed; every other row is byte-identical.
 
 - [x] **Arbitrated live — run400 agrees with the fix on every cell, and the
       NODE_WHITESPACE / NODE_JOIN distinction is real.** *(2026-08-04.)*
-      `test/make_400_wsprobe.py` authors a one-room 4.0 probe with four
+      `test/adrift4/harness/make_400_wsprobe.py` authors a one-room 4.0 probe with four
       repeatable all-rooms tasks — `[al]{pha}` → "JOIN FIRED.",
       `[be] {ta}` → "SPACE FIRED.", `[ga][mma]` → "CHOICE FIRED." and a bare
       `ping` control — packed with `taftool.py` and played in `run400.exe`
@@ -923,7 +923,7 @@ appears 66 times where Scarier printed it once.  The fixup was changed to call
 one-turn-short clock.  **Both halves of that are wrong**, and the transcript
 was the wrong oracle.
 
-**What the Runner actually does.**  Probe `test/make_39_evtimeprobe.py`
+**What the Runner actually does.**  Probe `test/adrift4/harness/make_39_evtimeprobe.py`
 (self-packing V390: one room, one `ping` task, one event) against `run390.exe`
 under Wine, and its 4.0 twin — config `EV9` in `make_arena_probe.py` — against
 `run400.exe`:
@@ -994,7 +994,7 @@ lost.
       full authored length, and the restart is silent.  Both halves of the
       SCARE-era comment were wrong, in opposite directions.
 - [x] **The residual — event visibility while on or inside an object.**
-      Probed and refuted.  `test/make_39_evseeprobe.py` authors a V390 file
+      Probed and refuted.  `test/adrift4/harness/make_39_evseeprobe.py` authors a V390 file
       with one room, a `Where`-limited-to-that-room always-restarting one-turn
       event carrying all three texts, and two statics with `SitLie = 3`: a
       surface (`chair`) and a container (`crate`).  In run390 the FinishText
@@ -1122,7 +1122,7 @@ in run390 too.**  The one remaining unprobed half of the held-by rule (commit
 `584f7402` had confirmed carried and worn containers, but every probe used an
 *open* one) came up while re-auditing `inverness`: its desk unlocks with the
 old key still sealed inside the riddle box, and the whole "the route doesn't
-actually need the box opened" note rested on that.  `test/make_39_heldprobe.py`
+actually need the box opened" note rested on that.  `test/adrift4/harness/make_39_heldprobe.py`
 authors a two-object V390 game — an openable box held by the player with a key
 starting inside it — whose only task is `probe`, restriction Type 0 / Var1 4
 (dynamic object 1) / Var2 1 / Var3 0, reporting HELD or NOT HELD.  run390.exe
@@ -1183,7 +1183,7 @@ hardwired 3 survived this long; all 121 games in the walkthrough corpus write
 reads them, falling back to 3 for the v3.8 schema that has no such fields.
 
 *Second, container Capacity is a volume the contents spend, not a number of
-objects.*  `test/make_sizeprobe.py cap2` and `cap3` build matrices where the
+objects.*  `test/adrift4/harness/make_sizeprobe.py cap2` and `cap3` build matrices where the
 two readings disagree, and run400 and run390 answer identically:
 
 | container | Capacity | pool | old count model | volume model | Runners |
@@ -1282,7 +1282,7 @@ chain, but keeping it means containers worn by or attached to an NPC hold the
 format they had before this rule was derived, and it can now only matter at
 three or more contained objects.
 
-Corpus fallout: **37 walkthrough goldens** plus `test/capacity_nest_expected.txt`
+Corpus fallout: **37 walkthrough goldens** plus `test/adrift4/harness/capacity_nest_expected.txt`
 (its `n22` holds two objects), all re-blessed after reading the diff line by
 line — every change is the same rephrase.  Two of them are corroboration rather
 than churn, because they are places where the *author's own ALR* only matches
@@ -1307,9 +1307,9 @@ period, and posture does not hide events.**  Full write-up in §8 above; the
 short version is that the SCARE-era comment was wrong in one direction, the
 morning's transcript-driven "fix" was wrong in the other, and `run390.exe`
 settles both: `evt_start_event (game, event, TRUE)` with the clock left alone.
-Six variants of `test/make_39_evtimeprobe.py` and the `EV9` twin in
+Six variants of `test/adrift4/harness/make_39_evtimeprobe.py` and the `EV9` twin in
 `make_arena_probe.py` cover starter types 1/2/3, restart types 1/2 and both
-Runners; `test/make_39_evseeprobe.py` closes the visibility residual (event
+Runners; `test/adrift4/harness/make_39_evseeprobe.py` closes the visibility residual (event
 text still prints while sitting on a surface or in a container).  Corpus: 24
 rows re-blessed, three winning routes re-derived — circus at `SCR_SEED=12`,
 haunt one turn shorter, and thetest_win via the new

@@ -1,0 +1,13 @@
+# Makefile.headless build products (ADRIFT 5 unit harnesses and dump tools).
+a5dump
+a5model_dump
+a5text_dump
+a5run_dump
+a5map_dump
+a5parse_test
+a5sexpr_test
+a5_disambig_test
+a5_walk_test
+a5_objects_test
+a5_save_test
+a5_randomness.o

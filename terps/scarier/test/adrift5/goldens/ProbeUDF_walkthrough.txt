@@ -1,0 +1,13 @@
+# ProbeUDF -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/adrift5/probes/src/user_defined_functions.xml, section `udf_walkthrough`).
+# Exercises user-defined functions with arguments and nesting.
+helpudfs
+show greeting
+echo hello
+double 21
+doubleexpr
+label ball
+greet carol
+checkroom
+look
+south

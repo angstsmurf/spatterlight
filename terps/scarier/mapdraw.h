@@ -39,7 +39,7 @@
  *
  * This module is deliberately free of Glk and of both engines: it rasterises
  * into a plain RGB surface, so a map can be rendered and diffed headlessly
- * (test/a5map_dump.cpp).
+ * (test/adrift5/harness/a5map_dump.cpp).
  */
 
 #ifndef MAPDRAW_H

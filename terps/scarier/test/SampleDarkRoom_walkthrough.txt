@@ -1,9 +1,0 @@
-# SampleDarkRoom -- ADRIFT 5 sample adventure (ships with the ADRIFT 5 developer
-# distribution; drop Samples/DarkRoom.taf into test/adrift5-games/ as DarkRoom.taf).
-# Command script from the adrift-5-rs test suite (darkroom.regtest).
-# Exercises dark locations and light sources.
-look
-get lantern
-in
-look
-press button

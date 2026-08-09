@@ -1,0 +1,9 @@
+# SampleNotebook -- ADRIFT 5 sample adventure (ships with the ADRIFT 5 developer
+# distribution; drop Samples/Notebook.taf into test/adrift5/games/ as Notebook.taf).
+# Command script from the adrift-5-rs test suite (notebook.regtest).
+# Exercises the readable/writable notebook object.
+read notebook
+write hello in notebook
+read notebook
+write world in notebook
+read notebook
