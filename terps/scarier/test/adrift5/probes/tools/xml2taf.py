@@ -46,6 +46,10 @@ ITEM_TAGS = frozenset(
 )
 
 DEFAULT_PASSWORD = "        "
+
+# Namespace for the per-probe IFIDs derived in _probe_ifid().  Arbitrary but
+# fixed: changing it re-stamps every probe.
+IFID_NAMESPACE = uuid.uuid5(uuid.NAMESPACE_DNS, "probes.adrift5.scarier.spatterlight")
 SCORE_INCREMENT_RE = re.compile(
     r"""Score\s*=\s*"%Score%\s*\+\s*(\d+)""",
     re.IGNORECASE,
@@ -284,11 +288,25 @@ def _serialize_adventure(
     return body
 
 
-def _babel_xml(root: ET.Element) -> str:
+def _probe_ifid(seed: str) -> str:
+    """Deterministic IFID for a probe, shaped like a real ADRIFT 5 one.
+
+    The Runner writes "ADRIFT-500-" followed by a v4 GUID whose first group is
+    cut down to four hex digits (all 148 IFID-bearing games in the ADRIFT 5
+    corpus are "ADRIFT-500-" + 4-4-4-4-12), so mimic that rather than emitting
+    a full UUID.  Deriving it from the probe's name instead of uuid4() keeps a
+    no-change rebuild byte-identical, which matters because the .taf files are
+    committed and FrankenDrift's FD_CACHE is keyed by their contents.
+    """
+    digest = uuid.uuid5(IFID_NAMESPACE, seed)
+    guid = uuid.UUID(int=digest.int, version=4)
+    return f"ADRIFT-500-{str(guid)[4:]}".upper()
+
+
+def _babel_xml(root: ET.Element, ifid_seed: str) -> str:
     title = root.findtext("Title") or "Untitled"
     author = root.findtext("Author") or "Anonymous"
-    ifid = f"ADRIFT-500-{uuid.uuid4()}".upper()
-    ifid = "-".join(ifid.split("-")[:5])
+    ifid = _probe_ifid(ifid_seed)
     return (
         '<ifindex xmlns="http://babel.ifarchive.org/protocol/iFiction/" '
         'version="1.0">'
@@ -322,6 +340,7 @@ def xml_to_taf(
     *,
     library_paths: list[Path],
     password: str = DEFAULT_PASSWORD,
+    ifid_seed: str = "",
 ) -> bytes:
     root, has_bom, has_declaration = _parse_xml(xml)
     embed_libraries(root, library_paths)
@@ -336,7 +355,8 @@ def xml_to_taf(
     compressed = bytearray(zlib.compress(xml_bytes, level=9))
     _obfuscate(compressed)
 
-    babel = _babel_xml(root).encode("utf-8")
+    babel = _babel_xml(root, ifid_seed or root.findtext("Title") or "Untitled")
+    babel = babel.encode("utf-8")
     babel_length = len(babel)
     babel_size = f"{babel_length:04X}"
 
@@ -422,20 +442,21 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
 
+    if args.output_file:
+        output_path = Path(args.output_file)
+    else:
+        output_path = input_path.with_suffix(".taf")
+
     try:
         taf_bytes = xml_to_taf(
             xml,
             library_paths=library_paths,
             password=args.password,
+            ifid_seed=output_path.stem,
         )
     except (Xml2TafError, TafError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
-
-    if args.output_file:
-        output_path = Path(args.output_file)
-    else:
-        output_path = input_path.with_suffix(".taf")
 
     try:
         output_path.write_bytes(taf_bytes)

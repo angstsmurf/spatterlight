@@ -224,10 +224,10 @@ a5walkthroughs: $(A5RUN_BIN)
 # suite), imported from the adrift-5-rs test suite.  The committed
 # test/adrift5/probes/*.taf are built from the committed XML sources by embedding
 # the standard library with test/adrift5/probes/tools/xml2taf.py.  Rebuilding is
-# only needed after editing a source XML -- note the .taf output is NOT
-# byte-stable (xml2taf stamps a fresh random IFID per build), so a no-change
-# rebuild still dirties the files and invalidates FrankenDrift's FD_CACHE
-# entries for those games.  Don't rebuild gratuitously.
+# only needed after editing a source XML: the .taf output is byte-stable (the
+# IFID is derived from the probe's file name, not a fresh uuid4 per build), so a
+# no-change rebuild leaves the files -- and FrankenDrift's FD_CACHE entries for
+# them -- untouched.
 a5probetafs:
 	@cd test/adrift5/probes && for x in src/*.xml; do \
 	    n=$$(basename "$$x" .xml); \
