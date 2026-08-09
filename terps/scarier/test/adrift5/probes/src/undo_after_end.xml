@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Title>Undo After End Probe</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises event state across an UNDO issued at the post-game prompt (adrift.co bug 19196). Four turn-based events announce themselves every turn while Running; the game-ending task carries one event control of each kind (Stop, Start, Suspend, Resume), all of which land in the deferred NextCommand and are never consumed, because the ending turn has no tick.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Undo Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A bare room with four event indicators.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Created>2026-08-09 12:00:00</Created>
+</Location>
+
+<!-- Running from turn 1; the ending task STOPS it. -->
+<Event>
+<Key>EvtRunner</Key>
+<Description>Runner</Description>
+<Type>TurnBased</Type>
+<WhenStart>Immediately</WhenStart>
+<Length>10</Length>
+<Control>Stop Completion TaskWin</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RUNNER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Created>2026-08-09 12:00:00</Created>
+</Event>
+
+<!-- Dormant (no automatic start); the ending task STARTS it. -->
+<Event>
+<Key>EvtSleeper</Key>
+<Description>Sleeper</Description>
+<Type>TurnBased</Type>
+<WhenStart>AfterATask</WhenStart>
+<Length>10</Length>
+<Control>Start Completion TaskWin</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>SLEEPER beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Created>2026-08-09 12:00:00</Created>
+</Event>
+
+<!-- Running from turn 1; the ending task SUSPENDS it. -->
+<Event>
+<Key>EvtPausee</Key>
+<Description>Pausee</Description>
+<Type>TurnBased</Type>
+<WhenStart>Immediately</WhenStart>
+<Length>10</Length>
+<Control>Suspend Completion TaskWin</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>PAUSEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Created>2026-08-09 12:00:00</Created>
+</Event>
+
+<!-- Suspended mid-game by `pause`; the ending task RESUMES it. -->
+<Event>
+<Key>EvtResumee</Key>
+<Description>Resumee</Description>
+<Type>TurnBased</Type>
+<WhenStart>Immediately</WhenStart>
+<Length>10</Length>
+<Control>Suspend Completion TaskPause</Control>
+<Control>Resume Completion TaskWin</Control>
+<SubEvent>
+<When>1 FromStartOfEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<SubEvent>
+<When>1 FromLastSubEvent</When>
+<What>DisplayMessage</What>
+<Measure>Turns</Measure>
+<Action>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>RESUMEE beat.</Text>
+</Description>
+</Action>
+<OnlyApplyAt>Location1</OnlyApplyAt>
+</SubEvent>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Created>2026-08-09 12:00:00</Created>
+</Event>
+
+<Task>
+<Key>TaskPause</Key>
+<Priority>50100</Priority>
+<Type>General</Type>
+<Command>pause</Command>
+<Description>Suspend the resumee event</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You suspend the fourth indicator.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Created>2026-08-09 12:00:00</Created>
+</Task>
+
+<Task>
+<Key>TaskWin</Key>
+<Priority>50101</Priority>
+<Type>General</Type>
+<Command>win</Command>
+<Description>End the game</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>You win.</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<EndGame>Win</EndGame>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-08-09 12:00:00</LastUpdated>
+<Created>2026-08-09 12:00:00</Created>
+</Task>
+</Adventure>

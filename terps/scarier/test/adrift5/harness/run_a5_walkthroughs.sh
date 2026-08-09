@@ -69,7 +69,10 @@ FILTER="${1:-}"
 # probes imported from the adrift-5-rs test suite -- built offline from
 # test/adrift5/probes/src/*.xml by `make -f Makefile.headless a5probetafs`, so the
 # Probe* rows never SKIP.  Their nonzero budgets are real, catalogued Scarier
-# nonconformances (see "Synthetic probes" in A5_WALKTHROUGH_FINDINGS.md).
+# nonconformances (see "Synthetic probes" in A5_WALKTHROUGH_FINDINGS.md) -- with
+# one exception: ProbeUndoAfterEnd's 4 xoshiro hunks are a Runner bug we do NOT
+# reproduce (adrift.co 19196, UNDO after game end vs event state), so that budget
+# must stay AT 4; "better" there would mean we had acquired the bug.
 #
 # The Sample* rows are the ADRIFT 5 developer distribution's Samples/*.taf
 # (Cloak of Darkness etc.), scripted by the same adrift-5-rs suite.  Like the
@@ -1569,6 +1572,7 @@ ProbeRefCapture|a5probes/reference_capture.taf|0|0
 ProbeRestrictions|a5probes/restrictions.taf|0|0
 ProbeTaskActions|a5probes/task_actions.taf|1|0
 ProbeUDF|a5probes/user_defined_functions.taf|0|0
+ProbeUndoAfterEnd|a5probes/undo_after_end.taf|0|4
 ProbeVariables|a5probes/variables.taf|1|1
 ProbeWaitkey|a5probes/waitkey.taf|0|0
 ProbeWalk|a5probes/walk.taf|0|0

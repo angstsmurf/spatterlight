@@ -1,0 +1,31 @@
+# ProbeUndoAfterEnd -- synthetic conformance probe
+# (test/adrift5/probes/src/undo_after_end.xml).
+#
+# adrift.co bug 19196 "UNDO fail to handle events correctly after game end"
+# (Critical, still New since 2018): in the real Runner an UNDO issued at the
+# post-game prompt leaves events in a wrong state -- stopped events start,
+# running events stop.  Cause: clsEvent.NextCommand (the deferred command an
+# EventControl sets while bEventsRunning is False) is private clsEvent state and
+# is NOT part of clsGameState (clsState.vb only saves Status /
+# TimerToEndOfEvent / iLastSubEventTime / LastSubEvent), and the ending turn has
+# no tick to consume it (TimeBasedStuff exits once eGameState <> Running), so
+# the undone task's event controls fire on the first tick after play resumes.
+#
+# Scarier does NOT reproduce it: a5run_snapshot stores the full lean
+# a5run_save_blob (next_command, just_started, when_start, triggering_task,
+# se_ft, length_value included), so a5run_undo is a true rollback.  This row is
+# therefore a DELIBERATE ground-truth divergence -- the xoshiro budget is the
+# bug, and Scarier's side is the correct one.  The golden pins our behaviour.
+#
+# After `win` the four indicators should be, in Scarier: RUNNER and PAUSEE still
+# beating, SLEEPER still dormant, RESUMEE still suspended -- exactly as before
+# the undone turn.  In FrankenDrift/the Runner: RUNNER stopped, PAUSEE paused,
+# SLEEPER and RESUMEE beating.
+wait
+pause
+wait
+win
+undo
+wait
+wait
+wait

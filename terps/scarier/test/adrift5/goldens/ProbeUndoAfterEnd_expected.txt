@@ -1,0 +1,33 @@
+Undo After End Probe
+This game exercises event state across an UNDO issued at the post-game prompt (adrift.co bug 19196). Four turn-based events announce themselves every turn while Running; the game-ending task carries one event control of each kind (Stop, Start, Suspend, Resume), all of which land in the deferred NextCommand and are never consumed, because the ending turn has no tick.
+
+Undo Lab
+A bare room with four event indicators.
+
+> wait
+Time passes...  RUNNER beat.  PAUSEE beat.  RESUMEE beat.
+
+> pause
+You suspend the fourth indicator.  RUNNER beat.  PAUSEE beat.
+
+> wait
+Time passes...  RUNNER beat.  PAUSEE beat.
+
+> win
+You win.
+
+*** You have won ***
+Would you like to restart, restore a saved game, quit or undo the last command?
+
+> undo
+Undone.  Time passes...  RUNNER beat.  PAUSEE beat.
+
+> wait
+Time passes...  RUNNER beat.  PAUSEE beat.
+
+> wait
+Time passes...  RUNNER beat.  PAUSEE beat.
+
+> wait
+Time passes...  RUNNER beat.  PAUSEE beat.
+
