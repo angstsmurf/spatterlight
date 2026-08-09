@@ -59,6 +59,7 @@ FILTER="${1:-}"
 # mis-parses heredocs inside $() when the content's quote count is odd --
 # an apostrophe in a marker would break the whole script.)
 map_rows() { cat <<'EOF'
+sophie_solution.txt|sophie.taf|You have won.|
 icecream_solution.txt|IceCream.taf|
 the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|Congratulations!
 man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time
