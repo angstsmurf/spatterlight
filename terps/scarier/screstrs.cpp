@@ -771,6 +771,24 @@ restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restricti
       result = FALSE;
       break;
 
+    case 12:
+      /*
+       * Sophie's Adventure contains one malformed/legacy type-12 restriction
+       * with the same three-integer serialized shape as types 0 and 3.  The
+       * reference Runner loads the game; treat this unsupported restriction
+       * as unsatisfied so its empty failure message lets matching continue.
+       */
+      vt_key[4].string = "Var1";
+      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      vt_key[4].string = "Var2";
+      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      vt_key[4].string = "Var3";
+      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      scr_trace ("Restr: task %ld restriction %ld legacy type 12"
+                 " not implemented; returning FALSE\n", task, restriction);
+      result = FALSE;
+      break;
+
     default:
       scr_fatal ("restr_pass_task_restriction:"
                 " unknown restriction type %ld\n", type);

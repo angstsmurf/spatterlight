@@ -133,7 +133,8 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    " V<TASK_ACTION>Actions $RestrMask <RESOURCE>Res"},
   {"TASK_RESTR",
    "#Type ?#Type=0:#Var1,#Var2,#Var3 ?#Type=1:#Var1,#Var2 ?#Type=2:#Var1,#Var2"
-   " ?#Type=3:#Var1,#Var2,#Var3 ?#Type=4:#Var1,#Var2,#Var3,$Var4 $FailMessage"},
+   " ?#Type=3:#Var1,#Var2,#Var3 ?#Type=4:#Var1,#Var2,#Var3,$Var4"
+   " ?#Type=12:#Var1,#Var2,#Var3 $FailMessage"},
   {"TASK_ACTION",
    "#Type ?#Type=0:#Var1,#Var2,#Var3 ?#Type=1:#Var1,#Var2,#Var3"
    " ?#Type=2:#Var1,#Var2 ?#Type=3:#Var1,#Var2,#Var3,$Expr,#Var5"
