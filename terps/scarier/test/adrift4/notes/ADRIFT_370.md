@@ -23,7 +23,8 @@ sweep classified both files as unknown.
 **Both are playable in Scarier as of 2026-08-04**, via `V370_PARSE_SCHEMA` in
 `sctafpar.cpp` and the version check in `sctaffil.cpp`. The container is
 identical to 3.80 (CRLF plaintext XOR'd with the VB6 PRNG from seed
-`0x00a09e86`, no signature, no trailer). Four layout differences from 3.80:
+`0x00a09e86`, keystream indexed from file offset 0; no length header and no
+password trailer, unlike 4.0). Four layout differences from 3.80:
 
 1. **One extra integer line after the second `**`**, before the
    game-name/author pair — the **0-based index of the winning task**:
@@ -50,7 +51,7 @@ held or worn.
 
 All of the above was measured against the genuine `run370.exe` under Wine rather
 than inferred from these two files; probes and results are in
-`../RUNNER_TESTS_TODO.md` §6.
+`../../../RUNNER_TESTS_TODO.md` §6.
 
 Both games sit in `games/` with the rest of the corpus, and both are solved:
 `goldens/castle_quest_solution.txt` (17 moves, 50/50) and

@@ -26,7 +26,7 @@ test/adrift4/harness/run_v4_walkthroughs.sh --bless  # re-record goldens
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
 | **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 155 of them |
-| Engine fidelity questions raised along the way | `../../RUNNER_TESTS_TODO.md` |
+| Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |
 
 ## Standing cautions
@@ -387,7 +387,7 @@ every one of those, plus the pooled burden model and the object initial-position
 list, was then **measured against the genuine `run370.exe`** rather than left as
 inference. Two real bugs fell out of the probing, one of them the 3.80-wide
 `Parent = -1` bug that had been hiding worn objects in `tra.taf`. See
-`ADRIFT_370.md` and `../RUNNER_TESTS_TODO.md` §6.)*
+`ADRIFT_370.md` and `../../../RUNNER_TESTS_TODO.md` §6.)*
 
 *(Same day, later still: **both 3.70 games are now solved**, at full score —
 `castle_quest_solution.txt` 17 moves / **50 of 50**, and
