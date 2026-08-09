@@ -315,6 +315,13 @@ typedef struct a5_adventure_s {
                                        <ifindex> block (%release%'s
                                        BabelTreatyInfo ... Release.Version);
                                        owned; NULL when absent               */
+  int map_pane_open;                /* The author's Runner window layout, if
+                                       the Blorb carries one (a5blorb.h,
+                                       a5blorb_find_layout): 1 when its Map
+                                       pane is open, 0 when closed, -1 when
+                                       the game ships no layout at all.  This
+                                       is what makes a game start with its map
+                                       showing in run500.exe                  */
   int show_first_location;          /* <ShowFirstLocation> (default 1): show
                                        the start room after the intro          */
   int show_exits;                   /* <ShowExits> (default 1): append the

@@ -201,8 +201,9 @@ main (int argc, char **argv)
     a5restr_route_cache_clear (ctx.st);
     map_frame (map, &view, ploc, surf, 0, &cam);
     map_render (map, &view, ploc, &cam, surf);
-    fprintf (stderr, "player=%s page=%d scale=%d\n",
-             ploc ? ploc : "(none)", cam.page, cam.scale);
+    fprintf (stderr, "player=%s page=%d scale=%d content=%d\n",
+             ploc ? ploc : "(none)", cam.page, cam.scale,
+             map_has_content (map, &view, ploc));
   }
 
   f = fopen (out, "wb");

@@ -918,6 +918,9 @@ a5model_from_doc (a5_xml_doc_t *doc)
     return NULL;
   a->doc = doc;
   a->root = root;
+  /* Not adventure data: the Runner layout rides alongside the game in its
+     container, so a document on its own ships no answer (see a5model_load). */
+  a->map_pane_open = -1;
   a->title = a5xml_child_text (root, "Title");
   a->author = a5xml_child_text (root, "Author");
   a->version = a5xml_child_text (root, "Version");
@@ -1166,6 +1169,16 @@ a5model_load (const char *path)
   ifid = a5_scan_ifid (file_buf, file_len);
   release = a5_scan_release (file_buf, file_len);
 
+  /* Likewise the author's Runner window layout, which lives in a chunk of its
+     own beside the game (see a5blorb_find_layout): read it while the whole
+     file is still to hand, since only the answer outlives file_buf. */
+  int map_pane_open = -1;
+  {
+    a5_blorb_chunk_t layout;
+    if (from_blorb && a5blorb_find_layout (file_buf, file_len, &layout))
+      map_pane_open = a5blorb_layout_pane_open (layout.data, layout.size, "Map");
+  }
+
   if (obfuscated)
     a5_deobfuscate (payload, header, region_len);
   xml = a5_inflate (payload + header, region_len, &xml_len);
@@ -1218,6 +1231,7 @@ a5model_load (const char *path)
     {
       adv->ifid = ifid;   /* ownership transfers; a5model_free releases them */
       adv->release = release;
+      adv->map_pane_open = map_pane_open;
     }
   return adv;
 }

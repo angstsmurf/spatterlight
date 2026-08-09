@@ -186,6 +186,14 @@ extern void map_render (const map_t *map, const map_view_t *view,
                         const char *player_key, const map_camera_t *cam,
                         map_surface_t *dst);
 
+/* Whether map_render would put anything at all on the page the player is on:
+   at least one room that has been seen and is not hidden.  Games that run
+   their title and options screens from a hidden staging room draw a blank
+   rectangle until the player reaches somewhere real, which is worth not
+   opening a pane for. */
+extern int map_has_content (const map_t *map, const map_view_t *view,
+                            const char *player_key);
+
 /* Which room is at pixel (px,py) of a `w` x `h` map view?  NULL if none.
    Lets a click walk there. */
 extern const char *map_hit (const map_t *map, const map_view_t *view,

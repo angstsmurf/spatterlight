@@ -835,6 +835,57 @@ page_node (const map_page_t *page, const char *key)
   return NULL;
 }
 
+/* The page the runner would switch to: the player's own (SelectNode), or the
+   first one when the player is somewhere the map does not place.  Returns 0
+   when there is no page to pick, leaving *key alone. */
+static int
+player_page_key (const map_t *map, const char *player_key, int *key)
+{
+  const map_node_t *pn;
+
+  if (map == NULL)
+    return 0;
+  pn = map_find (map, player_key);
+  if (pn != NULL)
+    {
+      *key = pn->page;
+      return 1;
+    }
+  if (map->n_pages > 0)
+    {
+      *key = map->pages[0].key;
+      return 1;
+    }
+  return 0;
+}
+
+int
+map_has_content (const map_t *map, const map_view_t *view,
+                 const char *player_key)
+{
+  const map_page_t *page;
+  int key = 0, i;
+
+  if (!player_page_key (map, player_key, &key))
+    return 0;
+  page = page_by_key (map, key);
+  if (page == NULL)
+    return 0;
+
+  /* The same two tests pass 3 of map_render applies before it draws a box.
+     A hidden room counts for nothing even when seen, which is exactly the
+     case that matters: the staging rooms games park the player in during
+     their opening screens are hidden. */
+  for (i = 0; i < page->n_nodes; i++)
+    {
+      if (page->nodes[i].hidden)
+        continue;
+      if (view_seen (view, page->nodes[i].key))
+        return 1;
+    }
+  return 0;
+}
+
 /* The manual zoom ladder ("glk zoom in/out").  The automatic fit never goes
    above MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer
    than the fit would; past 32 the boxes stop gaining anything. */
@@ -877,12 +928,8 @@ map_frame (const map_t *map, const map_view_t *view,
   if (map == NULL || dst == NULL)
     return;
 
-  /* The runner switches to the page the player is on (SelectNode). */
   pn = map_find (map, player_key);
-  if (pn != NULL)
-    cam->page = pn->page;
-  else if (map->n_pages > 0)
-    cam->page = map->pages[0].key;
+  player_page_key (map, player_key, &cam->page);
 
   page = page_by_key (map, cam->page);
   if (page == NULL)

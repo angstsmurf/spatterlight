@@ -191,6 +191,14 @@ static char gsc_game_path[2048];
 static a5_adventure_t *gsc_a5_adv = NULL;
 static int gsc_is_a5 = FALSE;
 
+/* A name for this game to file per-game settings under, for the games that
+   carry no IFID to use instead: ADRIFT 4 has none at all, and a few ADRIFT 5
+   games were built without one.  It is derived from the game file's contents
+   (gsc_hash_game_stream), so it follows the game when the file is moved or
+   renamed, and two games never share it the way two files both called
+   "adventure.taf" would.  Empty until the startup code has read the file. */
+static char gsc_game_key[40];
+
 /* Current a5 run, kept here so status redraws on window resize can reach it. */
 static a5_run_t *gsc_a5_run = NULL;
 static void gsc_a5_status (a5_run_t *run);
@@ -222,10 +230,17 @@ static winid_t gsc_a5_side_window = NULL;
 static winid_t gsc_map_window = NULL;
 static map_t *gsc_map = NULL;
 static int gsc_map_shown = FALSE;
+/* Whether the map pane is wanted at all: the player's remembered choice, or
+   failing that the layout the game shipped (gsc_map_auto_reveal).  Wanted is
+   not the same as shown -- a map with nothing on it yet is held back until
+   there is something to see (gsc_map_worth_opening), and the per-turn redraw
+   opens it then.  FALSE until something decides. */
+static int gsc_map_want = FALSE;
 /* Where the map pane sits: the standard 40% pane to the right of the story,
    or -- for games with wide maps -- a 30% band across the top of the whole
    screen, above the status line ("glk map top").  The choice is kept, so
-   hiding and re-showing the map does not move it. */
+   hiding and re-showing the map does not move it, and it is remembered with
+   the visibility (gsc_map_pref_write) so neither does restarting. */
 static int gsc_map_at_top = FALSE;
 /* Set when the game defines a MAP command of its own (Lost Coastlines has a
    sea chart): the game's command wins, and the pane is reached with the
@@ -299,6 +314,10 @@ static int gsc_sc_walk_steps = 0;
 
 static int gsc_sc_walk_next (scr_char *buffer, scr_int length);
 static void gsc_map_toggle (void);
+static void gsc_map_auto_reveal (void);
+static void gsc_map_show (void);
+static int gsc_map_pref_read (int *at_top);
+static int gsc_map_default_shown (void);
 
 static void
 gsc_sc_walk_stop (void)
@@ -3759,15 +3778,27 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to hide it again; plain ");
       gsc_standout_string ("map");
       gsc_normal_string (" toggles it too, unless the game uses MAP for"
-                         " something of its own.\n\nFor games with wide"
-                         " maps, ");
+                         " something of its own.\n\nSome ADRIFT 5 games ask"
+                         " to open with their map already showing, and this"
+                         " one may be one of them; either way, whichever of ");
+      gsc_standout_string ("glk map on");
+      gsc_normal_string (" or ");
+      gsc_standout_string ("glk map off");
+      gsc_normal_string (" you use last is remembered for this game, and the"
+                         " next session starts that way.  A map with nothing"
+                         " on it yet -- during a title or options screen, say"
+                         " -- waits rather than opening empty, and appears as"
+                         " soon as you reach somewhere it can show.\n\nFor"
+                         " games with wide maps, ");
       gsc_standout_string ("glk map top");
       gsc_normal_string (" (or ");
       gsc_standout_string ("glk map above");
       gsc_normal_string (") moves the map to a band across the top of the"
                          " screen, above the status line; ");
       gsc_standout_string ("glk map right");
-      gsc_normal_string (" puts it back beside the story.\n\nThe map zooms"
+      gsc_normal_string (" puts it back beside the story.  This is remembered"
+                         " for the game as well, so the map comes back where"
+                         " you left it.\n\nThe map zooms"
                          " itself to fit its window.  Use ");
       gsc_standout_string ("glk zoom in");
       gsc_normal_string (" and ");
@@ -4878,6 +4909,45 @@ gsc_apply_known_game_assists (scr_game game)
 
 
 /*
+ * gsc_hash_game_stream()
+ *
+ * Set gsc_game_key from the contents of the game file, and rewind the stream
+ * so that the loader still sees it whole.
+ *
+ * This is only ever a name to hang a settings file off, never a claim about
+ * the file's contents, so a 64-bit FNV-1a of the bytes with the length hung
+ * on the end is ample: the whole population it has to keep apart is one
+ * player's game folder.  It is deliberately not the Treaty of Babel IFID --
+ * that is a published identifier, and inventing a private one that looks like
+ * it would be worse than an obviously local name.
+ */
+static void
+gsc_hash_game_stream (strid_t stream)
+{
+  static const unsigned long long fnv_offset = 0xcbf29ce484222325ULL;
+  static const unsigned long long fnv_prime = 0x100000001b3ULL;
+  unsigned long long hash = fnv_offset;
+  unsigned long length = 0;
+  char buffer[4096];
+  glui32 count;
+
+  do
+    {
+      glui32 i;
+
+      count = glk_get_buffer_stream (stream, buffer, (glui32) sizeof buffer);
+      for (i = 0; i < count; i++)
+        hash = (hash ^ (unsigned char) buffer[i]) * fnv_prime;
+      length += count;
+    }
+  while (count == sizeof buffer);
+
+  glk_stream_set_position (stream, 0, seekmode_Start);
+  snprintf (gsc_game_key, sizeof gsc_game_key, "%016llx%08lx", hash, length);
+}
+
+
+/*
  * gsc_startup_code()
  * gsc_main
  *
@@ -4965,6 +5035,11 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
       scr_set_portable_random (TRUE);
       scr_reseed_random_sequence (1);
     }
+
+  /* Name the game file, while the stream is still open and at its start: both
+     loaders below want the file from the beginning, and only one of them (the
+     ADRIFT 5 one) finds an IFID inside it. */
+  gsc_hash_game_stream (game_stream);
 
   /*
    * ADRIFT 5 detection.  ADRIFT 5 games are zlib-compressed XML (optionally
@@ -5176,6 +5251,17 @@ gsc_main (void)
       gsc_autorestored = TRUE;
     }
 #endif
+
+  /* Bring back the map if the player left this game with one.  Before the
+     intro rather than after it, unlike the ADRIFT 5 path: there is no title
+     page here to keep the screen to itself, and opening the pane first spares
+     the opening text being laid out twice.  It usually opens a moment later
+     anyway -- the starting room is not marked seen until it has been
+     described, so there is nothing to draw yet and the first prompt's redraw
+     is what actually reveals it.  An autorestore keeps the archived pane
+     instead, whatever it was. */
+  if (!autorestore)
+    gsc_map_auto_reveal ();
 
   /* Repeat the game until no more restarts requested. */
   is_running = TRUE;
@@ -6312,6 +6398,17 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   gsc_map_shown = st->map_shown;
   gsc_map_at_top = st->map_at_top;
   gsc_map_zoom = st->map_zoom;
+  /* A map that was wanted but still waiting for somewhere to draw was archived
+     closed, and looks exactly like one the player shut; what the map would do
+     from a standing start -- the stored preference, or failing that the
+     layout the game shipped -- is what tells the two apart, so the wait
+     survives the autosave. */
+  {
+    int pref = gsc_map_pref_read (NULL);
+
+    gsc_map_want = gsc_map_shown || pref == 1
+                   || (pref < 0 && gsc_map_default_shown ());
+  }
   /* The restored map window holds the app's snapshot pixels, not ours:
      force the next redraw to flush the whole surface. */
   gsc_map_screen_drop ();
@@ -7051,6 +7148,34 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
 }
 
 /*
+ * gsc_map_worth_opening()
+ *
+ * Whether opening the pane right now would show the player anything.
+ *
+ * ADRIFT 5 games routinely run their title, credits and options screens from a
+ * staging room the map hides (Location <Hide>), and a page whose only seen room
+ * is hidden renders as an empty rectangle -- The Axe of Kolt spends three
+ * screens there before the game proper begins.  Rather than put up a blank
+ * pane, opening waits; every redraw asks again, so the map arrives with the
+ * first real room.
+ *
+ * A map that cannot be built at all answers TRUE, because that is a different
+ * complaint and one the pane makes for itself: ADRIFT 4's layout can give up
+ * ("too complex"), and the player asking for the map deserves to be told so.
+ */
+static int
+gsc_map_worth_opening (void)
+{
+  map_view_t view;
+  const char *ploc = NULL;
+  char keybuf[16];
+
+  if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
+    return TRUE;
+  return map_has_content (gsc_map, &view, ploc);
+}
+
+/*
  * gsc_map_redraw()
  *
  * Rasterise the map and blit it into the graphics window.  Glk has no drawing
@@ -7071,6 +7196,12 @@ gsc_map_redraw (void)
   char keybuf[16];
   glui32 w, h;
   int x, y;
+
+  /* A map that was asked for while there was nothing on it: try again now
+     that the game has moved on.  (gsc_map_show comes straight back here, but
+     with gsc_map_shown set, so this runs once.) */
+  if (gsc_map_want && !gsc_map_shown && gsc_map_worth_opening ())
+    gsc_map_show ();
 
   if (!gsc_map_window)
     return;
@@ -7256,6 +7387,172 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
 }
 
 /*
+ * gsc_map_available()
+ *
+ * Whether this game has a map at all.  In ADRIFT 5 that is settled at load:
+ * it either shipped map data or it did not.  In ADRIFT 4 every game with
+ * rooms has one, unless the author switched it off -- and gsc_map itself is
+ * no guide there, being built lazily at the first redraw.  Whether there is
+ * anything to draw *right now* is a separate question (map_has_content).
+ */
+static int
+gsc_map_available (void)
+{
+  if (gsc_is_a5)
+    return gsc_map != NULL;
+  return gsc_game != NULL && scmap_available ((scr_gameref_t) gsc_game);
+}
+
+/*
+ * gsc_map_default_shown()
+ *
+ * Whether this game would start with the map showing if the player had never
+ * said otherwise: what the author's shipped Runner layout asks for in ADRIFT
+ * 5, and nothing at all in ADRIFT 4, whose Runner opened with the map closed
+ * however the last game left it.
+ */
+static int
+gsc_map_default_shown (void)
+{
+  return gsc_is_a5 && gsc_a5_adv != NULL && gsc_a5_adv->map_pane_open == 1;
+}
+
+/*
+ * gsc_map_pref_ref()
+ *
+ * A fileref for this game's remembered map choice, or NULL when there is
+ * nothing to remember or nowhere to keep it.
+ *
+ * The ADRIFT 5 Runner keeps the player's window layout per game, in
+ * RunnerLayout-<IFID>.xml, and writes it out on quit; that file is also what
+ * overrides the layout an author shipped inside the Blorb, because the Runner
+ * only unpacks the shipped one when no file for that IFID exists yet
+ * (Blorb.vb:343).  This is the same store, under the same key -- two bytes,
+ * '1' or '0' for whether the map is wanted and 't' or 'r' for where it goes,
+ * rather than a window layout.
+ *
+ * Games the Runner has no key for get one of ours (gsc_game_key): ADRIFT 4
+ * never had an IFID, and its Runner kept the map as a global View-menu
+ * setting in the registry rather than per game, so there is nothing to be
+ * compatible with -- and a few ADRIFT 5 .taf files were built without an
+ * <ifid> block too.
+ *
+ * Games with no map and hosts with no graphics have nothing to record, and
+ * must not leave a file behind for it.
+ */
+static frefid_t
+gsc_map_pref_ref (void)
+{
+  const char *key;
+  char name[128];
+
+  if (!gsc_map_available ())
+    return NULL;
+  if (!glk_gestalt (gestalt_Graphics, 0)
+      || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
+    return NULL;
+
+  if (gsc_is_a5 && gsc_a5_adv != NULL
+      && gsc_a5_adv->ifid != NULL && gsc_a5_adv->ifid[0] != '\0')
+    key = gsc_a5_adv->ifid;
+  else if (gsc_game_key[0] != '\0')
+    key = gsc_game_key;
+  else
+    return NULL;
+
+  snprintf (name, sizeof name, "scarier-map-%s", key);
+  return glk_fileref_create_by_name (fileusage_Data | fileusage_TextMode,
+                                     name, 0);
+}
+
+/*
+ * gsc_map_pref_read()
+ *
+ * The player's remembered choice for this game: 1 to show the map, 0 to hide
+ * it, -1 when they have never said.  Where they last put it is returned
+ * through at_top on the same terms -- 1 for the top band, 0 for the pane at
+ * the right, -1 for never said -- since files written before the map could be
+ * moved hold only the first byte.
+ */
+static int
+gsc_map_pref_read (int *at_top)
+{
+  frefid_t fileref;
+  int value = -1;
+
+  if (at_top != NULL)
+    *at_top = -1;
+
+  fileref = gsc_map_pref_ref ();
+  if (fileref == NULL)
+    return -1;
+
+  if (glk_fileref_does_file_exist (fileref))
+    {
+      strid_t stream = glk_stream_open_file (fileref, filemode_Read, 0);
+
+      if (stream)
+        {
+          glui32 c = glk_get_char_stream (stream);
+
+          if (c == '0' || c == '1')
+            value = (int) (c - '0');
+
+          c = glk_get_char_stream (stream);
+          if (at_top != NULL && (c == 't' || c == 'r'))
+            *at_top = (c == 't');
+
+          glk_stream_close (stream, NULL);
+        }
+    }
+
+  glk_fileref_destroy (fileref);
+  return value;
+}
+
+/*
+ * gsc_map_pref_write()
+ *
+ * Remember that the player asked for the map to be shown or hidden in this
+ * game, and where they had it, so that the next session opens the way they
+ * left it.  The position is recorded even when the map is off, so that turning
+ * it back on later still puts it where they last had it.
+ *
+ * Only a game whose map the player has actually moved away from its default
+ * gets a file; one they have put back where it started has theirs removed
+ * again.  So the common case -- ADRIFT 4, where the map starts hidden and
+ * most players leave it that way -- costs nothing at all, and the files that
+ * do accumulate are only for games the player made a decision about.
+ */
+static void
+gsc_map_pref_write (int shown, int at_top)
+{
+  frefid_t fileref;
+  strid_t stream;
+
+  fileref = gsc_map_pref_ref ();
+  if (fileref == NULL)
+    return;
+
+  if (!shown == !gsc_map_default_shown () && !at_top)
+    {
+      if (glk_fileref_does_file_exist (fileref))
+        glk_fileref_delete_file (fileref);
+      glk_fileref_destroy (fileref);
+      return;
+    }
+
+  stream = glk_stream_open_file (fileref, filemode_Write, 0);
+  if (stream)
+    {
+      glk_put_char_stream (stream, (unsigned char) (shown ? '1' : '0'));
+      glk_put_char_stream (stream, (unsigned char) (at_top ? 't' : 'r'));
+      glk_stream_close (stream, NULL);
+    }
+  glk_fileref_destroy (fileref);
+}
+
+/*
  * gsc_map_show()
  *
  * Open the map pane, in whichever position gsc_map_at_top asks for: the
@@ -7266,12 +7563,7 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
 static void
 gsc_map_show (void)
 {
-  /* Does the game have a map at all?  In ADRIFT 5 that is settled at load: it
-     either shipped map data or it did not.  In ADRIFT 4 every game with rooms
-     has one, unless the author switched it off.  Whether there is anything to
-     draw *right now* is a separate question, and one for the redraw. */
-  if (gsc_is_a5 ? gsc_map == NULL
-                : !scmap_available ((scr_gameref_t) gsc_game))
+  if (!gsc_map_available ())
     {
       gsc_normal_string ("This game has no map.\n");
       return;
@@ -7331,22 +7623,122 @@ gsc_map_hide (void)
 }
 
 /*
+ * gsc_map_set()
+ *
+ * Show or hide the map pane at the player's request, and remember the choice
+ * for this game.  The window is opened on first use (and only for games that
+ * actually have map data), then kept, so toggling is cheap.
+ *
+ * Remembering matters because a game can ask to start with its map showing
+ * (gsc_map_auto_reveal); the player's own last word has to outlast the
+ * session, or "glk map off" would be undone by the next launch.
+ */
+static void
+gsc_map_set (int shown)
+{
+  int deferred = FALSE;
+
+  if (shown)
+    {
+      if (!gsc_map_shown)
+        {
+          if (gsc_map_worth_opening ())
+            gsc_map_show ();
+          else
+            {
+              deferred = TRUE;
+              gsc_normal_string ("There is nothing to put on the map from"
+                                 " here; it will open by itself as soon as"
+                                 " there is.\n");
+            }
+        }
+    }
+  else if (gsc_map_shown)
+    {
+      gsc_map_hide ();
+      gsc_normal_string ("Map hidden.\n");
+    }
+  else if (gsc_map_want)
+    /* Called off before it ever got to open. */
+    gsc_normal_string ("Map hidden.\n");
+
+  /* What actually happened, not what was asked for: opening can fail outright
+     (no map, no graphics), and a pane that cannot exist is not a preference
+     worth keeping.  A deferred open is the opposite case -- the player did
+     ask, and the map is on its way. */
+  gsc_map_want = gsc_map_shown || deferred;
+  gsc_map_pref_write (gsc_map_want, gsc_map_at_top);
+}
+
+/*
  * gsc_map_toggle()
  *
- * Show or hide the map pane.  The window is opened on first use (and only for
- * games that actually have map data), then kept, so toggling is cheap.
+ * Show the map pane if it is hidden, hide it if it is shown -- or cancel it if
+ * it is merely on its way.
  */
 static void
 gsc_map_toggle (void)
 {
-  if (gsc_map_shown)
-    {
-      gsc_map_hide ();
-      gsc_normal_string ("Map hidden.\n");
-      return;
-    }
+  gsc_map_set (!(gsc_map_shown || gsc_map_want));
+}
 
-  gsc_map_show ();
+/*
+ * gsc_map_auto_reveal()
+ *
+ * Open the map pane at the start of a game that asks for it.
+ *
+ * ADRIFT 5 games can carry the author's own Runner window layout in their
+ * Blorb (a5blorb_find_layout), and run500.exe starts with whatever panes that
+ * layout has open -- which is the whole of why a handful of games "come with
+ * the map already showing" and the rest do not.  There is no authored
+ * map-visibility setting, and ADRIFT 4 has no equivalent at all: run400's map
+ * was a View-menu toggle stored globally in the registry, never per game.
+ *
+ * A choice the player made themselves wins over the author's, exactly as the
+ * Runner's own saved RunnerLayout-<IFID>.xml wins over the shipped one -- in
+ * either direction, so a player who once opened the map in this game gets it
+ * back too.  That part applies to ADRIFT 4 as well, which is why this runs on
+ * both paths: the game has nothing to say about the map, but the player does.
+ * Silent throughout: a host that cannot draw a map, or a game with none, just
+ * gets no pane.
+ */
+static void
+gsc_map_auto_reveal (void)
+{
+  int pref, at_top;
+
+  if (gsc_map_shown)
+    return;
+
+  gsc_map_want = FALSE;
+  if (!gsc_map_available ())
+    return;
+  if (!glk_gestalt (gestalt_Graphics, 0)
+      || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
+    return;
+
+  pref = gsc_map_pref_read (&at_top);
+
+  /* Where the map goes is remembered whether or not it is opened now, so that
+     a later "glk map on" puts it back where the player last had it. */
+  if (at_top >= 0)
+    gsc_map_at_top = at_top;
+
+  if (pref < 0)
+    {
+      /* Never asked: follow the layout the author shipped, if any. */
+      if (!gsc_is_a5 || gsc_a5_adv == NULL || gsc_a5_adv->map_pane_open != 1)
+        return;
+    }
+  else if (pref == 0)
+    return;
+
+  /* Wanted -- but an opening played out from a room the map hides has nothing
+     to put in the pane, so the map may have to wait for the first real room
+     (gsc_map_worth_opening, and the retry in gsc_map_redraw). */
+  gsc_map_want = TRUE;
+  if (gsc_map_worth_opening ())
+    gsc_map_show ();
 }
 
 /*
@@ -7369,7 +7761,11 @@ gsc_map_place (int at_top)
 
   gsc_map_hide ();
   gsc_map_at_top = at_top;
-  gsc_map_show ();
+
+  /* Asking where the map goes is asking for a map -- through gsc_map_set, so
+     that the request is remembered and honoured later even if there is nothing
+     to draw from where the player is standing. */
+  gsc_map_set (TRUE);
 }
 
 /*
@@ -7389,15 +7785,16 @@ gsc_command_map (const char *argument)
       gsc_map_toggle ();
       return;
     }
+  /* Explicit on/off go through gsc_map_set even when they change nothing, so
+     that "glk map off" in a game that opens with its map showing is recorded
+     as a veto rather than shrugged off as a no-op. */
   if (scr_strcasecmp (argument, "on") == 0)
     {
-      if (!gsc_map_shown)
-        gsc_map_toggle ();
+      gsc_map_set (TRUE);
     }
   else if (scr_strcasecmp (argument, "off") == 0)
     {
-      if (gsc_map_shown)
-        gsc_map_toggle ();
+      gsc_map_set (FALSE);
     }
   else if (scr_strcasecmp (argument, "top") == 0
            || scr_strcasecmp (argument, "above") == 0)
@@ -7571,8 +7968,20 @@ gsc_a5_restart_run (a5_run_t *&run)
     }
   gsc_a5_stop_all_sounds ();
   gsc_a5_start_real_time (run);
+
+  /* Take the map down for the replayed opening and put it back afterwards,
+     for the same two reasons the first reveal waits: the title screen should
+     have the screen to itself, and what comes back should be decided afresh
+     -- by the player's remembered choice, or failing that by the layout the
+     game shipped.  A hand-set zoom goes with the old run: the new one is back
+     to a single room, which a scale chosen for a whole map would show far too
+     close in. */
+  gsc_map_hide ();
+  gsc_map_zoom = 0;
+
   glk_window_clear (gsc_main_window);
   gsc_a5_present_intro (run);
+  gsc_map_auto_reveal ();
 }
 
 
@@ -7691,6 +8100,9 @@ gsc_a5_main (void)
     {
 #endif
   gsc_a5_present_intro (run);
+  /* After the intro, so the title page is not sharing the screen with a map.
+     An autorestore takes the archived pane instead, whatever it was. */
+  gsc_map_auto_reveal ();
 #ifdef SPATTERLIGHT
     }
 #endif
