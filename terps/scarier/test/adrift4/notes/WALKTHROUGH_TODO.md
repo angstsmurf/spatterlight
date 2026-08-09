@@ -83,9 +83,15 @@ marooned's rescue ship coming over the horizon, and the entire paragraph in
 alices_restaurant where Obie takes your wallet and your belt at the station.
 No route broke, no win marker moved, and `thetest`, `gateway` and `inverness` —
 the games probed live in run390 for §2 — are byte-identical. Written up as
-`RUNNER_TESTS_TODO.md` **§8**, with two open probes: the wraith's visibility
-while you are up the rope (Panic!'s one residual divergence, turns 44–46), and
-whether a restarted period with `Time1=5` is 5 turns or 4.
+`RUNNER_TESTS_TODO.md` **§8**, which left two open probes: the wraith's
+visibility while you are up the rope (Panic!'s one residual divergence, turns
+44–46), and whether a restarted period with `Time1=5` is 5 turns or 4.
+**Both were closed the same day** — the period keeps its full authored length
+and the restart is silent, and `make_39_evseeprobe.py` refuted the visibility
+theory outright (run390 prints event text while the player is sitting on a
+surface or inside a container, exactly as we do; the 24-vs-21 count that raised
+it was an RNG divergence, the player is never up the statue on those turns).
+See §8 for both.
 
 ## 2026-08-04 — the six ClubFloyd/hints games — ★ **6 wins** — **198 PASS**
 
@@ -1244,6 +1250,14 @@ the reader had to be turned into commands:
 
 ## PARKED 2026-08-03 — the `downloaded/` wiring run stops here, at 161/161 PASS
 
+> **Superseded 2026-08-04 — this park is over and every item below is struck.**
+> The run resumed and finished: Ba'Roo!, Lair of the Vampire, The Fugitive and
+> The Dead Man were all derived and won, and the five undownloaded games
+> (Chosen, Crimson Detritus, ImagiDroids, Panic!, The Cellar) arrived and were
+> wired. **`downloaded/` is fully wired — every walkthrough in it has a game
+> and a row** — and the suite is at 203 PASS / 0 NOSCRIPT. See the entries
+> above. Kept for the resume-order notes and the two habits at the end.
+
 Clean stopping point: suite green (no FAIL / SKIP / NEEDGOLD / NOSCRIPT /
 REGRESSIONS), every golden blessed against the current binary, **nothing
 committed**. The two `scparser.cpp` fixes, the `sctasks.cpp` negative-object
@@ -1276,10 +1290,11 @@ To resume, the remaining `downloaded/` candidates that already have a staged
   ~~`ThePlagueRedux_walkthrough.doc`~~ → `The Plague - Redux.taf` (wired,
   **UNFINISHABLE as shipped** — see below)
 
-Still parked from earlier: Ba'Roo! (needs real derivation), Lair of the Vampire
-(desyncs badly), The Fugitive (prose only). `TheDeadMan_walkthrough.html` has no
-`.taf`. Five games are still undownloaded: Chosen, Crimson Detritus,
-Imagidroids, Panic, The Cellar.
+~~Still parked from earlier: Ba'Roo! (needs real derivation), Lair of the
+Vampire (desyncs badly), The Fugitive (prose only). `TheDeadMan_walkthrough.html`
+has no `.taf`. Five games are still undownloaded: Chosen, Crimson Detritus,
+Imagidroids, Panic, The Cellar.~~ *(All nine wired 2026-08-04 — see the banner
+at the top of this section.)*
 
 Two habits from this batch worth keeping: check `OBJNAME ... prefix=[...]`
 before believing "I see no such thing", and treat a published *session
