@@ -304,38 +304,29 @@ ev_control (a5_run_t *run, int ei, int cmd, const char *task_key, sb_t *out)
   rt.triggering_task = task_key ? task_key : "";
 }
 
-/* clsTask.Children(True): is `candidate` a (recursive) Specific-override
-   descendant of `ancestor`?  Used by the control loop so a parent task does not
-   re-trigger an event/walk control that one of its override children already
-   triggered -- clsUserSession.vb:872/893
-   `Not task.Children(True).Contains(e.sTriggeringTask)`.  (E.g. the parent
-   AttackCharacterWithObject must NOT re-fire a control its override child
-   s_AttackTheT already handled, which would shift Spectre's noon-bell event.) */
-static int
-task_is_descendant (const a5_adventure_t *adv, const char *ancestor,
-                    const char *candidate, int depth)
-{
-  const a5_task_t *c;
-  if (depth > 16 || candidate == NULL || ancestor == NULL)
-    return 0;
-  c = a5model_task (adv, candidate);
-  if (c == NULL || !streq (c->type, "Specific") || c->general_key == NULL)
-    return 0;
-  if (streq (c->general_key, ancestor))
-    return 1;
-  return task_is_descendant (adv, ancestor, c->general_key, depth + 1);
-}
-
-/* The runner's control re-trigger guard (clsUserSession.vb:872/893): a control must
-   not re-fire for the very task that triggered it, nor for a parent of that task
-   (task.Children(True).Contains).  Shared by the event and walk control loops. */
+/* The runner's control re-trigger guard (clsUserSession.vb:873/894): a parent
+   task must not re-fire a control one of its override children already
+   triggered -- `Not task.Children(True).Contains(w.sTriggeringTask)`, where
+   clsTask.Children(True) is the task's DIRECT Specific-override children
+   (clsTask.vb:336, tas.GeneralKey = Me.Key: one level down, self NOT
+   included).  (E.g. the parent AttackCharacterWithObject must NOT re-fire a
+   control its override child s_AttackTheT already handled, which would shift
+   Spectre's noon-bell event.)  Crucially the guard does NOT block
+   sTriggeringTask == task.Key itself, so a task with two controls on the same
+   walk fires BOTH: lifecycle.taf's TaskRestartPatrol Stop control fires
+   (recording itself as the trigger) and its Start control still fires right
+   after, upgrading the pending Stop to a Restart (clsCharacter.vb:1366-1367).
+   Shared by the event and walk control loops. */
 static int
 ctrl_retrigger_blocked (const a5_adventure_t *adv,
                         const std::string &triggering_task, const char *task_key)
 {
-  return !triggering_task.empty ()
-         && (triggering_task == task_key
-             || task_is_descendant (adv, task_key, triggering_task.c_str (), 0));
+  const a5_task_t *c;
+  if (triggering_task.empty () || task_key == NULL)
+    return 0;
+  c = a5model_task (adv, triggering_task.c_str ());
+  return c != NULL && streq (c->type, "Specific") && c->general_key != NULL
+         && streq (c->general_key, task_key);
 }
 
 /* A control's action as the shared event/walk command enum (clsEvent.Start /
