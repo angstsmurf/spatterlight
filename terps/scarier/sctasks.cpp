@@ -1101,22 +1101,12 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
   if (var1 == 0)
     {
       /*
-       * Redirect forwards.  Once the game has ended, the Runner drops these
-       * -- measured against run400 with the "EG" arena probe, whose
-       * "printlast" cell (end game, then execute a task that scores) finishes
-       * on 0 out of 7 while its "printfirst" control, the same two actions in
-       * the other order, finishes on 7.  Plain in-line actions are *not*
+       * Redirect forwards.  Once the game has ended, this dispatch is a no-op;
+       * the guard lives at the top of task_run_task(), exactly as the Runner
+       * puts it at the top of its RunTask.  Plain in-line actions are *not*
        * dropped; see task_run_task_actions() below.
        */
-      if (!game->is_running)
-        {
-          if (task_trace)
-            {
-              scr_trace ("Task: game over, not redirecting to task %ld\n",
-                        var2);
-            }
-        }
-      else if (task_can_run_task_directional (game, var2, TRUE))
+      if (task_can_run_task_directional (game, var2, TRUE))
         {
           if (task_trace)
             scr_trace ("Task: redirecting to task %ld\n", var2);
@@ -1400,8 +1390,12 @@ task_run_task_actions (scr_gameref_t game, scr_int task)
    * test/adrift4/harness/make_arena_probe.py): a task whose actions are
    * "end game" then "+7 points" finishes on 7 out of 7, exactly as when the
    * two are the other way round.  Nothing the trailing actions print is
-   * shown, hence the muting.  The one kind the Runner *does* drop after the
-   * ending is an Execute Task action -- see task_run_set_task_action().
+   * shown, hence the muting.  The Runner's own action executor
+   * (mdlSpreadTheLoad.Sub_20_11) reads its gameover flag exactly once, inside
+   * the EndGame handler at 0008D621, where it guards re-printing the ending
+   * -- there is no test at the loop head.  The one kind of action it *does*
+   * drop after the ending is Execute Task, because that dispatches through
+   * RunTask, which does have such a test; see task_run_task().
    */
   status = FALSE;
   muted = FALSE;
@@ -1655,6 +1649,32 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
     {
       scr_trace ("Task: running task %ld %s, depth %ld\n",
                 task, forwards ? "forwards" : "backwards", recursion_depth);
+    }
+
+  /*
+   * Refuse to run anything once the game has ended.  This is the Runner's own
+   * first act in the equivalent routine: mdlSpreadTheLoad.Sub_20_22 opens at
+   * file offset 0005F750 with
+   *
+   *     ImpAdLdUI1 <gameover> ; CI2UI1 ; LitI2_Byte 0 ; GtI2 ; BranchF ; ExitProc
+   *
+   * i.e. "If gameOver > 0 Then Exit Sub", ahead of restrictions, completion
+   * text and actions alike.  The one caller that can reach here after an
+   * ending is the type-5 Execute Task action, whose branch in the action
+   * executor (Sub_20_11 @ 0008D5D1) calls RunTask unguarded -- so the Runner
+   * refuses the *dispatch*, not the callee's completion.  Measured with the
+   * "EG" arena probe: "printlast" (end game, then execute a task that scores)
+   * finishes on 0 out of 7, while its "printfirst" control -- the same two
+   * actions in the other order -- finishes on 7.  The action *loop* has no
+   * such test, which is why in-line actions behind an ending still run; see
+   * task_run_task_actions().
+   */
+  if (!game->is_running)
+    {
+      if (task_trace)
+        scr_trace ("Task: game over, not running task %ld\n", task);
+
+      return FALSE;
     }
 
   /* Check restrictions. */
