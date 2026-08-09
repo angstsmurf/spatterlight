@@ -717,9 +717,8 @@ character_display_name (a5_state_t *st, const a5_character_t *c, int definite,
      runs under UserSession.bDisplaying: once a character's name has rendered
      in displayed output, later Indefinite descriptor renders upgrade to the
      Definite article ("a tall guillermo" -> "the tall guillermo"), and the
-     render itself marks the character Introduced.  In the runner the only renders
-     that happen under bDisplaying are of text still carrying its %functions%
-     when it reaches Display() -- see a5state.h's intro_active. */
+     render itself marks the character Introduced.  Which renders count as
+     bDisplaying ones is spelled out on a5state.h's intro_active. */
   if (displaying && st->intro_active
       && c != NULL && st->char_introduced != NULL)
     {
@@ -3980,8 +3979,20 @@ object_list_desc (a5_state_t *st, const a5_object_t *o, int is_static)
 }
 
 /* A present character's "is here" line: its CharHereDesc property rendered (with
-   the character as the text context, retiring its DisplayOnce segments), else
-   the default "<Name> is here." (clsLocation.ViewLocation: IsHereDesc / fallback). */
+   the character as the text context), else the default "<Name> is here."
+   (clsLocation.ViewLocation: IsHereDesc / fallback).
+
+   The render follows the AMBIENT marking_display like every other description
+   in the view -- clsDescription.ToString sets Displayed only `If Not
+   UserSession.bTestingOutput`, and IsHereDesc is not special-cased.  Forcing
+   the mark here made the stock Look's two test renders disagree whenever a
+   present character had a DisplayOnce CharHereDesc: the pre-action probe
+   retired the first-visit segment, so the post-action probe fell through to the
+   next one.  The view still came out right (the response pins to the first
+   probe), but the discarded second render expanded that segment's %functions%
+   under bDisplaying and so marked the character Introduced a turn early --
+   Anno 1700's Susan answered "say hello" as "(to the young woman)" instead of
+   "(to a young woman)". */
 static char *
 char_here_desc (a5_state_t *st, const a5_character_t *c)
 {
@@ -3998,11 +4009,7 @@ char_here_desc (a5_state_t *st, const a5_character_t *c)
          customs official stands here."). */
       if (p->value_node != NULL)
         {
-          char *raw;
-          {
-            a5_mark_guard mg (st, 1);
-            raw = a5text_eval_description (st, p->value_node);
-          }
+          char *raw = a5text_eval_description (st, p->value_node);
           result = process_inner (st, raw, 0);     /* %functions% / OO pass */
           free (raw);
         }

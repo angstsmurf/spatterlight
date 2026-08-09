@@ -1034,7 +1034,12 @@ execute_task_with_overrides (a5_run_t *run, const a5_task_t *parent,
             }
         }
       else if (comp != NULL)
-        emit_completion (run, comp, out);
+        {
+          /* defer_text is gated on parent->aggregate, so this render stands in
+             for the runner's Display-time expansion: bDisplaying. */
+          a5_intro_guard ig (st, 1);
+          emit_completion (run, comp, out);
+        }
       if (after_buf.len > 0) { sb_pspace (out); sb_puts (out, after_buf.p); }
       free (after_buf.p);
     }
@@ -3752,6 +3757,11 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
               free (e1);
               free (e2);
               free (m1);
+              /* Finalize.  For a non-aggregate task this is vb:1185/1204's
+                 eager replace, the one completion render the runner makes with
+                 bDisplaying clear; an aggregate task skips that line entirely
+                 and its raw template expands inside Display instead. */
+              a5_intro_guard ig (run->st, t->aggregate);
               emit_completion (run, comp, out);   /* finalize: 3rd render + display */
             }
         }
@@ -3781,6 +3791,9 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
             a5_mark_guard mg (run->st, 1);
             flat_raw = a5text_eval_description (run->st, comp);
             run->st->marking_display = 0;   /* the frozen re-render is a test */
+            /* vb:1177's probe: bTestingOutput AND bDisplaying (the freeze above
+               is CompletionMessage.ToString, which precedes both). */
+            a5_intro_guard ig (run->st, 1);
             flat_pre = a5text_process_frozen (run->st, flat_raw, &flat_pre_ink,
                                               &flat_pre_marked);
           }
@@ -3878,6 +3891,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       char *post;
       {
         a5_mark_guard mg (run->st, 0);
+        a5_intro_guard ig (run->st, 1);        /* vb:1199's probe */
         post = a5text_process_frozen (run->st, flat_raw, NULL, &post_marked);
       }
       /* Compare the MARKED renders: that is the string the runner holds in
@@ -3898,6 +3912,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
           char *fin;
           {
             a5_mark_guard mg (run->st, 1);
+            a5_intro_guard ig (run->st, t->aggregate);   /* vb:1204 finalize */
             fin = a5text_process_frozen (run->st, flat_raw, &fin_ink,
                                          &fin_marked);
           }
@@ -3981,6 +3996,7 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
                   char *m;
                   {
                     a5_mark_guard mg (st2, 1);
+                    a5_intro_guard ig (st2, 1);   /* aggregate: Display render */
                     m = a5text_process_frozen (st2, rawtext.c_str (),
                                                &ink, &mk);
                   }
@@ -4004,13 +4020,22 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
           size_t sink0 = run->comp_defers->size ();
           size_t out0 = out->len;
           run->st->expr_defer = run->comp_defers;
-          emit_completion (run, comp, out);
+          {
+            a5_intro_guard ig (run->st, 1);     /* aggregate: Display render */
+            emit_completion (run, comp, out);
+          }
           run->st->expr_defer = NULL;
           if (out->len == out0)
             run->comp_defers->resize (sink0);
         }
       else
-        emit_completion (run, comp, out);
+        {
+          /* vb:1211's eager finalize for a non-aggregate After message (the
+             flag is clear); an aggregate landing here has no defer sink to
+             hold its draws, but it is still a Display-time expansion. */
+          a5_intro_guard ig (run->st, t->aggregate);
+          emit_completion (run, comp, out);
+        }
     }
 }
 

@@ -269,18 +269,31 @@ typedef struct a5_state_s {
   int n_disp_once, cap_disp_once;
   int marking_display;
 
-  /* Set while rendering text that the runner hands to Display() with its %functions%
-     still UNREPLACED -- conversation topic replies (ExecuteConversation
-     AddResponses the raw Description; Display -> ReplaceALRs -> ReplaceFunctions
-     then renders it under bDisplaying=True) and look/movement room views (the
-     stock Look task's AggregateOutput "%Player%.Location.Description" is
-     replaced inside Display; see render_look_marked).  Only such renders run
-     clsCharacter.Name's Introduced dance (definite-article upgrade + marking).
-     Task completion messages are pre-replaced OUTSIDE bDisplaying
-     (clsUserSession.vb:1186), the game-start/restore room views evaluate
-     ViewLocation outside Display (vb:229/3142, incl. CharHereDesc at
-     clsLocation.vb:154), and the NPC walk announcements compose with .Name
-     before Display (clsCharacter.vb:1558) -- none of those upgrade or mark.
+  /* The runner's UserSession.bDisplaying.  Only a render made while it is set
+     runs clsCharacter.Name's bDisplaying block (clsCharacter.vb:330-357): the
+     definite-article upgrade of an already-Introduced descriptor, the Introduced
+     marking itself, the PronounKeys ledger, and -- the part that bites -- the
+     first/second-person pronoun substitution that turns `%Player%.Name` into
+     "You".  Outside it, `.Name` always falls through to the descriptor branch.
+
+     bDisplaying is True for exactly two things: the whole body of Display()
+     (which is where ReplaceALRs -> ReplaceFunctions/ReplaceExpressions actually
+     run, Global.vb:523), and the task-completion probe renders at
+     clsUserSession.vb:1177-1182 / 1199-1203.  So a task's completion message
+     renders under bDisplaying UNLESS it is the eager finalize replacement --
+     the three `If Not task.AggregateOutput Then sMessage =
+     ReplaceExpressions(ReplaceFunctions(sMessage))` lines at vb:1185/1204/1211,
+     the only completion renders the runner performs with the flag clear.
+     AggregateOutput defaults to TRUE (clsTask.vb:318), so the common case is a
+     raw template handed to AddResponse and expanded later inside Display.
+     Restriction-failure messages are likewise stored raw (vb:1247/1260).
+     Hence, at each completion render site: probe renders pass 1, the finalize
+     passes the task's `aggregate` flag -- see a5_intro_guard.
+
+     Still OUTSIDE Display, and so still unset: the game-start/restore room views
+     evaluate ViewLocation before Display gets it (vb:229/3142, incl. CharHereDesc
+     at clsLocation.vb:154), and the NPC walk announcements compose with .Name
+     first (clsCharacter.vb:1558) -- neither upgrades, marks, nor pronominalises.
      Transient render state, not saved. */
   int intro_active;
 
@@ -588,6 +601,24 @@ struct a5_mark_guard {
   ~a5_mark_guard () { st->marking_display = prev; }
   a5_mark_guard (const a5_mark_guard &) = delete;
   a5_mark_guard &operator= (const a5_mark_guard &) = delete;
+};
+
+/* Scoped set of st->intro_active -- the runner's ambient bDisplaying (see the
+   field's own comment).  Same shape and rationale as a5_mark_guard: the two
+   flags travel together at almost every render site, and hand-rolled
+   save/set/restore triples around them are what let the completion-message
+   paths drift out of sync with the runner in the first place.
+   Declare the guard instead:  a5_intro_guard ig (st, t->aggregate); */
+struct a5_intro_guard {
+  a5_state_t *st;
+  int prev;
+  a5_intro_guard (a5_state_t *s, int value) : st (s), prev (s->intro_active)
+  {
+    s->intro_active = value;
+  }
+  ~a5_intro_guard () { st->intro_active = prev; }
+  a5_intro_guard (const a5_intro_guard &) = delete;
+  a5_intro_guard &operator= (const a5_intro_guard &) = delete;
 };
 
 #endif

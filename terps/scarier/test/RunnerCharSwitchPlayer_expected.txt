@@ -1,0 +1,12 @@
+Untitled
+
+testing location
+Here you are, Player, in the testing location, a place in which things are tested.
+
+(Type TEST ME to run the test.)
+
+> test me
+
+The Switchatorium
+This is a strange place where everything appears to be backwards.    You regard yourself. You are currently playing as Test Character.
+

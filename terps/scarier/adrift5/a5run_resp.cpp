@@ -105,6 +105,13 @@ char *
 render_comp_test_ex (a5_state_t *st, const a5_xml_node_t *comp, char **marked)
 {
   a5_mark_guard mg (st, 0);
+  /* bTestingOutput and bDisplaying are independent: the runner sets BOTH for
+     these probes (clsUserSession.vb:1177-1178 / 1199-1200), so the render skips
+     DisplayOnce retirement but still runs clsCharacter.Name's bDisplaying
+     block.  That matters beyond bookkeeping -- when the pre- and post-action
+     probes differ, vb:1201 PINS the pre-action probe's text as the response, so
+     what the player sees is a bDisplaying render. */
+  a5_intro_guard ig (st, 1);
   return a5text_describe_ex (st, comp, NULL, NULL, marked);
 }
 
@@ -225,6 +232,12 @@ resp_add_comp (a5_run_t *run, const a5_task_t *t, const a5_xml_node_t *comp,
       std::string marked;
       {
         a5_mark_guard mg (st, 1);
+        /* An AggregateOutput task's message is the RAW template in the runner's
+           response table and only expands inside Display, i.e. under
+           bDisplaying; only the non-aggregate finalize (vb:1185/1204/1211) runs
+           with the flag clear.  Scarier renders both eagerly here, so carry the
+           distinction on the flag. */
+        a5_intro_guard ig (st, t != NULL && t->aggregate);
         /* A single-reference AggregateOutput completion bearing a text function:
            the runner stores the RAW template and only ReplaceExpressions it at
            end-of-command Display -- AFTER e.g. the stock Look's two test renders
@@ -457,6 +470,7 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
             char *m;
             {
               a5_mark_guard mg (st, 1);
+              a5_intro_guard ig (st, 1);   /* this IS the runner's Display */
               m = a5text_describe (st, e.comp);
             }
             if (m != NULL) text = m;
