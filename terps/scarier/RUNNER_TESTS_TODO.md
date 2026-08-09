@@ -53,7 +53,8 @@ the v4 manual, and validated against a *synthetic* game
 collapse. **2026-08-01: the core formulas have now been diffed live against
 run400** with authored arena probes (recipe below) — hit test, roll bounds,
 damage floor, worn armour and the upgraded-3.9 stalemate all match the port.
-The cadence/recovery/death items below are still untested.
+The cadence, recovery and death items were measured live later the same day
+and are ported too — **every checkbox below is ticked and §1 is CLOSED**.
 
 Highest value first:
 
