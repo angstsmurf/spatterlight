@@ -1091,6 +1091,7 @@ run_game_commands_in_library_context (scr_gameref_t game, const scr_char *string
 
 
 /*
+ * run_does_raw_command_match()
  * run_does_command_match()
  *
  * Non-destructive probe: return TRUE if the input string matches a command of
@@ -1117,19 +1118,14 @@ run_game_commands_in_library_context (scr_gameref_t game, const scr_char *string
  * is harmless: the probe runs before input is submitted, and the real command
  * pass that follows re-matches and overwrites that state.
  */
-scr_bool
-run_does_command_match (scr_gameref_t game, const scr_char *string)
+static scr_bool
+run_does_raw_command_match (scr_gameref_t game, const scr_char *string)
 {
   scr_int task_count, task, direction;
 
   /* Only meaningful while a game is actually running. */
   if (!run_is_running (game))
     return FALSE;
-
-  /* Apply input synonyms, so indirection through a synonym still counts. */
-  scr_owned_string filtered (pf_filter_input (string, gs_get_bundle (game)));
-  if (filtered)
-    string = scr_normalize_string (filtered.get ());
 
   /* Iterate over every task, ignoring those not runnable. */
   task_count = gs_task_count (game);
@@ -1151,6 +1147,17 @@ run_does_command_match (scr_gameref_t game, const scr_char *string)
     }
 
   return FALSE;
+}
+
+scr_bool
+run_does_command_match (scr_gameref_t game, const scr_char *string)
+{
+  /* Apply input synonyms, so indirection through a synonym still counts. */
+  scr_owned_string filtered (pf_filter_input (string, gs_get_bundle (game)));
+  if (filtered)
+    string = scr_normalize_string (filtered.get ());
+
+  return run_does_raw_command_match (game, string);
 }
 
 
@@ -1447,7 +1454,16 @@ run_player_input (scr_gameref_t game)
    * that call, leaking on the throw.  .get() still feeds the raw char* to the
    * pointer-aliasing logic that decides which buffer "wins".
    */
-  scr_owned_string filtered (pf_filter_input (line_element, bundle));
+  /*
+   * Give an author's literal task command precedence over an input synonym.
+   * Sophie, for example, defines "show jack" as a combat task but also has a
+   * global SHOW -> GIVE synonym; applying that synonym first made the authored
+   * task unreachable.
+   */
+  const scr_bool raw_task_match =
+      run_does_raw_command_match (game, line_element);
+  scr_owned_string filtered (raw_task_match
+      ? NULL : pf_filter_input (line_element, bundle));
   scr_owned_string replaced (uip_replace_pronouns (game,
       filtered ? filtered.get () : line_element));
 
