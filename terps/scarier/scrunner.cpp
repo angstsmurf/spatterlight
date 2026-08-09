@@ -2115,7 +2115,11 @@ run_main_loop (scr_gameref_t game)
       vt_key[0].string = "Globals";
       vt_key[1].string = "GameName";
       gamename = prop_get_string (bundle, "S<-ss", vt_key);
+      /* The ADRIFT 3/4 Runner displays the game title in its alternate
+         (command/input) colour. */
+      pf_buffer_tag (filter, SCR_TAG_COLOR);
       pf_buffer_string (filter, gamename);
+      pf_buffer_tag (filter, SCR_TAG_ENDCOLOR);
       pf_buffer_character (filter, '\n');
 
       /*

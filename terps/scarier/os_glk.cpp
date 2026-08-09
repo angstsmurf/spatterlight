@@ -20,9 +20,9 @@
 /*
  * Module notes:
  *
- * o The Glk interface sets adventure default text/background colours for
- *   ADRIFT 5 (stylehints before window open, garglk_set_zcolors for inline
- *   <font color>/<c>), and maps bold/italic/alignment onto Glk styles.
+ * o The Glk interface sets default text/background colours for ADRIFT 3/4
+ *   and adventure-defined defaults for ADRIFT 5, uses garglk_set_zcolors for
+ *   inline <font color>/<c>, and maps rich-text attributes onto Glk styles.
  */
 
 #include <assert.h>
@@ -412,6 +412,29 @@ gsc_fatal (const char *string)
 static void
 gsc_hint_window_styles (void)
 {
+  int style;
+
+  /* ADRIFT 3/4 Runner's classic display defaults.  Unlike ADRIFT 5 these are
+     player-side Runner preferences, not fields in the TAF; use the stock
+     black/teal/red palette as Glk hints.  The ADRIFT 5 startup path follows
+     this call with gsc_a5_hint_colours(), which replaces these hints with the
+     adventure's own defaults. */
+  for (style = 0; style < style_NUMSTYLES; style++)
+    {
+      glk_stylehint_set (wintype_TextBuffer, style,
+                         stylehint_BackColor, 0x000000);
+      glk_stylehint_set (wintype_TextBuffer, style,
+                         stylehint_TextColor, 0x008080);
+      /* The status line directly uses black text on the standard teal
+         background. */
+      glk_stylehint_set (wintype_TextGrid, style,
+                         stylehint_BackColor, 0x008080);
+      glk_stylehint_set (wintype_TextGrid, style,
+                         stylehint_TextColor, 0x000000);
+    }
+  glk_stylehint_set (wintype_TextBuffer, style_Input,
+                     stylehint_TextColor, 0xff0000);
+
   glk_stylehint_set (wintype_TextBuffer, style_User1,
                      stylehint_Justification, stylehint_just_Centered);
   glk_stylehint_set (wintype_TextBuffer, style_User2,
@@ -426,7 +449,6 @@ gsc_hint_window_styles (void)
   glk_stylehint_set (wintype_TextBuffer, style_Subheader,
                      stylehint_Justification, stylehint_just_LeftFlush);
 
-  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
 }
 
 /*
@@ -437,7 +459,8 @@ gsc_hint_window_styles (void)
  * / adrift-5-rs apply_developer_colors).  Colours on a5_adventure_t are ARGB
  * (0xFFRRGGBB); stylehints take the RGB mask.  Default black stays non-zero
  * as 0xFF000000 so the background is applied (masking to 0x000000).  The
- * status grid gets the inverted pair.
+ * status grid gets the output colour as its background and the adventure
+ * background colour as its foreground.
  */
 static void
 gsc_a5_hint_colours (void)
@@ -1686,11 +1709,12 @@ typedef enum {
   GSC_SYMBOL_WEBDINGS
 } gsc_symbol_font_t;
 
-/* Font descriptor type, encapsulating size, monospaced boolean, and face. */
+/* Font descriptor type, encapsulating size, face, and inherited text colour. */
 typedef struct {
   scr_bool is_monospaced;
   scr_int size;
   gsc_symbol_font_t symbol_font;
+  glui32 text_color;
 } gsc_font_size_t;
 
 /* Font stack and attributes for nesting tags. */
@@ -1707,6 +1731,8 @@ static glui32 gsc_attribute_bold = 0,
 static const scr_int GSC_DEFAULT_FONT_SIZE = 12,
                     GSC_MEDIUM_FONT_SIZE = 14,
                     GSC_LARGE_FONT_SIZE = 16;
+static const glui32 GSC_DEFAULT_INPUT_COLOR = 0xff0000;
+static glui32 gsc_background_color = zcolor_Default;
 
 /* Milliseconds per second and timeouts count for delay tags. */
 static const glui32 GSC_MILLISECONDS_PER_SECOND = 1000;
@@ -1775,6 +1801,7 @@ gsc_font_top (void)
       font.is_monospaced = FALSE;
       font.size = GSC_DEFAULT_FONT_SIZE;
       font.symbol_font = GSC_SYMBOL_NONE;
+      font.text_color = zcolor_Default;
     }
   return font;
 }
@@ -1833,8 +1860,7 @@ gsc_set_glk_style (void)
           if (gsc_attribute_bold > 0)
             glk_set_style (style_Subheader);
           else if (gsc_attribute_italic > 0
-                   || gsc_attribute_underline > 0
-                   || gsc_attribute_secondary_color > 0)
+                   || gsc_attribute_underline > 0)
             glk_set_style (style_Emphasized);
           else
             {
@@ -1846,6 +1872,13 @@ gsc_set_glk_style (void)
             }
         }
     }
+
+  /* Font colours are independent of Glk styles.  <c> is ADRIFT's alternate
+     colour (the same red used for typed commands), while <font color> carries
+     its colour on the inherited font stack. */
+  garglk_set_zcolors (gsc_attribute_secondary_color > 0
+                      ? GSC_DEFAULT_INPUT_COLOR : font.text_color,
+                      gsc_background_color);
 }
 
 
@@ -1971,6 +2004,92 @@ gsc_put_string_symbol (const scr_char *string, gsc_symbol_font_t symbol_font)
 
 
 /*
+ * gsc_parse_color_argument()
+ *
+ * Parse the named and #RRGGBB colours accepted by ADRIFT 3/4.  The argument
+ * is already lower-cased by the font handler; background tags pass a complete
+ * `bgcolour="..."` argument through the same parser.
+ */
+static scr_bool
+gsc_parse_color_argument (const scr_char *argument, glui32 *result)
+{
+  static const struct {
+    const char *name;
+    glui32 rgb;
+  } named[] = {
+    {"black", 0x000000}, {"blue", 0x0000ff}, {"cyan", 0x00ffff},
+    {"turquoise", 0x00ffff}, {"aqua", 0x00ffff},
+    {"gray", 0x808080}, {"grey", 0x808080}, {"green", 0x008000},
+    {"lime", 0x00ff00}, {"magenta", 0xff00ff}, {"fuchsia", 0xff00ff},
+    {"maroon", 0x800000}, {"navy", 0x000080}, {"olive", 0x808000},
+    {"orange", 0xff8000}, {"pink", 0xff8888}, {"purple", 0x800080},
+    {"red", 0xff0000},
+    {"silver", 0xc0c0c0}, {"teal", 0x008080}, {"white", 0xffffff},
+    {"yellow", 0xffff00}
+  };
+  const char *key, *value;
+  char token[32];
+  size_t length, index_;
+  unsigned int rgb;
+
+  assert (argument);
+  assert (result);
+
+  key = strstr (argument, "colour");
+  if (!key)
+    key = strstr (argument, "color");
+  if (!key)
+    return FALSE;
+
+  value = strchr (key, '=');
+  if (!value)
+    return FALSE;
+  value++;
+  while (*value == ' ' || *value == '\t')
+    value++;
+  if (*value == '"' || *value == '\'')
+    value++;
+  if (*value == '#')
+    value++;
+
+  length = 0;
+  while (value[length] != '\0'
+         && value[length] != '"' && value[length] != '\''
+         && value[length] != ' ' && value[length] != '\t'
+         && value[length] != '>')
+    length++;
+  if (length == 0 || length >= sizeof token)
+    return FALSE;
+  memcpy (token, value, length);
+  token[length] = '\0';
+
+  if (strcmp (token, "default") == 0)
+    {
+      *result = zcolor_Default;
+      return TRUE;
+    }
+  if (length == 6)
+    {
+      for (index_ = 0; index_ < length; index_++)
+        if (!isxdigit ((unsigned char) token[index_]))
+          break;
+      if (index_ == length && sscanf (token, "%x", &rgb) == 1)
+        {
+          *result = rgb;
+          return TRUE;
+        }
+    }
+  for (index_ = 0; index_ < sizeof named / sizeof named[0]; index_++)
+    if (strcmp (token, named[index_].name) == 0)
+      {
+        *result = named[index_].rgb;
+        return TRUE;
+      }
+  return FALSE;
+}
+
+
+/*
  * gsc_handle_font_tag()
  * gsc_handle_endfont_tag()
  *
@@ -2030,6 +2149,10 @@ gsc_handle_font_tag (const scr_char *argument)
           else if (sscanf (size, "size=%lu", &value) == 1)
             font.size = value;
         }
+
+      /* A font without a colour inherits its parent's; a supplied colour
+         replaces it until the matching </font> pops this stack entry. */
+      gsc_parse_color_argument (lower, &font.text_color);
 
       /* Done with tag argument copy. */
       free (lower);
@@ -2279,6 +2402,31 @@ os_print_tag (scr_int tag, const scr_char *argument)
       if (gsc_graphic_drawn_since_input)
         gsc_draw_inline_graphic (gsc_pending_graphic_id);
 #endif
+      break;
+
+    case SCR_TAG_BGCOLOR:
+      {
+        scr_char *lower;
+        scr_int index_;
+        glui32 color;
+
+        lower = (decltype(lower)) gsc_malloc (strlen (argument) + 1);
+        memcpy (lower, argument, strlen (argument) + 1);
+        for (index_ = 0; lower[index_] != '\0'; index_++)
+          lower[index_] = glk_char_to_lower (lower[index_]);
+
+        if (gsc_parse_color_argument (lower, &color))
+          {
+            /* "default" means the stock black style background.  Keep the
+               zcolor state default so subsequent text uses its style hint. */
+            gsc_background_color = color;
+            glk_window_set_background_color (gsc_main_window,
+                                             color == zcolor_Default
+                                             ? 0x000000 : color);
+            gsc_set_glk_style ();
+          }
+        free (lower);
+      }
       break;
 
     case SCR_TAG_FONT:
@@ -4301,7 +4449,9 @@ os_read_line (scr_char *buffer, scr_int length)
     gsc_autorestored = FALSE;
   else
     {
+      glk_set_style (style_Input);
       gsc_put_literal (">");
+      glk_set_style (style_Normal);
       /* Autosave at every top-level prompt: after the prompt is printed (so
          the GUI snapshot ends with it) but before input is requested (so
          the archived windows carry no pending request and a restore
@@ -4309,7 +4459,9 @@ os_read_line (scr_char *buffer, scr_int length)
       gsc_autosave ();
     }
 #else
+  glk_set_style (style_Input);
   gsc_put_literal (">");
+  glk_set_style (style_Normal);
 #endif
 
   /* A walk set going by a click on the map supplies the next direction itself,
