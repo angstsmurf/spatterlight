@@ -6,7 +6,6 @@ default_weapon after wield = 17 (weapon obj = 17)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
 round  1: enemy stamina   10 ->    0  (dmg 10)  [ENEMY DEAD/REMOVED]
     | You shoot Debbie with fire pistle.
-as debbie dies she disapppears and the pan falls to the floor 
 RESULT: enemy stamina=0 location=0 after 1 rounds
 
 ==== Colony.taf ====
@@ -17,8 +16,6 @@ default_weapon after wield = 6 (weapon obj = 6)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
 round  1: enemy stamina   50 ->    0  (dmg 50)  [ENEMY DEAD/REMOVED]
     | You shoot An alien with the colt 45.
-
-An alien falls down, dead.
 RESULT: enemy stamina=0 location=0 after 1 rounds
 
 ==== light_up_4summer_comp.taf ====
@@ -39,10 +36,6 @@ round  5: enemy stamina   20 ->   10  (dmg 10)
     | You throw the lighter at Chip.
 round  6: enemy stamina   10 ->    0  (dmg 10)  [ENEMY DEAD/REMOVED]
     | You throw the lighter at Chip.
-"Good job."<br><br>I look up, trying to spot the source of the voice.<br><br>"Yeah, what he said," Chip says. "I am not looking forward to this. We are probably going to die, you know. You should have just let me kill you, buddy. No use in two of us dying."<br><br>"Whatever. I have to find my son. Do you have a son? Because if you did, you'd understand."<br><br>Chip furrows his eyebrow. "I had six sons. Three were killed by Highers. One by me. Two by my friends. Do you understand <i>that</i>?"<br><br>I start to respond, but four people appear in my peripherals before I can finish my statement.<br><br>"These folks, along with Chip, constitutes your crew. Most of them will die today. But the purpose is a good one. There is no time for introductions. You have a job to do. Avoid being killed and find Arkot. He is the key to finding your son and saving both your and our people."<br><br>The floor shakes underneath me, causing me to fall backwards. I feel wind rushing against my back, then water, then ice, then sand, then heat. I look behind me and see a world of strange aeons where a wall used to be.<br><br><centre><c>[Press any key to continue]</c><waitkey><cls><br></centre><i>I keep thinking that the world I live in, the physical one, is somehow an illusion. </i>It is.<i> But the illusion is not because there is a better, more perfect realm waiting for us filled with angels or Platonic solids. Rather, it is an illusion because there is something even darker waiting for us. <br><br>In the future, humans realized that their lives had meanings; everyone celebrated and cheered because they thought science had deprived them of that right. But then they realized that the meanings were insignificant, unimportant, completely and utterly irrelevant, when compared to the meanings of other beings. Their mistake was not in thinking that they were a source of meaning, but that they were the only one.<br><br><br><centre><c></i>[Press any key to continue]</c><waitkey><cls><br><br><br><br><br><br><font size=72>Chapter Four: The Death<br><br><font size=12><c>[Press any key to continue]</font></font></c><waitkey><cls><br><br></centre>"Move north. You'll find him. Ask for <b>battle tips</b> if you feel overwhelmed."<br><b>The Death <1></b>
-Blue rays or light illuminate the landscape from underneath me. Above, a couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted bushes mark the landscape.  Huge rocks are everywhere, and the ground has a sand-like consistency, but is hardened at places. Everywhere looks the same...but everything is so different. It is not clear where I can go.
-
-Lina, Scotty, Tippant and Donna are here.
 RESULT: enemy stamina=0 location=0 after 6 rounds
 
 ==== Space Boy's First Adventure.taf ====
