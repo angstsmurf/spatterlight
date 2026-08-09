@@ -803,8 +803,11 @@ pass_character (a5_state_t *st, a5_restr_t *r)
          Destruction's
          `Player Must BeOfGender Female` swapping in an alternate character
          name/pronoun set) always fired even when the player's Gender is still
-         its unset "Unknown" default -- headless runs never see the
-         PopUpChoice gender prompt that would otherwise set it. */
+         its unset "Unknown" default.  Pathway's Gender never gets set at all:
+         the generated GenTask1 that would ask via %PopUpChoice% is a System
+         task WITHOUT RunImmediately, and nothing ever dispatches one of those
+         (clsUserSession.vb:213 auto-runs only the RunImmediately ones), so the
+         Unknown default is what the runner plays with too. */
       const char *g = a5state_entity_prop (st, k1, "Gender");
       return g != NULL && strcasecmp (g, k2) == 0;
     }

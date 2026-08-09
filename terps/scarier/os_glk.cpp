@@ -5863,7 +5863,9 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
  * gsc_a5_match_command()
  *
  * Case-insensitively test whether the player input (after trimming surrounding
- * whitespace) equals the given meta-command word.
+ * whitespace) equals the given word.  Both sides are folded, so the word can be
+ * a mixed-case one taken from the game (a %PopUpChoice% option) as well as one
+ * of the port's own lower-case meta-commands.
  */
 static int
 gsc_a5_match_command (const char *input, const char *command)
@@ -5872,7 +5874,8 @@ gsc_a5_match_command (const char *input, const char *command)
     input++;
   while (*input && *command)
     {
-      if (glk_char_to_lower ((unsigned char) *input) != (unsigned char) *command)
+      if (glk_char_to_lower ((unsigned char) *input)
+          != glk_char_to_lower ((unsigned char) *command))
         return FALSE;
       input++;
       command++;
@@ -5880,6 +5883,81 @@ gsc_a5_match_command (const char *input, const char *command)
   while (*input == ' ' || *input == '\t')
     input++;
   return *input == '\0' && *command == '\0';
+}
+
+/*
+ * gsc_a5_popup_choice()
+ *
+ * Answer the %PopUpChoice[prompt, choice1, choice2]% text function -- ADRIFT's
+ * two-way prompts, in practice the gender question a game asks before play
+ * (Beagle2's System <RunImmediately> Autorun, "Are you Male or Female?", whose
+ * answer a SetGender task turns into the Player's Gender property).  The Runner
+ * puts up a modal Yes/No MsgBox where Yes yields the first choice and No the
+ * second (Global.vb:2278); Glk has no dialog, so ask in the story window.
+ * Since the choices carry the meaning and the buttons don't, name both in the
+ * prompt and accept either the choice itself or its yes/no button.  Returns
+ * non-zero for the first choice, 0 for the second, or negative to leave the
+ * token unevaluated (see a5text.h a5_popup_choice_cb).
+ */
+static int
+gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
+                     const char *choice1, const char *choice2)
+{
+  char input[1024];
+  int saved_real_time, picked;
+
+  /* No window to ask in, or a silent boot (the autorestore below replays the
+     opening only to reach the saved state, whose answer the player already
+     gave): leave the question unasked, as an unattended Runner does. */
+  if (gsc_main_window == NULL || gsc_a5_popup_silent)
+    return -1;
+
+  /* This runs inside the engine (mid text-render), so a TimeBased tick must
+     not re-enter it: hold real-time mode off for the duration, which also
+     hands the echo of the typed answer back to the library. */
+  saved_real_time = gsc_a5_real_time;
+  gsc_a5_real_time = FALSE;
+
+  for (;;)
+    {
+      int n;
+
+      gsc_a5_put_string ("\n");
+      if (prompt != NULL && prompt[0] != '\0')
+        gsc_a5_put_string (prompt);
+      gsc_a5_put_string (" [yes = ");
+      gsc_a5_put_string (choice1);
+      gsc_a5_put_string (" / no = ");
+      gsc_a5_put_string (choice2);
+      gsc_a5_put_string ("]\n> ");
+
+      n = gsc_a5_read_line_raw (input, sizeof input);
+
+      /* An empty line takes the dialog's default button, Yes -- what Return on
+         an untouched MsgBox gives.  It also ends the loop at end of input, so
+         a readlog replay that runs dry cannot spin here. */
+      if (n <= 0
+          || gsc_a5_match_command (input, "yes")
+          || gsc_a5_match_command (input, "y")
+          || gsc_a5_match_command (input, choice1))
+        {
+          picked = TRUE;
+          break;
+        }
+      if (gsc_a5_match_command (input, "no")
+          || gsc_a5_match_command (input, "n")
+          || gsc_a5_match_command (input, choice2))
+        {
+          picked = FALSE;
+          break;
+        }
+
+      /* A MsgBox has no third answer; ask again rather than invent one. */
+      gsc_a5_put_string ("Please answer yes or no.\n");
+    }
+
+  gsc_a5_real_time = saved_real_time;
+  return picked;
 }
 
 /*
@@ -8078,8 +8156,11 @@ gsc_a5_main (void)
   a5text_set_interactive (TRUE);
 
   /* Ask the player %PopUpInput% naming prompts, the story window standing in
-     for the Runner's modal InputBox; unasked, they evaluate to their default. */
+     for the Runner's modal InputBox; unasked, they evaluate to their default.
+     Likewise %PopUpChoice% gender prompts for its Yes/No MsgBox; unasked,
+     those stay unevaluated. */
   a5text_set_popup_cb (gsc_a5_popup_input, NULL);
+  a5text_set_popup_choice_cb (gsc_a5_popup_choice, NULL);
 
   /* Register the game Blorb for image/sound resources. */
   gsc_a5_init_resources ();

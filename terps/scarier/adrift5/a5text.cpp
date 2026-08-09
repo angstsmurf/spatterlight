@@ -386,7 +386,23 @@ static std::string restore_exprs (const char *src, const std::vector<std::string
 /* %PopUpInput% host callback (a5text_set_popup_cb); NULL => use the default. */
 static a5_popup_cb a5_popup = NULL;
 static void *a5_popup_ctx = NULL;
+/* %PopUpChoice% host callback (a5text_set_popup_choice_cb); NULL => leave the
+   token unevaluated, as FD's throwing MsgBox does. */
+static a5_popup_choice_cb a5_popup_choice = NULL;
+static void *a5_popup_choice_ctx = NULL;
 static char *view_location_impl (a5_state_t *st, const char *lockey);
+
+/* Trim surrounding whitespace and one layer of "double quotes" from a PopUp*
+   function argument (they arrive already function-expanded). */
+static void
+popup_unquote (std::string &s)
+{
+  size_t b = s.find_first_not_of (" \t");
+  size_t e = s.find_last_not_of (" \t");
+  s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1);
+  if (s.size () >= 2 && s.front () == '"' && s.back () == '"')
+    s = s.substr (1, s.size () - 2);
+}
 
 /* Resolve a function argument (a key or display name) to an object key. */
 static const char *
@@ -1022,13 +1038,7 @@ fn_popupinput (a5_state_t * /*st*/, const char * /*name*/, const char *args)
   size_t comma = a.find (',');
   if (comma != std::string::npos)
     { prompt = a.substr (0, comma); dflt = a.substr (comma + 1); }
-  auto unquote = [](std::string &s){
-    size_t b = s.find_first_not_of (" \t");
-    size_t e = s.find_last_not_of (" \t");
-    s = (b == std::string::npos) ? "" : s.substr (b, e - b + 1);
-    if (s.size () >= 2 && s.front () == '"' && s.back () == '"')
-      s = s.substr (1, s.size () - 2); };
-  unquote (prompt); unquote (dflt);
+  popup_unquote (prompt); popup_unquote (dflt);
   if (a5_popup != NULL)
     {
       char *ans = a5_popup (a5_popup_ctx, prompt.c_str (), dflt.c_str ());
@@ -1783,8 +1793,7 @@ fn_sum (a5_state_t * /*st*/, const char * /*name*/, const char *args)
 }
 
 static char *
-fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/,
-                const char * /*args*/)
+fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/, const char *args)
 {
   /* %PopUpChoice[prompt, choice1, choice2]% (Global.vb:2278): a Yes/No dialog
      where Yes picks choice1, No picks choice2.  Unlike PopUpInput, the runner
@@ -1793,10 +1802,33 @@ fn_popupchoice (a5_state_t * /*st*/, const char * /*name*/,
      and the token stays verbatim -- no output, no script line consumed, and a
      SetVariable RHS keeps the literal %PopUpChoice[...]% text.  Beagle2's
      startup Autorun depends on all three: its gender stays Male because
-     NewGender never equals "female".  Leave the token unhandled to match;
-     in particular never route it through the a5_popup script feed, which
-     would desync the transcript by a line. */
-  return NULL;
+     NewGender never equals "female".  That is what we do with no host callback
+     installed; in particular never route the question through the a5_popup
+     script feed, which would desync the transcript by a line.
+
+     A host that CAN ask (a5text_set_popup_choice_cb -- the interactive Glk
+     frontend, not the headless harness) gets the Windows behaviour instead:
+     the chosen text replaces the token.  A malformed call with fewer than
+     three arguments has nothing to choose between, so it stays verbatim too. */
+  if (a5_popup_choice == NULL || args == NULL)
+    return NULL;
+
+  std::string a = args;
+  size_t c1 = a.find (','), c2 = (c1 == std::string::npos)
+                                 ? std::string::npos : a.find (',', c1 + 1);
+  if (c2 == std::string::npos)
+    return NULL;
+
+  std::string prompt = a.substr (0, c1);
+  std::string yes = a.substr (c1 + 1, c2 - c1 - 1);
+  std::string no = a.substr (c2 + 1);
+  popup_unquote (prompt); popup_unquote (yes); popup_unquote (no);
+
+  int picked = a5_popup_choice (a5_popup_choice_ctx, prompt.c_str (),
+                                yes.c_str (), no.c_str ());
+  if (picked < 0)
+    return NULL;                /* host declined to ask: leave it verbatim */
+  return strdup (picked ? yes.c_str () : no.c_str ());
 }
 
 static char *
@@ -3370,6 +3402,13 @@ a5text_set_popup_cb (a5_popup_cb cb, void *ctx)
 {
   a5_popup = cb;
   a5_popup_ctx = ctx;
+}
+
+void
+a5text_set_popup_choice_cb (a5_popup_choice_cb cb, void *ctx)
+{
+  a5_popup_choice = cb;
+  a5_popup_choice_ctx = ctx;
 }
 
 /* Parse an <img>/<audio> tag body (without the angle brackets) and report it to

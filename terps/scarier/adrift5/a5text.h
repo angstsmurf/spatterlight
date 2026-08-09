@@ -215,11 +215,32 @@ extern void a5text_set_media_sink (a5_media_cb cb, void *ctx);
  * FrankenDrift.Headless frontend consumes exactly one script line per popup the
  * same way, so ground-truth transcripts stay byte-aligned.  PopUpInput ONLY:
  * %PopUpChoice% goes through MsgBox in the runner, not the scripted-input
- * channel, and stays unevaluated headless (see fn_popupchoice) -- feeding it
- * from the script would desync the transcript by a line.
+ * channel, and must never be fed from this one -- that would desync the
+ * transcript by a line.  It has a channel of its own; see below.
  */
 typedef char *(*a5_popup_cb) (void *ctx, const char *prompt, const char *dflt);
 extern void a5text_set_popup_cb (a5_popup_cb cb, void *ctx);
+
+/*
+ * Host callback for the %PopUpChoice[prompt, choice1, choice2]% text function
+ * (clsFunction PopUpChoice -> VB MsgBox, Global.vb:2278): a Yes/No dialog whose
+ * Yes yields choice1 and No choice2, in practice the gender question a game
+ * asks before play (Beagle2's System <RunImmediately> Autorun, "Are you Male or
+ * Female?").  The callback is handed the prompt and both choices and returns
+ * non-zero for Yes, 0 for No, or negative to decline -- which leaves the token
+ * unevaluated, as with no callback installed at all.
+ *
+ * Unevaluated is the default because it is what the ground truth does: MsgBox
+ * throws off-Windows, so FrankenDrift lands in the ReplaceFunctions catch
+ * (Global.vb:2483) and the %PopUpChoice[...]% text survives verbatim -- no
+ * output, and no script line consumed.  Only an interactive host with somewhere
+ * to ask (the Glk frontend, its story window standing in for the dialog) should
+ * install one, reproducing what the runner does on Windows without disturbing
+ * headless transcripts.
+ */
+typedef int (*a5_popup_choice_cb) (void *ctx, const char *prompt,
+                                   const char *choice1, const char *choice2);
+extern void a5text_set_popup_choice_cb (a5_popup_choice_cb cb, void *ctx);
 
 /*
  * The Display() ALR boundary (clsUserSession.Display -> Global.ReplaceALRs):
