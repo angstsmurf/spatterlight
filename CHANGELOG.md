@@ -6,8 +6,32 @@
 - Alan 2 now plays games compiled with Alan 2.5 and 2.6, such as *Don't Be Late!* and *The Hollywood Murders*, which it previously rejected.
 - Support for pictures and sounds in Alan 2 games such as *The Hollywood Murders* and *A Matter of Time*.
 
+### Scarier (Adrift)
+
+#### Adrift 3.7 to 4
+- Plays the two known Adrift 3.7 games, *Alice's Restaurant Anti-Massacree Adventure* and *Castle Quest*, which were rejected before.
+- Reads and writes the original pre-4.0 save format as well as the 4.0 one, so saves can be moved between Spatterlight and the old 3.8/3.9 runner in either direction.
+- Symbol fonts are translated to Unicode instead of coming out as stray letters: the dove under the *Topaz* title, for instance.
+- The status text on the right no longer overwrites the room name in a narrow window.
+- Container capacity is a volume rather than a count of objects, as in the original runner, so containers hold what their authors intended.
+- Timed events and character walks now match the original runners in a long list of details: immediate events start while the game is loading, zero-length and restarting events fire the right number of times, walk arrivals trigger their tasks once, and event room descriptions print last in the room block.
+- The battle system was settled command by command against the original 3.9 and 4.0 runners: weapons and armour, wielding, thrown weapons, the combat narration and the status display. Several games previously believed unwinnable can now be played to the end, among them *The Search for Mr. Smith* and *Wes Garden's Halting Nightmare*.
+- A random-number bug that made choices between two outcomes far less random than intended is fixed.
+- Many parser and world-model fixes, including the precedence of PUT commands, taking and dropping, and restrictions that reach into closed carried containers.
+
+#### Adrift 5
+- The map pane now opens by itself in those games whose authors shipped it open, and In and Out connectors are drawn on the map, with a badge at both ends.
+- Questions that the game asks through a pop-up dialog, such as the player's name or "Are you male or female?", are asked in the story window instead of being silently skipped.
+- An adventure with no locations is refused with the same error message as the original runner, rather than starting the player nowhere.
+- A large batch of engine fixes found by a new conformance test suite and by reviewing the Adrift 5 file format: restrictions, task actions, character walks, user-defined functions, object references, conversation, and a dozen text functions that were missing or wrong.
+- The source tree now includes a hand-written specification of the Adrift 5 adventure and save file format, contributed by Dan Fabulich (@dfabulich).
+
 ### General
 - Fixes to scrolling after a game changes a text window's size.
+- Supports the macOS "Now Playing" controls: music from a game shows up in Control Center and on the media keys, and can be paused from there.
+- A text window whose text fits the window is no longer restored scrolled past its own first line.
+- Autorestoring a game saved under a theme that no longer exists no longer brings back the wrong fonts and colors.
+- Library entries for different games that share an IFID no longer steal each other's titles, and existing crossed titles are repaired once at startup.
 
 ## Release 1.5.2
 
