@@ -203,6 +203,28 @@ not counted as Scarier bugs).
     hunks. Regression row: `test/TASP_walkthrough.txt` (local-only), budget
     0\|0.
 
+17. **The OO pass refused to start a key token after a DIGIT.** ✅ **FIXED**
+    (2026-08-09, `a5expr.cpp` `expr_replace_impl`; TASP still MATCH 0\|0, full
+    a5 + a5probes + a5maptest + V4 corpora clean). The scanner demanded a full
+    non-word char to the left of a candidate key (`!is_key_char(p[-1])`), but
+    the Runner's regex `firstkey` is `%?[A-Za-z][\w\|_]*%?` (Global.vb:630) —
+    it demands a **letter**, so .NET happily starts a match right after a
+    digit, `_` or `|`; the earlier offsets simply fail to match. (A *letter* to
+    the left really is different: the greedy earlier attempt swallows the
+    token, which Scarier reproduces by advancing past a whole unresolvable key
+    token.) Fix: the boundary test is now `!isalpha(p[-1])`.
+
+    Same game, the sibling half of bug 16 — the conversation topics read the
+    property as a bare OO chain instead of through `%PropertyValue%`:
+    `[kristenconversation…=%rotato%%Character1%.Property3]`. `%Character1%`
+    correctly renders the key and leaves `.Property3` for the OO pass (finding
+    15a), but with the rotating variable expanded the text reads
+    `=2Character1.Property3` — the digit blocked the scan, the chain survived
+    verbatim, and the topic's reply printed the raw
+    `[kristenconversation…=1Character1.Property3]` key instead of its override
+    text. The walkthrough now exercises one topic on each path
+    (`%PropertyValue%` and the bare OO chain) so both stay covered.
+
     **What actually made Halloween match (the ref-snapshot theory in the old TODO
     was a partial misread).** Examining the hole (`dk_Hul2`, holding the hook
     `dk_Krog` *inside*): `dk_ListOnlyFi` (`.Contents`, Inside) fires legitimately,
