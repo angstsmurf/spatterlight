@@ -781,6 +781,87 @@ void win_setreverse(int name, int reverse)
     sendmsg(SETREVERSE, name, reverse, 0, 0, 0, 0, NULL);
 }
 
+static char *css_pack_prop_val(const char *prop, glui32 proplen,
+                               const char *val, glui32 vallen, size_t *outlen)
+{
+    size_t len;
+    char *buf;
+
+    if (!prop || !proplen)
+        return NULL;
+    if (!val)
+        vallen = 0;
+    len = (size_t)proplen + 1 + (size_t)vallen + 1;
+    buf = malloc(len);
+    if (!buf)
+        return NULL;
+    memcpy(buf, prop, proplen);
+    buf[proplen] = '\0';
+    if (vallen)
+        memcpy(buf + proplen + 1, val, vallen);
+    buf[proplen + 1 + vallen] = '\0';
+    *outlen = len;
+    return buf;
+}
+
+void win_css_hint(int wintype, int styl, int par_or_span,
+                  const char *prop, glui32 proplen,
+                  const char *val, glui32 vallen)
+{
+    size_t len = 0;
+    char *buf = css_pack_prop_val(prop, proplen, val, vallen, &len);
+
+    if (!buf)
+        return;
+    win_flush();
+    sendmsg(CSSHINT, wintype, styl, par_or_span, 0, 0, len, buf);
+    free(buf);
+}
+
+void win_css_hint_clear(int wintype, int styl, int par_or_span,
+                        const char *prop, glui32 proplen)
+{
+    size_t len = 0;
+    char *buf = css_pack_prop_val(prop, proplen, NULL, 0, &len);
+
+    if (!buf)
+        return;
+    win_flush();
+    sendmsg(CLEARCSSHINT, wintype, styl, par_or_span, 0, 0, len, buf);
+    free(buf);
+}
+
+void win_css_hint_clear_all(int wintype, int styl)
+{
+    win_flush();
+    sendmsg(CLEARALLCSSHINT, wintype, styl, 0, 0, 0, 0, NULL);
+}
+
+void win_css_inline_set(int name, const char *prop, glui32 proplen,
+                        const char *val, glui32 vallen)
+{
+    size_t len = 0;
+    char *buf = css_pack_prop_val(prop, proplen, val, vallen, &len);
+
+    if (!buf)
+        return;
+    win_flush();
+    sendmsg(SETCSSINLINE, name, 0, 0, 0, 0, len, buf);
+    free(buf);
+}
+
+void win_css_inline_clear(int name, const char *prop, glui32 proplen)
+{
+    size_t len = 0;
+    char *buf = css_pack_prop_val(prop, proplen, NULL, 0, &len);
+
+    if (!buf)
+        return;
+    win_flush();
+    sendmsg(CLEARCSSINLINE, name, 0, 0, 0, 0, len, buf);
+    free(buf);
+}
+
 void win_quotebox(int name, int height)
 {
     win_flush();
