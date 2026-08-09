@@ -1,7 +1,7 @@
 # The game corpora: manifests, fetching, and why the checksums matter
 
-The ADRIFT regression suites here replay real games — 196 ADRIFT 3.9/4.0 `.taf`
-files and 152 ADRIFT 5 `.taf`/`.blorb` files at the time of writing. Those files
+The ADRIFT regression suites here replay real games — 195 ADRIFT 3.7/3.8/3.9/4.0
+`.taf` files and 152 ADRIFT 5 `.taf`/`.blorb` files at the time of writing. Those files
 are third-party and copyrighted, so they are **not** committed (`adrift4/games/`
 and `adrift5/games/` are gitignored) and every suite that needs them SKIPs when
 they are absent.
@@ -78,7 +78,7 @@ Archive's `if-archive/games/adrift/` (194 files). A row gets a `source` only whe
 some upstream file or archive member hashes **identically** — nothing here is a
 guess from a matching filename.
 
-Coverage as recorded: 132/196 ADRIFT 4 and 128/152 ADRIFT 5 rows are fetchable.
+Coverage as recorded: 131/195 ADRIFT 4 and 128/152 ADRIFT 5 rows are fetchable.
 The remaining 88 are marked `MANUAL`. Their notes distinguish two cases:
 
 - *different release upstream: `<url>` (sha256 …)* — the game is still online, but
