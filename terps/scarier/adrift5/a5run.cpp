@@ -850,10 +850,14 @@ scan_tasks (a5_run_t *run, const std::string &in, sb_t *out,
               /* A "get all"-style command whose %objects% resolved to no passing
                  item: the task's FailOverride claims the turn ("There is nothing
                  worth taking here.") -- clsUserSession.vb:788, shown when no
-                 response passed and the input contained "all". */
+                 response passed and the input contained "all".  vb:789 is a
+                 literal Display(task.FailOverride.ToString) over a raw
+                 clsDescription, so the expansion happens with bDisplaying set. */
               if (run->pending_failover != NULL)
                 {
-                  char *fo = a5text_describe (st, run->pending_failover);
+                  char *fo;
+                  { a5_intro_guard ig (st, 1);
+                    fo = a5text_describe (st, run->pending_failover); }
                   run->pending_failover = NULL;
                   if (msg_has_output (fo)) { sb_pspace (out); sb_puts (out, fo); }
                   free (fo);

@@ -1208,7 +1208,8 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
       run->resp = NULL;
       /* No child override passed for an "all" command: replace the buffered
          per-item fail messages with the general task's FailOverride (the runner's
-         htblResponsesPass.Count=0 branch). */
+         htblResponsesPass.Count=0 branch).  vb:789 renders it with a literal
+         Display(task.FailOverride.ToString), hence under bDisplaying. */
       if (all_failover)
         {
           bool any_pass = false;
@@ -1216,7 +1217,9 @@ run_general (a5_run_t *run, const a5_task_t *parent, const a5_match_t *m,
             if (e.is_pass) { any_pass = true; break; }
           if (!any_pass)
             {
-              char *fo = a5text_describe (st, parent->fail_override);
+              char *fo;
+              { a5_intro_guard ig (st, 1);
+                fo = a5text_describe (st, parent->fail_override); }
               rm.ents.clear ();
               rm.nmut = 0;
               if (msg_has_output (fo))
