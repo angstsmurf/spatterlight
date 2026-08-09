@@ -41,6 +41,13 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 @property NSInteger currentHyperlink;
 
 @property NSArray *styleHints;
+/** CSS Basic span hints copied from the controller when the window opens. */
+@property NSArray<NSDictionary *> *cssSpanHints;
+@property NSArray<NSDictionary *> *cssParaHints;
+/** Empty-selector (window-level) CSS Basic hints copied at window open. */
+@property NSMutableDictionary<NSString *, NSString *> *cssWindowHints;
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineCSS;
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineParaCSS;
 @property Theme *theme;
 
 @property NSMutableDictionary *pendingTerminators;
@@ -88,8 +95,23 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol;
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue;
+/// Remove glyph-run NSBackgroundColor from newline characters. AppKit extends
+/// that attribute to the end of the line fragment for '\\n', which makes span
+/// reverse/background look like a content-box fill. Paragraph GlkParaBackground
+/// is left alone (block fills are intentional).
+- (void)stripSpanBackgroundFromNewlines:(NSMutableAttributedString *)attStr;
 /// Style-table attributes only (theme +/- stylehints). Does not fold zcolor or reverse video.
 - (NSDictionary *)baseAttributesForStyle:(NSUInteger)stylevalue;
+/// Apply window CSS span/para hints onto a mutable attributes dictionary when doStyles is on.
+- (void)applyCSSHintsToAttributes:(NSMutableDictionary *)attributes
+                         forStyle:(NSUInteger)stylevalue
+                       reverseOut:(nullable BOOL *)reverseOut;
+/// Re-apply a preserved @"GlkCSS" property map (and optional reverse) onto attributes when doStyles is on.
+- (void)applyPreservedInlineCSS:(NSDictionary *)css
+                   toAttributes:(NSMutableDictionary *)attributes;
+- (void)applyPreservedInlineCSS:(NSDictionary *)css
+                   toAttributes:(NSMutableDictionary *)attributes
+                 allowParagraph:(BOOL)allowParagraph;
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)n;
 - (void)drawImage:(NSImage *)buf

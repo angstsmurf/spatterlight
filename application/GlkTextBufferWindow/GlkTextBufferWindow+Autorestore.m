@@ -1,6 +1,7 @@
 #import "GlkTextBufferWindowPrivate.h"
 
 #import "GlkController.h"
+#import "GlkCSSBasic.h"
 #import "GlkTextGridWindow.h"
 #import "Theme.h"
 #import "MarginContainer.h"
@@ -25,7 +26,7 @@
     if (self) {
         rewrapLastseenChar = NSNotFound;
         _textview = [decoder decodeObjectOfClass:[BufferTextView class] forKey:@"textview"];
-        layoutmanager = _textview.layoutManager;
+        layoutmanager = [GlkCSSBasic ensureLayoutManagerForTextView:_textview];
         textstorage = _textview.textStorage;
         container = (MarginContainer *)_textview.textContainer;
         if (!layoutmanager)
