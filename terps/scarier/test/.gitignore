@@ -34,3 +34,7 @@ adrift5-games/
 
 # Cached FrankenDrift ground-truth transcripts (a5_groundtruth.sh FD_CACHE).
 .fd_cache/
+
+# TASP walkthrough/golden kept local-only (explicit content).
+TASP_expected.txt
+TASP_walkthrough.txt
