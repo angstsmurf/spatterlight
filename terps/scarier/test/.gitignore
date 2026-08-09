@@ -7,3 +7,7 @@ __pycache__/
 *_san
 *_san.o
 *.dSYM/
+
+# Archives downloaded by fetch_games.sh on the way to the game corpora
+# (see GAMES.md); the corpora themselves are ignored per-corpus.
+/.game-cache/

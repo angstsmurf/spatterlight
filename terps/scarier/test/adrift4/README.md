@@ -18,9 +18,14 @@ Mirrors `test/adrift5/` (same subfolder names, same policies):
 - `goldens/` — a `*_solution.txt` (the command script) and
   `*_solution.expected.txt` (its committed golden transcript) per route.
 - `games/` — the `.taf` corpus. **Untracked** (`.gitignore`): third-party game
-  data is never committed. A mix of real files and symlinks into wherever the
-  originals were downloaded; recreate it on another machine, or point
-  `GAMES_DIR` / `ALT_DIRS` elsewhere.
+  data is never committed. Recreate it on another machine with
+  `sh test/fetch_games.sh fetch adrift4`, or point `GAMES_DIR` / `ALT_DIRS`
+  elsewhere.
+- `games.manifest.tsv` — the committed sha256 pin for every file in `games/`,
+  with its source URL where one exists. This is what makes the corpus
+  reproducible without redistributing it; read `../GAMES.md` before editing it,
+  and note that upstream has silently republished several of these games, so a
+  row without a source is not an oversight.
 - `downloaded/` — third-party walkthrough documents the routes were derived
   from. **Untracked**, same policy as the games.
 - `harness/` — the headless tooling.
