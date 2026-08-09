@@ -29,6 +29,8 @@
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 
+#include "glkimp.h"
+
 #ifndef DEBUG
 #define NSLog(...)
 #endif
@@ -128,6 +130,26 @@
 
     self.bufferStyleHints = restoredController.bufferStyleHints;
     self.gridStyleHints = restoredController.gridStyleHints;
+    self.bufferCssSpanHints = restoredController.bufferCssSpanHints;
+    self.bufferCssParaHints = restoredController.bufferCssParaHints;
+    self.bufferCssHyperlinkHints = restoredController.bufferCssHyperlinkHints;
+    self.gridCssSpanHints = restoredController.gridCssSpanHints;
+    self.gridCssParaHints = restoredController.gridCssParaHints;
+    self.gridCssHyperlinkHints = restoredController.gridCssHyperlinkHints;
+    if (!self.bufferCssHyperlinkHints) {
+        self.bufferCssHyperlinkHints = [NSMutableArray array];
+        self.gridCssHyperlinkHints = [NSMutableArray array];
+        for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+            [self.bufferCssHyperlinkHints addObject:[NSMutableDictionary dictionary]];
+            [self.gridCssHyperlinkHints addObject:[NSMutableDictionary dictionary]];
+        }
+    }
+    self.bufferCssWindowHints = restoredController.bufferCssWindowHints ?: [NSMutableDictionary dictionary];
+    self.gridCssWindowHints = restoredController.gridCssWindowHints ?: [NSMutableDictionary dictionary];
+    self.bufferCssInputHints = restoredController.bufferCssInputHints ?: [NSMutableDictionary dictionary];
+    self.gridCssInputHints = restoredController.gridCssInputHints ?: [NSMutableDictionary dictionary];
+    self.bufferCssImageHints = restoredController.bufferCssImageHints ?: [NSMutableDictionary dictionary];
+    self.gridCssImageHints = restoredController.gridCssImageHints ?: [NSMutableDictionary dictionary];
 
     // Restore frame size
     self.gameView.frame = restoredControllerLate.storedGameViewFrame;
@@ -610,6 +632,54 @@
 
         self.bufferStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"bufferStyleHints"];
         self.gridStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"gridStyleHints"];
+        self.bufferCssSpanHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"bufferCssSpanHints"];
+        self.bufferCssParaHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"bufferCssParaHints"];
+        self.bufferCssHyperlinkHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"bufferCssHyperlinkHints"];
+        self.gridCssSpanHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"gridCssSpanHints"];
+        self.gridCssParaHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"gridCssParaHints"];
+        self.gridCssHyperlinkHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"gridCssHyperlinkHints"];
+        self.bufferCssWindowHints = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"bufferCssWindowHints"];
+        self.gridCssWindowHints = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gridCssWindowHints"];
+        self.bufferCssInputHints = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"bufferCssInputHints"];
+        self.gridCssInputHints = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gridCssInputHints"];
+        self.bufferCssImageHints = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"bufferCssImageHints"];
+        self.gridCssImageHints = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gridCssImageHints"];
+        if (!self.bufferCssSpanHints) {
+            self.bufferCssSpanHints = [NSMutableArray array];
+            self.bufferCssParaHints = [NSMutableArray array];
+            self.bufferCssHyperlinkHints = [NSMutableArray array];
+            self.gridCssSpanHints = [NSMutableArray array];
+            self.gridCssParaHints = [NSMutableArray array];
+            self.gridCssHyperlinkHints = [NSMutableArray array];
+            for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+                [self.bufferCssSpanHints addObject:[NSMutableDictionary dictionary]];
+                [self.bufferCssParaHints addObject:[NSMutableDictionary dictionary]];
+                [self.bufferCssHyperlinkHints addObject:[NSMutableDictionary dictionary]];
+                [self.gridCssSpanHints addObject:[NSMutableDictionary dictionary]];
+                [self.gridCssParaHints addObject:[NSMutableDictionary dictionary]];
+                [self.gridCssHyperlinkHints addObject:[NSMutableDictionary dictionary]];
+            }
+        }
+        if (!self.bufferCssHyperlinkHints) {
+            self.bufferCssHyperlinkHints = [NSMutableArray array];
+            self.gridCssHyperlinkHints = [NSMutableArray array];
+            for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+                [self.bufferCssHyperlinkHints addObject:[NSMutableDictionary dictionary]];
+                [self.gridCssHyperlinkHints addObject:[NSMutableDictionary dictionary]];
+            }
+        }
+        if (!self.bufferCssWindowHints)
+            self.bufferCssWindowHints = [NSMutableDictionary dictionary];
+        if (!self.gridCssWindowHints)
+            self.gridCssWindowHints = [NSMutableDictionary dictionary];
+        if (!self.bufferCssInputHints)
+            self.bufferCssInputHints = [NSMutableDictionary dictionary];
+        if (!self.gridCssInputHints)
+            self.gridCssInputHints = [NSMutableDictionary dictionary];
+        if (!self.bufferCssImageHints)
+            self.bufferCssImageHints = [NSMutableDictionary dictionary];
+        if (!self.gridCssImageHints)
+            self.gridCssImageHints = [NSMutableDictionary dictionary];
 
         self.queue = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"queue"];
 
@@ -651,6 +721,18 @@
 
     [encoder encodeObject:self.bufferStyleHints forKey:@"bufferStyleHints"];
     [encoder encodeObject:self.gridStyleHints forKey:@"gridStyleHints"];
+    [encoder encodeObject:self.bufferCssSpanHints forKey:@"bufferCssSpanHints"];
+    [encoder encodeObject:self.bufferCssParaHints forKey:@"bufferCssParaHints"];
+    [encoder encodeObject:self.bufferCssHyperlinkHints forKey:@"bufferCssHyperlinkHints"];
+    [encoder encodeObject:self.gridCssSpanHints forKey:@"gridCssSpanHints"];
+    [encoder encodeObject:self.gridCssParaHints forKey:@"gridCssParaHints"];
+    [encoder encodeObject:self.gridCssHyperlinkHints forKey:@"gridCssHyperlinkHints"];
+    [encoder encodeObject:self.bufferCssWindowHints forKey:@"bufferCssWindowHints"];
+    [encoder encodeObject:self.gridCssWindowHints forKey:@"gridCssWindowHints"];
+    [encoder encodeObject:self.bufferCssInputHints forKey:@"bufferCssInputHints"];
+    [encoder encodeObject:self.gridCssInputHints forKey:@"gridCssInputHints"];
+    [encoder encodeObject:self.bufferCssImageHints forKey:@"bufferCssImageHints"];
+    [encoder encodeObject:self.gridCssImageHints forKey:@"gridCssImageHints"];
 
     [encoder encodeObject:self.gwindows forKey:@"gwindows"];
     [encoder encodeObject:self.soundHandler forKey:@"soundHandler"];

@@ -28,6 +28,7 @@
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
+#import "GlkCSSBasic.h"
 
 #include "glkimp.h"
 #include "messagenames.h"
@@ -38,6 +39,356 @@
 #endif
 
 @implementation GlkController (GlkRequests)
+
+#pragma mark - CSS Basic helpers
+
+- (void)cssUnpackBuffer:(char *)buf
+                 length:(size_t)len
+                   prop:(NSString **)propOut
+                  value:(NSString **)valOut {
+    *propOut = nil;
+    *valOut = nil;
+    if (!buf || len == 0)
+        return;
+    NSUInteger propLen = 0;
+    while (propLen < len && buf[propLen] != '\0')
+        propLen++;
+    if (propLen == 0)
+        return;
+    *propOut = [[NSString alloc] initWithBytes:buf length:propLen encoding:NSUTF8StringEncoding];
+    if (propLen + 1 < len) {
+        NSUInteger valStart = propLen + 1;
+        NSUInteger valLen = 0;
+        while (valStart + valLen < len && buf[valStart + valLen] != '\0')
+            valLen++;
+        if (valLen)
+            *valOut = [[NSString alloc] initWithBytes:buf + valStart length:valLen encoding:NSUTF8StringEncoding];
+    }
+}
+
+- (void)handleCssHintOnWindowType:(int)wintype
+                        csstarget:(int)csstarget
+                            style:(NSUInteger)style
+                             prop:(NSString *)prop
+                            value:(NSString *)value {
+    if (!prop.length)
+        return;
+
+    if (csstarget == CSS_Window) {
+        [self handleCssWindowHintOnWindowType:wintype prop:prop value:value clear:NO];
+        return;
+    }
+    if (csstarget == CSS_Input) {
+        [self handleCssInputHintOnWindowType:wintype prop:prop value:value clear:NO];
+        return;
+    }
+    if (csstarget == CSS_Image) {
+        [self handleCssImageHintOnWindowType:wintype prop:prop value:value clear:NO];
+        return;
+    }
+
+    if (style >= style_NUMSTYLES)
+        return;
+
+    NSMutableArray *bufferStore = nil;
+    NSMutableArray *gridStore = nil;
+    switch (csstarget) {
+        case CSS_Paragraph:
+            bufferStore = self.bufferCssParaHints;
+            gridStore = self.gridCssParaHints;
+            break;
+        case CSS_Hyperlink:
+            bufferStore = self.bufferCssHyperlinkHints;
+            gridStore = self.gridCssHyperlinkHints;
+            break;
+        case CSS_Span:
+        default:
+            bufferStore = self.bufferCssSpanHints;
+            gridStore = self.gridCssSpanHints;
+            break;
+    }
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            bufferStore[style][prop] = value ?: @"";
+            gridStore[style][prop] = value ?: @"";
+            break;
+        case wintype_TextGrid:
+            gridStore[style][prop] = value ?: @"";
+            break;
+        case wintype_TextBuffer:
+            bufferStore[style][prop] = value ?: @"";
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleCssWindowHintOnWindowType:(int)wintype
+                                   prop:(NSString *)prop
+                                  value:(NSString *)value
+                                  clear:(BOOL)clear {
+    if (!prop.length)
+        return;
+
+    void (^apply)(NSMutableDictionary *) = ^(NSMutableDictionary *store) {
+        if (clear)
+            [store removeObjectForKey:prop];
+        else
+            store[prop] = value ?: @"";
+    };
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            apply(self.bufferCssWindowHints);
+            apply(self.gridCssWindowHints);
+            break;
+        case wintype_TextGrid:
+            apply(self.gridCssWindowHints);
+            break;
+        case wintype_TextBuffer:
+            apply(self.bufferCssWindowHints);
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleCssInputHintOnWindowType:(int)wintype
+                                  prop:(NSString *)prop
+                                 value:(NSString *)value
+                                 clear:(BOOL)clear {
+    if (!prop.length)
+        return;
+
+    void (^apply)(NSMutableDictionary *) = ^(NSMutableDictionary *store) {
+        if (clear)
+            [store removeObjectForKey:prop];
+        else
+            store[prop] = value ?: @"";
+    };
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            apply(self.bufferCssInputHints);
+            apply(self.gridCssInputHints);
+            break;
+        case wintype_TextGrid:
+            apply(self.gridCssInputHints);
+            break;
+        case wintype_TextBuffer:
+            apply(self.bufferCssInputHints);
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleCssImageHintOnWindowType:(int)wintype
+                                  prop:(NSString *)prop
+                                 value:(NSString *)value
+                                 clear:(BOOL)clear {
+    if (!prop.length)
+        return;
+
+    void (^apply)(NSMutableDictionary *) = ^(NSMutableDictionary *store) {
+        if (clear)
+            [store removeObjectForKey:prop];
+        else
+            store[prop] = value ?: @"";
+    };
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            apply(self.bufferCssImageHints);
+            apply(self.gridCssImageHints);
+            break;
+        case wintype_TextGrid:
+            apply(self.gridCssImageHints);
+            break;
+        case wintype_TextBuffer:
+            apply(self.bufferCssImageHints);
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleClearCssHintOnWindowType:(int)wintype
+                             csstarget:(int)csstarget
+                                 style:(NSUInteger)style
+                                  prop:(NSString *)prop {
+    if (!prop.length)
+        return;
+
+    if (csstarget == CSS_Window) {
+        [self handleCssWindowHintOnWindowType:wintype prop:prop value:nil clear:YES];
+        return;
+    }
+    if (csstarget == CSS_Input) {
+        [self handleCssInputHintOnWindowType:wintype prop:prop value:nil clear:YES];
+        return;
+    }
+    if (csstarget == CSS_Image) {
+        [self handleCssImageHintOnWindowType:wintype prop:prop value:nil clear:YES];
+        return;
+    }
+
+    if (style >= style_NUMSTYLES)
+        return;
+
+    NSMutableArray *bufferStore = nil;
+    NSMutableArray *gridStore = nil;
+    switch (csstarget) {
+        case CSS_Paragraph:
+            bufferStore = self.bufferCssParaHints;
+            gridStore = self.gridCssParaHints;
+            break;
+        case CSS_Hyperlink:
+            bufferStore = self.bufferCssHyperlinkHints;
+            gridStore = self.gridCssHyperlinkHints;
+            break;
+        case CSS_Span:
+        default:
+            bufferStore = self.bufferCssSpanHints;
+            gridStore = self.gridCssSpanHints;
+            break;
+    }
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [bufferStore[style] removeObjectForKey:prop];
+            [gridStore[style] removeObjectForKey:prop];
+            break;
+        case wintype_TextGrid:
+            [gridStore[style] removeObjectForKey:prop];
+            break;
+        case wintype_TextBuffer:
+            [bufferStore[style] removeObjectForKey:prop];
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleClearStyleHintsOnWindowType:(int)wintype style:(NSUInteger)style {
+    if (style >= style_NUMSTYLES)
+        return;
+    for (NSUInteger hint = 0; hint < stylehint_NUMHINTS; hint++)
+        [self handleClearHintOnWindowType:wintype style:style hint:hint];
+}
+
+- (void)handleClearAllCssHintsOnWindowType:(int)wintype style:(NSUInteger)style {
+    if (style >= style_NUMSTYLES)
+        return;
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [self.bufferCssSpanHints[style] removeAllObjects];
+            [self.bufferCssParaHints[style] removeAllObjects];
+            [self.bufferCssHyperlinkHints[style] removeAllObjects];
+            [self.gridCssSpanHints[style] removeAllObjects];
+            [self.gridCssParaHints[style] removeAllObjects];
+            [self.gridCssHyperlinkHints[style] removeAllObjects];
+            break;
+        case wintype_TextGrid:
+            [self.gridCssSpanHints[style] removeAllObjects];
+            [self.gridCssParaHints[style] removeAllObjects];
+            [self.gridCssHyperlinkHints[style] removeAllObjects];
+            break;
+        case wintype_TextBuffer:
+            [self.bufferCssSpanHints[style] removeAllObjects];
+            [self.bufferCssParaHints[style] removeAllObjects];
+            [self.bufferCssHyperlinkHints[style] removeAllObjects];
+            break;
+        default:
+            return;
+    }
+    [self handleClearStyleHintsOnWindowType:wintype style:style];
+}
+
+- (void)handleClearAllCssHintsByWindowType:(int)wintype {
+    void (^clearStore)(NSMutableArray *, NSMutableArray *, NSMutableArray *,
+                       NSMutableDictionary *, NSMutableDictionary *, NSMutableDictionary *) =
+    ^(NSMutableArray *span, NSMutableArray *para, NSMutableArray *link,
+      NSMutableDictionary *window, NSMutableDictionary *input, NSMutableDictionary *image) {
+        for (NSUInteger style = 0; style < style_NUMSTYLES; style++) {
+            [span[style] removeAllObjects];
+            [para[style] removeAllObjects];
+            [link[style] removeAllObjects];
+        }
+        [window removeAllObjects];
+        [input removeAllObjects];
+        [image removeAllObjects];
+    };
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            clearStore(self.bufferCssSpanHints, self.bufferCssParaHints,
+                       self.bufferCssHyperlinkHints, self.bufferCssWindowHints,
+                       self.bufferCssInputHints, self.bufferCssImageHints);
+            clearStore(self.gridCssSpanHints, self.gridCssParaHints,
+                       self.gridCssHyperlinkHints, self.gridCssWindowHints,
+                       self.gridCssInputHints, self.gridCssImageHints);
+            break;
+        case wintype_TextGrid:
+            clearStore(self.gridCssSpanHints, self.gridCssParaHints,
+                       self.gridCssHyperlinkHints, self.gridCssWindowHints,
+                       self.gridCssInputHints, self.gridCssImageHints);
+            break;
+        case wintype_TextBuffer:
+            clearStore(self.bufferCssSpanHints, self.bufferCssParaHints,
+                       self.bufferCssHyperlinkHints, self.bufferCssWindowHints,
+                       self.bufferCssInputHints, self.bufferCssImageHints);
+            break;
+        default:
+            return;
+    }
+    for (NSUInteger style = 0; style < style_NUMSTYLES; style++)
+        [self handleClearStyleHintsOnWindowType:wintype style:style];
+}
+
+- (void)handleClearAllCssInlineOnWin:(GlkWindow *)reqWin {
+    if (!reqWin)
+        return;
+    [reqWin.currentInlineCSS removeAllObjects];
+    [reqWin.currentInlineParaCSS removeAllObjects];
+    [reqWin.currentInlineHyperlinkCSS removeAllObjects];
+    [reqWin.currentInlineInputCSS removeAllObjects];
+    [reqWin.currentInlineImageCSS removeAllObjects];
+    reqWin.currentReverseVideo = NO;
+    [reqWin setZColorText:zcolor_Default background:zcolor_Default];
+    [reqWin refreshCSSInputChrome];
+}
+
+- (NSMutableDictionary *)inlineCSSStoreOnWin:(GlkWindow *)reqWin forTarget:(int)csstarget {
+    if (!reqWin)
+        return nil;
+    switch (csstarget) {
+        case CSS_Paragraph:
+            if (!reqWin.currentInlineParaCSS)
+                reqWin.currentInlineParaCSS = [NSMutableDictionary dictionary];
+            return reqWin.currentInlineParaCSS;
+        case CSS_Hyperlink:
+            if (!reqWin.currentInlineHyperlinkCSS)
+                reqWin.currentInlineHyperlinkCSS = [NSMutableDictionary dictionary];
+            return reqWin.currentInlineHyperlinkCSS;
+        case CSS_Input:
+            if (!reqWin.currentInlineInputCSS)
+                reqWin.currentInlineInputCSS = [NSMutableDictionary dictionary];
+            return reqWin.currentInlineInputCSS;
+        case CSS_Image:
+            if (!reqWin.currentInlineImageCSS)
+                reqWin.currentInlineImageCSS = [NSMutableDictionary dictionary];
+            return reqWin.currentInlineImageCSS;
+        case CSS_Span:
+            if (!reqWin.currentInlineCSS)
+                reqWin.currentInlineCSS = [NSMutableDictionary dictionary];
+            return reqWin.currentInlineCSS;
+        default:
+            return nil; /* Window inline not applied */
+    }
+}
 
 - (void)handleOpenPrompt:(int)fileusage {
     if (self.pendingSaveFilePath) {
@@ -357,9 +708,11 @@
                            hint:(NSUInteger)hint
                          result:(NSInteger *)result {
 
-    // Measure the style table only (theme +/- stylehints applied at window
-    // creation), not live zcolor or reverse video — same model as Gargoyle.
-    NSDictionary *attributes = [gwindow baseAttributesForStyle:style];
+    // Computed style table: theme +/- stylehints, plus CSS_Window inheritance
+    // and per-style CSS hints when doStyles is on.  Not live zcolor / reverse
+    // video — same model as Gargoyle for those transient overlays.
+    NSDictionary *attributes = [gwindow computedStyleAttributesForStyle:style]
+        ?: [gwindow baseAttributesForStyle:style];
 
     if (hint == stylehint_TextColor || hint == stylehint_BackColor) {
         NSColor *color = nil;
@@ -368,8 +721,15 @@
         }
         if (hint == stylehint_BackColor) {
             color = attributes[NSBackgroundColorAttributeName];
-            if (!color) {
-                color = [gwindow isKindOfClass:[GlkTextBufferWindow class]] ? self.theme.bufferBackground : self.theme.gridBackground;
+            /* Transparent / missing style background → window background
+               (CSS_Window background-color, else theme). */
+            if (!color || color.alphaComponent <= 0) {
+                color = [gwindow effectiveCssWindowBackgroundColor];
+            }
+            if (!color || color.alphaComponent <= 0) {
+                color = [gwindow isKindOfClass:[GlkTextBufferWindow class]]
+                    ? self.theme.bufferBackground
+                    : self.theme.gridBackground;
             }
         }
 
@@ -856,10 +1216,11 @@
 
 #pragma mark Create and destroy windows and sound channels
 
-        case NEWWIN:
+        case NEWWIN: {
             ans->cmd = OKAY;
             ans->a1 = (int)[self handleNewWindowOfType:req->a1 andName:req->a2];
             break;
+        }
 
         case NEWCHAN:
             ans->cmd = OKAY;
@@ -1179,6 +1540,69 @@
             }
             break;
 
+        case CSSHINT: {
+            NSString *prop = nil, *val = nil;
+            [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+            [self handleCssHintOnWindowType:req->a1
+                                  csstarget:req->a2
+                                      style:(NSUInteger)req->a3
+                                       prop:prop
+                                      value:val];
+            break;
+        }
+
+        case CLEARCSSHINT: {
+            NSString *prop = nil, *val = nil;
+            [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+            [self handleClearCssHintOnWindowType:req->a1
+                                       csstarget:req->a2
+                                           style:(NSUInteger)req->a3
+                                            prop:prop];
+            break;
+        }
+
+        case CLEARALLCSSHINT:
+            [self handleClearAllCssHintsOnWindowType:req->a1 style:(NSUInteger)req->a2];
+            break;
+
+        case CLEARALLCSSHINTBYWINDOW:
+            [self handleClearAllCssHintsByWindowType:req->a1];
+            break;
+
+        case CLEARALLCSSINLINE:
+            [self handleClearAllCssInlineOnWin:reqWin];
+            break;
+
+        case SETCSSINLINE: {
+            if (reqWin) {
+                NSString *prop = nil, *val = nil;
+                [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+                if (prop.length) {
+                    NSMutableDictionary *store = [self inlineCSSStoreOnWin:reqWin forTarget:req->a2];
+                    if (store) {
+                        store[prop] = val ?: @"";
+                        if (req->a2 == CSS_Input)
+                            [reqWin refreshCSSInputChrome];
+                    }
+                }
+            }
+            break;
+        }
+
+        case CLEARCSSINLINE: {
+            if (reqWin) {
+                NSString *prop = nil, *val = nil;
+                [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+                if (prop.length) {
+                    NSMutableDictionary *store = [self inlineCSSStoreOnWin:reqWin forTarget:req->a2];
+                    [store removeObjectForKey:prop];
+                    if (req->a2 == CSS_Input)
+                        [reqWin refreshCSSInputChrome];
+                }
+            }
+            break;
+        }
+
         case QUOTEBOX:
             if (reqWin) {
                 [((GlkTextGridWindow *)reqWin) quotebox:(NSUInteger)req->a2];
@@ -1396,10 +1820,22 @@
 //            It can also update any inline images.
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.bufferStyleHints];
+                reqWin.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssSpanHints];
+                reqWin.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssParaHints];
+                reqWin.cssHyperlinkHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssHyperlinkHints];
+                reqWin.cssWindowHints = [self.bufferCssWindowHints mutableCopy] ?: [NSMutableDictionary dictionary];
+                reqWin.cssInputHints = [self.bufferCssInputHints mutableCopy] ?: [NSMutableDictionary dictionary];
+                reqWin.cssImageHints = [self.bufferCssImageHints mutableCopy] ?: [NSMutableDictionary dictionary];
                 if (req->a2 > 0)
                     [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
                 reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.gridStyleHints];
+                reqWin.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssSpanHints];
+                reqWin.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssParaHints];
+                reqWin.cssHyperlinkHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssHyperlinkHints];
+                reqWin.cssWindowHints = [self.gridCssWindowHints mutableCopy] ?: [NSMutableDictionary dictionary];
+                reqWin.cssInputHints = [self.gridCssInputHints mutableCopy] ?: [NSMutableDictionary dictionary];
+                reqWin.cssImageHints = [self.gridCssImageHints mutableCopy] ?: [NSMutableDictionary dictionary];
             } else {
                 break;
             }

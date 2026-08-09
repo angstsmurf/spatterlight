@@ -111,6 +111,18 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
         case gestalt_GarglkText:
             return TRUE;
 
+        case gestalt_CSSBasic:
+            return TRUE;
+
+#ifdef GLK_MODULE_CSS_SUPPORTS
+        case gestalt_CSSSupports:
+            return TRUE;
+#endif
+
+        case gestalt_WebBrowser:
+            /* Spatterlight is a native AppKit UI, not a browser. */
+            return FALSE;
+
         default:
             return 0;
     }

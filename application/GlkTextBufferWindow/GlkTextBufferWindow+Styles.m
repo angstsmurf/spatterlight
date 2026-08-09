@@ -5,6 +5,7 @@
 #import "GlkController+BorderColor.h"
 #import "Theme.h"
 #import "GlkStyle.h"
+#import "GlkCSSBasic.h"
 #import "ZColor.h"
 #import "NSColor+integer.h"
 #import "MarginContainer.h"
@@ -29,11 +30,16 @@
 // 3. The theme's default buffer background
 // Also updates the scroll view background and notifies the border color system.
 - (void)recalcBackground {
-    NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+    NSColor *bgcolor = nil;
 
     if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
+    if (!bgcolor && self.theme.doStyles) {
+        bgcolor = [self effectiveCssWindowBackgroundColor];
+    }
+    if (!bgcolor)
+        bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
     if (!bgcolor) {
         if (!self.theme) {
             NSLog(@"recalcBackground: No theme!");
@@ -49,6 +55,7 @@
 
     if (line_request)
         [self showInsertionPoint];
+    [self applyCSSWindowChrome];
     [self.glkctl setBorderColor:bgcolor fromWindow:self];
 }
 
@@ -88,6 +95,18 @@
             // the theme object's attributeDict object
             attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
         }
+
+        NSMutableDictionary *mutableAttrs = [attributes mutableCopy] ?: [NSMutableDictionary dictionary];
+        BOOL cssReverse = NO;
+        [self applyCSSHintsToAttributes:mutableAttrs forStyle:i reverseOut:&cssReverse];
+        if (cssReverse) {
+            mutableAttrs[@"ReverseVideo"] = @(YES);
+            NSArray *hintsForStyle = self.styleHints[i];
+            if (!hintsForStyle.count || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
+                mutableAttrs = [self reversedAttributes:mutableAttrs background:self.theme.bufferBackground];
+            }
+        }
+        attributes = mutableAttrs;
 
         if (usingStyles != self.theme.doStyles) {
             different = YES;
@@ -168,7 +187,33 @@
             id styleobject = attrs[@"GlkStyle"];
             if (styleobject) {
                 NSDictionary *stylesAtt = blockStyles[(NSUInteger)[styleobject intValue]];
-                [backingStorage setAttributes:stylesAtt range:range];
+                NSMutableDictionary *restored = [stylesAtt mutableCopy];
+                id glkCSS = attrs[@"GlkCSS"];
+                if (glkCSS) {
+                    restored[@"GlkCSS"] = glkCSS;
+                    [self applyPreservedInlineCSS:glkCSS toAttributes:restored allowParagraph:NO];
+                }
+                id glkCSSPara = attrs[@"GlkCSSPara"];
+                if (glkCSSPara) {
+                    restored[@"GlkCSSPara"] = glkCSSPara;
+                    [self applyPreservedInlineCSS:glkCSSPara toAttributes:restored allowParagraph:YES];
+                }
+                id glkCSSLink = attrs[@"GlkCSSHyperlink"];
+                if (glkCSSLink) {
+                    restored[@"GlkCSSHyperlink"] = glkCSSLink;
+                    [self applyPreservedInlineCSS:glkCSSLink toAttributes:restored allowParagraph:NO];
+                }
+                id glkCSSLinkInline = attrs[@"GlkCSSHyperlinkInline"];
+                if (glkCSSLinkInline) {
+                    restored[@"GlkCSSHyperlinkInline"] = glkCSSLinkInline;
+                    [self applyPreservedInlineCSS:glkCSSLinkInline toAttributes:restored allowParagraph:NO];
+                }
+                if (attrs[NSLinkAttributeName]
+                    && !restored[NSUnderlineStyleAttributeName]
+                    && self.theme.bufLinkStyle != NSUnderlineStyleNone) {
+                    restored[NSUnderlineStyleAttributeName] = @(self.theme.bufLinkStyle);
+                }
+                [backingStorage setAttributes:restored range:range];
             }
 
             // Then, we re-add all the "non-Glk" style values we want to keep
@@ -201,6 +246,20 @@
                                        value:reverse
                                        range:range];
             }
+
+            id glkCSSKeep = attrs[@"GlkCSS"];
+            if (glkCSSKeep) {
+                [backingStorage addAttribute:@"GlkCSS"
+                                       value:glkCSSKeep
+                                       range:range];
+            }
+
+            id paraBg = attrs[GlkParaBackgroundAttributeName];
+            if (paraBg) {
+                [backingStorage addAttribute:GlkParaBackgroundAttributeName
+                                       value:paraBg
+                                       range:range];
+            }
         }];
 
         backingStorage = [self applyZColorsAndThenReverse:backingStorage];
@@ -217,10 +276,10 @@
 
     if (self.glkctl.isAlive) {
         if (different) {
-            // Set style for hyperlinks
+            // Link underline/color live on the run (theme bake + CSS_Hyperlink).
             NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-            linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.bufLinkStyle);
-            linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+            [linkAttributes removeObjectForKey:NSUnderlineStyleAttributeName];
+            [linkAttributes removeObjectForKey:NSForegroundColorAttributeName];
             _textview.linkTextAttributes = linkAttributes;
 
             [self showInsertionPoint];

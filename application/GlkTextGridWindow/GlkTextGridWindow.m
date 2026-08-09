@@ -20,6 +20,7 @@
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "GlkStyle.h"
+#import "GlkCSSBasic.h"
 #import "Constants.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -85,6 +86,12 @@
         NSDictionary *styleDict = nil;
 
         self.styleHints = [GlkWindow deepCopyOfStyleHintsArray:glkctl_.gridStyleHints];
+        self.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:glkctl_.gridCssSpanHints];
+        self.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:glkctl_.gridCssParaHints];
+        self.cssHyperlinkHints = [GlkCSSBasic deepCopyOfCSSHintArray:glkctl_.gridCssHyperlinkHints];
+        self.cssWindowHints = [glkctl_.gridCssWindowHints mutableCopy] ?: [NSMutableDictionary dictionary];
+        self.cssInputHints = [glkctl_.gridCssInputHints mutableCopy] ?: [NSMutableDictionary dictionary];
+        self.cssImageHints = [glkctl_.gridCssImageHints mutableCopy] ?: [NSMutableDictionary dictionary];
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
@@ -118,7 +125,7 @@
         textstorage = [[NSTextStorage alloc] init];
         _bufferTextStorage = [[NSMutableAttributedString alloc] init];
 
-        layoutmanager = [[NSLayoutManager alloc] init];
+        layoutmanager = [[GlkLayoutManager alloc] init];
         layoutmanager.backgroundLayoutEnabled = YES;
 
         [textstorage addLayoutManager:layoutmanager];
@@ -149,8 +156,8 @@
         _textview.backgroundColor = self.theme.gridBackground;
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-        linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.gridLinkStyle);
+        [linkAttributes removeObjectForKey:NSForegroundColorAttributeName];
+        [linkAttributes removeObjectForKey:NSUnderlineStyleAttributeName];
         _textview.linkTextAttributes = linkAttributes;
 
         _textview.editable = NO;
@@ -175,7 +182,7 @@
     if (self) {
         _textview = [decoder decodeObjectOfClass:[GridTextView class] forKey:@"_textview"];
 
-        layoutmanager = _textview.layoutManager;
+        layoutmanager = [GlkCSSBasic ensureLayoutManagerForTextView:_textview];
         textstorage = _textview.textStorage;
         if (!textstorage)
             NSLog(@"Error! textstorage is nil!");
@@ -343,6 +350,18 @@
             attributes = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
         }
 
+        NSMutableDictionary *mutableAttrs = [attributes mutableCopy] ?: [NSMutableDictionary dictionary];
+        BOOL cssReverse = NO;
+        [self applyCSSHintsToAttributes:mutableAttrs forStyle:i reverseOut:&cssReverse];
+        if (cssReverse) {
+            mutableAttrs[@"ReverseVideo"] = @(YES);
+            NSArray *hintsForStyle = self.styleHints[i];
+            if (!hintsForStyle.count || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
+                mutableAttrs = [self reversedAttributes:mutableAttrs background:self.theme.gridBackground];
+            }
+        }
+        attributes = mutableAttrs;
+
         if (usingStyles != self.theme.doStyles) {
             different = YES;
             usingStyles = self.theme.doStyles;
@@ -386,7 +405,33 @@
             id styleobject = attrs[@"GlkStyle"];
             if (styleobject) {
                 NSDictionary *blockattributes = blockStyles[(NSUInteger)[styleobject intValue]];
-                [weakSelf.bufferTextStorage setAttributes:blockattributes range:range];
+                NSMutableDictionary *restored = [blockattributes mutableCopy];
+                id glkCSS = attrs[@"GlkCSS"];
+                if (glkCSS) {
+                    restored[@"GlkCSS"] = glkCSS;
+                    [weakSelf applyPreservedInlineCSS:glkCSS toAttributes:restored allowParagraph:NO];
+                }
+                id glkCSSPara = attrs[@"GlkCSSPara"];
+                if (glkCSSPara) {
+                    restored[@"GlkCSSPara"] = glkCSSPara;
+                    [weakSelf applyPreservedInlineCSS:glkCSSPara toAttributes:restored allowParagraph:YES];
+                }
+                id glkCSSLink = attrs[@"GlkCSSHyperlink"];
+                if (glkCSSLink) {
+                    restored[@"GlkCSSHyperlink"] = glkCSSLink;
+                    [weakSelf applyPreservedInlineCSS:glkCSSLink toAttributes:restored allowParagraph:NO];
+                }
+                id glkCSSLinkInline = attrs[@"GlkCSSHyperlinkInline"];
+                if (glkCSSLinkInline) {
+                    restored[@"GlkCSSHyperlinkInline"] = glkCSSLinkInline;
+                    [weakSelf applyPreservedInlineCSS:glkCSSLinkInline toAttributes:restored allowParagraph:NO];
+                }
+                if (attrs[NSLinkAttributeName]
+                    && !restored[NSUnderlineStyleAttributeName]
+                    && weakSelf.theme.gridLinkStyle != NSUnderlineStyleNone) {
+                    restored[NSUnderlineStyleAttributeName] = @(weakSelf.theme.gridLinkStyle);
+                }
+                [weakSelf.bufferTextStorage setAttributes:restored range:range];
             }
             // Then, we re-add all the "non-Glk" style values we want to keep
             // (hyperlinks, Z-colors and reverse video)
@@ -411,6 +456,20 @@
                                                    range:range];
             }
 
+            id glkCSSKeep = attrs[@"GlkCSS"];
+            if (glkCSSKeep) {
+                [weakSelf.bufferTextStorage addAttribute:@"GlkCSS"
+                                                   value:glkCSSKeep
+                                                   range:range];
+            }
+
+            id paraBg = attrs[GlkParaBackgroundAttributeName];
+            if (paraBg) {
+                [weakSelf.bufferTextStorage addAttribute:GlkParaBackgroundAttributeName
+                                                   value:paraBg
+                                                   range:range];
+            }
+
         }];
 
         if (self.theme.doStyles)
@@ -424,8 +483,8 @@
         [textstorage setAttributedString:_bufferTextStorage];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-        linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.gridLinkStyle);
-        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+        [linkAttributes removeObjectForKey:NSUnderlineStyleAttributeName];
+        [linkAttributes removeObjectForKey:NSForegroundColorAttributeName];
         _textview.linkTextAttributes = linkAttributes;
 
         _textview.selectedRange = selectedRange;
@@ -469,16 +528,23 @@
 }
 
 - (void)recalcBackground {
-    NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+    NSColor *bgcolor = nil;
     GlkController *glkctl = self.glkctl;
-
-    NSString *detectedFormat = glkctl.game.detectedFormat;
-    if (!([detectedFormat isEqualToString:@"glulx"] || [detectedFormat isEqualToString:@"hugo"] || [detectedFormat isEqualToString:@"zcode"])) {
-        bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
-    }
 
     if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
         bgcolor = [NSColor colorFromInteger:bgnd];
+    }
+
+    if (!bgcolor && self.theme.doStyles) {
+        bgcolor = [self effectiveCssWindowBackgroundColor];
+    }
+
+    if (!bgcolor) {
+        bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+        NSString *detectedFormat = glkctl.game.detectedFormat;
+        if (!([detectedFormat isEqualToString:@"glulx"] || [detectedFormat isEqualToString:@"hugo"] || [detectedFormat isEqualToString:@"zcode"])) {
+            bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
+        }
     }
 
     if (!bgcolor)
@@ -488,6 +554,8 @@
         bgcolor = [NSColor clearColor];
     else
         [glkctl setBorderColor:bgcolor fromWindow:self];
+
+    [self applyCSSWindowChrome];
 
     _pendingBackgroundCol = bgcolor;
     _textview.insertionPointColor = bgcolor;
@@ -1395,6 +1463,12 @@
     self.input.textColor = firstCharDict[NSForegroundColorAttributeName];
     if (currentZColor && self.theme.doStyles)
         self.input.textColor = [NSColor colorFromInteger:currentZColor.fg];
+    if (self.theme.doStyles) {
+        NSString *border = self.currentInlineInputCSS[@"border-style"];
+        if (!border)
+            border = self.cssInputHints[@"border-style"];
+        [GlkCSSBasic applyBorderStyle:border toView:self.input];
+    }
 
     _enteredTextSoFar = str;
 
@@ -1511,6 +1585,15 @@
 
 - (BOOL)hasLineRequest {
     return line_request;
+}
+
+- (void)refreshCSSInputChrome {
+    if (!self.input || !self.theme.doStyles)
+        return;
+    NSString *border = self.currentInlineInputCSS[@"border-style"];
+    if (!border)
+        border = self.cssInputHints[@"border-style"];
+    [GlkCSSBasic applyBorderStyle:border toView:self.input];
 }
 
 #pragma mark Command history

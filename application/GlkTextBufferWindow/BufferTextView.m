@@ -14,7 +14,7 @@
 #import "CommandScriptHandler.h"
 #import "Preferences.h"
 #import "Game.h"
-
+#import "Theme.h"
 
 @interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {
     NSTextFinder *_textFinder;
@@ -62,6 +62,76 @@
     NSImageInterpolationHigh;
     [super drawRect:rect];
     [(MarginContainer *)self.textContainer drawRect:rect];
+    [self drawCSSInputBorderIfNeeded];
+}
+
+- (void)drawCSSInputBorderIfNeeded {
+    GlkTextBufferWindow *win = (GlkTextBufferWindow *)self.delegate;
+    if (![win isKindOfClass:[GlkTextBufferWindow class]])
+        return;
+    if (!win.hasLineRequest || !win.cssInputWantsSolidBorder)
+        return;
+
+    NSRange editable = win.editableRange;
+    if (editable.location == NSNotFound)
+        return;
+
+    NSLayoutManager *lm = self.layoutManager;
+    NSTextContainer *container = self.textContainer;
+    NSPoint origin = self.textContainerOrigin;
+    CGFloat cellW = win.theme.bufferCellWidth;
+    CGFloat cellH = win.theme.bufferCellHeight;
+    CGFloat containerRight = origin.x + container.containerSize.width
+        - container.lineFragmentPadding;
+
+    /* Mirror Parchment's .LineInput { flex-grow:1; min-width:175px }: border
+       the input field from the fence to the line's trailing edge, not just
+       the glyphs typed so far. */
+    CGFloat minWidth = MAX(175.0, cellW * 4.0);
+    NSRect bounds = NSZeroRect;
+    NSUInteger len = self.textStorage.length;
+
+    if (editable.length > 0) {
+        NSRange glyphRange = [lm glyphRangeForCharacterRange:editable
+                                       actualCharacterRange:NULL];
+        if (glyphRange.length > 0) {
+            bounds = [lm boundingRectForGlyphRange:glyphRange
+                                   inTextContainer:container];
+            bounds.origin.x += origin.x;
+            bounds.origin.y += origin.y;
+        }
+    }
+
+    if (NSIsEmptyRect(bounds)) {
+        if (len == 0) {
+            bounds = NSMakeRect(origin.x, origin.y, minWidth, cellH);
+        } else {
+            NSUInteger idx = editable.location;
+            if (idx >= len)
+                idx = len - 1;
+            NSRange glyphRange = [lm glyphRangeForCharacterRange:NSMakeRange(idx, 1)
+                                           actualCharacterRange:NULL];
+            bounds = [lm boundingRectForGlyphRange:glyphRange
+                                   inTextContainer:container];
+            bounds.origin.x += origin.x;
+            bounds.origin.y += origin.y;
+            if (editable.location >= len)
+                bounds.origin.x = NSMaxX(bounds);
+            bounds.size.width = 0;
+            bounds.size.height = MAX(bounds.size.height, cellH);
+        }
+    }
+
+    CGFloat right = MAX(NSMaxX(bounds), bounds.origin.x + minWidth);
+    right = MAX(right, containerRight);
+    bounds.size.width = MAX(minWidth, right - bounds.origin.x);
+    bounds.size.height = MAX(bounds.size.height, cellH);
+    bounds = NSInsetRect(bounds, -2.0, -1.0);
+
+    [[NSColor labelColor] setStroke];
+    NSBezierPath *path = [NSBezierPath bezierPathWithRect:bounds];
+    path.lineWidth = 1.0;
+    [path stroke];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)event {

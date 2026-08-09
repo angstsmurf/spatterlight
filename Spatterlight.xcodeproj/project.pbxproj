@@ -226,6 +226,7 @@
 		961CCEA109F2383F00528FF9 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9109F2381B00528FF9 /* misc.c */; };
 		961CCEA309F2383F00528FF9 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9409F2381B00528FF9 /* stream.c */; };
 		961CCEA409F2383F00528FF9 /* stylehint.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9509F2381B00528FF9 /* stylehint.c */; };
+		E7620407413E4F91ABCF0E34 /* cssbasic.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B6AB7BDEFFE4BD5AD3D116E /* cssbasic.c */; };
 		961CCEA509F2383F00528FF9 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9609F2381B00528FF9 /* window.c */; };
 		961CCEB809F2397D00528FF9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9009F2381B00528FF9 /* main.c */; };
 		961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDA09F239E700528FF9 /* GlkEvent.m */; };
@@ -236,6 +237,7 @@
 		961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */; };
 		961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */; };
 		961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEEA09F239E700528FF9 /* GlkWindow.m */; };
+		2EEB94C3E19245B08991D744 /* GlkCSSBasic.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F6E0953DE5432284A4924D /* GlkCSSBasic.m */; };
 		961CCF3D09F2946700528FF9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2C09F2940F00528FF9 /* MainMenu.xib */; };
 		961CCF3E09F2946700528FF9 /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */; };
 		961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2309F2940F00528FF9 /* Credits.rtf */; };
@@ -2320,6 +2322,7 @@
 		961CCE9209F2381B00528FF9 /* protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = protocol.h; sourceTree = "<group>"; };
 		961CCE9409F2381B00528FF9 /* stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream.c; sourceTree = "<group>"; };
 		961CCE9509F2381B00528FF9 /* stylehint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stylehint.c; sourceTree = "<group>"; };
+		1B6AB7BDEFFE4BD5AD3D116E /* cssbasic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cssbasic.c; sourceTree = "<group>"; };
 		961CCE9609F2381B00528FF9 /* window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		961CCEB709F2396500528FF9 /* libglkmain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libglkmain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		961CCEC409F239C100528FF9 /* Spatterlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spatterlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2339,6 +2342,8 @@
 		961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextGridWindow.m; sourceTree = "<group>"; };
 		961CCEE909F239E700528FF9 /* GlkWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkWindow.h; sourceTree = "<group>"; };
 		961CCEEA09F239E700528FF9 /* GlkWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkWindow.m; sourceTree = "<group>"; };
+		2DA246B818174FF1A27BE4D9 /* GlkCSSBasic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkCSSBasic.h; sourceTree = "<group>"; };
+		93F6E0953DE5432284A4924D /* GlkCSSBasic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkCSSBasic.m; sourceTree = "<group>"; };
 		961CCF2309F2940F00528FF9 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		961CCF2409F2940F00528FF9 /* IconApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IconApp.icns; sourceTree = "<group>"; };
 		961CCF2509F2940F00528FF9 /* IconGame.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IconGame.icns; sourceTree = "<group>"; };
@@ -4811,6 +4816,7 @@
 				C311866725BD3B1800739D7B /* sound.c */,
 				961CCE9409F2381B00528FF9 /* stream.c */,
 				961CCE9509F2381B00528FF9 /* stylehint.c */,
+				1B6AB7BDEFFE4BD5AD3D116E /* cssbasic.c */,
 				961CCE9609F2381B00528FF9 /* window.c */,
 				96264AC30A494A5D0093569C /* cgunicod.c */,
 				96264AC40A494A5E0093569C /* cgunigen.c */,
@@ -4848,6 +4854,8 @@
 				C3FE98D9261B2CA900152AB6 /* RotorHandler.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
 				961CCEEA09F239E700528FF9 /* GlkWindow.m */,
+				2DA246B818174FF1A27BE4D9 /* GlkCSSBasic.h */,
+				93F6E0953DE5432284A4924D /* GlkCSSBasic.m */,
 				C3AD64DB26176D9F008614C5 /* GlkTextGridWindow */,
 				C3AD639F2617642F008614C5 /* GlkTextBufferWindow */,
 				C353F0AB26264615006D17E3 /* GlkGraphicsWindow */,
@@ -8272,6 +8280,7 @@
 				C396E2872F812E3500B6308A /* messagenames.c in Sources */,
 				961CCEA309F2383F00528FF9 /* stream.c in Sources */,
 				961CCEA409F2383F00528FF9 /* stylehint.c in Sources */,
+				E7620407413E4F91ABCF0E34 /* cssbasic.c in Sources */,
 				961CCEA509F2383F00528FF9 /* window.c in Sources */,
 				96264AC50A494A5E0093569C /* cgunicod.c in Sources */,
 				C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */,
@@ -8318,6 +8327,7 @@
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
 				C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */,
 				961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */,
+				2EEB94C3E19245B08991D744 /* GlkCSSBasic.m in Sources */,
 				C3191A9E266CDAF300528F6E /* ImageView.m in Sources */,
 				C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */,
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,

@@ -178,6 +178,18 @@ void win_volume_notify(int notify);
 void win_autosave(int hash);
 void win_setzcolor(int name, glui32 fg, glui32 bg);
 void win_setreverse(int name, int reverse);
+void win_css_hint(int wintype, int csstarget, int style,
+                  const char *prop, glui32 proplen,
+                  const char *val, glui32 vallen);
+void win_css_hint_clear(int wintype, int csstarget, int style,
+                        const char *prop, glui32 proplen);
+void win_css_hint_clear_all_by_style(int wintype, int styl);
+void win_css_hint_clear_all_by_window(int wintype);
+void win_css_hint_clear_all_inline(int name);
+void win_css_inline_set(int name, int csstarget, const char *prop,
+                        glui32 proplen, const char *val, glui32 vallen);
+void win_css_inline_clear(int name, int csstarget, const char *prop,
+                          glui32 proplen);
 void win_quotebox(int name, int height);
 void win_showerror(const char *str);
 void win_reset(void);

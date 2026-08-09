@@ -128,6 +128,7 @@
                                   andAttStr:textstorage
                                          at:textstorage.length
                                       index:index];
+    cell.cssWantsSolidBorder = self.cssImageWantsSolidBorderForNextDraw;
 
     if (cellRule) {
         cell.imagerule = cellRule;
@@ -160,16 +161,16 @@
 
     NSTextAttachment *att = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     att.attachmentCell = cell;
-    NSAttributedString *attstr = [NSAttributedString
-                                  attributedStringWithAttachment:att];
 
+    NSUInteger stylevalue = (style < style_NUMSTYLES) ? style : style_Normal;
+    NSMutableDictionary *attributes = [self getCurrentAttributesForStyle:stylevalue];
+    attributes[NSAttachmentAttributeName] = att;
+
+    NSString *attachmentChar =
+        [NSString stringWithFormat:@"%C", (unichar)NSAttachmentCharacter];
+    NSAttributedString *attstr =
+        [[NSAttributedString alloc] initWithString:attachmentChar attributes:attributes];
     [textstorage appendAttributedString:attstr];
-
-    if (self.currentHyperlink) {
-        [textstorage addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(textstorage.length - 1, 1)];
-    }
-
-    [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length - 1, 1)];
 }
 
 // Insert a flow break marker into the text storage. This tells the

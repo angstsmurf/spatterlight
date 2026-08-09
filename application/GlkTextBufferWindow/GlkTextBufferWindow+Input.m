@@ -248,6 +248,8 @@
     line_request = NO;
     [self hideInsertionPoint];
     _textview.editable = NO;
+    if (self.cssInputWantsSolidBorder)
+        [_textview setNeedsDisplay:YES];
     [self flushDisplay];
     [_textview resetTextFinder];
     [self.glkctl markLastSeen];
@@ -319,6 +321,8 @@
 
     line_request = YES;
     [self showInsertionPoint];
+    if (self.cssInputWantsSolidBorder)
+        [_textview setNeedsDisplay:YES];
 
     _textview.selectedRange = NSMakeRange(textstorage.length, 0);
     if (bufferedEvents.count)  {
@@ -359,11 +363,17 @@
     _textview.editable = NO;
     line_request = NO;
     [self hideInsertionPoint];
+    if (self.cssInputWantsSolidBorder)
+        [_textview setNeedsDisplay:YES];
     return str;
 }
 
 - (BOOL)hasLineRequest {
     return line_request;
+}
+
+- (void)refreshCSSInputChrome {
+    [_textview setNeedsDisplay:YES];
 }
 
 #pragma mark Command history
@@ -455,6 +465,8 @@ replacementString:(id)repl {
 
     [textstorage setAttributes:_inputAttributes
                          range:textstorage.editedRange];
+    if (self.cssInputWantsSolidBorder)
+        [_textview setNeedsDisplay:YES];
 }
 
 // NSTextViewDelegate: Clamp the insertion point to the editable region.

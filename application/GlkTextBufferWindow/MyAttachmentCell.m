@@ -49,6 +49,7 @@
         _index = index;
         _naturalSize = image.size;
         lastDisplaySize = image.size;
+        _cssWantsSolidBorder = NO;
         if (image.accessibilityDescription.length) {
             self.accessibilityLabel = image.accessibilityDescription;
             _hasDescription = YES;
@@ -78,6 +79,7 @@
         if (NSEqualSizes(_naturalSize, NSZeroSize))
             _naturalSize = self.image.size;
         lastDisplaySize = self.image.size;
+        _cssWantsSolidBorder = [decoder decodeBoolForKey:@"cssWantsSolidBorder"];
     }
     return self;
 }
@@ -98,6 +100,7 @@
     [encoder encodeInteger:(NSInteger)_ruleHeight forKey:@"ruleHeight"];
     [encoder encodeInteger:(NSInteger)_ruleMaxWidth forKey:@"ruleMaxWidth"];
     [encoder encodeSize:_naturalSize forKey:@"naturalSize"];
+    [encoder encodeBool:_cssWantsSolidBorder forKey:@"cssWantsSolidBorder"];
 }
 
 - (BOOL)wantsToTrackMouse {
@@ -226,9 +229,18 @@
     if (_glkImgAlign == imagealign_MarginLeft || _glkImgAlign == imagealign_MarginRight) {
         return NSZeroSize;
     }
+    NSSize size;
     if (lastDisplaySize.width > 0 && !NSEqualSizes(lastDisplaySize, self.image.size))
-        return lastDisplaySize;
-    return [super cellSize];
+        size = lastDisplaySize;
+    else
+        size = [super cellSize];
+    /* Keep a hair of padding so a 1pt CSS border is not clipped by the
+       attachment's layout bounds. */
+    if (_cssWantsSolidBorder) {
+        size.width += 2.0;
+        size.height += 2.0;
+    }
+    return size;
 }
 
 - (NSRect)cellFrameForTextContainer:(NSTextContainer *)textContainer
@@ -245,7 +257,11 @@
     if (!NSEqualSizes(size, lastDisplaySize)) {
         lastDisplaySize = size;
     }
-    if (_imagerule || !NSEqualSizes(size, self.image.size)) {
+    if (_cssWantsSolidBorder) {
+        size.width += 2.0;
+        size.height += 2.0;
+    }
+    if (_imagerule || !NSEqualSizes(size, self.image.size) || _cssWantsSolidBorder) {
         NSPoint offset = [self cellBaselineOffset];
         return NSMakeRect(offset.x, offset.y, size.width, size.height);
     }
@@ -259,14 +275,19 @@
 // differs from the stored image size (rule-scaled cells, and legacy images
 // reduced to the window width). Returns NO when the default unscaled
 // drawing should run instead.
+- (NSRect)imageRectInCellFrame:(NSRect)cellFrame {
+    return _cssWantsSolidBorder ? NSInsetRect(cellFrame, 1.0, 1.0) : cellFrame;
+}
+
 - (BOOL)drawScaledInFrame:(NSRect)cellFrame {
+    NSRect imageRect = [self imageRectInCellFrame:cellFrame];
     if (!self.image || lastDisplaySize.width <= 0 ||
         NSEqualSizes(lastDisplaySize, self.image.size))
         return NO;
     NSGraphicsContext *ctx = NSGraphicsContext.currentContext;
     NSImageInterpolation oldInterpolation = ctx.imageInterpolation;
     ctx.imageInterpolation = NSImageInterpolationHigh;
-    [self.image drawInRect:cellFrame
+    [self.image drawInRect:imageRect
                   fromRect:NSZeroRect
                  operation:NSCompositingOperationSourceOver
                   fraction:1.0
@@ -276,6 +297,37 @@
     return YES;
 }
 
+- (void)drawCSSBorderIfNeededInFrame:(NSRect)cellFrame {
+    if (!_cssWantsSolidBorder || NSIsEmptyRect(cellFrame))
+        return;
+    /* Stroke the outer cell edge; image is inset by 1pt. textColor ≈ CSS
+       currentcolor and stays visible on grey tiles. */
+    [[NSColor textColor] setStroke];
+    NSBezierPath *path = [NSBezierPath bezierPathWithRect:NSInsetRect(cellFrame, 0.5, 0.5)];
+    path.lineWidth = 1.0;
+    [path stroke];
+}
+
+- (void)drawUnscaledImageInFrame:(NSRect)cellFrame
+                          inView:(NSView *)controlView
+                       drawBlock:(void (^)(NSRect frame))drawBlock {
+    if (_cssWantsSolidBorder && self.image) {
+        NSRect imageRect = [self imageRectInCellFrame:cellFrame];
+        NSGraphicsContext *ctx = NSGraphicsContext.currentContext;
+        NSImageInterpolation oldInterpolation = ctx.imageInterpolation;
+        ctx.imageInterpolation = NSImageInterpolationHigh;
+        [self.image drawInRect:imageRect
+                      fromRect:NSZeroRect
+                     operation:NSCompositingOperationSourceOver
+                      fraction:1.0
+                respectFlipped:YES
+                         hints:nil];
+        ctx.imageInterpolation = oldInterpolation;
+    } else if (drawBlock) {
+        drawBlock(cellFrame);
+    }
+}
+
 - (void)drawWithFrame:(NSRect)cellFrame
                inView:(NSView *)controlView {
     switch (_glkImgAlign) {
@@ -283,10 +335,14 @@
         case imagealign_MarginRight:
             break;
         default:
-            if ([self drawScaledInFrame:cellFrame])
-                break;
-            [super drawWithFrame:cellFrame
-                          inView:controlView];
+            if (![self drawScaledInFrame:cellFrame]) {
+                [self drawUnscaledImageInFrame:cellFrame
+                                        inView:controlView
+                                     drawBlock:^(NSRect frame) {
+                    [super drawWithFrame:frame inView:controlView];
+                }];
+            }
+            [self drawCSSBorderIfNeededInFrame:cellFrame];
             break;
     }
 }
@@ -299,11 +355,16 @@
         case imagealign_MarginRight:
             break;
         default:
-            if ([self drawScaledInFrame:cellFrame])
-                break;
-            [super drawWithFrame:cellFrame
-                          inView:controlView
-                  characterIndex:charIndex];
+            if (![self drawScaledInFrame:cellFrame]) {
+                [self drawUnscaledImageInFrame:cellFrame
+                                        inView:controlView
+                                     drawBlock:^(NSRect frame) {
+                    [super drawWithFrame:frame
+                                  inView:controlView
+                          characterIndex:charIndex];
+                }];
+            }
+            [self drawCSSBorderIfNeededInFrame:cellFrame];
             break;
     }
 }
@@ -317,15 +378,19 @@
         case imagealign_MarginRight:
             break;
         default:
-            if ([self drawScaledInFrame:cellFrame])
-                break;
-            [super drawWithFrame:cellFrame
-                          inView:controlView
-                  characterIndex:charIndex
-                   layoutManager:layoutManager];
+            if (![self drawScaledInFrame:cellFrame]) {
+                [self drawUnscaledImageInFrame:cellFrame
+                                        inView:controlView
+                                     drawBlock:^(NSRect frame) {
+                    [super drawWithFrame:frame
+                                  inView:controlView
+                          characterIndex:charIndex
+                           layoutManager:layoutManager];
+                }];
+            }
+            [self drawCSSBorderIfNeededInFrame:cellFrame];
             break;
     }
-
 }
 
 - (void)highlight:(BOOL)flag
