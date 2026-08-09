@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollToTop;
 - (void)scrollToBottomAnimated:(BOOL)animate;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL scrolledToBottom;
+- (BOOL)documentFitsViewport;
 - (void)storeScrollOffset;
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;

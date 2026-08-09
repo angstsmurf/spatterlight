@@ -546,10 +546,29 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     _pendingScroll = NO;
     //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
     //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
-    if (_textview.bounds.size.height <= scrollview.bounds.size.height) {
+    // A window whose entire text fits within the viewport has nothing to
+    // scroll, and this restore must actively put it back at the top rather
+    // than just decline to move it. The scroll position is part of the
+    // autosave — NSClipView archives its bounds — so a window that was left
+    // scrolled comes back scrolled, and returning here would leave it that
+    // way: text off the top of a window whose text all fits.
+    //
+    // Measure the text through the layout manager, not the textview frame,
+    // as reallyPerformScroll does. The frame is doubly unreliable here: it
+    // holds the 10,000,000-pt minSize sentinel until a layout pass lands,
+    // and it includes any bottomPadding MarginContainer added for a low
+    // margin image — padding that makes a fitting document look overflowing,
+    // so we would fall through to the lastAtBottom branch below and scroll a
+    // window that should not scroll at all. An autorestored window is the
+    // worst case for the frame test, because its decoded layout manager
+    // comes back with background layout disabled (NSLayoutManager does not
+    // archive that flag), so its frame is even less likely to have settled
+    // by the time this runs than a fresh window's.
+    if ([self documentFitsViewport]) {
         if (_textview.bounds.size.height == scrollview.bounds.size.height) {
             _textview.frame = self.bounds;
         }
+        [self scrollToTop];
         return;
     }
 
@@ -679,22 +698,12 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     // Quest "Compass" side panel, whose short text fits but whose textview
     // frame is still at its unlaid-out 10,000,000-pt sentinel height, so
     // NSHeight(_textview.frame) below reads that phantom value and wrongly
-    // trips the pagination branch. Measure the real document height from the
-    // layout manager (as markLastSeen does), not the unreliable frame. This
-    // mirrors the same guard in restoreScroll. Skipped for large documents,
-    // which cannot fit and where forcing the layout needed to measure the true
-    // height would be expensive.
-    if (textstorage.length < 50000) {
-        NSRange glyphs = [layoutmanager glyphRangeForTextContainer:container];
-        if (glyphs.length) {
-            NSRect lastLine =
-                [layoutmanager lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
-                                                effectiveRange:nil];
-            if (NSMaxY(lastLine) <= NSHeight(scrollview.contentView.bounds)) {
-                [self scrollToTop];
-                return;
-            }
-        }
+    // trips the pagination branch. documentFitsViewport measures the real
+    // text extent from the layout manager (as markLastSeen does) instead of
+    // the unreliable frame; restoreScroll gates on the same test.
+    if ([self documentFitsViewport]) {
+        [self scrollToTop];
+        return;
     }
 //
 //    if (textstorage.length < 1000000)
@@ -927,13 +936,59 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
 }
 
 // Check if the scroll view is at or near the top (within one cell height).
+// textContainerInset.height is the flush-top position scrollToTop normally
+// targets (see below), but a document that fits sits at a true 0 and a
+// large-margin theme's inset can exceed a whole cell height, so treat
+// anything at or above the flush-top position as top: only overshoot
+// downwards from it means the view has been scrolled away.
 - (BOOL)scrolledToTop {
     NSView *clipView = scrollview.contentView;
     if (!clipView) {
         return NO;
     }
     CGFloat diff = clipView.bounds.origin.y - _textview.textContainerInset.height;
-    return (fabs(diff) < self.theme.bufferCellHeight);
+    return (diff < self.theme.bufferCellHeight);
+}
+
+// The y coordinate of the bottom of the last laid-out line, in textview
+// coordinates, or a negative value when it cannot be measured cheaply.
+//
+// Measures the text through the layout manager rather than taking the
+// textview frame, which is not a usable stand-in for the document height: it
+// carries the 10,000,000-pt minSize sentinel until a layout pass lands on it
+// (see configureBufferTextView) and it includes the bottomPadding
+// MarginContainer adds for low margin images, so a document can measure as
+// taller than the viewport in both directions of error.
+- (CGFloat)documentBottom {
+    if (!textstorage.length)
+        return 0;
+    // Large documents cannot fit in a viewport anyway, and forcing the layout
+    // needed to measure them would be expensive.
+    if (textstorage.length >= 50000)
+        return -1;
+    NSRange glyphs = [layoutmanager glyphRangeForTextContainer:container];
+    if (!glyphs.length)
+        return 0;
+    NSRect lastLine =
+        [layoutmanager lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
+                                        effectiveRange:nil];
+    // Line fragment rects are in text container coordinates; the container
+    // sits textContainerOrigin.y below the top of the textview, so that much
+    // has to be added to put the result in view coordinates.
+    return NSMaxY(lastLine) + _textview.textContainerOrigin.y;
+}
+
+// Is the whole document visible once the window is scrolled to the top,
+// leaving nothing below the fold to scroll to? "The top" here is the flush-top
+// position scrollToTop targets, so this is the same test the doc-fit guard in
+// reallyPerformScroll has always applied: text height against viewport height,
+// with the top margin scrolled out of the way.
+- (BOOL)documentFitsViewport {
+    CGFloat bottom = [self documentBottom];
+    if (bottom < 0)
+        return NO;
+    return (bottom - _textview.textContainerInset.height
+            <= NSHeight(scrollview.contentView.bounds));
 }
 
 // Scroll to the very top of the document.
@@ -943,9 +998,33 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     lastAtTop = YES;
     lastAtBottom = NO;
 
-    NSPoint p = NSMakePoint(0, _textview.textContainerInset.height);
+    // The top of the *text* is the usual target: the first line lands flush
+    // against the top edge with the theme's top margin scrolled out of the
+    // way, so a document that overflows gets the whole viewport for text.
+    //
+    // Scroll no further down than the document actually needs, though. Once
+    // it fits there is nothing to gain by hiding the margin and something to
+    // lose: the window ends up sitting up to one inset below its own top with
+    // all of its text visible anyway — text scrolled off the top of a window
+    // that has nothing to scroll — and storeScrollOffset then writes that
+    // position into the autosave for the next restore to reproduce. So take
+    // the smallest origin that still shows the last line, which is 0 whenever
+    // the document fits complete with its top margin.
+    //
+    // This matters here in particular because scrollToPoint: is the one
+    // scroll path AppKit does not clamp for us: NSClipView constrains
+    // -setBounds: and -setBoundsOrigin: to the document, but not
+    // -scrollToPoint:, so a position past the end set here survives.
+    CGFloat top = _textview.textContainerInset.height;
+    CGFloat bottom = [self documentBottom];
+    if (bottom >= 0) {
+        CGFloat needed = bottom - NSHeight(scrollview.contentView.bounds);
+        if (needed < top)
+            top = MAX(needed, 0);
+    }
 
-    [scrollview.contentView scrollToPoint:p];
+    [scrollview.contentView scrollToPoint:NSMakePoint(0, top)];
+    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 @end

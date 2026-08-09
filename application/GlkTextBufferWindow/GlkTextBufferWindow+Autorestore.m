@@ -31,6 +31,14 @@
         if (!layoutmanager)
             NSLog(@"layoutmanager nil!");
         layoutmanager.delegate = self;
+        // NSLayoutManager does not archive backgroundLayoutEnabled, so a
+        // decoded one comes back with it off however it was configured when
+        // the window was saved. Re-apply what the fresh-window path sets
+        // (see -initWithGlkController:name:) — otherwise a restored window
+        // lays out only on demand, and the frame-dependent scroll code runs
+        // against a document whose height has not settled yet.
+        layoutmanager.backgroundLayoutEnabled = YES;
+        layoutmanager.allowsNonContiguousLayout = NO;
         if (!textstorage)
             NSLog(@"textstorage nil!");
         if (!container)
