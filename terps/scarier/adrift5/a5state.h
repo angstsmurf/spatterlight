@@ -272,11 +272,14 @@ typedef struct a5_state_s {
   /* Set while rendering text that the runner hands to Display() with its %functions%
      still UNREPLACED -- conversation topic replies (ExecuteConversation
      AddResponses the raw Description; Display -> ReplaceALRs -> ReplaceFunctions
-     then renders it under bDisplaying=True).  Only such renders run
+     then renders it under bDisplaying=True) and look/movement room views (the
+     stock Look task's AggregateOutput "%Player%.Location.Description" is
+     replaced inside Display; see render_look_marked).  Only such renders run
      clsCharacter.Name's Introduced dance (definite-article upgrade + marking).
      Task completion messages are pre-replaced OUTSIDE bDisplaying
-     (clsUserSession.vb:1186), the room view builds its names programmatically
-     (clsLocation.vb:151), and the NPC walk announcements compose with .Name
+     (clsUserSession.vb:1186), the game-start/restore room views evaluate
+     ViewLocation outside Display (vb:229/3142, incl. CharHereDesc at
+     clsLocation.vb:154), and the NPC walk announcements compose with .Name
      before Display (clsCharacter.vb:1558) -- none of those upgrade or mark.
      Transient render state, not saved. */
   int intro_active;

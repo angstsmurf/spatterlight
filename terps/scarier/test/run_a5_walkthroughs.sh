@@ -1563,7 +1563,7 @@ ProbeVariables|a5probes/variables.taf|1|1
 ProbeWaitkey|a5probes/waitkey.taf|0|0
 ProbeWalk|a5probes/walk.taf|0|0
 SampleCloak|Cloak.taf|0|0
-SampleConversation|Conversation.taf|2|2
+SampleConversation|Conversation.taf|0|0
 SampleDoors|Doors.taf|0|0
 SampleDarkRoom|DarkRoom.taf|0|0
 SampleJackAndBeanstalk|JackAndBeanstalk.taf|0|0

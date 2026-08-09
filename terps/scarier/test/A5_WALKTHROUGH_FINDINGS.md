@@ -613,12 +613,11 @@ distribution, not with the suite; they were recovered by extracting the
 "ADRIFT Installer.msi" payload with msiextract (msitools) into
 test/adrift5-games/ — no Wine install needed (the same MSI also yields
 run500.exe/dev500.exe, the real 5.0 Runner/Developer, kept in mind for
-future Runner arbitration).  Result: **7 golden MATCHes** and one real
-divergence:
+future Runner arbitration).  Result: **8 golden MATCHes**:
 
 | Probe | Budget | Diagnosis |
 | --- | --- | --- |
-| SampleConversation | 2\|2 | Conversation intro/farewell article+pronoun rendering: Scarier says `She looks up from her gardening.` where FD says `An old lady looks up...` (first-meeting indefinite article), and `in mid-conversation with an old lady` where FD uses `the old lady` (definite on later reference). |
+| SampleConversation | 0\|0 | FIXED 2026-08-09 (was 2\|2: `She looks up` vs FD's first-meeting `An old lady looks up`, and `an old lady` vs FD's definite `the old lady` after the chat).  Four coordinated bDisplaying-model fixes: (1) the PronounKeys ledger clears unconditionally each turn — FD's init PrepareForNextTurn (vb:283) runs AFTER the title/intro/first-room displays (vb:227-229), so no game-start entry survives into command 1; (2) Display-time room views (render_look_marked) run with intro_active=1 — the aggregate Look renders inside Display; (3) update_seen mirrors PrepareForNextTurn's Introduced reset for characters the player can no longer see (clsUserSession.vb:3794-3797), so a re-encountered NPC is indefinite again; (4) the Look task's pre/post-action probe renders also run with intro_active=1 — FD's probes run inside Display (vb:1177-1203), the first probe records a PronounKeys entry, the second pronoun-replaces the name ("she"), the probes differ, and the response pins to the FIRST probe's text (vb:1200), which must therefore be a bDisplaying render ("the old lady"). |
 
 Conversion footnote: `> @ comment` lines in the regtests are adrift-5-rs
 harness-level comments, dropped like `quit` (feeding one through made

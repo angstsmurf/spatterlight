@@ -1958,14 +1958,13 @@ a5run_input_inner (a5_run_t *run, const char *line)
   /* PrepareForNextTurn also clears the rendered-character-name ledger
      (PronounKeys.Clear, vb:3823).  The runner clears at the END of each processed
      command (vb:504) -- nothing renders between that and the next input, so
-     clearing here is equivalent, EXCEPT that the runner's intro entries survive into
-     the first command (its init-time PrepareForNextTurn runs before the intro
-     renders); skip the clear on the first command to match. */
-  if (st->turns > 1)
-    {
-      st->n_pron = 0;
-      st->pron_pending = 0;
-    }
+     clearing here is equivalent.  The init path clears too: OpenAdventure
+     displays the title/intro/first room (vb:227-229) and only THEN runs its
+     init-time PrepareForNextTurn (vb:283), so no intro entry survives into the
+     first command (SampleConversation: the start room's CharHereDesc mention of
+     the old lady must not pronoun-replace her conversation intro to "She"). */
+  st->n_pron = 0;
+  st->pron_pending = 0;
 
   /* Resolve "it"/"them"/"him"/"her" to the last-referenced entity (echoing the
      "(name)" line) and recompute the referents for next turn, before the input

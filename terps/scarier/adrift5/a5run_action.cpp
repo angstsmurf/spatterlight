@@ -247,12 +247,25 @@ static std::vector<std::string> current_obj_ref_keys (a5_state_t *st);
 /* Render the room view as REAL output -- marking_display=1 so its <DisplayOnce>
    segments retire -- restoring the previous marking flag afterwards.  The common
    wrapper around render_look_string at every final-state Display site (and, via
-   a5run_look, the frontend's post-UNDO room redisplay). */
+   a5run_look, the frontend's post-UNDO room redisplay).
+
+   Unlike the game-start/restore views (Display(ViewLocation) at vb:229/3142,
+   whose ViewLocation getter evaluates OUTSIDE Display, bDisplaying=False), a
+   look/movement room view is the stock Look task's AggregateOutput
+   "%Player%.Location.Description", replaced INSIDE Display under
+   bDisplaying=True -- so its %CharacterName% renders run clsCharacter.Name's
+   Introduced dance (definite-article upgrade + marking, clsCharacter.vb:331-334;
+   SampleConversation's second room shows "the old lady" after the conversation
+   introduced her).  Set intro_active for the render to match. */
 std::string
 render_look_marked (a5_run_t *run)
 {
   a5_mark_guard mg (run->st, 1);
-  return render_look_string (run);
+  int pia = run->st->intro_active;
+  run->st->intro_active = 1;
+  std::string v = render_look_string (run);
+  run->st->intro_active = pia;
+  return v;
 }
 
 /* ----------------------------------------- specific-override task dispatch */
@@ -1417,6 +1430,13 @@ update_seen (a5_state_t *st)
          furniture. */
       if (ploc != NULL && a5state_character_at_location (st, i, ploc))
         st->char_seen[i] = 1;
+      /* PrepareForNextTurn also RESETS Introduced for any non-player character
+         the player can no longer see (clsUserSession.vb:3794-3797), so a
+         character re-encountered later gets the indefinite article again
+         (SampleConversation: after leaving the garden, `look` in the south room
+         still says "an old lady", not "the old lady"). */
+      else if (st->char_introduced != NULL)
+        st->char_introduced[i] = 0;
     }
   /* Mark every object currently visible in the player's room as seen
      (clsCharacter.HasSeenObject), so HaveBeenSeenByCharacter persists once an
@@ -3514,8 +3534,22 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
          (LostLabyrinth's riding OneOf: 2 draws, first one shown); for the usual
          static view the two renders draw nothing and agree, so this is
          draw- and output-neutral. */
+      /* The probes run inside Display in the runner (bDisplaying=True AND
+         bTestingOutput=True, vb:1177-1203), so they DO run clsCharacter.Name's
+         Introduced dance and record PronounKeys entries -- which is why, with a
+         character in view, the second probe pronoun-replaces the name recorded
+         by the first ("she") and the response pins to the FIRST probe's text
+         (vb:1200).  That pinned text must therefore be a bDisplaying render:
+         set intro_active for both probes (marking stays 0 -- bTestingOutput
+         keeps DisplayOnce retirement off).  SampleConversation `s` after the
+         chat: the pinned view says "the old lady", and the probe's Introduced
+         mark plus the end-of-turn visibility reset makes the next `look` say
+         "an old lady" again. */
+      int probe_pia = run->st->intro_active;
+      run->st->intro_active = 1;
       std::string e1;
       { a5_mark_guard mg (run->st, 0); e1 = render_look_string (run); }
+      run->st->intro_active = probe_pia;
 
       /* The response slot is reserved BEFORE the actions run (vb:1189
          iResponsePosition), so any output the actions produce follows the
@@ -3538,7 +3572,9 @@ run_task (a5_run_t *run, const a5_task_t *t, int depth, sb_t *out)
       run->cur_score_ti = saved_sti;
 
       std::string e2;
+      run->st->intro_active = 1;
       { a5_mark_guard mg (run->st, 0); e2 = render_look_string (run); }
+      run->st->intro_active = probe_pia;
 
       if (e1 != e2)
         {
