@@ -3057,6 +3057,27 @@ bool Interp::exec_statement_command(const std::string &name,
             update_location(to_string(ev(0)));
         else if (fn == "disableAllCommandLinks" && disable_command_links)
             disable_command_links();
+        else if (fn == "clearScreen" && clear_screen)
+            // Core's ClearScreen (playercore.js clearScreen: wipe the
+            // transcript, keep the panes and the picture frame).
+            clear_screen();
+        else if (fn == "panesVisible" && !args.empty() && panes_visible)
+            panes_visible(truthy(ev(0)));
+        else if ((fn == "TextFX.Typewriter" || fn == "TextFX.Unscramble") &&
+                 !args.empty() && textfx_text) {
+            // playercore.js addFx: a styled span (with a trailing space) plus
+            // a line break; the animation then fills the span with the text.
+            // Args are (text, speed[, reveal], font, color, size) -- the
+            // style triple sits at the tail either way.
+            std::string html = "<span";
+            if (args.size() >= 4)
+                html += " style=\"font-family:" +
+                        to_string(ev(args.size() - 3)) + ";color:" +
+                        to_string(ev(args.size() - 2)) + ";font-size:" +
+                        to_string(ev(args.size() - 1)) + "pt\"";
+            html += ">" + to_string(ev(0)) + " </span><br/>";
+            textfx_text(html);
+        }
         else if (fn == "StartOutputSection" && !args.empty() &&
                  start_output_section)
             start_output_section(to_string(ev(0)));
@@ -3067,12 +3088,16 @@ bool Interp::exec_statement_command(const std::string &name,
                  hide_output_section)
             hide_output_section(to_string(ev(0)));
         else if ((fn == "uiShow" || fn == "uiHide") && !args.empty() &&
-                 show_command_bar) {
-            // The command box only; the other ids this channel carries
-            // ("#location", the panes) are pure layout in the reference
-            // player's DOM and mean nothing here.
-            if (to_string(ev(0)) == "#txtCommandDiv")
+                 (show_command_bar || panes_visible)) {
+            // The command box and the panes (playercore.js uiShow/uiHide
+            // special-case "#gamePanes" through panesVisible); the other ids
+            // this channel carries ("#location") are pure layout in the
+            // reference player's DOM and mean nothing here.
+            std::string id = to_string(ev(0));
+            if (id == "#txtCommandDiv" && show_command_bar)
                 show_command_bar(fn == "uiShow");
+            else if (id == "#gamePanes" && panes_visible)
+                panes_visible(fn == "uiShow");
         }
         else if (fn == "eval" && !args.empty() && request_restart) {
             /* The restart channel: Core's `restart` command evals
@@ -3282,6 +3307,15 @@ bool Interp::exec_statement_command(const std::string &name,
                 else html += c;
             }
             update_status(html);
+        } else if (req == "ClearScreen" && clear_screen) {
+            // RequestScript's ClearScreen case: PlayerUi.ClearScreen() -- the
+            // pre-JS pairing for JS.clearScreen.
+            clear_screen();
+        } else if (req == "PanesVisible" && panes_visible) {
+            // PlayerUI.SetPanesVisible(data) -- the pre-JS pairing for
+            // JS.panesVisible; the data is the string "on" or "off"
+            // (Player.cs: panesVisible(data == "on")).
+            panes_visible(to_string(ev(1)) == "on");
         } else if (req == "UpdateLocation" && update_location) {
             // PlayerUI.LocationUpdated -- same pre-JS pairing as SetStatus.
             update_location(to_string(ev(1)));
@@ -3327,14 +3361,17 @@ bool Interp::exec_statement_command(const std::string &name,
             g.op = GridDraw::Op::Canvas;
             g.fill = to_string(ev(1));
             grid_draw(g);
-        } else if ((req == "Show" || req == "Hide") && show_command_bar) {
+        } else if ((req == "Show" || req == "Hide") &&
+                   (show_command_bar || panes_visible)) {
             // PlayerUI.Show/Hide -- the element-visibility channel, the pre-JS
             // pairing for JS.uiShow/uiHide. Data is an element name ("Panes",
-            // "Command", "Location"); only the command box means anything
-            // outside a DOM (gamebook-style games hide it so the player never
-            // sees a line-input prompt).
-            if (to_string(ev(1)) == "Command")
+            // "Command", "Location"); the command box and the panes mean
+            // something outside a DOM ("Location" is pure layout).
+            std::string el = to_string(ev(1));
+            if (el == "Command" && show_command_bar)
                 show_command_bar(req == "Show");
+            else if (el == "Panes" && panes_visible)
+                panes_visible(req == "Show");
         } else if (req == "Wait") {
             // RequestScript Wait -> DoWaitAsync: the pre-JS "press any key"
             // prompt (Core's WaitForKeyPress). Valid only pre-v540 -- v540+

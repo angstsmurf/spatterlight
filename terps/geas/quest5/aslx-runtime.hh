@@ -334,6 +334,30 @@ public:
     // Unset, the call is ignored (arg unevaluated).
     std::function<void(bool shown)> show_command_bar;
 
+    // Host hook for JS.clearScreen / request (ClearScreen) -- Core's
+    // ClearScreen wipes the whole transcript (playercore.js clearScreen
+    // empties #divOutput; the WebPlayer also clears its output logger). The
+    // frame picture panel and the panes survive a clear in the reference
+    // player, so a host should clear only the story window. Unset, the call
+    // is ignored, which is the headless/golden behaviour -- the oracle's
+    // transcripts keep the cleared text.
+    std::function<void()> clear_screen;
+
+    // Host hook for JS.panesVisible / request (PanesVisible, "on"/"off") /
+    // JS.uiShow/uiHide("#gamePanes") -- the right-hand panes' visibility.
+    // Core's InitInterface sends false when game.showpanes is off, and games
+    // toggle it for cutscenes. Unset, the call is ignored (arg unevaluated).
+    std::function<void(bool shown)> panes_visible;
+
+    // Host hook for JS.TextFX.Typewriter / JS.TextFX.Unscramble --
+    // CoreEffects' animated text (playercore.js TextFX: a styled span
+    // appended through addText, then animated in place). The hook receives
+    // the span HTML the reference player would end on, ready to print as
+    // transcript text -- a non-JS host shows the animation's final frame.
+    // Unset, the calls are ignored (args unevaluated); the oracle's
+    // transcripts never contain TextFX text.
+    std::function<void(const std::string &html)> textfx_text;
+
     // Host hook for JS.disableAllCommandLinks -- GamebookCore calls it once a
     // page choice has been taken, so the options printed above stop being
     // clickable (the reference player strips their anchors). A host that

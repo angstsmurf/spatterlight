@@ -213,6 +213,11 @@ size_t g_links_spent = 0;
 winid_t gobjwin = nullptr;
 winid_t gdivider = nullptr;
 bool g_use_objpane = false;          /* host can split; probed at startup */
+/* JS.panesVisible: the game's own say over the panes.  Core sends false from
+ * InitInterface when game.showpanes is off, and games toggle it around
+ * cutscenes.  While false the pane stays closed no matter what the lists
+ * hold, like the reference player hiding #gamePanes. */
+bool g_panes_visible = true;
 std::vector<ListData> g_pane_inv, g_pane_places, g_pane_exits;
 bool g_pane_dirty = false;           /* lists changed since the last redraw */
 std::vector<LinkAction> g_pane_links;   /* rebuilt on every pane redraw */
@@ -933,6 +938,31 @@ void hide_output_section(const std::string &name)
 #endif
 }
 
+/* Bumped by clear_screen_ui.  A PromptBreak in flight compares it against the
+ * value it captured: after a clear there is no stale prompt left to retract
+ * (and an unput would fail into a stray blank line at the top of the cleared
+ * window). */
+unsigned g_clear_gen = 0;
+
+/* JS.clearScreen / request (ClearScreen): wipe the transcript.  Only the
+ * story window -- the reference player's clearScreen empties #divOutput and
+ * leaves the panes and the picture frame alone.  Everything whose meaning
+ * died with the text goes too: the transcript links (their anchors are gone,
+ * and a cleared-away link must not hand its number's action to a later link
+ * -- same high-water scheme as disable_command_links) and the output-section
+ * log (no recorded chunk can tail-match an emptied window; a section opened
+ * before the clear hides as a no-op, like jQuery hiding a destroyed div). */
+void clear_screen_ui()
+{
+    for (size_t i = g_links_spent; i < g_links.size(); i++)
+        g_links[i] = LinkAction{};
+    g_links_spent = g_links.size();
+    g_out_log.clear();
+    g_sections.clear();
+    glk_window_clear(gwin);
+    g_clear_gen++;
+}
+
 /* Render one HTML chunk (a JS.addText payload) into the main window. */
 void render_html_inner(const std::string &raw)
 {
@@ -1231,6 +1261,14 @@ void redraw_side_pane(Interp &in)
         return;
     g_pane_dirty = false;
 
+    /* The game hid the panes (JS.panesVisible(false)); the lists keep
+     * arriving -- QuestViva computes them regardless -- but the pane stays
+     * closed until the game shows them again. */
+    if (!g_panes_visible) {
+        close_side_pane();
+        return;
+    }
+
     std::vector<std::string> dirs = compass_directions(in);
     auto is_dir = [&](const ListData &d) {
         std::string a = lower(d.display_alias);
@@ -1483,6 +1521,7 @@ struct PromptBreak {
     Interp &in;
     const char *prompt;
     bool broke = false;
+    unsigned clear_gen = g_clear_gen;
     std::function<void(const std::string &)> saved;
     PromptBreak(Interp &i, const char *p) : in(i), prompt(p) {
         if (!prompt) return;
@@ -1490,7 +1529,11 @@ struct PromptBreak {
                             * redirect must not be stomped back to render_html */
         in.print = [this](const std::string &h) {
             if (!broke && !h.empty()) {
-                if (!unput_exact(u32_from_utf8(prompt)))
+                /* A ClearScreen since this prompt went up already took it off
+                 * the screen; retracting (or breaking the line) would only put
+                 * a stray blank at the top of the cleared window. */
+                if (g_clear_gen == clear_gen &&
+                    !unput_exact(u32_from_utf8(prompt)))
                     glk_put_char('\n');
                 broke = true;
             }
@@ -1537,6 +1580,15 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
      * the line request (CheapGlk: the smoke harness). */
     if (!g_hyperlinks)
         want_line = true;
+    /* A `get input` registered by a timer tick below must send this frame
+     * back to the prompt loop: the loop draws the host-owned prompt a
+     * pending override calls for, where this frame's prompt (chosen when the
+     * command box may have been hidden -- Onion Hugs hides it for its whole
+     * timed intro, then BoundaryUnlock re-shows it in the same tick that
+     * runs `get input`) is already printed or already nothing.  Compared
+     * against the state at entry, not tested absolutely: a frame SERVING a
+     * pending override must keep its request. */
+    bool entry_override = in.command_override();
 #ifdef SPATTERLIGHT
     /* Autorestored with a verb menu on screen: re-enter it before drawing any
      * parser prompt.  Done here rather than in the prompt loop so the chosen
@@ -1732,7 +1784,8 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
             redraw_grid_map();
             update_timer_request(in);  /* a timer script may have moved the
                                         * player and started a glide */
-            if (engine_state_pending(in))
+            if (engine_state_pending(in) ||
+                in.command_override() != entry_override)
                 return {InEnd::State, ""};
             if (reprompt)
                 glk_put_string((char *) prompt);
@@ -3268,6 +3321,25 @@ void install_host_hooks(Interp &in, bool &restart_requested)
     };
     /* The command box's visibility -- see g_command_bar. */
     in.show_command_bar = [](bool shown) { g_command_bar = shown; };
+    /* The panes' visibility -- see g_panes_visible.  Marking the lists dirty
+     * makes the next safe-point redraw apply the change even when no list
+     * content moved. */
+    in.panes_visible = [](bool shown) {
+        g_panes_visible = shown;
+        g_pane_dirty = true;
+    };
+    /* TextFX text is transcript text -- the engine hands over the reference
+     * player's end-state span, printed through the ordinary engine-output
+     * path (PromptBreak retraction and all). */
+    in.textfx_text = [&in](const std::string &html) { in.print(html); };
+#ifdef SPATTERLIGHT
+    /* ClearScreen wipes the story window; the hook runs inline in script
+     * order, so the texts before and after the clear land on the right sides
+     * of it.  Spatterlight only: CheapGlk's window_clear is a flood of
+     * newlines, and the oracle's transcripts keep the cleared text -- leaving
+     * the hook unset keeps the smoke harness byte-stable with both. */
+    in.clear_screen = clear_screen_ui;
+#endif
     /* A taken page choice retires the options above it -- see g_links_spent.
      * Called before the new page prints, so the links it is about to add are
      * above the mark and stay live. */
@@ -3685,6 +3757,7 @@ void reset_frontend_state()
     g_location_line.clear();
 
     g_command_bar = true;
+    g_panes_visible = true;
     g_click_hook = false;
     g_js_events.clear();
 }
