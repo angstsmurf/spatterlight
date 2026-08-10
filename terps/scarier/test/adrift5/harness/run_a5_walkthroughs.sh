@@ -36,7 +36,11 @@
 #     substring   only run scripts whose name contains <substring>
 #
 # Env: FD_ROOT (default ~/frankendrift), FD_SEED (default 1234) -- see
-#      a5_groundtruth.sh.  XOSHIRO=0 skips the (dotnet-heavy) xoshiro pass.
+#      a5_groundtruth.sh.  FrankenDrift.Headless must actually be BUILT under
+#      $FD_ROOT: the runner probes for the dll at startup and refuses to run
+#      without it, because a missing ground truth would otherwise report a clean
+#      MATCH for every game (see the guard below the run_one definition).
+#      XOSHIRO=0 skips the (dotnet-heavy) xoshiro pass.
 #      SAVERESTORE=0 skips the per-game save/restore self-check (a5run_dump
 #      only; on by default, adds one extra replay per game).
 
@@ -1606,6 +1610,15 @@ count_hunks() {  # $1=gamefile $2=script $3=rngmode
         | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+'
 }
 
+# Did the ground truth actually produce a comparison?  a5_groundtruth.sh always
+# writes this banner to stdout immediately before the diff, so a capture without
+# it means FrankenDrift never ran (unbuilt/clobbered checkout, dotnet failure,
+# ...) -- and an empty capture otherwise counts as ZERO hunks, i.e. a perfect
+# MATCH.  The startup guard below catches the common case up front; this catches
+# a per-game failure mid-run, and keeps the "0 hunks" reading honest no matter
+# how $GT is invoked.
+gt_ran() { case "$1" in *'=== diff: '*) return 0 ;; *) return 1 ;; esac; }
+
 # Per-mode verdict vs budget, echoed as "<count> <tag>" where tag is one of
 # ok/better/REGRESSION (or a bare count when that mode is skipped).
 verdict() {  # $1=count $2=budget
@@ -1624,7 +1637,7 @@ trap 'rm -rf "$WORKDIR"' EXIT
 run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     local idx name game vbudget xbudget script gf golden stxt row
     local got want vout xout hv hx vv xv vtag xtag vcell xcell status
-    local srfail srcell ncmd mid srtxt
+    local srfail srcell ncmd mid srtxt vgtfail xgtfail
     idx=$1 name=$2 game=$3 vbudget=$4 xbudget=$5
     row="$WORKDIR/$idx.row"
     script="$HERE/test/adrift5/goldens/${name}_walkthrough.txt"
@@ -1662,7 +1675,7 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     # Save+restore the full state at the script midpoint; the transcript must
     # stay byte-identical to the plain replay ($stxt), or the save format lost
     # state.  A mismatch is folded into STATUS=FAIL below.
-    srfail=0; srcell="(skipped)"
+    srfail=0; srcell="(skipped)"; vgtfail=0; xgtfail=0
     if [ "$RUN_SAVERESTORE" = 1 ]; then
         ncmd=$(grep -c . "$script")
         mid=$(( ncmd / 2 )); [ "$mid" -lt 1 ] && mid=1
@@ -1682,6 +1695,7 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     else
         vout=$(SCARIER_TXT="$stxt" "$GT" "$gf" "$script" 2>/dev/null)
         [ "$VERBOSE" = 1 ] && printf '%s\n' "$vout" > "/tmp/a5wt/${name}.diff"
+        gt_ran "$vout" || vgtfail=1
         hv=$(printf '%s\n' "$vout" | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+')
     fi
     vv=$(verdict "$hv" "$vbudget"); vtag=${vv#* }
@@ -1689,23 +1703,27 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     [ "$vtag" = better ] && vcell="$hv (<$vbudget rebless)"
     [ "$vtag" = REGRESSION ] && vcell="$hv (>$vbudget FAIL)"
     [ "$hv" = 999 ] && vcell="golden MISMATCH"
+    [ "$vgtfail" = 1 ] && vcell="GT FAILED"
 
     # --- xoshiro -------------------------------------------------------------
     if [ "$RUN_XOSHIRO" = 1 ]; then
         xout=$(SCARIER_TXT="$stxt" FD_RNG=xoshiro "$GT" "$gf" "$script" 2>/dev/null)
         [ "$VERBOSE" = 1 ] && printf '%s\n' "$xout" > "/tmp/a5wt/${name}.xoshiro.diff"
+        gt_ran "$xout" || xgtfail=1
         hx=$(printf '%s\n' "$xout" | grep -cE '^[0-9]+(,[0-9]+)?[acd][0-9]+')
         xv=$(verdict "$hx" "$xbudget"); xtag=${xv#* }
         xcell="$hx (=$xbudget)"
         [ "$xtag" = better ] && xcell="$hx (<$xbudget rebless)"
         [ "$xtag" = REGRESSION ] && xcell="$hx (>$xbudget FAIL)"
+        [ "$xgtfail" = 1 ] && xcell="GT FAILED"
     else
         hx=$xbudget; xtag=ok; xcell="(skipped)"
     fi
     rm -f "$stxt"
 
     # --- combined status -----------------------------------------------------
-    if [ "$vtag" = REGRESSION ] || [ "$xtag" = REGRESSION ] || [ "$srfail" = 1 ]; then
+    if [ "$vtag" = REGRESSION ] || [ "$xtag" = REGRESSION ] || [ "$srfail" = 1 ] \
+       || [ "$vgtfail" = 1 ] || [ "$xgtfail" = 1 ]; then
         status=FAIL; echo "$name" > "$WORKDIR/$idx.reg"
     elif [ "$vtag" = better ] || [ "$xtag" = better ]; then
         status=OKbetter
@@ -1719,6 +1737,31 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
 
 if [ ! -x "$A5RUN" ]; then
     echo "build the Scarier harness first: make -f Makefile.headless a5run" >&2
+    exit 1
+fi
+
+# FrankenDrift presence guard.  run_one captures the ground-truth diff as
+#   vout=$(... "$GT" ... 2>/dev/null)
+# so a MISSING FrankenDrift.Headless is invisible: a5_groundtruth.sh writes its
+# "not built" complaint to stderr and exits 1, the capture comes back EMPTY, and
+# an empty capture counts as ZERO hunks.  Every unbudgeted row then reads MATCH
+# and every budgeted row reads "better -- rebless", i.e. the table invites you to
+# re-bless real, catalogued divergences down to 0.  Probe for the dll once, here,
+# and refuse to start rather than print a whole screen of fictional passes.
+#
+# GOLDEN_ONLY=1 is exempt up front, for the golden-only mode (strict-diff the
+# committed *_expected.txt, never call $GT, no dotnet); the exemption is here so
+# that mode can land without having to remember to punch a hole in this guard.
+FD_DLL=$(find "${FD_ROOT:-$HOME/frankendrift}/FrankenDrift.Headless/bin" \
+              -name fd-headless.dll 2>/dev/null | head -1)
+if [ "${GOLDEN_ONLY:-0}" != 1 ] && [ -z "$FD_DLL" ]; then
+    echo "FrankenDrift.Headless not built -- every row would report a FICTIONAL" >&2
+    echo "MATCH (the ground-truth diff is captured with stderr discarded, so a" >&2
+    echo "failed run is indistinguishable from a clean one).  Build it with:" >&2
+    echo "  dotnet build \"${FD_ROOT:-$HOME/frankendrift}/FrankenDrift.Headless/FrankenDrift.Headless.csproj\" -c Release" >&2
+    echo "(restore the frontend first if the checkout was clobbered:" >&2
+    echo "  git -C \"${FD_ROOT:-$HOME/frankendrift}\" checkout scarier-headless)" >&2
+    echo "or point FD_ROOT at a built checkout." >&2
     exit 1
 fi
 
@@ -1781,7 +1824,9 @@ echo "# STATUS   MATCH     0 hunks in both modes"
 echo "#          DIVERGE   at baseline (see test/adrift5/notes/A5_WALKTHROUGH_FINDINGS.md)"
 echo "#          OKbetter  below baseline in some mode -- re-bless the MAP"
 echo "#          FAIL      exceeded a budget, OR the save/restore self-check"
-echo "#                    diverged (i.e. a regression)"
+echo "#                    diverged (i.e. a regression), OR the ground truth"
+echo "#                    never ran for that mode (cell reads GT FAILED --"
+echo "#                    NOT a pass: nothing was compared)"
 echo "# COLUMNS  vanilla     FD stock System.Random"
 echo "#          xoshiro     FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips)"
 echo "#          saverestore mid-script A5_SAVE_AT round-trip must be"
