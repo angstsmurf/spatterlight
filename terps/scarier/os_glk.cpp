@@ -195,7 +195,7 @@ static int gsc_commands_enabled = TRUE,
    come from. */
 static glui32 gsc_colour_background = 0x000000,
               gsc_colour_output = 0x19a58a,
-              gsc_colour_input = 0xff3232;
+              gsc_colour_input = 0xd22527;
 
 /* Whether the game's own palette is in force ("glk colour", set by
    gsc_set_colour far below).  It lives up here because the status line, drawn
@@ -1774,10 +1774,10 @@ typedef enum {
  * adventure itself (a5model.h bg_colour and friends).  ADRIFT <=4 stores none:
  * the .taf has no colour fields, and the colours are Runner preferences.  The
  * defaults below match the stock ADRIFT 3.90 / 4 Runner: black behind, teal
- * #19A58A for replies (the same DEFAULT_OUTPUTCOLOUR ADRIFT 5 inherited), and
- * #FF3232 for typed text / <c>.  They match the swatches in the Runner's own
- * Options -> Display & Media dialog ("Set typed colour", "Set replies colour",
- * "Set background colour").
+ * #19A58A for replies and #D22527 for typed text / <c> (the same
+ * DEFAULT_OUTPUTCOLOUR / DEFAULT_INPUTCOLOUR ADRIFT 5 inherited).  They match
+ * the swatches in the Runner's own Options -> Display & Media dialog ("Set
+ * typed colour", "Set replies colour", "Set background colour").
  */
 /* GSC_HAVE_ZCOLORS, the palette itself and the on/off flag are all declared
    with the other module options at the top of the file, where the status line
