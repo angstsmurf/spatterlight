@@ -452,11 +452,11 @@ gsc_fatal (const char *string)
  * Style hints have to be set before the window they apply to is opened.
  * Centered text (<center>/<centre> sections) renders through two user styles
  * hinted for centered justification: User1 plain, User2 bold (Glk styles
- * don't combine, so <center><b> title lines need their own style).  The a5
- * renderer strips <b> and so uses only User1, but both paths hint the pair
- * identically.  Libraries that ignore justification hints show these as
- * ordinary left-flush text.  User1 on the grid is the reverse-video status
- * line.
+ * don't combine, so <center><b> title lines need their own style).  Right-
+ * aligned text (<right>) uses style_Note with RightFlush.  Italic uses
+ * Emphasized (or Alert when combined with bold).  Libraries that ignore
+ * justification hints show alignment styles as ordinary left-flush text.
+ * User1 on the grid is the reverse-video status line.
  *
  * Header and Subheader are hinted the other way, left-flush.  This port uses
  * them purely as stand-ins for a large <font size=...> and for <b> (see
@@ -481,6 +481,9 @@ gsc_hint_window_styles (void)
   glk_stylehint_set (wintype_TextBuffer, style_User2,
                      stylehint_Justification, stylehint_just_Centered);
   glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+
+  glk_stylehint_set (wintype_TextBuffer, style_Note,
+                     stylehint_Justification, stylehint_just_RightFlush);
 
   glk_stylehint_set (wintype_TextBuffer, style_Header,
                      stylehint_Justification, stylehint_just_LeftFlush);
@@ -1806,7 +1809,8 @@ static glui32 gsc_attribute_bold = 0,
               gsc_attribute_italic = 0,
               gsc_attribute_underline = 0,
               gsc_attribute_secondary_colour = 0,
-              gsc_attribute_center = 0;
+              gsc_attribute_center = 0,
+              gsc_attribute_right = 0;
 
 /* Notional default font size, and limit font sizes. */
 static const scr_int GSC_DEFAULT_FONT_SIZE = 12,
@@ -2125,6 +2129,11 @@ gsc_set_glk_style (void)
        */
       glk_set_style (style_Preformatted);
     }
+  else if (gsc_attribute_right > 0)
+    {
+      /* RightFlush-hinted style_Note; character styles are not combined. */
+      glk_set_style (style_Note);
+    }
   else if (gsc_attribute_center > 0)
     {
       /*
@@ -2148,14 +2157,15 @@ gsc_set_glk_style (void)
       else
         {
           /*
-           * For bold, use Subheader; for italics, underline, or secondary
-           * colour, use Emphasized.
+           * For bold, use Subheader; for italics or underline, use Emphasized.
            */
-          if (gsc_attribute_bold > 0)
+          if (gsc_attribute_bold > 0
+              && (gsc_attribute_italic > 0 || gsc_attribute_underline > 0))
+            glk_set_style (style_Alert);
+          else if (gsc_attribute_bold > 0)
             glk_set_style (style_Subheader);
           else if (gsc_attribute_italic > 0
-                   || gsc_attribute_underline > 0
-                   || gsc_attribute_secondary_colour > 0)
+                   || gsc_attribute_underline > 0)
             glk_set_style (style_Emphasized);
           else
             {
@@ -2544,6 +2554,7 @@ gsc_reset_glk_style (void)
   gsc_attribute_underline = 0;
   gsc_attribute_secondary_colour = 0;
   gsc_attribute_center = 0;
+  gsc_attribute_right = 0;
   gsc_set_glk_style ();
 }
 
@@ -2660,10 +2671,11 @@ os_print_tag (scr_int tag, const scr_char *argument)
          */
         glui32 centered = (tag == SCR_TAG_CENTER);
 
-        if (centered != gsc_attribute_center)
+        if (centered != gsc_attribute_center || gsc_attribute_right > 0)
           {
             glk_put_char ('\n');
             gsc_attribute_center = centered;
+            gsc_attribute_right = 0;
             gsc_set_glk_style ();
           }
       }
@@ -2671,17 +2683,22 @@ os_print_tag (scr_int tag, const scr_char *argument)
 
     case SCR_TAG_RIGHT:
     case SCR_TAG_ENDRIGHT:
-      /*
-       * We don't right-justify text, but so that things look right we do
-       * want a newline on starting or ending such a section.  Both tags end
-       * any centered section, as they do in the Runner.
-       */
-      glk_put_char ('\n');
-      if (gsc_attribute_center > 0)
-        {
-          gsc_attribute_center = 0;
-          gsc_set_glk_style ();
-        }
+      {
+        /*
+         * Same flat alignment state as <center> (run400 Sub_22_27).  Right uses
+         * style_Note (RightFlush-hinted); entering or leaving right also clears
+         * centering, as the Runner does.
+         */
+        glui32 right = (tag == SCR_TAG_RIGHT);
+
+        if (right != gsc_attribute_right || gsc_attribute_center > 0)
+          {
+            glk_put_char ('\n');
+            gsc_attribute_right = right;
+            gsc_attribute_center = 0;
+            gsc_set_glk_style ();
+          }
+      }
       break;
 
     case SCR_TAG_BGCOLOUR:
@@ -7550,19 +7567,31 @@ gsc_a5_draw_image (winid_t win, glui32 number)
 /*
  * gsc_a5_span_style()
  *
- * Pick the Glk style for a text span given its centered and bold nesting
- * depths.  Glk styles don't combine, so the four states map onto four
- * styles: the two justification-hinted user styles for centered spans
- * (User2 also weight-hinted, for centered bold), style_Subheader for plain
- * inline bold (as the ADRIFT 4 path does, gsc_set_glk_style), and Normal
- * otherwise.
+ * Pick the Glk style for a text span given its alignment and weight/oblique
+ * nesting depths.  Glk styles don't combine, so alignment wins over character
+ * styles: centered+bold keeps User2 (weight-hinted); right uses Note with no
+ * bold/italic combo.  Unaligned bold+italic (or bold+underline) maps to Alert;
+ * italic or underline alone to Emphasized; bold alone to Subheader (as the
+ * ADRIFT 4 path does in gsc_set_glk_style).  Underline marks are distinct for
+ * a future CSS path; for now they share italic's Glk styles.
  */
 static glui32
-gsc_a5_span_style (int center_depth, int bold_depth)
+gsc_a5_span_style (int center_depth, int right_depth,
+                   int bold_depth, int italic_depth, int underline_depth)
 {
+  const int oblique = italic_depth > 0 || underline_depth > 0;
+
+  if (right_depth > 0)
+    return style_Note;
   if (center_depth > 0)
     return bold_depth > 0 ? style_User2 : style_User1;
-  return bold_depth > 0 ? style_Subheader : style_Normal;
+  if (bold_depth > 0 && oblique)
+    return style_Alert;
+  if (oblique)
+    return style_Emphasized;
+  if (bold_depth > 0)
+    return style_Subheader;
+  return style_Normal;
 }
 
 /*
@@ -7627,19 +7656,23 @@ gsc_a5_colour_top (const glui32 *stack, int depth)
  * image at its marked position, pause for a keypress at each <waitkey>
  * mark and for a timed delay at each <wait N> mark, clear the story window
  * at each <cls> mark, show <center> spans in the centered style_User1
- * (hinted for centered justification before the window opened), <b>
- * spans in bold, and -- in colour mode -- <font colour> and <c> spans in
- * their colours.  This is the same presentation the official Runner's
- * output pane gives, e.g., Anno 1700's intro: credits and cover image,
- * "Press any key", then a cleared screen for the opening narrative.
+ * (hinted for centered justification before the window opened), <right>
+ * spans in RightFlush style_Note, <b>/<i> spans in bold/italic, and -- in
+ * colour mode -- <font colour> and <c> spans in their colours.  This is the
+ * same presentation the official Runner's output pane gives, e.g., Anno
+ * 1700's intro: credits and cover image, "Press any key", then a cleared
+ * screen for the opening narrative.
+
  */
 static void
 gsc_a5_display (const char *text)
 {
   const char *p = text, *seg = text;
-  int center_depth = 0, bold_depth = 0;
+  int center_depth = 0, right_depth = 0, bold_depth = 0, italic_depth = 0,
+      underline_depth = 0;
   glui32 colour_stack[GSC_MAX_STYLE_NESTING];
   int colour_depth = 0;
+
   /* The window a run of text is currently going to: the main story window, or
      an author-defined side window between an A5_WINDOW_MARK span and its
      A5_ENDWINDOW_MARK.  A <cls> inside the span clears that side window. */
@@ -7656,7 +7689,10 @@ gsc_a5_display (const char *text)
       if (*p != '\0' && *p != A5_CLS_MARK && *p != A5_WAITKEY_MARK
           && *p != A5_IMG_MARK && *p != A5_CENTER_MARK
           && *p != A5_ENDCENTER_MARK && *p != A5_BOLD_MARK
-          && *p != A5_ENDBOLD_MARK && *p != A5_WINDOW_MARK
+          && *p != A5_ENDBOLD_MARK && *p != A5_ITALIC_MARK
+          && *p != A5_ENDITALIC_MARK && *p != A5_UNDERLINE_MARK
+          && *p != A5_ENDUNDERLINE_MARK && *p != A5_RIGHT_MARK
+          && *p != A5_ENDRIGHT_MARK && *p != A5_WINDOW_MARK
           && *p != A5_ENDWINDOW_MARK && *p != A5_SOUND_MARK
           && *p != A5_COMMIT_MARK && *p != A5_WAIT_MARK
           && *p != A5_COLOUR_MARK && *p != A5_ENDCOLOUR_MARK)
@@ -7720,12 +7756,15 @@ gsc_a5_display (const char *text)
       else if (*p == A5_COMMIT_MARK)
         {
           /* Display-commit boundary with a dangling span (a5text.h): each
-             commit is its own Source2HTML parse in the Runner, so a <center>
-             or <b> left open there ends now -- Death Shack's Introduction
-             never closes its <center>, and the first room description (the
-             next commit) must come out left-aligned, not centered. */
-          center_depth = bold_depth = colour_depth = 0;
-          glk_set_style (gsc_a5_span_style (0, 0));
+             commit is its own Source2HTML parse in the Runner, so a <center>,
+             <right>, <b>, or <i> left open there ends now -- Death Shack's
+             Introduction never closes its <center>, and the first room
+             description (the next commit) must come out left-aligned, not
+             centered. */
+          center_depth = right_depth = bold_depth = italic_depth
+            = underline_depth = 0;
+          colour_depth = 0;
+          glk_set_style (gsc_a5_span_style (0, 0, 0, 0, 0));
           gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
         }
       else if (*p == A5_COLOUR_MARK)
@@ -7764,23 +7803,44 @@ gsc_a5_display (const char *text)
             colour_depth--;
           gsc_colour_apply (cur_window,
                             gsc_a5_colour_top (colour_stack, colour_depth));
+
         }
       else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
-               || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK)
+               || *p == A5_RIGHT_MARK || *p == A5_ENDRIGHT_MARK
+               || *p == A5_BOLD_MARK || *p == A5_ENDBOLD_MARK
+               || *p == A5_ITALIC_MARK || *p == A5_ENDITALIC_MARK
+               || *p == A5_UNDERLINE_MARK || *p == A5_ENDUNDERLINE_MARK)
         {
-          /* Centered or bold span boundary: like the Runner, only the style
-             changes -- the game's own line breaks around a centered span
-             delimit the centered paragraph.  A <b> inside a <center> gets the
-             weight-hinted centered style (User2); elsewhere it gets Subheader. */
+          /* Alignment or character-style span boundary: like the Runner, only
+             the style changes -- the game's own line breaks around an aligned
+             span delimit the paragraph.  A <b> inside a <center> gets the
+             weight-hinted centered style (User2); elsewhere bold is Subheader
+             and italic/underline are Emphasized (Alert when combined with
+             bold).  Right alignment uses style_Note and wins over character
+             styles. */
           if (*p == A5_CENTER_MARK)
             center_depth++;
           else if (*p == A5_ENDCENTER_MARK && center_depth > 0)
             center_depth--;
+          else if (*p == A5_RIGHT_MARK)
+            right_depth++;
+          else if (*p == A5_ENDRIGHT_MARK && right_depth > 0)
+            right_depth--;
           else if (*p == A5_BOLD_MARK)
             bold_depth++;
           else if (*p == A5_ENDBOLD_MARK && bold_depth > 0)
             bold_depth--;
-          glk_set_style (gsc_a5_span_style (center_depth, bold_depth));
+          else if (*p == A5_ITALIC_MARK)
+            italic_depth++;
+          else if (*p == A5_ENDITALIC_MARK && italic_depth > 0)
+            italic_depth--;
+          else if (*p == A5_UNDERLINE_MARK)
+            underline_depth++;
+          else if (*p == A5_ENDUNDERLINE_MARK && underline_depth > 0)
+            underline_depth--;
+          glk_set_style (gsc_a5_span_style (center_depth, right_depth,
+                                            bold_depth, italic_depth,
+                                            underline_depth));
         }
       else if (*p == A5_WAIT_MARK)
         {
@@ -7828,8 +7888,9 @@ gsc_a5_display (const char *text)
       seg = ++p;
     }
 
-  /* A dangling <center> or <b> must not bleed into prompts and later turns. */
-  if (center_depth > 0 || bold_depth > 0)
+  /* A dangling span must not bleed into prompts and later turns. */
+  if (center_depth > 0 || right_depth > 0
+      || bold_depth > 0 || italic_depth > 0 || underline_depth > 0)
     glk_set_style (style_Normal);
   /* Nor a dangling colour span: the prompt and the player's input follow. */
   if (colour_depth > 0)

@@ -3286,7 +3286,11 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
                    && *q != A5_ALR_MARK && *q != A5_WAITKEY_MARK
                    && *q != A5_CENTER_MARK && *q != A5_ENDCENTER_MARK
                    && *q != A5_BOLD_MARK && *q != A5_ENDBOLD_MARK
+                   && *q != A5_ITALIC_MARK && *q != A5_ENDITALIC_MARK
+                   && *q != A5_UNDERLINE_MARK && *q != A5_ENDUNDERLINE_MARK
+                   && *q != A5_RIGHT_MARK && *q != A5_ENDRIGHT_MARK
                    && *q != A5_ENDCOLOUR_MARK && *q != A5_ENDWINDOW_MARK)
+
             { *pre_alr_ink = 1; break; }
         }
       free (pp);
@@ -3651,6 +3655,25 @@ a5text_render_plain (const char *src)
             sb_putc (&sb, A5_BOLD_MARK);
           else if (a5_interactive_mode && strcmp (name, "/b") == 0)
             sb_putc (&sb, A5_ENDBOLD_MARK);
+          else if (a5_interactive_mode && strcmp (name, "i") == 0)
+            /* Italic span opens; same ALR-blocking / headless-strip contract
+               as <b>. */
+            sb_putc (&sb, A5_ITALIC_MARK);
+          else if (a5_interactive_mode && strcmp (name, "/i") == 0)
+            sb_putc (&sb, A5_ENDITALIC_MARK);
+          else if (a5_interactive_mode && strcmp (name, "u") == 0)
+            /* Underline span opens; distinct marks so a future CSS/Glk host
+               can paint real underline.  Until then the Glk path styles them
+               like italic (Emphasized / Alert with bold). */
+            sb_putc (&sb, A5_UNDERLINE_MARK);
+          else if (a5_interactive_mode && strcmp (name, "/u") == 0)
+            sb_putc (&sb, A5_ENDUNDERLINE_MARK);
+          else if (a5_interactive_mode && strcmp (name, "right") == 0)
+            /* Right-aligned span opens; same ALR-blocking / headless-strip
+               contract as <center>. */
+            sb_putc (&sb, A5_RIGHT_MARK);
+          else if (a5_interactive_mode && strcmp (name, "/right") == 0)
+            sb_putc (&sb, A5_ENDRIGHT_MARK);
           else if (a5_interactive_mode
                    && (strcmp (name, "c") == 0 || strcmp (name, "font") == 0))
             {
@@ -3672,6 +3695,7 @@ a5text_render_plain (const char *src)
           else if (a5_interactive_mode
                    && (strcmp (name, "/c") == 0 || strcmp (name, "/font") == 0))
             sb_putc (&sb, A5_ENDCOLOUR_MARK);
+
           else if (a5_interactive_mode && strcmp (name, "window") == 0)
             {
               /* Secondary output window opens: leave the window name delimited
@@ -3718,9 +3742,9 @@ a5text_render_plain (const char *src)
                 sb_putc (&sb, A5_ALR_MARK);
             }
           else
-            /* every other tag (<>, <c>, </c>, <b>, <i>, <font...>, <waitkey>...)
-               drops -- but leave A5_ALR_MARK so the display-boundary ALR pass
-               cannot match an OldText ACROSS the stripped tag (the runner's ALR sees the
+            /* every other tag (<>, <left>...) drops -- but leave A5_ALR_MARK
+               so the display-boundary ALR pass cannot match an OldText ACROSS
+               the stripped tag (the runner's ALR sees the
                tag and is blocked; see a5text.h).  finish_turn strips the mark. */
             sb_putc (&sb, A5_ALR_MARK);
           p = q;
@@ -3763,6 +3787,9 @@ a5text_strip_pres_marks (char *s)
       if (*r == A5_ALR_MARK || *r == A5_WAITKEY_MARK
           || *r == A5_CENTER_MARK || *r == A5_ENDCENTER_MARK
           || *r == A5_BOLD_MARK || *r == A5_ENDBOLD_MARK
+          || *r == A5_ITALIC_MARK || *r == A5_ENDITALIC_MARK
+          || *r == A5_UNDERLINE_MARK || *r == A5_ENDUNDERLINE_MARK
+          || *r == A5_RIGHT_MARK || *r == A5_ENDRIGHT_MARK
           || *r == A5_ENDCOLOUR_MARK || *r == A5_ENDWINDOW_MARK
           || *r == A5_CLS_MARK || *r == A5_PS_MARK || *r == A5_COMMIT_MARK)
         continue;
