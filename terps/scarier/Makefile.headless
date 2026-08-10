@@ -156,8 +156,8 @@ V4_GAMES_DIR ?= test/adrift4/games
 
 # Default regression suite: Scarier in isolation.  No FrankenDrift / dotnet.
 # Covers unit harnesses, capacity, gamescheck, a5runtest, v4 walkthroughs,
-# and golden-backed a5 walkthroughs (rows without an *_expected.txt are
-# SKIPPED -- those need `test-fd`).
+# a5maptest, scprojregress, and golden-backed a5 walkthroughs (rows without an
+# *_expected.txt are SKIPPED -- those need `test-fd`).
 test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BIN) $(QUIT_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN)
 	./$(BIN) $(TAF)
 	./$(PREC_BIN) $(PREC_TAF)
@@ -176,6 +176,8 @@ test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BI
 	@$(MAKE) -f Makefile.headless gamescheck
 	@$(MAKE) -f Makefile.headless a5runtest
 	@$(MAKE) -f Makefile.headless v4walkthroughs
+	@$(MAKE) -f Makefile.headless a5maptest
+	@$(MAKE) -f Makefile.headless scprojregress
 	@$(MAKE) -f Makefile.headless a5walkthroughs-golden
 
 # Opt-in: ADRIFT 5 walkthrough corpus vs FrankenDrift (needs FD.Headless +
@@ -267,7 +269,8 @@ a5walkthroughs-golden: $(A5RUN_BIN)
 	@test/adrift5/harness/run_a5_walkthroughs.sh --golden-only
 
 # Deterministic projectile-combat regression (ADRIFT 4 Battle System).  SKIPs
-# when the five battle-game .taf files are absent; no FrankenDrift.
+# when the five battle-game .taf files are absent; no FrankenDrift.  Part of
+# default `test`.
 scprojregress:
 	@sh test/adrift4/harness/scproj_regress.sh
 
@@ -290,6 +293,7 @@ a5probetafs:
 # stress test (adrift5/probes/map.taf) and compares PPM hashes against the
 # committed manifest.  Self-blessed (the real Runner map is GUI-only);
 # re-bless intentional rendering changes with test/adrift5/harness/run_a5_maptest.sh -b.
+# Part of default `test` (no FrankenDrift).
 a5maptest: $(A5MAP_BIN)
 	test/adrift5/harness/run_a5_maptest.sh
 
