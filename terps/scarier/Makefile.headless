@@ -124,7 +124,17 @@ A5SAVE_BIN      := test/adrift5/harness/a5_save_test
 CAP_BIN    := test/adrift4/harness/capacity_test_hl
 CAP_TAF    := test/adrift4/harness/capacity_matrix.taf test/adrift4/harness/capacity_nest.taf
 
-.PHONY: test sanitize taf clean capacitytest capacitybless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs gamescheck gamesfetch
+# Pre-4.0 "You can't do that here!" refusal regression, replayed with the same
+# interpreter binary as the capacity probes.  The walkthrough corpus does not
+# cover this: a solved route never types a task command in a room the task
+# cannot run in, so all 203 rows are untouched by the feature.  Two synthetic
+# 3.9 games differing only in Perspective, since the refusal takes its leading
+# word from it ("You" / "I").  See RUNNER_TESTS_TODO.md section 5.
+WHERE_TAF  := test/adrift4/harness/where_refusal.taf \
+              test/adrift4/harness/where_refusal_1p.taf
+WHERE_PROBES := where_refusal where_refusal_1p
+
+.PHONY: test sanitize taf clean capacitytest capacitybless wheretest wherebless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs gamescheck gamesfetch
 
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
@@ -155,6 +165,7 @@ test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BI
 	./$(A5OBJ_BIN)
 	./$(A5SAVE_BIN)
 	@$(MAKE) -f Makefile.headless capacitytest
+	@$(MAKE) -f Makefile.headless wheretest
 	@$(MAKE) -f Makefile.headless gamescheck
 	@$(MAKE) -f Makefile.headless a5runtest
 	@$(MAKE) -f Makefile.headless v4walkthroughs
@@ -267,6 +278,9 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
 	    < test/adrift4/harness/capacity_matrix_script.txt > /dev/null
 	$(SAN_ENV) ./$(CAP_BIN)_san test/adrift4/harness/capacity_nest.taf \
 	    < test/adrift4/harness/capacity_nest_script.txt > /dev/null
+	$(MAKE) -f Makefile.headless $(WHERE_TAF)
+	$(SAN_ENV) ./$(CAP_BIN)_san test/adrift4/harness/where_refusal.taf \
+	    < test/adrift4/harness/where_refusal_script.txt > /dev/null
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS) -o $(A5PARSE_BIN)_san
 	$(SAN_ENV) ./$(A5PARSE_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5rand.cpp $(A5SEXPR_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SEXPR_BIN)_san
@@ -422,6 +436,29 @@ capacitybless: $(CAP_BIN) $(CAP_TAF)
 	  echo "blessed test/adrift4/harness/capacity_$${probe}_expected.txt"; \
 	done
 
+# "You can't do that here!" goldens.  Regenerate with:
+#   make -f Makefile.headless wherebless
+wheretest: $(CAP_BIN) $(WHERE_TAF)
+	@fail=0; \
+	for probe in $(WHERE_PROBES); do \
+	  ./$(CAP_BIN) test/adrift4/harness/$$probe.taf < test/adrift4/harness/where_refusal_script.txt \
+	      2>/dev/null | tr -s '\n' > /tmp/$$probe.got; \
+	  if diff -u test/adrift4/harness/$${probe}_expected.txt /tmp/$$probe.got \
+	      > /tmp/$$probe.diff 2>&1; then \
+	    echo "where $$probe: PASS"; \
+	  else \
+	    echo "where $$probe: FAIL"; cat /tmp/$$probe.diff; fail=1; \
+	  fi; \
+	done; \
+	exit $$fail
+
+wherebless: $(CAP_BIN) $(WHERE_TAF)
+	@for probe in $(WHERE_PROBES); do \
+	  ./$(CAP_BIN) test/adrift4/harness/$$probe.taf < test/adrift4/harness/where_refusal_script.txt \
+	      2>/dev/null | tr -s '\n' > test/adrift4/harness/$${probe}_expected.txt; \
+	  echo "blessed test/adrift4/harness/$${probe}_expected.txt"; \
+	done
+
 $(CAP_BIN): $(SRC) os_ansi.cpp test/adrift4/harness/seed.cpp
 	$(CXX) $(CXXFLAGS) $(SRC) os_ansi.cpp \
 	    test/adrift4/harness/seed.cpp $(LDLIBS) -o $@
@@ -430,6 +467,10 @@ test/adrift4/harness/capacity_matrix.taf: test/adrift4/harness/make_sizeprobe.py
 	python3 test/adrift4/harness/make_sizeprobe.py 390 $@ 994 994 cap2
 test/adrift4/harness/capacity_nest.taf: test/adrift4/harness/make_sizeprobe.py
 	python3 test/adrift4/harness/make_sizeprobe.py 390 $@ 994 994 cap3
+test/adrift4/harness/where_refusal.taf: test/adrift4/harness/make_39_whereprobe.py
+	python3 test/adrift4/harness/make_39_whereprobe.py $@ 1 e
+test/adrift4/harness/where_refusal_1p.taf: test/adrift4/harness/make_39_whereprobe.py
+	python3 test/adrift4/harness/make_39_whereprobe.py $@ 0 e
 
 taf: $(TAF) $(PREC_TAF) $(BADP_TAF)
 $(TAF): test/adrift4/harness/make_battle_taf.py

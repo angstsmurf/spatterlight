@@ -1565,6 +1565,99 @@ run_defer_loud_tasks_to_movement (scr_gameref_t game, const scr_char *string)
 
 
 /*
+ * run_where_refusal()
+ *
+ * Pre-4.0 Runners have a refusal of their own for a command that matches a task
+ * the player is standing in the wrong room for: where 4.0 falls through to the
+ * game's DontUnderstand text, 3.7 and 3.8 answer "You can't do that here." and
+ * 3.9 "You can't do that here!".  Measured live against run370 (Castle Quest),
+ * run380 (Marooned) and run390 (The Hangover plus the p39where probe built by
+ * test/adrift4/harness/make_39_whereprobe.py), 2026-08-09.
+ *
+ * The condition is exactly the Where room list, and no wider than that.  In the
+ * probe, a task refused by a *restriction* that fails silently still gets
+ * "I don't understand.", and a command that does not match any task pattern
+ * likewise; a task already done and not repeatable gets a different message
+ * again ("You have already done that.", not implemented here).  Runner P-code
+ * guards the message with `OUT = "" And FLAG = 1`, so any output at all --
+ * including a standard library answer -- suppresses it, which is why this runs
+ * last, only when nothing else claimed the input.
+ *
+ * It counts as a turn, unlike DontUnderstand: in the probe, an event ticking
+ * once a turn fires on the refusal and not on the parser complaint, matching
+ * the `handled = 1` the Runner sets alongside the message.  Hence the TRUE
+ * return, which lets the caller run the turn.
+ *
+ * The leading word follows Perspective, which pre-4.0 has only two of: run390
+ * answers "I can't do that here!" for Perspective 0 and "You can't do that
+ * here!" for every other value, third person being a 4.0 addition (its
+ * inventory says "You are carrying nothing." for Perspective 2 as well).
+ */
+static scr_bool
+run_where_refusal (scr_gameref_t game, const scr_char *string)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_vartype_t vt_key[2];
+  scr_int version, perspective, task_count, task, direction;
+  scr_bool is_refused;
+
+  /*
+   * An empty input line element is not a command and gets no complaint of any
+   * kind -- the same guard the DontUnderstand fallback uses.  Without it a
+   * game with a bare "*" task command outside the player's room turns every
+   * press-a-key blank line into a refusal.
+   */
+  if (scr_strempty (string))
+    return FALSE;
+
+  /* Version 4.0 dropped the message; it prints DontUnderstand instead. */
+  vt_key[0].string = "Version";
+  version = prop_get_integer (bundle, "I<-s", vt_key);
+  if (version >= TAF_VERSION_400)
+    return FALSE;
+
+  /*
+   * Look for a task whose command matches the input and that is runnable but
+   * for the room the player is standing in.  Matching is only attempted for
+   * tasks the main dispatcher passed over for that reason alone, so a task
+   * blocked by anything else can never raise the refusal.
+   */
+  is_refused = FALSE;
+  task_count = gs_task_count (game);
+  for (task = 0; task < task_count && !is_refused; task++)
+    {
+      for (direction = 0; direction < 2; direction++)
+        {
+          const scr_bool is_forwards = !direction;
+
+          if (task_is_room_refused (game, task, is_forwards)
+              && run_match_task_commands (game, task, string,
+                                          is_forwards, FALSE))
+            {
+              is_refused = TRUE;
+              break;
+            }
+        }
+    }
+  if (!is_refused)
+    return FALSE;
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "Perspective";
+  perspective = prop_get_integer (bundle, "I<-ss", vt_key);
+
+  pf_buffer_string (filter,
+                    perspective == LIB_FIRST_PERSON ? "I" : "You");
+  pf_buffer_paragraph_line (filter,
+                            version < TAF_VERSION_390
+                            ? " can't do that here."
+                            : " can't do that here!");
+  return TRUE;
+}
+
+
+/*
  * run_all_commands()
  * run_game_task_commands()
  *
@@ -1620,6 +1713,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     status = run_game_commands_in_parser_context (game, string, TRUE);
   if (!status)
     status = run_standard_commands (game, string);
+  if (!status)
+    status = run_where_refusal (game, string);
 
   /*
    * For version 4.0 games, it seems that if any command succeeded, we need

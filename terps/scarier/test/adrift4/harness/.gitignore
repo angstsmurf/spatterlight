@@ -12,3 +12,6 @@ corrupt_test_hl
 quit_test_hl
 capacity_test_hl
 scmap_dump
+
+# Probe .taf generators also emit a plaintext sidecar for eyeballing.
+*.taf.plain

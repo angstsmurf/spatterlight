@@ -1,0 +1,23 @@
+Loading game...
+Where Probe 390
+A 3.9 Where probe.
+Probe Room
+LONG.
+>
+>Time passes...
+TICK.
+>I don't understand.
+>I can't do that here!
+TICK.
+>BETA FIRED.
+TICK.
+>I can't do that here!
+TICK.
+>I can't do that here!
+TICK.
+>EPSILON FIRED.
+TICK.
+>I don't understand.
+>I don't understand.
+>I don't understand.
+>Do you really want to quit? [Y/N] 

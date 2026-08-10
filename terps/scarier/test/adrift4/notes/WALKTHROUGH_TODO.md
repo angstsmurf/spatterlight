@@ -13,12 +13,12 @@ Scarier build and reading its internals.
 route or a documented verdict, and every walkthrough in `downloaded/` has a game
 and a row. This file is now the method, the cautions, and an index.
 
-Nothing here is open work with one deliberate exception, kept at the foot: the
+Nothing here is open work. The one exception this file used to carry — the
 Runner's **"You can't do that here!"** refusal for a task typed outside its
-`Where` rooms, which Scarier does not implement and which is filed rather than
-fixed (see the follow-up under *The Hangover*). Everything else that once read
-as open below has since closed — where a later finding overturned a dated entry
-it carries a superseding note in place; the entry itself is left as written.
+`Where` rooms — was probed and **implemented 2026-08-10**; see the follow-up
+under *The Hangover*. Everything else that once read as open below has since
+closed — where a later finding overturned a dated entry it carries a superseding
+note in place; the entry itself is left as written.
 
 ```
 test/adrift4/harness/run_v4_walkthroughs.sh          # the whole suite
@@ -916,20 +916,70 @@ Two derivation notes:
   opens with "Get Up", which this build does not implement (`get` with no
   noun). It is left out of the solution file; the player starts standing.
 
-### Follow-up: SCARE has no "You can't do that here!"
+### Follow-up: the "You can't do that here!" refusal — **IMPLEMENTED 2026-08-10**
 
 Both run390.exe and run400.exe carry the string ` can't do that here!` (VB6
 UTF-16; grep the .exe decoded as `utf-16-le`, plain `strings` misses it), and
-run390 prints it for these two tasks. SCARE has no such message anywhere:
-`task_can_run_task` simply returns FALSE for a room-gated task, and the command
-falls through to the standard library — here to "Give what?".
+run390 prints it for these two tasks. SCARE had no such message anywhere:
+`task_can_run_task` simply returned FALSE for a room-gated task, and the command
+fell through to the standard library — here to "Give what?".
 
-So a command that matches a task's pattern but is typed in the wrong room gets
-a parser-ish fallback from us and a specific refusal from the Runner. Unproven
-how narrow the Runner's condition is (task matched in *some* room? restrictions
-already passed?), so this is **not** implemented — it needs a live run400 probe
-on a corpus game before anything changes, because every golden that contains an
-out-of-room task command would move. Filed here rather than fixed.
+The condition was unproven when this was first filed, so it was left unfixed.
+It has since been probed live — a synthetic 3.90 game
+(`harness/make_39_whereprobe.py`, tasks with every `Where/Type`, plus a
+task-state restriction and a non-repeatable task, plus a one-turn always-
+restarting event so a turn is visible) driven through run390 under Wine, with
+run370/run380/run400 checked against real corpus games. Measured:
+
+| Runner | out-of-room task command | `Where/Type = 0` task | nonsense word | library-handled command | task whose restriction fails silently | done non-repeatable task |
+|---|---|---|---|---|---|---|
+| run370 (castle.taf)   | "You can't do that here." | — | DontUnderstand | — | — | — |
+| run380 (marooned.taf) | "You can't do that here." | — | DontUnderstand | — | — | — |
+| run390 (probe, hangover) | "You can't do that here!" (types 1 **and** 2) | same refusal | DontUnderstand | library wins | DontUnderstand | "You have already done that." |
+| run400 (4.0 probe)    | DontUnderstand | DontUnderstand | DontUnderstand | — | — | — |
+
+So the condition is **narrow and purely about the room**: the task's command
+pattern must match, and the *only* thing blocking the run must be the `Where`
+room list. Restrictions are irrelevant — a task whose restriction fails
+silently gets DontUnderstand, not the refusal — and so is anything the standard
+library already handled. The message is pre-4.0 only; 4.0 dropped it and prints
+DontUnderstand instead. Punctuation follows the period: 3.7/3.8 end in `.`,
+3.9 in `!`. The leading word follows `Globals/Perspective` — "I" for
+`LIB_FIRST_PERSON`, "You" otherwise (pre-4.0 has only the two; run390 answers
+"You" for perspectives 1, 2 and 3 alike). And it **consumes a turn**: with a
+one-turn ticking event running, `gamma` prints the refusal followed by the
+event text, where a nonsense word prints DontUnderstand and no tick.
+
+Implemented as `run_where_refusal()` in `scrunner.cpp`, last in
+`run_all_commands()` after `run_standard_commands()`, using the new
+`task_is_room_refused()` predicate (`sctasks.cpp`) — which is
+`task_can_run_task_directional()` with the room half inverted, the two halves
+having been split into `task_state_allows_run()` / `task_where_allows_run()`.
+An empty input line returns early, the same guard the DontUnderstand fallback
+uses: without it a game with a bare `*` wildcard task command outside the
+player's room turns every press-a-key blank line into a refusal
+(`archie_solution.txt` caught exactly that).
+
+**The corpus did not move**: 203/203 PASS with zero re-blessing. A solved
+walkthrough route never types a task command in a room the task cannot run in,
+which is why the feature needed synthetic coverage of its own —
+`make -f Makefile.headless wheretest` runs the two probe games (Perspective 1
+and Perspective 0) against `harness/where_refusal_expected.txt` and
+`harness/where_refusal_1p_expected.txt`, and is part of `make test`.
+
+Two gaps, both accepted:
+
+- The 3.7/3.8 period wording is proved live (run370 *Castle Quest*, run380
+  *Marooned*) and gated on `version < TAF_VERSION_390`, but has no synthetic
+  regression — the probe generator writes 3.90 only, and the V380/V370 GLOBAL,
+  ROOM, OBJECT and TASK schemas all differ enough to need a second generator.
+  The 3.7/3.8 corpus rows (`castle_quest`, `alices_restaurant`, `marooned`,
+  `twilight`, …) pass unchanged.
+- The sibling divergence in the last column above — pre-4.0 Runners answer a
+  completed non-repeatable task (empty RepeatText) with **"You have already
+  done that."**, and that also consumes a turn, where Scarier says "I don't
+  understand." The string is in run370/380/390 and absent from run400, the same
+  pre-4.0-only pattern. Not implemented; recorded in `RUNNER_TESTS_TODO.md`.
 
 ## 2026-06-25: deaths (*Death's Door*) — **WON, full 100/100**
 

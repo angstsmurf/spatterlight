@@ -203,26 +203,22 @@ task_forget_game (const void *game)
 }
 
 /*
- * task_can_run_task_directional()
+ * task_state_allows_run()
  *
- * Return TRUE if player is in a room where the task can be run and the task
- * is runnable in the given direction.
+ * The half of the runnability test that has nothing to do with where the
+ * player is standing: a completed task is not re-runnable forwards unless it
+ * is repeatable or has repeat text to print, and a task is only runnable in
+ * reverse if it is reversible.
+ *
+ * Split out from task_can_run_task_directional() so that the two halves can be
+ * asked separately -- see task_is_room_refused() below.
  */
-scr_bool
-task_can_run_task_directional (scr_gameref_t game,
-                               scr_int task, scr_bool forwards)
+static scr_bool
+task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
-  scr_int type;
+  scr_vartype_t vt_key[3];
   scr_task_props_t *cached;
-
-#ifdef SCARIER_DUMP_TOOLS
-  /* Reusable structural-dump / NPC-trace instrumentation; see scdump.c.
-   * Compiled only into the headless walkthrough harness (-DSCARIER_DUMP_TOOLS);
-   * a normal Spatterlight build omits this entirely. */
-  scr_dump_structure_once (game);
-#endif
 
   cached = task_cache_entry (game, task);
 
@@ -269,6 +265,26 @@ task_can_run_task_directional (scr_gameref_t game,
       if (cached->reversible == TASK_CACHE_FALSE)
         return FALSE;
     }
+
+  return TRUE;
+}
+
+
+/*
+ * task_where_allows_run()
+ *
+ * The other half: TRUE if the player is standing in a room the task's Where
+ * room list covers.
+ */
+static scr_bool
+task_where_allows_run (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int type;
+  scr_task_props_t *cached;
+
+  cached = task_cache_entry (game, task);
 
   /* Check room list for the task and return it. */
   if (cached->where_type == 0)
@@ -333,9 +349,50 @@ task_can_run_task_directional (scr_gameref_t game,
       }
 
     default:
-      scr_fatal ("task_can_run_task_directional: invalid type, %ld\n", type);
+      scr_fatal ("task_where_allows_run: invalid type, %ld\n", type);
       return FALSE;
     }
+}
+
+
+/*
+ * task_can_run_task_directional()
+ *
+ * Return TRUE if player is in a room where the task can be run and the task
+ * is runnable in the given direction.
+ */
+scr_bool
+task_can_run_task_directional (scr_gameref_t game,
+                               scr_int task, scr_bool forwards)
+{
+#ifdef SCARIER_DUMP_TOOLS
+  /* Reusable structural-dump / NPC-trace instrumentation; see scdump.c.
+   * Compiled only into the headless walkthrough harness (-DSCARIER_DUMP_TOOLS);
+   * a normal Spatterlight build omits this entirely. */
+  scr_dump_structure_once (game);
+#endif
+
+  return task_state_allows_run (game, task, forwards)
+         && task_where_allows_run (game, task);
+}
+
+
+/*
+ * task_is_room_refused()
+ *
+ * Return TRUE if the only thing standing between this task and a run in the
+ * given direction is the player's room -- the task is otherwise runnable, but
+ * its Where room list does not cover where the player is standing.
+ *
+ * Pre-4.0 Runners answer a command that matches such a task with a refusal of
+ * their own rather than the game's DontUnderstand text; see
+ * run_where_refusal() in scrunner.c.
+ */
+scr_bool
+task_is_room_refused (scr_gameref_t game, scr_int task, scr_bool forwards)
+{
+  return task_state_allows_run (game, task, forwards)
+         && !task_where_allows_run (game, task);
 }
 
 
