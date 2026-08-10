@@ -321,6 +321,7 @@ static int gsc_sc_walk_next (scr_char *buffer, scr_int length);
 static void gsc_map_toggle (void);
 static void gsc_map_auto_reveal (void);
 static void gsc_map_show (void);
+static int gsc_map_available (void);
 static int gsc_map_pref_read (int *at_top);
 static int gsc_map_default_shown (void);
 
@@ -7292,9 +7293,17 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
  * pane, opening waits; every redraw asks again, so the map arrives with the
  * first real room.
  *
- * A map that cannot be built at all answers TRUE, because that is a different
- * complaint and one the pane makes for itself: ADRIFT 4's layout can give up
- * ("too complex"), and the player asking for the map deserves to be told so.
+ * ADRIFT 4 hides its map the same way, but a step earlier: the layout is
+ * derived from the room you are standing in, and from a room the author flagged
+ * HideOnMap the runner drew nothing at all (Form29.drawmap bails, so scmap_build
+ * hands back no map).  The PK Girl opens in such a room and plays its whole
+ * introduction there.  That is the same "wait for a real room" case, not a
+ * failure, so it defers too.
+ *
+ * A map that cannot be built for any other reason answers TRUE, because that is
+ * a different complaint and one the pane makes for itself: the game may have no
+ * map to show, or ADRIFT 4's layout may have given up ("too complex"), and the
+ * player asking for the map deserves to be told so.
  */
 static int
 gsc_map_worth_opening (void)
@@ -7304,7 +7313,7 @@ gsc_map_worth_opening (void)
   char keybuf[16];
 
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
-    return TRUE;
+    return gsc_is_a5 || !gsc_map_available () || scmap_failed () != 0;
   return map_has_content (gsc_map, &view, ploc);
 }
 
