@@ -239,6 +239,13 @@ terps/scott/scott_hl
 terps/scott/scott_death_test
 terps/scott/scott_all_audit
 
+# Scarier build artifacts (Makefile.headless compiles in place; the test
+# harnesses have their own .gitignore files under terps/scarier/test/)
+/terps/scarier/*.o
+/terps/scarier/adrift5/*.o
+/terps/scarier/common_utils/*.o
+/terps/scarier/scarier
+
 # Python bytecode caches (harness/probe scripts under terps/)
 __pycache__/
 *.pyc
