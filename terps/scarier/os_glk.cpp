@@ -2054,9 +2054,10 @@ gsc_colour_apply (winid_t win, glui32 fg)
 /*
  * gsc_colour_echo()
  *
- * Switch between the colour the player's typing is echoed in and the colour
- * the game's own text comes out in; see the forward declaration above
- * gsc_read_line_locale().
+ * Switch between the colour the player's typing is echoed in -- also the
+ * colour of the "> " command prompt, which the Runner paints the same way
+ * -- and the colour the game's own text comes out in; see the forward
+ * declaration above gsc_read_line_locale().
  */
 static void
 gsc_colour_echo (scr_bool typing)
@@ -5111,6 +5112,8 @@ os_read_line (scr_char *buffer, scr_int length)
     gsc_autorestored = FALSE;
   else
     {
+      /* Same ink as typed input when colour mode is on; see gsc_colour_echo. */
+      gsc_colour_echo (TRUE);
       gsc_put_literal (">");
       /* Autosave at every top-level prompt: after the prompt is printed (so
          the GUI snapshot ends with it) but before input is requested (so
@@ -5119,6 +5122,7 @@ os_read_line (scr_char *buffer, scr_int length)
       gsc_autosave ();
     }
 #else
+  gsc_colour_echo (TRUE);
   gsc_put_literal (">");
 #endif
 
@@ -6286,6 +6290,21 @@ gsc_a5_put_string (const char *string)
 }
 
 /*
+ * gsc_a5_put_prompt()
+ *
+ * Write the "> " the player types at.  In colour mode it uses the same ink
+ * as <c> / typed input (the Runner's "typed" colour), not the story's
+ * replies colour; callers print any leading newline themselves so that line
+ * break stays in the enclosing colour.
+ */
+static void
+gsc_a5_put_prompt (void)
+{
+  gsc_colour_echo (TRUE);
+  gsc_a5_put_string ("> ");
+}
+
+/*
  * gsc_a5_start_real_time()
  *
  * Decide whether this session runs the game's TimeBased events in real time,
@@ -6484,7 +6503,8 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                 gsc_a5_status (gsc_a5_run);
                 if (a5run_is_over (gsc_a5_run))
                   return FALSE;
-                gsc_a5_put_string ("\n> ");
+                gsc_a5_put_string ("\n");
+                gsc_a5_put_prompt ();
 #ifdef SPATTERLIGHT
                 /* The tick changed game state while we sat at the prompt;
                    refresh the autosave (it skips itself when the
@@ -6714,7 +6734,8 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
       gsc_a5_put_string (dflt);
       gsc_a5_put_string ("]");
     }
-  gsc_a5_put_string ("\n> ");
+  gsc_a5_put_string ("\n");
+  gsc_a5_put_prompt ();
 
   /* This runs inside the engine (mid text-render), so a TimeBased tick must
      not re-enter it: hold real-time mode off for the duration, which also
@@ -6736,7 +6757,8 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
         {
           if (gsc_meta_pending == GSC_META_QUIT)
             glk_exit ();
-          gsc_a5_put_string ("\n> ");
+          gsc_a5_put_string ("\n");
+          gsc_a5_put_prompt ();
           continue;
         }
       break;
@@ -6816,7 +6838,8 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
       gsc_a5_put_string (choice1);
       gsc_a5_put_string (" / no = ");
       gsc_a5_put_string (choice2);
-      gsc_a5_put_string ("]\n> ");
+      gsc_a5_put_string ("]\n");
+      gsc_a5_put_prompt ();
 
       n = gsc_a5_read_line_raw (input, sizeof input);
 
@@ -9464,7 +9487,8 @@ gsc_a5_main (void)
         gsc_autorestored = FALSE;
       else
         {
-          gsc_a5_put_string ("\n> ");
+          gsc_a5_put_string ("\n");
+          gsc_a5_put_prompt ();
           /* Autosave at every top-level prompt: after the prompt is printed
              (so the GUI snapshot ends with it) but before input is
              requested (so the archived windows carry no pending request and
@@ -9472,7 +9496,8 @@ gsc_a5_main (void)
           gsc_autosave ();
         }
 #else
-      gsc_a5_put_string ("\n> ");
+      gsc_a5_put_string ("\n");
+      gsc_a5_put_prompt ();
 #endif
       if (gsc_a5_read_line (input, sizeof input) == 0)
         continue;
