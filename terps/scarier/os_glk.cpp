@@ -194,7 +194,7 @@ static int gsc_commands_enabled = TRUE,
    the adventure when it loads one.  See gsc_set_colour for where the numbers
    come from. */
 static glui32 gsc_colour_background = 0x000000,
-              gsc_colour_output = 0x00ff00,
+              gsc_colour_output = 0x19a58a,
               gsc_colour_input = 0xff3232;
 
 /* Whether the game's own palette is in force ("glk colour", set by
@@ -1773,12 +1773,11 @@ typedef enum {
  * Where the palette comes from differs by engine.  ADRIFT 5 stores it in the
  * adventure itself (a5model.h bg_colour and friends).  ADRIFT <=4 stores none:
  * the .taf has no colour fields, and the colours are Runner preferences.  The
- * defaults below are the ones run400.exe ships, read out of the settings it
- * writes under HKCU\Software\VB and VBA Program Settings\ADRIFT\Runner:
- * Background 0, Text1 3289855 and Text2 65280 -- OLE colour integers (low byte
- * red), i.e. black, #FF3232 for typed text and #00FF00 for replies.  They match
- * the swatches in the Runner's own Options -> Display & Media dialog ("Set
- * typed colour", "Set replies colour", "Set background colour").
+ * defaults below match the stock ADRIFT 3.90 / 4 Runner: black behind, teal
+ * #19A58A for replies (the same DEFAULT_OUTPUTCOLOUR ADRIFT 5 inherited), and
+ * #FF3232 for typed text / <c>.  They match the swatches in the Runner's own
+ * Options -> Display & Media dialog ("Set typed colour", "Set replies colour",
+ * "Set background colour").
  */
 /* GSC_HAVE_ZCOLORS, the palette itself and the on/off flag are all declared
    with the other module options at the top of the file, where the status line
@@ -3685,7 +3684,7 @@ gsc_command_verbose (const char *argument)
  *
  * Adrift games are written for a Runner that paints its output pane in a
  * palette of its own rather than in the interpreter's theme -- black behind,
- * green replies, red typed text for ADRIFT 4 (the Runner's defaults, and the
+ * teal replies, red typed text for ADRIFT <=4 (the Runner's defaults, and the
  * only place they live: nothing in the .taf carries a colour), the author's
  * own four colours for ADRIFT 5 -- and a game that writes white text, or
  * chooses colours to sit on black, needs that background to read at all.  Off
