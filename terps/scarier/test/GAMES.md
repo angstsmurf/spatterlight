@@ -33,7 +33,8 @@ can never quietly replace a corpus file. Existing files are never overwritten.
 Override the corpus locations with `V4_GAMES_DIR` / `A5_GAMES_DIR` and the cache
 with `SCARIER_GAMES_CACHE`.
 
-`gamescheck` runs as part of `make -f Makefile.headless test`. It fails only on a
+`gamescheck` runs as part of `make -f Makefile.headless test` (the default
+isolation suite; no FrankenDrift). It fails only on a
 **mismatch** — a file that is present but is not the recorded bytes. Missing files
 are not an error, because an empty corpus is a legitimate state. Bypass it with
 `SCARIER_SKIP_GAMESCHECK=1`.

@@ -1,14 +1,13 @@
-# Headless build + regression test for the Scarier Battle System port.
+# Headless build + regression test for the Scarier ADRIFT engines.
 #
-# Builds a small console harness (test/adrift4/harness/battle_test.cpp) that links the Scarier
-# interpreter sources against the bundled sx* os-layer stubs (no Glk, links the
-# system zlib) and runs it against the synthetic, fully deterministic game
-# test/adrift4/harness/battle_test.taf.  The harness checks the combat math through the public
-# battle API and exits non-zero on any mismatch.
+# Builds small console harnesses that link the Scarier interpreter sources
+# against the bundled sx* os-layer stubs (no Glk, links the system zlib) and
+# runs them against synthetic / golden-backed games.
 #
 # Usage:
-#   make -f Makefile.headless test     # build and run the battle test
-#   make -f Makefile.headless taf      # regenerate test/adrift4/harness/battle_test.taf
+#   make -f Makefile.headless test      # Scarier in isolation (default; no FrankenDrift)
+#   make -f Makefile.headless test-fd   # opt-in: diff a5 walkthroughs against FrankenDrift
+#   make -f Makefile.headless taf       # regenerate test/adrift4/harness/battle_test.taf
 #   make -f Makefile.headless clean
 #
 # test/adrift4/harness/battle_test.taf is a hand-authored ADRIFT 4.0 file (see
@@ -138,8 +137,7 @@ WHERE_TAF  := test/adrift4/harness/where_refusal.taf \
               test/adrift4/harness/where_refusal_3p.taf
 WHERE_PROBES := where_refusal where_refusal_1p where_refusal_3p
 
-.PHONY: test sanitize taf clean capacitytest capacitybless wheretest wherebless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs gamescheck gamesfetch
-
+.PHONY: test test-fd sanitize taf clean capacitytest capacitybless wheretest wherebless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
 # copyrighted and not committed.  Override A5_GAMES_DIR / A5_BULLETS to relocate.
@@ -156,6 +154,10 @@ A5_BULLETS ?= $(A5_GAMES_DIR)/SixSilverBullets.blorb
 # skips entirely when no corpus is present.
 V4_GAMES_DIR ?= test/adrift4/games
 
+# Default regression suite: Scarier in isolation.  No FrankenDrift / dotnet.
+# Covers unit harnesses, capacity, gamescheck, a5runtest, v4 walkthroughs,
+# a5maptest, scprojregress, and golden-backed a5 walkthroughs (rows without an
+# *_expected.txt are SKIPPED -- those need `test-fd`).
 test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BIN) $(QUIT_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN)
 	./$(BIN) $(TAF)
 	./$(PREC_BIN) $(PREC_TAF)
@@ -174,6 +176,14 @@ test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BI
 	@$(MAKE) -f Makefile.headless gamescheck
 	@$(MAKE) -f Makefile.headless a5runtest
 	@$(MAKE) -f Makefile.headless v4walkthroughs
+	@$(MAKE) -f Makefile.headless a5maptest
+	@$(MAKE) -f Makefile.headless scprojregress
+	@$(MAKE) -f Makefile.headless a5walkthroughs-golden
+
+# Opt-in: ADRIFT 5 walkthrough corpus vs FrankenDrift (needs FD.Headless +
+# dotnet).  Alias of a5walkthroughs.
+test-fd:
+	@$(MAKE) -f Makefile.headless a5walkthroughs
 
 # Gargoyle builds Scarier from a straight copy of this directory, so the shared
 # files it needs from outside it are vendored in common_utils/ (see the README
@@ -242,16 +252,27 @@ a5runtest: $(A5RUN_BIN)
 	  echo "a5runtest: SKIP (game file not found: $(A5_BULLETS))"; \
 	fi
 
-# Real-game walkthrough corpus: replays published walkthroughs for the games in
-# $(A5_GAMES_DIR) through BOTH a5run_dump and FrankenDrift (test/adrift5/harness/a5_groundtruth.sh)
-# and checks each transcript's divergence against its recorded baseline (see
-# test/adrift5/notes/A5_WALKTHROUGH_FINDINGS.md).  Per-game SKIP when the (uncommittable) game
-# file is absent; needs FrankenDrift.Headless built for the differential games
-# (the golden-backed games, e.g. Achtung Panzer, need only a5run_dump).
-# Not part of `test` (external data + dotnet).  Fails if any game regresses
-# past its baseline hunk budget.
+# Opt-in FrankenDrift differential for the ADRIFT 5 walkthrough corpus: replays
+# published walkthroughs through BOTH a5run_dump and FrankenDrift
+# (test/adrift5/harness/a5_groundtruth.sh) and checks each transcript's
+# divergence against its recorded baseline (see
+# test/adrift5/notes/A5_WALKTHROUGH_FINDINGS.md).  Per-game SKIP when the
+# (uncommittable) game file is absent; needs FrankenDrift.Headless built.
+# Not part of `test` -- run via `make -f Makefile.headless test-fd`.  Fails if
+# any game regresses past its baseline hunk budget.
 a5walkthroughs: $(A5RUN_BIN)
 	@test/adrift5/harness/run_a5_walkthroughs.sh
+
+# Scarier-only a5 walkthroughs: strict-diff committed *_expected.txt goldens,
+# SKIP rows without a golden, no FrankenDrift/dotnet.  Part of default `test`.
+a5walkthroughs-golden: $(A5RUN_BIN)
+	@test/adrift5/harness/run_a5_walkthroughs.sh --golden-only
+
+# Deterministic projectile-combat regression (ADRIFT 4 Battle System).  SKIPs
+# when the five battle-game .taf files are absent; no FrankenDrift.  Part of
+# default `test`.
+scprojregress:
+	@sh test/adrift4/harness/scproj_regress.sh
 
 # Synthetic ADRIFT 5 conformance probes (the Probe* rows of the walkthrough
 # suite), imported from the adrift-5-rs test suite.  The committed
@@ -272,12 +293,13 @@ a5probetafs:
 # stress test (adrift5/probes/map.taf) and compares PPM hashes against the
 # committed manifest.  Self-blessed (the real Runner map is GUI-only);
 # re-bless intentional rendering changes with test/adrift5/harness/run_a5_maptest.sh -b.
+# Part of default `test` (no FrankenDrift).
 a5maptest: $(A5MAP_BIN)
 	test/adrift5/harness/run_a5_maptest.sh
 
-# ASan/UBSan sweep of every self-contained, no-external-data harness that `test`
-# runs (the a5runtest game-file replay is excluded: it needs uncommittable game
-# data -- run it under sanitizers by hand with
+# ASan/UBSan sweep of every self-contained, no-external-data harness that the
+# unit portion of `test` runs (the a5runtest game-file replay is excluded: it
+# needs uncommittable game data -- run it under sanitizers by hand with
 #   make -f Makefile.headless a5runtest CXXFLAGS="$(CXXFLAGS) $(SAN_FLAGS)").
 # Each harness is rebuilt from source into a *_san binary (so there is no
 # timestamp/flag-staleness footgun) and run immediately; a sanitizer abort or a

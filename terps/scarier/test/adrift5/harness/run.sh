@@ -5,9 +5,10 @@
 #   out.txt (defaults to the current dir); pair with route.py / annotate.py,
 #   which read map.tsv / out.txt from the same dir.  Blind-walkthrough
 #   derivation tooling — see TODO_a5_walkthrough_wiring.md (⭐ TheFortressOfFear).
-cd /Users/administrator/spatterlight/terps/scarier
+HERE=$(cd "$(dirname "$0")/../../.." && pwd)
 S=${A5WORK:-$(pwd)}
 N=${1:-12}
+cd "$HERE"
 ./test/adrift5/harness/a5run_dump test/adrift5/games/TheFortressOfFear.blorb "$S/wt.txt" > "$S/out.txt" 2>&1
 # print from the Nth-from-last prompt line
 total=$(grep -c '^> ' "$S/out.txt")
