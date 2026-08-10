@@ -3833,6 +3833,174 @@ gsc_command_colour (const char *argument)
 
 
 /*
+ * gsc_command_undo()
+ * gsc_command_restore()
+ * gsc_command_restart()
+ * gsc_command_quit()
+ *
+ * UNDO, RESTORE, RESTART and QUIT as Glk commands.
+ *
+ * Every ADRIFT game understands these words already -- but only while its
+ * parser is the thing reading the line.  A game that asks a question of its
+ * own takes whatever is typed as the answer: the "please enter your name"
+ * task many games open with, an ADRIFT 5 %PopUpInput% or %PopUpChoice%
+ * dialog.  At such a prompt QUIT names your character "quit", and there is no
+ * way out of a game gone wrong short of killing the interpreter.  Prefixed
+ * with "glk" the four are caught by the front end before the game sees them,
+ * and so work wherever a line of input is read.
+ *
+ * The handlers record what was asked and nothing more; the action itself is
+ * carried out by the loop that read the line (gsc_meta_perform for scare,
+ * gsc_a5_meta_perform for the a5 loop).  It cannot happen here: all four end
+ * a turn abruptly -- scare's throw out of the interpreter's main loop, the a5
+ * loop's wholesale replacement of the run -- and here we are still inside the
+ * command dispatcher, which has the input line to free, and possibly inside
+ * the engine itself, midway through rendering the text that asked the
+ * question.
+ */
+enum gsc_meta_t
+{
+  GSC_META_NONE = 0, GSC_META_UNDO, GSC_META_RESTORE,
+  GSC_META_RESTART, GSC_META_QUIT
+};
+
+/* The action a handler below asked for, awaiting a safe moment to happen. */
+static gsc_meta_t gsc_meta_pending = GSC_META_NONE;
+
+/*
+ * Something to say about an action once it has happened.  Held rather than
+ * printed because a successful scare restore, undo-from-memo, or restart
+ * never returns to the caller that asked for it; whichever of gsc_meta_report()
+ * and the next prompt comes first prints it.
+ */
+static const char *gsc_meta_message = NULL;
+
+static gsc_meta_t
+gsc_meta_take (void)
+{
+  const gsc_meta_t action = gsc_meta_pending;
+
+  gsc_meta_pending = GSC_META_NONE;
+  return action;
+}
+
+static void
+gsc_meta_report (void)
+{
+  if (gsc_meta_message)
+    {
+      gsc_normal_string (gsc_meta_message);
+      gsc_meta_message = NULL;
+    }
+}
+
+static void
+gsc_command_undo (const char *argument)
+{
+  assert (argument);
+  gsc_meta_pending = GSC_META_UNDO;
+}
+
+static void
+gsc_command_restore (const char *argument)
+{
+  assert (argument);
+  gsc_meta_pending = GSC_META_RESTORE;
+}
+
+static void
+gsc_command_restart (const char *argument)
+{
+  assert (argument);
+  gsc_meta_pending = GSC_META_RESTART;
+}
+
+static void
+gsc_command_quit (const char *argument)
+{
+  assert (argument);
+  gsc_meta_pending = GSC_META_QUIT;
+}
+
+
+/*
+ * gsc_meta_perform()
+ *
+ * Carry out a pending meta-command on the scare engine, called from
+ * os_read_line once the line that asked for it has been dealt with.  Each of
+ * the four does exactly what the game's own command of that name does,
+ * confirmation and all -- the point of these is to reach the action, not to
+ * behave differently once there.
+ *
+ * scr_quit_game(), and a successful scr_restart_game(), scr_load_game() or
+ * scr_undo_game_turn() that falls back on a memo, unwind out of the
+ * interpreter's main loop and never return here; anything to say about them is
+ * left with gsc_meta_report() beforehand for the next prompt to print.
+ */
+static void
+gsc_meta_perform (void)
+{
+  const gsc_meta_t action = gsc_meta_take ();
+
+  if (action == GSC_META_NONE)
+    return;
+
+  /* No game to act on.  Quitting is still meaningful -- it is the way out of
+     an interpreter showing nothing but an error -- but the rest are not. */
+  if (gsc_game == NULL || !scr_is_game_running (gsc_game))
+    {
+      if (action == GSC_META_QUIT)
+        glk_exit ();
+      gsc_normal_string ("There is no game running to do that to.\n");
+      return;
+    }
+
+  switch (action)
+    {
+    case GSC_META_UNDO:
+      /* Unconfirmed, as the game's own UNDO is. */
+      gsc_meta_message = "[The previous turn has been undone.]\n";
+      if (!scr_undo_game_turn (gsc_game))
+        {
+          gsc_meta_message = NULL;
+          gsc_normal_string (scr_get_game_turns (gsc_game) == 0
+                             ? "You can't undo what hasn't been done.\n"
+                             : "Sorry, no more undo is available.\n");
+        }
+      gsc_meta_report ();
+      break;
+
+    case GSC_META_RESTORE:
+      if (os_confirm (SCR_CONF_RESTORE))
+        {
+          gsc_meta_message = "Ok.\n";
+          if (!scr_load_game (gsc_game))
+            {
+              gsc_meta_message = NULL;
+              gsc_normal_string ("Restore failed.\n");
+            }
+          gsc_meta_report ();
+        }
+      break;
+
+    case GSC_META_RESTART:
+      /* Says nothing: the replayed opening is the report. */
+      if (os_confirm (SCR_CONF_RESTART))
+        scr_restart_game (gsc_game);
+      break;
+
+    case GSC_META_QUIT:
+      if (os_confirm (SCR_CONF_QUIT))
+        scr_quit_game (gsc_game);
+      break;
+
+    default:
+      break;
+    }
+}
+
+
+/*
  * gsc_command_print_version_number()
  * gsc_command_version()
  *
@@ -4140,14 +4308,30 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
    "commands",                    GSC_USAGE_ONOFF},
   /* "color" is a full alias rather than a prefix: neither spelling is a
      prefix of the other, so each resolves on its own, at the cost of "glk col"
-     matching both and reporting itself ambiguous. */
+     matching both and reporting itself ambiguous.  The plurals are what a
+     player who has just read "Glk Adrift colours are..." is likely to type
+     back; they are prefixed by the singulars, and rely on gsc_command_lookup()
+     preferring an exact spelling to keep "glk colour" unambiguous. */
   {"colour",         gsc_command_colour,         TRUE,  TRUE,  FALSE,
+   "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
+  {"colours",        gsc_command_colour,         TRUE,  TRUE,  TRUE,
    "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
   {"color",          gsc_command_colour,         TRUE,  TRUE,  TRUE,
    "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
-  /* No "hint" alias row: the dispatcher matches on prefix, so a second entry
-     would make "glk hint" match two rows and report itself as ambiguous.  As
-     a bare prefix of the sole "hints" row it already resolves. */
+  {"colors",         gsc_command_colour,         TRUE,  TRUE,  TRUE,
+   "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
+  /* The four meta-commands.  "restore" and "restart" share a prefix, so each
+     needs five letters to resolve; "quit" answers to "glk q". */
+  {"undo",           gsc_command_undo,           FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
+  {"restore",        gsc_command_restore,        FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
+  {"restart",        gsc_command_restart,        FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
+  {"quit",           gsc_command_quit,           FALSE, TRUE,  FALSE,
+   NULL,                          NULL},
+  /* No "hint" alias row: it would be redundant, as a bare prefix of the sole
+     "hints" row it already resolves. */
   {"hints",          gsc_command_hints,          FALSE, TRUE,  FALSE,
    NULL,                          NULL},
   {"license",        gsc_command_license,        FALSE, TRUE,  FALSE,
@@ -4169,6 +4353,76 @@ static int
 gsc_command_in_scope (gsc_commandref_t entry)
 {
   return !gsc_is_a5 || entry->in_adrift5;
+}
+
+
+/*
+ * gsc_command_is_action()
+ *
+ * True for the Glk commands that do something when invoked rather than
+ * carrying a setting.  They have nothing to report, so "glk summary" -- which
+ * polls every other handler with an empty argument -- has to leave them alone:
+ * asking after the settings must not display the help, or quit the game.
+ */
+static int
+gsc_command_is_action (gsc_commandref_t entry)
+{
+  return entry->handler == gsc_command_summary
+         || entry->handler == gsc_command_license
+         || entry->handler == gsc_command_help
+         || entry->handler == gsc_command_map
+         || entry->handler == gsc_command_zoom
+         || entry->handler == gsc_command_hints
+         || entry->handler == gsc_command_undo
+         || entry->handler == gsc_command_restore
+         || entry->handler == gsc_command_restart
+         || entry->handler == gsc_command_quit;
+}
+
+
+/*
+ * gsc_command_lookup()
+ *
+ * Find the table entry for a Glk command name, which the player may have
+ * abbreviated.  An abbreviation has to be a prefix of exactly one entry, but
+ * an exact spelling always wins outright, so that a command which is itself
+ * the prefix of another -- "colour" of "colours" -- still resolves.
+ *
+ * Returns the entry, or NULL if nothing matched or an abbreviation was
+ * ambiguous; the number of entries the name could have stood for is stored in
+ * matches, so a caller can tell those two apart.
+ */
+static gsc_commandref_t
+gsc_command_lookup (const char *command, int *matches)
+{
+  gsc_commandref_t entry, matched;
+  int count;
+  assert (command);
+
+  count = 0;
+  matched = NULL;
+  for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
+    {
+      if (!gsc_command_in_scope (entry))
+        continue;
+
+      if (scr_strcasecmp (command, entry->command) == 0)
+        {
+          if (matches)
+            *matches = 1;
+          return entry;
+        }
+
+      if (scr_strncasecmp (command, entry->command, strlen (command)) == 0)
+        {
+          count++;
+          matched = entry;
+        }
+    }
+
+  if (matches)
+    *matches = count;
+  return count == 1 ? matched : NULL;
 }
 
 
@@ -4226,20 +4480,15 @@ gsc_command_summary (const char *argument)
   /*
    * Call handlers that have status to report with an empty argument,
    * prompting each to print its current setting.  The logging commands and
-   * the colour mode, along with map and zoom, act rather than report on an
-   * empty argument; those four have an explicit "status" to poll instead, map
-   * and zoom none.
+   * the colour mode act rather than report on an empty argument, so those four
+   * are polled with an explicit "status" instead; the commands that only ever
+   * act (gsc_command_is_action) are not called at all.
    */
   for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
     {
       int is_log;
 
-      if (entry->handler == gsc_command_summary
-            || entry->handler == gsc_command_license
-            || entry->handler == gsc_command_help
-            || entry->handler == gsc_command_map
-            || entry->handler == gsc_command_zoom
-            || entry->handler == gsc_command_hints
+      if (gsc_command_is_action (entry)
             || entry->is_alias
             || !gsc_command_in_scope (entry))
         continue;
@@ -4262,6 +4511,7 @@ static void
 gsc_command_help (const char *command)
 {
   gsc_commandref_t entry, matched;
+  int matches;
   assert (command);
 
   if (strlen (command) == 0)
@@ -4301,29 +4551,13 @@ gsc_command_help (const char *command)
       return;
     }
 
-  matched = NULL;
-  for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
-    {
-      if (gsc_command_in_scope (entry)
-          && scr_strncasecmp (command, entry->command, strlen (command)) == 0)
-        {
-          if (matched)
-            {
-              gsc_normal_string ("The Glk command ");
-              gsc_standout_string (command);
-              gsc_normal_string (" is ambiguous.  Try ");
-              gsc_standout_string ("glk help");
-              gsc_normal_string (" for more information.\n");
-              return;
-            }
-          matched = entry;
-        }
-    }
+  matched = gsc_command_lookup (command, &matches);
   if (!matched)
     {
       gsc_normal_string ("The Glk command ");
       gsc_standout_string (command);
-      gsc_normal_string (" is not valid.  Try ");
+      gsc_normal_string (matches == 0 ? " is not valid.  Try "
+                                      : " is ambiguous.  Try ");
       gsc_standout_string ("glk help");
       gsc_normal_string (" for more information.\n");
       return;
@@ -4558,10 +4792,38 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to clear the screen again and go back to the"
                          " colours of the interpreter's own theme.  ");
       gsc_standout_string ("glk color");
-      gsc_normal_string (" is the same command.\n\nGames written for a black"
+      gsc_normal_string (", ");
+      gsc_standout_string ("glk colours");
+      gsc_normal_string (", and ");
+      gsc_standout_string ("glk colors");
+      gsc_normal_string (" are the same command.\n\nGames written for a black"
                          " screen can be hard to read without this; games that"
                          " never set a colour of their own look much the same"
                          " either way.\n");
+    }
+
+  else if (matched->handler == gsc_command_undo
+           || matched->handler == gsc_command_restore
+           || matched->handler == gsc_command_restart
+           || matched->handler == gsc_command_quit)
+    {
+      gsc_normal_string ("Takes back a turn, restores a saved game, starts"
+                         " over, or stops playing.\n\n");
+      gsc_standout_string ("glk undo");
+      gsc_normal_string (", ");
+      gsc_standout_string ("glk restore");
+      gsc_normal_string (", ");
+      gsc_standout_string ("glk restart");
+      gsc_normal_string (" and ");
+      gsc_standout_string ("glk quit");
+      gsc_normal_string (" do just what the game's own commands of those"
+                         " names do.  They are here for the places where"
+                         " those are out of reach: a game that asks a question"
+                         " of its own -- for your name, say -- takes anything"
+                         " you type as the answer, and would read ");
+      gsc_standout_string ("quit");
+      gsc_normal_string (" as the name you had chosen.  A Glk command is"
+                         " recognised at any prompt.\n");
     }
 
   else if (matched->handler == gsc_command_hints)
@@ -4661,28 +4923,14 @@ gsc_command_escape (const char *string)
    */
   if (strlen (command) > 0)
     {
-      gsc_commandref_t entry, matched;
+      gsc_commandref_t matched;
       int matches;
 
-      /*
-       * Search for the first unambiguous table command string matching
-       * the command passed in.
-       */
-      matches = 0;
-      matched = NULL;
-      for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
-        {
-          if (gsc_command_in_scope (entry)
-              && scr_strncasecmp (command, entry->command,
-                                  strlen (command)) == 0)
-            {
-              matches++;
-              matched = entry;
-            }
-        }
+      /* Find the table entry the command names, allowing abbreviation. */
+      matched = gsc_command_lookup (command, &matches);
 
       /* If the match was unambiguous, call the command handler. */
-      if (matches == 1)
+      if (matched)
         {
           gsc_normal_char ('\n');
 
@@ -4845,6 +5093,11 @@ os_read_line (scr_char *buffer, scr_int length)
   gsc_reset_glk_style ();
   gsc_status_notify ();
 
+  /* Anything a meta-command that unwound the interpreter left to be said --
+     "Ok." for a restore, the note that a turn was undone -- belongs above the
+     prompt of the game it landed in. */
+  gsc_meta_report ();
+
   /* The map follows the game: the ADRIFT 4 layout is centred on the room you
      are in and grows as you explore, so it is redrawn at every prompt -- and a
      restart, which reaches the front end no other way, is caught here first. */
@@ -4959,6 +5212,21 @@ os_read_line (scr_char *buffer, scr_int length)
               if (gsc_command_escape (buffer))
                 {
                   gsc_output_silence_help_hints ();
+
+                  /* UNDO / RESTORE / RESTART / QUIT happen here rather than in
+                     the handler: the dispatcher above has since freed the line,
+                     and all four may unwind out of the interpreter without
+                     coming back.  A successful one never returns; the rest fall
+                     through to another prompt.
+
+                     Empty the line first.  It is the interpreter's own input
+                     buffer, kept across calls so that "get lamp. go north"
+                     runs as two commands, and an unwind skips the point where
+                     the next read would have cleared it -- leaving the restored
+                     or restarted game to parse "glk restart" as its first
+                     command. */
+                  memset (buffer, 0, length);
+                  gsc_meta_perform ();
                   return FALSE;
                 }
 
@@ -6453,7 +6721,26 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
      hands the echo of the typed answer back to the library. */
   saved_real_time = gsc_a5_real_time;
   gsc_a5_real_time = FALSE;
-  n = gsc_a5_read_line_raw (input, sizeof input);
+  for (;;)
+    {
+      n = gsc_a5_read_line_raw (input, sizeof input);
+
+      /* A prompt like this one is exactly where the game's own QUIT and UNDO
+         are out of reach -- whatever is typed becomes the answer -- so the
+         "glk ..." forms are recognised here.  Handled directly rather than
+         through gsc_a5_command_escape: an answer to the game's question is not
+         a command, and does not belong in the input log.  Any action asked for
+         waits for the turn loop (gsc_a5_meta_perform), which is where the run
+         may be replaced; quitting needs no such care. */
+      if (gsc_commands_enabled && gsc_command_escape (input))
+        {
+          if (gsc_meta_pending == GSC_META_QUIT)
+            glk_exit ();
+          gsc_a5_put_string ("\n> ");
+          continue;
+        }
+      break;
+    }
   gsc_a5_real_time = saved_real_time;
 
   return n > 0 ? gsc_copy_string (input) : NULL;
@@ -6532,6 +6819,15 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
       gsc_a5_put_string ("]\n> ");
 
       n = gsc_a5_read_line_raw (input, sizeof input);
+
+      /* "glk ..." is answered here as it is at a naming prompt, and for the
+         same reason; see gsc_a5_popup_input.  The loop re-asks the question. */
+      if (gsc_commands_enabled && gsc_command_escape (input))
+        {
+          if (gsc_meta_pending == GSC_META_QUIT)
+            glk_exit ();
+          continue;
+        }
 
       /* An empty line takes the dialog's default button, Yes -- what Return on
          an untouched MsgBox gives.  It also ends the loop at end of input, so
@@ -8888,6 +9184,48 @@ gsc_a5_restart_run (a5_run_t *&run)
 
 
 /*
+ * gsc_a5_meta_perform()
+ *
+ * Carry out a pending meta-command on the a5 engine, called from the top of
+ * the turn loop -- the one place the run may be thrown away and rebuilt.  That
+ * is also why a command typed at a %PopUpInput% prompt waits: the engine is
+ * then partway through rendering a turn on the very run a restart would free.
+ *
+ * Each action does what the a5 loop's own command of that name does,
+ * unconfirmed as those are.  Returns TRUE if the game should stop.
+ */
+static int
+gsc_a5_meta_perform (a5_run_t *&run)
+{
+  switch (gsc_meta_take ())
+    {
+    case GSC_META_QUIT:
+      return TRUE;
+
+    case GSC_META_RESTART:
+      gsc_a5_restart_run (run);
+      break;
+
+    case GSC_META_UNDO:
+      if (!gsc_a5_try_undo (run))
+        gsc_a5_put_string (a5run_turns (run) == 0
+                           ? "You can't undo what hasn't been done.\n"
+                           : "Sorry, no more undo is available.\n");
+      break;
+
+    case GSC_META_RESTORE:
+      gsc_a5_try_restore (run);
+      break;
+
+    default:
+      break;
+    }
+
+  return FALSE;
+}
+
+
+/*
  * gsc_a5_main()
  *
  * Run the ADRIFT 5 game in a single text-buffer window: print the intro, then
@@ -9042,6 +9380,13 @@ gsc_a5_main (void)
 
   for (;;)
     {
+      /* Any "glk undo/restore/restart/quit" happens here, before the state of
+         play is read: this is the first moment the run may safely be replaced,
+         whether the command was typed at the prompt below or at a naming
+         prompt the engine opened mid-turn. */
+      if (gsc_a5_meta_perform (run))
+        break;
+
       if (a5run_is_over (run))
         /* The game has ended -- by the last command, or by a real-time
            TimeBased tick that fired while awaiting input.  The engine has
@@ -9058,20 +9403,36 @@ gsc_a5_main (void)
 
           for (;;)
             {
+              /* The banner's four answers, however they were asked for: typed
+                 as themselves, or reached with "glk ..." (which is how they are
+                 still available to a game that has taken the words for its
+                 own).  Anything else is ignored, and the banner asks again. */
+              gsc_meta_t answer = GSC_META_NONE;
+
               gsc_a5_put_string ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n> ");
               if (gsc_a5_read_line (input, sizeof input) == 0)
                 continue;
+
               if (gsc_a5_command_escape (input))
-                continue;
-              if (gsc_a5_match_command (input, "quit")
-                  || gsc_a5_match_command (input, "q"))
+                answer = gsc_meta_take ();
+              else if (gsc_a5_match_command (input, "quit")
+                       || gsc_a5_match_command (input, "q"))
+                answer = GSC_META_QUIT;
+              else if (gsc_a5_match_command (input, "restart"))
+                answer = GSC_META_RESTART;
+              else if (gsc_a5_match_command (input, "undo"))
+                answer = GSC_META_UNDO;
+              else if (gsc_a5_match_command (input, "restore"))
+                answer = GSC_META_RESTORE;
+
+              if (answer == GSC_META_QUIT)
                 {
                   a5run_free (run);
                   glk_exit ();
                 }
-              if (gsc_a5_match_command (input, "restart"))
+              if (answer == GSC_META_RESTART)
                 break;
-              if (gsc_a5_match_command (input, "undo"))
+              if (answer == GSC_META_UNDO)
                 {
                   if (gsc_a5_try_undo (run))
                     {
@@ -9079,16 +9440,14 @@ gsc_a5_main (void)
                       break;
                     }
                   gsc_a5_put_string ("Sorry, no undo is available.\n");
-                  continue;
                 }
-              if (gsc_a5_match_command (input, "restore"))
+              if (answer == GSC_META_RESTORE)
                 {
                   if (gsc_a5_try_restore (run))
                     {
                       resumed = 1;
                       break;
                     }
-                  continue;
                 }
             }
           if (!resumed)
