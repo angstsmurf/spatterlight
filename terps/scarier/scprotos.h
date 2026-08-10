@@ -766,6 +766,7 @@ extern scr_bool run_restore_prompted (scr_gameref_t game);
 extern scr_bool run_undo (scr_gameref_t game);
 extern void run_quit (scr_gameref_t game);
 extern scr_bool run_is_running (scr_gameref_t game);
+extern scr_int run_get_restart_count (void);
 extern scr_bool run_has_completed (scr_gameref_t game);
 extern scr_bool run_is_undo_available (scr_gameref_t game);
 extern void run_debug_trace (scr_bool flag);

@@ -2778,6 +2778,30 @@ run_create (scr_read_callbackref_t callback, void *opaque)
 
 
 /*
+ * run_get_restart_count()
+ *
+ * How many times a game has been restarted in this process.
+ *
+ * A restart never comes back through run_interpret's caller: RESTART typed at
+ * the prompt unwinds into the loop below, which replays the opening without
+ * returning, and even the front end's own scr_restart_game() leaves nothing
+ * behind to see.  So a front end with screen furniture to reconsider when the
+ * game goes back to the beginning -- the Glk port's map pane -- watches this
+ * for a change instead.
+ *
+ * Deliberately not part of the game state: a restart replaces that wholesale,
+ * and a restore or undo would carry an older count back.
+ */
+static scr_int run_restart_count = 0;
+
+scr_int
+run_get_restart_count (void)
+{
+  return run_restart_count;
+}
+
+
+/*
  * run_restart_handler()
  *
  * Return a game context to initial states to restart a game.
@@ -2819,6 +2843,9 @@ run_restart_handler (scr_gameref_t game)
 
   /* Reset resources handling. */
   res_cancel_resources (game);
+
+  /* The one place a restart can be counted; see run_get_restart_count(). */
+  run_restart_count++;
 }
 
 
