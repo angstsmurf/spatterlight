@@ -251,6 +251,10 @@ static int gsc_map_at_top = FALSE;
    sea chart): the game's command wins, and the pane is reached with the
    "glk map" escape instead. */
 static int gsc_map_taken = FALSE;
+/* The restart the pane was last set up for (run_get_restart_count), so that an
+   ADRIFT 4 restart -- which happens entirely inside the interpreter -- is
+   noticed as the replayed opening arrives (gsc_map_notice_restart). */
+static scr_int gsc_map_restarts = 0;
 static void gsc_map_redraw (void);
 
 /* The camera and pixel size of the last map redraw, so a mouse click can be
@@ -320,7 +324,9 @@ static int gsc_sc_walk_steps = 0;
 static int gsc_sc_walk_next (scr_char *buffer, scr_int length);
 static void gsc_map_toggle (void);
 static void gsc_map_auto_reveal (void);
+static void gsc_map_notice_restart (void);
 static void gsc_map_show (void);
+static int gsc_map_available (void);
 static int gsc_map_pref_read (int *at_top);
 static int gsc_map_default_shown (void);
 
@@ -2357,6 +2363,10 @@ os_print_string (const scr_char *string)
   assert (string);
   assert (glk_stream_get_current ());
 
+  /* The first output of a replayed opening is where a restart becomes visible
+     to the front end; take the map pane down before the text is laid out. */
+  gsc_map_notice_restart ();
+
   /*
    * If the current top of the font stack is monospaced, we may need to use an
    * alternative function to write this string.
@@ -4262,7 +4272,9 @@ os_read_line (scr_char *buffer, scr_int length)
   gsc_status_notify ();
 
   /* The map follows the game: the ADRIFT 4 layout is centred on the room you
-     are in and grows as you explore, so it is redrawn at every prompt. */
+     are in and grows as you explore, so it is redrawn at every prompt -- and a
+     restart, which reaches the front end no other way, is caught here first. */
+  gsc_map_notice_restart ();
   gsc_map_redraw ();
 
 #ifdef SPATTERLIGHT
@@ -6559,7 +6571,10 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   /* Not stashed: gsc_map_taken, assist flags and locale are re-derived at
      startup; the walk-in-progress state is deliberately dropped (a restored
      session simply stops walking); gsc_map itself is authored data (ADRIFT
-     5, reloaded at boot) or rebuilt every redraw (ADRIFT 4). */
+     5, reloaded at boot) or rebuilt every redraw (ADRIFT 4); and the restart
+     count gsc_map_notice_restart watches is per-process on both sides of the
+     comparison, so a fresh process starts it and the engine's at zero
+     together. */
 }
 
 /* The on-disk game path, for the autosave directory's file-signature hash. */
@@ -7292,9 +7307,17 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
  * pane, opening waits; every redraw asks again, so the map arrives with the
  * first real room.
  *
- * A map that cannot be built at all answers TRUE, because that is a different
- * complaint and one the pane makes for itself: ADRIFT 4's layout can give up
- * ("too complex"), and the player asking for the map deserves to be told so.
+ * ADRIFT 4 hides its map the same way, but a step earlier: the layout is
+ * derived from the room you are standing in, and from a room the author flagged
+ * HideOnMap the runner drew nothing at all (Form29.drawmap bails, so scmap_build
+ * hands back no map).  The PK Girl opens in such a room and plays its whole
+ * introduction there.  That is the same "wait for a real room" case, not a
+ * failure, so it defers too.
+ *
+ * A map that cannot be built for any other reason answers TRUE, because that is
+ * a different complaint and one the pane makes for itself: the game may have no
+ * map to show, or ADRIFT 4's layout may have given up ("too complex"), and the
+ * player asking for the map deserves to be told so.
  */
 static int
 gsc_map_worth_opening (void)
@@ -7304,7 +7327,7 @@ gsc_map_worth_opening (void)
   char keybuf[16];
 
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
-    return TRUE;
+    return gsc_is_a5 || !gsc_map_available () || scmap_failed () != 0;
   return map_has_content (gsc_map, &view, ploc);
 }
 
@@ -7872,6 +7895,52 @@ gsc_map_auto_reveal (void)
   gsc_map_want = TRUE;
   if (gsc_map_worth_opening ())
     gsc_map_show ();
+}
+
+/*
+ * gsc_map_notice_restart()
+ *
+ * Take the map pane down for a replayed ADRIFT 4 opening, and let it be decided
+ * again from scratch.
+ *
+ * The ADRIFT 5 path does this where the restart happens (gsc_a5_restart_run);
+ * ADRIFT 4 has nowhere to do it, because the restart never surfaces here.  Both
+ * RESTART at the prompt and the restart offered when the game ends are handled
+ * inside scr_interpret_game, which just replays the opening -- so the pane goes
+ * into the new game still showing the old one's layout, and for a game whose
+ * opening plays out in a room the map hides, like The PK Girl, that means the
+ * empty rectangle gsc_map_worth_opening exists to keep off the screen.  Watch
+ * the interpreter's restart count for a change instead (run_get_restart_count).
+ *
+ * The zoom goes with the old run for the same reason it does in ADRIFT 5: the
+ * new one is back to a single room, which a scale chosen for a whole map would
+ * show far too close in.
+ *
+ * Called at the first sign of the replayed opening -- its first line of output,
+ * or failing that its first prompt -- so that the opening is laid out at the
+ * width it will keep.  Opening and closing windows moves the current stream
+ * about (gsc_map_show leaves output pointed at the story window), which the
+ * caller mid-print is not expecting, so put it back.
+ */
+static void
+gsc_map_notice_restart (void)
+{
+  strid_t stream;
+  scr_int restarts;
+
+  if (gsc_is_a5 || gsc_game == NULL)
+    return;
+
+  restarts = run_get_restart_count ();
+  if (restarts == gsc_map_restarts)
+    return;
+  gsc_map_restarts = restarts;
+
+  stream = glk_stream_get_current ();
+  gsc_map_hide ();
+  gsc_map_zoom = 0;
+  gsc_map_auto_reveal ();
+  glk_stream_set_current (stream);
 }
 
 /*
