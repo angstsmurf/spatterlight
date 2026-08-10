@@ -30,8 +30,12 @@
 # Exit status: non-zero iff any game regressed in either mode.
 #
 # Usage:
-#   test/adrift5/harness/run_a5_walkthroughs.sh [-v] [-j N] [substring]
+#   test/adrift5/harness/run_a5_walkthroughs.sh [-v] [-g] [-j N] [substring]
 #     -v          dump each diff to /tmp/a5wt/<Game>{,.xoshiro}.diff
+#     -g|--golden-only
+#                 Scarier-only: strict-diff committed *_expected.txt goldens,
+#                 skip rows without a golden, skip the xoshiro/FD pass.
+#                 No FrankenDrift / dotnet required.
 #     -j N        run N games concurrently (default: hw.ncpu; 1 = serial)
 #     substring   only run scripts whose name contains <substring>
 #
@@ -40,9 +44,11 @@
 #      $FD_ROOT: the runner probes for the dll at startup and refuses to run
 #      without it, because a missing ground truth would otherwise report a clean
 #      MATCH for every game (see the guard below the run_one definition).
+#      Exempt under GOLDEN_ONLY=1 / --golden-only (Scarier goldens only, no FD).
 #      XOSHIRO=0 skips the (dotnet-heavy) xoshiro pass.
-#      SAVERESTORE=0 skips the per-game save/restore self-check (a5run_dump
-#      only; on by default, adds one extra replay per game).
+#      GOLDEN_ONLY=1 same as --golden-only.  SAVERESTORE=0 skips the per-game
+#      save/restore self-check (a5run_dump only; on by default, adds one extra
+#      replay per game).
 
 set -u
 HERE=$(cd "$(dirname "$0")/../../.." && pwd)
@@ -52,11 +58,13 @@ A5RUN="$HERE/test/adrift5/harness/a5run_dump"
 
 VERBOSE=0
 BLESS=0
+GOLDEN_ONLY="${GOLDEN_ONLY:-0}"
 JOBS="${A5WT_JOBS:-$(sysctl -n hw.ncpu 2>/dev/null || echo 4)}"
 while :; do
     case "${1:-}" in
         -v) VERBOSE=1; shift ;;
         -b|--bless) BLESS=1; shift ;;   # (re)write each matched game's golden
+        -g|--golden-only) GOLDEN_ONLY=1; shift ;;
         -j) JOBS="$2"; shift 2 ;;
         *) break ;;
     esac
@@ -64,6 +72,8 @@ done
 [ "$JOBS" -ge 1 ] 2>/dev/null || JOBS=1
 FILTER="${1:-}"
 [ "$VERBOSE" = 1 ] && mkdir -p /tmp/a5wt
+# Golden-only never needs FrankenDrift: force-skip the xoshiro pass.
+[ "$GOLDEN_ONLY" = 1 ] && XOSHIRO=0
 
 # script-basename | game file | baseline hunk budget (current known divergence;
 # 0 = must stay clean).  Raise/lower a budget when you re-bless after a fix.
@@ -1653,6 +1663,16 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
         return
     fi
 
+    # --- vanilla -------------------------------------------------------------
+    # Fast strict golden diff when a golden exists (vanilla transcript, no dotnet).
+    golden="$HERE/test/adrift5/goldens/${name}_expected.txt"
+    # Golden-only mode: no FrankenDrift.  Rows without a committed expected
+    # transcript cannot be checked, so SKIP them rather than calling GT.
+    if [ "$GOLDEN_ONLY" = 1 ] && [ "$BLESS" != 1 ] && [ ! -f "$golden" ]; then
+        printf "%-24s %-9s (no expected transcript)\n" "$name" "SKIP" > "$row"
+        return
+    fi
+
     # ONE Scarier replay per game, shared by the golden compare/bless AND both
     # RNG-mode ground-truth diffs (via SCARIER_TXT): Scarier's transcript is
     # RNG-mode-independent -- only FrankenDrift's generator changes between the
@@ -1660,9 +1680,6 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     stxt="$WORKDIR/$idx.scarier"
     "$A5RUN" "$gf" "$script" 2>/dev/null > "$stxt" || true
 
-    # --- vanilla -------------------------------------------------------------
-    # Fast strict golden diff when a golden exists (vanilla transcript, no dotnet).
-    golden="$HERE/test/adrift5/goldens/${name}_expected.txt"
     if [ "$BLESS" = 1 ]; then
         # (Re)write the golden through the SAME normalisation the comparison uses,
         # so blessing is canonical and never trips the trailing-newline artifact.
@@ -1693,6 +1710,7 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
         want=$(cat "$golden")
         if [ "$got" = "$want" ]; then hv=0; else hv=999; fi
     else
+        # Differential vs FrankenDrift -- unreachable in GOLDEN_ONLY (skipped above).
         vout=$(SCARIER_TXT="$stxt" "$GT" "$gf" "$script" 2>/dev/null)
         [ "$VERBOSE" = 1 ] && printf '%s\n' "$vout" > "/tmp/a5wt/${name}.diff"
         gt_ran "$vout" || vgtfail=1
@@ -1717,7 +1735,10 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
         [ "$xtag" = REGRESSION ] && xcell="$hx (>$xbudget FAIL)"
         [ "$xgtfail" = 1 ] && xcell="GT FAILED"
     else
-        hx=$xbudget; xtag=ok; xcell="(skipped)"
+        # Skipped: for GOLDEN_ONLY, treat as hx=0 so a clean golden is MATCH
+        # (xbudget is an FD residual, not a Scarier golden budget).
+        if [ "$GOLDEN_ONLY" = 1 ]; then hx=0; else hx=$xbudget; fi
+        xtag=ok; xcell="(skipped)"
     fi
     rm -f "$stxt"
 
@@ -1820,15 +1841,16 @@ echo
 echo "# TOTAL: $(cat "$WORKDIR"/*.row 2>/dev/null | awk '{print $2}' | sort | uniq -c |
                  awk '{printf "%s%s=%s", (NR>1 ? ", " : ""), $2, $1}')"
 echo "#"
-echo "# STATUS   MATCH     0 hunks in both modes"
+echo "# STATUS   MATCH     0 hunks in both modes (golden-only: golden match)"
 echo "#          DIVERGE   at baseline (see test/adrift5/notes/A5_WALKTHROUGH_FINDINGS.md)"
 echo "#          OKbetter  below baseline in some mode -- re-bless the MAP"
 echo "#          FAIL      exceeded a budget, OR the save/restore self-check"
 echo "#                    diverged (i.e. a regression), OR the ground truth"
 echo "#                    never ran for that mode (cell reads GT FAILED --"
 echo "#                    NOT a pass: nothing was compared)"
-echo "# COLUMNS  vanilla     FD stock System.Random"
-echo "#          xoshiro     FD_RNG=xoshiro aligned stream (XOSHIRO=0 skips)"
+echo "#          SKIP      game file absent, or (--golden-only) no expected.txt"
+echo "# COLUMNS  vanilla     FD stock System.Random (or golden strict-diff)"
+echo "#          xoshiro     FD_RNG=xoshiro aligned stream (XOSHIRO=0 / -g skips)"
 echo "#          saverestore mid-script A5_SAVE_AT round-trip must be"
 echo "#                      byte-identical (SAVERESTORE=0 skips)"
 

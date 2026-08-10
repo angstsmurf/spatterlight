@@ -64,8 +64,9 @@ sh scproj_regress.sh
 ```
 
 `run_v4_walkthroughs.sh` is wired into `make -f Makefile.headless test` via the
-`v4walkthroughs` target, which skips the whole thing when no `games/` corpus
-exists on the machine. Rows whose `.taf` is missing SKIP rather than fail.
+`v4walkthroughs` target (Scarier in isolation; no FrankenDrift), which skips the
+whole thing when no `games/` corpus exists on the machine. Rows whose `.taf` is
+missing SKIP rather than fail.
 
 ## Elsewhere
 

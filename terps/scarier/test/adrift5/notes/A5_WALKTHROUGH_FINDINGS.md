@@ -33,19 +33,28 @@ bare commands) and replayed through **both** the Scarier harness
 ## Running
 
 ```sh
+# Default: Scarier in isolation (goldens only; no FrankenDrift / dotnet)
+make -f Makefile.headless test
+
+# Opt-in: full corpus vs FrankenDrift (needs FD.Headless + dotnet)
+make -f Makefile.headless test-fd
+# equivalents:
+make -f Makefile.headless a5walkthroughs
 make -f Makefile.headless a5run          # build test/adrift5/harness/a5run_dump
-# build FrankenDrift.Headless once (see a5_groundtruth.sh header)
-test/adrift5/harness/run_a5_walkthroughs.sh              # whole corpus, summary table
-test/adrift5/harness/run_a5_walkthroughs.sh -v Spectre   # one game, dump diff to /tmp/a5wt/
-test/adrift5/harness/a5_groundtruth.sh test/adrift5/games/<Game>.blorb test/adrift5/goldens/<Game>_walkthrough.txt
+test/adrift5/harness/run_a5_walkthroughs.sh
+test/adrift5/harness/run_a5_walkthroughs.sh -v Spectre   # one game, dump diff
+test/adrift5/harness/a5_groundtruth.sh test/adrift5/games/<Game>.blorb \
+    test/adrift5/goldens/<Game>_walkthrough.txt
 ```
 
-`run_a5_walkthroughs.sh` reports **MATCH** (Scarier == FrankenDrift),
-**DIVERGE n** (n diff hunks, at the per-game baseline budget recorded in the
-runner's MAP), **OKbetter** (below budget in some mode — that is a fix, re-bless
-the MAP row) or **FAIL** (over budget, or the save/restore self-check diverged —
-a regression). Games with a committed golden (`<Game>_expected.txt`) are
-strict-diffed against Scarier with no dotnet dependency.
+`make test` runs golden-backed a5 rows via `--golden-only` (SKIP if no
+`*_expected.txt`). `test-fd` / `run_a5_walkthroughs.sh` reports **MATCH**
+(Scarier == FrankenDrift), **DIVERGE n** (n diff hunks, at the per-game
+baseline budget recorded in the runner's MAP), **OKbetter** (below budget in
+some mode — that is a fix, re-bless the MAP row) or **FAIL** (over budget, or
+the save/restore self-check diverged — a regression). Games with a committed
+golden (`<Game>_expected.txt`) are strict-diffed against Scarier with no
+dotnet dependency.
 
 ## Corpus status
 
