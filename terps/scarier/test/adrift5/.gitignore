@@ -9,7 +9,7 @@
 # Cached FrankenDrift ground-truth transcripts (a5_groundtruth.sh FD_CACHE).
 /harness/.fd_cache/
 
-# Symphonica 64 route-derivation scratch (see notes/TODO_symphonica_schtick_ordering.md).
+# Symphonica 64 route-derivation scratch (see notes/Symphonica64_walkthrough.md).
 /harness/symph_work/
 
 # TASP: explicit text, deliberately not committed.
