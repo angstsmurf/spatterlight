@@ -5,37 +5,37 @@ Test Room
 A bare room.
 Also here is a dummy, a z02, a z20, a n22, a m12, a v1, a z1, a z2, a z3, a
 y1, a y2, a y3, a w1, a w2, a w3, a w4, a w5, a w6, a w7, a w8 and a w9.
->Player picks up the z1.
->Player picks up the y1.
->Player picks up the y2.
->Player picks up the y3.
->Player picks up the w1.
->Player picks up the w2.
->Player picks up the w3.
->Player picks up the w4.
->Player picks up the w5.
->Player picks up the w6.
->Player picks up the w7.
->Player picks up the w8.
->Player picks up the w9.
->Player picks up the m12.
->Player picks up the v1.
+>You pick up the z1.
+>You pick up the y1.
+>You pick up the y2.
+>You pick up the y3.
+>You pick up the w1.
+>You pick up the w2.
+>You pick up the w3.
+>You pick up the w4.
+>You pick up the w5.
+>You pick up the w6.
+>You pick up the w7.
+>You pick up the w8.
+>You pick up the w9.
+>You pick up the m12.
+>You pick up the v1.
 >The z1 is too big to fit inside the z02.
->Player puts the y1 inside the z20.
->Player puts the y2 inside the z20.
+>You put the y1 inside the z20.
+>You put the y2 inside the z20.
 >The y3 can't fit inside the z20 at the moment.
->Player puts the w1 inside the m12.
->Player puts the w2 inside the m12.
->Player puts the w3 inside the m12.
->Player puts the w4 inside the m12.
->Player puts the w5 inside the m12.
->Player puts the w6 inside the m12.
->Player puts the w7 inside the m12.
->Player puts the w8 inside the m12.
->Player puts the w9 inside the m12.
->Player puts the m12 inside the n22.
->Player puts the v1 inside the n22.
->Player takes the w1 from the m12.
+>You put the w1 inside the m12.
+>You put the w2 inside the m12.
+>You put the w3 inside the m12.
+>You put the w4 inside the m12.
+>You put the w5 inside the m12.
+>You put the w6 inside the m12.
+>You put the w7 inside the m12.
+>You put the w8 inside the m12.
+>You put the w9 inside the m12.
+>You put the m12 inside the n22.
+>You put the v1 inside the n22.
+>You take the w1 from the m12.
 >The w1 can't fit inside the n22 at the moment.
 >A probe n22.  A m12 and a v1 are inside the n22.
 >A probe m12.  Inside the m12 is a w2, a w3, a w4, a w5, a w6, a w7, a w8 and

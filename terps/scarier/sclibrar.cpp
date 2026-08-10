@@ -574,6 +574,49 @@ lib_print_npc (scr_gameref_t game, scr_int npc)
 
 
 /*
+ * lib_get_perspective()
+ *
+ * Return Globals/Perspective as the Runner of this game's version reads it.
+ *
+ * ADRIFT gained the third person in 4.0.  The pre-4.0 Runners know two
+ * perspectives only, and treat every value that is not LIB_FIRST_PERSON as the
+ * second person -- measured live in run390 on the 3.9 Where probe with
+ * Perspective set to 1, 2 and 3 in turn: all three answer "You can't do that
+ * here!" and "You are carrying nothing.", and only 0 answers "I".  The same
+ * split showed up on the 3.9 capacity probe, which run390 narrates "You pick up
+ * the a1." / "You put the b1 inside the c52t." where run400 renders the very
+ * same Perspective 2 in the third person ("Player put the d2 inside the
+ * c52t.").  SCARE read the field the 4.0 way in every version, so a pre-4.0
+ * game authored with Perspective 2 came out in the third person here and in the
+ * second person in its own Runner.
+ *
+ * Clamping here rather than at parse time keeps the authored value intact for
+ * the dumps (scdump.cpp's GAME line prints it raw) and confines the rule to the
+ * two places that render a person.  Out-of-range values fall through unclamped
+ * for 4.0, where lib_select_response() still reports them as an error.
+ */
+static scr_int
+lib_get_perspective (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
+  scr_int perspective, version;
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "Perspective";
+  perspective = prop_get_integer (bundle, "I<-ss", vt_key);
+
+  vt_key[0].string = "Version";
+  version = prop_get_integer (bundle, "I<-s", vt_key);
+
+  if (version < TAF_VERSION_400 && perspective != LIB_FIRST_PERSON)
+    return LIB_SECOND_PERSON;
+
+  return perspective;
+}
+
+
+/*
  * lib_select_response()
  * lib_select_plurality()
  *
@@ -586,15 +629,11 @@ lib_select_response (scr_gameref_t game,
                      const scr_char *first_person,
                      const scr_char *third_person)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_int perspective;
   const scr_char *response;
 
   /* Return the response appropriate for Perspective. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "Perspective";
-  perspective = prop_get_integer (bundle, "I<-ss", vt_key);
+  perspective = lib_get_perspective (game);
   switch (perspective)
     {
     case LIB_FIRST_PERSON:
@@ -10234,16 +10273,12 @@ lib_nothing_happens_common (scr_gameref_t game,
                             scr_bool is_object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_int perspective, object;
   const scr_char *person, *verb;
   scr_bool is_ambiguous;
 
   /* Use person and verb tense according to perspective. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "Perspective";
-  perspective = prop_get_integer (bundle, "I<-ss", vt_key);
+  perspective = lib_get_perspective (game);
   switch (perspective)
     {
     case LIB_FIRST_PERSON:

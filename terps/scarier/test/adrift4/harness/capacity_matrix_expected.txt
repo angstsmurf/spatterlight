@@ -10,127 +10,127 @@ c2, a c3, a c4, a c5, a c6, a c7, a c8, a c9, a c10, a c11, a c12, a f1, a
 f2, a f3, a f4, a f5, a f6, a f7, a f8, a f9, a f10, a f11, a f12, a d1, a
 d2, a d3, a d4, a d5, a d6, a d7, a d8, a d9, a d10, a d11, a d12, a e1, a
 e2, a e3, a e4, a e5, a e6, a e7, a e8, a e9, a e10, a e11 and a e12.
->Player picks up the a1.
->Player picks up the a2.
->Player picks up the a3.
->Player picks up the a4.
->Player picks up the a5.
->Player picks up the a6.
->Player picks up the a7.
->Player picks up the a8.
->Player picks up the a9.
->Player picks up the a10.
->Player picks up the a11.
->Player picks up the a12.
->Player picks up the b1.
->Player picks up the b2.
->Player picks up the b3.
->Player picks up the b4.
->Player picks up the b5.
->Player picks up the b6.
->Player picks up the b7.
->Player picks up the b8.
->Player picks up the b9.
->Player picks up the b10.
->Player picks up the b11.
->Player picks up the b12.
->Player picks up the c1.
->Player picks up the c2.
->Player picks up the c3.
->Player picks up the c4.
->Player picks up the c5.
->Player picks up the c6.
->Player picks up the c7.
->Player picks up the c8.
->Player picks up the c9.
->Player picks up the c10.
->Player picks up the c11.
->Player picks up the c12.
->Player picks up the f1.
->Player picks up the f2.
->Player picks up the f3.
->Player picks up the f4.
->Player picks up the f5.
->Player picks up the f6.
->Player picks up the f7.
->Player picks up the f8.
->Player picks up the f9.
->Player picks up the f10.
->Player picks up the f11.
->Player picks up the f12.
->Player picks up the d1.
->Player picks up the d2.
->Player picks up the d3.
->Player picks up the d4.
->Player picks up the d5.
->Player picks up the d6.
->Player picks up the d7.
->Player picks up the d8.
->Player picks up the d9.
->Player picks up the d10.
->Player picks up the d11.
->Player picks up the d12.
->Player picks up the e1.
->Player picks up the e2.
->Player picks up the e3.
->Player picks up the e4.
->Player picks up the e5.
->Player picks up the e6.
->Player picks up the e7.
->Player picks up the e8.
->Player picks up the e9.
->Player picks up the e10.
->Player picks up the e11.
->Player picks up the e12.
->Player puts the a1 inside the c12t.
->Player puts the a2 inside the c12t.
->Player puts the a3 inside the c12t.
->Player puts the a4 inside the c12t.
->Player puts the a5 inside the c12t.
->Player puts the a6 inside the c12t.
->Player puts the a7 inside the c12t.
->Player puts the a8 inside the c12t.
->Player puts the a9 inside the c12t.
+>You pick up the a1.
+>You pick up the a2.
+>You pick up the a3.
+>You pick up the a4.
+>You pick up the a5.
+>You pick up the a6.
+>You pick up the a7.
+>You pick up the a8.
+>You pick up the a9.
+>You pick up the a10.
+>You pick up the a11.
+>You pick up the a12.
+>You pick up the b1.
+>You pick up the b2.
+>You pick up the b3.
+>You pick up the b4.
+>You pick up the b5.
+>You pick up the b6.
+>You pick up the b7.
+>You pick up the b8.
+>You pick up the b9.
+>You pick up the b10.
+>You pick up the b11.
+>You pick up the b12.
+>You pick up the c1.
+>You pick up the c2.
+>You pick up the c3.
+>You pick up the c4.
+>You pick up the c5.
+>You pick up the c6.
+>You pick up the c7.
+>You pick up the c8.
+>You pick up the c9.
+>You pick up the c10.
+>You pick up the c11.
+>You pick up the c12.
+>You pick up the f1.
+>You pick up the f2.
+>You pick up the f3.
+>You pick up the f4.
+>You pick up the f5.
+>You pick up the f6.
+>You pick up the f7.
+>You pick up the f8.
+>You pick up the f9.
+>You pick up the f10.
+>You pick up the f11.
+>You pick up the f12.
+>You pick up the d1.
+>You pick up the d2.
+>You pick up the d3.
+>You pick up the d4.
+>You pick up the d5.
+>You pick up the d6.
+>You pick up the d7.
+>You pick up the d8.
+>You pick up the d9.
+>You pick up the d10.
+>You pick up the d11.
+>You pick up the d12.
+>You pick up the e1.
+>You pick up the e2.
+>You pick up the e3.
+>You pick up the e4.
+>You pick up the e5.
+>You pick up the e6.
+>You pick up the e7.
+>You pick up the e8.
+>You pick up the e9.
+>You pick up the e10.
+>You pick up the e11.
+>You pick up the e12.
+>You put the a1 inside the c12t.
+>You put the a2 inside the c12t.
+>You put the a3 inside the c12t.
+>You put the a4 inside the c12t.
+>You put the a5 inside the c12t.
+>You put the a6 inside the c12t.
+>You put the a7 inside the c12t.
+>You put the a8 inside the c12t.
+>You put the a9 inside the c12t.
 >The a10 can't fit inside the c12t at the moment.
 >The a11 can't fit inside the c12t at the moment.
 >The a12 can't fit inside the c12t at the moment.
->Player puts the b1 inside the c52t.
->Player puts the b2 inside the c52t.
->Player puts the b3 inside the c52t.
->Player puts the b4 inside the c52t.
->Player puts the b5 inside the c52t.
->Player puts the b6 inside the c52t.
->Player puts the b7 inside the c52t.
->Player puts the b8 inside the c52t.
->Player puts the b9 inside the c52t.
->Player puts the b10 inside the c52t.
->Player puts the b11 inside the c52t.
->Player puts the b12 inside the c52t.
->Player puts the c1 inside the c13t.
->Player puts the c2 inside the c13t.
->Player puts the c3 inside the c13t.
->Player puts the c4 inside the c13t.
->Player puts the c5 inside the c13t.
->Player puts the c6 inside the c13t.
->Player puts the c7 inside the c13t.
->Player puts the c8 inside the c13t.
->Player puts the c9 inside the c13t.
->Player puts the c10 inside the c13t.
->Player puts the c11 inside the c13t.
->Player puts the c12 inside the c13t.
->Player puts the f1 inside the c22x.
->Player puts the f2 inside the c22x.
->Player puts the f3 inside the c22x.
->Player puts the f4 inside the c22x.
->Player puts the f5 inside the c22x.
->Player puts the f6 inside the c22x.
+>You put the b1 inside the c52t.
+>You put the b2 inside the c52t.
+>You put the b3 inside the c52t.
+>You put the b4 inside the c52t.
+>You put the b5 inside the c52t.
+>You put the b6 inside the c52t.
+>You put the b7 inside the c52t.
+>You put the b8 inside the c52t.
+>You put the b9 inside the c52t.
+>You put the b10 inside the c52t.
+>You put the b11 inside the c52t.
+>You put the b12 inside the c52t.
+>You put the c1 inside the c13t.
+>You put the c2 inside the c13t.
+>You put the c3 inside the c13t.
+>You put the c4 inside the c13t.
+>You put the c5 inside the c13t.
+>You put the c6 inside the c13t.
+>You put the c7 inside the c13t.
+>You put the c8 inside the c13t.
+>You put the c9 inside the c13t.
+>You put the c10 inside the c13t.
+>You put the c11 inside the c13t.
+>You put the c12 inside the c13t.
+>You put the f1 inside the c22x.
+>You put the f2 inside the c22x.
+>You put the f3 inside the c22x.
+>You put the f4 inside the c22x.
+>You put the f5 inside the c22x.
+>You put the f6 inside the c22x.
 >The f7 can't fit inside the c22x at the moment.
 >The f8 can't fit inside the c22x at the moment.
 >The f9 can't fit inside the c22x at the moment.
 >The f10 can't fit inside the c22x at the moment.
 >The f11 can't fit inside the c22x at the moment.
 >The f12 can't fit inside the c22x at the moment.
->Player puts the d1 inside the c12m.
+>You put the d1 inside the c12m.
 >The d2 can't fit inside the c12m at the moment.
 >The d3 can't fit inside the c12m at the moment.
 >The d4 can't fit inside the c12m at the moment.
@@ -154,7 +154,7 @@ e2, a e3, a e4, a e5, a e6, a e7, a e8, a e9, a e10, a e11 and a e12.
 >The e10 is too big to fit inside the c12b.
 >The e11 is too big to fit inside the c12b.
 >The e12 is too big to fit inside the c12b.
->Player puts the d2 inside the c52t.
+>You put the d2 inside the c52t.
 >The e1 can't fit inside the c52t at the moment.
 >The e2 can't fit inside the c13t at the moment.
 >A probe c12t.  Inside the c12t is a a1, a a2, a a3, a a4, a a5, a a6, a a7, a

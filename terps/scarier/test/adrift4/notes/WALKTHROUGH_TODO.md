@@ -964,9 +964,10 @@ player's room turns every press-a-key blank line into a refusal
 **The corpus did not move**: 203/203 PASS with zero re-blessing. A solved
 walkthrough route never types a task command in a room the task cannot run in,
 which is why the feature needed synthetic coverage of its own —
-`make -f Makefile.headless wheretest` runs the two probe games (Perspective 1
-and Perspective 0) against `harness/where_refusal_expected.txt` and
-`harness/where_refusal_1p_expected.txt`, and is part of `make test`.
+`make -f Makefile.headless wheretest` runs the three probe games (Perspective
+1, 0 and 2) against `harness/where_refusal_expected.txt`,
+`harness/where_refusal_1p_expected.txt` and
+`harness/where_refusal_3p_expected.txt`, and is part of `make test`.
 
 One gap, accepted:
 
@@ -989,6 +990,20 @@ Again zero corpus movement (203/203, nothing re-blessed) even though **62 of
 196** corpus games author a non-repeatable task with a RepeatText (528 tasks —
 `SCR_DUMP_TASKS=1`, new `rpt=` column): solved routes do not re-type completed
 one-shot tasks. Full record in `RUNNER_TESTS_TODO.md` §4/§5.
+
+The last finding from the same probe run — pre-4.0 has **only two
+perspectives**, so run390 renders `Globals/Perspective` 1, 2 and 3 alike in the
+second person where Scarier read 2 as third — was **implemented 2026-08-10**
+too, as `lib_get_perspective()` in `sclibrar.cpp`. The probe is generated a
+third time at Perspective 2 and the script types `i`, so the regression is that
+`where_refusal_3p_expected.txt` stays byte-identical to
+`where_refusal_expected.txt`. A census of the corpus (new `GAME version=
+perspective=` dump line) found **no pre-4.0 game authoring Perspective 2** — the
+three that do are all 4.0 and keep their third person — so again no walkthrough
+golden moved. The **capacity probe** goldens did: both are authored
+Perspective 2 at 3.9, and their 144 changed lines each move onto the run390
+transcript recorded in `RUNNER_TESTS_TODO.md` ("You put the b1 inside the
+c52t.").
 
 ## 2026-06-25: deaths (*Death's Door*) — **WON, full 100/100**
 

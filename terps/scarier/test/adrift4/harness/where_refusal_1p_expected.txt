@@ -6,6 +6,8 @@ LONG.
 >
 >Time passes...
 TICK.
+>I am carrying nothing.
+TICK.
 >I don't understand.
 >I can't do that here!
 TICK.

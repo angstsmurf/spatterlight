@@ -44,7 +44,13 @@ that here!"` in the P-code, and `arr(0)` looked like the perspective pronoun.
 It is: run390 answers "I can't do that here!" for Perspective 0 and "You can't
 do that here!" for 1, 2 and 3 -- pre-4.0 has only two perspectives (its
 inventory says "You are carrying nothing." for 2 as well, where SCARE, reading
-2 as third person, says "Player is carrying nothing.").
+2 as third person, said "Player is carrying nothing.").
+
+That third finding is now a regression of its own: the Makefile builds this
+probe three times, with Perspective 1, 0 and 2, and the script types `i` so the
+inventory line records which person the library renders.  The Perspective-2
+build must read exactly like the Perspective-1 build -- 2 is third person in
+4.0 only, and lib_get_perspective() clamps it below that.
 
 Variant "e" adds a one-turn always-restarting event printing "TICK." so the
 transcript shows whether the refusal consumes a turn: the P-code sets

@@ -124,15 +124,19 @@ A5SAVE_BIN      := test/adrift5/harness/a5_save_test
 CAP_BIN    := test/adrift4/harness/capacity_test_hl
 CAP_TAF    := test/adrift4/harness/capacity_matrix.taf test/adrift4/harness/capacity_nest.taf
 
-# Pre-4.0 "You can't do that here!" refusal regression, replayed with the same
-# interpreter binary as the capacity probes.  The walkthrough corpus does not
-# cover this: a solved route never types a task command in a room the task
-# cannot run in, so all 203 rows are untouched by the feature.  Two synthetic
-# 3.9 games differing only in Perspective, since the refusal takes its leading
-# word from it ("You" / "I").  See RUNNER_TESTS_TODO.md section 5.
+# Pre-4.0 task-refusal regression ("You can't do that here!", "You have already
+# done that."), replayed with the same interpreter binary as the capacity
+# probes.  The walkthrough corpus does not cover this: a solved route never
+# types a task command in a room the task cannot run in, nor re-types a
+# completed one-shot task, so all 203 rows are untouched by the feature.  Three
+# synthetic 3.9 games differing only in Perspective, since the refusals take
+# their leading word from it -- and since pre-4.0 has no third person, the
+# Perspective 2 build must read exactly like the Perspective 1 one, down to the
+# inventory line the script types.  See RUNNER_TESTS_TODO.md section 5.
 WHERE_TAF  := test/adrift4/harness/where_refusal.taf \
-              test/adrift4/harness/where_refusal_1p.taf
-WHERE_PROBES := where_refusal where_refusal_1p
+              test/adrift4/harness/where_refusal_1p.taf \
+              test/adrift4/harness/where_refusal_3p.taf
+WHERE_PROBES := where_refusal where_refusal_1p where_refusal_3p
 
 .PHONY: test sanitize taf clean capacitytest capacitybless wheretest wherebless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs gamescheck gamesfetch
 
@@ -436,7 +440,7 @@ capacitybless: $(CAP_BIN) $(CAP_TAF)
 	  echo "blessed test/adrift4/harness/capacity_$${probe}_expected.txt"; \
 	done
 
-# "You can't do that here!" goldens.  Regenerate with:
+# Task-refusal + perspective goldens.  Regenerate with:
 #   make -f Makefile.headless wherebless
 wheretest: $(CAP_BIN) $(WHERE_TAF)
 	@fail=0; \
@@ -471,6 +475,8 @@ test/adrift4/harness/where_refusal.taf: test/adrift4/harness/make_39_whereprobe.
 	python3 test/adrift4/harness/make_39_whereprobe.py $@ 1 e
 test/adrift4/harness/where_refusal_1p.taf: test/adrift4/harness/make_39_whereprobe.py
 	python3 test/adrift4/harness/make_39_whereprobe.py $@ 0 e
+test/adrift4/harness/where_refusal_3p.taf: test/adrift4/harness/make_39_whereprobe.py
+	python3 test/adrift4/harness/make_39_whereprobe.py $@ 2 e
 
 taf: $(TAF) $(PREC_TAF) $(BADP_TAF)
 $(TAF): test/adrift4/harness/make_battle_taf.py

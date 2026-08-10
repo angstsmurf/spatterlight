@@ -247,6 +247,22 @@ scr_dump_structure_once (scr_gameref_t game)
     return;
   dumped = TRUE;
 
+  /* Header: the two globals every other line has to be read against.
+   * perspective is the raw authored value -- pre-4.0 Runners render 1, 2 and 3
+   * alike in the second person, which lib_get_perspective() reproduces, so a
+   * perspective=2 here on a version<400 game is *not* third-person output. */
+  {
+    scr_vartype_t gk[2], gv;
+    scr_int version = 0, perspective = 0;
+    gk[0].string = "Version";
+    if (prop_get (bundle, "I<-s", &gv, gk)) version = gv.integer;
+    gk[0].string = "Globals";
+    gk[1].string = "Perspective";
+    if (prop_get (bundle, "I<-ss", &gv, gk)) perspective = gv.integer;
+    fprintf (stderr, "GAME version=%ld perspective=%ld\n",
+             version, perspective);
+  }
+
   /* Variable table.  ACT type=3 names a variable by this index directly;
    * RESTR type=4 names it by index + 2 (0 and 1 are the two "referenced
    * number" pseudo-variables). */
