@@ -2158,6 +2158,9 @@ gsc_set_glk_style (void)
         {
           /*
            * For bold, use Subheader; for italics or underline, use Emphasized.
+           * With colours disabled, <c> secondary-colour text keeps its old
+           * Emphasized stand-in so it stays visually distinct; bold still
+           * wins over it, as it always has.
            */
           if (gsc_attribute_bold > 0
               && (gsc_attribute_italic > 0 || gsc_attribute_underline > 0))
@@ -2165,7 +2168,9 @@ gsc_set_glk_style (void)
           else if (gsc_attribute_bold > 0)
             glk_set_style (style_Subheader);
           else if (gsc_attribute_italic > 0
-                   || gsc_attribute_underline > 0)
+                   || gsc_attribute_underline > 0
+                   || (gsc_attribute_secondary_colour > 0
+                       && !gsc_colour_enabled))
             glk_set_style (style_Emphasized);
           else
             {
