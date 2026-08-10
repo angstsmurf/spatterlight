@@ -4,6 +4,13 @@
 Matches FrankenDrift Blorb.vb / FileIO.vb Blorb load: find the Exec resource
 (chunk type ADRI), and if babel lives in IFmd with a "0000" placeholder in
 Exec, re-embed babel into a normal .taf layout.
+
+Pre-5.0.20 Exec payloads (no babel size field) are obfuscated inside a blorb
+but a bare .taf in that shape is read as plaintext (FileIO.vb:816), so the
+obfuscation is stripped from the output.
+
+--layout also extracts the Runner window layout the Generator embeds
+(Blorb.vb DataChunk, the pane arrangement the game opens with).
 """
 
 from __future__ import annotations
@@ -11,7 +18,10 @@ from __future__ import annotations
 import argparse
 import struct
 import sys
+import zlib
 from pathlib import Path
+
+from taf2xml import OBFUSCATION_KEY
 
 
 class BlorbError(Exception):
@@ -115,6 +125,30 @@ def _exec_and_ifmd(blorb: bytes) -> tuple[bytes, bytes | None]:
     return exec_data, ifmd
 
 
+def _layout_xml(blorb: bytes) -> bytes | None:
+    """The embedded Runner window layout: a TEXT (or BINA) data chunk whose
+    body begins "RLAY", not listed in RIdx (Blorb.vb, DataChunk).  Returns the
+    SOAP-serialised Infragistics XML past the "RLAY" tag, or None."""
+    for chunk_id, _pos, data in _iter_chunks(blorb):
+        if chunk_id in (b"TEXT", b"BINA") and data[:4] == b"RLAY":
+            return data[4:]
+    return None
+
+
+def _inflates(data: bytes) -> bool:
+    try:
+        zlib.decompressobj().decompress(data)
+    except zlib.error:
+        return False
+    return True
+
+
+def _deobfuscate(data: bytes) -> bytes:
+    return bytes(
+        b ^ OBFUSCATION_KEY[i % len(OBFUSCATION_KEY)] for i, b in enumerate(data)
+    )
+
+
 def _babel_size_field(babel_len: int) -> bytes:
     """Four-character uppercase hex length, zero-padded (ADRIFT style)."""
     field = f"{babel_len:X}".upper()
@@ -148,7 +182,27 @@ def blorb_to_taf(blorb: bytes) -> bytes:
         size_field = _babel_size_field(len(babel))
         return version + size_field + babel + rest
 
-    # Already a full TAF (or no IFmd to restore).
+    if exec_data[12:16] == b"0000" or exec_data[16:24] == b"<ifindex":
+        # 5.0.20+ layout already: the size field tells every consumer the
+        # payload is obfuscated, so it can pass through untouched.
+        return exec_data
+
+    # Pre-5.0.20 layout: the deflate stream follows the 12-byte version header
+    # directly, with a 14-byte trailer.  Inside a blorb this payload is
+    # obfuscated (bDeObfuscate, true for every Developer-built blorb), but a
+    # bare .taf in this shape is read as plaintext (FileIO.vb:816) -- so strip
+    # the obfuscation or the output is unloadable.  RtC.blorb is this shape.
+    if len(exec_data) < 27:
+        raise BlorbError("pre-5.0.20 Exec payload too short")
+    region = exec_data[12:-14]
+    if not _inflates(region):
+        plain = _deobfuscate(region)
+        if not _inflates(plain):
+            raise BlorbError(
+                "pre-5.0.20 Exec payload does not inflate, "
+                "obfuscated or otherwise"
+            )
+        exec_data = exec_data[:12] + plain + exec_data[-14:]
     return exec_data
 
 
@@ -162,6 +216,14 @@ def main(argv: list[str] | None = None) -> int:
         "-o",
         help="write .taf to this file (default: input with .taf suffix)",
     )
+    parser.add_argument(
+        "--layout",
+        nargs="?",
+        const="",
+        metavar="FILE",
+        help="also extract the embedded Runner window layout to FILE "
+        "(default: input with .layout.xml suffix)",
+    )
     args = parser.parse_args(argv)
 
     input_path = Path(args.input_file)
@@ -173,8 +235,13 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         taf = blorb_to_taf(blorb)
+        layout = _layout_xml(blorb) if args.layout is not None else None
     except BlorbError as exc:
         print(f"error: {exc}", file=sys.stderr)
+        return 1
+
+    if args.layout is not None and layout is None:
+        print("error: no Runner layout chunk in blorb", file=sys.stderr)
         return 1
 
     output_path = (
@@ -185,6 +252,18 @@ def main(argv: list[str] | None = None) -> int:
     except OSError as exc:
         print(f"error: cannot write {output_path}: {exc}", file=sys.stderr)
         return 1
+
+    if layout is not None:
+        layout_path = (
+            Path(args.layout)
+            if args.layout
+            else input_path.with_suffix(".layout.xml")
+        )
+        try:
+            layout_path.write_bytes(layout)
+        except OSError as exc:
+            print(f"error: cannot write {layout_path}: {exc}", file=sys.stderr)
+            return 1
 
     return 0
 
