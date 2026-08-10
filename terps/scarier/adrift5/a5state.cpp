@@ -236,8 +236,12 @@ a5state_new (const a5_adventure_t *adv)
   if (adv->n_locations > 0)
     {
       st->loc_seen = (char *) calloc ((size_t) adv->n_locations, 1);
-      /* The start location is seen from the outset (clsUserSession.vb:222). */
-      a5state_mark_loc_seen (st, a5state_player_location (st));
+      /* Nothing is seen yet, not even the room the player starts in: the runner
+         marks that one only after the <RunImmediately> tasks have run
+         (clsUserSession.vb:371), so a game that starts by moving the player
+         elsewhere -- Alien Diver picks its opening ocean square at random --
+         leaves the authored start room unseen for good.  a5run_intro does the
+         marking; see the call there. */
     }
 
   st->conv_char = strdup ("");

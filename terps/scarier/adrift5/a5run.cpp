@@ -1263,6 +1263,13 @@ a5run_intro (a5_run_t *run)
      joins onto the centred title. */
   sb_resolve_cls (&out, cf); cf = out.len;   /* commit: Adventure-Upgrade prompt */
   run_immediate_tasks (run, &out);
+  /* Only NOW is the player's room marked seen (clsUserSession.vb:371, after the
+     RunImmediately loop at vb:355).  The room the adventure names as the start
+     is not seen by virtue of being the start: a game whose immediate tasks move
+     the player away -- Alien Diver drops the diver on a random ocean square --
+     never marks the authored one, and the runner's map draws a single node
+     where marking at session creation would draw two. */
+  a5state_mark_loc_seen (run->st, a5state_player_location (run->st));
   /* The centred title: the runner's Display("<c>" & Adventure.Title & "</c>" & vbCrLf)
      at vb:226, emitted through the same buffer so the RunImmediately output above
      joins onto it via pSpace.  An empty title emits nothing (the runner's "<c></c>"
