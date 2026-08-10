@@ -2071,6 +2071,28 @@ gsc_colour_echo (scr_bool typing)
 
 
 /*
+ * gsc_put_prompt()
+ *
+ * Print the input prompt.  The Runner has no inline prompt of its own -- it
+ * takes commands in a separate box, drawn in the "input" colour, the same
+ * secondary colour <c> spans use -- so in colour mode the ">" belongs to the
+ * typing it introduces rather than to the game's output, and is written in
+ * that colour.  Outside colour mode gsc_colour_echo does nothing and this is
+ * an ordinary print.
+ *
+ * The colour is deliberately left in force: what follows a prompt is always
+ * the player's line, which the read routines echo in the same ink before
+ * putting the output colour back.
+ */
+static void
+gsc_put_prompt (const char *prompt)
+{
+  gsc_colour_echo (TRUE);
+  gsc_put_literal (prompt);
+}
+
+
+/*
  * gsc_font_top()
  *
  * The current top of the font stack, or the default font on an empty stack.
@@ -5133,7 +5155,7 @@ os_read_line (scr_char *buffer, scr_int length)
     gsc_autorestored = FALSE;
   else
     {
-      gsc_put_literal (">");
+      gsc_put_prompt (">");
       /* Autosave at every top-level prompt: after the prompt is printed (so
          the GUI snapshot ends with it) but before input is requested (so
          the archived windows carry no pending request and a restore
@@ -5141,7 +5163,7 @@ os_read_line (scr_char *buffer, scr_int length)
       gsc_autosave ();
     }
 #else
-  gsc_put_literal (">");
+  gsc_put_prompt (">");
 #endif
 
   /* A walk set going by a click on the map supplies the next direction itself,
@@ -5153,6 +5175,10 @@ os_read_line (scr_char *buffer, scr_int length)
       glk_put_string ((char *) buffer);
       glk_set_style (style_Normal);
       gsc_put_literal ("\n");
+      /* The prompt left the input colour in force for a line that is now not
+         going to be read, so nothing else will put the output colour back
+         before the turn's own text. */
+      gsc_colour_echo (FALSE);
       return TRUE;
     }
 
@@ -5173,6 +5199,9 @@ os_read_line (scr_char *buffer, scr_int length)
           glk_set_style (style_Input);
           gsc_put_buffer (buffer, chars);
           glk_set_style (style_Normal);
+          /* As in the walk case above: no keyboard read follows to take the
+             prompt's input colour back off. */
+          gsc_colour_echo (FALSE);
 
           /* Return this line as player input. */
           return TRUE;
@@ -6308,6 +6337,24 @@ gsc_a5_put_string (const char *string)
 }
 
 /*
+ * gsc_a5_put_prompt()
+ *
+ * The ADRIFT 5 loop's "> ", in the adventure's own input colour when colour
+ * mode is on -- gsc_put_prompt's counterpart for the engine that writes its
+ * text as UTF-8.  `before` is whatever leads up to the prompt (the blank line
+ * every prompt sits on, plus the question the end-of-game banner asks); it
+ * stays in the output colour, since only the prompt itself belongs to the
+ * player's typing.
+ */
+static void
+gsc_a5_put_prompt (const char *before)
+{
+  gsc_a5_put_string (before);
+  gsc_colour_echo (TRUE);
+  gsc_a5_put_string ("> ");
+}
+
+/*
  * gsc_a5_start_real_time()
  *
  * Decide whether this session runs the game's TimeBased events in real time,
@@ -6506,7 +6553,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                 gsc_a5_status (gsc_a5_run);
                 if (a5run_is_over (gsc_a5_run))
                   return FALSE;
-                gsc_a5_put_string ("\n> ");
+                gsc_a5_put_prompt ("\n");
 #ifdef SPATTERLIGHT
                 /* The tick changed game state while we sat at the prompt;
                    refresh the autosave (it skips itself when the
@@ -6572,6 +6619,9 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
           gsc_a5_put_string (buf);
           glk_set_style (style_Normal);
           gsc_a5_put_string ("\n");
+          /* This path returns without ever reaching the gsc_colour_echo pair
+             below, so the prompt's input colour has to be taken off here. */
+          gsc_colour_echo (FALSE);
           return (int) chars;
         }
 
@@ -6682,6 +6732,9 @@ gsc_a5_read_line (char *buf, int bufsize)
               gsc_a5_put_string (buf);
               glk_set_style (style_Normal);
               gsc_a5_put_string ("\n");
+              /* No keyboard read follows to take the prompt's input colour
+                 back off before the turn's own text. */
+              gsc_colour_echo (FALSE);
               return (int) strlen (buf);
             }
           gsc_a5_walk_stop ();          /* arrived, blocked, or no route */
@@ -6736,7 +6789,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
       gsc_a5_put_string (dflt);
       gsc_a5_put_string ("]");
     }
-  gsc_a5_put_string ("\n> ");
+  gsc_a5_put_prompt ("\n");
 
   /* This runs inside the engine (mid text-render), so a TimeBased tick must
      not re-enter it: hold real-time mode off for the duration, which also
@@ -6758,7 +6811,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
         {
           if (gsc_meta_pending == GSC_META_QUIT)
             glk_exit ();
-          gsc_a5_put_string ("\n> ");
+          gsc_a5_put_prompt ("\n");
           continue;
         }
       break;
@@ -9475,7 +9528,7 @@ gsc_a5_main (void)
                  own).  Anything else is ignored, and the banner asks again. */
               gsc_meta_t answer = GSC_META_NONE;
 
-              gsc_a5_put_string ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n> ");
+              gsc_a5_put_prompt ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n");
               if (gsc_a5_read_line (input, sizeof input) == 0)
                 continue;
 
@@ -9530,7 +9583,7 @@ gsc_a5_main (void)
         gsc_autorestored = FALSE;
       else
         {
-          gsc_a5_put_string ("\n> ");
+          gsc_a5_put_prompt ("\n");
           /* Autosave at every top-level prompt: after the prompt is printed
              (so the GUI snapshot ends with it) but before input is
              requested (so the archived windows carry no pending request and
@@ -9538,7 +9591,7 @@ gsc_a5_main (void)
           gsc_autosave ();
         }
 #else
-      gsc_a5_put_string ("\n> ");
+      gsc_a5_put_prompt ("\n");
 #endif
       if (gsc_a5_read_line (input, sizeof input) == 0)
         continue;
