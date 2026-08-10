@@ -1910,11 +1910,12 @@ fn_case (a5_state_t * /*st*/, const char *name, const char *args)
   return s;
 }
 
-/* EvaluateUDF's expression sniff (Global.vb:1706): the VB regex
-   `\d( )*[+-/*^]( )*\d`, whose `[+-/]` is the character RANGE '+'..'/' -- so
-   the operator set is  * + , - . / ^  with any number of spaces around it.  A
-   UDF argument matching this is folded through EvaluateExpression ("3 + 4" ->
-   "7"); a plain number ("21") is left alone. */
+// EvaluateUDF's expression sniff (Global.vb:1706): the VB regex
+// `\d( )*[+-/*^]( )*\d`, whose `[+-/]` is the character RANGE '+'..'/' -- so
+// the operator set is  * + , - . / ^  with any number of spaces around it.  A
+// UDF argument matching this is folded through EvaluateExpression ("3 + 4" ->
+// "7"); a plain number ("21") is left alone.  (Line comments here because the
+// regex above contains a literal /*, which -Wcomment flags inside a block.)
 static int
 udf_arg_is_expression (const char *s)
 {
