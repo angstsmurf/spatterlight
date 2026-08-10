@@ -20,6 +20,9 @@
 #include "a5text.h"
 #include "a5util.h"
 
+/* strndup() where the toolchain has none; empty everywhere else. */
+#include "../common_utils/sc_garglk.h"
+
 /* ----------------------------------------------------------- small helpers */
 
 static int

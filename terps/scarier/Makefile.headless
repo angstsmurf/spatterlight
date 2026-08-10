@@ -168,11 +168,29 @@ test: $(BIN) $(TAF) $(PREC_BIN) $(PREC_TAF) $(BADP_BIN) $(BADP_TAF) $(CORRUPT_BI
 	./$(A5WALK_BIN)
 	./$(A5OBJ_BIN)
 	./$(A5SAVE_BIN)
+	@$(MAKE) -f Makefile.headless vendorcheck
 	@$(MAKE) -f Makefile.headless capacitytest
 	@$(MAKE) -f Makefile.headless wheretest
 	@$(MAKE) -f Makefile.headless gamescheck
 	@$(MAKE) -f Makefile.headless a5runtest
 	@$(MAKE) -f Makefile.headless v4walkthroughs
+
+# Gargoyle builds Scarier from a straight copy of this directory, so the shared
+# files it needs from outside it are vendored in common_utils/ (see the README
+# there).  Nothing in the Spatterlight tree compiles those copies, which is
+# exactly how they came to sit a bug-fix behind the originals once already, so
+# check them here rather than discover it in the next Gargoyle build.
+VENDORED := randomness.c randomness.h
+
+vendorcheck:
+	@for f in $(VENDORED); do \
+	  if ! cmp -s $(COMMON)/$$f common_utils/$$f; then \
+	    echo "vendorcheck: FAIL common_utils/$$f differs from $(COMMON)/$$f" >&2; \
+	    echo "  re-copy it (the originals are the ones that build here)" >&2; \
+	    exit 1; \
+	  fi; \
+	done
+	@echo "vendorcheck: PASS ($(words $(VENDORED)) vendored files match $(COMMON))"
 
 # Checksum the game corpora against the committed manifests before the suites
 # that replay them.  A *missing* corpus is fine (the suites SKIP), so this only

@@ -19,6 +19,9 @@
 #include "a5text.h"
 #include "a5util.h"
 
+/* strndup() where the toolchain has none; empty everywhere else. */
+#include "../common_utils/sc_garglk.h"
+
 int a5restr_trace = 0;
 
 /* CBool-ish (Global.SafeBool): "true"/"false" by name, else a numeric string is
