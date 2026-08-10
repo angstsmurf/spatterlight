@@ -2265,11 +2265,26 @@ run_main_loop (scr_gameref_t game)
       /* Initial clear screen. */
       pf_buffer_tag (filter, SCR_TAG_CLS);
 
-      /* Print the game name. */
+      /*
+       * Print the game name.  The Runner gives this line a look of its own,
+       * not the plain body style: one step larger than normal text, in the
+       * secondary ("command") colour -- the same red that <c> spans and the
+       * player's own typing come out in.  Measured off a 3.90 Runner shot of
+       * rich_text_390.taf: the title's ascenders run 13px against normal
+       * text's 11 (12pt -> 14pt), with the stroke weight of normal text, not
+       * of bold.
+       *
+       * Emit it as markup rather than as a port-side special case, so it
+       * costs the ports nothing: the Glk port already maps a 14pt font to
+       * style_Subheader and <c> to the input colour, and the ANSI port
+       * discards both tags, leaving headless output unchanged.
+       */
       vt_key[0].string = "Globals";
       vt_key[1].string = "GameName";
       gamename = prop_get_string (bundle, "S<-ss", vt_key);
+      pf_buffer_string (filter, "<font size=14><c>");
       pf_buffer_string (filter, gamename);
+      pf_buffer_string (filter, "</c></font>");
       pf_buffer_character (filter, '\n');
 
       /*
