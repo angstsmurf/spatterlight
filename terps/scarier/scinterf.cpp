@@ -24,6 +24,7 @@
  */
 
 #include <assert.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1334,6 +1335,116 @@ scr_does_game_use_graphics (scr_game game)
     return FALSE;
 
   return res_has_graphics (game_);
+}
+
+
+/* Case-insensitive match of `prefix` at `s`; returns the length matched, or 0. */
+static int
+scr_ci_prefix_len (const char *s, const char *prefix)
+{
+  int n = 0;
+  while (prefix[n] != '\0')
+    {
+      if (s[n] == '\0'
+          || tolower ((unsigned char) s[n]) != tolower ((unsigned char) prefix[n]))
+        return 0;
+      n++;
+    }
+  return n;
+}
+
+/*
+ * True when `text` contains a <font ... color=...> / <font ... colour=...> open
+ * tag, or a <bgcolour=...> / <bgcolor=...> void tag.  Face/size-only <font>
+ * tags do not count.
+ */
+static scr_bool
+scr_text_has_colour_markup (const char *text)
+{
+  const char *p;
+
+  if (text == NULL)
+    return FALSE;
+  for (p = text; *p != '\0'; p++)
+    {
+      const char *gt, *q;
+      int namelen;
+      char after;
+
+      if (*p != '<')
+        continue;
+
+      /* <bgcolour=...> / <bgcolor=...> repaint the Runner output pane. */
+      namelen = scr_ci_prefix_len (p + 1, "bgcolour");
+      if (namelen == 0)
+        namelen = scr_ci_prefix_len (p + 1, "bgcolor");
+      if (namelen != 0)
+        {
+          q = p + 1 + namelen;
+          while (*q != '\0' && *q != '>' && isspace ((unsigned char) *q))
+            q++;
+          if (*q == '=')
+            return TRUE;
+        }
+
+      namelen = scr_ci_prefix_len (p + 1, "font");
+      if (namelen == 0)
+        continue;
+      after = p[1 + namelen];
+      if (after != '\0' && after != '>' && !isspace ((unsigned char) after))
+        continue;
+      gt = strchr (p + 1, '>');
+      if (gt == NULL)
+        break;
+      for (q = p + 1 + namelen; q < gt; q++)
+        {
+          int attr = scr_ci_prefix_len (q, "colour");
+          if (attr == 0)
+            attr = scr_ci_prefix_len (q, "color");
+          if (attr == 0)
+            continue;
+          q += attr;
+          while (q < gt && isspace ((unsigned char) *q))
+            q++;
+          if (q < gt && *q == '=')
+            return TRUE;
+        }
+      p = gt;
+    }
+  return FALSE;
+}
+
+/*
+ * scr_game_uses_custom_colour()
+ *
+ * Scan every TAF line for colour markup.  ADRIFT <=4 stores no palette in the
+ * file header -- colour lives only as tags inside authored strings -- so this
+ * is how the Glk port decides whether to start in the Runner's palette.
+ */
+scr_bool
+scr_game_uses_custom_colour (scr_game game)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+  scr_prop_setref_t bundle;
+  scr_tafref_t taf;
+  const scr_char *line;
+
+  if (if_game_error (game_, "scr_game_uses_custom_colour"))
+    return FALSE;
+
+  bundle = gs_get_bundle (game_);
+  taf = prop_get_taf (bundle);
+  if (taf == NULL)
+    return FALSE;
+
+  taf_first_line (taf);
+  while (taf_more_lines (taf))
+    {
+      line = taf_next_line (taf);
+      if (line != NULL && scr_text_has_colour_markup (line))
+        return TRUE;
+    }
+  return FALSE;
 }
 
 

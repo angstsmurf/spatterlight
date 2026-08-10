@@ -3,6 +3,7 @@
  * ADRIFT 5 support for Scarier -- in-memory object model.  See a5model.h.
  */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1442,6 +1443,99 @@ a5model_load_error (const a5_adventure_t *a)
   if (a == NULL || a->n_locations == 0)
     return "This adventure has no locations.  Cannot continue.";
   return NULL;
+}
+
+/* Case-insensitive match of `prefix` at `s`; returns the length matched, or 0. */
+static int
+a5_ci_prefix_len (const char *s, const char *prefix)
+{
+  int n = 0;
+  while (prefix[n] != '\0')
+    {
+      if (s[n] == '\0'
+          || tolower ((unsigned char) s[n]) != tolower ((unsigned char) prefix[n]))
+        return 0;
+      n++;
+    }
+  return n;
+}
+
+/* True when `text` (already entity-decoded adventure string content) contains
+   a <font ... color=...> or <font ... colour=...> open tag.  Face/size-only
+   <font> tags do not count: those are typography, not a colour choice. */
+static int
+a5_text_has_font_colour (const char *text)
+{
+  const char *p;
+
+  if (text == NULL)
+    return 0;
+  for (p = text; *p != '\0'; p++)
+    {
+      const char *gt, *q;
+      int namelen;
+      char after;
+
+      if (*p != '<')
+        continue;
+      namelen = a5_ci_prefix_len (p + 1, "font");
+      if (namelen == 0)
+        continue;
+      after = p[1 + namelen];
+      if (after != '\0' && after != '>' && !isspace ((unsigned char) after))
+        continue;
+      gt = strchr (p + 1, '>');
+      if (gt == NULL)
+        break;
+      for (q = p + 1 + namelen; q < gt; q++)
+        {
+          int attr = a5_ci_prefix_len (q, "colour");
+          if (attr == 0)
+            attr = a5_ci_prefix_len (q, "color");
+          if (attr == 0)
+            continue;
+          q += attr;
+          while (q < gt && isspace ((unsigned char) *q))
+            q++;
+          if (q < gt && *q == '=')
+            return 1;
+        }
+      p = gt;
+    }
+  return 0;
+}
+
+static int
+a5_node_has_font_colour (const a5_xml_node_t *n)
+{
+  const a5_xml_node_t *c;
+
+  if (n == NULL)
+    return 0;
+  if (n->text != NULL && n->text[0] != '\0' && a5_text_has_font_colour (n->text))
+    return 1;
+  for (c = n->first_child; c != NULL; c = c->next)
+    {
+      if (a5_node_has_font_colour (c))
+        return 1;
+    }
+  return 0;
+}
+
+int
+a5model_uses_custom_colour (const a5_adventure_t *a)
+{
+  /* Runner defaults from Global.vb DEFAULT_*COLOUR, held here as 0xRRGGBB --
+     the same values a5model_from_doc writes when the adventure omits a colour
+     element (see the A5_COLOURS table there). */
+  if (a == NULL)
+    return 0;
+  if (a->bg_colour != 0x000000u
+      || a->input_colour != 0xd22527u
+      || a->output_colour != 0x19a58au
+      || a->link_colour != 0x4bd7bcu)
+    return 1;
+  return a5_node_has_font_colour (a->root);
 }
 
 void

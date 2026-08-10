@@ -436,6 +436,12 @@ extern int a5model_upgrade_forced_yes (const a5_adventure_t *a);
  */
 extern const char *a5model_load_error (const a5_adventure_t *a);
 
+/* Non-zero when the adventure asks for a non-default Runner palette, or embeds
+   a <font colour="..."> / <font color="..."> tag anywhere in its XML text.
+   Hosts that prefer the interpreter theme for stock ADRIFT colours use this to
+   decide whether to paint the game's own palette. */
+extern int a5model_uses_custom_colour (const a5_adventure_t *a);
+
 extern void a5model_free (a5_adventure_t *adv);
 
 /* Property lookup within a record's property array. */

@@ -114,7 +114,7 @@
      - <c> and <font colour="..."> leave an A5_COLOUR_MARK-delimited colour
        span, \027<value>\027, and their close tags leave A5_ENDCOLOUR_MARK, so
        the host can draw the enclosed text in the Adrift colour the author
-       asked for (a Glk host through garglk_set_zcolors, under "glk colour").
+       asked for (a Glk host through garglk_set_zcolors).
        <value> is the tag's colour token verbatim and lowercased -- a name
        ("red"), a hex triplet ("#ff0000") -- or empty for a <font> that names
        no colour, which inherits the enclosing one so that its </font> still

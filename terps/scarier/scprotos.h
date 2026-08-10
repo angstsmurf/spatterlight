@@ -217,6 +217,8 @@ extern scr_bool prop_put_string (scr_prop_setref_t bundle,
 extern void prop_adopt (scr_prop_setref_t bundle, void *addr);
 extern void prop_debug_trace (scr_bool flag);
 extern void prop_debug_dump (scr_prop_setref_t bundle);
+/* The TAF the properties were parsed from (for scanning authored strings). */
+extern scr_tafref_t prop_get_taf (scr_prop_setref_t bundle);
 
 /* Game parser enumeration and functions. */
 enum

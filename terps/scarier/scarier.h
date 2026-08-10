@@ -158,6 +158,9 @@ extern void scr_set_game_capacity_recompute (scr_game game, scr_bool flag);
 
 extern scr_bool scr_does_game_use_sounds (scr_game);
 extern scr_bool scr_does_game_use_graphics (scr_game);
+/* Non-zero when the TAF embeds colour markup (<font colour>/<font color> or
+   <bgcolour>/<bgcolor>) anywhere in its authored strings. */
+extern scr_bool scr_game_uses_custom_colour (scr_game);
 
 typedef void *scr_game_hint;
 extern scr_game_hint scr_get_first_game_hint (scr_game game);

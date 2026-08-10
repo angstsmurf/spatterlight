@@ -18,12 +18,15 @@
  */
 
 /*
- * Module notes:
- *
- * o The Glk interface makes no effort to set text colours, background
- *   colours, and so forth, and minimal effort to set fonts and other style
- *   effects.
- */
+  * Module notes:
+  *
+  * o Where the Glk library has garglk_set_zcolors (Spatterlight, Gargoyle),
+  *   the port paints the story in the game's own Adrift palette when the
+  *   adventure customises colour (a non-default ADRIFT 5 header palette, a
+  *   <font colour>/<bgcolour> tag, or "glk colour on" / "-c").  Elsewhere it
+  *   makes no effort to set text or background colours, and minimal effort to
+  *   set fonts and other style effects.
+  */
 
 #include <assert.h>
 #include <ctype.h>
@@ -181,26 +184,27 @@ static int gsc_commands_enabled = TRUE,
            gsc_unicode_enabled = TRUE;
 
 /* Whether this Glk library has the garglk_set_zcolors extension, and with it
-   the "glk colour" mode.  Defined up here rather than down with the rest of
+   Adrift colour painting.  Defined up here rather than down with the rest of
    the colour code because the status line, drawn earlier in the file, draws
    itself in the game's colours too; the mode itself is documented where
-   gsc_set_colour lives. */
+   gsc_colour_startup_apply lives. */
 #if defined(SPATTERLIGHT) || defined(GARGLK) \
     || defined(GLK_MODULE_GARGLK_FILE_RESOURCES)
 # define GSC_HAVE_ZCOLORS 1
 #endif
 
 /* ADRIFT <=4 Runner default palette; the ADRIFT 5 loop overwrites these from
-   the adventure when it loads one.  See gsc_set_colour for where the numbers
-   come from. */
+   the adventure when it loads one.  See gsc_colour_startup_apply for where the
+   numbers come from. */
 static glui32 gsc_colour_background = 0x000000,
               gsc_colour_output = 0x00ff00,
               gsc_colour_input = 0xff3232;
 
-/* Whether the game's own palette is in force ("glk colour", set by
-   gsc_set_colour far below).  It lives up here because the status line, drawn
-   earlier in the file, picks its style by it; where the Glk library has no
-   zcolors extension the command is not offered and this stays FALSE. */
+/* Whether the game's own palette is in force ("glk colour", also set
+   automatically when an adventure customises colour).  It lives up here
+   because the status line, drawn earlier in the file, picks its style by it;
+   where the Glk library has no zcolors extension the command is not offered
+   and this stays FALSE. */
 static int gsc_colour_enabled = FALSE;
 /* Whether the "-c" command line switch asked for colour mode from the start,
    sparing the player a "glk colour on" at every launch.  Acted on once the
@@ -210,8 +214,8 @@ static int gsc_colour_startup = FALSE;
    the status bar in its own two colours can put the story's back afterwards --
    a library whose zcolors are global as well as per-stream would otherwise go
    on painting the story window in the bar's colours.  See gsc_status_end.  Only
-   read while colour mode is on, and gsc_set_colour colours the story window
-   before it turns the mode on, so it is always set by then. */
+   read while colour mode is on, and gsc_colour_startup_apply colours the story
+   window before any status redraw, so it is always set by then. */
 static glui32 gsc_colour_main_fg = 0;
 
 /* Adrift game to interpret. */
@@ -1175,9 +1179,8 @@ gsc_unicode_buffer_to_locale (const glui32 *unicode, scr_int length,
 }
 
 
-/* Colour mode; defined with the rest of the style handling further down.
-   Switches later text between the game's typed colour and its normal one, and
-   does nothing at all unless colour mode is on. */
+/* Adrift colours; defined with the rest of the style handling further down.
+   Switches later text between the game's typed colour and its normal one. */
 static void gsc_colour_echo (scr_bool typing);
 
 
@@ -1766,22 +1769,22 @@ typedef enum {
  * (replies) colour for the story, and an "input" (typed) colour that <c>...</c>
  * also asks for, on top of whatever <font colour="..."> the text names.  Glk
  * has no colour of its own, so by default this port drops all of that and
- * shows the story in the interpreter's styles, as SCARE always has.
+ * shows the story in the interpreter's styles.
  *
- * "glk colour on" turns the palette back on, through the Gargoyle/Spatterlight
- * garglk_set_zcolors extension.  Where that extension is missing (cheapglk,
- * glkterm) the mode cannot be offered at all, so everything below compiles out
- * and the command says so.
+ * When an adventure customises colour -- a non-default ADRIFT 5 header palette,
+ * or a <font colour>/<font color> (or ADRIFT <=4 <bgcolour>) tag anywhere in
+ * the game -- the port turns the palette on automatically through the
+ * Gargoyle/Spatterlight garglk_set_zcolors extension.  "glk colour on/off"
+ * still lets the player opt in to the Runner defaults or opt out of author
+ * colours.  Where that extension is missing (cheapglk, glkterm) the mode
+ * cannot be offered at all, so everything below compiles out and the command
+ * says so.
  *
  * Where the palette comes from differs by engine.  ADRIFT 5 stores it in the
- * adventure itself (a5model.h bg_colour and friends).  ADRIFT <=4 stores none:
- * the .taf has no colour fields, and the colours are Runner preferences.  The
- * defaults below are the ones run400.exe ships, read out of the settings it
- * writes under HKCU\Software\VB and VBA Program Settings\ADRIFT\Runner:
- * Background 0, Text1 3289855 and Text2 65280 -- OLE colour integers (low byte
- * red), i.e. black, #FF3232 for typed text and #00FF00 for replies.  They match
- * the swatches in the Runner's own Options -> Display & Media dialog ("Set
- * typed colour", "Set replies colour", "Set background colour").
+ * adventure itself (a5model.h bg_colour and friends).  ADRIFT <=4 stores none
+ * in the header: the .taf has no colour fields, and the colours below are
+ * run400.exe's defaults (Background 0, Text1 3289855, Text2 65280 -- OLE
+ * integers, i.e. black, #FF3232 typed, #00FF00 replies).
  */
 /* GSC_HAVE_ZCOLORS, the palette itself and the on/off flag are all declared
    with the other module options at the top of the file, where the status line
@@ -3731,10 +3734,11 @@ gsc_command_verbose (const char *argument)
  * green replies, red typed text for ADRIFT 4 (the Runner's defaults, and the
  * only place they live: nothing in the .taf carries a colour), the author's
  * own four colours for ADRIFT 5 -- and a game that writes white text, or
- * chooses colours to sit on black, needs that background to read at all.  Off
- * by default, since the interpreter's own theme is what most players want;
- * a player who wants the Runner's look every time starts the interpreter with
- * "-c" (gsc_colour_startup_apply).
+ * chooses colours to sit on black, needs that background to read at all.
+ * Colour mode also starts on automatically when the adventure customises
+ * colour (see gsc_colour_startup_apply); "glk colour" is still here so a
+ * player can opt into the Runner defaults or opt out of author colours.
+ * A player who wants the Runner's look every time starts with "-c".
  *
  * Turning it on clears the window so the background is black from the top
  * rather than only behind text written from here on; turning it off clears
@@ -3837,18 +3841,20 @@ gsc_set_colour (scr_bool state)
 /*
  * gsc_colour_startup_apply()
  *
- * Act on the "-c" switch, once the story and status windows exist and the
- * ADRIFT 5 loader (if any) has replaced the palette globals with the
- * adventure's own four colours -- both true by the time either main() calls
- * this.  Not called on an autorestore: a restored session brings its own
- * colour state back with it, and a switch on the command line has no business
- * overriding what the player left the game in.
+ * Paint the story in the game's Adrift palette once the windows exist, when
+ * either "-c" asked for colour mode or load-time detection decided the
+ * adventure customises colour (a5model_uses_custom_colour /
+ * scr_game_uses_custom_colour) -- both the windows and the palette globals are
+ * ready by the time either main() calls this.  Not called on an autorestore: a
+ * restored session brings its own colour state back with it, and a switch on
+ * the command line has no business overriding what the player left the game
+ * in.
  */
 static void
 gsc_colour_startup_apply (void)
 {
 #ifdef GSC_HAVE_ZCOLORS
-  if (gsc_colour_startup)
+  if (gsc_colour_startup || gsc_colour_enabled)
     gsc_set_colour (TRUE);
 #endif
 }
@@ -4840,10 +4846,13 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk colours");
       gsc_normal_string (", and ");
       gsc_standout_string ("glk colors");
-      gsc_normal_string (" are the same command.\n\nGames written for a black"
-                         " screen can be hard to read without this; games that"
-                         " never set a colour of their own look much the same"
-                         " either way.\n");
+      gsc_normal_string (" are the same command.\n\nColour mode also starts on"
+                         " by itself when the adventure customises colour"
+                         " (a non-default ADRIFT 5 palette, or a"
+                         " <font colour>/<bgcolour> tag).  Games written for a"
+                         " black screen can be hard to read without this;"
+                         " games that never set a colour of their own look"
+                         " much the same either way.\n");
     }
 
   else if (matched->handler == gsc_command_undo
@@ -5969,10 +5978,12 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
           gsc_game_message = NULL;
           /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
              knows nothing about, an ADRIFT 5 adventure carries the author's
-             own colours; colour mode uses those. */
+             own colours.  Honour them only when the adventure customises
+             colour -- otherwise leave the interpreter theme alone. */
           gsc_colour_background = gsc_a5_adv->bg_colour;
           gsc_colour_output = gsc_a5_adv->output_colour;
           gsc_colour_input = gsc_a5_adv->input_colour;
+          gsc_colour_enabled = a5model_uses_custom_colour (gsc_a5_adv);
           glk_stream_close (game_stream, NULL);
           if (restore_stream)
             glk_stream_close (restore_stream, NULL);
@@ -6034,6 +6045,10 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
       /* Default the assists on for known broken games, before the game's
          battle_start() reads the combat-assist flag. */
       gsc_apply_known_game_assists (gsc_game);
+
+      /* ADRIFT <=4 colour lives only as tags inside authored strings; start
+         in the Runner palette when the TAF embeds any. */
+      gsc_colour_enabled = scr_game_uses_custom_colour (gsc_game);
     }
 
   /* Close the temporary window. */
@@ -6099,7 +6114,8 @@ gsc_main (void)
 
       gsc_open_status_window ();
 
-      /* "-c": into the game's palette before a word is printed. */
+      /* "-c", or an adventure that customises colour: into the game's palette
+         before a word is printed. */
       gsc_colour_startup_apply ();
     }
 
@@ -8462,11 +8478,6 @@ gsc_map_redraw (void)
   if (w == 0 || h == 0)
     return;
 
-  /* The map is drawn in the story's colours: the buffer's normal style
-     supplies the background and text colour.  Spatterlight answers
-     glk_style_measure with the live theme, and redraws on both prompt and
-     arrange, so a theme change reaches the map by itself; a Glk that cannot
-     measure leaves the palette at its black-on-white default. */
   {
     glui32 bg, fg;
     scr_bool have;
@@ -8487,6 +8498,9 @@ gsc_map_redraw (void)
       }
     else
 #endif
+      /* The map is drawn in the story's colours: the buffer's normal style
+         supplies the background and text colour.  A Glk that cannot measure
+         leaves the palette at its black-on-white default. */
       have = glk_style_measure (gsc_main_window, style_Normal,
                                 stylehint_BackColor, &bg)
              && glk_style_measure (gsc_main_window, style_Normal,
@@ -9375,8 +9389,8 @@ gsc_a5_main (void)
       gsc_open_main_window ();
       gsc_open_status_window ();
 
-      /* "-c": into the adventure's own palette (already parsed off the header
-         by the startup code) before the title page is drawn. */
+      /* "-c", or an adventure that customises colour: into the adventure's
+         own palette before the title page is drawn. */
       gsc_colour_startup_apply ();
     }
 

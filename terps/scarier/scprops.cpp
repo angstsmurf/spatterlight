@@ -1064,6 +1064,14 @@ prop_adopt (scr_prop_setref_t bundle, void *addr)
 }
 
 
+scr_tafref_t
+prop_get_taf (scr_prop_setref_t bundle)
+{
+  assert (prop_is_valid (bundle));
+  return bundle->taf;
+}
+
+
 /*
  * prop_debug_is_dictionary_string()
  * prop_debug_dump_node()
