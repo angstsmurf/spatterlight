@@ -91,7 +91,7 @@ typedef struct
 } scr_html_tags_t;
 
 static const scr_html_tags_t HTML_TAGS_TABLE[] = {
-  {"bgcolour", 8, SCR_TAG_BGCOLOR}, {"bgcolor", 7, SCR_TAG_BGCOLOR},
+  {"bgcolour", 8, SCR_TAG_BGCOLOUR}, {"bgcolor", 7, SCR_TAG_BGCOLOUR},
   {"waitkey", 7, SCR_TAG_WAITKEY},
   {"center", 6, SCR_TAG_CENTER}, {"/center", 7, SCR_TAG_ENDCENTER},
   {"centre", 6, SCR_TAG_CENTER}, {"/centre", 7, SCR_TAG_ENDCENTER},
@@ -101,7 +101,7 @@ static const scr_html_tags_t HTML_TAGS_TABLE[] = {
   {"i", 1, SCR_TAG_ITALICS}, {"/i", 2, SCR_TAG_ENDITALICS},
   {"b", 1, SCR_TAG_BOLD}, {"/b", 2, SCR_TAG_ENDBOLD},
   {"u", 1, SCR_TAG_UNDERLINE}, {"/u", 2, SCR_TAG_ENDUNDERLINE},
-  {"c", 1, SCR_TAG_COLOR}, {"/c", 2, SCR_TAG_ENDCOLOR},
+  {"c", 1, SCR_TAG_COLOUR}, {"/c", 2, SCR_TAG_ENDCOLOUR},
   {NULL, 0, SCR_TAG_UNKNOWN}
 };
 
@@ -509,7 +509,7 @@ pf_output_tag (const scr_char *contents)
 
           next = contents[entry->length];
           if (next == NUL || scr_isspace (next)
-              || (entry->tag == SCR_TAG_BGCOLOR && next == '='))
+              || (entry->tag == SCR_TAG_BGCOLOUR && next == '='))
             break;
         }
     }
@@ -527,7 +527,7 @@ pf_output_tag (const scr_char *contents)
    * argument (to match <font colour=...> for the client.
    */
   argument = contents;
-  argument += (entry->tag != SCR_TAG_BGCOLOR) ? entry->length : 0;
+  argument += (entry->tag != SCR_TAG_BGCOLOUR) ? entry->length : 0;
   while (scr_isspace (argument[0]))
     argument++;
   if_print_tag (entry->tag, argument);

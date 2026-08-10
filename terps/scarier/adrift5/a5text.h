@@ -101,6 +101,16 @@
        text -- BEFORE any later <waitkey> pause, the way the Runner's
        DisplayText acts on an audio tag the moment it reaches it (Pervert
        Action Crisis strikes its sting ahead of a keypress-paced cutscene).
+     - <c> and <font colour="..."> leave an A5_COLOUR_MARK-delimited colour
+       span, \027<value>\027, and their close tags leave A5_ENDCOLOUR_MARK, so
+       the host can draw the enclosed text in the Adrift colour the author
+       asked for (a Glk host through garglk_set_zcolors, under "glk colour").
+       <value> is the tag's colour token verbatim and lowercased -- a name
+       ("red"), a hex triplet ("#ff0000") -- or empty for a <font> that names
+       no colour, which inherits the enclosing one so that its </font> still
+       pops symmetrically.  <c> writes the reserved token "input", since the
+       colour it asks for is the adventure's InputColour rather than anything
+       spelled out in the text; no Adrift colour name collides with it.
      - a <center> or <b> span still open when a Display commit ends dies with
        that commit: the Runner renders each commit through its own Source2HTML
        parse, so an unclosed tag never bleeds into the next commit's text.
@@ -119,8 +129,8 @@
    finish_turn keeps all of these in the returned turn text; a host that never
    enables interactive mode (the headless dump / ground-truth harness) sees no
    behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE),
-   \x11 (DC1), \x12 (DC2), \x13 (DC3), \x14 (DC4), \x15 (NAK) and \x16 (SYN)
-   never occur in game text. */
+   \x11 (DC1), \x12 (DC2), \x13 (DC3), \x14 (DC4), \x15 (NAK), \x16 (SYN),
+   \x17 (ETB) and \x18 (CAN) never occur in game text. */
 #define A5_IMG_MARK '\006'
 #define A5_WAITKEY_MARK '\007'
 #define A5_CENTER_MARK '\016'
@@ -132,6 +142,8 @@
 #define A5_SOUND_MARK '\024'
 #define A5_COMMIT_MARK '\025'
 #define A5_WAIT_MARK '\026'
+#define A5_COLOUR_MARK '\027'
+#define A5_ENDCOLOUR_MARK '\030'
 
 /* Interactive-presentation mode toggle (default off; see marks above). */
 extern void a5text_set_interactive (int on);
@@ -179,6 +191,15 @@ extern char *a5text_eval_expression (a5_state_t *st, const char *expr);
 
 /* Render markup (tags + entities) to plain text. */
 extern char *a5text_render_plain (const char *src);
+
+/* Compact an already-rendered plain string in place, dropping the presentation
+   sentinels defined above -- the non-spanning ones outright, the spanning ones
+   with their payload.  For text a host draws OUTSIDE the story window, where
+   finish_turn's own strip pass never runs and a sentinel would be drawn as a
+   glyph: Alyas of Starhollow tells its four River Lane rooms apart by naming
+   them "River Lane<1>".."<4>", and the stripped <4> leaves the A5_ALR_MARK
+   that Gargoyle shows as an ETX box at the end of the status line. */
+extern void a5text_strip_pres_marks (char *s);
 
 /*
  * Embedded-media side channel.  ADRIFT 5 embeds graphics/sound in description

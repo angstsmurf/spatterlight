@@ -3270,11 +3270,12 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
       for (; *q; q++)
         {
           if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK || *q == A5_SOUND_MARK
-              || *q == A5_WAIT_MARK)
+              || *q == A5_WAIT_MARK || *q == A5_COLOUR_MARK)
             {
               /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024
-                 / \026<seconds>\026 span (the window name is a routing tag,
-                 not visible ink), or a stray unpaired mark. */
+                 / \026<seconds>\026 / \027<colour>\027 span (the window name
+                 and the colour are presentation, not visible ink), or a stray
+                 unpaired mark. */
               const char *e = strchr (q + 1, *q);
               if (e == NULL)
                 continue;
@@ -3284,7 +3285,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
                    && *q != A5_ALR_MARK && *q != A5_WAITKEY_MARK
                    && *q != A5_CENTER_MARK && *q != A5_ENDCENTER_MARK
                    && *q != A5_BOLD_MARK && *q != A5_ENDBOLD_MARK
-                   && *q != A5_ENDWINDOW_MARK)
+                   && *q != A5_ENDCOLOUR_MARK && *q != A5_ENDWINDOW_MARK)
             { *pre_alr_ink = 1; break; }
         }
       free (pp);
@@ -3506,6 +3507,59 @@ a5_emit_media (const std::string &tag, int is_img)
   }
 }
 
+/* The value of a <font> tag's colour= / color= attribute, lowercased and with
+   its quotes stripped; "" when the tag names no colour.  The attribute name is
+   matched only at a word boundary, so the bgcolour= of a <font bgcolour="...">
+   cannot be read as the text colour.  Whitespace is allowed on either side of
+   the '=', because the Runner hands the tag to an HTML renderer and those
+   allow it: Alyas of Starhollow rewrites the library movement message as
+   "<font color = white>You move %PCase[%direction%]%.</font>", and without
+   this the line comes out in the adventure's output colour rather than white.
+   The result is capped well above any colour name or hex triplet -- it becomes
+   the payload of a mark-delimited span, which nothing downstream should have
+   to treat as unbounded. */
+static std::string
+a5_font_colour (const std::string &tag)
+{
+  static const char *const names[2] = { "colour", "color" };
+  std::string low = tag;
+
+  for (size_t k = 0; k < low.size (); k++)
+    low[k] = (char) tolower ((unsigned char) low[k]);
+
+  for (int pass = 0; pass < 2; pass++)
+    {
+      const std::string name = names[pass];
+
+      for (size_t at = low.find (name); at != std::string::npos;
+           at = low.find (name, at + 1))
+        {
+          size_t q = at + name.size ();
+          char quote = 0;
+          std::string out;
+
+          if (at > 0 && isalpha ((unsigned char) low[at - 1]))
+            continue;                          /* the tail of "bgcolour" */
+          while (q < low.size () && isspace ((unsigned char) low[q]))
+            q++;
+          if (q >= low.size () || low[q] != '=')
+            continue;                          /* an attribute of its own */
+          q++;
+          while (q < low.size () && isspace ((unsigned char) low[q]))
+            q++;
+          if (q < low.size () && (low[q] == '"' || low[q] == '\''))
+            quote = low[q++];
+          while (q < low.size () && out.size () < 24
+                 && (quote ? low[q] != quote
+                           : (!isspace ((unsigned char) low[q])
+                              && low[q] != '>')))
+            out.push_back (low[q++]);
+          return out;
+        }
+    }
+  return std::string ();
+}
+
 /* ----------------------------------------------------------- plain renderer */
 
 char *
@@ -3596,6 +3650,27 @@ a5text_render_plain (const char *src)
             sb_putc (&sb, A5_BOLD_MARK);
           else if (a5_interactive_mode && strcmp (name, "/b") == 0)
             sb_putc (&sb, A5_ENDBOLD_MARK);
+          else if (a5_interactive_mode
+                   && (strcmp (name, "c") == 0 || strcmp (name, "font") == 0))
+            {
+              /* Colour span opens: \027<value>\027 (see a5text.h).  <c> asks
+                 for the adventure's InputColour, which is not spelled out in
+                 the text, so it writes the reserved token "input"; a <font>
+                 writes its colour= attribute, or nothing at all when it names
+                 no colour -- it then inherits the enclosing colour, and its
+                 </font> still has a span to pop.  Headlessly both tags drop to
+                 A5_ALR_MARK below, so ground truth is unchanged. */
+              sb_putc (&sb, A5_COLOUR_MARK);
+              if (name[0] == 'c')
+                sb_puts (&sb, "input");
+              else
+                sb_puts (&sb, a5_font_colour (std::string (p + 1, tagend))
+                                .c_str ());
+              sb_putc (&sb, A5_COLOUR_MARK);
+            }
+          else if (a5_interactive_mode
+                   && (strcmp (name, "/c") == 0 || strcmp (name, "/font") == 0))
+            sb_putc (&sb, A5_ENDCOLOUR_MARK);
           else if (a5_interactive_mode && strcmp (name, "window") == 0)
             {
               /* Secondary output window opens: leave the window name delimited
@@ -3662,6 +3737,37 @@ a5text_render_plain (const char *src)
       p++;
     }
   return sb_finish (&sb);
+}
+
+void
+a5text_strip_pres_marks (char *s)
+{
+  char *r, *w;
+
+  if (s == NULL)
+    return;
+  for (r = w = s; *r != '\0'; r++)
+    {
+      if (*r == A5_IMG_MARK || *r == A5_WINDOW_MARK || *r == A5_SOUND_MARK
+          || *r == A5_WAIT_MARK || *r == A5_COLOUR_MARK)
+        {
+          /* A spanning mark goes with its payload: \006<number>\006 and
+             friends, or nothing at all if the closing mark is missing. */
+          const char *e = strchr (r + 1, *r);
+
+          if (e != NULL)
+            r = (char *) e;
+          continue;
+        }
+      if (*r == A5_ALR_MARK || *r == A5_WAITKEY_MARK
+          || *r == A5_CENTER_MARK || *r == A5_ENDCENTER_MARK
+          || *r == A5_BOLD_MARK || *r == A5_ENDBOLD_MARK
+          || *r == A5_ENDCOLOUR_MARK || *r == A5_ENDWINDOW_MARK
+          || *r == A5_CLS_MARK || *r == A5_PS_MARK || *r == A5_COMMIT_MARK)
+        continue;
+      *w++ = *r;
+    }
+  *w = '\0';
 }
 
 /* str_replace_all, except an occurrence of `find` that is part of an ALREADY-
@@ -3841,7 +3947,7 @@ a5text_expand_var_defers (a5_state_t *st, const char *text)
 
 /* The runner applies pSpace to its RAW (markup-bearing) output buffer, so a message whose
    raw text ends in something other than a real newline -- a stripped tag
-   (`...\n<font color=X>`), a trailing `<br>`, or an entity -- leaves the buffer
+   (`...\n<font colour=X>`), a trailing `<br>`, or an entity -- leaves the buffer
    non-vbLf and the NEXT message space-joins with two leading spaces.  Scarier
    strips markup per message, so its stripped text ends in the '\n' that preceded
    the trailing tag and it would drop that join.  When the pre-strip text ends

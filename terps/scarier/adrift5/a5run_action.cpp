@@ -2861,7 +2861,7 @@ act_set_tasks (a5_run_t *run, const char * /*kind*/,
              AlienDiver's ShowCardsP3 (Repeatable=0, `Unset` then Execute'd
              over the crafted cards to stamp each a unique CardId) then stamped
              only the first card, so `pc`'s CardId==%number% matched every held
-             card and over-awarded colored fragments. */
+             card and over-awarded coloured fragments. */
           bool tt_done_at_entry = (tti >= 0 && st->task_done[tti]);
 
           /* One execution of the target task with the references bound from

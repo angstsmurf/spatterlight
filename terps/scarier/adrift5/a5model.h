@@ -324,6 +324,14 @@ typedef struct a5_adventure_s {
                                        showing in run500.exe                  */
   int show_first_location;          /* <ShowFirstLocation> (default 1): show
                                        the start room after the intro          */
+  uint32_t bg_colour;               /* <BackgroundColour>, <InputColour>,      */
+  uint32_t input_colour;            /* <OutputColour> and <LinkColour>: the    */
+  uint32_t output_colour;           /* author's Runner palette, held as        */
+  uint32_t link_colour;             /* 0xRRGGBB.  The XML carries them as OLE
+                                       (blue-green-red) integers in decimal and
+                                       omits any that matches the Runner
+                                       default, so these are always set -- see
+                                       ADRIFT-5-XML.md 2.6                      */
   int show_exits;                   /* <ShowExits> (default 1): append the
                                        "Exits are .../An exit leads ..." listing
                                        to each location view (clsAdventure.

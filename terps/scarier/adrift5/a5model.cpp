@@ -932,6 +932,45 @@ a5model_from_doc (a5_xml_doc_t *doc)
     const char *sfl = a5xml_child_text (root, "ShowFirstLocation");
     a->show_first_location = !(sfl != NULL && strcmp (sfl, "0") == 0);
   }
+  /* <BackgroundColour> / <InputColour> / <OutputColour> / <LinkColour>: the
+     palette the author chose for the Runner's output pane.  ADRIFT writes them
+     as Windows OLE colour integers -- BLUE, GREEN, RED byte order -- rendered
+     in decimal (ADRIFT-5-XML.md 2.6), and omits any element that still holds
+     the Runner default, so a missing element means "the default", not "no
+     colour".  Held here in the ordinary 0xRRGGBB order.
+     The defaults are the ADRIFT 5 Runner's own (Global.vb DEFAULT_*COLOUR,
+     stored there as ARGB): black background, red input, teal output, and a
+     pale cyan for hyperlinks. */
+  {
+    static const struct { const char *name; uint32_t dflt; } A5_COLOURS[] = {
+      {"BackgroundColour", 0x000000}, {"InputColour",  0xd22527},
+      {"OutputColour",     0x19a58a}, {"LinkColour",   0x4bd7bc}
+    };
+    uint32_t *field[4];
+    int i;
+
+    field[0] = &a->bg_colour;    field[1] = &a->input_colour;
+    field[2] = &a->output_colour; field[3] = &a->link_colour;
+    for (i = 0; i < 4; i++)
+      {
+        const char *text = a5xml_child_text (root, A5_COLOURS[i].name);
+        if (text != NULL && text[0] != '\0')
+          {
+            /* Read signed and mask: ADRIFT writes the value through VB's
+               CInt, so a file that stored an ARGB rather than an OLE colour
+               arrives negative, with the alpha byte to be dropped.  In an OLE
+               integer the LOW byte is red and the high byte blue (pure red is
+               0x0000FF, cyan 0xFFFF00), so swapping the outer two bytes gives
+               0xRRGGBB. */
+            uint32_t ole = (uint32_t) strtol (text, NULL, 10) & 0xffffffu;
+            *field[i] = ((ole & 0x0000ffu) << 16)
+                        | (ole & 0x00ff00u)
+                        | ((ole & 0xff0000u) >> 16);
+          }
+        else
+          *field[i] = A5_COLOURS[i].dflt;
+      }
+  }
   /* <ShowExits> gates the "Exits are .../An exit leads ..." listing appended
      to every location view; absent => true (clsAdventure.bShowExits default).
      ADRIFT serialises the boolean as "True"/"False" text (FileIO.GetBool:

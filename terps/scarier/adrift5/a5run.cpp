@@ -53,7 +53,7 @@ is_pres_mark (char c)
   return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
       || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
       || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
-      || c == A5_ENDWINDOW_MARK;
+      || c == A5_ENDCOLOUR_MARK || c == A5_ENDWINDOW_MARK;
 }
 
 /* The runner's bHasOutput (clsUserSession.vb:1272) for an ALREADY-RENDERED plain message
@@ -72,7 +72,7 @@ int
 msg_has_output (const char *m)
 {
   /* A5_ALR_MARK bytes are stripped-tag sentinels, not output: a message whose
-     plain rendering is only stripped tags (e.g. "<font color=X>") was empty in
+     plain rendering is only stripped tags (e.g. "<font colour=X>") was empty in
      the runner's stripped view too.  The interactive-mode presentation marks (waitkey
      pause points and \006<number>\006 image slots) are likewise not output --
      they stand for the same stripped tags, so a message must be judged empty
@@ -82,10 +82,10 @@ msg_has_output (const char *m)
   for (; *m != '\0'; m++)
     {
       if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK || *m == A5_SOUND_MARK
-          || *m == A5_WAIT_MARK)
+          || *m == A5_WAIT_MARK || *m == A5_COLOUR_MARK)
         {
           /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024 /
-             \026<seconds>\026 span (or a stray mark). */
+             \026<seconds>\026 / \027<colour>\027 span (or a stray mark). */
           const char *e = strchr (m + 1, *m);
           if (e == NULL)
             continue;
@@ -113,12 +113,12 @@ msg_ends_with_cls (const char *m)
       char c = m[n - 1];
       if (c == A5_CLS_MARK)
         return 1;
-      if (c == A5_SOUND_MARK || c == A5_WAIT_MARK)
+      if (c == A5_SOUND_MARK || c == A5_WAIT_MARK || c == A5_COLOUR_MARK)
         {
-          /* A trailing \024<index>\024 sound or \026<seconds>\026 wait span
-             is presentation, not output -- step back over the whole span (a
-             stray unpaired mark reads as text, like any other unrecognised
-             byte). */
+          /* A trailing \024<index>\024 sound, \026<seconds>\026 wait or
+             \027<colour>\027 colour span is presentation, not output -- step
+             back over the whole span (a stray unpaired mark reads as text,
+             like any other unrecognised byte). */
           size_t j = n - 1;
           while (j > 0 && m[j - 1] != c)
             j--;
@@ -216,14 +216,21 @@ a5run_is_over (a5_run_t *run) { return run->st->game_over; }
 /* ----------------------------------------------------- status-line accessors */
 
 /* The player's current location short description (room NAME) as plain text,
-   caller frees; NULL if the location is unknown. */
+   caller frees; NULL if the location is unknown.  This one goes straight to
+   the host's status line, so the presentation sentinels come out here: the
+   turn loop strips them from story text at finish_turn, and nothing strips
+   them from a room name. */
 char *
 a5run_location_name (a5_run_t *run)
 {
   const char *loc = a5state_player_location (run->st);
+  char *name;
+
   if (loc == NULL)
     return NULL;
-  return a5text_location_short_plain (run->st, loc);
+  name = a5text_location_short_plain (run->st, loc);
+  a5text_strip_pres_marks (name);
+  return name;
 }
 
 /* Adventure.Score / MaxScore (the runner reads htblVariables("Score"/"MaxScore"); see
