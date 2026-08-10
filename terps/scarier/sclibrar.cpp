@@ -1616,18 +1616,14 @@ lib_cmd_undo (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
+  scr_bool restored = FALSE, from_memo = FALSE;
 
   /* If an undo buffer is available, restore it. */
   if (game->undo_available)
     {
       gs_copy (game, game->undo);
       game->undo_available = FALSE;
-
-      lib_print_room_name (game, gs_playerroom (game));
-      pf_buffer_string (filter, "[The previous turn has been undone.]\n");
-
-      /* Undo can't properly unravel layered sounds... */
-      game->stop_sound = TRUE;
+      restored = TRUE;
     }
 
   /*
@@ -1636,12 +1632,34 @@ lib_cmd_undo (scr_gameref_t game)
    * effectively what it is.
    */
   else if (memo_load_game (memento, game))
+    restored = from_memo = TRUE;
+
+  if (restored)
     {
+      /*
+       * Keep going while the turn we have landed on is one the game takes no
+       * input at -- a "Press enter to continue" pause, where a bare "*" task
+       * eats whatever is typed (see run_input_is_discarded()).  Stopping on
+       * one would strand the player: UNDO there is swallowed like anything
+       * else, so it runs the pause forwards again, and a cutscene that pauses
+       * ten times can never be undone past its last pause.  Going back to the
+       * turn before the cutscene is what the player asked for anyway; it is
+       * the last turn where what they typed decided anything.
+       */
+      while (run_input_is_discarded (game) && memo_load_game (memento, game))
+        from_memo = TRUE;
+
       lib_print_room_name (game, gs_playerroom (game));
       pf_buffer_string (filter, "[The previous turn has been undone.]\n");
 
-      game->is_running = FALSE;
-      game->do_restore = TRUE;
+      /* Undo can't properly unravel layered sounds... */
+      game->stop_sound = TRUE;
+
+      if (from_memo)
+        {
+          game->is_running = FALSE;
+          game->do_restore = TRUE;
+        }
     }
 
   /* If no undo buffer and memo restore failed, there's no undo available. */
