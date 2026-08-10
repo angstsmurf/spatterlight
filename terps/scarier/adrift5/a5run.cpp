@@ -53,7 +53,11 @@ is_pres_mark (char c)
   return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
       || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
       || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
+      || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
+      || c == A5_UNDERLINE_MARK || c == A5_ENDUNDERLINE_MARK
+      || c == A5_RIGHT_MARK || c == A5_ENDRIGHT_MARK
       || c == A5_ENDCOLOUR_MARK || c == A5_ENDWINDOW_MARK;
+
 }
 
 /* The runner's bHasOutput (clsUserSession.vb:1272) for an ALREADY-RENDERED plain message
