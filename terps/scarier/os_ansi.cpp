@@ -105,6 +105,15 @@ append_character (scr_char c)
 
 
 /*
+ * Lines of stdin consumed so far, counting the ones a <waitkey> pause eats and
+ * the comment lines os_read_line() skips as well as commands.  The derivation
+ * markers below quote it so that a marker names the line of the solution file
+ * it belongs to, which is not the same as the number of prompts seen.
+ */
+static long input_lines_read = 0;
+
+
+/*
  * os_print_tag()
  * os_print_string()
  * os_print_string_debug()
@@ -156,8 +165,8 @@ os_print_tag (scr_int tag, const scr_char *argument)
           }
         if (getenv ("SCR_SKIP_WAITKEY"))
           break;
-        if (!feof (stdin))
-          fgets (dummy, sizeof (dummy), stdin);
+        if (!feof (stdin) && fgets (dummy, sizeof (dummy), stdin))
+          input_lines_read++;
         break;
       }
     }
@@ -265,6 +274,7 @@ os_read_line (scr_char *buffer, scr_int length)
       scr_quit_game (game);
       exit (EXIT_SUCCESS);
     }
+  input_lines_read++;
 
   /*
    * Scripting aid: treat a line whose first non-blank character is '#' as a
@@ -290,7 +300,25 @@ os_read_line (scr_char *buffer, scr_int length)
           scr_quit_game (game);
           exit (EXIT_SUCCESS);
         }
+      input_lines_read++;
     }
+
+  /*
+   * Derivation aid, in the mould of SCR_MARK_WAITKEY above: SCR_MARK_KEYPROMPT=1
+   * notes every prompt at which a catch-all task will discard whatever is typed
+   * -- the "Press enter to continue" pauses that a solution file has to answer
+   * with a blank line.  The Glk port turns these into single-keypress requests;
+   * here they stay line reads, so goldens are unaffected.
+   *
+   * The marker quotes the input line it belongs to, not the number of the
+   * prompt: <waitkey> pauses and skipped comments eat lines of their own, so
+   * the two part company early and only the line number can be looked up in
+   * the solution file.  It is printed after the read, since that is when the
+   * line is known, but the game state it describes is the one that was in
+   * force when the prompt was issued -- nothing between the two runs any task.
+   */
+  if (getenv ("SCR_MARK_KEYPROMPT") && scr_input_is_discarded (game))
+    printf ("[KEYPROMPT line=%ld]\n", input_lines_read);
 
   /*
    * Derivation aid: with SCR_ECHO_INPUT set, echo the command back after the

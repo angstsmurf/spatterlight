@@ -1297,6 +1297,100 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
 
 
 /*
+ * restr_task_restriction_count()
+ *
+ * The number of restrictions declared on a task.  Zero means the task runs
+ * whenever its command matches and its state and room allow it.
+ */
+scr_int
+restr_task_restriction_count (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "Restrictions";
+
+  return prop_get_child_count (bundle, "I<-sis", vt_key);
+}
+
+
+/*
+ * restr_task_restrictions_use_references()
+ *
+ * TRUE if any of the task's restrictions asks about "the referenced object" or
+ * "the referenced character" -- the object or NPC that matching the task's
+ * command bound to %object% or %character%.
+ *
+ * Such a restriction only means anything once a command has been matched
+ * against the task, which is the only way those references are ever set.
+ * Evaluating one at any other moment reads whatever the previous turn left
+ * behind, or, before any command has bound them, an index of -1 that walks
+ * straight off the front of the NPC table.  run_input_is_discarded(), which
+ * looks at tasks it has not matched anything against, uses this to leave those
+ * tasks alone.
+ *
+ * The three restriction types that can consult a reference are recognised from
+ * their Var fields, following the decoding in restr_pass_task_object_location(),
+ * restr_object_in_place(), restr_pass_task_object_state() and
+ * restr_pass_task_char() above.  Variable and task-state restrictions never
+ * consult one.  The test errs towards TRUE: for the object-location type it
+ * does not first check that Var2 selects one of the holder forms that read
+ * Var3, since a caller that wants to know whether a task is safe to evaluate is
+ * better served by a plain answer than by a precise one.
+ */
+scr_bool
+restr_task_restrictions_use_references (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int restriction_count, restriction;
+
+  restriction_count = restr_task_restriction_count (game, task);
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "Restrictions";
+  for (restriction = 0; restriction < restriction_count; restriction++)
+    {
+      scr_int type, var1, var3;
+
+      vt_key[3].integer = restriction;
+      vt_key[4].string = "Type";
+      type = prop_get_integer (bundle, "I<-sisis", vt_key);
+
+      /* Only the types demultiplexed above are read, and only for the fields
+         that type actually carries: asking for a Var a restriction does not
+         have is a fatal property lookup. */
+      if (type != 0 && type != 1 && type != 3)
+        continue;
+
+      vt_key[4].string = "Var1";
+      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      if (type == 1)
+        {
+          /* Object state: Var1 addresses the object, and there is no Var3. */
+          if (var1 == 0)
+            return TRUE;
+          continue;
+        }
+
+      vt_key[4].string = "Var3";
+      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+
+      /* Object location addresses the object with Var1 and the character
+         holding it with Var3; the player-and-NPCs type can name one on either
+         side. */
+      if (var3 == 1 || var1 == (type == 0 ? 2 : 1))
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
+
+/*
  * restr_debug_trace()
  *
  * Set restrictions tracing on/off.

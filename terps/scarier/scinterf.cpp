@@ -1033,6 +1033,23 @@ scr_does_command_match (scr_game game, const scr_char *string)
   return run_does_command_match (game_, string);
 }
 
+/*
+ * Report whether the prompt now being read is one where the game will throw
+ * the input away -- a "Press enter to continue" pause implemented as a turn
+ * caught by a bare "*" task.  Meaningful only from inside os_read_line(),
+ * and FALSE at every other point (see run_prompt_discards_input()).
+ */
+scr_bool
+scr_input_is_discarded (scr_game game)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+
+  if (if_game_error (game_, "scr_input_is_discarded"))
+    return FALSE;
+
+  return run_prompt_discards_input (game_);
+}
+
 const scr_char *
 scr_get_game_name (scr_game game)
 {

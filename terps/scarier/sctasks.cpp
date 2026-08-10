@@ -295,6 +295,40 @@ task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
 
 
 /*
+ * task_where_type()
+ * task_is_everywhere()
+ *
+ * The type of the task's Where room list, cached on first use, and the test
+ * for the one type that makes a task available from anywhere in the game.
+ */
+static scr_int
+task_where_type (scr_gameref_t game, scr_int task)
+{
+  scr_task_props_t *const cached = task_cache_entry (game, task);
+
+  if (cached->where_type == 0)
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[4];
+
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = "Where";
+      vt_key[3].string = "Type";
+      cached->where_type = prop_get_integer (bundle, "I<-siss", vt_key) + 1;
+    }
+
+  return cached->where_type - 1;
+}
+
+scr_bool
+task_is_everywhere (scr_gameref_t game, scr_int task)
+{
+  return task_where_type (game, task) == ROOMLIST_ALL_ROOMS;
+}
+
+
+/*
  * task_where_allows_run()
  *
  * The other half: TRUE if the player is standing in a room the task's Where
@@ -305,21 +339,11 @@ task_where_allows_run (scr_gameref_t game, scr_int task)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
-  scr_int type;
+  const scr_int type = task_where_type (game, task);
   scr_task_props_t *cached;
 
   cached = task_cache_entry (game, task);
 
-  /* Check room list for the task and return it. */
-  if (cached->where_type == 0)
-    {
-      vt_key[0].string = "Tasks";
-      vt_key[1].integer = task;
-      vt_key[2].string = "Where";
-      vt_key[3].string = "Type";
-      cached->where_type = prop_get_integer (bundle, "I<-siss", vt_key) + 1;
-    }
-  type = cached->where_type - 1;
   switch (type)
     {
     case ROOMLIST_NO_ROOMS:
@@ -1735,6 +1759,84 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
 
   /* Return status -- TRUE if matched and we output something. */
   return status;
+}
+
+
+/*
+ * task_would_print()
+ *
+ * TRUE if running the task now could put text in front of the player.  The
+ * tests mirror the points at which task_run_task_unrestricted() above sets
+ * its status, without running anything or disturbing the game.
+ *
+ * A task that matches a command but prints nothing does not count as having
+ * handled it: run_all_commands() carries on into the standard library, so the
+ * player's input still means something.  run_input_is_discarded() uses this to
+ * tell a cutscene's "*" task, which prints the next scene, from the "*" task a
+ * game hangs its parser bookkeeping on, which prints nothing at all.
+ *
+ * It errs towards TRUE, counting an Execute Task action even though the task
+ * it dispatches to may itself turn out to be silent.
+ */
+scr_bool
+task_would_print (scr_gameref_t game, scr_int task, scr_bool forwards)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int action_count, action;
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+
+  /* Reversing prints the ReverseMessage, and only if there is one to undo. */
+  if (!forwards)
+    {
+      vt_key[2].string = "ReverseMessage";
+      return gs_task_done (game, task)
+             && !scr_strempty (prop_get_string (bundle, "S<-sis", vt_key));
+    }
+
+  /* A completed one-shot task gets no further than its RepeatText. */
+  if (gs_task_done (game, task))
+    {
+      vt_key[2].string = "Repeatable";
+      if (!prop_get_boolean (bundle, "B<-sis", vt_key))
+        {
+          vt_key[2].string = "RepeatText";
+          return !scr_strempty (prop_get_string (bundle, "S<-sis", vt_key));
+        }
+    }
+
+  vt_key[2].string = "CompleteText";
+  if (!scr_strempty (prop_get_string (bundle, "S<-sis", vt_key)))
+    return TRUE;
+
+  vt_key[2].string = "AdditionalMessage";
+  if (!scr_strempty (prop_get_string (bundle, "S<-sis", vt_key)))
+    return TRUE;
+
+  vt_key[2].string = "ShowRoomDesc";
+  if (prop_get_integer (bundle, "I<-sis", vt_key) != 0)
+    return TRUE;
+
+  /* Of the action types, Execute Task and End Game report output. */
+  vt_key[2].string = "Actions";
+  action_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (action = 0; action < action_count; action++)
+    {
+      vt_key[3].integer = action;
+      vt_key[4].string = "Type";
+      switch (prop_get_integer (bundle, "I<-sisis", vt_key))
+        {
+        case 5:                /* Execute/unset task. */
+        case 6:                /* End game. */
+          return TRUE;
+        default:
+          break;
+        }
+    }
+
+  return FALSE;
 }
 
 

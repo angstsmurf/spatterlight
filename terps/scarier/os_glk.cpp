@@ -4327,6 +4327,40 @@ os_read_line (scr_char *buffer, scr_int length)
     }
 
   /*
+   * ADRIFT games pause between the scenes of a cutscene by ending one scene
+   * with "Press enter to continue" and hanging the next off a task whose
+   * command is a bare "*", which matches whatever the player types next --
+   * including nothing at all.  Game tasks are tried before the standard
+   * library, so at such a prompt everything typed is swallowed: not just
+   * commands, but UNDO, SAVE and QUIT.  Asking for a line there is a promise
+   * the game cannot keep, and it makes undoing back through a cutscene
+   * impossible, since each UNDO lands on a pause that eats the next one.
+   *
+   * scr_input_is_discarded() recognises that state from the game's own task
+   * table, so ask for a keypress instead and answer the interpreter with the
+   * empty line the player would otherwise have had to type.  The prompt is
+   * still printed and a newline still follows, so the transcript reads exactly
+   * as it did when the player pressed Enter -- and pressing Enter still works.
+   *
+   * Not while replaying an input log: a recorded session has a line in it for
+   * this prompt, and consuming it here keeps the replay in step, just as the
+   * <waitkey> tag handler does.
+   */
+  if (scr_input_is_discarded (gsc_game))
+    {
+      event_t event;
+
+      glk_request_char_event (gsc_main_window);
+      gsc_event_wait (evtype_CharInput, &event);
+      gsc_put_literal ("\n");
+
+      buffer[0] = '\0';
+      if (gsc_inputlog_stream)
+        glk_put_char_stream (gsc_inputlog_stream, '\n');
+      return TRUE;
+    }
+
+  /*
    * No input log being read, or we just hit the end of file on one.  Revert
    * to normal line input; start by getting a new line from Glk.
    */

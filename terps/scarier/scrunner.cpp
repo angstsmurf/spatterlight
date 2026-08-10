@@ -1325,6 +1325,190 @@ run_does_command_match (scr_gameref_t game, const scr_char *string)
 
 
 /*
+ * run_task_input_role()
+ * run_task_is_always_available()
+ * run_input_is_discarded()
+ * run_prompt_discards_input()
+ *
+ * ADRIFT games write their cutscenes as ordinary turns.  The text of one
+ * scene ends with "Press enter to continue", and a task whose command is a
+ * bare "*" -- a pattern that matches literally any input, the empty line
+ * included -- catches whatever the player types next and runs the following
+ * scene.  Game tasks are tried ahead of the standard library (see
+ * run_all_commands()), so at such a prompt UNDO, SAVE and QUIT are swallowed
+ * along with everything else: the Runner shows a normal input line, but no
+ * input can have any effect.  "The PK Girl" pauses this way forty times.
+ *
+ * run_input_is_discarded() reports that state, so that a port can ask for a
+ * keypress rather than a line and stop pretending the input matters.  It walks
+ * the task table in the order run_game_commands_common() walks it, looking for
+ * the first task that could claim input -- runnable here, runnable in this
+ * direction, carrying at least one ordinary command pattern, restrictions
+ * passing now.  Since no later task is reached once an earlier one matches,
+ * that first task is the one that settles the question:
+ *
+ *   - a bare wildcard lets nothing escape, so the input is discarded.
+ *   - anything else claims some inputs and not others, so the prompt is real.
+ *     "The PK Girl" has a scene where Ethan looks up whatever name you give
+ *     him: a "rosa" task ahead of the scene's "*" fallback, and typing "rosa"
+ *     is the whole point of the prompt.
+ *
+ * with one exception, which is what run_task_is_always_available() decides.  A
+ * task that carries no restrictions at all and is listed for every room is on
+ * offer at every prompt in the game, from the title screen to the last move;
+ * it cannot be what makes this prompt special, and it is invariably a utility
+ * -- "The PK Girl" opens its table with HELP, CREDITS, NOTIFY and SCORE.  Such
+ * a task is stepped over rather than allowed to decide.  Being stepped over
+ * means it is also given up: at a converted prompt the player can no longer
+ * type HELP.  That is the one thing this costs, and it buys a prompt that no
+ * longer swallows UNDO.  Everything else keeps its veto, including tasks
+ * offered game-wide but gated by restrictions, which are how a game asks a
+ * question that can be answered from anywhere -- "I am the Law" ends by asking
+ * the player to name the murderer.
+ *
+ * Restrictions are evaluated at the prompt, not merely counted, because a bare
+ * "*" task is equally the usual idiom for a game-wide "I don't understand you"
+ * handler -- restrictions that fail, with the complaint as the FailMessage.
+ * That one never qualifies, and never swallows input either: a restricted task
+ * falls through to the library.  "%text%" is likewise not a wildcard for this
+ * purpose; it matches anything but keeps what it matched, which is how games
+ * prompt for the player's name.
+ *
+ * Evaluating them here does mean evaluating them out of context, and one kind
+ * of restriction has no meaning out of context: the kind that asks about the
+ * referenced object or character, which only exists once a command has been
+ * matched against the task.  A task carrying one is unanswerable, so the whole
+ * prompt is left alone -- "circus" has such a task standing by throughout, and
+ * evaluating it was reading an NPC index the parser had not set yet.
+ *
+ * The answer depends on the game state alone, so it is the same for every
+ * possible input, which is what makes replacing the line request lossless.  It
+ * also makes the question askable of a state the game is not sitting at, which
+ * is how lib_cmd_undo() decides whether the turn it has just gone back to is
+ * one worth stopping at.
+ *
+ * run_prompt_discards_input() returns the value computed for the prompt
+ * currently being read; it is FALSE anywhere else, so the ports see FALSE for
+ * the name and gender prompts, which read lines of their own, and for the
+ * debugger's prompt.
+ */
+static scr_bool run_prompt_is_keypress = FALSE;
+
+enum { TASK_TAKES_NO_INPUT, TASK_TAKES_ANY_INPUT, TASK_TAKES_SOME_INPUT };
+
+static scr_int
+run_task_input_role (scr_gameref_t game, scr_int task, scr_bool forwards)
+{
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, forwards);
+  const scr_int command_count = (scr_int) patterns.size ();
+  scr_int command, role = TASK_TAKES_NO_INPUT;
+
+  for (command = 0; command < command_count; command++)
+    {
+      const scr_char *pattern = patterns[command];
+      const scr_int first = strspn (pattern, WHITESPACE);
+
+      /*
+       * "#..." patterns are task command functions, matched in a pass of
+       * their own (run_game_functions()) and never in the command pass, so
+       * they claim no input here.
+       */
+      if (pattern[first] == SPECIAL_PATTERN)
+        continue;
+
+      if (pattern[first] == WILDCARD_PATTERN
+          && pattern[first + 1 + strspn (pattern + first + 1,
+                                         WHITESPACE)] == NUL)
+        return TASK_TAKES_ANY_INPUT;
+
+      role = TASK_TAKES_SOME_INPUT;
+    }
+
+  return role;
+}
+
+static scr_bool
+run_task_is_always_available (scr_gameref_t game, scr_int task)
+{
+  return task_is_everywhere (game, task)
+         && restr_task_restriction_count (game, task) == 0;
+}
+
+scr_bool
+run_input_is_discarded (scr_gameref_t game)
+{
+  scr_int task_count, task, direction;
+
+  task_count = gs_task_count (game);
+  for (task = 0; task < task_count; task++)
+    {
+      if (!task_can_run_task (game, task))
+        continue;
+
+      for (direction = 0; direction < 2; direction++)
+        {
+          const scr_bool is_forwards = !direction;
+          const scr_int role = run_task_input_role (game, task, is_forwards);
+
+          if (role == TASK_TAKES_NO_INPUT)
+            continue;
+          if (!task_can_run_task_directional (game, task, is_forwards))
+            continue;
+
+          /*
+           * A restriction that asks about the referenced object or character
+           * is asking about a command that has not been parsed yet, and has no
+           * answer here; worse, evaluating one reads an unset reference and
+           * indexes the NPC table with it.  Nothing can be said about such a
+           * task, so nothing is said about the prompt either.
+           */
+          if (restr_task_restrictions_use_references (game, task))
+            return FALSE;
+
+          /* Restrictions last: much the most expensive of the three tests. */
+          if (!run_task_is_unrestricted (game, task))
+            continue;
+
+#ifdef SCARIER_DUMP_TOOLS
+          {
+            static const scr_bool trace =
+                getenv ("SCR_TRACE_KEYPROMPT") != NULL;
+            if (trace)
+              {
+                const std::vector<const scr_char *> &p =
+                    run_task_command_patterns (game, task, is_forwards);
+                fprintf (stderr, "KEYPROMPT task=%ld role=%ld everywhere=%d"
+                         " restrs=%ld pattern=[%s]\n", task, role,
+                         (int) task_is_everywhere (game, task),
+                         restr_task_restriction_count (game, task),
+                         p.empty () ? "" : p[0]);
+              }
+          }
+#endif
+
+          if (role == TASK_TAKES_ANY_INPUT)
+            return task_would_print (game, task, is_forwards);
+
+          /* Some inputs and not others, so this prompt means something. */
+          if (!run_task_is_always_available (game, task))
+            return FALSE;
+        }
+    }
+
+  return FALSE;
+}
+
+scr_bool
+run_prompt_discards_input (scr_gameref_t game)
+{
+  assert (gs_is_game_valid (game));
+
+  return run_prompt_is_keypress;
+}
+
+
+/*
  * run_game_functions()
  *
  * Iterate over every task, ignoring those not runnable, searching just for
@@ -1839,8 +2023,17 @@ run_player_input (scr_gameref_t game)
       memset (line_buffer, NUL, sizeof (line_buffer));
       memset (prior_element, NUL, sizeof (prior_element));
       memset (line_element, NUL, sizeof (line_element));
+      run_prompt_is_keypress = FALSE;
       return TRUE;
     }
+
+  /*
+   * Nothing is being read yet, so no prompt is a "press any key" one; the
+   * flag is set again just before the read below.  Clearing it here keeps it
+   * false for the whole of a turn taken from a multi-command line, and for
+   * the name and gender prompts, which read outside this function.
+   */
+  run_prompt_is_keypress = FALSE;
 
   /*
    * Save the settings of the game's do_again and undo_available flags for
@@ -1873,7 +2066,17 @@ run_player_input (scr_gameref_t game)
        * wise, separate output so far with a newline.
        */
       if (line_buffer[0] == NUL)
-        if_read_line (line_buffer, sizeof (line_buffer));
+        {
+          /*
+           * Note whether a catch-all task is standing by to eat whatever is
+           * typed, so that a port asking for input can offer a keypress
+           * instead of a line.  Computed before the read, since that is when
+           * the port needs the answer.
+           */
+          run_prompt_is_keypress = run_input_is_discarded (game);
+          if_read_line (line_buffer, sizeof (line_buffer));
+          run_prompt_is_keypress = FALSE;
+        }
       else
         if_print_character ('\n');
 

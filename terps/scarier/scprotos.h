@@ -747,6 +747,8 @@ extern void run_event_task (scr_gameref_t game, scr_int eventtask);
 extern void run_task_command_dispatch (scr_gameref_t game, scr_int task);
 extern scr_bool run_does_command_match (scr_gameref_t game,
                                        const scr_char *string);
+extern scr_bool run_input_is_discarded (scr_gameref_t game);
+extern scr_bool run_prompt_discards_input (scr_gameref_t game);
 extern scr_bool run_in_priority_pass (void);
 extern void run_priority_defer (void);
 extern scr_gameref_t run_create (scr_read_callbackref_t callback, void *opaque);
@@ -804,6 +806,9 @@ extern const scr_char *task_get_hint_unsubtle (scr_gameref_t game, scr_int task)
 extern scr_bool task_can_run_task_directional (scr_gameref_t game,
                                               scr_int task, scr_bool forwards);
 extern scr_bool task_can_run_task (scr_gameref_t game, scr_int task);
+extern scr_bool task_is_everywhere (scr_gameref_t game, scr_int task);
+extern scr_bool task_would_print (scr_gameref_t game,
+                                  scr_int task, scr_bool forwards);
 extern scr_bool task_is_room_refused (scr_gameref_t game,
                                       scr_int task, scr_bool forwards);
 extern scr_bool task_is_done_refused (scr_gameref_t game, scr_int task);
@@ -818,6 +823,9 @@ extern scr_bool restr_pass_task_object_state (scr_gameref_t game,
 extern scr_bool restr_eval_task_restrictions (scr_gameref_t game,
                                              scr_int task, scr_bool *pass,
                                              const scr_char **fail_message);
+extern scr_int restr_task_restriction_count (scr_gameref_t game, scr_int task);
+extern scr_bool restr_task_restrictions_use_references (scr_gameref_t game,
+                                                        scr_int task);
 extern void restr_debug_trace (scr_bool flag);
 
 /* NPC gender enumeration and functions. */
