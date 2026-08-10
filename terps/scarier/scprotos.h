@@ -806,6 +806,7 @@ extern scr_bool task_can_run_task_directional (scr_gameref_t game,
 extern scr_bool task_can_run_task (scr_gameref_t game, scr_int task);
 extern scr_bool task_is_room_refused (scr_gameref_t game,
                                       scr_int task, scr_bool forwards);
+extern scr_bool task_is_done_refused (scr_gameref_t game, scr_int task);
 extern scr_bool task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards);
 extern void task_debug_trace (scr_bool flag);
 extern void task_set_move_assist (scr_bool flag);

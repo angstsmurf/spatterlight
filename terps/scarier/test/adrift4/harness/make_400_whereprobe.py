@@ -90,14 +90,14 @@ room("Far Room")
 s(0)
 
 # TASKS
-def task(cmd, text, where_type, where_room=None):
+def task(cmd, text, where_type, where_room=None, repeatable=1, repeattext=""):
     s(1); s(cmd)         # V$Command
     s(text)              # CompleteText
     s("")                # ReverseMessage
-    s("")                # RepeatText
+    s(repeattext)        # RepeatText
     s("")                # AdditionalMessage
     s(0)                 # ShowRoomDesc
-    s(1)                 # Repeatable
+    s(repeatable)        # Repeatable
     s(0)                 # Reversible
     s(0)                 # V$ReverseCommand count
     s(where_type)        # Where: ROOM_LIST0 Type
@@ -108,10 +108,16 @@ def task(cmd, text, where_type, where_room=None):
     s(0)                 # Actions
     s("")                # RestrMask
 
-s(3)
+s(5)
 task("alpha", "ALPHA FIRED.", 0)
 task("beta",  "BETA FIRED.",  3)
 task("gamma", "GAMMA FIRED.", 1, 1)
+# The 3.9 twin of this probe showed run390 answering a re-typed completed
+# non-repeatable task with "You have already done that.", or with the authored
+# RepeatText when there is one.  4.0 has no such string in the binary -- but
+# RepeatText is still an authored 4.0 field, so type each of these twice.
+task("delta",   "DELTA FIRED.",   3, repeatable=0)
+task("epsilon", "EPSILON FIRED.", 3, repeatable=0, repeattext="EPSILON REPEAT.")
 
 # EVENTS, NPCS
 s(0)

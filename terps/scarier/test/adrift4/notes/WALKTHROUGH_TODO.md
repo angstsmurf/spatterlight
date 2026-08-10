@@ -15,8 +15,9 @@ and a row. This file is now the method, the cautions, and an index.
 
 Nothing here is open work. The one exception this file used to carry — the
 Runner's **"You can't do that here!"** refusal for a task typed outside its
-`Where` rooms — was probed and **implemented 2026-08-10**; see the follow-up
-under *The Hangover*. Everything else that once read as open below has since
+`Where` rooms — was probed and **implemented 2026-08-10**, along with its
+sibling **"You have already done that."**; see the follow-up under
+*The Hangover*. Everything else that once read as open below has since
 closed — where a later finding overturned a dated entry it carries a superseding
 note in place; the entry itself is left as written.
 
@@ -916,7 +917,7 @@ Two derivation notes:
   opens with "Get Up", which this build does not implement (`get` with no
   noun). It is left out of the solution file; the player starts standing.
 
-### Follow-up: the "You can't do that here!" refusal — **IMPLEMENTED 2026-08-10**
+### Follow-up: the task refusals — **IMPLEMENTED 2026-08-10**
 
 Both run390.exe and run400.exe carry the string ` can't do that here!` (VB6
 UTF-16; grep the .exe decoded as `utf-16-le`, plain `strings` misses it), and
@@ -967,7 +968,7 @@ which is why the feature needed synthetic coverage of its own —
 and Perspective 0) against `harness/where_refusal_expected.txt` and
 `harness/where_refusal_1p_expected.txt`, and is part of `make test`.
 
-Two gaps, both accepted:
+One gap, accepted:
 
 - The 3.7/3.8 period wording is proved live (run370 *Castle Quest*, run380
   *Marooned*) and gated on `version < TAF_VERSION_390`, but has no synthetic
@@ -975,11 +976,19 @@ Two gaps, both accepted:
   ROOM, OBJECT and TASK schemas all differ enough to need a second generator.
   The 3.7/3.8 corpus rows (`castle_quest`, `alices_restaurant`, `marooned`,
   `twilight`, …) pass unchanged.
-- The sibling divergence in the last column above — pre-4.0 Runners answer a
-  completed non-repeatable task (empty RepeatText) with **"You have already
-  done that."**, and that also consumes a turn, where Scarier says "I don't
-  understand." The string is in run370/380/390 and absent from run400, the same
-  pre-4.0-only pattern. Not implemented; recorded in `RUNNER_TESTS_TODO.md`.
+The sibling divergence in the last column above — pre-4.0 Runners answer a
+completed non-repeatable task with **"You have already done that."**, also a
+turn — was **implemented the same day**, on the same probe extended with two
+more tasks (`eta`, carrying a RepeatText; `theta`, both done *and* out of its
+room) and a matching 4.0 pair. Three things the extension settled: an authored
+**RepeatText displaces** the message; that half is **not** pre-4.0 — run400
+prints RepeatText too, and only the bare message was dropped; and when both
+blockers apply the **room wins**, so the already-done test carries the room
+condition. `run_where_refusal()` became `run_task_refusal()` and covers both.
+Again zero corpus movement (203/203, nothing re-blessed) even though **62 of
+196** corpus games author a non-repeatable task with a RepeatText (528 tasks —
+`SCR_DUMP_TASKS=1`, new `rpt=` column): solved routes do not re-type completed
+one-shot tasks. Full record in `RUNNER_TESTS_TODO.md` §4/§5.
 
 ## 2026-06-25: deaths (*Death's Door*) — **WON, full 100/100**
 

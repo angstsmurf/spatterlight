@@ -17,7 +17,26 @@ TICK.
 TICK.
 >EPSILON FIRED.
 TICK.
+>I have already done that.
+TICK.
 >I don't understand.
 >I don't understand.
->I don't understand.
+>ETA FIRED.
+TICK.
+>ETA REPEAT.
+TICK.
+>THETA FIRED.
+TICK.
+>I have already done that.
+TICK.
+>I move north.
+Far Room
+LONG.
+TICK.
+>I can't do that here!
+TICK.
+>I have already done that.
+TICK.
+>GAMMA FIRED.
+TICK.
 >Do you really want to quit? [Y/N] 

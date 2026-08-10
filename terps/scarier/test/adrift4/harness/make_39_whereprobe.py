@@ -9,7 +9,8 @@ DontUnderstand text for BOTH a Where-type-0 task and an out-of-room type-1 task
 Runners look like they differ.  Same three tasks, same session, one version
 down, settles it.
 
-Two rooms, no objects/NPCs, six tasks (all typed in room 1):
+Two rooms joined north/south, no objects/NPCs, eight tasks (the first six typed
+in room 1):
 
     alpha   Where type 0 (No rooms)     -> "ALPHA FIRED."
     beta    Where type 3 (All rooms)    -> "BETA FIRED."   (control: wiring)
@@ -23,6 +24,20 @@ Two rooms, no objects/NPCs, six tasks (all typed in room 1):
 
 The last two say how wide the flag is; the first four say whether the message
 exists at all.
+
+Two more tasks probe the *other* pre-4.0 refusal that turned up while measuring
+this one -- "You have already done that." for a completed non-repeatable task
+typed again (` have already done that.` is a UTF-16 literal in run370, run380
+and run390, and absent from run400, the same version pattern):
+
+    eta     Where type 3, NOT repeatable, RepeatText "ETA REPEAT." -- does an
+            authored RepeatText displace the refusal?
+    theta   Where type 1 (room 1 only), NOT repeatable -- complete it in room 1,
+            walk north, and type it again: with the task both done AND out of
+            its room, which of the two refusals wins?
+
+The rooms are joined north/south for theta's sake; ShowExits is off, so no
+transcript line moves because of it.
 
 Perspective is settable because the refusal is built as `arr(0) & " can't do
 that here!"` in the P-code, and `arr(0)` looked like the perspective pronoun.
@@ -81,12 +96,20 @@ s(0)                    # Graphics
 s(0)                    # iUnk1 (SizeMultiple)
 s(0)                    # iUnk2 (WeightMultiple)
 
-# ROOMS -- two, unconnected.
-def room(short):
+# ROOMS -- two, joined north/south so theta can be completed in one room and
+# retyped in the other.
+def room(short, exits=()):
     s(short)            # Short
     s("LONG.")          # Long
     s("")               # LastDesc
-    for _ in range(8): s(0)   # exits
+    # Exits (N E S W up down in out).  A slot is a single 0 for "no exit", else
+    # Dest (1-based room) Var1 Var2 -- ZVar3 is not stored in 3.9 files.
+    for slot in range(8):
+        dest = dict(exits).get(slot)
+        if dest is None:
+            s(0)
+        else:
+            s(dest); s(0); s(0)
     s("")               # AddDesc1
     s(0)                # Task1
     s("")               # AddDesc2
@@ -97,18 +120,19 @@ def room(short):
     s(0)                # HideOnMap
 
 s(2)
-room("Probe Room")
-room("Far Room")
+room("Probe Room", {0: 2})   # north -> Far Room
+room("Far Room", {2: 1})     # south -> Probe Room
 
 # OBJECTS
 s(0)
 
 # TASKS
-def task(cmd, text, where_type, rooms=None, repeatable=1, restr=None):
+def task(cmd, text, where_type, rooms=None, repeatable=1, restr=None,
+         repeattext=""):
     s(0); s(cmd)        # W$Command: count 0 -> 1 command
     s(text)             # CompleteText
     s("")               # ReverseMessage
-    s("")               # RepeatText
+    s(repeattext)       # RepeatText
     s("")               # AdditionalMessage
     s(0)                # ShowRoomDesc
     s(repeatable)       # Repeatable
@@ -131,7 +155,7 @@ def task(cmd, text, where_type, rooms=None, repeatable=1, restr=None):
     s(0)                # Actions
     # RestrMask is a parse fixup in 3.9; Res: nothing
 
-s(6)
+s(8)
 task("alpha",      "ALPHA FIRED.",   0)
 task("beta",       "BETA FIRED.",    3)
 task("gamma",      "GAMMA FIRED.",   1, [1])
@@ -139,6 +163,8 @@ task("delta echo", "DELTA FIRED.",   2, [1])
 task("epsilon",    "EPSILON FIRED.", 3, repeatable=0)
 # Task-state restriction "all tasks not done" -- fails from turn 1, silently.
 task("zeta",       "ZETA FIRED.",    3, restr=(2, (0, 1), ""))
+task("eta",        "ETA FIRED.",     3, repeatable=0, repeattext="ETA REPEAT.")
+task("theta",      "THETA FIRED.",   1, [0], repeatable=0)
 
 # EVENTS -- variant "e" only: a one-turn event that restarts immediately, so
 # every turn that really is a turn prints "TICK.".

@@ -446,7 +446,11 @@ What was actually established, each verified live:
       inverness stays winnable (route padded with two `z`; the catch fires
       one turn later than run390 would have, because Scarier's event-start
       scan runs before the steal completes the gating task within the same
-      event phase).  Same faithful-vs-playable call as Topaz.
+      event phase).  Same faithful-vs-playable call as Topaz.  The
+      2026-08-10 port of the *exact-command* already-done refusal (§4, §5)
+      does not disturb this: it runs last in `run_all_commands()`, after
+      movement and the standard library, so a completed `*` task still
+      cannot claim commands the game has an answer for.
 
 Residual small divergences, noted not fixed: run390 appends task text to
 `i`/inventory output where Scarier lets the wildcard replace it; the Runner
@@ -728,7 +732,8 @@ This table is the live part of the file — keep it current.
 | ADRIFT 4 `$RestrMask` operator precedence | ~~C precedence: an OR-expression over AND-expressions, both left-associative~~ **now equal precedence, left-associative** | `A` and `O` have **equal** precedence and associate to the **LEFT**: `#O#A#` is `(1 OR 2) AND 3`, never `1 OR (2 AND 3)` | **Divergence found and FIXED 2026-08-03** (`screstrs.cpp`, `restr_expr()`). Ground truth is run400's own `mdlSpreadTheLoad.Sub_20_57` ("evaluaterestrictions", `00055CAC..00055EB9`): it scans the mask for the last top-level `A`/`O`, evaluates the tail operand, and recurses on the **head** — peeling from the right and recursing left is *left* association, and `A`/`O` are two arms of a single `If`, so there is no second precedence level anywhere in the routine. `Sub_20_58` ("evaluate2") has the same shape for its annotated T/F display string, and the driver `Sub_20_65` substitutes T/F for every restriction in index order with **no short circuit**. The old parse agrees whenever every `A` precedes every `O` at a bracket level and differs the moment an `O` comes first. **20 corpus games author a mixed level** (measured 2026-08-03 by a `maskscan.py` scratch script that is not committed — the list below *is* the result; to re-measure, scan every task's `$RestrMask` for a level containing both an `A` and an `O`): unauthorized (30 tasks), iqsfot (11), unravel (7), humbug (5), cursed (4), the_pk_girl / Vendetta / yonastoundingcastle / 3monkeys (3 each), EscapeToNewYork / The Plague - Redux (2), and one each in ARGH_sGreatEscape, DragonShrineR43, Glum Fiddle, Main Course, TheSisters, Trabula, mishmash, ticket. Found through *Three Monkeys One Cage*, whose author-written `winnable` self-check (T21, 55 restrictions — the corpus maximum) reported "no longer winnable" from turn 1: its group `#O(#A#)A#` is "(the bucket is on the hook OR the coconut is set up) AND the gate is still shut", which the C parse read as "bucket OR (coconut AND gate)" and so answered TRUE with the gate already open. Whole v4 suite re-run after the fix: **161/161 PASS, no golden moved.** A live run400 confirmation is still possible (`3monkeys.taf` is staged in the Wine prefix) but the P-code is unambiguous. |
 
 | A task command typed **outside** the task's `Where` rooms | ~~no message of any kind: `task_can_run_task()` returned FALSE and the command fell through to the standard library or to "I don't understand."~~ **PORTED 2026-08-10** | **pre-4.0 only**: prints `You can't do that here.` (3.7/3.8) / `You can't do that here!` (3.9) and **consumes a turn**; run400 dropped the message and answers DontUnderstand | **Divergence measured live and FIXED 2026-08-10.** See §5's follow-up below for the probe and the full cell table. Condition is narrow: the task's command must match and the room list must be the *only* thing blocking it — a failing restriction gets DontUnderstand instead, and anything the standard library already handled wins outright. Implemented as `run_where_refusal()` (`scrunner.cpp`), last in `run_all_commands()`, over the new `task_is_room_refused()` predicate (`sctasks.cpp`). Leading word follows `Globals/Perspective`: "I" for first person, "You" otherwise (pre-4.0 has only the two — run390 says "You" for 1, 2 and 3 alike). **Zero corpus movement: 203/203 PASS, nothing re-blessed** — a solved route never types a task command in a room the task can't run in, which is why the feature carries its own synthetic regression (`make -f Makefile.headless wheretest`, two probe games covering both perspectives, part of `make test`). |
-| A **completed non-repeatable** task, typed again by its own command | "I don't understand." (or whatever the library says) — the matcher skips the done task and the input falls through | **pre-4.0 only**: `You have already done that.`, and it **consumes a turn** | **NEW divergence, measured live 2026-08-10, documented and NOT fixed.** Found alongside the `Where` refusal, on the same 3.90 probe (task `epsilon`, `Where` = all rooms, not repeatable, empty RepeatText, typed twice: run390 fires it, then answers "You have already done that." with the ticking event still ticking). The string is a UTF-16 literal in run370/run380/run390 and **absent from run400** — the same pre-4.0-only pattern as the row above. Distinct from the `*`-wildcard row further up: that one is about a done wildcard task *claiming every later command* and soft-locking `inverness`, and stays a deliberate divergence; this row is the narrow exact-command case, where importing the message would be safe but has no corpus exposure (a walkthrough route does not re-type a completed one-shot task). Left unfixed; the probe game and harness for it already exist if a game ever demands it. |
+| A **completed non-repeatable** task, typed again by its own command, **empty RepeatText** | ~~"I don't understand." (or whatever the library says) — the matcher skips the done task and the input falls through~~ **PORTED 2026-08-10** | **pre-4.0 only**: `You have already done that.`, and it **consumes a turn**; run400 has no such string and answers DontUnderstand | **Divergence measured live and FIXED 2026-08-10.** Found alongside the `Where` refusal, on the same 3.90 probe (task `epsilon`, `Where` = all rooms, not repeatable, empty RepeatText, typed twice: run390 fires it, then answers "You have already done that." with the ticking event still ticking). The string is a UTF-16 literal in run370/run380/run390 and **absent from run400** — the same pre-4.0-only pattern as the row above; the leading space in ` have already done that.` proves it is concatenated with the perspective pronoun, exactly like the room refusal. Still distinct from the `*`-wildcard row further up: that one is about a done wildcard task *claiming every later command* and soft-locking `inverness`, and stays a deliberate divergence. This row is the narrow exact-command case, and the port keeps the distinction — the refusal runs last in `run_all_commands()`, so movement and library commands are answered first. See §5's follow-up. |
+| A **completed non-repeatable** task, typed again by its own command, **non-empty RepeatText** | ~~"I don't understand." in every version — the done task never reached the RepeatText branch~~ **PORTED 2026-08-10** | prints the task's **RepeatText**, and it consumes a turn — in **every version, 4.0 included** | **NEW divergence, measured live 2026-08-10 and FIXED the same day.** run400's answer to `epsilon` (no RepeatText) is DontUnderstand but to a twin task *with* one is the RepeatText itself, so the RepeatText half of this behaviour survived into 4.0 even though the bare message did not — implemented ungated, with only the bare message gated on `version < TAF_VERSION_400`. The one part of this family with real corpus exposure: **62 of 196** v4 corpus games author at least one non-repeatable task with a RepeatText, **528 such tasks** in total (`SCR_DUMP_TASKS=1`, new `rpt=` column). No golden moved regardless — a solved route does not re-type a completed one-shot task. |
 | Perspective 2 (third person) in a pre-4.0 game | renders third person — inventory reads "Player is carrying nothing." | **pre-4.0 has only two perspectives**: run390 answers second person for `Globals/Perspective` 1, 2 **and** 3 — "You are carrying nothing." — and first person only for 0 | **NEW divergence, observed live 2026-08-10, documented and NOT fixed.** Noticed while pinning which word the `Where` refusal leads with (the refusal itself is correct — it follows the same two-way split). Pre-existing and unrelated to that port. Not measured for corpus exposure; no shipped v4 game in the corpus is known to author Perspective 2, and fixing it means version-gating every third-person string in the library. |
 | Do a task's remaining actions run after an action that ends the game? | ~~doc comment claimed "if any action ends the game, return immediately"~~ — the loop never did that: it **ran** the remaining actions with the print filter muted, and the doc comment was simply stale (fixed 2026-08-09). The one real divergence, **PORTED 2026-08-09**: a trailing Execute-Task action used to be dispatched too, so its callee's score and state changes landed. | **in-line actions after the ending still run** — a task whose actions are `end game` then `+7 points` finishes on 7 out of 7 — but an **Execute Task** action after the ending is a **no-op** | **Settled live 2026-08-09** with a new `EG` arena probe (`make_arena_probe.py`), read off run400's own end-of-game summary with `MaxScore=7` so a trailing `+7` shows as "100% of the game! / Well done" and a dropped one as "0%". One ending per session, so one Runner launch per cell: `scorefirst` (`+7`, `end`) → **7/7**, the control proving the summary reports the engine score; `scorelast` (`end`, `+7`) → **7/7** — *this is the answer: the trailing action runs*; `execlast` (`exec` a task that ends the game, then `+7`) → **7/7**, Three Monkeys' actual shape; `printfirst` (`exec` a task that prints and scores, then `end`) → **7/7** with the callee's text shown; `printlast` (`end`, then that same `exec`) → **0/7 with no text at all**, which is what pinned the divergence — the callee is demonstrably fine, so the Runner is dropping the dispatch, not muting it. Scarier agreed on the first four and awarded the 7 on the fifth, and all five cells now match. **Mechanism confirmed in the P-code 2026-08-09**, answering the question the probe alone could not — the Runner refuses the *dispatch*, not the callee's completion. The chain is `Sub_20_22` (RunTask) → `Sub_20_12` (mark complete) → `Sub_20_11` (run actions) → back to `Sub_20_22` for a type-5 action. **`mdlSpreadTheLoad.Sub_20_22` opens, at file offset `0005F750`, with `ImpAdLdUI1 <gameover> / CI2UI1 / LitI2_Byte 0 / GtI2 / BranchF / ExitProc`** — `If gameOver > 0 Then Exit Sub`, ahead of restrictions, CompleteText and actions alike. The type-5 branch of the action executor `Sub_20_11` (`@0008D588`, forwards arm `@0008D5AC`) calls it at `@0008D5D1` **unguarded**, bracketing the call only with stores of `0`/`1` to an unrelated global. The action *loop* has no gameover test at all: `Sub_20_11` reads that flag exactly **once**, at `@0008D621` inside the EndGame (type-6) handler, where it guards the ending *display* (`Sub_20_33`) against re-printing — which is precisely why in-line actions behind an ending still run. Same-variable proof: the flag is import slot `0x7E` in `mdlSpreadTheLoad` and `0x4F` in the form modules (P32Dasm does not print `ImpAd*` operands; read the 2 bytes after the `fd a0`/`fd b0` opcode at the listing address, which is a file offset into `run400.exe`), the load/store census splits perfectly along module lines, and the EndGame action's Var1→flag mapping (`0→1`, `1→3`, `2→2`, `3→4`, at `@08D694`/`@08D6AB`/`@08D6C2`/`@08D6D9`) matches `Form1.evaluate`'s reads of `0x4F` exactly (`1` = "Congratulations!", `2` or `4` = "You are dead!", `3` = "Game ended"). `Sub_20_2`, the NPC tick, carries the same `> 0 → Exit Sub` guard. **Ported structurally**: the guard now sits at the top of `task_run_task()` rather than on the type-5 action, mirroring the Runner; every other caller is already behind the main loop's `if (game->is_running)`, so this is a no-op for them. Whole v4 suite re-run after both the port and the move: **203/203 PASS, no golden moved.** **Verdict for *Three Monkeys One Cage*: "98/100 is the ceiling" is a fact about the game, not about our engine.** Task 603 is `exec 604` / `exec 608` / `player_moves--` / `player_score += 2`; the two callees are mutually exclusive and both end the game, but the `+2` is an **in-line** action, so it is credited in *both* engines — it is simply never displayable, because the game is over and this game's score is an author variable that only the `score` command ever prints. 98 is the highest score a player can ever *see*; the 100th point is banked in state at the instant of the win. |
 ---
@@ -791,7 +796,7 @@ Diagnostic worth keeping: when a walkthrough asks for a command the game flatly
 does not understand, dump the task table and read `where=` before suspecting the
 parser.
 
-### Follow-up (2026-08-10): the pre-4.0 "You can't do that here!" refusal — PORTED
+### Follow-up (2026-08-10): the two task refusals — "You can't do that here!" and "You have already done that." — PORTED
 
 The probe above answered "is a Type 0 task runnable?" (no) but not "what does
 the Runner *say* when a task command is typed in the wrong room?". run400 says
@@ -813,8 +818,16 @@ transcript and "does the refusal consume a turn?" is answerable by eye. Tasks:
 | `beta` | Type 3 (all rooms) | control — must fire |
 | `gamma` | Type 1, room 2 | the plain out-of-room case |
 | `delta echo` | Type 2, room 2 | does Type 2 behave like Type 1? |
-| `epsilon` | Type 3, not repeatable | second typing → "You have already done that." |
+| `epsilon` | Type 3, not repeatable, empty RepeatText | second typing → "You have already done that." |
 | `zeta` | Type 3, always-failing restriction, empty FailMessage | does a failing *restriction* raise the refusal? |
+| `eta` | Type 3, not repeatable, RepeatText "ETA REPEAT." | does an authored RepeatText displace the message? |
+| `theta` | Type 1, room 1, not repeatable | **both** blockers at once — which message wins? |
+
+`make_400_whereprobe.py` gained the matching 4.0 pair, `delta` (not repeatable,
+empty RepeatText) and `epsilon` (not repeatable, RepeatText
+"EPSILON REPEAT."), to ask the same two questions of run400. The 3.9 probe's
+two rooms are now joined north/south so `theta` can be typed from outside its
+room after it has already been completed inside it.
 
 **Measured**, run390 under Wine plus run370/run380/run400 on real corpus games:
 
@@ -823,7 +836,7 @@ transcript and "does the refusal consume a turn?" is answerable by eye. Tasks:
 | run370 (castle.taf)      | "You can't do that here." | — | DontUnderstand | — | — | — |
 | run380 (marooned.taf)    | "You can't do that here." | — | DontUnderstand | — | — | — |
 | run390 (probe, hangover) | "You can't do that here!" (Types 1 **and** 2) | same refusal | DontUnderstand | library wins | DontUnderstand | "You have already done that." |
-| run400 (4.0 probe)       | DontUnderstand | DontUnderstand | DontUnderstand | — | — | — |
+| run400 (4.0 probe)       | DontUnderstand | DontUnderstand | DontUnderstand | — | — | DontUnderstand |
 
 So the condition is purely the room: pattern matched, and the `Where` list the
 only blocker. Restrictions do not raise it, and anything the library already
@@ -833,19 +846,44 @@ the leading word follows `Globals/Perspective` ("I" for `LIB_FIRST_PERSON`,
 `gamma` prints the refusal *and* the tick where a nonsense word prints
 DontUnderstand alone.
 
-**Ported** as `run_where_refusal()` (`scrunner.cpp`), called last in
-`run_all_commands()` after `run_standard_commands()`, over a new
-`task_is_room_refused()` (`sctasks.cpp`) — `task_can_run_task_directional()`
-split into `task_state_allows_run()` / `task_where_allows_run()` with the room
-half inverted. An **empty input line returns early**, mirroring the
+The already-done half measured the same way, and answered three further
+questions:
+
+| question | probe | answer |
+|---|---|---|
+| does an authored RepeatText displace the message? | `eta` twice | yes — run390 prints "ETA REPEAT.", not the refusal |
+| is *that* half pre-4.0 too? | run400 `delta` vs `epsilon` | **no** — run400 answers DontUnderstand for the empty one but prints "EPSILON REPEAT." for the other, so RepeatText survived into 4.0 while the bare message did not |
+| which blocker wins when both apply? | `theta`, completed, then typed from the next room | **the room**: "You can't do that here!", so the already-done test carries the room condition, not the other way round |
+
+Both refusals consume a turn (the `TICK.` event proves it directly for 3.9;
+4.0's RepeatText tick is inferred from its 3.9 twin, that probe having no
+event). Perspective applies to the already-done message as well —
+"I have already done that." under `LIB_FIRST_PERSON`.
+
+**Ported** as `run_task_refusal()` (`scrunner.cpp`), called last in
+`run_all_commands()` after `run_standard_commands()`, over two new predicates
+in `sctasks.cpp` — `task_is_room_refused()` and `task_is_done_refused()`.
+`task_can_run_task_directional()` was split into `task_state_allows_run()` /
+`task_where_allows_run()` with the room half inverted, and the state half
+factored further into cached `task_is_repeatable()` /
+`task_repeattext_is_empty()` accessors. The scan checks the room half of each
+task before its already-done half, which is what reproduces `theta`; the room
+predicate deliberately does **not** consult the task state for the forwards
+direction, or a task that is both done and out of its room would fall through
+to DontUnderstand. An **empty input line returns early**, mirroring the
 DontUnderstand fallback's own guard: without it, a game with a bare `*` task
 command outside the player's room turns every press-a-key blank line into a
 refusal (`archie_solution.txt`, whose first line is deliberately blank, caught
 exactly that).
 
 **Regression.** The corpus proved nothing here — 203/203 PASS with **no golden
-re-blessed**, because a solved route never types a task command in a room the
-task cannot run in. Coverage is therefore synthetic:
+re-blessed**, twice (once per refusal), because a solved route never types a
+task command in a room the task cannot run in, nor re-types a completed
+one-shot task. That is despite real static exposure for the RepeatText half:
+**62 of 196** corpus games author at least one non-repeatable task with a
+RepeatText, 528 tasks in all (`SCR_DUMP_TASKS=1`; `scdump.cpp`'s `TASK` line
+gained an `rpt=` flag for exactly this count). Coverage is therefore
+synthetic:
 `make -f Makefile.headless wheretest` replays
 `harness/where_refusal_script.txt` against the two generated probe games
 (Perspective 1 and Perspective 0) and diffs against
@@ -858,10 +896,9 @@ but has no synthetic regression — the generator writes 3.90 only, and the
 V380/V370 GLOBAL, ROOM, OBJECT and TASK schemas differ enough to need a second
 generator. The 3.7/3.8 corpus rows pass unchanged.
 
-Two sibling findings from the same probe run are recorded as rows in §4: the
-pre-4.0 "You have already done that." for a re-typed completed non-repeatable
-task (also a turn; also absent from run400), and the fact that pre-4.0 has only
-two perspectives where Scarier renders a third.
+One sibling finding from the same probe run is recorded as a row in §4 and
+remains unfixed: pre-4.0 has only two perspectives where Scarier renders a
+third.
 
 
 ## 6. ADRIFT 3.70 — every inferred semantic measured, SETTLED 2026-08-04

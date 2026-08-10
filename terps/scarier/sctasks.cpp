@@ -214,6 +214,49 @@ task_forget_game (const void *game)
  * asked separately -- see task_is_room_refused() below.
  */
 static scr_bool
+task_is_repeatable (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_task_props_t *cached;
+
+  cached = task_cache_entry (game, task);
+  if (cached->repeatable == TASK_CACHE_UNKNOWN)
+    {
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = "Repeatable";
+      cached->repeatable = prop_get_boolean (bundle, "B<-sis", vt_key)
+                           ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
+    }
+  return cached->repeatable == TASK_CACHE_TRUE;
+}
+
+
+static scr_bool
+task_repeattext_is_empty (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_task_props_t *cached;
+
+  cached = task_cache_entry (game, task);
+  if (cached->repeattext_empty == TASK_CACHE_UNKNOWN)
+    {
+      const scr_char *repeattext;
+
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = "RepeatText";
+      repeattext = prop_get_string (bundle, "S<-sis", vt_key);
+      cached->repeattext_empty = scr_strempty (repeattext)
+                                 ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
+    }
+  return cached->repeattext_empty == TASK_CACHE_TRUE;
+}
+
+
+static scr_bool
 task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -225,29 +268,10 @@ task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
   /* If already run, non-repeatable tasks are not re-runnable forwards. */
   if (forwards && gs_task_done (game, task))
     {
-      if (cached->repeatable == TASK_CACHE_UNKNOWN)
-        {
-          vt_key[0].string = "Tasks";
-          vt_key[1].integer = task;
-          vt_key[2].string = "Repeatable";
-          cached->repeatable = prop_get_boolean (bundle, "B<-sis", vt_key)
-                               ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
-        }
-      if (cached->repeatable == TASK_CACHE_FALSE)
+      if (!task_is_repeatable (game, task))
         return FALSE;
 
-      if (cached->repeattext_empty == TASK_CACHE_UNKNOWN)
-        {
-          const scr_char *repeattext;
-
-          vt_key[0].string = "Tasks";
-          vt_key[1].integer = task;
-          vt_key[2].string = "RepeatText";
-          repeattext = prop_get_string (bundle, "S<-sis", vt_key);
-          cached->repeattext_empty = scr_strempty (repeattext)
-                                     ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
-        }
-      if (cached->repeattext_empty == TASK_CACHE_FALSE)
+      if (!task_repeattext_is_empty (game, task))
         return FALSE;
     }
 
@@ -380,19 +404,48 @@ task_can_run_task_directional (scr_gameref_t game,
 /*
  * task_is_room_refused()
  *
- * Return TRUE if the only thing standing between this task and a run in the
- * given direction is the player's room -- the task is otherwise runnable, but
- * its Where room list does not cover where the player is standing.
+ * Return TRUE if the player's room is what stands between this task and a run
+ * in the given direction: its Where room list does not cover where the player
+ * is standing.
  *
  * Pre-4.0 Runners answer a command that matches such a task with a refusal of
- * their own rather than the game's DontUnderstand text; see
- * run_where_refusal() in scrunner.c.
+ * their own rather than the game's DontUnderstand text; see run_task_refusal()
+ * in scrunner.c.
+ *
+ * Whether the task has already been run is deliberately NOT part of the test.
+ * The Runner checks the room ahead of the task's state, and answers a task that
+ * is both done and out of its rooms with the room refusal rather than "You have
+ * already done that." (measured live -- probe task "theta").  The reverse
+ * direction still asks task_state_allows_run(), which for a backwards run tests
+ * only the reversibility flag.
  */
 scr_bool
 task_is_room_refused (scr_gameref_t game, scr_int task, scr_bool forwards)
 {
-  return task_state_allows_run (game, task, forwards)
-         && !task_where_allows_run (game, task);
+  return !task_where_allows_run (game, task)
+         && (forwards || task_state_allows_run (game, task, FALSE));
+}
+
+
+/*
+ * task_is_done_refused()
+ *
+ * Return TRUE if the only thing standing between this task and a forwards run
+ * is that it has already been done and is not repeatable -- the player is in a
+ * room the task's Where list covers, but the task is spent.
+ *
+ * The Runners answer such a command with the task's RepeatText, or with "You
+ * have already done that." when there is none; see run_task_refusal() in
+ * scrunner.c.  The room half is deliberately part of the test, because a task
+ * that is both done and out of its rooms gets the room refusal instead
+ * (measured live -- probe task "theta").
+ */
+scr_bool
+task_is_done_refused (scr_gameref_t game, scr_int task)
+{
+  return gs_task_done (game, task)
+         && !task_is_repeatable (game, task)
+         && task_where_allows_run (game, task);
 }
 
 

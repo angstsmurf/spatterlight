@@ -9,5 +9,13 @@ epsilon
 epsilon
 zeta
 gamma extra
+eta
+eta
+theta
+theta
+n
+theta
+epsilon
+gamma
 quit
 y

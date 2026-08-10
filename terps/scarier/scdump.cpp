@@ -453,14 +453,21 @@ scr_dump_structure_once (scr_gameref_t game)
       {
         scr_int score = 0;
         const scr_char *mask = NULL;
+        scr_int rpt = 0;
         k[2].string = "Score";
         if (prop_get (bundle, "I<-sis", &vt, k)) score = vt.integer;
         k[2].string = "RestrMask";
         if (prop_get (bundle, "S<-sis", &vt, k)) mask = vt.string;
+        /* rpt: does the task carry a RepeatText?  A non-repeatable task that
+         * has one answers a second typing of its command with that text rather
+         * than with "You have already done that." -- see run_task_refusal(). */
+        k[2].string = "RepeatText";
+        if (prop_get (bundle, "S<-sis", &vt, k) && !scr_strempty (vt.string))
+          rpt = 1;
         fprintf (stderr,
-                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld score=%ld"
-                 " mask=[%s] cmd=[%s]\n",
-                 t, wtype, wroom, rcount, rep, score,
+                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld rpt=%ld"
+                 " score=%ld mask=[%s] cmd=[%s]\n",
+                 t, wtype, wroom, rcount, rep, rpt, score,
                  mask ? mask : "", cmd ? cmd : "");
       }
 
