@@ -1,0 +1,22 @@
+# Loader/parser smoke row -- deliberately NOT a walkthrough.
+#
+# Let Me In is an explicit adult game whose content route was not derived (see
+# the wiring commentary).  The engine value in it is structural, not narrative:
+# 490 tasks and 402 variables in a SINGLE location, i.e. the heaviest
+# text-matching task table in the corpus, where every task is a wildcard/
+# optional-group pattern competing on priority.  So the row loads the game and
+# issues neutral, content-free commands, and the assertion is that Scarier and
+# FrankenDrift agree line for line on the result -- which exercises the loader,
+# the matcher's priority ordering across 346 keyed tasks, and the fallback
+# path for input that matches nothing.
+#
+# No golden is committed for this row: without an _expected.txt the harness
+# checks it live against FrankenDrift, so no transcript of this game enters
+# the repo.
+
+look
+x me
+i
+score
+wait
+look

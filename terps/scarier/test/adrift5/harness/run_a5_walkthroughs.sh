@@ -1610,6 +1610,52 @@ FILTER="${1:-}"
 # night 1 (20 xoshiro hunks).  Whole-corpus re-sweep after the change moved no
 # other row, including all 23 golden-less rows re-checked against FD by hand.
 #
+# (2026-08-11) LetMeIn, MATCH 0|0 -- a LOADER/PARSER SMOKE ROW, not a
+# walkthrough, and the row that closes out the corpus with four games
+# deliberately left unwired.
+#
+# Four manifest rows had no walkthrough and no route: Evil on Queen Street,
+# LMI_v100 (Let Me In), PervertActionCrisis and PAFv1_2 (Pervert Action:
+# Future).  All four are explicit adult games, and their content routes were
+# NOT derived -- deriving one means playing the sexual content to an ending and
+# committing a transcript of it.  Three of the four are ruled out on content
+# grounds and stay unwired on purpose; this comment is here so the gap reads as
+# a decision rather than an oversight:
+#
+#   * Evil on Queen Street -- its opening scene, which prints on LOAD before any
+#     command, sexualises a character framed throughout as the player's
+#     high-school-aged sister.  Every transcript of the game IS that passage, so
+#     even a smoke row would just file it as a fixture to re-bless and diff.
+#   * PervertActionCrisis -- explicit, and the model carries 178 "student" /
+#     184 "school" / 83 "teacher" hits: a school setting with students.
+#   * PAFv1_2 -- explicit, same author and series, and its intro carries no
+#     age-of-consent statement at all.  Unstated ages, so it stays out.
+#
+# All four DO load, which is worth recording: a5dump reads the 51 MB PAC blorb
+# to 2.7 MB of model and the 253 MB PAF blorb to 2.9 MB in 0.12 s, so the blorb
+# path is not what is missing here.
+#
+# Let Me In is the one that can carry a row.  BBBen, 2015; its intro states
+# "All characters in this game are over the age of consent", the setting is a
+# fantasy tower, and there is no school or family relationship.  What made its
+# ROUTE undesirable is that the game is a deception engine -- the win is a
+# goblin talking his way through a locked door with IAmThePrince / IAmYourDaddy
+# / IAmAHumanBeing / TrustMe / IDonTLie, i.e. manufactured consent -- and a
+# derived walkthrough would be exactly that sequence.  The smoke row traverses
+# none of it.
+#
+# What the row IS worth: 490 tasks and 402 variables in a SINGLE location, the
+# heaviest text-matching table in the corpus, where every task is a wildcard /
+# optional-group pattern competing on priority (346 of them keyed).  Six neutral
+# commands -- look / x me / i / score / wait / look -- exercise the loader, the
+# matcher's priority ordering across all of them, and the no-match fallback.
+# MATCH 0|0 on the first pass, no engine work needed.
+#
+# NO GOLDEN is committed: with no _expected.txt the harness checks the row live
+# against FrankenDrift (the differential branch in run_one), so no transcript of
+# the game enters the repo.  The row therefore needs FD_ROOT to run and is
+# SKIPped by --golden-only, which is the intended trade.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1778,6 +1824,7 @@ Dementophobia|Dementophobia Alpha Demo.blorb|0|0
 TheDrunkenHarlot|The Drunken Harlot.blorb|0|0
 TheDrunkenHarlotSrc|harlot.taf|0|0
 DinnerPlans|Dinner Plans.taf|0|0
+LetMeIn|LMI_v100.blorb|0|0
 ProbeAmbiguity|a5probes/ambiguity.taf|0|0
 ProbeDel|a5probes/del.taf|0|0
 ProbeDelrt|a5probes/delrt.taf|0|0

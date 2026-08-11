@@ -58,7 +58,7 @@ dotnet dependency.
 
 ## Corpus status
 
-As of **2026-08-11: 198 rows — 181 MATCH, 17 DIVERGE at baseline, 0 FAIL**,
+As of **2026-08-11: 199 rows — 182 MATCH, 17 DIVERGE at baseline, 0 FAIL**,
 about 30 s wall clock at the default `-j8`.
 
 Per-game numbers are deliberately **not** tabulated here any more; they went
@@ -557,6 +557,48 @@ before the fix the bar debrief was frozen on night 1 (20 xoshiro hunks). After
 it the whole 100-command run is byte-identical to FrankenDrift in both columns.
 Whole-corpus re-sweep after the change: **no other row moved**, including all
 23 golden-less rows re-checked individually against FD at their MAP baselines.
+
+### Let Me In — loader/parser smoke row, MATCH 0|0
+
+BBBen, 2015. **Not a walkthrough**: the row loads the game and issues six
+neutral commands (`look` / `x me` / `i` / `score` / `wait` / `look`). Wired
+`LetMeIn|LMI_v100.blorb|0|0`, MATCH on the first pass, no engine work needed.
+
+Worth a row because of its shape rather than its content: **490 tasks and 402
+variables in a single location**, the heaviest text-matching task table in the
+corpus, every task a wildcard/optional-group pattern competing on priority (346
+keyed). Even neutral input exercises the loader, the matcher's priority
+ordering across all of them, and the no-match fallback.
+
+**No golden is committed** — with no `_expected.txt` the harness takes the
+FrankenDrift differential branch, so no transcript of the game enters the repo.
+The row needs `FD_ROOT` and is SKIPped by `--golden-only`, which is the trade.
+
+### Four adult games deliberately left unwired
+
+The last manifest rows without walkthroughs are four explicit adult titles.
+Deriving a route means playing the sexual content to an ending and committing a
+transcript, and three of the four are ruled out on content grounds rather than
+technical ones. Recorded here so the gap reads as a decision:
+
+* **Evil on Queen Street** — its opening scene, printed on load before any
+  command, sexualises a character framed throughout as the player's
+  high-school-aged sister. Every transcript of the game *is* that passage, so
+  even a smoke row only files it as a fixture to re-bless and diff.
+* **PervertActionCrisis** — explicit, and the model carries 178 `student` /
+  184 `school` / 83 `teacher` hits: a school setting with students.
+* **PAFv1_2** (*Pervert Action: Future*) — explicit, same author and series,
+  and no age-of-consent statement anywhere in its intro. Unstated ages.
+
+All four *load* cleanly, which is the part worth knowing: `a5dump` reads the
+51 MB PAC blorb to 2.7 MB of model and the 253 MB PAF blorb to 2.9 MB in
+0.12 s. The blorb path is not what is missing. Let Me In is the one that could
+carry a row — its intro states all characters are over the age of consent, the
+setting is a fantasy tower, no school and no family relationship — and what
+made its *route* undesirable (the game is a deception engine: the win is talking
+past a locked door with `IAmThePrince` / `IAmYourDaddy` / `IAmAHumanBeing` /
+`TrustMe`, i.e. manufactured consent) is precisely what the smoke row does not
+traverse.
 
 ## Synthetic conformance probes (test/adrift5/probes/, imported 2026-08-08)
 
