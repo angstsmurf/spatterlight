@@ -431,29 +431,53 @@ static const scr_parse_schema_t V370_PARSE_SCHEMA[] = {
 };
 
 
+/* Forward declarations of the version-specific fixup handlers. */
+static void parse_fixup_v400 (const scr_char *fixup);
+static void parse_fixup_v390 (const scr_char *fixup);
+static void parse_fixup_v380 (const scr_char *fixup);
+static void parse_fixup_v370 (const scr_char *fixup);
+
 /*
- * parse_select_schema()
- *
- * Select one of the parse schemata based on a TAF file.
+ * Per-version parse descriptors, tying together everything that varies with
+ * the TAF file version: the parse schema, the multiline separator (version
+ * 3.7 shares version 3.8's), the fixup special handler, and the printable
+ * version string.
  */
-static const scr_parse_schema_t *
-parse_select_schema (scr_tafref_t taf)
+typedef struct
 {
-  /* Switch based on the TAF file version. */
-  switch (taf_get_version (taf))
+  const scr_int version;
+  const scr_parse_schema_t *const schema;
+  const scr_byte *const separator;
+  void (*const fixup) (const scr_char *);
+  const scr_char *const version_string;
+} scr_parse_version_t;
+
+static const scr_parse_version_t PARSE_VERSIONS[] = {
+  {TAF_VERSION_400, V400_PARSE_SCHEMA, V400_SEPARATOR, parse_fixup_v400, "4.00"},
+  {TAF_VERSION_390, V390_PARSE_SCHEMA, V390_SEPARATOR, parse_fixup_v390, "3.90"},
+  {TAF_VERSION_380, V380_PARSE_SCHEMA, V380_SEPARATOR, parse_fixup_v380, "3.80"},
+  {TAF_VERSION_370, V370_PARSE_SCHEMA, V380_SEPARATOR, parse_fixup_v370, "3.70"}
+};
+
+
+/*
+ * parse_select_version()
+ *
+ * Select the per-version parse descriptor based on a TAF file.
+ */
+static const scr_parse_version_t *
+parse_select_version (scr_tafref_t taf)
+{
+  const scr_int version = taf_get_version (taf);
+
+  for (const scr_parse_version_t &entry : PARSE_VERSIONS)
     {
-    case TAF_VERSION_400:
-      return V400_PARSE_SCHEMA;
-    case TAF_VERSION_390:
-      return V390_PARSE_SCHEMA;
-    case TAF_VERSION_380:
-      return V380_PARSE_SCHEMA;
-    case TAF_VERSION_370:
-      return V370_PARSE_SCHEMA;
-    default:
-      scr_fatal ("parse_select_schema: invalid TAF file version\n");
-      return NULL;
+      if (entry.version == version)
+        return &entry;
     }
+
+  scr_fatal ("parse_select_version: invalid TAF file version\n");
+  return NULL;
 }
 
 
@@ -461,8 +485,8 @@ parse_select_schema (scr_tafref_t taf)
 static scr_tafref_t parse_taf = (scr_tafref_t) NULL;
 static scr_int parse_tafline = 0;
 
-/* The parse schema selected for this TAF file. */
-static scr_parse_schema_t const *parse_schema = NULL;
+/* The parse descriptor selected for this TAF file's version. */
+static const scr_parse_version_t *parse_version = NULL;
 
 /* Properties bundle and trace flag, set before parsing. */
 static scr_prop_setref_t parse_bundle = (scr_prop_setref_t) NULL;
@@ -562,10 +586,7 @@ parse_stack_backtrace (void)
   parse_retrieve_stack (format, vt_key, &depth);
 
   scr_error ("parse_stack_backtrace: version %s schema parsed to depth %ld\n",
-            (parse_schema == V400_PARSE_SCHEMA) ? "4.00" :
-            (parse_schema == V390_PARSE_SCHEMA) ? "3.90" :
-            (parse_schema == V380_PARSE_SCHEMA) ? "3.80" :
-            (parse_schema == V370_PARSE_SCHEMA) ? "3.70" : "[Invalid]",
+            parse_version ? parse_version->version_string : "[Invalid]",
             depth);
 
   scr_error ("parse_stack_backtrace: parse stack backtrace follows...\n");
@@ -1249,7 +1270,7 @@ parse_expression (const scr_char *expression)
 static scr_char *
 parse_read_multiline (void)
 {
-  const scr_byte *separator = NULL;
+  const scr_byte *separator = parse_version->separator;
   const scr_char *line;
 
   /*
@@ -1258,24 +1279,6 @@ parse_read_multiline (void)
    * buffer was leaked on that unwind.
    */
   scr_owned_string multiline;
-
-  /* Select the appropriate multiline separator. */
-  switch (taf_get_version (parse_taf))
-    {
-    case TAF_VERSION_400:
-      separator = V400_SEPARATOR;
-      break;
-    case TAF_VERSION_390:
-      separator = V390_SEPARATOR;
-      break;
-    case TAF_VERSION_380:
-    case TAF_VERSION_370:
-      separator = V380_SEPARATOR;
-      break;
-    default:
-      scr_fatal ("parse_read_multiline: invalid TAF file version\n");
-      break;
-    }
 
   /* Take a simple copy of the first line. */
   line = parse_get_taf_string ();
@@ -3198,27 +3201,10 @@ static void
 parse_fixup (const scr_char *fixup)
 {
   /*
-   * Pick a fixup handler specific to the TAF version.  This helps keep
+   * Pick the fixup handler specific to the TAF version.  This helps keep
    * fixup code separate, rather than glommed into one large function.
    */
-  switch (taf_get_version (parse_taf))
-    {
-    case TAF_VERSION_400:
-      parse_fixup_v400 (fixup);
-      break;
-    case TAF_VERSION_390:
-      parse_fixup_v390 (fixup);
-      break;
-    case TAF_VERSION_380:
-      parse_fixup_v380 (fixup);
-      break;
-    case TAF_VERSION_370:
-      parse_fixup_v370 (fixup);
-      break;
-    default:
-      scr_fatal ("parse_fixup: invalid TAF file version\n");
-      break;
-    }
+  parse_version->fixup (fixup);
 }
 
 
@@ -3300,6 +3286,7 @@ parse_descriptor (const scr_char *descriptor)
 static void
 parse_class (const scr_char *class_)
 {
+  const scr_parse_schema_t *const schema = parse_version->schema;
   scr_char class_name[PARSE_TEMP_LENGTH];
   scr_int index_;
   scr_vartype_t vt_key;
@@ -3311,12 +3298,12 @@ parse_class (const scr_char *class_)
     scr_trace ("Parse: entering class %s\n", class_name);
 
   /* Find the class in the parse schema, and fail if not found. */
-  for (index_ = 0; parse_schema[index_].class_name; index_++)
+  for (index_ = 0; schema[index_].class_name; index_++)
     {
-      if (strcmp (parse_schema[index_].class_name, class_name) == 0)
+      if (strcmp (schema[index_].class_name, class_name) == 0)
         break;
     }
-  if (!parse_schema[index_].class_name)
+  if (!schema[index_].class_name)
     scr_fatal ("parse_class: class not described, %s\n", class_name);
 
   /*
@@ -3331,7 +3318,7 @@ parse_class (const scr_char *class_)
     }
 
   /* Parse each element in the descriptor. */
-  parse_descriptor (parse_schema[index_].descriptor);
+  parse_descriptor (schema[index_].descriptor);
 
   /* Pop a key if the class tag was pushed above. */
   if (index_ > 0)
@@ -3576,25 +3563,7 @@ parse_add_version (scr_prop_setref_t bundle, scr_tafref_t taf)
   prop_put (bundle, "I->s", vt_value, &vt_key);
 
   /* Add the version string to the properties. */
-  switch (taf_get_version (taf))
-    {
-    case TAF_VERSION_400:
-      vt_value.string = "4.00";
-      break;
-    case TAF_VERSION_390:
-      vt_value.string = "3.90";
-      break;
-    case TAF_VERSION_380:
-      vt_value.string = "3.80";
-      break;
-    case TAF_VERSION_370:
-      vt_value.string = "3.70";
-      break;
-    default:
-      scr_error ("parse_add_version_string: invalid TAF file version\n");
-      vt_value.string = "[Unknown version]";
-      break;
-    }
+  vt_value.string = parse_version->version_string;
   vt_key.string = "VersionString";
   prop_put (bundle, "S->s", vt_value, &vt_key);
 }
@@ -3614,7 +3583,7 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
   /* Store the TAF to read from, and the bundle to store into. */
   parse_taf = taf;
   parse_bundle = bundle;
-  parse_schema = parse_select_schema (parse_taf);
+  parse_version = parse_select_version (parse_taf);
   parse_depth = 0;
 
   /* Try parsing, and catch errors from longjmp. */
@@ -3631,7 +3600,7 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
       parse_clear_v400_resources_table ();
       parse_taf = NULL;
       parse_bundle = NULL;
-      parse_schema = NULL;
+      parse_version = NULL;
       parse_depth = 0;
       return FALSE;
     }
@@ -3660,7 +3629,7 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
   /* Return successfully. */
   parse_taf = NULL;
   parse_bundle = NULL;
-  parse_schema = NULL;
+  parse_version = NULL;
   parse_depth = 0;
   return TRUE;
 }
