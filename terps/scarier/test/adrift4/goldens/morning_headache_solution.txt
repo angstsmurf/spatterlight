@@ -1,0 +1,88 @@
+# A Morning with a Headache (A_Morning_with_a_Headache.taf) -- ADRIFT 3.9.
+# 6 rooms, 33 objects, 39 tasks, 3 NPCs, 8 events.
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN, 115/115 -- the game's own stated maximum, and the sum of all
+# seventeen positive ACT type=4 in the file (there are no negative ones):
+#   +5  T2  look under bed        +3  T14 (auto: buzzer vs the woman)
+#   +10 T4  put trouser on woman  +10 T19 ask woman about phone
+#   +2  T7  kiss woman            +2  T5  eat woman      +2 T6 fuck woman
+#   +5  T0  turn off alarm clock  +5  T21 put pepsi in bottle
+#   +5  T23 put water in bottle   +5  T35 wash me
+#   +10 T12 (auto: Hanna arrives) +10 T13 eat hanna
+#   +10 T32 ask hanna about invitation      +11 T36 call jonas
+#   +10 T31 give bottle to landlord         +10 T34 open door (EndGame v1=0)
+#
+# FOUR DEADLINES, all fatal, all measured live:
+#   turn 15  EVENT 0 "Landlord"  -> T1  if the alarm clock is still buzzing
+#            ("That's it, you are out off here.")
+#   turn 30  EVENT 3 "Girlfriend"-> T11 if the stripper has not left yet
+#   turn 35  EVENT 4 "Girlfriend2" -> T12: Hanna arrives, TELEPORTS the
+#            player and her to the Kitchen wherever you were, +10
+#   turn 55  EVENT 7 "JonasIsWaiting" -> T30, the wedding starts without you
+# The stripper leaves 10 turns after T4 (EVENT 2), so T4 must land by turn 20.
+#
+# ORDER TRAPS:
+#  * `turn off alarm clock` needs the clock IN HAND (T0 RESTR type=0 v1=3
+#    v2=1) -- and `take clock` is ambiguous, it has to be `take alarm clock`.
+#  * The +3 (T14, fired by EVENT 5) needs the buzzer STILL ON with the woman
+#    present, so walk into the living room before switching it off.
+#  * `wash me` (T35) needs `task13 NOT done` and the player wearing nothing:
+#    shower BEFORE dressing and BEFORE Hanna arrives, or the +5 is gone.
+#  * `wear suit` (T37) needs the boxer shorts already worn.
+#  * The Kitchen -> Staircase exit is gateTask=32 wantDone=1, i.e. it opens
+#    only once Hanna has explained the invitation -- which is also the only
+#    way to reach the shoes (they start on the Staircase).
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
+look under bed
+take trouser
+take alarm clock
+w
+put trouser on woman
+ask woman about phone
+kiss woman
+eat woman
+fuck woman
+turn off alarm clock
+take bottle
+take invitation
+n
+take pepsi
+put pepsi in bottle
+put water in bottle
+s
+e
+take cellular phone
+take suit
+take boxer shorts
+n
+wash me
+s
+wear boxer shorts
+wear suit
+read invitation
+x business card
+x picture
+x book
+x window
+score
+look
+look
+look
+look
+eat hanna
+s
+e
+n
+ask hanna about invitation
+call jonas
+s
+w
+n
+n
+take shoes
+wear shoes
+d
+give bottle to landlord
+score
+open door

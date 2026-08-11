@@ -1,0 +1,227 @@
+Loading game...
+
+Chicago
+
+Chicago,1954-You were just starting your own private eye business when your
+first client came walking through the door. It was a dame,Daisy Wild and her
+husband Donny had just been murdered. It seemed he was one of the men who had
+been sneaking beer in during prohibition and she needed answers fast. She
+gave the addresses of the most likely spots for clues and then left you
+hanging with hardly a clue to what was going on.This wasn't going to be one
+of your best days...
+
+Since this is a mystery,you'll have to find evidence to solve the murder.
+When you believe you have enough, confront who you think it is.
+
+>Your score is 0 out of a maximum of 0.  (0%)
+
+>(Your score has increased by 5)
+You grab the whisky and take a quick sip for mouthwash.
+
+>(Your score has increased by 5)
+You open your desk and pull out some money you had taped under the drawer.
+
+>You grab the trench coat and fold it over your arm.
+
+>(Your score has increased by 5)
+You put the trench coat on and then button it up quickly. Now you feel like a
+real gumshoe.
+
+>There's no more left and you have no use for an empty cigarette box.
+
+>Your head feels like its been with a hammer
+
+>You move north.
+Street
+You're standing in the bustling street of Chicago. You look at your note of
+paper and read all the places Daisy mentioned. North, is the The Jazz Stop, a
+bar that Donny often used to go to. To the East,was the office of Dr.Louis
+Mack, best friend of Donny.Finally, to the West was the house of Donny and
+Daisy. Your office was back to the South. The sun isn't out today, even it
+knows not to come out on a dark day like this.
+
+>You move east.
+Front of Office
+You're standing in front of Dr.Louis and Donny's office. Louis would be the
+proffesional one, while Donny used his office for less legal matters. The
+walls of the building have been cracking and the sidewalk in front is now
+almost covered entirely in grass. There's a small alley between the office
+and an old warehouse beside it. The smell of fresh garbage reaches out to you
+from within the alley. The front door to the Office is to the North.
+
+>You move east.
+Alley
+You're in the alley behind the office. There's old boxes lined up against the
+wall,they used to be filled with cheap cigars. There's a poster up on the
+wall for a boxing match back in '52, it wasn't even that good of a fight. You
+can a shoeshiner sitting at the edge of the alley, his eyes watching you
+carefully. You can hear the sound of sirens as police cars zoom off, probaly
+going to investigate a crime you'll be asked to solve tomorrow.
+
+Shoeshiner is here.
+
+>(Your score has increased by 5)
+"Thanks mister, now what could I do for ya today."
+
+>(Your score has increased by 5)
+"I suppose someone like you'd come around to investigate. Let me tell you
+what I know. Donny was involved in prohibition, but that wasn't what was
+bothering him. He was angry at Louis and I'm not sure why. He did give me
+something in case anyone came asking about his death. Here,take this letter."
+
+>(Your score has increased by 10)
+"If you're reading this, I must be dead.I'll get to the point quickly, if you
+need to know who did it, you must ask Louis. He knows who did it."
+
+>You don't need the poster, you already have one  like that in your office.
+
+>You search through the boxes but can't find anything.
+
+>You move west.
+Front of Office
+You're standing in front of Dr.Louis and Donny's office. Louis would be the
+proffesional one, while Donny used his office for less legal matters. The
+walls of the building have been cracking and the sidewalk in front is now
+almost covered entirely in grass. There's a small alley between the office
+and an old warehouse beside it. The smell of fresh garbage reaches out to you
+from within the alley. The front door to the Office is to the North.
+
+>You move north.
+Hallway
+You're standing in a dim hallway of the office. A door on the East leads to
+Mack's office, while a door to the West leads to Donny's old office. The
+hallways walls have began to turn yellow from some water that's leaking in
+from the roof.
+
+>You move east.
+Dr.Louis Mack's Office
+You're standing in the small office of Dr.Louis Mack. The first thing you
+notice is Dr.Macks lifeless body lying on the ground, it seems someone beat
+you to him. His desk has been searched and so has the cabinet that now lies
+on the floor. The smell of fresh blood fills your mouth as you look
+throughout the room.
+
+>(Your score has increased by 5)
+You search the body and find an empty needle in his coat pocket.
+
+>You search through the dark brown desk, but someone had already beat you to
+it. All papers from it are missing.
+
+>The metal cabinet has been pryed open with a long object. There's nothing
+inside it.
+
+>You examine the glasses closely but throw them back, figuring they're not
+important.
+
+>You move west.
+Hallway
+You're standing in a dim hallway of the office. A door on the East leads to
+Mack's office, while a door to the West leads to Donny's old office. The
+hallways walls have began to turn yellow from some water that's leaking in
+from the roof.
+
+>You move west.
+Donny's Office
+You're standing in Donny's office. It seems that Daisy didn't call the police
+yet, Donny's body is still sprawling on the desktop. There aren't any lights
+in the room so its pretty dark. You can see a painting on the wall right
+above a garbage can. The room doesn't seem to have been searched. You can
+hear the sound of machinery from the construction site across the street.
+
+>(Your score has increased by 5)
+You rummage through the desk and find a small slip of paper.
+
+>(Your score has increased by 5)
+Donny    $1000     Jazz Stop    Status- Not Paid
+
+>You look through the trash but can't find anything useful.
+
+>You search the body but can't find anyhting
+
+>You look, but there's no safe behind the painting.
+
+>You move east.
+Hallway
+You're standing in a dim hallway of the office. A door on the East leads to
+Mack's office, while a door to the West leads to Donny's old office. The
+hallways walls have began to turn yellow from some water that's leaking in
+from the roof.
+
+>You move south.
+Front of Office
+You're standing in front of Dr.Louis and Donny's office. Louis would be the
+proffesional one, while Donny used his office for less legal matters. The
+walls of the building have been cracking and the sidewalk in front is now
+almost covered entirely in grass. There's a small alley between the office
+and an old warehouse beside it. The smell of fresh garbage reaches out to you
+from within the alley. The front door to the Office is to the North.
+
+>You move west.
+Street
+You're standing in the bustling street of Chicago. You look at your note of
+paper and read all the places Daisy mentioned. North, is the The Jazz Stop, a
+bar that Donny often used to go to. To the East,was the office of Dr.Louis
+Mack, best friend of Donny.Finally, to the West was the house of Donny and
+Daisy. Your office was back to the South. The sun isn't out today, even it
+knows not to come out on a dark day like this.
+
+>You move north.
+The Jazz Stop
+You're sitting at the bar at the Jazz Stop,a common hangout for the more
+organized business men.Say the wrong thing here,and you could be swimming
+with the fishes.It's packed tonight,most customers have come to see Harry
+Dean,a trumpet player who had appeared out of nowhere and impressed the enire
+city.The bartender standing behind the bar walks over and asks in you need
+anything.
+
+Bartender is here.
+
+>(Your score has increased by 10)
+"That must be old. Donny paid me back, he always paid me back."
+
+>That's some great jazz.
+
+>You move south.
+Street
+You're standing in the bustling street of Chicago. You look at your note of
+paper and read all the places Daisy mentioned. North, is the The Jazz Stop, a
+bar that Donny often used to go to. To the East,was the office of Dr.Louis
+Mack, best friend of Donny.Finally, to the West was the house of Donny and
+Daisy. Your office was back to the South. The sun isn't out today, even it
+knows not to come out on a dark day like this.
+
+>You move west.
+Donny's House
+You're standing in Donny's small house. As soon as you enter the house you
+can see a large ashtray on the coffee table. Daisy is sitting on the small
+couch, smoking a cigarette. You can hear Ella Fitzgerald playing from the
+house next door. It seems that Donny didn't have that much money, it's an
+extremely small house.
+
+Daisy is here.
+
+>You grab the note out of the ashtray and stick it in your pocket.
+
+>(Your score has increased by 5)
+"Daisy, it's over between us. You were coming here everyday and I'm sure
+Donny's been getting suspicious. Don't you dare step foot in the office again
+or we'll both have you arrested."
+
+>You hear nothing out of the ordinary.
+
+>Your score is 65 out of a maximum of 0.  (0%)
+
+>(Your score has increased by 10)
+You pull out your gun and hold it up to Daisy. You tell her you know all
+about the affair between her and Louis and how she killed Donny. She denies
+it but you show her the note you found in the ashtray. She begins to get
+nervous and pulls a gun out of her purse. You shoot her once in the arm and
+she drops the gun to the ground.She tries to grab it again but  you quickly
+kick it under the couch and handcuff her. You call the police and you watch
+as they carry her into the back of the squad her.She grins ay you as the car
+pulls away.
+
+Daisy was found guilty of double homicide and sentanced to life in prison.
+The case was a small one and you never got the attention you thought you
+would get. With the money you got from the case you finally got a nice couch
+for the office, at least you'll be sleeping in comfort.

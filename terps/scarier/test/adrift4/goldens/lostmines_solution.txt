@@ -1,0 +1,110 @@
+# The Lost Mines (lostmines.taf) -- ADRIFT 3.9.  16 rooms, 64 objects,
+# 54 tasks, 2 NPCs (the Bartender, Gus), 2 pure-atmosphere events.
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN, 100/100 -- the sum of every ACT type=4 in the file.  All
+# seventeen scoring tasks are on this route:
+#   +5  T3  read poster            +5  T4  up c (climb the logs)
+#   +5  T7  open box (Cabin)       +5  T8  open fridge  -> axe
+#   +10 T9  use axe on boards      +5  T26 open desk    -> coupon
+#   +5  T21 wear hat               +5  T23 use cards on table -> matchbook
+#   +5  T22 in (enter the mine)    +10 T33 take ring
+#   +5  T34 give ring to bartender +5  T35 ask bartender about boulder -> pencil
+#   +5  T39 sign coupon            +5  T28 give coupon to bartender -> beer
+#   +5  T36 use cheese on rat      +5  T41 give beer to gus
+#   +10 T40 use dynamite on blockage   ACT type=6 v1=0  WIN
+#
+# THE SPINE IS ONE CHAIN OF FAVOURS, and it is strictly ordered:
+#   take ring (in the mine) -> give ring to bartender -> ask bartender about
+#   boulder (he hands over a pencil) -> sign coupon -> give coupon to
+#   bartender (he hands over a beer) -> give beer to gus -> blast the blockage.
+# T34/T35/T39/T28 each carry the previous link as a restriction, so there is
+# no way to shortcut it.
+#
+# TWO GATED EXITS:
+#   EXIT room=0  IN -> 13 is T22, restricted on T21 `wear` (the hard hat),
+#     so the hat has to come out of the closet at Home before the first trip
+#     into the mine.  That forces the outward leg to reach the far end of the
+#     map (Home is at the west edge, the mine at the east) and come back.
+#   EXIT room=14 N -> 15 is gateTask=36 wantDone=1 -- `use cheese on rat`.
+#     The cheese comes from the wooden box in the Cabin.
+#   EXIT room=10 U -> 11 is gateTask=23 wantDone=0, i.e. the gambling room
+#     closes for good once you swap the decks, and T23 teleports you back
+#     down to the bar anyway.
+#
+# TWO CONTAINERS THAT MUST BE OPENED, NOT TAKEN.  `take box` on the roof gets
+# "It's too heavy to lift, it'd be easier to just look in it here", and `take
+# pillow` gets "You have no use for a lumpy pillow" -- in both cases the noun
+# you actually want is inside, so it is `open box` / `take dynamite` and
+# `open pillow` / `take cards`.
+#
+# THE DYNAMITE IS DECORATIVE.  T40's restrictions are only "matchbook held"
+# and "T41 done" -- it never checks for the stick.  Taking it is what the
+# fiction wants, not what the engine needs.
+#
+# The author left five hint tasks in the file (T42..T44, T51, T52) with
+# HINTQ/HINT1/HINT2 filled in; two of them are gated on progress so they only
+# answer once the question can arise.
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
+s
+read poster
+s
+w
+in
+open cabinet
+take key
+open box
+d
+open fridge
+open desk
+u
+out
+up c
+use axe on boards
+open box
+take dynamite
+d
+w
+w
+in
+open closet
+take hat
+open pillow
+take cards
+wear hat
+out
+e
+in
+u
+use cards on table
+out
+e
+e
+n
+n
+in
+take ring
+n
+use cheese on rat
+s
+s
+s
+s
+w
+w
+in
+give ring to bartender
+ask bartender about boulder
+sign coupon
+give coupon to bartender
+out
+e
+e
+n
+n
+in
+n
+n
+give beer to gus
+score
+use dynamite on blockage

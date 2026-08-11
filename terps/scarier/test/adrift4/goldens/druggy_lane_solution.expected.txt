@@ -1,0 +1,787 @@
+Loading game...
+
+Druggy Lane
+
+DRUGGY LANE
+
+Welcome to DRUGGY LANE. This is a simple game based on the very popular game
+DOPE WARS.The object of the game is to repay your debt of $25000 in 30 days,
+starting with $5000, and get as much money as you can by buying and elling
+drugs. Here are the different commands you can do.
+
+[Press any Key to Continue]
+
+You can:
++Buy [number] [drug]
++Sell [number] [drug]
++Take out [number] loan
++Pay back [number] loan
++next day, or end day, or day
++deposit [number]
++withdraw [number]
+
+[Press any key to continue]
+
+I hope you have a fun time in DRUGGY LANE. You can make a transcript, and
+email it to me if you do very well. Also, if you find any bugs, or have any
+ideas, comments, questions, or thoughts, you can email me at
+pauldboswell@yahoo.com
+
+THANK YOU, AND HAVE FUN!
+
+[Press any key to continue]
+
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1385 - $0
+COKE - 0 - $22069 - $0
+CRACK - 0 - $1316 - $0
+HASH - 0 - $1595 - $0
+WEED - 0 - $677 - $0
+SPEED - 0 - $259 - $0
+
+DEBT = $25000
+DAYS LEFT = 30
+CASH = $5000
+BANK = $0
+
+>
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1385 - $0
+COKE - 0 - $22069 - $0
+CRACK - 0 - $1316 - $0
+HASH - 0 - $1595 - $0
+WEED - 0 - $677 - $0
+SPEED - 0 - $259 - $0
+
+DEBT = $25000
+DAYS LEFT = 30
+CASH = $5000
+BANK = $0
+
+>You buy 3 crack for $1316 each.
+
+>You decide to call it a night. You now have 29 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1958 - $0
+COKE - 0 - $25455 - $0
+CRACK - 3 - $1947 - $1316
+HASH - 0 - $1310 - $0
+WEED - 0 - $736 - $0
+SPEED - 0 - $191 - $0
+
+DEBT = $25714
+DAYS LEFT = 29
+CASH = $1052
+BANK = $0
+
+>You sell 3 crack for $1947 each.
+
+>You buy 36 speed for $191 each.
+
+>You decide to call it a night. You now have 28 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2033 - $0
+COKE - 0 - $25390 - $0
+CRACK - 0 - $1514 - $1316
+HASH - 0 - $1315 - $0
+WEED - 0 - $809 - $0
+SPEED - 36 - $255 - $191
+
+DEBT = $26449
+DAYS LEFT = 28
+CASH = $17
+BANK = $0
+
+>You sell 36 speed for $255 each.
+
+>You buy 36 speed for $255 each.
+
+>You decide to call it a night. You now have 27 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2703 - $0
+COKE - 0 - $20377 - $0
+CRACK - 0 - $1885 - $1316
+HASH - 0 - $1359 - $0
+WEED - 0 - $698 - $0
+SPEED - 36 - $394 - $255
+
+DEBT = $27205
+DAYS LEFT = 27
+CASH = $17
+BANK = $0
+
+>You sell 36 speed for $394 each.
+
+>You deposit $14201 into the bank
+
+>You decide to call it a night. You now have 26 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1374 - $0
+COKE - 0 - $24402 - $0
+CRACK - 0 - $2159 - $1316
+HASH - 0 - $1603 - $0
+WEED - 0 - $694 - $0
+SPEED - 0 - $226 - $255
+
+DEBT = $27982
+DAYS LEFT = 26
+CASH = $0
+BANK = $17213
+
+>You withdraw $17213 from the bank
+
+>You buy 76 speed for $226 each.
+
+>You decide to call it a night. You now have 25 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2219 - $0
+COKE - 0 - $19279 - $0
+CRACK - 0 - $1830 - $1316
+HASH - 0 - $1354 - $0
+WEED - 0 - $831 - $0
+SPEED - 76 - $419 - $226
+
+DEBT = $28781
+DAYS LEFT = 25
+CASH = $37
+BANK = $0
+
+>You sell 76 speed for $419 each.
+
+>You buy 23 hash for $1354 each.
+
+>You decide to call it a night. You now have 24 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2070 - $0
+COKE - 0 - $19905 - $0
+CRACK - 0 - $1374 - $1316
+HASH - 23 - $1767 - $1354
+WEED - 0 - $862 - $0
+SPEED - 0 - $452 - $226
+
+DEBT = $29603
+DAYS LEFT = 24
+CASH = $739
+BANK = $0
+
+>You sell 23 hash for $1767 each.
+
+>You buy 2 coke for $19905 each.
+
+>You decide to call it a night. You now have 23 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1513 - $0
+COKE - 2 - $24487 - $19905
+CRACK - 0 - $1672 - $1316
+HASH - 0 - $1837 - $1354
+WEED - 0 - $518 - $0
+SPEED - 0 - $108 - $226
+
+DEBT = $30449
+DAYS LEFT = 23
+CASH = $1570
+BANK = $0
+
+>You sell 2 coke for $24487 each.
+
+>You buy 468 speed for $108 each.
+
+>You decide to call it a night. You now have 22 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2686 - $0
+COKE - 0 - $20105 - $19905
+CRACK - 0 - $2365 - $1316
+HASH - 0 - $1711 - $1354
+WEED - 0 - $754 - $0
+SPEED - 468 - $379 - $108
+
+DEBT = $31319
+DAYS LEFT = 22
+CASH = $0
+BANK = $0
+
+>You sell 468 speed for $379 each.
+
+>You deposit $177372 into the bank
+
+>You decide to call it a night. You now have 21 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1330 - $0
+COKE - 0 - $22713 - $19905
+CRACK - 0 - $1175 - $1316
+HASH - 0 - $1617 - $1354
+WEED - 0 - $778 - $0
+SPEED - 0 - $363 - $108
+
+DEBT = $32214
+DAYS LEFT = 21
+CASH = $0
+BANK = $214996
+
+>You withdraw $214996 from the bank
+
+>You buy 182 crack for $1175 each.
+
+>You decide to call it a night. You now have 20 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1857 - $0
+COKE - 0 - $20483 - $19905
+CRACK - 182 - $1646 - $1175
+HASH - 0 - $1312 - $1354
+WEED - 0 - $715 - $0
+SPEED - 0 - $342 - $108
+
+DEBT = $33134
+DAYS LEFT = 20
+CASH = $1146
+BANK = $0
+
+>You sell 182 crack for $1646 each.
+
+>You buy 182 crack for $1646 each.
+
+>You decide to call it a night. You now have 19 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1871 - $0
+COKE - 0 - $22599 - $19905
+CRACK - 182 - $2438 - $1646
+HASH - 0 - $1341 - $1354
+WEED - 0 - $550 - $0
+SPEED - 0 - $186 - $108
+
+DEBT = $34081
+DAYS LEFT = 19
+CASH = $1146
+BANK = $0
+
+>You sell 182 crack for $2438 each.
+
+>You buy 2391 speed for $186 each.
+
+>You decide to call it a night. You now have 18 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $3316 - $0
+COKE - 0 - $24255 - $19905
+CRACK - 0 - $2064 - $1646
+HASH - 0 - $1574 - $1354
+WEED - 0 - $894 - $0
+SPEED - 2391 - $450 - $186
+
+DEBT = $35055
+DAYS LEFT = 18
+CASH = $136
+BANK = $0
+
+>You sell 2391 speed for $450 each.
+
+>You deposit $1076086 into the bank
+
+>You decide to call it a night. You now have 17 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2982 - $0
+COKE - 0 - $27108 - $19905
+CRACK - 0 - $1436 - $1646
+HASH - 0 - $1333 - $1354
+WEED - 0 - $627 - $0
+SPEED - 0 - $295 - $186
+
+DEBT = $36057
+DAYS LEFT = 17
+CASH = $0
+BANK = $1304347
+
+>You withdraw $1304346 from the bank
+
+>You buy 2080 weed for $627 each.
+
+>You decide to call it a night. You now have 16 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1337 - $0
+COKE - 0 - $18135 - $19905
+CRACK - 0 - $1633 - $1646
+HASH - 0 - $1588 - $1354
+WEED - 2080 - $826 - $627
+SPEED - 0 - $379 - $186
+
+DEBT = $37087
+DAYS LEFT = 16
+CASH = $186
+BANK = $1
+
+>You sell 2080 weed for $826 each.
+
+>You buy 1285 for $1337 each.
+
+>You decide to call it a night. You now have 15 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 1285 - $2689 - $1337
+COKE - 0 - $21718 - $19905
+CRACK - 0 - $1128 - $1646
+HASH - 0 - $1265 - $1354
+WEED - 0 - $929 - $627
+SPEED - 0 - $140 - $186
+
+DEBT = $38147
+DAYS LEFT = 15
+CASH = $221
+BANK = $1
+
+>You sell 1285 acid for $2689 each.
+
+>You buy 24682 speed for $140 each.
+
+>You decide to call it a night. You now have 14 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1863 - $1337
+COKE - 0 - $19948 - $19905
+CRACK - 0 - $1123 - $1646
+HASH - 0 - $1817 - $1354
+WEED - 0 - $930 - $627
+SPEED - 24682 - $323 - $140
+
+DEBT = $39237
+DAYS LEFT = 14
+CASH = $106
+BANK = $1
+
+WARNING
+You only have 2 weeks left.
+
+>You sell 24682 speed for $323 each.
+
+>You buy 4279 for $1863 each.
+
+>You decide to call it a night. You now have 13 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 4279 - $3235 - $1863
+COKE - 0 - $24366 - $19905
+CRACK - 0 - $1345 - $1646
+HASH - 0 - $1701 - $1354
+WEED - 0 - $513 - $627
+SPEED - 0 - $500 - $140
+
+DEBT = $40358
+DAYS LEFT = 13
+CASH = $615
+BANK = $1
+
+>You sell 4279 acid for $3235 each.
+
+>You buy 26984 weed for $513 each.
+
+>You decide to call it a night. You now have 12 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $3277 - $1863
+COKE - 0 - $19661 - $19905
+CRACK - 0 - $2003 - $1646
+HASH - 0 - $1772 - $1354
+WEED - 26984 - $884 - $513
+SPEED - 0 - $203 - $140
+
+DEBT = $41511
+DAYS LEFT = 12
+CASH = $388
+BANK = $1
+
+>You sell 26984 weed for $884 each.
+
+>You buy 11909 crack for $2003 each.
+
+>You decide to call it a night. You now have 11 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2499 - $1863
+COKE - 0 - $18049 - $19905
+CRACK - 11909 - $2463 - $2003
+HASH - 0 - $1406 - $1354
+WEED - 0 - $422 - $513
+SPEED - 0 - $211 - $140
+
+DEBT = $42697
+DAYS LEFT = 11
+CASH = $517
+BANK = $1
+
+>You sell 11909 crack for $2463 each.
+
+>You buy 69508 weed for $422 each.
+
+>You decide to call it a night. You now have 10 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2065 - $1863
+COKE - 0 - $20392 - $19905
+CRACK - 0 - $1649 - $2003
+HASH - 0 - $1273 - $1354
+WEED - 69508 - $949 - $422
+SPEED - 0 - $396 - $140
+
+DEBT = $43917
+DAYS LEFT = 10
+CASH = $8
+BANK = $1
+
+>You sell 69508 weed for $949 each.
+
+>You buy 40001 crack for $1649 each.
+
+>You decide to call it a night. You now have 9 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2442 - $1863
+COKE - 0 - $22057 - $19905
+CRACK - 40001 - $2093 - $1649
+HASH - 0 - $1542 - $1354
+WEED - 0 - $742 - $422
+SPEED - 0 - $473 - $140
+
+DEBT = $45172
+DAYS LEFT = 9
+CASH = $1451
+BANK = $1
+
+>You sell 40001 crack for $2093 each.
+
+>You deposit $83723544 into the bank
+
+>You decide to call it a night. You now have 8 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2355 - $1863
+COKE - 0 - $20970 - $19905
+CRACK - 0 - $2459 - $1649
+HASH - 0 - $1850 - $1354
+WEED - 0 - $565 - $422
+SPEED - 0 - $212 - $140
+
+DEBT = $46463
+DAYS LEFT = 8
+CASH = $0
+BANK = $101483085
+
+>You withdraw $101483083 from the bank
+
+>You buy 179616 weed for $565 each.
+
+>You decide to call it a night. You now have 7 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2473 - $1863
+COKE - 0 - $22740 - $19905
+CRACK - 0 - $2264 - $1649
+HASH - 0 - $1514 - $1354
+WEED - 179616 - $988 - $565
+SPEED - 0 - $165 - $140
+
+DEBT = $47791
+DAYS LEFT = 7
+CASH = $43
+BANK = $2
+
+WARNING
+You only have 1 week left.
+
+>You sell 179616 weed for $988 each.
+
+>You buy 1075519 speed for $165 each.
+
+>You decide to call it a night. You now have 6 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2052 - $1863
+COKE - 0 - $26593 - $19905
+CRACK - 0 - $1250 - $1649
+HASH - 0 - $1837 - $1354
+WEED - 0 - $913 - $565
+SPEED - 1075519 - $362 - $165
+
+DEBT = $49156
+DAYS LEFT = 6
+CASH = $16
+BANK = $2
+
+>You sell 1075519 speed for $362 each.
+
+>You buy 311470 crack for $1250 each.
+
+>You decide to call it a night. You now have 5 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1864 - $1863
+COKE - 0 - $19779 - $19905
+CRACK - 311470 - $1834 - $1250
+HASH - 0 - $1497 - $1354
+WEED - 0 - $599 - $565
+SPEED - 0 - $315 - $165
+
+DEBT = $50560
+DAYS LEFT = 5
+CASH = $394
+BANK = $2
+
+>You sell 311470 crack for $1834 each.
+
+>You buy 953650 weed for $599 each.
+
+>You decide to call it a night. You now have 4 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2072 - $1863
+COKE - 0 - $19153 - $19905
+CRACK - 0 - $1100 - $1250
+HASH - 0 - $1245 - $1354
+WEED - 953650 - $968 - $599
+SPEED - 0 - $114 - $165
+
+DEBT = $52005
+DAYS LEFT = 4
+CASH = $24
+BANK = $2
+
+>You sell 953650 weed for $968 each.
+
+>You buy 839212 crack for $1100 each.
+
+>You decide to call it a night. You now have 3 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1627 - $1863
+COKE - 0 - $18871 - $19905
+CRACK - 839212 - $2123 - $1100
+HASH - 0 - $1625 - $1354
+WEED - 0 - $839 - $599
+SPEED - 0 - $293 - $165
+
+DEBT = $53491
+DAYS LEFT = 3
+CASH = $24
+BANK = $2
+
+>You sell 839212 crack for $2123 each.
+
+>You buy 2123536 weed for $839 each.
+
+>You decide to call it a night. You now have 2 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1402 - $1863
+COKE - 0 - $23803 - $19905
+CRACK - 0 - $1499 - $1100
+HASH - 0 - $1519 - $1354
+WEED - 2123536 - $921 - $839
+SPEED - 0 - $496 - $165
+
+DEBT = $55019
+DAYS LEFT = 2
+CASH = $396
+BANK = $2
+
+>You sell 2123536 weed for $921 each.
+
+>
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $1402 - $1863
+COKE - 0 - $23803 - $19905
+CRACK - 0 - $1499 - $1100
+HASH - 0 - $1519 - $1354
+WEED - 0 - $921 - $839
+SPEED - 0 - $496 - $165
+
+DEBT = $55019
+DAYS LEFT = 2
+CASH = $1955777052
+BANK = $2
+
+>You decide to call it a night. You now have 1 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2465 - $1863
+COKE - 0 - $26783 - $19905
+CRACK - 0 - $1991 - $1100
+HASH - 0 - $1794 - $1354
+WEED - 0 - $691 - $839
+SPEED - 0 - $471 - $165
+
+DEBT = $56591
+DAYS LEFT = 1
+CASH = $1955777052
+BANK = $2
+
+WARNING
+You only have 1 day left, you better get rid of your stash for any money you
+have.
+
+>You pay back $56591
+
+>You decide to call it a night. You now have 0 days left.
+Druggy Lane
+This is where all of the drugs are bought and sold.
+
+The drugs you currently have are in red, and the current price is in blue.
+Also the price you bought the drug for is in orange.
+
+ACID - 0 - $2270 - $1863
+COKE - 0 - $25181 - $19905
+CRACK - 0 - $1443 - $1100
+HASH - 0 - $1812 - $1354
+WEED - 0 - $505 - $839
+SPEED - 0 - $238 - $165
+
+DEBT = $0
+DAYS LEFT = 0
+CASH = $1955720461
+BANK = $2
+
+You are now out of time. Congratulations, you have repayed all of your debt,
+and finished with $1955720463.
+Congratulations!
+You have managed to deal your way to freedom!

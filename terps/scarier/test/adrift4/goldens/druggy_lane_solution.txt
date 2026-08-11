@@ -1,0 +1,92 @@
+
+
+
+look
+buy 3 crack
+next day
+sell 3 crack
+buy 36 speed
+next day
+sell 36 speed
+buy 36 speed
+next day
+sell 36 speed
+deposit 14201
+next day
+withdraw 17213
+buy 76 speed
+next day
+sell 76 speed
+buy 23 hash
+next day
+sell 23 hash
+buy 2 coke
+next day
+sell 2 coke
+buy 468 speed
+next day
+sell 468 speed
+deposit 177372
+next day
+withdraw 214996
+buy 182 crack
+next day
+sell 182 crack
+buy 182 crack
+next day
+sell 182 crack
+buy 2391 speed
+next day
+sell 2391 speed
+deposit 1076086
+next day
+withdraw 1304346
+buy 2080 weed
+next day
+sell 2080 weed
+buy 1285 acid
+next day
+sell 1285 acid
+buy 24682 speed
+next day
+sell 24682 speed
+buy 4279 acid
+next day
+sell 4279 acid
+buy 26984 weed
+next day
+sell 26984 weed
+buy 11909 crack
+next day
+sell 11909 crack
+buy 69508 weed
+next day
+sell 69508 weed
+buy 40001 crack
+next day
+sell 40001 crack
+deposit 83723544
+next day
+withdraw 101483083
+buy 179616 weed
+next day
+sell 179616 weed
+buy 1075519 speed
+next day
+sell 1075519 speed
+buy 311470 crack
+next day
+sell 311470 crack
+buy 953650 weed
+next day
+sell 953650 weed
+buy 839212 crack
+next day
+sell 839212 crack
+buy 2123536 weed
+next day
+sell 2123536 weed
+look
+next day
+pay back 56591
+next day

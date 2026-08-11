@@ -8,10 +8,14 @@ comp games with no published walkthroughs (checked Key & Compass, IF Archive,
 CASA); they were derived by driving each game through a headless, deterministic
 Scarier build and reading its internals.
 
-**Status 2026-08-04: done**, re-verified 2026-08-10. The suite is **203 rows,
+**Status 2026-08-04: done**, re-verified 2026-08-10. The suite was **203 rows,
 203 PASS** — 0 FAIL, 0 SKIP, 0 NEEDGOLD, 0 NOSCRIPT, exit 0. Every game has a
 route or a documented verdict, and every walkthrough in `downloaded/` has a game
 and a row. This file is now the method, the cautions, and an index.
+
+**Second wave 2026-08-10 → 2026-08-11: 21 more games wired, suite now 224 rows,
+224 PASS — and PARKED.** See *Second wave* below for what was done and what is
+left.
 
 Nothing here is open work. The one exception this file used to carry — the
 Runner's **"You can't do that here!"** refusal for a task typed outside its
@@ -27,13 +31,128 @@ test/adrift4/harness/run_v4_walkthroughs.sh <regex>  # one row
 test/adrift4/harness/run_v4_walkthroughs.sh --bless  # re-record goldens
 ```
 
+## Second wave (2026-08-10 → 2026-08-11) — 21 games, then PARKED
+
+The first wave covered every `.taf` that was in `games/` when it ran. The
+manifest has grown since (issue #119's corpus fetch), so a second pass worked
+**smallest unwired file first** through the ADRIFT 3.8/3.9 leftovers. Twenty-one
+went in; the suite went 203 → **224 rows, 224 PASS**. Same four artefacts per
+game as before: commented `goldens/<name>_solution.txt`, blessed
+`.expected.txt`, a commented row in `harness/run_v4_walkthroughs.sh`, and
+`notes/<Game>_walkthrough.md`.
+
+| Bytes | Game | Result |
+|---|---|---|
+| 5,164 | I | ending reached; no score in the file |
+| 6,508 | Dreamland | **WON 50/50** |
+| 8,292 | Forest On The Norm | completed; no scoring system |
+| 10,310 | The Adventures of Bob Bobsly | **WON 155/155** |
+| 12,028 | Druggy Lane | **WON** — debt cleared at $1,955,720,463 |
+| 12,660 | Escape from Insanity | **WON 1000/1000** |
+| 16,695 | Lost Souls | **WON**; no scoring system |
+| 19,755 | Chicago | **WON 75** |
+| 20,065 | Everything Emanuelle | fullest of four endings; no score |
+| 20,652 | Textident Evil | **WON 100/100** |
+| 22,214 | Impulso | **WON**; no score |
+| 23,225 | Montahue Scott and the Mobius Belt | **WON 3/3** |
+| 26,973 | A Morning With A Headache | **WON 115/115** |
+| 29,811 | Sleaze City | **WON 100/100** |
+| 31,353 | Albridge Manor | **WON 50/50** |
+| 37,088 | The Lost Mines | **WON 100/100** |
+| 39,485 | The Dark Tower | **WON** (T8 `turn on power`) |
+| 41,801 | Report Espionage | **WON 100/100**, all 23 tasks on the route |
+| 42,118 | Far From Home | **WON 50/50** |
+| 42,463 | S Tar Dus T | **WON**, richest of four endings; no score anywhere |
+| 43,334 | Diary of a Stripper | **WON 13/13**, best of fourteen ALR endings — **AIF, solution/golden/notes gitignored** |
+
+**AIF in the corpus.** *Diary of a Stripper* is sexually explicit, so its
+solution, golden and notes are gitignored and only its `run_v4_walkthroughs.sh`
+row is committed — the same call made for *Archie's Birthday* on 2026-07-13 (see
+`.gitignore`). Its row is still worth having: the ALR-table score, the two
+chained events and the rejected-command-does-not-tick rule are all pinned by it.
+Everything else wired in this wave is clean, and so is the rest of the corpus: a
+scan of every committed golden for explicit vocabulary turns up nothing but
+profanity (*Mortality*, *The Plague*, *Second Chance* and *Light Up the
+Darkness* swear, and *Second Chance* adds two anatomical words — none of it
+pornographic).
+
+Three findings from this wave are worth carrying forward, and each is written
+up in full in its own note:
+
+- **A `<waitkey>` can sit in front of the name prompt.** *Far From Home* pauses
+  inside the introduction, *before* `Please enter your name:`, so a scripted run
+  must spend a line on the keypress and give the name on line two — otherwise
+  the player is called `look` for the rest of the game. Always run
+  `SCR_MARK_WAITKEY=1` before writing the first line of a solution file.
+- **`ACT type=0` "into object" indexes the container list directly** — no `-1`,
+  unlike the room case. *S Tar Dus T* drops its missing page in the lake, not
+  in the outhouse hole, and reading the destination as 1-based sends you to the
+  wrong room for the game's last puzzle. (`sctasks.cpp task_move_object`,
+  `case 2` / `case 3`.)
+- **A command the parser rejects does not advance the turn counter**, so
+  gibberish padding will never make a timed event fire. Found while pacing
+  *Diary of a Stripper*'s two chained events; `z` works, `wait1` does not.
+
+**Parked 2026-08-11 at the user's request.** Nothing is broken and nothing is
+half-finished — the suite is green at 224/224 and every wired game has all four
+artefacts. What remains is 30 unwired `.taf` files, listed below smallest-first.
+Pick up at the top of the list.
+
+| Bytes | File | Title | Note |
+|---|---|---|---|
+| 5,591 | `salutations.taf` | Salutations | English; **missed by the smallest-first sweep — start here** |
+| 19,083 | `iachini.taf` | A Day at the Iachini House | English, Butcher Basic ALR; also missed |
+| 21,775 | `relojero.taf` | La hija del relojero | **Spanish**, version=400 |
+| 44,145 | `The Town Of Azra.taf` | The Town of Azra | |
+| 44,503 | `as.taf` | Asylum | |
+| 44,666 | `Wheel105.taf` | The Wheels Must Turn | |
+| 45,737 | `life.taf` | Life | |
+| 48,764 | `Renuntio.taf` | Renuntio | |
+| 51,820 | `hhorror.taf` | House Of Horror | |
+| 52,248 | `vetknow.taf` | Veteran Knowledge | English; also missed by the sweep |
+| 52,290 | `vetknow2.taf` | Veteran Knowledge [Version 2] | second release of the above |
+| 55,039 | `Richard.taf` | Where Is Richard? | |
+| 56,336 | `losttombv2.taf` | The Lost Tomb | |
+| 59,124 | `Journ2.taf` | The Long Journey Home | |
+| 59,896 | `mudergreatfalls.taf` | Murder In Great Falls | |
+| 63,183 | `Vampire.taf` | The Vampire With A Conscience | |
+| 69,489 | `Merry_Murders.taf` | Merry Murders | |
+| 71,216 | `thewoods.taf` | The Woods Are Dark | |
+| 71,345 | `SILKNOIL.TAF` | Silk Noil | |
+| 74,568 | `Captive.taf` | Captive Universe | |
+| 101,668 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF** |
+| 107,200 | `wonderwombat.taf` | Adventures of Thumper – Wonder Wombat | |
+| 114,698 | `windy.taf` | Camp Windy Lake | **AIF** |
+| 120,335 | `enc2.taf` | Encounter 2: The Study Group | **AIF** |
+| 125,581 | `Buffy Before the Date.taf` | Buffy: Before the Date | **AIF** |
+| 148,447 | `croft.taf` | Lara Croft: The Sun Obelisk | **AIF** |
+| 166,913 | `dr-who-vortex-lust.taf` | Doctor Who and the Vortex of Lust | **AIF** |
+| 191,548 | `windy2.taf` | Camp Windy Lake: Part 2 | **AIF** |
+| 277,834 | `gamma.taf` | The Gamma Gals | **AIF** |
+| 2,928,980 | `Vardock Bates.taf` | Vardock Bates | **Spanish**, version=400, and by far the largest file in the corpus |
+
+**Eight of those thirty are AIF** and will need the *Diary of a Stripper*
+treatment when they are wired — gitignore the solution, the golden and the
+notes, commit the row alone. Measured, not guessed: de-obfuscating each `.taf`
+and counting explicit vocabulary gives `gamma.taf` 1416, `dr-who-vortex-lust`
+705, `windy2` 670, `windy` 630, `croft` 582, `enc1` 550, `enc2` 369 and
+`Buffy Before the Date` 339, against 0 for every other unwired file (bar three
+incidental hits in `wonderwombat.taf`). They are marked **AIF** in the table
+above.
+
+Regenerate the unwired list at any time with a set difference between the second
+field of every non-comment row in `harness/run_v4_walkthroughs.sh` and the
+first column of `games.manifest.tsv`; re-run the vocabulary scan with
+`harness/taf_pattern_scan.py`'s `plaintext()`, which de-obfuscates both TAF
+generations.
+
 ## Where everything is
 
 | What | Where |
 |---|---|
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
-| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 155 of them |
+| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 176 of them |
 | Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |
 

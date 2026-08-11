@@ -1,0 +1,60 @@
+# Chicago (chicago.taf) -- ADRIFT 3.9, 9 rooms, 3 NPCs, 31 tasks, no events.
+# No published walkthrough; derived from SCR_DUMP_TASKS.
+# Result: WIN at 75, the sum of every ACT type=4 in the file:
+#   +5  T1  take whisky          +5  T2  open desk (office)
+#   +5  T5  wear trench coat     +5  T7  give money to shoeshiner
+#   +5  T10 ask shoeshiner about donny                +10 T12 read letter
+#   +5  T11 search body (Mack's office)               +5  T15 open desk (Donny's)
+#   +5  T16 read paper           +10 T17 ask bartender about paper
+#   +5  T20 read note            +10 T23 confront daisy  (EndGame v1=0)
+# The status line says "out of a maximum of 0" -- the author never set a
+# maximum -- so 75 is established by counting the dump, not by the game.
+#
+# Two instant losses share the `confront` verb: T21 `conrfont bartender`
+# (sic) and T22 `confront shoeshiner`, both ACT type=6 v1=2.  T23 is the only
+# win and needs BOTH the note (obj21) and the letter (obj13) in hand.
+# T16 `read paper` is rep=1 and scores +5 every time -- the score is
+# farmable without limit; this route reads it once.
+# No <waitkey> pauses (checked with SCR_MARK_WAITKEY=1), so no blank lines.
+score
+take whisky
+open desk
+take trench coat
+wear trench coat
+take cigarettes
+feel head
+n
+e
+e
+give money to shoeshiner
+ask shoeshiner about donny
+read letter
+take poster
+search boxes
+w
+n
+e
+search body
+search desk
+search cabinet
+take glasses
+w
+w
+open desk
+read paper
+search can
+search body
+open painting
+e
+s
+w
+n
+ask bartender about paper
+listen
+s
+w
+take note
+read note
+listen
+score
+confront daisy

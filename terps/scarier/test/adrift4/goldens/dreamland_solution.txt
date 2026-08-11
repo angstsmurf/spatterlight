@@ -1,0 +1,10 @@
+
+i
+x canopy
+x forest
+x pool
+x basin
+wipe away dust
+x basin
+fill waterskin with water
+pour water from waterskin into basin

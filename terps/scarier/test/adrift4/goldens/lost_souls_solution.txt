@@ -1,0 +1,47 @@
+# Lost Souls (lostsouls.taf) -- ADRIFT 3.9, 6 rooms, 32 objects, 24 tasks.
+# No published walkthrough; derived from SCR_DUMP_TASKS.
+# Result: WIN.  The game has no scoring action at all (`score` answers
+# "My score is 0 out of a maximum of 0"), so the marker is the last line of
+# the ending text.
+#
+# The one real puzzle is a task-shadowing accident in the Attic:
+#   TASK 16  room=4 restr=0 rep=1  cmd=[open trunk] ALT=[open * trunk]
+#   TASK 17  room=4 restr=1 rep=0  cmd=[open trunk] ALT=[open the trunk]
+#                                      [unlock trunk] [open * trunk]
+#                                      [unlock * trunk] [use key * trunk]
+#                                      [unlock * trunk * key]
+#            RESTR type=0 v1=6 (holding the key)   ACT type=0 -> scrap of paper
+# TASK 16 is unrestricted and repeatable, so it claims every `open ... trunk`
+# phrasing forever and answers "I gave the lid a tug, but it's locked." even
+# with the key in hand.  Only TASK 17's four *non-`open`* alternatives reach
+# it -- `unlock trunk` is the shortest.  Without the scrap of paper TASK 18
+# never runs, and TASK 2 (`d` in the Kitchen, RESTR type=2 v1=19) never opens
+# the hatch, so the ending is unreachable.  The game is winnable, but only by
+# a player who happens to type "unlock" instead of "open".
+#
+# One <waitkey> pause inside the route, located with SCR_MARK_WAITKEY=1: the
+# hatch descent ("Trembling in fear, I started my descent...").  Hence the one
+# blank line before `open door`.  The other three pauses are in the ending
+# text, after the last command, and are satisfied by EOF.
+n
+e
+take note
+read note
+take plug
+w
+u
+open desk
+read notebook
+use plug on hole
+u
+search body
+take sticker
+take rifle
+unlock trunk
+read scrap of paper
+d
+d
+s
+d
+
+open door

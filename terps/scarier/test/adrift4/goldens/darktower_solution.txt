@@ -1,0 +1,174 @@
+# The Dark Tower (DarkTower.taf) -- ADRIFT 3.9.  62 rooms, 40 objects,
+# 30 tasks, NO NPCs, NO events, NO variables, and NO SCORE (zero ACT type=4
+# in the file; `score` answers "0 out of a maximum of 0").
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN.  The finish line is T8 `turn on power` (ACT type=6 v1=0),
+# which needs, in this order:
+#   T6 fix power panel  -- EIGHT items held at once: power panel key, breaker
+#                          switch, power cable, patch kit, diamond
+#                          screwdriver, phillips screwdriver, repair manual,
+#                          wire cutters
+#   T7 fix generator    -- transformer, wrench, repair manual, power cord
+#   T9 pull lever       -- restricted on T6
+#   T10 pull switch     -- restricted on T7
+#   T8 turn on power    -- restricted on T6, T7, and both switches open
+# All twelve parts are scattered one per suite across five floors, and every
+# suite door needs the right key card, so the route is one long sweep.
+#
+# THE GAME STARTS IN THE LOBBY (room 32), not at the Entrance.  Room 0 is
+# only reachable through `EXIT room=32 W -> 0 gateTask=17`, and T17 `open
+# security gate` is itself restricted on T8 -- which ends the game.  The
+# Entrance is therefore unreachable in the finished build.
+#
+# ONE CARD UNLOCKS A WHOLE FLOOR.  The key card tasks are `where=2` lists of
+# hallway rooms and the suite doors are `gateTask=<n> wantDone=1`, so a card
+# is used ONCE and every door of that colour opens permanently.  The paper in
+# Security says so in as many words.  Card chain, each one behind the last:
+#   gold  (Lobby, on the floor at the start) -> Maintenance, Gate House,
+#                                               Security, Roof
+#   red   (Gate House, past the garage)      -> 1st floor
+#   blue  (Suite 100)                        -> 2nd floor
+#   green (Suite 201)                        -> 3rd floor
+#   yellow(Suite 301)                        -> 4th floor
+#   black (Suite 401)                        -> 5th floor
+#
+# EVERYTHING EXCEPT THE LOBBY AND THE GARAGE IS DARK until you have the
+# flashlight, which is under the black van at the north end of the parking
+# garage (T27 `look under van`).  Without it every room answers "It's too
+# dark to see anything.  You might be eaten by a grue."
+#
+# `read` DOES NOT WORK on the three documents -- `read memo` gets "You can't
+# read the memo!".  They are ordinary object descriptions, so `x memo`.
+#
+# DEAD CONTENT, all of it behind the power being on: the six elevators
+# (T0..T5 are restricted on T8), the six elevator-shaft rooms, the blueprint,
+# and the whole alternative ending -- T22 `build box` wants ten mysterious
+# parts, four of which sit in rooms that require the elevators or the
+# Entrance, and T24/T26 (the black van, ACT type=6 v1=0) hang off it.  Do not
+# go looking for them; the game says "To be continued................" and
+# means it.
+#
+# T20 `kick van` is an instant loss (ACT type=6 v1=2).
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
+take gold key card
+take memo
+x memo
+use gold key card
+n
+w
+d
+e
+look under van
+s
+e
+s
+take red key card
+n
+w
+n
+w
+u
+e
+use red key card
+n
+take power panel key
+take blue key card
+s
+s
+e
+take paper
+x paper
+w
+s
+s
+take breaker switch
+take elevator key
+n
+n
+n
+w
+u
+e
+use blue key card
+n
+take power cable
+s
+s
+e
+take green key card
+w
+w
+take transformer
+take garage key
+e
+n
+w
+u
+e
+use green key card
+n
+take patch kit
+s
+s
+e
+take yellow key card
+w
+w
+take wire cutters
+e
+s
+s
+take gate key
+n
+n
+n
+w
+u
+e
+use yellow key card
+s
+e
+take black key card
+w
+w
+take diamond screwdriver
+e
+n
+w
+u
+e
+n
+take repair manual
+s
+use black key card
+s
+e
+take power cord
+w
+w
+take wrench
+e
+s
+s
+take phillips screwdriver
+n
+n
+n
+w
+d
+d
+d
+d
+d
+e
+s
+w
+take letter
+x letter
+i
+fix power panel
+fix generator
+pull lever
+pull switch
+turn on power

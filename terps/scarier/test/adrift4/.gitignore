@@ -11,3 +11,8 @@
 /notes/Archies_Birthday_walkthrough.md
 /goldens/archie_solution.txt
 /goldens/archie_solution.expected.txt
+
+# Diary of a Stripper (AIF): explicit text, deliberately not committed.
+/notes/Diary_of_a_Stripper_walkthrough.md
+/goldens/diarystrip_solution.txt
+/goldens/diarystrip_solution.expected.txt

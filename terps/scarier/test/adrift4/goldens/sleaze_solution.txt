@@ -1,0 +1,86 @@
+# Sleaze City (sleaze.taf) -- ADRIFT 3.9.  10 rooms, 55 objects (48 of them
+# STATIC scenery), 64 tasks, NO NPCs, NO events, NO variables.
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN, 100/100 -- the sum of every ACT type=4 in the file.  There are
+# no negative ones and nothing is missable, but two of the fifteen scoring
+# tasks sit behind a chain of four, so the order below is not free:
+#
+#   +5  T5  turn on tv
+#   +5  T7  open crate                 -> money (obj5) into inventory
+#   +5  T8  talk to landlord
+#   +5  T13 take car jack              -> jack (obj12)
+#   +5  T14 talk to red
+#   +5  T22 buy tickets                -> lottery ticket, CONSUMES the money
+#   +10 T23 take wirecutters
+#   +5  T24 use wirecutters on chain   -> newspaper (obj17)
+#   +5  T28 read newspaper             (needs T22 done + newspaper held)
+#   +10 T16 use jack on couch          (needs jack held) -> dictionary
+#   +5  T19 read book
+#   +10 T18 talk to gimpy              (needs T19 done) -> moves you to Kitchen
+#   +10 T29 give ticket to landlord    (needs T28 done)
+#   +5  T31 take sandwich              (only exists after T29, via ALT room=2)
+#   +10 T32 serve                      (needs sandwich held) ACT type=6 v1=0 WIN
+#
+# THE MONEY IS SPENT ONCE.  T7's five dollars is the only money in the game
+# and T22 removes it (ACT type=0 v1=3 v3=0).  T9 `give money to landlord` is
+# a trap with a restriction and no actions at all -- the landlord laughs at
+# five dollars, and it does not take the money, but there is no reason to try.
+# The rent gets paid with the winning lottery ticket instead.
+#
+# THE CAFE DOOR REVERSES.  EXIT room=6 N -> 7 is gateTask=18 wantDone=0 and
+# EXIT room=6 IN -> 8 is gateTask=18 wantDone=1 (gateTask is 0-based), so the
+# front door of the cafe works only BEFORE `talk to gimpy` and the kitchen
+# window only after.  T18 also teleports you straight into the Kitchen
+# (ACT type=1 v1=0 v3=8), which is why the route walks back OUT of it.
+#
+# THE SANDWICH IS A ROOM DESCRIPTION.  It is not placed by any action; ALT
+# room=2 alt=1 (v2=30, i.e. task 29 1-based) swaps the Landlord's Room text to
+# "his lone chair has a small sandwich sitting on it" and T31 picks it up.
+# Give the ticket first or `take sandwich` has nothing to take.
+#
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1), hence no blank
+# lines in this script.  One SYNONYM only: [get] -> [take].
+turn on tv
+open crate
+n
+e
+talk to landlord
+w
+d
+n
+look at jack
+take car jack
+talk to red
+s
+w
+s
+buy tickets
+take wirecutters
+n
+e
+s
+cut chain
+read newspaper
+n
+u
+s
+use jack on couch
+read book
+n
+d
+w
+n
+talk to gimpy
+out
+e
+u
+e
+give ticket to landlord
+take sandwich
+w
+d
+w
+in
+score
+serve

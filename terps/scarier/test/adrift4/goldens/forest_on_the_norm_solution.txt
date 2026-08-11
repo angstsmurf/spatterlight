@@ -1,0 +1,27 @@
+x tree
+climb tree
+kick tree
+Sprich Deutsch mit Baum
+n
+e
+give easteregg to chicken
+i
+n
+w
+unlock keyhole
+n
+ask roger about way
+n
+climb big tree
+u
+e
+dive
+u
+get needle
+s
+n
+talk to snake
+u
+enter farm
+n
+show end

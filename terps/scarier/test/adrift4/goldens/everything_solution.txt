@@ -1,0 +1,63 @@
+# Everything Emanuelle (everything.taf) -- ADRIFT 3.9, Stewart J. McAbney.
+# "An Experiment With Character": ONE room (The Bed Chamber), 34 objects,
+# 16 tasks, 2 events, 3 variables, no NPCs, no score of any kind.
+# No published walkthrough; derived from SCR_DUMP_TASKS.
+#
+# Result: WIN, at the fullest of the game's four written endings.  TASK 15
+# (`out`) is unrestricted, so typing `out` on turn one already ends the game
+# -- the whole game is which ending you have earned.  TASK 15's text is an
+# ALT chain keyed on %opinion%:
+#   0  never looked          -> "I will always love her. And nothing would
+#                               change that!"
+#   1  wig OR necklace       -> "...albeit with certain doubts."
+#   2  wig AND necklace      -> "...albeit with severe questions to be
+#                               answered - the wig, the necklace, the woman"
+#   5  the diary, read       -> the full title-drop ending ("...I'll smile as
+#                               I curse her name and everything Emanuelle.")
+#   6 or 7                   -> the literal strings "ending6" / "ending7"
+# TASK 14 (`read diary`) SETS %opinion% to 5 rather than adding, so reading
+# the diary LAST is what reaches the written ending; reading it first and
+# then opening the drawers lands on the unwritten "ending6"/"ending7" stubs.
+#
+# Two <waitkey> pauses before the first prompt (title screen + prologue),
+# located with SCR_MARK_WAITKEY=1 -- hence the two leading blank lines.
+
+
+x dust
+x bed
+x sheets
+x pillows
+x posters
+x portraits
+x blooms
+x window
+x wind
+x curtains
+x wardrobes
+x clothing
+x dresses
+x gowns
+x leisurewear
+x table
+x mirror
+x stool
+x hairbrushes
+x perfumes
+x creams
+n
+u
+open top drawer
+open middle drawer
+open bottom drawer
+x mirror
+x wig
+x necklace
+x key
+close top drawer
+close middle drawer
+close bottom drawer
+look under pillow
+i
+open diary with key
+read diary
+out

@@ -1,0 +1,43 @@
+# Impulso (impulso.taf) -- ADRIFT 3.9, Spanish.  7 "rooms", 12 tasks, NO
+# objects, NO NPCs, NO events, NO variables, NO score.
+# No published walkthrough; derived from SCR_DUMP_TASKS.
+#
+# The game is a conversation, not a map.  A journalist walks Inspector Juan
+# Antonio Cortes home and asks him to reconstruct three murders; the player
+# types what the killer did next, in the third person.  Each "room" is one
+# beat of the interview and the only mechanism in the file is
+# ACT type=1 v1=0 (move the player) chaining them:
+#
+#   room0 --T0  atacar al anciano             --> room1
+#   room1 --T4  examinar la casa              --> room2
+#   room2 --T5  esconder el cuerpo            --> room3   ("* DOS CUERPOS")
+#   room3 --T8  atacar al chico               --> room4
+#   room4 --T7  atacar a la chica             --> room5   ("* CADAVER A LA TAZA")
+#   room5 --T10 meter el cuerpo en el servicio--> room6
+#   room6 --T11 bajar los pantalones          --> ACT type=6 v1=0  WIN
+#
+# Every task has restr=0, so the chain is pure guess-the-verb: the only way
+# to lose is to never find the phrasing.  There is no score (zero ACT type=4
+# in the file; `score` answers "0 out of a maximum of 0"), no losing ending,
+# and no <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1) -- hence no
+# blank lines in this script.
+#
+# Four tasks are wrong-answer hints with no actions at all: T1 `ocultar` and
+# T2 `entro` / T3 `escapar` in room1, and T6 `atacar a la chica` in room3
+# ("no podia ir contra la chica primero ya que esta era mas debil").  A verb
+# aimed at the wrong beat falls through to the engine's UNTRANSLATED English
+# refusal, "You can't do that here!" -- the author localised the prose but
+# not the runner's messages.
+#
+# The .taf is CP1252 and every accepted phrasing below is deliberately the
+# ASCII-only alternative (T5 ALTCMD[4] `* esconder * * * * *`, T8 ALTCMD[2]
+# `atacar * chico`, T10 ALTCMD[4] `meter * * * * servicio`, ...), so this
+# script stays a plain 7-bit file.
+score
+atacar al anciano
+examinar la casa
+esconder el cuerpo
+atacar al chico
+atacar a la chica
+meter el cuerpo en el servicio
+bajar los pantalones

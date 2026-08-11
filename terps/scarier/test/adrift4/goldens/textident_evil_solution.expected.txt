@@ -1,0 +1,396 @@
+Loading game...
+
+Textident Evil
+
+[The following is a short text adventure designed to test the capabilities of
+the Adrift engine. It takes the form of a tribute to the game series
+"Resident Evil." Of course, this was made just for fun and not meant to
+violate any copyrights. The real Resident Evil is the property of Capcom and
+I highly recommend it! I hope you enjoy the adventure! NOTE: Type:
+"instructions" for help.]
+
+You've been on hundreds of boring business trips and sold scores of vacuum
+cleaners to eager housewives, but little did you know how different this trip
+would be. The fateful moment was deciding to take a shortcut through a nearby
+city in order to quicken your trip. The strange name, according to the bright
+green sign, would remain in your memory for a long time:  "Racoon City." It
+would have been better termed "Hell." Halfway through the burg they attacked.
+Horrible half-human monsters tearing at the door handles and seeming to feel
+no pain when you hit them.
+
+You were so distracted that you barely saw an overturned and burning tracter
+trailer. You swerved, missing the conflageration--but not enough to avoid the
+crash. You stumble out of your car, senses numb with shock. You have to
+escape! The alternative is too horrible to contemplate...
+
+Wrecked Street
+
+Wrecked Street
+
+This east/west thoroughfare is covered with debris and trash. It looks like a
+riot occured here. In the distance, you hear the distinctive sound of
+screaming. To the north lies the store window of a pawn shop--amazingly, it
+is unbroken. A crude barrier of furniture and wreckage lies to the east, and
+what's left of your car is now a part of it. The only obvious way out is to
+the west.
+
+>
+Basic Rules:
+
+No character or part of the environment is described beyond what is given in
+initial descriptions. All objects, however, may be "examined." A note about
+"survival horror": This genre always has the protagonist facing desperate
+odds--this means that sometimes you will die and it won't be fair. This is
+not usual for most text adventures, so this is your warning. Save often.
+
+Objects:
+
+Objects can only be "used." If in an appropriate room, or under proper
+circumstances, the character will use the object in the appropriate way (i.e.
+it's "context sensitive").
+
+Searching:
+
+All rooms can be searched by typing "search [roomname]." Objects you find
+will be listed, but remember, you still have to pick them up! You should
+search often!
+
+Interacting With the Environment:
+
+It will sometimes be necessary to interact with the environment without using
+an object to do so. In nearly all cases, this will be opening doors or
+closing them. To do this, you type "open [object]" or "close [object]."
+
+Weapons and Combat:
+
+Characters can find two different weapons: pistols and shotguns. To use a
+pistol,  you type "shoot [creature]," or "kill [creature]." To use a shotgun,
+ you must type "blast [creature]." It shouldn't need to be said, but you
+can't fire an empty weapon. Reloading can be done (if you have ammo) by
+simply typing "use ammo."
+
+You have two wound states: "Healed" and "Wounded." The Health Meter in your
+inventory will report your current status. Green Herbs may be taken to heal
+one level by typing "use herb." If a wounded character is hit again, they
+will die.
+
+GOOD LUCK!
+
+>(Your score has increased by 5)
+
+The only thing of note is a big hunk of brick lying on the road. It looks
+like it could do a lot of property damage...
+
+>You pick up the hunk of brick.
+
+>(Your score has increased by 10)
+
+You toss the brick into the only thing that isn't broken.
+
+SMASH!! The glass window of the pawn shop makes a satisfying sound as it
+shatters into a hundred pieces. It looks like you shouldn't have too much
+trouble scrambling through it to the north.
+
+A mangled zombie has found you! It's countenance is feral and hungry, and its
+eyes promise only a painful death!
+
+A zombie lashes out at you! It's mangled teeth clamp down on a
+arm...chomping! Eating! You stifle a scream and shake it off!
+
+>You move west.
+Intersection
+
+Intersection
+
+This is (or was) the main throughfare through Raccoon City. A four-lane
+highway that is now littered with flaming wrecks and bodies. Some of them
+seem to be twitching... Looking back the way you came, you can see a dozen
+shuffling figures silloueted by nearby burning buildings. There's no way out
+there. A side-road lies to the east, and you can just make out a path through
+the wrecks to the north.
+
+>You move north.
+Highway
+
+Highway
+
+A large sign pointing the way to Route 46 has been toppled by a bus. The bus
+lies on its side, burning like everything else. You should move quickly; the
+heat here is intense! The entrance to a crumbling building can be seen to the
+east; a short scramble through a ditch would get you there. You can also
+continue to follow the highway either to the north or south.
+
+>(Your score has increased by 5)
+
+You suddenly spot a crumpled police car and rush over, looking for anything
+that might help you. Pulling open a door reveals an empty seat. The shotgun
+clip below the dash is also empty. Nothing! Wait. Bending down, you pull a
+gunbelt out of the floorboard. The holster is...also empty! However, you do
+spot a clip of ammo in it. Hmmm, this might come in useful.
+
+>You pick up the clip of pistol ammo.
+
+>You move east.
+Pawn Shop
+
+Pawn Shop
+
+This room is cluttered and grimy. The only open space is in the center of the
+floor, and a large pool of blood fills it. The owner of the plasma, however,
+doesn't appear to be in evidence. A metal door to the west leads back
+outside, while another door to the east reads: "No Entry."  To the south, a
+broken window also provides a way out.
+
+>(Your score has increased by 5)
+A hurried search reveals...a pistol under the counter! It looks loaded, too.
+
+A mangled zombie has found you! It's countenance is feral and hungry, and its
+eyes promise only a painful death!
+
+>You pick up the rugged pistol.
+
+>(Your score has increased by 10)
+
+You blast several rounds into the horrific creature!
+
+BOOM!
+BOOM!
+BOOM!
+BOOM!
+BOOM!
+
+At last, it staggers and sprawls at your feet, dead. A pool of thin red blood
+seeps out from under its body.
+
+The pistol is now empty.
+
+>You move east.
+Office
+
+Office
+
+This cramped space is just big enough for a desk and a few battered filing
+cabinets. The smell of cigarette smoke seems infused in the walls here. A
+door to the west leads back out.
+
+>(Your score has increased by 5)
+
+You rifle through the various papers...and come up with an old newspaper. For
+some reason, the article on the front page fills you with dread... You also
+spy a medical kit! You quickly rip it open--to reveal a lone syringe marked
+"Adrenelin." Great. That's the one thing you don't need.
+
+>You pick up the old newspaper.
+
+>You pick up the syringe of Adrenalin.
+
+>
+Umbrella Corporation to Hire 100 Employees!
+
+Umbrella, Inc. announced it would be hiring 100 employees for a new project
+in Racoon City. This project, like many others, will be in the field of
+benevolent medical research. Once again, we can anticipate great things from
+Umbrella!
+
+>You move west.
+Pawn Shop
+
+Pawn Shop
+
+This room is cluttered and grimy. The only open space is in the center of the
+floor, and a large pool of blood fills it. The owner of the plasma, however,
+doesn't appear to be in evidence. A metal door to the west leads back
+outside, while another door to the east reads: "No Entry."  To the south, a
+broken window also provides a way out.
+A mangled zombie has found you! It's countenance is feral and hungry, and its
+eyes promise only a painful death!
+
+>You move west.
+Highway
+
+Highway
+
+A large sign pointing the way to Route 46 has been toppled by a bus. The bus
+lies on its side, burning like everything else. You should move quickly; the
+heat here is intense! The entrance to a crumbling building can be seen to the
+east; a short scramble through a ditch would get you there. You can also
+continue to follow the highway either to the north or south.
+
+>
+You quickly load the pistol and cock it. Ready to go.
+
+>You move north.
+End of Highway
+
+End of Highway
+
+You can't go any further to the north here, as the bridge ahead has collapsed
+into a trecherous pile of rubble. It looks like a crashed helicopter caused
+it. The smell of burning rubber hangs in the air here like a bad memory. A
+sidestreet opens to the east, and the highway is still accessable to the
+south.
+A mutated dog prowls nearby, and its eyes seem to be glowing a dull red! It's
+growl is constant and it stinks of death. The dog approaches closer and
+closer, its attittude leaving no doubt as to who is predator and who is prey.
+You realize that it has you trapped. It moves faster, and doesn't look
+willing to let you go without a fight.
+
+>(Your score has increased by 10)
+
+You track the dog with your pistol, aiming for one hellish red eye...and then
+it leaps at you!
+
+The muzzle flash from your pistol flares--BOOM!--and the dog suddenly twists
+in air! You sidestep as it hits the pavement. You lower the pistol and finish
+it off with a few more shots. At last, it stops twitching, and blood spreads
+out beneath it.
+
+Your ammo is expended.
+
+>You move east.
+Quiet Street
+
+Quiet Street
+
+This street seems unnatuarally quiet and empty. The only sound is faint and
+disquieting. It sounds like the repeated whining of a rabid cat. The only way
+off this road is to the west (where a bigger north/south road can be
+glimpsed), or into a sagging tenement building to the north: all other exits
+are blocked, either deliberately or through an accumulation of rubble.
+
+>(Your score has increased by 5)
+
+You look around...and see a green herb sticking through a crack in the
+asphault! You've heard of these; taken orally, they will provide useful
+healing!
+
+>You pick up the green herb.
+
+>
+You quickly chew the bitter herb--and feel life returning to your body!
+
+>You move north.
+Stinking Hallway
+
+Stinking Hallway
+
+This hallway smells of urine and other, worse  things. A series of doors
+leading to no-doubt squalid apartments line the walls. At the end of the
+hallway can be glimpsed a set of stairs leading up, while a way out of the
+building lies to the south. Halfway there, a body is sitting propped against
+the wall. He's dressed in military fatigues and a strange patch showing a red
+cross on a white background is stitched onto one sleeve. A massive wound has
+soaked the front of the uniform.  Wait! You can see his chest moving, he's
+still alive! If only you could revive him...
+
+>(Your score has increased by 10)
+
+You kneel beside the stricken soldier and quickly press the syringe into his
+side, hoping you're doing it right. There doesn't appear to be a
+response...then suddenly his eyes snap open and he grabs you by your shirt,
+constricting your neck painfully!
+
+"Up...stairs...!" he gasps suddenly, blood trickling from his mouth,
+"...helicopter...rescue..."
+
+Suddenly he gasps in pain and his hands go slack.  The soldier slumps
+forward, dead. His movement reveals a big metallic object underneath him...
+
+>You pick up the military shotgun.
+
+>You move up.
+Second Floor
+
+Second Floor
+
+The second floor of the tenement building is as filthy as the first. Further
+access up the stairs is blocked by a barricade made of mattresses. You can
+see the glow of fires through the window at the south end of the hall.
+
+>
+You head down the hallway, your heart thundering in your ears...
+
+SMASH!
+
+ A hand stabs out of a nearby doorway and grabs for you! You stumble
+backwards in terror. With a horrible grinding sound, the door wrenches off
+and slams onto the floor. Another of those...things! It shuffles down the
+hall towards you, it's filthy, clawed hands swiping at you...
+End of Hall
+
+End of Hall
+
+You are standing at the window of the second-floor hall. The stairway lies to
+the north.  Peering through the grimy glass and even grimier fire escape, you
+can make out several fires raging throughout the area.
+A mangled zombie has found you! It's countenance is feral and hungry, and its
+eyes promise only a painful death!
+
+A mangled zombie has found you! It's countenance is feral and hungry, and its
+eyes promise only a painful death!
+
+>(Your score has increased by 10)
+
+You blast the zombie with the shotgun!
+
+WA-BOOM!!
+
+The weapon kicks violently in your hands, knocking you breathless. As much as
+it hurt you, however, it hurt the zombie more. Bereft of a head, it falls to
+its knees...and then slumps onto the floor. A pool of blood spills out from
+its neck.
+
+>(Your score has increased by 5)
+
+You brace yourself and shove against the top of the window. With the scraping
+sound of wood rubbing wood, the window slowly slides up. You step back,
+gasping with the effort. The gap you have created now provides access to the
+fire-escape.
+
+>You move south.
+Fire-escape
+
+Fire-escape
+
+Hot winds filled with ash blow over you on this precarious perch. This
+firescape is a patented antique, covered in rust and creaking under your
+weight. Just a few flights up, however, and you'll be on the roof.
+
+>Your score is 80 out of a maximum of 100.  (80%)
+
+>(Your score has increased by 20)
+
+You start up the fire-escape, holding your breath each time you hear it groan
+under your weight. Twenty feet from the roof, then ten...finally you climb up
+the last few steps...
+
+CRACK!
+
+The fire-escape gives way beneath you, and you hurl yourself onto the
+graveled roof, cutting your palms. Behind you comes a noise like a
+prehistoric beast in its death throes: the sound of twisted metal and
+shrieking supports smashing into the street far below.
+
+For awhile you just lay there, gasping for breath. Then you hear it: the low
+thrum of a helicopter! You stagger to your feet in disbelief. That soldier
+was telling the truth! You see it suddenly, a massive cargo 'copter, lit
+underneath by the flames of a dying city. It gets closer...yes! It's slowing
+down!
+
+You watch, barely hoping to belive as it settles onto the roof, whipping your
+hair in a frenzy of man-made wind. A couple of figures leap out a side door
+and rush over. Like the soldier below, they too wear military garb. Grabbing
+you roughly, they hustle you back to the helicopter. As soon as  you're
+inside, the giant machine lifts back into the sky. Amazingly enough, you're
+safe.
+
+"This is Umbrella-7," you can dimly make out the pilot yelling into a hand
+mike, "Extraction was unsuccessful. But we have a witness. We're bringing him
+back to the Island for questioning!" Quielty, you feel a ball of ice settle
+into your stomach. This doesn't sound good. Who are these people? Your worry
+begins to grow...but a part of you is still relieved, after all, this
+"island" couldn't be worse than Racoon City.
+
+Could it?
+
+Congratulations! You've successfully beaten Textident Evil.

@@ -1,0 +1,192 @@
+# S Tar Dus T (S_Tar_Dus.taf) -- ADRIFT 3.90.  You are Jillian, a teenaged
+# girl clubbed unconscious on the way to school by a screaming old woman, and
+# you wake on a black-and-white checkerboard under a sky full of stars.
+# 21 rooms, 48 objects, 42 tasks, 6 NPCs, NO events, no variables.
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN.  THERE IS NO SCORE AT ALL -- not one ACT type=4 in the file --
+# so "maximum" here means the ending that requires the most of the game to
+# have been played, and this route takes it.
+#
+# FOUR ENDINGS, ALL ON `sw` FROM THE OPENING AREA, all gated on T31 (the
+# magic words) and then distinguished ONLY by which optional acts you did.
+# SCARE tries them in file order, so the first whose restrictions all pass is
+# the one you get:
+#   T33  win  T7 flush toilet + T8 drink water + T28 candy to old man,
+#             and NOT T4 (needle in box), NOT T5 (wear bracelet)
+#             -> you move into the shack with the squirrel and the old man,
+#                who adopts you in place of the daughter a cyclops ate.
+#   T34  win  T5 wear bracelet + T6 eat candy + T26 candy to Vampy,
+#             and NOT T4, NOT T8 (drink water)
+#             -> you marry the vampire and move into the mansion.
+#   T35  win  T4 put needle in box + T13 drink tea + T30 candy to Plant Lady,
+#             and NOT T5, NOT T8            <-- THIS ROUTE
+#             -> you become one of the plant lady's kind and live in the
+#                mansion's garden.
+#   T36  LOSE T31 done and none of the three above matched -> you step through
+#             the portal, wake from a two-week coma, and "Better luck next
+#             time."  Stepping through the portal is the losing move; staying
+#             is the win.
+# T35 is the one worth taking: it is the only ending that asks you to skip
+# nothing but two *mistakes* (drinking the lake water and keeping the bracelet
+# you are meant to trade), so everything else in the game can still be done on
+# the way -- flushing the toilet, feeding the old man, feeding Vampy, eating
+# the candy, talking to all six characters.  The other two force you to leave
+# real content out.
+#
+# THE SPINE:
+#   bracelet (wooden table, Inside the Shack)
+#     -> give merchant the bracelet          -> CANDY, which is never consumed
+#        by anything: T2/T6/T26/T28/T30 all just check that you have it, so
+#        one piece of candy feeds the squirrel, you, Vampy, the old man and
+#        the plant lady.
+#     -> give candy to squirrel              -> the squirrel FOLLOWS you
+#        (its walk startTask is T2 and its only step is "follow player")
+#     -> enter mansion                       T3 needs the squirrel present;
+#        that is what "Maybe if you had someone to help you enter the mansion"
+#        in the room description means.
+#   star statue (bookshelf, Inside the Shack)
+#     -> use statue at the Ballroom mirror    -> the mirror world (rooms 15-19)
+#   flute (Music Room) + TP (the outhouse!)
+#     -> play music to the Ghost              -> banishes him
+#     -> talk to vampy (spellbook held)       -> Vampy follows you home
+#     -> make walking stick with star statue and branch  (T23 needs T19 done,
+#        and it CONSUMES the statue, so the mirror closes behind you)
+#     -> give walking stick to old man        -> the old man follows you
+#     -> `s` at Tea Time with the old man present (T25) -> the whole party is
+#        teleported to the Lake and the MISSING PAGE lands in the lake
+#     -> use TP + blabber flabber boogie gaboo in the Garden -> the Plant Lady
+#        is depetrified and follows you
+#   Then `sw` from the Open Area with all four friends in tow.
+#
+# THE MISSING PAGE IS IN THE LAKE, NOT THE OUTHOUSE.  T25's ACT type=0
+# v2=2 v3=2 is an "into object" move, and for those SCARE indexes the
+# container list DIRECTLY (obj_container_object(game, var3)) -- no -1 -- so
+# v3=2 is CONTAINER idx=2 = obj30 [lake], not idx=1 = the outhouse hole.  Take
+# it the moment T25 dumps you at the lake; `take missing page` in the outhouse
+# just gets "Take what?".
+#
+# THE THREE "TP"s ARE THE SAME OBJECT.  obj7 is the toilet paper in the
+# outhouse, the thing the Ghost wants to hear music about, and the
+# "depetrification charm" of T29 (`use Dep Cha` / `use TP`).  The joke is the
+# puzzle: nothing else in the game hints that the charm is a roll of loo roll.
+#
+# THE CUP CARRIES BLOOD *AND* TEA.  `prick finger` (needle held) fills the tea
+# pot, `pour blood` fills the cup, `make tea` / `pour tea` / `drink tea` all
+# use the same cup, and `give cup to vampy` then hands the cup over for good.
+# Drink the tea BEFORE crossing the mirror -- T13 is one of T35's three
+# requirements and the cup is gone once Vampy has it.
+#
+# NO EVENTS AND NO CLOCK.  Nothing here is timed; the only moving parts are
+# the four followers, whose walks all start on the task that befriends them.
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1), and no name prompt.
+e
+in
+take bracelet
+take statue
+out
+w
+w
+talk to merchant
+give merchant the bracelet
+w
+talk to old man
+w
+in
+take tp
+take paper
+out
+e
+e
+e
+s
+talk to squirrel
+take branch
+give candy to squirrel
+talk to squirrel
+eat candy
+s
+take cup
+n
+n
+n
+enter mansion
+w
+take needle
+take needle box
+e
+e
+take tea packet
+w
+out
+s
+s
+s
+prick finger
+pour blood
+make tea
+pour tea
+drink tea
+n
+n
+n
+enter mansion
+n
+use statue
+talk to vampy
+give cup to vampy
+give candy to vampy
+s
+w
+take flute
+e
+e
+take spellbook
+w
+n
+e
+talk to ghost
+play music
+w
+talk to vampy
+make walking stick with star statue and branch
+s
+out
+s
+w
+w
+give walking stick to old man
+talk to old man
+give candy to old man
+e
+e
+s
+s
+s
+take missing page
+n
+n
+n
+w
+w
+w
+in
+flush toilet
+put needle in box
+out
+e
+e
+e
+n
+enter mansion
+n
+n
+use tp
+blabber flabber boogie gaboo
+give candy to plant lady
+talk to plant lady
+s
+s
+out
+s
+sw

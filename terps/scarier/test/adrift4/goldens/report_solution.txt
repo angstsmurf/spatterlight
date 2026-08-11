@@ -1,0 +1,215 @@
+# Report Espionage (report.taf) -- ADRIFT 3.9, set in Piopio College.
+# 25 rooms, 33 objects, 23 tasks, 18 NPCs, no events, one variable (ldoor).
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN, 100/100 -- the sum of every ACT type=4 in the file, and every
+# one of the 23 tasks fires on this route:
+#   +2  T0  open desk              -> Correspondence Set
+#   +5  T1  switch off stereo      (also un-blocks Common Room E; see below)
+#   +3  T3  open michaels locker   -> soccer ball
+#   +3  T5  steal lighter          (needs Sean present, in the bush)
+#   +5  T7  throw apple at fan     -> plastic shard
+#   +3  T9  give ball to michael   -> Chemistry report
+#   +3  T10 give set to mrs walsh  -> earplugs
+#   +8  T8  smash greg with shard  -> History report (drops in the room)
+#   +5  T2  open gregs locker      -> the note (money); needs T8 done
+#   +1  T4  open door              (the library door; scores once only)
+#   +3  T12 give money to bursar   -> calculator
+#   +5  T13 give calculator to mr cook -> Maths report
+#   +3  T16 give book to hamish    -> the Silmarillion
+#   +4  T18 ring homus             -> Biology report, dropped in Homus' office
+#   +4  T6  give cards to gapper   -> lamington
+#   +5  T17 give silmarillion to liz   -> English report
+#   +3  T11 give lamington to student  -> the student becomes an OBJECT
+#   +8  T14 smash glass with student   (yes, you swing him at the fire alarm)
+#   +4  T15 switch alarm           (empties the staffroom)
+#   +3  T19 give slippers to luke  -> the letter
+#   +3  T20 give letter to mrs todd    (opens Mrs Todd's office N -> Tegg's)
+#   +7  T21 give stick to shane    -> PE report
+#   +10 T22 burn report            ACT type=6 v1=0  WIN
+#
+# The first two lines are NOT commands: "Please enter your name:" and "Please
+# choose the player's gender (male or female):".  The gender prompt only takes
+# "male" or "female".
+#
+# SEVEN REPORT CARDS, SEVEN OWNERS.  T22 `burn report` is where=3 (ALL_ROOMS)
+# with seven held-object restrictions -- History (Greg), Chemistry (Michael),
+# Maths (Mr Cook), English (Liz), Economics (loose on the staffroom floor),
+# Biology (Homus) and PE (Mr Tegg).  Everything else in the game exists to
+# prise one of those seven loose.
+#
+# THE LIBRARY DOOR IS A REVERSIBLE TASK AND THE EXITS DISAGREE ABOUT IT:
+#   EXIT room=4 W -> 5  gateTask=4 wantDone=1   (open to reach the Foyer)
+#   EXIT room=5 E -> 4  gateTask=4 wantDone=1   (open to leave the Foyer)
+#   EXIT room=5 N -> 6  gateTask=4 wantDone=0   (CLOSED to reach the Library)
+# so the sequence is always `open door` / west / `close door` / north, and
+# `open door` again on the way out.  Liz says as much from the Foyer: "Close
+# the door!".  T4 is rep=1 and reversible, and re-opening does NOT re-score --
+# the +1 is banked once, so the door can be worked as often as you like.
+#
+# T1 IS A GATE, NOT JUST POINTS.  EXIT room=0 E -> 3 is gateTask=1 wantDone=1:
+# Phil sits in the Common Room doorway until the stereo goes off.  Nothing
+# east of the Common Room is reachable before `switch off stereo`.
+#
+# MRS WALSH WANDERS.  She is the only NPC that moves, up and down the library
+# path (rooms 3, 10, 11, 12, 13), and T10 needs her present.  This route hands
+# her the Correspondence Set on the Common Room Deck on the way back from the
+# soccer field, which is where she happens to be on that turn; a route that
+# spends a different number of turns first has to hunt for her ("Mrs Walsh is
+# not here! (Thank God)").  Wear the earplugs immediately -- T21 needs them
+# WORN (RESTR type=0 v2=2), otherwise "You can't get close enough to Shane
+# without being repelled by the monotone of BR!".
+#
+# THE ONE-WAY CORRIDOR.  room=14 N -> 15 -> 16 -> 7 runs from outside the
+# Bursar's office straight back out behind the main block with no return
+# exits, which is why the route goes Bursar -> corridor -> Mr Cook rather
+# than doubling back through the paths.
+#
+# ORDER TRAPS:
+#   T2 `open gregs locker` is restricted on T8 -- Greg has to be flattened
+#     with the shard before his locker will open.
+#   T14 `smash glass with student` needs T11 done AND the student object held;
+#     T11 needs the lamington, which needs the cards, which are on the table
+#     in the Common Room -- so the library visit has to come before the alarm.
+#   T15 `switch alarm` needs T14; EXIT room=23 E -> 24 is gateTask=15, so the
+#     staffroom (Economics report, slippers) is behind the fire alarm.
+#   The slippers come out of the staffroom in the east and are given to Luke
+#     in the Common Room in the west, and the letter he hands over goes back
+#     east to Mrs Todd -- that round trip is unavoidable.
+#   EXIT room=19 N -> 20 is gateTask=20, so Tegg's office (Shane, PE report)
+#     only opens once Mrs Todd has the letter.
+#
+# ACT type=0 destination rooms are 1-BASED, as everywhere else in 3.9: T8's
+# v3=1 drops the History report in room 0, T7's v3=8 drops the shard in room
+# 7, T18's v3=23 drops the Biology report in room 22 (Homus' office).
+#
+# The lighter is decorative -- T22 checks the seven reports and nothing else.
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
+Sam
+male
+open desk
+take set
+take cards
+s
+switch off stereo
+open michaels locker
+take ball
+n
+w
+steal lighter
+take stick
+e
+e
+n
+take apple
+e
+throw apple at fan
+take shard
+n
+give ball to michael
+s
+w
+s
+give set to mrs walsh
+wear earplugs
+w
+smash greg with shard
+take history report
+s
+open gregs locker
+take note
+n
+e
+n
+open door
+w
+take book
+e
+s
+s
+s
+s
+e
+n
+give money to bursar
+n
+n
+n
+e
+give calculator to mr cook
+w
+w
+s
+s
+s
+s
+e
+e
+e
+n
+give book to hamish
+s
+s
+ring homus
+n
+n
+n
+take biology report
+s
+s
+w
+w
+w
+n
+n
+n
+n
+w
+close door
+n
+give cards to gapper
+take lamington
+give silmarillion to liz
+s
+open door
+e
+s
+s
+s
+give lamington to student
+s
+e
+e
+e
+smash glass with student
+switch alarm
+s
+e
+take economics report
+take slippers
+w
+n
+w
+w
+w
+n
+n
+n
+w
+s
+give slippers to luke
+n
+e
+s
+s
+s
+e
+e
+e
+e
+give letter to mrs todd
+n
+give stick to shane
+i
+score
+burn report

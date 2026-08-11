@@ -1,0 +1,117 @@
+# Albridge Manor (manor.taf) -- ADRIFT 3.9, Woody Ross, Feb-July 2002.
+# 27 rooms, 56 objects, 30 tasks, 3 NPCs (Angie, Theo, a ghost), 4 events.
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN, 50/50 -- the sum of every ACT type=4 in the file:
+#   +5  T14 light candelabra        (needs matches + candelabra held)
+#   +5  T15 unlock door             (needs key; opens Foyer IN -> Secret Alcove)
+#   +5  T18 give food to cat        (needs cat food; unlocks T19)
+#   +5  T22 bury doll     )
+#   +5  T23 bury necklace ) each needs the item AND the shovel, in room 26
+#   +5  T24 bury pipe     )
+#   +5  T25 bury ball     )
+#   +15 T26 bury crucifix           ACT type=6 v1=0 WIN
+#
+# The first two lines are NOT commands: the game opens with "Please enter your
+# name:" and "Please choose the player's gender (male or female):".  The name
+# is used in the ghost whispers, so it has to stay stable for the golden.
+#
+# FIVE THINGS GET BURIED, IN ANY ORDER BUT ONE.  T26 carries six restrictions:
+# crucifix held, shovel held, and T22/T23/T24/T25 all done.  The crucifix goes
+# in last or nothing happens.
+#
+# THE FOUR "SEARCH" TASKS ARE THE ITEM SOURCES.  Each has ACT type=0 with a
+# 1-BASED room number, i.e. it drops the item in the room you are standing in;
+# you still have to `take` it afterwards:
+#   T10 search junk    (Attic 23)          -> crucifix
+#   T11 search shelf   (Closet 24)         -> old brass key
+#   T19 search vanity  (Child's Bedroom 21)-> doll   [needs T18 done first]
+#   T20 search bed     (Master Bedroom 20) -> necklace
+#   T21 search clothes (Spare Bedroom 25)  -> ball   [also hides Angie: the
+#                                            ghost boy screams and she is gone]
+# The pipe is not searched for -- it sits on the table in the Secret Alcove,
+# behind the door T15 unlocks, so the key has to come downstairs before it.
+#
+# CAT FOOD BEFORE THE STAIRS.  T18 is `where=1 room=21` and needs the tin from
+# the kitchen cupboard held.  Forgetting it on the ground floor costs a full
+# round trip, which is why the route empties the whole ground floor first.
+#
+# THREE INSTANT DEATHS, all ACT type=6 v1=2 and none of them on this route:
+# T7 `jump` (from the balcony), T9 `jump window` in the Child's Bedroom while
+# the window is open, T12 `jump window` in the Spare Bedroom, and T29
+# `kill ghost` while the ghost is present (she is in the Solarium at the
+# start, and the route walks through her twice).
+#
+# The four events are pure atmosphere (texts=S--, affTask=0): whispers, a
+# distant door, a storm, and a bouncing ball.  Nothing in this game is timed.
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
+Sam
+male
+take matches
+n
+w
+open cupboard
+take cat food
+e
+e
+take candelabra
+w
+n
+n
+n
+n
+take shovel
+s
+s
+s
+s
+s
+u
+w
+n
+e
+search shelf
+take key
+w
+w
+search bed
+take necklace
+e
+n
+search clothes
+take ball
+s
+s
+e
+e
+n
+e
+give food to cat
+search vanity
+take doll
+w
+n
+u
+search junk
+take crucifix
+d
+s
+s
+w
+d
+unlock door
+in
+take pipe
+out
+light candelabra
+n
+w
+d
+move rack
+s
+bury doll
+bury necklace
+bury pipe
+bury ball
+score
+bury crucifix

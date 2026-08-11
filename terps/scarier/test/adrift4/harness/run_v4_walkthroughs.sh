@@ -1281,6 +1281,149 @@ cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for p
 # 2026-08-04 in scevents.cpp; see the solution header and RUNNER_TESTS_TODO.md
 # section 8.
 panic_solution.txt|panic.taf|Your rating is Messiah.|SCR_SKIP_WAITKEY=1
+# --- 2026-08-11: unwired 3.9 games, smallest first -------------------------
+# I... (Christopher Cole) -- one-room, no scoring system.  The whole game is a
+# four-link event chain: `feel pulse` starts Memory 1, and each memory event
+# starts the next; Memory 4 is the task with the EndGame action.  The leading
+# flavour commands are the game's other seven tasks (they do not touch the
+# chain); the 21 `z`s are the measured 4+5+7+5 turn timers under the fixed seed.
+i_solution.txt|i.taf|I am dead.
+# Dreamland (Daniel Bergman) -- one room, four tasks, one scoring action.
+# `fill waterskin with water` then `pour ... into basin` is the whole game;
+# everything else is scenery, and EVENT 0 kills you on turn 35.  The leading
+# blank line answers the intro's "Click any button".
+dreamland_solution.txt|Dreams.taf|You have saved the Dreamworld
+# Forest On The Norm (Tobias Schmitt, RON 2002) -- a 16-room corridor whose
+# every door is gated on one task in the room before it, and no score at all
+# (`My score is 0 out of a maximum of 0`).  TASK 15 `show end` prints the
+# closing credits but has no EndGame action, so the marker is that text.
+forest_on_the_norm_solution.txt|forest.taf|Thank you for playing my Aliengame
+# The Adventures of Bob Bobsly -- 155/155, every one of the ten scoring tasks.
+# `take gum` in The Bar is the one non-obvious step: `chew gum` is a
+# where=anywhere task that just answers "You don't have the right equipment"
+# until you are holding the wad, and the coin it yields is the only money.
+bob_bobsly_solution.txt|BobBobsly.taf|Be sure to play, Adventures of Bob Bobsly 2
+# Druggy Lane -- a Dope Wars clone: one room, 23 variables, 30 days.  Prices
+# are re-randomised by `next day`, so the route is a seed-specific trading
+# plan derived offline from a measured price table; the filler turns are
+# `look` on purpose (`wait` runs Globals.WaitTurns turns and desyncs the RNG
+# stream, an unparsed command consumes a different amount again).  Ends
+# debt-free with $1,955,720,463 -- just under the 32-bit ceiling the real VB6
+# Runner would overflow at.  See notes/Druggy_Lane_walkthrough.md.
+druggy_lane_solution.txt|druggy_lane.taf|You have managed to deal your way to freedom!
+# Escape from Insanity -- 1000/1000, one padded cell, a six-step tool chain.
+# `use rock on button` is typed twice on purpose: TASK 11 claims it first and
+# pops the button off the wall, and only once TASK 11 is done (rep=0) does
+# TASK 12 get the same pattern and cut the knife out of it.
+escape_from_insanity_solution.txt|Insane.taf|Congratulations psychopath, you're now a pyro.
+# Lost Souls: the trunk in the Attic is guarded by two same-pattern tasks --
+# TASK 16 (unrestricted, repeatable, "it's locked") shadows TASK 17 (needs the
+# key) for every `open ... trunk` phrasing.  Only TASK 17's extra alternatives
+# `unlock trunk` / `use key on trunk` reach it, and the scrap of paper it
+# yields is what unlocks `d` in the Kitchen.  See notes/Lost_Souls_walkthrough.md.
+lost_souls_solution.txt|lostsouls.taf|You don't want to go down there.
+# Chicago: 75, the sum of every ACT type=4 (the status line's "maximum" is 0,
+# the author never set one).  `confront daisy` is the only winning end; the
+# other two `confront` tasks are instant losses.
+chicago_solution.txt|chicago.taf|Daisy was found guilty of double homicide
+# Everything Emanuelle: no score; `out` wins from turn one, so the marker locks
+# the ENDING -- %opinion%==5, the last of the four written ALTs.  Reading the
+# diary sets %opinion% to 5 (it does not add), so 6/7 are reachable and print
+# the author's unwritten "ending6"/"ending7" placeholders.
+everything_solution.txt|everything.taf|I'll smile as I curse her name and everything Emanuelle.
+# Textident Evil: 100/100 (the game's own stated maximum).  TURN-CRITICAL --
+# four monster events run on a fixed global cadence and the zombie's WALKs
+# re-teleport it onto the player after every kill, so the `instructions` turn
+# and the exact command count before the dog fight are load-bearing.
+textident_evil_solution.txt|Textident_Evil.taf|Congratulations! You've successfully beaten Textident Evil.
+# Impulso: a Spanish conversation piece with no map, no objects and no
+# score -- 12 tasks, all unrestricted, chained by ACT type=1 moves.  You
+# reconstruct three murders for a journalist and the only failure mode is
+# not finding the phrasing; a verb aimed at the wrong beat falls through to
+# the runner's untranslated "You can't do that here!".  Every command below
+# is the ASCII-only alternative of an accented pattern, so the solution file
+# stays 7-bit even though the .taf is CP1252.
+impulso_solution.txt|impulso.taf|Solo una cosa. Me di cuenta hace un cuarto de hora
+# Montahue Scott and the Mobius Belt: 3/3 in one room.  Two order traps in
+# eighteen tasks -- T3/T9/T10 all require task 8 NOT done, so Chelsea and Bo
+# must be asked about the communicator BEFORE Virgil fixes it, and the
+# shuttle T8 summons starts a 15-turn countdown (EVENT 1 -> T15, -1 point
+# and ACT type=6 v1=2) that the flavour block below sits safely inside.
+ms_mobius_solution.txt|ms_mobius.taf|That little TV screen for the inside of your hat was a good investment.
+# A Morning with a Headache: 115/115, the game's own maximum.  Four fatal
+# deadlines on a fixed global clock -- the buzzing alarm evicts you at turn
+# 15, the girlfriend catches the stripper at 30, arrives (and teleports you)
+# at 35, and the wedding leaves without you at 55 -- so the route is timed
+# throughout.  The +3 requires leaving the alarm ON one turn longer than a
+# player would, and `wash me` locks out the moment Hanna is forgiven.
+morning_headache_solution.txt|A_Morning_with_a_Headache.taf|This has turned out to be an altogether OK morning.
+# Sleaze City: 100/100, every ACT type=4 in the file.  A ten-room slum with
+# no NPCs, no events and no clock -- the only real constraint is a four-link
+# chain (buy tickets -> cut the chain for the newspaper -> read it -> hand the
+# winning ticket to the landlord) plus the cafe door reversing direction:
+# EXIT room=6 N is gateTask=18 wantDone=0 and IN is wantDone=1, so `talk to
+# gimpy` closes the front entrance and opens the kitchen window behind you.
+sleaze_solution.txt|sleaze.taf|Good job, you somehow managed to survive Sleaze City.
+# Albridge Manor: 50/50.  A 27-room haunted house whose endgame is a burial --
+# T26 `bury crucifix` carries six restrictions (crucifix + shovel held, and
+# T22..T25 all done), so the doll, necklace, pipe and ball go into the Secret
+# Room floor first and the crucifix last.  The first two script lines are the
+# name and gender prompts, not commands; the name is echoed back in the ghost
+# whispers, so it has to stay stable for the golden.
+manor_solution.txt|manor.taf|You bury the crucifix with the other items.
+# The Lost Mines: 100/100.  The whole game is one chain of favours -- ring ->
+# pencil -> signed coupon -> beer -> Gus leaves the tunnel -- and each link is
+# a restriction on the next, so the order is forced.  Two containers refuse to
+# be picked up and have to be opened in place (`open box` / `open pillow`),
+# and T40 never actually checks for the dynamite: matchbook + a thirsty Gus is
+# all the engine wants.
+lostmines_solution.txt|lostmines.taf|Congratulations, you have found the lost gold.
+# The Dark Tower: no score at all (zero ACT type=4), so the finish line is
+# T8 `turn on power` -- eight tools held at once for the panel, four more for
+# the generator, one per suite across five floors.  A key card is used ONCE
+# and opens its whole floor, and everything outside the lobby and the garage
+# is pitch dark until you find the flashlight under the van.  The elevators,
+# the shafts and the entire black-van ending are unreachable: they all hang
+# off T8, which ends the game.  "To be continued................"
+darktower_solution.txt|DarkTower.taf|restored power to the building.
+# Report Espionage: 100/100, and all 23 tasks fire.  Seven report cards, seven
+# owners, and the whole game is prising them loose -- including swinging a
+# bribed Year 8 student at the fire alarm to empty the staffroom.  The library
+# door is a reversible task whose three exits disagree about it (room 4 W and
+# room 5 E want it done, room 5 N wants it NOT done), so it is always `open
+# door` / w / `close door` / n; re-opening does not re-score.  Mrs Walsh is the
+# one wandering NPC and T10 needs her present, so the Correspondence Set is
+# handed over on the Deck at the exact turn she is standing there.
+report_solution.txt|report.taf|Congratulations you have been victorious.
+# Far From Home: 50/50 -- fourteen +3 tasks plus +8 for the riddle.  Two
+# <waitkey> pauses eat a script line, so the file starts with a bare `x`
+# BEFORE the name (the intro pauses before the name prompt) and carries a
+# second one right after `climb beanstalk`.  Three one-way chapters: the
+# water in the hole teleports you to the castle, the beanstalk to the ocean,
+# and the box to the Puzzlelord -- nothing can be fetched back afterwards.
+# The pirate walks away after one turn, so `give pearl to pirate` has to be
+# the first command on the lighthouse's 4th floor.
+farfromhome_solution.txt|FarFromHome.taf|you realize something. This is your home!
+# S Tar Dus T: no score anywhere in the file, so the goal is the richest of
+# the four `sw` endings.  All four are gated on T31 (the magic words) and
+# then picked in file order by what else you did: T33 wants the lake water
+# drunk, T34 the bracelet worn, T35 the needle boxed and the tea drunk, and
+# T36 is the LOSING one you get when none of them match (you step through the
+# portal and wake from a coma).  This route takes T35, the only ending whose
+# conditions cost you nothing but two mistakes, so every optional scene is
+# still on the way.  The missing page falls in the LAKE, not the outhouse:
+# `ACT type=0` "into object" indexes the container list directly, no -1.
+stardust_solution.txt|S_Tar_Dus.taf|You decide to go with the plant lady and
+# Diary of a Stripper is AIF: the game's text is sexually explicit, so its
+# solution and golden are deliberately NOT committed (they are in .gitignore).
+# The row stays so the regression runs where the files exist; elsewhere it
+# NOSCRIPTs.  Mechanically it is worth keeping for three reasons: the score is
+# an ALR table (WINTEXT prints `[end=%win%]` and fourteen ALR entries rewrite
+# it, so the 13/13 maximum is provable from the file rather than assumed); the
+# clock is two chained events, one starting the other; and it pins the rule
+# that a command the parser REJECTS does not advance the turn counter, so
+# gibberish padding never makes a timed event fire.
+diarystrip_solution.txt|diarystrip.taf|You earn a huge tip and the ladies are all in love with you
 EOF
 }
 

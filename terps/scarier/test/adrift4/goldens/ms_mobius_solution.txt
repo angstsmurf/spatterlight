@@ -1,0 +1,45 @@
+# Montahue Scott and the Mobius Belt (ms_mobius.taf) -- ADRIFT 3.9.
+# ONE room ("The Mobius Belt"), 18 tasks, 3 NPCs, 2 events, 1 unused variable.
+# No published walkthrough; derived from SCR_DUMP_TASKS.
+#
+# Result: WIN, 3/3 -- the game's own stated maximum, and the sum of every
+# ACT type=4 on a winning line:
+#   +1  T7  throw something   (frees the astronauts)
+#   +1  T8  vir fix comm      (Virgil calls the Universal Parliament)
+#   +1  T12 board ship        (ACT type=6 v1=0, the win)
+# T15 (`#ship leaves`) is the only other ACT type=4: -1 and ACT type=6 v1=2,
+# i.e. the loss.
+#
+# ORDER TRAP: T3 `open comm`, T9 `ask che comm` and T10 `bo fix comm` all
+# carry `RESTR type=2 v1=9 v2=1` -- task 8 must NOT be done.  Ask Virgil
+# first and the other three answer "It's fixed already, don't give it to a
+# nonprofessional to break." forever.  Chelsea and Bo before Virgil.
+#
+# THE CLOCK: EVENT 0 "Shuttle to the Belt" is started by T8 and fires T11
+# (`#ship arrives at belt`) after 5..15 turns -- 8 under the fixed seed.
+# T11 in turn starts EVENT 1 "Ship leaves", which fires T15 exactly 15 turns
+# later and kills you.  The examine/flavour block below is the padding that
+# covers the arrival wait; it is comfortably inside the 15-turn window.
+#
+# The hat is WORN from turn one, which is what T12 needs (`RESTR type=0
+# v1=3 v2=2`) -- there is no step that puts it on, only ways to lose it
+# (T5/T6 `throw hat`).
+# No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
+n
+n
+throw something
+open comm
+ask chelsea about comm
+bo fix comm
+vir fix comm
+break glass
+smell paint
+x belt
+x twist
+x planet
+x stars
+x hole
+look
+look
+score
+board ship

@@ -1,0 +1,61 @@
+# Textident Evil (Textident_Evil.taf) -- ADRIFT 3.9, a Resident Evil tribute.
+# 11 rooms, 2 NPCs, 25 tasks, 4 events.  No published walkthrough; derived
+# from SCR_DUMP_TASKS.
+# Result: WIN at 100/100 (the game's own stated maximum), every ACT type=4:
+#   +5 T0 search wrecked street   +10 T1  use brick        +5 T23 search highway
+#   +5 T7 search pawn shop        +10 T14 shoot zombie     +5 T8  search office
+#  +10 T22 shoot dog              +5  T11 search quiet street
+#  +10 T2 use adrenalin           +10 T17 blast zombie     +5  T4  open window
+#  +20 T5 up (EndGame v1=0)
+#
+# THIS ROUTE IS TURN-CRITICAL.  Four events run on a fixed global 2-turn /
+# 2-6-turn cadence and only bite while a monster shares your room:
+#   EVENT 0 "Attack"  -> T9  ZombieAttack : Healed -> Wounded
+#   EVENT 1 "Kill"    -> T13 ZombieKill   : Wounded + zombie present -> DEATH
+#   EVENT 2 "Attack2" -> T20 DogAttack    : Healed -> Wounded
+#   EVENT 3 "Kill2"   -> T21 DogKill      : Wounded + dog present -> DEATH
+# The zombie has two WALKs that teleport it onto the player every turn once
+# started (WALK 0 by T1 `use brick`, WALK 1 by T7 `search pawn shop`), and
+# `shoot zombie` does NOT remove it -- the walk brings it straight back.  So
+# the number of turns between `search pawn shop` and `use herb` decides
+# whether you live, and inserting or removing ANY turn before the dog fight
+# re-rolls the whole thing.  The single `look` slot and the opening
+# `instructions` are load-bearing padding, found by brute-forcing the pad
+# counts; almost every other alignment dies.
+# No <waitkey> pauses (checked with SCR_MARK_WAITKEY=1).
+instructions
+search wrecked street
+take brick
+use brick
+w
+n
+search highway
+take ammo
+e
+search pawn shop
+take pistol
+shoot zombie
+e
+search office
+take newspaper
+take adrenalin
+read newspaper
+w
+w
+use ammo
+n
+shoot dog
+e
+search quiet street
+take herb
+use herb
+n
+use adrenalin
+take shotgun
+u
+south
+blast zombie
+open window
+s
+score
+up

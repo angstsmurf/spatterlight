@@ -1,0 +1,162 @@
+# Far From Home (FarFromHome.taf) -- ADRIFT 3.90, by "The Mad Monk",
+# 23 Jul 2002.  25 rooms, 59 objects, 40 tasks, 3 NPCs, 4 events, one
+# variable (`ropestatus`, never written by any ACT type=3).
+# No published walkthrough; derived from SCR_DUMP_TASKS + SCR_DUMP_OBJLOC.
+#
+# Result: WIN, 50/50 -- fourteen +3 tasks plus the +8 for answering the
+# Puzzlelord's riddle.  Every scoring task in the file is on this route:
+#   +3 T2  chop down tree (forest)   +3 T3  dig (field)
+#   +3 T4  dip bucket in river       +3 T6  dump water into hole
+#   +3 T8  look behind tapestry      +3 T7  open door (castle)
+#   +3 T9  look throne               +3 T10 press button
+#   +3 T12 climb beanstalk           +3 T16 give pearl to pirate
+#   +3 T17 tie rope to bar           +3 T20 hit window with coconut
+#   +3 T23 unlock box                +3 T24 open box
+#   +8 T29 lost                          ACT type=6 v1=0  WIN
+#
+# TWO <waitkey> PAUSES EAT A SCRIPT LINE (found with SCR_MARK_WAITKEY=1),
+# and that is why this file has two bare `x` lines that are not commands:
+#   * one in the introduction, BEFORE "Please enter your name:" -- so the
+#     first line of the script is the keypress and the SECOND line is the
+#     name.  Put "Sam" first and the game is played by a character called
+#     `look`.
+#   * one inside the beanstalk descent, so `climb beanstalk` is followed by
+#     a keypress line before the next real command.
+#
+# THE GAME IS THREE ONE-WAY CHAPTERS.  Nothing can be carried back:
+#   1. Mountain/forest/field/cabin/cellar/cave (rooms 0-5).  T6 `dump water
+#      into hole` scores +3, then teleports you to the castle entrance
+#      (ACT type=1 v1=0 v2=0 v3=6 -- a PLAYER move, so 0-based) and destroys
+#      the axe, the shovel, the bucket and the water on the way out.
+#   2. Castle (rooms 6-8) and the clouds (9-10).  T12 `climb beanstalk`
+#      drops you in the ocean (v3=11, again 0-based) and destroys the
+#      castle key.
+#   3. The lighthouse island (rooms 11-21), then T24 `open box` teleports
+#      you to the mysterious forest (v3=22) for the endgame.
+# So each chapter has to be finished completely before the move that leaves
+# it; there is no going back for a forgotten object.
+#
+# THE TOOL CHAIN IN CHAPTER 1 is strictly ordered, and each tool comes out
+# of the previous puzzle:
+#   axe (inside the WOOD BOX in the cabin -- `open wood box` first, `take
+#   axe` alone gets "Take what?")
+#     -> chop down tree in the FOREST (T2; the identically-worded T34 at the
+#        mountain and T35 in the field are failure messages) -> shovel
+#        lands on the forest floor, so `take shovel` afterwards
+#     -> dig in the FIELD (T3) -- opens EXIT room=2 D -> 5 into the cave
+#     -> dip bucket in river (T4; bucket from the bed in the cellar)
+#     -> dump water into hole at the mountain (T6).
+#
+# THE CASTLE: `look behind tapestry` (T8) yields the key, `open door` (T7)
+# needs it and opens room 6 N -> 7.  In the throne room, `look throne` (T9)
+# reveals the button and T10 `press button` is restricted on it; T10 is the
+# gate on EXIT room=6 S -> 9, i.e. pressing the button is what opens the way
+# up to the clouds.  Do NOT `jump` on the clouds (T11) -- instant death.
+#
+# THE PIRATE WALKS.  NPC 0 starts on the lighthouse's 4th floor with a
+# four-step walk (stopTask=17, i.e. T16 itself), and T16 needs him in the
+# room.  He is standing there on the turn this route arrives, and gone two
+# turns later -- so `give pearl to pirate` must be the FIRST command on the
+# 4th floor, before `take key`.  Get it wrong and you get "The pirate is not
+# here!" and no rope, and the whole balcony descent stays shut.
+#
+# THE SHEET IS ALREADY OPEN.  T12 puts obj44 [sheet] onto surface index 0 =
+# obj7 [bed], and that bed is a multi-room static in rooms 4, 8 AND 17 -- so
+# the sheet, with the bronze box key inside it, materialises on the 4th
+# floor of the lighthouse just as you need it.  `open sheet` is refused
+# ("You can't open the ruffled sheet!"); `take key` works directly.
+#
+# THE ROPE OPENS FIVE EXITS AT ONCE.  T17 `tie rope to bar` on the third
+# floor balcony is the gate on 13 U, 18 D, 19 U, 19 D, 20 U and 20 D -- the
+# entire outside-the-lighthouse ladder.  Until it is tied, the balcony is a
+# dead end.  Do NOT `jump` on the 3rd floor (T15) -- instant death.
+#
+# THE COCONUT ROUND TRIP.  T21 `take coconut` up the tree does not give you
+# the coconut: it moves obj47 to room 25-1 = 24, the Western Beach, so you
+# climb down and take it there.  Then `hit window with coconut` (T20)
+# outside the first floor, and `open window` (T18, restricted on T20) puts
+# the gold-laced box in room 15-1 = 14, i.e. INSIDE the lighthouse's first
+# floor -- so you go back down, round and in to pick it up.
+#
+# FIVE WAYS TO DIE, all ACT type=6 v1=2, none on this route:
+#   T5  drink water (anywhere, while carrying the bucket of river water)
+#   T11 jump         (on the clouds)
+#   T15 jump         (lighthouse 3rd floor)
+#   T32 hit man      (the Puzzlelord)
+#   T26 #too slow with riddle -- EVENT 3 starts on T25 `ask man about ...`
+#       and fires T26 exactly 10 turns later.  This route spends two of them
+#       (`score`, then the answer).
+#
+# THE RIDDLE: "50 is my first / nothing is my second / a snake will make my
+# third / then three parts a cross is reckoned" = L + O + S + T.  T27 holds
+# fourteen wrong answers (fear, strength, sloth, panic, ghosts, anger,
+# ignorance, pain, cold, death, monsters, satan, ice, dark) and T28 answers
+# the spelling-out ("50 fang cross") without winning; only T29 `lost` scores.
+x
+Sam
+e
+open wood box
+take axe
+down
+take bucket
+up
+w
+s
+chop down tree
+take shovel
+s
+dig
+d
+dip bucket in river
+u
+n
+n
+dump water into hole
+look behind tapestry
+open door
+n
+w
+look throne
+press button
+e
+s
+s
+sw
+climb beanstalk
+x
+w
+n
+open seashell
+take pearl
+s
+in
+u
+u
+u
+give pearl to pirate
+take key
+d
+out
+tie rope to bar
+d
+d
+d
+w
+climb tree
+take coconut
+d
+take coconut
+e
+u
+hit window with coconut
+open window
+d
+s
+in
+take box
+unlock box
+open box
+in
+ask man about riddle
+score
+lost

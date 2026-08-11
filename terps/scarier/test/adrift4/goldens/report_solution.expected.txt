@@ -1,0 +1,928 @@
+Loading game...
+
+Report Espionage
+Welcome to Report Espionage, a dynamic adventure set within Piopio College, a
+school principaled by Brian Tegg. Reports are due to be issued soon and
+your's is hardly the stunning accomplishment your parents are expecting.
+Obviously the only way for you to save your own skin is to collect the
+various parts of your report and somehow destroy them. This task will not be
+as easy as it sounds for you will have to play to the whims of the characters
+as well as your own needs.
+
+Good luck. You may just need it.
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+In the Northern Half of the Common Room
+Desks line the walls of the Common Room in an attempt to make it look like a
+place of study. In reality this is simply a storage space for the possessions
+of the inhabitants, a veritable treasure trove of utterly useless junk. Toys
+from a packet of rice bubbles adorn Shane's desk, a sure sign of his state of
+mind. The Common Room back door leads out into the native bush to the west.
+There is a table in the centre of the room with something on it. The exit to
+the Common Room is to the east which is usually blocked by Phil. It takes a
+bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
+because Shane and Hamish have been taken away by Homus, sparking a lot of
+controversy as to what they've been up to. Perhaps you should ask around...
+Shane's desk is shut.
+Greg is here, annoying you with his mere presence.
+
+>(Your score has increased by 2)
+The desk drawer slides open.
+
+>You take the Correspondence Set from Shane's Desk.
+
+>You take the pack of cards from the Revolving Table.
+
+>You move south.
+In the Southern Half of the Common Room
+This is the Southern Half of the Common Room where the lockers are situated,
+along with various electronic appliances used in the production of
+semi-nutritious meals. Greg's Locker is here as well as Michael's Locker.  A
+stereo sits on a table here, blasting out sounds that may be described as
+music.
+Luke is here, dancing.
+
+>(Your score has increased by 5)
+Immediately the swinging sounds that pervaded the Common Room come to a
+grinding halt. You hear Phil getting rather angry and a chair scraping as he
+moves away from the Common Room door.
+
+>(Your score has increased by 3)
+Michael's Locker opens, revealing his soccer ball which rolls out of the
+locker and onto the floor.
+
+>You pick up the round Soccer ball.
+
+>You move north.
+In the Northern Half of the Common Room
+Desks line the walls of the Common Room in an attempt to make it look like a
+place of study. In reality this is simply a storage space for the possessions
+of the inhabitants, a veritable treasure trove of utterly useless junk. Toys
+from a packet of rice bubbles adorn Shane's desk, a sure sign of his state of
+mind. The Common Room back door leads out into the native bush to the west.
+There is a table in the centre of the room with something on it. The exit to
+the Common Room is to the east which is usually blocked by Phil. It takes a
+bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
+because Shane and Hamish have been taken away by Homus, sparking a lot of
+controversy as to what they've been up to. Perhaps you should ask around...
+Shane's desk is open and its contents are displayed to the world.
+Greg is here, annoying you with his mere presence.
+
+>You move west.
+In the bush behind the Common Room
+The native bush here is out of bounds so not surprisingly it is a haven for
+students who don't want to adhere to the rules of the school. Trees of
+various shapes and sizes rise from the ground here, nestling deep amongst the
+litter that is strewn throughout this area.
+
+Also here is a heavy stick.
+Sean is here, smoking like a chimney.
+
+>(Your score has increased by 3)
+As Sean takes an immense draw from his cigarette, you quickly reach into his
+pocket and steal his lighter.
+
+>You pick up the heavy stick.
+
+>You move east.
+In the Northern Half of the Common Room
+Desks line the walls of the Common Room in an attempt to make it look like a
+place of study. In reality this is simply a storage space for the possessions
+of the inhabitants, a veritable treasure trove of utterly useless junk. Toys
+from a packet of rice bubbles adorn Shane's desk, a sure sign of his state of
+mind. The Common Room back door leads out into the native bush to the west.
+There is a table in the centre of the room with something on it. The exit to
+the Common Room is to the east which is usually blocked by Phil. It takes a
+bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
+because Shane and Hamish have been taken away by Homus, sparking a lot of
+controversy as to what they've been up to. Perhaps you should ask around...
+Shane's desk is open and its contents are displayed to the world.
+Greg is here, annoying you with his mere presence.  Luke is here, dancing.
+
+>You move east.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+Mrs Walsh walks towards you from the south.
+
+>You move north.
+Outside the Geography Room
+You're standing next to the Geography Room, which you aren't allowed to enter
+because you don't take Geography. To your west is the entrance to the Library
+and to your east is the back end of the Main Block. The rubbish duty students
+are wandering around here picking up rubbish and putting it into their bins.
+One small student is carrying a bin that is far too big for him. The Common
+Room dominates your southern vista.  The library door is closed.
+
+Mr B is here.
+
+>You take the half-eaten apple from the rubbish bin.
+
+>You move east.
+Behind the main block
+You are standing on the hill that overlooks the back of the main block. From
+here you can see the fan perched atop the building, splattered with what
+seems to be the remnants of fruit. Looking around you can see the soccer
+field to your north and Mr Cook's mathematics room to the east.
+
+>(Your score has increased by 5)
+You watch intently as the apple makes its way towards the fan. Watching
+carefully. Will you hit? Direct hit! A plastic shard comes flying off the fan
+and lands in the ground beside you.
+
+>You pick up the plastic shard.
+
+>You move north.
+On the Soccer Field
+You are standing in the middle of the soccer field where many students spend
+their lunchtimes, playing soccer. There is a soggy feeling in your shoes and
+you recall that the drainage is not the best here.
+Michael is here, attempting to play soccer.
+
+>(Your score has increased by 3)
+Michael gleefully takes the soccer ball and hands you one of your report
+cards in return.
+
+>You move south.
+Behind the main block
+You are standing on the hill that overlooks the back of the main block. From
+here you can see the fan perched atop the building, splattered with what
+seems to be the remnants of fruit. Looking around you can see the soccer
+field to your north and Mr Cook's mathematics room to the east.
+
+>You move west.
+Outside the Geography Room
+You're standing next to the Geography Room, which you aren't allowed to enter
+because you don't take Geography. To your west is the entrance to the Library
+and to your east is the back end of the Main Block. The rubbish duty students
+are wandering around here picking up rubbish and putting it into their bins.
+One small student is carrying a bin that is far too big for him. The Common
+Room dominates your southern vista.  The library door is closed.
+
+Mr B is here.
+
+>You move south.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.  Mrs Walsh is here, bullying
+Correspondence students.
+
+>(Your score has increased by 3)
+"Thank you. Now hurry up and finish the next one young man. These might help
+you finish it faster." She hands you some earplugs.
+
+>You put on the pair of earplugs.
+
+Mrs Walsh walks off to the south.
+
+>You move west.
+In the Northern Half of the Common Room
+Desks line the walls of the Common Room in an attempt to make it look like a
+place of study. In reality this is simply a storage space for the possessions
+of the inhabitants, a veritable treasure trove of utterly useless junk. Toys
+from a packet of rice bubbles adorn Shane's desk, a sure sign of his state of
+mind. The Common Room back door leads out into the native bush to the west.
+There is a table in the centre of the room with something on it. The exit to
+the Common Room is to the east which is usually blocked by Phil. It takes a
+bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
+because Shane and Hamish have been taken away by Homus, sparking a lot of
+controversy as to what they've been up to. Perhaps you should ask around...
+Shane's desk is open and its contents are displayed to the world.
+Greg is here, annoying you with his mere presence.
+
+>(Your score has increased by 8)
+When Greg turns his back you smite him mightily with the plastic shard. He
+collapses on the ground in a pool of blood. You chuckle despite yourself. As
+he falls he lets drop one of your report cards!
+
+>You pick up your History report.
+
+>You move south.
+In the Southern Half of the Common Room
+This is the Southern Half of the Common Room where the lockers are situated,
+along with various electronic appliances used in the production of
+semi-nutritious meals. Greg's Locker is here as well as Michael's Locker.
+The stereo on the table is utterly silent. Peace reigns in the Common Room
+for a change.
+Luke is here, dancing.
+
+>(Your score has increased by 5)
+Greg's Locker opens before you, revealing a $20 bill.
+
+>You pick up the $20 note.
+
+Luke leaves to the north.
+
+>You move north.
+In the Northern Half of the Common Room
+Desks line the walls of the Common Room in an attempt to make it look like a
+place of study. In reality this is simply a storage space for the possessions
+of the inhabitants, a veritable treasure trove of utterly useless junk. Toys
+from a packet of rice bubbles adorn Shane's desk, a sure sign of his state of
+mind. The Common Room back door leads out into the native bush to the west.
+There is a table in the centre of the room with something on it. The exit to
+the Common Room is to the east which is usually blocked by Phil. It takes a
+bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
+because Shane and Hamish have been taken away by Homus, sparking a lot of
+controversy as to what they've been up to. Perhaps you should ask around...
+Shane's desk is open and its contents are displayed to the world.
+Greg is here, annoying you with his mere presence.  Luke is here, dancing.
+
+>You move east.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+>You move north.
+Outside the Geography Room
+You're standing next to the Geography Room, which you aren't allowed to enter
+because you don't take Geography. To your west is the entrance to the Library
+and to your east is the back end of the Main Block. The rubbish duty students
+are wandering around here picking up rubbish and putting it into their bins.
+One small student is carrying a bin that is far too big for him. The Common
+Room dominates your southern vista.  The library door is closed.
+
+Mr B is here.
+
+>(Your score has increased by 1)
+The door swings open, allowing a blast of cold air to enter the library.
+
+>You move west.
+In the Library Foyer
+This is the Library Foyer where all students must shed anything that violates
+the Library rules, including shoes, bags and jackets. However you're on good
+terms with Liz the Librarian so you don't bother. There are a few books here
+that can be freely removed from the Library, unlike the normal books which
+must be checked out. The Library proper is to the north while real life is to
+the east. There's a sign here.  Liz cries out, "Close the door!"
+
+Also here is a book.
+
+>You pick up the book.
+
+>You move east.
+Outside the Geography Room
+You're standing next to the Geography Room, which you aren't allowed to enter
+because you don't take Geography. To your west is the entrance to the Library
+and to your east is the back end of the Main Block. The rubbish duty students
+are wandering around here picking up rubbish and putting it into their bins.
+One small student is carrying a bin that is far too big for him. The Common
+Room dominates your southern vista.  The library door is wide open. You smirk
+at the thought of Liz's anger towards the next poor soul who enters the
+Library.
+
+Mr B is here.
+
+>You move south.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+>You move south.
+On the Library path
+You're standing on the path that leads northwards to the library and
+southwards to the entrance to the main block.
+
+>You move south.
+Outside Room 9
+Room 9 is out of bounds to all students at lunchtime so this area abounds
+with Year 8 students who mill around like ants who have been cut off from
+their nest. One particular Year 8 student sits morosely on the ground,
+lacking in energy which is quite unlike the usual behaviour of a Year 8. The
+entrance to the main block is to the south.
+Mrs Walsh is here, bullying Correspondence students.  A Year 8 student is
+here.
+
+>You move south.
+On the corner
+This is where the library path that heads north intersects with the path that
+leads east to the main block and the office area. Unlike the library path,
+the east path is covered which gives you an idea as to how student welfare
+rates compared to teacher welfare.
+
+>You move east.
+At the entrance to the Main Block
+The double doors that mark the entrance to the main block are to your north
+while the path continues east and west. The steps lead south but your
+business is located around the main block and you can't afford to get
+sidetracked. There's a sign here.
+
+>You move north.
+Outside the Bursar's Office
+The Bursar's office is the financial hub of the school where students pay the
+various fees and charges that are a result of school activities. The one-way
+corridor stretches to your north while you can turn back now to the corridor
+entrance.
+
+The Bursar is here.
+
+>(Your score has increased by 3)
+The Bursar takes your money and gives you a calculator.
+
+>You move north.
+In the Corridor South
+You're in the southern half of the one way corridor. Entrances to various
+classrooms are to each side of you but unfortunately they're locked. The only
+way out is to continue forwards.
+
+>You move north.
+In the Corridor North
+The corridor continues....
+Mrs Trimmer is here, patrolling the corridor.
+
+>You move north.
+Behind the main block
+You are standing on the hill that overlooks the back of the main block. From
+here you can see the fan perched atop the building, splattered with what
+seems to be the remnants of fruit. Looking around you can see the soccer
+field to your north and Mr Cook's mathematics room to the east.
+
+>You move east.
+In Mr Cook's Stats class
+This is where countless students have been subjected to the rigorous torture
+of studying statistics in an attempt to secure qualifications for the future.
+Your eyelids start to get heavy simply thinking about the time you spent here
+earlier in your school life. Various poor attempts at mathematic humour adorn
+the walls.
+
+Mr Cook is here.
+
+>(Your score has increased by 5)
+Mr Cook takes the calculator and says, "Ah, you found my calculator. Look, I
+appreciate you're in a spot of bother so take this report. If you buck up
+your ideas in the next couple of days I may alter it."
+
+>You move west.
+Behind the main block
+You are standing on the hill that overlooks the back of the main block. From
+here you can see the fan perched atop the building, splattered with what
+seems to be the remnants of fruit. Looking around you can see the soccer
+field to your north and Mr Cook's mathematics room to the east.
+
+>You move west.
+Outside the Geography Room
+You're standing next to the Geography Room, which you aren't allowed to enter
+because you don't take Geography. To your west is the entrance to the Library
+and to your east is the back end of the Main Block. The rubbish duty students
+are wandering around here picking up rubbish and putting it into their bins.
+One small student is carrying a bin that is far too big for him. The Common
+Room dominates your southern vista.  The library door is wide open. You smirk
+at the thought of Liz's anger towards the next poor soul who enters the
+Library.
+
+Mr B is here.
+
+>You move south.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+>You move south.
+On the Library path
+You're standing on the path that leads northwards to the library and
+southwards to the entrance to the main block.
+
+>You move south.
+Outside Room 9
+Room 9 is out of bounds to all students at lunchtime so this area abounds
+with Year 8 students who mill around like ants who have been cut off from
+their nest. One particular Year 8 student sits morosely on the ground,
+lacking in energy which is quite unlike the usual behaviour of a Year 8. The
+entrance to the main block is to the south.
+A Year 8 student is here.
+
+>You move south.
+On the corner
+This is where the library path that heads north intersects with the path that
+leads east to the main block and the office area. Unlike the library path,
+the east path is covered which gives you an idea as to how student welfare
+rates compared to teacher welfare.
+Mrs Walsh is here, bullying Correspondence students.
+
+>You move east.
+At the entrance to the Main Block
+The double doors that mark the entrance to the main block are to your north
+while the path continues east and west. The steps lead south but your
+business is located around the main block and you can't afford to get
+sidetracked. There's a sign here.
+
+>You move east.
+Heading for the Office Block
+If you continue along this path to the east then you will find yourself
+inside the office block. Back west is the entrance to the corridor. You take
+the time to admire the garden here before pressing on.
+
+>You move east.
+Outside the Main Office
+You are standing outside Mrs Todd's office, at the very centre of staff
+activity at Piopio College. The Main Office is to the east while the
+staffroom is to the south and Homus' office is northwards. West leads back
+towards the rest of the school.   You can see a fire alarm within its
+protective glass casing.
+
+>You move north.
+Outside Homus' Office
+Most students know this area simply because they've served punishment here at
+some time or another. The couch here is worn by the buttocks of hundreds of
+students who have sat upon it, awaiting their turn to meet the principal.
+Homus' office is to the north.
+Hamish is sitting here.
+
+>(Your score has increased by 3)
+Hamish gladly takes the condensed novel off your hands. "It's about time I
+had some new reading material!" he says. He gives you the Silmarillion in
+return.
+
+>You move south.
+Outside the Main Office
+You are standing outside Mrs Todd's office, at the very centre of staff
+activity at Piopio College. The Main Office is to the east while the
+staffroom is to the south and Homus' office is northwards. West leads back
+towards the rest of the school.   You can see a fire alarm within its
+protective glass casing.
+
+>You move south.
+Outside the Staffroom
+You are standing outside the Staffroom, the only place where teachers can get
+some respite from their students. Except in emergencies, students are not
+welcome in the Staffroom for that very reason. The only other feature of this
+location is the little phone booth that students may use in times of need but
+only if they ask first....
+
+>(Your score has increased by 4)
+You call Homus and then simply drop the receiver. That should keep him
+occupied for a little while.
+
+>You move north.
+Outside the Main Office
+You are standing outside Mrs Todd's office, at the very centre of staff
+activity at Piopio College. The Main Office is to the east while the
+staffroom is to the south and Homus' office is northwards. West leads back
+towards the rest of the school.   You can see a fire alarm within its
+protective glass casing.
+
+>You move north.
+Outside Homus' Office
+Most students know this area simply because they've served punishment here at
+some time or another. The couch here is worn by the buttocks of hundreds of
+students who have sat upon it, awaiting their turn to meet the principal.
+Homus' office is to the north.
+Hamish is sitting here.
+
+>You move north.
+In Homus' Office
+Homus' office is an example of neatness. One might wonder at his motives at
+times but you can't help but respect his dedication to his work. As one would
+expect in an office, there is a phone on his desk. The only exit from this
+office is to the south.
+
+Also here is your Biology report.
+
+Homus is here.
+
+>You pick up your Biology report.
+
+>You move south.
+Outside Homus' Office
+Most students know this area simply because they've served punishment here at
+some time or another. The couch here is worn by the buttocks of hundreds of
+students who have sat upon it, awaiting their turn to meet the principal.
+Homus' office is to the north.
+Hamish is sitting here.
+
+>You move south.
+Outside the Main Office
+You are standing outside Mrs Todd's office, at the very centre of staff
+activity at Piopio College. The Main Office is to the east while the
+staffroom is to the south and Homus' office is northwards. West leads back
+towards the rest of the school.   You can see a fire alarm within its
+protective glass casing.
+
+>You move west.
+Heading for the Office Block
+If you continue along this path to the east then you will find yourself
+inside the office block. Back west is the entrance to the corridor. You take
+the time to admire the garden here before pressing on.
+
+>You move west.
+At the entrance to the Main Block
+The double doors that mark the entrance to the main block are to your north
+while the path continues east and west. The steps lead south but your
+business is located around the main block and you can't afford to get
+sidetracked. There's a sign here.
+Mrs Walsh is here, bullying Correspondence students.
+
+>You move west.
+On the corner
+This is where the library path that heads north intersects with the path that
+leads east to the main block and the office area. Unlike the library path,
+the east path is covered which gives you an idea as to how student welfare
+rates compared to teacher welfare.
+
+>You move north.
+Outside Room 9
+Room 9 is out of bounds to all students at lunchtime so this area abounds
+with Year 8 students who mill around like ants who have been cut off from
+their nest. One particular Year 8 student sits morosely on the ground,
+lacking in energy which is quite unlike the usual behaviour of a Year 8. The
+entrance to the main block is to the south.
+A Year 8 student is here.
+
+>You move north.
+On the Library path
+You're standing on the path that leads northwards to the library and
+southwards to the entrance to the main block.
+
+>You move north.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+>You move north.
+Outside the Geography Room
+You're standing next to the Geography Room, which you aren't allowed to enter
+because you don't take Geography. To your west is the entrance to the Library
+and to your east is the back end of the Main Block. The rubbish duty students
+are wandering around here picking up rubbish and putting it into their bins.
+One small student is carrying a bin that is far too big for him. The Common
+Room dominates your southern vista.  The library door is wide open. You smirk
+at the thought of Liz's anger towards the next poor soul who enters the
+Library.
+
+Mr B is here.
+
+>You move west.
+In the Library Foyer
+This is the Library Foyer where all students must shed anything that violates
+the Library rules, including shoes, bags and jackets. However you're on good
+terms with Liz the Librarian so you don't bother. There are a few books here
+that can be freely removed from the Library, unlike the normal books which
+must be checked out. The Library proper is to the north while real life is to
+the east. There's a sign here.  Liz cries out, "Close the door!"
+
+>The door slams shut.
+
+>You move north.
+In the Library
+The library is filled with books on all sorts of topics. It's Liz's pride and
+joy and not a bad place to find some information. One particular bookcase
+catches your eye.
+
+Gapper and Liz are here.
+
+>(Your score has increased by 4)
+Gapper takes the cards and immediately begins a game of Solitaire. He looks
+up at you for a second and says, "Here. Take my lamington."
+
+>You pick up the chocolate lamington.
+
+>(Your score has increased by 5)
+"Oh, thank you!" gushes Liz. Here, take your report card. That much I can do
+for you."
+
+>You move south.
+In the Library Foyer
+This is the Library Foyer where all students must shed anything that violates
+the Library rules, including shoes, bags and jackets. However you're on good
+terms with Liz the Librarian so you don't bother. There are a few books here
+that can be freely removed from the Library, unlike the normal books which
+must be checked out. The Library proper is to the north while real life is to
+the east. There's a sign here.  The library door is shut tight.
+
+>The door swings open, allowing a blast of cold air to enter the library.
+
+>You move east.
+Outside the Geography Room
+You're standing next to the Geography Room, which you aren't allowed to enter
+because you don't take Geography. To your west is the entrance to the Library
+and to your east is the back end of the Main Block. The rubbish duty students
+are wandering around here picking up rubbish and putting it into their bins.
+One small student is carrying a bin that is far too big for him. The Common
+Room dominates your southern vista.  The library door is wide open. You smirk
+at the thought of Liz's anger towards the next poor soul who enters the
+Library.
+
+Mr B is here.
+
+>You move south.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+>You move south.
+On the Library path
+You're standing on the path that leads northwards to the library and
+southwards to the entrance to the main block.
+
+>You move south.
+Outside Room 9
+Room 9 is out of bounds to all students at lunchtime so this area abounds
+with Year 8 students who mill around like ants who have been cut off from
+their nest. One particular Year 8 student sits morosely on the ground,
+lacking in energy which is quite unlike the usual behaviour of a Year 8. The
+entrance to the main block is to the south.
+A Year 8 student is here.
+
+>(Your score has increased by 3)
+The student greedily wolfs down your proffered treat and proceeds to become
+your most loyal slave.
+
+>You move south.
+On the corner
+This is where the library path that heads north intersects with the path that
+leads east to the main block and the office area. Unlike the library path,
+the east path is covered which gives you an idea as to how student welfare
+rates compared to teacher welfare.
+
+>You move east.
+At the entrance to the Main Block
+The double doors that mark the entrance to the main block are to your north
+while the path continues east and west. The steps lead south but your
+business is located around the main block and you can't afford to get
+sidetracked. There's a sign here.
+Mrs Walsh is here, bullying Correspondence students.
+
+>You move east.
+Heading for the Office Block
+If you continue along this path to the east then you will find yourself
+inside the office block. Back west is the entrance to the corridor. You take
+the time to admire the garden here before pressing on.
+
+>You move east.
+Outside the Main Office
+You are standing outside Mrs Todd's office, at the very centre of staff
+activity at Piopio College. The Main Office is to the east while the
+staffroom is to the south and Homus' office is northwards. West leads back
+towards the rest of the school.   You can see a fire alarm within its
+protective glass casing.
+
+>(Your score has increased by 8)
+You grab the student by the ankles and swing him mightily towards the alarm.
+The glass shatters, exposing the switch. You let the dazed student drop to
+the floor, pleased with your work.
+
+>(Your score has increased by 4)
+You can hear bells ring throughout the school. This is followed by the sound
+of footsteps as both students and staff flee to escape the "blaze."
+
+>You move south.
+Outside the Staffroom
+You are standing outside the Staffroom, the only place where teachers can get
+some respite from their students. Except in emergencies, students are not
+welcome in the Staffroom for that very reason. The only other feature of this
+location is the little phone booth that students may use in times of need but
+only if they ask first....
+
+>You move east.
+In the Staffroom
+The Staffroom was recently renovated and, compared to the Common Room, it is
+an absolute palace. Comfortable chairs and lovingly furbished tables are the
+highlights of this room along with the top-class facilities for cooking. Just
+looking at this room makes you feel somewhat jealous.
+
+Also here is your Economics report and a pair of fluffy slippers.
+
+>You pick up your Economics report.
+
+>You pick up the pair of fluffy slippers.
+
+>You move west.
+Outside the Staffroom
+You are standing outside the Staffroom, the only place where teachers can get
+some respite from their students. Except in emergencies, students are not
+welcome in the Staffroom for that very reason. The only other feature of this
+location is the little phone booth that students may use in times of need but
+only if they ask first....
+
+>You move north.
+Outside the Main Office
+You are standing outside Mrs Todd's office, at the very centre of staff
+activity at Piopio College. The Main Office is to the east while the
+staffroom is to the south and Homus' office is northwards. West leads back
+towards the rest of the school.   You can see a fire alarm, the switch of
+which is exposed. Glass shards lie on the floor.
+A Year 8 student is here.
+
+>You move west.
+Heading for the Office Block
+If you continue along this path to the east then you will find yourself
+inside the office block. Back west is the entrance to the corridor. You take
+the time to admire the garden here before pressing on.
+
+>You move west.
+At the entrance to the Main Block
+The double doors that mark the entrance to the main block are to your north
+while the path continues east and west. The steps lead south but your
+business is located around the main block and you can't afford to get
+sidetracked. There's a sign here.
+
+>You move west.
+On the corner
+This is where the library path that heads north intersects with the path that
+leads east to the main block and the office area. Unlike the library path,
+the east path is covered which gives you an idea as to how student welfare
+rates compared to teacher welfare.
+Mrs Walsh is here, bullying Correspondence students.
+
+>You move north.
+Outside Room 9
+Room 9 is out of bounds to all students at lunchtime so this area abounds
+with Year 8 students who mill around like ants who have been cut off from
+their nest. One particular Year 8 student sits morosely on the ground,
+lacking in energy which is quite unlike the usual behaviour of a Year 8. The
+entrance to the main block is to the south.
+
+>You move north.
+On the Library path
+You're standing on the path that leads northwards to the library and
+southwards to the entrance to the main block.
+
+>You move north.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+>You move west.
+In the Northern Half of the Common Room
+Desks line the walls of the Common Room in an attempt to make it look like a
+place of study. In reality this is simply a storage space for the possessions
+of the inhabitants, a veritable treasure trove of utterly useless junk. Toys
+from a packet of rice bubbles adorn Shane's desk, a sure sign of his state of
+mind. The Common Room back door leads out into the native bush to the west.
+There is a table in the centre of the room with something on it. The exit to
+the Common Room is to the east which is usually blocked by Phil. It takes a
+bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
+because Shane and Hamish have been taken away by Homus, sparking a lot of
+controversy as to what they've been up to. Perhaps you should ask around...
+Shane's desk is open and its contents are displayed to the world.
+Greg is here, annoying you with his mere presence.
+
+>You move south.
+In the Southern Half of the Common Room
+This is the Southern Half of the Common Room where the lockers are situated,
+along with various electronic appliances used in the production of
+semi-nutritious meals. Greg's Locker is here as well as Michael's Locker.
+The stereo on the table is utterly silent. Peace reigns in the Common Room
+for a change.
+Luke is here, dancing.
+
+>(Your score has increased by 3)
+Luke happily takes the slippers. He hands you a letter. "Here, seeing as
+you're such a pal, could you take this letter to the office for me? Cheers."
+
+Luke leaves to the north.
+
+>You move north.
+In the Northern Half of the Common Room
+Desks line the walls of the Common Room in an attempt to make it look like a
+place of study. In reality this is simply a storage space for the possessions
+of the inhabitants, a veritable treasure trove of utterly useless junk. Toys
+from a packet of rice bubbles adorn Shane's desk, a sure sign of his state of
+mind. The Common Room back door leads out into the native bush to the west.
+There is a table in the centre of the room with something on it. The exit to
+the Common Room is to the east which is usually blocked by Phil. It takes a
+bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
+because Shane and Hamish have been taken away by Homus, sparking a lot of
+controversy as to what they've been up to. Perhaps you should ask around...
+Shane's desk is open and its contents are displayed to the world.
+Greg is here, annoying you with his mere presence.  Luke is here, dancing.
+
+>You move east.
+On the Common Room Deck
+The deck is where many of the students choose to frequent on fine days such
+as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
+amongst themselves about boring subjects. A path runs alongside the deck
+leading north to the Library and south towards the Corridor Entrance.
+Some 7th Formers are lounging here.
+
+>You move south.
+On the Library path
+You're standing on the path that leads northwards to the library and
+southwards to the entrance to the main block.
+
+>You move south.
+Outside Room 9
+Room 9 is out of bounds to all students at lunchtime so this area abounds
+with Year 8 students who mill around like ants who have been cut off from
+their nest. One particular Year 8 student sits morosely on the ground,
+lacking in energy which is quite unlike the usual behaviour of a Year 8. The
+entrance to the main block is to the south.
+Mrs Walsh is here, bullying Correspondence students.
+
+>You move south.
+On the corner
+This is where the library path that heads north intersects with the path that
+leads east to the main block and the office area. Unlike the library path,
+the east path is covered which gives you an idea as to how student welfare
+rates compared to teacher welfare.
+
+>You move east.
+At the entrance to the Main Block
+The double doors that mark the entrance to the main block are to your north
+while the path continues east and west. The steps lead south but your
+business is located around the main block and you can't afford to get
+sidetracked. There's a sign here.
+
+>You move east.
+Heading for the Office Block
+If you continue along this path to the east then you will find yourself
+inside the office block. Back west is the entrance to the corridor. You take
+the time to admire the garden here before pressing on.
+
+>You move east.
+Outside the Main Office
+You are standing outside Mrs Todd's office, at the very centre of staff
+activity at Piopio College. The Main Office is to the east while the
+staffroom is to the south and Homus' office is northwards. West leads back
+towards the rest of the school.   You can see a fire alarm, the switch of
+which is exposed. Glass shards lie on the floor.
+A Year 8 student is here.
+
+>You move east.
+In Mrs Todd's Office
+The command centre of the school, Mrs Todd's office contains all sorts of
+interesting information and records on students. The Principal's Office is to
+the North. You look on in wonder at all the advanced techonological equipment
+that students are not allowed to touch let alone use.
+Mrs Todd is here, typing out Brian's crap.
+
+>(Your score has increased by 3)
+Mrs Todd squints at you. "Is that you, Luke?" she asks. You nod and begin
+dancing, in an attempt to prove your "identity." Strangely enough, she
+believes you. "You can enter Brian's office now if you wish," she says.
+
+>You move north.
+In B R Tegg's Office
+Memorabilia from many years at the helm decorate BR's office. His desk is
+covered in all sorts of ridiculous executive toys along with various papers
+detailing the running of the school.
+Shane is here, looking important.  Mr Tegg is here, looking important.
+
+>(Your score has increased by 7)
+Shane takes up the stick and tests its weight in his hands. Releasing himself
+from his trance, he proceeds to utterly smash BR with the stick. The
+principal drops to the floor. Shane instills himself in BR's chair and gives
+you a small smile. "I suppose you're interested in this," he says as he hands
+you a piece of paper.
+
+>You are wearing a pair of earplugs, and you are carrying a Lighter, your
+History report, your Chemistry report, your Maths report, your English
+report, your Economics report, your Biology report and your PE report.
+
+>Your score is 90 out of a maximum of 100.  (90%)
+
+>(Your score has increased by 10)
+The report slowly begins to smoulder and then quickly goes up in flames. You
+whoop with joy as you realise you have done it!
+Congratulations you have been victorious. That's not a bad effort really.
+
+  Greg went on to become Tiger Wood's caddy.
+  Luke became the most infamous fashion designer ever to plague the catwalks
+of Europe.
+  Sean died of lung cancer aged 24.
+  Mr B became the chairman of the New Zealand Rugby Football Union.
+  Gapper failed to win any of his games of Solitaire.
+  Liz eventually won School Librarian of the Year, her highest achievement in
+life.
+  Michael became Liverpool's Orange Boy.
+  Mr Cook managed to lose his calculator the next day.
+  Mrs Walsh left teaching and became an excellent detective specializing in
+burglaries and other crimes involving lost items.
+  The Year 8 student sustained massive head injuries, leading to a life as an
+invalid.
+  Hamish eventually became a fan repairman.
+  Homus continued as Deputy Principal until his death.
+  Mr Tegg's corpse was found floating the Mokau River. Nobody bothered to
+investigate.
+  Shane lead a long career as Principal of Piopio College, eventually turning
+the position into a hereditary one, ensuring a dynasty of principals that
+would last many centuries.
+  You failed all your exams and left school intending to have many more great
+adventures like this one. But until then, goodbye and thank you for sticking
+with Report Espionage.
