@@ -1,0 +1,187 @@
+# Where Is Richard? (Richard.taf) -- ADRIFT 3.90, 55,039 bytes, by Rich
+# Dersheimer, April 2001.  From the IF Archive's Where_Is_Richard package
+# (the manifest URL); the bundle ships Map.jpg and seven .wav files but NO
+# walkthrough, so this route is derived from SCR_DUMP_TASKS and play.
+# 53 rooms, 5 NPCs, 57 tasks, 13 events, 12 variables.
+#
+# ***  WON, 1000/1000, 68 commands, zero parser failures.  ***
+# Ten `ACT type=4` in the file and that is the entire score:
+#   T0   turn on * computer            room 0     +100
+#   T15  type * QWERTYUIOP             room 0     +100
+#   T16  type * 001 001 002            room 0     +100
+#   T40  sleep                         room 2/7    +50
+#   T23  water * plants                room 6      +50
+#   T26  # fire gone                   room 18    +100
+#   T37  # spider is dead              room 31    +100
+#   T53  # Goo is dead                 room 50    +100
+#   T41  press * button (with beacon)  room 34    +300  <- the only ACT type=6
+#   T5   shoot * window                          **-50**
+# 100+100+100+50+50+100+100+100+300 = 1000, and none of the nine repeats:
+# T0/T15/T16 each advance VAR 0 ComputerStatus past their own restriction,
+# T23 and T40 are `rep=0`.  T5 is the only way to LOSE points and is not on
+# the route.
+#
+# *** THE ONE TIMER: THE CAPACITOR. ***
+# The computer walks VAR 0 ComputerStatus 0 -> 1 -> 2 -> 3 -> 4.  You drive
+# 0->1 (`turn on computer`) and 1->2 (`type qwertyuiop`, the password), but
+# 2->3 is EVENT 0 [Capacitor charging]: `starter=3 startTask=16` (1-based ->
+# T15, the password) with `time1=time2=8`, which runs T4 `# cap charged` eight
+# turns later and sets ComputerStatus=3.  Only then does T16 accept the
+# coordinates, and T16 is what sets VAR 6 LightStatus=1 -- the restriction on
+# T18 `press button` in the phone booth (room 12), i.e. the transfer to the
+# mining tunnels.  Type the password FIRST and spend the eight turns looting
+# the house; this route spends sixteen and never has to wait.
+#
+# *** THE ONE-CUPCAKE PROBLEM. ***
+# There is exactly one cupcake, and it solves BOTH the spider and the goo:
+#   spider (room 31): T7/T8 shoot it, T10 hit it with the pick, T12 give it
+#                     the cupcake
+#   goo    (room 50): T47 feed it the berries, T48 give it the cupcake,
+#                     T52 pour the pail of water on it
+# Spend the cupcake on the spider and the berries on the goo, as here, and no
+# other tool is needed at all -- the pistol, the ammo, the small key, the
+# knife and the pick can all stay where they are.  Feed the cupcake to the goo
+# instead and the spider must be shot, which means finding the key (kitchen
+# cabinet), the pistol (guest-bedroom dresser) and the ammo (yoga-room
+# closet), unlocking and loading, and then getting past `RESTR type=4 v1=5`
+# (Ammo > 0) twice, because VAR 9 SpiderHealth takes two shots (T7 then T8).
+#
+# *** DO NOT EAT THE CUPCAKE. ***
+# T24 `eat * cupcake` sets VAR 5 Health = 1 and starts EVENT 10 [Poisoned],
+# a `restart=1 time1=1` event that keeps re-running T56 `# poisoned` (VAR 5
+# += 1) until T57 pauses it.  Health != 0 blocks T19 `climb washer` (the
+# attic), T20 `get rope`, T21 `fill pail`, T28/T29 the spike and T33 `dig`.
+# The bottle of Papto Dismal in the master bathroom (T14) is the antidote and
+# is not needed on a route that never gets poisoned.
+#
+# *** THE CUPCAKE STAYS IN THE BACKPACK. ***
+# The cupcake is inside the backpack, the backpack is inside the master
+# bedroom closet, and this route never opens or empties either -- it just
+# carries the pack.  T12's `RESTR type=0 v1=7 v2=1` is "held by the player",
+# and the Adrift 4 runner answers TRUE for an object one level down inside a
+# container the player carries (see the long comment above
+# `restr_object_in_place` in screstrs.cpp and probe `p39held`).  This game is
+# a clean corpus witness for that rule: `give cupcake to spider` fires with
+# the cupcake never once in the player's hands.
+#
+# THE CLOSETS ARE NOT OPENABLE and hold most of the useful objects; `open
+# closet` answers "You can't open the ... closet!" and `x closet` lists the
+# contents.  hall closet -> watering pail; master bedroom closet -> backpack
+# (-> cupcake); yoga room closet -> box of ammo; guest bedroom closet -> the
+# rope (T20 `get rope`).  Openable containers: kitchen cabinet -> small key,
+# guest bedroom dresser -> pistol, master bedroom nightstand -> journal.  The
+# knife sits ON the kitchen cutting board.
+#
+# THE FIRE (room 18) has four solutions, all routed through T26 `# fire gone`
+# by a zero-delay `starter=3` event: T27 the yoga mat (EVENT 1), T31 the pail
+# of water (EVENT 2 -- actually fired by T30 `tie rope to spike`), T34 a
+# handful of dirt dug with the pick (EVENT 3).  The mat is the cheapest: it
+# is lying loose on the yoga room floor and needs nothing else.  Note that
+# the pail can be refilled inside the tunnels -- T21's WHERE_ROOMS is
+# [1 5 8 23], and room 23 is mining tunnels<11> -- so the water route is
+# viable too; this one spends the pail on the plants (+50) instead.
+#
+# THE MAP.  House (rooms 0-12):
+#   0 computer room: E->3 living room  S->2 guest bedroom  W->1 kitchen
+#   1 kitchen: E->0  S->6 yoga  W->9 laundry
+#   2 guest bedroom: N->0  W->4 hallway
+#   4 hallway: E->2  S->5 bathroom  W->6
+#   6 yoga: N->1  E->4  W->7 master bedroom
+#   7 master bedroom: N->8 master bathroom  E->6
+#   9 laundry: E->1  U->10 attic *T19 (climb washer)  D->11 basement
+#   11 basement: U->9  IN->12 phone booth
+# The attic (transformer + capacitor) is scenery -- nothing needed up there.
+# Mining tunnels (13-28), entered at 13 by the phone-booth button:
+#   13 -W-> 14 -N-> 15 -N-> 18 (FIRE) -N-> 21 -W-> 22 -W-> 25 -U-> 29
+#   29 -S-> 30 -S-> 31 (SPIDER) -S-> 32 *T37  (32: pull handle -> 33)
+# Room 18's N exit is `gateTask=26 wantDone=1` and room 31's S exit is
+# `gateTask=37`, so the fire and the spider are hard gates, not hazards.
+# Swamp, from 34 On the surreal plain (33 OUT-> 34; 34 N-> 38):
+#            43 - 44 - 45 - 46 - 47 - 48 - 49 - 50 (GOO, beacon)
+#             |    |              (48 S-> 51 S-> 52 BUSH: berries)
+#   40 - 41 - 42
+#    |    |    |
+#   37 - 38 - 39            34 is south of 38; 35/36 are a dead-end pocket
+#    |    |                 reachable only from 37/39.
+#   35   34
+# Out:  34 n 38 n 41 e 42 n 44 n 45 n 46 w 47 w 48 s 51 s 52
+# Back: 52 n 51 n 48 w 49 w 50 ... 50 e 49 e 48 e 47 e 46 s 45 s 44 s 42
+#       w 41 s 38 s 34
+# T42 `press button` on the surreal plain WITHOUT the beacon just sends you
+# back to the staging area, so the button is safe to press early by mistake.
+#
+# WINTEXT is non-empty (Rich's homecoming speech), so `Congratulations!` is
+# suppressed; the harness marker comes out of it.
+#
+# NB: this game is the reason `SCR_DUMP_TASKS` had to be fixed -- one of its
+# objects has no "Openable" property and the LOCKKEY/OPENABLE loops in
+# scdump.cpp called the FATAL prop_get_integer() on it, so the dump aborted
+# right after the OBJNAME block, before ROOM/TASK/EVENT were ever printed.
+w
+turn on computer
+type qwertyuiop
+s
+sleep
+w
+get pail
+w
+get mat
+w
+get backpack
+e
+n
+fill pail
+s
+water plants
+e
+e
+n
+type 001 001 002
+w
+w
+d
+in
+press button
+w
+n
+n
+put mat on fire
+n
+w
+w
+u
+s
+s
+give cupcake to spider
+s
+pull handle
+out
+n
+n
+e
+n
+n
+n
+w
+w
+s
+s
+get berries
+n
+n
+w
+w
+feed goo berries
+get beacon
+e
+e
+e
+e
+s
+s
+s
+w
+s
+s
+score
+press button

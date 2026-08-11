@@ -1510,6 +1510,27 @@ renuntio_solution.txt|Renuntio.taf|Yo-nos me alzo y estiendo mis-nos brazos|SCR_
 # case: `* fire * blunderbuss *` matches seven tasks, of which the two in room
 # 11 have no NPC restriction at all and silently burn the single loaded shot.
 hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SKIP_WAITKEY=1
+# Where Is Richard?: a 1000/1000 win in 68 commands, and the corpus's cleanest
+# witness for the one-level container nesting in "held by the player".  The
+# cupcake that kills the spider is inside the backpack, the backpack was
+# inside a closet, and the route never opens or empties either -- it carries
+# the pack and `give cupcake to spider` fires anyway, because T12's
+# `RESTR type=0 v2=1` follows a carried container down one level (the rule
+# probe `p39held` pinned in the real run390 and that Cursed depends on).
+# Two more shapes worth the row.  Its one timer is a `starter=3` event with
+# `time1=time2=8` hung off the password task, so the computer's VAR 0 walks
+# 0->1->2 by command and 2->3 only after eight turns have passed; the
+# coordinates that open the transfer booth are refused until then, and the
+# route spends the wait looting the house.  And every obstacle has three or
+# four alternative solutions all funnelled into one `# ...` bookkeeping task
+# by zero-delay events -- fire: mat / water / dirt; spider: pistol / pick /
+# cupcake; goo: berries / cupcake / water -- with a single cupcake shared
+# between two of them, so the route's choice of cupcake-for-spider and
+# berries-for-goo is what lets it skip the key, pistol, ammo and pick
+# entirely.  `eat cupcake` is the trap: it poisons you (VAR 5 Health) and
+# EVENT 10 keeps incrementing it, which locks out the washer, the rope, the
+# pail and the pick.
+richard_solution.txt|Richard.taf|Rich smiles as you hand him the recall beacon|SCR_SKIP_WAITKEY=1
 EOF
 }
 

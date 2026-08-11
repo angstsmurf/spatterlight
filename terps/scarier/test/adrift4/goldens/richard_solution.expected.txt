@@ -1,0 +1,489 @@
+Loading game...
+
+Where is Richard?
+Written by Rich Dersheimer rich@dersheimer.com
+
+You are worried about your friend Richard. It's been over a week since you
+have seen or talked to him. He wouldn't leave town without telling you, and
+he usually calls you on the phone at least once a day. You've left several
+messages on his answering machine, and you even sent him a couple of e-mails.
+Now that the weekend is here, you have time to drive over to his house and
+see if he's there.
+
+His car is in the driveway, and you park behind it. You are about to knock on
+the front door, when you notice that it is a little bit open, just a crack.
+With a sinking feeling, you push the door open and stand in the doorway.
+
+"Richard?" you call out. "Are you home?"
+
+The house is quiet. You take a step into the living room, and as you do, the
+door swings shut behind you and the deadbolt slams into place. You try to
+turn the deadbolt and open the door, but neither will move! After a brief
+moment of panic, you start laughing.
+
+You shout, "Hey Rich! Good one buddy! You had me going there for a sec."
+
+There is no answer...
+
+>You move west.
+In the computer room
+This is the computer room. There are windows along the north wall, and
+bookshelves bracket the doorway. Under the windows is a long wooden table
+with a computer sitting on it.
+
+There are exits east, south and west.
+
+>(Your score has increased by 100)
+You turn the computer on. After a few moments the screen lights up.
+
+>(Your score has increased by 100)
+The screen flashes.
+You hear a humming noise from somewhere above your head, and the overhead
+light dims for a moment.
+
+>You move south.
+In the guest bedroom
+This is the guest bedroom. Windows line the south wall. There is a
+comfortable looking bed here, with a dresser standing next to it. There is an
+open closet in the corner.
+
+You can go north and west.
+
+>(Your score has increased by 50)
+You lie down on the bed, close your eyes, and very quickly fall into a deep
+slumber. As you sleep, you dream about your friend Rich. You get the feeling
+he needs your help, but you don't know where he is. You are determined to
+find him, and help him get home. When you awaken, you feel rested and ready
+to continue your search.
+
+>You move west.
+In the hallway
+This is the hallway between the spare bedroom and the yoga room. There a
+small, open closet here.
+
+You can go east, south and west.
+
+>You take the watering pail from the hall closet.
+
+>You move west.
+In the yoga room
+This is a large carpeted room with no furniture. Plants line the west wall,
+under the windows. There is a closet in the corner.
+
+You can also see a yoga mat.
+
+You can go north, east and west.
+
+>You pick up the yoga mat.
+
+>You move west.
+In the master bedroom
+This is the master bedroom. It is elegantly furnished with a king sized bed.
+There is a nightstand next to the bed, and there is an open closet in the
+corner.
+
+You can go north and east.
+
+>You take the backpack from the master bedroom closet.
+
+>You move east.
+In the yoga room
+This is a large carpeted room with no furniture. Plants line the west wall,
+under the windows. There is a closet in the corner.
+
+You can go north, east and west.
+
+>You move north.
+In the kitchen
+Sunlight streams in through the windows on the north wall of this cheery
+kitchen, reflecting off the chrome edges of the refrigerator and stove. The
+floor is covered in a mosaic of blue and green tiles. There is a dark green
+tiled counter here with a stainless steel sink in the middle, and a wooden
+cutting board to one side. Over the counter is a wide kitchen cabinet.
+
+You can go east, south and west.
+
+>You fill the pail with water.
+
+>You move south.
+In the yoga room
+This is a large carpeted room with no furniture. Plants line the west wall,
+under the windows. There is a closet in the corner.
+
+You can go north, east and west.
+
+>(Your score has increased by 50)
+That should help them quite a bit, and you're sure Richard will appreciate
+your effort... if you can ever find him to tell him about it.
+
+>You move east.
+In the hallway
+This is the hallway between the spare bedroom and the yoga room. There a
+small, open closet here.
+
+You can go east, south and west.
+
+>You move east.
+In the guest bedroom
+This is the guest bedroom. Windows line the south wall. There is a
+comfortable looking bed here, with a dresser standing next to it. There is an
+open closet in the corner.
+
+You can go north and west.
+
+>You move north.
+In the computer room
+This is the computer room. There are windows along the north wall, and
+bookshelves bracket the doorway. Under the windows is a long wooden table
+with a computer sitting on it.  The computer is on, and there is some text on
+the screen.
+
+You can go east, south and west.
+
+>(Your score has increased by 100)
+The screen flashes again and you hear more beeping noises.
+
+>You move west.
+In the kitchen
+Sunlight streams in through the windows on the north wall of this cheery
+kitchen, reflecting off the chrome edges of the refrigerator and stove. The
+floor is covered in a mosaic of blue and green tiles. There is a dark green
+tiled counter here with a stainless steel sink in the middle, and a wooden
+cutting board to one side. Over the counter is a wide kitchen cabinet.
+
+You can go east, south and west.
+
+>You move west.
+In the laundry room
+Most of the space in this room is taken up by the washer, which sits directly
+under the access to the attic.
+
+You can go east and down.
+
+>You move down.
+In the basement
+Dim light filters in through the windows, revealing a small basement with a
+dirt floor and unfinished walls. There is a furnace and a water heater down
+here, off to one side. In the little bit of space left over sits what appears
+to be a telephone booth. Computer and power cables snake from the top of the
+booth up into the ceiling. The booth has no door, and it looks like you could
+squeeze into it with no problem.
+A fly is buzzing around, bumping into things.
+
+You can go up and in.
+
+>You move in.
+In the phone booth
+There is no phone in the booth, but where the phone would usually be is a
+flat metal panel.
+
+You can only go out.
+
+>ZZZAP! When you press the button a large blue spark jumps from the panel to
+your hand. It doesn't really hurt you, but it does surprise the heck out of
+you!
+
+When you recover from the shock you notice the phone booth has disappeared,
+and you are standing in an underground cavern. From the way the cavern is
+laid out, you surmise you are in an area once used for mining. There is what
+appears to be an old ore cart in one corner of the cavern.
+
+>You move west.
+In the mining tunnels
+
+You can go north, east and west.
+
+>You move north.
+In the mining tunnels
+
+You can go north, east, south and west.
+
+>You move north.
+In the mining tunnels
+Blocking the passage to the north is a wall of green flames. The flames are
+so hot, you can't even get near them to see what lies beyond.
+
+You can only go south.
+
+>(Your score has increased by 100)
+You put the yoga mat on the flames.
+The mat sizzles and melts, but it looks like you could get past the fire now.
+
+>You move north.
+In the mining tunnels
+
+You can go south and west.
+
+>You move west.
+In the mining tunnels
+
+You can go east and west.
+
+>You move west.
+In the mining tunnels
+There is a hole in the ceiling here. You can't see what's up there, but you
+will have no trouble climbing up there.
+
+You can go east and up.
+
+>You move up.
+In a corridor
+You are in what looks like an office hallway. The floor is covered in grey
+carpet, the walls are grey panels, and the ceiling has a light fixture
+running down the length of the corridor.
+
+You can go south and down.
+
+>You move south.
+In a corridor
+This is more of the hallway.
+
+You can go north and south.
+
+>You move south.
+In a corridor
+This part of the corridor is darker than the rest. The light panel hangs down
+from the ceiling on twisted wires, and the carpet appears torn and stained.
+A large spider-like creature sits blocking the corridor.
+
+You can only go north.
+
+>(Your score has increased by 100)
+You toss the cupcake to the spider. It seems curious, but wary. After a few
+moments, it nibbles on the cupcake, then gulps it down. Then the spider
+begins to twitch, and skitter around in circles. It's movements become more
+and more erratic, until finally it collapses. That was a very yucky cupcake.
+
+>You move south.
+In a corridor
+The hallway dead-ends here. There is a large handle on the south wall.
+
+You can only go north.
+
+>You pull on the handle and there is a blinding flash of light. When your eyes
+recover, you notice that you are now in a different room. Rich is sitting on
+the floor, grinning at you.
+
+"Hey bud! What kept you?"
+
+Rich laughs as your jaw drops and you fail to come up with a snappy answer.
+
+"Just kidding, man. It sure is great to see you. I knew you would come
+looking for me if I went missing. But, as you can see, I'm having some
+trouble getting around."
+
+You notice that Rich's right leg has a makeshift splint on it. The look of
+worry is apparent on your face.
+
+"Hey, I'm okay. Really. I just banged up my knee when I was running back here
+from outside."
+
+"But Rich," you say, "What's going on? Where is this place? How did we get
+here? Can we get back home? WHAT is going on?"
+
+"I'll explain everything when we get back. And we WILL get back. But there's
+just one little problem. I brought this device with me, it's a recall beacon,
+and we need it to get back home. The thing is, see, I must have dropped it
+outside somewhere, 'cause when I made it back here, I didn't have it. So...
+you have to go out there and find it, bring it back here, and then we can use
+it to get home. It shouldn't take you very long to find it, I didn't go far.
+Just don't mess with the giant spiders. That's what got me in trouble. I was
+trying to get a good look at one of them, and I think I pissed it off. It
+chased me all the way back here."
+
+"Uhh, err," you stammer, "what if it's still out there?"
+
+"Well, it's been a while, I'm hoping it wandered off. Regardless, we've GOT
+to have that device to get home. I'll draw you a map of the surrounding area,
+and I'll mark where I think I dropped the beacon."
+
+He pulls out a marker and a scrap of paper, scribbles for a few moments, then
+hands you the map.
+
+"Let me warn you, though, it's kind of weird out there. It's not like
+anything we're used to. Just stay focused, get the beacon and get back here,
+and we'll be home before you know it. You made it this far, and I know you
+can do this. I'm going to try to rest and conserve my strength."
+
+He smiles confidently, and suddenly you know everything is going to be okay.
+Just get the beacon, and then go home. A piece of cake...
+
+>You move out.
+On the surreal plain
+You are standing outside the entrance to the staging area. Noxious, bubbling
+swamps lie in every direction. To the north you can see a faint path that
+leads towards a huge boulder. The door to the staging area is closed, but to
+the side of the door is a large button.
+
+You can only go north.
+
+>You move north.
+In the swamp
+
+You can go north, east, south and west.
+
+>You move north.
+In the swamp
+
+You can go north, east, south and west.
+
+>You move east.
+In the swamp
+
+You can go north, south and west.
+
+>You move north.
+In the swamp
+
+You can go north, south and west.
+
+>You move north.
+In the swamp
+A large boulder blocks the way west here.
+
+You can go north and south.
+
+>You move north.
+In the swamp
+There are some low hills to the north.
+
+You can go south and west.
+
+>You move west.
+In the swamp
+A large boulder blocks the path south here. There are some low hills to the
+north.
+
+You can go east and west.
+
+>You move west.
+In the swamp
+There are some low hills to the north.
+
+You can go east, south and west.
+
+>You move south.
+In the swamp
+
+You can go north and south.
+
+>You move south.
+In the swamp
+There is a small, twisted bush here, poking out of the muck of the swamp.
+
+You can only go north.
+
+>You pick the berries.
+
+>You move north.
+In the swamp
+
+You can go north and south.
+
+>You move north.
+In the swamp
+There are some low hills to the north.
+
+You can go east, south and west.
+
+>You move west.
+In the swamp
+There are some low hills to the north.
+
+You can go east and west.
+
+>You move west.
+In the swamp
+The path dead-ends here. There is a large structure off to the west, but you
+can't see a path to it through the swamp. There are some low hills to the
+north.
+A pile of ugly green goo is quivering on the path in front of you.
+
+You can only go east.
+
+>(Your score has increased by 100)
+You drop the berries into the goo's orifice and jump back as a puff of stinky
+gas billows out. The goo starts to dissolve. In seconds nothing is left but a
+puddle of slime. Sitting in the middle of the puddle is the recall beacon.
+
+>You pick up the beacon.
+
+>You move east.
+In the swamp
+There are some low hills to the north.
+
+You can go east and west.
+
+>You move east.
+In the swamp
+There are some low hills to the north.
+
+You can go east, south and west.
+
+>You move east.
+In the swamp
+A large boulder blocks the path south here. There are some low hills to the
+north.
+
+You can go east and west.
+
+>You move east.
+In the swamp
+There are some low hills to the north.
+
+You can go south and west.
+
+>You move south.
+In the swamp
+A large boulder blocks the way west here.
+
+You can go north and south.
+
+>You move south.
+In the swamp
+
+You can go north, south and west.
+
+>You move south.
+In the swamp
+
+You can go north, south and west.
+
+>You move west.
+In the swamp
+
+You can go north, east, south and west.
+
+>You move south.
+In the swamp
+
+You can go north, east, south and west.
+
+>You move south.
+On the surreal plain
+You are standing outside the entrance to the staging area. Noxious, bubbling
+swamps lie in every direction. To the north you can see a faint path that
+leads towards a huge boulder. The door to the staging area is closed, but to
+the side of the door is a large button.
+
+You can only go north.
+
+>Your score is 700 out of a maximum of 1000.  (70%)
+
+>(Your score has increased by 300)
+The door opens and you return to the staging area.
+Rich smiles as you hand him the recall beacon. He presses one side of it and
+there is a flash of light and a ZZZAPPP sound like you heard before. You are
+both standing in Rich's basement, near the transfer booth.
+
+"Great work! You saved us!" Then he frowns."What is that smell? Ugh! And
+you're covered in green slime!"
+
+You don't care, it doesn't matter, you're home again. You help Rich up the
+stairs, and get him to lie down on the bed while you call for an ambulance.
+
+"I guess you want to know what that was all about..."
+
+You smile, and put a finger to your lips, shushing him. There will be plenty
+of time for explanations later. Explanations, and perhaps another trip in the
+transfer booth...
