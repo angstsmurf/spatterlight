@@ -1295,11 +1295,24 @@ a5run_intro (a5_run_t *run)
          sits after the prompt commit, in which case it pSpace-joins to that. */
       if (!had_prompt || out.len != cf)
         sb_pspace (&out);
-      /* The runner's title Display goes through the same HTML rendering as any other
-         text, so markup INSIDE Adventure.Title is stripped -- Trapped's title
-         is "<centre><b>'Trapped'  by Driftwood</b></centre>". */
+      /* The runner's title Display goes through the same HTML rendering as any
+         other text, so markup INSIDE Adventure.Title is stripped -- Trapped's
+         title is "<centre><b>'Trapped'  by Driftwood</b></centre>" -- then the
+         plain text is wrapped in <c>…</c> (InputColour), matching
+         Display("<c>" & Adventure.Title & "</c>").  Re-render the wrap so
+         interactive mode leaves A5_COLOUR_MARK spans for the host; headless
+         drops <c> to A5_ALR_MARK (stripped in finish_turn), so goldens stay
+         byte-identical. */
       {
         char *tp = a5text_render_plain (run->adv->title);
+        size_t n = strlen (tp);
+        char *wrap = (char *) malloc (n + 8);
+        memcpy (wrap, "<c>", 3);
+        memcpy (wrap + 3, tp, n);
+        memcpy (wrap + 3 + n, "</c>", 5);   /* includes NUL */
+        free (tp);
+        tp = a5text_render_plain (wrap);
+        free (wrap);
         sb_puts (&out, tp);
         free (tp);
       }
