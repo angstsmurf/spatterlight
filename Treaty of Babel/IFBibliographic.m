@@ -103,11 +103,18 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
                 [self renderDescriptionElement:(NSXMLElement *)node];
                 _blurb =
                 [_blurb stringByDecodingXMLEntities];
-                _blurb = [_blurb stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n\n"];
+
+                // Descriptions that escaped their line breaks, such as the one in the
+                // Grandpa's Ranch blorb ("&lt;br&gt;"), still spell the tags out at this
+                // point, so replace them with actual newlines.
+                _blurb = _blurb.stringByReplacingBreakTagsWithNewlines;
 
                 // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
                 _blurb =
                 [_blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+
+                _blurb =
+                [_blurb stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
 //            } else {
 //                NSLog(@"Unhandled node name:%@ value: %@", key, keyVal);
             }

@@ -14,6 +14,9 @@
 
 @property (readonly, copy) NSString *stringByDecodingXMLEntities;
 
+//! Replaces literal HTML-style line break tags ("<br>", "<br/>", "<br />", any capitalization) with newlines
+@property (readonly, copy) NSString *stringByReplacingBreakTagsWithNewlines;
+
 //! A short summary of the games in the array, usually the title of the first and then the total count of games
 + (NSString *)stringWithSummaryOfGames:(NSArray<Game*> *)games;
 //! A SHA256 signature calculated from file data

@@ -94,6 +94,33 @@
     return CFBridgingRelease(outStr);
 }
 
+// Turns literal "<br>" tags into real line breaks. Some games (any ADRIFT 5
+// game, for example) escape the line breaks of their description as "&lt;br&gt;"
+// rather than write them as XML elements, so after entity decoding we are left
+// with the tags spelled out in the text. A single newline per tag is how ADRIFT
+// itself renders <br>, and it also keeps the common "<br><br>" paragraph break
+// looking like a paragraph break.
+
+- (NSString *)stringByReplacingBreakTagsWithNewlines {
+    // Short-circuit if there are no tags at all.
+    if ([self rangeOfString:@"<" options:NSLiteralSearch].location == NSNotFound) {
+        return self;
+    }
+
+    static NSRegularExpression *breakTag;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        breakTag = [NSRegularExpression regularExpressionWithPattern:@"<br\\s*/?>"
+                                                            options:NSRegularExpressionCaseInsensitive
+                                                              error:nil];
+    });
+
+    return [breakTag stringByReplacingMatchesInString:self
+                                              options:0
+                                                range:NSMakeRange(0, self.length)
+                                         withTemplate:@"\n"];
+}
+
 + (NSString *)stringWithSummaryOfGames:(NSArray<Game*> *)games {
 
     if (!games || games.count == 0)
