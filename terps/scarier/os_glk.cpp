@@ -7632,10 +7632,18 @@ gsc_a5_draw_image (winid_t win, glui32 number)
  * italic or underline alone to Emphasized; bold alone to Subheader (as the
  * ADRIFT 4 path does in gsc_set_glk_style).  Underline marks are distinct for
  * a future CSS path; for now they share italic's Glk styles.
+ *
+ * `input_colour` says the span's ink is the input colour (a <c> span, or the
+ * game title, which the Runner Displays as one).  That ink only exists in
+ * colour mode, so with colours off such a span falls back to Emphasized --
+ * the same stand-in gsc_set_glk_style() gives the ADRIFT 4 path -- rather
+ * than coming out indistinguishable from body text.  Alignment and bold keep
+ * their precedence over the stand-in, as they do there.
  */
 static glui32
 gsc_a5_span_style (int center_depth, int right_depth,
-                   int bold_depth, int italic_depth, int underline_depth)
+                   int bold_depth, int italic_depth, int underline_depth,
+                   int input_colour)
 {
   const int oblique = italic_depth > 0 || underline_depth > 0;
 
@@ -7649,6 +7657,8 @@ gsc_a5_span_style (int center_depth, int right_depth,
     return style_Emphasized;
   if (bold_depth > 0)
     return style_Subheader;
+  if (input_colour && !gsc_colour_enabled)
+    return style_Emphasized;
   return style_Normal;
 }
 
@@ -7706,6 +7716,28 @@ gsc_a5_colour_top (const glui32 *stack, int depth)
   return GSC_COLOUR_NONE;
 }
 
+
+/*
+ * gsc_a5_colour_top_is_input()
+ *
+ * TRUE when the colour in force is the input colour -- i.e. the span
+ * gsc_a5_colour_top() picked out is a <c> rather than a <font colour>.  Skips
+ * colourless <font> spans the same way, so both answers describe one span.
+ */
+static int
+gsc_a5_colour_top_is_input (const glui32 *stack, const int *is_input,
+                            int depth)
+{
+  while (depth > 0)
+    {
+      if (stack[depth - 1] != GSC_COLOUR_NONE)
+        return is_input[depth - 1];
+      depth--;
+    }
+  return FALSE;
+}
+
+
 /*
  * gsc_a5_display()
  *
@@ -7729,6 +7761,7 @@ gsc_a5_display (const char *text)
   int center_depth = 0, right_depth = 0, bold_depth = 0, italic_depth = 0,
       underline_depth = 0;
   glui32 colour_stack[GSC_MAX_STYLE_NESTING];
+  int colour_is_input[GSC_MAX_STYLE_NESTING];
   int colour_depth = 0;
 
   /* The window a run of text is currently going to: the main story window, or
@@ -7822,7 +7855,7 @@ gsc_a5_display (const char *text)
           center_depth = right_depth = bold_depth = italic_depth
             = underline_depth = 0;
           colour_depth = 0;
-          glk_set_style (gsc_a5_span_style (0, 0, 0, 0, 0));
+          glk_set_style (gsc_a5_span_style (0, 0, 0, 0, 0, FALSE));
           gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
         }
       else if (*p == A5_COLOUR_MARK)
@@ -7845,12 +7878,25 @@ gsc_a5_display (const char *text)
 
               if (colour_depth < GSC_MAX_STYLE_NESTING)
                 {
+                  const int is_input = strcmp (token, "input") == 0;
+
+                  colour_is_input[colour_depth] = is_input;
                   colour_stack[colour_depth++]
-                    = strcmp (token, "input") == 0 ? gsc_colour_input
-                      : gsc_colour_lookup (token);
+                    = is_input ? gsc_colour_input
+                               : gsc_colour_lookup (token);
                   gsc_colour_apply (cur_window,
                                     gsc_a5_colour_top (colour_stack,
                                                        colour_depth));
+                  /* Colour spans carry a style too, for the colourless case
+                     (see gsc_a5_span_style); with colours on this re-asserts
+                     the style already in force. */
+                  glk_set_style (gsc_a5_span_style (center_depth, right_depth,
+                                                    bold_depth, italic_depth,
+                                                    underline_depth,
+                                                    gsc_a5_colour_top_is_input
+                                                      (colour_stack,
+                                                       colour_is_input,
+                                                       colour_depth)));
                 }
               p = e;
             }
@@ -7861,7 +7907,12 @@ gsc_a5_display (const char *text)
             colour_depth--;
           gsc_colour_apply (cur_window,
                             gsc_a5_colour_top (colour_stack, colour_depth));
-
+          glk_set_style (gsc_a5_span_style (center_depth, right_depth,
+                                            bold_depth, italic_depth,
+                                            underline_depth,
+                                            gsc_a5_colour_top_is_input
+                                              (colour_stack, colour_is_input,
+                                               colour_depth)));
         }
       else if (*p == A5_CENTER_MARK || *p == A5_ENDCENTER_MARK
                || *p == A5_RIGHT_MARK || *p == A5_ENDRIGHT_MARK
@@ -7898,7 +7949,10 @@ gsc_a5_display (const char *text)
             underline_depth--;
           glk_set_style (gsc_a5_span_style (center_depth, right_depth,
                                             bold_depth, italic_depth,
-                                            underline_depth));
+                                            underline_depth,
+                                            gsc_a5_colour_top_is_input
+                                              (colour_stack, colour_is_input,
+                                               colour_depth)));
         }
       else if (*p == A5_WAIT_MARK)
         {
