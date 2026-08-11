@@ -36,6 +36,9 @@ Output is the PLAIN body only; produce a Runner-valid .taf with:
 
     python3 make_400_wsprobe.py p4WS.plain
     python3 taftool.py pack p4WS.plain <any valid 4.0 donor.taf> p4WS.taf
+
+(taftool.py sits next to this script; the donor supplies the "Wild" password
+trailer run400 validates.)
 """
 import sys
 

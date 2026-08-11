@@ -9,7 +9,7 @@ command text of every game at once, so this reaches the same data the cheap
 way -- de-obfuscate the file and regex the plain text.
 
   * v4.0  = 14-byte signature + 8 ASCII digits + zlib stream (+ 15-byte
-            trailer, see ~/adrift-battle/runner/wine/taftool.py).
+            trailer, see taftool.py next to this script).
   * v3.9 / v3.8 = 14-byte signature, then the body xor'd with the Visual
             Basic PRNG indexed by ABSOLUTE FILE OFFSET.
   * ADRIFT 5 files share the first eight signature bytes; they decode to

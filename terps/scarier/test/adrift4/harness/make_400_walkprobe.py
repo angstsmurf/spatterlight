@@ -41,8 +41,8 @@ Output is the PLAIN body only; produce a Runner-valid .taf with:
     python3 make_400_walkprobe.py A p4WKA.plain
     python3 taftool.py pack p4WKA.plain <any valid 4.0 donor.taf> p4WKA.taf
 
-(taftool.py lives in ~/adrift-battle/runner/wine/; the donor supplies the
-"Wild" password trailer run400 validates.)
+(taftool.py sits next to this script; the donor supplies the "Wild" password
+trailer run400 validates.)
 
 Usage: python3 make_400_walkprobe.py [A|B] [out.plain]
 """

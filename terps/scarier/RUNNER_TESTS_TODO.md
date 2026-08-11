@@ -44,7 +44,7 @@ can't be staged.
 - P-code: `~/Desktop/run400.txt`, `~/Desktop/run390.txt` (`grep -a`; both contain
   stray binary).
 - Probe games: hand-author a one-restriction / one-task variant, repack with
-  `~/adrift-battle/runner/wine/taftool.py` or the Runner rejects it. Recipe and
+  `test/adrift4/harness/taftool.py` or the Runner rejects it. Recipe and
   field offsets in the memory `scare-restriction-statics-run400`.
 - Read transcripts with `screencapture -x -o -l<winID>`; classify cheaply by ink
   pixel count in the response band rather than OCR.
@@ -768,7 +768,7 @@ with two rooms and three tasks:
 
 ```
 python3 make_400_whereprobe.py p4WHERE.plain
-python3 ~/adrift-battle/runner/wine/taftool.py pack p4WHERE.plain <donor>.taf p4WHERE.taf
+python3 taftool.py pack p4WHERE.plain <donor>.taf p4WHERE.taf
 ```
 
 (The donor supplies the 15-byte "Wild" password trailer run400 validates.)

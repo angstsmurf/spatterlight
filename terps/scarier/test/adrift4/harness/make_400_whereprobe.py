@@ -28,8 +28,8 @@ Output is the PLAIN body only; produce a Runner-valid .taf with:
     python3 make_400_whereprobe.py p4WHERE.plain
     python3 taftool.py pack p4WHERE.plain <any valid 4.0 donor.taf> p4WHERE.taf
 
-(taftool.py lives in ~/adrift-battle/runner/wine/; the donor supplies the
-"Wild" password trailer run400 validates.)
+(taftool.py sits next to this script; the donor supplies the "Wild" password
+trailer run400 validates.)
 """
 import sys
 
