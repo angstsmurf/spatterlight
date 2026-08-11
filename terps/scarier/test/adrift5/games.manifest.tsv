@@ -4,7 +4,9 @@ A_Difficult_Puzzle_v2(LimitedParserEdition).blorb	59466	b67d1bda35fb25f0ab31ab27
 AchtungPanzer.blorb	120732	373773ae4a8417a5d91de3eabce9d3027ccdf0f035c99921328df115412dfb59	https://www.adrift.co/files/games/APz%20v.3.blorb	-	Achtung Panzer!	-
 AlgernonsConundrum.blorb	31280	2555f4aea83558ba5d1f7d2ee77d5691c949f35bccab9b72c487a0e61ad05350	https://www.adrift.co/files/games/Algernon%27s%20Conundrum.blorb	-	Algernon's Conundrum	-
 AlienDiver.blorb	87904	e7d7e22d2e17c3264ab6058785f7b5686916d2587d16214fd9abcfe9cfeaf059	https://www.adrift.co/files/games/AlienDiver_V15.blorb	-	Alien Diver	-
+AlienDiver_V13.blorb	77266	23f342d4e71a259042efb2641969edb67c217514bbf357f7c958c36fcb232b3a	https://www.adrift.co/files/games/AlienDiver_V13.blorb	-	Alien Diver v13	earlier build of AlienDiver.blorb (v15, 2020-10-04); this one is 2020-05-15
 AllThroughTheNight.blorb	36345976	65b372b0ad7411d6bf90373551900dac910180305cd85e1b1e02e3e276ec2a1e	https://ifarchive.org/if-archive/games/adrift/All_Through_the_Night.blorb	-	All Through the Night	-
+AlyasOfStarhollow.blorb	418900	0e52267631971c4933e16b26aaefff3acb0253b68f65cc18bc8afc4cef7ea7e5	https://www.adrift.co/files/games/AlyasOfStarhollow.blorb	-	Alyas of Starhollow	later build of AoS v.4.blorb (2026-07-16 vs 2026-06-28)
 AmbassadorToDupal.taf	29708	060839dcef8f8b3e20d9bee416a644da344fae4ca214079c508cd9dc4bdf4cbd	https://www.adrift.co/files/games/InsideADRIFT_41.zip	Ambassador to Dupal v1.0.taf	Ambassador to Dupal	-
 AnAdventurersBackyard.blorb	48990	02cf5b2f0ee588022c6b047a38005278bfbc0ff22103e6c71ee4b0276fc81dcc	https://ifarchive.org/if-archive/games/adrift/An_Adventurers_Backyard.blorb	-	An Adventurer's Backyard	-
 Anno1700.blorb	865004	0da1783d3120b69ef6d174968302f9ca070754a9d20211ad271df3e788c8c5c6	https://www.adrift.co/files/games/Anno%201700.blorb	-	Anno 1700	-
@@ -41,14 +43,23 @@ DragonDiamond_V2.blorb	57012	a0c3e2577c097f4e4b01315815ee278352982fa83418ad86d3e
 dreamspun 0.9.taf	29140	5160b3ddce916ee9e6422a1a0a8db74d812433f8d93b2bc76c9e43267ec39281	https://www.adrift.co/files/games/dreamspun%200.9.taf	-	Dreamspun	-
 DwarfOfDirewoodForest.blorb	242106	38070929a35181281725c45484a59b12bbbb31f901fadd5614dcda117ae7df6e	-	-	The Dwarf of Direwood Forest	no online source found
 ECOD3D.taf	19904	b97b2cf06dde29615f3959ec19a12bcdd971b9f3cd73dead2db1cc8976ae0ef4	-	-	The Evil Chicken of Doom 3D	no online source found
-edithscats.taf	18347	f377bafcc332b2e1be5c3870cb30e78267d02a03f23f5f856d33f6a958f784cf	-	-	-	different release upstream: https://ifarchive.org/if-archive/games/adrift/edithscats.taf (sha256 289939dce4acac940dabbd2393c1263e11fd634b395d886e69e42b8e67410f9f)
+edithscats.taf	18347	f377bafcc332b2e1be5c3870cb30e78267d02a03f23f5f856d33f6a958f784cf	-	-	-	different release upstream, now pinned as edithscats_upstream.taf
+edithscats_upstream.taf	18316	289939dce4acac940dabbd2393c1263e11fd634b395d886e69e42b8e67410f9f	https://ifarchive.org/if-archive/games/adrift/edithscats.taf	-	Edith's Cats	IF Archive release of edithscats.taf, built the same day but eight hours earlier
 Evil on Queen Street ver 1.0.blorb	7909064	cde654bdaba35da31b24800a2ca31ccdb177df8740134bec736bfeadaac51de5	https://web.archive.org/web/20230601231246id_/http://delron.org.uk/games/Evil%20on%20Queen%20Street.zip	Evil on Queen Street ver 1.0.blorb	Evil Queen	-
 FBA v.3c.blorb	1330114	c00f9c56a6bd05460766c94241d10cb53565f9065ba2db4a87adac5bb303851a	-	-	-	no online source found
+FBA v.7.blorb	1416286	d35a595b1a026ee03ed02f9d4770478e814324c550733792afafff4c4de650f2	https://www.adrift.co/files/games/FBA%20v.7.blorb	-	Finn's Big Adventure	later build of FBA v.3c.blorb (2023-09-21 vs 2023-07-04)
 First real game.taf	18008	5f081c640df3d77da4f080ae1594bfbe9ce826b547e56dab7061e36a15c00c41	https://www.adrift.co/files/games/First%20real%20game.taf	-	The Nasty Escape	-
 GalensQuest.blorb	87614	3424bec4d46169ab92db80a59c63ff0d6ebd0c918833f8a10412ee34a6d3bec7	https://www.adrift.co/files/games/Galen%27s%20Quest%20Latest.blorb	-	Galen's Quest	-
 GFS_Frankendrift.blorb	133460	eda83d2dcd1b8f19602693686cba636c80ec8a6551f05ac93cbb0f55ddc9ed83	https://www.adrift.co/files/games/Grandma%27s%20Flying%20Saucer.zip	GFS_Frankendrift.blorb	Grandma's Flying Saucer	-
+GFS_SourceCode.taf	106461	48c7d68665d7306cb4b5a69e2f310cf29b33e720c434f408ee5bfa63e7626841	https://www.adrift.co/files/games/Grandma%27s%20Flying%20Saucer.zip	GFS_SourceCode.taf	Grandma's Flying Saucer	ADRIFT source of GFS_Frankendrift.blorb, saved 2022-06-28
+GFS_WebRunnerC.blorb	132210	37a667e3c2f5b51c43bedb358b5ded3268df128830113cd69cc3d0046ee9cd39	https://www.adrift.co/files/games/GFS_WebRunnerC.blorb	-	Grandma's Flying Saucer - V1 for WebRunner	WebRunner build of GFS_Frankendrift.blorb, 2022-05-07
+GFS_Windows.blorb	132016	ff5619295942925d4bbee8f6bf0c9f8c6d0a2e88ea8383a25814d3f49b56a5a4	https://www.adrift.co/files/games/Grandma%27s%20Flying%20Saucer.zip	GFS_Windows.blorb	Grandma's Flying Saucer	Windows build of GFS_Frankendrift.blorb, saved one minute earlier
 Grandpa_ParserComp_V1.blorb	9360542	f2175232809cdc1ea482f5a47527ce93f8bd5722270bf4f1a4837335a404a8c5	-	-	Grandpa's Ranch	no online source found
+GrandpaRanchV5.blorb	9372808	8c5addee62a8c0aa34f3da331a9df6f4757f9e1238b91c36d7ebf74dca68134c	https://www.adrift.co/files/games/GrandpaRanchV5.zip	GrandpaRanchV5.blorb	Grandpa's Ranch	V5 build of Grandpa_ParserComp_V1.blorb (2021-08-10 vs 2021-06-28)
+GrandpaRanchV5playonline.blorb	9374112	89ec79689b5ed846b46a12dcb67c8657f81d089860c5450e4a5ef99257c54c04	https://www.adrift.co/files/games/GrandpaRanchV5playonline.blorb	-	Grandpa's Ranch	play-online build of GrandpaRanchV5.blorb, 2021-08-20
+GrandpaV5sourcecode.taf	64633	c5390cb1b8f4b7d2ca4bc07be8d79d752a8266ae8dd624961cbe08b211ad196b	https://www.adrift.co/files/games/GrandpaRanchV5.zip	GrandpaV5sourcecode.taf	Grandpa's Ranch	ADRIFT source of GrandpaRanchV5.blorb
 Halloween.blorb	67476	d50be0db3d9f18f1ad406de667082920570b77f9a57760912f6e9dc6f14dc87d	https://www.adrift.co/files/games/Halloween.blorb	-	Halloween (Dansk version)	-
+Halloween.taf	67389	5d28582796b2977fc1708fa25e43c06599e488ce47fe779e753cd37d77c55047	-	-	Halloween (Dansk version)	bare .taf twin of Halloween.blorb (706-byte header); adrift.co serves only the .blorb, no online source found
 Ignis Fatuus.taf	20575	ce77aefda9282e278aa8ff7353c4e6b6df76564f23a6e4985fe6437c8f5f69e4	https://www.adrift.co/files/games/Ignis%20Fatuus.taf	-	Ignis Fatuus	-
 Illumina.blorb	198446	3da0e0852706299307fbded0dc5b3cc21aa11b0f83586ecf0b950d37f7a3e04f	https://www.adrift.co/files/games/Illumina.blorb	-	Illumina	-
 IlluminaDansk.blorb	202576	5a9bb0d3d881b04568d6312be5e93f5a1141a14f9cbfc3f421b4221097da3240	https://www.adrift.co/files/games/Dansk%20Illumina.blorb	-	Illumina (Dansk version)	-
@@ -57,9 +68,11 @@ Intro_compVB1.taf	45980	9d78be3b8e42554d0575a2d15e0922739cc6f610a1ffc76f8067ea4b
 ISummonThee.taf	58467	d44fe6715ba8181d2c951f3e9b4009e5c063168176e369d1f8a2bff9dfdfbb2b	https://www.adrift.co/files/games/I%20Summon%20Thee%21.taf	-	I Summon Thee!	-
 jabberwocky4.21.blorb	48674	2785d4ca05987b797f75698ce66e9a7a8e9ab716953ba74c0197b4a265f79d24	https://www.adrift.co/files/games/jabberwocky4.21.blorb	-	Jabberwocky: The Untold Story	-
 JacarandaJim.blorb	96160	564d774994f8b989b59ce25dacaf4334e266858d1c3eb8aa5ac3584cf3c81b3d	https://www.adrift.co/files/games/jim.blorb	-	Jacaranda Jim	-
+JacarandaJim_2011.blorb	79146	d7d599b00e404626b75762342923d8c55d12491c1332f25d96859107f1b6882c	https://ifarchive.org/if-archive/games/adrift/jim.blorb	-	Jacaranda Jim	earlier build of JacarandaJim.blorb: 5.000019 / 2011-07-09 vs 5.000029 / 2013-02-03
 JACD.blorb	54256	a17597092ea7418f799a15e577586941190db5f6e0ea8ec600224d384a7e9de8	https://ifarchive.org/if-archive/games/adrift/JACD.blorb	-	Just Another Christmas Day	-
 JackAndBeanstalk.taf	16769	e244977aca24af4e4dd60958a43fb34c51cbec44130b22b6cf757cddd991ee70	https://www.adrift.co/files/games/Samples.zip	JackAndBeanstalk.taf	Official demos from the install	-
 JustAnotherFairyTale.blorb	2018188	2fdb2b24c033ae0f692861b5b3b53b31577ba6bc51ad07daaac904ec604e2275	https://www.adrift.co/files/games/Just%20another%20Fairy%20Tale.blorb	-	Just Another Fairy Tale	-
+LMK_IFComp2017.blorb	10600484	e398b719ebf56688dedf051ba2ce0c5d12bb236f8214180d6af43cd1d2def1b2	-	-	Land of the Mountain King	IFComp 2017 build; no online source found -- adrift.co LMKversion1/2/3 all serve LMKversion3.blorb
 LMKversion3.blorb	10601042	c4faf7b9d4c531344567eb4de4c7951098ee7776574e6723f9dab7f898883a3d	https://www.adrift.co/files/games/LMKversion3.blorb	-	Land of the Mountain King	-
 Lost_Coastlines.taf	990831	69324aa8d35f625fec72eb23b93eed8bfa8d99cea698fd82309a18c48e94b045	https://www.adrift.co/files/games/lost%20coastlines%201.0.taf	-	Lost Coastline	-
 MagneticMoon.blorb	492690	d7f270e2f4691311295d1586256801ac87026a3209f735fa3f0bf31a90656a07	https://www.adrift.co/files/games/Moon.blorb	-	Magnetic Moon	-
@@ -100,8 +113,10 @@ school project.taf	19822	49a8e297b11a1c208f39eb08420186db7e137ff6a57b6a39cbd9a9b
 Shattered Memory - Concept Demo.taf	33266	23a3415c3b65fae4aecf5d84067292c96b8cc1e159166ec4eaa85385f4e90e00	https://www.adrift.co/files/games/Shattered%20Memory%20-%20Concept%20Demo.taf	-	Shattered Memory	-
 SixSilverBullets.blorb	376934	75f16cefd04b828f5fc89efe08631ab8a22872dbf0fa34cbdc64d55392b63332	https://www.adrift.co/files/games/Six_Silver_Bullets_v_1.0_%20%282%29.blorb	-	Six Silver Bullets	-
 Skybreak.taf	1390449	7efb1fcda52eed8130afaf1ab958d327c43d564f175f2f54f3359b066416dcf7	https://www.adrift.co/files/games/skybreak%201.2.taf	-	Skybreak!	-
+Skybreak_1.3.blorb	1445536	8a4fad9f894b3b9069d2fd2a47adc40f21fd931f4bd7cce87b35d1d02a7153f2	https://www.adrift.co/files/games/skybreak%201.3.blorb	-	Skybreak	later build of Skybreak.taf (1.3 / 2021-11-14 vs 1.2 / 2020-09-23)
 SnowdriftV1.taf	25254	b8acbeb98a236b66e646b22fafcbec4210317592aaff88457fe4cfe08064b0f9	https://ifarchive.org/if-archive/games/adrift/Snowdrift.taf	-	Snowdrift	-
 SoC.blorb	474850	053484f7b0c171ba97527129a892840a737bc0813f1f7d5ed385b261002116f8	https://www.adrift.co/files/games/SoC.blorb	-	Son of Camelot	-
+SoC_ifarchive.blorb	474380	f71707af548787c893ca9b6b02cf5b9015b358f9628e3b50f21856fadb690649	https://ifarchive.org/if-archive/games/adrift/SoC.blorb	-	Son of Camelot	later build than SoC.blorb: 5.000026 / 2012-12-06 vs 5.000025 / 2012-10-01
 Solitary.taf	15178	5ae088a7d726e8cf18e5181ae278cc2fdab3827be29669cf889c4441c59b3713	https://www.adrift.co/files/games/Solitary.taf	-	Four Walls and a Toilet	-
 Sophia.blorb	1242046	2a09affe7ce9e7895d5d7322eb383e064bdbd431929c67410c897591d7c23b72	https://ifarchive.org/if-archive/games/adrift/Sophia.blorb	-	Sophia or Wisdom Defined	-
 Sorry For Your Loss.blorb	41566	d3ef87d7802debc56761a7932a7a3705ac933489ae181c2e364ad445942e10da	https://www.adrift.co/files/games/Sorry%20For%20Your%20Loss.blorb	-	Sorry for Your Loss	-
@@ -148,6 +163,7 @@ TorchBattery.taf	15713	c0f814f593d2864e0156f69bb6a838710cc714788989d6f946e815973
 Trapped.taf	14495	39fc78eb99e977d73f1c713d15a56619e82b48c643c16f9449b84d61651ce639	https://www.adrift.co/files/games/Trapped.taf	-	Trapped	-
 TreasureHuntInTheAmazon.blorb	25371192	23153c7f68513578d6b22cc1ec4177c7f05391d7fd4771fc2c603741cad22b8e	https://www.adrift.co/files/games/THITAr1.blorb	-	Treasure Hunt in the Amazon	-
 Tribute.blorb	99780	b9b74bfc9676166aab1e4d28419ceeabbd5434e90ad0969ed67fa640a4793398	https://www.adrift.co/files/games/TributeReturnToCoS_v2.blorb	-	Tribute: Return to CoS	-
+TributeReturnToCoS.blorb	99728	bf918a725c057182b12b203f0191d2e3da358b715ecd52d871e3fce936819949	https://www.adrift.co/files/games/TributeReturnToCoS.blorb	-	Tribute: Return to the City of Secrets	earlier build of Tribute.blorb (2020-03-24 vs 2020-04-03)
 TTP.blorb	72902	6536a97bf85dc0968dde892cff63dbfc30be9972e3964335ecbf9ea64c809a39	https://www.adrift.co/files/games/TTP.blorb	-	The Tartarus Project	-
 Wumpus.taf	20608	c7122d859975b2f17c3e8a35d271ffd10516f29387172fdf0c2c850db266a303	https://www.adrift.co/files/games/Wumpus.taf	-	Wumpus Hunt	-
 WW2 Elevator Escape R3.blorb	101854	6ee2c1cf28aaf519331982cd6d86214c2ca2cd6ab2fe6e7220c9cdfb3992472a	-	-	-	no online source found
