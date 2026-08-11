@@ -35,6 +35,8 @@
 #include <string.h>
 #include <time.h>
 
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -548,6 +550,30 @@ var_select_plurality (scr_gameref_t game, scr_int object,
 
 
 /*
+ * var_print_list()
+ *
+ * Print a gathered list of objects as "a, b and c".  The listers below
+ * collect first and print afterwards, so that the phrase introducing the
+ * list can be picked from the finished list.
+ */
+typedef std::vector<scr_int> var_list_t;
+
+static void
+var_print_list (scr_gameref_t game, const var_list_t &list)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  size_t index_;
+
+  for (index_ = 0; index_ < list.size (); index_++)
+    {
+      if (index_ > 0)
+        var_append_temp (vars, index_ == list.size () - 1 ? " and " : ", ");
+      var_print_object (game, list[index_]);
+    }
+}
+
+
+/*
  * var_list_at_object()
  * var_list_in_object()
  * var_list_on_object()
@@ -561,45 +587,25 @@ var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
                     const scr_char *singular, const scr_char *plural)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int object, count, trail;
+  scr_int object;
+  var_list_t list;
 
   /* List out the objects held by this object. */
-  count = 0;
-  trail = -1;
   for (object = 0; object < gs_object_count (game); object++)
     {
       /* Contained, or standing on? */
       if (gs_object_position (game, object) == position
           && gs_object_parent (game, object) == associate)
-        {
-          if (count > 0)
-            {
-              if (count > 1)
-                var_append_temp (vars, ", ");
-
-              /* Print out the current list object. */
-              var_print_object (game, trail);
-            }
-          trail = object;
-          count++;
-        }
+        list.push_back (object);
     }
-  if (count >= 1)
+  if (!list.empty ())
     {
-      /* Print out final listed object. */
-      if (count == 1)
-        {
-          var_print_object (game, trail);
-          var_append_temp (vars,
-                           var_select_plurality (game, trail,
-                                                 singular, plural));
-        }
-      else
-        {
-          var_append_temp (vars, " and ");
-          var_print_object (game, trail);
-          var_append_temp (vars, plural);
-        }
+      var_print_list (game, list);
+      var_append_temp (vars,
+                       list.size () == 1
+                       ? var_select_plurality (game, list[0],
+                                               singular, plural)
+                       : plural);
 
       /* Print out the container or surface. */
       var_print_object_np (game, associate);
@@ -631,98 +637,51 @@ static void
 var_list_onin_object (scr_gameref_t game, scr_int associate)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int object, count, trail;
+  scr_int object;
   scr_bool supporting;
+  var_list_t list;
 
   /* List out the objects standing on this object. */
-  count = 0;
-  trail = -1;
-  supporting = FALSE;
   for (object = 0; object < gs_object_count (game); object++)
     {
       /* Standing on? */
       if (gs_object_position (game, object) == OBJ_ON_OBJECT
           && gs_object_parent (game, object) == associate)
-        {
-          if (count > 0)
-            {
-              if (count > 1)
-                var_append_temp (vars, ", ");
-
-              /* Print out the current list object. */
-              var_print_object (game, trail);
-            }
-          trail = object;
-          count++;
-        }
+        list.push_back (object);
     }
-  if (count >= 1)
+  supporting = !list.empty ();
+  if (supporting)
     {
-      /* Print out final listed object. */
-      if (count == 1)
-        {
-          var_print_object (game, trail);
-          var_append_temp (vars,
-                           var_select_plurality (game, trail,
-                                                 " is on ", " are on "));
-        }
-      else
-        {
-          var_append_temp (vars, " and ");
-          var_print_object (game, trail);
-          var_append_temp (vars, " are on ");
-        }
+      var_print_list (game, list);
+      var_append_temp (vars,
+                       list.size () == 1
+                       ? var_select_plurality (game, list[0],
+                                               " is on ", " are on ")
+                       : " are on ");
 
       /* Print out the surface. */
       var_print_object_np (game, associate);
-      supporting = TRUE;
     }
 
   /* List out the objects contained in this object. */
-  count = 0;
-  trail = -1;
+  list.clear ();
   for (object = 0; object < gs_object_count (game); object++)
     {
       /* Contained? */
       if (gs_object_position (game, object) == OBJ_IN_OBJECT
           && gs_object_parent (game, object) == associate)
-        {
-          if (count > 0)
-            {
-              if (count == 1)
-                {
-                  if (supporting)
-                    var_append_temp (vars, ", and ");
-                }
-              else
-                var_append_temp (vars, ", ");
-
-              /* Print out the current list object. */
-              var_print_object (game, trail);
-            }
-          trail = object;
-          count++;
-        }
+        list.push_back (object);
     }
-  if (count >= 1)
+  if (!list.empty ())
     {
-      /* Print out final listed object. */
-      if (count == 1)
-        {
-          if (supporting)
-            var_append_temp (vars, ", and ");
-          var_print_object (game, trail);
-          var_append_temp (vars,
-                           var_select_plurality (game, trail,
-                                                 " is inside ",
-                                                 " are inside "));
-        }
-      else
-        {
-          var_append_temp (vars, " and ");
-          var_print_object (game, trail);
-          var_append_temp (vars, " are inside");
-        }
+      if (supporting)
+        var_append_temp (vars, ", and ");
+      var_print_list (game, list);
+      var_append_temp (vars,
+                       list.size () == 1
+                       ? var_select_plurality (game, list[0],
+                                               " is inside ", " are inside ")
+                       : " are inside");
 
       /* Print out the container. */
       if (!supporting)
