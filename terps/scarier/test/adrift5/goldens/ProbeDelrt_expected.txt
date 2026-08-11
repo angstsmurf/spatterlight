@@ -15,5 +15,5 @@ END OF INTRO
 Delete Lab7ROOMDESC starts with del.
 
 > eight
-8[aZ  ]END8
+8[a]END8
 

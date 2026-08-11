@@ -1143,6 +1143,11 @@ finish_turn (a5_run_t *run, sb_t *out)
      multi-commit intro resolves its own segments before calling finish_turn, so
      no markers reach here from a5run_intro.) */
   sb_resolve_cls (out, 0);
+  /* Same for a <del> the plain renderer could not satisfy inside its own
+     message (A5_DEL_MARK): the runner's Display buffer spans the turn, so such
+     a delete eats the pSpace join and then the previous message's tail.  After
+     the <cls> pass, so a marker a <cls> wiped never fires. */
+  sb_resolve_del (out);
   raw = sb_finish (out);
   /* The pSpace markers (A5_PS_MARK) have already done their job during buffer
      accumulation -- sb_pspace saw them as non-newline tails and inserted the join

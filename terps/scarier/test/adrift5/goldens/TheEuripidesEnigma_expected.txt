@@ -1599,7 +1599,7 @@ Ok, you pick up the small drone.
 Ok, you put the small drone into the case.
 
 > press 7
-You press button 7  on the boombox and some soothing classical music starts to play.
+You press button 7 on the boombox and some soothing classical music starts to play.
 
 > n
 You have to turn sideways but you squeeze through the crevice and emerge into the cave beyond.
@@ -2354,3 +2354,4 @@ All the above games can all be downloaded from the following websites:
 https://lazzah.itch.io
 
 http://www.adrift.co/games
+

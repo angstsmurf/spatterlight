@@ -58,6 +58,21 @@
    markers after the boundary pass.  \x03 (ETX) never occurs in game text. */
 #define A5_ALR_MARK '\003'
 
+/* Sentinel byte standing for "a <del> that found nothing left to delete in its
+   own message".  Like <cls>, <del> is a whole-turn operator: the runner's
+   Display accumulates the turn into one buffer and a <del> deletes one
+   character from ALL of it, so a <del> at the head of a message reaches back
+   over the pSpace join and into the PREVIOUS message's tail.  Measured in the
+   genuine 5.0.36 Runner with test/adrift5/probes/src/delrt.xml case 8: message
+   "8[aZ" followed by an Execute-Task message "<del><del><del>]END8" prints
+   "8[a]END8" -- the three deletes eat the two join spaces and then the Z.
+   a5text_render_plain can only reach its own fragment, so when its backward
+   walk comes up empty it leaves this marker instead and sb_resolve_del (called
+   from finish_turn, after the <cls> pass) applies it to the accumulated turn
+   buffer.  \x1F (US) never occurs in game text; \x04 is taken by the
+   display-defer `\004<idx>\004` sentinel. */
+#define A5_DEL_MARK '\037'
+
 /* Sentinel pair wrapping a variable NAME whose expansion was deferred to the
    Display boundary.  The Adrift 5 runner applies ALRs only inside Display()
    (ReplaceALRs, Global.vb:519), whose leading ReplaceFunctions call expands any

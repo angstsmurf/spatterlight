@@ -20,9 +20,10 @@
           join spaces AND the last character of the previous message.
 
      Cases 1 to 7 live in the Introduction and the room description, so they
-     render at load with no commands needed.  Case 8 is the one Scarier does
-     not yet reproduce (see "Synthetic probes" in A5_WALKTHROUGH_FINDINGS.md):
-     its expected transcript records our divergent output, not the Runner's. -->
+     render at load with no commands needed.  Case 8 needs one command
+     ("eight"); it is the case that drove the turn-level A5_DEL_MARK /
+     sb_resolve_del pass (a5sb.cpp), and the expected transcript now records
+     the Runner's output for all eight. -->
 <Adventure>
 <Version>5.0000350</Version>
 <LastUpdated>2026-07-12 11:40:00</LastUpdated>

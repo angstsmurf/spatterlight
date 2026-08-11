@@ -7,7 +7,7 @@
 #include <string.h>
 
 #include "a5sb.h"
-#include "a5text.h"   /* A5_CLS_MARK */
+#include "a5text.h"   /* A5_CLS_MARK, A5_DEL_MARK */
 
 void
 sb_init (sb_t *b) { b->p = NULL; b->len = b->cap = 0; }
@@ -56,6 +56,113 @@ sb_putc (sb_t *b, char c) { sb_putn (b, &c, 1); }
 
 char *
 sb_finish (sb_t *b) { return b->p ? b->p : strdup (""); }
+
+/* True when c is a zero-width presentation / bookkeeping sentinel: <del> walks
+   back over these without removing them, because they mark where something was
+   rather than something the player can see. */
+static int
+a5_is_single_pres_mark (unsigned char c)
+{
+  return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
+      || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
+      || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
+      || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
+      || c == A5_UNDERLINE_MARK || c == A5_ENDUNDERLINE_MARK
+      || c == A5_RIGHT_MARK || c == A5_ENDRIGHT_MARK
+      || c == A5_ENDCOLOUR_MARK || c == A5_ENDWINDOW_MARK
+      || c == A5_CLS_MARK || c == A5_PS_MARK || c == A5_COMMIT_MARK
+      || c == A5_DEL_MARK;
+}
+
+/* True when c opens/closes a payload span: \xNN…\xNN. */
+static int
+a5_is_spanning_pres_mark (unsigned char c)
+{
+  return c == A5_IMG_MARK || c == A5_WINDOW_MARK || c == A5_SOUND_MARK
+      || c == A5_WAIT_MARK || c == A5_COLOUR_MARK;
+}
+
+size_t
+sb_del_glyph (sb_t *b, size_t from)
+{
+  size_t i = from;
+
+  if (b->p == NULL || from > b->len)
+    return 0;
+
+  while (i > 0)
+    {
+      unsigned char c = (unsigned char) b->p[i - 1];
+
+      if (a5_is_single_pres_mark (c))
+        {
+          i--;
+          continue;
+        }
+      if (a5_is_spanning_pres_mark (c))
+        {
+          /* Skip the whole \xNN<payload>\xNN span; do not delete it. */
+          size_t end = i - 1;
+          size_t j = end;
+          int found = 0;
+          while (j > 0)
+            {
+              j--;
+              if ((unsigned char) b->p[j] == c)
+                {
+                  i = j;
+                  found = 1;
+                  break;
+                }
+            }
+          if (!found)
+            i = end;
+          continue;
+        }
+      /* Glyph ends at i (exclusive): drop one UTF-8 codepoint, keep any marks
+         that trailed it in the buffer. */
+      {
+        size_t end = i;
+        size_t n;
+        while (i > 0
+               && ((unsigned char) b->p[i - 1] & 0xC0) == 0x80)
+          i--;
+        if (i > 0)
+          i--;
+        n = b->len - end;
+        if (n > 0)
+          memmove (b->p + i, b->p + end, n);
+        b->len = i + n;
+        b->p[b->len] = '\0';
+        return end - i;
+      }
+    }
+  return 0;
+}
+
+void
+sb_resolve_del (sb_t *b)
+{
+  size_t k = 0;
+
+  if (b->p == NULL)
+    return;
+  while (k < b->len)
+    {
+      if ((unsigned char) b->p[k] != (unsigned char) A5_DEL_MARK)
+        {
+          k++;
+          continue;
+        }
+      /* Everything the turn has emitted before this marker is in reach --
+         including the pSpace join the previous message's tail was given.
+         The delete shrinks the buffer ahead of k, so track the marker. */
+      k -= sb_del_glyph (b, k);
+      memmove (b->p + k, b->p + k + 1, b->len - k - 1);
+      b->len--;
+      b->p[b->len] = '\0';
+    }
+}
 
 void
 sb_resolve_cls (sb_t *b, size_t floor)
