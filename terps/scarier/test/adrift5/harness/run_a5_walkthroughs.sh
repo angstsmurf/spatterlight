@@ -1491,6 +1491,32 @@ FILTER="${1:-}"
 # that the ship refuses to launch until the game reports "the currents have
 # shifted", which is what stalls a naive `c`/`l` spammer.  MATCH 0|0.
 #
+# (2026-08-11) TheDrunkenHarlot / TheDrunkenHarlotSrc, both MATCH 0|0.  The
+# eighteenth alternate build, and the pair that closes that table: harlot.taf is
+# the author's own source, saved 18 seconds before the .blorb, and the two
+# replay the same 115-command script to byte-identical transcripts.  It had to
+# wait for a route because the game had no walkthrough anywhere.
+#
+# Five rooms, 60 authored tasks, ZERO events -- the entire game is a state
+# machine over eight numeric variables and five character properties, with seven
+# endings.  The win (Task26, "The Master") wants Guarded + Controlling +
+# CheriseSex = 3, and the ordering is the whole puzzle: the first kiss (Task41)
+# fires Task42, which enthralls you unless you are already Guarded, and Task43,
+# which pulls Cherise's blindfold off if you are.  The necklace therefore has to
+# be worn before the kiss, and both blindfold-gated steps -- SEARCH DRESS for the
+# potion and DRINK POTION for Controlling -- before it as well.  Second trap: the
+# lantern is on the bedroom nightstand, so the well (and the necklace on the
+# skeleton at its bottom) is unreachable until you have searched the corpse,
+# greeted Arysa and bought the room; descending without it parks you in the dark
+# with Task12, whose command list is n/s/e/w/.../down/in/out but pointedly not
+# "up", as the Zork ending.
+#
+# The script deliberately omits TALK TO CHERISE, TALK TO ARYSA and LISTEN, the
+# only three commands in the game that touch the RNG (%CheriseTalk[RAND(1,5)]%
+# and friends), which is what keeps both columns at 0.  It does spend three BUY
+# DRINKs to clear Task6's Variable2 >= 3 -- the ceiling is 6, which is Task14,
+# the Drunk ending.  The opening line "Bard" answers the %PopUpInput% in Task57.
+#
 # OS (PlugIn.Exe) budgets 0|1.  (Vanilla is a golden diff once a golden exists,
 # so its column is 0 even though a direct FD vanilla run diverges in ~20 places
 # -- pure blackjack RNG noise.)  The single xoshiro hunk is architectural.
@@ -1709,6 +1735,8 @@ APlace|project_actuallyfinal.taf|0|0
 BeginnersCave|BeginnersCave.taf|0|0
 BadlandsDemo|Badlands Demo v2.taf|0|0
 Dementophobia|Dementophobia Alpha Demo.blorb|0|0
+TheDrunkenHarlot|The Drunken Harlot.blorb|0|0
+TheDrunkenHarlotSrc|harlot.taf|0|0
 ProbeAmbiguity|a5probes/ambiguity.taf|0|0
 ProbeDel|a5probes/del.taf|0|0
 ProbeDelrt|a5probes/delrt.taf|0|0

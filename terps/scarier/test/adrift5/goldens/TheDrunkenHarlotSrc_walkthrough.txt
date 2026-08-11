@@ -1,0 +1,152 @@
+# The Drunken Harlot -- kkennon, 2012 AIF Mini-Comp
+#
+# Five rooms, 60 authored tasks, no events at all: the whole game is a state
+# machine over eight numeric variables and five character properties.  There are
+# seven endings; this route takes the one the author calls canon, "The Master".
+#
+# The machinery, read straight out of the model:
+#
+#   Property4 Guarded     -- WEAR NECKLACE while alone (Task19).  The necklace
+#                            (Object10) is on the skeleton at the bottom of the
+#                            well, and SEARCH SKELETON (Task16) additionally
+#                            requires you to be holding the brass lantern.
+#   Property5 Controlling -- DRINK POTION (Task20), which needs Cherise to be
+#                            blindfolded at the time.  The potion (Object8) is
+#                            sewn into her dress, and SEARCH DRESS (Task17) also
+#                            requires her to be blindfolded.
+#   Variable5 CheriseSex  -- one point each, once only, from Task8 (fuck pussy),
+#                            Task53 (fuck ass) and Task56 (suck cock).  All
+#                            three need the first kiss (Task41) behind you.
+#
+# SLEEP in the bedroom then picks one of four endings by restriction:
+#
+#   Task23 Dead End        Guarded, not Controlling        -> Lose
+#   Task24 Lovers End      Enthralled + Controlling        -> Neutral
+#   Task25 Enthralled End  Enthralled, neither other       -> Lose
+#   Task26 Controlling End Guarded + Controlling           -> WIN
+#
+# all four also demanding Variable5 = 3, Cherise present, and Location5.
+#
+# The ordering is the puzzle.  The first kiss (Task41) fires two system tasks:
+# Task42 enthralls you if you are NOT Guarded, and Task43 pulls Cherise's
+# blindfold off if you ARE.  So the necklace has to be worn before the kiss, and
+# because the kiss then un-blindfolds her, both blindfold-gated steps -- SEARCH
+# DRESS and DRINK POTION -- have to be done before it too.  Get either order
+# wrong and you are locked out of Task26 for the rest of the run.
+#
+# The lantern is the other trap.  It sits on the nightstand in the bedroom
+# (Object6, Location5), so you cannot fetch it until you have BOUGHT a ROOM, and
+# you cannot buy the room until you have searched the corpse for the purse and
+# greeted Arysa.  Going down the well without it drops you in the dark, where
+# Task12 -- commands n/s/e/w/.../down/in/out, but pointedly not "up" -- is the
+# Zork ending.
+#
+# The courtship is a plain counter: Variable1 Cherise reaches 3 from BRAG TO
+# CHERISE, BUY DRINK FOR CHERISE and COMPLIMENT CHERISE, one point apiece, each
+# gated on its own task not already being complete.  The drink one also needs the
+# bar tab open (Task10).  At 3, PROPOSITION CHERISE flips from Task29 (the polite
+# brush-off, exercised below at Variable1 = 0) to Task33, which sends her up to
+# the bedroom.
+#
+# Deliberately avoided: TALK TO CHERISE, TALK TO ARYSA and LISTEN are the only
+# three commands in the game that draw on the RNG (%CheriseTalk[RAND(1,5)]% and
+# friends), so leaving them out keeps both harness columns at zero.  BUY DRINK is
+# safe up to five -- Variable2 Drunk = 6 is Task14, the Drunk ending -- and three
+# of them is exactly what Task6, the Arysa proposition, wants.
+#
+# The first line is the answer to the %PopUpInput% in Task57, which runs before
+# the intro text and names the player character.
+Bard
+x sign
+read sign
+x well
+x corpse
+search corpse
+i
+x bag
+what is a grue
+n
+x bar
+x patrons
+x girls
+x stairs
+x tables
+x arysa
+greet arysa
+x arysa
+x arysa's tits
+x arysa's ass
+x arysa's pussy
+x cherise
+greet cherise
+# Variable1 is still 0, so this is Task29, the failure branch.
+proposition cherise
+brag to arysa
+compliment arysa
+buy room
+open tab
+buy drink
+buy drink
+buy drink
+# Task6 needs Variable2 >= 3, which the three drinks above just bought.
+proposition arysa
+# --- the lantern is on the nightstand in the room you just paid for ---
+u
+e
+x bed
+x table
+take lantern
+i
+w
+d
+s
+# --- down the well: necklace, then Guarded ---
+d
+x skeleton
+x message
+search skeleton
+x necklace
+wear necklace
+u
+n
+# --- Variable1 to 3, then the successful proposition ---
+brag to cherise
+buy drink for cherise
+compliment cherise
+proposition cherise
+# --- the scarf is dropped by the dwarf across the hall ---
+u
+knock on door
+x scarf
+e
+x cherise
+strip cherise
+x dress
+dress cherise
+# --- blindfold first: it gates both the dress search and the potion ---
+blindfold cherise
+search dress
+x potion
+drink potion
+strip
+x my cock
+rub my cock
+# --- Guarded is set, so the kiss runs Task43 (blindfold off), not Task42 ---
+kiss cherise
+kiss cherise
+x cherise's tits
+rub cherise's tits
+lick cherise's tits
+fuck cherise's tits
+x cherise's ass
+rub cherise's ass
+lick cherise's ass
+x cherise's pussy
+rub cherise's pussy
+lick cherise's pussy
+cherise rub my cock
+# --- the three Variable5 points ---
+fuck cherise's pussy
+fuck cherise's ass
+cherise suck my cock
+sleep

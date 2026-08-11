@@ -58,7 +58,7 @@ dotnet dependency.
 
 ## Corpus status
 
-As of **2026-08-11: 195 rows — 178 MATCH, 17 DIVERGE at baseline, 0 FAIL**,
+As of **2026-08-11: 197 rows — 180 MATCH, 17 DIVERGE at baseline, 0 FAIL**,
 about 30 s wall clock at the default `-j8`.
 
 Per-game numbers are deliberately **not** tabulated here any more; they went

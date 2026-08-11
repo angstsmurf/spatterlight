@@ -95,11 +95,12 @@ fixed, visible nowhere else.
 | `SoC_ifarchive.blorb` | `SoC.blorb` | 5.000026 / Dec 2012 vs 5.000025 / Oct 2012 |
 | `TributeReturnToCoS.blorb` | `Tribute.blorb` (`_v2`) | earlier, 2020-03-24 vs 2020-04-03 |
 
-Seventeen of the eighteen are now wired into `run_a5_walkthroughs.sh` as rows of
-their own (the harness's 2026-08-11 comment block has the per-row detail); only
-`harlot.taf` is not, because its parent `The Drunken Harlot.blorb` has no
-walkthrough yet either. Fifteen replay their parent's route verbatim, which is
-itself the finding: the rebuild changed no mechanics.
+All eighteen are now wired into `run_a5_walkthroughs.sh` as rows of their own
+(the harness's 2026-08-11 comment block has the per-row detail). Sixteen replay
+their parent's route verbatim, which is itself the finding: the rebuild changed
+no mechanics. (`harlot.taf` was the last one in, and only because its parent
+`The Drunken Harlot.blorb` had no walkthrough at all until one was derived for
+it; the two files then produced byte-identical transcripts.)
 
 Two needed a route of their own. `SoC_ifarchive.blorb` takes three edits because
 a closet that is open in the parent build is shut in this one; `AlienDiver_V13`
