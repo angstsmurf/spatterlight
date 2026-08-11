@@ -1434,6 +1434,48 @@ diarystrip_solution.txt|diarystrip.taf|You earn a huge tip and the ladies are al
 # command matches the Nth task and only the fourth advances the plot.  Its
 # other 250-odd tasks are custom refusals, not puzzles.
 silk_noil_solution.txt|SILKNOIL.TAF|Congratulations!
+# The Wheels Must Turn: again the author's own walkthrough (zip_w105/
+# walkthru.txt), replayed line for line.  No score anywhere in the file and
+# exactly one EndGame action, T41 `cut * 23 *`, so the route is maximal by
+# construction.  Two reasons to keep the row.  (1) It is a pure fixed-clock
+# game: events 5-14 all have startTask=14 (1-based -> T13 `read book`) and
+# fire on absolute offsets +1..+8 from it, so the six conversation turns are
+# timing, not content -- seven `z` replay identically -- and the clippers drop
+# in turn +7's event phase, which makes `take tool` the +8th command.  (2) The
+# ending is invisible from the engine side: T41 is an `ACT type=6 v1=1`, so
+# "Better luck next time." IS printed, and the game's own ALR table rewrites
+# it to two spaces (as it does the score line, the percentage line and the
+# press-any-key line).  A game can ALR every stock Runner message out of
+# existence, so a win marker must come from the game's own text.
+wheels_must_turn_solution.txt|Wheel105.taf|That is it, Twenty-Three.|SCR_SKIP_WAITKEY=1
+# Asylum: no score, no events, and a strictly linear gate chain -- screwdriver
+# -> unplug the TV (frees the office door) -> break Dr. Walsh's chair (frees
+# the cabinets and the intercom) -> intercom option 2 (frees the pills) ->
+# cross picks the padlock -> pills in the guard's coffee (frees `d`).  Two
+# things make it worth a row.  Its conversation menus are ROOM-SCOPED BARE
+# NUMBERS whose meaning flips on task state -- `1` in the office is T25 while
+# `push button` is undone and T36 once it is done -- which is a v4 idiom the
+# corpus was light on.  And its WINTEXT is "<br><br>": non-empty, so the
+# engine prints no "Congratulations!" and the whole ending is task text, the
+# mirror image of the ALR trick in the Wheels row above.  Ends on `asylum`,
+# the loop the title is about; `reality` is the other, equally-won ending.
+asylum_solution.txt|as.taf|A large plaque sat on the wall|SCR_SKIP_WAITKEY=1
+# Life: UNFINISHABLE, and wired the way `hangover` and `penrhyn` are -- as a
+# demonstration route, not a win.  There is not one `ACT type=6` in the file
+# and not one `ACT type=4`, so the game has no ending and no score at all;
+# the title screen's "get a job, get a girl/guy and get rich" is three
+# systems that were never written, and VAR 22 `money` is decremented by two
+# tasks and incremented by none.  The row covers every implemented verb in
+# one pass: the four house chores, the three `in`/`out` shops (all gated on
+# VAR 8 `hour`, all open at the 11:06 Sunday start), the four purchases, and
+# the cat.  Kept because it exercises a v4 shape the corpus is otherwise thin
+# on -- a pure variable-driven life sim with a 25-event clock/decay mesh and
+# no task graph -- and because the marker is itself the point: `stats` prints
+# `Health=%health%`, an unresolved reference to a variable the game never
+# declares.  `piss` is on the route deliberately: T24 runs its two actions
+# and has empty completion text, so a working command reports "I don't
+# understand what you mean!".
+life_solution.txt|life.taf|Health=%health%|SCR_SKIP_WAITKEY=1
 EOF
 }
 

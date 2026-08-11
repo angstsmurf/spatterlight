@@ -1,0 +1,240 @@
+Loading game...
+
+The city was one of many Cities, and like its
+brethren, it had Corners, and in each Corner
+there were gilded cages that contained the
+Miseries of the World.
+
+- Book of Servos
+[More]
+
+The Wheels Must Turn
+Short Interactive Fiction
+Copyright © 2001 Heal Butcher <healbutcher@hotmail.com>
+Version 1.05 / ADRIFT Generator 3.90r16
+Second-place winner of the Official ADRIFT Spring MiniComp 2001
+
+First-time players should type "info".
+
+Walking in the Hamster Wheel
+Walking in the Hamster Wheel
+Calloused and wretchedly metronomic, the feet below you revolve the
+cylindrical frame of the hamster wheel around your besmirched form.  You
+ignore the moans and murky odors of fellow laborers, concentrate on the
+demands of your wheel and the mind-numbing rumble of machinery.  Your eyes
+are open, but the darkness is still there.
+
+>Time passes...
+The wheels must turn!  The wheels must turn!  The mantra performs insistent
+somersaults through the sunless corners of your awareness.  However,
+someone's toaster is exceedingly happy.
+
+>Time passes...
+A quiet chant resolves from the cadenced rumble, monstrous with suppressed
+intensity: "The wheels must turn.  The wheels must turn."
+
+>Time passes...
+The chant rises to a throaty drawl, discontent gathering like a congeries of
+vipers: "The wheeeels muusst turrrrrrrrrrn.  The wheeeels muusst
+burrrrrrrrrrn."
+
+>Time passes...
+"The wheeeels muusst burrrrrrrrrrn.  The wheeeels muusst burrrrrrrrrrn."  You
+envision a large, mad clock winding itself obsessively to the point of
+detonating its delicate innards.  There is the brief flight of a mechanical
+bird in the imagined explosion.    "The wheeeels muusst burrrrrrrrrrn!  The
+wheeeels muusst BURRRRRRRRRRN--"
+
+>Time passes...
+"--BURRRRRRRRRR--"  A peremptory announcement booms from the public-address
+system like majuscule hail-stones: "HAMSTERS SIX, NINE, AND TWENTY-THREE:
+LEAVE YOUR STATIONS AND AWAIT FURTHER INTRUCTIONS.  HAMSTERS SIX, NINE, AND
+TWENTY-THREE: LEAVE YOUR STATIONS AND AWAIT FURTHER INTRUCTIONS."  And the
+clockwork of inhumanity clatters on like the chitinous components of a
+mindless insect.
+
+You are Hamster Twenty-Three, however.
+
+>You disengage from the hamster wheel.  Somewhere, someone's toaster ceases to
+function.
+In the Warehouse
+The dimly-lit cavernous interior of the warehouse is a human apiary of
+activity.  Columns of hamster wheels hang from the walls like mad clocks,
+each one containing a threadbare, travailing soul.  Rust-clad catwalks extend
+to the higher wheels above, twining away to the high-ceilinged reaches of
+iniquity.  Everywhere there is the dizzy movement of the wheels.
+
+"Ah, gawd!  What is that?"  You perceive the vocal discomfiture as belonging
+to Master Awning, the physically diminutive yet enormously cruel supervisor
+of this Cage, and collapse immediately to the floor in cringing submission.
+Black butterflies flutter in your stomach.  "Somebody throw cold water on
+them!  Please make them stop!"
+
+You relax.  The confrontation seems to be with someone else.  You struggle to
+your feet, turn to face the disturbance.  A habitually troublesome pair of
+young girls is engaged in an antic of demonstrative affection, despite the
+inevitable wrath of Master Awning.  Excited hollers from the wheels punctuate
+the underlying thrum of machinery as he hovers menacingly over the amorous
+couple.
+
+"That is it, Six and Nine," Master Awning says.  The girls are hosed down and
+netted, reduced to a thrashing knot of bespattered limbs and
+concentration-scattering squeals.  A collective sigh of disappointment
+resonates from the wheels as the pair is hauled away like indignant fish by
+the Master and several armor-clad subordinates.  Fat puddles of water begin
+to meander past your feet in rust-tainted rivulets.
+
+>Time passes...
+Something wet nudges against your foot, and you immediately contemplate the
+possibility of facing the wretched corpse of a water-trampled rodent.  Or
+perhaps it's only wounded.
+
+>You take the small book.
+
+>Shivers trickle up your spine like chilled mercury as you recognize the Book
+of Servos, also known as the Slaves' Bible.  It looks like a small coffin in
+your hands, the resting place of an aborted fetus, with the familiar Sign of
+Slaves stamped on the front.  You blink, and abruptly find yourself reading a
+random passage:
+And the devil's countenance was that of
+a Devil of Operose, a Mover of infernal
+machines that half-devoured the souls of
+men, leaving the uneaten half to bemoan
+the horror of such a fate--
+
+The book is swatted from your hands, sending it spinning into the darkness.
+You wish to protest, but cold silence has settled in your throat.  Vertigo
+threatens to overwhelm you.  Master Awning drifts into your field of vision
+like a manikin vulture.
+
+"Ah, little one," he says innocuously, although his voice seems to swim
+ungracefully through gravel.  You notice his white-knuckled grip upon a pair
+of oversized hedge-clippers, its rusty grin a dull glint against variegated
+gloom.  He frowns at your rag-clad form, aims uncertain glances at your
+crotch and chest several times, looking like a spectator at a vertically
+orientated tennis match.  "With all those rags, I don't know where to start."
+ His eyes become glazed with the mysterious dilemma.
+
+>He shares an empty stare with you, says: "It's nothing too drastic, you
+understand?  Don't feel too bad about it.  It is far more humane than the
+gilded cage, little one."  You feel as empty as his eyes.
+A brief rumble shakes the floor of the warehouse.  Its vibration places an
+ache behind your eyes.
+
+>He sighs theatrically, says nothing.  You are almost certain that he is not
+human, but a machine.  You imagine his skeleton connected with gearwheels and
+copper wiring.  Perhaps he is even a machine of Operose, you think
+deliriously.  Bleary-eyed fatigue follows him like a specter; but in your
+mind, you see the gearwheels jellifying in his joints, the wiring burning
+itself out like a congeries of lit fuses, the diamond teeth is his mouth
+transmogrifying to sand....
+Your teeth chatter as a second rumble shakes the floor of the warehouse.
+"What's the matter?"  Master Awning demands.  "You've recieved all your
+inoculations, haven't you?"
+
+>You hear the squeak of his rusty bear-trap jaw.  "It is the slow death that
+may inspire my sympathies, little one."  The hedge-clippers tremble
+rebelliously in his grasp, but there are only ashes in his empty stare.
+Another rumble.  Master Awning glares at you incredulously.  "What the hell
+was that?  That sound doesn't belong here."
+
+>Time passes...
+
+The Master's eyes are spinning Masson disks as he disappears down a sudden
+rent in the floor.  The warehouse is plunged into a seismic fury that has you
+reeling away like a feather caught in a strong wind.  Fat, hot stones rain
+upward to smite the laboring clamjamfry above.  Screams of the dying and
+defecating fill your ears.  Tendrils of smoke lick at your eyes.  The
+darkness is there, a nebulous something resembling an aggregate of black
+butterflies....
+[More]
+
+Time passes...
+
+Time passes...
+
+Time passes...
+The wet rasp of countless butterflies engaged in copulative acts issues from
+the darkness.
+
+Time passes...
+
+Unconsciousness finally decides to flee from your mind like an unwelcomed
+specter....
+In the Rubble
+Calloused and wretchedly besmirched, you stand in a smoke-laced caldera of
+shattered concrete and twisted steel.  Orange light hovers over a rent in the
+center, filling the small space with its placating glow.  Silence hangs in
+the dust-mottled air like a tapestry of old cobwebs.  A Devil of Operose
+surveys the area with a close eye, but seems entirely unconcerned with the
+damage.
+
+>"The dilemma is too many toasters, and not enough laborers to power them.
+People enjoy their toast, and they will do anything to ensure that such a
+comfort remains accessible to them."
+The Devil's voice is like tarnished silverware, locked away in some dark
+cupboard.  "Sometimes you just have to start over."
+
+>"What?  Are the vipers well fed, then?"
+The Devil pokes around in the rubble.  "Nope," he giggles, "no worms here."
+Falling pebbles disturb the silence like little teeth.
+
+>"Ah, yes.  We are concerned mainly with two types of fatigue: animal and
+mechanical.  We try to remedy this with the mechanical animal.  Of course,
+this has developed a third type of fatigue: psychomechanical.  Our methods
+are not yet perfected, but..."
+The Devil reaches back to dislodge a pair of oversized hedge-clippers from
+his spine.  "Ah, what is this?" he snarls.  The rusty grin of the offending
+tool clatters at your feet.
+
+>You take the hedge-clippers.
+Abruptly, your behooved friend levitates into the darkness above, his voice
+like ice shards in your ears: "I shall now be off, little one."  A faint
+sussuration of gravity-bound pebbles puncuates his departure.
+
+>You scramble down the orange, dusty throat of the rent.
+Below the Warehouse
+Below the Warehouse
+Orange light envelops this place like a thick cumulus.  The ground is
+composed of an orange, spongy material, from which emerge pseudopods of
+humidity that coil unpleasantly in your lungs.  You have the distinct
+impression of standing in a strange swamp.  A large tooth of concrete stands
+as an anomalous obelisk in this orange barrenness, its blunted top about a
+meter below a rent in the ceiling.  A strange apparatus like a large,
+rectangular harp glints near the base of the tooth.
+
+>
+
+"That is it, Twenty-Three."
+[More]
+
+In the Warehouse
+The dimly-lit cavernous interior of the warehouse is a human apiary of
+activity.  Columns of hamster wheels hang from the walls like mad clocks,
+each one containing a threadbare, travailing soul.  Rust-clad catwalks extend
+to the higher wheels above, twining away to the high-ceilinged reaches of
+iniquity.  Everywhere there is the dizzy movement of the wheels.
+
+Master Awning, a grotesque lump of a manikin, fiddles nervously with his
+bloodied hedge-clippers.  "Not too responsive," he mutters.
+[More]
+
+Murmurs of "psychomechanical fatigue" drift amid the man-shadows as you are
+carried away to a side chamber.  As your eyes adjust to the harsh light of
+the vaulted space, your attention is riveted to a structure of utter
+magnificence.  You focus on its glistening form, the geometric perfection.
+It is the most beautiful thing you have ever seen; it is all that matters
+now.
+
+"There's your gilded cage."
+
+Your gilded cage awaits you.  You are ushered quickly through the narrow door
+in its side.  Enthralled by such perfection, you care little about the vipers
+that share the cage with you.
+[More]
+
+Remember thy life is in running water,
+and not in still water....
+
+- ABDUL ALHAZRED,
+Necronomicon

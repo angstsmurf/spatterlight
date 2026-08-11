@@ -1,0 +1,102 @@
+# Asylum (as.taf) -- ADRIFT 3.90, "Morningwood Mental Institution".
+# 14 rooms, 1 NPC, 92 tasks, NO events, 4 variables (none of them a score).
+#
+# Result: WIN -- `ACT type=6 v1=0` on T59 `asylum`.  There is NO score (not
+# one `ACT type=4` in the file) and no "Congratulations!": WINTEXT is the
+# non-empty-but-invisible string "<br><br>", which is enough to suppress the
+# engine's default message, so the whole of the ending is the task's own
+# completion text.  Hence the win marker below is prose.
+#
+# TWO ENDINGS, both `v1=0` wins, offered by the voice in the last room:
+#   `asylum`  -- you choose the dream and the game reprints its own opening
+#                paragraph, the loop the title is about.  THIS ROUTE.
+#   `reality` -- "You spend the rest of your life sitting in the Games Room,
+#                barely alive and only able to eat, drink and sleep."
+# Nothing is scored, so neither is "more" won; this route takes the one the
+# game is named after.
+#
+# THE CHAIN, and why each step gates the next (all `RESTR type=2`, Var2=0
+# meaning the named task must already be DONE):
+#   open pillow            T0, in your own Room 4 -- the screwdriver.  Nothing
+#                          else in the game hides a takeable object.
+#   take cross             T6, from Jack in Room 3.  Asking is enough; he
+#                          hands it over unprompted, no conversation needed.
+#   use screwdriver on plug  T12 (needs the screwdriver held) -- kills the TV,
+#                          Leroy leaves his chair to hammer on it, and that
+#                          unblocks T22 `n`, the ONLY way into Dr. Walsh's
+#                          office.
+#   push chair             T31 -- Dr. Walsh falls off the broken chair and
+#                          storms out.  T29 `open cabinets`, T30 `push button`
+#                          and T46 `open desk` all require it done.
+#   push button / 2        T30 then T37 -- tells Nurse Lois to have medication
+#                          waiting.  T44, the pills, requires T37 done.
+#   talk to nurse / 4      T40 then T44 -- the bottle of sleeping pills.
+#   pick lock              T50 (needs the cross held) -- "Jack said the cross
+#                          was the key to god"; it is also the key to the
+#                          padlock on the West Hallway door.
+#   put pills in coffee    T55, from the balcony -- the guard falls asleep,
+#                          which is what T52 `d` requires.
+#   d / yes / jacob        T52 -> Black Room, T57, then T58, which moves you
+#                          to room 13 for the choice.
+#
+# FOOTGUN: at "Who are you?" the answer is `jacob`, NOT `mr. tanakian`.  T58's
+# printed command is the typo `mr. tanakiam`; its ALTCMDs are `mr. tanakian`,
+# `mr tanakian`, `tanakian`, `jacob`, `jacob tanakian` -- but the two with a
+# period in them do not match anything the parser produces, so `mr. tanakian`
+# answers "I don't understand what you mean!".  `jacob` and `tanakian` work.
+#
+# CONVERSATION MENUS ARE ROOM-SCOPED BARE NUMBERS, and the same digit means
+# different things depending on what is done: in Dr. Walsh's office `1`/`3`
+# are T25/T27 (his answers) while `push button` is undone and T36/T38 (Nurse
+# Lois on the intercom) once it is done; `2` is T37 either way.  Nothing in
+# the game re-prompts, so a stray number is a wasted turn, not an error.
+#
+# NOT ON THE ROUTE, all optional: `x picture` in the office (T47) unlocks a
+# fifth question, `5`, which is the clue that Jack Trall and Leroy Hogan are
+# Dr. Walsh's old room-mates from the photo; `open cabinets` (T29) plus
+# `read 1..4` gives the four patient files; `talk to jack` and `talk to leroy`
+# have three-and-four-option menus; T18 `talk to james` needs Jack's option
+# `2` first.  All of it is backstory for the twist and none of it is required.
+#
+# THE MAP (no compass surprises; every move is a plain exit except the two
+# noted):
+#            Room 4 (0, start)
+#               |S
+#   Games Room(3) --E-- East Hallway(1) --S-- Room 3(2, Jack)
+#      |N gated by T12      |
+#   Dr. Walsh's Office(4)   |
+#      |S(Games Room)       |
+#   South Hallway(5) --S-- Medication Room(6)
+#   Games Room --W-- West Hallway(7) --W(padlock)-- Stairway(10)
+#                                                      |D
+#                                                Front Entrance(11)
+#                                                      |D gated by T55
+#                                                 Black Room(12) --> Games
+#                                                 Room(13, the real one)
+open pillow
+s
+s
+take cross
+n
+w
+use screwdriver on plug
+n
+push chair
+push button
+2
+s
+s
+s
+talk to nurse
+4
+n
+n
+w
+pick lock
+w
+d
+put pills in coffee
+d
+yes
+jacob
+asylum

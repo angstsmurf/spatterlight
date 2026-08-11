@@ -1,0 +1,138 @@
+# Life (life.taf) -- ADRIFT 3.90, an unfinished life sim (author unrecorded;
+# the manifest has only the ifarchive URL).
+# 17 rooms, 5 NPCs (Anne, Carl, Jake, Elise, the cat), 59 tasks, 25 events,
+# 30 variables.  WINTEXT is empty.
+#
+# ***  UNFINISHABLE -- THERE IS NO ENDING AND NO SCORE  ***
+# `grep -c "ACT type=6" ` over SCR_DUMP_TASKS is **0**: not one task in the
+# file carries an EndGame action, so the game can never be won, lost, or
+# ended in any way.  `grep -c "ACT type=4"` is **0** too, so there is no
+# score either -- nothing to maximise and nothing to reach.  The title screen
+# promises "you must get a job, get a girl/guy and get rich"; **none of those
+# three systems exists**.  The complete list of 59 tasks (see below) has no
+# job task, no romance task, and no task anywhere that increases money.
+#
+# So this row is a DEMONSTRATION route in the manner of `hangover` and
+# `penrhyn`: it exercises every implemented verb in the game once, in the one
+# order that works, and stops.  The win marker is the `stats` line, which is
+# also the game's most visible bug.
+#
+# WHAT IS ACTUALLY IMPLEMENTED -- the entire task list, minus the 25 internal
+# `#...` clock/decay tasks:
+#   time / stats / help / cat help
+#   prepare meal, clean * dishes   (kitchen)
+#   clean up *, watch tv           (living room)
+#   sleep                          (bedroom)
+#   piss                           (bathroom)
+#   * in / * out                   (the three shops)
+#   buy * power games master (100$) / buy * cat (150$) / buy * milk /
+#   buy * cat food
+#   stroke * cat / kick * cat / cat feeling
+# That is all of it.  Everything else in the room descriptions -- the video
+# rental, the movie theatre, the supermarket's shelves, the friend's house on
+# Linden street, the four street NPCs -- is scenery with no tasks behind it.
+#
+# MONEY IS A ONE-WAY VALVE.  VAR 22 `money` is decremented by exactly two
+# tasks (T28 -100, T41 -150) and incremented by **none**.  `buy milk` (T37)
+# and `buy cat food` (T38) announce a price of 15$ and 20$ and charge
+# nothing -- T37's only action is `milk += 100`, T38 has no actions at all.
+# Money is never displayed anywhere, not even by `stats`.
+#
+# THREE AUTHORING BUGS THIS ROUTE PUTS ON SCREEN, all of them the game's and
+# none of them the engine's:
+#   1. `stats` prints `Health=%health%` verbatim.  There is no `health`
+#      variable in the file (the 30 variables are listed by SCR_DUMP_TASKS),
+#      so the reference is never substituted.  THIS IS THE WIN MARKER.
+#   2. `piss` in the bathroom prints "I don't understand what you mean!" and
+#      yet works: SCR_TRACE_TASKS shows `task 24 running 2 actions` (bladder
+#      = 100, +15 min) followed by `finished, return false` -- T24's
+#      completion text is empty, so the engine falls back to the parser's
+#      failure message.  Outside the bathroom the same command correctly says
+#      "You can't do that here!", which makes the bathroom look like the one
+#      room where it is NOT understood.
+#   3. `cat help` ends mid-sentence: "To know what your cat is thinking at
+#      the moment you type ''", and the `buy cat food` text tells you to type
+#      `cat food level` in the kitchen.  There is no such task.
+#
+# SHOP HOURS gate the three `* in` tasks on VAR 8 `hour`; the matching
+# `#...close` tasks all fire on `hour == 18` and eject you into the street:
+#   computer store (from room 6)   hour >= 10 and <= 17   T26 / T25
+#   pet shop       (from room 10)  hour >= 11 and <= 17   T30 / T29
+#   supermarket    (from room 15)  hour >=  9 and <= 19   T33 / T32
+# The supermarket's own sign says it closes at 20:00 and its `in` task agrees
+# (<= 19), but T32 still throws you out at 18:00 like the other two, so the
+# 18:00-19:59 window lets you walk in and be ejected on the next tick.
+# The clock starts at **11:06 on a Sunday in December**, so all three are
+# open from turn one and the route never has to wait.  A turn is 3 minutes
+# (T1), except that the big tasks add their own: `watch tv` +30, `prepare
+# meal` and `clean up` +30/+35, `piss` +15.
+#
+# `sleep` (T21-23) is NOT on this route: it is gated on VAR 15 `sleep` being
+# below 600, and the decay is 3 per 5 turns from a starting 997, so it takes
+# some 660 turns of doing nothing to become tired enough.  It answers "You
+# aren't tired enough to go to sleep." for the whole of any reasonable route.
+#
+# THE CAT is the one subsystem with real depth, and it is also the one that
+# goes nowhere.  `buy cat` (T41) moves the cat NPC into the Bedroom and sets
+# `cat`=1.  After that the cat wanders the house, so `stroke`/`kick` (T42-49,
+# four tiers each) only work in whatever room it happens to be in -- this
+# route catches it in the Kitchen on the way back from the shops.  Each tier
+# is gated on VAR 26 `catfeeling` (0-3 = aggressive / peaceful / sad /
+# sleepy) and nudges VAR 27-29 `catmood` / `catlonely` / `catsleepy` by +-3.
+# Events 17-24 re-roll `catfeeling` every three hours on the hour (T50-57,
+# `ACT type=3 v2=2` = "Var = rnd(range)").  The only restrictions on the three
+# mood counters are the +-197 bounds inside the stroke/kick tasks that write
+# them, i.e. clamps; nothing outside that pair ever reads them, and
+# `cat feeling` (T58) reports the roll, not the mood.  You can raise the cat
+# and never observe the raising.
+#
+# THE MAP.  The house is entered from the street with `in`, not a compass
+# direction, and left with `out` from the Living room; the three shops are
+# likewise entered with `in` and left with `out`.  Only the rooms named by a
+# task's `room=` field have a confirmed index (Kitchen 0, Bedroom 1, Bathroom
+# 2, Living room 3, computer-store street 6, computer store 8, pet-shop
+# street 10, pet shop 11, supermarket forecourt 15, supermarket 16).
+#
+#   Bedroom --S-- Kitchen --W-- Living room
+#                    |E              |out / in
+#                Bathroom      Hindburg st (Anne) --S-- Hindburg st (Carl)
+#                                    |N                        |W
+#                       Hindburg st (COMPUTER STORE)      Linden st, dead end
+#                              |N            |E -- st -- st -- SUPERMARKET
+#                       Hindburg st --E-- Hindburg st (PET SHOP, Elise)
+#                       (video rental)        |E
+#                                          st, dead end
+Bob
+male
+s
+prepare meal
+clean dishes
+e
+piss
+w
+w
+watch tv
+clean up
+out
+n
+in
+buy power games master
+out
+n
+e
+in
+buy cat
+buy milk
+buy cat food
+out
+w
+s
+s
+in
+e
+cat feeling
+stroke cat
+n
+put computer on desk
+time
+stats

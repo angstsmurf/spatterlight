@@ -1,0 +1,217 @@
+Loading game...
+
+Life
+In this life sim you must get a job, get a girl/guy and get rich.
+Typing 'prepare meal' while in the kitchen will make the player prepare a
+meal and then eat it.
+Typing 'clean dishes' or 'clean * dishes will make the player clean the
+dishes.
+Typing 'sleep' or 'go to sleep' while in your bedroom will make you sleep.
+How long depends on how sleepy the player character is.
+In this game, if you want to enter a house or a shop or something like that,
+you will have to type 'in' or 'go in'. In some other games you would
+sometimes just type east, west, north or south if you wanted to go into a
+house. Just clearing things up for you before you play the game.
+If at any time during the game you need help, you can just type 'help' and
+you will be given an option of what kind of help you need.
+
+All I can say now is enjoy the game.
+
+Please enter your name:
+>Please choose the player's gender (male or female):
+>
+Bedroom
+A small bed is in one corner of the room with a desk by its side.  A window
+is on the northern wall looking out into your garden.  The door to the
+kitchen is to the south.
+
+>You move south.
+Kitchen
+You can see a dining table with a set of chairs.  A refridgerator is in one
+corner of the room with a counter to its side and there is a window above the
+counter. Three doors can be seen leading out of the room. One goes into your
+bedroom, another into your bathroom and the third into the living room.
+
+>You cook some food, you sit down at the dining table and then you eat.
+Delicious.
+
+>You get to work with cleaning the dishes.
+
+>You move east.
+Bathroom
+A white toilet and a matching sink are on the western wall. A medicine
+cabinet with the standard mirror is above the sink and a shower booth is to
+the left of the sink.
+
+>I don't understand what you mean!
+
+>You move west.
+Kitchen
+You can see a dining table with a set of chairs.  A refridgerator is in one
+corner of the room with a counter to its side and there is a window above the
+counter. Three doors can be seen leading out of the room. One goes into your
+bedroom, another into your bathroom and the third into the living room.
+
+>You move west.
+Living room
+A rather ugly, purple sofa is in front of a small, black&white screen tv. A
+window looking out into the street is behind the tv.
+
+>You turn on the tv and sit down in the sofa.
+After about half an hour you stop watching tv and get up from the sofa.
+
+>You get to work with cleaning the living room. It takes a while but it looks
+much better afterwards.
+
+>You move out.
+Hindburg street
+Most of the houses in the street look beautiful and there are only two or
+three exceptions and those don't look that bad. You can also get a good look
+into most of the gardens and the grass is very green in each of them and
+there are trees in some of the gardens. Hindburg street goes both north and
+south. You can see kids returning home from school.
+Snow on the streets is so high that only the best fitted jeeps can drive
+through the streets while all other cars have to wait until the weather stops
+its rampage. Children are jumping from rooftops into heaps of snow.
+
+Anne is here.
+
+>You move north.
+Hindburg street
+You can see the place you call home to the south down the street. Far to the
+east is the supermarket while the street just continues north and turns east.
+There is also a computer store here. It's open from 10:00 to 18:00. You can
+see kids returning home from school.
+Snow on the streets is so high that only the best fitted jeeps can drive
+through the streets while all other cars have to wait until the weather stops
+its rampage. Children are jumping from rooftops into heaps of snow.
+
+>You step inside the computer store
+
+>You give the 100$ to Jake. Jake gives you the computer.
+You can set your computer up anywhere you like as long as there is a surface
+which you can put it on. There's a desk in your bedroom.
+
+>You go out of the computer store and into the street.
+
+>You move north.
+Hindburg street
+Hindburg street goes east and south. To the south is your beautiful house and
+to the east is a video rental. You can see kids returning home from school.
+Snow on the streets is so high that only the best fitted jeeps can drive
+through the streets while all other cars have to wait until the weather stops
+its rampage. Children are jumping from rooftops into heaps of snow.
+
+>You move east.
+Hindburg street
+On the side of the street is a pet shop. It's open from 11:00 to 18:00.  The
+street goes east and west. You can see kids returning home from school.
+Snow on the streets is so high that only the best fitted jeeps can drive
+through the streets while all other cars have to wait until the weather stops
+its rampage. Children are jumping from rooftops into heaps of snow.
+
+Elise is here.
+
+>You enter the pet store.
+
+>You give Laurie, the pet store owner, 150$ for the cat. "The cat will be
+waiting for you when you get home." says Laurie. "Have this list of items
+that may prove useful in raising your cat. A cat food bowl and a milk bowl
+will also be waiting at your house."
+If you need any help later on with raising your cat you just type'cat help'.
+It's really useful.
+
+>You buy a bottle of milk for your cat. It costs 15$.
+
+Buying milk does not give you a 'milk' item but it fills your cat's milk
+bowl. The milk in the bowl decreases over time and you'll have to buy more.
+Buying milk does not add more milk to the bowl. It only fills the bowl and
+the rest is thrown away. I did this so people can't just buy lots of milk at
+one time in the game and then never again.
+
+>You buy some cat food for your cat. It costs 20$.
+
+Buying cat food does not give you a 'cat food' item but it fills your cat's
+food bowl. The cat food in the bowl decreases over time and you'll have to
+buy more. Buying cat food does not add more cat food to the bowl. It only
+fills the bowl and the rest is thrown away. I did this so people can't just
+buy lots of cat food at one time in the game and then never again. To see how
+much is left in the bowl, type 'cat food level' while in the kitchen.
+
+>You exit the pet store.
+
+>You move west.
+Hindburg street
+Hindburg street goes east and south. To the south is your beautiful house and
+to the east is a video rental. You can see kids returning home from school.
+Snow on the streets is so high that only the best fitted jeeps can drive
+through the streets while all other cars have to wait until the weather stops
+its rampage. Children are jumping from rooftops into heaps of snow.
+
+>You move south.
+Hindburg street
+You can see the place you call home to the south down the street. Far to the
+east is the supermarket while the street just continues north and turns east.
+There is also a computer store here. It's open from 10:00 to 18:00. You can
+see kids returning home from school.
+Snow on the streets is so high that only the best fitted jeeps can drive
+through the streets while all other cars have to wait until the weather stops
+its rampage. Children are jumping from rooftops into heaps of snow.
+
+>You move south.
+Hindburg street
+Most of the houses in the street look beautiful and there are only two or
+three exceptions and those don't look that bad. You can also get a good look
+into most of the gardens and the grass is very green in each of them and
+there are trees in some of the gardens. Hindburg street goes both north and
+south. You can see kids returning home from school.
+Snow on the streets is so high that only the best fitted jeeps can drive
+through the streets while all other cars have to wait until the weather stops
+its rampage. Children are jumping from rooftops into heaps of snow.
+
+Anne is here.
+
+>You move in.
+Living room
+A rather ugly, purple sofa is in front of a small, black&white screen tv. A
+window looking out into the street is behind the tv.
+
+>You move east.
+Kitchen
+You can see a dining table with a set of chairs.  A refridgerator is in one
+corner of the room with a counter to its side and there is a window above the
+counter. Three doors can be seen leading out of the room. One goes into your
+bedroom, another into your bathroom and the third into the living room.
+Your cat is here.
+
+>Your cat is feeling
+Not peaceful and not aggressive
+
+At the moment your cat is thinking sad thoughts. Use this to judge whether
+you should stroke him or kick him. Stroking your cat shows it that you
+approve of these thoughts. Kicking it shows it that you disapprove of these
+thougths. These thougths may be aggressive, peaceful, sad or sleepy.
+
+>You stroke your cat showing it that it is not alone. (type ''cat help' for
+more info)
+
+>You move north.
+Bedroom
+A small bed is in one corner of the room with a desk by its side.  A window
+is on the northern wall looking out into your garden.  The door to the
+kitchen is to the south.
+
+>You put power games master onto the desk.
+
+>The time is 14:09.
+It's Sunday and it's December.
+
+>Your stats are
+Fun=0
+Health=%health%
+Sleep=907
+Bladder=19
+Communication=907
+Hunger=4
+
+>Do you really want to quit? [Y/N]

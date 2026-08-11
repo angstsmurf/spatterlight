@@ -1,0 +1,77 @@
+# The Wheels Must Turn (Wheel105.taf) -- ADRIFT 3.90 Release 16, by Heal
+# Butcher, 2001, second place in the Official ADRIFT Spring MiniComp 2001.
+# 5 rooms, 4 NPCs, 134 tasks, 15 events, NO variables at all.
+#
+# Result: the game's ONE ending, reached at "That is it, Twenty-Three." --
+# mechanically an `ACT type=6 v1=1` (EndGame LOSE), narratively the gilded
+# cage.  There is NO score: not one `ACT type=4` in the file, and `score`
+# answers "There is no score for this adventure."  So this route is maximal
+# by construction -- T41 is the only task in the game with an EndGame action.
+#
+# THIS IS THE AUTHOR'S OWN WALKTHROUGH (~/Downloads/zip_w105/walkthru.txt,
+# shipped in the game's zip) replayed line for line.
+#
+# WHY "Better luck next time." NEVER APPEARS.  It is printed -- SCR_TRACE_TASKS
+# shows "task 41 action 0 ended game" -- and then the game's own ALR table
+# rewrites it to two spaces.  Heal Butcher ALRs away every stock Runner
+# message: "Better luck next time." -> "  ", "You scored 0 out of the maximum
+# 0!" -> " ", "That is 100% of the game!" -> " ", "[Press any key to end]" ->
+# "<c>[Game ended]</c>".  The last line of the transcript is that pair of
+# spaces.  Nothing is wrong with the engine; the win marker below has to be
+# the game's own text.
+#
+# THE WHOLE GAME IS ONE FIXED CLOCK.  Everything after `read book` (T13) is
+# events 5-14, all `startTask=14` (1-based -> T13), firing on absolute turn
+# offsets from that command:
+#     +1,+2,+3  rumble messages          (the three Awning asks below)
+#     +4        E8 -> T17 !moveawning    the warehouse collapses, you are
+#                                        moved to room 3, In the Rubble
+#     +5,+6     devil fidgets
+#     +7        E13 -> T19 !movehedge-   the Devil dislodges the clippers and
+#                        clippers        they clatter at your feet
+#     +8        E10 -> T18 !movedevil    the Devil leaves
+# So the SEVEN turns between `read book` and `take tool` are pure timing: the
+# `ask awning about ...` / `ask devil about ...` tasks are unrestricted
+# flavour and seven `z` replay identically (verified).  What matters is the
+# COUNT.  The clippers drop in turn +7's event phase, i.e. after that turn's
+# command, so `take tool` has to be the +8th command; do it on +7 and you get
+# all the way to "You can't cut string 23 with your bare hands."  There is no
+# deadline the other way -- the clippers stay on the ground after the Devil
+# leaves on +8.
+#
+# THE OPENING is on its own fixed clock: events 0-3 fire on turns 2..5, and
+# E2/E3 run T0 `!announcement, move player`, which walks you out of room 0
+# (Walking in the Hamster Wheel) into room 1 (the same name, but the room
+# where `o` is answered).  Only then does T1 `o` / `o * wheel` move you to
+# room 2, In the Warehouse.  Five `z` is what the author's file uses.
+#
+# THE BOOK: leaving starts E4 (`startTask=2` -> T1), which one turn later runs
+# T15 `!movebook` and drops the Book of Servos at your feet -- hence the `z`
+# before `take something`.  `read book` is T13 (ALTCMDs `x/open/look * book|
+# bible|servos|small *`), restricted to holding it; it summons Master Awning
+# and starts the clock above.
+#
+# THE ENDING: T21..T5x are `cut * N *` for every string on the harp, each
+# restricted on `RESTR type=0 obj4=[hedge-clippers]` held.  Only T41,
+# `cut * 23 *` -- your own hamster number, "You are Hamster Twenty-Three" --
+# carries the EndGame action.  Strings 6 and 9 answer "String 6 is already
+# severed.": the two girls netted in the intro.
+z
+z
+z
+z
+z
+out
+z
+take something
+read book
+ask awning about hedge-clippers
+ask awning about awning
+ask awning about fatigue
+z
+ask devil about dilemma
+ask devil about girls
+ask devil about fatigue
+take tool
+down
+cut string 23

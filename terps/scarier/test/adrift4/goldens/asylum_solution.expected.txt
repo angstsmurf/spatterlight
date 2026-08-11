@@ -1,0 +1,286 @@
+Loading game...
+
+Asylum
+Your eyes flicked open...
+
+Who am I? That was the first thought that popped in your head. Everything was
+a blank. You tried to think of anything: family, pets, vacations, jobs, but
+every thought came back with nothing. You were lying in a strange bed wearing
+light blue scrubs. The room around you was milky white, with a small window
+sending light across the floor. You sat up on the bed and looked out through
+the glass of the window. It was a beautiful sunny day out, but a large stone
+fence almost blocked most of your view of the sun. A large plaque sat on the
+fence just a few metres in front of your window. Engraved on it were the
+words "Morningwood Mental Institution".
+
+>You open the pillowcase and slide your hand inside the pillow. You grasp
+something hard, and pull out a screwdriver. It's a risk to carry it around,
+but it may come in handy. You slide it into the pocket of your pants.
+
+>You move south.
+East Hallway
+A sign posted on the wall addresses this as the "East Hallway". Just like
+every other room in the asylum, the walls are bright white with hardly a
+speck of dust or dirt on them. To the North, you can see Room 4 (Your room).
+To the South is Room 3, and to the West is the center of the building.
+
+>You move south.
+Room 3
+Room 3 is almost exactly like your room, with the exact same window and bed
+in the exact same spots. The only difference is the card on the wall, which
+reads "Room 3- Mr. Trall". Another patient is here, who introduces himself as
+Jack.
+
+>You ask politely if you can borrow the cross. Jack nods his head.
+
+"It fills me with horror to hear you do not have a cross. Please, my son.
+Take this one, and hope it brings you salvation."
+
+He removes the cross and carefully hands it to you.
+
+>You move north.
+East Hallway
+A sign posted on the wall addresses this as the "East Hallway". Just like
+every other room in the asylum, the walls are bright white with hardly a
+speck of dust or dirt on them. To the North, you can see Room 4 (Your room).
+To the South is Room 3, and to the West is the center of the building.
+
+>You move west.
+Games Room
+A large sign hanging off the wall tells you where you are, "The Fun and Games
+Room". Despite the sign's proclamation, there seems to be neither fun or
+games to be found. The entire room is blindingly white like every other room,
+and the floor is covered with grey ceramic tiles that just reflect the white
+walls even more. A small TV sits atop a wooden shelf that juts out of the
+wall to the North, a door marked "Dr. Walsh's Office" stands next to it. A
+large white table where all the 'fun' is supposed to occur, is empty except
+for a Monopoly box, and even that is empty. To the south you can see a
+hallway which leads down to the medication room. To the East and West are the
+two hallways which lead to the patient's rooms. Sitting next to the hallway
+is a man wearing a black suit with a blank stare on his face.   Sitting next
+to him is a man who introduces himself as Leroy, who pays little attention to
+you as he watches the TV with a motionless face.
+
+>You unscrew the screws in the plug, and pull it out. The TV screen goes
+blank, and Leroy jumps out of the chair.
+
+"You idiot, you turned off the damn TV! I was watching that!"
+
+He storms over to the TV, not noticing the unplugged cord, and begins to slam
+the sides of the TV to get it working.
+
+>With Leroy busy trying to get the TV to work, you slip into Dr. Walsh's
+office.
+
+>With Dr. Walsh busy looking at his paperwork, you slowly walk towards the
+desk. You pretend to be interested in his diploma that's hanging on the wall
+behind the desk, and while he's busy explaining it, your foot pushes the weak
+leg of the chair. Dr. Walsh yelps as the chair collapses to the ground, and
+he lands with a thud on the hard ground.
+
+"Damn, damn, damn. I knew that would happen. I told them the chair was bad
+quality, I told them. I'm going to go complain right now, demand for a decent
+chair."
+
+Dr. Walsh pulls himself off the ground and storms out of the room, determined
+to get a new chair.
+
+>You push on the button, and within a few seconds, Nurse Lois's voice crackles
+on the other end.
+
+"Yes Dr. Walsh?"
+
+1. I need some information on Mr. Tanakian
+
+2. Can you get some medication ready
+
+3. What can you tell me about Mr. James
+
+>You quickly tell Nurse Lois to leave medicine aside for you.
+
+"Uhh...ok Dr. Walsh, I'll have the medicine ready when Mr. Tanakian comes."
+
+>You move south.
+Games Room
+A large sign hanging off the wall tells you where you are, "The Fun and Games
+Room". Despite the sign's proclamation, there seems to be neither fun or
+games to be found. The entire room is blindingly white like every other room,
+and the floor is covered with grey ceramic tiles that just reflect the white
+walls even more. A small TV sits atop a wooden shelf that juts out of the
+wall to the North, a door marked "Dr. Walsh's Office" stands next to it. A
+large white table where all the 'fun' is supposed to occur, is empty except
+for a Monopoly box, and even that is empty. To the south you can see a
+hallway which leads down to the medication room. To the East and West are the
+two hallways which lead to the patient's rooms. Sitting next to the hallway
+is a man wearing a black suit with a blank stare on his face.
+
+Leroy is now standing next to the TV, repeatedly hitting it with his fists to
+get it working and occasionaly screaming at it.
+
+>You move south.
+South Hallway
+The south hallway continues South to a door marked 'Medication Room'. You'd
+like to find something else interesting about this hallway, but it's no
+different than the rest. Spotlessly clean with blindingly bright white walls.
+
+>You move south.
+Medication Room
+The strong scent of medicine hits you hard as you enter the room, probably
+because it's called the medication room. It's a very small room, with the
+same white walls that shine just like the rest. A small table with chairs
+surrounding it sits in the middle of the room, all of them currently empty.
+Along the East wall is a small window, which looks into the medicine supply
+room. Nurse Lois leans against the counter in the other room, looking as
+bored as could be.
+
+>"Hello Mr.Tanakian, how may I help you?"
+
+1. Who am I?
+
+2. Why am I here?
+
+3. How do I get out of here?
+
+4. I'm here to pick up my medication.
+
+>"Oh yes, Dr. Walsh contacted me before. I have your medicine right here."
+
+Lois reaches under the counter and pulls up a small bottle of pills.
+
+"So far, all Dr. Walsh prescribed for you is some sleeping pills. These
+should help you relax."
+
+>You move north.
+South Hallway
+The south hallway continues South to a door marked 'Medication Room'. You'd
+like to find something else interesting about this hallway, but it's no
+different than the rest. Spotlessly clean with blindingly bright white walls.
+
+>You move north.
+Games Room
+A large sign hanging off the wall tells you where you are, "The Fun and Games
+Room". Despite the sign's proclamation, there seems to be neither fun or
+games to be found. The entire room is blindingly white like every other room,
+and the floor is covered with grey ceramic tiles that just reflect the white
+walls even more. A small TV sits atop a wooden shelf that juts out of the
+wall to the North, a door marked "Dr. Walsh's Office" stands next to it. A
+large white table where all the 'fun' is supposed to occur, is empty except
+for a Monopoly box, and even that is empty. To the south you can see a
+hallway which leads down to the medication room. To the East and West are the
+two hallways which lead to the patient's rooms. Sitting next to the hallway
+is a man wearing a black suit with a blank stare on his face.
+
+Leroy is now standing next to the TV, repeatedly hitting it with his fists to
+get it working and occasionaly screaming at it.
+
+>You move west.
+West Hallway
+The west hallway looks almost identical to the Eastern side. There are two
+rooms, Room 1 to the North and Room 2 to the South.  Along the West wall is a
+solid metal door with a lock extending across the handle. A sign reads 'To
+Front Entrance' on it.
+
+>Well, Jack said the cross was the key to god. Maybe it'll also work to be the
+key for this door.
+
+You slip the pointy end of the cross into the lock and begin to jiggle it
+around. Something clicks and the padlock swings open.
+
+>You move west.
+Stairway
+
+The narrow staircase leads down to another door, this one marked 'Front
+Entrance'. Back to the East is the Western Hallway.
+
+>You move down.
+Front Entrance
+You stand on a small balcony that overlooks the large entrance room of the
+asylum. A small staircase winds down the side of the room, leading to the
+ground floor.  Located underneath the balacony is a small desk, where a
+security guard sits behind sipping a cup of coffee. Two glass doors on the
+floor below seem to lead outside the building.
+
+>You lean over the railing on the balcony, and aim one of the pills over the
+cup of coffee. You drop it, and it bounces off the rim of the cup and onto
+the floor. You reach into the bottle, and pull another pill out. Once again
+you aim for the cup, and release it. It flies through the air, and lands with
+a quiet plop in the coffee. After another few minutes, you have another 3
+pills dissolving in the liquid.
+
+A half hour later, you hear the loud snoring of the guard below. You look
+over the edge, and see the guard sleeping peacefully at his desk.
+
+>With the guard asleep, you slowly sneak down the stairs. When you reach the
+floor, you quietly jog past the desk and through the glass doors.
+
+The bright light of the sun blinds your eyes as you exit the asylum.
+Everything goes white, and you scream out in pain. The ground underneath you
+gives away, you feel yourself falling.
+
+You land with a thud on the ground below. Although the ground is hard, you
+seem perfectly fine despite the long drop. You open your eyes. The bright
+sunlight no longer blinds. You're in a completely black room, with a faint
+light coming from the corner.
+
+A voice echos throughout the room. "Welcome."
+
+You back away from the light. "Who's there?" you scream to the voice.
+
+"I've been waiting for you. Waiting for so long," the voice responds softly.
+
+You begin to get scared. "What's going on? Why am I here!?"
+
+"Please. There is no need to raise your voice. All will be explained in due
+time. But first, I need you to answer some questions. Do you understand?"
+
+>"Very good," the voice responds. "Now, answer me this. Who are you?"
+
+>"Correct. But at the same time, incorrect. Do you understand?" The voice
+surrounds you.
+
+You respond quickly. "No."
+
+"Then it is time you get the answers you seek."
+
+Your eyes flick open. You're sitting in the games room of the asylum. You
+cannot move or speak. You can hear the voice speaking from inside your head.
+
+"This is it. This is your reality. You're not Jacob Tanakian, you never were.
+There never was a man by that name. He's in your mind. Everything was. The
+entire world was pieced together by fragments of past information."
+
+"No...you're lying!" You think to yourself.
+
+"You're the one lying. I do not exist, I am a part of your mind. You're
+playing a game. This is how you have your fun, entering the subconcious of
+your mind to worlds you've created."
+
+Your brain reponds quickly. "But what about all the people I've met! Dr.
+Walsh, Nurse Lois, Leroy and Jack!"
+
+The voice chuckles. "Dr. Walsh and Nurse Lois are real. You created them just
+like their reality halves. Everyone else was pieced together from things
+you've seen. Pictures, files, images from TV. You created Jack Trall and
+Leroy Hogan from the picture you saw in Dr. Walsh's office. Jacob Tanakian
+was a name you heard when Dr. Walsh spoke of an e-mail he recieved, you were
+never him!"
+
+You sit in the chair, perfectly still. Everything connects back in your mind.
+You know the voice is right.
+
+"Now, Mr. Jesus James," the voice continues. "Would you like to stay in
+horrible reality, or would you like to go back to the asylum?"
+
+>
+
+Your eyes flicked open...
+
+Who am I? That was the first thought that popped in your head. Everything was
+a blank. You tried to think of anything: family, pets, vacations, jobs, but
+every thought came back with nothing. You were lying in a strange bed,
+wearing light blue scrubs. The room around you was milky white, with a small
+window sending light across the floor. You sat up on the bed and looked out
+through the glass of window. It was a beautiful sunny day out, but a large
+stone fence almost blocked your view of the sun except for a small corner of
+it. A large plaque sat on the wall, just a few metres in front of your
+window. Engraved on it, were the words "Morningwood Mental Institution".
