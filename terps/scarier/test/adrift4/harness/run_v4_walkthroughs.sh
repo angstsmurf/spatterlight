@@ -1490,6 +1490,26 @@ life_solution.txt|life.taf|Health=%health%|SCR_SKIP_WAITKEY=1
 # the route could skip the wait, and deliberately does not.  Marker is pure
 # ASCII out of the (non-empty, so "Congratulations!"-suppressing) WINTEXT.
 renuntio_solution.txt|Renuntio.taf|Yo-nos me alzo y estiendo mis-nos brazos|SCR_SKIP_WAITKEY=1
+# House Of Horror: a nine-treasure haunted-house crawl that WINS at 145/155,
+# and the missing 10 are a provable author bug rather than a route failure.
+# T101-T109 each score one treasure with `RESTR type=0 v2=0 v3=36` (in room
+# 35, "Home Free!") -- except T109, the doubloons, whose v3 is 0, and the
+# `var3 == 0` arm of case 0/6 in `restr_object_in_place` tests OBJ_HIDDEN, not
+# a room.  The doubloons start hidden and T81's zombie shot puts them ON the
+# corpse, so from the moment they can be taken the test can never pass; not
+# shooting the zombie keeps them hidden and scores the +10 but forfeits T81's
+# +20.  Worth a row for three engine shapes.  The ending is delivered by
+# `ACT type=0 v1=0` (move ALL HELD) in T110 `drive` plus nine `starter=3`
+# events on a one-turn delay, so the score lands on the turn AFTER the ending
+# command and T120 `Finish` fires alongside it -- and `score`/`i` are meta
+# commands that do not tick, which is why the route's `score` still reads 65.
+# It has the corpus's clearest one-shot inventory-scatter trap: T48 `GHOST
+# MOVING STUFF` is `rep=0`, gated on the ghost sharing your room, and moves
+# ALL HELD to a random room of group 1, so the route deliberately meets the
+# ghost empty-handed on turn 7 to spend it.  And it is a good verb-shadowing
+# case: `* fire * blunderbuss *` matches seven tasks, of which the two in room
+# 11 have no NPC restriction at all and silently burn the single loaded shot.
+hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SKIP_WAITKEY=1
 EOF
 }
 

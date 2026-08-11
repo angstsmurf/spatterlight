@@ -1,0 +1,967 @@
+Loading game...
+
+House Of Horror
+
+Local legend ha it that this old house is haunted. The story goes that the
+last owner was a mad scientist, obsessed with his own immortality. He used to
+experiment on anything he could find, including other people.
+They say that one day he succeeded, but before he had time to reap the
+benefits of his labour, he came to a mysterious and bloody end. To this day,
+they say you can feel the cold, chilling presence of his ghost, trapped
+forever in this house of horror, and if you listen very carefully, in the
+dead of night, the groans and moans of his last victim echo out into the
+night.
+You on the other hand think this to be a load of old bull. The only stories
+that interest you are the ones saying he was stinking rich.
+So here you are, in the middle of a stormy night, torch in hand, ready to
+nick anything of value.
+
+Driveway
+A gravel covered driveway leads north to the house.
+
+Also here is your car.
+
+There is an exit north.
+
+>You move north.
+Porch
+A porch with ivy growing up the wooden lattice work. The front door is here.
+
+There are exits north and south.
+
+>You open the door.
+
+>You move north.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+
+>You move up.
+Landing
+A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
+off the walls. An impressive staircase glides down.
+
+Also here is a big chunk of cheese and a table.
+
+You can move north, east, west and down.
+
+>You move north.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls.
+
+You can move north, east, south and west.
+
+>You move north.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.
+
+Also here are the bloodstains.
+
+You can move north, east, south and west.
+
+>
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.
+
+Also here are the bloodstains.
+
+You can move north, east, south and west.
+
+Ghost appears from above.
+A strange chill fills the air.
+You hear a creaking noise.
+
+>You pick up the torch.
+
+>You move north.
+Master Bedroom
+The room is wide and luxurious. A huge oak bed sticks out into the room from
+the north wall and the bedding is the same shade as the cream painted walls.
+
+Also here is a hook.
+
+You can move east, south and west.
+
+>You pick up the hook.
+
+Ghost appears from the south.
+
+>You move west.
+Walk in Closet
+A long narrow closet filled with clothes and shoes.
+
+Also here is a bottle of poison.
+
+You can only move east.
+
+>You pick up the bottle of poison.
+
+>You move east.
+Master Bedroom
+The room is wide and luxurious. A huge oak bed sticks out into the room from
+the north wall and the bedding is the same shade as the cream painted walls.
+The ghost is haunting this room.
+
+You can move east, south and west.
+
+Ghost disappears to the west.
+
+>You move east.
+En Suite
+A sunken bath in the centre of the room is flanked by the sink and toilet.
+Tiles with mermaids and sunken galleon painted on them cover every flat
+surface. A window looks out over the garden in the north wall.
+
+Also here is a bundle of money.
+
+You can only move west.
+
+>You open the window.
+
+>You move north.
+Ledge
+You're standing on a small ledge, just outside the en suit bathroom window
+and above the vegetable patch.
+
+You can move south and down.
+
+>You move down.
+Vegetable Patch
+All manner of root vegetable grow here in nice, neat little rows. On the wall
+of the house is a nearby drain pipe.
+
+Also here is an iron key.
+
+You can move west and up.
+
+>You pick up the iron key.
+
+>You move up.
+Ledge
+You're standing on a small ledge, just outside the en suit bathroom window
+and above the vegetable patch.
+
+You can move south and down.
+
+>You move south.
+En Suite
+A sunken bath in the centre of the room is flanked by the sink and toilet.
+Tiles with mermaids and sunken galleon painted on them cover every flat
+surface. A window looks out over the garden in the north wall.
+
+Also here is a bundle of money.
+
+You can move north and west.
+
+>You move west.
+Master Bedroom
+The room is wide and luxurious. A huge oak bed sticks out into the room from
+the north wall and the bedding is the same shade as the cream painted walls.
+
+You can move east, south and west.
+You hear a creaking noise.
+
+>You move south.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.
+
+Also here are the bloodstains.
+
+You can move north, east, south and west.
+
+>You use the hook to open the hatch. A rope ladder drops down.
+You hear a strange, spine chilling groan.
+
+>You drop the hook.
+
+>You move west.
+Guest Room
+Carved wood paneling covers the walls and ceiling, giving the room an sense
+of stiffness and refinement. A  wonderfully decorated cast iron bed takes
+pride of place.
+
+Also here is a silver necklace and a plunger.
+
+You can move east and south.
+You hear a strange, spine chilling groan.
+
+>You pick up the plunger.
+
+>You move east.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
+from it.
+
+Also here is a hook, a rope ladder and the bloodstains.
+
+You can move north, east, south, west and up.
+
+>You move south.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls.
+
+You can move north, east, south and west.
+
+>You move south.
+Landing
+A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
+off the walls. An impressive staircase glides down.
+
+Also here is a big chunk of cheese and a table.
+
+You can move north, east, west and down.
+A strange, moaning noise can be heard in the distance.
+
+>You pick up the big chunk of cheese.
+
+>You pour the contents of the poison bottle over the cheese.
+
+>You move west.
+Games Room
+A snooker table made of oak resides here, with the balls scattered across it
+in the middle of a game.
+
+Also here is holy bible.
+
+You can only move east.
+
+>You pick up holy bible.
+
+>You take a snooker ball from the table. (A red one, in case you where
+wondering.)
+
+>You move east.
+Landing
+A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
+off the walls. An impressive staircase glides down.
+
+Also here is a table.
+
+You can move north, east, west and down.
+A strange, moaning noise can be heard in the distance.
+
+>You move down.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+
+>You move east.
+Lounge
+Large leather chairs sit lazily around a low coffee table. A stone fireplace
+is built into the west wall.
+
+You can move north and west.
+
+>As you say the word, a strange creaking sound comes from within the chimney,
+then suddenly,  in a puff of soot, something falls down.
+
+>You take the blunderbuss from the fireplace.
+You hear a strange, spine chilling groan.
+
+>You load the blunderbuss with the snooker ball.
+
+>You move west.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+You hear a strange, spine chilling groan.
+
+>You move north.
+Hallway
+Rose motif wallpaper peels off from the walls.
+
+Also here are the  floorboards.
+
+You can move north, east, south and west.
+
+>You move west.
+Downstairs Toilet
+This small room contains a toilet and a sink. The floor and walls are covered
+in cracked white tiles.
+
+You can only move east.
+You hear a creaking noise.
+
+>You turn the tap and water pours out.
+
+Zombie stumbles towards you from the east.
+
+>You fill the bottle with water from the tap..
+
+Zombie Stumbles away from you to the east.
+You hear a creaking noise.
+
+>Reading from the bible, you find out how to bless the water and make it holy.
+
+>You drop holy bible.
+
+>You move east.
+Hallway
+Rose motif wallpaper peels off from the walls.
+
+Also here are the  floorboards.
+
+You can move north, east, south and west.
+
+>You move north.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+
+You can move north, east, south and west.
+
+>You move west.
+Library
+Finely built book cases cover the walls and hold a variety of dusty old tomes
+and writings. A table in the middle of the room has many different books
+piled on top of it. There is a door to the north.
+
+Also here is a silver candlestick and a dog whistle.
+
+You can move north and east.
+
+>You pick up the dog whistle.
+
+>You move east.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+
+You can move north, east, south and west.
+
+>You move east.
+Kitchen
+Cupboards with doors hanging off the hinges line the east and west walls.
+Work surfaces run around the room and a blackened stove stands pride of place
+in the centre.
+
+Also here is a property deed.
+
+You can move north, south, west and down.
+
+>You move down.
+Wine Cellar
+Racks and racks of wine fill the place, all covered in dust and cobwebs. A
+stone tiled floor has one paving missing, revealing the earthy ground. There
+is a door to the south.
+Giant rats scurry all over the floor.
+
+You can move south and up.
+
+>(Your score has increased by 5)
+The rats eat the cheese in a feeding frenzy.
+You hear a creaking noise.
+
+>You unlock the door with the iron key.
+The rats start to choke.
+
+>You move south.
+Laboratory
+All manner of beakers and bottles filled with different coloured liquids
+bubble and smoke away, cluttering up the shelves and tables.
+
+Also here is a gold braclet and a can of weedkiller.
+
+You can only move north.
+
+>You pick up the gold braclet.
+
+>You pick up the can of weedkiller.
+
+>You move north.
+Wine Cellar
+Racks and racks of wine fill the place, all covered in dust and cobwebs. A
+stone tiled floor has one paving missing, revealing the earthy ground. There
+is a door to the south.
+Giant rats scurry all over the floor.
+
+You can move south and up.
+
+>You move up.
+Kitchen
+Cupboards with doors hanging off the hinges line the east and west walls.
+Work surfaces run around the room and a blackened stove stands pride of place
+in the centre.
+
+Also here is a property deed.
+
+You can move north, south, west and down.
+
+Zombie stumbles towards you from the south.
+
+>You move west.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+
+You can move north, east, south and west.
+
+>You move north.
+Conservatory
+Walls of glass paneling set in green painted wooden frames look out unto the
+stormy night. Plants of all kinds grow in pots and hanging baskets and the
+temperature is rather hot.
+
+Also here is a sledge hammer.
+A plant monster grows here.
+
+You can move north and south.
+
+>(Your score has increased by 5)
+You pour the weedkiller all over it.
+
+>You pick up the sledge hammer.
+The vines of the plant thrash around.
+
+>You move north.
+Garden
+A gentle breeze rustles the leaves on the trees that surround the garden.
+
+You can move east, south and west.
+
+>You move west.
+Shed
+It's a small wooden potting shed, full of gardening implements and various
+creepy crawlies.
+
+Also here is a dish cloth.
+
+You can only move east.
+
+>You pick up the dish cloth.
+
+>You move east.
+Garden
+A gentle breeze rustles the leaves on the trees that surround the garden.
+
+You can move east, south and west.
+
+>You move south.
+Conservatory
+Walls of glass paneling set in green painted wooden frames look out unto the
+stormy night. Plants of all kinds grow in pots and hanging baskets and the
+temperature is rather hot.
+The ghost is haunting this room.  A plant monster grows here.
+
+You can move north and south.
+
+Ghost disappears to the south.
+
+>You move south.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+The ghost is haunting this room.
+
+You can move north, east, south and west.
+You hear a strange, spine chilling groan.
+
+>You move south.
+Hallway
+Rose motif wallpaper peels off from the walls.
+
+Also here are the  floorboards.
+
+You can move north, east, south and west.
+
+>You move south.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+You hear a strange, spine chilling groan.
+
+>You move west.
+Music Room
+In the centre of the room is a grand piano, still in all it's splendor.
+
+Also here is a diamond ring and a bottle of vodka.
+
+You can only move east.
+
+>You pick up the bottle of vodka.
+
+>You put the dish cloth in the neck of the bottle.
+
+>You move east.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+A strange, moaning noise can be heard in the distance.
+
+>You move north.
+Hallway
+Rose motif wallpaper peels off from the walls.
+
+Also here are the  floorboards.
+
+You can move north, east, south and west.
+
+>You move north.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+
+You can move north, east, south and west.
+
+>You move east.
+Kitchen
+Cupboards with doors hanging off the hinges line the east and west walls.
+Work surfaces run around the room and a blackened stove stands pride of place
+in the centre.
+
+Also here is a property deed.
+
+You can move north, south, west and down.
+
+>Dangling the dish cloth down the side of a hob, you try the electric lighter.
+It sparks  and lights the dish cloth.
+The molotov cocktail is lit.
+
+>You move west.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.  The molotov cocktail is alight and burning.
+
+You can move north, east, south and west.
+
+>You move south.
+Hallway
+Rose motif wallpaper peels off from the walls.
+
+Also here are the  floorboards.  The molotov cocktail is alight and burning.
+
+You can move north, east, south and west.
+A strange, moaning noise can be heard in the distance.
+
+>You move south.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.   The molotov
+cocktail is alight and burning.
+
+You can move north, east, south, west and up.
+
+>You move up.
+Landing
+A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
+off the walls. An impressive staircase glides down.
+
+Also here is a table.  The molotov cocktail is alight and burning.
+
+You can move north, east, west and down.
+
+>You move east.
+Toy Room
+Crayon drawings of demons and monsters cover the walls. The floor is littered
+with broken toys and play things.
+The evil puppet is here, lurking in the shadows.  The molotov cocktail is
+alight and burning.
+
+You can only move west.
+
+>(Your score has increased by 5)
+You throw the lit molotov at the puppet.
+The bottle explodes, spraying flaming vodka all over the puppet.
+You hear a strange, spine chilling groan.
+
+>You move west.
+Landing
+A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
+off the walls. An impressive staircase glides down.
+
+Also here is a table.
+The Zombie is here, trashing the place.
+
+You can move north, east, west and down.
+
+Zombie Stumbles away from you to the east.
+
+>You move north.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls.
+
+You can move north, east, south and west.
+You hear a strange, spine chilling groan.
+
+>You move north.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
+from it.
+
+Also here is a hook, a rope ladder and the bloodstains.
+
+You can move north, east, south, west and up.
+
+>You move up.
+Attic
+Huge bare beams arch up to each other high above you. The floorboards are
+covered in bat droppings that stink the place out. A small round window looks
+out into the dark night in the north wall, while a brick wall makes the
+south.
+Bats are here.  The ghost is haunting this room.
+
+You can only move down.
+
+Ghost disappears to below.
+You hear a creaking noise.
+
+>(Your score has increased by 5)
+You blow as hard as you can into the whistle. It drives the bats into an
+angry fury, you continue to blow. They fly around in a whirlwind of terror
+before escaping through the round window.
+
+>You drop the dog whistle.
+You hear a creaking noise.
+
+>You smash the wall down with the sledge hammer. Behind it is revealed a door.
+
+>You move south.
+Hidden Room
+A small room with bare walls and a rotten floor. A skeleton is spread out on
+the floor.
+
+Also here is a bottle of bleach.
+
+You can only move north.
+
+>(Your score has increased by 20)
+You pour the water onto the skeleton. The bones dimly glow and you hear a
+strange noise.
+
+>You drop the bottle of holy water.
+
+>You pick up the bottle of bleach.
+
+>You move north.
+Attic
+Huge bare beams arch up to each other high above you. The floorboards are
+covered in bat droppings that stink the place out. A small round window looks
+out into the dark night in the north wall, while a brick wall makes the
+south.  The wall has a hole in it revealing a door.
+
+Also here is a dog whistle.
+
+You can move south and down.
+
+>You move down.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
+from it.
+
+Also here is a hook, a rope ladder and the bloodstains.
+
+You can move north, east, south, west and up.
+
+>You move south.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls.
+
+You can move north, east, south and west.
+
+>(Your score has increased by 5)
+You spray the bleach all over the slimy monster.
+The monster starts to bubble.
+
+>You move east.
+Bathroom
+A luxurious cast iron bath tub takes up half the room. A cracked sink stands
+to attention against the east wall, with a toilet sulking beside it.
+
+Also here is a brass key and an emerald ring.
+A oozing slime monster fills the room.
+
+You can move north and west.
+You hear a creaking noise.
+
+>You plunge away for several minutes, until you feel something shift and clunk
+against the sides of the u bend.
+
+>You drop the plunger.
+
+>You take the gold bar from the toilet.
+
+>You pick up the emerald ring.
+
+>You drop the iron key.
+
+>You drop the sledge hammer.
+
+>You move north.
+Spare Room
+The walls and floor are bare, and boxes piled high fill the room. Dust and
+grime covers everything.
+
+You can move south and west.
+
+>You move west.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
+from it.
+
+Also here is a hook, a rope ladder and the bloodstains.
+
+You can move north, east, south, west and up.
+
+>You move west.
+Guest Room
+Carved wood paneling covers the walls and ceiling, giving the room an sense
+of stiffness and refinement. A  wonderfully decorated cast iron bed takes
+pride of place.
+
+Also here is a silver necklace.
+
+You can move east and south.
+
+>You pick up the silver necklace.
+
+>You move east.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
+from it.
+
+Also here is a hook, a rope ladder and the bloodstains.
+
+You can move north, east, south, west and up.
+
+>You move north.
+Master Bedroom
+The room is wide and luxurious. A huge oak bed sticks out into the room from
+the north wall and the bedding is the same shade as the cream painted walls.
+
+You can move east, south and west.
+
+>You move east.
+En Suite
+A sunken bath in the centre of the room is flanked by the sink and toilet.
+Tiles with mermaids and sunken galleon painted on them cover every flat
+surface. A window looks out over the garden in the north wall.
+
+Also here is a bundle of money.
+
+You can move north and west.
+
+>You pick up the bundle of money.
+You hear a creaking noise.
+
+>You move west.
+Master Bedroom
+The room is wide and luxurious. A huge oak bed sticks out into the room from
+the north wall and the bedding is the same shade as the cream painted walls.
+
+You can move east, south and west.
+
+>You move south.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
+from it.
+
+Also here is a hook, a rope ladder and the bloodstains.
+
+You can move north, east, south, west and up.
+You hear a strange, spine chilling groan.
+
+>You move south.
+Hallway
+Deep red carpet covers the floor. The warm barley paint cracks and flakes
+from the walls.
+
+You can move north, east, south and west.
+
+>You move south.
+Landing
+A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
+off the walls. An impressive staircase glides down.
+
+Also here is a table.
+
+You can move north, east, west and down.
+
+Zombie stumbles towards you from the west.
+You hear a strange, spine chilling groan.
+
+>(Your score has increased by 20)
+Summoning up all your courage, you approach the zombie and fire point blank.
+The snooker ball comes out of the gun in an almighty blast and punches a hole
+big enough for you to put your fist into in the zombie's chest. In gasping,
+chocking breaths, he falls to the ground, blood spraying from his sucking
+wound, then dies.
+
+Zombie Stumbles away from you to the north.
+
+>You drop the blunderbuss.
+
+>You take the bag of doubloons from the dead zombie.
+
+>You move down.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+A strange, moaning noise can be heard in the distance.
+
+>You move west.
+Music Room
+In the centre of the room is a grand piano, still in all it's splendor.
+
+Also here is a diamond ring.
+
+You can only move east.
+
+>You pick up the diamond ring.
+
+>You move east.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+
+>You move north.
+Hallway
+Rose motif wallpaper peels off from the walls.
+
+Also here are the  floorboards.
+
+You can move north, east, south and west.
+
+>You move north.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+
+You can move north, east, south and west.
+
+>You move west.
+Library
+Finely built book cases cover the walls and hold a variety of dusty old tomes
+and writings. A table in the middle of the room has many different books
+piled on top of it. There is a door to the north.
+
+Also here is a silver candlestick.
+
+You can move north and east.
+A strange, moaning noise can be heard in the distance.
+
+>You pick up the silver candlestick.
+
+>You move east.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+
+You can move north, east, south and west.
+
+>You move east.
+Kitchen
+Cupboards with doors hanging off the hinges line the east and west walls.
+Work surfaces run around the room and a blackened stove stands pride of place
+in the centre.
+
+Also here is a property deed.
+
+You can move north, south, west and down.
+
+>You pick up the property deed.
+You hear a strange, spine chilling groan.
+
+>You move west.
+Hallway
+Rose motif wallpaper peels off from the walls..
+
+Also here is a shovel.
+
+You can move north, east, south and west.
+
+>You move south.
+Hallway
+Rose motif wallpaper peels off from the walls.
+
+Also here are the  floorboards.
+
+You can move north, east, south and west.
+You hear a strange, spine chilling groan.
+
+>You move south.
+Entrance Hall
+It is grand and spacious. Oil paintings of the family hang on the walls,
+covered in dust and cobwebs. High above you a crystal chandelier hangs still
+in the stagnant air. An impressive staircase glides upwards.
+
+You can move north, east, south, west and up.
+
+Zombie stumbles towards you from above.
+The zombie has spotted you and attacks!
+He thumps you with his clenched fists, causing you much pain.
+
+>You move south.
+Porch
+A porch with ivy growing up the wooden lattice work. The front door is here.
+
+You can move north and south.
+
+>You move south.
+Driveway
+A gravel covered driveway leads north to the house.
+
+Also here is your car.
+
+You can only move north.
+
+>Your score is 65 out of a maximum of 155.  (41%)
+
+>You are carrying a torch, a diamond ring, a silver candlestick, a silver
+necklace, a property deed, a bundle of money, an emerald ring, a gold
+braclet, a gold bar and a bag of doubloons.
+
+>Jumping into your car, you speed off into the night.
+Home Free!
+You made it! congratulations
+
+Also here is a torch, a diamond ring, a silver candlestick, a silver
+necklace, a property deed, a bundle of money, an emerald ring, a gold
+braclet, a gold bar, a bag of doubloons and your car.
+
+>(Your score has increased by 80)
+Time passes...
+It has been a long and frightful night. The long boney fingers of terror
+streched out and clasped you, but you escaped...for now.
