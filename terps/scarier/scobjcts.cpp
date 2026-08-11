@@ -48,12 +48,8 @@ static scr_bool
 obj_get_flag (scr_gameref_t game, scr_int object, const scr_char *name)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = name;
-  return prop_get_boolean (bundle, "B<-sis", vt_key);
+  return prop_get_indexed_boolean (bundle, "Objects", object, name);
 }
 
 
@@ -178,15 +174,12 @@ static scr_bool
 obj_is_stateful (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_bool is_openable, is_statussed;
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Openable";
-  is_openable = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-  vt_key[2].string = "CurrentState";
-  is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
+  is_openable = prop_get_indexed_integer (bundle, "Objects", object,
+                                          "Openable") != 0;
+  is_statussed = prop_get_indexed_integer (bundle, "Objects", object,
+                                           "CurrentState") != 0;
   return is_openable || is_statussed;
 }
 
@@ -469,12 +462,9 @@ scr_int
 obj_get_player_size_limit (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_int max_size;
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "MaxSize";
-  max_size = prop_get_integer (bundle, "I<-ss", vt_key);
+  max_size = prop_get_global_integer (bundle, "MaxSize");
 
   return obj_convert_player_limit (max_size, obj_get_size_multiple (game));
 }
@@ -483,12 +473,9 @@ scr_int
 obj_get_player_weight_limit (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_int max_weight;
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "MaxWt";
-  max_weight = prop_get_integer (bundle, "I<-ss", vt_key);
+  max_weight = prop_get_global_integer (bundle, "MaxWt");
 
   return obj_convert_player_limit (max_weight, obj_get_weight_multiple (game));
 }
@@ -583,11 +570,8 @@ scr_int
 obj_get_player_burden_limit (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "MaxCarried";
-  return prop_get_integer (bundle, "I<-ss", vt_key);
+  return prop_get_global_integer (bundle, "MaxCarried");
 }
 
 
@@ -627,13 +611,9 @@ scr_int
 obj_get_container_capacity (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_int capacity, packed;
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Capacity";
-  packed = prop_get_integer (bundle, "I<-sis", vt_key);
+  packed = prop_get_indexed_integer (bundle, "Objects", object, "Capacity");
 
   capacity = (packed / OBJ_DIMENSION_DIVISOR)
              * obj_scale (obj_get_size_multiple (game),
@@ -686,12 +666,9 @@ static scr_bool
 obj_has_sit_lie (scr_gameref_t game, scr_int object, scr_int mask)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "SitLie";
-  return (prop_get_integer (bundle, "I<-sis", vt_key) & mask) != 0;
+  return (prop_get_indexed_integer (bundle, "Objects", object,
+                                    "SitLie") & mask) != 0;
 }
 
 static scr_bool

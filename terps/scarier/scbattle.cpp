@@ -131,11 +131,8 @@ scr_bool
 battle_is_enabled (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "BattleSystem";
-  return prop_get_boolean (bundle, "B<-ss", vt_key);
+  return prop_get_global_boolean (bundle, "BattleSystem");
 }
 
 

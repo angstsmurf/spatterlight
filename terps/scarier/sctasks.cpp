@@ -217,16 +217,13 @@ static scr_bool
 task_is_repeatable (scr_gameref_t game, scr_int task)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_task_props_t *cached;
 
   cached = task_cache_entry (game, task);
   if (cached->repeatable == TASK_CACHE_UNKNOWN)
     {
-      vt_key[0].string = "Tasks";
-      vt_key[1].integer = task;
-      vt_key[2].string = "Repeatable";
-      cached->repeatable = prop_get_boolean (bundle, "B<-sis", vt_key)
+      cached->repeatable = prop_get_indexed_boolean (bundle, "Tasks", task,
+                                                     "Repeatable")
                            ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
     }
   return cached->repeatable == TASK_CACHE_TRUE;
@@ -237,7 +234,6 @@ static scr_bool
 task_repeattext_is_empty (scr_gameref_t game, scr_int task)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_task_props_t *cached;
 
   cached = task_cache_entry (game, task);
@@ -245,10 +241,8 @@ task_repeattext_is_empty (scr_gameref_t game, scr_int task)
     {
       const scr_char *repeattext;
 
-      vt_key[0].string = "Tasks";
-      vt_key[1].integer = task;
-      vt_key[2].string = "RepeatText";
-      repeattext = prop_get_string (bundle, "S<-sis", vt_key);
+      repeattext = prop_get_indexed_string (bundle, "Tasks", task,
+                                            "RepeatText");
       cached->repeattext_empty = scr_strempty (repeattext)
                                  ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
     }
@@ -260,7 +254,6 @@ static scr_bool
 task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   scr_task_props_t *cached;
 
   cached = task_cache_entry (game, task);
@@ -280,10 +273,8 @@ task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
     {
       if (cached->reversible == TASK_CACHE_UNKNOWN)
         {
-          vt_key[0].string = "Tasks";
-          vt_key[1].integer = task;
-          vt_key[2].string = "Reversible";
-          cached->reversible = prop_get_boolean (bundle, "B<-sis", vt_key)
+          cached->reversible = prop_get_indexed_boolean (bundle, "Tasks", task,
+                                                         "Reversible")
                                ? TASK_CACHE_TRUE : TASK_CACHE_FALSE;
         }
       if (cached->reversible == TASK_CACHE_FALSE)
@@ -1160,10 +1151,8 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
           version = prop_get_integer (bundle, "I<-s", vt_key);
           if (version <= TAF_VERSION_380)
             {
-              vt_key[0].string = "Tasks";
-              vt_key[1].integer = task;
-              vt_key[2].string = "SingleScore";
-              increase_score = !prop_get_boolean (bundle, "B<-sis", vt_key);
+              increase_score = !prop_get_indexed_boolean (bundle, "Tasks",
+                                                          task, "SingleScore");
 
               if (increase_score)
                 {
@@ -1604,10 +1593,8 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
       /* If not yet done, we can hardly reverse it. */
       if (gs_task_done (game, task))
         {
-          vt_key[0].string = "Tasks";
-          vt_key[1].integer = task;
-          vt_key[2].string = "ReverseMessage";
-          reversemessage = prop_get_string (bundle, "S<-sis", vt_key);
+          reversemessage = prop_get_indexed_string (bundle, "Tasks", task,
+                                                    "ReverseMessage");
           if (!scr_strempty (reversemessage))
             {
               pf_buffer_paragraph_line (filter, reversemessage);

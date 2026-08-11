@@ -726,14 +726,8 @@ static scr_int
 ser_variable_at (scr_prop_setref_t bundle, scr_int index_,
                  const scr_char **name)
 {
-  scr_vartype_t vt_key[3];
-
-  vt_key[0].string = "Variables";
-  vt_key[1].integer = index_;
-  vt_key[2].string = "Name";
-  *name = prop_get_string (bundle, "S<-sis", vt_key);
-  vt_key[2].string = "Type";
-  return prop_get_integer (bundle, "I<-sis", vt_key);
+  *name = prop_get_indexed_string (bundle, "Variables", index_, "Name");
+  return prop_get_indexed_integer (bundle, "Variables", index_, "Type");
 }
 
 
@@ -1509,10 +1503,8 @@ ser_load_game (scr_gameref_t game,
       /* Verify and restore the starter task, if any. */
       if (task > 0)
         {
-          vt_key[0].string = "Events";
-          vt_key[1].integer = index_;
-          vt_key[2].string = "StarterType";
-          startertype = prop_get_integer (bundle, "I<-sis", vt_key);
+          startertype = prop_get_indexed_integer (bundle, "Events", index_,
+                                                  "StarterType");
           if (startertype != 3)
             scr_longjmp (ser_tas_error, 1);
 

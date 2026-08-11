@@ -132,12 +132,9 @@ evt_cached_integer (scr_gameref_t game, scr_int event, scr_int field,
   if (!(cached->known & ((scr_uint) 1 << field)))
     {
       const scr_prop_setref_t bundle = gs_get_bundle (game);
-      scr_vartype_t vt_key[3];
 
-      vt_key[0].string = "Events";
-      vt_key[1].integer = event;
-      vt_key[2].string = name;
-      cached->value[field] = prop_get_integer (bundle, "I<-sis", vt_key);
+      cached->value[field] = prop_get_indexed_integer (bundle, "Events", event,
+                                                       name);
       cached->known |= (scr_uint) 1 << field;
     }
   return cached->value[field];
@@ -152,12 +149,9 @@ evt_cached_boolean (scr_gameref_t game, scr_int event, scr_int field,
   if (!(cached->known & ((scr_uint) 1 << field)))
     {
       const scr_prop_setref_t bundle = gs_get_bundle (game);
-      scr_vartype_t vt_key[3];
 
-      vt_key[0].string = "Events";
-      vt_key[1].integer = event;
-      vt_key[2].string = name;
-      cached->value[field] = prop_get_boolean (bundle, "B<-sis", vt_key);
+      cached->value[field] = prop_get_indexed_boolean (bundle, "Events", event,
+                                                       name);
       cached->known |= (scr_uint) 1 << field;
     }
   return (scr_bool) cached->value[field];

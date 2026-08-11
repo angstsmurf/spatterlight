@@ -207,6 +207,24 @@ extern const scr_char *prop_get_string (scr_prop_setref_t bundle,
 extern scr_int prop_get_child_count (scr_prop_setref_t bundle,
                                     const scr_char *format,
                                     const scr_vartype_t vt_key[]);
+/* bundle["Globals"][name] -- the game header properties. */
+extern scr_int prop_get_global_integer (scr_prop_setref_t bundle,
+                                       const scr_char *name);
+extern scr_bool prop_get_global_boolean (scr_prop_setref_t bundle,
+                                        const scr_char *name);
+extern const scr_char *prop_get_global_string (scr_prop_setref_t bundle,
+                                              const scr_char *name);
+/* bundle[class_][index_][name] -- one field of one indexed entity. */
+extern scr_int prop_get_indexed_integer (scr_prop_setref_t bundle,
+                                        const scr_char *class_,
+                                        scr_int index_, const scr_char *name);
+extern scr_bool prop_get_indexed_boolean (scr_prop_setref_t bundle,
+                                         const scr_char *class_,
+                                         scr_int index_, const scr_char *name);
+extern const scr_char *prop_get_indexed_string (scr_prop_setref_t bundle,
+                                               const scr_char *class_,
+                                               scr_int index_,
+                                               const scr_char *name);
 extern scr_bool prop_put_integer (scr_prop_setref_t bundle,
                                  const scr_char *format,
                                  scr_int value, const scr_vartype_t vt_key[]);

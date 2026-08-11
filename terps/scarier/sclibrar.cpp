@@ -2153,9 +2153,7 @@ lib_cmd_information (scr_gameref_t game)
       if_print_string (compile_date);
     }
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "GameAuthor";
-  gameauthor = prop_get_string (bundle, "S<-ss", vt_key);
+  gameauthor = prop_get_global_string (bundle, "GameAuthor");
   filtered = pf_filter_for_info (gameauthor, vars);
   pf_strip_tags (filtered);
 
@@ -4040,22 +4038,18 @@ lib_try_game_command_common (scr_gameref_t game,
       /* Get the associate's prefix and main name. */
       if (is_associate_object)
         {
-          vt_key[0].string = "Objects";
-          vt_key[1].integer = associate;
-          vt_key[2].string = "Prefix";
-          associate_prefix = prop_get_string (bundle, "S<-sis", vt_key);
-          vt_key[2].string = "Short";
-          associate_name = prop_get_string (bundle, "S<-sis", vt_key);
+          associate_prefix = prop_get_indexed_string (bundle, "Objects",
+                                                      associate, "Prefix");
+          associate_name = prop_get_indexed_string (bundle, "Objects",
+                                                    associate, "Short");
         }
       else
         {
           assert (is_associate_npc);
-          vt_key[0].string = "NPCs";
-          vt_key[1].integer = associate;
-          vt_key[2].string = "Prefix";
-          associate_prefix = prop_get_string (bundle, "S<-sis", vt_key);
-          vt_key[2].string = "Name";
-          associate_name = prop_get_string (bundle, "S<-sis", vt_key);
+          associate_prefix = prop_get_indexed_string (bundle, "NPCs",
+                                                      associate, "Prefix");
+          associate_name = prop_get_indexed_string (bundle, "NPCs", associate,
+                                                    "Name");
         }
 
       assert (preposition);
@@ -7087,13 +7081,10 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
 
     case LIB_LOCK_PROCEED:
       {
-        scr_vartype_t vt_key[3];
         scr_int key_index, the_key;
 
-        vt_key[0].string = "Objects";
-        vt_key[1].integer = object;
-        vt_key[2].string = "Key";
-        key_index = prop_get_integer (bundle, "I<-sis", vt_key);
+        key_index = prop_get_indexed_integer (bundle, "Objects", object,
+                                              "Key");
         if (key_index == -1)
           break;
 

@@ -930,19 +930,16 @@ var_get_system (scr_var_setref_t vars,
       if (vars->referenced_object != -1)
         {
           /* Return object name with its prefix. */
-          scr_vartype_t vt_key[3];
           const scr_char *prefix, *objname;
 
-          vt_key[0].string = "Objects";
-          vt_key[1].integer = vars->referenced_object;
-          vt_key[2].string = "Prefix";
-          prefix = prop_get_string (bundle, "S<-sis", vt_key);
+          prefix = prop_get_indexed_string (bundle, "Objects",
+                                            vars->referenced_object, "Prefix");
 
           vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, strlen (prefix) + 1);
           memcpy (vars->temporary, prefix, strlen (prefix) + 1);
 
-          vt_key[2].string = "Short";
-          objname = prop_get_string (bundle, "S<-sis", vt_key);
+          objname = prop_get_indexed_string (bundle, "Objects",
+                                             vars->referenced_object, "Short");
 
           {
             size_t used = strlen (vars->temporary);

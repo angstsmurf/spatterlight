@@ -681,13 +681,10 @@ static scr_bool
 run_movement_succeeds (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_bool eightpointcompass, is_movement = FALSE;
   scr_commandsref_t command;
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
+  eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
   command = eightpointcompass ? MOVE_COMMANDS_8 : MOVE_COMMANDS_4;
 
   lib_set_movement_probe (TRUE);
@@ -1679,10 +1676,8 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
   repeattext = NULL;
   if (refusal == REFUSAL_DONE)
     {
-      vt_key[0].string = "Tasks";
-      vt_key[1].integer = refused_task;
-      vt_key[2].string = "RepeatText";
-      repeattext = prop_get_string (bundle, "S<-sis", vt_key);
+      repeattext = prop_get_indexed_string (bundle, "Tasks", refused_task,
+                                            "RepeatText");
       if (scr_strempty (repeattext))
         {
           repeattext = NULL;
@@ -1697,9 +1692,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
       return TRUE;
     }
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "Perspective";
-  perspective = prop_get_integer (bundle, "I<-ss", vt_key);
+  perspective = prop_get_global_integer (bundle, "Perspective");
 
   pf_buffer_string (filter,
                     perspective == LIB_FIRST_PERSON ? "I" : "You");
@@ -1954,7 +1947,6 @@ run_player_input (scr_gameref_t game)
       /* Only complain on non-empty command input line elements. */
       if (!scr_strempty (command))
         {
-          scr_vartype_t vt_key[2];
           const scr_char *message;
 
           /*
@@ -1965,9 +1957,7 @@ run_player_input (scr_gameref_t game)
            */
           scr_owned_string escaped (pf_escape (scr_normalize_string (line_element)));
           var_set_ref_text (vars, escaped.get ());
-          vt_key[0].string = "Globals";
-          vt_key[1].string = "DontUnderstand";
-          message = prop_get_string (bundle, "S<-ss", vt_key);
+          message = prop_get_global_string (bundle, "DontUnderstand");
           pf_buffer_string (filter, message);
           pf_buffer_character (filter, '\n');
 
@@ -3134,9 +3124,7 @@ run_get_attributes (scr_gameref_t game,
           const scr_char *gamename;
           scr_char *filtered;
 
-          vt_key[0].string = "Globals";
-          vt_key[1].string = "GameName";
-          gamename = prop_get_string (bundle, "S<-ss", vt_key);
+          gamename = prop_get_global_string (bundle, "GameName");
 
           filtered = pf_filter_for_info (gamename, vars);
           pf_strip_tags (filtered);
@@ -3151,9 +3139,7 @@ run_get_attributes (scr_gameref_t game,
           const scr_char *gameauthor;
           scr_char *filtered;
 
-          vt_key[0].string = "Globals";
-          vt_key[1].string = "GameAuthor";
-          gameauthor = prop_get_string (bundle, "S<-ss", vt_key);
+          gameauthor = prop_get_global_string (bundle, "GameAuthor");
 
           filtered = pf_filter_for_info (gameauthor, vars);
           pf_strip_tags (filtered);
@@ -3193,9 +3179,7 @@ run_get_attributes (scr_gameref_t game,
     *score = game->score;
   if (max_score)
     {
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "MaxScore";
-      *max_score = prop_get_integer (bundle, "I<-ss", vt_key);
+      *max_score = prop_get_global_integer (bundle, "MaxScore");
     }
   if (bold_room_names)
     *bold_room_names = game->bold_room_names;

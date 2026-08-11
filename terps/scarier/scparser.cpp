@@ -2118,7 +2118,6 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
   offset = strspn (current, WHITESPACE);
   while (current[offset] != NUL)
     {
-      scr_vartype_t vt_key[3];
       scr_int object, npc, extent;
       const scr_char *prefix, *name;
 
@@ -2173,21 +2172,14 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
       /* Assign prefix and name to the full object or NPC name, if any. */
       if (object > -1)
         {
-          vt_key[0].string = "Objects";
-          vt_key[1].integer = object;
-          vt_key[2].string = "Prefix";
-          prefix = prop_get_string (bundle, "S<-sis", vt_key);
-          vt_key[2].string = "Short";
-          name = prop_get_string (bundle, "S<-sis", vt_key);
+          prefix = prop_get_indexed_string (bundle, "Objects", object,
+                                            "Prefix");
+          name = prop_get_indexed_string (bundle, "Objects", object, "Short");
         }
       else if (npc > -1)
         {
-          vt_key[0].string = "NPCs";
-          vt_key[1].integer = npc;
-          vt_key[2].string = "Prefix";
-          prefix = prop_get_string (bundle, "S<-sis", vt_key);
-          vt_key[2].string = "Name";
-          name = prop_get_string (bundle, "S<-sis", vt_key);
+          prefix = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
+          name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
         }
 
       /*
