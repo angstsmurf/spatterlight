@@ -614,6 +614,9 @@ message:
 | 6 | `websites:\n\n<del>https://one\n \n<del>http://two` | `websites:\nhttps://one\n http://two` (leading space kept) | same |
 | 7 | room LongDescription starting with `<del>` | room name and description JOIN: `Delete Lab7ROOMDESC…` | same |
 | 8 | msg A `8[aZ`, then an Execute-Task msg B `<del><del><del>]END8` | `8[a]END8` — eats the two pSpace join spaces **and** the `Z` from the previous message | same (since 2026-08-11) |
+| 9 | msg A `9[x\n\n<del>` (newline survives), then msg B `]END9` | `9[x\n  ]END9` — pSpace join spaces ADDED: the raw text ends in the tag's `>`, not vbLf | same |
+| 10 | msg A `10[a<br>`, then msg B `]END10` | `10[a\n  ]END10` — a trailing `<br>` also gets the join spaces | same (ps_mark_trailing) |
+| 11 | msg A `11[a\n` (bare source newline), then msg B `]END11` | `11[a\n]END11` — no join spaces | same |
 
 Case 8 was the **cross-message gap**, fixed 2026-08-11 along exactly the
 `<cls>` pattern that sits ten lines above the `del` arm.  `sb_del_glyph` runs on
@@ -630,10 +633,20 @@ offset for it.  Second real customer besides the probe: TheEuripidesEnigma's
 `You press button 7 <del>on the boombox…` — the completion message starts with
 `<del>`, and the Runner eats one of the two pSpace join spaces.
 
-(Related, still open: the unconditional `sb_putc (&sb, A5_ALR_MARK)` after a
-delete hides a surviving newline from `sb_pspace`, which tests only the final
-byte — `sb_pspace` should walk back over zero-width sentinels the way
-`sb_resolve_cls` does.)
+(Related, RESOLVED 2026-08-11 — measured, not a bug: the unconditional
+`sb_putc (&sb, A5_ALR_MARK)` after a delete does hide a surviving newline from
+`sb_pspace`, which tests only the final byte — but that mask IS the Runner's
+behaviour, and the once-proposed "walk back over zero-width sentinels the way
+`sb_resolve_cls` does" fix would have introduced a divergence.  `Global.pSpace`
+(Global.vb:568) tests `sText.EndsWith(vbLf)` on the RAW accumulated text, tags
+included, so any message whose source ends in a tag's `>` gets the two join
+spaces even when the last thing the player sees is a newline.  Probe cases
+9–11 (below) measured it in run500.exe: `9[x\n\n<del>` + `]END9` renders
+`9[x\n  ]END9` — join spaces added despite the surviving newline, exactly what
+the ALR-masked final-byte test produces.  A trailing `<br>` (case 10) also
+gets the spaces — `ps_mark_trailing`'s `A5_PS_MARK` already handles that — and
+only a bare source newline (case 11) suppresses them.  `sb_pspace` now carries
+a do-not-fix comment citing these cases.)
 
 Cases 1–7 are byte-for-byte right, which is what re-blessed ten corpus goldens
 on 2026-08-11: nine of them are Larry Horsfield's credits block (case 6 verbatim

@@ -17,3 +17,15 @@ Delete Lab7ROOMDESC starts with del.
 > eight
 8[a]END8
 
+> nine
+9[x
+  ]END9
+
+> ten
+10[a
+  ]END10
+
+> eleven
+11[a
+]END11
+

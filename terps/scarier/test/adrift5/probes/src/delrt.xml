@@ -19,11 +19,32 @@
           output already emitted this turn: the Runner deletes the two pSpace
           join spaces AND the last character of the previous message.
 
+     Cases 9 to 11 (measured 2026-08-11) settle what pSpace does when the
+     FIRST message of a multi-message turn ends in a tag rather than a bare
+     newline.  Global.pSpace tests sText.EndsWith(vbLf) on the RAW accumulated
+     text, tags included, so a message whose last source character is the '>'
+     of a tag gets the two join spaces even when the character the player SEES
+     last is a newline:
+
+       9  ("nine")   msg A "9[x\n\n<del>" + msg B "]END9":   the <del> eats one
+          newline, one newline SURVIVES, yet the join spaces are added, so
+          the Runner prints "9[x\n  ]END9" (two-space indent on the new line).
+          This is the case that killed the "sb_pspace should walk back over
+          zero-width sentinels" hunch: the A5_ALR_MARK the del arm leaves as
+          the buffer's final byte makes sb_pspace's final-byte test say
+          "not a newline", which is exactly what EndsWith(vbLf) says about the
+          raw "...<del>": the mask IS the runner's behaviour.
+       10 ("ten")    msg A "10[a<br>" + msg B:  a trailing <br> ALSO gets the
+          join spaces ("10[a\n  ]END10"), because the raw text ends '>', while
+          the rendered text ends '\n'.
+       11 ("eleven") msg A "11[a\n" (bare source newline) + msg B: control,
+          no join spaces, "11[a\n]END11".
+
      Cases 1 to 7 live in the Introduction and the room description, so they
      render at load with no commands needed.  Case 8 needs one command
      ("eight"); it is the case that drove the turn-level A5_DEL_MARK /
      sb_resolve_del pass (a5sb.cpp), and the expected transcript now records
-     the Runner's output for all eight. -->
+     the Runner's output for all eleven. -->
 <Adventure>
 <Version>5.0000350</Version>
 <LastUpdated>2026-07-12 11:40:00</LastUpdated>
@@ -142,6 +163,120 @@ END OF INTRO</Text>
 <Description>
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
 <Text>&lt;del&gt;&lt;del&gt;&lt;del&gt;]END8</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskNine</Key>
+<Priority>50012</Priority>
+<Type>General</Type>
+<Command>nine</Command>
+<Description>pSpace after trailing del with surviving newline</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>9[x
+
+&lt;del&gt;</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Execute TaskNineB</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskNineB</Key>
+<Priority>50013</Priority>
+<Type>General</Type>
+<Command>ninesecond</Command>
+<Description>Plain second message for nine</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>]END9</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskTen</Key>
+<Priority>50014</Priority>
+<Type>General</Type>
+<Command>ten</Command>
+<Description>pSpace after trailing br</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>10[a&lt;br&gt;</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Execute TaskTenB</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskTenB</Key>
+<Priority>50015</Priority>
+<Type>General</Type>
+<Command>tensecond</Command>
+<Description>Plain second message for ten</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>]END10</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskEleven</Key>
+<Priority>50016</Priority>
+<Type>General</Type>
+<Command>eleven</Command>
+<Description>pSpace after bare trailing source newline (control)</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>11[a
+</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Execute TaskElevenB</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskElevenB</Key>
+<Priority>50017</Priority>
+<Type>General</Type>
+<Command>elevensecond</Command>
+<Description>Plain second message for eleven</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>]END11</Text>
 </Description>
 </CompletionMessage>
 <Repeatable>1</Repeatable>
