@@ -214,6 +214,33 @@ static int gsc_colour_startup = FALSE;
    before it turns the mode on, so it is always set by then. */
 static glui32 gsc_colour_main_fg = 0;
 
+/*
+ * gsc_colour_visible()
+ *
+ * Whether colour mode is on *and* the interpreter is really painting the
+ * colours we name.  Spatterlight has a "Games can set colors and styles"
+ * preference; with it unchecked, garglk_set_zcolors is accepted and then
+ * ignored, and the story text follows the theme instead.  Everything this port
+ * draws for itself has to follow the theme too when that happens -- the map
+ * pane's pixels, and the places where a colour stands in for a style (the
+ * status bar, secondary-colour text) -- or the window ends up half in each
+ * palette: a white transcript beside a black map (issue #151).  Gargoyle has no
+ * such preference and always honours zcolors, so there the answer is just
+ * whether colour mode is on.  A change to the preference reaches us as an
+ * Arrange event (glkimp compares do_styles), which redraws the bar and the map.
+ */
+static scr_bool
+gsc_colour_visible (void)
+{
+  if (!gsc_colour_enabled)
+    return FALSE;
+#ifdef SPATTERLIGHT
+  return gli_enable_styles != 0;
+#else
+  return TRUE;
+#endif
+}
+
 /* Adrift game to interpret. */
 static scr_game gsc_game = NULL;
 
@@ -1330,8 +1357,11 @@ gsc_status_begin (glui32 *width)
      Doing it that way is what makes every library agree: stylehint_ReverseColor
      is honoured by some and dropped by others once a zcolor is in force, so a
      User1 bar here would come out inverted in one interpreter and plain in the
-     next. */
-  glk_set_style (gsc_colour_enabled ? style_Normal : style_User1);
+     next.  An interpreter that is ignoring the colours we name takes the
+     reverse-video bar as well: the pair named just above would be dropped,
+     leaving the bar in the theme's plain text colours and so indistinguishable
+     from the story window. */
+  glk_set_style (gsc_colour_visible () ? style_Normal : style_User1);
   for (index = 0; index < *width; index++)
     glk_put_char (' ');
   glk_window_move_cursor (gsc_status_window, 0, 0);
@@ -2192,7 +2222,7 @@ gsc_set_glk_style (void)
           else if (gsc_attribute_italic > 0
                    || gsc_attribute_underline > 0
                    || (gsc_attribute_secondary_colour > 0
-                       && !gsc_colour_enabled))
+                       && !gsc_colour_visible ()))
             glk_set_style (style_Emphasized);
           else
             {
@@ -7657,7 +7687,7 @@ gsc_a5_span_style (int center_depth, int right_depth,
     return style_Emphasized;
   if (bold_depth > 0)
     return style_Subheader;
-  if (input_colour && !gsc_colour_enabled)
+  if (input_colour && !gsc_colour_visible ())
     return style_Emphasized;
   return style_Normal;
 }
@@ -8532,8 +8562,13 @@ gsc_map_redraw (void)
        redraw falls -- the output colour mid-turn, but the input echo colour in
        a session restored at its prompt, where the archived window still
        carries the colour the ">" was written in.  Measuring would draw the
-       same map in two different colours. */
-    if (gsc_colour_enabled)
+       same map in two different colours.
+
+       Only when the colours are really being painted, though: an interpreter
+       that is ignoring them (Spatterlight's "Games can set colors and styles",
+       unchecked) leaves the story window in the theme, and a map named in the
+       game's palette would be the one thing on screen still wearing it. */
+    if (gsc_colour_visible ())
       {
         bg = gsc_colour_background;
         fg = gsc_colour_output;
