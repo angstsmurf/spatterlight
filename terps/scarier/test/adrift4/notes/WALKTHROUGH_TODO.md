@@ -13,9 +13,13 @@ Scarier build and reading its internals.
 route or a documented verdict, and every walkthrough in `downloaded/` has a game
 and a row. This file is now the method, the cautions, and an index.
 
-**Second wave 2026-08-10 → 2026-08-11: 22 more games wired, suite now 225 rows,
-225 PASS — and PARKED.** See *Second wave* below for what was done and what is
+**Second wave 2026-08-10 → 2026-08-11: 22 more games wired, suite 225 rows,
+225 PASS — then PARKED.** See *Second wave* below for what was done and what is
 left.
+
+**Third wave 2026-08-11: 6 more, suite now 231 rows, 231 PASS — PARKED again.**
+Unparked to work the remaining v3.90 files smallest-first, and parked at the
+user's request after *Where Is Richard?*. See *Third wave* below.
 
 Nothing here is open work. The one exception this file used to carry — the
 Runner's **"You can't do that here!"** refusal for a task typed outside its
@@ -94,10 +98,38 @@ up in full in its own note:
   gibberish padding will never make a timed event fire. Found while pacing
   *Diary of a Stripper*'s two chained events; `z` works, `wait1` does not.
 
-**Parked 2026-08-11 at the user's request.** Nothing is broken and nothing is
-half-finished — the suite is green at 225/225 and every wired game has all four
-artefacts. What remains is **29 unwired `.taf` files, 23 of them v3.90 and 6
-v4.00**, listed below.
+## Third wave (2026-08-11) — 6 games, then PARKED again
+
+Unparked to continue smallest-unwired-3.90-first. Six went in and the suite
+went 225 → **231 rows, 231 PASS**.
+
+| Bytes | Game | Result |
+|---|---|---|
+| 44,503 | Asylum | ending reached; no score in the file |
+| 44,666 | The Wheels Must Turn | **WON** |
+| 45,737 | Life | ✗ **UNFINISHABLE** — no `ACT type=6` and no `ACT type=4` at all; demonstration row |
+| 48,764 | Renuntio | **WON** — first Spanish game in the v4 corpus |
+| 51,820 | House Of Horror | **WON 145/155**, and 145 is a *proven ceiling*: T109 scores the doubloons on `v3=0`, which tests OBJ_HIDDEN rather than a room, so the +10 is reachable only by not shooting the zombie (worth +20) |
+| 55,039 | Where Is Richard? | **WON 1000/1000** in 68 commands |
+
+Two things came out of this wave beyond the rows:
+
+- **`SCR_DUMP_TASKS` was dying on `Richard.taf`.** The LOCKKEY and OPENABLE
+  loops in `scdump.cpp` called the *fatal* `prop_get_integer()` on
+  `Objects[i].Openable`, and that game has an object without one, so the dump
+  aborted right after the OBJNAME block — before ROOM, TASK, EVENT or NPC were
+  printed. Fixed with the tolerant `prop_get()`. The engine itself was never
+  affected; this was dev-only instrumentation.
+- **A second corpus witness for one-level container nesting in "held by the
+  player".** *Where Is Richard?* kills its spider with a cupcake that never
+  leaves the backpack the player is carrying — see `probe p39held` and the
+  comment above `restr_object_in_place` in `screstrs.cpp`.
+
+**Parked again 2026-08-11 at the user's request.** Nothing is broken and
+nothing is half-finished — the suite is green at 231/231 and every wired game
+has all four artefacts. What remains is **23 unwired `.taf` files, 17 of them
+v3.90 and 6 v4.00**; the table below is the original 29, with the six done in
+the third wave struck through.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -110,18 +142,18 @@ the manifest is already wired.
 
 | Bytes | Ver | File | Title | Note |
 |---|---|---|---|---|
-| 5,591 | 4.00 | `salutations.taf` | Salutations | English; **missed by the smallest-first sweep — start here**. Smallest *unwired 3.90* game is `as.taf`, since the Azra row is a duplicate release |
+| 5,591 | 4.00 | `salutations.taf` | Salutations | English; **missed by the smallest-first sweep — start here**, since the 3.90 files are now wired down to 55 KB |
 | 19,083 | 4.00 | `iachini.taf` | A Day at the Iachini House | English, Butcher Basic ALR; also missed |
 | 21,775 | 4.00 | `relojero.taf` | La hija del relojero | **Spanish** |
 | 44,145 | 3.90 | `The Town Of Azra.taf` | The Town of Azra | **the adrift.co release of an already-wired game** — `The_Town_Of_Azra.taf` (4.00, 13,868 bytes, IF Archive) is row `the_town_of_azra_solution.txt`, and the existing route replays on this build too, so this is a second file, not a second game |
-| 44,503 | 3.90 | `as.taf` | Asylum | |
-| 44,666 | 3.90 | `Wheel105.taf` | The Wheels Must Turn | |
-| 45,737 | 3.90 | `life.taf` | Life | |
-| 48,764 | 3.90 | `Renuntio.taf` | Renuntio | |
-| 51,820 | 3.90 | `hhorror.taf` | House Of Horror | |
+| 44,503 | 3.90 | ~~`as.taf`~~ | ~~Asylum~~ | **WIRED, third wave** |
+| 44,666 | 3.90 | ~~`Wheel105.taf`~~ | ~~The Wheels Must Turn~~ | **WIRED, third wave** |
+| 45,737 | 3.90 | ~~`life.taf`~~ | ~~Life~~ | **WIRED, third wave** |
+| 48,764 | 3.90 | ~~`Renuntio.taf`~~ | ~~Renuntio~~ | **WIRED, third wave** |
+| 51,820 | 3.90 | ~~`hhorror.taf`~~ | ~~House Of Horror~~ | **WIRED, third wave** |
 | 52,248 | 4.00 | `vetknow.taf` | Veteran Knowledge | English; also missed by the sweep |
 | 52,290 | 4.00 | `vetknow2.taf` | Veteran Knowledge [Version 2] | second release of the above |
-| 55,039 | 3.90 | `Richard.taf` | Where Is Richard? | |
+| 55,039 | 3.90 | ~~`Richard.taf`~~ | ~~Where Is Richard?~~ | **WIRED, third wave** |
 | 56,336 | 3.90 | `losttombv2.taf` | The Lost Tomb | |
 | 59,124 | 3.90 | `Journ2.taf` | The Long Journey Home | |
 | 59,896 | 3.90 | `mudergreatfalls.taf` | Murder In Great Falls | |
@@ -140,7 +172,16 @@ the manifest is already wired.
 | 277,834 | 3.90 | `gamma.taf` | The Gamma Gals | **AIF** |
 | 2,928,980 | 4.00 | `Vardock Bates.taf` | Vardock Bates | **Spanish**, and by far the largest file in the corpus |
 
-**Eight of the twenty-nine are AIF** and will need the *Diary of a Stripper*
+**Author material already on this machine, for whoever picks this up next.**
+Several of the remaining games shipped documentation in their IF Archive /
+adrift.co packages, unpacked under `~/Downloads`: `windy2walk.txt` +
+`cw2faq.txt` (Camp Windy Lake 2), `croftwlk.txt` + `lcsofaq.txt` (Lara Croft),
+`score.txt` (Camp Windy Lake), `enc1.txt` / `enc2.txt` (the Encounters), and
+`readme.txt` (The Long Journey Home). *Where Is Richard?* ships `Map.jpg` — a
+hand-drawn sketch of the swamp, readable and accurate — but no walkthrough,
+and that was the pattern: a map or a FAQ is common, a solution is not.
+
+**Eight of the twenty-three that remain are AIF** and will need the *Diary of a Stripper*
 treatment when they are wired — gitignore the solution, the golden and the
 notes, commit the row alone. Measured, not guessed: de-obfuscating each `.taf`
 and counting explicit vocabulary gives `gamma.taf` 1416, `dr-who-vortex-lust`
