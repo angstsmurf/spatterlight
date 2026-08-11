@@ -56,18 +56,51 @@ cache_path() {
   echo "$cache/$_host/$_base"
 }
 
+# The Wayback Machine starts refusing connections outright after ~20 downloads
+# in quick succession -- curl fails in milliseconds with "Couldn't connect", not
+# with an HTTP status -- and stays that way for a while.  curl's own --retry
+# waits 1s then 2s, nowhere near long enough, so a straight run gives up on most
+# of the web.archive.org rows.  Space those requests out and retry the
+# connection-level failures with a much longer backoff.  Other hosts are
+# untouched: a 404 there should fail immediately, not after two minutes.
+throttle=0
+is_wayback() { case "$1" in *web.archive.org/*) return 0 ;; *) return 1 ;; esac; }
+
 download() {                            # download URL -> cache, echo the path
   _url=$1
   _dst=$(cache_path "$_url")
   [ -s "$_dst" ] && { echo "$_dst"; return 0; }
   mkdir -p "$(dirname "$_dst")" || return 1
-  if curl -fsSL --compressed --retry 2 --max-time 900 -o "$_dst.part" "$_url" < /dev/null; then
-    mv "$_dst.part" "$_dst"
-    echo "$_dst"
-    return 0
+
+  if is_wayback "$_url"; then
+    _tries=6
+    [ "$throttle" -eq 1 ] && sleep 2
+    throttle=1
+  else
+    _tries=1
   fi
-  rm -f "$_dst.part"
-  return 1
+
+  _n=1
+  while :; do
+    if curl -fsSL --compressed --retry 2 --max-time 900 -o "$_dst.part" "$_url" < /dev/null; then
+      mv "$_dst.part" "$_dst"
+      echo "$_dst"
+      return 0
+    else
+      # Must be read in the else branch: after `fi`, $? is the status of the
+      # `if` itself, which is 0 when the condition failed and there is no else.
+      _rc=$?
+    fi
+    rm -f "$_dst.part"
+    # 6 host lookup, 7 connect (the one the Wayback throttle actually returns),
+    # 28 timeout, 35/52 TLS or empty reply.  Nothing else: with --compressed a
+    # plain 404 comes back as 56, so retrying that would sleep out the full
+    # backoff on every genuinely dead URL.
+    case "$_rc" in 6|7|28|35|52) ;; *) return 1 ;; esac
+    [ "$_n" -ge "$_tries" ] && return 1
+    sleep $((_n * 10))
+    _n=$((_n + 1))
+  done
 }
 
 extract() {                             # extract ARCHIVE MEMBER -> DEST

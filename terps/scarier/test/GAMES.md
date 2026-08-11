@@ -1,6 +1,6 @@
 # The game corpora: manifests, fetching, and why the checksums matter
 
-The ADRIFT regression suites here replay real games — 195 ADRIFT 3.7/3.8/3.9/4.0
+The ADRIFT regression suites here replay real games — 245 ADRIFT 3.7/3.8/3.9/4.0
 `.taf` files and 152 ADRIFT 5 `.taf`/`.blorb` files at the time of writing. Those files
 are third-party and copyrighted, so they are **not** committed (`adrift4/games/`
 and `adrift5/games/` are gitignored) and every suite that needs them SKIPs when
@@ -52,6 +52,11 @@ a different build date stamped in the `.taf`, i.e. we hold the *earlier* release
 | `chooseyourown.taf` | `ifarchive.org/…/ChooseYourOwn.taf` | 22 Aug 2004 vs 16 Sep 2004 |
 | `TheADRIFTProject.taf` | `adrift.co/files/games/theadriftproject.taf` | 05 Aug 2004 vs 31 Aug 2004 |
 
+`chooseyourown.taf` is the one of those three that has since been resolved: the
+22 Aug build survives in the Wayback Machine's copy of `delron.org.uk`, so that
+row now has a real `source` and the table entry above is only history. The other
+two are still `MANUAL`.
+
 The goldens in `adrift4/goldens/` and `adrift5/goldens/` are byte-exact
 transcripts. Replaying one of them against a different release of its game
 produces a diff that looks exactly like an engine regression. Pinning the hash is
@@ -75,27 +80,54 @@ Tab-separated, one row per game file, `#` comment header:
 
 Rows were built by hashing the local corpus and content-matching every byte
 against a full mirror of adrift.co (619 games, including zip members) and the IF
-Archive's `if-archive/games/adrift/` (194 files). A row gets a `source` only when
+Archive's `if-archive/games/adrift/` (194 files), plus, for the Spanish-language
+ADRIFT games, `if-archive/games/adrift/spanish/` and the Spanish competition
+directories the archive's `Master-Index` points at, plus a Wayback Machine sweep
+of four dead ADRIFT/AIF hosts (see below). A row gets a `source` only when
 some upstream file or archive member hashes **identically** — nothing here is a
 guess from a matching filename.
 
-Coverage as recorded: 131/195 ADRIFT 4 and 128/152 ADRIFT 5 rows are fetchable.
-The remaining 88 are marked `MANUAL`. Their notes distinguish two cases:
+Coverage as recorded: 211/245 ADRIFT 4 and 132/152 ADRIFT 5 rows are fetchable.
+The remaining 54 are marked `MANUAL`. Their notes distinguish two cases:
 
 - *different release upstream: `<url>` (sha256 …)* — the game is still online, but
   not these bytes. Anyone who finds the original release can drop it in; the
   manifest will confirm it.
-- *no online source found* — not on adrift.co and not in the IF Archive's adrift
-  directory under any name (many are pre-2005 games that only ever circulated on
-  the now-dead delron.org.uk, whose game files did not survive in the Wayback
-  Machine).
+- *no online source found* — not on adrift.co, not in the IF Archive's adrift
+  directories under any name, and not in the Wayback sweep below.
 
-Two provenance quirks worth knowing:
+Four provenance quirks worth knowing:
 
 - `PervertActionCrisis.blorb` is adult-flagged, so adrift.co omits it from the
   game listing entirely. It has an unlisted direct mirror (`…/files/games/pac.blorb`,
   which is what `/cgi/download.cgi?1358` redirects to) and that is what the
   manifest records.
+- Adult-flagged games are not the only unlisted ones — the listing is simply
+  incomplete. `croft.taf` (Lara Croft: The Sun Obelisk) and `chicago.taf` are both
+  served from `…/files/games/` but appear under no listing page. Walking
+  `/cgi/download.cgi?<id>` with `curl -I` for `id` in 1..1200 and collecting the
+  `Location:` headers enumerates 617 mirror URLs, ~30 more than the listing knows
+  about. adrift.co answers HEAD without a `Content-Length`, so the file has to be
+  downloaded to be identified.
+- **The dead hosts are not gone — they are in the Wayback Machine.** Most pre-2010
+  ADRIFT games only ever circulated on sites that are now offline, and their game
+  files were archived along with the pages linking them. Sweeping four of them
+  (`delron.org.uk`, `shadowvault.net`, `adrift.org.uk/ftp/games/`, and
+  `aifcommunity.org` plus `newsletter.aifcommunity.org`) recovered 36 rows that
+  no live mirror has, including original releases that upstream has since
+  overwritten. The recipe: query the CDX API per host
+  (`web.archive.org/cdx/search/cdx?url=<host>&matchType=prefix&output=text&fl=original,timestamp,statuscode,length&filter=statuscode:200`),
+  keep the **largest** snapshot per path — do *not* use `collapse=urlkey`, which
+  returns the first one, often a 404 stub — discard anything under ~3 kB (late
+  re-crawls of dead paths are ~1350-byte placeholders), and fetch the survivors
+  with the `id_` timestamp modifier for raw, unrewritten bytes. Comp collections
+  (`…/comps/downloads/ectocomp-2008.zip`, `newsletter.aifcommunity.org/2013minicomp.zip`)
+  are worth more than single-game URLs: one zip often carries several rows.
+  **Wayback throttles hard** — after roughly 20 downloads in quick succession it
+  refuses TCP connections outright for a while, which curl reports in
+  milliseconds as `Couldn't connect`, not as an HTTP status. `fetch` therefore
+  spaces `web.archive.org` requests out and retries connection-level failures
+  with a long backoff; other hosts still fail immediately.
 - ScummVM's `detection_tables.h` md5s only the **first 5000 bytes** of a file, so
   its hashes are not comparable with these; it is used here only for titles.
 

@@ -13,7 +13,7 @@ AoK Comp.blorb	71534	7fa1e3020ac62dbc87ce8a16704a74daa0573dd30603d4a17b544a96839
 AoS v.4.blorb	419042	58df1d83fbc46bacf72476646fd58bd3f10829fbd6ebec418eca8620b645e0c6	-	-	-	no online source found
 Badlands Demo v2.taf	20248	c6d4dd07de9ea5868357ad637edc3fad578438ff8eda0503f143d67a2c461e37	https://www.adrift.co/files/games/Badlands%20Demo%20v2.taf	-	Badlands	-
 bariscebik.taf	14634	373b3f8863ebf9bcc3f259dfa37d7ffda5ad6c8399c98d7aa19c893cdb46d605	https://ifarchive.org/if-archive/games/adrift/bariscebik.taf	-	Bariscebik	-
-Beagle2.blorb	25368	30161c5043d673f0e96fbd7b94c9d8a72eab4102b5cb7813457b9171683de1a0	-	-	Beagle	no online source found
+Beagle2.blorb	25368	30161c5043d673f0e96fbd7b94c9d8a72eab4102b5cb7813457b9171683de1a0	https://www.adrift.co/files/games/Beagle2.blorb	-	Beagle	-
 BeginnersCave.taf	30358	9b7fe52e67f6e597b839726233bdee29db1d27912557b7e3f246ae69e2c6f9e1	https://www.adrift.co/files/games/BeginnersCave.taf	-	The Beginner's Cave	-
 BeThere.taf	36384	5b259b9b6dc7ccf508048ee0fe06444d244f49788b341f8651e7b8a7a56f1e09	https://www.adrift.co/files/games/Be%20There%21.taf	-	Be There!	-
 Beythilda.taf	18349	e9513b8411b351b7d33f0fc795d36e5529e80abf71c542d06fcf4ae2eab78118	-	-	Beythilda the Night Witch	no online source found
@@ -42,7 +42,7 @@ dreamspun 0.9.taf	29140	5160b3ddce916ee9e6422a1a0a8db74d812433f8d93b2bc76c9e4326
 DwarfOfDirewoodForest.blorb	242106	38070929a35181281725c45484a59b12bbbb31f901fadd5614dcda117ae7df6e	-	-	The Dwarf of Direwood Forest	no online source found
 ECOD3D.taf	19904	b97b2cf06dde29615f3959ec19a12bcdd971b9f3cd73dead2db1cc8976ae0ef4	-	-	The Evil Chicken of Doom 3D	no online source found
 edithscats.taf	18347	f377bafcc332b2e1be5c3870cb30e78267d02a03f23f5f856d33f6a958f784cf	-	-	-	different release upstream: https://ifarchive.org/if-archive/games/adrift/edithscats.taf (sha256 289939dce4acac940dabbd2393c1263e11fd634b395d886e69e42b8e67410f9f)
-Evil on Queen Street ver 1.0.blorb	7909064	cde654bdaba35da31b24800a2ca31ccdb177df8740134bec736bfeadaac51de5	-	-	Evil Queen	no online source found
+Evil on Queen Street ver 1.0.blorb	7909064	cde654bdaba35da31b24800a2ca31ccdb177df8740134bec736bfeadaac51de5	https://web.archive.org/web/20230601231246id_/http://delron.org.uk/games/Evil%20on%20Queen%20Street.zip	Evil on Queen Street ver 1.0.blorb	Evil Queen	-
 FBA v.3c.blorb	1330114	c00f9c56a6bd05460766c94241d10cb53565f9065ba2db4a87adac5bb303851a	-	-	-	no online source found
 First real game.taf	18008	5f081c640df3d77da4f080ae1594bfbe9ce826b547e56dab7061e36a15c00c41	https://www.adrift.co/files/games/First%20real%20game.taf	-	The Nasty Escape	-
 GalensQuest.blorb	87614	3424bec4d46169ab92db80a59c63ff0d6ebd0c918833f8a10412ee34a6d3bec7	https://www.adrift.co/files/games/Galen%27s%20Quest%20Latest.blorb	-	Galen's Quest	-
@@ -116,14 +116,14 @@ StoneOfWisdom.blorb	93416	237d3ce2b700ecd2647fe38fc7ae3567065a1a32a28248484bccd1
 Stuck Piggy2_0.taf	18506	e482a27f746db3546888b503ab5ae9a70d8c36c659307984ba6169a84c8c492c	https://www.adrift.co/files/games/Stuck%20Piggy2_0.taf	-	Stuck Piggy	-
 symphonica.blorb	13685722	e0bd555b92b131b28ed2d3e958e8a8893a8c437264c4da4b526098f94017f049	https://www.adrift.co/files/games/symphonica.blorb	-	Symphonica 64	-
 symphonica.taf	165389	c6422e7c32e206c81145629ef031c352cf5a9303e5ae550ed868d39f497dae95	-	-	-	no online source found
-TASP.taf	182236	c919704b88715c085ad4ad01ce5b920e0535b2032d0718978dcddd3314c300dd	-	-	-	no online source found
+TASP.taf	182236	c919704b88715c085ad4ad01ce5b920e0535b2032d0718978dcddd3314c300dd	https://web.archive.org/web/20160317100000id_/http://newsletter.aifcommunity.org/2012minicomp.zip	The After School Special by Armsteadhammerschlag/TASP.taf	The After School Special	-
 TBN v.2.blorb	275130	5073fa27335fa4c088fd92bb6b6758535cc8230738ba10bc5cc295c23c1f0603	https://www.adrift.co/files/games/TBN%20v.2.blorb	-	Things That Go Bump In The Night!	-
 Temperamentum v5.blorb	17986940	b864d7de73c552278063db35ac86eb644df311926e34bf5df875f1d777a6e6a3	-	-	Temperamentum	no online source found
 Tempus Fugit2.taf	52386	2ff5a1f3c72beed62040fbf6e7da28df5f6963b996447d009ec510b789b56e69	https://www.adrift.co/files/games/Tempus%20Fugit2.taf	-	Tempus Fugit	-
 The Awakeners.taf	17117	7665be2d6671a10856c2d59f33d770ba86e8ba4f9605ff930b11471f4b52aeba	https://www.adrift.co/files/games/The%20Awakeners.taf	-	The Awakeners	-
 The Day Program V1.taf	24664	8c417304098a5e015b2a29a325f3b2146fac40cbb85c00968203caf7d82282a0	https://www.adrift.co/files/games/The%20Day%20Program%20V1.taf	-	The Day Program	-
 The escape from the house 2.taf	18244	6df8b92a496728a10555f57e19d3259938bb99b42aa59fb93395e17c5c1aa43c	https://www.adrift.co/files/games/The%20escape%20from%20the%20house%202.taf	-	Escape From the House 2	-
-The House.taf	21925	6a289e874becec4341f1de5a68adce183d1a54b52e7495370890d355842d3e4c	-	-	The House	no online source found
+The House.taf	21925	6a289e874becec4341f1de5a68adce183d1a54b52e7495370890d355842d3e4c	https://www.adrift.co/files/games/ECTOCOMP_2011.zip	The House.taf	The House	-
 TheAxeOfKolt.blorb	906106	f0cbd543aebd891ecac902bc420b90b00ce4e5c57aa1b6ff8c2b19259a89ff0f	https://www.adrift.co/files/games/Kolt.blorb	-	The Axe of Kolt	-
 TheCallOfTheShaman.blorb	231358	7c836bae645042f877215fdf28a1eba8f8e6e1c3f2cbb40d9edb9bcd44c489f7	https://www.adrift.co/files/games/Shaman_1.blorb	-	The Call of the Shaman	-
 TheDeadOfWinter.blorb	86702	b5b41e98937bc305f03b24863f67e6f866d26bbe4a38ed819daf2f0f8678b16c	https://www.adrift.co/files/games/the%20dead%20of%20winter.blorb	-	The Dead of Winter	-
