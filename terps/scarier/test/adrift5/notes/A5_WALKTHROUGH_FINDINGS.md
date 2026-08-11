@@ -58,7 +58,7 @@ dotnet dependency.
 
 ## Corpus status
 
-As of **2026-08-11: 197 rows — 180 MATCH, 17 DIVERGE at baseline, 0 FAIL**,
+As of **2026-08-11: 198 rows — 181 MATCH, 17 DIVERGE at baseline, 0 FAIL**,
 about 30 s wall clock at the default `-j8`.
 
 Per-game numbers are deliberately **not** tabulated here any more; they went
@@ -511,6 +511,52 @@ Golden re-blessed, MAP re-wired `Symphonica64|symphonica.blorb|0|0`. Full suite
 after the three fixes: **116 MATCH / 11 DIVERGE, 0 FAIL** — no other game moved
 in either column, save/restore self-checks all OK, a5 unit tests and the v4
 corpus green.
+
+### Dinner Plans — ★ best ending, MATCH 0|0
+
+Nick Fisher (as "PC-Fan"), 2014; an AIF dating sim, eight rooms, 273 tasks, no
+walkthrough anywhere. Route: `goldens/DinnerPlans_walkthrough.txt` (100
+commands, prose header included), wired `DinnerPlans|Dinner Plans.taf|0|0`.
+Like TASP the game is explicit, so its walkthrough and golden are gitignored
+and stay local-only; the row runs only where they exist.
+
+The game is one variable, `emilyhappy`, plus a day counter. Four evenings run
+the same loop — dress the living room, `order pizza`, `answer door`, talk to
+Emily, tip her, `eat pizza` (which sets `gotobar`), drive to Max's Tavern and
+debrief Anna. Going south out of the bar is the day boundary: it bumps
+`gameday`, drops you home, and clears `toldannaaboutemily` / `askannaaboutstrategy`,
+so that pair has to be redone nightly (and night 2 additionally gates on
+`ask anna about music`). On day 4 the leave-the-bar task fires
+Endgameche / Endgamebad / Day4intro in order: `emilyhappy <= -22` is the creep
+ending, `< 23` the losing one, `>= 23` buys the last evening; the best ending
+(Endgamebes — Anna walks in, the threesome, the scheme explained) needs
+**`emilyhappy >= 32`**, and `fuck emily` itself needs `> 30`.
+
+**32 is the ceiling, and it is only just reachable.** Every once-only source —
+three generous tips, the hockey gear, the guitar on its stand, playing it
+plugged in, handing it to Emily, the repair manual, fixing the car, and Emily's
+job / sports / game / bass / band topics — totals **29**. The slack comes from
+`WatchSport`, which is Repeatable with no once-per-evening guard, so each
+`watch sports` on night 2 is another +1; four of them make exactly 32. The
+route deliberately skips `ask emily about pizza bella` (+1): its keyword set
+overlaps Topic1's and FD's Dictionary enumeration order picks the other topic
+there — a measured .NET artifact, so the phrase is avoided rather than have the
+golden encode the divergence.
+
+**Engine fix — a topic reply is REAL output, so its `<DisplayOnce>` segments
+retire** (`emit_topic_conv`, `a5run_conv.cpp`). Scarier rendered conversation
+replies under the ambient `marking_display` (0, i.e. the runner's
+`bTestingOutput = True` "am I allowed to say anything?" probe), so a topic's
+DisplayOnce alternatives never got marked used and every re-ask replayed the
+first description forever. `clsUserSession` runs the chosen reply through
+`Display` with `bTestingOutput` **False**, so those segments do retire and the
+topic advances. Fixed by scoping the emit in an `a5_mark_guard mg (st, 1)`.
+Dinner Plans leans on this hard — each of Anna's four topics carries one
+description per evening, keyed only on the previous one having been used up, so
+before the fix the bar debrief was frozen on night 1 (20 xoshiro hunks). After
+it the whole 100-command run is byte-identical to FrankenDrift in both columns.
+Whole-corpus re-sweep after the change: **no other row moved**, including all
+23 golden-less rows re-checked individually against FD at their MAP baselines.
 
 ## Synthetic conformance probes (test/adrift5/probes/, imported 2026-08-08)
 

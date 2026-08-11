@@ -108,6 +108,12 @@ emit_topic_conv (a5_run_t *run, const char *ctx_key,
   int pia = st->intro_active;
   st->ctx_char = ctx_key;
   st->intro_active = 1;
+  /* A reply is REAL output: clsUserSession runs it through Display with
+     bTestingOutput False, so its <DisplayOnce> segments retire and the topic
+     moves on to its next alternative when it is asked again.  Dinner Plans
+     leans on this -- each of Anna's four topics has one description per
+     evening, keyed only on the first one having been used up. */
+  a5_mark_guard mg (st, 1);
   emit_conv (a5text_describe (st, conversation), out);
   st->intro_active = pia;
   st->ctx_char = pc;

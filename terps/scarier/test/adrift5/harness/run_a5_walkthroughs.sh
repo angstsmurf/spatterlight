@@ -1570,6 +1570,46 @@ FILTER="${1:-}"
 # leaked into the transcript and the `%PropertyValue[...]%+2` progress
 # arithmetic stopped counting.  See test/TASP_walkthrough.txt (local-only).
 #
+# (2026-08-11) DinnerPlans, MATCH 0|0.  Nick Fisher's 2014 AIF dating sim,
+# eight rooms and 273 tasks, with no walkthrough anywhere; the 100-command route
+# in goldens/DinnerPlans_walkthrough.txt was derived from the model and reaches
+# the BEST ending (Endgamebes -- Anna walks in, the threesome, the scheme
+# explained).  Adult game: like TASP its walkthrough and golden are gitignored
+# and stay local-only, so this row only runs where they exist.
+#
+# The game is one variable, emilyhappy, plus a day counter.  Four evenings run
+# the same loop: dress the living room, `order pizza`, `answer door`, talk to
+# Emily, tip her, `eat pizza` (which sets gotobar), then drive to Max's Tavern
+# and debrief Anna.  Leaving the bar southwards IS the day boundary -- it bumps
+# gameday, drops you home and clears toldannaaboutemily/askannaaboutstrategy, so
+# that pair must be redone every night (night 2 also gates on `ask anna about
+# music`).  On day 4 the leave-the-bar task fires Endgameche/Endgamebad/
+# Day4intro in order: emilyhappy <= -22 is the creep ending, < 23 the losing
+# one, >= 23 buys the last evening, and the best ending wants >= 32 (`fuck
+# emily` itself needs > 30).
+#
+# 32 is the ceiling and it is only just reachable: every once-only source -- the
+# three generous tips, the hockey gear, the guitar on its stand, playing it
+# plugged in, giving it to Emily, the repair manual, the car repair, and Emily's
+# job/sports/game/bass/band topics -- totals 29.  The slack is WatchSport, which
+# is Repeatable with no once-per-evening guard, so each `watch sports` on night 2
+# is another +1; four of them make exactly 32.  `ask emily about pizza bella`
+# (+1) is deliberately skipped: its keywords overlap Topic1's and FD's Dictionary
+# enumeration order picks the other topic there, a measured .NET artifact not
+# worth encoding in a golden.
+#
+# Engine fix: a topic reply is REAL output, so its <DisplayOnce> segments RETIRE.
+# emit_topic_conv (a5run_conv.cpp) rendered replies under the ambient
+# marking_display (0 -- the runner's bTestingOutput=True "may I say anything?"
+# probe), so a topic's DisplayOnce alternatives were never marked used and every
+# re-ask replayed the first description forever.  clsUserSession runs the chosen
+# reply through Display with bTestingOutput FALSE, so they do retire and the
+# topic advances; the emit is now scoped in an `a5_mark_guard mg (st, 1)`.  Each
+# of Anna's four topics carries one description per evening keyed only on the
+# previous one being used up, so before the fix the bar debrief was frozen on
+# night 1 (20 xoshiro hunks).  Whole-corpus re-sweep after the change moved no
+# other row, including all 23 golden-less rows re-checked against FD by hand.
+#
 #   name | game file | vanilla budget | xoshiro budget
 MAP=$(cat <<'EOF'
 AchtungPanzer|AchtungPanzer.blorb|0|0
@@ -1737,6 +1777,7 @@ BadlandsDemo|Badlands Demo v2.taf|0|0
 Dementophobia|Dementophobia Alpha Demo.blorb|0|0
 TheDrunkenHarlot|The Drunken Harlot.blorb|0|0
 TheDrunkenHarlotSrc|harlot.taf|0|0
+DinnerPlans|Dinner Plans.taf|0|0
 ProbeAmbiguity|a5probes/ambiguity.taf|0|0
 ProbeDel|a5probes/del.taf|0|0
 ProbeDelrt|a5probes/delrt.taf|0|0

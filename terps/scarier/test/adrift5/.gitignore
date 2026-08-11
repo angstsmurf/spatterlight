@@ -12,6 +12,8 @@
 # Symphonica 64 route-derivation scratch (see notes/Symphonica64_walkthrough.md).
 /harness/symph_work/
 
-# TASP: explicit text, deliberately not committed.
+# TASP and Dinner Plans: explicit text, deliberately not committed.
 /goldens/TASP_expected.txt
 /goldens/TASP_walkthrough.txt
+/goldens/DinnerPlans_expected.txt
+/goldens/DinnerPlans_walkthrough.txt
