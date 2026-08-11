@@ -1,7 +1,7 @@
 # The game corpora: manifests, fetching, and why the checksums matter
 
 The ADRIFT regression suites here replay real games — 245 ADRIFT 3.7/3.8/3.9/4.0
-`.taf` files and 169 ADRIFT 5 `.taf`/`.blorb` files at the time of writing. Those files
+`.taf` files and 174 ADRIFT 5 `.taf`/`.blorb` files at the time of writing. Those files
 are third-party and copyrighted, so they are **not** committed (`adrift4/games/`
 and `adrift5/games/` are gitignored) and every suite that needs them SKIPs when
 they are absent.
@@ -66,7 +66,7 @@ rather than taking the newest thing upstream offers.
 
 ## Alternate builds are pinned as their own rows
 
-Seventeen ADRIFT 5 rows are second (or third) builds of a game that is already in
+Eighteen ADRIFT 5 rows are second (or third) builds of a game that is already in
 the corpus. They are not duplicates to be cleaned up — they are the corpus's only
 before/after fixtures for *authored-text* drift, which is the one kind of
 transcript change our goldens cannot otherwise tell apart from an engine
@@ -87,6 +87,7 @@ fixed, visible nowhere else.
 | `GrandpaRanchV5playonline.blorb` | `GrandpaRanchV5.blorb` | play-online build, ten days later |
 | `GrandpaV5sourcecode.taf` | `GrandpaRanchV5.blorb` | the ADRIFT source |
 | `Halloween.taf` | `Halloween.blorb` | bare `.taf`, 706-byte header, saved 87s earlier |
+| `harlot.taf` | `The Drunken Harlot.blorb` | the ADRIFT source, saved 18s earlier |
 | `JacarandaJim_2011.blorb` | `JacarandaJim.blorb` | 5.000019 / 2011 vs 5.000029 / 2013 |
 | `LMK_IFComp2017.blorb` | `LMKversion3.blorb` | the IFComp 2017 build |
 | `MI_v.3.blorb` | `MI_v.1.blorb` | 2023-10-13 rebuild; see the harness comment |
@@ -101,8 +102,8 @@ serves only `Halloween.blorb`, and its `LMKversion1`/`2`/`3` URLs all return the
 same `LMKversion3.blorb` bytes.
 
 Where a game ships its ADRIFT source alongside the built game, the source is
-pinned too: `GFS_SourceCode.taf` and `GrandpaV5sourcecode.taf` are the author's
-own `.taf`, distributed in the same zip as the `.blorb`, so a transcript
+pinned too: `GFS_SourceCode.taf`, `GrandpaV5sourcecode.taf` and `harlot.taf` are
+the author's own `.taf`, distributed in the same zip as the `.blorb`, so a transcript
 difference can be traced back to what the author actually wrote rather than
 inferred from the compiled game. (`Halloween.taf` is a different thing — the
 author's working file, saved 87 seconds before the `.blorb` was cut from it and
@@ -132,7 +133,7 @@ of four dead ADRIFT/AIF hosts (see below). A row gets a `source` only when
 some upstream file or archive member hashes **identically** — nothing here is a
 guess from a matching filename.
 
-Coverage as recorded: 211/245 ADRIFT 4 and 147/169 ADRIFT 5 rows are fetchable.
+Coverage as recorded: 211/245 ADRIFT 4 and 152/174 ADRIFT 5 rows are fetchable.
 The remaining 56 are marked `MANUAL`. Their notes distinguish two cases:
 
 - *different release upstream: `<url>` (sha256 …)* — the game is still online, but
@@ -146,7 +147,12 @@ Four provenance quirks worth knowing:
 - `PervertActionCrisis.blorb` is adult-flagged, so adrift.co omits it from the
   game listing entirely. It has an unlisted direct mirror (`…/files/games/pac.blorb`,
   which is what `/cgi/download.cgi?1358` redirects to) and that is what the
-  manifest records.
+  manifest records. `PAFv1_2.blorb` (*Pervert Action: Future*, the same author's
+  252 MB sequel) is the same story — `?1368` and `?1375` both redirect to it, and
+  `PAFv1_1.blorb` serves those identical bytes, so there is no v1.1 to pin.
+  Neither file is reachable from any page on the site; **the `download.cgi` walk
+  is the only way to find them**, which is the argument for re-running it rather
+  than trusting the listing.
 - Adult-flagged games are not the only unlisted ones — the listing is simply
   incomplete. `croft.taf` (Lara Croft: The Sun Obelisk) and `chicago.taf` are both
   served from `…/files/games/` but appear under no listing page. Walking
