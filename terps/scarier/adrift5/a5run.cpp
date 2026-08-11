@@ -1295,24 +1295,19 @@ a5run_intro (a5_run_t *run)
          sits after the prompt commit, in which case it pSpace-joins to that. */
       if (!had_prompt || out.len != cf)
         sb_pspace (&out);
-      /* The runner's title Display goes through the same HTML rendering as any
-         other text, so markup INSIDE Adventure.Title is stripped -- Trapped's
-         title is "<centre><b>'Trapped'  by Driftwood</b></centre>" -- then the
-         plain text is wrapped in <c>…</c> (InputColour), matching
-         Display("<c>" & Adventure.Title & "</c>").  Re-render the wrap so
-         interactive mode leaves A5_COLOUR_MARK spans for the host; headless
-         drops <c> to A5_ALR_MARK (stripped in finish_turn), so goldens stay
-         byte-identical. */
+      /* The runner builds "<c>" & Adventure.Title & "</c>" and hands the whole
+         string to ONE HTML rendering pass, so the InputColour wrap and any
+         markup INSIDE the title -- Trapped's is
+         "<centre><b>'Trapped'  by Driftwood</b></centre>" -- are stripped
+         together.  Render the wrap the same way, in a single pass: interactive
+         mode then leaves an A5_COLOUR_MARK span for the host, headless drops
+         <c> to A5_ALR_MARK (stripped in finish_turn) so goldens are unchanged.
+         Rendering the title first and wrapping the result would feed rendered
+         text back through the parser, and a title whose entities decode to
+         markup ("&lt;b&gt;") would be re-parsed as a tag and vanish. */
       {
-        char *tp = a5text_render_plain (run->adv->title);
-        size_t n = strlen (tp);
-        char *wrap = (char *) malloc (n + 8);
-        memcpy (wrap, "<c>", 3);
-        memcpy (wrap + 3, tp, n);
-        memcpy (wrap + 3 + n, "</c>", 5);   /* includes NUL */
-        free (tp);
-        tp = a5text_render_plain (wrap);
-        free (wrap);
+        std::string wrapped = std::string ("<c>") + run->adv->title + "</c>";
+        char *tp = a5text_render_plain (wrapped.c_str ());
         sb_puts (&out, tp);
         free (tp);
       }
