@@ -1369,6 +1369,44 @@ FILTER="${1:-}"
 # byte-identical to FD; the only residual is 2 RANDOM courtyard-ambient lines
 # (xoshiro 0 proves pure RNG noise), which the committed golden pins.
 #
+# (2026-08-11) MagorInvestigatesV3 WIRED at MATCH 0|0, golden-backed, and the
+# MagorInvestigates row's own history corrected.  Two things had gone unrecorded.
+#
+# (1) THE 2026-07-03 ENTRY ABOVE UNDERSTATES THE MagorInvestigates ROW.  It
+# lists MI among six games "wired at MATCH 0|0 from OPENING-TURN SMOKE PROBES,
+# not full walkthroughs".  That is no longer what the row proves:
+# MagorInvestigates_walkthrough.txt is a COMPLETE 65-command WIN -- all nine
+# authored tasks (hidden archway / meeting "Stinker" / the herbal / picking the
+# herbs / brewing and giving the infusion / tracing the lineage / telling the
+# archivist / telling King Kelson), "*** CONGRATULATIONS! ***", "...in 64 turns
+# and completing 9 tasks."  The golden was grown to the full route without a log
+# entry; this is that entry.  Note 0|0 is the ORDINARY row form here (161 of the
+# 177 rows are golden-strict-diff), not a smoke-probe marker -- only 15 rows use
+# a win-marker grep -- so nothing in the row's shape distinguished the two.
+#
+# (2) MI_v.3.blorb IS A SECOND BUILD OF THE SAME GAME, AND THE ROUTE STILL WINS.
+# The corpus pinned MI_v.1.blorb (142,544, no online source found).  Larry
+# Horsfield rebuilt it 2023-10-13 as "MI v.3.blorb" (144,622), which adrift.co
+# still serves byte-for-byte at
+# https://www.adrift.co/files/games/MI%20v.3.blorb -- so unlike v.1 this row is
+# fetchable and pinned.  MagorInvestigatesV3_walkthrough.txt is
+# MagorInvestigates_walkthrough.txt VERBATIM (65 commands, unchanged), and it
+# replays to the identical ending: same 9 tasks, same 64 turns.  Keep the two
+# scripts in step unless a future build forces them apart, exactly as
+# October31st / October31stComp are kept.
+#
+# The two goldens differ in FIVE lines of authored text, and one of them is a
+# documented bug fix.  v.1's archivist's-chamber description ends "There is a
+# swinging metal arm in the fireplace" and the KETTLE is mentioned nowhere but
+# inside `examine fireplace`; v.3 promotes it into the room description itself
+# ("A kettle hangs from a swinging metal arm in the fireplace").  That is the
+# exact complaint in downloaded/MagorInvestigates_hints.txt -- intfiction.org
+# t/65063, where a player ~200 moves in cannot make the herbal tea because the
+# kettle is "hidden in a dependent clause".  The other four: the LUMINO reminder
+# gains a pointer to the AXE / XIXON / XANIX backstory commands, and the alcove's
+# sink turns from ceramic to stone.  No engine change, no route change; the pair
+# is a free before/after fixture for authored-text drift across a rebuild.
+#
 # OS (PlugIn.Exe) budgets 0|1.  (Vanilla is a golden diff once a golden exists,
 # so its column is 0 even though a direct FD vanilla run diverges in ~20 places
 # -- pure blackjack RNG noise.)  The single xoshiro hunk is architectural.
@@ -1458,6 +1496,7 @@ AoS|AoS v.4.blorb|0|0
 FinnsBigAdventure|FBA v.3c.blorb|0|0
 Halloween|Halloween.blorb|0|0
 MagorInvestigates|MI_v.1.blorb|0|0
+MagorInvestigatesV3|MI_v.3.blorb|0|0
 MuseumHeist|MuseumHeist.blorb|0|0
 October31st|October31st.blorb|106|0
 October31stComp|October31stComp.blorb|106|0
