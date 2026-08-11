@@ -34,6 +34,18 @@ char *sb_finish (sb_t *b);
    at (see a5text.h). */
 void  sb_resolve_cls (sb_t *b, size_t floor);
 
+/* Honour A5_DEL_MARK sentinels left when <del> had no glyph in its fragment:
+   each mark removes itself and backspaces one UTF-8 glyph from the text before
+   it (same skip rules as in-fragment delete).  Call after sb_resolve_cls so a
+   <del> past a <cls> cannot resurrect wiped output. */
+void  sb_resolve_del (sb_t *b);
+
+/* Backspace one output glyph from b, walking back over presentation / ALR /
+   deferred-del marks and spanning mark payloads.  Returns 1 if a glyph was
+   removed, 0 if the buffer had none.  Used by <del> rendering and
+   sb_resolve_del. */
+int   sb_del_glyph (sb_t *b);
+
 /* Replace the oldn-byte span at `off` with the NUL-terminated `s` (grows or
    shrinks the buffer).  Out-of-range arguments are ignored. */
 void  sb_splice (sb_t *b, size_t off, size_t oldn, const char *s);
@@ -44,7 +56,11 @@ void  sb_splice (sb_t *b, size_t off, size_t oldn, const char *s);
    turn-based event's message onto the same line ("...milk.  The postman...")
    while a message that ends in a newline keeps the next one on a fresh line.
    Scarier formerly forced a '\n' after every message, so multi-message turns
-   diverged from the runner; call sb_pspace before each message instead. */
+   diverged from the runner; call sb_pspace before each message instead.
+   Walks back over zero-width sentinels (A5_ALR_MARK, A5_DEL_MARK, style marks)
+   so a successful in-fragment <del> that left A5_ALR_MARK after a newline still
+   counts as ending in that newline; A5_PS_MARK is not skipped (it forces a
+   join by design). */
 void  sb_pspace (sb_t *b);
 
 #endif

@@ -549,8 +549,8 @@ that matters here.
 | Probe | v|xo | diagnosis |
 |---|---|---|
 | ProbeAmbiguity | 0\|0 | **FIXED** (was 3\|3): the `Which key?` clarifier (`blue`) never resolved because run_remembered's force_name/force_key pin only applied to singular `%object%`/`%item%`/`%character%` references — the library's `get/drop %objects%` commands take the plural-branch singular path in resolve_refine, which `continue`d before the pin.  The pin now applies there too (a5run_ref.cpp). |
-| ProbeDel | 0\|3 | Golden-backed MATCH; the 3 xoshiro hunks are FD.Headless's missing `<del>` (`[abc]`/`[ax]`/`[a\n]` where the real Runner gives `[ab]`/`[a]`/`[a]`), **not** ours.  Came with the `<del>` implementation (PR #148, `a5text.cpp` `sb_del_glyph`) and was re-blessed there. |
-| ProbeDelrt | 0\|5 | Golden-backed MATCH; same story, 5 hunks of FD.Headless dropping `<del>`.  Our own probe (`src/delrt.xml`, 2026-08-11), written to be read at **load** — every case lives in the Introduction — so it could be measured directly in the genuine run500.exe under Wine.  See the `<del>` section below for the case list and the one case Scarier still gets wrong. |
+| ProbeDel | 0\|3 | Golden-backed MATCH; the xoshiro hunks are FD.Headless's missing `<del>`, **not** ours.  Includes a `cross` command that pins turn-level backspace across an Execute-Task message boundary. |
+| ProbeDelrt | 0\|5 | Golden-backed MATCH; same FD.Headless story.  Our own probe (`src/delrt.xml`, 2026-08-11), written so cases 1–7 render at **load** and case 8 (`eight`) exercises cross-message `<del>` — now byte-identical to run500 via `A5_DEL_MARK` / `sb_resolve_del`. |
 | ProbeEvents | 0\|0 | **FIXED** (was 1\|1; the old "LookText timing at start" diagnosis was wrong — the real divergence was at event END: Scarier kept showing the SetLook text after the event expired).  FD keeps a per-event `stackLookText` and `LookText()` returns entries only while `Status = Running` (clsEvent.vb:20/132-153); ViewLocation loops ALL events in model order appending each gate-passing LookText (clsLocation.vb:141-144).  Scarier's look stack entries now carry their owning event key, and view_location iterates events gated on a `st->ev_running` callback into the run layer; the key is persisted in the save `<Look>` block. |
 | ProbeHiPriTask | 0\|0 | **FIXED** (was 1\|1): FD's BeInPosition restriction (clsUserSession.vb:4902-4915) reads the raw `CharacterPosition` *property* gated on HasProperty — NOT the Position getter that defaults to Standing.  The library-injected default Player has no such property (FileIO only adds explicit `<Property>` nodes; SetProperty on an absent character property no-ops), so `MustNot BeInPosition Standing` passes and the passing `stand` task beats the failing one.  Scarier's BeInPosition now uses the property view (a5state_entity_prop) instead of the Standing-defaulted char_position cache (a5restr.cpp). |
 | ProbeLifecycleRestart | 0\|0 | **FIXED 2026-08-09** (was 3\|3: walk enter/exit announcements missing after a walk restart — Scarier stopped the walk dead instead of restarting it).  The control re-trigger guard was unfaithful: FD's `Not task.Children(True).Contains(w.sTriggeringTask)` (clsUserSession.vb:873/894) blocks a control only when the walk's triggering task is a DIRECT Specific-override child of the completing task — clsTask.Children (clsTask.vb:336) is one level down and does NOT include the task itself.  Scarier additionally blocked `triggering_task == task_key` (and recursed through grandchildren), so TaskRestartPatrol's Stop control fired, recorded itself as the trigger, and then blocked its own Start control — the Stop→Restart upgrade (clsCharacter.vb:1366-1367) never happened and the walk just stopped.  ctrl_retrigger_blocked now mirrors FD exactly (a5run_events.cpp). |
@@ -591,22 +591,22 @@ ground, and the transcript harness has no in-game save-dialog channel.
 
 ## `<del>` — measured in the real Runner (delrt probe, 2026-08-11)
 
-`<del>` (issue #142, implemented by PR #148 in `a5text.cpp`: `sb_del_glyph` plus
-the `del` arm of the tag dispatch) is the one a5 feature the FrankenDrift
-differential **cannot** arbitrate: `FrankenDrift.Headless`'s `EmitHtml`
-(`Program.cs`) handles only `br` and `cls` and drops `<del>` on the floor, and
-the two FD front ends disagree with each other anyway — `GlkHtmlWin.cs:270`
-deletes only from the pending `current` StringBuilder (which is cleared at
-*every* tag) and then falls back to Gargoyle's `garglk_unput_string`, while the
-Eto `AdriftOutput.cs:183` does a whole-window `Buffer.Delete`.
+`<del>` (issue #142, PR #148 for in-fragment delete; turn-level follow-up via
+`A5_DEL_MARK` / `sb_resolve_del` in `a5sb.cpp`) is the one a5 feature the
+FrankenDrift differential **cannot** arbitrate: `FrankenDrift.Headless`'s
+`EmitHtml` (`Program.cs`) handles only `br` and `cls` and drops `<del>` on the
+floor, and the two FD front ends disagree with each other anyway —
+`GlkHtmlWin.cs:270` deletes only from the pending `current` StringBuilder
+(which is cleared at *every* tag) and then falls back to Gargoyle's
+`garglk_unput_string`, while the Eto `AdriftOutput.cs:183` does a whole-window
+`Buffer.Delete`.
 
 So it was measured directly instead, in the genuine **ADRIFT 5.0.36 Runner
 (`run500.exe`) under Wine** (see the Wine harness notes), using
-`test/adrift5/probes/src/delrt.xml` — every case sits in the *Introduction*, so
-the whole probe renders at load and can be read off the Runner window with no
-gameplay.  Result: **`<del>` deletes one character from the Runner's whole
-accumulated turn buffer.**  It is not scoped to a style run, a line, or a
-message:
+`test/adrift5/probes/src/delrt.xml` — cases 1–7 sit in the *Introduction*, so
+they render at load; case 8 is an Execute-Task message.  Result: **`<del>`
+deletes one character from the Runner's whole accumulated turn buffer.**  It is
+not scoped to a style run, a line, or a message:
 
 | # | markup | run500.exe 5.0.36 | Scarier |
 |---|---|---|---|
@@ -617,26 +617,16 @@ message:
 | 5 | `5[a\n\n<del>]` | `5[a\n]` | same |
 | 6 | `websites:\n\n<del>https://one\n \n<del>http://two` | `websites:\nhttps://one\n http://two` (leading space kept) | same |
 | 7 | room LongDescription starting with `<del>` | room name and description JOIN: `Delete Lab7ROOMDESC…` | same |
-| 8 | msg A `8[aZ`, then an Execute-Task msg B `<del><del><del>]END8` | `8[a]END8` — eats the two pSpace join spaces **and** the `Z` from the previous message | `8[aZ  ]END8` ✗ |
+| 8 | msg A `8[aZ`, then an Execute-Task msg B `<del><del><del>]END8` | `8[a]END8` — eats the two pSpace join spaces **and** the `Z` from the previous message | same |
 
-Case 8 is the **known gap**: `sb_del_glyph` runs on the per-message buffer
-inside `a5text_render_plain`, so when the current fragment holds no glyph the
-backward walk hits `i == 0` and silently deletes nothing.  That is exactly the
-shape #142 calls out ("kinda common, especially to undo a paragraph break") and
-the one already documented at `adrift5/a5run_resp.cpp:269` — WW2 Elevator
-Escape's `"(standing up first)"` → ALR → `<del>`, a message whose entire content
-renders to marks.  The architecture already has the pattern for the fix, ten
-lines above the new code: `<cls>` wipes the fragment at render time and, when
-the wipe has to reach earlier text, leaves `A5_CLS_MARK` for `sb_resolve_cls` to
-apply to the turn buffer in `finish_turn`.  `<del>` wants the same — delete
-in-fragment when there is a glyph, otherwise emit a marker resolved at turn
-level.  (Related: the unconditional `sb_putc (&sb, A5_ALR_MARK)` after a delete
-hides a surviving newline from `sb_pspace`, which tests only the final byte —
-`a5sb.cpp:161` should walk back over zero-width sentinels the way
-`sb_resolve_cls` does.)
+Case 8 uses the same pattern as `<cls>`: delete in-fragment when a glyph is
+present, otherwise leave `A5_DEL_MARK` for `sb_resolve_del` on the turn buffer
+in `finish_turn` (after `sb_resolve_cls`).  `sb_pspace` walks back over
+zero-width sentinels so a successful in-fragment delete that left `A5_ALR_MARK`
+after a newline still counts as ending in that newline.
 
-Cases 1–7 are byte-for-byte right, which is what re-blessed ten corpus goldens
-on 2026-08-11: nine of them are Larry Horsfield's credits block (case 6 verbatim
+Cases 1–7 re-blessed ten corpus goldens on 2026-08-11: nine of them are Larry
+Horsfield's credits block (case 6 verbatim
 — `…websites:\r\n\r\n<del>https://lazzah.itch.io\r\n \r\n<del>http://www.adrift.co/games`,
 one newline eaten per `<del>`, stray leading space kept), plus QuestGiver (a
 blank line removed from the quest listing, ×33) and IlluminaDansk (an
@@ -647,9 +637,7 @@ AoS / FinnsBigAdventure / MagorInvestigates / Xanix / BookOfJax, 0|5
 MaroonedOnMazoomah, 0|33 QuestGiver — and every one of those hunks is
 FD.Headless's missing `<del>`, verified by eye (they are all "FD keeps a blank
 line / a second space that the Runner ate").  **Teach `EmitHtml` the tag and all
-twelve budgets should drop back to 0** (bar case 8, which will then show up as a
-real 1-hunk divergence in ProbeDelrt until the turn-level fix lands).
-
+twelve budgets should drop back to 0.**
 ## a5maptest — auto-map raster regression (map.taf)
 
 `test/adrift5/harness/run_a5_maptest.sh [-b]` renders six views of the hand-authored map

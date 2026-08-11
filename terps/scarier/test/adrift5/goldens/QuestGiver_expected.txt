@@ -478,7 +478,7 @@ You gain the following rewards...
 > ask barman about a room
 "I would like to rent a room for the night," you say.
 "As you wish. Cost you 10."
-  The barman gives you room a room key, with a room number tag tied to it.
+The barman gives you room a room key, with a room number tag tied to it.
 
 Lose -10 Gold Coins
 

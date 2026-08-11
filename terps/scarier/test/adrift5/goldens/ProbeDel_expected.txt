@@ -1,16 +1,16 @@
 Del Test
 Exercises ADRIFT del (delete last character).
 
-Unflushed: the deleted character is still in the HTML walker buffer (works everywhere).
-Flushed style / br: Scarier deletes in-buffer before Glk, so style boundaries and newlines are removable (unlike Gargoyle unput).
+Unflushed / style / br: in-fragment delete before Glk.
+Cross-message: a del with no glyph in its fragment deletes from the turn buffer (pSpace join + prior message), as the Runner does.
 
-Commands: unflushed, flushed style, flushed br, help.
+Commands: unflushed, flushed style, flushed br, cross, help.
 
 Delete Lab
 A quiet room for testing del. Type help for commands.
 
 > help
-Commands: unflushed, flushed style, flushed br.
+Commands: unflushed, flushed style, flushed br, cross.
 
 > unflushed
 Unflushed: abc + del -- expect ab
@@ -23,4 +23,8 @@ Result: [a]
 > flushed br
 Flushed br: a + br + del -- expect a (newline removed in-buffer)
 Result: [a]
+
+> cross
+Cross-message: parent 8[aZ + child three dels -- expect 8[a]END8
+Result: 8[a]END8
 

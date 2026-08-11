@@ -58,6 +58,16 @@
    markers after the boundary pass.  \x03 (ETX) never occurs in game text. */
 #define A5_ALR_MARK '\003'
 
+/* Sentinel for a <del> that could not backspace inside its own fragment -- the
+   Runner deletes from the whole turn's sOutputText, so a message that is only
+   <del> (WW2 Elevator Escape's "(standing up first)" ALR, or an Execute-Task
+   child that undoes the parent's trailing glyph / pSpace join) must reach
+   earlier text.  a5text_render_plain deletes in-fragment when a glyph is
+   present (and leaves A5_ALR_MARK); otherwise it leaves this mark and
+   sb_resolve_del (finish_turn, after sb_resolve_cls) pops one glyph from the
+   turn buffer per mark.  \x08 (BS) never occurs in game text. */
+#define A5_DEL_MARK '\010'
+
 /* Sentinel pair wrapping a variable NAME whose expansion was deferred to the
    Display boundary.  The Adrift 5 runner applies ALRs only inside Display()
    (ReplaceALRs, Global.vb:519), whose leading ReplaceFunctions call expands any
@@ -139,7 +149,8 @@
 
    finish_turn keeps all of these in the returned turn text; a host that never
    enables interactive mode (the headless dump / ground-truth harness) sees no
-   behaviour change.  \x06 (ACK), \x07 (BEL), \x0e (SO), \x0f (SI), \x10 (DLE),
+   behaviour change.  \x06 (ACK), \x07 (BEL), \x08 (BS / A5_DEL_MARK), \x0e (SO),
+   \x0f (SI), \x10 (DLE),
    \x11 (DC1), \x12 (DC2), \x13 (DC3), \x14 (DC4), \x15 (NAK), \x16 (SYN),
    \x17 (ETB), \x18 (CAN), \x19 (EM), \x1a (SUB), \x1b (ESC), \x1c (FS),
    \x1d (GS) and \x1e (RS) never occur in game text. */

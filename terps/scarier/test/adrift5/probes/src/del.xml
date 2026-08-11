@@ -9,10 +9,10 @@
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
 <Text>Exercises ADRIFT del (delete last character).
 
-Unflushed: the deleted character is still in the HTML walker buffer (works everywhere).
-Flushed style / br: Scarier deletes in-buffer before Glk, so style boundaries and newlines are removable (unlike Gargoyle unput).
+Unflushed / style / br: in-fragment delete before Glk.
+Cross-message: a del with no glyph in its fragment deletes from the turn buffer (pSpace join + prior message), as the Runner does.
 
-Commands: unflushed, flushed style, flushed br, help.</Text>
+Commands: unflushed, flushed style, flushed br, cross, help.</Text>
 </Description>
 </Introduction>
 <ShowFirstLocation>1</ShowFirstLocation>
@@ -86,7 +86,7 @@ Commands: unflushed, flushed style, flushed br, help.</Text>
 <CompletionMessage>
 <Description>
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
-<Text>Commands: unflushed, flushed style, flushed br.</Text>
+<Text>Commands: unflushed, flushed style, flushed br, cross.</Text>
 </Description>
 </CompletionMessage>
 <Repeatable>1</Repeatable>
@@ -144,6 +144,46 @@ Result: [a&lt;b&gt;x&lt;/b&gt;&lt;del&gt;]</Text>
 Result: [a&lt;br&gt;&lt;del&gt;]</Text>
 </Description>
 </CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<!-- Parent message ends 8[aZ (no trailing newline); Execute-Task child is only
+     three del tags then ]END8.  pSpace joins with two spaces; the dels eat
+     Z and those spaces (Runner whole-turn backspace). -->
+<Task>
+<Key>TaskCrossDel</Key>
+<Priority>50004</Priority>
+<Type>System</Type>
+<Description>Cross-message del child</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;del&gt;&lt;del&gt;&lt;del&gt;]END8</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskCross</Key>
+<Priority>50005</Priority>
+<Type>General</Type>
+<Command>cross</Command>
+<Description>Delete across a message boundary via Execute Task</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Cross-message: parent 8[aZ + child three dels -- expect 8[a]END8
+Result: 8[aZ</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Execute TaskCrossDel</SetTasks>
+</Actions>
 <Repeatable>1</Repeatable>
 <LastUpdated>2026-07-12 11:40:00</LastUpdated>
 <Created>2026-07-12 11:40:00</Created>

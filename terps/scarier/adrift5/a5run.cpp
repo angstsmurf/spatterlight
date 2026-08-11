@@ -50,7 +50,7 @@ int a5run_trace = 0;
 static int
 is_pres_mark (char c)
 {
-  return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
+  return c == A5_ALR_MARK || c == A5_DEL_MARK || c == A5_WAITKEY_MARK
       || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
       || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
       || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
@@ -95,6 +95,10 @@ msg_has_output (const char *m)
             continue;
           m = e;
         }
+      else if (*m == A5_DEL_MARK)
+        /* Deferred turn-level <del>: not visible ink, but must survive into the
+           turn buffer (sb_resolve_del), so count as output. */
+        return 1;
       else if (!is_pres_mark (*m))
         return 1;
     }
@@ -1143,6 +1147,9 @@ finish_turn (a5_run_t *run, sb_t *out)
      multi-commit intro resolves its own segments before calling finish_turn, so
      no markers reach here from a5run_intro.) */
   sb_resolve_cls (out, 0);
+  /* Honour A5_DEL_MARK after <cls>: each deferred <del> backspaces one glyph
+     from the surviving turn text (Runner deletes from whole-turn sOutputText). */
+  sb_resolve_del (out);
   raw = sb_finish (out);
   /* The pSpace markers (A5_PS_MARK) have already done their job during buffer
      accumulation -- sb_pspace saw them as non-newline tails and inserted the join

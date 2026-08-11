@@ -3567,88 +3567,6 @@ a5_font_colour (const std::string &tag)
 
 /* ----------------------------------------------------------- plain renderer */
 
-/* True when c is a single-byte presentation / ALR sentinel (not a spanning
-   open/close pair that wraps a payload). */
-static int
-a5_is_single_pres_mark (unsigned char c)
-{
-  return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
-      || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
-      || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
-      || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
-      || c == A5_UNDERLINE_MARK || c == A5_ENDUNDERLINE_MARK
-      || c == A5_RIGHT_MARK || c == A5_ENDRIGHT_MARK
-      || c == A5_ENDCOLOUR_MARK || c == A5_ENDWINDOW_MARK
-      || c == A5_CLS_MARK || c == A5_PS_MARK || c == A5_COMMIT_MARK;
-}
-
-/* True when c opens/closes a payload span: \xNN…\xNN. */
-static int
-a5_is_spanning_pres_mark (unsigned char c)
-{
-  return c == A5_IMG_MARK || c == A5_WINDOW_MARK || c == A5_SOUND_MARK
-      || c == A5_WAIT_MARK || c == A5_COLOUR_MARK;
-}
-
-/* <del>: backspace one output glyph from this fragment's buffer.  Walk back
-   over presentation / ALR marks (and spanning mark payloads) without removing
-   them; pop one UTF-8 codepoint, including newlines so ALRs can undo a <br> /
-   paragraph break. */
-static void
-sb_del_glyph (sb_t *sb)
-{
-  size_t i = sb->len;
-
-  while (i > 0)
-    {
-      unsigned char c = (unsigned char) sb->p[i - 1];
-
-      if (a5_is_single_pres_mark (c))
-        {
-          i--;
-          continue;
-        }
-      if (a5_is_spanning_pres_mark (c))
-        {
-          /* Skip the whole \xNN<payload>\xNN span; do not delete it. */
-          size_t end = i - 1;
-          size_t j = end;
-          int found = 0;
-          while (j > 0)
-            {
-              j--;
-              if ((unsigned char) sb->p[j] == c)
-                {
-                  i = j;
-                  found = 1;
-                  break;
-                }
-            }
-          if (!found)
-            i = end;
-          continue;
-        }
-      /* Glyph ends at i (exclusive): drop one UTF-8 codepoint, keep any marks
-         that trailed it in the buffer. */
-      {
-        size_t end = i;
-        size_t n;
-        while (i > 0
-               && ((unsigned char) sb->p[i - 1] & 0xC0) == 0x80)
-          i--;
-        if (i > 0)
-          i--;
-        n = sb->len - end;
-        if (n > 0)
-          memmove (sb->p + i, sb->p + end, n);
-        sb->len = i + n;
-        if (sb->p != NULL)
-          sb->p[sb->len] = '\0';
-        return;
-      }
-    }
-}
-
 char *
 a5text_render_plain (const char *src)
 {
@@ -3686,13 +3604,17 @@ a5text_render_plain (const char *src)
           else if (strcmp (name, "del") == 0)
             {
               /* Delete the previous output glyph (ADRIFT TextBoxes <del>).
-                 Operates on this fragment's buffer before any Glk flush, so
-                 style marks and newlines are still mutable -- including the
-                 common ALR rewrite of "(standing up first)" to <del> that
-                 undoes a paragraph break.  Leave A5_ALR_MARK so boundary ALRs
-                 cannot match across the former tag site. */
-              sb_del_glyph (&sb);
-              sb_putc (&sb, A5_ALR_MARK);
+                 In-fragment when a glyph is present (style marks and newlines
+                 stay mutable -- including ALR rewrites that undo a paragraph
+                 break).  Otherwise leave A5_DEL_MARK for sb_resolve_del on the
+                 turn buffer, matching the Runner's whole-turn sOutputText
+                 backspace (Execute-Task / "(standing up first)" ALR).  A
+                 successful delete leaves A5_ALR_MARK so boundary ALRs cannot
+                 match across the former tag site. */
+              if (sb_del_glyph (&sb))
+                sb_putc (&sb, A5_ALR_MARK);
+              else
+                sb_putc (&sb, A5_DEL_MARK);
             }
           else if (strcmp (name, "cls") == 0)
             {
@@ -3877,7 +3799,7 @@ a5text_strip_pres_marks (char *s)
             r = (char *) e;
           continue;
         }
-      if (*r == A5_ALR_MARK || *r == A5_WAITKEY_MARK
+      if (*r == A5_ALR_MARK || *r == A5_DEL_MARK || *r == A5_WAITKEY_MARK
           || *r == A5_CENTER_MARK || *r == A5_ENDCENTER_MARK
           || *r == A5_BOLD_MARK || *r == A5_ENDBOLD_MARK
           || *r == A5_ITALIC_MARK || *r == A5_ENDITALIC_MARK
