@@ -1476,6 +1476,20 @@ asylum_solution.txt|as.taf|A large plaque sat on the wall|SCR_SKIP_WAITKEY=1
 # and has empty completion text, so a working command reports "I don't
 # understand what you mean!".
 life_solution.txt|life.taf|Health=%health%|SCR_SKIP_WAITKEY=1
+# Renuntio: the corpus's first SPANISH v4 game (ifarchive adrift/spanish/).
+# One EndGame action, no score, no variables, and the row is worth having for
+# three things.  It exercises the `SYNONYM` table on a non-English game --
+# adelante/atras/derecha/izquierda onto n/s/e/w and, crucially, `o` (oeste)
+# onto `w`, so a bare `o` is a movement command for the whole run.  Its one
+# mechanical puzzle is an object carried IN THE MOUTH: `coger agua` and
+# `coger agua con las manos` are written as failures and only `coger agua con
+# la boca` moves the object, with T35 restricted on Agua NOT held and T36-38
+# on Agua held, three times round a duplicated fountain-and-machine room.
+# And the opening gate is `c`, prompted only by the timed event 0 [Luz] that
+# fires four commands in with "PULSA C PARA CONTINUAR"; T3 is unrestricted so
+# the route could skip the wait, and deliberately does not.  Marker is pure
+# ASCII out of the (non-empty, so "Congratulations!"-suppressing) WINTEXT.
+renuntio_solution.txt|Renuntio.taf|Yo-nos me alzo y estiendo mis-nos brazos|SCR_SKIP_WAITKEY=1
 EOF
 }
 

@@ -1,0 +1,118 @@
+# Renuntio (Renuntio.taf) -- ADRIFT 3.90, in SPANISH, from the ifarchive's
+# adrift/spanish/ shelf (renuntio.zip).  27 rooms, no NPCs, 53 tasks, 3
+# events, NO variables.
+#
+# Result: WIN -- the single `ACT type=6 v1=0` in the file, on T46
+# `arrancarse * ojos * *` in room 26.  There is NO score (not one
+# `ACT type=4`) and only that one ending, so this route is maximal by
+# construction.  WINTEXT is a very long passage, and being non-empty it
+# suppresses the engine's "Congratulations!" the same way Asylum's
+# "<br><br>" does -- the transcript simply ends on the game's own text.
+#
+# It is a novice's initiation into the order of the Renuntio, told in first
+# person by a woman strapped to a metal bar in the dark.  The four doors are
+# the four renunciations the Renuntio recites over her in the prologue -- to
+# what chains you, to life in this body, to having your road dictated, and to
+# time as an anchor -- and each "puzzle" is the corresponding surrender.  The
+# game is nearly all prose; the 53 tasks are mostly `ex` responses.
+#
+# THE ONE THING YOU CANNOT GUESS: **`c`**.  T3, room 1, moves you to room 2.
+# The prompt for it arrives inside event 0 [Luz], which is timed (starter=2,
+# start=5..5) and fires four commands in, ending "PULSA C PARA CONTINUAR".
+# T3 itself has no restriction, so `c` works from turn one -- but this route
+# spends the four turns first, because the vision it prints is a third of the
+# game's text and the golden should hold it.  `desatarse` and `cortar tiras`
+# are the two things a bound person would try; both are written up as
+# failures, which is the point of them.
+#
+# THE ROUTE, room by room:
+#   1  Comienzo        four turns, then `c`                     (T3 -> room 2)
+#   2  Puerta uno      `abrir puerta`                           (T6 -> room 3)
+#   3  Puerta dos      `entrar` -- walk into the wall of dark   (T50 -> room 4)
+#   4  Cubos           `cierra ojos`                            (T10 -> room 8)
+#   8  Ojos cerrados   `n`                                      (exit -> room 9)
+#   9  Ojos cerrados   `abrir ojos`                             (T11 -> room 11)
+#  11  Pasillo         `abrir puerta`                           (T18 -> room 12)
+#  12  Sala            the water loop, three times, below
+#  23  Pasillo         `abrir puerta`                           (T51 -> room 24)
+#  24  Pozo            `soltar a la chica`                      (T42 -> room 25)
+#  25  Pasillo final   `saltar al pozo`                         (T47 -> room 26)
+#  26  A aquello que te encadena.   `arrancarse los ojos con las manos`  WIN
+#
+# THE WATER LOOP is the only mechanical puzzle.  A fountain sits at one end
+# of the room and a broken clockwork hippopotamus at the other, and the
+# machine wants three mouthfuls.  `coger agua` (T33) and `coger * agua * *
+# manos` (T34) both fail on purpose -- your hands are useless to you here --
+# and only **`coger agua con la boca`** (T35) works, which is the fourth
+# renunciation made literal.  Carrying it is a real object move: T35's
+# restriction is that Agua is NOT held, and its action puts it in your mouth;
+# T36-38 require it held and move it away again.
+#
+# The room is duplicated twice more so the walk is the same each time, and
+# the pour itself is what advances you:
+#   room 12 Sala          `e` -> 13 Fuente, drink, `o` `o` -> 14, pour  -> 21
+#   room 21 Ingenio 1     `e` -> 19 Sala,   `e` -> 17 Fuente, drink,
+#                         `o` `o` back to 21, pour                     -> 22
+#   room 22 Ingenio 2     same again through 20 and 18                 -> 23
+# The pour command is `dejar el agua de la boca en la boca` (T36/37/38);
+# `... en la boca del hipopotamo` is an ALTCMD and works too.  On the third
+# pour the machine finally whistles, the caged bird is released, it lands on
+# the door frame and the door dissolves.
+#
+# THE WELL (room 24) is the game's real turn, and the task that does it is
+# T42, whose ALTCMDs are `atacar * *`, `soltar * *` AND `dejar * *` -- attack
+# and let-go collapsed into one.  Whichever you type you get the same text:
+# you take the hanging girl's face in both hands and press your thumbs into
+# her eyes until she falls.  This is the memory the whole game has been
+# circling, and the finale repeats the gesture on yourself.
+#
+# SPANISH INPUT.  A `SYNONYM` table maps the Spanish directions onto the
+# engine's: adelante->n, atras->s, derecha->e, izquierda->o, and **o->w**, so
+# `o` (oeste) is the west command throughout.  `esperar`/`espera`->wait,
+# `examinar`->ex, `mira`/`mirar`->look.  Everything else is a task pattern.
+# The transcript is CP1252, so pipe it through `iconv -f cp1252 -t utf-8`
+# before any awk.  The win marker below is deliberately pure ASCII.
+#
+# `reza` has three separate room-scoped versions (T12 rooms 0-1, T13 the
+# cubes, T14 rooms 12-14) and two one-shot ones at the well and at the end
+# (T48, T49).  None does anything; praying is the thing the character has
+# already given up.  This route uses it once, in the opening, for the answer.
+desatarse
+cortar tiras
+reza
+esperar
+c
+ex puerta
+abrir puerta
+entrar
+ex vigas
+cierra ojos
+n
+abrir ojos
+ex puerta
+abrir puerta
+e
+ex fuente
+coger agua con la boca
+o
+o
+ex aparato
+dejar el agua de la boca en la boca
+e
+e
+coger agua con la boca
+o
+o
+dejar el agua de la boca en la boca
+e
+e
+coger agua con la boca
+o
+o
+dejar el agua de la boca en la boca
+ex puerta
+abrir puerta
+soltar a la chica
+ex pozo
+saltar al pozo
+arrancarse los ojos con las manos
