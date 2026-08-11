@@ -5,9 +5,19 @@ Matches FrankenDrift Blorb.vb / FileIO.vb Blorb load: find the Exec resource
 (chunk type ADRI), and if babel lives in IFmd with a "0000" placeholder in
 Exec, re-embed babel into a normal .taf layout.
 
-Pre-5.0.20 Exec payloads (no babel size field) are obfuscated inside a blorb
-but a bare .taf in that shape is read as plaintext (FileIO.vb:816), so the
-obfuscation is stripped from the output.
+A blorb and a bare .taf disagree about obfuscation, so the payload usually has
+to be re-XORed on the way out:
+
+  * in a blorb it is the *iFiction metadata* that decides, not the payload
+    layout -- ``bDeObfuscate = MetaData Is Nothing OrElse
+    MetaData.OuterXml.Contains("compilerversion")`` (FileIO.vb:751).  A blorb
+    the ADRIFT Generator wrote, or one with no IFmd chunk at all, is
+    obfuscated; one rewrapped with a Babel-written IFmd is plain deflate.
+  * in a bare .taf it is the layout: pre-5.0.20 (no babel size field) is read
+    as plaintext, 5.0.20+ is obfuscated (FileIO.vb:800/816).
+
+So a pre-5.0.20 payload out of a Generator blorb gets de-obfuscated, and a
+Babel-rewrapped 5.0.20+ payload gets obfuscated, or the .taf is unloadable.
 
 --layout also extracts the Runner window layout the Generator embeds
 (Blorb.vb DataChunk, the pane arrangement the game opens with).
@@ -143,10 +153,20 @@ def _inflates(data: bytes) -> bool:
     return True
 
 
-def _deobfuscate(data: bytes) -> bytes:
+def _reobfuscate(data: bytes) -> bytes:
+    """XOR with the fixed key -- its own inverse, so this both scrambles and
+    unscrambles (a5deobf.cpp, FileIO.ObfuscateByteArray)."""
     return bytes(
         b ^ OBFUSCATION_KEY[i % len(OBFUSCATION_KEY)] for i, b in enumerate(data)
     )
+
+
+def _blorb_obfuscated(ifmd: bytes | None) -> bool:
+    """The Runner's blorb rule (FileIO.vb:751): no iFiction chunk, or one the
+    ADRIFT Generator wrote (it carries <compilerversion>), means obfuscated.
+    An IFmd from anywhere else -- Jacaranda Jim's 2011 release was rewrapped
+    with a Babel-written one -- means plain deflate."""
+    return ifmd is None or b"compilerversion" in ifmd
 
 
 def _babel_size_field(babel_len: int) -> bytes:
@@ -171,38 +191,39 @@ def blorb_to_taf(blorb: bytes) -> bytes:
     """Extract TAF bytes from an ADRIFT blorb."""
     exec_data, ifmd = _exec_and_ifmd(blorb)
 
-    if len(exec_data) < 16:
+    if len(exec_data) < 30:
         raise BlorbError("ADRI Exec resource too short")
 
-    # ADRIFT blorb Exec uses a "0000" placeholder; restore babel from IFmd.
+    # Which layout the payload is in, i.e. where the deflate stream starts.
+    # 5.0.20+ inserts a babel <ifindex> block after a 4-hex-digit size field at
+    # offset 12; "0000" means the block is absent (which is what a blorb Exec
+    # carries, its babel having been hoisted into the IFmd chunk).  Pre-5.0.20
+    # has the deflate stream at offset 12 flat.  Both end in a 14-byte trailer.
+    new_layout = exec_data[12:16] == b"0000" or exec_data[16:24] == b"<ifindex"
+    header = 16 + int(exec_data[12:16], 16) if new_layout else 12
+    if header + 14 > len(exec_data):
+        raise BlorbError("Exec payload shorter than its babel size field")
+
+    # The .taf we are about to write is read back by the layout rule: pre-5.0.20
+    # plaintext, 5.0.20+ obfuscated.  The blorb we are reading used the metadata
+    # rule instead.  Where the two disagree, re-XOR the payload region.
+    region = exec_data[header:-14]
+    if _blorb_obfuscated(ifmd) != new_layout:
+        region = _reobfuscate(region)
+    # ...and confirm it, by doing what the .taf reader will do with what we wrote.
+    if not _inflates(_reobfuscate(region) if new_layout else region):
+        raise BlorbError(
+            "Exec payload does not inflate, obfuscated or otherwise"
+        )
+    exec_data = exec_data[:header] + region + exec_data[-14:]
+
+    # A blorb Exec keeps its babel in the IFmd chunk and leaves the size field
+    # a "0000" placeholder; a .taf has nowhere else to put it, so put it back.
     if exec_data[12:16] == b"0000" and ifmd is not None:
-        version = exec_data[0:12]
-        rest = exec_data[16:]
         babel = _babel_from_ifmd(ifmd)
         size_field = _babel_size_field(len(babel))
-        return version + size_field + babel + rest
+        return exec_data[0:12] + size_field + babel + exec_data[16:]
 
-    if exec_data[12:16] == b"0000" or exec_data[16:24] == b"<ifindex":
-        # 5.0.20+ layout already: the size field tells every consumer the
-        # payload is obfuscated, so it can pass through untouched.
-        return exec_data
-
-    # Pre-5.0.20 layout: the deflate stream follows the 12-byte version header
-    # directly, with a 14-byte trailer.  Inside a blorb this payload is
-    # obfuscated (bDeObfuscate, true for every Developer-built blorb), but a
-    # bare .taf in this shape is read as plaintext (FileIO.vb:816) -- so strip
-    # the obfuscation or the output is unloadable.  RtC.blorb is this shape.
-    if len(exec_data) < 27:
-        raise BlorbError("pre-5.0.20 Exec payload too short")
-    region = exec_data[12:-14]
-    if not _inflates(region):
-        plain = _deobfuscate(region)
-        if not _inflates(plain):
-            raise BlorbError(
-                "pre-5.0.20 Exec payload does not inflate, "
-                "obfuscated or otherwise"
-            )
-        exec_data = exec_data[:12] + plain + exec_data[-14:]
     return exec_data
 
 
