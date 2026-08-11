@@ -27,6 +27,7 @@
 
 #include "../../../adrift5/a5model.h"
 #include "../../../adrift5/a5run.h"
+#include "a5_test_fixtures.h"
 
 /* A minimal ADRIFT-5 adventure: player in Room1 with a brass key + an iron key
    (both static, both at Room1), an unrestricted EXAMINE task, and a TAKE task
@@ -35,14 +36,7 @@ static const char *kXml =
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<Adventure>\n"
 "  <Title>Disambiguation Test</Title>\n"
-"  <Character>\n"
-"    <Key>Player</Key>\n"
-"    <Name>Anonymous</Name>\n"
-"    <Type>Player</Type>\n"
-"    <Perspective>SecondPerson</Perspective>\n"
-"    <Property><Key>CharacterLocation</Key><Value>At Location</Value></Property>\n"
-"    <Property><Key>CharacterAtLocation</Key><Value>Room1</Value></Property>\n"
-"  </Character>\n"
+A5_XML_PLAYER_AT ("Room1")
 "  <Location>\n"
 "    <Key>Room1</Key>\n"
 "    <ShortDescription><Description><Text>The Vault</Text></Description></ShortDescription>\n"
@@ -53,18 +47,14 @@ static const char *kXml =
 "    <Article>the</Article>\n"
 "    <Prefix>brass</Prefix>\n"
 "    <Name>key</Name>\n"
-"    <Property><Key>StaticOrDynamic</Key><Value>Dynamic</Value></Property>\n"
-"    <Property><Key>DynamicLocation</Key><Value>In Location</Value></Property>\n"
-"    <Property><Key>InLocation</Key><Value>Room1</Value></Property>\n"
+A5_XML_DYNAMIC_IN ("Room1")
 "  </Object>\n"
 "  <Object>\n"
 "    <Key>Key2</Key>\n"
 "    <Article>the</Article>\n"
 "    <Prefix>iron</Prefix>\n"
 "    <Name>key</Name>\n"
-"    <Property><Key>StaticOrDynamic</Key><Value>Dynamic</Value></Property>\n"
-"    <Property><Key>DynamicLocation</Key><Value>In Location</Value></Property>\n"
-"    <Property><Key>InLocation</Key><Value>Room1</Value></Property>\n"
+A5_XML_DYNAMIC_IN ("Room1")
 "  </Object>\n"
 "  <Task>\n"
 "    <Key>ExamineObjects</Key>\n"
@@ -135,14 +125,9 @@ check_exact (a5_run_t *run, const char *cmd, const char *want)
 int
 main (void)
 {
-  uint32_t len = (uint32_t) strlen (kXml);
-  char *buf = (char *) malloc (len + 1);
-  memcpy (buf, kXml, len + 1);
-
-  a5_xml_doc_t *doc = a5xml_parse (buf, len);
-  if (doc == NULL) { printf ("a5_disambig_test: XML parse failed\n"); return 1; }
-  a5_adventure_t *adv = a5model_from_doc (doc);
-  if (adv == NULL) { printf ("a5_disambig_test: model build failed\n"); return 1; }
+  a5_adventure_t *adv = a5_test_build_adventure (kXml, "a5_disambig_test");
+  if (adv == NULL)
+    return 1;
   a5_run_t *run = a5run_new (adv);
 
   /* 1. An ambiguous reference raises the prompt (exact wording). */

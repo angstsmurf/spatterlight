@@ -36,6 +36,7 @@
 #include "../../../adrift5/a5deobf.h"
 #include "../../../adrift5/a5model.h"
 #include "../../../adrift5/a5run.h"
+#include "a5_test_fixtures.h"
 
 static int failures = 0;
 
@@ -43,14 +44,7 @@ static const char *kXml =
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<Adventure>\n"
 "  <Title>Save Test</Title>\n"
-"  <Character>\n"
-"    <Key>Player</Key>\n"
-"    <Name>Anonymous</Name>\n"
-"    <Type>Player</Type>\n"
-"    <Perspective>SecondPerson</Perspective>\n"
-"    <Property><Key>CharacterLocation</Key><Value>At Location</Value></Property>\n"
-"    <Property><Key>CharacterAtLocation</Key><Value>Room1</Value></Property>\n"
-"  </Character>\n"
+A5_XML_PLAYER_AT ("Room1")
 "  <Location>\n"
 "    <Key>Room1</Key>\n"
 "    <ShortDescription><Description><Text>The Vault</Text></Description></ShortDescription>\n"
@@ -60,9 +54,7 @@ static const char *kXml =
 "    <Key>Coin</Key>\n"
 "    <Article>a</Article>\n"
 "    <Name>coin</Name>\n"
-"    <Property><Key>StaticOrDynamic</Key><Value>Dynamic</Value></Property>\n"
-"    <Property><Key>DynamicLocation</Key><Value>In Location</Value></Property>\n"
-"    <Property><Key>InLocation</Key><Value>Room1</Value></Property>\n"
+A5_XML_DYNAMIC_IN ("Room1")
 "  </Object>\n"
 "  <Variable>\n"
 "    <Key>RollVar</Key><Name>rollvar</Name><Type>Numeric</Type>\n"
@@ -110,13 +102,9 @@ static const char *kXml =
 static a5_adventure_t *
 build_adv (void)
 {
-  uint32_t len = (uint32_t) strlen (kXml);
-  char *buf = (char *) malloc (len + 1);
-  memcpy (buf, kXml, len + 1);
-  a5_xml_doc_t *doc = a5xml_parse (buf, len);
-  if (!doc) { printf ("a5_save_test: XML parse failed\n"); failures++; return NULL; }
-  a5_adventure_t *adv = a5model_from_doc (doc);
-  if (!adv) { printf ("a5_save_test: model build failed\n"); failures++; return NULL; }
+  a5_adventure_t *adv = a5_test_build_adventure (kXml, "a5_save_test");
+  if (adv == NULL)
+    failures++;
   return adv;
 }
 

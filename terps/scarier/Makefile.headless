@@ -118,6 +118,8 @@ A5SEXPR_HARNESS := test/adrift5/harness/a5sexpr_test.cpp
 A5SEXPR_BIN     := test/adrift5/harness/a5sexpr_test
 A5SAVE_HARNESS  := test/adrift5/harness/a5_save_test.cpp
 A5SAVE_BIN      := test/adrift5/harness/a5_save_test
+# Shared XML fragments + build helper for the four synthetic-adventure tests.
+A5FIX_HDR       := test/adrift5/harness/a5_test_fixtures.h
 
 # Container size/capacity regression.  Unlike the harnesses above this one wants
 # a whole interpreter session rather than an API poke, so it links the plain
@@ -432,7 +434,7 @@ $(A5SEXPR_BIN): $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5sexpr.h $(A5DIR)/a5rand.cpp $(A5
 # no game data); part of `test`.  Links the full a5 run pipeline.
 a5distest: $(A5DIS_BIN)
 	./$(A5DIS_BIN)
-$(A5DIS_BIN): $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
+$(A5DIS_BIN): $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RUN_HDRS) $(A5FIX_HDR) $(A5_RAND_OBJ)
 	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Self-contained walks + event sub-events regression (synthetic in-memory v5
@@ -441,7 +443,7 @@ $(A5DIS_BIN): $(A5_RUN_SRC) $(A5DIS_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
 # (DisplayMessage gate + SetLook), which the shipped corpus does not cover.
 a5walktest: $(A5WALK_BIN)
 	./$(A5WALK_BIN)
-$(A5WALK_BIN): $(A5_RUN_SRC) $(A5WALK_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
+$(A5WALK_BIN): $(A5_RUN_SRC) $(A5WALK_HARNESS) $(A5_RUN_HDRS) $(A5FIX_HDR) $(A5_RAND_OBJ)
 	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5WALK_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Self-contained multiple-object reference regression (synthetic in-memory v5
@@ -451,7 +453,7 @@ $(A5WALK_BIN): $(A5_RUN_SRC) $(A5WALK_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
 # shipped corpus covers under the deterministic seed.
 a5objtest: $(A5OBJ_BIN)
 	./$(A5OBJ_BIN)
-$(A5OBJ_BIN): $(A5_RUN_SRC) $(A5OBJ_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
+$(A5OBJ_BIN): $(A5_RUN_SRC) $(A5OBJ_HARNESS) $(A5_RUN_HDRS) $(A5FIX_HDR) $(A5_RAND_OBJ)
 	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5OBJ_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # Self-contained save/restore round-trip regression (synthetic in-memory v5
@@ -460,7 +462,7 @@ $(A5OBJ_BIN): $(A5_RUN_SRC) $(A5OBJ_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
 # continuation after restore (Phase 5).
 a5savetest: $(A5SAVE_BIN)
 	./$(A5SAVE_BIN)
-$(A5SAVE_BIN): $(A5_RUN_SRC) $(A5SAVE_HARNESS) $(A5_RUN_HDRS) $(A5_RAND_OBJ)
+$(A5SAVE_BIN): $(A5_RUN_SRC) $(A5SAVE_HARNESS) $(A5_RUN_HDRS) $(A5FIX_HDR) $(A5_RAND_OBJ)
 	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5SAVE_HARNESS) $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
 # The TAFs are checked in; these targets only refresh them from the generators.
