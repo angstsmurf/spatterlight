@@ -47,6 +47,13 @@ HARNESS := test/adrift4/harness/battle_test.cpp
 TAF     := test/adrift4/harness/battle_test.taf
 BIN     := test/adrift4/harness/battle_test_hl
 
+# The do-nothing half of that os-layer port, shared by every harness below: the
+# twelve hooks none of them care about, plus os_read_line_debug forwarding to
+# whichever os_read_line the harness itself defines.  Not sxstubs.cpp -- that
+# one supplies an os_read_line of its own, which is the hook each harness needs
+# to own.
+OS_STUBS := test/adrift4/harness/harness_os_stubs.cpp
+
 # The precedence and bad-parent harnesses bring their own os-layer port, so they
 # link SRC alone (no sx* stubs) and drive the real interpreter loop over their
 # own synthetic tafs.
@@ -307,13 +314,13 @@ a5maptest: $(A5MAP_BIN)
 sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $(BIN)_san
 	$(SAN_ENV) ./$(BIN)_san $(TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(PREC_HARNESS) $(LDLIBS) -o $(PREC_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(PREC_HARNESS) $(LDLIBS) -o $(PREC_BIN)_san
 	$(SAN_ENV) ./$(PREC_BIN)_san $(PREC_TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(BADP_HARNESS) $(LDLIBS) -o $(BADP_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(BADP_HARNESS) $(LDLIBS) -o $(BADP_BIN)_san
 	$(SAN_ENV) ./$(BADP_BIN)_san $(BADP_TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(CORRUPT_HARNESS) $(LDLIBS) -o $(CORRUPT_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(CORRUPT_HARNESS) $(LDLIBS) -o $(CORRUPT_BIN)_san
 	$(SAN_ENV) ./$(CORRUPT_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(QUIT_HARNESS) $(LDLIBS) -o $(QUIT_BIN)_san
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(QUIT_HARNESS) $(LDLIBS) -o $(QUIT_BIN)_san
 	$(SAN_ENV) ./$(QUIT_BIN)_san $(PREC_TAF)
 	$(MAKE) -f Makefile.headless $(CAP_TAF)
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) os_ansi.cpp \
@@ -346,17 +353,17 @@ $(SAN_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
 $(BIN): $(SRC) $(STUBS) $(HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $@
 
-$(PREC_BIN): $(SRC) $(PREC_HARNESS)
-	$(CXX) $(CXXFLAGS) $(SRC) $(PREC_HARNESS) $(LDLIBS) -o $@
+$(PREC_BIN): $(SRC) $(OS_STUBS) $(PREC_HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(PREC_HARNESS) $(LDLIBS) -o $@
 
-$(BADP_BIN): $(SRC) $(BADP_HARNESS)
-	$(CXX) $(CXXFLAGS) $(SRC) $(BADP_HARNESS) $(LDLIBS) -o $@
+$(BADP_BIN): $(SRC) $(OS_STUBS) $(BADP_HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(BADP_HARNESS) $(LDLIBS) -o $@
 
-$(CORRUPT_BIN): $(SRC) $(CORRUPT_HARNESS)
-	$(CXX) $(CXXFLAGS) $(SRC) $(CORRUPT_HARNESS) $(LDLIBS) -o $@
+$(CORRUPT_BIN): $(SRC) $(OS_STUBS) $(CORRUPT_HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(CORRUPT_HARNESS) $(LDLIBS) -o $@
 
-$(QUIT_BIN): $(SRC) $(QUIT_HARNESS)
-	$(CXX) $(CXXFLAGS) $(SRC) $(QUIT_HARNESS) $(LDLIBS) -o $@
+$(QUIT_BIN): $(SRC) $(OS_STUBS) $(QUIT_HARNESS)
+	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(QUIT_HARNESS) $(LDLIBS) -o $@
 
 # Build the ADRIFT 5 XML dumper.  Run it by hand on a game:
 #   make -f Makefile.headless a5dump
@@ -404,8 +411,8 @@ $(A5MAP_BIN): $(A5_RUN_SRC) $(A5DIR)/a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) $(A5
 #   make -f Makefile.headless scmap
 #   ./test/adrift4/harness/scmap_dump path/to/game.taf [script.txt] -o map.ppm [-all] [-grid]
 scmap: $(SCMAP_BIN)
-$(SCMAP_BIN): $(SRC) $(SCMAP_HARNESS) scmap.h mapdraw.h
-	$(CXX) $(CXXFLAGS) $(SRC) $(SCMAP_HARNESS) $(LDLIBS) -o $@
+$(SCMAP_BIN): $(SRC) $(OS_STUBS) $(SCMAP_HARNESS) scmap.h mapdraw.h
+	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(SCMAP_HARNESS) $(LDLIBS) -o $@
 
 # Self-contained matcher regression test (no game data); part of `test`.
 a5parsetest: $(A5PARSE_BIN)

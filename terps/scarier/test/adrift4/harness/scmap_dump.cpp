@@ -29,25 +29,8 @@ static int g_width = 480, g_height = 480, g_grid = 0;
 
 static void draw_and_exit (void);
 
-/* --- the os layer, such as it is ---------------------------------------- */
-
-void os_print_string (const scr_char *s) { (void) s; }
-void os_print_tag (scr_int t, const scr_char *a) { (void) t; (void) a; }
-void os_print_string_debug (const scr_char *s) { (void) s; }
-void os_play_sound (const scr_char *p, scr_int o, scr_int l, scr_bool v)
-{ (void) p; (void) o; (void) l; (void) v; }
-void os_stop_sound (void) { }
-void os_show_graphic (const scr_char *p, scr_int o, scr_int l)
-{ (void) p; (void) o; (void) l; }
-void os_display_hints (scr_game g) { (void) g; }
-scr_bool os_confirm (scr_int type) { (void) type; return 1; }
-void *os_open_file (scr_bool is_save) { (void) is_save; return NULL; }
-void os_write_file (void *o, const scr_byte *b, scr_int l)
-{ (void) o; (void) b; (void) l; }
-scr_int os_read_file (void *o, scr_byte *b, scr_int l)
-{ (void) o; (void) b; (void) l; return 0; }
-void os_close_file (void *o) { (void) o; }
-scr_bool os_read_line_debug (scr_char *b, scr_int l) { return os_read_line (b, l); }
+/* --- the os layer, such as it is ----------------------------------------
+   The do-nothing stubs live in harness_os_stubs.cpp; os_read_line is ours. */
 
 /*
  * Feed the script; when it runs out, draw the map and stop.
