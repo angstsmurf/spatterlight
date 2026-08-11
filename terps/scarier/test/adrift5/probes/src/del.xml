@@ -10,7 +10,7 @@
 <Text>Exercises ADRIFT del (delete last character).
 
 Unflushed: the deleted character is still in the HTML walker buffer (works everywhere).
-Flushed: the character was already committed past a tag boundary -- needs Gargoyle garglk_unput_string. CheapGlk, transcript, and Parchment leave it in place.
+Flushed style / br: Scarier deletes in-buffer before Glk, so style boundaries and newlines are removable (unlike Gargoyle unput).
 
 Commands: unflushed, flushed style, flushed br, help.</Text>
 </Description>
@@ -118,11 +118,11 @@ Result: [abc&lt;del&gt;]</Text>
 <Priority>50002</Priority>
 <Type>General</Type>
 <Command>flushed style</Command>
-<Description>Delete after a style boundary (needs Gargoyle unput)</Description>
+<Description>Delete after a style boundary (in-buffer across marks)</Description>
 <CompletionMessage>
 <Description>
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
-<Text>Flushed style: a + bold x + del -- expect a on Gargoyle; ax on CheapGlk/transcript/Parchment
+<Text>Flushed style: a + bold x + del -- expect a (in-buffer delete across style marks)
 Result: [a&lt;b&gt;x&lt;/b&gt;&lt;del&gt;]</Text>
 </Description>
 </CompletionMessage>
@@ -136,11 +136,11 @@ Result: [a&lt;b&gt;x&lt;/b&gt;&lt;del&gt;]</Text>
 <Priority>50003</Priority>
 <Type>General</Type>
 <Command>flushed br</Command>
-<Description>Delete after a line break (needs Gargoyle unput)</Description>
+<Description>Delete after a line break (in-buffer newline removal)</Description>
 <CompletionMessage>
 <Description>
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
-<Text>Flushed br: a + br + del -- expect a then blank line everywhere (Gargoyle cannot unput newlines; CheapGlk/transcript/Parchment have no unput)
+<Text>Flushed br: a + br + del -- expect a (newline removed in-buffer)
 Result: [a&lt;br&gt;&lt;del&gt;]</Text>
 </Description>
 </CompletionMessage>

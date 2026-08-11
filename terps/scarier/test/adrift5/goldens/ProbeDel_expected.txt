@@ -2,7 +2,7 @@ Del Test
 Exercises ADRIFT del (delete last character).
 
 Unflushed: the deleted character is still in the HTML walker buffer (works everywhere).
-Flushed: the character was already committed past a tag boundary -- needs Gargoyle garglk_unput_string. CheapGlk, transcript, and Parchment leave it in place.
+Flushed style / br: Scarier deletes in-buffer before Glk, so style boundaries and newlines are removable (unlike Gargoyle unput).
 
 Commands: unflushed, flushed style, flushed br, help.
 
@@ -14,14 +14,13 @@ Commands: unflushed, flushed style, flushed br.
 
 > unflushed
 Unflushed: abc + del -- expect ab
-Result: [abc]
+Result: [ab]
 
 > flushed style
-Flushed style: a + bold x + del -- expect a on Gargoyle; ax on CheapGlk/transcript/Parchment
-Result: [ax]
+Flushed style: a + bold x + del -- expect a (in-buffer delete across style marks)
+Result: [a]
 
 > flushed br
-Flushed br: a + br + del -- expect a then blank line everywhere (Gargoyle cannot unput newlines; CheapGlk/transcript/Parchment have no unput)
-Result: [a
-]
+Flushed br: a + br + del -- expect a (newline removed in-buffer)
+Result: [a]
 
