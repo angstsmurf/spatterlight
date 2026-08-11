@@ -13,8 +13,8 @@ Scarier build and reading its internals.
 route or a documented verdict, and every walkthrough in `downloaded/` has a game
 and a row. This file is now the method, the cautions, and an index.
 
-**Second wave 2026-08-10 → 2026-08-11: 21 more games wired, suite now 224 rows,
-224 PASS — and PARKED.** See *Second wave* below for what was done and what is
+**Second wave 2026-08-10 → 2026-08-11: 22 more games wired, suite now 225 rows,
+225 PASS — and PARKED.** See *Second wave* below for what was done and what is
 left.
 
 Nothing here is open work. The one exception this file used to carry — the
@@ -31,12 +31,12 @@ test/adrift4/harness/run_v4_walkthroughs.sh <regex>  # one row
 test/adrift4/harness/run_v4_walkthroughs.sh --bless  # re-record goldens
 ```
 
-## Second wave (2026-08-10 → 2026-08-11) — 21 games, then PARKED
+## Second wave (2026-08-10 → 2026-08-11) — 22 games, then PARKED
 
 The first wave covered every `.taf` that was in `games/` when it ran. The
 manifest has grown since (issue #119's corpus fetch), so a second pass worked
-**smallest unwired file first** through the ADRIFT 3.8/3.9 leftovers. Twenty-one
-went in; the suite went 203 → **224 rows, 224 PASS**. Same four artefacts per
+**smallest unwired file first** through the ADRIFT 3.8/3.9 leftovers. Twenty-two
+went in; the suite went 203 → **225 rows, 225 PASS**. Same four artefacts per
 game as before: commented `goldens/<name>_solution.txt`, blessed
 `.expected.txt`, a commented row in `harness/run_v4_walkthroughs.sh`, and
 `notes/<Game>_walkthrough.md`.
@@ -64,6 +64,7 @@ game as before: commented `goldens/<name>_solution.txt`, blessed
 | 42,118 | Far From Home | **WON 50/50** |
 | 42,463 | S Tar Dus T | **WON**, richest of four endings; no score anywhere |
 | 43,334 | Diary of a Stripper | **WON 13/13**, best of fourteen ALR endings — **AIF, solution/golden/notes gitignored** |
+| 71,345 | Silk Noil | **WON**; no score. Added after the park, from the author's own walkthrough (see below) |
 
 **AIF in the corpus.** *Diary of a Stripper* is sexually explicit, so its
 solution, golden and notes are gitignored and only its `run_v4_walkthroughs.sh`
@@ -94,44 +95,52 @@ up in full in its own note:
   *Diary of a Stripper*'s two chained events; `z` works, `wait1` does not.
 
 **Parked 2026-08-11 at the user's request.** Nothing is broken and nothing is
-half-finished — the suite is green at 224/224 and every wired game has all four
-artefacts. What remains is 30 unwired `.taf` files, listed below smallest-first.
-Pick up at the top of the list.
+half-finished — the suite is green at 225/225 and every wired game has all four
+artefacts. What remains is **29 unwired `.taf` files, 23 of them v3.90 and 6
+v4.00**, listed below.
 
-| Bytes | File | Title | Note |
-|---|---|---|---|
-| 5,591 | `salutations.taf` | Salutations | English; **missed by the smallest-first sweep — start here** |
-| 19,083 | `iachini.taf` | A Day at the Iachini House | English, Butcher Basic ALR; also missed |
-| 21,775 | `relojero.taf` | La hija del relojero | **Spanish**, version=400 |
-| 44,145 | `The Town Of Azra.taf` | The Town of Azra | |
-| 44,503 | `as.taf` | Asylum | |
-| 44,666 | `Wheel105.taf` | The Wheels Must Turn | |
-| 45,737 | `life.taf` | Life | |
-| 48,764 | `Renuntio.taf` | Renuntio | |
-| 51,820 | `hhorror.taf` | House Of Horror | |
-| 52,248 | `vetknow.taf` | Veteran Knowledge | English; also missed by the sweep |
-| 52,290 | `vetknow2.taf` | Veteran Knowledge [Version 2] | second release of the above |
-| 55,039 | `Richard.taf` | Where Is Richard? | |
-| 56,336 | `losttombv2.taf` | The Lost Tomb | |
-| 59,124 | `Journ2.taf` | The Long Journey Home | |
-| 59,896 | `mudergreatfalls.taf` | Murder In Great Falls | |
-| 63,183 | `Vampire.taf` | The Vampire With A Conscience | |
-| 69,489 | `Merry_Murders.taf` | Merry Murders | |
-| 71,216 | `thewoods.taf` | The Woods Are Dark | |
-| 71,345 | `SILKNOIL.TAF` | Silk Noil | |
-| 74,568 | `Captive.taf` | Captive Universe | |
-| 101,668 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF** |
-| 107,200 | `wonderwombat.taf` | Adventures of Thumper – Wonder Wombat | |
-| 114,698 | `windy.taf` | Camp Windy Lake | **AIF** |
-| 120,335 | `enc2.taf` | Encounter 2: The Study Group | **AIF** |
-| 125,581 | `Buffy Before the Date.taf` | Buffy: Before the Date | **AIF** |
-| 148,447 | `croft.taf` | Lara Croft: The Sun Obelisk | **AIF** |
-| 166,913 | `dr-who-vortex-lust.taf` | Doctor Who and the Vortex of Lust | **AIF** |
-| 191,548 | `windy2.taf` | Camp Windy Lake: Part 2 | **AIF** |
-| 277,834 | `gamma.taf` | The Gamma Gals | **AIF** |
-| 2,928,980 | `Vardock Bates.taf` | Vardock Bates | **Spanish**, version=400, and by far the largest file in the corpus |
+**Two cautions about that list.** *Byte size does not compare across versions*:
+a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
+13,868-byte 4.00 file and the 44,145-byte 3.90 file in the Azra row below are
+the *same game*. And *the smallest-first ordering is by file size, not by game
+size* — read the Ver column before picking. Version comes from the 14-byte
+header signature (`sctaffil.cpp`, `V400_SIGNATURE`/`V390_SIGNATURE`/…), which
+is also what tells 3.80 and 3.70 apart from 3.90; every 3.80 and 3.70 file in
+the manifest is already wired.
 
-**Eight of those thirty are AIF** and will need the *Diary of a Stripper*
+| Bytes | Ver | File | Title | Note |
+|---|---|---|---|---|
+| 5,591 | 4.00 | `salutations.taf` | Salutations | English; **missed by the smallest-first sweep — start here**. Smallest *unwired 3.90* game is `as.taf`, since the Azra row is a duplicate release |
+| 19,083 | 4.00 | `iachini.taf` | A Day at the Iachini House | English, Butcher Basic ALR; also missed |
+| 21,775 | 4.00 | `relojero.taf` | La hija del relojero | **Spanish** |
+| 44,145 | 3.90 | `The Town Of Azra.taf` | The Town of Azra | **the adrift.co release of an already-wired game** — `The_Town_Of_Azra.taf` (4.00, 13,868 bytes, IF Archive) is row `the_town_of_azra_solution.txt`, and the existing route replays on this build too, so this is a second file, not a second game |
+| 44,503 | 3.90 | `as.taf` | Asylum | |
+| 44,666 | 3.90 | `Wheel105.taf` | The Wheels Must Turn | |
+| 45,737 | 3.90 | `life.taf` | Life | |
+| 48,764 | 3.90 | `Renuntio.taf` | Renuntio | |
+| 51,820 | 3.90 | `hhorror.taf` | House Of Horror | |
+| 52,248 | 4.00 | `vetknow.taf` | Veteran Knowledge | English; also missed by the sweep |
+| 52,290 | 4.00 | `vetknow2.taf` | Veteran Knowledge [Version 2] | second release of the above |
+| 55,039 | 3.90 | `Richard.taf` | Where Is Richard? | |
+| 56,336 | 3.90 | `losttombv2.taf` | The Lost Tomb | |
+| 59,124 | 3.90 | `Journ2.taf` | The Long Journey Home | |
+| 59,896 | 3.90 | `mudergreatfalls.taf` | Murder In Great Falls | |
+| 63,183 | 3.90 | `Vampire.taf` | The Vampire With A Conscience | |
+| 69,489 | 3.90 | `Merry_Murders.taf` | Merry Murders | |
+| 71,216 | 3.90 | `thewoods.taf` | The Woods Are Dark | |
+| 74,568 | 3.90 | `Captive.taf` | Captive Universe | |
+| 101,668 | 3.90 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF** |
+| 107,200 | 3.90 | `wonderwombat.taf` | Adventures of Thumper – Wonder Wombat | |
+| 114,698 | 3.90 | `windy.taf` | Camp Windy Lake | **AIF** |
+| 120,335 | 3.90 | `enc2.taf` | Encounter 2: The Study Group | **AIF** |
+| 125,581 | 3.90 | `Buffy Before the Date.taf` | Buffy: Before the Date | **AIF** |
+| 148,447 | 3.90 | `croft.taf` | Lara Croft: The Sun Obelisk | **AIF** |
+| 166,913 | 3.90 | `dr-who-vortex-lust.taf` | Doctor Who and the Vortex of Lust | **AIF** |
+| 191,548 | 3.90 | `windy2.taf` | Camp Windy Lake: Part 2 | **AIF** |
+| 277,834 | 3.90 | `gamma.taf` | The Gamma Gals | **AIF** |
+| 2,928,980 | 4.00 | `Vardock Bates.taf` | Vardock Bates | **Spanish**, and by far the largest file in the corpus |
+
+**Eight of the twenty-nine are AIF** and will need the *Diary of a Stripper*
 treatment when they are wired — gitignore the solution, the golden and the
 notes, commit the row alone. Measured, not guessed: de-obfuscating each `.taf`
 and counting explicit vocabulary gives `gamma.taf` 1416, `dr-who-vortex-lust`
@@ -139,6 +148,14 @@ and counting explicit vocabulary gives `gamma.taf` 1416, `dr-who-vortex-lust`
 `Buffy Before the Date` 339, against 0 for every other unwired file (bar three
 incidental hits in `wonderwombat.taf`). They are marked **AIF** in the table
 above.
+
+**Check the game's own zip before deriving anything.** *Silk Noil* was wired
+after the park because its author shipped a ten-command walkthrough inside
+`sn_zip.zip`; it is now `downloaded/SilkNoil_walkthrough.txt`. The
+`downloaded/` harvest only covered walkthroughs IFDB links to, so a bundled
+`*walk*.txt`, `*.sol` or `readme` in the game's own archive is a free oracle
+that the harvest will have missed. `~/Downloads/More Adrift games/` holds the
+unpacked archives.
 
 Regenerate the unwired list at any time with a set difference between the second
 field of every non-comment row in `harness/run_v4_walkthroughs.sh` and the
@@ -152,7 +169,7 @@ generations.
 |---|---|
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
-| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 176 of them |
+| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 177 of them |
 | Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |
 

@@ -1,0 +1,47 @@
+# Silk Noil (SILKNOIL.TAF) -- ADRIFT 3.90 Release 19, by Heal Butcher,
+# 1 Sep 2001, ADRIFT Miniature Competition Summer 2001.  4 rooms, 2 NPCs,
+# 259 tasks, 9 events, 2 variables.
+#
+# Result: WIN ("Congratulations!").  There is NO score -- the author's own
+# `score` task answers "There is no score for this game." -- so the win is
+# the whole of the goal, and this is the author's own walkthrough
+# (downloaded/SilkNoil_walkthrough.txt, shipped inside sn_zip.zip) replayed
+# verbatim.  Ten commands, no alternatives, no waitkeys, no name prompt.
+#
+# The whole game is TWO STAGED COUNTERS.  Each is four non-repeatable tasks
+# sharing one command, gated on a variable the previous one set, so the Nth
+# identical command matches the Nth task -- the game answers a different way
+# every time and the fourth answer advances the plot:
+#     T11..T14  `get key`   in room 1  (var0: -1 -> 0 -> 1 -> 2)
+#               T13 sends the tiny women crawling over the King;
+#               T14 is thrown out of the maze -> room 2, King follows.
+#     T7..T10   `pull bolt` in room 2  (var1: -1 -> 0 -> 1 -> 2)
+#               T10 drops the King on the flagstones, puts obj17 [key] in
+#               your hands and moves you to room 3.
+# Nothing else is needed and nothing can be done out of order: T8/T9/T10 each
+# carry `RESTR type=4` on the value its predecessor wrote, and every one of
+# the eight is also room-locked.
+#
+# THE ENDING is T0 `unlock door` (ALTCMDs `unlock * door with * key` and
+# `open * door with * key`), room 3, one restriction -- `RESTR type=0` holding
+# obj17 [key] -- and one action, `ACT type=6 v1=0`, EndGame WIN.
+#
+# THE MAP: 0 In Silk Tunnel  -U->  1 Hanging with the Silk King, and from
+# there the game moves you: T14 -> 2 In Silk Tunnel (Again), T10 -> 3 By the
+# Green Door.  N/S in room 0 loop back to room 0 (the Tunnel is endless), so
+# `up` is the only real exit in the game.
+#
+# The 259 tasks are not puzzle content: all but a dozen are the author's
+# custom refusals for verbs typed at the wrong thing (`break me with
+# %object%`, `buy %character% with me`, ...).  Silk Noil is a Miniature Comp
+# entry that spends its whole budget on responses.
+up
+get key
+get key
+get key
+get key
+pull bolt
+pull bolt
+pull bolt
+pull bolt
+unlock door with key

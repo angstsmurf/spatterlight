@@ -1,0 +1,148 @@
+Loading game...
+
+Silk Noil
+Short Short Interactive Fiction: ADRIFT Miniature Competition: Summer, 2001
+Copyright © 2001 Heal Butcher <healbutcher@hotmail.com>
+Version 1.0 / ADRIFT 3.90 Release 19
+For Anita
+
+First-time players should type, "about"
+
+In Silk Tunnel
+In Silk Tunnel
+Silks and sailcloths of every shade of orange hang low over the promenade,
+crowding the long stretch of the ceiling like oversized gonfalons.  Lampposts
+pierce and crack the flagstones underfoot, and elevated lanterns glow hazily
+through fat baroque braids and fabrics as thin as beetles' wings, filling the
+north-south corridor with a dusty orange light.  Mercantile booths crouch
+unsteadily beneath the low draperies on irregular flagstones, congregating in
+dense knots along the walls or cutting thin queues down the center of the
+Tunnel.  Automations gesticulate rigidly behind counters spattered with oil
+and paraffin, hawking piece goods and peculiar commodities: genital perfumes,
+olives and cheeses in various states of tasteful decay, insects, lubricants,
+cosmetic powders.  Each booth contains the same selection of products with
+little variation, as if a single commerce program were assigned to the
+automatons collectively.  Tiny shadows scurry about in the deeper shadows and
+textile detritus between the booths.  Motes of dust wander in the air like
+subaqueous driftage.  Loose threads lie along the grout and in the spaces
+that separate the flagstones.
+The Tunnel is not crowded with overeager buyers, and the few customers that
+wander about appear to vibrate like the rapid flitter of hummingbirds' wings,
+grey and black figures smudged into the air with peculiar smoke.
+
+>You climb up awkwardly into the hanging forest of fabrics, grappling sturdy
+sailcloths and worming upwards from one oversized bolt to the next.  The soft
+orange walls undulate gently with your passage.  Silks as light as smoke
+swirl about like eels.  Lanterns are distant glows behind the layers, a queue
+of hazy orange globes running through the guts of this maze.  The walls
+appear to bend and close around you like the shells of an oyster.  You climb
+and wriggle your way along the maze, squeezing through the tight spaces
+between bolts.  It doesn't take long to find the King.
+Hanging with the Silk King
+Hanging with the Silk King
+This place is a clearing of sorts in the hanging maze, a huge cylinder of a
+space that extends down to expose the Tunnel's promenade far below.  The
+clearing is ceilinged with hanging bolts of fabric.  You cling to a sailcloth
+along the periphery like a drowning child.
+The Silk King is a bloated testicle of a man, his naked form girdled in bolts
+of blue fabric, contrasting vividly against the orange light, and suspended
+from the textile ceiling in the center of the clearing.  A silver tray of
+roasted beetles hangs beside the King.
+
+>(You would like to have that key, indeed.  But the grotesque presence of the
+Silk King makes you hesitate.  If you don't first succeed...)
+
+>(And the task of obtaining the key presents a severe problem of
+accessibility, as the King is suspended in the middle of the clearing.)  You
+fidget nervously.
+Reclining in his harness, the King takes a pinch of roasted beetles from his
+tray, sprinkles the delicacy onto his outstretched tongue, and commences to
+chew noisily, his jowls quivering in salivary delight.  The movement reveals
+a glittering key at his throat, hanging from a thin chain.
+
+>The Silk King regards you suspiciously.  Several tiny flesh-colored
+somethings begin to crawl over his naked bulk like spiders.  "What are you up
+to, little one?" he says warningly.  The somethings are tiny women, you
+realize, unclothed creatures traversing the grotesque geography of the Silk
+King.  You suddenly feel extremely vulnerable, hanging high above the
+promenade.  "Say hello to the little one, little ones."
+
+>"You're not a paying customer!" the Silk King cries, clutching the key in a
+tight fist.  He floats away from you, carried by his hanging girdle of blue
+fabrics to the far end of the clearing, where he squeezes out of his harness
+and into a tight orifice between textiles.  You hear giggles and a terrible
+tearing noise from above, and everything falls upward suddenly.  You lean
+back instinctively, throwing your arms above and behind you in an attempt to
+grab ahold of the rapidly ascending wall of fabrics.  Unfortunately, this is
+quite difficult, as you have thrown yourself into a backwards somersault.
+Furthermore, you seem unable to release the textile vine that had supported
+you moments ago.  You spin down along the side of the clearing, the streamer
+of fabric following your dizzying descent.  Somewhere in the back of your
+mind you know this to be a terrific show.  You feel the insteps of your feet
+whap against the wall of fabrics with each somersault.  You lift your toes
+up, curling your feet into hooks.  Your eyes nearly fall out of your head
+when everything stops moving and stays upside-down, your feet hooked firmly
+in the hanging wall.  You squeeze awkwardly into the wall and stumble
+downward through the tight pockets of the textile maze, until you are
+disgorged unceremoniously onto the promenade...
+In Silk Tunnel (Again)
+In Silk Tunnel (Again)
+Silks and sailcloths of every shade of orange hang low over the promenade,
+crowding the long stretch of the ceiling like oversized gonfalons.  Lampposts
+pierce and crack the flagstones underfoot, and elevated lanterns glow hazily
+through fat baroque braids and fabrics as thin as beetles' wings, filling the
+north-south corridor with a dusty orange light.  Mercantile booths crouch
+unsteadily beneath the low draperies on irregular flagstones, congregating in
+dense knots along the walls or cutting thin queues down the center of the
+Tunnel.  Automations gesticulate rigidly behind counters spattered with oil
+and paraffin, hawking piece goods and peculiar commodities: genital perfumes,
+olives and cheeses in various states of tasteful decay, insects, lubricants,
+cosmetic powders.  Each booth contains the same selection of products with
+little variation, as if a single commerce program were assigned to the
+automatons collectively.  Tiny shadows scurry about in the deeper shadows and
+textile detritus between the booths.  Motes of dust wander in the air like
+subaqueous driftage.  Loose threads lie along the grout and in the spaces
+that separate the flagstones.  You notice a bolt of blue fabric hanging among
+the textiles overhead; it is a startling pigment in a sea of orange.
+The Tunnel is not crowded with overeager buyers, and the few customers that
+wander about appear to vibrate like the rapid flitter of hummingbirds' wings,
+grey and black figures smudged into the air with peculiar smoke.
+The Tunnel is not crowded with overeager buyers, and the few customers that
+wander about appear to vibrate like the rapid flitter of hummingbirds' wings,
+grey and black figures smudged into the air with peculiar smoke.
+
+>A muffled whimper is heard somewhere overhead as you pull gently on the bolt
+of blue fabric.
+
+>A low, muffled moan is heard somewhere overhead as you pull firmly on the
+bolt of blue fabric.
+
+>A muffled grumble is heard somewhere overhead as you pull hard on the bolt of
+blue fabric: "Who is pulling on my testicles?"
+
+>Delightfully, you grasp the bolt of blue fabric with both hands and swing
+from it.  You disengage from the bolt and back away quickly from the sound of
+something big tumbling about overhead like an elephant.  A bloated testicle
+of a man comes crashing and cursing out of the hanging fabrics, landing with
+a fleshy impact on the promenade.  The Silk King moves weakly on the cracked
+flagstones, his eyes staring blankly into the space above him.  Bolts of blue
+fabric frame his crumpled form.  The Silk King moans as several loose threads
+in the flagstones wriggle alive and elongate, leaping up like thin snakes and
+crisscrossing over his nude body.  You quickly snatch the key from the King's
+neck.  He is soon covered in something like a thin cocoon.
+
+There is but one last thing to do...
+
+By the Green Door
+By the Green Door
+This is the end of the Tunnel, and it is dark here.  And quiet.  The green
+door awaits, luminous, lending a chlorophyll tinge to the darkness.
+
+>The green door opens, and a bloated testicle of a man oozes into the room.
+
+"Ah, not again!" he says.  "Get back in that Tunnel and be a good customer
+like the rest of them, will you?"
+
+The Silk King sprays his crotch liberally with a perfume that soon befouls
+the entire area.
+Congratulations!

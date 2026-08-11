@@ -1424,6 +1424,16 @@ stardust_solution.txt|S_Tar_Dus.taf|You decide to go with the plant lady and
 # that a command the parser REJECTS does not advance the turn counter, so
 # gibberish padding never makes a timed event fire.
 diarystrip_solution.txt|diarystrip.taf|You earn a huge tip and the ladies are all in love with you
+# Silk Noil: the author's own 10-command walkthrough (shipped in sn_zip.zip,
+# kept as downloaded/SilkNoil_walkthrough.txt) replayed verbatim.  No score at
+# all -- the game's `score` task says so outright -- so "Congratulations!" is
+# the whole goal.  Worth a row because it is the corpus's cleanest example of
+# a STAGED COUNTER: `get key` x4 and `pull bolt` x4 are each four
+# non-repeatable tasks sharing one command, chained on a variable
+# (`RESTR type=4` on the value its predecessor wrote), so the Nth identical
+# command matches the Nth task and only the fourth advances the plot.  Its
+# other 250-odd tasks are custom refusals, not puzzles.
+silk_noil_solution.txt|SILKNOIL.TAF|Congratulations!
 EOF
 }
 
