@@ -1407,6 +1407,90 @@ FILTER="${1:-}"
 # sink turns from ceramic to stone.  No engine change, no route change; the pair
 # is a free before/after fixture for authored-text drift across a rebuild.
 #
+# (2026-08-11) THE REMAINING 17 ALTERNATE BUILDS WIRED (see the "Alternate
+# builds are pinned as their own rows" table in test/GAMES.md).  Each is a
+# second (or third) release of a game the corpus already covers, pinned by
+# sha256 in the manifest but until now never replayed.  The point of the rows
+# is that a build the author rebuilt is a free differential fixture: the route
+# either replays unchanged -- proving the rebuild changed no mechanics -- or it
+# does not, and WHY it does not is the finding.
+#
+# FOURTEEN replay their parent's route VERBATIM at MATCH 0|0, golden-backed:
+# AlyasOfStarhollow (AoS), EdithsCatsUpstream, FinnsBigAdventureV7,
+# GrandmasFlyingSaucerWin/Web/Src (three exports of one game),
+# GrandpasRanchV5/V5Online/V5Src, HalloweenTaf (the .taf twin of the blorb),
+# LMKIFComp2017, Skybreak13, SonOfCamelotIFA, SymphonicaTaf, TributeV1.
+# GrandmasFlyingSaucer* and GrandpasRanch* are the strongest of these: a
+# Windows-Runner export, a WebRunner export and the raw .taf source all load
+# through the same path and produce byte-identical transcripts.
+#
+# THREE needed work, and two of them paid for themselves:
+#
+# (1) SonOfCamelotIFA (the IF-Archive release of SonOfCamelot) needs THREE
+# route edits, all in one puzzle: the closet in the parent build is open, in
+# this build it is shut.  `open closet` / `enter closet` / `close closet` --
+# and the door must be shut again before `down`, or the descent hits "Thud!
+# Your face has a painfully encounter with the back wall" and the gold behind
+# it is lost ("if you had only found the treasure").  The two extra turns then
+# shift the Megan timer, so two `z` waits come back out to keep the endgame
+# `tell megan about merlin` in range.  MATCH 0|0.
+#
+# (2) JacarandaJim2011 (the 2011 release, file version 5.000019) DID NOT LOAD
+# AT ALL, and fixing that fixed a general engine bug behind it.
+#
+#   (a) Its blorb Exec payload is PLAIN deflate where every other blorb in the
+#   corpus is obfuscated, so the loader scrambled it and inflate failed.  The
+#   old rule "a Blorb Exec chunk is obfuscated regardless of layout" was wrong:
+#   the runner decides from the Blorb METADATA, not the layout (FileIO.vb:751,
+#   `bDeObfuscate = clsBlorb.MetaData Is Nothing OrElse
+#   MetaData.OuterXml.Contains("compilerversion")`).  A blorb the ADRIFT
+#   Generator wrote carries <compilerversion> in its iFiction and is
+#   obfuscated; one with no IFmd chunk at all (Skybreak 1.3) is obfuscated;
+#   one rewrapped with a Babel-written IFmd (this game) is not.  a5model.cpp
+#   and the a5dump harness now both mirror that, via a5blorb_find_metadata.
+#
+#   (b) Once loaded, `get all` in the quarry answered "Okay.  I have taken the
+#   glacier, the bus, the buzzards and the hole." -- Scarier was picking up the
+#   scenery.  The 2011 Generator serialises a property restriction WITHOUT its
+#   comparison operator: `StaticOrDynamic ReferencedObjects Must Dynamic`,
+#   where a modern build writes `... Must EqualTo Dynamic`.  The runner tests
+#   element 3 against the VariableEnum names and, when it is none of them,
+#   defaults the operator to EqualTo and reads the value THERE instead
+#   (FileIO.vb:593); Scarier read "Dynamic" as an unknown operator and fell to
+#   the lenient always-pass tail, so the Take library task's static guard never
+#   fired.  Fixed in a5restr.cpp pass_property.  This is a GENERAL fix -- every
+#   pre-5.0.20 game in the corpus was passing those restrictions blind.
+#
+#   The row budgets 37|0.  xoshiro 0 is the real result (every line conforms);
+#   the vanilla 37 is the same System.Random-vs-xoshiro class as the parent
+#   JacarandaJim row (Alan's random "Alan looks smug." interjections), so no
+#   golden -- the parent's own budget is 99 for the identical reason.
+#
+# (3) AlienDiverV13 budgets 0|26, and is the one row that pins a real
+# divergence rather than closing one.  Its 99-command route is NOT the v15
+# route: the crafting-cube dice stream differs, so the route was re-derived
+# (repeat `rd` until the cube unlocks; shift the stream with free `look` turns
+# so the rolls FAIL, since each failure is +1 crafting fragment and leaves the
+# cube active to craft upon; `play card on cube` where v15 takes `pc`).  It
+# reaches "*** You have won ***" in 1504 lines.  The 26 residual hunks are two
+# cosmetic classes, both from v13-only model shapes: 14 x an extra "Sorry, I'm
+# not sure which object you are trying to #." that FD does not emit, and 12 x
+# `"Playable Card"` where FD renders `Playable Card` -- the game sets the card's
+# noun with `SetProperty ReferencedObject _ObjectNoun "Playable Card"`, a
+# quoted string expression, onto a property the v13 object does not yet carry,
+# and Scarier's add-branch stores such a value raw (the runner's own
+# add-branch behaviour) instead of evaluating it.  Left as a budgeted DIVERGE.
+#
+# Skybreak13Win is new rather than an adaptation: Skybreak13 (the smoke row)
+# shares its parent's script, but the FULL WIN could not.  Character creation
+# needs talent `19` instead of `16` (the talent list grew, shifting every index
+# past the insertion point), and the last 1/1/4 story cargo has to be gathered
+# by touring systems because the parent's Ghooric-zone rolls fall differently
+# on 1.3.  106 new commands, derived the same way as the parent (a disposable
+# depth-3 greedy DFS over the menu options); the one non-obvious mechanic is
+# that the ship refuses to launch until the game reports "the currents have
+# shifted", which is what stalls a naive `c`/`l` spammer.  MATCH 0|0.
+#
 # OS (PlugIn.Exe) budgets 0|1.  (Vanilla is a golden diff once a golden exists,
 # so its column is 0 even though a direct FD vanilla run diverges in ~20 places
 # -- pure blackjack RNG noise.)  The single xoshiro hunk is architectural.
@@ -1479,7 +1563,11 @@ RtC|RtC.blorb|0|0
 TreasureHuntInTheAmazon|TreasureHuntInTheAmazon.blorb|0|0
 StoneOfWisdom|StoneOfWisdom.blorb|2|0
 GrandpasRanch|Grandpa_ParserComp_V1.blorb|0|0
+GrandpasRanchV5Src|GrandpaV5sourcecode.taf|0|0
+GrandpasRanchV5Online|GrandpaRanchV5playonline.blorb|0|0
+GrandpasRanchV5|GrandpaRanchV5.blorb|0|0
 JacarandaJim|JacarandaJim.blorb|99|0
+JacarandaJim2011|JacarandaJim_2011.blorb|37|0
 SixSilverBullets|SixSilverBullets.blorb|18|0
 SixSilverBulletsTruth|SixSilverBullets.blorb|111|0
 PathwayToDestruction|PathwayToDestruction.blorb|0|0
@@ -1492,9 +1580,13 @@ DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 DwarfOfDirewoodForestDDF|DDF.blorb|0|0
 BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|0
 Tribute|Tribute.blorb|0|0
+TributeV1|TributeReturnToCoS.blorb|0|0
 AoS|AoS v.4.blorb|0|0
+AlyasOfStarhollow|AlyasOfStarhollow.blorb|0|0
 FinnsBigAdventure|FBA v.3c.blorb|0|0
+FinnsBigAdventureV7|FBA v.7.blorb|0|0
 Halloween|Halloween.blorb|0|0
+HalloweenTaf|Halloween.taf|0|0
 MagorInvestigates|MI_v.1.blorb|0|0
 MagorInvestigatesV3|MI_v.3.blorb|0|0
 MuseumHeist|MuseumHeist.blorb|0|0
@@ -1507,21 +1599,29 @@ Tingalan|Tingalan.blorb|0|0
 TingalanTrue|Tingalan.blorb|0|0
 BookOfJax|BoJ v.2.blorb|0|0
 GrandmasFlyingSaucer|GFS_Frankendrift.blorb|0|0
+GrandmasFlyingSaucerWin|GFS_Windows.blorb|0|0
+GrandmasFlyingSaucerWeb|GFS_WebRunnerC.blorb|0|0
+GrandmasFlyingSaucerSrc|GFS_SourceCode.taf|0|0
 TheGardenParty|TheGardenParty.blorb|0|0
 TheDeadOfWinter|TheDeadOfWinter.blorb|0|0
 LostCoastlines|Lost_Coastlines.taf|0|0
 Skybreak|Skybreak.taf|0|0
+Skybreak13|Skybreak_1.3.blorb|0|0
 SkybreakWin|Skybreak.taf|0|0
+Skybreak13Win|Skybreak_1.3.blorb|0|0
 ISummonThee|ISummonThee.taf|5|0
 BeThere|BeThere.taf|0|0
 SonOfCamelot|SoC.blorb|0|0
+SonOfCamelotIFA|SoC_ifarchive.blorb|0|0
 AlienDiver|AlienDiver.blorb|0|0
+AlienDiverV13|AlienDiver_V13.blorb|0|26
 AlgernonsConundrum|AlgernonsConundrum.blorb|0|0
 AllThroughTheNight|AllThroughTheNight.blorb|0|0
 AnAdventurersBackyard|AnAdventurersBackyard.blorb|0|0
 GalensQuest|GalensQuest.blorb|0|0
 JustAnotherFairyTale|JustAnotherFairyTale.blorb|0|0
 LMKversion3|LMKversion3.blorb|0|0
+LMKIFComp2017|LMK_IFComp2017.blorb|0|0
 Snowdrift|SnowdriftV1.taf|0|0
 TheMysteriousSpaceship|TMSr2.blorb|0|0
 TheTartarusProject|TTP.blorb|0|0
@@ -1579,6 +1679,7 @@ SpaceDetective6|SpaceDetective6.blorb|0|0
 SpaceDetective7|SpaceDetective7.blorb|0|0
 ReturnToCastleCoris|ReturnToCastleCoris.blorb|0|0
 EdithsCats|edithscats.taf|0|0
+EdithsCatsUpstream|edithscats_upstream.taf|0|0
 BirthOfThePhoenix|PhoenixV3.blorb|0|0
 Jabberwocky|jabberwocky4.21.blorb|0|0
 TempusFugit|Tempus Fugit2.taf|0|1
@@ -1590,6 +1691,7 @@ DigitalRoots|DigitalRoots_v2.blorb|0|0
 QuestGiver|QuestGiver_v4.blorb|0|0
 Penrhyn|Penrhyn_The Burning Sky_v2.blorb|0|0
 Symphonica64|symphonica.blorb|0|0
+SymphonicaTaf|symphonica.taf|0|0
 4rooms|4rooms.blorb|0|0
 BookBuildingTutorial|Book building tutorial.taf|0|0
 AnswerGame|answer game.taf|0|0

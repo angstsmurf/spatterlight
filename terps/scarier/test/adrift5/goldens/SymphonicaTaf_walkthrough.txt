@@ -1,0 +1,2238 @@
+code 348783654876
+zone wastelands
+take storybook
+zone symphonica
+East
+South
+West
+West
+North
+North
+East
+North
+North
+give storybook to pirate
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+North
+West
+West
+South
+East
+North
+North
+North
+West
+South
+take deal
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+West
+South
+give deal to follinator
+North
+East
+North
+take rampack
+South
+East
+East
+East
+South
+East
+South
+East
+East
+East
+East
+South
+West
+give rampack to hibbett
+zone wastelands
+South
+South
+West
+West
+West
+take edge
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+East
+give edge to tim
+zone symphonica
+East
+South
+West
+West
+West
+West
+take drum
+East
+East
+East
+East
+North
+give drum to ben
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+West
+West
+West
+South
+South
+South
+South
+East
+take scarf
+West
+North
+North
+North
+North
+East
+East
+East
+South
+West
+give scarf to crispy
+take shades score
+zone oriental
+East
+South
+East
+East
+North
+West
+West
+South
+take missile
+North
+East
+East
+South
+South
+West
+give missile to tentacle
+take guybrush score
+zone fantasy
+take cheesecake
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+North
+North
+East
+East
+give cheesecake to stesher
+take capes score
+zone fantasy
+North
+North
+North
+North
+attack gari with bow
+take renegade score
+West
+West
+West
+South
+South
+South
+take kentilla score
+North
+North
+North
+East
+East
+East
+South
+West
+South
+West
+South
+West
+South
+take deflektor score
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+North
+take siddery
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+South
+South
+give siddery to knights
+take bell score
+code 56F6G7EF
+zone wastelands
+North
+West
+squeeze blue chicken
+take egg
+break blue egg
+zone oriental
+East
+South
+West
+South
+East
+East
+South
+South
+West
+North
+take firebird
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+West
+West
+West
+South
+West
+West
+South
+South
+West
+South
+West
+put firebird in dryer
+take feather
+use feather on blue ink
+East
+South
+sign vague contract with quill pen
+give contract to ninja
+zone desert
+West
+South
+West
+North
+North
+West
+West
+North
+East
+East
+East
+North
+West
+West
+West
+take token
+South
+give token to paul
+zone desert
+West
+South
+South
+West
+West
+West
+take weapon
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+West
+West
+West
+West
+South
+West
+attack victim with weapon
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+North
+take note
+zone wastelands
+East
+North
+use rude note on crt
+zone desert
+West
+South
+West
+North
+North
+East
+East
+East
+East
+East
+take undiscovered sid
+zone desert
+West
+South
+West
+North
+North
+East
+East
+get music roll from rick
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+East
+get miami vice score from squad
+West
+West
+West
+North
+wave at sidwave
+South
+East
+East
+North
+North
+North
+West
+West
+North
+West
+West
+West
+West
+South
+West
+give germ to victim
+take germ score
+zone wastelands
+South
+South
+West
+West
+South
+South
+West
+West
+take steve turner
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+West
+West
+West
+South
+South
+South
+South
+West
+give steve turner to steve
+zone desert
+East
+South
+East
+North
+East
+East
+East
+South
+West
+Down
+South
+take dirty trousers
+zone oriental
+give dirty trousers to archie
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+West
+West
+West
+South
+South
+South
+South
+West
+give soggy trousers to steve
+East
+North
+North
+North
+North
+East
+East
+East
+North
+North
+North
+West
+West
+South
+West
+West
+South
+South
+East
+North
+give white trousers to sam
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+North
+North
+East
+East
+give red trousers to karateka
+get ik score from pot plant
+i
+West
+West
+South
+West
+West
+South
+East
+North
+North
+North
+West
+take trophy
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+South
+West
+give trophy to filipp
+East
+North
+East
+South
+East
+East
+East
+East
+East
+North
+give unicorn to tel
+take cybernoid score
+zone desert
+East
+South
+East
+North
+East
+East
+East
+South
+South
+South
+West
+South
+take thing
+zone wastelands
+give thing to mat
+East
+North
+give sid chip to landroid
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+North
+take duck
+zone desert
+West
+South
+South
+West
+West
+South
+East
+East
+East
+give duck to toni
+zone oriental
+East
+South
+East
+give duck to dog
+take hunting score
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+North
+take bovver remover
+zone fantasy
+North
+North
+North
+West
+South
+West
+North
+West
+use bovver remover on bovver
+take hovver
+mow grass
+zone desert
+West
+South
+West
+West
+North
+West
+give camel to jeff
+take egyptienne score
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+West
+West
+West
+West
+North
+take wibbles-r-us
+South
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+South
+South
+South
+South
+East
+East
+North
+give wibbles-r-us to ben
+South
+West
+West
+North
+North
+East
+East
+South
+South
+show wibbles-r-us to mart
+take loader score
+zone fantasy
+North
+take spade
+zone desert
+East
+South
+East
+North
+East
+East
+East
+South
+South
+West
+West
+dig doug
+zone fantasy
+North
+North
+North
+West
+dig dirt
+take remix
+South
+South
+South
+talk to trev
+wear portrait
+zone symphonica
+East
+South
+West
+West
+North
+North
+East
+East
+North
+talk to rob
+take delta score
+get moustache from rob
+talk to rob
+take soundtrack
+South
+South
+South
+give moustache to mart
+North
+North
+West
+West
+South
+South
+East
+East
+North
+take joint
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+West
+West
+West
+South
+West
+North
+take organ
+South
+East
+North
+East
+East
+East
+East
+North
+East
+East
+East
+South
+South
+East
+East
+North
+put joint on stand
+put organ on stand
+play geoff capes score on organ
+take barrel
+South
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+give barrel to gorilla
+take kondo score
+take giana score
+zone symphonica
+East
+South
+West
+West
+North
+North
+East
+East
+North
+play geoff capes score on organ
+take barrel
+South
+West
+West
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+West
+West
+West
+West
+South
+West
+attack victim with barrel
+East
+South
+South
+East
+North
+North
+East
+South
+talk to mike
+take blank score
+North
+East
+North
+East
+East
+East
+South
+West
+give blank score to patrick
+East
+North
+West
+West
+West
+South
+West
+South
+give rough score to mike
+North
+East
+North
+East
+East
+East
+South
+East
+take orchestra
+West
+South
+West
+South
+South
+South
+South
+West
+South
+give orchestra to uncle art
+take frontier score
+North
+East
+North
+North
+North
+North
+North
+North
+West
+West
+North
+West
+West
+West
+West
+South
+West
+get auto from victim
+East
+North
+East
+East
+East
+East
+East
+East
+East
+South
+East
+South
+East
+East
+North
+use auto on piano
+South
+West
+West
+North
+West
+West
+West
+West
+South
+West
+West
+South
+South
+East
+North
+get commpendibun from sam
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+South
+West
+West
+take glasses
+East
+East
+North
+North
+North
+North
+West
+South
+West
+South
+East
+take zx81
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+West
+West
+open thompson
+take medal
+open medal
+zone symphonica
+East
+South
+West
+West
+South
+South
+South
+give auto to penn
+East
+South
+give commpendibun to gaz
+give zx81 to gaz
+give medal to gaz
+zone wilderness
+East
+South
+South
+South
+South
+South
+give glasses to biker
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+South
+West
+put crisps in bowl
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+West
+West
+North
+West
+West
+South
+East
+take psyclapse
+West
+North
+East
+East
+South
+East
+East
+South
+West
+West
+West
+North
+North
+North
+North
+North
+North
+give psyclapse to mat
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+South
+West
+get foot from ledge
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+West
+West
+West
+West
+South
+West
+attack victim with foot
+East
+North
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+open war
+get platoon from war
+take war
+West
+South
+South
+West
+South
+South
+West
+South
+give war to jops
+take fodder score
+North
+North
+North
+East
+East
+East
+South
+South
+talk to mart
+North
+North
+West
+West
+South
+South
+West
+South
+give wizballs to jops
+take high score
+zone desert
+West
+South
+West
+North
+North
+West
+West
+West
+West
+North
+take 476 droid
+zone wilderness
+East
+East
+South
+South
+South
+East
+East
+North
+take 999 droid
+drop 476 droid
+take uridium score
+zone desert
+West
+South
+West
+North
+North
+West
+West
+West
+West
+North
+drop 999 droid
+take paradroid score
+zone wastelands
+South
+South
+South
+South
+take hamster
+zone fantasy
+North
+North
+North
+North
+North
+West
+take lettuce
+zone oriental
+East
+South
+West
+South
+East
+East
+South
+South
+South
+West
+put hamster in microwave
+give lettuce to hamster
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+West
+West
+South
+zone oriental
+East
+South
+East
+East
+South
+West
+pull cow
+East
+North
+West
+West
+West
+South
+East
+East
+South
+zone wastelands
+South
+South
+South
+South
+South
+take spring
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+give spring to thing with no spring
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+West
+West
+South
+take spring score
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+drop doom
+take doom score
+zone desert
+East
+take mule score
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+West
+West
+North
+take cauldron score
+South
+West
+South
+South
+South
+West
+South
+East
+take wizmore
+West
+North
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+East
+North
+open sofa
+take hubbard score
+give wizmore to team
+take soccer score
+South
+West
+West
+South
+South
+West
+South
+take stew
+North
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+South
+East
+put stew in cauldron
+take sensible score
+West
+North
+North
+North
+West
+West
+North
+West
+West
+West
+West
+South
+West
+give offer to victim
+East
+North
+East
+East
+East
+East
+South
+East
+East
+South
+South
+South
+West
+West
+North
+give money to grannell
+South
+West
+South
+South
+South
+South
+West
+get turner from steve
+zone wastelands
+West
+West
+give apple to not dizzy
+take dizzy score
+use turner on jobs
+get apple score from woz
+dig sand
+take remix
+Up
+zone fantasy
+North
+North
+North
+look
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+West
+West
+West
+take atari 400
+zone desert
+East
+South
+East
+North
+East
+East
+East
+South
+South
+South
+West
+talk to chris
+give atari 400 to chris
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+North
+i
+use turner on steve
+look
+talk to steve
+zone wilderness
+North
+North
+examine garou
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+North
+West
+West
+South
+East
+North
+North
+North
+West
+North
+North
+East
+East
+get hydrax score from doggie
+zone symphonica
+East
+South
+South
+take concept
+zone wastelands
+North
+West
+give concept to salesman
+West
+talk to amstrad user
+East
+East
+In
+take amstrad game score
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+North
+play gilligan's gold score on piano
+take gold
+zone desert
+West
+South
+South
+West
+West
+drop gold
+take lullaby
+zone fantasy
+North
+North
+North
+West
+South
+West
+South
+West
+South
+take 80s loop
+zone fantasy
+North
+North
+North
+West
+South
+South
+take gold-singing lesson
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+West
+West
+North
+give loop to bandau spallet
+give lesson to bandau spallet
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+give single to euronator
+zone desert
+West
+South
+West
+North
+North
+West
+West
+West
+take synth
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+South
+South
+East
+North
+give synth to conz
+zone symphonica
+take hubbard flute
+wear moustache
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+West
+West
+West
+South
+West
+West
+South
+South
+East
+East
+East
+East
+South
+play hubbard flute
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+North
+West
+West
+South
+East
+North
+North
+North
+West
+North
+North
+East
+East
+talk to moon
+zone desert
+West
+South
+West
+North
+North
+West
+West
+West
+West
+give matt the moustache
+take sanxion sid
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+West
+West
+West
+South
+West
+give andy the sanxion sid
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+West
+West
+West
+West
+South
+West
+give waz the code
+zone symphonica
+East
+give fastloaders the code of the ninja
+give fastloaders the playlist
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+West
+West
+North
+West
+West
+South
+East
+take bandersnatch
+zone wastelands
+give mat the bandersnatch
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+East
+give executive the zorkmid
+North
+take score
+zone wastelands
+West
+West
+take droid
+zone wilderness
+East
+North
+East
+East
+use 001 droid on his droid
+zone wilderness
+East
+North
+East
+give man the obedient droid
+zone desert
+West
+South
+West
+North
+North
+East
+East
+East
+East
+East
+give geezer the crook
+North
+take remix
+zone oriental
+East
+South
+East
+East
+North
+West
+West
+South
+South
+take atoms
+zone desert
+East
+South
+East
+North
+East
+East
+East
+South
+South
+South
+West
+West
+West
+give atombender the atoms
+attack atombender with flangehammer
+South
+take c2n
+press play on tape
+talk to ppot
+zone fantasy
+North
+North
+take crazy mayhem
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+West
+West
+West
+South
+West
+put crazy mayhem on pedestal
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+South
+South
+East
+attack knight with poster
+look
+take score
+zone fantasy
+North
+North
+North
+West
+South
+South
+South
+South
+South
+South
+East
+take crown
+zone fantasy
+North
+North
+North
+West
+South
+West
+give lords the crown
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+North
+use clock on boz
+zone symphonica
+East
+South
+West
+give idiot the voiceover
+South
+take score
+zone wilderness
+talk to whit taker
+take torso
+zone wilderness
+North
+North
+give grues the torso
+take dung
+zone wastelands
+South
+South
+West
+West
+West
+take seeds
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+West
+West
+South
+West
+West
+West
+North
+North
+North
+put seeds on patch
+put contract on patch
+take ninja score
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+South
+West
+North
+West
+West
+West
+West
+West
+West
+West
+West
+take clivey portrait
+zone wastelands
+give clive the clivey portrait
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+take mario
+zone wastelands
+North
+West
+West
+take mole
+zone oriental
+East
+South
+East
+East
+North
+East
+East
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+attack spider with foot
+take arachnid
+zone oriental
+East
+South
+East
+East
+South
+West
+pull cow
+take marshmallow
+zone fantasy
+North
+North
+North
+North
+West
+take frog
+zone desert
+West
+South
+South
+West
+West
+West
+South
+give matt the book
+South
+West
+take underground diamond
+North
+attack willy with foot
+take willy
+zone desert
+West
+South
+South
+West
+West
+South
+East
+East
+East
+East
+North
+zone wilderness
+South
+South
+South
+South
+South
+West
+West
+North
+North
+North
+give rockford the underground diamond
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+South
+South
+South
+West
+South
+put boulder on gribblies
+take gribblies
+zone symphonica
+East
+South
+West
+West
+North
+North
+North
+North
+West
+West
+West
+North
+open blender
+put frog in blender
+put mario in blender
+put marshmallow in blender
+put willy in blender
+put arachnid in blender
+put gribblies in blender
+put mole in blender
+close blender
+use blender
+stir squash with flag
+give hut the squash
+take very early c64 score
+zone wastelands
+South
+South
+West
+West
+South
+South
+West
+West
+South
+take hewson soundtrack
+zone wastelands
+North
+give minstrel the hewson soundtrack
+zone fantasy
+North
+North
+North
+West
+South
+West
+North
+zone symphonica
+East
+South
+West
+West
+North
+North
+West
+West
+West
+West
+West
+West
+West
+West
+West
+South
+West
+South
+take orchestra
+Down
+take gadget
+drop orchestra
+Up
+North
+zone wastelands
+South
+South
+South
+South
+South
+South
+East
+East
+East
+North
+North
+North
+North
+North
+West
+West
+South
+East
+North
+North
+North
+West
+North
+North
+East
+East
+give fry the gadget
+score
+49587948EFG

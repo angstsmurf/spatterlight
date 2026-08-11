@@ -1,0 +1,573 @@
+o
+no
+b
+stand up
+move pouffe by the fireplace
+stand in pouffe
+x fireplace
+get tinderbox and telescope
+step down from pouffe
+move pouffe
+read parchment
+e
+conjure handfire
+look under desk
+get paper
+read notepad
+x books
+get thinnest book
+write the key on the paper
+read thin book
+w
+out
+e
+in
+lumino
+open chest
+wear shirt
+wear trousers
+wear jacket
+get boots
+wear boots
+remove slab
+get gold coins
+replace slab
+get toy soldiers and toy warriors
+put all in rucksack
+get telescope and tinderbox
+put all in rucksack
+get parchment and paper
+put all in rucksack
+get wooden horse and slingshot
+put all in rucksack
+get dusty steak and fluff
+put all in rucksack
+e
+get warbelt
+wear warbelt
+put coins in pouch
+w
+wear rucksack
+e
+out
+out
+w
+w
+d
+e
+s
+s
+lumino
+n
+in
+search detritus
+get rusty key
+get mug
+out
+s
+e
+fill mug with slime
+dip key in mug
+unlock south door with rusty key
+s
+smear left ringbolt with slime
+s
+turn left ringbolt to the right
+turn right ringbolt to the left
+n
+e
+s
+turn right ringbolt to the right
+n
+e
+pull sconce
+s
+turn left ringbolt to the right
+n
+n
+turn right ringbolt to the left
+s
+w
+w
+n
+count twenty bricks up and seven across
+press brick
+crawl into gap
+d
+e
+e
+get fluff
+get tinderbox
+burn fluff with tinderbox
+throw fluff at web
+e
+e
+e
+n
+n
+run south
+run south
+run west
+run west
+run west
+run south
+hide in niche
+wait
+wait
+out
+n
+e
+e
+e
+n
+n
+x diagram
+get napkin
+wear napkin
+eat meal
+drink ale
+stand on chair
+read ledgers
+get gauntlet
+get off chair
+get card
+wear gauntlet
+get napkin
+put napkin in rucksack
+s
+s
+w
+w
+n
+search behind coffin
+knock scorpion off coffin
+stamp on scorpion
+get scorpion
+put scorpion in rucksack
+search behind coffin
+pull lever
+s
+e
+s
+search mist
+get bat
+n
+e
+e
+pull handle
+out
+ne
+get in boat
+put tinderbox in rucksack
+put card in pouch
+remove gauntlet
+put gauntlet in rucksack
+get telescope
+look se through telescope
+put telescope in rucksack
+row se
+e
+e
+ne
+get telescope
+look east through telescope
+look east through telescope
+x outcrop
+put telescope in rucksack
+sw
+w
+w
+push off
+row n
+n
+w
+in
+look under workbench
+get screwdriver
+out
+e
+e
+s
+put screwdriver in rucksack
+pull rope
+untie rope
+get screwdriver
+force case open with screwdriver
+open case
+get bag
+look in bag
+put bag in rucksack
+put screwdriver in rucksack
+n
+n
+n
+in
+sit at table
+read menu
+call waitress
+1
+2
+wait
+wait
+wait
+eat meal
+eat dessert
+pay bill
+stand up
+out
+out
+w
+in
+read newspaper
+read article
+search shelves
+buy book
+read book
+out
+n
+n
+e
+e
+ring bell
+w
+w
+s
+s
+e
+e
+in
+2
+1
+search racks
+hire suit
+w
+w
+w
+in
+1
+2
+3
+get soldiers from rucksack
+e
+n
+n
+e
+se
+e
+in
+get key
+get napkin
+unlock door with key
+in
+n
+open oven
+put napkin in oven
+read napkin
+s
+put key on hook
+out
+sw
+w
+w
+s
+s
+e
+s
+s
+w
+w
+in
+go to sleep on sails
+out
+e
+s
+in
+put napkin in rucksack
+put costume in rucksack
+put book in rucksack
+put certificate in rucksack
+row se
+get slingshot from rucksack
+look for a stone
+fire stone at hat
+put slingshot in rucksack
+e
+n
+w
+get smock
+e
+s
+s
+e
+e
+remove rucksack
+wear smock
+wear hat
+e
+n
+n
+n
+n
+e
+e
+e
+exchange 40 gold
+e
+s
+buy flowers
+s
+remove boots
+in
+in
+x statue
+offer flowers
+talk to priest
+1
+2
+3
+4
+out
+n
+n
+w
+w
+s
+s
+get wooden horse
+give horse to crying baby
+s
+s
+listen to musicians
+n
+in
+give bat and scorpion to herbalist
+pay 50 goons to herbalist
+s
+e
+e
+e
+e
+e
+offer money to farmer
+give powder to farmer
+w
+w
+w
+w
+w
+n
+n
+n
+n
+w
+w
+s
+in
+get gauntlet
+1
+2
+sell gauntlet to antiques dealer
+out
+s
+s
+in
+sit at table
+read menu
+say 1
+turn menu over
+wait
+wait
+wait
+eat meal
+read menu
+say 1
+wait
+wait
+eat dessert
+pay bill
+stand up
+out
+s
+e
+e
+e
+e
+n
+buy flowers
+s
+w
+w
+w
+w
+w
+w
+offer flowers to goddess
+e
+e
+n
+n
+n
+n
+n
+get rope
+n
+feed stray dog with steak
+make a leash
+s
+s
+e
+e
+s
+in
+2
+5
+1
+empty paper bag
+inflate paper bag
+s
+s
+s
+w
+w
+w
+w
+w
+n
+w
+board boat
+remove hat
+remove smock
+put all in rucksack
+wear rucksack
+row sw
+e
+tie dog to sapling
+remove rucksack
+remove jacket
+put jacket in rucksack
+remove war belt
+put war belt in rucksack
+remove boots
+put boots in rucksack
+get costume
+drop rucksack
+wear costume
+get rucksack
+get telescope
+e
+n
+ne
+ne
+roll in dung
+wait
+s
+e
+give telescope to baby
+up
+take orb
+put orb in rucksack
+down
+w
+sw
+remove costume
+put costume in rucksack
+get paper bag
+w
+burst bag
+put paper bag in rucksack
+untie leash from sapling
+get boots
+wear boots
+get war belt
+wear war belt
+get jacket
+wear jacket
+wear rucksack
+w
+wear war belt
+remove rucksack
+put rucksack in boat
+board boat
+disembark boat
+push off
+row ne
+board boat
+get rucksack
+wear rucksack
+disembark boat
+e
+s
+e
+e
+remove rucksack
+wear smock
+wear hat
+e
+e
+e
+e
+e
+n
+n
+in
+tie dog to post
+s
+buy flowers
+n
+remove boots
+in
+in
+give orb to priest
+s
+s
+w
+w
+w
+w
+w
+w
+w
+n
+w
+e
+in
+read notice
+hire junk
+1
+1
+1
+pay 650 goons
+s
+n
+n
+w
+give ticket to sailor
+sail w
+2
+s
+read words
+n
+sw
+press 180452
+open doors
+in
+lumino
+w
+w
+w
+w
+w
+w
+up
+out
+s
+w
+n
+n
+e
+e
+up
+w
+remove hat
+remove smock
+in

@@ -1,0 +1,147 @@
+# ALIEN DIVER v13 (AlienDiver_V13.blorb, 2020-05-15) - deterministic winning
+# walkthrough.  The corpus also holds v15 (AlienDiver.blorb, 2020-10-04); see
+# AlienDiver_walkthrough.txt for the same route on that build.
+#
+# The map, the cube colours/power numbers and the ship's location are identical
+# in the two builds, so this is the v15 route with three build differences
+# worked around:
+#
+#   * v13 has no `pc` abbreviation -- "I did not understand the word 'pc'".
+#     The COMMANDS list only gained it later; here it is `play card on cube`,
+#     which then asks the same "Choose a card to play" menu, so the following
+#     `1` is unchanged.
+#
+#   * The dice stream is the game's own, not the engine's, so v13's rolls are
+#     nothing like v15's: the opening G6 cube unlocks on the FIRST roll here
+#     (v15 needed three) and the R2 cube below needs EIGHTEEN.  Every "roll
+#     until it unlocks" run is therefore re-counted for this build.
+#
+#   * Unlocking on the first roll is a trap, not a gift.  A failed roll is +1
+#     crafting fragment and leaves the cube ACTIVE; a success awards 3 and
+#     deactivates it -- and you can only craft upon an ACTIVE cube.  Unlocking
+#     the opening cube in one roll leaves 3 fragments, two short of the 5 a
+#     craft costs, and rolling again at the G6 cube you mean to craft on
+#     unlocks that one too, which is where a verbatim v15 replay dies with
+#     "YOU HAVE NO CARDS TO PLAY".  One `look` before rolling shifts the dice
+#     onto a run of failures, so the two rolls below farm the missing
+#     fragments while leaving the cube craftable.
+#
+# =========== GREEN FRAGMENT ===========
+# the G6 cube here unlocks on the first roll; extract a blank card
+rd
+ec
+# G6 cube: look to shift the dice, then two FAILING rolls -> 5 fragments, then craft
+ne
+ne
+e
+look
+rd
+rd
+cc
+1
+# play the crafted card on another G6 cube to extract the fragment
+w
+s
+sw
+sw
+sw
+s
+w
+play card on cube
+1
+# =========== YELLOW FRAGMENT ===========
+# roll dice on the B4 cube here until it unlocks, then extract a blank card
+e
+rd
+rd
+rd
+rd
+rd
+ec
+# roll dice on the R2 cube here until it unlocks (18 rolls), then extract a blank card
+w
+nw
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+rd
+ec
+# craft a card on the Y1 cube (cc, then pick card 1)
+nw
+cc
+1
+# play the crafted card on another Y1 cube to extract the fragment
+n
+n
+ne
+play card on cube
+1
+# =========== BLUE FRAGMENT ===========
+# roll dice on the Y3 cube here until it unlocks, then extract a blank card
+e
+e
+rd
+rd
+ec
+# craft a card on the B4 cube (cc, then pick card 1)
+n
+n
+cc
+1
+# play the crafted card on another B4 cube to extract the fragment
+se
+ne
+play card on cube
+1
+# =========== RED FRAGMENT ===========
+# roll dice on the R2 cube here until it unlocks, then extract a blank card
+ne
+rd
+rd
+rd
+rd
+ec
+# craft a card on the R5 cube (cc, then pick card 1)
+ne
+n
+cc
+1
+# play the crafted card on another R5 cube to extract the fragment
+sw
+w
+s
+sw
+play card on cube
+1
+# =========== REPAIR & TAKE OFF ===========
+w
+s
+s
+sw
+s
+se
+s
+w
+# enter the ship, repair it (needs all 4 fragments), go to the cockpit, sit, take off
+enter ship
+fix ship
+w
+w
+s
+sit on seat
+take off

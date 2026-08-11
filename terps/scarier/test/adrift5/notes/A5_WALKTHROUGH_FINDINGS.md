@@ -58,7 +58,7 @@ dotnet dependency.
 
 ## Corpus status
 
-As of **2026-08-10: 175 rows — 160 MATCH, 15 DIVERGE at baseline, 0 FAIL**,
+As of **2026-08-11: 195 rows — 178 MATCH, 17 DIVERGE at baseline, 0 FAIL**,
 about 30 s wall clock at the default `-j8`.
 
 Per-game numbers are deliberately **not** tabulated here any more; they went
@@ -71,15 +71,17 @@ stale faster than they were read. The authoritative record is:
 * the committed goldens and scripts in `test/adrift5/goldens/`.
 
 Every structural conformance bug this corpus surfaced has been fixed. **Every
-remaining non-zero budget is RNG-stream noise or a deliberate divergence** — the
-xoshiro column is the real conformance verdict, so a row at `N|0` is
-byte-identical to FrankenDrift and its vanilla `N` is flavour text drawn from a
-different stream. The 15 rows, and why they are not zero:
+remaining non-zero budget is RNG-stream noise, a deliberate divergence, or the
+one budgeted cosmetic gap in AlienDiverV13** — the xoshiro column is the real
+conformance verdict, so a row at `N|0` is byte-identical to FrankenDrift and its
+vanilla `N` is flavour text drawn from a different stream. The 17 rows, and why
+they are not zero:
 
 | Row | v\|xo | why |
 |---|---|---|
 | StoneOfWisdom | 2\|0 | vanilla RNG noise only |
 | JacarandaJim | 99\|0 | the corpus's most RNG-soaked game (its own history: 271 → 101 → 99) |
+| JacarandaJim2011 | 37\|0 | same game, 2011 release, same RNG class |
 | SixSilverBullets | 18\|0 | `Roller`/time-trap draws; xoshiro 0 since the `Roller Must BeEqualTo 'RAND(1,16)'` restriction was made to *draw* (`num_value`, a5restr.cpp) instead of `strtol`-ing the quoted expression to 0 |
 | SixSilverBulletsTruth | 111\|0 | second (truth-ending) script through the same RNG subsystem |
 | LostLabyrinthOfLazaitch | 8\|0 | vanilla RNG noise only |
@@ -87,6 +89,7 @@ different stream. The 15 rows, and why they are not zero:
 | October31stComp | 106\|0 | same profile, comp release |
 | Oktober31Dansk | 32\|0 | same werewolf class, Danish release |
 | ISummonThee | 5\|0 | vanilla RNG noise only |
+| AlienDiverV13 | 0\|26 | **authored-text/model drift in an alternate build**, two cosmetic classes: 14 × a "Sorry, I'm not sure which object you are trying to #." FD does not emit, and 12 × `"Playable Card"` for FD's `Playable Card` — v13 sets the card noun with `SetProperty ReferencedObject _ObjectNoun "Playable Card"` onto a property the object does not yet carry, and the runner's add-branch (which Scarier mirrors) stores such a value raw instead of evaluating the quoted string. Vanilla is a golden diff, hence 0 |
 | TempusFugit | 0\|1 | one stray blank line (~line 538 of the xoshiro transcript); cosmetic, undiagnosed. Vanilla is a golden diff, hence 0 |
 | OS (PlugIn.Exe) | 0\|1 | **architectural, deliberately left.** `PlayerWin` is a Specific override on `Stand1`'s AfterTextAndActions that zeroes `Aipoints`, and the runner expands an AggregateOutput message at Display — i.e. *after* those actions — so its `%aiPoints%` reads 0 and it prints "Tester wins!". Scarier renders the static skeleton at emit time (deferring only the random-bearing pieces), still sees 22, and prints "AiMReele99 wins.". Closing it means deferring whole aggregate messages, which puts pSpace/position semantics at risk corpus-wide |
 | ProbePopups | 4\|4 | see the probe table below |

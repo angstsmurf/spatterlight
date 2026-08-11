@@ -1089,6 +1089,20 @@ a5_scan_tag (const uint8_t *buf, uint32_t len, const char *open)
   return NULL;
 }
 
+/* Literal substring test over a buffer that need not be NUL-terminated. */
+static int
+a5_buf_contains (const uint8_t *buf, uint32_t len, const char *needle)
+{
+  const uint32_t nl = (uint32_t) strlen (needle);
+  uint32_t i;
+  if (buf == NULL || len < nl)
+    return 0;
+  for (i = 0; i + nl <= len; i++)
+    if (memcmp (buf + i, needle, nl) == 0)
+      return 1;
+  return 0;
+}
+
 static char *
 a5_scan_ifid (const uint8_t *buf, uint32_t len)
 {
@@ -1178,21 +1192,40 @@ a5model_load (const char *path)
         memcpy (size_hex, payload + 12, 4);
         size_hex[4] = '\0';
         header = 16 + (uint32_t) strtoul (size_hex, NULL, 16);
-        obfuscated = 1;
       }
     else
       {
         /* Pre-5.0.20 layout: the deflate stream follows the 12-byte version
-           header directly.  For a BARE .taf the runner treats this layout as NOT
-           obfuscated (FileIO.vb:816 "Pre 5.0.20 ... bObfuscate = False") --
-           it is also the layout of the game data embedded in ADRIFT 5
-           .exe-wrapped games (the virtual human).  A BLORB Exec chunk takes a
-           different the runner path (FileIO.vb:753): same 12-byte header offset, but
-           obfuscation is decided by the Blorb metadata (bDeObfuscate), which
-           is true for every ADRIFT-Developer-built blorb -- RtC.blorb is
-           exactly this old-layout-but-obfuscated shape. */
+           header directly.  It is also the layout of the game data embedded in
+           ADRIFT 5 .exe-wrapped games (the virtual human). */
         header = 12;
-        obfuscated = from_blorb;
+      }
+
+    if (from_blorb)
+      {
+        /* A BLORB Exec chunk takes its own runner path (FileIO.vb:751), where
+           the layout picks only the header offset and obfuscation is decided
+           by the Blorb metadata instead:
+
+             bDeObfuscate = clsBlorb.MetaData Is Nothing _
+                            OrElse MetaData.OuterXml.Contains("compilerversion")
+
+           i.e. a blorb the ADRIFT Generator wrote (its iFiction carries
+           <compilerversion>), or one with no iFiction chunk at all, is
+           obfuscated; a blorb whose metadata came from elsewhere -- Jacaranda
+           Jim's 2011 release was rewrapped with a Babel-written IFmd -- is
+           plain deflate.  Skybreak has no IFmd and RtC.blorb has one with
+           compilerversion, so both stay obfuscated. */
+        a5_blorb_chunk_t meta;
+        obfuscated = 1;
+        if (a5blorb_find_metadata (file_buf, file_len, &meta))
+          obfuscated = a5_buf_contains (meta.data, meta.size, "compilerversion");
+      }
+    else
+      {
+        /* A bare .taf in the old layout is not obfuscated (FileIO.vb:816,
+           "Pre 5.0.20 ... bObfuscate = False"). */
+        obfuscated = (is_zero_size || has_ifindex);
       }
   }
   if (header + 14 > payload_len)

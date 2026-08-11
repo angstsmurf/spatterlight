@@ -154,10 +154,32 @@ main (int argc, char **argv)
 
   /* De-obfuscate the zlib region in place, then inflate.  A pre-5.0.20-layout
      BARE .taf (no Babel size field) is stored as plain deflate, not obfuscated
-     (FrankenDrift FileIO.vb:816); a Blorb Exec chunk is obfuscated regardless
-     of layout (FileIO.vb:753, bDeObfuscate) -- mirror a5model.cpp's loader. */
-  if (is_v5 || from_blorb)
-    a5_deobfuscate (payload, header, region_len);
+     (FrankenDrift FileIO.vb:816); for a Blorb Exec chunk the layout picks only
+     the header offset and obfuscation follows the iFiction metadata instead
+     (FileIO.vb:751, bDeObfuscate) -- mirror a5model.cpp's loader. */
+  {
+    int obfuscated = is_v5;
+    if (from_blorb)
+      {
+        a5_blorb_chunk_t meta;
+        obfuscated = 1;
+        if (a5blorb_find_metadata (file_buf, file_len, &meta))
+          {
+            uint32_t i;
+            obfuscated = 0;
+            for (i = 0; i + 15 <= meta.size; i++)
+              if (memcmp (meta.data + i, "compilerversion", 15) == 0)
+                {
+                  obfuscated = 1;
+                  break;
+                }
+          }
+        fprintf (stderr, "blorb metadata: %s\n",
+                 obfuscated ? "obfuscated payload" : "plain deflate payload");
+      }
+    if (obfuscated)
+      a5_deobfuscate (payload, header, region_len);
+  }
   fprintf (stderr, "zlib region: offset %u, length %u; first bytes %02x %02x\n",
            header, region_len, payload[header], payload[header + 1]);
 

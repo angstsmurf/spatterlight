@@ -1,0 +1,144 @@
+n
+x pendant
+e
+u
+x desk
+get key
+u
+s
+x mirror
+look in mirror
+get gem
+n
+d
+w
+n
+se
+x bottles
+get yellow bottle
+open it
+pour liquid on the ground
+empty bottle
+get gem
+nw
+w
+w
+n
+n
+n
+e
+open gate
+touch gate
+e
+ne
+s
+u
+n
+press switch
+s
+s
+u
+get gloves
+x gloves
+d
+n
+d
+n
+ne
+ne
+open doors
+e
+e
+n
+i
+x ring
+touch onyx
+n
+w
+d
+open cover
+d
+sw
+x boxes
+get gem
+ne
+u
+e
+s
+w
+w
+sw
+sw
+w
+w
+nw
+n
+x goods
+x wax fruit
+eat banana
+get gem
+s
+se
+s
+s
+nw
+w
+s
+x foliage
+x verbene
+wear gloves
+x verbene
+get gem
+n
+e
+se
+w
+u
+x box
+get box
+get gem
+d
+e
+e
+n
+nw
+w
+x tree
+x fruit
+get gem
+climb tree
+shake tree
+get gem
+e
+ne
+n
+e
+x hole
+get gem
+w
+s
+sw
+se
+s
+s
+e
+e
+e
+e
+x columns
+x column
+x hole
+get gem
+w
+w
+w
+w
+w
+w
+s
+se
+x fixtures
+x fixture
+get gem
+score
+squeeze pendant

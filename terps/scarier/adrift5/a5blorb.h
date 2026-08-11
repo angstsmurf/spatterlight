@@ -51,6 +51,18 @@ extern int a5blorb_find_exec (const uint8_t *buf, uint32_t length,
                               a5_blorb_chunk_t *out);
 
 /*
+ * The Blorb iFiction metadata chunk ('IFmd'), which like the layout chunk is
+ * not listed in the resource index and has to be found by walking the
+ * top-level chunks.  Returns nonzero and fills *out (aliasing buf) when the
+ * chunk is present.
+ *
+ * The Runner reads this to decide whether the Exec payload is obfuscated: see
+ * a5model_load.
+ */
+extern int a5blorb_find_metadata (const uint8_t *buf, uint32_t length,
+                                  a5_blorb_chunk_t *out);
+
+/*
  * The ADRIFT 5 Runner's saved window layout, which the Generator embeds as a
  * 'TEXT' chunk whose body begins with the four bytes "RLAY" (Blorb.vb,
  * DataChunk).  The chunk is NOT listed in the resource index, so it has to be

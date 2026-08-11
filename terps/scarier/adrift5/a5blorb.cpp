@@ -106,6 +106,44 @@ a5blorb_find_exec (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *out)
 }
 
 int
+a5blorb_find_metadata (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *out)
+{
+  uint32_t pos;
+
+  if (buf == NULL || length < 12)
+    return 0;
+
+  if (a5_be32 (buf) != A5_FOURCC ('F', 'O', 'R', 'M')
+      || a5_be32 (buf + 8) != A5_FOURCC ('I', 'F', 'R', 'S'))
+    return 0;
+
+  pos = 12;
+  while (pos + 8 <= length)
+    {
+      uint32_t ctype = a5_be32 (buf + pos);
+      uint32_t csize = a5_be32 (buf + pos + 4);
+      uint32_t body = pos + 8;
+
+      if (csize > length - body)
+        break;
+
+      if (ctype == A5_FOURCC ('I', 'F', 'm', 'd'))
+        {
+          out->type = ctype;
+          out->data = buf + body;
+          out->size = csize;
+          return 1;
+        }
+
+      pos = body + csize + (csize & 1);
+      if (pos < body)
+        break;
+    }
+
+  return 0;
+}
+
+int
 a5blorb_find_layout (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *out)
 {
   uint32_t pos;

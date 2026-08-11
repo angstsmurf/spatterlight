@@ -1,0 +1,10 @@
+# Edith's Cats -- Bunkphor / "Robi" (EctoComp 2016 "La Petite Mort")
+# Winning route to the (single, Neutral) ending "The End".
+# Edith rides the Player (CharacterLocation "On Character"), so she is present
+# and kissable from turn 1 -- exercises the On/InCharacter carrier fix.
+kiss Edith
+east
+wait
+south
+fuck Edith
+wait

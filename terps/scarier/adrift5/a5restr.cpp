@@ -1419,6 +1419,16 @@ is_op_numeric_inequality (const char *op)
       || strcmp (op, "LessThan") == 0;
 }
 
+/* The six clsTask.VariableEnum member names (clsTask.vb:612), which are the
+   only tokens the runner will read as a property restriction's operator. */
+static int
+is_variable_enum_op (const char *op)
+{
+  return is_op_numeric_inequality (op)
+      || strcmp (op, "EqualTo") == 0
+      || strcmp (op, "Contain") == 0;
+}
+
 /*
  * Port of clsUserSession.PassSingleRestriction's Property case (clsUserSession
  * .vb:5060).  The spec is "<propKey> <itemRef> Must|MustNot <Op> <value>" -- it
@@ -1436,8 +1446,9 @@ is_op_numeric_inequality (const char *op)
 static int
 pass_property (a5_state_t *st, a5_restr_t *r)
 {
-  char *buf = strdup (r->raw ? r->raw : "");
-  char *p = buf, *propkey, *item, *musttok, *op, *value;
+  const char *raw = r->raw ? r->raw : "";
+  char *buf = strdup (raw);
+  char *p = buf, *propkey, *item, *musttok, *op, *opstart, *value;
   int must_not, rr;
   const char *itemkey, *pv;
 
@@ -1448,9 +1459,27 @@ pass_property (a5_state_t *st, a5_restr_t *r)
   NEXT_TOK (item);
   NEXT_TOK (musttok);
   NEXT_TOK (op);
+  opstart = op;
   while (*p == ' ') p++;
   value = p;
 #undef NEXT_TOK
+
+  /* The comparison operator is optional: the runner tests element 3 against
+     the VariableEnum names and, when it is none of them, defaults the operator
+     to EqualTo and starts the value THERE instead (FileIO.vb:593).  ADRIFT
+     serialised property restrictions that way before 5.0.20 -- Jacaranda Jim's
+     2011 release writes the Take library task's
+     `StaticOrDynamic ReferencedObjects Must Dynamic`, where the modern
+     Generator would write `... Must EqualTo Dynamic`.  Reading that as an
+     unknown operator dropped it to the lenient always-pass tail below, so
+     `get all` happily picked up the scenery. */
+  if (!is_variable_enum_op (op))
+    {
+      size_t at = (size_t) (opstart - buf);
+      memcpy (opstart, raw + at, strlen (raw) - at + 1);  /* undo tokenising */
+      value = opstart;
+      op = (char *) "EqualTo";
+    }
 
   must_not = (strcmp (musttok, "MustNot") == 0);
   itemkey = resolve_key (st, item);

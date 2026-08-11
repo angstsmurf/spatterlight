@@ -1,0 +1,190 @@
+# Land of the Mountain King (Kenneth Pedersen, ADRIFT 5, Release 3) -- full
+# winning walkthrough, score 100/100, "Ultimate King Slayer".  You are the
+# Viking warrior Kral, summoned by a witch to slay the evil mountain king in his
+# castle to the north.  You have no weapons; each of the king's guardians must be
+# beaten in roughly the right order, because the loot from one fight (or a puzzle)
+# is what makes the next winnable.  Combat is turn-by-turn: each KILL is one round
+# and its outcome is a die roll, so the exact number of KILLs below is tuned to
+# this engine's deterministic RNG stream (seed 1234); it MATCHES FrankenDrift
+# 0|0 in xoshiro mode.  Route follows the author's official competition
+# walkthrough (ifarchive competition2017), with concrete compass directions.
+#
+# The map is a 3x3 grid centred on the starting plain:
+#     Forest(NW)   Bridge(N)     Tree(NE)
+#     Swamp(W)     Plain         Cottage(E)
+#     Cave(SW)     Lighthouse(S) Beach(SE)
+# Every won fight auto-rests you back to full health, so travelling between
+# fights is safe.
+
+# === Chapter 1: the bat (SW corner) ===
+# No weapons yet, so start on the weakest enemy -- the giant bat blocking the
+# cave mouth.  Bare fists are enough.
+sw
+kill bat
+kill bat
+kill bat
+kill bat
+kill bat
+kill bat
+
+# === Chapter 2 & 3: the woman, then light the cave (dagger) ===
+# Duck into the pitch-dark cave (note the opening high on the east wall), then
+# visit the woman's cottage to the east: sit down and ASK ABOUT DAMIAN -- she
+# gave her friend Damian a gold necklace, the key clue for later.
+sw
+ne
+ne
+e
+e
+sit on stool
+ask about damian
+# Now the lighthouse (S of the plain): climb to the top and aim the lamp WEST so
+# its beam shines through that cave opening.  The lamp starts pointing SE and the
+# left button rotates it 45 clockwise each press (SE->S->SW->W = three presses);
+# the right button turns it on.
+w
+sw
+s
+up
+push left button
+push left button
+push left button
+push right button
+# Back to the now-sunlit cave to claim your first real weapon and equip it.
+down
+n
+w
+sw
+take dagger
+equip dagger
+
+# === Chapter 4: the giant squid (beach, in the water) ===
+# The dagger's blade is what lets you hurt the squid.  Wade in from the beach
+# (SE corner) and fight; beaten, it drops a shield you automatically put on
+# (raising your max health).
+ne
+ne
+se
+s
+kill squid
+kill squid
+kill squid
+kill squid
+kill squid
+kill squid
+kill squid
+kill squid
+
+# === Chapter 5: the warrior (NE platform) ===
+# Examine the big tree to find you can climb it, then fight the unarmed warrior
+# on the platform.  Climb back down and you automatically take & wear his
+# chainmail armour (max health up again).
+n
+n
+n
+x tree
+up
+kill warrior
+kill warrior
+kill warrior
+kill warrior
+kill warrior
+kill warrior
+kill warrior
+kill warrior
+kill warrior
+kill warrior
+down
+
+# === Chapter 6: the swamp monster (W) -> silver sword ===
+# A handle sticks out of the mud; grabbing it wakes a swamp monster.  Kill it,
+# THEN pull the handle free -- it is a silver sword.  Equip it.
+sw
+w
+take handle
+kill monster
+kill monster
+kill monster
+kill monster
+kill monster
+kill monster
+kill monster
+kill monster
+kill monster
+kill monster
+take handle
+equip sword
+
+# === Chapter 7: the werewolf (forest, NW) ===
+# The werewolf can only be hurt by silver -- good thing you now wield the silver
+# sword; it drops fast.  It reverts to a dead man; EXAMINE him and you take the
+# gold necklace from around his neck (this is Damian).
+n
+kill werewolf
+kill werewolf
+kill werewolf
+x man
+
+# === Chapter 8: return the necklace (cottage) ===
+# Give Damian's necklace to the woman.  Grieving, she thanks you with a spell
+# that boosts your stamina -- vital for the battles ahead.
+se
+e
+e
+give necklace to woman
+
+# === Chapter 9: the ogre (middle of the bridge, N) ===
+# Cross onto the bridge (go north twice: the ogre stands out on the MIDDLE span)
+# and cut it down with the silver sword; it topples into the ravine.
+w
+w
+n
+n
+kill ogre
+kill ogre
+kill ogre
+kill ogre
+kill ogre
+kill ogre
+kill ogre
+kill ogre
+kill ogre
+
+# === Chapter 10: the castle garden -> berries ===
+# In the garden, EAT BERRIES from the bush to top off your health and GET BERRIES
+# to carry a handful for the final fight.  (The extra LOOK here is a free turn
+# that aligns the deterministic combat RNG so the king fight below is winnable
+# with a single mid-battle heal.)
+n
+look
+x berries
+eat berries
+get berries
+
+# === Chapter 11: the mountain king (final battle) ===
+# Up the stairs to the throne room.  Trade blows with the king; partway through,
+# when your health is running low, EAT the berries from your backpack for one
+# full heal, then finish him.
+up
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+eat berries
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king
+kill king

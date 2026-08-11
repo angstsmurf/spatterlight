@@ -95,8 +95,29 @@ fixed, visible nowhere else.
 | `SoC_ifarchive.blorb` | `SoC.blorb` | 5.000026 / Dec 2012 vs 5.000025 / Oct 2012 |
 | `TributeReturnToCoS.blorb` | `Tribute.blorb` (`_v2`) | earlier, 2020-03-24 vs 2020-04-03 |
 
-Only `MI_v.3.blorb` is wired into `run_a5_walkthroughs.sh` so far; the rest are
-pinned so that whoever wants the comparison does not have to re-find the files.
+Seventeen of the eighteen are now wired into `run_a5_walkthroughs.sh` as rows of
+their own (the harness's 2026-08-11 comment block has the per-row detail); only
+`harlot.taf` is not, because its parent `The Drunken Harlot.blorb` has no
+walkthrough yet either. Fifteen replay their parent's route verbatim, which is
+itself the finding: the rebuild changed no mechanics.
+
+Two needed a route of their own. `SoC_ifarchive.blorb` takes three edits because
+a closet that is open in the parent build is shut in this one; `AlienDiver_V13`
+takes a wholly re-derived 99-command win, and is the one row that pins a
+residual divergence (26 hunks, budgeted) rather than closing one.
+`Skybreak_1.3.blorb` gets a second row on top of its verbatim one, because the
+full Storyteller win does *not* survive the rebuild — character creation shifts
+by one talent index and the last four horror stories have to be gathered
+elsewhere.
+
+The row that paid for itself is `JacarandaJim_2011.blorb`, whose route is
+verbatim but which did not load at all until the loader learned that a blorb's
+obfuscation is decided by its iFiction metadata rather than by its payload
+layout. That in turn exposed a general engine bug: pre-5.0.20 games serialise
+property restrictions without their comparison operator, so every one of them
+had been passing those restrictions blind — `get all` in Jacaranda Jim's quarry
+was picking up the glacier.
+
 Two of them — `Halloween.taf` and `LMK_IFComp2017.blorb` — are `MANUAL`: adrift.co
 serves only `Halloween.blorb`, and its `LMKversion1`/`2`/`3` URLs all return the
 same `LMKversion3.blorb` bytes.

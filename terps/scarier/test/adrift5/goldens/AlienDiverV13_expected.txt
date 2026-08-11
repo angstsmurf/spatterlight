@@ -1,0 +1,1504 @@
+
+Ocean M005
+There is a Cube 6  here.  Exits are northeast, southeast and northwest.
+
+Cube Status:
+
+Cube is Active - its GREEN light pulsates..Cube Power Number <6>
+  Alien Diver v13
+
+# Alien Diver #
+
+Overview:
+
+On a scouting mission in a far flung solar system, your ship malfunctioned at the worse time just as you were in the middle of sling shooting around a planet called Ochora S7 (mostly an ocean planet).
+
+After an intense fight with the controls you managed to avoid hitting the atmosphere sideways and eventually crashed into the (thankfully) deep ocean.
+Your crashed ship now lies on the bottom of an alien ocean. It needs repairs, and scans have shown a certain raw materials can be used to create the needed materials needed to do the repairs in order to fly again. Your ship has been built to travel underwater. You awake floating lifeless in the deep murky alien ocean, you can feel the ebb and tow of the currents. You expected to be in your ship but vaguely recall leaving it to inspect the outer hull for damage for your computer system is only operating at 40% but got swept away by a current and knocking your head.
+
+You will need to find where the ship is. There was hull damage but your force field managed to protect the ship from getting flooded completely.
+The raw materials needed are colored fragments which are found inside alien made cubes scattered over the ocean floor. The ship's integrity is slowly deteriorating and your Suit Oxygen depletes -1 unit of Oxygen per turn, if either reach zero it is game over.
+
+Read on for more details
+
+##-- Press any Key to Continue --##
+
+The Details:
+Find these Cubes and roll dice to match the cube power number to deactive/unlock it and then EXTRACT CARD a Blank card from within it.
+These cards can be crafted into a specific color card that matches the color and power number of the active cube upon which it was craft upon. You cannot do this on a deactivated cube.
+These Playable cards are like a fixed dice, whereby you can play Card where an active cube is present that matches its power number and unlock the cube.
+If the card also matches the color of the cube you get a bonus.
+If you fail your roll to deactive a cube in your many attempts you gain 1 Crafting Fragment automatically each.  These Craft Fragments are required to Craft a Blank Card.
+
+Crafting a Blank card has a couple of requirements.
+1) At least 5 Crafting Fragments. You can only carry 15.
+2) An active cube (ie. You haven't deactivated its lock)
+3) Command: craft card on cube
+
+How to get Colored Fragmented needed to Repair the Crashed Ship:
+
+When you play a card instead of a dice that matches the power-number of a cube AND its color you gain a Colored Fragment based on the color of the cube (Red,Blue,Green,Yellow); these types of Fragments are not used for Crafting but are needed to repair your damaged ship.
+
+Need more Oxygen?
+Crafting Fragments can also be used to be converted into Oxygen with the Convert Fragments to Oxygen (or Con Frag to Oxy for short) command. Colored fragments cannot be converted into Oxygen.  Converting fragments into oxygen will use all crafting fragments at 1:1 ratio and use up ALL your held Crafting Fragments.
+
+There are some Dangers out there- Currently there are two kinds the Orkallion and the Sqviper Sea Predators. You can attack them or play a blank card if it has the attacking sea creatures name on it - this will activate a AR Holo-gram of its rival and scare it away. You will lose your blank card but the AR Holo-gram will remain there.
+
+Main Commands Recap: Roll Die, Extract Card, Craft Card, Play Card on Cube, show cards, play a card on CreatureName (See abbreviated commands in COMMANDS)
+
+Use command HELP (some tips of gameplay and how to use the map etc) and RULES (how to play the game) or COMMANDS to learn more at any time. See Status bar for your Stats. Tip: Turn off Auto-Complete (in Runner not browser version) via Edit and you can cycle through previous commands entered with up arrow button
+
+Summary: Repair Ship and then Take Off | Adjust Map and Status Window Frames with Mouse click/drag frames
+
+Important Notice: Due to browser version not supporting another Window Pane which the stats were displayed all the time, by default this Status Window is now OFF. If you are playing this in Adrift Runner you can turn it back on with the command Turn on Window.You can alternatively view stats with the STATS command which does NOT use a custom window if using browser or Runner.
+
+Ocean M005
+There is a Cube 6  here.  Exits are northeast, southeast and northwest.
+
+> rd
+You roll your dice..
+
+Its a match!
+
+6 = 6
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card or E C for shorthand)
+
+Cube Status:
+
+Cube is inactive - its green light is dull..
+
+-1 Ship Hull Integrity (Hull: 219)
+
+-1 Oxygen
+
+Bonus for unlocking Cube on first try! You increase your carry limit for Crafting Fragment Max + 1
+Score increase +1
+
+> ec
+You get a Blank craftable Card.. the Blank Card 2 | Creature Symbol: Orkallion
+
+Note: To craft a card with this blank card, you need 5 fragments, use the command 'craft card' you then pick one blank card out you wish to use, it will take on the color of the cube you crafted upon as well as it's power value.
+
+You can use the crafted card instead of rolling dice on an ACTIVE cube, if the card matches the power number of the cube. You gain a bonus if matching cubes color with card.
+
+You then can play this card upon any other active cube of the same power number and color to gain a colored fragment neeed to repair the ship.
+
+Note only Blank Cards can be played during Sea Creature Encounters, not Crafted ones.
+
+-1 Ship Hull Integrity (Hull: 218)
+
+-1 Oxygen
+
+> ne
+You swim northeast
+
+Ocean M010
+Exits are west, northeast, southeast, southwest and northwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 217)
+
+-1 Oxygen
+
+> ne
+You swim northeast
+
+Ocean M074
+There is a Cube 1  here.  Exits are north, east, south and southwest.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <1>
+
+-1 Ship Hull Integrity (Hull: 216)
+
+-1 Oxygen
+
+> e
+You swim east
+
+Ocean M072
+There is a Cube 6  here.  Exits are west and northwest.
+
+Cube Status:
+
+Cube is Active - its GREEN light pulsates..Cube Power Number <6>
+
+-1 Ship Hull Integrity (Hull: 215)
+
+-1 Oxygen
+
+> look
+
+Ocean M072
+There is a Cube 6  here.  Exits are west and northwest.
+
+Cube Status:
+
+Cube is Active - its GREEN light pulsates..Cube Power Number <6>
+
+-1 Ship Hull Integrity (Hull: 214)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 6
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 213)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 6
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 212)
+
+-1 Oxygen
+
+> cc
+
+Choose a card to Craft:
+(Type X to Close Menu)
+
+1) Blank Card 2  # Sea Creature Symbol: Orkallion
+
+-1 Ship Hull Integrity (Hull: 211)
+
+-1 Oxygen
+
+> 1
+The card is crafted upon the [GREEN CUBE]
+
+New Card: "Playable Card"
+PowerNumber: 6
+
+-1 Ship Hull Integrity (Hull: 210)
+
+-1 Oxygen
+
+> w
+You swim west
+
+Ocean M074
+There is a Cube 1  here.  Exits are north, east, south and southwest.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <1>
+
+-1 Ship Hull Integrity (Hull: 209)
+
+-1 Oxygen
+
+> s
+You swim south
+
+Ocean M011
+There is a Cube 1  here.  Exits are north, southwest and northwest.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <1>
+
+-1 Ship Hull Integrity (Hull: 208)
+
+-1 Oxygen
+
+> sw
+You swim southwest
+
+Ocean M012
+There is a Cube 3  here.  Exits are west, northeast, southwest and northwest.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <3>
+
+-1 Ship Hull Integrity (Hull: 207)
+
+-1 Oxygen
+
+> sw
+You swim southwest
+
+Ocean M015
+Exits are north, south, northeast, southwest and northwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 206)
+
+-1 Oxygen
+
+> sw
+You swim southwest
+
+Ocean M021
+Exits are north, south, west, northeast, southeast, southwest and northwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 205)
+
+-1 Oxygen
+
+> s
+You swim south
+
+Ocean M057
+You spot a cave entrance amongst the coral reef.
+Also here is a Cube 4 .  Exits are north, south, west and northeast.
+
+Cube Status:
+
+Cube is Active - its BLUE light pulsates..Cube Power Number <4>
+
+-1 Ship Hull Integrity (Hull: 204)
+
+-1 Oxygen
+
+> w
+You swim west
+
+Ocean M089
+There is a Cube 6  here.  Exits are north, east, west, southeast, southwest and northwest.
+
+Cube Status:
+
+Cube is Active - its GREEN light pulsates..Cube Power Number <6>
+
+-1 Ship Hull Integrity (Hull: 203)
+
+-1 Oxygen
+
+> play card on cube
+Choose a card to play:
+(Type X to Close Menu)
+
+1) "Playable Card" C: GREEN Pwr: 6
+
+-1 Ship Hull Integrity (Hull: 202)
+
+-1 Oxygen
+
+> 1
+
+Chosen Card: the "Playable Card"
+PowerValue: 6
+
+The card is played..
+You play your card..
+
+Its a match!
+
+6 = 6
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card)
+
+Cube Status:
+
+Cube is inactive - its green light is dull..
+
+You gain extra 3 Fragments for card matching color of cube!
+
+Score +1
+
+Green Fragment gained: + 1
+
+-1 Ship Hull Integrity (Hull: 201)
+
+-1 Oxygen
+
+> e
+You swim east
+
+Ocean M057
+You spot a cave entrance amongst the coral reef.
+Also here is a Cube 4 .  Exits are north, south, west and northeast.
+
+Cube Status:
+
+Cube is Active - its BLUE light pulsates..Cube Power Number <4>
+
+-1 Ship Hull Integrity (Hull: 200)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 4
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 199)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 4
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 198)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 2 vs Target Number 4
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 197)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 1 vs Target Number 4
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 196)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Its a match!
+
+4 = 4
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card or E C for shorthand)
+
+Cube Status:
+
+Cube is inactive - its blue light is dull..
+
+-1 Ship Hull Integrity (Hull: 195)
+
+-1 Oxygen
+
+> ec
+You get a Blank craftable Card.. the Blank Card 6 | Creature Symbol: Hakar
+
+Note: To craft a card with this blank card, you need 5 fragments, use the command 'craft card' you then pick one blank card out you wish to use, it will take on the color of the cube you crafted upon as well as it's power value.
+
+You can use the crafted card instead of rolling dice on an ACTIVE cube, if the card matches the power number of the cube. You gain a bonus if matching cubes color with card.
+
+You then can play this card upon any other active cube of the same power number and color to gain a colored fragment neeed to repair the ship.
+
+Note only Blank Cards can be played during Sea Creature Encounters, not Crafted ones.
+
+-1 Ship Hull Integrity (Hull: 194)
+
+-1 Oxygen
+
+> w
+You swim west
+
+Ocean M089
+There is a Cube 6  here.  Exits are north, east, west, southeast, southwest and northwest.
+
+Cube Status:
+
+Cube is inactive - its green light is dull..
+
+-1 Ship Hull Integrity (Hull: 193)
+
+-1 Oxygen
+
+> nw
+You swim northwest
+
+Ocean M052
+There is a Cube 2  here.  Exits are south, northeast, southeast, southwest and northwest.
+
+Cube Status:
+
+Cube is Active - its RED light pulsates..Cube Power Number <2>
+
+-1 Ship Hull Integrity (Hull: 192)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 4 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 191)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+-1 Ship Hull Integrity (Hull: 190)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 4 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 189)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 1 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 188)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 5 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 187)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 186)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 1 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 185)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 1 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 184)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 183)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 1 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 182)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 5 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 181)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 180)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 5 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 179)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 178)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 6 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 177)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 3 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 176)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 4 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 175)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 4 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 174)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Its a match!
+
+2 = 2
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card or E C for shorthand)
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+Cube Status:
+
+Cube is inactive - its red light is dull..
+
+-1 Ship Hull Integrity (Hull: 173)
+
+-1 Oxygen
+
+> ec
+You get a Blank craftable Card.. the Blank Card 3 | Creature Symbol: Scoren
+
+Note: To craft a card with this blank card, you need 5 fragments, use the command 'craft card' you then pick one blank card out you wish to use, it will take on the color of the cube you crafted upon as well as it's power value.
+
+You can use the crafted card instead of rolling dice on an ACTIVE cube, if the card matches the power number of the cube. You gain a bonus if matching cubes color with card.
+
+You then can play this card upon any other active cube of the same power number and color to gain a colored fragment neeed to repair the ship.
+
+Note only Blank Cards can be played during Sea Creature Encounters, not Crafted ones.
+
+-1 Ship Hull Integrity (Hull: 172)
+
+-1 Oxygen
+
+> nw
+You swim northwest
+
+Ocean M024
+There is a Cube 1  here.  Exits are north, west and southeast.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <1>
+
+-1 Ship Hull Integrity (Hull: 171)
+
+-1 Oxygen
+
+> cc
+
+Choose a card to Craft:
+(Type X to Close Menu)
+
+1) Blank Card 6  # Sea Creature Symbol: Hakar
+2) Blank Card 3  # Sea Creature Symbol: Scoren
+
+-1 Ship Hull Integrity (Hull: 170)
+
+-1 Oxygen
+
+> 1
+The card is crafted upon the [YELLOW CUBE]
+
+New Card: "Playable Card"
+PowerNumber: 1
+
+-1 Ship Hull Integrity (Hull: 169)
+
+-1 Oxygen
+
+> n
+You swim north
+
+Ocean M023
+Exits are north, east, south and northwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 168)
+
+-1 Oxygen
+
+> n
+You swim north
+
+Ocean M018
+Exits are east, south, west and northeast.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 167)
+
+-1 Oxygen
+
+> ne
+You swim northeast
+
+Ocean M017
+There is a Cube 1  here.  Exits are east and southwest.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <1>
+
+-1 Ship Hull Integrity (Hull: 166)
+
+-1 Oxygen
+
+> play card on cube
+Choose a card to play:
+(Type X to Close Menu)
+
+1) "Playable Card" C: YELLOW Pwr: 1
+
+-1 Ship Hull Integrity (Hull: 165)
+
+-1 Oxygen
+
+> 1
+
+Chosen Card: the "Playable Card"
+PowerValue: 1
+
+The card is played..
+You play your card..
+
+Its a match!
+
+1 = 1
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card)
+
+Cube Status:
+
+Cube is inactive - its yellow light is dull..
+
+You gain extra 3 Fragments for card matching color of cube!
+
+Score +1
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+Yellow Fragment gained: + 1
+
+-1 Ship Hull Integrity (Hull: 164)
+
+-1 Oxygen
+
+> e
+You swim east
+
+Ocean M016
+Exits are north, east, west, northeast and southwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 163)
+
+-1 Oxygen
+
+> e
+You swim east
+
+Ocean M001
+There is a Cube 3  here.  Exits are north, east, south and west.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <3>
+
+-1 Ship Hull Integrity (Hull: 162)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 6 vs Target Number 3
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 161)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Its a match!
+
+3 = 3
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card or E C for shorthand)
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+Cube Status:
+
+Cube is inactive - its yellow light is dull..
+
+-1 Ship Hull Integrity (Hull: 160)
+
+-1 Oxygen
+
+> ec
+You get a Blank craftable Card.. the Blank Card 4 | Creature Symbol: Kraskul
+
+Note: To craft a card with this blank card, you need 5 fragments, use the command 'craft card' you then pick one blank card out you wish to use, it will take on the color of the cube you crafted upon as well as it's power value.
+
+You can use the crafted card instead of rolling dice on an ACTIVE cube, if the card matches the power number of the cube. You gain a bonus if matching cubes color with card.
+
+You then can play this card upon any other active cube of the same power number and color to gain a colored fragment neeed to repair the ship.
+
+Note only Blank Cards can be played during Sea Creature Encounters, not Crafted ones.
+
+-1 Ship Hull Integrity (Hull: 159)
+
+-1 Oxygen
+
+> n
+You swim north
+
+Ocean M002
+Exits are north, east, south and southwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 158)
+
+-1 Oxygen
+
+> n
+You swim north
+
+Ocean M008
+There is a Cube 4  here.  Exits are south, west, northeast and southeast.
+
+Cube Status:
+
+Cube is Active - its BLUE light pulsates..Cube Power Number <4>
+
+-1 Ship Hull Integrity (Hull: 157)
+
+-1 Oxygen
+
+> cc
+
+Choose a card to Craft:
+(Type X to Close Menu)
+
+1) Blank Card 3  # Sea Creature Symbol: Scoren
+2) Blank Card 4  # Sea Creature Symbol: Kraskul
+
+-1 Ship Hull Integrity (Hull: 156)
+
+-1 Oxygen
+
+> 1
+The card is crafted upon the [BLUE CUBE]
+
+New Card: "Playable Card"
+PowerNumber: 4
+
+-1 Ship Hull Integrity (Hull: 155)
+
+-1 Oxygen
+
+> se
+You swim southeast
+
+Ocean M003
+Sqviper is here.  Exits are north, south, west, northeast, southeast and northwest.
+Sorry, I'm not sure which object you are trying to #.
+
+The Sqviper spots you and turns before moving through the water towards you..
+
+Sqviper swims out of view.. to the west.
+
+-1 Ship Hull Integrity (Hull: 154)
+
+-1 Oxygen
+
+> ne
+You swim northeast
+
+Ocean M006
+There is a Cube 4  here.  Exits are east, northeast and southwest.
+
+Cube Status:
+
+Cube is Active - its BLUE light pulsates..Cube Power Number <4>
+
+The Sqviper pursues you from behind..
+
+The Sqviper creature suddenly darts at you and deals 8 HP damage. The sea creature immediately turns and swims away until it cannot be seen no more.
+
+-1 Ship Hull Integrity (Hull: 153)
+
+-1 Oxygen
+
+> play card on cube
+Choose a card to play:
+(Type X to Close Menu)
+
+1) "Playable Card" C: BLUE Pwr: 4
+
+-1 Ship Hull Integrity (Hull: 152)
+
+-1 Oxygen
+
+> 1
+
+Chosen Card: the "Playable Card"
+PowerValue: 4
+
+The card is played..
+You play your card..
+
+Its a match!
+
+4 = 4
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card)
+
+Cube Status:
+
+Cube is inactive - its blue light is dull..
+
+You gain extra 3 Fragments for card matching color of cube!
+
+Score +1
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+Blue Fragment gained: + 1
+
+-1 Ship Hull Integrity (Hull: 151)
+
+-1 Oxygen
+
+> ne
+You swim northeast
+
+Ocean M009
+There is a Cube 2  here.  Exits are west, northeast, southeast and southwest.
+
+Cube Status:
+
+Cube is Active - its RED light pulsates..Cube Power Number <2>
+
+-1 Ship Hull Integrity (Hull: 150)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 1 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 149)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 4 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 148)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Roll Failed...
+
+Your roll 6 vs Target Number 2
+
+You gain 1 Crafting Fragment!
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+-1 Ship Hull Integrity (Hull: 147)
+
+-1 Oxygen
+
+> rd
+You roll your dice..
+
+Its a match!
+
+2 = 2
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card or E C for shorthand)
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+Cube Status:
+
+Cube is inactive - its red light is dull..
+
+-1 Ship Hull Integrity (Hull: 146)
+
+-1 Oxygen
+
+> ec
+You get a Blank craftable Card.. the Blank Card | Creature Symbol: Sqviper
+
+Note: To craft a card with this blank card, you need 5 fragments, use the command 'craft card' you then pick one blank card out you wish to use, it will take on the color of the cube you crafted upon as well as it's power value.
+
+You can use the crafted card instead of rolling dice on an ACTIVE cube, if the card matches the power number of the cube. You gain a bonus if matching cubes color with card.
+
+You then can play this card upon any other active cube of the same power number and color to gain a colored fragment neeed to repair the ship.
+
+Note only Blank Cards can be played during Sea Creature Encounters, not Crafted ones.
+
+-1 Ship Hull Integrity (Hull: 145)
+
+-1 Oxygen
+
+> ne
+You swim northeast
+
+Ocean M075
+There is a Cube 3  here.  Exits are north, east, west, northeast and southwest.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <3>
+
+-1 Ship Hull Integrity (Hull: 144)
+
+-1 Oxygen
+
+> n
+You swim north
+
+Ocean M070
+There is a Cube 5  here.  Exits are north, east, south and southwest.
+
+Cube Status:
+
+Cube is Active - its RED light pulsates..Cube Power Number <5>
+
+-1 Ship Hull Integrity (Hull: 143)
+
+-1 Oxygen
+
+> cc
+
+Choose a card to Craft:
+(Type X to Close Menu)
+
+1) Blank Card 4  # Sea Creature Symbol: Kraskul
+2) Blank Card  # Sea Creature Symbol: Sqviper
+
+-1 Ship Hull Integrity (Hull: 142)
+
+-1 Oxygen
+
+> 1
+The card is crafted upon the [RED CUBE]
+
+New Card: "Playable Card"
+PowerNumber: 5
+
+-1 Ship Hull Integrity (Hull: 141)
+
+-1 Oxygen
+
+> sw
+You swim southwest
+
+Ocean M087
+There is a Cube 4  here.  Exits are north, east, west, northeast and southwest.
+
+Cube Status:
+
+Cube is Active - its BLUE light pulsates..Cube Power Number <4>
+
+-1 Ship Hull Integrity (Hull: 140)
+
+-1 Oxygen
+
+> w
+You swim west
+
+Ocean M051
+Exits are north, east, south and west.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 139)
+
+-1 Oxygen
+
+> s
+You swim south
+
+Ocean M049
+Exits are north, southeast and southwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 138)
+
+-1 Oxygen
+
+> sw
+You swim southwest
+
+Ocean M048
+There is a Cube 5  here.  Exits are north, west and northeast.
+
+Cube Status:
+
+Cube is Active - its RED light pulsates..Cube Power Number <5>
+
+-1 Ship Hull Integrity (Hull: 137)
+
+-1 Oxygen
+
+> play card on cube
+Choose a card to play:
+(Type X to Close Menu)
+
+1) "Playable Card" C: RED Pwr: 5
+
+-1 Ship Hull Integrity (Hull: 136)
+
+-1 Oxygen
+
+> 1
+
+Chosen Card: the "Playable Card"
+PowerValue: 5
+
+The card is played..
+You play your card..
+
+Its a match!
+
+5 = 5
+
+You gain 3 Fragments!
+ (You now can use the command: Extract Card)
+
+Cube Status:
+
+Cube is inactive - its red light is dull..
+
+You gain extra 3 Fragments for card matching color of cube!
+
+Score +1
+
+Crafting Fragments Max reached - you cannot collect anymore! 16/16
+(You could convert fragments to oxy or con frag to oxy for shorthand, this will convert all fragments though, ratio 1:1)
+
+You now have enough Colored Fragments to Repair your ship from within it
+
+Red Fragment gained: + 1
+
+-1 Ship Hull Integrity (Hull: 135)
+
+-1 Oxygen
+
+> w
+You swim west
+
+Ocean M047
+Exits are north, east, south and west.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 134)
+
+-1 Oxygen
+
+> s
+You swim south
+
+Ocean M020
+There is a Cube 3  here.  Exits are north, east, south and west.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <3>
+
+-1 Ship Hull Integrity (Hull: 133)
+
+-1 Oxygen
+
+> s
+You swim south
+
+Ocean M016
+Exits are north, east, west, northeast and southwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 132)
+
+-1 Oxygen
+
+> sw
+You swim southwest
+
+Ocean M019
+Exits are east, south, west, northeast and southeast.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 131)
+
+-1 Oxygen
+
+> s
+You swim south
+
+Ocean M022
+There is a Cube 4  here.  Exits are north, east, west, southeast and southwest.
+
+Cube Status:
+
+Cube is Active - its BLUE light pulsates..Cube Power Number <4>
+
+-1 Ship Hull Integrity (Hull: 130)
+
+-1 Oxygen
+
+Warning Oxygen is low: 29 remaining @ depletion rate of 1
+(Tip: type command: convert fragments to oxygen to remedy the situation, it will use up all your crafting fragments or enter into your crashed ship if you have found it to refill suit oxygen completely)
+
+> se
+You swim southeast
+
+Ocean M025
+Exits are south, northeast and northwest.
+Sorry, I'm not sure which object you are trying to #.
+
+-1 Ship Hull Integrity (Hull: 129)
+
+-1 Oxygen
+
+> s
+You swim south
+
+Ocean M089
+There is a Cube 6  here.  Exits are north, east, west, southeast, southwest and northwest.
+
+Cube Status:
+
+Cube is inactive - its green light is dull..
+
+-1 Ship Hull Integrity (Hull: 128)
+
+-1 Oxygen
+
+> w
+You swim west
+
+Ocean M053
+Sitting on the bottom of the ocean is your crashed ship.
+You may: ENTER SHIP
+
+Also here is a Cube 1 .  Exits are north, east, south and west.
+
+Cube Status:
+
+Cube is Active - its YELLOW light pulsates..Cube Power Number <1>
+
+-1 Ship Hull Integrity (Hull: 127)
+
+-1 Oxygen
+
+> enter ship
+You enter the ship..
+
+#--- Press Any Key ---#
+
+Airlock Outer
+You may: EXIT SHIP  An exit leads west.
+
+Suit Oxygen refilled
+
+-1 Ship Hull Integrity (Hull: 126)
+
+> fix ship
+
+Using the colored fragments you are able to print out replacement parts and materials for the repair.
+
+You repair the ship's critically damaged systems over the course of a day cycle..
+
+#--- Press Any Key ---#
+
+The ship is ready to fly again. The force field will enable it to do so underwater. Head to the Cockpit to Take Off.
+
+> w
+You swim west
+
+Airlock Inner
+Exits are east and west.
+
+> w
+You move west.
+
+Corridor
+Exits are north, east, south and west.
+
+> s
+You move south.
+
+Cockpit
+There is a pilot seat and a dashboard here.  An exit leads north.
+
+> sit on seat
+
+You awkwardly get into the pilot seat and buckle up.
+
+> take off
+
+You fire up the engines, the force field allows them to roar to life. You watch the engine heat temps rise to normal levels before increasing the throttle a little more. You begin your pre-flight check list, once completed you press the Launch button, causing the ship thrusters to roar and the engine whine kicks up a notch louder as the ship begins to lift off.
+
+You maneuver the ship upwards with bottom thrusters now at full burn. Everything seems to be functioning normally, no red lights or alarms glaring on the dashboard.
+
+Satisfied you now begin to move the ship into a steeper ascend to the ocean surface above...
+
+#--- Press Any Key ---#
+
+You eventually see the surface above, the bright light penetrating through, your ship forward window tints automatically to account for it.
+Giving the engines more throttle you make your run to the surface.
+
+The ship courses through the water like a sleek steel fish racing upwards, as the surface rapidly approaches you increase more acceleration just as you break through and in the next instant the ship is free, taking flight. You arc away banking left and you begin to rapidly climb into the purple sky...
+
+#--- Press Any Key ---#
+
+*** You have won ***
+
+Thanks for playing.
+
+I hoped you enjoyed it. I have plans to add more ambience such as none hostile sea creatures, and some other areas to explore such as some more alien spaceship wrecks.
+
+If you liked this game and have some feedback and perhaps some ideas please do so.
+
+Daza
+
+Would you like to restart, restore a saved game, quit or undo the last command?
+
