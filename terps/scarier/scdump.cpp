@@ -352,16 +352,23 @@ scr_dump_structure_once (scr_gameref_t game)
    * key that opens it; obj_dynamic_object() maps it to a real object id. */
   for (i = 0; i < gs_object_count (game); i++)
     {
-      scr_vartype_t kk[3];
+      scr_vartype_t kk[3], kv;
       scr_int key_index, the_key, openable;
       kk[0].string = "Objects";
       kk[1].integer = i;
       kk[2].string = "Openable";
-      openable = prop_get_integer (bundle, "I<-sis", kk);
+      /* Tolerant fetch: prop_get_integer() is FATAL on a missing property, and
+       * "Openable" really can be absent -- Where Is Richard? (V390) has such
+       * an object and the whole dump used to die on it.  Skip instead. */
+      if (!prop_get (bundle, "I<-sis", &kv, kk))
+        continue;
+      openable = kv.integer;
       if (openable <= 0)
         continue;
       kk[2].string = "Key";
-      key_index = prop_get_integer (bundle, "I<-sis", kk);
+      if (!prop_get (bundle, "I<-sis", &kv, kk))
+        continue;
+      key_index = kv.integer;
       if (key_index < 0)
         continue;
       the_key = obj_dynamic_object (game, key_index);
@@ -386,7 +393,9 @@ scr_dump_structure_once (scr_gameref_t game)
       ok[0].string = "Objects";
       ok[1].integer = i;
       ok[2].string = "Openable";
-      openable = prop_get_integer (bundle, "I<-sis", ok);
+      if (!prop_get (bundle, "I<-sis", &ov, ok))
+        continue;
+      openable = ov.integer;
       if (openable == 0)
         continue;
       ok[2].string = "Key";
