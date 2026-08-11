@@ -140,7 +140,6 @@ A showman from the capital city is one rider short and needs the job spot filled
 It will take 5 turns until it is completed.
 
 Attributes needed: Primary: bravery (7) | Secondary: strength (7)
-
 Quest Score points awarded when completed: 5
 Quest Reward to you for completion 60 gold coins
 ##---------------------------------------##
@@ -152,7 +151,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -236,7 +234,6 @@ The question is simple, find and kill this albino buck.
 It will take 12 turns until it is completed.
 
 Attributes needed:  Primary: hunting  (10) | Secondary: stealth (8)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 70 gold coins
 ##---------------------------------------##
@@ -248,7 +245,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -336,7 +332,6 @@ The question is simple, find and kill this albino buck.
 It will take 12 turns until it is completed.
 
 Attributes needed:  Primary: hunting  (10) | Secondary: stealth (8)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 70 gold coins
 ##---------------------------------------##
@@ -360,7 +355,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -554,7 +548,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -640,7 +633,6 @@ A stone wall is being constructed across some land belonging to a rich official 
 It will take 25 turns until it is completed.
 
 Attributes needed: Primary: craftsman (10) | Secondary: intellect (8)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 60 gold coins
 ##---------------------------------------##
@@ -652,7 +644,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -720,7 +711,6 @@ A powerful Vassal has set a reward for his prized black stallion to be found
 It will take 15 turns until it is completed.
 
 Attributes needed: Primary: intellect (8) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 80 gold coins
 ##---------------------------------------##
@@ -732,7 +722,6 @@ A stone wall is being constructed across some land belonging to a rich official 
 It will take 25 turns until it is completed.
 
 Attributes needed: Primary: craftsman (10) | Secondary: intellect (8)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 60 gold coins
 ##---------------------------------------##
@@ -744,7 +733,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -904,7 +892,6 @@ A stone wall is being constructed across some land belonging to a rich official 
 It will take 25 turns until it is completed.
 
 Attributes needed: Primary: craftsman (10) | Secondary: intellect (8)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 60 gold coins
 ##---------------------------------------##
@@ -916,7 +903,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -988,7 +974,6 @@ A stone wall is being constructed across some land belonging to a rich official 
 It will take 25 turns until it is completed.
 
 Attributes needed: Primary: craftsman (10) | Secondary: intellect (8)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 60 gold coins
 ##---------------------------------------##
@@ -1000,7 +985,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -1012,7 +996,6 @@ A lone large Kandoor Eagle for some reason other than being irritated by them, i
 It will take 18 turns until it is completed.
 
 Attributes needed: Primary: hunting (9) | Secondary: combat (9)
-
 Quest Score points awarded when completed: 7
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -1094,7 +1077,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -1106,7 +1088,6 @@ A lone large Kandoor Eagle for some reason other than being irritated by them, i
 It will take 18 turns until it is completed.
 
 Attributes needed: Primary: hunting (9) | Secondary: combat (9)
-
 Quest Score points awarded when completed: 7
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -1276,7 +1257,6 @@ Some is selling forged permits for gold prospecting. They must be caught.
 It will take 18 turns until it is completed.
 
 Attributes needed: Primary: intellect (9) | Secondary: perception (10)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 90 gold coins
 ##---------------------------------------##
@@ -1288,7 +1268,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -1358,7 +1337,6 @@ An informant is needed. There is a rumor brewing of an impending fisherman strik
 It will take 12 turns until it is completed.
 
 Attributes needed: Primary: stealth (8) | Secondary: charisma (6)
-
 Quest Score points awarded when completed: 7
 Quest Reward to you for completion 60 gold coins
 ##---------------------------------------##
@@ -1370,7 +1348,6 @@ Some is selling forged permits for gold prospecting. They must be caught.
 It will take 18 turns until it is completed.
 
 Attributes needed: Primary: intellect (9) | Secondary: perception (10)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 90 gold coins
 ##---------------------------------------##
@@ -1382,7 +1359,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -1450,7 +1426,6 @@ A traders cart is in need of immediate repair out on the road, it needs fixing b
 It will take 4 turns until it is completed.
 
 Attributes needed: Primary: craftsman (8) | Secondary: intellect (6)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 70 gold coins
 ##---------------------------------------##
@@ -1462,7 +1437,6 @@ Some is selling forged permits for gold prospecting. They must be caught.
 It will take 18 turns until it is completed.
 
 Attributes needed: Primary: intellect (9) | Secondary: perception (10)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 90 gold coins
 ##---------------------------------------##
@@ -1474,7 +1448,6 @@ A tavern to the South has problems with too many fights and a strong and diligen
 It will take 13 turns until it is completed.
 
 Attributes needed: Primary: combat (9) | Secondary: charisma (7)
-
 Quest Score points awarded when completed: 6
 Quest Reward to you for completion 50 gold coins
 ##---------------------------------------##
@@ -1617,7 +1590,6 @@ A traders cart is in need of immediate repair out on the road, it needs fixing b
 It will take 4 turns until it is completed.
 
 Attributes needed: Primary: craftsman (8) | Secondary: intellect (6)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 70 gold coins
 ##---------------------------------------##
@@ -1629,7 +1601,6 @@ Some is selling forged permits for gold prospecting. They must be caught.
 It will take 18 turns until it is completed.
 
 Attributes needed: Primary: intellect (9) | Secondary: perception (10)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 90 gold coins
 ##---------------------------------------##
@@ -1641,7 +1612,6 @@ This new technology is the talk of the Realm. A printing press. Revolutionary te
 It will take 15 turns until it is completed.
 
 Attributes needed: Primary: perception (8) | Secondary: charisma (9)
-
 Quest Score points awarded when completed: 9
 Quest Reward to you for completion 80 gold coins
 ##---------------------------------------##
@@ -1702,7 +1672,6 @@ A traders cart is in need of immediate repair out on the road, it needs fixing b
 It will take 4 turns until it is completed.
 
 Attributes needed: Primary: craftsman (8) | Secondary: intellect (6)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 70 gold coins
 ##---------------------------------------##
@@ -1714,7 +1683,6 @@ Some is selling forged permits for gold prospecting. They must be caught.
 It will take 18 turns until it is completed.
 
 Attributes needed: Primary: intellect (9) | Secondary: perception (10)
-
 Quest Score points awarded when completed: 10
 Quest Reward to you for completion 90 gold coins
 ##---------------------------------------##
@@ -1765,7 +1733,6 @@ A traders cart is in need of immediate repair out on the road, it needs fixing b
 It will take 4 turns until it is completed.
 
 Attributes needed: Primary: craftsman (8) | Secondary: intellect (6)
-
 Quest Score points awarded when completed: 8
 Quest Reward to you for completion 70 gold coins
 ##---------------------------------------##

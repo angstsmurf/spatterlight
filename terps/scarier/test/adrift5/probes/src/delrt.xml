@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- delrt: <del> measured against the REAL Runner.
+
+     Every case below was rendered in the genuine ADRIFT 5.0.36 Runner
+     (run500.exe under Wine) on 2026-08-11, and the expected transcript records
+     what it printed, so this probe is ground truth rather than a guess:
+
+       1  abc<del>            to  ab      plain backspace
+       2  a<b>x</b><del>      to  a       deletes ACROSS a style boundary
+       3  a<br><del>          to  a       deletes a <br>
+       4  a\n<del>            to  a       deletes a source newline
+       5  a\n\n<del>          to  a\n     only ONE newline goes
+       6  the credits shape Larry Horsfield's games use,
+          "websites:\n\n<del>https://..\n \n<del>http://..": the Runner keeps
+          the stray leading space before the second URL
+       7  a room LongDescription that STARTS with <del> joins onto the room
+          name line
+       8  ("eight") a <del> at the head of a LATER message reaches back into
+          output already emitted this turn: the Runner deletes the two pSpace
+          join spaces AND the last character of the previous message.
+
+     Cases 1 to 7 live in the Introduction and the room description, so they
+     render at load with no commands needed.  Case 8 is the one Scarier does
+     not yet reproduce (see "Synthetic probes" in A5_WALKTHROUGH_FINDINGS.md):
+     its expected transcript records our divergent output, not the Runner's. -->
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Title>Delrt Probe</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>DELRT PROBE
+1[abc&lt;del&gt;]
+2[a&lt;b&gt;x&lt;/b&gt;&lt;del&gt;]
+3[a&lt;br&gt;&lt;del&gt;]
+4[a
+&lt;del&gt;]
+5[a
+
+&lt;del&gt;]
+6 credits shape:
+websites:
+
+&lt;del&gt;https://one.example
+ 
+&lt;del&gt;http://two.example
+END OF INTRO</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>Location1</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Delete Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;del&gt;7ROOMDESC starts with del.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Location>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>Location1</Value>
+</Property>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Character>
+
+<Task>
+<Key>TaskEight</Key>
+<Priority>50010</Priority>
+<Type>General</Type>
+<Command>eight</Command>
+<Description>Cross-message del</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>8[aZ</Text>
+</Description>
+</CompletionMessage>
+<Actions>
+<SetTasks>Execute TaskEightB</SetTasks>
+</Actions>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+<Task>
+<Key>TaskEightB</Key>
+<Priority>50011</Priority>
+<Type>General</Type>
+<Command>delsecond</Command>
+<Description>Second message starting with del</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;del&gt;&lt;del&gt;&lt;del&gt;]END8</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-07-12 11:40:00</LastUpdated>
+<Created>2026-07-12 11:40:00</Created>
+</Task>
+
+</Adventure>

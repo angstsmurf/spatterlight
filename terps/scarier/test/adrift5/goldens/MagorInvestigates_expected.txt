@@ -568,10 +568,8 @@ Chapter 5: BUG HUNT ON MENELAUS
 ****************************
 
 All the above games can all be downloaded from the following websites:
-
 https://lazzah.itch.io
-
-http://www.adrift.co/games
+ http://www.adrift.co/games
 
 Would you like to RESTART, RESTORE a saved game, QUIT or UNDO the last command?
 

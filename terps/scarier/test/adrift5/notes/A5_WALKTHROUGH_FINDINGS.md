@@ -511,9 +511,10 @@ corpus green.
 
 ## Synthetic conformance probes (test/adrift5/probes/, imported 2026-08-08)
 
-Feature-targeted probe scripts — 22 `Probe*` MAP rows over 18 synthetic games,
+Feature-targeted probe scripts — 23 `Probe*` MAP rows over 19 synthetic games,
 17 of them from the **adrift-5-rs test suite** plus our own `undo_after_end`
-(some games carry several rows, e.g. the four `lifecycle` ones).  The sources are
+and `delrt` (some games carry several rows, e.g. the four `lifecycle` ones).
+The sources are
 committed under
 `test/adrift5/probes/src/*.xml` and compiled offline into the committed
 `test/adrift5/probes/*.taf` by `make -f Makefile.headless a5probetafs` (which embeds
@@ -528,19 +529,28 @@ probes run everywhere, including without FrankenDrift for the golden-backed ones
 adrift-5-rs's own expected outputs were used only as a third opinion — blessing
 went through the usual FrankenDrift differential.  Wiring surfaced **12
 divergence groups**; all of them are now closed or accounted for, leaving
-**18 of the 22 rows at MATCH 0|0** and every probe passing the save/restore
-self-check.  The four that remain are ProbePopups (8 → 4 hunks),
-ProbeTaskActions (1 vanilla RNG-noise hunk), ProbeVariables (`%Version%`) and
-ProbeUndoAfterEnd — see the rows below.  ProbeRandomness is fully aligned under
+**17 of the 23 rows at MATCH 0|0** and every probe passing the save/restore
+self-check.  The six that remain are ProbePopups (8 → 4 hunks),
+ProbeTaskActions (1 vanilla RNG-noise hunk), ProbeVariables (`%Version%`),
+ProbeUndoAfterEnd, and the two `<del>` rows ProbeDel / ProbeDelrt — see the
+rows below.  ProbeRandomness is fully aligned under
 `FD_RNG=xoshiro` (its 3 vanilla hunks are pure System.Random stream noise), so
 it is golden-backed at 0|0.  ProbeUndoAfterEnd (added 2026-08-09) is the one row
 whose budget is **not** ours: it pins a Runner bug (adrift.co 19196) that Scarier
 does not reproduce, so its 4 xoshiro hunks must stay exactly 4 — a drop to 0
-would mean Scarier had *acquired* the bug.
+would mean Scarier had *acquired* the bug.  ProbeDel / ProbeDelrt (added
+2026-08-11 with `<del>` support) are the other rows whose budget is not ours:
+their xoshiro hunks are all **FrankenDrift.Headless dropping `<del>` entirely**
+— see the `<del>` section below — so those budgets should go back to 0 the day
+Headless learns the tag, and until then the xoshiro column says nothing about
+Scarier for them.  The vanilla column is a golden strict-diff and is the one
+that matters here.
 
 | Probe | v|xo | diagnosis |
 |---|---|---|
 | ProbeAmbiguity | 0\|0 | **FIXED** (was 3\|3): the `Which key?` clarifier (`blue`) never resolved because run_remembered's force_name/force_key pin only applied to singular `%object%`/`%item%`/`%character%` references — the library's `get/drop %objects%` commands take the plural-branch singular path in resolve_refine, which `continue`d before the pin.  The pin now applies there too (a5run_ref.cpp). |
+| ProbeDel | 0\|3 | Golden-backed MATCH; the 3 xoshiro hunks are FD.Headless's missing `<del>` (`[abc]`/`[ax]`/`[a\n]` where the real Runner gives `[ab]`/`[a]`/`[a]`), **not** ours.  Came with the `<del>` implementation (PR #148, `a5text.cpp` `sb_del_glyph`) and was re-blessed there. |
+| ProbeDelrt | 0\|5 | Golden-backed MATCH; same story, 5 hunks of FD.Headless dropping `<del>`.  Our own probe (`src/delrt.xml`, 2026-08-11), written to be read at **load** — every case lives in the Introduction — so it could be measured directly in the genuine run500.exe under Wine.  See the `<del>` section below for the case list and the one case Scarier still gets wrong. |
 | ProbeEvents | 0\|0 | **FIXED** (was 1\|1; the old "LookText timing at start" diagnosis was wrong — the real divergence was at event END: Scarier kept showing the SetLook text after the event expired).  FD keeps a per-event `stackLookText` and `LookText()` returns entries only while `Status = Running` (clsEvent.vb:20/132-153); ViewLocation loops ALL events in model order appending each gate-passing LookText (clsLocation.vb:141-144).  Scarier's look stack entries now carry their owning event key, and view_location iterates events gated on a `st->ev_running` callback into the run layer; the key is persisted in the save `<Look>` block. |
 | ProbeHiPriTask | 0\|0 | **FIXED** (was 1\|1): FD's BeInPosition restriction (clsUserSession.vb:4902-4915) reads the raw `CharacterPosition` *property* gated on HasProperty — NOT the Position getter that defaults to Standing.  The library-injected default Player has no such property (FileIO only adds explicit `<Property>` nodes; SetProperty on an absent character property no-ops), so `MustNot BeInPosition Standing` passes and the passing `stand` task beats the failing one.  Scarier's BeInPosition now uses the property view (a5state_entity_prop) instead of the Standing-defaulted char_position cache (a5restr.cpp). |
 | ProbeLifecycleRestart | 0\|0 | **FIXED 2026-08-09** (was 3\|3: walk enter/exit announcements missing after a walk restart — Scarier stopped the walk dead instead of restarting it).  The control re-trigger guard was unfaithful: FD's `Not task.Children(True).Contains(w.sTriggeringTask)` (clsUserSession.vb:873/894) blocks a control only when the walk's triggering task is a DIRECT Specific-override child of the completing task — clsTask.Children (clsTask.vb:336) is one level down and does NOT include the task itself.  Scarier additionally blocked `triggering_task == task_key` (and recursed through grandchildren), so TaskRestartPatrol's Stop control fired, recorded itself as the trigger, and then blocked its own Start control — the Stop→Restart upgrade (clsCharacter.vb:1366-1367) never happened and the walk just stopped.  ctrl_retrigger_blocked now mirrors FD exactly (a5run_events.cpp). |
@@ -578,6 +588,67 @@ Scarier and FD both parse it as a game command).  The suite's ninth Samples
 regtest (persistence.regtest, Cloak-based save/restore/undo) was NOT
 converted: the harness's own A5_SAVE_AT round-trip self-check covers that
 ground, and the transcript harness has no in-game save-dialog channel.
+
+## `<del>` — measured in the real Runner (delrt probe, 2026-08-11)
+
+`<del>` (issue #142, implemented by PR #148 in `a5text.cpp`: `sb_del_glyph` plus
+the `del` arm of the tag dispatch) is the one a5 feature the FrankenDrift
+differential **cannot** arbitrate: `FrankenDrift.Headless`'s `EmitHtml`
+(`Program.cs`) handles only `br` and `cls` and drops `<del>` on the floor, and
+the two FD front ends disagree with each other anyway — `GlkHtmlWin.cs:270`
+deletes only from the pending `current` StringBuilder (which is cleared at
+*every* tag) and then falls back to Gargoyle's `garglk_unput_string`, while the
+Eto `AdriftOutput.cs:183` does a whole-window `Buffer.Delete`.
+
+So it was measured directly instead, in the genuine **ADRIFT 5.0.36 Runner
+(`run500.exe`) under Wine** (see the Wine harness notes), using
+`test/adrift5/probes/src/delrt.xml` — every case sits in the *Introduction*, so
+the whole probe renders at load and can be read off the Runner window with no
+gameplay.  Result: **`<del>` deletes one character from the Runner's whole
+accumulated turn buffer.**  It is not scoped to a style run, a line, or a
+message:
+
+| # | markup | run500.exe 5.0.36 | Scarier |
+|---|---|---|---|
+| 1 | `1[abc<del>]` | `1[ab]` | same |
+| 2 | `2[a<b>x</b><del>]` | `2[a]` | same |
+| 3 | `3[a<br><del>]` | `3[a]` | same |
+| 4 | `4[a\n<del>]` | `4[a]` | same |
+| 5 | `5[a\n\n<del>]` | `5[a\n]` | same |
+| 6 | `websites:\n\n<del>https://one\n \n<del>http://two` | `websites:\nhttps://one\n http://two` (leading space kept) | same |
+| 7 | room LongDescription starting with `<del>` | room name and description JOIN: `Delete Lab7ROOMDESC…` | same |
+| 8 | msg A `8[aZ`, then an Execute-Task msg B `<del><del><del>]END8` | `8[a]END8` — eats the two pSpace join spaces **and** the `Z` from the previous message | `8[aZ  ]END8` ✗ |
+
+Case 8 is the **known gap**: `sb_del_glyph` runs on the per-message buffer
+inside `a5text_render_plain`, so when the current fragment holds no glyph the
+backward walk hits `i == 0` and silently deletes nothing.  That is exactly the
+shape #142 calls out ("kinda common, especially to undo a paragraph break") and
+the one already documented at `adrift5/a5run_resp.cpp:269` — WW2 Elevator
+Escape's `"(standing up first)"` → ALR → `<del>`, a message whose entire content
+renders to marks.  The architecture already has the pattern for the fix, ten
+lines above the new code: `<cls>` wipes the fragment at render time and, when
+the wipe has to reach earlier text, leaves `A5_CLS_MARK` for `sb_resolve_cls` to
+apply to the turn buffer in `finish_turn`.  `<del>` wants the same — delete
+in-fragment when there is a glyph, otherwise emit a marker resolved at turn
+level.  (Related: the unconditional `sb_putc (&sb, A5_ALR_MARK)` after a delete
+hides a surviving newline from `sb_pspace`, which tests only the final byte —
+`a5sb.cpp:161` should walk back over zero-width sentinels the way
+`sb_resolve_cls` does.)
+
+Cases 1–7 are byte-for-byte right, which is what re-blessed ten corpus goldens
+on 2026-08-11: nine of them are Larry Horsfield's credits block (case 6 verbatim
+— `…websites:\r\n\r\n<del>https://lazzah.itch.io\r\n \r\n<del>http://www.adrift.co/games`,
+one newline eaten per `<del>`, stray leading space kept), plus QuestGiver (a
+blank line removed from the quest listing, ×33) and IlluminaDansk (an
+`AppendToPreviousDescription` alternative whose text starts with `<del>`, eating
+one of the two join spaces).  Their **xoshiro** budgets were raised at the same
+time — 0|1 IlluminaDansk, 0|2 ThingsThatGoBumpInTheNight / BugHuntOnMenelaus /
+AoS / FinnsBigAdventure / MagorInvestigates / Xanix / BookOfJax, 0|5
+MaroonedOnMazoomah, 0|33 QuestGiver — and every one of those hunks is
+FD.Headless's missing `<del>`, verified by eye (they are all "FD keeps a blank
+line / a second space that the Runner ate").  **Teach `EmitHtml` the tag and all
+twelve budgets should drop back to 0** (bar case 8, which will then show up as a
+real 1-hunk divergence in ProbeDelrt until the turn-level fix lands).
 
 ## a5maptest — auto-map raster regression (map.taf)
 

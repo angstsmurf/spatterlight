@@ -641,10 +641,8 @@ Chapter 5: BUG HUNT ON MENELAUS
 ****************************
 
 All the above games can all be downloaded from the following websites:
-
 https://lazzah.itch.io
-
-http://www.adrift.co/games
+ http://www.adrift.co/games
 
 You push the radio button and a channel opens.
 
@@ -717,8 +715,6 @@ Chapter 5: BUG HUNT ON MENELAUS
 ****************************
 
 All the above games can all be downloaded from the following websites:
-
 https://lazzah.itch.io
-
-http://www.adrift.co/games
+ http://www.adrift.co/games
 

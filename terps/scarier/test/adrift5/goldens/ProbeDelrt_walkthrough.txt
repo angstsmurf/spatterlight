@@ -1,0 +1,7 @@
+# ProbeDelrt -- <del> conformance, measured against the real ADRIFT 5.0.36
+# Runner (run500.exe under Wine) rather than against FrankenDrift, which does
+# not implement <del> at all.  See test/adrift5/probes/src/delrt.xml.
+#
+# Cases 1-7 render at load (Introduction + room description); `eight` adds the
+# cross-message case, the one we still get wrong.
+eight

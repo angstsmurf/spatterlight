@@ -1432,7 +1432,7 @@ SpectreOfCastleCoris|TheSpectreOfCastleCoris.blorb|0|0
 StarshipQuest|StarshipQuest.blorb|0|0
 MagneticMoon|MagneticMoon.blorb|0|0
 Illumina|Illumina.blorb|0|0
-IlluminaDansk|IlluminaDansk.blorb|0|0
+IlluminaDansk|IlluminaDansk.blorb|0|1
 RevengeOfTheSpacePirates|RevengeOfTheSpacePirates.blorb|0|0
 DieFeuerfaust|DieFeuerfaust.blorb|0|0
 LostChildren|TheLostChildren.blorb|0|0
@@ -1446,27 +1446,27 @@ SixSilverBullets|SixSilverBullets.blorb|18|0
 SixSilverBulletsTruth|SixSilverBullets.blorb|111|0
 PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
-ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0
+ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|2
 LostLabyrinthOfLazaitch|TheLostLabyrinthOfLazaitch.blorb|8|0
-MaroonedOnMazoomah|MaroonedOnMazoomah.blorb|0|0
+MaroonedOnMazoomah|MaroonedOnMazoomah.blorb|0|5
 TheEuripidesEnigma|TheEuripidesEnigma.blorb|0|0
 DwarfOfDirewoodForest|DwarfOfDirewoodForest.blorb|0|0
 DwarfOfDirewoodForestDDF|DDF.blorb|0|0
-BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|0
+BugHuntOnMenelaus|Bug Hunt On Menelaus.blorb|0|2
 Tribute|Tribute.blorb|0|0
-AoS|AoS v.4.blorb|0|0
-FinnsBigAdventure|FBA v.3c.blorb|0|0
+AoS|AoS v.4.blorb|0|2
+FinnsBigAdventure|FBA v.3c.blorb|0|2
 Halloween|Halloween.blorb|0|0
-MagorInvestigates|MI_v.1.blorb|0|0
+MagorInvestigates|MI_v.1.blorb|0|2
 MuseumHeist|MuseumHeist.blorb|0|0
 October31st|October31st.blorb|106|0
 October31stComp|October31stComp.blorb|106|0
 Oktober31Dansk|Oktober31Dansk.blorb|32|0
 TheFortressOfFear|TheFortressOfFear.blorb|0|0
-Xanix|XXR v.4.blorb|0|0
+Xanix|XXR v.4.blorb|0|2
 Tingalan|Tingalan.blorb|0|0
 TingalanTrue|Tingalan.blorb|0|0
-BookOfJax|BoJ v.2.blorb|0|0
+BookOfJax|BoJ v.2.blorb|0|2
 GrandmasFlyingSaucer|GFS_Frankendrift.blorb|0|0
 TheGardenParty|TheGardenParty.blorb|0|0
 TheDeadOfWinter|TheDeadOfWinter.blorb|0|0
@@ -1548,7 +1548,7 @@ Dreamspun|dreamspun 0.9.taf|0|0
 TheAwakeners|The Awakeners.taf|0|0
 Wumpus|Wumpus.taf|0|0
 DigitalRoots|DigitalRoots_v2.blorb|0|0
-QuestGiver|QuestGiver_v4.blorb|0|0
+QuestGiver|QuestGiver_v4.blorb|0|33
 Penrhyn|Penrhyn_The Burning Sky_v2.blorb|0|0
 Symphonica64|symphonica.blorb|0|0
 4rooms|4rooms.blorb|0|0
@@ -1569,7 +1569,8 @@ BeginnersCave|BeginnersCave.taf|0|0
 BadlandsDemo|Badlands Demo v2.taf|0|0
 Dementophobia|Dementophobia Alpha Demo.blorb|0|0
 ProbeAmbiguity|a5probes/ambiguity.taf|0|0
-ProbeDel|a5probes/del.taf|0|0
+ProbeDel|a5probes/del.taf|0|3
+ProbeDelrt|a5probes/delrt.taf|0|5
 ProbeEvents|a5probes/events.taf|0|0
 ProbeExecOrderTask|a5probes/execute_ordering.taf|0|0
 ProbeExecOrderTopic|a5probes/execute_ordering.taf|0|0
