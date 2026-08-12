@@ -1092,42 +1092,135 @@ draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
   draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_fg, alpha);
 }
 
-/* The IN / OUT bubble on a node edge (DrawInOutIcon, Map.vb:1530), which we
-   extend to Up and Down where those are badge links (ADRIFT 4, whose runner
-   put a little icon on the room box instead of drawing a connector). */
+/* A3/A4 badge sites: the eight half-winds between the drawn compass stubs.
+   Cardinals (N/E/S/W) and diagonals (NE/SE/SW/NW) own the edge centres and
+   corners; badges sit on the subdivisions between them.
+        NNW          NNE
+     WNW                ENE
+     WSW                ESE
+        SSW          SSE */
+enum {
+  BADGE_NNE, BADGE_ENE, BADGE_ESE, BADGE_SSE,
+  BADGE_SSW, BADGE_WSW, BADGE_WNW, BADGE_NNW
+};
+
 static void
-draw_dir_icon (map_surface_t *s, const proj_t *p, const map_node_t *n,
-               int dir, int edge, int alpha)
+badge_pct (int site, double *xp, double *yp)
+{
+  switch (site)
+    {
+    case BADGE_NNE: *xp = 75;  *yp = 0;   break;
+    case BADGE_ENE: *xp = 100; *yp = 25;  break;
+    case BADGE_ESE: *xp = 100; *yp = 75;  break;
+    case BADGE_SSE: *xp = 75;  *yp = 100; break;
+    case BADGE_SSW: *xp = 25;  *yp = 100; break;
+    case BADGE_WSW: *xp = 0;   *yp = 75;  break;
+    case BADGE_WNW: *xp = 0;   *yp = 25;  break;
+    default:        *xp = 25;  *yp = 0;   break;   /* BADGE_NNW */
+    }
+}
+
+typedef struct {
+  int up_site, down_site;
+  int in_site, out_site;
+} a4_badge_pos_t;
+
+/* Place ADRIFT 3/4 Up/Down/In/Out badges.  They have no connectors, so the
+   only collisions are compass stubs on the same node: prefer Up at NNE or
+   NNW, Down at SSE or SSW, and park In/Out on ENE/ESE/WSW/WNW. */
+static void
+a4_badge_pos (const map_node_t *n, a4_badge_pos_t *pos)
+{
+  int has_ne = 0, has_nw = 0, has_se = 0, has_sw = 0;
+  int has_e = 0, has_w = 0;
+  int l;
+
+  pos->up_site = BADGE_NNE;
+  pos->down_site = BADGE_SSW;
+  pos->in_site = BADGE_WSW;
+  pos->out_site = BADGE_ESE;
+
+  for (l = 0; l < n->n_links; l++)
+    {
+      const map_link_t *lk = &n->links[l];
+      if (lk->badge)
+        continue;
+      switch (lk->dir)
+        {
+        case DIR_NE: has_ne = 1; break;
+        case DIR_NW: has_nw = 1; break;
+        case DIR_SE: has_se = 1; break;
+        case DIR_SW: has_sw = 1; break;
+        case DIR_E:  has_e = 1;  break;
+        case DIR_W:  has_w = 1;  break;
+        default: break;
+        }
+    }
+
+  /* Prefer the N/S half-wind away from a diagonal corner stub. */
+  if (has_ne && !has_nw)
+    pos->up_site = BADGE_NNW;
+  if (has_sw && !has_se)
+    pos->down_site = BADGE_SSE;
+
+  /* In/Out on the E/W half-winds.  If only one side is busy, keep both
+     badges on the freer side; Hub has both, so split across WSW/ESE. */
+  if (has_e && !has_w)
+    {
+      pos->in_site = BADGE_WSW;
+      pos->out_site = BADGE_WNW;
+    }
+  else if (has_w && !has_e)
+    {
+      pos->in_site = BADGE_ENE;
+      pos->out_site = BADGE_ESE;
+    }
+}
+
+/* The IN / OUT / UP / DOWN bubble on a node edge (DrawInOutIcon, Map.vb:1530;
+   Form29.doicon for ADRIFT 4 Up/Down).  `xp`/`yp` are percents of the box. */
+static void
+draw_dir_icon_xy (map_surface_t *s, const proj_t *p, const map_node_t *n,
+                  int dir, double xp, double yp, int alpha)
 {
   double cx, cy;
   const char *letter;
   unsigned int rgb;
-  double xp, yp;
   int r = p->cam->scale / 2;
   if (r < 3)
     r = 3;
-  /* IN and OUT go where the connector leaves the box, on the edge `edge` that
-     inout_edge picked.  UP and DOWN are ours: only the ADRIFT 4 mapper makes
-     badge links of them (its runner drew them as icons rather than lines), so
-     they get a fixed spot -- UP at ENE, DOWN at WSW.  That keeps them clear of
-     the IN/OUT quarters, off the corners where the NE and SW connectors
-     attach, and off the mid-edge points the E and W connectors leave by. */
   switch (dir)
     {
-    case DIR_IN:
-    case DIR_OUT:
-      letter = (dir == DIR_IN) ? "I" : "O";
-      rgb = (dir == DIR_IN) ? ICON_IN : ICON_OUT;
-      inout_pct (dir, edge, &xp, &yp);
-      break;
-    case DIR_UP:   letter = "U"; rgb = ICON_UP;   xp = 100; yp = 25;  break;
-    case DIR_DOWN: letter = "D"; rgb = ICON_DOWN; xp = 0;   yp = 75;  break;
+    case DIR_IN:   letter = "I"; rgb = ICON_IN;   break;
+    case DIR_OUT:  letter = "O"; rgb = ICON_OUT;  break;
+    case DIR_UP:   letter = "U"; rgb = ICON_UP;   break;
+    case DIR_DOWN: letter = "D"; rgb = ICON_DOWN; break;
     default: return;
     }
   rel_point (p, n, xp, yp, &cx, &cy);
   fill_circle (s, (int) cx, (int) cy, r, rgb, alpha);
   draw_text (s, &kSmallFont, letter, 1, (int) cx - 2, (int) cy - 3,
              0xFFFFFF, alpha);
+}
+
+/* ADRIFT 5 In/Out (and the A3/A4 Up/Down fallback): resolve the percent from
+   `edge`, then draw.  Up/Down without a layout use NNE / SSW. */
+static void
+draw_dir_icon (map_surface_t *s, const proj_t *p, const map_node_t *n,
+               int dir, int edge, int alpha)
+{
+  double xp, yp;
+  switch (dir)
+    {
+    case DIR_IN:
+    case DIR_OUT:
+      inout_pct (dir, edge, &xp, &yp);
+      break;
+    case DIR_UP:   badge_pct (BADGE_NNE, &xp, &yp); break;
+    case DIR_DOWN: badge_pct (BADGE_SSW, &xp, &yp); break;
+    default: return;
+    }
+  draw_dir_icon_xy (s, p, n, dir, xp, yp, alpha);
 }
 
 /* The ADRIFT 4 runner had two pictures per icon: the normal one when the
@@ -1177,8 +1270,8 @@ inout_mark (inout_badge_t *b, int dir, int edge, int far)
 
 /* Walk the page's In/Out links once and record both ends of each, the way
    RecalculateLinks does (Map.vb:824).  ADRIFT 4's In/Out are badge links with
-   no geometry to share, so they are left to the fixed north-edge fallback.
-   Returns NULL when the page has no In/Out at all, which most pages do. */
+   no geometry to share, so this returns NULL and a4_badge_pos places them.
+   Returns NULL when the page has no In/Out connectors at all, which most do. */
 static inout_badge_t *
 inout_layout (const map_page_t *page, const map_view_t *view)
 {
@@ -1460,21 +1553,65 @@ map_render (const map_t *map, const map_view_t *view,
          badge stays legible on the filled-in player box.  ADRIFT 5's are part
          of the drawing and keep the node's own alpha. */
       bopq = map->line_links ? 255 : alpha;
-      /* The far end of somebody else's In/Out link wears a badge too, and that
-         one is not gated -- DrawLinks draws it whatever the route does. */
-      if (b_in != NULL || (badges != NULL && badges[i].far_in))
-        draw_dir_icon (dst, &p, n, DIR_IN,
-                       badges != NULL ? badges[i].in_edge : DIR_N,
-                       b_in != NULL ? badge_alpha (view, b_in, bopq) : bopq);
-      if (b_out != NULL || (badges != NULL && badges[i].far_out))
-        draw_dir_icon (dst, &p, n, DIR_OUT,
-                       badges != NULL ? badges[i].out_edge : DIR_N,
-                       b_out != NULL ? badge_alpha (view, b_out, bopq) : bopq);
-      if (b_up != NULL)
-        draw_dir_icon (dst, &p, n, DIR_UP, -1, badge_alpha (view, b_up, bopq));
-      if (b_down != NULL)
-        draw_dir_icon (dst, &p, n, DIR_DOWN, -1,
-                       badge_alpha (view, b_down, bopq));
+      /* A3/A4: Up/Down/In/Out are badge links with no facing geometry, so lay
+         them out on the half-winds (NNE/NNW and SSE/SSW for U/D;
+         ENE/ESE/WSW/WNW for I/O).  A5 In/Out still use the RecalculateLinks
+         edges in `badges`. */
+      if (badges == NULL
+          && (b_up != NULL || b_down != NULL
+              || (b_in != NULL && b_in->badge)
+              || (b_out != NULL && b_out->badge)))
+        {
+          a4_badge_pos_t a4;
+          double xp, yp;
+          a4_badge_pos (n, &a4);
+          if (b_in != NULL)
+            {
+              badge_pct (a4.in_site, &xp, &yp);
+              draw_dir_icon_xy (dst, &p, n, DIR_IN, xp, yp,
+                                badge_alpha (view, b_in, bopq));
+            }
+          if (b_out != NULL)
+            {
+              badge_pct (a4.out_site, &xp, &yp);
+              draw_dir_icon_xy (dst, &p, n, DIR_OUT, xp, yp,
+                                badge_alpha (view, b_out, bopq));
+            }
+          if (b_up != NULL)
+            {
+              badge_pct (a4.up_site, &xp, &yp);
+              draw_dir_icon_xy (dst, &p, n, DIR_UP, xp, yp,
+                                badge_alpha (view, b_up, bopq));
+            }
+          if (b_down != NULL)
+            {
+              badge_pct (a4.down_site, &xp, &yp);
+              draw_dir_icon_xy (dst, &p, n, DIR_DOWN, xp, yp,
+                                badge_alpha (view, b_down, bopq));
+            }
+        }
+      else
+        {
+          /* The far end of somebody else's In/Out link wears a badge too, and
+             that one is not gated -- DrawLinks draws it whatever the route
+             does. */
+          if (b_in != NULL || (badges != NULL && badges[i].far_in))
+            draw_dir_icon (dst, &p, n, DIR_IN,
+                           badges != NULL ? badges[i].in_edge : DIR_N,
+                           b_in != NULL ? badge_alpha (view, b_in, bopq)
+                                         : bopq);
+          if (b_out != NULL || (badges != NULL && badges[i].far_out))
+            draw_dir_icon (dst, &p, n, DIR_OUT,
+                           badges != NULL ? badges[i].out_edge : DIR_N,
+                           b_out != NULL ? badge_alpha (view, b_out, bopq)
+                                         : bopq);
+          if (b_up != NULL)
+            draw_dir_icon (dst, &p, n, DIR_UP, -1,
+                           badge_alpha (view, b_up, bopq));
+          if (b_down != NULL)
+            draw_dir_icon (dst, &p, n, DIR_DOWN, -1,
+                           badge_alpha (view, b_down, bopq));
+        }
 
       if (view != NULL && view->name != NULL)
         {
