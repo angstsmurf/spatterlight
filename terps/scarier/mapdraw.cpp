@@ -1107,10 +1107,11 @@ draw_dir_icon (map_surface_t *s, const proj_t *p, const map_node_t *n,
   if (r < 3)
     r = 3;
   /* IN and OUT go where the connector leaves the box, on the edge `edge` that
-     inout_edge picked.  UP and DOWN are ours: the ADRIFT 4 runner drew them as
-     icons rather than lines, so they get a fixed spot -- high on the right
-     edge, low on the left -- clear of the IN/OUT quarters and off the corners
-     where the NE and SW connectors attach. */
+     inout_edge picked.  UP and DOWN are ours: only the ADRIFT 4 mapper makes
+     badge links of them (its runner drew them as icons rather than lines), so
+     they get a fixed spot -- UP at ENE, DOWN at WSW.  That keeps them clear of
+     the IN/OUT quarters, off the corners where the NE and SW connectors
+     attach, and off the mid-edge points the E and W connectors leave by. */
   switch (dir)
     {
     case DIR_IN:
@@ -1399,7 +1400,7 @@ map_render (const map_t *map, const map_view_t *view,
   for (i = 0; i < page->n_nodes; i++)
     {
       const map_node_t *n = &page->nodes[i];
-      int x0, y0, x1, y1, alpha, is_player;
+      int x0, y0, x1, y1, alpha, bopq, is_player;
       const map_link_t *b_in = NULL, *b_out = NULL;
       const map_link_t *b_up = NULL, *b_down = NULL;
       unsigned int fill;
@@ -1453,22 +1454,27 @@ map_render (const map_t *map, const map_view_t *view,
               && view->exit_dest (view->ctx, n->key, DIR_OUT) == NULL)
             b_out = NULL;
         }
+      /* ADRIFT 4's badges are the runner's little bitmaps, painted over the
+         room box rather than blended into it, and there is no second level
+         for the off-level alpha to mean anything on: draw them opaque, so a
+         badge stays legible on the filled-in player box.  ADRIFT 5's are part
+         of the drawing and keep the node's own alpha. */
+      bopq = map->line_links ? 255 : alpha;
       /* The far end of somebody else's In/Out link wears a badge too, and that
          one is not gated -- DrawLinks draws it whatever the route does. */
       if (b_in != NULL || (badges != NULL && badges[i].far_in))
         draw_dir_icon (dst, &p, n, DIR_IN,
                        badges != NULL ? badges[i].in_edge : DIR_N,
-                       b_in != NULL ? badge_alpha (view, b_in, alpha) : alpha);
+                       b_in != NULL ? badge_alpha (view, b_in, bopq) : bopq);
       if (b_out != NULL || (badges != NULL && badges[i].far_out))
         draw_dir_icon (dst, &p, n, DIR_OUT,
                        badges != NULL ? badges[i].out_edge : DIR_N,
-                       b_out != NULL ? badge_alpha (view, b_out, alpha)
-                                     : alpha);
+                       b_out != NULL ? badge_alpha (view, b_out, bopq) : bopq);
       if (b_up != NULL)
-        draw_dir_icon (dst, &p, n, DIR_UP, -1, badge_alpha (view, b_up, alpha));
+        draw_dir_icon (dst, &p, n, DIR_UP, -1, badge_alpha (view, b_up, bopq));
       if (b_down != NULL)
         draw_dir_icon (dst, &p, n, DIR_DOWN, -1,
-                       badge_alpha (view, b_down, alpha));
+                       badge_alpha (view, b_down, bopq));
 
       if (view != NULL && view->name != NULL)
         {
