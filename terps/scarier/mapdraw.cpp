@@ -1324,7 +1324,28 @@ map_render (const map_t *map, const map_view_t *view,
             link_point (&p, dn, dst_anchor, &x3, &y3);
 
           dist = sqrt ((x3 - x0) * (x3 - x0) + (y3 - y0) * (y3 - y0));
-          if (link->dir == DIR_IN || link->dir == DIR_OUT
+          if (map->line_links)
+            {
+              /* ADRIFT 4.  Form29.dolink sets the X1/Y1/X2/Y2 of a Line
+                 control, which is a straight segment, and it takes only one
+                 of the two coordinates from the destination: a North or South
+                 link is vertical at the *source* room's centre column and an
+                 East or West one horizontal at the source's centre row,
+                 whatever column or row the destination ended up in.  So a
+                 skewed link sets off towards the destination's row and stops
+                 level with it without ever meeting the box -- which is what
+                 run400 draws.  (The eight-point diagonals need no such fix:
+                 their two anchors are already the corners the runner uses.) */
+              switch (link->dir)
+                {
+                case DIR_N: case DIR_S: x3 = x0; break;
+                case DIR_E: case DIR_W: y3 = y0; break;
+                default: break;
+                }
+              x1 = x0; y1 = y0;
+              x2 = x3; y2 = y3;
+            }
+          else if (link->dir == DIR_IN || link->dir == DIR_OUT
               || dst_anchor == DIR_IN || dst_anchor == DIR_OUT)
             {
               /* No bow: an In/Out connector is a straight run between the two

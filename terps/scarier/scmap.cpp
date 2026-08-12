@@ -1033,6 +1033,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       return NULL;
     }
   m->n_pages = 1;
+  m->line_links = 1;            /* Form29.dolink draws with Line controls */
   page = &m->pages[0];
   page->key = 0;
   page->label = NULL;

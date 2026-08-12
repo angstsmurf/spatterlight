@@ -30,12 +30,14 @@
  * already-placed rooms aside whenever two want the same cell.  We port that
  * algorithm rather than invent one (scmap.cpp).
  *
- * Once either engine has produced a map_t, everything below is common, so a v4
- * map and a v5 map look alike in Spatterlight -- even though the ADRIFT 4
- * runner's own map, built out of Visual Basic control arrays, looked nothing
- * like the ADRIFT 5 one.  Geometry follows the Adrift 5 runner's Map.vb,
- * whose plan view is the one a player sees unless they drag the map:
- * X to the right, Y downward, one map unit = `scale` pixels.
+ * Once either engine has produced a map_t, almost everything below is common,
+ * so a v4 map and a v5 map look alike in Spatterlight -- even though the
+ * ADRIFT 4 runner's own map, built out of Visual Basic control arrays, looked
+ * nothing like the ADRIFT 5 one.  Geometry follows the Adrift 5 runner's
+ * Map.vb, whose plan view is the one a player sees unless they drag the map:
+ * X to the right, Y downward, one map unit = `scale` pixels.  The one thing
+ * that does not carry over is the shape of a connector, because a VB Line
+ * control cannot bow: see map_s.line_links.
  *
  * This module is deliberately free of Glk and of both engines: it rasterises
  * into a plain RGB surface, so a map can be rendered and diffed headlessly
@@ -101,6 +103,13 @@ typedef struct map_page_s {
 typedef struct map_s {
   map_page_t *pages;
   int n_pages;
+  /* ADRIFT 4 connectors are Visual Basic Line controls (Form29.dolink), so
+     they are straight by construction, and axis-locked: only one of each
+     line's two coordinates comes from the destination.  ADRIFT 5's Map.vb
+     bows a compass connector into a cubic Bezier between the two rooms' own
+     anchor points instead (GetBezierAssister).  The ADRIFT 4 mapper sets this;
+     the ADRIFT 5 loader leaves it clear. */
+  int line_links;
   /* Keys and labels normally alias the loader's own storage (in ADRIFT 5, the
      XML document).  A loader with nothing to alias -- the ADRIFT 4 mapper has
      only room numbers, so it must spell its keys out -- parks the strings here
