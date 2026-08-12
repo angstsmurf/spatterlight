@@ -190,6 +190,24 @@ static int gsc_commands_enabled = TRUE,
 # define GSC_HAVE_ZCOLORS 1
 #endif
 
+/* Whether a cover image can be shown in a pane of its own above the story
+   window (see gsc_show_title_graphic).  The pane itself needs nothing but core
+   Glk graphics; what varies is where the image comes from, so the hosts that
+   can turn a chunk of the game file into a Glk image number are exactly the
+   ones that can have it -- Spatterlight through its image cache, Gargoyle
+   through garglk_add_resource_from_file. */
+#if defined(SPATTERLIGHT) || defined(GLK_MODULE_GARGLK_FILE_RESOURCES)
+# define GSC_HAVE_TITLE_WINDOW 1
+#endif
+
+/* Whether this Glk library has garglk_unput_string_count_uni(), used to take
+   a dangling prompt back off the story window (see gsc_unput_tail).  Both
+   Gargoyle and Spatterlight declare it with the rest of the garglk text
+   extensions. */
+#if defined(SPATTERLIGHT) || defined(GARGLK)
+# define GSC_HAVE_UNPUT 1
+#endif
+
 /* ADRIFT <=4 Runner default palette; the ADRIFT 5 loop overwrites these from
    the adventure when it loads one.  See gsc_set_colour for where the numbers
    come from. */
@@ -3209,7 +3227,7 @@ os_stop_sound (void)
 #endif
 
 
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
 /*
  * Title/cover graphic support.  Adrift games can carry an "IntroRes" cover
  * image, shown by the engine before the game's first turn.  Adrift intros
@@ -3222,10 +3240,12 @@ os_stop_sound (void)
  */
 static winid_t gsc_graphics_window = NULL;
 static glui32 gsc_title_image = 0;
+#ifdef SPATTERLIGHT
 /* The title image's chunk in the game file, so an autorestore can re-load it
    into the app-side image cache (the cache does not survive a relaunch). */
 static scr_int gsc_title_offset = 0;
 static scr_int gsc_title_length = 0;
+#endif
 static int gsc_seen_input = FALSE;
 
 /*
@@ -3333,7 +3353,7 @@ gsc_close_title_graphic (void)
       gsc_title_image = 0;
     }
 }
-#endif
+#endif /* GSC_HAVE_TITLE_WINDOW */
 
 
 /*
@@ -3349,7 +3369,7 @@ gsc_refresh_windows (void)
   gsc_normal_measure_state = -1;
 
   gsc_status_redraw ();
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
   gsc_title_redraw ();
 #endif
 }
@@ -3359,7 +3379,9 @@ gsc_refresh_windows (void)
 /*
  * os_show_graphic()
  *
- * Use the Gargoyle-specific garglk_add_resource_from_file().
+ * Use the Gargoyle-specific garglk_add_resource_from_file().  Before the
+ * player's first input, show the image as a title in a dedicated graphics
+ * window; afterwards, draw it inline in the main window.
  */
 void
 os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
@@ -3368,8 +3390,13 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
     return;
 
   glui32 id = garglk_add_resource_from_file(giblorb_ID_Pict, gamefile, offset, length);
-  if (id != 0)
-    gsc_draw_inline_graphic(id);
+  if (id == 0)
+    return;
+
+  if (!gsc_seen_input && gsc_show_title_graphic (id))
+    return;
+
+  gsc_draw_inline_graphic(id);
 }
 #elif defined(SPATTERLIGHT)
 /*
@@ -3892,7 +3919,7 @@ gsc_colour_rebuild_windows (void)
 {
   int was_map = gsc_map_shown;
   int was_side = gsc_a5_side_window != NULL;
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
   int was_title = gsc_graphics_window != NULL;
 #endif
   winid_t root;
@@ -3905,7 +3932,7 @@ gsc_colour_rebuild_windows (void)
   gsc_status_window = NULL;
   gsc_map_window = NULL;
   gsc_a5_side_window = NULL;
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
   gsc_graphics_window = NULL;
 #endif
   gsc_map_shown = FALSE;
@@ -3914,7 +3941,7 @@ gsc_colour_rebuild_windows (void)
   gsc_open_main_window ();
   gsc_open_status_window ();
 
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
   if (was_title && gsc_title_image != 0)
     gsc_show_title_graphic (gsc_title_image);
 #endif
@@ -5738,7 +5765,7 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
     gsc_graphic_drawn_since_input = FALSE;
 #endif
 
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
   /* The player's first input dismisses any title/cover image window. */
   if (!gsc_seen_input
       && (event->type == evtype_LineInput || event->type == evtype_CharInput))
@@ -6389,11 +6416,13 @@ gsc_main (void)
   is_running = TRUE;
   while (is_running)
     {
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
       /* Each (re)start replays the intro, so allow the title window again
          -- except on the autorestore pass, whose title-window state was
          just recovered from the archive. */
+#ifdef SPATTERLIGHT
       if (!gsc_autorestored)
+#endif
         gsc_seen_input = FALSE;
 #endif
       /* Run the game until it ends, or the user quits. */
@@ -6589,7 +6618,7 @@ gsc_a5_start_real_time (a5_run_t *run)
   glk_request_timer_events (gsc_a5_real_time ? 1000 : 0);
 }
 
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_UNPUT
 /*
  * gsc_unput_tail()
  *
@@ -6622,7 +6651,7 @@ gsc_unput_tail (const char *s)
   glk_stream_set_current (saved);
   return got == length;
 }
-#endif
+#endif /* GSC_HAVE_UNPUT */
 
 /*
  * gsc_a5_sound_marks_only()
@@ -6746,7 +6775,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                    text reads as a clean continuation, with the one true
                    prompt reprinted below.  Best-effort: if the tail has
                    moved on, end the prompt's line instead, as before. */
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_UNPUT
                 if (!gsc_unput_tail ("\n> "))
 #endif
                   gsc_a5_put_string ("\n");
@@ -6780,7 +6809,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
               /* A completed command line ends a turn (see gsc_event_wait_2). */
               gsc_graphic_drawn_since_input = FALSE;
 #endif
-#ifdef SPATTERLIGHT
+#ifdef GSC_HAVE_TITLE_WINDOW
               /* The player's first input dismisses any title/cover window. */
               if (!gsc_seen_input)
                 {
