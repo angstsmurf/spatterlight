@@ -114,6 +114,37 @@ sm_opp (int dir)
 
 
 /*
+ * sm_dir_matches()
+ *
+ * Does (dx,dy) lie in compass direction `dir` from (sx,sy)?  ADRIFT 3/4 has no
+ * author-declared SourceAnchor / DestinationAnchor -- scmap invents
+ * dst_anchor = opp(dir) for every compass exit -- so a connector is only
+ * meaningful when the layout actually put the rooms that way.  Otherwise the
+ * renderer bows a line from e.g. East's NE corner into Hub's SW, which Form29
+ * never drew (map39: Hub→East one-way, East returns via NE).  Badges skip this
+ * test: Up/Down/In/Out are icons, not lines.
+ */
+static int
+sm_dir_matches (int sx, int sy, int dx, int dy, int dir)
+{
+  int x = dx - sx, y = dy - sy;
+
+  switch (dir)
+    {
+    case DIR_N:  return x == 0 && y < 0;
+    case DIR_E:  return x > 0 && y == 0;
+    case DIR_S:  return x == 0 && y > 0;
+    case DIR_W:  return x < 0 && y == 0;
+    case DIR_NE: return x > 0 && y < 0;
+    case DIR_SE: return x > 0 && y > 0;
+    case DIR_SW: return x < 0 && y > 0;
+    case DIR_NW: return x < 0 && y < 0;
+    default:     return 0;
+    }
+}
+
+
+/*
  * sm_check_grid()
  *
  * What is in cell (x,y)?  A room number, or one of the GRID_* markers.
@@ -1078,7 +1109,12 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
      runner showed them as a small icon on the room box (Form29.doicon)
      whenever the raw exit exists -- the destination need not be placed, or
      even seen; an unseen destination only switches the icon to its dimmed
-     variant, which the renderer does off the badge link's dest. */
+     variant, which the renderer does off the badge link's dest.
+
+     Compass links are further gated on sm_dir_matches(): without authored
+     anchors, inventing dst_anchor = opp(dir) for a skewed return (East NE→Hub
+     while Hub sits due west) produces a runaway bezier Form29 never showed.
+     A one-way that *does* line up (Hub E→East) still draws. */
   for (ip = 0; ip < page->n_nodes; ip++)
     {
       map_node_t *node = &page->nodes[ip];
@@ -1099,6 +1135,10 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
           if (dest <= 0 || dest > n || dest == rno)
             continue;
           if (!is_badge && !L.rooms[dest].placed)
+            continue;
+          if (!is_badge
+              && !sm_dir_matches (L.rooms[rno].x, L.rooms[rno].y,
+                                  L.rooms[dest].x, L.rooms[dest].y, d))
             continue;
 
           node->links[nl].dir = d;

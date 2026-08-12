@@ -152,7 +152,8 @@ typedef struct map_view_s {
      its restrictions currently fail and drawn solid until the player has been
      blocked there once (Map.vb:1429/1447), and the IN/OUT badges only show
      while their route is open (Map.vb:1328/1337).  NULL for ADRIFT 4, whose
-     runner drew every connector between rooms it laid out. */
+     runner drew every connector its layout emitted -- and scmap.cpp already
+     omits compass exits whose rooms are not laid out in that direction. */
   int (*ever_blocked) (void *ctx, const char *lockey, int dir);
   void *ctx;
 } map_view_t;
