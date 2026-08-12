@@ -1604,20 +1604,21 @@ Node/link visibility ("fog of war") is determined at runtime, controlled by the 
 
 **Exits / links**
 
-For each outgoing link, the Runner chooses one of: a full connector, a "stub" out-arrow, or nothing.
+For each outgoing link, the Runner chooses one of: a full connector, a "stub" out-arrow, or no connector.
 
 A "stub" is a short arrow from the node edge into empty space (or an In/Out icon with no arrow).
 
-In/Out exits are drawn as labeled green ("IN") / pink ("OUT") badges on the node edge. A badge never has a "stub" arrow, but may have a connector.
+In/Out exits are drawn as labeled green ("IN") / pink ("OUT") badges on the edge of the room node's rectangle. A badge never has a "stub" arrow, but may have a connector.
 
-Spatterlight draws Up/Down as yellow ("U") / blue ("D") badges (same style as ADRIFT 4). The official Runner has a 3D map, which you have to drag to tilt to reveal Up/Down stubs. I expect that most runner UIs will not be rotatable 3D maps; badges work much better in 2D.
+Spatterlight draws Up/Down as yellow ("U") / blue ("D") badges (same style as ADRIFT 4). The official Runner has a 3D map, which you have to drag to tilt to reveal Up/Down stubs. Most runner UIs will not be rotatable 3D maps; badges work much better in 2D.
 
-| Destination | Route allowed | Same page as source | Other page / no map node |
-|-------------|---------------|---------------------|---------------------------|
-| **Unseen** | Yes | Stub | Stub |
-| **Unseen** | No | Nothing | Nothing |
-| **Seen** | Yes | Full connector from Map `Link` (if present) | **Nothing** |
-| **Seen** | No | Nothing | Nothing |
+| Destination | Route allowed | Link type | Same page as source | Other page / no map node |
+|-------------|---------------|-----------|---------------------|---------------------------|
+| **Unseen** | Yes | Compass | Stub | Stub |
+| **Unseen** | Yes | Badge | No Connector | No Connector |
+| **Unseen** | No | Either | No Connector | No Connector |
+| **Seen** | Yes | Either | Connector | No Connector |
+| **Seen** | No | Either | No Connector | No Connector |
 
 Details:
 
@@ -1626,11 +1627,13 @@ Details:
   - No movement restrictions: solid line.
   - Movement has restrictions and the route currently fails: omit the link
   - Movement has restrictions and the route currently passes: link style is dotted.
-    - The `run500.exe` Runner forces the link to be solid until that exit's restricton tests have failed at least once. For example, if route is passable at the start of the game, and then later becomes restricted, and then the player unblocks the route, the route would change to dotted. This state is not saved/recorded in the save-game XML state. (It seems unnecessarily complicated to me.)
+    - The `run500.exe` Runner forces the link to be solid until that exit's restricton tests have failed at least once. For example, if route is passable at the start of the game, and then later becomes restricted, and then the player unblocks the route, the route would change to dotted. This state is not saved/recorded in the save-game XML state. (Is this unnecessarily complicated?)
   - **Arrow heads (one-way vs two-way):** One-way links (`Not Duplex`) draw an arrow head at the destination end of the connector. Duplex (two-way) links have no arrow head. Stubs to unseen destinations always use an arrow head. The Runner draws each undirected pair once (via node sort order), so a duplex exit appears as a single line without arrows rather than two opposing arrows.
+    - One-way badge links draw the badge on the source only, drawing an arrow head at the destination anchor where the badge would have been. Duplex badge links also get the arrival badge on the destination (DestinationAnchor).
   - Self-links (destination key equals source) are drawn as out-arrows, not a loop through empty space.
 - **Seen destination on another page (or no node on this page):** The map shows no exit glyph for that direction. (An exit back to a seen starting room on another page is a common case of this.)
-
+- **Badge positioning**: Badges (in/out/up/down) are positioned on the edge of the room node's rectangle, in between the eight cardinal compass locations. (Choose the anchor nearest the destination node.)
+  - When a badge exit (In/Out/Up/Down) shares its destination and restriction style with a compass exit on the same room (e.g. South and Down both go to the Cellar), Spatterlight positions the badge on that compass port and omits the badge-to-badge connector (the compass link already draws the line). The duplex destination badge then sits on that compass link's `DestinationAnchor` port (in this example, the Up badge would be positioned on Cellar's North anchor) so it meets the line. (The official Runner prefers to draw two separate link lines for same-dest coincidence, which can look strange and confusing.)
 
 **Pages**
 
