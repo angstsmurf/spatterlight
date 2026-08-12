@@ -63,6 +63,8 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 @interface GlkSoundChannel () {
 @private
     SFB::Audio::Player    *_player;        // The player instance
+    SInt64 _pendingFrame;                  // Where a deserialized channel resumes
+    BOOL _resumeEnqueued;                  // A decoder is queued at that position
 }
 
 @end
@@ -119,6 +121,10 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
     /* load sound resource into memory */
     type = [_handler loadSoundResourceFromSound:snd data:&buf];
+
+    /* A resume point belongs to the sound it was taken from, and to nothing else. */
+    if (snd != resid)
+        _pendingFrame = 0;
 
     notify = anot;
     resid = snd;
@@ -189,10 +195,46 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     _nowPlayingLooping = looping;
 
     auto loopableRegionDecoder = SFB::Audio::LoopableRegionDecoder::CreateForDecoderRegion((std::move(decoder)), 0, (UInt32)frames, (UInt32)areps - 1);
-    if (paused)
+
+    /* Picking up where an autosave left off. The seek happens here rather than
+       through the player because the player takes a decoder's current frame as the
+       starting position, and only opens a decoder that is not open already: doing
+       it first means no race with the decoding thread, and a position that reads
+       back correctly straight away. The frame counts every pass of a looping
+       region, so it restores the remaining repeats along with the position.
+       Consume it either way: a later replay of this sound is a fresh start. */
+    BOOL resumed = NO;
+    if (_pendingFrame > 0 && loopableRegionDecoder && frames > 0) {
+        /* Keep the frame inside the region: a sound looping forever counts passes
+           forever, past what the decoder can seek to, while one with a set number
+           of repeats still has to stop after the last of them. */
+        if (looping) {
+            _pendingFrame %= frames;
+        } else {
+            SInt64 lastFrame = frames * areps - 1;
+            if (_pendingFrame > lastFrame)
+                _pendingFrame = lastFrame;
+        }
+        CFErrorRef seekError = nullptr;
+        if (!loopableRegionDecoder->Open(&seekError))
+            NSLog(@"GlkSoundChannel: Could not open decoder to resume at frame %lld %@", _pendingFrame, seekError);
+        else if (loopableRegionDecoder->SupportsSeeking())
+            resumed = (loopableRegionDecoder->SeekToFrame(_pendingFrame) == _pendingFrame);
+    }
+
+    _resumeEnqueued = NO;
+    if (paused) {
         _player->Enqueue(loopableRegionDecoder);
-    else
+        /* Nothing has been started, and an unpause treats a player that has not
+           started as finished. Remember that this one holds a resume point, so it
+           gets played rather than replaced. The frame stays put as well: with
+           nothing rendering it is all this channel knows about where it is, and a
+           channel can be autosaved many times over before anyone unpauses it. */
+        _resumeEnqueued = resumed;
+    } else {
+        _pendingFrame = 0;
         _player->Play(loopableRegionDecoder);
+    }
 
     return YES;
 }
@@ -212,6 +254,8 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         _player->SetRenderingFinishedBlock(nullptr);
         _player->Stop();
     }
+    _pendingFrame = 0;
+    _resumeEnqueued = NO;
     [self cleanup];
     [_handler nowPlayingStateDidChange];
 }
@@ -228,7 +272,13 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 - (void)unpause {
     paused = NO;
     BOOL result;
-    if (!_player || _player->IsStopped()) {
+    if (_resumeEnqueued && _player) {
+        // A decoder seeked to the archived position is waiting in the queue.
+        _resumeEnqueued = NO;
+        _pendingFrame = 0;
+        result = _player->Play();
+        [_handler nowPlayingStateDidChange];
+    } else if (!_player || _player->IsStopped()) {
         // No live decoder (or player fully stopped) — restart the same sound.
         result = [self playSound:resid countOfRepeats:loop notification:notify];
     } else {
@@ -313,12 +363,10 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
 
 /* Restart the sound channel after a deserialize, and also any fade timer.
- This primitive implementation disregards how much of the sound that had
- played when the game was autosaved or killed.
- Fade timers remember this, however, so a clip halfway through a 10
- second fade out will restart from the beginning but fade out in 10 seconds.
- Well, except that it counts from last glk_select and not from when the process
- was actually terminated.
+ The archived playback position is picked up by -playSoundInternal:, so a sound
+ resumes where it was when the game was autosaved or killed rather than starting
+ over. A fade in progress resumes too, except that its remaining time counts from
+ the last glk_select and not from when the process was actually terminated.
  */
 - (void)restartInternal {
 
@@ -399,6 +447,8 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         volume_timeout = (glui32)[decoder decodeIntForKey:@"volume_timeout"];
         target_volume = (float)[decoder decodeDoubleForKey:@"target_volume"];
         volume_delta = (float)[decoder decodeDoubleForKey:@"volume_delta"];
+
+        _pendingFrame = [decoder decodeInt64ForKey:@"frame"];
     }
     return self;
 }
@@ -417,6 +467,18 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     [encoder encodeInt:(int)volume_timeout forKey:@"volume_timeout"];
     [encoder encodeDouble:target_volume forKey:@"target_volume"];
     [encoder encodeDouble:volume_delta forKey:@"volume_delta"];
+
+    /* How far the sound has played, so a restart can resume rather than begin
+       again. With nothing rendering there is a position waiting to be handed to a
+       decoder, which is what a channel paused across an autosave holds. */
+    SInt64 frame = 0;
+    if (_status != GlkSoundChannelStatusIdle) {
+        frame = _pendingFrame;
+        SInt64 current = 0;
+        if (_player && _player->GetCurrentFrame(current) && current > 0)
+            frame = current;
+    }
+    [encoder encodeInt64:frame forKey:@"frame"];
 }
 
 @end

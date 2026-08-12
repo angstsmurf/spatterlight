@@ -229,6 +229,129 @@ static void TrimLeadingSilence(MusicSequence sequence) {
         ShiftTrackBack(tempoTrack, offset);
 }
 
+/// Length of the longest track in the sequence, in beats, or 0 if unknown.
+static MusicTimeStamp SequenceLength(MusicSequence sequence) {
+    UInt32 numberOfTracks = 0;
+    if (MusicSequenceGetTrackCount(sequence, &numberOfTracks) != noErr)
+        return 0;
+
+    MusicTimeStamp longest = 0;
+    for (UInt32 i = 0; i < numberOfTracks; i++) {
+        MusicTrack track = NULL;
+        MusicTimeStamp trackLen = 0;
+        UInt32 trackLenLen = sizeof(trackLen);
+        if (MusicSequenceGetIndTrack(sequence, i, &track) != noErr)
+            continue;
+        if (MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &trackLen, &trackLenLen) != noErr)
+            continue;
+        if (trackLen > longest)
+            longest = trackLen;
+    }
+    return longest;
+}
+
+/* Starting in the middle of a sequence means the synth never saw the events that
+   set it up. Within a session that does not matter: pausing leaves the graph and
+   its DLS synth alive, still holding every program change and controller the
+   sequence has sent. A sequence revived from an autosave gets a fresh graph
+   instead, and would resume on channel defaults -- grand piano, centre pan, no
+   bank select -- so replay that state by hand before playing.
+
+   Sysex is sent as it is found, which puts all of it ahead of the values below:
+   a General MIDI reset wipes controller and program state, and we want ours to be
+   what survives. Then come controllers in ascending order (a bank select has to
+   arrive before the program change that consumes it), then programs, then pitch
+   bends. Note-ons are skipped, or every note sounding at the resume point would
+   come back stuck on. Replaying values cannot reproduce an RPN/NRPN entry
+   sequence, which is rare enough in game music to live with. */
+static void ChaseSynthState(MusicSequence sequence, MusicTimeStamp beats, AudioUnit synth) {
+    if (beats <= 0 || !synth)
+        return;
+
+    UInt32 numberOfTracks = 0;
+    if (MusicSequenceGetTrackCount(sequence, &numberOfTracks) != noErr)
+        return;
+
+    UInt8 program[16];
+    UInt8 controller[16][128];
+    UInt8 bend[16][2];
+    BOOL hasProgram[16], hasController[16][128], hasBend[16];
+    memset(program, 0, sizeof(program));
+    memset(controller, 0, sizeof(controller));
+    memset(bend, 0, sizeof(bend));
+    memset(hasProgram, 0, sizeof(hasProgram));
+    memset(hasController, 0, sizeof(hasController));
+    memset(hasBend, 0, sizeof(hasBend));
+
+    for (UInt32 i = 0; i < numberOfTracks; i++) {
+        MusicTrack track = NULL;
+        if (MusicSequenceGetIndTrack(sequence, i, &track) != noErr)
+            continue;
+
+        MusicEventIterator iterator = NULL;
+        if (NewMusicEventIterator(track, &iterator) != noErr)
+            continue;
+
+        Boolean hasEvent = false;
+        MusicEventIteratorHasCurrentEvent(iterator, &hasEvent);
+        while (hasEvent) {
+            MusicTimeStamp stamp = 0;
+            MusicEventType type = 0;
+            const void *data = NULL;
+            UInt32 size = 0;
+            if (MusicEventIteratorGetEventInfo(iterator, &stamp, &type, &data, &size) != noErr)
+                break;
+            /* Events arrive in time order, so the rest of the track is in the future. */
+            if (stamp >= beats)
+                break;
+
+            if (type == kMusicEventType_MIDIChannelMessage) {
+                const MIDIChannelMessage *message = data;
+                UInt8 channel = message->status & 0x0f;
+                switch (message->status & 0xf0) {
+                    case 0xb0:
+                        if (message->data1 < 128) {
+                            controller[channel][message->data1] = message->data2;
+                            hasController[channel][message->data1] = YES;
+                        }
+                        break;
+                    case 0xc0:
+                        program[channel] = message->data1;
+                        hasProgram[channel] = YES;
+                        break;
+                    case 0xe0:
+                        bend[channel][0] = message->data1;
+                        bend[channel][1] = message->data2;
+                        hasBend[channel] = YES;
+                        break;
+                    default:
+                        break;
+                }
+            } else if (type == kMusicEventType_MIDIRawData) {
+                const MIDIRawData *raw = data;
+                if (raw->length > 0 && raw->data[0] == 0xf0)
+                    MusicDeviceSysEx(synth, raw->data, raw->length);
+            }
+
+            if (MusicEventIteratorNextEvent(iterator) != noErr)
+                break;
+            MusicEventIteratorHasCurrentEvent(iterator, &hasEvent);
+        }
+        DisposeMusicEventIterator(iterator);
+    }
+
+    for (UInt8 channel = 0; channel < 16; channel++) {
+        for (UInt32 number = 0; number < 128; number++) {
+            if (hasController[channel][number])
+                MusicDeviceMIDIEvent(synth, 0xb0 | channel, number, controller[channel][number], 0);
+        }
+        if (hasProgram[channel])
+            MusicDeviceMIDIEvent(synth, 0xc0 | channel, program[channel], 0, 0);
+        if (hasBend[channel])
+            MusicDeviceMIDIEvent(synth, 0xe0 | channel, bend[channel][0], bend[channel][1], 0);
+    }
+}
+
 - (void)loadData:(NSData *)data {
     NewMusicSequence(&sequence);
     MusicSequenceFileLoadData (sequence, (__bridge CFDataRef _Nonnull)(data), kMusicSequenceFile_MIDIType, kMusicSequenceLoadSMF_ChannelsToTracks);
@@ -241,26 +364,39 @@ static void TrimLeadingSilence(MusicSequence sequence) {
     MusicPlayerPreroll(player);
 
     _duration = 0;
-    UInt32 numberOfTracks = 0;
-    if (MusicSequenceGetTrackCount(sequence, &numberOfTracks) == noErr) {
-        MusicTimeStamp longest = 0;
-        for (UInt32 i = 0; i < numberOfTracks; i++) {
-            MusicTrack track = NULL;
-            MusicTimeStamp trackLen = 0;
-            UInt32 trackLenLen = sizeof(trackLen);
-            if (MusicSequenceGetIndTrack(sequence, i, &track) != noErr)
-                continue;
-            if (MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &trackLen, &trackLenLen) != noErr)
-                continue;
-            if (trackLen > longest)
-                longest = trackLen;
-        }
-        if (longest > 0) {
-            Float64 seconds = 0;
-            if (MusicSequenceGetSecondsForBeats(sequence, longest, &seconds) == noErr)
-                _duration = (NSTimeInterval)seconds;
-        }
+    MusicTimeStamp longest = SequenceLength(sequence);
+    if (longest > 0) {
+        Float64 seconds = 0;
+        if (MusicSequenceGetSecondsForBeats(sequence, longest, &seconds) == noErr)
+            _duration = (NSTimeInterval)seconds;
     }
+}
+
+- (double)position {
+    if (hasPausedTime)
+        return pausedTime;
+    MusicTimeStamp now = 0;
+    if (MusicPlayerGetTime(player, &now) != noErr)
+        return 0;
+    return now;
+}
+
+- (void)seekToPosition:(double)beats {
+    if (beats <= 0)
+        return;
+
+    MusicTimeStamp target = beats;
+    /* A looping player keeps counting past the end of the tracks, so a position
+       taken during the third pass has to be folded back into the sequence. */
+    MusicTimeStamp length = SequenceLength(sequence);
+    if (length > 0 && target >= length)
+        target = fmod(target, length);
+
+    ChaseSynthState(sequence, target, sampleUnit);
+
+    /* -play applies this the same way it resumes from a pause. */
+    pausedTime = target;
+    hasPausedTime = YES;
 }
 
 - (void)loop:(NSInteger)repeats {
@@ -294,6 +430,15 @@ static void TrimLeadingSilence(MusicSequence sequence) {
 }
 
 - (void)pause {
+    /* Pausing something that is not playing must not throw away the point it is
+       waiting to resume from: a channel restored from an autosave holds one before
+       it has ever been started. */
+    Boolean isPlaying = false;
+    if (MusicPlayerIsPlaying(player, &isPlaying) == noErr && !isPlaying) {
+        [self stopGraph];
+        return;
+    }
+
     pausedTime = 0;
     hasPausedTime = (MusicPlayerGetTime(player, &pausedTime) == noErr);
     MusicPlayerStop(player);
