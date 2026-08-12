@@ -39,25 +39,16 @@ Suggested scmap_dump views (no "too complex" case):
     hidden    map39_hidden.txt         expect "player is in a room hidden..."
     allseen   -all                     full layout of non-hidden rooms
 
-The room grid Scarier derives already matches the Runner's exactly:
+The room grid Scarier derives matches the Runner's exactly:
 
     .  North  .            (Attic, Closet and Outside are badge destinations
     West Hub  East          and never get a grid cell; Hidden is HideOnMap)
     SW  Cellar SE
     .  DoorRm .
 
-but three drawing divergences remain.  All three were measured against the
-real thing: run390.exe under Wine with map39.taf loaded, F2 for the map
-(2026-08-12).  They are what this probe is for -- do not "fix" the comments
-by deleting them, fix the renderer.
-
-  * Cellar--Door Room.  run390 draws it dotted, scmap_dump draws it solid.
-    Cellar's S is restricted, Door Room's N back is not; Scarier emits both
-    links and the later room overpaints the earlier.  run390 emits one, via
-    the same lineshow gate described under East.
-
-  * East's NE back to Hub.  run390 draws nothing (see East, above);
-    scmap_dump draws a diagonal that runs off past the East box.
+and so do the connectors, since scmap.cpp took up Form29.dolink's lineshow
+gate.  Compare against the real thing by loading map39.taf in run390.exe under
+Wine and pressing F2.  One divergence is left:
 
   * In/Out badges.  scmap_dump puts them on the north edge, where they
     collide with each other and with the North connector.  Form29.doicon
