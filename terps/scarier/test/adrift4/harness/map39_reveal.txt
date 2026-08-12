@@ -1,0 +1,20 @@
+# Walk the map graph; leave the Cellar door closed (Door Room unseen).
+# Ends on Hub. Final se/nw is SE Corner round-trip (not enter hidden).
+n
+s
+e
+ne
+w
+e
+s
+n
+u
+d
+in
+out
+out
+in
+sw
+ne
+se
+nw
