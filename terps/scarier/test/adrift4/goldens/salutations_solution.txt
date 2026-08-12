@@ -1,0 +1,88 @@
+# Salutations (salutations.taf) -- ADRIFT 4.00, by Lumin, Ectocomp 2008.
+#
+# ONE room, 17 tasks, 2 events, 9 objects, 3 NPC records (all three are "The
+# Spider"; only NPC 0 starts in the room).  The whole game is its opening
+# situation: you are hanging in a giant spider's web, the spider watching you
+# from a branch, a fat white egg sack swaying beside you.
+#
+# Result: WIN -- `ACT type=6 v1=0` on T12 `burn sack (soaked)`, then WINTEXT.
+# There is NO score: not one `ACT type=4` in the file, so every win is equally
+# maximal and the win marker below has to be prose from WINTEXT.
+#
+# The row sets SCR_SKIP_WAITKEY=1, and that is not cosmetic here: the intro
+# ends in a `<waitkey>`, so without it the FIRST command of the script is
+# swallowed as the keypress.  The game still wins in that case -- see the two
+# author slips below -- so this would have blessed a quietly shifted, one
+# command shorter transcript rather than failing outright.
+#
+# THE CHAIN.  Only the first four steps are gated; after that it is a race.
+#   remove jacket        T0.  Frees your right hand -- everything else needs
+#                        it.
+#   x leaves             T13.  Reveals the branch stuck in the web
+#                        (`ACT type=0 v1=5 v3=1`); before this the stick is
+#                        not in scope at all.  T2 below requires BOTH this and
+#                        the jacket (two `RESTR type=2`).
+#   get stick            T2.
+#   get pack             T3 (needs the stick held): you hook one of the pack's
+#                        straps with the branch and slide it up to your hand.
+#   get knife            T4 (needs the pack held).
+#   kill spider          T7.  Ungated -- and this is where the game turns: the
+#                        spider dies and EVENT 1 [spider dead] starts.
+#   get lighter          T9 (needs the pack held).  Flavour only; see the T12
+#                        slip below.
+#   get whiskey          T10, and this is what makes the ending a race: its
+#                        restriction is `RESTR type=2 task7`, so the whiskey
+#                        cannot be taken until the spider is dead and none of
+#                        the fire-setting can be prepared in advance.  Try it
+#                        early and you get "While having a last drink does
+#                        seem appropriate, you feel entirely too much like
+#                        vomiting now to be tempted."
+#   pour whiskey on sack T11.
+#   burn sack            T12 -- WIN.
+#
+# THE DEADLINE.  EVENT 1 [spider dead] runs `time1=time2=6` from the kill and
+# ends in T14 `#death`: the sack splits and the hatchlings eat you.  Six turns
+# is the budget and this route spends four -- but beware `z`, because the game
+# sets the ADRIFT global `WaitTurns` to 3, so one `wait` costs half of it.
+# Measured after the kill: five ordinary commands live, six die; two `z` die;
+# three ordinary commands plus one `z` die.
+#
+# THE TRAP.  T5 `cut sack` is `ACT type=6 v1=2`, a loss -- you open the sack
+# by hand and the swarm comes out.  The knife is the obvious tool and the sack
+# the obvious target, so the game's one real trap is doing the obvious thing.
+# T6 `cut web` is safe but goes nowhere.
+#
+# TWO AUTHOR SLIPS this route deliberately does not exploit.  Together they
+# make a six-command win possible (`get knife / kill spider / get lighter /
+# get whiskey / pour whiskey on sack / burn sack`):
+#   * T4 `get knife*` is gated on holding the backpack, but that restriction
+#     carries no failure message, so it falls through to the library -- and
+#     the library take reaches into the pack lying on the ground quite
+#     happily ("You pick up your hunting knife.").  The whole
+#     jacket/leaves/stick/pack chain is skippable.  Contrast T3 `get pack`
+#     and T9 `get lighter`, which do have failure messages ("You stretch as
+#     hard as you can..." / "The lighter is in your backpack and you can't
+#     reach it.") and so refuse properly.
+#   * T12 `burn sack (soaked)` restricts on T11 only, never on holding the
+#     lighter -- T15 `burn web` does check for it.  The winning text describes
+#     flicking the lighter on even in a run where `get lighter` answered "The
+#     lighter is in your backpack and you can't reach it."
+# The route below takes the intended path so the regression exercises the
+# object chain and both events rather than the holes in them.
+#
+# One measured detail worth keeping, since it is the v4 restriction model in
+# miniature (`adrift4-vs-5-restriction-eval`): `get stick` with nothing done
+# prints T2's "You can't really move your arms right now...", but `remove
+# jacket` then `get stick` prints the library's "Take what?" -- the message
+# belongs to the leaves restriction, and failing only the messageless jacket
+# one drops straight through to the library.
+remove jacket
+x leaves
+get stick
+get pack
+get knife
+kill spider
+get lighter
+get whiskey
+pour whiskey on sack
+burn sack

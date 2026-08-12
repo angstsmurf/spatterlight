@@ -22,7 +22,11 @@ Mirrors `test/adrift5/` (same subfolder names, same policies):
   `git show <sha>^:terps/scarier/adrift-walkthroughs/<name>` (both predate the
   2026-08-09 test-tree reorg, so they sit under the old path).
 - `goldens/` — a `*_solution.txt` (the command script) and
-  `*_solution.expected.txt` (its committed golden transcript) per route.
+  `*_solution.expected.txt` (its committed golden transcript) per route. Three
+  AIF games are the exception: *Archie's Birthday*, *Diary of a Stripper* and
+  *Camp Windy Lake : Part 2* are sexually explicit, so their solution and golden
+  are gitignored and only their `run_v4_walkthroughs.sh` row is committed. Those
+  rows NOSCRIPT on a fresh clone, which is not a failure.
 - `games/` — the `.taf` corpus. **Untracked** (`.gitignore`): third-party game
   data is never committed. Recreate it on another machine with
   `sh test/fetch_games.sh fetch adrift4`, or point `GAMES_DIR` / `ALT_DIRS`
@@ -61,6 +65,9 @@ sh run_v4_walkthroughs.sh --bless  # (re)record goldens
 
 # deterministic projectile-combat regression (five games, own golden)
 sh scproj_regress.sh
+
+# which rows a game's <waitkey> is silently eating commands from
+python3 waitkey_audit.py
 ```
 
 `run_v4_walkthroughs.sh` is wired into `make -f Makefile.headless test` via the

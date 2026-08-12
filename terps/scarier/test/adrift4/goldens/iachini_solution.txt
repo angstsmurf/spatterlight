@@ -1,0 +1,249 @@
+# A Day at the Iachini House -- Michael Iachini, ADRIFT 4.00 (iachini.taf,
+# 19,083 bytes, "Created using ADRIFT with Butcher Basic ALR", last updated
+# August 2001).  27 rooms, 68 tasks, 5 events, 4 integer variables (coord,
+# str, keynum, ph), no NPCs at all.  A chore game: the family is out, you have
+# a handwritten to-do list, and the six items on it are the puzzle chain.
+#
+# WIN, 115 out of a maximum of 115 -- the declared maximum, and it is exactly
+# reachable.  T30 `turn on * television *` in the front of the family room is
+# `ACT type=6 v1=0`; the only losing move in the game is T13 `sit *stair*`
+# before T9 has repaired it.
+#
+# The score arithmetic is worth stating, because the file adds up to more than
+# it can pay out.  Twenty-one tasks carry an `ACT type=4` and they total 140,
+# but 25 of those points are unreachable:
+#
+#   * T51/T52/T53 are all `take * shower *` and each awards 10.  Every one of
+#     them consumes the fluffy bath towel (`ACT type=0 ... v2=0 v3=0` -- move
+#     obj71 nowhere) and puts a *wet* towel on a bar in its place, and nothing
+#     in the game dries or replaces it.  So exactly one shower is ever
+#     possible: -20.  T30 names task51 specifically, so it has to be the
+#     upstairs bathroom (room 16).  T53 is a second copy of T51 that also says
+#     room 16 -- it hangs the wet towel on the *basement* bathroom's bar, so
+#     the author plainly meant it for room 24 and mistyped the room.
+#   * T45 (add a basic disc at pH 6, +5) is dead: -5.  See the hot tub below.
+#
+# 140 - 20 - 5 = 115, which is what the game reports as its maximum.  The
+# author's own arithmetic already assumed one shower and one pH award.
+#
+# Provenance: no published walkthrough.  Derived from `SCR_DUMP_TASKS` plus
+# play; the game's own two-level HINT system (`hints`, then a question per
+# room) confirms every chain.  keynum = 80 and the hot tub's starting pH = 10
+# under the harness seed; both are set by immediate events on turn 1, so they
+# do not move when the route changes.
+
+# --- ground floor: cleaner, opener, food, and the coordination puzzle -------
+# T3 `click breakout` sets coord = 2, which is what T1 `shoot hoops` wants.
+u
+n
+n
+w
+get cleaner
+e
+n
+open drawer
+get opener
+open refrigerator
+get food
+eat food
+e
+turn on computer
+click breakout
+s
+w
+w
+get card
+
+# --- upstairs: the mirror, the weights, the basketball ---------------------
+# The index card is written backwards; the mirror is too smudged to read it
+# until the glass cleaner has been used.  T22 prints "PUSH KEY 80".
+# T8 `exercise` is restricted on str < 1 and sets str = 1, so it runs exactly
+# once and satisfies both T5 (move the tool chest) and T15 (move the panel).
+e
+u
+w
+nw
+clean mirror
+read card in mirror
+drop card
+drop cleaner
+se
+w
+open hamper
+get weights
+exercise
+drop weights
+e
+sw
+get basketball
+ne
+e
+d
+
+# --- driveway and garage ---------------------------------------------------
+# The screwdriver is the thing "sticking over the back of the rim"; T1 drops
+# both it and the ball into the driveway.
+s
+d
+open door
+drop opener
+shoot hoops
+get screwdriver
+n
+open tool chest
+get hammer
+get tablets
+get discs
+move chest
+
+# --- basement: the stair, and load the washer with soap --------------------
+# T17 only needs the machine open and the bottle held, so the detergent can go
+# in long before the afghan does.  Drop the bottle afterwards: it and the bar
+# of Ivory in the basement shower are both called "soap", and holding both
+# makes `get soap` ambiguous.
+e
+fix stair
+drop screwdriver
+n
+get soap
+open machine
+put soap in machine
+drop soap
+s
+nw
+open shower
+get soap
+se
+u
+
+# --- the hot tub -----------------------------------------------------------
+# pH starts at 10 and each tablet is -1.  T47 (pH > 8) takes it to 9 and then
+# 8; T48 (pH = 8) is the one that scores, landing on 7.  From there the tub is
+# locked: `add acid` matches T47 first, whose restriction now fails *with* a
+# message, so the scan stops and T49 (pH <= 7) is never reached -- and the
+# same is true of T44 ahead of T45 for the base.  You cannot overshoot 7 on
+# purpose to collect the other award, which is why five of the file's 140
+# points cannot be scored.
+e
+n
+w
+x meter
+add acid
+add acid
+add acid
+x meter
+drop tablets
+drop discs
+e
+s
+w
+s
+s
+
+# --- upstairs again: matches, shampoo, afghan, towel, firewood -------------
+# Carry capacity is real here -- an armload of firewood plus a full inventory
+# gets "too heavy for you to carry at the moment", so the hammer is left in
+# Vinny's room once the panel is out of the way.
+u
+e
+open armoire
+get matches
+n
+open shower
+get shampoo
+s
+e
+get afghan
+w
+w
+w
+n
+get towel
+s
+sw
+move panel
+drop hammer
+u
+get firewood
+d
+ne
+e
+d
+
+# --- lay the fire, collect the dryer sheets, start the wash ----------------
+# T27 wants the firewood and the newspaper *inside* the fireplace and a lit
+# match in hand; the wood and paper go in now, the match is struck later so
+# the trip to the basement does not waste it.
+e
+n
+put firewood in fireplace
+w
+w
+look under table
+get sheets
+get newspaper
+e
+e
+put newspaper in fireplace
+w
+d
+n
+put afghan in machine
+close machine
+wash afghan
+
+# --- 22 turns of real work while EVENT 0 runs the washer --------------------
+s
+u
+e
+light match
+light fire
+w
+w
+s
+push key 80
+open piano
+get remote
+e
+u
+w
+ne
+take shower
+sw
+e
+d
+n
+n
+d
+n
+
+# --- move the wash to the dryer -------------------------------------------
+# `put sheets in dryer` does NOT work: T18's command is `put * sheet * dryer`
+# and the wildcards match whole words, so the plural falls through to the
+# library, which puts the whole box inside and leaves T19 refusing to run.
+open machine
+get afghan
+open dryer
+put afghan in dryer
+put sheet in dryer
+close dryer
+dry afghan
+z
+z
+z
+z
+z
+z
+open dryer
+get afghan
+
+# --- and settle down -------------------------------------------------------
+# T30 needs the remote held, the dry afghan held, T27 (fire) and T51 (shower)
+# done, and `RESTR type=3 v1=0 v2=5 v3=5` -- the player sitting on the couch.
+s
+u
+e
+s
+sit on couch
+score
+turn on tv

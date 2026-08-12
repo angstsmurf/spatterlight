@@ -1495,7 +1495,9 @@ FILTER="${1:-}"
 # eighteenth alternate build, and the pair that closes that table: harlot.taf is
 # the author's own source, saved 18 seconds before the .blorb, and the two
 # replay the same 115-command script to byte-identical transcripts.  It had to
-# wait for a route because the game had no walkthrough anywhere.
+# wait for a route because the game had no walkthrough anywhere.  Adult game:
+# like TASP and Dinner Plans its walkthrough and golden are gitignored and stay
+# local-only, so these two rows only run where they exist.
 #
 # Five rooms, 60 authored tasks, ZERO events -- the entire game is a state
 # machine over eight numeric variables and five character properties, with seven

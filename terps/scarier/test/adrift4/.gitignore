@@ -16,3 +16,7 @@
 /notes/Diary_of_a_Stripper_walkthrough.md
 /goldens/diarystrip_solution.txt
 /goldens/diarystrip_solution.expected.txt
+
+# Camp Windy Lake : Part 2 (AIF): explicit text, deliberately not committed.
+/goldens/windy2_solution.txt
+/goldens/windy2_solution.expected.txt

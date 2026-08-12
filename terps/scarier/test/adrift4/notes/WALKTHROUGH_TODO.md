@@ -21,7 +21,31 @@ left.
 Unparked to work the remaining v3.90 files smallest-first, and parked at the
 user's request after *Where Is Richard?*. See *Third wave* below.
 
-Nothing here is open work. The one exception this file used to carry — the
+**2026-08-12: *Camp Windy Lake : Part 2* wired out of order (the user asked for
+it by name), suite 232 rows, 232 PASS.** The first of the eight AIF holdouts to
+go in, on the *Diary of a Stripper* terms — row committed, solution and golden
+gitignored. See *Camp Windy Lake : Part 2* below.
+
+**2026-08-12: *Salutations* wired, suite 233 rows, 233 PASS.** Back to the
+smallest-first order the third wave was following — this is the 5,591-byte
+4.00 file the sweep had skipped, a one-room Ectocomp 2008 speed-IF, WON in ten
+commands with no score in the file at all. See *Salutations* below; its
+`<waitkey>` lesson applies to every future row.
+
+**2026-08-12: *A Day at the Iachini House* wired, suite 234 rows, 234 PASS.**
+Next in the smallest-first order — 19,083 bytes, 4.00, a 27-room chore game.
+**WON 115/115** in 170 commands, and the maximum is exactly reachable although
+the file contains 140 points' worth of awards. See *A Day at the Iachini
+House* below.
+
+**One open item, opened 2026-08-12: `harness/waitkey_audit.py` flags 18 wired
+rows as SUSPECT** — games with a `<waitkey>` whose row does not set
+`SCR_SKIP_WAITKEY=1`, and which have no blank filler line to spare, so a real
+command is being swallowed. `icecream` is the proven case. Nothing is failing
+and nothing regressed; see *Salutations* below for what the trap is and why
+fixing a row is not a one-line change.
+
+Otherwise nothing here is open work. The one exception this file used to carry — the
 Runner's **"You can't do that here!"** refusal for a task typed outside its
 `Where` rooms — was probed and **implemented 2026-08-10**, along with its
 sibling **"You have already done that."**; see the follow-up under
@@ -127,9 +151,11 @@ Two things came out of this wave beyond the rows:
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
 nothing is half-finished — the suite is green at 231/231 and every wired game
-has all four artefacts. What remains is **23 unwired `.taf` files, 17 of them
-v3.90 and 6 v4.00**; the table below is the original 29, with the six done in
-the third wave struck through.
+has all four artefacts. What remains is **20 unwired `.taf` files, 16 of them
+v3.90 and 4 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
+*Salutations* and *A Day at the Iachini House* went in on 2026-08-12); the
+table below is the original 29, with the six done in the third wave struck
+through and windy2, salutations and iachini struck through after them.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -142,9 +168,9 @@ the manifest is already wired.
 
 | Bytes | Ver | File | Title | Note |
 |---|---|---|---|---|
-| 5,591 | 4.00 | `salutations.taf` | Salutations | English; **missed by the smallest-first sweep — start here**, since the 3.90 files are now wired down to 55 KB |
-| 19,083 | 4.00 | `iachini.taf` | A Day at the Iachini House | English, Butcher Basic ALR; also missed |
-| 21,775 | 4.00 | `relojero.taf` | La hija del relojero | **Spanish** |
+| 5,591 | 4.00 | ~~`salutations.taf`~~ | ~~Salutations~~ | **WIRED 2026-08-12 — WON, no score in the file** |
+| 19,083 | 4.00 | ~~`iachini.taf`~~ | ~~A Day at the Iachini House~~ | **WIRED 2026-08-12 — WON 115/115** |
+| 21,775 | 4.00 | `relojero.taf` | La hija del relojero | **Spanish** — **start here** (next by size; if the language makes it a poor next pick, skip to `vetknow.taf`) |
 | 44,145 | 3.90 | `The Town Of Azra.taf` | The Town of Azra | **the adrift.co release of an already-wired game** — `The_Town_Of_Azra.taf` (4.00, 13,868 bytes, IF Archive) is row `the_town_of_azra_solution.txt`, and the existing route replays on this build too, so this is a second file, not a second game |
 | 44,503 | 3.90 | ~~`as.taf`~~ | ~~Asylum~~ | **WIRED, third wave** |
 | 44,666 | 3.90 | ~~`Wheel105.taf`~~ | ~~The Wheels Must Turn~~ | **WIRED, third wave** |
@@ -168,14 +194,16 @@ the manifest is already wired.
 | 125,581 | 3.90 | `Buffy Before the Date.taf` | Buffy: Before the Date | **AIF** |
 | 148,447 | 3.90 | `croft.taf` | Lara Croft: The Sun Obelisk | **AIF** |
 | 166,913 | 3.90 | `dr-who-vortex-lust.taf` | Doctor Who and the Vortex of Lust | **AIF** |
-| 191,548 | 3.90 | `windy2.taf` | Camp Windy Lake: Part 2 | **AIF** |
+| 191,548 | 3.90 | ~~`windy2.taf`~~ | ~~Camp Windy Lake: Part 2~~ | **WIRED 2026-08-12 — AIF, solution/golden gitignored** |
 | 277,834 | 3.90 | `gamma.taf` | The Gamma Gals | **AIF** |
 | 2,928,980 | 4.00 | `Vardock Bates.taf` | Vardock Bates | **Spanish**, and by far the largest file in the corpus |
 
 **Author material already on this machine, for whoever picks this up next.**
 Several of the remaining games shipped documentation in their IF Archive /
 adrift.co packages, unpacked under `~/Downloads`: `windy2walk.txt` +
-`cw2faq.txt` (Camp Windy Lake 2), `croftwlk.txt` + `lcsofaq.txt` (Lara Croft),
+`cw2faq.txt` (Camp Windy Lake 2 — used 2026-08-12, now kept as
+`downloaded/CampWindyLake2_walkthrough.txt` / `_faq.txt`),
+`croftwlk.txt` + `lcsofaq.txt` (Lara Croft),
 `score.txt` (Camp Windy Lake), `enc1.txt` / `enc2.txt` (the Encounters), and
 `readme.txt` (The Long Journey Home). *Where Is Richard?* ships `Map.jpg` — a
 hand-drawn sketch of the swamp, readable and accurate — but no walkthrough,
@@ -188,7 +216,9 @@ and counting explicit vocabulary gives `gamma.taf` 1416, `dr-who-vortex-lust`
 705, `windy2` 670, `windy` 630, `croft` 582, `enc1` 550, `enc2` 369 and
 `Buffy Before the Date` 339, against 0 for every other unwired file (bar three
 incidental hits in `wonderwombat.taf`). They are marked **AIF** in the table
-above.
+above. *(2026-08-12: `windy2` is now wired on exactly those terms, so **seven
+of twenty-two** remain — the treatment below is no longer hypothetical, it is
+what that row did.)*
 
 **Check the game's own zip before deriving anything.** *Silk Noil* was wired
 after the park because its author shipped a ten-command walkthrough inside
@@ -204,14 +234,188 @@ first column of `games.manifest.tsv`; re-run the vocabulary scan with
 `harness/taf_pattern_scan.py`'s `plaintext()`, which de-obfuscates both TAF
 generations.
 
+## Camp Windy Lake : Part 2 (2026-08-12) — the AIF treatment, done once
+
+Wired out of the smallest-first order because the user asked for it by name.
+**WON 150/150** in 146 commands; suite 231 → **232 rows, 232 PASS**. Christopher
+Cole, 22 Feb 2003, ADRIFT 3.90 — the same author as *Diary of a Stripper*. 23
+rooms, 22 named objects, 400 tasks, 8 NPCs, 17 variables, one event.
+
+**What the AIF treatment actually is**, now that it has been applied twice:
+`goldens/windy2_solution.txt` and `goldens/windy2_solution.expected.txt` are in
+`.gitignore`; the commented row in `harness/run_v4_walkthroughs.sh` is the only
+committed artefact, and it carries the mechanics that would otherwise live in a
+`notes/<Game>_walkthrough.md`. No notes file was written — the solution file's
+own header holds the derivation, and it is local-only. Where the files don't
+exist the row NOSCRIPTs, which is not a failure. The source walkthrough is
+`downloaded/CampWindyLake2_walkthrough.txt` (also local-only).
+
+**The maximum is provable, not assumed.** 54 `ACT type=4` score actions and no
+other award: 3×1 + 26×2 + 17×3 + 1×4 + 6×5 + 1×10 = 150, the game's own declared
+maximum, and the route fires all 54. Two `ACT type=6` EndGames — T196 `attack
+tim` (v1=2, the death) and T198 `attack tim * machete` (v1=0, the win).
+
+**Three repairs turned the published route into a script**, and the middle one
+is the interesting one:
+
+- A **name prompt** before the first move, so line 1 is the name. Same class of
+  trap as *Far From Home*, without the `<waitkey>`.
+- **A fixed-clock event used as a gate.** The walkthrough writes the beach party
+  as a heading and then the literal instruction "(hang around until skinny
+  dipping begins)". `SCR_DUMP_TASKS` names the clock: EVENT 0 [skinny dip],
+  `starter=3 startTask=117 time1=time2=5` — five turns, no randomness. The event
+  is what sends Laura back to her office, so `in` at the main cabin is refused
+  until it fires, and the whole Laura scene (24 points) hangs off spending
+  exactly those five turns. The route pays them with the two `ask laura
+  about …` lines the walkthrough does give, plus three `z`.
+- **Two tasks behind one door.** The shed's unlock (`unlock * shed` /
+  `unlock * lock` / `use * key`, the +5) and its enter (`open * shed *` /
+  `enter` / `in` / `open * door *`) are separate tasks, and "It's locked!" is
+  the *enter* task's fail text. The walkthrough's single `open door` can only
+  ever reach the second one, so the solution spells both out. Not an engine
+  divergence — the de-obfuscated task table has no `open`-shaped command on the
+  unlock, so the real Runner cannot score it that way either.
+
+Nothing else in the 146 commands draws a parser refusal: no "What?", no "I don't
+understand", no "isn't here" anywhere in the transcript. Worth remembering when
+the other seven AIF files are wired — a published AIF walkthrough is a *route*
+written for a human, and the gap between it and a script is usually a prompt, a
+timer, or a verb the author paraphrased.
+
+## Salutations (2026-08-12) — the smallest file in the corpus
+
+Back to smallest-first: 5,591 bytes, ADRIFT 4.00, Lumin, Ectocomp 2008. **WON**
+in ten commands; suite 232 → **233 rows, 233 PASS**. One room, 17 tasks, 2
+events, 9 objects, and **no score at all** (not one `ACT type=4`), so the win
+marker is WINTEXT prose. Full write-up in `notes/Salutations_walkthrough.md`.
+
+Small game, three findings worth carrying forward:
+
+- **A `<waitkey>` can shift a whole script without ever failing.** The intro
+  ends in one, so without `SCR_SKIP_WAITKEY=1` the *first* command is eaten as
+  the keypress — and this game still wins that way, because the command it
+  eats (`remove jacket`) turns out to be skippable. A blessed golden would
+  then have recorded a silently shifted run. **Set `SCR_SKIP_WAITKEY=1` on any
+  row whose game contains a `<waitkey>`, not just the ones that visibly
+  stall**; `plaintext()` will find the tag in the de-obfuscated file. This is
+  now checkable across the whole suite — see the audit below.
+- **`WaitTurns` is per game, and `z` is not one turn.** This game sets it to 3,
+  so one `wait` spends half of EVENT 1's six-turn deadline. Measured from the
+  kill: five ordinary commands live, six die; one `z` lives, two `z` die.
+  Pacing a timed event by counting `z` lines is wrong unless the global has
+  been read — compare the second-wave note that a rejected command does *not*
+  advance the counter.
+- **A restriction with no failure message falls through to the library.** T2
+  `get stick` and T4 `get knife*` are both gated, neither gate carries text,
+  and the library take then reaches into the backpack lying on the ground — a
+  six-command win exists that skips the entire designed chain. T3 `get pack`
+  and T9 `get lighter` do have failure text and refuse properly, so the same
+  game shows both halves of the model side by side (`adrift4-vs-5-restriction-eval`).
+  The committed route takes the intended path so the regression covers the
+  object chain and both events rather than the holes.
+
+### The waitkey audit it prompted — `harness/waitkey_audit.py`
+
+Salutations made the shift visible, so the whole suite was checked for it. For
+every row the script asks three questions: does the row set
+`SCR_SKIP_WAITKEY=1`, does the de-obfuscated `.taf` contain a `<waitkey>` at
+all, and does adding the variable change the number of `>` prompts the run
+gets through. 2026-08-12, 233 rows:
+
+| Bucket | Rows | Meaning |
+|---|---|---|
+| IMMUNE | 50 | row already sets `SCR_SKIP_WAITKEY=1` |
+| NO-WAITKEY | 109 | no `<waitkey>` in the file |
+| ABSORBED | 19 | tag present but never reached on this route |
+| FILLED | 37 | lines are swallowed, and the solution has at least that many blank lines to spare — the filler convention working as intended |
+| **SUSPECT** | **18** | more lines swallowed than blanks available |
+
+**The filler convention is the majority answer and it is fine.** A route
+written against a waitkey-heavy game feeds each pause a throwaway line —
+`wes_ghn` carries 77 blank lines, `shardsofmemory` 45, `chooseyourown` 19 —
+and those rows only look dramatic in the audit (`+33`, `+43`, `+17`) because
+skipping the waitkeys turns every filler into a command.
+
+**The 18 SUSPECT rows are a flag, not a verdict.** `icecream` is the proven
+loss: `take cone` never runs, and the committed golden shows three commands
+where the solution has four (it survives because the player starts holding a
+cone). `farfromhome` is the opposite case, a false positive — its filler is
+the leading `x`, not a blank. The rest are unexamined:
+
+```
+icecream  the_cat_in_the_tree  man_overboard  yak_shaving  confession
+togetyou  zombies  topaz  circus  les_feux  thetest  thetest_win
+to_hell_and_beyond_assisted  to_hell_and_beyond_assisted_max
+lost  lost_down  dancing_even_him  farfromhome
+```
+
+**Why this was not fixed in the same pass.** Adding `SCR_SKIP_WAITKEY=1` to a
+row is not a one-line change: it rewrites the golden, it makes every existing
+filler line execute as a command, and several of these routes were derived
+*under* the shift or transcribed verbatim from a published walkthrough whose
+score was checked against the shifted run (`thetest_win`, the two
+`to_hell_and_beyond_assisted` rows). Each one needs its route re-checked and
+its win marker re-proved, which is a wave of work, not a sweep. Re-run
+`python3 harness/waitkey_audit.py` after any of them is done.
+
+## A Day at the Iachini House (2026-08-12) — a declared maximum that is exactly reachable
+
+19,083 bytes, ADRIFT 4.00, Michael Iachini, August 2001. **WON 115 out of a
+maximum of 115** in 170 commands; suite 233 → **234 rows, 234 PASS**. 27 rooms,
+68 tasks, 5 events, 4 variables, **no NPCs**. No `<waitkey>` anywhere in the
+file, so the row needs no env. Full write-up in
+`notes/A_Day_at_the_Iachini_House_walkthrough.md`.
+
+A chore game: `read list` enumerates six jobs (the broken stair, the hot tub's
+pH, wash the afghan, lay a fire, take a shower, find the remote), and the
+single ending — T30 `turn on * television *` — restricts on four of them plus
+`RESTR type=3 v1=0 v2=5 v3=5`, the player **sitting on the couch**. `sit on
+couch` is a required command, not flavour.
+
+Three things worth carrying forward:
+
+- **21 `ACT type=4` awards total 140, but only 115 can ever be scored, and the
+  author's declared maximum already says so.** T51/T52/T53 are three copies of
+  `take * shower *` at 10 each, and every one of them moves the single fluffy
+  bath towel *nowhere* (`ACT type=0 … v2=0 v3=0`) and replaces it with a wet
+  one; nothing dries or restores it, so exactly one shower is possible (−20).
+  T45 (a base tablet at pH 6, +5) is unreachable (−5). 140 − 25 = 115. When a
+  game's maximum looks smaller than the sum of its awards, check for duplicate
+  tasks over a consumable before assuming a scoring bug.
+- **The first-match rule can lock a variable band out permanently.** The hot
+  tub bands `ph` across T44/T45/T46 (`add * bas*`) and T47/T48/T49
+  (`add * acid*`). Starting at 10, T47 walks you to 8 and T48 scores landing on
+  7. After that `add acid` still matches **T47 first**, whose restriction now
+  fails *with a failure message*, so the v4 scan stops and T49 is never
+  reached — and T44 does the same in front of T45. You cannot overshoot on
+  purpose to collect the other award. This is *Salutations*' lesson from the
+  other side: messageless gates fall through, gates with text end the scan
+  (`adrift4-vs-5-restriction-eval`).
+- **`put sheets in dryer` is absorbed by the library and looks like a puzzle.**
+  T18's command is `put * sheet * dryer` and ADRIFT wildcards match **whole
+  words**, so the plural never matches; the library answers "You put the box of
+  dryer sheets inside the clothes dryer" and T19 then refuses, because its
+  third restriction is on *task* 18 having run. The singular works. Same shape
+  as the T53 room typo above — when a task refuses while its precondition
+  visibly happened, diff the typed words against the command pattern before
+  suspecting the engine.
+
+Also: T53 is a second copy of T51 carrying the same `room=16` (the upstairs
+bathroom) while hanging its wet towel on the *basement* bathroom's bar, so the
+author meant `room=24` and mistyped it. And the game enforces a carry limit
+whose messages read like puzzle refusals ("Your hands are full at the moment",
+"The armload of firewood is too heavy for you to carry at the moment") — an
+early route silently missed three objects to it.
+
 ## Where everything is
 
 | What | Where |
 |---|---|
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
-| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 177 of them |
+| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 185 of them (183 tracked; the AIF ones are gitignored) |
 | Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
+| Which rows a game's `<waitkey>` is eating commands from | `python3 harness/waitkey_audit.py` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |
 
 ## Standing cautions

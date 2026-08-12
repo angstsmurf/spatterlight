@@ -1531,6 +1531,73 @@ hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SKIP
 # EVENT 10 keeps incrementing it, which locks out the washer, the rope, the
 # pail and the pick.
 richard_solution.txt|Richard.taf|Rich smiles as you hand him the recall beacon|SCR_SKIP_WAITKEY=1
+# Camp Windy Lake : Part 2 is AIF (Christopher Cole again, the author of
+# diarystrip.taf), so like Diary of a Stripper and Archie's Birthday its
+# solution and golden are deliberately NOT committed -- they are in
+# ../.gitignore, and the row NOSCRIPTs where they don't exist.  WIN 150/150
+# in 146 commands, and the maximum is provable rather than assumed: the game
+# has 54 `ACT type=4` score actions and no other award, 3x1 + 26x2 + 17x3 +
+# 1x4 + 6x5 + 1x10 = 150 = its own declared maximum, and the route fires all
+# 54.  Two `ACT type=6` EndGames, T196 `attack tim` (v1=2, the death) and
+# T198 `attack tim * machete` (v1=0, the win).
+#
+# Kept for two shapes.  (1) A FIXED-CLOCK EVENT AS A GATE: EVENT 0 [skinny
+# dip] is `starter=3 startTask=117 time1=time2=5`, and until it fires Laura
+# is at the beach and her office is shut, so `in` at the main cabin is
+# refused -- the route pays exactly five turns (two `ask laura about ...`
+# plus three `z`) and the whole Laura scene, 24 points, hangs off getting
+# that count right.  (2) TWO TASKS BEHIND ONE DOOR: the shed's unlock
+# (`unlock * shed` / `unlock * lock` / `use * key`, +5) and its enter
+# (`open * shed *` / `enter` / `in` / `open * door *`, whose fail text is
+# "It's locked!") are separate tasks, so the published walkthrough's single
+# `open door` cannot reach the score and the solution spells both out.
+windy2_solution.txt|windy2.taf|You spin and see Liz running out of the woods towards you.
+# Salutations (Lumin, Ectocomp 2008) is the smallest 4.00 file in the corpus
+# and a one-room speed-IF: 17 tasks, 2 events, no score at all, so the marker
+# is WINTEXT prose.  WIN in 10 commands -- jacket, leaves, stick, pack, knife,
+# kill the spider, then beat EVENT 1 [spider dead] (`time1=time2=6`) with
+# whiskey / pour / burn before the egg sack hatches.  `cut sack`, the obvious
+# thing to do with a knife, is the losing EndGame.
+#
+# Three reasons this row is worth its size.  (1) WAITKEY SHIFT: the intro ends
+# in `<waitkey>`, so without SCR_SKIP_WAITKEY=1 the first command is eaten as
+# the keypress -- and because of the slips below the game still WINS that way,
+# which would have blessed a silently shifted transcript instead of failing.
+# (2) `WaitTurns` = 3, so one `z` spends half the six-turn deadline: the
+# measured cliff is five ordinary commands alive / six dead, but two `z` dead.
+# (3) MESSAGELESS RESTRICTIONS FALL THROUGH: T4 `get knife*` is gated on
+# holding the pack and T2 `get stick` on the jacket, but neither restriction
+# carries a failure message, so both drop to the library take, which reaches
+# into the pack on the ground -- a six-command win exists.  The route takes
+# the intended path instead; see the header of the solution file.
+salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAITKEY=1
+
+# A Day at the Iachini House (Michael Iachini, 2001) is a 27-room chore game:
+# the family is out, you hold a to-do list, and its six items are the puzzle
+# chain -- fix the basement step, balance the hot tub, wash and dry the
+# afghan, lay a fire, shower, then find the remote and watch TV.  WIN with a
+# full 115 out of 115 in 170 commands, so the marker is the score line's
+# companion, the first line of WINTEXT.
+#
+# The file's `ACT type=4` tasks total 140, not 115, and the 25-point gap is
+# the interesting part.  T51/T52/T53 are three copies of `take * shower *`
+# worth 10 each, but every one destroys the only towel and hangs a wet one on
+# a bar that nothing ever dries, so exactly one can ever fire (-20); T53 even
+# repeats T51's room 16 while hanging its towel in the basement bathroom, so
+# its room field is a typo.  And T45 (+5 for landing the hot tub on pH 7 from
+# below) is unreachable (-5): the tub starts at 10, T48 scores on the way down
+# through 8, and at 7 both `add acid` and `add base` hit T47/T44 first, whose
+# now-failing restrictions carry failure messages -- so the scan stops there
+# and the later, passing T49/T45 are never consulted.  That is the v4
+# first-match rule doing exactly what the Salutations row documents, only here
+# it costs points instead of granting them.
+#
+# Two parser notes the route depends on: `put sheets in dryer` silently falls
+# through to the library (T18's `put * sheet * dryer` matches whole words, so
+# the plural misses) and quietly strands the run one task short of the dryer,
+# and the remote lands *inside* the closed piano, so `push key 80` has to be
+# followed by `open piano`.
+iachini_solution.txt|iachini.taf|You settle down in front of the TV.
 EOF
 }
 
