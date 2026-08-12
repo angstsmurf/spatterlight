@@ -11,8 +11,11 @@ Rooms (0-based keys as drawn; exits use 1-based Dest):
 
     0 Hub       start; compass + Up/Down/In/Out badges + SE/SW
     1 North     duplex N of Hub
-    2 East      one-way E from Hub (return via NE to Hub; NE is not drawn --
-                rooms are not NE-aligned, and v4 invents no Source/Dest anchors)
+    2 East      one-way E from Hub (return via NE to Hub).  run390 draws no
+                line for that NE: Form29.dolink skips a link whose destination
+                already shows the opposite line (lineshow), and Hub's SW
+                connector to SW Corner is drawn first.  It is not a geometry
+                test -- dolink never looks at where the two rooms landed.
     3 Cellar    S of Hub and Down badge from Hub; gated S to Door Room
     4 West      duplex W of Hub
     5 Attic     Up from Hub only (badge dest; never placed on the grid)
@@ -32,9 +35,35 @@ Suggested scmap_dump views (no "too complex" case):
 
     start     (empty script)           Hub alone + stubs/badges to unseen
     reveal    map39_reveal.txt         walk the graph, leave door closed
-    dooropen  map39_dooropen.txt       after OPEN DOOR, Cellar--Door Room dotted
+    dooropen  map39_dooropen.txt       after OPEN DOOR, Cellar--Door Room gated
     hidden    map39_hidden.txt         expect "player is in a room hidden..."
     allseen   -all                     full layout of non-hidden rooms
+
+The room grid Scarier derives already matches the Runner's exactly:
+
+    .  North  .            (Attic, Closet and Outside are badge destinations
+    West Hub  East          and never get a grid cell; Hidden is HideOnMap)
+    SW  Cellar SE
+    .  DoorRm .
+
+but three drawing divergences remain.  All three were measured against the
+real thing: run390.exe under Wine with map39.taf loaded, F2 for the map
+(2026-08-12).  They are what this probe is for -- do not "fix" the comments
+by deleting them, fix the renderer.
+
+  * Cellar--Door Room.  run390 draws it dotted, scmap_dump draws it solid.
+    Cellar's S is restricted, Door Room's N back is not; Scarier emits both
+    links and the later room overpaints the earlier.  run390 emits one, via
+    the same lineshow gate described under East.
+
+  * East's NE back to Hub.  run390 draws nothing (see East, above);
+    scmap_dump draws a diagonal that runs off past the East box.
+
+  * In/Out badges.  scmap_dump puts them on the north edge, where they
+    collide with each other and with the North connector.  Form29.doicon
+    puts them on the bottom edge, In left-aligned and Out right-aligned.
+    (Up on the right edge and Down on the left edge are already right, and
+    in run390 those two really do overlap the E and W connectors.)
 
 Usage: python3 make_39_mapprobe.py [out.taf]
 """

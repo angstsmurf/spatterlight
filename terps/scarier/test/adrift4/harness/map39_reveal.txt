@@ -1,5 +1,7 @@
 # Walk the map graph; leave the Cellar door closed (Door Room unseen).
 # Ends on Hub. Final se/nw is SE Corner round-trip (not enter hidden).
+# This is the view where East's NE back to Hub shows up as a runaway
+# diagonal; run390 draws no line there at all.  See make_39_mapprobe.py.
 n
 s
 e

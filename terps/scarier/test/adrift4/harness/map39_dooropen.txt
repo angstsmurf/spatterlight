@@ -1,5 +1,7 @@
 # After a reveal walk, enter Cellar, unlock, visit Door Room; end on Hub.
-# Expect Cellar--Door Room dotted (restricted exit, both seen).
+# run390 draws Cellar--Door Room dotted (restricted exit, both seen).
+# scmap_dump draws it solid: the unrestricted Door Room--N link overpaints
+# the dotted Cellar--S one.  See make_39_mapprobe.py.
 n
 s
 e
