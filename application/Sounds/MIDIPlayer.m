@@ -110,10 +110,131 @@
     }
 }
 
+/* Shortest leading rest worth removing, in seconds. */
+static const Float64 kMinimumTrimmedSilence = 0.25;
+
+/* Setup events -- program changes, controllers, a General MIDI reset -- sit at
+   time zero and stay there when the music slides back, so leave the first note a
+   sliver of room to land after them instead of exactly on top. A hundredth of a
+   beat is a few milliseconds. */
+static const MusicTimeStamp kTrimHeadroom = 0.01;
+
+static BOOL EventMakesSound(MusicEventType type, const void *data) {
+    switch (type) {
+        case kMusicEventType_MIDINoteMessage:
+            return ((const MIDINoteMessage *)data)->velocity > 0;
+        case kMusicEventType_MIDIChannelMessage: {
+            const MIDIChannelMessage *message = data;
+            return (message->status & 0xf0) == 0x90 && message->data2 > 0;
+        }
+        case kMusicEventType_ExtendedNote:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
+/// How far into `track` the music can be moved up, given that it cannot pass
+/// `limit`. Returns `limit` if the track asks for nothing tighter.
+static MusicTimeStamp FirstTrimBarrier(MusicTrack track, MusicTimeStamp limit) {
+    MusicEventIterator iterator = NULL;
+    if (NewMusicEventIterator(track, &iterator) != noErr)
+        return limit;
+
+    Boolean hasEvent = false;
+    MusicEventIteratorHasCurrentEvent(iterator, &hasEvent);
+    while (hasEvent) {
+        MusicTimeStamp stamp = 0;
+        MusicEventType type = 0;
+        const void *data = NULL;
+        UInt32 size = 0;
+        if (MusicEventIteratorGetEventInfo(iterator, &stamp, &type, &data, &size) != noErr)
+            break;
+        /* Events arrive in time order, so nothing further on can beat the limit. */
+        if (stamp >= limit)
+            break;
+        /* Anything after time zero stops us: only the events sitting at zero are
+           left behind by the trim, and leaving a program change or a sysex reset
+           stranded in the middle of the music would be worse than the rest we are
+           trying to remove. Sound at time zero means there is no rest at all. */
+        if (stamp > 0 || EventMakesSound(type, data)) {
+            limit = stamp;
+            break;
+        }
+        if (MusicEventIteratorNextEvent(iterator) != noErr)
+            break;
+        MusicEventIteratorHasCurrentEvent(iterator, &hasEvent);
+    }
+    DisposeMusicEventIterator(iterator);
+    return limit;
+}
+
+/// Move everything in `track` from `offset` onward back to the top of the track.
+static void ShiftTrackBack(MusicTrack track, MusicTimeStamp offset) {
+    MusicTimeStamp length = 0;
+    UInt32 lengthSize = sizeof(length);
+    BOOL hasLength = (MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &length, &lengthSize) == noErr);
+
+    if (MusicTrackMoveEvents(track, offset, kMusicTimeStamp_EndOfTrack, -offset) != noErr)
+        return;
+
+    /* Track length can be set independently of the events it holds, so it does not
+       necessarily follow them back. Shorten it by hand, or -loop: and -addCallback:
+       will put the loop point and the end-of-track event past the real end. */
+    if (hasLength) {
+        length = (length > offset) ? length - offset : 0;
+        MusicTrackSetProperty(track, kSequenceTrackProperty_TrackLength, &length, sizeof(length));
+    }
+}
+
+/* Some MIDI files open with seconds of rest before the first note: the music in
+   Hugo's Scourge of Merovia starts almost seven seconds in. Nothing is audible
+   during that time, so slide the whole sequence back to the top.
+
+   Seeking the player past the rest would be simpler, but the setup events all sit
+   at time zero and would be skipped, leaving every voice on the wrong instrument. */
+static void TrimLeadingSilence(MusicSequence sequence) {
+    UInt32 numberOfTracks = 0;
+    if (MusicSequenceGetTrackCount(sequence, &numberOfTracks) != noErr)
+        return;
+
+    MusicTrack tempoTrack = NULL;
+    if (MusicSequenceGetTempoTrack(sequence, &tempoTrack) != noErr)
+        tempoTrack = NULL;
+
+    MusicTimeStamp offset = kMusicTimeStamp_EndOfTrack;
+    for (UInt32 i = 0; i < numberOfTracks; i++) {
+        MusicTrack track = NULL;
+        if (MusicSequenceGetIndTrack(sequence, i, &track) == noErr)
+            offset = FirstTrimBarrier(track, offset);
+    }
+    if (tempoTrack)
+        offset = FirstTrimBarrier(tempoTrack, offset);
+
+    if (offset == kMusicTimeStamp_EndOfTrack || offset <= kTrimHeadroom)
+        return;
+    offset -= kTrimHeadroom;
+
+    Float64 silence = 0;
+    if (MusicSequenceGetSecondsForBeats(sequence, offset, &silence) != noErr
+        || silence < kMinimumTrimmedSilence)
+        return;
+
+    for (UInt32 i = 0; i < numberOfTracks; i++) {
+        MusicTrack track = NULL;
+        if (MusicSequenceGetIndTrack(sequence, i, &track) == noErr)
+            ShiftTrackBack(track, offset);
+    }
+    if (tempoTrack)
+        ShiftTrackBack(tempoTrack, offset);
+}
+
 - (void)loadData:(NSData *)data {
     NewMusicSequence(&sequence);
     MusicSequenceFileLoadData (sequence, (__bridge CFDataRef _Nonnull)(data), kMusicSequenceFile_MIDIType, kMusicSequenceLoadSMF_ChannelsToTracks);
     MusicSequenceSetAUGraph(sequence, graph);
+
+    TrimLeadingSilence(sequence);
 
     NewMusicPlayer(&player);
     MusicPlayerSetSequence(player, sequence);
