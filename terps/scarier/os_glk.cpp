@@ -422,6 +422,7 @@ static void gsc_map_show (void);
 static int gsc_map_available (void);
 static int gsc_map_pref_read (int *at_top);
 static int gsc_map_default_shown (void);
+static winid_t gsc_a5_open_side_window (void);
 
 static void
 gsc_sc_walk_stop (void)
@@ -3845,13 +3846,24 @@ gsc_colour_set_normal_hints (scr_bool on)
 /*
  * gsc_colour_rebuild_windows()
  *
- * Tear down the Glk window tree and recreate main + status (and the map if it
- * was open) so new Normal stylehints are snapshotted into open windows.
+ * Tear down the Glk window tree and recreate every window that was open, so
+ * new Normal stylehints are snapshotted into open windows.  The panes reopen
+ * in the order a session opens them -- title graphic, side window, then the
+ * map -- because each split carves up the story window's remaining space:
+ * reopening the side window after the map would land it to the map's left
+ * instead of its right, and the player would find the layout rearranged by
+ * a colour toggle.  The map redraws itself and the title graphic is redrawn
+ * from its retained image number; the side window's text, like the story
+ * window's, is gone -- the game reprints it the next time it writes there.
  */
 static void
 gsc_colour_rebuild_windows (void)
 {
   int was_map = gsc_map_shown;
+  int was_side = gsc_a5_side_window != NULL;
+#ifdef SPATTERLIGHT
+  int was_title = gsc_graphics_window != NULL;
+#endif
   winid_t root;
 
   root = glk_window_get_root ();
@@ -3862,13 +3874,21 @@ gsc_colour_rebuild_windows (void)
   gsc_status_window = NULL;
   gsc_map_window = NULL;
   gsc_a5_side_window = NULL;
+#ifdef SPATTERLIGHT
   gsc_graphics_window = NULL;
+#endif
   gsc_map_shown = FALSE;
   gsc_map_screen_drop ();
 
   gsc_open_main_window ();
   gsc_open_status_window ();
 
+#ifdef SPATTERLIGHT
+  if (was_title && gsc_title_image != 0)
+    gsc_show_title_graphic (gsc_title_image);
+#endif
+  if (was_side)
+    gsc_a5_open_side_window ();
   if (was_map)
     gsc_map_show ();
 }
@@ -3940,9 +3960,11 @@ gsc_set_colour (scr_bool state)
   /* An ADRIFT 5 game may keep a second pane of its own (Alien Diver's
      "Status"), and it is as much the game's window as the story one: it has to
      change palette with it, or the pane would sit there in the theme's colours
-     with the game's text on top.  After a rebuild the side window is gone
-     until the game opens it again; when we skipped rebuild (startup -c) it
-     does not exist yet either. */
+     with the game's text on top.  A rebuild reopens the pane already painted
+     (gsc_a5_open_side_window paints when colour mode is on, and a fresh window
+     starts in the theme when it is off), so this repaint matters only for a
+     path that skipped the rebuild -- and costs nothing when it was redundant,
+     the pane being empty until the game next writes there. */
   gsc_colour_repaint (gsc_a5_side_window, state);
 
   /* The status line has a window of its own, and it follows the story window
