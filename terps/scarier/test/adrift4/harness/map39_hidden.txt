@@ -1,0 +1,3 @@
+# Step into the HideOnMap room via task teleport (no compass exit).
+# scmap_dump should report "the player is in a room hidden from the map".
+enter hidden

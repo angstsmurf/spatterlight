@@ -1,0 +1,25 @@
+# After a reveal walk, enter Cellar, unlock, visit Door Room; end on Hub.
+# Expect Cellar--Door Room dotted (restricted exit, both seen).
+n
+s
+e
+ne
+w
+e
+s
+n
+u
+d
+in
+out
+out
+in
+sw
+ne
+se
+nw
+s
+open door
+s
+n
+n
