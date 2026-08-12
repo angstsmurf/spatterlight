@@ -245,6 +245,8 @@ terps/scott/scott_all_audit
 /terps/scarier/adrift5/*.o
 /terps/scarier/common_utils/*.o
 /terps/scarier/scarier
+/terps/scarier/glkscarier
+/terps/scarier/sx
 
 # Python bytecode caches (harness/probe scripts under terps/)
 __pycache__/
