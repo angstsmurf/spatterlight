@@ -218,6 +218,16 @@ static int gsc_colour_hints_preapplied = FALSE;
    before it turns the mode on, so it is always set by then. */
 static glui32 gsc_colour_main_fg = 0;
 
+/* Memoized gsc_colour_visible answer: -1 for not yet measured, else 0 or 1.
+   Measuring is not free -- under Spatterlight every glk_style_measure call is
+   a window flush plus a synchronous round-trip to the application process --
+   and gsc_colour_visible is asked once per styled fragment of output.  The
+   answer only changes when colour mode itself toggles (gsc_set_colour, which
+   also rebuilds the window tree) or when the library's style preference
+   flips, and the latter reaches us as an Arrange event; those two places
+   reset this to -1. */
+static int gsc_colour_visible_memo = -1;
+
 /*
  * gsc_colour_visible()
  *
@@ -235,6 +245,8 @@ static glui32 gsc_colour_main_fg = 0;
  * library ignored the hint, measure reports the theme and we treat colours
  * as not visible.  A preference change reaches us as an Arrange event
  * (Spatterlight's glkimp compares do_styles), which redraws the bar and map.
+ * The measured answer is kept in gsc_colour_visible_memo between those
+ * events, so the common per-fragment call costs nothing.
  */
 static scr_bool
 gsc_colour_visible (void)
@@ -245,12 +257,19 @@ gsc_colour_visible (void)
     return FALSE;
   if (gsc_main_window == NULL)
     return TRUE;
-  if (!glk_style_measure (gsc_main_window, style_Normal,
-                          stylehint_TextColor, &fg)
-      || !glk_style_measure (gsc_main_window, style_Normal,
-                             stylehint_BackColor, &bg))
-    return TRUE;
-  return fg == gsc_colour_output && bg == gsc_colour_background;
+
+  if (gsc_colour_visible_memo < 0)
+    {
+      if (glk_style_measure (gsc_main_window, style_Normal,
+                             stylehint_TextColor, &fg)
+          && glk_style_measure (gsc_main_window, style_Normal,
+                                stylehint_BackColor, &bg))
+        gsc_colour_visible_memo = fg == gsc_colour_output
+                                  && bg == gsc_colour_background;
+      else
+        gsc_colour_visible_memo = TRUE;
+    }
+  return (scr_bool) gsc_colour_visible_memo;
 }
 
 /* Adrift game to interpret. */
@@ -3293,6 +3312,10 @@ gsc_close_title_graphic (void)
 static void
 gsc_refresh_windows (void)
 {
+  /* An Arrange is how a library preference flip announces itself, and the
+     status redraw below asks gsc_colour_visible, so the memo goes first. */
+  gsc_colour_visible_memo = -1;
+
   gsc_status_redraw ();
 #ifdef SPATTERLIGHT
   gsc_title_redraw ();
@@ -3902,6 +3925,7 @@ gsc_set_colour (scr_bool state)
 
   gsc_colour_enabled = state;
   gsc_colour_set_normal_hints (state);
+  gsc_colour_visible_memo = -1;
 
   /* -c pre-applies hints before the first open; do not destroy that tree. */
   rebuild = gsc_main_window != NULL
