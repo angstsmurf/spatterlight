@@ -174,6 +174,23 @@
     return dict;
 }
 
+- (NSDictionary *)baseAttributesForStyle:(NSUInteger)stylevalue {
+    if (stylevalue >= style_NUMSTYLES)
+        return nil;
+
+    if (styles.count <= stylevalue || [styles[stylevalue] isEqual:[NSNull null]]) {
+        if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
+            return ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
+        }
+        if ([self isKindOfClass:[GlkTextGridWindow class]]) {
+            return ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
+        }
+        return nil;
+    }
+
+    return styles[stylevalue];
+}
+
 // A possible optimization would be to cache this
 // instead of recreating it on every print operation.
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue {
