@@ -18,9 +18,12 @@
 
     [color getRed:&r green:&g blue:&b alpha:&a];
 
-    buf[0] = (uint32_t)(r * 255);
-    buf[1] = (uint32_t)(g * 255);
-    buf[2] = (uint32_t)(b * 255);
+    // Round rather than truncate: NSKeyedArchiver stores colour components as
+    // float32, so a colour that has been through an autosave comes back a hair
+    // under its exact value, and truncation would shift the whole channel.
+    buf[0] = (uint32_t)fmin(255.0, fmax(0.0, round(r * 255)));
+    buf[1] = (uint32_t)fmin(255.0, fmax(0.0, round(g * 255)));
+    buf[2] = (uint32_t)fmin(255.0, fmax(0.0, round(b * 255)));
 
     i = buf[2] + (buf[1] << 8) + (buf[0] << 16);
     return i;

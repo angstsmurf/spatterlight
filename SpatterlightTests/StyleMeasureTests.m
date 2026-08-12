@@ -265,6 +265,88 @@
                                  style:style_Normal hint:stylehint_TextColor], expected);
 }
 
+#pragma mark - Autorestore: measure must survive the archive round-trip
+
+// Archive a window the way GlkController+Autorestore does (the GUI autosave
+// archives the controller, windows included, with requiringSecureCoding:NO),
+// and revive it the way restoreUI adopts one: assign glkctl and theme, keep
+// the decoded styles/styleHints.
+- (GlkWindow *)archiveWindow:(GlkWindow *)win reviveInto:(GlkController *)ctl {
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:win
+                                         requiringSecureCoding:NO
+                                                         error:&error];
+    XCTAssertNil(error);
+    XCTAssertNotNil(data);
+
+    NSKeyedUnarchiver *unarchiver =
+        [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+    XCTAssertNil(error);
+    unarchiver.requiresSecureCoding = NO;
+    GlkWindow *restored = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+    [unarchiver finishDecoding];
+    XCTAssertNotNil(restored);
+    XCTAssertNotEqual(restored, win);
+
+    // restoreUI's adoption of a restored window (GlkController+Autorestore.m).
+    restored.glkctl = ctl;
+    restored.theme = ctl.theme;
+    return restored;
+}
+
+// Scarier's autorestore never re-publishes the game palette as stylehints:
+// gsc_colour_set_normal_hints runs only on a "glk colour" toggle (or -c
+// startup), and a restored session skips both.  gsc_colour_visible therefore
+// depends on the ARCHIVED window's style table still answering measure with
+// the palette after a relaunch, even though the new process's hint arrays
+// are empty.  This is that dependency, pinned.
+- (void)testMeasureSurvivesAutorestoreArchiveRoundTrip {
+    GlkController *ctl = [self makeController];
+
+    NSInteger hintFg = 0x123456, hintBg = 0x654321;
+    ctl.bufferStyleHints[style_Normal][stylehint_TextColor] = @(hintFg);
+    ctl.bufferStyleHints[style_Normal][stylehint_BackColor] = @(hintBg);
+
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+    XCTAssertEqual([self measureWindow:win controller:ctl
+                                 style:style_Normal hint:stylehint_TextColor], hintFg);
+
+    // The relaunched process: fresh controller, hint arrays all NSNull --
+    // nothing has re-sent the palette.
+    GlkController *relaunched = [self makeController];
+    GlkWindow *restored = [self archiveWindow:win reviveInto:relaunched];
+
+    XCTAssertEqual([self measureWindow:restored controller:relaunched
+                                 style:style_Normal hint:stylehint_TextColor], hintFg,
+                   @"an autorestored window must still measure the game palette");
+    XCTAssertEqual([self measureWindow:restored controller:relaunched
+                                 style:style_Normal hint:stylehint_BackColor], hintBg);
+}
+
+// The other direction: a session that ran with doStyles off archived
+// theme-coloured styles, and a restored measure must keep reporting the
+// theme -- so a restored gsc_colour_visible still says the palette is not
+// visible, and scarier keeps drawing bar/map in the theme.
+- (void)testMeasureAfterAutorestoreWithStylesDisabled {
+    self.theme.doStyles = NO;
+
+    GlkController *ctl = [self makeController];
+    ctl.bufferStyleHints[style_Normal][stylehint_TextColor] = @(0x123456);
+    ctl.bufferStyleHints[style_Normal][stylehint_BackColor] = @(0x654321);
+
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    GlkController *relaunched = [self makeController];
+    GlkWindow *restored = [self archiveWindow:win reviveInto:relaunched];
+
+    NSInteger expectedFg = [self themeColorForBufferStyle:self.theme.bufferNormal
+                                                     hint:stylehint_TextColor];
+    XCTAssertEqual([self measureWindow:restored controller:relaunched
+                                 style:style_Normal hint:stylehint_TextColor], expectedFg,
+                   @"with doStyles off, a restored measure must still report the theme");
+    XCTAssertNotEqual(expectedFg, 0x123456);
+}
+
 // The BackColor answer when the style itself carries no background: the
 // window background fills in (bocfel's journey.cpp feeds this straight to
 // win_setbgnd, so a nil here would paint the surround black).
