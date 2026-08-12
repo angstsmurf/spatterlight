@@ -1157,6 +1157,23 @@ prop_adopt (scr_prop_setref_t bundle, void *addr)
 
 
 /*
+ * prop_get_taf()
+ *
+ * The TAF the properties were parsed from.  The bundle keeps it for the life of
+ * the game (prop_destroy is what finally frees it), so a caller that wants the
+ * authored strings as they were written -- rather than as the property tree
+ * files them -- can read them back out of it.
+ */
+scr_tafref_t
+prop_get_taf (scr_prop_setref_t bundle)
+{
+  assert (prop_is_valid (bundle));
+
+  return bundle->taf;
+}
+
+
+/*
  * prop_debug_is_dictionary_string()
  * prop_debug_dump_node()
  * prop_debug_dump()

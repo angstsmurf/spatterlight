@@ -1338,6 +1338,48 @@ scr_does_game_use_graphics (scr_game game)
 
 
 /*
+ * scr_game_scan_strings()
+ *
+ * Offer every line of the TAF to `accept`, stopping at the first it takes.
+ *
+ * The TAF is the game as the author wrote it -- one string per line, markup and
+ * all -- and the bundle keeps it for the life of the game, so this costs a walk
+ * and no memory.  Reading it back rather than the property tree is deliberate:
+ * a caller looking for authored markup wants every string the file carries,
+ * including the ones the parser files somewhere it has no accessor for.
+ */
+scr_bool
+scr_game_scan_strings (scr_game game,
+                       scr_bool (*accept) (const scr_char *, void *),
+                       void *opaque)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+  scr_prop_setref_t bundle;
+  scr_tafref_t taf;
+
+  if (if_game_error (game_, "scr_game_scan_strings"))
+    return FALSE;
+  if (accept == NULL)
+    return FALSE;
+
+  bundle = gs_get_bundle (game_);
+  taf = prop_get_taf (bundle);
+  if (taf == NULL)
+    return FALSE;
+
+  taf_first_line (taf);
+  while (taf_more_lines (taf))
+    {
+      const scr_char *line = taf_next_line (taf);
+
+      if (line != NULL && accept (line, opaque))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
  * scr_get_first_game_hint()
  * scr_get_next_game_hint()
  * scr_get_game_hint_question()

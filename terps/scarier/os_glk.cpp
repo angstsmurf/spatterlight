@@ -165,6 +165,12 @@ static const glui32 GSC_PORT_VERSION = 0x00010400;
 static winid_t gsc_main_window = NULL,
                gsc_status_window = NULL;
 
+/* Whether nothing has been printed to the main window since it was last
+   cleared.  A window that is still empty can be cleared again for free, which
+   is the one moment a background colour change can repaint the pane without
+   costing the player any text; see SCR_TAG_BGCOLOUR. */
+static int gsc_main_window_empty = TRUE;
+
 /*
  * Transcript stream and input log.  These are NULL if there is no current
  * collection of these strings.
@@ -220,13 +226,15 @@ static glui32 gsc_colour_background = 0x000000,
    earlier in the file, picks its style by it; where the Glk library has no
    zcolors extension the command is not offered and this stays FALSE. */
 static int gsc_colour_enabled = FALSE;
-/* Whether the "-c" command line switch asked for colour mode from the start,
-   sparing the player a "glk colour on" at every launch.  Acted on once the
-   windows exist; see gsc_colour_startup_apply. */
+/* Whether colour mode should be on before the game prints a word: the "-c"
+   command line switch, sparing the player a "glk colour on" at every launch, or
+   a game that asks for its own palette by the colours it was written in (see
+   gsc_colour_detect).  Acted on once the windows exist; see
+   gsc_colour_startup_apply. */
 static int gsc_colour_startup = FALSE;
 /* True when Normal colour stylehints were already set before the first window
-   open (the -c path).  gsc_set_colour consumes this so it can skip a pointless
-   rebuild of the just-opened tree. */
+   open (the -c path, and the detected one).  gsc_set_colour consumes this so it
+   can skip a pointless rebuild of the just-opened tree. */
 static int gsc_colour_hints_preapplied = FALSE;
 /* The colour last named on the story window (gsc_colour_apply), so that drawing
    the status bar in its own two colours can put the story's back afterwards --
@@ -507,6 +515,9 @@ static void gsc_short_delay (void);
 static void
 gsc_put_literal (const char *string)
 {
+  if (gsc_main_window
+      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+    gsc_main_window_empty = FALSE;
   glk_put_string (const_cast<char *> (string));
 }
 
@@ -1104,7 +1115,10 @@ gsc_put_char_locale (scr_char ch,
    */
   if (gsc_main_window
       && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
-    gsc_main_at_line_start = (ch == '\n');
+    {
+      gsc_main_at_line_start = (ch == '\n');
+      gsc_main_window_empty = FALSE;
+    }
   unsigned char character;
   glui32 unicode;
   const char *ascii;
@@ -1884,6 +1898,11 @@ typedef enum {
  * glkterm) the mode cannot be offered at all, so everything below compiles out
  * and the command says so.
  *
+ * A game that cannot be read without the palette -- an ADRIFT 5 adventure that
+ * set colours of its own, or text that paints a background or names a colour
+ * too close to the interpreter's to see -- turns the mode on for itself at load
+ * time, before a word is printed; gsc_colour_detect is what asks.
+ *
  * Where the palette comes from differs by engine.  ADRIFT 5 stores it in the
  * adventure itself (a5model.h bg_colour and friends).  ADRIFT <=4 stores none:
  * the .taf has no colour fields, and the colours are Runner preferences.  The
@@ -2137,6 +2156,170 @@ gsc_colour_from_tag (const scr_char *tag, const char *key)
   free (lower);
   return result;
 }
+
+
+#ifdef GSC_HAVE_ZCOLORS
+/*
+ * gsc_colour_luminance()
+ * gsc_colour_legible()
+ *
+ * Whether text in one colour can be read against another.  `gsc_colour_legible`
+ * answers the WCAG contrast test -- the ratio of the two relative luminances,
+ * each lifted by 0.05, against a 3:1 floor, which is the threshold for text
+ * that is large or merely decorative rather than a page of body copy.
+ *
+ * Luminance is the sRGB one with the transfer curve approximated as a plain
+ * square rather than the piecewise 2.4 power, which keeps this in integers (the
+ * scale is 255*255) and, checked against the exact formula over the Runner's
+ * whole colour table, changes no verdict here: red, green, blue, teal, navy and
+ * grey stay legible on white, while white, silver, yellow, lime, cyan, orange
+ * and pink stay illegible on it.
+ */
+static glui32
+gsc_colour_luminance (glui32 rgb)
+{
+  const glui32 r = (rgb >> 16) & 0xff, g = (rgb >> 8) & 0xff, b = rgb & 0xff;
+
+  return (2126 * r * r + 7152 * g * g + 722 * b * b) / 10000;
+}
+
+static scr_bool
+gsc_colour_legible (glui32 fg, glui32 bg)
+{
+  /* 0.05 of the 255*255 luminance scale, the constant WCAG adds to both sides
+     so that black on black is a ratio of 1 rather than a division by zero. */
+  static const glui32 FLARE = 3251;
+  const glui32 one = gsc_colour_luminance (fg) + FLARE,
+               two = gsc_colour_luminance (bg) + FLARE;
+  const glui32 lighter = one > two ? one : two,
+               darker = one > two ? two : one;
+
+  return lighter >= 3 * darker;
+}
+
+
+/*
+ * gsc_colour_wanted_t
+ * gsc_colour_wanted_by()
+ *
+ * Decide, from one authored string, whether this game was written for the
+ * Runner's own pane rather than for an interpreter theme -- the question
+ * gsc_colour_detect() asks of every string in the game.
+ *
+ * Two things in a string answer it, and a bare <font colour="..."> is not one
+ * of them: a game that puts a single red word in a paragraph is not asking for
+ * a black screen, and a quarter of the ADRIFT <=4 corpus embeds a colour that
+ * mild.  What does answer it is
+ *
+ *   - <bgcolour="..."> (ADRIFT <=4), which repaints the output pane outright.
+ *     Without colour mode the repaint has nowhere to land, so the text it was
+ *     meant to sit behind arrives on whatever the theme provides;
+ *
+ *   - a <font colour="..."> the theme cannot show: white, yellow, lime and the
+ *     other pale colours authors reach for when they know the pane behind them
+ *     is black.  On a light theme that text is invisible, which is the failure
+ *     colour mode exists to prevent; on a dark theme it reads perfectly well
+ *     already, and `bg` being the measured theme background is what lets the
+ *     same game decide differently in each.
+ *
+ * <c> needs no case of its own even though it colours text too: it names the
+ * palette's input colour, which for ADRIFT <=4 is the Runner's red (legible on
+ * any theme) and for ADRIFT 5 is the author's, already caught by
+ * a5model_custom_palette.
+ */
+typedef struct {
+  glui32 background;      /* what the story text would otherwise sit on */
+} gsc_colour_wanted_t;
+
+static scr_bool
+gsc_colour_wanted_by (const scr_char *text, void *opaque)
+{
+  const gsc_colour_wanted_t *wanted = (const gsc_colour_wanted_t *) opaque;
+  const scr_char *at;
+
+  for (at = text; (at = strchr (at, '<')) != NULL; at++)
+    {
+      const scr_char *end = strchr (at, '>');
+      scr_char *tag;
+      size_t length;
+      glui32 colour;
+
+      if (end == NULL)
+        break;
+
+      /* Only <font ...> and <bgcolour=...> can carry one, and every other tag
+         in the language is far commoner than either; test the name first so
+         the tag body is only copied for the few that could match. */
+      length = (size_t) (end - at) - 1;
+      if (scr_strncasecmp (at + 1, "font", 4) != 0
+          && scr_strncasecmp (at + 1, "bgcolo", 6) != 0)
+        continue;
+
+      tag = (decltype (tag)) gsc_malloc (length + 1);
+      memcpy (tag, at + 1, length);
+      tag[length] = '\0';
+
+      colour = gsc_colour_from_tag (tag, "bgcolour");
+      if (colour != GSC_COLOUR_NONE)
+        {
+          free (tag);
+          return TRUE;
+        }
+      colour = gsc_colour_from_tag (tag, "colour");
+      free (tag);
+      if (colour != GSC_COLOUR_NONE
+          && !gsc_colour_legible (colour, wanted->background))
+        return TRUE;
+
+      at = end;
+    }
+  return FALSE;
+}
+
+
+/*
+ * gsc_colour_detect()
+ *
+ * Whether this game starts in its own palette without being asked for it.
+ *
+ * ADRIFT 5 answers from its header: an adventure whose palette differs from the
+ * Runner's default has a look the author sat down and chose, and showing it in
+ * the interpreter's theme instead throws that away.  ADRIFT <=4 has no header
+ * to ask -- the .taf carries no colour fields at all, the palette being a Runner
+ * preference -- so both engines fall back on the authored text, which is where
+ * gsc_colour_wanted_by describes what counts.
+ *
+ * Called while the loading window is still up, so the theme's background can be
+ * measured before colour mode publishes stylehints of its own; the answer feeds
+ * gsc_colour_startup, which the -c switch also sets, and so reaches the palette
+ * by the same path -- hints published before the first window open, and no
+ * rebuild.  That also means it is never consulted on an autorestore, which is
+ * right: a restored session brings back the mode the player left it in.
+ */
+static scr_bool
+gsc_colour_detect (winid_t window)
+{
+  gsc_colour_wanted_t wanted;
+  glui32 measured;
+
+  /* White when the library cannot measure: an interpreter that answers nothing
+     is likeliest to be showing the light background Glk defaults to, and that
+     is the case where pale authored text disappears. */
+  wanted.background = 0xffffff;
+  if (window != NULL
+      && glk_style_measure (window, style_Normal, stylehint_BackColor,
+                            &measured))
+    wanted.background = measured;
+
+  if (gsc_is_a5)
+    return gsc_a5_adv != NULL
+           && (a5model_custom_palette (gsc_a5_adv)
+               || a5model_scan_text (gsc_a5_adv, gsc_colour_wanted_by,
+                                     &wanted));
+  return gsc_game != NULL
+         && scr_game_scan_strings (gsc_game, gsc_colour_wanted_by, &wanted);
+}
+#endif
 
 
 /*
@@ -2401,6 +2584,12 @@ gsc_put_string_symbol (const scr_char *string, gsc_symbol_font_t symbol_font)
   scr_int index_;
 
   assert (string);
+
+  /* This path writes through glk_put_char directly rather than through
+     gsc_put_char_locale, so mark the window here as well. */
+  if (string[0] != '\0' && gsc_main_window
+      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+    gsc_main_window_empty = FALSE;
 
   for (index_ = 0; string[index_] != '\0'; index_++)
     {
@@ -2752,6 +2941,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
       /* Clear the main text display window. */
       glk_window_clear (gsc_main_window);
       gsc_main_at_line_start = TRUE;
+      gsc_main_window_empty = TRUE;
 #if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
       /*
        * If a graphic was drawn earlier this turn (no player input since), the
@@ -2849,13 +3039,24 @@ os_print_tag (scr_int tag, const scr_char *argument)
        * contents (scprintf passes it verbatim, to match <font colour=...>),
        * so it is parsed the same way -- and "default" returns the mode's own
        * background rather than clearing the colour.
+       *
+       * The one repaint that is free is the one onto an empty window: a game
+       * that clears the screen and then names its colour -- The Dead Man ends
+       * each blackout vision with "<cls><bgcolor=default>" -- has nothing on
+       * screen to lose, and without the second clear its pane keeps the vision's
+       * white behind every line that follows.
        */
       {
         const glui32 colour = gsc_colour_from_tag (argument, "bgcolour");
+        const glui32 wanted = (colour == GSC_COLOUR_NONE) ? 0x000000 : colour;
+        const scr_bool changed = (wanted != gsc_colour_background);
 
-        gsc_colour_background
-          = (colour == GSC_COLOUR_NONE) ? 0x000000 : colour;
+        gsc_colour_background = wanted;
         gsc_set_glk_style ();
+
+        if (changed && gsc_colour_enabled
+            && gsc_main_window_empty && gsc_main_window)
+          glk_window_clear (gsc_main_window);
       }
       break;
 
@@ -3856,8 +4057,9 @@ gsc_command_verbose (const char *argument)
  * only place they live: nothing in the .taf carries a colour), the author's
  * own four colours for ADRIFT 5 -- and a game that writes white text, or
  * chooses colours to sit on black, needs that background to read at all.  Off
- * by default, since the interpreter's own theme is what most players want;
- * a player who wants the Runner's look every time starts the interpreter with
+ * by default, since the interpreter's own theme is what most players want, and
+ * on from the start for a game that shows it needs the palette to be read at
+ * all (gsc_colour_detect) or when the player asked for the Runner's look with
  * "-c" (gsc_colour_startup_apply).
  *
  * Colour mode publishes the game palette as Normal TextColor/BackColor
@@ -4051,18 +4253,20 @@ gsc_set_colour (scr_bool state)
   gsc_map_redraw ();
 
   gsc_main_at_line_start = TRUE;
+  gsc_main_window_empty = TRUE;
 }
 #endif
 
 /*
  * gsc_colour_startup_apply()
  *
- * Act on the "-c" switch, once the story and status windows exist and the
- * ADRIFT 5 loader (if any) has replaced the palette globals with the
- * adventure's own four colours -- both true by the time either main() calls
- * this.  Not called on an autorestore: a restored session brings its own
- * colour state back with it, and a switch on the command line has no business
- * overriding what the player left the game in.
+ * Act on the "-c" switch, or on what the loader detected about the game's own
+ * colours, once the story and status windows exist and the ADRIFT 5 loader (if
+ * any) has replaced the palette globals with the adventure's own four colours
+ * -- both true by the time either main() calls this.  Not called on an
+ * autorestore: a restored session brings its own colour state back with it, and
+ * neither a switch on the command line nor a guess about the game has any
+ * business overriding what the player left the game in.
  */
 static void
 gsc_colour_startup_apply (void)
@@ -5061,9 +5265,12 @@ gsc_command_help (const char *command)
       gsc_normal_string (", and ");
       gsc_standout_string ("glk colors");
       gsc_normal_string (" are the same command.\n\nGames written for a black"
-                         " screen can be hard to read without this; games that"
-                         " never set a colour of their own look much the same"
-                         " either way.\n");
+                         " screen can be hard to read without this, so a game"
+                         " that sets colours of its own, or that would show"
+                         " text too close to the interpreter's own colours to"
+                         " read, starts with this turned on; games that never"
+                         " set a colour of their own look much the same either"
+                         " way.\n");
     }
 
   else if (matched->handler == gsc_command_undo
@@ -6193,6 +6400,13 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
           gsc_colour_background = gsc_a5_adv->bg_colour;
           gsc_colour_output = gsc_a5_adv->output_colour;
           gsc_colour_input = gsc_a5_adv->input_colour;
+#ifdef GSC_HAVE_ZCOLORS
+          /* An adventure that chose its own colours starts in them, as "-c"
+             would; asked here, while the loading window is still up to measure
+             the theme against. */
+          if (gsc_colour_detect (window))
+            gsc_colour_startup = TRUE;
+#endif
           glk_stream_close (game_stream, NULL);
           if (restore_stream)
             glk_stream_close (restore_stream, NULL);
@@ -6254,6 +6468,14 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
       /* Default the assists on for known broken games, before the game's
          battle_start() reads the combat-assist flag. */
       gsc_apply_known_game_assists (gsc_game);
+
+#ifdef GSC_HAVE_ZCOLORS
+      /* A game whose text was written for the Runner's pane starts in the
+         Runner's palette, as "-c" would; asked here, while the loading window
+         is still up to measure the theme against. */
+      if (gsc_colour_detect (window))
+        gsc_colour_startup = TRUE;
+#endif
     }
 
   /* Close the temporary window. */
@@ -6306,7 +6528,8 @@ gsc_main (void)
   if (!autorestore)
     {
 #ifdef GSC_HAVE_ZCOLORS
-      /* "-c": publish Normal colours before the first open so the windows
+      /* Starting in colour ("-c", or a game that needs its palette to be
+         read): publish Normal colours before the first open so the windows
          snapshot them; gsc_colour_startup_apply then enables zcolors without
          tearing the tree down again. */
       if (gsc_colour_startup)
@@ -6329,7 +6552,7 @@ gsc_main (void)
 
       gsc_open_status_window ();
 
-      /* "-c": into the game's palette before a word is printed. */
+      /* Into the game's palette before a word is printed. */
       gsc_colour_startup_apply ();
     }
 
@@ -6539,6 +6762,9 @@ gsc_a5_put_string (const char *string)
 
   if (string == NULL)
     return;
+  if (string[0] != '\0' && gsc_main_window
+      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+    gsc_main_window_empty = FALSE;
   if (!gsc_unicode_enabled)
     {
       glk_put_string ((char *) string);
@@ -8038,7 +8264,11 @@ gsc_a5_display (const char *text)
         break;
 
       if (*p == A5_CLS_MARK)
-        glk_window_clear (cur_window);
+        {
+          glk_window_clear (cur_window);
+          if (cur_window == gsc_main_window)
+            gsc_main_window_empty = TRUE;
+        }
       else if (*p == A5_WINDOW_MARK)
         {
           /* Side-window span opens: \022<name>\022.  Route text to the side
@@ -9565,6 +9795,7 @@ gsc_a5_restart_run (a5_run_t *&run)
   gsc_map_zoom = 0;
 
   glk_window_clear (gsc_main_window);
+  gsc_main_window_empty = TRUE;
   gsc_a5_present_intro (run);
   gsc_map_auto_reveal ();
 }
@@ -9641,7 +9872,8 @@ gsc_a5_main (void)
   if (!autorestore)
     {
 #ifdef GSC_HAVE_ZCOLORS
-      /* "-c": publish Normal colours before the first open so the windows
+      /* Starting in colour ("-c", or an adventure that needs its palette to
+         be read): publish Normal colours before the first open so the windows
          snapshot them; gsc_colour_startup_apply then enables zcolors without
          tearing the tree down again. */
       if (gsc_colour_startup)
@@ -9653,8 +9885,8 @@ gsc_a5_main (void)
       gsc_open_main_window ();
       gsc_open_status_window ();
 
-      /* "-c": into the adventure's own palette (already parsed off the header
-         by the startup code) before the title page is drawn. */
+      /* Into the adventure's own palette (already parsed off the header by the
+         startup code) before the title page is drawn. */
       gsc_colour_startup_apply ();
     }
 

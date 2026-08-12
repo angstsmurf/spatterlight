@@ -904,6 +904,17 @@ a5model_key_index (const a5_adventure_t *a, int kind, const char *key)
   return -1;
 }
 
+/* The Runner's own palette (Global.vb DEFAULT_*COLOUR, stored there as ARGB),
+   held as 0xRRGGBB in the order the four fields sit in a5_adventure_t: black
+   background, red input, teal output, and a pale cyan for hyperlinks.  Shared
+   by the loader, which falls back on these for an element the file omits, and
+   by a5model_custom_palette, which recognises the author's own choices by
+   them; keeping one table is what stops the two drifting apart. */
+static const struct { const char *name; uint32_t dflt; } A5_COLOURS[] = {
+  {"BackgroundColour", 0x000000}, {"InputColour",  0xd22527},
+  {"OutputColour",     0x19a58a}, {"LinkColour",   0x4bd7bc}
+};
+
 a5_adventure_t *
 a5model_from_doc (a5_xml_doc_t *doc)
 {
@@ -937,15 +948,9 @@ a5model_from_doc (a5_xml_doc_t *doc)
      as Windows OLE colour integers -- BLUE, GREEN, RED byte order -- rendered
      in decimal (ADRIFT-5-XML.md 2.6), and omits any element that still holds
      the Runner default, so a missing element means "the default", not "no
-     colour".  Held here in the ordinary 0xRRGGBB order.
-     The defaults are the ADRIFT 5 Runner's own (Global.vb DEFAULT_*COLOUR,
-     stored there as ARGB): black background, red input, teal output, and a
-     pale cyan for hyperlinks. */
+     colour".  Held here in the ordinary 0xRRGGBB order; the defaults are the
+     Runner's own, in A5_COLOURS above. */
   {
-    static const struct { const char *name; uint32_t dflt; } A5_COLOURS[] = {
-      {"BackgroundColour", 0x000000}, {"InputColour",  0xd22527},
-      {"OutputColour",     0x19a58a}, {"LinkColour",   0x4bd7bc}
-    };
     uint32_t *field[4];
     int i;
 
@@ -1475,6 +1480,53 @@ a5model_load_error (const a5_adventure_t *a)
   if (a == NULL || a->n_locations == 0)
     return "This adventure has no locations.  Cannot continue.";
   return NULL;
+}
+
+int
+a5model_custom_palette (const a5_adventure_t *a)
+{
+  const uint32_t *field[4];
+  int i;
+
+  if (a == NULL)
+    return 0;
+  field[0] = &a->bg_colour;    field[1] = &a->input_colour;
+  field[2] = &a->output_colour; field[3] = &a->link_colour;
+  for (i = 0; i < 4; i++)
+    {
+      if (*field[i] != A5_COLOURS[i].dflt)
+        return 1;
+    }
+  return 0;
+}
+
+/* Depth-first over the parse tree, stopping at the first text the caller
+   accepts.  Nodes with no text of their own are still walked for children. */
+static int
+a5model_scan_node (const a5_xml_node_t *n,
+                   int (*accept) (const char *, void *), void *opaque)
+{
+  const a5_xml_node_t *c;
+
+  if (n == NULL)
+    return 0;
+  if (n->text != NULL && n->text[0] != '\0' && accept (n->text, opaque))
+    return 1;
+  for (c = n->first_child; c != NULL; c = c->next)
+    {
+      if (a5model_scan_node (c, accept, opaque))
+        return 1;
+    }
+  return 0;
+}
+
+int
+a5model_scan_text (const a5_adventure_t *a,
+                   int (*accept) (const char *, void *), void *opaque)
+{
+  if (a == NULL || accept == NULL)
+    return 0;
+  return a5model_scan_node (a->root, accept, opaque);
 }
 
 void

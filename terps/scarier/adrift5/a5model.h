@@ -436,6 +436,24 @@ extern int a5model_upgrade_forced_yes (const a5_adventure_t *a);
  */
 extern const char *a5model_load_error (const a5_adventure_t *a);
 
+/* Non-zero when any of the four palette fields differs from the Runner's own
+   default, i.e. when the author chose a colour scheme rather than accepting the
+   one every ADRIFT 5 game starts from.  A host that would otherwise show the
+   story in its own theme uses this to decide whether the adventure has a look
+   worth honouring. */
+extern int a5model_custom_palette (const a5_adventure_t *a);
+
+/* Offer every authored string in the adventure to `accept`, depth-first, and
+   return non-zero as soon as one is accepted (nothing further is visited).
+   The strings arrive as the XML parser left them -- entity-decoded, so any
+   markup the author embedded reads as the "<font ...>" the Runner sees.  This
+   is a raw walk of the parse tree rather than of the object model: it carries
+   no promise about which record a string belongs to, only that a caller
+   grepping for authored markup sees all of it. */
+extern int a5model_scan_text (const a5_adventure_t *a,
+                              int (*accept) (const char *text, void *opaque),
+                              void *opaque);
+
 extern void a5model_free (a5_adventure_t *adv);
 
 /* Property lookup within a record's property array. */
