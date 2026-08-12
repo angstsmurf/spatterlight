@@ -152,10 +152,10 @@ typedef struct map_surface_s {
 extern map_surface_t *map_surface_new (int w, int h);
 extern void map_surface_free (map_surface_t *s);
 
-/* The two colours the map is drawn in, normally the Glk buffer's normal
-   style: `background` fills the map and the room boxes, `text` draws the
-   connectors, borders and labels, and the player's room is their inversion.
-   Black on white until the host says otherwise. */
+/* The host's text style (normally the Glk buffer's style_Normal).  The
+   renderer derives room fills, the you-are-here accent, link/stub greys and
+   label colours from these two; black on white until the host says
+   otherwise. */
 extern void map_set_palette (unsigned int background, unsigned int text);
 
 /* What the renderer needs to know about the run.  Keeping this a callback

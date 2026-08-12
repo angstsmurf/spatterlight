@@ -45,26 +45,227 @@ const char *const map_dirs[MAP_N_DIRS] = {
   "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
 
-/* Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
-   host's text style instead, so the pane matches the story text in any theme:
-   the map and its room boxes take the style's background colour, connectors,
-   borders and labels its text colour, and the player's room is drawn inverted
-   (text-colour fill, background-colour label) where the runner filled it
-   yellow.  The host passes the two colours in (map_set_palette); until it
-   does, black on white.  Only the badge accents survive from the
-   runner's palette. */
+/* Map.vb:33-39 paints a fixed pastel palette.  We take the host's text
+   style (map_set_palette) as paper and ink, then derive a small hierarchy so
+   the pane matches any theme without going hollow/inverted:
+
+     canvas      = background
+     room fill   = mix a little ink into paper (cards, not empty frames)
+     here fill   = mix the room card toward amber (ADRIFT's yellow), with
+                   orange/cyan fallbacks if amber collapses into the card
+     strokes /
+     labels      = ink (label may flip to paper/black/white for contrast)
+     links/stubs = ink faded toward paper
+
+   Until the host says otherwise: black on white.  Only the In/Out/Up/Down
+   badge accents stay hard-coded. */
 static unsigned int map_bg = 0xFFFFFF;
 static unsigned int map_fg = 0x000000;
+static unsigned int map_room_fill = 0xE3E1DB;
+static unsigned int map_room_stroke = 0x000000;
+static unsigned int map_here_fill = 0xFFF3A0;
+static unsigned int map_here_stroke = 0xB8860B;
+static unsigned int map_here_label = 0x000000;
+static unsigned int map_label = 0x000000;
+static unsigned int map_link = 0x666666;
+static unsigned int map_stub = 0x999999;
+static int map_palette_ready = 0;
+
 #define ICON_IN        0x00A000
 #define ICON_OUT       0xE06090
 #define ICON_UP        0xD0A000
 #define ICON_DOWN      0x4060D0
+#define ACCENT_AMBER   0xFFF3A0
+#define ACCENT_GOLD    0xB8860B
+#define ACCENT_ORANGE  0xFFB060
+#define ACCENT_CYAN    0x60D8E8
+
+static int
+rgb_chan (unsigned int rgb, int shift)
+{
+  return (int) ((rgb >> shift) & 0xFF);
+}
+
+static unsigned int
+pack_rgb (int r, int g, int b)
+{
+  if (r < 0) r = 0;
+  if (r > 255) r = 255;
+  if (g < 0) g = 0;
+  if (g > 255) g = 255;
+  if (b < 0) b = 0;
+  if (b > 255) b = 255;
+  return ((unsigned int) r << 16) | ((unsigned int) g << 8)
+         | (unsigned int) b;
+}
+
+static unsigned int
+mix_rgb (unsigned int a, unsigned int b, double t)
+{
+  int ar = rgb_chan (a, 16), ag = rgb_chan (a, 8), ab = rgb_chan (a, 0);
+  int br = rgb_chan (b, 16), bg = rgb_chan (b, 8), bb = rgb_chan (b, 0);
+  return pack_rgb ((int) (ar + (br - ar) * t + 0.5),
+                   (int) (ag + (bg - ag) * t + 0.5),
+                   (int) (ab + (bb - ab) * t + 0.5));
+}
+
+static double
+rgb_luminance (unsigned int rgb)
+{
+  return 0.2126 * (rgb_chan (rgb, 16) / 255.0)
+       + 0.7152 * (rgb_chan (rgb, 8) / 255.0)
+       + 0.0722 * (rgb_chan (rgb, 0) / 255.0);
+}
+
+static double
+rgb_contrast (unsigned int a, unsigned int b)
+{
+  double la = rgb_luminance (a) + 0.05;
+  double lb = rgb_luminance (b) + 0.05;
+  return la > lb ? la / lb : lb / la;
+}
+
+static double
+rgb_dist (unsigned int a, unsigned int b)
+{
+  double dr = rgb_chan (a, 16) - rgb_chan (b, 16);
+  double dg = rgb_chan (a, 8) - rgb_chan (b, 8);
+  double db = rgb_chan (a, 0) - rgb_chan (b, 0);
+  return sqrt (dr * dr + dg * dg + db * db);
+}
+
+static int
+rgb_near_gray (unsigned int rgb)
+{
+  int r = rgb_chan (rgb, 16), g = rgb_chan (rgb, 8), b = rgb_chan (rgb, 0);
+  int mx = r > g ? (r > b ? r : b) : (g > b ? g : b);
+  int mn = r < g ? (r < b ? r : b) : (g < b ? g : b);
+  return (mx - mn) < 12;
+}
+
+/* Room fills are drawn at this alpha over the canvas (Map.vb ~200).  Label
+   contrast must be measured against the blended on-screen colour, not the
+   raw fill -- otherwise a mid amber over black picks black ink that then
+   sits on a much darker card. */
+#define MAP_ROOM_FILL_ALPHA 200
+
+static unsigned int
+best_label_on (unsigned int fill)
+{
+  unsigned int cands[4];
+  unsigned int best = 0;
+  double best_c = -1.0;
+  double fill_l = rgb_luminance (fill);
+  /* Mid and dark fills: light ink.  Bright fills (light-theme amber): dark
+     ink.  WCAG alone prefers black on a muddy olive that still reads poorly
+     in the 8x8 map font. */
+  int want_light = fill_l < 0.60;
+  int i, pass;
+
+  cands[0] = map_fg;
+  cands[1] = map_bg;
+  cands[2] = 0x000000;
+  cands[3] = 0xFFFFFF;
+
+  for (pass = 0; pass < 2; pass++)
+    {
+      for (i = 0; i < 4; i++)
+        {
+          double cand_l = rgb_luminance (cands[i]);
+          double c;
+          if (pass == 0)
+            {
+              if (want_light && cand_l < 0.55)
+                continue;
+              if (!want_light && cand_l >= 0.55)
+                continue;
+            }
+          c = rgb_contrast (fill, cands[i]);
+          if (c > best_c)
+            {
+              best_c = c;
+              best = cands[i];
+            }
+        }
+      if (best_c > 0.0)
+        break;
+    }
+  return best;
+}
+
+static void
+rebuild_derived_palette (void)
+{
+  int dark = rgb_luminance (map_bg) < 0.45;
+  double room_t = dark ? 0.18 : 0.12;
+  double here_t = dark ? 0.80 : 0.70;
+  double fill_a = MAP_ROOM_FILL_ALPHA / 255.0;
+  unsigned int accents[3];
+  unsigned int accent;
+  unsigned int here;
+  unsigned int room_eff, here_eff;
+  int i;
+
+  accents[0] = ACCENT_AMBER;
+  accents[1] = ACCENT_ORANGE;
+  accents[2] = ACCENT_CYAN;
+
+  map_room_fill = mix_rgb (map_bg, map_fg, room_t);
+  /* Near-neutral cards (default black-on-white) get a touch of amber so
+     they keep the ADRIFT beige instead of flat gray.  Skip once the theme
+     already carries a hue. */
+  if (rgb_near_gray (map_room_fill))
+    map_room_fill = mix_rgb (map_room_fill, ACCENT_AMBER, 0.08);
+
+  map_room_stroke = map_fg;
+
+  accent = accents[0];
+  for (i = 0; i < 3; i++)
+    {
+      here = mix_rgb (map_room_fill, accents[i], here_t);
+      if (rgb_dist (here, map_room_fill) >= 40.0)
+        {
+          accent = accents[i];
+          break;
+        }
+    }
+  map_here_fill = mix_rgb (map_room_fill, accent, here_t);
+  /* On dark paper a shallow mix left a muddy olive; keep lifting toward the
+     accent until the *on-screen* card (after MAP_ROOM_FILL_ALPHA over the
+     canvas) is a readable gold that can carry dark ink. */
+  if (dark)
+    {
+      for (i = 0;
+           i < 6
+           && rgb_luminance (mix_rgb (map_bg, map_here_fill, fill_a)) < 0.65;
+           i++)
+        map_here_fill = mix_rgb (map_here_fill, accent, 0.40);
+    }
+  map_here_stroke = mix_rgb (map_fg, ACCENT_GOLD, 0.50);
+
+  room_eff = mix_rgb (map_bg, map_room_fill, fill_a);
+  here_eff = mix_rgb (map_bg, map_here_fill, fill_a);
+  map_label = best_label_on (room_eff);
+  map_here_label = best_label_on (here_eff);
+
+  map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
+  map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
+  map_palette_ready = 1;
+}
+
+static void
+ensure_derived_palette (void)
+{
+  if (!map_palette_ready)
+    rebuild_derived_palette ();
+}
 
 void
 map_set_palette (unsigned int background, unsigned int text)
 {
   map_bg = background & 0xFFFFFF;
   map_fg = text & 0xFFFFFF;
+  rebuild_derived_palette ();
 }
 
 void
@@ -1289,9 +1490,10 @@ draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
   dy /= len;
   x1 = x0 + dx * stub;
   y1 = y0 + dy * stub;
-  draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd, map_fg,
+  ensure_derived_palette ();
+  draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd, map_stub,
              alpha, 0);
-  draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_fg, alpha);
+  draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_stub, alpha);
 }
 
 typedef struct {
@@ -1804,6 +2006,7 @@ map_render (const map_t *map, const map_view_t *view,
 
   if (dst == NULL)
     return;
+  ensure_derived_palette ();
   fill_surface (dst, map_bg);
   if (map == NULL || cam == NULL)
     return;
@@ -1865,11 +2068,12 @@ map_render (const map_t *map, const map_view_t *view,
             continue;
 
           /* Nodes on a different level than the player's fade out
-             (Map.vb:1436). */
-          alpha = 100;
+             (Map.vb:1436).  map_link is already ink faded toward paper, so
+             draw it near-opaque; other-Z keeps the soft fade. */
+          alpha = 220;
           if (active != NULL && n->z != active->z
               && !(dn->z == active->z))
-            alpha = 30;
+            alpha = 70;
 
           dash = link->dotted;
           if (link->dotted && view != NULL && view->ever_blocked != NULL)
@@ -1967,7 +2171,7 @@ map_render (const map_t *map, const map_view_t *view,
                 }
               x1 = x0; y1 = y0;
               x2 = x3; y2 = y3;
-              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
+              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_link,
                            alpha, dash, &phase);
             }
           else if (link->n_mids > 0 && link->mids != NULL)
@@ -1990,7 +2194,7 @@ map_render (const map_t *map, const map_view_t *view,
                 }
               pts[2 * (np - 1)] = x3;
               pts[2 * (np - 1) + 1] = y3;
-              draw_curve (dst, pts, np, wd, map_fg, alpha, dash, &phase);
+              draw_curve (dst, pts, np, wd, map_link, alpha, dash, &phase);
               /* Tangent for a one-way arrow: last mid -> end. */
               x1 = pts[2 * (np - 2)];
               y1 = pts[2 * (np - 2) + 1];
@@ -2011,14 +2215,14 @@ map_render (const map_t *map, const map_view_t *view,
                  visibly bellies out. */
               x1 = x0; y1 = y0;
               x2 = x3; y2 = y3;
-              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
+              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_link,
                            alpha, dash, &phase);
             }
           else
             {
               bezier_assister (&p, n, link->dir, dist, &x1, &y1);
               bezier_assister (&p, dn, dst_anchor, dist, &x2, &y2);
-              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
+              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_link,
                            alpha, dash, &phase);
             }
 
@@ -2032,7 +2236,7 @@ map_render (const map_t *map, const map_view_t *view,
                   adx = x3 - x0;
                   ady = y3 - y0;
                 }
-              draw_arrowhead (dst, x3, y3, adx, ady, wd * 2 + 2, map_fg,
+              draw_arrowhead (dst, x3, y3, adx, ady, wd * 2 + 2, map_link,
                               alpha);
             }
         }
@@ -2061,7 +2265,7 @@ map_render (const map_t *map, const map_view_t *view,
                 continue;
               if (view_seen (view, dest))
                 continue;
-              draw_out_arrow (dst, &p, n, d, wd, 100);
+              draw_out_arrow (dst, &p, n, d, wd, 220);
             }
         }
     }
@@ -2090,14 +2294,16 @@ map_render (const map_t *map, const map_view_t *view,
       is_player = (player_key != NULL && n->key != NULL
                    && strcmp (n->key, player_key) == 0);
 
-      /* Alpha 200 on the player's level, 50 elsewhere (Map.vb:1172-1194). */
-      alpha = 200;
+      /* MAP_ROOM_FILL_ALPHA on the player's level, 50 elsewhere
+         (Map.vb:1172-1194).  Label colours were chosen against this blend. */
+      alpha = MAP_ROOM_FILL_ALPHA;
       if (!is_player && active != NULL && n->z != active->z)
         alpha = 50;
 
-      fill = is_player ? map_fg : map_bg;
+      fill = is_player ? map_here_fill : map_room_fill;
       fill_rect (dst, x0, y0, x1, y1, fill, alpha);
-      draw_rect (dst, x0, y0, x1, y1, map_fg, alpha);
+      draw_rect (dst, x0, y0, x1, y1,
+                 is_player ? map_here_stroke : map_room_stroke, alpha);
 
       for (l = 0; l < n->n_links; l++)
         {
@@ -2195,7 +2401,7 @@ map_render (const map_t *map, const map_view_t *view,
           const char *label = view->name (view->ctx, n->key);
           if (label != NULL && label[0] != '\0')
             draw_label (dst, label, x0, y0, x1, y1,
-                        is_player ? map_bg : map_fg,
+                        is_player ? map_here_label : map_label,
                         alpha == 50 ? 90 : 255);
         }
     }
