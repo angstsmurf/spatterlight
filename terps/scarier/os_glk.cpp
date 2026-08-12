@@ -218,15 +218,53 @@ static int gsc_colour_hints_preapplied = FALSE;
    before it turns the mode on, so it is always set by then. */
 static glui32 gsc_colour_main_fg = 0;
 
-/* Memoized gsc_colour_visible answer: -1 for not yet measured, else 0 or 1.
+/* Cached measurement of the story window's style_Normal colours: -1 for not
+   yet measured, 0 for a library that cannot measure, 1 for a filled cache.
    Measuring is not free -- under Spatterlight every glk_style_measure call is
    a window flush plus a synchronous round-trip to the application process --
-   and gsc_colour_visible is asked once per styled fragment of output.  The
+   and the consumers ask often: gsc_colour_visible once per styled fragment
+   of output, the map redraw once per prompt while its pane is open.  The
    answer only changes when colour mode itself toggles (gsc_set_colour, which
    also rebuilds the window tree) or when the library's style preference
    flips, and the latter reaches us as an Arrange event; those two places
-   reset this to -1. */
-static int gsc_colour_visible_memo = -1;
+   reset the state to -1. */
+static int gsc_normal_measure_state = -1;
+static glui32 gsc_normal_measured_fg, gsc_normal_measured_bg;
+
+/*
+ * gsc_normal_measure()
+ *
+ * Report the story window's style_Normal text and background colour as the
+ * library measures them -- the game palette when colour mode's stylehints
+ * are being honoured, the theme when they are ignored.  Answers from the
+ * cache above when it is warm; FALSE when the library cannot measure.
+ */
+static scr_bool
+gsc_normal_measure (glui32 *fg, glui32 *bg)
+{
+  if (gsc_normal_measure_state < 0)
+    {
+      glui32 mfg, mbg;
+
+      if (glk_style_measure (gsc_main_window, style_Normal,
+                             stylehint_TextColor, &mfg)
+          && glk_style_measure (gsc_main_window, style_Normal,
+                                stylehint_BackColor, &mbg))
+        {
+          gsc_normal_measured_fg = mfg;
+          gsc_normal_measured_bg = mbg;
+          gsc_normal_measure_state = 1;
+        }
+      else
+        gsc_normal_measure_state = 0;
+    }
+
+  if (gsc_normal_measure_state == 0)
+    return FALSE;
+  *fg = gsc_normal_measured_fg;
+  *bg = gsc_normal_measured_bg;
+  return TRUE;
+}
 
 /*
  * gsc_colour_visible()
@@ -245,8 +283,8 @@ static int gsc_colour_visible_memo = -1;
  * library ignored the hint, measure reports the theme and we treat colours
  * as not visible.  A preference change reaches us as an Arrange event
  * (Spatterlight's glkimp compares do_styles), which redraws the bar and map.
- * The measured answer is kept in gsc_colour_visible_memo between those
- * events, so the common per-fragment call costs nothing.
+ * The measurement is cached between those events, so the common
+ * per-fragment call costs two comparisons.
  */
 static scr_bool
 gsc_colour_visible (void)
@@ -258,18 +296,11 @@ gsc_colour_visible (void)
   if (gsc_main_window == NULL)
     return TRUE;
 
-  if (gsc_colour_visible_memo < 0)
-    {
-      if (glk_style_measure (gsc_main_window, style_Normal,
-                             stylehint_TextColor, &fg)
-          && glk_style_measure (gsc_main_window, style_Normal,
-                                stylehint_BackColor, &bg))
-        gsc_colour_visible_memo = fg == gsc_colour_output
-                                  && bg == gsc_colour_background;
-      else
-        gsc_colour_visible_memo = TRUE;
-    }
-  return (scr_bool) gsc_colour_visible_memo;
+  /* A library that cannot measure leaves no way to tell; believe the
+     colours are being honoured. */
+  if (!gsc_normal_measure (&fg, &bg))
+    return TRUE;
+  return fg == gsc_colour_output && bg == gsc_colour_background;
 }
 
 /* Adrift game to interpret. */
@@ -3314,8 +3345,8 @@ static void
 gsc_refresh_windows (void)
 {
   /* An Arrange is how a library preference flip announces itself, and the
-     status redraw below asks gsc_colour_visible, so the memo goes first. */
-  gsc_colour_visible_memo = -1;
+     status redraw below asks gsc_colour_visible, so the cache goes first. */
+  gsc_normal_measure_state = -1;
 
   gsc_status_redraw ();
 #ifdef SPATTERLIGHT
@@ -3945,7 +3976,7 @@ gsc_set_colour (scr_bool state)
 
   gsc_colour_enabled = state;
   gsc_colour_set_normal_hints (state);
-  gsc_colour_visible_memo = -1;
+  gsc_normal_measure_state = -1;
 
   /* -c pre-applies hints before the first open; do not destroy that tree. */
   rebuild = gsc_main_window != NULL
@@ -8693,16 +8724,13 @@ gsc_map_redraw (void)
      Normal stylehints (and rebuilds windows so they stick); libraries that
      ignore author styles leave measure on the theme, matching the transcript.
      A Glk that cannot measure leaves the palette at its black-on-white
-     default. */
+     default.  The measurement comes from gsc_normal_measure's cache -- the
+     map redraws at every prompt, and each miss is two synchronous
+     round-trips to the application. */
   {
     glui32 bg, fg;
-    scr_bool have;
 
-    have = glk_style_measure (gsc_main_window, style_Normal,
-                              stylehint_BackColor, &bg)
-           && glk_style_measure (gsc_main_window, style_Normal,
-                                 stylehint_TextColor, &fg);
-    if (have)
+    if (gsc_normal_measure (&fg, &bg))
       {
         map_set_palette (bg, fg);
         /* So the clear below, and any exposed edge, match the surface. */
