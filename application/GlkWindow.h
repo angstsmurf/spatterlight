@@ -88,6 +88,8 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol;
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue;
+/// Style-table attributes only (theme +/- stylehints). Does not fold zcolor or reverse video.
+- (NSDictionary *)baseAttributesForStyle:(NSUInteger)stylevalue;
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)n;
 - (void)drawImage:(NSImage *)buf

@@ -358,7 +358,9 @@
                          result:(NSInteger *)result {
 
     if (hint == stylehint_TextColor || hint == stylehint_BackColor) {
-        NSMutableDictionary *attributes = [gwindow getCurrentAttributesForStyle:style];
+        // Measure the style table only (theme +/- stylehints), not live
+        // zcolor or reverse video — same model as Gargoyle.
+        NSDictionary *attributes = [gwindow baseAttributesForStyle:style];
         NSColor *color = nil;
         if (hint == stylehint_TextColor) {
             color = attributes[NSForegroundColorAttributeName];

@@ -206,6 +206,10 @@ static int gsc_colour_enabled = FALSE;
    sparing the player a "glk colour on" at every launch.  Acted on once the
    windows exist; see gsc_colour_startup_apply. */
 static int gsc_colour_startup = FALSE;
+/* True when Normal colour stylehints were already set before the first window
+   open (the -c path).  gsc_set_colour consumes this so it can skip a pointless
+   rebuild of the just-opened tree. */
+static int gsc_colour_hints_preapplied = FALSE;
 /* The colour last named on the story window (gsc_colour_apply), so that drawing
    the status bar in its own two colours can put the story's back afterwards --
    a library whose zcolors are global as well as per-stream would otherwise go
@@ -217,28 +221,36 @@ static glui32 gsc_colour_main_fg = 0;
 /*
  * gsc_colour_visible()
  *
- * Whether colour mode is on *and* the interpreter is really painting the
- * colours we name.  Spatterlight has a "Games can set colors and styles"
- * preference; with it unchecked, garglk_set_zcolors is accepted and then
- * ignored, and the story text follows the theme instead.  Everything this port
- * draws for itself has to follow the theme too when that happens -- the map
- * pane's pixels, and the places where a colour stands in for a style (the
- * status bar, secondary-colour text) -- or the window ends up half in each
- * palette: a white transcript beside a black map (issue #151).  Gargoyle has no
- * such preference and always honours zcolors, so there the answer is just
- * whether colour mode is on.  A change to the preference reaches us as an
- * Arrange event (glkimp compares do_styles), which redraws the bar and the map.
+ * Whether colour mode is on *and* the library is really using the Normal
+ * colours we published as stylehints.  Spatterlight's "Games can set colors
+ * and styles" and Gargoyle's stylehint preference (despite the name, it also
+ * gates zcolors) both leave the story window on the theme while still
+ * accepting our stylehint_set / garglk_set_zcolors calls.  Places where a
+ * colour stands in for a style (the status bar, secondary-colour text) have
+ * to follow the theme too in that case.  The map measures style_Normal
+ * instead, so it tracks whichever palette the library is actually using.
+ *
+ * Detection is portable: after colour mode sets Normal TextColor to the
+ * game's output colour and (re)opens windows, measure that style -- if the
+ * library ignored the hint, measure reports the theme and we treat colours
+ * as not visible.  A preference change reaches us as an Arrange event
+ * (Spatterlight's glkimp compares do_styles), which redraws the bar and map.
  */
 static scr_bool
 gsc_colour_visible (void)
 {
+  glui32 fg, bg;
+
   if (!gsc_colour_enabled)
     return FALSE;
-#ifdef SPATTERLIGHT
-  return gli_enable_styles != 0;
-#else
-  return TRUE;
-#endif
+  if (gsc_main_window == NULL)
+    return TRUE;
+  if (!glk_style_measure (gsc_main_window, style_Normal,
+                          stylehint_TextColor, &fg)
+      || !glk_style_measure (gsc_main_window, style_Normal,
+                             stylehint_BackColor, &bg))
+    return TRUE;
+  return fg == gsc_colour_output && bg == gsc_colour_background;
 }
 
 /* Adrift game to interpret. */
@@ -3766,12 +3778,78 @@ gsc_command_verbose (const char *argument)
  * a player who wants the Runner's look every time starts the interpreter with
  * "-c" (gsc_colour_startup_apply).
  *
- * Turning it on clears the window so the background is black from the top
- * rather than only behind text written from here on; turning it off clears
- * again, back to the theme's own background.  Both clears are the point of the
- * command, not a side effect: Glk gives no other way to repaint a window.
+ * Colour mode publishes the game palette as Normal TextColor/BackColor
+ * stylehints so glk_style_measure (and libraries that honour hints) see it,
+ * and uses zcolors for per-span output/input colours.  Mid-session toggles
+ * rebuild the Glk window tree so open windows pick up the new hints
+ * (libraries snapshot stylehints at window open).  Both directions wipe the
+ * transcript: Glk gives no other way to repaint a window's background.
  */
 #ifdef GSC_HAVE_ZCOLORS
+/*
+ * gsc_colour_set_normal_hints()
+ *
+ * Publish or withdraw the game's Normal colours as stylehints.  Set before
+ * opening windows (or rebuild after) so measure and themed text agree.
+ */
+static void
+gsc_colour_set_normal_hints (scr_bool on)
+{
+  if (on)
+    {
+      glk_stylehint_set (wintype_TextBuffer, style_Normal,
+                         stylehint_TextColor, (glsi32) gsc_colour_output);
+      glk_stylehint_set (wintype_TextBuffer, style_Normal,
+                         stylehint_BackColor, (glsi32) gsc_colour_background);
+      glk_stylehint_set (wintype_TextGrid, style_Normal,
+                         stylehint_TextColor, (glsi32) gsc_colour_output);
+      glk_stylehint_set (wintype_TextGrid, style_Normal,
+                         stylehint_BackColor, (glsi32) gsc_colour_background);
+    }
+  else
+    {
+      glk_stylehint_clear (wintype_TextBuffer, style_Normal,
+                           stylehint_TextColor);
+      glk_stylehint_clear (wintype_TextBuffer, style_Normal,
+                           stylehint_BackColor);
+      glk_stylehint_clear (wintype_TextGrid, style_Normal,
+                           stylehint_TextColor);
+      glk_stylehint_clear (wintype_TextGrid, style_Normal,
+                           stylehint_BackColor);
+    }
+}
+
+/*
+ * gsc_colour_rebuild_windows()
+ *
+ * Tear down the Glk window tree and recreate main + status (and the map if it
+ * was open) so new Normal stylehints are snapshotted into open windows.
+ */
+static void
+gsc_colour_rebuild_windows (void)
+{
+  int was_map = gsc_map_shown;
+  winid_t root;
+
+  root = glk_window_get_root ();
+  if (root)
+    glk_window_close (root, NULL);
+
+  gsc_main_window = NULL;
+  gsc_status_window = NULL;
+  gsc_map_window = NULL;
+  gsc_a5_side_window = NULL;
+  gsc_graphics_window = NULL;
+  gsc_map_shown = FALSE;
+  gsc_map_screen_drop ();
+
+  gsc_open_main_window ();
+  gsc_open_status_window ();
+
+  if (was_map)
+    gsc_map_show ();
+}
+
 /*
  * gsc_colour_repaint()
  *
@@ -3805,13 +3883,10 @@ gsc_colour_repaint (winid_t win, scr_bool state)
          so the theme's own background has to be named for one last clear.
          Three steps, and the order of the first two matters:
 
-           - drop to Default first, since glk_style_measure answers with the
-             zcolor in force folded in, and would otherwise report the black
-             we are trying to get rid of;
-           - measure style_Normal's background and clear with that as the
-             background zcolor, which repaints the window in it;
-           - drop to Default again, so text from here on follows the theme
-             like any other interpreter's. */
+           - drop to Default first so any live zcolor is gone before measure;
+           - measure style_Normal's background (style table / stylehints, not
+             zcolors) and clear with that as the background zcolor;
+           - drop to Default again, so text from here on follows the theme. */
       garglk_set_zcolors_stream (stream, zcolor_Default, zcolor_Default);
       if (glk_style_measure (win, style_Normal, stylehint_BackColor, &bg))
         garglk_set_zcolors_stream (stream, zcolor_Default, bg);
@@ -3823,16 +3898,27 @@ gsc_colour_repaint (winid_t win, scr_bool state)
 static void
 gsc_set_colour (scr_bool state)
 {
+  scr_bool rebuild;
+
   gsc_colour_enabled = state;
+  gsc_colour_set_normal_hints (state);
+
+  /* -c pre-applies hints before the first open; do not destroy that tree. */
+  rebuild = gsc_main_window != NULL
+            && !(gsc_colour_hints_preapplied && state);
+  gsc_colour_hints_preapplied = FALSE;
+
+  if (rebuild)
+    gsc_colour_rebuild_windows ();
 
   gsc_colour_repaint (gsc_main_window, state);
 
   /* An ADRIFT 5 game may keep a second pane of its own (Alien Diver's
      "Status"), and it is as much the game's window as the story one: it has to
      change palette with it, or the pane would sit there in the theme's colours
-     with the game's text on top.  Its content goes with the clear, as the
-     story window's does -- games write the pane from a <window> span, which
-     they re-run whenever what it shows changes. */
+     with the game's text on top.  After a rebuild the side window is gone
+     until the game opens it again; when we skipped rebuild (startup -c) it
+     does not exist yet either. */
   gsc_colour_repaint (gsc_a5_side_window, state);
 
   /* The status line has a window of its own, and it follows the story window
@@ -3853,10 +3939,10 @@ gsc_set_colour (scr_bool state)
       gsc_status_notify ();
     }
 
-  /* The map pane is painted in the same palette, and it is drawn from the
-     prompt the turn loop prints -- which the command loop that brought us here
-     does not reach again until the next real turn.  Repaint it now, or the map
-     would sit in the old palette for one command more. */
+  /* The map pane is painted from style_Normal via measure, and it is drawn
+     from the prompt the turn loop prints -- which the command loop that
+     brought us here does not reach again until the next real turn.  Repaint
+     it now, or the map would sit in the old palette for one command more. */
   gsc_map_screen_drop ();
   gsc_map_redraw ();
 
@@ -6115,6 +6201,16 @@ gsc_main (void)
      gsc_autorestore_wanted). */
   if (!autorestore)
     {
+#ifdef GSC_HAVE_ZCOLORS
+      /* "-c": publish Normal colours before the first open so the windows
+         snapshot them; gsc_colour_startup_apply then enables zcolors without
+         tearing the tree down again. */
+      if (gsc_colour_startup)
+        {
+          gsc_colour_set_normal_hints (TRUE);
+          gsc_colour_hints_preapplied = TRUE;
+        }
+#endif
       gsc_open_main_window ();
 
       /* If there's a problem with the game file, complain now. */
@@ -8547,39 +8643,19 @@ gsc_map_redraw (void)
     return;
 
   /* The map is drawn in the story's colours: the buffer's normal style
-     supplies the background and text colour.  Spatterlight answers
-     glk_style_measure with the live theme, and redraws on both prompt and
-     arrange, so a theme change reaches the map by itself; a Glk that cannot
-     measure leaves the palette at its black-on-white default. */
+     supplies the background and text colour.  Colour mode publishes those as
+     Normal stylehints (and rebuilds windows so they stick); libraries that
+     ignore author styles leave measure on the theme, matching the transcript.
+     A Glk that cannot measure leaves the palette at its black-on-white
+     default. */
   {
     glui32 bg, fg;
     scr_bool have;
 
-#ifdef GSC_HAVE_ZCOLORS
-    /* In colour mode the game's own palette is named rather than measured: a
-       measure answers with the zcolor currently in force folded in (that is
-       what Spatterlight does), and which one that is depends on when the
-       redraw falls -- the output colour mid-turn, but the input echo colour in
-       a session restored at its prompt, where the archived window still
-       carries the colour the ">" was written in.  Measuring would draw the
-       same map in two different colours.
-
-       Only when the colours are really being painted, though: an interpreter
-       that is ignoring them (Spatterlight's "Games can set colors and styles",
-       unchecked) leaves the story window in the theme, and a map named in the
-       game's palette would be the one thing on screen still wearing it. */
-    if (gsc_colour_visible ())
-      {
-        bg = gsc_colour_background;
-        fg = gsc_colour_output;
-        have = TRUE;
-      }
-    else
-#endif
-      have = glk_style_measure (gsc_main_window, style_Normal,
-                                stylehint_BackColor, &bg)
-             && glk_style_measure (gsc_main_window, style_Normal,
-                                   stylehint_TextColor, &fg);
+    have = glk_style_measure (gsc_main_window, style_Normal,
+                              stylehint_BackColor, &bg)
+           && glk_style_measure (gsc_main_window, style_Normal,
+                                 stylehint_TextColor, &fg);
     if (have)
       {
         map_set_palette (bg, fg);
@@ -9461,6 +9537,16 @@ gsc_a5_main (void)
      gsc_autorestore_wanted). */
   if (!autorestore)
     {
+#ifdef GSC_HAVE_ZCOLORS
+      /* "-c": publish Normal colours before the first open so the windows
+         snapshot them; gsc_colour_startup_apply then enables zcolors without
+         tearing the tree down again. */
+      if (gsc_colour_startup)
+        {
+          gsc_colour_set_normal_hints (TRUE);
+          gsc_colour_hints_preapplied = TRUE;
+        }
+#endif
       gsc_open_main_window ();
       gsc_open_status_window ();
 
