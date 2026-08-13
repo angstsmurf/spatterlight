@@ -1761,17 +1761,6 @@ map_render (const map_t *map, const map_view_t *view,
           if (link->dest == NULL)
             continue;
 
-          /* Self-link: DrawOutArrow, not a curve through the box
-             (Map.vb:1474).  Skip self-Down the way the runner does. */
-          if (n->key != NULL && strcmp (link->dest, n->key) == 0)
-            {
-              if (link->dir == DIR_DOWN)
-                continue;
-              if (link->dir != DIR_IN && link->dir != DIR_OUT)
-                draw_out_arrow (dst, &p, n, link->dir, wd, 100);
-              continue;
-            }
-
           dn = page_node (page, link->dest);
           if (dn == NULL || !view_seen (view, dn->key))
             {
@@ -1819,6 +1808,26 @@ map_render (const map_t *map, const map_view_t *view,
                  blocked there once (Map.vb:1447, bEverBeenBlocked). */
               if (!view->ever_blocked (view->ctx, n->key, link->dir))
                 dash = 0;
+            }
+
+          /* Self-link: DrawOutArrow, not a curve through the box
+             (Map.vb:1474).  Skip self-Down the way the runner does.  This
+             sits below the route gates because the runner reaches it with
+             the pen already built: a restricted self-link whose restrictions
+             currently fail has left DrawLinks at Map.vb:1429 (Cloak of
+             Darkness's Foyer, North -> itself behind "Task6 Must
+             BeComplete", draws nothing), and an off-level one carries the
+             faded alpha rather than a flat 100.  ADRIFT 4's runner has no
+             such rule -- a Line control from a room to itself is just a
+             point -- so line_links keeps its own behaviour. */
+          if (!map->line_links
+              && n->key != NULL && strcmp (link->dest, n->key) == 0)
+            {
+              if (link->dir == DIR_DOWN)
+                continue;
+              if (link->dir != DIR_IN && link->dir != DIR_OUT)
+                draw_out_arrow (dst, &p, n, link->dir, wd, alpha);
+              continue;
             }
 
           dst_anchor = link->dst_anchor;
