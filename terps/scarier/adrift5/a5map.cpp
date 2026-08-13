@@ -157,6 +157,7 @@ parse_link (map_link_t *link, const a5_xml_node_t *lk,
   link->dir = d;
   link->dst_anchor = dir_index (a5xml_child_text (lk, "DestinationAnchor"));
   link->dest = movement_dest (loc, src, &link->dotted);
+  link->has_compass_twin = 0;
   link->compass_twin = -1;
   /* Up/Down stay as ordinary links here: mapdraw draws U/D badges and a
      badge-to-badge connector (same pattern as In/Out).  ADRIFT 4 sets
@@ -177,8 +178,11 @@ parse_link (map_link_t *link, const a5_xml_node_t *lk,
      East, which is only a Movement while Kitchen owns the West Map Link). */
   if ((d == DIR_UP || d == DIR_DOWN || d == DIR_IN || d == DIR_OUT)
       && link->dest != NULL)
-    link->compass_twin
-      = find_compass_twin_same_dest (loc, link->dest, link->dotted);
+    {
+      link->compass_twin
+        = find_compass_twin_same_dest (loc, link->dest, link->dotted);
+      link->has_compass_twin = (link->compass_twin >= 0);
+    }
   parse_anchors (link, lk);
   return 1;
 }

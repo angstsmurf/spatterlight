@@ -75,11 +75,17 @@ typedef struct map_link_s {
   const char *dest;           /* destination room key                        */
   int dotted;                 /* the movement is restricted                  */
   int duplex;                 /* dest's DestinationAnchor movement returns
-                                 here (ADRIFT 5; one-way vs two-way line)   */
-  int compass_twin;           /* DIR_N..DIR_NW when a compass Movement shares
-                                 dest (+ restriction style); -1 otherwise.
-                                 Set by a5map (needs movement table).  Badge
-                                 parks on that port; no badge connector */
+                                 here.  A one-way (not duplex) connector
+                                 gets an arrow head at the destination end.
+                                 Set by a5map; ADRIFT 4 leaves it 0 and is
+                                 excluded by map.line_links               */
+  /* A compass Movement shares this badge link's dest (+ restriction style):
+     the badge parks on that port and draws no connector of its own.  Set by
+     a5map, which needs the movement table to find it.  The flag is what the
+     renderer tests, because a loader that calloc()s its links -- scmap does
+     -- would otherwise be claiming a twin due North. */
+  unsigned char has_compass_twin;
+  int compass_twin;           /* DIR_N..DIR_NW, when has_compass_twin        */
   int badge;                  /* drawn as a badge on the box, not a line
                                  (ADRIFT 4 Up/Down/In/Out; A5 draws Up/Down
                                  connectors badge-to-badge instead) */

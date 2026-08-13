@@ -1031,11 +1031,16 @@ badge_opposite (int dir)
     }
 }
 
-/* Node to aim a badge at for edge placement.  Prefer the movement destination
-   when it has a node on this page; otherwise a same-page room whose return
-   badge exit (DestinationAnchor, else the opposite of SourceAnchor) points
-   back here -- AoS High In Oak Tree Down -> Dummy on another page, while
-   Middle of Woods Up -> oak.  Closest match wins. */
+/* Node to aim a badge at for edge placement: the movement destination, when it
+   has a node on this page.
+
+   Spatterlight extension when it does not: look for a same-page room whose
+   return badge exit (DestinationAnchor, else the opposite of SourceAnchor)
+   points back here, closest match winning -- AoS High In Oak Tree Down ->
+   Dummy on another page, while Middle of Woods Up -> oak.  The runner has no
+   counterpart; it would leave the badge on its default site.  This only
+   chooses which edge the badge sits on, so the worst a wrong guess does is
+   put it on an odd side of the box. */
 static const map_node_t *
 badge_face_node (const map_page_t *page, const map_node_t *n,
                  const map_link_t *link)
@@ -1431,9 +1436,9 @@ badge_compass_arrival (const map_node_t *n, const map_link_t *link)
     return -1;
   /* compass_twin is set by a5map from Movements (Map Links alone miss
      compass exits that only exist as movements). */
-  twin = link->compass_twin;
-  if (twin < 0)
+  if (!link->has_compass_twin)
     return -1;
+  twin = link->compass_twin;
   twin_lk = find_dir_link (n, twin);
   if (twin_lk != NULL && twin_lk->dst_anchor >= 0
       && compass_site (twin_lk->dst_anchor) >= 0)
@@ -1481,11 +1486,9 @@ try_compass_port (inout_badge_t *x, const map_node_t *n, int dir,
   const map_link_t *lk = find_dir_link (n, dir);
   int twin, cs;
 
-  if (lk == NULL || lk->dest == NULL)
+  if (lk == NULL || lk->dest == NULL || !lk->has_compass_twin)
     return;
   twin = lk->compass_twin;
-  if (twin < 0)
-    return;
   cs = compass_site (twin);
   if (cs < 0)
     return;
