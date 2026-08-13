@@ -21,7 +21,7 @@
 
    Geometry follows the Adrift 5 runner's Map.vb, and the software
    rasteriser below stands in for the GDI+ calls it makes (FillPolygon /
-   DrawBezier / DrawEllipse / DrawString).  The ADRIFT 4 runner draws its map
+   DrawBezier / DrawCurve / DrawEllipse / DrawString).  The ADRIFT 4 runner draws its map
    out of VB control arrays instead, with a look of its own; we render both
    engines' maps the same way rather than carrying two rasterisers, so what
    differs between them is only where the nodes come from -- authored in
@@ -311,6 +311,41 @@ draw_bezier (map_surface_t *s, double x0, double y0, double x1, double y1,
     }
   if (dash_phase != NULL)
     *dash_phase = phase;
+}
+
+/* GDI+ DrawCurve (default tension 0.5): Cardinal spline through `pts`.
+   Map.vb uses this when a Link has author-dragged OrigMidPoints / <Anchor>s
+   (RecalculateLinks + DrawLinks), instead of the four-point Bezier. */
+static void
+draw_curve (map_surface_t *s, const double *pts, int n, int wd,
+            unsigned int rgb, int alpha, int dash, int *dash_phase)
+{
+  const double tension = 0.5;
+  int i;
+
+  if (n < 2 || pts == NULL)
+    return;
+  if (n == 2)
+    {
+      draw_line (s, (int) pts[0], (int) pts[1], (int) pts[2], (int) pts[3],
+                 wd, rgb, alpha, dash);
+      return;
+    }
+  for (i = 0; i < n - 1; i++)
+    {
+      double x0 = pts[2 * i], y0 = pts[2 * i + 1];
+      double x3 = pts[2 * (i + 1)], y3 = pts[2 * (i + 1) + 1];
+      double xm1 = (i > 0) ? pts[2 * (i - 1)] : x0;
+      double ym1 = (i > 0) ? pts[2 * (i - 1) + 1] : y0;
+      double xp2 = (i + 2 < n) ? pts[2 * (i + 2)] : x3;
+      double yp2 = (i + 2 < n) ? pts[2 * (i + 2) + 1] : y3;
+      double x1 = x0 + (x3 - xm1) * tension / 3.0;
+      double y1 = y0 + (y3 - ym1) * tension / 3.0;
+      double x2 = x3 - (xp2 - x0) * tension / 3.0;
+      double y2 = y3 - (yp2 - y0) * tension / 3.0;
+      draw_bezier (s, x0, y0, x1, y1, x2, y2, x3, y3, wd, rgb, alpha, dash,
+                   dash_phase);
+    }
 }
 
 static void
@@ -1723,6 +1758,17 @@ map_render (const map_t *map, const map_view_t *view,
           if (link->dest == NULL)
             continue;
 
+          /* Self-link: DrawOutArrow, not a curve through the box
+             (Map.vb:1474).  Skip self-Down the way the runner does. */
+          if (n->key != NULL && strcmp (link->dest, n->key) == 0)
+            {
+              if (link->dir == DIR_DOWN)
+                continue;
+              if (link->dir != DIR_IN && link->dir != DIR_OUT)
+                draw_out_arrow (dst, &p, n, link->dir, wd, 100);
+              continue;
+            }
+
           dn = page_node (page, link->dest);
           if (dn == NULL || !view_seen (view, dn->key))
             {
@@ -1832,6 +1878,36 @@ map_render (const map_t *map, const map_view_t *view,
                 }
               x1 = x0; y1 = y0;
               x2 = x3; y2 = y3;
+              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
+                           alpha, dash, &phase);
+            }
+          else if (link->n_mids > 0 && link->mids != NULL)
+            {
+              /* Author-dragged <Anchor> midpoints: DrawCurve through
+                 start, mids, end (Map.vb RecalculateLinks / DrawLinks).
+                 Absolute map-unit coords, same as node X/Y. */
+              int np = link->n_mids + 2;
+              double *pts = (double *) malloc ((size_t) np * 2
+                                               * sizeof (double));
+              int mi;
+              if (pts == NULL)
+                continue;
+              pts[0] = x0;
+              pts[1] = y0;
+              for (mi = 0; mi < link->n_mids; mi++)
+                {
+                  pts[2 * (mi + 1)] = px_x (&p, link->mids[mi].x);
+                  pts[2 * (mi + 1) + 1] = px_y (&p, link->mids[mi].y);
+                }
+              pts[2 * (np - 1)] = x3;
+              pts[2 * (np - 1) + 1] = y3;
+              draw_curve (dst, pts, np, wd, map_fg, alpha, dash, &phase);
+              /* Tangent for a one-way arrow: last mid -> end. */
+              x1 = pts[2 * (np - 2)];
+              y1 = pts[2 * (np - 2) + 1];
+              x2 = x1;
+              y2 = y1;
+              free (pts);
             }
           else if (link->dir == DIR_IN || link->dir == DIR_OUT
               || link->dir == DIR_UP || link->dir == DIR_DOWN
@@ -1846,15 +1922,30 @@ map_render (const map_t *map, const map_view_t *view,
                  visibly bellies out. */
               x1 = x0; y1 = y0;
               x2 = x3; y2 = y3;
+              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
+                           alpha, dash, &phase);
             }
           else
             {
               bezier_assister (&p, n, link->dir, dist, &x1, &y1);
               bezier_assister (&p, dn, dst_anchor, dist, &x2, &y2);
+              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
+                           alpha, dash, &phase);
             }
 
-          draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_fg,
-                       alpha, dash, &phase);
+          /* One-way (Not Duplex): AdjustableArrowCap at the destination end
+             (Map.vb:1450).  Duplex links stay round-capped. */
+          if (!link->duplex && !map->line_links)
+            {
+              double adx = x3 - x2, ady = y3 - y2;
+              if (adx * adx + ady * ady < 0.01)
+                {
+                  adx = x3 - x0;
+                  ady = y3 - y0;
+                }
+              draw_arrowhead (dst, x3, y3, adx, ady, wd * 2 + 2, map_fg,
+                              alpha);
+            }
         }
     }
 
