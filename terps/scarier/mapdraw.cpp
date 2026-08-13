@@ -1637,6 +1637,29 @@ arrival_badge_site (const inout_badge_t *b, const map_node_t *dn,
     }
 }
 
+/* True when `n` authors a Map <Link> whose SourceAnchor is `dir`. */
+static int
+node_has_link_dir (const map_node_t *n, int dir)
+{
+  int l;
+  if (n == NULL)
+    return 0;
+  for (l = 0; l < n->n_links; l++)
+    if (n->links[l].dir == dir)
+      return 1;
+  return 0;
+}
+
+/* Ensure the per-page badge scratch array exists. */
+static inout_badge_t *
+inout_badge_buf (inout_badge_t *b, const map_page_t *page)
+{
+  if (b != NULL)
+    return b;
+  return (inout_badge_t *) calloc ((size_t) page->n_nodes,
+                                   sizeof (inout_badge_t));
+}
+
 /* Walk the page's In/Out (and A5 Up/Down) links once and record both ends of
    each, the way RecalculateLinks does (Map.vb:824).  Far-end badges are
    recorded when the destination has a Movement on DestinationAnchor
@@ -1667,13 +1690,9 @@ inout_layout (const map_page_t *page, const map_view_t *view)
           if (link->dir != DIR_IN && link->dir != DIR_OUT
               && link->dir != DIR_UP && link->dir != DIR_DOWN)
             continue;
+          b = inout_badge_buf (b, page);
           if (b == NULL)
-            {
-              b = (inout_badge_t *) calloc ((size_t) page->n_nodes,
-                                            sizeof (inout_badge_t));
-              if (b == NULL)
-                return NULL;
-            }
+            return NULL;
 
           dn = (link->dest != NULL) ? page_node (page, link->dest) : NULL;
           {
@@ -1707,6 +1726,64 @@ inout_layout (const map_page_t *page, const map_view_t *view)
             if (arrival >= 0)
               fix_far_compass_site (&b[dn - page->nodes], dst_anchor, arrival);
           }
+        }
+
+      /* Map.vb DrawNode (1312-1321): a Movement to an *unseen* room draws an
+         In/Out icon (or Up stub) even when the author never wrote a Map
+         <Link> for that direction -- Alyas of Starhollow's By Longhouse has
+         In→In Longhouse as a Movement only.  Compass directions already get
+         pass-2 stubs the same way; badge dirs were skipped there.
+
+         Up and Down follow Spatterlight's badge convention rather than those
+         lines literally: the runner has no Up/Down badge at all, so it sends
+         Up to DrawOutArrow and skips Down outright (the loop is wrapped in
+         `If eDir <> DirectionsEnum.Down`).  Since we already draw a seen
+         Up/Down Link as a U/D disc, an unseen one gets the same disc, and
+         Down comes along for symmetry. */
+      if (view != NULL && view->exit_dest != NULL)
+        {
+          static const int badge_dirs[] = {
+            DIR_IN, DIR_OUT, DIR_UP, DIR_DOWN
+          };
+          int di;
+
+          for (di = 0; di < 4; di++)
+            {
+              int dir = badge_dirs[di];
+              const char *dest;
+              const map_node_t *face;
+              int already;
+
+              if (!node_has_badge_dir (n, dir))
+                continue;
+              if (node_has_link_dir (n, dir))
+                continue;       /* Link path above already recorded this */
+              if (b != NULL)
+                {
+                  already = (dir == DIR_IN) ? b[i].has_in
+                          : (dir == DIR_OUT) ? b[i].has_out
+                          : (dir == DIR_UP) ? b[i].has_up
+                          : b[i].has_down;
+                  if (already)
+                    continue;   /* far badge from someone else's Link */
+                }
+              dest = view->exit_dest (view->ctx, n->key, dir);
+              if (dest == NULL || dest[0] == '\0')
+                continue;
+              if (view_seen (view, dest))
+                continue;       /* seen dest needs a Link for a badge */
+              b = inout_badge_buf (b, page);
+              if (b == NULL)
+                return NULL;
+              /* Face the dest's map node even while unseen (RecalculateNodes
+                 walks every node; GetLinkPoint on a reverse DestAnchor does
+                 the same for eInEdge).  Missing/off-page → North default. */
+              face = page_node (page, dest);
+              if (dir == DIR_IN || dir == DIR_OUT)
+                inout_mark (&b[i], dir, inout_edge (n, face), 0);
+              else
+                ud_mark (&b[i], dir, inout_edge (n, face), 0);
+            }
         }
     }
   if (b != NULL)
@@ -2084,23 +2161,29 @@ map_render (const map_t *map, const map_view_t *view,
         }
       else if (badges != NULL)
         {
-          /* Far In/Out (and A5 Up/Down) from somebody else's link when the
-             dest has that Movement (bHas*).  Not route-gated -- DrawLinks
-             draws it whatever the route does.  A5 keeps the node's own
-             alpha. */
-          if (b_in != NULL || badges[i].far_in)
+          /* Own Link badge (b_* non-NULL after the route gate), far badge
+             from somebody else's Link (DrawLinks, not route-gated), or a
+             Movement-only badge toward an unseen room (no <Link>, Map.vb
+             DrawNode stub path -- has_* set without a matching SourceAnchor
+             Link).  A Link whose route is currently blocked leaves has_* set
+             but b_* NULL; those must stay hidden. */
+          if (b_in != NULL || badges[i].far_in
+              || (badges[i].has_in && !node_has_link_dir (n, DIR_IN)))
             draw_dir_icon_site (dst, &p, n, DIR_IN, badges[i].in_site,
                                 b_in != NULL ? badge_alpha (view, b_in, alpha)
                                               : alpha);
-          if (b_out != NULL || badges[i].far_out)
+          if (b_out != NULL || badges[i].far_out
+              || (badges[i].has_out && !node_has_link_dir (n, DIR_OUT)))
             draw_dir_icon_site (dst, &p, n, DIR_OUT, badges[i].out_site,
                                 b_out != NULL ? badge_alpha (view, b_out, alpha)
                                                : alpha);
-          if (b_up != NULL || badges[i].far_up)
+          if (b_up != NULL || badges[i].far_up
+              || (badges[i].has_up && !node_has_link_dir (n, DIR_UP)))
             draw_dir_icon_site (dst, &p, n, DIR_UP, badges[i].up_site,
                                 b_up != NULL ? badge_alpha (view, b_up, alpha)
                                               : alpha);
-          if (b_down != NULL || badges[i].far_down)
+          if (b_down != NULL || badges[i].far_down
+              || (badges[i].has_down && !node_has_link_dir (n, DIR_DOWN)))
             draw_dir_icon_site (dst, &p, n, DIR_DOWN, badges[i].down_site,
                                 b_down != NULL
                                   ? badge_alpha (view, b_down, alpha)

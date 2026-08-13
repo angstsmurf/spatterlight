@@ -258,7 +258,7 @@
 <LongDescription>
 <Description>
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
-<Text>Map: green IN / pink OUT discs (Out to seen Hub still shows OUT). Deeper In: In disc toward unseen Vault. East: one-way arrow to One Way (no return movement).</Text>
+<Text>Map: green IN / pink OUT discs (Out to seen Hub still shows OUT). Deeper In: In disc toward unseen Vault from Movement alone (no Map In Link -- same pattern as Alyas of Starhollow's By Longhouse). East: one-way arrow to One Way (no return movement).</Text>
 </Description>
 </LongDescription>
 <Movement>
@@ -1166,10 +1166,7 @@
 <SourceAnchor>Out</SourceAnchor>
 <DestinationAnchor>In</DestinationAnchor>
 </Link>
-<Link>
-<SourceAnchor>In</SourceAnchor>
-<DestinationAnchor>Out</DestinationAnchor>
-</Link>
+<!-- In→Vault is Movement-only (no Map Link): unseen dest still gets an IN badge -->
 <!-- one-way to OneWay -->
 <Link>
 <SourceAnchor>East</SourceAnchor>
