@@ -74,8 +74,15 @@ typedef struct map_link_s {
   int dst_anchor;             /* direction the connector enters the dest by  */
   const char *dest;           /* destination room key                        */
   int dotted;                 /* the movement is restricted                  */
+  int duplex;                 /* dest's DestinationAnchor movement returns
+                                 here (ADRIFT 5; one-way vs two-way line)   */
+  int compass_twin;           /* DIR_N..DIR_NW when a compass Movement shares
+                                 dest (+ restriction style); -1 otherwise.
+                                 Set by a5map (needs movement table).  Badge
+                                 parks on that port; no badge connector */
   int badge;                  /* drawn as a badge on the box, not a line
-                                 (ADRIFT 4 Up/Down; In/Out are always badges) */
+                                 (ADRIFT 4 Up/Down/In/Out; A5 draws Up/Down
+                                 connectors badge-to-badge instead) */
   map_pt_t *mids;             /* author-dragged waypoints (ADRIFT 5 only)    */
   int n_mids;
 } map_link_t;
@@ -89,6 +96,9 @@ typedef struct map_node_s {
   int hidden;                 /* Location <Hide>: the runner omits the box
                                  but still draws connectors to a seen hidden
                                  room (Map.vb:1156 DrawNode vs DrawLinks)    */
+  /* Location has a Movement in this badge direction (FileIO.vb bHasIn/Out/
+     Up/Down).  Far-end In/Out icons gate on these, not on duplex. */
+  unsigned char has_in, has_out, has_up, has_down;
   map_link_t *links;
   int n_links;
 } map_node_t;
