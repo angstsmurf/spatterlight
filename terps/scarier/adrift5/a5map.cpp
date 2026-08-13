@@ -124,6 +124,9 @@ parse_link (map_link_t *link, const a5_xml_node_t *lk,
   link->dir = d;
   link->dst_anchor = dir_index (a5xml_child_text (lk, "DestinationAnchor"));
   link->dest = movement_dest (loc, src, &link->dotted);
+  /* Up/Down stay as ordinary links here: mapdraw draws U/D badges and a
+     badge-to-badge connector (same pattern as In/Out).  ADRIFT 4 sets
+     link.badge so its Up/Down stay icon-only. */
   parse_anchors (link, lk);
   return 1;
 }

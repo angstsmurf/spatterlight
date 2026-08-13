@@ -1608,7 +1608,9 @@ For each outgoing link, the Runner chooses one of: a full connector, a "stub" ou
 
 A "stub" is a short arrow from the node edge into empty space (or an In/Out icon with no arrow).
 
-In/Out exits are drawn as labeled green ("IN") / pink ("OUT") discs on the node edge.
+In/Out exits are drawn as labeled green ("IN") / pink ("OUT") badges on the node edge. A badge never has a "stub" arrow, but may have a connector.
+
+Spatterlight draws Up/Down as yellow ("U") / blue ("D") badges (same style as ADRIFT 4). The official Runner has a 3D map, which you have to drag to tilt to reveal Up/Down stubs. I expect that most runner UIs will not be rotatable 3D maps; badges work much better in 2D.
 
 | Destination | Route allowed | Same page as source | Other page / no map node |
 |-------------|---------------|---------------------|---------------------------|

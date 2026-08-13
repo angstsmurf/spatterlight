@@ -75,7 +75,8 @@ typedef struct map_link_s {
   const char *dest;           /* destination room key                        */
   int dotted;                 /* the movement is restricted                  */
   int badge;                  /* drawn as a badge on the box, not a line
-                                 (ADRIFT 4 Up/Down; In/Out are always badges) */
+                                 (ADRIFT 4 Up/Down/In/Out; A5 draws Up/Down
+                                 connectors badge-to-badge instead) */
   map_pt_t *mids;             /* author-dragged waypoints (ADRIFT 5 only)    */
   int n_mids;
 } map_link_t;
