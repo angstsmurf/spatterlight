@@ -125,7 +125,7 @@
 <LongDescription>
 <Description>
 <DisplayWhen>StartDescriptionWithThis</DisplayWhen>
-<Text>Map: duplex line south to Hub (may be drawn from Hub with bent anchors). East: stub arrow to Offgrid (no map node, unseen). Orphan Map Link West has no Movement - no west stub. After visiting Offgrid, East still draws nothing useful (no node on page).</Text>
+<Text>Map: duplex line south to Hub (may be drawn from Hub with bent anchors). East: stub arrow to Offgrid (no map node, unseen). Orphan Map Link West has no Movement - no west stub. In: one-way to Trap (no return Out). After visiting Offgrid, East still draws nothing useful (no node on page).</Text>
 </Description>
 </LongDescription>
 <Movement>
@@ -136,6 +136,27 @@
 <Direction>East</Direction>
 <Destination>LocationOffgrid</Destination>
 </Movement>
+<Movement>
+<Direction>In</Direction>
+<Destination>LocationTrap</Destination>
+</Movement>
+</Location>
+
+<!-- One-way In from North; no return -->
+<Location>
+<Key>LocationTrap</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Trap</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Map: North's In exit is one-way here (no return Movement). Expect an In/Out badge connector from North with an arrow head into this room, and no Out badge on this node.</Text>
+</Description>
+</LongDescription>
 </Location>
 
 <Location>
@@ -768,6 +789,7 @@
 </CompletionMessage>
 <Actions>
 <MoveCharacter>Character Player ToLocation LocationNorth</MoveCharacter>
+<MoveCharacter>Character Player ToLocation LocationTrap</MoveCharacter>
 <MoveCharacter>Character Player ToLocation LocationSkewed</MoveCharacter>
 <MoveCharacter>Character Player ToLocation LocationCellar</MoveCharacter>
 <!-- Door starts closed: fail East once so bEverBeenBlocked is set → dotted after open. -->
@@ -992,7 +1014,7 @@
 <!--
   Main layout (default 6x4 unless noted; origins spaced to avoid overlap):
 
-  HiddenSeen(-24,-12) Disagree(-16,-12) North(0,-12) AtticZ1(16,-12) SkyZ1(16,-20)
+  HiddenSeen(-24,-12) Disagree(-16,-12) Trap(-8,-12) North(0,-12) AtticZ1(16,-12) SkyZ1(16,-20)
   NoLink(-16,0) Hub(0,0) Closet(16,0) Outside(24,0) Vault(32,0) OneWay(40,0)
   HiddenUnseen(-24,12) Cellar(0,12) Door(16,12) Skewed(16,20) Wide(-16,12)W10xH6 Loop(8,20)
   Latch(-16,24) Pit(0,24)
@@ -1077,6 +1099,17 @@
 <SourceAnchor>West</SourceAnchor>
 <DestinationAnchor>East</DestinationAnchor>
 </Link>
+<!-- one-way In to Trap -->
+<Link>
+<SourceAnchor>In</SourceAnchor>
+<DestinationAnchor>Out</DestinationAnchor>
+</Link>
+</Node>
+<Node>
+<Key>LocationTrap</Key>
+<X>-8</X>
+<Y>-12</Y>
+<Z>0</Z>
 </Node>
 <Node>
 <Key>LocationSkewed</Key>
