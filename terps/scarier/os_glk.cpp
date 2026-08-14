@@ -5258,19 +5258,12 @@ gsc_command_help (const char *command)
                          " for as it goes.  Use ");
       gsc_standout_string ("glk colour off");
       gsc_normal_string (" to clear the screen again and go back to the"
-                         " colours of the interpreter's own theme.  ");
-      gsc_standout_string ("glk color");
-      gsc_normal_string (", ");
-      gsc_standout_string ("glk colours");
-      gsc_normal_string (", and ");
-      gsc_standout_string ("glk colors");
-      gsc_normal_string (" are the same command.\n\nGames written for a black"
+                         " colours of the interpreter's own theme.");
+      gsc_normal_string (" \n\nGames written for a black"
                          " screen can be hard to read without this, so a game"
                          " that sets colours of its own, or that would show"
                          " text too close to the interpreter's own colours to"
-                         " read, starts with this turned on; games that never"
-                         " set a colour of their own look much the same either"
-                         " way.\n");
+                         " read, starts with this turned on.\n");
     }
 
   else if (matched->handler == gsc_command_undo
