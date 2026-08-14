@@ -11,7 +11,7 @@
 #   sh test/fetch_games.sh                   # verify both corpora
 #   sh test/fetch_games.sh verify quest5     # verify one
 #   sh test/fetch_games.sh fetch             # download what is missing
-#   sh test/fetch_games.sh manual            # list rows with no online source
+#   sh test/fetch_games.sh manual            # list rows that need a manual download
 #
 # Why the checksums matter: the Quest 5 goldens are byte-exact QuestViva
 # transcripts of one specific build of one specific file.  Several games in
@@ -213,7 +213,7 @@ for corpus in $corpora; do
   done < "$manifest"
 
   if [ "$mode" = manual ]; then
-    printf '%s: %d row(s) with no online source\n' "$corpus" "$n_manual"
+    printf '%s: %d row(s) to download by hand\n' "$corpus" "$n_manual"
     continue
   fi
 

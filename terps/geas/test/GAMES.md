@@ -76,7 +76,7 @@ Tab-separated, one row per game file, `#` comment header:
 | `source` | URL to download, or `-` if none is known |
 | `member` | path inside that archive when `source` is a `.zip`, else `-` |
 | `title` | the game's title, where the corpus records one |
-| `note` | why `source` is `-`, when we know |
+| `note` | when `source` is `-`: where the game can still be got by hand |
 
 Two `quest4` rows carry a directory in `file` (`HauntedHorror/haunted_horror.asl`,
 `worldsend/world's end.asl`) because the game's own `.asl` expects to be run from
@@ -154,22 +154,45 @@ because those files run to hundreds of megabytes.
 
 ## The rows that cannot be fetched
 
-The remaining 22 rows — 7 Quest 4, 15 Quest 5 — are marked `MANUAL`, and their
-notes distinguish three cases:
+The remaining 22 rows — 7 Quest 4, 15 Quest 5 — are marked `MANUAL`. None of them
+is lost: **every one still has a game page on `textadventures.co.uk`**, and each
+note opens with it:
 
-- *different release archived: `<url>` (sha256 …)* — the game is still
-  retrievable, but not these bytes. Anyone who finds the original release can
-  drop it in; the manifest will confirm it.
+- *browser download only: `<page url>`* — the game's page on the site, verified
+  to exist. It cannot be scripted, so `fetch` will never pick these up (below).
+  Some carry a parenthetical because the page is not findable from the corpus
+  filename: `Beyond Exile 2.2.cas` is filed as *1.4*, `Great Depression Man
+  (Middle Class).quest` as *Great Depression Day simulator*, and `Iron John` is
+  published under its Greek title, which leaves its page URL with no slug at all.
+
+A note may then add what the archive has, which is never the corpus bytes:
+
+- *different release archived: `<url>` (sha256 …)* — a different build of the
+  same game, downloaded and checked to be whole before the note was written.
+  Useful for comparison; it will not satisfy `verify`.
 - *archived but not replayable: `<url>`* — one row, `ThunderClan mystery 1.asl`.
   The CDX index lists a 200 capture whose digest is exactly our file, but every
   playback URL for it 404s, so the bytes are indexed and not servable. Worth
   retrying some day; the manifest records where.
-- *no online source found* — not in the IF Archive's Quest directories under any
-  name, and no snapshot of the file in the Wayback sweep.
 
-Every URL in a *different release* note was downloaded and checked to be a whole,
-well-formed game before the note was written, because two things in the archive
-look like one and are not:
+**Why these are browser-only.** The site's game paths are all behind Cloudflare —
+`/games/view/…`, `/games/download/…` and everything on `media.textadventures.co.uk`
+answer a scripted client with a 302 to an interstitial and then a 403, browser
+user-agent or not — and `robots.txt` disallows `/games/download/` and
+`/games/play/` outright, so automating them is not something this repo will do.
+The Wayback Machine is no way around it either: all ~20 000 archived
+`/games/download/` captures are 302 redirects with no payload behind them.
+
+What *is* fetchable is `https://textadventures.co.uk/sitemap` — 682 KB of XML,
+unchallenged, listing every `/games/view/<guid>/<slug>` page on the site. That is
+where the page URLs above came from: match the corpus file's title against the
+slugs, then confirm the guid against the archived copy of the page (its `<title>`
+is `"<Game> - Play online at textadventures.co.uk"`). The XML declares
+`encoding="utf-16"` and is actually utf-8; decode it as utf-8 or it will not
+parse.
+
+That checking of the *different release* URLs was not a formality: two things in
+the archive look like a whole game and are not.
 
 - **Wayback truncates a capture at exactly 1 MiB.** A truncated `.quest` still
   starts with `PK`, so a magic-byte check passes it; opening it as a zip and
