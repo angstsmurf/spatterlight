@@ -1,0 +1,181 @@
+# The Merry Murders (Merry_Murders.taf) -- ADRIFT 3.90, English, 69,489 bytes,
+# dated December 16, 2003.  15 rooms, 76 tasks, 63 objects (54 of them static),
+# 8 NPCs, 2 events, 0 variables.  Declared MaxScore 135.
+#
+# You are Larry James, a drone at SynTex, stuck at the annual Christmas party
+# on floor 23.  A scream goes up, the boss turns out to be dead in a toilet
+# stall, the elevators are sealed, and over seven acts every remaining guest
+# is murdered one by one by somebody signing themselves "Alex Boss".
+#
+# RESULT: **WIN, 135 out of a declared maximum of 135**, in 64 input lines
+# (62 moves, one `score` check and the final killing blow).
+#
+# 135 IS THE CEILING AND EVERY POINT IS ON THE CRITICAL PATH.  The file holds
+# exactly 20 `ACT type=4` awards, they sum to exactly the declared MaxScore,
+# and -- unusually for this corpus -- not one of them is optional, mutually
+# exclusive or missable:
+#
+#   T0   +10  open stall          T36  +5   enter 132
+#   T7   +5   x pocket            T37  +5   read list
+#   T12  +5   unlock door         T38  +5   show list to trey
+#   T9   +10  n (Thurman's)       T2   +5   open desk
+#   T15  +5   take file           T43  +5   move pile
+#   T27  +10  research alex       T44  +5   open panel
+#   T31  +10  open microwave      T41  +10  x message
+#   T33  +5   use keycard...      T45  +5   ask gina about archives
+#   T35  +10  take syringe        T46  +5   n (unlock the archives)
+#                                 T49  +5   take journal
+#                                 T53  +10  use needle on eric
+#
+# The `score` below is deliberately the second-to-last line: it reads
+# **125 out of 135**, because the last +10 is paid by the winning blow itself.
+#
+# SEVEN ACTS, SIX HINGES.  There are no clocks and no variables in this game.
+# Progress is a chain of six tasks that each print an act banner and teleport
+# the player back to the Plaza -- T0 `open stall`, T9 `n`, T31 `open
+# microwave`, T35 `take syringe`, T41 `x message`, T50 `read journal` -- and
+# each one also kills the next victim by moving an NPC to room 13 [DEAD] or
+# hiding them.  Everything else is finding the one command that unlocks the
+# next hinge.  EVENT 0 [ACT2] is a one-turn helper that re-runs T3 `*ACT2`
+# after T0; EVENT 1 [End Battle] is the only real timer in the file and it
+# only exists on the roof (see the end of this file).
+#
+# THE ROW NEEDS `SCR_SKIP_WAITKEY=1`: the six act transitions each end in a
+# `<waitkey>`, so without the variable they eat six script lines.
+#
+# TWO PARSER TRAPS, both of which cost a run:
+#   * `read paper` is ALTCMD[1] of T37 `read list`, which has a LOWER index
+#     than T39 `read piece of paper`.  Forward first-match dispatch therefore
+#     re-reads the employee list and the janitor's closet stays locked.  The
+#     paper must be read as `read piece of paper`.
+#   * T46 `n` in the Computer Lab only UNLOCKS the archive door (+5); it does
+#     not walk you through it.  A second `n` is needed.
+#
+# WHERE TREY IS.  T27 `research alex` is authored `ACT type=1 v1=7 v2=0 v3=3`,
+# which reads as "move NPC 5 (Trey) to room 2" -- but Trey also owns a WALK
+# with startTask=10 (task 9) that fires first, and he ends up in the **Plaza**.
+# T38 `show list to trey` is where=2 over rooms [0 2], so the Plaza is legal;
+# go there, not to the east Hallway.
+#
+# ===========================================================================
+# --- Act I: find the host ---------------------------------------------------
+# T0, +10.  Max Thurman is in the stall with a knife in his head.  Barry seals
+# the elevators, the act banner prints, and the player is teleported to the
+# Plaza -- which is where every act ends.
+w
+se
+open stall
+# --- Act II: the gold key ---------------------------------------------------
+# T7, +5 -- Max's pocket holds the gold key to his own office.
+w
+se
+x pocket
+nw
+e
+e
+e
+# T12, +5, consumes the gold key (`ACT type=0 v1=3 v2=0 v3=0`, i.e. to room
+# -1) -- which is exactly what T2 `open desk` needs later, since T2 demands
+# the small key held AND the gold key NOT held.
+unlock door
+# T9, +10 -- Barry is dead in the chair with a pen in his chest and the phone
+# lines cut.
+n
+# --- Act III: who is Alex Boss? ---------------------------------------------
+# T15, +5 -- the file in the lab's out-of-place trash can is still warm.
+e
+n
+take file
+# T16 -- Topic 3 of the December 10 meeting log: an employee named "Alex Boss"
+# is connected to the missing funds.
+open file
+s
+e
+# T27, +10 -- "This file is missing from database. Please report to archives
+# to fix the error."  Frank dies as the query returns.
+research alex
+w
+w
+n
+# T31, +10 -- Frank's head is in the staff-room microwave.
+open microwave
+# --- Act IV: the keycard ----------------------------------------------------
+# T32 needs T31 done; Eric was moved into the Plaza by T31, so this works on
+# the spot.  He hands over his keycard -- which, the endgame reveals, is how
+# he framed you.
+ask eric about alex
+e
+e
+# T33, +5.  Ruth dies the moment the query runs.
+use keycard on computer
+w
+w
+w
+sw
+# T35, +10 -- Ruth is foaming on the Women's Bathroom floor with a syringe of
+# green liquid in her leg.  Take it; it is the weapon that wins the game.
+take syringe
+# --- Act V: the safe, the list and the locked drawer ------------------------
+# Taking the syringe is also what rips the sales graph off Trey's office wall
+# and exposes the safe behind it (room 3 ALT alt=1, `v2=36`).
+w
+w
+# T36, +5 -- 132 is the combination; the game hands it over in HINT2 of T35.
+enter 132
+# T37, +5 -- two names on the employee list are highlighted: Trey Steele and
+# Alex Boss.
+read list
+e
+e
+# T38, +5 -- Trey is in the Plaza (see the note above).  He gives up the small
+# key to Max's desk.
+show list to trey
+w
+w
+# T2, +5 -- the drawer holds Max's own piece of paper.
+open desk
+# T39, NOT `read paper` (see the parser trap above): "Dec. 10 - Alex Boss =
+# ???. Need more info."  Reading it is what smashes the lock off the
+# janitor's closet -- room 1's N exit is gated on gateTask=39 wantDone=1.
+read piece of paper
+e
+n
+# T43, +5, then T44, +5.  Opening the panel is what kills Trey -- and, the
+# epilogue points out, the closet door being open at all is the clue that
+# Gina was in on it.
+move pile
+open panel
+s
+e
+e
+n
+# T41, +10 -- Trey's head is through a monitor and "Alex Boss was here." is
+# written on the wall behind a tipped-over bookcase, in red paint or blood.
+x message
+# --- Act VI: the archives ---------------------------------------------------
+# T45, +5 -- Gina keeps the archive key.  Requires T41.
+ask gina about archives
+e
+n
+# T46, +5, unlocks the metal door but does NOT go through it; hence the second
+# `n`.
+n
+n
+# T48 -- the scratch marks on the floor say a bookcase was dragged over a hole
+# in the wall.
+push bookcases
+in
+# T49, +5.
+take journal
+# T50 -- "I am Alex Boss."  The killer is behind you, and the act ends.
+read journal
+# --- Act VII: the roof ------------------------------------------------------
+# T51 requires T50 and takes the elevator up.  EVENT 1 [End Battle] starts
+# here: time1=1 time2=8, affected task T52 `Die`, PauseTask 55 (= task 53).
+# So there are at most eight turns on the roof before Eric brains you with the
+# pipe, and the only thing that stops the clock is the syringe.  `attack eric`
+# (T54) is an instant death.
+s
+score
+# T53, +10 -- `ACT type=6 v1=0`, the winning endgame.
+use needle on eric

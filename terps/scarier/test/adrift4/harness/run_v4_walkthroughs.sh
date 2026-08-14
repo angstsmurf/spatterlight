@@ -1817,6 +1817,23 @@ murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of tripl
 # one `wait` is three turns of event clock (and three minutes of the other two).
 # The row needs SCR_SKIP_WAITKEY=1 for the single <waitkey> that ends the intro.
 vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SCR_SKIP_WAITKEY=1
+
+# The Merry Murders -- ADRIFT 3.90, 69,489 bytes, December 16 2003.  A seven-act
+# locked-floor whodunit at the SynTex Christmas party: every act ends with one
+# hinge task that prints an act banner, kills the next guest and teleports the
+# player back to the Plaza (T0 `open stall`, T9 `n`, T31 `open microwave`,
+# T35 `take syringe`, T41 `x message`, T50 `read journal`).  No clocks, no
+# variables; the only timer in the file is EVENT 1 [End Battle] on the roof,
+# which gives eight turns to use the syringe on Eric before T52 `Die`.
+# WIN with the FULL 135/135 -- the file's 20 `ACT type=4` awards sum to exactly
+# the declared MaxScore and every one of them is on the critical path, so the
+# `score` two lines from the end reads 125 and the winning blow pays the last
+# ten.  Two traps: `read paper` is an ALTCMD of the lower-indexed T37
+# `read list`, so Max's note must be read as `read piece of paper` or the
+# janitor's closet never unlocks; and T46 `n` in the Computer Lab only unlocks
+# the archive door, so a second `n` is needed to walk through it.  The row needs
+# SCR_SKIP_WAITKEY=1 for the six act-transition <waitkey>s.
+merry_murders_solution.txt|Merry_Murders.taf|Congratulations!|SCR_SKIP_WAITKEY=1
 EOF
 }
 

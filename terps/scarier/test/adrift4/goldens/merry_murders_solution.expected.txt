@@ -1,0 +1,823 @@
+Loading game...
+
+The Merry Murders
+
+ Act I
+
+December 16, 2003
+
+Once again, I was stuck at the Annual Christmas Party. An event so dreadful,
+most employees avoid  it like the Black Plague. But I wasn't one of the lucky
+ones, I was stuck here, sitting in the plaza of our floor, watching as my
+fellow co-workers made complete asses out of themselves after having too much
+spiked egg nog.
+
+I guess I should explain some stuff first. My name's Larry James, one of the
+drone/workers here at SynTex, one of the largest manufacturers of Synthetic
+Computer parts in the world. Our boss is Max Thurman, and regardless of what
+the media says, he's an evil man. A man of pure hate and greed, and yet, no
+one dared to stand up to him.
+
+But, back to the party. Well, what was left of the party. Most of the guests
+were gone, and only handful of people were here, quietly chatting among
+themselves. As I stood there, sipping from my drink, a loud scream pierced
+the air. The room became quiet, as the guests listened for anymore sounds.
+After a few seconds of deathly silence, the chatter began again as people
+ignored the scream. I didn't however, I knew something was wrong...
+
+>I move west.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally,
+to the North is the Janitor's Closet, which is currently locked.
+
+Nancy's here, chatting with some of the guests.  Barry patrols the area.
+
+>I move southeast.
+
+Mens Bathroom
+The small Bathroom looks like garbage, and smells much worse. A broken mirror
+sits above a dirty sink, shards of glass jut out of it, ready to stab anyone
+who dares to touch them. On the opposite side of the room sits three urinals,
+one of them hanging off the wall at an angle.  Near the back of the room,
+sits a small stall, where a horrible smell dispenses from.
+
+>(Your score has increased by 10)
+I held my breath from the horrible stench, and pushed open the stall door.
+There was a loud creaking noise as it slowly swinged open. I entered the
+cramped stall and let out a loud scream. Sitting on the toilet, was the body
+of Max Thurman, his lifeless eyes staring straight at me, and his cold hands
+frozen in fear against the knife jutting out of his head.
+
+I backed out of the stall, a sense of fear and dread blocking all of my
+senses. I could hear the sounds of footsteps, as people came to find out the
+cause of the scream. Barry Tompkins, the head security guard of the building,
+was the first one to enter, and he let out a loud moan as he saw the body of
+Max in the stall. He grabbed me by the arm and pulled me out into the
+hallway, convinced I was the one that killed Max. He pulled me into the
+Plaza, where the rest of the guests watched with perplexed looks on their
+faces.
+
+"Everyone, I have some bad news. Max Thurman is dead," Barry bellowed out to
+the guests, a sense of sadness could be detected in his tone.
+
+The guests stood stunned as Barry explained what happened. I stood there,
+watching their faces, knowing already that one of them had just brutally
+murdered a fellow human being.
+
+"One of us just killed our boss. I don't know why, and I don't care why. I
+just want to make sure that person will be brought to justice. That is why I
+am sealing off the elevator," Barry continued to shout to the crowd.
+
+There were loud groans and shocked sighs as the guests began to beg for their
+freedom.
+
+"No one is leaving. I am going to call the police, and they're going to come
+here and find out who did this. I've already blocked off the use of all
+elevators with my security pass, so it's useless. One of you made a terrible
+mistake today, and I'm going to make sure you are punished for it," Barry
+screamed, his voice getting angrier and louder.
+
+Barry shot a suspicious look at me, and then stormed out of the room, leaving
+to go call the police. Deep down inside of me, I knew he was right. If there
+was a vicious criminal, they had to be stopped, and I decided I'd better help
+stop them...
+
+Act II
+
+>I move west.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally,
+to the North is the Janitor's Closet, which is currently locked.
+
+Nancy's here, chatting with some of the guests.
+
+>I move southeast.
+
+Mens Bathroom
+The small Bathroom looks like garbage, and smells much worse. A broken mirror
+sits above a dirty sink, shards of glass jut out of it, ready to stab anyone
+who dares to touch them. On the opposite side of the room sits three urinals,
+one of them hanging off the wall at an angle.  The stall door is now open in
+the back, Max Thurman's corpse can be seen lifelessly sitting on the toilet.
+
+>(Your score has increased by 5)
+I stuck my hand into his pocket and pulled out a gold key.
+
+>I move northwest.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally,
+to the North is the Janitor's Closet, which is currently locked.
+
+Nancy's here, chatting with some of the guests.
+
+>I move east.
+
+Plaza
+This is the plaza of floor 23, a large room which is now full of streamers,
+balloons, and other party supplies. A large stone fountain sits in the middle
+of the room, a waterfall from the floor above extends from the ceiling and
+drops sparking blue water into it. A large glass window sits on the South
+side of the wall, overlooking the city below. The city's lights and sounds
+are barely visible from this height. Three long hallways extend from the
+plaza, to the East, North, and West. The elevator doors sit to the South near
+the glass window, the only exit off the floor.
+Eric leans against the wall, smoking a cigarette.  Mary stands in the center
+of the room, admiring the fountain.  Gina stands away from the other guests,
+drinking some egg nog.
+
+>I move east.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+Frank stares at the wall, admiring some artwork hanging from it.
+
+>I move east.
+
+Outside Thurman's Office
+Right now, I'm standing in the small area outside Max Thurman's office. A
+lone desk sits near the wall, a computer sits atop of it. Stuck into the
+walls, are large metallic letters that spell out the word "SinTex". Two large
+oak doors sit to the North, leading to Max Thurman's office.
+
+>(Your score has increased by 5)
+You stick the key into the lock, and turn it.
+
+*Click*
+
+The door's now unlocked.
+
+>(Your score has increased by 10)
+I opened the recently unlocked door, and walked inside the dark room. A
+strange feeling of dread came over me as I walked through the dark, searching
+for a light to turn on. My hands slid against the wall, looking for the light
+switch, and then...
+
+*click*
+
+The lights came on as my hands touched the light switch. I breathed a sigh of
+relief, at least I could see.
+
+But this relief soon disappeared as I looked towards the desk. A loud beeping
+could be heard from across the room. A chair faced the large window behind
+the desk, the location where the beeping noise came from...
+
+I took a deep breath, and began to slowly walk towards the chair, knowing
+that something or someone was waiting for me in it. I walked past the oak
+desk, knowing that I'd soon have to face whatever it was behind that chair. I
+took a quick whipe of my sweating forehead, and allowed my hand to touch the
+leather of the chair. Slowly, I began to swivel the chair around to face
+me...
+
+Barry was sitting in front of me, staring back at me with a face of fear. His
+eyes were open wide, and his mouth was twisted open, almost as if he was
+trying to scream. A blue pen was jammed into his chest, sticking out just
+like the knife in Max's head. My eyes tried to look away, but I was frozen in
+shock. I wanted to scream for help, but I knew I couldn't...no one could know
+about this.
+
+I shook my head, and turned away. But the slight beeping sound, made me turn
+back. In Barry's hand, I could see a phone. The phone he was going to use to
+call the police. Still beeping, he didn't even have a chance to dial.
+
+But, that meant I could still call for help. I quickly ran behind the desk
+and grabbed the phone out of his hand. As I reached for the numbers to dial,
+the beeping stopped. I clicked on some of the numbers, but there was no
+response. Someone had cut the phone lines...
+
+Act III
+
+>I move east.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+Frank stares at the wall, admiring some artwork hanging from it.
+
+>I move north.
+
+Computer Lab
+The large computer lab is where most of the computer work in the company is
+done, and it's where I work myself. A bunch of computers form lines across
+the room, all of them still on, running various programs needed to keep the
+company up and running throughout the night. A few bookcases line the wall
+near an out of place trash can, containing files and manuals on the usage of
+the computers. A metal door lies to the North, leading to the Archives, but
+it is currently locked.
+
+>(Your score has increased by 5)
+You reach down into the trash can, and pull out the file. It's still warm,
+meaning someone recently just tried to destroy it...
+
+>SynTex Meeting Log for December. 10
+
+Guests at Meeting: Mr. Thurman, Mr. Rose, Ms. Wilkon, Mr. Weeld, and Mrs.
+Janks
+
+Topic 1: On the subject of a longer coffee break, it's been decided that
+there will be no increase in break time.
+
+Topic 2: On the subject of more advertising, it's been decided that there
+will be a 10% increase in advertising payments.
+
+Topic 3: On the subject of missing funds, it's been discovered that an
+employee named "Alex Boss" has been connected to the recent missing funds
+from the company. Investigation is continuing.
+
+Topic 4: On the topic of profit, it's been discussed a 5% layoff of the staff
+will occur in January to make up for lost profits.
+
+Next meeting scheduled for: January 8.
+
+>I move south.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+Frank stares at the wall, admiring some artwork hanging from it.
+
+>I move east.
+
+Outside Thurman's Office
+Right now, I'm standing in the small area outside Max Thurman's office. A
+lone desk sits near the wall, a computer sits atop of it. Stuck into the
+walls, are large metallic letters that spell out the word "SinTex". Two large
+oak doors sit to the North, leading to Max Thurman's office.
+
+The computer that was off before, is now running. The program on the screen
+is a list of all the employees in the building. If you'd like to research an
+employee, type in "Research Bob".
+
+>(Your score has increased by 10)
+This file is missing from database. Please report to archives to fix the
+error.
+
+As I clicked the screen off, a scream echoed into the hall.
+
+>I move west.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+
+>I move west.
+
+Plaza
+This is the plaza of floor 23, a large room which is now full of streamers,
+balloons, and other party supplies. A large stone fountain sits in the middle
+of the room, a waterfall from the floor above extends from the ceiling and
+drops sparking blue water into it. A large glass window sits on the South
+side of the wall, overlooking the city below. The city's lights and sounds
+are barely visible from this height. Three long hallways extend from the
+plaza, to the East, North, and West. The elevator doors sit to the South near
+the glass window, the only exit off the floor.
+Trey stands in the corner, smoking a cigarette.  Gina stands away from the
+other guests, drinking some egg nog.
+
+>I move north.
+
+Staff Room
+During the day, the Staff Room is full of light, fun, and safety. But now, in
+the night, it's a dark quiet place that makes me feel cold inside. The oak
+table in the middle of the room is covered in garbage, the janitor's
+obviously haven't been through yet. A large counter stretches across the
+room, containing many appliances such as a blender, a toaster and a
+microwave.
+
+Looking closer, something can be seen inside the microwave.
+
+>(Your score has increased by 10)
+Seeing the object from outside, I opened the door, expecting to find some
+food that someone left behind inside of it.
+
+But instead of food, I found a severed head. Frank's severed head to be
+exact. His neck stopped at a jagged stump, and his body was nowhere to be
+seen.
+
+I slammed the door, and slowly backed away, my stomach was not able to
+process the sight. I quickly fell to your knees, and pulled the garbage can
+near the door closer to myself. With the sight of Frank's severed head still
+etched into my mind, I vomitted into the garbage can.
+
+A few minutes later, I was back in the plaza, with no one noticing Frank
+missing yet. That should give me time to continue on with the
+investigation...
+
+Act IV
+
+>"Well, I knew someone would ask eventually. Yeah, I know about Alex, but I
+don't know much. Max called me a few days ago, and he invited me here to the
+party, to investigate and find out who this Alex Boss person was. He'd
+recently closed the fake Alex Boss account which was stealing money, and was
+receiving death threats because of it."
+
+"Here, take this keycard. It lets you get into the mainframe, and access any
+file. It'll work on any computer. Max gave it to me to investigate, but I
+think you should do it. And remember, don't trust anyone."
+
+Eric handed me the keycard secretly, and then went off to talk with some
+guests...
+
+>I move east.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+
+>I move east.
+
+Outside Thurman's Office
+Right now, I'm standing in the small area outside Max Thurman's office. A
+lone desk sits near the wall, a computer sits atop of it. Stuck into the
+walls, are large metallic letters that spell out the word "SinTex". Two large
+oak doors sit to the North, leading to Max Thurman's office.
+
+The computer that was off before, is now running. The program on the screen
+is a list of all the employees in the building. If you'd like to research an
+employee, type in "Research Bob".
+
+>(Your score has increased by 5)
+I placed the keycard into a special slot in the computer, and the mainframe
+window popped up. This allowed me to read all information, included deleted
+files. I pulled up the Alex Boss file...
+
+Name: Alex Boss
+Age: Undisclosed
+Position: Recently terminated
+Date of File Removal: December 10
+
+Personal Note: Hello. This is Max Thurman. If you're reading this, then that
+means I'm probably dead. I'm here to warn you about a man named "Alex Boss",
+I wish I could tell you more about him, but I cannot. I first came across his
+file in November, it said he was an employee for me. I checked into this, and
+I discovered "Alex Boss" is not a real person. It's an alias used by one of
+my employee's, an alias they've been using to sneak funds right from under my
+nose. I've closed the account recently, but I've been receiving death threats
+to open it once again. I will not open it though, and I'm sure that by doing
+that, I will not live. I want to call the police, but I cannot do it, I
+cannot bring anyone else into this horrid little game Alex Boss is playing
+with me. So, to whoever is reading this, I'm afraid to say this, but you're
+now involved. Alex Boss will stop at nothing to stop you, including murder.
+But hopefully, you will be able to stop him, before he stops you. May god
+protect your soul.132.
+
+As I read the last of the note from Max, I could hear a piercing scream
+coming from the West...
+
+>I move west.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+
+>I move west.
+
+Plaza
+This is the plaza of floor 23, a large room which is now full of streamers,
+balloons, and other party supplies. A large stone fountain sits in the middle
+of the room, a waterfall from the floor above extends from the ceiling and
+drops sparking blue water into it. A large glass window sits on the South
+side of the wall, overlooking the city below. The city's lights and sounds
+are barely visible from this height. Three long hallways extend from the
+plaza, to the East, North, and West. The elevator doors sit to the South near
+the glass window, the only exit off the floor.
+Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
+against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
+cigarette.  Gina stands away from the other guests, drinking some egg nog.
+
+>I move west.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally,
+to the North is the Janitor's Closet, which is currently locked.
+
+Mary stands by the closet, chatting with some of the other guests.
+
+>I move southwest.
+
+Womans Bathroom
+The woman's bathroom is in better shape than the men's, but that's not saying
+much. It's still a dump, with graffitti on the walls, dirty sinks, and almost
+unusable stalls. The bathrooms are clearly a lowpoint for the company.
+
+  I was shocked to see the body of Ruth on the floor, saliva foaming out of
+her mouth, and a syringe full of green liquid sticking out of her leg. It was
+a ghastly sight.
+
+>(Your score has increased by 10)
+I cringed slightly, but bent me knees and grabbed the syringe. I slid it out,
+and it made a squishing noise as it popped out of her leg.
+
+I decided I'd better head back to the plaza, if someone catches me with the
+needle in hand, and a body nearby, it could spell trouble...
+
+Act V
+
+>I move west.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally,
+to the North is the Janitor's Closet, which is currently locked.
+
+Mary stands by the closet, chatting with some of the other guests.
+
+>I move west.
+
+Trey's Office
+Trey Steele's office gives off a cold vibe, just like the man himself. It's
+drab walls are almost metal in nature, and the floor is concrete. His desk in
+the middle of the room is completely spotless, and the chair behind it is
+pushed in perfectly. Two filing cabinets sit perfectly alligned against the
+wall,
+
+The graph of company sales that used to be on the wall, now sits on the
+floor, ripped up. On the wall where it used to be, is a safe.
+
+>(Your score has increased by 5)
+You type in the numbers, and the safe swings open. You look inside, and find
+a long piece of paper. You pull it out, and then close the safe once again.
+
+>(Your score has increased by 5)
+It seems to be a list of all the employees in the building: two names are
+highligted though, Trey Steele's and Alex Boss's...
+
+>I move east.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally,
+to the North is the Janitor's Closet, which is currently locked.
+
+Mary stands by the closet, chatting with some of the other guests.
+
+>I move east.
+
+Plaza
+This is the plaza of floor 23, a large room which is now full of streamers,
+balloons, and other party supplies. A large stone fountain sits in the middle
+of the room, a waterfall from the floor above extends from the ceiling and
+drops sparking blue water into it. A large glass window sits on the South
+side of the wall, overlooking the city below. The city's lights and sounds
+are barely visible from this height. Three long hallways extend from the
+plaza, to the East, North, and West. The elevator doors sit to the South near
+the glass window, the only exit off the floor.
+Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
+against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
+cigarette.  Gina stands away from the other guests, drinking some egg nog.
+
+>(Your score has increased by 5)
+"Yeah, yeah. I know what you're thinking, I must be Alex Boss. Well, I'll
+tell you right now, you're wrong. A couple of days ago, Max approached me to
+help him out. He wanted me to check around a little bit, find out who this
+Alex Boss really was."
+
+"He gave me the list so I'd be able to keep tabs on everyone. So far, I know
+two things: Alex Boss is not a real name, and I'm not Alex Box. That's why my
+name, and Alex's names were crossed off."
+
+"I probably shouldn't do this, but here. This is a key to the desk in my
+office, where I kept my notes on Alex Boss. There could be some information
+you can use in there."
+
+Trey handed me the key, and then walked off.
+
+>I move west.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally,
+to the North is the Janitor's Closet, which is currently locked.
+
+Mary stands by the closet, chatting with some of the other guests.
+
+>I move west.
+
+Trey's Office
+Trey Steele's office gives off a cold vibe, just like the man himself. It's
+drab walls are almost metal in nature, and the floor is concrete. His desk in
+the middle of the room is completely spotless, and the chair behind it is
+pushed in perfectly. Two filing cabinets sit perfectly alligned against the
+wall,
+
+The graph of company sales that used to be on the wall, now sits on the
+floor, ripped up. On the wall where it used to be, is a safe.
+
+>(Your score has increased by 5)
+The desk clicks open, and you slide the top drawer out. It's a mess of papers
+inside, and you quickly scan through them. Near the bottom of the pile, you
+pull out a crumpled piece of white paper with some notes on it.
+
+>Dec. 10 - Alex Boss = ???. Need more info. Planning to meet with source
+today.
+
+Dec. 11- Source never showed up. I think they're Alex Boss. Need more
+evidence.
+
+Dec. 12- Discovered it. If Alex Boss gets a hold of it, he'll be able to get
+away with stealing the funds. Need place to hide it.
+
+Dec. 13- Found front door of apartment broken in, entire place was searched.
+I already hid the evidence. It's behind the pile in JC.
+
+>I move east.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   The
+janitor closet door is now slightly open, the lock on the door smashed off.
+Mary stands by the closet, chatting with some of the other guests.
+
+>I move north.
+
+Janitor's Closet
+The janitor's closet is a complete mess, a wide variety of tools and supplies
+are strewn across the floor, most likely from someone recently combing the
+place over. In the corner of the room, a pile of dirty shirts, jackets, and
+overalls form a pile. A large rack of supplies is on the floor beside it, all
+the supplies now all over the floor.
+
+>(Your score has increased by 5)
+Just like Trey's notes said, you push the pile of clothing out of the way.
+Behind the mess, you find a wooden panel cut into the wall.
+
+>(Your score has increased by 5)
+I stuck my fingers fingers in the slit cut around the panel, and pulled it
+out. It was dark and dank in the hole, but I manage to light a match and take
+a peek inside. I looked around, but the panel was empty. Someone beat me
+here...
+
+As I pulled my  head out of the panel, I heard a smashing noise from the
+East...
+
+>I move south.
+
+Hallway
+The long hallway leads to a few different places: to the West is Trey
+Steele's office, one of the party guests here tonight. To the Southeast, is
+the Mens Bathroom, and to the Southwest is the Women's Bathroom.   The
+janitor closet door is now slightly open, the lock on the door smashed off.
+Mary stands by the closet, chatting with some of the other guests.
+
+>I move east.
+
+Plaza
+This is the plaza of floor 23, a large room which is now full of streamers,
+balloons, and other party supplies. A large stone fountain sits in the middle
+of the room, a waterfall from the floor above extends from the ceiling and
+drops sparking blue water into it. A large glass window sits on the South
+side of the wall, overlooking the city below. The city's lights and sounds
+are barely visible from this height. Three long hallways extend from the
+plaza, to the East, North, and West. The elevator doors sit to the South near
+the glass window, the only exit off the floor.
+Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
+against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
+cigarette.  Gina stands away from the other guests, drinking some egg nog.
+
+>I move east.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+
+>I move north.
+
+Computer Lab
+The large computer lab is where most of the computer work in the company is
+done, and it's where I work myself. A bunch of computers form lines across
+the room, all of them still on, running various programs needed to keep the
+company up and running throughout the night. A few bookcases line the wall
+near an out of place trash can, containing files and manuals on the usage of
+the computers. A metal door lies to the North, leading to the Archives, but
+it is currently locked.   There was a slight buzzing noise, and I looked in
+the corner of the room. I could see Trey Steele sitting at one of the desks,
+his head jammed into one of the computer screens, causing sparks to shoot out
+of it.
+
+One of the bookcases has been tipped over, and behind it, a message has been
+written on the wall in some sort of red paint (or blood).
+
+>(Your score has increased by 10)
+"Alex Boss was here."
+
+As I finished reading the message, I felt a chill down my spine. I'm running
+out of time, Alex Boss is planning to kill everyone, and if I don't stop him
+or her quickly, I could be the next victim!
+
+Act VI
+
+I was once again, back in the plaza. The party was now almost empty, the
+guests were dropping like flies.
+
+I had already searched most of the floor, but yet I was still missing pieces
+to the puzzle. There was only one place I hadn't been yet: the archives. And
+somehow, I got a feeling I needed to get in there...
+
+>(Your score has increased by 5)
+"You need to get into the archives? Well..I'm not supposed to do this, but
+here, take the key for it. They give me keys to all the room, to clean them.
+But I have no use for it anymore, with everyone going missing, I'm starting
+to think I won't be leaving this place alive!"
+
+She shakes a little bit, and then hands me the key.
+
+>I move east.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+
+>I move north.
+
+Computer Lab
+The large computer lab is where most of the computer work in the company is
+done, and it's where I work myself. A bunch of computers form lines across
+the room, all of them still on, running various programs needed to keep the
+company up and running throughout the night. A few bookcases line the wall
+near an out of place trash can, containing files and manuals on the usage of
+the computers. A metal door lies to the North, leading to the Archives, but
+it is currently locked.   There was a slight buzzing noise, and I looked in
+the corner of the room. I could see Trey Steele sitting at one of the desks,
+his head jammed into one of the computer screens, causing sparks to shoot out
+of it.
+
+One of the bookcases has been tipped over, and behind it, a message has been
+written on the wall in some sort of red paint (or blood).
+
+>(Your score has increased by 5)
+I stuck the key into the door, and twisted it. The lock opened, allowing me
+access into the archives.
+
+>I move north.
+
+Archives
+I never liked the archives, the room always gave me a bad feeling. It was a
+very dark place, even during the day. But during the night, it was even
+worse. The only light came from a small desk lamp, and this desk was in the
+far corner of the room. A bunch of cabinets, bookcases, and shelves cover the
+room, full of reports and files from years ago.
+
+>Realizing that the scratch marks mean the bookcase has been pulled over the
+ground, I began to push it.
+
+The bookcase slid quite easily out of the way, and a hole in the wall was
+revealed behind it...
+
+>I move in.
+
+Hidden Room
+As I entred the hidden room, I knew I had uncovered what I was looking for
+the entire time. The room was dark, but a recently lit candle on a small desk
+in the middle of the room provided some light. Covering the walls were
+reports and files from the company on Alex Boss, like the man was proud of
+being able to steal the money so easily.
+
+>(Your score has increased by 5)
+I grabbed the journal off the table. It could help me solve the murders.
+
+>Dec. 12- They're getting close. No more hiding in the shadows. I need to
+attack. God will help them die.
+
+Dec. 13- The money has been safetly stored away. I used to hide it here,
+behind the Archives, but I fear it will be found.
+
+Dec. 14- My Alex Boss account is closed, I cannot gain more money. Max will
+pay. They all will.
+
+Dec. 15- Tomorrow is the party. I will introduce them all to Alex Boss.
+
+Dec. 16- Tonight is the night. I will not kill them. Alex Boss will. They
+will all finally get to meet him. They will all finally pay for closing the
+account. I am Alex Boss.
+
+As I closed the journal, I heard footsteps behind me. I begin to breath
+heavily, looking for a place to hide. I blew out the candle, and hid around
+the corner of the door.
+
+In the darkness, a figure appeared in front of me, walking in through the
+door. They were breathing strangely, and seemed to be limping. They pulled
+something out of their pocket, and a few seconds later, the candle on the
+desk was lit...
+
+Nancy Thurman was hunched over the desk, a knife was sticking out of her
+back. She saw me hiding near the door, and began to limp towards me, her
+hands outreached. As she walked towards me, she fell on her knees, and her
+arms grabbed my sides.
+
+"On...the....roof..." She mumbled out, falling to the ground.
+
+She convulsed, and then went silent. This was it. Alex Boss was waiting for
+me on the roof. This was finally going to end...
+
+ Act VII
+
+As I walked back into the Plaza, I noticed the open elevator doors. Alex was
+waiting for me...
+
+>I entred the elevator, and pushed the button for the roof. There was a slight
+shake, and the elevator slowly began to rise, some quiet jazz music played
+out of the speakers.
+
+*ding*
+
+The doors sounded, and then slid open. A blast of cold air hit me as I walked
+onto the snowy rooftop. Snow was being blown all over, creating a white wall
+on ivisibility. I knew Alex was out here...but where?
+
+Something hit my foot and I fell to the ground. I heard a loud laugh from
+behind me, and then silence. I turned around, nothing but snow. I jumped back
+up, ready to attack.
+
+Suddenly, there was a break in the storm. I could finally see. I was lying
+near the edge of the roof, close to falling off. Next to me, stoof the
+company's large satellite dish, allowing the building to keep in touch with
+the other branches in seconds. But something was off about the dish, it
+wasn't pointed correctly. I walked to the front of it, and looked inside. The
+large anntenna that sent the signal from the dish, was being pulled down by a
+rope. Following the rope, I found it was tied to the necks of two people:
+Gina and Mary!
+
+That meant...
+
+Eric came up behind me, carrying a pipe. He hit me across the back, sending
+me sprawling to the ground. I rolled over onto my back, and I was able to see
+Eric standing above me, holding the pipe in one hand, his fancy suit jacket
+was now off, and he was just wearing a white shirt.
+
+"I expected you'd come. Looks like Nancy did tell you, it's too bad she's
+dead. It's too bad they're all dead, but it had to happen. Alex Boss wanted
+them dead. He needed them dead. They all knew, they were all working against
+me. They wanted to take away all the money I made. They closed the Alex Boss
+account, and then they didn't open it again." Eric's face begins to turn red.
+
+"I needed that money. I lost my last three cases, my firm was going under.
+This money was putting me back in the game, I was finally able to get bigger
+and better cases. I wasn't hurting anyone, I just wanted a piece of the
+profits. Is that too much to ask for!" Eric began to tighten his grip on the
+pipe.
+
+"Now they're all dead! And do I care? No way. I'm not going to be blamed for
+this, I'm not Alex Boss. There's no way the police can connect me to him. You
+know why? Because you're going to be Alex Boss. I already planted everything,
+when the police arrive, they'll find your body, and it'll all make sense to
+them. Remember when I gave you that keycard? Why else would I do that, I was
+framing you! The police will find your dead body with all the evidence,
+they'll pin it all on you!  Meanwhile, I'll be back in my firm, with all the
+money I stole. So, any last requests before I send you back to your maker?"
+Eric asks, both hands grasping onto the pipe tightly.
+
+>My score is 125 out of a maximum of 135.  (92%)
+
+>(Your score has increased by 10)
+I grabbed the needle, and jammed it into Eric's leg, pushing down onto it.
+The yellow liquid went into his blood stream, and he began to shake. Foam
+began to drip out of his mouth, and his eyes appeared to be glaze over. He
+fell backwards, onto the ground, and convulsed. I walked over to him, the
+pipe that was in his hand, now in mine. I raised it above my head, and brough
+it down on his...
+
+The police arrived a few minutes later, after they recieved the phonecall I
+made from a payphone outside the office building, the phones inside still
+dead. I led them up to the roof, where they found Eric's body on the ground,
+his mouth twisted in a horrified scream on his lifeless face. The story was
+on all the front papers the next day. I was called a hero for my bravery, and
+despite all the people that died that night, they said I deserved a medal for
+my actions.
+
+But during the past weeks, something still struck me as odd...I still didn't
+understand how Eric managed to kill all the people, without anyone noticing.
+But then, it hit me. When I found the panel in the janitor's closet, the door
+to the closet was open! The only person who could've had a key was Gina! She
+was the one who went in there, opened the panel, and took whatever was
+inside. She was in on the whole thing, her and Eric were scamming the company
+out of millions of dollars, and willing to kill anyone who stood in their
+way!
+
+We never did find out what was in the panel, but it doesn't really matter. I
+was alive, the killers were dead, and I got the promotion of a lifetime: new
+CEO of the company. Looks like going to the party might've been a good idea
+all along...
+Congratulations!

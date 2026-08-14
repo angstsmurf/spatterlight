@@ -224,20 +224,20 @@ Two things came out of this wave beyond the rows:
   comment above `restr_object_in_place` in `screstrs.cpp`.
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
-nothing is half-finished — the suite is green at 240/240 and every wired game
-has all four artefacts. What remains is **13 unwired `.taf` files, 12 of them
+nothing is half-finished — the suite is green at 242/242 and every wired game
+has all four artefacts. What remains is **12 unwired `.taf` files, 11 of them
 v3.90 and 1 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
 *La hija del relojero*, both *Veteran Knowledge* files, *The Lost Tomb*,
-*The Long Journey Home*, *Murder in Great Falls* and *The Vampire With A
-Conscience* on 2026-08-14); the table below is the original 29, with the six
-done in the third wave struck through and windy2, salutations, iachini,
-relojero, vetknow, vetknow2, losttombv2, Journ2, mudergreatfalls and Vampire
-struck through after them. The sole remaining 4.00 file is
-`Vardock Bates.taf`, which is Spanish and 2.9 MB. **Next by size is
-`Merry_Murders.taf`** (69,489 bytes, 3.90, *Merry Murders*) — but note that
-`The Town Of Azra.taf` above it is a second *file* of an already-wired game,
-not a second game.
+*The Long Journey Home*, *Murder in Great Falls*, *The Vampire With A
+Conscience* and *The Merry Murders* on 2026-08-14); the table below is the
+original 29, with the six done in the third wave struck through and windy2,
+salutations, iachini, relojero, vetknow, vetknow2, losttombv2, Journ2,
+mudergreatfalls, Vampire and Merry_Murders struck through after them. The sole
+remaining 4.00 file is `Vardock Bates.taf`, which is Spanish and 2.9 MB.
+**Next by size is `thewoods.taf`** (71,216 bytes, 3.90, *The Woods Are Dark*)
+— but note that `The Town Of Azra.taf` above it is a second *file* of an
+already-wired game, not a second game.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -266,7 +266,7 @@ the manifest is already wired.
 | 59,124 | 3.90 | ~~`Journ2.taf`~~ | ~~The Long Journey Home~~ | **WIRED 2026-08-14 — UNFINISHABLE, 30/90** |
 | 59,896 | 3.90 | ~~`mudergreatfalls.taf`~~ | ~~Murder In Great Falls~~ | **WIRED 2026-08-14 — WON 200/200** |
 | 63,183 | 3.90 | ~~`Vampire.taf`~~ | ~~The Vampire With A Conscience~~ | **WIRED 2026-08-14 — WON 100/100** |
-| 69,489 | 3.90 | `Merry_Murders.taf` | Merry Murders | |
+| 69,489 | 3.90 | ~~`Merry_Murders.taf`~~ | ~~Merry Murders~~ | **WIRED 2026-08-14 — WON 135/135** |
 | 71,216 | 3.90 | `thewoods.taf` | The Woods Are Dark | |
 | 74,568 | 3.90 | `Captive.taf` | Captive Universe | |
 | 101,668 | 3.90 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF** |
@@ -921,13 +921,53 @@ The file's hint menu is the corpus's most honest: six entries covering the
 hotel room, ending at **"OK, I got downtown. What now?" → "Sorry, you're on
 your own from now on."**
 
+## The Merry Murders (2026-08-14) — a lower-indexed ALTCMD that silently steals the verb
+
+`Merry_Murders.taf`, ADRIFT 3.90, 69,489 bytes, 15 rooms, 76 tasks, 8 NPCs —
+and **2 events, 0 variables**, the least machinery of any wired game in the v4
+corpus. It is a seven-act locked-floor whodunit at a company Christmas party,
+and it is the cleanest scoring file yet seen: **20 `ACT type=4` awards summing
+to exactly the declared MaxScore of 135, every one of them on the single
+critical path.** Full details in `notes/Merry_Murders_walkthrough.md`; three
+things are worth carrying forward.
+
+**1. A lower-indexed task's ALTCMD can swallow a later task's command, with no
+diagnostic.** `read paper` is `ALTCMD[1]` of **T37 `read list`**; the note you
+actually need to read is **T39 `read piece of paper`**, whose own `ALTCMD[1]`
+is `read paper ` — *with a trailing space*, so it never matches. Forward
+first-match dispatch re-reads the employee list, prints a perfectly plausible
+response, and T39 stays incomplete — which leaves the janitor's closet locked
+(room 1's N exit is `gateTask=39 wantDone=1`) for the rest of the game. When a
+gated exit refuses to open even though you "did the thing", **grep the dump
+for every task whose `cmd`/`ALTCMD` matches what you typed and take the lowest
+index**, not the one you meant.
+
+**2. An award-bearing task does not have to move you.** T46 `n` in the Computer
+Lab pays +5 and prints "The lock opened, allowing me access into the
+archives" — and leaves you in the Computer Lab. The second `n` is the exit.
+Scoring text that reads like a transition is not evidence of one; check
+whether the task has an `ACT type=1` at all.
+
+**3. An `ACT type=1` NPC move is not the last word — a `WALK` can override
+it.** T27 `research alex` is authored `v1=7 v2=0 v3=3`, "move NPC 5 (Trey) to
+room 2", but Trey owns a `WALK` with `startTask=10` (task 9) that has already
+fired, and he is in the **Plaza**. `show list to trey` (T38) is `where=2` over
+`WHERE_ROOMS=[0 2]`, so both are legal venues and only one of them has him in
+it. Where a mobile NPC *is* has to be read off the transcript, not off the
+task that last moved them.
+
+Also a reminder about instrumentation: `grep -c waitkey` on a
+`SCR_DUMP_TASKS=1` capture returns 0 for this file, because the dump goes to
+stderr and the tags live in the *transcript*. `SCR_MARK_WAITKEY=1` finds six,
+one per act transition.
+
 ## Where everything is
 
 | What | Where |
 |---|---|
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
-| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 188 of them (186 tracked; the AIF ones are gitignored) |
+| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 192 of them (190 tracked; the AIF ones are gitignored) |
 | Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
 | Which rows a game's `<waitkey>` is eating commands from | `python3 harness/waitkey_audit.py` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |
