@@ -19,10 +19,18 @@ for a win marker.
 - `harness/` — the native harnesses, plus `harness/oracle/`, the QuestViva
   driver that produces the goldens. Binaries build in `harness/` and are
   gitignored.
-- `games/` — the `.quest` corpus, if you keep it in-tree. **Untracked**;
-  the oracle scripts prefer it when it exists and fall back to
-  `~/Downloads/Quest 5 games`. `downloaded/` is the same arrangement for the
-  third-party walkthrough documents (`~/Downloads/Quest 5 walkthroughs`).
+- `games/` — the `.quest` corpus: 88 game files (86 wired entries, the rest
+  duplicate releases) plus a `MANIFEST.md` recording each one's author, ASL
+  version and walkthrough. **Untracked** (`../.gitignore`), like
+  `quest4/games/` — third-party game data is never committed. The oracle
+  scripts use it automatically when it is here, and fall back to
+  `~/Downloads/Quest 5 games` when it is not, so a machine that keeps the
+  corpus elsewhere still works (or set `GAMES=`).
+- `downloaded/` — the same arrangement for the third-party walkthrough
+  documents `extract_walkthrough.py` reads, falling back to
+  `~/Downloads/Quest 5 walkthroughs` (or set `WALKS=`). Only the 9
+  extractor-driven corpus rows need them; the other 77 are driven by the
+  curated scripts in `harness/oracle/overrides/`, which are committed.
 
 ## Automatic tests (`make check`, from `../`)
 
