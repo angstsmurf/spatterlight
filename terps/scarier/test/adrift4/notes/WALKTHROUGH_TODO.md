@@ -90,6 +90,28 @@ end`, the file's only `ACT type=6 v1=0`, is itself `where=0`**, the second file
 in the corpus with *The Hangover*'s exact shape. Two transferable findings came
 out of it — see *The Long Journey Home* below.
 
+**2026-08-14: *Murder in Great Falls* wired, suite 240 rows, 240 PASS.** Next
+in the smallest-first order — `mudergreatfalls.taf`, 59,896 bytes, **3.90**, no
+author recorded anywhere, released 24 Nov 2001. **WON 200/200** in 98 moves,
+and 200 is provably the ceiling (exactly 32 `ACT type=4` awards, no variables
+and no events in the file, summing to exactly the declared 200; all 32 fired).
+Its headline is a `<waitkey>` placement worse than *Far From Home*'s: this game
+has **two start-up prompts** — a name prompt and, because `PlayerGender` is
+Unknown, the Runner's gender dialog — and a `<waitkey>` sits **between them**,
+so without `SCR_SKIP_WAITKEY=1` line 2 is swallowed, every later line is
+offered as a gender and rejected, and the run never starts. The day structure
+is pure task plumbing (no events, no variables): T35/T61/T63 close Days 1/2/3
+and all three are `where=3`, so they fire from the player's own living room
+with the NPC never met. Two engine-fidelity witnesses came out of it — **T47
+`turn on tv` is `where=0`**, a third corpus case after *The Hangover* and
+*La hija del relojero*, invisible in play only because the library answers
+"You can't turn that." first; and the 3.90 room refusal **"You can't do that
+here!"** fires live on `knock on door` typed in the Office, the first English
+witness for the 2026-08-10 port. The author hint menu is here too, but this is
+the first of the three where **`HINT2=` did not hand over the walkthrough** —
+all five entries are prose and none names a command. See *Murder in Great
+Falls* below.
+
 **One open item, opened 2026-08-12: `harness/waitkey_audit.py` flags 18 wired
 rows as SUSPECT** — games with a `<waitkey>` whose row does not set
 `SCR_SKIP_WAITKEY=1`, and which have no blank filler line to spare, so a real
@@ -202,18 +224,19 @@ Two things came out of this wave beyond the rows:
   comment above `restr_object_in_place` in `screstrs.cpp`.
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
-nothing is half-finished — the suite is green at 239/239 and every wired game
-has all four artefacts. What remains is **15 unwired `.taf` files, 14 of them
+nothing is half-finished — the suite is green at 240/240 and every wired game
+has all four artefacts. What remains is **14 unwired `.taf` files, 13 of them
 v3.90 and 1 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
-*La hija del relojero*, both *Veteran Knowledge* files, *The Lost Tomb* and
-*The Long Journey Home* on 2026-08-14); the table below is the original 29,
-with the six done in the third wave struck through and windy2, salutations,
-iachini, relojero, vetknow, vetknow2, losttombv2 and Journ2 struck through
-after them. The sole remaining 4.00 file is `Vardock Bates.taf`, which is
-Spanish and 2.9 MB. **Next by size is `mudergreatfalls.taf`** (59,896 bytes,
-3.90, *Murder In Great Falls*) — but note that `The Town Of Azra.taf` above it
-is a second *file* of an already-wired game, not a second game.
+*La hija del relojero*, both *Veteran Knowledge* files, *The Lost Tomb*,
+*The Long Journey Home* and *Murder in Great Falls* on 2026-08-14); the table
+below is the original 29, with the six done in the third wave struck through
+and windy2, salutations, iachini, relojero, vetknow, vetknow2, losttombv2,
+Journ2 and mudergreatfalls struck through after them. The sole remaining 4.00
+file is `Vardock Bates.taf`, which is Spanish and 2.9 MB. **Next by size is
+`Vampire.taf`** (63,183 bytes, 3.90, *The Vampire With A Conscience*) — but
+note that `The Town Of Azra.taf` above it is a second *file* of an
+already-wired game, not a second game.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -240,7 +263,7 @@ the manifest is already wired.
 | 55,039 | 3.90 | ~~`Richard.taf`~~ | ~~Where Is Richard?~~ | **WIRED, third wave** |
 | 56,336 | 3.90 | ~~`losttombv2.taf`~~ | ~~The Lost Tomb~~ | **WIRED 2026-08-14 — WON 175/175** |
 | 59,124 | 3.90 | ~~`Journ2.taf`~~ | ~~The Long Journey Home~~ | **WIRED 2026-08-14 — UNFINISHABLE, 30/90** |
-| 59,896 | 3.90 | `mudergreatfalls.taf` | Murder In Great Falls | |
+| 59,896 | 3.90 | ~~`mudergreatfalls.taf`~~ | ~~Murder In Great Falls~~ | **WIRED 2026-08-14 — WON 200/200** |
 | 63,183 | 3.90 | `Vampire.taf` | The Vampire With A Conscience | |
 | 69,489 | 3.90 | `Merry_Murders.taf` | Merry Murders | |
 | 71,216 | 3.90 | `thewoods.taf` | The Woods Are Dark | |
@@ -758,13 +781,93 @@ Terror is two near-identically described rooms with the shaft in one and the
 stones in the other. `T6 #8 slipnslide` has the ALTCMD `[*]` — *whatever* you
 type on the slippery slope slides you into Despaire.
 
+## Murder in Great Falls (2026-08-14) — a `<waitkey>` between the two start-up prompts
+
+`mudergreatfalls.taf`, 59,896 bytes, **3.90**, 28 rooms / 68 tasks / 61 objects
+/ 10 NPCs, **no events and no variables at all**. No author is recorded — the
+file has no author byte-field and `games.manifest.tsv` line 142 lists only the
+title; the last line of the "Wild" trailer dates it 24 Nov 2001. A three-day
+police procedural: Chief Branis phones about a body in a car by the college,
+you collect evidence, hand it to Jake at the evidence dropoff, and on Day 4
+name the killer out of three suspects. **WON 200/200** in 98 moves;
+`notes/Murder_in_Great_Falls_walkthrough.md` has the route and the award table.
+
+**200 is provably the ceiling and it is exactly reachable.** Exactly 32
+`ACT type=4` awards (22 fives + 10 tens), nothing else scoring in the file, and
+no variables for an ALR to be counting; they sum to the declared 200 and the
+route fires all 32. The `score` checks read 110 / 175 / 190, with T66's +10 for
+the correct accusation making 200.
+
+**The `<waitkey>` finding, which is the row's real value.** 15 tags in the file,
+13 on the route, and the first sits **between the game's two start-up prompts**:
+
+```
+Please enter your name:
+>                            <- line 1, the name
+                             <- the <waitkey> eats line 2
+Please choose the player's gender (male or female):
+>                            <- line 3 is offered as the gender
+Please answer "male" or "female".
+```
+
+So an unset row does not shift by one, it never starts: every subsequent line
+is offered as a gender and rejected forever. *Far From Home*'s trap was a
+`<waitkey>` **in front of** the name prompt; this is one notch worse. Nothing
+in the game tests the gender (not one gender restriction in the file), but the
+dialog is unconditional because `PlayerGender` is Unknown, so line 2 has to
+answer it. `SCR_SKIP_WAITKEY=1` on the row; `waitkey_audit.py` calls it IMMUNE.
+
+**The days are task boundaries, not a clock**, which is how a game with a day
+structure gets away with having no events and no variables. T35 `ask ross about
+club`, T61 `ask ross about will` and T63 `ask ken about trey` end Days 1, 2 and
+3; each carries an `ACT type=1` sending the player home, and every "which day
+is it" test in the file is a task restriction or a room `ALT` on one of those
+three. **All three are `where=3`** — probed, `s` / `d` / `ask ross about club`
+from a fresh start ends Day 1 in three moves from the player's own living room,
+with Ross absent and never met. The committed route walks to the NPCs anyway.
+
+**Two rooms have deadlines and one of them costs points.** `EXIT room=9 E ->
+dest=10 gateTask=35 wantDone=0` shuts the Photography Classroom the instant Day
+1 ends (nothing in it scores). Ross's Living Room is reachable only through T10
+`knock on door`, whose restrictions are "T35 done AND T61 not done" — a window
+exactly one day wide — and the cigarette in its ashtray is worth 10 across T44
+and T58. Miss it and the run lands on 190/200 with a clean transcript and
+nothing anywhere to say why.
+
+**Two engine-fidelity witnesses, neither of which changes anything.** T47 `turn
+on tv` is **`where=0`**, runnable nowhere — a third corpus case after *The
+Hangover* and *La hija del relojero* (`adrift4-where-norooms.md`) — and it is
+invisible in play because the tv is static and the library answers "You can't
+turn that." first, which under the Runner's `OUT = "" And FLAG = 1` guard
+suppresses the room refusal. And that refusal **does** fire here: `knock on
+door` typed in the Office (T10 is `where=1 room=5`) answers **"You can't do
+that here!"**, the first English-string witness for the 2026-08-10 port —
+*La hija del relojero*'s evidence was a Spanish message replacement.
+
+**The author hint menu is here, and for once it was not the walkthrough.**
+Third game running with `HINTQ=`/`HINT1=`/`HINT2=` in the dump, first where
+none of the five entries names a command — they are prose ("Try looking on the
+couch...", "Dr. Ross might know something, but you'll have to know what to ask
+him."). They identified the five gates; the phrasings still came from `cmd=` /
+`ALTCMD=`. Grep `HINT2=` first anyway — it saved the search, just not the
+derivation. Watch for the author's typos while reading those lines: `use baggie
+on gun` for *gum*, `open des`, `use camersa`, `turn off the famn`, and a hint
+that reads "You musk speak to Chief Branis".
+
+Losing endings: T64 `accuse rick` and T65 `accuse ross` are `ACT type=6 v1=1`,
+T66 `accuse ken` is the file's only `v1=0`. All three read as a confident
+arrest for a paragraph before the trial goes wrong, so the row is anchored on
+**"Ken is found guilty of triple homicide."** and not on anything earlier.
+`Globals/DispFirstRoom` is false in this file, so the transcript opens with no
+Office description — the author's setting, honoured by `run_main_loop()`.
+
 ## Where everything is
 
 | What | Where |
 |---|---|
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
-| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 187 of them (185 tracked; the AIF ones are gitignored) |
+| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 188 of them (186 tracked; the AIF ones are gitignored) |
 | Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
 | Which rows a game's `<waitkey>` is eating commands from | `python3 harness/waitkey_audit.py` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |

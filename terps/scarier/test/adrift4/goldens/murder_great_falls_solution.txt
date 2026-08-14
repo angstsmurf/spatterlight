@@ -1,0 +1,255 @@
+# Murder in Great Falls (mudergreatfalls.taf) -- ADRIFT 3.90, English,
+# 59,896 bytes.  Released 24 Nov 2001 (the date is the last line of the file's
+# own "Wild" trailer); the .taf carries NO author byte-field and
+# games.manifest.tsv line 142 has none either -- adrift.co lists it only as
+# "Murder In Great Falls".  28 rooms, 68 tasks, 61 objects (48 of them
+# static), 10 NPCs, NO events, NO variables.
+#
+# A three-day police procedural.  You are a Great Falls detective; Chief
+# Branis phones to say Donald Wisker has been found dead in the back of his
+# car by the college.  Collect evidence, hand it to Jake at the evidence
+# dropoff, work the town, and on Day 4 name the killer.
+#
+# RESULT: **WIN, 200 out of a declared maximum of 200**, in 103 input lines
+# (the name, the gender, 98 moves and 3 `score` checks).
+#
+# 200 IS PROVABLY THE CEILING AND IT IS EXACTLY REACHABLE.  The file holds
+# exactly 32 `ACT type=4` awards and no other scoring machinery (no variables
+# at all, so nothing an ALR could be counting), and they sum to 200 -- the
+# game's own declared maximum.  The route below fires every one of the 32:
+#
+#   Day 1 (110)
+#     T0  +5   open closet -> gun        T1  +5   open desk -> ID
+#     T4  +5   take baggies              T7  +5   read the crimescene book
+#     T9  +10  bag the lipstick          T30 +5   open locker -> camera
+#     T12 +5   bag the hair              T13 +5   open glove compartment
+#     T16 +5   bag the gum               T31 +5   photograph the body
+#     T20 +5   take the package          T25 +10  package past the guard
+#     T28 +10  gum to Jake               T29 +10  hair to Jake
+#     T32 +5   photo to Jake             T34 +5   lipstick to Jake
+#     T35 +10  ask Ross about the club   (ends Day 1)
+#   Day 2 (+65 = 175)
+#     T10 +5   knock at Ross's door      T44 +5   bag the cigarette
+#     T58 +5   cigarette to Jake         T40 +5   ask Jake about the hair
+#     T41 +5   ask Jake about the gum    T42 +5   ask Jake about the lipstick
+#     T60 +5   ask Ken about Maria       T53 +10  Donald's waste-paper basket
+#     T55 +5   search Ross's desk        T56 +5   ask Sal about Trey
+#     T59 +5   ask Trey about Will       T61 +5   ask Ross about the will
+#                                                 (ends Day 2)
+#   Day 3/4 (+25 = 200)
+#     T62 +5   search Trey's body        T63 +10  report to Ken (ends Day 3)
+#     T66 +10  accuse Ken                (the win)
+#
+# 5*22 + 10*10 = 110 + 90 = 200.  The `score` on the third-to-last line reads
+# 190/200; `accuse ken` is T66's last +10.
+#
+# THE ROW NEEDS `SCR_SKIP_WAITKEY=1`.  The file contains 15 <waitkey> tags and
+# this route walks through 13 of them (`SCR_MARK_WAITKEY=1` counts them): two
+# in the opening phone call and the rest in the Day 1->2, 2->3, 3->4 and
+# endgame cut-scenes.  Without the variable those 13 pauses each eat a command
+# line, and the very first one lands BETWEEN the name prompt and the gender
+# prompt -- so line 2 is swallowed, `look` is offered as the gender, and the
+# run never gets past "Please answer "male" or "female"." at all.  This is the
+# Far From Home trap one notch worse: there, a <waitkey> sat in front of the
+# name prompt; here it sits between the game's two start-up prompts.
+#
+# TWO START-UP PROMPTS, SO LINES 1 AND 2 ARE NOT COMMANDS.  The game asks for
+# a name (used in the Chief's dialogue) and, because its PlayerGender is
+# Unknown, Scarier then runs the Runner's gender dialog.  Nothing in the game
+# tests the gender -- there is not a single gender restriction in the file --
+# but the dialog is unconditional, so the script has to answer it.
+#
+# THE OPENING ROOM IS NOT DESCRIBED, AND THAT IS THE AUTHOR'S SETTING.  The
+# transcript goes straight from the gender prompt to the first command with no
+# Office description; `Globals/DispFirstRoom` is false in this file and
+# run_main_loop() honours it (scrunner.cpp).  Compare losttombv2.taf, which
+# prints The Camp Site.  Not a missing look -- `look` produces it on demand.
+#
+# Five things are worth knowing before reading the route:
+#
+#  (1) THE DAYS ARE TASK BOUNDARIES, NOT A CLOCK.  There are no events and no
+#      variables in this file.  Day 1 ends the moment T35 `ask ross about
+#      club` runs, Day 2 the moment T61 `ask ross about will` runs, Day 3 the
+#      moment T63 `ask ken about trey` runs; each has `ACT type=1` sending the
+#      player home, and every "which day is it" test in the game is a task
+#      restriction or a room ALT on one of those three.  So the route does all
+#      of a day's work first and spends its last move on the closer.
+#
+#  (2) THREE OF THE CLOSERS ARE `where=3` -- RUNNABLE ANYWHERE.  T35, T61 and
+#      T63 will fire from the player's own living room without Ross or Ken
+#      being present or even having been met (probed: `s`/`d`/`ask ross about
+#      club` from the Office ends Day 1 in three moves).  The route walks to
+#      Dr. Ross's Office and the Chief's Office anyway, because that is the
+#      authored path and it is what makes the transcript worth diffing.
+#
+#  (3) ONE ROOM IS DAY 1 ONLY AND ONE IS DAY 2 ONLY.  `EXIT room=9 E ->
+#      dest=10 gateTask=35 wantDone=0` shuts the Photography Classroom the
+#      instant Day 1 ends (nothing in it scores -- the binoculars are T39, no
+#      award).  Ross's Living Room, room 21, is reachable only through T10
+#      `knock on door`, whose restrictions are "T35 done AND T61 NOT done" --
+#      a Day 2 window exactly one day wide.  The cigarette in the ashtray
+#      there (T44 +5, T58 +5) is the only evidence with a deadline, and
+#      missing it costs 10 with nothing anywhere to say so.
+#
+#  (4) EVERY PIECE OF EVIDENCE ARRIVES IN YOUR HAND.  All thirteen dynamic
+#      objects start at `pos=-1` (nowhere) and are placed by the scoring
+#      task's own `ACT type=0 ... v2=4`.  There is nothing to search for and
+#      no carry limit; the baggies (T4, on the living-room couch -- the game's
+#      first hint points at it) only matter as the `RESTR type=0 v2=1` held
+#      check on T44.
+#
+#  (5) ACCUSING THE WRONG MAN IS A LOSING ENDING.  T64 `accuse rick` and T65
+#      `accuse ross` are both `ACT type=6 v1=1`; only T66 `accuse ken` is
+#      `v1=0`, and it is the file's one win.  All three read as a confident
+#      arrest for a paragraph before the trial goes wrong, so the transcript
+#      does not tell you which you got until the last line.
+#
+# No published walkthrough exists for this game (Key & Compass, IF Archive,
+# CASA, IFDB), and adrift.co serves the bare .taf with no package around it.
+# The author did ship a hint menu, and `SCR_DUMP_TASKS=1` prints its five
+# entries as HINTQ=/HINT1=/HINT2= -- but unlike Veteran Knowledge's and The
+# Lost Tomb's, NONE OF THESE HINTS NAMES A COMMAND.  They are prose: "How do I
+# get past the guard at Wisker Motors?" -> "Maybe the receptionist had
+# something for him...", "How do I finish Day 1?" -> "Dr. Ross might know
+# something, but you'll have to know what to ask him."  So the five entries
+# name the five gates -- the baggies on the couch, the parcel past the guard,
+# and one per day for the three closers -- and the actual phrasings still had
+# to come out of the dump's `cmd=`/`ALTCMD=` lines.  Grep HINT2= first anyway;
+# this is the third game in three where it saved the search, just not the
+# whole derivation.
+#
+# ===========================================================================
+# Line 1 is the player's name and line 2 the gender -- NOT commands.
+Sam
+male
+#
+# --- Day 1, your house: gun, badge, evidence bags, the manual -------------
+open closet
+open desk
+s
+d
+take baggies
+e
+read book
+w
+#
+# --- Dr. Ross's front garden: the lipstick in the roses -------------------
+n
+w
+take lipstick
+e
+#
+# --- Police department locker room: Jay's camera --------------------------
+n
+n
+n
+e
+open locker
+w
+s
+s
+#
+# --- The crimescene: hair, glove compartment, gum, photograph -------------
+e
+n
+take hair
+open glove compartment
+use baggie on gum
+take picture of body
+s
+w
+#
+# --- Wisker Motors: the parcel is the pass past the guard -----------------
+n
+e
+take package
+look package
+open package
+u
+give package to guard
+s
+d
+w
+#
+# --- Evidence dropoff: hand Jake the day's four exhibits ------------------
+n
+n
+give gum to jake
+give hair to jake
+give photo to jake
+give lipstick to jake
+s
+s
+#
+# --- Dr. Ross's office: ask about the club, and Day 1 is over -------------
+w
+n
+ask ross about club
+score
+#
+# --- Day 2 -- Ross's living room is open today and closed tomorrow --------
+s
+d
+n
+w
+knock on door
+take cigarette
+bag cigarette
+s
+e
+#
+# --- Evidence dropoff: the cigarette, then Jake's three lab results -------
+n
+n
+n
+n
+give cigarette to jake
+ask jake about hair
+ask jake about gum
+ask jake about lipstick
+s
+#
+# --- Chief Branis's office: Maria ----------------------------------------
+w
+ask ken about maria
+e
+s
+#
+# --- Donald's office (north from the lobby only after Day 1): the note ----
+e
+n
+search through trash
+s
+w
+#
+# --- Dr. Ross's office, empty today: the letter in his desk ---------------
+w
+n
+search desk
+s
+e
+#
+# --- Great Falls Apartments: Sal names Trey's room, Trey names the will ---
+s
+w
+ask sal about trey
+n
+n
+ask trey about will
+ask ross about will
+score
+#
+# --- Day 3: Trey is dead.  Search the body, report to the Chief. ----------
+s
+d
+n
+n
+w
+n
+n
+search body
+ask ken about trey
+score
+#
+# --- Day 4: three suspects in a small white room -------------------------
+accuse ken

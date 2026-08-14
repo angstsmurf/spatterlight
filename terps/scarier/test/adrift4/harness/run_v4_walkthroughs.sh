@@ -1746,6 +1746,55 @@ losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # EVENT 4) that takes three `left`s under this seed, and T71's `* *e *` steals
 # any word ending in "e", so it is `get king of spades` there, not `take`.
 journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.
+# Murder in Great Falls (no author recorded anywhere -- no author byte-field
+# in the .taf and none in games.manifest.tsv; released 24 Nov 2001) is a
+# three-day police procedural: Donald Wisker is found dead behind the college,
+# and on Day 4 you name the killer out of Rick, Ross and Ken.  WIN, 200 of a
+# declared 200, in 98 moves.  The file's 32 `ACT type=4` awards sum to exactly
+# 200 and the route fires all 32, so the ceiling is both provable and exactly
+# reachable -- 22 fives and 10 tens, with no variables in the file at all.
+# THE ROW NEEDS SCR_SKIP_WAITKEY=1 and it is not optional: 15 <waitkey> tags,
+# 13 of them on this route, and the FIRST one sits between the game's two
+# start-up prompts (name, then the Runner gender dialog), so without the
+# variable line 2 is eaten and the run never gets past "Please answer "male"
+# or "female"."  That is the Far From Home trap one notch worse -- there the
+# <waitkey> was in front of the name prompt, here it is between the prompts.
+# Structure notes, each of which cost a replay:
+#   (1) THE DAYS ARE TASK BOUNDARIES, NOT A CLOCK.  No events, no variables.
+#       Day 1 ends when T35 `ask ross about club` runs, Day 2 when T61 `ask
+#       ross about will` runs, Day 3 when T63 `ask ken about trey` runs; each
+#       carries `ACT type=1` sending the player home, and every "which day is
+#       it" test in the file is a restriction or a room ALT on one of those.
+#   (2) ALL THREE CLOSERS ARE `where=3`, RUNNABLE ANYWHERE.  `ask ross about
+#       club` fires from the player's own living room, Ross absent and never
+#       met -- Day 1 can be closed in three moves.  The route walks to his
+#       office anyway; that is the authored path and the better transcript.
+#   (3) ONE ROOM IS DAY 1 ONLY, ONE IS DAY 2 ONLY.  `EXIT room=9 E gateTask=35
+#       wantDone=0` shuts the Photography Classroom when Day 1 ends (nothing
+#       there scores), and room 21, Ross's living room, is reachable only via
+#       T10 `knock on door`, restricted "T35 done AND T61 NOT done" -- a
+#       window exactly one day wide.  The cigarette in its ashtray is the only
+#       evidence with a deadline and missing it costs 10 in silence.
+#   (4) `Globals/DispFirstRoom` IS FALSE, so the opening Office is never
+#       described -- the transcript goes straight from the gender prompt to
+#       the first command.  The author's setting, honoured in run_main_loop().
+#   (5) T47 `turn on tv` is `where=0`, runnable NOWHERE -- a third corpus
+#       witness after The Hangover and La hija del relojero.  It is invisible
+#       in play because the library answers "You can't turn that." first, and
+#       any output at all suppresses the 3.9 room refusal.  That refusal does
+#       fire here: `knock on door` typed in the Office answers "You can't do
+#       that here!", a second live witness for the 2026-08-10 port.
+# No published walkthrough exists.  The author shipped a hint menu and
+# `SCR_DUMP_TASKS` printed its five HINTQ=/HINT1=/HINT2= entries -- but unlike
+# Veteran Knowledge's and The Lost Tomb's, THESE HINTS NEVER NAME A COMMAND.
+# They are prose ("Dr. Ross might know something, but you'll have to know what
+# to ask him"), so they identify the five gates -- the baggies on the couch,
+# the receptionist's parcel past the guard, and one per day for the three
+# closers -- and nothing else.  Third game running for the HINT2 grep, first
+# one where the answer still had to come out of the `cmd=`/`ALTCMD=` patterns.
+# Accusing wrong is a losing ending: T64 `accuse rick` and T65 `accuse ross`
+# are both `ACT type=6 v1=1`, and only T66 `accuse ken` is `v1=0`.
+murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of triple homicide.|SCR_SKIP_WAITKEY=1
 EOF
 }
 
