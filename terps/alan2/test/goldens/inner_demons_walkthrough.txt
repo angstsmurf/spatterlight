@@ -1,0 +1,28 @@
+us dresser
+x clothes
+g key
+n
+x paintings
+n
+n
+us rope
+g rags
+x boxes
+g cord
+us rags
+x window
+d
+us key
+x crib
+us cord
+g rat
+w
+n
+d
+d
+n
+x cabinets
+x utensils
+g corkscrew
+n
+us rat

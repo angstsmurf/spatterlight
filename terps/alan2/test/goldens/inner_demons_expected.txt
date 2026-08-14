@@ -1,0 +1,338 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Inner Demons 
+ 
+ Interactive Horror 
+ A Mini-Adventure by Michael Zerbo 
+ 
+ Created using ALAN 2.6 
+ 
+ You wake up in your home on an ordinary day. 
+ 
+ Ordinary, you hope... 
+ 
+ The last year and a half has been a nightmare. It all began with the death your daughter, Patricia. She was only ten years old when she died in a car accident. You were driving her home from school when you crashed into another car. You escaped unharmed. Patricia was not so lucky. 
+ 
+ You began to act strangely after her death, having strange hallucinations and visions. You had a severe mental collapse and was committed to a mental institution for one year. 
+ 
+ You have just been released and have gone back home to recuperate. 
+ 
+ You feel the time at home will help set your mind at ease...
+
+Bedroom.
+You are standing in your bedroom. An old dresser is next to your bed. Plaster is peeling from the walls of your room. Your closet is directly across from your bed and a mirror is located on the door. 
+ 
+ An overhead lamp is hanging above your head. The window to your room is plastered shut, and there are bars outside the window. 
+ 
+ Visible Objects: Dresser, Mirror 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+ 
+You are standing in your bedroom. An old dresser is next to your bed. Plaster is peeling from the walls of your room. Your closet is directly across from your bed and a mirror is located on the door. 
+ 
+ An overhead lamp is hanging above your head. The window to your room is plastered shut, and there are bars outside the window. 
+ 
+ Visible Objects: Dresser, Mirror 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You pull open a drawer. You see a few old clothes inside.
+
+>  You find a small key that was in one of your shirt pockets.
+
+>  You pick up the key.
+
+> Hallway1.
+You are standing in a long hallway. The walls are covered with dusty pictures of portraits. A set of stairs are further down the hall and a bathroom is to your east. 
+ 
+ Visible Objects: Paintings 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You look over the pictures on the wall and notice something special. Among the pictures, are portraits of your grandparents, including your grandfather who went insane. After a few seconds the paintings seem to come to life, and your dead grandparents appear before you. "Come join us, son.", the vision says in a raspy voice. You feel your mind beginning to snap. 
+ 
+ 
+You close your eyes and a few seconds later the vision vanishes.
+
+Hallway1.
+You are standing in a long hallway. The walls are covered with dusty pictures of portraits. A set of stairs are further down the hall and a bathroom is to your east. 
+ 
+ Visible Objects: Paintings 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> Hallway2.
+You are standing before a set of stairs leading down. A small table is to your right. The hallway you are in continues to the north and south. 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> Hallway3.
+You are standing before a closed door. Cobwebs are located at the corners of each wall. Above you is a small rope hanging down, which can lower the stairs to the attic. The hallway turns here to the west. 
+ 
+ Visible Objects: Door, Rope 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You lower the stairs and enter the attic.
+
+Attic.
+You are in the attic of the house. It is cluttered with debris and empty boxes. A small window is to your far left. 
+ 
+ Visible Objects: Window, Boxes, Rags  
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+
+
+> You pick up the rags.
+
+>  There is a nylon cord lying among the debris.
+
+>  You pick up the cord.
+
+>  You wipe the window clean.
+
+>  You look through the window and view a horrible vision. You turn away in terror. 
+ 
+ 
+
+
+Attic.
+You are in the attic of the house. It is cluttered with debris and empty boxes. A small window is to your far left. 
+ 
+ Visible Objects: Window, Boxes, Rags  
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+
+
+> Hallway3.
+You are standing before a closed door. Cobwebs are located at the corners of each wall. Above you is a small rope hanging down, which can lower the stairs to the attic. The hallway turns here to the west. 
+ 
+ Visible Objects: Door, Rope 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You unlock the door and enter the room.
+
+Nursery.
+The room you are in appears to be a nursery. Figures of clowns and animals cover the wallpaper. A wooden crib is sitting several feet to your right. A baby carriage is standing before you. 
+ 
+ Visible Objects: Crib  
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+ 
+The room you are in appears to be a nursery. Figures of clowns and animals cover the wallpaper. A wooden crib is sitting several feet to your right. A baby carriage is standing before you. 
+ 
+ Visible Objects: Crib  
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You quietly walk over to the crib and take a look inside. To your horror you see small, ugly creature, partially inside an egg. You can not continue to put up with these hallucinations and visions. You know they must be destroyed, once and for all. 
+ 
+ 
+
+
+Nursery.
+The room you are in appears to be a nursery. Figures of clowns and animals cover the wallpaper. A wooden crib is sitting several feet to your right. A baby carriage is standing before you. 
+ 
+ Visible Objects: Crib  
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+ 
+The room you are in appears to be a nursery. Figures of clowns and animals cover the wallpaper. A wooden crib is sitting several feet to your right. A baby carriage is standing before you. 
+ 
+ Visible Objects: Crib  
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You place the cord around the creature's neck. It lets out a loud yell that sounds almost like a baby's cry. You tighten the cord until the creature can no longer breathe. You raise the cord and string it through an overhead lamp. You pull the cord and watch as the creature slowly strangulates as it hangs several feet off the ground. You exit the room with a feeling of disgust. You run to the bathroom and proceed to vomit into the toilet. 
+ 
+
+
+Bathroom.
+This is a small room with a tiled floor. Mold and mildew can be seen between each of the tiles. A toilet is directly before you. A sink is also in the room, but it no longer works. 
+ 
+You spot a strange rat creature behind the toilet. 
+ 
+Visible Objects: Toilet , Rat 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+ 
+This is a small room with a tiled floor. Mold and mildew can be seen between each of the tiles. A toilet is directly before you. A sink is also in the room, but it no longer works. 
+ 
+You spot a strange rat creature behind the toilet. 
+ 
+Visible Objects: Toilet , Rat  
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You grab the rat creature.
+
+> Hallway1.
+You are standing in a long hallway. The walls are covered with dusty pictures of portraits. A set of stairs are further down the hall and a bathroom is to your east. 
+ 
+ Visible Objects: Paintings 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> Hallway2.
+You are standing before a set of stairs leading down. A small table is to your right. The hallway you are in continues to the north and south. 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> Stairs.
+You are standing upon a set of old stairs. Each step you take creates a loud creaking sound. The stairs are covered with red carpeting. 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> Livingroom.
+You are in your living room. It is furnished with only a small couch, loveseat and a table. To your north is the kitchen and to your south is a hallway. To your east is the doorway. 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+
+
+> Kitchen.
+You are standing in a small kitchen. There is a stove, sink, refrigerator, and set of cabinets before you. To the north is a larger dining room. 
+ 
+ Visible Objects: Cabinets 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> There are a few plates and utensils inside the cabinets.
+
+>  They are just normal utensils, such as forks and knives. There is also a corkscrew lying here.
+
+>  You pick up the corkscrew.
+
+> Diningroom.
+You are standing before a truly grotesque sight. Several deformed looking creatures are in the room apparently dining on human remains. One of them looks up at you with a quick nod as though it recognizes you. There is a large metal pan here that they are eating out of. To your south is the kitchen. You can see a hallway to your north, as well, but the creatures are blocking it. 
+ 
+ Visible Objects: Two grotesque creatures, Bones 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+ 
+ 
+You are standing before a truly grotesque sight. Several deformed looking creatures are in the room apparently dining on human remains. One of them looks up at you with a quick nod as though it recognizes you. There is a large metal pan here that they are eating out of. To your south is the kitchen. You can see a hallway to your north, as well, but the creatures are blocking it. 
+ 
+ Visible Objects: Two grotesque creatures, Bones 
+ 
+ Options: 
+ (G)et, (H)it, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (I)nventory, (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+
+> You drop the rat, which seems to distress the creatures in the room. 
+ 
+
+
+End_game.
+To find out if you can overcome your madness and discover the true meaning of these demons that torment you, please order the Registered version of Bloody Murder. 
+ 
+ For Eighteen Dollars, you will receive the complete versions of both The Child Murderer and Inner Demons, which includes additional graphics and full stories. 
+ 
+ You may order by Credit Card, Cash, Check or Money order. 
+ 
+ Toll Free Ordering: Visa or MasterCard orders may be placed by calling Laser Point at (800) 894-6758 
+ 
+ Electronic Mail Registration: You may register via electronic mail by sending the following information to: orders@laserpoint.com 
+ 
+ - Name of Product, Visa or MasterCard Account Number, Card Type (Visa or MasterCard), Card Expiration Date, Name of Card Holder 
+ 
+ Postal Mail Registration: You may send cash, money order, or check, drawn in U.S. funds on a U.S. bank to: 
+ 
+ Laser Point 
+ Bloody Murder Registration 
+ P.O. Box 2378 
+ Watsonville, CA 95077 
+ 
+
+
+> 
+
+Do you want to RESTART, RESTORE or QUIT? Do you want to RESTART, RESTORE or QUIT? 
+<end of input>
